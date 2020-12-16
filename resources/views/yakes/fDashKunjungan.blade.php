@@ -83,9 +83,8 @@
         top: 9%;
         margin: 0;
         padding: 10px 0;
-        padding-bottom: 10px;
+        padding-bottom: 0;
         width: 100%;
-        padding-bottom: 18px;
         z-index: 1;
     }
     .footer-dashboard {
@@ -164,6 +163,18 @@
         text-align: center;
         background-color: #93ccce;
     }
+    .highcharts-color-0 {
+        fill: #9EEADC !important;
+    }
+    .highcharts-color-1 {
+        fill: #47D7BD !important;
+    }
+    .highcharts-color-2 {
+        fill: #37AA94 !important;
+    }
+    .highcharts-color-3 {
+        fill: #288372 !important;
+    }
 </style>
     
     <button id="button-top" class="button-top" onclick="topFunction()">
@@ -174,6 +185,7 @@
         <div class="row">
             <div class="col-6">
                 <h6>Biaya Kunjungan</h6>
+                <p id="keterangan-filter">Periode sampai dengan Desember 2020</p>
             </div>
             <div class="col-6">
                 <button id="button-filter" class="btn btn-light btn-filter btn-filter-no-scroll">
@@ -184,44 +196,6 @@
                 </button>
             </div>
         </div>
-        {{-- <div class="row"> --}}
-            {{-- <div class="col-3"> --}}
-                {{-- <div class="dropdown-jenis dropdown">
-                    <button class="btn btn-light select-dash" style="background-color: #ffffff;width: 100%;text-align:left;" type="button" data-toggle="dropdown">
-                        Jenis : Pensiunan dan Keluarga
-                        <span class="glyph-icon simple-icon-arrow-down" style="float: right; margin-top:2%;"></span>
-                    </button>
-                    <ul class="dropdown-menu jenis" style="overflow: hidden; width:99%;" role="menu" aria-labelledby="menu2">
-                        <li>
-                            <span style="display: none;">CC</span>
-                            <span>Pensiunan dan Keluarga</span>
-                        </li>
-                        <li>
-                            <span style="display: none;">BP</span>
-                            <span>Pegawai dan Keluarga</span>
-                        </li>
-                    </ul>
-                </div> --}}
-                {{-- <select id="jenis" class="form-control select-dash">
-                    <option value="CC" selected>Pensiunan dan Keluarga</option>
-                    <option value="BP">Pegawai dan Keluarga</option>
-                </select> --}}
-            {{-- </div> --}}
-            {{-- <div class="col-2"> --}}
-                {{-- <div class="dropdown-periode dropdown">
-                    <button class="btn btn-light select-dash" style="background-color: #ffffff;width: 180px;text-align:left;" type="button" data-toggle="dropdown">
-                        Periode : {{Session::get('periode')}}
-                        <span class="glyph-icon simple-icon-arrow-down" style="float: right; margin-top:3%;"></span>
-                    </button>
-                    <ul class="dropdown-menu periode" role="menu" aria-labelledby="menu1">
-                        
-                    </ul>
-                </div> --}}
-                {{-- <select id="periode" class="form-control select-dash">
-
-                </select> --}}
-            {{-- </div> --}}
-        {{-- </div> --}}
     </div>
 
     <div class="row" style="position: relative;margin-top:30px;">
@@ -329,15 +303,15 @@
                 <div class="col-12 mb-2">
                     <div class="keterangan">
                         <div style="padding: 0 50px">
-                            <div style="height: 20px; width: 20px; border-radius: 50%; background-color:#add8e6;display:inline-block;"></div>
+                            <div style="height: 20px; width: 20px; border-radius: 50%; background-color:#BFBFBF;display:inline-block;"></div>
                             <span style="padding-left: 6px;font-weight: bold;position: relative;top:-5px;">YTD Q3'19</span>
                         </div>
                         <div style="padding: 0 50px">
-                            <div style="height: 20px; width: 20px; border-radius: 50%; background-color:#457b9d;display:inline-block;"></div>
+                            <div style="height: 20px; width: 20px; border-radius: 50%; background-color:#9EEADC;display:inline-block;"></div>
                             <span style="padding-left: 6px;font-weight: bold;position: relative;top:-5px;">RKA Q3'19</span>
                         </div>
                         <div style="padding: 0 50px">
-                            <div style="height: 20px; width: 20px; border-radius: 50%; background-color:#1d3557;display:inline-block;"></div>
+                            <div style="height: 20px; width: 20px; border-radius: 50%; background-color:#288372;display:inline-block;"></div>
                             <span style="padding-left: 6px;font-weight: bold;position: relative;top:-5px;">YTD Q3'20</span>
                         </div>
                     </div>
@@ -438,15 +412,15 @@
                 <div class="col-12 mb-2">
                     <div class="keterangan">
                         <div style="padding: 0 50px">
-                            <div style="height: 20px; width: 20px; border-radius: 50%; background-color:#add8e6;display:inline-block;"></div>
+                            <div style="height: 20px; width: 20px; border-radius: 50%; background-color:#BFBFBF;display:inline-block;"></div>
                             <span style="padding-left: 6px;font-weight: bold;position: relative;top:-5px;">YTD Q3'19</span>
                         </div>
                         <div style="padding: 0 50px">
-                            <div style="height: 20px; width: 20px; border-radius: 50%; background-color:#457b9d;display:inline-block;"></div>
+                            <div style="height: 20px; width: 20px; border-radius: 50%; background-color:#9EEADC;display:inline-block;"></div>
                             <span style="padding-left: 6px;font-weight: bold;position: relative;top:-5px;">RKA Q3'19</span>
                         </div>
                         <div style="padding: 0 50px">
-                            <div style="height: 20px; width: 20px; border-radius: 50%; background-color:#1d3557;display:inline-block;"></div>
+                            <div style="height: 20px; width: 20px; border-radius: 50%; background-color:#288372;display:inline-block;"></div>
                             <span style="padding-left: 6px;font-weight: bold;position: relative;top:-5px;">YTD Q3'20</span>
                         </div>
                     </div>
@@ -586,8 +560,14 @@
 
 
 <script type="text/javascript">
+var bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
 var dashboard = "";
 var periode = "{{Session::get('periode')}}";
+var split = periode.match(/.{1,4}/g);
+var tahun = split[0];
+var numMonth = parseInt(split[1]) - 1;
+var namaMonth = bulan[numMonth];
+var keterangan = "Periode sampai dengan "+namaMonth+" "+tahun;
 var pembagi = 1000000000;
 var jenis = "CC";
 var buttonFilter = document.getElementById('button-filter');
@@ -607,6 +587,8 @@ window.onscroll = function() {
         buttonTop.style.display = 'none';
     }
 }
+
+$('#keterangan-filter').text(keterangan);
 
 function topFunction() {
   document.body.scrollTop = 0;
@@ -659,6 +641,12 @@ if(jenis == 'CC') {
         $('#yoy-restitusi').empty();
         getDataKunjungan();
         getDataLayanan();
+        split = periode.match(/.{1,4}/g);
+        tahun = split[0];
+        numMonth = parseInt(split[1]) - 1;
+        namaMonth = bulan[numMonth];
+        keterangan = "Periode sampai dengan "+namaMonth+" "+tahun;
+        $('#keterangan-filter').text(keterangan);
         $('#modalFilter').modal('hide');
     })
 
@@ -749,9 +737,9 @@ function getDataKunjungan() {
                 ketYoy += "<span style='padding-left: 10px;font-weight: bold;position: relative;top:-2px;'>"+yoy+"%</span>";
             }
             $('#yoy-claim').append(ketYoy);
-            chart.push({ name:"YTD Q3 '19", y:rea_bef, color:'#add8e6' })
-            chart.push({ name:"RKA Q3 '20", y:rka_now, color:'#457b9d' })
-            chart.push({ name:"YTD Q3 '20", y:rea_now, color:'#1d3557' })
+            chart.push({ name:"YTD Q3 '19", y:rea_bef, color:'#BFBFBF' })
+            chart.push({ name:"RKA Q3 '20", y:rka_now, color:'#9EEADC' })
+            chart.push({ name:"YTD Q3 '20", y:rea_now, color:'#288372' })
             Highcharts.chart('claim', {
                 chart: {
                     type: 'column',
@@ -932,21 +920,21 @@ function getDataLayanan() {
             }
             $('#yoy-restitusi').append(ketYoyRestitusi);
             
-            columnRjtp.push({name:"YTD Q3 '19",y:reaRjtpBef,color: '#add8e6'})
-            columnRjtp.push({name:"RKA Q3 '20",y:rkaRjtpNow,color: '#457b9d'})
-            columnRjtp.push({name:"YTD Q3 '20",y:reaRjtpNow,color: '#1d3557'})
+            columnRjtp.push({name:"YTD Q3 '19",y:reaRjtpBef,color: '#BFBFBF'})
+            columnRjtp.push({name:"RKA Q3 '20",y:rkaRjtpNow,color: '#9EEADC'})
+            columnRjtp.push({name:"YTD Q3 '20",y:reaRjtpNow,color: '#288372'})
 
-            columnRjtl.push({name:"YTD Q3 '19",y:reaRjtlBef,color: '#add8e6'})
-            columnRjtl.push({name:"RKA Q3 '20",y:rkaRjtlNow,color: '#457b9d'})
-            columnRjtl.push({name:"YTD Q3 '20",y:reaRjtlNow,color: '#1d3557'})
+            columnRjtl.push({name:"YTD Q3 '19",y:reaRjtlBef,color: '#BFBFBF'})
+            columnRjtl.push({name:"RKA Q3 '20",y:rkaRjtlNow,color: '#9EEADC'})
+            columnRjtl.push({name:"YTD Q3 '20",y:reaRjtlNow,color: '#288372'})
 
-            columnRi.push({name:"YTD Q3 '19",y:reaRiBef,color: '#add8e6'})
-            columnRi.push({name:"RKA Q3 '20",y:rkaRiNow,color: '#457b9d'})
-            columnRi.push({name:"YTD Q3 '20",y:reaRiNow,color: '#1d3557'})
+            columnRi.push({name:"YTD Q3 '19",y:reaRiBef,color: '#BFBFBF'})
+            columnRi.push({name:"RKA Q3 '20",y:rkaRiNow,color: '#9EEADC'})
+            columnRi.push({name:"YTD Q3 '20",y:reaRiNow,color: '#288372'})
 
-            columnRestitusi.push({name:"YTD Q3 '19",y:reaRestitusiBef,color: '#add8e6'})
-            columnRestitusi.push({name:"RKA Q3 '20",y:rkaRestitusiNow,color: '#457b9d'})
-            columnRestitusi.push({name:"YTD Q3 '20",y:reaRestitusiNow,color: '#1d3557'})
+            columnRestitusi.push({name:"YTD Q3 '19",y:reaRestitusiBef,color: '#BFBFBF'})
+            columnRestitusi.push({name:"RKA Q3 '20",y:rkaRestitusiNow,color: '#9EEADC'})
+            columnRestitusi.push({name:"YTD Q3 '20",y:reaRestitusiNow,color: '#288372'})
             
             for(var i=0;i<data.length;i++) {
                 totalRea = totalRea + parseFloat(data[i].rea_now)
@@ -967,7 +955,8 @@ function getDataLayanan() {
                     plotBorderWidth: null,
                     plotShadow: false,
                     type: 'pie',
-                    height: 250
+                    height: 250,
+                    colors: ['#9EEADC', '#47D7BD', '#37AA94', '#288372']
                 },
                 exporting:{
                     enabled: false
@@ -1267,19 +1256,19 @@ Highcharts.chart('pkk-cc', {
                 {
                     name: "YTD Q3 '19",
                     y: 5.17,
-                    color: '#add8e6',
+                    color: '#BFBFBF',
                     drilldown: "YTD Q3 '19"
                 },
                 {
                     name: "RKA Q3 '20",
                     y: 5.84,
-                    color:'#457b9d',
+                    color:'#9EEADC',
                     drilldown: "RKA Q3 '20"
                 },
                 {
                     name: "YTD Q3 '20",
                     y: 4.76,
-                    color:'#1d3557',
+                    color:'#288372',
                     drilldown: "YTD Q3 '20"
                 },
             ],
@@ -1336,19 +1325,19 @@ Highcharts.chart('pkk-kunjungan', {
                 {
                     name: "YTD Q3 '19",
                     y: 389.4,
-                    color: '#add8e6',
+                    color: '#BFBFBF',
                     drilldown: "YTD Q3 '19"
                 },
                 {
                     name: "RKA Q3 '20",
                     y: 449.3,
-                    color:'#457b9d',
+                    color:'#9EEADC',
                     drilldown: "RKA Q3 '20"
                 },
                 {
                     name: "YTD Q3 '20",
                     y: 390.0,
-                    color:'#1d3557',
+                    color:'#288372',
                     drilldown: "YTD Q3 '20"
                 },
             ],
@@ -1464,19 +1453,19 @@ Highcharts.chart('pkk-rjtp-kunj', {
                 {
                     name: "YTD Q3 '19",
                     y: 255.6,
-                    color: '#add8e6',
+                    color: '#BFBFBF',
                     drilldown: "YTD Q3 '19"
                 },
                 {
                     name: "RKA Q3 '20",
                     y: 301.1,
-                    color:'#457b9d',
+                    color:'#9EEADC',
                     drilldown: "RKA Q3 '20"
                 },
                 {
                     name: "YTD Q3 '20",
                     y: 271.1,
-                    color:'#1d3557',
+                    color:'#288372',
                     drilldown: "YTD Q3 '20"
                 },
             ],
@@ -1535,19 +1524,19 @@ Highcharts.chart('pkk-rjtl-kunj', {
                 {
                     name: "YTD Q3 '19",
                     y: 113.9,
-                    color: '#add8e6',
+                    color: '#BFBFBF',
                     drilldown: "YTD Q3 '19"
                 },
                 {
                     name: "RKA Q3 '20",
                     y: 125.1,
-                    color:'#457b9d',
+                    color:'#9EEADC',
                     drilldown: "RKA Q3 '20"
                 },
                 {
                     name: "YTD Q3 '20",
                     y: 101.6,
-                    color:'#1d3557',
+                    color:'#288372',
                     drilldown: "YTD Q3 '20"
                 },
             ],
@@ -1606,19 +1595,19 @@ Highcharts.chart('pkk-ri-kunj', {
                 {
                     name: "YTD Q3 '19",
                     y: 6.1,
-                    color: '#add8e6',
+                    color: '#BFBFBF',
                     drilldown: "YTD Q3 '19"
                 },
                 {
                     name: "RKA Q3 '20",
                     y: 7.0,
-                    color:'#457b9d',
+                    color:'#9EEADC',
                     drilldown: "RKA Q3 '20"
                 },
                 {
                     name: "YTD Q3 '20",
                     y: 4.4,
-                    color:'#1d3557',
+                    color:'#288372',
                     drilldown: "YTD Q3 '20"
                 },
             ],
@@ -1677,19 +1666,19 @@ Highcharts.chart('pkk-restitusi-kunj', {
                 {
                     name: "YTD Q3 '19",
                     y: 13.7,
-                    color: '#add8e6',
+                    color: '#BFBFBF',
                     drilldown: "YTD Q3 '19"
                 },
                 {
                     name: "RKA Q3 '20",
                     y: 16.1,
-                    color:'#457b9d',
+                    color:'#9EEADC',
                     drilldown: "RKA Q3 '20"
                 },
                 {
                     name: "YTD Q3 '20",
                     y: 12.1,
-                    color:'#1d3557',
+                    color:'#288372',
                     drilldown: "YTD Q3 '20"
                 },
             ],
