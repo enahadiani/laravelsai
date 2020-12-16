@@ -116,7 +116,8 @@
                             </div>
                             <ul class="nav nav-tabs" role="tablist">
                                 <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#det" role="tab" aria-selected="true"><span class="hidden-xs-down">Barang</span></a> </li>
-                                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#dok" role="tab" aria-selected="false"><span class="hidden-xs-down">Dokumen</span></a> </li>
+                                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#dok" role="tab" aria-selected="false"><span class="hidden-xs-down">Dokumen PO</span></a> </li>
+                                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#dok2" role="tab" aria-selected="false"><span class="hidden-xs-down">Dokumen Pembanding</span></a> </li>
                                 <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#catt" role="tab" aria-selected="false"><span class="hidden-xs-down">Catatan Approve</span></a> </li>
                             </ul>
                             <div class="tab-content tabcontent-border" style='margin-bottom:10px'>
@@ -163,6 +164,29 @@
                                                 <th width="20%">Nama File</th>
                                                 <th width="30%">Upload</th>
                                                 <th width="5%"><button type="button" href="#" id="add-row-dok" class="btn btn-default"><i class="fa fa-plus-circle"></i></button></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="dok2" role="tabpanel">
+                                    <div class='col-xs-12 mt-2' style='overflow-y: scroll; height:300px; margin:0px; padding:0px;'>
+                                        <style>
+                                            th,td{
+                                                padding:8px !important;
+                                                vertical-align:middle !important;
+                                            }
+                                        </style>
+                                        <table class="table table-striped table-bordered table-condensed" id="input-dok2" style='width:100%'>
+                                        <thead>
+                                            <tr>
+                                                <th width="5%">No</th>
+                                                <th width="30%">Nama Dokumen</th>
+                                                <th width="30%">Nama File Upload</th>
+                                                <th width="30%">Upload File</th>
+                                                <th width="5%"><button type="button" href="#" id="add-row-dok2" class="btn btn-default"><i class="fa fa-plus-circle"></i></button></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -535,13 +559,32 @@
                             var line2 = result.data_dokumen[i];
                             input2 += "<tr class='row-dok'>";
                             input2 += "<td width='5%'  class='no-dok'>"+no+"</td>";
-                            input2 += "<td width='30%'><input type='text' name='nama_dok[]' class='form-control inp-dok' value='"+line2.nama+"' required></td>";
+                            input2 += "<td width='30%'><input type='text' name='nama_dok[]' class='form-control inp-dok' value='"+line2.nama+"' required><input type='hidden' name='jenis_dok[]' class='form-control inp-jenis_dok' value='PO' required></td>";
                             input2 += "<td width='30%'><input type='text' name='nama_file[]' class='form-control inp-nama' value='"+line2.file_dok+"' readonly></td>";
                             input2 += "<td width='30%'>"+
                             "<input type='file' name='file_dok[]' class='inp-file_dok'>"+
                             "</td>";
                             input2 += "<td width='5%'><a class='btn btn-danger btn-sm hapus-dok' style='font-size:8px'><i class='fa fa-times fa-1'></i></a><a class='btn btn-success btn-sm down-dok' style='font-size:8px' href='http://api.simkug.com/api/apv/storage/"+line2.file_dok+"' target='_blank'><i class='fa fa-download fa-1'></i></a></td>";
                             input2 += "</tr>";
+                            no++;
+                        }
+                    }
+
+                    var input3 = "";
+                    var no=1;
+                    if(result.data_dokumen2.length > 0){
+
+                        for(var i=0;i< result.data_dokumen2.length;i++){
+                            var line2 = result.data_dokumen2[i];
+                            input3 += "<tr class='row-dok2'>";
+                            input3 += "<td width='5%'  class='no-dok2'>"+no+"</td>";
+                            input3 += "<td width='30%'><input type='text' name='nama_dok[]' class='form-control inp-dok' value='"+line2.nama+"' required><input type='hidden' name='jenis_dok[]' class='form-control inp-jenis_dok' value='PBD' required></td>";
+                            input3 += "<td width='20%'><input type='text' name='nama_file[]' class='form-control inp-nama' value='"+line2.file_dok+"' required readonly></td>";
+                            input3 += "<td width='30%'>"+
+                            "<input type='file' name='file_dok[]' class='inp-file_dok'>"+
+                            "</td>";
+                            input3 += "<td width='5%'><a class='btn btn-danger btn-sm hapus-dok' style='font-size:8px'><i class='fa fa-times fa-1'></i></a><a class='btn btn-success btn-sm down-dok' style='font-size:8px' href='http://api.simkug.com/api/apv/storage/"+line2.file_dok+"' target='_blank'><i class='fa fa-download fa-1'></i></a></td>";
+                            input3 += "</tr>";
                             no++;
                         }
                     }
@@ -555,6 +598,7 @@
                         no++;
                     }
                     $('#input-dok tbody').html(input2);
+                    $('#input-dok2 tbody').html(input3);
                     $('.currency').inputmask("numeric", {
                         radixPoint: ",",
                         groupSeparator: ".",
@@ -613,51 +657,63 @@
         for(var pair of formData.entries()) {
             console.log(pair[0]+ ', '+ pair[1]); 
         }
-        
-        $iconLoad.show();
-        $.ajax({
-            type: 'POST',
-            url: "{{ url('apv/verifikasi') }}",
-            dataType: 'json',
-            data: formData,
-            async:false,
-            contentType: false,
-            cache: false,
-            processData: false, 
-            success:function(result){
-                // alert('Input data '+result.message);
-                if(result.data.status){
-                    dataTable.ajax.reload();
-                    Swal.fire(
-                        'Saved!',
-                        'Your data has been saved.'+result.data.message,
-                        'success'
-                    )
-                    printLap(result.data.no_bukti);
+        var jumdok = $('#input-dok tbody tr').length;
+        var jumdok2 = $('#input-dok2 tbody tr').length;
+        if(total == 0){
+            alert('Total pengajuan tidak boleh 0');
+        }
+        else if(jumdok < 1){
+            alert('Dokumen PO kurang upload. Minimal upload 1 dokumen !');
+        }
+        else if(jumdok2 < 3){
+            alert('Dokumen Pembanding kurang upload. Minimal upload 3 dokumen !');
+        }
+        else{
+            $iconLoad.show();
+            $.ajax({
+                type: 'POST',
+                url: "{{ url('apv/verifikasi') }}",
+                dataType: 'json',
+                data: formData,
+                async:false,
+                contentType: false,
+                cache: false,
+                processData: false, 
+                success:function(result){
+                    // alert('Input data '+result.message);
+                    if(result.data.status){
+                        dataTable.ajax.reload();
+                        Swal.fire(
+                            'Saved!',
+                            'Your data has been saved.'+result.data.message,
+                            'success'
+                        )
+                        printLap(result.data.no_bukti);
+                    }
+                    else if(!result.data.status && result.data.message == "Unauthorized"){
+                        Swal.fire({
+                            title: 'Session telah habis',
+                            text: 'harap login terlebih dahulu!',
+                            icon: 'error'
+                        }).then(function() {
+                            window.location.href = "{{ url('apv/login') }}";
+                        })
+                    }
+                    else{
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Something went wrong!',
+                            footer: '<a href>'+result.data.message+'</a>'
+                        })
+                    }
+                    $iconLoad.hide();
+                },
+                fail: function(xhr, textStatus, errorThrown){
+                    alert('request failed:'+textStatus);
                 }
-                else if(!result.data.status && result.data.message == "Unauthorized"){
-                    Swal.fire({
-                        title: 'Session telah habis',
-                        text: 'harap login terlebih dahulu!',
-                        icon: 'error'
-                    }).then(function() {
-                        window.location.href = "{{ url('apv/login') }}";
-                    })
-                }
-                else{
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Something went wrong!',
-                        footer: '<a href>'+result.data.message+'</a>'
-                    })
-                }
-                $iconLoad.hide();
-            },
-            fail: function(xhr, textStatus, errorThrown){
-                alert('request failed:'+textStatus);
-            }
-        });     
+            });   
+        }  
     });
     
 
@@ -840,23 +896,36 @@
     });
         
     $('#saku-form').on('click', '#add-row-dok', function(){
-        // $('.modal-title').html('Tambah Dokumen');
-        // $('#modal-id-dok').val(0);
-        // $('#modal-dok-nama').val('');
-        // $('#modal-dok').modal('show');
         var no=$('#input-dok .row-dok:last').index();
         no=no+2;
         var input="";
         input = "<tr class='row-dok'>";
         input += "<td width='5%'  class='no-dok'>"+no+"</td>";
-        input += "<td width='30%'><input type='text' name='nama_dok[]' class='form-control inp-dok' value='' required></td>";
-        input += "<td width='20%'><input type='text' name='nama_file[]' class='form-control inp-nama' value='-' readonly required></td>";
-        input += "<td width='30%'>"+"<input type='file' name='file_dok[]' required >"+"</td>";
+        input += "<td width='30%'><input type='text' name='nama_dok[]' class='form-control inp-dok' value='' required><input type='hidden' name='jenis_dok[]' class='form-control inp-jenis_dok' value='PO' required></td>";
+        input += "<td width='30%'><input type='text' name='nama_file[]' class='form-control inp-nama' value='-' required readonly></td>";
+        input += "<td width='30%'>"+
+        "<input type='file' name='file_dok[]' required  class='inp-file_dok'>"+
+        "</td>";
         input += "<td width='5%'><a class='btn btn-danger btn-sm hapus-dok' style='font-size:8px'><i class='fa fa-times fa-1'></i></td>";
         input += "</tr>";
         $('#input-dok tbody').append(input);
     });
 
+    $('#saku-form').on('click', '#add-row-dok2', function(){
+        var no=$('#input-dok2 .row-dok2:last').index();
+        no=no+2;
+        var input="";
+        input = "<tr class='row-dok2'>";
+        input += "<td width='5%'  class='no-dok2'>"+no+"</td>";
+        input += "<td width='30%'><input type='text' name='nama_dok[]' class='form-control inp-dok' value='' required><input type='hidden' name='jenis_dok[]' class='form-control inp-jenis_dok' value='PBD' required></td>";
+        input += "<td width='30%'><input type='text' name='nama_file[]' class='form-control inp-nama' value='-' required readonly></td>";
+        input += "<td width='30%'>"+
+        "<input type='file' name='file_dok[]' required  class='inp-file_dok'>"+
+        "</td>";
+        input += "<td width='5%'><a class='btn btn-danger btn-sm hapus-dok' style='font-size:8px'><i class='fa fa-times fa-1'></i></td>";
+        input += "</tr>";
+        $('#input-dok2 tbody').append(input);
+    });
 
     $('#input-grid2').on('click', '.hapus-item', function(){
         $(this).closest('tr').remove();
@@ -881,6 +950,19 @@
         });
         $("html, body").animate({ scrollTop: $(document).height() }, 1000);
     });
+
+    
+    $('#input-dok2').on('click', '.hapus-dok', function(){
+        $(this).closest('tr').remove();
+        no=1;
+        $('.row-dok2').each(function(){
+            var nom = $(this).closest('tr').find('.no-dok2');
+            nom.html(no);
+            no++;
+        });
+        $("html, body").animate({ scrollTop: $(document).height() }, 1000);
+    });
+
 
     $('#input-dok').on('change','input[type=file]',function(e){
         

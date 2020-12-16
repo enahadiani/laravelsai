@@ -226,7 +226,8 @@
                             </div>
                             <ul class="nav nav-tabs" role="tablist">
                                 <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#det" role="tab" aria-selected="true"><span class="hidden-xs-down">Barang</span></a> </li>
-                                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#dok" role="tab" aria-selected="false"><span class="hidden-xs-down">Dokumen</span></a> </li>
+                                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#dok" role="tab" aria-selected="false"><span class="hidden-xs-down">Dokumen PO</span></a> </li>
+                                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#dok2" role="tab" aria-selected="false"><span class="hidden-xs-down">Dokumen Pembanding</span></a> </li>
                                 <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#catt" role="tab" aria-selected="false"><span class="hidden-xs-down">Catatan Approve</span></a> </li>
                             </ul>
                             <div class="tab-content tabcontent-border">
@@ -265,6 +266,28 @@
                                             }
                                         </style>
                                         <table class="table table-striped table-bordered table-condensed" id="input-dok">
+                                        <thead>
+                                            <tr>
+                                                <th width="5%">No</th>
+                                                <th width="60%">Nama Dokumen</th>
+                                                <th width="305%">File</th>
+                                                <th width="5%"><button type="button" href="#" id="add-row-dok" class="btn btn-default"><i class="fa fa-plus-circle"></i></button></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="dok2" role="tabpanel">
+                                    <div class='col-xs-12 mt-2' style='overflow-y: scroll; height:300px; margin:0px; padding:0px;'>
+                                        <style>
+                                            th,td{
+                                                padding:8px !important;
+                                                vertical-align:middle !important;
+                                            }
+                                        </style>
+                                        <table class="table table-striped table-bordered table-condensed" id="input-dok2">
                                         <thead>
                                             <tr>
                                                 <th width="5%">No</th>
@@ -1016,6 +1039,22 @@
                             }
                         }
 
+                        var input3 = "";
+                        var no=1;
+                        if(result.data_dokumen2.length > 0){
+                            for(var i=0;i< result.data_dokumen2.length;i++){
+                                var line2 = result.data_dokumen2[i];
+                                input3 += "<tr class='row-dok'>";
+                                input3 += "<td width='5%'  class='no-dok'>"+no+"</td>";
+                                input3 += "<td width='60%'><input type='text' name='nama_dok[]' class='form-control inp-dok' value='"+line2.nama+"' required readonly></td>";
+                                input3 += "<td width='30%'>"+
+                                "<input type='text' name='file_dok[]' class='form-control inp-file' value='"+
+                                line2.file_dok+"' readonly></td><td width='5%'> <a type='button'  href='http://api.simkug.com/api/apv/storage/"+line2.file_dok+"' target='_blank' class='btn btn-info btn-sm'><i class='fa fa-download'></i></a></td>";
+                                input3 += "</tr>";
+                                no++;
+                            }
+                        }
+
                         $('#input-grid2 tbody').html(input);
                         
                         var no =1;
@@ -1026,6 +1065,7 @@
                             no++;
                         }
                         $('#input-dok tbody').html(input2);
+                        $('#input-dok2 tbody').html(input3);
                         $('.currency').inputmask("numeric", {
                             radixPoint: ",",
                             groupSeparator: ".",
@@ -1131,6 +1171,22 @@
                             }
                         }
 
+                        var input3 = "";
+                        var no=1;
+                        if(result.data_dokumen2.length > 0){
+                            for(var i=0;i< result.data_dokumen2.length;i++){
+                                var line2 = result.data_dokumen2[i];
+                                input3 += "<tr class='row-dok'>";
+                                input3 += "<td width='5%'  class='no-dok'>"+no+"</td>";
+                                input3 += "<td width='60%'><input type='text' name='nama_dok[]' class='form-control inp-dok' value='"+line2.nama+"' required readonly></td>";
+                                input3 += "<td width='30%'>"+
+                                "<input type='text' name='nama_file[]' class='form-control inp-file' value='"+
+                                line2.file_dok+"' readonly></td><td width='5%'> <a type='button'  href='http://api.simkug.com/api/apv/storage/"+line2.file_dok+"' target='_blank' class='btn btn-info btn-sm'><i class='fa fa-download'></i></a></td>";
+                                input3 += "</tr>";
+                                no++;
+                            }
+                        }
+
                         $('#input-grid2 tbody').html(input);
                         var no =1;
                         for(var i=0;i<result.data_detail.length;i++){
@@ -1140,6 +1196,7 @@
                             no++;
                         }
                         $('#input-dok tbody').html(input2);
+                        $('#input-dok2 tbody').html(input3);
                         $('.currency').inputmask("numeric", {
                             radixPoint: ",",
                             groupSeparator: ".",

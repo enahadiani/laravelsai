@@ -242,6 +242,7 @@ class VerifikasiController extends Controller
             'ppn'=> 'required|array',
             'grand_total'=> 'required|array',
             'nama_dok'=>'array',
+            'jenis_dok'=>'array',
             'file_dok.*'=>'file|max:10240'
         ]);
             
@@ -354,6 +355,7 @@ class VerifikasiController extends Controller
 
             $fields_foto = array();
             $fields_nama_file = array();
+            $fields_jenis_dok = array();
             $cek = $request->file_dok;
             if(!empty($cek)){
 
@@ -374,9 +376,14 @@ class VerifikasiController extends Controller
                             'name'     => 'nama_file[]',
                             'contents' => $nama_file,
                         );
+                        $fields_jenis_dok[$i] = array(
+                            'name'     => 'jenis_dok[]',
+                            'contents' => $request->jenis_dok[$i],
+                        );
                     }
                     $send_data = array_merge($send_data,$fields_foto);
                     $send_data = array_merge($send_data,$fields_nama_file);
+                    $send_data = array_merge($send_data,$fields_jenis_dok);
                 }
             }
                 
