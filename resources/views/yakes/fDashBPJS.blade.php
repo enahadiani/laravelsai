@@ -169,7 +169,7 @@
             <button id="button-filter" class="btn btn-light btn-filter btn-filter-no-scroll">
                 <span>Filter</span>
                 <div class="filter-count">
-                    1
+                    3
                 </div>
             </button>
         </div>
@@ -443,6 +443,27 @@
                 </div>
                 <div class="modal-body" style="border:none">
                     <p id="keterangan-filter"></p>
+                    <div class="dropdown-dash dropdown dropdown-filter">
+                        <button class="btn btn-light select-dash" style="background-color: #ffffff;width: 100%;text-align:left;" type="button" data-toggle="dropdown">
+                            Dashboard : Utilisasi BPJS
+                            <span id="value-periode" style="display: none;"></span>
+                            <span class="glyph-icon simple-icon-arrow-down" style="float: right; margin-top:3%;"></span>
+                        </button>
+                        <ul class="dropdown-menu dash-bpjs" role="menu" aria-labelledby="menu1">
+                            <li>
+                                <span style="display: none;">UTL</span>
+                                <span>Utilisasi BPJS</span>
+                            </li>
+                            <li>
+                                <span style="display: none;">CLM</span>
+                                <span>Claim BPJS</span>
+                            </li>
+                            <li>
+                                <span style="display: none;">KPT</span>
+                                <span>Kapitasi BPJS</span>
+                            </li>
+                        </ul>
+                    </div>
                     <div class="dropdown-periode dropdown dropdown-filter">
                         <button class="btn btn-light select-dash" style="background-color: #ffffff;width: 100%;text-align:left;" type="button" data-toggle="dropdown">
                             Periode : {{Session::get('periode')}}
@@ -451,6 +472,23 @@
                         </button>
                         <ul class="dropdown-menu periode" role="menu" aria-labelledby="menu1">
                             
+                        </ul>
+                    </div>
+                    <div class="dropdown-dash dropdown dropdown-filter">
+                        <button class="btn btn-light select-dash" style="background-color: #ffffff;width: 100%;text-align:left;" type="button" data-toggle="dropdown">
+                            Jenis : Pegawai
+                            <span id="value-periode" style="display: none;"></span>
+                            <span class="glyph-icon simple-icon-arrow-down" style="float: right; margin-top:3%;"></span>
+                        </button>
+                        <ul class="dropdown-menu jenis" role="menu" aria-labelledby="menu1">
+                            <li>
+                                <span style="display: none;">PGW</span>
+                                <span>Pegawai</span>
+                            </li>
+                            <li>
+                                <span style="display: none;">PNS</span>
+                                <span>Pensiun</span>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -463,6 +501,7 @@
     </div>
 </div>
 <script type="text/javascript">
+    var dashboard = "";
     var bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
     var periode = "{{Session::get('periode')}}";
     var split = periode.match(/.{1,4}/g);
@@ -532,6 +571,14 @@
         var htmlText = "Periode : "+text+"<span class='glyph-icon simple-icon-arrow-down' style='float: right; margin-top:3%;'></span>";
         $(this).closest('.dropdown-periode').find('.select-dash').html(htmlText);
         periode = text;
+    });
+
+    $('.jenis').on( 'click', 'li', function() {
+        var value = $(this).find('span').first().text();
+        var text = $(this).find('span').last().text();
+        var htmlText = "Jenis : "+text+"<span class='glyph-icon simple-icon-arrow-down' style='float: right; margin-top:2%;'></span>";
+        $(this).closest('.dropdown-jenis').find('.select-dash').html(htmlText);
+        jenis = value;
     });
 
     $('#dash-list').on( 'click', 'tr', function() {

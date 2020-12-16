@@ -389,6 +389,7 @@
     </div>
 </div>
 <script type="text/javascript">
+var dashboard = "";
 var bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
 var periode = "{{Session::get('periode')}}";
 var split = periode.match(/.{1,4}/g);

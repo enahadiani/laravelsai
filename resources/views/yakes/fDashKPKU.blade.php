@@ -384,6 +384,7 @@
     </div>
 </div>
 <script type="text/javascript">
+    var dashboard = "";
     var keterangan = "Tahun {{ substr(Session::get('periode'), 0, 4) }}";
     var tahun = "{{ substr(Session::get('periode'), 0, 4) }}";
     var jenis = "Ebitda Margin";

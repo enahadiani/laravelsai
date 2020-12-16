@@ -343,6 +343,7 @@
     </div>
 </div>
 <script type="text/javascript">
+var dashboard = "";
 var periode = "{{Session::get('periode')}}";
 var pembagi = 1000000;
 var warna = ['#BFBFBF', '#9EEADC', '#288372', '#14213d', '#FCA311'];

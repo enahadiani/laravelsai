@@ -668,6 +668,13 @@ if(jenis == 'CC') {
         $('.ytd-last').text(ketYTDLast);
         $('.rka-now').text(ketRKANow);
         $('.ytd-now').text(ketYTDNow);
+        if(jenis == 'CC') {
+            $('#claim-ket').text('Claim Cost (CC)')
+            $('#ket-layanan').text('CC per Jenis Layanan')
+        } else {
+            $('#claim-ket').text('Biaya Pengobatan (BP)')
+            $('#ket-layanan').text('BP per Jenis Layanan')
+        }
         getDataKunjungan();
         getDataLayanan();
         $('#modalFilter').modal('hide');
@@ -683,24 +690,6 @@ if(jenis == 'CC') {
         jenis = "CC";
         periode = "{{Session::get('periode')}}";
     })
-// $('#jenis').change(function(){
-//     $('#yoy-claim').empty();
-//     $('#yoy-rjtp').empty();
-//     $('#yoy-rjtl').empty();
-//     $('#yoy-ri').empty();
-//     $('#yoy-restitusi').empty();
-//     var val = $(this).val();
-//     jenis = val;
-//     if(val == 'CC') {
-//         $('#claim-ket').text('Claim Cost (CC)')
-//         $('#ket-layanan').text('CC per Jenis Layanan')
-//     } else {
-//         $('#claim-ket').text('Biaya Pengobatan (BP)')
-//             $('#ket-layanan').text('BP per Jenis Layanan')
-//     }
-//     getDataKunjungan();
-//     getDataLayanan();
-// })
 
     $('#dash-btn').click(function(){
         $('#modal-preview').modal('show');
