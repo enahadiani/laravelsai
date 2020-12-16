@@ -69,9 +69,8 @@
         top: 9%;
         margin: 0;
         padding: 10px 0;
-        padding-bottom: 10px;
-        width: 100%;
         padding-bottom: 18px;
+        width: 100%;
         z-index: 2;
     }
     .select-dash {
@@ -153,6 +152,9 @@
         text-align: center;
         background-color: #93ccce;
     }
+    #keterangan-filter {
+        margin: 10px;
+    }
 </style>
 
 <button id="button-top" class="button-top" onclick="topFunction()">
@@ -173,108 +175,12 @@
             </button>
         </div>
     </div>
-    {{-- <div class="row">
-        <div class="col-3">
-            <div class="dropdown-jenis dropdown">
-                    <button class="btn btn-light select-dash" style="background-color: #ffffff;width: 100%;text-align:left;" type="button" data-toggle="dropdown">
-                        Jenis : Ebitda Margin
-                        <span class="glyph-icon simple-icon-arrow-down" style="float: right; margin-top:2%;"></span>
-                    </button>
-                    <ul class="dropdown-menu jenis" style="width:99%;" role="menu" aria-labelledby="menu2">
-                        <li>
-                            <span style="display: none;">EBM</span>
-                            <span>Ebitda Margin</span>
-                        </li>
-                        <li>
-                            <span style="display: none;">EB</span>
-                            <span>Ebit</span>
-                        </li>
-                        <li>
-                            <span style="display: none;">NPM</span>
-                            <span>Net Profit Margin</span>
-                        </li>
-                        <li>
-                            <span style="display: none;">OPR</span>
-                            <span>Operation Ratio</span>
-                        </li>
-                        <li>
-                            <span style="display: none;">ROA</span>
-                            <span>ROA</span>
-                        </li>
-                        <li>
-                            <span style="display: none;">ROI</span>
-                            <span>ROI</span>
-                        </li>
-                        <li>
-                            <span style="display: none;">ROE</span>
-                            <span>ROE</span>
-                        </li>
-                        <li>
-                            <span style="display: none;">CRR</span>
-                            <span>Current Ratio</span>
-                        </li>
-                        <li>
-                            <span style="display: none;">QRR</span>
-                            <span>Quick Ratio</span>
-                        </li>
-                        <li>
-                            <span style="display: none;">CSR</span>
-                            <span>Cash Ratio</span>
-                        </li>
-                        <li>
-                            <span style="display: none;">DER</span>
-                            <span>Debt to Equity Ratio</span>
-                        </li>
-                        <li>
-                            <span style="display: none;">DAR</span>
-                            <span>Debt to Asset Ratio</span>
-                        </li>
-                        <li>
-                            <span style="display: none;">LTE</span>
-                            <span>Long Term Debt to Equity</span>
-                        </li>
-                    </ul>
-                </div> --}}
-            {{-- <select id="jenis" class="form-control select-dash">
-                <option value="EBM" selected>Jenis : Ebitda Margin</option>
-                <option value="EB">Jenis : Ebit</option>
-                <option value="NPM">Jenis : Net Profit Margin</option>
-                <option value="OPR">Jenis : Operating Ratio</option>
-                <option value="ROA">Jenis : ROA</option>
-                <option value="ROI">Jenis : ROI</option>
-                <option value="ROE">Jenis : ROE</option>
-                <option value="CRR">Jenis : Current Ratio</option>
-                <option value="QRR">Jenis : Quick Ratio</option>
-                <option value="CSR">Jenis : Cash Ratio</option>
-                <option value="DER">Jenis : Debt to Equity Ratio</option>
-                <option value="DAR">Jenis : Debt to Asset Ratio</option>
-                <option value="LTE">Jenis : Long Term Debt to Equity</option>
-            </select> --}}
-        {{-- </div> --}}
-        {{-- <div class="col-2">
-             <div class="dropdown-periode dropdown">
-                <button class="btn btn-light select-dash" style="background-color: #ffffff;width: 180px;text-align:left;" type="button" data-toggle="dropdown">
-                    Tahun : {{ substr(Session::get('periode'), 0, 4) }}
-                    <span class="glyph-icon simple-icon-arrow-down" style="float: right; margin-top:3%;"></span>
-                </button>
-                <ul class="dropdown-menu periode" role="menu" aria-labelledby="menu1">
-                        
-                </ul>
-            </div> --}}
-            {{-- <select id="periode" class="form-control select-dash">
-
-            </select> --}}
-        {{-- </div>
-    </div> --}}
 </div>
 <div class="row" style="margin-top: 30px;">
     <div class="col-12 mb-4">
         <div class="card" style="height: 100%; border-radius:10px !important;">
             <h6 class="ml-4 mt-3" style="font-weight: bold;text-align:center;" id="judul-chart"></h6>
             <div class="row">
-                {{-- <div class="col-1">
-                    <p class="keterangan">Dalam Rp. Juta</p>
-                </div> --}}
                 <div class="col-12">
                     <div id="kpku"></div>
                 </div>
@@ -380,6 +286,7 @@
                     </button>
                 </div>
                 <div class="modal-body" style="border:none">
+                    <p id="keterangan-filter"></p>
                     <div class="dropdown-regional dropdown dropdown-filter">
                         <button class="btn btn-light select-dash" style="background-color: #ffffff;width: 100%;text-align:left;" type="button" data-toggle="dropdown">
                             Regional : -
@@ -477,7 +384,9 @@
     </div>
 </div>
 <script type="text/javascript">
-    var tahun = "";
+    var dashboard = "";
+    var keterangan = "Tahun {{ substr(Session::get('periode'), 0, 4) }}";
+    var tahun = "{{ substr(Session::get('periode'), 0, 4) }}";
     var jenis = "Ebitda Margin";
     var pembagi = 1000000;
     var judul = 'EBITDA MARGIN = EBITDA/Revenue';
@@ -514,10 +423,14 @@
         // getDataPendapatan(tahun);
     });
 
+    $('#keterangan-filter').text(keterangan);
+
     $('#form-filter').on('click', '#btn-tampil', function(){
         $('#detail-kpku').empty();
         $('#judul-chart').text(judul);
+        keterangan = "Tahun "+tahun+"";
         getDataKPKU();
+        $('#keterangan-filter').text(keterangan);
         $('#modalFilter').modal('hide');
     })
 

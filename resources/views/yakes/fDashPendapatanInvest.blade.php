@@ -69,9 +69,8 @@
         top: 9%;
         margin: 0;
         padding: 10px 0;
-        padding-bottom: 10px;
-        width: 100%;
         padding-bottom: 18px;
+        width: 100%;
         z-index: 2;
     }
     .select-dash {
@@ -140,6 +139,9 @@
         text-align: center;
         background-color: #93ccce;
     }
+    #keterangan-filter {
+        margin: 10px;
+    }
 </style>
 <button id="button-top" class="button-top" onclick="topFunction()">
         <span class="simple-icon-arrow-up"></span>
@@ -159,31 +161,12 @@
             </button>
         </div>
     </div>
-    {{-- <div class="row"> --}}
-        {{-- <div class="col-2">
-            <div class="dropdown-periode dropdown">
-                <button class="btn btn-light select-dash" style="background-color: #ffffff;width: 180px;text-align:left;" type="button" data-toggle="dropdown">
-                    Tahun : {{ substr(Session::get('periode'), 0, 4) }}
-                    <span class="glyph-icon simple-icon-arrow-down" style="float: right; margin-top:3%;"></span>
-                </button>
-                <ul class="dropdown-menu periode" role="menu" aria-labelledby="menu1">
-                        
-                </ul>
-            </div> --}}
-            {{-- <select id="periode" class="form-control select-dash">
-
-            </select> --}}
-        {{-- </div> --}}
-    {{-- </div> --}}
 </div>
 <div class="row" style="margin-top: 30px;">
     <div class="col-12 mb-4">
         <div class="card" style="height: 100%; border-radius:10px !important;">
             <h6 class="ml-4 mt-3" style="font-weight: bold;text-align:center;">Pendapatan Investasi</h6>
             <div class="row">
-                {{-- <div class="col-1">
-                    <p class="keterangan">Dalam Rp. Juta</p>
-                </div> --}}
                 <div class="col-12">
                     <div id="invest"></div>
                 </div>
@@ -289,6 +272,7 @@
                     </button>
                 </div>
                 <div class="modal-body" style="border:none">
+                    <p id="keterangan-filter"></p>
                     <div class="dropdown-regional dropdown dropdown-filter">
                         <button class="btn btn-light select-dash" style="background-color: #ffffff;width: 100%;text-align:left;" type="button" data-toggle="dropdown">
                             Regional : -
@@ -326,7 +310,9 @@
     </div>
 </div>
 <script type="text/javascript">
-    var tahun = "";
+    var dashboard = "";
+    var keterangan = "Tahun {{ substr(Session::get('periode'), 0, 4) }}";
+    var tahun = "{{ substr(Session::get('periode'), 0, 4) }}";
     var pembagi = 1000000;
     var buttonTop = document.getElementById('button-top');
     var buttonFilter = document.getElementById('button-filter');
@@ -346,6 +332,8 @@
         }
     }
 
+    $('#keterangan-filter').text(keterangan);
+
     function topFunction() {
         document.body.scrollTop = 0;
         document.documentElement.scrollTop = 0;
@@ -360,7 +348,6 @@
             $.each(result.daftar, function(key, value){
                 $('.periode').append("<li>"+value.tahun+"</li>")
             })
-            tahun = date.getFullYear();
             getDataPendapatan(tahun);
         }
     });
@@ -385,7 +372,9 @@
 
     $('#form-filter').on('click', '#btn-tampil', function(){
         $('#detail-invest').empty();
+        keterangan = "Tahun "+tahun+"";
         getDataPendapatan(tahun);
+        $('#keterangan-filter').text(keterangan);
         $('#modalFilter').modal('hide');
     })
 

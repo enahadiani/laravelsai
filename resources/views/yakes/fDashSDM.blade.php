@@ -165,6 +165,9 @@
         text-align: center;
         background-color: #93ccce;
     }
+    #keterangan-filter {
+        margin: 10px;
+    }
 </style>
 
 <button id="button-top" class="button-top" onclick="topFunction()">
@@ -185,22 +188,6 @@
             </button>
         </div>
     </div>
-    {{-- <div class="row"> --}}
-        {{-- <div class="col-2">
-            <div class="dropdown-periode dropdown">
-                <button class="btn btn-light select-dash" style="background-color: #ffffff;width: 180px;text-align:left;" type="button" data-toggle="dropdown">
-                    Periode : {{Session::get('periode')}}
-                    <span class="glyph-icon simple-icon-arrow-down" style="float: right; margin-top:3%;"></span>
-                </button>
-                <ul class="dropdown-menu periode" role="menu" aria-labelledby="menu1">
-                        
-                </ul>
-            </div> --}}
-            {{-- <select id="periode" class="form-control select-dash">
-
-            </select> --}}
-        {{-- </div>
-    </div> --}}
 </div>
 <div class="row" style="margin-top: 30px;">
     <div class="col-12 mb-4">
@@ -364,6 +351,7 @@
                     </button>
                 </div>
                 <div class="modal-body" style="border:none">
+                    <p id="keterangan-filter"></p>
                     <div class="dropdown-regional dropdown dropdown-filter">
                         <button class="btn btn-light select-dash" style="background-color: #ffffff;width: 100%;text-align:left;" type="button" data-toggle="dropdown">
                             Regional : -
@@ -401,7 +389,14 @@
     </div>
 </div>
 <script type="text/javascript">
+var dashboard = "";
+var bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
 var periode = "{{Session::get('periode')}}";
+var split = periode.match(/.{1,4}/g);
+var tahun = split[0];
+var numMonth = parseInt(split[1]) - 1;
+var namaMonth = bulan[numMonth];
+var keterangan = "Periode sampai dengan "+namaMonth+" "+tahun;
 var buttonTop = document.getElementById('button-top');
 var header = document.getElementById('filter-header');
 var buttonFilter = document.getElementById('button-filter');
@@ -419,6 +414,8 @@ window.onscroll = function() {
         buttonFilter.classList.add('btn-filter-no-scroll')
     }
 }
+    
+    $('#keterangan-filter').text(keterangan);
 
     function topFunction() {
         document.body.scrollTop = 0;
@@ -444,12 +441,18 @@ window.onscroll = function() {
         $('#non-medis').empty();
         $('#laki').empty();
         $('#perempuan').empty();
+        split = periode.match(/.{1,4}/g);
+        tahun = split[0];
+        numMonth = parseInt(split[1]) - 1;
+        namaMonth = bulan[numMonth];
+        keterangan = "Periode sampai dengan "+namaMonth+" "+tahun;
         getDataOrganik();
         getDataDemography();
         getDataMedis();
         getDataDokter();
         getDataGender();
         getDataEducation();
+        $('#keterangan-filter').text(keterangan);
         $('#modalFilter').modal('hide');
     })
 
