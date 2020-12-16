@@ -107,7 +107,7 @@ $thnLalu = substr($tahunLalu,2,2)
                             <h6 class="card-title mb-0">Komposisi RKA</h6>
                         </div>
                         <div class="col-md-6 col-12">
-                            <h6 class="card-title mb-0 text-right">1.000.000</h6>
+                            <h6 class="card-title mb-0 text-right" id="komposisi-total"></h6>
                         </div>
                     </div>
                 </div>
@@ -261,19 +261,19 @@ function getMsPengembangan(periode=null){
         dataType:"JSON",
         success:function(result){
             // if(result.series.length > 0){
-                // console.log(result.series);
+                var $colors = result.colors;
                 Highcharts.addEvent(Highcharts.Chart.prototype, 'render', function colorPoints() {
                     var series = this.series;
                     for (var i = 0, ie = series.length; i < ie; ++i) {
                         var points = series[i].data;
                         for (var j = 0, je = points.length; j < je; ++j) {
                             if (points[j].graphic) {
-                                points[j].graphic.element.style.fill = result.colors[j];
-                                console.log(result.colors[i]);
+                                points[j].graphic.element.style.fill = $colors[j];
                             }
                         }
                     }
                 });
+                
                 Highcharts.chart('rka', {
                     chart: {
                         type: 'column'
@@ -358,51 +358,99 @@ function getMsPengembanganKomposisi(periode=null){
         data:{periode : periode},
         dataType:"JSON",
         success:function(result){
-            if(result.data.length > 0){
-                console.log(result.data);
-                $google.charts.load('current', {'packages':['corechart']});
-                $google.charts.setOnLoadCallback(function (){
-                    var data = $google.visualization.arrayToDataTable(result.data);
+            $('#komposisi-total').html(sepNumPas(result.total));
+            var $colors = result.colors;
+            Highcharts.addEvent(Highcharts.Chart.prototype, 'render', function colorPoints() {
+                var series = this.series;
+                for (var i = 0, ie = series.length; i < ie; ++i) {
+                    var points = series[i].data;
+                    for (var j = 0, je = points.length; j < je; ++j) {
+                        if (points[j].graphic) {
+                            points[j].graphic.element.style.fill = $colors[j];
+                        }
+                    }
+                }
+            });
+            Highcharts.chart('komposisi', {
+                chart: {
+                    type: 'pie'
+                },
+                title: {
+                    text: ''
+                },
+                yAxis: [{
+                    min: 0,
+                    title: {
+                        text: ''
+                    }
+                }],
+                legend:{
+                    enabled: false
+                },
+                credits: {
+                    enabled: false
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.y} </b><br/><b>{point.percentage:.1f}%</b>'
+                },
+                colors: result.colors,
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            format: '{point.percentage:.1f} %'
+                        }
+                    }
+                },
+                series: result.series
+            });
+            // if(result.data.length > 0){
+            //     console.log(result.data);
+            //     $google.charts.load('current', {'packages':['corechart']});
+            //     $google.charts.setOnLoadCallback(function (){
+            //         var data = $google.visualization.arrayToDataTable(result.data);
                         
-                    var options = {
-                        // pieSliceText: 'none',
-                        chartArea:{
-                            width: '100%',
-                            height: '85%'
-                        },
-                        legend: {position: 'none'},
-                        width: '100%',
-                        height: '100%',
-                        // animation: {
-                        //     startup: true,
-                        //     duration: 1000,
-                        //     easing: 'in'
-                        // },
-                        colors:result.colors
-                    };
+            //         var options = {
+            //             // pieSliceText: 'none',
+            //             chartArea:{
+            //                 width: '100%',
+            //                 height: '85%'
+            //             },
+            //             legend: {position: 'none'},
+            //             width: '100%',
+            //             height: '100%',
+            //             // animation: {
+            //             //     startup: true,
+            //             //     duration: 1000,
+            //             //     easing: 'in'
+            //             // },
+            //             colors:result.colors
+            //         };
                         
-                    var chart = new google.visualization.PieChart(document.getElementById('komposisi'));
-                    // chart.draw(data, options);
-                     // initial value
-                    var percent = 0;
-                    // start the animation loop
-                    // var handler = setInterval(function(){
-                    //     // values increment
-                    //     percent += 1;
-                    //     // apply new values
-                    //     // data.setValue(0, 1, percent);
-                    //     // data.setValue(1, 1, percent);
-                    //     // data.setValue(2, 1, percent);
-                    //     // data.setValue(3, 1, 100 - percent);
-                    //     // // update the pie
-                    //     // chart.draw(data, options);
-                    //     // check if we have reached the desired value
-                    //     if (percent > 75)
-                    //         // stop the loop
-                    //         clearInterval(handler);
-                    // }, 10);
-                });
-            }
+            //         var chart = new google.visualization.PieChart(document.getElementById('komposisi'));
+            //         // chart.draw(data, options);
+            //          // initial value
+            //         var percent = 0;
+            //         // start the animation loop
+            //         // var handler = setInterval(function(){
+            //         //     // values increment
+            //         //     percent += 1;
+            //         //     // apply new values
+            //         //     // data.setValue(0, 1, percent);
+            //         //     // data.setValue(1, 1, percent);
+            //         //     // data.setValue(2, 1, percent);
+            //         //     // data.setValue(3, 1, 100 - percent);
+            //         //     // // update the pie
+            //         //     // chart.draw(data, options);
+            //         //     // check if we have reached the desired value
+            //         //     if (percent > 75)
+            //         //         // stop the loop
+            //         //         clearInterval(handler);
+            //         // }, 10);
+            //     });
+            // }
         },
         error: function(jqXHR, textStatus, errorThrown) {       
             if(jqXHR.status == 422){
