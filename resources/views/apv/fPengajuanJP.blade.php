@@ -293,7 +293,7 @@
                                                 <th width="5%">No</th>
                                                 <th width="60%">Nama Dokumen</th>
                                                 <th width="305%">File</th>
-                                                <th width="5%"><button type="button" href="#" id="add-row-dok" class="btn btn-default"><i class="fa fa-plus-circle"></i></button></th>
+                                                <th width="5%"><button type="button" href="#" id="add-row-dok2" class="btn btn-default"><i class="fa fa-plus-circle"></i></button></th>
                                             </tr>
                                         </thead>
                                         <tbody>
