@@ -315,6 +315,7 @@ var ach = [];
 var yoy = [];
 var warna = ['#BFBFBF', '#9EEADC', '#288372', '#14213d', '#FCA311'];
 var bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+var bulanSingkat = ['JAN', 'FEB', 'MAR', 'APR', 'MEI', 'JUN', 'JUL', 'AGT', 'SEP', 'OKT', 'NOV', 'DES'];
 var split = periode.match(/.{1,4}/g);
 var tahun = split[0];
 var numMonth = parseInt(split[1]) - 1;
@@ -536,7 +537,7 @@ function RealBeban() {
             htmlContent += "<tr>";
             htmlContent += "<td style='position: relative;'>";
             htmlContent += "<div style='height: 15px; width:25px; background-color:#BFBFBF;display:inline-block;margin-left:3px;margin-top:1px;'></div>";
-            htmlContent += "&nbsp;REA YTD OKT 2019";
+            htmlContent += "&nbsp;REA YTD "+bulanSingkat[numMonth]+" 2019";
             htmlContent += "</td>";
             for(var x=0;x<rea_beban_bef.length;x++) {
                 htmlContent += "<td style='text-align: right;'>";
@@ -548,7 +549,7 @@ function RealBeban() {
             htmlContent += "<tr>";
             htmlContent += "<td style='position: relative;'>";
             htmlContent += "<div style='height: 15px; width:25px; background-color:#9EEADC;display:inline-block;margin-left:3px;margin-top:1px;'></div>";
-            htmlContent += "&nbsp;RKA YTD OKT 2020";
+            htmlContent += "&nbsp;RKA YTD "+bulanSingkat[numMonth]+" 2020";
             htmlContent += "</td>";
             for(var x=0;x<rka_beban_now.length;x++) {
                 htmlContent += "<td style='text-align: right;'>";
@@ -560,7 +561,7 @@ function RealBeban() {
             htmlContent += "<tr>";
             htmlContent += "<td style='position: relative;'>";
             htmlContent += "<div style='height: 15px; width:25px; background-color:#288372;display:inline-block;margin-left:3px;margin-top:1px;'></div>";
-            htmlContent += "&nbsp;REA YTD OKT 2020";
+            htmlContent += "&nbsp;REA YTD "+bulanSingkat[numMonth]+" 2020";
             htmlContent += "</td>";
             for(var x=0;x<rea_beban_now.length;x++) {
                 htmlContent += "<td style='text-align: right;'>";
@@ -595,9 +596,9 @@ function RealBeban() {
 
             $('#content-beban').append(htmlContent);
 
-            chart.push({type:'column', name:'REA YTD OKT 2019', data:rea_beban_bef, color:'#BFBFBF'})
-            chart.push({type:'column', name:'RKA YTD OKT 2020', data:rka_beban_now, color:'#9EEADC'})
-            chart.push({type:'column', name:'REA YTD OKT 2020', data:rea_beban_now, color:'#288372'})
+            chart.push({type:'column', name:"REA YTD "+bulanSingkat[numMonth]+" 2019", data:rea_beban_bef, color:'#BFBFBF'})
+            chart.push({type:'column', name:"RKA YTD "+bulanSingkat[numMonth]+" 2020", data:rka_beban_now, color:'#9EEADC'})
+            chart.push({type:'column', name:"REA YTD "+bulanSingkat[numMonth]+" 2020", data:rea_beban_now, color:'#288372'})
             chart.push({type:'spline', name:'ACH', data:ach_beban, color:'#14213d', yAxis:1, marker: {lineWidth: 2 }})
             chart.push({type:'spline', name:'YoY', data:yoy_beban, color:'#FCA311', yAxis:1, marker: {lineWidth: 2 }})
 
