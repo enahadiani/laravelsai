@@ -69,7 +69,7 @@
         top: 9%;
         margin: 0;
         padding: 10px 0;
-        padding-bottom: 18px;
+        padding-bottom: 0;
         width: 100%;
         z-index: 2;
     }
@@ -152,9 +152,6 @@
         text-align: center;
         background-color: #93ccce;
     }
-    #keterangan-filter {
-        margin: 10px;
-    }
 </style>
 
 <button id="button-top" class="button-top" onclick="topFunction()">
@@ -165,6 +162,7 @@
     <div class="row">
         <div class="col-6">
             <h6>Laporan KPKU Kategori 7</h6>
+            <p id="keterangan-filter"></p>
         </div>
         <div class="col-6">
             <button id="button-filter" class="btn btn-light btn-filter btn-filter-no-scroll">
@@ -286,7 +284,6 @@
                     </button>
                 </div>
                 <div class="modal-body" style="border:none">
-                    <p id="keterangan-filter"></p>
                     <div class="dropdown-regional dropdown dropdown-filter">
                         <button class="btn btn-light select-dash" style="background-color: #ffffff;width: 100%;text-align:left;" type="button" data-toggle="dropdown">
                             Regional : -
