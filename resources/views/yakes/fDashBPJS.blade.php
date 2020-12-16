@@ -42,13 +42,14 @@
         padding: 0px 10px 0px 0px;
     }
     table, td, th {
-        border: 1px solid black !important;
+        border: 1px solid #d3d3d3 !important;
         margin-bottom: 10px;
     }  
 
     th {
         padding: 5px;
         text-align: center;
+        background-color: #f9f9f9 !important;
     }
     .container-keterangan-nilai {
         z-index: 1;
