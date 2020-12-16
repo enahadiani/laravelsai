@@ -855,6 +855,24 @@
         }
     })
 
+    $('#input-dok2').on('change','input[type=file]',function(e){
+        
+        e.preventDefault();
+        var i = $(this).parents('tr').index()+1;
+        var file = $(this)[0].files[0].size;
+        var sizekb = Math.round(file / 1024,2);
+        var sizemb = Math.round(sizekb / 1024,2);
+        if(sizekb > 10240){
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Something went wrong!',
+                footer: '<a href="#" class="text-danger">File Dokumen ke '+i+' tidak valid, ukuran file '+sizemb+'MB. Batas Maksimum upload 10MB </a>'
+            });
+            $(this).replaceWith($(this).val('').clone(true));
+        }
+    })
+    
     $('#input-grid2').on('keydown', '.inp-qty', function(e){
         if (e.which == 13 || e.which == 9) {
             e.preventDefault();
