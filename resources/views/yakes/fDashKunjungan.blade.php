@@ -192,7 +192,7 @@
     <div id="filter-header">
         <div class="row">
             <div class="col-6">
-                <h6>Biaya Kunjungan</h6>
+                <h6 id="judul-form">Biaya Kunjungan</h6>
                 <p id="keterangan-filter"></p>
             </div>
             <div class="col-6">
@@ -577,6 +577,7 @@
 
 
 <script type="text/javascript">
+var judulForm = "Biaya Kunjungan Pensiunan dan Keluarga";
 var bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
 var dashboard = "";
 var periode = "{{Session::get('periode')}}";
@@ -612,6 +613,7 @@ window.onscroll = function() {
     }
 }
 
+$('#judul-form').text(judulForm);
 $('#keterangan-filter').text(keterangan);
 $('.ytd-last').text(ketYTDLast);
 $('.rka-now').text(ketRKANow);
@@ -683,11 +685,15 @@ if(jenis == 'CC') {
         $('.rka-now').text(ketRKANow);
         $('.ytd-now').text(ketYTDNow);
         if(jenis == 'CC') {
+            judulForm = "Biaya Kunjungan Pensiunan dan Keluarga";
             $('#claim-ket').text('Claim Cost (CC)')
             $('#ket-layanan').text('CC per Jenis Layanan')
+            $('#judul-form').text(judulForm);
         } else {
+            judulForm = "Biaya Kunjungan Pegawai dan Keluarga";
             $('#claim-ket').text('Biaya Pengobatan (BP)')
             $('#ket-layanan').text('BP per Jenis Layanan')
+            $('#judul-form').text(judulForm);
         }
         getDataKunjungan();
         getDataLayanan();
