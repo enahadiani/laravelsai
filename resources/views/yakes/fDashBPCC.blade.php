@@ -84,9 +84,8 @@
         top: 9%;
         margin: 0;
         padding: 10px 0;
-        padding-bottom: 10px;
+        padding-bottom: 0;
         width: 100%;
-        padding-bottom: 18px;
         z-index: 2;
     }
     .footer-dashboard {
@@ -162,6 +161,7 @@
     <div class="row">
         <div class="col-6">
             <h6>Realisasi BPCC</h6>
+            <p id="keterangan-filter"></p>
         </div>
         <div class="col-6">
             <button id="button-filter" class="btn btn-light btn-filter btn-filter-no-scroll">
@@ -172,37 +172,11 @@
             </button>
         </div>
     </div>
-    {{-- <div class="row">
-        <div class="col-2"> --}}
-            {{-- <div class="dropdown-periode dropdown">
-                <button class="btn btn-light select-dash" style="background-color: #ffffff;width: 180px;text-align:left;" type="button" data-toggle="dropdown">
-                    Periode : {{Session::get('periode')}}
-                    <span class="glyph-icon simple-icon-arrow-down" style="float: right; margin-top:3%;"></span>
-                </button>
-                <ul class="dropdown-menu periode" role="menu" aria-labelledby="menu1">
-                        
-                </ul>
-            </div> --}}
-            {{-- <select id="periode" class="form-control select-dash">
-
-            </select> --}}
-        {{-- </div> --}}
-    {{-- </div> --}}
 </div>
-<div class="row" style="margin-top: 30px;">
+<div class="row" style="margin-top: 20px;">
     <div class="col-12 mb-4">
         <div class="card" style="height: 100%; border-radius:10px !important;">
-            <h6 class="ml-4 mt-3" style="font-weight: bold;text-align:center;">Realisasi CC YTD OKT 2020</h6>
-            {{-- <div class="row container-keterangan-nilai">
-                <div class="col-12">
-                    <p class="keterangan">Rp. Dalam Juta</p>
-                </div>
-            </div>
-            <div class="row container-keterangan-persen">
-                <div class="col-12">
-                    <p class="keterangan">Dalam Persen</p>
-                </div>
-            </div> --}}
+            <h6 class="ml-4 mt-3" style="font-weight: bold;text-align:center;" id="judul-cc"></h6>
             <div class="row">
                 <div class="col-12">
                     <div id="cc"></div>
@@ -230,17 +204,7 @@
 <div class="row" style="margin-top: 20px;">
     <div class="col-12 mb-4">
         <div class="card" style="height: 100%; border-radius:10px !important;">
-            <h6 class="ml-4 mt-3" style="font-weight: bold;text-align:center;">Realisasi BP YTD OKT 2020</h6>
-            {{-- <div class="row container-keterangan-nilai">
-                <div class="col-12">
-                    <p class="keterangan">Rp. Dalam Juta</p>
-                </div>
-            </div>
-            <div class="row container-keterangan-persen">
-                <div class="col-12">
-                    <p class="keterangan">Dalam Persen</p>
-                </div>
-            </div> --}}
+            <h6 class="ml-4 mt-3" style="font-weight: bold;text-align:center;" id="judul-bp"></h6>
             <div class="row">
                 <div class="col-12">
                     <div id="bp"></div>
@@ -378,6 +342,18 @@
 <script type="text/javascript">
 var periode = "{{Session::get('periode')}}";
 var pembagi = 1000000;
+var warna = ['#BFBFBF', '#9EEADC', '#288372', '#14213d', '#FCA311'];
+var bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+var bulanSingkat = ['JAN', 'FEB', 'MAR', 'APR', 'MEI', 'JUN', 'JUL', 'AGT', 'SEP', 'OKT', 'NOV', 'DES'];
+var split = periode.match(/.{1,4}/g);
+var tahun = split[0];
+var numTahun = parseInt(tahun);
+var tahunSebelumnya = numTahun - 1;
+var numMonth = parseInt(split[1]) - 1;
+var namaMonth = bulan[numMonth];
+var keterangan = "Periode sampai dengan "+namaMonth+" "+tahun;
+var judulCC = "Realisasi CC YTD "+bulanSingkat[numMonth]+" "+tahun+"";
+var judulBP = "Realisasi BP YTD "+bulanSingkat[numMonth]+" "+tahun+"";
 
 var header = document.getElementById('filter-header');
 var buttonTop = document.getElementById('button-top');
@@ -396,6 +372,9 @@ window.onscroll = function() {
         buttonFilter.classList.add('btn-filter-no-scroll')
     }
 }
+
+    $('#judul-cc').text(judulCC);
+    $('#judul-bp').text(judulBP);
 
     function topFunction() {
         document.body.scrollTop = 0;
@@ -436,6 +415,18 @@ window.onscroll = function() {
         $('#real-cc').empty();
         getDataCC();
         getDataBP();
+        split = periode.match(/.{1,4}/g);
+        tahun = split[0];
+        numMonth = parseInt(split[1]) - 1;
+        numTahun = parseInt(tahun);
+        namaMonth = bulan[numMonth];
+        tahunSebelumnya = numTahun - 1;
+        keterangan = "Periode sampai dengan "+namaMonth+" "+tahun;
+        judulCC = "Realisasi CC YTD "+bulanSingkat[numMonth]+" "+tahun+"";
+        judulBP = "Realisasi BP YTD "+bulanSingkat[numMonth]+" "+tahun+"";
+        $('#keterangan-filter').text(keterangan);
+        $('#judul-cc').text(judulCC);
+        $('#judul-bp').text(judulBP);
         $('#modalFilter').modal('hide');
     })
 
@@ -514,8 +505,8 @@ window.onscroll = function() {
 
                 html += "<tr>";
                 html += "<td style='position: relative;'>";
-                html += "<div style='height: 15px; width:25px; background-color:#ebebff;display:inline-block;margin-left:3px;margin-top:1px;'></div>";
-                html += "REA YTD OKT 2019";
+                html += "<div style='height: 15px; width:25px; background-color:#BFBFBF;display:inline-block;margin-left:3px;margin-top:1px;'></div>";
+                html += "&nbsp;REA YTD "+bulanSingkat[numMonth]+" "+tahunSebelumnya+"";
                 html += "</td>";
                 for(var x=0;x<rea_bef.length;x++) {
                     html += "<td style='text-align: right;'>";
@@ -526,8 +517,8 @@ window.onscroll = function() {
 
                 html += "<tr>";
                 html += "<td style='position: relative;'>";
-                html += "<div style='height: 15px; width:25px; background-color:#8989ff;display:inline-block;margin-left:3px;margin-top:1px;'></div>";
-                html += "RKA YTD OKT 2020";
+                html += "<div style='height: 15px; width:25px; background-color:#9EEADC;display:inline-block;margin-left:3px;margin-top:1px;'></div>";
+                html += "&nbsp;RKA YTD "+bulanSingkat[numMonth]+" "+tahun+"";
                 html += "</td>";
                 for(var x=0;x<rka_now.length;x++) {
                     html += "<td style='text-align: right;'>";
@@ -538,8 +529,8 @@ window.onscroll = function() {
 
                 html += "<tr>";
                 html += "<td style='position: relative;'>";
-                html += "<div style='height: 15px; width:25px; background-color:#2727ff;display:inline-block;margin-left:3px;margin-top:1px;'></div>";
-                html += "REA YTD OKT 2020";
+                html += "<div style='height: 15px; width:25px; background-color:#288372;display:inline-block;margin-left:3px;margin-top:1px;'></div>";
+                html += "&nbsp;REA YTD "+bulanSingkat[numMonth]+" "+tahun+"";
                 html += "</td>";
                 for(var x=0;x<rea_now.length;x++) {
                     html += "<td style='text-align: right;'>";
@@ -550,8 +541,8 @@ window.onscroll = function() {
 
                 html += "<tr>";
                 html += "<td style='position: relative;'>";
-                html += "<div style='height: 15px; width:25px; background-color:#008000;display:inline-block;margin-left:3px;margin-top:1px;'></div>";
-                html += "ACH";
+                html += "<div style='height: 15px; width:25px; background-color:#14213d;display:inline-block;margin-left:3px;margin-top:1px;'></div>";
+                html += "&nbsp;ACH";
                 html += "</td>";
                 for(var x=0;x<ach.length;x++) {
                     html += "<td style='text-align: right;'>";
@@ -562,8 +553,8 @@ window.onscroll = function() {
 
                 html += "<tr>";
                 html += "<td style='position: relative;'>";
-                html += "<div style='height: 15px; width:25px; background-color:#ffa500;display:inline-block;margin-left:3px;margin-top:1px;'></div>";
-                html += "YoY";
+                html += "<div style='height: 15px; width:25px; background-color:#FCA311;display:inline-block;margin-left:3px;margin-top:1px;'></div>";
+                html += "&nbsp;YoY";
                 html += "</td>";
                 for(var x=0;x<yoy.length;x++) {
                     html += "<td style='text-align: right;'>";
@@ -573,11 +564,11 @@ window.onscroll = function() {
                 html += "</tr>";
 
                 $('#real-cc').append(html);
-                chart.push({type:'column', name:'REA YTD OKT 2019', data:rea_bef, color:'#ebebff'})
-                chart.push({type:'column', name:'RKA YTD OKT 2020', data:rka_now, color:'#8989ff'})
-                chart.push({type:'column', name:'REA YTD OKT 2020', data:rea_now, color:'#2727ff'})
-                chart.push({type:'spline', name:'ACH', data:ach, color:'#008000', yAxis:1, marker: {lineWidth: 2 }})
-                chart.push({type:'spline', name:'YoY', data:yoy, color:'#ffa500', yAxis:1, marker: {lineWidth: 2 }})
+                chart.push({type:'column', name:"REA YTD "+bulanSingkat[numMonth]+" "+tahunSebelumnya+"", data:rea_bef, color:'#BFBFBF'})
+                chart.push({type:'column', name:"RKA YTD "+bulanSingkat[numMonth]+" "+tahun+"", data:rka_now, color:'#9EEADC'})
+                chart.push({type:'column', name:"REA YTD "+bulanSingkat[numMonth]+" "+tahun+"", data:rea_now, color:'#288372'})
+                chart.push({type:'spline', name:'ACH', data:ach, color:'#14213d', yAxis:1, marker: {lineWidth: 2 }})
+                chart.push({type:'spline', name:'YoY', data:yoy, color:'#FCA311', yAxis:1, marker: {lineWidth: 2 }})
 
                 Highcharts.chart('cc', {
                     chart:{
@@ -697,8 +688,8 @@ window.onscroll = function() {
 
                 html += "<tr>";
                 html += "<td style='position: relative;'>";
-                html += "<div style='height: 15px; width:25px; background-color:#ebebff;display:inline-block;margin-left:3px;margin-top:1px;'></div>";
-                html += "&nbsp;REA YTD OKT 2019";
+                html += "<div style='height: 15px; width:25px; background-color:#BFBFBF;display:inline-block;margin-left:3px;margin-top:1px;'></div>";
+                html += "&nbsp;REA YTD "+bulanSingkat[numMonth]+" "+tahunSebelumnya+"";
                 html += "</td>";
                 for(var x=0;x<rea_bef.length;x++) {
                     html += "<td style='text-align: right;'>";
@@ -709,8 +700,8 @@ window.onscroll = function() {
 
                 html += "<tr>";
                 html += "<td style='position: relative;'>";
-                html += "<div style='height: 15px; width:25px; background-color:#8989ff;display:inline-block;margin-left:3px;margin-top:1px;'></div>";
-                html += "&nbsp;RKA YTD OKT 2020";
+                html += "<div style='height: 15px; width:25px; background-color:#9EEADC;display:inline-block;margin-left:3px;margin-top:1px;'></div>";
+                html += "&nbsp;RKA YTD "+bulanSingkat[numMonth]+" "+tahun+"";
                 html += "</td>";
                 for(var x=0;x<rka_now.length;x++) {
                     html += "<td style='text-align: right;'>";
@@ -721,8 +712,8 @@ window.onscroll = function() {
 
                 html += "<tr>";
                 html += "<td style='position: relative;'>";
-                html += "<div style='height: 15px; width:25px; background-color:#2727ff;display:inline-block;margin-left:3px;margin-top:1px;'></div>";
-                html += "&nbsp;REA YTD OKT 2020";
+                html += "<div style='height: 15px; width:25px; background-color:#288372;display:inline-block;margin-left:3px;margin-top:1px;'></div>";
+                html += "&nbsp;REA YTD "+bulanSingkat[numMonth]+" "+tahun+"";
                 html += "</td>";
                 for(var x=0;x<rea_now.length;x++) {
                     html += "<td style='text-align: right;'>";
@@ -733,7 +724,7 @@ window.onscroll = function() {
 
                 html += "<tr>";
                 html += "<td style='position: relative;'>";
-                html += "<div style='height: 15px; width:25px; background-color:#008000;display:inline-block;margin-left:3px;margin-top:1px;'></div>";
+                html += "<div style='height: 15px; width:25px; background-color:#14213d;display:inline-block;margin-left:3px;margin-top:1px;'></div>";
                 html += "&nbsp;ACH";
                 html += "</td>";
                 for(var x=0;x<ach.length;x++) {
@@ -745,7 +736,7 @@ window.onscroll = function() {
 
                 html += "<tr>";
                 html += "<td style='position: relative;'>";
-                html += "<div style='height: 15px; width:25px; background-color:#ffa500;display:inline-block;margin-left:3px;margin-top:1px;'></div>";
+                html += "<div style='height: 15px; width:25px; background-color:#FCA311;display:inline-block;margin-left:3px;margin-top:1px;'></div>";
                 html += "&nbsp;YoY";
                 html += "</td>";
                 for(var x=0;x<yoy.length;x++) {
@@ -756,11 +747,11 @@ window.onscroll = function() {
                 html += "</tr>";
 
                 $('#real-bp').append(html);
-                chart.push({type:'column', name:'REA YTD OKT 2019', data:rea_bef, color:'#ebebff'})
-                chart.push({type:'column', name:'RKA YTD OKT 2020', data:rka_now, color:'#8989ff'})
-                chart.push({type:'column', name:'REA YTD OKT 2020', data:rea_now, color:'#2727ff'})
-                chart.push({type:'spline', name:'ACH', data:ach, yAxis:1, color:'#008000'})
-                chart.push({type:'spline', name:'YoY', data:yoy, yAxis:1, color:'#ffa500'})
+                chart.push({type:'column', name:'REA YTD OKT 2019', data:rea_bef, color:'#BFBFBF'})
+                chart.push({type:'column', name:'RKA YTD OKT 2020', data:rka_now, color:'#9EEADC'})
+                chart.push({type:'column', name:'REA YTD OKT 2020', data:rea_now, color:'#288372'})
+                chart.push({type:'spline', name:'ACH', data:ach, yAxis:1, color:'#14213d'})
+                chart.push({type:'spline', name:'YoY', data:yoy, yAxis:1, color:'#FCA311'})
 
                 Highcharts.chart('bp', {
                     chart:{
