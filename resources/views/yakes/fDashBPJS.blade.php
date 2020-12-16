@@ -474,9 +474,9 @@
                             
                         </ul>
                     </div>
-                    <div class="dropdown-dash dropdown dropdown-filter">
+                    <div class="dropdown-jenis dropdown dropdown-filter">
                         <button class="btn btn-light select-dash" style="background-color: #ffffff;width: 100%;text-align:left;" type="button" data-toggle="dropdown">
-                            Jenis : Pegawai
+                            Jenis : Total
                             <span id="value-jenis" style="display: none;"></span>
                             <span class="glyph-icon simple-icon-arrow-down" style="float: right; margin-top:3%;"></span>
                         </button>
@@ -488,6 +488,10 @@
                             <li>
                                 <span style="display: none;">PNS</span>
                                 <span>Pensiun</span>
+                            </li>
+                            <li>
+                                <span style="display: none;">TTL</span>
+                                <span>Total</span>
                             </li>
                         </ul>
                     </div>
@@ -501,6 +505,8 @@
     </div>
 </div>
 <script type="text/javascript">
+    var dashBPJS = "UTL";
+    var jenis = "TTL";
     var dashboard = "";
     var bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
     var periode = "{{Session::get('periode')}}";
@@ -539,10 +545,18 @@
     })
 
     $('#form-filter').on('click', '#btn-reset', function(){
+        var text1 = "Utilisasi BPJS";
         var text2 = "{{Session::get('periode')}}";
+        var text3 = "Total";
+        var htmlTextDash = "Dashboard : "+text1+"<span class='glyph-icon simple-icon-arrow-down' style='float: right; margin-top:3%;'></span>";
+        $('.dropdown-dash').find('.select-dash').html(htmlTextDash);
         var htmlTextPeriode = "Periode : "+text2+"<span class='glyph-icon simple-icon-arrow-down' style='float: right; margin-top:3%;'></span>";
         $('.dropdown-periode').find('.select-dash').html(htmlTextPeriode);
+        var htmlTextJenis = "Jenis : "+text3+"<span class='glyph-icon simple-icon-arrow-down' style='float: right; margin-top:3%;'></span>";
+        $('.dropdown-jenis').find('.select-dash').html(htmlTextJenis);
+        dashBPJS = "UTL";
         periode = "{{Session::get('periode')}}";
+        jenis = "TTL";
     })
 
     $('#form-filter').on('click', '#btn-tampil', function(){
@@ -579,6 +593,14 @@
         var htmlText = "Jenis : "+text+"<span class='glyph-icon simple-icon-arrow-down' style='float: right; margin-top:2%;'></span>";
         $(this).closest('.dropdown-jenis').find('.select-dash').html(htmlText);
         jenis = value;
+    });
+
+    $('.dash-bpjs').on( 'click', 'li', function() {
+        var value = $(this).find('span').first().text();
+        var text = $(this).find('span').last().text();
+        var htmlText = "Dashboard : "+text+"<span class='glyph-icon simple-icon-arrow-down' style='float: right; margin-top:2%;'></span>";
+        $(this).closest('.dropdown-dash').find('.select-dash').html(htmlText);
+        dashBPJS = value;
     });
 
     $('#dash-list').on( 'click', 'tr', function() {

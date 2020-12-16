@@ -168,6 +168,18 @@
     #keterangan-filter {
         margin: 10px;
     }
+    .highcharts-color-0 {
+        fill: #9EEADC !important;
+    }
+    .highcharts-color-1 {
+        fill: #47D7BD !important;
+    }
+    .highcharts-color-0 .highcharts-point {
+        fill: #9EEADC !important;
+    }
+    .highcharts-color-1 .highcharts-point {
+        fill: #47D7BD !important;
+    }
 </style>
 
 <button id="button-top" class="button-top" onclick="topFunction()">
@@ -618,7 +630,7 @@ window.onscroll = function() {
                         column: {
                             pointPadding: 0.1,
                             borderWidth: 0,
-                            color: '#ed7d31',
+                            color: '#288372',
                             dataLabels: {
                                 enabled: true,
                                 useHTML: true,
@@ -669,7 +681,8 @@ window.onscroll = function() {
                         plotBorderWidth: null,
                         plotShadow: false,
                         type: 'pie',
-                        height: 300
+                        height: 300,
+                        colors: ['#9EEADC', '#47D7BD']
                     },
                     exporting:{
                         enabled: false
@@ -744,7 +757,8 @@ window.onscroll = function() {
                         plotBorderWidth: null,
                         plotShadow: false,
                         type: 'pie',
-                        height: 300
+                        height: 300,
+                        colors: ['#9EEADC', '#47D7BD']
                     },
                     exporting:{
                         enabled: false
@@ -841,7 +855,7 @@ window.onscroll = function() {
                         column: {
                             pointPadding: 0.1,
                             borderWidth: 0,
-                            color: '#ed7d31',
+                            color: '#288372',
                             dataLabels: {
                                 enabled: true,
                             }
