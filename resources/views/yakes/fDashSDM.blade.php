@@ -630,7 +630,7 @@ window.onscroll = function() {
                         column: {
                             pointPadding: 0.1,
                             borderWidth: 0,
-                            color: '#ed7d31',
+                            color: '#288372',
                             dataLabels: {
                                 enabled: true,
                                 useHTML: true,
@@ -855,7 +855,7 @@ window.onscroll = function() {
                         column: {
                             pointPadding: 0.1,
                             borderWidth: 0,
-                            color: '#ed7d31',
+                            color: '#288372',
                             dataLabels: {
                                 enabled: true,
                             }
