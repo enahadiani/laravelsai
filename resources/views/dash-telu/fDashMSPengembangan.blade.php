@@ -253,31 +253,6 @@ function getPeriode(){
 
 getPeriode();
 
-function drawChart2() {
-    var data = $google.visualization.arrayToDataTable([
-        ['Task', 'Hours per Day'],
-        ['Work',     11],
-        ['Eat',      2],
-        ['Commute',  2],
-        ['Watch TV', 2],
-        ['Sleep',    7]
-        ]);
-        
-    var options = {
-        // pieSliceText: 'none',
-        chartArea:{
-            width: '100%',
-            height: '85%'
-        },
-        legend: {position: 'none'},
-        width: '100%',
-        height: '100%'
-    };
-        
-    var chart = new google.visualization.PieChart(document.getElementById('komposisi'));
-    chart.draw(data, options);
-}
-
 function getMsPengembangan(periode=null){
     $.ajax({
         type:"GET",
@@ -323,41 +298,58 @@ function getMsPengembangan(periode=null){
     })
 }
 
-function getMsBebanKlp(periode=null){
-    // $.ajax({
-    //     type:"GET",
-    //     url:"{{ url('/telu-dash/ms-beban-rka') }}/"+periode,
-    //     dataType:"JSON",
-    //     success:function(result){
-        $google.charts.load('current', {'packages':['corechart']});
-        $google.charts.setOnLoadCallback(drawChart2);
-    //     },
-    //     error: function(jqXHR, textStatus, errorThrown) {       
-    //         if(jqXHR.status == 422){
-    //             var msg = jqXHR.responseText;
-    //         }else if(jqXHR.status == 500) {
-    //             var msg = "Internal server error";
-    //         }else if(jqXHR.status == 401){
-    //             var msg = "Unauthorized";
-    //             window.location="{{ url('/dash-telu/sesi-habis') }}";
-    //         }else if(jqXHR.status == 405){
-    //             var msg = "Route not valid. Page not found";
-    //         }
+function getMsPengembanganKomposisi(periode=null){
+    $.ajax({
+        type:"GET",
+        url:"{{ url('/telu-dash/ms-pengembangan-komposisi') }}",
+        data:{periode : periode},
+        dataType:"JSON",
+        success:function(result){
+            if(result.data.length > 0){
+                $google.charts.load('current', {'packages':['corechart']});
+                $google.charts.setOnLoadCallback(function (){
+                    var data = $google.visualization.arrayToDataTable(result.data);
+                        
+                    var options = {
+                        // pieSliceText: 'none',
+                        chartArea:{
+                            width: '100%',
+                            height: '85%'
+                        },
+                        legend: {position: 'none'},
+                        width: '100%',
+                        height: '100%'
+                    };
+                        
+                    var chart = new google.visualization.PieChart(document.getElementById('komposisi'));
+                    chart.draw(data, options);
+                });
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {       
+            if(jqXHR.status == 422){
+                var msg = jqXHR.responseText;
+            }else if(jqXHR.status == 500) {
+                var msg = "Internal server error";
+            }else if(jqXHR.status == 401){
+                var msg = "Unauthorized";
+                window.location="{{ url('/dash-telu/sesi-habis') }}";
+            }else if(jqXHR.status == 405){
+                var msg = "Route not valid. Page not found";
+            }
             
-    //     }
-    // })
+        }
+    })
 }
 
 getMsPengembangan("{{$periode}}");
-getMsBebanKlp("{{$periode}}");
+getMsPengembanganKomposisi("{{$periode}}");
     
 $('#form-filter').submit(function(e){
     e.preventDefault();
     var periode = $('#periode')[0].selectize.getValue();
-    getPencapaianYoY(periode);
-    getRkaVsReal(periode);
-    getGrowthRKA(periode);
-    getGrowthReal(periode);
+    getMsPengembangan(periode);
+    getMsPengembanganKomposisi(periode);
     var tahun = parseInt(periode.substr(0,4));
     var tahunLalu = tahun-1;
     $('.thnLalu').text(tahunLalu);
