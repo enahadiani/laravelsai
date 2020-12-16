@@ -185,7 +185,7 @@
         <div class="row">
             <div class="col-6">
                 <h6>Biaya Kunjungan</h6>
-                <p id="keterangan-filter">Periode sampai dengan Desember 2020</p>
+                <p id="keterangan-filter"></p>
             </div>
             <div class="col-6">
                 <button id="button-filter" class="btn btn-light btn-filter btn-filter-no-scroll">
@@ -198,7 +198,7 @@
         </div>
     </div>
 
-    <div class="row" style="position: relative;margin-top:30px;">
+    <div class="row" style="position: relative;margin-top:20px;">
     <div class="col-4">
         <div class="card">
             <h6 class="ml-4 mt-3 mb-0" style="font-weight: bold;" id="claim-ket"></h6>
