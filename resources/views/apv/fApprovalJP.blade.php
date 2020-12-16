@@ -157,7 +157,8 @@
                             </div>
                             <ul class="nav nav-tabs" role="tablist">
                                 <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#det" role="tab" aria-selected="true"><span class="hidden-xs-down">Barang</span></a> </li>
-                                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#dok" role="tab" aria-selected="false"><span class="hidden-xs-down">Dokumen</span></a> </li>
+                                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#dok" role="tab" aria-selected="false"><span class="hidden-xs-down">Dokumen PO</span></a> </li>
+                                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#dok2" role="tab" aria-selected="false"><span class="hidden-xs-down">Dokumen Pembanding</span></a> </li>
                                 <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#catt" role="tab" aria-selected="false"><span class="hidden-xs-down">Catatan Approve</span></a> </li>
                             </ul>
                             <div class="tab-content tabcontent-border">
@@ -196,6 +197,28 @@
                                             }
                                         </style>
                                         <table class="table table-striped table-bordered table-condensed" id="input-dok">
+                                        <thead>
+                                            <tr>
+                                                <th width="5%">No</th>
+                                                <th width="60%">Nama Dokumen</th>
+                                                <th width="30%">File</th>
+                                                <th width="5%">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="dok2" role="tabpanel">
+                                    <div class='col-xs-12 mt-2' style='overflow-y: scroll; height:300px; margin:0px; padding:0px;'>
+                                        <style>
+                                            th,td{
+                                                padding:8px !important;
+                                                vertical-align:middle !important;
+                                            }
+                                        </style>
+                                        <table class="table table-striped table-bordered table-condensed" id="input-dok2">
                                         <thead>
                                             <tr>
                                                 <th width="5%">No</th>
@@ -565,8 +588,25 @@
                         }
                     }
 
+                    var input3 = "";
+                    var no=1;
+                    if(result.data_dokumen2.length > 0){
+
+                        for(var i=0;i< result.data_dokumen2.length;i++){
+                            var line2 = result.data_dokumen2[i];
+                            input3 += "<tr class='row-dok2'>";
+                            input3 += "<td width='5%'  class='no-dok2'>"+no+"</td>";
+                            input3 += "<td width='60%'>"+line2.nama+"</td>";
+                            input3 += "<td width='30%'>"+line2.file_dok+"</td>";
+                            input3 += "<td width='5%'><a class='btn btn-danger btn-sm down-dok' style='font-size:8px' href='http://api.simkug.com/api/apv/storage/"+line2.file_dok+"' target='_blank'><i class='fa fa-download fa-1'></i></td>";
+                            input3 += "</tr>";
+                            no++;
+                        }
+                    }
+
                     $('#input-grid2 tbody').html(input);
                     $('#input-dok tbody').html(input2);
+                    $('#input-dok2 tbody').html(input3);
                     $('.currency').inputmask("numeric", {
                         radixPoint: ",",
                         groupSeparator: ".",
