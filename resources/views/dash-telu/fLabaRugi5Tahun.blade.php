@@ -311,7 +311,12 @@ function drawVisualization() {
             },
             colors: ['#4c4c4c', '#900604', '#ffc114', '#16ff14'],
             height:'100%',
-            width:'100%'
+            width:'100%',
+            animation: {
+                startup: true,
+                duration: 1000,
+                easing: 'out'
+            }
             
         };
         

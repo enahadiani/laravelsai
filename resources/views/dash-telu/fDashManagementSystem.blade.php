@@ -76,6 +76,9 @@ $thnLalu = substr($tahunLalu,2,2)
     .trace {
         cursor:pointer;
     }
+    .table tr:hover{
+        background: #f8f8f8;
+    }
     </style>
 
 <div class="container-fluid mt-3">

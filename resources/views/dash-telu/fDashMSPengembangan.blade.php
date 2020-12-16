@@ -276,6 +276,11 @@ function getMsPengembangan(periode=null){
                             width: '100%',
                             legend: {position: 'none'},
                             vAxis: {format: 'decimal', title: 'Milyar Rupiah'},
+                            animation: {
+                                startup: true,
+                                duration: 1000,
+                                easing: 'out'
+                            }
                         };
                         var chart = new google.visualization.ColumnChart(document.getElementById("rka"));
                         chart.draw(view, options);
@@ -306,6 +311,7 @@ function getMsPengembanganKomposisi(periode=null){
         dataType:"JSON",
         success:function(result){
             if(result.data.length > 0){
+                console.log(result.data);
                 $google.charts.load('current', {'packages':['corechart']});
                 $google.charts.setOnLoadCallback(function (){
                     var data = $google.visualization.arrayToDataTable(result.data);
@@ -318,11 +324,33 @@ function getMsPengembanganKomposisi(periode=null){
                         },
                         legend: {position: 'none'},
                         width: '100%',
-                        height: '100%'
+                        height: '100%',
+                        animation: {
+                            startup: true,
+                            duration: 1000,
+                            easing: 'in'
+                        }
                     };
                         
                     var chart = new google.visualization.PieChart(document.getElementById('komposisi'));
                     chart.draw(data, options);
+                     // initial value
+                    var percent = 0;
+                    // start the animation loop
+                    // var handler = setInterval(function(){
+                    //     // values increment
+                    //     percent += 1;
+                    //     console.log(percent);
+                    //     // apply new values
+                    //     data.setValue(0, 1, percent);
+                    //     data.setValue(1, 1, 100 - percent);
+                    //     // update the pie
+                    //     chart.draw(data, options);
+                    //     // check if we have reached the desired value
+                    //     if (percent > 75)
+                    //         // stop the loop
+                    //         clearInterval(handler);
+                    // }, 10);
                 });
             }
         },
