@@ -265,12 +265,13 @@
                                                 vertical-align:middle !important;
                                             }
                                         </style>
-                                        <table class="table table-striped table-bordered table-condensed" id="input-dok">
+                                        <table class="table table-striped table-bordered table-condensed" id="input-dok" style='width:100%'>
                                         <thead>
                                             <tr>
                                                 <th width="5%">No</th>
-                                                <th width="60%">Nama Dokumen</th>
-                                                <th width="305%">File</th>
+                                                <th width="30%">Nama Dokumen</th>
+                                                <th width="30%">Nama File Upload</th>
+                                                <th width="30%">Upload File</th>
                                                 <th width="5%"><button type="button" href="#" id="add-row-dok" class="btn btn-default"><i class="fa fa-plus-circle"></i></button></th>
                                             </tr>
                                         </thead>
@@ -287,12 +288,13 @@
                                                 vertical-align:middle !important;
                                             }
                                         </style>
-                                        <table class="table table-striped table-bordered table-condensed" id="input-dok2">
+                                        <table class="table table-striped table-bordered table-condensed" id="input-dok2" style='width:100%'>
                                         <thead>
                                             <tr>
                                                 <th width="5%">No</th>
-                                                <th width="60%">Nama Dokumen</th>
-                                                <th width="305%">File</th>
+                                                <th width="30%">Nama Dokumen</th>
+                                                <th width="30%">Nama File Upload</th>
+                                                <th width="30%">Upload File</th>
                                                 <th width="5%"><button type="button" href="#" id="add-row-dok2" class="btn btn-default"><i class="fa fa-plus-circle"></i></button></th>
                                             </tr>
                                         </thead>
@@ -839,13 +841,15 @@
         $('#form-tambah')[0].reset();
     });
 
+   
     $('#saku-form').on('click', '#add-row-dok', function(){
         var no=$('#input-dok .row-dok:last').index();
         no=no+2;
         var input="";
         input = "<tr class='row-dok'>";
         input += "<td width='5%'  class='no-dok'>"+no+"</td>";
-        input += "<td width='30%'><input type='text' name='nama_dok[]' class='form-control inp-dok' value='' required></td>";
+        input += "<td width='30%'><input type='text' name='nama_dok[]' class='form-control inp-dok' value='' required><input type='hidden' name='jenis_dok[]' class='form-control inp-jenis_dok' value='PO' required></td>";
+        input += "<td width='30%'><input type='text' name='nama_file[]' class='form-control inp-nama' value='-' required readonly></td>";
         input += "<td width='30%'>"+
         "<input type='file' name='file_dok[]' required  class='inp-file_dok'>"+
         "</td>";
@@ -853,6 +857,23 @@
         input += "</tr>";
         $('#input-dok tbody').append(input);
     });
+
+    $('#saku-form').on('click', '#add-row-dok2', function(){
+        var no=$('#input-dok2 .row-dok2:last').index();
+        no=no+2;
+        var input="";
+        input = "<tr class='row-dok2'>";
+        input += "<td width='5%'  class='no-dok2'>"+no+"</td>";
+        input += "<td width='30%'><input type='text' name='nama_dok[]' class='form-control inp-dok' value='' required><input type='hidden' name='jenis_dok[]' class='form-control inp-jenis_dok' value='PBD' required></td>";
+        input += "<td width='30%'><input type='text' name='nama_file[]' class='form-control inp-nama' value='-' required readonly></td>";
+        input += "<td width='30%'>"+
+        "<input type='file' name='file_dok[]' required  class='inp-file_dok'>"+
+        "</td>";
+        input += "<td width='5%'><a class='btn btn-danger btn-sm hapus-dok' style='font-size:8px'><i class='fa fa-times fa-1'></i></td>";
+        input += "</tr>";
+        $('#input-dok2 tbody').append(input);
+    });
+
 
     $('#saku-form').on('click', '#add-row', function(){
 
@@ -1024,36 +1045,42 @@
                         }
 
                         var input2 = "";
-                        var no=1;
-                        if(result.data_dokumen.length > 0){
-                            for(var i=0;i< result.data_dokumen.length;i++){
-                                var line2 = result.data_dokumen[i];
-                                input2 += "<tr class='row-dok'>";
-                                input2 += "<td width='5%'  class='no-dok'>"+no+"</td>";
-                                input2 += "<td width='60%'><input type='text' name='nama_dok[]' class='form-control inp-dok' value='"+line2.nama+"' required readonly></td>";
-                                input2 += "<td width='30%'>"+
-                                "<input type='text' name='file_dok[]' class='form-control inp-file' value='"+
-                                line2.file_dok+"' readonly></td><td width='5%'> <a type='button'  href='http://api.simkug.com/api/apv/storage/"+line2.file_dok+"' target='_blank' class='btn btn-info btn-sm'><i class='fa fa-download'></i></a></td>";
-                                input2 += "</tr>";
-                                no++;
-                            }
-                        }
+                    var no=1;
+                    if(result.data_dokumen.length > 0){
 
-                        var input3 = "";
-                        var no=1;
-                        if(result.data_dokumen2.length > 0){
-                            for(var i=0;i< result.data_dokumen2.length;i++){
-                                var line2 = result.data_dokumen2[i];
-                                input3 += "<tr class='row-dok'>";
-                                input3 += "<td width='5%'  class='no-dok'>"+no+"</td>";
-                                input3 += "<td width='60%'><input type='text' name='nama_dok[]' class='form-control inp-dok' value='"+line2.nama+"' required readonly></td>";
-                                input3 += "<td width='30%'>"+
-                                "<input type='text' name='file_dok[]' class='form-control inp-file' value='"+
-                                line2.file_dok+"' readonly></td><td width='5%'> <a type='button'  href='http://api.simkug.com/api/apv/storage/"+line2.file_dok+"' target='_blank' class='btn btn-info btn-sm'><i class='fa fa-download'></i></a></td>";
-                                input3 += "</tr>";
-                                no++;
-                            }
+                        for(var i=0;i< result.data_dokumen.length;i++){
+                            var line2 = result.data_dokumen[i];
+                            input2 += "<tr class='row-dok'>";
+                            input2 += "<td width='5%'  class='no-dok'>"+no+"</td>";
+                            input2 += "<td width='30%'><input type='text' name='nama_dok[]' class='form-control inp-dok' value='"+line2.nama+"' required><input type='hidden' name='jenis_dok[]' class='form-control inp-jenis_dok' value='PO' required></td>";
+                            input2 += "<td width='20%'><input type='text' name='nama_file[]' class='form-control inp-nama' value='"+line2.file_dok+"' required readonly></td>";
+                            input2 += "<td width='30%'>"+
+                            "<input type='file' name='file_dok[]' class='inp-file_dok'>"+
+                            "</td>";
+                            input2 += "<td width='5%'><a class='btn btn-success btn-sm down-dok' style='font-size:8px' href='http://api.simkug.com/api/apv/storage/"+line2.file_dok+"' target='_blank'><i class='fa fa-download fa-1'></i></a></td>";
+                            input2 += "</tr>";
+                            no++;
                         }
+                    }
+
+                    var input3 = "";
+                    var no=1;
+                    if(result.data_dokumen2.length > 0){
+
+                        for(var i=0;i< result.data_dokumen2.length;i++){
+                            var line2 = result.data_dokumen2[i];
+                            input3 += "<tr class='row-dok2'>";
+                            input3 += "<td width='5%'  class='no-dok2'>"+no+"</td>";
+                            input3 += "<td width='30%'><input type='text' name='nama_dok[]' class='form-control inp-dok' value='"+line2.nama+"' required><input type='hidden' name='jenis_dok[]' class='form-control inp-jenis_dok' value='PBD' required></td>";
+                            input3 += "<td width='20%'><input type='text' name='nama_file[]' class='form-control inp-nama' value='"+line2.file_dok+"' required readonly></td>";
+                            input3 += "<td width='30%'>"+
+                            "<input type='file' name='file_dok[]' class='inp-file_dok'>"+
+                            "</td>";
+                            input3 += "<td width='5%'><a class='btn btn-success btn-sm down-dok' style='font-size:8px' href='http://api.simkug.com/api/apv/storage/"+line2.file_dok+"' target='_blank'><i class='fa fa-download fa-1'></i></a></td>";
+                            input3 += "</tr>";
+                            no++;
+                        }
+                    }
 
                         $('#input-grid2 tbody').html(input);
                         
@@ -1156,36 +1183,42 @@
                         }
 
                         var input2 = "";
-                        var no=1;
-                        if(result.data_dokumen.length > 0){
-                            for(var i=0;i< result.data_dokumen.length;i++){
-                                var line2 = result.data_dokumen[i];
-                                input2 += "<tr class='row-dok'>";
-                                input2 += "<td width='5%'  class='no-dok'>"+no+"</td>";
-                                input2 += "<td width='60%'><input type='text' name='nama_dok[]' class='form-control inp-dok' value='"+line2.nama+"' required readonly></td>";
-                                input2 += "<td width='30%'>"+
-                                "<input type='text' name='nama_file[]' class='form-control inp-file' value='"+
-                                line2.file_dok+"' readonly></td><td width='5%'> <a type='button'  href='http://api.simkug.com/api/apv/storage/"+line2.file_dok+"' target='_blank' class='btn btn-info btn-sm'><i class='fa fa-download'></i></a></td>";
-                                input2 += "</tr>";
-                                no++;
-                            }
-                        }
+                    var no=1;
+                    if(result.data_dokumen.length > 0){
 
-                        var input3 = "";
-                        var no=1;
-                        if(result.data_dokumen2.length > 0){
-                            for(var i=0;i< result.data_dokumen2.length;i++){
-                                var line2 = result.data_dokumen2[i];
-                                input3 += "<tr class='row-dok'>";
-                                input3 += "<td width='5%'  class='no-dok'>"+no+"</td>";
-                                input3 += "<td width='60%'><input type='text' name='nama_dok[]' class='form-control inp-dok' value='"+line2.nama+"' required readonly></td>";
-                                input3 += "<td width='30%'>"+
-                                "<input type='text' name='nama_file[]' class='form-control inp-file' value='"+
-                                line2.file_dok+"' readonly></td><td width='5%'> <a type='button'  href='http://api.simkug.com/api/apv/storage/"+line2.file_dok+"' target='_blank' class='btn btn-info btn-sm'><i class='fa fa-download'></i></a></td>";
-                                input3 += "</tr>";
-                                no++;
-                            }
+                        for(var i=0;i< result.data_dokumen.length;i++){
+                            var line2 = result.data_dokumen[i];
+                            input2 += "<tr class='row-dok'>";
+                            input2 += "<td width='5%'  class='no-dok'>"+no+"</td>";
+                            input2 += "<td width='30%'><input type='text' name='nama_dok[]' class='form-control inp-dok' value='"+line2.nama+"' required><input type='hidden' name='jenis_dok[]' class='form-control inp-jenis_dok' value='PO' required></td>";
+                            input2 += "<td width='20%'><input type='text' name='nama_file[]' class='form-control inp-nama' value='"+line2.file_dok+"' required readonly></td>";
+                            input2 += "<td width='30%'>"+
+                            "<input type='file' name='file_dok[]' class='inp-file_dok'>"+
+                            "</td>";
+                            input2 += "<td width='5%'><a class='btn btn-success btn-sm down-dok' style='font-size:8px' href='http://api.simkug.com/api/apv/storage/"+line2.file_dok+"' target='_blank'><i class='fa fa-download fa-1'></i></a></td>";
+                            input2 += "</tr>";
+                            no++;
                         }
+                    }
+
+                    var input3 = "";
+                    var no=1;
+                    if(result.data_dokumen2.length > 0){
+
+                        for(var i=0;i< result.data_dokumen2.length;i++){
+                            var line2 = result.data_dokumen2[i];
+                            input3 += "<tr class='row-dok2'>";
+                            input3 += "<td width='5%'  class='no-dok2'>"+no+"</td>";
+                            input3 += "<td width='30%'><input type='text' name='nama_dok[]' class='form-control inp-dok' value='"+line2.nama+"' required><input type='hidden' name='jenis_dok[]' class='form-control inp-jenis_dok' value='PBD' required></td>";
+                            input3 += "<td width='20%'><input type='text' name='nama_file[]' class='form-control inp-nama' value='"+line2.file_dok+"' required readonly></td>";
+                            input3 += "<td width='30%'>"+
+                            "<input type='file' name='file_dok[]' class='inp-file_dok'>"+
+                            "</td>";
+                            input3 += "<td width='5%'><a class='btn btn-success btn-sm down-dok' style='font-size:8px' href='http://api.simkug.com/api/apv/storage/"+line2.file_dok+"' target='_blank'><i class='fa fa-download fa-1'></i></a></td>";
+                            input3 += "</tr>";
+                            no++;
+                        }
+                    }
 
                         $('#input-grid2 tbody').html(input);
                         var no =1;
@@ -1474,6 +1507,24 @@
             });
             $(this).replaceWith($(this).val('').clone(true));
         }
+    });
+
+    $('#input-dok2').on('change','input[type=file]',function(e){
+        
+        e.preventDefault();
+        var i = $(this).parents('tr').index()+1;
+        var file = $(this)[0].files[0].size;
+        var sizekb = Math.round(file / 1024,2);
+        var sizemb = Math.round(sizekb / 1024,2);
+        if(sizekb > 10240){
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Something went wrong!',
+                footer: '<a href="#" class="text-danger">File Dokumen ke '+i+' tidak valid, ukuran file '+sizemb+'MB. Batas Maksimum upload 10MB </a>'
+            });
+            $(this).replaceWith($(this).val('').clone(true));
+        }
     })
     
     $('#input-grid2').on('click', '.hapus-item', function(){
@@ -1494,6 +1545,17 @@
         no=1;
         $('.row-dok').each(function(){
             var nom = $(this).closest('tr').find('.no-dok');
+            nom.html(no);
+            no++;
+        });
+        $("html, body").animate({ scrollTop: $(document).height() }, 1000);
+    });
+
+    $('#input-dok2').on('click', '.hapus-dok', function(){
+        $(this).closest('tr').remove();
+        no=1;
+        $('.row-dok2').each(function(){
+            var nom = $(this).closest('tr').find('.no-dok2');
             nom.html(no);
             no++;
         });
