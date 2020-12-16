@@ -446,7 +446,7 @@
                     <div class="dropdown-dash dropdown dropdown-filter">
                         <button class="btn btn-light select-dash" style="background-color: #ffffff;width: 100%;text-align:left;" type="button" data-toggle="dropdown">
                             Dashboard : Utilisasi BPJS
-                            <span id="value-periode" style="display: none;"></span>
+                            <span id="value-dash" style="display: none;"></span>
                             <span class="glyph-icon simple-icon-arrow-down" style="float: right; margin-top:3%;"></span>
                         </button>
                         <ul class="dropdown-menu dash-bpjs" role="menu" aria-labelledby="menu1">
@@ -477,7 +477,7 @@
                     <div class="dropdown-dash dropdown dropdown-filter">
                         <button class="btn btn-light select-dash" style="background-color: #ffffff;width: 100%;text-align:left;" type="button" data-toggle="dropdown">
                             Jenis : Pegawai
-                            <span id="value-periode" style="display: none;"></span>
+                            <span id="value-jenis" style="display: none;"></span>
                             <span class="glyph-icon simple-icon-arrow-down" style="float: right; margin-top:3%;"></span>
                         </button>
                         <ul class="dropdown-menu jenis" role="menu" aria-labelledby="menu1">
