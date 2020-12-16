@@ -690,18 +690,6 @@ if(jenis == 'CC') {
         loadForm(dashboard);
     });
 
-// $('#periode').change(function(){
-//     $('#yoy-claim').empty();
-//     $('#yoy-rjtp').empty();
-//     $('#yoy-rjtl').empty();
-//     $('#yoy-ri').empty();
-//     $('#yoy-restitusi').empty();
-//     var val = $(this).val();
-//     periode = val;
-//     getDataKunjungan();
-//     getDataLayanan();
-// })
-
 function getDataKunjungan() {
     $.ajax({
         type:'GET',
