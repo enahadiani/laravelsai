@@ -306,15 +306,15 @@
                     <div class="keterangan">
                         <div style="padding: 0 50px">
                             <div style="height: 20px; width: 20px; border-radius: 50%; background-color:#BFBFBF;display:inline-block;"></div>
-                            <span style="padding-left: 6px;font-weight: bold;position: relative;top:-5px;">YTD Q3'19</span>
+                            <span style="padding-left: 6px;font-weight: bold;position: relative;top:-5px;" class="ytd-last"></span>
                         </div>
                         <div style="padding: 0 50px">
                             <div style="height: 20px; width: 20px; border-radius: 50%; background-color:#9EEADC;display:inline-block;"></div>
-                            <span style="padding-left: 6px;font-weight: bold;position: relative;top:-5px;">RKA Q3'19</span>
+                            <span style="padding-left: 6px;font-weight: bold;position: relative;top:-5px;" class="rka-now"></span>
                         </div>
                         <div style="padding: 0 50px">
                             <div style="height: 20px; width: 20px; border-radius: 50%; background-color:#288372;display:inline-block;"></div>
-                            <span style="padding-left: 6px;font-weight: bold;position: relative;top:-5px;">YTD Q3'20</span>
+                            <span style="padding-left: 6px;font-weight: bold;position: relative;top:-5px;" class="ytd-now"></span>
                         </div>
                     </div>
                 </div>
@@ -415,15 +415,15 @@
                     <div class="keterangan">
                         <div style="padding: 0 50px">
                             <div style="height: 20px; width: 20px; border-radius: 50%; background-color:#BFBFBF;display:inline-block;"></div>
-                            <span style="padding-left: 6px;font-weight: bold;position: relative;top:-5px;">YTD Q3'19</span>
+                            <span style="padding-left: 6px;font-weight: bold;position: relative;top:-5px;" class="ytd-last"></span>
                         </div>
                         <div style="padding: 0 50px">
                             <div style="height: 20px; width: 20px; border-radius: 50%; background-color:#9EEADC;display:inline-block;"></div>
-                            <span style="padding-left: 6px;font-weight: bold;position: relative;top:-5px;">RKA Q3'19</span>
+                            <span style="padding-left: 6px;font-weight: bold;position: relative;top:-5px;" class="rka-now"></span>
                         </div>
                         <div style="padding: 0 50px">
                             <div style="height: 20px; width: 20px; border-radius: 50%; background-color:#288372;display:inline-block;"></div>
-                            <span style="padding-left: 6px;font-weight: bold;position: relative;top:-5px;">YTD Q3'20</span>
+                            <span style="padding-left: 6px;font-weight: bold;position: relative;top:-5px;" class="ytd-now"></span>
                         </div>
                     </div>
                 </div>
@@ -566,6 +566,13 @@
 var bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
 var dashboard = "";
 var periode = "{{Session::get('periode')}}";
+var lastPeriode = periode.slice(2, 4);
+var lastPeriodeNum = parseInt(lastPeriode);
+var lastPeriodeNumYest = lastPeriodeNum - 1;
+var lastPeriodeSebelum = ('0'+lastPeriodeNumYest).slice(-2);
+var ketYTDLast = "YTD Q3 '"+lastPeriodeSebelum+"";
+var ketRKANow = "RKA Q3 '"+lastPeriode+"";
+var ketYTDNow = "YTD Q3 '"+lastPeriode+"";
 var split = periode.match(/.{1,4}/g);
 var tahun = split[0];
 var numMonth = parseInt(split[1]) - 1;
@@ -592,6 +599,9 @@ window.onscroll = function() {
 }
 
 $('#keterangan-filter').text(keterangan);
+$('.ytd-last').text(ketYTDLast);
+$('.rka-now').text(ketRKANow);
+$('.ytd-now').text(ketYTDNow);
 
 function topFunction() {
   document.body.scrollTop = 0;
@@ -642,14 +652,24 @@ if(jenis == 'CC') {
         $('#yoy-rjtl').empty();
         $('#yoy-ri').empty();
         $('#yoy-restitusi').empty();
-        getDataKunjungan();
-        getDataLayanan();
         split = periode.match(/.{1,4}/g);
         tahun = split[0];
         numMonth = parseInt(split[1]) - 1;
         namaMonth = bulan[numMonth];
         keterangan = "Periode sampai dengan "+namaMonth+" "+tahun;
+        lastPeriode = periode.slice(-2);
+        lastPeriodeNum = parseInt(lastPeriode);
+        lastPeriodeNumYest = lastPeriodeNum - 1;
+        lastPeriodeSebelum = ('0'+lastPeriodeNumYest).slice(-2);
+        ketYTDLast = "YTD Q3 '"+lastPeriodeSebelum+"";
+        ketRKANow = "RKA Q3 '"+lastPeriode+"";
+        ketYTDNow = "YTD Q3 '"+lastPeriode+"";
         $('#keterangan-filter').text(keterangan);
+        $('.ytd-last').text(ketYTDLast);
+        $('.rka-now').text(ketRKANow);
+        $('.ytd-now').text(ketYTDNow);
+        getDataKunjungan();
+        getDataLayanan();
         $('#modalFilter').modal('hide');
     })
 
@@ -728,9 +748,9 @@ function getDataKunjungan() {
                 ketYoy += "<span style='padding-left: 10px;font-weight: bold;position: relative;top:-2px;'>"+yoy+"%</span>";
             }
             $('#yoy-claim').append(ketYoy);
-            chart.push({ name:"YTD Q3 '19", y:rea_bef, color:'#BFBFBF' })
-            chart.push({ name:"RKA Q3 '20", y:rka_now, color:'#9EEADC' })
-            chart.push({ name:"YTD Q3 '20", y:rea_now, color:'#288372' })
+            chart.push({ name:"YTD Q3 '"+lastPeriodeSebelum+"", y:rea_bef, color:'#BFBFBF' })
+            chart.push({ name:"RKA Q3 '"+lastPeriode+"", y:rka_now, color:'#9EEADC' })
+            chart.push({ name:"YTD Q3 '"+lastPeriode+"", y:rea_now, color:'#288372' })
             Highcharts.chart('claim', {
                 chart: {
                     type: 'column',
@@ -750,7 +770,7 @@ function getDataKunjungan() {
                     text: ''
                 },
                 xAxis: {
-                    categories: ["YTD Q3 '19", "RKA Q3 '20", "YTD Q3 '20"]
+                    categories: ["YTD Q3 '"+lastPeriodeSebelum+"", "RKA Q3 '"+lastPeriode+"", "YTD Q3 '"+lastPeriode+""]
                 },
                 yAxis: {
                     visible: false
@@ -781,6 +801,485 @@ function getDataKunjungan() {
                 ]
             });
         }
+    });
+
+    Highcharts.chart('pkk-cc', {
+    chart: {
+        type: 'column',
+        height: 250
+    },
+    legend:{ enabled:false },
+    exporting:{
+        enabled: false
+    },
+    credits: {
+        enabled: false
+    },
+    title: {
+        text: '',
+    },
+    subtitle: {
+        text: ''
+    },
+    xAxis: {
+        categories: ["YTD Q3 '"+lastPeriodeSebelum+"", "RKA Q3 '"+lastPeriode+"", "YTD Q3 '"+lastPeriode+""]
+    },
+    yAxis: {
+        visible: false
+    },
+    tooltip: {
+        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+            '<td style="padding:0"><b>{point.y:.1f} M</b></td></tr>',
+        footerFormat: '</table>',
+        shared: true,
+        useHTML: true
+    },
+    plotOptions: {
+        series:{
+            dataLabels: {
+                enabled: true
+            }
+        },
+        column: {
+            color: '#2727ff'
+        },
+    },
+    series: [
+        {
+            name: "Claim Cost",
+            data: [
+                {
+                    name: "YTD Q3 '"+lastPeriodeSebelum+"",
+                    y: 5.17,
+                    color: '#BFBFBF',
+                    drilldown: "YTD Q3 '"+lastPeriodeSebelum+""
+                },
+                {
+                    name: "RKA Q3 '"+lastPeriode+"",
+                    y: 5.84,
+                    color:'#9EEADC',
+                    drilldown: "RKA Q3 '"+lastPeriode+""
+                },
+                {
+                    name: "YTD Q3 '"+lastPeriode+"",
+                    y: 4.76,
+                    color:'#288372',
+                    drilldown: "YTD Q3 '"+lastPeriode+""
+                },
+            ],
+        }
+    ]
+});
+
+    Highcharts.chart('pkk-kunjungan', {
+        chart: {
+            type: 'column',
+            height: 250,
+        },
+        exporting:{
+            enabled: false
+        },
+        legend:{ enabled:false },
+        credits: {
+            enabled: false
+        },
+        title: {
+            text: '',
+        },
+        subtitle: {
+            text: ''
+        },
+        xAxis: {
+            categories: ["YTD Q3 '"+lastPeriodeSebelum+"", "RKA Q3 '"+lastPeriode+"", "YTD Q3 '"+lastPeriode+""]
+        },
+        yAxis: {
+            visible: false
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y:.1f} M</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        plotOptions: {
+            series:{
+                dataLabels: {
+                    enabled: true
+                }
+            },
+            column: {
+                color: '#2727ff'
+            },
+        },
+        series: [
+            {
+                name: "KUNJUNGAN",
+                data: [
+                    {
+                        name: "YTD Q3 '"+lastPeriodeSebelum+"",
+                        y: 389.4,
+                        color: '#BFBFBF',
+                        drilldown: "YTD Q3 '"+lastPeriodeSebelum+""
+                    },
+                    {
+                        name: "RKA Q3 '"+lastPeriode+"",
+                        y: 449.3,
+                        color:'#9EEADC',
+                        drilldown: "RKA Q3 '"+lastPeriode+""
+                    },
+                    {
+                        name: "YTD Q3 '"+lastPeriode+"",
+                        y: 390.0,
+                        color:'#288372',
+                        drilldown: "YTD Q3 '"+lastPeriode+""
+                    },
+                ],
+            }
+        ]
+    });
+
+    Highcharts.chart('pkk-komposisi-kunj', {
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie',
+            height: 250
+        },
+        exporting:{
+            enabled: false
+        },
+        legend:{ enabled:false },
+        credits: {
+            enabled: false
+        },
+        title: {
+            text: ''
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%<b>'
+        },
+        accessibility: {
+            point: {
+                valueSuffix: '%'
+            }
+        },
+        plotOptions: {
+            pie: {
+                size: 200,
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    padding: 0,
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                },
+            }
+        },
+        series: [{
+            name: 'Komposisi CC',
+            colorByPoint: true,
+            data: [{
+                name: 'RJTP',
+                y: 70,
+            }, {
+                name: 'RI',
+                y: 1
+            }, {
+                name: 'RJTL',
+                y: 26
+            }, {
+                name: 'Restitusi',
+                y: 3
+            }]
+        }]
+    });
+
+    Highcharts.chart('pkk-rjtp-kunj', {
+        chart: {
+            type: 'column',
+            height: 250,
+        },
+        exporting:{
+            enabled: false
+        },
+        legend:{ enabled:false },
+        credits: {
+            enabled: false
+        },
+        title: {
+            text: '',
+        },
+        subtitle: {
+            text: ''
+        },
+        xAxis: {
+            labels: {
+                enabled: false
+            }
+        },
+        yAxis: {
+            visible: false
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y:.1f} M</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        plotOptions: {
+            series:{
+                dataLabels: {
+                    enabled: true
+                }
+            },
+            column: {
+                color: '#2727ff'
+            },
+        },
+        series: [
+            {
+                name: "RJTP",
+                data: [
+                    {
+                        name: "YTD Q3 '"+lastPeriodeSebelum+"",
+                        y: 255.6,
+                        color: '#BFBFBF',
+                        drilldown: "YTD Q3 '"+lastPeriodeSebelum+""
+                    },
+                    {
+                        name: "RKA Q3 '"+lastPeriode+"",
+                        y: 301.1,
+                        color:'#9EEADC',
+                        drilldown: "RKA Q3 '"+lastPeriode+""
+                    },
+                    {
+                        name: "YTD Q3 '"+lastPeriode+"",
+                        y: 271.1,
+                        color:'#288372',
+                        drilldown: "YTD Q3 '"+lastPeriode+""
+                    },
+                ],
+            }
+        ]
+    });
+
+    Highcharts.chart('pkk-rjtl-kunj', {
+        chart: {
+            type: 'column',
+            height: 250,
+        },
+        exporting:{
+            enabled: false
+        },
+        legend:{ enabled:false },
+        credits: {
+            enabled: false
+        },
+        title: {
+            text: '',
+        },
+        subtitle: {
+            text: ''
+        },
+        xAxis: {
+            labels: {
+                enabled: false
+            }
+        },
+        yAxis: {
+            visible: false
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y:.1f} M</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        plotOptions: {
+            series:{
+                dataLabels: {
+                    enabled: true
+                }
+            },
+            column: {
+                color: '#2727ff'
+            },
+        },
+        series: [
+            {
+                name: "RJTL",
+                data: [
+                    {
+                        name: "YTD Q3 '"+lastPeriodeSebelum+"",
+                        y: 113.9,
+                        color: '#BFBFBF',
+                        drilldown: "YTD Q3 '"+lastPeriodeSebelum+""
+                    },
+                    {
+                        name: "RKA Q3 '"+lastPeriode+"",
+                        y: 125.1,
+                        color:'#9EEADC',
+                        drilldown: "RKA Q3 '"+lastPeriode+""
+                    },
+                    {
+                        name: "YTD Q3 '"+lastPeriode+"",
+                        y: 101.6,
+                        color:'#288372',
+                        drilldown: "YTD Q3 '"+lastPeriode+""
+                    },
+                ],
+            }
+        ]
+    });
+
+    Highcharts.chart('pkk-ri-kunj', {
+        chart: {
+            type: 'column',
+            height: 250,
+        },
+        legend:{ enabled:false },
+        credits: {
+            enabled: false
+        },
+        exporting:{
+            enabled: false
+        },
+        title: {
+            text: '',
+        },
+        subtitle: {
+            text: ''
+        },
+        xAxis: {
+            labels: {
+                enabled: false
+            }
+        },
+        yAxis: {
+            visible: false
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y:.1f} M</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        plotOptions: {
+            series:{
+                dataLabels: {
+                    enabled: true
+                }
+            },
+            column: {
+                color: '#2727ff'
+            },
+        },
+        series: [
+            {
+                name: "RI",
+                data: [
+                    {
+                        name: "YTD Q3 '"+lastPeriodeSebelum+"",
+                        y: 6.1,
+                        color: '#BFBFBF',
+                        drilldown: "YTD Q3 '"+lastPeriodeSebelum+""
+                    },
+                    {
+                        name: "RKA Q3 '"+lastPeriode+"",
+                        y: 7.0,
+                        color:'#9EEADC',
+                        drilldown: "RKA Q3 '"+lastPeriode+""
+                    },
+                    {
+                        name: "YTD Q3 '"+lastPeriode+"",
+                        y: 4.4,
+                        color:'#288372',
+                        drilldown: "YTD Q3 '"+lastPeriode+""
+                    },
+                ],
+            }
+        ]
+    });
+
+    Highcharts.chart('pkk-restitusi-kunj', {
+        chart: {
+            type: 'column',
+            height: 250,
+        },
+        legend:{ enabled:false },
+        credits: {
+            enabled: false
+        },
+        title: {
+            text: '',
+        },
+        exporting:{
+            enabled: false
+        },
+        subtitle: {
+            text: ''
+        },
+        xAxis: {
+            labels: {
+                enabled: false
+            }
+        },
+        yAxis: {
+            visible: false
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y:.1f} M</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        plotOptions: {
+            series:{
+                dataLabels: {
+                    enabled: true
+                }
+            },
+            column: {
+                color: '#2727ff'
+            },
+        },
+        series: [
+            {
+                name: "RESTITUSI",
+                data: [
+                    {
+                        name: "YTD Q3 '"+lastPeriodeSebelum+"",
+                        y: 13.7,
+                        color: '#BFBFBF',
+                        drilldown: "YTD Q3 '"+lastPeriodeSebelum+""
+                    },
+                    {
+                        name: "RKA Q3 '"+lastPeriode+"",
+                        y: 16.1,
+                        color:'#9EEADC',
+                        drilldown: "RKA Q3 '"+lastPeriode+""
+                    },
+                    {
+                        name: "YTD Q3 '"+lastPeriode+"",
+                        y: 12.1,
+                        color:'#288372',
+                        drilldown: "YTD Q3 '"+lastPeriode+""
+                    },
+                ],
+            }
+        ]
     });
 }
 
@@ -911,21 +1410,21 @@ function getDataLayanan() {
             }
             $('#yoy-restitusi').append(ketYoyRestitusi);
             
-            columnRjtp.push({name:"YTD Q3 '19",y:reaRjtpBef,color: '#BFBFBF'})
-            columnRjtp.push({name:"RKA Q3 '20",y:rkaRjtpNow,color: '#9EEADC'})
-            columnRjtp.push({name:"YTD Q3 '20",y:reaRjtpNow,color: '#288372'})
+            columnRjtp.push({name:"YTD Q3 '"+lastPeriodeSebelum+"",y:reaRjtpBef,color: '#BFBFBF'})
+            columnRjtp.push({name:"RKA Q3 '"+lastPeriode+"",y:rkaRjtpNow,color: '#9EEADC'})
+            columnRjtp.push({name:"YTD Q3 '"+lastPeriode+"",y:reaRjtpNow,color: '#288372'})
 
-            columnRjtl.push({name:"YTD Q3 '19",y:reaRjtlBef,color: '#BFBFBF'})
-            columnRjtl.push({name:"RKA Q3 '20",y:rkaRjtlNow,color: '#9EEADC'})
-            columnRjtl.push({name:"YTD Q3 '20",y:reaRjtlNow,color: '#288372'})
+            columnRjtl.push({name:"YTD Q3 '"+lastPeriodeSebelum+"",y:reaRjtlBef,color: '#BFBFBF'})
+            columnRjtl.push({name:"RKA Q3 '"+lastPeriode+"",y:rkaRjtlNow,color: '#9EEADC'})
+            columnRjtl.push({name:"YTD Q3 '"+lastPeriode+"",y:reaRjtlNow,color: '#288372'})
 
-            columnRi.push({name:"YTD Q3 '19",y:reaRiBef,color: '#BFBFBF'})
-            columnRi.push({name:"RKA Q3 '20",y:rkaRiNow,color: '#9EEADC'})
-            columnRi.push({name:"YTD Q3 '20",y:reaRiNow,color: '#288372'})
+            columnRi.push({name:"YTD Q3 '"+lastPeriodeSebelum+"",y:reaRiBef,color: '#BFBFBF'})
+            columnRi.push({name:"RKA Q3 '"+lastPeriode+"",y:rkaRiNow,color: '#9EEADC'})
+            columnRi.push({name:"YTD Q3 '"+lastPeriode+"",y:reaRiNow,color: '#288372'})
 
-            columnRestitusi.push({name:"YTD Q3 '19",y:reaRestitusiBef,color: '#BFBFBF'})
-            columnRestitusi.push({name:"RKA Q3 '20",y:rkaRestitusiNow,color: '#9EEADC'})
-            columnRestitusi.push({name:"YTD Q3 '20",y:reaRestitusiNow,color: '#288372'})
+            columnRestitusi.push({name:"YTD Q3 '"+lastPeriodeSebelum+"",y:reaRestitusiBef,color: '#BFBFBF'})
+            columnRestitusi.push({name:"RKA Q3 '"+lastPeriode+"",y:rkaRestitusiNow,color: '#9EEADC'})
+            columnRestitusi.push({name:"YTD Q3 '"+lastPeriode+"",y:reaRestitusiNow,color: '#288372'})
             
             for(var i=0;i<data.length;i++) {
                 totalRea = totalRea + parseFloat(data[i].rea_now)
@@ -1198,482 +1697,4 @@ function getDataLayanan() {
 }
 getDataKunjungan();
 getDataLayanan();
-Highcharts.chart('pkk-cc', {
-    chart: {
-        type: 'column',
-        height: 250
-    },
-    legend:{ enabled:false },
-    exporting:{
-        enabled: false
-    },
-    credits: {
-        enabled: false
-    },
-    title: {
-        text: '',
-    },
-    subtitle: {
-        text: ''
-    },
-    xAxis: {
-        categories: ["YTD Q3 '19", "RKA Q3 '20", "YTD Q3 '20"]
-    },
-    yAxis: {
-        visible: false
-    },
-    tooltip: {
-        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y:.1f} M</b></td></tr>',
-        footerFormat: '</table>',
-        shared: true,
-        useHTML: true
-    },
-    plotOptions: {
-        series:{
-            dataLabels: {
-                enabled: true
-            }
-        },
-        column: {
-            color: '#2727ff'
-        },
-    },
-    series: [
-        {
-            name: "Claim Cost",
-            data: [
-                {
-                    name: "YTD Q3 '19",
-                    y: 5.17,
-                    color: '#BFBFBF',
-                    drilldown: "YTD Q3 '19"
-                },
-                {
-                    name: "RKA Q3 '20",
-                    y: 5.84,
-                    color:'#9EEADC',
-                    drilldown: "RKA Q3 '20"
-                },
-                {
-                    name: "YTD Q3 '20",
-                    y: 4.76,
-                    color:'#288372',
-                    drilldown: "YTD Q3 '20"
-                },
-            ],
-        }
-    ]
-});
-
-Highcharts.chart('pkk-kunjungan', {
-    chart: {
-        type: 'column',
-        height: 250,
-    },
-    exporting:{
-        enabled: false
-    },
-    legend:{ enabled:false },
-    credits: {
-        enabled: false
-    },
-    title: {
-        text: '',
-    },
-    subtitle: {
-        text: ''
-    },
-    xAxis: {
-        categories: ["YTD Q3 '19", "RKA Q3 '20", "YTD Q3 '20"]
-    },
-    yAxis: {
-        visible: false
-    },
-    tooltip: {
-        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y:.1f} M</b></td></tr>',
-        footerFormat: '</table>',
-        shared: true,
-        useHTML: true
-    },
-    plotOptions: {
-        series:{
-            dataLabels: {
-                enabled: true
-            }
-        },
-        column: {
-            color: '#2727ff'
-        },
-    },
-    series: [
-        {
-            name: "KUNJUNGAN",
-            data: [
-                {
-                    name: "YTD Q3 '19",
-                    y: 389.4,
-                    color: '#BFBFBF',
-                    drilldown: "YTD Q3 '19"
-                },
-                {
-                    name: "RKA Q3 '20",
-                    y: 449.3,
-                    color:'#9EEADC',
-                    drilldown: "RKA Q3 '20"
-                },
-                {
-                    name: "YTD Q3 '20",
-                    y: 390.0,
-                    color:'#288372',
-                    drilldown: "YTD Q3 '20"
-                },
-            ],
-        }
-    ]
-});
-
-Highcharts.chart('pkk-komposisi-kunj', {
-    chart: {
-        plotBackgroundColor: null,
-        plotBorderWidth: null,
-        plotShadow: false,
-        type: 'pie',
-        height: 250
-    },
-    exporting:{
-        enabled: false
-    },
-    legend:{ enabled:false },
-    credits: {
-        enabled: false
-    },
-    title: {
-        text: ''
-    },
-    tooltip: {
-        pointFormat: '{series.name}: <b>{point.percentage:.1f}%<b>'
-    },
-    accessibility: {
-        point: {
-            valueSuffix: '%'
-        }
-    },
-    plotOptions: {
-        pie: {
-            size: 200,
-            allowPointSelect: true,
-            cursor: 'pointer',
-            dataLabels: {
-                padding: 0,
-                enabled: true,
-                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-            },
-        }
-    },
-    series: [{
-        name: 'Komposisi CC',
-        colorByPoint: true,
-        data: [{
-            name: 'RJTP',
-            y: 70,
-        }, {
-            name: 'RI',
-            y: 1
-        }, {
-            name: 'RJTL',
-            y: 26
-        }, {
-            name: 'Restitusi',
-            y: 3
-        }]
-    }]
-});
-
-Highcharts.chart('pkk-rjtp-kunj', {
-    chart: {
-        type: 'column',
-        height: 250,
-    },
-    exporting:{
-        enabled: false
-    },
-    legend:{ enabled:false },
-    credits: {
-        enabled: false
-    },
-    title: {
-        text: '',
-    },
-    subtitle: {
-        text: ''
-    },
-    xAxis: {
-        labels: {
-            enabled: false
-        }
-    },
-    yAxis: {
-        visible: false
-    },
-    tooltip: {
-        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y:.1f} M</b></td></tr>',
-        footerFormat: '</table>',
-        shared: true,
-        useHTML: true
-    },
-    plotOptions: {
-        series:{
-            dataLabels: {
-                enabled: true
-            }
-        },
-        column: {
-            color: '#2727ff'
-        },
-    },
-    series: [
-        {
-            name: "RJTP",
-            data: [
-                {
-                    name: "YTD Q3 '19",
-                    y: 255.6,
-                    color: '#BFBFBF',
-                    drilldown: "YTD Q3 '19"
-                },
-                {
-                    name: "RKA Q3 '20",
-                    y: 301.1,
-                    color:'#9EEADC',
-                    drilldown: "RKA Q3 '20"
-                },
-                {
-                    name: "YTD Q3 '20",
-                    y: 271.1,
-                    color:'#288372',
-                    drilldown: "YTD Q3 '20"
-                },
-            ],
-        }
-    ]
-});
-
-Highcharts.chart('pkk-rjtl-kunj', {
-    chart: {
-        type: 'column',
-        height: 250,
-    },
-    exporting:{
-        enabled: false
-    },
-    legend:{ enabled:false },
-    credits: {
-        enabled: false
-    },
-    title: {
-        text: '',
-    },
-    subtitle: {
-        text: ''
-    },
-    xAxis: {
-        labels: {
-            enabled: false
-        }
-    },
-    yAxis: {
-        visible: false
-    },
-    tooltip: {
-        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y:.1f} M</b></td></tr>',
-        footerFormat: '</table>',
-        shared: true,
-        useHTML: true
-    },
-    plotOptions: {
-        series:{
-            dataLabels: {
-                enabled: true
-            }
-        },
-        column: {
-            color: '#2727ff'
-        },
-    },
-    series: [
-        {
-            name: "RJTL",
-            data: [
-                {
-                    name: "YTD Q3 '19",
-                    y: 113.9,
-                    color: '#BFBFBF',
-                    drilldown: "YTD Q3 '19"
-                },
-                {
-                    name: "RKA Q3 '20",
-                    y: 125.1,
-                    color:'#9EEADC',
-                    drilldown: "RKA Q3 '20"
-                },
-                {
-                    name: "YTD Q3 '20",
-                    y: 101.6,
-                    color:'#288372',
-                    drilldown: "YTD Q3 '20"
-                },
-            ],
-        }
-    ]
-});
-
-Highcharts.chart('pkk-ri-kunj', {
-    chart: {
-        type: 'column',
-        height: 250,
-    },
-    legend:{ enabled:false },
-    credits: {
-        enabled: false
-    },
-    exporting:{
-        enabled: false
-    },
-    title: {
-        text: '',
-    },
-    subtitle: {
-        text: ''
-    },
-    xAxis: {
-        labels: {
-            enabled: false
-        }
-    },
-    yAxis: {
-        visible: false
-    },
-    tooltip: {
-        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y:.1f} M</b></td></tr>',
-        footerFormat: '</table>',
-        shared: true,
-        useHTML: true
-    },
-    plotOptions: {
-        series:{
-            dataLabels: {
-                enabled: true
-            }
-        },
-        column: {
-            color: '#2727ff'
-        },
-    },
-    series: [
-        {
-            name: "RI",
-            data: [
-                {
-                    name: "YTD Q3 '19",
-                    y: 6.1,
-                    color: '#BFBFBF',
-                    drilldown: "YTD Q3 '19"
-                },
-                {
-                    name: "RKA Q3 '20",
-                    y: 7.0,
-                    color:'#9EEADC',
-                    drilldown: "RKA Q3 '20"
-                },
-                {
-                    name: "YTD Q3 '20",
-                    y: 4.4,
-                    color:'#288372',
-                    drilldown: "YTD Q3 '20"
-                },
-            ],
-        }
-    ]
-});
-
-Highcharts.chart('pkk-restitusi-kunj', {
-    chart: {
-        type: 'column',
-        height: 250,
-    },
-    legend:{ enabled:false },
-    credits: {
-        enabled: false
-    },
-    title: {
-        text: '',
-    },
-    exporting:{
-        enabled: false
-    },
-    subtitle: {
-        text: ''
-    },
-    xAxis: {
-        labels: {
-            enabled: false
-        }
-    },
-    yAxis: {
-        visible: false
-    },
-    tooltip: {
-        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y:.1f} M</b></td></tr>',
-        footerFormat: '</table>',
-        shared: true,
-        useHTML: true
-    },
-    plotOptions: {
-        series:{
-            dataLabels: {
-                enabled: true
-            }
-        },
-        column: {
-            color: '#2727ff'
-        },
-    },
-    series: [
-        {
-            name: "RESTITUSI",
-            data: [
-                {
-                    name: "YTD Q3 '19",
-                    y: 13.7,
-                    color: '#BFBFBF',
-                    drilldown: "YTD Q3 '19"
-                },
-                {
-                    name: "RKA Q3 '20",
-                    y: 16.1,
-                    color:'#9EEADC',
-                    drilldown: "RKA Q3 '20"
-                },
-                {
-                    name: "YTD Q3 '20",
-                    y: 12.1,
-                    color:'#288372',
-                    drilldown: "YTD Q3 '20"
-                },
-            ],
-        }
-    ]
-});
 </script>
