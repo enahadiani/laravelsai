@@ -449,7 +449,7 @@
                 </div>
                 <div class="modal-body" style="border:none">
                     <div class="group-filter">
-                         <label for="dashboard" class="label-filter">Dashboard</label>
+                        <label for="dashboard" class="label-filter">Dashboard</label>
                         <div class="dropdown-dash dropdown dropdown-filter">
                             <button class="btn btn-light select-dash" style="background-color: #ffffff;width: 100%;text-align:left;" type="button" data-toggle="dropdown">
                                 Utilisasi BPJS
