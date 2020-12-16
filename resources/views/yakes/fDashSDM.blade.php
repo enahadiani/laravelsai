@@ -99,7 +99,7 @@
     }
     .dropdown-filter {
         width: 100%;
-        margin: 10px;
+        margin: 0 10px;
     }
     .footer-dashboard {
         width: 100%;
@@ -175,6 +175,14 @@
     }
     .highcharts-color-1 .highcharts-point {
         fill: #47D7BD !important;
+    }
+    .label-filter {
+        font-size: 0.87rem;
+        padding-left: 5px;
+        margin-left: 10px;
+    }
+    .group-filter {
+        padding: 8px 0;
     }
 </style>
 
@@ -360,32 +368,38 @@
                     </button>
                 </div>
                 <div class="modal-body" style="border:none">
-                    <div class="dropdown-regional dropdown dropdown-filter">
-                        <button class="btn btn-light select-dash" style="background-color: #ffffff;width: 100%;text-align:left;" type="button" data-toggle="dropdown">
-                            Regional : -
-                            <span style="display: none;" id="value-jenis"></span>
-                            <span class="glyph-icon simple-icon-arrow-down" style="float: right; margin-top:2%;"></span>
-                        </button>
-                        <ul class="dropdown-menu jenis" style="overflow: hidden; width:99%;" role="menu" aria-labelledby="menu2">
-                            {{-- <li>
-                                <span style="display: none;">CC</span>
-                                <span>Pensiunan dan Keluarga</span>
-                            </li>
-                            <li>
-                                <span style="display: none;">BP</span>
-                                <span>Pegawai dan Keluarga</span>
-                            </li> --}}
-                        </ul>
+                    <div class="group-filter">
+                        <label for="regional" class="label-filter">Regional</label>
+                        <div class="dropdown-regional dropdown dropdown-filter">
+                            <button class="btn btn-light select-dash" style="background-color: #ffffff;width: 100%;text-align:left;" type="button" data-toggle="dropdown">
+                                -
+                                <span style="display: none;" id="value-jenis"></span>
+                                <span class="glyph-icon simple-icon-arrow-down" style="float: right; margin-top:2%;"></span>
+                            </button>
+                            <ul class="dropdown-menu jenis" style="overflow: hidden; width:99%;" role="menu" aria-labelledby="menu2">
+                                {{-- <li>
+                                    <span style="display: none;">CC</span>
+                                    <span>Pensiunan dan Keluarga</span>
+                                </li>
+                                <li>
+                                    <span style="display: none;">BP</span>
+                                    <span>Pegawai dan Keluarga</span>
+                                </li> --}}
+                            </ul>
+                        </div>
                     </div>
-                    <div class="dropdown-periode dropdown dropdown-filter">
-                        <button class="btn btn-light select-dash" style="background-color: #ffffff;width: 100%;text-align:left;" type="button" data-toggle="dropdown">
-                            Periode : {{Session::get('periode')}}
-                            <span id="value-periode" style="display: none;"></span>
-                            <span class="glyph-icon simple-icon-arrow-down" style="float: right; margin-top:3%;"></span>
-                        </button>
-                        <ul class="dropdown-menu periode" role="menu" aria-labelledby="menu1">
-                            
-                        </ul>
+                    <div class="group-filter">
+                        <label for="periode" class="label-filter">Periode</label>
+                        <div class="dropdown-periode dropdown dropdown-filter">
+                            <button class="btn btn-light select-dash" style="background-color: #ffffff;width: 100%;text-align:left;" type="button" data-toggle="dropdown">
+                                {{Session::get('periode')}}
+                                <span id="value-periode" style="display: none;"></span>
+                                <span class="glyph-icon simple-icon-arrow-down" style="float: right; margin-top:3%;"></span>
+                            </button>
+                            <ul class="dropdown-menu periode" role="menu" aria-labelledby="menu1">
+                                
+                            </ul>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer" style="border:none">
@@ -436,7 +450,7 @@ window.onscroll = function() {
 
     $('#form-filter').on('click', '#btn-reset', function(){
         var text2 = "{{Session::get('periode')}}";
-        var htmlTextPeriode = "Periode : "+text2+"<span class='glyph-icon simple-icon-arrow-down' style='float: right; margin-top:3%;'></span>";
+        var htmlTextPeriode = text2+"<span class='glyph-icon simple-icon-arrow-down' style='float: right; margin-top:3%;'></span>";
         $('.dropdown-periode').find('.select-dash').html(htmlTextPeriode);
         periode = "{{Session::get('periode')}}";
     })
@@ -477,7 +491,7 @@ window.onscroll = function() {
 
     $('.periode').on( 'click', 'li', function() {
         var text = $(this).html();
-        var htmlText = "Periode : "+text+"<span class='glyph-icon simple-icon-arrow-down' style='float: right; margin-top:3%;'></span>";
+        var htmlText = text+"<span class='glyph-icon simple-icon-arrow-down' style='float: right; margin-top:3%;'></span>";
         $(this).closest('.dropdown-periode').find('.select-dash').html(htmlText);
         periode = text;
     });
