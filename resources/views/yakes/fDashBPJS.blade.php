@@ -184,189 +184,18 @@
 <div class="row" style="margin-top: 20px;">
     <div class="col-12 mb-4">
         <div class="card" style="height: 100%; border-radius:10px !important;">
-            <h6 class="ml-4 mt-3" style="font-weight: bold;text-align:center;">Claim BPJS - Karyawan/Pensiunan/Total</h6>
+            <h6 class="ml-4 mt-3" style="font-weight: bold;text-align:center;" id="judul-chart"></h6>
             <div class="row">
                 <div class="col-12">
-                    <div id="claim"></div>
+                    <div id="chart-bpjs"></div>
                 </div>
                 <div class="col-12 ml-4">
-                    <table style="width: 95%;">
-                        <thead>
-                            <tr>
-                                <th style="width:20%;"></th>
-                                <th>REG 1</th>
-                                <th>REG 2</th>
-                                <th>REG 3</th>
-                                <th>REG 4</th>
-                                <th>REG 5</th>
-                                <th>REG 6</th>
-                                <th>REG 7</th>
-                                <th>TOTAL</th>
-                            </tr>
+                    <table style="width: 95%;" id="table-bpjs">
+                        <thead id="header-table-bpjs">
+                            
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td style="position: relative;">
-                                    <div style="height: 15px; width:25px; background-color:#BFBFBF;display:inline-block;margin-left:3px;margin-top:1px;"></div>
-                                    Tagihan Awal
-                                </td>
-                                <td style="text-align: right;">453</td>
-                                <td style="text-align: right;">3.317</td>
-                                <td style="text-align: right;">2.172</td>
-                                <td style="text-align: right;">1.052</td>
-                                <td style="text-align: right;">2.025</td>
-                                <td style="text-align: right;">324</td>
-                                <td style="text-align: right;">258</td>
-                                <td style="text-align: right;">9.601</td>
-                            </tr>
-                            <tr>
-                                <td style="position: relative;">
-                                    <div style="height: 15px; width:25px; background-color:#9EEADC;display:inline-block;margin-left:3px;margin-top:1px;"></div>
-                                    Claim BPJS
-                                </td>
-                                <td style="text-align: right;">139</td>
-                                <td style="text-align: right;">1.917</td>
-                                <td style="text-align: right;">1.262</td>
-                                <td style="text-align: right;">585</td>
-                                <td style="text-align: right;">713</td>
-                                <td style="text-align: right;">184</td>
-                                <td style="text-align: right;">109</td>
-                                <td style="text-align: right;">4.909</td>
-                            </tr>
-                            <tr>
-                                <td style="position: relative;">
-                                    <div style="height: 15px; width:25px; background-color:#288372;display:inline-block;margin-left:3px;margin-top:1px;"></div>
-                                    Bayar Yakes
-                                </td>
-                                <td style="text-align: right;">314</td>
-                                <td style="text-align: right;">1.401</td>
-                                <td style="text-align: right;">902</td>
-                                <td style="text-align: right;">474</td>
-                                <td style="text-align: right;">1.312</td>
-                                <td style="text-align: right;">140</td>
-                                <td style="text-align: right;">149</td>
-                                <td style="text-align: right;">4.692</td>
-                            </tr>
-                            <tr>
-                                <td style="position: relative;">
-                                    <div style="height: 15px; width:25px; background-color:#14213d;display:inline-block;margin-left:3px;margin-top:1px;"></div>
-                                    Claim vs Tag. Awal (%)
-                                </td>
-                                <td style="text-align: right;">30,6</td>
-                                <td style="text-align: right;">57,8</td>
-                                <td style="text-align: right;">58,1</td>
-                                <td style="text-align: right;">55,6</td>
-                                <td style="text-align: right;">35,2</td>
-                                <td style="text-align: right;">56,8</td>
-                                <td style="text-align: right;">42,1</td>
-                                <td style="text-align: right;">51,1</td>
-                            </tr>
-                            <tr>
-                                <td style="position: relative;">
-                                    <div style="height: 15px; width:25px; background-color:#FCA311;display:inline-block;margin-left:3px;margin-top:1px;"></div>
-                                    Bayar Yakes vs Tag. Awal (%)
-                                </td>
-                                <td style="text-align: right;">69,3</td>
-                                <td style="text-align: right;">42,2</td>
-                                <td style="text-align: right;">41,5</td>
-                                <td style="text-align: right;">45,0</td>
-                                <td style="text-align: right;">64,8</td>
-                                <td style="text-align: right;">43,2</td>
-                                <td style="text-align: right;">57,9</td>
-                                <td style="text-align: right;">48,9</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-12 mb-4">
-        <div class="card" style="height: 100%; border-radius:10px !important;">
-            <h6 class="ml-4 mt-3" style="font-weight: bold;text-align:center;">Utilisasi BPJS - Karyawan/Pensiunan/Total</h6>
-            <div class="row">
-                <div class="col-12">
-                    <div id="utility"></div>
-                </div>
-                <div class="col-12 ml-4">
-                    <table style="width: 95%;">
-                        <thead>
-                            <tr>
-                                <th style="width:15%;"></th>
-                                <th>PUSAT</th>
-                                <th>REG 1</th>
-                                <th>REG 2</th>
-                                <th>REG 3</th>
-                                <th>REG 4</th>
-                                <th>REG 5</th>
-                                <th>REG 6</th>
-                                <th>REG 7</th>
-                                <th>TOTAL</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td style="position: relative;">
-                                    <div style="height: 15px; width:25px; background-color:#BFBFBF;display:inline-block;margin-left:3px;margin-top:1px;"></div>
-                                    Iuran BPJS
-                                </td>
-                                <td>-</td>
-                                <td style="text-align: right;">4.311</td>
-                                <td style="text-align: right;">19.244</td>
-                                <td style="text-align: right;">6.596</td>
-                                <td style="text-align: right;">2.797</td>
-                                <td style="text-align: right;">5.078</td>
-                                <td style="text-align: right;">2.027</td>
-                                <td style="text-align: right;">2.746</td>
-                                <td style="text-align: right;">42.799</td>
-                            </tr>
-                            <tr>
-                                <td style="position: relative;">
-                                    <div style="height: 15px; width:25px; background-color:#9EEADC;display:inline-block;margin-left:3px;margin-top:1px;"></div>
-                                    Kapitasi
-                                </td>
-                                <td>-</td>
-                                <td style="text-align: right;">98</td>
-                                <td style="text-align: right;">792</td>
-                                <td style="text-align: right;">307</td>
-                                <td style="text-align: right;">66</td>
-                                <td style="text-align: right;">105</td>
-                                <td style="text-align: right;">42</td>
-                                <td style="text-align: right;">70</td>
-                                <td style="text-align: right;">1479</td>
-                            </tr>
-                            <tr>
-                                <td style="position: relative;">
-                                    <div style="height: 15px; width:25px; background-color:#288372;display:inline-block;margin-left:3px;margin-top:1px;"></div>
-                                    Claim BPJS
-                                </td>
-                                <td>-</td>
-                                <td style="text-align: right;">1.39</td>
-                                <td style="text-align: right;">1.917</td>
-                                <td style="text-align: right;">1.262</td>
-                                <td style="text-align: right;">585</td>
-                                <td style="text-align: right;">713</td>
-                                <td style="text-align: right;">184</td>
-                                <td style="text-align: right;">109</td>
-                                <td style="text-align: right;">4909</td>
-                            </tr>
-                            <tr>
-                                <td style="position: relative;">
-                                    <div style="height: 15px; width:25px; background-color:#FCA311;display:inline-block;margin-left:3px;margin-top:1px;"></div>
-                                    Utilisasi/Iuran (%)
-                                </td>
-                                <td style="text-align: right;">0,00</td>
-                                <td style="text-align: right;">5,49</td>
-                                <td style="text-align: right;">14,07</td>
-                                <td style="text-align: right;">23,80</td>
-                                <td style="text-align: right;">23,26</td>
-                                <td style="text-align: right;">16,12</td>
-                                <td style="text-align: right;">11,12</td>
-                                <td style="text-align: right;">6,50</td>
-                                <td style="text-align: right;">14,93</td>
-                            </tr>
+                        <tbody id="data-table-bpjs">
+                            
                         </tbody>
                     </table>
                 </div>
@@ -519,8 +348,10 @@
     </div>
 </div>
 <script type="text/javascript">
+    var pembagi = 1000000;
     var dashBPJS = "UTL";
     var jenis = "TTL";
+    var jenisToApi = "TOTAL";
     var dashboard = "";
     var bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
     var periode = "{{Session::get('periode')}}";
@@ -533,6 +364,19 @@
     var buttonTop = document.getElementById('button-top');
     var header = document.getElementById('filter-header');
     var sticky = header.offsetTop;
+    var dataBPJS = [];
+    var headerBPJS = [];
+    var chartBpjs = [];
+    var categoriesChart = [];
+
+    if(dashBPJS == "UTL") {
+        getUtilisasiBPJS();
+    } else if(dashBPJS == "CLM") {
+
+    } else if(dashBPJS == "KTG") {
+
+    }
+
     window.onscroll = function() {
         if(window.pageYOffset > sticky) {
             header.classList.add('fixed-filter')
@@ -571,6 +415,7 @@
         dashBPJS = "UTL";
         periode = "{{Session::get('periode')}}";
         jenis = "TTL";
+        jenisToApi = "TOTAL"
     })
 
     $('#form-filter').on('click', '#btn-tampil', function(){
@@ -580,6 +425,13 @@
         namaMonth = bulan[numMonth];
         keterangan = "Periode sampai dengan "+namaMonth+" "+tahun;
         $('#keterangan-filter').text(keterangan);
+        if(dashBPJS == "UTL") {
+            getUtilisasiBPJS();
+        } else if(dashBPJS == "CLM") {
+
+        } else if(dashBPJS == "KTG") {
+
+        }
         $('#modalFilter').modal('hide');
     })
 
@@ -607,6 +459,7 @@
         var htmlText = text+"<span class='glyph-icon simple-icon-arrow-down' style='float: right; margin-top:2%;'></span>";
         $(this).closest('.dropdown-jenis').find('.select-dash').html(htmlText);
         jenis = value;
+        jenisToApi = "TOTAL"
     });
 
     $('.dash-bpjs').on( 'click', 'li', function() {
@@ -615,6 +468,7 @@
         var htmlText = text+"<span class='glyph-icon simple-icon-arrow-down' style='float: right; margin-top:2%;'></span>";
         $(this).closest('.dropdown-dash').find('.select-dash').html(htmlText);
         dashBPJS = value;
+        jenisToApi = text;
         if(value == 'KPT') {
             $('#jenis-bpjs').hide();
         } else {
@@ -629,191 +483,338 @@
         loadForm(dashboard);
     });
 
-Highcharts.chart('claim', {
-    chart: {
-        marginLeft: 240,
-        marginRight: 60
-    },
-    exporting:{
-        enabled: false
-    },
-    legend:{ enabled:false },
-    credits: {
-        enabled: false
-    },
-    title: {
-        text: ''
-    },
-    subtitle: {
-        text: ''
-    },
-    xAxis: {
-        categories: ['REG 1', 'REG 2', 'REG 3', 'REG 4', 'REG 5', 'REG 6', 'REG 7', 'TOTAL'],
-        labels: {
-            enabled: false
+    function cekNaN(value) {
+        if(isNaN(value)) {
+            return 0
+        } else {
+            return value
         }
-    },
-    yAxis:[
-        {
-            linewidth: 1,
-            title:{
-                    text: 'Rp. Dalam Juta'
-                }
-        },
-        {
-            linewidth: 1,
-            opposite: true,
-            title:{
-                    text: 'Dalam Persen'
-                }
-        },
-    ],
-    tooltip: {
-        enabled: false
-        // headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-        // pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-        //     '<td style="padding:0"><b>{point.y:.1f}</b></td></tr>',
-        // footerFormat: '</table>',
-        // shared: true,
-        // useHTML: true
-    },
-    plotOptions: {
-        series:{
-            pointPadding: 0,
-            shadow: false,
-            dataLabels: {
-                enabled: true
+    }
+
+    function getClaimBPJS() {
+        headerBPJS = [];
+        dataBPJS = [];
+        chartBpjs =[];
+        categoriesChart = [];
+        $('#header-table-bpjs').empty();
+        $('#data-table-bpjs').empty();
+        var colors = ['#BFBFBF', '#9EEADC', '#288372',  '#14213d', '#FCA311'];
+        headerBPJS.push('REG 1', 'REG 2', 'REG 3', 'REG 4', 'REG 5', 'REG 6', 'REG 7', 'TOTAL')
+        categoriesChart.push('REG 1', 'REG 2', 'REG 3', 'REG 4', 'REG 5', 'REG 6', 'REG 7', 'TOTAL')
+        var htmlHeader = "";
+        var htmlBody = "";
+        htmlHeader += "<tr>";
+        htmlHeader += "<th style='width: 18%;'></th>";
+        for(var i=0;i<headerBPJS.length;i++) {
+            htmlHeader += "<th>"+headerBPJS[i]+"</th>"   
+        }
+        htmlHeader += "</tr>";
+
+        $.ajax({
+            type:'GET',
+            url: "{{ url('yakes-dash/data-bpjs-iuran') }}/"+periode+"/"+jenisToApi,
+            dataType: 'JSON',
+            async: false,
+            success: function(result) {
+                var data = result.daftar[0];
+                var pusat = parseFloat((parseFloat(data.pr9)/pembagi).toFixed(2));
+                var n1 = parseFloat((parseFloat(data.pr1)/pembagi).toFixed(2));
+                var n2 = parseFloat((parseFloat(data.pr2)/pembagi).toFixed(2));
+                var n3 = parseFloat((parseFloat(data.pr3)/pembagi).toFixed(2));
+                var n4 = parseFloat((parseFloat(data.pr4)/pembagi).toFixed(2));
+                var n5 = parseFloat((parseFloat(data.pr5)/pembagi).toFixed(2));
+                var n6 = parseFloat((parseFloat(data.pr6)/pembagi).toFixed(2));
+                var n7 = parseFloat((parseFloat(data.pr7)/pembagi).toFixed(2));
+                var total = parseFloat((parseFloat(data.premi_total)/pembagi).toFixed(2));
+                dataBPJS.push({nama:'Iuran BPJS', n1:pusat, n2:n1, n3:n2, n4:n3, n5:n4, n6:n5, n7:n6, n8:n7, n9:total})
+                chartBpjs.push({type:'column', name:'Iuran BPJS', data:[pusat, n1, n2, n3, n4, n5, n6, n7, total], color: '#BFBFBF'});
             }
-        }
-    },
-    series: [
-        {
-            type: 'column',
-            name: 'Tagihan Awal',
-            data: [453, 3317, 2172, 1052, 2025, 324, 258, 9601],
-            color: '#BFBFBF'
-        },
-        {
-            type: 'column',
-            name: 'Claim BPJS',
-            data: [139, 1917, 1262, 585, 713, 184, 109, 4909],
-            color: '#9EEADC'
-        },
-        {  
-            type: 'column',
-            name: 'Bayar Yakes',
-            data: [314, 1401, 902, 474, 1312, 140, 149, 4692],
-            color: '#288372'
-        },
-        {  
-            type: 'spline',
-            name: 'Claim vs Tag. Awal (%)',
-            data: [30.6, 57.8, 58.1, 55.6, 35.2, 56.8, 42.1, 51.1],
-            color: '#14213d',
-            marker: {
-                lineWidth: 2,
-            },
-            yAxis:1
-        },
-        {  
-            type: 'spline',
-            name: 'Bayar Yakes vs Tag. Awal (%)',
-            data: [69.3, 42.2, 41.5, 45.0, 64.8, 43.2, 57.9, 48.9],
-            color: '#FCA311',
-            marker: {
-                lineWidth: 2,
-            },
-            yAxis:1
-        },
-    ]
-});
-Highcharts.chart('utility', {
-    chart: {
-        marginLeft: 220,
-        marginRight: 60
-    },
-    exporting:{
-        enabled: false
-    },
-    legend:{ enabled:false },
-    credits: {
-        enabled: false
-    },
-    title: {
-        text: ''
-    },
-    subtitle: {
-        text: ''
-    },
-    xAxis: {
-        categories: ['PUSAT', 'REG 1', 'REG 2', 'REG 3', 'REG 4', 'REG 5', 'REG 6', 'REG 7', 'TOTAL'],
-        labels: {
-            enabled: false
-        }
-    },
-    yAxis: [
-        {
-            linewidth: 1,
-            title:{
-                    text: 'Rp. Dalam Juta'
-                }
-        },
-        {
-            linewidth: 1,
-            opposite: true,
-            title:{
-                    text: 'Dalam Persen'
-                }
-        },
-    ],
-    tooltip: {
-        enabled: false
-        // headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-        // pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-        //     '<td style="padding:0"><b>{point.y:.1f}</b></td></tr>',
-        // footerFormat: '</table>',
-        // shared: true,
-        // useHTML: true
-    },
-    plotOptions: {
-        series:{
-            pointPadding: 0,
-            shadow: false,
-            dataLabels: {
-                enabled: true
+        });
+
+        $.ajax({
+            type:'GET',
+            url: "{{ url('yakes-dash/data-bpjs-kapitasi') }}/"+periode+"/"+jenisToApi,
+            dataType: 'JSON',
+            async: false,
+            success: function(result) {
+                var data = result.daftar[0];
+                var pusat = parseFloat((parseFloat(data.kap9)/pembagi).toFixed(2));
+                var n1 = parseFloat((parseFloat(data.kap1)/pembagi).toFixed(2));
+                var n2 = parseFloat((parseFloat(data.kap2)/pembagi).toFixed(2));
+                var n3 = parseFloat((parseFloat(data.kap3)/pembagi).toFixed(2));
+                var n4 = parseFloat((parseFloat(data.kap4)/pembagi).toFixed(2));
+                var n5 = parseFloat((parseFloat(data.kap5)/pembagi).toFixed(2));
+                var n6 = parseFloat((parseFloat(data.kap6)/pembagi).toFixed(2));
+                var n7 = parseFloat((parseFloat(data.kap7)/pembagi).toFixed(2));
+                var total = parseFloat((parseFloat(data.kap_total)/pembagi).toFixed(2));
+                dataBPJS.push({nama:'Kapitasi', n1:pusat, n2:n1, n3:n2, n4:n3, n5:n4, n6:n5, n7:n6, n8:n7, n9:total})
+                chartBpjs.push({type:'column', name:'Kapitasi', data:[pusat, n1, n2, n3, n4, n5, n6, n7, total], color: '#9EEADC'});
             }
+        });
+
+        $.ajax({
+            type:'GET',
+            url: "{{ url('yakes-dash/data-bpjs-claim') }}/"+periode+"/"+jenisToApi,
+            dataType: 'JSON',
+            async: false,
+            success: function(result) {
+                var data = result.daftar[0];
+                var pusat = parseFloat((parseFloat(data.cl9)/pembagi).toFixed(2));
+                var n1 = parseFloat((parseFloat(data.cl1)/pembagi).toFixed(2));
+                var n2 = parseFloat((parseFloat(data.cl2)/pembagi).toFixed(2));
+                var n3 = parseFloat((parseFloat(data.cl3)/pembagi).toFixed(2));
+                var n4 = parseFloat((parseFloat(data.cl4)/pembagi).toFixed(2));
+                var n5 = parseFloat((parseFloat(data.cl5)/pembagi).toFixed(2));
+                var n6 = parseFloat((parseFloat(data.cl6)/pembagi).toFixed(2));
+                var n7 = parseFloat((parseFloat(data.cl7)/pembagi).toFixed(2));
+                var total = parseFloat((parseFloat(data.cl_total)/pembagi).toFixed(2));
+                dataBPJS.push({nama:'Claim BPJS', n1:pusat, n2:n1, n3:n2, n4:n3, n5:n4, n6:n5, n7:n6, n8:n7, n9:total})
+                chartBpjs.push({type:'column', name:'Claim BPJS', data:[pusat, n1, n2, n3, n4, n5, n6, n7, total], color: '#288372'});
+            }
+        });
+
+        var avg = {
+            nama:'Utilisasi/Iuran', 
+            n1:parseFloat((((parseFloat(dataBPJS[2].n1) + parseFloat(dataBPJS[1].n1))/parseFloat(dataBPJS[0].n1))*100).toFixed(2)), 
+            n2:parseFloat((((parseFloat(dataBPJS[2].n2) + parseFloat(dataBPJS[1].n2))/parseFloat(dataBPJS[0].n2))*100).toFixed(2)), 
+            n3:parseFloat((((parseFloat(dataBPJS[2].n3) + parseFloat(dataBPJS[1].n3))/parseFloat(dataBPJS[0].n3))*100).toFixed(2)), 
+            n4:parseFloat((((parseFloat(dataBPJS[2].n4) + parseFloat(dataBPJS[1].n4))/parseFloat(dataBPJS[0].n4))*100).toFixed(2)), 
+            n5:parseFloat((((parseFloat(dataBPJS[2].n5) + parseFloat(dataBPJS[1].n5))/parseFloat(dataBPJS[0].n5))*100).toFixed(2)), 
+            n6:parseFloat((((parseFloat(dataBPJS[2].n6) + parseFloat(dataBPJS[1].n6))/parseFloat(dataBPJS[0].n6))*100).toFixed(2)), 
+            n7:parseFloat((((parseFloat(dataBPJS[2].n7) + parseFloat(dataBPJS[1].n7))/parseFloat(dataBPJS[0].n7))*100).toFixed(2)), 
+            n8:parseFloat((((parseFloat(dataBPJS[2].n8) + parseFloat(dataBPJS[1].n8))/parseFloat(dataBPJS[0].n8))*100).toFixed(2)), 
+            n9:parseFloat((((parseFloat(dataBPJS[2].n9) + parseFloat(dataBPJS[1].n9))/parseFloat(dataBPJS[0].n9))*100).toFixed(2)), 
         }
-    },
-    series: [
-        {
-            type: 'column',
-            name: 'Iuran BPJS',
-            data: [0, 4311, 19244, 6596, 2797, 5078, 2027, 2746, 42799],
-            color: '#9EEADC'
-        },
-        {
-            type: 'column',
-            name: 'Kapitasi',
-            data: [0, 98, 792, 307, 66, 105, 42, 70, 1479],
-            color: '#9EEADC'
-        },
-        {  
-            type: 'column',
-            name: 'Claim BPJS',
-            data: [0, 139, 1917, 1262, 585, 713, 184, 109, 4909],
-            color: '#288372'
-        },
-        {  
-            type: 'spline',
-            name: 'Utilisasi/Iuran',
-            data: [0, 5.49, 14.07, 23.80, 23.26, 16.12, 11.12, 6.5, 14.93],
-            color: '#FCA311',
-            marker: {
-                lineWidth: 2,
+        dataBPJS.push(avg);
+        chartBpjs.push({type:'spline', name:'Utilasi/Iuran', data:[avg.n1, avg.n2, avg.n3, avg.n4, avg.n5, avg.n6, avg.n7, avg.n8, avg.n9], color:'#FCA311', marker:{ lineWidth:2}, yAxis:1});
+        for(var i=0;i<dataBPJS.length;i++) {
+            htmlBody += "<tr>";
+            if (i <= 2) {
+                htmlBody += "<td style='position: relative;'>";
+                htmlBody += "<div style='height: 15px; width:25px; background-color:"+colors[i]+";display:inline-block;margin-left:3px;margin-top:1px;'></div>&nbsp"+dataBPJS[i].nama;
+                htmlBody += "</td>";
+                htmlBody += "<td style='text-align: right;'>"+sepNum(dataBPJS[i].n1)+"</td>";
+                htmlBody += "<td style='text-align: right;'>"+sepNum(dataBPJS[i].n2)+"</td>";
+                htmlBody += "<td style='text-align: right;'>"+sepNum(dataBPJS[i].n3)+"</td>";
+                htmlBody += "<td style='text-align: right;'>"+sepNum(dataBPJS[i].n4)+"</td>";
+                htmlBody += "<td style='text-align: right;'>"+sepNum(dataBPJS[i].n5)+"</td>";
+                htmlBody += "<td style='text-align: right;'>"+sepNum(dataBPJS[i].n6)+"</td>";
+                htmlBody += "<td style='text-align: right;'>"+sepNum(dataBPJS[i].n7)+"</td>";
+                htmlBody += "<td style='text-align: right;'>"+sepNum(dataBPJS[i].n8)+"</td>";
+                htmlBody += "<td style='text-align: right;'>"+sepNum(dataBPJS[i].n9)+"</td>";
+            } else {
+                htmlBody += "<td style='position: relative;'>";
+                htmlBody += "<div style='height: 15px; width:25px; background-color:"+colors[i]+";display:inline-block;margin-left:3px;margin-top:1px;'></div>&nbsp"+dataBPJS[i].nama;
+                htmlBody += "</td>";
+                htmlBody += "<td style='text-align: right;'>"+cekNaN(dataBPJS[i].n1)+"</td>";
+                htmlBody += "<td style='text-align: right;'>"+cekNaN(dataBPJS[i].n2)+"</td>";
+                htmlBody += "<td style='text-align: right;'>"+cekNaN(dataBPJS[i].n3)+"</td>";
+                htmlBody += "<td style='text-align: right;'>"+cekNaN(dataBPJS[i].n4)+"</td>";
+                htmlBody += "<td style='text-align: right;'>"+cekNaN(dataBPJS[i].n5)+"</td>";
+                htmlBody += "<td style='text-align: right;'>"+cekNaN(dataBPJS[i].n6)+"</td>";
+                htmlBody += "<td style='text-align: right;'>"+cekNaN(dataBPJS[i].n7)+"</td>";
+                htmlBody += "<td style='text-align: right;'>"+cekNaN(dataBPJS[i].n8)+"</td>";
+                htmlBody += "<td style='text-align: right;'>"+cekNaN(dataBPJS[i].n9)+"</td>";
+            }
+            htmlBody += "</tr>";
+        }
+        $('#header-table-bpjs').append(htmlHeader);
+        $('#data-table-bpjs').append(htmlBody);
+        generateChart();
+    }
+
+    function getUtilisasiBPJS() {
+        headerBPJS = [];
+        dataBPJS = [];
+        chartBpjs =[];
+        categoriesChart = [];
+        $('#header-table-bpjs').empty();
+        $('#data-table-bpjs').empty();
+        var colors = ['#BFBFBF', '#9EEADC', '#288372', '#FCA311'];
+        headerBPJS.push('PUSAT', 'REG 1', 'REG 2', 'REG 3', 'REG 4', 'REG 5', 'REG 6', 'REG 7', 'TOTAL')
+        categoriesChart.push('PUSAT', 'REG 1', 'REG 2', 'REG 3', 'REG 4', 'REG 5', 'REG 6', 'REG 7', 'TOTAL')
+        var htmlHeader = "";
+        var htmlBody = "";
+        htmlHeader += "<tr>";
+        htmlHeader += "<th style='width: 18%;'></th>";
+        for(var i=0;i<headerBPJS.length;i++) {
+            htmlHeader += "<th>"+headerBPJS[i]+"</th>"   
+        }
+        htmlHeader += "</tr>";
+
+        $.ajax({
+            type:'GET',
+            url: "{{ url('yakes-dash/data-bpjs-iuran') }}/"+periode+"/"+jenisToApi,
+            dataType: 'JSON',
+            async: false,
+            success: function(result) {
+                var data = result.daftar[0];
+                var pusat = parseFloat((parseFloat(data.pr9)/pembagi).toFixed(2));
+                var n1 = parseFloat((parseFloat(data.pr1)/pembagi).toFixed(2));
+                var n2 = parseFloat((parseFloat(data.pr2)/pembagi).toFixed(2));
+                var n3 = parseFloat((parseFloat(data.pr3)/pembagi).toFixed(2));
+                var n4 = parseFloat((parseFloat(data.pr4)/pembagi).toFixed(2));
+                var n5 = parseFloat((parseFloat(data.pr5)/pembagi).toFixed(2));
+                var n6 = parseFloat((parseFloat(data.pr6)/pembagi).toFixed(2));
+                var n7 = parseFloat((parseFloat(data.pr7)/pembagi).toFixed(2));
+                var total = parseFloat((parseFloat(data.premi_total)/pembagi).toFixed(2));
+                dataBPJS.push({nama:'Iuran BPJS', n1:pusat, n2:n1, n3:n2, n4:n3, n5:n4, n6:n5, n7:n6, n8:n7, n9:total})
+                chartBpjs.push({type:'column', name:'Iuran BPJS', data:[pusat, n1, n2, n3, n4, n5, n6, n7, total], color: '#BFBFBF'});
+            }
+        });
+
+        $.ajax({
+            type:'GET',
+            url: "{{ url('yakes-dash/data-bpjs-kapitasi') }}/"+periode+"/"+jenisToApi,
+            dataType: 'JSON',
+            async: false,
+            success: function(result) {
+                var data = result.daftar[0];
+                var pusat = parseFloat((parseFloat(data.kap9)/pembagi).toFixed(2));
+                var n1 = parseFloat((parseFloat(data.kap1)/pembagi).toFixed(2));
+                var n2 = parseFloat((parseFloat(data.kap2)/pembagi).toFixed(2));
+                var n3 = parseFloat((parseFloat(data.kap3)/pembagi).toFixed(2));
+                var n4 = parseFloat((parseFloat(data.kap4)/pembagi).toFixed(2));
+                var n5 = parseFloat((parseFloat(data.kap5)/pembagi).toFixed(2));
+                var n6 = parseFloat((parseFloat(data.kap6)/pembagi).toFixed(2));
+                var n7 = parseFloat((parseFloat(data.kap7)/pembagi).toFixed(2));
+                var total = parseFloat((parseFloat(data.kap_total)/pembagi).toFixed(2));
+                dataBPJS.push({nama:'Kapitasi', n1:pusat, n2:n1, n3:n2, n4:n3, n5:n4, n6:n5, n7:n6, n8:n7, n9:total})
+                chartBpjs.push({type:'column', name:'Kapitasi', data:[pusat, n1, n2, n3, n4, n5, n6, n7, total], color: '#9EEADC'});
+            }
+        });
+
+        $.ajax({
+            type:'GET',
+            url: "{{ url('yakes-dash/data-bpjs-claim') }}/"+periode+"/"+jenisToApi,
+            dataType: 'JSON',
+            async: false,
+            success: function(result) {
+                var data = result.daftar[0];
+                var pusat = parseFloat((parseFloat(data.cl9)/pembagi).toFixed(2));
+                var n1 = parseFloat((parseFloat(data.cl1)/pembagi).toFixed(2));
+                var n2 = parseFloat((parseFloat(data.cl2)/pembagi).toFixed(2));
+                var n3 = parseFloat((parseFloat(data.cl3)/pembagi).toFixed(2));
+                var n4 = parseFloat((parseFloat(data.cl4)/pembagi).toFixed(2));
+                var n5 = parseFloat((parseFloat(data.cl5)/pembagi).toFixed(2));
+                var n6 = parseFloat((parseFloat(data.cl6)/pembagi).toFixed(2));
+                var n7 = parseFloat((parseFloat(data.cl7)/pembagi).toFixed(2));
+                var total = parseFloat((parseFloat(data.cl_total)/pembagi).toFixed(2));
+                dataBPJS.push({nama:'Claim BPJS', n1:pusat, n2:n1, n3:n2, n4:n3, n5:n4, n6:n5, n7:n6, n8:n7, n9:total})
+                chartBpjs.push({type:'column', name:'Claim BPJS', data:[pusat, n1, n2, n3, n4, n5, n6, n7, total], color: '#288372'});
+            }
+        });
+
+        var avg = {
+            nama:'Utilisasi/Iuran', 
+            n1:parseFloat((((parseFloat(dataBPJS[2].n1) + parseFloat(dataBPJS[1].n1))/parseFloat(dataBPJS[0].n1))*100).toFixed(2)), 
+            n2:parseFloat((((parseFloat(dataBPJS[2].n2) + parseFloat(dataBPJS[1].n2))/parseFloat(dataBPJS[0].n2))*100).toFixed(2)), 
+            n3:parseFloat((((parseFloat(dataBPJS[2].n3) + parseFloat(dataBPJS[1].n3))/parseFloat(dataBPJS[0].n3))*100).toFixed(2)), 
+            n4:parseFloat((((parseFloat(dataBPJS[2].n4) + parseFloat(dataBPJS[1].n4))/parseFloat(dataBPJS[0].n4))*100).toFixed(2)), 
+            n5:parseFloat((((parseFloat(dataBPJS[2].n5) + parseFloat(dataBPJS[1].n5))/parseFloat(dataBPJS[0].n5))*100).toFixed(2)), 
+            n6:parseFloat((((parseFloat(dataBPJS[2].n6) + parseFloat(dataBPJS[1].n6))/parseFloat(dataBPJS[0].n6))*100).toFixed(2)), 
+            n7:parseFloat((((parseFloat(dataBPJS[2].n7) + parseFloat(dataBPJS[1].n7))/parseFloat(dataBPJS[0].n7))*100).toFixed(2)), 
+            n8:parseFloat((((parseFloat(dataBPJS[2].n8) + parseFloat(dataBPJS[1].n8))/parseFloat(dataBPJS[0].n8))*100).toFixed(2)), 
+            n9:parseFloat((((parseFloat(dataBPJS[2].n9) + parseFloat(dataBPJS[1].n9))/parseFloat(dataBPJS[0].n9))*100).toFixed(2)), 
+        }
+        dataBPJS.push(avg);
+        chartBpjs.push({type:'spline', name:'Utilasi/Iuran', data:[avg.n1, avg.n2, avg.n3, avg.n4, avg.n5, avg.n6, avg.n7, avg.n8, avg.n9], color:'#FCA311', marker:{ lineWidth:2}, yAxis:1});
+        for(var i=0;i<dataBPJS.length;i++) {
+            htmlBody += "<tr>";
+            if (i <= 2) {
+                htmlBody += "<td style='position: relative;'>";
+                htmlBody += "<div style='height: 15px; width:25px; background-color:"+colors[i]+";display:inline-block;margin-left:3px;margin-top:1px;'></div>&nbsp"+dataBPJS[i].nama;
+                htmlBody += "</td>";
+                htmlBody += "<td style='text-align: right;'>"+sepNum(dataBPJS[i].n1)+"</td>";
+                htmlBody += "<td style='text-align: right;'>"+sepNum(dataBPJS[i].n2)+"</td>";
+                htmlBody += "<td style='text-align: right;'>"+sepNum(dataBPJS[i].n3)+"</td>";
+                htmlBody += "<td style='text-align: right;'>"+sepNum(dataBPJS[i].n4)+"</td>";
+                htmlBody += "<td style='text-align: right;'>"+sepNum(dataBPJS[i].n5)+"</td>";
+                htmlBody += "<td style='text-align: right;'>"+sepNum(dataBPJS[i].n6)+"</td>";
+                htmlBody += "<td style='text-align: right;'>"+sepNum(dataBPJS[i].n7)+"</td>";
+                htmlBody += "<td style='text-align: right;'>"+sepNum(dataBPJS[i].n8)+"</td>";
+                htmlBody += "<td style='text-align: right;'>"+sepNum(dataBPJS[i].n9)+"</td>";
+            } else {
+                htmlBody += "<td style='position: relative;'>";
+                htmlBody += "<div style='height: 15px; width:25px; background-color:"+colors[i]+";display:inline-block;margin-left:3px;margin-top:1px;'></div>&nbsp"+dataBPJS[i].nama;
+                htmlBody += "</td>";
+                htmlBody += "<td style='text-align: right;'>"+cekNaN(dataBPJS[i].n1)+"</td>";
+                htmlBody += "<td style='text-align: right;'>"+cekNaN(dataBPJS[i].n2)+"</td>";
+                htmlBody += "<td style='text-align: right;'>"+cekNaN(dataBPJS[i].n3)+"</td>";
+                htmlBody += "<td style='text-align: right;'>"+cekNaN(dataBPJS[i].n4)+"</td>";
+                htmlBody += "<td style='text-align: right;'>"+cekNaN(dataBPJS[i].n5)+"</td>";
+                htmlBody += "<td style='text-align: right;'>"+cekNaN(dataBPJS[i].n6)+"</td>";
+                htmlBody += "<td style='text-align: right;'>"+cekNaN(dataBPJS[i].n7)+"</td>";
+                htmlBody += "<td style='text-align: right;'>"+cekNaN(dataBPJS[i].n8)+"</td>";
+                htmlBody += "<td style='text-align: right;'>"+cekNaN(dataBPJS[i].n9)+"</td>";
+            }
+            htmlBody += "</tr>";
+        }
+        $('#header-table-bpjs').append(htmlHeader);
+        $('#data-table-bpjs').append(htmlBody);
+        generateChart();
+    }
+
+    function generateChart() {
+        Highcharts.chart('chart-bpjs', {
+            chart: {
+                marginLeft: 220,
+                marginRight: 60
             },
-            yAxis:1
-        },
-    ]
-});
+            exporting:{
+                enabled: false
+            },
+            legend:{ enabled:false },
+            credits: {
+                enabled: false
+            },
+            title: {
+                text: ''
+            },
+            subtitle: {
+                text: ''
+            },
+            xAxis: {
+                categories: categoriesChart,
+                labels: {
+                    enabled: false
+                }
+            },
+            yAxis: [
+                {
+                    linewidth: 1,
+                    title:{
+                            text: 'Rp. Dalam Juta'
+                        }
+                },
+                {
+                    linewidth: 1,
+                    opposite: true,
+                    title:{
+                            text: 'Dalam Persen'
+                        }
+                },
+            ],
+            tooltip: {
+                enabled: false
+                // headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                // pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                //     '<td style="padding:0"><b>{point.y:.1f}</b></td></tr>',
+                // footerFormat: '</table>',
+                // shared: true,
+                // useHTML: true
+            },
+            plotOptions: {
+                series:{
+                    pointPadding: 0,
+                    shadow: false,
+                    dataLabels: {
+                        enabled: true
+                    }
+                }
+            },
+            series: chartBpjs
+        });
+    }
 
 </script>
