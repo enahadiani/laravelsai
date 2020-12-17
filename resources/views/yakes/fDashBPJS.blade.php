@@ -372,7 +372,7 @@
     if(dashBPJS == "UTL") {
         getUtilisasiBPJS();
     } else if(dashBPJS == "CLM") {
-
+        getClaimBPJS();
     } else if(dashBPJS == "KTG") {
 
     }
@@ -428,7 +428,7 @@
         if(dashBPJS == "UTL") {
             getUtilisasiBPJS();
         } else if(dashBPJS == "CLM") {
-
+            getClaimBPJS();
         } else if(dashBPJS == "KTG") {
 
         }
@@ -504,7 +504,7 @@
         var htmlHeader = "";
         var htmlBody = "";
         htmlHeader += "<tr>";
-        htmlHeader += "<th style='width: 18%;'></th>";
+        htmlHeader += "<th style='width: 20%;'></th>";
         for(var i=0;i<headerBPJS.length;i++) {
             htmlHeader += "<th>"+headerBPJS[i]+"</th>"   
         }
@@ -512,81 +512,123 @@
 
         $.ajax({
             type:'GET',
-            url: "{{ url('yakes-dash/data-bpjs-iuran') }}/"+periode+"/"+jenisToApi,
+            url: "{{ url('yakes-dash/data-claim') }}/"+periode+"/"+jenisToApi,
             dataType: 'JSON',
             async: false,
             success: function(result) {
-                var data = result.daftar[0];
-                var pusat = parseFloat((parseFloat(data.pr9)/pembagi).toFixed(2));
-                var n1 = parseFloat((parseFloat(data.pr1)/pembagi).toFixed(2));
-                var n2 = parseFloat((parseFloat(data.pr2)/pembagi).toFixed(2));
-                var n3 = parseFloat((parseFloat(data.pr3)/pembagi).toFixed(2));
-                var n4 = parseFloat((parseFloat(data.pr4)/pembagi).toFixed(2));
-                var n5 = parseFloat((parseFloat(data.pr5)/pembagi).toFixed(2));
-                var n6 = parseFloat((parseFloat(data.pr6)/pembagi).toFixed(2));
-                var n7 = parseFloat((parseFloat(data.pr7)/pembagi).toFixed(2));
-                var total = parseFloat((parseFloat(data.premi_total)/pembagi).toFixed(2));
-                dataBPJS.push({nama:'Iuran BPJS', n1:pusat, n2:n1, n3:n2, n4:n3, n5:n4, n6:n5, n7:n6, n8:n7, n9:total})
-                chartBpjs.push({type:'column', name:'Iuran BPJS', data:[pusat, n1, n2, n3, n4, n5, n6, n7, total], color: '#BFBFBF'});
+                var data = result.daftar;
+                var n1TA=0;
+                var n2TA=0;
+                var n3TA=0;
+                var n4TA=0;
+                var n5TA=0;
+                var n6TA=0;
+                var n7TA=0;
+                var totalTA=0;
+                var n1CL=0;
+                var n2CL=0;
+                var n3CL=0;
+                var n4CL=0;
+                var n5CL=0;
+                var n6CL=0;
+                var n7CL=0;
+                var totalCL=0;
+                var n1BY=0;
+                var n2BY=0;
+                var n3BY=0;
+                var n4BY=0;
+                var n5BY=0;
+                var n6BY=0;
+                var n7BY=0;
+                var totalBY=0;
+                for(var i=0;i<data.length;i++) {
+                    if(data[i].jenis == 'TAGIHAN AWAL') {
+                        n1TA = parseFloat(data[i].n1) + n1TA;
+                        n2TA = parseFloat(data[i].n2) + n2TA;
+                        n3TA = parseFloat(data[i].n3) + n3TA;
+                        n4TA = parseFloat(data[i].n4) + n4TA;
+                        n5TA = parseFloat(data[i].n5) + n5TA;
+                        n6TA = parseFloat(data[i].n6) + n6TA;
+                        n7TA = parseFloat(data[i].n7) + n7TA;
+                        totalTA = (n1TA + n2TA + n3TA + n4TA + n5TA + n6TA +n7TA) + totalTA;
+                    } else if(data[i].jenis == 'CLAIM') {
+                        n1CL = parseFloat(data[i].n1) + n1CL;
+                        n2CL = parseFloat(data[i].n2) + n2CL;
+                        n3CL = parseFloat(data[i].n3) + n3CL;
+                        n4CL = parseFloat(data[i].n4) + n4CL;
+                        n5CL = parseFloat(data[i].n5) + n5CL;
+                        n6CL = parseFloat(data[i].n6) + n6CL;
+                        n7CL = parseFloat(data[i].n7) + n7CL;
+                        totalCL = (n1CL + n2CL + n3CL + n4CL + n5CL + n6CL +n7CL) + totalCL;
+                    } else if(data[i].jenis == 'DIBAYAR') {
+                        n1BY = parseFloat(data[i].n1) + n1BY;
+                        n2BY = parseFloat(data[i].n2) + n2BY;
+                        n3BY = parseFloat(data[i].n3) + n3BY;
+                        n4BY = parseFloat(data[i].n4) + n4BY;
+                        n5BY = parseFloat(data[i].n5) + n5BY;
+                        n6BY = parseFloat(data[i].n6) + n6BY;
+                        n7BY = parseFloat(data[i].n7) + n7BY;
+                        totalBY = (n1BY + n2BY + n3BY + n4BY + n5BY + n6BY +n7BY) + totalBY;
+                    }
+                }
+                n1TA = parseFloat((n1TA/pembagi).toFixed(2));
+                n2TA = parseFloat((n2TA/pembagi).toFixed(2));
+                n3TA = parseFloat((n3TA/pembagi).toFixed(2));
+                n4TA = parseFloat((n4TA/pembagi).toFixed(2));
+                n5TA = parseFloat((n5TA/pembagi).toFixed(2));
+                n6TA = parseFloat((n6TA/pembagi).toFixed(2));
+                n7TA = parseFloat((n7TA/pembagi).toFixed(2));
+                totalTA = parseFloat((totalTA/pembagi).toFixed(2));
+                n1CL = parseFloat((n1CL/pembagi).toFixed(2));
+                n2CL = parseFloat((n2CL/pembagi).toFixed(2));
+                n3CL = parseFloat((n3CL/pembagi).toFixed(2));
+                n4CL = parseFloat((n4CL/pembagi).toFixed(2));
+                n5CL = parseFloat((n5CL/pembagi).toFixed(2));
+                n6CL = parseFloat((n6CL/pembagi).toFixed(2));
+                n7CL = parseFloat((n7CL/pembagi).toFixed(2));
+                totalCL = parseFloat((totalCL/pembagi).toFixed(2));
+                n1BY = parseFloat((n1BY/pembagi).toFixed(2));
+                n2BY = parseFloat((n2BY/pembagi).toFixed(2));
+                n3BY = parseFloat((n3BY/pembagi).toFixed(2));
+                n4BY = parseFloat((n4BY/pembagi).toFixed(2));
+                n5BY = parseFloat((n5BY/pembagi).toFixed(2));
+                n6BY = parseFloat((n6BY/pembagi).toFixed(2));
+                n7BY = parseFloat((n7BY/pembagi).toFixed(2));
+                totalBY = parseFloat((totalBY/pembagi).toFixed(2));
+                dataBPJS.push({nama:'Tagihan Awal', n1:n1TA, n2:n2TA, n3:n3TA, n4:n4TA, n5:n5TA, n6:n6TA, n7:n7TA, n8:totalTA});
+                dataBPJS.push({nama:'Claim BPJS', n1:n1CL, n2:n2CL, n3:n3CL, n4:n4CL, n5:n5CL, n6:n6CL, n7:n7CL, n8:totalCL});
+                dataBPJS.push({nama:'Bayar Yakes', n1:n1BY, n2:n2BY, n3:n3BY, n4:n4BY, n5:n5BY, n6:n6BY, n7:n7BY, n8:totalBY});
+                chartBpjs.push({type:'column', name:'Tagihan Awal', data:[n1TA, n2TA, n3TA, n4TA, n5TA, n6TA, n7TA, totalTA], color: '#BFBFBF'});
+                chartBpjs.push({type:'column', name:'Claim BPJS', data:[n1CL, n2CL, n3CL, n4CL, n5CL, n6CL, n7CL, totalCL], color: '#9EEADC'});
+                chartBpjs.push({type:'column', name:'Bayar Yakes', data:[n1BY, n2BY, n3BY, n4BY, n5BY, n6BY, n7BY, totalBY], color: '#288372'});
             }
         });
-
-        $.ajax({
-            type:'GET',
-            url: "{{ url('yakes-dash/data-bpjs-kapitasi') }}/"+periode+"/"+jenisToApi,
-            dataType: 'JSON',
-            async: false,
-            success: function(result) {
-                var data = result.daftar[0];
-                var pusat = parseFloat((parseFloat(data.kap9)/pembagi).toFixed(2));
-                var n1 = parseFloat((parseFloat(data.kap1)/pembagi).toFixed(2));
-                var n2 = parseFloat((parseFloat(data.kap2)/pembagi).toFixed(2));
-                var n3 = parseFloat((parseFloat(data.kap3)/pembagi).toFixed(2));
-                var n4 = parseFloat((parseFloat(data.kap4)/pembagi).toFixed(2));
-                var n5 = parseFloat((parseFloat(data.kap5)/pembagi).toFixed(2));
-                var n6 = parseFloat((parseFloat(data.kap6)/pembagi).toFixed(2));
-                var n7 = parseFloat((parseFloat(data.kap7)/pembagi).toFixed(2));
-                var total = parseFloat((parseFloat(data.kap_total)/pembagi).toFixed(2));
-                dataBPJS.push({nama:'Kapitasi', n1:pusat, n2:n1, n3:n2, n4:n3, n5:n4, n6:n5, n7:n6, n8:n7, n9:total})
-                chartBpjs.push({type:'column', name:'Kapitasi', data:[pusat, n1, n2, n3, n4, n5, n6, n7, total], color: '#9EEADC'});
-            }
-        });
-
-        $.ajax({
-            type:'GET',
-            url: "{{ url('yakes-dash/data-bpjs-claim') }}/"+periode+"/"+jenisToApi,
-            dataType: 'JSON',
-            async: false,
-            success: function(result) {
-                var data = result.daftar[0];
-                var pusat = parseFloat((parseFloat(data.cl9)/pembagi).toFixed(2));
-                var n1 = parseFloat((parseFloat(data.cl1)/pembagi).toFixed(2));
-                var n2 = parseFloat((parseFloat(data.cl2)/pembagi).toFixed(2));
-                var n3 = parseFloat((parseFloat(data.cl3)/pembagi).toFixed(2));
-                var n4 = parseFloat((parseFloat(data.cl4)/pembagi).toFixed(2));
-                var n5 = parseFloat((parseFloat(data.cl5)/pembagi).toFixed(2));
-                var n6 = parseFloat((parseFloat(data.cl6)/pembagi).toFixed(2));
-                var n7 = parseFloat((parseFloat(data.cl7)/pembagi).toFixed(2));
-                var total = parseFloat((parseFloat(data.cl_total)/pembagi).toFixed(2));
-                dataBPJS.push({nama:'Claim BPJS', n1:pusat, n2:n1, n3:n2, n4:n3, n5:n4, n6:n5, n7:n6, n8:n7, n9:total})
-                chartBpjs.push({type:'column', name:'Claim BPJS', data:[pusat, n1, n2, n3, n4, n5, n6, n7, total], color: '#288372'});
-            }
-        });
-
-        var avg = {
-            nama:'Utilisasi/Iuran', 
-            n1:parseFloat((((parseFloat(dataBPJS[2].n1) + parseFloat(dataBPJS[1].n1))/parseFloat(dataBPJS[0].n1))*100).toFixed(2)), 
-            n2:parseFloat((((parseFloat(dataBPJS[2].n2) + parseFloat(dataBPJS[1].n2))/parseFloat(dataBPJS[0].n2))*100).toFixed(2)), 
-            n3:parseFloat((((parseFloat(dataBPJS[2].n3) + parseFloat(dataBPJS[1].n3))/parseFloat(dataBPJS[0].n3))*100).toFixed(2)), 
-            n4:parseFloat((((parseFloat(dataBPJS[2].n4) + parseFloat(dataBPJS[1].n4))/parseFloat(dataBPJS[0].n4))*100).toFixed(2)), 
-            n5:parseFloat((((parseFloat(dataBPJS[2].n5) + parseFloat(dataBPJS[1].n5))/parseFloat(dataBPJS[0].n5))*100).toFixed(2)), 
-            n6:parseFloat((((parseFloat(dataBPJS[2].n6) + parseFloat(dataBPJS[1].n6))/parseFloat(dataBPJS[0].n6))*100).toFixed(2)), 
-            n7:parseFloat((((parseFloat(dataBPJS[2].n7) + parseFloat(dataBPJS[1].n7))/parseFloat(dataBPJS[0].n7))*100).toFixed(2)), 
-            n8:parseFloat((((parseFloat(dataBPJS[2].n8) + parseFloat(dataBPJS[1].n8))/parseFloat(dataBPJS[0].n8))*100).toFixed(2)), 
-            n9:parseFloat((((parseFloat(dataBPJS[2].n9) + parseFloat(dataBPJS[1].n9))/parseFloat(dataBPJS[0].n9))*100).toFixed(2)), 
+        var avg1 = {
+            nama:'Claim vs Tag.Awal (%)', 
+            n1:parseFloat((parseFloat(dataBPJS[1].n1)/parseFloat(dataBPJS[0].n1)*100).toFixed(2)), 
+            n2:parseFloat((parseFloat(dataBPJS[1].n2)/parseFloat(dataBPJS[0].n2)*100).toFixed(2)), 
+            n3:parseFloat((parseFloat(dataBPJS[1].n3)/parseFloat(dataBPJS[0].n3)*100).toFixed(2)), 
+            n4:parseFloat((parseFloat(dataBPJS[1].n4)/parseFloat(dataBPJS[0].n4)*100).toFixed(2)), 
+            n5:parseFloat((parseFloat(dataBPJS[1].n5)/parseFloat(dataBPJS[0].n5)*100).toFixed(2)), 
+            n6:parseFloat((parseFloat(dataBPJS[1].n6)/parseFloat(dataBPJS[0].n6)*100).toFixed(2)), 
+            n7:parseFloat((parseFloat(dataBPJS[1].n7)/parseFloat(dataBPJS[0].n7)*100).toFixed(2)), 
+            n8:parseFloat((parseFloat(dataBPJS[1].n8)/parseFloat(dataBPJS[0].n8)*100).toFixed(2)), 
         }
-        dataBPJS.push(avg);
-        chartBpjs.push({type:'spline', name:'Utilasi/Iuran', data:[avg.n1, avg.n2, avg.n3, avg.n4, avg.n5, avg.n6, avg.n7, avg.n8, avg.n9], color:'#FCA311', marker:{ lineWidth:2}, yAxis:1});
+        var avg2 = {
+            nama:'Bayar Yakes vs Tag.Awal (%)', 
+            n1:parseFloat((parseFloat(dataBPJS[2].n1)/parseFloat(dataBPJS[0].n1)*100).toFixed(2)), 
+            n2:parseFloat((parseFloat(dataBPJS[2].n2)/parseFloat(dataBPJS[0].n2)*100).toFixed(2)), 
+            n3:parseFloat((parseFloat(dataBPJS[2].n3)/parseFloat(dataBPJS[0].n3)*100).toFixed(2)), 
+            n4:parseFloat((parseFloat(dataBPJS[2].n4)/parseFloat(dataBPJS[0].n4)*100).toFixed(2)), 
+            n5:parseFloat((parseFloat(dataBPJS[2].n5)/parseFloat(dataBPJS[0].n5)*100).toFixed(2)), 
+            n6:parseFloat((parseFloat(dataBPJS[2].n6)/parseFloat(dataBPJS[0].n6)*100).toFixed(2)), 
+            n7:parseFloat((parseFloat(dataBPJS[2].n7)/parseFloat(dataBPJS[0].n7)*100).toFixed(2)), 
+            n8:parseFloat((parseFloat(dataBPJS[2].n8)/parseFloat(dataBPJS[0].n8)*100).toFixed(2)), 
+        }
+        dataBPJS.push(avg1);
+        dataBPJS.push(avg2);
+        chartBpjs.push({type:'spline', name:'Claim vs Tag.Awal', data:[avg1.n1, avg1.n2, avg1.n3, avg1.n4, avg1.n5, avg1.n6, avg1.n7, avg1.n8], color:'#14213d', marker:{ lineWidth:2}, yAxis:1});
+        chartBpjs.push({type:'spline', name:'Bayar Yakes vs Tag.Awal', data:[avg2.n1, avg2.n2, avg2.n3, avg2.n4, avg2.n5, avg2.n6, avg2.n7, avg2.n8], color:'#FCA311', marker:{ lineWidth:2}, yAxis:1});
         for(var i=0;i<dataBPJS.length;i++) {
             htmlBody += "<tr>";
             if (i <= 2) {
@@ -601,7 +643,6 @@
                 htmlBody += "<td style='text-align: right;'>"+sepNum(dataBPJS[i].n6)+"</td>";
                 htmlBody += "<td style='text-align: right;'>"+sepNum(dataBPJS[i].n7)+"</td>";
                 htmlBody += "<td style='text-align: right;'>"+sepNum(dataBPJS[i].n8)+"</td>";
-                htmlBody += "<td style='text-align: right;'>"+sepNum(dataBPJS[i].n9)+"</td>";
             } else {
                 htmlBody += "<td style='position: relative;'>";
                 htmlBody += "<div style='height: 15px; width:25px; background-color:"+colors[i]+";display:inline-block;margin-left:3px;margin-top:1px;'></div>&nbsp"+dataBPJS[i].nama;
@@ -614,13 +655,12 @@
                 htmlBody += "<td style='text-align: right;'>"+cekNaN(dataBPJS[i].n6)+"</td>";
                 htmlBody += "<td style='text-align: right;'>"+cekNaN(dataBPJS[i].n7)+"</td>";
                 htmlBody += "<td style='text-align: right;'>"+cekNaN(dataBPJS[i].n8)+"</td>";
-                htmlBody += "<td style='text-align: right;'>"+cekNaN(dataBPJS[i].n9)+"</td>";
             }
             htmlBody += "</tr>";
         }
         $('#header-table-bpjs').append(htmlHeader);
         $('#data-table-bpjs').append(htmlBody);
-        generateChart();
+        generateChart(240, 60);
     }
 
     function getUtilisasiBPJS() {
@@ -752,14 +792,14 @@
         }
         $('#header-table-bpjs').append(htmlHeader);
         $('#data-table-bpjs').append(htmlBody);
-        generateChart();
+        generateChart(220, 60);
     }
 
-    function generateChart() {
+    function generateChart(marginLeft, marginRight) {
         Highcharts.chart('chart-bpjs', {
             chart: {
-                marginLeft: 220,
-                marginRight: 60
+                marginLeft: marginLeft,
+                marginRight: marginRight
             },
             exporting:{
                 enabled: false

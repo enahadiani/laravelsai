@@ -15,6 +15,25 @@
             }
         }
 
+        public function getdataClaim($periode,$jenis) {
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'yakes-dash/dataClaim?periode='.$periode.'&jenis='.$jenis
+            ,[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+            
+                $data = json_decode($response_data,true);
+                $data = $data['data'];
+            }
+            return response()->json(['daftar' => $data, 'status' => true], 200);
+        }
+
         public function getdataClaimBPJS($periode,$jenis) {
             $client = new Client();
             $response = $client->request('GET',  config('api.url').'yakes-dash/dataClaimLokasi?periode='.$periode.'&jenis='.$jenis
