@@ -262,17 +262,17 @@ function getMsPengembangan(periode=null){
         success:function(result){
             // if(result.series.length > 0){
                 var $colors = result.colors;
-                Highcharts.addEvent(Highcharts.Chart.prototype, 'render', function colorPoints() {
-                    var series = this.series;
-                    for (var i = 0, ie = series.length; i < ie; ++i) {
-                        var points = series[i].data;
-                        for (var j = 0, je = points.length; j < je; ++j) {
-                            if (points[j].graphic) {
-                                points[j].graphic.element.style.fill = $colors[j];
-                            }
-                        }
-                    }
-                });
+                // Highcharts.addEvent(Highcharts.Chart.prototype, 'render', function colorPoints() {
+                //     var series = this.series;
+                //     for (var i = 0, ie = series.length; i < ie; ++i) {
+                //         var points = series[i].data;
+                //         for (var j = 0, je = points.length; j < je; ++j) {
+                //             if (points[j].graphic) {
+                //                 points[j].graphic.element.style.fill = $colors[j];
+                //             }
+                //         }
+                //     }
+                // });
                 
                 Highcharts.chart('rka', {
                     chart: {
@@ -307,6 +307,16 @@ function getMsPengembangan(periode=null){
                         }
                     },
                     series: result.series
+                }, function(){
+                    var series = this.series;
+                    for (var i = 0, ie = series.length; i < ie; ++i) {
+                        var points = series[i].data;
+                        for (var j = 0, je = points.length; j < je; ++j) {
+                            if (points[j].graphic) {
+                                points[j].graphic.element.style.fill = $colors[j];
+                            }
+                        }
+                    }
                 });
                 
                 // $google.charts.load("current", {packages:['corechart']});
@@ -360,17 +370,17 @@ function getMsPengembanganKomposisi(periode=null){
         success:function(result){
             $('#komposisi-total').html(sepNumPas(result.total));
             var $colors = result.colors;
-            Highcharts.addEvent(Highcharts.Chart.prototype, 'render', function colorPoints() {
-                var series = this.series;
-                for (var i = 0, ie = series.length; i < ie; ++i) {
-                    var points = series[i].data;
-                    for (var j = 0, je = points.length; j < je; ++j) {
-                        if (points[j].graphic) {
-                            points[j].graphic.element.style.fill = $colors[j];
-                        }
-                    }
-                }
-            });
+            // Highcharts.addEvent(Highcharts.Chart.prototype, 'render', function colorPoints() {
+            //     var series = this.series;
+            //     for (var i = 0, ie = series.length; i < ie; ++i) {
+            //         var points = series[i].data;
+            //         for (var j = 0, je = points.length; j < je; ++j) {
+            //             if (points[j].graphic) {
+            //                 points[j].graphic.element.style.fill = $colors[j];
+            //             }
+            //         }
+            //     }
+            // });
             Highcharts.chart('komposisi', {
                 chart: {
                     type: 'pie'
@@ -405,6 +415,16 @@ function getMsPengembanganKomposisi(periode=null){
                     }
                 },
                 series: result.series
+            }, function(){
+                var series = this.series;
+                    for (var i = 0, ie = series.length; i < ie; ++i) {
+                        var points = series[i].data;
+                        for (var j = 0, je = points.length; j < je; ++j) {
+                            if (points[j].graphic) {
+                                points[j].graphic.element.style.fill = $colors[j];
+                            }
+                        }
+                    }
             });
             // if(result.data.length > 0){
             //     console.log(result.data);

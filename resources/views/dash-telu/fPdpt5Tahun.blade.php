@@ -181,7 +181,7 @@ function sepNum(x){
         }else if(!isFinite(x)){
             return 0;
         }else{
-            var x = parseFloat(x).toFixed(2);
+            var x = parseFloat(x).toFixed(1);
             // console.log(x);
             var tmp = x.toString().split('.');
             // console.dir(tmp);
@@ -357,32 +357,112 @@ function drawVisualization() {
 }
 
 function getPendapatan(periode=null){
-    // $.ajax({
-    //     type:"GET",
-    //     url:"{{ url('/telu-dash/getPendapatan5Tahun') }}/"+periode,
-    //     dataType:"JSON",
-    //     success:function(result){
+    $.ajax({
+        type:"GET",
+        url:"{{ url('/telu-dash/pend-5tahun') }}",
+        data:{periode:periode},
+        dataType:"JSON",
+        success:function(result){
             
-        $google.charts.load('current', {
-        'packages': ['corechart']
-      });
-      $google.charts.setOnLoadCallback(drawVisualization);
+            // $google.charts.load('current', {
+            //     'packages': ['corechart']
+            // });
+            // $google.charts.setOnLoadCallback(drawVisualization);
+            Highcharts.chart('agg', { 
+                chart: {
+                    alignTicks: false
+                },
+                title: {
+                    text: null
+                },
+                credits:{
+                    enabled:false
+                },
+                tooltip: {
+                    formatter: function () {
+                        return this.series.name+':<b>'+sepNumPas(this.y)+' </b>';
+                    }
+                },
+                yAxis: [{
+                    title: {
+                        text: 'DALAM MILIAR RUPIAH'
+                    },
+                    labels: {
+                        formatter: function () {
+                            return singkatNilai(this.value);
+                        }
+                    },
+                    tickInterval: 100
+                },{
+                    title: {
+                        text: 'PROSENTASE CAPAIAN'
+                    },
+                    opposite: true,
+                    min: 80,
+                    tickInterval: 5
+                }],
+                xAxis: {
+                    categories:result.ctg
+                },
+                plotOptions: {
+                    column: {
+                        dataLabels: {
+                            // padding:10,
+                            useHTML: true,
+                            formatter: function () {
+                                // return '<span style="color:white;background:gray !important;"><b>'+sepNum(this.y)+' </b></span>';
+                                return $('<div/>').css({
+                                    'color' : 'white', // work
+                                    'padding': '0 5px',
+                                    'backgroundColor' : this.point.color  // just white in my case
+                                }).text(sepNum(this.y))[0].outerHTML;
+                            }
+                        }
+                    },
+                    spline: {
+                        dataLabels: {
+                            // padding:15,
+                            x:20,
+                            useHTML: true,
+                            formatter: function () {
+                                return $('<div/>').css({
+                                    'color' : 'white', // work
+                                    'padding': '0 5px',
+                                    'backgroundColor' : this.point.color  // just white in my case
+                                }).text(sepNum(this.y)+'%')[0].outerHTML;
+                            }
+                        }
+                        // enableMouseTracking: false
+                    },
+                    series:{
+                        dataLabels: {
+                            allowOverlap:true,
+                            enabled: true,
+                            crop: false,
+                            fontSize: '10px !important',
+                            overflow: 'justify'
+                        }
+                    }
+                },
+                series: result.series
 
-    //     },
-    //     error: function(jqXHR, textStatus, errorThrown) {       
-    //         if(jqXHR.status == 422){
-    //             var msg = jqXHR.responseText;
-    //         }else if(jqXHR.status == 500) {
-    //             var msg = "Internal server error";
-    //         }else if(jqXHR.status == 401){
-    //             var msg = "Unauthorized";
-    //             window.location="{{ url('/dash-telu/sesi-habis') }}";
-    //         }else if(jqXHR.status == 405){
-    //             var msg = "Route not valid. Page not found";
-    //         }
+            });
+
+        },
+        error: function(jqXHR, textStatus, errorThrown) {       
+            if(jqXHR.status == 422){
+                var msg = jqXHR.responseText;
+            }else if(jqXHR.status == 500) {
+                var msg = "Internal server error";
+            }else if(jqXHR.status == 401){
+                var msg = "Unauthorized";
+                window.location="{{ url('/dash-telu/sesi-habis') }}";
+            }else if(jqXHR.status == 405){
+                var msg = "Route not valid. Page not found";
+            }
             
-    //     }
-    // })
+        }
+    })
 }
 
 function drawVisualizationTF() {
@@ -463,32 +543,114 @@ function drawVisualizationTF() {
 }
 
 function getPendapatanTF(periode=null){
-    // $.ajax({
-    //     type:"GET",
-    //     url:"{{ url('/telu-dash/getPendapatanTF') }}/"+periode,
-    //     dataType:"JSON",
-    //     success:function(result){
+    $.ajax({
+        type:"GET",
+        url:"{{ url('/telu-dash/pend-5tahun-tf') }}",
+        data:{periode: periode},
+        dataType:"JSON",
+        success:function(result){
             
-        $google.charts.load('current', {
-        'packages': ['corechart']
-      });
-      $google.charts.setOnLoadCallback(drawVisualizationTF);
+            // $google.charts.load('current', {
+            //     'packages': ['corechart']
+            // });
+            // $google.charts.setOnLoadCallback(drawVisualizationTF);
+            Highcharts.chart('tf', { 
+                chart: {
+                    alignTicks: false
+                },
+                title: {
+                    text: null
+                },
+                credits:{
+                    enabled:false
+                },
+                tooltip: {
+                    formatter: function () {
+                        return this.series.name+':<b>'+sepNumPas(this.y)+' </b>';
+                    }
+                },
+                yAxis: [{
+                    title: {
+                        text: 'DALAM MILIAR RUPIAH'
+                    },
+                    labels: {
+                        formatter: function () {
+                            return singkatNilai(this.value);
+                        }
+                    },
+                    tickInterval: 50
+                },{
+                    title: {
+                        text: 'PROSENTASE CAPAIAN'
+                    },
+                    opposite: true,
+                    min: 92,
+                    tickInterval: 2
+                }],
+                xAxis: {
+                    categories:result.ctg
+                },
+                plotOptions: {
+                    column: {
+                        dataLabels: {
+                            // padding:10,
+                            y:20,
+                            useHTML: true,
+                            formatter: function () {
+                                // return '<span style="color:white;background:gray !important;"><b>'+sepNum(this.y)+' </b></span>';
+                                return $('<div/>').css({
+                                    'color' : 'white', // work
+                                    'padding': '0 2px',
+                                    'font-size':'8px',
+                                    'backgroundColor' : this.point.color  // just white in my case
+                                }).text(sepNum(this.y))[0].outerHTML;
+                            }
+                        }
+                    },
+                    spline: {
+                        dataLabels: {
+                            // padding:15,
+                            // x:20,
+                            useHTML: true,
+                            formatter: function () {
+                                return $('<div/>').css({
+                                    'color' : 'white', // work
+                                    'padding': '0 5px',
+                                    'font-size':'8px',
+                                    'backgroundColor' : this.point.color  // just white in my case
+                                }).text(sepNum(this.y)+'%')[0].outerHTML;
+                            }
+                        }
+                        // enableMouseTracking: false
+                    },
+                    series:{
+                        dataLabels: {
+                            allowOverlap:true,
+                            enabled: true,
+                            crop: false,
+                            overflow: 'justify'
+                        }
+                    }
+                },
+                series: result.series
 
-    //     },
-    //     error: function(jqXHR, textStatus, errorThrown) {       
-    //         if(jqXHR.status == 422){
-    //             var msg = jqXHR.responseText;
-    //         }else if(jqXHR.status == 500) {
-    //             var msg = "Internal server error";
-    //         }else if(jqXHR.status == 401){
-    //             var msg = "Unauthorized";
-    //             window.location="{{ url('/dash-telu/sesi-habis') }}";
-    //         }else if(jqXHR.status == 405){
-    //             var msg = "Route not valid. Page not found";
-    //         }
+            });
+
+        },
+        error: function(jqXHR, textStatus, errorThrown) {       
+            if(jqXHR.status == 422){
+                var msg = jqXHR.responseText;
+            }else if(jqXHR.status == 500) {
+                var msg = "Internal server error";
+            }else if(jqXHR.status == 401){
+                var msg = "Unauthorized";
+                window.location="{{ url('/dash-telu/sesi-habis') }}";
+            }else if(jqXHR.status == 405){
+                var msg = "Route not valid. Page not found";
+            }
             
-    //     }
-    // })
+        }
+    })
 }
 
 function drawVisualizationNTF() {
@@ -569,32 +731,116 @@ function drawVisualizationNTF() {
 }
 
 function getPendapatanNTF(periode=null){
-    // $.ajax({
-    //     type:"GET",
-    //     url:"{{ url('/telu-dash/getPendapatanTF') }}/"+periode,
-    //     dataType:"JSON",
-    //     success:function(result){
+    $.ajax({
+        type:"GET",
+        url:"{{ url('/telu-dash/pend-5tahun-ntf') }}",
+        data:{periode: periode},
+        dataType:"JSON",
+        success:function(result){
             
-        $google.charts.load('current', {
-        'packages': ['corechart']
-      });
-      $google.charts.setOnLoadCallback(drawVisualizationNTF);
+            // $google.charts.load('current', {
+            //     'packages': ['corechart']
+            // });
+            // $google.charts.setOnLoadCallback(drawVisualizationNTF);
+            Highcharts.chart('ntf', { 
+                chart: {
+                    alignTicks: false
+                },
+                title: {
+                    text: null
+                },
+                credits:{
+                    enabled:false
+                },
+                tooltip: {
+                    formatter: function () {
+                        return this.series.name+':<b>'+sepNumPas(this.y)+' </b>';
+                    }
+                },
+                yAxis: [{
+                    title: {
+                        text: 'DALAM MILIAR RUPIAH'
+                    },
+                    labels: {
+                        formatter: function () {
+                            return singkatNilai(this.value);
+                        }
+                    },
+                    tickInterval: 10
+                },{
+                    title: {
+                        text: 'PROSENTASE CAPAIAN'
+                    },
+                    opposite: true,
+                    tickInterval: 20
+                }],
+                xAxis: {
+                    categories:result.ctg
+                },
+                plotOptions: {
+                    column: {
+                        dataLabels: {
+                            padding:10,
+                            y:20,
+                            useHTML: true,
+                            formatter: function () {
+                                // return '<span style="color:white;background:gray !important;"><b>'+sepNum(this.y)+' </b></span>';
+                                return $('<div/>').css({
+                                    'color' : 'white', // work
+                                    'padding': '0 2px',
+                                    'font-size':'8px',
+                                    
+                                    'backgroundColor' : this.point.color  // just white in my case
+                                }).text(sepNum(this.y))[0].outerHTML;
+                            }
+                        }
+                    },
+                    spline: {
+                        dataLabels: {
+                            padding:15,
+                            x:20,
+                            useHTML: true,
+                            formatter: function () {
+                                return $('<div/>').css({
+                                    'color' : 'white', // work
+                                    'padding': '0 5px',
+                                    'font-size':'8px',
+                                    
+                                    'backgroundColor' : this.point.color  // just white in my case
+                                }).text(sepNum(this.y)+'%')[0].outerHTML;
+                            }
+                        }
+                        // enableMouseTracking: false
+                    },
+                    series:{
+                        dataLabels: {
+                            allowOverlap:true,
+                            enabled: true,
+                            crop: false,
+                            fontSize: '12px',
+                            overflow: 'justify'
+                        }
+                    }
+                },
+                series: result.series
 
-    //     },
-    //     error: function(jqXHR, textStatus, errorThrown) {       
-    //         if(jqXHR.status == 422){
-    //             var msg = jqXHR.responseText;
-    //         }else if(jqXHR.status == 500) {
-    //             var msg = "Internal server error";
-    //         }else if(jqXHR.status == 401){
-    //             var msg = "Unauthorized";
-    //             window.location="{{ url('/dash-telu/sesi-habis') }}";
-    //         }else if(jqXHR.status == 405){
-    //             var msg = "Route not valid. Page not found";
-    //         }
+            });
+
+        },
+        error: function(jqXHR, textStatus, errorThrown) {       
+            if(jqXHR.status == 422){
+                var msg = jqXHR.responseText;
+            }else if(jqXHR.status == 500) {
+                var msg = "Internal server error";
+            }else if(jqXHR.status == 401){
+                var msg = "Unauthorized";
+                window.location="{{ url('/dash-telu/sesi-habis') }}";
+            }else if(jqXHR.status == 405){
+                var msg = "Route not valid. Page not found";
+            }
             
-    //     }
-    // })
+        }
+    })
 }
 
 
@@ -655,32 +901,87 @@ function drawVisualizationKomposisi() {
 }
 
 function getKomposisi(periode=null){
-    // $.ajax({
-    //     type:"GET",
-    //     url:"{{ url('/telu-dash/getPendapatanTF') }}/"+periode,
-    //     dataType:"JSON",
-    //     success:function(result){
+    $.ajax({
+        type:"GET",
+        url:"{{ url('/telu-dash/pend-5tahun-komposisi') }}",
+        dataType:"JSON",
+        data:{periode: periode},
+        success:function(result){
             
-        $google.charts.load('current', {
-        'packages': ['corechart']
-      });
-      $google.charts.setOnLoadCallback(drawVisualizationKomposisi);
+            // $google.charts.load('current', {
+            //     'packages': ['corechart']
+            // });
+            // $google.charts.setOnLoadCallback(drawVisualizationKomposisi);
+            Highcharts.chart('komposisi', { 
+                chart: {
+                    alignTicks: false
+                },
+                title: {
+                    text: null
+                },
+                credits:{
+                    enabled:false
+                },
+                // tooltip: {
+                //     formatter: function () {
+                //         return this.series.name+':<b>'+sepNumPas(this.y)+' </b>';
+                //     }
+                // },
+                tooltip: {
+                    pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
+                    shared: true
+                },
+                xAxis: {
+                    categories:result.ctg
+                },
+                plotOptions: {
+                    column: {
+                        stacking: 'percent',
+                        dataLabels: {
+                            enabled: true,
+                            padding:10,
+                            useHTML: true,
+                            formatter: function () {
+                                // return '<span style="color:white;background:gray !important;"><b>'+sepNum(this.y)+' </b></span>';
+                                return $('<div/>').css({
+                                    'color' : 'white', // work
+                                    'padding': '0 2px',
+                                    'font-size':'8px',
+                                    
+                                    'backgroundColor' : this.point.color  // just white in my case
+                                }).text(sepNum(this.percentage))[0].outerHTML;
+                            }
+                        }
+                    },
+                    series:{
+                        dataLabels: {
+                            allowOverlap:true,
+                            enabled: true,
+                            crop: false,
+                            fontSize: '12px',
+                            overflow: 'justify'
+                        }
+                    }
+                },
+                series: result.series
 
-    //     },
-    //     error: function(jqXHR, textStatus, errorThrown) {       
-    //         if(jqXHR.status == 422){
-    //             var msg = jqXHR.responseText;
-    //         }else if(jqXHR.status == 500) {
-    //             var msg = "Internal server error";
-    //         }else if(jqXHR.status == 401){
-    //             var msg = "Unauthorized";
-    //             window.location="{{ url('/dash-telu/sesi-habis') }}";
-    //         }else if(jqXHR.status == 405){
-    //             var msg = "Route not valid. Page not found";
-    //         }
+            });
+
+        },
+        error: function(jqXHR, textStatus, errorThrown) {       
+            if(jqXHR.status == 422){
+                var msg = jqXHR.responseText;
+            }else if(jqXHR.status == 500) {
+                var msg = "Internal server error";
+            }else if(jqXHR.status == 401){
+                var msg = "Unauthorized";
+                window.location="{{ url('/dash-telu/sesi-habis') }}";
+            }else if(jqXHR.status == 405){
+                var msg = "Route not valid. Page not found";
+            }
             
-    //     }
-    // })
+        }
+    })
 }
 
 
@@ -753,32 +1054,114 @@ function drawVisualizationGrowth() {
 }
 
 function getPendapatanGrowth(periode=null){
-    // $.ajax({
-    //     type:"GET",
-    //     url:"{{ url('/telu-dash/getPendapatanTF') }}/"+periode,
-    //     dataType:"JSON",
-    //     success:function(result){
+    $.ajax({
+        type:"GET",
+        url:"{{ url('/telu-dash/pend-5tahun-growth') }}",
+        data: {periode : periode},
+        dataType:"JSON",
+        success:function(result){
             
-        $google.charts.load('current', {
-        'packages': ['corechart']
-      });
-      $google.charts.setOnLoadCallback(drawVisualizationGrowth);
+            // $google.charts.load('current', {
+            //     'packages': ['corechart']
+            // });
+            // $google.charts.setOnLoadCallback(drawVisualizationGrowth);
+            Highcharts.chart('komposisi2', { 
+                chart: {
+                    // alignTicks: false
+                },
+                title: {
+                    text: null
+                },
+                credits:{
+                    enabled:false
+                },
+                tooltip: {
+                    formatter: function () {
+                        return this.series.name+':<b>'+sepNumPas(this.y)+' </b>';
+                    }
+                },
+                yAxis: [{
+                    title: {
+                        text: 'DALAM MILIAR RUPIAH'
+                    },
+                    labels: {
+                        formatter: function () {
+                            return singkatNilai(this.value);
+                        }
+                    },
+                    tickInterval: 50
+                },{
+                    title: {
+                        text: 'PROSENTASE CAPAIAN'
+                    },
+                    opposite: true,
+                    min: 92,
+                    tickInterval: 2
+                }],
+                xAxis: {
+                    categories:result.ctg
+                },
+                plotOptions: {
+                    column: {
+                        dataLabels: {
+                            // padding:10,
+                            y:20,
+                            useHTML: true,
+                            formatter: function () {
+                                // return '<span style="color:white;background:gray !important;"><b>'+sepNum(this.y)+' </b></span>';
+                                return $('<div/>').css({
+                                    'color' : 'white', // work
+                                    'padding': '0 2px',
+                                    'font-size':'8px',
+                                    'backgroundColor' : this.point.color  // just white in my case
+                                }).text(sepNum(this.y))[0].outerHTML;
+                            }
+                        }
+                    },
+                    spline: {
+                        dataLabels: {
+                            // padding:15,
+                            // x:20,
+                            useHTML: true,
+                            formatter: function () {
+                                return $('<div/>').css({
+                                    'color' : 'white', // work
+                                    'padding': '0 5px',
+                                    'font-size':'8px',
+                                    'backgroundColor' : this.point.color  // just white in my case
+                                }).text(sepNum(this.y)+'%')[0].outerHTML;
+                            }
+                        }
+                        // enableMouseTracking: false
+                    },
+                    series:{
+                        dataLabels: {
+                            allowOverlap:true,
+                            enabled: true,
+                            crop: false,
+                            overflow: 'justify'
+                        }
+                    }
+                },
+                series: result.series
 
-    //     },
-    //     error: function(jqXHR, textStatus, errorThrown) {       
-    //         if(jqXHR.status == 422){
-    //             var msg = jqXHR.responseText;
-    //         }else if(jqXHR.status == 500) {
-    //             var msg = "Internal server error";
-    //         }else if(jqXHR.status == 401){
-    //             var msg = "Unauthorized";
-    //             window.location="{{ url('/dash-telu/sesi-habis') }}";
-    //         }else if(jqXHR.status == 405){
-    //             var msg = "Route not valid. Page not found";
-    //         }
+            });
+
+        },
+        error: function(jqXHR, textStatus, errorThrown) {       
+            if(jqXHR.status == 422){
+                var msg = jqXHR.responseText;
+            }else if(jqXHR.status == 500) {
+                var msg = "Internal server error";
+            }else if(jqXHR.status == 401){
+                var msg = "Unauthorized";
+                window.location="{{ url('/dash-telu/sesi-habis') }}";
+            }else if(jqXHR.status == 405){
+                var msg = "Route not valid. Page not found";
+            }
             
-    //     }
-    // })
+        }
+    })
 }
 
 getPendapatan("{{$periode}}");

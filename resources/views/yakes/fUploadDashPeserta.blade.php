@@ -53,8 +53,8 @@
                                             <table id="table-upload" style="width:100%;">
                                             <thead style="background:#F8F8F8">
                                                 <tr>
-                                                    <th>Jenis</th>
-                                                    <th>Kode PP</th>
+                                                    <th>Pegawai/Pensiun</th>
+                                                    <th>Regional</th>
                                                     <th>KK</th>
                                                     <th>Pasangan</th>
                                                     <th>Anak</th>

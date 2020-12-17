@@ -81,5 +81,17 @@ Route::get('/ms-pengembangan-rka','DashTelu\DashboardController@msPengembanganRK
 Route::get('/ms-pengembangan-komposisi','DashTelu\DashboardController@msPengembanganKomposisi');
 
 Route::get('/laba-rugi-5tahun','DashTelu\DashboardController@getLabaRugi5Tahun');
+Route::get('/pend-5tahun','DashTelu\DashboardController@getPend5Tahun');
+Route::get('/pend-5tahun-tf','DashTelu\DashboardController@getPend5TahunTF');
+Route::get('/pend-5tahun-ntf','DashTelu\DashboardController@getPend5TahunNTF');
+Route::get('/pend-5tahun-komposisi','DashTelu\DashboardController@getPend5TahunKomposisi');
+Route::get('/pend-5tahun-growth','DashTelu\DashboardController@getPend5TahunGrowth');
+
+Route::get('/beban-5tahun','DashTelu\DashboardController@getBeban5Tahun');
+Route::get('/beban-5tahun-sdm','DashTelu\DashboardController@getBeban5TahunSDM');
+Route::get('/beban-5tahun-komposisi','DashTelu\DashboardController@getBeban5TahunKomposisi');
+Route::get('/beban-5tahun-growth','DashTelu\DashboardController@getBeban5TahunGrowth');
+
+Route::get('/shu-5tahun','DashTelu\DashboardController@getSHU5Tahun');
 
 ?>
