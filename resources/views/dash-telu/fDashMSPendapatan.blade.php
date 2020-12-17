@@ -252,36 +252,151 @@ function getMsPendRKA(periode=null){
         data:{periode: periode},
         dataType:"JSON",
         success:function(result){
+            // Highcharts.chart('capai-rka', {
+            //     chart: {
+            //         type: 'column'
+            //     },
+            //     title: {
+            //         text: ''
+            //     },
+            //     xAxis: {
+            //         categories: result.data.ctg
+            //     },
+            //     yAxis: [{
+            //         min: 0,
+            //         title: {
+            //             text: ''
+            //         }
+            //     }],
+            //     credits: {
+            //         enabled: false
+            //     },
+            //     tooltip: {
+            //         shared: true
+            //     },
+            //     plotOptions: {
+            //         column: {
+            //             grouping: false,
+            //             shadow: false,
+            //             borderWidth: 0
+            //         }
+            //     },
+            //     series: result.data.series
+            // });
+
+            Highcharts.SVGRenderer.prototype.symbols['c-rect'] = function (x, y, w, h) {
+                    return ['M', x, y + h / 2, 'L', x + w, y + h / 2];
+                };
+                
             Highcharts.chart('capai-rka', {
                 chart: {
                     type: 'column'
+                },
+                credits:{
+                    enabled:false
                 },
                 title: {
                     text: ''
                 },
                 xAxis: {
-                    categories: result.data.ctg
+                    categories: ['TF','NTF']
                 },
-                yAxis: [{
-                    min: 0,
-                    title: {
-                        text: ''
-                    }
-                }],
-                credits: {
-                    enabled: false
+                yAxis: {
+                        title:'',
+                    min: 0
                 },
                 tooltip: {
-                    shared: true
+                    pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b>',
+                    /* shared: true */
                 },
                 plotOptions: {
                     column: {
-                        grouping: false,
-                        shadow: false,
-                        borderWidth: 0
+                        stacking: 'normal',
+                        borderWidth: 0,
+                        pointWidth: 50,
+                        dataLabels: {
+                            // padding:10,
+                            allowOverlap:true,
+                            enabled: true,
+                            crop: false,
+                            overflow: 'justify',
+                            useHTML: true,
+                            formatter: function () {
+                                if(this.y < 0.1){
+                                    return '';
+                                }else{
+                                    return $('<div/>').css({
+                                        'color' : 'white', // work
+                                        'padding': '0 3px',
+                                        'backgroundColor' : this.point.color  // just white in my case
+                                    }).text(sepNum(this.y))[0].outerHTML;
+                                }
+                            }
+                        }
+                    },
+                    scatter: {
+                        dataLabels: {
+                            // padding:10,
+                            allowOverlap:true,
+                            enabled: true,
+                            crop: false,
+                            overflow: 'justify',
+                            useHTML: true,
+                            formatter: function () {
+                                // return '<span style="color:white;background:gray !important;"><b>'+sepNum(this.y)+' M</b></span>';
+                                if(this.y < 0.1){
+                                    return '';
+                                }else{
+                                    return $('<div/>').css({
+                                        'color' : 'white', // work
+                                        'padding': '0 3px',
+                                        'backgroundColor' : this.point.color  // just white in my case
+                                    }).text(sepNum(this.y))[0].outerHTML;
+                                }
+                            }
+                        }
                     }
                 },
-                series: result.data.series
+                series: [{
+                    name: 'Melampaui',
+                    color: '#16ff14',
+                    type: 'column',
+                    stack: 1,
+                    data: [50, 0],
+                    dataLabels:{
+                        y:-20
+                    }
+                },{
+                    name: 'Target',
+                    color: '#003F88',
+                    marker: {
+                        symbol: 'c-rect',
+                        lineWidth:5,
+                        lineColor: 'black',
+                        radius: 50
+                    },
+                    type: 'scatter',
+                    stack: 2,
+                    data: [410.1, 83.4],
+                    dataLabels:{
+                        x:-50
+                    }
+                }, {
+                    name: 'Tidak Tercapai',
+                    type: 'column',
+                    color: '#900604',
+                    stack: 1,
+                    data: [0.8, 29.5],
+                    dataLabels:{
+                        x:50,
+                    }
+                }, {
+                    name: 'RKA s.d Bulan',
+                    type: 'column',
+                    color: '#CED4DA',
+                    stack: 1,
+                    data: [409.3, 53.9]
+                }]
             });
 
         },
