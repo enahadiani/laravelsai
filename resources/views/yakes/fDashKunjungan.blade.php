@@ -231,7 +231,7 @@
     <div class="col-4">
         <div class="card">
             <h6 class="ml-4 mt-3 mb-0" style="font-weight: bold;">CC per Claimant</h6>
-            <p class="ml-4 mt-1">Satuan Milyar</p>
+            <p class="ml-4 mt-1">Satuan Jutaan</p>
             <div id="pkk-cc" class="mt-3"></div>
             <div class="box">
                 <div style="padding-left: 20px;">
