@@ -231,98 +231,98 @@ function getPeriode(){
 
 getPeriode();
 
-function drawVisualization() {
-    // Some raw data (not necessarily accurate)
-    var data = $google.visualization.arrayToDataTable([
-        ['', 'Pendapatan',{ role: 'annotation'} ,'Beban',{ role: 'annotation'}, 'SHU',{ role: 'annotation'}, 'OR',{ role: 'annotation'}],
-        ['RKA 2015', 273.0,273.0, 248.6, 248.6, 24.4,24.4, 90.5, 90.5],
-        ['Real 2015', 292.1,292.1, 239.8, 239.8, 52.3, 52.3, 84.6, 84.6],
-        ['RKA 2016', 340.6,340.6, 304.4, 304.4, 36.2,36.2, 88.7, 88.7],
-        ['Real 2016', 355.2,355.2, 290.8, 290.8, 64.4, 64.4, 81.8, 81.8],
-        ['RKA 2017', 378.2,378.2, 307.4,307.4, 70.8, 70.8, 80.8, 80.8],
-        ['Real 2017', 415.5,415.5, 329.5, 329.5, 86.0, 86.0, 78.1, 78.1],
-        ['RKA 2018', 448.5, 448.5, 352.5, 352.5, 96.0, 96.0, 72.9, 72.9],
-        ['Real 2018', 475.4,475.4, 379.2, 379.2, 96.3, 96.3, 78.5, 78.5],
-        ['RKA 2019', 500.9, 500.9, 391.9, 391.9, 108.9, 108.9, 76.8, 76.8],
-        ['Real 2019', 525.5, 525.5, 420.6, 420.6, 104.9, 104.9, 78.8, 78.8],
-        ['RKA 2020', 543.3, 543.3, 435.6, 435.6, 101.9, 101.9, 80.2, 80.2],
-        ['Real 2020', 503.0, 503.0, 417.2, 417.2, 85.8, 85.8, 82.9, 82.9],
-        ]);
+// function drawVisualization() {
+//     // Some raw data (not necessarily accurate)
+//     var data = $google.visualization.arrayToDataTable([
+//         ['', 'Pendapatan',{ role: 'annotation'} ,'Beban',{ role: 'annotation'}, 'SHU',{ role: 'annotation'}, 'OR',{ role: 'annotation'}],
+//         ['RKA 2015', 273.0,273.0, 248.6, 248.6, 24.4,24.4, 90.5, 90.5],
+//         ['Real 2015', 292.1,292.1, 239.8, 239.8, 52.3, 52.3, 84.6, 84.6],
+//         ['RKA 2016', 340.6,340.6, 304.4, 304.4, 36.2,36.2, 88.7, 88.7],
+//         ['Real 2016', 355.2,355.2, 290.8, 290.8, 64.4, 64.4, 81.8, 81.8],
+//         ['RKA 2017', 378.2,378.2, 307.4,307.4, 70.8, 70.8, 80.8, 80.8],
+//         ['Real 2017', 415.5,415.5, 329.5, 329.5, 86.0, 86.0, 78.1, 78.1],
+//         ['RKA 2018', 448.5, 448.5, 352.5, 352.5, 96.0, 96.0, 72.9, 72.9],
+//         ['Real 2018', 475.4,475.4, 379.2, 379.2, 96.3, 96.3, 78.5, 78.5],
+//         ['RKA 2019', 500.9, 500.9, 391.9, 391.9, 108.9, 108.9, 76.8, 76.8],
+//         ['Real 2019', 525.5, 525.5, 420.6, 420.6, 104.9, 104.9, 78.8, 78.8],
+//         ['RKA 2020', 543.3, 543.3, 435.6, 435.6, 101.9, 101.9, 80.2, 80.2],
+//         ['Real 2020', 503.0, 503.0, 417.2, 417.2, 85.8, 85.8, 82.9, 82.9],
+//         ]);
         
-        var options = {
-            annotations: {
-                textStyle: {
-                    fontSize: 12,
-                    bold: true,
-                    opacity: 0.8,
-                }
+//         var options = {
+//             annotations: {
+//                 textStyle: {
+//                     fontSize: 12,
+//                     bold: true,
+//                     opacity: 0.8,
+//                 }
                 
-            },
-            seriesType: 'bars',
-            series: {
-                0: {
-                    targetAxisIndex: 0
-                },
-                1: {
-                    targetAxisIndex: 0
-                },
-                2: {
-                    type: 'line', 
-                    curveType: 'function',
-                    targetAxisIndex: 0
-                },
-                3: {
-                    type: 'line', 
-                    curveType: 'function',
-                    targetAxisIndex: 1
-                }
-            },
-            vAxes: {
-                // Adds titles to each axis.
-                0: {
-                    textStyle : {
-                        fontSize: 10 // or the number you want
-                    },
-                    title: 'DALAM MILYAR RUPIAH',  
-                    gridlines: {
-                        count: 10,
-                    },
-                    min: 0
-                },
-                1: {
-                    textStyle : {
-                        fontSize: 10 // or the number you want
-                    },
-                    format: '##,##%', 
-                    title: 'PROSENTASE CAPAIAN',
-                    gridlines: {
-                        count: 1,
-                    },
-                    min: 65
-                }
-            },
-            legend: {
-                position: 'top',
-                alignment: 'center'
-            },
-            chartArea:{
-                width: '90%',
-                height: '85%'
-            },
-            colors: ['#4c4c4c', '#900604', '#ffc114', '#16ff14'],
-            height:'100%',
-            width:'100%',
-            animation: {
-                startup: true,
-                duration: 1000,
-                easing: 'out'
-            }
+//             },
+//             seriesType: 'bars',
+//             series: {
+//                 0: {
+//                     targetAxisIndex: 0
+//                 },
+//                 1: {
+//                     targetAxisIndex: 0
+//                 },
+//                 2: {
+//                     type: 'line', 
+//                     curveType: 'function',
+//                     targetAxisIndex: 0
+//                 },
+//                 3: {
+//                     type: 'line', 
+//                     curveType: 'function',
+//                     targetAxisIndex: 1
+//                 }
+//             },
+//             vAxes: {
+//                 // Adds titles to each axis.
+//                 0: {
+//                     textStyle : {
+//                         fontSize: 10 // or the number you want
+//                     },
+//                     title: 'DALAM MILYAR RUPIAH',  
+//                     gridlines: {
+//                         count: 10,
+//                     },
+//                     min: 0
+//                 },
+//                 1: {
+//                     textStyle : {
+//                         fontSize: 10 // or the number you want
+//                     },
+//                     format: '##,##%', 
+//                     title: 'PROSENTASE CAPAIAN',
+//                     gridlines: {
+//                         count: 1,
+//                     },
+//                     min: 65
+//                 }
+//             },
+//             legend: {
+//                 position: 'top',
+//                 alignment: 'center'
+//             },
+//             chartArea:{
+//                 width: '90%',
+//                 height: '85%'
+//             },
+//             colors: ['#4c4c4c', '#900604', '#ffc114', '#16ff14'],
+//             height:'100%',
+//             width:'100%',
+//             animation: {
+//                 startup: true,
+//                 duration: 1000,
+//                 easing: 'out'
+//             }
             
-        };
+//         };
         
-        var chart = new google.visualization.ComboChart(document.getElementById('laba-rugi'));
-        chart.draw(data, options);
-    }
+//         var chart = new google.visualization.ComboChart(document.getElementById('laba-rugi'));
+//         chart.draw(data, options);
+//     }
 function getLabaRugi(periode=null){
     $.ajax({
         type:"GET",
@@ -335,6 +335,7 @@ function getLabaRugi(periode=null){
             //     'packages': ['corechart']
             // });
             // $google.charts.setOnLoadCallback(drawVisualization);
+            
             Highcharts.chart('laba-rugi', { 
                 title: {
                     text: null
@@ -344,7 +345,7 @@ function getLabaRugi(periode=null){
                 },
                 tooltip: {
                     formatter: function () {
-                        return this.series.name+':<b>'+sepNumPas(this.y)+' M</b>';
+                        return this.series.name+':<b>'+sepNumPas(this.y)+'</b>';
                     }
                 },
                 yAxis: [{
@@ -369,30 +370,50 @@ function getLabaRugi(periode=null){
                 plotOptions: {
                     column: {
                         dataLabels: {
-                            padding:10,
-                            allowOverlap:true,
-                            enabled: true,
-                            crop: false,
-                            overflow: 'none',
-                            enabled: true,
+                            // padding:10,
+                            // allowOverlap:true,
+                            // enabled: true,
+                            // crop: false,
+                            // overflow: 'justify',
+                            // enabled: true,
+                            useHTML: true,
                             formatter: function () {
-                                return '<b>'+sepNum(this.y)+' M</b>';
-                            },
+                                // return '<span style="color:white;background:gray !important;"><b>'+sepNum(this.y)+' M</b></span>';
+                                return $('<div/>').css({
+                                    'color' : 'white', // work
+                                    'padding': '0 3px',
+                                    'backgroundColor' : this.point.color  // just white in my case
+                                }).text(sepNum(this.y))[0].outerHTML;
+                            }
                         }
                     },
                     spline: {
                         dataLabels: {
                             padding:15,
+                            // allowOverlap:true,
+                            // enabled: true,
+                            // crop: false,
+                            // overflow: 'justify',
+                            x:20,
+                            useHTML: true,
+                            formatter: function () {
+                                return $('<div/>').css({
+                                    'color' : 'white', // work
+                                    'padding': '0 5px',
+                                    'backgroundColor' : this.point.color  // just white in my case
+                                }).text(sepNum(this.y)+'%')[0].outerHTML;
+                            }
+                        }
+                        // enableMouseTracking: false
+                    },
+                    series:{
+                        dataLabels: {
                             allowOverlap:true,
                             enabled: true,
                             crop: false,
-                            overflow: 'none',
-                            formatter: function () {
-                                return '<b>'+sepNum(this.y)+' %</b>';
-                            },
-                            prefix: '%'
+                            fontSize: '12px',
+                            overflow: 'justify'
                         }
-                        // enableMouseTracking: false
                     }
                 },
                 series: result.series
