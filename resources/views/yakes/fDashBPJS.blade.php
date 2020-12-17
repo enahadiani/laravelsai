@@ -485,7 +485,7 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="group-filter">
+                    <div class="group-filter" id="jenis-bpjs">
                         <label for="jenis" class="label-filter">Jenis</label>
                         <div class="dropdown-jenis dropdown dropdown-filter">
                             <button class="btn btn-light select-dash" style="background-color: #ffffff;width: 100%;text-align:left;" type="button" data-toggle="dropdown">
@@ -615,6 +615,11 @@
         var htmlText = text+"<span class='glyph-icon simple-icon-arrow-down' style='float: right; margin-top:2%;'></span>";
         $(this).closest('.dropdown-dash').find('.select-dash').html(htmlText);
         dashBPJS = value;
+        if(value == 'KPT') {
+            $('#jenis-bpjs').hide();
+        } else {
+            $('#jenis-bpjs').show();
+        }
     });
 
     $('#dash-list').on( 'click', 'tr', function() {

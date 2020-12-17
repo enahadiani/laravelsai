@@ -1477,7 +1477,7 @@ function getDataLayanan() {
                 },
                 plotOptions: {
                     pie: {
-                        size: 200,
+                        size: 195,
                         allowPointSelect: true,
                         cursor: 'pointer',
                         dataLabels: {
