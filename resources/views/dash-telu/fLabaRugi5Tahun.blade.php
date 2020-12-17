@@ -133,7 +133,7 @@ function sepNum(x){
         }else if(!isFinite(x)){
             return 0;
         }else{
-            var x = parseFloat(x).toFixed(2);
+            var x = parseFloat(x).toFixed(1);
             // console.log(x);
             var tmp = x.toString().split('.');
             // console.dir(tmp);
@@ -324,32 +324,95 @@ function drawVisualization() {
         chart.draw(data, options);
     }
 function getLabaRugi(periode=null){
-    // $.ajax({
-    //     type:"GET",
-    //     url:"{{ url('/telu-dash/getLabaRugi5Tahun') }}/"+periode,
-    //     dataType:"JSON",
-    //     success:function(result){
+    $.ajax({
+        type:"GET",
+        url:"{{ url('/telu-dash/laba-rugi-5tahun') }}",
+        data:{periode : periode},
+        dataType:"JSON",
+        success:function(result){
             
-        $google.charts.load('current', {
-        'packages': ['corechart']
-      });
-      $google.charts.setOnLoadCallback(drawVisualization);
+            // $google.charts.load('current', {
+            //     'packages': ['corechart']
+            // });
+            // $google.charts.setOnLoadCallback(drawVisualization);
+            Highcharts.chart('laba-rugi', { 
+                title: {
+                    text: null
+                },
+                credits:{
+                    enabled:false
+                },
+                tooltip: {
+                    formatter: function () {
+                        return this.series.name+':<b>'+sepNumPas(this.y)+' M</b>';
+                    }
+                },
+                yAxis: [{
+                    title: {
+                        text: 'DALAM MILIAR RUPIAH'
+                    },
+                    labels: {
+                        formatter: function () {
+                            return singkatNilai(this.value);
+                        }
+                    },
+                },{
+                    title: {
+                        text: 'PROSENTASE CAPAIAN'
+                    },
+                    opposite: true,
+                    min: 65
+                }],
+                xAxis: {
+                    categories:result.ctg
+                },
+                plotOptions: {
+                    column: {
+                        dataLabels: {
+                            padding:10,
+                            allowOverlap:true,
+                            enabled: true,
+                            crop: false,
+                            overflow: 'none',
+                            enabled: true,
+                            formatter: function () {
+                                return '<b>'+sepNum(this.y)+' M</b>';
+                            },
+                        }
+                    },
+                    spline: {
+                        dataLabels: {
+                            padding:15,
+                            allowOverlap:true,
+                            enabled: true,
+                            crop: false,
+                            overflow: 'none',
+                            formatter: function () {
+                                return '<b>'+sepNum(this.y)+' %</b>';
+                            },
+                            prefix: '%'
+                        }
+                        // enableMouseTracking: false
+                    }
+                },
+                series: result.series
 
-    //     },
-    //     error: function(jqXHR, textStatus, errorThrown) {       
-    //         if(jqXHR.status == 422){
-    //             var msg = jqXHR.responseText;
-    //         }else if(jqXHR.status == 500) {
-    //             var msg = "Internal server error";
-    //         }else if(jqXHR.status == 401){
-    //             var msg = "Unauthorized";
-    //             window.location="{{ url('/dash-telu/sesi-habis') }}";
-    //         }else if(jqXHR.status == 405){
-    //             var msg = "Route not valid. Page not found";
-    //         }
+            });
+        },
+        error: function(jqXHR, textStatus, errorThrown) {       
+            if(jqXHR.status == 422){
+                var msg = jqXHR.responseText;
+            }else if(jqXHR.status == 500) {
+                var msg = "Internal server error";
+            }else if(jqXHR.status == 401){
+                var msg = "Unauthorized";
+                window.location="{{ url('/dash-telu/sesi-habis') }}";
+            }else if(jqXHR.status == 405){
+                var msg = "Route not valid. Page not found";
+            }
             
-    //     }
-    // })
+        }
+    })
 }
 
 getLabaRugi("{{$periode}}");
