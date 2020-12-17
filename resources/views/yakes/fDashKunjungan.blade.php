@@ -230,7 +230,7 @@
     </div>
     <div class="col-4">
         <div class="card">
-            <h6 class="ml-4 mt-3 mb-0" style="font-weight: bold;">CC per Claimant</h6>
+            <h6 class="ml-4 mt-3 mb-0" style="font-weight: bold;" id="judul-chart-3"></h6>
             <p class="ml-4 mt-1">Satuan Jutaan</p>
             <div id="pkk-cc" class="mt-3"></div>
             <div class="box">
@@ -631,9 +631,11 @@ $('#button-filter').click(function(){
 if(jenis == 'CC') {
     $('#claim-ket').text('Claim Cost (CC)')
     $('#ket-layanan').text('CC per Jenis Layanan')
+    $('#judul-chart-3').text('CC per Claimant');
 } else {
     $('#claim-ket').text('Biaya Pengobatan (BP)')
     $('#ket-layanan').text('BP per Jenis Layanan')
+    $('#judul-chart-3').text('BP per NIK');
 }
 
     $.ajax({
@@ -686,13 +688,15 @@ if(jenis == 'CC') {
         $('.ytd-now').text(ketYTDNow);
         if(jenis == 'CC') {
             judulForm = "Biaya Kunjungan Pensiunan dan Keluarga";
-            $('#claim-ket').text('Claim Cost (CC)')
-            $('#ket-layanan').text('CC per Jenis Layanan')
+            $('#claim-ket').text('Claim Cost (CC)');
+            $('#ket-layanan').text('CC per Jenis Layanan');
+            $('#judul-chart-3').text('CC per Claimant');
             $('#judul-form').text(judulForm);
         } else {
             judulForm = "Biaya Kunjungan Pegawai dan Keluarga";
-            $('#claim-ket').text('Biaya Pengobatan (BP)')
-            $('#ket-layanan').text('BP per Jenis Layanan')
+            $('#claim-ket').text('Biaya Pengobatan (BP)');
+            $('#ket-layanan').text('BP per Jenis Layanan');
+            $('#judul-chart-3').text('BP per NIK');
             $('#judul-form').text(judulForm);
         }
         getDataKunjungan();
