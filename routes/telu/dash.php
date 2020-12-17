@@ -80,5 +80,6 @@ Route::get('/ms-beban-klp','DashTelu\DashboardController@msBebanKlp');
 Route::get('/ms-pengembangan-rka','DashTelu\DashboardController@msPengembanganRKA');
 Route::get('/ms-pengembangan-komposisi','DashTelu\DashboardController@msPengembanganKomposisi');
 
+Route::get('/laba-rugi-5tahun','DashTelu\DashboardController@getLabaRugi5Tahun');
 
 ?>

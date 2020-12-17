@@ -104,7 +104,7 @@
     var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
     var dataTable = generateTable(
         "table-data",
-        "{{ url('telu-master/form') }}", 
+        "{{ url('yakes-master/form') }}", 
         [
             {'targets': 3, data: null, 'defaultContent': action_html,'className': 'text-center' },
         ],
@@ -113,7 +113,7 @@
             { data: 'nama_form' },
             { data: 'form' },
         ],
-        "{{ url('dash-telu/sesi-habis') }}",
+        "{{ url('yakes-auth/sesi-habis') }}",
         []
     );
 
@@ -189,11 +189,11 @@
             var parameter = $('#id_edit').val();
             var id = $('#kode_form').val();
             if(parameter == "edit"){
-                var url = "{{ url('telu-master/form') }}/"+id;
+                var url = "{{ url('yakes-master/form') }}/"+id;
                 var pesan = "updated";
                 var text = "Perubahan data "+id+" telah tersimpan";
             }else{
-                var url = "{{ url('telu-master/form') }}";
+                var url = "{{ url('yakes-master/form') }}";
                 var pesan = "saved";
                 var text = "Data tersimpan dengan kode "+id;
             }
@@ -230,7 +230,7 @@
                         last_add("kode_form",result.data.kode);
                     }else if(!result.data.status && result.data.message === "Unauthorized"){
                     
-                        window.location.href = "{{ url('/dash-telu/sesi-habis') }}";
+                        window.location.href = "{{ url('/yakes-auth/sesi-habis') }}";
                         
                     }else{
                         if(result.data.kode == "-" && result.data.jenis != undefined){
@@ -268,7 +268,7 @@
     function hapusData(id){
         $.ajax({
             type: 'DELETE',
-            url: "{{ url('telu-master/form') }}/"+id,
+            url: "{{ url('yakes-master/form') }}/"+id,
             dataType: 'json',
             async:false,
             success:function(result){
@@ -279,7 +279,7 @@
                     $('#table-delete tbody').html('');
                     $('#modal-pesan').modal('hide');
                 }else if(!result.data.status && result.data.message == "Unauthorized"){
-                    window.location.href = "{{ url('dash-telu/sesi-habis') }}";
+                    window.location.href = "{{ url('yakes-auth/sesi-habis') }}";
                 }else{
                     Swal.fire({
                         icon: 'error',
@@ -306,7 +306,7 @@
     function editData(id){
         $.ajax({
             type: 'GET',
-            url: "{{ url('telu-master/form') }}/" + id,
+            url: "{{ url('yakes-master/form') }}/" + id,
             dataType: 'json',
             async:false,
             success:function(res){
@@ -324,7 +324,7 @@
                     $('#saku-form').show();
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
-                    window.location.href = "{{ url('dash-telu/sesi-habis') }}";
+                    window.location.href = "{{ url('yakes-auth/sesi-habis') }}";
                 }
                 // $iconLoad.hide();
             }

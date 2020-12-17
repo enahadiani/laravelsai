@@ -615,7 +615,7 @@
                 var cancel = (data.cancel != undefined ? data.cancel : 'Batal');
                 // function callBackMsg(){
                 //     window.localStorage.setItem('logged_in', false);
-                //     window.location.href = "{{ url('yakes-auth/logout') }}";
+                //     window.location.href = "{{ url('dash-telu/logout') }}";
                 // }
                 
                 // function callBackCancel(){
@@ -703,7 +703,7 @@
                 case 'logout':
                     if (result.value) {
                         window.localStorage.setItem('logged_in', false);
-                        window.location.href = "{{ url('yakes-auth/logout') }}";
+                        window.location.href = "{{ url('dash-telu/logout') }}";
                     } else if (result.dismiss === Swal.DismissReason.cancel) {
                         // console.log('cancel');
                     }                    

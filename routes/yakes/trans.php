@@ -22,3 +22,11 @@ Route::post('anggaran', 'Yakes\AnggaranController@store');
 Route::post('hrKaryawan-import', 'Yakes\HrKaryawanController@importExcel');
 Route::get('hrKaryawan-tmp', 'Yakes\HrKaryawanController@getKaryawanTmp');
 Route::post('hrKaryawan', 'Yakes\HrKaryawanController@store');
+
+Route::post('dashPeserta-import', 'Yakes\PesertaController@importExcel');
+Route::get('dashPeserta-tmp', 'Yakes\PesertaController@getPesertaTmp');
+Route::post('dashPeserta', 'Yakes\PesertaController@store');
+
+Route::post('dashKunjungan-import', 'Yakes\KunjunganController@importExcel');
+Route::get('dashKunjungan-tmp', 'Yakes\KunjunganController@getKunjunganTmp');
+Route::post('dashKunjungan', 'Yakes\KunjunganController@store');
