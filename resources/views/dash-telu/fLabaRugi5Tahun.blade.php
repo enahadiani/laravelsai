@@ -335,6 +335,7 @@ function getLabaRugi(periode=null){
             //     'packages': ['corechart']
             // });
             // $google.charts.setOnLoadCallback(drawVisualization);
+            // var $colors = result.colors;
             
             Highcharts.chart('laba-rugi', { 
                 title: {
