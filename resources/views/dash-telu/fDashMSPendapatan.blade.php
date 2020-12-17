@@ -76,9 +76,6 @@ $thnLalu = substr($tahunLalu,2,2)
     .trace {
         cursor:pointer;
     }
-    .highcharts-point{
-        stroke-width:2;
-    }
     </style>
 
 <div class="container-fluid mt-3">
