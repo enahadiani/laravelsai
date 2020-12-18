@@ -292,10 +292,9 @@
             return response()->json(['daftar' => $data, 'status' => true], 200);
         }
 
-        public function getdataEdu($periode) {
-            $periode = "202011";
+        public function getdataEdu($periode, $regional) {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'yakes-dash/dataEdu?periode='.$periode,[
+            $response = $client->request('GET',  config('api.url').'yakes-dash/dataEdu?periode='.$periode.'&kode_pp='.$regional,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -311,10 +310,9 @@
             return response()->json(['daftar' => $data, 'status' => true], 200);
         }
 
-        public function getdataGender($periode) {
-            $periode = "202011";
+        public function getdataGender($periode, $regional) {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'yakes-dash/dataGender?periode='.$periode,[
+            $response = $client->request('GET',  config('api.url').'yakes-dash/dataGender?periode='.$periode.'&kode_pp='.$regional,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -330,10 +328,9 @@
             return response()->json(['daftar' => $data, 'status' => true], 200);
         }
         
-        public function getdataOrganik($periode) {
-            $periode = "202011";
+        public function getdataOrganik($periode,$regional) {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'yakes-dash/dataOrganik?periode='.$periode,[
+            $response = $client->request('GET',  config('api.url').'yakes-dash/dataOrganik?periode='.$periode.'&kode_pp='.$regional,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -349,10 +346,9 @@
             return response()->json(['daftar' => $data, 'status' => true], 200);
         }
 
-        public function getdataDemography($periode) {
-            $periode = "202011";
+        public function getdataDemography($periode,$regional) {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'yakes-dash/dataDemog?periode='.$periode,[
+            $response = $client->request('GET',  config('api.url').'yakes-dash/dataDemog?periode='.$periode.'&kode_pp='.$regional,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -368,10 +364,9 @@
             return response()->json(['daftar' => $data, 'status' => true], 200);
         }
 
-        public function getdataMedis($periode) {
-            $periode = "202011";
+        public function getdataMedis($periode,$regional) {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'yakes-dash/dataMedis?periode='.$periode,[
+            $response = $client->request('GET',  config('api.url').'yakes-dash/dataMedis?periode='.$periode.'&kode_pp='.$regional,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -387,10 +382,9 @@
             return response()->json(['daftar' => $data, 'status' => true], 200);
         }
 
-        public function getdataDokter($periode) {
-            $periode = "202011";
+        public function getdataDokter($periode,$regional) {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'yakes-dash/dataDokter?periode='.$periode,[
+            $response = $client->request('GET',  config('api.url').'yakes-dash/dataDokter?periode='.$periode.'&kode_pp='.$regional,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
