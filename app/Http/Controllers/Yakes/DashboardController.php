@@ -238,9 +238,9 @@
             return response()->json(['daftar' => $data, 'status' => true], 200);
         }
 
-        public function getdataRealBeban($periode) {
+        public function getdataRealBeban($periode,$regional) {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'yakes-dash/dataBebanYtd?periode='.$periode,[
+            $response = $client->request('GET',  config('api.url').'yakes-dash/dataBebanYtd?periode='.$periode.'&kode_pp='.$regional,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
