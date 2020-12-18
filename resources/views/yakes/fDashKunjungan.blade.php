@@ -615,7 +615,7 @@ var split = periode.match(/.{1,4}/g);
 var tahun = split[0];
 var numMonth = parseInt(split[1]) - 1;
 var namaMonth = bulan[numMonth];
-var keterangan = "Periode sampai dengan "+namaMonth+" "+tahun;
+var keterangan = "Periode sampai dengan "+namaMonth+" "+tahun+" regional "+regional;
 var pembagi = 1000000000;
 var jenis = "CC";
 var buttonFilter = document.getElementById('button-filter');
@@ -716,7 +716,7 @@ if(jenis == 'CC') {
         tahun = split[0];
         numMonth = parseInt(split[1]) - 1;
         namaMonth = bulan[numMonth];
-        keterangan = "Periode sampai dengan "+namaMonth+" "+tahun;
+        keterangan = "Periode sampai dengan "+namaMonth+" "+tahun+" regional "+regional;
         lastPeriode = periode.slice(-2);
         lastPeriodeNum = parseInt(lastPeriode);
         lastPeriodeNumYest = lastPeriodeNum - 1;
