@@ -71,6 +71,9 @@ $tahun5 = intval($tahun-5);
         border-top-left-radius: 0.75rem;
         padding: 0.5rem 1.5rem;
     }
+    .dash-card > .card-header > h6{
+        color:white !important;
+    }
     .table td{
         padding:4px !important;
     }
@@ -82,8 +85,8 @@ $tahun5 = intval($tahun-5);
 <div class="container-fluid mt-3">
     <div class="row">
         <div class="col-12">
-            <h1 class="mb-0 bold">Beban 5 Tahun</h1>
-            <a class="btn btn-outline-light" href="#" id="btn-filter" style="position: absolute;right: 15px;border:1px solid black;font-size:1rem"><i class="simple-icon-equalizer" style="transform-style: ;"></i> &nbsp;&nbsp; Filter</a>
+            <h6 class="mb-0 bold">Beban 5 Tahun</h6>
+            <a class="btn btn-outline-light" href="#" id="btn-filter" style="position: absolute;right: 15px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-equalizer" style="transform-style: ;"></i> &nbsp;&nbsp; Filter</a>
             <p>Komparasi Anggaran dan Realisasi {{ $tahun }}</p>
         </div>
     </div>
@@ -91,7 +94,7 @@ $tahun5 = intval($tahun-5);
         <div class="col-lg-6 col-12 mb-4">
              <div class="card dash-card">
                 <div class="card-header">
-                    <h6>Beban {{ $tahun5 }} - {{ $tahun }}</h6>
+                    <h6 class="card-title">Beban {{ $tahun5 }} - {{ $tahun }}</h6>
                 </div>
                 <div class="card-body">
                     <div id="beban" style='height:400px'></div>
@@ -101,7 +104,7 @@ $tahun5 = intval($tahun-5);
         <div class="col-lg-6 col-12 mb-4">
              <div class="card dash-card">
                 <div class="card-header">
-                    <h6>Beban SDM {{ $tahun5 }} - {{ $tahun }}</h6>
+                    <h6 class="card-title">Beban SDM {{ $tahun5 }} - {{ $tahun }}</h6>
                 </div>
                 <div class="card-body">
                     <div id="sdm" style='height:400px'></div>
@@ -113,7 +116,7 @@ $tahun5 = intval($tahun-5);
         <div class="col-lg-6 col-12 mb-4">
              <div class="card dash-card">
                 <div class="card-header">
-                    <h6>Komposisi SDM dan Beban Lain {{ $tahun5 }} - {{ $tahun }}</h6>
+                    <h6 class="card-title">Komposisi SDM dan Beban Lain {{ $tahun5 }} - {{ $tahun }}</h6>
                 </div>
                 <div class="card-body">
                     <div id="komposisi" style='height:400px'></div>
@@ -123,7 +126,7 @@ $tahun5 = intval($tahun-5);
         <div class="col-lg-6 col-12 mb-4">
              <div class="card dash-card">
                 <div class="card-header">
-                    <h6>Realisasi Growth PDPT, Beban, SDM dan SHU {{ $tahun5 }} - {{ $tahun }}</h6>
+                    <h6 class="card-title">Realisasi Growth PDPT, Beban, SDM dan SHU {{ $tahun5 }} - {{ $tahun }}</h6>
                 </div>
                 <div class="card-body">
                     <div id="komposisi2" style='height:400px'></div>

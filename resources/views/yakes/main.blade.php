@@ -993,9 +993,9 @@
     $('.to-home').click(function(){
         if(form != "" || form != "-"){
 
-            loadForm("{{ url('sekolah-auth/form') }}/"+form);
+            loadForm("{{ url('yakes-auth/form') }}/"+form);
         }else{
-            loadForm("{{ url('sekolah-auth/form') }}/blankform");
+            loadForm("{{ url('yakes-auth/form') }}/blankform");
         }
     });
     

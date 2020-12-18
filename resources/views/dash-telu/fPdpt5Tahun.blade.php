@@ -66,10 +66,13 @@ $tahun5 = intval($tahun-5);
     }
     .dash-card > .card-header{
         background: var(--theme-color-1);
-        color:white;
+        color:white !important;
         border-top-right-radius: 0.75rem;
         border-top-left-radius: 0.75rem;
         padding: 0.5rem 1.5rem;
+    }
+    .dash-card > .card-header > h6{
+        color:white !important;
     }
     .table td{
         padding:4px !important;
@@ -82,8 +85,8 @@ $tahun5 = intval($tahun-5);
 <div class="container-fluid mt-3">
     <div class="row">
         <div class="col-12">
-            <h1 class="mb-0 bold">Pendapatan 5 Tahun</h1>
-            <a class="btn btn-outline-light" href="#" id="btn-filter" style="position: absolute;right: 15px;border:1px solid black;font-size:1rem"><i class="simple-icon-equalizer" style="transform-style: ;"></i> &nbsp;&nbsp; Filter</a>
+            <h6 class="mb-0 bold">Pendapatan 5 Tahun</h6>
+            <a class="btn btn-outline-light" href="#" id="btn-filter" style="position: absolute;right: 15px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-equalizer" style="transform-style: ;"></i> &nbsp;&nbsp; Filter</a>
             <p>Komparasi Anggaran dan Realisasi {{ $tahun }}</p>
         </div>
     </div>
@@ -91,7 +94,7 @@ $tahun5 = intval($tahun-5);
         <div class="col-lg-12 col-12 mb-4">
             <div class="card dash-card">
                 <div class="card-header">
-                    <h6>Perbandingan Anggaran dan Realisasi {{ $tahun5 }} - {{ $tahun }}</h6>
+                    <h6 class="card-title">Perbandingan Anggaran dan Realisasi {{ $tahun5 }} - {{ $tahun }}</h6>
                 </div>
                 <div class="card-body">
                     <div id="agg" style='height:400px'></div>
@@ -103,7 +106,7 @@ $tahun5 = intval($tahun-5);
         <div class="col-lg-6 col-12 mb-4">
              <div class="card dash-card">
                 <div class="card-header">
-                    <h6>Pendapatan TF {{ $tahun5 }} - {{ $tahun }}</h6>
+                    <h6 class="card-title">Pendapatan TF {{ $tahun5 }} - {{ $tahun }}</h6>
                 </div>
                 <div class="card-body">
                     <div id="tf" style='height:400px'></div>
@@ -113,7 +116,7 @@ $tahun5 = intval($tahun-5);
         <div class="col-lg-6 col-12 mb-4">
              <div class="card dash-card">
                 <div class="card-header">
-                    <h6>Pendapatan NTF {{ $tahun5 }} - {{ $tahun }}</h6>
+                    <h6 class="card-title">Pendapatan NTF {{ $tahun5 }} - {{ $tahun }}</h6>
                 </div>
                 <div class="card-body">
                     <div id="ntf" style='height:400px'></div>
@@ -125,7 +128,7 @@ $tahun5 = intval($tahun-5);
         <div class="col-lg-6 col-12 mb-4">
              <div class="card dash-card">
                 <div class="card-header">
-                    <h6>Komposisi TF dan NTF {{ $tahun5 }} - {{ $tahun }}</h6>
+                    <h6 class="card-title">Komposisi TF dan NTF {{ $tahun5 }} - {{ $tahun }}</h6>
                 </div>
                 <div class="card-body">
                     <div id="komposisi" style='height:400px'></div>
@@ -135,7 +138,7 @@ $tahun5 = intval($tahun-5);
         <div class="col-lg-6 col-12 mb-4">
              <div class="card dash-card">
                 <div class="card-header">
-                    <h6>Komposisi TF dan NTF {{ $tahun5 }} - {{ $tahun }}</h6>
+                    <h6 class="card-title">Komposisi TF dan NTF {{ $tahun5 }} - {{ $tahun }}</h6>
                 </div>
                 <div class="card-body">
                     <div id="komposisi2" style='height:400px'></div>
