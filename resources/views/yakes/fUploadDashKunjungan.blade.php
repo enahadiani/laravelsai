@@ -33,7 +33,7 @@
                         <div class="card mt-3" style='border-top-left-radius:0;border-top-right-radius:0'>
                             <div class="card-body">
                                 <ul class="nav nav-tabs col-12 " role="tablist">
-                                <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-agg" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Karyawan</span></a> </li>
+                                <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-agg" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Kunjungan</span></a> </li>
                                 </ul>
                                 <div class="tab-content tabcontent-border col-12 p-0">
                                     <div class="tab-pane active" id="data-agg" role="tabpanel">
