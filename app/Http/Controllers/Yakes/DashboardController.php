@@ -256,9 +256,9 @@
             return response()->json(['daftar' => $data, 'status' => true], 200);
         }
 
-        public function getdataPendapatan($tahun) {
+        public function getdataPendapatan($tahun,$regional) {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'yakes-dash/dataPdpt?tahun='.$tahun,[
+            $response = $client->request('GET',  config('api.url').'yakes-dash/dataPdpt?tahun='.$tahun.'&kode_pp='.$regional,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
