@@ -780,13 +780,13 @@ if(jenis == 'CC') {
     });
 
 function getDataKunjungan() {
-
     $.ajax({
         type:'GET',
         url: "{{ url('yakes-dash/data-kunj-bpcc') }}/"+periode+"/"+jenis+"/"+regional,
         dataType: 'JSON',
         async: false,
         success: function(result) {
+            $('#yoy-claim').empty();
             var data = result.daftar;
             var chart = [];
             rka_nowReal = parseFloat(data[0].rka_now);
@@ -879,6 +879,7 @@ function getDataKunjungan() {
         url: "{{ url('yakes-dash/data-claimant') }}/"+periode+"/"+jenis+"/"+regional,
         dataType: 'JSON',
         success: function(result) {
+            $('#claimant-yoy').empty();
             var chart = [];
             var data1 = result.daftar[0];
             var data2 = result.daftar2[0];
@@ -976,6 +977,7 @@ function getDataKunjungan() {
         url: "{{ url('yakes-dash/data-kunj-total') }}/"+periode+"/"+jenis+"/"+regional,
         dataType: 'JSON',
         success: function(result) {
+            $('#yoy-kunj').empty();
             var chart = [];
             var data1 = result.daftar[0];
             var data2 = result.daftar2[0];
@@ -1076,6 +1078,10 @@ function getDataLayanan() {
         url: "{{ url('yakes-dash/data-layanan-kunj') }}/"+periode+"/"+jenis+"/"+regional,
         dataType: 'JSON',
         success: function(result) { 
+            $('#rjtp-kunj-yoy').empty();
+            $('#rjtl-kunj-yoy').empty();
+            $('#ri-kunj-yoy').empty();
+            $('#restitusi-kunj-yoy').empty();
             var data = result.daftar;
             var chart = [];
             var columnRjtp = [];
@@ -1489,6 +1495,10 @@ function getDataLayanan() {
         url: "{{ url('yakes-dash/data-layanan-bpcc') }}/"+periode+"/"+jenis+"/"+regional,
         dataType: 'JSON',
         success: function(result) {
+            $('#yoy-rjtp').empty();
+            $('#yoy-rjtl').empty();
+            $('#yoy-ri').empty();
+            $('#yoy-restitusi').empty();
             var data = result.daftar;
             var chart = [];
             var columnRjtp = [];
