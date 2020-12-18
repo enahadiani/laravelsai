@@ -202,9 +202,9 @@
             return response()->json(['daftar' => $data, 'status' => true], 200);
         }
 
-        public function getdataRealCC($periode) {
+        public function getdataRealCC($periode,$regional) {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'yakes-dash/dataCCytd?periode='.$periode,[
+            $response = $client->request('GET',  config('api.url').'yakes-dash/dataCCytd?periode='.$periode.'&kode_pp='.$regional,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -220,9 +220,9 @@
             return response()->json(['daftar' => $data, 'status' => true], 200);
         }
 
-        public function getdataRealBP($periode) {
+        public function getdataRealBP($periode,$regional) {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'yakes-dash/dataBPytd?periode='.$periode,[
+            $response = $client->request('GET',  config('api.url').'yakes-dash/dataBPytd?periode='.$periode.'&kode_pp='.$regional,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
