@@ -131,7 +131,7 @@ $thnLalu = substr($tahunLalu,2,2)
         <div class="col-lg-4 col-12 mb-4">
             <div class="card dash-card">
                 <div class="card-header">
-                    <h6 class="card-title mb-0">Hutang</h6>
+                    <h6 class="card-title mb-0">Piutang</h6>
                 </div>
                 <div class="card-body">
                     <table class="table table-borderless table-debt">
@@ -566,16 +566,16 @@ getPin("{{$periode}}");
 $('#form-filter').submit(function(e){
     e.preventDefault();
     var periode = $('#periode')[0].selectize.getValue();
+    var tahun = parseInt(periode.substr(0,4));
+    var tahunLalu = tahun-1;
+    $('.tahun').text(tahun);
+    $('.nama-bulan').html(namaPeriode(periode));
     getProfitLoss(periode);
     getFxPosition(periode);
     getPenyerapan(periode);
     getDebt(periode);
     getKelola(periode);
     getPin(periode);
-    var tahun = parseInt(periode.substr(0,4));
-    var tahunLalu = tahun-1;
-    $('.tahun').text(tahun);
-    $('.nama-bulan').html(namaPeriode(periode));
     $('#modalFilter').modal('hide');
     // $('.app-menu').hide();
     if ($(".app-menu").hasClass("shown")) {
