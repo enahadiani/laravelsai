@@ -6,7 +6,7 @@
             <div class="col-sm-12">
                 <div class="card" style=''>
                     <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;">
-                        <h6 id="judul-form" style="position:absolute;top:25px">Upload Dash Top Six</h6>
+                        <h6 id="judul-form" style="position:absolute;top:25px">Upload SDM Culture Summary</h6>
                         <button type="submit" class="btn btn-primary ml-2"  style="float:right;" id="btn-save" ><i class="fa fa-save"></i> Simpan</button>
                         <!-- <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Keluar</button> -->
                     </div>
@@ -33,7 +33,7 @@
                         <div class="card mt-3" style='border-top-left-radius:0;border-top-right-radius:0'>
                             <div class="card-body">
                                 <ul class="nav nav-tabs col-12 " role="tablist">
-                                <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-agg" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Top Six</span></a> </li>
+                                <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-agg" role="tab" aria-selected="true"><span class="hidden-xs-down">Data SDM Culture</span></a> </li>
                                 </ul>
                                 <div class="tab-content tabcontent-border col-12 p-0">
                                     <div class="tab-pane active" id="data-agg" role="tabpanel">
@@ -53,10 +53,10 @@
                                             <table id="table-upload" style="width:100%;">
                                             <thead style="background:#F8F8F8">
                                                 <tr>
-                                                    <th>Pegawai/Pensiun</th>
-                                                    <th>Penyakit</th>
-                                                    <th>Penderita</th>
-                                                    <th>Biaya</th>
+                                                    <th>PROGRAM</th>
+                                                    <th>REGIONAL</th>
+                                                    <th>ROLE MODEL</th>
+                                                    <th>JUMLAH PESERTA</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -154,21 +154,12 @@
     // LIST DATA
     var dataTable = generateTableWithoutAjax(
         "table-upload",
+        [],
         [
-            {   'targets': [2], 
-                'className': 'text-right',
-                'render': $.fn.dataTable.render.number( '.', ',', 0, '' ) 
-            },
-            {   'targets': [3], 
-                'className': 'text-right',
-                'render': $.fn.dataTable.render.number( '.', ',', 2, '' ) 
-            }
-        ],
-        [
-            { data: 'jenis'},
-            { data: 'nama'},
-            { data: 'penderita'},
-            { data: 'biaya'}
+            { data: 'program'},
+            { data: 'kode_pp'},
+            { data: 'role_model'},
+            { data: 'jumlah'}
         ],
         []
     );
@@ -203,9 +194,9 @@
             var id = $('#no_bukti').val();
             // $iconLoad.show();
             if(param == "edit"){
-                var url = "{{ url('yakes-trans/dashTopSix') }}";
+                var url = "{{ url('yakes-trans/dashSDMCulture') }}";
             }else{
-                var url = "{{ url('yakes-trans/dashTopSix') }}";
+                var url = "{{ url('yakes-trans/dashSDMCulture') }}";
             }
             for(var pair of formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
@@ -355,7 +346,7 @@
                     return xhr;
                 },
                 type: 'POST',
-                url: "{{ url('yakes-trans/dashTopSix-import') }}",
+                url: "{{ url('yakes-trans/dashSDMCulture-import') }}",
                 dataType: 'json',
                 data: formData,
                 // async:false,
@@ -382,7 +373,7 @@
                             var periode = $('#periode')[0].selectize.getValue();
                             var nik_user = "{{ Session::get('nikUser') }}";
 
-                            var link = "{{ config('api.url').'yakes-trans/dashTopSix-export' }}?nik_user="+nik_user+"&periode="+periode+"&type=non";
+                            var link = "{{ config('api.url').'yakes-trans/dashSDMCulture-export' }}?nik_user="+nik_user+"&periode="+periode+"&type=non";
 
                             $('.pesan-upload-judul').html('Gagal upload!');
                             $('.pesan-upload-judul').removeClass('text-success');
@@ -444,7 +435,7 @@
     $('#process-upload').click(function(e){
         $.ajax({
             type: 'GET',
-            url: "{{ url('yakes-trans/dashTopSix-tmp') }}",
+            url: "{{ url('yakes-trans/dashSDMCulture-tmp') }}",
             dataType: 'json',
             data:{'periode':$('#periode')[0].selectize.getValue()},
             async:false,
@@ -490,7 +481,7 @@
     $('#download-template').click(function(){
         var periode = $('#periode')[0].selectize.getValue();
         var nik_user = "{{ Session::get('nikUser') }}";
-        var link = "{{ config('api.url').'yakes-trans/dashTopSix-export' }}?nik_user="+nik_user+"&periode="+periode+"&type=template";
+        var link = "{{ config('api.url').'yakes-trans/dashSDMCulture-export' }}?nik_user="+nik_user+"&periode="+periode+"&type=template";
         window.open(link, '_blank'); 
     });
 
