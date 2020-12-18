@@ -304,7 +304,7 @@
                         <label for="regional" class="label-filter">Regional</label>
                         <div class="dropdown-regional dropdown dropdown-filter">
                             <button class="btn btn-light select-dash" style="background-color: #ffffff;width: 100%;text-align:left;" type="button" data-toggle="dropdown">
-                                -
+                                NASIONAL
                                 <span style="display: none;" id="value-regional"></span>
                                 <span class="glyph-icon simple-icon-arrow-down" style="float: right; margin-top:2%;"></span>
                             </button>
