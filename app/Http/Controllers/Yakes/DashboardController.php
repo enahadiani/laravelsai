@@ -15,6 +15,24 @@
             }
         }
 
+        public function getdataClaimant($periode,$jenis,$regional) {
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'yakes-dash/dataClaimant?periode='.$periode.'&jenis='.$jenis.'&kode_pp='.$regional
+            ,[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+            
+                $data = json_decode($response_data,true);;
+            }
+            return response()->json(['daftar' => $data['data'],'daftar2'=>$data['data2'], 'status' => true], 200);
+        }
+
         public function getdataKapitasi($tahun,$pp) {
             $client = new Client();
             $response = $client->request('GET',  config('api.url').'yakes-dash/dataKapitasi?tahun='.$tahun.'&kode_pp='.$pp

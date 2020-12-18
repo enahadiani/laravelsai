@@ -232,7 +232,7 @@
     <div class="col-4">
         <div class="card">
             <h6 class="ml-4 mt-3 mb-0" style="font-weight: bold;" id="claim-ket"></h6>
-            <p class="ml-4 mt-1">Satuan Milyar</p>
+            <p class="ml-4 mt-1">Rp. Milyar</p>
             <div id="claim" class="mt-3"></div>
             <div class="box">
                 <div style="padding-left: 20px;">
@@ -253,15 +253,14 @@
     <div class="col-4">
         <div class="card">
             <h6 class="ml-4 mt-3 mb-0" style="font-weight: bold;" id="judul-chart-3"></h6>
-            <p class="ml-4 mt-1">Satuan Jutaan</p>
+            <p class="ml-4 mt-1">Rp. Jutaan</p>
             <div id="pkk-cc" class="mt-3"></div>
             <div class="box">
                 <div style="padding-left: 20px;">
-                    <span style="font-weight: bold;">Ach. 81.56%</span>
+                    <span style="font-weight: bold;" id="claimant-ach"></span>
                 </div>
-                <div style="padding-right: 30px;">
-                    <div class="glyph-icon simple-icon-arrow-down-circle" style="font-size: 18px;color: #ff0000;display:inline-block;"></div>
-                    <span style="padding-left: 10px;font-weight: bold;position: relative;top:-2px;">7.94%</span>
+                <div style="padding-right: 30px;" id="claimant-yoy">
+
                 </div>
             </div>
         </div>
@@ -272,7 +271,7 @@
     <div class="col-12">
         <div class="card">    
             <h6 class="ml-4 mt-3 mb-0" style="font-weight: bold;" id="ket-layanan"></h6>
-            <p class="ml-4 mt-1">Satuan Milyar</p>
+            <p class="ml-4 mt-1">Rp. Milyar</p>
             <div class="row">
                 <div class="col-3">
                     <div id="rjtp" class="mt-3"></div>
@@ -618,11 +617,17 @@ var numMonth = parseInt(split[1]) - 1;
 var namaMonth = bulan[numMonth];
 var keterangan = "Periode sampai dengan "+namaMonth+" "+tahun+" regional "+regional;
 var pembagi = 1000000000;
+var pembagi2 = 1000000;
+var pembagi3 = 1000;
 var jenis = "CC";
 var buttonFilter = document.getElementById('button-filter');
 var buttonTop = document.getElementById('button-top');
 var header = document.getElementById('filter-header');
 var sticky = header.offsetTop;
+var rka_nowReal = 0;
+var rea_befReal = 0;
+var rea_nowReal = 0;
+
 window.onscroll = function() {
     if(window.pageYOffset > sticky) {
         // header.classList.add('fixed-filter')
@@ -664,7 +669,7 @@ if(jenis == 'CC') {
 
     $.ajax({
         type:'GET',
-        url: "{{ url('yakes-dash/data-periode') }}/",
+        url: "{{ url('yakes-dash/data-periode') }}",
         dataType: 'JSON',
         success: function(result) {
             $.each(result.daftar, function(key, value){
@@ -709,6 +714,7 @@ if(jenis == 'CC') {
 
     $('#form-filter').on('click', '#btn-tampil', function(){
         $('#yoy-claim').empty();
+        $('#claimant-yoy').empty();
         $('#yoy-rjtp').empty();
         $('#yoy-rjtl').empty();
         $('#yoy-ri').empty();
@@ -778,9 +784,13 @@ function getDataKunjungan() {
         type:'GET',
         url: "{{ url('yakes-dash/data-kunj-bpcc') }}/"+periode+"/"+jenis+"/"+regional,
         dataType: 'JSON',
+        async: false,
         success: function(result) {
             var data = result.daftar;
             var chart = [];
+            rka_nowReal = parseFloat(data[0].rka_now);
+            rea_nowReal = parseFloat(data[0].rea_now);
+            rea_befReal = parseFloat(data[0].rea_bef);
             var rka_now = parseFloat((parseFloat(data[0].rka_now)/pembagi).toFixed(2));
             var rea_bef = parseFloat((parseFloat(data[0].rea_bef)/pembagi).toFixed(2));
             var rea_now = parseFloat((parseFloat(data[0].rea_now)/pembagi).toFixed(2));
@@ -862,75 +872,6 @@ function getDataKunjungan() {
             });
         }
     });
-
-    Highcharts.chart('pkk-cc', {
-    chart: {
-        type: 'column',
-        height: 250
-    },
-    legend:{ enabled:false },
-    exporting:{
-        enabled: false
-    },
-    credits: {
-        enabled: false
-    },
-    title: {
-        text: '',
-    },
-    subtitle: {
-        text: ''
-    },
-    xAxis: {
-        categories: ["YTD Q3 '"+lastPeriodeSebelum+"", "RKA Q3 '"+lastPeriode+"", "YTD Q3 '"+lastPeriode+""]
-    },
-    yAxis: {
-        visible: false
-    },
-    tooltip: {
-        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y:.1f} M</b></td></tr>',
-        footerFormat: '</table>',
-        shared: true,
-        useHTML: true
-    },
-    plotOptions: {
-        series:{
-            dataLabels: {
-                enabled: true
-            }
-        },
-        column: {
-            color: '#2727ff'
-        },
-    },
-    series: [
-        {
-            name: "Claim Cost",
-            data: [
-                {
-                    name: "YTD Q3 '"+lastPeriodeSebelum+"",
-                    y: 5.17,
-                    color: '#BFBFBF',
-                    drilldown: "YTD Q3 '"+lastPeriodeSebelum+""
-                },
-                {
-                    name: "RKA Q3 '"+lastPeriode+"",
-                    y: 5.84,
-                    color:'#9EEADC',
-                    drilldown: "RKA Q3 '"+lastPeriode+""
-                },
-                {
-                    name: "YTD Q3 '"+lastPeriode+"",
-                    y: 4.76,
-                    color:'#288372',
-                    drilldown: "YTD Q3 '"+lastPeriode+""
-                },
-            ],
-        }
-    ]
-});
 
     Highcharts.chart('pkk-kunjungan', {
         chart: {
@@ -1340,6 +1281,119 @@ function getDataKunjungan() {
                 ],
             }
         ]
+    });
+
+    $.ajax({
+        type:'GET',
+        url: "{{ url('yakes-dash/data-claimant') }}/"+periode+"/"+jenis+"/"+regional,
+        dataType: 'JSON',
+        success: function(result) {
+            var data1 = result.daftar[0];
+            var data2 = result.daftar2[0];
+            var jum_reaBef = parseFloat(data2.jum_bef)
+            var jum_reaNow = parseFloat(data1.jum_now)
+            var jum_rkaNow = parseFloat(data1.rka_now)
+            var rea_befClaim = parseFloat(((rea_befReal/jum_reaBef)/pembagi2).toFixed(2));
+            var rea_nowClaim = parseFloat(((rea_nowReal/jum_reaNow)/pembagi2).toFixed(2));
+            var rka_nowClaim = parseFloat(((rka_nowReal/jum_rkaNow)/pembagi2).toFixed(2));
+            var rea_befClaimNotConvert = rea_befReal/jum_reaBef;
+            var rea_nowClaimNotConvert = rea_nowReal/jum_reaNow;
+            var rka_nowClaimNotConvert = rka_nowReal/jum_rkaNow;
+
+            var achClaimant = 0;
+            var yoyClaimant = 0;
+            if(rka_nowClaim == 0) {
+                achClaimant = 0;
+            } else {
+                achClaimant = ((rea_nowClaimNotConvert/rka_nowClaimNotConvert)*100).toFixed(2);
+            }
+
+            if(rea_befClaim == 0) {
+                yoyClaimant = 0;
+            } else {
+                yoyClaimant = (((rea_nowClaimNotConvert/rea_befClaimNotConvert)-1)*100).toFixed(2);
+            }
+
+            $('#claimant-ach').text("Ach. "+achClaimant+"%")
+            var ketYoyClaimant = "";
+            if(yoyClaimant < 0 ) {
+                ketYoyClaimant += "<div class='glyph-icon simple-icon-arrow-down-circle' style='font-size: 18px;color: #ff0000;display:inline-block;'></div>"
+                ketYoyClaimant += "<span style='padding-left: 10px;font-weight: bold;position: relative;top:-2px;'>"+yoyClaimant+"%</span>";
+            } else {
+                ketYoyClaimant += "<div class='glyph-icon simple-icon-arrow-up-circle' style='font-size: 18px;color: #228B22;display:inline-block;'></div>"
+                ketYoyClaimant += "<span style='padding-left: 10px;font-weight: bold;position: relative;top:-2px;'>"+yoyClaimant+"%</span>";
+            }
+            $('#claimant-yoy').append(ketYoyClaimant);
+
+            Highcharts.chart('pkk-cc', {
+                chart: {
+                    type: 'column',
+                    height: 250
+                },
+                legend:{ enabled:false },
+                exporting:{
+                    enabled: false
+                },
+                credits: {
+                    enabled: false
+                },
+                title: {
+                    text: '',
+                },
+                subtitle: {
+                    text: ''
+                },
+                xAxis: {
+                    categories: ["YTD Q3 '"+lastPeriodeSebelum+"", "RKA Q3 '"+lastPeriode+"", "YTD Q3 '"+lastPeriode+""]
+                },
+                yAxis: {
+                    visible: false
+                },
+                tooltip: {
+                    headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                    pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                        '<td style="padding:0"><b>{point.y:.1f} M</b></td></tr>',
+                    footerFormat: '</table>',
+                    shared: true,
+                    useHTML: true
+                },
+                plotOptions: {
+                    series:{
+                        dataLabels: {
+                            enabled: true
+                        }
+                    },
+                    column: {
+                        color: '#2727ff'
+                    },
+                },
+                series: [
+                    {
+                        name: "Claim Cost",
+                        data: [
+                            {
+                                name: "YTD Q3 '"+lastPeriodeSebelum+"",
+                                y: rea_befClaim,
+                                color: '#BFBFBF',
+                                drilldown: "YTD Q3 '"+lastPeriodeSebelum+""
+                            },
+                            {
+                                name: "RKA Q3 '"+lastPeriode+"",
+                                y: rka_nowClaim,
+                                color:'#9EEADC',
+                                drilldown: "RKA Q3 '"+lastPeriode+""
+                            },
+                            {
+                                name: "YTD Q3 '"+lastPeriode+"",
+                                y: rea_nowClaim,
+                                color:'#288372',
+                                drilldown: "YTD Q3 '"+lastPeriode+""
+                            },
+                        ],
+                    }
+                ]
+            });
+        }
     });
 }
 
