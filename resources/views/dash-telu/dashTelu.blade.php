@@ -95,8 +95,8 @@ $thnLalu = substr($tahunLalu,2,2)
 <div class="container-fluid mt-3">
     <div class="row">
         <div class="col-12">
-            <h1>RKA Tahunan</h1>
-            <a class="btn btn-outline-light" href="#" id="btn-filter" style="position: absolute;right: 15px;border:1px solid black;font-size:1rem"><i class="simple-icon-equalizer" style="transform-style: ;"></i> &nbsp;&nbsp; Filter</a>
+            <h6>RKA Tahunan</h6>
+            <a class="btn btn-outline-light" href="#" id="btn-filter" style="position: absolute;right: 15px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-equalizer" style="transform-style: ;"></i> &nbsp;&nbsp; Filter</a>
             <div class="separator mb-5"></div>
         </div>
     </div>

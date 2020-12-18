@@ -65,10 +65,13 @@ $thnLalu = substr($tahunLalu,2,2)
     }
     .dash-card > .card-header{
         background: var(--theme-color-1);
-        color:white;
+        color:white !important;
         border-top-right-radius: 0.75rem;
         border-top-left-radius: 0.75rem;
         padding: 0.5rem 1.5rem;
+    }
+    .dash-card > .card-header > h6{
+        color:white !important;
     }
     .table td{
         padding:4px !important;
@@ -81,9 +84,9 @@ $thnLalu = substr($tahunLalu,2,2)
 <div class="container-fluid mt-3">
     <div class="row">
         <div class="col-12">
-            <h1 class="mb-0 bold">Pendapatan</h1>
-            <button class='btn btn-outline-light' id='btnBack' style="position: absolute;right: 135px;font-size:1rem"><i class="simple-icon-arrow-left mr-2"></i> Back</button>
-            <a class="btn btn-outline-light" href="#" id="btn-filter" style="position: absolute;right: 15px;border:1px solid black;font-size:1rem"><i class="simple-icon-equalizer" style="transform-style: ;"></i> &nbsp;&nbsp; Filter</a>
+            <h6 class="mb-0 bold">Pendapatan</h6>
+            <button class='btn btn-outline-light' id='btnBack' style="position: absolute;right: 135px;font-size:1rem;top:0"><i class="simple-icon-arrow-left mr-2"></i> Back</button>
+            <a class="btn btn-outline-light" href="#" id="btn-filter" style="position: absolute;right: 15px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-equalizer" style="transform-style: ;"></i> &nbsp;&nbsp; Filter</a>
             <p>Komparasi Anggaran dan Realisasi {{ $tahun }}</p>
         </div>
     </div>
@@ -328,6 +331,7 @@ function getMsPendRKA(periode=null){
                                     return $('<div/>').css({
                                         'color' : 'white', // work
                                         'padding': '0 3px',
+                                        'font-size': '10px',
                                         'backgroundColor' : this.point.color  // just white in my case
                                     }).text(sepNum(this.y))[0].outerHTML;
                                 }
@@ -350,6 +354,7 @@ function getMsPendRKA(periode=null){
                                     return $('<div/>').css({
                                         'color' : 'white', // work
                                         'padding': '0 3px',
+                                        'font-size': '10px',
                                         'backgroundColor' : this.point.color  // just white in my case
                                     }).text(sepNum(this.y))[0].outerHTML;
                                 }
