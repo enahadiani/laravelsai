@@ -183,6 +183,9 @@
     .group-filter {
         padding: 8px 0;
     }
+    /* #filter-header { 
+        transition: all 0.5s ease;
+    } */
 </style>
     
     <button id="button-top" class="button-top" onclick="topFunction()">
