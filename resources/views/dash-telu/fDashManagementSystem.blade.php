@@ -566,16 +566,16 @@ getPin("{{$periode}}");
 $('#form-filter').submit(function(e){
     e.preventDefault();
     var periode = $('#periode')[0].selectize.getValue();
+    var tahun = parseInt(periode.substr(0,4));
+    var tahunLalu = tahun-1;
+    $('.tahun').text(tahun);
+    $('.nama-bulan').html(namaPeriode(periode));
     getProfitLoss(periode);
     getFxPosition(periode);
     getPenyerapan(periode);
     getDebt(periode);
     getKelola(periode);
     getPin(periode);
-    var tahun = parseInt(periode.substr(0,4));
-    var tahunLalu = tahun-1;
-    $('.tahun').text(tahun);
-    $('.nama-bulan').html(namaPeriode(periode));
     $('#modalFilter').modal('hide');
     // $('.app-menu').hide();
     if ($(".app-menu").hasClass("shown")) {
