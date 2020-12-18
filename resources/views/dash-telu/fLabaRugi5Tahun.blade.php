@@ -365,8 +365,7 @@ function getLabaRugi(periode=null){
                     title: {
                         text: 'PROSENTASE CAPAIAN'
                     },
-                    opposite: true,
-                    min: 65
+                    opposite: true
                 }],
                 xAxis: {
                     categories:result.ctg
