@@ -44,7 +44,7 @@
         }
 
         a > span.d-inline-block {
-            max-width: 160px !important;
+            max-width: 170px !important;
             height: auto !important;
         }
 
