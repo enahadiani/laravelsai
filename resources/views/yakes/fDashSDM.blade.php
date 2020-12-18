@@ -436,7 +436,8 @@
 var regional = "NASIONAL";
 var dashboard = "";
 var bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-var periode = "{{Session::get('periode')}}";
+var periode = "202011";
+// var periode = "{{Session::get('periode')}}";
 var split = periode.match(/.{1,4}/g);
 var tahun = split[0];
 var numMonth = parseInt(split[1]) - 1;
