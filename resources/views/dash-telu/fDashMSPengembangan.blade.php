@@ -392,7 +392,10 @@ function getMsPengembanganKomposisi(periode=null){
                     type: 'pie'
                 },
                 title: {
-                    text: ''
+                    text: sepNumPas(result.total),
+                    align: 'center',
+                    verticalAlign: 'middle',
+                    y: 20
                 },
                 yAxis: [{
                     min: 0,
@@ -414,6 +417,7 @@ function getMsPengembanganKomposisi(periode=null){
                     pie: {
                         allowPointSelect: true,
                         cursor: 'pointer',
+                        innerSize: '75%',
                         dataLabels: {
                             enabled: true,
                             format: '{point.percentage:.1f} %'
