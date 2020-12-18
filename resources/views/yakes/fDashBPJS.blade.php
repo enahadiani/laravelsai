@@ -80,8 +80,9 @@
         position: fixed;
         top: 9%;
         margin: 0;
-        padding: 10px 0;
-        padding-bottom: 18px;
+        padding: 25px 0;
+        padding-bottom: 0;
+        margin-bottom: 40px;
         width: 100%;;
         z-index: 2;
     }
@@ -137,11 +138,11 @@
         width: 120px;
     }
     .btn-filter-no-scroll {
-        margin-right: 20px;
-    }
-    .btn-filter-scroll {
         margin-right: 182px;
     }
+    /* .btn-filter-scroll {
+        margin-right: 182px;
+    } */
     .filter-count {
         display: inline;
         border-radius: 50%;
@@ -159,13 +160,34 @@
     .group-filter {
         padding: 8px 0;
     }
+    .fixed-margin {
+        position: relative;
+        margin-top:170px;
+    }
+    @media only screen and (min-width: 1440px)  {
+        .fixed-margin {
+            position: relative;
+            margin-top:190px;
+        }
+        .fixed-filter {
+            background-color: #f8f8f8;
+            position: fixed;
+            top: 6%;
+            margin: 0;
+            padding: 25px 0;
+            padding-bottom: 0;
+            margin-bottom: 40px;
+            width: 100%;
+            z-index: 1;
+        }
+    }
 </style>
 
 <button id="button-top" class="button-top" onclick="topFunction()">
         <span class="simple-icon-arrow-up"></span>
 </button>
 
-<div id="filter-header">
+<div id="filter-header" class="fixed-filter">
     <div class="row">
         <div class="col-6">
             <h6>BPJS</h6>
@@ -181,7 +203,7 @@
         </div>
     </div>
 </div>
-<div class="row" style="margin-top: 20px;">
+<div class="row fixed-margin">
     <div class="col-12 mb-4">
         <div class="card" style="height: 100%; border-radius:10px !important;">
             <h6 class="ml-4 mt-3" style="font-weight: bold;text-align:center;" id="judul-chart"></h6>
@@ -206,7 +228,7 @@
 <div id="chart-2" class="row" style="margin-top: 20px;">
     <div class="col-12 mb-4">
         <div class="card" style="height: 100%; border-radius:10px !important;">
-            <h6 class="ml-4 mt-3" style="font-weight: bold;text-align:center;" id="judul-chart-kapitasi"></h6>
+            <h6 class="ml-4 mt-3" style="font-weight: bold;text-align:center;" id="judul-chart-kapitasi">Kapitasi BPJS</h6>
             <div class="row">
                 <div class="col-12">
                     <div id="chart-kapitasi"></div>
@@ -420,15 +442,15 @@
 
     window.onscroll = function() {
         if(window.pageYOffset > sticky) {
-            header.classList.add('fixed-filter')
+            // header.classList.add('fixed-filter')
             buttonTop.style.display = 'block';
-            buttonFilter.classList.add('btn-filter-scroll')
-            buttonFilter.classList.remove('btn-filter-no-scroll')
+            // buttonFilter.classList.add('btn-filter-scroll')
+            // buttonFilter.classList.remove('btn-filter-no-scroll')
         } else {
-            header.classList.remove('fixed-filter')
+            // header.classList.remove('fixed-filter')
             buttonTop.style.display = 'none';
-            buttonFilter.classList.remove('btn-filter-scroll')
-            buttonFilter.classList.add('btn-filter-no-scroll')
+            // buttonFilter.classList.remove('btn-filter-scroll')
+            // buttonFilter.classList.add('btn-filter-no-scroll')
         }
     }
 
