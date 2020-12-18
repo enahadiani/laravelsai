@@ -205,9 +205,6 @@
             z-index: 1;
         }
     }
-    /* #filter-header { 
-        transition: all 0.5s ease;
-    } */
 </style>
     
     <button id="button-top" class="button-top" onclick="topFunction()">
