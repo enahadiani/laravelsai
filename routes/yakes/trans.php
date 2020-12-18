@@ -34,3 +34,11 @@ Route::post('dashKunjungan', 'Yakes\KunjunganController@store');
 Route::post('dashTopSix-import', 'Yakes\TopSixController@importExcel');
 Route::get('dashTopSix-tmp', 'Yakes\TopSixController@getTopSixTmp');
 Route::post('dashTopSix', 'Yakes\TopSixController@store');
+
+Route::post('dashSDMCulture-import', 'Yakes\SDMCultureController@importExcel');
+Route::get('dashSDMCulture-tmp', 'Yakes\SDMCultureController@getSDMCultureTmp');
+Route::post('dashSDMCulture', 'Yakes\SDMCultureController@store');
+
+Route::post('dashKontrakManage-import', 'Yakes\KontrakManagemenController@importExcel');
+Route::get('dashKontrakManage-tmp', 'Yakes\KontrakManagemenController@getKontrakManagemenTmp');
+Route::post('dashKontrakManage', 'Yakes\KontrakManagemenController@store');
