@@ -358,11 +358,10 @@
             <div id="pkk-kunjungan" class="mt-3"></div>
             <div class="box">
                 <div style="padding-left: 20px;">
-                    <span style="font-weight: bold;">Ach. 86.80%</span>
+                    <span style="font-weight: bold;" id="ach-kunj"></span>
                 </div>
-                <div style="padding-right: 30px;">
-                    <div class="glyph-icon simple-icon-arrow-up-circle" style="font-size: 18px;color:#228B22;display:inline-block;"></div>
-                    <span style="padding-left: 10px;font-weight: bold;position: relative;top:-2px;">0.17%</span>
+                <div style="padding-right: 30px;" id="yoy-kunj">
+
                 </div>
             </div>
         </div>
@@ -384,11 +383,10 @@
                         <p style="text-align: center;font-weight:bold;">RJTP</p>
                         <div class="subbox-container">
                             <div style="padding-left: 20px;">
-                                <span style="font-weight: bold;font-size:12px;">Ach. 90.1%</span>
+                                <span style="font-weight: bold;font-size:12px;" id="rjtp-kunj-ach"></span>
                             </div>
-                            <div style="padding-right: 30px;">
-                                <div class="glyph-icon simple-icon-arrow-up-circle" style="font-size: 12px;color: #228B22;display:inline-block;"></div>
-                                <span style="padding-left: 10px;font-weight: bold;position: relative;top:-2px;">6.1%</span>
+                            <div style="padding-right: 30px;" id="rjtp-kunj-yoy">
+
                             </div>
                         </div>
                     </div>
@@ -399,11 +397,10 @@
                         <p style="text-align: center;font-weight:bold;">RJTL</p>
                         <div class="subbox-container">
                             <div style="padding-left: 20px;">
-                                <span style="font-weight: bold;">Ach. 81.2%</span>
+                                <span style="font-weight: bold;" id="rjtl-kunj-ach"></span>
                             </div>
-                            <div style="padding-right: 30px;">
-                                <div class="glyph-icon simple-icon-arrow-down-circle" style="font-size: 18px;color: #ff0000;display:inline-block;"></div>
-                                <span style="padding-left: 10px;font-weight: bold;position: relative;top:-2px;">10.8%</span>
+                            <div style="padding-right: 30px;" id="rjtl-kunj-yoy">
+
                             </div>
                         </div>
                     </div>
@@ -414,11 +411,10 @@
                         <p style="text-align: center;font-weight:bold;">RI</p>
                         <div class="subbox-container">
                             <div style="padding-left: 20px;">
-                                <span style="font-weight: bold;">Ach. 63.3%</span>
+                                <span style="font-weight: bold;" id="ri-kunj-ach"></span>
                             </div>
-                            <div style="padding-right: 30px;">
-                                <div class="glyph-icon simple-icon-arrow-down-circle" style="font-size: 18px;color: #ff0000;display:inline-block;"></div>
-                                <span style="padding-left: 10px;font-weight: bold;position: relative;top:-2px;">27.7%</span>
+                            <div style="padding-right: 30px;" id="ri-kunj-yoy">
+
                             </div>
                         </div>
                     </div>
@@ -429,11 +425,10 @@
                         <p style="text-align: center;font-weight:bold;">Restitusi</p>
                         <div class="subbox-container">
                             <div style="padding-left: 20px;">
-                                <span style="font-weight: bold;">Ach. 79.6%</span>
+                                <span style="font-weight: bold;" id="restitusi-kunj-ach"></span>
                             </div>
-                            <div style="padding-right: 30px;">
-                                <div class="glyph-icon simple-icon-arrow-down-circle" style="font-size: 18px;color: #ff0000;display:inline-block;"></div>
-                                <span style="padding-left: 10px;font-weight: bold;position: relative;top:-2px;">6.6%</span>
+                            <div style="padding-right: 30px;" id="restitusi-kunj-yoy">
+
                             </div>
                         </div>
                     </div>
@@ -714,11 +709,16 @@ if(jenis == 'CC') {
 
     $('#form-filter').on('click', '#btn-tampil', function(){
         $('#yoy-claim').empty();
+        $('#yoy-kunj').empty();
         $('#claimant-yoy').empty();
         $('#yoy-rjtp').empty();
         $('#yoy-rjtl').empty();
         $('#yoy-ri').empty();
         $('#yoy-restitusi').empty();
+        $('#rjtp-kunj-yoy').empty();
+        $('#rjtl-kunj-yoy').empty();
+        $('#ri-kunj-yoy').empty();
+        $('#restitusi-kunj-yoy').empty();
         split = periode.match(/.{1,4}/g);
         tahun = split[0];
         numMonth = parseInt(split[1]) - 1;
@@ -780,6 +780,7 @@ if(jenis == 'CC') {
     });
 
 function getDataKunjungan() {
+
     $.ajax({
         type:'GET',
         url: "{{ url('yakes-dash/data-kunj-bpcc') }}/"+periode+"/"+jenis+"/"+regional,
@@ -873,421 +874,12 @@ function getDataKunjungan() {
         }
     });
 
-    Highcharts.chart('pkk-kunjungan', {
-        chart: {
-            type: 'column',
-            height: 250,
-        },
-        exporting:{
-            enabled: false
-        },
-        legend:{ enabled:false },
-        credits: {
-            enabled: false
-        },
-        title: {
-            text: '',
-        },
-        subtitle: {
-            text: ''
-        },
-        xAxis: {
-            categories: ["YTD Q3 '"+lastPeriodeSebelum+"", "RKA Q3 '"+lastPeriode+"", "YTD Q3 '"+lastPeriode+""]
-        },
-        yAxis: {
-            visible: false
-        },
-        tooltip: {
-            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                '<td style="padding:0"><b>{point.y:.1f} M</b></td></tr>',
-            footerFormat: '</table>',
-            shared: true,
-            useHTML: true
-        },
-        plotOptions: {
-            series:{
-                dataLabels: {
-                    enabled: true
-                }
-            },
-            column: {
-                color: '#2727ff'
-            },
-        },
-        series: [
-            {
-                name: "KUNJUNGAN",
-                data: [
-                    {
-                        name: "YTD Q3 '"+lastPeriodeSebelum+"",
-                        y: 389.4,
-                        color: '#BFBFBF',
-                        drilldown: "YTD Q3 '"+lastPeriodeSebelum+""
-                    },
-                    {
-                        name: "RKA Q3 '"+lastPeriode+"",
-                        y: 449.3,
-                        color:'#9EEADC',
-                        drilldown: "RKA Q3 '"+lastPeriode+""
-                    },
-                    {
-                        name: "YTD Q3 '"+lastPeriode+"",
-                        y: 390.0,
-                        color:'#288372',
-                        drilldown: "YTD Q3 '"+lastPeriode+""
-                    },
-                ],
-            }
-        ]
-    });
-
-    Highcharts.chart('pkk-komposisi-kunj', {
-        chart: {
-            plotBackgroundColor: null,
-            plotBorderWidth: null,
-            plotShadow: false,
-            type: 'pie',
-            height: 250
-        },
-        exporting:{
-            enabled: false
-        },
-        legend:{ enabled:false },
-        credits: {
-            enabled: false
-        },
-        title: {
-            text: ''
-        },
-        tooltip: {
-            pointFormat: '{series.name}: <b>{point.percentage:.1f}%<b>'
-        },
-        accessibility: {
-            point: {
-                valueSuffix: '%'
-            }
-        },
-        plotOptions: {
-            pie: {
-                size: 200,
-                allowPointSelect: true,
-                cursor: 'pointer',
-                dataLabels: {
-                    padding: 0,
-                    enabled: true,
-                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-                },
-            }
-        },
-        series: [{
-            name: 'Komposisi CC',
-            colorByPoint: true,
-            data: [{
-                name: 'RJTP',
-                y: 70,
-            }, {
-                name: 'RI',
-                y: 1
-            }, {
-                name: 'RJTL',
-                y: 26
-            }, {
-                name: 'Restitusi',
-                y: 3
-            }]
-        }]
-    });
-
-    Highcharts.chart('pkk-rjtp-kunj', {
-        chart: {
-            type: 'column',
-            height: 250,
-        },
-        exporting:{
-            enabled: false
-        },
-        legend:{ enabled:false },
-        credits: {
-            enabled: false
-        },
-        title: {
-            text: '',
-        },
-        subtitle: {
-            text: ''
-        },
-        xAxis: {
-            labels: {
-                enabled: false
-            }
-        },
-        yAxis: {
-            visible: false
-        },
-        tooltip: {
-            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                '<td style="padding:0"><b>{point.y:.1f} M</b></td></tr>',
-            footerFormat: '</table>',
-            shared: true,
-            useHTML: true
-        },
-        plotOptions: {
-            series:{
-                dataLabels: {
-                    enabled: true
-                }
-            },
-            column: {
-                color: '#2727ff'
-            },
-        },
-        series: [
-            {
-                name: "RJTP",
-                data: [
-                    {
-                        name: "YTD Q3 '"+lastPeriodeSebelum+"",
-                        y: 255.6,
-                        color: '#BFBFBF',
-                        drilldown: "YTD Q3 '"+lastPeriodeSebelum+""
-                    },
-                    {
-                        name: "RKA Q3 '"+lastPeriode+"",
-                        y: 301.1,
-                        color:'#9EEADC',
-                        drilldown: "RKA Q3 '"+lastPeriode+""
-                    },
-                    {
-                        name: "YTD Q3 '"+lastPeriode+"",
-                        y: 271.1,
-                        color:'#288372',
-                        drilldown: "YTD Q3 '"+lastPeriode+""
-                    },
-                ],
-            }
-        ]
-    });
-
-    Highcharts.chart('pkk-rjtl-kunj', {
-        chart: {
-            type: 'column',
-            height: 250,
-        },
-        exporting:{
-            enabled: false
-        },
-        legend:{ enabled:false },
-        credits: {
-            enabled: false
-        },
-        title: {
-            text: '',
-        },
-        subtitle: {
-            text: ''
-        },
-        xAxis: {
-            labels: {
-                enabled: false
-            }
-        },
-        yAxis: {
-            visible: false
-        },
-        tooltip: {
-            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                '<td style="padding:0"><b>{point.y:.1f} M</b></td></tr>',
-            footerFormat: '</table>',
-            shared: true,
-            useHTML: true
-        },
-        plotOptions: {
-            series:{
-                dataLabels: {
-                    enabled: true
-                }
-            },
-            column: {
-                color: '#2727ff'
-            },
-        },
-        series: [
-            {
-                name: "RJTL",
-                data: [
-                    {
-                        name: "YTD Q3 '"+lastPeriodeSebelum+"",
-                        y: 113.9,
-                        color: '#BFBFBF',
-                        drilldown: "YTD Q3 '"+lastPeriodeSebelum+""
-                    },
-                    {
-                        name: "RKA Q3 '"+lastPeriode+"",
-                        y: 125.1,
-                        color:'#9EEADC',
-                        drilldown: "RKA Q3 '"+lastPeriode+""
-                    },
-                    {
-                        name: "YTD Q3 '"+lastPeriode+"",
-                        y: 101.6,
-                        color:'#288372',
-                        drilldown: "YTD Q3 '"+lastPeriode+""
-                    },
-                ],
-            }
-        ]
-    });
-
-    Highcharts.chart('pkk-ri-kunj', {
-        chart: {
-            type: 'column',
-            height: 250,
-        },
-        legend:{ enabled:false },
-        credits: {
-            enabled: false
-        },
-        exporting:{
-            enabled: false
-        },
-        title: {
-            text: '',
-        },
-        subtitle: {
-            text: ''
-        },
-        xAxis: {
-            labels: {
-                enabled: false
-            }
-        },
-        yAxis: {
-            visible: false
-        },
-        tooltip: {
-            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                '<td style="padding:0"><b>{point.y:.1f} M</b></td></tr>',
-            footerFormat: '</table>',
-            shared: true,
-            useHTML: true
-        },
-        plotOptions: {
-            series:{
-                dataLabels: {
-                    enabled: true
-                }
-            },
-            column: {
-                color: '#2727ff'
-            },
-        },
-        series: [
-            {
-                name: "RI",
-                data: [
-                    {
-                        name: "YTD Q3 '"+lastPeriodeSebelum+"",
-                        y: 6.1,
-                        color: '#BFBFBF',
-                        drilldown: "YTD Q3 '"+lastPeriodeSebelum+""
-                    },
-                    {
-                        name: "RKA Q3 '"+lastPeriode+"",
-                        y: 7.0,
-                        color:'#9EEADC',
-                        drilldown: "RKA Q3 '"+lastPeriode+""
-                    },
-                    {
-                        name: "YTD Q3 '"+lastPeriode+"",
-                        y: 4.4,
-                        color:'#288372',
-                        drilldown: "YTD Q3 '"+lastPeriode+""
-                    },
-                ],
-            }
-        ]
-    });
-
-    Highcharts.chart('pkk-restitusi-kunj', {
-        chart: {
-            type: 'column',
-            height: 250,
-        },
-        legend:{ enabled:false },
-        credits: {
-            enabled: false
-        },
-        title: {
-            text: '',
-        },
-        exporting:{
-            enabled: false
-        },
-        subtitle: {
-            text: ''
-        },
-        xAxis: {
-            labels: {
-                enabled: false
-            }
-        },
-        yAxis: {
-            visible: false
-        },
-        tooltip: {
-            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                '<td style="padding:0"><b>{point.y:.1f} M</b></td></tr>',
-            footerFormat: '</table>',
-            shared: true,
-            useHTML: true
-        },
-        plotOptions: {
-            series:{
-                dataLabels: {
-                    enabled: true
-                }
-            },
-            column: {
-                color: '#2727ff'
-            },
-        },
-        series: [
-            {
-                name: "RESTITUSI",
-                data: [
-                    {
-                        name: "YTD Q3 '"+lastPeriodeSebelum+"",
-                        y: 13.7,
-                        color: '#BFBFBF',
-                        drilldown: "YTD Q3 '"+lastPeriodeSebelum+""
-                    },
-                    {
-                        name: "RKA Q3 '"+lastPeriode+"",
-                        y: 16.1,
-                        color:'#9EEADC',
-                        drilldown: "RKA Q3 '"+lastPeriode+""
-                    },
-                    {
-                        name: "YTD Q3 '"+lastPeriode+"",
-                        y: 12.1,
-                        color:'#288372',
-                        drilldown: "YTD Q3 '"+lastPeriode+""
-                    },
-                ],
-            }
-        ]
-    });
-
     $.ajax({
         type:'GET',
         url: "{{ url('yakes-dash/data-claimant') }}/"+periode+"/"+jenis+"/"+regional,
         dataType: 'JSON',
         success: function(result) {
+            var chart = [];
             var data1 = result.daftar[0];
             var data2 = result.daftar2[0];
             var jum_reaBef = parseFloat(data2.jum_bef)
@@ -1324,7 +916,9 @@ function getDataKunjungan() {
                 ketYoyClaimant += "<span style='padding-left: 10px;font-weight: bold;position: relative;top:-2px;'>"+yoyClaimant+"%</span>";
             }
             $('#claimant-yoy').append(ketYoyClaimant);
-
+            chart.push({ name:"YTD Q3 '"+lastPeriodeSebelum+"", y:rea_befClaim, color:'#BFBFBF' })
+            chart.push({ name:"RKA Q3 '"+lastPeriode+"", y:rka_nowClaim, color:'#9EEADC' })
+            chart.push({ name:"YTD Q3 '"+lastPeriode+"", y:rea_nowClaim, color:'#288372' })
             Highcharts.chart('pkk-cc', {
                 chart: {
                     type: 'column',
@@ -1370,26 +964,105 @@ function getDataKunjungan() {
                 series: [
                     {
                         name: "Claim Cost",
-                        data: [
-                            {
-                                name: "YTD Q3 '"+lastPeriodeSebelum+"",
-                                y: rea_befClaim,
-                                color: '#BFBFBF',
-                                drilldown: "YTD Q3 '"+lastPeriodeSebelum+""
-                            },
-                            {
-                                name: "RKA Q3 '"+lastPeriode+"",
-                                y: rka_nowClaim,
-                                color:'#9EEADC',
-                                drilldown: "RKA Q3 '"+lastPeriode+""
-                            },
-                            {
-                                name: "YTD Q3 '"+lastPeriode+"",
-                                y: rea_nowClaim,
-                                color:'#288372',
-                                drilldown: "YTD Q3 '"+lastPeriode+""
-                            },
-                        ],
+                        data: chart,
+                    }
+                ]
+            });
+        }
+    });
+
+    $.ajax({
+        type:'GET',
+        url: "{{ url('yakes-dash/data-kunj-total') }}/"+periode+"/"+jenis+"/"+regional,
+        dataType: 'JSON',
+        success: function(result) {
+            var chart = [];
+            var data1 = result.daftar[0];
+            var data2 = result.daftar2[0];
+            var jum_reaBef = parseFloat(data2.jum_bef)
+            var jum_reaNow = parseFloat(data1.jum_now)
+            var jum_rkaNow = parseFloat(data1.rka_now)
+            var rea_befKunj = parseFloat((jum_reaBef/pembagi3).toFixed(2));
+            var rea_nowKunj = parseFloat((jum_reaNow/pembagi3).toFixed(2));
+            var rka_nowKunj = parseFloat((jum_rkaNow/pembagi3).toFixed(2));
+            var rea_befKunjNotConvert = jum_reaBef;
+            var rea_nowKunjNotConvert = jum_reaNow;
+            var rka_nowKunjNotConvert = jum_rkaNow;
+
+            var achKunj = 0;
+            var yoyKunj = 0;
+            if(rka_nowKunj == 0) {
+                achKunj = 0;
+            } else {
+                achKunj = ((rea_nowKunjNotConvert/rka_nowKunjNotConvert)*100).toFixed(2);
+            }
+
+            if(rea_befKunj == 0) {
+                yoyKunj = 0;
+            } else {
+                yoyKunj = (((rea_nowKunjNotConvert/rea_befKunjNotConvert)-1)*100).toFixed(2);
+            }
+
+            $('#ach-kunj').text("Ach. "+achKunj+"%")
+            var ketYoyKunj = "";
+            if(yoyKunj < 0 ) {
+                ketYoyKunj += "<div class='glyph-icon simple-icon-arrow-down-circle' style='font-size: 18px;color: #ff0000;display:inline-block;'></div>"
+                ketYoyKunj += "<span style='padding-left: 10px;font-weight: bold;position: relative;top:-2px;'>"+yoyKunj+"%</span>";
+            } else {
+                ketYoyKunj += "<div class='glyph-icon simple-icon-arrow-up-circle' style='font-size: 18px;color: #228B22;display:inline-block;'></div>"
+                ketYoyKunj += "<span style='padding-left: 10px;font-weight: bold;position: relative;top:-2px;'>"+yoyKunj+"%</span>";
+            }
+            $('#yoy-kunj').append(ketYoyKunj);
+            chart.push({ name:"YTD Q3 '"+lastPeriodeSebelum+"", y:rea_befKunj, color:'#BFBFBF' })
+            chart.push({ name:"RKA Q3 '"+lastPeriode+"", y:rka_nowKunj, color:'#9EEADC' })
+            chart.push({ name:"YTD Q3 '"+lastPeriode+"", y:rea_nowKunj, color:'#288372' })
+
+            Highcharts.chart('pkk-kunjungan', {
+                chart: {
+                    type: 'column',
+                    height: 250,
+                },
+                exporting:{
+                    enabled: false
+                },
+                legend:{ enabled:false },
+                credits: {
+                    enabled: false
+                },
+                title: {
+                    text: '',
+                },
+                subtitle: {
+                    text: ''
+                },
+                xAxis: {
+                    categories: ["YTD Q3 '"+lastPeriodeSebelum+"", "RKA Q3 '"+lastPeriode+"", "YTD Q3 '"+lastPeriode+""]
+                },
+                yAxis: {
+                    visible: false
+                },
+                tooltip: {
+                    headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                    pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                        '<td style="padding:0"><b>{point.y:.1f} M</b></td></tr>',
+                    footerFormat: '</table>',
+                    shared: true,
+                    useHTML: true
+                },
+                plotOptions: {
+                    series:{
+                        dataLabels: {
+                            enabled: true
+                        }
+                    },
+                    column: {
+                        color: '#2727ff'
+                    },
+                },
+                series: [
+                    {
+                        name: "KUNJUNGAN",
+                        data: chart,
                     }
                 ]
             });
@@ -1398,6 +1071,419 @@ function getDataKunjungan() {
 }
 
 function getDataLayanan() {
+    $.ajax({
+        type:'GET',
+        url: "{{ url('yakes-dash/data-layanan-kunj') }}/"+periode+"/"+jenis+"/"+regional,
+        dataType: 'JSON',
+        success: function(result) { 
+            var data = result.daftar;
+            var chart = [];
+            var columnRjtp = [];
+            var columnRjtl = [];
+            var columnRi = [];
+            var columnRestitusi = [];
+            var totalRea = 0;
+            var reaRjtpNow = parseFloat((parseFloat(data[0].jum_now)/pembagi3).toFixed(2))
+            var reaRjtpBef = parseFloat((parseFloat(data[0].jum_seb)/pembagi3).toFixed(2))
+            var rkaRjtpNow = parseFloat((parseFloat(data[0].rka_now)/pembagi3).toFixed(2))
+            var rjtpAch = 0;
+            var rjtpYoy = 0;
+            var reaRjtlNow = parseFloat((parseFloat(data[1].jum_now)/pembagi3).toFixed(2))
+            var reaRjtlBef = parseFloat((parseFloat(data[1].jum_seb)/pembagi3).toFixed(2))
+            var rkaRjtlNow = parseFloat((parseFloat(data[1].rka_now)/pembagi3).toFixed(2))
+            var rjtlAch = 0;
+            var rjtlYoy = 0;
+            var reaRiNow = parseFloat((parseFloat(data[2].jum_now)/pembagi3).toFixed(2))
+            var reaRiBef = parseFloat((parseFloat(data[2].jum_seb)/pembagi3).toFixed(2))
+            var rkaRiNow = parseFloat((parseFloat(data[2].rka_now)/pembagi3).toFixed(2))
+            var riAch = 0;
+            var riYoy = 0;
+            var reaRestitusiNow = parseFloat((parseFloat(data[3].jum_now)/pembagi3).toFixed(2))
+            var reaRestitusiBef = parseFloat((parseFloat(data[3].jum_seb)/pembagi3).toFixed(2))
+            var rkaRestitusiNow = parseFloat((parseFloat(data[3].rka_now)/pembagi3).toFixed(2))
+            var restitusiAch = 0;
+            var restitusiYoy = 0;
+
+             if(rkaRjtpNow == 0) {
+                rjtpAch = 0;
+            } else {
+                rjtpAch = ((reaRjtpNow/rkaRjtpNow)*100).toFixed(2);
+            }
+
+            if(reaRjtpBef == 0) {
+                rjtpYoy = 0;
+            } else {
+                rjtpYoy = (((reaRjtpNow/reaRjtpBef)-1)*100).toFixed(2);
+            }
+            
+            if(rkaRjtlNow == 0) {
+                rjtlAch = 0;
+            } else {
+                rjtlAch = ((reaRjtlNow/rkaRjtlNow)*100).toFixed(2);
+            }
+
+            if(reaRjtlBef == 0) {
+                rjtlYoy = 0;
+            } else {
+                rjtlYoy = (((reaRjtlNow/reaRjtlBef)-1)*100).toFixed(2);
+            }
+
+            if(rkaRiNow == 0) {
+                riAch = 0;
+            } else {
+                riAch = ((reaRiNow/rkaRiNow)*100).toFixed(2);
+            }
+
+            if(reaRiBef == 0) {
+                riYoy = 0;
+            } else {
+                riYoy = (((reaRiNow/reaRiBef)-1)*100).toFixed(2);
+            }
+
+            if(rkaRestitusiNow == 0) {
+                restitusiAch = 0;
+            } else {
+                restitusiAch = ((reaRestitusiNow/rkaRestitusiNow)*100).toFixed(2);
+            }
+
+            if(reaRestitusiBef == 0) {
+                restitusiYoy = 0;
+            } else {
+                restitusiYoy = (((reaRestitusiNow/reaRestitusiBef)-1)*100).toFixed(2);
+            }
+
+            $('#rjtp-kunj-ach').text("Ach. "+rjtpAch+"%")
+            $('#rjtl-kunj-ach').text("Ach. "+rjtlAch+"%")
+            $('#ri-kunj-ach').text("Ach. "+riAch+"%")
+            $('#restitusi-kunj-ach').text("Ach. "+restitusiAch+"%")
+
+            var ketYoyRjtp = "";
+            if(rjtpYoy < 0 ) {
+                ketYoyRjtp += "<div class='glyph-icon simple-icon-arrow-down-circle' style='font-size: 18px;color: #ff0000;display:inline-block;'></div>"
+                ketYoyRjtp += "<span style='padding-left: 10px;font-weight: bold;position: relative;top:-2px;'>"+rjtpYoy+"%</span>";
+            } else {
+                ketYoyRjtp += "<div class='glyph-icon simple-icon-arrow-up-circle' style='font-size: 18px;color: #228B22;display:inline-block;'></div>"
+                ketYoyRjtp += "<span style='padding-left: 10px;font-weight: bold;position: relative;top:-2px;'>"+rjtpYoy+"%</span>";
+            }
+            $('#rjtp-kunj-yoy').append(ketYoyRjtp);
+
+            var ketYoyRjtl = "";
+            if(rjtlYoy < 0 ) {
+                ketYoyRjtl += "<div class='glyph-icon simple-icon-arrow-down-circle' style='font-size: 18px;color: #ff0000;display:inline-block;'></div>"
+                ketYoyRjtl += "<span style='padding-left: 10px;font-weight: bold;position: relative;top:-2px;'>"+rjtlYoy+"%</span>";
+            } else {
+                ketYoyRjtl += "<div class='glyph-icon simple-icon-arrow-up-circle' style='font-size: 18px;color: #228B22;display:inline-block;'></div>"
+                ketYoyRjtl += "<span style='padding-left: 10px;font-weight: bold;position: relative;top:-2px;'>"+rjtlYoy+"%</span>";
+            }
+            $('#rjtl-kunj-yoy').append(ketYoyRjtl);
+
+            var ketYoyRi = "";
+            if(riYoy < 0 ) {
+                ketYoyRi += "<div class='glyph-icon simple-icon-arrow-down-circle' style='font-size: 18px;color: #ff0000;display:inline-block;'></div>"
+                ketYoyRi += "<span style='padding-left: 10px;font-weight: bold;position: relative;top:-2px;'>"+riYoy+"%</span>";
+            } else {
+                ketYoyRi += "<div class='glyph-icon simple-icon-arrow-up-circle' style='font-size: 18px;color: #228B22;display:inline-block;'></div>"
+                ketYoyRi += "<span style='padding-left: 10px;font-weight: bold;position: relative;top:-2px;'>"+riYoy+"%</span>";
+            }
+            $('#ri-kunj-yoy').append(ketYoyRi);
+
+            var ketYoyRestitusi = "";
+            if(restitusiYoy < 0 ) {
+                ketYoyRestitusi += "<div class='glyph-icon simple-icon-arrow-down-circle' style='font-size: 18px;color: #ff0000;display:inline-block;'></div>"
+                ketYoyRestitusi += "<span style='padding-left: 10px;font-weight: bold;position: relative;top:-2px;'>"+restitusiYoy+"%</span>";
+            } else {
+                ketYoyRestitusi += "<div class='glyph-icon simple-icon-arrow-up-circle' style='font-size: 18px;color: #228B22;display:inline-block;'></div>"
+                ketYoyRestitusi += "<span style='padding-left: 10px;font-weight: bold;position: relative;top:-2px;'>"+restitusiYoy+"%</span>";
+            }
+            $('#restitusi-kunj-yoy').append(ketYoyRestitusi);
+
+            columnRjtp.push({name:"YTD Q3 '"+lastPeriodeSebelum+"",y:reaRjtpBef,color: '#BFBFBF'})
+            columnRjtp.push({name:"RKA Q3 '"+lastPeriode+"",y:rkaRjtpNow,color: '#9EEADC'})
+            columnRjtp.push({name:"YTD Q3 '"+lastPeriode+"",y:reaRjtpNow,color: '#288372'})
+
+            columnRjtl.push({name:"YTD Q3 '"+lastPeriodeSebelum+"",y:reaRjtlBef,color: '#BFBFBF'})
+            columnRjtl.push({name:"RKA Q3 '"+lastPeriode+"",y:rkaRjtlNow,color: '#9EEADC'})
+            columnRjtl.push({name:"YTD Q3 '"+lastPeriode+"",y:reaRjtlNow,color: '#288372'})
+
+            columnRi.push({name:"YTD Q3 '"+lastPeriodeSebelum+"",y:reaRiBef,color: '#BFBFBF'})
+            columnRi.push({name:"RKA Q3 '"+lastPeriode+"",y:rkaRiNow,color: '#9EEADC'})
+            columnRi.push({name:"YTD Q3 '"+lastPeriode+"",y:reaRiNow,color: '#288372'})
+
+            columnRestitusi.push({name:"YTD Q3 '"+lastPeriodeSebelum+"",y:reaRestitusiBef,color: '#BFBFBF'})
+            columnRestitusi.push({name:"RKA Q3 '"+lastPeriode+"",y:rkaRestitusiNow,color: '#9EEADC'})
+            columnRestitusi.push({name:"YTD Q3 '"+lastPeriode+"",y:reaRestitusiNow,color: '#288372'})
+
+
+            for(var i=0;i<data.length;i++) {
+                totalRea = totalRea + parseFloat(data[i].jum_now)
+            }
+
+            var reaRJTP = parseFloat(((parseFloat(data[0].jum_now)/totalRea)*100).toFixed(2))
+            var reaRJTL = parseFloat(((parseFloat(data[1].jum_now)/totalRea)*100).toFixed(2))
+            var reaRI = parseFloat(((parseFloat(data[2].jum_now)/totalRea)*100).toFixed(2))
+            var reaRestitusi = parseFloat(((parseFloat(data[3].jum_now)/totalRea)*100).toFixed(2))
+
+            chart.push({name:'RJTP', y:reaRJTP})
+            chart.push({name:'RJTL', y:reaRJTL})
+            chart.push({name:'RI', y:reaRI})
+            chart.push({name:'Restistusi', y:reaRestitusi})
+
+            Highcharts.chart('pkk-komposisi-kunj', {
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie',
+                    height: 250
+                },
+                exporting:{
+                    enabled: false
+                },
+                legend:{ enabled:false },
+                credits: {
+                    enabled: false
+                },
+                title: {
+                    text: ''
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%<b>'
+                },
+                accessibility: {
+                    point: {
+                        valueSuffix: '%'
+                    }
+                },
+                plotOptions: {
+                    pie: {
+                        size: 200,
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            padding: 0,
+                            enabled: true,
+                            format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                        },
+                    }
+                },
+                series: [{
+                    name: 'Komposisi Kunjungan',
+                    colorByPoint: true,
+                    data: chart
+                }]
+            });
+
+            Highcharts.chart('pkk-rjtp-kunj', {
+                chart: {
+                    type: 'column',
+                    height: 250,
+                },
+                exporting:{
+                    enabled: false
+                },
+                legend:{ enabled:false },
+                credits: {
+                    enabled: false
+                },
+                title: {
+                    text: '',
+                },
+                subtitle: {
+                    text: ''
+                },
+                xAxis: {
+                    labels: {
+                        enabled: false
+                    }
+                },
+                yAxis: {
+                    visible: false
+                },
+                tooltip: {
+                    headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                    pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                        '<td style="padding:0"><b>{point.y:.1f} M</b></td></tr>',
+                    footerFormat: '</table>',
+                    shared: true,
+                    useHTML: true
+                },
+                plotOptions: {
+                    series:{
+                        dataLabels: {
+                            enabled: true
+                        }
+                    },
+                    column: {
+                        color: '#2727ff'
+                    },
+                },
+                series: [
+                    {
+                        name: "RJTP",
+                        data: columnRjtp,
+                    }
+                ]
+            });
+
+            Highcharts.chart('pkk-rjtl-kunj', {
+                chart: {
+                    type: 'column',
+                    height: 250,
+                },
+                exporting:{
+                    enabled: false
+                },
+                legend:{ enabled:false },
+                credits: {
+                    enabled: false
+                },
+                title: {
+                    text: '',
+                },
+                subtitle: {
+                    text: ''
+                },
+                xAxis: {
+                    labels: {
+                        enabled: false
+                    }
+                },
+                yAxis: {
+                    visible: false
+                },
+                tooltip: {
+                    headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                    pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                        '<td style="padding:0"><b>{point.y:.1f} M</b></td></tr>',
+                    footerFormat: '</table>',
+                    shared: true,
+                    useHTML: true
+                },
+                plotOptions: {
+                    series:{
+                        dataLabels: {
+                            enabled: true
+                        }
+                    },
+                    column: {
+                        color: '#2727ff'
+                    },
+                },
+                series: [
+                    {
+                        name: "RJTL",
+                        data: columnRjtl,
+                    }
+                ]
+            });
+
+            Highcharts.chart('pkk-ri-kunj', {
+                chart: {
+                    type: 'column',
+                    height: 250,
+                },
+                legend:{ enabled:false },
+                credits: {
+                    enabled: false
+                },
+                exporting:{
+                    enabled: false
+                },
+                title: {
+                    text: '',
+                },
+                subtitle: {
+                    text: ''
+                },
+                xAxis: {
+                    labels: {
+                        enabled: false
+                    }
+                },
+                yAxis: {
+                    visible: false
+                },
+                tooltip: {
+                    headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                    pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                        '<td style="padding:0"><b>{point.y:.1f} M</b></td></tr>',
+                    footerFormat: '</table>',
+                    shared: true,
+                    useHTML: true
+                },
+                plotOptions: {
+                    series:{
+                        dataLabels: {
+                            enabled: true
+                        }
+                    },
+                    column: {
+                        color: '#2727ff'
+                    },
+                },
+                series: [
+                    {
+                        name: "RI",
+                        data: columnRi,
+                    }
+                ]
+            });
+
+            Highcharts.chart('pkk-restitusi-kunj', {
+                chart: {
+                    type: 'column',
+                    height: 250,
+                },
+                legend:{ enabled:false },
+                credits: {
+                    enabled: false
+                },
+                title: {
+                    text: '',
+                },
+                exporting:{
+                    enabled: false
+                },
+                subtitle: {
+                    text: ''
+                },
+                xAxis: {
+                    labels: {
+                        enabled: false
+                    }
+                },
+                yAxis: {
+                    visible: false
+                },
+                tooltip: {
+                    headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                    pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                        '<td style="padding:0"><b>{point.y:.1f} M</b></td></tr>',
+                    footerFormat: '</table>',
+                    shared: true,
+                    useHTML: true
+                },
+                plotOptions: {
+                    series:{
+                        dataLabels: {
+                            enabled: true
+                        }
+                    },
+                    column: {
+                        color: '#2727ff'
+                    },
+                },
+                series: [
+                    {
+                        name: "RESTITUSI",
+                        data: columnRestitusi,
+                    }
+                ]
+            });
+
+        }
+    })
+
     $.ajax({
         type:'GET',
         url: "{{ url('yakes-dash/data-layanan-bpcc') }}/"+periode+"/"+jenis+"/"+regional,
