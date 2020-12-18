@@ -131,7 +131,7 @@ $thnLalu = substr($tahunLalu,2,2)
         <div class="col-lg-4 col-12 mb-4">
             <div class="card dash-card">
                 <div class="card-header">
-                    <h6 class="card-title mb-0">Hutang</h6>
+                    <h6 class="card-title mb-0">Piutang</h6>
                 </div>
                 <div class="card-body">
                     <table class="table table-borderless table-debt">
