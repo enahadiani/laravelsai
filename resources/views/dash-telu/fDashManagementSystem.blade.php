@@ -87,16 +87,16 @@ $thnLalu = substr($tahunLalu,2,2)
 <div class="container-fluid mt-3">
     <div class="row">
         <div class="col-12">
-            <h6 class="mb-0 bold">Telkom University Management System</h6>
+            <h6 class="mb-0 bold">Komparasi Anggaran dan Realisasi s/d <span class='nama-bulan' style='font-size:1.25rem!important;'></span></h6>
             <a class="btn btn-outline-light" href="#" id="btn-filter" style="position: absolute;right: 15px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-equalizer" style="transform-style: ;"></i> &nbsp;&nbsp; Filter</a>
-            <p>Komparasi Anggaran dan Realisasi {{ $tahun }}</p>
+            <p>Komparasi Anggaran dan Realisasi <span class='tahun'></span></p>
         </div>
     </div>
     <div class="row" >
         <div class="col-lg-4 col-12 mb-4">
             <div class="card dash-card">
                 <div class="card-header">
-                    <h6 class="card-title mb-0">Profit and Loss</h6>
+                    <h6 class="card-title mb-0">Laba Rugi</h6>
                 </div>
                 <div class="card-body">
                     <table class="table table-borderless table-profit">
@@ -131,7 +131,7 @@ $thnLalu = substr($tahunLalu,2,2)
         <div class="col-lg-4 col-12 mb-4">
             <div class="card dash-card">
                 <div class="card-header">
-                    <h6 class="card-title mb-0">Debt</h6>
+                    <h6 class="card-title mb-0">Hutang</h6>
                 </div>
                 <div class="card-body">
                     <table class="table table-borderless table-debt">
@@ -143,7 +143,7 @@ $thnLalu = substr($tahunLalu,2,2)
         <div class="col-lg-4 col-12 mb-4">
             <div class="card dash-card">
                 <div class="card-header">
-                    <h6 class="card-title mb-0">Kelola Keuangan</h6>
+                    <h6 class="card-title mb-0">Keuangan</h6>
                 </div>
                 <div class="card-body">
                     <table class="table table-borderless table-kelola">
@@ -218,12 +218,21 @@ function sepNum(x){
     }
 }
 function sepNumPas(x){
-    var num = parseInt(x);
-    var parts = num.toString().split('.');
-    var len = num.toString().length;
-    // parts[1] = parts[1]/(Math.pow(10, len));
-    parts[0] = parts[0].replace(/(.)(?=(.{3})+$)/g,'$1.');
-    return parts.join(',');
+    if(!isNaN(x)){
+        if (typeof x === undefined || !x || x == 0) { 
+            return 0;
+        }else if(!isFinite(x)){
+            return 0;
+        }else{
+            var x = parseFloat(x).toFixed(0);
+            // console.log(x);
+            var parts = x.toString().split('.');
+            parts[0] = parts[0].replace(/([0-9])(?=([0-9]{3})+$)/g,'$1.');
+            return parts.join(',');
+        }
+    }else{
+        return 0;
+    }
 }
 
 function toJuta(x) {
@@ -545,6 +554,8 @@ function getPin(periode=null)
     });
 }
 
+$('.nama-bulan').html(namaPeriode("{{ $periode }}"));
+$('.tahun').html("{{ $periode }}".substr(0,4));
 getProfitLoss("{{$periode}}");
 getFxPosition("{{$periode}}");
 getPenyerapan("{{$periode}}");
@@ -555,19 +566,16 @@ getPin("{{$periode}}");
 $('#form-filter').submit(function(e){
     e.preventDefault();
     var periode = $('#periode')[0].selectize.getValue();
-    getProfitLoss("{{$periode}}");
-    getFxPosition("{{$periode}}");
-    getPenyerapan("{{$periode}}");
-    getDebt("{{$periode}}");
-    getKelola("{{$periode}}");
-    getPin("{{$periode}}");
+    getProfitLoss(periode);
+    getFxPosition(periode);
+    getPenyerapan(periode);
+    getDebt(periode);
+    getKelola(periode);
+    getPin(periode);
     var tahun = parseInt(periode.substr(0,4));
     var tahunLalu = tahun-1;
-    $('.thnLalu').text(tahunLalu);
-    $('.thnIni').text(tahun);
-    $('.periode-label').html(namaPeriode(periode));
-    $('.bulan-label').html(namaPeriodeBulan(periode));
-    $('.tahun-label').html(periode.substr(0,4));
+    $('.tahun').text(tahun);
+    $('.nama-bulan').html(namaPeriode(periode));
     $('#modalFilter').modal('hide');
     // $('.app-menu').hide();
     if ($(".app-menu").hasClass("shown")) {
