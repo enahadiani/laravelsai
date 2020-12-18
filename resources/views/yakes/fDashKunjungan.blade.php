@@ -193,6 +193,17 @@
             position: relative;
             margin-top:190px;
         }
+        .fixed-filter {
+            background-color: #f8f8f8;
+            position: fixed;
+            top: 6%;
+            margin: 0;
+            padding: 25px 0;
+            padding-bottom: 0;
+            margin-bottom: 40px;
+            width: 100%;
+            z-index: 1;
+        }
     }
     /* #filter-header { 
         transition: all 0.5s ease;
