@@ -110,6 +110,24 @@
             return response()->json(['daftar' => $data, 'status' => true], 200);
         }
 
+        public function getFilterRegional() {
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'yakes-master/listPPAktif',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+            
+                $data = json_decode($response_data,true);
+                $data = $data['success'];
+            }
+            return response()->json(['daftar' => $data, 'status' => true], 200);
+        }
+
         public function getFilterTahun() {
             $client = new Client();
             $response = $client->request('GET',  config('api.url').'yakes-dash/getFilterTahunDash',[
@@ -146,9 +164,9 @@
             return response()->json(['daftar' => $data, 'status' => true], 200);
         }
 
-        public function getdataKunjBPCC($periode,$jenis) {
+        public function getdataKunjBPCC($periode,$jenis,$regional) {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'yakes-dash/dataBPCCtotal?periode='.$periode.'&jenis='.$jenis
+            $response = $client->request('GET',  config('api.url').'yakes-dash/dataBPCCtotal?periode='.$periode.'&jenis='.$jenis.'&kode_pp='.$regional
             ,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -165,9 +183,9 @@
             return response()->json(['daftar' => $data, 'status' => true], 200);
         }
 
-        public function getdataLayananBPCC($periode,$jenis) {
+        public function getdataLayananBPCC($periode,$jenis,$regional) {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'yakes-dash/dataBPCClayanan?periode='.$periode.'&jenis='.$jenis
+            $response = $client->request('GET',  config('api.url').'yakes-dash/dataBPCClayanan?periode='.$periode.'&jenis='.$jenis.'&kode_pp='.$regional
             ,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -184,9 +202,9 @@
             return response()->json(['daftar' => $data, 'status' => true], 200);
         }
 
-        public function getdataRealCC($periode) {
+        public function getdataRealCC($periode,$regional) {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'yakes-dash/dataCCytd?periode='.$periode,[
+            $response = $client->request('GET',  config('api.url').'yakes-dash/dataCCytd?periode='.$periode.'&kode_pp='.$regional,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -202,9 +220,9 @@
             return response()->json(['daftar' => $data, 'status' => true], 200);
         }
 
-        public function getdataRealBP($periode) {
+        public function getdataRealBP($periode,$regional) {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'yakes-dash/dataBPytd?periode='.$periode,[
+            $response = $client->request('GET',  config('api.url').'yakes-dash/dataBPytd?periode='.$periode.'&kode_pp='.$regional,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -220,9 +238,9 @@
             return response()->json(['daftar' => $data, 'status' => true], 200);
         }
 
-        public function getdataRealBeban($periode) {
+        public function getdataRealBeban($periode,$regional) {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'yakes-dash/dataBebanYtd?periode='.$periode,[
+            $response = $client->request('GET',  config('api.url').'yakes-dash/dataBebanYtd?periode='.$periode.'&kode_pp='.$regional,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -238,9 +256,9 @@
             return response()->json(['daftar' => $data, 'status' => true], 200);
         }
 
-        public function getdataPendapatan($tahun) {
+        public function getdataPendapatan($tahun,$regional) {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'yakes-dash/dataPdpt?tahun='.$tahun,[
+            $response = $client->request('GET',  config('api.url').'yakes-dash/dataPdpt?tahun='.$tahun.'&kode_pp='.$regional,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -256,9 +274,9 @@
             return response()->json(['daftar' => $data, 'status' => true], 200);
         }
 
-        public function getdataBeban($tahun) {
+        public function getdataBeban($tahun, $regional) {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'yakes-dash/dataBeban?tahun='.$tahun,[
+            $response = $client->request('GET',  config('api.url').'yakes-dash/dataBeban?tahun='.$tahun.'&kode_pp='.$regional,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -274,10 +292,9 @@
             return response()->json(['daftar' => $data, 'status' => true], 200);
         }
 
-        public function getdataEdu($periode) {
-            $periode = "202011";
+        public function getdataEdu($periode, $regional) {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'yakes-dash/dataEdu?periode='.$periode,[
+            $response = $client->request('GET',  config('api.url').'yakes-dash/dataEdu?periode='.$periode.'&kode_pp='.$regional,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -293,10 +310,9 @@
             return response()->json(['daftar' => $data, 'status' => true], 200);
         }
 
-        public function getdataGender($periode) {
-            $periode = "202011";
+        public function getdataGender($periode, $regional) {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'yakes-dash/dataGender?periode='.$periode,[
+            $response = $client->request('GET',  config('api.url').'yakes-dash/dataGender?periode='.$periode.'&kode_pp='.$regional,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -312,10 +328,9 @@
             return response()->json(['daftar' => $data, 'status' => true], 200);
         }
         
-        public function getdataOrganik($periode) {
-            $periode = "202011";
+        public function getdataOrganik($periode,$regional) {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'yakes-dash/dataOrganik?periode='.$periode,[
+            $response = $client->request('GET',  config('api.url').'yakes-dash/dataOrganik?periode='.$periode.'&kode_pp='.$regional,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -331,10 +346,9 @@
             return response()->json(['daftar' => $data, 'status' => true], 200);
         }
 
-        public function getdataDemography($periode) {
-            $periode = "202011";
+        public function getdataDemography($periode,$regional) {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'yakes-dash/dataDemog?periode='.$periode,[
+            $response = $client->request('GET',  config('api.url').'yakes-dash/dataDemog?periode='.$periode.'&kode_pp='.$regional,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -350,10 +364,9 @@
             return response()->json(['daftar' => $data, 'status' => true], 200);
         }
 
-        public function getdataMedis($periode) {
-            $periode = "202011";
+        public function getdataMedis($periode,$regional) {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'yakes-dash/dataMedis?periode='.$periode,[
+            $response = $client->request('GET',  config('api.url').'yakes-dash/dataMedis?periode='.$periode.'&kode_pp='.$regional,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -369,10 +382,9 @@
             return response()->json(['daftar' => $data, 'status' => true], 200);
         }
 
-        public function getdataDokter($periode) {
-            $periode = "202011";
+        public function getdataDokter($periode,$regional) {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'yakes-dash/dataDokter?periode='.$periode,[
+            $response = $client->request('GET',  config('api.url').'yakes-dash/dataDokter?periode='.$periode.'&kode_pp='.$regional,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',

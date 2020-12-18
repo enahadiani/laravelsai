@@ -68,8 +68,9 @@
         position: fixed;
         top: 9%;
         margin: 0;
-        padding: 10px 0;
+        padding: 25px 0;
         padding-bottom: 0;
+        margin-bottom: 40px;
         width: 100%;
         z-index: 2;
     }
@@ -125,11 +126,11 @@
         width: 120px;
     }
     .btn-filter-no-scroll {
-        margin-right: 20px;
-    }
-    .btn-filter-scroll {
         margin-right: 182px;
     }
+    /* .btn-filter-scroll {
+        margin-right: 182px;
+    } */
     .filter-count {
         display: inline;
         border-radius: 50%;
@@ -147,12 +148,33 @@
     .group-filter {
         padding: 8px 0;
     }
+    .fixed-margin {
+        position: relative;
+        margin-top:170px;
+    }
+    @media only screen and (min-width: 1440px)  {
+        .fixed-margin {
+            position: relative;
+            margin-top:190px;
+        }
+        .fixed-filter {
+            background-color: #f8f8f8;
+            position: fixed;
+            top: 6%;
+            margin: 0;
+            padding: 25px 0;
+            padding-bottom: 0;
+            margin-bottom: 40px;
+            width: 100%;
+            z-index: 1;
+        }
+    }
 </style>
 <button id="button-top" class="button-top" onclick="topFunction()">
         <span class="simple-icon-arrow-up"></span>
 </button>
 
-<div id="filter-header">
+<div id="filter-header" class="fixed-filter">
     <div class="row">
         <div class="col-6">
             <h6>Pendapatan Investasi</h6>
@@ -168,7 +190,7 @@
         </div>
     </div>
 </div>
-<div class="row" style="margin-top: 20px;">
+<div class="row fixed-margin">
     <div class="col-12 mb-4">
         <div class="card" style="height: 100%; border-radius:10px !important;">
             <h6 class="ml-4 mt-3" style="font-weight: bold;text-align:center;">Pendapatan Investasi</h6>
@@ -282,11 +304,11 @@
                         <label for="regional" class="label-filter">Regional</label>
                         <div class="dropdown-regional dropdown dropdown-filter">
                             <button class="btn btn-light select-dash" style="background-color: #ffffff;width: 100%;text-align:left;" type="button" data-toggle="dropdown">
-                                -
-                                <span style="display: none;" id="value-jenis"></span>
+                                NASIONAL
+                                <span style="display: none;" id="value-regional"></span>
                                 <span class="glyph-icon simple-icon-arrow-down" style="float: right; margin-top:2%;"></span>
                             </button>
-                            <ul class="dropdown-menu jenis" style="overflow: hidden; width:99%;" role="menu" aria-labelledby="menu2">
+                            <ul class="dropdown-menu regional" style="overflow: hidden; width:99%;" role="menu" aria-labelledby="menu2">
                                 {{-- <li>
                                     <span style="display: none;">CC</span>
                                     <span>Pensiunan dan Keluarga</span>
@@ -321,6 +343,7 @@
     </div>
 </div>
 <script type="text/javascript">
+    var regional = "NASIONAL";
     var dashboard = "";
     var keterangan = "Tahun {{ substr(Session::get('periode'), 0, 4) }}";
     var tahun = "{{ substr(Session::get('periode'), 0, 4) }}";
@@ -331,20 +354,20 @@
     var sticky = header.offsetTop;
     window.onscroll = function() {
         if(window.pageYOffset > sticky) {
-            header.classList.add('fixed-filter')
+            // header.classList.add('fixed-filter')
             buttonTop.style.display = 'block';
-            buttonFilter.classList.add('btn-filter-scroll')
-            buttonFilter.classList.remove('btn-filter-no-scroll')
+            // buttonFilter.classList.add('btn-filter-scroll')
+            // buttonFilter.classList.remove('btn-filter-no-scroll')
         } else {
-            header.classList.remove('fixed-filter')
+            // header.classList.remove('fixed-filter')
             buttonTop.style.display = 'none';
-            buttonFilter.classList.remove('btn-filter-scroll')
-            buttonFilter.classList.add('btn-filter-no-scroll')
+            // buttonFilter.classList.remove('btn-filter-scroll')
+            // buttonFilter.classList.add('btn-filter-no-scroll')
         }
     }
 
     $('#keterangan-filter').text(keterangan);
-
+    getDataPendapatan(tahun, regional);
     function topFunction() {
         document.body.scrollTop = 0;
         document.documentElement.scrollTop = 0;
@@ -352,14 +375,25 @@
 
     $.ajax({
         type:'GET',
-        url: "{{ url('yakes-dash/data-tahun') }}/",
+        url: "{{ url('yakes-dash/data-tahun') }}",
         dataType: 'JSON',
         success: function(result) {
             var date = new Date();
             $.each(result.daftar, function(key, value){
                 $('.periode').append("<li>"+value.tahun+"</li>")
             })
-            getDataPendapatan(tahun);
+        }
+    });
+
+    $.ajax({
+        type:'GET',
+        url: "{{ url('yakes-dash/data-regional') }}",
+        dataType: 'JSON',
+        success: function(result) {
+            $('.regional').append("<li>NASIONAL</li>")
+            $.each(result.daftar.data, function(key, value){
+                $('.regional').append("<li>"+value.kode_pp+"</li>")
+            })
         }
     });
 
@@ -370,21 +404,32 @@
         tahun = text;
     });
 
+    $('.regional').on( 'click', 'li', function() {
+        var text = $(this).html();
+        var htmlText = text+"<span class='glyph-icon simple-icon-arrow-down' style='float: right; margin-top:3%;'></span>";
+        $(this).closest('.dropdown-regional').find('.select-dash').html(htmlText);
+        regional = text;
+    });
+
     $('#button-filter').click(function(){
         $('#modalFilter').modal('show');
     })
 
     $('#form-filter').on('click', '#btn-reset', function(){
         var text2 = "{{ substr(Session::get('periode'), 0, 4) }}";
+        var text3 = "NASIONAL";
         var htmlTextPeriode = text2+"<span class='glyph-icon simple-icon-arrow-down' style='float: right; margin-top:3%;'></span>";
         $('.dropdown-periode').find('.select-dash').html(htmlTextPeriode);
+         var htmlTextRegional = text3+"<span class='glyph-icon simple-icon-arrow-down' style='float: right; margin-top:3%;'></span>";
+        $('.dropdown-regional').find('.select-dash').html(htmlTextRegional);
         tahun = "{{ substr(Session::get('periode'), 0, 4) }}";
+        regional = "NASIONAL";
     })
 
     $('#form-filter').on('click', '#btn-tampil', function(){
         $('#detail-invest').empty();
         keterangan = "Tahun "+tahun+"";
-        getDataPendapatan(tahun);
+        getDataPendapatan(tahun, regional);
         $('#keterangan-filter').text(keterangan);
         $('#modalFilter').modal('hide');
     })
@@ -400,7 +445,7 @@
         loadForm(dashboard);
     });
 
-    function getDataPendapatan(value) {
+    function getDataPendapatan(value, regional) {
         if(value != null || value != '') {
             tahun = value
         } else {
@@ -409,7 +454,7 @@
         $('#detail-invest').empty();
         $.ajax({
             type:'GET',
-            url: "{{ url('yakes-dash/data-pendapatan') }}/"+tahun,
+            url: "{{ url('yakes-dash/data-pendapatan') }}/"+tahun+"/"+regional,
             dataType: 'JSON',
             success: function(result) {
                 var data = result.daftar;
