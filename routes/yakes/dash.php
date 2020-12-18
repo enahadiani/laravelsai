@@ -36,3 +36,5 @@ Route::get('data-bpjs-iuran/{periode}/{jenis}', 'Yakes\DashboardController@getda
 Route::get('data-bpjs-kapitasi/{periode}/{jenis}', 'Yakes\DashboardController@getdataKapitasiBPJS');
 Route::get('data-bpjs-claim/{periode}/{jenis}', 'Yakes\DashboardController@getdataClaimBPJS');
 Route::get('data-claimant/{periode}/{jenis}/{regional}', 'Yakes\DashboardController@getdataClaimant');
+Route::get('data-kunj-total/{periode}/{jenis}/{regional}', 'Yakes\DashboardController@getdataKunjTotal');
+Route::get('data-layanan-kunj/{periode}/{jenis}/{regional}', 'Yakes\DashboardController@getdataKunjLayanan');
