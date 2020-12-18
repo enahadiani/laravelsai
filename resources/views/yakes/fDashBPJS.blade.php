@@ -461,6 +461,17 @@
         document.documentElement.scrollTop = 0;
     }
 
+    $('#dash-btn').click(function(){
+        $('#modal-preview').modal('show');
+    });
+
+    $('#dash-list').on( 'click', 'tr', function() {
+        var form = $(this).find('td').first().text();
+        dashboard = "{{ url('yakes-auth/form')}}/"+form;
+        $('#modal-preview').modal('hide');
+        loadForm(dashboard);
+    });
+
     $('#button-filter').click(function(){
         $('#modalFilter').modal('show');
     })
