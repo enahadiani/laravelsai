@@ -677,7 +677,6 @@ if(jenis == 'CC') {
         url: "{{ url('yakes-dash/data-regional') }}",
         dataType: 'JSON',
         success: function(result) {
-            console.log(result)
             $('.regional').append("<li>NASIONAL</li>")
             $.each(result.daftar.data, function(key, value){
                 $('.regional').append("<li>"+value.kode_pp+"</li>")

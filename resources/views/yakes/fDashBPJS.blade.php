@@ -646,7 +646,6 @@
             async: false,
             success: function(result) {
                 var data = result.daftar;
-                console.log(data);
                 for(var i=0;i<data.length;i++) {
                     nilaiPegawai.push(parseFloat((parseFloat(data[i].pegawai)/pembagi).toFixed(2)))
                     nilaiPensiun.push(parseFloat((parseFloat(data[i].pensiun)/pembagi).toFixed(2)))
