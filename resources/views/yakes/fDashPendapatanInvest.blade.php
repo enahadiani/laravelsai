@@ -345,7 +345,7 @@
 <script type="text/javascript">
     var regional = "NASIONAL";
     var dashboard = "";
-    var keterangan = "Tahun {{ substr(Session::get('periode'), 0, 4) }}";
+    var keterangan = "Tahun {{ substr(Session::get('periode'), 0, 4) }} regional "+regional;
     var tahun = "{{ substr(Session::get('periode'), 0, 4) }}";
     var pembagi = 1000000;
     var buttonTop = document.getElementById('button-top');
@@ -428,7 +428,7 @@
 
     $('#form-filter').on('click', '#btn-tampil', function(){
         $('#detail-invest').empty();
-        keterangan = "Tahun "+tahun+"";
+        keterangan = "Tahun "+tahun+" regional "+regional;
         getDataPendapatan(tahun, regional);
         $('#keterangan-filter').text(keterangan);
         $('#modalFilter').modal('hide');
