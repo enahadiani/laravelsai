@@ -110,6 +110,24 @@
             return response()->json(['daftar' => $data, 'status' => true], 200);
         }
 
+        public function getFilterRegional() {
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'yakes-master/listPPAktif',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+            
+                $data = json_decode($response_data,true);
+                $data = $data['success'];
+            }
+            return response()->json(['daftar' => $data, 'status' => true], 200);
+        }
+
         public function getFilterTahun() {
             $client = new Client();
             $response = $client->request('GET',  config('api.url').'yakes-dash/getFilterTahunDash',[
@@ -146,9 +164,9 @@
             return response()->json(['daftar' => $data, 'status' => true], 200);
         }
 
-        public function getdataKunjBPCC($periode,$jenis) {
+        public function getdataKunjBPCC($periode,$jenis,$regional) {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'yakes-dash/dataBPCCtotal?periode='.$periode.'&jenis='.$jenis
+            $response = $client->request('GET',  config('api.url').'yakes-dash/dataBPCCtotal?periode='.$periode.'&jenis='.$jenis.'&kode_pp='.$regional
             ,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -165,9 +183,9 @@
             return response()->json(['daftar' => $data, 'status' => true], 200);
         }
 
-        public function getdataLayananBPCC($periode,$jenis) {
+        public function getdataLayananBPCC($periode,$jenis,$regional) {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'yakes-dash/dataBPCClayanan?periode='.$periode.'&jenis='.$jenis
+            $response = $client->request('GET',  config('api.url').'yakes-dash/dataBPCClayanan?periode='.$periode.'&jenis='.$jenis.'&kode_pp='.$regional
             ,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
