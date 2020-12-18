@@ -30,3 +30,7 @@ Route::post('dashPeserta', 'Yakes\PesertaController@store');
 Route::post('dashKunjungan-import', 'Yakes\KunjunganController@importExcel');
 Route::get('dashKunjungan-tmp', 'Yakes\KunjunganController@getKunjunganTmp');
 Route::post('dashKunjungan', 'Yakes\KunjunganController@store');
+
+Route::post('dashTopSix-import', 'Yakes\TopSixController@importExcel');
+Route::get('dashTopSix-tmp', 'Yakes\TopSixController@getTopSixTmp');
+Route::post('dashTopSix', 'Yakes\TopSixController@store');
