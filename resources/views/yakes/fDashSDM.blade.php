@@ -441,7 +441,7 @@ var split = periode.match(/.{1,4}/g);
 var tahun = split[0];
 var numMonth = parseInt(split[1]) - 1;
 var namaMonth = bulan[numMonth];
-var keterangan = "Periode sampai dengan "+namaMonth+" "+tahun;
+var keterangan = "Periode sampai dengan "+namaMonth+" "+tahun+" regional "+regional;
 var buttonTop = document.getElementById('button-top');
 var header = document.getElementById('filter-header');
 var buttonFilter = document.getElementById('button-filter');
@@ -494,7 +494,7 @@ window.onscroll = function() {
         tahun = split[0];
         numMonth = parseInt(split[1]) - 1;
         namaMonth = bulan[numMonth];
-        keterangan = "Periode sampai dengan "+namaMonth+" "+tahun;
+        keterangan = "Periode sampai dengan "+namaMonth+" "+tahun+" regional "+regional;
         getDataOrganik();
         getDataDemography();
         getDataMedis();

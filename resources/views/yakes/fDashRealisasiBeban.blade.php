@@ -359,7 +359,7 @@ var numTahun = parseInt(tahun);
 var numMonth = parseInt(split[1]) - 1;
 var namaMonth = bulan[numMonth];
 var tahunSebelumnya = numTahun - 1;
-var keterangan = "Periode sampai dengan "+namaMonth+" "+tahun;
+var keterangan = "Periode sampai dengan "+namaMonth+" "+tahun+" regional "+regional;
 
 var buttonTop = document.getElementById('button-top');
 var buttonFilter = document.getElementById('button-filter');
@@ -434,7 +434,7 @@ window.onscroll = function() {
         numTahun = parseInt(tahun);
         namaMonth = bulan[numMonth];
         tahunSebelumnya = numTahun - 1;
-        keterangan = "Periode sampai dengan "+namaMonth+" "+tahun;
+        keterangan = "Periode sampai dengan "+namaMonth+" "+tahun+" regional "+regional;
         $('#keterangan-filter').text(keterangan);
         $('#modalFilter').modal('hide');
     })
