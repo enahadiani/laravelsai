@@ -389,7 +389,7 @@ var numTahun = parseInt(tahun);
 var tahunSebelumnya = numTahun - 1;
 var numMonth = parseInt(split[1]) - 1;
 var namaMonth = bulan[numMonth];
-var keterangan = "Periode sampai dengan "+namaMonth+" "+tahun;
+var keterangan = "Periode sampai dengan "+namaMonth+" "+tahun+" regional "+regional;
 var judulCC = "Realisasi CC YTD "+bulanSingkat[numMonth]+" "+tahun+"";
 var judulBP = "Realisasi BP YTD "+bulanSingkat[numMonth]+" "+tahun+"";
 
@@ -483,7 +483,7 @@ window.onscroll = function() {
         numTahun = parseInt(tahun);
         namaMonth = bulan[numMonth];
         tahunSebelumnya = numTahun - 1;
-        keterangan = "Periode sampai dengan "+namaMonth+" "+tahun;
+        keterangan = "Periode sampai dengan "+namaMonth+" "+tahun+" regional "+regional;
         judulCC = "Realisasi CC YTD "+bulanSingkat[numMonth]+" "+tahun+"";
         judulBP = "Realisasi BP YTD "+bulanSingkat[numMonth]+" "+tahun+"";
         $('#keterangan-filter').text(keterangan);
