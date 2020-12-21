@@ -213,6 +213,9 @@ function getPeriode(){
                         control.addOption([{text:result.data.data[i].periode, value:result.data.data[i].periode}]);
                     }
                 }
+                if("{{ Session::get('periode') }}" != ""){
+                    control.setValue("{{ Session::get('periode') }}")
+                }
             }
         },
         error: function(jqXHR, textStatus, errorThrown) {       

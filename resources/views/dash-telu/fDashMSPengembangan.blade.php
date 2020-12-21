@@ -139,6 +139,8 @@ if(localStorage.getItem("dore-theme") == "dark"){
     $('#btnBack,#btn-filter').removeClass('btn-outline-dark');
     $('#btnBack,#btn-filter').addClass('btn-outline-light');
 }
+
+var $mode = localStorage.getItem("dore-theme");
 function sepNum(x){
     if(!isNaN(x)){
         if (typeof x === undefined || !x || x == 0) { 
@@ -224,6 +226,9 @@ function getPeriode(){
                         control.addOption([{text:result.data.data[i].periode, value:result.data.data[i].periode}]);
                     }
                 }
+                if("{{ Session::get('periode') }}" != ""){
+                    control.setValue("{{ Session::get('periode') }}");
+                }
             }
         },
         error: function(jqXHR, textStatus, errorThrown) {       
@@ -248,7 +253,7 @@ function getMsPengembangan(periode=null){
     $.ajax({
         type:"GET",
         url:"{{ url('/telu-dash/ms-pengembangan-rka') }}",
-        data:{periode : periode},
+        data:{periode : periode, mode: $mode},
         dataType:"JSON",
         success:function(result){
             // if(result.series.length > 0){
@@ -356,7 +361,7 @@ function getMsPengembanganKomposisi(periode=null){
     $.ajax({
         type:"GET",
         url:"{{ url('/telu-dash/ms-pengembangan-komposisi') }}",
-        data:{periode : periode},
+        data:{periode : periode, mode: $mode},
         dataType:"JSON",
         success:function(result){
             $('#komposisi-total').html(sepNumPas(result.total));

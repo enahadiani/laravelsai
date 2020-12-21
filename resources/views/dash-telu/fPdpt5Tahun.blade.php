@@ -162,6 +162,7 @@ if(localStorage.getItem("dore-theme") == "dark"){
     $('#btn-filter').removeClass('btn-outline-dark');
     $('#btn-filter').addClass('btn-outline-light');
 }
+var $mode = localStorage.getItem("dore-theme");
 function sepNum(x){
     if(!isNaN(x)){
         if (typeof x === undefined || !x || x == 0) { 
@@ -246,6 +247,9 @@ function getPeriode(){
                     for(i=0;i<result.data.data.length;i++){
                         control.addOption([{text:result.data.data[i].periode, value:result.data.data[i].periode}]);
                     }
+                }
+                if("{{ Session::get('periode') }}" != ""){
+                    control.setValue("{{ Session::get('periode') }}");
                 }
             }
         },
@@ -348,7 +352,7 @@ function getPendapatan(periode=null){
     $.ajax({
         type:"GET",
         url:"{{ url('/telu-dash/pend-5tahun') }}",
-        data:{periode:periode},
+        data:{periode:periode, mode: $mode},
         dataType:"JSON",
         success:function(result){
             
@@ -533,7 +537,7 @@ function getPendapatanTF(periode=null){
     $.ajax({
         type:"GET",
         url:"{{ url('/telu-dash/pend-5tahun-tf') }}",
-        data:{periode: periode},
+        data:{periode: periode, mode: $mode},
         dataType:"JSON",
         success:function(result){
             
@@ -720,7 +724,7 @@ function getPendapatanNTF(periode=null){
     $.ajax({
         type:"GET",
         url:"{{ url('/telu-dash/pend-5tahun-ntf') }}",
-        data:{periode: periode},
+        data:{periode: periode, mode: $mode},
         dataType:"JSON",
         success:function(result){
             
@@ -891,7 +895,7 @@ function getKomposisi(periode=null){
         type:"GET",
         url:"{{ url('/telu-dash/pend-5tahun-komposisi') }}",
         dataType:"JSON",
-        data:{periode: periode},
+        data:{periode: periode, mode: $mode},
         success:function(result){
             
             // $google.charts.load('current', {
@@ -1043,7 +1047,7 @@ function getPendapatanGrowth(periode=null){
     $.ajax({
         type:"GET",
         url:"{{ url('/telu-dash/pend-5tahun-growth') }}",
-        data: {periode : periode},
+        data: {periode : periode, mode: $mode},
         dataType:"JSON",
         success:function(result){
             
