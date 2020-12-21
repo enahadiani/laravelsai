@@ -7712,3 +7712,23 @@ div.row-notif  a:hover {
   border-color:#f8f8f8 !important;
   cursor:pointer;
 }
+.dash-card{
+  border-radius: 0.75rem !important;
+}
+.dash-card > .card-body{
+  border-radius: 0.75rem !important;
+  padding: 1.5rem !important;
+}
+.dash-card > .card-header{
+  background: var(--theme-color-1);
+  color:white !important;
+  border-top-right-radius: 0.75rem;
+  border-top-left-radius: 0.75rem;
+  padding: 0.5rem 1.5rem;
+}
+.dash-card > .card-header > h6{
+  color:white !important;
+}
+.dash-card > .card-body > .table tr:hover{
+  background: #f8f8f8;
+}

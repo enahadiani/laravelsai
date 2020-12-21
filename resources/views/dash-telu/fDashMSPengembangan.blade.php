@@ -12,11 +12,6 @@ $thnLalu = substr($tahunLalu,2,2)
 @endphp
 
 <style>
-    .card{
-        border-radius: 0 !important;
-        box-shadow: none;
-        border: 1px solid #f0f0f0;
-    }
     .btn-outline-light:hover {
         color: #131113;
         background-color: #ececec;
@@ -56,23 +51,6 @@ $thnLalu = substr($tahunLalu,2,2)
     }
     .bold{
         font-weight:bold;
-    }
-    .dash-card{
-        border-radius: 0.75rem !important;
-    }
-    .dash-card > .card-body{
-        border-radius: 0.75rem !important;
-        padding: 1.5rem !important;
-    }
-    .dash-card > .card-header{
-        background: var(--theme-color-1);
-        color:white !important;
-        border-top-right-radius: 0.75rem;
-        border-top-left-radius: 0.75rem;
-        padding: 0.5rem 1.5rem;
-    }
-    .dash-card > .card-header > h6{
-        color:white !important;
     }
     .card-title{
         color:white !important;
