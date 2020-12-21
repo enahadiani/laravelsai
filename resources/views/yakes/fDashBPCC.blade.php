@@ -660,6 +660,7 @@ window.onscroll = function() {
                     yAxis: [
                         {
                             linewidth: 1,
+                            min: -100,
                             title:{
                                 text: 'Rp. Dalam Juta'
                             }
@@ -667,6 +668,8 @@ window.onscroll = function() {
                         {
                             linewidth: 1,
                             opposite: true,
+                            min: -1,
+                            tickInterval: 1,
                             title:{
                                 text: 'Dalam Persen'
                             }
@@ -843,6 +846,7 @@ window.onscroll = function() {
                     yAxis: [
                         {
                             linewidth: 1,
+                            min: -100,
                             title:{
                                 text: 'Rp. Dalam Juta'
                             }
@@ -850,6 +854,8 @@ window.onscroll = function() {
                         {
                             linewidth: 1,
                             opposite: true,
+                            min: -1,
+                            tickInterval: 1,
                             title:{
                                 text: 'Dalam Persen'
                             }
