@@ -248,43 +248,162 @@ function getPeriode(){
 
 getPeriode();
 
+
 function getMsBebanRKA(periode=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/ms-beban') }}",
+        url:"{{ url('/telu-dash/ms-beban-capai') }}",
         data:{periode: periode},
         dataType:"JSON",
         success:function(result){
+            // Highcharts.chart('capai-rka', {
+            //     chart: {
+            //         type: 'column'
+            //     },
+            //     title: {
+            //         text: ''
+            //     },
+            //     xAxis: {
+            //         categories: result.data.ctg
+            //     },
+            //     yAxis: [{
+            //         min: 0,
+            //         title: {
+            //             text: ''
+            //         }
+            //     }],
+            //     credits: {
+            //         enabled: false
+            //     },
+            //     tooltip: {
+            //         shared: true
+            //     },
+            //     plotOptions: {
+            //         column: {
+            //             grouping: false,
+            //             shadow: false,
+            //             borderWidth: 0
+            //         }
+            //     },
+            //     series: result.data.series
+            // });
+
+            Highcharts.SVGRenderer.prototype.symbols['c-rect'] = function (x, y, w, h) {
+                    return ['M', x, y + h / 2, 'L', x + w, y + h / 2];
+                };
+                
             Highcharts.chart('capai-rka', {
                 chart: {
                     type: 'column'
+                },
+                credits:{
+                    enabled:false
                 },
                 title: {
                     text: ''
                 },
                 xAxis: {
-                    categories: result.data.ctg
+                    categories: ['TF','NTF']
                 },
-                yAxis: [{
-                    min: 0,
-                    title: {
-                        text: ''
-                    }
-                }],
-                credits: {
-                    enabled: false
+                yAxis: {
+                        title:'',
+                    min: 0
                 },
                 tooltip: {
-                    shared: true
+                    pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b>',
+                    /* shared: true */
                 },
                 plotOptions: {
                     column: {
-                        grouping: false,
-                        shadow: false,
-                        borderWidth: 0
+                        stacking: 'normal',
+                        borderWidth: 0,
+                        pointWidth: 50,
+                        dataLabels: {
+                            // padding:10,
+                            allowOverlap:true,
+                            enabled: true,
+                            crop: false,
+                            overflow: 'justify',
+                            useHTML: true,
+                            formatter: function () {
+                                if(this.y < 0.1){
+                                    return '';
+                                }else{
+                                    return $('<div/>').css({
+                                        'color' : 'white', // work
+                                        'padding': '0 3px',
+                                        'font-size': '10px',
+                                        'backgroundColor' : this.point.color  // just white in my case
+                                    }).text(sepNum(this.point.nlabel))[0].outerHTML;
+                                }
+                                // if(this.name)
+                            }
+                        }
+                    },
+                    scatter: {
+                        dataLabels: {
+                            // padding:10,
+                            allowOverlap:true,
+                            enabled: true,
+                            crop: false,
+                            overflow: 'justify',
+                            useHTML: true,
+                            formatter: function () {
+                                // return '<span style="color:white;background:gray !important;"><b>'+sepNum(this.y)+' M</b></span>';
+                                if(this.y < 0.1){
+                                    return '';
+                                }else{
+                                    return $('<div/>').css({
+                                        'color' : 'white', // work
+                                        'padding': '0 3px',
+                                        'font-size': '10px',
+                                        'backgroundColor' : this.point.color  // just white in my case
+                                    }).text(sepNum(this.point.nlabel))[0].outerHTML;
+                                }
+                            }
+                        }
                     }
                 },
-                series: result.data.series
+                series: [{
+                    name: 'Melampaui',
+                    color: '#16ff14',
+                    type: 'column',
+                    stack: 1,
+                    data: result.melampaui,
+                    dataLabels:{
+                        y:-20
+                    }
+                },{
+                    name: 'Target/RKA',
+                    color: '#003F88',
+                    marker: {
+                        symbol: 'c-rect',
+                        lineWidth:5,
+                        lineColor: 'black',
+                        radius: 50
+                    },
+                    type: 'scatter',
+                    stack: 2,
+                    data: result.rka,
+                    dataLabels:{
+                        x:-50
+                    }
+                }, {
+                    name: 'Tidak Tercapai',
+                    type: 'column',
+                    color: '#900604',
+                    stack: 1,
+                    data: result.tdkcapai,
+                    dataLabels:{
+                        x:50,
+                    }
+                }, {
+                    name: 'Actual',
+                    type: 'column',
+                    color: '#CED4DA',
+                    stack: 1,
+                    data: result.actual
+                }]
             });
 
         },
@@ -307,40 +426,127 @@ function getMsBebanRKA(periode=null){
 function getMsBebanKlp(periode=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/ms-beban-klp') }}",
+        url:"{{ url('/telu-dash/ms-beban-capai-klp') }}",
         data:{periode: periode},
         dataType:"JSON",
         success:function(result){
+            
+            Highcharts.SVGRenderer.prototype.symbols['c-rect'] = function (x, y, w, h) {
+                    return ['M', x, y + h / 2, 'L', x + w, y + h / 2];
+                };
+                
             Highcharts.chart('capai-klp', {
                 chart: {
                     type: 'column'
+                },
+                credits:{
+                    enabled:false
                 },
                 title: {
                     text: ''
                 },
                 xAxis: {
-                    categories: result.data.ctg
+                    categories: result.ctg
                 },
-                yAxis: [{
-                    min: 0,
-                    title: {
-                        text: ''
-                    }
-                }],
-                credits: {
-                    enabled: false
+                yAxis: {
+                        title:'',
+                    min: 0
                 },
                 tooltip: {
-                    shared: true
+                    pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b>',
+                    /* shared: true */
                 },
                 plotOptions: {
                     column: {
-                        grouping: false,
-                        shadow: false,
-                        borderWidth: 0
+                        stacking: 'normal',
+                        borderWidth: 0,
+                        pointWidth: 50,
+                        dataLabels: {
+                            // padding:10,
+                            allowOverlap:true,
+                            enabled: true,
+                            crop: false,
+                            overflow: 'justify',
+                            useHTML: true,
+                            formatter: function () {
+                                if(this.y < 0.1){
+                                    return '';
+                                }else{
+                                    return $('<div/>').css({
+                                        'color' : 'white', // work
+                                        'padding': '0 3px',
+                                        'font-size': '10px',
+                                        'backgroundColor' : this.point.color  // just white in my case
+                                    }).text(sepNum(this.point.nlabel))[0].outerHTML;
+                                }
+                                // if(this.name)
+                            }
+                        }
+                    },
+                    scatter: {
+                        dataLabels: {
+                            // padding:10,
+                            allowOverlap:true,
+                            enabled: true,
+                            crop: false,
+                            overflow: 'justify',
+                            useHTML: true,
+                            formatter: function () {
+                                // return '<span style="color:white;background:gray !important;"><b>'+sepNum(this.y)+' M</b></span>';
+                                if(this.y < 0.1){
+                                    return '';
+                                }else{
+                                    return $('<div/>').css({
+                                        'color' : 'white', // work
+                                        'padding': '0 3px',
+                                        'font-size': '10px',
+                                        'backgroundColor' : this.point.color  // just white in my case
+                                    }).text(sepNum(this.point.nlabel))[0].outerHTML;
+                                }
+                            }
+                        }
                     }
                 },
-                series: result.data.series
+                series: [{
+                    name: 'Melampaui',
+                    color: '#16ff14',
+                    type: 'column',
+                    stack: 1,
+                    data: result.melampaui,
+                    dataLabels:{
+                        y:-20
+                    }
+                },{
+                    name: 'Target/RKA',
+                    color: '#003F88',
+                    marker: {
+                        symbol: 'c-rect',
+                        lineWidth:5,
+                        lineColor: 'black',
+                        radius: 50
+                    },
+                    type: 'scatter',
+                    stack: 2,
+                    data: result.rka,
+                    dataLabels:{
+                        x:-50
+                    }
+                }, {
+                    name: 'Tidak Tercapai',
+                    type: 'column',
+                    color: '#900604',
+                    stack: 1,
+                    data: result.tdkcapai,
+                    dataLabels:{
+                        x:50,
+                    }
+                }, {
+                    name: 'Actual',
+                    type: 'column',
+                    color: '#CED4DA',
+                    stack: 1,
+                    data: result.actual
+                }]
             });
 
         },

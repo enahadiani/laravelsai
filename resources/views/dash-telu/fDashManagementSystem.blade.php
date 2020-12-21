@@ -87,9 +87,9 @@ $thnLalu = substr($tahunLalu,2,2)
 <div class="container-fluid mt-3">
     <div class="row">
         <div class="col-12">
-            <h6 class="mb-0 bold">Komparasi Anggaran dan Realisasi s/d <span class='nama-bulan' style='font-size:1.25rem!important;'></span></h6>
+            <h6 class="mb-0 bold">Telkom University Management System</h6>
             <a class="btn btn-outline-light" href="#" id="btn-filter" style="position: absolute;right: 15px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-equalizer" style="transform-style: ;"></i> &nbsp;&nbsp; Filter</a>
-            <p>Komparasi Anggaran dan Realisasi <span class='tahun'></span></p>
+            <p>Komparasi Anggaran dan Realisasi s/d <span class='nama-bulan'></span></p>
         </div>
     </div>
     <div class="row" >
