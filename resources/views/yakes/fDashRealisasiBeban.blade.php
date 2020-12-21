@@ -694,12 +694,16 @@ function RealBeban() {
                 yAxis: [
                     {
                         linewidth: 1,
+                        min: -100,
+                        // tickInterval: 100,
                         title:{
                             text: 'Rp. Dalam Juta'
                         }
                     },
                     {
                         linewidth: 1,
+                        min: -1,
+                        tickInterval: 1,
                         opposite: true,
                         title:{
                             text: 'Dalam Persen'
