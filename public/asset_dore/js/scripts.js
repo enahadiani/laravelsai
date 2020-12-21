@@ -167,13 +167,16 @@ function loadStyle(href, callback) {
 
   $("#switchDark").on("change", function (event) {
     var mode = $(event.currentTarget)[0].checked ? "dark" : "light";
-    if (mode == "dark") {
-      theme = theme.replace("light", "dark");
-    } else if (mode == "light") {
-      theme = theme.replace("dark", "light");
-    }
+    // if (mode == "dark") {
+    //   // $theme = $theme.replace("light", "dark");
+    //   // localStorage.setItem("dore-theme", mode);
+    // } else if (mode == "light") {
+    //   // $theme = $theme.replace("dark", "light");
+    // }
     if (typeof Storage !== "undefined") {
-      localStorage.setItem("dore-theme-color", theme);
+      console.log(mode);
+      localStorage.setItem("dore-theme", mode);
+      // localStorage.setItem("dore-theme-color", $theme);
       window.location.reload();
     }
   });
