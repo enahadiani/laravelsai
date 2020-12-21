@@ -900,7 +900,6 @@ function getBebanGrowth(periode=null){
                         text: 'PROSENTASE CAPAIAN'
                     },
                     opposite: true,
-                    min: 92,
                     tickInterval: 2
                 }],
                 xAxis: {
