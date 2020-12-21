@@ -2,15 +2,15 @@
 
     function drawLap(formData){
         saiPostLoad("{{ url('yakes-report/lap-claim-bpjs') }}", null, formData, null, function(res){
-        //    if(res.result.length > 0){
+           if(res.result.length > 0){
 
                 $('#pagination').html('');
                 var show = $('#show').val();
                 generatePaginationDore('pagination',show,res);
               
-        //    }else{
-        //         $('#saku-report #canvasPreview').load("{{ url('yakes-auth/form/blank') }}");
-        //    }
+           }else{
+                $('#saku-report #canvasPreview').load("{{ url('yakes-auth/form/blank') }}");
+           }
        });
    }
 
@@ -38,11 +38,16 @@
         return tmp;
     }
 
+    function toJuta(x) {
+        var nil = x / 1000000;
+        return sepNum(nil);
+    }
+
    drawLap($formData);
 
    function drawRptPage(data,res,from,to){
         var data = data;
-        // if(data.length > 0){
+        if(data.length > 0){
             res.bentuk = '';
             var lokasi = res.lokasi;
             res.data_detail = [];
@@ -78,7 +83,8 @@
             </style>
             <table class='table table-bordered report-table' width='100%'>
             <tr>
-                <td colspan='10' class='text-right no-border'>dlm. Rp Juta</td>
+                <td colspan='9' class='no-border'>CLAIM `+$jenis.from+`</td>
+                <td class='text-right no-border'>dlm. Rp Juta</td>
             </tr>
             <tr>
                 <th width='24%' rowspan='2' class='text-center bg-blue1'>Layanan</th>
@@ -96,41 +102,98 @@
                 <th width='8%' class='text-center bg-blue1'>VII</th>
             </tr>
             `;
-            // var no=1;
-            // for (var i=0;i < data.length;i++)
-            // {
-            //     var nilai="";
-            //     var line = data[i];
-            //     if (line.tipe!="Header")
-            //     {
-            //         nilai=sepNum(parseFloat(line.n4));
-            //     }
-			
-            //     if (line.tipe=="Posting" && line.n4 != 0)
-            //     {
-            //         html+=`<tr class='report-link neraca-lajur' style='cursor:pointer;' data-kode_neraca='`+line.kode_neraca+`' >
-            //         <td width='2%'></td>
-            //         <td width='52%' height='20' class='isi_laporan link-report' >`+fnSpasi(line.level_spasi)+``+line.nama+`</td>
-            //         <td width='18%' class='isi_laporan'><div align='right'>`+nilai+`</div></td>
-            //         <td width='18%' class='isi_laporan'><div align='right'>&nbsp;</div></td>
-            //         <td width='2%'></td>
-            //         </tr>`;
-            //     }
-            //     else
-            //     {
-            //         html+=`<tr>
-            //         <td width='2%'></td>
-            //         <td width='52%' height='20' class='isi_laporan'>`+fnSpasi(line.level_spasi)+line.nama+`</td>
-            //         <td width='18%' class='isi_laporan'><div align='right'>`+nilai+`</div></td>
-            //         <td width='18%' class='isi_laporan'><div align='right'>&nbsp;</div></td>
-            //         <td width='2%'></td>
-            //         </tr>`;
-            //     }
-            //     no++;
-            // }
-            html+=`
+            var tgh =`<tr>
+            <td class='isi_laporan'>Tagihan Awal</td>
+            <td class='isi_laporan'>&nbsp;</td>
+            <td class='isi_laporan'>&nbsp;</td>
+            <td class='isi_laporan'>&nbsp;</td>
+            <td class='isi_laporan'>&nbsp;</td>
+            <td class='isi_laporan'>&nbsp;</td>
+            <td class='isi_laporan'>&nbsp;</td>
+            <td class='isi_laporan'>&nbsp;</td>
+            <td class='isi_laporan'>&nbsp;</td>
+            <td class='isi_laporan'>&nbsp;</td>
+            </tr>`;
+            var claim =`<tr>
+            <td class='isi_laporan'>Claim BPJS</td>
+            <td class='isi_laporan'>&nbsp;</td>
+            <td class='isi_laporan'>&nbsp;</td>
+            <td class='isi_laporan'>&nbsp;</td>
+            <td class='isi_laporan'>&nbsp;</td>
+            <td class='isi_laporan'>&nbsp;</td>
+            <td class='isi_laporan'>&nbsp;</td>
+            <td class='isi_laporan'>&nbsp;</td>
+            <td class='isi_laporan'>&nbsp;</td>
+            <td class='isi_laporan'>&nbsp;</td>
+            </tr>`;
+            var bayar =`<tr>
+            <td class='isi_laporan'>Selisih Yakes</td>
+            <td class='isi_laporan'>&nbsp;</td>
+            <td class='isi_laporan'>&nbsp;</td>
+            <td class='isi_laporan'>&nbsp;</td>
+            <td class='isi_laporan'>&nbsp;</td>
+            <td class='isi_laporan'>&nbsp;</td>
+            <td class='isi_laporan'>&nbsp;</td>
+            <td class='isi_laporan'>&nbsp;</td>
+            <td class='isi_laporan'>&nbsp;</td>
+            <td class='isi_laporan'>&nbsp;</td>
+            </tr>`;
+            var no=1; var totgh=0; var toclaim=0; var tobyar=0;
+            for (var i=0;i < data.length;i++)
+            {
+                var line = data[i];
+                if(line.jenis == "TAGIHAN AWAL"){
+                    tgh+=`<tr>
+                    <td class='isi_laporan'>`+fnSpasi(2)+line.nama_biaya+`</td>
+                    <td class='isi_laporan'>-</td>
+                <td class='isi_laporan text-right'>`+toJuta(line.n1)+`</td>
+                <td class='isi_laporan text-right'>`+toJuta(line.n2)+`</td>
+                <td class='isi_laporan text-right'>`+toJuta(line.n3)+`</td>
+                <td class='isi_laporan text-right'>`+toJuta(line.n4)+`</td>
+                <td class='isi_laporan text-right'>`+toJuta(line.n5)+`</td>
+                <td class='isi_laporan text-right'>`+toJuta(line.n6)+`</td>
+                <td class='isi_laporan text-right'>`+toJuta(line.n7)+`</td>
+                <td class='isi_laporan text-right'>`+toJuta(line.total)+`</td>
+                </tr>`;
+                    totgh+=parseFloat(line.total);
+
+                }else if(line.jenis == "CLAIM"){
+                    
+                    claim+=`<tr>
+                    <td class='isi_laporan'>`+fnSpasi(2)+line.nama_biaya+`</td>
+                    <td class='isi_laporan'>-</td>
+                <td class='isi_laporan text-right'>`+toJuta(line.n1)+`</td>
+                <td class='isi_laporan text-right'>`+toJuta(line.n2)+`</td>
+                <td class='isi_laporan text-right'>`+toJuta(line.n3)+`</td>
+                <td class='isi_laporan text-right'>`+toJuta(line.n4)+`</td>
+                <td class='isi_laporan text-right'>`+toJuta(line.n5)+`</td>
+                <td class='isi_laporan text-right'>`+toJuta(line.n6)+`</td>
+                <td class='isi_laporan text-right'>`+toJuta(line.n7)+`</td>
+                <td class='isi_laporan text-right'>`+toJuta(line.total)+`</td>
+                </tr>`;
+                    toclaim+=line.total;
+
+                }else{
+                    
+                    bayar+=`<tr>
+                    <td class='isi_laporan'>`+fnSpasi(2)+line.nama_biaya+`</td>
+                    <td class='isi_laporan'>-</td>
+                <td class='isi_laporan text-right'>`+toJuta(line.n1)+`</td>
+                <td class='isi_laporan text-right'>`+toJuta(line.n2)+`</td>
+                <td class='isi_laporan text-right'>`+toJuta(line.n3)+`</td>
+                <td class='isi_laporan text-right'>`+toJuta(line.n4)+`</td>
+                <td class='isi_laporan text-right'>`+toJuta(line.n5)+`</td>
+                <td class='isi_laporan text-right'>`+toJuta(line.n6)+`</td>
+                <td class='isi_laporan text-right'>`+toJuta(line.n7)+`</td>
+                <td class='isi_laporan text-right'>`+toJuta(line.total)+`</td>
+                </tr>`;
+                tobyar+=line.total;
+                }
+            }
+            
+            html+=tgh+claim+bayar+`
             </table>`;
-        // }
+        }
         $('#canvasPreview').html(html);
         $('li.prev a ').html("<i class='simple-icon-arrow-left'></i>");
         $('li.next a ').html("<i class='simple-icon-arrow-right'></i>");
