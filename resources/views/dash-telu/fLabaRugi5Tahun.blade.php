@@ -107,6 +107,13 @@ $thnLalu = substr($tahunLalu,2,2)
 <script>
 $('body').addClass('dash-contents');
 $('html').addClass('dash-contents');
+if(localStorage.getItem("dore-theme") == "dark"){
+    $('#btn-filter').removeClass('btn-outline-light');
+    $('#btn-filter').addClass('btn-outline-dark');
+}else{
+    $('#btn-filter').removeClass('btn-outline-dark');
+    $('#btn-filter').addClass('btn-outline-light');
+}
 function sepNum(x){
     if(!isNaN(x)){
         if (typeof x === undefined || !x || x == 0) { 
@@ -191,6 +198,9 @@ function getPeriode(){
                     for(i=0;i<result.data.data.length;i++){
                         control.addOption([{text:result.data.data[i].periode, value:result.data.data[i].periode}]);
                     }
+                }
+                if("{{ Session::get('periode') }}" != ""){
+                    control.setValue("{{ Session::get('periode') }}")
                 }
             }
         },

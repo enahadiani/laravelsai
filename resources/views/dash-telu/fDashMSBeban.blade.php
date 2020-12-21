@@ -63,7 +63,7 @@ $thnLalu = substr($tahunLalu,2,2)
     <div class="row">
         <div class="col-12">
             <h6 class="mb-0 bold">Beban</h6>
-            <button class='btn btn-outline-light' id='btnBack' style="position: absolute;right: 135px;font-size:1rem;top:0"><i class="simple-icon-arrow-left mr-2"></i> Back</button>
+            <a class='btn btn-outline-light' href='#' id='btnBack' style="position: absolute;right: 135px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-arrow-left mr-2"></i> Back</a>
             <a class="btn btn-outline-light" href="#" id="btn-filter" style="position: absolute;right: 15px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-equalizer" style="transform-style: ;"></i> &nbsp;&nbsp; Filter</a>
             <p>Komparasi Anggaran dan Realisasi {{ $tahun }}</p>
         </div>
@@ -121,6 +121,13 @@ $thnLalu = substr($tahunLalu,2,2)
 <script>
 $('body').addClass('dash-contents');
 $('html').addClass('dash-contents');
+if(localStorage.getItem("dore-theme") == "dark"){
+    $('#btnBack,#btn-filter').removeClass('btn-outline-light');
+    $('#btnBack,#btn-filter').addClass('btn-outline-dark');
+}else{
+    $('#btnBack,#btn-filter').removeClass('btn-outline-dark');
+    $('#btnBack,#btn-filter').addClass('btn-outline-light');
+}
 function sepNum(x){
     if(!isNaN(x)){
         if (typeof x === undefined || !x || x == 0) { 
@@ -438,7 +445,7 @@ function getMsBebanKlp(periode=null){
                     column: {
                         stacking: 'normal',
                         borderWidth: 0,
-                        pointWidth: 50,
+                        pointWidth: 15,
                         dataLabels: {
                             // padding:10,
                             allowOverlap:true,
@@ -453,7 +460,7 @@ function getMsBebanKlp(periode=null){
                                     return $('<div/>').css({
                                         'color' : 'white', // work
                                         'padding': '0 3px',
-                                        'font-size': '10px',
+                                        'font-size': '8px',
                                         'backgroundColor' : this.point.color  // just white in my case
                                     }).text(sepNum(this.point.nlabel))[0].outerHTML;
                                 }
@@ -501,7 +508,7 @@ function getMsBebanKlp(periode=null){
                         symbol: 'c-rect',
                         lineWidth:5,
                         lineColor: 'black',
-                        radius: 50
+                        radius: 15
                     },
                     type: 'scatter',
                     stack: 2,
