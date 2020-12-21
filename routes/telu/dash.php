@@ -94,4 +94,10 @@ Route::get('/beban-5tahun-growth','DashTelu\DashboardController@getBeban5TahunGr
 
 Route::get('/shu-5tahun','DashTelu\DashboardController@getSHU5Tahun');
 
+Route::get('/ms-pend-capai','DashTelu\DashboardController@getPendCapai');
+Route::get('/ms-pend-capai-klp','DashTelu\DashboardController@getPendCapaiKlp');
+
+Route::get('/ms-beban-capai','DashTelu\DashboardController@getBebanCapai');
+Route::get('/ms-beban-capai-klp','DashTelu\DashboardController@getBebanCapaiKlp');
+
 ?>

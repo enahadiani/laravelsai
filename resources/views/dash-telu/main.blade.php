@@ -28,7 +28,7 @@
     <link rel="stylesheet" href="{{ asset('asset_elite/dist/js/swal/sweetalert2.min.css') }}">
     <!-- Selectize -->
     <link href="{{ asset('asset_elite/selectize.bootstrap3.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('mainstyle-yakes.css') }}" />
+    <link rel="stylesheet" href="{{ asset('mainstyle-telu.css') }}" />
     <link rel="stylesheet" href="{{ asset('asset_dore/css/vendor/bootstrap-tagsinput.css') }}" />
     <style>
         .logo{
@@ -252,6 +252,13 @@
                 </div>
             </div>
             <div class="header-icons d-inline-block align-middle mr-4">
+                <div class="d-none d-md-inline-block align-text-bottom mr-3">
+                    <div class="custom-switch custom-switch-primary-inverse custom-switch-small pl-1"
+                         data-toggle="tooltip" data-placement="left" title="Dark Mode">
+                        <input class="custom-switch-input" id="switchDark" type="checkbox" checked>
+                        <label class="custom-switch-btn" for="switchDark"></label>
+                    </div>
+                </div>
                 <div class="dropdown position-relative d-inline-block">
                     <button class="header-icon btn btn-empty" type="button" id="notificationButton"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -1000,6 +1007,13 @@
         }
     });
     var $theme = "dore.light.redruby.min.css";
+    var mode = window.localStorage.getItem('dore-theme');
+    if (mode == "dark") {
+        $theme = $theme.replace("light", "dark");
+      // localStorage.setItem("dore-theme", mode);
+    } else if (mode == "light") {
+        $theme = $theme.replace("dark", "light");
+    }
  
     </script>
     <script src="{{ asset('asset_dore/js/scripts.js') }}"></script>

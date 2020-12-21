@@ -401,7 +401,6 @@ function getPendapatan(periode=null){
                         text: 'PROSENTASE CAPAIAN'
                     },
                     opposite: true,
-                    min: 80,
                     tickInterval: 5
                 }],
                 xAxis: {
@@ -587,7 +586,6 @@ function getPendapatanTF(periode=null){
                         text: 'PROSENTASE CAPAIAN'
                     },
                     opposite: true,
-                    min: 92,
                     tickInterval: 2
                 }],
                 xAxis: {
@@ -1092,14 +1090,11 @@ function getPendapatanGrowth(periode=null){
                             return singkatNilai(this.value);
                         }
                     },
-                    tickInterval: 50
                 },{
                     title: {
                         text: 'PROSENTASE CAPAIAN'
                     },
-                    opposite: true,
-                    min: 92,
-                    tickInterval: 2
+                    opposite: true
                 }],
                 xAxis: {
                     categories:result.ctg
