@@ -307,11 +307,18 @@ function getProfitLoss(periode=null)
 
                 for(var i=0;i<result.data.data.length;i++)
                 {
-                   var line = result.data.data[i];
-                   html+=`<tr class='trace ms-`+i+`'>
-                        <td>`+line.nama+`</td>
-                        <td>`+sepNumPas(parseFloat(line.nilai))+`</td>
-                        <td class='text-right text-success' >`+sepNumPas(parseFloat(line.persen))+`%</td>
+                    var line = result.data.data[i];
+                    if(line.nama != "Beban"){
+                        var nilai = sepNumPas(parseFloat(line.nilai)*-1);
+                    }else{
+                        
+                        var nilai = sepNumPas(parseFloat(line.nilai));
+                    }
+                    var persen = sepNumPas(parseFloat(line.persen));
+                    html+=`<tr class='trace ms-`+i+`'>
+                    <td>`+line.nama+`</td>
+                    <td>`+nilai+`</td>
+                    <td class='text-right text-success' >`+persen+`%</td>
                     </tr>`;   
                 }
             }

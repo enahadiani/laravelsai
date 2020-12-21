@@ -380,7 +380,7 @@ function getMsPengembanganKomposisi(periode=null){
                     text: sepNumPas(result.total),
                     align: 'center',
                     verticalAlign: 'middle',
-                    y: 20
+                    y: 15
                 },
                 yAxis: [{
                     min: 0,

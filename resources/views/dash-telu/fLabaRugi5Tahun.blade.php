@@ -361,19 +361,13 @@ function getLabaRugi(periode=null){
                 plotOptions: {
                     column: {
                         dataLabels: {
-                            // padding:10,
-                            // allowOverlap:true,
-                            // enabled: true,
-                            // crop: false,
-                            // overflow: 'justify',
-                            // enabled: true,
                             useHTML: true,
                             formatter: function () {
                                 // return '<span style="color:white;background:gray !important;"><b>'+sepNum(this.y)+' M</b></span>';
                                 return $('<div/>').css({
                                     'color' : 'white', // work
                                     'padding': '0 3px',
-                                    'backgroundColor' : this.point.color  // just white in my case
+                                    'backgroundColor' : this.series.color  // just white in my case
                                 }).text(sepNum(this.y))[0].outerHTML;
                             }
                         }
@@ -381,17 +375,13 @@ function getLabaRugi(periode=null){
                     spline: {
                         dataLabels: {
                             padding:15,
-                            // allowOverlap:true,
-                            // enabled: true,
-                            // crop: false,
-                            // overflow: 'justify',
                             x:20,
                             useHTML: true,
                             formatter: function () {
                                 return $('<div/>').css({
                                     'color' : 'white', // work
                                     'padding': '0 5px',
-                                    'backgroundColor' : this.point.color  // just white in my case
+                                    'backgroundColor' : this.series.color  // just white in my case
                                 }).text(sepNum(this.y)+'%')[0].outerHTML;
                             }
                         }
