@@ -353,7 +353,7 @@ function getMsPendRKA(periode=null){
                 },
                 series: [{
                     name: 'Melampaui',
-                    color: '#16ff14',
+                    color: (localStorage.getItem("dore-theme") == "dark" ? '#28DA66' :  '#16ff14'),
                     type: 'column',
                     stack: 1,
                     data: result.melampaui,
@@ -362,7 +362,7 @@ function getMsPendRKA(periode=null){
                     }
                 },{
                     name: 'Target/RKA',
-                    color: '#003F88',
+                    color: (localStorage.getItem("dore-theme") == "dark" ? '#2200FF' :  '#003F88'),
                     marker: {
                         symbol: 'c-rect',
                         lineWidth:5,
@@ -378,7 +378,7 @@ function getMsPendRKA(periode=null){
                 }, {
                     name: 'Tidak Tercapai',
                     type: 'column',
-                    color: '#900604',
+                    color:  (localStorage.getItem("dore-theme") == "dark" ? '#ED4346' :  '#900604'),
                     stack: 1,
                     data: result.tdkcapai,
                     dataLabels:{
@@ -387,7 +387,7 @@ function getMsPendRKA(periode=null){
                 }, {
                     name: 'Actual',
                     type: 'column',
-                    color: '#CED4DA',
+                    color: (localStorage.getItem("dore-theme") == "dark" ? '#434343' :  '#CED4DA'),
                     stack: 1,
                     data: result.actual
                 }]
@@ -496,7 +496,7 @@ function getMsPendKlp(periode=null){
                 },
                 series: [{
                     name: 'Melampaui',
-                    color: '#16ff14',
+                    color: (localStorage.getItem("dore-theme") == "dark" ? '#28DA66' :  '#16ff14'),
                     type: 'column',
                     stack: 1,
                     data: result.melampaui,
@@ -505,7 +505,7 @@ function getMsPendKlp(periode=null){
                     }
                 },{
                     name: 'Target/RKA',
-                    color: '#003F88',
+                    color: (localStorage.getItem("dore-theme") == "dark" ? '#2200FF' :  '#003F88'),
                     marker: {
                         symbol: 'c-rect',
                         lineWidth:5,
@@ -521,7 +521,7 @@ function getMsPendKlp(periode=null){
                 }, {
                     name: 'Tidak Tercapai',
                     type: 'column',
-                    color: '#900604',
+                    color:  (localStorage.getItem("dore-theme") == "dark" ? '#ED4346' :  '#900604'),
                     stack: 1,
                     data: result.tdkcapai,
                     dataLabels:{
@@ -530,7 +530,7 @@ function getMsPendKlp(periode=null){
                 }, {
                     name: 'Actual',
                     type: 'column',
-                    color: '#CED4DA',
+                    color: (localStorage.getItem("dore-theme") == "dark" ? '#434343' :  '#CED4DA'),
                     stack: 1,
                     data: result.actual
                 }]
