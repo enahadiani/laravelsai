@@ -217,7 +217,7 @@
                             <tr>
                                 <th style="width:10%;"></th>
                                 <th style="width:10%;">RJTP</th>
-                                <th style="width:10%;">RJTKL</th>
+                                <th style="width:10%;">RJTL</th>
                                 <th style="width:10%;">RI</th>
                                 <th style="width:10%;">RESTITUSI</th>
                             </tr>
@@ -245,7 +245,7 @@
                             <tr>
                                 <th style="width:10%;"></th>
                                 <th style="width:10%;">RJTP</th>
-                                <th style="width:10%;">RJTKL</th>
+                                <th style="width:10%;">RJTL</th>
                                 <th style="width:10%;">RI</th>
                                 <th style="width:10%;">RESTITUSI</th>
                             </tr>
@@ -389,9 +389,21 @@ var numTahun = parseInt(tahun);
 var tahunSebelumnya = numTahun - 1;
 var numMonth = parseInt(split[1]) - 1;
 var namaMonth = bulan[numMonth];
-var keterangan = "Periode sampai dengan "+namaMonth+" "+tahun+" regional "+regional;
-var judulCC = "Realisasi CC YTD "+bulanSingkat[numMonth]+" "+tahun+"";
-var judulBP = "Realisasi BP YTD "+bulanSingkat[numMonth]+" "+tahun+"";
+var singkatMonth = bulanSingkat[numMonth];
+if(numMonth == 2) {
+    var quaterMonth = "Q1'";
+} else if(numMonth == 5) {  
+    var quaterMonth = "Q2'";
+} else if(numMonth == 8) {
+    var quaterMonth = "Q3'";
+} else if(numMonth == 11) {
+    var quaterMonth = "Q4'"
+} else {
+    var quaterMonth = singkatMonth;
+}
+var keterangan = "Periode sampai dengan "+namaMonth+" "+tahun+" <strong>regional</strong> "+regional;
+var judulCC = "Realisasi CC YTD "+quaterMonth+" "+tahun+"";
+var judulBP = "Realisasi BP YTD "+quaterMonth+" "+tahun+"";
 
 var header = document.getElementById('filter-header');
 var buttonTop = document.getElementById('button-top');
@@ -413,7 +425,7 @@ window.onscroll = function() {
 
     $('#judul-cc').text(judulCC);
     $('#judul-bp').text(judulBP);
-    $('#keterangan-filter').text(keterangan);
+    $('#keterangan-filter').html(keterangan);
 
     function topFunction() {
         document.body.scrollTop = 0;
@@ -482,11 +494,23 @@ window.onscroll = function() {
         numMonth = parseInt(split[1]) - 1;
         numTahun = parseInt(tahun);
         namaMonth = bulan[numMonth];
+        singkatMonth = bulanSingkat[numMonth];
+        if(numMonth == 2) {
+         quaterMonth = "Q1'";
+        } else if(numMonth == 5) {  
+         quaterMonth = "Q2'";
+        } else if(numMonth == 8) {
+         quaterMonth = "Q3'";
+        } else if(numMonth == 11) {
+         quaterMonth = "Q4'"
+        } else {
+         quaterMonth = singkatMonth;
+        }
         tahunSebelumnya = numTahun - 1;
-        keterangan = "Periode sampai dengan "+namaMonth+" "+tahun+" regional "+regional;
-        judulCC = "Realisasi CC YTD "+bulanSingkat[numMonth]+" "+tahun+"";
-        judulBP = "Realisasi BP YTD "+bulanSingkat[numMonth]+" "+tahun+"";
-        $('#keterangan-filter').text(keterangan);
+        keterangan = "Periode sampai dengan "+namaMonth+" "+tahun+" <strong>regional</strong> "+regional;
+        judulCC = "Realisasi CC YTD "+quaterMonth+" "+tahun+"";
+        judulBP = "Realisasi BP YTD "+quaterMonth+" "+tahun+"";
+        $('#keterangan-filter').html(keterangan);
         $('#judul-cc').text(judulCC);
         $('#judul-bp').text(judulBP);
         $('#modalFilter').modal('hide');
@@ -568,7 +592,7 @@ window.onscroll = function() {
                 html += "<tr>";
                 html += "<td style='position: relative;'>";
                 html += "<div style='height: 15px; width:25px; background-color:#BFBFBF;display:inline-block;margin-left:3px;margin-top:1px;'></div>";
-                html += "&nbsp;REA YTD "+bulanSingkat[numMonth]+" "+tahunSebelumnya+"";
+                html += "&nbsp;REA YTD "+quaterMonth+" "+tahunSebelumnya+"";
                 html += "</td>";
                 for(var x=0;x<rea_bef.length;x++) {
                     html += "<td style='text-align: right;'>";
@@ -580,7 +604,7 @@ window.onscroll = function() {
                 html += "<tr>";
                 html += "<td style='position: relative;'>";
                 html += "<div style='height: 15px; width:25px; background-color:#9EEADC;display:inline-block;margin-left:3px;margin-top:1px;'></div>";
-                html += "&nbsp;RKA YTD "+bulanSingkat[numMonth]+" "+tahun+"";
+                html += "&nbsp;RKA YTD "+quaterMonth+" "+tahun+"";
                 html += "</td>";
                 for(var x=0;x<rka_now.length;x++) {
                     html += "<td style='text-align: right;'>";
@@ -592,7 +616,7 @@ window.onscroll = function() {
                 html += "<tr>";
                 html += "<td style='position: relative;'>";
                 html += "<div style='height: 15px; width:25px; background-color:#288372;display:inline-block;margin-left:3px;margin-top:1px;'></div>";
-                html += "&nbsp;REA YTD "+bulanSingkat[numMonth]+" "+tahun+"";
+                html += "&nbsp;REA YTD "+quaterMonth+" "+tahun+"";
                 html += "</td>";
                 for(var x=0;x<rea_now.length;x++) {
                     html += "<td style='text-align: right;'>";
@@ -626,11 +650,11 @@ window.onscroll = function() {
                 html += "</tr>";
 
                 $('#real-cc').append(html);
-                chart.push({type:'column', name:"REA YTD "+bulanSingkat[numMonth]+" "+tahunSebelumnya+"", data:rea_bef, color:'#BFBFBF'})
-                chart.push({type:'column', name:"RKA YTD "+bulanSingkat[numMonth]+" "+tahun+"", data:rka_now, color:'#9EEADC'})
-                chart.push({type:'column', name:"REA YTD "+bulanSingkat[numMonth]+" "+tahun+"", data:rea_now, color:'#288372'})
-                chart.push({type:'spline', name:'ACH', data:ach, color:'#14213d', yAxis:1, marker: {lineWidth: 2 }})
-                chart.push({type:'spline', name:'YoY', data:yoy, color:'#FCA311', yAxis:1, marker: {lineWidth: 2 }})
+                chart.push({type:'column', name:"REA YTD "+quaterMonth+" "+tahunSebelumnya+"", data:rea_bef, color:'#BFBFBF'})
+                chart.push({type:'column', name:"RKA YTD "+quaterMonth+" "+tahun+"", data:rka_now, color:'#9EEADC'})
+                chart.push({type:'column', name:"REA YTD "+quaterMonth+" "+tahun+"", data:rea_now, color:'#288372'})
+                chart.push({type:'line', name:'ACH', data:ach, color:'#14213d', yAxis:1, marker: {lineWidth: 2 }})
+                chart.push({type:'line', name:'YoY', data:yoy, color:'#FCA311', yAxis:1, marker: {lineWidth: 2 }})
 
                 Highcharts.chart('cc', {
                     chart:{
@@ -754,7 +778,7 @@ window.onscroll = function() {
                 html += "<tr>";
                 html += "<td style='position: relative;'>";
                 html += "<div style='height: 15px; width:25px; background-color:#BFBFBF;display:inline-block;margin-left:3px;margin-top:1px;'></div>";
-                html += "&nbsp;REA YTD "+bulanSingkat[numMonth]+" "+tahunSebelumnya+"";
+                html += "&nbsp;REA YTD "+quaterMonth+" "+tahunSebelumnya+"";
                 html += "</td>";
                 for(var x=0;x<rea_bef.length;x++) {
                     html += "<td style='text-align: right;'>";
@@ -766,7 +790,7 @@ window.onscroll = function() {
                 html += "<tr>";
                 html += "<td style='position: relative;'>";
                 html += "<div style='height: 15px; width:25px; background-color:#9EEADC;display:inline-block;margin-left:3px;margin-top:1px;'></div>";
-                html += "&nbsp;RKA YTD "+bulanSingkat[numMonth]+" "+tahun+"";
+                html += "&nbsp;RKA YTD "+quaterMonth+" "+tahun+"";
                 html += "</td>";
                 for(var x=0;x<rka_now.length;x++) {
                     html += "<td style='text-align: right;'>";
@@ -778,7 +802,7 @@ window.onscroll = function() {
                 html += "<tr>";
                 html += "<td style='position: relative;'>";
                 html += "<div style='height: 15px; width:25px; background-color:#288372;display:inline-block;margin-left:3px;margin-top:1px;'></div>";
-                html += "&nbsp;REA YTD "+bulanSingkat[numMonth]+" "+tahun+"";
+                html += "&nbsp;REA YTD "+quaterMonth+" "+tahun+"";
                 html += "</td>";
                 for(var x=0;x<rea_now.length;x++) {
                     html += "<td style='text-align: right;'>";
@@ -812,11 +836,11 @@ window.onscroll = function() {
                 html += "</tr>";
 
                 $('#real-bp').append(html);
-                chart.push({type:'column', name:'REA YTD OKT 2019', data:rea_bef, color:'#BFBFBF'})
-                chart.push({type:'column', name:'RKA YTD OKT 2020', data:rka_now, color:'#9EEADC'})
-                chart.push({type:'column', name:'REA YTD OKT 2020', data:rea_now, color:'#288372'})
-                chart.push({type:'spline', name:'ACH', data:ach, yAxis:1, color:'#14213d'})
-                chart.push({type:'spline', name:'YoY', data:yoy, yAxis:1, color:'#FCA311'})
+                chart.push({type:'column', name:"REA "+quaterMonth+" "+tahunSebelumnya+"", data:rea_bef, color:'#BFBFBF'})
+                chart.push({type:'column', name:"RKA "+quaterMonth+" "+tahun+"", data:rka_now, color:'#9EEADC'})
+                chart.push({type:'column', name:"REA "+quaterMonth+" "+tahun+"", data:rea_now, color:'#288372'})
+                chart.push({type:'line', name:'ACH', data:ach, yAxis:1, color:'#14213d'})
+                chart.push({type:'line', name:'YoY', data:yoy, yAxis:1, color:'#FCA311'})
 
                 Highcharts.chart('bp', {
                     chart:{

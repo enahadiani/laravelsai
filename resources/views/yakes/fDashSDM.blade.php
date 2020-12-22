@@ -442,7 +442,7 @@ var split = periode.match(/.{1,4}/g);
 var tahun = split[0];
 var numMonth = parseInt(split[1]) - 1;
 var namaMonth = bulan[numMonth];
-var keterangan = "Periode sampai dengan "+namaMonth+" "+tahun+" regional "+regional;
+var keterangan = "Periode sampai dengan "+namaMonth+" "+tahun+" <strong>regional</strong> "+regional;
 var buttonTop = document.getElementById('button-top');
 var header = document.getElementById('filter-header');
 var buttonFilter = document.getElementById('button-filter');
@@ -461,7 +461,7 @@ window.onscroll = function() {
     }
 }
     
-    $('#keterangan-filter').text(keterangan);
+    $('#keterangan-filter').html(keterangan);
 
     function topFunction() {
         document.body.scrollTop = 0;
@@ -495,14 +495,14 @@ window.onscroll = function() {
         tahun = split[0];
         numMonth = parseInt(split[1]) - 1;
         namaMonth = bulan[numMonth];
-        keterangan = "Periode sampai dengan "+namaMonth+" "+tahun+" regional "+regional;
+        keterangan = "Periode sampai dengan "+namaMonth+" "+tahun+" <strong>regional</strong> "+regional;
         getDataOrganik();
         getDataDemography();
         getDataMedis();
         getDataDokter();
         getDataGender();
         getDataEducation();
-        $('#keterangan-filter').text(keterangan);
+        $('#keterangan-filter').html(keterangan);
         $('#modalFilter').modal('hide');
     })
 

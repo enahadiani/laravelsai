@@ -422,7 +422,7 @@
 <script type="text/javascript">
     var regional = "NASIONAL";
     var dashboard = "";
-    var keterangan = "Tahun {{ substr(Session::get('periode'), 0, 4) }} regional "+regional;
+    var keterangan = "Tahun {{ substr(Session::get('periode'), 0, 4) }} <strong>regional</strong> "+regional;
     var tahun = "{{ substr(Session::get('periode'), 0, 4) }}";
     var jenis = "Ebitda Margin";
     var pembagi = 1000000;
@@ -479,14 +479,14 @@
         regional = text;
     });
 
-    $('#keterangan-filter').text(keterangan);
+    $('#keterangan-filter').html(keterangan);
 
     $('#form-filter').on('click', '#btn-tampil', function(){
         $('#detail-kpku').empty();
         $('#judul-chart').text(judul);
-        keterangan = "Tahun "+tahun+" regional "+regional;
+        keterangan = "Tahun "+tahun+" <strong>regional</strong> "+regional;
         getDataKPKU();
-        $('#keterangan-filter').text(keterangan);
+        $('#keterangan-filter').html(keterangan);
         $('#modalFilter').modal('hide');
     })
 

@@ -644,7 +644,7 @@
         var htmlBody = "";
         var htmlBody2 = "";
         htmlHeader += "<tr>";
-        htmlHeader += "<th style='width: 14%;'></th>";
+        htmlHeader += "<th style='width: 12%;'></th>";
         for(var i=0;i<headerBPJS.length;i++) {
             htmlHeader += "<th>"+headerBPJS[i]+"</th>"   
         }
@@ -656,6 +656,10 @@
             dataType: 'JSON',
             async: false,
             success: function(result) {
+                $('#header-table-kapitasi').empty();
+                $('#data-table-kapitasi').empty();
+                $('#header-table-bpjs').empty();
+                $('#data-table-bpjs').empty();
                 var data = result.daftar;
                 for(var i=0;i<data.length;i++) {
                     nilaiPegawai.push(parseFloat((parseFloat(data[i].pegawai)/pembagi).toFixed(2)))
@@ -752,6 +756,10 @@
             dataType: 'JSON',
             async: false,
             success: function(result) {
+                $('#header-table-kapitasi').empty();
+                $('#data-table-kapitasi').empty();
+                $('#header-table-bpjs').empty();
+                $('#data-table-bpjs').empty();
                 var data = result.daftar;
                 var n1TA=0;
                 var n2TA=0;
@@ -834,9 +842,9 @@
                 dataBPJS.push({nama:'Tagihan Awal', n1:n1TA, n2:n2TA, n3:n3TA, n4:n4TA, n5:n5TA, n6:n6TA, n7:n7TA, n8:totalTA});
                 dataBPJS.push({nama:'Claim BPJS', n1:n1CL, n2:n2CL, n3:n3CL, n4:n4CL, n5:n5CL, n6:n6CL, n7:n7CL, n8:totalCL});
                 dataBPJS.push({nama:'Bayar Yakes', n1:n1BY, n2:n2BY, n3:n3BY, n4:n4BY, n5:n5BY, n6:n6BY, n7:n7BY, n8:totalBY});
-                chartBpjs.push({type:'column', name:'Tagihan Awal', data:[n1TA, n2TA, n3TA, n4TA, n5TA, n6TA, n7TA, totalTA], color: '#BFBFBF'});
-                chartBpjs.push({type:'column', name:'Claim BPJS', data:[n1CL, n2CL, n3CL, n4CL, n5CL, n6CL, n7CL, totalCL], color: '#9EEADC'});
-                chartBpjs.push({type:'column', name:'Bayar Yakes', data:[n1BY, n2BY, n3BY, n4BY, n5BY, n6BY, n7BY, totalBY], color: '#288372'});
+                chartBpjs.push({type:'column', name:'Tagihan Awal', data:[n1TA, n2TA, n3TA, n4TA, n5TA, n6TA, n7TA], color: '#BFBFBF'});
+                chartBpjs.push({type:'column', name:'Claim BPJS', data:[n1CL, n2CL, n3CL, n4CL, n5CL, n6CL, n7CL], color: '#9EEADC'});
+                chartBpjs.push({type:'column', name:'Bayar Yakes', data:[n1BY, n2BY, n3BY, n4BY, n5BY, n6BY, n7BY], color: '#288372'});
             }
         });
         var avg1 = {
@@ -863,8 +871,8 @@
         }
         dataBPJS.push(avg1);
         dataBPJS.push(avg2);
-        chartBpjs.push({type:'spline', name:'Claim vs Tag.Awal', data:[avg1.n1, avg1.n2, avg1.n3, avg1.n4, avg1.n5, avg1.n6, avg1.n7, avg1.n8], color:'#14213d', marker:{ lineWidth:2}, yAxis:1});
-        chartBpjs.push({type:'spline', name:'Bayar Yakes vs Tag.Awal', data:[avg2.n1, avg2.n2, avg2.n3, avg2.n4, avg2.n5, avg2.n6, avg2.n7, avg2.n8], color:'#FCA311', marker:{ lineWidth:2}, yAxis:1});
+        chartBpjs.push({type:'line', name:'Claim vs Tag.Awal', data:[avg1.n1, avg1.n2, avg1.n3, avg1.n4, avg1.n5, avg1.n6, avg1.n7], color:'#14213d', marker:{ lineWidth:2}, yAxis:1});
+        chartBpjs.push({type:'line', name:'Bayar Yakes vs Tag.Awal', data:[avg2.n1, avg2.n2, avg2.n3, avg2.n4, avg2.n5, avg2.n6, avg2.n7], color:'#FCA311', marker:{ lineWidth:2}, yAxis:1});
         for(var i=0;i<dataBPJS.length;i++) {
             htmlBody += "<tr>";
             if (i <= 2) {
@@ -896,7 +904,7 @@
         }
         $('#header-table-bpjs').append(htmlHeader);
         $('#data-table-bpjs').append(htmlBody);
-        generateChart(240, 60, 'Rp. Dalam Juta', 'Dalam persen');
+        generateChart(240, 110, 'Rp. Dalam Juta', 'Dalam persen');
     }
 
     function getUtilisasiBPJS() {
@@ -911,7 +919,7 @@
         $('#data-table-bpjs').empty();
         var colors = ['#BFBFBF', '#9EEADC', '#288372', '#FCA311'];
         headerBPJS.push('PUSAT', 'REG 1', 'REG 2', 'REG 3', 'REG 4', 'REG 5', 'REG 6', 'REG 7', 'TOTAL')
-        categoriesChart.push('PUSAT', 'REG 1', 'REG 2', 'REG 3', 'REG 4', 'REG 5', 'REG 6', 'REG 7', 'TOTAL')
+        categoriesChart.push('PUSAT', 'REG 1', 'REG 2', 'REG 3', 'REG 4', 'REG 5', 'REG 6', 'REG 7')
         var htmlHeader = "";
         var htmlBody = "";
         htmlHeader += "<tr>";
@@ -927,6 +935,10 @@
             dataType: 'JSON',
             async: false,
             success: function(result) {
+                $('#header-table-kapitasi').empty();
+                $('#data-table-kapitasi').empty();
+                $('#header-table-bpjs').empty();
+                $('#data-table-bpjs').empty();
                 var data = result.daftar[0];
                 var pusat = parseFloat((parseFloat(data.pr9)/pembagi).toFixed(2));
                 var n1 = parseFloat((parseFloat(data.pr1)/pembagi).toFixed(2));
@@ -938,7 +950,7 @@
                 var n7 = parseFloat((parseFloat(data.pr7)/pembagi).toFixed(2));
                 var total = parseFloat((parseFloat(data.premi_total)/pembagi).toFixed(2));
                 dataBPJS.push({nama:'Iuran BPJS', n1:pusat, n2:n1, n3:n2, n4:n3, n5:n4, n6:n5, n7:n6, n8:n7, n9:total})
-                chartBpjs.push({type:'column', name:'Iuran BPJS', data:[pusat, n1, n2, n3, n4, n5, n6, n7, total], color: '#BFBFBF'});
+                chartBpjs.push({type:'column', name:'Iuran BPJS', data:[pusat, n1, n2, n3, n4, n5, n6, n7], color: '#BFBFBF'});
             }
         });
 
@@ -948,6 +960,10 @@
             dataType: 'JSON',
             async: false,
             success: function(result) {
+                $('#header-table-kapitasi').empty();
+                $('#data-table-kapitasi').empty();
+                $('#header-table-bpjs').empty();
+                $('#data-table-bpjs').empty();
                 var data = result.daftar[0];
                 var pusat = parseFloat((parseFloat(data.kap9)/pembagi).toFixed(2));
                 var n1 = parseFloat((parseFloat(data.kap1)/pembagi).toFixed(2));
@@ -959,7 +975,7 @@
                 var n7 = parseFloat((parseFloat(data.kap7)/pembagi).toFixed(2));
                 var total = parseFloat((parseFloat(data.kap_total)/pembagi).toFixed(2));
                 dataBPJS.push({nama:'Kapitasi', n1:pusat, n2:n1, n3:n2, n4:n3, n5:n4, n6:n5, n7:n6, n8:n7, n9:total})
-                chartBpjs.push({type:'column', name:'Kapitasi', data:[pusat, n1, n2, n3, n4, n5, n6, n7, total], color: '#9EEADC'});
+                chartBpjs.push({type:'column', name:'Kapitasi', data:[pusat, n1, n2, n3, n4, n5, n6, n7], color: '#9EEADC'});
             }
         });
 
@@ -969,6 +985,10 @@
             dataType: 'JSON',
             async: false,
             success: function(result) {
+                $('#header-table-kapitasi').empty();
+                $('#data-table-kapitasi').empty();
+                $('#header-table-bpjs').empty();
+                $('#data-table-bpjs').empty();
                 var data = result.daftar[0];
                 var pusat = parseFloat((parseFloat(data.cl9)/pembagi).toFixed(2));
                 var n1 = parseFloat((parseFloat(data.cl1)/pembagi).toFixed(2));
@@ -980,7 +1000,7 @@
                 var n7 = parseFloat((parseFloat(data.cl7)/pembagi).toFixed(2));
                 var total = parseFloat((parseFloat(data.cl_total)/pembagi).toFixed(2));
                 dataBPJS.push({nama:'Claim BPJS', n1:pusat, n2:n1, n3:n2, n4:n3, n5:n4, n6:n5, n7:n6, n8:n7, n9:total})
-                chartBpjs.push({type:'column', name:'Claim BPJS', data:[pusat, n1, n2, n3, n4, n5, n6, n7, total], color: '#288372'});
+                chartBpjs.push({type:'column', name:'Claim BPJS', data:[pusat, n1, n2, n3, n4, n5, n6, n7], color: '#288372'});
             }
         });
 
@@ -997,7 +1017,7 @@
             n9:parseFloat((((parseFloat(dataBPJS[2].n9) + parseFloat(dataBPJS[1].n9))/parseFloat(dataBPJS[0].n9))*100).toFixed(2)), 
         }
         dataBPJS.push(avg);
-        chartBpjs.push({type:'spline', name:'Utilasi/Iuran', data:[avg.n1, avg.n2, avg.n3, avg.n4, avg.n5, avg.n6, avg.n7, avg.n8, avg.n9], color:'#FCA311', marker:{ lineWidth:2}, yAxis:1});
+        chartBpjs.push({type:'line', name:'Utilasi/Iuran', data:[avg.n1, avg.n2, avg.n3, avg.n4, avg.n5, avg.n6, avg.n7, avg.n8], color:'#FCA311', marker:{ lineWidth:2}, yAxis:1});
         for(var i=0;i<dataBPJS.length;i++) {
             htmlBody += "<tr>";
             if (i <= 2) {
@@ -1031,7 +1051,7 @@
         }
         $('#header-table-bpjs').append(htmlHeader);
         $('#data-table-bpjs').append(htmlBody);
-        generateChart(220, 60, 'Rp. Dalam Juta', 'Dalam persen');
+        generateChart(220, 100, 'Rp. Dalam Juta', 'Dalam persen');
     }
 
     function generateChartColumn2(marginLeft, marginRight, satuan) {
