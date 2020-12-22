@@ -217,7 +217,7 @@
                             <tr>
                                 <th style="width:10%;"></th>
                                 <th style="width:10%;">RJTP</th>
-                                <th style="width:10%;">RJTKL</th>
+                                <th style="width:10%;">RJTL</th>
                                 <th style="width:10%;">RI</th>
                                 <th style="width:10%;">RESTITUSI</th>
                             </tr>
@@ -245,7 +245,7 @@
                             <tr>
                                 <th style="width:10%;"></th>
                                 <th style="width:10%;">RJTP</th>
-                                <th style="width:10%;">RJTKL</th>
+                                <th style="width:10%;">RJTL</th>
                                 <th style="width:10%;">RI</th>
                                 <th style="width:10%;">RESTITUSI</th>
                             </tr>
