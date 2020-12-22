@@ -656,6 +656,10 @@
             dataType: 'JSON',
             async: false,
             success: function(result) {
+                $('#header-table-kapitasi').empty();
+                $('#data-table-kapitasi').empty();
+                $('#header-table-bpjs').empty();
+                $('#data-table-bpjs').empty();
                 var data = result.daftar;
                 for(var i=0;i<data.length;i++) {
                     nilaiPegawai.push(parseFloat((parseFloat(data[i].pegawai)/pembagi).toFixed(2)))
@@ -752,6 +756,10 @@
             dataType: 'JSON',
             async: false,
             success: function(result) {
+                $('#header-table-kapitasi').empty();
+                $('#data-table-kapitasi').empty();
+                $('#header-table-bpjs').empty();
+                $('#data-table-bpjs').empty();
                 var data = result.daftar;
                 var n1TA=0;
                 var n2TA=0;
@@ -863,8 +871,8 @@
         }
         dataBPJS.push(avg1);
         dataBPJS.push(avg2);
-        chartBpjs.push({type:'spline', name:'Claim vs Tag.Awal', data:[avg1.n1, avg1.n2, avg1.n3, avg1.n4, avg1.n5, avg1.n6, avg1.n7, avg1.n8], color:'#14213d', marker:{ lineWidth:2}, yAxis:1});
-        chartBpjs.push({type:'spline', name:'Bayar Yakes vs Tag.Awal', data:[avg2.n1, avg2.n2, avg2.n3, avg2.n4, avg2.n5, avg2.n6, avg2.n7, avg2.n8], color:'#FCA311', marker:{ lineWidth:2}, yAxis:1});
+        chartBpjs.push({type:'line', name:'Claim vs Tag.Awal', data:[avg1.n1, avg1.n2, avg1.n3, avg1.n4, avg1.n5, avg1.n6, avg1.n7, avg1.n8], color:'#14213d', marker:{ lineWidth:2}, yAxis:1});
+        chartBpjs.push({type:'line', name:'Bayar Yakes vs Tag.Awal', data:[avg2.n1, avg2.n2, avg2.n3, avg2.n4, avg2.n5, avg2.n6, avg2.n7, avg2.n8], color:'#FCA311', marker:{ lineWidth:2}, yAxis:1});
         for(var i=0;i<dataBPJS.length;i++) {
             htmlBody += "<tr>";
             if (i <= 2) {
@@ -927,6 +935,10 @@
             dataType: 'JSON',
             async: false,
             success: function(result) {
+                $('#header-table-kapitasi').empty();
+                $('#data-table-kapitasi').empty();
+                $('#header-table-bpjs').empty();
+                $('#data-table-bpjs').empty();
                 var data = result.daftar[0];
                 var pusat = parseFloat((parseFloat(data.pr9)/pembagi).toFixed(2));
                 var n1 = parseFloat((parseFloat(data.pr1)/pembagi).toFixed(2));
@@ -948,6 +960,10 @@
             dataType: 'JSON',
             async: false,
             success: function(result) {
+                $('#header-table-kapitasi').empty();
+                $('#data-table-kapitasi').empty();
+                $('#header-table-bpjs').empty();
+                $('#data-table-bpjs').empty();
                 var data = result.daftar[0];
                 var pusat = parseFloat((parseFloat(data.kap9)/pembagi).toFixed(2));
                 var n1 = parseFloat((parseFloat(data.kap1)/pembagi).toFixed(2));
@@ -969,6 +985,10 @@
             dataType: 'JSON',
             async: false,
             success: function(result) {
+                $('#header-table-kapitasi').empty();
+                $('#data-table-kapitasi').empty();
+                $('#header-table-bpjs').empty();
+                $('#data-table-bpjs').empty();
                 var data = result.daftar[0];
                 var pusat = parseFloat((parseFloat(data.cl9)/pembagi).toFixed(2));
                 var n1 = parseFloat((parseFloat(data.cl1)/pembagi).toFixed(2));
@@ -997,7 +1017,7 @@
             n9:parseFloat((((parseFloat(dataBPJS[2].n9) + parseFloat(dataBPJS[1].n9))/parseFloat(dataBPJS[0].n9))*100).toFixed(2)), 
         }
         dataBPJS.push(avg);
-        chartBpjs.push({type:'spline', name:'Utilasi/Iuran', data:[avg.n1, avg.n2, avg.n3, avg.n4, avg.n5, avg.n6, avg.n7, avg.n8, avg.n9], color:'#FCA311', marker:{ lineWidth:2}, yAxis:1});
+        chartBpjs.push({type:'line', name:'Utilasi/Iuran', data:[avg.n1, avg.n2, avg.n3, avg.n4, avg.n5, avg.n6, avg.n7, avg.n8, avg.n9], color:'#FCA311', marker:{ lineWidth:2}, yAxis:1});
         for(var i=0;i<dataBPJS.length;i++) {
             htmlBody += "<tr>";
             if (i <= 2) {
