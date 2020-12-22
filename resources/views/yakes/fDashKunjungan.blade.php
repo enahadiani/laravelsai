@@ -609,7 +609,6 @@ var tahun = split[0];
 var numMonth = parseInt(split[1]) - 1;
 var namaMonth = bulan[numMonth];
 var singkatMonth = bulanSingkat[numMonth];
-console.log(numMonth)
 if(numMonth == 2) {
     var quaterMonth = "Q1'";
 } else if(numMonth == 5) {  

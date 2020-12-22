@@ -358,8 +358,21 @@ var tahun = split[0];
 var numTahun = parseInt(tahun);
 var numMonth = parseInt(split[1]) - 1;
 var namaMonth = bulan[numMonth];
+var singkatMonth = bulanSingkat[numMonth];
 var tahunSebelumnya = numTahun - 1;
 var keterangan = "Periode sampai dengan "+namaMonth+" "+tahun+" <strong>regional</strong> "+regional;
+
+if(numMonth == 2) {
+    var quaterMonth = "Q1'";
+} else if(numMonth == 5) {  
+    var quaterMonth = "Q2'";
+} else if(numMonth == 8) {
+    var quaterMonth = "Q3'";
+} else if(numMonth == 11) {
+    var quaterMonth = "Q4'"
+} else {
+    var quaterMonth = singkatMonth;
+}
 
 var buttonTop = document.getElementById('button-top');
 var buttonFilter = document.getElementById('button-filter');
@@ -433,6 +446,18 @@ window.onscroll = function() {
         numMonth = parseInt(split[1]) - 1;
         numTahun = parseInt(tahun);
         namaMonth = bulan[numMonth];
+        singkatMonth = bulanSingkat[numMonth];
+        if(numMonth == 2) {
+         quaterMonth = "Q3'";
+        } else if(numMonth == 5) {  
+         quaterMonth = "Q4'";
+        } else if(numMonth == 8) {
+         quaterMonth = "Q5'";
+        } else if(numMonth == 11) {
+         quaterMonth = "Q6'"
+        } else {
+         quaterMonth = singkatMonth;
+        }
         tahunSebelumnya = numTahun - 1;
         keterangan = "Periode sampai dengan "+namaMonth+" "+tahun+" <strong>regional</strong> "+regional;
         $('#keterangan-filter').html(keterangan);
@@ -603,7 +628,7 @@ function RealBeban() {
             htmlContent += "<tr>";
             htmlContent += "<td style='position: relative;font-size: 10px !important;'>";
             htmlContent += "<div style='height: 15px; width:25px; background-color:#BFBFBF;margin-left:3px;margin-top:1px;'></div>";
-            htmlContent += "&nbsp;REA YTD "+bulanSingkat[numMonth]+" "+tahunSebelumnya+"";
+            htmlContent += "&nbsp;REA YTD "+quaterMonth+" "+tahunSebelumnya+"";
             htmlContent += "</td>";
             for(var x=0;x<rea_beban_bef.length;x++) {
                 htmlContent += "<td style='text-align: right;'>";
@@ -615,7 +640,7 @@ function RealBeban() {
             htmlContent += "<tr>";
             htmlContent += "<td style='position: relative;font-size: 10px !important;'>";
             htmlContent += "<div style='height: 15px; width:25px; background-color:#9EEADC;margin-left:3px;margin-top:1px;'></div>";
-            htmlContent += "&nbsp;RKA YTD "+bulanSingkat[numMonth]+" "+tahun+"";
+            htmlContent += "&nbsp;RKA YTD "+quaterMonth+" "+tahun+"";
             htmlContent += "</td>";
             for(var x=0;x<rka_beban_now.length;x++) {
                 htmlContent += "<td style='text-align: right;'>";
@@ -627,7 +652,7 @@ function RealBeban() {
             htmlContent += "<tr>";
             htmlContent += "<td style='position: relative;font-size: 10px !important;'>";
             htmlContent += "<div style='height: 15px; width:25px; background-color:#288372;margin-left:3px;margin-top:1px;'></div>";
-            htmlContent += "&nbsp;REA YTD "+bulanSingkat[numMonth]+" "+tahun+"";
+            htmlContent += "&nbsp;REA YTD "+quaterMonth+" "+tahun+"";
             htmlContent += "</td>";
             for(var x=0;x<rea_beban_now.length;x++) {
                 htmlContent += "<td style='text-align: right;'>";
@@ -662,9 +687,9 @@ function RealBeban() {
 
             $('#content-beban').append(htmlContent);
 
-            chart.push({type:'column', name:"REA YTD "+bulanSingkat[numMonth]+" "+tahunSebelumnya+"", data:rea_beban_bef, color:'#BFBFBF'})
-            chart.push({type:'column', name:"RKA YTD "+bulanSingkat[numMonth]+" "+tahun+"", data:rka_beban_now, color:'#9EEADC'})
-            chart.push({type:'column', name:"REA YTD "+bulanSingkat[numMonth]+" "+tahun+"", data:rea_beban_now, color:'#288372'})
+            chart.push({type:'column', name:"REA YTD "+quaterMonth+" "+tahunSebelumnya+"", data:rea_beban_bef, color:'#BFBFBF'})
+            chart.push({type:'column', name:"RKA YTD "+quaterMonth+" "+tahun+"", data:rka_beban_now, color:'#9EEADC'})
+            chart.push({type:'column', name:"REA YTD "+quaterMonth+" "+tahun+"", data:rea_beban_now, color:'#288372'})
             chart.push({type:'line', name:'ACH', data:ach_beban, color:'#14213d', yAxis:1, marker: {lineWidth: 2 }})
             chart.push({type:'line', name:'YoY', data:yoy_beban, color:'#FCA311', yAxis:1, marker: {lineWidth: 2 }})
 
