@@ -27,6 +27,10 @@ $thnLalu = substr($tahunLalu,2,2)
         border:none;
     }
 
+    .highcharts-point {
+        stroke-width: 2px !important;
+    }
+
     .nav-tabs .nav-link{
         border: 1px solid #ad1d3e;
         border-radius: 20px;

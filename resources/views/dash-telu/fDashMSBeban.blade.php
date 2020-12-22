@@ -43,6 +43,9 @@ $thnLalu = substr($tahunLalu,2,2)
         margin-bottom: -1px;
         padding: 0px 10px 0px 0px;
     }
+    .highcharts-point {
+        stroke-width: 2px !important;
+    }
 
     #pencapaian > td, th 
     {
