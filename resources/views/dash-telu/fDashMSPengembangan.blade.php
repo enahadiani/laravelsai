@@ -390,7 +390,7 @@ function getMsPengembanganKomposisi(periode=null){
         data:{periode : periode, mode: $mode},
         dataType:"JSON",
         success:function(result){
-            $('#komposisi-total').html('Rp.'+sepNumPas(result.total));
+            // $('#komposisi-total').html('Rp.'+sepNumPas(result.total));
             var $colors = result.colors;
             // Highcharts.addEvent(Highcharts.Chart.prototype, 'render', function colorPoints() {
             //     var series = this.series;
@@ -408,7 +408,7 @@ function getMsPengembanganKomposisi(periode=null){
                     type: 'pie'
                 },
                 title: {
-                    text: sepNumPas(result.total),
+                    text: 'Rp. '+sepNumPas(result.total),
                     align: 'center',
                     style: {
                         fontSize: '14px'
@@ -443,7 +443,7 @@ function getMsPengembanganKomposisi(periode=null){
                             enabled: true,
                             useHTML: true,
                             formatter: function () {
-                                return $('<div/>').css({
+                                return $('<span/>').css({
                                     'border' : '0',// just white in my case
                                     'fontSize': '8px',
                                     'color' : ($mode == "dark" ? "var(--text-color)" : "black")
