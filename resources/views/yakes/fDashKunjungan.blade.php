@@ -596,6 +596,7 @@
 var regional = "NASIONAL";
 var judulForm = "Biaya Kunjungan Pensiunan dan Keluarga";
 var bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+var bulanSingkat = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agt', 'Sep', 'Okt', 'Nov', 'Des'];
 var dashboard = "";
 // var periode = "{{Session::get('periode')}}";
 var periode = "202011";
@@ -610,7 +611,21 @@ var split = periode.match(/.{1,4}/g);
 var tahun = split[0];
 var numMonth = parseInt(split[1]) - 1;
 var namaMonth = bulan[numMonth];
-var keterangan = "Periode sampai dengan "+namaMonth+" "+tahun+" regional "+regional;
+var singkatMonth = bulanSingkat[numMonth];
+console.log(numMonth)
+if(numMonth == 2) {
+    var quaterMonth = "Q3'";
+} else if(numMonth == 5) {  
+    var quaterMonth = "Q4'";
+} else if(numMonth == 8) {
+    var quaterMonth = "Q5'";
+} else if(numMonth == 11) {
+    var quaterMonth = "Q6'"
+} else {
+    var quaterMonth = singkatMonth;
+}
+
+var keterangan = "Periode sampai dengan "+namaMonth+" "+tahun+" <strong>regional</strong> "+regional;
 var pembagi = 1000000000;
 var pembagi2 = 1000000;
 var pembagi3 = 1000;
@@ -638,7 +653,7 @@ window.onscroll = function() {
 }
 
 $('#judul-form').text(judulForm);
-$('#keterangan-filter').text(keterangan);
+$('#keterangan-filter').html(keterangan);
 $('.ytd-last').text(ketYTDLast);
 $('.rka-now').text(ketRKANow);
 $('.ytd-now').text(ketYTDNow);
@@ -723,15 +738,27 @@ if(jenis == 'CC') {
         tahun = split[0];
         numMonth = parseInt(split[1]) - 1;
         namaMonth = bulan[numMonth];
-        keterangan = "Periode sampai dengan "+namaMonth+" "+tahun+" regional "+regional;
-        lastPeriode = periode.slice(-2);
+        singkatMonth = bulanSingkat[numMonth];
+        if(numMonth == 2) {
+         quaterMonth = "Q3'";
+        } else if(numMonth == 5) {  
+         quaterMonth = "Q4'";
+        } else if(numMonth == 8) {
+         quaterMonth = "Q5'";
+        } else if(numMonth == 11) {
+         quaterMonth = "Q6'"
+        } else {
+         quaterMonth = singkatMonth;
+        }
+        keterangan = "Periode sampai dengan "+namaMonth+" "+tahun+" <strong>regional</strong> "+regional;
+        lastPeriode = periode.slice(2, 4);
         lastPeriodeNum = parseInt(lastPeriode);
         lastPeriodeNumYest = lastPeriodeNum - 1;
         lastPeriodeSebelum = ('0'+lastPeriodeNumYest).slice(-2);
         ketYTDLast = "YTD Q3 '"+lastPeriodeSebelum+"";
         ketRKANow = "RKA Q3 '"+lastPeriode+"";
         ketYTDNow = "YTD Q3 '"+lastPeriode+"";
-        $('#keterangan-filter').text(keterangan);
+        $('#keterangan-filter').html(keterangan);
         $('.ytd-last').text(ketYTDLast);
         $('.rka-now').text(ketRKANow);
         $('.ytd-now').text(ketYTDNow);
@@ -819,9 +846,9 @@ function getDataKunjungan() {
                 ketYoy += "<span style='padding-left: 10px;font-weight: bold;position: relative;top:-2px;'>"+yoy+"%</span>";
             }
             $('#yoy-claim').append(ketYoy);
-            chart.push({ name:"YTD Q3 '"+lastPeriodeSebelum+"", y:rea_bef, color:'#BFBFBF' })
-            chart.push({ name:"RKA Q3 '"+lastPeriode+"", y:rka_now, color:'#9EEADC' })
-            chart.push({ name:"YTD Q3 '"+lastPeriode+"", y:rea_now, color:'#288372' })
+            chart.push({ name:"YTD "+quaterMonth+" "+lastPeriodeSebelum+"", y:rea_bef, color:'#BFBFBF' })
+            chart.push({ name:"RKA "+quaterMonth+" "+lastPeriode+"", y:rka_now, color:'#9EEADC' })
+            chart.push({ name:"YTD "+quaterMonth+" "+lastPeriode+"", y:rea_now, color:'#288372' })
             Highcharts.chart('claim', {
                 chart: {
                     type: 'column',
@@ -841,7 +868,7 @@ function getDataKunjungan() {
                     text: ''
                 },
                 xAxis: {
-                    categories: ["YTD Q3 '"+lastPeriodeSebelum+"", "RKA Q3 '"+lastPeriode+"", "YTD Q3 '"+lastPeriode+""]
+                    categories: ["YTD "+quaterMonth+" "+lastPeriodeSebelum+"", "RKA "+quaterMonth+" "+lastPeriode+"", "YTD "+quaterMonth+" "+lastPeriode+""]
                 },
                 yAxis: {
                     visible: false
@@ -917,9 +944,9 @@ function getDataKunjungan() {
                 ketYoyClaimant += "<span style='padding-left: 10px;font-weight: bold;position: relative;top:-2px;'>"+yoyClaimant+"%</span>";
             }
             $('#claimant-yoy').append(ketYoyClaimant);
-            chart.push({ name:"YTD Q3 '"+lastPeriodeSebelum+"", y:rea_befClaim, color:'#BFBFBF' })
-            chart.push({ name:"RKA Q3 '"+lastPeriode+"", y:rka_nowClaim, color:'#9EEADC' })
-            chart.push({ name:"YTD Q3 '"+lastPeriode+"", y:rea_nowClaim, color:'#288372' })
+            chart.push({ name:"YTD "+quaterMonth+" "+lastPeriodeSebelum+"", y:rea_befClaim, color:'#BFBFBF' })
+            chart.push({ name:"RKA "+quaterMonth+" "+lastPeriode+"", y:rka_nowClaim, color:'#9EEADC' })
+            chart.push({ name:"YTD "+quaterMonth+" "+lastPeriode+"", y:rea_nowClaim, color:'#288372' })
             Highcharts.chart('pkk-cc', {
                 chart: {
                     type: 'column',
@@ -939,7 +966,7 @@ function getDataKunjungan() {
                     text: ''
                 },
                 xAxis: {
-                    categories: ["YTD Q3 '"+lastPeriodeSebelum+"", "RKA Q3 '"+lastPeriode+"", "YTD Q3 '"+lastPeriode+""]
+                    categories: ["YTD "+quaterMonth+" "+lastPeriodeSebelum+"", "RKA "+quaterMonth+" "+lastPeriode+"", "YTD "+quaterMonth+" "+lastPeriode+""]
                 },
                 yAxis: {
                     visible: false
@@ -1015,9 +1042,9 @@ function getDataKunjungan() {
                 ketYoyKunj += "<span style='padding-left: 10px;font-weight: bold;position: relative;top:-2px;'>"+yoyKunj+"%</span>";
             }
             $('#yoy-kunj').append(ketYoyKunj);
-            chart.push({ name:"YTD Q3 '"+lastPeriodeSebelum+"", y:rea_befKunj, color:'#BFBFBF' })
-            chart.push({ name:"RKA Q3 '"+lastPeriode+"", y:rka_nowKunj, color:'#9EEADC' })
-            chart.push({ name:"YTD Q3 '"+lastPeriode+"", y:rea_nowKunj, color:'#288372' })
+            chart.push({ name:"YTD "+quaterMonth+" "+lastPeriodeSebelum+"", y:rea_befKunj, color:'#BFBFBF' })
+            chart.push({ name:"RKA "+quaterMonth+" "+lastPeriode+"", y:rka_nowKunj, color:'#9EEADC' })
+            chart.push({ name:"YTD "+quaterMonth+" "+lastPeriode+"", y:rea_nowKunj, color:'#288372' })
 
             Highcharts.chart('pkk-kunjungan', {
                 chart: {
@@ -1038,7 +1065,7 @@ function getDataKunjungan() {
                     text: ''
                 },
                 xAxis: {
-                    categories: ["YTD Q3 '"+lastPeriodeSebelum+"", "RKA Q3 '"+lastPeriode+"", "YTD Q3 '"+lastPeriode+""]
+                    categories: ["YTD "+quaterMonth+" "+lastPeriodeSebelum+"", "RKA "+quaterMonth+" "+lastPeriode+"", "YTD "+quaterMonth+" "+lastPeriode+""]
                 },
                 yAxis: {
                     visible: false
@@ -1203,21 +1230,21 @@ function getDataLayanan() {
             }
             $('#restitusi-kunj-yoy').append(ketYoyRestitusi);
 
-            columnRjtp.push({name:"YTD Q3 '"+lastPeriodeSebelum+"",y:reaRjtpBef,color: '#BFBFBF'})
-            columnRjtp.push({name:"RKA Q3 '"+lastPeriode+"",y:rkaRjtpNow,color: '#9EEADC'})
-            columnRjtp.push({name:"YTD Q3 '"+lastPeriode+"",y:reaRjtpNow,color: '#288372'})
+            columnRjtp.push({name:"YTD "+quaterMonth+" "+lastPeriodeSebelum+"",y:reaRjtpBef,color: '#BFBFBF'})
+            columnRjtp.push({name:"RKA "+quaterMonth+" "+lastPeriode+"",y:rkaRjtpNow,color: '#9EEADC'})
+            columnRjtp.push({name:"YTD "+quaterMonth+" "+lastPeriode+"",y:reaRjtpNow,color: '#288372'})
 
-            columnRjtl.push({name:"YTD Q3 '"+lastPeriodeSebelum+"",y:reaRjtlBef,color: '#BFBFBF'})
-            columnRjtl.push({name:"RKA Q3 '"+lastPeriode+"",y:rkaRjtlNow,color: '#9EEADC'})
-            columnRjtl.push({name:"YTD Q3 '"+lastPeriode+"",y:reaRjtlNow,color: '#288372'})
+            columnRjtl.push({name:"YTD "+quaterMonth+" "+lastPeriodeSebelum+"",y:reaRjtlBef,color: '#BFBFBF'})
+            columnRjtl.push({name:"RKA "+quaterMonth+" "+lastPeriode+"",y:rkaRjtlNow,color: '#9EEADC'})
+            columnRjtl.push({name:"YTD "+quaterMonth+" "+lastPeriode+"",y:reaRjtlNow,color: '#288372'})
 
-            columnRi.push({name:"YTD Q3 '"+lastPeriodeSebelum+"",y:reaRiBef,color: '#BFBFBF'})
-            columnRi.push({name:"RKA Q3 '"+lastPeriode+"",y:rkaRiNow,color: '#9EEADC'})
-            columnRi.push({name:"YTD Q3 '"+lastPeriode+"",y:reaRiNow,color: '#288372'})
+            columnRi.push({name:"YTD "+quaterMonth+" "+lastPeriodeSebelum+"",y:reaRiBef,color: '#BFBFBF'})
+            columnRi.push({name:"RKA "+quaterMonth+" "+lastPeriode+"",y:rkaRiNow,color: '#9EEADC'})
+            columnRi.push({name:"YTD "+quaterMonth+" "+lastPeriode+"",y:reaRiNow,color: '#288372'})
 
-            columnRestitusi.push({name:"YTD Q3 '"+lastPeriodeSebelum+"",y:reaRestitusiBef,color: '#BFBFBF'})
-            columnRestitusi.push({name:"RKA Q3 '"+lastPeriode+"",y:rkaRestitusiNow,color: '#9EEADC'})
-            columnRestitusi.push({name:"YTD Q3 '"+lastPeriode+"",y:reaRestitusiNow,color: '#288372'})
+            columnRestitusi.push({name:"YTD "+quaterMonth+" "+lastPeriodeSebelum+"",y:reaRestitusiBef,color: '#BFBFBF'})
+            columnRestitusi.push({name:"RKA "+quaterMonth+" "+lastPeriode+"",y:rkaRestitusiNow,color: '#9EEADC'})
+            columnRestitusi.push({name:"YTD "+quaterMonth+" "+lastPeriode+"",y:reaRestitusiNow,color: '#288372'})
 
 
             for(var i=0;i<data.length;i++) {
@@ -1620,21 +1647,21 @@ function getDataLayanan() {
             }
             $('#yoy-restitusi').append(ketYoyRestitusi);
             
-            columnRjtp.push({name:"YTD Q3 '"+lastPeriodeSebelum+"",y:reaRjtpBef,color: '#BFBFBF'})
-            columnRjtp.push({name:"RKA Q3 '"+lastPeriode+"",y:rkaRjtpNow,color: '#9EEADC'})
-            columnRjtp.push({name:"YTD Q3 '"+lastPeriode+"",y:reaRjtpNow,color: '#288372'})
+            columnRjtp.push({name:"YTD "+quaterMonth+" "+lastPeriodeSebelum+"",y:reaRjtpBef,color: '#BFBFBF'})
+            columnRjtp.push({name:"RKA "+quaterMonth+" "+lastPeriode+"",y:rkaRjtpNow,color: '#9EEADC'})
+            columnRjtp.push({name:"YTD "+quaterMonth+" "+lastPeriode+"",y:reaRjtpNow,color: '#288372'})
 
-            columnRjtl.push({name:"YTD Q3 '"+lastPeriodeSebelum+"",y:reaRjtlBef,color: '#BFBFBF'})
-            columnRjtl.push({name:"RKA Q3 '"+lastPeriode+"",y:rkaRjtlNow,color: '#9EEADC'})
-            columnRjtl.push({name:"YTD Q3 '"+lastPeriode+"",y:reaRjtlNow,color: '#288372'})
+            columnRjtl.push({name:"YTD "+quaterMonth+" "+lastPeriodeSebelum+"",y:reaRjtlBef,color: '#BFBFBF'})
+            columnRjtl.push({name:"RKA "+quaterMonth+" "+lastPeriode+"",y:rkaRjtlNow,color: '#9EEADC'})
+            columnRjtl.push({name:"YTD "+quaterMonth+" "+lastPeriode+"",y:reaRjtlNow,color: '#288372'})
 
-            columnRi.push({name:"YTD Q3 '"+lastPeriodeSebelum+"",y:reaRiBef,color: '#BFBFBF'})
-            columnRi.push({name:"RKA Q3 '"+lastPeriode+"",y:rkaRiNow,color: '#9EEADC'})
-            columnRi.push({name:"YTD Q3 '"+lastPeriode+"",y:reaRiNow,color: '#288372'})
+            columnRi.push({name:"YTD "+quaterMonth+" "+lastPeriodeSebelum+"",y:reaRiBef,color: '#BFBFBF'})
+            columnRi.push({name:"RKA "+quaterMonth+" "+lastPeriode+"",y:rkaRiNow,color: '#9EEADC'})
+            columnRi.push({name:"YTD "+quaterMonth+" "+lastPeriode+"",y:reaRiNow,color: '#288372'})
 
-            columnRestitusi.push({name:"YTD Q3 '"+lastPeriodeSebelum+"",y:reaRestitusiBef,color: '#BFBFBF'})
-            columnRestitusi.push({name:"RKA Q3 '"+lastPeriode+"",y:rkaRestitusiNow,color: '#9EEADC'})
-            columnRestitusi.push({name:"YTD Q3 '"+lastPeriode+"",y:reaRestitusiNow,color: '#288372'})
+            columnRestitusi.push({name:"YTD "+quaterMonth+" "+lastPeriodeSebelum+"",y:reaRestitusiBef,color: '#BFBFBF'})
+            columnRestitusi.push({name:"RKA "+quaterMonth+" "+lastPeriode+"",y:rkaRestitusiNow,color: '#9EEADC'})
+            columnRestitusi.push({name:"YTD "+quaterMonth+" "+lastPeriode+"",y:reaRestitusiNow,color: '#288372'})
             
             for(var i=0;i<data.length;i++) {
                 totalRea = totalRea + parseFloat(data[i].rea_now)
