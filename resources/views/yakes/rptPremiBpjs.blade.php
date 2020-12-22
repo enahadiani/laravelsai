@@ -2,15 +2,15 @@
 
     function drawLap(formData){
         saiPostLoad("{{ url('yakes-report/lap-premi-bpjs') }}", null, formData, null, function(res){
-        //    if(res.result.length > 0){
+           if(res.result.length > 0){
 
                 $('#pagination').html('');
                 var show = $('#show').val();
                 generatePaginationDore('pagination',show,res);
               
-        //    }else{
-        //         $('#saku-report #canvasPreview').load("{{ url('yakes-auth/form/blank') }}");
-        //    }
+           }else{
+                $('#saku-report #canvasPreview').load("{{ url('yakes-auth/form/blank') }}");
+           }
        });
    }
 
@@ -38,11 +38,16 @@
         return tmp;
     }
 
+    function toJuta(x) {
+        var nil = x / 1000000;
+        return sepNum(nil);
+    }
+
    drawLap($formData);
 
    function drawRptPage(data,res,from,to){
         var data = data;
-        // if(data.length > 0){
+        if(data.length > 0){
             res.bentuk = '';
             var lokasi = res.lokasi;
             res.data_detail = [];
@@ -101,41 +106,42 @@
                 <td width='12%' class='text-center bg-yellow'>8=5+6+7</td>
             </tr>
             `;
-            // var no=1;
-            // for (var i=0;i < data.length;i++)
-            // {
-            //     var nilai="";
-            //     var line = data[i];
-            //     if (line.tipe!="Header")
-            //     {
-            //         nilai=sepNum(parseFloat(line.n4));
-            //     }
-			
-            //     if (line.tipe=="Posting" && line.n4 != 0)
-            //     {
-            //         html+=`<tr class='report-link neraca-lajur' style='cursor:pointer;' data-kode_neraca='`+line.kode_neraca+`' >
-            //         <td width='2%'></td>
-            //         <td width='52%' height='20' class='isi_laporan link-report' >`+fnSpasi(line.level_spasi)+``+line.nama+`</td>
-            //         <td width='18%' class='isi_laporan'><div align='right'>`+nilai+`</div></td>
-            //         <td width='18%' class='isi_laporan'><div align='right'>&nbsp;</div></td>
-            //         <td width='2%'></td>
-            //         </tr>`;
-            //     }
-            //     else
-            //     {
-            //         html+=`<tr>
-            //         <td width='2%'></td>
-            //         <td width='52%' height='20' class='isi_laporan'>`+fnSpasi(line.level_spasi)+line.nama+`</td>
-            //         <td width='18%' class='isi_laporan'><div align='right'>`+nilai+`</div></td>
-            //         <td width='18%' class='isi_laporan'><div align='right'>&nbsp;</div></td>
-            //         <td width='2%'></td>
-            //         </tr>`;
-            //     }
-            //     no++;
-            // }
+            var no=1;
+            var line = {};
+            line.nama = '';var pegawai=0;var pensiun=0;var n1=0;var n2=0;var n3=0;var n4=0;
+            for (var i=0;i < data.length;i++)
+            {
+                var line = data[i];
+                pegawai+=parseFloat(line.pegawai);
+                pensiun+=parseFloat(line.pensiun);
+                n1+=parseFloat(line.n1);
+                n2+=parseFloat(line.n2);
+                n3+=parseFloat(line.n3);
+                n4+=parseFloat(line.n4);
+                html+=`<tr>
+                <td class='isi_laporan'>`+line.nama+`</td>
+                <td class='isi_laporan text-right'>`+toJuta(line.pegawai)+`</td>
+                <td class='isi_laporan text-right'>`+toJuta(line.pensiun)+`</td>
+                <td class='isi_laporan text-right'>`+toJuta(parseFloat(line.pensiun)+parseFloat(line.pegawai))+`</td>
+                <td class='isi_laporan text-right'>`+toJuta(line.n2)+`</td>
+                <td class='isi_laporan text-right'>`+toJuta(line.n1)+`</td>
+                <td class='isi_laporan text-right'>`+toJuta(line.n3)+`</td>
+                <td class='isi_laporan text-right'>`+toJuta(line.n4)+`</td>
+                </tr>`;
+            }
             html+=`
+            <tr>
+                <td class='isi_laporan text-right bg-blue1'>Jumlah s.d `+line.nama+`</td>
+                <td class='isi_laporan text-right bg-blue1'>`+toJuta(pegawai)+`</td>
+                <td class='isi_laporan text-right bg-blue1'>`+toJuta(pensiun)+`</td>
+                <td class='isi_laporan text-right bg-blue1'>`+toJuta(parseFloat(pensiun)+parseFloat(pegawai))+`</td>
+                <td class='isi_laporan text-right bg-blue1'>`+toJuta(n2)+`</td>
+                <td class='isi_laporan text-right bg-blue1'>`+toJuta(n1)+`</td>
+                <td class='isi_laporan text-right bg-blue1'>`+toJuta(n3)+`</td>
+                <td class='isi_laporan text-right bg-blue1'>`+toJuta(n4)+`</td>
+                </tr>
             </table>`;
-        // }
+        }
         $('#canvasPreview').html(html);
         $('li.prev a ').html("<i class='simple-icon-arrow-left'></i>");
         $('li.next a ').html("<i class='simple-icon-arrow-right'></i>");

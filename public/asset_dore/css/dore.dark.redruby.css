@@ -78,7 +78,7 @@ html {
   --foreground-color: #222020;
   --separator-color: #424242; 
   --background-color: #272727;
-  --text-color: #c0c0c0;
+  --text-color: #8f8f8f;
   --hilight-color: #8db4d6;
 }
 
@@ -96,7 +96,7 @@ html {
   fill: var(--background-color);
 }
 .highcharts-container text {
-  fill: var(--text-color);
+  fill: var(--text-color) !important;
 }
 .highcharts-subtitle,
 .highcharts-credits,
@@ -7741,13 +7741,13 @@ div.row-notif  a:hover {
 }
 .dash-card > .card-header{
   background: #2B2B2B !important;
-  color:white !important;
+  color:#8f8f8f;
   border-top-right-radius: 0.75rem;
   border-top-left-radius: 0.75rem;
   padding: 0.5rem 1.5rem;
 }
 .dash-card > .card-header > h6{
-  color:white !important;
+  color:#8f8f8f;
 }
 .dash-card > .card-body > .table tr:hover{
   background: #1b1919;

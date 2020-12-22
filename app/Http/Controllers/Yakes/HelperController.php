@@ -966,5 +966,15 @@
             return response()->json(['daftar' => $data, 'status' => true], 200);
         }
 
+        public function getFilterJenis() {
+
+            $data =  array(
+                0 => array('kode' => "PENSIUN"),
+                1 => array('kode' => "PEGAWAI"),
+                2 => array('kode' => "TOTAL")
+            );
+            return response()->json(['daftar' => $data, 'status' => true], 200);
+        }
+
     }
 ?>

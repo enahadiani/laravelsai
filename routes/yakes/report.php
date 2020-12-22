@@ -15,6 +15,7 @@ Route::get('filter-bukti-jurnal', 'Yakes\HelperController@getFilterBuktiJurnal')
 Route::get('filter-mutasi', 'Yakes\HelperController@getFilterMutasi');
 Route::get('filter-pp', 'Yakes\HelperController@getFilterPP');
 Route::get('filter-output', 'Yakes\HelperController@getFilterOutput');
+Route::get('filter-jenis', 'Yakes\HelperController@getFilterJenis');
 
 Route::post('lap-nrclajur', 'Yakes\LaporanController@getNrcLajur');
 Route::post('lap-nrclajur-grid', 'Yakes\LaporanController@getNrcLajurGrid');
@@ -49,8 +50,8 @@ Route::post('lap-neraca-jamkespen', 'Yakes\LaporanController@getNeracaJamkespen'
 Route::post('lap-perubahan-aset-neto', 'Yakes\LaporanController@getPerubahanAsetNeto');
 Route::post('lap-aset-neto', 'Yakes\LaporanController@getAsetNeto');
 Route::post('lap-arus-kas', 'Yakes\LaporanController@getArusKas');
-Route::post('lap-premi-bpjs', 'Yakes\LaporanController@getNeracaJamkespen');
-Route::post('lap-claim-bpjs', 'Yakes\LaporanController@getNeracaJamkespen');
+Route::post('lap-premi-bpjs', 'Yakes\LaporanController@getPremiKapitasi');
+Route::post('lap-claim-bpjs', 'Yakes\LaporanController@getClaimBPJS');
 Route::post('lap-utilisasi-bpjs', 'Yakes\LaporanController@getNeracaJamkespen');
 Route::post('lap-rekap-real', 'Yakes\LaporanController@getNeracaJamkespen');
 Route::post('lap-rekap-real-grid', 'Yakes\LaporanController@getNeracaJamkespen');

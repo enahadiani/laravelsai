@@ -13,10 +13,6 @@
                                     <div id="inputFilter">
                                         <!-- COMPONENT -->
                                         <x-inp-filter kode="periode" nama="Periode" selected="3" :option="array('3')"/>
-                                        <x-inp-filter kode="kode_fs" nama="Kode FS" selected="3" :option="array('3')"/>
-                                        <x-inp-filter kode="level" nama="Level" selected="3" :option="array('3')"/>
-                                        <x-inp-filter kode="format" nama="Format" selected="3" :option="array('3')"/>
-                                        
                                         <!-- END COMPONENT -->
                                     </div>
                                     <button id="btn-tampil" style="float:right;width:110px" class="btn btn-primary ml-2 mb-3" type="submit" >Tampilkan</button>
@@ -53,29 +49,6 @@
             to : "",
             toname : "",
         }
-        var $kode_fs = {
-            type : "=",
-            from : "{{ Session::get('kode_fs') }}",
-            fromname : "{{ Session::get('kode_fs') }}",
-            to : "",
-            toname : "",
-        }
-
-        var $level = {
-            type : "=",
-            from : "1",
-            fromname : "1",
-            to : "",
-            toname : "",
-        }
-
-        var $format = {
-            type : "=",
-            from : "Saldo Akhir",
-            fromname : "Saldo Akhir",
-            to : "",
-            toname : "",
-        }
 
         var $aktif = "";
 
@@ -98,9 +71,6 @@
         // $('#show').selectize();
 
         $('#periode-from').val(namaPeriode("{{ date('Ym') }}"));
-        $('#kode_fs-from').val("{{ Session::get('kode_fs') }}");
-        $('#level-from').val("1");
-        $('#format-from').val("Saldo Akhir");
 
         $('#btn-filter').click(function(e){
             $('#collapseFilter').show();
@@ -135,29 +105,22 @@
         $('.selectize').selectize();
 
         $('#inputFilter').reportFilter({
-            kode : ['periode','kode_fs','level','format'],
-            nama : ['Periode','Kode FS','Level','Format'],
-            header : [['Periode', 'Nama'],['Kode', 'Nama'],['Kode'],['Kode']],
-            headerpilih : [['Periode', 'Nama','Action'],['Kode', 'Nama','Action'],['Kode','Action'],['Kode','Action']],
+            kode : ['periode'],
+            nama : ['Periode'],
+            header : [['Periode', 'Nama']],
+            headerpilih : [['Periode', 'Nama','Action']],
             columns: [
                 [
                     { data: 'periode' },
                     { data: 'nama' }
-                ],[
-                    { data: 'kode_fs' },
-                    { data: 'nama' }
-                ],[
-                    { data: 'kode' }
-                ],[
-                    { data: 'kode' }
                 ]
             ],
-            url :["{{ url('yakes-report/filter-periode-keu') }}","{{ url('yakes-report/filter-fs') }}","{{ url('yakes-report/filter-level') }}","{{ url('yakes-report/filter-format') }}"],
+            url :["{{ url('yakes-report/filter-periode-keu') }}"],
             parameter:[],
-            orderby:[[[0,"desc"]],[],[],[]],
-            width:[['30%','70%'],['30%','70%'],['30%','70%'],['30%','70%']],
-            display:['name','kode','kode','kode'],
-            pageLength:[12,10,10,10]
+            orderby:[[[0,"desc"]]],
+            width:[['30%','70%']],
+            display:['name'],
+            pageLength:[12]
         });
 
         var $formData = "";
@@ -167,15 +130,6 @@
             $formData.append("periode[]",$periode.type);
             $formData.append("periode[]",$periode.from);
             $formData.append("periode[]",$periode.to);
-            $formData.append("kode_fs[]",$kode_fs.type);
-            $formData.append("kode_fs[]",$kode_fs.from);
-            $formData.append("kode_fs[]",$kode_fs.to);
-            $formData.append("level[]",$level.type);
-            $formData.append("level[]",$level.from);
-            $formData.append("level[]",$level.to);
-            $formData.append("format[]",$format.type);
-            $formData.append("format[]",$format.from);
-            $formData.append("format[]",$format.to);
             for(var pair of $formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
@@ -189,222 +143,11 @@
             $formData.append("periode[]",$periode.type);
             $formData.append("periode[]",$periode.from);
             $formData.append("periode[]",$periode.to);
-            $formData.append("kode_fs[]",$kode_fs.type);
-            $formData.append("kode_fs[]",$kode_fs.from);
-            $formData.append("kode_fs[]",$kode_fs.to);
-            $formData.append("level[]",$level.type);
-            $formData.append("level[]",$level.from);
-            $formData.append("level[]",$level.to);
-            $formData.append("format[]",$format.type);
-            $formData.append("format[]",$format.from);
-            $formData.append("format[]",$format.to);
             for(var pair of $formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
             xurl = "{{ url('yakes-auth/form/rptPremiBpjs') }}";
             $('#saku-report #canvasPreview').load(xurl);
-        });
-
-        // TRACE
-        $('#saku-report #canvasPreview').on('click', '.neraca-lajur', function(e){
-            e.preventDefault();
-            var kode_neraca = $(this).data('kode_neraca');
-            param_trace.kode_neraca = kode_neraca;
-            var back = true;
-            
-            $formData.delete('kode_neraca[]');
-            $formData.append('kode_neraca[]', "=");
-            $formData.append('kode_neraca[]', kode_neraca);
-            $formData.append('kode_neraca[]', "");
-
-            $formData.delete('trail[]');
-            $formData.append('trail[]', "=");
-            $formData.append('trail[]', "1");
-            $formData.append('trail[]', "");
-
-            $formData.delete('back');
-            $formData.append('back', back);
-            $('.breadcrumb').html('');
-            $('.breadcrumb').append(`
-                <li class="breadcrumb-item">
-                    <a href="#" class="klik-report" data-href="neraca" >Neraca</a>
-                </li>
-                <li class="breadcrumb-item active" aria-current="neraca-lajur" >Neraca Lajur</li>
-            `);
-            xurl ="yakes-auth/form/rptNrcLajur";
-            $('#saku-report #canvasPreview').load(xurl);
-            // drawLapReg(formData);
-        });
-
-        $('#saku-report #canvasPreview').on('click', '.bukubesar', function(e){
-        e.preventDefault();
-            var kode_akun = $(this).data('kode_akun');
-            param_trace.kode_akun = kode_akun;
-            var back = true;
-            
-            $formData.delete('kode_akun[]');
-            $formData.append('kode_akun[]', "=");
-            $formData.append('kode_akun[]', kode_akun);
-            $formData.append('kode_akun[]', "");
-
-            $formData.delete('back');
-            $formData.append('back', back);
-            $('.breadcrumb').html('');
-            $('.breadcrumb').append(`
-                <li class="breadcrumb-item">
-                    <a href="#" class="klik-report" data-href="neraca">Neraca</a>
-                </li>
-                <li class="breadcrumb-item">
-                    <a href="#" class="klik-report" data-href="neraca-lajur">Neraca Lajur</a>
-                </li>
-                <li class="breadcrumb-item active" aria-current="buku-besar">Buku Besar</li>
-            `);
-            xurl ="yakes-auth/form/rptBukuBesar";
-            $('#saku-report #canvasPreview').load(xurl);
-            // drawLapReg(formData);
-        });
-
-        $('#saku-report #canvasPreview').on('click', '.jurnal', function(e){
-            e.preventDefault();
-            var no_bukti = $(this).data('no_bukti');
-            param_trace.no_bukti = no_bukti;
-            var back = true;
-            
-            $formData.delete('no_bukti[]');
-            $formData.append('no_bukti[]', "=");
-            $formData.append('no_bukti[]', no_bukti);
-            $formData.append('no_bukti[]', "");
-
-            $formData.delete('back');
-            $formData.append('back', back);
-            $('.breadcrumb').html('');
-            $('.breadcrumb').append(`
-                <li class="breadcrumb-item">
-                    <a href="#" class="klik-report" data-href="neraca">Neraca</a>
-                </li>
-                <li class="breadcrumb-item">
-                    <a href="#" class="klik-report" data-href="neraca-lajur">Neraca Lajur</a>
-                </li>
-                <li class="breadcrumb-item">
-                    <a href="#" class="klik-report" data-href="buku-besar">Buku Besar</a>
-                </li>
-                <li class="breadcrumb-item active" aria-current="jurnal">Jurnal</li>
-            `);
-            xurl ="yakes-auth/form/rptBuktiJurnal";
-            $('#saku-report #canvasPreview').load(xurl);
-            // drawLapReg(formData);
-        });
-
-        $('.navigation-lap').on('click', '#btn-back', function(e){
-            e.preventDefault();
-            $formData.delete('periode[]');
-            $formData.append("periode[]",$periode.type);
-            $formData.append("periode[]",$periode.from);
-            $formData.append("periode[]",$periode.to);
-
-            var aktif = $('.breadcrumb-item.active').attr('aria-current');
-
-            if(aktif == "neraca-lajur"){
-                xurl = "yakes-auth/form/rptPremiBpjs";
-                $formData.delete('back');
-                $formData.delete('kode_fs[]');
-                $formData.append("kode_fs[]",$kode_fs.type);
-                $formData.append("kode_fs[]",$kode_fs.from);
-                $formData.append("kode_fs[]",$kode_fs.to);
-                $('.breadcrumb').html('');
-                $('.breadcrumb').append(`
-                    <li class="breadcrumb-item active" aria-current="neraca">Neraca</li>
-                `);
-                $('.navigation-lap').addClass('hidden');
-            }
-            else if(aktif == "buku-besar"){
-                xurl = "yakes-auth/form/rptNrcLajur";
-                $formData.delete('kode_neraca[]');
-                $formData.append("kode_neraca[]","=");
-                $formData.append("kode_neraca[]",param_trace.kode_neraca);
-                $formData.append("kode_neraca[]","");
-                $formData.delete('kode_akun[]');
-                $('.breadcrumb').html('');
-                $('.breadcrumb').append(`
-                    <li class="breadcrumb-item">
-                        <a href="#" class="klik-report" data-href="neraca" >Neraca</a>
-                    </li>
-                    <li class="breadcrumb-item active" aria-current="neraca-lajur">Neraca Lajur</li>
-                `);
-            }else if(aktif == "jurnal"){
-                xurl = "yakes-auth/form/rptBukuBesar";
-                $formData.delete('kode_akun[]');
-                $formData.append("kode_akun[]","=");
-                $formData.append("kode_akun[]",param_trace.kode_akun);
-                $formData.append("kode_akun[]","");
-                $('.breadcrumb').html('');
-                $('.breadcrumb').append(`
-                    <li class="breadcrumb-item">
-                        <a href="#" class="klik-report" data-href="neraca" >Neraca</a>
-                    </li>
-                    <li class="breadcrumb-item">
-                        <a href="#" class="klik-report" data-href="neraca-lajur">Neraca Lajur</a>
-                    </li>
-                    <li class="breadcrumb-item active" aria-current="buku-besar">Buku Besar</li>
-                `);
-            }
-            $('#saku-report #canvasPreview').load(xurl);
-            // drawLapReg(formData);
-        });
-
-        $('.breadcrumb').on('click', '.klik-report', function(e){
-            e.preventDefault();
-            var tujuan = $(this).data('href');
-            $formData.delete('periode[]');
-            $formData.append("periode[]",$periode.type);
-            $formData.append("periode[]",$periode.from);
-            $formData.append("periode[]",$periode.to);
-            if(tujuan == "neraca"){
-                $formData.delete('back');
-                $formData.delete('kode_fs[]');
-                $formData.append("kode_fs[]",$kode_fs.type);
-                $formData.append("kode_fs[]",$kode_fs.from);
-                $formData.append("kode_fs[]",$kode_fs.to);
-                xurl = "yakes-auth/form/rptPremiBpjs";
-                $('.breadcrumb').html('');
-                $('.breadcrumb').append(`
-                    <li class="breadcrumb-item active" aria-current="neraca" >Neraca</li>
-                `);
-                $('.navigation-lap').addClass('hidden');
-            }else if(tujuan == "neraca-lajur"){
-                $formData.delete('kode_neraca[]');
-                $formData.append("kode_neraca[]","=");
-                $formData.append("kode_neraca[]",param_trace.kode_neraca);
-                $formData.append("kode_neraca[]","");
-                $formData.delete('kode_akun[]');
-                xurl = "yakes-auth/form/rptNrcLajur";
-                $('.breadcrumb').html('');
-                $('.breadcrumb').append(`
-                    <li class="breadcrumb-item">
-                        <a href="#" class="klik-report" data-href="neraca">Neraca</a>
-                    </li>
-                    <li class="breadcrumb-item active" aria-current="neraca-lajur">Neraca Lajur</li>
-                `);
-            }else if(tujuan == "buku-besar"){
-                
-                $formData.delete('kode_akun[]');
-                $formData.append("kode_akun[]","=");
-                $formData.append("kode_akun[]",param_trace.kode_akun);
-                $formData.append("kode_akun[]","");
-                xurl = "yakes-auth/form/rptBukuBesar";
-                $('.breadcrumb').html('');
-                $('.breadcrumb').append(`
-                    <li class="breadcrumb-item">
-                        <a href="#" class="klik-report" data-href="neraca">Neraca</a>
-                    </li>
-                    <li class="breadcrumb-item">
-                        <a href="#" class="klik-report" data-href="neraca-lajur" >Neraca Lajur</a>
-                    </li>
-                    <li class="breadcrumb-item active" aria-current="buku-besar"Buku Besar</li>
-                `);
-            }
-            $('#saku-report #canvasPreview').load(xurl);
-            
         });
 
         $('#sai-rpt-print').click(function(){
@@ -423,15 +166,15 @@
             e.preventDefault();
             $("#saku-report #canvasPreview").table2excel({
                 // exclude: ".excludeThisClass",
-                name: "Neraca_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}",
-                filename: "Neraca_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}.xls", // do include extension
+                name: "PremiKapitasi_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}",
+                filename: "PremiKapitasi_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}.xls", // do include extension
                 preserveColors: false // set to true if you want background colors and font colors preserved
             });
         });
 
         $("#sai-rpt-pdf").click(function(e) {
             e.preventDefault();
-            var link = "{{ url('yakes-report/lap-neraca-pdf') }}?periode[]="+$periode.type+"&periode[]="+$periode.from+"&periode[]="+$periode.to+"&kode_fs[]="+$kode_fs.type+"&kode_fs[]="+$kode_fs.from+"&kode_fs[]="+$kode_fs.to+"&level[]="+$level.type+"&level[]="+$level.from+"&level[]="+$level.to+"&format[]="+$format.type+"&format[]="+$format.from+"&format[]="+$format.to;
+            var link = "{{ url('yakes-report/lap-premi-bpjs-pdf') }}?periode[]="+$periode.type+"&periode[]="+$periode.from+"&periode[]="+$periode.to;
             window.open(link, '_blank'); 
         });
         
@@ -447,15 +190,6 @@
             $formData.append("periode[]",$periode.type);
             $formData.append("periode[]",$periode.from);
             $formData.append("periode[]",$periode.to);
-            $formData.append("kode_fs[]",$kode_fs.type);
-            $formData.append("kode_fs[]",$kode_fs.from);
-            $formData.append("kode_fs[]",$kode_fs.to);
-            $formData.append("level[]",$level.type);
-            $formData.append("level[]",$level.from);
-            $formData.append("level[]",$level.to);
-            $formData.append("format[]",$format.type);
-            $formData.append("format[]",$format.from);
-            $formData.append("format[]",$format.to);
             for(var pair of formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
