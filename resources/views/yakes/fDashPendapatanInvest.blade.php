@@ -345,7 +345,7 @@
 <script type="text/javascript">
     var regional = "NASIONAL";
     var dashboard = "";
-    var keterangan = "Tahun {{ substr(Session::get('periode'), 0, 4) }} regional "+regional;
+    var keterangan = "Tahun {{ substr(Session::get('periode'), 0, 4) }} <strong>regional</strong> "+regional;
     var tahun = "{{ substr(Session::get('periode'), 0, 4) }}";
     var pembagi = 1000000;
     var buttonTop = document.getElementById('button-top');
@@ -366,7 +366,7 @@
         }
     }
 
-    $('#keterangan-filter').text(keterangan);
+    $('#keterangan-filter').html(keterangan);
     getDataPendapatan(tahun, regional);
     function topFunction() {
         document.body.scrollTop = 0;
@@ -428,9 +428,9 @@
 
     $('#form-filter').on('click', '#btn-tampil', function(){
         $('#detail-invest').empty();
-        keterangan = "Tahun "+tahun+" regional "+regional;
+        keterangan = "Tahun "+tahun+" <strong>regional</strong> "+regional;
         getDataPendapatan(tahun, regional);
-        $('#keterangan-filter').text(keterangan);
+        $('#keterangan-filter').html(keterangan);
         $('#modalFilter').modal('hide');
     })
 

@@ -738,13 +738,13 @@ if(jenis == 'CC') {
         namaMonth = bulan[numMonth];
         singkatMonth = bulanSingkat[numMonth];
         if(numMonth == 2) {
-         quaterMonth = "Q3'";
+         quaterMonth = "Q1'";
         } else if(numMonth == 5) {  
-         quaterMonth = "Q4'";
+         quaterMonth = "Q2'";
         } else if(numMonth == 8) {
-         quaterMonth = "Q5'";
+         quaterMonth = "Q3'";
         } else if(numMonth == 11) {
-         quaterMonth = "Q6'"
+         quaterMonth = "Q4'"
         } else {
          quaterMonth = singkatMonth;
         }

@@ -346,7 +346,7 @@
 <script type="text/javascript">
     var regional = "NASIONAL";
     var dashboard = "";
-    var keterangan = "Tahun {{ substr(Session::get('periode'), 0, 4) }} regional "+regional;
+    var keterangan = "Tahun {{ substr(Session::get('periode'), 0, 4) }} <strong>regional</strong> "+regional;
     var tahun = "{{ substr(Session::get('periode'), 0, 4) }}";
     var pembagi = 1000000;
 
@@ -368,7 +368,7 @@
         }
     }
 
-    $('#keterangan-filter').text(keterangan);
+    $('#keterangan-filter').html(keterangan);
     getDataBeban(tahun, regional);
 
     function topFunction() {
@@ -431,9 +431,9 @@
 
     $('#form-filter').on('click', '#btn-tampil', function(){
         $('#detail-beban').empty();
-        keterangan = "Tahun "+tahun+" regional "+regional;
+        keterangan = "Tahun "+tahun+" <strong>regional</strong> "+regional;
         getDataBeban(tahun, regional);
-        $('#keterangan-filter').text(keterangan);
+        $('#keterangan-filter').html(keterangan);
         $('#modalFilter').modal('hide');
     })
 
