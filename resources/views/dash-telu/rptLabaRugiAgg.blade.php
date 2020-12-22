@@ -9,7 +9,7 @@
                 generatePaginationDore('pagination',show,res);
               
            }else{
-                $('#saku-report #canvasPreview').load("{{ url('esaku-auth/form/blank') }}");
+                $('#saku-report #canvasPreview').load("{{ url('dash-telu/form/blank') }}");
            }
        });
    }
@@ -64,7 +64,7 @@
             .header_laporan{
                 vertical-align: middle !important;
             }
-            </style>`+judul_lap("LAPORAN LABA RUGI",lokasi,'Periode '+$periode.fromname)+`
+            </style>`+judul_lap("LAPORAN LABA RUGI ANGGARAN",lokasi,'Periode '+$periode.fromname)+`
             <table  class='table table-bordered' width='100%'>
             <tr>
                 <th width='23%' height='25'  class='header_laporan text-center' align='center'>Keterangan</th>

@@ -445,6 +445,7 @@ function getMsPengembanganKomposisi(periode=null){
                             formatter: function () {
                                 return $('<div/>').css({
                                     'border' : '0',// just white in my case
+                                    'fontSize': '8px',
                                     'color' : ($mode == "dark" ? "var(--text-color)" : "black")
                                 }).html(this.point.name+':<br/>'+sepNum(this.percentage)+'%')[0].outerHTML;
                             }

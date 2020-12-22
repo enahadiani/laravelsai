@@ -322,7 +322,7 @@ function getMsBebanRKA(periode=null){
                                         'padding': '0 3px',
                                         'font-size': '10px',
                                         'backgroundColor' : this.point.color  // just white in my case
-                                    }).text(sepNum(this.point.nlabel))[0].outerHTML;
+                                    }).text(sepNum(this.point.nlabel)+'M')[0].outerHTML;
                                 }
                                 // if(this.name)
                             }
@@ -346,7 +346,7 @@ function getMsBebanRKA(periode=null){
                                         'padding': '0 3px',
                                         'font-size': '10px',
                                         'backgroundColor' : this.point.color  // just white in my case
-                                    }).text(sepNum(this.point.nlabel))[0].outerHTML;
+                                    }).text(sepNum(this.point.nlabel)+'M')[0].outerHTML;
                                 }
                             }
                         }

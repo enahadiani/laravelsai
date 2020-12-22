@@ -16,3 +16,4 @@ Route::get('filter-pp', 'DashTelu\FilterController@getFilterPP');
 Route::get('filter-output', 'DashTelu\FilterController@getFilterOutput');
 
 Route::post('lap-labarugi-agg', 'DashTelu\LaporanController@getLabaRugiAgg');
+Route::post('lap-neraca2', 'DashTelu\LaporanController@getNeraca2');

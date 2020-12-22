@@ -126,7 +126,7 @@ function sepNum(x){
         }else if(!isFinite(x)){
             return 0;
         }else{
-            var x = parseFloat(x).toFixed(2);
+            var x = parseFloat(x).toFixed(1);
             // console.log(x);
             var tmp = x.toString().split('.');
             // console.dir(tmp);
@@ -364,7 +364,7 @@ function getSHU(periode=null){
                                     'padding': '0 2px',
                                     'font-size':'8px',
                                     'backgroundColor' : this.point.color  // just white in my case
-                                }).text(sepNum(this.y))[0].outerHTML;
+                                }).text(sepNum(this.y)+'M')[0].outerHTML;
                             }
                         }
                     },
