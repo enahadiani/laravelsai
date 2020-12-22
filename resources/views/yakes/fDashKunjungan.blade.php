@@ -604,9 +604,6 @@ var lastPeriode = periode.slice(2, 4);
 var lastPeriodeNum = parseInt(lastPeriode);
 var lastPeriodeNumYest = lastPeriodeNum - 1;
 var lastPeriodeSebelum = ('0'+lastPeriodeNumYest).slice(-2);
-var ketYTDLast = "YTD Q3 '"+lastPeriodeSebelum+"";
-var ketRKANow = "RKA Q3 '"+lastPeriode+"";
-var ketYTDNow = "YTD Q3 '"+lastPeriode+"";
 var split = periode.match(/.{1,4}/g);
 var tahun = split[0];
 var numMonth = parseInt(split[1]) - 1;
@@ -614,17 +611,19 @@ var namaMonth = bulan[numMonth];
 var singkatMonth = bulanSingkat[numMonth];
 console.log(numMonth)
 if(numMonth == 2) {
-    var quaterMonth = "Q3'";
+    var quaterMonth = "Q1'";
 } else if(numMonth == 5) {  
-    var quaterMonth = "Q4'";
+    var quaterMonth = "Q2'";
 } else if(numMonth == 8) {
-    var quaterMonth = "Q5'";
+    var quaterMonth = "Q3'";
 } else if(numMonth == 11) {
-    var quaterMonth = "Q6'"
+    var quaterMonth = "Q4'"
 } else {
     var quaterMonth = singkatMonth;
 }
-
+var ketYTDLast = "YTD "+quaterMonth+" "+lastPeriodeSebelum+"";
+var ketRKANow = "RKA "+quaterMonth+" "+lastPeriode+"";
+var ketYTDNow = "YTD "+quaterMonth+" "+lastPeriode+"";
 var keterangan = "Periode sampai dengan "+namaMonth+" "+tahun+" <strong>regional</strong> "+regional;
 var pembagi = 1000000000;
 var pembagi2 = 1000000;
