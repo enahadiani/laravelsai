@@ -7747,7 +7747,10 @@ div.row-notif  a:hover {
   padding: 0.5rem 1.5rem;
 }
 .dash-card > .card-header > h6{
-  color:#8f8f8f;
+  color:#8f8f8f !important;
+}
+.dash-card > .card-header > .row > div > h6{
+  color:#8f8f8f !important;
 }
 .dash-card > .card-body > .table tr:hover{
   background: #1b1919;

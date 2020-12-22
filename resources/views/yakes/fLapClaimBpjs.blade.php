@@ -54,8 +54,8 @@
 
         var $jenis = {
             type : "=",
-            from : "PENSIUN",
-            fromname : "PENSIUN",
+            from : "TOTAL",
+            fromname : "TOTAL",
             to : "",
             toname : "",
         }
@@ -81,7 +81,7 @@
         // $('#show').selectize();
 
         $('#periode-from').val(namaPeriode("{{ date('Ym') }}"));
-        $('#jenis-from').val("PENSIUN");
+        $('#jenis-from').val("TOTAL");
 
         $('#btn-filter').click(function(e){
             $('#collapseFilter').show();

@@ -148,7 +148,7 @@ function sepNum(x){
         }else if(!isFinite(x)){
             return 0;
         }else{
-            var x = parseFloat(x).toFixed(2);
+            var x = parseFloat(x).toFixed(1);
             // console.log(x);
             var tmp = x.toString().split('.');
             // console.dir(tmp);
@@ -284,7 +284,12 @@ function getMsPengembangan(periode=null){
                         min: 0,
                         title: {
                             text: ''
-                        }
+                        },
+                        labels: {
+                            formatter: function () {
+                                return singkatNilai(this.value);
+                            }
+                        },
                     }],
                     legend:{
                         enabled: false
@@ -299,7 +304,28 @@ function getMsPengembangan(periode=null){
                         column: {
                             grouping: false,
                             shadow: false,
-                            borderWidth: 0
+                            borderWidth: 0,
+                            dataLabels: {
+                                // padding:10,
+                                allowOverlap:true,
+                                enabled: true,
+                                crop: false,
+                                overflow: 'justify',
+                                useHTML: true,
+                                formatter: function () {
+                                    if(this.y < 0.1){
+                                        return '';
+                                    }else{
+                                        return $('<div/>').css({
+                                            'color' : 'white', // work
+                                            'padding': '0 3px',
+                                            'font-size': '10px',
+                                            'backgroundColor' : this.point.color  // just white in my case
+                                        }).text(toMilyar(this.y))[0].outerHTML;
+                                    }
+                                    // if(this.name)
+                                }
+                            }
                         }
                     },
                     series: result.series
@@ -364,7 +390,7 @@ function getMsPengembanganKomposisi(periode=null){
         data:{periode : periode, mode: $mode},
         dataType:"JSON",
         success:function(result){
-            $('#komposisi-total').html(sepNumPas(result.total));
+            $('#komposisi-total').html('Rp.'+sepNumPas(result.total));
             var $colors = result.colors;
             // Highcharts.addEvent(Highcharts.Chart.prototype, 'render', function colorPoints() {
             //     var series = this.series;
@@ -384,8 +410,12 @@ function getMsPengembanganKomposisi(periode=null){
                 title: {
                     text: sepNumPas(result.total),
                     align: 'center',
+                    style: {
+                        fontSize: '14px'
+                    },
                     verticalAlign: 'middle',
-                    y: 15
+                    y: 10,
+                    x: 0
                 },
                 yAxis: [{
                     min: 0,
@@ -400,7 +430,7 @@ function getMsPengembanganKomposisi(periode=null){
                     enabled: false
                 },
                 tooltip: {
-                    pointFormat: '{series.name}: <b>{point.y} </b><br/><b>{point.percentage:.1f}%</b>'
+                    pointFormat: '{series.name}: <b>{point.name} : {point.y} </b><br/><b>{point.percentage:.1f}%</b>'
                 },
                 colors: result.colors,
                 plotOptions: {
@@ -408,9 +438,16 @@ function getMsPengembanganKomposisi(periode=null){
                         allowPointSelect: true,
                         cursor: 'pointer',
                         innerSize: '75%',
+                        size: '70%',
                         dataLabels: {
                             enabled: true,
-                            format: '{point.percentage:.1f} %'
+                            useHTML: true,
+                            formatter: function () {
+                                return $('<div/>').css({
+                                    'border' : '0',// just white in my case
+                                    'color' : ($mode == "dark" ? "var(--text-color)" : "black")
+                                }).html(this.point.name+':<br/>'+sepNum(this.percentage)+'%')[0].outerHTML;
+                            }
                         }
                     }
                 },

@@ -61,20 +61,21 @@
                 font-weight:bold;
             }
             .report-table td, .report-table th{
-                border-color: #2b9de2 !important; 
+                border-color: black !important; 
                 vertical-align: middle;
             }  
-            .bg-blue1 {
-                background: #00b7ff;
+            .bg-gray1 {
+                background: #bfbfbf;
             }  
-            .bg-blue2 {
-                background: #00dbfff0;
+            .bg-gray2 {
+                background: #bfbfbf;
             }   
             .bg-green {
-                background: #92D050;
+                background: #9eeadc;
             }       
-            .bg-yellow {
-                background: #FFC000;
+            .bg-greenold {
+                background: #288372;
+                color:white;
             }
             </style>
             <table class='table table-bordered report-table' width='100%'>
@@ -82,28 +83,28 @@
                 <td colspan='8' class='text-right no-border'>dlm. Rp Juta</td>
             </tr>
             <tr>
-                <td width='16%' rowspan='2' class='text-center bg-blue1'>Bulan</td>
+                <td width='16%' rowspan='2' class='text-center bg-gray1'>Bulan</td>
                 <td width='36%' colspan='3' class='text-center bg-green'>Iuran Premi BPJS</td>
-                <td width='48%' colspan='4' class='text-center bg-yellow'>Kapitasi</td>
+                <td width='48%' colspan='4' class='text-center bg-greenold'>Kapitasi</td>
             </tr>
             <tr>
                 <td width='12%' class='text-center bg-green'>Kary.</td>
                 <td width='12%' class='text-center bg-green'>Pensiun</td>
                 <td width='12%' class='text-center bg-green'>Total</td>
-                <td width='12%' class='text-center bg-yellow'>Kary.</td>
-                <td width='12%' class='text-center bg-yellow'>Pensiun</td>
-                <td width='12%' class='text-center bg-yellow'>Non Yakes</td>
-                <td width='12%' class='text-center bg-yellow'>Total</td>
+                <td width='12%' class='text-center bg-greenold'>Kary.</td>
+                <td width='12%' class='text-center bg-greenold'>Pensiun</td>
+                <td width='12%' class='text-center bg-greenold'>Non Yakes</td>
+                <td width='12%' class='text-center bg-greenold'>Total</td>
             </tr>
             <tr>
-                <td width='6%' class='text-center bg-blue2'>1</td>
+                <td width='6%' class='text-center bg-gray2'>1</td>
                 <td width='12%' class='text-center bg-green'>2</td>
                 <td width='12%' class='text-center bg-green'>3</td>
                 <td width='12%' class='text-center bg-green'>4=2+3</td>
-                <td width='12%' class='text-center bg-yellow'>5</td>
-                <td width='12%' class='text-center bg-yellow'>6</td>
-                <td width='12%' class='text-center bg-yellow'>7</td>
-                <td width='12%' class='text-center bg-yellow'>8=5+6+7</td>
+                <td width='12%' class='text-center bg-greenold'>5</td>
+                <td width='12%' class='text-center bg-greenold'>6</td>
+                <td width='12%' class='text-center bg-greenold'>7</td>
+                <td width='12%' class='text-center bg-greenold'>8=5+6+7</td>
             </tr>
             `;
             var no=1;
@@ -131,14 +132,14 @@
             }
             html+=`
             <tr>
-                <td class='isi_laporan text-right bg-blue1'>Jumlah s.d `+line.nama+`</td>
-                <td class='isi_laporan text-right bg-blue1'>`+toJuta(pegawai)+`</td>
-                <td class='isi_laporan text-right bg-blue1'>`+toJuta(pensiun)+`</td>
-                <td class='isi_laporan text-right bg-blue1'>`+toJuta(parseFloat(pensiun)+parseFloat(pegawai))+`</td>
-                <td class='isi_laporan text-right bg-blue1'>`+toJuta(n2)+`</td>
-                <td class='isi_laporan text-right bg-blue1'>`+toJuta(n1)+`</td>
-                <td class='isi_laporan text-right bg-blue1'>`+toJuta(n3)+`</td>
-                <td class='isi_laporan text-right bg-blue1'>`+toJuta(n4)+`</td>
+                <td class='isi_laporan text-right bg-gray1'>Jumlah s.d `+line.nama+`</td>
+                <td class='isi_laporan text-right bg-gray1'>`+toJuta(pegawai)+`</td>
+                <td class='isi_laporan text-right bg-gray1'>`+toJuta(pensiun)+`</td>
+                <td class='isi_laporan text-right bg-gray1'>`+toJuta(parseFloat(pensiun)+parseFloat(pegawai))+`</td>
+                <td class='isi_laporan text-right bg-gray1'>`+toJuta(n2)+`</td>
+                <td class='isi_laporan text-right bg-gray1'>`+toJuta(n1)+`</td>
+                <td class='isi_laporan text-right bg-gray1'>`+toJuta(n3)+`</td>
+                <td class='isi_laporan text-right bg-gray1'>`+toJuta(n4)+`</td>
                 </tr>
             </table>`;
         }

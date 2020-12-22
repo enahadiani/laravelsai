@@ -364,7 +364,7 @@ function getMsBebanRKA(periode=null){
                     marker: {
                         symbol: 'c-rect',
                         lineWidth:5,
-                        lineColor: 'black',
+                        lineColor: (localStorage.getItem("dore-theme") == "dark" ? '#2200FF' :  '#003F88'),
                         radius: 50
                     },
                     type: 'scatter',
@@ -507,7 +507,7 @@ function getMsBebanKlp(periode=null){
                     marker: {
                         symbol: 'c-rect',
                         lineWidth:5,
-                        lineColor: 'black',
+                        lineColor: (localStorage.getItem("dore-theme") == "dark" ? '#2200FF' :  '#003F88'),
                         radius: 15
                     },
                     type: 'scatter',

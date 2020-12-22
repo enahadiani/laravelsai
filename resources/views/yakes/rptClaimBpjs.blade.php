@@ -65,21 +65,13 @@
                 font-weight:bold;
             }
             .report-table td, .report-table th{
-                border-color: #2b9de2 !important; 
+                border-color: black !important; 
                 vertical-align: middle;
             }  
-            .bg-blue1 {
-                background: #00b7ff;
+            .bg-greenold {
+                background: #288372;
+                color:white;
             }  
-            .bg-blue2 {
-                background: #00dbfff0;
-            }   
-            .bg-green {
-                background: #92D050;
-            }       
-            .bg-yellow {
-                background: #FFC000;
-            }
             </style>
             <table class='table table-bordered report-table' width='100%'>
             <tr>
@@ -87,19 +79,19 @@
                 <td class='text-right no-border'>dlm. Rp Juta</td>
             </tr>
             <tr>
-                <th width='24%' rowspan='2' class='text-center bg-blue1'>Layanan</th>
-                <th width='10%' rowspan='2' class='text-center bg-blue1'>KP</th>
-                <th width='56%' colspan='7' class='text-center bg-blue1'>Area</th>
-                <th width='10%' rowspan='2' class='text-center bg-blue1'>Total</th>
+                <th width='24%' rowspan='2' class='text-center bg-greenold'>Layanan</th>
+                <th width='10%' rowspan='2' class='text-center bg-greenold'>KP</th>
+                <th width='56%' colspan='7' class='text-center bg-greenold'>Area</th>
+                <th width='10%' rowspan='2' class='text-center bg-greenold'>Total</th>
             </tr>
             <tr>
-                <th width='8%' class='text-center bg-blue1'>I</th>
-                <th width='8%' class='text-center bg-blue1'>II</th>
-                <th width='8%' class='text-center bg-blue1'>III</th>
-                <th width='8%' class='text-center bg-blue1'>IV</th>
-                <th width='8%' class='text-center bg-blue1'>V</th>
-                <th width='8%' class='text-center bg-blue1'>VI</th>
-                <th width='8%' class='text-center bg-blue1'>VII</th>
+                <th width='8%' class='text-center bg-greenold'>I</th>
+                <th width='8%' class='text-center bg-greenold'>II</th>
+                <th width='8%' class='text-center bg-greenold'>III</th>
+                <th width='8%' class='text-center bg-greenold'>IV</th>
+                <th width='8%' class='text-center bg-greenold'>V</th>
+                <th width='8%' class='text-center bg-greenold'>VI</th>
+                <th width='8%' class='text-center bg-greenold'>VII</th>
             </tr>
             `;
             var tgh =`<tr>
@@ -216,41 +208,41 @@
             }
 
             html+=tgh+`<tr>
-                    <td class='isi_laporan bg-blue1 bold '>`+fnSpasi(3)+`Total Tagihan Awal</td>
-                    <td class='isi_laporan bg-blue1 bold' ></td>
-                    <td class='isi_laporan bg-blue1 bold text-right'>`+toJuta(tghn1)+`</td>
-                    <td class='isi_laporan bg-blue1 bold text-right'>`+toJuta(tghn2)+`</td>
-                    <td class='isi_laporan bg-blue1 bold text-right'>`+toJuta(tghn3)+`</td>
-                    <td class='isi_laporan bg-blue1 bold text-right'>`+toJuta(tghn4)+`</td>
-                    <td class='isi_laporan bg-blue1 bold text-right'>`+toJuta(tghn5)+`</td>
-                    <td class='isi_laporan bg-blue1 bold text-right'>`+toJuta(tghn6)+`</td>
-                    <td class='isi_laporan bg-blue1 bold text-right'>`+toJuta(tghn7)+`</td>
-                    <td class='isi_laporan bg-blue1 bold text-right'>`+toJuta(totgh)+`</td>
+                    <td class='isi_laporan bg-greenold bold '>`+fnSpasi(3)+`Total Tagihan Awal</td>
+                    <td class='isi_laporan bg-greenold bold' ></td>
+                    <td class='isi_laporan bg-greenold bold text-right'>`+toJuta(tghn1)+`</td>
+                    <td class='isi_laporan bg-greenold bold text-right'>`+toJuta(tghn2)+`</td>
+                    <td class='isi_laporan bg-greenold bold text-right'>`+toJuta(tghn3)+`</td>
+                    <td class='isi_laporan bg-greenold bold text-right'>`+toJuta(tghn4)+`</td>
+                    <td class='isi_laporan bg-greenold bold text-right'>`+toJuta(tghn5)+`</td>
+                    <td class='isi_laporan bg-greenold bold text-right'>`+toJuta(tghn6)+`</td>
+                    <td class='isi_laporan bg-greenold bold text-right'>`+toJuta(tghn7)+`</td>
+                    <td class='isi_laporan bg-greenold bold text-right'>`+toJuta(totgh)+`</td>
                 </tr>`+claim+`
                 <tr>
-                    <td class='isi_laporan bg-blue1 bold '>`+fnSpasi(3)+`Total Claim BPJS</td>
-                    <td class='isi_laporan bg-blue1 bold ' ></td>
-                    <td class='isi_laporan bg-blue1 bold text-right'>`+toJuta(claimn1)+`</td>
-                    <td class='isi_laporan bg-blue1 bold text-right'>`+toJuta(claimn2)+`</td>
-                    <td class='isi_laporan bg-blue1 bold text-right'>`+toJuta(claimn3)+`</td>
-                    <td class='isi_laporan bg-blue1 bold text-right'>`+toJuta(claimn4)+`</td>
-                    <td class='isi_laporan bg-blue1 bold text-right'>`+toJuta(claimn5)+`</td>
-                    <td class='isi_laporan bg-blue1 bold text-right'>`+toJuta(claimn6)+`</td>
-                    <td class='isi_laporan bg-blue1 bold text-right'>`+toJuta(claimn7)+`</td>
-                    <td class='isi_laporan bg-blue1 bold text-right'>`+toJuta(toclaim)+`</td>
+                    <td class='isi_laporan bg-greenold bold '>`+fnSpasi(3)+`Total Claim BPJS</td>
+                    <td class='isi_laporan bg-greenold bold ' ></td>
+                    <td class='isi_laporan bg-greenold bold text-right'>`+toJuta(claimn1)+`</td>
+                    <td class='isi_laporan bg-greenold bold text-right'>`+toJuta(claimn2)+`</td>
+                    <td class='isi_laporan bg-greenold bold text-right'>`+toJuta(claimn3)+`</td>
+                    <td class='isi_laporan bg-greenold bold text-right'>`+toJuta(claimn4)+`</td>
+                    <td class='isi_laporan bg-greenold bold text-right'>`+toJuta(claimn5)+`</td>
+                    <td class='isi_laporan bg-greenold bold text-right'>`+toJuta(claimn6)+`</td>
+                    <td class='isi_laporan bg-greenold bold text-right'>`+toJuta(claimn7)+`</td>
+                    <td class='isi_laporan bg-greenold bold text-right'>`+toJuta(toclaim)+`</td>
                 </tr>
                 `+bayar+`
                 <tr>
-                    <td class='isi_laporan bg-blue1 bold'>`+fnSpasi(3)+`Total Selisih Yakes</td>
-                    <td class='isi_laporan bg-blue1 bold' ></td>
-                    <td class='isi_laporan bg-blue1 bold text-right'>`+toJuta(byarn1)+`</td>
-                    <td class='isi_laporan bg-blue1 bold text-right'>`+toJuta(byarn2)+`</td>
-                    <td class='isi_laporan bg-blue1 bold text-right'>`+toJuta(byarn3)+`</td>
-                    <td class='isi_laporan bg-blue1 bold text-right'>`+toJuta(byarn4)+`</td>
-                    <td class='isi_laporan bg-blue1 bold text-right'>`+toJuta(byarn5)+`</td>
-                    <td class='isi_laporan bg-blue1 bold text-right'>`+toJuta(byarn6)+`</td>
-                    <td class='isi_laporan bg-blue1 bold text-right'>`+toJuta(byarn7)+`</td>
-                    <td class='isi_laporan bg-blue1 bold text-right'>`+toJuta(tobyar)+`</td>
+                    <td class='isi_laporan bg-greenold bold'>`+fnSpasi(3)+`Total Selisih Yakes</td>
+                    <td class='isi_laporan bg-greenold bold' ></td>
+                    <td class='isi_laporan bg-greenold bold text-right'>`+toJuta(byarn1)+`</td>
+                    <td class='isi_laporan bg-greenold bold text-right'>`+toJuta(byarn2)+`</td>
+                    <td class='isi_laporan bg-greenold bold text-right'>`+toJuta(byarn3)+`</td>
+                    <td class='isi_laporan bg-greenold bold text-right'>`+toJuta(byarn4)+`</td>
+                    <td class='isi_laporan bg-greenold bold text-right'>`+toJuta(byarn5)+`</td>
+                    <td class='isi_laporan bg-greenold bold text-right'>`+toJuta(byarn6)+`</td>
+                    <td class='isi_laporan bg-greenold bold text-right'>`+toJuta(byarn7)+`</td>
+                    <td class='isi_laporan bg-greenold bold text-right'>`+toJuta(tobyar)+`</td>
                 </tr>
             </table>`;
         }
