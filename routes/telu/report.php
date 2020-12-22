@@ -18,3 +18,6 @@ Route::get('filter-output', 'DashTelu\FilterController@getFilterOutput');
 Route::post('lap-labarugi-agg', 'DashTelu\LaporanController@getLabaRugiAgg');
 Route::post('lap-neraca2', 'DashTelu\LaporanController@getNeraca2');
 Route::post('lap-investasi', 'DashTelu\LaporanController@getInvestasi');
+Route::post('lap-labarugi-agg-dir', 'DashTelu\LaporanController@getLabaRugiAggDir');
+Route::post('lap-labarugi-agg-fak', 'DashTelu\LaporanController@getLabaRugiAggFak');
+Route::post('lap-labarugi-agg-prodi', 'DashTelu\LaporanController@getLabaRugiAggProdi');
