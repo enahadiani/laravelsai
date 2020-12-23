@@ -132,7 +132,8 @@
                 html+=`
                 <table class='table table-bordered report-table' width='100%'>
                 <tr>
-                    <td colspan='8' class='no-border bold'>`+beban[i]+`</td>
+                    <td colspan='7' class='no-border bold'>`+beban[i]+`</td>
+                    <td class='no-border bold'>dlm Rp. Juta</td>
                 </tr>
                 <tr>
                     <th width='10%' rowspan='2' class='text-center bg-greenold'>REG.</th>
