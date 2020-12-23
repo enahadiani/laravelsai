@@ -55,10 +55,6 @@
             var html = `
             <style>
 
-            .report-table th{
-                padding-top: 0 !important;
-                padding-bottom: 0 !important;
-            }
             .report-table .no-border{
                 border: 0px !important;
                 border-bottom:1px solid black !important;
@@ -70,6 +66,8 @@
             .report-table td, .report-table th{
                 border-color: black !important; 
                 vertical-align: middle;
+                padding-top: 4px !important;
+                padding-bottom: 4px !important;
             }  
             .bg-greenold {
                 background: #288372;

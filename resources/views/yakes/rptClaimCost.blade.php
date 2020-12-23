@@ -115,8 +115,8 @@
             .report-table td, .report-table th{
                 border-color: black !important; 
                 vertical-align: middle;
-                padding-top: 0 !important;
-                padding-bottom: 0 !important;
+                padding-top: 4px !important;
+                padding-bottom: 4px !important;
             }  
             
             .bg-greenold {
@@ -167,7 +167,7 @@
                     var line2 = dt[j];
                     if(line2.kode_pp == "00"){
                         pusat +=` <tr>
-                            <td>`+namaReg(line2.kode_pp)+`</td>
+                            <td class='text-center'>`+namaReg(line2.kode_pp)+`</td>
                             <td class='text-right'>`+sepNumPas(line2.rka_tahun)+`</td>
                             <td class='text-right'>`+sepNumPas(line2.rka_now)+`</td>
                             <td class='text-right'>`+sepNumPas(line2.rea_now)+`</td>
@@ -181,7 +181,7 @@
 
                         det+=`
                         <tr>
-                            <td>`+namaReg(line2.kode_pp)+`</td>
+                            <td class='text-center'>`+namaReg(line2.kode_pp)+`</td>
                             <td class='text-right'>`+sepNumPas(line2.rka_tahun)+`</td>
                             <td class='text-right'>`+sepNumPas(line2.rka_now)+`</td>
                             <td class='text-right'>`+sepNumPas(line2.rea_now)+`</td>
