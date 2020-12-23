@@ -56,7 +56,7 @@ Route::post('lap-utilisasi-bpjs', 'Yakes\LaporanController@getUtilisasiBPJS');
 Route::post('lap-rekap-real', 'Yakes\LaporanController@getNeracaJamkespen');
 Route::post('lap-rekap-real-grid', 'Yakes\LaporanController@getNeracaJamkespen');
 Route::post('lap-real-beban', 'Yakes\LaporanController@getRealBeban');
-Route::post('lap-claim-cost', 'Yakes\LaporanController@getNeracaJamkespen');
+Route::post('lap-claim-cost', 'Yakes\LaporanController@getClaimCost');
 
 Route::post('lap-kepesertaan', 'Yakes\LaporanController@getKepesertaan');
 Route::post('lap-bina-sehat', 'Yakes\LaporanController@getNeracaJamkespen');
