@@ -526,13 +526,7 @@
         var text = $(this).html();
         var htmlText = text+"<span class='glyph-icon simple-icon-arrow-down' style='float: right; margin-top:3%;'></span>";
         $(this).closest('.dropdown-periode').find('.select-dash').html(htmlText);
-        if(dashBPJS == "UTL") {
-            periode = text;
-        } else if(dashBPJS == "CLM") {
-            periode = text;
-        } else if(dashBPJS == "KPT") {
-            tahunKap = text;
-        } 
+        periode = text;
     });
 
     $('.jenis').on( 'click', 'li', function() {
