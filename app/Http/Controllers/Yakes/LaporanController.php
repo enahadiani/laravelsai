@@ -1403,7 +1403,8 @@
                         'Accept'     => 'application/json',
                     ],
                     'query' => [
-                        'periode' => $request->periode
+                        'periode' => $request->periode,
+                        'kode_klpakun' => $request->kode_klpakun
                     ]
                 ]);
         
