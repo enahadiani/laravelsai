@@ -2,15 +2,13 @@
 
     function drawLap(formData){
         saiPostLoad("{{ url('yakes-report/lap-sdm-culture') }}", null, formData, null, function(res){
-        //    if(res.result.length > 0){
-
+           if(res.result.length > 0){
                 $('#pagination').html('');
                 var show = $('#show').val();
                 generatePaginationDore('pagination',show,res);
-              
-        //    }else{
-        //         $('#saku-report #canvasPreview').load("{{ url('yakes-auth/form/blank') }}");
-        //    }
+           }else{
+                $('#saku-report #canvasPreview').load("{{ url('yakes-auth/form/blank') }}");
+           }
        });
    }
 
@@ -46,30 +44,50 @@
             res.bentuk = '';
             var lokasi = res.lokasi;
             res.data_detail = [];
-            periode = $periode;
+            periode = $periode.from;
+            var bulan = namaPeriodeBulan(periode);
             var html = `
             <style>
                 .report-table th{
                     color: white !important;
-                    background-color: black !important;
+                    background-color: #288372 !important;
                     border-color: white !important;
                     text-align: center;
-                    padding-top: 0 !important;
-                    padding-bottom: 0 !important;
+                    padding-top: 4px !important;
+                    padding-bottom: 4px !important;
                 }
-                .text-red{
-                    color:#C00000;
+                .report-table td{
+                    padding-top: 4px !important;
+                    padding-bottom: 4px !important;
+                }
+                .text-judul{
+                    //color:#C00000;
                     font-weight:bold;
+                    text-transform:uppercase;
                 }
             </style>
-            <h6 class='text-red'>SUMMARY PENCAPAIAN AGUSTUS</h6>
-            <table class='report-table table-striped table-bordered' width='100%'>
+            <h6 class='text-judul'>SUMMARY PENCAPAIAN - `+bulan+` </h6>
+            <table class='report-table table-borderless' width='100%'>
                 <tr>
                     <th width='30%'>PROGRAM</th>
                     <th width='30%'>PUSAT/REGIONAL</th>
                     <th width='20%'>ROLE MODEL</th>
                     <th width='20%'>JUMLAH PESERTA</th>
                 </tr>
+                `;
+                for(var i=0; i < data.length;i++){
+                    
+                    var line = data[i];
+                    html+=`
+                    <tr>
+                        <td class=''>`+line.program+`</td>
+                        <td class=''>`+line.kode_pp+`</td>
+                        <td class=''>`+line.role_model+`</td>
+                        <td class=''>`+line.jumlah+`</td>
+                    </tr>
+                    `;
+                }
+                html+=`
             </table>
             
             `;

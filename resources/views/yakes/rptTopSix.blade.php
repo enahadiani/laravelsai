@@ -112,7 +112,7 @@
                     text-align: center;
                 }
 
-                td, th{ 
+                .report-table td, .report-table th, .report-table2 td, .report-table2 th{ 
                     vertical-align: middle;
                     padding-top: 4px !important;
                     padding-bottom: 4px !important;
