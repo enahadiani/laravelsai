@@ -43,6 +43,9 @@ $thnLalu = substr($tahunLalu,2,2)
         margin-bottom: -1px;
         padding: 0px 10px 0px 0px;
     }
+    .highcharts-point {
+        stroke-width: 2px !important;
+    }
 
     #pencapaian > td, th 
     {
@@ -319,7 +322,7 @@ function getMsBebanRKA(periode=null){
                                         'padding': '0 3px',
                                         'font-size': '10px',
                                         'backgroundColor' : this.point.color  // just white in my case
-                                    }).text(sepNum(this.point.nlabel))[0].outerHTML;
+                                    }).text(sepNum(this.point.nlabel)+'M')[0].outerHTML;
                                 }
                                 // if(this.name)
                             }
@@ -343,7 +346,7 @@ function getMsBebanRKA(periode=null){
                                         'padding': '0 3px',
                                         'font-size': '10px',
                                         'backgroundColor' : this.point.color  // just white in my case
-                                    }).text(sepNum(this.point.nlabel))[0].outerHTML;
+                                    }).text(sepNum(this.point.nlabel)+'M')[0].outerHTML;
                                 }
                             }
                         }

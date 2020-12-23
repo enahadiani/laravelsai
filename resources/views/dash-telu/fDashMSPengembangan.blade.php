@@ -17,6 +17,13 @@ $thnLalu = substr($tahunLalu,2,2)
         background-color: #ececec;
         border-color: #ececec;
     }
+    .fs-8{
+        font-size: 8px !important;
+    }
+    
+    .fs-10{
+        font-size: 10px !important;
+    }
     .btn-outline-light {
         color: #131113;
         background-color: white;
@@ -390,7 +397,7 @@ function getMsPengembanganKomposisi(periode=null){
         data:{periode : periode, mode: $mode},
         dataType:"JSON",
         success:function(result){
-            $('#komposisi-total').html('Rp.'+sepNumPas(result.total));
+            // $('#komposisi-total').html('Rp.'+sepNumPas(result.total));
             var $colors = result.colors;
             // Highcharts.addEvent(Highcharts.Chart.prototype, 'render', function colorPoints() {
             //     var series = this.series;
@@ -408,7 +415,7 @@ function getMsPengembanganKomposisi(periode=null){
                     type: 'pie'
                 },
                 title: {
-                    text: sepNumPas(result.total),
+                    text: 'Rp. '+sepNumPas(result.total),
                     align: 'center',
                     style: {
                         fontSize: '14px'
@@ -435,6 +442,7 @@ function getMsPengembanganKomposisi(periode=null){
                 colors: result.colors,
                 plotOptions: {
                     pie: {
+                        padding: 10,
                         allowPointSelect: true,
                         cursor: 'pointer',
                         innerSize: '75%',
@@ -442,11 +450,15 @@ function getMsPengembanganKomposisi(periode=null){
                         dataLabels: {
                             enabled: true,
                             useHTML: true,
+                            align: 'left',
                             formatter: function () {
+                                var name = this.point.name.split(" ");
                                 return $('<div/>').css({
                                     'border' : '0',// just white in my case
+                                    'max-width': '70px',
+                                    'overflow':'hidden',
                                     'color' : ($mode == "dark" ? "var(--text-color)" : "black")
-                                }).html(this.point.name+':<br/>'+sepNum(this.percentage)+'%')[0].outerHTML;
+                                }).addClass('fs-8').html(name[0]+' '+name[1]+'<br>'+name[2]+':<br/>'+sepNum(this.percentage)+'%')[0].outerHTML;
                             }
                         }
                     }

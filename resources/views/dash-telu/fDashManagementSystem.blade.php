@@ -57,6 +57,9 @@ $thnLalu = substr($tahunLalu,2,2)
     .trace {
         cursor:pointer;
     }
+    .dash-card{
+        height: 41.8px;
+    }
     </style>
 
 <div class="container-fluid mt-3">
@@ -69,71 +72,71 @@ $thnLalu = substr($tahunLalu,2,2)
     </div>
     <div class="row" >
         <div class="col-lg-4 col-12 mb-4">
-            <div class="card dash-card">
+            <div class="card dash-card card-labarugi">
                 <div class="card-header">
                     <h6 class="card-title mb-0">Laba Rugi</h6>
                 </div>
                 <div class="card-body">
-                    <table class="table table-borderless table-profit">
+                    <table class="table table-borderless table-profit" >
                     </table>
                 </div>
             </div>
         </div>
         <div class="col-lg-4 col-12 mb-4">
-            <div class="card dash-card">
+            <div class="card dash-card card-neraca">
                 <div class="card-header">
                     <h6 class="card-title mb-0">Posisi Neraca</h6>
                 </div>
                 <div class="card-body">
-                    <table class="table table-borderless table-fx">
+                    <table class="table table-borderless table-fx" >
                         
                     </table>
                 </div>
             </div>
         </div>
         <div class="col-lg-4 col-12 mb-4">
-            <div class="card dash-card">
+            <div class="card dash-card card-beban">
                 <div class="card-header">
                     <h6 class="card-title mb-0">Penyerapan Beban</h6>
                 </div>
                 <div class="card-body">
-                    <table class="table table-borderless table-penyerapan">
+                    <table class="table table-borderless table-penyerapan" >
                         
                     </table>
                 </div>
             </div>
         </div>
         <div class="col-lg-4 col-12 mb-4">
-            <div class="card dash-card">
+            <div class="card dash-card card-piutang">
                 <div class="card-header">
                     <h6 class="card-title mb-0">Piutang</h6>
                 </div>
                 <div class="card-body">
-                    <table class="table table-borderless table-debt">
+                    <table class="table table-borderless table-debt" >
                         
                     </table>
                 </div>
             </div>
         </div>
         <div class="col-lg-4 col-12 mb-4">
-            <div class="card dash-card">
+            <div class="card dash-card card-keuangan">
                 <div class="card-header">
                     <h6 class="card-title mb-0">Keuangan</h6>
                 </div>
                 <div class="card-body">
-                    <table class="table table-borderless table-kelola">
+                    <table class="table table-borderless table-kelola" >
                         
                     </table>
                 </div>
             </div>
         </div>
         <div class="col-lg-4 col-12 mb-4">
-            <div class="card dash-card">
+            <div class="card dash-card card-daftar">
                 <div class="card-header">
                     <h6 class="card-title mb-0">Pendaftaran Maba</h6>
                 </div>
                 <div class="card-body">
-                    <table class="table table-borderless table-pin">
+                    <table class="table table-borderless table-pin" >
                         
                     </table>
                 </div>
@@ -323,6 +326,12 @@ function getProfitLoss(periode=null)
                 }
             }
             $('.table-profit').html(html);
+            $('.card-labarugi').animate({
+                height: "200px"
+                }, {
+                queue: false,
+                duration: 1000
+            })
 
         },
         error: function(jqXHR, textStatus, errorThrown) {       
@@ -364,6 +373,12 @@ function getFxPosition(periode=null)
                 }
             }
             $('.table-fx').html(html);
+            $('.card-neraca').animate({
+                height: "200px"
+                }, {
+                queue: false,
+                duration: 1000
+            })
             
         },
         error: function(jqXHR, textStatus, errorThrown) {       
@@ -405,6 +420,12 @@ function getPenyerapan(periode=null)
                 }
             }
             $('.table-penyerapan').html(html);
+            $('.card-beban').animate({
+                height: "200px"
+                }, {
+                queue: false,
+                duration: 1000
+            })
             
         },
         error: function(jqXHR, textStatus, errorThrown) {       
@@ -446,6 +467,12 @@ function getDebt(periode=null)
                 }
             }
             $('.table-debt').html(html);
+            $('.card-piutang').animate({
+                height: "200px"
+                }, {
+                queue: false,
+                duration: 1000
+            })
 
         },
         error: function(jqXHR, textStatus, errorThrown) {       
@@ -486,6 +513,12 @@ function getKelola(periode=null)
                 }
             }
             $('.table-kelola').html(html);
+            $('.card-keuangan').animate({
+                height: "200px"
+                }, {
+                queue: false,
+                duration: 1000
+            })
 
         },
         error: function(jqXHR, textStatus, errorThrown) {       
@@ -525,7 +558,13 @@ function getPin(periode=null)
                 }
             }
             $('.table-pin').html(html);
-
+            
+            $('.card-daftar').animate({
+                height: "200px"
+                }, {
+                queue: false,
+                duration: 1000
+            })
         },
         error: function(jqXHR, textStatus, errorThrown) {       
             if(jqXHR.status == 422){

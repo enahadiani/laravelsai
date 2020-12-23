@@ -405,8 +405,9 @@ function getPendapatan(periode=null){
                                 return $('<div/>').css({
                                     'color' : 'white', // work
                                     'padding': '0 5px',
+                                    'fontSize': '10px',
                                     'backgroundColor' : this.point.color  // just white in my case
-                                }).text(sepNum(this.y))[0].outerHTML;
+                                }).text(sepNum(this.y)+'M')[0].outerHTML;
                             }
                         }
                     },
@@ -419,6 +420,7 @@ function getPendapatan(periode=null){
                                 return $('<div/>').css({
                                     'color' : 'white', // work
                                     'padding': '0 5px',
+                                    'fontSize': '10px',
                                     'backgroundColor' : this.point.color  // just white in my case
                                 }).text(sepNum(this.y)+'%')[0].outerHTML;
                             }
@@ -557,7 +559,7 @@ function getPendapatanTF(periode=null){
                 },
                 tooltip: {
                     formatter: function () {
-                        return this.series.name+':<b>'+sepNumPas(this.y)+' </b>';
+                        return this.series.name+':<b>'+sepNumPas(this.y)+'</b>';
                     }
                 },
                 yAxis: [{
@@ -593,7 +595,7 @@ function getPendapatanTF(periode=null){
                                     'padding': '0 2px',
                                     'font-size':'8px',
                                     'backgroundColor' : this.point.color  // just white in my case
-                                }).text(sepNum(this.y))[0].outerHTML;
+                                }).text(sepNum(this.y)+'M')[0].outerHTML;
                             }
                         }
                     },
@@ -781,7 +783,7 @@ function getPendapatanNTF(periode=null){
                                     'font-size':'8px',
                                     
                                     'backgroundColor' : this.point.color  // just white in my case
-                                }).text(sepNum(this.y))[0].outerHTML;
+                                }).text(sepNum(this.y)+'M')[0].outerHTML;
                             }
                         }
                     },
@@ -939,7 +941,7 @@ function getKomposisi(periode=null){
                                     'font-size':'8px',
                                     
                                     'backgroundColor' : this.point.color  // just white in my case
-                                }).text(sepNum(this.percentage))[0].outerHTML;
+                                }).text(sepNum(this.percentage)+'%')[0].outerHTML;
                             }
                         }
                     },
@@ -1101,7 +1103,7 @@ function getPendapatanGrowth(periode=null){
                                     'padding': '0 2px',
                                     'font-size':'8px',
                                     'backgroundColor' : this.point.color  // just white in my case
-                                }).text(sepNum(this.y))[0].outerHTML;
+                                }).text(sepNum(this.y)+'M')[0].outerHTML;
                             }
                         }
                     },

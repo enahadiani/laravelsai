@@ -369,7 +369,7 @@ function getLabaRugi(periode=null){
                                     'color' : 'white', // work
                                     'padding': '0 3px',
                                     'backgroundColor' : this.series.color  // just white in my case
-                                }).text(sepNum(this.y))[0].outerHTML;
+                                }).text(sepNum(this.y)+'M')[0].outerHTML;
                             }
                         }
                     },
@@ -379,11 +379,20 @@ function getLabaRugi(periode=null){
                             x:20,
                             useHTML: true,
                             formatter: function () {
-                                return $('<div/>').css({
-                                    'color' : 'white', // work
-                                    'padding': '0 5px',
-                                    'backgroundColor' : this.series.color  // just white in my case
-                                }).text(sepNum(this.y)+'%')[0].outerHTML;
+                                if(this.series.name == 'OR'){
+                                    return $('<div/>').css({
+                                        'color' : 'white', // work
+                                        'padding': '0 5px',
+                                        'backgroundColor' : this.series.color  // just white in my case
+                                    }).text(sepNum(this.y)+'%')[0].outerHTML;
+                                }else{
+
+                                    return $('<div/>').css({
+                                        'color' : 'white', // work
+                                        'padding': '0 5px',
+                                        'backgroundColor' : this.series.color  // just white in my case
+                                    }).text(sepNum(this.y)+'M')[0].outerHTML;
+                                }
                             }
                         }
                         // enableMouseTracking: false

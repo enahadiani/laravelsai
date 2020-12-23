@@ -27,6 +27,10 @@ $thnLalu = substr($tahunLalu,2,2)
         border:none;
     }
 
+    .highcharts-point {
+        stroke-width: 2px !important;
+    }
+
     .nav-tabs .nav-link{
         border: 1px solid #ad1d3e;
         border-radius: 20px;
@@ -72,7 +76,8 @@ $thnLalu = substr($tahunLalu,2,2)
         <div class="col-lg-5 col-12 mb-4">
             <div class="card dash-card">
                 <div class="card-header">
-                    <h6 class="card-title mb-0">Pencapaian Pendapatan Terhadap RKA Bulan Berjalan</h6>
+                    <h6 class="card-title mb-0" style="position:absolute">Pencapaian Pendapatan Terhadap RKA Bulan Berjalan</h6>
+                    <button id="fullsc-capai" class="btn float-right px-0 py-0 text-light" title="Full Screen"><i class="simple-icon-size-fullscreen"></i></button>
                 </div>
                 <div class="card-body">
                     <div id="capai-rka" style="height:300px"></div>
@@ -82,7 +87,8 @@ $thnLalu = substr($tahunLalu,2,2)
         <div class="col-lg-7 col-12 mb-4">
             <div class="card dash-card">
                 <div class="card-header">
-                    <h6 class="card-title mb-0">Capaian Kelompok Pdpt Non Pdkk</h6>
+                    <h6 class="card-title mb-0" style="position:absolute">Capaian Kelompok Pdpt Non Pdkk</h6>
+                    <button id="fullsc-capai-klp" class="btn float-right px-0 py-0 text-light" title="Full Screen"><i class="simple-icon-size-fullscreen"></i></button>
                 </div>
                 <div class="card-body">
                     <div id="capai-klp"  style="height:300px"></div>
@@ -114,6 +120,38 @@ $thnLalu = substr($tahunLalu,2,2)
                         <button type="submit" class="btn btn-primary">Tampilkan</button>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="preview-capai" tabindex="-1" role="dialog"
+    aria-labelledby="preview-capai" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header pb-0" style="border:none">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                         <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="border:none">
+                    <div id="capai-rka2"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="preview-capaiklp" tabindex="-1" role="dialog"
+    aria-labelledby="preview-capaiklp" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header pb-0" style="border:none">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                         <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="border:none">
+                    <div id="capai-klp2"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -236,7 +274,7 @@ function getPeriode(){
 
 getPeriode();
 
-function getMsPendRKA(periode=null){
+function getMsPendRKA(periode=null, id){
     $.ajax({
         type:"GET",
         url:"{{ url('/telu-dash/ms-pend-capai') }}",
@@ -279,7 +317,7 @@ function getMsPendRKA(periode=null){
                     return ['M', x, y + h / 2, 'L', x + w, y + h / 2];
                 };
                 
-            Highcharts.chart('capai-rka', {
+            var chart = Highcharts.chart(id, {
                 chart: {
                     type: 'column'
                 },
@@ -321,7 +359,7 @@ function getMsPendRKA(periode=null){
                                         'padding': '0 3px',
                                         'font-size': '10px',
                                         'backgroundColor' : this.point.color  // just white in my case
-                                    }).text(sepNum(this.point.nlabel))[0].outerHTML;
+                                    }).text(sepNum(this.point.nlabel)+'M')[0].outerHTML;
                                 }
                                 // if(this.name)
                             }
@@ -345,7 +383,7 @@ function getMsPendRKA(periode=null){
                                         'padding': '0 3px',
                                         'font-size': '10px',
                                         'backgroundColor' : this.point.color  // just white in my case
-                                    }).text(sepNum(this.point.nlabel))[0].outerHTML;
+                                    }).text(sepNum(this.point.nlabel)+'M')[0].outerHTML;
                                 }
                             }
                         }
@@ -393,6 +431,10 @@ function getMsPendRKA(periode=null){
                 }]
             });
 
+            // document.getElementById('fullsc-capai').addEventListener('click', function () {
+            //     chart.fullscreen.toggle();
+            // });
+
         },
         error: function(jqXHR, textStatus, errorThrown) {       
             if(jqXHR.status == 422){
@@ -410,7 +452,7 @@ function getMsPendRKA(periode=null){
     })
 }
 
-function getMsPendKlp(periode=null){
+function getMsPendKlp(periode=null,id){
     $.ajax({
         type:"GET",
         url:"{{ url('/telu-dash/ms-pend-capai-klp') }}",
@@ -422,7 +464,7 @@ function getMsPendKlp(periode=null){
                     return ['M', x, y + h / 2, 'L', x + w, y + h / 2];
                 };
                 
-            Highcharts.chart('capai-klp', {
+            var chart2= Highcharts.chart(id, {
                 chart: {
                     type: 'column'
                 },
@@ -464,7 +506,7 @@ function getMsPendKlp(periode=null){
                                         'padding': '0 3px',
                                         'font-size': '10px',
                                         'backgroundColor' : this.point.color  // just white in my case
-                                    }).text(sepNum(this.point.nlabel))[0].outerHTML;
+                                    }).text(sepNum(this.point.nlabel)+'M')[0].outerHTML;
                                 }
                                 // if(this.name)
                             }
@@ -488,7 +530,7 @@ function getMsPendKlp(periode=null){
                                         'padding': '0 3px',
                                         'font-size': '10px',
                                         'backgroundColor' : this.point.color  // just white in my case
-                                    }).text(sepNum(this.point.nlabel))[0].outerHTML;
+                                    }).text(sepNum(this.point.nlabel)+'M')[0].outerHTML;
                                 }
                             }
                         }
@@ -536,6 +578,10 @@ function getMsPendKlp(periode=null){
                 }]
             });
 
+            // document.getElementById('fullsc-capai-klp').addEventListener('click', function () {
+            //     chart2.fullscreen.toggle();
+            // });
+
         },
         error: function(jqXHR, textStatus, errorThrown) {       
             if(jqXHR.status == 422){
@@ -553,14 +599,14 @@ function getMsPendKlp(periode=null){
     })
 }
 
-getMsPendRKA("{{$periode}}");
-getMsPendKlp("{{$periode}}");
+getMsPendRKA("{{$periode}}","capai-rka");
+getMsPendKlp("{{$periode}}","capai-klp");
 
 $('#form-filter').submit(function(e){
     e.preventDefault();
     var periode = $('#periode')[0].selectize.getValue();
-    getMsPendRKA("{{$periode}}");
-    getMsPendKlp("{{$periode}}");
+    getMsPendRKA("{{$periode}}","capai-rka");
+    getMsPendKlp("{{$periode}}","capai-klp");
     var tahun = parseInt(periode.substr(0,4));
     var tahunLalu = tahun-1;
     $('.thnLalu').text(tahunLalu);
@@ -597,6 +643,20 @@ $('#btnBack').click(function(e){
     e.preventDefault();
     var url = "{{ url('/dash-telu/form/fDashManagementSystem') }}";
     loadForm(url);
+});
+
+$('#fullsc-capai').click(function(e){
+    e.preventDefault();
+    var periode = $('#periode')[0].selectize.getValue();
+    $('#preview-capai').modal('show');
+    getMsPendRKA(periode,"capai-rka2");
+});
+
+$('#fullsc-capai-klp').click(function(e){
+    e.preventDefault();
+    var periode = $('#periode')[0].selectize.getValue();
+    $('#preview-capaiklp').modal('show');
+    getMsPendKlp(periode,"capai-klp2");
 });
 
 </script>
