@@ -6,7 +6,7 @@
             <div class="col-sm-12">
                 <div class="card" style=''>
                     <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;">
-                        <h6 id="judul-form" style="position:absolute;top:25px">Upload Dash Top Six</h6>
+                        <h6 id="judul-form" style="position:absolute;top:25px">Upload Dash Pembinaan Kesehatan</h6>
                         <button type="submit" class="btn btn-primary ml-2"  style="float:right;" id="btn-save" ><i class="fa fa-save"></i> Simpan</button>
                         <!-- <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Keluar</button> -->
                     </div>
@@ -33,7 +33,7 @@
                         <div class="card mt-3" style='border-top-left-radius:0;border-top-right-radius:0'>
                             <div class="card-body">
                                 <ul class="nav nav-tabs col-12 " role="tablist">
-                                <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-agg" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Top Six</span></a> </li>
+                                <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-agg" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Pembinaan Kesehatan</span></a> </li>
                                 </ul>
                                 <div class="tab-content tabcontent-border col-12 p-0">
                                     <div class="tab-pane active" id="data-agg" role="tabpanel">
@@ -53,6 +53,7 @@
                                             <table id="table-upload" style="width:100%;">
                                             <thead style="background:#F8F8F8">
                                                 <tr>
+                                                    <th>No Urut</th>
                                                     <th>Uraian</th>
                                                     <th>Satuan</th>
                                                     <th>RKA</th>
@@ -155,22 +156,24 @@
     var dataTable = generateTableWithoutAjax(
         "table-upload",
         [
-            {   'targets': [2], 
-                'className': 'text-right',
-                'render': $.fn.dataTable.render.number( '.', ',', 0, '' ) 
-            },
-            {   'targets': [3], 
+            {   'targets': [2,3], 
                 'className': 'text-right',
                 'render': $.fn.dataTable.render.number( '.', ',', 2, '' ) 
+            },
+            {   'targets': [0],  
+                "visible": false,
+                "searchable": false
             }
         ],
         [
-            { data: 'jenis'},
-            { data: 'nama'},
-            { data: 'penderita'},
-            { data: 'biaya'}
+            { data: 'no_urut'},
+            { data: 'uraian'},
+            { data: 'satuan'},
+            { data: 'rka'},
+            { data: 'real'},
         ],
-        []
+        [],
+        [[0, "asc"]]
     );
     $.fn.DataTable.ext.pager.numbers_length = 5;
 
@@ -203,9 +206,9 @@
             var id = $('#no_bukti').val();
             // $iconLoad.show();
             if(param == "edit"){
-                var url = "{{ url('yakes-trans/dashTopSix') }}";
+                var url = "{{ url('yakes-trans/dashBinaSehat') }}";
             }else{
-                var url = "{{ url('yakes-trans/dashTopSix') }}";
+                var url = "{{ url('yakes-trans/dashBinaSehat') }}";
             }
             for(var pair of formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
@@ -355,7 +358,7 @@
                     return xhr;
                 },
                 type: 'POST',
-                url: "{{ url('yakes-trans/dashTopSix-import') }}",
+                url: "{{ url('yakes-trans/dashBinaSehat-import') }}",
                 dataType: 'json',
                 data: formData,
                 // async:false,
@@ -382,7 +385,7 @@
                             var periode = $('#periode')[0].selectize.getValue();
                             var nik_user = "{{ Session::get('nikUser') }}";
 
-                            var link = "{{ config('api.url').'yakes-trans/dashTopSix-export' }}?nik_user="+nik_user+"&periode="+periode+"&type=non";
+                            var link = "{{ config('api.url').'yakes-trans/dashBinaSehat-export' }}?nik_user="+nik_user+"&periode="+periode+"&type=non";
 
                             $('.pesan-upload-judul').html('Gagal upload!');
                             $('.pesan-upload-judul').removeClass('text-success');
@@ -444,7 +447,7 @@
     $('#process-upload').click(function(e){
         $.ajax({
             type: 'GET',
-            url: "{{ url('yakes-trans/dashTopSix-tmp') }}",
+            url: "{{ url('yakes-trans/dashBinaSehat-tmp') }}",
             dataType: 'json',
             data:{'periode':$('#periode')[0].selectize.getValue()},
             async:false,
@@ -490,7 +493,7 @@
     $('#download-template').click(function(){
         var periode = $('#periode')[0].selectize.getValue();
         var nik_user = "{{ Session::get('nikUser') }}";
-        var link = "{{ config('api.url').'yakes-trans/dashTopSix-export' }}?nik_user="+nik_user+"&periode="+periode+"&type=template";
+        var link = "{{ config('api.url').'yakes-trans/dashBinaSehat-export' }}?nik_user="+nik_user+"&periode="+periode+"&type=template";
         window.open(link, '_blank'); 
     });
 

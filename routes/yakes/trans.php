@@ -42,3 +42,7 @@ Route::post('dashSDMCulture', 'Yakes\SDMCultureController@store');
 Route::post('dashKontrakManage-import', 'Yakes\KontrakManagemenController@importExcel');
 Route::get('dashKontrakManage-tmp', 'Yakes\KontrakManagemenController@getKontrakManagemenTmp');
 Route::post('dashKontrakManage', 'Yakes\KontrakManagemenController@store');
+
+Route::post('dashBinaSehat-import', 'Yakes\BinaSehatController@importExcel');
+Route::get('dashBinaSehat-tmp', 'Yakes\BinaSehatController@getBinaSehatTmp');
+Route::post('dashBinaSehat', 'Yakes\BinaSehatController@store');
