@@ -345,6 +345,7 @@
 <script type="text/javascript">
     var regional = "NASIONAL";
     var dashboard = "";
+    var colors = ['#BFBFBF', '#9EEADC', '#288372'];
     var keterangan = "Tahun {{ substr(Session::get('periode'), 0, 4) }} <strong>regional</strong> "+regional;
     var tahun = "{{ substr(Session::get('periode'), 0, 4) }}";
     var pembagi = 1000000;
@@ -480,11 +481,11 @@
                             parseFloat((parseFloat(data[i].des)/pembagi).toFixed(3)),
                         ],
                         stack: 'invest',
-                        color: data[i].warna 
+                        color: colors[i] 
                     })
                     html += "<tr>";
                     html += "<td style='position: relative;'>";
-                    html += "<div style='height: 15px; width:25px; background-color:"+data[i].warna+";display:inline-block;margin-left:3px;margin-top:1px;'></div>";
+                    html += "<div style='height: 15px; width:25px; background-color:"+colors[i]+";display:inline-block;margin-left:3px;margin-top:1px;'></div>";
                     html += "&nbsp"+data[i].nama
                     html += "</td>";
                     html += "<td style='text-align: right;'>";
