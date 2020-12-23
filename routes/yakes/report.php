@@ -52,7 +52,7 @@ Route::post('lap-aset-neto', 'Yakes\LaporanController@getAsetNeto');
 Route::post('lap-arus-kas', 'Yakes\LaporanController@getArusKas');
 Route::post('lap-premi-bpjs', 'Yakes\LaporanController@getPremiKapitasi');
 Route::post('lap-claim-bpjs', 'Yakes\LaporanController@getClaimBPJS');
-Route::post('lap-utilisasi-bpjs', 'Yakes\LaporanController@getNeracaJamkespen');
+Route::post('lap-utilisasi-bpjs', 'Yakes\LaporanController@getUtilisasiBPJS');
 Route::post('lap-rekap-real', 'Yakes\LaporanController@getNeracaJamkespen');
 Route::post('lap-rekap-real-grid', 'Yakes\LaporanController@getNeracaJamkespen');
 Route::post('lap-real-beban', 'Yakes\LaporanController@getNeracaJamkespen');
