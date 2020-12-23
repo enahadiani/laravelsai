@@ -174,7 +174,7 @@
                             <td class='text-right'>`+sepNumPas(line2.rea_before)+`</td>
                             <td class='text-right'>`+sepNum2(line2.persen_rka)+`</td>
                             <td class='text-right'>`+sepNum2(line2.persen_now)+`</td>
-                            <td class='text-right'></td>
+                            <td class='text-right'>`+sepNum2(line2.yoy)+`</td>
                         </tr>`;
 
                     }else{
@@ -188,7 +188,7 @@
                             <td class='text-right'>`+sepNumPas(line2.rea_before)+`</td>
                             <td class='text-right'>`+sepNum2(line2.persen_rka)+`</td>
                             <td class='text-right'>`+sepNum2(line2.persen_now)+`</td>
-                            <td class='text-right'></td>
+                            <td class='text-right'>`+sepNum2(line2.yoy)+`</td>
                         </tr>
                         `;
                         reg_rkatahun +=parseFloat(line2.rka_tahun); 
@@ -201,7 +201,14 @@
                     nas_reanow +=parseFloat(line2.rea_now); 
                     nas_reabefore +=parseFloat(line2.rea_before); 
                 }
+                var reg_persenrka = (reg_reanow/reg_rkatahun)*100;
+                var reg_persennow = (reg_reanow/reg_rkanow)*100;
+                var reg_yoy = ((reg_reanow-reg_reabefore)/reg_reabefore)*100;
 
+                
+                var nas_persenrka = (nas_reanow/nas_rkatahun)*100;
+                var nas_persennow = (nas_reanow/nas_rkanow)*100;
+                var nas_yoy = ((nas_reanow-nas_reabefore)/nas_reabefore)*100;
                 html+=det+`
                 <tr>
                     <td class='bg-greenold'>REG</td>
@@ -209,9 +216,9 @@
                     <td class='text-right bg-greenold'>`+sepNumPas(reg_rkanow)+`</td>
                     <td class='text-right bg-greenold'>`+sepNumPas(reg_reanow)+`</td>
                     <td class='text-right bg-greenold'>`+sepNumPas(reg_reabefore)+`</td>
-                    <td class='text-right bg-greenold'></td>
-                    <td class='text-right bg-greenold'></td>
-                    <td class='text-right bg-greenold'></td>
+                    <td class='text-right bg-greenold'>`+sepNum2(reg_persenrka)+`</td>
+                    <td class='text-right bg-greenold'>`+sepNum2(reg_persennow)+`</td>
+                    <td class='text-right bg-greenold'>`+sepNum2(reg_yoy)+`</td>
                 </tr>`+pusat+`
                 <tr>
                     <td class='bg-greenold'>NAS</td>
@@ -219,9 +226,9 @@
                     <td class='text-right bg-greenold'>`+sepNumPas(nas_rkanow)+`</td>
                     <td class='text-right bg-greenold'>`+sepNumPas(nas_reanow)+`</td>
                     <td class='text-right bg-greenold'>`+sepNumPas(nas_reabefore)+`</td>
-                    <td class='text-right bg-greenold'></td>
-                    <td class='text-right bg-greenold'></td>
-                    <td class='text-right bg-greenold'></td>
+                    <td class='text-right bg-greenold'>`+sepNum2(nas_persenrka)+`</td>
+                    <td class='text-right bg-greenold'>`+sepNum2(nas_persennow)+`</td>
+                    <td class='text-right bg-greenold'>`+sepNum2(nas_yoy)+`</td>
                 </tr>
                 </table>`;
             }
