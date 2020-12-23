@@ -54,10 +54,14 @@
                                             <thead style="background:#F8F8F8">
                                                 <tr>
                                                     <th>No Urut</th>
+                                                    <th>No</th>
                                                     <th>Uraian</th>
                                                     <th>Satuan</th>
                                                     <th>RKA</th>
                                                     <th>Real</th>
+                                                    <th>Real Before</th>
+                                                    <th>Ach</th>
+                                                    <th>YoY</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -156,7 +160,7 @@
     var dataTable = generateTableWithoutAjax(
         "table-upload",
         [
-            {   'targets': [2,3], 
+            {   'targets': [3,4,5,6,7], 
                 'className': 'text-right',
                 'render': $.fn.dataTable.render.number( '.', ',', 2, '' ) 
             },
@@ -167,10 +171,14 @@
         ],
         [
             { data: 'no_urut'},
+            { data: 'no'},
             { data: 'uraian'},
             { data: 'satuan'},
             { data: 'rka'},
             { data: 'real'},
+            { data: 'real_before'},
+            { data: 'ach'},
+            { data: 'yoy'},
         ],
         [],
         [[0, "asc"]]
