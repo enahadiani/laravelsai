@@ -1218,7 +1218,6 @@
                     htmlHeader += "<th>"+headerBPJS[i]+"</th>"   
                 }
                 htmlHeader += "</tr>";
-                console.log(dataBPJS)
                 for(var i=0;i<dataBPJS.length;i++) {
                     htmlBody += "<tr>";
                     htmlBody += "<td style='position: relative;'>";
