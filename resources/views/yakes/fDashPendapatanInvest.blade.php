@@ -345,7 +345,7 @@
 <script type="text/javascript">
     var regional = "NASIONAL";
     var dashboard = "";
-    var colors = ['#BFBFBF', '#9EEADC', '#288372'];
+    var colors = ['#288372', '#37AA94', '#47D7BD'];
     var keterangan = "Tahun {{ substr(Session::get('periode'), 0, 4) }} <strong>regional</strong> "+regional;
     var tahun = "{{ substr(Session::get('periode'), 0, 4) }}";
     var pembagi = 1000000;
