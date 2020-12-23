@@ -13,6 +13,7 @@
                                     <div id="inputFilter">
                                         <!-- COMPONENT -->
                                         <x-inp-filter kode="periode" nama="Periode" selected="3" :option="array('3')"/>
+                                        <x-inp-filter kode="kode_klpakun" nama="Kelompok Akun" selected="1" :option="array('1','2','3','i')"/>
                                         <!-- END COMPONENT -->
                                     </div>
                                     <button id="btn-tampil" style="float:right;width:110px" class="btn btn-primary ml-2 mb-3" type="submit" >Tampilkan</button>
@@ -49,6 +50,15 @@
             to : "",
             toname : "",
         }
+
+        var $kode_klpakun = {
+            type : "all",
+            from : "",
+            fromname : "",
+            to : "",
+            toname : "",
+        }
+
 
         var $aktif = "";
 
@@ -105,22 +115,26 @@
         $('.selectize').selectize();
 
         $('#inputFilter').reportFilter({
-            kode : ['periode'],
-            nama : ['Periode'],
-            header : [['Periode', 'Nama']],
-            headerpilih : [['Periode', 'Nama','Action']],
+            kode : ['periode','kode_klpakun'],
+            nama : ['Periode','Kelompok Akun'],
+            header : [['Periode', 'Nama'], ['Kode', 'Nama']],
+            headerpilih : [['Periode', 'Nama','Action'], ['Kode', 'Nama','Action']],
             columns: [
                 [
                     { data: 'periode' },
                     { data: 'nama' }
+                ],
+                [
+                    { data: 'kode_klpakun' },
+                    { data: 'nama' }
                 ]
             ],
-            url :["{{ url('yakes-report/filter-periode-keu') }}"],
+            url :["{{ url('yakes-report/filter-periode-keu') }}","{{ url('yakes-report/filter-klp-akun') }}"],
             parameter:[],
-            orderby:[[[0,"desc"]]],
-            width:[['30%','70%']],
-            display:['name'],
-            pageLength:[12]
+            orderby:[[[0,"desc"]],[]],
+            width:[['30%','70%'],['30%','70%']],
+            display:['name','kode'],
+            pageLength:[12,10]
         });
 
         var $formData = "";
@@ -130,6 +144,9 @@
             $formData.append("periode[]",$periode.type);
             $formData.append("periode[]",$periode.from);
             $formData.append("periode[]",$periode.to);
+            $formData.append("kode_klpakun[]",$kode_klpakun.type);
+            $formData.append("kode_klpakun[]",$kode_klpakun.from);
+            $formData.append("kode_klpakun[]",$kode_klpakun.to);
             for(var pair of $formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
@@ -143,6 +160,9 @@
             $formData.append("periode[]",$periode.type);
             $formData.append("periode[]",$periode.from);
             $formData.append("periode[]",$periode.to);
+            $formData.append("kode_klpakun[]",$kode_klpakun.type);
+            $formData.append("kode_klpakun[]",$kode_klpakun.from);
+            $formData.append("kode_klpakun[]",$kode_klpakun.to);
             
             xurl = "{{ url('yakes-auth/form/rptRealBeban') }}";
             $('#saku-report #canvasPreview').load(xurl);
@@ -374,7 +394,7 @@
 
         $("#sai-rpt-pdf").click(function(e) {
             e.preventDefault();
-            var link = "{{ url('yakes-report/lap-neraca-pdf') }}?periode[]="+$periode.type+"&periode[]="+$periode.from+"&periode[]="+$periode.to+"&kode_fs[]="+$kode_fs.type+"&kode_fs[]="+$kode_fs.from+"&kode_fs[]="+$kode_fs.to+"&level[]="+$level.type+"&level[]="+$level.from+"&level[]="+$level.to+"&format[]="+$format.type+"&format[]="+$format.from+"&format[]="+$format.to;
+            var link = "{{ url('yakes-report/lap-real-beban-pdf') }}?periode[]="+$periode.type+"&periode[]="+$periode.from+"&periode[]="+$periode.to+"&kode_klpakun[]="+$kode_klpakun.type+"&kode_klpakun[]="+$kode_klpakun.from+"&kode_klpakun[]="+$kode_klpakun.to;
             window.open(link, '_blank'); 
         });
         
@@ -390,6 +410,9 @@
             $formData.append("periode[]",$periode.type);
             $formData.append("periode[]",$periode.from);
             $formData.append("periode[]",$periode.to);
+            $formData.append("kode_klpakun[]",$kode_klpakun.type);
+            $formData.append("kode_klpakun[]",$kode_klpakun.from);
+            $formData.append("kode_klpakun[]",$kode_klpakun.to);
     
             for(var pair of formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 

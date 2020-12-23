@@ -67,6 +67,8 @@
             .report-table td, .report-table th{
                 border-color: black !important; 
                 vertical-align: middle;
+                padding-top: 4px !important;
+                padding-bottom: 4px !important;
             }  
             .bg-greenold {
                 background: #288372;

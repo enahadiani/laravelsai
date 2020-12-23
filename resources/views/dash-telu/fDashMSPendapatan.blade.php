@@ -61,6 +61,20 @@ $thnLalu = substr($tahunLalu,2,2)
     .trace {
         cursor:pointer;
     }
+    .preview-close
+    {
+        line-height:1.5;padding: 0;background: none;appearance: unset;opacity: unset;right: -40px;position: relative;top: -40px;
+    }
+    .preview-close > span 
+    {
+        border-radius: 50%;padding: 0 0.45rem 0.1rem 0.45rem;background: white;color: black;font-size: 1.2rem !important;font-weight: lighter;box-shadow:0px 1px 5px 1px #80808054
+    }
+
+    .preview-close > span:hover
+    {
+        color:white;
+        background:red;
+    }
     </style>
 
 <div class="container-fluid mt-3">
@@ -126,10 +140,10 @@ $thnLalu = substr($tahunLalu,2,2)
 
     <div class="modal fade" id="preview-capai" tabindex="-1" role="dialog"
     aria-labelledby="preview-capai" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:1000px">
             <div class="modal-content">
                 <div class="modal-header pb-0" style="border:none">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close preview-close" data-dismiss="modal" aria-label="Close">
                          <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -142,10 +156,10 @@ $thnLalu = substr($tahunLalu,2,2)
 
     <div class="modal fade" id="preview-capaiklp" tabindex="-1" role="dialog"
     aria-labelledby="preview-capaiklp" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:1000px">
             <div class="modal-content">
                 <div class="modal-header pb-0" style="border:none">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close preview-close" data-dismiss="modal" aria-label="Close">
                          <span aria-hidden="true">&times;</span>
                     </button>
                 </div>

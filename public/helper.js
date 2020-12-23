@@ -80,7 +80,7 @@ function generateTable(id,url,columnDefs,columns,url_sesi,byOrder = []) {
     return dataTable;
 }
 
-function generateTableWithoutAjax(id,columnDefs,columns,data_def) {
+function generateTableWithoutAjax(id,columnDefs,columns,data_def,byOrder = []) {
     var dataTable = $("#"+id).DataTable({
         destroy: true,
         bLengthChange: false,
@@ -88,6 +88,7 @@ function generateTableWithoutAjax(id,columnDefs,columns,data_def) {
         data: data_def,
         columnDefs: columnDefs,
         columns: columns,
+        order:byOrder,
         drawCallback: function () {
             $($(".dataTables_wrapper .pagination li:first-of-type"))
                 .find("a")

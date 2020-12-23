@@ -61,12 +61,12 @@
                     background-color: #288372 !important;
                     border-color: white !important;
                     text-align: center;
-                    padding-top: 0 !important;
-                    padding-bottom: 0 !important;
+                    padding-top: 4px !important;
+                    padding-bottom: 4px !important;
                 }
                 .report-table td{
-                    padding-top: 0 !important;
-                    padding-bottom: 0 !important;
+                    padding-top: 4px !important;
+                    padding-bottom: 4px !important;
                 }
                 .box-aqua h3{
                     margin-bottom:0 !important;
@@ -98,40 +98,51 @@
             </div>`;
             html+=`
             <div class='row mt-4'>`;
-                for(var i=0; i < res.res.data3.length;i++){
-                    var line = res.res.data3[i];
+                var dt = res.res.data3.reverse();
+                for(var i=0; i < dt.length;i++){
+                    var line = dt[i];
+                    if(line.jenis == "PENSIUN"){
+                        var col = 'col-md-3';
+                    }else{
+                        
+                        var col = 'col-md-4';
+                    }
                     html+=`
                     <div class='col-md-6 col-12'>
-                        <p class='text-center mt-2'>`+line.jenis+`</p>
+                        <p class='text-center mt-2'>`+(line.jenis == 'PEGAWAI' ? 'KARYAWAN' : line.jenis)+`</p>
                         <div class='row'>
-                            <div class='col-md-3 text-center'>
+                            <div class='`+col+` text-center'>
                                 <div class='glyph'>
                                     <div class='glyph-icon iconsminds-business-man'></div>
                                     <div class='class-name'>`+sepNum(line.kk)+`</div>
                                     <span>KK</span>
                                 </div>
                             </div>
-                            <div class='col-md-3 text-center'>
+                            <div class='`+col+` text-center'>
                                 <div class='glyph'>
                                     <div class='glyph-icon iconsminds-male-female'></div>
                                     <div class='class-name'>`+sepNum(line.pas)+`</div>
                                     <span>Pasangan</span>
                                 </div>
                             </div>
-                            <div class='col-md-3 text-center'>
+                            <div class='`+col+` text-center'>
                                 <div class='glyph'>
                                     <div class='glyph-icon iconsminds-female'></div>
                                     <div class='class-name'>`+sepNum(line.anak)+`</div>
                                     <span>Anak</span>
                                 </div>
-                            </div>
-                            <div class='col-md-3 text-center'>
-                                <div class='glyph'>
-                                    <div class='glyph-icon iconsminds-male'></div>
-                                    <div class='class-name'>`+sepNum(line.jd)+`</div>
-                                    <span>JD/DD</span>
-                                </div>
-                            </div>
+                            </div>`;
+                            if(line.jenis == "PENSIUN"){
+
+                                html+=`<div class='`+col+` text-center'>
+                                    <div class='glyph'>
+                                        <div class='glyph-icon iconsminds-male'></div>
+                                        <div class='class-name'>`+sepNum(line.jd)+`</div>
+                                        <span>JD/DD</span>
+                                    </div>
+                                </div>`;
+                            }
+                            html+=`
                             <div class='col-md-12 mt-2'>
                                 <table class='report-table table-striped table-bordered' width='100%'>
                                     <tr>
