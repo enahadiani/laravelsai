@@ -53,10 +53,20 @@
                                             <table id="table-upload" style="width:100%;">
                                             <thead style="background:#F8F8F8">
                                                 <tr>
+                                                    <th>No Urut</th>
+                                                    <th>No</th>
                                                     <th>Pegawai/Pensiun</th>
                                                     <th>Penyakit</th>
-                                                    <th>Penderita</th>
-                                                    <th>Biaya</th>
+                                                    <th>Penderita Before</th>
+                                                    <th>Penderita Now</th>
+                                                    <th>Biaya Before</th>
+                                                    <th>Biaya Now</th>
+                                                    <th>YoY Penderita Before</th>
+                                                    <th>YoY Penderita Now</th>
+                                                    <th>YoY Biaya Before</th>
+                                                    <th>YoY Biaya Now</th>
+                                                    <th>Rata-Rata Before</th>
+                                                    <th>Rata-Rata Now</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -155,20 +165,34 @@
     var dataTable = generateTableWithoutAjax(
         "table-upload",
         [
-            {   'targets': [2], 
+            {   'targets': [3,4], 
                 'className': 'text-right',
                 'render': $.fn.dataTable.render.number( '.', ',', 0, '' ) 
             },
-            {   'targets': [3], 
+            {   'targets': [5,6,7,8,9,10,11,12], 
                 'className': 'text-right',
                 'render': $.fn.dataTable.render.number( '.', ',', 2, '' ) 
+            },
+            {   'targets': [0],  
+                "visible": false,
+                "searchable": false
             }
         ],
         [
+            { data: 'no_urut'},
+            { data: 'no'},
             { data: 'jenis'},
             { data: 'nama'},
-            { data: 'penderita'},
-            { data: 'biaya'}
+            { data: 'penderita_before'},
+            { data: 'penderita_now'},
+            { data: 'biaya_before'},
+            { data: 'biaya_now'},
+            { data: 'yoy_jiwa_before'},
+            { data: 'yoy_jiwa_now'},
+            { data: 'yoy_biaya_before'},
+            { data: 'yoy_biaya_now'},
+            { data: 'rata2_before'},
+            { data: 'rata2_now'},
         ],
         []
     );

@@ -61,6 +61,6 @@ Route::post('lap-claim-cost', 'Yakes\LaporanController@getClaimCost');
 
 Route::post('lap-kepesertaan', 'Yakes\LaporanController@getKepesertaan');
 Route::post('lap-bina-sehat', 'Yakes\LaporanController@getBinaSehat');
-Route::post('lap-top-six', 'Yakes\LaporanController@getNeracaJamkespen');
+Route::post('lap-top-six', 'Yakes\LaporanController@getTopSix');
 Route::post('lap-sdm-culture', 'Yakes\LaporanController@getNeracaJamkespen');
 Route::post('lap-kontrak-manajemen', 'Yakes\LaporanController@getNeracaJamkespen');
