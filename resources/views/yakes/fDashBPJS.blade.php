@@ -164,6 +164,18 @@
         position: relative;
         margin-top:170px;
     }
+    .highcharts-drilldown-data-label text{
+        text-decoration:none !important;
+    }
+    tspan {
+        fill: #000 !important;
+    }
+    .btn-back {
+        width: 95px;
+        position: absolute;
+        right: 0;
+        margin-right: 310px;
+    }
     @media only screen and (min-width: 1440px)  {
         .fixed-margin {
             position: relative;
@@ -194,6 +206,7 @@
             <p id="keterangan-filter"></p>
         </div>
         <div class="col-6">
+            <button class="btn btn-light btn-back" id="btn-kembali" onclick="getKapitasiBPJS()">Kembali</button>
             <button id="button-filter" class="btn btn-light btn-filter btn-filter-no-scroll">
                 <span>Filter</span>
                 <div class="filter-count">
@@ -217,28 +230,6 @@
                             
                         </thead>
                         <tbody id="data-table-bpjs">
-                            
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div id="chart-2" class="row" style="margin-top: 20px;">
-    <div class="col-12 mb-4">
-        <div class="card" style="height: 100%; border-radius:10px !important;">
-            <h6 class="ml-4 mt-3" style="font-weight: bold;text-align:center;" id="judul-chart-kapitasi">Kapitasi BPJS</h6>
-            <div class="row">
-                <div class="col-12">
-                    <div id="chart-kapitasi"></div>
-                </div>
-                <div class="col-12 ml-2 mr-4">
-                    <table style="width: 99%; margin-right: 10px;" id="table-bpjs">
-                        <thead id="header-table-kapitasi">
-                            
-                        </thead>
-                        <tbody id="data-table-kapitasi">
                             
                         </tbody>
                     </table>
@@ -391,10 +382,11 @@
     </div>
 </div>
 <script type="text/javascript">
-    $('#chart-2').hide();
+    $('#btn-kembali').hide();
     var regional = "NASIONAL";
     var pembagi = 1000000;
     var pembagi2 = 1000000000;
+    var pembagi3 = 1000;
     var dashBPJS = "UTL";
     var jenis = "TTL";
     var jenisToApi = "TOTAL";
@@ -416,7 +408,9 @@
     var chartBpjs = [];
     var categoriesChart = [];
     var chartKapitasi = [];
-
+    var drilldown = [];
+    // getKapitasiBPJS();
+    // generateCustomeDrilldownChart("01")
     if(dashBPJS == "UTL") {
         getUtilisasiBPJS();
         getPeriode();
@@ -509,19 +503,19 @@
         numMonth = parseInt(split[1]) - 1;
         namaMonth = bulan[numMonth];
         if(dashBPJS == "UTL") {
+            $('#btn-kembali').hide();
             keterangan = "Periode sampai dengan "+namaMonth+" "+tahun;
             $('#judul-chart').text("Utilisasi BPJS - "+jenisToApi.toUpperCase())
-            $('#chart-2').hide();
             getUtilisasiBPJS();
         } else if(dashBPJS == "CLM") {
+            $('#btn-kembali').hide();
             keterangan = "Periode sampai dengan "+namaMonth+" "+tahun;
             $('#judul-chart').text("Claim BPJS - "+jenisToApi.toUpperCase())
-            $('#chart-2').hide();
             getClaimBPJS();
         } else if(dashBPJS == "KPT") {
-            keterangan = "Tahun "+tahunKap;
+            $('#btn-kembali').hide();
+            keterangan = "Periode sampai dengan "+namaMonth+" "+tahun;
             $('#judul-chart').text("Kapitasi BPJS")
-            $('#chart-2').show();
             getKapitasiBPJS();
         }
         $('#keterangan-filter').text(keterangan);
@@ -569,10 +563,10 @@
             $('#select-periode').text(periode);
             $('#chart-2').hide();
         } else if(dashBPJS == "KPT") {
-            getTahun();
+            // getTahun();
             $('#jenis-bpjs').hide();
-            $('#periode').text('Tahun');
-            $('#select-periode').text(tahunKap);
+            // $('#periode').text('Tahun');
+            // $('#select-periode').text(tahunKap);
         }
     });
 
@@ -620,29 +614,59 @@
     }
 
     function getKapitasiBPJS() {
-        $('#chart-2').show();
+        $('#judul-chart').text("Kapitasi BPJS")
         headerBPJS = [];
         dataBPJS = [];
         chartBpjs =[];
         categoriesChart = [];
-        chartKapitasi = [];
         var dataKapitasi = [];
         var nilaiPegawai = [];
         var nilaiPensiun = [];
         var nilaiKaryawan = [];
         var nilaiNon = [];
         var nilaiPensiun2 = [];
+        var n1KapPeg=0;
+        var n2KapPeg=0;
+        var n3KapPeg=0;
+        var n4KapPeg=0;
+        var n5KapPeg=0;
+        var n6KapPeg=0;
+        var n7KapPeg=0;
+        var totalKapPeg=0;
+        var n1KapPen=0;
+        var n2KapPen=0;
+        var n3KapPen=0;
+        var n4KapPen=0;
+        var n5KapPen=0;
+        var n6KapPen=0;
+        var n7KapPen=0;
+        var totalKapPen=0;
+        var n1PesKar=0;
+        var n2PesKar=0;
+        var n3PesKar=0;
+        var n4PesKar=0;
+        var n5PesKar=0;
+        var n6PesKar=0;
+        var n7PesKar=0;
+        var totalPesKar=0;
+        var n1PesPen=0;
+        var n2PesPen=0;
+        var n3PesPen=0;
+        var n4PesPen=0;
+        var n5PesPen=0;
+        var n6PesPen=0;
+        var n7PesPen=0;
+        var totalPesPen=0; 
         $('#header-table-kapitasi').empty();
         $('#data-table-kapitasi').empty();
         $('#header-table-bpjs').empty();
         $('#data-table-bpjs').empty();
-        var colors = ['#BFBFBF', '#9EEADC', '#288372'];
-        headerBPJS.push('JAN', 'FEB', 'MAR', 'APR', 'MEI', 'JUN', 'JUL', 'AGT', 'SEP', 'OKT', 'NOV', 'DES')
-        categoriesChart.push('JAN', 'FEB', 'MAR', 'APR', 'MEI', 'JUN', 'JUL', 'AGT', 'SEP', 'OKT', 'NOV', 'DES')
+        var colors = ['#BFBFBF', '#9EEADC', '#288372', '#14213d'];
+        headerBPJS.push('REG 1', 'REG 2', 'REG 3', 'REG 4', 'REG 5', 'REG 6', 'REG 7', 'TOTAL')
+        categoriesChart.push('REG 1', 'REG 2', 'REG 3', 'REG 4', 'REG 5', 'REG 6', 'REG 7')
 
         var htmlHeader = "";
         var htmlBody = "";
-        var htmlBody2 = "";
         htmlHeader += "<tr>";
         htmlHeader += "<th style='width: 12%;'></th>";
         for(var i=0;i<headerBPJS.length;i++) {
@@ -652,80 +676,165 @@
 
         $.ajax({
             type:'GET',
-            url: "{{ url('yakes-dash/data-kapitasi') }}/"+tahunKap+"/"+regional,
+            url: "{{ url('yakes-dash/data-kapitasi') }}/"+periode+"/"+regional,
             dataType: 'JSON',
             async: false,
             success: function(result) {
-                $('#header-table-kapitasi').empty();
-                $('#data-table-kapitasi').empty();
+                $('#judul-chart').text("Kapitasi BPJS")
+                $('#btn-kembali').hide();
                 $('#header-table-bpjs').empty();
                 $('#data-table-bpjs').empty();
                 var data = result.daftar;
                 for(var i=0;i<data.length;i++) {
-                    nilaiPegawai.push(parseFloat((parseFloat(data[i].pegawai)/pembagi).toFixed(2)))
-                    nilaiPensiun.push(parseFloat((parseFloat(data[i].pensiun)/pembagi).toFixed(2)))
-                    nilaiKaryawan.push(parseFloat((parseFloat(data[i].n1)/pembagi).toFixed(2)))
-                    nilaiPensiun2.push(parseFloat((parseFloat(data[i].n2)/pembagi).toFixed(2)))
-                    nilaiNon.push(parseFloat((parseFloat(data[i].n3)/pembagi).toFixed(2)))
+                    if(data[i].tipe == "KAP") {
+                        if(data[i].jenis == "PEGAWAI") {
+                            n1KapPeg = parseFloat((parseFloat(data[i].kap1)/pembagi).toFixed(2))
+                            n2KapPeg = parseFloat((parseFloat(data[i].kap2)/pembagi).toFixed(2))
+                            n3KapPeg = parseFloat((parseFloat(data[i].kap3)/pembagi).toFixed(2))
+                            n4KapPeg = parseFloat((parseFloat(data[i].kap4)/pembagi).toFixed(2))
+                            n5KapPeg = parseFloat((parseFloat(data[i].kap5)/pembagi).toFixed(2))
+                            n6KapPeg = parseFloat((parseFloat(data[i].kap6)/pembagi).toFixed(2))
+                            n7KapPeg = parseFloat((parseFloat(data[i].kap7)/pembagi).toFixed(2))
+                            totalKapPeg = parseFloat((parseFloat(data[i].kap_total)/pembagi).toFixed(2))
+                        } else if(data[i].jenis == "PENSIUN") {
+                            n1KapPen = parseFloat((parseFloat(data[i].kap1)/pembagi).toFixed(2))
+                            n2KapPen = parseFloat((parseFloat(data[i].kap2)/pembagi).toFixed(2))
+                            n3KapPen = parseFloat((parseFloat(data[i].kap3)/pembagi).toFixed(2))
+                            n4KapPen = parseFloat((parseFloat(data[i].kap4)/pembagi).toFixed(2))
+                            n5KapPen = parseFloat((parseFloat(data[i].kap5)/pembagi).toFixed(2))
+                            n6KapPen = parseFloat((parseFloat(data[i].kap6)/pembagi).toFixed(2))
+                            n7KapPen = parseFloat((parseFloat(data[i].kap7)/pembagi).toFixed(2))
+                            totalKapPen = parseFloat((parseFloat(data[i].kap_total)/pembagi).toFixed(2))
+                        }
+                    } else if(data[i].tipe == "PESERTA") {
+                        if(data[i].jenis == "PEGAWAI") {
+                            n1PesKar = parseFloat((parseFloat(data[i].kap1)/pembagi3).toFixed(2))
+                            n2PesKar = parseFloat((parseFloat(data[i].kap2)/pembagi3).toFixed(2))
+                            n3PesKar = parseFloat((parseFloat(data[i].kap3)/pembagi3).toFixed(2))
+                            n4PesKar = parseFloat((parseFloat(data[i].kap4)/pembagi3).toFixed(2))
+                            n5PesKar = parseFloat((parseFloat(data[i].kap5)/pembagi3).toFixed(2))
+                            n6PesKar = parseFloat((parseFloat(data[i].kap6)/pembagi3).toFixed(2))
+                            n7PesKar = parseFloat((parseFloat(data[i].kap7)/pembagi3).toFixed(2))
+                            totalPesKar = parseFloat((parseFloat(data[i].kap_total)/pembagi3).toFixed(2))
+                        } else if(data[i].jenis == "PENSIUN") {
+                            n1PesPen = parseFloat((parseFloat(data[i].kap1)/pembagi3).toFixed(2))
+                            n2PesPen = parseFloat((parseFloat(data[i].kap2)/pembagi3).toFixed(2))
+                            n3PesPen = parseFloat((parseFloat(data[i].kap3)/pembagi3).toFixed(2))
+                            n4PesPen = parseFloat((parseFloat(data[i].kap4)/pembagi3).toFixed(2))
+                            n5PesPen = parseFloat((parseFloat(data[i].kap5)/pembagi3).toFixed(2))
+                            n6PesPen = parseFloat((parseFloat(data[i].kap6)/pembagi3).toFixed(2))
+                            n7PesPen = parseFloat((parseFloat(data[i].kap7)/pembagi3).toFixed(2))
+                            totalPesPen = parseFloat((parseFloat(data[i].kap_total)/pembagi3).toFixed(2))
+                        }
+                    }
                 }   
             }
         });
 
-        dataBPJS.push({nama:'Pegawai', n1:nilaiPegawai[0], n2:nilaiPegawai[1], n3:nilaiPegawai[2], n4:nilaiPegawai[3], n5:nilaiPegawai[4], n6:nilaiPegawai[5], n7:nilaiPegawai[6], n8:nilaiPegawai[7], n9:nilaiPegawai[8], n10:nilaiPegawai[9], n11:nilaiPegawai[10], n12:nilaiPegawai[11]})
-        dataBPJS.push({nama:'Pensiun', n1:nilaiPensiun[0], n2:nilaiPensiun[1], n3:nilaiPensiun[2], n4:nilaiPensiun[3], n5:nilaiPensiun[4], n6:nilaiPensiun[5], n7:nilaiPensiun[6], n8:nilaiPensiun[7], n9:nilaiPensiun[8], n10:nilaiPensiun[9], n11:nilaiPensiun[10], n12:nilaiPensiun[12]})
-        dataKapitasi.push({nama:'Karyawan', n1:nilaiKaryawan[0], n2:nilaiKaryawan[1], n3:nilaiKaryawan[2], n4:nilaiKaryawan[3], n5:nilaiKaryawan[4], n6:nilaiKaryawan[5], n7:nilaiKaryawan[6], n8:nilaiKaryawan[7], n9:nilaiKaryawan[8], n10:nilaiKaryawan[9], n11:nilaiKaryawan[10], n12:nilaiKaryawan[11]})
-        dataKapitasi.push({nama:'Pensiun', n1:nilaiPensiun2[0], n2:nilaiPensiun2[1], n3:nilaiPensiun2[2], n4:nilaiPensiun2[3], n5:nilaiPensiun2[4], n6:nilaiPensiun2[5], n7:nilaiPensiun2[6], n8:nilaiPensiun2[7], n9:nilaiPensiun2[8], n10:nilaiPensiun2[9], n11:nilaiPensiun2[10], n12:nilaiPensiun2[11]})
-        dataKapitasi.push({nama:'Non Yakes', n1:nilaiNon[0], n2:nilaiNon[1], n3:nilaiNon[2], n4:nilaiNon[3], n5:nilaiNon[4], n6:nilaiNon[5], n7:nilaiNon[6], n8:nilaiNon[7], n9:nilaiNon[8], n10:nilaiNon[9], n11:nilaiNon[10], n12:nilaiNon[11]})
-        chartBpjs.push({name:'Pegawai', data:[nilaiPegawai[0], nilaiPegawai[1], nilaiPegawai[2], nilaiPegawai[3], nilaiPegawai[4], nilaiPegawai[5], nilaiPegawai[6], nilaiPegawai[7], nilaiPegawai[8], nilaiPegawai[9], nilaiPegawai[10], nilaiPegawai[11]], color: '#BFBFBF'})
-        chartBpjs.push({name:'Pensiun', data:[nilaiPensiun[0], nilaiPensiun[1], nilaiPensiun[2], nilaiPensiun[3], nilaiPensiun[4], nilaiPensiun[5], nilaiPensiun[6], nilaiPensiun[7], nilaiPensiun[8], nilaiPensiun[9], nilaiPensiun[10], nilaiPensiun[11]], color: '#9EEADC'})
-        chartKapitasi.push({name:'Karyawan', data:[nilaiKaryawan[0], nilaiKaryawan[1], nilaiKaryawan[2], nilaiKaryawan[3], nilaiKaryawan[4], nilaiKaryawan[5], nilaiKaryawan[6], nilaiKaryawan[7], nilaiKaryawan[8], nilaiKaryawan[9], nilaiKaryawan[10], nilaiKaryawan[11]], color: '#BFBFBF'})
-        chartKapitasi.push({name:'Pensiun', data:[nilaiPensiun2[0], nilaiPensiun2[1], nilaiPensiun2[2], nilaiPensiun2[3], nilaiPensiun2[4], nilaiPensiun2[5], nilaiPensiun2[6], nilaiPensiun2[7], nilaiPensiun2[8], nilaiPensiun2[9], nilaiPensiun2[10], nilaiPensiun2[11]], color: '#9EEADC'})
-        chartKapitasi.push({name:'Non Yakes', data:[nilaiNon[0], nilaiNon[1], nilaiNon[2], nilaiNon[3], nilaiNon[4], nilaiNon[5], nilaiNon[6], nilaiNon[7], nilaiNon[8], nilaiNon[9], nilaiNon[10], nilaiNon[11]], color: '#288372'})
+        dataBPJS.push({nama:'Kapitasi Kary', n1:n1KapPeg, n2:n2KapPeg, n3:n3KapPeg, n4:n4KapPeg, n5:n5KapPeg, n6:n6KapPeg, n7:n7KapPeg, n8:totalKapPeg})
+        dataBPJS.push({nama:'Kapitasi Pens', n1:n1KapPen, n2:n2KapPen, n3:n3KapPen, n4:n4KapPen, n5:n5KapPen, n6:n6KapPen, n7:n7KapPen, n8:totalKapPen})
+        dataBPJS.push({nama:'Peserta Kary', n1:n1PesKar, n2:n2PesKar, n3:n3PesKar, n4:n4PesKar, n5:n5PesKar, n6:n6PesKar, n7:n7PesKar, n8:totalPesKar})
+        dataBPJS.push({nama:'Peserta Pens', n1:n1PesPen, n2:n2PesPen, n3:n3PesPen, n4:n4PesPen, n5:n5PesPen, n6:n6PesPen, n7:n7PesPen, n8:totalPesPen})
+        chartBpjs.push({
+            type:'column', 
+            name:'Kapitasi Karyawan', 
+            data:[
+                {
+                    name: '01',
+                    y: n1KapPeg
+                },
+                {
+                    name: '02',
+                    y: n2KapPeg
+                },
+                {
+                    name: '03',
+                    y: n3KapPeg
+                },
+                {
+                    name: '04',
+                    y: n4KapPeg
+                },
+                {
+                    name: '05',
+                    y: n5KapPeg
+                },
+                {
+                    name: '06',
+                    y: n6KapPeg
+                },
+                {
+                    name: '07',
+                    y: n7KapPeg
+                },
+            ], 
+            color: '#BFBFBF'});
+        chartBpjs.push({
+            type:'column', 
+            name:'Kapitasi Pensiun', 
+            data:[
+                {
+                    name: '01',
+                    y: n1KapPen,
+                },
+                {
+                    name: '02',
+                    y: n2KapPen,
+                },
+                {
+                    name: '03',
+                    y: n3KapPen,
+                },
+                {
+                    name: '04',
+                    y: n4KapPen,
+                },
+                {
+                    name: '05',
+                    y: n5KapPen,
+                },
+                {
+                    name: '06',
+                    y: n6KapPen,
+                },
+                {
+                    name: '07',
+                    y: n7KapPen,
+                },
+            ], 
+            color: '#9EEADC'});
+        chartBpjs.push({type:'line', name:'Peserta Karyawan', data:[n1PesKar, n2PesKar, n3PesKar, n4PesKar, n5PesKar, n6PesKar, n7PesKar], color:'#14213d', marker:{ lineWidth:2}, yAxis:1});
+        chartBpjs.push({type:'line', name:'Peserta Pensiun', data:[n1PesPen, n2PesPen, n3PesPen, n4PesPen, n5PesPen, n6PesPen, n7PesPen], color:'#FCA311', marker:{ lineWidth:2}, yAxis:1});
         
         for(var i=0;i<dataBPJS.length;i++) {
             htmlBody += "<tr>";
             htmlBody += "<td style='position: relative;'>";
             htmlBody += "<div style='height: 15px; width:25px; background-color:"+colors[i]+";display:inline-block;margin-left:3px;margin-top:1px;'></div>&nbsp"+dataBPJS[i].nama;
             htmlBody += "</td>";
-            htmlBody += "<td style='text-align: right;'>"+sepNum(dataBPJS[i].n1)+"</td>";
-            htmlBody += "<td style='text-align: right;'>"+sepNum(dataBPJS[i].n2)+"</td>";
-            htmlBody += "<td style='text-align: right;'>"+sepNum(dataBPJS[i].n3)+"</td>";
-            htmlBody += "<td style='text-align: right;'>"+sepNum(dataBPJS[i].n4)+"</td>";
-            htmlBody += "<td style='text-align: right;'>"+sepNum(dataBPJS[i].n5)+"</td>";
-            htmlBody += "<td style='text-align: right;'>"+sepNum(dataBPJS[i].n6)+"</td>";
-            htmlBody += "<td style='text-align: right;'>"+sepNum(dataBPJS[i].n7)+"</td>";
-            htmlBody += "<td style='text-align: right;'>"+sepNum(dataBPJS[i].n8)+"</td>";
-            htmlBody += "<td style='text-align: right;'>"+sepNum(dataBPJS[i].n9)+"</td>";
-            htmlBody += "<td style='text-align: right;'>"+sepNum(dataBPJS[i].n10)+"</td>";
-            htmlBody += "<td style='text-align: right;'>"+sepNum(dataBPJS[i].n11)+"</td>";
-            htmlBody += "<td style='text-align: right;'>"+sepNum(dataBPJS[i].n12)+"</td>";
+            if(i<=1) {
+                htmlBody += "<td style='text-align: right;'>"+sepNum(dataBPJS[i].n1)+"</td>";
+                htmlBody += "<td style='text-align: right;'>"+sepNum(dataBPJS[i].n2)+"</td>";
+                htmlBody += "<td style='text-align: right;'>"+sepNum(dataBPJS[i].n3)+"</td>";
+                htmlBody += "<td style='text-align: right;'>"+sepNum(dataBPJS[i].n4)+"</td>";
+                htmlBody += "<td style='text-align: right;'>"+sepNum(dataBPJS[i].n5)+"</td>";
+                htmlBody += "<td style='text-align: right;'>"+sepNum(dataBPJS[i].n6)+"</td>";
+                htmlBody += "<td style='text-align: right;'>"+sepNum(dataBPJS[i].n7)+"</td>";
+                htmlBody += "<td style='text-align: right;'>"+sepNum(dataBPJS[i].n8)+"</td>";
+            } else {
+                htmlBody += "<td style='text-align: right;'>"+dataBPJS[i].n1+"</td>";
+                htmlBody += "<td style='text-align: right;'>"+dataBPJS[i].n2+"</td>";
+                htmlBody += "<td style='text-align: right;'>"+dataBPJS[i].n3+"</td>";
+                htmlBody += "<td style='text-align: right;'>"+dataBPJS[i].n4+"</td>";
+                htmlBody += "<td style='text-align: right;'>"+dataBPJS[i].n5+"</td>";
+                htmlBody += "<td style='text-align: right;'>"+dataBPJS[i].n6+"</td>";
+                htmlBody += "<td style='text-align: right;'>"+dataBPJS[i].n7+"</td>";
+                htmlBody += "<td style='text-align: right;'>"+dataBPJS[i].n8+"</td>";
+            }
             htmlBody += "</tr>";
-        }
-        for(var i=0;i<dataKapitasi.length;i++) {
-            htmlBody2 += "<tr>";
-            htmlBody2 += "<td style='position: relative;'>";
-            htmlBody2 += "<div style='height: 15px; width:25px; background-color:"+colors[i]+";display:inline-block;margin-left:3px;margin-top:1px;'></div>&nbsp"+dataKapitasi[i].nama;
-            htmlBody2 += "</td>";
-            htmlBody2 += "<td style='text-align: right;'>"+sepNum(dataKapitasi[i].n1)+"</td>";
-            htmlBody2 += "<td style='text-align: right;'>"+sepNum(dataKapitasi[i].n2)+"</td>";
-            htmlBody2 += "<td style='text-align: right;'>"+sepNum(dataKapitasi[i].n3)+"</td>";
-            htmlBody2 += "<td style='text-align: right;'>"+sepNum(dataKapitasi[i].n4)+"</td>";
-            htmlBody2 += "<td style='text-align: right;'>"+sepNum(dataKapitasi[i].n5)+"</td>";
-            htmlBody2 += "<td style='text-align: right;'>"+sepNum(dataKapitasi[i].n6)+"</td>";
-            htmlBody2 += "<td style='text-align: right;'>"+sepNum(dataKapitasi[i].n7)+"</td>";
-            htmlBody2 += "<td style='text-align: right;'>"+sepNum(dataKapitasi[i].n8)+"</td>";
-            htmlBody2 += "<td style='text-align: right;'>"+sepNum(dataKapitasi[i].n9)+"</td>";
-            htmlBody2 += "<td style='text-align: right;'>"+sepNum(dataKapitasi[i].n10)+"</td>";
-            htmlBody2 += "<td style='text-align: right;'>"+sepNum(dataKapitasi[i].n11)+"</td>";
-            htmlBody2 += "<td style='text-align: right;'>"+sepNum(dataKapitasi[i].n12)+"</td>";
-            htmlBody2 += "</tr>";
         }
         $('#header-table-bpjs').append(htmlHeader);
         $('#data-table-bpjs').append(htmlBody);
-        $('#header-table-kapitasi').append(htmlHeader);
-        $('#data-table-kapitasi').append(htmlBody2);
-        generateChartColumn(185, 20, 'Rp. Dalam Juta');
-        generateChartColumn2(185, 20, 'Rp. Dalam Juta');
+        generateChartColumn(150, 122, 'Rp. Dalam Juta', 'Jiwa dalam ribuan');
     }
 
     function getClaimBPJS() {
@@ -733,7 +842,6 @@
         dataBPJS = [];
         chartBpjs =[];
         categoriesChart = [];
-        chartKapitasi = [];
         $('#header-table-kapitasi').empty();
         $('#data-table-kapitasi').empty();
         $('#header-table-bpjs').empty();
@@ -756,8 +864,6 @@
             dataType: 'JSON',
             async: false,
             success: function(result) {
-                $('#header-table-kapitasi').empty();
-                $('#data-table-kapitasi').empty();
                 $('#header-table-bpjs').empty();
                 $('#data-table-bpjs').empty();
                 var data = result.daftar;
@@ -912,9 +1018,6 @@
         dataBPJS = [];
         chartBpjs =[];
         categoriesChart = [];
-        chartKapitasi = [];
-        $('#header-table-kapitasi').empty();
-        $('#data-table-kapitasi').empty();
         $('#header-table-bpjs').empty();
         $('#data-table-bpjs').empty();
         var colors = ['#BFBFBF', '#9EEADC', '#288372', '#FCA311'];
@@ -935,8 +1038,6 @@
             dataType: 'JSON',
             async: false,
             success: function(result) {
-                $('#header-table-kapitasi').empty();
-                $('#data-table-kapitasi').empty();
                 $('#header-table-bpjs').empty();
                 $('#data-table-bpjs').empty();
                 var data = result.daftar[0];
@@ -960,8 +1061,6 @@
             dataType: 'JSON',
             async: false,
             success: function(result) {
-                $('#header-table-kapitasi').empty();
-                $('#data-table-kapitasi').empty();
                 $('#header-table-bpjs').empty();
                 $('#data-table-bpjs').empty();
                 var data = result.daftar[0];
@@ -985,8 +1084,6 @@
             dataType: 'JSON',
             async: false,
             success: function(result) {
-                $('#header-table-kapitasi').empty();
-                $('#data-table-kapitasi').empty();
                 $('#header-table-bpjs').empty();
                 $('#data-table-bpjs').empty();
                 var data = result.daftar[0];
@@ -1054,61 +1151,166 @@
         generateChart(220, 100, 'Rp. Dalam Juta', 'Dalam persen');
     }
 
-    function generateChartColumn2(marginLeft, marginRight, satuan) {
-        Highcharts.chart('chart-kapitasi', {
-            chart: {
-                type: 'column',
-                marginLeft: marginLeft,
-                marginRight: marginRight
-            },
-            exporting:{
-                enabled: false
-            },
-            legend:{ enabled:false },
-            credits: {
-                enabled: false
-            },
-            title: {
-                text: ''
-            },
-            subtitle: {
-                text: ''
-            },
-            xAxis: {
-                categories: categoriesChart,
-                crosshair: true
-            },
-            yAxis: {
-                min: 0,
-                title: {
-                    text: satuan
+    function generateCustomeDrilldownChart(value) {
+        $.ajax({
+            type:'GET',
+            url: "{{ url('yakes-dash/data-kapitasi-detail') }}/"+periode+"/"+value,
+            dataType: 'JSON',
+            success: function(result) {
+                $('#judul-chart').text("Kapitasi BPJS REG "+value)
+                $('#header-table-bpjs').empty();
+                $('#data-table-bpjs').empty();
+                $('#btn-kembali').show();
+                headerBPJS = [];
+                dataBPJS = [];
+                chartBpjs =[];
+                categoriesChart = [];
+                var data = result.daftar;
+                var colors = ['#BFBFBF', '#9EEADC', '#288372', '#14213d'];
+                var nilaiKapPeg = [];
+                var nilaiKapPen = [];
+                var nilaiPesKar = [];
+                var nilaiPesPen = [];
+                var nKapPeg=0;
+                var totalKapPeg=0;
+                var nKapPen=0;
+                var totalKapPen=0;
+                var nPesKar=0;
+                var totalPesKar=0;
+                var nPesPen=0;
+                var totalPesPen=0;
+                var htmlHeader = "";
+                var htmlBody = "";
+
+                for(var i=0;i<data.length;i++) {
+                    if(!categoriesChart.includes(data[i].nama)) {
+                        categoriesChart.push(data[i].nama);
+                    }
+                    if(!headerBPJS.includes(data[i].nama)) {
+                        headerBPJS.push(data[i].nama);
+                    }
+                    
+                    if(data[i].tipe == "KAP") {
+                        nKapPeg = parseFloat((parseFloat(data[i].pegawai)/pembagi).toFixed(2))
+                        nKapPen = parseFloat((parseFloat(data[i].pensiun)/pembagi).toFixed(2))
+                        totalKapPeg = totalKapPeg + nKapPeg;
+                        totalKapPen = totalKapPen + nKapPen;
+                        nilaiKapPeg.push(nKapPeg)
+                        nilaiKapPen.push(nKapPen)
+                    } else if(data[i].tipe == "PESERTA") {
+                        nPesKar = parseFloat((parseFloat(data[i].pegawai)/pembagi3).toFixed(2))
+                        nPesPen = parseFloat((parseFloat(data[i].pensiun)/pembagi3).toFixed(2))
+                        totalPesKar = totalPesKar + nPesKar;
+                        totalPesPen = totalPesPen + nPesPen;
+                        nilaiPesKar.push(nPesKar)
+                        nilaiPesPen.push(nPesPen)
+                    }
                 }
-            },
-            tooltip: {
-                enabled: false
-                // headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                // pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                //     '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
-                // footerFormat: '</table>',
-                // shared: true,
-                // useHTML: true
-            },
-            plotOptions: {
-                column: {
-                    pointPadding: 0.2,
-                    borderWidth: 0
+                headerBPJS.push("TOTAL");
+                dataBPJS.push({nama:'Kapitasi Kary', nilai:nilaiKapPeg, total:totalKapPeg})
+                dataBPJS.push({nama:'Kapitasi Pens', nilai:nilaiKapPen, total:totalKapPen})
+                dataBPJS.push({nama:'Peserta Kary', nilai:nilaiPesKar, total:totalPesKar})
+                dataBPJS.push({nama:'Peserta Pens', nilai:nilaiPesPen,  total:totalPesPen})
+                
+                chartBpjs.push({type:'column', name:'Kapitasi Karyawan', data:nilaiKapPeg, color: '#BFBFBF'})
+                chartBpjs.push({type:'column', name:'Kapitasi Pensiun', data:nilaiKapPen, color: '#9EEADC'})
+                chartBpjs.push({type:'line', name:'Peserta Karyawan', data:nilaiPesKar, color:'#14213d', marker:{ lineWidth:2}, yAxis:1});
+                chartBpjs.push({type:'line', name:'Peserta Pensiun', data:nilaiPesPen, color:'#FCA311', marker:{ lineWidth:2}, yAxis:1});
+
+                
+                htmlHeader += "<tr>";
+                htmlHeader += "<th style='width: 12%;'></th>";
+                for(var i=0;i<headerBPJS.length;i++) {
+                    htmlHeader += "<th>"+headerBPJS[i]+"</th>"   
                 }
-            },
-            series: chartKapitasi
-        });
+                htmlHeader += "</tr>";
+                console.log(dataBPJS)
+                for(var i=0;i<dataBPJS.length;i++) {
+                    htmlBody += "<tr>";
+                    htmlBody += "<td style='position: relative;'>";
+                    htmlBody += "<div style='height: 15px; width:25px; background-color:"+colors[i]+";display:inline-block;margin-left:3px;margin-top:1px;'></div>&nbsp"+dataBPJS[i].nama;
+                    htmlBody += "</td>";
+                    for(var j=0;j<dataBPJS[i].nilai.length;j++) {     
+                        htmlBody += "<td style='text-align: right;'>"+sepNum(dataBPJS[i].nilai[j])+"</td>";
+                    }
+                    htmlBody += "<td style='text-align: right;'>"+sepNum(dataBPJS[i].total)+"</td>";                    
+                    htmlBody += "</tr>";
+                }
+                $('#header-table-bpjs').append(htmlHeader);
+                $('#data-table-bpjs').append(htmlBody);
+
+                Highcharts.chart('chart-bpjs', {
+                    chart: {
+                        marginLeft: 185,
+                        marginRight: 100,
+                    },
+                    exporting:{
+                        enabled: false
+                    },
+                    legend:{ enabled:false },
+                    credits: {
+                        enabled: false
+                    },
+                    title: {
+                        text: ''
+                    },
+                    subtitle: {
+                        text: ''
+                    },
+                    xAxis: {
+                        categories: categoriesChart,
+                        crosshair: true,
+                        labels: {
+                            enabled: false
+                        },
+                    },
+                    yAxis: [
+                        {
+                            linewidth: 1,
+                            title:{
+                                    text: 'Rp. dalam juta'
+                            }
+                        },
+                        {
+                            linewidth: 1,
+                            opposite: true,
+                            title:{
+                                    text: 'Jiwa dalam ribuan'
+                            }
+                        },
+                    ],
+                    tooltip: {
+                        enabled: false
+                        // headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                        // pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                        //     '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+                        // footerFormat: '</table>',
+                        // shared: true,
+                        // useHTML: true
+                    },
+                    plotOptions: {
+                        series:{
+                            pointPadding: 0,
+                            shadow: false,
+                            dataLabels: {
+                                enabled: true,
+                                style: {
+                                    color: 'black'
+                                },
+                            }
+                        }
+                    },
+                    series: chartBpjs
+                });
+            }
+        })
     }
 
-    function generateChartColumn(marginLeft, marginRight, satuan) {
+    function generateChartColumn(marginLeft, marginRight, satuan1, satuan2) {
         Highcharts.chart('chart-bpjs', {
             chart: {
-                type: 'column',
                 marginLeft: marginLeft,
-                marginRight: marginRight
+                marginRight: marginRight,
             },
             exporting:{
                 enabled: false
@@ -1125,14 +1327,26 @@
             },
             xAxis: {
                 categories: categoriesChart,
-                crosshair: true
+                crosshair: true,
+                labels: {
+                    enabled: false
+                },
             },
-            yAxis: {
-                min: 0,
-                title: {
-                    text: satuan
-                }
-            },
+            yAxis: [
+                {
+                    linewidth: 1,
+                    title:{
+                            text: satuan1
+                    }
+                },
+                {
+                    linewidth: 1,
+                    opposite: true,
+                    title:{
+                            text: satuan2
+                    }
+                },
+            ],
             tooltip: {
                 enabled: false
                 // headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
@@ -1143,9 +1357,25 @@
                 // useHTML: true
             },
             plotOptions: {
+                series:{
+                    pointPadding: 0,
+                    shadow: false,
+                    dataLabels: {
+                        enabled: true,
+                         style: {
+                            color: 'black'
+                        },
+                    }
+                },
                 column: {
-                    pointPadding: 0.2,
-                    borderWidth: 0
+                    cursor:'pointer',
+                    point:{
+                        events: {
+                            click: function(event) {
+                                generateCustomeDrilldownChart(event.point.name)   
+                            }
+                        }
+                    }
                 }
             },
             series: chartBpjs
