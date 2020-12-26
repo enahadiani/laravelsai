@@ -1,7 +1,7 @@
 <script type="text/javascript">
 
     function drawLap(formData){
-        saiPostLoad("{{ url('yakes-report/lap-premi-bpjs') }}", null, formData, null, function(res){
+        saiPostLoad("{{ url('yakes-report/lap-rekap-real') }}", null, formData, null, function(res){
         //    if(res.result.length > 0){
 
                 $('#pagination').html('');
@@ -42,57 +42,27 @@
 
    function drawRptPage(data,res,from,to){
         var data = data;
-        // if(data.length > 0){
+         if(data.length > 0){
             res.bentuk = '';
             var lokasi = res.lokasi;
             res.data_detail = [];
             periode = $periode;
             var html = `
             <style>
-            .info-table thead{
-                background:#4286f5;
-                color:white;
-            }
-            .report-table th.no-border{
-                border:none !important;
-            }
-            .bold {
-                font-weight:bold;
-            }
-            .report-table td, .report-table th{
-                vertical-align: middle;
-                padding-top:0 !important;
-                padding-bottom:0 !important;
-            }  
-            .report-table th{
-                text-align: center;
-            }  
-            .report-table th.bg-grey{
-                border-color: #d7d7d7 !important; 
-                vertical-align: middle;
-            }  
-            .report-table th.bg-blue3{
-                border-color: #00CCFF !important; 
-                vertical-align: middle;
-            }  
-            .report-table th.bg-blue1 {
-                background-color: #00b7ff;
-            }  
-            .report-table th.bg-blue2 {
-                background-color: #00dbfff0;
-            }   
-            .report-table th.bg-green {
-                background-color: #92D050;
-            }       
-            .report-table th.bg-yellow {
-                background-color: #FFC000;
-            }
-            .report-table th.bg-blue3 {
-                background-color: #00CCFF;
-            }
-            .report-table th.bg-grey {
-                background-color: #d7d7d7;
-            }
+                .report-table th,.report-table2 th{
+                    color: white !important;
+                    background-color: #288372; !important;
+                    text-align: center;
+                }
+
+                .report-table td, .report-table th, .report-table2 td, .report-table2 th{ 
+                    vertical-align: middle;
+                    padding-top: 4px !important;
+                    padding-bottom: 4px !important;
+                }  
+                .bold{
+                    font-weight:bold !important;
+                }
             </style>
             <table class='table table-bordered report-table' width='100%'>
             <tr>
@@ -135,41 +105,34 @@
                 <th width='12%' class='bg-grey'>11=(9/8)-1</th>
             </tr>
             `;
-            // var no=1;
-            // for (var i=0;i < data.length;i++)
-            // {
-            //     var nilai="";
-            //     var line = data[i];
-            //     if (line.tipe!="Header")
-            //     {
-            //         nilai=sepNum(parseFloat(line.n4));
-            //     }
+            var no=1;
+            for (var i=0;i < data.length;i++)
+            {
+                 var n1="";
+                 var line = data[i];
+                 if (line.tipe!="Header")
+                 {
+                    n1=sepNum(parseFloat(line.n1));
+                    n2=sepNum(parseFloat(line.n2));
+                    n3=sepNum(parseFloat(line.n3));
+                    n4=sepNum(parseFloat(line.n4));
+                    n5=sepNum(parseFloat(line.n5));
+                    n6=sepNum(parseFloat(line.n6));
+                    n7=sepNum(parseFloat(line.n7));
+                    n8=sepNum(parseFloat(line.n8));
+                 }
 			
-            //     if (line.tipe=="Posting" && line.n4 != 0)
-            //     {
-            //         html+=`<tr class='report-link neraca-lajur' style='cursor:pointer;' data-kode_neraca='`+line.kode_neraca+`' >
-            //         <td width='2%'></td>
-            //         <td width='52%' height='20' class='isi_laporan link-report' >`+fnSpasi(line.level_spasi)+``+line.nama+`</td>
-            //         <td width='18%' class='isi_laporan'><div align='right'>`+nilai+`</div></td>
-            //         <td width='18%' class='isi_laporan'><div align='right'>&nbsp;</div></td>
-            //         <td width='2%'></td>
-            //         </tr>`;
-            //     }
-            //     else
-            //     {
-            //         html+=`<tr>
-            //         <td width='2%'></td>
-            //         <td width='52%' height='20' class='isi_laporan'>`+fnSpasi(line.level_spasi)+line.nama+`</td>
-            //         <td width='18%' class='isi_laporan'><div align='right'>`+nilai+`</div></td>
-            //         <td width='18%' class='isi_laporan'><div align='right'>&nbsp;</div></td>
-            //         <td width='2%'></td>
-            //         </tr>`;
-            //     }
-            //     no++;
-            // }
+                     html+=`<tr class='report-link neraca-lajur' style='cursor:pointer;' data-kode_neraca='`+line.kode_neraca+`' >
+                     <td width='52%' height='20' class='isi_laporan link-report' >`+fnSpasi(line.level_spasi)+``+line.nama+`</td>
+                     <td width='18%' class='isi_laporan'><div align='right'>`+n1+`</div></td>
+                     <td width='18%' class='isi_laporan'><div align='right'>`+n2+`</div></td>
+                     </tr>`;
+                
+                 no++;
+            }
             html+=`
             </table>`;
-        // }
+        }
         $('#canvasPreview').html(html);
         $('li.prev a ').html("<i class='simple-icon-arrow-left'></i>");
         $('li.next a ').html("<i class='simple-icon-arrow-right'></i>");
