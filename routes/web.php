@@ -35,6 +35,9 @@ Route::get('/', function () {
                 // echo $domain;
                 return redirect('ts-auth/login');
             break;
+        case 'sidarwis.com' : 
+            return redirect('wisata/login');
+        break;
         default : 
             return view('welcome');
         break;
