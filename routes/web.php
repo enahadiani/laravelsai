@@ -36,7 +36,7 @@ Route::get('/', function () {
                 return redirect('ts-auth/login');
             break;
         case 'sidarwis.com' : 
-            return redirect('wisata/login');
+            return redirect('wisata-auth/login');
         break;
         default : 
             return view('welcome');
