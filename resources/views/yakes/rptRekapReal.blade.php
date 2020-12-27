@@ -121,11 +121,24 @@
                     n7=sepNum(parseFloat(line.n7));
                     n8=sepNum(parseFloat(line.n8));
                  }
-			
-                     html+=`<tr class='report-link neraca-lajur' style='cursor:pointer;' data-kode_neraca='`+line.kode_neraca+`' >
+                var persen1="";
+                var persen2="";
+                var persen3="";
+
+                     html+=`<tr class='report-link neraca-lajur report-table table-striped table-bordered' style='cursor:pointer;' data-kode_neraca='`+line.kode_neraca+`' >
                      <td width='52%' height='20' class='isi_laporan link-report' >`+fnSpasi(line.level_spasi)+``+line.nama+`</td>
                      <td width='18%' class='isi_laporan'><div align='right'>`+n1+`</div></td>
                      <td width='18%' class='isi_laporan'><div align='right'>`+n2+`</div></td>
+                     <td width='18%' class='isi_laporan'><div align='right'>`+n4+`</div></td>
+                     <td width='18%' class='isi_laporan'><div align='right'>`+n5+`</div></td>
+                     <td width='18%' class='isi_laporan'><div align='right'>`+persen1+`</div></td>
+                     <td width='18%' class='isi_laporan'><div align='right'>`+persen2+`</div></td>
+                     <td width='18%' class='isi_laporan'><div align='right'>`+persen3+`</div></td>
+                     <td width='18%' class='isi_laporan'><div align='right'>`+n4+`</div></td>
+                     <td width='18%' class='isi_laporan'><div align='right'>`+n5+`</div></td>
+                     <td width='18%' class='isi_laporan'><div align='right'>`+persen1+`</div></td>
+                     <td width='18%' class='isi_laporan'><div align='right'>`+persen2+`</div></td>
+
                      </tr>`;
                 
                  no++;
