@@ -149,7 +149,7 @@ $thnLalu = substr($tahunLalu,2,2)
         <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:1000px">
             <div class="modal-content">
                 <div class="modal-header pb-0" style="border:none">
-                    <h6 class="card-title mb-0">Pencapaian Pendapatan Terhadap RKA Bulan Berjalan</h6>
+                    <h6 class="mb-0">Pencapaian Pendapatan Terhadap RKA Bulan Berjalan</h6>
                     <button type="button" class="close preview-close" data-dismiss="modal" aria-label="Close">
                          <span aria-hidden="true">&times;</span>
                     </button>
@@ -166,7 +166,7 @@ $thnLalu = substr($tahunLalu,2,2)
         <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:1000px">
             <div class="modal-content">
                 <div class="modal-header pb-0" style="border:none">
-                    <h6 class="card-title mb-0">Capaian Kelompok Pdpt Non Pdkk</h6>
+                    <h6 class="mb-0">Capaian Kelompok Pdpt Non Pdkk</h6>
                     <button type="button" class="close preview-close" data-dismiss="modal" aria-label="Close">
                          <span aria-hidden="true">&times;</span>
                     </button>
