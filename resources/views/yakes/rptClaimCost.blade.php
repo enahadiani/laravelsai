@@ -166,6 +166,12 @@
                 var nas_reabefore =0; 
                 for(var j=0; j < dt.length;j++){
                     var line2 = dt[j];
+                    
+                    var persen_rka = (parseFloat(line2.rka_tahun) == 0 ? 0 : (parseFloat(line2.rea_now)/parseFloat(line2.rka_tahun))*100);
+                    var persen_now = 
+                    (parseFloat(line2.rka_now) == 0 ? 0 : (parseFloat(line2.rea_now)/parseFloat(line2.rka_now))*100);
+                    var yoy = (parseFloat(line2.rea_before) == 0 ? 0 : (parseFloat(line2.rea_now) - parseFloat(line2.rea_before)) / parseFloat(line2.rea_before) *100); 
+
                     if(line2.kode_pp == "00"){
                         pusat +=` <tr>
                             <td class='text-center'>`+namaReg(line2.kode_pp)+`</td>
@@ -173,9 +179,9 @@
                             <td class='text-right'>`+sepNumPas(line2.rka_now)+`</td>
                             <td class='text-right'>`+sepNumPas(line2.rea_now)+`</td>
                             <td class='text-right'>`+sepNumPas(line2.rea_before)+`</td>
-                            <td class='text-right'>`+sepNum2(line2.persen_rka)+`</td>
-                            <td class='text-right'>`+sepNum2(line2.persen_now)+`</td>
-                            <td class='text-right'>`+sepNum2(line2.yoy)+`</td>
+                            <td class='text-right'>`+sepNum2(persen_rka)+`</td>
+                            <td class='text-right'>`+sepNum2(persen_now)+`</td>
+                            <td class='text-right'>`+sepNum2(yoy)+`</td>
                         </tr>`;
 
                     }else{
@@ -187,9 +193,9 @@
                             <td class='text-right'>`+sepNumPas(line2.rka_now)+`</td>
                             <td class='text-right'>`+sepNumPas(line2.rea_now)+`</td>
                             <td class='text-right'>`+sepNumPas(line2.rea_before)+`</td>
-                            <td class='text-right'>`+sepNum2(line2.persen_rka)+`</td>
-                            <td class='text-right'>`+sepNum2(line2.persen_now)+`</td>
-                            <td class='text-right'>`+sepNum2(line2.yoy)+`</td>
+                            <td class='text-right'>`+sepNum2(persen_rka)+`</td>
+                            <td class='text-right'>`+sepNum2(persen_now)+`</td>
+                            <td class='text-right'>`+sepNum2(yoy)+`</td>
                         </tr>
                         `;
                         reg_rkatahun +=parseFloat(line2.rka_tahun); 
