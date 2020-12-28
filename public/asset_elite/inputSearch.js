@@ -1,5 +1,5 @@
 (function ( $ ) {
- 
+    var defaults = {}, options = $.extend({}, defaults, options);
     function showFilter(options){
         var settings = {
             title:'',
@@ -140,6 +140,17 @@
     }
 
     $.fn.inputSearch = function( options ) {
+        var options = (function (opts, def) {
+            var _opts = {};
+            if (typeof opts[0] !== "object") {
+                _opts[opts[0]] = opts[1];
+            };
+            return opts.length === 0 
+                   ? def 
+                   : typeof opts[0] === "object" 
+                     ? opts[0] : _opts
+        }([].slice.call(arguments), defaults));
+
         var settings = options;
         return this.each(function() {
             $(this).click(function () {

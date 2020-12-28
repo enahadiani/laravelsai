@@ -50,6 +50,15 @@ Route::post('dashBinaSehat', 'Yakes\BinaSehatController@store');
 Route::get('setting-grafik', 'Yakes\SettingGrafikController@index');
 Route::get('setting-grafik-detail', 'Yakes\SettingGrafikController@show');
 Route::post('setting-grafik', 'Yakes\SettingGrafikController@store');
-Route::put('setting-grafik/{periode}', 'Yakes\SettingGrafikController@update');
+Route::put('setting-grafik', 'Yakes\SettingGrafikController@update');
 Route::delete('setting-grafik', 'Yakes\SettingGrafikController@delete');
 Route::get('setting-grafik-klp', 'Yakes\SettingGrafikController@getKlp');
+Route::get('setting-grafik-neraca', 'Yakes\SettingGrafikController@getNeraca');
+
+Route::get('setting-rasio', 'Yakes\SettingRasioController@index');
+Route::get('setting-rasio-detail', 'Yakes\SettingRasioController@show');
+Route::post('setting-rasio', 'Yakes\SettingRasioController@store');
+Route::put('setting-rasio', 'Yakes\SettingRasioController@update');
+Route::delete('setting-rasio', 'Yakes\SettingRasioController@delete');
+Route::get('setting-rasio-klp', 'Yakes\SettingRasioController@getKlp');
+Route::get('setting-rasio-neraca', 'Yakes\SettingRasioController@getNeraca');

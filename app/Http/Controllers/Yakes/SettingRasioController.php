@@ -9,7 +9,7 @@ use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Session;
 use GuzzleHttp\Exception\BadResponseException;
 
-class SettingGrafikController extends Controller
+class SettingRasioController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -44,7 +44,7 @@ class SettingGrafikController extends Controller
     public function index(){
         try { 
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'yakes-trans/setting-grafik',[
+            $response = $client->request('GET',  config('api.url').'yakes-trans/setting-rasio',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -69,7 +69,7 @@ class SettingGrafikController extends Controller
         try{
             
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'yakes-trans/setting-grafik-neraca',[
+            $response = $client->request('GET',  config('api.url').'yakes-trans/setting-rasio-neraca',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -98,7 +98,7 @@ class SettingGrafikController extends Controller
         try{
 
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'yakes-trans/setting-grafik-klp',[
+            $response = $client->request('GET',  config('api.url').'yakes-trans/setting-rasio-klp',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -154,7 +154,7 @@ class SettingGrafikController extends Controller
                   );
     
             $client = new Client();
-            $response = $client->request('POST',  config('api.url').'yakes-trans/setting-grafik',[
+            $response = $client->request('POST',  config('api.url').'yakes-trans/setting-rasio',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Content-Type'     => 'application/json'
@@ -188,7 +188,7 @@ class SettingGrafikController extends Controller
     {
         try{
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'yakes-trans/setting-grafik-detail',[
+            $response = $client->request('GET',  config('api.url').'yakes-trans/setting-rasio-detail',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -240,7 +240,7 @@ class SettingGrafikController extends Controller
             );
             
             $client = new Client();
-            $response = $client->request('PUT',  config('api.url').'yakes-trans/setting-grafik',[
+            $response = $client->request('PUT',  config('api.url').'yakes-trans/setting-rasio',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Content-Type'     => 'application/json'
@@ -275,7 +275,7 @@ class SettingGrafikController extends Controller
         try{
 
             $client = new Client();
-            $response = $client->request('DELETE',  config('api.url').'yakes-trans/setting-grafik',[
+            $response = $client->request('DELETE',  config('api.url').'yakes-trans/setting-rasio',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',

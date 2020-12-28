@@ -1,5 +1,5 @@
 (function ( $ ) {
- 
+    var defaults = {}, options = $.extend({}, defaults, options);
     function showFilter(options){
         var settings = {
             title:'',
@@ -20,7 +20,7 @@
 
         var table = "<table width='100%' id='table-search'><thead><tr>"+header_html+"</tr></thead>";
         table += "<tbody></tbody></table>";
-
+        console.log(settings.parameter);
         $('#modal-search .modal-body').html(table);
         var searchTable = $("#table-search").DataTable({
             sDom: '<"row view-filter"<"col-sm-12"<f>>>t<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
@@ -87,9 +87,20 @@
     }
 
     $.fn.showFilter = function( options ) {
+        var options = (function (opts, def) {
+            var _opts = {};
+            if (typeof opts[0] !== "object") {
+                _opts[opts[0]] = opts[1];
+            };
+            return opts.length === 0 
+                   ? def 
+                   : typeof opts[0] === "object" 
+                     ? opts[0] : _opts
+        }([].slice.call(arguments), defaults));
+
         var settings = options;
         return this.each(function() {
-            $(this).on('click', '.search-item', function(){
+            $(this).on('click', '.simple-icon-magnifier', function(){
                 // console.log(settings);
                 showFilter(settings);
             }); 

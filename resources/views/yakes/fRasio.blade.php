@@ -1,6 +1,6 @@
     <link rel="stylesheet" href="{{ asset('trans.css') }}" />
     <!-- LIST DATA -->
-    <x-list-data judul="Data Setting Grafik" tambah="true" :thead="array('Kode','Nama','Kode Klp','Format','Jenis','Tgl Input','Action')" :thwidth="array(15,30,15,15,15,0,10)" :thclass="array('','','','','','','text-center')" />
+    <x-list-data judul="Data Setting Rasio" tambah="true" :thead="array('Kode','Nama','Kode Klp','Flag Box','Tgl Input','Action')" :thwidth="array(15,45,15,15,0,10)" :thclass="array('','','','','','text-center')" />
     <!-- END LIST DATA -->
 
     <!-- FORM INPUT -->
@@ -23,22 +23,18 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group col-lg-6 col-sm-12">
-                                <div class="row">
+                                <div class="row mb-1">
                                     <div class="col-lg-3 col-sm-12">
-                                        <label for="kode_grafik">Kode</label>
-                                        <input class='form-control' type="text" id="kode_grafik" name="kode_grafik" required> 
+                                        <label for="kode_rasio">Kode</label>
+                                        <input class='form-control' type="text" id="kode_rasio" name="kode_rasio" required> 
                                     </div>
                                     <div class="col-lg-9 col-sm-12">
                                         <label for="nama">Nama</label>
                                         <input class="form-control" type="text" id="nama" name="nama" required></input>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-lg-6 col-sm-12">
                                 <div class="row">
-                                    <div class="col-lg-6 col-sm-12 div-kode_klp">
+                                    <div class="col-lg-4 col-sm-12 div-kode_klp">
                                         <label for="kode_klp">Kelompok</label>
                                         <div class="input-group">
                                             <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
@@ -52,28 +48,56 @@
                                             <i class="simple-icon-magnifier search-item2 search-item" id="search_kode_klp"></i>
                                         </div>
                                     </div>
-                                    <div class="col-lg-3 col-sm-12">
-                                        <label for="format">Format</label>
-                                        <select class='form-control selectize' id="format" name="format">
-                                        <option value=''>--- Pilih Format ---</option>
-                                        <option value='Satuan' selected>Satuan</option>
-                                        <option value='Jutaan'>Jutaan</option>
-                                        <option value='Miliaran'>Miliaran</option>
-                                        </select>
+                                    <div class="col-lg-4 col-sm-12 div-kode_fs">
+                                        <label for="kode_fs">Kode FS</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                                <span class="input-group-text info-code_kode_fs" readonly="readonly" title=""></span>
+                                            </div>
+                                            <input type="text" class="form-control inp-label-kode_fs" id="kode_fs" name="kode_fs" value="" title="">
+                                            <span class="info-name_kode_fs hidden">
+                                                <span></span> 
+                                            </span>
+                                            <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                            <i class="simple-icon-magnifier search-item2 search-item" id="search_kode_fs"></i>
+                                        </div>
                                     </div>
-                                    <div class="col-lg-3 col-sm-12">
-                                        <label for="jenis">Jenis</label>
-                                        <select class='form-control selectize' id="jenis" name="jenis">
-                                        <option value=''>--- Pilih Jenis ---</option>
-                                        <option value='Summary' selected>Summary</option>
-                                        <option value='Posting'>Posting</option>
+                                    <div class="col-lg-4 col-sm-12">
+                                        <label for="flag_box">Flag Box</label>
+                                        <select class='form-control selectize' id="flag_box" name="flag_box">
+                                        <option value=''>--- Pilih Flag Box ---</option>
+                                        <option value='-' selected>-</option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
+                            <div class="form-group col-lg-6 col-sm-12">
+                                <div class="row">
+                                    <div class="col-lg-6 col-sm-12">
+                                        <label for="keterangan">Keterangan</label>
+                                        <textarea class='form-control' rows="4" id="keterangan" name="keterangan" required></textarea> 
+                                    </div>
+                                    <div class="col-lg-6 col-sm-12">
+                                        <label for="rumus">Rumus</label>
+                                        <textarea class='form-control' rows="4" id="rumus" name="rumus" required></textarea> 
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+                        <!-- <div class="col-lg-3 col-sm-12">
+                            <label for="format">Flag Box</label>
+                            <select class='form-control selectize' id="format" name="format">
+                            <option value=''>--- Pilih Format ---</option>
+                            <option value='Satuan' selected>Satuan</option>
+                            <option value='Jutaan'>Jutaan</option>
+                            <option value='Miliaran'>Miliaran</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-3 col-sm-12">
+                            
+                        </div> -->
                         <ul class="nav nav-tabs col-12 nav-grid" role="tablist">
-                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-grid" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Grafik</span></a> </li>
+                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-grid" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Rasio</span></a> </li>
                         </ul>
                         <div class="tab-content tabcontent-border col-12 p-0">
                             <div class="tab-pane active" id="data-grid" role="tabpanel">
@@ -97,8 +121,6 @@
                                             <tr>
                                                 <th style="width:5%; text-align:center;">No</th>
                                                 <th style="width:5%; text-align:center;"></th>
-                                                <th style="width:15%; text-align:center;">Kode FS</th>
-                                                <th style="width:30%; text-align:center;">Nama FS</th>
                                                 <th style="width:15%; text-align:center;">Kode Neraca</th>
                                                 <th style="width:30%; text-align:center;">Nama Neraca</th>
                                             </tr>
@@ -169,7 +191,7 @@
     function getKlp(id,pp=null){
         var tmp = id.split(" - ");
         kode = tmp[0];
-        var toUrl = "{{ url('yakes-trans/setting-grafik-klp') }}";
+        var toUrl = "{{ url('yakes-trans/setting-rasio-klp') }}";
         $.ajax({
             type: 'GET',
             url: toUrl,
@@ -228,14 +250,14 @@
     }
 
     getDataTypeAhead("{{ url('yakes-master/helper-fs') }}","kode_fs","kode_fs");
-    getDataTypeAhead("{{ url('yakes-trans/setting-grafik-neraca') }}","kode_neraca","kode_neraca");
+    // getDataTypeAhead("{{ url('yakes-trans/setting-rasio-neraca') }}","kode_neraca","kode_neraca");
 
     function getNeraca(id,target1,target2,target3,jenis){
         var tmp = id.split(" - ");
         kode = tmp[0];
         $.ajax({
             type: 'GET',
-            url: "{{ url('/yakes-trans/setting-grafik-neraca') }}/" + kode,
+            url: "{{ url('/yakes-trans/setting-rasio-neraca') }}/" + kode,
             dataType: 'json',
             async:false,
             success:function(result){
@@ -371,25 +393,24 @@
     
     var dataTable = generateTable(
         "table-data",
-        "{{ url('yakes-trans/setting-grafik') }}", 
+        "{{ url('yakes-trans/setting-rasio') }}", 
         [
             {
-                "targets": [5],
+                "targets": [4],
                 "visible": false,
                 "searchable": false
             },
-            {'targets': 6, data: null, 'defaultContent': action_html, 'className': 'text-center' }
+            {'targets': 5, data: null, 'defaultContent': action_html, 'className': 'text-center' }
         ],
         [
-            { data: 'kode_grafik' },
+            { data: 'kode_rasio' },
             { data: 'nama'},
             { data: 'kode_klp' },
-            { data: 'format' },
-            { data: 'jenis' },
+            { data: 'flag_box' },
             { data: 'tgl_input' }
         ],
         "{{ url('yakes-auth/sesi-habis') }}",
-        [[5 ,"desc"]]
+        [[4 ,"desc"]]
     );
 
     $.fn.DataTable.ext.pager.numbers_length = 5;
@@ -409,7 +430,7 @@
         $('#row-id').hide();
         $('.information').hide();
         $('#method').val('post');
-        $('#judul-form').html('Tambah Data Setting Grafik');
+        $('#judul-form').html('Tambah Data Setting Rasio');
         $('#btn-update').attr('id','btn-save');
         $('#btn-save').attr('type','submit');
         $('#form-tambah')[0].reset();
@@ -440,7 +461,7 @@
 
     $(".div-kode_klp").showFilter({
         title: 'Daftar Kelompok',
-        url: "{{ url('yakes-trans/setting-grafik-klp') }}",
+        url: "{{ url('yakes-trans/setting-rasio-klp') }}",
         header:['Kode','Nama'],
         columns:[
             { data: 'kode_klp' },
@@ -463,6 +484,63 @@
             $('.info-name_kode_klp').attr("title",data.nama);
             $('.info-name_kode_klp').removeClass('hidden');
             $('.info-name_kode_klp').closest('div').find('.info-icon-hapus').removeClass('hidden')
+        }
+    });
+
+    $(".div-kode_fs").showFilter({
+        title: 'Daftar Kelompok',
+        url: "{{ url('yakes-master/helper-fs') }}",
+        header:['Kode','Nama'],
+        columns:[
+            { data: 'kode_fs' },
+            { data: 'nama' }
+        ],
+        parameter:{},
+        onItemSelected: function(data){
+            $('#kode_fs').css('border-left',0);
+            $('#kode_fs').val(data.kode_fs);
+            $(".info-code_kode_fs").text(data.kode_fs);
+            $(".info-code_kode_fs").attr("title",data.nama);
+            $(".info-code_kode_fs").parents('div').removeClass('hidden');
+            
+            var width= $('#kode_fs').width()-$('#search_kode_fs').width()-10;
+            var pos =$('#kode_fs').position();
+            var height = $('#kode_fs').height();
+            $('#kode_fs').attr('style','border-left:0;border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important');
+            $('.info-name_kode_fs').width($('#kode_fs').width()-$('#search_kode_fs').width()-10).css({'left':pos.left,'height':height});
+            $('.info-name_kode_fs'+' span').text(data.nama);
+            $('.info-name_kode_fs').attr("title",data.nama);
+            $('.info-name_kode_fs').removeClass('hidden');
+            $('.info-name_kode_fs').closest('div').find('.info-icon-hapus').removeClass('hidden')
+
+            var no =1;
+            $('.row-grid').each(function(){
+                var no = $(this).closest('tr').find('input.no-grid').val();
+                $(".search-neracake"+no).showFilter({
+                    title: 'Daftar Neraca',
+                    url: "{{ url('yakes-trans/setting-rasio-neraca') }}",
+                    header:['Kode','Nama'],
+                    columns:[
+                                { data: 'kode_neraca' },
+                                { data: 'nama' }
+                            ],
+                    parameter:{kode_fs: $('#kode_fs').val()},
+                    onItemSelected: function(data){
+                        console.log(no);
+                        $(".neracake"+no).val(data.kode_neraca);
+                        $(".tdneracake"+no).text(data.kode_neraca);
+                        $(".nmneracake"+no).val(data.nama);
+                        $(".tdnmneracake"+no).text(data.nama);
+                        $(".neracake"+no).hide();
+                        $(".tdneracake"+no).show();
+                        $(".search-neracake"+no).hide();
+                        $(".nmneracake"+no).show();
+                        $(".tdnmneracake"+no).hide();
+                        setTimeout(function() {  $(".tddcke"+no).click(); }, 100);
+                    }
+                });
+                no++;
+            });
         }
     });
 
@@ -497,8 +575,6 @@
         input += "<tr class='row-grid'>";
         input += "<td class='text-center'><span class='no-grid'>"+no+"</span><input type='hidden' class='no-grid' name='no_urut[]' value='"+no+"'></td>";
         input += "<td class='text-center'><a class=' hapus-item' style='font-size:12px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
-        input += "<td><span class='td-fs tdfske"+no+" tooltip-span'>"+kode_fs+"</span><input autocomplete='off' type='text'  id='fskode"+no+"' name='kode_fs[]' class='form-control inp-fs fske"+no+" hidden' value='"+kode_fs+"' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-fs search-fske"+no+" hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
-        input += "<td><span class='td-nama_fs tdnmfske"+no+" tooltip-span'>"+nama_fs+"</span><input autocomplete='off' type='text' name='nama_fs[]' class='form-control inp-nama_fs nmfske"+no+" hidden'  value='"+nama_fs+"' readonly></td>";
         input += "<td><span class='td-kode tdneracake"+no+" tooltip-span'>"+kode_neraca+"</span><input autocomplete='off' type='text' name='kode_neraca[]' class='form-control inp-kode neracake"+no+" hidden' value='"+kode_neraca+"' required='' style='z-index: 1;position: relative;'  id='neracakode"+no+"'><a href='#' class='search-item search-neraca search-neracake"+no+" hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
         input += "<td><span class='td-nama tdnmneracake"+no+" tooltip-span'>"+nama_neraca+"</span><input autocomplete='off' type='text' name='nama_neraca[]' class='form-control inp-nama nmneracake"+no+" hidden'  value='"+nama_neraca+"' readonly></td>";
         input += "</tr>";
@@ -522,29 +598,16 @@
                 console.log(item.id);
             }
         });
-        $('#fskode'+no).typeahead({
-            source:$dtkode_fs,
-            displayText:function(item){
-                return item.id+' - '+item.name;
-            },
-            autoSelect:false,
-            changeInputOnSelect:false,
-            changeInputOnMove:false,
-            selectOnBlur:false,
-            afterSelect: function (item) {
-                console.log(item.id);
-            }
-        });
 
         $(".search-neracake"+no).showFilter({
             title: 'Daftar Neraca',
-            url: "{{ url('yakes-trans/setting-grafik-neraca') }}",
+            url: "{{ url('yakes-trans/setting-rasio-neraca') }}",
             header:['Kode','Nama'],
             columns:[
                         { data: 'kode_neraca' },
                         { data: 'nama' }
                     ],
-            parameter:{kode_fs: $(".search-neracake"+no).closest('tr').find('.inp-fs').val()},
+            parameter:{kode_fs: $('#kode_fs').val()},
             onItemSelected: function(data){
                 $(".neracake"+no).val(data.kode_neraca);
                 $(".tdneracake"+no).text(data.kode_neraca);
@@ -559,59 +622,14 @@
             }
         });
 
-        $(".search-fske"+no).showFilter({
-            title: 'Daftar FS',
-            url: "{{ url('yakes-master/helper-fs') }}",
-            header:['Kode','Nama'],
-            columns:[
-                        { data: 'kode_fs' },
-                        { data: 'nama' }
-                    ],
-            parameter:{},
-            onItemSelected: function(data){
-                $(".fske"+no).val(data.kode_fs);
-                $(".tdfske"+no).text(data.kode_fs);
-                $(".nmfske"+no).val(data.nama);
-                $(".tdnmfske"+no).text(data.nama);
-                $(".fske"+no).hide();
-                $(".tdfske"+no).show();
-                $(".search-fske"+no).hide();
-                $(".nmfske"+no).show();
-                $(".tdnmfske"+no).hide();
-                setTimeout(function() {  $(".nmfske"+no).focus(); }, 100);
-                $(".search-neracake"+no).showFilter({
-                    title: 'Daftar Neraca',
-                    url: "{{ url('yakes-trans/setting-grafik-neraca') }}",
-                    header:['Kode','Nama'],
-                    columns:[
-                        { data: 'kode_neraca' },
-                        { data: 'nama' }
-                    ],
-                    parameter:{kode_fs: $(".search-neracake"+no).closest('tr').find('.inp-fs').val()},
-                    onItemSelected: function(data){
-                        $(".neracake"+no).val(data.kode_neraca);
-                        $(".tdneracake"+no).text(data.kode_neraca);
-                        $(".nmneracake"+no).val(data.nama);
-                        $(".tdnmneracake"+no).text(data.nama);
-                        $(".neracake"+no).hide();
-                        $(".tdneracake"+no).show();
-                        $(".search-neracake"+no).hide();
-                        $(".nmneracake"+no).show();
-                        $(".tdnmneracake"+no).hide();
-                        setTimeout(function() {  $(".tddcke"+no).click(); }, 100);
-                    }
-                });
-            }
-        });
-
         if(param == "satu"){
 
             $('#input-grid td').removeClass('px-0 py-0 aktif');
             $('#input-grid tbody tr:last').find("td:eq(1)").addClass('px-0 py-0 aktif');
-            $('#input-grid tbody tr:last').find(".inp-fs").show();
-            $('#input-grid tbody tr:last').find(".td-fs").hide();
-            $('#input-grid tbody tr:last').find(".search-fs").show();
-            $('#input-grid tbody tr:last').find(".inp-fs").focus();
+            $('#input-grid tbody tr:last').find(".inp-kode").show();
+            $('#input-grid tbody tr:last').find(".td-kode").hide();
+            $('#input-grid tbody tr:last').find(".search-neraca").show();
+            $('#input-grid tbody tr:last').find(".inp-kode").focus();
         } 
         $('.tooltip-span').tooltip({
             title: function(){
@@ -770,28 +788,17 @@
             if(!$(row).hasClass('selected-row')) {
                 var kode_neraca = $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-kode").val();
                 var nama_neraca = $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nama").val();
-                var kode_fs = $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-fs").val();
-                var nama_fs = $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nama_fs").val();
 
                 $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-kode").val(kode_neraca);
                 $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-kode").text(kode_neraca);
                 $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nama").val(nama_neraca);
                 $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-nama").text(nama_neraca);
-                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-fs").val(kode_fs);
-                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-fs").text(kode_fs);
-                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nama_fs").val(nama_fs);
-                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-nama_fs").text(nama_fs);
 
                 $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-kode").hide();
                 $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-kode").show();
                 $('#input-grid > tbody > tr:eq('+index+') > td').find(".search-neraca").hide();
                 $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nama").hide();
                 $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-nama").show();
-                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-fs").hide();
-                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-fs").show();
-                $('#input-grid > tbody > tr:eq('+index+') > td').find(".search-fs").hide();
-                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nama_fs").hide();
-                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-nama_fs").show();
             }
         })
     }
@@ -839,13 +846,13 @@
         if($.trim($(this).closest('tr').find('.inp-fs').val()).length){
             $(".search-neracake"+noidx).showFilter({
                 title: 'Daftar Neraca',
-                url: "{{ url('yakes-trans/setting-grafik-neraca') }}",
+                url: "{{ url('yakes-trans/setting-rasio-neraca') }}",
                 header:['Kode','Nama'],
                 columns:[
                     { data: 'kode_neraca' },
                     { data: 'nama' }
                 ],
-                parameter:{kode_fs: $(".search-neracake"+noidx).closest('tr').find('.inp-fs').val()},
+                parameter:{kode_fs: $('#kode_fs').val()},
                 onItemSelected: function(data){
                     $(".neracake"+noidx).val(data.kode_neraca);
                     $(".tdneracake"+noidx).text(data.kode_neraca);
@@ -875,13 +882,13 @@
             var noidx =  $(this).closest('tr').find('span.no-grid').text();
             $(".search-neracake"+noidx).showFilter({
                 title: 'Daftar Neraca',
-                url: "{{ url('yakes-trans/setting-grafik-neraca') }}",
+                url: "{{ url('yakes-trans/setting-rasio-neraca') }}",
                 header:['Kode','Nama'],
                 columns:[
                     { data: 'kode_neraca' },
                     { data: 'nama' }
                 ],
-                parameter:{kode_fs: $(".search-neracake"+noidx).closest('tr').find('.inp-fs').val()},
+                parameter:{kode_fs: $('#kode_fs').val()},
                 onItemSelected: function(data){
                     $(".neracake"+noidx).val(data.kode_neraca);
                     $(".tdneracake"+noidx).text(data.kode_neraca);
@@ -916,38 +923,11 @@
                 console.log(idx);
                 var kode_neraca = $(this).parents("tr").find(".inp-kode").val();
                 var nama_neraca = $(this).parents("tr").find(".inp-nama").val();
-                var kode_fs = $(this).parents("tr").find(".inp-fs").val();
-                var nama_fs = $(this).parents("tr").find(".inp-nama_fs").val();
                 var no = $(this).parents("tr").find("span.no-grid").text();
-                $(this).parents("tr").find(".inp-fs").val(kode_fs);
-                $(this).parents("tr").find(".td-fs").text(kode_fs);
-                if(idx == 2){
-                    $(this).parents("tr").find(".inp-fs").show();
-                    $(this).parents("tr").find(".td-fs").hide();
-                    $(this).parents("tr").find(".search-fs").show();
-                    $(this).parents("tr").find(".inp-fs").focus();
-                }else{
-                    $(this).parents("tr").find(".inp-fs").hide();
-                    $(this).parents("tr").find(".td-fs").show();
-                    $(this).parents("tr").find(".search-fs").hide();
-                    
-                }
-        
-                $(this).parents("tr").find(".inp-nama_fs").val(nama_fs);
-                $(this).parents("tr").find(".td-nama_fs").text(nama_fs);
-                if(idx == 3){
-                    $(this).parents("tr").find(".inp-nama_fs").show();
-                    $(this).parents("tr").find(".td-nama_fs").hide();
-                    $(this).parents("tr").find(".inp-nama_fs").focus();
-                }else{
-                    
-                    $(this).parents("tr").find(".inp-nama_fs").hide();
-                    $(this).parents("tr").find(".td-nama_fs").show();
-                }
 
                 $(this).parents("tr").find(".inp-kode").val(kode_neraca);
                 $(this).parents("tr").find(".td-kode").text(kode_neraca);
-                if(idx == 4){
+                if(idx == 2){
                     $(this).parents("tr").find(".inp-kode").show();
                     $(this).parents("tr").find(".td-kode").hide();
                     $(this).parents("tr").find(".search-neraca").show();
@@ -962,7 +942,7 @@
                 
                 $(this).parents("tr").find(".inp-nama").val(nama_neraca);
                 $(this).parents("tr").find(".td-nama").text(nama_neraca);
-                if(idx == 5){
+                if(idx == 3){
                     
                     $(this).parents("tr").find(".inp-nama").show();
                     $(this).parents("tr").find(".td-nama").hide();
@@ -1024,13 +1004,10 @@
             var param = $('#id').val();
             // $iconLoad.show();
             if(param == "edit"){
-                var url = "{{ url('/yakes-trans/setting-grafik') }}";
+                var url = "{{ url('/yakes-trans/setting-rasio') }}";
             }else{
-                var url = "{{ url('/yakes-trans/setting-grafik') }}";
+                var url = "{{ url('/yakes-trans/setting-rasio') }}";
             }
-
-            
-
                 $.ajax({
                     type: 'POST',
                     url: url,
@@ -1049,14 +1026,14 @@
                             $('#form-tambah').validate().resetForm();
                             $('#row-id').hide();
                             $('#method').val('post');
-                            $('#judul-form').html('Tambah Data Setting Grafik');
+                            $('#judul-form').html('Tambah Data Setting Rasio');
                             $('#id').val('');
                             $('#input-grid tbody').html('');
                             $('[id^=label]').html('');
                             addRowGrid("dua");
                             
                             msgDialog({
-                                id:result.data.kode_grafik,
+                                id:result.data.kode_rasio,
                                 type:'simpan'
                             });
                         }
@@ -1093,7 +1070,7 @@
         $('#btn-save').attr('type','button');
         $('#btn-save').attr('id','btn-update');
         $('#informasi').show();
-        $('#judul-form').html('Edit Data Setting Grafik');
+        $('#judul-form').html('Edit Data Setting Rasio');
         $('#form-tambah')[0].reset();
         $('#form-tambah').validate().resetForm();
         $iconLoad.show();
@@ -1105,7 +1082,7 @@
         $('#btn-save').attr('type','button');
         $('#btn-save').attr('id','btn-update');
         $('#informasi').show();
-        $('#judul-form').html('Edit Data Setting Grafik');
+        $('#judul-form').html('Edit Data Setting Rasio');
         $('#form-tambah')[0].reset();
         $('#form-tambah').validate().resetForm();
         editData(id);
@@ -1148,9 +1125,9 @@
             var id = $(this).closest('tr').find('td').eq(0).html();
             $.ajax({
                 type: 'GET',
-                url: "{{ url('/yakes-trans/setting-grafik-detail') }}",
+                url: "{{ url('/yakes-trans/setting-rasio-detail') }}",
                 dataType: 'json',
-                data:{kode_grafik: id},
+                data:{kode_rasio: id},
                 async:false,
                 success:function(result){
                     if(result.data.status){
@@ -1164,16 +1141,24 @@
                             <td>`+form[0].nama+`</td>
                         </tr>
                         <tr>
+                            <td>Keterangan</td>
+                            <td>`+form[0].keterangan+`</td>
+                        </tr>
+                        <tr>
+                            <td>Rumus</td>
+                            <td>`+form[0].rumus+`</td>
+                        </tr>
+                        <tr>
                             <td>Kelompok</td>
                             <td>`+form[0].kode_klp+`</td>
                         </tr>
                         <tr>
-                            <td>Format</td>
-                            <td>`+form[0].format+`</td>
+                            <td>Kode FS</td>
+                            <td>`+form[0].kode_fs+`</td>
                         </tr>
                         <tr>
-                            <td>Jenis</td>
-                            <td>`+form[0].jenis+`</td>
+                            <td>Flag Box</td>
+                            <td>`+form[0].flag_box+`</td>
                         </tr>
                         <tr>
                             <td colspan='2'>
@@ -1181,10 +1166,8 @@
                                     <thead>
                                         <tr>
                                             <th style="width:10%; text-align:center;">No</th>
-                                            <th style="width:15%; text-align:center;">Kode FS</th>
-                                            <th style="width:30%; text-align:center;">Nama FS</th>
-                                            <th style="width:15%; text-align:center;">Kode Neraca</th>
-                                            <th style="width:30%; text-align:center;">Nama Neraca</th>
+                                            <th style="width:40%; text-align:center;">Kode Neraca</th>
+                                            <th style="width:50%; text-align:center;">Nama Neraca</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -1202,8 +1185,6 @@
                                 var line =grid[i];
                                 input += "<tr>";
                                 input += "<td>"+no+"</td>";
-                                input += "<td >"+line.kode_fs+"</td>";
-                                input += "<td >"+line.nama_fs+"</td>";
                                 input += "<td >"+line.kode_neraca+"</td>";
                                 input += "<td >"+line.nama_neraca+"</td>";
                                 input += "</tr>";
@@ -1228,13 +1209,14 @@
     function hapusData(id){
         $.ajax({
             type: 'DELETE',
-            url: "{{ url('yakes-trans/setting-grafik') }}/"+id,
+            url: "{{ url('yakes-trans/setting-rasio') }}",
             dataType: 'json',
+            data:{kode_rasio:id},
             async:false,
             success:function(result){
                 if(result.data.status){
                     dataTable.ajax.reload();                    
-                    showNotification("top", "center", "success",'Hapus Data','Data Setting Grafik ('+id+') berhasil dihapus ');
+                    showNotification("top", "center", "success",'Hapus Data','Data Setting Rasio ('+id+') berhasil dihapus ');
                     $('#modal-preview-id').html('');
                     $('#table-delete tbody').html('');
                     $('#modal-delete').modal('hide');
@@ -1257,20 +1239,22 @@
     function editData(id){
         $.ajax({
             type: 'GET',
-            url: "{{ url('/yakes-trans/setting-grafik-detail') }}",
+            url: "{{ url('/yakes-trans/setting-rasio-detail') }}",
             dataType: 'json',
-            data:{kode_grafik:id},
+            data:{kode_rasio:id},
             async:false,
             success:function(result){
                 if(result.data.status) {
                     var form = result.data.data;
                     $('#id').val('edit');
                     $('#method').val('put');
-                    $('#kode_grafik').val(id);
+                    $('#kode_rasio').val(id);
                     $('#nama').val(form[0].nama);
+                    $('#keterangan').val(form[0].keterangan);
+                    $('#rumus').val(form[0].rumus);
                     $('#kode_klp').val(form[0].kode_klp);
-                    $('#format')[0].selectize.setValue(form[0].format);
-                    $('#jenis')[0].selectize.setValue(form[0].jenis);
+                    $('#kode_fs').val(form[0].kode_fs);
+                    $('#flag_box')[0].selectize.setValue(form[0].flag_box);
                     var grid = result.data.detail;
                     if(grid.length > 0) {
                         var input = "";
@@ -1280,8 +1264,6 @@
                             input += "<tr class='row-grid'>";
                             input += "<td class='text-center'><span class='no-grid'>"+no+"</span><input class='no-grid' type='hidden' name='no_urut[]' value='"+no+"'></td>";
                             input += "<td class='text-center'><a class=' hapus-item' style='font-size:12px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
-                            input += "<td><span class='td-fs tdfske"+no+" tooltip-span'>"+data.kode_fs+"</span><input type='text' id='fskode"+no+"' name='kode_fs[]' class='form-control inp-fs fske"+no+" hidden' value='"+data.kode_fs+"' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-fs hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
-                            input += "<td><span class='td-nama_fs tdnmfske"+no+" tooltip-span'>"+data.nama_fs+"</span><input type='text' name='nama_fs[]' class='form-control inp-nama_fs nmfske"+no+" hidden'  value='"+data.nama_fs+"' readonly></td>";
                             input += "<td ><span class='td-kode tdneracake"+no+" tooltip-span'>"+data.kode_neraca+"</span><input type='text' name='kode_neraca[]' class='form-control inp-kode neracake"+no+" hidden' value='"+data.kode_neraca+"' required='' style='z-index: 1;position: relative;' id='neracakode"+no+"'><a href='#' class='search-item search-neraca hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
                             input += "<td><span class='td-nama tdnmneracake"+no+" tooltip-span'>"+data.nama_neraca+"</span><input type='text' name='nama_neraca[]' class='form-control inp-nama nmneracake"+no+" hidden'  value='"+data.nama_neraca+"' readonly></td>";
                             input += "</tr>";
@@ -1320,13 +1302,13 @@
 
                             $(".search-neracake"+no).showFilter({
                                 title: 'Daftar Neraca',
-                                url: "{{ url('yakes-trans/setting-grafik-neraca') }}",
+                                url: "{{ url('yakes-trans/setting-rasio-neraca') }}",
                                 header:['Kode','Nama'],
                                 columns:[
                                             { data: 'kode_neraca' },
                                             { data: 'nama' }
                                         ],
-                                parameter:{kode_fs: $(".search-neracake"+no).closest('tr').find('.inp-fs').val()},
+                                parameter:{kode_fs: $('#kode_fs').val()},
                                 onItemSelected: function(data){
                                     $(".neracake"+no).val(data.kode_neraca);
                                     $(".tdneracake"+no).text(data.kode_neraca);
@@ -1338,51 +1320,6 @@
                                     $(".nmneracake"+no).show();
                                     $(".tdnmneracake"+no).hide();
                                     setTimeout(function() {  $(".tddcke"+no).click(); }, 100);
-                                }
-                            });
-
-                            $(".search-fske"+no).showFilter({
-                                title: 'Daftar FS',
-                                url: "{{ url('yakes-master/helper-fs') }}",
-                                header:['Kode','Nama'],
-                                columns:[
-                                            { data: 'kode_fs' },
-                                            { data: 'nama' }
-                                        ],
-                                parameter:{},
-                                onItemSelected: function(data){
-                                    $(".fske"+no).val(data.kode_fs);
-                                    $(".tdfske"+no).text(data.kode_fs);
-                                    $(".nmfske"+no).val(data.nama);
-                                    $(".tdnmfske"+no).text(data.nama);
-                                    $(".fske"+no).hide();
-                                    $(".tdfske"+no).show();
-                                    $(".search-fske"+no).hide();
-                                    $(".nmfske"+no).show();
-                                    $(".tdnmfske"+no).hide();
-                                    setTimeout(function() {  $(".nmfske"+no).focus(); }, 100);
-                                    $(".search-neracake"+no).showFilter({
-                                        title: 'Daftar Neraca',
-                                        url: "{{ url('yakes-trans/setting-grafik-neraca') }}",
-                                        header:['Kode','Nama'],
-                                        columns:[
-                                            { data: 'kode_neraca' },
-                                            { data: 'nama' }
-                                        ],
-                                        parameter:{kode_fs: $(".search-neracake"+no).closest('tr').find('.inp-fs').val()},
-                                        onItemSelected: function(data){
-                                            $(".neracake"+no).val(data.kode_neraca);
-                                            $(".tdneracake"+no).text(data.kode_neraca);
-                                            $(".nmneracake"+no).val(data.nama);
-                                            $(".tdnmneracake"+no).text(data.nama);
-                                            $(".neracake"+no).hide();
-                                            $(".tdneracake"+no).show();
-                                            $(".search-neracake"+no).hide();
-                                            $(".nmneracake"+no).show();
-                                            $(".tdnmneracake"+no).hide();
-                                            setTimeout(function() {  $(".tddcke"+no).click(); }, 100);
-                                        }
-                                    });
                                 }
                             });
                             no++;
