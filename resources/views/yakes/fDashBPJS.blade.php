@@ -655,7 +655,7 @@
         $('#data-table-kapitasi').empty();
         $('#header-table-bpjs').empty();
         $('#data-table-bpjs').empty();
-        var colors = ['#BFBFBF', '#9EEADC', '#288372', '#14213d'];
+        var colors = ['#BFBFBF', '#9EEADC', '#14213d', '#FCA311'];
         headerBPJS.push('REG 1', 'REG 2', 'REG 3', 'REG 4', 'REG 5', 'REG 6', 'REG 7', 'TOTAL')
         categoriesChart.push('REG 1', 'REG 2', 'REG 3', 'REG 4', 'REG 5', 'REG 6', 'REG 7')
 
@@ -1160,7 +1160,7 @@
                 chartBpjs =[];
                 categoriesChart = [];
                 var data = result.daftar;
-                var colors = ['#BFBFBF', '#9EEADC', '#288372', '#14213d'];
+                var colors = ['#BFBFBF', '#9EEADC', '#14213d', '#FCA311'];
                 var nilaiKapPeg = [];
                 var nilaiKapPen = [];
                 var nilaiPesKar = [];
