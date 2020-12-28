@@ -46,3 +46,10 @@ Route::post('dashKontrakManage', 'Yakes\KontrakManagemenController@store');
 Route::post('dashBinaSehat-import', 'Yakes\BinaSehatController@importExcel');
 Route::get('dashBinaSehat-tmp', 'Yakes\BinaSehatController@getBinaSehatTmp');
 Route::post('dashBinaSehat', 'Yakes\BinaSehatController@store');
+
+Route::get('setting-grafik', 'Yakes\SettingGrafikController@index');
+Route::get('setting-grafik-detail', 'Yakes\SettingGrafikController@show');
+Route::post('setting-grafik', 'Yakes\SettingGrafikController@store');
+Route::put('setting-grafik/{periode}', 'Yakes\SettingGrafikController@update');
+Route::delete('setting-grafik', 'Yakes\SettingGrafikController@delete');
+Route::get('setting-grafik-klp', 'Yakes\SettingGrafikController@getKlp');

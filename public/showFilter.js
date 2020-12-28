@@ -89,7 +89,8 @@
     $.fn.showFilter = function( options ) {
         var settings = options;
         return this.each(function() {
-            $(this).on('click', 'i', function(){
+            $(this).on('click', '.search-item', function(){
+                // console.log(settings);
                 showFilter(settings);
             }); 
         });
