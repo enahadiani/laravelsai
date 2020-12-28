@@ -405,7 +405,7 @@
         [
             { data: 'kode_rasio' },
             { data: 'nama'},
-            { data: 'kode_klp' },
+            { data: 'klp_rasio' },
             { data: 'flag_box' },
             { data: 'tgl_input' }
         ],
@@ -459,90 +459,126 @@
         $(this).addClass('hidden');
     });
 
-    $(".div-kode_klp").showFilter({
-        title: 'Daftar Kelompok',
-        url: "{{ url('yakes-trans/setting-rasio-klp') }}",
-        header:['Kode','Nama'],
-        columns:[
-            { data: 'kode_klp' },
-            { data: 'nama' }
-        ],
-        parameter:{},
-        onItemSelected: function(data){
-            $('#kode_klp').css('border-left',0);
-            $('#kode_klp').val(data.kode_klp);
-            $(".info-code_kode_klp").text(data.kode_klp);
-            $(".info-code_kode_klp").attr("title",data.nama);
-            $(".info-code_kode_klp").parents('div').removeClass('hidden');
-            
-            var width= $('#kode_klp').width()-$('#search_kode_klp').width()-10;
-            var pos =$('#kode_klp').position();
-            var height = $('#kode_klp').height();
-            $('#kode_klp').attr('style','border-left:0;border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important');
-            $('.info-name_kode_klp').width($('#kode_klp').width()-$('#search_kode_klp').width()-10).css({'left':pos.left,'height':height});
-            $('.info-name_kode_klp'+' span').text(data.nama);
-            $('.info-name_kode_klp').attr("title",data.nama);
-            $('.info-name_kode_klp').removeClass('hidden');
-            $('.info-name_kode_klp').closest('div').find('.info-icon-hapus').removeClass('hidden')
+    
+    $('#form-tambah').on('click', '.search-item2', function(){
+        var id = $(this).closest('div').find('input').attr('name');
+        switch(id){
+            case 'kode_fs' :
+                var settings = {
+                    id : id,
+                    header : ['Kode', 'Nama'],
+                    url : "{{ url('yakes-master/helper-fs') }}",
+                    columns : [
+                        { data: 'kode_fs' },
+                        { data: 'nama' }
+                    ],
+                    judul : "Daftar FS",
+                    pilih : "fs",
+                    jTarget1 : "text",
+                    jTarget2 : "text",
+                    target1 : ".info-code_"+id,
+                    target2 : ".info-name_"+id,
+                    target3 : "",
+                    target4 : "",
+                    width : ["30%","70%"],
+                };
+            break;
         }
+        showInpFilter(settings);
     });
 
-    $(".div-kode_fs").showFilter({
-        title: 'Daftar Kelompok',
-        url: "{{ url('yakes-master/helper-fs') }}",
-        header:['Kode','Nama'],
-        columns:[
-            { data: 'kode_fs' },
-            { data: 'nama' }
-        ],
-        parameter:{},
-        onItemSelected: function(data){
-            $('#kode_fs').css('border-left',0);
-            $('#kode_fs').val(data.kode_fs);
-            $(".info-code_kode_fs").text(data.kode_fs);
-            $(".info-code_kode_fs").attr("title",data.nama);
-            $(".info-code_kode_fs").parents('div').removeClass('hidden');
-            
-            var width= $('#kode_fs').width()-$('#search_kode_fs').width()-10;
-            var pos =$('#kode_fs').position();
-            var height = $('#kode_fs').height();
-            $('#kode_fs').attr('style','border-left:0;border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important');
-            $('.info-name_kode_fs').width($('#kode_fs').width()-$('#search_kode_fs').width()-10).css({'left':pos.left,'height':height});
-            $('.info-name_kode_fs'+' span').text(data.nama);
-            $('.info-name_kode_fs').attr("title",data.nama);
-            $('.info-name_kode_fs').removeClass('hidden');
-            $('.info-name_kode_fs').closest('div').find('.info-icon-hapus').removeClass('hidden')
-
-            var no =1;
-            $('.row-grid').each(function(){
-                var no = $(this).closest('tr').find('input.no-grid').val();
-                $(".search-neracake"+no).showFilter({
-                    title: 'Daftar Neraca',
-                    url: "{{ url('yakes-trans/setting-rasio-neraca') }}",
-                    header:['Kode','Nama'],
-                    columns:[
-                                { data: 'kode_neraca' },
-                                { data: 'nama' }
-                            ],
-                    parameter:{kode_fs: $('#kode_fs').val()},
-                    onItemSelected: function(data){
-                        console.log(no);
-                        $(".neracake"+no).val(data.kode_neraca);
-                        $(".tdneracake"+no).text(data.kode_neraca);
-                        $(".nmneracake"+no).val(data.nama);
-                        $(".tdnmneracake"+no).text(data.nama);
-                        $(".neracake"+no).hide();
-                        $(".tdneracake"+no).show();
-                        $(".search-neracake"+no).hide();
-                        $(".nmneracake"+no).show();
-                        $(".tdnmneracake"+no).hide();
-                        setTimeout(function() {  $(".tddcke"+no).click(); }, 100);
-                    }
-                });
-                no++;
-            });
+    $('#input-grid').on('click', '.search-item', function(){
+        var id = $(this).closest('td').find('input').attr('name');
+        console.log(id);
+        switch(id){
+            case 'kode_neraca[]' :
+                var tmp = $(this).closest('tr').find('input[name="kode_neraca[]"]').attr('class');
+                var tmp2 = tmp.split(" ");
+                target1 = tmp2[2];
+                
+                tmp = $(this).closest('tr').find('input[name="nama_neraca[]"]').attr('class');
+                tmp2 = tmp.split(" ");
+                target2 = tmp2[2];
+                var settings = {
+                    id : id,
+                    header : ['Kode', 'Nama'],
+                    url : "{{ url('yakes-trans/setting-rasio-neraca') }}",
+                    columns : [
+                        { data: 'kode_neraca' },
+                        { data: 'nama' }
+                    ],
+                    judul : "Daftar Unit",
+                    pilih : "unit",
+                    jTarget1 : "val",
+                    jTarget2 : "val",
+                    target1 : "."+target1,
+                    target2 : "."+target2,
+                    target3 : ".td"+target2,
+                    target4 : "",
+                    parameter: {kode_fs:$('#kode_fs').val()},
+                    width : ["30%","70%"],
+                };
+            break;
         }
+        showInpFilter(settings);
     });
+    
+
+    // $(".div-kode_klp").showFilter({
+    //     title: 'Daftar Kelompok',
+    //     url: "{{ url('yakes-trans/setting-rasio-klp') }}",
+    //     header:['Kode','Nama'],
+    //     columns:[
+    //         { data: 'kode_klp' },
+    //         { data: 'nama' }
+    //     ],
+    //     parameter:{},
+    //     onItemSelected: function(data){
+    //         $('#kode_klp').css('border-left',0);
+    //         $('#kode_klp').val(data.kode_klp);
+    //         $(".info-code_kode_klp").text(data.kode_klp);
+    //         $(".info-code_kode_klp").attr("title",data.nama);
+    //         $(".info-code_kode_klp").parents('div').removeClass('hidden');
+            
+    //         var width= $('#kode_klp').width()-$('#search_kode_klp').width()-10;
+    //         var pos =$('#kode_klp').position();
+    //         var height = $('#kode_klp').height();
+    //         $('#kode_klp').attr('style','border-left:0;border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important');
+    //         $('.info-name_kode_klp').width($('#kode_klp').width()-$('#search_kode_klp').width()-10).css({'left':pos.left,'height':height});
+    //         $('.info-name_kode_klp'+' span').text(data.nama);
+    //         $('.info-name_kode_klp').attr("title",data.nama);
+    //         $('.info-name_kode_klp').removeClass('hidden');
+    //         $('.info-name_kode_klp').closest('div').find('.info-icon-hapus').removeClass('hidden')
+    //     }
+    // });
+
+    // $(".div-kode_fs").showFilter({
+    //     title: 'Daftar Kelompok',
+    //     url: "{{ url('yakes-master/helper-fs') }}",
+    //     header:['Kode','Nama'],
+    //     columns:[
+    //         { data: 'kode_fs' },
+    //         { data: 'nama' }
+    //     ],
+    //     parameter:{},
+    //     onItemSelected: function(data){
+    //         $('#kode_fs').css('border-left',0);
+    //         $('#kode_fs').val(data.kode_fs);
+    //         $(".info-code_kode_fs").text(data.kode_fs);
+    //         $(".info-code_kode_fs").attr("title",data.nama);
+    //         $(".info-code_kode_fs").parents('div').removeClass('hidden');
+            
+    //         var width= $('#kode_fs').width()-$('#search_kode_fs').width()-10;
+    //         var pos =$('#kode_fs').position();
+    //         var height = $('#kode_fs').height();
+    //         $('#kode_fs').attr('style','border-left:0;border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important');
+    //         $('.info-name_kode_fs').width($('#kode_fs').width()-$('#search_kode_fs').width()-10).css({'left':pos.left,'height':height});
+    //         $('.info-name_kode_fs'+' span').text(data.nama);
+    //         $('.info-name_kode_fs').attr("title",data.nama);
+    //         $('.info-name_kode_fs').removeClass('hidden');
+    //         $('.info-name_kode_fs').closest('div').find('.info-icon-hapus').removeClass('hidden')
+    //     }
+    // });
 
     $('#saku-form').on('click', '#btn-kembali', function(){
         var kode = null;
@@ -560,13 +596,9 @@
         if(param == "copy"){
             var kode_neraca = $('#input-grid tbody tr.selected-row').find(".inp-kode").val();
             var nama_neraca = $('#input-grid tbody tr.selected-row').find(".inp-nama").val();
-            var kode_fs = $('#input-grid tbody tr.selected-row').find(".inp-fs").val();
-            var nama_fs = $('#input-grid tbody tr.selected-row').find(".inp-nama_fs").val();
         }else{
             var kode_neraca = "";
             var nama_neraca = "";
-            var kode_fs = "";
-            var nama_fs = "";
         }
 
         var no=$('#input-grid .row-grid:last').index();
@@ -599,28 +631,27 @@
             }
         });
 
-        $(".search-neracake"+no).showFilter({
-            title: 'Daftar Neraca',
-            url: "{{ url('yakes-trans/setting-rasio-neraca') }}",
-            header:['Kode','Nama'],
-            columns:[
-                        { data: 'kode_neraca' },
-                        { data: 'nama' }
-                    ],
-            parameter:{kode_fs: $('#kode_fs').val()},
-            onItemSelected: function(data){
-                $(".neracake"+no).val(data.kode_neraca);
-                $(".tdneracake"+no).text(data.kode_neraca);
-                $(".nmneracake"+no).val(data.nama);
-                $(".tdnmneracake"+no).text(data.nama);
-                $(".neracake"+no).hide();
-                $(".tdneracake"+no).show();
-                $(".search-neracake"+no).hide();
-                $(".nmneracake"+no).show();
-                $(".tdnmneracake"+no).hide();
-                setTimeout(function() {  $(".tddcke"+no).click(); }, 100);
-            }
-        });
+        // $(".search-neracake"+no).showFilter({
+        //     title: 'Daftar Neraca',
+        //     url: "{{ url('yakes-trans/setting-rasio-neraca') }}",
+        //     header:['Kode','Nama'],
+        //     columns:[
+        //                 { data: 'kode_neraca' },
+        //                 { data: 'nama' }
+        //             ],
+        //     parameter:{kode_fs: $('#kode_fs').val()},
+        //     onItemSelected: function(data){
+        //         $(".neracake"+no).val(data.kode_neraca);
+        //         $(".tdneracake"+no).text(data.kode_neraca);
+        //         $(".nmneracake"+no).val(data.nama);
+        //         $(".tdnmneracake"+no).text(data.nama);
+        //         $(".neracake"+no).hide();
+        //         $(".tdneracake"+no).show();
+        //         $(".search-neracake"+no).hide();
+        //         $(".nmneracake"+no).show();
+        //         $(".tdnmneracake"+no).hide();
+        //     }
+        // });
 
         if(param == "satu"){
 
@@ -645,10 +676,10 @@
         addRowGrid("satu");
     });
 
-    $('#input-grid').on('keydown','.inp-fs, .inp-nama_fs,.inp-kode, .inp-nama',function(e){
+    $('#input-grid').on('keydown','.inp-kode, .inp-nama',function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['.inp-fs','.inp-nama_fs','.inp-fs','.inp-nama'];
-        var nxt2 = ['.td-fs','.td-nama_fs','.td-fs','.td-nama'];
+        var nxt = ['.inp-kode','.inp-nama'];
+        var nxt2 = ['.td-kode','.td-nama'];
         if (code == 13 || code == 9) {
             e.preventDefault();
             var idx = $(this).closest('td').index()-2;
@@ -815,10 +846,9 @@
         var noidx =  $(this).parents('tr').find('span.no-grid').text();
         target1 = "neracake"+noidx;
         target2 = "nmneracake"+noidx;
-        target3 = "dcke"+noidx;
         if($.trim($(this).closest('tr').find('.inp-kode').val()).length){
             var kode = $(this).val();
-            getNeraca(kode,target1,target2,target3,'change');
+            getNeraca(kode,target1,target2,'','change');
             // $(this).closest('tr').find('.inp-dc')[0].selectize.focus();
         }else{
             alert('Neraca yang dimasukkan tidak valid');
@@ -832,78 +862,6 @@
             e.preventDefault();
             if($("#input-grid tbody tr:eq("+(this_index - 1)+")").find('.inp-kode').val() != undefined){
                 $(this).val($("#input-grid tbody tr:eq("+(this_index - 1)+")").find('.inp-kode').val());
-            }else{
-                $(this).val('');
-            }
-        }
-    });
-
-    $('#input-grid').on('change', '.inp-fs', function(e){
-        e.preventDefault();
-        var noidx =  $(this).closest('tr').find('span.no-grid').text();
-        target1 = "fske"+noidx;
-        target2 = "nmfske"+noidx;
-        if($.trim($(this).closest('tr').find('.inp-fs').val()).length){
-            $(".search-neracake"+noidx).showFilter({
-                title: 'Daftar Neraca',
-                url: "{{ url('yakes-trans/setting-rasio-neraca') }}",
-                header:['Kode','Nama'],
-                columns:[
-                    { data: 'kode_neraca' },
-                    { data: 'nama' }
-                ],
-                parameter:{kode_fs: $('#kode_fs').val()},
-                onItemSelected: function(data){
-                    $(".neracake"+noidx).val(data.kode_neraca);
-                    $(".tdneracake"+noidx).text(data.kode_neraca);
-                    $(".nmneracake"+noidx).val(data.nama);
-                    $(".tdnmneracake"+noidx).text(data.nama);
-                    $(".neracake"+noidx).hide();
-                    $(".tdneracake"+noidx).show();
-                    $(".search-neracake"+noidx).hide();
-                    $(".nmneracake"+noidx).show();
-                    $(".tdnmneracake"+noidx).hide();
-                    setTimeout(function() {  $(".tddcke"+noidx).click(); }, 100);
-                }
-            });
-            var kode = $(this).val();
-            getFS(kode,target1,target2,'change');
-            // ;
-        }else{
-            alert('FS yang dimasukkan tidak valid');
-            return false;
-        }
-    });
-
-    $('#input-grid').on('keypress', '.inp-fs', function(e){
-        var this_index = $(this).closest('tbody tr').index();
-        if (e.which == 42) {
-            e.preventDefault();
-            var noidx =  $(this).closest('tr').find('span.no-grid').text();
-            $(".search-neracake"+noidx).showFilter({
-                title: 'Daftar Neraca',
-                url: "{{ url('yakes-trans/setting-rasio-neraca') }}",
-                header:['Kode','Nama'],
-                columns:[
-                    { data: 'kode_neraca' },
-                    { data: 'nama' }
-                ],
-                parameter:{kode_fs: $('#kode_fs').val()},
-                onItemSelected: function(data){
-                    $(".neracake"+noidx).val(data.kode_neraca);
-                    $(".tdneracake"+noidx).text(data.kode_neraca);
-                    $(".nmneracake"+noidx).val(data.nama);
-                    $(".tdnmneracake"+noidx).text(data.nama);
-                    $(".neracake"+noidx).hide();
-                    $(".tdneracake"+noidx).show();
-                    $(".search-neracake"+noidx).hide();
-                    $(".nmneracake"+noidx).show();
-                    $(".tdnmneracake"+noidx).hide();
-                    setTimeout(function() {  $(".tddcke"+noidx).click(); }, 100);
-                }
-            });
-            if($("#input-grid tbody tr:eq("+(this_index - 1)+")").find('.inp-fs').val() != undefined){
-                $(this).val($("#input-grid tbody tr:eq("+(this_index - 1)+")").find('.inp-fs').val());
             }else{
                 $(this).val('');
             }
@@ -1279,13 +1237,6 @@
                         var no = 1;
                         for(var i=0;i<grid.length;i++){
                             var row = grid[i];
-                            $('.dcke'+no).selectize({
-                                selectOnTab:true,
-                                onChange: function(value) {
-                                    $('.tddcke'+no).text(value);
-                                    ;
-                                }
-                            });
                             $('#neracakode'+no).typeahead({
                                 source:$dtkode_neraca,
                                 displayText:function(item){
@@ -1300,28 +1251,28 @@
                                 }
                             });
 
-                            $(".search-neracake"+no).showFilter({
-                                title: 'Daftar Neraca',
-                                url: "{{ url('yakes-trans/setting-rasio-neraca') }}",
-                                header:['Kode','Nama'],
-                                columns:[
-                                            { data: 'kode_neraca' },
-                                            { data: 'nama' }
-                                        ],
-                                parameter:{kode_fs: $('#kode_fs').val()},
-                                onItemSelected: function(data){
-                                    $(".neracake"+no).val(data.kode_neraca);
-                                    $(".tdneracake"+no).text(data.kode_neraca);
-                                    $(".nmneracake"+no).val(data.nama);
-                                    $(".tdnmneracake"+no).text(data.nama);
-                                    $(".neracake"+no).hide();
-                                    $(".tdneracake"+no).show();
-                                    $(".search-neracake"+no).hide();
-                                    $(".nmneracake"+no).show();
-                                    $(".tdnmneracake"+no).hide();
-                                    setTimeout(function() {  $(".tddcke"+no).click(); }, 100);
-                                }
-                            });
+                            // $(".search-neracake"+no).showFilter({
+                            //     title: 'Daftar Neraca',
+                            //     url: "{{ url('yakes-trans/setting-rasio-neraca') }}",
+                            //     header:['Kode','Nama'],
+                            //     columns:[
+                            //                 { data: 'kode_neraca' },
+                            //                 { data: 'nama' }
+                            //             ],
+                            //     parameter:{kode_fs: $('#kode_fs').val()},
+                            //     onItemSelected: function(data){
+                            //         $(".neracake"+no).val(data.kode_neraca);
+                            //         $(".tdneracake"+no).text(data.kode_neraca);
+                            //         $(".nmneracake"+no).val(data.nama);
+                            //         $(".tdnmneracake"+no).text(data.nama);
+                            //         $(".neracake"+no).hide();
+                            //         $(".tdneracake"+no).show();
+                            //         $(".search-neracake"+no).hide();
+                            //         $(".nmneracake"+no).show();
+                            //         $(".tdnmneracake"+no).hide();
+                            //         setTimeout(function() {  $(".tddcke"+no).click(); }, 100);
+                            //     }
+                            // });
                             no++;
                         }
                     }
