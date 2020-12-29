@@ -136,7 +136,6 @@ class SettingRasioController extends Controller
             'kode_klp' => 'required',
             'keterangan' => 'required',
             'kode_fs' => 'required',
-            'flag_box' => 'required',
             'rumus' => 'required',
             'kode_neraca' => 'required|array',
         ]);
@@ -150,7 +149,6 @@ class SettingRasioController extends Controller
                     'kode_klp' => $request->kode_klp,
                     'keterangan' => $request->keterangan,
                     'rumus' => $request->rumus,
-                    'flag_box' => $request->flag_box,
                     'kode_neraca' => $request->kode_neraca,
                     'kode_fs' => $request->kode_fs
                   );
@@ -225,7 +223,6 @@ class SettingRasioController extends Controller
             'kode_klp' => 'required',
             'keterangan' => 'required',
             'kode_fs' => 'required',
-            'flag_box' => 'required',
             'rumus' => 'required',
             'kode_neraca' => 'required|array',
         ]);
@@ -239,7 +236,6 @@ class SettingRasioController extends Controller
                     'kode_klp' => $request->kode_klp,
                     'keterangan' => $request->keterangan,
                     'rumus' => $request->rumus,
-                    'flag_box' => $request->flag_box,
                     'kode_neraca' => $request->kode_neraca,
                     'kode_fs' => $request->kode_fs
                   );

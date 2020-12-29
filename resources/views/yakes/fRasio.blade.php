@@ -1,6 +1,6 @@
     <link rel="stylesheet" href="{{ asset('trans.css') }}" />
     <!-- LIST DATA -->
-    <x-list-data judul="Data Setting Rasio" tambah="true" :thead="array('Kode','Nama','Kode Klp','Flag Box','Tgl Input','Action')" :thwidth="array(15,45,15,15,0,10)" :thclass="array('','','','','','text-center')" />
+    <x-list-data judul="Data Setting Rasio" tambah="true" :thead="array('Kode','Nama','Kode Klp','Tgl Input','Action')" :thwidth="array(15,60,15,0,10)" :thclass="array('','','','','text-center')" />
     <!-- END LIST DATA -->
 
     <!-- FORM INPUT -->
@@ -34,7 +34,7 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-lg-4 col-sm-12 div-kode_klp">
+                                    <div class="col-lg-6 col-sm-12 div-kode_klp">
                                         <label for="kode_klp">Kelompok</label>
                                         <div class="input-group">
                                             <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
@@ -48,7 +48,7 @@
                                             <i class="simple-icon-magnifier search-item2" id="search_kode_klp"></i>
                                         </div>
                                     </div>
-                                    <div class="col-lg-4 col-sm-12 div-kode_fs">
+                                    <div class="col-lg-6 col-sm-12 div-kode_fs">
                                         <label for="kode_fs">Kode FS</label>
                                         <div class="input-group">
                                             <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
@@ -62,13 +62,13 @@
                                             <i class="simple-icon-magnifier search-item2" id="search_kode_fs"></i>
                                         </div>
                                     </div>
-                                    <div class="col-lg-4 col-sm-12">
+                                    <!-- <div class="col-lg-4 col-sm-12">
                                         <label for="flag_box">Flag Box</label>
                                         <select class='form-control selectize' id="flag_box" name="flag_box">
                                         <option value=''>--- Pilih Flag Box ---</option>
                                         <option value='-' selected>-</option>
                                         </select>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                             <div class="form-group col-lg-6 col-sm-12">
@@ -411,21 +411,20 @@
         "{{ url('yakes-trans/setting-rasio') }}", 
         [
             {
-                "targets": [4],
+                "targets": [3],
                 "visible": false,
                 "searchable": false
             },
-            {'targets': 5, data: null, 'defaultContent': action_html, 'className': 'text-center' }
+            {'targets': 4, data: null, 'defaultContent': action_html, 'className': 'text-center' }
         ],
         [
             { data: 'kode_rasio' },
             { data: 'nama'},
             { data: 'klp_rasio' },
-            { data: 'flag_box' },
             { data: 'tgl_input' }
         ],
         "{{ url('yakes-auth/sesi-habis') }}",
-        [[4 ,"desc"]]
+        [[3 ,"desc"]]
     );
 
     $.fn.DataTable.ext.pager.numbers_length = 5;
@@ -1004,10 +1003,6 @@
             kode_klp:
             {
                 required: true
-            },
-            flag_box:
-            {
-                required: true,
             }
         },
         errorElement: "label",
@@ -1139,7 +1134,7 @@
 
     // PREVIEW DATA //
     $('#table-data tbody').on('click','td',function(e){
-        if($(this).index() != 4){
+        if($(this).index() != 3){
             var id = $(this).closest('tr').find('td').eq(0).html();
             $.ajax({
                 type: 'GET',
@@ -1173,10 +1168,6 @@
                         <tr>
                             <td>Kode FS</td>
                             <td>`+form[0].kode_fs+`</td>
-                        </tr>
-                        <tr>
-                            <td>Flag Box</td>
-                            <td>`+form[0].flag_box+`</td>
                         </tr>
                         <tr>
                             <td colspan='2'>
@@ -1272,7 +1263,6 @@
                     $('#rumus').val(form[0].rumus);
                     $('#kode_klp').val(form[0].klp_rasio);
                     $('#kode_fs').val(form[0].kode_fs);
-                    $('#flag_box')[0].selectize.setValue(form[0].flag_box);
                     var grid = result.data.detail;
                     if(grid.length > 0) {
                         var input = "";
