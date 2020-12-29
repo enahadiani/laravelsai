@@ -1218,8 +1218,9 @@
                     $('#kode_klp').val(form[0].klp_rasio);
                     $('#kode_fs').val(form[0].kode_fs);
                     var grid = result.data.detail;
+                    var input = "";
+                    $('#input-grid tbody').html(input);
                     if(grid.length > 0) {
-                        var input = "";
                         var no = 1;
                         for(var i=0;i<grid.length;i++) {
                             var data = grid[i];
