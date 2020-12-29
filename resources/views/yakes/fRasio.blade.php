@@ -119,10 +119,11 @@
                                     <table class="table table-bordered table-condensed gridexample table-grid" id="input-grid">
                                         <thead style="background:#F8F8F8">
                                             <tr>
-                                                <th style="width:5%; text-align:center;">No</th>
-                                                <th style="width:5%; text-align:center;"></th>
-                                                <th style="width:15%; text-align:center;">Kode Neraca</th>
-                                                <th style="width:30%; text-align:center;">Nama Neraca</th>
+                                                <th style="width:2%; text-align:center;">No</th>
+                                                <th style="width:3%; text-align:center;"></th>
+                                                <th style="width:25%; text-align:center;">Kode Neraca</th>
+                                                <th style="width:35%; text-align:center;">Nama Neraca</th>
+                                                <th style="width:35%; text-align:center;">Nama</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -369,9 +370,9 @@
     // END FUNCTION GET DATA //
 
     // EVENT ACTION //
-    $('#kode,#nama,#kode_klp,#format,#jenis').keydown(function(e){
+    $('#kode,#nama,#kode_klp,#kode_fs,#keterangan,#rumus').keydown(function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['kode','nama','kode_klp','format','jenis'];
+        var nxt = ['kode','nama','kode_klp','kode_fs','keterangan','rumus'];
         if (code == 13 || code == 40) { // 13 = Enter 40 = Arrow Down 38 = Up Arrow
             e.preventDefault();
             var idx = nxt.indexOf(e.target.id);
@@ -533,6 +534,10 @@
                 tmp = $(this).closest('tr').find('input[name="nama_neraca[]"]').attr('class');
                 tmp2 = tmp.split(" ");
                 target2 = tmp2[2];
+
+                tmp = $(this).closest('tr').find('input[name="nama2[]"]').attr('class');
+                tmp3 = tmp.split(" ");
+                target3 = tmp3[2];
                 var settings = {
                     id : id,
                     header : ['Kode', 'Nama'],
@@ -548,7 +553,7 @@
                     target1 : "."+target1,
                     target2 : "."+target2,
                     target3 : ".td"+target2,
-                    target4 : "",
+                    target4 : ".td"+target3,
                     parameter: {kode_fs:$('#kode_fs').val()},
                     width : ["30%","70%"],
                 };
@@ -630,9 +635,11 @@
         if(param == "copy"){
             var kode_neraca = $('#input-grid tbody tr.selected-row').find(".inp-kode").val();
             var nama_neraca = $('#input-grid tbody tr.selected-row').find(".inp-nama").val();
+            var nama2 = $('#input-grid tbody tr.selected-row').find(".inp-nama2").val();
         }else{
             var kode_neraca = "";
             var nama_neraca = "";
+            var nama2 = "";
         }
 
         var no=$('#input-grid .row-grid:last').index();
@@ -643,6 +650,7 @@
         input += "<td class='text-center'><a class=' hapus-item' style='font-size:12px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
         input += "<td><span class='td-kode tdneracake"+no+" tooltip-span'>"+kode_neraca+"</span><input autocomplete='off' type='text' name='kode_neraca[]' class='form-control inp-kode neracake"+no+" hidden' value='"+kode_neraca+"' required='' style='z-index: 1;position: relative;'  id='neracakode"+no+"'><a href='#' class='search-item search-neraca search-neracake"+no+" hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
         input += "<td><span class='td-nama tdnmneracake"+no+" tooltip-span'>"+nama_neraca+"</span><input autocomplete='off' type='text' name='nama_neraca[]' class='form-control inp-nama nmneracake"+no+" hidden'  value='"+nama_neraca+"' readonly></td>";
+        input += "<td><span class='td-nama2 tdnmneraca2ke"+no+" tooltip-span'>"+nama2+"</span><input autocomplete='off' type='text' name='nama2[]' class='form-control inp-nama2 nmneraca2ke"+no+" hidden'  value='"+nama2+"'></td>";
         input += "</tr>";
 
         $('#input-grid tbody').append(input);
@@ -710,10 +718,10 @@
         addRowGrid("satu");
     });
 
-    $('#input-grid').on('keydown','.inp-kode, .inp-nama',function(e){
+    $('#input-grid').on('keydown','.inp-kode, .inp-nama, .inp-nama2',function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['.inp-kode','.inp-nama'];
-        var nxt2 = ['.td-kode','.td-nama'];
+        var nxt = ['.inp-kode','.inp-nama','.inp-nama2'];
+        var nxt2 = ['.td-kode','.td-nama','.td-nama2'];
         if (code == 13 || code == 9) {
             e.preventDefault();
             var idx = $(this).closest('td').index()-2;
@@ -724,10 +732,10 @@
                 case 0:
                     var noidx = $(this).parents("tr").find("span.no-grid").text();
                     var kode = $(this).val();
-                    var target1 = "fske"+noidx;
-                    var target2 = "nmfske"+noidx;
+                    var target1 = "neracake"+noidx;
+                    var target2 = "nmneracake"+noidx;
                     var target3 = "";
-                    getFS(kode,target1,target2,target3,'tab');                    
+                    getNeraca(kode,target1,target2,target3,'tab');                    
                     break;
                 case 1:
                     $("#input-grid td").removeClass("px-0 py-0 aktif");
@@ -735,30 +743,12 @@
                     $(this).closest('tr').find(nxt[idx]).hide();
                     $(this).closest('tr').find(nxt2[idx]).show();
 
-                    $(this).parents("tr").find(".selectize-control").show();
-                    $(this).closest('tr').find(nxt[idx_next])[0].selectize.focus();
+                    $(this).closest('tr').find(nxt[idx_next]).show();
                     $(this).closest('tr').find(nxt2[idx_next]).hide();
+                    $(this).closest('tr').find(nxt[idx_next]).focus();
                     
                     break;
                 case 2:
-                    var isi = $(this).parents("tr").find(nxt[idx])[0].selectize.getValue();
-                    if(isi == 'D' || isi == 'C'){
-                        $("#input-grid td").removeClass("px-0 py-0 aktif");
-                        $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
-                        $(this).parents("tr").find(nxt[idx])[0].selectize.setValue(isi);
-                        $(this).parents("tr").find(nxt2[idx]).text(isi);
-                        $(this).parents("tr").find(".selectize-control").hide();
-                        $(this).closest('tr').find(nxt2[idx]).show();
-
-                        $(this).closest('tr').find(nxt[idx_next]).show();
-                        $(this).closest('tr').find(nxt[idx_next]).focus();
-                        $(this).closest('tr').find(nxt2[idx_next]).hide();
-                    }else{
-                        alert('Posisi yang dimasukkan tidak valid');
-                        return false;
-                    }
-                    break;
-                case 3:
                     if($.trim($(this).val()).length){
                         $("#input-grid td").removeClass("px-0 py-0 aktif");
                         $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
@@ -769,72 +759,16 @@
                         $(this).closest('tr').find(nxt[idx_next]).show();
                         $(this).closest('tr').find(nxt2[idx_next]).hide();
                         $(this).closest('tr').find(nxt[idx_next]).focus();
+                        
+                        var cek = $(this).parents('tr').next('tr').find('.td-kode');
+                        if(cek.length > 0){
+                            cek.click();
+                        }else{
+                            $('.add-row').click();
+                        }
                     }else{
-                        alert('Keterangan yang dimasukkan tidak valid');
+                        alert('Nama yang dimasukkan tidak valid');
                         return false;
-                    }
-                    break;
-                case 4:
-                    if(isi != "" && isi != 0){
-                        $("#input-grid td").removeClass("px-0 py-0 aktif");
-                        $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
-                        $(this).closest('tr').find(nxt[idx]).val(isi);
-                        $(this).closest('tr').find(nxt2[idx]).text(isi);
-                        $(this).closest('tr').find(nxt[idx]).hide();
-                        $(this).closest('tr').find(nxt2[idx]).show();
-                        $(this).closest('tr').find(nxt[idx_next]).show();
-                        $(this).closest('tr').find(nxt[idx_next]).focus();
-                        $(this).closest('tr').find(nxt2[idx_next]).hide();
-                        $(this).closest('tr').find('.search-pp').show();
-                        ;
-                    }else{
-                        alert('Nilai yang dimasukkan tidak valid');
-                        return false;
-                    }
-                    break;
-                case 5:
-                    var noidx = $(this).parents("tr").find("span.no-grid").text();
-                    var kode = $(this).val();
-                    var target1 = "ppke"+noidx;
-                    var target2 = "nmppke"+noidx;
-                    getPP(kode,target1,target2,'tab');
-                    break;
-                case 6:
-                    console.log('PP nama');
-                    console.log({nxt, nxt2, idx, kunci});
-                    console.log(nxt[idx]);
-                    console.log(nxt[idx_next]);
-                    $("#input-grid td").removeClass("px-0 py-0 aktif");
-                    $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
-                    $(this).closest('tr').find(nxt[idx]).val(isi);
-                    $(this).closest('tr').find(nxt2[idx]).text(isi);
-                    $(this).closest('tr').find(nxt[idx]).hide();
-                    $(this).closest('tr').find(nxt2[idx]).show();
-                    $(this).closest('tr').find(nxt[idx_next]).show();
-                    $(this).closest('tr').find(nxt[idx_next]).focus();
-                    $(this).closest('tr').find(nxt2[idx_next]).hide();
-                    break;
-                case 7:
-                    console.log('FS');
-                    var noidx = $(this).parents("tr").find("span.no-grid").text();
-                    var kode = $(this).val();
-                    var target1 = "fske"+noidx;
-                    var target2 = "nmfske"+noidx;
-                    getFS(kode,target1,target2,'tab');
-                    break;
-                case 8:
-                    $("#input-grid td").removeClass("px-0 py-0 aktif");
-                    $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
-                    $(this).closest('tr').find(nxt[idx]).val(isi);
-                    $(this).closest('tr').find(nxt2[idx]).text(isi);
-                    $(this).closest('tr').find(nxt[idx]).hide();
-                    $(this).closest('tr').find(nxt2[idx]).show();
-                    // $('.add-row').click();
-                    var cek = $(this).parents('tr').next('tr').find('.td-kode');
-                    if(cek.length > 0){
-                        cek.click();
-                    }else{
-                        $('.add-row').click();
                     }
                     break;
 
@@ -853,17 +787,22 @@
             if(!$(row).hasClass('selected-row')) {
                 var kode_neraca = $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-kode").val();
                 var nama_neraca = $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nama").val();
+                var nama2 = $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nama2").val();
 
                 $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-kode").val(kode_neraca);
                 $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-kode").text(kode_neraca);
                 $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nama").val(nama_neraca);
                 $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-nama").text(nama_neraca);
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nama2").val(nama2);
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-nama2").text(nama2);
 
                 $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-kode").hide();
                 $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-kode").show();
                 $('#input-grid > tbody > tr:eq('+index+') > td').find(".search-neraca").hide();
                 $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nama").hide();
                 $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-nama").show();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nama2").hide();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-nama2").show();
             }
         })
     }
@@ -915,6 +854,7 @@
                 console.log(idx);
                 var kode_neraca = $(this).parents("tr").find(".inp-kode").val();
                 var nama_neraca = $(this).parents("tr").find(".inp-nama").val();
+                var nama2 = $(this).parents("tr").find(".inp-nama2").val();
                 var no = $(this).parents("tr").find("span.no-grid").text();
 
                 $(this).parents("tr").find(".inp-kode").val(kode_neraca);
@@ -944,7 +884,19 @@
                     $(this).parents("tr").find(".inp-nama").hide();
                     $(this).parents("tr").find(".td-nama").show();
                 }
-                ;
+
+                $(this).parents("tr").find(".inp-nama2").val(nama2);
+                $(this).parents("tr").find(".td-nama2").text(nama2);
+                if(idx == 4){
+                    
+                    $(this).parents("tr").find(".inp-nama2").show();
+                    $(this).parents("tr").find(".td-nama2").hide();
+                    $(this).parents("tr").find(".inp-nama2").focus();
+                }else{
+                    
+                    $(this).parents("tr").find(".inp-nama2").hide();
+                    $(this).parents("tr").find(".td-nama2").show();
+                }
             }
         }
     });
@@ -1175,8 +1127,9 @@
                                     <thead>
                                         <tr>
                                             <th style="width:10%; text-align:center;">No</th>
-                                            <th style="width:40%; text-align:center;">Kode Neraca</th>
-                                            <th style="width:50%; text-align:center;">Nama Neraca</th>
+                                            <th style="width:20%; text-align:center;">Kode Neraca</th>
+                                            <th style="width:35%; text-align:center;">Nama Neraca</th>
+                                            <th style="width:35%; text-align:center;">Nama </th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -1196,6 +1149,7 @@
                                 input += "<td>"+no+"</td>";
                                 input += "<td >"+line.kode_neraca+"</td>";
                                 input += "<td >"+line.nama_neraca+"</td>";
+                                input += "<td >"+line.nama+"</td>";
                                 input += "</tr>";
                                 no++;
                             }
@@ -1274,6 +1228,7 @@
                             input += "<td class='text-center'><a class=' hapus-item' style='font-size:12px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
                             input += "<td ><span class='td-kode tdneracake"+no+" tooltip-span'>"+data.kode_neraca+"</span><input type='text' name='kode_neraca[]' class='form-control inp-kode neracake"+no+" hidden' value='"+data.kode_neraca+"' required='' style='z-index: 1;position: relative;' id='neracakode"+no+"'><a href='#' class='search-item search-neraca hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
                             input += "<td><span class='td-nama tdnmneracake"+no+" tooltip-span'>"+data.nama_neraca+"</span><input type='text' name='nama_neraca[]' class='form-control inp-nama nmneracake"+no+" hidden'  value='"+data.nama_neraca+"' readonly></td>";
+                            input += "<td><span class='td-nama2 tdnmneraca2ke"+no+" tooltip-span'>"+data.nama+"</span><input type='text' name='nama2[]' class='form-control inp-nama2 nmneraca2ke"+no+" hidden'  value='"+data.nama+"' ></td>";
                             input += "</tr>";
 
                             no++;
