@@ -386,6 +386,21 @@
             }
         }
     });
+
+    function showInfoField(kode,isi_kode,isi_nama){
+        $('#'+kode).val(isi_kode);
+        $('#'+kode).attr('style','border-left:0;border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important');
+        $('.info-code_'+kode).text(isi_kode).parent('div').removeClass('hidden');
+        $('.info-code_'+kode).attr('title',isi_nama);
+        $('.info-name_'+kode).removeClass('hidden');
+        $('.info-name_'+kode).attr('title',isi_nama);
+        $('.info-name_'+kode+' span').text(isi_nama);
+        var width = $('#'+kode).width()-$('#search_'+kode).width()-10;
+        var height =$('#'+kode).height();
+        var pos =$('#'+kode).position();
+        $('.info-name_'+kode).width(width).css({'left':pos.left,'height':height});
+        $('.info-name_'+kode).closest('div').find('.info-icon-hapus').removeClass('hidden');
+    }
     // END EVENT ACTION //
 
     // DATATABLE FUNCTION //
@@ -970,6 +985,31 @@
     // SUBMIT ACTION //
     $('#form-tambah').validate({
         ignore: [],
+        rules: 
+        {
+            kode_rasio:{
+                required: true,
+                maxlength:10   
+            },
+            nama:{
+                required: true,
+                maxlength:50   
+            },
+            keterangan:{
+                required: true
+            },
+            rumus:{
+                required: true
+            },
+            kode_klp:
+            {
+                required: true
+            },
+            flag_box:
+            {
+                required: true,
+            }
+        },
         errorElement: "label",
         submitHandler: function (form) {
 
@@ -1230,7 +1270,7 @@
                     $('#nama').val(form[0].nama);
                     $('#keterangan').val(form[0].keterangan);
                     $('#rumus').val(form[0].rumus);
-                    $('#kode_klp').val(form[0].kode_klp);
+                    $('#kode_klp').val(form[0].klp_rasio);
                     $('#kode_fs').val(form[0].kode_fs);
                     $('#flag_box')[0].selectize.setValue(form[0].flag_box);
                     var grid = result.data.detail;
@@ -1299,6 +1339,8 @@
                     $('#saku-datatable').hide();
                     $('#modal-preview').modal('hide');
                     $('#saku-form').show();
+                    showInfoField('kode_klp',form[0].klp_rasio,form[0].nama_klp);
+                    showInfoField('kode_fs',form[0].kode_fs,form[0].nama_fs);
                     
                     ;
                     hitungTotalRow();
