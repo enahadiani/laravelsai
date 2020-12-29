@@ -62,3 +62,7 @@ Route::put('setting-rasio', 'Yakes\SettingRasioController@update');
 Route::delete('setting-rasio', 'Yakes\SettingRasioController@delete');
 Route::get('setting-rasio-klp', 'Yakes\SettingRasioController@getKlp');
 Route::get('setting-rasio-neraca', 'Yakes\SettingRasioController@getNeraca');
+
+Route::post('arus-kas-import', 'Yakes\ArusKasController@importExcel');
+Route::get('arus-kas-tmp', 'Yakes\ArusKasController@getArusKasTmp');
+Route::post('arus-kas', 'Yakes\ArusKasController@store');
