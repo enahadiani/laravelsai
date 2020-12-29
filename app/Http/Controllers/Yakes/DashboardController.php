@@ -14,6 +14,22 @@
             return redirect('yakes-auth/login');
             }
         }
+        public function getdataKPKU($tahun,$jenis) {
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'yakes-dash/rasio?tahun='.$tahun.'&kode_rasio='.$jenis,[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+            
+                $data = json_decode($response_data,true);
+            }
+            return response()->json(['daftar' => $data, 'status' => true], 200);
+        }
 
         public function getdataKunjLayanan($periode,$jenis,$regional) {
             $client = new Client();
@@ -168,6 +184,24 @@
             $client = new Client();
             $response = $client->request('GET',  config('api.url').'yakes-dash/dataPremiLokasi?periode='.$periode.'&jenis='.$jenis
             ,[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+            
+                $data = json_decode($response_data,true);
+                $data = $data['data'];
+            }
+            return response()->json(['daftar' => $data, 'status' => true], 200);
+        }
+
+        public function getFilterRasio() {
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'yakes-dash/klp-rasio',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',

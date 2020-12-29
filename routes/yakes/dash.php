@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Session;
 Route::get('data-tahun', 'Yakes\DashboardController@getFilterTahun');
 Route::get('data-periode', 'Yakes\DashboardController@getFilterPeriode');
 Route::get('data-regional', 'Yakes\DashboardController@getFilterRegional');
+Route::get('data-jenis', 'Yakes\DashboardController@getFilterRasio');
 Route::get('data-organik/{periode}/{regional}', 'Yakes\DashboardController@getdataOrganik');
 Route::get('data-demography/{periode}/{regional}', 'Yakes\DashboardController@getdataDemography');
 Route::get('data-medis/{periode}/{regional}', 'Yakes\DashboardController@getdataMedis');
@@ -39,3 +40,4 @@ Route::get('data-bpjs-claim/{periode}/{jenis}', 'Yakes\DashboardController@getda
 Route::get('data-claimant/{periode}/{jenis}/{regional}', 'Yakes\DashboardController@getdataClaimant');
 Route::get('data-kunj-total/{periode}/{jenis}/{regional}', 'Yakes\DashboardController@getdataKunjTotal');
 Route::get('data-layanan-kunj/{periode}/{jenis}/{regional}', 'Yakes\DashboardController@getdataKunjLayanan');
+Route::get('data-kpku/{tahun}/{jenis}', 'Yakes\DashboardController@getdataKPKU');
