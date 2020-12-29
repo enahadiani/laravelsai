@@ -131,24 +131,26 @@ class SettingRasioController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'kode_grafik' => 'required',
+            'kode_rasio' => 'required',
             'nama' => 'required',
             'kode_klp' => 'required',
-            'format' => 'required',
-            'jenis' => 'required',
+            'keterangan' => 'required',
+            'kode_fs' => 'required',
+            'flag_box' => 'required',
+            'rumus' => 'required',
             'kode_neraca' => 'required|array',
-            'kode_fs' => 'required|array'
         ]);
         try{
 
     
             $fields =
                   array (
-                    'kode_grafik' => $request->kode_grafik,
+                    'kode_rasio' => $request->kode_rasio,
                     'nama' => $request->nama,
                     'kode_klp' => $request->kode_klp,
-                    'format' => $request->format,
-                    'jenis' => $request->jenis,
+                    'keterangan' => $request->keterangan,
+                    'rumus' => $request->rumus,
+                    'flag_box' => $request->flag_box,
                     'kode_neraca' => $request->kode_neraca,
                     'kode_fs' => $request->kode_fs
                   );
@@ -194,7 +196,7 @@ class SettingRasioController extends Controller
                     'Accept'     => 'application/json',
                 ],
                 'query' => [
-                    'kode_grafik' => $request->kode_grafik
+                    'kode_rasio' => $request->kode_rasio
                 ]
             ]);
     
@@ -218,26 +220,29 @@ class SettingRasioController extends Controller
     public function update(Request $request)
     {
         $this->validate($request, [
-            'kode_grafik' => 'required',
+            'kode_rasio' => 'required',
             'nama' => 'required',
             'kode_klp' => 'required',
-            'format' => 'required',
-            'jenis' => 'required',
+            'keterangan' => 'required',
+            'kode_fs' => 'required',
+            'flag_box' => 'required',
+            'rumus' => 'required',
             'kode_neraca' => 'required|array',
-            'kode_fs' => 'required|array'
         ]);
         try{
 
+    
             $fields =
-            array (
-              'kode_grafik' => $request->kode_grafik,
-              'nama' => $request->nama,
-              'kode_klp' => $request->kode_klp,
-              'format' => $request->format,
-              'jenis' => $request->jenis,
-              'kode_neraca' => $request->kode_neraca,
-              'kode_fs' => $request->kode_fs
-            );
+                  array (
+                    'kode_rasio' => $request->kode_rasio,
+                    'nama' => $request->nama,
+                    'kode_klp' => $request->kode_klp,
+                    'keterangan' => $request->keterangan,
+                    'rumus' => $request->rumus,
+                    'flag_box' => $request->flag_box,
+                    'kode_neraca' => $request->kode_neraca,
+                    'kode_fs' => $request->kode_fs
+                  );
             
             $client = new Client();
             $response = $client->request('PUT',  config('api.url').'yakes-trans/setting-rasio',[
@@ -281,7 +286,7 @@ class SettingRasioController extends Controller
                     'Accept'     => 'application/json',
                 ],
                 'query' => [
-                    'kode_grafik' => $request->kode_grafik
+                    'kode_rasio' => $request->kode_rasio
                 ]
             ]);
     

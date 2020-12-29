@@ -1228,8 +1228,9 @@
     function hapusData(id){
         $.ajax({
             type: 'DELETE',
-            url: "{{ url('yakes-trans/setting-grafik') }}/"+id,
+            url: "{{ url('yakes-trans/setting-grafik') }}",
             dataType: 'json',
+            data:{kode_grafik:id},
             async:false,
             success:function(result){
                 if(result.data.status){

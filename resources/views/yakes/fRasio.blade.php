@@ -45,7 +45,7 @@
                                                 <span></span> 
                                             </span>
                                             <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                            <i class="simple-icon-magnifier search-item2 search-item" id="search_kode_klp"></i>
+                                            <i class="simple-icon-magnifier search-item2" id="search_kode_klp"></i>
                                         </div>
                                     </div>
                                     <div class="col-lg-4 col-sm-12 div-kode_fs">
@@ -59,7 +59,7 @@
                                                 <span></span> 
                                             </span>
                                             <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                            <i class="simple-icon-magnifier search-item2 search-item" id="search_kode_fs"></i>
+                                            <i class="simple-icon-magnifier search-item2" id="search_kode_fs"></i>
                                         </div>
                                     </div>
                                     <div class="col-lg-4 col-sm-12">
@@ -474,6 +474,26 @@
                     ],
                     judul : "Daftar FS",
                     pilih : "fs",
+                    jTarget1 : "text",
+                    jTarget2 : "text",
+                    target1 : ".info-code_"+id,
+                    target2 : ".info-name_"+id,
+                    target3 : "",
+                    target4 : "",
+                    width : ["30%","70%"],
+                };
+            break;
+            case 'kode_klp' :
+                var settings = {
+                    id : id,
+                    header : ['Kode', 'Nama'],
+                    url : "{{ url('yakes-trans/setting-rasio-klp') }}",
+                    columns : [
+                        { data: 'kode_klp' },
+                        { data: 'nama' }
+                    ],
+                    judul : "Daftar Kelompok",
+                    pilih : "kelompok",
                     jTarget1 : "text",
                     jTarget2 : "text",
                     target1 : ".info-code_"+id,
@@ -1079,7 +1099,7 @@
 
     // PREVIEW DATA //
     $('#table-data tbody').on('click','td',function(e){
-        if($(this).index() != 5){
+        if($(this).index() != 4){
             var id = $(this).closest('tr').find('td').eq(0).html();
             $.ajax({
                 type: 'GET',
@@ -1108,7 +1128,7 @@
                         </tr>
                         <tr>
                             <td>Kelompok</td>
-                            <td>`+form[0].kode_klp+`</td>
+                            <td>`+form[0].klp_rasio+`</td>
                         </tr>
                         <tr>
                             <td>Kode FS</td>
