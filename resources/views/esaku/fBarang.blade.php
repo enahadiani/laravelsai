@@ -787,7 +787,7 @@
                     $('#saku-datatable').hide();
                     $('#modal-preview').modal('hide');
                     $('#saku-form').show();
-                    var html = "<img style='width:120px' style='margin:0 auto' src='"+result.data[0].foto+"'>";
+                    var html = "<img style='width:120px' style='margin:0 auto' src='"+result.data[0].file_gambar+"'>";
                     $('.preview').html(html);
                     showInfoField('kode_klp',result.data[0].kode_klp,result.data[0].nama_klp);
                     showInfoField('satuan',result.data[0].satuan,result.data[0].nama_satuan);
