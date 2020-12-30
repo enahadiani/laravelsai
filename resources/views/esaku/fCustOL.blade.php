@@ -1,43 +1,8 @@
-    <style>
-        th,td{
-            padding:8px !important;
-            vertical-align:middle !important;
-        }
-        .search-item2{
-            cursor:pointer;
-        }
-        .form-group{
-            margin-bottom:5px !important;
-        }
-    </style>
-    <div class="row header-datatable">
-        <div class="col-12">
-            <h1>Data Customer</h1>
-            <button type="button" id="btn-tambah" class="btn btn-info ml-2" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
-            <div class="separator mb-5"></div>
-        </div>
-    </div>
-    <div class="row" id="saku-datatable">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-body" style="min-height: 560px !important;">
-                    <table id="table-data" style='width:100%'>
-                        <thead>
-                            <tr>
-                                <th>Kode</th>
-                                <th>Nama</th>
-                                <th>Alamat</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+    <link rel="stylesheet" href="{{ asset('master.css') }}" />
+    <!-- LIST DATA -->
+    <x-list-data judul="Data Customer" tambah="true" :thead="array('Kode','Nama','Alamat','Tgl Input','Aksi')" :thwidth="array(15,35,40,0,10)" :thclass="array('','','','','text-center')" />
+    <!-- END LIST DATA -->
 
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="row header-form" style="display:none;">
         <div class="col-12">
             <h1>Form Data Customer</h1>
@@ -46,11 +11,19 @@
             <div class="separator mb-5"></div>
         </div>
     </div>
-    <div class="row" id="saku-form" style="display:none;">
-        <div class="col-sm-12">
-            <div class="card pt-3" style="min-height: 560px !important;">
-                <form id="form-tambah" style=''>
-                    <div class="card-body pt-0" >
+   <!-- FORM INPUT -->
+   <form id="form-tambah" class="tooltip-label-right" novalidate>
+        <div class="row" id="saku-form" style="display:none;">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;">
+                        <h6 id="judul-form" style="position:absolute;top:25px"></h6>
+                        <button type="submit" class="btn btn-primary ml-2"  style="float:right;" id="btn-save"><i class="fa fa-save"></i> Simpan</button>
+                        <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Keluar</button>
+                    </div>
+                    <div class="separator mb-2"></div>
+                    <!-- FORM BODY -->
+                    <div class="card-body pt-3 form-body">
                         <div class="form-group row" id="row-id">
                             <div class="col-md-9 col-sm-9">
                                 <input class="form-control" type="hidden" id="id_edit" name="id_edit">
@@ -119,30 +92,15 @@
                             </div>
                         </div>
                     </div>
-                </form>
-            </div>
-        </div>
-    </div> 
-
-     <div class="modal" tabindex="-1" role="dialog" id="modal-search">
-        <div class="modal-dialog" role="document" style="max-width:600px">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title"></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    
                 </div>
             </div>
-        </div>
-    </div>
-    <!-- END MODAL -->
-    <script src="{{ asset('asset_elite/sai.js') }}"></script>
-    <script src="{{ asset('asset_elite/inputmask.js') }}"></script>
+        </div> 
+    </form>
+    @include('modal_search')
 
+    <!-- JAVASCRIPT  -->
+    <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
+    <script src="{{ asset('helper.js') }}"></script>
     <script>
     // var $iconLoad = $('.preloader');
     var $target = "";
@@ -156,77 +114,115 @@
 
     $('[data-toggle="tooltip"]').tooltip(); 
 
-    var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil'></i></a> &nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash'></i></a>";
+      // PLUGIN SCROLL di bagian preview dan form input
+      var scroll = document.querySelector('#content-preview');
+    var psscroll = new PerfectScrollbar(scroll);
 
-    var dataTable = $("#table-data").DataTable({
-        sDom: '<"row view-filter"<"col-sm-12"<"float-right"l><"float-left"f><"clearfix">>>t<"row view-pager"<"col-sm-12"<"text-center"ip>>>',
-        'ajax': {
-            'url': "{{ url('esaku-master/cust-ol') }}",
-            'async':false,
-            'type': 'GET',
-            'dataSrc' : function(json) {
-                if(json.status){
-                    return json.daftar;   
-                }else{
-                    // Swal.fire({
-                    //     title: 'Session telah habis',
-                    //     text: 'harap login terlebih dahulu!',
-                    //     icon: 'error'
-                    // }).then(function() {
-                        window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
-                    // })
-                    return [];
+    var scrollform = document.querySelector('.form-body');
+    var psscrollform = new PerfectScrollbar(scrollform);
+    // END PLUGIN SCROLL di bagian preview dan form input
+
+    //LIST DATA
+    var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
+    var dataTable = generateTable(
+        "table-data",
+        "{{ url('esaku-master/cust-ol') }}", 
+        [
+            {'targets': 4, data: null, 'defaultContent': action_html,'className': 'text-center' },
+            {
+                "targets": 0,
+                "createdCell": function (td, cellData, rowData, row, col) {
+                    if ( rowData.status == "baru" ) {
+                        $(td).parents('tr').addClass('selected');
+                        $(td).addClass('last-add');
+                    }
                 }
+            },
+            {
+                "targets": [3],
+                "visible": false,
+                "searchable": false
             }
-        },
-        'columnDefs': [
-            {'targets': 3, data: null, 'defaultContent': action_html },
         ],
-        'columns': [
+        [
             { data: 'kode_cust' },
             { data: 'nama' },
             { data: 'alamat' },
+            { data: 'tgl_input' },
         ],
-        drawCallback: function () {
-            $($(".dataTables_wrapper .pagination li:first-of-type"))
-                .find("a")
-                .addClass("prev");
-            $($(".dataTables_wrapper .pagination li:last-of-type"))
-                .find("a")
-                .addClass("next");
-
-            $(".dataTables_wrapper .pagination").addClass("pagination-sm");
-        },
-        language: {
-            paginate: {
-                previous: "<i class='simple-icon-arrow-left'></i>",
-                next: "<i class='simple-icon-arrow-right'></i>"
-            },
-            search: "_INPUT_",
-            searchPlaceholder: "Search...",
-            lengthMenu: "Items Per Page _MENU_"
-        },
+        "{{ url('esaku-auth/sesi-habis') }}",
+        [[3 ,"desc"]]
+    );
+    
+    $.fn.DataTable.ext.pager.numbers_length = 5;
+    
+    $("#searchData").on("keyup", function (event) {
+        dataTable.search($(this).val()).draw();
     });
-
-    $('.header-datatable').on('click', '#btn-tambah', function(){
+    
+    $("#page-count").on("change", function (event) {
+        var selText = $(this).val();
+        dataTable.page.len(parseInt(selText)).draw();
+    });
+    // END LIST DATA
+    // BUTTON TAMBAH
+    $('#saku-datatable').on('click', '#btn-tambah', function(){
         $('#row-id').hide();
         $('#id_edit').val('');
+        $('#judul-form').html('Tambah Data Jasa Kirim');
+        $('#btn-update').attr('id','btn-save');
+        $('#btn-save').attr('type','submit');
         $('#form-tambah')[0].reset();
-        $('#method').val('post');  
-        $('#kode_cust').attr('readonly', false);
+        $('#form-tambah').validate().resetForm();
+        $('#method').val('post');
+        $('#kode_kirim').attr('readonly', false);
         $('#saku-datatable').hide();
-        $('.header-datatable').hide();
-        $('.header-form').show();
         $('#saku-form').show();
-        // $('#form-tambah #add-row').click();
+        $('.input-group-prepend').addClass('hidden');
+        $('span[class^=info-name]').addClass('hidden');
+        $('.info-icon-hapus').addClass('hidden');
+        $('[class*=inp-label-]').attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important;border-left:1px solid #d7d7d7 !important');
     });
+    // END BUTTON TAMBAH
+    
+    // BUTTON KEMBALI
+    $('#saku-form').on('click', '#btn-kembali', function(){
+        var kode = null;
+        msgDialog({
+            id:kode,
+            type:'keluar'
+        });
+    });
+    
+    $('#saku-form').on('click', '#btn-update', function(){
+        var kode = $('#kode_kirim').val();
+        msgDialog({
+            id:kode,
+            type:'edit'
+        });
+    });
+    
+    // END BUTTON KEMBALI
 
-    $('.header-form').on('click', '#btn-kembali', function(){
-        $('#saku-datatable').show();
-        $('.header-datatable').show();
-        $('.header-form').hide();
-        $('#saku-form').hide();
+    // HANDLER untuk enter dan tab
+    $('#kode_kirim,#nama,#no_tel,#email,#pic,#no_pictel,#bank,#cabang,#no_rek,#nama_rek,#alamat').keydown(function(e){
+        var code = (e.keyCode ? e.keyCode : e.which);
+        var nxt = ['kode_kirim','nama','no_tel','email','pic','no_pictel','bank','cabang','no_rek','nama_rek','alamat'];
+        if (code == 13 || code == 40) {
+            e.preventDefault();
+            var idx = nxt.indexOf(e.target.id);
+            idx++;
+            $('#'+nxt[idx]).focus();
+        }else if(code == 38){
+            e.preventDefault();
+            var idx = nxt.indexOf(e.target.id);
+            idx--;
+            if(idx != -1){ 
+                $('#'+nxt[idx]).focus();
+            }
+        }
     });
+    // END HANDLER
 
     $('#btn-simpan').click(function(e){
         e.preventDefault();

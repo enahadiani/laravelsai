@@ -57,6 +57,7 @@
                                                     <th>Keterangan</th>
                                                     <th>Nilai 1</th>
                                                     <th>Nilai 2</th>
+                                                    <th>Jenis</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -168,7 +169,8 @@
             { data: 'no_urut'},
             { data: 'keterangan'},
             { data: 'n1'},
-            { data: 'n2'}
+            { data: 'n2'},
+            { data: 'jenis'}
         ],
         []
     );

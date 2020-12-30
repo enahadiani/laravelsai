@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="{{ asset('master.css') }}" />
+    <link rel="stylesheet" href="{{ asset('master.css') }}" />
     <!-- LIST DATA -->
     <x-list-data judul="Data Jasa Kirim" tambah="true" :thead="array('Kode','Nama','Alamat','Tgl Input','Aksi')" :thwidth="array(15,35,40,0,10)" :thclass="array('','','','','text-center')" />
     <!-- END LIST DATA -->
@@ -66,7 +66,7 @@
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12">
                                         <label for="bank">Bank</label>
-                                        <input class="form-control" type="text" placeholder="Bank" id="bank" name="bank">
+                                        <input class="form-control" type="text" id="bank" name="bank">
                                     </div>
                                     <div class="col-md-6 col-sm-12">
                                         <label for="cabang">Cabang</label>
@@ -233,7 +233,7 @@
     // HANDLER untuk enter dan tab
     $('#kode_kirim,#nama,#no_tel,#email,#pic,#no_pictel,#bank,#cabang,#no_rek,#nama_rek,#alamat').keydown(function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['kode_kirim,nama,no_tel,email,pic,no_pictel,bank,cabang,no_rek,nama_rek,alamat'];
+        var nxt = ['kode_kirim','nama','no_tel','email','pic','no_pictel','bank','cabang','no_rek','nama_rek','alamat'];
         if (code == 13 || code == 40) {
             e.preventDefault();
             var idx = nxt.indexOf(e.target.id);
@@ -250,127 +250,178 @@
     });
     // END HANDLER
 
-    $('#saku-form').on('submit', '#form-tambah', function(e){
-        e.preventDefault();
-        var parameter = $('#id_edit').val();
-        var id = $('#id').val();
-        if(parameter == "edit"){
-            var url = "toko-master/jasa-kirim";
-            var pesan = "updated";
-        }else{
-            var url = "toko-master/jasa-kirim";
-            var pesan = "saved";
-        }
-
-        var formData = new FormData(this);
-        for(var pair of formData.entries()) {
-            console.log(pair[0]+ ', '+ pair[1]); 
-        }
-        
-        $.ajax({
-            type: 'POST', 
-            url: url,
-            dataType: 'json',
-            data: formData,
-            async:false,
-            contentType: false,
-            cache: false,
-            processData: false, 
-            success:function(result){
-                // alert('Input data '+result.message);
-                if(result.data.status){
-                    // location.reload();
-                    dataTable.ajax.reload();
-                    Swal.fire(
-                        'Great Job!',
-                        'Your data has been '+pesan,
-                        'success'
-                        )
-                        $('#saku-datatable').show();
-                        $('#saku-form').hide();
-                 
-                }else if(!result.data.status && result.data.message === "Unauthorized"){
-                    Swal.fire({
-                        title: 'Session telah habis',
-                        text: 'harap login terlebih dahulu!',
-                        icon: 'error'
-                    }).then(function() {
-                        window.location.href = "toko-auth/logout";
-                    }) 
-                }else{
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Something went wrong!',
-                            footer: '<a href>'+result.data.message+'</a>'
-                        })
-                }
+    //BUTTON SIMPAN /SUBMIT
+    $('#form-tambah').validate({
+        ignore: [],
+        rules: 
+        {
+            kode_kirim:{
+                required: true 
             },
-            fail: function(xhr, textStatus, errorThrown){
-                alert('request failed:'+textStatus);
+            nama:{
+                required: true  
+            },
+            no_tel:{
+                required: true
+            },
+            email:{
+                required: true
+            },
+            pic:
+            {
+                required: true
+            },
+            no_pictel:
+            {
+                required: true
+            },
+            bank:
+            {
+                required: true
+            },
+            cabang:
+            {
+                required: true
+            },
+            no_rek:
+            {
+                required: true
+            }, 
+            nama_rek:
+            {
+                required: true
+            }, 
+            alamat:
+            {
+                required: true
             }
-        });
-    });
+        },
+        errorElement: "label",
+        submitHandler: function (form) {
+            var parameter = $('#id_edit').val();
+            var id = $('#kode_kirim').val();
+            if(parameter == "edit"){
+                var url = "{{ url('esaku-master/jasa-kirim') }}";
+                var pesan = "updated";
+                var text = "Perubahan data "+id+" telah tersimpan";
+            }else{
+                var url = "{{ url('esaku-master/jasa-kirim') }}";
+                var pesan = "saved";
+                var text = "Data tersimpan dengan kode "+id;
+            }
 
-    $('#saku-datatable').on('click','#btn-delete',function(e){
-        Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.value) {
-                var id = $(this).closest('tr').find('td').eq(0).html();
-                $.ajax({
-                    type: 'DELETE',
-                    url: "toko-master/jasa-kirim",
-                    dataType: 'json',
-                    data:{'kode_kirim':id},
-                    async:false,
-                    success:function(result){
-                        if(result.data.status){
-                            dataTable.ajax.reload();
-                            Swal.fire(
-                                'Deleted!',
-                                'Your data has been deleted.',
-                                'success'
-                            )
-                        }else if(!result.data.status && result.data.message == "Unauthorized"){
-                            Swal.fire({
-                                title: 'Session telah habis',
-                                text: 'harap login terlebih dahulu!',
-                                icon: 'error'
-                            }).then(function() {
-                                window.location.href = "toko-auth/login";
-                            })
+            var formData = new FormData(form);
+            for(var pair of formData.entries()) {
+                console.log(pair[0]+ ', '+ pair[1]); 
+            }
+            
+            $.ajax({
+                type: 'POST', 
+                url: url,
+                dataType: 'json',
+                data: formData,
+                async:false,
+                contentType: false,
+                cache: false,
+                processData: false, 
+                success:function(result){
+                    if(result.data.status){
+                        dataTable.ajax.reload();
+                        $('#row-id').hide();
+                        $('#form-tambah')[0].reset();
+                        $('#form-tambah').validate().resetForm();
+                        $('[id^=label]').html('');
+                        $('#id_edit').val('');
+                        $('#judul-form').html('Tambah Data Jasa Kirim');
+                        $('#method').val('post');
+                        $('#kode_kirim').attr('readonly', false);
+                        msgDialog({
+                            id:result.data.kode,
+                            type:'simpan'
+                        });
+                        last_add("kode_kirim",result.data.kode);
+                    }else if(!result.data.status && result.data.message === "Unauthorized"){
+                    
+                        window.location.href = "{{ url('/esaku-auth/sesi-habis') }}";
+                        
+                    }else{
+                        if(result.data.kode == "-" && result.data.jenis != undefined){
+                            msgDialog({
+                                id: id,
+                                type: result.data.jenis,
+                                text:'Kode vendor sudah digunakan'
+                            });
                         }else{
+
                             Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Something went wrong!',
-                            footer: '<a href>'+result.data.message+'</a>'
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Something went wrong!',
+                                footer: '<a href>'+result.data.message+'</a>'
                             })
                         }
                     }
-                });
-                
-            }else{
-                return false;
+                },
+                fail: function(xhr, textStatus, errorThrown){
+                    alert('request failed:'+textStatus);
+                }
+            });
+            // $('#btn-simpan').html("Simpan").removeAttr('disabled');
+        },
+        errorPlacement: function (error, element) {
+            var id = element.attr("id");
+            $("label[for="+id+"]").append("<br/>");
+            $("label[for="+id+"]").append(error);
+        }
+    });
+    // END BUTTON SIMPAN
+
+     // BUTTON HAPUS DATA
+     function hapusData(id){
+        $.ajax({
+            type: 'DELETE',
+            url: "{{ url('esaku-master/jasa-kirim') }}",
+            dataType: 'json',
+            data:{kode_kirim: id},
+            async:false,
+            success:function(result){
+                if(result.data.status){
+                    dataTable.ajax.reload();                    
+                    showNotification("top", "center", "success",'Hapus Data','Data Jasa Kirim ('+id+') berhasil dihapus ');
+                    $('#modal-pesan-id').html('');
+                    $('#table-delete tbody').html('');
+                    $('#modal-pesan').modal('hide');
+                }else if(!result.data.status && result.data.message == "Unauthorized"){
+                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                }else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href>'+result.data.message+'</a>'
+                    });
+                }
             }
-        })
+        });
+    }
+
+    $('#saku-datatable').on('click','#btn-delete',function(e){
+        var kode = $(this).closest('tr').find('td').eq(0).html();
+        msgDialog({
+            id: kode,
+            type:'hapus'
+        });
     });
 
-    $('#saku-datatable').on('click', '#btn-edit', function(){
-        var id= $(this).closest('tr').find('td').eq(0).html();
-        // $iconLoad.show();
+    // END BUTTON HAPUS
+    
+    // BUTTON EDIT
+    function editData(id){
         $.ajax({
             type: 'GET',
-            url: "toko-master/jasa-kirim-detail",
+            url: "{{ url('esaku-master/jasa-kirim-detail') }}" ,
             dataType: 'json',
-            data:{'kode_kirim':id},
+            data:{kode_kirim: id},
             async:false,
             success:function(res){
                 var result= res.data;
@@ -383,28 +434,127 @@
                     $('#alamat').val(result.data[0].alamat);
                     $('#email').val(result.data[0].email);
                     $('#pic').val(result.data[0].pic);
-                    $('#no_pictel').val(result.data[0].no_pictel);
+                    $('#no_pictel').val(result.data[0].no_pic);
                     $('#no_tel').val(result.data[0].no_telp);
                     $('#bank').val(result.data[0].bank);
                     $('#cabang').val(result.data[0].cabang);
                     $('#no_rek').val(result.data[0].no_rek);
                     $('#nama_rek').val(result.data[0].nama_rek);
-                    $('#row-id').show();
                     $('#saku-datatable').hide();
+                    $('#modal-preview').modal('hide');
                     $('#saku-form').show();
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
-                    Swal.fire({
-                        title: 'Session telah habis',
-                        text: 'harap login terlebih dahulu!',
-                        icon: 'error'
-                    }).then(function() {
-                        window.location.href = "saku/logout";
-                    })
+                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
                 }
                 // $iconLoad.hide();
             }
         });
+    }
+    $('#saku-datatable').on('click', '#btn-edit', function(){
+        var id= $(this).closest('tr').find('td').eq(0).html();
+        // $iconLoad.show();
+        $('#form-tambah').validate().resetForm();
+        
+        $('#btn-save').attr('type','button');
+        $('#btn-save').attr('id','btn-update');
+
+        $('#judul-form').html('Edit Data Jasa Kirim');
+        editData(id);
+    });
+    // END BUTTON EDIT
+
+    // PREVIEW saat klik di list data
+    $('#table-data tbody').on('click','td',function(e){
+        if($(this).index() != 3){
+
+            var id = $(this).closest('tr').find('td').eq(0).html();
+            var data = dataTable.row(this).data();
+            var html = `<tr>
+                <td style='border:none'>Kode Jasa Kirim</td>
+                <td style='border:none'>`+id+`</td>
+            </tr>
+            <tr>
+                <td>Nama Jasa Kirim</td>
+                <td>`+data.nama+`</td>
+            </tr>
+            <tr>
+                <td>No Telp</td>
+                <td>`+data.no_telp+`</td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td>`+data.email+`</td>
+            </tr>
+            <tr>
+                <td>PIC</td>
+                <td>`+data.pic+`</td>
+            </tr>
+            <tr>
+                <td>No PIC</td>
+                <td>`+data.no_pic+`</td>
+            </tr>
+            <tr>
+                <td>Bank</td>
+                <td>`+data.bank+`</td>
+            </tr>
+            <tr>
+                <td>Cabang</td>
+                <td>`+data.cabang+`</td>
+            </tr>
+            <tr>
+                <td>No Rek</td>
+                <td>`+data.no_rek+`</td>
+            </tr>
+            <tr>
+                <td>Nama Rek</td>
+                <td>`+data.nama_rek+`</td>
+            </tr>
+            <tr>
+                <td>Alamat</td>
+                <td>`+data.alamat+`</td>
+            </tr>
+            `;
+            $('#table-preview tbody').html(html);
+            
+            $('#modal-preview-judul').css({'margin-top':'10px','padding':'0px !important'}).html('Preview Data Jasa Kirim').removeClass('py-2');
+            $('#modal-preview-id').text(id);
+            $('#modal-preview').modal('show');
+        }
+    });
+
+    $('.modal-header').on('click','#btn-delete2',function(e){
+        var id = $('#modal-preview-id').text();
+        $('#modal-preview').modal('hide');
+        msgDialog({
+            id:id,
+            type:'hapus'
+        });
+    });
+
+    $('.modal-header').on('click', '#btn-edit2', function(){
+        var id= $('#modal-preview-id').text();
+        // $iconLoad.show();
+        $('#form-tambah').validate().resetForm();
+        $('#judul-form').html('Edit Data Jasa Kirim');
+        
+        $('#btn-save').attr('type','button');
+        $('#btn-save').attr('id','btn-update');
+        editData(id)
+    });
+
+    $('.modal-header').on('click','#btn-cetak',function(e){
+        e.stopPropagation();
+        $('.dropdown-ke1').addClass('hidden');
+        $('.dropdown-ke2').removeClass('hidden');
+        console.log('ok');
+    });
+
+    $('.modal-header').on('click','#btn-cetak2',function(e){
+        // $('#dropdownAksi').dropdown('toggle');
+        e.stopPropagation();
+        $('.dropdown-ke1').removeClass('hidden');
+        $('.dropdown-ke2').addClass('hidden');
     });
 
     </script>

@@ -78,6 +78,10 @@
             .fs1rem{
                 font-size: 1rem;
             }
+            .bg-greenold{
+                color: white !important;
+                background-color: #288372; !important;
+            }
             </style>
             <table class='table table-borderless kotak report-table' width='100%'>
             <tr height='20px'>
@@ -98,9 +102,9 @@
             </tr>
             <tr>
                 <td width='5%'></td>
-                <td width='54%' height='25'  class='header_laporan border-right border-bottom border-top'></td>
-                <td width='18%' class='header_laporan text-center fs-1rem bold border-right border-bottom border-top'>`+res.res.tgl_awal+` `+periode_pilih+`</td>
-                <td width='18%' class='header_laporan text-center fs-1rem bold border-bottom border-top'>`+res.res.tgl_akhir+` `+periode_seb+`</td>
+                <td width='54%' height='25'  class='header_laporan border-right border-bottom border-top bg-greenold'></td>
+                <td width='18%' class='header_laporan text-center fs-1rem bold border-right border-bottom border-top bg-greenold'>`+res.res.tgl_awal+` `+periode_pilih+`</td>
+                <td width='18%' class='header_laporan text-center fs-1rem bold border-bottom border-top bg-greenold'>`+res.res.tgl_akhir+` `+periode_seb+`</td>
                 <td width='5%'></td>
             </tr>`;
             var no=1;
@@ -117,12 +121,19 @@
                 {
                     n2=sepNum(parseFloat(line.n2));
                 }
+                if(line.jenis == "Posting"){
+                    line.level_spasi = 3;
+                    var bold = '';
+                }else{
+                    line.level_spasi = 0;
+                    var bold = 'bold';
+                }
 
                 html+=`<tr>
                 <td width='5%'></td>
-                <td width='54%' height='20' class='isi_laporan'>`+fnSpasi(line.level_spasi)+line.keterangan+`</td>
-                <td width='18%' class='isi_laporan'><div align='right'>`+n1+`</div></td>
-                <td width='18%' class='isi_laporan'><div align='right'>`+n2+`</div></td>
+                <td width='54%' height='20' class='isi_laporan `+bold+`'>`+fnSpasi(line.level_spasi)+line.keterangan+`</td>
+                <td width='18%' class='isi_laporan `+bold+`'><div align='right'>`+n1+`</div></td>
+                <td width='18%' class='isi_laporan `+bold+`'><div align='right'>`+n2+`</div></td>
                 <td width='5%'></td>
                 </tr>`;
                 no++;
