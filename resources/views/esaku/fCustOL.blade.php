@@ -31,64 +31,84 @@
                                 <input type="hidden" id="id" name="id">
                             </div>
                         </div>
-                        <div class="form-group row ">
-                            <label for="kode_cust" class="col-md-3 col-sm-3 col-form-label">Kode</label>
-                            <div class="col-md-3 col-sm-9">
-                                <input class="form-control" type="text" placeholder="Kode Customer" id="kode_cust" name="kode_cust">
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <label for="kode_cust">Kode</label>
+                                        <input class="form-control" type="text"  id="kode_cust" name="kode_cust">
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <label for="nama">Nama</label>
+                                        <input class="form-control" type="text" id="nama" name="nama">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <label for="no_tel">No Telp</label>
+                                        <input class="form-control" type="text" id="no_tel" name="no_tel">
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <label for="email">Email</label>
+                                        <input class="form-control" type="text" id="email" name="email">
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group row ">
-                            <label for="nama" class="col-md-3 col-sm-3 col-form-label">Nama</label>
-                            <div class="col-md-3 col-sm-9">
-                                <input class="form-control" type="text" placeholder="Nama Customer" id="nama" name="nama">
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <label for="pic">PIC</label>
+                                        <input class="form-control" type="text"  id="pic" name="pic">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12">
+                                        <label for="alamat">Alamat</label>
+                                        <input class="form-control" type="text" id="alamat" name="alamat">
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label for="no_tel" class="col-md-3 col-sm-3 col-form-label">No Telp</label>
-                            <div class="col-md-3 col-sm-9">
-                                <input class="form-control" type="text" placeholder="Nomor Telepon" id="no_tel" name="no_tel">
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12">
+                                        <label for="provinsi">Provinsi</label>
+                                        <input class="form-control" type="text"  id="provinsi" name="provinsi">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12">
+                                        <label for="kota">Kota</label>
+                                        <input class="form-control" type="text" id="kota" name="kota">
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label for="email" class="col-md-3 col-sm-3 col-form-label">Email</label>
-                            <div class="col-md-3 col-sm-9">
-                                <input class="form-control" type="email" placeholder="Email" id="email" name="email">
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12">
+                                        <label for="kecamatan">Kecamatan</label>
+                                        <input class="form-control" type="text"  id="kecamatan" name="kecamatan">
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="pic" class="col-md-3 col-sm-3 col-form-label">PIC</label>
-                            <div class="col-md-3 col-sm-9">
-                                <input class="form-control" type="text" placeholder="PIC" id="pic" name="pic">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="alamat" class="col-md-3 col-sm-3 col-form-label">Alamat</label>
-                            <div class="col-md-9 col-sm-9">
-                                 <input class="form-control" type="text" placeholder="Alamat Customer" id="alamat" name="alamat">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="provinsi" class="col-md-3 col-sm-3 col-form-label">Provinsi</label>
-                            <div class="col-md-9 col-sm-9">
-                                 <input class="form-control" type="text" placeholder="Provinsi Customer" id="provinsi" name="provinsi">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="kota" class="col-md-3 col-sm-3 col-form-label">Kota</label>
-                            <div class="col-md-9 col-sm-9">
-                                 <input class="form-control" type="text" placeholder="Kota Customer" id="kota" name="kota">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="kecamatan" class="col-md-3 col-sm-3 col-form-label">Kecamatan</label>
-                            <div class="col-md-9 col-sm-9">
-                                 <input class="form-control" type="text" placeholder="kecamatan Customer" id="kecamatan" name="kecamatan">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="id_lain" class="col-md-3 col-sm-3 col-form-label">ID Lain</label>
-                            <div class="col-md-9 col-sm-9">
-                                 <input class="form-control" type="text" placeholder="ID Lain Customer" id="id_lain" name="id_lain">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12">
+                                        <label for="id_lain">ID Lain</label>
+                                        <input class="form-control" type="text" id="id_lain" name="id_lain">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -169,13 +189,13 @@
     $('#saku-datatable').on('click', '#btn-tambah', function(){
         $('#row-id').hide();
         $('#id_edit').val('');
-        $('#judul-form').html('Tambah Data Jasa Kirim');
+        $('#judul-form').html('Tambah Data Customer');
         $('#btn-update').attr('id','btn-save');
         $('#btn-save').attr('type','submit');
         $('#form-tambah')[0].reset();
         $('#form-tambah').validate().resetForm();
         $('#method').val('post');
-        $('#kode_kirim').attr('readonly', false);
+        $('#kode_cust').attr('readonly', false);
         $('#saku-datatable').hide();
         $('#saku-form').show();
         $('.input-group-prepend').addClass('hidden');
@@ -195,7 +215,7 @@
     });
     
     $('#saku-form').on('click', '#btn-update', function(){
-        var kode = $('#kode_kirim').val();
+        var kode = $('#kode_cust').val();
         msgDialog({
             id:kode,
             type:'edit'
@@ -205,9 +225,9 @@
     // END BUTTON KEMBALI
 
     // HANDLER untuk enter dan tab
-    $('#kode_kirim,#nama,#no_tel,#email,#pic,#no_pictel,#bank,#cabang,#no_rek,#nama_rek,#alamat').keydown(function(e){
+    $('#kode_cust,#nama,#no_tel,#email,#pic,#alamat,#provinsi,#kota,#kecamatan,#id_lain').keydown(function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['kode_kirim','nama','no_tel','email','pic','no_pictel','bank','cabang','no_rek','nama_rek','alamat'];
+        var nxt = ['kode_cust','nama','no_tel','email','pic','alamat','provinsi','kota','kecamatan','id_lain'];
         if (code == 13 || code == 40) {
             e.preventDefault();
             var idx = nxt.indexOf(e.target.id);
@@ -230,133 +250,172 @@
         $('#form-tambah').submit();
     });
 
-    $('#form-tambah').submit(function(e){
-        e.preventDefault();
-        var parameter = $('#id_edit').val();
-        var id = $('#id').val();
-        if(parameter == "edit"){
-            var url = "esaku-master/cust-ol/"+id;
-            var pesan = "updated";
-        }else{
-            var url = "esaku-master/cust-ol";
-            var pesan = "saved";
-        }
-
-        var formData = new FormData(this);
-        for(var pair of formData.entries()) {
-            console.log(pair[0]+ ', '+ pair[1]); 
-        }
-        
-        $.ajax({
-            type: 'POST', 
-            url: url,
-            dataType: 'json',
-            data: formData,
-            async:false,
-            contentType: false,
-            cache: false,
-            processData: false, 
-            success:function(result){
-                // alert('Input data '+result.message);
-                if(result.data.status){
-                    // location.reload();
-                    dataTable.ajax.reload();
-                    // Swal.fire(
-                    //     'Great Job!',
-                    //     'Your data has been '+pesan,
-                    //     'success'
-                    //     )
-                    alert(result.data.message);
-                    $('#saku-datatable').show();
-                    $('.header-datatable').show();
-                    $('#saku-form').hide();
-                    $('.header-form').hide();
-                 
-                }else if(!result.data.status && result.data.message === "Unauthorized"){
-                    // Swal.fire({
-                    //     title: 'Session telah habis',
-                    //     text: 'harap login terlebih dahulu!',
-                    //     icon: 'error'
-                    // }).then(function() {
-                        window.location.href = "/esaku-auth/sesi-habis";
-                    // }) 
-                }else{
-                        // Swal.fire({
-                        //     icon: 'error',
-                        //     title: 'Oops...',
-                        //     text: 'Something went wrong!',
-                        //     footer: '<a href>'+result.data.message+'</a>'
-                        // })
-                    alert(result.data.message);
-                }
+    //BUTTON SIMPAN /SUBMIT
+    $('#form-tambah').validate({
+        ignore: [],
+        rules: 
+        {
+            kode_cust:{
+                required: true 
             },
-            fail: function(xhr, textStatus, errorThrown){
-                alert('request failed:'+textStatus);
+            nama:{
+                required: true  
+            },
+            alamat:{
+                required: true
+            },
+            pic:
+            {
+                required: true
+            },
+            no_tel:
+            {
+                required: true
+            },
+            email:
+            {
+                required: true
+            }, 
+            provinsi:
+            {
+                required: true
+            },
+            kota:
+            {
+                required: true
+            },
+            kecamatan:
+            {
+                required: true
+            },
+            id_lain:
+            {
+                required: true
             }
-        });
-        
-        $('#btn-simpan').html("Simpan").removeAttr('disabled');
-    });
+        },
+        errorElement: "label",
+        submitHandler: function (form) {
+            var parameter = $('#id_edit').val();
+            var id = $('#kode_cust').val();
+            if(parameter == "edit"){
+                var url = "{{ url('esaku-master/cust-ol') }}/"+id;
+                var pesan = "updated";
+                var text = "Perubahan data "+id+" telah tersimpan";
+            }else{
+                var url = "{{ url('esaku-master/cust-ol') }}";
+                var pesan = "saved";
+                var text = "Data tersimpan dengan kode "+id;
+            }
 
-    $('#saku-datatable').on('click','#btn-delete',function(e){
-        // Swal.fire({
-        // title: 'Are you sure?',
-        // text: "You won't be able to revert this!",
-        // icon: 'warning',
-        // showCancelButton: true,
-        // confirmButtonColor: '#3085d6',
-        // cancelButtonColor: '#d33',
-        // confirmButtonText: 'Yes, delete it!'
-        // }).then((result) => {
-        //     if (result.value) {
-                var id = $(this).closest('tr').find('td').eq(0).html();
-                $.ajax({
-                    type: 'DELETE',
-                    url: "esaku-master/cust-ol/"+id,
-                    dataType: 'json',
-                    async:false,
-                    success:function(result){
-                        if(result.data.status){
-                            dataTable.ajax.reload();
-                            // Swal.fire(
-                            //     'Deleted!',
-                            //     'Your data has been deleted.',
-                            //     'success'
-                            // )
-                            alert(result.data.message);
-                        }else if(!result.data.status && result.data.message == "Unauthorized"){
-                            // Swal.fire({
-                            //     title: 'Session telah habis',
-                            //     text: 'harap login terlebih dahulu!',
-                            //     icon: 'error'
-                            // }).then(function() {
-                                window.location.href = "esaku-auth/sesi-habis";
-                            // })
+            var formData = new FormData(form);
+            for(var pair of formData.entries()) {
+                console.log(pair[0]+ ', '+ pair[1]); 
+            }
+            
+            $.ajax({
+                type: 'POST', 
+                url: url,
+                dataType: 'json',
+                data: formData,
+                async:false,
+                contentType: false,
+                cache: false,
+                processData: false, 
+                success:function(result){
+                    if(result.data.status){
+                        dataTable.ajax.reload();
+                        $('#row-id').hide();
+                        $('#form-tambah')[0].reset();
+                        $('#form-tambah').validate().resetForm();
+                        $('[id^=label]').html('');
+                        $('#id_edit').val('');
+                        $('#judul-form').html('Tambah Data Customer');
+                        $('#method').val('post');
+                        $('#kode_cust').attr('readonly', false);
+                        msgDialog({
+                            id:result.data.kode,
+                            type:'simpan'
+                        });
+                        last_add("kode_cust",result.data.kode);
+                    }else if(!result.data.status && result.data.message === "Unauthorized"){
+                    
+                        window.location.href = "{{ url('/esaku-auth/sesi-habis') }}";
+                        
+                    }else{
+                        if(result.data.kode == "-" && result.data.jenis != undefined){
+                            msgDialog({
+                                id: id,
+                                type: result.data.jenis,
+                                text:'Kode vendor sudah digunakan'
+                            });
                         }else{
-                            // Swal.fire({
-                            // icon: 'error',
-                            // title: 'Oops...',
-                            // text: 'Something went wrong!',
-                            // footer: '<a href>'+result.data.message+'</a>'
-                            // })
-                            alert(result.data.message);
+
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Something went wrong!',
+                                footer: '<a href>'+result.data.message+'</a>'
+                            })
                         }
                     }
-                });
-                
-        //     }else{
-        //         return false;
-        //     }
-        // })
+                },
+                fail: function(xhr, textStatus, errorThrown){
+                    alert('request failed:'+textStatus);
+                }
+            });
+            // $('#btn-simpan').html("Simpan").removeAttr('disabled');
+        },
+        errorPlacement: function (error, element) {
+            var id = element.attr("id");
+            $("label[for="+id+"]").append("<br/>");
+            $("label[for="+id+"]").append(error);
+        }
+    });
+    // END BUTTON SIMPAN
+
+     // BUTTON HAPUS DATA
+    function hapusData(id){
+        $.ajax({
+            type: 'DELETE',
+            url: "{{ url('esaku-master/cust-ol') }}/"+id,
+            dataType: 'json',
+            async:false,
+            success:function(result){
+                if(result.data.status){
+                    dataTable.ajax.reload();                    
+                    showNotification("top", "center", "success",'Hapus Data','Data Customer ('+id+') berhasil dihapus ');
+                    $('#modal-pesan-id').html('');
+                    $('#table-delete tbody').html('');
+                    $('#modal-pesan').modal('hide');
+                }else if(!result.data.status && result.data.message == "Unauthorized"){
+                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                }else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href>'+result.data.message+'</a>'
+                    });
+                }
+            }
+        });
+    }
+
+    $('#saku-datatable').on('click','#btn-delete',function(e){
+        var kode = $(this).closest('tr').find('td').eq(0).html();
+        msgDialog({
+            id: kode,
+            type:'hapus'
+        });
     });
 
-    $('#saku-datatable').on('click', '#btn-edit', function(){
-        var id= $(this).closest('tr').find('td').eq(0).html();
-        var marketing= $(this).closest('tr').find('td').eq(4).html();
-        // $iconLoad.show();
+    // END BUTTON HAPUS
+    
+    // BUTTON EDIT
+    function editData(id){
         $.ajax({
             type: 'GET',
-            url: "esaku-master/cust-ol/" + id,
+            url: "{{ url('esaku-master/cust-ol') }}/" + id,
             dataType: 'json',
             async:false,
             success:function(res){
@@ -376,24 +435,119 @@
                     $('#pic').val(result.data[0].pic);
                     $('#no_tel').val(result.data[0].no_tel);
                     $('#id_lain').val(result.data[0].id_lain);
-                    $('#row-id').show();
                     $('#saku-datatable').hide();
-                    $('.header-datatable').hide();
+                    $('#modal-preview').modal('hide');
                     $('#saku-form').show();
-                    $('.header-form').show();
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
-                    // Swal.fire({
-                    //     title: 'Session telah habis',
-                    //     text: 'harap login terlebih dahulu!',
-                    //     icon: 'error'
-                    // }).then(function() {
-                        window.location.href = "esaku-auth/sesi-habis";
-                    // })
+                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
                 }
                 // $iconLoad.hide();
             }
         });
+    }
+    $('#saku-datatable').on('click', '#btn-edit', function(){
+        var id= $(this).closest('tr').find('td').eq(0).html();
+        // $iconLoad.show();
+        $('#form-tambah').validate().resetForm();
+        
+        $('#btn-save').attr('type','button');
+        $('#btn-save').attr('id','btn-update');
+
+        $('#judul-form').html('Edit Data Customer');
+        editData(id);
     });
+    // END BUTTON EDIT
+
+    // PREVIEW saat klik di list data
+    $('#table-data tbody').on('click','td',function(e){
+        if($(this).index() != 3){
+
+            var id = $(this).closest('tr').find('td').eq(0).html();
+            var data = dataTable.row(this).data();
+            var html = `<tr>
+                <td style='border:none'>Kode Customer</td>
+                <td style='border:none'>`+id+`</td>
+            </tr>
+            <tr>
+                <td>Nama Customer</td>
+                <td>`+data.nama+`</td>
+            </tr>
+            <tr>
+                <td>PIC</td>
+                <td>`+data.pic+`</td>
+            </tr>
+            <tr>
+                <td>Alamat</td>
+                <td>`+data.alamat+`</td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td>`+data.email+`</td>
+            </tr>
+            <tr>
+                <td>No Telp</td>
+                <td>`+data.no_tel+`</td>
+            </tr>
+            <tr>
+                <td>Provinsi</td>
+                <td>`+data.provinsi+`</td>
+            </tr>
+            <tr>
+                <td>Kota</td>
+                <td>`+data.kota+`</td>
+            </tr>
+            <tr>
+                <td>Kecamatan</td>
+                <td>`+data.kecamatan+`</td>
+            </tr>
+            <tr>
+                <td>ID Lain</td>
+                <td>`+data.id_lain+`</td>
+            </tr>
+            `;
+            $('#table-preview tbody').html(html);
+            
+            $('#modal-preview-judul').css({'margin-top':'10px','padding':'0px !important'}).html('Preview Data Customer').removeClass('py-2');
+            $('#modal-preview-id').text(id);
+            $('#modal-preview').modal('show');
+        }
+    });
+
+    $('.modal-header').on('click','#btn-delete2',function(e){
+        var id = $('#modal-preview-id').text();
+        $('#modal-preview').modal('hide');
+        msgDialog({
+            id:id,
+            type:'hapus'
+        });
+    });
+
+    $('.modal-header').on('click', '#btn-edit2', function(){
+        var id= $('#modal-preview-id').text();
+        // $iconLoad.show();
+        $('#form-tambah').validate().resetForm();
+        $('#judul-form').html('Edit Data Customer');
+        
+        $('#btn-save').attr('type','button');
+        $('#btn-save').attr('id','btn-update');
+        editData(id)
+    });
+
+    $('.modal-header').on('click','#btn-cetak',function(e){
+        e.stopPropagation();
+        $('.dropdown-ke1').addClass('hidden');
+        $('.dropdown-ke2').removeClass('hidden');
+        console.log('ok');
+    });
+
+    $('.modal-header').on('click','#btn-cetak2',function(e){
+        // $('#dropdownAksi').dropdown('toggle');
+        e.stopPropagation();
+        $('.dropdown-ke1').removeClass('hidden');
+        $('.dropdown-ke2').addClass('hidden');
+    });
+
+    
 
     </script>
