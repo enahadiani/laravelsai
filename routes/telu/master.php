@@ -46,3 +46,10 @@ Route::post('unit', 'DashTelu\UnitController@store');
 Route::put('unit/{id}', 'DashTelu\UnitController@update');
 Route::delete('unit/{id}', 'DashTelu\UnitController@delete');
 
+// Setting Menu Form //
+Route::get('fs', 'DashTelu\FSController@index');
+Route::get('fs/{id}', 'DashTelu\FSController@show');
+Route::post('fs', 'DashTelu\FSController@store');
+Route::put('fs/{id}', 'DashTelu\FSController@update');
+Route::delete('fs/{id}', 'DashTelu\FSController@delete');
+
