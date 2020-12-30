@@ -212,10 +212,10 @@
                             </div>
                         </div>
                     </div>
-                </form>
+                </div>
             </div>
-        </div>
-    </div> 
+        </div> 
+    </form>
     <!-- END FORM INPUT -->
 
     @include('modal_search')
@@ -383,8 +383,6 @@
         var scrollform = document.querySelector('.form-body');
         var psscrollform = new PerfectScrollbar(scrollform);
         // END PLUGIN SCROLL di bagian preview dan form input
-
-        var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
 
         //LIST DATA
         var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
@@ -564,8 +562,8 @@
         $('#form-tambah').submit();
     });
 
-     //BUTTON SIMPAN /SUBMIT
-     $('#form-tambah').validate({
+    //BUTTON SIMPAN /SUBMIT
+    $('#form-tambah').validate({
         ignore: [],
         rules: 
         {
@@ -892,7 +890,7 @@
             </tr>
             <tr>
                 <td>Gambar</td>
-                <td>-</td>
+                <td><img src='`+data.file_gambar+`'></td>
             </tr>
             `;
             $('#table-preview tbody').html(html);
