@@ -85,14 +85,14 @@ Route::delete('menu-klp/{id}', 'Esaku\KelompokMenuController@delete');
 
 // Data Karyawan //
 Route::get('karyawan', 'Esaku\KaryawanController@index');
-Route::get('karyawan-detail/{id}', 'Esaku\KaryawanController@getData');
+Route::get('karyawan/{id}', 'Esaku\KaryawanController@getData');
 Route::post('karyawan', 'Esaku\KaryawanController@store');
-Route::put('karyawan-ubah/{id}', 'Esaku\KaryawanController@update');
+Route::post('karyawan-ubah/{id}', 'Esaku\KaryawanController@update');
 Route::delete('karyawan/{id}', 'Esaku\KaryawanController@delete');
 
 // Data Akses //
 Route::get('akses-user', 'Esaku\AksesUserController@index');
-Route::get('akses-user-detail/{id}', 'Esaku\AksesUserController@getData');
+Route::get('akses-user/{id}', 'Esaku\AksesUserController@getData');
 Route::post('akses-user', 'Esaku\AksesUserController@store');
 Route::put('akses-user/{id}', 'Esaku\AksesUserController@update');
 Route::delete('akses-user/{id}', 'Esaku\AksesUserController@delete');

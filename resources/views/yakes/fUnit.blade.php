@@ -139,7 +139,7 @@
     $('#saku-datatable').on('click', '#btn-tambah', function(){
         $('#row-id').hide();
         $('#id_edit').val('');
-        $('#judul-form').html('Tambah Data Karyawan');
+        $('#judul-form').html('Tambah Data Unit');
         $('#btn-update').attr('id','btn-save');
         $('#btn-save').attr('type','submit');
         $('#form-tambah')[0].reset();
@@ -225,7 +225,7 @@
                         $('#form-tambah').validate().resetForm();
                         $('[id^=label]').html('');
                         $('#id_edit').val('');
-                        $('#judul-form').html('Tambah Data Karyawan');
+                        $('#judul-form').html('Tambah Data Unit');
                         $('#method').val('post');
                         $('#kode_pp').attr('readonly', false);
                         msgDialog({
@@ -389,7 +389,7 @@
             `;
             $('#table-preview tbody').html(html);
             
-            $('#modal-preview-judul').css({'margin-top':'10px','padding':'0px !important'}).html('Preview Data Karyawan').removeClass('py-2');
+            $('#modal-preview-judul').css({'margin-top':'10px','padding':'0px !important'}).html('Preview Data Unit').removeClass('py-2');
             $('#modal-preview-id').text(id);
             $('#modal-preview').modal('show');
         }

@@ -1,6 +1,7 @@
-<link rel="stylesheet" href="{{ asset('master.css') }}" />
+    {{-- Referensi file fVendor folder Esaku --}}
+    <link rel="stylesheet" href="{{ asset('master.css') }}" />
     <!-- LIST DATA -->
-    <x-list-data judul="Data Unit" tambah="true" :thead="array('NIK','Nama','Status','Aksi')" :thwidth="array(15,65,10,10)" :thclass="array('','','','text-center')" />
+    <x-list-data judul="Data Akun" tambah="true" :thead="array('Kode','Nama','Tgl Input','Aksi')" :thwidth="array(20,70,0,10)" :thclass="array('','','','text-center')" />
     <!-- END LIST DATA -->
 
     <!-- FORM INPUT -->
@@ -9,9 +10,15 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;">
-                        <h6 id="judul-form" style="position:absolute;top:25px"></h6>
-                        <button type="submit" class="btn btn-primary ml-2"  style="float:right;" id="btn-save"><i class="fa fa-save"></i> Simpan</button>
-                        <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Keluar</button>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6 id="judul-form" style='margin-bottom:0;margin-top:5px'>Form Data Akun</h6>
+                            </div>
+                            <div class="col-md-6">
+                                <button type="submit" class="btn btn-primary ml-2"  style="float:right;" id="btn-save"><i class="fa fa-save"></i> Simpan</button>
+                                <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Keluar</button>
+                            </div>
+                        </div>
                     </div>
                     <div class="separator mb-2"></div>
                     <!-- FORM BODY -->
@@ -27,18 +34,12 @@
                             <div class="form-group col-md-6 col-sm-12">
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12">
-                                        <label for="kode_pp">Kode PP</label>
-                                        <input class="form-control" type="text" id="kode_pp" name="kode_pp" required>
+                                        <label for="kode_akun">Kode</label>
+                                        <input class="form-control" type="text" placeholder="Kode Akun" id="kode_akun" name="kode_akun" required>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6 col-sm-12">
-                                <div class="row">
                                     <div class="col-md-6 col-sm-12">
                                         <label for="nama">Nama</label>
-                                        <input class="form-control" type="text" id="nama" name="nama" required>
+                                        <input class="form-control" type="text" placeholder="Nama" id="nama" name="nama" required>
                                     </div>
                                 </div>
                             </div>
@@ -47,29 +48,82 @@
                             <div class="form-group col-md-6 col-sm-12">
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12">
-                                        <label for="status_admin">Status Aktif</label>
-                                        <select class='form-control' id="flag_aktif" name="flag_aktif" required>
-                                        <option value='' disabled selected>--- Pilih Status Aktif ---</option>
-                                        <option value='1'>AKTIF</option>
-                                        <option value='0'>NON-AKTIF</option>
+                                        <label for="modul">Modul</label>
+                                        <select class="form-control" id="modul" name="modul" required>
+                                            <option value="">--Pilih Modul--</option>
+                                            <option value="A">Aktiva</option>
+                                            <option value="P">Passiva</option>
+                                            <option value="L">Laba Rugi</option>
+                                        </select>
+                                        
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">           
+                                        <label for="modul">Jenis</label>
+                                        <select class="form-control" id="jenis" name="jenis" required></select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <label for="kode_curr">Currency</label>
+                                        <input class="form-control" type="text" placeholder="Kode Currency" id="kode_curr" name="kode_curr" value="IDR" readonly required>            
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <label for="blok">Status Blok</label>
+                                        <select class="form-control" id="blok" name="blok" required>
+                                            <option value="">--Pilih Status Blok--</option>
+                                            <option value="0">Unblok</option>
+                                            <option value="1">Blok</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <label for="budget">Status Budget</label>
+                                        <select class="form-control" id="budget" name="budget" required>
+                                            <option value="">--Pilih Status Budget--</option>
+                                            <option value="0">Uncheck</option>
+                                            <option value="1">Check</option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
-                        </div>                          
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <label for="account">Normal Account</label>
+                                        <select class="form-control" id="account" name="account" required>
+                                        <option value="">--Pilih Normal Account--</option>
+                                        <option value="D">D - Debet</option>
+                                        <option value="C">C - Kredit</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div> 
     </form>
     <!-- END FORM INPUT -->
-    @include('modal_search')
     <!-- JAVASCRIPT  -->
     <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
     <script src="{{ asset('helper.js') }}"></script>
     <script>
     // var $iconLoad = $('.preloader');
     setHeightForm();
+    $optionJenis1 = [{value:'Neraca', text:'Neraca'}]
+    $optionJenis2 = [{value:'Pendapatan', text:'Pendapatan'},{value:'Beban', text:'Beban'}]
     
     $.ajaxSetup({
         headers: {
@@ -77,7 +131,24 @@
         }
     });
 
-    $('#flag_aktif').selectize();
+    //EVENT DROPDOWN//
+    $('#modul').change(function(){
+        $('#jenis').find('option').remove().end().append('<option value="">--Pilih Jenis--</option>').val('')
+        var value = $(this).val();
+        var option = null;
+        if(value == "A" || value == "P") {
+            option = $optionJenis1;
+        } else {
+            option = $optionJenis2
+        }
+
+        $.each(option, function (i, item) {
+            $('#jenis').append($('<option>', { 
+                value: item.value,
+                text : item.text 
+            }));
+        });
+    })
 
     function last_add(param,isi){
         var rowIndexes = [];
@@ -96,7 +167,7 @@
             dataTable.row(rowIndexes).deselect();
         }, 1000 * 60 * 10);
     }
-
+    
     // PLUGIN SCROLL di bagian preview dan form input
     var scroll = document.querySelector('#content-preview');
     var psscroll = new PerfectScrollbar(scroll);
@@ -110,17 +181,31 @@
     var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
     var dataTable = generateTable(
         "table-data",
-        "{{ url('telu-master/unit') }}", 
+        "{{ url('esaku-master/masakun') }}", 
         [
             {'targets': 3, data: null, 'defaultContent': action_html,'className': 'text-center' },
+            {
+                "targets": 0,
+                "createdCell": function (td, cellData, rowData, row, col) {
+                    if ( rowData.status == "baru" ) {
+                        $(td).parents('tr').addClass('selected');
+                        $(td).addClass('last-add');
+                    }
+                }
+            },
+            {
+                "targets": [2],
+                "visible": false,
+                "searchable": false
+            }
         ],
         [
-            { data: 'kode_pp' },
+            { data: 'kode_akun' },
             { data: 'nama' },
-            { data: 'flag_aktif' }
+            { data: 'tgl_input' },
         ],
-        "{{ url('dash-telu/sesi-habis') }}",
-        []
+        "{{ url('esaku-auth/sesi-habis') }}",
+        [[2 ,"desc"]]
     );
 
     $.fn.DataTable.ext.pager.numbers_length = 5;
@@ -132,26 +217,22 @@
     $("#page-count").on("change", function (event) {
         var selText = $(this).val();
         dataTable.page.len(parseInt(selText)).draw();
-    });
+    });   
     // END LIST DATA
 
     // BUTTON TAMBAH
     $('#saku-datatable').on('click', '#btn-tambah', function(){
         $('#row-id').hide();
         $('#id_edit').val('');
-        $('#judul-form').html('Tambah Data Unit');
+        $('#judul-form').html('Tambah Data Akun');
         $('#btn-update').attr('id','btn-save');
         $('#btn-save').attr('type','submit');
         $('#form-tambah')[0].reset();
         $('#form-tambah').validate().resetForm();
         $('#method').val('post');
-        $('#kode_pp').attr('readonly', false);
+        $('#kode_akun').attr('readonly', false);
         $('#saku-datatable').hide();
         $('#saku-form').show();
-        $('.input-group-prepend').addClass('hidden');
-        $('span[class^=info-name]').addClass('hidden');
-        $('.info-icon-hapus').addClass('hidden');
-        $('[class*=inp-label-]').attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important;border-left:1px solid #d7d7d7 !important');
     });
     // END BUTTON TAMBAH
     
@@ -165,7 +246,7 @@
     });
 
     $('#saku-form').on('click', '#btn-update', function(){
-        var kode = $('#nik').val();
+        var kode = $('#kode_akun').val();
         msgDialog({
             id:kode,
             type:'edit'
@@ -179,26 +260,25 @@
         ignore: [],
         rules: 
         {
-            kode_pp:{
-                required: true 
+            kode_akun:{
+                required: true,
+                maxlength:10   
             },
             nama:{
-                required: true 
+                required: true,
+                maxlength:50   
             },
-            flag_aktif:{
-                required: true
-            }
         },
         errorElement: "label",
         submitHandler: function (form) {
             var parameter = $('#id_edit').val();
-            var id = $('#nik').val();
+            var id = $('#kode_akun').val();
             if(parameter == "edit"){
-                var url = "{{ url('telu-master/unit') }}/"+id;
+                var url = "{{ url('esaku-master/masakun') }}/"+id;
                 var pesan = "updated";
                 var text = "Perubahan data "+id+" telah tersimpan";
             }else{
-                var url = "{{ url('telu-master/unit') }}";
+                var url = "{{ url('esaku-master/masakun') }}";
                 var pesan = "saved";
                 var text = "Data tersimpan dengan kode "+id;
             }
@@ -220,29 +300,30 @@
                 success:function(result){
                     if(result.data.status){
                         dataTable.ajax.reload();
+                        var kode = $('#kode_akun').val();
                         $('#row-id').hide();
                         $('#form-tambah')[0].reset();
                         $('#form-tambah').validate().resetForm();
                         $('[id^=label]').html('');
                         $('#id_edit').val('');
-                        $('#judul-form').html('Tambah Data Unit');
+                        $('#judul-form').html('Tambah Data Akun');
                         $('#method').val('post');
-                        $('#kode_pp').attr('readonly', false);
+                        $('#kode_akun').attr('readonly', false);
                         msgDialog({
-                            id:result.data.kode,
+                            id:kode,
                             type:'simpan'
                         });
-                        last_add("kode_pp",result.data.kode);
+                        last_add("kode_akun",kode);
                     }else if(!result.data.status && result.data.message === "Unauthorized"){
                     
-                        window.location.href = "{{ url('/dash-telu/sesi-habis') }}";
+                        window.location.href = "{{ url('/esaku-auth/sesi-habis') }}";
                         
                     }else{
                         if(result.data.kode == "-" && result.data.jenis != undefined){
                             msgDialog({
                                 id: id,
                                 type: result.data.jenis,
-                                text:'Kode PP sudah digunakan'
+                                text:'Kode akun sudah digunakan'
                             });
                         }else{
 
@@ -273,18 +354,18 @@
     function hapusData(id){
         $.ajax({
             type: 'DELETE',
-            url: "{{ url('telu-master/unit') }}/"+id,
+            url: "{{ url('esaku-master/masakun') }}/"+id,
             dataType: 'json',
             async:false,
             success:function(result){
                 if(result.data.status){
                     dataTable.ajax.reload();                    
-                    showNotification("top", "center", "success",'Hapus Data','Data Unit ('+id+') berhasil dihapus ');
+                    showNotification("top", "center", "success",'Hapus Data','Data Akun ('+id+') berhasil dihapus ');
                     $('#modal-pesan-id').html('');
                     $('#table-delete tbody').html('');
                     $('#modal-pesan').modal('hide');
                 }else if(!result.data.status && result.data.message == "Unauthorized"){
-                    window.location.href = "{{ url('dash-telu/sesi-habis') }}";
+                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
                 }else{
                     Swal.fire({
                         icon: 'error',
@@ -308,34 +389,6 @@
     // END BUTTON HAPUS
     
     // BUTTON EDIT
-    function editData(id){
-        $.ajax({
-            type: 'GET',
-            url: "{{ url('telu-master/unit') }}/" + id,
-            dataType: 'json',
-            async:false,
-            success:function(res){
-                var result= res.data;
-                console.log(result.status);
-                if(result.status){
-                    $('#id_edit').val('edit');
-                    $('#method').val('put');
-                    $('#kode_pp').attr('readonly', true);
-                    $('#kode_pp').val(id);
-                    $('#id').val(id);
-                    $('#nama').val(result.data[0].nama);
-                    $('#flag_aktif')[0].selectize.setValue(result.data[0].flag_aktif);
-                    $('#saku-datatable').hide();
-                    $('#modal-preview').modal('hide');
-                    $('#saku-form').show();
-                }
-                else if(!result.status && result.message == 'Unauthorized'){
-                    window.location.href = "{{ url('dash-telu/sesi-habis') }}";
-                }
-                // $iconLoad.hide();
-            }
-        });
-    }
     $('#saku-datatable').on('click', '#btn-edit', function(){
         var id= $(this).closest('tr').find('td').eq(0).html();
         // $iconLoad.show();
@@ -344,20 +397,54 @@
         $('#btn-save').attr('type','button');
         $('#btn-save').attr('id','btn-update');
 
-        $('#judul-form').html('Edit Data Unit');
-        editData(id);
+        $('#judul-form').html('Edit Data Akun');
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('esaku-master/masakun') }}/" + id,
+            dataType: 'json',
+            async:false,
+            success:function(res){
+                var result= res.data;
+                if(result.status){
+                    $('#id_edit').val('edit');
+                    $('#method').val('put');
+                    $('#kode_akun').attr('readonly', true);
+                    $('#kode_akun').val(id);
+                    $('#id').val(id);
+                    $('#nama').val(result.data[0].nama);
+                    $('#modul').val(result.data[0].modul).change();
+                    $('#jenis').val(result.data[0].jenis);
+                    $('#kode_curr').val(result.data[0].kode_curr);
+                    $('#blok').val(result.data[0].block);                  
+                    $('#budget').val(result.data[0].status_gar);                  
+                    $('#account').val(result.data[0].normal);                  
+                    $('#saku-datatable').hide();
+                    $('#saku-form').show();
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                }
+                // $iconLoad.hide();
+            }
+        });
     });
     // END BUTTON EDIT
     
     // HANDLER untuk enter dan tab
-    $('#nik,#nama,#flag_aktif').keydown(function(e){
+    $('#kode_akun,#nama').keydown(function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['nik','nama_form','flag_aktif'];
+        var nxt = ['kode_akun','nama'];
         if (code == 13 || code == 40) {
             e.preventDefault();
             var idx = nxt.indexOf(e.target.id);
             idx++;
-            $('#'+nxt[idx]).focus();
+            if(idx == 15){
+                console.log('No event')
+                // var akun = $('#akun_hutang').val();
+                // getAkun(akun);
+            }else{
+                $('#'+nxt[idx]).focus();
+            }
         }else if(code == 38){
             e.preventDefault();
             var idx = nxt.indexOf(e.target.id);
@@ -368,28 +455,78 @@
         }
     });
 
+
     // PREVIEW saat klik di list data
+
     $('#table-data tbody').on('click','td',function(e){
-        if($(this).index() != 3){
+        if($(this).index() != 2){
 
             var id = $(this).closest('tr').find('td').eq(0).html();
             var data = dataTable.row(this).data();
+            var modul = '';
+            var block = '';
+            var gar = '';
+            var normal = '';
+            if(data.modul == 'A') {
+                modul = "Aktiva"
+            } else if(data.modul == 'P') {
+                modul = "Passiva"
+            } else {
+                modul = "Laba Rugi"
+            }
+
+            if(data.block == "0") {
+                block = "Unblock"
+            } else {
+                block = "Block"
+            }
+
+            if(data.status_gar == "0") {
+                gar = "Uncheck"
+            } else {
+                gar = "Check"
+            }
+
+            if(data.normal == "D") {
+                normal = "Debet"
+            } else {
+                normal = "Kredit"
+            }
             var html = `<tr>
-                <td style='border:none'>NIK</td>
+                <td style='border:none'>Kode Akun</td>
                 <td style='border:none'>`+id+`</td>
             </tr>
             <tr>
-                <td>Nama</td>
+                <td>Nama Akun</td>
                 <td>`+data.nama+`</td>
             </tr>
             <tr>
-                <td>Status</td>
-                <td>`+data.flag_aktif+`</td>
+                <td>Modul</td>
+                <td>`+modul+`</td>
+            </tr>
+            <tr>
+                <td>Jenis</td>
+                <td>`+data.jenis+`</td>
+            </tr>
+            <tr>
+                <td>Currency</td>
+                <td>`+data.kode_curr+`</td>
+            </tr>
+            <tr>
+                <td>Status Block</td>
+                <td>`+block+`</td>
+            </tr>
+            <tr>
+                <td>Status Budget</td>
+                <td>`+gar+`</td>
+            </tr>
+            <tr>
+                <td>Normal Account</td>
+                <td>`+normal+`</td>
             </tr>
             `;
             $('#table-preview tbody').html(html);
             
-            $('#modal-preview-judul').css({'margin-top':'10px','padding':'0px !important'}).html('Preview Data Unit').removeClass('py-2');
             $('#modal-preview-id').text(id);
             $('#modal-preview').modal('show');
         }
@@ -408,17 +545,47 @@
         var id= $('#modal-preview-id').text();
         // $iconLoad.show();
         $('#form-tambah').validate().resetForm();
-        $('#judul-form').html('Edit Data Unit');
+        $('#judul-form').html('Edit Data Akun');
         
         $('#btn-save').attr('type','button');
         $('#btn-save').attr('id','btn-update');
-        editData(id)
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('esaku-master/masakun') }}/" + id,
+            dataType: 'json',
+            async:false,
+            success:function(res){
+                var result= res.data;
+                if(result.status){
+                    $('#id_edit').val('edit');
+                    $('#method').val('put');
+                    $('#kode_akun').attr('readonly', true);
+                    $('#kode_akun').val(id);
+                    $('#id').val(id);
+                    $('#nama').val(result.data[0].nama);
+                    $('#modul').val(result.data[0].modul).change();
+                    $('#jenis').val(result.data[0].jenis);
+                    $('#kode_curr').val(result.data[0].kode_curr);
+                    $('#blok').val(result.data[0].block);                  
+                    $('#budget').val(result.data[0].status_gar);                  
+                    $('#account').val(result.data[0].normal);                    
+                    $('#saku-datatable').hide();
+                    $('#saku-form').show();
+                    $('#modal-preview').modal('hide');
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                }
+                // $iconLoad.hide();
+            }
+        });
     });
 
     $('.modal-header').on('click','#btn-cetak',function(e){
         e.stopPropagation();
         $('.dropdown-ke1').addClass('hidden');
         $('.dropdown-ke2').removeClass('hidden');
+        console.log('ok');
     });
 
     $('.modal-header').on('click','#btn-cetak2',function(e){
