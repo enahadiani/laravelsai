@@ -425,7 +425,7 @@
     // END BUTTON SIMPAN
 
      // BUTTON HAPUS DATA
-     function hapusData(id){
+    function hapusData(id){
         $.ajax({
             type: 'DELETE',
             url: "{{ url('esaku-master/cust') }}/"+id,
