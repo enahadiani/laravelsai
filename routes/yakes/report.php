@@ -51,6 +51,7 @@ Route::post('lap-neraca-jamkespen', 'Yakes\LaporanController@getNeracaJamkespen'
 Route::post('lap-perubahan-aset-neto', 'Yakes\LaporanController@getPerubahanAsetNeto');
 Route::post('lap-aset-neto', 'Yakes\LaporanController@getAsetNeto');
 Route::post('lap-arus-kas', 'Yakes\LaporanController@getArusKas');
+Route::post('lap-arus-kas-upload', 'Yakes\LaporanController@getArusKasUpload');
 Route::post('lap-premi-bpjs', 'Yakes\LaporanController@getPremiKapitasi');
 Route::post('lap-claim-bpjs', 'Yakes\LaporanController@getClaimBPJS');
 Route::post('lap-utilisasi-bpjs', 'Yakes\LaporanController@getUtilisasiBPJS');
