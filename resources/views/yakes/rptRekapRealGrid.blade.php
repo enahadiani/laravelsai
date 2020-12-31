@@ -21,7 +21,7 @@
         var kode = id.replace('grid-id-','');
         formData.delete('id');
         formData.append('id',kode);
-        saiPost('yakes-report/lap-rekap-real-grid', null, formData, null, function(res){
+        saiPostGrid('yakes-report/lap-rekap-real-grid', null, formData, null, function(res){
             if(res.result.length > 0){
                 var no=1; var x=0;
                 var data = res.result;
@@ -45,8 +45,15 @@
                     var persen2="";
                     var persen3="";
                     
-                    html+=`<tr id='grid-id-`+line.kode_neraca+`' data-parent='`+id+`' data-state='`+line.state+`'>
-                    <td width='52%' height='20' class='isi_laporan' >`+fnSpasi(line.level_spasi)+``+line.nama+`</td>
+                    if(line.state == 'closed'){
+                        var icon = '<i class="simple-icon-arrow-right mr-2"></i>';
+                        var cursor = 'cursor:pointer';
+                    }else{
+                        var icon = '';
+                        var cursor = 'cursor:pointer';
+                    }
+                    html+=`<tr id='grid-id-`+line.kode_neraca+`' style='`+cursor+`' data-state='`+line.state+`' data-parent='`+id+`'>
+                    <td width='52%' height='20' class='isi_laporan' >`+fnSpasi(line.level_spasi)+``+icon+line.nama+`</td>
                     <td width='18%' class='isi_laporan'><div align='right'>`+n1+`</div></td>
                     <td width='18%' class='isi_laporan'><div align='right'>`+n2+`</div></td>
                     <td width='18%' class='isi_laporan'><div align='right'>`+n4+`</div></td>
@@ -86,10 +93,18 @@
                 .bold{
                     font-weight:bold !important;
                 }
+                #grid-load{
+                    position: absolute;
+                    text-align: center;
+                    width: 100%;
+                    top: 200px;
+                    display:none;
+                }
             </style>
             `;
             
             html+=`
+                <div id='grid-load'><img src='{{ asset("img/loadgif.gif") }}' style='width:25px;height:25px'></div>
                 <table class='table treegrid' id='table-grid' width='100%'>
                     <tr>
                         <th class='header_laporan bg-yellow text-center' width='8%' align='center'>Kode Akun</th>
@@ -120,10 +135,12 @@
                             var persen3="";
                             if(line.state == 'closed'){
                                 var icon = '<i class="simple-icon-arrow-right mr-2"></i>';
+                                var cursor = 'cursor:pointer';
                             }else{
                                 var icon = '';
+                                var cursor = 'cursor:pointer';
                             }
-                            html+=`<tr id='grid-id-`+line.kode_neraca+`' data-state='`+line.state+`'>
+                            html+=`<tr id='grid-id-`+line.kode_neraca+`' style='`+cursor+`' data-state='`+line.state+`'>
                             <td width='52%' height='20' class='isi_laporan' >`+fnSpasi(line.level_spasi)+``+icon+line.nama+`</td>
                             <td width='18%' class='isi_laporan'><div align='right'>`+n1+`</div></td>
                             <td width='18%' class='isi_laporan'><div align='right'>`+n2+`</div></td>
@@ -161,6 +178,7 @@
                     $(this).closest('tr').find('i').removeClass('mr-2 simple-icon-arrow-right');
                     $(this).closest('tr').find('i').addClass('mr-2 simple-icon-arrow-down');
                     $(this).removeClass('close-grid');
+                    console.log($('tr[data-parent="' + id + '"]'));
                     $('tr[data-parent="' + id + '"]').show();
 
                 }else{
@@ -168,6 +186,7 @@
                     $(this).closest('tr').find('i').removeClass('mr-2 simple-icon-arrow-down');
                     $(this).closest('tr').find('i').addClass('mr-2 simple-icon-arrow-right');
                     $(this).removeClass('open-grid');
+                    console.log($('tr[data-parent="' + id + '"]'));
                     $('tr[data-parent="' + id + '"]').hide();
                 }
             }
