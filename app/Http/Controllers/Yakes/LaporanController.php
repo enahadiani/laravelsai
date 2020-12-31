@@ -536,11 +536,12 @@
             $tahun = substr($periode,0,4);
             $bln = substr($periode,4,2);
             $tahunseb = intval($tahun) - 1;
+            $ttd = $data['res']['ttd'];
             $tgl_awal = $data['res']['tgl_awal'].' '.$this->getNamaBulan($bln).' '.$tahun;
             $tgl_akhir = $data['res']['tgl_akhir'].' '.$this->getNamaBulan($bln).' '.$tahunseb;
             $tgl_sekarang = date('d').' '.$this->getNamaBulan(date('m')).' '.date('Y');
             
-            $pdf = PDF::loadview('yakes.rptLabaRugiPDF',['data'=>$data["result"],'tgl_awal'=>$tgl_awal,'tgl_akhir'=>$tgl_akhir,'tgl_sekarang'=>$tgl_sekarang,'tahun_seb'=>$tahunseb]);
+            $pdf = PDF::loadview('yakes.rptLabaRugiPDF',['data'=>$data["result"],'tgl_awal'=>$tgl_awal,'tgl_akhir'=>$tgl_akhir,'tgl_sekarang'=>$tgl_sekarang,'tahun_seb'=>$tahunseb,'ttd'=>$ttd]);
     	    return $pdf->download('laporan-labarugi-pdf');   
         }
 
@@ -554,10 +555,11 @@
             $tahun = substr($periode,0,4);
             $bln = substr($periode,4,2);
             $tahunseb = intval($tahun) - 1;
+            $ttd = $data['res']['ttd'];
             $tgl_awal = $data['res']['tgl_awal'].' '.$this->getNamaBulan($bln).' '.$tahun;
             $tgl_akhir = $data['res']['tgl_akhir'].' '.$this->getNamaBulan($bln).' '.$tahunseb;
             $tgl_sekarang = date('d').' '.$this->getNamaBulan(date('m')).' '.date('Y');
-            $pdf = PDF::loadview('yakes.rptNeracaPDF',['data'=>$data["result"],'tgl_awal'=>$tgl_awal,'tgl_akhir'=>$tgl_akhir,'tgl_sekarang'=>$tgl_sekarang]);
+            $pdf = PDF::loadview('yakes.rptNeracaPDF',['data'=>$data["result"],'tgl_awal'=>$tgl_awal,'tgl_akhir'=>$tgl_akhir,'tgl_sekarang'=>$tgl_sekarang,'ttd'=>$ttd]);
     	    return $pdf->download('laporan-neraca-pdf');   
         }
 
@@ -571,10 +573,11 @@
             $tahun = substr($periode,0,4);
             $bln = substr($periode,4,2);
             $tahunseb = intval($tahun) - 1;
+            $ttd = $data['res']['ttd'];
             $tgl_awal = $data['res']['tgl_awal'].' '.$this->getNamaBulan($bln).' '.$tahun;
             $tgl_akhir = $data['res']['tgl_akhir'].' '.$this->getNamaBulan($bln).' '.$tahunseb;
             $tgl_sekarang = date('d').' '.$this->getNamaBulan(date('m')).' '.date('Y');
-            $pdf = PDF::loadview('yakes.rptAsetNetoPDF',['data'=>$data["result"],'tgl_awal'=>$tgl_awal,'tgl_akhir'=>$tgl_akhir,'tgl_sekarang'=>$tgl_sekarang]);
+            $pdf = PDF::loadview('yakes.rptAsetNetoPDF',['data'=>$data["result"],'tgl_awal'=>$tgl_awal,'tgl_akhir'=>$tgl_akhir,'tgl_sekarang'=>$tgl_sekarang,'ttd'=>$ttd]);
     	    return $pdf->download('laporan-aset-neto-pdf');   
         }
 
@@ -588,10 +591,11 @@
             $tahun = substr($periode,0,4);
             $bln = substr($periode,4,2);
             $tahunseb = intval($tahun) - 1;
+            $ttd= $data['res']['ttd'];
             $tgl_awal = $data['res']['tgl_awal'].' '.$this->getNamaBulan($bln).' '.$tahun;
             $tgl_akhir = $data['res']['tgl_akhir'].' '.$this->getNamaBulan($bln).' '.$tahunseb;
             $tgl_sekarang = date('d').' '.$this->getNamaBulan(date('m')).' '.date('Y');
-            $pdf = PDF::loadview('yakes.rptArusKasPDF',['data'=>$data["result"],'tgl_awal'=>$tgl_awal,'tgl_akhir'=>$tgl_akhir,'tgl_sekarang'=>$tgl_sekarang,'tahun_seb'=>$tahunseb]);
+            $pdf = PDF::loadview('yakes.rptArusKasPDF',['data'=>$data["result"],'tgl_awal'=>$tgl_awal,'tgl_akhir'=>$tgl_akhir,'tgl_sekarang'=>$tgl_sekarang,'tahun_seb'=>$tahunseb,'ttd'=>$ttd]);
     	    return $pdf->download('laporan-arus-kas-pdf');   
         }
 

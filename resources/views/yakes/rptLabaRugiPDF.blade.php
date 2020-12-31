@@ -211,18 +211,18 @@
             </tr>
             <tr>
                 <td width='5%'>&nbsp;</td>
-                <td width='50%' class='text-center'><u>Teuku Hercules</u></td>
+                <td width='50%' class='text-center'><u>{{ $ttd[0]['nama'] }}</u></td>
                 <td >&nbsp;</td>
                 <td >&nbsp;</td>
-                <td width='16%' class='text-center'><u>Lina Herlina</u></td>
+                <td width='16%' class='text-center'><u>{{ $ttd[0]['nama2'] }}</u></td>
                 <td width='5%'>&nbsp;</td>
             </tr>
             <tr>
                 <td width='5%'>&nbsp;</td>
-                <td width='50%' class='text-center'>NIK. 670255</td>
+                <td width='50%' class='text-center'>NIK. {{ $ttd[0]['nik1'] }}</td>
                 <td >&nbsp;</td>
                 <td >&nbsp;</td>
-                <td width='16%' class='text-center'>NIK. 660259</td>
+                <td width='16%' class='text-center'>NIK. {{ $ttd[0]['nik2'] }}</td>
                 <td width='5%'>&nbsp;</td>
             </tr>
             <tr height='20px'>

@@ -179,16 +179,16 @@
             </tr>
             <tr>
                 <td width='2%'>&nbsp;</td>
-                <td width='52%' class='text-center'><u>Teuku Hercules</u></td>
+                <td width='52%' class='text-center'><u>`+res.res.ttd[0].nama+`</u></td>
                 <td width='8%'>&nbsp;</td>
-                <td colspan='2' width='36%' class='text-center'><u>Lina Herlina</u></td>
+                <td colspan='2' width='36%' class='text-center'><u>`+res.res.ttd[0].nama2+`</u></td>
                 <td width='2%'>&nbsp;</td>
             </tr>
             <tr>
                 <td width='2%'>&nbsp;</td>
-                <td width='52%' class='text-center'>NIK. 670255</td>
+                <td width='52%' class='text-center'>NIK. `+res.res.ttd[0].nik1+`</td>
                 <td width='8%'>&nbsp;</td>
-                <td colspan='2' width='36%' class='text-center'>NIK. 660259</td>
+                <td colspan='2' width='36%' class='text-center'>NIK. `+res.res.ttd[0].nik2+`</td>
                 <td width='2%'>&nbsp;</td>
             </tr>
             <tr height='20px'>
