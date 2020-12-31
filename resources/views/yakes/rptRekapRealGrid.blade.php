@@ -17,11 +17,11 @@
 
    drawLap($formData);
 
-   function getChild(index,id,formData){
+   function getChild(index,id,formData,url){
         var kode = id.replace('grid-id-','');
         formData.delete('id');
         formData.append('id',kode);
-        saiPostGrid('yakes-report/lap-rekap-real-grid', null, formData, null, function(res){
+        saiPostGrid(url, null, formData, null, function(res){
             if(res.result.length > 0){
                 var no=1; var x=0;
                 var data = res.result;
@@ -45,26 +45,32 @@
                     var persen2="";
                     var persen3="";
                     
-                    if(line.state == 'closed'){
+                    if(line.state == 'closed' || line.tipe == 'Posting'){
                         var icon = '<i class="simple-icon-arrow-right mr-2"></i>';
-                        var cursor = 'cursor:pointer';
+                        var cursor = 'cursor:pointer;font-weight:bold';
                     }else{
                         var icon = '';
-                        var cursor = 'cursor:pointer';
+                        var cursor = '';
                     }
-                    html+=`<tr id='grid-id-`+line.kode_neraca+`' style='`+cursor+`' data-state='`+line.state+`' data-parent='`+id+`'>
+                    html+=`<tr id='grid-id-`+line.kode_neraca+`' style='`+cursor+`' data-state='`+line.state+`' data-parent='`+id+`' data-tipe='`+line.tipe+`'>
                     <td width='52%' height='20' class='isi_laporan' >`+fnSpasi(line.level_spasi)+``+icon+line.nama+`</td>
                     <td width='18%' class='isi_laporan'><div align='right'>`+n1+`</div></td>
-                    <td width='18%' class='isi_laporan'><div align='right'>`+n2+`</div></td>
-                    <td width='18%' class='isi_laporan'><div align='right'>`+n4+`</div></td>
-                    <td width='18%' class='isi_laporan'><div align='right'>`+n5+`</div></td>
-                    <td width='18%' class='isi_laporan'><div align='right'>`+n4+`</div></td>
+                     <td width='18%' class='isi_laporan'><div align='right'>`+n2+`</div></td>
+                     <td width='18%' class='isi_laporan'><div align='right'>`+n4+`</div></td>
+                     <td width='18%' class='isi_laporan'><div align='right'>`+n5+`</div></td>
+                     <td width='18%' class='isi_laporan'><div align='right'>`+persen1+`</div></td>
+                     <td width='18%' class='isi_laporan'><div align='right'>`+persen2+`</div></td>
+                     <td width='18%' class='isi_laporan'><div align='right'>`+persen3+`</div></td>
+                     <td width='18%' class='isi_laporan'><div align='right'>`+n4+`</div></td>
+                     <td width='18%' class='isi_laporan'><div align='right'>`+n5+`</div></td>
+                     <td width='18%' class='isi_laporan'><div align='right'>`+persen1+`</div></td>
+                     <td width='18%' class='isi_laporan'><div align='right'>`+persen2+`</div></td>
                     </tr>`;
                     
                     no++;
                 }
                 
-                $('#table-grid').find('tr:eq('+index+')').after(html);
+                $('.report-table').find('tr:eq('+index+')').after(html);
             }
         });
    }
@@ -77,8 +83,17 @@
             }else{
                 $('.navigation-lap').addClass('hidden');
             }
-            var html = `<div>
+            var html = `
+            <div id='grid-load'><img src='{{ asset("img/loadgif.gif") }}' style='width:25px;height:25px'></div>
+            <div>
             <style>
+                #grid-load{
+                    position: absolute;
+                    text-align: center;
+                    width: 100%;
+                    top: 200px;
+                    display:none;
+                }
                 .report-table th,.report-table2 th{
                     color: white !important;
                     background-color: #288372; !important;
@@ -93,27 +108,48 @@
                 .bold{
                     font-weight:bold !important;
                 }
-                #grid-load{
-                    position: absolute;
-                    text-align: center;
-                    width: 100%;
-                    top: 200px;
-                    display:none;
-                }
             </style>
-            `;
-            
-            html+=`
-                <div id='grid-load'><img src='{{ asset("img/loadgif.gif") }}' style='width:25px;height:25px'></div>
-                <table class='table treegrid' id='table-grid' width='100%'>
-                    <tr>
-                        <th class='header_laporan bg-yellow text-center' width='8%' align='center'>Kode Akun</th>
-                        <th class='header_laporan bg-yellow text-center' width='28%' align='center'>Nama Akun</th>
-                        <th class='header_laporan bg-yellow text-center' width='10%' align='center'>RKA 2020</th>
-                        <th class='header_laporan bg-yellow text-center' width='10%' align='center'>RKA SD OKT</th>
-                        <th class='header_laporan bg-yellow text-center' width='10%' align='center'>REAL YTD OKT 2020</th>
-                        <th class='header_laporan bg-yellow text-center' width='10%' align='center'>REAL YTD OKT 2019</th>
-                    </tr>`;
+            <div class='table-responsive'>
+            <table class='table table-bordered report-table'>
+            <tr>
+                <td colspan='12' class='text-right no-border'>dlm. Rp Juta</td>
+            </tr>
+            <tr>
+                <th width='27%' rowspan='2' class='bg-blue3'>URAIAN</th>
+                <th width='8%' class='bg-blue3'>RKA</th>
+                <th width='8%' class='bg-blue3'>RKA</th>
+                <th width='16%' colspan='2' class='bg-blue3'>REAL YTD</th>
+                <th width='15%' colspan='3' class='bg-blue3'>PRESENTASE</th>
+                <th width='8%' class='bg-blue3'>REAL</th>
+                <th width='18%' colspan='3' class='bg-blue3'>OUTLOOK</th>
+            </tr>
+            <tr>
+                <th width='12%' class='bg-blue3'>2020</th>
+                <th width='12%' class='bg-blue3'>SD 0KT</th>
+                <th width='12%' class='bg-blue3'>OKT 2020</th>
+                <th width='12%' class='bg-blue3'>OKT 2019</th>
+                <th width='12%' class='bg-blue3'>RKA</th>
+                <th width='12%' class='bg-blue3'>OKT</th>
+                <th width='12%' class='bg-blue3'>YoY</th>
+                <th width='12%' class='bg-blue3'>2019</th>
+                <th width='12%' class='bg-blue3'>2020</th>
+                <th width='12%' class='bg-blue3'>ACH[%]</th>
+                <th width='12%' class='bg-blue3'>YoY[%]</th>
+            </tr>
+            <tr>
+                <th width='6%' class='bg-grey'></th>
+                <th width='6%' class='bg-grey'>1</th>
+                <th width='12%' class='bg-grey'>2</th>
+                <th width='12%' class='bg-grey'>3</th>
+                <th width='12%' class='bg-grey'>4</th>
+                <th width='12%' class='bg-grey'>5=3/1</th>
+                <th width='12%' class='bg-grey'>6=3/2</th>
+                <th width='12%' class='bg-grey'>7=(3/4)-1</th>
+                <th width='12%' class='bg-grey'>8</th>
+                <th width='12%' class='bg-grey'>9</th>
+                <th width='12%' class='bg-grey'>10=9/1</th>
+                <th width='12%' class='bg-grey'>11=(9/8)-1</th>
+            </tr>`;
                     var no=1; var x=0;
                     for (var i=0;i < data.length;i++)
                     {
@@ -133,26 +169,33 @@
                             var persen1="";
                             var persen2="";
                             var persen3="";
-                            if(line.state == 'closed'){
+                            if(line.state == 'closed' || line.tipe == 'Posting'){
                                 var icon = '<i class="simple-icon-arrow-right mr-2"></i>';
-                                var cursor = 'cursor:pointer';
+                                var cursor = 'cursor:pointer;font-weight:bold';
                             }else{
                                 var icon = '';
-                                var cursor = 'cursor:pointer';
+                                var cursor = '';
                             }
-                            html+=`<tr id='grid-id-`+line.kode_neraca+`' style='`+cursor+`' data-state='`+line.state+`'>
+                            html+=`<tr id='grid-id-`+line.kode_neraca+`' style='`+cursor+`' data-state='`+line.state+`' data-tipe='`+line.tipe+`'>
                             <td width='52%' height='20' class='isi_laporan' >`+fnSpasi(line.level_spasi)+``+icon+line.nama+`</td>
                             <td width='18%' class='isi_laporan'><div align='right'>`+n1+`</div></td>
                             <td width='18%' class='isi_laporan'><div align='right'>`+n2+`</div></td>
                             <td width='18%' class='isi_laporan'><div align='right'>`+n4+`</div></td>
                             <td width='18%' class='isi_laporan'><div align='right'>`+n5+`</div></td>
+                            <td width='18%' class='isi_laporan'><div align='right'>`+persen1+`</div></td>
+                            <td width='18%' class='isi_laporan'><div align='right'>`+persen2+`</div></td>
+                            <td width='18%' class='isi_laporan'><div align='right'>`+persen3+`</div></td>
                             <td width='18%' class='isi_laporan'><div align='right'>`+n4+`</div></td>
+                            <td width='18%' class='isi_laporan'><div align='right'>`+n5+`</div></td>
+                            <td width='18%' class='isi_laporan'><div align='right'>`+persen1+`</div></td>
+                            <td width='18%' class='isi_laporan'><div align='right'>`+persen2+`</div></td>
 
                             </tr>`;
                         
                         no++;
                     }
-            html+=`</table>`;
+            html+=`</table>
+            </div>`;
         }
         $('#canvasPreview').html(html);
         // $('.treegrid').treegrid({
@@ -162,7 +205,7 @@
         //         console.log(position); 
         //     }
         // });
-        $('.treegrid').on('click','tr',function(){
+        $('.report-table').on('click','tr',function(){
             
             
             var state = $(this).data('state');
@@ -171,7 +214,33 @@
                 var index = $(this).closest('tr').index();
                 if(!$(this).hasClass('clicked')){
                     $(this).addClass('clicked');
-                    getChild(index,id,$formData);
+                    getChild(index,id,$formData,'yakes-report/lap-rekap-real-grid');
+                }
+                if(!$(this).hasClass('open-grid')){
+                    $(this).addClass('open-grid');
+                    $(this).closest('tr').find('i').removeClass('mr-2 simple-icon-arrow-right');
+                    $(this).closest('tr').find('i').addClass('mr-2 simple-icon-arrow-down');
+                    $(this).removeClass('close-grid');
+                    console.log($('tr[data-parent="' + id + '"]'));
+                    $('tr[data-parent="' + id + '"]').show();
+
+                }else{
+                    $(this).addClass('close-grid');
+                    $(this).closest('tr').find('i').removeClass('mr-2 simple-icon-arrow-down');
+                    $(this).closest('tr').find('i').addClass('mr-2 simple-icon-arrow-right');
+                    $(this).removeClass('open-grid');
+                    console.log($('tr[data-parent="' + id + '"]'));
+                    $('tr[data-parent="' + id + '"]').hide();
+                }
+            }
+
+            var tipe = $(this).data('tipe');
+            if(tipe == 'Posting'){
+                var id = $(this).attr('id');
+                var index = $(this).closest('tr').index();
+                if(!$(this).hasClass('clicked')){
+                    $(this).addClass('clicked');
+                    getChild(index,id,$formData,'yakes-report/lap-rekap-real-detail');
                 }
                 if(!$(this).hasClass('open-grid')){
                     $(this).addClass('open-grid');
