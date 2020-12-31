@@ -1,4 +1,10 @@
 <link rel="stylesheet" href="{{ asset('report.css') }}" />
+
+<!-- <link rel="stylesheet" type="text/css" href="https://www.jeasyui.com/easyui/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="https://www.jeasyui.com/easyui/themes/icon.css">
+<script type="text/javascript" src="https://www.jeasyui.com/easyui/jquery.easyui.min.js"></script> -->
+<link href="{{ asset('asset_elite/css/jquery.treegrid.css') }}" rel="stylesheet">
+<script src="{{ asset('asset_elite/js/jquery.treegrid.js') }}"></script>
     <div class="row" id="saku-filter">
         <div class="col-12">
             <div class="card" >

@@ -296,7 +296,7 @@
                 <div class="modal-header pb-0" style="border:none">
                     <h6 class="modal-title pl-0">Filter</h6>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                        <span aria-hidden="true" style="font-size:30px !important">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body" style="border:none">
@@ -347,6 +347,13 @@
     var dashboard = "";
     var colors = ['#288372', '#37AA94', '#47D7BD'];
     var keterangan = "Tahun {{ substr(Session::get('periode'), 0, 4) }} <strong>regional</strong> "+regional;
+    
+    if(regional == "NASIONAL"){
+        keterangan = "Tahun {{ substr(Session::get('periode'), 0, 4) }} "+regional;
+        
+    }else{
+        keterangan = "Tahun {{ substr(Session::get('periode'), 0, 4) }} <strong>regional</strong> ";
+    }
     var tahun = "{{ substr(Session::get('periode'), 0, 4) }}";
     var pembagi = 1000000;
     var buttonTop = document.getElementById('button-top');
@@ -429,7 +436,12 @@
 
     $('#form-filter').on('click', '#btn-tampil', function(){
         $('#detail-invest').empty();
-        keterangan = "Tahun "+tahun+" <strong>regional</strong> "+regional;
+        if(regional == 'NASIONAL'){
+            keterangan = "Tahun "+tahun+" "+regional;
+        }else{
+
+            keterangan = "Tahun "+tahun+" <strong>regional</strong> "+regional;
+        }
         getDataPendapatan(tahun, regional);
         $('#keterangan-filter').html(keterangan);
         $('#modalFilter').modal('hide');

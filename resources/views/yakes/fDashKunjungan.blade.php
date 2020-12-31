@@ -524,7 +524,7 @@
                 <div class="modal-header pb-0" style="border:none">
                     <h6 class="modal-title pl-0">Filter</h6>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                        <span aria-hidden="true" style='font-size:30px !important;'>&times;</span>
                     </button>
                 </div>
                 <div class="modal-body" style="border:none">
@@ -623,7 +623,13 @@ if(numMonth == 2) {
 var ketYTDLast = "YTD "+quaterMonth+" "+lastPeriodeSebelum+"";
 var ketRKANow = "RKA "+quaterMonth+" "+lastPeriode+"";
 var ketYTDNow = "YTD "+quaterMonth+" "+lastPeriode+"";
-var keterangan = "Periode sampai dengan "+namaMonth+" "+tahun+" <strong>regional</strong> "+regional;
+
+if(regional == "NASIONAL"){
+    var keterangan = "Periode sampai dengan "+namaMonth+" "+tahun+" "+regional;
+    
+}else{
+    var keterangan = "Periode sampai dengan "+namaMonth+" "+tahun+" <strong>regional</strong> "+regional;
+}
 var pembagi = 1000000000;
 var pembagi2 = 1000000;
 var pembagi3 = 1000;
@@ -748,7 +754,12 @@ if(jenis == 'CC') {
         } else {
          quaterMonth = singkatMonth;
         }
-        keterangan = "Periode sampai dengan "+namaMonth+" "+tahun+" <strong>regional</strong> "+regional;
+        if(regional == "NASIONAL"){
+            keterangan = "Periode sampai dengan "+namaMonth+" "+tahun+" "+regional;
+
+        }else{
+            keterangan = "Periode sampai dengan "+namaMonth+" "+tahun+" <strong>regional</strong> "+regional;
+        }
         lastPeriode = periode.slice(2, 4);
         lastPeriodeNum = parseInt(lastPeriode);
         lastPeriodeNumYest = lastPeriodeNum - 1;

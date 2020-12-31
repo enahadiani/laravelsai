@@ -295,7 +295,7 @@
                 <div class="modal-header pb-0" style="border:none">
                     <h6 class="modal-title pl-0">Filter</h6>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                        <span aria-hidden="true" style="font-size:30px !important">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body" style="border:none">
@@ -360,8 +360,13 @@ var numMonth = parseInt(split[1]) - 1;
 var namaMonth = bulan[numMonth];
 var singkatMonth = bulanSingkat[numMonth];
 var tahunSebelumnya = numTahun - 1;
-var keterangan = "Periode sampai dengan "+namaMonth+" "+tahun+" <strong>regional</strong> "+regional;
 
+if(regional == "NASIONAL"){
+    var keterangan = "Periode sampai dengan "+namaMonth+" "+tahun+" "+regional;
+    
+}else{
+    var keterangan = "Periode sampai dengan "+namaMonth+" "+tahun+" <strong>regional</strong> "+regional;
+}
 if(numMonth == 2) {
     var quaterMonth = "Q1'";
 } else if(numMonth == 5) {  
@@ -459,7 +464,13 @@ window.onscroll = function() {
          quaterMonth = singkatMonth;
         }
         tahunSebelumnya = numTahun - 1;
-        keterangan = "Periode sampai dengan "+namaMonth+" "+tahun+" <strong>regional</strong> "+regional;
+        
+        if(regional == "NASIONAL"){
+            keterangan = "Periode sampai dengan "+namaMonth+" "+tahun+" "+regional;
+
+        }else{
+            keterangan = "Periode sampai dengan "+namaMonth+" "+tahun+" <strong>regional</strong> "+regional;
+        }
         $('#keterangan-filter').html(keterangan);
         $('#modalFilter').modal('hide');
     })
