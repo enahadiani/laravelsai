@@ -1517,7 +1517,8 @@
                         'Accept'     => 'application/json',
                     ],
                     'query' => [
-                        'periode' => $request->periode
+                        'periode' => $request->periode,
+                        'id' => $request->id
                     ]
                 ]);
         

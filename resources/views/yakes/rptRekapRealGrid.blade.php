@@ -3,19 +3,64 @@
     
     function drawLap(formData){
         saiPostLoad('yakes-report/lap-rekap-real-grid', null, formData, null, function(res){
-        //    if(res.result.length > 0){
+           if(res.result.length > 0){
 
                 $('#pagination').html('');
                 var show = $('#show').val();
                 generatePaginationDore('pagination',show,res);
               
-        //    }else{
-        //         $('#saku-report #canvasPreview').load("{{ url('yakes-auth/form/blank') }}");
-        //    }
+           }else{
+                $('#saku-report #canvasPreview').load("{{ url('yakes-auth/form/blank') }}");
+           }
        });
    }
 
    drawLap($formData);
+
+   function getChild(index,id,formData){
+        var kode = id.replace('grid-id-','');
+        formData.delete('id');
+        formData.append('id',kode);
+        saiPost('yakes-report/lap-rekap-real-grid', null, formData, null, function(res){
+            if(res.result.length > 0){
+                var no=1; var x=0;
+                var data = res.result;
+                var html = '';
+                for (var i=0;i < data.length;i++)
+                {
+                    var n1="";
+                    var line = data[i];
+                    if (line.tipe!="Header")
+                    {
+                        n1=sepNum(parseFloat(line.n1));
+                        n2=sepNum(parseFloat(line.n2));
+                        n3=sepNum(parseFloat(line.n3));
+                        n4=sepNum(parseFloat(line.n4));
+                        n5=sepNum(parseFloat(line.n5));
+                        n6=sepNum(parseFloat(line.n6));
+                        n7=sepNum(parseFloat(line.n7));
+                        n8=sepNum(parseFloat(line.n8));
+                    }
+                    var persen1="";
+                    var persen2="";
+                    var persen3="";
+                    
+                    html+=`<tr id='grid-id-`+line.kode_neraca+`' data-parent='`+id+`' data-state='`+line.state+`'>
+                    <td width='52%' height='20' class='isi_laporan' >`+fnSpasi(line.level_spasi)+``+line.nama+`</td>
+                    <td width='18%' class='isi_laporan'><div align='right'>`+n1+`</div></td>
+                    <td width='18%' class='isi_laporan'><div align='right'>`+n2+`</div></td>
+                    <td width='18%' class='isi_laporan'><div align='right'>`+n4+`</div></td>
+                    <td width='18%' class='isi_laporan'><div align='right'>`+n5+`</div></td>
+                    <td width='18%' class='isi_laporan'><div align='right'>`+n4+`</div></td>
+                    </tr>`;
+                    
+                    no++;
+                }
+                
+                $('#table-grid').find('tr:eq('+index+')').after(html);
+            }
+        });
+   }
 
    function drawRptPage(data,res,from,to){
         var data = data;
@@ -73,9 +118,13 @@
                             var persen1="";
                             var persen2="";
                             var persen3="";
-
+                            if(line.state == 'closed'){
+                                var icon = '<i class="simple-icon-arrow-right mr-2"></i>';
+                            }else{
+                                var icon = '';
+                            }
                             html+=`<tr id='grid-id-`+line.kode_neraca+`' data-state='`+line.state+`'>
-                            <td width='52%' height='20' class='isi_laporan' >`+fnSpasi(line.level_spasi)+``+line.nama+`</td>
+                            <td width='52%' height='20' class='isi_laporan' >`+fnSpasi(line.level_spasi)+``+icon+line.nama+`</td>
                             <td width='18%' class='isi_laporan'><div align='right'>`+n1+`</div></td>
                             <td width='18%' class='isi_laporan'><div align='right'>`+n2+`</div></td>
                             <td width='18%' class='isi_laporan'><div align='right'>`+n4+`</div></td>
@@ -101,19 +150,23 @@
             
             var state = $(this).data('state');
             if(state == 'closed'){
+                var id = $(this).attr('id');
+                var index = $(this).closest('tr').index();
                 if(!$(this).hasClass('clicked')){
                     $(this).addClass('clicked');
-                    var id = $(this).attr('id');
-                    var index = $(this).closest('tr').index();
-                    $('#table-grid').find('tr:eq('+index+')').after('<tr data-parent="'+id+'" style="display:none"><td colspan="6">OK</td></tr>');
+                    getChild(index,id,$formData);
                 }
                 if(!$(this).hasClass('open-grid')){
                     $(this).addClass('open-grid');
+                    $(this).closest('tr').find('i').removeClass('mr-2 simple-icon-arrow-right');
+                    $(this).closest('tr').find('i').addClass('mr-2 simple-icon-arrow-down');
                     $(this).removeClass('close-grid');
                     $('tr[data-parent="' + id + '"]').show();
 
                 }else{
                     $(this).addClass('close-grid');
+                    $(this).closest('tr').find('i').removeClass('mr-2 simple-icon-arrow-down');
+                    $(this).closest('tr').find('i').addClass('mr-2 simple-icon-arrow-right');
                     $(this).removeClass('open-grid');
                     $('tr[data-parent="' + id + '"]').hide();
                 }
