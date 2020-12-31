@@ -17,6 +17,28 @@
 
    drawLap($formData);
 
+   function sepNum2(x){
+        if (typeof x === 'undefined' || !x) { 
+            return 0;
+        }else{
+            var x = parseFloat(x).toFixed(1);
+            var parts = x.toString().split('.');
+            parts[0] = parts[0].replace(/([0-9])(?=([0-9]{3})+$)/g,'$1.');
+            return parts.join(',');
+        }
+    }
+
+    function sepNumPas(x){
+        if (typeof x === 'undefined' || !x) { 
+            return 0;
+        }else{
+            var x = parseFloat(x).toFixed(0);
+            var parts = x.toString().split('.');
+            parts[0] = parts[0].replace(/([0-9])(?=([0-9]{3})+$)/g,'$1.');
+            return parts.join(',');
+        }
+    }
+
    function getChild(index,id,formData,url){
         var kode = id.replace('grid-id-','');
         formData.delete('id');
@@ -30,20 +52,23 @@
                 {
                     var n1="";
                     var line = data[i];
-                    if (line.tipe!="Header")
+                    persen1=0;persen2=0;persen3=0;persen4=0;
+                    if (parseFloat(line.n7)!=0)
                     {
-                        n1=sepNum(parseFloat(line.n1));
-                        n2=sepNum(parseFloat(line.n2));
-                        n3=sepNum(parseFloat(line.n3));
-                        n4=sepNum(parseFloat(line.n4));
-                        n5=sepNum(parseFloat(line.n5));
-                        n6=sepNum(parseFloat(line.n6));
-                        n7=sepNum(parseFloat(line.n7));
-                        n8=sepNum(parseFloat(line.n8));
+                        persen1=(parseFloat(line.n6)/parseFloat(line.n7))*100;
                     }
-                    var persen1="";
-                    var persen2="";
-                    var persen3="";
+                    if (parseFloat(line.n9)!=0)
+                    {
+                        persen2=(((parseFloat(line.n6)-parseFloat(line.n9))/Math.abs(parseFloat(line.n9))))*100;
+                    }
+                    if (parseFloat(line.n2)!=0)
+                    {
+                        persen3=(parseFloat(line.n4)/parseFloat(line.n2))*100;
+                    }
+                    if (parseFloat(line.n5)!=0)
+                    {
+                        persen4=(parseFloat(line.n4)-parseFloat(line.n5))/parseFloat(line.n5);
+                    }
                     
                     if(line.state == 'closed' || line.tipe == 'Posting'){
                         var icon = '<i class="simple-icon-arrow-right mr-2"></i>';
@@ -53,18 +78,18 @@
                         var cursor = '';
                     }
                     html+=`<tr id='grid-id-`+line.kode_neraca+`' style='`+cursor+`' data-state='`+line.state+`' data-parent='`+id+`' data-tipe='`+line.tipe+`'>
-                    <td width='52%' height='20' class='isi_laporan' >`+fnSpasi(line.level_spasi)+``+icon+line.nama+`</td>
-                    <td width='18%' class='isi_laporan'><div align='right'>`+n1+`</div></td>
-                     <td width='18%' class='isi_laporan'><div align='right'>`+n2+`</div></td>
-                     <td width='18%' class='isi_laporan'><div align='right'>`+n4+`</div></td>
-                     <td width='18%' class='isi_laporan'><div align='right'>`+n5+`</div></td>
-                     <td width='18%' class='isi_laporan'><div align='right'>`+persen1+`</div></td>
-                     <td width='18%' class='isi_laporan'><div align='right'>`+persen2+`</div></td>
-                     <td width='18%' class='isi_laporan'><div align='right'>`+persen3+`</div></td>
-                     <td width='18%' class='isi_laporan'><div align='right'>`+n4+`</div></td>
-                     <td width='18%' class='isi_laporan'><div align='right'>`+n5+`</div></td>
-                     <td width='18%' class='isi_laporan'><div align='right'>`+persen1+`</div></td>
-                     <td width='18%' class='isi_laporan'><div align='right'>`+persen2+`</div></td>
+                    <td class='isi_laporan' >`+fnSpasi(line.level_spasi)+``+icon+line.nama+`</td>
+                        <td class='isi_laporan' align='right'>`+sepNumPas(parseFloat(line.n1))+`</td>
+                        <td class='isi_laporan' align='right'>`+sepNumPas(parseFloat(line.n9))+`</td>
+                        <td class='isi_laporan' align='right'>`+sepNumPas(parseFloat(line.n7))+`</td>
+                        <td class='isi_laporan' align='right'>`+sepNumPas(parseFloat(line.n6))+`</td>
+                        <td class='isi_laporan' align='center'>`+sepNum2(parseFloat(persen1))+`%</td>
+                        <td class='isi_laporan' align='center'>`+sepNum2(parseFloat(persen2))+`%</td>
+                        <td class='isi_laporan' align='right'>`+sepNumPas(parseFloat(line.n5))+`</td>
+                        <td class='isi_laporan' align='right'>`+sepNumPas(parseFloat(line.n2))+`</td>
+                        <td class='isi_laporan' align='right'>`+sepNumPas(parseFloat(line.n4))+`</td>
+                        <td class='isi_laporan' align='center'>`+sepNum2(parseFloat(persen3))+`</td>
+                        <td class='isi_laporan' align='center'>`+sepNum2(parseFloat(persen4))+`</td>
                     </tr>`;
                     
                     no++;
@@ -83,6 +108,14 @@
             }else{
                 $('.navigation-lap').addClass('hidden');
             }
+            
+            var periode = $periode.from;
+            var bln = periode.substr(4,2);
+            var blnrev = parseInt(bln)-1;
+            var tahun = periode.substr(0,4);
+            var tahunrev = parseInt(tahun)-1;
+            var periode_pilih = namaPeriode(tahun+''+bln);
+            var periode_rev = namaPeriode(tahunrev+''+blnrev);
             var html = `
             <div id='grid-load'><img src='{{ asset("img/loadgif.gif") }}' style='width:25px;height:25px'></div>
             <div>
@@ -93,6 +126,9 @@
                     width: 100%;
                     top: 200px;
                     display:none;
+                }
+                .report-table{
+                    width: 1500px !important;
                 }
                 .report-table th,.report-table2 th{
                     color: white !important;
@@ -112,85 +148,66 @@
             <div class='table-responsive'>
             <table class='table table-bordered report-table'>
             <tr>
-                <td colspan='12' class='text-right no-border'>dlm. Rp Juta</td>
+                <th style='width:400px' rowspan='2' class='header_laporan'>P&amp;L ITEMS (in Rp.Bn)</th>
+                <th style='width:90px' rowspan='2' class='header_laporan'>Budget `+tahun+`</th>
+                <th style='width:90px' rowspan='2' class='header_laporan'>Actual `+periode_rev+`</th>
+                <th colspan='4' class='header_laporan'>`+periode_pilih+`</th>
+                <th style='width:90px' rowspan='2' class='header_laporan'>Actual Yth `+periode_rev+`</th>
+                <th colspan='4' class='header_laporan'>Yth `+periode_pilih+`</th>
             </tr>
             <tr>
-                <th width='27%' rowspan='2' class='bg-blue3'>URAIAN</th>
-                <th width='8%' class='bg-blue3'>RKA</th>
-                <th width='8%' class='bg-blue3'>RKA</th>
-                <th width='16%' colspan='2' class='bg-blue3'>REAL YTD</th>
-                <th width='15%' colspan='3' class='bg-blue3'>PRESENTASE</th>
-                <th width='8%' class='bg-blue3'>REAL</th>
-                <th width='18%' colspan='3' class='bg-blue3'>OUTLOOK</th>
-            </tr>
-            <tr>
-                <th width='12%' class='bg-blue3'>2020</th>
-                <th width='12%' class='bg-blue3'>SD 0KT</th>
-                <th width='12%' class='bg-blue3'>OKT 2020</th>
-                <th width='12%' class='bg-blue3'>OKT 2019</th>
-                <th width='12%' class='bg-blue3'>RKA</th>
-                <th width='12%' class='bg-blue3'>OKT</th>
-                <th width='12%' class='bg-blue3'>YoY</th>
-                <th width='12%' class='bg-blue3'>2019</th>
-                <th width='12%' class='bg-blue3'>2020</th>
-                <th width='12%' class='bg-blue3'>ACH[%]</th>
-                <th width='12%' class='bg-blue3'>YoY[%]</th>
-            </tr>
-            <tr>
-                <th width='6%' class='bg-grey'></th>
-                <th width='6%' class='bg-grey'>1</th>
-                <th width='12%' class='bg-grey'>2</th>
-                <th width='12%' class='bg-grey'>3</th>
-                <th width='12%' class='bg-grey'>4</th>
-                <th width='12%' class='bg-grey'>5=3/1</th>
-                <th width='12%' class='bg-grey'>6=3/2</th>
-                <th width='12%' class='bg-grey'>7=(3/4)-1</th>
-                <th width='12%' class='bg-grey'>8</th>
-                <th width='12%' class='bg-grey'>9</th>
-                <th width='12%' class='bg-grey'>10=9/1</th>
-                <th width='12%' class='bg-grey'>11=(9/8)-1</th>
+                <th style='width:90px' class='header_laporan'>Budget</th>
+                <th style='width:90px' class='header_laporan'>Actual</th>
+                <th style='width:60px' class='header_laporan'>Ach.</th>
+                <th style='width:60px' class='header_laporan'>MoM Growth</th>
+                <th style='width:90px' class='header_laporan'>Budget</th>
+                <th style='width:90px' class='header_laporan'>Actual</th>
+                <th style='width:60px' class='header_laporan'>Ach.</th>
+                <th style='width:60px' class='header_laporan'>YoY Growth</th>
             </tr>`;
                     var no=1; var x=0;
                     for (var i=0;i < data.length;i++)
                     {
                         var n1="";
                         var line = data[i];
-                        if (line.tipe!="Header")
+                        persen1=0;persen2=0;persen3=0;persen4=0;
+                        if (parseFloat(line.n7)!=0)
                         {
-                            n1=sepNum(parseFloat(line.n1));
-                            n2=sepNum(parseFloat(line.n2));
-                            n3=sepNum(parseFloat(line.n3));
-                            n4=sepNum(parseFloat(line.n4));
-                            n5=sepNum(parseFloat(line.n5));
-                            n6=sepNum(parseFloat(line.n6));
-                            n7=sepNum(parseFloat(line.n7));
-                            n8=sepNum(parseFloat(line.n8));
+                            persen1=(parseFloat(line.n6)/parseFloat(line.n7))*100;
                         }
-                            var persen1="";
-                            var persen2="";
-                            var persen3="";
-                            if(line.state == 'closed' || line.tipe == 'Posting'){
-                                var icon = '<i class="simple-icon-arrow-right mr-2"></i>';
-                                var cursor = 'cursor:pointer;font-weight:bold';
-                            }else{
-                                var icon = '';
-                                var cursor = '';
-                            }
-                            html+=`<tr id='grid-id-`+line.kode_neraca+`' style='`+cursor+`' data-state='`+line.state+`' data-tipe='`+line.tipe+`'>
-                            <td width='52%' height='20' class='isi_laporan' >`+fnSpasi(line.level_spasi)+``+icon+line.nama+`</td>
-                            <td width='18%' class='isi_laporan'><div align='right'>`+n1+`</div></td>
-                            <td width='18%' class='isi_laporan'><div align='right'>`+n2+`</div></td>
-                            <td width='18%' class='isi_laporan'><div align='right'>`+n4+`</div></td>
-                            <td width='18%' class='isi_laporan'><div align='right'>`+n5+`</div></td>
-                            <td width='18%' class='isi_laporan'><div align='right'>`+persen1+`</div></td>
-                            <td width='18%' class='isi_laporan'><div align='right'>`+persen2+`</div></td>
-                            <td width='18%' class='isi_laporan'><div align='right'>`+persen3+`</div></td>
-                            <td width='18%' class='isi_laporan'><div align='right'>`+n4+`</div></td>
-                            <td width='18%' class='isi_laporan'><div align='right'>`+n5+`</div></td>
-                            <td width='18%' class='isi_laporan'><div align='right'>`+persen1+`</div></td>
-                            <td width='18%' class='isi_laporan'><div align='right'>`+persen2+`</div></td>
-
-                            </tr>`;
+                        if (parseFloat(line.n9)!=0)
+                        {
+                            persen2=(((parseFloat(line.n6)-parseFloat(line.n9))/Math.abs(parseFloat(line.n9))))*100;
+                        }
+                        if (parseFloat(line.n2)!=0)
+                        {
+                            persen3=(parseFloat(line.n4)/parseFloat(line.n2))*100;
+                        }
+                        if (parseFloat(line.n5)!=0)
+                        {
+                            persen4=(parseFloat(line.n4)-parseFloat(line.n5))/parseFloat(line.n5);
+                        }
+                        if(line.state == 'closed' || line.tipe == 'Posting'){
+                            var icon = '<i class="simple-icon-arrow-right mr-2"></i>';
+                            var cursor = 'cursor:pointer;font-weight:bold';
+                        }else{
+                            var icon = '';
+                            var cursor = '';
+                        }
+                        html+=`<tr id='grid-id-`+line.kode_neraca+`' style='`+cursor+`' data-state='`+line.state+`' data-tipe='`+line.tipe+`'>
+                        <td class='isi_laporan' >`+fnSpasi(line.level_spasi)+``+icon+line.nama+`</td>
+                        <td class='isi_laporan' align='right'>`+sepNumPas(parseFloat(line.n1))+`</td>
+                        <td class='isi_laporan' align='right'>`+sepNumPas(parseFloat(line.n9))+`</td>
+                        <td class='isi_laporan' align='right'>`+sepNumPas(parseFloat(line.n7))+`</td>
+                        <td class='isi_laporan' align='right'>`+sepNumPas(parseFloat(line.n6))+`</td>
+                        <td class='isi_laporan' align='center'>`+sepNum2(parseFloat(persen1))+`%</td>
+                        <td class='isi_laporan' align='center'>`+sepNum2(parseFloat(persen2))+`%</td>
+                        <td class='isi_laporan' align='right'>`+sepNumPas(parseFloat(line.n5))+`</td>
+                        <td class='isi_laporan' align='right'>`+sepNumPas(parseFloat(line.n2))+`</td>
+                        <td class='isi_laporan' align='right'>`+sepNumPas(parseFloat(line.n4))+`</td>
+                        <td class='isi_laporan' align='center'>`+sepNum2(parseFloat(persen3))+`</td>
+                        <td class='isi_laporan' align='center'>`+sepNum2(parseFloat(persen4))+`</td>
+                        </tr>`;
                         
                         no++;
                     }
