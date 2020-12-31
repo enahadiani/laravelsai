@@ -162,8 +162,8 @@
             </tr>
             <tr>
                 <td width='5%'>&nbsp;</td>
-                <td width='54%' class='text-center'>PJ Keuangan dan Investasi</td>
-                <td width='36%' colspan='2' class='text-center'>PJ SM Keuangan</td>
+                <td width='54%' class='text-center'>`+res.res.ttd[0].jab1+`</td>
+                <td width='36%' colspan='2' class='text-center'>`+res.res.ttd[0].jab2+`</td>
                 <td width='5%'>&nbsp;</td>
             </tr>
             <tr height='60px'>

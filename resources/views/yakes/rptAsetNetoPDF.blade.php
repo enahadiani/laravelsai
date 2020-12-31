@@ -173,10 +173,10 @@
             </tr>
             <tr>
                 <td width='2%'>&nbsp;</td>
-                <td width='50%' class='text-center'>PJ Keuangan dan Investasi</td>
+                <td width='50%' class='text-center'>{{ $ttd[0]['jab1'] }}</td>
                 <td >&nbsp;</td>
                 <td >&nbsp;</td>
-                <td width='18%' class='text-center'>PJ SM Keuangan</td>
+                <td width='18%' class='text-center'>{{ $ttd[0]['jab2'] }}</td>
                 <td width='2%'>&nbsp;</td>
             </tr>
             <tr height='80'>

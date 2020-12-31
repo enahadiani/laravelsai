@@ -104,3 +104,8 @@ Route::post('unit', 'Yakes\UnitController@store');
 Route::put('unit/{id}', 'Yakes\UnitController@update');
 Route::delete('unit/{id}', 'Yakes\UnitController@delete');
 
+
+// Data Ttd //
+Route::get('ttd', 'Yakes\TtdController@index');
+Route::put('ttd', 'Yakes\TtdController@store');
+
