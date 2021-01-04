@@ -112,6 +112,17 @@
             toname : "",
         }
 
+        
+        function fnSpasi(level)
+        {
+            var tmp="";
+            for (var iS=1; iS<=level; iS++)
+            {
+                tmp=tmp+"&nbsp;&nbsp;&nbsp;&nbsp;";
+            }
+            return tmp;
+        }
+
         var $aktif = "";
         
         $.fn.DataTable.ext.pager.numbers_length = 5;

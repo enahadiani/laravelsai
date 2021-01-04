@@ -53,8 +53,8 @@
                            
                         }
                         html +=`<tr id='grid-id-`+line.kode+`' style='`+cursor+`' data-state='`+line.state+`' data-parent='`+id+`' data-tipe='`+line.tipe+`' data-parentop=`+parent+`>
-                    <td class='isi_laporan' >`+icon+line.kode_akun+`</td>
-                    <td height='20' class='isi_laporan'>`+line.nama+`</td>
+                    <td class='isi_laporan' >`+fnSpasi(2)+icon+line.kode_akun+`</td>
+                    <td height='20' class='isi_laporan'>`+fnSpasi(2)+line.nama+`</td>
                     <td height='20' class='isi_laporan'>`+line.kode_pp+`</td>
                     <td class='isi_laporan' align='right'>`+sepNum(parseFloat(line.so_awal))+`</td>
                     <td class='isi_laporan' align='right'>`+sepNum(parseFloat(line.debet))+`</td>
