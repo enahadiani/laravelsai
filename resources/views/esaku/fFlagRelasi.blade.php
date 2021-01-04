@@ -21,14 +21,27 @@
                                 <input class="form-control" type="text" id="id" name="id" readonly hidden>
                             </div>
                         </div>
-                        <div class="form-group row ">
-                            <label for="kode_flag_akun" class="col-md-2 col-sm-12 col-form-label">Flag Akun</label>
-                            <div class="col-md-3 col-sm-12" >
-                                 <input class="form-control" type="text"  id="kode_flag_akun" name="kode_flag_akun" data-input="cbbl" required>
-                                 <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;"></i>
-                            </div>                            
-                            <div class="col-md-2 col-sm-12 px-0" >
-                                <input id="label_flag_akun" class="form-control" style="border:none;border-bottom: 1px solid #d7d7d7;" readonly/>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <label for="kode_flag_akun">Kode Flag Akun</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                                <span class="input-group-text info-code_kode_flag_akun" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                            </div>
+                                            <input type="text" class="form-control inp-label-kode_flag_akun" id="kode_flag_akun" name="kode_flag_akun" value="" title="">
+                                            <span class="info-name_kode_flag_akun hidden">
+                                                <span></span> 
+                                            </span>
+                                            <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                            <i class="simple-icon-magnifier search-item2" id="search_kode_flag_akun"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <ul class="nav nav-tabs col-12 " role="tablist">
