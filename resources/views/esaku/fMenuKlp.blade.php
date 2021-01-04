@@ -123,7 +123,7 @@
     $('#saku-datatable').on('click', '#btn-tambah', function(){
         $('#row-id').hide();
         $('#id_edit').val('');
-        $('#judul-form').html('Tambah Data Form');
+        $('#judul-form').html('Tambah Data Kelompok Menu');
         $('#btn-update').attr('id','btn-save');
         $('#btn-save').attr('type','submit');
         $('#form-tambah')[0].reset();
@@ -206,7 +206,7 @@
                         $('#form-tambah').validate().resetForm();
                         $('[id^=label]').html('');
                         $('#id_edit').val('');
-                        $('#judul-form').html('Tambah Data Form');
+                        $('#judul-form').html('Tambah Data Kelompok Menu');
                         $('#method').val('post');
                         $('#kode_klp').attr('readonly', false);
                         msgDialog({
@@ -223,7 +223,7 @@
                             msgDialog({
                                 id: id,
                                 type: result.data.jenis,
-                                text:'Kode Form sudah digunakan'
+                                text:'Kode Kelompok Menu sudah digunakan'
                             });
                         }else{
 
@@ -260,7 +260,7 @@
             success:function(result){
                 if(result.data.status){
                     dataTable.ajax.reload();                    
-                    showNotification("top", "center", "success",'Hapus Data','Data Form ('+id+') berhasil dihapus ');
+                    showNotification("top", "center", "success",'Hapus Data','Data Kelompok Menu ('+id+') berhasil dihapus ');
                     $('#modal-pesan-id').html('');
                     $('#table-delete tbody').html('');
                     $('#modal-pesan').modal('hide');
@@ -323,7 +323,7 @@
         $('#btn-save').attr('type','button');
         $('#btn-save').attr('id','btn-update');
 
-        $('#judul-form').html('Edit Data Form');
+        $('#judul-form').html('Edit Data Kelompok Menu');
         editData(id);
     });
     // END BUTTON EDIT
@@ -354,17 +354,17 @@
             var id = $(this).closest('tr').find('td').eq(0).html();
             var data = dataTable.row(this).data();
             var html = `<tr>
-                <td style='border:none'>Kode Form</td>
+                <td style='border:none'>Kode Kelompok Menu</td>
                 <td style='border:none'>`+id+`</td>
             </tr>
             <tr>
-                <td>Nama Form</td>
+                <td>Nama Kelompok Menu</td>
                 <td>`+data.nama+`</td>
             </tr>
             `;
             $('#table-preview tbody').html(html);
             
-            $('#modal-preview-judul').css({'margin-top':'10px','padding':'0px !important'}).html('Preview Data Form').removeClass('py-2');
+            $('#modal-preview-judul').css({'margin-top':'10px','padding':'0px !important'}).html('Preview Data Kelompok Menu').removeClass('py-2');
             $('#modal-preview-id').text(id);
             $('#modal-preview').modal('show');
         }
@@ -383,7 +383,7 @@
         var id= $('#modal-preview-id').text();
         // $iconLoad.show();
         $('#form-tambah').validate().resetForm();
-        $('#judul-form').html('Edit Data Form');
+        $('#judul-form').html('Edit Data Kelompok Menu');
         
         $('#btn-save').attr('type','button');
         $('#btn-save').attr('id','btn-update');
