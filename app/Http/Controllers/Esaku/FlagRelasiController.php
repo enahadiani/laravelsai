@@ -32,7 +32,7 @@ class FlagRelasiController extends Controller
     public function index(){
         try {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'toko-master/getFlag',[
+            $response = $client->request('GET',  config('api.url').'toko-master/flagrelasi',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -57,7 +57,7 @@ class FlagRelasiController extends Controller
     public function getData($id) {
         try{
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'toko-master/flagakun?kode_flag='.$id,
+            $response = $client->request('GET',  config('api.url').'toko-master/flagrelasi/'.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -70,7 +70,36 @@ class FlagRelasiController extends Controller
                 
                 $data = json_decode($response_data,true);
             }
-            return response()->json(['data' => $data], 200); 
+            return response()->json(['daftar' => $data["success"]], 200); 
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $data['message'] = $res['message'];
+            $data['status'] = false;
+            return response()->json(['data' => $data], 200);
+        }
+    }
+
+    public function getAkun(Request $request) {
+        try{
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'toko-master/flagrelasi-akun',
+            [
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' => [
+                    'kode_akun' => $request->kode_akun
+                ]
+            ]);
+    
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+            }
+            return response()->json(['daftar' => $data["success"]["data"],'status' => true], 200); 
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(),true);

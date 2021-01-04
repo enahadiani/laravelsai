@@ -166,7 +166,8 @@ Route::delete('flag-akun/{id}', 'Esaku\FlagAkunController@delete');
 
 // Data Flag Relasi //
 Route::get('flag-relasi', 'Esaku\FlagRelasiController@index');
-Route::get('flag-akun/{id}', 'Esaku\FlagAkunController@getData');
+Route::get('flag-relasi/{id}', 'Esaku\FlagRelasiController@getData');
+Route::get('flag-relasi-akun', 'Esaku\FlagRelasiController@getAkun');
 Route::put('flag-relasi/{id}', 'Esaku\FlagRelasiController@update');
 Route::delete('flag-relasi/{id}', 'Esaku\FlagRelasiController@delete');
 
