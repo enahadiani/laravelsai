@@ -57,6 +57,7 @@
                     $response_data = $response->getBody()->getContents();
                     
                     $res = json_decode($response_data,true);
+                    dump($res);
                     $data = $res['data'];
                 }
                 if($request->periode != ""){

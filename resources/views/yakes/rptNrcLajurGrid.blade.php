@@ -43,16 +43,9 @@
                         }else{
                             var icon = '';
                             var cursor = '';
-                        }
-                        if(line.kode_induk == '-'){
-                            
-                            so_awal=so_awal+parseFloat(line.so_awal);
-                            debet=debet+parseFloat(line.debet);
-                            kredit=kredit+parseFloat(line.kredit);
-                            so_akhir=so_akhir + parseFloat(line.so_akhir);
                            
                         }
-                        html +=`<tr id='grid-id-`+line.kode+`' style='`+cursor+`' data-state='`+line.state+`' data-parent='`+id+`' data-tipe='`+line.tipe+`' data-parentop=`+parent+`>
+                        html +=`<tr id='grid-id-`+line.kode_akun+`' style='`+cursor+`' data-state='`+line.state+`' data-parent='`+id+`' data-tipe='`+line.tipe+`' data-parentop=`+parent+`>
                     <td class='isi_laporan' >`+fnSpasi(2)+icon+line.kode_akun+`</td>
                     <td height='20' class='isi_laporan'>`+fnSpasi(2)+line.nama+`</td>
                     <td height='20' class='isi_laporan'>`+line.kode_pp+`</td>
@@ -131,15 +124,11 @@
                             var icon = '';
                             var cursor = '';
                         }
-                        if(line.kode_induk == '-'){
-                            
-                            so_awal=so_awal+parseFloat(line.so_awal);
-                            debet=debet+parseFloat(line.debet);
-                            kredit=kredit+parseFloat(line.kredit);
-                            so_akhir=so_akhir + parseFloat(line.so_akhir);
-                           
-                        }
-                        html +=`<tr id='grid-id-`+line.kode+`' style='`+cursor+`' data-state='`+line.state+`' data-tipe='`+line.tipe+`'>
+                        so_awal=so_awal+parseFloat(line.so_awal);
+                        debet=debet+parseFloat(line.debet);
+                        kredit=kredit+parseFloat(line.kredit);
+                        so_akhir=so_akhir + parseFloat(line.so_akhir);
+                        html +=`<tr id='grid-id-`+line.kode_akun+`' style='`+cursor+`' data-state='`+line.state+`' data-tipe='`+line.tipe+`'>
                             <td class='isi_laporan' >`+icon+line.kode_akun+`</td>
                             <td height='20' class='isi_laporan'>`+line.nama+`</td>
                             <td height='20' class='isi_laporan'>`+line.kode_pp+`</td>
