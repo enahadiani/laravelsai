@@ -233,7 +233,7 @@
                 success:function(result){
                     if(result.data.status){
                         dataTable.ajax.reload();
-                        var kode = $('#kode_fs').val();
+                        var kode = $('#kode_flag').val();
                         $('#row-id').hide();
                         $('#form-tambah')[0].reset();
                         $('#form-tambah').validate().resetForm();
@@ -241,12 +241,12 @@
                         $('#id_edit').val('');
                         $('#judul-form').html('Tambah Data Flag Akun');
                         $('#method').val('post');
-                        $('#kode_fs').attr('readonly', false);
+                        $('#kode_flag').attr('readonly', false);
                         msgDialog({
                             id:kode,
                             type:'simpan'
                         });
-                        last_add("kode_fs",kode);
+                        last_add("kode",kode);
                     }else if(!result.data.status && result.data.message === "Unauthorized"){
                     
                         window.location.href = "{{ url('/esaku-auth/sesi-habis') }}";

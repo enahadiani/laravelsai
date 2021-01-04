@@ -54,7 +54,7 @@
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12">                        
                                         <label for="status" >Flag Aktif</label>
-                                        <select class="form-control" id="status" name="status" required>
+                                        <select class="form-control selectize" id="status" name="status" required>
                                         <option value="1">AKTIF</option>
                                         <option value="0">NON-AKTIF</option>
                                         </select>
@@ -80,6 +80,8 @@
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         }
     });
+
+    $('.selectize').selectize();
 
     function last_add(param,isi){
         var rowIndexes = [];
@@ -122,8 +124,10 @@
             'dataSrc' : function(json) {
                 if(json.status){
                     return json.daftar;   
-                }else{
+                }else if(!json.status && json.message == "Unauthorized"){
                     window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                    return [];
+                }else{
                     return [];
                 }
             }
@@ -377,7 +381,7 @@
                     $('#kode_fs').val(id);
                     $('#id').val(id);
                     $('#nama').val(result.data[0].nama);
-                    $('#status').val(result.data[0].flag_status);
+                    $('#status')[0].selectize.setValue(result.data[0].flag_status);
                     $('#kode_fs').val(result.data[0].kode_fs);                  
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
@@ -482,7 +486,7 @@
                     $('#id').val(id);
                     $('#nama').val(result.data[0].nama);
                     $('#kode_fs').val(result.data[0].kode_fs);  
-                    $('#status').val(result.data[0].flag_status);                  
+                    $('#status')[0].selectize.setValue(result.data[0].flag_status);             
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
                     $('#modal-preview').modal('hide');

@@ -111,9 +111,9 @@ Route::post('setting-menu-move', 'Esaku\SettingMenuController@storeMove');
 Route::put('setting-menu', 'Esaku\SettingMenuController@update');
 Route::delete('setting-menu', 'Esaku\SettingMenuController@delete');
 
-// Data Akun //
+// Data Masakun //
 Route::get('masakun', 'Esaku\MasakunController@index');
-Route::get('masakun-detail/{id}', 'Esaku\MasakunController@show');
+Route::get('masakun/{id}', 'Esaku\MasakunController@getData');
 Route::post('masakun', 'Esaku\MasakunController@store');
 Route::put('masakun/{id}', 'Esaku\MasakunController@update');
 Route::delete('masakun/{id}', 'Esaku\MasakunController@delete');
@@ -149,4 +149,24 @@ Route::get('format-laporan-tipe','Esaku\FormatLaporanController@getTipe');
 Route::get('format-laporan-relakun','Esaku\FormatLaporanController@getRelakun');
 Route::post('format-laporan-relasi','Esaku\FormatLaporanController@simpanRelasi');
 Route::post('format-laporan-move','Esaku\FormatLaporanController@simpanMove');
+
+// Data FS //
+Route::get('fs', 'Esaku\FSController@index');
+Route::get('fs/{id}', 'Esaku\FSController@getData');
+Route::post('fs', 'Esaku\FSController@store');
+Route::put('fs/{id}', 'Esaku\FSController@update');
+Route::delete('fs/{id}', 'Esaku\FSController@delete');
+
+// Data Flag Akun //
+Route::get('flag-akun', 'Esaku\FlagAkunController@index');
+Route::get('flag-akun/{id}', 'Esaku\FlagAkunController@getData');
+Route::post('flag-akun', 'Esaku\FlagAkunController@store');
+Route::put('flag-akun/{id}', 'Esaku\FlagAkunController@update');
+Route::delete('flag-akun/{id}', 'Esaku\FlagAkunController@delete');
+
+// Data Flag Relasi //
+Route::get('flag-relasi', 'Esaku\FlagRelasiController@index');
+Route::get('flag-akun/{id}', 'Esaku\FlagAkunController@getData');
+Route::put('flag-relasi/{id}', 'Esaku\FlagRelasiController@update');
+Route::delete('flag-relasi/{id}', 'Esaku\FlagRelasiController@delete');
 

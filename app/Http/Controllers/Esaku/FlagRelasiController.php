@@ -9,7 +9,7 @@ use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Session;
 use GuzzleHttp\Exception\BadResponseException;
 
-class MasakunController extends Controller
+class FlagRelasiController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -32,7 +32,7 @@ class MasakunController extends Controller
     public function index(){
         try {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'toko-master/masakun',[
+            $response = $client->request('GET',  config('api.url').'toko-master/getFlag',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -43,7 +43,7 @@ class MasakunController extends Controller
                 $response_data = $response->getBody()->getContents();
                 
                 $data = json_decode($response_data,true);
-                $data = $data["data"];
+                $data = $data["success"]["data"];
             }
             return response()->json(['daftar' => $data, 'status'=>true], 200); 
 
@@ -54,56 +54,10 @@ class MasakunController extends Controller
         }
     }
 
-    public function store(Request $request) {
-        $this->validate($request, [
-            'kode_akun' => 'required',
-            'nama' => 'required',
-            'modul'=>'required',          
-            'jenis'=>'required',          
-            'kode_curr'=>'required',          
-            'blok'=>'required',          
-            'budget'=>'required',          
-            'account'=>'required',          
-        ]);
-
-        try {   
-                $client = new Client();
-                $response = $client->request('POST',  config('api.url').'toko-master/masakun',[
-                    'headers' => [
-                        'Authorization' => 'Bearer '.Session::get('token'),
-                        'Accept'     => 'application/json',
-                    ],
-                    'form_params' => [
-                        'kode_akun' => $request->kode_akun,
-                        'nama' => $request->nama,
-                        'modul'=>$request->modul,
-                        'jenis'=>$request->jenis,
-                        'kode_curr'=>$request->kode_curr,
-                        'block'=>$request->blok,
-                        'status_gar'=>$request->budget,
-                        'normal'=>$request->account
-                    ]
-                ]);
-                if ($response->getStatusCode() == 200) { // 200 OK
-                    $response_data = $response->getBody()->getContents();
-                    
-                    $data = json_decode($response_data,true);
-                    return response()->json(['data' => $data], 200);  
-                }
-
-        } catch (BadResponseException $ex) {
-                $response = $ex->getResponse();
-                $res = json_decode($response->getBody(),true);
-                $data['message'] = $res;
-                $data['status'] = false;
-                return response()->json(['data' => $data], 500);
-            }
-    }
-
     public function getData($id) {
         try{
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'toko-master/masakun?kode_akun='.$id,
+            $response = $client->request('GET',  config('api.url').'toko-master/flagakun?kode_flag='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -128,33 +82,24 @@ class MasakunController extends Controller
 
     public function update(Request $request, $id) {
         $this->validate($request, [
-            'kode_akun' => 'required',
-            'nama' => 'required',
-            'modul'=>'required',          
-            'jenis'=>'required',          
-            'kode_curr'=>'required',          
-            'blok'=>'required',          
-            'budget'=>'required',          
-            'account'=>'required',
+            'kode_flag_akun' => 'required',
+            'kode_akun' => 'required|array',
         ]);
 
         try {
+                $arrAkun = array();
+                for($i=0;$i<count($request->kode_akun);$i++) {
+                $arrAkun[] = array('kode_akun' => $request->kode_akun[$i]);
+                }
+
+                $data = array('kode_flag'=>$request->kode_flag_akun,'arrakun'=>$arrAkun);
                 $client = new Client();
-                $response = $client->request('PUT',  config('api.url').'toko-master/masakun?kode_akun='.$id,[
+                $response = $client->request('PUT',  config('api.url').'toko-master/flagrelasi?kode_flag='.$id,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
-                        'Accept'     => 'application/json',
+                        'Content-Type'  => 'application/json',
                     ],
-                    'form_params' => [
-                        'kode_akun' => $request->kode_akun,
-                        'nama' => $request->nama,
-                        'modul'=>$request->modul,
-                        'jenis'=>$request->jenis,
-                        'kode_curr'=>$request->kode_curr,
-                        'block'=>$request->blok,
-                        'status_gar'=>$request->budget,
-                        'normal'=>$request->account
-                    ]
+                    'body' => json_encode($data)
                 ]);
                 if ($response->getStatusCode() == 200) { // 200 OK
                     $response_data = $response->getBody()->getContents();
@@ -166,7 +111,7 @@ class MasakunController extends Controller
         } catch (BadResponseException $ex) {
                 $response = $ex->getResponse();
                 $res = json_decode($response->getBody(),true);
-                $data['message'] = $res['message'];
+                $data['message'] = $res;
                 $data['status'] = false;
                 return response()->json(['data' => $data], 500);
             }
@@ -175,7 +120,7 @@ class MasakunController extends Controller
     public function delete($id) {
         try{
             $client = new Client();
-            $response = $client->request('DELETE',  config('api.url').'toko-master/masakun?kode_akun='.$id,
+            $response = $client->request('DELETE',  config('api.url').'toko-master/flagrelasi?kode_flag='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),

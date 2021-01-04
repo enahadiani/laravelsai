@@ -49,7 +49,7 @@
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12">
                                         <label for="modul">Modul</label>
-                                        <select class="form-control" id="modul" name="modul" required>
+                                        <select class="form-control selectize" id="modul" name="modul" required>
                                             <option value="">--Pilih Modul--</option>
                                             <option value="A">Aktiva</option>
                                             <option value="P">Passiva</option>
@@ -59,7 +59,9 @@
                                     </div>
                                     <div class="col-md-6 col-sm-12">           
                                         <label for="modul">Jenis</label>
-                                        <select class="form-control" id="jenis" name="jenis" required></select>
+                                        <select class="form-control" id="jenis" name="jenis" required>
+                                        <option value="">--Pilih Jenis--</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -79,7 +81,7 @@
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12">
                                         <label for="blok">Status Blok</label>
-                                        <select class="form-control" id="blok" name="blok" required>
+                                        <select class="form-control selectize" id="blok" name="blok" required>
                                             <option value="">--Pilih Status Blok--</option>
                                             <option value="0">Unblok</option>
                                             <option value="1">Blok</option>
@@ -87,7 +89,7 @@
                                     </div>
                                     <div class="col-md-6 col-sm-12">
                                         <label for="budget">Status Budget</label>
-                                        <select class="form-control" id="budget" name="budget" required>
+                                        <select class="form-control selectize" id="budget" name="budget" required>
                                             <option value="">--Pilih Status Budget--</option>
                                             <option value="0">Uncheck</option>
                                             <option value="1">Check</option>
@@ -101,7 +103,7 @@
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12">
                                         <label for="account">Normal Account</label>
-                                        <select class="form-control" id="account" name="account" required>
+                                        <select class="form-control selectize" id="account" name="account" required>
                                         <option value="">--Pilih Normal Account--</option>
                                         <option value="D">D - Debet</option>
                                         <option value="C">C - Kredit</option>
@@ -131,9 +133,13 @@
         }
     });
 
+    $('.selectize').selectize();
     //EVENT DROPDOWN//
+    var jenis = $('#jenis').selectize();
     $('#modul').change(function(){
-        $('#jenis').find('option').remove().end().append('<option value="">--Pilih Jenis--</option>').val('')
+        var  select = jenis[0];
+        var control = select.selectize;
+        control.clearOptions();
         var value = $(this).val();
         var option = null;
         if(value == "A" || value == "P") {
@@ -141,13 +147,10 @@
         } else {
             option = $optionJenis2
         }
-
-        $.each(option, function (i, item) {
-            $('#jenis').append($('<option>', { 
-                value: item.value,
-                text : item.text 
-            }));
-        });
+        
+        control.addOption(option);
+        // $.each(option, function (i, item) {
+        // });
     })
 
     function last_add(param,isi){
@@ -412,12 +415,13 @@
                     $('#kode_akun').val(id);
                     $('#id').val(id);
                     $('#nama').val(result.data[0].nama);
-                    $('#modul').val(result.data[0].modul).change();
-                    $('#jenis').val(result.data[0].jenis);
+                    $('#modul')[0].selectize.setValue(result.data[0].modul);
+                    $('#modul').trigger('change');
+                    $('#jenis')[0].selectize.setValue(result.data[0].jenis);
                     $('#kode_curr').val(result.data[0].kode_curr);
-                    $('#blok').val(result.data[0].block);                  
-                    $('#budget').val(result.data[0].status_gar);                  
-                    $('#account').val(result.data[0].normal);                  
+                    $('#blok')[0].selectize.setValue(result.data[0].block);                  
+                    $('#budget')[0].selectize.setValue(parseInt(result.data[0].status_gar));                  
+                    $('#account')[0].selectize.setValue(result.data[0].normal);                  
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
                 }
@@ -563,12 +567,13 @@
                     $('#kode_akun').val(id);
                     $('#id').val(id);
                     $('#nama').val(result.data[0].nama);
-                    $('#modul').val(result.data[0].modul).change();
-                    $('#jenis').val(result.data[0].jenis);
+                    $('#modul')[0].selectize.setValue(result.data[0].modul);
+                    $('#modul').trigger('change');
+                    $('#jenis')[0].selectize.setValue(result.data[0].jenis);
                     $('#kode_curr').val(result.data[0].kode_curr);
-                    $('#blok').val(result.data[0].block);                  
-                    $('#budget').val(result.data[0].status_gar);                  
-                    $('#account').val(result.data[0].normal);                    
+                    $('#blok')[0].selectize.setValue(result.data[0].block);                         
+                    $('#budget')[0].selectize.setValue(parseInt(result.data[0].status_gar));                             
+                    $('#account')[0].selectize.setValue(result.data[0].normal);                   
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
                     $('#modal-preview').modal('hide');
