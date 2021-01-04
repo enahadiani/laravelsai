@@ -39,7 +39,7 @@
         }
     }
 
-   function getChild(index,id,formData,url){
+   function getChild(index,id,formData,url,parent = null){
         var kode = id.replace('grid-id-','');
         formData.delete('id');
         formData.append('id',kode);
@@ -94,7 +94,7 @@
                         var icon = '';
                         var cursor = '';
                     }
-                    html+=`<tr id='grid-id-`+line.kode_neraca+`' style='`+cursor+`' data-state='`+line.state+`' data-parent='`+id+`' data-tipe='`+line.tipe+`'>
+                    html+=`<tr id='grid-id-`+line.kode_neraca+`' style='`+cursor+`' data-state='`+line.state+`' data-parent='`+id+`' data-tipe='`+line.tipe+`' data-parentop=`+parent+`>
                     <td class='isi_laporan' >`+fnSpasi(line.level_spasi)+``+icon+line.nama+`</td>
                     <td class='isi_laporan' align='right'>`+sepNumPas(parseFloat(line.n1))+`</td>
                         <td class='isi_laporan' align='right'>`+sepNumPas(parseFloat(line.n2))+`</td>
@@ -311,16 +311,18 @@
                     $(this).removeClass('open-grid');
                     console.log($('tr[data-parent="' + id + '"]'));
                     $('tr[data-parent="' + id + '"]').hide();
+                    $('tr[data-parentop="' + id + '"]').hide();
                 }
             }
 
             var tipe = $(this).data('tipe');
             if(tipe == 'Posting'){
                 var id = $(this).attr('id');
+                var parent = $(this).data('parent');
                 var index = $(this).closest('tr').index();
                 if(!$(this).hasClass('clicked')){
                     $(this).addClass('clicked');
-                    getChild(index,id,$formData,'yakes-report/lap-rekap-real-detail');
+                    getChild(index,id,$formData,'yakes-report/lap-rekap-real-detail',parent);
                 }
                 if(!$(this).hasClass('open-grid')){
                     $(this).addClass('open-grid');
