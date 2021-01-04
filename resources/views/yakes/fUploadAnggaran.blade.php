@@ -460,6 +460,7 @@
                             var nik = "{{ Session::get('userLog') }}";
 
                             var link = "{{ config('api.url').'yakes-trans/anggaran-export' }}?kode_lokasi="+kode_lokasi+"&nik_user="+nik_user+"&nik="+nik+"&type=non&tahun="+$('#tahun').val();
+                            console.log(link);
 
                             $('.pesan-upload-judul').html('Gagal upload!');
                             $('.pesan-upload-judul').removeClass('text-success');

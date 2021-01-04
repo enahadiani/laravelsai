@@ -3,7 +3,7 @@
         <div class="modal-dialog" role="document" style="max-width:600px">
             <div class="modal-content">
                 <div style="display: block;" class="modal-header">
-                    <h6 class="modal-title my-2" style="position: absolute;height:49px"></h6><button type="button" class="close" data-dismiss="modal" aria-label="Close" style="top: 0;position: relative;z-index: 10;right:;">
+                    <h6 class="modal-title my-2" style="position: absolute;height:49px"></h6><button type="button" class="close" data-dismiss="modal" aria-label="Close" style="top: 0;position: relative;z-index: 10;right:-25px;">
                     <span aria-hidden="true">&times;</span>
                     </button> 
                     <ul class="nav nav-tabs col-12 hidden" role="tablist">

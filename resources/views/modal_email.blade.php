@@ -2,10 +2,10 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <form id='formEmail'>
-                    <div class='modal-header'>
-                        <h5 class='modal-title'>Kirim Email</h5>
-                        <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
-                        </button>
+                    <div style="display: block;" class="modal-header">
+                        <h6 class="modal-title my-2" style="position: absolute;height:49px">Kirim Email</h6><button type="button" class="close" data-dismiss="modal" aria-label="Close" style="top: 0;position: relative;z-index: 10;right:-25px;">
+                        <span aria-hidden="true">&times;</span>
+                        </button> 
                     </div>
                     <div class='modal-body'>
                         <div class='form-group row'>
