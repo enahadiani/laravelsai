@@ -46,6 +46,41 @@
             background-size:30px;
             width:30px;
         }
+    
+        .modal-content
+        {
+            border-radius: 0.75rem !important;
+        }
+
+        .modal-header
+        {
+            padding-top: 0px !important;
+            padding-bottom: 0px !important;
+            height:49px !important;
+        }
+
+        .modal-header > h6
+        {
+            margin-top: 0.5rem;
+            margin-bottom: 0.5rem;
+            height: unset !important;
+        }
+        
+        .close
+        {
+            line-height:1.5;padding: 0 !important;background: none;appearance: unset;opacity: unset;position: relative;
+            right:-40px;top:5px !important;
+        }
+        .close > span 
+        {
+            border-radius: 50%;padding: 0 0.45rem 0.1rem 0.45rem;background: white;color: black;font-size: 1.2rem !important;font-weight: lighter;box-shadow:0px 1px 5px 1px #80808054
+        }
+
+        .close > span:hover
+        {
+            color:white;
+            background:red;
+        }
     </style>
     <link rel="stylesheet" href="{{ asset('mainstyle.css') }}" />
     <script>

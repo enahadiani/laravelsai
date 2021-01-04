@@ -82,7 +82,8 @@ class AnggaranController extends Controller
     public function importExcel(Request $request)
     {
         $this->validate($request, [
-            'file' => 'required'
+            'file' => 'required',
+            'tahun' => 'required'
         ]);
             
         try{

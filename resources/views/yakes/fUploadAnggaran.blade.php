@@ -393,11 +393,11 @@
         submitHandler: function (form) {
 
             var formData = new FormData(form);
+            formData.append('tahun',$('#tahun')[0].selectize.getValue());
+            formData.append('keterangan',$('#keterangan').val());
             for(var pair of formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
-            formData.append('tahun',$('#tahun')[0].selectize.getValue());
-            formData.append('keterangan',$('#keterangan').val());
             $('.pesan-upload').show();
             $('.pesan-upload-judul').html('Proses upload...');
             $('.pesan-upload-judul').removeClass('text-success');
