@@ -8,10 +8,57 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, p,li,ul,a,input,select,.bo
     font-family: 'Roboto', sans-serif !important;
     color:black;
 }
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, p,li,ul,a,input,select,.bootstrap-tagsinput,label{
+    font-family: 'Roboto', sans-serif !important;
+    color:black;
+}
 
 #jum-filter
 {
     font-size: 8px !important;
+}
+
+h1 {
+   font-size: 4rem !important;
+}
+
+h2 {
+    font-size: 3.052rem !important;
+}
+
+h3 {
+    font-size: 2.441rem !important;
+}
+
+h4{
+    font-size: 1.953rem !important;
+}
+
+h5{
+    font-size: 1.875rem !important;
+}
+
+h6{
+    font-size: 1.25rem !important;
+}
+
+button{
+    /* font-size: 0.75rem !important; */
+    font-size: 14px !important;
+}
+
+p,li,ul,a,input,select,textarea,label,span[class*="info-code"],span[class*="info-name"],.selectize-input,.selectize-dropdown,span{
+    font-size: 0.8rem !important;
+}
+.bootstrap-tagsinput{
+    font-size: 0.8rem !important;
+}
+.highcharts-root {
+    font-family: 'Roboto', sans-serif !important;
+}
+
+td,th{
+    font-size: 0.8rem !important;
 }
 
 .highcharts-root {
