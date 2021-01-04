@@ -598,6 +598,7 @@ function saiPostLoad(post_url, cancel_url, formData, table_refresh_target_id, su
                 if (evt.lengthComputable) {
                     var percentComplete = evt.loaded / evt.total;
                     console.log(percentComplete);
+                    console.log('upload');
                     $('#report-load-bar').attr('aria-valuenow', percentComplete * 100).css({
                         width: percentComplete * 100 + '%'
                     }).html(parseFloat(percentComplete * 100).toFixed(2) + '%');
@@ -610,6 +611,7 @@ function saiPostLoad(post_url, cancel_url, formData, table_refresh_target_id, su
                 if (evt.lengthComputable) {
                     var percentComplete = evt.loaded / evt.total;
                     console.log(percentComplete);
+                    console.log('download');
                     $('#report-load-bar').css({
                         width: percentComplete * 100 + '%'
                     });

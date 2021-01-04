@@ -452,6 +452,7 @@
                     'kode_akun' => $request->kode_akun,
                     'jenis' => $jenis,
                     'trail' => $trail,
+                    'id' => $request->id,
                     'kode_neraca' => $kode_neraca,
                     'kode_fs' => $kode_fs,
                     'nik_user' => Session::get('nikUser')

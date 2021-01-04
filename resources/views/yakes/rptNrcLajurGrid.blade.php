@@ -18,6 +18,58 @@
 
    drawLap($formData);
 
+   function getChild(index,id,formData,url,parent = null){
+        var kode = id.replace('grid-id-','');
+        formData.delete('id');
+        formData.append('id',kode);
+        saiPostGrid(url, null, formData, null, function(res){
+            if(res.result.length > 0){
+                var html='';
+                var data = res.result;
+                var so_awal=0;
+                var debet=0;
+                var kredit=0;
+                var so_akhir=0;
+                var no=1;
+                var x =0;
+                var bold = '';
+                var color = '';
+                for (var i=0; i < data.length ; i++)
+                {
+                    var line  = data[i];
+                        if(line.state == 'closed' || line.tipe == 'Posting'){
+                            var icon = '<i class="simple-icon-arrow-right mr-2"></i>';
+                            var cursor = 'cursor:pointer;font-weight:bold';
+                        }else{
+                            var icon = '';
+                            var cursor = '';
+                        }
+                        if(line.kode_induk == '-'){
+                            
+                            so_awal=so_awal+parseFloat(line.so_awal);
+                            debet=debet+parseFloat(line.debet);
+                            kredit=kredit+parseFloat(line.kredit);
+                            so_akhir=so_akhir + parseFloat(line.so_akhir);
+                           
+                        }
+                        html +=`<tr id='grid-id-`+line.kode+`' style='`+cursor+`' data-state='`+line.state+`' data-parent='`+id+`' data-tipe='`+line.tipe+`' data-parentop=`+parent+`>
+                    <td class='isi_laporan' >`+icon+line.kode_akun+`</td>
+                    <td height='20' class='isi_laporan'>`+line.nama+`</td>
+                    <td height='20' class='isi_laporan'>`+line.kode_pp+`</td>
+                    <td class='isi_laporan' align='right'>`+sepNum(parseFloat(line.so_awal))+`</td>
+                    <td class='isi_laporan' align='right'>`+sepNum(parseFloat(line.debet))+`</td>
+                    <td class='isi_laporan' align='right'>`+sepNum(parseFloat(line.kredit))+`</td>
+                    <td class='isi_laporan' align='right'>`+sepNum(parseFloat(line.so_akhir))+`</td>
+                    </tr>`;
+                    no++;
+                }
+                
+                $('.report-table').find('tr:eq('+index+')').after(html);
+            }
+        });
+   }
+
+
    function drawRptPage(data,res,from,to){
         var data = data;
         if(data.length > 0){
@@ -26,7 +78,8 @@
             }else{
                 $('.navigation-lap').addClass('hidden');
             }
-            var html = `<div>
+            var html = `<div id='grid-load'><img src='{{ asset("img/loadgif.gif") }}' style='width:25px;height:25px'></div>
+            <div>
             <style>
                 .info-table thead{
                     // background:#e9ecef;
@@ -37,13 +90,20 @@
                 .bold {
                     font-weight:bold;
                 }
+                #grid-load{
+                    position: absolute;
+                    text-align: center;
+                    width: 100%;
+                    top: 200px;
+                    display:none;
+                }
             </style>
 
             `;
             periode = $periode;
             var lokasi = res.lokasi;
             html+=judul_lap("LAPORAN NERACA LAJUR",lokasi,'Periode '+periode.fromname)+`
-                <table class='table treegrid' id='table-grid'>
+                <table class='table report-table' id='table-grid'>
                     <tr>
                         <td class='header_laporan bold' align='center'>Kode Akun</td>
                         <td class='header_laporan bold' align='center'>Nama Akun</td>
@@ -57,41 +117,30 @@
                     var debet=0;
                     var kredit=0;
                     var so_akhir=0;
-                    if(from != undefined){
-                        var no=from+1;
-                    }else{
-                        var no=1;
-                    }
+                    var no=1;
                     var x =0;
                     var bold = '';
                     var color = '';
                     for (var i=0; i < data.length ; i++)
                     {
                         var line  = data[i];
+                        if(line.state == 'closed' || line.tipe == 'Posting'){
+                            var icon = '<i class="simple-icon-arrow-right mr-2"></i>';
+                            var cursor = 'cursor:pointer;font-weight:bold';
+                        }else{
+                            var icon = '';
+                            var cursor = '';
+                        }
                         if(line.kode_induk == '-'){
-                            var tree_id = "treegrid-"+line.kode_akun;
-                            var parent_to_prt = "";
-                            x=0;
+                            
                             so_awal=so_awal+parseFloat(line.so_awal);
                             debet=debet+parseFloat(line.debet);
                             kredit=kredit+parseFloat(line.kredit);
                             so_akhir=so_akhir + parseFloat(line.so_akhir);
-                            if((data[i+1] != undefined) && (data[i+1].kode_induk == line.kode_akun)){
-                                bold = 'bold';
-                                // color = '#a3e1ff';
-                            }else{
-                                bold = '';
-                                // color = '#f0faff';
-                            }
-                        }else{
-                            var tree_id = "treegrid-"+line.kode_akun+x;
-                            var parent_to_prt = "treegrid-parent-"+line.kode_induk;
-                            x++;
-                            bold = '';
-                            // color = '#f0faff';
+                           
                         }
-                        html +=`<tr class='`+tree_id+` `+parent_to_prt+` `+bold+`' style='cursor:pointer;background:`+color+`'>
-                            <td class='isi_laporan' >`+line.kode_akun+`</td>
+                        html +=`<tr id='grid-id-`+line.kode+`' style='`+cursor+`' data-state='`+line.state+`' data-tipe='`+line.tipe+`'>
+                            <td class='isi_laporan' >`+icon+line.kode_akun+`</td>
                             <td height='20' class='isi_laporan'>`+line.nama+`</td>
                             <td height='20' class='isi_laporan'>`+line.kode_pp+`</td>
                             <td class='isi_laporan' align='right'>`+sepNum(parseFloat(line.so_awal))+`</td>
@@ -111,11 +160,70 @@
             html+=`</table>`;
         }
         $('#canvasPreview').html(html);
-        $('.treegrid').treegrid({
-            enableMove: true, 
-            onMoveOver: function(item, helper, target, position) {
-                console.log(target);
-                console.log(position); 
+        // $('.treegrid').treegrid({
+        //     enableMove: true, 
+        //     onMoveOver: function(item, helper, target, position) {
+        //         console.log(target);
+        //         console.log(position); 
+        //     }
+        // });
+        $('.report-table').on('click','tr',function(){
+            
+            
+            var state = $(this).data('state');
+            if(state == 'closed'){
+                var id = $(this).attr('id');
+                var index = $(this).closest('tr').index();
+                if(!$(this).hasClass('clicked')){
+                    $(this).addClass('clicked');
+                    var top = $(this).position().top;
+                    $('#grid-load').css('top',top);
+                    getChild(index,id,$formData,'yakes-report/lap-nrclajur-grid');
+                }
+                if(!$(this).hasClass('open-grid')){
+                    $(this).addClass('open-grid');
+                    $(this).closest('tr').find('i').removeClass('mr-2 simple-icon-arrow-right');
+                    $(this).closest('tr').find('i').addClass('mr-2 simple-icon-arrow-down');
+                    $(this).removeClass('close-grid');
+                    console.log($('tr[data-parent="' + id + '"]'));
+                    $('tr[data-parent="' + id + '"]').show();
+
+                }else{
+                    $(this).addClass('close-grid');
+                    $(this).closest('tr').find('i').removeClass('mr-2 simple-icon-arrow-down');
+                    $(this).closest('tr').find('i').addClass('mr-2 simple-icon-arrow-right');
+                    $(this).removeClass('open-grid');
+                    console.log($('tr[data-parent="' + id + '"]'));
+                    $('tr[data-parent="' + id + '"]').hide();
+                    $('tr[data-parentop="' + id + '"]').hide();
+                }
+            }
+
+            var tipe = $(this).data('tipe');
+            if(tipe == 'Posting'){
+                var id = $(this).attr('id');
+                var parent = $(this).data('parent');
+                var index = $(this).closest('tr').index();
+                if(!$(this).hasClass('clicked')){
+                    $(this).addClass('clicked');
+                    getChild(index,id,$formData,'yakes-report/lap-nrclajur-grid',parent);
+                }
+                if(!$(this).hasClass('open-grid')){
+                    $(this).addClass('open-grid');
+                    $(this).closest('tr').find('i').removeClass('mr-2 simple-icon-arrow-right');
+                    $(this).closest('tr').find('i').addClass('mr-2 simple-icon-arrow-down');
+                    $(this).removeClass('close-grid');
+                    console.log($('tr[data-parent="' + id + '"]'));
+                    $('tr[data-parent="' + id + '"]').show();
+
+                }else{
+                    $(this).addClass('close-grid');
+                    $(this).closest('tr').find('i').removeClass('mr-2 simple-icon-arrow-down');
+                    $(this).closest('tr').find('i').addClass('mr-2 simple-icon-arrow-right');
+                    $(this).removeClass('open-grid');
+                    console.log($('tr[data-parent="' + id + '"]'));
+                    $('tr[data-parent="' + id + '"]').hide();
+                }
             }
         });
         $('li.prev a ').html("<i class='simple-icon-arrow-left'></i>");
