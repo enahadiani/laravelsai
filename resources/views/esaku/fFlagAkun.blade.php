@@ -10,7 +10,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;">
-                        <h5 id="judul-form" style="position:absolute;top:25px"></h5>
+                        <h6 id="judul-form" style="position:absolute;top:25px"></h6>
                         <button type="submit" class="btn btn-primary ml-2"  style="float:right;" id="btn-save"><i class="fa fa-save"></i> Simpan</button>
                         <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Keluar</button>
                     </div>
@@ -404,6 +404,7 @@
             $('#table-preview tbody').html(html);
             
             $('#modal-preview-id').text(id);
+            $('#modal-preview-judul').text('Preview Flag Akun');
             $('#modal-preview').modal('show');
         }
     });

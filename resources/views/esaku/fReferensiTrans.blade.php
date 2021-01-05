@@ -1,831 +1,740 @@
-<div class="container-fluid mt-3">
-        <div class="row" id="saku-datatable">
+    <link rel="stylesheet" href="{{ asset('master.css') }}" />
+    <!-- LIST DATA -->
+    <x-list-data judul="Data Referensi Transaksi" tambah="true" :thead="array('Kode','Nama','Akun Debet','Akun Kredit','Jenis','PP','Tgl Input','Aksi')" :thwidth="array(10,25,15,15,10,15,0,10)" :thclass="array('','','','','','','','text-center')" />
+    <!-- END LIST DATA -->
+
+    <!-- FORM INPUT -->
+    <form id="form-tambah" class="tooltip-label-right" novalidate>
+        <div class="row" id="saku-form" style="display:none;">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title mb-4"><i class='fas fa-cube'></i> Data Referensi Transaksi 
-                        <button type="button" id="btn-tambah" class="btn btn-info ml-2" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
-                        </h4>
-                        <hr>
-                        <div class="table-responsive ">
-                            <style>
-                                th,td{
-                                    padding:8px !important;
-                                    vertical-align:middle !important;
-                                }
-                                .hidden{
-                                    display:none;
-                                }
-                                .form-group{
-                                    margin-bottom:5px !important;
-                                }
-                                .form-control{
-                                    font-size:13px !important;
-                                    padding: .275rem .6rem !important;
-                                }
-                                .selectize-control, .selectize-dropdown{
-                                    padding: 0 !important;
-                                }
-
-                                th{
-                                    vertical-align:middle !important;
-                                }
-                                /* #input-flag td{
-                                    padding:0 !important;
-                                } */
-                                #input-flag .selectize-input, #input-flag .form-control, #input-flag .custom-file-label, #input-keu .selectize-input, #input-keu .form-control, #input-keu .custom-file-label{
-                                    border:0 !important;
-                                    border-radius:0 !important;
-                                }
-                                .modal-header .close {
-                                    padding: 1rem;
-                                    margin: -1rem 0 -1rem auto;
-                                }
-                                .check-item{
-                                    cursor:pointer;
-                                }
-                                .selected{
-                                    cursor:pointer;
-                                    background:#4286f5 !important;
-                                    color:white;
-                                }
-                                #input-flag td:hover, #input-keu td:hover{
-                                    background:#f4d180 !important;
-                                    color:white;
-                                }
-                                #input-flag td, #input-keu td{
-                                    overflow:hidden !important;
-                                }
-
-                                #input-flag td:nth-child(4), #input-keu td:nth-child(4){
-                                    overflow:unset !important;
-                                }
-                                i:hover{
-                                    cursor: pointer;
-                                    color: blue;
-                                }
-                                .extra{
-                                    display: inline;
-                                    margin-left: 20px;
-                                }
-                                .select-pp {
-                                    width: 60px;
-                                }
-                            </style>
-                            <table id="table-data" class="table table-bordered table-striped " width="100%">
-                                <thead>
-                                    <tr>
-                                        <th width="5%">Kode</th>
-                                        <th width="40%">Nama</th>
-                                        <th width="10%">Akun Debet</th>
-                                        <th width="10%">Akun Kredit</th>
-                                        <th width="10%">Jenis</th>
-                                        <th width="10%">PP</th>
-                                        <th width="5%">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-
-                                </tbody>
-                            </table>
-                        </div>
+                    <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;">
+                        <h6 id="judul-form" style="position:absolute;top:25px"></h6>
+                        <button type="submit" class="btn btn-primary ml-2"  style="float:right;" id="btn-save"><i class="fa fa-save"></i> Simpan</button>
+                        <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Keluar</button>
                     </div>
-                </div>
-            </div>
-        </div>
-        <div class="row" id="saku-form" style="display:none;">
-            <div class="col-sm-12">
-                <div class="card">
-                    <form class="form mb-5" id="form-tambah" >
-                        <div class="card-body pb-0">
-                            <h4 class="card-title mb-4"><i class='fas fa-cube'></i> Form Referensi Transaksi
-                            <button type="submit" class="btn btn-success ml-2"  style="float:right;" id="btn-save"><i class="fa fa-save"></i> Simpan</button>
-                            <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
-                            </h4>
-                            <hr>
+                    <div class="separator mb-2"></div>
+                    <!-- FORM BODY -->
+                    <div class="card-body pt-3 form-body">
+                        <div class="form-group row " id="row-id">
+                            <div class="col-9">
+                                <input class="form-control" type="hidden" id="id_edit" name="id_edit">
+                                <input type="hidden" id="method" name="_method" value="post">
+                                <input type="hidden" id="id" name="id">
+                            </div>
                         </div>
-                        <div class="card-body pt-0" style='height:250px !important'>
-                            <div class="form-group row" id="row-id">
-                                <div class="col-9">
-                                    <input type="hidden" id="id_edit" name="id_edit">
-                                    <input type="hidden" id="method" name="_method" value="post">
-                                    <input type="hidden" id="id" name="id">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="jenis" class="col-3 col-form-label">Jenis</label>
-                                <div class="col-3">
-                                    <select required class='form-control' id="jenis" name="jenis" required>
-                                    <option value=''>--- Pilih Jenis ---</option>
-                                    <option value='PENGELUARAN'>PENGELUARAN</option>
-                                    <option value='PEMASUKAN'>PEMASUKAN</option>
-                                    <option value='PINDAH BUKU'>PINDAH BUKU</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group row">   
-                                <label for="kode_ref" class="col-3 col-form-label">Kode Ref</label>
-                                <div class="col-3">
-                                    <div class="input-group">
-                                        <input class="form-control" type="text" placeholder="Kode Ref" id="kode_ref" name="kode_ref" required readonly>
-                                        <div class="input-group-append">
-                                            <button disabled="true" class="btn btn-info" id="getRef" type="button"><i class="mdi mdi-sync"></i></button>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <label for="jenis">Jenis</label>
+                                        <select required class='form-control selectize' id="jenis" name="jenis" required>
+                                        <option value=''>--- Pilih Jenis ---</option>
+                                        <option value='PENGELUARAN'>PENGELUARAN</option>
+                                        <option value='PEMASUKAN'>PEMASUKAN</option>
+                                        <option value='PINDAH BUKU'>PINDAH BUKU</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <label for="kode_ref">Kode</label>
+                                        <div class="input-group readonly">
+                                            <input class="form-control" type="text" placeholder="Kode Ref" id="kode_ref" name="kode_ref" required readonly="readonly" style="border-top-right-radius:0px !important;border-bottom-right-radius:0px !important">
+                                            <div class="input-group-append">
+                                                <button disabled="true" style="border-top-left-radius:0px !important;border-bottom-left-radius:0px !important;" class="btn btn-info py-0 px-3" id="getRef" type="button"><i class="simple-icon-refresh"></i></button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group row">   
-                                <label for="deskripsi" class="col-3 col-form-label">Deskripsi</label>
-                                <div class="col-7">
-                                    <input class="form-control" type="text" placeholder="Deskripsi" id="nama" name="nama" required>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="akun_debet" class="col-3 col-form-label">Akun Debet</label>
-                                <div class="input-group col-3">
-                                    <input type='text' name="akun_debet" id="akun_debet" class="form-control" required>
-                                        <i class='fa fa-search search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
-                                </div>
-                                <div class="col-6">
-                                    <label id="label_akun_debet" style="margin-top: 10px;"></label>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="akun_kredit" class="col-3 col-form-label">Akun Kredit</label>
-                                <div class="input-group col-3">
-                                    <input type='text' name="akun_kredit" id="akun_kredit" class="form-control" required>
-                                        <i class='fa fa-search search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
-                                </div>
-                                <div class="col-6">
-                                    <label id="label_akun_kredit" style="margin-top: 10px;"></label>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="kode_pp" class="col-3 col-form-label">Unit/PP</label>
-                                <div class="input-group col-3">
-                                    <input type='text' name="kode_pp" id="kode_pp" class="form-control" required>
-                                        <i class='fa fa-search search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
-                                </div>
-                                <div class="col-6">
-                                    <label id="label_kode_pp" style="margin-top: 10px;"></label>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12">
+                                        <label for="nama">Deskripsi</label>
+                                        <input class="form-control" type="nama" id="nama" name="nama" required>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <div class="row" id="slide-history" style="display:none;">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-body">
-                        <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
-                        <div class="profiletimeline mt-5">
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <label for="akun_debet">Akun Debet</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                                <span class="input-group-text info-code_akun_debet" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                            </div>
+                                            <input type="text" class="form-control inp-label-akun_debet" id="akun_debet" name="akun_debet" value="" title="">
+                                            <span class="info-name_akun_debet hidden">
+                                                <span></span> 
+                                            </span>
+                                            <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                            <i class="simple-icon-magnifier search-item2" id="search_akun_debet"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <label for="akun_kredit">Akun Kredit</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                                <span class="input-group-text info-code_akun_kredit" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                            </div>
+                                            <input type="text" class="form-control inp-label-akun_kredit" id="akun_kredit" name="akun_kredit" value="" title="">
+                                            <span class="info-name_akun_kredit hidden">
+                                                <span></span> 
+                                            </span>
+                                            <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                            <i class="simple-icon-magnifier search-item2" id="search_akun_kredit"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <label for="kode_pp">Unit/PP</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                                <span class="input-group-text info-code_kode_pp" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                            </div>
+                                            <input type="text" class="form-control inp-label-kode_pp" id="kode_pp" name="kode_pp" value="" title="">
+                                            <span class="info-name_kode_pp hidden">
+                                                <span></span> 
+                                            </span>
+                                            <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                            <i class="simple-icon-magnifier search-item2" id="search_kode_pp"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row" id="slide-print" style="display:none;">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-body">
-                        <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
-                        <button type="button" class="btn btn-info ml-2" id="btn-print" style="float:right;"><i class="fa fa-print"></i> Print</button>
-                        <div id="print-area" class="mt-5" width='100%' style='border:none;min-height:480px'>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id='mySidepanel' class='sidepanel close'>
-            <h3 style='margin-bottom:20px;position: absolute;'>Filter Data</h3>
-            <a href='#' id='btnClose'><i class="float-right ti-close" style="margin-top: 10px;margin-right: 10px;"></i></a>
-            <form id="formFilter2" style='margin-top:50px'>
-            <div class="row" style="margin-left: -5px;">
-                <div class="col-sm-12">
-                    <div class="form-group" style='margin-bottom:0'>
-                        <label for="kode_pp">Jenis Referensi</label>
-                        <select required class='form-control' id="jenis2" name="jenis2" required>
-                            <option value=''>--- Pilih Jenis ---</option>
-                            <option value='PENGELUARAN'>PENGELUARAN</option>
-                            <option value='PEMASUKAN'>PEMASUKAN</option>
-                            <option value='PINDAH BUKU'>PINDAH BUKU</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-12">
-                    <button type="submit" class="btn btn-primary" style="margin-left: 6px;margin-top: 28px;"><i class="fa fa-search" id="btnPreview2"></i> Preview</button>
-                </div>
-            </div>
-            </form>
-        </div>
-    </div>  
-    <!-- MODAL SEARCH-->
-    <div class="modal" tabindex="-1" role="dialog" id="modal-search">
-        <div class="modal-dialog" role="document" style="max-width:600px">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title"></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    
-                </div>
-            </div>
-        </div>
-    </div>
+        </div> 
+    </form>
+    <!-- END FORM INPUT -->
 
-    <script src="{{ asset('asset_elite/sai.js') }}"></script>
-    <script src="{{ asset('asset_elite/inputmask.js') }}"></script>
+    @include('modal_search')
 
-    <script type="text/javascript">
-        var $iconLoad = $('.preloader');
-        var $target = "";
-        var $target2 = "";
-        var $target3 = "";
-        var $par1 = "";
+    <!-- JAVASCRIPT  -->
+    <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
+    <script src="{{ asset('helper.js') }}"></script>
+    <script>
+    // var $iconLoad = $('.preloader');
+    setHeightForm();
+    
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+        }
+    });
 
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+    function last_add(param,isi){
+        var rowIndexes = [];
+        dataTable.rows( function ( idx, data, node ) {             
+            if(data[param] === isi){
+                rowIndexes.push(idx);                  
             }
-        });
+            return false;
+        }); 
+        dataTable.row(rowIndexes).select();
+        $('.selected td:eq(0)').addClass('last-add');
+        console.log('last-add');
+        setTimeout(function() {
+            console.log('timeout');
+            $('.selected td:eq(0)').removeClass('last-add');
+            dataTable.row(rowIndexes).deselect();
+        }, 1000 * 60 * 10);
+    }
+    
+    // BAGIAN CBBL 
+    var $target = "";
+    var $target2 = "";
+    
+    $('.info-icon-hapus').click(function(){
+        var par = $(this).closest('div').find('input').attr('name');
+        $('#'+par).val('');
+        $('#'+par).attr('readonly',false);
+        $('#'+par).attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important');
+        $('.info-code_'+par).parent('div').addClass('hidden');
+        $('.info-name_'+par).addClass('hidden');
+        $(this).addClass('hidden');
+    });
 
-        function getRef(jenis){
-                $.ajax({
-                type: 'GET',
-                url: "{{ url('toko-master/reftrans-kode') }}/"+jenis,
-                dataType: 'json',
-                async:false,
-                success:function(result){    
-                    if(result.daftar.status){
-                        $('#kode_ref').val(result.daftar.kode);
-                    }
-                },error:function(error) {
-                    alert('Terjadi kesalahan')
-                }
-            });
-        }
+    function showInfoField(kode,isi_kode,isi_nama){
+        $('#'+kode).val(isi_kode);
+        $('#'+kode).attr('style','border-left:0;border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important');
+        $('.info-code_'+kode).text(isi_kode).parent('div').removeClass('hidden');
+        $('.info-code_'+kode).attr('title',isi_nama);
+        $('.info-name_'+kode).removeClass('hidden');
+        $('.info-name_'+kode).attr('title',isi_nama);
+        $('.info-name_'+kode+' span').text(isi_nama);
+        var width = $('#'+kode).width()-$('#search_'+kode).width()-10;
+        var height =$('#'+kode).height();
+        var pos =$('#'+kode).position();
+        $('.info-name_'+kode).width(width).css({'left':pos.left,'height':height});
+        $('.info-name_'+kode).closest('div').find('.info-icon-hapus').removeClass('hidden');
+    }
 
-        function getAkunDebet(id=null){
-            $.ajax({
-                type: 'GET',
-                url: "{{ url('toko-master/masakun') }}",
-                dataType: 'json',
-                async:false,
-                success:function(result){    
-                    if(result.status){
-                        if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                            var data = result.daftar;
-                            var filter = data.filter(data => data.kode_akun == id);
-                            if(filter.length > 0) {
-                                $('#akun_debet').val(filter[0].kode_akun);
-                                $('#label_akun_debet').text(filter[0].nama);
-                            } else {
-                                alert('Akun tidak valid');
-                                $('#akun_debet').val('');
-                                $('#label_akun_debet').text('');
-                                $('#akun_debet').focus();
-                            }
-                        }
-                    }
-                }
-            });
-        }
-
-        function getAkunKredit(id=null){
-            $.ajax({
-                type: 'GET',
-                url: "{{ url('toko-master/masakun') }}",
-                dataType: 'json',
-                async:false,
-                success:function(result){    
-                    if(result.status){
-                        if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                            var data = result.daftar;
-                            var filter = data.filter(data => data.kode_akun == id);
-                            if(filter.length > 0) {
-                                $('#akun_kredit').val(filter[0].kode_akun);
-                                $('#label_akun_kredit').text(filter[0].nama);
-                            } else {
-                                alert('Akun tidak valid');
-                                $('#akun_kredit').val('');
-                                $('#label_akun_kredit').text('');
-                                $('#akun_kredit').focus();
-                            }
-                        }
-                    }
-                }
-            });
-        }
-
-        function getPP(id=null){
-            $.ajax({
-                type: 'GET',
-                url: "{{ url('toko-master/unit') }}",
-                dataType: 'json',
-                async:false,
-                success:function(result){    
-                    if(result.status){
-                        if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                            var data = result.daftar;
-                            var filter = data.filter(data => data.kode_pp == id);
-                            if(filter.length > 0) {
-                                $('#kode_pp').val(filter[0].kode_pp);
-                                $('#label_kode_pp').text(filter[0].nama);
-                            } else {
-                                alert('PP tidak valid');
-                                $('#kode_pp').val('');
-                                $('#label_kode_pp').text('');
-                                $('#kode_pp').focus();
-                            }
-                        }
-                    }
-                }
-            });
-        }
-
-        // function getPPSelect(id=null){
-        //     $.ajax({
-        //         type: 'GET',
-        //         url: "{{ url('toko-master/unit') }}",
-        //         dataType: 'json',
-        //         async:false,
-        //         success:function(result){    
-        //             if(result.status){
-        //                 if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-        //                     var select2 = $('#kode_pp2').selectize();
-        //                     select2 = select2[0];
-        //                     var control2 = select2.selectize;
-        //                     for(i=0;i<result.daftar.length;i++){
-        //                         control2.addOption([{text:result.daftar[i].kode_pp + ' - ' + result.daftar[i].nama, value:result.daftar[i].kode_pp}]);
-        //                     }
-        //                 }
-        //             }
-        //         }
-        //     });
-        // }
-        // getPPSelect();
-
-        $('#form-tambah').on('change', '#akun_debet', function(){
-            var par = $(this).val();
-            getAkunDebet(par);
-        });
-
-        $('#form-tambah').on('change', '#akun_kredit', function(){
-            var par = $(this).val();
-            getAkunKredit(par);
-        });
-
-        $('#form-tambah').on('change', '#kode_pp', function(){
-            var par = $(this).val();
-            getPP(par);
-        });
-
-        $('#form-tambah').on('change', '#jenis', function(){
-            $('#getRef').attr('disabled', false);
-        });
-
-        $('#form-tambah').on('click', '#getRef', function(){
-            var jenis = $('#jenis').val();
-            getRef(jenis)
-        });
-
-        var action_html = "<a href='#' title='Edit' class='badge badge-info' id='btn-edit'><i class='fas fa-pencil-alt'></i></a> &nbsp; <a href='#' title='Hapus' class='badge badge-danger' id='btn-delete'><i class='fa fa-trash'></i></a>";
-        var dataTable = $('#table-data').DataTable({
-            // 'processing': true,
-            // 'serverSide': true,
-            'ajax': {
-                'url': "{{ url('toko-master/reftrans') }}",
-                'async':false,
-                'type': 'GET',
-                'dataSrc' : function(json) {
-                    if(json.status){
-                        return json.daftar;   
+    function getAkunDebet(id=null){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('esaku-master/masakun') }}",
+            dataType: 'json',
+            data:{'kode_akun':id},
+            async:false,
+            success:function(result){    
+                if(result.status){
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                        showInfoField('akun_debet',result.daftar[0].kode_akun,result.daftar[0].nama);
                     }else{
-                        Swal.fire({
-                            title: 'Session telah habis',
-                            text: 'harap login terlebih dahulu!',
-                            icon: 'error'
-                        }).then(function() {
-                            window.location.href = "{{ url('toko-auth/login') }}";
-                        })
-                        return [];
+                        $('#akun_debet').attr('readonly',false);
+                        $('#akun_debet').css('border-left','1px solid #d7d7d7');
+                        $('#akun_debet').val('');
+                        $('#akun_debet').focus();
                     }
                 }
-            },
-            'columnDefs': [
-                {'targets': 6, data: null, 'defaultContent': action_html }
-                ],
-            'columns': [
-                { data: 'kode_ref' },
-                { data: 'nama' },
-                { data: 'akun_debet' },
-                { data: 'akun_kredit' },
-                { data: 'jenis' },
-                { data: 'pp' },
-            ],
-            dom: 'lBfrtip',
-            // initComplete: function(setting,json) {
-            //     $('div.extra').html('<label>PP/Unit</label><select class="form-control select-pp ml-2" id="select-pp"></select>')
-            // },
-            buttons: [
-                {
-                    text: '<i class="fa fa-filter"></i> Filter',
-                    action: function ( e, dt, node, config ) {
-                        openFilter();
-                    },
-                    className: 'btn btn-default ml-2' 
+                else if(!result.status && result.message == 'Unauthorized'){
+                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
                 }
-            ]
-        });
-
-        function openFilter() {
-            var element = $('#mySidepanel');
-            
-            var x = $('#mySidepanel').attr('class');
-            var y = x.split(' ');
-            if(y[1] == 'close'){
-                element.removeClass('close');
-                element.addClass('open');
-            }else{
-                element.removeClass('open');
-                element.addClass('close');
             }
-        }
-
-        $('.sidepanel').on('submit', '#formFilter2', function(e){
-            e.preventDefault();
-            var jenis= $('#jenis2').val()
-            dataTable.column(4).search(jenis).draw();
-            openFilter();
         });
+    }
 
-        $('.sidepanel').on('click', '#btnClose', function(e){
-            e.preventDefault();
-            openFilter();
+    function getAkunKredit(id=null){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('esaku-master/masakun') }}",
+            dataType: 'json',
+            data:{'kode_akun':id},
+            async:false,
+            success:function(result){    
+                if(result.status){
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                        showInfoField('akun_kredit',result.daftar[0].kode_akun,result.daftar[0].nama);
+                    }else{
+                        $('#akun_kredit').attr('readonly',false);
+                        $('#akun_kredit').css('border-left','1px solid #d7d7d7');
+                        $('#akun_kredit').val('');
+                        $('#akun_kredit').focus();
+                    }
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                }
+            }
         });
+    }
 
-        $('#select-pp').change(function(){
-          dataTable.search(this.value).draw();
-        })
-
-        $('#saku-datatable').on('click', '#btn-tambah', function(){
-            $('#row-id').hide();
-            $('#id_edit').val('');
-            $('#form-tambah')[0].reset();
-            $('#method').val('post');
-            $('#akun_debet').val('');
-            $('#label_akun_debet').text('');
-            $('#akun_kredit').val('');
-            $('#label_akun_kredit').text('');
-            $('#kode_pp').val('');
-            $('#label_kode_pp').text('');
-            $('#saku-datatable').hide();
-            $('#saku-form').show();
+    function getPP(id=null){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('esaku-master/unit') }}",
+            dataType: 'json',
+            data:{'kode_pp':id},
+            async:false,
+            success:function(result){    
+                if(result.status){
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                        showInfoField('kode_pp',result.daftar[0].kode_pp,result.daftar[0].nama);
+                    }else{
+                        $('#kode_pp').attr('readonly',false);
+                        $('#kode_pp').css('border-left','1px solid #d7d7d7');
+                        $('#kode_pp').val('');
+                        $('#kode_pp').focus();
+                    }
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                }
+            }
         });
+    }
 
-        $('#saku-form').on('click', '#btn-kembali', function(){
-            $('#saku-datatable').show();
-            $('#saku-form').hide();
+    function getRef(jenis){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('esaku-master/reftrans-kode') }}/"+jenis,
+            dataType: 'json',
+            async:false,
+            success:function(result){    
+                if(result.daftar.status){
+                    $('#kode_ref').val(result.daftar.kode);
+                }
+            },error:function(error) {
+                alert('Terjadi kesalahan')
+            }
         });
+    }
 
-        function showFilter(param,target1,target2){
-            var par = param;
-            var modul = '';
-            var header = [];
-            $target = target1;
-            $target2 = target2;
-            
-            switch(par){
-                case 'akun_debet': 
-                header = ['Kode', 'Nama'];
-                var toUrl = "{{ url('toko-master/masakun') }}";
-                    var columns = [
+    $('.selectize').selectize();
+
+    $('#form-tambah').on('click', '.search-item2', function(){
+        var id = $(this).closest('div').find('input').attr('name');
+        var options = {}
+        switch(id){
+            case 'akun_debet':
+            case 'akun_kredit':
+                options = {
+                    id : id,
+                    header : ['Kode', 'Nama'],
+                    url : "{{ url('esaku-master/masakun') }}",
+                    columns : [
                         { data: 'kode_akun' },
                         { data: 'nama' }
-                    ];
-                    
-                    var judul = "Daftar Akun";
-                    var jTarget1 = "val";
-                    var jTarget2 = "text";
-                    $target = "#"+$target;
-                    $target2 = "#"+$target2;
-                    $target3 = "";
-                break;
-                case 'akun_kredit': 
-                header = ['Kode', 'Nama'];
-                var toUrl = "{{ url('toko-master/masakun') }}";
-                    var columns = [
-                        { data: 'kode_akun' },
-                        { data: 'nama' }
-                    ];
-                    
-                    var judul = "Daftar Akun";
-                    var jTarget1 = "val";
-                    var jTarget2 = "text";
-                    $target = "#"+$target;
-                    $target2 = "#"+$target2;
-                    $target3 = "";
-                break;
-                case 'kode_pp': 
-                header = ['Kode', 'Nama'];
-                var toUrl = "{{ url('toko-master/unit') }}";
-                    var columns = [
+                    ],
+                    judul : "Daftar Akun",
+                    pilih : "akun",
+                    jTarget1 : "text",
+                    jTarget2 : "text",
+                    target1 : ".info-code_"+id,
+                    target2 : ".info-name_"+id,
+                    target3 : "",
+                    target4 : "",
+                    width : ["30%","70%"],
+                }
+            break;
+            case 'kode_pp':
+                options = {
+                    id : id,
+                    header : ['Kode', 'Nama'],
+                    url : "{{ url('esaku-master/unit') }}",
+                    columns : [
                         { data: 'kode_pp' },
                         { data: 'nama' }
-                    ];
-                    
-                    var judul = "Daftar PP";
-                    var jTarget1 = "val";
-                    var jTarget2 = "text";
-                    $target = "#"+$target;
-                    $target2 = "#"+$target2;
-                    $target3 = "";
-                break;
-            }
-
-            var header_html = '';
-            for(i=0; i<header.length; i++){
-                header_html +=  "<th>"+header[i]+"</th>";
-            }
-            header_html +=  "<th></th>";
-
-            var table = "<table class='table table-bordered table-striped' width='100%' id='table-search'><thead><tr>"+header_html+"</tr></thead>";
-            table += "<tbody></tbody></table>";
-
-            $('#modal-search .modal-body').html(table);
-
-            var searchTable = $("#table-search").DataTable({
-                // fixedHeader: true,
-                // "scrollY": "300px",
-                // "processing": true,
-                // "serverSide": true,
-                "ajax": {
-                    "url": toUrl,
-                    "data": {'param':par},
-                    "type": "GET",
-                    "async": false,
-                    "dataSrc" : function(json) {
-                        return json.daftar;
-                    }
-                },
-                "columnDefs": [{
-                    "targets": 2, "data": null, "defaultContent": "<a class='check-item'><i class='fa fa-check'></i></a>"
-                }],
-                'columns': columns
-                // "iDisplayLength": 25,
-            });
-
-            // searchTable.$('tr.selected').removeClass('selected');
-            $('#table-search tbody').find('tr:first').addClass('selected');
-            $('#modal-search .modal-title').html(judul);
-            $('#modal-search').modal('show');
-            searchTable.columns.adjust().draw();
-
-            $('#table-search').on('click','.check-item',function(){
-                var kode = $(this).closest('tr').find('td:nth-child(1)').text();
-                var nama = $(this).closest('tr').find('td:nth-child(2)').text();
-                if(jTarget1 == "val"){
-                    $($target).val(kode);
-                    $($target).attr('value',kode);
-                }else{
-                    $($target).text(kode);
+                    ],
+                    judul : "Daftar PP",
+                    pilih : "PP",
+                    jTarget1 : "text",
+                    jTarget2 : "text",
+                    target1 : ".info-code_"+id,
+                    target2 : ".info-name_"+id,
+                    target3 : "",
+                    target4 : "",
+                    width : ["30%","70%"],
                 }
-
-                if(jTarget2 == "val"){
-                    $($target2).val(nama);
-                }else{
-                    $($target2).text(nama);
-                }
-
-                if($target3 != ""){
-                    $($target3).text(nama);
-                }
-                console.log($target3);
-                $('#modal-search').modal('hide');
-            });
-
-            $('#table-search tbody').on('dblclick','tr',function(){
-                console.log('dblclick');
-                var kode = $(this).closest('tr').find('td:nth-child(1)').text();
-                var nama = $(this).closest('tr').find('td:nth-child(2)').text();
-                if(jTarget1 == "val"){
-                    $($target).val(kode);
-                }else{
-                    $($target).text(kode);
-                }
-
-                if(jTarget2 == "val"){
-                    $($target2).val(nama);
-                }else{
-                    $($target2).text(nama);
-                }
-
-                if($target3 != ""){
-                    $($target3).text(nama);
-                }
-                $('#modal-search').modal('hide');
-            });
-
-            $('#table-search tbody').on('click', 'tr', function () {
-                if ( $(this).hasClass('selected') ) {
-                    $(this).removeClass('selected');
-                }
-                else {
-                    searchTable.$('tr.selected').removeClass('selected');
-                    $(this).addClass('selected');
-                }
-            });
-
-            $(document).keydown(function(e) {
-                if (e.keyCode == 40){ //arrow down
-                    var tr = searchTable.$('tr.selected');
-                    tr.removeClass('selected');
-                    tr.next().addClass('selected');
-                    // tr = searchTable.$('tr.selected');
-
-                }
-                if (e.keyCode == 38){ //arrow up
-                    
-                    var tr = searchTable.$('tr.selected');
-                    searchTable.$('tr.selected').removeClass('selected');
-                    tr.prev().addClass('selected');
-                    // tr = searchTable.$('tr.selected');
-
-                }
-
-                if (e.keyCode == 13){
-                    var kode = $('tr.selected').find('td:nth-child(1)').text();
-                    var nama = $('tr.selected').find('td:nth-child(2)').text();
-                    if(jTarget1 == "val"){
-                        $($target).val(kode);
-                    }else{
-                        $($target).text(kode);
-                    }
-
-                    if(jTarget2 == "val"){
-                        $($target2).val(nama);
-                    }else{
-                        $($target2).text(nama);
-                    }
-                    
-                    if($target3 != ""){
-                        $($target3).text(nama);
-                    }
-                    $('#modal-search').modal('hide');
-                }
-            })
+            break;
+            
         }
+        showInpFilter(options);
+    });
 
-        $('#form-tambah').on('click', '.search-item2', function(){
-            var par = $(this).closest('div').find('input').attr('name');
-            var par2 = $(this).closest('div').siblings('div').find('label').attr('id');
-            target1 = par;
-            target2 = par2;
-            showFilter(par,target1,target2);
-        });
+    $('#form-tambah').on('change', '#akun_debet', function(){
+        var par = $(this).val();
+        getAkunDebet(par);
+    });
+    $('#form-tambah').on('change', '#akun_kredit', function(){
+        var par = $(this).val();
+        getAkunKredit(par);
+    });
+    $('#form-tambah').on('change', '#kode_pp', function(){
+        var par = $(this).val();
+        getPP(par);
+    });
 
-    $('#saku-form').on('submit', '#form-tambah', function(e){
-        e.preventDefault();
-        var parameter = $('#id_edit').val();
-        var id = $('#id').val();
-        if(parameter == "edit"){
-            var url = "{{ url('toko-master/reftrans') }}/"+id;
-            var pesan = "updated";
-        }else{
-            var url = "{{ url('toko-master/reftrans') }}";
-            var pesan = "saved";
-        }
+    // END BAGIAN CBBL
 
-        var formData = new FormData(this);
-        for(var pair of formData.entries()) {
-            console.log(pair[0]+ ', '+ pair[1]); 
-        }
-        
-        $.ajax({
-            type: 'POST', 
-            url: url,
-            dataType: 'json',
-            data: formData,
-            async:false,
-            contentType: false,
-            cache: false,
-            processData: false, 
-            success:function(result){
-                // alert('Input data '+result.message);
-                if(result.data.status){
-                    // location.reload();
-                    dataTable.ajax.reload();
-                    Swal.fire(
-                        'Great Job!',
-                        'Your data has been '+pesan,
-                        'success'
-                        )
-                        $('#saku-datatable').show();
-                        $('#saku-form').hide();
-                 
-                }else if(!result.data.status && result.data.message == "Unauthorized"){
-                    Swal.fire({
-                        title: 'Session telah habis',
-                        text: 'harap login terlebih dahulu!',
-                        icon: 'error'
-                    }).then(function() {
-                        window.location.href = "{{ url('/toko-auth/login') }}";
-                    }) 
-                }else{
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Something went wrong!',
-                            footer: '<a href>'+result.data.message+'</a>'
-                        })
+    // PLUGIN SCROLL di bagian preview dan form input
+    var scroll = document.querySelector('#content-preview');
+    var psscroll = new PerfectScrollbar(scroll);
+
+    var scrollform = document.querySelector('.form-body');
+    var psscrollform = new PerfectScrollbar(scrollform);
+    // END PLUGIN SCROLL di bagian preview dan form input
+
+
+    //LIST DATA
+    var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
+    var dataTable = generateTable(
+        "table-data",
+        "{{ url('esaku-master/reftrans') }}", 
+        [
+            {'targets': 7, data: null, 'defaultContent': action_html },
+            {
+                "targets": 0,
+                "createdCell": function (td, cellData, rowData, row, col) {
+                    if ( rowData.status == "baru" ) {
+                        $(td).parents('tr').addClass('selected');
+                        $(td).addClass('last-add');
+                    }
                 }
             },
-            fail: function(xhr, textStatus, errorThrown){
-                alert('request failed:'+textStatus);
+            {
+                "targets": [6],
+                "visible": false,
+                "searchable": false
             }
+        ],
+        [
+            { data: 'kode_ref' },
+            { data: 'nama' },
+            { data: 'akun_debet' },
+            { data: 'akun_kredit' },
+            { data: 'jenis' },
+            { data: 'pp' },
+            { data: 'tgl_input' }
+        ],
+        "{{ url('esaku-auth/sesi-habis') }}",
+        [[6 ,"desc"]]
+    );
+
+    $.fn.DataTable.ext.pager.numbers_length = 5;
+
+    $("#searchData").on("keyup", function (event) {
+        dataTable.search($(this).val()).draw();
+    });
+
+    $("#page-count").on("change", function (event) {
+        var selText = $(this).val();
+        dataTable.page.len(parseInt(selText)).draw();
+    });
+    // END LIST DATA
+
+
+    // BUTTON TAMBAH
+    $('#saku-datatable').on('click', '#btn-tambah', function(){
+        $('#row-id').hide();
+        $('#id_edit').val('');
+        $('#judul-form').html('Tambah Data Referensi Transaksi');
+        $('#btn-update').attr('id','btn-save');
+        $('#btn-save').attr('type','submit');
+        $('#form-tambah')[0].reset();
+        $('#form-tambah').validate().resetForm();
+        $('#method').val('post');
+        $('#kode_ref').attr('readonly', false);
+        $('#saku-datatable').hide();
+        $('#saku-form').show();
+        $('.input-group-prepend').addClass('hidden');
+        $('span[class^=info-name]').addClass('hidden');
+        $('.info-icon-hapus').addClass('hidden');
+        $('[class*=inp-label-]').attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important;border-left:1px solid #d7d7d7 !important');
+    });
+    // END BUTTON TAMBAH
+    
+    // BUTTON KEMBALI
+    $('#saku-form').on('click', '#btn-kembali', function(){
+        var kode = null;
+        msgDialog({
+            id:kode,
+            type:'keluar'
         });
     });
 
-    $('#saku-datatable').on('click', '#btn-edit', function(){
-        var kode= $(this).closest('tr').find('td').eq(0).html();
-        var nama= $(this).closest('tr').find('td').eq(1).html();
-        var debet= $(this).closest('tr').find('td').eq(2).html();
-        var kredit= $(this).closest('tr').find('td').eq(3).html();
-        var jenis= $(this).closest('tr').find('td').eq(4).html();
-        var pp = $(this).closest('tr').find('td').eq(5).html();
-        var kode_pp = pp.substr(0,2); 
-        $iconLoad.show();
-        getAkunDebet(debet);
-        getAkunKredit(kredit);
-        getPP(kode_pp);
-        $('#method').val('put');
-        $('#id_edit').val('edit');
-        $('#getRef').attr('disabled', true);
-        $('#id').val(kode);
-        $('#jenis').val(jenis);
-        $('#kode_ref').val(kode);
-        $('#nama').val(nama);
-        $('#row-id').show();
-        $('#saku-datatable').hide();
-        $('#saku-form').show();
-        $iconLoad.hide();
+    $('#saku-form').on('click', '#btn-update', function(){
+        var kode = $('#kode_vendor').val();
+        msgDialog({
+            id:kode,
+            type:'edit'
+        });
+    });
+    
+    // END BUTTON KEMBALI
+
+    $('#form-tambah').on('change', '#jenis', function(){
+        $('#getRef').attr('disabled', false);
     });
 
-    $('#saku-datatable').on('click','#btn-delete',function(e){
-        Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.value) {
-                var id = $(this).closest('tr').find('td').eq(0).html();
-                $.ajax({
-                    type: 'DELETE',
-                    url: "{{ url('toko-master/reftrans') }}/"+id,
-                    dataType: 'json',
-                    async:false,
-                    success:function(result){
-                        if(result.data.status){
-                            dataTable.ajax.reload();
-                            Swal.fire(
-                                'Deleted!',
-                                'Your data has been deleted.',
-                                'success'
-                            )
-                        }else if(!result.data.status && result.data.message == "Unauthorized"){
-                            Swal.fire({
-                                title: 'Session telah habis',
-                                text: 'harap login terlebih dahulu!',
-                                icon: 'error'
-                            }).then(function() {
-                                window.location.href = "{{ url('toko-auth/login') }}";
-                            })
+    $('#form-tambah').on('click', '#getRef', function(){
+        var jenis = $('#jenis').val();
+        getRef(jenis)
+    });
+
+    //BUTTON SIMPAN /SUBMIT
+    $('#form-tambah').validate({
+        ignore: [],
+        rules: 
+        {
+            kode_ref:{
+                required: true,
+                maxlength:10   
+            },
+            nama:{
+                required: true,
+                maxlength:50   
+            },
+            jenis:{
+                required: true
+            },
+            akun_debet:{
+                required: true
+            },
+            akun_kredit:
+            {
+                required: true
+            },
+            kode_pp:
+            {
+                required: true
+            }
+        },
+        errorElement: "label",
+        submitHandler: function (form) {
+            var parameter = $('#id_edit').val();
+            var id = $('#kode_ref').val();
+            if(parameter == "edit"){
+                var url = "{{ url('esaku-master/reftrans') }}/"+id;
+                var pesan = "updated";
+                var text = "Perubahan data "+id+" telah tersimpan";
+            }else{
+                var url = "{{ url('esaku-master/reftrans') }}";
+                var pesan = "saved";
+                var text = "Data tersimpan dengan kode "+id;
+            }
+
+            var formData = new FormData(form);
+            for(var pair of formData.entries()) {
+                console.log(pair[0]+ ', '+ pair[1]); 
+            }
+            
+            $.ajax({
+                type: 'POST', 
+                url: url,
+                dataType: 'json',
+                data: formData,
+                async:false,
+                contentType: false,
+                cache: false,
+                processData: false, 
+                success:function(result){
+                    if(result.data.status){
+                        dataTable.ajax.reload();
+                        $('#row-id').hide();
+                        $('#form-tambah')[0].reset();
+                        $('#form-tambah').validate().resetForm();
+                        $('[id^=label]').html('');
+                        $('#id_edit').val('');
+                        $('#judul-form').html('Tambah Data Referensi Transaksi');
+                        $('#method').val('post');
+                        $('#kode_ref').attr('readonly', false);
+                        msgDialog({
+                            id:result.data.kode,
+                            type:'simpan'
+                        });
+                        last_add("kode_ref",result.data.kode);
+                    }else if(!result.data.status && result.data.message === "Unauthorized"){
+                    
+                        window.location.href = "{{ url('/esaku-auth/sesi-habis') }}";
+                        
+                    }else{
+                        if(result.data.kode == "-" && result.data.jenis != undefined){
+                            msgDialog({
+                                id: id,
+                                type: result.data.jenis,
+                                text:'Kode vendor sudah digunakan'
+                            });
                         }else{
+
                             Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Something went wrong!',
-                            footer: '<a href>'+result.data.message+'</a>'
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Something went wrong!',
+                                footer: '<a href>'+result.data.message+'</a>'
                             })
                         }
                     }
-                });
-                
-            }else{
-                return false;
-            }
-        })
+                },
+                fail: function(xhr, textStatus, errorThrown){
+                    alert('request failed:'+textStatus);
+                }
+            });
+            // $('#btn-simpan').html("Simpan").removeAttr('disabled');
+        },
+        errorPlacement: function (error, element) {
+            var id = element.attr("id");
+            $("label[for="+id+"]").append("<br/>");
+            $("label[for="+id+"]").append(error);
+        }
     });
+    // END BUTTON SIMPAN
+
+    // BUTTON HAPUS DATA
+    function hapusData(id){
+        $.ajax({
+            type: 'DELETE',
+            url: "{{ url('esaku-master/reftrans') }}/"+id,
+            dataType: 'json',
+            async:false,
+            success:function(result){
+                if(result.data.status){
+                    dataTable.ajax.reload();                    
+                    showNotification("top", "center", "success",'Hapus Data','Data Referensi Transaksi ('+id+') berhasil dihapus ');
+                    $('#modal-pesan-id').html('');
+                    $('#table-delete tbody').html('');
+                    $('#modal-pesan').modal('hide');
+                }else if(!result.data.status && result.data.message == "Unauthorized"){
+                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                }else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href>'+result.data.message+'</a>'
+                    });
+                }
+            }
+        });
+    }
+
+    $('#saku-datatable').on('click','#btn-delete',function(e){
+        var kode = $(this).closest('tr').find('td').eq(0).html();
+        msgDialog({
+            id: kode,
+            type:'hapus'
+        });
+    });
+
+    // END BUTTON HAPUS
+    
+    // BUTTON EDIT
+    function editData(id){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('esaku-master/reftrans-detail') }}/" + id,
+            dataType: 'json',
+            async:false,
+            success:function(res){
+                var result= res.data;
+                if(result.status){
+                    $('#id_edit').val('edit');
+                    $('#method').val('put');
+                    $('#jenis').attr('readonly', true);
+                    $('#kode_ref').val(id);
+                    $('#id').val(id);
+                    $('#nama').val(result.data[0].nama);
+                    $('#jenis')[0].selectize.setValue(result.data[0].jenis);
+                    $('#akun_debet').val(result.data[0].akun_debet);
+                    $('#akun_kredit').val(result.data[0].akun_kredit);
+                    $('#kode_pp').val(result.data[0].kode_pp);
+                    $('#saku-datatable').hide();
+                    $('#modal-preview').modal('hide');
+                    $('#saku-form').show();
+                    showInfoField('akun_debet',result.data[0].akun_debet,result.data[0].nama_akun_debet);
+                    showInfoField('akun_kredit',result.data[0].akun_kredit,result.data[0].nama_akun_kredit);
+                    showInfoField('kode_pp',result.data[0].kode_pp,result.data[0].nama_pp);
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                }
+                // $iconLoad.hide();
+            }
+        });
+    }
+    $('#saku-datatable').on('click', '#btn-edit', function(){
+        var id= $(this).closest('tr').find('td').eq(0).html();
+        // $iconLoad.show();
+        $('#form-tambah').validate().resetForm();
+        
+        $('#btn-save').attr('type','button');
+        $('#btn-save').attr('id','btn-update');
+
+        $('#judul-form').html('Edit Data Referensi Transaksi');
+        editData(id);
+    });
+    // END BUTTON EDIT
+    
+    // HANDLER untuk enter dan tab
+    $('#jenis,#kode_ref,#nama,#akun_debet,#akun_kredit,#kode_pp').keydown(function(e){
+        var code = (e.keyCode ? e.keyCode : e.which);
+        var nxt = ['jenis','kode_ref','nama','akun_debet','akun_kredit','kode_pp'];
+        if (code == 13 || code == 40) {
+            e.preventDefault();
+            var idx = nxt.indexOf(e.target.id);
+            idx++;
+            if(idx == 15){
+                var akun = $('#akun_hutang').val();
+                getAkun(akun);
+            }else{
+                $('#'+nxt[idx]).focus();
+            }
+        }else if(code == 38){
+            e.preventDefault();
+            var idx = nxt.indexOf(e.target.id);
+            idx--;
+            if(idx != -1){ 
+                $('#'+nxt[idx]).focus();
+            }
+        }
+        if($(this).attr('id') == 'kode_ref'){
+            e.preventDefault();
+        }
+    });
+
+    // PREVIEW saat klik di list data
+    $('#table-data tbody').on('click','td',function(e){
+        if($(this).index() != 6){
+
+            var id = $(this).closest('tr').find('td').eq(0).html();
+            var data = dataTable.row(this).data();
+            var html = `<tr>
+                <td style='border:none'>Kode Ref</td>
+                <td style='border:none'>`+id+`</td>
+            </tr>
+            <tr>
+                <td>Jenis</td>
+                <td>`+data.jenis+`</td>
+            </tr>
+            <tr>
+                <td>Nama</td>
+                <td>`+data.nama+`</td>
+            </tr>
+            <tr>
+                <td>Akun Debet</td>
+                <td>`+data.akun_debet+`</td>
+            </tr>
+            <tr>
+                <td>Akun Kredit</td>
+                <td>`+data.akun_kredit+`</td>
+            </tr>
+            <tr>
+                <td>Unit/ PP</td>
+                <td>`+data.pp+`</td>
+            </tr>
+            `;
+            $('#table-preview tbody').html(html);
+            
+            $('#modal-preview-judul').css({'margin-top':'10px','padding':'0px !important'}).html('Preview Data Referensi Transaksi').removeClass('py-2');
+            $('#modal-preview-id').text(id);
+            $('#modal-preview').modal('show');
+        }
+    });
+
+    $('.modal-header').on('click','#btn-delete2',function(e){
+        var id = $('#modal-preview-id').text();
+        $('#modal-preview').modal('hide');
+        msgDialog({
+            id:id,
+            type:'hapus'
+        });
+    });
+
+    $('.modal-header').on('click', '#btn-edit2', function(){
+        var id= $('#modal-preview-id').text();
+        // $iconLoad.show();
+        $('#form-tambah').validate().resetForm();
+        $('#judul-form').html('Edit Data Referensi Transaksi');
+        
+        $('#btn-save').attr('type','button');
+        $('#btn-save').attr('id','btn-update');
+        editData(id)
+    });
+
+    $('.modal-header').on('click','#btn-cetak',function(e){
+        e.stopPropagation();
+        $('.dropdown-ke1').addClass('hidden');
+        $('.dropdown-ke2').removeClass('hidden');
+        console.log('ok');
+    });
+
+    $('.modal-header').on('click','#btn-cetak2',function(e){
+        // $('#dropdownAksi').dropdown('toggle');
+        e.stopPropagation();
+        $('.dropdown-ke1').removeClass('hidden');
+        $('.dropdown-ke2').addClass('hidden');
+    });
+
 
     </script>

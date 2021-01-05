@@ -332,6 +332,10 @@ span[class^=info-name]{
     
 }
 
+.table > tbody > tr > td > .form-control {
+    border-radius:0 !important;
+}
+
 .readonly >  .form-control{
     background: #e9ecef !important;
 }

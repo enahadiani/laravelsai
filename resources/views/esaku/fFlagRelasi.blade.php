@@ -1,4 +1,4 @@
-    <link rel="stylesheet" href="{{ asset('master.css') }}" />
+    <link rel="stylesheet" href="{{ asset('trans.css') }}" />
     <!-- LIST DATA -->
     <x-list-data judul="Data Flag Relasi" tambah="" :thead="array('Kode','Nama','Action')" :thwidth="array(30,58,15)" :thclass="array('','','text-center')" />
     <!-- END LIST DATA -->
@@ -51,97 +51,15 @@
                             <div class="tab-pane active" id="data-grid" role="tabpanel">
 
                                 <div class='col-xs-12 nav-control' style="border: 1px solid #ebebeb;padding: 0px 5px;">
-                                    {{-- <a type="button" href="#" id="copy-row" data-toggle="tooltip" title="Copy Row" style='font-size:18px'><i class='iconsminds-duplicate-layer' ></i> <span style="font-size:12.8px">Copy Row</span></a>
-                                    <span class="pemisah mx-1" style="border:1px solid #d7d7d7;font-size:20px"></span>
-                                    
-                                    <div class="dropdown d-inline-block mx-0">
-                                        <a class="btn dropdown-toggle mb-1 px-0" href="#" role="button" id="dropdown-import" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style='font-size:18px'>
-                                        <i class='simple-icon-doc' ></i> <span style="font-size:12.8px">Upload Excel <i class='simple-icon-arrow-down' style="font-size:10px"></i></span> 
-                                        </a>
-                                        <div class="dropdown-menu" aria-labelledby="dropdown-import" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 45px, 0px); top: 0px; left: 0px; will-change: transform;">
-                                            <a class="dropdown-item" href="{{ config('api.url').'toko-auth/storage/template_upload_jurnal_esaku.xlsx' }}" target='_blank' id="download-template" >Download Template</a>
-                                            <a class="dropdown-item" href="#" id="import-excel" >Upload</a>
-                                        </div>
-                                    </div> --}}
                                     <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row" ></span></a>
                                 </div>
                                 <div class='col-xs-12' style='min-height:420px; margin:0px; padding:0px;'>
-                                    <style>
-                                        th{
-                                            vertical-align:middle !important;
-                                        }
-                                        /* #input-grid td{
-                                            padding:0 !important;
-                                        } */
-                                        #input-grid .selectize-input.focus, #input-grid input.form-control, #input-grid .custom-file-label
-                                        {
-                                            border:1px solid black !important;
-                                            border-radius:0 !important;
-                                        }
-
-                                        #input-grid .selectize-input
-                                        {
-                                            border-radius:0 !important;
-                                        } 
-                                        
-                                        .modal-header .close {
-                                            padding: 1rem;
-                                            margin: -1rem 0 -1rem auto;
-                                        }
-                                        .check-item{
-                                            cursor:pointer;
-                                        }
-                                        .selected{
-                                            cursor:pointer;
-                                            /* background:#4286f5 !important; */
-                                            /* color:white; */
-                                        }
-                                        #input-grid td:not(:nth-child(1)):not(:nth-child(9)):hover
-                                        {
-                                            /* background: var(--theme-color-6) !important;
-                                            color:white; */
-                                            background:#f8f8f8;
-                                            color:black;
-                                        }
-                                        #input-grid input:hover,
-                                        #input-grid .selectize-input:hover,
-                                        {
-                                            width:inherit;
-                                        }
-                                        #input-grid ul.typeahead.dropdown-menu
-                                        {
-                                            width:max-content !important;
-                                        }
-                                        #input-grid td
-                                        {
-                                            overflow:hidden !important;
-                                            height:37.2px !important;
-                                            padding:0px !important;
-                                        }
-
-                                        #input-grid span
-                                        {
-                                            padding:0px 10px !important;
-                                        }
-
-                                        #input-grid input,#input-grid .selectize-input
-                                        {
-                                            overflow:hidden !important;
-                                            height:35px !important;
-                                        }
-
-
-                                        #input-grid td:nth-child(4)
-                                        {
-                                            overflow:unset !important;
-                                        }
-                                    </style>
                                     <table class="table table-bordered table-condensed gridexample" id="input-grid" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
                                     <thead style="background:#F8F8F8">
                                         <tr>
                                             <th style="width:3%">No</th>
-                                            <th style="width:13%">Kode Akun</th>
-                                            <th style="width:15%">Nama Akun</th>
+                                            <th style="width:15%">Kode Akun</th>
+                                            <th style="width:77%">Nama Akun</th>
                                             <th style="width:5%"></th>
                                         </tr>
                                     </thead>
@@ -163,6 +81,7 @@
     
     <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
     <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
+    <script src="{{ asset('helper.js') }}"></script>
     <script>
     var $dtAkun = new Array();
     var $dtFlag = new Array();
@@ -180,6 +99,21 @@
     function hitungTotalRow(){
         var total_row = $('#input-grid tbody tr').length;
         $('#total-row').html(total_row+' Baris');
+    }
+
+    function showInfoField(kode,isi_kode,isi_nama){
+        $('#'+kode).val(isi_kode);
+        $('#'+kode).attr('style','border-left:0;border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important');
+        $('.info-code_'+kode).text(isi_kode).parent('div').removeClass('hidden');
+        $('.info-code_'+kode).attr('title',isi_nama);
+        $('.info-name_'+kode).removeClass('hidden');
+        $('.info-name_'+kode).attr('title',isi_nama);
+        $('.info-name_'+kode+' span').text(isi_nama);
+        var width = $('#'+kode).width()-$('#search_'+kode).width()-10;
+        var height =$('#'+kode).height();
+        var pos =$('#'+kode).position();
+        $('.info-name_'+kode).width(width).css({'left':pos.left,'height':height});
+        $('.info-name_'+kode).closest('div').find('.info-icon-hapus').removeClass('hidden');
     }
 
     function getDataFlag() {
@@ -282,60 +216,25 @@
     
     var scroll = document.querySelector('#content-preview');
     var psscroll = new PerfectScrollbar(scroll);
+    
+    jumFilter();
     // END 
 
     // LIST DATA
     var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a>";
-    
-    var dataTable = $("#table-data").DataTable({
-        destroy: true,
-        bLengthChange: false,
-        sDom: 't<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
-        'ajax': {
-            'url': "{{ url('esaku-master/flag-relasi') }}",
-            'async':false,
-            'type': 'GET',
-            'dataSrc' : function(json) {
-                if(json.status){
-                    return json.daftar;   
-                }else if(!json.status && json.message == "Unauthorized"){
-                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
-                    return [];
-                }else{
-                    return [];
-                }
-            }
-        },
-        'columnDefs': [
+
+    var dataTable = generateTable(
+        "table-data",
+        "{{ url('esaku-master/flag-relasi') }}", 
+        [
             {'targets': 2, data: null, 'defaultContent': action_html, 'className': 'text-center' }
-            ],
-        'columns': [
+        ],
+        [
             { data: 'kode_flag' },
             { data: 'nama' },
         ],
-        drawCallback: function () {
-            $($(".dataTables_wrapper .pagination li:first-of-type"))
-                .find("a")
-                .addClass("prev");
-            $($(".dataTables_wrapper .pagination li:last-of-type"))
-                .find("a")
-                .addClass("next");
-
-            $(".dataTables_wrapper .pagination").addClass("pagination-sm");
-        },
-        language: {
-            paginate: {
-                previous: "<i class='simple-icon-arrow-left'></i>",
-                next: "<i class='simple-icon-arrow-right'></i>"
-            },
-            search: "_INPUT_",
-            searchPlaceholder: "Search...",
-            lengthMenu: "Items Per Page _MENU_",
-            info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
-            infoEmpty: "Menampilkan 0 sampai 0 dari 0 entri",
-            infoFiltered: "(terfilter dari _MAX_ total entri)"
-        }
-    });
+        "{{ url('esaku-auth/sesi-habis') }}"
+    );
 
     $.fn.DataTable.ext.pager.numbers_length = 5;
 
@@ -379,220 +278,35 @@
     // EVENT CHANGE //
     $('#kode_flag_akun').change(function(){
         var par = $(this).val();
-        $.ajax({
-            type: 'GET',
-            url: "{{ url('esaku-master/flag-relasi-akun') }}",
-            dataType: 'json',
-            data:{kode_akun: par},
-            async:false,
-            success:function(result){
-                $('#input-grid tbody').empty();
-                if(result.status){
-                    var no = 1;
-                    var row = "";
-                    for(var i=0;i<result.daftar.length;i++) {
-                        var data = result.daftar[i];
-                        row += "<tr class='row-grid no-grid'>";
-                        row += "<td class='text-center'>"+no+"</td>";
-                        row += "<td><span class='td-kode tdakunke"+no+" tooltip-span' style='display:inline-block;'>"+data.kode_akun+"</span><input type='text' style='display:none;' name='kode_akun[]' class='form-control inp-kode akunke"+no+" hidden' value='"+data.kode_akun+"' required='' style='z-index: 1;position: relative;' id='akunkode"+no+"'><a href='#' class='search-item search-akun hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
-                        row += "<td><span class='td-nama tdnmakunke"+no+" tooltip-span'>"+data.nama+"</span><input type='text' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+" hidden'  value='"+data.nama+"' readonly></td>";
-                        row += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
-                        row += "</tr>";
-                        no++;
-                    }
-                    $('#input-grid tbody').html(row);
-                    $('.inp-kode').typeahead({
-                        source:$dtAkun,
-                        displayText:function(item){
-                            return item.id+' - '+item.name;
-                        },
-                        autoSelect:false,
-                        changeInputOnSelect:false,
-                        changeInputOnMove:false,
-                        selectOnBlur:false,
-                        afterSelect: function (item) {
-                            console.log(item.id);
-                        }
-                    });
-                    $('.tooltip-span').tooltip({
-                        title: function(){
-                            return $(this).text();
-                        }
-                    });
-                    hitungTotalRow();
-                }
-            }
-        });
+        editData(par);
     });
     // END EVENT CHANGE //
 
-    // CBBL
-    function showFilter(param,target1,target2){
-        var par = param;
-
-        var modul = '';
-        var header = [];
-        $target = target1;
-        $target2 = target2;
-        
-        switch(par){
-            case 'kode_akun[]': 
-                header = ['Kode', 'Nama'];
-                var toUrl = "{{ url('esaku-master/flag-relasi-akun') }}";
-                var columns = [
-                    { data: 'kode_akun' },
-                    { data: 'nama' }
-                ];
-                var judul = "Daftar Akun";
-                var pilih = "akun";
-                var jTarget1 = "val";
-                var jTarget2 = "val";
-                $target = "."+$target;
-                $target3 = ".td"+$target2;
-                $target2 = "."+$target2;
-            break;
-            case 'kode_flag_akun': 
-            header = ['Kode', 'Nama'];
-            var toUrl = "{{ url('esaku-master/flag-akun') }}";
-                var columns = [
-                    { data: 'kode_flag' },
-                    { data: 'nama' }
-                ];
-                
-                var judul = "Daftar Flag Akun";
-                var jTarget1 = "val";
-                var jTarget2 = "val";
-                $target = "#"+$target;
-                $target2 = "#"+$target2;
-                $target3 = "";
-            break;
-        }
-
-        var header_html = '';
-        var width = ["30%","70%"];
-        for(i=0; i<header.length; i++){
-            header_html +=  "<th style='width:"+width[i]+"'>"+header[i]+"</th>";
-        }
-
-        var table = "<table class='' width='100%' id='table-search'><thead><tr>"+header_html+"</tr></thead>";
-        table += "<tbody></tbody></table>";
-
-        $('#modal-search .modal-body').html(table);
-
-        var searchTable = $("#table-search").DataTable({
-            sDom: '<"row view-filter"<"col-sm-12"<f>>>t<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
-            ajax: {
-                "url": toUrl,
-                "data": {'param':par},
-                "type": "GET",
-                "async": false,
-                "dataSrc" : function(json) {
-                    return json.daftar;
-                }
-            },
-            columns: columns,
-            drawCallback: function () {
-                $($(".dataTables_wrapper .pagination li:first-of-type"))
-                    .find("a")
-                    .addClass("prev");
-                $($(".dataTables_wrapper .pagination li:last-of-type"))
-                    .find("a")
-                    .addClass("next");
-
-                $(".dataTables_wrapper .pagination").addClass("pagination-sm");
-            },
-            language: {
-                paginate: {
-                    previous: "<i class='simple-icon-arrow-left'></i>",
-                    next: "<i class='simple-icon-arrow-right'></i>"
-                },
-                search: "_INPUT_",
-                searchPlaceholder: "Search...",
-                lengthMenu: "Items Per Page _MENU_",
-                info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
-                infoEmpty: "Menampilkan 0 sampai 0 dari 0 entri",
-                infoFiltered: "(terfilter dari _MAX_ total entri)"
-            },
-        });
-        $('#modal-search .modal-title').html(judul);
-        $('#modal-search').modal('show');
-        searchTable.columns.adjust().draw();
-
-        $('#table-search tbody').on('click', 'tr', function () {
-            if ( $(this).hasClass('selected') ) {
-                $(this).removeClass('selected');
-            }
-            else {
-                searchTable.$('tr.selected').removeClass('selected');
-                $(this).addClass('selected');
-
-                var kode = $(this).closest('tr').find('td:nth-child(1)').text();
-                var nama = $(this).closest('tr').find('td:nth-child(2)').text();
-                if(jTarget1 == "val"){
-                    $($target).val(kode);
-                }else{
-                    $($target).text(kode);
-                }
-
-                if(jTarget2 == "val"){
-                    $($target2).val(nama);
-                }else{
-                    $($target2).text(nama);
-                }
-
-                if($target3 != ""){
-                    $($target3).text(nama);
-                }
-                $('#modal-search').modal('hide');
-            }
-        });
-
-        $(document).keydown(function(e) {
-            if (e.keyCode == 40){ //arrow down
-                var tr = searchTable.$('tr.selected');
-                tr.removeClass('selected');
-                tr.next().addClass('selected');
-                // tr = searchTable.$('tr.selected');
-
-            }
-            if (e.keyCode == 38){ //arrow up
-                
-                var tr = searchTable.$('tr.selected');
-                searchTable.$('tr.selected').removeClass('selected');
-                tr.prev().addClass('selected');
-                // tr = searchTable.$('tr.selected');
-
-            }
-
-            if (e.keyCode == 13){
-                var kode = $('tr.selected').find('td:nth-child(1)').text();
-                var nama = $('tr.selected').find('td:nth-child(2)').text();
-                if(jTarget1 == "val"){
-                    $($target).val(kode);
-                }else{
-                    $($target).text(kode);
-                }
-
-                if(jTarget2 == "val"){
-                    $($target2).val(nama);
-                }else{
-                    $($target2).text(nama);
-                }
-                
-                if($target3 != ""){
-                    $($target3).text(nama);
-                }
-                $('#modal-search').modal('hide');
-            }
-        })
-    }
-
     $('#form-tambah').on('click', '.search-item2', function(){ //Bukan CBBL Grid //
         var par = $(this).closest('div').find('input').attr('name');
-        var par2 = $(this).closest('div').siblings('div').find('input').attr('id');
-        target1 = par;
-        target2 = par2;
-        showFilter(par,target1,target2);
+        switch(par){
+            case 'kode_flag_akun': 
+                var options = { 
+                    id : 'kode_flag_akun',
+                    header : ['Kode', 'Nama'],
+                    url : "{{ url('esaku-master/flag-akun') }}",
+                    columns : [
+                        { data: 'kode_flag' },
+                        { data: 'nama' }
+                    ],
+                    judul : "Daftar Flag Akun",
+                    pilih : "flag akun",
+                    jTarget1 : "text",
+                    jTarget2 : "text",
+                    target1 : ".info-code_"+par,
+                    target2 : ".info-name_"+par,
+                    target3 : "",
+                    target4 : "",
+                    width : ["30%","70%"]
+                };
+            break;
+        }
+        showInpFilter(options);
     });
     //END SHOW CBBL//
 
@@ -696,8 +410,6 @@
         }
     });
 
-
-
     $('#input-grid').on('click', 'td', function(){
         var idx = $(this).index();
         if(idx == 0){
@@ -768,7 +480,30 @@
         tmp = $(this).closest('tr').find('input[name="'+par2+'"]').attr('class');
         tmp2 = tmp.split(" ");
         target2 = tmp2[2];
-        showFilter(par,target1,target2);
+        
+        switch(par){
+            case 'kode_akun[]': 
+                var options = { 
+                    id : par,
+                    header : ['Kode', 'Nama'],
+                    url : "{{ url('esaku-master/flag-relasi-akun') }}",
+                    columns : [
+                        { data: 'kode_akun' },
+                        { data: 'nama' }
+                    ],
+                    judul : "Daftar Akun",
+                    pilih : "akun",
+                    jTarget1 : "val",
+                    jTarget2 : "val",
+                    target1 : "."+target1,
+                    target2 : "."+target2,
+                    target3 : ".td"+target2,
+                    target4 : "",
+                    width : ["30%","70%"]
+                };
+            break;
+        }
+        showInpFilter(options);
     });
 
     $('#input-grid').on('change', '.inp-kode', function(e){
@@ -971,116 +706,10 @@
     });
     // END SIMPAN
 
-    // DELETE ACTION //
-    function hapusData(id){
-        $.ajax({
-            type: 'DELETE',
-            url: "{{ url('esaku-master/flag-relasi') }}/"+id,
-            dataType: 'json',
-            async:false,
-            success:function(result){
-                if(result.data.status){
-                    dataTable.ajax.reload();                    
-                    showNotification("top", "center", "success",'Hapus Data','Data Flag AKun ('+id+') berhasil dihapus ');
-                    $('#modal-pesan-id').html('');
-                    $('#table-delete tbody').html('');
-                    $('#modal-pesan').modal('hide');
-                }else if(!result.data.status && result.data.message == "Unauthorized"){
-                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
-                }else{
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Something went wrong!',
-                        footer: '<a href>'+result.data.message+'</a>'
-                    });
-                }
-            }
-        });
-    }
-
-    $('.modal-header').on('click','#btn-delete2',function(e){
-        var id = $('#modal-preview-id').text();
-        $('#modal-preview').modal('hide');
-        msgDialog({
-            id:id,
-            type:'hapus'
-        });
-    });
-
-    $('#saku-datatable').on('click','#btn-delete',function(e){
-        var kode = $(this).closest('tr').find('td').eq(0).html();
-        msgDialog({
-            id: kode,
-            type:'hapus'
-        });
-    });
-    // END DELETE ACTION //
+    
 
     // EDIT ACTION //
-    $('.modal-header').on('click', '#btn-edit2', function(){
-        var id= $('#modal-preview-id').text();
-        // $iconLoad.show();
-        $.ajax({
-            type: 'GET',
-            url: "{{ url('esaku-master/flag-relasi') }}/" + id,
-            dataType: 'json',
-            async:false,
-            success:function(result){
-                if(result.status){
-                    console.log(result)
-                    $('#input-grid tbody').empty();
-                    
-                    $('#form-tambah').validate().resetForm();
-                    
-                    $('#btn-save').attr('type','button');
-                    $('#btn-save').attr('id','btn-update');
-                    $('#id').val('edit');
-                    $('#method').val('put');
-                    $('#judul-form').html('Edit Data Flag Relasi');
-                    var no = 1;
-                    var row = "";
-                    for(var i=0;i<result.daftar.data.length;i++) {
-                        var data = result.daftar.data[i];
-                        row += "<tr class='row-grid no-grid'>";
-                        row += "<td class='text-center'>"+no+"</td>";
-                        row += "<td><span class='td-kode tdakunke"+no+" tooltip-span' style='display:inline-block;'>"+data.kode_akun+"</span><input type='text' style='display:none;' name='kode_akun[]' class='form-control inp-kode akunke"+no+" hidden' value='"+data.kode_akun+"' required='' style='z-index: 1;position: relative;' id='akunkode"+no+"'><a href='#' class='search-item search-akun hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
-                        row += "<td><span class='td-nama tdnmakunke"+no+" tooltip-span'>"+data.nama+"</span><input type='text' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+" hidden'  value='"+data.nama+"' readonly></td>";
-                        row += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
-                        row += "</tr>";
-                        no++;
-                    }
-                    $('#input-grid tbody').append(row);
-                    $('.inp-kode').typeahead({
-                        source:$dtAkun,
-                        displayText:function(item){
-                            return item.id+' - '+item.name;
-                        },
-                        autoSelect:false,
-                        changeInputOnSelect:false,
-                        changeInputOnMove:false,
-                        selectOnBlur:false,
-                        afterSelect: function (item) {
-                            console.log(item.id);
-                        }
-                    });
-                    $('.tooltip-span').tooltip({
-                        title: function(){
-                            return $(this).text();
-                        }
-                    });
-                    hitungTotalRow();
-                    $('#modal-preview').modal('hide');
-                    $('#saku-datatable').hide();
-                    $('#saku-form').show();
-                }
-            }
-        });
-    });
-
-    $('#saku-datatable').on('click', '#btn-edit', function(){
-        var id = $(this).closest('tr').find('td').eq(0).html();
-        var nama = $(this).closest('tr').find('td').eq(1).html();
+    function editData(id){
         $.ajax({
             type: 'GET',
             url: "{{ url('esaku-master/flag-relasi') }}/" + id,
@@ -1089,7 +718,6 @@
             success:function(result){
                 if(result.daftar.status){
                     $('#input-grid tbody').empty();
-                    
                     $('#form-tambah').validate().resetForm();
                     
                     $('#btn-save').attr('type','button');
@@ -1129,11 +757,20 @@
                     hitungTotalRow();
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
-                    
-                //     // showInfoField('kode_flag',id,nama);
+                    showInfoField('kode_flag_akun',id,result.daftar.data[0].nama);
                 }
             }
-        });               
+        }); 
+    }
+    $('.modal-header').on('click', '#btn-edit2', function(){
+        var id= $('#modal-preview-id').text();
+        $('#modal-preview').modal('hide');
+        editData(id);
+    });
+
+    $('#saku-datatable').on('click', '#btn-edit', function(){
+        var id = $(this).closest('tr').find('td').eq(0).html();
+        editData(id);            
     });
     // END EDIT ACTION //
 
@@ -1192,6 +829,8 @@
                         }
                         $('#modal-preview-id').text(id);
                         $('#modal-preview').modal('show');
+                        $('#modal-preview-judul').text('Preview Flag Relasi');
+                        $('#btn-delete2').hide();
                     }
                     else if(!result.status && result.message == 'Unauthorized'){
                         window.location.href = "{{ url('esaku-auth/sesi-habis') }}";

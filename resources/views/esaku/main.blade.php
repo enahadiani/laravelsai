@@ -147,7 +147,7 @@
         .close
         {
             line-height:1.5;padding: 0 !important;background: none;appearance: unset;opacity: unset;position: relative;
-            right:-40px !important;top:5px !important;
+            right:-40px !important;top:5px !important;margin-right:0 !important;
         }
         .close > span 
         {

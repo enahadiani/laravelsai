@@ -3,7 +3,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:800px">
             <div class="modal-content" style="border-radius:0.75em">
                 <div class="modal-header py-0" style="display:block;height:49px" >
-                    <h6 class="py-2" style="position: absolute;" id="modal-preview-judul">Preview Data</h6>
+                    <h6 style="position: absolute;" id="modal-preview-judul">Preview Data</h6>
                     <span id="modal-preview-nama" style="display:none"></span><span id="modal-preview-id" style="display:none"></span> 
                     <button type="button" class="close float-right ml-2" data-dismiss="modal" aria-label="Close" id="preview-close">
                     <span>×</span>

@@ -55,7 +55,7 @@ class ReferensiTransController extends Controller
         }
     }
 
-    public function show($id) {
+    public function getData($id) {
         try{
             $client = new Client();
             $response = $client->request('GET',  config('api.url').'toko-master/reftrans-detail?kode_ref='.$id,
