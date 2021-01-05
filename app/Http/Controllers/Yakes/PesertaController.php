@@ -31,7 +31,7 @@ class PesertaController extends Controller
     public function index(){
         try {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'yakes-master/dashPeserta',[
+            $response = $client->request('GET',  config('api.url').'yakes-trans/dashPeserta',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -49,7 +49,7 @@ class PesertaController extends Controller
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(),true);
-            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+            return response()->json(['message' => $res['message'], 'status'=>false], 200);
         }
     }
 
@@ -144,7 +144,8 @@ class PesertaController extends Controller
     public function store(Request $request) {
 
         $this->validate($request, [
-            'periode' => 'required'
+            'periode' => 'required',
+            'keterangan' => 'required'
         ]);
 
         try {
@@ -157,6 +158,7 @@ class PesertaController extends Controller
                 ],
                 'form_params' => [
                     'periode' => $request->periode,  
+                    'keterangan' => $request->keterangan,  
                     'nik_user' => Session::get('nikUser')
                 ]
             ]);

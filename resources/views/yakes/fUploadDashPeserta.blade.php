@@ -244,6 +244,29 @@
         dataTable.page.len(parseInt(selText)).draw();
     });
 
+    
+    $('#saku-datatable').on('click', '#btn-tambah', function(){
+        $('#row-id').hide();
+        $('#method').val('post');
+        $('#judul-form').html('Upload Peserta');
+        $('#btn-update').attr('id','btn-save');
+        $('#btn-save').attr('type','submit');
+        $('#form-tambah')[0].reset();
+        $('#form-tambah').validate().resetForm();
+        $('#id').val('');
+        $('#input-grid tbody').html('');
+        $('#saku-datatable').hide();
+        $('#saku-form').show();
+    });
+
+    $('#saku-form').on('click', '#btn-kembali', function(){
+        var kode = null;
+        msgDialog({
+            id:kode,
+            type:'keluar'
+        });
+    });
+
     // SIMPAN DATA
     $('#form-tambah').validate({
         ignore: [],
