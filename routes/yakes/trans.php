@@ -19,6 +19,7 @@ Route::post('anggaran-upload', 'Yakes\AnggaranController@importExcel');
 Route::get('anggaran-load', 'Yakes\AnggaranController@loadAnggaran');
 Route::post('anggaran', 'Yakes\AnggaranController@store');
 
+Route::get('hrKaryawan', 'Yakes\HrKaryawanController@index');
 Route::post('hrKaryawan-import', 'Yakes\HrKaryawanController@importExcel');
 Route::get('hrKaryawan-tmp', 'Yakes\HrKaryawanController@getKaryawanTmp');
 Route::post('hrKaryawan', 'Yakes\HrKaryawanController@store');
