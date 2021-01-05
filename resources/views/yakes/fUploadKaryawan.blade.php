@@ -1,7 +1,7 @@
 
     <link rel="stylesheet" href="{{ asset('trans.css') }}" />
     <!-- LIST DATA -->
-    <x-list-data judul="Data Upload Karyawan" tambah="true" :thead="array('No Bukti','Tanggal','Periode','Keterangan','Total Baris')" :thwidth="array(15,10,10,55,10)" :thclass="array('','','','','')" />
+    <x-list-data judul="Data Upload Karyawan" tambah="true" :thead="array('No Bukti','Tanggal','Periode','Keterangan','Total Baris')" :thwidth="array(15,15,10,50,10)" :thclass="array('','','','','')" />
     <!-- END LIST DATA -->
 
     <!-- FORM INPUT -->
@@ -202,7 +202,7 @@
             }
         ],
         [
-            { data: 'no_agg' },
+            { data: 'no_bukti' },
             { data: 'tgl_input' },
             { data: 'periode' },
             { data: 'keterangan' },
