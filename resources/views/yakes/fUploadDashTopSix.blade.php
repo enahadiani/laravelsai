@@ -188,7 +188,7 @@
     // LIST DATA
     var listData = generateTable(
         "table-data",
-        "{{ url('yakes-trans/dashKunjungan') }}", 
+        "{{ url('yakes-trans/dashTopSix') }}", 
         [
             {
                 "targets": 0,
@@ -262,7 +262,7 @@
     $('#saku-datatable').on('click', '#btn-tambah', function(){
         $('#row-id').hide();
         $('#method').val('post');
-        $('#judul-form').html('Upload Dash Kunjungan');
+        $('#judul-form').html('Upload Dash Top Six');
         $('#btn-update').attr('id','btn-save');
         $('#btn-save').attr('type','submit');
         $('#form-tambah')[0].reset();
@@ -425,7 +425,7 @@
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
             formData.append('periode',$('#periode')[0].selectize.getValue());
-            formData.append('keterangan',$('#keterangan')[0].selectize.getValue());
+            formData.append('keterangan',$('#keterangan').val());
             $('.pesan-upload').show();
             $('.pesan-upload-judul').html('Proses upload...');
             $('.pesan-upload-judul').removeClass('text-success');
