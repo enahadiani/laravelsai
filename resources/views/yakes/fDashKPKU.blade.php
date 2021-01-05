@@ -504,8 +504,9 @@
     $('#form-filter').on('click', '#btn-tampil', function(){
         $('#detail-kpku').empty();
         $('#judul-chart').text(judul);
-        keterangan = "Tahun "+tahun;
-        getDataKPKU(jenis, tahun);
+        var thn = parseInt($('.dropdown-periode > button ').text());
+        keterangan = "Tahun "+thn;
+        getDataKPKU(jenis, thn);
         $('#keterangan-filter').html(keterangan);
         $('#modalFilter').modal('hide');
     })
