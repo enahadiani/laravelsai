@@ -362,7 +362,7 @@
     // ENTER FIELD FORM
     $('#periode,#keterangan').keydown(function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['periode','file'];
+        var nxt = ['periode','keterangan'];
         if (code == 13 || code == 40) {
             e.preventDefault();
             var idx = nxt.indexOf(e.target.id);

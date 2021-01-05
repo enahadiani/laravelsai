@@ -24,6 +24,7 @@ Route::post('hrKaryawan-import', 'Yakes\HrKaryawanController@importExcel');
 Route::get('hrKaryawan-tmp', 'Yakes\HrKaryawanController@getKaryawanTmp');
 Route::post('hrKaryawan', 'Yakes\HrKaryawanController@store');
 
+Route::get('dashPeserta', 'Yakes\PesertaController@index');
 Route::post('dashPeserta-import', 'Yakes\PesertaController@importExcel');
 Route::get('dashPeserta-tmp', 'Yakes\PesertaController@getPesertaTmp');
 Route::post('dashPeserta', 'Yakes\PesertaController@store');
