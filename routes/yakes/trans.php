@@ -34,18 +34,22 @@ Route::post('dashKunjungan-import', 'Yakes\KunjunganController@importExcel');
 Route::get('dashKunjungan-tmp', 'Yakes\KunjunganController@getKunjunganTmp');
 Route::post('dashKunjungan', 'Yakes\KunjunganController@store');
 
+Route::get('dashTopSix', 'Yakes\TopSixController@index');
 Route::post('dashTopSix-import', 'Yakes\TopSixController@importExcel');
 Route::get('dashTopSix-tmp', 'Yakes\TopSixController@getTopSixTmp');
 Route::post('dashTopSix', 'Yakes\TopSixController@store');
 
+Route::get('dashSDMCulture', 'Yakes\SDMCultureController@index');
 Route::post('dashSDMCulture-import', 'Yakes\SDMCultureController@importExcel');
 Route::get('dashSDMCulture-tmp', 'Yakes\SDMCultureController@getSDMCultureTmp');
 Route::post('dashSDMCulture', 'Yakes\SDMCultureController@store');
 
+Route::get('dashKontrakManage', 'Yakes\KontrakManagemenController@index');
 Route::post('dashKontrakManage-import', 'Yakes\KontrakManagemenController@importExcel');
 Route::get('dashKontrakManage-tmp', 'Yakes\KontrakManagemenController@getKontrakManagemenTmp');
 Route::post('dashKontrakManage', 'Yakes\KontrakManagemenController@store');
 
+Route::get('dashBinaSehat', 'Yakes\BinaSehatController@index');
 Route::post('dashBinaSehat-import', 'Yakes\BinaSehatController@importExcel');
 Route::get('dashBinaSehat-tmp', 'Yakes\BinaSehatController@getBinaSehatTmp');
 Route::post('dashBinaSehat', 'Yakes\BinaSehatController@store');
@@ -66,6 +70,7 @@ Route::delete('setting-rasio', 'Yakes\SettingRasioController@destroy');
 Route::get('setting-rasio-klp', 'Yakes\SettingRasioController@getKlp');
 Route::get('setting-rasio-neraca', 'Yakes\SettingRasioController@getNeraca');
 
+Route::get('arus-kas', 'Yakes\ArusKasController@index');
 Route::post('arus-kas-import', 'Yakes\ArusKasController@importExcel');
 Route::get('arus-kas-tmp', 'Yakes\ArusKasController@getArusKasTmp');
 Route::post('arus-kas', 'Yakes\ArusKasController@store');
