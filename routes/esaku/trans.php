@@ -38,11 +38,13 @@ Route::get('retur-beli-detail/{no_bukti1}/{no_bukti2}/{no_bukti3}', 'Esaku\Retur
 
 // Stok Opname //
 Route::get('stok-opname', 'Esaku\StokOpnameController@index');
+Route::get('stok-opname-detail', 'Esaku\StokOpnameController@show');
 Route::get('stok-opname-exec', 'Esaku\StokOpnameController@execSP');
 Route::get('stok-opname-load', 'Esaku\StokOpnameController@load');
 Route::post('upload-barang-fisik', 'Esaku\StokOpnameController@importExcel');
 Route::post('stok-opname-rekon', 'Esaku\StokOpnameController@storeRekon');
 Route::post('stok-opname', 'Esaku\StokOpnameController@store');
+Route::post('stok-opname-edit', 'Esaku\StokOpnameController@update');
 Route::delete('stok-opname', 'Esaku\StokOpnameController@destroy');
 
 // Pemasukan Routes //

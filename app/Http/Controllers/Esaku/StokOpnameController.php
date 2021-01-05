@@ -176,10 +176,10 @@ class StokOpnameController extends Controller
         }
     }
 
-    public function show($id) {
+    public function show(Request $request) {
         try{
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'toko-trans/stok-opname-edit?no_bukti='.$id,
+            $response = $client->request('GET',  config('api.url').'toko-trans/stok-opname-edit?no_bukti='.$request->no_bukti,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -202,7 +202,7 @@ class StokOpnameController extends Controller
         }
     }
 
-    public function update(Request $request, $id) {
+    public function update(Request $request) {
         $this->validate($request, [
             'tanggal' => 'required',
             'deskripsi' => 'required',
@@ -211,26 +211,29 @@ class StokOpnameController extends Controller
 
         try {
             $client = new Client();
-            $response = $client->request('PUT',  config('api.url').'toko-master/barang-satuan?kode_satuan='.$id,[
+            $response = $client->request('PUT',config('api.url').'toko-trans/stok-opname?no_bukti='.$request->no_bukti,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
                 ],
                 'form_params' => [
-                    'kode_satuan' => $request->kode_satuan,
-                    'nama' => $request->nama,
+                    'tanggal' => $request->tanggal,
+                    'deskripsi' => $request->deskripsi,
+                    'kode_gudang' => $request->kode_gudang,
+                    'kode_pp' => Session::get('kodePP')
                 ]
             ]);
             if ($response->getStatusCode() == 200) { // 200 OK
                 $response_data = $response->getBody()->getContents();
                 
                 $data = json_decode($response_data,true);
-                return response()->json(['data' => $data], 200);  
+                return response()->json($data, 200);  
             }
 
         } catch (BadResponseException $ex) {
                 $response = $ex->getResponse();
                 $res = json_decode($response->getBody(),true);
+                // $data = $res;
                 $data['message'] = $res['message'];
                 $data['status'] = false;
                 return response()->json(['data' => $data], 500);
