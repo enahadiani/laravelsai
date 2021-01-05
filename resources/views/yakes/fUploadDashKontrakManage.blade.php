@@ -62,6 +62,7 @@
                                                     <th>Formula</th>
                                                     <th>Ach</th>
                                                     <th>Score</th>
+                                                    <th>Warna</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -178,7 +179,8 @@
             { data: 'real'},
             { data: 'formula'},
             { data: 'ach'},
-            { data: 'score'}
+            { data: 'score'},
+            { data: 'warna'}
         ],
         []
     );
