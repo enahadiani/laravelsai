@@ -2,7 +2,7 @@
 
     function drawLap(formData){
         saiPostLoad("{{ url('yakes-report/lap-kepesertaan') }}", null, formData, null, function(res){
-           if(res.result.length > 0){
+           if(res.result.length > 0 && res.result[0].total != null){
 
                 $('#pagination').html('');
                 var show = $('#show').val();
@@ -92,87 +92,98 @@
             <div class='row'>
                 <div class='col-md-3 col-12'></div>
                 <div class='col-md-2 col-4'><div class='card box-aqua text-center'><h3 class='bold'>`+sepNum(data[0].total)+`</h3><p>Total Peserta</p></div></div>
-                <div class='col-md-2 col-4'><div class='card box-aqua text-center'><h3 class='bold'>`+sepNum(res.res.data2[1].tot_jenis)+`</h3><p>Pensiunan</p></div></div>
-                <div class='col-md-2 col-4'><div class='card box-aqua text-center'><h3 class='bold'>`+sepNum(res.res.data2[0].tot_jenis)+`</h3><p>Karyawan</p></div></div>
+                <div class='col-md-2 col-4'><div class='card box-aqua text-center'><h3 class='bold'>`+(res.res.data2.length > 0 ? sepNum(res.res.data2[1].tot_jenis) : '' )+`</h3><p>Pensiunan</p></div></div>
+                <div class='col-md-2 col-4'><div class='card box-aqua text-center'><h3 class='bold'>`+(res.res.data2.length > 0 ? sepNum(res.res.data2[0].tot_jenis) : '' )+`</h3><p>Karyawan</p></div></div>
                 <div class='col-md-3 col-12'></div>
             </div>`;
             html+=`
             <div class='row mt-4'>`;
                 var dt = res.res.data3.reverse();
-                for(var i=0; i < dt.length;i++){
-                    var line = dt[i];
-                    if(line.jenis == "PENSIUN"){
-                        var col = 'col-md-3';
-                    }else{
-                        
-                        var col = 'col-md-4';
-                    }
-                    html+=`
-                    <div class='col-md-6 col-12'>
-                        <p class='text-center mt-2'>`+(line.jenis == 'PEGAWAI' ? 'KARYAWAN' : line.jenis)+`</p>
-                        <div class='row'>
-                            <div class='`+col+` text-center'>
-                                <div class='glyph'>
-                                    <div class='glyph-icon iconsminds-business-man'></div>
-                                    <div class='class-name'>`+sepNum(line.kk)+`</div>
-                                    <span>KK</span>
-                                </div>
-                            </div>
-                            <div class='`+col+` text-center'>
-                                <div class='glyph'>
-                                    <div class='glyph-icon iconsminds-male-female'></div>
-                                    <div class='class-name'>`+sepNum(line.pas)+`</div>
-                                    <span>Pasangan</span>
-                                </div>
-                            </div>
-                            <div class='`+col+` text-center'>
-                                <div class='glyph'>
-                                    <div class='glyph-icon iconsminds-female'></div>
-                                    <div class='class-name'>`+sepNum(line.anak)+`</div>
-                                    <span>Anak</span>
-                                </div>
-                            </div>`;
-                            if(line.jenis == "PENSIUN"){
-
-                                html+=`<div class='`+col+` text-center'>
+                if(dt.length > 0){
+                    for(var i=0; i < dt.length;i++){
+                        var line = dt[i];
+                        if(line.jenis == "PENSIUN"){
+                            var col = 'col-md-3';
+                        }else{
+                            
+                            var col = 'col-md-4';
+                        }
+                        html+=`
+                        <div class='col-md-6 col-12'>
+                            <p class='text-center mt-2'>`+(line.jenis == 'PEGAWAI' ? 'KARYAWAN' : line.jenis)+`</p>
+                            <div class='row'>
+                                <div class='`+col+` text-center'>
                                     <div class='glyph'>
-                                        <div class='glyph-icon iconsminds-male'></div>
-                                        <div class='class-name'>`+sepNum(line.jd)+`</div>
-                                        <span>JD/DD</span>
+                                        <div class='glyph-icon iconsminds-business-man'></div>
+                                        <div class='class-name'>`+sepNum(line.kk)+`</div>
+                                        <span>KK</span>
+                                    </div>
+                                </div>
+                                <div class='`+col+` text-center'>
+                                    <div class='glyph'>
+                                        <div class='glyph-icon iconsminds-male-female'></div>
+                                        <div class='class-name'>`+sepNum(line.pas)+`</div>
+                                        <span>Pasangan</span>
+                                    </div>
+                                </div>
+                                <div class='`+col+` text-center'>
+                                    <div class='glyph'>
+                                        <div class='glyph-icon iconsminds-female'></div>
+                                        <div class='class-name'>`+sepNum(line.anak)+`</div>
+                                        <span>Anak</span>
                                     </div>
                                 </div>`;
-                            }
-                            html+=`
-                            <div class='col-md-12 mt-2'>
-                                <table class='report-table table-striped table-bordered' width='100%'>
-                                    <tr>
-                                        <th width='50%'>Area</th>
-                                        <th width='25%'>Jumlah</th>
-                                        <th width='25%'>%</th>
-                                    </tr>
-                                    `;
-                                    var det =``;
-                                    var total = parseFloat(line.kk)+parseFloat(line.pas)+parseFloat(line.anak)+parseFloat(line.jd);
-                                    for(var j=0; j < res.res.data4.length; j++){
-                                        var line2 = res.res.data4[j];
-                                        if(line.jenis == line2.jenis){
-                                            var jumlah = parseFloat(line2.kk)+parseFloat(line2.pas)+parseFloat(line2.anak)+parseFloat(line2.jd);
-                                            var persen = (jumlah/total)*100;
-                                            det +=`
-                                            <tr>
-                                                <td width='50%'>`+line2.nama+`</td>
-                                                <td width='25%' class='text-right'>`+sepNum(jumlah)+`</td>
-                                                <td width='25%' class='text-right'>`+sepNum(persen)+`%</td>
-                                            </tr>
-                                            `;
+                                if(line.jenis == "PENSIUN"){
+    
+                                    html+=`<div class='`+col+` text-center'>
+                                        <div class='glyph'>
+                                            <div class='glyph-icon iconsminds-male'></div>
+                                            <div class='class-name'>`+sepNum(line.jd)+`</div>
+                                            <span>JD/DD</span>
+                                        </div>
+                                    </div>`;
+                                }
+                                html+=`
+                                <div class='col-md-12 mt-2'>
+                                    <table class='report-table table-striped table-bordered' width='100%'>
+                                        <tr>
+                                            <th width='50%'>Area</th>
+                                            <th width='25%'>Jumlah</th>
+                                            <th width='25%'>%</th>
+                                        </tr>
+                                        `;
+                                        var det =``;
+                                        var total = parseFloat(line.kk)+parseFloat(line.pas)+parseFloat(line.anak)+parseFloat(line.jd);
+                                        var jum =0;
+                                        var per =0;
+                                        for(var j=0; j < res.res.data4.length; j++){
+                                            var line2 = res.res.data4[j];
+                                            if(line.jenis == line2.jenis){
+                                                var jumlah = parseFloat(line2.kk)+parseFloat(line2.pas)+parseFloat(line2.anak)+parseFloat(line2.jd);
+                                                var persen = (jumlah/total)*100;
+                                                jum+=jumlah;
+                                                per+=persen;
+                                                det +=`
+                                                <tr>
+                                                    <td width='50%'>`+line2.nama+`</td>
+                                                    <td width='25%' class='text-right'>`+sepNum(jumlah)+`</td>
+                                                    <td width='25%' class='text-right'>`+sepNum(persen)+`%</td>
+                                                </tr>
+                                                `;
+                                            }
                                         }
-                                    }
-                                    html+=det+`
-                                </table>
+                                        html+=det+`
+                                        <tr>
+                                            <td width='50%' class='bold'>Total</td>
+                                            <td width='25%' class='text-right bold'>`+sepNum(jum)+`</td>
+                                            <td width='25%' class='text-right bold'>`+sepNum(per)+`%</td>
+                                        </tr>
+                                    </table>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    `;
+                        `;
+                    }
                 }
                 // html+=`
                 // <div class='col-md-6 col-12'>
