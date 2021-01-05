@@ -19,14 +19,17 @@ Route::post('anggaran-upload', 'Yakes\AnggaranController@importExcel');
 Route::get('anggaran-load', 'Yakes\AnggaranController@loadAnggaran');
 Route::post('anggaran', 'Yakes\AnggaranController@store');
 
+Route::get('hrKaryawan', 'Yakes\HrKaryawanController@index');
 Route::post('hrKaryawan-import', 'Yakes\HrKaryawanController@importExcel');
 Route::get('hrKaryawan-tmp', 'Yakes\HrKaryawanController@getKaryawanTmp');
 Route::post('hrKaryawan', 'Yakes\HrKaryawanController@store');
 
+Route::get('dashPeserta', 'Yakes\PesertaController@index');
 Route::post('dashPeserta-import', 'Yakes\PesertaController@importExcel');
 Route::get('dashPeserta-tmp', 'Yakes\PesertaController@getPesertaTmp');
 Route::post('dashPeserta', 'Yakes\PesertaController@store');
 
+Route::get('dashKunjungan', 'Yakes\KunjunganController@index');
 Route::post('dashKunjungan-import', 'Yakes\KunjunganController@importExcel');
 Route::get('dashKunjungan-tmp', 'Yakes\KunjunganController@getKunjunganTmp');
 Route::post('dashKunjungan', 'Yakes\KunjunganController@store');

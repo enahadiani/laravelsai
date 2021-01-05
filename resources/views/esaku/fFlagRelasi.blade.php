@@ -285,7 +285,7 @@
     // END 
 
     // LIST DATA
-    var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
+    var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a>";
     
     var dataTable = $("#table-data").DataTable({
         destroy: true,
@@ -1038,7 +1038,6 @@
                     $('#id').val('edit');
                     $('#method').val('put');
                     $('#judul-form').html('Edit Data Flag Relasi');
-                    getForChangeFlag(id);
                     var no = 1;
                     var row = "";
                     for(var i=0;i<result.daftar.data.length;i++) {

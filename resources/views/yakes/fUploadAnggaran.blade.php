@@ -1,7 +1,7 @@
 
     <link rel="stylesheet" href="{{ asset('trans.css') }}" />
     <!-- LIST DATA -->
-    <x-list-data judul="Data Upload Anggaran" tambah="true" :thead="array('No Bukti','Tanggal','Keterangan','Tahun','Nilai')" :thwidth="array(15,15,40,10,20)" :thclass="array('','','','','')" />
+    <x-list-data judul="Data Upload Anggaran" tambah="true" :thead="array('No Bukti','Tanggal','Keterangan','Tahun','Nilai','Tgl Input')" :thwidth="array(15,15,40,10,20,0)" :thclass="array('','','','','','')" />
     <!-- END LIST DATA -->
 
     <!-- FORM INPUT -->
@@ -116,6 +116,24 @@
     });
 
     // FUNCTION TAMBAHAN
+    function last_add(param,isi){
+        var rowIndexes = [];
+        dataTable.rows( function ( idx, data, node ) {             
+            if(data[param] === isi){
+                rowIndexes.push(idx);                  
+            }
+            return false;
+        }); 
+        dataTable.row(rowIndexes).select();
+        $('.selected td:eq(0)').addClass('last-add');
+        console.log('last-add');
+        setTimeout(function() {
+            console.log('timeout');
+            $('.selected td:eq(0)').removeClass('last-add');
+            dataTable.row(rowIndexes).deselect();
+        }, 1000 * 60 * 10);
+    }
+
     function getTahunSelect(){
         $.ajax({
             type: 'GET',
@@ -174,9 +192,23 @@
         "table-data",
         "{{ url('yakes-trans/anggaran') }}", 
         [
+            {
+                "targets": 0,
+                "createdCell": function (td, cellData, rowData, row, col) {
+                    if ( rowData.status == "baru" ) {
+                        $(td).parents('tr').addClass('selected');
+                        $(td).addClass('last-add');
+                    }
+                }
+            },
             {   'targets': 4, 
                 'className': 'text-right',
                 'render': $.fn.dataTable.render.number( '.', ',', 0, '' ) 
+            },
+            {
+                "targets": [5],
+                "visible": false,
+                "searchable": false
             }
         ],
         [
@@ -186,9 +218,11 @@
             } },
             { data: 'keterangan' },
             { data: 'tahun' },
-            { data: 'nilai' }
+            { data: 'nilai' },
+            { data: 'tgl_input' }
         ],
-        "{{ url('yakes-auth/sesi-habis') }}"
+        "{{ url('yakes-auth/sesi-habis') }}",
+        [[5, "desc"]]
     );
 
     var dataTable = generateTableWithoutAjax(

@@ -1,8 +1,12 @@
 
     <link rel="stylesheet" href="{{ asset('trans.css') }}" />
+    <!-- LIST DATA -->
+    <x-list-data judul="Data Upload Peserta" tambah="true" :thead="array('No Bukti','Tanggal','Periode','Keterangan','Total Baris')" :thwidth="array(15,15,10,50,10)" :thclass="array('','','','','')" />
+    <!-- END LIST DATA -->
+
     <!-- FORM INPUT -->
     <form id="form-tambah" class="tooltip-label-right" novalidate>
-        <div class="row" id="saku-form">
+        <div class="row" id="saku-form" style="display:none;">
             <div class="col-sm-12">
                 <div class="card" style=''>
                     <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;">
@@ -22,6 +26,10 @@
                                                 <label for="periode">Periode</label>
                                                 <select name="periode" id="periode">
                                                 </select>
+                                            </div>
+                                            <div class="col-md-8 col-sm-12">
+                                                <label for="keterangan" >Keterangan</label>
+                                                <textarea id="keterangan" name="keterangan" class="form-control" rows="1"></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -101,6 +109,24 @@
     });
 
     // FUNCTION TAMBAHAN
+    function last_add(param,isi){
+        var rowIndexes = [];
+        dataTable.rows( function ( idx, data, node ) {             
+            if(data[param] === isi){
+                rowIndexes.push(idx);                  
+            }
+            return false;
+        }); 
+        dataTable.row(rowIndexes).select();
+        $('.selected td:eq(0)').addClass('last-add');
+        console.log('last-add');
+        setTimeout(function() {
+            console.log('timeout');
+            $('.selected td:eq(0)').removeClass('last-add');
+            dataTable.row(rowIndexes).deselect();
+        }, 1000 * 60 * 10);
+    }
+
     function getPeriodeSelect(){
         $.ajax({
             type: 'GET',
@@ -116,7 +142,7 @@
                         for(i=0;i<result.daftar.length;i++){
                             control.addOption([{text:result.daftar[i].periode, value:result.daftar[i].periode}]);
                         }
-                        control.setValue("{{ Session::get('periode') }}".substr(0,4));
+                        control.setValue("{{ Session::get('periode') }}");
                     }
                 } 
                 else if(!result.status && result.message == "Unauthorized"){
@@ -155,6 +181,35 @@
     // END 
 
     // LIST DATA
+    var listData = generateTable(
+        "table-data",
+        "{{ url('yakes-trans/dashPeserta') }}", 
+        [
+            {
+                "targets": 0,
+                "createdCell": function (td, cellData, rowData, row, col) {
+                    if ( rowData.status == "baru" ) {
+                        $(td).parents('tr').addClass('selected');
+                        $(td).addClass('last-add');
+                    }
+                }
+            },
+            {   'targets': 4, 
+                'className': 'text-right',
+                'render': $.fn.dataTable.render.number( '.', ',', 0, '' ) 
+            }
+        ],
+        [
+            { data: 'no_bukti' },
+            { data: 'tgl_input' },
+            { data: 'periode' },
+            { data: 'keterangan' },
+            { data: 'total_upload' }
+        ],
+        "{{ url('yakes-auth/sesi-habis') }}",
+        [[1, "desc"]]
+    );
+
     var dataTable = generateTableWithoutAjax(
         "table-upload",
         [
@@ -189,12 +244,39 @@
         dataTable.page.len(parseInt(selText)).draw();
     });
 
+    
+    $('#saku-datatable').on('click', '#btn-tambah', function(){
+        $('#row-id').hide();
+        $('#method').val('post');
+        $('#judul-form').html('Upload Peserta');
+        $('#btn-update').attr('id','btn-save');
+        $('#btn-save').attr('type','submit');
+        $('#form-tambah')[0].reset();
+        $('#form-tambah').validate().resetForm();
+        $('#id').val('');
+        $('#input-grid tbody').html('');
+        $('#saku-datatable').hide();
+        $('#saku-form').show();
+    });
+
+    $('#saku-form').on('click', '#btn-kembali', function(){
+        var kode = null;
+        msgDialog({
+            id:kode,
+            type:'keluar'
+        });
+    });
+
     // SIMPAN DATA
     $('#form-tambah').validate({
         ignore: [],
         rules: 
         {
             periode:
+            {
+                required: true
+            },
+            keterangan:
             {
                 required: true
             }
@@ -231,6 +313,7 @@
                     processData: false, 
                     success:function(result){
                         if(result.data.status){
+                            listData.ajax.reload();
                             dataTable.clear().draw();
 
                             $('#form-tambah')[0].reset();
@@ -238,11 +321,11 @@
                             $('#row-id').hide();
                             $('#method').val('post');
                             $('#id').val('');
+                            $('#keterangan').text('');
 
                             msgDialog({
-                                id:'',
-                                type:'sukses',
-                                text: result.data.message
+                                id:result.data.no_bukti,
+                                type:'simpan'
                             });
                         }
                         else if(!result.data.status && result.data.message === "Unauthorized"){
@@ -283,9 +366,9 @@
     // END SIMPAN
 
     // ENTER FIELD FORM
-    $('#periode,#file').keydown(function(e){
+    $('#periode,#keterangan').keydown(function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['periode','file'];
+        var nxt = ['periode','keterangan'];
         if (code == 13 || code == 40) {
             e.preventDefault();
             var idx = nxt.indexOf(e.target.id);
@@ -328,6 +411,7 @@
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
             formData.append('periode',$('#periode')[0].selectize.getValue());
+            formData.append('keterangan',$('#keterangan').val());
             $('.pesan-upload').show();
             $('.pesan-upload-judul').html('Proses upload...');
             $('.pesan-upload-judul').removeClass('text-success');
