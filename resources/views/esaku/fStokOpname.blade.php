@@ -381,6 +381,7 @@
                     $('#row-id').hide();
                     $('#form-tambah')[0].reset();
                     $('#id').val('');
+                    $('#id_edit').val('');
                     $('#input-grid tbody').html('');
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
@@ -411,18 +412,19 @@
             url: "{{ url('esaku-trans/stok-opname-detail') }}",
             dataType: 'json',
             async:false,
-            data: {'no_bukti':id},
+            data: 'no_bukti='+id,
             success:function(result){
-                if(result.status){
-                    $('#id').val('edit');
+                var data = result.data;
+                if(data.status){
+                    $('#id_edit').val('edit');
                     $('#no_bukti').val(id);
                     $('#no_bukti').attr('readonly', true);
-                    $('#tanggal').val(result.daftar[0].tanggal);
-                    $('#deskripsi').val(result.daftar[0].keterangan);
-                    $('#kode_gudang')[0].selectize.setValue(result.daftar[0].param1);
-                    if(result.daftar2.length > 0){
+                    $('#tanggal').val(data.data[0].tanggal);
+                    $('#deskripsi').val(data.data[0].keterangan);
+                    $('#kode_gudang')[0].selectize.setValue(data.data[0].param1);
+                    if(data.data_detail.length > 0){
                         table.clear().draw();
-                        table.rows.add(result.daftar2).draw(false);
+                        table.rows.add(data.data_detail).draw(false);
                     }
                     $('#row-id').show();
                     $('#saku-datatable').hide();
@@ -441,48 +443,40 @@
     });
 
     $('#saku-datatable').on('click','#btn-delete',function(e){
-        
-        Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.value) {
-                var kode = $(this).closest('tr').find('td:eq(0)').html(); 
-                $.ajax({
-                    type: 'DELETE',
-                    url: "{{ url('esaku-trans/stok-opname') }}",
-                    dataType: 'json',
-                    async:false,
-                    data: {'no_bukti':kode},
-                    success:function(result){
-                        if(result.data.status){
-                            dataTable.ajax.reload();
-                            Swal.fire(
-                                'Deleted!',
-                                'Your data has been deleted.',
-                                'success'
-                            )
-                        }else{
-                            Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Something went wrong!',
-                            footer: '<a href>'+result.data.message+'</a>'
-                            })
-                        }
-                    }
-                });
-                
-            }else{
-                return false;
-            }
-        })
+        var kode = $(this).closest('tr').find('td').eq(0).html();
+        msgDialog({
+            id: kode,
+            type:'hapus'
+        });
     });
+
+    function hapusData(id){
+        $.ajax({
+            type: 'DELETE',
+            url: "{{ url('esaku-trans/stok-opname') }}",
+            dataType: 'json',
+            data: 'no_bukti='+id,
+            async:false,
+            success:function(result){
+                if(result.data.status){
+                    dataTable.ajax.reload();                    
+                    showNotification("top", "center", "success",'Hapus Data','Data Stok Opname ('+id+') berhasil dihapus ');
+                    $('#modal-pesan-id').html('');
+                    $('#table-delete tbody').html('');
+                    $('#modal-pesan').modal('hide');
+                }else if(!result.data.status && result.data.message == "Unauthorized"){
+                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                }else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href>'+result.data.message+'</a>'
+                    });
+                }
+            }
+        });
+    }
 
     $('#form-tambah').validate({
         ignore: [],
@@ -505,16 +499,21 @@
         submitHandler: function (form) {
 
             var formData = new FormData(form);
-            var param = $('#id').val();
+            var param = $('#id_edit').val();
             var id = $('#no_bukti').val();
-           
+            var url = "";
+            if(param == 'edit') {
+                url = "{{ url('esaku-trans/stok-opname-edit') }}"
+            } else {
+                url = "{{ url('esaku-trans/stok-opname') }}"
+            }
             for(var pair of formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
 
             $.ajax({
                 type: 'POST',
-                url:"{{ url('esaku-trans/stok-opname') }}",
+                url:url,
                 dataType: 'json',
                 data: formData,
                 async:false,
