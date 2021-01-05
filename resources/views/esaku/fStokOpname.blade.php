@@ -46,8 +46,8 @@
                                         <textarea name="deskripsi" class="form-control" id="deskripsi" rows="4"></textarea>
                                     </div>
                                     <div class="col-lg-6 col-sm-12" style="min-height: 50px;">
-                                        <button type="button" class="btn btn-primary ml-2" id="btn-rekon" style="float: right;position: absolute;bottom: 0;right: 15px">Rekon</button>
-                                        <button type="button" class="btn btn-primary ml-2" id="btn-load" style="float: right;position: absolute;bottom: 0;right: 95px;">Load</button>
+                                        <button type="button" class="btn btn-primary ml-2" id="btn-rekon" style="float: right;position: absolute;bottom: 0;right: 15px;">Rekon</button>
+                                        <button type="button" class="btn btn-primary ml-2" id="btn-load" style="float: right;position: absolute;bottom: 0;right: 95px;margin-right:8px;">Load</button>
                                     </div>
                                 </div>
                             </div>
@@ -374,6 +374,9 @@
             async:false,
             success:function(result){
                 if(result.status){
+                    var select = $('#kode_gudang').selectize();
+                    var control = select[0].selectize;
+                    control.clear();    
                     $('#judul-form').html('Form Stok Opname');
                     $('#row-id').hide();
                     $('#form-tambah')[0].reset();
