@@ -571,6 +571,7 @@
             processData: false, 
             success:function(result){
                 // alert('Upload data fisik '+result.message);
+                $('#file_dok').val('');
                 if(result.status){
                     // location.reload();
                     // dataTable.ajax.reload();
