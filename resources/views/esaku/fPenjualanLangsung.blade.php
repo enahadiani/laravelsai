@@ -91,7 +91,96 @@
                                     </div> 
                                 </div>
                                 <div class="tab-pane" id="customer" role="tabpanel">
-                                    ini tab customer
+                                    <div class="col-12 mt-4" style="min-height:328px">
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6 col-sm-12">
+                                                <div class="row">
+                                                    <div class="col-md-6 col-sm-12">
+                                                        <label for="kode_cust">Kode Customer</label>
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                                                <span class="input-group-text info-code_kode_cust" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                                            </div>
+                                                            <input type="text" class="form-control inp-label-kode_cust" id="kode_cust" name="kode_cust" value="" title="">
+                                                            <span class="info-name_kode_cust hidden">
+                                                                <span></span> 
+                                                            </span>
+                                                            <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                                            <i class="simple-icon-magnifier search-item2" id="search_kode_cust"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-12">
+                                                        <label for="nama_cust">Nama Customer</label>
+                                                        <input class="form-control" type="text" id="nama_cust" name="nama_cust" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-md-6 col-sm-12">
+                                                <div class="row">
+                                                    <div class="col-md-6 col-sm-12">
+                                                        <label for="kota">Kota</label>
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                                                <span class="input-group-text info-code_kota" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                                            </div>
+                                                            <input type="text" class="form-control inp-label-kota" id="kota" name="kota" value="" title="">
+                                                            <span class="info-name_kota hidden">
+                                                                <span></span> 
+                                                            </span>
+                                                            <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                                            <i class="simple-icon-magnifier search-item2" id="search_kode_cust"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-12">
+                                                        <label for="kecamatan">Kecamatan</label>
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                                                <span class="input-group-text info-code_kecamatan" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                                            </div>
+                                                            <input type="text" class="form-control inp-label-kecamatan" id="kecamatan" name="kecamatan" value="" title="">
+                                                            <span class="info-name_kecamatan hidden">
+                                                                <span></span> 
+                                                            </span>
+                                                            <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                                            <i class="simple-icon-magnifier search-item2" id="search_kode_cust"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6 col-sm-12">
+                                                <div class="row">
+                                                    <div class="col-md-6 col-sm-12">
+                                                        <label for="no_telp">No Telp Customer</label>
+                                                        <input class="form-control" type="text" id="telp_cust" name="telp_cust" required>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-12">
+                                                        <label for="kode_cuts">Provinsi</label>
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                                                <span class="input-group-text info-code_provinsi" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                                            </div>
+                                                            <input type="text" class="form-control inp-label-provinsi" id="provinsi" name="provinsi" value="" title="">
+                                                            <span class="info-name_provinsi hidden">
+                                                                <span></span> 
+                                                            </span>
+                                                            <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                                            <i class="simple-icon-magnifier search-item2" id="search_kode_cust"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-md-6 col-sm-12">
+                                                <div class="row">
+                                                    <div class="col-md-12 col-sm-12">
+                                                        <label for="alamat">Alamat</label>
+                                                        <input class="form-control" type="text" id="alamat" name="alamat" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="tab-pane" id="kirim" role="tabpanel">
                                     ini tab kirim
