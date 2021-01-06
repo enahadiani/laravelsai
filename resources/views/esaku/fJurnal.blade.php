@@ -134,7 +134,7 @@
                                             padding: 1rem;
                                             margin: -1rem 0 -1rem auto;
                                         }
-                                        .check-item{
+                                        .hapus-item{
                                             cursor:pointer;
                                         }
                                         .selected{
@@ -751,7 +751,7 @@
         $('#input-grid tbody').html('');
         $('#saku-datatable').hide();
         $('#saku-form').show();
-        addRowDef();
+        addRow("default");
     });
     // END BUTTON TAMBAH
 
@@ -892,6 +892,7 @@
         
         $('#btn-save').attr('type','button');
         $('#btn-save').attr('id','btn-update');
+        $('#modal-preview').modal('hide');
         editData(id);
     });
 
@@ -1055,23 +1056,47 @@
     });
 
     // GRID JURNAL
-    function addRowDef(){
+    function addRow(param){
+        if(param == "copy"){
+            var kode_akun = $('#input-grid tbody tr.selected-row').find(".inp-kode").val();
+            var nama_akun = $('#input-grid tbody tr.selected-row').find(".inp-nama").val();
+            var dc = $('#input-grid tbody tr.selected-row').find(".td-dc").text();
+            var keterangan = $('#input-grid tbody tr.selected-row').find(".inp-ket").val();
+            var nilai = $('#input-grid tbody tr.selected-row').find(".inp-nilai").val();
+            var kode_pp = $('#input-grid tbody tr.selected-row').find(".inp-pp").val();
+            var nama_pp = $('#input-grid tbody tr.selected-row').find(".inp-nama_pp").val();
+        }else{
+            
+            var kode_akun = "";
+            var nama_akun = "";
+            var dc = "";
+            var keterangan = "";
+            var nilai = "";
+            var kode_pp = "";
+            var nama_pp = "";
+        }
         var no=$('#input-grid .row-jurnal:last').index();
         no=no+2;
         var input = "";
         input += "<tr class='row-jurnal'>";
         input += "<td class='no-jurnal text-center'>"+no+"</td>";
                                     
-        input += "<td><span class='td-kode tdakunke"+no+" tooltip-span'></span><input type='text' name='kode_akun[]' class='form-control inp-kode akunke"+no+" hidden' value='' required='' style='z-index: 1;position: relative;'  id='akunkode"+no+"'><a href='#' class='search-item search-akun hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
-        input += "<td><span class='td-nama tdnmakunke"+no+" tooltip-span'></span><input type='text' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+" hidden'  value='' readonly></td>";
-        input += "<td><span class='td-dc tddcke"+no+" tooltip-span'></span><select hidden name='dc[]' class='form-control inp-dc dcke"+no+"' value='' required><option value='D'>D</option><option value='C'>C</option></select></td>";
-        input += "<td><span class='td-ket tdketke"+no+" tooltip-span'></span><input type='text' name='keterangan[]' class='form-control inp-ket ketke"+no+" hidden'  value='' required></td>";
-        input += "<td class='text-right'><span class='td-nilai tdnilke"+no+" tooltip-span'></span><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='' required></td>";
-        input += "<td><span class='td-pp tdppke"+no+" tooltip-span'></span><input type='text'  id='ppkode"+no+"' name='kode_pp[]' class='form-control inp-pp ppke"+no+" hidden' value='' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-pp hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
-        input += "<td><span class='td-nama_pp tdnmppke"+no+" tooltip-span'></span><input type='text' name='nama_pp[]' class='form-control inp-nama_pp nmppke"+no+" hidden'  value='' readonly></td>";
+        input += "<td><span class='td-kode tdakunke"+no+" tooltip-span'>"+kode_akun+"</span><input type='text' name='kode_akun[]' class='form-control inp-kode akunke"+no+" hidden' value='"+kode_akun+"' required='' style='z-index: 1;position: relative;' id='akunkode"+no+"'><a href='#' class='search-item search-akun hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+        input += "<td><span class='td-nama tdnmakunke"+no+" tooltip-span'>"+nama_akun+"</span><input type='text' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+" hidden'  value='"+nama_akun+"' readonly></td>";
+        input += "<td><span class='td-dc tddcke"+no+" tooltip-span'>"+dc+"</span><select hidden name='dc[]' class='form-control inp-dc dcke"+no+"' value='' required><option value='D'>D</option><option value='C'>C</option></select></td>";
+        input += "<td><span class='td-ket tdketke"+no+" tooltip-span'>"+keterangan+"</span><input type='text' name='keterangan[]' class='form-control inp-ket ketke"+no+" hidden'  value='"+keterangan+"' required></td>";
+        input += "<td class='text-right'><span class='td-nilai tdnilke"+no+" tooltip-span'>"+nilai+"</span><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='"+nilai+"' required></td>";
+        input += "<td><span class='td-pp tdppke"+no+" tooltip-span'>"+kode_pp+"</span><input type='text' id='ppkode"+no+"' name='kode_pp[]' class='form-control inp-pp ppke"+no+" hidden' value='"+kode_pp+"' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-pp hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+        input += "<td><span class='td-nama_pp tdnmppke"+no+" tooltip-span'>"+nama_pp+"</span><input type='text' name='nama_pp[]' class='form-control inp-nama_pp nmppke"+no+" hidden'  value='"+nama_pp+"' readonly ></td>";
         input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
         input += "</tr>";
         $('#input-grid tbody').append(input);
+
+        if(param != "copy"){
+            $('.row-grid:last').addClass('selected-row');
+            $('#input-grid tbody tr').not('.row-grid:last').removeClass('selected-row');
+        }
+
         $('.dcke'+no).selectize({
             selectOnTab:true,
             onChange: function(value) {
@@ -1079,6 +1104,7 @@
                 hitungTotal();
             }
         });
+        $('.dcke'+no)[0].selectize.setValue(dc);
         $('.selectize-control.dcke'+no).addClass('hidden');
         $('.nilke'+no).inputmask("numeric", {
             radixPoint: ",",
@@ -1088,6 +1114,18 @@
             rightAlign: true,
             oncleared: function () { self.Value(''); }
         });
+
+        
+        hideUnselectedRow();
+        if(param == "add"){
+            $('#input-grid td').removeClass('px-0 py-0 aktif');
+            $('#input-grid tbody tr:last').find("td:eq(1)").addClass('px-0 py-0 aktif');
+            $('#input-grid tbody tr:last').find(".inp-kode").show();
+            $('#input-grid tbody tr:last').find(".td-kode").hide();
+            $('#input-grid tbody tr:last').find(".search-akun").show();
+            $('#input-grid tbody tr:last').find(".inp-kode").focus();
+        }
+
         $('#akunkode'+no).typeahead({
             source:$dtkode_akun,
             displayText:function(item){
@@ -1121,7 +1159,6 @@
                 return $(this).text();
             }
         });
-
         hitungTotalRow();
     }
 
@@ -1321,92 +1358,7 @@
     });
 
     $('#form-tambah').on('click', '.add-row', function(){
-        var no=$('#input-grid .row-jurnal:last').index();
-        no=no+2;
-        var input = "";
-        input += "<tr class='row-jurnal'>";
-        input += "<td class='no-jurnal text-center'>"+no+"</td>";
-                                    
-        input += "<td><span class='td-kode tdakunke"+no+" tooltip-span'></span><input type='text' name='kode_akun[]' class='form-control inp-kode akunke"+no+" hidden' value='' required='' style='z-index: 1;position: relative;' id='akunkode"+no+"'><a href='#' class='search-item search-akun hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
-        input += "<td><span class='td-nama tdnmakunke"+no+" tooltip-span'></span><input type='text' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+" hidden'  value='' readonly></td>";
-        input += "<td><span class='td-dc tddcke"+no+" tooltip-span'></span><select hidden name='dc[]' class='form-control inp-dc dcke"+no+"' value='' required><option value='D'>D</option><option value='C'>C</option></select></td>";
-        input += "<td><span class='td-ket tdketke"+no+" tooltip-span'></span><input type='text' name='keterangan[]' class='form-control inp-ket ketke"+no+" hidden'  value='' required></td>";
-        input += "<td class='text-right'><span class='td-nilai tdnilke"+no+" tooltip-span'></span><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='' required></td>";
-        input += "<td><span class='td-pp tdppke"+no+" tooltip-span'></span><input type='text' id='ppkode"+no+"' name='kode_pp[]' class='form-control inp-pp ppke"+no+" hidden' value='' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-pp hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
-        input += "<td><span class='td-nama_pp tdnmppke"+no+" tooltip-span'></span><input type='text' name='nama_pp[]' class='form-control inp-nama_pp nmppke"+no+" hidden'  value='' readonly ></td>";
-        input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
-        input += "</tr>";
-        $('#input-grid tbody').append(input);
-        $('.dcke'+no).selectize({
-            selectOnTab:true,
-            onChange: function(value) {
-                $('.tddcke'+no).text(value);
-                hitungTotal();
-            }
-        });
-        $('.selectize-control.dcke'+no).addClass('hidden');
-        $('.nilke'+no).inputmask("numeric", {
-            radixPoint: ",",
-            groupSeparator: ".",
-            digits: 2,
-            autoGroup: true,
-            rightAlign: true,
-            oncleared: function () { self.Value(''); }
-        });
-        $('#input-grid td').removeClass('px-0 py-0 aktif');
-        $('#input-grid tbody tr:last').find("td:eq(1)").addClass('px-0 py-0 aktif');
-        $('#input-grid tbody tr:last').find(".inp-kode").show();
-        $('#input-grid tbody tr:last').find(".td-kode").hide();
-        $('#input-grid tbody tr:last').find(".search-akun").show();
-        $('#input-grid tbody tr:last').find(".inp-kode").focus();
-
-        $('#akunkode'+no).typeahead({
-            // source: function (cari, result) {
-            //     result($.map($dtkode_akun, function (item) {
-            //         return item.kode_akun;
-            //     }));
-            // }
-            source:$dtkode_akun,
-            // fitToElement:true,
-            displayText:function(item){
-                return item.id+' - '+item.name;
-            },
-            autoSelect:false,
-            changeInputOnSelect:false,
-            changeInputOnMove:false,
-            selectOnBlur:false,
-            afterSelect: function (item) {
-                console.log(item.id);
-            }
-        });
-
-        $('#ppkode'+no).typeahead({
-            // source: function (cari, result) {
-            //     result($.map($dtkode_pp, function (item) {
-            //         return item.kode_pp;
-            //     }));
-            // }
-            source:$dtkode_pp,
-            // fitToElement:true,
-            displayText:function(item){
-                return item.id+' - '+item.name;
-            },
-            autoSelect:false,
-            changeInputOnSelect:false,
-            changeInputOnMove:false,
-            selectOnBlur:false,
-            afterSelect: function (item) {
-                console.log(item.id);
-            }
-        });
-
-        $('.tooltip-span').tooltip({
-            title: function(){
-                return $(this).text();
-            }
-        });
-        hitungTotalRow();
-
+        addRow("add");
     });
 
     function hideUnselectedRow() {
@@ -1485,50 +1437,7 @@
             alert('Harap pilih row yang akan dicopy terlebih dahulu!');
             return false;
         }else{
-            var kode_akun = $('#input-grid tbody tr.selected-row').find(".inp-kode").val();
-            var nama_akun = $('#input-grid tbody tr.selected-row').find(".inp-nama").val();
-            var dc = $('#input-grid tbody tr.selected-row').find(".td-dc").text();
-            var keterangan = $('#input-grid tbody tr.selected-row').find(".inp-ket").val();
-            var nilai = $('#input-grid tbody tr.selected-row').find(".inp-nilai").val();
-            var kode_pp = $('#input-grid tbody tr.selected-row').find(".inp-pp").val();
-            var nama_pp = $('#input-grid tbody tr.selected-row').find(".inp-nama_pp").val();
-            var no=$('#input-grid .row-jurnal:last').index();
-            no=no+2;
-            var input = "";
-            input += "<tr class='row-jurnal'>";
-            input += "<td class='no-jurnal text-center'>"+no+"</td>";
-            input += "<td ><span class='td-kode tdakunke"+no+" tooltip-span'>"+kode_akun+"</span><input type='text' name='kode_akun[]' class='form-control inp-kode akunke"+no+" hidden' value='"+kode_akun+"' required='' style='z-index: 1;position: relative;' id='akunkode"+no+"'><a href='#' class='search-item search-akun hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
-            input += "<td><span class='td-nama tdnmakunke"+no+" tooltip-span'>"+nama_akun+"</span><input type='text' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+" hidden'  value='"+nama_akun+"' readonly></td>";
-            input += "<td><span class='td-dc tddcke"+no+" tooltip-span'>"+dc+"</span><select hidden name='dc[]' class='form-control inp-dc dcke"+no+"' value='"+dc+"' required><option value='D'>D</option><option value='C'>C</option></select></td>";
-            input += "<td><span class='td-ket tdketke"+no+" tooltip-span'>"+keterangan+"</span><input type='text' name='keterangan[]' class='form-control inp-ket ketke"+no+" hidden'  value='"+keterangan+"' required></td>";
-            input += "<td class='text-right'><span class='td-nilai tdnilke"+no+" tooltip-span'>"+nilai+"</span><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='"+nilai+"' required></td>";
-            input += "<td><span class='td-pp tdppke"+no+" tooltip-span'>"+kode_pp+"</span><input type='text' id='ppkode"+no+"' name='kode_pp[]' class='form-control inp-pp ppke"+no+" hidden' value='"+kode_pp+"' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-pp hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
-            input += "<td><span class='td-nama_pp tdnmppke"+no+" tooltip-span'>"+nama_pp+"</span><input type='text' name='nama_pp[]' class='form-control inp-nama_pp nmppke"+no+" hidden'  value='"+nama_pp+"' readonly></td>";
-            input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
-            input += "</tr>";
-            $('#input-grid tbody').append(input);
-            $('.dcke'+no).selectize({
-                selectOnTab:true,
-                onChange: function(value) {
-                    $('.tddcke'+no).text(value);
-                    hitungTotal();
-                }
-            });
-            $('.selectize-control.dcke'+no).addClass('hidden');
-            $('.nilke'+no).inputmask("numeric", {
-                radixPoint: ",",
-                groupSeparator: ".",
-                digits: 2,
-                autoGroup: true,
-                rightAlign: true,
-                oncleared: function () { self.Value(''); }
-            });
-            hitungTotal();
-            $('.tooltip-span').tooltip({
-                title: function(){
-                    return $(this).text();
-                }
-            })
+            addRow("copy");
             $("html, body").animate({ scrollTop: $(document).height() }, 1000);
         }
 

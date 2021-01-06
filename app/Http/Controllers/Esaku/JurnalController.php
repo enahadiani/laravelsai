@@ -230,11 +230,15 @@ class JurnalController extends Controller
     {
         try{
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'toko-trans/jurnal/'.$id,[
+            $response = $client->request('GET',  config('api.url').'toko-trans/jurnal-detail',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
+                ],
+                'query' =>[
+                    'no_bukti' => $id
                 ]
+
             ]);
     
             if ($response->getStatusCode() == 200) { // 200 OK
@@ -388,10 +392,13 @@ class JurnalController extends Controller
         try{
 
             $client = new Client();
-            $response = $client->request('DELETE',  config('api.url').'toko-trans/jurnal/'.$id,[
+            $response = $client->request('DELETE',  config('api.url').'toko-trans/jurnal',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
+                ],
+                'query' =>[
+                    'no_bukti' => $id
                 ]
             ]);
     
