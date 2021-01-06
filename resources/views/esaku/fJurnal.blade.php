@@ -116,16 +116,16 @@
                                         th{
                                             vertical-align:middle !important;
                                         }
-                                        /* #input-jurnal td{
+                                        /* #input-grid td{
                                             padding:0 !important;
                                         } */
-                                        #input-jurnal .selectize-input.focus, #input-jurnal input.form-control, #input-jurnal .custom-file-label
+                                        #input-grid .selectize-input.focus, #input-grid input.form-control, #input-grid .custom-file-label
                                         {
                                             border:1px solid black !important;
                                             border-radius:0 !important;
                                         }
 
-                                        #input-jurnal .selectize-input
+                                        #input-grid .selectize-input
                                         {
                                             border-radius:0 !important;
                                         } 
@@ -134,7 +134,7 @@
                                             padding: 1rem;
                                             margin: -1rem 0 -1rem auto;
                                         }
-                                        .check-item{
+                                        .hapus-item{
                                             cursor:pointer;
                                         }
                                         .selected{
@@ -142,47 +142,47 @@
                                             /* background:#4286f5 !important; */
                                             /* color:white; */
                                         }
-                                        #input-jurnal td:not(:nth-child(1)):not(:nth-child(9)):hover
+                                        #input-grid td:not(:nth-child(1)):not(:nth-child(9)):hover
                                         {
                                             /* background: var(--theme-color-6) !important;
                                             color:white; */
                                             background:#f8f8f8;
                                             color:black;
                                         }
-                                        #input-jurnal input:hover,
-                                        #input-jurnal .selectize-input:hover,
+                                        #input-grid input:hover,
+                                        #input-grid .selectize-input:hover,
                                         {
                                             width:inherit;
                                         }
-                                        #input-jurnal ul.typeahead.dropdown-menu
+                                        #input-grid ul.typeahead.dropdown-menu
                                         {
                                             width:max-content !important;
                                         }
-                                        #input-jurnal td
+                                        #input-grid td
                                         {
                                             overflow:hidden !important;
                                             height:37.2px !important;
                                             padding:0px !important;
                                         }
 
-                                        #input-jurnal span
+                                        #input-grid span
                                         {
                                             padding:0px 10px !important;
                                         }
 
-                                        #input-jurnal input,#input-jurnal .selectize-input
+                                        #input-grid input,#input-grid .selectize-input
                                         {
                                             overflow:hidden !important;
                                             height:35px !important;
                                         }
 
 
-                                        #input-jurnal td:nth-child(4)
+                                        #input-grid td:nth-child(4)
                                         {
                                             overflow:unset !important;
                                         }
                                     </style>
-                                    <table class="table table-bordered table-condensed gridexample" id="input-jurnal" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                    <table class="table table-bordered table-condensed gridexample" id="input-grid" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
                                     <thead style="background:#F8F8F8">
                                         <tr>
                                             <th style="width:3%">No</th>
@@ -247,7 +247,7 @@
     }
 
     function hitungTotalRow(){
-        var total_row = $('#input-jurnal tbody tr').length;
+        var total_row = $('#input-grid tbody tr').length;
         $('#total-row').html(total_row+' Baris');
     }
 
@@ -308,7 +308,6 @@
     var psscroll = new PerfectScrollbar(scroll);
     
     $('.selectize').selectize();
-    
     
     $("input.datepicker").datepicker({
         autoclose: true,
@@ -448,7 +447,7 @@
                             $('.td'+target2).text(result.data.data[0].nama);
 
                         }else{
-                            $("#input-jurnal td").removeClass("px-0 py-0 aktif");
+                            $("#input-grid td").removeClass("px-0 py-0 aktif");
                             $('.'+target2).closest('td').addClass("px-0 py-0 aktif");
 
                             $('.'+target1).closest('tr').find('.search-pp').hide();
@@ -533,7 +532,7 @@
                             $('.td'+target3).text('D');
                         }else{
 
-                            $("#input-jurnal td").removeClass("px-0 py-0 aktif");
+                            $("#input-grid td").removeClass("px-0 py-0 aktif");
                             $('.'+target2).closest('td').addClass("px-0 py-0 aktif");
 
                             $('.'+target1).closest('tr').find('.search-akun').hide();
@@ -582,15 +581,8 @@
     // END CBBL
 
     // BUTTON EDIT
-    $('#saku-datatable').on('click', '#btn-edit', function(){
-        var id= $(this).closest('tr').find('td').eq(0).html();
+    function editData(id){
         
-        $('#btn-save').attr('type','button');
-        $('#btn-save').attr('id','btn-update');
-        $('#judul-form').html('Edit Data Jurnal');
-        $('#form-tambah')[0].reset();
-        $('#form-tambah').validate().resetForm();
-        $iconLoad.show();
         $.ajax({
             type: 'GET',
             url: "{{ url('/esaku-trans/jurnal') }}/"+id,
@@ -606,7 +598,6 @@
                     $('#tanggal').val(reverseDate2(result.jurnal[0].tanggal,'-','/'));
                     $('#deskripsi').val(result.jurnal[0].deskripsi);
                     $('#nik_periksa').val(result.jurnal[0].nik_periksa);
-                    $('#nik_periksa').trigger('change');
                     $('#no_dokumen').val(result.jurnal[0].no_dokumen);
                     $('#total_debet').val(result.jurnal[0].nilai1);
                     $('#total_kredit').val(result.jurnal[0].nilai1);
@@ -630,7 +621,7 @@
         
                             no++;
                         }
-                        $('#input-jurnal tbody').html(input);
+                        $('#input-grid tbody').html(input);
                         $('.tooltip-span').tooltip({
                             title: function(){
                                 return $(this).text();
@@ -647,13 +638,7 @@
                                 }
                             });
                             $('#akunkode'+no).typeahead({
-                                // source: function (cari, result) {
-                                //     result($.map($dtkode_akun, function (item) {
-                                //         return item.kode_akun;
-                                //     }));
-                                // }
                                 source:$dtkode_akun,
-                                // fitToElement:true,
                                 displayText:function(item){
                                     return item.id+' - '+item.name;
                                 },
@@ -667,13 +652,7 @@
                             });
 
                             $('#ppkode'+no).typeahead({
-                                // source: function (cari, result) {
-                                //     result($.map($dtkode_pp, function (item) {
-                                //         return item.kode_pp;
-                                //     }));
-                                // }
                                 source:$dtkode_pp,
-                                // fitToElement:true,
                                 displayText:function(item){
                                     return item.id+' - '+item.name;
                                 },
@@ -701,22 +680,24 @@
                     }
                     hitungTotal();
                     hitungTotalRow();
-                    // $('#row-id').show();
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
+                    showInfoField("nik_periksa",result.jurnal[0].nik_periksa,result.jurnal[0].nama_periksa);
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
-                    // Swal.fire({
-                    //     title: 'Session telah habis',
-                    //     text: 'harap login terlebih dahulu!',
-                    //     icon: 'error'
-                    // }).then(function() {
-                        window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
-                    // })
+                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
                 }
-                $iconLoad.hide();
             }
         });
+    }
+    $('#saku-datatable').on('click', '#btn-edit', function(){
+        var id= $(this).closest('tr').find('td').eq(0).html();
+        $('#btn-save').attr('type','button');
+        $('#btn-save').attr('id','btn-update');
+        $('#judul-form').html('Edit Data Jurnal');
+        $('#form-tambah')[0].reset();
+        $('#form-tambah').validate().resetForm();
+        editData(id)
     });
     // END BUTTON EDIT
 
@@ -767,10 +748,10 @@
         $('#form-tambah')[0].reset();
         $('#form-tambah').validate().resetForm();
         $('#id').val('');
-        $('#input-jurnal tbody').html('');
+        $('#input-grid tbody').html('');
         $('#saku-datatable').hide();
         $('#saku-form').show();
-        addRowDef();
+        addRow("default");
     });
     // END BUTTON TAMBAH
 
@@ -911,111 +892,8 @@
         
         $('#btn-save').attr('type','button');
         $('#btn-save').attr('id','btn-update');
-        $iconLoad.show();
-        $.ajax({
-            type: 'GET',
-            url: "{{ url('/esaku-trans/jurnal') }}/"+id,
-            dataType: 'json',
-            async:false,
-            success:function(res){
-                var result= res.data;
-                if(result.status){
-                    $('#id').val('edit');
-                    $('#method').val('put');
-                    $('#no_bukti').val(id);
-                    $('#no_bukti').attr('readonly', true);
-                    $('#tanggal').val(reverseDate2(result.jurnal[0].tanggal,'-','/'));
-                    $('#deskripsi').val(result.jurnal[0].deskripsi);
-                    $('#nik_periksa').val(result.jurnal[0].nik_periksa);
-                    $('#nik_periksa').trigger('change');
-                    $('#no_dokumen').val(result.jurnal[0].no_dokumen);
-                    $('#total_debet').val(result.jurnal[0].nilai1);
-                    $('#total_kredit').val(result.jurnal[0].nilai1);
-                    $('#jenis').val(result.jurnal[0].jenis);
-                    if(result.detail.length > 0){
-                        var input = '';
-                        var no=1;
-                        for(var i=0;i<result.detail.length;i++){
-                            var line =result.detail[i];
-                            input += "<tr class='row-jurnal'>";
-                            input += "<td class='no-jurnal text-center'>"+no+"</td>";
-                            input += "<td ><span class='td-kode tdakunke"+no+" tooltip-span'>"+line.kode_akun+"</span><input type='text' id='akunkode"+no+"' name='kode_akun[]' class='form-control inp-kode akunke"+no+" hidden' value='"+line.kode_akun+"' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-akun hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
-                            input += "<td ><span class='td-nama tdnmakunke"+no+" tooltip-span'>"+line.nama_akun+"</span><input type='text' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+" hidden'  value='"+line.nama_akun+"' readonly></td>";
-                            input += "<td ><span class='td-dc tddcke"+no+" tooltip-span'>"+line.dc+"</span><select hidden name='dc[]' class='form-control inp-dc dcke"+no+"' value='"+line.dc+"' required><option value='D'>D</option><option value='C'>C</option></select></td>";
-                            input += "<td ><span class='td-ket tdketke"+no+" tooltip-span'>"+line.keterangan+"</span><input type='text' name='keterangan[]' class='form-control inp-ket ketke"+no+" hidden'  value='"+line.keterangan+"' required></td>";
-                            input += "<td class='text-right'><span class='td-nilai tdnilke"+no+" tooltip-span'>"+format_number(line.nilai)+"</span><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='"+parseInt(line.nilai)+"' required></td>";
-                            input += "<td ><span class='td-pp tdppke"+no+" tooltip-span'>"+line.kode_pp+"</span><input type='text' id='ppkode"+no+"' name='kode_pp[]' class='form-control inp-pp ppke"+no+" hidden' value='"+line.kode_pp+"' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-pp hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
-                            input += "<td ><span class='td-nama_pp tdnmppke"+no+" tooltip-span'>"+line.nama_pp+"</span><input type='text' name='nama_pp[]' class='form-control inp-nama_pp nmppke"+no+" hidden'  value='"+line.nama_pp+"' readonly></td>";
-                            input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
-                            input += "</tr>";
-        
-                            no++;
-                        }
-                        $('#input-jurnal tbody').html(input);
-                        no= 1;
-                        for(var i=0;i<result.detail.length;i++){
-                            var line =result.detail[i];
-                            $('.dcke'+no).selectize({
-                                selectOnTab:true,
-                                onChange: function(value) {
-                                    $('.tddcke'+no).text(value);
-                                    hitungTotal();
-                                }
-                            });
-                            $('#akunkode'+no).typeahead({
-                                source:$dtkode_akun,
-                                displayText:function(item){
-                                    return item.id+' - '+item.name;
-                                },
-                                autoSelect:false,
-                                changeInputOnSelect:false,
-                                changeInputOnMove:false,
-                                selectOnBlur:false,
-                                afterSelect: function (item) {
-                                    console.log(item.id);
-                                }
-                            });
-
-                            $('#ppkode'+no).typeahead({
-                                source:$dtkode_pp,
-                                displayText:function(item){
-                                    return item.id+' - '+item.name;
-                                },
-                                autoSelect:false,
-                                changeInputOnSelect:false,
-                                changeInputOnMove:false,
-                                selectOnBlur:false,
-                                afterSelect: function (item) {
-                                    console.log(item.id);
-                                }
-                            });
-                            $('.dcke'+no)[0].selectize.setValue(line.dc);
-                            $('.selectize-control.dcke'+no).addClass('hidden');
-                            $('.nilke'+no).inputmask("numeric", {
-                                radixPoint: ",",
-                                groupSeparator: ".",
-                                digits: 2,
-                                autoGroup: true,
-                                rightAlign: true,
-                                oncleared: function () { self.Value(''); }
-                            });
-                            no++;
-                        }
-                        
-                    }
-                    hitungTotal();
-                    hitungTotalRow();
-                    // $('#row-id').show();
-                    $('#modal-preview').modal('hide');
-                    $('#saku-datatable').hide();
-                    $('#saku-form').show();
-                }
-                else if(!result.status && result.message == 'Unauthorized'){
-                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
-                }
-                $iconLoad.hide();
-            }
-        });
+        $('#modal-preview').modal('hide');
+        editData(id);
     });
 
     $('.modal-header').on('click','#btn-cetak',function(e){
@@ -1046,7 +924,7 @@
             }
             var total_d = $('#total_debet').val();
             var total_k = $('#total_kredit').val();
-            var jumdet = $('#input-jurnal tr').length;
+            var jumdet = $('#input-grid tr').length;
 
             var param = $('#id').val();
             var id = $('#no_bukti').val();
@@ -1086,7 +964,7 @@
                             $('#method').val('post');
                             $('#judul-form').html('Tambah Data Jurnal');
                             $('#id').val('');
-                            $('#input-jurnal tbody').html('');
+                            $('#input-grid tbody').html('');
                             $('[id^=label]').html('');
                             
                             msgDialog({
@@ -1178,23 +1056,47 @@
     });
 
     // GRID JURNAL
-    function addRowDef(){
-        var no=$('#input-jurnal .row-jurnal:last').index();
+    function addRow(param){
+        if(param == "copy"){
+            var kode_akun = $('#input-grid tbody tr.selected-row').find(".inp-kode").val();
+            var nama_akun = $('#input-grid tbody tr.selected-row').find(".inp-nama").val();
+            var dc = $('#input-grid tbody tr.selected-row').find(".td-dc").text();
+            var keterangan = $('#input-grid tbody tr.selected-row').find(".inp-ket").val();
+            var nilai = $('#input-grid tbody tr.selected-row').find(".inp-nilai").val();
+            var kode_pp = $('#input-grid tbody tr.selected-row').find(".inp-pp").val();
+            var nama_pp = $('#input-grid tbody tr.selected-row').find(".inp-nama_pp").val();
+        }else{
+            
+            var kode_akun = "";
+            var nama_akun = "";
+            var dc = "";
+            var keterangan = "";
+            var nilai = "";
+            var kode_pp = "";
+            var nama_pp = "";
+        }
+        var no=$('#input-grid .row-jurnal:last').index();
         no=no+2;
         var input = "";
         input += "<tr class='row-jurnal'>";
         input += "<td class='no-jurnal text-center'>"+no+"</td>";
                                     
-        input += "<td><span class='td-kode tdakunke"+no+" tooltip-span'></span><input type='text' name='kode_akun[]' class='form-control inp-kode akunke"+no+" hidden' value='' required='' style='z-index: 1;position: relative;'  id='akunkode"+no+"'><a href='#' class='search-item search-akun hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
-        input += "<td><span class='td-nama tdnmakunke"+no+" tooltip-span'></span><input type='text' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+" hidden'  value='' readonly></td>";
-        input += "<td><span class='td-dc tddcke"+no+" tooltip-span'></span><select hidden name='dc[]' class='form-control inp-dc dcke"+no+"' value='' required><option value='D'>D</option><option value='C'>C</option></select></td>";
-        input += "<td><span class='td-ket tdketke"+no+" tooltip-span'></span><input type='text' name='keterangan[]' class='form-control inp-ket ketke"+no+" hidden'  value='' required></td>";
-        input += "<td class='text-right'><span class='td-nilai tdnilke"+no+" tooltip-span'></span><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='' required></td>";
-        input += "<td><span class='td-pp tdppke"+no+" tooltip-span'></span><input type='text'  id='ppkode"+no+"' name='kode_pp[]' class='form-control inp-pp ppke"+no+" hidden' value='' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-pp hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
-        input += "<td><span class='td-nama_pp tdnmppke"+no+" tooltip-span'></span><input type='text' name='nama_pp[]' class='form-control inp-nama_pp nmppke"+no+" hidden'  value='' readonly></td>";
+        input += "<td><span class='td-kode tdakunke"+no+" tooltip-span'>"+kode_akun+"</span><input type='text' name='kode_akun[]' class='form-control inp-kode akunke"+no+" hidden' value='"+kode_akun+"' required='' style='z-index: 1;position: relative;' id='akunkode"+no+"'><a href='#' class='search-item search-akun hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+        input += "<td><span class='td-nama tdnmakunke"+no+" tooltip-span'>"+nama_akun+"</span><input type='text' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+" hidden'  value='"+nama_akun+"' readonly></td>";
+        input += "<td><span class='td-dc tddcke"+no+" tooltip-span'>"+dc+"</span><select hidden name='dc[]' class='form-control inp-dc dcke"+no+"' value='' required><option value='D'>D</option><option value='C'>C</option></select></td>";
+        input += "<td><span class='td-ket tdketke"+no+" tooltip-span'>"+keterangan+"</span><input type='text' name='keterangan[]' class='form-control inp-ket ketke"+no+" hidden'  value='"+keterangan+"' required></td>";
+        input += "<td class='text-right'><span class='td-nilai tdnilke"+no+" tooltip-span'>"+nilai+"</span><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='"+nilai+"' required></td>";
+        input += "<td><span class='td-pp tdppke"+no+" tooltip-span'>"+kode_pp+"</span><input type='text' id='ppkode"+no+"' name='kode_pp[]' class='form-control inp-pp ppke"+no+" hidden' value='"+kode_pp+"' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-pp hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+        input += "<td><span class='td-nama_pp tdnmppke"+no+" tooltip-span'>"+nama_pp+"</span><input type='text' name='nama_pp[]' class='form-control inp-nama_pp nmppke"+no+" hidden'  value='"+nama_pp+"' readonly ></td>";
         input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
         input += "</tr>";
-        $('#input-jurnal tbody').append(input);
+        $('#input-grid tbody').append(input);
+
+        if(param != "copy"){
+            $('.row-grid:last').addClass('selected-row');
+            $('#input-grid tbody tr').not('.row-grid:last').removeClass('selected-row');
+        }
+
         $('.dcke'+no).selectize({
             selectOnTab:true,
             onChange: function(value) {
@@ -1202,6 +1104,7 @@
                 hitungTotal();
             }
         });
+        $('.dcke'+no)[0].selectize.setValue(dc);
         $('.selectize-control.dcke'+no).addClass('hidden');
         $('.nilke'+no).inputmask("numeric", {
             radixPoint: ",",
@@ -1211,6 +1114,18 @@
             rightAlign: true,
             oncleared: function () { self.Value(''); }
         });
+
+        
+        hideUnselectedRow();
+        if(param == "add"){
+            $('#input-grid td').removeClass('px-0 py-0 aktif');
+            $('#input-grid tbody tr:last').find("td:eq(1)").addClass('px-0 py-0 aktif');
+            $('#input-grid tbody tr:last').find(".inp-kode").show();
+            $('#input-grid tbody tr:last').find(".td-kode").hide();
+            $('#input-grid tbody tr:last').find(".search-akun").show();
+            $('#input-grid tbody tr:last').find(".inp-kode").focus();
+        }
+
         $('#akunkode'+no).typeahead({
             source:$dtkode_akun,
             displayText:function(item){
@@ -1244,7 +1159,6 @@
                 return $(this).text();
             }
         });
-
         hitungTotalRow();
     }
 
@@ -1261,7 +1175,7 @@
         setTimeout(function() {  $(target).parents("tr").find(".inp-nama_pp").focus(); }, 100);
     }
 
-    $('#input-jurnal').on('click', '.search-item', function(){
+    $('#input-grid').on('click', '.search-item', function(){
         var par = $(this).closest('td').find('input').attr('name');
         
         switch(par){
@@ -1328,7 +1242,7 @@
 
     });
     
-    $('#input-jurnal').on('keydown','.inp-kode, .inp-nama, .inp-dc, .inp-ket, .inp-nilai, .inp-pp, .inp-nama_pp',function(e){
+    $('#input-grid').on('keydown','.inp-kode, .inp-nama, .inp-dc, .inp-ket, .inp-nilai, .inp-pp, .inp-nama_pp',function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
         var nxt = ['.inp-kode','.inp-nama','.inp-dc','.inp-ket','.inp-nilai','.inp-pp','.inp-nama_pp'];
         var nxt2 = ['.td-kode','.td-nama','.td-dc','.td-ket','.td-nilai','.td-pp','.td-nama_pp'];
@@ -1348,7 +1262,7 @@
                     getAkun(kode,target1,target2,target3,'tab');                    
                     break;
                 case 1:
-                    $("#input-jurnal td").removeClass("px-0 py-0 aktif");
+                    $("#input-grid td").removeClass("px-0 py-0 aktif");
                     $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
                     $(this).closest('tr').find(nxt[idx]).hide();
                     $(this).closest('tr').find(nxt2[idx]).show();
@@ -1361,7 +1275,7 @@
                 case 2:
                     var isi = $(this).parents("tr").find(nxt[idx])[0].selectize.getValue();
                     if(isi == 'D' || isi == 'C'){
-                        $("#input-jurnal td").removeClass("px-0 py-0 aktif");
+                        $("#input-grid td").removeClass("px-0 py-0 aktif");
                         $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
                         $(this).parents("tr").find(nxt[idx])[0].selectize.setValue(isi);
                         $(this).parents("tr").find(nxt2[idx]).text(isi);
@@ -1378,7 +1292,7 @@
                     break;
                 case 3:
                     if($.trim($(this).val()).length){
-                        $("#input-jurnal td").removeClass("px-0 py-0 aktif");
+                        $("#input-grid td").removeClass("px-0 py-0 aktif");
                         $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
                         $(this).closest('tr').find(nxt[idx]).val(isi);
                         $(this).closest('tr').find(nxt2[idx]).text(isi);
@@ -1394,7 +1308,7 @@
                     break;
                 case 4:
                     if(isi != "" && isi != 0){
-                        $("#input-jurnal td").removeClass("px-0 py-0 aktif");
+                        $("#input-grid td").removeClass("px-0 py-0 aktif");
                         $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
                         $(this).closest('tr').find(nxt[idx]).val(isi);
                         $(this).closest('tr').find(nxt2[idx]).text(isi);
@@ -1418,7 +1332,7 @@
                     getPP(kode,target1,target2,'tab');
                     break;
                 case 6:
-                    $("#input-jurnal td").removeClass("px-0 py-0 aktif");
+                    $("#input-grid td").removeClass("px-0 py-0 aktif");
                     $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
                     $(this).closest('tr').find(nxt[idx]).val(isi);
                     $(this).closest('tr').find(nxt2[idx]).text(isi);
@@ -1444,110 +1358,68 @@
     });
 
     $('#form-tambah').on('click', '.add-row', function(){
-        var no=$('#input-jurnal .row-jurnal:last').index();
-        no=no+2;
-        var input = "";
-        input += "<tr class='row-jurnal'>";
-        input += "<td class='no-jurnal text-center'>"+no+"</td>";
-                                    
-        input += "<td><span class='td-kode tdakunke"+no+" tooltip-span'></span><input type='text' name='kode_akun[]' class='form-control inp-kode akunke"+no+" hidden' value='' required='' style='z-index: 1;position: relative;' id='akunkode"+no+"'><a href='#' class='search-item search-akun hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
-        input += "<td><span class='td-nama tdnmakunke"+no+" tooltip-span'></span><input type='text' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+" hidden'  value='' readonly></td>";
-        input += "<td><span class='td-dc tddcke"+no+" tooltip-span'></span><select hidden name='dc[]' class='form-control inp-dc dcke"+no+"' value='' required><option value='D'>D</option><option value='C'>C</option></select></td>";
-        input += "<td><span class='td-ket tdketke"+no+" tooltip-span'></span><input type='text' name='keterangan[]' class='form-control inp-ket ketke"+no+" hidden'  value='' required></td>";
-        input += "<td class='text-right'><span class='td-nilai tdnilke"+no+" tooltip-span'></span><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='' required></td>";
-        input += "<td><span class='td-pp tdppke"+no+" tooltip-span'></span><input type='text' id='ppkode"+no+"' name='kode_pp[]' class='form-control inp-pp ppke"+no+" hidden' value='' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-pp hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
-        input += "<td><span class='td-nama_pp tdnmppke"+no+" tooltip-span'></span><input type='text' name='nama_pp[]' class='form-control inp-nama_pp nmppke"+no+" hidden'  value='' readonly ></td>";
-        input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
-        input += "</tr>";
-        $('#input-jurnal tbody').append(input);
-        $('.dcke'+no).selectize({
-            selectOnTab:true,
-            onChange: function(value) {
-                $('.tddcke'+no).text(value);
-                hitungTotal();
-            }
-        });
-        $('.selectize-control.dcke'+no).addClass('hidden');
-        $('.nilke'+no).inputmask("numeric", {
-            radixPoint: ",",
-            groupSeparator: ".",
-            digits: 2,
-            autoGroup: true,
-            rightAlign: true,
-            oncleared: function () { self.Value(''); }
-        });
-        $('#input-jurnal td').removeClass('px-0 py-0 aktif');
-        $('#input-jurnal tbody tr:last').find("td:eq(1)").addClass('px-0 py-0 aktif');
-        $('#input-jurnal tbody tr:last').find(".inp-kode").show();
-        $('#input-jurnal tbody tr:last').find(".td-kode").hide();
-        $('#input-jurnal tbody tr:last').find(".search-akun").show();
-        $('#input-jurnal tbody tr:last').find(".inp-kode").focus();
-
-        $('#akunkode'+no).typeahead({
-            // source: function (cari, result) {
-            //     result($.map($dtkode_akun, function (item) {
-            //         return item.kode_akun;
-            //     }));
-            // }
-            source:$dtkode_akun,
-            // fitToElement:true,
-            displayText:function(item){
-                return item.id+' - '+item.name;
-            },
-            autoSelect:false,
-            changeInputOnSelect:false,
-            changeInputOnMove:false,
-            selectOnBlur:false,
-            afterSelect: function (item) {
-                console.log(item.id);
-            }
-        });
-
-        $('#ppkode'+no).typeahead({
-            // source: function (cari, result) {
-            //     result($.map($dtkode_pp, function (item) {
-            //         return item.kode_pp;
-            //     }));
-            // }
-            source:$dtkode_pp,
-            // fitToElement:true,
-            displayText:function(item){
-                return item.id+' - '+item.name;
-            },
-            autoSelect:false,
-            changeInputOnSelect:false,
-            changeInputOnMove:false,
-            selectOnBlur:false,
-            afterSelect: function (item) {
-                console.log(item.id);
-            }
-        });
-
-        $('.tooltip-span').tooltip({
-            title: function(){
-                return $(this).text();
-            }
-        });
-        hitungTotalRow();
-
+        addRow("add");
     });
 
-    $('#input-jurnal tbody').on('click', 'tr', function(){
-        if ( $(this).hasClass('selected-row') ) {
-            $(this).removeClass('selected-row');
-        }
-        else {
-            $('#input-jurnal tbody tr').removeClass('selected-row');
-            $(this).addClass('selected-row');
-        }
+    function hideUnselectedRow() {
+        $('#input-grid > tbody > tr').each(function(index, row) {
+            if(!$(row).hasClass('selected-row')) {
+                var kode_akun = $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-kode").val();
+                var nama_akun = $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nama").val();
+                var dc = $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-dc").text();
+                var keterangan = $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-ket").val();
+                var nilai = $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nilai").val();
+                var kode_pp = $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-pp").val();
+                var nama_pp = $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nama_pp").val();
+
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-kode").val(kode_akun);
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-kode").text(kode_akun);
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nama").val(nama_akun);
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-nama").text(nama_akun);
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-dc")[0].selectize.setValue(dc);
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-dc").text(dc);
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-ket").val(keterangan);
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-ket").text(keterangan);
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nilai").val(nilai);
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-nilai").text(nilai);
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-pp").val(kode_pp);
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-pp").text(kode_pp);
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nama_pp").val(nama_pp);
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-nama_pp").text(nama_pp);
+
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-kode").hide();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-kode").show();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".search-akun").hide();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nama").hide();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-nama").show();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".selectize-control").hide();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-dc").show();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-ket").hide();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-ket").show();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nilai").hide();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-nilai").show();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-pp").hide();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-pp").show();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".search-pp").hide();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nama_pp").hide();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-nama_pp").show();
+            }
+        })
+    }
+
+    $('#input-grid tbody').on('click', 'tr', function(){
+        $(this).addClass('selected-row');
+        $('#input-grid tbody tr').not(this).removeClass('selected-row');
+        hideUnselectedRow();
     });
+
 
     $('.nav-control').on('click', '#delete-row', function(){
         if($(".selected-row").length != 1){
             alert('Harap pilih row yang akan dihapus terlebih dahulu!');
             return false;
         }else{
-            $('#input-jurnal tbody').find('.selected-row').remove();
+            $('#input-grid tbody').find('.selected-row').remove();
             no=1;
             $('.row-jurnal').each(function(){
                 var nom = $(this).closest('tr').find('.no-jurnal');
@@ -1565,56 +1437,13 @@
             alert('Harap pilih row yang akan dicopy terlebih dahulu!');
             return false;
         }else{
-            var kode_akun = $('#input-jurnal tbody tr.selected-row').find(".inp-kode").val();
-            var nama_akun = $('#input-jurnal tbody tr.selected-row').find(".inp-nama").val();
-            var dc = $('#input-jurnal tbody tr.selected-row').find(".td-dc").text();
-            var keterangan = $('#input-jurnal tbody tr.selected-row').find(".inp-ket").val();
-            var nilai = $('#input-jurnal tbody tr.selected-row').find(".inp-nilai").val();
-            var kode_pp = $('#input-jurnal tbody tr.selected-row').find(".inp-pp").val();
-            var nama_pp = $('#input-jurnal tbody tr.selected-row').find(".inp-nama_pp").val();
-            var no=$('#input-jurnal .row-jurnal:last').index();
-            no=no+2;
-            var input = "";
-            input += "<tr class='row-jurnal'>";
-            input += "<td class='no-jurnal text-center'>"+no+"</td>";
-            input += "<td ><span class='td-kode tdakunke"+no+" tooltip-span'>"+kode_akun+"</span><input type='text' name='kode_akun[]' class='form-control inp-kode akunke"+no+" hidden' value='"+kode_akun+"' required='' style='z-index: 1;position: relative;' id='akunkode"+no+"'><a href='#' class='search-item search-akun hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
-            input += "<td><span class='td-nama tdnmakunke"+no+" tooltip-span'>"+nama_akun+"</span><input type='text' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+" hidden'  value='"+nama_akun+"' readonly></td>";
-            input += "<td><span class='td-dc tddcke"+no+" tooltip-span'>"+dc+"</span><select hidden name='dc[]' class='form-control inp-dc dcke"+no+"' value='"+dc+"' required><option value='D'>D</option><option value='C'>C</option></select></td>";
-            input += "<td><span class='td-ket tdketke"+no+" tooltip-span'>"+keterangan+"</span><input type='text' name='keterangan[]' class='form-control inp-ket ketke"+no+" hidden'  value='"+keterangan+"' required></td>";
-            input += "<td class='text-right'><span class='td-nilai tdnilke"+no+" tooltip-span'>"+nilai+"</span><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='"+nilai+"' required></td>";
-            input += "<td><span class='td-pp tdppke"+no+" tooltip-span'>"+kode_pp+"</span><input type='text' id='ppkode"+no+"' name='kode_pp[]' class='form-control inp-pp ppke"+no+" hidden' value='"+kode_pp+"' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-pp hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
-            input += "<td><span class='td-nama_pp tdnmppke"+no+" tooltip-span'>"+nama_pp+"</span><input type='text' name='nama_pp[]' class='form-control inp-nama_pp nmppke"+no+" hidden'  value='"+nama_pp+"' readonly></td>";
-            input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
-            input += "</tr>";
-            $('#input-jurnal tbody').append(input);
-            $('.dcke'+no).selectize({
-                selectOnTab:true,
-                onChange: function(value) {
-                    $('.tddcke'+no).text(value);
-                    hitungTotal();
-                }
-            });
-            $('.selectize-control.dcke'+no).addClass('hidden');
-            $('.nilke'+no).inputmask("numeric", {
-                radixPoint: ",",
-                groupSeparator: ".",
-                digits: 2,
-                autoGroup: true,
-                rightAlign: true,
-                oncleared: function () { self.Value(''); }
-            });
-            hitungTotal();
-            $('.tooltip-span').tooltip({
-                title: function(){
-                    return $(this).text();
-                }
-            })
+            addRow("copy");
             $("html, body").animate({ scrollTop: $(document).height() }, 1000);
         }
 
     });
 
-    $('#input-jurnal').on('click', 'td', function(){
+    $('#input-grid').on('click', 'td', function(){
         var idx = $(this).index();
         if(idx == 0){
             return false;
@@ -1622,7 +1451,7 @@
             if($(this).hasClass('px-0 py-0 aktif')){
                 return false;            
             }else{
-                $('#input-jurnal td').removeClass('px-0 py-0 aktif');
+                $('#input-grid td').removeClass('px-0 py-0 aktif');
                 $(this).addClass('px-0 py-0 aktif');
         
                 var kode_akun = $(this).parents("tr").find(".inp-kode").val();
@@ -1742,7 +1571,7 @@
         oncleared: function () { self.Value(''); }
     });
 
-    $('#input-jurnal').on('click', '.hapus-item', function(){
+    $('#input-grid').on('click', '.hapus-item', function(){
         $(this).closest('tr').remove();
         no=1;
         $('.row-jurnal').each(function(){
@@ -1755,7 +1584,7 @@
         $("html, body").animate({ scrollTop: $(document).height() }, 1000);
     });
 
-    $('#input-jurnal').on('change', '.inp-kode', function(e){
+    $('#input-grid').on('change', '.inp-kode', function(e){
         e.preventDefault();
         var noidx =  $(this).parents('tr').find('.no-jurnal').html();
         target1 = "akunke"+noidx;
@@ -1771,43 +1600,43 @@
         }
     });
 
-    $('#input-jurnal').on('keypress', '.inp-kode', function(e){
+    $('#input-grid').on('keypress', '.inp-kode', function(e){
         var this_index = $(this).closest('tbody tr').index();
         if (e.which == 42) {
             e.preventDefault();
-            if($("#input-jurnal tbody tr:eq("+(this_index - 1)+")").find('.inp-kode').val() != undefined){
-                $(this).val($("#input-jurnal tbody tr:eq("+(this_index - 1)+")").find('.inp-kode').val());
+            if($("#input-grid tbody tr:eq("+(this_index - 1)+")").find('.inp-kode').val() != undefined){
+                $(this).val($("#input-grid tbody tr:eq("+(this_index - 1)+")").find('.inp-kode').val());
             }else{
                 $(this).val('');
             }
         }
     });
 
-    $('#input-jurnal').on('keypress', '.inp-dc', function(e){
+    $('#input-grid').on('keypress', '.inp-dc', function(e){
         var this_index = $(this).closest('tbody tr').index();
         if (e.which == 42) {
             e.preventDefault();
-            if($("#input-jurnal tbody tr:eq("+(this_index - 1)+")").find('.inp-dc')[0].selectize.getValue() != undefined){
-                $(this)[0].selectize.setValue($("#input-jurnal tbody tr:eq("+(this_index - 1)+")").find('.inp-dc')[0].selectize.getValue());
+            if($("#input-grid tbody tr:eq("+(this_index - 1)+")").find('.inp-dc')[0].selectize.getValue() != undefined){
+                $(this)[0].selectize.setValue($("#input-grid tbody tr:eq("+(this_index - 1)+")").find('.inp-dc')[0].selectize.getValue());
             }else{
                 $(this)[0].selectize.setValue('');
             }
         }
     });
 
-    $('#input-jurnal').on('keypress', '.inp-ket', function(e){
+    $('#input-grid').on('keypress', '.inp-ket', function(e){
         var this_index = $(this).closest('tbody tr').index();
         if (e.which == 42) {
             e.preventDefault();
-            if($("#input-jurnal tbody tr:eq("+(this_index - 1)+")").find('.inp-ket').val() != undefined){
-                $(this).val($("#input-jurnal tbody tr:eq("+(this_index - 1)+")").find('.inp-ket').val());
+            if($("#input-grid tbody tr:eq("+(this_index - 1)+")").find('.inp-ket').val() != undefined){
+                $(this).val($("#input-grid tbody tr:eq("+(this_index - 1)+")").find('.inp-ket').val());
             }else{
                 $(this).val('');
             }
         }
     });
 
-    $('#input-jurnal').on('keypress', '.inp-nilai', function(e){
+    $('#input-grid').on('keypress', '.inp-nilai', function(e){
         if (e.which == 42) {
             e.preventDefault();
             var dc = $(this).closest('tr').find('.inp-dc')[0].selectize.getValue();
@@ -1821,7 +1650,7 @@
         }
     });
 
-    $('#input-jurnal').on('change', '.inp-nilai', function(){
+    $('#input-grid').on('change', '.inp-nilai', function(){
         console.log('change-nilai');
         if($(this).closest('tr').find('.inp-nilai').val() != "" && $(this).closest('tr').find('.inp-nilai').val() != 0){
             hitungTotal();
@@ -1833,7 +1662,7 @@
         }
     });
 
-    $('#input-jurnal').on('change', '.inp-pp', function(e){
+    $('#input-grid').on('change', '.inp-pp', function(e){
         e.preventDefault();
         var noidx =  $(this).closest('tr').find('.no-jurnal').html();
         target1 = "ppke"+noidx;
@@ -1848,12 +1677,12 @@
         }
     });
 
-    $('#input-jurnal').on('keypress', '.inp-pp', function(e){
+    $('#input-grid').on('keypress', '.inp-pp', function(e){
         var this_index = $(this).closest('tbody tr').index();
         if (e.which == 42) {
             e.preventDefault();
-            if($("#input-jurnal tbody tr:eq("+(this_index - 1)+")").find('.inp-pp').val() != undefined){
-                $(this).val($("#input-jurnal tbody tr:eq("+(this_index - 1)+")").find('.inp-pp').val());
+            if($("#input-grid tbody tr:eq("+(this_index - 1)+")").find('.inp-pp').val() != undefined){
+                $(this).val($("#input-grid tbody tr:eq("+(this_index - 1)+")").find('.inp-pp').val());
             }else{
                 $(this).val('');
             }
@@ -2014,7 +1843,7 @@
                             input += "</tr>";
                             no++;
                         }
-                        $('#input-jurnal tbody').html(input);
+                        $('#input-grid tbody').html(input);
                         $('.tooltip-span').tooltip({
                             title: function(){
                                 return $(this).text();
