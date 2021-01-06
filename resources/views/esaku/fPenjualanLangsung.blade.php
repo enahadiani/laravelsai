@@ -431,43 +431,36 @@
             for(var pair of formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
-            resetForm();
+            $.ajax({
+                type: 'POST',
+                url: "{{url('esaku-trans/penjualan-langsung')}}",
+                dataType: 'json',
+                data: formData,
+                async:false,
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function(result) {
+                    if(result.data.status){
+                        resetForm();
                         $('#modal-total_all').text(toRp(total_all));
                         $('#modal-total_trans').text(toRp(total_trans)); 
                         $('#modal-diskon').text(toRp(diskon)); 
                         $('#modal-nilai_ongkir').text(toRp(nilai_ongkir));
                         $('#modal-lama_hari').text(lama_hari + 'hari');
                         $('#modal-bayar2').modal('show');
-            // $.ajax({
-            //     type: 'POST',
-            //     url: "{{url('esaku-trans/penjualan-langsung')}}",
-            //     dataType: 'json',
-            //     data: formData,
-            //     async:false,
-            //     contentType: false,
-            //     cache: false,
-            //     processData: false,
-            //     success: function(result) {
-            //         if(result.data.status){
-            //             resetForm();
-            //             $('#modal-total_all').text(toRp(total_all));
-            //             $('#modal-total_trans').text(toRp(total_trans)); 
-            //             $('#modal-diskon').text(toRp(diskon)); 
-            //             $('#modal-nilai_ongkir').text(toRp(nilai_ongkir));
-            //             $('#modal-lama_hari').text(lama_hari + 'hari');
-            //             $('#modal-bayar2').modal('show');
-            //         } else if(!result.data.status && result.data.message === "Unauthorized"){
-            //             window.location.href = "{{ url('/esaku-auth/sesi-habis') }}";
-            //         }else{
-            //             msgDialog({
-            //                 id: '',
-            //                 type:'sukses',
-            //                 title: 'Error',
-            //                 text: result.data.message
-            //             });
-            //         }
-            //     }
-            // });
+                    } else if(!result.data.status && result.data.message === "Unauthorized"){
+                        window.location.href = "{{ url('/esaku-auth/sesi-habis') }}";
+                    }else{
+                        msgDialog({
+                            id: '',
+                            type:'sukses',
+                            title: 'Error',
+                            text: result.data.message
+                        });
+                    }
+                }
+            });
         }
     })
 
