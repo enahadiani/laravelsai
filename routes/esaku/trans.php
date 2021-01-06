@@ -113,3 +113,5 @@ Route::post('sync-retur-beli', 'Esaku\SyncController@syncReturBeli');
 Route::get('modultrans', 'Esaku\PostingController@getModul');
 Route::post('loadJurnal', 'Esaku\PostingController@loadJurnal');
 Route::post('posting', 'Esaku\PostingController@store');
+Route::post('unposting-jurnal', 'Esaku\UnPostingController@loadJurnal');
+Route::post('unposting', 'Esaku\UnPostingController@store');
