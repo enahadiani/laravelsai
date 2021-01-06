@@ -231,6 +231,9 @@ function showInpFilter(settings){
             }
 
             if($target4 != ""){
+                if($target4 == "custom"){
+                    custTarget($target,$(this).closest('tr'));
+                }
                 $($target).closest('tr').find($target4).click();
             }
             $('#modal-search').modal('hide');
