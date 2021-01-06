@@ -109,3 +109,7 @@ Route::post('sync-pmb', 'Esaku\SyncController@syncPmb');
 Route::get('sync-retur-beli', 'Esaku\SyncController@getSyncReturBeli');
 Route::get('sync-retur-beli-detail', 'Esaku\SyncController@getSyncReturBeliDetail');
 Route::post('sync-retur-beli', 'Esaku\SyncController@syncReturBeli');
+
+Route::get('modultrans', 'Esaku\PostingController@getModul');
+Route::post('loadJurnal', 'Esaku\PostingController@loadJurnal');
+Route::post('posting', 'Esaku\PostingController@store');

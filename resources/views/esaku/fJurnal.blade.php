@@ -1004,14 +1004,14 @@
     // END SIMPAN
 
     // ENTER FIELD FORM
-    $('#tanggal,#jenis,#no_dokumen,#total_debet,#deskripsi,#total_kredit,#nik_periksa,#label_nik_periksa').keydown(function(e){
+    $('#tanggal,#no_dokumen,#deskripsi,#jenis,#nik_periksa,#total_debet,#total_kredit').keydown(function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['tanggal','jenis','no_dokumen','total_debet','deskripsi','total_kredit','nik_periksa','label_nik_periksa'];
+        var nxt = ['tanggal','no_dokumen','deskripsi','jenis','nik_periksa','total_debet','total_kredit'];
         if (code == 13 || code == 40) {
             e.preventDefault();
             var idx = nxt.indexOf(e.target.id);
             idx++;
-            if(idx == 2){
+            if(idx == 3){
                 $('#'+nxt[idx])[0].selectize.focus();
             }else{
                 $('#'+nxt[idx]).focus();
