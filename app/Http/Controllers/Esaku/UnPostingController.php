@@ -9,7 +9,7 @@ use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Session;
 use GuzzleHttp\Exception\BadResponseException;
 
-class PostingController extends Controller
+class UnPostingController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -112,7 +112,7 @@ class PostingController extends Controller
                   );
     
             $client = new Client();
-            $response = $client->request('POST',  config('api.url').'toko-trans/posting',[
+            $response = $client->request('POST',  config('api.url').'toko-trans/unposting',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Content-Type'     => 'application/json'
@@ -174,7 +174,7 @@ class PostingController extends Controller
             $fields = $detail;
     
             $client = new Client();
-            $response = $client->request('POST',  config('api.url').'toko-trans/posting-jurnal',[
+            $response = $client->request('POST',  config('api.url').'toko-trans/unposting-jurnal',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',

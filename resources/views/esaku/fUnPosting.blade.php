@@ -1,4 +1,4 @@
-    <link rel="stylesheet" href="{{ asset('trans.css') }}" />
+<link rel="stylesheet" href="{{ asset('trans.css') }}" />
     <!-- FORM INPUT -->
     <style>
         .selected{
@@ -10,7 +10,7 @@
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;">
-                        <h6 id="judul-form" style="position:absolute;top:25px">Posting Jurnal</h6>
+                        <h6 id="judul-form" style="position:absolute;top:25px">UnPosting Jurnal</h6>
                         <button type="submit" class="btn btn-primary ml-2"  style="float:right;" id="btn-save" ><i class="fa fa-save"></i> Simpan</button>
                         <!-- <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Keluar</button> -->
                     </div>
@@ -42,7 +42,7 @@
                                         <label for="btn-control">&nbsp;</label>
                                         <div id="btn-control">
                                             <button type="button" href="#" id="loadData" class="btn btn-primary mr-2">Load Data</button>
-                                            <button type="button" href="#" id="postAll" class="btn btn-primary">Posting All</button>
+                                            <button type="button" href="#" id="postAll" class="btn btn-primary">UnPosting All</button>
                                         </div>
                                     </div>
                                 </div>
@@ -190,7 +190,7 @@
             cell.innerHTML = i+1;
         });
     } ).draw();
-
+    
     $("#searchData_table-modul").on("keyup", function (event) {
         t.search($(this).val()).draw();
     });
@@ -199,6 +199,7 @@
         var selText = $(this).val();
         t.page.len(parseInt(selText)).draw();
     });
+
 
     $('#table-modul tbody').on('click', 'td', function () {
         var cell = t.cell( this );
@@ -240,7 +241,6 @@
         } );
     }).draw();
 
-    
     $("#searchData_table-jurnal").on("keyup", function (event) {
         tablejur.search($(this).val()).draw();
     });
@@ -262,6 +262,7 @@
         var i=0;
         $.each( data, function( key, value ) {
             if(value.status.toUpperCase() == "TRUE"){
+
                 formData.append('modul[]',value.modul);
                 formData.append('per1[]',value.per1);
                 formData.append('per2[]',value.per2);
@@ -270,7 +271,7 @@
         });
         $.ajax({
             type: 'POST',
-            url: "{{ url('esaku-trans/loadJurnal') }}",
+            url: "{{ url('esaku-trans/unposting-jurnal') }}",
             dataType: 'json',
             data: formData,
             async:false,
@@ -295,18 +296,18 @@
     $('#form-tambah').on('click', '#postAll', function(){
         tablejur.rows().every(function (index, element) {
             var row = tablejur.cell(index,1);
-            row.data('POSTING').draw().select();
+            row.data('UNPOSTING').draw().select();
         });
     });
 
     $('#table-jurnal tbody').on('click', 'td', function () {
         var cell = tablejur.cell( this );
-        if(cell.data() == 'POSTING'){
+        if(cell.data() == 'UNPOSTING'){
             $(this).removeClass('selected');
             var isi = 'INPROG';
         }else if(cell.data() == 'INPROG'){
             $(this).addClass('selected');
-            var isi = 'POSTING';
+            var isi = 'UNPOSTING';
         }
         cell.data(isi).draw();
     });
@@ -325,7 +326,7 @@
         errorElement: "label",
         submitHandler: function (form) {
             var parameter = $('#id_edit').val();
-            var url = "{{ url('esaku-trans/posting') }}";
+            var url = "{{ url('esaku-trans/unposting') }}";
 
             var formData = new FormData(form);
             for(var pair of formData.entries()) {
@@ -339,21 +340,21 @@
             var isAda = false
 
             $.each( data, function( key, value ) {
-                if(value.status.toUpperCase() == "POSTING"){
+                if(value.status.toUpperCase() == "UNPOSTING"){
                     formData.append('status[]',value.status);
                     formData.append('no_bukti[]',value.no_bukti);
                     formData.append('form[]',value.form);
-                    if(value.status == "POSTING"){
+                    if(value.status == "UNPOSTING"){
                         isAda = true;
                     }
                 }
             });
-
+            
             if(data.length <= 0 || !isAda){
                 msgDialog({
                     id:'-',
                     type:'warning',
-                    text: "Transaksi tidak valid. Tidak ada transaksi dengan status POSTING."
+                    text: "Transaksi tidak valid. Tidak ada transaksi dengan status UNPOSTING."
                 });
                 return false;
             }else{
