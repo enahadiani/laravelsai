@@ -358,7 +358,7 @@
         });
     }
 
-    getDataTypeAhead("{{ url('esaku-master/pp') }}","kode_pp","kode_pp");
+    getDataTypeAhead("{{ url('esaku-master/unit') }}","kode_pp","kode_pp");
     getDataTypeAhead("{{ url('esaku-master/nikperiksa') }}","nik_periksa","nik");
     getDataTypeAhead("{{ url('esaku-master/masakun') }}","kode_akun","kode_akun");
 
@@ -1248,7 +1248,7 @@
         hitungTotalRow();
     }
 
-    function customTarget(target,tr){
+    function custTarget(target,tr){
         $(target).parents("tr").find(".inp-pp").val(tr.find('td:nth-child(1)').text());
         $(target).parents("tr").find(".td-pp").text(tr.find('td:nth-child(1)').text());
         $(target).parents("tr").find(".inp-pp").hide();
@@ -1307,7 +1307,7 @@
                 var options = { 
                     id : par,
                     header : ['Kode', 'Nama'],
-                    url : "{{ url('esaku-master/pp') }}",
+                    url : "{{ url('esaku-master/unit') }}",
                     columns : [
                         { data: 'kode_pp' },
                         { data: 'nama' }
@@ -1755,19 +1755,6 @@
         $("html, body").animate({ scrollTop: $(document).height() }, 1000);
     });
 
-     
-
-    // $('#input-jurnal').on('keydown', '.inp-kode', function(e){
-        // if(e.which == 40){
-        //     var noidx =  $(this).closest('tr').find('.no-jurnal').html();
-        //     target1 = "akunke"+noidx;
-        //     target2 = "nmakunke"+noidx;
-        //     target3 = "dcke"+noidx;
-        //     e.preventDefault();
-        //     showFilter("kode_akun[]",target1,target2);
-        // }
-    // });
-
     $('#input-jurnal').on('change', '.inp-kode', function(e){
         e.preventDefault();
         var noidx =  $(this).parents('tr').find('.no-jurnal').html();
@@ -1845,16 +1832,6 @@
             return false;
         }
     });
-
-    // $('#input-jurnal').on('keydown', '.inp-pp', function(e){
-    //     if(e.which == 40){
-    //         e.preventDefault();
-    //         var noidx =  $(this).closest('tr').find('.no-jurnal').html();
-    //         target1 = "ppke"+noidx;
-    //         target2 = "nmppke"+noidx;
-    //         showFilter("kode_pp[]",target1,target2);
-    //     }
-    // });
 
     $('#input-jurnal').on('change', '.inp-pp', function(e){
         e.preventDefault();
