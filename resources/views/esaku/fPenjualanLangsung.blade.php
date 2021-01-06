@@ -105,18 +105,32 @@
                                                             <span class="info-name_kode_cust hidden">
                                                                 <span></span> 
                                                             </span>
-                                                            <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                                            <i class="simple-icon-close float-right info-icon-hapus hidden" style="cursor: pointer;"></i>
                                                             <i class="simple-icon-magnifier search-item2" id="search_kode_cust"></i>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6 col-sm-12">
-                                                        <label for="nama_cust">Nama Customer</label>
-                                                        <input class="form-control" type="text" id="nama_cust" name="nama_cust" required>
+                                                        <label for="nama">Nama Customer</label>
+                                                        <input class="form-control" type="text" id="nama" name="nama" required>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="form-group col-md-6 col-sm-12">
                                                 <div class="row">
+                                                    <div class="col-md-6 col-sm-12">
+                                                        <label for="provinsi">Provinsi</label>
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                                                <span class="input-group-text info-code_provinsi" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                                            </div>
+                                                            <input type="text" class="form-control inp-label-provinsi" id="provinsi" name="provinsi" value="" title="">
+                                                            <span class="info-name_provinsi hidden">
+                                                                <span id="label_provinsi"></span> 
+                                                            </span>
+                                                            <i class="simple-icon-close float-right info-icon-hapus hidden" style="cursor: pointer;"></i>
+                                                            <i class="simple-icon-magnifier search-item2" id="search_provinsi"></i>
+                                                        </div>
+                                                    </div>
                                                     <div class="col-md-6 col-sm-12">
                                                         <label for="kota">Kota</label>
                                                         <div class="input-group">
@@ -125,24 +139,10 @@
                                                             </div>
                                                             <input type="text" class="form-control inp-label-kota" id="kota" name="kota" value="" title="">
                                                             <span class="info-name_kota hidden">
-                                                                <span></span> 
+                                                                <span id="label_kota"></span> 
                                                             </span>
-                                                            <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                                            <i class="simple-icon-magnifier search-item2" id="search_kode_cust"></i>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6 col-sm-12">
-                                                        <label for="kecamatan">Kecamatan</label>
-                                                        <div class="input-group">
-                                                            <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
-                                                                <span class="input-group-text info-code_kecamatan" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
-                                                            </div>
-                                                            <input type="text" class="form-control inp-label-kecamatan" id="kecamatan" name="kecamatan" value="" title="">
-                                                            <span class="info-name_kecamatan hidden">
-                                                                <span></span> 
-                                                            </span>
-                                                            <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                                            <i class="simple-icon-magnifier search-item2" id="search_kode_cust"></i>
+                                                            <i class="simple-icon-close float-right info-icon-hapus hidden" style="cursor: pointer;"></i>
+                                                            <i class="simple-icon-magnifier search-item2" id="search_kota"></i>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -152,22 +152,22 @@
                                             <div class="form-group col-md-6 col-sm-12">
                                                 <div class="row">
                                                     <div class="col-md-6 col-sm-12">
-                                                        <label for="no_telp">No Telp Customer</label>
-                                                        <input class="form-control" type="text" id="telp_cust" name="telp_cust" required>
-                                                    </div>
-                                                    <div class="col-md-6 col-sm-12">
-                                                        <label for="kode_cuts">Provinsi</label>
+                                                        <label for="kecamatan">Kecamatan</label>
                                                         <div class="input-group">
                                                             <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
-                                                                <span class="input-group-text info-code_provinsi" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                                                <span class="input-group-text info-code_kecamatan" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
                                                             </div>
-                                                            <input type="text" class="form-control inp-label-provinsi" id="provinsi" name="provinsi" value="" title="">
-                                                            <span class="info-name_provinsi hidden">
-                                                                <span></span> 
+                                                            <input type="text" class="form-control inp-label-kecamatan" id="kecamatan" name="kecamatan" value="" title="">
+                                                            <span class="info-name_kecamatan hidden">
+                                                                <span id="label_kecamatan"></span> 
                                                             </span>
-                                                            <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                                            <i class="simple-icon-magnifier search-item2" id="search_kode_cust"></i>
+                                                            <i class="simple-icon-close float-right info-icon-hapus hidden" style="cursor: pointer;"></i>
+                                                            <i class="simple-icon-magnifier search-item2" id="search_kecamatan"></i>
                                                         </div>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-12">
+                                                        <label for="no_tel">No Telp Customer</label>
+                                                        <input class="form-control" type="text" id="no_tel" name="no_tel" required>
                                                     </div>
                                                 </div>
                                             </div>
@@ -183,7 +183,68 @@
                                     </div>
                                 </div>
                                 <div class="tab-pane" id="kirim" role="tabpanel">
-                                    ini tab kirim
+                                    <div class="col-12 mt-4 ongkir" style="min-height:328px">
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6 col-sm-12">
+                                                <div class="row">
+                                                    <div class="col-md-6 col-sm-12">
+                                                        <label for="kode_kirim">Jasa Kirim</label>
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                                                <span class="input-group-text info-code_kode_kirim" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                                            </div>
+                                                            <input type="text" class="form-control inp-label-kode_kirim" id="kode_kirim" name="kode_kirim" value="" title="">
+                                                            <span class="info-name_kode_kirim hidden">
+                                                                <span id="label-kode_kirim"></span> 
+                                                            </span>
+                                                            <i class="simple-icon-close float-right info-icon-hapus hidden" style="cursor: pointer;"></i>
+                                                            <i class="simple-icon-magnifier search-item2" id="search_kode_kirim"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-12">
+                                                        <label for="berat">Berat Produk (Gram)</label>
+                                                        <input class="form-control currency" type="text" id="berat" name="berat" value="0" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-md-6 col-sm-12">
+                                                <div class="row">
+                                                    <div class="col-md-6 col-sm-12">
+                                                        <label for="service">Services Kirim</label>
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                                                <span class="input-group-text info-code_service" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                                            </div>
+                                                            <input type="text" class="form-control inp-label-service" id="service" name="service" value="" title="">
+                                                            <span class="info-name_service hidden">
+                                                                <span id="label_service"></span> 
+                                                            </span>
+                                                            <i class="simple-icon-close float-right info-icon-hapus hidden" style="cursor: pointer;"></i>
+                                                            <i class="simple-icon-magnifier search-item2" id="search_service"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-12">
+                                                        <label for="nilai_ongkir">Nilai Ongkir</label>
+                                                        <input class="form-control currency" type="text" id="nilai_ongkir" name="nilai_ongkir" value="0" required readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-12 col-sm-12">
+                                                <div class="row">
+                                                    <div class="col-md-3 col-sm-12">
+                                                        <label for="lama_hari">Lama Pengiriman</label>
+                                                        <input class="form-control" type="text" id="lama_hari" name="lama_hari" value="0" required readonly>
+                                                    </div>
+                                                    <div class="col-md-9 col-sm-12">
+                                                        <label for="catatan">Catatan</label>
+                                                        <input class="form-control" type="text" id="catatan" name="catatan" required>
+                                                    </div>  
+                                                </div>   
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -247,6 +308,54 @@
     </div>
 </div>
 
+<div class="modal" id="modal-bayar2" tabindex="-1" role="dialog" aria-modal="true">
+    <div role="document" style="" class="modal-dialog modal-sm modal-dialog-centered">
+        <div class="modal-content" style="border-radius: 15px !important;">
+            <div class="modal-header " style="display:block">
+                <div class="row text-center" style="">
+                    <div class="col-md-12">
+                        <h5 class="">Total Transaksi</h5>
+                        <h5 id="modal-no_bukti" hidden></h5>
+                        <h1 class="text-info" id="modal-total_all"></h1>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body" style="margin-top: 55px;">
+                <div class="row mb-2" style="">
+                    <div class="col-6" style="">
+                    Total Transaksi
+                    </div>
+                    <div class="col-6 text-right" id="modal-total_trans"></div>
+                </div>
+                <div class="row mb-2">
+                <div class="col-6">
+                    Diskon 
+                    </div>
+                    <div class="col-6 text-right" id="modal-diskon"></div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-6">
+                    Nilai Ongkir
+                    </div>
+                    <div class="col-6 text-right" id="modal-nilai_ongkir"></div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-6">
+                    Lama Pengiriman
+                    </div>
+                    <div class="col-6 text-right" id="modal-lama_hari"></div>
+                </div>
+            </div>
+            <div class="modal-footer" style="padding: 0;">
+            <button id="cetakBtn" type="button" class="btn btn-info btn-block" style="border-bottom-left-radius: 15px;border-bottom-right-radius: 15px;margin:0">Cetak</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@include('modal_search')
+
+<script src="{{ asset('helper.js') }}"></script>
 <script src="{{url('asset_elite/inputmask.js')}}"></script>
 <script src="{{url('asset_elite/jquery.scannerdetection.js')}}"></script>
 <script src="{{url('asset_elite/jquery.formnavigation.js')}}"></script>
@@ -273,6 +382,257 @@
             $('.inp-qtyb').first().select();
         }
     };
+
+    function resetForm() {
+        $('#tostlh').val('0')
+        $('#todisk').val('0')
+        $('#input-grid2 tr:not(:first)').remove();
+        $('#customer').find('input:text').val('');
+        $('#kirim').find('input:text').val('');
+        $("[id^=label]").each(function(e){
+            $(this).text('');
+        });
+        $("[class^=info-name]").each(function(e){
+            $(this).addClass('hidden');
+        });
+        $("[class^=input-group-prepend]").each(function(e){
+            $(this).addClass('hidden');
+        });
+        $("[class^=info-code]").each(function(e){
+            $(this).text('');
+        });
+        $("[class^=simple-icon-close]").each(function(e){
+            $(this).addClass('hidden');
+        });
+    }
+
+    $('#web-form-pos').submit(function(e){
+        e.preventDefault()
+        hitungTotal();
+        var total_trans=toNilai($('#tostlh').val());
+        var diskon=toNilai($('#todisk').val());
+        var nilai_ongkir=toNilai($('#nilai_ongkir').val());
+        var total_all = total_trans+diskon+nilai_ongkir;
+        var lama_hari=$('#lama_hari').val();
+        if(totrans <= 0){
+            msgDialog({
+                id: '',
+                type:'sukses',
+                title: 'Error',
+                text:'Total Transaksi tidak valid. Total Transaksi tidak boleh kurang dari atau sama dengan 0'
+            });
+        }else{
+            var formData = new FormData(this);
+            
+            $("[id^=label]").each(function(e){
+                formData.append($(this).attr('id'),$(this).text());
+            });
+
+            for(var pair of formData.entries()) {
+                console.log(pair[0]+ ', '+ pair[1]); 
+            }
+            resetForm();
+                        $('#modal-total_all').text(toRp(total_all));
+                        $('#modal-total_trans').text(toRp(total_trans)); 
+                        $('#modal-diskon').text(toRp(diskon)); 
+                        $('#modal-nilai_ongkir').text(toRp(nilai_ongkir));
+                        $('#modal-lama_hari').text(lama_hari + 'hari');
+                        $('#modal-bayar2').modal('show');
+            // $.ajax({
+            //     type: 'POST',
+            //     url: "{{url('esaku-trans/penjualan-langsung')}}",
+            //     dataType: 'json',
+            //     data: formData,
+            //     async:false,
+            //     contentType: false,
+            //     cache: false,
+            //     processData: false,
+            //     success: function(result) {
+            //         if(result.data.status){
+            //             resetForm();
+            //             $('#modal-total_all').text(toRp(total_all));
+            //             $('#modal-total_trans').text(toRp(total_trans)); 
+            //             $('#modal-diskon').text(toRp(diskon)); 
+            //             $('#modal-nilai_ongkir').text(toRp(nilai_ongkir));
+            //             $('#modal-lama_hari').text(lama_hari + 'hari');
+            //             $('#modal-bayar2').modal('show');
+            //         } else if(!result.data.status && result.data.message === "Unauthorized"){
+            //             window.location.href = "{{ url('/esaku-auth/sesi-habis') }}";
+            //         }else{
+            //             msgDialog({
+            //                 id: '',
+            //                 type:'sukses',
+            //                 title: 'Error',
+            //                 text: result.data.message
+            //             });
+            //         }
+            //     }
+            // });
+        }
+    })
+
+    function custTarget(target, tr) {
+        $(target).parents('.ongkir').find('#nilai_ongkir').val(tr.find('td:nth-child(3)').text());
+        $(target).parents('.ongkir').find('#lama_hari').val(tr.find('td:nth-child(4)').text());
+    }
+
+    $('#web-form-pos').on('click', '.search-item2', function(){
+        var id = $(this).closest('div').find('input').attr('name');
+        switch(id) {
+            case 'kode_cust': 
+                var settings = {
+                    id : id,
+                    header : ['Kode', 'Nama'],
+                    url : "{{ url('esaku-master/cust') }}",
+                    columns : [
+                        { data: 'kode_cust' },
+                        { data: 'nama' }
+                    ],
+                    judul : "Daftar Customer",
+                    pilih : "",
+                    jTarget1 : "text",
+                    jTarget2 : "text",
+                    target1 : ".info-code_"+id,
+                    target2 : ".info-name_"+id,
+                    target3 : "",
+                    target4 : "",
+                    width : ["30%","70%"],
+                    }
+            break;
+            case 'provinsi': 
+                var settings = {
+                    id : id,
+                    header : ['Kode', 'Nama'],
+                    url : "{{ url('esaku-trans/provinsi') }}",
+                    columns : [
+                        { data: 'province_id' },
+                        { data: 'province' }
+                    ],
+                    judul : "Daftar Provinsi",
+                    pilih : "",
+                    jTarget1 : "text",
+                    jTarget2 : "text",
+                    target1 : ".info-code_"+id,
+                    target2 : ".info-name_"+id,
+                    target3 : "",
+                    target4 : "",
+                    width : ["30%","70%"],
+                }
+            break;
+            case 'kota': 
+                var province = $('#provinsi').val();
+                var settings = {
+                    id : id,
+                    header : ['Kode', 'Nama', 'Type'],
+                    url : "{{ url('esaku-trans/kota') }}",
+                    columns : [
+                        { data: 'city_id' },
+                        { data: 'city_name' },
+                        { data: 'type' },
+                    ],
+                    judul : "Daftar Kota/Kabupaten",
+                    parameter: {province: province},
+                    pilih : "",
+                    jTarget1 : "text",
+                    jTarget2 : "text",
+                    target1 : ".info-code_"+id,
+                    target2 : ".info-name_"+id,
+                    target3 : "",
+                    target4 : "",
+                    width : ["30%","70%"],
+                }
+            break;
+            case 'kecamatan': 
+                var province = $('#provinsi').val();
+                var city = $('#kota').val();
+                var settings = {
+                    id : id,
+                    header : ['Kode', 'Nama'],
+                    url : "{{ url('esaku-trans/kecamatan') }}",
+                    columns : [
+                        { data: 'subdistrict_id' },
+                        { data: 'subdistrict_name' },
+                    ],
+                    judul : "Daftar Kecamatan",
+                    parameter: {
+                        province: province,
+                        city: city
+                    },
+                    pilih : "",
+                    jTarget1 : "text",
+                    jTarget2 : "text",
+                    target1 : ".info-code_"+id,
+                    target2 : ".info-name_"+id,
+                    target3 : "",
+                    target4 : "",
+                    width : ["30%","70%"],
+                }
+            break;
+            case 'kode_kirim': 
+                var settings = {
+                    id : id,
+                    header : ['Kode', 'Nama'],
+                    url : "{{ url('esaku-master/jasa-kirim') }}",
+                    columns : [
+                        { data: 'kode_kirim' },
+                        { data: 'nama' },
+                    ],
+                    judul : "Daftar Jasa Kirim",
+                    pilih : "",
+                    jTarget1 : "text",
+                    jTarget2 : "text",
+                    target1 : ".info-code_"+id,
+                    target2 : ".info-name_"+id,
+                    target3 : "",
+                    target4 : "",
+                    width : ["30%","70%"],
+                }
+            break;
+            case 'service': 
+                var destination = $('#kecamatan').val();
+                var weight = toNilai($('#berat').val());
+                var courier = $('#kode_kirim').val();
+                var settings = {
+                    id : id,
+                    header : ['Service','Description','Nilai','Lama Hari'],
+                    url : "{{ url('esaku-trans/service') }}",
+                    columns : [
+                        { data: 'service' },
+                        { data: 'description' },
+                        { data: 'cost' },
+                        { data: 'etd' },
+                    ],
+                    parameter:{
+                        destination: destination,
+                        weight: weight,
+                        courier: courier
+                    },
+                    judul : "Daftar Jasa Kirim",
+                    pilih : "",
+                    jTarget1 : "text",
+                    jTarget2 : "text",
+                    jTarget3 : "val",
+                    jTarget4 : "val",
+                    target1 : ".info-code_"+id,
+                    target2 : ".info-name_"+id,
+                    target3 : "custom",
+                    target4 : "custom",
+                    width : ["30%","70%"],
+                }
+            break;
+        }
+        showInpFilter(settings);
+    })
+
+    $('.info-icon-hapus').click(function(){
+        var par = $(this).closest('div').find('input').attr('name');
+        $('#'+par).val('');
+        $('#'+par).attr('readonly',false);
+        $('#'+par).attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important');
+        $('.info-code_'+par).parent('div').addClass('hidden');
+        $('.info-name_'+par).addClass('hidden');
+        $(this).addClass('hidden');
+    });
 
     $(':input[type="number"], .currency').on('keydown', function (e){
         var value = String.fromCharCode(e.which) || e.key;
@@ -571,8 +931,8 @@
                     input += "<td>"+namaSelected+"<input type='hidden' name='kode_barang[]' class='change-validation inp-kdb form-control' value='"+barangSelected+"' readonly required></td>";
                     input += "<td><input type='text' name='harga_barang[]' class='change-validation text-right inp-hrgb form-control'  value='"+toRp(hrgSelected)+"' readonly required></td>";
                     input += "<td><input type='text' name='qty_barang[]' class='change-validation text-right inp-qtyb form-control'  value='"+qtySelected+"' readonly required></td>";
-                    input += "<td><input type='text' name='sub_barang[]' class='change-validation text-right inp-disc form-control'  value='"+toRp(discSelected)+"' readonly required></td>";
-                    input += "<td><input type='text' name='disc_barang[]' class='change-validation text-right inp-subb form-control'  value='"+toRp(subSelected)+"' readonly required></td>";
+                    input += "<td><input type='text' name='disc_barang[]' class='change-validation text-right inp-disc form-control'  value='"+toRp(discSelected)+"' readonly required></td>";
+                    input += "<td><input type='text' name='sub_barang[]' class='change-validation text-right inp-subb form-control'  value='"+toRp(subSelected)+"' readonly required></td>";
                     input += "<td class='text-center'></a><a class='btn btn-sm ubah-barang' style='padding:0;font-size:18px !important;cursor: pointer;'><i class='simple-icon-pencil'></i></a>&nbsp;<a class='btn btn-sm hapus-item ml-2' style='padding:0;font-size:18px !important;cursor: pointer;'><i class='simple-icon-trash'></i></td>";
                     input += "</tr>";
                     
@@ -615,8 +975,8 @@
         input += "<td >"+nama+"<input type='hidden' name='kode_barang[]' class='change-validation inp-kdb form-control' value='"+kd+"' readonly required></td>";
         input += "<td><input type='text' name='harga_barang[]' class='change-validation text-right inp-hrgb form-control'  value='"+toRp(hrg)+"' readonly required></td>";
         input += "<td><input type='text' name='qty_barang[]' class='change-validation text-right inp-qtyb form-control'  value='"+qty+"' readonly required></td>";
-        input += "<td><input type='text' name='sub_barang[]' class='change-validation text-right inp-disc form-control'  value='"+toRp(disc)+"' readonly required></td>";
-        input += "<td><input type='text' name='disc_barang[]' class='change-validation text-right inp-subb form-control'  value='"+toRp(sub)+"' readonly required></td>";
+        input += "<td><input type='text' name='disc_barang[]' class='change-validation text-right inp-disc form-control'  value='"+toRp(disc)+"' readonly required></td>";
+        input += "<td><input type='text' name='sub_barang[]' class='change-validation text-right inp-subb form-control'  value='"+toRp(sub)+"' readonly required></td>";
         input += "<td class='text-center'></a><a class='btn btn-sm ubah-barang' style='padding:0;font-size:18px !important;cursor: pointer;'><i class='simple-icon-pencil'></i></a>&nbsp;<a class='btn btn-sm hapus-item ml-2' style='padding:0;font-size:18px !important;cursor: pointer;'><i class='simple-icon-trash'></i></td>"
         
         $(".set-selected").closest('tr').text('');
