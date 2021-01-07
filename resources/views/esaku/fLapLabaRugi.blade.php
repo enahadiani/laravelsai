@@ -1,400 +1,67 @@
-<style>
-        td,th{
-            padding:8px !important;
-        }
-        .border-right-0{
-            border-right:0;
-        }
-        .border-left-0{
-            border-left:0;
-        }
-        .search-item{
-            /* font-size:18px; */
-            cursor:pointer;
-        }
-        .selectize-input{
-            /* border-radius:0; */
-            height:38.4px !important;
-        }
-        .hidden{
-            display:none;
-        }
-        .form-control[readonly] {
-            background-color: #e9ecef !important;
-            opacity: 1;
-        }
-        .input-group-append >.input-group-text{
-            background-color: #e9ecef !important;
-        }
-
-        #table-search,#table-search2
-        {
-            border-collapse:collapse !important;
-        }
-        
-        #table-search tbody tr:hover,#table-search2 tbody tr:hover
-        {
-            background:#F8F8F8 !important;
-            cursor:pointer;
-        }
-
-        #table-search tr.selected
-        {
-            background:#E8E8E8 !important;
-        }
-
-        #table-search_filter label, #table-search_filter input,
-        #table-search2_filter label, #table-search2_filter input
-        {
-            width:100%;
-        }
-
-  
-        .page-item.next .page-link, .page-item.all .page-link {
-            background: #900604;
-            color: #fff;
-            border: 1px solid #900604; 
-        }
-        .page-item.prev .page-link {
-            background: #900604;
-            border: 1px solid #900604;
-            color: #fff; 
-        }
-        .page-item.first .page-link, .page-item.last .page-link 
-        {
-            background: transparent;
-            color: #900604;
-            border: 1px solid #900604;
-            border-radius: 30px; 
-        }
-        .page-item.first .page-link:hover, .page-item.last .page-link:hover 
-        {
-            background: #900604;
-            color: white;
-            border: 1px solid #900604; 
-        }
-        .page-item .page-link:hover 
-        {
-            background-color: transparent;
-            border-color: #c20805;
-            color: #900604; 
-        }
-        .page-item.active .page-link 
-        {
-            background: transparent;
-            border: 1px solid #900604;
-            color: #900604; 
-        }
-        .page-item.disabled .page-link 
-        {
-            border-color: #d7d7d7;
-            color: #d7d7d7;
-            background: transparent; 
-        }
-
-        .bootstrap-tagsinput{
-            margin-bottom:10px
-        }
-
-        .dataTables_wrapper .paginate_button.previous {
-        margin-right: 0px; }
-
-        .dataTables_wrapper .paginate_button.next {
-        margin-left: 0px; }
-
-        div.dataTables_wrapper div.dataTables_paginate {
-        margin-top: 25px; }
-
-        div.dataTables_wrapper div.dataTables_paginate ul.pagination {
-        justify-content: center; }
-
-        .dataTables_wrapper .paginate_button.page-item {
-        padding-left: 5px;
-        padding-right: 5px; }
-
-        ul.pagination .pagination-sm{
-            float:right !important;
-        }
-        #table-search_paginate
-        {
-            margin-top:0;
-        }
-
-        .bootstrap-tagsinput input{
-            width:auto !important;
-        }
-    </style>
-        <div class="row" id="saku-filter">
-            <div class="col-12">
-                <div class="card" >
-                    <div class="card-body pt-4 pb-2 px-4" style="min-height:69.2px">
-                        <h5 style="position:absolute;top: 25px;">Laporan Laba Rugi</h5>
-                        <button id="btn-filter" style="float:right;width:110px" class="btn btn-light ml-2 hidden" type="button"><i class="simple-icon-equalizer mr-2" style="transform-style: ;" ></i>Filter</button>
-                        <div class="dropdown float-right">
-                            <button id="btn-export" type="button" class="btn btn-outline-primary dropdown-toggle float-right hidden"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="simple-icon-share-alt mr-1"></i> Export
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="btn-export" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 37px, 0px);">
-                                <a class="dropdown-item" href="#" id="sai-rpt-print"><img src="{{ asset('img/Print.svg') }}" style="width:16px;"> <span class="ml-2">Print</span></a>
-                                <a class="dropdown-item" href="#" id="sai-rpt-print-prev"><img src="{{ asset('img/PrintPreview.svg') }}" style="width:16px;height: 16px;"> <span class="ml-2">Print Preview</span></a>
-                                <a class="dropdown-item" href="#" id="sai-rpt-excel"><img src="{{ asset('img/excel.svg') }}" style="width:16px;"> <span class="ml-2">Excel</span></a>
-                                <a class="dropdown-item" href="#" id="sai-rpt-email"><img src="{{ asset('img/email.svg') }}" style="width:16px;height: 16px;margin-right: 3px;"><span class="ml-2">Email</span></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="separator"></div>
-                    <div class="row">
-                        <div class="col-12 col-sm-12">
-                            <div class="collapse show" id="collapseFilter">
-                                <div class="px-4 pb-4 pt-2">
-                                    <form id="form-filter">
-                                        <h6>Filter</h6>
-                                        <div class="form-group row sai-rpt-filter-entry-row">
-                                            <p class="kunci" hidden>periode</p>
-                                            <label for="periode" class="col-md-2 col-sm-12 col-form-label">Periode</label>
-                                            <div class="col-md-2 col-sm-12" >
-                                                <select name='periode[]' class='form-control sai-rpt-filter-type selectize'><option value='=' selected>Sama dengan</option></select>
-                                            </div>
-                                            <div class="col-md-8 col-sm-12 sai-rpt-filter-from">
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control border-right-0 " name="periode[]" id="periode-from" readonly>
-                                                    <div class="input-group-append border-left-0">
-                                                    <a href="#" class="text-primary input-group-text search-item">ubah</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-2 col-sm-12 sai-rpt-filter-sampai hidden">
-                                                Sampai dengan
-                                            </div>
-                                            <div class="col-md-3 col-sm-12 sai-rpt-filter-to hidden" >
-                                                <div class="input-group" >
-                                                    <input type="text" class="form-control border-right-0 " name="periode[]" id="periode-to" readonly>
-                                                    <div class="input-group-append border-left-0">
-                                                    <a href="#" class="text-primary input-group-text search-item">ubah</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row sai-rpt-filter-entry-row">
-                                            <p class="kunci" hidden>kode_fs</p>
-                                            <label for="kode_fs" class="col-md-2 col-sm-12 col-form-label">Kode FS</label>
-                                            <div class="col-md-2 col-sm-12" >
-                                                <select name='kode_fs[]' class='form-control sai-rpt-filter-type selectize'><option value='=' selected>Sama dengan</option></select>
-                                            </div>
-                                            <div class="col-md-8 col-sm-12 sai-rpt-filter-from">
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control border-right-0 " name="kode_fs[]" id="kode_fs-from" readonly>
-                                                    <div class="input-group-append border-left-0">
-                                                    <a href="#" class="text-primary input-group-text search-item">ubah</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-2 col-sm-12 sai-rpt-filter-sampai hidden">
-                                                Sampai dengan
-                                            </div>
-                                            <div class="col-md-3 col-sm-12 sai-rpt-filter-to hidden" >
-                                                <div class="input-group" >
-                                                    <input type="text" class="form-control border-right-0 " name="kode_fs[]" id="kode_fs-to" readonly>
-                                                    <div class="input-group-append border-left-0">
-                                                    <a href="#" class="text-primary input-group-text search-item">ubah</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row sai-rpt-filter-entry-row">
-                                            <p class="kunci" hidden>level</p>
-                                            <label for="level" class="col-md-2 col-sm-12 col-form-label">Level</label>
-                                            <div class="col-md-2 col-sm-12" >
-                                                <select name='level[]' class='form-control sai-rpt-filter-type selectize'><option value='=' selected>Sama dengan</option></select>
-                                            </div>
-                                            <div class="col-md-8 col-sm-12 sai-rpt-filter-from">
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control border-right-0 " name="level[]" id="level-from" readonly>
-                                                    <div class="input-group-append border-left-0">
-                                                    <a href="#" class="text-primary input-group-text search-item">ubah</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-2 col-sm-12 sai-rpt-filter-sampai hidden">
-                                                Sampai dengan
-                                            </div>
-                                            <div class="col-md-3 col-sm-12 sai-rpt-filter-to hidden" >
-                                                <div class="input-group" >
-                                                    <input type="text" class="form-control border-right-0 " name="level[]" id="level-to" readonly>
-                                                    <div class="input-group-append border-left-0">
-                                                    <a href="#" class="text-primary input-group-text search-item">ubah</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row sai-rpt-filter-entry-row">
-                                            <p class="kunci" hidden>format</p>
-                                            <label for="format" class="col-md-2 col-sm-12 col-form-label">Format</label>
-                                            <div class="col-md-2 col-sm-12" >
-                                                <select name='format[]' class='form-control sai-rpt-filter-type selectize'><option value='=' selected>Sama dengan</option></select>
-                                            </div>
-                                            <div class="col-md-8 col-sm-12 sai-rpt-filter-from">
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control border-right-0 " name="format[]" id="format-from" readonly>
-                                                    <div class="input-group-append border-left-0">
-                                                    <a href="#" class="text-primary input-group-text search-item">ubah</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-2 col-sm-12 sai-rpt-filter-sampai hidden">
-                                                Sampai dengan
-                                            </div>
-                                            <div class="col-md-3 col-sm-12 sai-rpt-filter-to hidden" >
-                                                <div class="input-group" >
-                                                    <input type="text" class="form-control border-right-0 " name="format[]" id="format-to" readonly>
-                                                    <div class="input-group-append border-left-0">
-                                                    <a href="#" class="text-primary input-group-text search-item">ubah</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <button id="btn-tampil" style="float:right;width:110px" class="btn btn-primary ml-2 mb-3" type="submit" >Tampilkan</button>
-                                        <button type="button" id="btn-tutup" class="btn btn-light mb-3" style="float:right;width:110px" type="button" >Tutup</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-12">
-                            <div class="collapse" id="collapsePaging">
-                                <div class="px-4 py-0 row"  style="min-height:63px">
-                                    <label class="col-sm-1 pr-0" style="padding-top: 0;margin:auto">Menampilkan</label>
-                                    <div class='col-sm-2 pl-0' style='padding-top: 0;margin:auto'>
-                                        <select name="show" id="show" class="" style='border:none'>
-                                            <option value="10">10 per halaman</option>
-                                            <option value="25">25 per halaman</option>
-                                            <option value="50">50 per halaman</option>
-                                            <option value="100">100 per halaman</option>
-                                            <option value="All" selected>Semua halaman</option>
-                                        </select>
+<link rel="stylesheet" href="{{ asset('report.css') }}" />
+    <div class="row" id="saku-filter">
+        <div class="col-12">
+            <div class="card" >
+                <x-report-header judul="Laporan Laba Rugi"/>
+                <div class="separator"></div>
+                <div class="row">
+                    <div class="col-12 col-sm-12">
+                        <div class="collapse show" id="collapseFilter">
+                            <div class="px-4 pb-4 pt-2">
+                                <form id="form-filter">
+                                    <h6>Filter</h6>
+                                    <div id="inputFilter">
+                                        <!-- COMPONENT -->
+                                        <x-inp-filter kode="periode" nama="Periode" selected="3" :option="array('3')"/>
+                                        <x-inp-filter kode="kode_fs" nama="Kode FS" selected="3" :option="array('3')"/>
+                                        <x-inp-filter kode="level" nama="Level" selected="3" :option="array('3')"/>
+                                        <x-inp-filter kode="format" nama="Format" selected="3" :option="array('3')"/>
+                                        
+                                        <!-- END COMPONENT -->
                                     </div>
-                                    <div class="col-sm-9 text-center">
-                                        <div id="pager">
-                                            <ul id="pagination" class="pagination pagination-sm2 float-right mb-0"></ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>                    
-                </div>
-            </div>
-        </div>
-        <div class="row mt-2 hidden" id="saku-report">
-            <div class="col-12">
-                <div class="card px-4 py-4" style="min-height:200px">
-                    <div class="border-bottom px-0 py-3 mb-2 navigation-lap hidden">
-                        <nav class="breadcrumb-container d-none d-sm-block d-lg-inline-block" aria-label="breadcrumb">
-                            <ol class="breadcrumb py-0 my-0">
-                                <li class="breadcrumb-item active">
-                                    Laba Rugi
-                                </li>
-                            </ol>
-                        </nav>            
-                        <button type="button" id="btn-back" style="position: absolute;right: 25px;
-                        top: 30px;" class="btn btn-light float-right">
-                        <i class=""></i> Back</button>
-                    </div>
-                    <div class="row h-100" id="report-load" style="display: none;">
-                        <div class="col-12 col-md-10 mx-auto my-auto">
-                            <div style="box-shadow:none" class="card auth-card text-center">
-                                <div style="padding:50px;width:50%;" class="my-auto mx-auto">
-                                    <div class="progress" style="height:10px">
-                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;" id="report-load-bar">0.00%</div>
-                                    </div>
-                                </div>
+                                    <button id="btn-tampil" style="float:right;width:110px" class="btn btn-primary ml-2 mb-3" type="submit" >Tampilkan</button>
+                                    <button type="button" id="btn-tutup" class="btn btn-light mb-3" style="float:right;width:110px" type="button" >Tutup</button>
+                                </form>
                             </div>
                         </div>
                     </div>
-                    <div id="canvasPreview">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> 
-    
-    <!-- MODAL SEARCH AKUN-->
-    <div class="modal" tabindex="-1" role="dialog" id="modal-search">
-        <div class="modal-dialog" role="document" style="max-width:600px">
-            <div class="modal-content">
-                <div style="display: block;" class="modal-header">
-                    <h5 class="modal-title" style="position: absolute;"></h5><button type="button" class="close" data-dismiss="modal" aria-label="Close" style="top: 0;position: relative;z-index: 10;right: ;">
-                    <span aria-hidden="true">&times;</span>
-                    </button> 
-                    <ul class="nav nav-tabs col-12 hidden" role="tablist">
-                        <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#list" role="tab" aria-selected="true"><span class="hidden-xs-down">Data</span></a></li>
-                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#terpilih" role="tab" aria-selected="false"><span class="hidden-xs-down">Terpilih</span></a> </li>
-                    </ul>
-                </div>
-                <div class="modal-body pt-3">
                     
-                </div>
+                    <x-report-paging :option="array()" default="All" />  
+                </div>                    
             </div>
         </div>
     </div>
-    <!-- END MODAL -->
-
-    <div id="modalEmail" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModallabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <form id='formEmail'>
-                    <div class='modal-header'>
-                        <h5 class='modal-title'>Kirim Email</h5>
-                        <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
-                        </button>
-                    </div>
-                    <div class='modal-body'>
-                        <div class='form-group row'>
-                            <label for="modal-email" class="col-3 col-form-label">Email</label>
-                            <div class="col-9">
-                                <input type='text' class='form-control' maxlength='100' name='email' id='modal-email' required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class='modal-footer'>
-                        <button type="button" disabled="" style="display:none" id='loading-bar2' class="btn btn-info">
-                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                        Loading...
-                        </button>
-                        <button type='submit' id='email-submit' class='btn btn-primary'>Kirim</button> 
-                        <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>
-                    </div>
-                </div>
-            </div>
-        <!-- /.modal-content -->
-        </div>
-    </div>
+    <x-report-result judul="Laba Rugi" padding="px-4 py-4" />
+    
+    @include('modal_search')
+    @include('modal_email')
     @php
         date_default_timezone_set("Asia/Bangkok");
     @endphp
     <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
+    <script src="{{ asset('reportFilter.js') }}"></script>
     <script>
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="-token"]').attr('content')
             }
         });
-        var periode = {
+        var $periode = {
             type : "=",
             from : "{{ date('Ym') }}",
             fromname : namaPeriode("{{ date('Ym') }}"),
             to : "",
             toname : "",
         }
-        var kode_fs = {
+        var $kode_fs = {
             type : "=",
-            from : "{{ Session::get('kode_fs') }}",
-            fromname : "{{ Session::get('kode_fs') }}",
+            from : "FS1",
+            fromname : "FS1",
             to : "",
             toname : "",
         }
 
-        var level = {
+        var $level = {
             type : "=",
             from : "1",
             fromname : "1",
@@ -402,7 +69,7 @@
             toname : "",
         }
 
-        var format = {
+        var $format = {
             type : "=",
             from : "Saldo Akhir",
             fromname : "Saldo Akhir",
@@ -426,12 +93,13 @@
             }
             return tmp;
         }
+
         $.fn.DataTable.ext.pager.numbers_length = 5;
 
         // $('#show').selectize();
 
         $('#periode-from').val(namaPeriode("{{ date('Ym') }}"));
-        $('#kode_fs-from').val("{{ Session::get('kode_fs') }}");
+        $('#kode_fs-from').val("FS1");
         $('#level-from').val("1");
         $('#format-from').val("Saldo Akhir");
 
@@ -466,573 +134,48 @@
         });
 
         $('.selectize').selectize();
-
-        function showFilter(param,target1,type = null){
-            var par = param;
-
-            var modul = '';
-            var header = [];
-            $target = target1;
-            var tmp = $target.attr('id');
-            tmp = tmp.split("-");
-            target2 = tmp[1];
-            target3 = tmp[1]+'name';
-            
-            switch(par){
-                case 'kode_fs[]': 
-                    header = ['Kode', 'Nama'];
-                    var toUrl = "{{ url('esaku-report/filter-fs') }}";
-                    var columns = [
-                        { data: 'kode_fs' },
-                        { data: 'nama' }
-                    ];
-                    header_pilih = ['Kode', 'Nama','Action'];
-                    var judul = "Daftar FS <span class='modal-subtitle'></span>";
-                    var pilih = "FS";
-                    $target = $target;
-                    $target2 = target2;
-                    var display = "kode";
-                    var field = eval("kode_fs");
-                    var kunci = "kode_fs";
-                    var orderby = [];
-                break;
-                case 'level[]': 
-                    header = ['Kode'];
-                    var toUrl = "{{ url('esaku-report/filter-level') }}";
-                    var columns = [
-                        { data: 'kode' }
-                    ];
-                    header_pilih = ['Kode','Action'];
-                    var judul = "Daftar Level <span class='modal-subtitle'></span>";
-                    var pilih = "Level";
-                    $target = $target;
-                    $target2 = target2;
-                    var display = "kode";
-                    var field = eval("level");
-                    var kunci = "level";
-                    var orderby = [];
-                break;
-                case 'format[]': 
-                    header = ['Kode'];
-                    var toUrl = "{{ url('esaku-report/filter-format') }}";
-                    var columns = [
-                        { data: 'kode' }
-                    ];
-                    header_pilih = ['Kode','Action'];
-                    var judul = "Daftar format <span class='modal-subtitle'></span>";
-                    var pilih = "format";
-                    $target = $target;
-                    $target2 = target2;
-                    var display = "kode";
-                    var field = eval("format");
-                    var kunci = "format";
-                    var orderby = [];
-                break;
-                case 'periode[]': 
-                    header = ['Periode', 'Nama'];
-                    var toUrl = "{{ url('esaku-report/filter-periode-keu') }}";
-                    var columns = [
-                        { data: 'periode' },
-                        { data: 'nama' }
-                    ];
-                    var judul = "Daftar Periode <span class='modal-subtitle'></span>";
-                    var pilih = "periode";
-                    $target = $target;
-                    $target2 = target2;
-                    var field = eval("periode");
-                    var display = "name";
-                    var kunci = "periode";
-                    var orderby = [[0,"desc"]];
-                break;
-            }
-
-            var header_html = '';
-            var width = ["30%","70%"];
-            for(i=0; i<header.length; i++){
-                header_html +=  "<th style='width:"+width[i]+"'>"+header[i]+"</th>";
-            }
-
-            if(type == "range"){
-                var table = "<table class='' width='100%' id='table-search'><thead><tr>"+header_html+"</tr></thead>";
-                table += "<tbody></tbody></table><table width='100%' id='table-search2'><thead><tr>"+header_html+"</tr></thead>";
-                table += "<tbody></tbody></table>";
-                if(!$('#modal-search .modal-header ul').hasClass('hidden')){
-                    $('#modal-search .modal-header ul').addClass('hidden');
-                    $('#modal-search .modal-header').css('padding-bottom','1.75rem');
-                }
-            }
-            else if(type == "in"){
-                var headerpilih_html = '';
-                var width = ["25%","70%","5%"];
-                for(i=0; i<header_pilih.length; i++){
-                    headerpilih_html +=  "<th style='width:"+width[i]+"'>"+header_pilih[i]+"</th>";
-                }
-
-                var table = `
-                <div class="tab-content tabcontent-border col-12 p-0">
-                    <div class="tab-pane active" id="list" role="tabpanel">
-                        <table class='' width='100%' id='table-search'><thead><tr>`+header_html+`</tr></thead>
-                        <tbody></tbody></table>
-                    </div>
-                    <div class="tab-pane" id="terpilih" role="tabpanel">
-                        <table class='' width='100%' id='table-search2'><thead><tr>`+headerpilih_html+`</tr></thead>
-                        <tbody></tbody></table>
-                    </div>
-                </div>
-                <button class='btn btn-primary float-right' id='btn-ok'>OK</button>`;
-                $('#modal-search .modal-header').css('padding-bottom','0');
-                $('#modal-search .modal-header ul').removeClass('hidden');
-            }
-            else{
-                var table = "<table class='' width='100%' id='table-search'><thead><tr>"+header_html+"</tr></thead>";
-                table += "<tbody></tbody></table>";
-                if(!$('#modal-search .modal-header ul').hasClass('hidden')){
-                    $('#modal-search .modal-header ul').addClass('hidden');
-                    $('#modal-search .modal-header').css('padding-bottom','1.75rem');
-                }
-            }
-
-
-            $('#modal-search .modal-body').html(table);
-            
-            $('#btn-ok').addClass('disabled');
-            $('#btn-ok').prop('disabled', true);
-
-            var searchTable = $("#table-search").DataTable({
-                sDom: '<"row view-filter"<"col-sm-12"<f>>>t<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
-                ajax: {
-                    "url": toUrl,
-                    "data": {'param':par},
-                    "type": "GET",
-                    "async": false,
-                    "dataSrc" : function(json) {
-                        return json.daftar;
-                    }
-                },
-                columns: columns,
-                order: orderby,
-                drawCallback: function () {
-                    $($(".dataTables_wrapper .pagination li:first-of-type"))
-                        .find("a")
-                        .addClass("prev");
-                    $($(".dataTables_wrapper .pagination li:last-of-type"))
-                        .find("a")
-                        .addClass("next");
-
-                    $(".dataTables_wrapper .pagination").addClass("pagination-sm");
-                },
-                language: {
-                    paginate: {
-                        previous: "<i class='simple-icon-arrow-left'></i>",
-                        next: "<i class='simple-icon-arrow-right'></i>"
-                    },
-                    search: "_INPUT_",
-                    searchPlaceholder: "Search...",
-                    lengthMenu: "Items Per Page _MENU_"
-                },
-            });
-
-            $('#modal-search .modal-title').html(judul);
-            $('#modal-search').modal('show');
-            searchTable.columns.adjust().draw();
-
-            if(type == "range"){
-                var searchTable2 = $("#table-search2").DataTable({
-                    sDom: '<"row view-filter"<"col-sm-12"<f>>>t<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
-                    ajax: {
-                        "url": toUrl,
-                        "data": {'param':par},
-                        "type": "GET",
-                        "async": false,
-                        "dataSrc" : function(json) {
-                            return json.daftar;
-                        }
-                    },
-                    columns: columns,
-                    order: orderby,
-                    drawCallback: function () {
-                        $($(".dataTables_wrapper .pagination li:first-of-type"))
-                            .find("a")
-                            .addClass("prev");
-                        $($(".dataTables_wrapper .pagination li:last-of-type"))
-                            .find("a")
-                            .addClass("next");
-
-                        $(".dataTables_wrapper .pagination").addClass("pagination-sm");
-                    },
-                    language: {
-                        paginate: {
-                            previous: "<i class='simple-icon-arrow-left'></i>",
-                            next: "<i class='simple-icon-arrow-right'></i>"
-                        },
-                        search: "_INPUT_",
-                        searchPlaceholder: "Search...",
-                        lengthMenu: "Items Per Page _MENU_"
-                    },
-                });
-
-                $('#modal-search .modal-subtitle').html('[Rentang Awal]');
-                searchTable2.columns.adjust().draw();
-                
-                $('#table-search2_wrapper').addClass('hidden');
-
-                $("<input class='form-control mb-1' type='text' id='rentang-tag'>").insertAfter('#table-search_filter label');
-                $("<input class='form-control mb-1' type='text' id='rentang-tag2'>").insertAfter('#table-search2_filter label');
-                $("#rentang-tag").tagsinput({
-                    cancelConfirmKeysOnEmpty: true,
-                    confirmKeys: [13],
-                    itemValue: 'id',
-                    itemText: 'text'
-                });
-                $("#rentang-tag2").tagsinput({
-                    cancelConfirmKeysOnEmpty: true,
-                    confirmKeys: [13],
-                    itemValue: 'id',
-                    itemText: 'text'
-                });
-                $('#rentang-tag').on('itemAdded', function(event) {
-                    $('#rentang-tag2').tagsinput('add', {id:event.item.id,text:event.item.text});
-                }); 
-                
-                $('#rentang-tag2').on('itemRemoved', function(event) {
-                    $('#rentang-tag').tagsinput('remove', {id:event.item.id,text:event.item.text});
-                    var rowIndexes = [];
-                    searchTable.rows( function ( idx, data, node ) {             
-                        if(data[kunci] === event.item.id){
-                            rowIndexes.push(idx);                  
-                        }
-                        return false;
-                    }); 
-                    searchTable.row(rowIndexes).deselect();
-                    
-                    $('#table-search_wrapper').removeClass('hidden');
-                    $('#table-search2_wrapper').addClass('hidden');
-                    $('#modal-search .modal-subtitle').html('[Rentang Awal]');
-                }); 
-                $('.bootstrap-tagsinput').css({'text-align':'left','border':'0','min-height':'41.2px'});
-            }else if(type == "in"){
-                var searchTable2 = $("#table-search2").DataTable({
-                    sDom: '<"row view-filter"<"col-sm-12"<f>>>t<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
-                    columns: columns,
-                    order: orderby,
-                    drawCallback: function () {
-                        $($(".dataTables_wrapper .pagination li:first-of-type"))
-                            .find("a")
-                            .addClass("prev");
-                        $($(".dataTables_wrapper .pagination li:last-of-type"))
-                            .find("a")
-                            .addClass("next");
-
-                        $(".dataTables_wrapper .pagination").addClass("pagination-sm");
-                    },
-                    language: {
-                        paginate: {
-                            previous: "<i class='simple-icon-arrow-left'></i>",
-                            next: "<i class='simple-icon-arrow-right'></i>"
-                        },
-                        search: "_INPUT_",
-                        searchPlaceholder: "Search...",
-                        lengthMenu: "Items Per Page _MENU_"
-                    },
-                    "columnDefs": [{
-                        "targets": 2, "data": null, "defaultContent": "<a class='hapus-item'><i class='simple-icon-trash' style='font-size:18px'></i></a>"
-                    }]
-                });
-                searchTable2.columns.adjust().draw();
-            }
-
-            $('#table-search tbody').on('click', 'tr', function () {
-                
-                if ( $(this).hasClass('selected') ) {
-                    $(this).removeClass('selected');
-                    if(type == "in"){
-                        var datain = searchTable.rows('.selected').data();
-                        if(datain.length > 1){
-                            
-                            $('#btn-ok').removeClass('disabled');
-                            $('#btn-ok').prop('disabled', false);
-                        }else{
-                            
-                            $('#btn-ok').addClass('disabled');
-                            $('#btn-ok').prop('disabled', true);
-                        }
-                        searchTable2.clear().draw();
-                        if(typeof datain !== 'undefined' && datain.length>0){
-                            searchTable2.rows.add(datain).draw(false);
-                        }
-                    }
-                }
-                else {
-                    if(type == "range"){
-                        
-                        searchTable.$('tr.selected').removeClass('selected');
-                        searchTable2.$('tr.selected').removeClass('selected');
-                        $(this).addClass('selected');
-    
-                        var kode = $(this).closest('tr').find('td:nth-child(1)').text();
-                        var nama = $(this).closest('tr').find('td:nth-child(2)').text();
-                        if(display == "kodename"){
-                            $($target).val(kode+' - '+nama);
-                        }else if(display == "name"){
-                            $($target).val(nama);
-                        }else{   
-                            $($target).val(kode);
-                        }
-                        field["from"] = kode;
-                        field["fromname"] = nama;
-                        
-                        $('#rentang-tag').tagsinput('add', {id:kode,text:'Rentang Awal :'+kode});
-                       
-                        $('#table-search_wrapper').addClass('hidden');
-                        $('#table-search2_wrapper').removeClass('hidden');
-                        $('#modal-search .modal-subtitle').html('[Rentang Akhir]');
-                    }
-                    else if (type == "in"){
-                        $(this).addClass('selected');
-                        var datain = searchTable.rows('.selected').data();
-                        if(datain.length > 1){
-                            
-                            $('#btn-ok').removeClass('disabled');
-                            $('#btn-ok').prop('disabled', false);
-                        }else{
-                            
-                            $('#btn-ok').addClass('disabled');
-                            $('#btn-ok').prop('disabled', true);
-                        }
-                        searchTable2.clear().draw();
-                        if(typeof datain !== 'undefined' && datain.length>0){
-                            searchTable2.rows.add(datain).draw(false);
-                        }
-                    }
-                    else{
-                        
-                        searchTable.$('tr.selected').removeClass('selected');
-                        $(this).addClass('selected');
-
-                        var kode = $(this).closest('tr').find('td:nth-child(1)').text();
-                        var nama = $(this).closest('tr').find('td:nth-child(2)').text();
-                        if(display == "kodename"){
-                            $($target).val(kode+' - '+nama);
-                        }else if(display == "name"){
-                            $($target).val(nama);
-                        }else{   
-                            $($target).val(kode);
-                        }
-                        field[target2] = kode;
-                        field[target3] = nama;
-                        $('#modal-search').modal('hide');
-                    }
-
-                }
-            });
-
-            $('#table-search2 tbody').on('click', 'tr', function () {
-                if(type == "range"){
-
-                    if ( $(this).hasClass('selected') ) {
-                        $(this).removeClass('selected');
-                    }
-                    else {
-                        
-                        searchTable.$('tr.selected').removeClass('selected');
-                        searchTable2.$('tr.selected').removeClass('selected');
-                        $(this).addClass('selected');
-    
-                        var kode = $(this).closest('tr').find('td:nth-child(1)').text();
-                        var nama = $(this).closest('tr').find('td:nth-child(2)').text();
-                        if(display == "kodename"){
-                            $($target).val(kode+' - '+nama);
-                        }else if(display == "name"){
-                            $($target).val(nama);
-                        }else{   
-                            $($target).val(kode);
-                        }
-    
-                        field["to"] = kode;
-                        field["toname"] = nama;   
-                        console.log(field);      
-                        
-                        $('#rentang-tag2').tagsinput('add', { id: kode, text: 'Rentang akhir:'+kode });       
-                        $('#modal-search').modal('hide');
-                    }
-                }
-            });
-
-            $('#table-search2 tbody').on('click', '.hapus-item', function () {
-                var kode = $(this).closest('tr').find('td:nth-child(1)').text();
-                searchTable2.row( $(this).parents('tr') ).remove().draw();
-                console.log('kode_akun='+kode);
-                var rowIndexes = [];
-                searchTable.rows( function ( idx, data, node ) {             
-                    if(data[kunci] === kode){
-                        rowIndexes.push(idx);                  
-                    }
-                    return false;
-                }); 
-                console.log(rowIndexes);
-                searchTable.row(rowIndexes).deselect();
-            });
-
-            $('#modal-search').on('click','#btn-ok',function(){
-                var datain = searchTable.cells('.selected',0).data();
-                console.log(datain.length);
-                var kode = '';
-                var nama = '';
-                for(var i=0;i<datain.length;i++){
-                    if(i == 0){
-                        kode +=datain[i];
-                    }else{
-                        kode +=','+datain[i];
-                    }
-                }   
-                $($target).val(kode);
-                field[target2] = kode;
-                field[target3] = kode;
-                $('#modal-search').modal('hide');
-            });
-        }
-        
-
-        $('#form-filter').on('change', '.sai-rpt-filter-type', function(){
-            var type = $(this).val();
-            console.log(type);
-            var kunci = $(this).closest('div.sai-rpt-filter-entry-row').find('.kunci').text();
-            var field = eval(kunci);
-            switch(type){
-                case "all":
-                    
-                    $aktif = '';
-                    $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').removeClass('col-md-3');
-                    $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').addClass('col-md-8');
-                    $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input').val('Menampilkan semua '+kunci);
-                    $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-to').addClass('hidden');
-                    $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-sampai').addClass('hidden');
-                    $(this).closest('div.sai-rpt-filter-entry-row').find('.input-group-text').removeClass('search-item');
-                    $(this).closest('div.sai-rpt-filter-entry-row').find('.input-group-text').text('');
-                    
-                    field.type = "all";
-                    field.from = "";
-                    field.to = "";
-                    field.fromname = "";
-                    field.toname = "";
-                    $('#modal-search').on('hide.bs.modal', function (e) {
-                        //
-                    });
-                    
-                break;
-                case "=":
-                    
-                    $aktif = "";
-                    var par = $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input').attr('name'); 
-                    var target = $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input');
-                    showFilter(par,target);
-                    $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').removeClass('col-md-3');
-                    $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').addClass('col-md-8');
-                    $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input').val(field.fromname);
-                    $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-to').addClass('hidden');
-                    $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-sampai').addClass('hidden');
-                    $(this).closest('div.sai-rpt-filter-entry-row').find('.input-group-text').addClass('search-item');
-                    $(this).closest('div.sai-rpt-filter-entry-row').find('.input-group-text').text('ubah');
-                    field.type = "=";
-                    field.from = field.from;
-                    field.to = "";
-                    field.fromname = field.fromname;
-                    field.toname = "";
-                    $('#modal-search').on('hide.bs.modal', function (e) {
-                        //
-                    });
-                break;
-                case "range":
-                    
-                    $aktif = $(this);
-                    var par = $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input').attr('name'); 
-                    var target = $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input');
-                    showFilter(par,target,"range");
-                    $('#modal-search').on('hide.bs.modal', function (e) {
-                        if($aktif != ""){
-
-                            field.type = "range";
-                            field.from = field.from;
-                            field.to = field.to;
-                            field.fromname =  field.fromname ;
-                            field.toname =  field.toname ;
-                            console.log('close');
-        
-                            $aktif.closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').removeClass('col-md-8');
-                            $aktif.closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').addClass('col-md-3');
-                            if(kunci == "periode"){
-        
-                                $aktif.closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input').val(field.fromname);
-                                $aktif.closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-to input').val(field.toname);
-                            }else if(kunci == "akun"){
-                                $aktif.closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input').val(field.from+' - '+field.fromname);
-                                $aktif.closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-to input').val(field.to+' - '+field.toname);
-                            }
-                            $aktif.closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-to').removeClass('hidden');
-                            $aktif.closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-sampai').removeClass('hidden');
-                            $aktif.closest('div.sai-rpt-filter-entry-row').find('.input-group-text').addClass('search-item');
-                            $aktif.closest('div.sai-rpt-filter-entry-row').find('.input-group-text').text('ubah');
-                        }
-                    });
-                    
-                break;
-                case "in":
-                    
-                    $aktif = '';
-                    var par = $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input').attr('name'); 
-                    var target = $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input');
-                    showFilter(par,target,"in");
-                    $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').removeClass('col-md-3');
-                    $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').addClass('col-md-8');
-                    $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input').val('');
-                    $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-to').addClass('hidden');
-                    $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-sampai').addClass('hidden');
-                    $(this).closest('div.sai-rpt-filter-entry-row').find('.input-group-text').addClass('search-item');
-                    $(this).closest('div.sai-rpt-filter-entry-row').find('.input-group-text').text('ubah');
-                    
-                    field.type = "in";
-                    field.from = "";
-                    field.to = "";
-                    field.fromname = "";
-                    field.toname = "";
-                    $('#modal-search').on('hide.bs.modal', function (e) {
-                        //
-                    });
-                    
-                break;
-            }
-           
-        });
-
-        $('#form-filter').on('click', '.search-item', function(){
-            var par = $(this).closest('.input-group').find('input').attr('name');
-            var target1 = $(this).closest('.input-group').find('input');
-            
-            var type = $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-type')[0].selectize.getValue();
-            console.log(type);
-            if(type == "in"){
-                showFilter(par,target1,type);
-            }else{
-                showFilter(par,target1);
-            }
+        $('#inputFilter').reportFilter({
+            kode : ['periode','kode_fs','level','format'],
+            nama : ['Periode','Kode FS','Level','Format'],
+            header : [['Periode', 'Nama'],['Kode', 'Nama'],['Kode'],['Kode']],
+            headerpilih : [['Periode', 'Nama','Action'],['Kode', 'Nama','Action'],['Kode','Action'],['Kode','Action']],
+            columns: [
+                [
+                    { data: 'periode' },
+                    { data: 'nama' }
+                ],[
+                    { data: 'kode_fs' },
+                    { data: 'nama' }
+                ],[
+                    { data: 'kode' }
+                ],[
+                    { data: 'kode' }
+                ]
+            ],
+            url :["{{ url('esaku-report/filter-periode-keu') }}","{{ url('esaku-report/filter-fs') }}","{{ url('esaku-report/filter-level') }}","{{ url('esaku-report/filter-format') }}"],
+            parameter:[],
+            orderby:[[[0,"desc"]],[],[],[]],
+            width:[['30%','70%'],['30%','70%'],['30%','70%'],['30%','70%']],
+            display:['name','kode','kode','kode'],
+            pageLength:[12,10,10,10]
         });
 
         var $formData = "";
         $('#form-filter').submit(function(e){
             e.preventDefault();
             $formData = new FormData();
-            $formData.append("periode[]",periode.type);
-            $formData.append("periode[]",periode.from);
-            $formData.append("periode[]",periode.to);
-            $formData.append("kode_fs[]",kode_fs.type);
-            $formData.append("kode_fs[]",kode_fs.from);
-            $formData.append("kode_fs[]",kode_fs.to);
-            $formData.append("level[]",level.type);
-            $formData.append("level[]",level.from);
-            $formData.append("level[]",level.to);
-            $formData.append("format[]",format.type);
-            $formData.append("format[]",format.from);
-            $formData.append("format[]",format.to);
+            $formData.append("periode[]",$periode.type);
+            $formData.append("periode[]",$periode.from);
+            $formData.append("periode[]",$periode.to);
+            $formData.append("kode_fs[]",$kode_fs.type);
+            $formData.append("kode_fs[]",$kode_fs.from);
+            $formData.append("kode_fs[]",$kode_fs.to);
+            $formData.append("level[]",$level.type);
+            $formData.append("level[]",$level.from);
+            $formData.append("level[]",$level.to);
+            $formData.append("format[]",$format.type);
+            $formData.append("format[]",$format.from);
+            $formData.append("format[]",$format.to);
             for(var pair of $formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
@@ -1043,23 +186,30 @@
 
         $('#show').change(function(e){
             $formData = new FormData();
-            $formData.append("periode[]",periode.type);
-            $formData.append("periode[]",periode.from);
-            $formData.append("periode[]",periode.to);
-            $formData.append("kode_fs[]",kode_fs.type);
-            $formData.append("kode_fs[]",kode_fs.from);
-            $formData.append("kode_fs[]",kode_fs.to);
-            $formData.append("level[]",level.type);
-            $formData.append("level[]",level.from);
-            $formData.append("level[]",level.to);
-            $formData.append("format[]",format.type);
-            $formData.append("format[]",format.from);
-            $formData.append("format[]",format.to);
+            $formData.append("periode[]",$periode.type);
+            $formData.append("periode[]",$periode.from);
+            $formData.append("periode[]",$periode.to);
+            $formData.append("kode_fs[]",$kode_fs.type);
+            $formData.append("kode_fs[]",$kode_fs.from);
+            $formData.append("kode_fs[]",$kode_fs.to);
+            $formData.append("level[]",$level.type);
+            $formData.append("level[]",$level.from);
+            $formData.append("level[]",$level.to);
+            $formData.append("format[]",$format.type);
+            $formData.append("format[]",$format.from);
+            $formData.append("format[]",$format.to);
             for(var pair of $formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
             xurl = "{{ url('esaku-auth/form/rptLabaRugi') }}";
             $('#saku-report #canvasPreview').load(xurl);
+        });
+
+
+        $("#sai-rpt-pdf").click(function(e) {
+            e.preventDefault();
+            var link = "{{ url('esaku-report/lap-labarugi-pdf') }}?periode[]="+$periode.type+"&periode[]="+$periode.from+"&periode[]="+$periode.to+"&kode_fs[]="+$kode_fs.type+"&kode_fs[]="+$kode_fs.from+"&kode_fs[]="+$kode_fs.to+"&level[]="+$level.type+"&level[]="+$level.from+"&level[]="+$level.to+"&format[]="+$format.type+"&format[]="+$format.from+"&format[]="+$format.to;
+            window.open(link, '_blank'); 
         });
 
         // TRACE
@@ -1155,9 +305,9 @@
         $('.navigation-lap').on('click', '#btn-back', function(e){
             e.preventDefault();
             $formData.delete('periode[]');
-            $formData.append("periode[]",periode.type);
-            $formData.append("periode[]",periode.from);
-            $formData.append("periode[]",periode.to);
+            $formData.append("periode[]",$periode.type);
+            $formData.append("periode[]",$periode.from);
+            $formData.append("periode[]",$periode.to);
 
             var aktif = $('.breadcrumb-item.active').attr('aria-current');
 
@@ -1165,9 +315,9 @@
                 xurl = "esaku-auth/form/rptLabaRugi";
                 $formData.delete('back');
                 $formData.delete('kode_fs[]');
-                $formData.append("kode_fs[]",kode_fs.type);
-                $formData.append("kode_fs[]",kode_fs.from);
-                $formData.append("kode_fs[]",kode_fs.to);
+                $formData.append("kode_fs[]",$kode_fs.type);
+                $formData.append("kode_fs[]",$kode_fs.from);
+                $formData.append("kode_fs[]",$kode_fs.to);
                 $('.breadcrumb').html('');
                 $('.breadcrumb').append(`
                     <li class="breadcrumb-item active" aria-current="laba-rugi">Laba Rugi</li>
@@ -1213,15 +363,15 @@
             e.preventDefault();
             var tujuan = $(this).data('href');
             $formData.delete('periode[]');
-            $formData.append("periode[]",periode.type);
-            $formData.append("periode[]",periode.from);
-            $formData.append("periode[]",periode.to);
+            $formData.append("periode[]",$periode.type);
+            $formData.append("periode[]",$periode.from);
+            $formData.append("periode[]",$periode.to);
             if(tujuan == "laba-rugi"){
                 $formData.delete('back');
                 $formData.delete('kode_fs[]');
-                $formData.append("kode_fs[]",kode_fs.type);
-                $formData.append("kode_fs[]",kode_fs.from);
-                $formData.append("kode_fs[]",kode_fs.to);
+                $formData.append("kode_fs[]",$kode_fs.type);
+                $formData.append("kode_fs[]",$kode_fs.from);
+                $formData.append("kode_fs[]",$kode_fs.to);
                 xurl = "esaku-auth/form/rptLabaRugi";
                 $('.breadcrumb').html('');
                 $('.breadcrumb').append(`
@@ -1270,7 +420,7 @@
 
         $('#sai-rpt-print-prev').click(function(){
             var newWindow = window.open();
-            var html = `<head>`+$('head').html()+`</head><style>`+$('style').html()+`</style><body style='background:white;'><div align="center">`+$('#canvasPreview').html()+`</div></body>`;
+            var html = `<head>`+$('head').html()+`</head><link rel="stylesheet" href="{{ asset('report.css') }}" /><style>`+$('style').html()+`</style><body style='background:white;'><div align="center">`+$('#canvasPreview').html()+`</div></body>`;
             newWindow.document.write(html);
         });
 
@@ -1294,18 +444,18 @@
         $('#modalEmail').on('submit','#formEmail',function(e){
             e.preventDefault();
             var formData = new FormData(this);
-            $formData.append("periode[]",periode.type);
-            $formData.append("periode[]",periode.from);
-            $formData.append("periode[]",periode.to);
-            $formData.append("kode_fs[]",kode_fs.type);
-            $formData.append("kode_fs[]",kode_fs.from);
-            $formData.append("kode_fs[]",kode_fs.to);
-            $formData.append("level[]",level.type);
-            $formData.append("level[]",level.from);
-            $formData.append("level[]",level.to);
-            $formData.append("format[]",format.type);
-            $formData.append("format[]",format.from);
-            $formData.append("format[]",format.to);
+            $formData.append("periode[]",$periode.type);
+            $formData.append("periode[]",$periode.from);
+            $formData.append("periode[]",$periode.to);
+            $formData.append("kode_fs[]",$kode_fs.type);
+            $formData.append("kode_fs[]",$kode_fs.from);
+            $formData.append("kode_fs[]",$kode_fs.to);
+            $formData.append("level[]",$level.type);
+            $formData.append("level[]",$level.from);
+            $formData.append("level[]",$level.to);
+            $formData.append("format[]",$format.type);
+            $formData.append("format[]",$format.from);
+            $formData.append("format[]",$format.to);
             for(var pair of formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }

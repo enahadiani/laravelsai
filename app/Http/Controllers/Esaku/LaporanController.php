@@ -7,6 +7,7 @@
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Session;
     use GuzzleHttp\Exception\BadResponseException;
+    use PDF;
 
     class LaporanController extends Controller {
 
@@ -467,13 +468,24 @@
                 }else{
                     $back = false;
                 }
-                return response()->json(['result' => $result, 'status'=>true, 'auth_status'=>1, 'sumju'=>"Tidak",'lokasi'=>Session::get('namaLokasi'),'back'=>$back], 200); 
+                return response()->json(['result' => $result, 'status'=>true, 'auth_status'=>1, 'sumju'=>$request->sum_ju[1],'lokasi'=>Session::get('namaLokasi'),'back'=>$back], 200); 
                 
             } catch (BadResponseException $ex) {
                 $response = $ex->getResponse();
                 $res = json_decode($response->getBody(),true);
                 return response()->json(['message' => $res["message"], 'status'=>false, 'auth_status'=>2], 200);
             } 
+        }
+
+        function getJurnalPDF(Request $request)
+        {
+            set_time_limit(300);
+            $tmp = app('App\Http\Controllers\Esaku\LaporanController')->getJurnal($request);
+            $tmp = json_decode(json_encode($tmp),true);
+            $data = $tmp['original'];
+            
+            $pdf = PDF::loadview('esaku.rptJurnalPDF',['data'=>$data["result"],'periode'=>$request->periode[1],'sumju'=>$request->sum_ju[1],'lokasi'=>$data["lokasi"]]);
+    	    return $pdf->download('laporan-jurnal-pdf');   
         }
     
         function getBukuBesar(Request $request){
@@ -516,6 +528,17 @@
                 return response()->json(['message' => $res["message"], 'status'=>false, 'auth_status'=>2], 200);
             } 
            
+        }
+
+        function getBukuBesarPDF(Request $request)
+        {
+            set_time_limit(300);
+            $tmp = app('App\Http\Controllers\Esaku\LaporanController')->getBukuBesar($request);
+            $tmp = json_decode(json_encode($tmp),true);
+            $data = $tmp['original'];
+            
+            $pdf = PDF::loadview('esaku.rptBukuBesarPDF',['data'=>$data["result"],'detail'=>$data["detail"],'periode'=>$request->periode[1],'lokasi'=>$data["lokasi"]]);
+    	    return $pdf->download('laporan-bukubesar-pdf');   
         }
 
         function getNeraca(Request $request){

@@ -38,6 +38,7 @@
             </style>
 
             `;
+            periode = $periode;
             var lokasi = res.lokasi;
             html+=judul_lap("LAPORAN NERACA LAJUR",lokasi,'Periode '+periode.fromname)+`
                 <table class='table table-bordered info-table'>
