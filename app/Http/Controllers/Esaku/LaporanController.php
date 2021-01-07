@@ -291,7 +291,7 @@
 
         public function getPenjualan(Request $request) {
            try{
-                $client = new Client();
+                $client = new Client(););
                 $response = $client->request('GET',  config('api.url').'toko-report/lap-penjualan',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
@@ -308,7 +308,7 @@
                     $response_data = $response->getBody()->getContents();
                     
                     $res = json_decode($response_data,true);
-                    $data = $res;
+                    $data = $res["data"];
                 }
                 if($request->periode != ""){
                     $periode = $request->periode;
