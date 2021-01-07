@@ -295,6 +295,13 @@
         var formData = new FormData(this);
         var data = [];
         var selected = table.rows('.selected').data();
+        if(selected.length === 0) {
+            return Swal.fire(
+                    'Failed Request!',
+                    'Tidak ada penjualan yang dipilih',
+                    'error'
+                );
+        }
         $.each(selected, function(i, val){
             formData.append('no_bukti[]', selected[i].no_pesan)
         })
