@@ -398,6 +398,12 @@
         $("[class^=input-group-text]").each(function(e){
             $(this).text('');
         });
+        $("[class^=input-group-prepend]").each(function(e){
+            $(this).addClass('hidden');
+        });
+        $("[class*='inp-label-']").each(function(e){
+            $(this).removeAttr("style");
+        })
         $("[class^=info-code]").each(function(e){
             $(this).text('');
         });
