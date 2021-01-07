@@ -22,3 +22,8 @@ Route::get('data-box', 'Sekolah\PesanController@getDataBox');
 Route::get('kartu-piutang', 'Sekolah\DashSiswaController@getKartuPiutang');
 Route::get('kartu-pdd', 'Sekolah\DashSiswaController@getKartuPDD');
 Route::get('dash-siswa-profile', 'Sekolah\DashSiswaController@getProfile');
+
+Route::get('progress-nilai', 'Sekolah\DashboardController@getProgressNilai');
+Route::get('komposisi-siswa', 'Sekolah\DashboardController@getKomposisiSiswa');
+Route::get('chart-nilai', 'Sekolah\DashboardController@getChartNilai');
+Route::get('tingkat', 'Sekolah\DashboardController@getTingkat');

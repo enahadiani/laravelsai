@@ -46,3 +46,7 @@ Route::post('send-laporan', 'Esaku\LaporanController@sendMail');
 Route::post('email-nrclajur', 'Esaku\LaporanController@sendNrcLajur');
 
 Route::get('lap-jurnal-pdf', 'Esaku\LaporanController@getJurnalPDF');
+Route::get('lap-bukubesar-pdf', 'Esaku\LaporanController@getBukuBesarPDF');
+Route::get('lap-nrclajur-pdf', 'Esaku\LaporanController@getNrcLajurPDF');
+Route::get('lap-neraca-pdf', 'Esaku\LaporanController@getNeracaPDF');
+Route::get('lap-labarugi-pdf', 'Esaku\LaporanController@getLabaRugiPDF');
