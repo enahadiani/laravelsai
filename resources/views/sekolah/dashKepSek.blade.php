@@ -68,7 +68,7 @@
         </div>
     </div>
     <div class="row" >
-        <div class="col-lg-8 col-12 mb-4">
+        <div class="col-lg-8 col-12 mb-4" style="display:grid">
             <div class="card">
                 <div class="card-header px-4 pt-4 pb-0">
                     <div class="row">
@@ -83,7 +83,7 @@
                     </div>
                 </div>
                 <div class="card-body px-4 py-4">
-                    <div id="nilai" style='height:350px'></div>
+                    <div id="nilai" style='min-height:400px'></div>
                 </div>
             </div>
         </div>
@@ -321,7 +321,7 @@ function getPenilaian(kode_ta,kode_sem,kode_tingkat){
             Highcharts.chart('nilai', {
                 chart: {
                     type: 'heatmap',
-                    marginTop: 0,
+                    marginTop: 20,
                     marginBottom: 80,
                     plotBorderWidth: 1,
                     events: {
