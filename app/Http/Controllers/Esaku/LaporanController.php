@@ -291,7 +291,7 @@
 
         public function getPenjualan(Request $request) {
            try{
-                $client = new Client(););
+                $client = new Client();
                 $response = $client->request('GET',  config('api.url').'toko-report/lap-penjualan',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
