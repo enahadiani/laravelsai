@@ -383,4 +383,8 @@
         $('#barcode-result').hide();
         $('#print-area').empty();
     });
+
+    $('#barcode-result').on('click', '#btn-print', function(){
+        $('#print-area').printThis();
+    });
 </script>
