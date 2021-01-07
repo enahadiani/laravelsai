@@ -34,6 +34,7 @@
                 }
             </style>
             `;
+            periode = $periode;
             var lokasi = res.lokasi;
             html+=judul_lap("LAPORAN TRANSAKSI JURNAL",lokasi,'Periode '+periode.fromname)+`
                 <table width='100%' class='table table-bordered'>

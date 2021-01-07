@@ -6,7 +6,7 @@
                     <h6 class="modal-title my-2" style="position: absolute;"></h6><button type="button" class="close" data-dismiss="modal" aria-label="Close" style="top: 0;position: relative;z-index: 10;right:-25px;">
                     <span aria-hidden="true">&times;</span>
                     </button> 
-                    <ul class="nav nav-tabs col-12 hidden" role="tablist">
+                    <ul class="nav nav-tabs col-12 hidden justify-content-end" style="margin-top:15px" role="tablist">
                         <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#list" role="tab" aria-selected="true"><span class="hidden-xs-down">Data</span></a></li>
                         <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#terpilih" role="tab" aria-selected="false"><span class="hidden-xs-down">Terpilih</span></a> </li>
                     </ul>
