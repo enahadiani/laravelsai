@@ -9,6 +9,16 @@
         text-align: center; /* center checkbox horizontally */
         vertical-align: middle; /* center checkbox vertically */
     }
+    .table-barcode {
+        color: #000;
+        width: 100%;
+        border: 1px solid #000 !important;
+        border-collapse: collapse !important;
+    }
+    .table-barcode > td {
+        border: none !important;
+    }
+
 </style>
 
 <form id="form-tambah" class="tooltip-label-right" method="POST" novalidate>
@@ -58,7 +68,7 @@
                         <table id="table-data" class="table table-bordered" style='width:100%'>
                             <thead>
                                 <tr>
-                                    <th id="checkbox"><input name="select_all" value="1" type="checkbox"></th>
+                                    <th id="checkbox"><input id="check-all" name="select_all" value="1" type="checkbox"></th>
                                     <th>No. Pesan</th>
                                     <th>Tanggal</th>
                                     <th>Nama Customer</th>
@@ -76,6 +86,21 @@
         </div>
     </div>
 </form>
+
+<div class="row" id="barcode-result" style="display: none;">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;">
+                <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
+                <button type="button" class="btn btn-info ml-2" id="btn-print" style="float:right;"><i class="fa fa-print"></i> Print</button>
+            </div>
+            <div class="separator mb-2"></div>
+            <div class="card-body pt-3 form-body">
+                <div class="row" id="print-area"></div>
+            </div>
+        </div>
+    </div>
+</div>
 
 @include('modal_search')
 <script src="{{ asset('helper.js') }}"></script>  
@@ -268,9 +293,98 @@
     $('#form-tambah').submit(function(e){
         e.preventDefault()
         var formData = new FormData(this);
-        // $('#data').
+        var data = [];
+        var selected = table.rows('.selected').data();
+        $.each(selected, function(i, val){
+            formData.append('no_bukti[]', selected[i].no_pesan)
+        })
         for(var pair of formData.entries()) {
             console.log(pair[0]+ ', '+ pair[1]); 
         }
+
+        $.ajax({
+            type: 'POST',
+            url: "{{ url('esaku-trans/barcode') }}",
+            dataType: 'JSON',
+            data: formData,
+            async:false,
+            contentType: false,
+            cache: false,
+            processData: false,
+            success:function(result){
+                var data = result.data;
+                $('#print-area').empty();
+                if(data.status) {
+                    Swal.fire(
+                        'Great Job!',
+                        data.message,
+                        'success'
+                    );
+                    var html = "";
+                    for(var i=0;i<data.data.length;i++) {
+                        var value = data.data[i];
+                        var kecamatan = value.kecamatan_cust.split('|');
+                        var kota = value.kota_cust.split('|');
+                        var provinsi = value.prop_cust.split('|');
+                        var service = value.service.split('|');
+                        html += "<div class='col-6' style='margin-bottom: 20px !important;'>";
+                        html += "<table class='table-barcode'>";
+                        html += "<tbody>";
+                        html += "<tr>";
+                        html += "<td colspan='2' class='text-center'>NOMOR BUKTI:"+value.no_pesan+"</td>";
+                        html += "</tr>";
+                        html += "<tr>";
+                        html += "<td colspan='2' class='text-center'><img src='https://api.simkug.com/api/toko-auth/storage/barcode-"+value.no_pesan+"' width='450px' height='30px' /></td>";
+                        html += "</tr>";
+                        html += "<tr>";
+                        html += "<td colspan='2'></td>";
+                        html += "</tr>";
+                        html += "<tr>";
+                        html += "<td colspan='2'>";
+                        html += "<p>";
+                        html += "Penerima: "+value.nama_cust+"<br/>";
+                        html += value.alamat_cust+"<br/>";
+                        html += "Kecamatan "+kecamatan[1]+", Kabupaten/Kota "+kota[1]+", "+provinsi[1];
+                        html += "Telp. "+value.telp_cust || "0000000";
+                        html += "</p>";
+                        html += "</td>";
+                        html += "</tr>";
+                        html += "<tr>";
+                        html += "<td colspan='2'>"
+                        html += "<p>";
+                        html += "Pengirim: "+value.nama_lokasi+"<br/>";
+                        html += value.alamat_lokasi;
+                        html += "Kabupaten/Kota "+value.kota_lokasi;
+                        html += "Telp. "+value.no_telp_lokasi
+                        html += "</p>";
+                        html += "</td>"
+                        html += "</tr>";
+                        html += "<tr>";
+                        html += "<td class='text-center'>"+value.kode_kirim.toUpperCase()+"("+service[0]+")</td>";
+                        html += "<td class='text-center'>Berat: "+value.berat+"</td>";
+                        html += "</tr>";
+                        html += "</tbody>";
+                        html += "</table>";
+                        html += "</div>";
+                    }
+                    $('#check-all').prop('checked', false);
+                    $('#check-all').attr('checked', false);
+                    $('#data').empty();
+                    $('#print-area').html(html);
+                    $('#barcode-result').show();
+                    $('#form-tambah').hide();
+                }
+            }
+        })
+    });
+
+    $('#barcode-result').on('click', '#btn-kembali', function(){
+        $('#form-tambah').show();
+        $('#barcode-result').hide();
+        $('#print-area').empty();
+    });
+
+    $('#barcode-result').on('click', '#btn-print', function(){
+        $('#print-area').printThis();
     });
 </script>
