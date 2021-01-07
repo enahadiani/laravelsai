@@ -395,8 +395,8 @@
         $("[class^=info-name]").each(function(e){
             $(this).addClass('hidden');
         });
-        $("[class^=input-group-prepend]").each(function(e){
-            $(this).addClass('hidden');
+        $("[class^=input-group-text]").each(function(e){
+            $(this).text('');
         });
         $("[class^=info-code]").each(function(e){
             $(this).text('');
