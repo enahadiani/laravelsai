@@ -14,6 +14,9 @@
     .nav-tabs {
         border:none;
     }
+    .border-white{
+        stroke:white !important;
+    }
 
     .nav-tabs .nav-link{
         border: 1px solid #ad1d3e;
@@ -324,6 +327,8 @@ function getPenilaian(kode_ta,kode_sem,kode_tingkat){
                     events: {
                         render: function () {
                             $('path').removeClass('highcharts-color-0');
+                            $('path.highcharts-point').addClass('border-white');
+                            $('path').removeClass('highcharts-point');
                         }
                     }
                 },
@@ -374,19 +379,22 @@ function getPenilaian(kode_ta,kode_sem,kode_tingkat){
                 },
                 tooltip: {
                     formatter: function () {
-                        return '<b> Mata Pelajaran: ' + getPointCategoryName(this.point, 'x') + '</b> <br><b>Kelas: ' + getPointCategoryName(this.point, 'y') + '</b> <br><b>Nilai: ' +this.point.value + '</b>';
+                        return '<b> Mata Pelajaran: ' + getPointCategoryName(this.point, 'x') + '</b> <br><b>Kelas: ' + getPointCategoryName(this.point, 'y') + '</b> <br><b>Progress Nilai: ' +this.point.value + '%</b>';
                     }
                 },
                 credits:{
                     enabled:false
                 },
                 series: [{
-                    name: 'Sales per employee',
+                    name: 'Nilai per Kelas',
                     borderWidth: 1,
                     data: result.data.data,
                     dataLabels: {
                         enabled: true,
-                        color: '#000000'
+                        color: '#000000',
+                        formatter: function(){
+                            return this.point.value + '%';
+                        }
                     }
                 }],
                 responsive: {
