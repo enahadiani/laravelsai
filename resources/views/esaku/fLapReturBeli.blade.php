@@ -117,17 +117,17 @@
                 { data: 'nik_user' },
                 { data: 'nama' }
             ],[
-                { data: 'no_jual' },
+                { data: 'no_bukti' },
                 { data: 'keterangan' }
             ]
         ],
-        url :["{{ url('esaku-report/filter-periode') }}","{{ url('esaku-report/filter-nik') }}","{{ url('esaku-report/filter-bukti') }}"],
+        url :["{{ url('esaku-report/filter-periode-retur') }}","{{ url('esaku-report/filter-nik-retur') }}","{{ url('esaku-report/filter-bukti-retur') }}"],
         parameter:[{},{},{}],
         orderby:[[[0,"desc"]],[[0,"desc"]],[[0,"asc"]]],
         width:[['30%','70%'],['30%','70%'],['30%','70%'],['30%','70%']],
         display:['kode','kode','kode'],
         pageLength:[12,10,10,10]
-    })
+    });
     $('#inputFilter').on('change','input',function(e){
         setTimeout(() => {
             $('#inputFilter').reportFilter({
@@ -142,17 +142,17 @@
                         { data: 'nik_user' },
                         { data: 'nama' }
                     ],[
-                        { data: 'no_jual' },
+                        { data: 'no_bukti' },
                         { data: 'keterangan' }
                     ]
                 ],
-                url :["{{ url('esaku-report/filter-periode') }}","{{ url('esaku-report/filter-nik') }}","{{ url('esaku-report/filter-bukti') }}"],
+                url :["{{ url('esaku-report/filter-periode-retur') }}","{{ url('esaku-report/filter-nik-retur') }}","{{ url('esaku-report/filter-bukti-retur') }}"],
                 parameter:[{},{},{}],
                 orderby:[[[0,"desc"]],[[0,"desc"]],[[0,"asc"]]],
                 width:[['30%','70%'],['30%','70%'],['30%','70%'],['30%','70%']],
                 display:['kode','kode','kode'],
                 pageLength:[12,10,10]
-            })
+            });
         }, 500)
     });
 
@@ -173,7 +173,7 @@
             console.log(pair[0]+ ', '+ pair[1]); 
         }
         $('#saku-report').removeClass('hidden');
-        xurl = "{{ url('esaku-auth/form/rptPnj3') }}";
+        xurl = "{{ url('esaku-auth/form/rptReturBeli') }}";
         $('#saku-report #canvasPreview').load(xurl);
     });
 
@@ -192,7 +192,7 @@
             console.log(pair[0]+ ', '+ pair[1]); 
         }
         $('#saku-report').removeClass('hidden');
-        xurl = "{{ url('esaku-auth/form/rptPnj3') }}";
+        xurl = "{{ url('esaku-auth/form/rptReturBeli') }}";
         $('#saku-report #canvasPreview').load(xurl);
     });
 
@@ -212,8 +212,8 @@
         e.preventDefault();
         $("#saku-report #canvasPreview").table2excel({
             // exclude: ".excludeThisClass",
-            name: "Lap_Pnj_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}",
-            filename: "Lap_Pnj_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}.xls", // do include extension
+            name: "Lap_ReturBeli_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}",
+            filename: "Lap_ReturBeli_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}.xls", // do include extension
             preserveColors: false // set to true if you want background colors and font colors preserved
         });
     });

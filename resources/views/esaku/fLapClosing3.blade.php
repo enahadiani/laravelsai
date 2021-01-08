@@ -126,7 +126,7 @@
         orderby:[[[0,"desc"]],[[0,"desc"]],[[0,"asc"]]],
         width:[['30%','70%'],['30%','70%'],['30%','70%'],['30%','70%']],
         display:['kode','kode','kode'],
-        pageLength:[12,10,10,10]
+        pageLength:[12,10,10]
     });
     $('#inputFilter').on('change','input',function(e){
         setTimeout(() => {
@@ -151,7 +151,7 @@
                 orderby:[[[0,"desc"]],[[0,"desc"]],[[0,"asc"]]],
                 width:[['30%','70%'],['30%','70%'],['30%','70%'],['30%','70%']],
                 display:['kode','kode','kode'],
-                pageLength:[12,10,10,10]
+                pageLength:[12,10,10]
             })
         }, 500)
     });
