@@ -379,7 +379,8 @@ function getPenilaian(kode_ta,kode_sem,kode_tingkat){
                 },
                 tooltip: {
                     formatter: function () {
-                        return '<b> Mata Pelajaran: ' + getPointCategoryName(this.point, 'x') + '</b> <br><b>Kelas: ' + getPointCategoryName(this.point, 'y') + '</b> <br><b>Progress Nilai: ' +this.point.value + '%</b>';
+                        return '<b> Mata Pelajaran: ' + getPointCategoryName(this.point, 'x') + '</b> <br><b>Kelas: ' + getPointCategoryName(this.point, 'y') + '</b> <br><b>Progress Nilai: ' +this.point.value + '%</b>'+
+                        '<br><b>Nama Guru: ' +this.point.name + '</b>';
                     }
                 },
                 credits:{
