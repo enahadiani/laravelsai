@@ -1,6 +1,6 @@
 <script type="text/javascript">
 function drawLap(formData){
-    saiPostLoad('esaku-report/lap-penjualan', null, formData, null, function(res){
+    saiPostLoad('esaku-report/lap-closing', null, formData, null, function(res){
         if(res.result.length > 0){
             $('#pagination').html('');
             var show = $('#show').val();
@@ -22,24 +22,21 @@ function drawRptPage(data,res,from,to){
         html += "<div id='sai-rpt-table-export-tbl-daftar-pnj'>";
         for(var i=0;i<data.length;i++) {
             var value = data[i];
-            var harga=0; 
-            var diskon=0; 
-            var jumlah=0; 
-            var bonus=0; 
+            var diskon=0;
             var total=0;  
             var subTot=0;
             var no=1;
             html += "<div class='card card-body'>";
-            html += "<h3><b>No Penjualan</b> <span class='pull-right'>#"+value.no_jual+"</span></h3>";
+            html += "<h3><b>No Closing</b> <span class='pull-right'>#"+value.no_bukti+"</span></h3>";
             html += "<hr/>";
             html += "<div class='row'>";
             html += "<div class='col-md-12'>";
             html += "<div class='pull-left'>";
             html += "<p class='text-muted m-l-5'>";
             html += value.tanggal+"<br/>";
-            html += "Gudang: "+value.kode_gudang+" - "+value.nama_gudang;
-            html += "<br/>"+value.keterangan;
-            html += "<br/>"+value.nik_kasir;
+            html += "Saldo Awal: "+sepNum(value.saldo_awal);
+            html += "<br/>Total Penjualan: "+sepNum(value.total_pnj);
+            html += "<br/>"+value.nik_user;
             html += "</p>";
             html += "</div>"
             html += "</div>";
@@ -49,36 +46,31 @@ function drawRptPage(data,res,from,to){
             html += "<thead>";
             html += "<tr>";
             html += "<th class='text-center'>No</th>";
-            html += "<th>Kode Barang</th>";
-            html += "<th>Nama Barang</th>";
-            html += "<th>Satuan</th>";
-            html += "<th class='text-right'>Harga</th>";
+            html += "<th class='text-center'>No Bukti</th>";
+            html += "<th class='text-center'>No Jual</th>";
+            html += "<th class='text-center'>Periode</th>";
+            html += "<th class='text-center'>Tanggal</th>";
             html += "<th class='text-right'>Diskon</th>";
-            html += "<th class='text-right'>Jumlah</th>";
-            html += "<th class='text-right'>Bonus</th>";
-            html += "<th class='text-right'>Sub Total</th>";
+            html += "<th class='text-right'>Nilai</th>";
+            html += "<th>Keterangan</th>";
             html += "</tr>";
             html += "</thead>";
             html += "<tbody>";
             for (var j=0;j<res.res.data_detail.length;j++) {
                 var value2 = res.res.data_detail[j];
-                if(value.no_jual == value2.no_bukti){
-                    harga+=+value2.harga;
+                if(value.no_bukti == value2.no_bukti){
                     diskon+=+value2.diskon;
-                    jumlah+=+value2.jumlah;
-                    bonus+=+value2.bonus;
-                    total+=+value2.total;
+                    total+=+value2.nilai;
                     subTot+= +parseFloat(value2.total)+parseFloat(value2.diskon);
                     html += "<tr>"
                     html += "<td align='center' class='isi_laporan'>"+no+"</td>";
-                    html += "<td  class='isi_laporan'>"+value2.kode_barang+"</td>";
-                    html += "<td  class='isi_laporan'>"+value2.nama_brg+"</td>";
-                    html += "<td  class='isi_laporan'>"+value2.satuan+"</td>";
-                    html += "<td align='right' class='isi_laporan'>"+sepNum(value2.harga)+"</td>";
+                    html += "<td align='center'  class='isi_laporan'>"+value2.no_bukti+"</td>";
+                    html += "<td align='center' class='isi_laporan'>"+value2.no_jual+"</td>";
+                    html += "<td align='center' class='isi_laporan'>"+value2.periode+"</td>";
+                    html += "<td align='center' class='isi_laporan'>"+value2.tanggal+"</td>";
                     html += "<td align='right' class='isi_laporan'>"+sepNum(value2.diskon)+"</td>";
-                    html += "<td align='right' class='isi_laporan'>"+sepNum(value2.jumlah)+"</td>";
-                    html += "<td align='right' class='isi_laporan'>"+sepNum(value2.bonus)+"</td>";
-                    html += "<td align='right' class='isi_laporan'>"+sepNum(value2.total)+"</td>";
+                    html += "<td align='right' class='isi_laporan'>"+sepNum(value2.nilai)+"</td>";
+                    html += "<td align='left' class='isi_laporan'>"+value2.keterangan+"</td>";
                     html += "</tr>";
                     no++;
                 }
@@ -89,7 +81,6 @@ function drawRptPage(data,res,from,to){
             html += "</div>"
             html += "<div class='col-md-12'>";
             html += "<div class='pull-right m-t-30 text-right'>";
-            html += "<p>Sub - Total amount: "+sepNum(subTot)+"</p>";
             html += "<p>Discount: "+sepNum(diskon)+"</p>";
             html += "<hr/>";
             html += "<h3><b>Total: </b>"+sepNum(total)+"</h3>"
@@ -106,5 +97,4 @@ function drawRptPage(data,res,from,to){
     $('li.prev a ').html("<i class='simple-icon-arrow-left'></i>");
     $('li.next a ').html("<i class='simple-icon-arrow-right'></i>");
 }
-
 </script>
