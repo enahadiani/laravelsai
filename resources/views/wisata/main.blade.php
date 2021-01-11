@@ -1036,9 +1036,10 @@
         // }
     }
 
+    var lifetime = "{{ config('session.lifetime') }}";
     setTimeout(function(){
         window.location.href = "{{url('wisata-auth/sesi-habis')}}";
-    }, 1000 * 60 * 60);
+    }, 1000 * 60 * parseInt(lifetime));
     
     var form ="{{ Session::get('dash') }}";
     if(form !="" || form != "-"){
