@@ -81,4 +81,60 @@
     $.fn.DataTable.ext.pager.numbers_length = 5;
 
     $('#periode-from').val(namaPeriode("{{ date('Ym') }}"));
+
+    $('#btn-filter').click(function(e){
+        $('#collapseFilter').show();
+        $('#collapsePaging').hide();
+        if($(this).hasClass("btn-primary")){
+            $(this).removeClass("btn-primary");
+            $(this).addClass("btn-light");
+        }
+            
+        $('#btn-filter').addClass("hidden");
+        $('#btn-export').addClass("hidden");
+    });
+
+     $('#btn-tutup').click(function(e){
+        $('#collapseFilter').hide();
+        $('#collapsePaging').show();
+        $('#btn-filter').addClass("btn-primary");
+        $('#btn-filter').removeClass("btn-light");
+        $('#btn-filter').removeClass("hidden");
+        $('#btn-export').removeClass("hidden");
+    });
+
+    $('#btn-tampil').click(function(e){
+        $('#collapseFilter').hide();
+        $('#collapsePaging').show();
+        $('#btn-filter').addClass("btn-primary");
+        $('#btn-filter').removeClass("btn-light");
+        $('#btn-filter').removeClass("hidden");
+        $('#btn-export').removeClass("hidden");
+    });
+
+    $('.selectize').selectize();
+
+    $('#inputFilter').reportFilter({
+        kode : ['periode','gudang','kelompok', 'barang'],
+        nama : ['Periode','Gudang','Kelompok', 'Barang'],
+        header : [['Periode'],['Kode','Nama'],['No Bukti','Keterangan']],
+        headerpilih : [['Periode','Action'],['Kode','Nama','Action'],['No Bukti','Keterangan','Action']],
+        columns: [
+            [
+                { data: 'periode' },
+            ],[
+                { data: 'nik_user' },
+                { data: 'nama' }
+            ],[
+                { data: 'no_jual' },
+                { data: 'keterangan' }
+            ]
+        ],
+        url :["{{ url('esaku-report/filter-periode') }}","{{ url('esaku-report/filter-nik') }}","{{ url('esaku-report/filter-bukti') }}"],
+        parameter:[{},{},{}],
+        orderby:[[[0,"desc"]],[[0,"desc"]],[[0,"asc"]]],
+        width:[['30%','70%'],['30%','70%'],['30%','70%'],['30%','70%']],
+        display:['kode','kode','kode'],
+        pageLength:[12,10,10]
+    })
 </script>
