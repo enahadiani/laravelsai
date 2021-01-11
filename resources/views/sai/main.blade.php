@@ -405,10 +405,11 @@
                     }
                 });
                 $(document).ready(function(){
+                    var lifetime = "{{ config('session.lifetime') }}";
                     setTimeout(function(){
                         alert('Session token telah habis, silahkan login kembali');
                         window.location.href = "{{url('sai-auth/logout')}}";
-                    }, 1000 * 60 * 60);
+                    }, 1000 * 60 * parseInt(lifetime));
 
                     var form ="{{ Session::get('dash') }}";
                     if(form !="" || form != "-"){
