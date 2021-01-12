@@ -21,7 +21,7 @@ class MutasiController extends Controller {
             return redirect('toko-auth/login')->with('alert','Session telah habis !');
         }
     }
-
+    
     public function generateKode(Request $request){
         try {
             $this->validate($request, [

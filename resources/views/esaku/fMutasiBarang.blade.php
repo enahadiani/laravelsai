@@ -159,6 +159,7 @@
                                             <th style="width:5%"></th>
                                         </tr>
                                     </thead>
+                                    <tbody></tbody>
                                 </table>
                                 <a type="button" href="#" data-id="0" title="add-row" class="add-row btn btn-light2 btn-block btn-sm">Tambah Baris</a>
                             </div>
@@ -191,6 +192,7 @@
     getKode(tanggal, jenis);
     getDataTypeAhead("{{ url('esaku-report/filter-gudang') }}","gudangAsal","kode_gudang");
     getDataTypeAhead("{{ url('esaku-report/filter-gudang') }}","gudangTujuan","kode_gudang");
+    getDataTypeAhead("{{ url('esaku-trans/filter-barang-mutasi') }}","Barang","kode_barang");
 
     if(jenis === "TRM") {
         $('#stok-mutasi').text('Jumlah Kirim')
@@ -305,6 +307,111 @@
         $('#total-row').html(total_row+' Baris');
     }
 
+    function addRow() {
+        var no=$('#input-grid .row-grid:last').index();
+        var kode_barang = "";
+        var nama = "";
+        var satuan = "";
+        var stok = 0;
+        var jumlah = 0;
+        no=no+2;
+        var input = "";
+        input += "<tr class='row-grid'>";
+        input += "<td class='no-grid text-center'>"+no+"</td>";
+        input += "<td><span class='td-kode tdbarangke"+no+" tooltip-span'>"+kode_barang+"</span><input type='text' name='kode_barang[]' class='form-control inp-kode barangke"+no+" hidden' value='"+kode_barang+"' required='' style='z-index: 1;position: relative;' id='barangkode"+no+"'><a href='#' class='search-item search-barang hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+        input += "<td><span class='td-nama tdnmbarangke"+no+" tooltip-span'>"+nama+"</span><input type='text' name='nama_barang[]' class='form-control inp-nama nmbarangke"+no+" hidden'  value='"+nama+"' readonly></td>";
+        input += "<td><span class='td-satuan tdsatuanke"+no+" tooltip-span'>"+satuan+"</span><input type='text' name='satuan[]' class='form-control inp-satuan satuanke"+no+" hidden'  value='"+satuan+"' readonly></td>";
+        input += "<td><span class='td-stok tdstokke"+no+" tooltip-span'>"+stok+"</span><input type='text' name='stok[]' class='form-control inp-stok stokke"+no+" hidden'  value='"+stok+"' readonly></td>";
+        input += "<td class='text-right'><span class='td-jumlah tdjumlahke"+no+" tooltip-span'>"+jumlah+"</span><input type='text' name='jumlah[]' class='form-control inp-jumlah jumlahke"+no+" hidden'  value='"+jumlah+"' required></td>";
+        input += "</tr>";
+
+        $('#input-grid tbody').append(input);
+        $('.row-grid:last').addClass('selected-row');
+        $('#input-grid tbody tr').not('.row-grid:last').removeClass('selected-row');
+
+        $('.jumlahke'+no).inputmask("numeric", {
+            radixPoint: ",",
+            groupSeparator: ".",
+            digits: 2,
+            autoGroup: true,
+            rightAlign: true
+        });
+        hideUnselectedRow();
+        $('#input-grid td').removeClass('px-0 py-0 aktif');
+        $('#input-grid tbody tr:last').find("td:eq(1)").addClass('px-0 py-0 aktif');
+        $('#input-grid tbody tr:last').find(".inp-kode").show();
+        $('#input-grid tbody tr:last').find(".td-kode").hide();
+        $('#input-grid tbody tr:last').find(".search-barang").show();
+        $('#input-grid tbody tr:last').find(".inp-kode").focus();
+
+        $('#barangkode'+no).typeahead({
+            source:$dtBarang,
+            displayText:function(item){
+                return item.id+' - '+item.name;
+            },
+            autoSelect:false,
+            changeInputOnSelect:false,
+            changeInputOnMove:false,
+            selectOnBlur:false,
+            afterSelect: function (item) {
+                console.log(item.id);
+            }
+        });
+
+        $('.tooltip-span').tooltip({
+            title: function(){
+                return $(this).text();
+            }
+        });
+        hitungTotalRow();
+    }
+
+    function hideUnselectedRow() {
+        $('#input-grid > tbody > tr').each(function(index, row) {
+            if(!$(row).hasClass('selected-row')) {
+                var kode_akun = $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-kode").val();
+                var nama_akun = $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nama").val();
+                var dc = $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-dc").text();
+                var keterangan = $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-ket").val();
+                var nilai = $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nilai").val();
+                var kode_pp = $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-pp").val();
+                var nama_pp = $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nama_pp").val();
+
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-kode").val(kode_akun);
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-kode").text(kode_akun);
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nama").val(nama_akun);
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-nama").text(nama_akun);
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-dc")[0].selectize.setValue(dc);
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-dc").text(dc);
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-ket").val(keterangan);
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-ket").text(keterangan);
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nilai").val(nilai);
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-nilai").text(nilai);
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-pp").val(kode_pp);
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-pp").text(kode_pp);
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nama_pp").val(nama_pp);
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-nama_pp").text(nama_pp);
+
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-kode").hide();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-kode").show();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".search-akun").hide();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nama").hide();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-nama").show();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".selectize-control").hide();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-dc").show();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-ket").hide();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-ket").show();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nilai").hide();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-nilai").show();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-pp").hide();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-pp").show();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".search-pp").hide();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nama_pp").hide();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-nama_pp").show();
+            }
+        })
+    }
+
     function showInfoField(kode,isi_kode,isi_nama){
         $('#'+kode).val(isi_kode);
         $('#'+kode).attr('style','border-left:0;border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important');
@@ -378,6 +485,65 @@
             target3 : "",
             target4 : "",
             width : ["30%","70%"]
+        }
+        showInpFilter(options);
+    });
+
+    $('#form-tambah').on('click', '.add-row', function(){
+        addRow();
+    });
+
+    
+    $('#input-grid tbody').on('click', 'tr', function(){
+        $(this).addClass('selected-row');
+        $('#input-grid tbody tr').not(this).removeClass('selected-row');
+        hideUnselectedRow();
+    });
+
+    $('#input-grid').on('click', '.search-item', function(){
+        var par = $(this).closest('td').find('input').attr('name');
+        var gudang = $('#asal').val();
+        if(gudang == '') {
+            alert('Harap pilih gudang asal dahulu')
+            return;
+        }
+        switch(par){
+            case 'kode_barang[]': 
+                var par2 = "nama_barang[]";
+                
+            break;
+        }
+        
+        var tmp = $(this).closest('tr').find('input[name="'+par+'"]').attr('class');
+        var tmp2 = tmp.split(" ");
+        target1 = tmp2[2];
+        
+        tmp = $(this).closest('tr').find('input[name="'+par2+'"]').attr('class');
+        tmp2 = tmp.split(" ");
+        target2 = tmp2[2];
+        
+        switch(par){
+            case 'kode_barang[]': 
+                var options = { 
+                    id : par,
+                    header : ['Kode', 'Nama'],
+                    url : "{{ url('esaku-trans/filter-barang-mutasi') }}",
+                    columns : [
+                        { data: 'kode_barang' },
+                        { data: 'nama' }
+                    ],
+                    parameter: {kode_gudang: gudang},
+                    judul : "Daftar Barang",
+                    pilih : "barang",
+                    jTarget1 : "val",
+                    jTarget2 : "val",
+                    target1 : "."+target1,
+                    target2 : "."+target2,
+                    target3 : ".td"+target2,
+                    target4 : ".td-jumlah",
+                    width : ["30%","70%"]
+                };
+            break;
         }
         showInpFilter(options);
     });
