@@ -184,7 +184,7 @@
             var parameter = $('#id_edit').val();
             var id = $('#kode_jenis').val();
             if(parameter == "edit"){
-                var url = "{{ url('esaku-master/dok-jenis') }}/"+id;
+                var url = "{{ url('esaku-master/dok-jenis') }}";
                 var pesan = "updated";
                 var text = "Perubahan data "+id+" telah tersimpan";
             }else{
@@ -263,7 +263,7 @@
     function hapusData(id){
         $.ajax({
             type: 'DELETE',
-            url: "{{ url('esaku-master/jenis-dok') }}",
+            url: "{{ url('esaku-master/dok-jenis') }}",
             data:{kode_jenis: id},
             dataType: 'json',
             async:false,
@@ -302,7 +302,7 @@
     function editData(id){
         $.ajax({
             type: 'GET',
-            url: "{{ url('esaku-master/dok-jenis') }}",
+            url: "{{ url('esaku-master/dok-jenis-detail') }}",
             dataType: 'json',
             data:{kode_jenis:id},
             async:false,
@@ -361,7 +361,7 @@
 
     // PREVIEW saat klik di list data
     $('#table-data tbody').on('click','td',function(e){
-        if($(this).index() != 3){
+        if($(this).index() != 2){
 
             var id = $(this).closest('tr').find('td').eq(0).html();
             var data = dataTable.row(this).data();

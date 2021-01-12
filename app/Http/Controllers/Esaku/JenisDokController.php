@@ -152,10 +152,10 @@ class JenisDokController extends Controller
             }
     }
 
-    public function delete(Request $request) {
+    public function destroy(Request $request) {
         try{
             $client = new Client();
-            $response = $client->request('DELETE',  config('api.url').'toko-master/jenis-dok',
+            $response = $client->request('DELETE',  config('api.url').'toko-master/dok-jenis',
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
