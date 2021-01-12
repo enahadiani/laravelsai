@@ -181,12 +181,16 @@
     var $target2 = "";
     var $target3 = "";
     var $dtBarang = [];
+    var $dtgudangAsal = [];
+    var $dtgudangTujuan = [];
     var jenis = $('#jenis').val();
     var tanggal = $('#tanggal').val();
     var scrollform = document.getElementById('form-body');
     var psscrollform = new PerfectScrollbar(scrollform);
 
     getKode(tanggal, jenis);
+    getDataTypeAhead("{{ url('esaku-report/filter-gudang') }}","gudangAsal","kode_gudang");
+    getDataTypeAhead("{{ url('esaku-report/filter-gudang') }}","gudangTujuan","kode_gudang");
 
     if(jenis === "TRM") {
         $('#stok-mutasi').text('Jumlah Kirim')
@@ -248,6 +252,39 @@
         getKode(tanggal, jenis);
     }
 
+    function getDataTypeAhead(url,param,kode){
+        $.ajax({
+            type: 'GET',
+            url: url,
+            dataType: 'json',
+            async:false,
+            success:function(result){    
+                if(result.status) {
+                    for(i=0;i<result.daftar.length;i++){
+                        eval('$dt'+param+'['+i+'] = '+JSON.stringify({id:eval('result.daftar['+i+'].'+kode),name:result.daftar[i].nama}));  
+                    }
+                }else if(!result.status && result.message == "Unauthorized"){
+                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                } else{
+                    alert(result.message);
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {       
+                if(jqXHR.status == 422){
+                    var msg = jqXHR.responseText;
+                }else if(jqXHR.status == 500) {
+                    var msg = "Internal server error";
+                }else if(jqXHR.status == 401){
+                    var msg = "Unauthorized";
+                    window.location="{{ url('/esaku-auth/sesi-habis') }}";
+                }else if(jqXHR.status == 405){
+                    var msg = "Route not valid. Page not found";
+                }
+                
+            }
+        });
+    }
+
     function format_number(x) {
         var num = parseFloat(x).toFixed(0);
         num = sepNumX(num);
@@ -291,5 +328,57 @@
         $('.info-code_'+par).parent('div').addClass('hidden');
         $('.info-name_'+par).addClass('hidden');
         $(this).addClass('hidden');
+    });
+
+    $('#asal').typeahead({
+        source:$dtgudangAsal,
+        fitToElement:true,
+        displayText:function(item){
+            return item.id+' - '+item.name;
+        },
+        autoSelect:false,
+        changeInputOnSelect:false,
+        changeInputOnMove:false,
+        selectOnBlur:false,
+        afterSelect: function (item) {
+            console.log(item.id);
+        }
+    });
+    $('#tujuan').typeahead({
+        source:$dtgudangTujuan,
+        fitToElement:true,
+        displayText:function(item){
+            return item.id+' - '+item.name;
+        },
+        autoSelect:false,
+        changeInputOnSelect:false,
+        changeInputOnMove:false,
+        selectOnBlur:false,
+        afterSelect: function (item) {
+            console.log(item.id);
+        }
+    });
+
+    $('#form-tambah').on('click', '.search-item2', function(){
+        var id = $(this).closest('div').find('input').attr('name');
+        var options = {
+            id : id,
+            header : ['NIK', 'Nama'],
+            url : "{{ url('esaku-report/filter-gudang') }}",
+            columns : [
+                { data: 'kode_gudang' },
+                { data: 'nama' }
+            ],
+            judul : "Daftar Gudang",
+            pilih : "",
+            jTarget1 : "text",
+            jTarget2 : "text",
+            target1 : ".info-code_"+id,
+            target2 : ".info-name_"+id,
+            target3 : "",
+            target4 : "",
+            width : ["30%","70%"]
+        }
+        showInpFilter(options);
     });
 </script>
