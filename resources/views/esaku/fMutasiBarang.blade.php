@@ -547,4 +547,27 @@
         }
         showInpFilter(options);
     });
+
+    $('#input-grid').on('keydown','.inp-kode, .inp-nama, .inp-satuan, .inp-stok, .inp-jumlah',function(e){
+        var code = (e.keyCode ? e.keyCode : e.which);
+        var nxt = ['.inp-kode','.inp-nama','.inp-satuan','.inp-stok','.inp-jumlah'];
+        var nxt2 = ['.inp-kode','.inp-nama','.inp-satuan','.inp-stok','.inp-jumlah'];
+        if (code == 13 || code == 9) {
+            e.preventDefault();
+            var idx = $(this).closest('td').index()-1;
+            var idx_next = idx+1;
+            var kunci = $(this).closest('td').index()+1;
+            var isi = $(this).val();
+            console.log(idx)
+                console.log(kunci)
+                console.log(idx_next)
+            // switch (idx) {
+                
+            // }
+        }else if(code == 38){
+            e.preventDefault();
+            var idx = nxt.indexOf(e.target.id);
+            idx--;
+        }
+    });
 </script>
