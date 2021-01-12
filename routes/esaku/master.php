@@ -171,3 +171,14 @@ Route::get('flag-relasi-akun', 'Esaku\FlagRelasiController@getAkun');
 Route::put('flag-relasi/{id}', 'Esaku\FlagRelasiController@update');
 Route::delete('flag-relasi/{id}', 'Esaku\FlagRelasiController@delete');
 
+// Data Flag Relasi //
+Route::get('periode-aktif', 'Esaku\PeriodeAktifController@index');
+Route::post('periode-aktif', 'Esaku\PeriodeAktifController@store');
+
+// Data Dok Jenis //
+Route::get('dok-jenis', 'Esaku\JenisDokController@index');
+Route::get('dok-jenis-detail', 'Esaku\JenisDokController@show');
+Route::post('dok-jenis', 'Esaku\JenisDokController@store');
+Route::put('dok-jenis', 'Esaku\JenisDokController@update');
+Route::delete('dok-jenis', 'Esaku\JenisDokController@destroy');
+
