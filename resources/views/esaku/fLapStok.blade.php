@@ -117,24 +117,139 @@
     $('#inputFilter').reportFilter({
         kode : ['periode','gudang','kelompok', 'barang'],
         nama : ['Periode','Gudang','Kelompok', 'Barang'],
-        header : [['Periode'],['Kode','Nama'],['No Bukti','Keterangan']],
-        headerpilih : [['Periode','Action'],['Kode','Nama','Action'],['No Bukti','Keterangan','Action']],
+        header : [['Periode'],['Kode','Nama'],['Kode','Nama'], ['Kode','Nama']],
+        headerpilih : [['Periode','Action'],['Kode','Nama','Action'],['Kode','Nama','Action'],['Kode','Nama','Action']],
         columns: [
             [
                 { data: 'periode' },
             ],[
-                { data: 'nik_user' },
+                { data: 'kode_gudang' },
                 { data: 'nama' }
             ],[
-                { data: 'no_jual' },
-                { data: 'keterangan' }
+                { data: 'kode_klp' },
+                { data: 'nama' }
+            ],[
+                { data: 'kode_barang' },
+                { data: 'nama' }
             ]
         ],
-        url :["{{ url('esaku-report/filter-periode') }}","{{ url('esaku-report/filter-nik') }}","{{ url('esaku-report/filter-bukti') }}"],
-        parameter:[{},{},{}],
-        orderby:[[[0,"desc"]],[[0,"desc"]],[[0,"asc"]]],
+        url :["{{ url('esaku-report/filter-periode') }}","{{ url('esaku-report/filter-gudang') }}","{{ url('esaku-report/filter-barang-klp') }}", "{{ url('esaku-report/filter-barang') }}"],
+        parameter:[{},{},{},{}],
+        orderby:[[[0,"desc"]],[[0,"desc"]],[[0,"asc"]],[[0,"asc"]]],
         width:[['30%','70%'],['30%','70%'],['30%','70%'],['30%','70%']],
-        display:['kode','kode','kode'],
-        pageLength:[12,10,10]
+        display:['kode','kode','kode','kode'],
+        pageLength:[12,10,10,10]
     })
+    $('#inputFilter').on('change','input',function(e){
+        setTimeout(() => {
+            $('#inputFilter').reportFilter({
+                kode : ['periode','gudang','kelompok', 'barang'],
+                nama : ['Periode','Gudang','Kelompok', 'Barang'],
+                header : [['Periode'],['Kode','Nama'],['Kode','Nama'], ['Kode','Nama']],
+                headerpilih : [['Periode','Action'],['Kode','Nama','Action'],['Kode','Nama','Action'],['Kode','Nama','Action']],
+                columns: [
+                    [
+                        { data: 'periode' },
+                    ],[
+                        { data: 'kode_gudang' },
+                        { data: 'nama' }
+                    ],[
+                        { data: 'kode_klp' },
+                        { data: 'nama' }
+                    ],[
+                        { data: 'kode_barang' },
+                        { data: 'nama' }
+                    ]
+                ],
+                url :["{{ url('esaku-report/filter-periode') }}","{{ url('esaku-report/filter-gudang') }}","{{ url('esaku-report/filter-barang-klp') }}", "{{ url('esaku-report/filter-barang') }}"],
+                parameter:[{},{},{},{}],
+                orderby:[[[0,"desc"]],[[0,"desc"]],[[0,"asc"]],[[0,"asc"]]],
+                width:[['30%','70%'],['30%','70%'],['30%','70%'],['30%','70%']],
+                display:['kode','kode','kode','kode'],
+                pageLength:[12,10,10,10]
+            })
+        }, 500)
+    });
+
+    var $formData = "";
+    $('#form-filter').submit(function(e){
+        e.preventDefault();
+        $formData = new FormData();
+        $formData.append("periode[]",$periode.type);
+        $formData.append("periode[]",$periode.from);
+        $formData.append("periode[]",$periode.to);
+        $formData.append("kode_gudang[]",$gudang.type);
+        $formData.append("kode_gudang[]",$gudang.from);
+        $formData.append("kode_gudang[]",$gudang.to);
+        $formData.append("kode_klp[]",$kelompok.type);
+        $formData.append("kode_klp[]",$kelompok.from);
+        $formData.append("kode_klp[]",$kelompok.to);
+        $formData.append("kode_barang[]",$barang.type);
+        $formData.append("kode_barang[]",$barang.from);
+        $formData.append("kode_barang[]",$barang.to);
+        for(var pair of $formData.entries()) {
+            console.log(pair[0]+ ', '+ pair[1]); 
+        }
+        $('#saku-report').removeClass('hidden');
+        xurl = "{{ url('esaku-auth/form/rptKartuStok') }}";
+        $('#saku-report #canvasPreview').load(xurl);
+    });
+
+    $('#show').change(function(e){
+        $formData = new FormData();
+        $formData.append("periode[]",$periode.type);
+        $formData.append("periode[]",$periode.from);
+        $formData.append("periode[]",$periode.to);
+        $formData.append("kode_gudang[]",$gudang.type);
+        $formData.append("kode_gudang[]",$gudang.from);
+        $formData.append("kode_gudang[]",$gudang.to);
+        $formData.append("kode_klp[]",$kelompok.type);
+        $formData.append("kode_klp[]",$kelompok.from);
+        $formData.append("kode_klp[]",$kelompok.to);
+        $formData.append("kode_barang[]",$barang.type);
+        $formData.append("kode_barang[]",$barang.from);
+        $formData.append("kode_barang[]",$barang.to);
+        for(var pair of $formData.entries()) {
+            console.log(pair[0]+ ', '+ pair[1]); 
+        }
+        $('#saku-report').removeClass('hidden');
+        xurl = "{{ url('esaku-auth/form/rptKartuStok') }}";
+        $('#saku-report #canvasPreview').load(xurl);
+    });
+
+    $('#sai-rpt-print').click(function(){
+        $('#saku-report #canvasPreview').printThis({
+            removeInline: true
+        });
+    });
+
+    $('#sai-rpt-print-prev').click(function(){
+        var newWindow = window.open();
+        var html = `<head>`+$('head').html()+`</head><style>`+$('style').html()+`</style><body style='background:white;'><div align="center">`+$('#canvasPreview').html()+`</div></body>`;
+        newWindow.document.write(html);
+    });
+
+    $("#sai-rpt-excel").click(function(e) {
+        e.preventDefault();
+        $("#saku-report #canvasPreview").table2excel({
+            // exclude: ".excludeThisClass",
+            name: "Lap_Pnj_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}",
+            filename: "Lap_Pnj_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}.xls", // do include extension
+            preserveColors: false // set to true if you want background colors and font colors preserved
+        });
+    });
+
+    $("#sai-rpt-email").click(function(e) {
+        e.preventDefault();
+        alert('Incoming')
+        // $('#formEmail')[0].reset();
+        // $('#modalEmail').modal('show');
+    });
+
+    $("#sai-rpt-pdf").click(function(e) {
+        e.preventDefault();
+        alert('Incoming')
+        // var link = "{{ url('esaku-report/lap-jurnal-pdf') }}?periode[]="+$periode.type+"&periode[]="+$periode.from+"&periode[]="+$periode.to+"&modul[]="+$modul.type+"&modul[]="+$modul.from+"&modul[]="+$modul.to+"&no_bukti[]="+$no_bukti.type+"&no_bukti[]="+$no_bukti.from+"&no_bukti[]="+$no_bukti.to+"&sum_ju[]="+$sum_ju.type+"&sum_ju[]="+$sum_ju.from+"&sum_ju[]="+$sum_ju.to;
+        // window.open(link, '_blank'); 
+    });
 </script>

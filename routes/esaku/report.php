@@ -27,6 +27,8 @@ Route::get('filter-sumju', 'Esaku\HelperController@getFilterSumju');
 Route::get('filter-modul', 'Esaku\HelperController@getFilterModul');
 Route::get('filter-bukti-jurnal', 'Esaku\HelperController@getFilterBuktiJurnal');
 Route::get('filter-mutasi', 'Esaku\HelperController@getFilterMutasi');
+Route::get('filter-gudang', 'Esaku\HelperController@getFilterGudang');
+Route::get('filter-barang-klp', 'Esaku\HelperController@getFilterKlpBarang');
 
 Route::post('lap-penjualan-harian', 'Esaku\LaporanController@getPenjualanHarian');
 Route::post('lap-penjualan', 'Esaku\LaporanController@getPenjualan');
@@ -34,6 +36,7 @@ Route::post('lap-retur-beli', 'Esaku\LaporanController@getReturBeli');
 Route::post('lap-pembelian', 'Esaku\LaporanController@getPembelian');
 Route::post('lap-closing', 'Esaku\LaporanController@getClosing');
 Route::post('lap-barang', 'Esaku\LaporanController@getBarang');
+Route::post('lap-kartu-stok', 'Esaku\LaporanController@getKartuStok');
 Route::post('lap-saldo', 'Esaku\LaporanController@getSaldo');
 Route::post('lap-kartu', 'Esaku\LaporanController@getKartu');
 Route::post('lap-nrclajur', 'Esaku\LaporanController@getNrcLajur');
