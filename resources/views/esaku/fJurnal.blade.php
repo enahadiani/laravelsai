@@ -2091,12 +2091,13 @@
             async:false,
             success:function(res){
                 var result= res.data;
+                var input = '';
+                $('#input-dok tbody').html(input);
                 if(result.status){
                     $('#id').val('edit');
                     $('#method').val('post');
                     $('#no_bukti_upload').val(id);
                     if(result.data_dokumen.length > 0){
-                        var input = '';
                         var no=1;
                         for(var i=0;i<result.data_dokumen.length;i++){
                             var line =result.data_dokumen[i];
