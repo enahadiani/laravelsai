@@ -174,6 +174,10 @@ Route::delete('flag-relasi/{id}', 'Esaku\FlagRelasiController@delete');
 // Data Flag Relasi //
 Route::get('periode-aktif', 'Esaku\PeriodeAktifController@index');
 Route::post('periode-aktif', 'Esaku\PeriodeAktifController@store');
+Route::get('periode-aktif/{id}', 'Esaku\PeriodeAktifController@show');
+Route::get('periode-aktif-periode', 'Esaku\PeriodeAktifController@getPeriode');
+Route::put('periode-aktif/{id}', 'Esaku\PeriodeAktifController@update');
+Route::delete('periode-aktif/{id}', 'Esaku\PeriodeAktifController@destroy');
 
 // Data Dok Jenis //
 Route::get('dok-jenis', 'Esaku\JenisDokController@index');
