@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 
+// Mutasi Routes //
+Route::get('generate-mutasi', 'Esaku\MutasiController@generateKode');
+
 //Penjualan Routes //
 Route::get('penjualan-open', 'Esaku\PenjualanController@getNoOpen');
 Route::get('penjualan-bonus/{kd_barang}/{tanggal}/{jumlah}/{harga}', 'Esaku\PenjualanController@cekBonus');
