@@ -182,3 +182,19 @@ Route::post('dok-jenis', 'Esaku\JenisDokController@store');
 Route::put('dok-jenis', 'Esaku\JenisDokController@update');
 Route::delete('dok-jenis', 'Esaku\JenisDokController@destroy');
 
+Route::get('setting-grafik', 'Esaku\SettingGrafikController@index');
+Route::get('setting-grafik-detail', 'Esaku\SettingGrafikController@show');
+Route::post('setting-grafik', 'Esaku\SettingGrafikController@store');
+Route::put('setting-grafik', 'Esaku\SettingGrafikController@update');
+Route::delete('setting-grafik', 'Esaku\SettingGrafikController@destroy');
+Route::get('setting-grafik-klp', 'Esaku\SettingGrafikController@getKlp');
+Route::get('setting-grafik-neraca', 'Esaku\SettingGrafikController@getNeraca');
+
+Route::get('setting-rasio', 'Esaku\SettingRasioController@index');
+Route::get('setting-rasio-detail', 'Esaku\SettingRasioController@show');
+Route::post('setting-rasio', 'Esaku\SettingRasioController@store');
+Route::put('setting-rasio', 'Esaku\SettingRasioController@update');
+Route::delete('setting-rasio', 'Esaku\SettingRasioController@destroy');
+Route::get('setting-rasio-klp', 'Esaku\SettingRasioController@getKlp');
+Route::get('setting-rasio-neraca', 'Esaku\SettingRasioController@getNeraca');
+
