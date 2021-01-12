@@ -2,7 +2,21 @@
     <!-- LIST DATA -->
     <x-list-data judul="Data Jurnal" tambah="true" :thead="array('No Bukti','Tanggal','No Dokumen','Deskripsi','Nilai','Tgl Input','Aksi')" :thwidth="array(15,15,15,30,15,0,10)" :thclass="array('','','','','','','text-center')" />
     <!-- END LIST DATA -->
+    <style>
+        div.inp-div-jenis > input{
+            border-radius:0 !important;
+            z-index:1;
+            position:relative;
+        }
 
+        div.inp-div-jenis > .search-item{
+            position: absolute;
+            font-size: 18px;
+            margin-top: -27px;
+            z-index: 2;
+            margin-left: 99px;
+        }
+    </style>
     <!-- FORM INPUT -->
     <form id="form-tambah" class="tooltip-label-right" novalidate>
         <div class="row" id="saku-form" style="display:none;">
@@ -210,6 +224,76 @@
     </form>
     <!-- FORM INPUT  -->
 
+    <!-- FORM UPLOAD -->
+    <form id="form-upload" class="tooltip-label-right" novalidate>
+        <div class="row" id="saku-form-upload" style="display:none;">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;">
+                        <h6 class="judul-form" style="position:absolute;top:25px"></h6>
+                        <button type="submit" class="btn btn-primary ml-2 btn-save"  style="float:right;" ><i class="fa fa-save"></i> Simpan</button>
+                        <button type="button" class="btn btn-light ml-2" id="btn-kembali-upload" style="float:right;"><i class="fa fa-undo"></i> Keluar</button>
+                    </div>
+                    <div class="separator"></div>
+                    <div class="card-body form-body form-upload" style='background:#f8f8f8;padding: 0 !important;border-bottom-left-radius: .75rem;border-bottom-right-radius: .75rem;'>
+                        <div class="card" style='border-radius:0'>
+                            <div class="card-body">
+                                <input type="hidden" id="method" name="_method" value="post">
+                                <div class="form-row">
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <div class="col-md-4 col-sm-12">
+                                                <label for="tanggal">Tanggal</label>
+                                                <input class='form-control datepicker' type="text" id="tanggal_upload" readonly name="tanggal" value="{{ date('d/m/Y') }}">
+                                                <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;" class="simple-icon-calendar"></i>
+                                            </div>
+                                            <div class="col-md-6 col-sm-12">
+                                                <label for="no_bukti_upload">No Bukti</label>
+                                                <input class='form-control' type="text" id="no_bukti_upload" name="no_bukti" required readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card mt-3" style='border-top-left-radius:0;border-top-right-radius:0'>
+                            <div class="card-body">
+                                <ul class="nav nav-tabs col-12 " role="tablist">
+                                    <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-dok" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Dokumen</span></a> </li>
+                                </ul>
+                                <div class="tab-content tabcontent-border col-12 p-0">
+                                    <div class="tab-pane active" id="data-dok" role="tabpanel">
+                                        <div class='col-xs-12 nav-control' style="padding: 0px 5px;">
+                                            <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row_dok" ></span></a>
+                                        </div>
+                                        <div class='col-xs-12' style='min-height:420px; margin:0px; padding:0px;'>
+                                            <table class="table table-bordered table-condensed gridexample" id="input-dok" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                            <thead style="background:#F8F8F8">
+                                                <tr>
+                                                    <th style="width:3%">No</th>
+                                                    <th style="width:10%">Jenis</th>
+                                                    <th style="width:27%">Nama</th>
+                                                    <th style="width:20%">Path File</th>
+                                                    <th width="20%">Upload File</th>
+                                                    <th width="10%">Aksi</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                            </table>
+                                            <a type="button" href="#" data-id="0" title="add-row-dok" class="add-row-dok btn btn-light2 btn-block btn-sm">Tambah Baris</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <!-- FORM UPLOAD  -->
+
     @include('modal_search')
     @include('modal_upload')
     <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
@@ -249,6 +333,11 @@
     function hitungTotalRow(){
         var total_row = $('#input-grid tbody tr').length;
         $('#total-row').html(total_row+' Baris');
+    }
+
+    function hitungTotalRowUpload(){
+        var total_row = $('#input-dok tbody tr').length;
+        $('#total-row_dok').html(total_row+' Baris');
     }
 
     function hitungTotal(){
@@ -306,6 +395,10 @@
     
     var scroll = document.querySelector('#content-preview');
     var psscroll = new PerfectScrollbar(scroll);
+
+    var scrollformupl = document.querySelector('.form-upload');
+    var psscrollformupl = new PerfectScrollbar(scrollformupl);
+    
     
     $('.selectize').selectize();
     
@@ -378,7 +471,7 @@
     // END SUGGESTION
 
     // LIST DATA
-    var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
+    var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Upload' id='btn-upload'><i class='simple-icon-cloud-upload' style='font-size:18px'></i></a>";
     var dataTable = generateTable(
         "table-data",
         "{{ url('esaku-trans/jurnal') }}", 
@@ -755,8 +848,16 @@
     });
     // END BUTTON TAMBAH
 
-     // BUTTON KEMBALI
-     $('#saku-form').on('click', '#btn-kembali', function(){
+    // BUTTON KEMBALI
+    $('#saku-form').on('click', '#btn-kembali', function(){
+        var kode = null;
+        msgDialog({
+            id:kode,
+            type:'keluar'
+        });
+    });
+
+    $('#saku-form-upload').on('click', '#btn-kembali-upload', function(){
         var kode = null;
         msgDialog({
             id:kode,
@@ -1055,6 +1156,7 @@
         getNIKPeriksa(par);
     });
 
+
     // GRID JURNAL
     function addRow(param){
         if(param == "copy"){
@@ -1162,6 +1264,26 @@
         hitungTotalRow();
     }
 
+    function addRowDok(){
+        var no=$('#input-dok .row-dok:last').index();
+        no=no+2;
+        var input = "";
+        input += "<tr class='row-dok'>";
+        input += "<td class='no-dok text-center'>"+no+"</td>";
+        input += "<td class='px-0 py-0'><div class='inp-div-jenis'><input type='text' name='jenis[]' class='form-control inp-jenis jeniske"+no+" ' value='' required='' style='z-index: 1;' id='jeniskode"+no+"'><a href='#' class='search-item search-jenis'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></div></td>";
+        input += "<td class='px-0 py-0'><input type='text' name='nama_dok[]' class='form-control inp-nama_dok nama_dokke"+no+"' value='' readonly></td>";
+        input += "<td><span class='td-nama_file tdnmfileke"+no+" tooltip-span'>-</span><input type='text' name='nama_file[]' class='form-control inp-nama_file nmfileke"+no+" hidden'  value='-' readonly></td>";
+        input+=`
+        <td>
+        <input type='file' name='file_dok[]'>
+        <input type='hidden' name='no_urut[]' class='form-control inp-no_urut' value='`+no+`'>
+        </td>`;
+        input+=`
+        <td class='text-center action-dok'><a class='hapus-dok2'><i class='simple-icon-trash' style='font-size:18px'></i></a></td></tr>`;
+        $('#input-dok tbody').append(input);
+        hitungTotalRowUpload();
+    }
+
     function custTarget(target,tr){
         $(target).parents("tr").find(".inp-pp").val(tr.find('td:nth-child(1)').text());
         $(target).parents("tr").find(".td-pp").text(tr.find('td:nth-child(1)').text());
@@ -1174,6 +1296,44 @@
         
         setTimeout(function() {  $(target).parents("tr").find(".inp-nama_pp").focus(); }, 100);
     }
+
+    $('#input-dok').on('click', '.search-item', function(){
+        var par = $(this).closest('td').find('input').attr('name');
+        
+        var tmp = $(this).closest('tr').find('input[name="'+par+'"]').attr('class');
+        var tmp2 = tmp.split(" ");
+        target1 = tmp2[2];
+
+        var tmp = $(this).closest('tr').find('input[name="nama_dok[]"]').attr('class');
+        var tmp2 = tmp.split(" ");
+        target2 = tmp2[2];
+        console.log(par,target1,target2)
+        
+        switch(par){
+            case 'jenis[]': 
+                var options = { 
+                    id : par,
+                    header : ['Kode', 'Nama'],
+                    url : "{{ url('esaku-master/dok-jenis') }}",
+                    columns : [
+                        { data: 'kode_jenis' },
+                        { data: 'nama' }
+                    ],
+                    judul : "Daftar Jenis Dokumen",
+                    pilih : "jenis",
+                    jTarget1 : "val",
+                    jTarget2 : "val",
+                    target1 : "."+target1,
+                    target2 : "."+target2,
+                    target3 : "",
+                    target4 : "",
+                    width : ["30%","70%"]
+                };
+            break;
+        }
+        showInpFilter(options);
+
+    });
 
     $('#input-grid').on('click', '.search-item', function(){
         var par = $(this).closest('td').find('input').attr('name');
@@ -1359,6 +1519,10 @@
 
     $('#form-tambah').on('click', '.add-row', function(){
         addRow("add");
+    });
+
+    $('#form-upload').on('click', '.add-row-dok', function(){
+        addRowDok();
     });
 
     function hideUnselectedRow() {
@@ -1911,6 +2075,203 @@
                 }
             }
         });
+    });
+
+    // UPLOAD DOK
+    $('#saku-datatable').on('click', '#btn-upload', function(){
+        var id= $(this).closest('tr').find('td').eq(0).html();
+        $('.judul-form').html('Upload Dokumen Jurnal');
+        $('#form-upload')[0].reset();
+        $('#form-upload').validate().resetForm();
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('esaku-trans/jurnal-dok') }}",
+            dataType: 'json',
+            data:{no_bukti:id},
+            async:false,
+            success:function(res){
+                var result= res.data;
+                if(result.status){
+                    $('#id').val('edit');
+                    $('#method').val('post');
+                    $('#no_bukti_upload').val(id);
+                    if(result.data_dokumen.length > 0){
+                        var input = '';
+                        var no=1;
+                        for(var i=0;i<result.data_dokumen.length;i++){
+                            var line =result.data_dokumen[i];
+                            input += "<tr class='row-dok'>";
+                            input += "<td class='no-dok text-center'>"+no+"</td>";
+                            input += "<td class='px-0 py-0'><div class='inp-div-jenis'><input type='text' name='jenis[]' class='form-control inp-jenis jeniske"+no+" ' value='"+line.jenis+"' required='' style='z-index: 1;' id='jeniskode"+no+"'><a href='#' class='search-item search-jenis'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></div></td>";
+                            input += "<td class='px-0 py-0'><input type='text' name='nama_dok[]' class='form-control inp-nama_dok nama_dokke"+no+"' value='"+line.nama+"' readonly></td>";
+                            var dok = "{{ config('api.url').'toko-auth/storage' }}/"+line.fileaddres;
+                            input += "<td><span class='td-nama_file tdnmfileke"+no+" tooltip-span'>"+line.fileaddres+"</span><input type='text' name='nama_file[]' class='form-control inp-nama_file nmfileke"+no+" hidden'  value='"+line.fileaddres+"' readonly></td>";
+                            if(line.fileaddres == "-" || line.fileaddres == ""){
+                                input+=`
+                                <td>
+                                    <input type='file' name='file_dok[]' class='inp-file_dok'>
+                                    <input type='hidden' name='no_urut[]' class='form-control inp-no_urut' value='`+no+`'>
+                                </td>`;
+                            }else{
+                                input+=`
+                                <td>
+                                    <input type='file' name='file_dok[]'>
+                                    <input type='hidden' name='no_urut[]' class='form-control inp-no_urut' value='`+no+`'>
+                                </td>`;
+                            }
+                            input+=`
+                                <td class='text-center action-dok'>`;
+                                if(line.fileaddres != "-"){
+                                   var link =`<a class='download-dok' href='`+dok+`'target='_blank' title='Download'><i style='font-size:18px' class='simple-icon-cloud-download'></i></a>&nbsp;&nbsp;&nbsp;<a class='hapus-dok' href='#' title='Hapus Dokumen'><i class='simple-icon-trash' style='font-size:18px' ></i></a>`;
+                                }else{
+                                    var link =``;
+                                }
+                            input+=link+"</td></tr>";
+                            no++;
+                        }
+                        $('#input-dok tbody').html(input);
+                        $('.tooltip-span').tooltip({
+                            title: function(){
+                                return $(this).text();
+                            }
+                        });
+                        
+                    }
+                    hitungTotalRowUpload();
+                    $('#saku-datatable').hide();
+                    $('#saku-form-upload').show();
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    window.location.href = "{{ url('sekolah-auth/sesi-habis') }}";
+                }
+            }
+        });
+    });
+
+
+    function hapusDok(param){
+        var no_bukti = param.no_bukti; 
+        var kode_jenis= param.kode_jenis;
+        var nama_file= param.nama_file;
+        var td_nama_file= param.td_nama_file;
+        var action_dok= param.action_dok;
+        var no_urut= param.no_urut;
+        console.log(param);
+        $.ajax({
+            type: 'DELETE',
+            url: "{{ url('esaku-trans/jurnal-dok') }}",
+            dataType: 'json',
+            data: {'no_bukti':no_bukti,'kode_jenis':kode_jenis, 'no_urut':no_urut},
+            success:function(result){
+                // console.log(result.data.message);
+                if(result.data.status){
+                    td_nama_file.closest('tr').remove();
+                    no=1;
+                    $('.row-dok').each(function(){
+                        var nom = td_nama_file.closest('tr').find('.no-dok');
+                        nom.html(no);
+                        no++;
+                    });
+                    hitungTotalRowUpload();
+                    $("html, body").animate({ scrollTop: $(document).height() }, 1000);     
+                    msgDialog({
+                        id:result.data.no_bukti,
+                        type:'sukses',
+                        title:'Sukses',
+                        text:'Dokumen Jurnal '+kode_jenis+' dengan no urut: '+no_urut+' berhasil dihapus'
+                    });
+
+                }else{
+                    msgDialog({
+                        id:result.data.no_bukti,
+                        title:'Error',
+                        back: false,
+                        text:result.data.message
+                    });
+                }
+            }
+        });
+    }
+
+    $('#input-dok').on('click', '.hapus-dok', function(){
+        var no_bukti = $('#no_bukti_upload').val();
+        var kode_jenis = $(this).closest('tr').find('.inp-jenis').val();
+        var nama_file = $(this).closest('tr').find('.inp-nama_file');
+        var td_nama_file = $(this).closest('tr').find('.td-nama_file');
+        var action_dok = $(this).closest('tr').find('.action-dok');
+        var no_urut = $(this).closest('tr').find('.inp-no_urut').val();
+        var ini = $(this);
+        msgDialog({
+            id: kode_jenis,
+            text: 'Dokumen akan terhapus secara permanen dari server dan tidak dapat mengurungkan.<br> ID Data : <b>'+kode_jenis+'</b> No urut : <b>'+no_urut+'</b>',
+            param: {'kode_jenis':kode_jenis,'no_bukti':no_bukti,'nama_file':nama_file,'td_nama_file':td_nama_file,'action_dok':action_dok, 'no_urut':no_urut,'ini':ini},
+            type:'hapusDok'
+        });
+       
+    });
+
+    $('#input-dok').on('click', '.hapus-dok2', function(){
+        $(this).closest('tr').remove();
+        no=1;
+        $('.row-dok').each(function(){
+            var nom = $(this).closest('tr').find('.no-dok');
+            nom.html(no);
+            no++;
+        });
+        hitungTotalRowUpload();
+        $("html, body").animate({ scrollTop: $(document).height() }, 1000);     
+    });
+
+    $("#form-upload").validate({
+        ignore: [],
+        errorElement: "label",
+        submitHandler: function (form) {
+
+            var formData = new FormData(form);
+            for(var pair of formData.entries()) {
+                console.log(pair[0]+ ', '+ pair[1]); 
+            }
+            $.ajax({
+                type: 'POST',
+                url: "{{ url('esaku-trans/jurnal-dok') }}",
+                dataType: 'json',
+                data: formData,
+                contentType: false,
+                cache: false,
+                processData: false, 
+                success:function(result){
+                    if(result.data.status){
+                        msgDialog({
+                            id:result.data.no_bukti,
+                            type:'simpan'
+                        });
+                    }
+                    else if(!result.data.status && result.data.message == 'Unauthorized'){
+                        window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                    }
+                    else{
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Something went wrong!',
+                            footer: '<a href>'+result.data.message+'</a>'
+                        });
+                    }
+                    
+                },
+                fail: function(xhr, textStatus, errorThrown){
+                    alert('request failed:'+textStatus);
+                },
+                complete: function (xhr) {
+                    $('.progress').addClass('hidden');
+                }
+            });
+
+        },
+        errorPlacement: function (error, element) {
+            $('#label-file').html(error);
+            $('#label-file').addClass('error');
+        }
     });
 
     

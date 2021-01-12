@@ -119,3 +119,7 @@ Route::post('loadJurnal', 'Esaku\PostingController@loadJurnal');
 Route::post('posting', 'Esaku\PostingController@store');
 Route::post('unposting-jurnal', 'Esaku\UnPostingController@loadJurnal');
 Route::post('unposting', 'Esaku\UnPostingController@store');
+
+Route::get('jurnal-dok', 'Esaku\UploadDokJurnalController@show');
+Route::post('jurnal-dok', 'Esaku\UploadDokJurnalController@store');
+Route::delete('jurnal-dok', 'Esaku\UploadDokJurnalController@destroy');
