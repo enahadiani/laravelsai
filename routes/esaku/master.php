@@ -171,3 +171,7 @@ Route::get('flag-relasi-akun', 'Esaku\FlagRelasiController@getAkun');
 Route::put('flag-relasi/{id}', 'Esaku\FlagRelasiController@update');
 Route::delete('flag-relasi/{id}', 'Esaku\FlagRelasiController@delete');
 
+// Data Flag Relasi //
+Route::get('periode-aktif', 'Esaku\PeriodeAktifController@index');
+Route::post('periode-aktif', 'Esaku\PeriodeAktifController@store');
+
