@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Session;
 
 // Mutasi Routes //
 Route::get('generate-mutasi', 'Esaku\MutasiController@generateKode');
+Route::get('barang-mutasi-detail', 'Esaku\MutasiController@getBarangDetail');
 Route::get('filter-barang-mutasi', 'Esaku\HelperController@getFilterMutasiBarang');
 
 //Penjualan Routes //

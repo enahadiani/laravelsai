@@ -21,6 +21,41 @@ class MutasiController extends Controller {
             return redirect('toko-auth/login')->with('alert','Session telah habis !');
         }
     }
+
+    public function getBarangDetail(Request $request) {
+        try {
+            $this->validate($request, [
+                'kode_barang' => 'required',
+                'kode_gudang' => 'required',
+            ]);
+            $barang = $request->kode_barang;
+            $gudang = $request->kode_gudang;
+
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'toko-trans/barang-mutasi-detail',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' => [
+                    'kode_barang' => $barang,
+                    'kode_gudang' => $gudang
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data;
+            }
+            return response()->json(['result' => $data, 'status'=>true], 200); 
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+        }
+    }
     
     public function generateKode(Request $request){
         try {
