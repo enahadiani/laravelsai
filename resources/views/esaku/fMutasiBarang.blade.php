@@ -58,13 +58,17 @@
                     </div>
                     <div class="col-md-6">
                         <ul class="nav nav-tabs col-12 nav-grid justify-content-end" role="tablist" style="padding-bottom:0;margin-top:1rem;border-bottom:none">
-                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-kirim" role="tab" aria-selected="false"><span class="hidden-xs-down">Kirim</span></a> </li>
-                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-terima" role="tab" aria-selected="true"><span class="hidden-xs-down">Terima</span></a> </li>
+                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-kirim" role="tab" aria-selected="true"><span class="hidden-xs-down">Kirim</span></a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-terima" role="tab" aria-selected="false"><span class="hidden-xs-down">Terima</span></a> </li>
                         </ul>
                     </div>
                 </div>
             </div>
             <div class="separator mb-2"></div>
+            <div class="tab-content tabcontent-border col-12 p-0">
+                <div class="tab-pane active" id="data-kirim" role="tabpanel"></div>
+                <div class="tab-pane" id="data-terima" role="tabpanel"></div>
+            </div>
         </div>
     </div>
 </div>
