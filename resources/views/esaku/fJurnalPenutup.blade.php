@@ -27,11 +27,15 @@
                             <div class="form-group col-md-6 col-sm-12">
                                 <div class="row">
                                     <div class="col-md-4 col-12 mb-2">
+                                        <label for="periode">Periode</label>
+                                        <input class='form-control datepicker' type="text" id="periode" readonly name="periode" value="{{ Session::get('periode') }}">
+                                    </div>
+                                    <div class="col-md-4 col-12 mb-2">
                                         <label for="tanggal">Tanggal</label>
                                         <input class='form-control datepicker' type="text" id="tanggal" name="tanggal" value="{{ date('d/m/Y') }}">
                                         <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;" class="simple-icon-calendar date-search"></i>
                                     </div>
-                                    <div class="col-md-8 col-12 mb-2">
+                                    <div class="col-md-12 col-12 mb-2">
                                         <label for="lokasi">Lokasi</label>
                                         <input type="text" class="form-control" id="lokasi" name="lokasi" value="{{ Session::get('lokasi').' - '.Session::get('namaLokasi') }}" required readonly>
                                     </div>
@@ -280,8 +284,7 @@
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
             var maxPeriode = $('#max_periode').val();
-            var tgl = reverseDate($('#tanggal').val(),"/","-");
-            var periode = tgl.substr(0,4)+''+tgl.substr(5,2);
+            var periode = $('#periode').val();
             if (maxPeriode != parseInt("{{ Session::get('periode') }}".substr(4,2))) {
                 msgDialog({
                     id: '-',
