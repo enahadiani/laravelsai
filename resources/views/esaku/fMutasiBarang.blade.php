@@ -48,8 +48,29 @@
     }
 </style>
 
+<div class="row" id="saku-datatable">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body pb-0" style="padding-top:1rem;min-height:68px">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6 style="position:absolute;top:5px">Mutasi Barang</h6>
+                    </div>
+                    <div class="col-md-6">
+                        <ul class="nav nav-tabs col-12 nav-grid justify-content-end" role="tablist" style="padding-bottom:0;margin-top:1rem;border-bottom:none">
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-kirim" role="tab" aria-selected="false"><span class="hidden-xs-down">Kirim</span></a> </li>
+                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-terima" role="tab" aria-selected="true"><span class="hidden-xs-down">Terima</span></a> </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="separator mb-2"></div>
+        </div>
+    </div>
+</div>
+
 <form id="form-tambah" class="tooltip-label-right" novalidate>
-    <div class="row" id="saku-form" style="display:block;">
+    <div class="row" id="saku-form" style="display:none;">
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;">
@@ -717,7 +738,7 @@
                 break;
                 case 4:
                     stok = parseFloat(stok);
-                    isi = parseFloat(isi)
+                    isi = toNilai(isi);
                     console.log(isi)
                     if(isi === 0 || isi > stok || isNaN(isi)) {
                         alert('Jumlah yang dimasukkan tidak valid (0) atau melebihi stok yang ada')
