@@ -1,135 +1,302 @@
-    <link rel="stylesheet" href="{{ asset('trans.css') }}" />
+<link rel="stylesheet" href="{{ asset('master.css') }}" />
+    <!-- LIST DATA -->
+    <x-list-data judul="Data Periode Aktif" tambah="true" :thead="array('Modul','Keterangan','Periode Awal1','Periode Akhir1','Periode Awal2','Periode Akhir2','Tgl Input','Aksi')" :thwidth="array(10,32,12,12,12,12,0,10)" :thclass="array('','','','','','','','text-center')" />
+    <!-- END LIST DATA -->
+
     <!-- FORM INPUT -->
-    <style>
-        .selected{
-            color : var(--theme-color-1);
-        }
-        .editable{
-            cursor:text;
-        }
-    </style>
     <form id="form-tambah" class="tooltip-label-right" novalidate>
-        <div class="row" id="saku-form">
-            <div class="col-sm-12">
+        <div class="row" id="saku-form" style="display:none;">
+            <div class="col-12">
                 <div class="card">
                     <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;">
-                        <h6 id="judul-form" style="position:absolute;top:25px">Periode Aktif</h6>
-                        <button type="submit" class="btn btn-primary ml-2"  style="float:right;" id="btn-save" ><i class="fa fa-save"></i> Simpan</button>
+                        <h6 id="judul-form" style="position:absolute;top:25px"></h6>
+                        <button type="submit" class="btn btn-primary ml-2"  style="float:right;" id="btn-save"><i class="fa fa-save"></i> Simpan</button>
+                        <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Keluar</button>
                     </div>
                     <div class="separator mb-2"></div>
+                    <!-- FORM BODY -->
                     <div class="card-body pt-3 form-body">
-                        <input type="hidden" id="method" name="_method" value="post">
-                        <div class="form-group row" id="row-id" hidden>
+                        <div class="form-group row " id="row-id">
                             <div class="col-9">
-                                <input class="form-control" type="text" id="id_edit" name="id" readonly required value="0">
+                                <input class="form-control" type="hidden" id="id_edit" name="id_edit">
+                                <input type="hidden" id="method" name="_method" value="post">
+                                <input type="hidden" id="id" name="id">
                             </div>
                         </div>
-                        <div class='col-xs-12 px-0'>
-                            <table id="input-periode" class="table table-bordered table-condensed gridexample" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap" >
-                                <thead>
-                                    <tr>
-                                        <th width="2%">No</th>
-                                        <th width="10%">Modul</th>
-                                        <th width="40%">Deskripsi</th>
-                                        <th width="12%">Periode Awal1</th>
-                                        <th width="12%">Periode Akhir1</th>
-                                        <th width="12%">Periode Awal2</th>
-                                        <th width="12%">Periode Akhir2</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <label for="modul">Modul</label>
+                                        <input class="form-control" type="text" id="modul" name="modul" required>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <label for="keterangan">Keterangan</label>
+                                        <input class="form-control" type="text" id="keterangan" name="keterangan" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <label for="per_awal1">Periode Awal1</label>
+                                        <select name="per_awal1" id="per_awal1" class="form-control">
+                                        <option value="" disabled>Pilih Periode</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <label for="per_akhir1">Periode Akhir1</label>
+                                        <select name="per_akhir1" id="per_akhir1" class="form-control">
+                                        <option value="" disabled>Pilih Periode</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <label for="per_awal2">Periode Awal2</label>
+                                        <select name="per_awal2" id="per_awal2" class="form-control">
+                                        <option value="" disabled>Pilih Periode</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <label for="per_akhir2">Periode Akhir2</label>
+                                        <select name="per_akhir2" id="per_akhir2" class="form-control">
+                                        <option value="" disabled>Pilih Periode</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </div> 
     </form>
-    <!-- FORM INPUT  --> 
-    
+    <!-- END FORM INPUT -->
+
+    <!-- JAVASCRIPT  -->
     <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
     <script src="{{ asset('helper.js') }}"></script>
     <script>
-    var $iconLoad = $('.preloader');
+    // var $iconLoad = $('.preloader');
+    setHeightForm();
+    
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         }
     });
-    
-    // GRID JURNAL
-    function addRow(){
-        $.ajax({
-            type: 'GET',
-            url: "{{ url('esaku-master/periode-aktif') }}",
-            dataType: 'json',
-            async:false,
-            success:function(result){    
-                if(result.status) {
-                    var input = "";
-                    var no = 1;
-                    if(result.daftar.length > 0){
-                        for(var i=0; i < result.daftar.length; i++){
-                            var line = result.daftar[i];
-                            input += "<tr class='row-periode'>";
-                            input += "<td class='no-periode text-center'>"+no+"</td>";
-                            input += "<td><span class='td-modul tdmodulke"+no+" tooltip-span'>"+line.modul+"</span><input type='text' name='modul[]' class='form-control inp-modul modulke"+no+" hidden'  value='"+line.modul+"' readonly></td>";
-                            input += "<td><span class='td-ket tdketke"+no+" tooltip-span'>"+line.keterangan+"</span><input type='text' name='keterangan[]' class='form-control inp-ket ketke"+no+" hidden'  value='"+line.keterangan+"' readonly></td>";
-                            input += "<td><span class='td-per_awal1 tdper_awal1ke"+no+" tooltip-span'>"+line.per_awal1+"</span><input type='text' name='per_awal1[]' class='form-control inp-per_awal1 per_awal1ke"+no+" hidden'  value='"+line.per_awal1+"' required></td>";
-                            input += "<td><span class='td-per_akhir1 tdper_akhir1ke"+no+" tooltip-span'>"+line.per_akhir1+"</span><input type='text' name='per_akhir1[]' class='form-control inp-per_akhir1 per_akhir1ke"+no+" hidden'  value='"+line.per_akhir1+"' required></td>";
-                            input += "<td><span class='td-per_awal2 tdper_awal2ke"+no+" tooltip-span'>"+line.per_awal2+"</span><input type='text' name='per_awal2[]' class='form-control inp-per_awal2 per_awal2ke"+no+" hidden'  value='"+line.per_awal2+"' required></td>";
-                            input += "<td><span class='td-per_akhir2 tdper_akhir2ke"+no+" tooltip-span'>"+line.per_akhir2+"</span><input type='text' name='per_akhir2[]' class='form-control inp-per_akhir2 per_akhir2ke"+no+" hidden'  value='"+line.per_akhir2+"' required></td>";
-                            input += "</tr>";
-                            no++;
-                        }
-                    }
-                    $('#input-periode tbody').html(input);
-                    // hideUnselectedRow();
-                }else if(!result.status && result.message == "Unauthorized"){
-                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
-                } else{
-                    alert(result.message);
-                }
-            },
-            error: function(jqXHR, textStatus, errorThrown) {       
-                if(jqXHR.status == 422){
-                    var msg = jqXHR.responseText;
-                }else if(jqXHR.status == 500) {
-                    var msg = "Internal server error";
-                }else if(jqXHR.status == 401){
-                    var msg = "Unauthorized";
-                    window.location="{{ url('/esaku-auth/sesi-habis') }}";
-                }else if(jqXHR.status == 405){
-                    var msg = "Route not valid. Page not found";
-                }
-                
+
+    function last_add(param,isi){
+        var rowIndexes = [];
+        dataTable.rows( function ( idx, data, node ) {             
+            if(data[param] === isi){
+                rowIndexes.push(idx);                  
             }
-        });
-        
-        
+            return false;
+        }); 
+        dataTable.row(rowIndexes).select();
+        $('.selected td:eq(0)').addClass('last-add');
+        console.log('last-add');
+        setTimeout(function() {
+            console.log('timeout');
+            $('.selected td:eq(0)').removeClass('last-add');
+            dataTable.row(rowIndexes).deselect();
+        }, 1000 * 60 * 10);
     }
     
-    addRow();
+    // BAGIAN CBBL 
+    
 
-    $('#form-tambah').submit(function(e){
-        e.preventDefault();
-        var parameter = $('#id_edit').val();
-        var url = "{{ url('esaku-master/periode-aktif') }}";
-        
-        var formData = new FormData(this);
-        for(var pair of formData.entries()) {
-            console.log(pair[0]+ ', '+ pair[1]); 
-        }
-        var data = $('#input-periode tbody');
-        if(data.length <= 0){
-            msgDialog({
-                id:'-',
-                type:'warning',
-                text: "Transaksi tidak valid. Data Periode sistem tidak boleh kosong."
-            });
-            return false;
-        }else{
+    function getPeriode(id1,id2,id3,id4){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('esaku-master/periode-aktif-periode') }}",
+            dataType: 'json',
+            async:false,
+            success:function(result){ 
+                var select = $('#'+id1).selectize();
+                select = select[0];
+                var control = select.selectize;
+
+                var select2 = $('#'+id2).selectize();
+                select2 = select2[0];
+                var control2 = select2.selectize;
+
+                var select3 = $('#'+id3).selectize();
+                select3 = select3[0];
+                var control3 = select3.selectize;
+
+                var select4 = $('#'+id4).selectize();
+                select4 = select4[0];
+                var control4 = select4.selectize;
+                if(result.status){
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                        for(i=0;i<result.daftar.length;i++){
+                            control.addOption([{text:result.daftar[i].periode, value:result.daftar[i].periode}]);
+                            control2.addOption([{text:result.daftar[i].periode, value:result.daftar[i].periode}]);
+                            control3.addOption([{text:result.daftar[i].periode, value:result.daftar[i].periode}]);
+                            control4.addOption([{text:result.daftar[i].periode, value:result.daftar[i].periode}]);
+                        }
+                    }
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                }
+            }
+        });
+    }
+
+    getPeriode("per_awal1","per_akhir1","per_awal2","per_akhir2");
+    // END BAGIAN CBBL
+
+    // PLUGIN SCROLL di bagian preview dan form input
+    var scroll = document.querySelector('#content-preview');
+    var psscroll = new PerfectScrollbar(scroll);
+
+    var scrollform = document.querySelector('.form-body');
+    var psscrollform = new PerfectScrollbar(scrollform);
+    // END PLUGIN SCROLL di bagian preview dan form input
+
+
+    //LIST DATA
+    var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
+    var dataTable = generateTable(
+        "table-data",
+        "{{ url('esaku-master/periode-aktif') }}", 
+        [
+            {'targets': 7, data: null, 'defaultContent': action_html,'className': 'text-center' },
+            {
+                "targets": 0,
+                "createdCell": function (td, cellData, rowData, row, col) {
+                    if ( rowData.status == "baru" ) {
+                        $(td).parents('tr').addClass('selected');
+                        $(td).addClass('last-add');
+                    }
+                }
+            },
+            {
+                "targets": [6],
+                "visible": false,
+                "searchable": false
+            }
+        ],
+        [
+            { data: 'modul' },
+            { data: 'keterangan' },
+            { data: 'per_awal1' },
+            { data: 'per_akhir1' },
+            { data: 'per_awal2' },
+            { data: 'per_akhir2' },
+            { data: 'tgl_input' },
+        ],
+        "{{ url('esaku-auth/sesi-habis') }}",
+        [[6 ,"desc"]]
+    );
+
+    $.fn.DataTable.ext.pager.numbers_length = 5;
+
+    $("#searchData").on("keyup", function (event) {
+        dataTable.search($(this).val()).draw();
+    });
+
+    $("#page-count").on("change", function (event) {
+        var selText = $(this).val();
+        dataTable.page.len(parseInt(selText)).draw();
+    });
+    // END LIST DATA
+
+
+    // BUTTON TAMBAH
+    $('#saku-datatable').on('click', '#btn-tambah', function(){
+        $('#row-id').hide();
+        $('#id_edit').val('');
+        $('#judul-form').html('Tambah Data Periode Aktif');
+        $('#btn-update').attr('id','btn-save');
+        $('#btn-save').attr('type','submit');
+        $('#form-tambah')[0].reset();
+        $('#form-tambah').validate().resetForm();
+        $('#method').val('post');
+        $('#modul').attr('readonly', false);
+        $('#saku-datatable').hide();
+        $('#saku-form').show();
+    });
+    // END BUTTON TAMBAH
+    
+    // BUTTON KEMBALI
+    $('#saku-form').on('click', '#btn-kembali', function(){
+        var kode = null;
+        msgDialog({
+            id:kode,
+            type:'keluar'
+        });
+    });
+
+    $('#saku-form').on('click', '#btn-update', function(){
+        var kode = $('#modul').val();
+        msgDialog({
+            id:kode,
+            type:'edit'
+        });
+    });
+    
+    // END BUTTON KEMBALI
+
+    //BUTTON SIMPAN /SUBMIT
+    $('#form-tambah').validate({
+        ignore: [],
+        rules: 
+        {
+            modul:{
+                required: true,
+                maxlength:10   
+            },
+            keterangan:{
+                required: true,
+                maxlength:50   
+            },
+            per_awal1:{
+                required: true,
+                maxlength:6  
+            },
+            per_akhir1:{
+                required: true,
+                maxlength:6  
+            },
+            per_awal2:{
+                required: true,
+                maxlength:6  
+            },
+            per_akhir2:{
+                required: true,
+                maxlength:6  
+            }
+        },
+        errorElement: "label",
+        submitHandler: function (form) {
+            var parameter = $('#id_edit').val();
+            var id = $('#modul').val();
+            if(parameter == "edit"){
+                var url = "{{ url('esaku-master/periode-aktif') }}/"+id;
+                var pesan = "updated";
+                var text = "Perubahan data "+id+" telah tersimpan";
+            }else{
+                var url = "{{ url('esaku-master/periode-aktif') }}";
+                var pesan = "saved";
+                var text = "Data tersimpan dengan kode "+id;
+            }
+
+            var formData = new FormData(form);
+            for(var pair of formData.entries()) {
+                console.log(pair[0]+ ', '+ pair[1]); 
+            }
+            
             $.ajax({
                 type: 'POST', 
                 url: url,
@@ -141,226 +308,228 @@
                 processData: false, 
                 success:function(result){
                     if(result.data.status){
+                        dataTable.ajax.reload();
+                        $('#row-id').hide();
+                        $('#form-tambah')[0].reset();
+                        $('#form-tambah').validate().resetForm();
+                        $('[id^=label]').html('');
+                        $('#id_edit').val('');
+                        $('#judul-form').html('Tambah Data Periode Aktif');
+                        $('#method').val('post');
+                        $('#modul').attr('readonly', false);
                         msgDialog({
                             id:result.data.kode,
-                            type:'sukses',
-                            text: result.data.message
+                            type:'simpan'
                         });
-                        addRow();
+                        last_add("modul",result.data.kode);
                     }else if(!result.data.status && result.data.message === "Unauthorized"){
+                    
                         window.location.href = "{{ url('/esaku-auth/sesi-habis') }}";
+                        
                     }else{
-                        msgDialog({
-                            id: result.data.kode,
-                            type: 'sukses',
-                            title: 'Error',
-                            text: result.data.message
-                        });
+                        if(result.data.kode == "-" && result.data.jenis != undefined){
+                            msgDialog({
+                                id: id,
+                                type: result.data.jenis,
+                                text:'Kode vendor sudah digunakan'
+                            });
+                        }else{
+
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Something went wrong!',
+                                footer: '<a href>'+result.data.message+'</a>'
+                            })
+                        }
                     }
                 },
                 fail: function(xhr, textStatus, errorThrown){
                     alert('request failed:'+textStatus);
                 }
             });
+            // $('#btn-simpan').html("Simpan").removeAttr('disabled');
+        },
+        errorPlacement: function (error, element) {
+            var id = element.attr("id");
+            $("label[for="+id+"]").append("<br/>");
+            $("label[for="+id+"]").append(error);
         }
     });
+    // END BUTTON SIMPAN
 
-
-    $('#input-periode').on('keydown','.inp-modul,.inp-ket,.inp-per_awal1, .inp-per_akhir1, .inp-per_awal2, .inp-per_akhir2',function(e){
-        var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['.inp-modul','.inp-ket','.inp-per_awal1','.inp-per_akhir1','.inp-per_awal2','.inp-per_akhir2'];
-        var nxt2 = ['.td-modul','.td-ket','.td-per_awal1','.td-per_akhir1','.td-per_awal2','.td-per_akhir2'];
-        if (code == 13 || code == 9) {
-            e.preventDefault();
-            var idx = $(this).closest('td').index()-1;
-            var idx_next = idx+1;
-            var kunci = $(this).closest('td').index()+1;
-            var isi = $(this).val();
-            switch (idx) {
-                case 0:
-                case 1:
-                case 2:
-                case 3:
-                case 4:
-                    if($.trim($(this).val()).length){
-                        $("#input-periode td").removeClass("px-0 py-0 aktif");
-                        $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
-                        $(this).closest('tr').find(nxt[idx]).val(isi);
-                        $(this).closest('tr').find(nxt2[idx]).text(isi);
-                        $(this).closest('tr').find(nxt[idx]).hide();
-                        $(this).closest('tr').find(nxt2[idx]).show();
-                        $(this).closest('tr').find(nxt[idx_next]).show();
-                        $(this).closest('tr').find(nxt2[idx_next]).hide();
-                        $(this).closest('tr').find(nxt[idx_next]).focus();
-                    }else{
-                        alert('Periode tidak valid');
-                        return false;
-                    }
-                    
-                    break;
-                case 5:
-                    if($.trim($(this).val()).length){
-                        $("#input-periode td").removeClass("px-0 py-0 aktif");
-                        $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
-                        $(this).closest('tr').find(nxt[idx]).val(isi);
-                        $(this).closest('tr').find(nxt2[idx]).text(isi);
-                        $(this).closest('tr').find(nxt[idx]).hide();
-                        $(this).closest('tr').find(nxt2[idx]).show();
-                        $(this).closest('tr').find(nxt[idx_next]).show();
-                        $(this).closest('tr').find(nxt2[idx_next]).hide();
-                        $(this).closest('tr').find(nxt[idx_next]).focus();
-                        var cek = $(this).parents('tr').next('tr').find('.td-modul');
-                        if(cek.length > 0){
-                            cek.click();
-                        }else{
-                            return false;
-                        }
-                    }else{
-                        alert('Periode tidak valid');
-                        return false;
-                    }
-                    break;
+    // BUTTON HAPUS DATA
+    function hapusData(id){
+        $.ajax({
+            type: 'DELETE',
+            url: "{{ url('esaku-master/periode-aktif') }}/"+id,
+            dataType: 'json',
+            async:false,
+            success:function(result){
+                if(result.data.status){
+                    dataTable.ajax.reload();                    
+                    showNotification("top", "center", "success",'Hapus Data','Data Periode Aktif ('+id+') berhasil dihapus ');
+                    $('#modal-pesan-id').html('');
+                    $('#table-delete tbody').html('');
+                    $('#modal-pesan').modal('hide');
+                }else if(!result.data.status && result.data.message == "Unauthorized"){
+                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                }else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href>'+result.data.message+'</a>'
+                    });
+                }
             }
+        });
+    }
+
+    $('#saku-datatable').on('click','#btn-delete',function(e){
+        var kode = $(this).closest('tr').find('td').eq(0).html();
+        msgDialog({
+            id: kode,
+            type:'hapus'
+        });
+    });
+
+    // END BUTTON HAPUS
+    
+    // BUTTON EDIT
+    function editData(id){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('esaku-master/periode-aktif') }}/" + id,
+            dataType: 'json',
+            async:false,
+            success:function(res){
+                var result= res.data;
+                if(result.status){
+                    $('#id_edit').val('edit');
+                    $('#method').val('put');
+                    $('#modul').attr('readonly', true);
+                    $('#modul').val(id);
+                    $('#id').val(id);
+                    $('#keterangan').val(result.data[0].keterangan);
+                    $('#per_awal1')[0].selectize.setValue(result.data[0].per_awal1);    
+                    $('#per_akhir1')[0].selectize.setValue(result.data[0].per_akhir1);    
+                    $('#per_awal2')[0].selectize.setValue(result.data[0].per_awal2);    
+                    $('#per_akhir2')[0].selectize.setValue(result.data[0].per_akhir2);     
+                    $('#saku-datatable').hide();
+                    $('#modal-preview').modal('hide');
+                    $('#saku-form').show();
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                }
+                // $iconLoad.hide();
+            }
+        });
+    }
+    $('#saku-datatable').on('click', '#btn-edit', function(){
+        var id= $(this).closest('tr').find('td').eq(0).html();
+        // $iconLoad.show();
+        $('#form-tambah').validate().resetForm();
+        
+        $('#btn-save').attr('type','button');
+        $('#btn-save').attr('id','btn-update');
+
+        $('#judul-form').html('Edit Data Periode Aktif');
+        editData(id);
+    });
+    // END BUTTON EDIT
+    
+    // HANDLER untuk enter dan tab
+    $('#modul,#keterangan,#per_awal1,#per_akhir1,#per_awal2,#per_akhir2').keydown(function(e){
+        var code = (e.keyCode ? e.keyCode : e.which);
+        var nxt = ['modul','keterangan','per_awal1','per_akhir1','per_awal2','per_akhir2'];
+        if (code == 13 || code == 40) {
+            e.preventDefault();
+            var idx = nxt.indexOf(e.target.id);
+            idx++;
+            $('#'+nxt[idx]).focus();
         }else if(code == 38){
             e.preventDefault();
             var idx = nxt.indexOf(e.target.id);
             idx--;
+            if(idx != -1){ 
+                $('#'+nxt[idx]).focus();
+            }
         }
     });
 
-    function hideUnselectedRow() {
-        $('#input-periode > tbody > tr').each(function(index, row) {
-            if(!$(row).hasClass('selected-row')) {
-                var modul = $('#input-periode > tbody > tr:eq('+index+') > td').find(".inp-modul").val();
-                var keterangan = $('#input-periode > tbody > tr:eq('+index+') > td').find(".inp-ket").val();
-                var per_awal1 = $('#input-periode > tbody > tr:eq('+index+') > td').find(".inp-per_awal1").val();
-                var per_akhir1 = $('#input-periode > tbody > tr:eq('+index+') > td').find(".inp-per_akhir1").val();
-                var per_awal2 = $('#input-periode > tbody > tr:eq('+index+') > td').find(".inp-per_awal2").val();
-                var per_akhir2 = $('#input-periode > tbody > tr:eq('+index+') > td').find(".inp-per_akhir2").val();
+    // PREVIEW saat klik di list data
+    $('#table-data tbody').on('click','td',function(e){
+        if($(this).index() != 6){
 
-                $('#input-periode > tbody > tr:eq('+index+') > td').find(".inp-modul").val(modul);
-                $('#input-periode > tbody > tr:eq('+index+') > td').find(".td-modul").text(modul);
-                $('#input-periode > tbody > tr:eq('+index+') > td').find(".inp-ket").val(keterangan);
-                $('#input-periode > tbody > tr:eq('+index+') > td').find(".td-ket").text(keterangan);
-                $('#input-periode > tbody > tr:eq('+index+') > td').find(".inp-per_awal1").val(per_awal1);
-                $('#input-periode > tbody > tr:eq('+index+') > td').find(".td-per_awal1").text(per_awal1);
-                $('#input-periode > tbody > tr:eq('+index+') > td').find(".inp-per_akhir1").val(per_akhir1);
-                $('#input-periode > tbody > tr:eq('+index+') > td').find(".td-per_akhir1").text(per_akhir1);
-                $('#input-periode > tbody > tr:eq('+index+') > td').find(".inp-per_awal2").val(per_awal2);
-                $('#input-periode > tbody > tr:eq('+index+') > td').find(".td-per_awal2").text(per_awal2);
-                $('#input-periode > tbody > tr:eq('+index+') > td').find(".inp-per_akhir2").val(per_akhir2);
-                $('#input-periode > tbody > tr:eq('+index+') > td').find(".td-per_akhir2").text(per_akhir2);
-               
-                $('#input-periode > tbody > tr:eq('+index+') > td').find(".inp-modal").hide();
-                $('#input-periode > tbody > tr:eq('+index+') > td').find(".td-modal").show();
-                $('#input-periode > tbody > tr:eq('+index+') > td').find(".inp-ket").hide();
-                $('#input-periode > tbody > tr:eq('+index+') > td').find(".td-ket").show();
-                $('#input-periode > tbody > tr:eq('+index+') > td').find(".inp-per_awal1").hide();
-                $('#input-periode > tbody > tr:eq('+index+') > td').find(".td-per_awal1").show();
-                $('#input-periode > tbody > tr:eq('+index+') > td').find(".inp-per_akhir1").hide();
-                $('#input-periode > tbody > tr:eq('+index+') > td').find(".td-per_akhir1").show();
-                $('#input-periode > tbody > tr:eq('+index+') > td').find(".inp-per_awal2").hide();
-                $('#input-periode > tbody > tr:eq('+index+') > td').find(".td-per_awal2").show();
-                $('#input-periode > tbody > tr:eq('+index+') > td').find(".inp-per_akhir2").hide();
-                $('#input-periode > tbody > tr:eq('+index+') > td').find(".td-per_akhir2").show();
-            }
-        })
-    }
-
-    $('#input-periode tbody').on('click', 'tr', function(){
-        $(this).addClass('selected-row');
-        $('#input-periode tbody tr').not(this).removeClass('selected-row');
-        hideUnselectedRow();
+            var id = $(this).closest('tr').find('td').eq(0).html();
+            var data = dataTable.row(this).data();
+            var html = `<tr>
+                <td style='border:none'>Modul</td>
+                <td style='border:none'>`+id+`</td>
+            </tr>
+            <tr>
+                <td>Keterangan</td>
+                <td>`+data.keterangan+`</td>
+            </tr>
+            <tr>
+                <td>Periode Awal1</td>
+                <td>`+data.per_awal1+`</td>
+            </tr>
+            <tr>
+                <td>Periode Akhir1</td>
+                <td>`+data.per_akhir1+`</td>
+            </tr>
+            <tr>
+                <td>Periode Awal2</td>
+                <td>`+data.per_awal2+`</td>
+            </tr>
+            <tr>
+                <td>Periode Akhir2</td>
+                <td>`+data.per_akhir2+`</td>
+            </tr>
+            `;
+            $('#table-preview tbody').html(html);
+            
+            $('#modal-preview-judul').css({'margin-top':'10px','padding':'0px !important'}).html('Preview Data Periode Aktif').removeClass('py-2');
+            $('#modal-preview-id').text(id);
+            $('#modal-preview').modal('show');
+        }
     });
 
-    $('#input-periode').on('click', 'td', function(){
-        var idx = $(this).index();
-        if(idx == 0){
-            return false;
-        }else{
-            if($(this).hasClass('px-0 py-0 aktif')){
-                return false;            
-            }else{
-                $('#input-periode td').removeClass('px-0 py-0 aktif');
-                $(this).addClass('px-0 py-0 aktif');
-        
-                var modul = $(this).parents("tr").find(".inp-modul").val();
-                var keterangan = $(this).parents("tr").find(".inp-ket").val();
-                var per_awal1 = $(this).parents("tr").find(".inp-per_awal1").val();
-                var per_akhir1 = $(this).parents("tr").find(".inp-per_akhir1").val();
-                var per_awal2 = $(this).parents("tr").find(".inp-per_awal2").val();
-                var per_akhir2 = $(this).parents("tr").find(".inp-per_akhir2").val();
-                var no = $(this).parents("tr").find(".no-periode").text();
-                $(this).parents("tr").find(".inp-modul").val(modul);
-                $(this).parents("tr").find(".td-modul").text(modul);
-                if(idx == 1){
-                    $(this).parents("tr").find(".inp-modul").show();
-                    $(this).parents("tr").find(".td-modul").hide();
-                    $(this).parents("tr").find(".inp-modul").focus();
-                }else{
-                    $(this).parents("tr").find(".inp-modul").hide();
-                    $(this).parents("tr").find(".td-modul").show();
-                    
-                }
-        
-                $(this).parents("tr").find(".inp-ket").val(keterangan);
-                $(this).parents("tr").find(".td-ket").text(keterangan);
-                if(idx == 2){
-                    $(this).parents("tr").find(".inp-ket").show();
-                    $(this).parents("tr").find(".td-ket").hide();
-                    $(this).parents("tr").find(".inp-ket").focus();
-                }else{
-                    
-                    $(this).parents("tr").find(".inp-ket").hide();
-                    $(this).parents("tr").find(".td-ket").show();
-                }
-        
-                $(this).parents("tr").find(".inp-per_awal1").val(per_awal1);
-                $(this).parents("tr").find(".td-per_awal1").text(per_awal1);
-                if(idx == 3){
-                    $(this).parents("tr").find(".inp-per_awal1").show();
-                    $(this).parents("tr").find(".td-per_awal1").hide();
-                    $(this).parents("tr").find(".inp-per_awal1").focus();
-                }else{
-                    $(this).parents("tr").find(".inp-per_awal1").hide();
-                    $(this).parents("tr").find(".td-per_awal1").show();
-                }
-        
-                $(this).parents("tr").find(".inp-per_akhir1").val(per_akhir1);
-                $(this).parents("tr").find(".td-per_akhir1").text(per_akhir1);
-                if(idx == 4){
-                    $(this).parents("tr").find(".inp-per_akhir1").show();
-                    $(this).parents("tr").find(".td-per_akhir1").hide();
-                    $(this).parents("tr").find(".inp-per_akhir1").focus();
-                }else{
-                    $(this).parents("tr").find(".inp-per_akhir1").hide();
-                    $(this).parents("tr").find(".td-per_akhir1").show();
-                }
+    $('.modal-header').on('click','#btn-delete2',function(e){
+        var id = $('#modal-preview-id').text();
+        $('#modal-preview').modal('hide');
+        msgDialog({
+            id:id,
+            type:'hapus'
+        });
+    });
 
-                $(this).parents("tr").find(".inp-per_awal2").val(per_awal2);
-                $(this).parents("tr").find(".td-per_awal2").text(per_awal2);
-                if(idx == 5){
-                    $(this).parents("tr").find(".inp-per_awal2").show();
-                    $(this).parents("tr").find(".td-per_awal2").hide();
-                    $(this).parents("tr").find(".inp-per_awal2").focus();
-                }else{
-                    $(this).parents("tr").find(".inp-per_awal2").hide();
-                    $(this).parents("tr").find(".td-per_awal2").show();
-                }
-
-                $(this).parents("tr").find(".inp-per_akhir2").val(per_akhir2);
-                $(this).parents("tr").find(".td-per_akhir2").text(per_akhir2);
-                if(idx == 6){
-                    $(this).parents("tr").find(".inp-per_akhir2").show();
-                    $(this).parents("tr").find(".td-per_akhir2").hide();
-                    $(this).parents("tr").find(".inp-per_akhir2").focus();
-                }else{
-                    $(this).parents("tr").find(".inp-per_akhir2").hide();
-                    $(this).parents("tr").find(".td-per_akhir2").show();
-                }
+    $('.modal-header').on('click', '#btn-edit2', function(){
+        var id= $('#modal-preview-id').text();
+        // $iconLoad.show();
+        $('#form-tambah').validate().resetForm();
+        $('#judul-form').html('Edit Data Periode Aktif');
         
-            }
-        }
+        $('#btn-save').attr('type','button');
+        $('#btn-save').attr('id','btn-update');
+        editData(id)
+    });
+
+    $('.modal-header').on('click','#btn-cetak',function(e){
+        e.stopPropagation();
+        $('.dropdown-ke1').addClass('hidden');
+        $('.dropdown-ke2').removeClass('hidden');
+        console.log('ok');
+    });
+
+    $('.modal-header').on('click','#btn-cetak2',function(e){
+        // $('#dropdownAksi').dropdown('toggle');
+        e.stopPropagation();
+        $('.dropdown-ke1').removeClass('hidden');
+        $('.dropdown-ke2').addClass('hidden');
     });
 
 

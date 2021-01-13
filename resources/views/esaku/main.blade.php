@@ -396,6 +396,22 @@
                 // }
                 
             break;
+            case 'hapusDok':
+                var btn1 = (data.btn1 != undefined ? data.btn1 : 'btn btn-red');
+                var btn2 = (data.btn2 != undefined ? data.btn2 : 'btn btn-light');
+                var title = (data.title != undefined ? data.title : 'Hapus Data?');
+                var text = (data.text != undefined ? data.text : 'Data akan terhapus secara permanen dan tidak dapat mengurungkan.<br> ID Data : <b>'+data.id+'</b>');
+                var confirm = (data.confirm != undefined ? data.confirm : 'Hapus');
+                var cancel = (data.cancel != undefined ? data.cancel : 'Batal');
+                // function callBackMsg(){
+                //     hapusData(data.id);
+                // }
+                
+                // function callBackCancel(){
+                //     // 
+                // }
+                
+            break;
             case 'edit':
                 var btn1 = (data.btn1 != undefined ? data.btn1 : 'btn btn-primary');
                 var btn2 = (data.btn2 != undefined ? data.btn2 : 'btn btn-light');
@@ -514,6 +530,18 @@
                     }
                     
                 break;
+                case 'hapusDok':
+                    if (result.value) {
+                        if(data.param != undefined){
+                            hapusDok(data.param);
+                        }else{
+                            hapusDok(data.id);
+                        }
+                    } else if (result.dismiss === Swal.DismissReason.cancel) {
+                        //
+                    }
+                    
+                break;
                 case 'edit':
                     if (result.value) {
                         $('#form-tambah').submit();
@@ -528,6 +556,9 @@
                         //
                         $('#saku-datatable').show();
                         $('#saku-form').hide();
+                        if($('#saku-form-upload').length > 0){
+                            $('#saku-form-upload').hide();
+                        }
                         showNotification("top", "center", "success",'Simpan Data','Data ('+data.id+') berhasil disimpan ');
                     }
                 break;
@@ -535,6 +566,9 @@
                     if (result.value) {
                         $('#saku-datatable').show();
                         $('#saku-form').hide();
+                        if($('#saku-form-upload').length > 0){
+                            $('#saku-form-upload').hide();
+                        }
                     } else if (result.dismiss === Swal.DismissReason.cancel) {
                         // console.log('cancel');
                     }
