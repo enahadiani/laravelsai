@@ -280,6 +280,27 @@
         },
         errorElement: "label",
         submitHandler: function (form) {
+            var per_awal1 = $('#per_awal1').val();
+            var per_akhir1 = $('#per_akhir1').val();
+            var per_awal2 = $('#per_awal2').val();
+            var per_akhir2 = $('#per_akhir2').val();
+            if (parseInt(per_awal1) > parseInt(per_akhir1)) {
+                msgDialog({
+                    type: 'warning',
+                    title: "Periode tidak valid",
+                    text: "Periode Awal1 harus lebih kecil dari Periode Akhir1 "
+                });
+                return false;
+            } 
+            if (parseInt(per_awal2) > parseInt(per_akhir2)) {
+                msgDialog({
+                    type: 'warning',
+                    title: "Periode tidak valid",
+                    text: "Periode Awal2 harus lebih kecil dari Periode Akhir2 "
+                });
+                return false;
+            } 	
+            
             var parameter = $('#id_edit').val();
             var id = $('#modul').val();
             if(parameter == "edit"){
