@@ -77,7 +77,7 @@
                                 <div class="row">
                                     <div class="col-md-12 col-12">
                                         <label for="status">Status Closing</label>
-                                        <textarea name="status" id="status" class="form-control"  rows="12"></textarea>
+                                        <textarea name="status" id="status" class="form-control"  rows="12" readonly></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -100,11 +100,11 @@
         }
     });
 
-    var editor = ClassicEditor.create( document.querySelector( '#status' )).then( editor => {
-        window.editor = editor;
-    }).catch( error => {
-        console.error( error );
-    });
+    // var editor = ClassicEditor.create( document.querySelector( '#status' )).then( editor => {
+    //     window.editor = editor;
+    // }).catch( error => {
+    //     console.error( error );
+    // });
 
     $("input.datepicker").datepicker({
         autoclose: true,
@@ -325,7 +325,7 @@
                         window.location.href = "{{ url('/esaku-auth/sesi-habis') }}";
                     }else{
                         $('#status').val(result.data.message+''+result.data.msg_det);
-                        editor.setData(result.data.message+''+result.data.msg_det);
+                        // editor.setData(result.data.message+''+result.data.msg_det);
                         msgDialog({
                             id: id,
                             type: 'sukses',
