@@ -279,6 +279,28 @@
             for(var pair of formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
+            var maxPeriode = $('#max_periode').val();
+            var tgl = reverseDate($('#tanggal').val(),"/","-");
+            var periode = tgl.substr(0,4)+''+tgl.substr(5,2);
+            if (maxPeriode != parseInt("{{ Session::get('periode') }}".substr(4,2))) {
+                msgDialog({
+                    id: '-',
+                    type: 'warning',
+                    title: 'Error',
+                    text: "Periode transaksi Closing tidak valid. Periode Closing harus "+maxPeriode+", Lakukan Aktifasi Periode Desember di bulan ke-16."
+                });
+                return false;
+            }
+            if (parseInt("{{ Session::get('periode') }}") != parseFloat(periode)){
+                msgDialog({
+                    id: '-',
+                    type: 'warning',
+                    title: 'Error',
+                    text: "Periode transaksi Closing tidak valid.Periode transaksi harus sama dengan periode aktif sistem.[{{ Session::get('periode') }}]"
+                });
+                return false;
+            }
+
 
             $.ajax({
                 type: 'POST', 

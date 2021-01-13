@@ -23,6 +23,11 @@ class JurnalPenutupController extends Controller
         }
     }
 
+    public function reverseDate($ymd_or_dmy_date, $org_sep='-', $new_sep='-'){
+        $arr = explode($org_sep, $ymd_or_dmy_date);
+        return $arr[2].$new_sep.$arr[1].$new_sep.$arr[0];
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -45,7 +50,7 @@ class JurnalPenutupController extends Controller
                         'Accept'     => 'application/json',
                     ],
                     'form_params' => [
-                        'tanggal' => $request->tanggal,
+                        'tanggal' => $this->reverseDate($request->tanggal,"/","-"),
                         'deskripsi' => $request->deskripsi,
                         'nik_closing' => $request->nik_closing,
                         'nik_app' => $request->nik_app,
