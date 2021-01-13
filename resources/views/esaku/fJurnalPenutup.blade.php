@@ -1,4 +1,7 @@
     <link rel="stylesheet" href="{{ asset('trans.css') }}" />
+    <!-- LIST DATA -->
+    <x-list-data judul="Data Jurnal Penutup" tambah="true" :thead="array('No Bukti','Tanggal','Periode','Deskripsi','Nilai','Tgl Input','Aksi')" :thwidth="array(15,15,15,30,15,0,10)" :thclass="array('','','','','','','text-center')" />
+    <!-- END LIST DATA -->
     <!-- FORM INPUT -->
     <style>
         .selected{
@@ -6,12 +9,13 @@
         }
     </style>
     <form id="form-tambah" class="tooltip-label-right" novalidate>
-        <div class="row" id="saku-form">
+        <div class="row" id="saku-form" style="display:none">
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;">
                         <h6 id="judul-form" style="position:absolute;top:25px">Jurnal Penutup</h6>
                         <button type="submit" class="btn btn-primary ml-2"  style="float:right;" id="btn-save" ><i class="fa fa-save"></i> Simpan</button>
+                        <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Keluar</button>
                     </div>
                     <div class="separator mb-2"></div>
                     <div class="card-body pt-3 form-body">
@@ -100,6 +104,11 @@
         }
     });
 
+    var scroll = document.querySelector('.form-body');
+    var psscroll = new PerfectScrollbar(scroll);
+    
+    var scroll = document.querySelector('#content-preview');
+    var psscroll = new PerfectScrollbar(scroll);
     // var editor = ClassicEditor.create( document.querySelector( '#status' )).then( editor => {
     //     window.editor = editor;
     // }).catch( error => {
@@ -144,6 +153,86 @@
     }
 
     getDataAwal();
+
+    // LIST DATA
+    
+    var dataTable = generateTable(
+        "table-data",
+        "{{ url('esaku-trans/jurnal-penutup-list') }}", 
+        [
+            {
+                "targets": 0,
+                "createdCell": function (td, cellData, rowData, row, col) {
+                    if ( rowData.status == "baru" ) {
+                        $(td).parents('tr').addClass('selected');
+                        $(td).addClass('last-add');
+                    }
+                }
+            },
+            {   'targets': 4, 
+                'className': 'text-right',
+                'render': $.fn.dataTable.render.number( '.', ',', 0, '' ) 
+            },
+            {
+                "targets": [5],
+                "visible": false,
+                "searchable": false
+            }
+        ],
+        [
+            { data: 'no_bukti' },
+            { data: 'tanggal' },
+            { data: 'periode' },
+            { data: 'keterangan' },
+            { data: 'nilai' },
+            { data: 'tgl_input' }
+        ],
+        "{{ url('esaku-auth/sesi-habis') }}",
+        [[5 ,"desc"]]
+    );
+
+    $.fn.DataTable.ext.pager.numbers_length = 5;
+
+    $("#searchData").on("keyup", function (event) {
+        dataTable.search($(this).val()).draw();
+    });
+
+    $("#page-count").on("change", function (event) {
+        var selText = $(this).val();
+        dataTable.page.len(parseInt(selText)).draw();
+    });
+
+    // END LIST DATA
+
+    // BUTTON TAMBAH
+    $('#saku-datatable').on('click', '#btn-tambah', function(){
+        $('#row-id').hide();
+        $('#method').val('post');
+        $('#judul-form').html('Tambah Data Jurnal Penutup');
+        $('#btn-update').attr('id','btn-save');
+        $('#btn-save').attr('type','submit');
+        $('#form-tambah')[0].reset();
+        $('#form-tambah').validate().resetForm();
+        $('#id').val('');
+        $('#input-grid tbody').html('');
+        $('#saku-datatable').hide();
+        $('#saku-form').show();
+        $('.input-group-prepend').addClass('hidden');
+        $('span[class^=info-name]').addClass('hidden');
+        $('.info-icon-hapus').addClass('hidden');
+        $('[class*=inp-label-]').attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important;border-left:1px solid #d7d7d7 !important');
+    });
+    // END BUTTON TAMBAH
+
+    // BUTTON KEMBALI
+    $('#saku-form').on('click', '#btn-kembali', function(){
+        var kode = null;
+        msgDialog({
+            id:kode,
+            type:'keluar'
+        });
+    });
+    // END BUTTON KEMBALI
 
     // CBBL
 
