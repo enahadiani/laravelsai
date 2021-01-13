@@ -251,6 +251,8 @@
             $('#stok-mutasi').text('Stok')
             $('#jumlah-mutasi').text('Jumlah')
         }
+        $('#input-grid tbody').empty();
+        hitungTotalRow();
         getKode(tanggal, jenis);
     }
 
@@ -370,48 +372,84 @@
     function hideUnselectedRow() {
         $('#input-grid > tbody > tr').each(function(index, row) {
             if(!$(row).hasClass('selected-row')) {
-                var kode_akun = $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-kode").val();
-                var nama_akun = $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nama").val();
-                var dc = $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-dc").text();
-                var keterangan = $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-ket").val();
-                var nilai = $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nilai").val();
-                var kode_pp = $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-pp").val();
-                var nama_pp = $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nama_pp").val();
+                var kode_barang = $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-kode").val();
+                var nama_barang = $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nama").val();
+                var satuan = $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-satuan").val();
+                var stok = $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-stok").val();
+                var jumlah = $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-jumlah").val();
 
-                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-kode").val(kode_akun);
-                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-kode").text(kode_akun);
-                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nama").val(nama_akun);
-                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-nama").text(nama_akun);
-                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-dc")[0].selectize.setValue(dc);
-                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-dc").text(dc);
-                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-ket").val(keterangan);
-                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-ket").text(keterangan);
-                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nilai").val(nilai);
-                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-nilai").text(nilai);
-                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-pp").val(kode_pp);
-                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-pp").text(kode_pp);
-                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nama_pp").val(nama_pp);
-                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-nama_pp").text(nama_pp);
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-kode").val(kode_barang);
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-kode").text(kode_barang);
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nama").val(nama_barang);
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-nama").text(nama_barang);
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-satuan").val(satuan);
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-satuan").text(satuan);
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-stok").val(stok);
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-stok").text(stok);
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-jumlah").val(jumlah);
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-jumlah").text(jumlah);
 
                 $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-kode").hide();
                 $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-kode").show();
-                $('#input-grid > tbody > tr:eq('+index+') > td').find(".search-akun").hide();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".search-barang").hide();
                 $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nama").hide();
                 $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-nama").show();
-                $('#input-grid > tbody > tr:eq('+index+') > td').find(".selectize-control").hide();
-                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-dc").show();
-                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-ket").hide();
-                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-ket").show();
-                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nilai").hide();
-                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-nilai").show();
-                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-pp").hide();
-                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-pp").show();
-                $('#input-grid > tbody > tr:eq('+index+') > td').find(".search-pp").hide();
-                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nama_pp").hide();
-                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-nama_pp").show();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-satuan").show();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-satuan").hide();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-jumlah").show();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-jumlah").hide();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-stok").show();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-stok").hide();
             }
         })
     }
+
+    $('#input-grid tbody').on('click', 'tr', function(){
+        $(this).addClass('selected-row');
+        $('#input-grid tbody tr').not(this).removeClass('selected-row');
+        hideUnselectedRow();
+    });
+
+    $('#input-grid').on('click', 'td', function(){
+        var idx = $(this).index();
+        if(idx == 0 || idx == 2 || idx == 3 || idx == 4){
+            return false;
+        }else{
+            if($(this).hasClass('px-0 py-0 aktif')){
+                return false;            
+            }else{
+                $('#input-grid td').removeClass('px-0 py-0 aktif');
+                $(this).addClass('px-0 py-0 aktif');
+        
+                var kode_barang = $(this).parents("tr").find(".inp-kode").val();
+                var jumlah = $(this).parents("tr").find(".inp-jumlah").val();
+                var no = $(this).parents("tr").find(".no-grid").text();
+                $(this).parents("tr").find(".inp-kode").val(kode_barang);
+                $(this).parents("tr").find(".td-kode").text(kode_barang);
+                if(idx == 1){
+                    $(this).parents("tr").find(".inp-kode").show();
+                    $(this).parents("tr").find(".td-kode").hide();
+                    $(this).parents("tr").find(".search-barang").show();
+                    $(this).parents("tr").find(".inp-kode").focus();
+                }else{
+                    $(this).parents("tr").find(".inp-kode").hide();
+                    $(this).parents("tr").find(".td-kode").show();
+                    $(this).parents("tr").find(".search-barang").hide();   
+                }
+        
+                $(this).parents("tr").find(".inp-jumlah").val(jumlah);
+                $(this).parents("tr").find(".td-jumlah").text(jumlah);
+                if(idx == 5){
+                    $(this).parents("tr").find(".inp-jumlah").show();
+                    $(this).parents("tr").find(".td-jumlah").hide();
+                    $(this).parents("tr").find(".inp-jumlah").focus();
+                }else{
+                    $(this).parents("tr").find(".inp-jumlah").hide();
+                    $(this).parents("tr").find(".td-jumlah").show();
+                }
+            }
+        }
+    });
 
     function showInfoField(kode,isi_kode,isi_nama){
         $('#'+kode).val(isi_kode);
@@ -524,6 +562,9 @@
                 var result = response.result.data[0];
 
                 if(response.status) {
+                    $(target).parents("tr").find(".inp-kode").hide(); 
+                    $(target).parents("tr").find(".td-kode").show(); 
+                    $(target).parents("tr").find(".search-barang").hide(); 
                     $(target).parents("tr").find(".inp-satuan").val(result.sat_kecil); 
                     $(target).parents("tr").find(".td-satuan").text(result.sat_kecil);
                     $(target).parents("tr").find(".inp-stok").val(result.stok); 
@@ -584,26 +625,141 @@
         showInpFilter(options);
     });
 
-    $('#input-grid').on('keydown','.inp-kode, .inp-nama, .inp-satuan, .inp-stok, .inp-jumlah',function(e){
+    function getBarang(id,target1,target2,target3,target4,target5,jenis) { 
+        var kode_gudang = $('#asal').val();
+        var tmp = id.split(" - ");
+        kode = tmp[0];
+
+        if(kode_gudang == '') {
+            alert('Harap pilih gudang asal dahulu')
+            $('.'+target1).val('');
+            $('.'+target1).hide();
+            $('.td'+target1).show(kode);
+            $('.'+target1).closest('tr').find('.search-barang').hide();
+            $('#input-grid td').removeClass('px-0 py-0 aktif');
+            $('#asal').focus();
+            return;
+        }
+
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('esaku-trans/barang-mutasi-detail') }}",
+            data:{'kode_barang':kode, 'kode_gudang':kode_gudang},
+            dataType: 'json',
+            success:function(response){
+                var result = response.result.data[0];
+                if(response.status) {
+                    if(jenis == 'change'){
+                        $('.'+target1).val(kode);
+                        $('.td'+target1).text(kode);
+
+                        $('.'+target2).val(result.nama);
+                        $('.td'+target2).text(result.nama);
+                        
+                        $('.'+target3).val(result.sat_kecil);
+                        $('.td'+target3).text(result.sat_kecil);
+
+                        $('.'+target4).val(result.stok);
+                        $('.td'+target4).text(result.stok);
+
+                        $('.'+target5).show();
+                        $('.td'+target5).hide();
+                        $('.'+target5).focus();
+                    } else {
+                        $("#input-grid td").removeClass("px-0 py-0 aktif");
+                        $('.'+target2).closest('td').addClass("px-0 py-0 aktif");
+
+                        $('.'+target1).closest('tr').find('.search-barang').hide();
+                        $('.'+target1).val(id);
+                        $('.td'+target1).text(id);
+                        $('.'+target1).hide();
+                        $('.td'+target1).show();
+
+                        $('.'+target2).val(result.nama);
+                        $('.td'+target2).text(result.nama);
+                        
+                        $('.'+target3).val(result.sat_kecil);
+                        $('.td'+target3).text(result.sat_kecil);
+
+                        $('.'+target4).val(result.stok);
+                        $('.td'+target4).text(result.stok);
+
+                        $('.'+target5).show();
+                        $('.td'+target5).hide();
+                        $('.'+target5).focus();
+                    }
+                }
+            }
+        })
+    }
+
+    $('#input-grid').on('keydown','.inp-kode, .inp-jumlah',function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['.inp-kode','.inp-nama','.inp-satuan','.inp-stok','.inp-jumlah'];
-        var nxt2 = ['.inp-kode','.inp-nama','.inp-satuan','.inp-stok','.inp-jumlah'];
+        var nxt = ['.inp-kode','.inp-jumlah'];
+        var nxt2 = ['.inp-kode','.inp-jumlah'];
         if (code == 13 || code == 9) {
             e.preventDefault();
             var idx = $(this).closest('td').index()-1;
             var idx_next = idx+1;
             var kunci = $(this).closest('td').index()+1;
             var isi = $(this).val();
-            console.log(idx)
-                console.log(kunci)
-                console.log(idx_next)
-            // switch (idx) {
-                
-            // }
+            var stok = $(this).closest('td').prev().find('.inp-stok').val();
+            switch (idx) {
+                case 0:
+                    var noidx = $(this).parents("tr").find(".no-grid").text();
+                    var kode = $(this).val();
+                    var target1 = "barangke"+noidx;
+                    var target2 = "nmbarangke"+noidx;
+                    var target3 = "satuanke"+noidx;
+                    var target4 = "stokke"+noidx;
+                    var target5 = "jumlahke"+noidx;
+                    getBarang(kode,target1,target2,target3,target4,target5,'tab');
+                break;
+                case 4:
+                    stok = parseFloat(stok);
+                    isi = parseFloat(isi)
+                    console.log(isi)
+                    if(isi === 0 || isi > stok || isNaN(isi)) {
+                        alert('Jumlah yang dimasukkan tidak valid (0) atau melebihi stok yang ada')
+                    } else {
+                        $("#input-grid td").removeClass("px-0 py-0 aktif");
+                        $(this).closest('tr').find(nxt[idx]).val(isi);
+                        $(this).closest('tr').find(nxt2[idx]).text(isi);
+                        $(this).closest('tr').find(nxt[idx]).hide();
+                        $(this).closest('tr').find(nxt2[idx]).show();
+
+                        var cek = $(this).parents('tr').next('tr').find('.td-kode');
+                        if(cek.length > 0){
+                            cek.click();
+                        }else{
+                            $('.add-row').click();
+                        }
+                    }
+                break;
+                default:
+                break;   
+            }
         }else if(code == 38){
             e.preventDefault();
             var idx = nxt.indexOf(e.target.id);
             idx--;
+        }
+    });
+
+    $('#input-grid').on('change', '.inp-kode', function(e){
+        e.preventDefault();
+        var noidx =  $(this).parents('tr').find('.no-grid').html();
+        var target1 = "barangke"+noidx;
+        var target2 = "nmbarangke"+noidx;
+        var target3 = "satuanke"+noidx;
+        var target4 = "stokke"+noidx;
+        var target5 = "jumlahke"+noidx;
+        if($.trim($(this).closest('tr').find('.inp-kode').val()).length){
+            var kode = $(this).val();
+            getBarang(kode,target1,target2,target3,target4,target5,'change');
+        }else{
+            alert('Barang yang dimasukkan tidak valid');
+            return false;
         }
     });
 </script>
