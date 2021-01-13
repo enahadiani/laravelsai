@@ -323,6 +323,7 @@
         input += "<td><span class='td-satuan tdsatuanke"+no+" tooltip-span'>"+satuan+"</span><input type='text' name='satuan[]' class='form-control inp-satuan satuanke"+no+" hidden'  value='"+satuan+"' readonly></td>";
         input += "<td><span class='td-stok tdstokke"+no+" tooltip-span'>"+stok+"</span><input type='text' name='stok[]' class='form-control inp-stok stokke"+no+" hidden'  value='"+stok+"' readonly></td>";
         input += "<td class='text-right'><span class='td-jumlah tdjumlahke"+no+" tooltip-span'>"+jumlah+"</span><input type='text' name='jumlah[]' class='form-control inp-jumlah jumlahke"+no+" hidden'  value='"+jumlah+"' required></td>";
+        input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
         input += "</tr>";
 
         $('#input-grid tbody').append(input);
@@ -492,13 +493,48 @@
     $('#form-tambah').on('click', '.add-row', function(){
         addRow();
     });
-
     
     $('#input-grid tbody').on('click', 'tr', function(){
         $(this).addClass('selected-row');
         $('#input-grid tbody tr').not(this).removeClass('selected-row');
         hideUnselectedRow();
     });
+
+    $('#input-grid').on('click', '.hapus-item', function(){
+        $(this).closest('tr').remove();
+        no=1;
+        $('.row-jurnal').each(function(){
+            var nom = $(this).closest('tr').find('.no-grid');
+            nom.html(no);
+            no++;
+        });
+        hitungTotalRow();
+        $("html, body").animate({ scrollTop: $(document).height() }, 1000);
+    });
+
+    function custTarget(target,tr){
+        var kode_barang = $(target).parents("tr").find(".inp-kode").val();
+        var kode_gudang = $('#asal').val();
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('esaku-trans/barang-mutasi-detail') }}",
+            data:{'kode_barang':kode_barang, 'kode_gudang':kode_gudang},
+            dataType: 'json',
+            success:function(response){
+                var result = response.result.data[0];
+
+                if(response.status) {
+                    $(target).parents("tr").find(".inp-satuan").val(result.sat_kecil); 
+                    $(target).parents("tr").find(".td-satuan").text(result.sat_kecil);
+                    $(target).parents("tr").find(".inp-stok").val(result.stok); 
+                    $(target).parents("tr").find(".td-stok").text(result.stok);
+                    $(target).parents("tr").find(".inp-jumlah").show();
+                    $(target).parents("tr").find(".td-jumlah").hide();    
+                    setTimeout(function() {  $(target).parents("tr").find(".inp-jumlah").focus(); }, 100);    
+                }
+            }
+        });
+    }
 
     $('#input-grid').on('click', '.search-item', function(){
         var par = $(this).closest('td').find('input').attr('name');
@@ -540,7 +576,7 @@
                     target1 : "."+target1,
                     target2 : "."+target2,
                     target3 : ".td"+target2,
-                    target4 : ".td-jumlah",
+                    target4 : "custom",
                     width : ["30%","70%"]
                 };
             break;
