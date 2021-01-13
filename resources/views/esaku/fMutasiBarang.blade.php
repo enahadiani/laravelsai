@@ -58,13 +58,103 @@
                     </div>
                     <div class="col-md-6">
                         <ul class="nav nav-tabs col-12 nav-grid justify-content-end" role="tablist" style="padding-bottom:0;margin-top:1rem;border-bottom:none">
-                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-kirim" role="tab" aria-selected="false"><span class="hidden-xs-down">Kirim</span></a> </li>
-                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-terima" role="tab" aria-selected="true"><span class="hidden-xs-down">Terima</span></a> </li>
+                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-kirim" role="tab" aria-selected="true"><span class="hidden-xs-down">Kirim</span></a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-terima" role="tab" aria-selected="false"><span class="hidden-xs-down">Terima</span></a> </li>
                         </ul>
                     </div>
                 </div>
             </div>
             <div class="separator mb-2"></div>
+            <div class="tab-content tabcontent-border col-12 p-0">
+                <div class="tab-pane active" id="data-kirim" role="tabpanel">
+                    <div class="row" style="padding-right:1.75rem;padding-left:1.75rem">
+                        <div class="dataTables_length col-sm-12" id="table-data_length"></div>
+                        <div class="d-block d-md-inline-block float-left col-md-6 col-sm-12">
+                            <div class="page-countdata">
+                                <label>Menampilkan 
+                                    <select style="border:none" id="page-count">
+                                        <option value="10">10 per halaman</option>
+                                        <option value="25">25 per halaman</option>
+                                        <option value="50">50 per halaman</option>
+                                        <option value="100">100 per halaman</option>
+                                    </select>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="d-block d-md-inline-block float-right col-md-6 col-sm-12">
+                            <div class="input-group input-group-sm" style="width:321px;float:right">
+                                <input type="text" class="form-control" placeholder="Search..."
+                                    aria-label="Search..." aria-describedby="filter-btn" id="searchData" style="border-top-right-radius: 0 !important;border-bottom-right-radius: 0 !important;width:230px !important">
+                                <div class="input-group-append" style="width:92px !important">
+                                    <span class="input-group-text" id="filter-btn" style="border-top-right-radius: 0.5rem !important;border-bottom-right-radius: 0.5rem !important;width:100%"><span class="badge badge-pill badge-outline-primary mb-0" id="jum-filter" style="font-size: 8px;margin-right: 5px;padding: 0.5em 0.75em;"></span><i class="simple-icon-equalizer mr-1"></i> Filter</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body" style="min-height:560px !important;padding-top:1rem;">
+                        <div class="table-responsive ">
+                            <table id="table-kirim" class="" style='width:100%'>
+                                <thead>
+                                    <tr>
+                                        <th>No. Bukti</th>
+                                        <th>Tanggal</th>
+                                        <th>Dokumen</th>
+                                        <th>Deskripsi</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane" id="data-terima" role="tabpanel">
+                    <div class="row" style="padding-right:1.75rem;padding-left:1.75rem">
+                        <div class="dataTables_length col-sm-12" id="table-data_length"></div>
+                        <div class="d-block d-md-inline-block float-left col-md-6 col-sm-12">
+                            <div class="page-countdata">
+                                <label> Menampilkan 
+                                    <select style="border:none" id="page-count">
+                                        <option value="10">10 per halaman</option>
+                                        <option value="25">25 per halaman</option>
+                                        <option value="50">50 per halaman</option>
+                                        <option value="100">100 per halaman</option>
+                                    </select>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="d-block d-md-inline-block float-right col-md-6 col-sm-12">
+                            <div class="input-group input-group-sm" style="width:321px;float:right">
+                                <input type="text" class="form-control" placeholder="Search..."
+                                    aria-label="Search..." aria-describedby="filter-btn" id="searchData" style="border-top-right-radius: 0 !important;border-bottom-right-radius: 0 !important;width:230px !important">
+                                <div class="input-group-append" style="width:92px !important">
+                                    <span class="input-group-text" id="filter-btn" style="border-top-right-radius: 0.5rem !important;border-bottom-right-radius: 0.5rem !important;width:100%"><span class="badge badge-pill badge-outline-primary mb-0" id="jum-filter" style="font-size: 8px;margin-right: 5px;padding: 0.5em 0.75em;"></span><i class="simple-icon-equalizer mr-1"></i> Filter</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body" style="min-height:560px !important;padding-top:1rem;">
+                        <div class="table-responsive ">
+                            <table id="table-kirim" class="" style='width:100%'>
+                                <thead>
+                                    <tr>
+                                        <th>No. Bukti</th>
+                                        <th>Tanggal</th>
+                                        <th>Dokumen</th>
+                                        <th>Deskripsi</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
