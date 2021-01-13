@@ -153,6 +153,15 @@
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         }
     });
+
+    $("input.datepicker").datepicker({
+        autoclose: true,
+        format: 'dd/mm/yyyy',
+        templates: {
+            leftArrow: '<i class="simple-icon-arrow-left"></i>',
+            rightArrow: '<i class="simple-icon-arrow-right"></i>'
+        }
+    });
     
     var t = generateTable(
         "table-modul",

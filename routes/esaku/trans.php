@@ -128,3 +128,6 @@ Route::delete('jurnal-dok', 'Esaku\UploadDokJurnalController@destroy');
 //Closing Periode
 Route::get('closing-periode','Esaku\ClosingPeriodeController@show');
 Route::post('closing-periode','Esaku\ClosingPeriodeController@store');
+
+Route::get('jurnal-penutup','Esaku\JurnalPenutupController@getDataAwal');
+Route::post('jurnal-penutup','Esaku\JurnalPenutupController@store');
