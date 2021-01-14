@@ -946,7 +946,7 @@
                         'periode' => $request->periode,
                         'kode_fs' => $request->kode_fs,
                         'level' => $request->level,
-                        'kode_neraca' => $request->kode_neraca,
+                        'id' => $request->id,
                         'nik_user' => Session::get('nikUser')
                     ]
                 ]);
