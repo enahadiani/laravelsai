@@ -34,6 +34,156 @@ class MutasiController extends Controller {
         return $arr[2].$new_sep.$arr[1].$new_sep.$arr[0];
     }
 
+    public function show(Request $request)
+    {
+        try{
+            $no_bukti = $request->no_bukti;
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'toko-trans/mutasi-detail',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' =>[
+                    'no_bukti' => $no_bukti
+                ]
+
+            ]);
+    
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["success"];
+            }
+            return response()->json(['data' => $data], 200); 
+
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $result['message'] = $res["message"];
+            $result['status']=false;
+            return response()->json(["data" => $result], 200);
+        } 
+    }
+
+    public function getMutasiKirim() {
+        try {
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'toko-trans/mutasi-kirim',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["success"];
+            }
+            return response()->json(['daftar' => $data['data'], 'status'=>true], 200); 
+
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+        }
+    }
+
+    public function getMutasiTerima() {
+        try {
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'toko-trans/mutasi-terima',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["success"];
+            }
+            return response()->json(['daftar' => $data['data'], 'status'=>true], 200); 
+
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+        }
+    }
+
+    public function update(Request $request) {
+        try {
+            $this->validate($request, [
+                'no_dokumen' => 'required',
+                'tanggal' => 'required',
+                'jenis' => 'required',
+                'no_bukti' => 'required',
+                'keterangan' => 'required',
+                'asal' => 'required',
+                'tujuan' => 'required',
+                'kode_barang.*' => 'required',
+                'satuan.*' => 'required',
+                'stok.*' => 'required',
+                'jumlah.*' => 'required'
+            ]);
+
+            $detail = array();
+            if(isset($request->kode_barang)){
+                $kode_barang = $request->kode_barang;
+                $satuan = $request->satuan;
+                $stok = $request->stok;
+                $jumlah = $request->jumlah;
+                for($i=0;$i<count($kode_barang);$i++){
+                    $detail[] = array(
+                        'kode_barang' => $kode_barang[$i],
+                        'satuan' => $satuan[$i],
+                        'stok' => $this->joinNum($stok[$i]),
+                        'jumlah' => $this->joinNum($jumlah[$i]),
+                    );
+                }
+            }
+
+            $fields['mutasi'][0] = array(
+                'no_dokumen' => $request->no_dokumen,
+                'tanggal' => $this->reverseDate($request->tanggal,'/','-'),
+                'no_bukti' => $request->no_bukti,
+                'jenis' => $request->jenis,
+                'keterangan' => $request->keterangan,
+                'gudang_asal' => $request->asal,
+                'gudang_tujuan' => $request->tujuan,
+                'detail' => $detail
+            );
+
+            $client = new Client();
+            $response = $client->request('PUT',  config('api.url').'toko-trans/mutasi-barang',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Content-Type'     => 'application/json'
+                    ],
+                    'body' => json_encode($fields)
+                ]);
+                
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    $data = json_decode($response_data,true);
+                    return response()->json(["data" =>$data["success"]], 200);  
+                }
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return $res;
+            $result['message'] = $res;
+            $result['status']=false;
+            return response()->json(["data" => $result], 200);
+        }
+    }
+
     public function store(Request $request) {
         try {
             $this->validate($request, [
