@@ -179,7 +179,7 @@
             if($output.from == "Laporan"){
                 xurl = "{{ url('esaku-auth/form/rptLabaRugiBulan') }}";
             }else{
-                xurl = "{{ url('esaku-auth/form/rptLabaRugiGrid') }}";
+                xurl = "{{ url('esaku-auth/form/rptLabaRugiBulanGrid') }}";
             }
             $('#saku-report').removeClass('hidden');
             $('#saku-report #canvasPreview').load(xurl);
@@ -204,7 +204,7 @@
                 xurl = "{{ url('esaku-auth/form/rptLabaRugiBulan') }}";
             }else{
 
-                xurl = "{{ url('esaku-auth/form/rptLabaRugiGrid') }}";
+                xurl = "{{ url('esaku-auth/form/rptLabaRugiBulanGrid') }}";
             }
             $('#saku-report #canvasPreview').load(xurl);
         });
@@ -229,11 +229,23 @@
             $formData.append('periode[]', "=");
             $formData.append('periode[]', periode);
             $formData.append('periode[]', "");
-
+            
+            $formData.delete('kode_akun[]');  
             $formData.delete('kode_neraca[]');
             $formData.append('kode_neraca[]', "=");
             $formData.append('kode_neraca[]', kode_neraca);
             $formData.append('kode_neraca[]', "");
+
+            var kode_akun = $(this).data('kode_akun');
+            if(kode_akun != "" && kode_akun != undefined){
+                param_trace.kode_akun = kode_akun; 
+                $formData.delete('kode_neraca[]');  
+                $formData.delete('kode_akun[]');
+                $formData.append('kode_akun[]', "=");
+                $formData.append('kode_akun[]', kode_akun);
+                $formData.append('kode_akun[]', "");
+            }
+
 
             $formData.delete('trail[]');
             $formData.append('trail[]', "=");
@@ -332,17 +344,23 @@
             var aktif = $('.breadcrumb-item.active').attr('aria-current');
             
             if(aktif == "neraca-lajur"){
-                $formData.delete('periode[]');
+                $formData.delete('periode[]'); 
+                $formData.delete('id'); 
+                $formData.delete('kode_akun[]');
+                $formData.delete('kode_neraca[]');
                 $formData.append("periode[]",$periode.type);
                 $formData.append("periode[]",$periode.from);
                 $formData.append("periode[]",$periode.to);
-                xurl = "esaku-auth/form/rptLabaRugiBulan";
                 $formData.delete('back');
                 $formData.delete('kode_fs[]');
                 $formData.append("kode_fs[]",$kode_fs.type);
                 $formData.append("kode_fs[]",$kode_fs.from);
                 $formData.append("kode_fs[]",$kode_fs.to);
-                $formData.delete('kode_neraca[]');
+                if($output.from == "Laporan"){
+                    xurl = "esaku-auth/form/rptLabaRugiBulan";
+                }else{
+                    xurl = "esaku-auth/form/rptLabaRugiBulanGrid";
+                }
                 $('.breadcrumb').html('');
                 $('.breadcrumb').append(`
                     <li class="breadcrumb-item active" aria-current="laba-rugi">Laba Rugi</li>
@@ -396,16 +414,24 @@
             e.preventDefault();
             var tujuan = $(this).data('href');
             if(tujuan == "laba-rugi"){
-                $formData.delete('periode[]');
+                $formData.delete('periode[]'); 
+                $formData.delete('id');
+                $formData.delete('kode_akun[]');
+                $formData.delete('kode_neraca[]');
                 $formData.append("periode[]",$periode.type);
                 $formData.append("periode[]",$periode.from);
                 $formData.append("periode[]",$periode.to);
+                if($output.from == "Laporan"){
+                    xurl = "esaku-auth/form/rptLabaRugiBulan";
+                }else{
+                    xurl = "esaku-auth/form/rptLabaRugiBulanGrid";
+                }
                 $formData.delete('back');
                 $formData.delete('kode_fs[]');
                 $formData.append("kode_fs[]",$kode_fs.type);
                 $formData.append("kode_fs[]",$kode_fs.from);
                 $formData.append("kode_fs[]",$kode_fs.to);
-                xurl = "esaku-auth/form/rptLabaRugi";
+                $formData.delete('kode_neraca[]');
                 $('.breadcrumb').html('');
                 $('.breadcrumb').append(`
                     <li class="breadcrumb-item active" aria-current="laba-rugi" >Laba Rugi</li>
