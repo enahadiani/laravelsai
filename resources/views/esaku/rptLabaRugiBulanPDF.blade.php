@@ -52,7 +52,7 @@
 <body>
     <table class='table table-borderless' width='100%'>
         <tr>
-            <td class='text-center px-0 py-0 judul-nama'>LAPORAN NERACA LAJUR</td>
+            <td class='text-center px-0 py-0 judul-nama'>LAPORAN LABA RUGI</td>
         </tr>
         <tr>
             <td class='text-center px-0 py-0 judul-lokasi'>{{ $lokasi }}</td>
@@ -64,10 +64,7 @@
 	<table class='table table-bordered info-table' style='width:100%'>
         <thead>
             <tr>
-                <th class='header_laporan' align='center'>No</th>
-                <th class='header_laporan' align='center'>Kode Akun</th>
-                <th class='header_laporan' align='center'>Nama Akun</th>
-                <th class='header_laporan' align='center'>Saldo Awal</th>
+                <th class='header_laporan' align='center'>Keterangan</th>
                 <th class='header_laporan' align='center'>Januari</th>
                 <th class='header_laporan' align='center'>Februari</th>
                 <th class='header_laporan' align='center'>Maret</th>
@@ -106,6 +103,7 @@
                 $n14=0;
                 $n15=0;
                 $n16=0;
+                $n17=0;
                 
                 $tahun = $periode;
                 $periode01=$tahun."01"; 
@@ -133,30 +131,9 @@
             @for ($i=0; $i < count($data) ; $i++)
                 @php
                     $line  = $data[$i];
-                    $so_awal+=floatval($line['so_awal']);
-                    $n01+=floatval($line['n01']);
-                    $n02+=floatval($line['n02']);
-                    $n03+=floatval($line['n03']);
-                    $n04+=floatval($line['n04']);
-                    $n05+=floatval($line['n05']);
-                    $n06+=floatval($line['n06']);
-                    $n07+=floatval($line['n07']);
-                    $n08+=floatval($line['n08']);
-                    $n09+=floatval($line['n09']);
-                    $n10+=floatval($line['n10']);
-                    $n11+=floatval($line['n11']);
-                    $n12+=floatval($line['n12']);
-                    $n13+=floatval($line['n13']);
-                    $n14+=floatval($line['n14']);
-                    $n15+=floatval($line['n15']);
-                    $n16+=floatval($line['n16']);
-                    $total+=floatval($line['total']);
                 @endphp
                 <tr>
-                    <td class='isi_laporan' align='center'>{{ $no }}</td>
-                    <td class='isi_laporan'>{{ $line['kode_akun'] }}</td>
                     <td height='20' class='isi_laporan'>{{ $line['nama'] }}</td>
-                    <td class='isi_laporan text-right'>{{ number_format(floatval($line['so_awal']),0,",",".") }}</td>
                     <td  class='isi_laporan text-right' >{{ number_format(floatval($line['n01']),0,",",".") }}</td>
                     <td  class='isi_laporan text-right' >{{ number_format(floatval($line['n02']),0,",",".") }}</td>
                     <td  class='isi_laporan text-right' >{{ number_format(floatval($line['n03']),0,",",".") }}</td>
@@ -173,31 +150,10 @@
                     <td  class='isi_laporan text-right' >{{ number_format(floatval($line['n14']),0,",",".") }}</td>
                     <td  class='isi_laporan text-right' >{{ number_format(floatval($line['n15']),0,",",".") }}</td>
                     <td  class='isi_laporan text-right' >{{ number_format(floatval($line['n16']),0,",",".") }}</td>
-                    <td  class='isi_laporan text-right' >{{ number_format(floatval($line['total']),0,",",".") }}</td>
+                    <td  class='isi_laporan text-right' >{{ number_format(floatval($line['n17']),0,",",".") }}</td>
                 </tr>
                 @php $no++; @endphp
             @endfor
-            <tr>
-                <td height='23' colspan='3' align='right' class='isi_laporan'>Total&nbsp;</td>
-                <td class='header_laporan' align='right'>{{ number_format($so_awal,0,",",".") }}</td>
-                <td class='header_laporan' align='right'>{{ number_format($n01,0,",",".") }}</td>
-                <td class='header_laporan' align='right'>{{ number_format($n02,0,",",".") }}</td>
-                <td class='header_laporan' align='right'>{{ number_format($n03,0,",",".") }}</td>
-                <td class='header_laporan' align='right'>{{ number_format($n04,0,",",".") }}</td>
-                <td class='header_laporan' align='right'>{{ number_format($n05,0,",",".") }}</td>
-                <td class='header_laporan' align='right'>{{ number_format($n06,0,",",".") }}</td>
-                <td class='header_laporan' align='right'>{{ number_format($n07,0,",",".") }}</td>
-                <td class='header_laporan' align='right'>{{ number_format($n08,0,",",".") }}</td>
-                <td class='header_laporan' align='right'>{{ number_format($n09,0,",",".") }}</td>
-                <td class='header_laporan' align='right'>{{ number_format($n10,0,",",".") }}</td>
-                <td class='header_laporan' align='right'>{{ number_format($n11,0,",",".") }}</td>
-                <td class='header_laporan' align='right'>{{ number_format($n12,0,",",".") }}</td>
-                <td class='header_laporan' align='right'>{{ number_format($n13,0,",",".") }}</td>
-                <td class='header_laporan' align='right'>{{ number_format($n14,0,",",".") }}</td>
-                <td class='header_laporan' align='right'>{{ number_format($n15,0,",",".") }}</td>
-                <td class='header_laporan' align='right'>{{ number_format($n16,0,",",".") }}</td>
-                <td class='header_laporan' align='right'>{{ number_format($total,0,",",".") }}</td>
-            </tr>
 		</tbody>
 	</table>
 </body>
