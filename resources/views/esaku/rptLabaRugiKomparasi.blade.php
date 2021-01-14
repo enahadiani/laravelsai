@@ -82,7 +82,7 @@
                 if (line.tipe=="Posting" && line.n1 != 0)
                 {
                     html+=`
-                    <td class='report-link neraca-lajur text-right' style='cursor:pointer;color:blue' data-kode_neraca='`+line.kode_neraca+`'>`+nilai1+`</td>`;
+                    <td class='report-link neraca-lajur text-right' style='cursor:pointer;color:blue' data-kode_neraca='`+line.kode_neraca+`' data-periode=`+$periode.from+`>`+nilai1+`</td>`;
                 }
                 else
                 {
@@ -91,7 +91,7 @@
                 if (line.tipe=="Posting" && line.n2 != 0)
                 {
                     html+=`
-                    <td class='report-link neraca-lajur text-right' style='cursor:pointer;color:blue' data-kode_neraca='`+line.kode_neraca+`'>`+nilai2+`</td>`;
+                    <td class='report-link neraca-lajur text-right' style='cursor:pointer;color:blue' data-kode_neraca='`+line.kode_neraca+`'  data-periode=`+$periode2.from+`>`+nilai2+`</td>`;
                 }
                 else
                 {

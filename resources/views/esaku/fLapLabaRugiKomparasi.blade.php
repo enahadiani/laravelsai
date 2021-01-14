@@ -70,6 +70,7 @@
         var $aktif = "";
 
         var param_trace = {
+            periode : "",
             kode_neraca : "",
             kode_akun : "",
             no_bukti : ""
@@ -199,12 +200,19 @@
             e.preventDefault();
             var kode_neraca = $(this).data('kode_neraca');
             param_trace.kode_neraca = kode_neraca;
+            var periode = $(this).data('periode');
+            param_trace.periode = periode;
             var back = true;
             
             $formData.delete('kode_neraca[]');
             $formData.append('kode_neraca[]', "=");
             $formData.append('kode_neraca[]', kode_neraca);
             $formData.append('kode_neraca[]', "");
+
+            $formData.delete('periode[]');
+            $formData.append('periode[]', "=");
+            $formData.append('periode[]', periode);
+            $formData.append('periode[]', "");
 
             $formData.delete('trail[]');
             $formData.append('trail[]', "=");
@@ -230,7 +238,13 @@
             var kode_akun = $(this).data('kode_akun');
             param_trace.kode_akun = kode_akun;
             var back = true;
+            var periode =  param_trace.periode;
             
+            $formData.delete('periode[]');
+            $formData.append('periode[]', "=");
+            $formData.append('periode[]', periode);
+            $formData.append('periode[]', "");
+
             $formData.delete('kode_akun[]');
             $formData.append('kode_akun[]', "=");
             $formData.append('kode_akun[]', kode_akun);
@@ -258,6 +272,13 @@
             var no_bukti = $(this).data('no_bukti');
             param_trace.no_bukti = no_bukti;
             var back = true;
+
+            var periode =  param_trace.periode;
+            
+            $formData.delete('periode[]');
+            $formData.append('periode[]', "=");
+            $formData.append('periode[]', periode);
+            $formData.append('periode[]', "");
             
             $formData.delete('no_bukti[]');
             $formData.append('no_bukti[]', "=");
@@ -286,18 +307,18 @@
 
         $('.navigation-lap').on('click', '#btn-back', function(e){
             e.preventDefault();
-            $formData.delete('periode[]');
-            $formData.append("periode[]",$periode.type);
-            $formData.append("periode[]",$periode.from);
-            $formData.append("periode[]",$periode.to);
-            $formData.delete('periode2[]');
-            $formData.append("periode2[]",$periode2.type);
-            $formData.append("periode2[]",$periode2.from);
-            $formData.append("periode2[]",$periode2.to);
-
+            
             var aktif = $('.breadcrumb-item.active').attr('aria-current');
-
+            
             if(aktif == "neraca-lajur"){
+                $formData.delete('periode[]');
+                $formData.append("periode[]",$periode.type);
+                $formData.append("periode[]",$periode.from);
+                $formData.append("periode[]",$periode.to);
+                $formData.delete('periode2[]');
+                $formData.append("periode2[]",$periode2.type);
+                $formData.append("periode2[]",$periode2.from);
+                $formData.append("periode2[]",$periode2.to);
                 xurl = "esaku-auth/form/rptLabaRugiKomparasi";
                 $formData.delete('back');
                 $formData.delete('kode_fs[]');
@@ -312,6 +333,11 @@
             }
             else if(aktif == "buku-besar"){
                 xurl = "esaku-auth/form/rptNrcLajur";
+                $formData.delete('periode[]');
+                $formData.append("periode[]","=");
+                $formData.append("periode[]",param_trace.periode);
+                $formData.append("periode[]","");
+
                 $formData.delete('kode_neraca[]');
                 $formData.append("kode_neraca[]","=");
                 $formData.append("kode_neraca[]",param_trace.kode_neraca);
@@ -326,6 +352,11 @@
                 `);
             }else if(aktif == "jurnal"){
                 xurl = "esaku-auth/form/rptBukuBesar";
+                $formData.delete('periode[]');
+                $formData.append("periode[]","=");
+                $formData.append("periode[]",param_trace.periode);
+                $formData.append("periode[]","");
+
                 $formData.delete('kode_akun[]');
                 $formData.append("kode_akun[]","=");
                 $formData.append("kode_akun[]",param_trace.kode_akun);
@@ -348,15 +379,15 @@
         $('.breadcrumb').on('click', '.klik-report', function(e){
             e.preventDefault();
             var tujuan = $(this).data('href');
-            $formData.delete('periode[]');
-            $formData.append("periode[]",$periode.type);
-            $formData.append("periode[]",$periode.from);
-            $formData.append("periode[]",$periode.to);
-            $formData.delete('periode2[]');
-            $formData.append("periode2[]",$periode2.type);
-            $formData.append("periode2[]",$periode2.from);
-            $formData.append("periode2[]",$periode2.to);
             if(tujuan == "laba-rugi"){
+                $formData.delete('periode[]');
+                $formData.append("periode[]",$periode.type);
+                $formData.append("periode[]",$periode.from);
+                $formData.append("periode[]",$periode.to);
+                $formData.delete('periode2[]');
+                $formData.append("periode2[]",$periode2.type);
+                $formData.append("periode2[]",$periode2.from);
+                $formData.append("periode2[]",$periode2.to);
                 $formData.delete('back');
                 $formData.delete('kode_fs[]');
                 $formData.append("kode_fs[]",$kode_fs.type);
@@ -369,6 +400,12 @@
                 `);
                 $('.navigation-lap').addClass('hidden');
             }else if(tujuan == "neraca-lajur"){
+                
+                $formData.delete('periode[]');
+                $formData.append("periode[]","=");
+                $formData.append("periode[]",param_trace.periode);
+                $formData.append("periode[]","");
+
                 $formData.delete('kode_neraca[]');
                 $formData.append("kode_neraca[]","=");
                 $formData.append("kode_neraca[]",param_trace.kode_neraca);
@@ -383,6 +420,10 @@
                     <li class="breadcrumb-item active" aria-current="neraca-lajur">Neraca Lajur</li>
                 `);
             }else if(tujuan == "buku-besar"){
+                $formData.delete('periode[]');
+                $formData.append("periode[]","=");
+                $formData.append("periode[]",param_trace.periode);
+                $formData.append("periode[]","");
                 
                 $formData.delete('kode_akun[]');
                 $formData.append("kode_akun[]","=");

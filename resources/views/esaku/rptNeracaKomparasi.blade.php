@@ -74,7 +74,7 @@
                         <td valign='top' class='isi_laporan' align='right'>`;
                         if (line.tipe1=="Posting" && line.nilai1 != 0)
                         {
-                            det+=`<a class='isi_laporan report-link neraca-lajur link-report' style='cursor:pointer;color:blue' data-kode_neraca='`+line.kode_neraca1+`'>`+nilai1+`</a>`;
+                            det+=`<a class='isi_laporan report-link neraca-lajur link-report' style='cursor:pointer;color:blue' data-periode='`+$periode.from+`' data-kode_neraca='`+line.kode_neraca1+`'>`+nilai1+`</a>`;
                         }
                         else
                         {
@@ -84,7 +84,7 @@
                         <td valign='top' class='isi_laporan' align='right'>`;
                         if (line.tipe1=="Posting" && line.nilai3 != 0)
                         {
-                            det+=`<a class='isi_laporan report-link neraca-lajur link-report' style='cursor:pointer;color:blue' data-kode_neraca='`+line.kode_neraca1+`'>`+nilai3+`</a>`;
+                            det+=`<a class='isi_laporan report-link neraca-lajur link-report' style='cursor:pointer;color:blue' data-periode='`+$periode2.from+`' data-kode_neraca='`+line.kode_neraca1+`'>`+nilai3+`</a>`;
                         }
                         else
                         {
@@ -95,7 +95,7 @@
                         <td valign='top' class='isi_laporan' align='right'>`;
                         if (line.tipe1=="Posting" && line.nilai2 != 0)
                         {
-                            det+=`<a class='isi_laporan report-link neraca-lajur link-report' style='cursor:pointer;color:blue' data-kode_neraca='`+line.kode_neraca2+`'>`+nilai2+`</a>`;
+                            det+=`<a class='isi_laporan report-link neraca-lajur link-report' style='cursor:pointer;color:blue' data-periode='`+$periode.from+`' data-kode_neraca='`+line.kode_neraca2+`'>`+nilai2+`</a>`;
                         }
                         else
                         {
@@ -104,7 +104,7 @@
                         det+=`</td><td valign='top' class='isi_laporan' align='right'>`;
                         if (line.tipe1=="Posting" && line.nilai4 != 0)
                         {
-                            det+=`<a class='isi_laporan report-link neraca-lajur link-report' style='cursor:pointer;color:blue' data-kode_neraca='`+line.kode_neraca2+`'>`+nilai4+`</a>`;
+                            det+=`<a class='isi_laporan report-link neraca-lajur link-report' style='cursor:pointer;color:blue' data-periode='`+$periode2.from+`' data-kode_neraca='`+line.kode_neraca2+`'>`+nilai4+`</a>`;
                         }
                         else
                         {
