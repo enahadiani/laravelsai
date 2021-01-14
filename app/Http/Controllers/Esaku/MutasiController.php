@@ -117,6 +117,38 @@ class MutasiController extends Controller {
         }
     }
 
+    public function destroy(Request $request)
+    {
+        try{
+            $no_bukti = $request->no_bukti;
+            $client = new Client();
+            $response = $client->request('DELETE',  config('api.url').'toko-trans/mutasi-barang',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' =>[
+                    'no_bukti' => $no_bukti
+                ]
+            ]);
+    
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["success"];
+            }
+            return response()->json(['data' => $data], 200); 
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $result['message'] = $res["message"];
+            $result['status']=false;
+            return response()->json(["data" => $result], 200);
+        } 
+    
+    }
+
     public function update(Request $request) {
         try {
             $this->validate($request, [

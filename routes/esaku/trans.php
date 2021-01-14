@@ -11,6 +11,7 @@ Route::get('mutasi-kirim', 'Esaku\MutasiController@getMutasiKirim');
 Route::get('mutasi-terima', 'Esaku\MutasiController@getMutasiTerima');
 Route::get('mutasi-detail', 'Esaku\MutasiController@show');
 Route::post('mutasi-barang', 'Esaku\MutasiController@store');
+Route::delete('mutasi-barang', 'Esaku\MutasiController@destroy');
 Route::put('mutasi-barang-update', 'Esaku\MutasiController@update');
 
 //Penjualan Routes //
