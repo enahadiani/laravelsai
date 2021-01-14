@@ -2,7 +2,7 @@
     <div class="row" id="saku-filter">
         <div class="col-12">
             <div class="card" >
-                <x-report-header judul="Laporan Neraca" padding="px-4 py-4"/>  
+                <x-report-header judul="Laporan Neraca Komparasi" padding="px-4 py-4"/>  
                 <div class="separator"></div>
                 <div class="row">
                     <div class="col-12 col-sm-12">
@@ -14,7 +14,7 @@
                                         <!-- COMPONENT -->
                                         <x-inp-filter kode="periode" nama="Periode" selected="3" :option="array('3')"/>
                                         <x-inp-filter kode="kode_fs" nama="Kode FS" selected="3" :option="array('3')"/>
-                                        <x-inp-filter kode="level" nama="Level" selected="3" :option="array('3')"/>
+                                        <x-inp-filter kode="periode2" nama="Periode Pembanding" selected="3" :option="array('3')"/>
                                         
                                         <!-- END COMPONENT -->
                                     </div>
@@ -29,7 +29,7 @@
             </div>
         </div>
     </div>
-    <x-report-result judul="Neraca" padding="px-4 py-4"/>  
+    <x-report-result judul="Neraca Komparasi" padding="px-4 py-4"/>  
     
     @include('modal_search')
     @include('modal_email')
@@ -62,10 +62,10 @@
             toname : "",
         }
 
-        var $level = {
+        var $periode2 = {
             type : "=",
-            from : "1",
-            fromname : "1",
+            from : "{{ date('Ym') }}",
+            fromname : namaPeriode("{{ date('Ym') }}"),
             to : "",
             toname : "",
         }
@@ -92,7 +92,7 @@
 
         $('#periode-from').val(namaPeriode("{{ date('Ym') }}"));
         $('#kode_fs-from').val("FS1");
-        $('#level-from').val("1");
+        $('#periode2-from').val(namaPeriode("{{ date('Ym') }}"));
 
         $('#btn-filter').click(function(e){
             $('#collapseFilter').show();
@@ -127,10 +127,10 @@
         $('.selectize').selectize();
 
         $('#inputFilter').reportFilter({
-            kode : ['periode','kode_fs','level'],
-            nama : ['Periode','Kode FS','Level'],
-            header : [['Periode', 'Nama'],['Kode', 'Nama'],['Kode']],
-            headerpilih : [['Periode', 'Nama','Action'],['Kode', 'Nama','Action'],['Kode','Action']],
+            kode : ['periode','kode_fs','periode2'],
+            nama : ['Periode','Kode FS','Periode Pembanding'],
+            header : [['Periode', 'Nama'],['Kode', 'Nama'],['Kode','Nama']],
+            headerpilih : [['Periode', 'Nama','Action'],['Kode', 'Nama','Action'],['Kode','Nama','Action']],
             columns: [
                 [
                     { data: 'periode' },
@@ -139,15 +139,16 @@
                     { data: 'kode_fs' },
                     { data: 'nama' }
                 ],[
-                    { data: 'kode' }
+                    { data: 'periode' },
+                    { data: 'nama' },
                 ]
             ],
-            url :["{{ url('esaku-report/filter-periode-keu') }}","{{ url('esaku-report/filter-fs') }}","{{ url('esaku-report/filter-level') }}"],
+            url :["{{ url('esaku-report/filter-periode-keu') }}","{{ url('esaku-report/filter-fs') }}","{{ url('esaku-report/filter-periode-keu') }}"],
             parameter:[],
             orderby:[[[0,"desc"]],[],[]],
             width:[['30%','70%'],['30%','70%'],['30%','70%']],
-            display:['name','kode','kode'],
-            pageLength:[12,10,10]
+            display:['name','kode','name'],
+            pageLength:[12,10,12]
         });
 
         var $formData = "";
@@ -160,17 +161,17 @@
             $formData.append("kode_fs[]",$kode_fs.type);
             $formData.append("kode_fs[]",$kode_fs.from);
             $formData.append("kode_fs[]",$kode_fs.to);
-            $formData.append("level[]",$level.type);
-            $formData.append("level[]",$level.from);
-            $formData.append("level[]",$level.to);
+            $formData.append("periode2[]",$periode2.type);
+            $formData.append("periode2[]",$periode2.from);
+            $formData.append("periode2[]",$periode2.to);
             for(var pair of $formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
             $('#saku-report').removeClass('hidden');
-            xurl = "{{ url('esaku-auth/form/rptNeraca') }}";
+            xurl = "{{ url('esaku-auth/form/rptNeracaKomparasi') }}";
             // if($output.from == "Laporan"){
             // }else if($output.from == "Grid"){
-            //     xurl = "{{ url('esaku-auth/form/rptNeracaGrid') }}";
+            //     xurl = "{{ url('esaku-auth/form/rptNeracaKomparasiGrid') }}";
             // }
             $('#saku-report #canvasPreview').load(xurl);
         });
@@ -183,16 +184,16 @@
             $formData.append("kode_fs[]",$kode_fs.type);
             $formData.append("kode_fs[]",$kode_fs.from);
             $formData.append("kode_fs[]",$kode_fs.to);
-            $formData.append("level[]",$level.type);
-            $formData.append("level[]",$level.from);
-            $formData.append("level[]",$level.to);
+            $formData.append("periode2[]",$periode2.type);
+            $formData.append("periode2[]",$periode2.from);
+            $formData.append("periode2[]",$periode2.to);
             for(var pair of $formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
-            xurl = "{{ url('esaku-auth/form/rptNeraca') }}";
+            xurl = "{{ url('esaku-auth/form/rptNeracaKomparasi') }}";
             // if($output.from == "Laporan"){
             // }else if($output.from == "Grid"){
-            //     xurl = "{{ url('esaku-auth/form/rptNeracaGrid') }}";
+            //     xurl = "{{ url('esaku-auth/form/rptNeracaKomparasiGrid') }}";
             // }
             $('#saku-report #canvasPreview').load(xurl);
         });
@@ -297,7 +298,7 @@
             var aktif = $('.breadcrumb-item.active').attr('aria-current');
 
             if(aktif == "neraca-lajur"){
-                xurl = "esaku-auth/form/rptNeraca";
+                xurl = "esaku-auth/form/rptNeracaKomparasi";
                 $formData.delete('back');
                 $formData.delete('kode_fs[]');
                 $formData.append("kode_fs[]",$kode_fs.type);
@@ -351,13 +352,17 @@
             $formData.append("periode[]",$periode.type);
             $formData.append("periode[]",$periode.from);
             $formData.append("periode[]",$periode.to);
+            $formData.delete('periode2[]');
+            $formData.append("periode2[]",$periode2.type);
+            $formData.append("periode2[]",$periode2.from);
+            $formData.append("periode2[]",$periode2.to);
             if(tujuan == "neraca"){
                 $formData.delete('back');
                 $formData.delete('kode_fs[]');
                 $formData.append("kode_fs[]",$kode_fs.type);
                 $formData.append("kode_fs[]",$kode_fs.from);
                 $formData.append("kode_fs[]",$kode_fs.to);
-                xurl = "esaku-auth/form/rptNeraca";
+                xurl = "esaku-auth/form/rptNeracaKomparasi";
                 $('.breadcrumb').html('');
                 $('.breadcrumb').append(`
                     <li class="breadcrumb-item active" aria-current="neraca" >Neraca</li>
@@ -423,7 +428,7 @@
 
         $("#sai-rpt-pdf").click(function(e) {
             e.preventDefault();
-            var link = "{{ url('esaku-report/lap-neraca-pdf') }}?periode[]="+$periode.type+"&periode[]="+$periode.from+"&periode[]="+$periode.to+"&kode_fs[]="+$kode_fs.type+"&kode_fs[]="+$kode_fs.from+"&kode_fs[]="+$kode_fs.to+"&level[]="+$level.type+"&level[]="+$level.from+"&level[]="+$level.to;
+            var link = "{{ url('esaku-report/lap-neraca-komparasi-pdf') }}?periode[]="+$periode.type+"&periode[]="+$periode.from+"&periode[]="+$periode.to+"&kode_fs[]="+$kode_fs.type+"&kode_fs[]="+$kode_fs.from+"&kode_fs[]="+$kode_fs.to+"&periode2[]="+$periode2.type+"&periode2[]="+$periode2.from+"&periode2[]="+$periode2.to;
             window.open(link, '_blank'); 
         });
         
@@ -442,9 +447,9 @@
             $formData.append("kode_fs[]",$kode_fs.type);
             $formData.append("kode_fs[]",$kode_fs.from);
             $formData.append("kode_fs[]",$kode_fs.to);
-            $formData.append("level[]",$level.type);
-            $formData.append("level[]",$level.from);
-            $formData.append("level[]",$level.to);
+            $formData.append("periode2[]",$periode2.type);
+            $formData.append("periode2[]",$periode2.from);
+            $formData.append("periode2[]",$periode2.to);
             for(var pair of formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
