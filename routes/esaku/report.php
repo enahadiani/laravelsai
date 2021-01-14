@@ -54,3 +54,4 @@ Route::get('lap-bukubesar-pdf', 'Esaku\LaporanController@getBukuBesarPDF');
 Route::get('lap-nrclajur-pdf', 'Esaku\LaporanController@getNrcLajurPDF');
 Route::get('lap-neraca-pdf', 'Esaku\LaporanController@getNeracaPDF');
 Route::get('lap-labarugi-pdf', 'Esaku\LaporanController@getLabaRugiPDF');
+Route::get('lap-neraca-komparasi-pdf', 'Esaku\LaporanController@getNeracaKomparasiPDF');

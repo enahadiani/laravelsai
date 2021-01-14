@@ -18,6 +18,30 @@
             }
         }
 
+        function getNamaBulan($no_bulan){
+            switch ($no_bulan){
+                case 1 : case '1' : case '01': $bulan = "Januari"; break;
+                case 2 : case '2' : case '02': $bulan = "Februari"; break;
+                case 3 : case '3' : case '03': $bulan = "Maret"; break;
+                case 4 : case '4' : case '04': $bulan = "April"; break;
+                case 5 : case '5' : case '05': $bulan = "Mei"; break;
+                case 6 : case '6' : case '06': $bulan = "Juni"; break;
+                case 7 : case '7' : case '07': $bulan = "Juli"; break;
+                case 8 : case '8' : case '08': $bulan = "Agustus"; break;
+                case 9 : case '9' : case '09': $bulan = "September"; break;
+                case 10 : case '10' : case '10': $bulan = "Oktober"; break;
+                case 11 : case '11' : case '11': $bulan = "November"; break;
+                case 12 : case '12' : case '12': $bulan = "Desember"; break;
+                default: $bulan = null;
+            }
+    
+            return $bulan;
+        }
+
+        function lastOfMonth($year, $month) {
+            return date("d", strtotime('-1 second', strtotime('+1 month',strtotime($month . '/01/' . $year. ' 00:00:00'))));
+        }
+
         public function getKartuStok(Request $request) {
            try{
                 $client = new Client();
@@ -620,6 +644,17 @@
             } 
            
         }
+        
+        function getNeracaPDF(Request $request)
+        {
+            set_time_limit(300);
+            $tmp = app('App\Http\Controllers\Esaku\LaporanController')->getNeraca($request);
+            $tmp = json_decode(json_encode($tmp),true);
+            $data = $tmp['original'];
+            $periode = $request->periode[1];
+            $pdf = PDF::loadview('esaku.rptNeracaPDF',['data'=>$data["result"],'lokasi'=>Session::get('namaLokasi'),'periode'=>$periode]);
+    	    return $pdf->download('laporan-neraca-pdf');   
+        }
 
         function getLabaRugi(Request $request){
             try{
@@ -762,8 +797,8 @@
                 }else{
                     $back = false;
                 }
-                
-                return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'res'=>$res,'lokasi'=>Session::get('namaLokasi'),'back'=>$back], 200); 
+                $tgl_akhir = $this->lastOfMonth(substr($request->periode[1],0,4),substr($request->periode[1],4,2));
+                return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'res'=>$res,'lokasi'=>Session::get('namaLokasi'),'tgl_akhir'=>$tgl_akhir,'back'=>$back], 200); 
             } catch (BadResponseException $ex) {
                 $response = $ex->getResponse();
                 $res = json_decode($response->getBody(),true);
@@ -771,6 +806,20 @@
             } 
            
         }
+
+        function getNeracaKomparasiPDF(Request $request)
+        {
+            set_time_limit(300);
+            $tmp = app('App\Http\Controllers\Esaku\LaporanController')->getNeracaKomparasi($request);
+            $tmp = json_decode(json_encode($tmp),true);
+            $data = $tmp['original'];
+            $periode = $request->periode[1];
+            $periode2 = $request->periode2[1];
+            $tgl_akhir = $this->lastOfMonth(substr($request->periode[1],0,4),substr($request->periode[1],4,2)). ' '.$this->getNamaBulan(substr($request->periode[1],4,2)).' '.substr($request->periode[1],0,4);
+            $pdf = PDF::loadview('esaku.rptNeracaKomparasiPDF',['data'=>$data["result"],'lokasi'=>Session::get('namaLokasi'),'tgl_akhir'=>$tgl_akhir,'periode' => $periode, 'periode2' => $periode2]);
+    	    return $pdf->download('laporan-neraca-komparasi-pdf');   
+        }
+
 
     }
 ?>

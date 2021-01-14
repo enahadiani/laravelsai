@@ -69,39 +69,46 @@
             <td class='text-center px-0 py-0 judul-lokasi'>{{ $lokasi }}</td>
         </tr>
         <tr>
-            <td class='text-center px-0 py-0 judul-periode'>Periode {{ $periode }}</td>
+            <td class='text-center px-0 py-0 judul-periode'>Untuk Periode yang berakhir pada {{ $tgl_akhir }}</td>
         </tr>
     </table>
 	<table class='table table-bordered info-table' style='width:100%'>
         <thead>
             <tr>
-                <td class='text-center;' width='35%'>Deskripsi</td>
-                <td class='text-center;' width='15%'>Jumlah</td>
-                <td class='text-center;' width='35%'>Deskripsi</td>
-                <td class='text-center;' width='15%'>Jumlah</td>
+                <th width='30%'  class='header_laporan text-center' >Aktiva</th>
+                <th width='10%' class='header_laporan text-center' >{{ $periode }}</th>
+                <th width='10%' class='header_laporan text-center' >{{ $periode2 }}</th>
+                <th width='30%' height='25'  class='header_laporan text-center' >Pasiva</th>
+                <th width='10%' class='header_laporan text-center' >{{ $periode }}</th>
+                <th width='10%' class='header_laporan text-center' >{{ $periode2 }}</th>
             </tr>
         </thead>
         <tbody>
             @for ($i=0; $i < count($data) ; $i++)
                 @php
                     $line  = $data[$i];
-                    $nilai1 = "";
-                    $nilai2 = "";
-                    if ($line["tipe1"] != "Header" && $line["nama1"] != "." && $line["nama1"] != "")
+                    $nilai1="";
+                    $nilai2="";
+                    $nilai3="";
+                    $nilai4="";
+                    if ($line['tipe1!']="Header" && $line['nama1!']=".")
                     {
-                        $nilai1=number_format(floatval($line["nilai1"]),0,",",".");
+                        $nilai1=number_format($line['nilai1'],0,",",".");
+                        $nilai3=number_format($line['nilai3'],0,",",".");
                     }
-                    if ($line["tipe2"] != "Header" && $line["nama2"] != "." && $line["nama2"] != "")
+                    if ($line['tipe2!']="Header" && $line['nama2!']="." )
                     { 
-                        $nilai2=number_format(floatval($line["nilai2"]),0,",",".");
+                        $nilai2=number_format($line['nilai2'],0,",",".");
+                        $nilai4=number_format($line['nilai4'],0,",",".");
                     }
                 @endphp
-            <tr>
-               <td valign='middle' class='isi_laporan '>{!! fnSpasi($line['level_spasi1']) !!} {{ $line['nama1'] }}</td>
-               <td valign='middle' class='isi_laporan' align='right'>{{ $nilai1 }}</td>
-               <td valign='middle' class='isi_laporan '>{!! fnSpasi($line['level_spasi2']) !!} {{ $line['nama2'] }}</td>
-               <td valign='middle' class='isi_laporan' align='right'>{{ $nilai2 }}</td>
-            </tr>
+			    <tr><td valign='middle' class='isi_laporan' >{!! fnSpasi($line['level_spasi1']) !!} {{ $line['nama1'] }}</td>
+                <td valign='top' class='isi_laporan' align='right'>{{ $nilai1 }}</td>
+                <td valign='top' class='isi_laporan' align='right'>{{ $nilai3 }}</td>
+                <td height='20' valign='middle' class='isi_laporan'>{!! fnSpasi($line['level_spasi2']) !!} {{ $line['nama2'] }}</td>
+                <td valign='top' class='isi_laporan' align='right'>{{ $nilai2 }}</td>
+                <td valign='top' class='isi_laporan' align='right'>{{ $nilai4 }}</td>
+                </tr>
             @endfor
 		</tbody>
 	</table>

@@ -39,12 +39,8 @@
             `;
             periode = $periode;
             var lokasi = res.lokasi;
-            var today = new Date();
-            var dd = String(today.getDate()).padStart(2, '0');
-            var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-            var yyyy = today.getFullYear();
-            var nama_periode = namaPeriode(yyyy+''+mm);
-            html+=judul_lap("LAPORAN NERACA",lokasi,'Untuk Periode yang berakhir pada '+dd+' '+nama_periode)+`
+            var nama_periode = namaPeriode(periode.from);
+            html+=judul_lap("LAPORAN NERACA",lokasi,'Untuk Periode yang berakhir pada '+res.tgl_akhir+' '+nama_periode)+`
                     <table class='table table-bordered' width='100%'>
                         <tr>
                             <th width='30%'  class='header_laporan text-center' >Aktiva</th>
@@ -74,8 +70,8 @@
                             nilai4=sepNum(parseFloat(line.nilai4));
                         }
                         det +=`<tr>
-                                <td valign='middle' class='isi_laporan' >`+fnSpasi(line.level_spasi1)+` `+line.nama1+`</td>
-                                <td valign='top' class='isi_laporan' align='right'>`;
+                        <td valign='middle' class='isi_laporan' >`+fnSpasi(line.level_spasi1)+` `+line.nama1+`</td>
+                        <td valign='top' class='isi_laporan' align='right'>`;
                         if (line.tipe1=="Posting" && line.nilai1 != 0)
                         {
                             det+=`<a class='isi_laporan report-link neraca-lajur link-report' style='cursor:pointer;' data-kode_neraca='`+line.kode_neraca1+`'>`+nilai1+`</a>`;
@@ -95,8 +91,8 @@
                             det+=nilai3;
                         }
                         det+=`</td>
-                            <td height='20' valign='middle' class='isi_laporan'>`+fnSpasi(line.level_spasi2)+` `+line.nama2+`</td>
-                            <td valign='top' class='isi_laporan' align='right'>`;
+                        <td height='20' valign='middle' class='isi_laporan'>`+fnSpasi(line.level_spasi2)+` `+line.nama2+`</td>
+                        <td valign='top' class='isi_laporan' align='right'>`;
                         if (line.tipe1=="Posting" && line.nilai2 != 0)
                         {
                             det+=`<a class='isi_laporan report-link neraca-lajur link-report' style='cursor:pointer;' data-kode_neraca='`+line.kode_neraca2+`'>`+nilai2+`</a>`;
@@ -116,7 +112,7 @@
                         }
                         det+=`</td>`;
                         det+=`</tr>`;
-
+                        
                     }
             html+=det+`</table>
             </div>`;
