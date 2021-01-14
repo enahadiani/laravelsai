@@ -696,6 +696,17 @@
            
         }
 
+        function getLabaRugiPDF(Request $request)
+        {
+            set_time_limit(300);
+            $tmp = app('App\Http\Controllers\Esaku\LaporanController')->getLabaRugi($request);
+            $tmp = json_decode(json_encode($tmp),true);
+            $data = $tmp['original'];
+            $periode = $request->periode[1];
+            $pdf = PDF::loadview('esaku.rptLabaRugiPDF',['data'=>$data["result"],'lokasi'=>Session::get('namaLokasi'),'periode'=>$periode]);
+    	    return $pdf->download('laporan-labarugi-pdf');   
+        }
+
         function sendMail(Request $request){
             try{
                 
@@ -820,6 +831,58 @@
     	    return $pdf->download('laporan-neraca-komparasi-pdf');   
         }
 
+        function getLabaRugiKomparasi(Request $request){
+            try{
+    
+                $client = new Client();
+        
+                $response = $client->request('GET',  config('api.url').'toko-report/lap-labarugi-komparasi',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => [
+                        'periode' => $request->periode,
+                        'kode_fs' => $request->kode_fs,
+                        'periode2' => $request->periode2,
+                        'nik_user' => Session::get('nikUser')
+                    ]
+                ]);
+        
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $res = json_decode($response_data,true);
+                    $data = $res["data"];
+                }
+                if(isset($request->back)){
+                    $back = true;
+                }else{
+                    $back = false;
+                }
+                
+                $tgl_akhir = $this->lastOfMonth(substr($request->periode[1],0,4),substr($request->periode[1],4,2)). ' '.$this->getNamaBulan(substr($request->periode[1],4,2)).' '.substr($request->periode[1],0,4);
+                return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'res'=>$res,'lokasi'=>Session::get('namaLokasi'),'back'=>$back,'tgl_akhir' => $tgl_akhir], 200); 
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                return response()->json(['message' => $res["message"], 'status'=>false, 'auth_status'=>2], 200);
+            } 
+           
+        }
+
+        function getLabaRugiKomparasiPDF(Request $request)
+        {
+            set_time_limit(300);
+            $tmp = app('App\Http\Controllers\Esaku\LaporanController')->getLabaRugiKomparasi($request);
+            $tmp = json_decode(json_encode($tmp),true);
+            $data = $tmp['original'];
+            $periode = $request->periode[1];
+            $periode2 = $request->periode2[1];
+            $tgl_akhir = $this->lastOfMonth(substr($request->periode[1],0,4),substr($request->periode[1],4,2)). ' '.$this->getNamaBulan(substr($request->periode[1],4,2)).' '.substr($request->periode[1],0,4);
+            $pdf = PDF::loadview('esaku.rptLabaRugiKomparasiPDF',['data'=>$data["result"],'lokasi'=>Session::get('namaLokasi'),'periode'=>$periode,'periode2' => $periode2,'tgl_akhir' => $tgl_akhir]);
+    	    return $pdf->download('laporan-labarugi-komparasi-pdf');   
+        }
 
     }
 ?>

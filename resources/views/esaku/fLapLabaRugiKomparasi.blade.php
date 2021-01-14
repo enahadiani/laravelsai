@@ -2,7 +2,7 @@
     <div class="row" id="saku-filter">
         <div class="col-12">
             <div class="card" >
-                <x-report-header judul="Laporan Neraca Komparasi" padding="px-4 py-4"/>  
+                <x-report-header judul="Laporan Laba Rugi Komparasi"/>
                 <div class="separator"></div>
                 <div class="row">
                     <div class="col-12 col-sm-12">
@@ -24,23 +24,21 @@
                             </div>
                         </div>
                     </div>
+                    
                     <x-report-paging :option="array()" default="All" />  
                 </div>                    
             </div>
         </div>
     </div>
-    <x-report-result judul="Neraca Komparasi" padding="px-4 py-4"/>  
+    <x-report-result judul="Laba Rugi" padding="px-4 py-4" />
     
     @include('modal_search')
     @include('modal_email')
-    
     @php
         date_default_timezone_set("Asia/Bangkok");
     @endphp
     <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
     <script src="{{ asset('reportFilter.js') }}"></script>
-    <link href="{{ asset('asset_elite/css/jquery.treegrid.css') }}" rel="stylesheet">
-    <script src="{{ asset('asset_elite/js/jquery.treegrid.js') }}"></script>
     <script>
         $.ajaxSetup({
             headers: {
@@ -61,7 +59,6 @@
             to : "",
             toname : "",
         }
-
         var $periode2 = {
             type : "=",
             from : "{{ date('Ym') }}",
@@ -86,6 +83,7 @@
             }
             return tmp;
         }
+
         $.fn.DataTable.ext.pager.numbers_length = 5;
 
         // $('#show').selectize();
@@ -125,10 +123,9 @@
         });
 
         $('.selectize').selectize();
-
         $('#inputFilter').reportFilter({
             kode : ['periode','kode_fs','periode2'],
-            nama : ['Periode','Kode FS','Periode Pembanding'],
+            nama : ['Periode','Kode FS','Peridoe Pembanding'],
             header : [['Periode', 'Nama'],['Kode', 'Nama'],['Kode','Nama']],
             headerpilih : [['Periode', 'Nama','Action'],['Kode', 'Nama','Action'],['Kode','Nama','Action']],
             columns: [
@@ -140,7 +137,7 @@
                     { data: 'nama' }
                 ],[
                     { data: 'periode' },
-                    { data: 'nama' },
+                    { data: 'nama' }
                 ]
             ],
             url :["{{ url('esaku-report/filter-periode-keu') }}","{{ url('esaku-report/filter-fs') }}","{{ url('esaku-report/filter-periode-keu') }}"],
@@ -168,11 +165,7 @@
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
             $('#saku-report').removeClass('hidden');
-            xurl = "{{ url('esaku-auth/form/rptNeracaKomparasi') }}";
-            // if($output.from == "Laporan"){
-            // }else if($output.from == "Grid"){
-            //     xurl = "{{ url('esaku-auth/form/rptNeracaKomparasiGrid') }}";
-            // }
+            xurl = "{{ url('esaku-auth/form/rptLabaRugiKomparasi') }}";
             $('#saku-report #canvasPreview').load(xurl);
         });
 
@@ -190,12 +183,15 @@
             for(var pair of $formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
-            xurl = "{{ url('esaku-auth/form/rptNeracaKomparasi') }}";
-            // if($output.from == "Laporan"){
-            // }else if($output.from == "Grid"){
-            //     xurl = "{{ url('esaku-auth/form/rptNeracaKomparasiGrid') }}";
-            // }
+            xurl = "{{ url('esaku-auth/form/rptLabaRugiKomparasi') }}";
             $('#saku-report #canvasPreview').load(xurl);
+        });
+
+
+        $("#sai-rpt-pdf").click(function(e) {
+            e.preventDefault();
+            var link = "{{ url('esaku-report/lap-labarugi-komparasi-pdf') }}?periode[]="+$periode.type+"&periode[]="+$periode.from+"&periode[]="+$periode.to+"&kode_fs[]="+$kode_fs.type+"&kode_fs[]="+$kode_fs.from+"&kode_fs[]="+$kode_fs.to+"&periode2[]="+$periode2.type+"&periode2[]="+$periode2.from+"&periode2[]="+$periode2.to;
+            window.open(link, '_blank'); 
         });
 
         // TRACE
@@ -220,7 +216,7 @@
             $('.breadcrumb').html('');
             $('.breadcrumb').append(`
                 <li class="breadcrumb-item">
-                    <a href="#" class="klik-report" data-href="neraca" >Neraca</a>
+                    <a href="#" class="klik-report" data-href="laba-rugi" >Laba Rugi</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="neraca-lajur" >Neraca Lajur</li>
             `);
@@ -245,7 +241,7 @@
             $('.breadcrumb').html('');
             $('.breadcrumb').append(`
                 <li class="breadcrumb-item">
-                    <a href="#" class="klik-report" data-href="neraca">Neraca</a>
+                    <a href="#" class="klik-report" data-href="laba-rugi">Laba Rugi</a>
                 </li>
                 <li class="breadcrumb-item">
                     <a href="#" class="klik-report" data-href="neraca-lajur">Neraca Lajur</a>
@@ -273,7 +269,7 @@
             $('.breadcrumb').html('');
             $('.breadcrumb').append(`
                 <li class="breadcrumb-item">
-                    <a href="#" class="klik-report" data-href="neraca">Neraca</a>
+                    <a href="#" class="klik-report" data-href="laba-rugi">Laba Rugi</a>
                 </li>
                 <li class="breadcrumb-item">
                     <a href="#" class="klik-report" data-href="neraca-lajur">Neraca Lajur</a>
@@ -294,11 +290,15 @@
             $formData.append("periode[]",$periode.type);
             $formData.append("periode[]",$periode.from);
             $formData.append("periode[]",$periode.to);
+            $formData.delete('periode2[]');
+            $formData.append("periode2[]",$periode2.type);
+            $formData.append("periode2[]",$periode2.from);
+            $formData.append("periode2[]",$periode2.to);
 
             var aktif = $('.breadcrumb-item.active').attr('aria-current');
 
             if(aktif == "neraca-lajur"){
-                xurl = "esaku-auth/form/rptNeracaKomparasi";
+                xurl = "esaku-auth/form/rptLabaRugiKomparasi";
                 $formData.delete('back');
                 $formData.delete('kode_fs[]');
                 $formData.append("kode_fs[]",$kode_fs.type);
@@ -306,7 +306,7 @@
                 $formData.append("kode_fs[]",$kode_fs.to);
                 $('.breadcrumb').html('');
                 $('.breadcrumb').append(`
-                    <li class="breadcrumb-item active" aria-current="neraca">Neraca</li>
+                    <li class="breadcrumb-item active" aria-current="laba-rugi">Laba Rugi</li>
                 `);
                 $('.navigation-lap').addClass('hidden');
             }
@@ -320,7 +320,7 @@
                 $('.breadcrumb').html('');
                 $('.breadcrumb').append(`
                     <li class="breadcrumb-item">
-                        <a href="#" class="klik-report" data-href="neraca" >Neraca</a>
+                        <a href="#" class="klik-report" data-href="laba-rugi" >Laba Rugi</a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="neraca-lajur">Neraca Lajur</li>
                 `);
@@ -333,7 +333,7 @@
                 $('.breadcrumb').html('');
                 $('.breadcrumb').append(`
                     <li class="breadcrumb-item">
-                        <a href="#" class="klik-report" data-href="neraca" >Neraca</a>
+                        <a href="#" class="klik-report" data-href="laba-rugi" >Laba Rugi</a>
                     </li>
                     <li class="breadcrumb-item">
                         <a href="#" class="klik-report" data-href="neraca-lajur">Neraca Lajur</a>
@@ -356,16 +356,16 @@
             $formData.append("periode2[]",$periode2.type);
             $formData.append("periode2[]",$periode2.from);
             $formData.append("periode2[]",$periode2.to);
-            if(tujuan == "neraca"){
+            if(tujuan == "laba-rugi"){
                 $formData.delete('back');
                 $formData.delete('kode_fs[]');
                 $formData.append("kode_fs[]",$kode_fs.type);
                 $formData.append("kode_fs[]",$kode_fs.from);
                 $formData.append("kode_fs[]",$kode_fs.to);
-                xurl = "esaku-auth/form/rptNeracaKomparasi";
+                xurl = "esaku-auth/form/rptLabaRugiKomparasi";
                 $('.breadcrumb').html('');
                 $('.breadcrumb').append(`
-                    <li class="breadcrumb-item active" aria-current="neraca" >Neraca</li>
+                    <li class="breadcrumb-item active" aria-current="laba-rugi" >Laba Rugi</li>
                 `);
                 $('.navigation-lap').addClass('hidden');
             }else if(tujuan == "neraca-lajur"){
@@ -378,7 +378,7 @@
                 $('.breadcrumb').html('');
                 $('.breadcrumb').append(`
                     <li class="breadcrumb-item">
-                        <a href="#" class="klik-report" data-href="neraca">Neraca</a>
+                        <a href="#" class="klik-report" data-href="laba-rugi">Laba Rugi</a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="neraca-lajur">Neraca Lajur</li>
                 `);
@@ -392,7 +392,7 @@
                 $('.breadcrumb').html('');
                 $('.breadcrumb').append(`
                     <li class="breadcrumb-item">
-                        <a href="#" class="klik-report" data-href="neraca">Neraca</a>
+                        <a href="#" class="klik-report" data-href="laba-rugi">Laba Rugi</a>
                     </li>
                     <li class="breadcrumb-item">
                         <a href="#" class="klik-report" data-href="neraca-lajur" >Neraca Lajur</a>
@@ -405,9 +405,7 @@
         });
 
         $('#sai-rpt-print').click(function(){
-            $('#saku-report #canvasPreview').printThis({
-                removeInline: true
-            });
+            $('#saku-report #canvasPreview').printThis();
         });
 
         $('#sai-rpt-print-prev').click(function(){
@@ -420,17 +418,12 @@
             e.preventDefault();
             $("#saku-report #canvasPreview").table2excel({
                 // exclude: ".excludeThisClass",
-                name: "NeracaKomparasi_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}",
-                filename: "NeracaKomparasi_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}.xls", // do include extension
+                name: "LabaRugiKomparasi_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}",
+                filename: "LabaRugiKomparasi_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}.xls", // do include extension
                 preserveColors: false // set to true if you want background colors and font colors preserved
             });
         });
 
-        $("#sai-rpt-pdf").click(function(e) {
-            e.preventDefault();
-            var link = "{{ url('esaku-report/lap-neraca-komparasi-pdf') }}?periode[]="+$periode.type+"&periode[]="+$periode.from+"&periode[]="+$periode.to+"&kode_fs[]="+$kode_fs.type+"&kode_fs[]="+$kode_fs.from+"&kode_fs[]="+$kode_fs.to+"&periode2[]="+$periode2.type+"&periode2[]="+$periode2.from+"&periode2[]="+$periode2.to;
-            window.open(link, '_blank'); 
-        });
         
         $("#sai-rpt-email").click(function(e) {
             e.preventDefault();

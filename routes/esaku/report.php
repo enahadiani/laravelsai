@@ -48,6 +48,7 @@ Route::post('lap-labarugi', 'Esaku\LaporanController@getLabaRugi');
 Route::post('send-laporan', 'Esaku\LaporanController@sendMail');
 Route::post('email-nrclajur', 'Esaku\LaporanController@sendNrcLajur');
 Route::post('lap-neraca-komparasi', 'Esaku\LaporanController@getNeracaKomparasi');
+Route::post('lap-labarugi-komparasi', 'Esaku\LaporanController@getLabaRugiKomparasi');
 
 Route::get('lap-jurnal-pdf', 'Esaku\LaporanController@getJurnalPDF');
 Route::get('lap-bukubesar-pdf', 'Esaku\LaporanController@getBukuBesarPDF');
@@ -55,3 +56,4 @@ Route::get('lap-nrclajur-pdf', 'Esaku\LaporanController@getNrcLajurPDF');
 Route::get('lap-neraca-pdf', 'Esaku\LaporanController@getNeracaPDF');
 Route::get('lap-labarugi-pdf', 'Esaku\LaporanController@getLabaRugiPDF');
 Route::get('lap-neraca-komparasi-pdf', 'Esaku\LaporanController@getNeracaKomparasiPDF');
+Route::get('lap-labarugi-komparasi-pdf', 'Esaku\LaporanController@getLabaRugiKomparasiPDF');
