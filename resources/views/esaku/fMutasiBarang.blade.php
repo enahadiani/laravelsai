@@ -48,7 +48,7 @@
     }
 </style>
 
-<div class="row" id="saku-datatable">
+<div class="row" id="saku-datatable" style="display:none;">
     <div class="col-12">
         <div class="card">
             <div class="card-body pb-0" style="padding-top:1rem;min-height:68px">
@@ -84,7 +84,7 @@
                         <div class="d-block d-md-inline-block float-right col-md-6 col-sm-12">
                             <div class="input-group input-group-sm" style="width:321px;float:right">
                                 <input type="text" class="form-control" placeholder="Search..."
-                                    aria-label="Search..." aria-describedby="filter-btn" id="searchData" style="border-top-right-radius: 0 !important;border-bottom-right-radius: 0 !important;width:230px !important">
+                                    aria-label="Search..." aria-describedby="filter-btn" id="searchDataKirim" style="border-top-right-radius: 0 !important;border-bottom-right-radius: 0 !important;width:230px !important">
                                 <div class="input-group-append" style="width:92px !important">
                                     <span class="input-group-text" id="filter-btn" style="border-top-right-radius: 0.5rem !important;border-bottom-right-radius: 0.5rem !important;width:100%"><span class="badge badge-pill badge-outline-primary mb-0" id="jum-filter" style="font-size: 8px;margin-right: 5px;padding: 0.5em 0.75em;"></span><i class="simple-icon-equalizer mr-1"></i> Filter</span>
                                 </div>
@@ -128,7 +128,7 @@
                         <div class="d-block d-md-inline-block float-right col-md-6 col-sm-12">
                             <div class="input-group input-group-sm" style="width:321px;float:right">
                                 <input type="text" class="form-control" placeholder="Search..."
-                                    aria-label="Search..." aria-describedby="filter-btn" id="searchData" style="border-top-right-radius: 0 !important;border-bottom-right-radius: 0 !important;width:230px !important">
+                                    aria-label="Search..." aria-describedby="filter-btn" id="searchDataTerima" style="border-top-right-radius: 0 !important;border-bottom-right-radius: 0 !important;width:230px !important">
                                 <div class="input-group-append" style="width:92px !important">
                                     <span class="input-group-text" id="filter-btn" style="border-top-right-radius: 0.5rem !important;border-bottom-right-radius: 0.5rem !important;width:100%"><span class="badge badge-pill badge-outline-primary mb-0" id="jum-filter" style="font-size: 8px;margin-right: 5px;padding: 0.5em 0.75em;"></span><i class="simple-icon-equalizer mr-1"></i> Filter</span>
                                 </div>
@@ -160,7 +160,7 @@
 </div>
 
 <form id="form-tambah" class="tooltip-label-right" novalidate>
-    <div class="row" id="saku-form" style="display:none;">
+    <div class="row" id="saku-form" style="display:block;">
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;">
@@ -674,12 +674,13 @@
 
                 if(response.status) {
                     $(target).parents("tr").find(".inp-kode").hide(); 
+                    $(target).parents("tr").find(".td-kode").text(kode_barang); 
                     $(target).parents("tr").find(".td-kode").show(); 
                     $(target).parents("tr").find(".search-barang").hide(); 
                     $(target).parents("tr").find(".inp-satuan").val(result.sat_kecil); 
                     $(target).parents("tr").find(".td-satuan").text(result.sat_kecil);
-                    $(target).parents("tr").find(".inp-stok").val(result.stok); 
-                    $(target).parents("tr").find(".td-stok").text(result.stok);
+                    $(target).parents("tr").find(".inp-stok").val(format_number(result.stok)); 
+                    $(target).parents("tr").find(".td-stok").text(format_number(result.stok));
                     $(target).parents("tr").find(".inp-jumlah").show();
                     $(target).parents("tr").find(".td-jumlah").hide();    
                     setTimeout(function() {  $(target).parents("tr").find(".inp-jumlah").focus(); }, 100);    
@@ -770,8 +771,8 @@
                         $('.'+target3).val(result.sat_kecil);
                         $('.td'+target3).text(result.sat_kecil);
 
-                        $('.'+target4).val(result.stok);
-                        $('.td'+target4).text(result.stok);
+                        $('.'+target4).val(format_number(result.stok));
+                        $('.td'+target4).text(format_number(result.stok));
 
                         $('.'+target5).show();
                         $('.td'+target5).hide();
@@ -792,8 +793,8 @@
                         $('.'+target3).val(result.sat_kecil);
                         $('.td'+target3).text(result.sat_kecil);
 
-                        $('.'+target4).val(result.stok);
-                        $('.td'+target4).text(result.stok);
+                        $('.'+target4).val(format_number(result.stok));
+                        $('.td'+target4).text(format_number(result.stok));
 
                         $('.'+target5).show();
                         $('.td'+target5).hide();
@@ -827,9 +828,8 @@
                     getBarang(kode,target1,target2,target3,target4,target5,'tab');
                 break;
                 case 4:
-                    stok = parseFloat(stok);
+                    stok = toNilai(stok);
                     isi = toNilai(isi);
-                    console.log(isi)
                     if(isi === 0 || isi > stok || isNaN(isi)) {
                         alert('Jumlah yang dimasukkan tidak valid (0) atau melebihi stok yang ada')
                     } else {
@@ -871,6 +871,89 @@
         }else{
             alert('Barang yang dimasukkan tidak valid');
             return false;
+        }
+    });
+
+    $('#form-tambah').validate({
+        ignore: [],
+        errorElement: "label",
+        submitHandler: function (form) {
+
+            var formData = new FormData(form);
+            for(var pair of formData.entries()) {
+                console.log(pair[0]+ ', '+ pair[1]); 
+            }
+            var count = $('#input-grid tr').length;
+
+            var param = $('#id').val();
+            var id = $('#no_bukti').val();
+            // $iconLoad.show();
+            if(param == "edit"){
+                var url = "{{ url('/esaku-trans/mutasi-barang') }}/"+id;
+            }else{
+                var url = "{{ url('/esaku-trans/mutasi-barang') }}";
+            }
+
+            if(count <= 1){
+                alert('Transaksi tidak valid. Detail Mutasi Barang tidak boleh kosong ');
+            }else{
+
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    dataType: 'json',
+                    data: formData,
+                    async:false,
+                    contentType: false,
+                    cache: false,
+                    processData: false, 
+                    success:function(result){
+                        // alert('Input data '+result.message);
+                        if(result.data.status){
+                            console.log(result)
+                            // location.reload();
+                            // dataTable.ajax.reload();
+
+                            $('#form-tambah')[0].reset();
+                            $('#form-tambah').validate().resetForm();
+                            $('#row-id').hide();
+                            $('#method').val('post');
+                            $('#judul-form').html('Tambah Data Mutasi');
+                            $('#id').val('');
+                            $('#input-grid tbody').html('');
+                            $('[id^=label]').html('');
+                            
+                            msgDialog({
+                                id:result.data.no_bukti,
+                                type:'simpan'
+                            });
+                                
+
+                        }
+                        else if(!result.data.status && result.data.message == 'Unauthorized'){
+                            window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                        }
+                        else{
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Something went wrong!',
+                                footer: '<a href>'+result.data.message+'</a>'
+                            })
+                        }
+                        $iconLoad.hide();
+                    },
+                    fail: function(xhr, textStatus, errorThrown){
+                        alert('request failed:'+textStatus);
+                    }
+                });
+            }
+
+        },
+        errorPlacement: function (error, element) {
+            var id = element.attr("id");
+            $("label[for="+id+"]").append("<br/>");
+            $("label[for="+id+"]").append(error);
         }
     });
 </script>
