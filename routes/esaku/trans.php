@@ -7,7 +7,11 @@ use Illuminate\Support\Facades\Session;
 Route::get('generate-mutasi', 'Esaku\MutasiController@generateKode');
 Route::get('barang-mutasi-detail', 'Esaku\MutasiController@getBarangDetail');
 Route::get('filter-barang-mutasi', 'Esaku\HelperController@getFilterMutasiBarang');
+Route::get('mutasi-kirim', 'Esaku\MutasiController@getMutasiKirim');
+Route::get('mutasi-terima', 'Esaku\MutasiController@getMutasiTerima');
+Route::get('mutasi-detail', 'Esaku\MutasiController@show');
 Route::post('mutasi-barang', 'Esaku\MutasiController@store');
+Route::put('mutasi-barang-update', 'Esaku\MutasiController@update');
 
 //Penjualan Routes //
 Route::get('penjualan-open', 'Esaku\PenjualanController@getNoOpen');

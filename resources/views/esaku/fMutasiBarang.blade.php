@@ -48,11 +48,14 @@
     }
 </style>
 
-<div class="row" id="saku-datatable" style="display:none;">
+<div class="row" id="saku-datatable" style="display:block;">
     <div class="col-12">
         <div class="card">
             <div class="card-body pb-0" style="padding-top:1rem;min-height:68px">
                 <div class="row">
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-primary ml-2" id="btn-tambah" style="float:right;"><i class="fa fa-undo"></i> Tambah</button>
+                    </div>
                     <div class="col-md-6">
                         <h6 style="position:absolute;top:5px">Mutasi Barang</h6>
                     </div>
@@ -100,7 +103,7 @@
                                         <th>Tanggal</th>
                                         <th>Dokumen</th>
                                         <th>Deskripsi</th>
-                                        <th>Action</th>
+                                        <th class="text-center">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -137,14 +140,14 @@
                     </div>
                     <div class="card-body" style="min-height:560px !important;padding-top:1rem;">
                         <div class="table-responsive ">
-                            <table id="table-kirim" class="" style='width:100%'>
+                            <table id="table-terima" class="" style='width:100%'>
                                 <thead>
                                     <tr>
                                         <th>No. Bukti</th>
                                         <th>Tanggal</th>
                                         <th>Dokumen</th>
                                         <th>Deskripsi</th>
-                                        <th>Action</th>
+                                        <th class="text-center">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -160,7 +163,7 @@
 </div>
 
 <form id="form-tambah" class="tooltip-label-right" novalidate>
-    <div class="row" id="saku-form" style="display:block;">
+    <div class="row" id="saku-form" style="display:none;">
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;">
@@ -173,6 +176,7 @@
                     <input type="hidden" id="method" name="_method" value="post">
                     <div class="form-group row" id="row-id" hidden>
                         <div class="col-9">
+                            <input class="form-control" type="text" id="id" name="id" readonly hidden>
                             <input class="form-control" type="text" id="id_edit" name="id_edit" readonly >
                         </div>
                     </div>
@@ -289,6 +293,7 @@
 <script src="{{ asset('helper.js') }}"></script>
 
 <script type="text/javascript">
+    var action = "tambah";
     var $target = "";
     var $target2 = "";
     var $target3 = "";
@@ -300,7 +305,6 @@
     var scrollform = document.getElementById('form-body');
     var psscrollform = new PerfectScrollbar(scrollform);
 
-    getKode(tanggal, jenis);
     getDataTypeAhead("{{ url('esaku-report/filter-gudang') }}","gudangAsal","kode_gudang");
     getDataTypeAhead("{{ url('esaku-report/filter-gudang') }}","gudangTujuan","kode_gudang");
     getDataTypeAhead("{{ url('esaku-trans/filter-barang-mutasi') }}","Barang","kode_barang");
@@ -313,11 +317,175 @@
         $('#jumlah-mutasi').text('Jumlah')
     }
 
-    $('#jenis').selectize({
+    var selectizeJenis = $('#jenis').selectize({
         onChange: function(value) {
             jenis = value;
             changeJenis(jenis);
         }
+    });
+
+    $('#saku-datatable').on('click', '#btn-tambah', function(){
+        var selectize = selectizeJenis[0].selectize;
+        action = "tambah";
+        selectize.unlock();
+        $('#row-id').hide();
+        $('#id_edit').val('');
+        $('#id').val('');
+        $('#method').val('post');
+        $('#judul-form').html('Tambah Data Mutasi Barang');
+        $('#btn-update').attr('id','btn-save');
+        $('#btn-save').attr('type','submit');
+        $('#form-tambah')[0].reset();
+        $('#form-tambah').validate().resetForm();
+        $('#id').val('');
+        $('#input-grid tbody').html('');
+        $('#saku-datatable').hide();
+        $('#saku-form').show();
+        resetForm();
+        addRow();
+        getKode(tanggal, jenis, action);
+    });
+
+    function resetForm() {
+        $("[id^=label]").each(function(e){
+            $(this).text('');
+        });
+        $("[class^=info-name]").each(function(e){
+            $(this).addClass('hidden');
+        });
+        $("[class^=input-group-text]").each(function(e){
+            $(this).text('');
+        });
+        $("[class^=input-group-prepend]").each(function(e){
+            $(this).addClass('hidden');
+        });
+        $("[class*='inp-label-']").each(function(e){
+            $(this).removeAttr("style");
+        })
+        $("[class^=info-code]").each(function(e){
+            $(this).text('');
+        });
+        $("[class^=simple-icon-close]").each(function(e){
+            $(this).addClass('hidden');
+        });
+    }
+
+    function editData(id){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('/esaku-trans/mutasi-detail') }}",
+            dataType: 'json',
+            data:{ 'no_bukti':id},
+            async:false,
+            success:function(res){
+                var result= res.data;
+                if(result.status){
+                    var jenis = result.data[0].jenis;
+                    $('#id_edit').val('edit');
+                    $('#id').val(id);
+                    $('#method').val('put');
+                    $('#tanggal').val(reverseDate2(result.data[0].tanggal,'-','/'));
+                    $('#keterangan').val(result.data[0].keterangan);
+                    $('#no_dokumen').val(result.data[0].no_dokumen);
+                    $('#asal').val(result.data[0].param1);
+                    $('#tujuan').val(result.data[0].param2);
+                    if(jenis === "MK") {
+                        var selectize = selectizeJenis[0].selectize;
+                        selectize.setValue("KRM")
+                        selectize.lock();
+                    } else {
+                        var selectize = selectizeJenis[0].selectize;
+                        selectize.setValue("TRM");
+                        selectize.lock();
+                    }
+                    $('#no_bukti').val(result.data[0].no_bukti);
+                    if(result.detail.length > 0){
+                        var input = '';
+                        var no=1;
+                        for(var i=0;i<result.detail.length;i++){
+                            var line =result.detail[i];
+                            input += "<tr class='row-grid'>";
+                            input += "<td class='no-grid text-center'>"+no+"</td>";
+                            input += "<td><span class='td-kode tdbarangke"+no+" tooltip-span'>"+line.kode_barang+"</span><input type='text' name='kode_barang[]' class='form-control inp-kode barangke"+no+" hidden' value='"+line.kode_barang+"' required='' style='z-index: 1;position: relative;' id='barangkode"+no+"'><a href='#' class='search-item search-barang hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+                            input += "<td><span class='td-nama tdnmbarangke"+no+" tooltip-span'>"+line.nama+"</span><input type='text' name='nama_barang[]' class='form-control inp-nama nmbarangke"+no+" hidden'  value='"+line.nama+"' readonly></td>";
+                            input += "<td><span class='td-satuan tdsatuanke"+no+" tooltip-span'>"+line.satuan+"</span><input type='text' name='satuan[]' class='form-control inp-satuan satuanke"+no+" hidden'  value='"+line.satuan+"' readonly></td>";
+                            input += "<td><span class='td-stok tdstokke"+no+" tooltip-span'>"+line.stok+"</span><input type='text' name='stok[]' class='form-control inp-stok stokke"+no+" hidden'  value='"+line.stok+"' readonly></td>";
+                            input += "<td class='text-right'><span class='td-jumlah tdjumlahke"+no+" tooltip-span'>"+format_number(line.jumlah)+"</span><input type='text' name='jumlah[]' class='form-control inp-jumlah jumlahke"+no+" hidden'  value='"+parseInt(line.jumlah)+"' required></td>";
+                            input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
+                            input += "</tr>";
+        
+                            no++;
+                        }
+                        $('#input-grid tbody').html(input);
+                        $('.tooltip-span').tooltip({
+                            title: function(){
+                                return $(this).text();
+                            }
+                        })
+                        no= 1;
+                        for(var i=0;i<result.detail.length;i++){
+                            var line =result.detail[i];
+                            $('#barangkode'+no).typeahead({
+                                source:$dtBarang,
+                                displayText:function(item){
+                                    return item.id+' - '+item.name;
+                                },
+                                autoSelect:false,
+                                changeInputOnSelect:false,
+                                changeInputOnMove:false,
+                                selectOnBlur:false,
+                                afterSelect: function (item) {
+                                    console.log(item.id);
+                                }
+                            });
+                            $('.jumlahke'+no).inputmask("numeric", {
+                                radixPoint: ",",
+                                groupSeparator: ".",
+                                digits: 2,
+                                autoGroup: true,
+                                rightAlign: true,
+                                oncleared: function () { self.Value(''); }
+                            });
+                            no++;
+                        }
+                        
+                    }
+                    hitungTotalRow();
+                    $('#saku-datatable').hide();
+                    $('#saku-form').show();
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                }
+            }
+        });
+    }
+
+    $('#saku-datatable').on('click', '#btn-edit', function(){
+        action = "update";
+        var id= $(this).closest('tr').find('td').eq(0).html();
+        $('#btn-save').attr('type','button');
+        $('#btn-save').attr('id','btn-update');
+        $('#judul-form').html('Edit Data Mutasi Barang');
+        $('#form-tambah')[0].reset();
+        $('#form-tambah').validate().resetForm();
+        editData(id)
+    });
+
+    $('#saku-form').on('click', '#btn-update', function(){
+        var kode = $('#no_bukti').val();
+        msgDialog({
+            id:kode,
+            type:'edit'
+        });
+    });
+
+    $('#saku-form').on('click', '#btn-kembali', function(){
+        var kode = null;
+        msgDialog({
+            id:kode,
+            type:'keluar'
+        });
     });
     
     $("input.datepicker").datepicker({
@@ -337,21 +505,99 @@
 
     $('#tanggal').change(function(){
         tanggal = $(this).val();
-        getKode(tanggal, jenis);
+        getKode(tanggal, jenis, action);
     })
 
-    function getKode(tanggal, jenis) {
-        $.ajax({
-            type: 'GET',
-            url: "{{ url('esaku-trans/generate-mutasi') }}",
-            data:{'tanggal':tanggal, 'jenis':jenis},
-            dataType: 'json',
-            success:function(response){
-                if(response.result.status) {
-                    $('#no_bukti').val(response.result.kode)
+    var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a>";
+    
+    var dataTable1 = generateTable(
+        "table-kirim",
+        "{{ url('esaku-trans/mutasi-kirim') }}", 
+        [
+            {
+                "targets": 0,
+                "createdCell": function (td, cellData, rowData, row, col) {
+                    if ( rowData.status == "baru" ) {
+                        $(td).parents('tr').addClass('selected');
+                        $(td).addClass('last-add');
+                    }
                 }
-            }
-        });
+            },
+            {'targets': 4, data: null, 'defaultContent': action_html, 'className': 'text-center' }
+        ],
+        [
+            { data: 'no_bukti' },
+            { data: 'tgl'},
+            { data: 'no_dokumen' },
+            { data: 'keterangan' }
+        ],
+        "{{ url('esaku-auth/sesi-habis') }}",
+        [[0 ,"desc"]]
+    );
+
+    $.fn.DataTable.ext.pager.numbers_length = 5;
+
+    $("#searchData").on("keyup", function (event) {
+        dataTable1.search($(this).val()).draw();
+    });
+
+    $("#page-count").on("change", function (event) {
+        var selText = $(this).val();
+        dataTable1.page.len(parseInt(selText)).draw();
+    });
+
+    var dataTable2 = generateTable(
+        "table-terima",
+        "{{ url('esaku-trans/mutasi-terima') }}", 
+        [
+            {
+                "targets": 0,
+                "createdCell": function (td, cellData, rowData, row, col) {
+                    if ( rowData.status == "baru" ) {
+                        $(td).parents('tr').addClass('selected');
+                        $(td).addClass('last-add');
+                    }
+                }
+            },
+            {'targets': 4, data: null, 'defaultContent': action_html, 'className': 'text-center' }
+        ],
+        [
+            { data: 'no_bukti' },
+            { data: 'tgl'},
+            { data: 'no_dokumen' },
+            { data: 'keterangan' }
+        ],
+        "{{ url('esaku-auth/sesi-habis') }}",
+        [[0 ,"desc"]]
+    );
+
+    $.fn.DataTable.ext.pager.numbers_length = 5;
+
+    $("#searchData").on("keyup", function (event) {
+        dataTable2.search($(this).val()).draw();
+    });
+
+    $("#page-count").on("change", function (event) {
+        var selText = $(this).val();
+        dataTable2.page.len(parseInt(selText)).draw();
+    });
+
+    function getKode(tanggal, jenis, action) {
+        if(action === "tambah") {
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('esaku-trans/generate-mutasi') }}",
+                data:{'tanggal':tanggal, 'jenis':jenis},
+                dataType: 'json',
+                success:function(response){
+                    if(response.result.status) {
+                        $('#no_bukti').val(response.result.kode)
+                    }
+                }
+            });
+        } else {
+            return;
+        }
     }
 
     function changeJenis(jenis) {
@@ -364,7 +610,7 @@
         }
         $('#input-grid tbody').empty();
         hitungTotalRow();
-        getKode(tanggal, jenis);
+        getKode(tanggal, jenis, action);
     }
 
     function getDataTypeAhead(url,param,kode){
@@ -885,11 +1131,11 @@
             }
             var count = $('#input-grid tr').length;
 
-            var param = $('#id').val();
+            var param = $('#id_edit').val();
             var id = $('#no_bukti').val();
             // $iconLoad.show();
             if(param == "edit"){
-                var url = "{{ url('/esaku-trans/mutasi-barang') }}/"+id;
+                var url = "{{ url('/esaku-trans/mutasi-barang-update') }}";
             }else{
                 var url = "{{ url('/esaku-trans/mutasi-barang') }}";
             }
@@ -910,9 +1156,9 @@
                     success:function(result){
                         // alert('Input data '+result.message);
                         if(result.data.status){
-                            console.log(result)
                             // location.reload();
-                            // dataTable.ajax.reload();
+                            dataTable1.ajax.reload();
+                            dataTable2.ajax.reload();
 
                             $('#form-tambah')[0].reset();
                             $('#form-tambah').validate().resetForm();
