@@ -894,7 +894,7 @@
                         n5TA = parseFloat(data[i].n5) + n5TA;
                         n6TA = parseFloat(data[i].n6) + n6TA;
                         n7TA = parseFloat(data[i].n7) + n7TA;
-                        totalTA = (n1TA + n2TA + n3TA + n4TA + n5TA + n6TA +n7TA) + totalTA;
+                        totalTA = n1TA + n2TA + n3TA + n4TA + n5TA + n6TA +n7TA;
                     } else if(data[i].jenis == 'CLAIM') {
                         n1CL = parseFloat(data[i].n1) + n1CL;
                         n2CL = parseFloat(data[i].n2) + n2CL;
@@ -903,7 +903,7 @@
                         n5CL = parseFloat(data[i].n5) + n5CL;
                         n6CL = parseFloat(data[i].n6) + n6CL;
                         n7CL = parseFloat(data[i].n7) + n7CL;
-                        totalCL = (n1CL + n2CL + n3CL + n4CL + n5CL + n6CL +n7CL) + totalCL;
+                        totalCL = n1CL + n2CL + n3CL + n4CL + n5CL + n6CL +n7CL;
                     } else if(data[i].jenis == 'DIBAYAR') {
                         n1BY = parseFloat(data[i].n1) + n1BY;
                         n2BY = parseFloat(data[i].n2) + n2BY;
@@ -912,7 +912,7 @@
                         n5BY = parseFloat(data[i].n5) + n5BY;
                         n6BY = parseFloat(data[i].n6) + n6BY;
                         n7BY = parseFloat(data[i].n7) + n7BY;
-                        totalBY = (n1BY + n2BY + n3BY + n4BY + n5BY + n6BY +n7BY) + totalBY;
+                        totalBY = n1BY + n2BY + n3BY + n4BY + n5BY + n6BY +n7BY;
                     }
                 }
                 n1TA = parseFloat((n1TA/pembagi).toFixed(2));
