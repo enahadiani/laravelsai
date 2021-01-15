@@ -47,7 +47,7 @@
     }
 </style>
 <!-- LIST DATA -->
-<x-list-data judul="Data Mutasi Kirim" tambah="true" :thead="array('No Bukti','Tanggal','No Dokumen','Deskripsi','Aksi')" :thwidth="array(15,15,15,30,10)" :thclass="array('','','','','text-center')" />
+<x-list-data judul="Data Mutasi Terima" tambah="true" :thead="array('No Bukti','Tanggal','No Dokumen','Deskripsi','Aksi')" :thwidth="array(15,15,15,30,10)" :thclass="array('','','','','text-center')" />
 <!-- END LIST DATA -->
 {{-- Form Input --}}
 <form id="form-tambah" class="tooltip-label-right" novalidate>
@@ -117,7 +117,7 @@
                         <div class="form-group col-md-6 col-sm-12">
                             <div class="row">
                                 <div class="col-md-6 col-sm-12">
-                                    <label for="asal">Gudang Asal</label>
+                                    <label for="asal">Gudang Pengirim</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
                                             <span class="input-group-text info-code_asal" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
@@ -131,7 +131,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-sm-12">
-                                    <label for="tujuan">Gudang Tujuan</label>
+                                    <label for="tujuan">Gudang Penerima</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
                                             <span class="input-group-text info-code_tujuan" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
@@ -210,7 +210,7 @@
     var psscrollform = new PerfectScrollbar(scrollform);
 
     getDataTypeAhead("{{ url('esaku-report/filter-gudang') }}","gudangAsal","kode_gudang");
-    getDataTypeAhead("{{ url('esaku-report/filter-bukti-mutasi-kirim') }}","buktiKirim","bukti_kirim");
+    getDataTypeAhead("{{ url('esaku-trans/filter-bukti-mutasi-kirim') }}","buktiKirim","bukti_kirim");
     getDataTypeAhead("{{ url('esaku-report/filter-gudang') }}","gudangTujuan","kode_gudang");
     getDataTypeAhead("{{ url('esaku-trans/filter-barang-mutasi') }}","Barang","kode_barang");
 
@@ -456,7 +456,78 @@
         $('.info-name_'+kode).closest('div').find('.info-icon-hapus').removeClass('hidden');
     }
 
+    function getBarangMutasiKirim(no_bukti) {
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('esaku-trans/barang-mutasi-kirim') }}",
+            data:{'no_bukti':no_bukti},
+            dataType: 'json',
+            success:function(response){
+                var data = response.daftar;
+                if(response.status) {
+                    if(data.length > 0) {
+                        var input = '';
+                        var no=1;
+
+                        for(var i=0;i<data.length;i++) {
+                            input += "<tr class='row-grid'>";
+                            input += "<td class='no-grid text-center'>"+no+"</td>";
+                            input += "<td><span class='td-kode tdbarangke"+no+" tooltip-span'>"+data[i].kode_barang+"</span><input type='text' name='kode_barang[]' class='form-control inp-kode barangke"+no+" hidden' value='"+data[i].kode_barang+"' required='' style='z-index: 1;position: relative;' id='barangkode"+no+"'><a href='#' class='search-item search-barang hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+                            input += "<td><span class='td-nama tdnmbarangke"+no+" tooltip-span'>"+data[i].nama+"</span><input type='text' name='nama_barang[]' class='form-control inp-nama nmbarangke"+no+" hidden'  value='"+data[i].nama+"' readonly></td>";
+                            input += "<td><span class='td-satuan tdsatuanke"+no+" tooltip-span'>"+data[i].satuan+"</span><input type='text' name='satuan[]' class='form-control inp-satuan satuanke"+no+" hidden'  value='"+data[i].satuan+"' readonly></td>";
+                            input += "<td><span class='td-stok tdstokke"+no+" tooltip-span'>"+data[i].stok+"</span><input type='text' name='stok[]' class='form-control inp-stok stokke"+no+" hidden'  value='"+data[i].stok+"' readonly></td>";
+                            input += "<td class='text-right'><span class='td-jumlah tdjumlahke"+no+" tooltip-span'>0</span><input type='text' name='jumlah[]' class='form-control inp-jumlah jumlahke"+no+" hidden'  value='0' required></td>";
+                            input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
+                            input += "</tr>";
+                            no++;   
+                        }
+                        $('#input-grid tbody').html(input);
+                        $('.tooltip-span').tooltip({
+                            title: function(){
+                                return $(this).text();
+                            }
+                        })
+
+                        no= 1;
+                        for(var i=0;i<data.length;i++){
+                            $('#barangkode'+no).typeahead({
+                                source:$dtBarang,
+                                displayText:function(item){
+                                    return item.id+' - '+item.name;
+                                },
+                                autoSelect:false,
+                                changeInputOnSelect:false,
+                                changeInputOnMove:false,
+                                selectOnBlur:false,
+                                afterSelect: function (item) {
+                                    console.log(item.id);
+                                }
+                            });
+                            $('.jumlahke'+no).inputmask("numeric", {
+                                radixPoint: ",",
+                                groupSeparator: ".",
+                                digits: 2,
+                                autoGroup: true,
+                                rightAlign: true,
+                                oncleared: function () { self.Value(''); }
+                            });
+                            no++;
+                        }
+                        hitungTotalRow();
+                    } else {
+                        alert(`Barang dengan nomor bukti ${no_bukti} tidak ada`)
+                    }
+                }
+            }
+        });
+    }
+
     function custTarget(target,tr){
+        if(target === '.info-code_bukti_kirim') {
+            var no_bukti = $(target).parents('div').find('.info-code_bukti_kirim').text();
+            getBarangMutasiKirim(no_bukti);
+            return;
+        }
         var kode_barang = $(target).parents("tr").find(".inp-kode").val();
         var kode_gudang = $('#asal').val();
         $.ajax({
@@ -490,7 +561,7 @@
         kode = tmp[0];
 
         if(kode_gudang == '') {
-            alert('Harap pilih gudang asal dahulu')
+            alert('Harap pilih gudang pengirim dahulu')
             $('.'+target1).val('');
             $('.'+target1).hide();
             $('.td'+target1).show(kode);
@@ -568,6 +639,7 @@
                     $('#tanggal').val(reverseDate2(result.data[0].tanggal,'-','/'));
                     $('#keterangan').val(result.data[0].keterangan);
                     $('#no_dokumen').val(result.data[0].no_dokumen);
+                    $('#bukti_kirim').val(result.data[0].no_kirim);
                     $('#asal').val(result.data[0].param1);
                     $('#tujuan').val(result.data[0].param2);
                     $('#no_bukti').val(result.data[0].no_bukti);
@@ -682,6 +754,7 @@
         selectOnBlur:false,
         afterSelect: function (item) {
             console.log(item.id);
+            getBarangMutasiKirim(item.id);
         }
     });
     $('#asal').typeahead({
@@ -716,7 +789,7 @@
     $('#tanggal').change(function(){
         tanggal = $(this).val();
         getKode(tanggal, jenis, action);
-    })
+    });
 
     $('#saku-datatable').on('click', '#btn-tambah', function(){
         action = "tambah";
@@ -844,7 +917,7 @@
                     target1 : ".info-code_"+id,
                     target2 : ".info-name_"+id,
                     target3 : "",
-                    target4 : "",
+                    target4 : "custom",
                     width : ["30%","70%"]
                 }
             break;
