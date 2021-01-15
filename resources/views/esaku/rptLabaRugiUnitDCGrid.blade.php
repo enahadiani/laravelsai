@@ -2,7 +2,7 @@
 <script type="text/javascript">
     
     function drawLap(formData){
-        saiPostLoad('esaku-report/lap-labarugi-unit', null, formData, null, function(res){
+        saiPostLoad('esaku-report/lap-labarugi-unit-dc', null, formData, null, function(res){
            if(res.result.length > 0){
 
                 $('#pagination').html('');
@@ -50,11 +50,17 @@
                 var no=1;
                 for (var j=0;j < res.res.detail.length;j++)
                 {
-                    var nilai="";
+                    var n1="";
+                    var n2="";
+                    var n3="";
+                    var n4="";
                     var line = res.res.detail[j];
                     if (line.tipe!="Header" && line.nama!="." && line.nama!="")
                     {
-                        nilai=sepNum(parseFloat(line.n4));
+                        n1=sepNum(parseFloat(line.n1));
+                        n2=sepNum(parseFloat(line.n2));
+                        n3=sepNum(parseFloat(line.n3));
+                        n4=sepNum(parseFloat(line.n4));
                     }
                     
                     if (line.tipe=="Posting" && line.n4 != 0)
@@ -63,13 +69,19 @@
                         var cursor = 'cursor:pointer;font-weight:bold';
 
                         html+=`<tr class='report-link neraca-lajur' id='grid-id-`+line.kode_akun+`' style='`+cursor+`' data-parent='`+id+`' data-tipe='`+line.tipe+`' data-kode_neraca='`+line.kode_neraca+`' ><td height='20' class='isi_laporan link-report' >`+fnSpasi(line.level_spasi)+``+line.nama+`</td>
-                        <td class='isi_laporan'><div align='right'>`+nilai+`</div></td>
+                        <td class='isi_laporan'><div align='right'>`+n1+`</div></td>
+                        <td class='isi_laporan'><div align='right'>`+n2+`</div></td>
+                        <td class='isi_laporan'><div align='right'>`+n3+`</div></td>
+                        <td class='isi_laporan'><div align='right'>`+n4+`</div></td>
                         </tr>`;
                     }
                     else
                     {
                         html+=`<tr><td height='20' class='isi_laporan'>`+fnSpasi(line.level_spasi)+line.nama+`</td>
-                        <td class='isi_laporan'><div align='right'>`+nilai+`</div></td>
+                        <td class='isi_laporan'><div align='right'>`+n1+`</div></td>
+                        <td class='isi_laporan'><div align='right'>`+n2+`</div></td>
+                        <td class='isi_laporan'><div align='right'>`+n3+`</div></td>
+                        <td class='isi_laporan'><div align='right'>`+n4+`</div></td>
                         </tr>`;
                     }
                 
@@ -131,18 +143,27 @@
             <div class='table-responsive'>
             <table class='table table-bordered report-table'>
                 <tr>
-                    <th height='25'  class='header_laporan' align='center'>Keterangan</th>
-                    <th class='header_laporan' align='center'>Jumlah</th>
+                    <th width='400' height='25'  class='header_laporan text-center'>Keterangan</th>
+                    <th width='100' class='header_laporan text-center'>Saldo Awal</th>
+                    <th width='100' class='header_laporan text-center'>Debet</th>
+                    <th width='100' class='header_laporan text-center'>Kredit</th>
+                    <th width='100' class='header_laporan text-center'>Saldo Akhir</th>
                 </tr>
             `;
                 var no=1;
                 for (var j=0;j < res.res.detail.length;j++)
                 {
-                    var nilai="";
+                    var n1="";
+                    var n2="";
+                    var n3="";
+                    var n4="";
                     var line = res.res.detail[j];
                     if (line.tipe!="Header" && line.nama!="." && line.nama!="")
                     {
-                        nilai=sepNum(parseFloat(line.n4));
+                        n1=sepNum(parseFloat(line.n1));
+                        n2=sepNum(parseFloat(line.n2));
+                        n3=sepNum(parseFloat(line.n3));
+                        n4=sepNum(parseFloat(line.n4));
                     }
                     
                     if (line.tipe=="Posting" && line.n4 != 0)
@@ -151,13 +172,19 @@
                         var cursor = 'cursor:pointer;font-weight:bold';
 
                         html+=`<tr class='report-link neraca-lajur' id='grid-id-`+line.kode_neraca+`' style='`+cursor+`'  data-tipe='`+line.tipe+`' data-kode_neraca='`+line.kode_neraca+`' ><td height='20' class='isi_laporan link-report' >`+fnSpasi(line.level_spasi)+``+line.nama+`</td>
-                        <td class='isi_laporan'><div align='right'>`+nilai+`</div></td>
+                        <td class='isi_laporan'><div align='right'>`+n1+`</div></td>
+                        <td class='isi_laporan'><div align='right'>`+n2+`</div></td>
+                        <td class='isi_laporan'><div align='right'>`+n3+`</div></td>
+                        <td class='isi_laporan'><div align='right'>`+n4+`</div></td>
                         </tr>`;
                     }
                     else
                     {
                         html+=`<tr><td height='20' class='isi_laporan'>`+fnSpasi(line.level_spasi)+line.nama+`</td>
-                        <td class='isi_laporan'><div align='right'>`+nilai+`</div></td>
+                        <td class='isi_laporan'><div align='right'>`+n1+`</div></td>
+                        <td class='isi_laporan'><div align='right'>`+n2+`</div></td>
+                        <td class='isi_laporan'><div align='right'>`+n3+`</div></td>
+                        <td class='isi_laporan'><div align='right'>`+n4+`</div></td>
                         </tr>`;
                     }
                 
@@ -177,7 +204,7 @@
                     $(this).addClass('clicked');
                     var top = $(this).position().top;
                     $('#grid-load').css('top',top);
-                    getChild(index,id,$formData,'esaku-report/lap-labarugi-unit');
+                    getChild(index,id,$formData,'esaku-report/lap-labarugi-unit-dc');
                 }
                 if(!$(this).hasClass('open-grid')){
                     $(this).addClass('open-grid');

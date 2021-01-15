@@ -16,6 +16,7 @@
                                         <x-inp-filter kode="kode_fs" nama="Kode FS" selected="3" :option="array('3')"/>
                                         <x-inp-filter kode="level" nama="Level" selected="3" :option="array('3')"/>
                                         <x-inp-filter kode="kode_pp" nama="Kode PP" selected="1" :option="array('1','2','3','i')"/>
+                                        <x-inp-filter kode="format" nama="Format" selected="3" :option="array('3')"/>
                                         <x-inp-filter kode="output" nama="Output" selected="3" :option="array('3')"/>
                                         
                                         <!-- END COMPONENT -->
@@ -78,6 +79,14 @@
             toname : "",
         }
 
+        var $format = {
+            type : "=",
+            from : "Saldo Akhir",
+            fromname : "Saldo Akhir",
+            to : "",
+            toname : "",
+        }
+
         var $output = {
             type : "=",
             from : "Laporan",
@@ -111,6 +120,7 @@
         $('#periode-from').val(namaPeriode("{{ date('Ym') }}"));
         $('#kode_fs-from').val("FS1");
         $('#level-from').val("1");
+        $('#format-from').val("Saldo Akhir");
         $('#output-from').val("Laporan");
 
         $('#btn-filter').click(function(e){
@@ -145,10 +155,10 @@
 
         $('.selectize').selectize();
         $('#inputFilter').reportFilter({
-            kode : ['periode','kode_fs','level','kode_pp','output'],
-            nama : ['Periode','Kode FS','Level','Kode PP','Output'],
-            header : [['Periode','Nama'],['Kode', 'Nama'],['Kode'],['Kode', 'Nama'],['Kode']],
-            headerpilih : [['Periode','Nama','Action'],['Kode', 'Nama','Action'],['Kode','Action'],['Kode', 'Nama','Action'],['Kode','Action']],
+            kode : ['periode','kode_fs','level','kode_pp','format','output'],
+            nama : ['Periode','Kode FS','Level','Kode PP','Format','Output'],
+            header : [['Periode','Nama'],['Kode', 'Nama'],['Kode'],['Kode', 'Nama'],['Kode'],['Kode']],
+            headerpilih : [['Periode','Nama','Action'],['Kode', 'Nama','Action'],['Kode','Action'],['Kode', 'Nama','Action'],['Kode','Action'],['Kode','Action']],
             columns: [
                 [
                     { data: 'periode' },
@@ -163,14 +173,16 @@
                     { data: 'nama' }
                 ],[
                     { data: 'kode' }
+                ],[
+                    { data: 'kode' }
                 ]
             ],
-            url :["{{ url('esaku-report/filter-periode-keu') }}","{{ url('esaku-report/filter-fs') }}","{{ url('esaku-report/filter-level') }}","{{ url('esaku-report/filter-pp') }}","{{ url('esaku-report/filter-output') }}"],
+            url :["{{ url('esaku-report/filter-periode-keu') }}","{{ url('esaku-report/filter-fs') }}","{{ url('esaku-report/filter-level') }}","{{ url('esaku-report/filter-pp') }}","{{ url('esaku-report/filter-format') }}","{{ url('esaku-report/filter-output') }}"],
             parameter:[],
-            orderby:[[[0,"desc"]],[],[],[],[]],
-            width:[['30%','70%'],['30%','70%'],['30%','70%'],['30%','70%'],['30%','70%']],
-            display:['name','kode','kode','kode','kode'],
-            pageLength:[12,10,10,10,10]
+            orderby:[[[0,"desc"]],[],[],[],[],[]],
+            width:[['30%','70%'],['30%','70%'],['30%','70%'],['30%','70%'],['30%','70%'],['30%','70%']],
+            display:['name','kode','kode','kode','kode','kode'],
+            pageLength:[12,10,10,10,10,10]
         });
 
         var $formData = "";
@@ -192,10 +204,20 @@
             for(var pair of $formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
-            if($output.from == "Laporan"){
-                xurl = "{{ url('esaku-auth/form/rptLabaRugiUnit') }}";
+
+            if($format.from == "DC"){
+                if($output.from == "Laporan"){
+                    xurl = "{{ url('esaku-auth/form/rptLabaRugiUnitDC') }}";
+                }else{
+                    xurl = "{{ url('esaku-auth/form/rptLabaRugiUnitDCGrid') }}";
+                }
             }else{
-                xurl = "{{ url('esaku-auth/form/rptLabaRugiUnitGrid') }}";
+
+                if($output.from == "Laporan"){
+                    xurl = "{{ url('esaku-auth/form/rptLabaRugiUnit') }}";
+                }else{
+                    xurl = "{{ url('esaku-auth/form/rptLabaRugiUnitGrid') }}";
+                }
             }
             $('#saku-report').removeClass('hidden');
             $('#saku-report #canvasPreview').load(xurl);
@@ -218,12 +240,19 @@
             for(var pair of $formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
-            if($output.from == "Laporan"){
-                
-                xurl = "{{ url('esaku-auth/form/rptLabaRugiUnit') }}";
+            if($format.from == "DC"){
+                if($output.from == "Laporan"){
+                    xurl = "{{ url('esaku-auth/form/rptLabaRugiUnitDC') }}";
+                }else{
+                    xurl = "{{ url('esaku-auth/form/rptLabaRugiUnitDCGrid') }}";
+                }
             }else{
 
-                xurl = "{{ url('esaku-auth/form/rptLabaRugiUnitGrid') }}";
+                if($output.from == "Laporan"){
+                    xurl = "{{ url('esaku-auth/form/rptLabaRugiUnit') }}";
+                }else{
+                    xurl = "{{ url('esaku-auth/form/rptLabaRugiUnitGrid') }}";
+                }
             }
             $('#saku-report #canvasPreview').load(xurl);
         });
@@ -231,7 +260,13 @@
 
         $("#sai-rpt-pdf").click(function(e) {
             e.preventDefault();
-            var link = "{{ url('esaku-report/lap-labarugi-unit-pdf') }}?periode[]="+$periode.type+"&periode[]="+$periode.from+"&periode[]="+$periode.to+"&kode_fs[]="+$kode_fs.type+"&kode_fs[]="+$kode_fs.from+"&kode_fs[]="+$kode_fs.to+"&level[]="+$level.type+"&level[]="+$level.from+"&level[]="+$level.to+"&kode_pp[]="+$kode_pp.type+"&kode_pp[]="+$kode_pp.from+"&kode_pp[]="+$kode_pp.to;
+            if($format.from == "DC"){
+                var link = "{{ url('esaku-report/lap-labarugi-unit-dc-pdf') }}?periode[]="+$periode.type+"&periode[]="+$periode.from+"&periode[]="+$periode.to+"&kode_fs[]="+$kode_fs.type+"&kode_fs[]="+$kode_fs.from+"&kode_fs[]="+$kode_fs.to+"&level[]="+$level.type+"&level[]="+$level.from+"&level[]="+$level.to+"&kode_pp[]="+$kode_pp.type+"&kode_pp[]="+$kode_pp.from+"&kode_pp[]="+$kode_pp.to;
+            }else{
+                
+                
+                var link = "{{ url('esaku-report/lap-labarugi-unit-pdf') }}?periode[]="+$periode.type+"&periode[]="+$periode.from+"&periode[]="+$periode.to+"&kode_fs[]="+$kode_fs.type+"&kode_fs[]="+$kode_fs.from+"&kode_fs[]="+$kode_fs.to+"&level[]="+$level.type+"&level[]="+$level.from+"&level[]="+$level.to+"&kode_pp[]="+$kode_pp.type+"&kode_pp[]="+$kode_pp.from+"&kode_pp[]="+$kode_pp.to;
+            }
             window.open(link, '_blank'); 
         });
 
@@ -375,10 +410,19 @@
                 $formData.append("kode_fs[]",$kode_fs.type);
                 $formData.append("kode_fs[]",$kode_fs.from);
                 $formData.append("kode_fs[]",$kode_fs.to);
-                if($output.from == "Laporan"){
-                    xurl = "esaku-auth/form/rptLabaRugiUnit";
+                if($format.from == "DC"){
+                    if($output.from == "Laporan"){
+                        xurl = "{{ url('esaku-auth/form/rptLabaRugiUnitDC') }}";
+                    }else{
+                        xurl = "{{ url('esaku-auth/form/rptLabaRugiUnitDCGrid') }}";
+                    }
                 }else{
-                    xurl = "esaku-auth/form/rptLabaRugiUnitGrid";
+
+                    if($output.from == "Laporan"){
+                        xurl = "{{ url('esaku-auth/form/rptLabaRugiUnit') }}";
+                    }else{
+                        xurl = "{{ url('esaku-auth/form/rptLabaRugiUnitGrid') }}";
+                    }
                 }
                 $('.breadcrumb').html('');
                 $('.breadcrumb').append(`
@@ -440,10 +484,19 @@
                 $formData.append("periode[]",$periode.type);
                 $formData.append("periode[]",$periode.from);
                 $formData.append("periode[]",$periode.to);
-                if($output.from == "Laporan"){
-                    xurl = "esaku-auth/form/rptLabaRugiUnit";
+                if($format.from == "DC"){
+                    if($output.from == "Laporan"){
+                        xurl = "{{ url('esaku-auth/form/rptLabaRugiUnitDC') }}";
+                    }else{
+                        xurl = "{{ url('esaku-auth/form/rptLabaRugiUnitDCGrid') }}";
+                    }
                 }else{
-                    xurl = "esaku-auth/form/rptLabaRugiUnitGrid";
+
+                    if($output.from == "Laporan"){
+                        xurl = "{{ url('esaku-auth/form/rptLabaRugiUnit') }}";
+                    }else{
+                        xurl = "{{ url('esaku-auth/form/rptLabaRugiUnitGrid') }}";
+                    }
                 }
                 $formData.delete('back');
                 $formData.delete('kode_fs[]');

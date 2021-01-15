@@ -79,23 +79,35 @@
 	<table class='table table-bordered info-table' style='width:100%'>
         <thead>
             <tr>
-                <th class='text-center;' width='75%'>Deskripsi</th>
-                <th class='text-center;' width='25%'>Jumlah</th>
+                <th class='header_laporan text-center'>Keterangan</th>
+                <th class='header_laporan text-center'>Saldo Awal</th>
+                <th class='header_laporan text-center'>Debet</th>
+                <th class='header_laporan text-center'>Kredit</th>
+                <th class='header_laporan text-center'>Saldo Akhir</th>
             </tr>
         </thead>
         <tbody>
             @for ($j=0; $j < count($detail) ; $j++)
                 @php
                     $line  = $detail[$j];
-                    $nilai = "";
+                    $n1 = "";
+                    $n2 = "";
+                    $n3 = "";
+                    $n4 = "";
                     if ($line["tipe"] != "Header" && $line["nama"] != "." && $line["nama"] != "")
                     {
-                        $nilai=number_format(floatval($line["n4"]),0,",",".");
+                        $n1=number_format(floatval($line["n1"]),0,",",".");
+                        $n2=number_format(floatval($line["n2"]),0,",",".");
+                        $n3=number_format(floatval($line["n3"]),0,",",".");
+                        $n4=number_format(floatval($line["n4"]),0,",",".");
                     }
                 @endphp
             <tr>
                <td valign='middle' class='isi_laporan '>{!! fnSpasi($line['level_spasi']) !!} {{ $line['nama'] }}</td>
-               <td valign='middle' class='isi_laporan' align='right'>{{ $nilai }}</td>
+               <td valign='middle' class='isi_laporan' align='right'>{{ $n1 }}</td>
+               <td valign='middle' class='isi_laporan' align='right'>{{ $n2 }}</td>
+               <td valign='middle' class='isi_laporan' align='right'>{{ $n3 }}</td>
+               <td valign='middle' class='isi_laporan' align='right'>{{ $n4 }}</td>
             </tr>
             @endfor
 		</tbody>

@@ -59,6 +59,7 @@ Route::post('lap-neraca-bulan', 'Esaku\LaporanController@getNeracaBulan');
 Route::post('lap-coa', 'Esaku\LaporanController@getCOA');
 Route::post('lap-coa-struktur', 'Esaku\LaporanController@getCOAStruktur');
 Route::post('lap-labarugi-unit', 'Esaku\LaporanController@getLabaRugiUnit');
+Route::post('lap-labarugi-unit-dc', 'Esaku\LaporanController@getLabaRugiUnitDC');
 
 Route::get('lap-jurnal-pdf', 'Esaku\LaporanController@getJurnalPDF');
 Route::get('lap-bukubesar-pdf', 'Esaku\LaporanController@getBukuBesarPDF');
@@ -73,3 +74,4 @@ Route::get('lap-neraca-bulan-pdf', 'Esaku\LaporanController@getNeracaBulanPDF');
 Route::get('lap-coa-pdf', 'Esaku\LaporanController@getCOAPDF');
 Route::get('lap-coa-struktur-pdf', 'Esaku\LaporanController@getCOAStrukturPDF');
 Route::get('lap-labarugi-unit-pdf', 'Esaku\LaporanController@getLabaRugiUnitPDF');
+Route::get('lap-labarugi-unit-dc-pdf', 'Esaku\LaporanController@getLabaRugiUnitDCPDF');
