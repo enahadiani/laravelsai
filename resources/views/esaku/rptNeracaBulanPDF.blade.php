@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>LABA RUGI</title>
+    <title>NERACA</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <style>
        
@@ -52,7 +52,7 @@
 <body>
     <table class='table table-borderless' width='100%'>
         <tr>
-            <td class='text-center px-0 py-0 judul-nama'>LAPORAN LABA RUGI</td>
+            <td class='text-center px-0 py-0 judul-nama'>LAPORAN NERACA</td>
         </tr>
         <tr>
             <td class='text-center px-0 py-0 judul-lokasi'>{{ $lokasi }}</td>
@@ -65,6 +65,7 @@
         <thead>
             <tr>
                 <th class='header_laporan' align='center'>Keterangan</th>
+                <th class='header_laporan' align='center'>Saldo</th>
                 <th class='header_laporan' align='center'>Januari</th>
                 <th class='header_laporan' align='center'>Februari</th>
                 <th class='header_laporan' align='center'>Maret</th>
@@ -104,6 +105,7 @@
                 $n15=0;
                 $n16=0;
                 $n17=0;
+                $n18=0;
                 
                 $tahun = $periode;
                 $periode01=$tahun."01"; 
@@ -134,6 +136,7 @@
                 @endphp
                 <tr>
                     <td height='20' class='isi_laporan'>{{ $line['nama'] }}</td>
+                    <td  class='isi_laporan text-right' >{{ number_format(floatval($line['n18']),0,",",".") }}</td>
                     <td  class='isi_laporan text-right' >{{ number_format(floatval($line['n01']),0,",",".") }}</td>
                     <td  class='isi_laporan text-right' >{{ number_format(floatval($line['n02']),0,",",".") }}</td>
                     <td  class='isi_laporan text-right' >{{ number_format(floatval($line['n03']),0,",",".") }}</td>
