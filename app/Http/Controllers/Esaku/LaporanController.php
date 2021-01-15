@@ -1125,5 +1125,107 @@
     	    return $pdf->download('laporan-coa-struktur-pdf');   
         }
 
+        function getLabaRugiUnit(Request $request){
+            try{
+    
+                $client = new Client();
+        
+                $response = $client->request('GET',  config('api.url').'toko-report/lap-labarugi-unit',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => [
+                        'periode' => $request->periode,
+                        'kode_fs' => $request->kode_fs,
+                        'level' => $request->level,
+                        'kode_pp' => $request->kode_pp,
+                        'id' => $request->id,
+                        'nik_user' => Session::get('nikUser')
+                    ]
+                ]);
+        
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $res = json_decode($response_data,true);
+                    $data = $res["data"];
+                }
+                if(isset($request->back)){
+                    $back = true;
+                }else{
+                    $back = false;
+                }
+                return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'res'=>$res,'lokasi'=>Session::get('namaLokasi'),'back'=>$back], 200); 
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                return response()->json(['message' => $res["message"], 'status'=>false, 'auth_status'=>2], 200);
+            } 
+           
+        }
+
+        function getLabaRugiUnitPDF(Request $request)
+        {
+            set_time_limit(300);
+            $tmp = app('App\Http\Controllers\Esaku\LaporanController')->getLabaRugiUnit($request);
+            $tmp = json_decode(json_encode($tmp),true);
+            $data = $tmp['original'];
+            $detail = $data['res']['detail'];
+            $pdf = PDF::loadview('esaku.rptLabaRugiUnitPDF',['data'=>$data["result"],'lokasi'=>Session::get('namaLokasi'),'detail'=>$detail,'periode' => $request->periode[1]])->setPaper('f4', 'landscape');
+    	    return $pdf->download('laporan-labarugi-unit-pdf');   
+        }
+
+        function getLabaRugiUnitDC(Request $request){
+            try{
+    
+                $client = new Client();
+        
+                $response = $client->request('GET',  config('api.url').'toko-report/lap-labarugi-unit-dc',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => [
+                        'periode' => $request->periode,
+                        'kode_fs' => $request->kode_fs,
+                        'level' => $request->level,
+                        'kode_pp' => $request->kode_pp,
+                        'id' => $request->id,
+                        'nik_user' => Session::get('nikUser')
+                    ]
+                ]);
+        
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $res = json_decode($response_data,true);
+                    $data = $res["data"];
+                }
+                if(isset($request->back)){
+                    $back = true;
+                }else{
+                    $back = false;
+                }
+                return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'res'=>$res,'lokasi'=>Session::get('namaLokasi'),'back'=>$back], 200); 
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                return response()->json(['message' => $res["message"], 'status'=>false, 'auth_status'=>2], 200);
+            } 
+           
+        }
+
+        function getLabaRugiUnitDCPDF(Request $request)
+        {
+            set_time_limit(300);
+            $tmp = app('App\Http\Controllers\Esaku\LaporanController')->getLabaRugiUnitDC($request);
+            $tmp = json_decode(json_encode($tmp),true);
+            $data = $tmp['original'];
+            $detail = $data['res']['detail'];
+            $pdf = PDF::loadview('esaku.rptLabaRugiUnitDCPDF',['data'=>$data["result"],'lokasi'=>Session::get('namaLokasi'),'detail'=>$detail,'periode' => $request->periode[1]])->setPaper('f4', 'landscape');
+    	    return $pdf->download('laporan-labarugi-unit-dc-pdf');   
+        }
+
     }
 ?>
