@@ -139,3 +139,7 @@ Route::post('closing-periode','Esaku\ClosingPeriodeController@store');
 Route::get('jurnal-penutup-list','Esaku\JurnalPenutupController@index');
 Route::get('jurnal-penutup','Esaku\JurnalPenutupController@getDataAwal');
 Route::post('jurnal-penutup','Esaku\JurnalPenutupController@store');
+
+Route::post('sawal-upload', 'Esaku\SawalController@importExcel');
+Route::get('sawal-load', 'Esaku\SawalController@getSawalTmp');
+Route::post('sawal', 'Esaku\SawalController@store');
