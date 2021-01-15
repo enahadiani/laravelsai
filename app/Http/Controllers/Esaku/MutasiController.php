@@ -67,6 +67,35 @@ class MutasiController extends Controller {
         } 
     }
 
+    public function getBarangMutasiKirim(Request $request) {
+        try {
+            $no_bukti = $request->no_bukti;
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'toko-trans/barang-mutasi-kirim',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' =>[
+                    'no_bukti' => $no_bukti
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["data"];
+            }
+            return response()->json(['daftar' => $data, 'status'=>true], 200); 
+
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+        }
+    }
+
     public function getMutasiKirim() {
         try {
             $client = new Client();
@@ -155,6 +184,7 @@ class MutasiController extends Controller {
                 'no_dokumen' => 'required',
                 'tanggal' => 'required',
                 'no_bukti' => 'required',
+                'bukti_kirim' => 'required',
                 'keterangan' => 'required',
                 'asal' => 'required',
                 'tujuan' => 'required',
@@ -189,6 +219,7 @@ class MutasiController extends Controller {
 
             $fields['mutasi'][0] = array(
                 'no_dokumen' => $request->no_dokumen,
+                'bukti_kirim' => $request->bukti_kirim,
                 'tanggal' => $this->reverseDate($request->tanggal,'/','-'),
                 'no_bukti' => $request->no_bukti,
                 'jenis' => $jenis,
@@ -228,6 +259,7 @@ class MutasiController extends Controller {
                 'no_dokumen' => 'required',
                 'tanggal' => 'required',
                 'no_bukti' => 'required',
+                'bukti_kirim' => 'required',
                 'keterangan' => 'required',
                 'asal' => 'required',
                 'tujuan' => 'required',
@@ -262,6 +294,7 @@ class MutasiController extends Controller {
 
             $fields['mutasi'][0] = array(
                 'no_dokumen' => $request->no_dokumen,
+                'bukti_kirim' => $request->bukti_kirim,
                 'tanggal' => $this->reverseDate($request->tanggal,'/','-'),
                 'no_bukti' => $request->no_bukti,
                 'jenis' => $jenis,
