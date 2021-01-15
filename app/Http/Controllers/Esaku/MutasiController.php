@@ -154,7 +154,6 @@ class MutasiController extends Controller {
             $this->validate($request, [
                 'no_dokumen' => 'required',
                 'tanggal' => 'required',
-                'jenis' => 'required',
                 'no_bukti' => 'required',
                 'keterangan' => 'required',
                 'asal' => 'required',
@@ -181,11 +180,18 @@ class MutasiController extends Controller {
                 }
             }
 
+            $jenis = "";
+            if(substr($request->no_bukti,0,2) == "MK") {
+                $jenis = "KRM";
+            } else {
+                $jenis = "TRM";
+            }
+
             $fields['mutasi'][0] = array(
                 'no_dokumen' => $request->no_dokumen,
                 'tanggal' => $this->reverseDate($request->tanggal,'/','-'),
                 'no_bukti' => $request->no_bukti,
-                'jenis' => $request->jenis,
+                'jenis' => $jenis,
                 'keterangan' => $request->keterangan,
                 'gudang_asal' => $request->asal,
                 'gudang_tujuan' => $request->tujuan,
@@ -221,7 +227,6 @@ class MutasiController extends Controller {
             $this->validate($request, [
                 'no_dokumen' => 'required',
                 'tanggal' => 'required',
-                'jenis' => 'required',
                 'no_bukti' => 'required',
                 'keterangan' => 'required',
                 'asal' => 'required',
@@ -248,11 +253,18 @@ class MutasiController extends Controller {
                 }
             }
 
+            $jenis = "";
+            if(substr($request->no_bukti,0,2) == "MK") {
+                $jenis = "KRM";
+            } else {
+                $jenis = "TRM";
+            }
+
             $fields['mutasi'][0] = array(
                 'no_dokumen' => $request->no_dokumen,
                 'tanggal' => $this->reverseDate($request->tanggal,'/','-'),
                 'no_bukti' => $request->no_bukti,
-                'jenis' => $request->jenis,
+                'jenis' => $jenis,
                 'keterangan' => $request->keterangan,
                 'gudang_asal' => $request->asal,
                 'gudang_tujuan' => $request->tujuan,
