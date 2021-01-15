@@ -820,6 +820,15 @@
             return response()->json(['daftar' => $data, 'status' => true], 200);
         }
 
+        public function getFilterJenisCOA() {
+
+            $data =  array(
+                0 => array('kode' => "COA"),
+                1 => array('kode' => "Struktur")
+            );
+            return response()->json(['daftar' => $data, 'status' => true], 200);
+        }
+
 
     }
 ?>
