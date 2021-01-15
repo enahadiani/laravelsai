@@ -32,6 +32,7 @@ Route::get('filter-barang-klp', 'Esaku\HelperController@getFilterKlpBarang');
 Route::get('filter-tahun', 'Esaku\HelperController@getFilterTahun');
 Route::get('filter-output', 'Esaku\HelperController@getFilterOutput');
 Route::get('filter-jeniscoa', 'Esaku\HelperController@getFilterJenisCOA');
+Route::get('filter-pp', 'Esaku\HelperController@getFilterPP');
 
 Route::post('lap-penjualan-harian', 'Esaku\LaporanController@getPenjualanHarian');
 Route::post('lap-penjualan', 'Esaku\LaporanController@getPenjualan');
@@ -57,6 +58,7 @@ Route::post('lap-labarugi-bulan', 'Esaku\LaporanController@getLabaRugiBulan');
 Route::post('lap-neraca-bulan', 'Esaku\LaporanController@getNeracaBulan');
 Route::post('lap-coa', 'Esaku\LaporanController@getCOA');
 Route::post('lap-coa-struktur', 'Esaku\LaporanController@getCOAStruktur');
+Route::post('lap-labarugi-unit', 'Esaku\LaporanController@getLabaRugiUnit');
 
 Route::get('lap-jurnal-pdf', 'Esaku\LaporanController@getJurnalPDF');
 Route::get('lap-bukubesar-pdf', 'Esaku\LaporanController@getBukuBesarPDF');
@@ -70,3 +72,4 @@ Route::get('lap-labarugi-bulan-pdf', 'Esaku\LaporanController@getLabaRugiBulanPD
 Route::get('lap-neraca-bulan-pdf', 'Esaku\LaporanController@getNeracaBulanPDF');
 Route::get('lap-coa-pdf', 'Esaku\LaporanController@getCOAPDF');
 Route::get('lap-coa-struktur-pdf', 'Esaku\LaporanController@getCOAStrukturPDF');
+Route::get('lap-labarugi-unit-pdf', 'Esaku\LaporanController@getLabaRugiUnitPDF');

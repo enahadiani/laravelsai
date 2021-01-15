@@ -61,9 +61,13 @@
         return $tmp;
     }
     @endphp
+    @for ($i=0; $i < count($data) ; $i++)
+    @php 
+        $linex = $data[$i];
+    @endphp
     <table class='table table-borderless' width='100%'>
         <tr>
-            <td class='text-center px-0 py-0 judul-nama'>LAPORAN LABA RUGI</td>
+            <td class='text-center px-0 py-0 judul-nama'>LAPORAN LABA RUGI UNIT <span style='text-transform:uppercase'> {{ $linex['nama'] }} </span></td>
         </tr>
         <tr>
             <td class='text-center px-0 py-0 judul-lokasi'>{{ $lokasi }}</td>
@@ -80,9 +84,9 @@
             </tr>
         </thead>
         <tbody>
-            @for ($i=0; $i < count($data) ; $i++)
+            @for ($j=0; $j < count($detail) ; $j++)
                 @php
-                    $line  = $data[$i];
+                    $line  = $detail[$j];
                     $nilai = "";
                     if ($line["tipe"] != "Header" && $line["nama"] != "." && $line["nama"] != "")
                     {
@@ -96,5 +100,6 @@
             @endfor
 		</tbody>
 	</table>
+    @endfor
 </body>
 </html>
