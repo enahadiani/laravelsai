@@ -138,7 +138,7 @@
                         for(i=0;i<result.daftar.length;i++){
                             control.addOption([{text:result.daftar[i].kode_fs, value:result.daftar[i].kode_fs}]);
                         }
-                        control.setValue("{{ Session::get('kode_fs') }}");
+                        control.setValue("FS3");
                     }
                 } 
                 else if(!result.status && result.message == "Unauthorized"){
