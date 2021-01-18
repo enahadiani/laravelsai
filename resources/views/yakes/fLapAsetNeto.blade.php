@@ -14,7 +14,7 @@
                                         <!-- COMPONENT -->
                                         <x-inp-filter kode="periode" nama="Periode" selected="3" :option="array('3')"/>
                                         <x-inp-filter kode="kode_fs" nama="Kode FS" selected="3" :option="array('3')"/>
-                                        <x-inp-filter kode="level" nama="Level" selected="3" :option="array('3')"/>
+                                        <x-inp-filter kode="level" nama="Level" selected="4" :option="array('4')"/>
                                         <x-inp-filter kode="format" nama="Format" selected="3" :option="array('3')"/>
                                         
                                         <!-- END COMPONENT -->
@@ -62,7 +62,7 @@
         }
 
         var $level = {
-            type : "=",
+            type : "<=",
             from : "1",
             fromname : "1",
             to : "",

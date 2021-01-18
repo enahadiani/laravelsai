@@ -446,7 +446,8 @@
                         });
                         
                     break;
-                    case "=":
+                    case "=": 
+                    case "<=":
                         
                         $aktif = "";
                         showFilter(settings,idx,target1);
@@ -457,7 +458,7 @@
                         $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-sampai').addClass('hidden');
                         $(this).closest('div.sai-rpt-filter-entry-row').find('.input-group-text').addClass('search-item');
                         $(this).closest('div.sai-rpt-filter-entry-row').find('.input-group-text').text('ubah');
-                        field.type = "=";
+                        field.type = type;
                         field.from = field.from;
                         field.to = "";
                         field.fromname = field.fromname;

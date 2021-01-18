@@ -14,6 +14,9 @@
                 @if($option[$i] == "3")
                 <option value="=" selected>Sama dengan</option>
                 @endif
+                @if($option[$i] == "4")
+                <option value="<=" selected><=</option>
+                @endif
                 @if($option[$i] == "i")
                 <option value="in" selected>Pilihan</option>
                 @endif
@@ -26,6 +29,9 @@
                 @endif
                 @if($option[$i] == "3")
                 <option value="=">Sama dengan</option>
+                @endif
+                @if($option[$i] == "4")
+                <option value="<="><=</option>
                 @endif
                 @if($option[$i] == "i")
                 <option value="in">Pilihan</option>
