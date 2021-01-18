@@ -15,7 +15,7 @@
                                         <x-inp-filter kode="periode" nama="Periode" selected="3" :option="array('3')"/>
                                         <x-inp-filter kode="kode_fs" nama="Kode FS" selected="3" :option="array('3')"/>
                                         <x-inp-filter kode="level" nama="Level" selected="4" :option="array('4')"/>
-                                        <x-inp-filter kode="format" nama="Format" selected="3" :option="array('3')"/>
+                                        <x-inp-filter kode="tgl" nama="Tanggal" selected="3" :option="array('3')" datepicker="true" />
                                         
                                         <!-- END COMPONENT -->
                                     </div>
@@ -69,10 +69,10 @@
             toname : "",
         }
 
-        var $format = {
+        var $tgl = {
             type : "=",
-            from : "Saldo Akhir",
-            fromname : "Saldo Akhir",
+            from : "{{ date('d/m/Y') }}",
+            fromname : "{{ date('d/m/Y') }}",
             to : "",
             toname : "",
         }
@@ -101,7 +101,10 @@
         $('#periode-from').val(namaPeriode("{{ date('Ym') }}"));
         $('#kode_fs-from').val("FS3");
         $('#level-from').val("1");
-        $('#format-from').val("Saldo Akhir");
+        $('#tgl-from').val("{{ date('d/m/Y') }}");
+        $('#tgl-to').val("{{ date('d/m/Y') }}");
+        $('#tgl-from').addClass("datepicker");
+        $('#tgl-to').addClass("datepicker");
 
         $('#btn-filter').click(function(e){
             $('#collapseFilter').show();
@@ -135,8 +138,8 @@
 
         $('.selectize').selectize();
         $('#inputFilter').reportFilter({
-            kode : ['periode','kode_fs','level','format'],
-            nama : ['Periode','Kode FS','Level','Format'],
+            kode : ['periode','kode_fs','level','tgl'],
+            nama : ['Periode','Kode FS','Level','Tanggal'],
             header : [['Periode', 'Nama'],['Kode', 'Nama'],['Kode'],['Kode']],
             headerpilih : [['Periode', 'Nama','Action'],['Kode', 'Nama','Action'],['Kode','Action'],['Kode','Action']],
             columns: [
@@ -152,7 +155,7 @@
                     { data: 'kode' }
                 ]
             ],
-            url :["{{ url('yakes-report/filter-periode-keu') }}","{{ url('yakes-report/filter-fs') }}","{{ url('yakes-report/filter-level') }}","{{ url('yakes-report/filter-format') }}"],
+            url :["{{ url('yakes-report/filter-periode-keu') }}","{{ url('yakes-report/filter-fs') }}","{{ url('yakes-report/filter-level') }}",""],
             parameter:[],
             orderby:[[[0,"desc"]],[],[],[]],
             width:[['30%','70%'],['30%','70%'],['30%','70%'],['30%','70%']],
@@ -173,9 +176,6 @@
             $formData.append("level[]",$level.type);
             $formData.append("level[]",$level.from);
             $formData.append("level[]",$level.to);
-            $formData.append("format[]",$format.type);
-            $formData.append("format[]",$format.from);
-            $formData.append("format[]",$format.to);
             for(var pair of $formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
@@ -195,9 +195,6 @@
             $formData.append("level[]",$level.type);
             $formData.append("level[]",$level.from);
             $formData.append("level[]",$level.to);
-            $formData.append("format[]",$format.type);
-            $formData.append("format[]",$format.from);
-            $formData.append("format[]",$format.to);
             for(var pair of $formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
@@ -208,7 +205,7 @@
 
         $("#sai-rpt-pdf").click(function(e) {
             e.preventDefault();
-            var link = "{{ url('yakes-report/lap-labarugi-pdf') }}?periode[]="+$periode.type+"&periode[]="+$periode.from+"&periode[]="+$periode.to+"&kode_fs[]="+$kode_fs.type+"&kode_fs[]="+$kode_fs.from+"&kode_fs[]="+$kode_fs.to+"&level[]="+$level.type+"&level[]="+$level.from+"&level[]="+$level.to+"&format[]="+$format.type+"&format[]="+$format.from+"&format[]="+$format.to;
+            var link = "{{ url('yakes-report/lap-labarugi-pdf') }}?periode[]="+$periode.type+"&periode[]="+$periode.from+"&periode[]="+$periode.to+"&kode_fs[]="+$kode_fs.type+"&kode_fs[]="+$kode_fs.from+"&kode_fs[]="+$kode_fs.to+"&level[]="+$level.type+"&level[]="+$level.from+"&level[]="+$level.to;
             window.open(link, '_blank'); 
         });
 
@@ -453,9 +450,6 @@
             $formData.append("level[]",$level.type);
             $formData.append("level[]",$level.from);
             $formData.append("level[]",$level.to);
-            $formData.append("format[]",$format.type);
-            $formData.append("format[]",$format.from);
-            $formData.append("format[]",$format.to);
             for(var pair of formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }

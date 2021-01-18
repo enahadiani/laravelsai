@@ -13,7 +13,7 @@
                                     <div id="inputFilter">
                                         <!-- COMPONENT -->
                                         <x-inp-filter kode="periode" nama="Periode" selected="3" :option="array('3')"/>
-                                        <x-inp-filter kode="tgl" nama="Tanggal" selected="3" :option="array('1','2','3','4','i')" datepicker="true" />
+                                        <x-inp-filter kode="tgl" nama="Tanggal" selected="3" :option="array('3')" datepicker="true" />
                                         
                                         <!-- END COMPONENT -->
                                     </div>

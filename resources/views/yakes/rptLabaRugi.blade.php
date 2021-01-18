@@ -157,10 +157,10 @@
                 }
                 no++;
             }
-            var today = new Date();
-            var dd = String(today.getDate()).padStart(2, '0');
-            var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-            var yyyy = today.getFullYear();
+            var today = $tgl.from;
+            var dd = today.substr(0,2);
+            var mm = today.substr(3,2); //January is 0!
+            var yyyy = today.substr(6,4);
             var nama_periode = namaPeriode(yyyy+''+mm);
             html+=`
             <tr>
