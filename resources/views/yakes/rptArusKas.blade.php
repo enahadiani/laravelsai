@@ -51,7 +51,7 @@
             var bln = periode.from.substr(4,2);
             var tahunseb = parseInt(tahun)-1;
             var periode_pilih = namaPeriode(tahun+''+bln);
-            var periode_seb = namaPeriode(tahunseb+''+bln);
+            var periode_seb = namaPeriode(tahunseb+''+12);
             var html = `
             <style>
             <style>
@@ -88,7 +88,7 @@
                 <td width='90%' colspan='3' class='text-center'>
                     <span class='bold fs1-1rem'>YAYASAN KESEHATAN PEGAWAI TELKOM</span><br>
                     <span class='bold fs1-1rem'>LAPORAN ARUS KAS </span><br>
-                    <span class='bold fs1rem'>UNTUK PERIODE YANG BERAKHIR PADA <uppercase> `+res.res.tgl_awal+` `+periode_pilih+`, `+tahunseb+` </uppercase></span><br>
+                    <span class='bold fs1rem'>UNTUK PERIODE YANG BERAKHIR PADA <uppercase> `+res.res.tgl_awal+` `+periode_pilih+`, 31 `+periode_seb+` </uppercase></span><br>
                     <span class='bold fs1rem'>(Disajikan dalam Rupiah)</span><br>
                 </td>
                 <td width='5%'></td>
@@ -100,7 +100,7 @@
                 <td width='5%'></td>
                 <td width='54%' height='25'  class='header_laporan border-right border-bottom border-top'></td>
                 <td width='18%' class='header_laporan text-center fs-1rem bold border-right border-bottom border-top'>`+res.res.tgl_awal+` `+periode_pilih+`</td>
-                <td width='18%' class='header_laporan text-center fs-1rem bold border-bottom border-top'>`+res.res.tgl_akhir+` `+periode_seb+`</td>
+                <td width='18%' class='header_laporan text-center fs-1rem bold border-bottom border-top'>31 `+periode_seb+`</td>
                 <td width='5%'></td>
             </tr>`;
             var no=1;

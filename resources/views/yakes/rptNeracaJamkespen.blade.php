@@ -40,7 +40,7 @@
             var bln = periode.from.substr(4,2);
             var tahunseb = parseInt(tahun)-1;
             var periode_pilih = namaPeriode(tahun+''+bln);
-            var periode_seb = namaPeriode(tahunseb+''+bln);
+            var periode_seb = namaPeriode(tahunseb+''+12);
             var html = `
             <style>
             .info-table thead{
@@ -64,7 +64,7 @@
                 border-color: black !important; 
                 padding:0px 10px !important;
             }
-            </style>`+judul_report("YAYASAN KESEHATAN PEGAWAI TELKOM <br> PROGRAM JAMKESPEN MANFAAT PASTI",'LAPORAN POSISI KEUANGAN','Per '+res.res.tgl_awal+''+periode_pilih+' dan '+res.res.tgl_akhir+''+periode_seb+' <br> (Disajikan dalam Rupiah)')+`
+            </style>`+judul_report("YAYASAN KESEHATAN PEGAWAI TELKOM <br> PROGRAM JAMKESPEN MANFAAT PASTI",'LAPORAN POSISI KEUANGAN','Per '+res.res.tgl_awal+' '+periode_pilih+' dan 31 '+periode_seb+' <br> (Disajikan dalam Rupiah)')+`
             <table class='kotak bt-0 report-table' width='100%'>
                 <tr>
                     <td>&nbsp;</td>
@@ -80,7 +80,7 @@
                     <td width='2%' class='header_laporan text-center '>&nbsp;</td>
                     <td width='20%' class='header_laporan text-center bold fs1rem border-bottom'>`+res.res.tgl_awal+` `+periode_pilih+`</td>
                     <td width='3%' class='header_laporan text-center '>&nbsp;</td>
-                    <td width='20%' class='header_laporan text-center bold fs1rem border-bottom'>`+res.res.tgl_akhir+` `+periode_seb+`</td>
+                    <td width='20%' class='header_laporan text-center bold fs1rem border-bottom'>31 `+periode_seb+`</td>
                 </tr>
                 <tr>
                     <td>&nbsp;</td>

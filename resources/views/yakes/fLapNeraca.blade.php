@@ -14,7 +14,7 @@
                                         <!-- COMPONENT -->
                                         <x-inp-filter kode="periode" nama="Periode" selected="3" :option="array('3')"/>
                                         <x-inp-filter kode="kode_fs" nama="Kode FS" selected="3" :option="array('3')"/>
-                                        <x-inp-filter kode="level" nama="Level" selected="3" :option="array('3')"/>
+                                        <x-inp-filter kode="level" nama="Level" selected="4" :option="array('4')"/>
                                         <x-inp-filter kode="output" nama="Output" selected="3" :option="array('3')"/>
                                         
                                         <!-- END COMPONENT -->
@@ -64,7 +64,7 @@
         }
 
         var $level = {
-            type : "=",
+            type : "<=",
             from : "1",
             fromname : "1",
             to : "",
@@ -154,7 +154,7 @@
                     { data: 'kode' }
                 ]
             ],
-            url :["{{ url('yakes-report/filter-periode-keu') }}","","{{ url('yakes-report/filter-level') }}","{{ url('yakes-report/filter-output') }}"],
+            url :["{{ url('yakes-report/filter-periode-keu') }}","{{ url('yakes-report/filter-fs') }}","{{ url('yakes-report/filter-level') }}","{{ url('yakes-report/filter-output') }}"],
             parameter:[],
             orderby:[[[0,"desc"]],[],[],[]],
             width:[['30%','70%'],['30%','70%'],['30%','70%'],['30%','70%']],
