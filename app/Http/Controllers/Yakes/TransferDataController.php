@@ -58,13 +58,15 @@ class TransferDataController extends Controller
         
         $this->validate($request, [
             'periode' => 'required',
+            'kode_fs' => 'required'
         ]);
 
         try {
             
             $client = new Client();
             $data = array(
-                'periode' => $request->periode
+                'periode' => $request->periode,
+                'kode_fs' => $request->kode_fs
             );
             $response = $client->request('POST',  config('api.url').'yakes-trans/transfer-data',[
                 'headers' => [

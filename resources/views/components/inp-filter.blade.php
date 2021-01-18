@@ -15,7 +15,7 @@
                 <option value="=" selected>Sama dengan</option>
                 @endif
                 @if($option[$i] == "4")
-                <option value="<=" selected><=</option>
+                <option value="<=" selected>Lebih kecil sampai</option>
                 @endif
                 @if($option[$i] == "i")
                 <option value="in" selected>Pilihan</option>
@@ -31,7 +31,7 @@
                 <option value="=">Sama dengan</option>
                 @endif
                 @if($option[$i] == "4")
-                <option value="<="><=</option>
+                <option value="<=">Lebih kecil sampai</option>
                 @endif
                 @if($option[$i] == "i")
                 <option value="in">Pilihan</option>
