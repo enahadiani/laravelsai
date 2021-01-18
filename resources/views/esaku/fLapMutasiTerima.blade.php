@@ -234,8 +234,8 @@
         e.preventDefault();
         $("#saku-report #canvasPreview").table2excel({
             // exclude: ".excludeThisClass",
-            name: "Lap_Pnj_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}",
-            filename: "Lap_Pnj_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}.xls", // do include extension
+            name: "Lap_MT_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}",
+            filename: "Lap_MT_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}.xls", // do include extension
             preserveColors: false // set to true if you want background colors and font colors preserved
         });
     });
