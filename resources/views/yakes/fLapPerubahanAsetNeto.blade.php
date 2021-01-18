@@ -55,8 +55,8 @@
         }
         var $kode_fs = {
             type : "=",
-            from : "FS6",
-            fromname : "FS6",
+            from : "FS3",
+            fromname : "FS3",
             to : "",
             toname : "",
         }
@@ -99,7 +99,7 @@
         // $('#show').selectize();
 
         $('#periode-from').val(namaPeriode("{{ date('Ym') }}"));
-        $('#kode_fs-from').val("FS6");
+        $('#kode_fs-from').val("FS3");
         $('#level-from').val("1");
         $('#format-from').val("Saldo Akhir");
 
