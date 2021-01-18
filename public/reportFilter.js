@@ -400,6 +400,157 @@
         });
     }
 
+    function showDatePicker(options,idx,target1,tipe,kunci){
+        var settings = {
+            header:[],
+            columns:[],
+            url:[],
+            parameter:[],
+            nama:[],
+            kode:[],
+            orderby:[],
+            width:[],
+            headerpilih:[],
+            display:[],
+            pageLength:[]
+        }
+        
+        $.extend(settings, options);
+        
+        $target = target1;
+        var tmp = $target.attr('id');
+        tmp = tmp.split("-");
+        var target2 = tmp[1];
+        var target3 = tmp[1]+'name';
+        
+        var toUrl = settings.url[idx];
+        var columns = settings.columns[idx];
+        var parameter = settings.parameter[idx];
+        var judul = "Pilih "+settings.nama[idx]+" <span class='modal-subtitle'></span>";
+        pilih = settings.nama[idx];
+        display = settings.display[idx];
+        var field = eval('$'+settings.kode[idx]);
+        var kunci = settings.kode[idx];
+        var orderby = settings.orderby[idx];
+        var width = settings.width[idx];
+        var type = tipe;
+        if(settings.pageLength != undefined){
+            if(settings.pageLength[idx] != undefined){
+                var pageLength = settings.pageLength[idx];
+            }else{
+                var pageLength = 10;
+            }
+        }else{
+            var pageLength =10;
+        }
+
+        $('#modal-search .modal-title').html(judul);
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var yyyy = today.getFullYear();
+        var datenow = dd+"/"+mm+"/"+yyyy;
+
+        switch(type){
+            case '=':
+                case '<=':
+                var html = `<div class='row sama'>
+                    <div class='col-md-12' id='date-`+kunci+`' data-date='`+datenow+`'></div>
+                </div>`;
+                $('#modal-search .modal-body').html(html);
+                $('#date-'+kunci).datepicker({
+                    format: 'dd/mm/yyyy',
+                    templates: {
+                        leftArrow: '<i class="simple-icon-arrow-left"></i>',
+                        rightArrow: '<i class="simple-icon-arrow-right"></i>'
+                    }
+                });
+                $('#date-'+kunci).on('changeDate', function() {
+                    $($target).val($('#date-'+kunci).datepicker('getFormattedDate'));
+                    $($target).trigger('change');
+                    field[target2] = $('#date-'+kunci).datepicker('getFormattedDate');
+                    field[target3] = $('#date-'+kunci).datepicker('getFormattedDate');
+                    $('#modal-search').modal('hide');
+                });
+                break;
+            case 'in':
+                var html = `<div class='row in'>
+                    <input type='text' class='form-control col-md-12' id='inp_date-`+kunci+`-in'>
+                    <div class='col-md-12' id='date-`+kunci+`-in' data-date='`+datenow+`'></div>
+                    <div class='col-md-4 float-right'><button id='btn-ok-`+kunci+`-in' class='btn btn-primary'>OK</button></div>
+                </div>`;
+                $('#modal-search .modal-body').html(html);
+                $('#date-'+kunci+'-in').datepicker({
+                    format: 'dd/mm/yyyy',
+                    templates: {
+                        leftArrow: '<i class="simple-icon-arrow-left"></i>',
+                        rightArrow: '<i class="simple-icon-arrow-right"></i>'
+                    },
+                    multidate:true
+                });
+                $('#date-'+kunci+'-in').on('changeDate', function() {
+                    $('#inp_date-'+kunci+'-in').val(
+                        $('#date-'+kunci+'-in').datepicker('getFormattedDate')
+                    );
+                });
+                $('div.in').on('click','#btn-ok-'+kunci+'-in',function(){
+                    $($target).val($('#date-'+kunci+'-in').datepicker('getFormattedDate'));
+                    $($target).trigger('change');
+                    field[target2] = $('#date-'+kunci+'-in').datepicker('getFormattedDate');
+                    field[target3] = $('#date-'+kunci+'-in').datepicker('getFormattedDate');
+                    $('#modal-search').modal('hide');
+                });
+                break;
+            case 'range':
+                var html = `<div class='row range'>
+                    <input type='text' class='form-control col-md-6' id='inp_date-`+kunci+`-from' value='`+datenow+`'>
+                    <input type='text' class='form-control col-md-6' id='inp_date-`+kunci+`-to' value='`+datenow+`'>
+                    <div class='col-md-6' id='date-`+kunci+`-from' data-date='`+datenow+`'></div>
+                    <div class='col-md-6' id='date-`+kunci+`-to' data-date='`+datenow+`'></div>
+                    <div class='col-md-4 float-right'><button id='btn-ok-`+kunci+`-range' class='btn btn-primary'>OK</button></div>
+                </div>`;
+                
+                $('#modal-search .modal-body').html(html);
+                $('#date-'+kunci+'-from').datepicker({
+                    autoclose: true,
+                    format: 'dd/mm/yyyy',
+                    templates: {
+                        leftArrow: '<i class="simple-icon-arrow-left"></i>',
+                        rightArrow: '<i class="simple-icon-arrow-right"></i>'
+                    }
+                });
+                $('#date-'+kunci+'-from').on('changeDate', function() {
+                    $('#inp_date-'+kunci+'-from').val(
+                        $('#date-'+kunci+'-from').datepicker('getFormattedDate')
+                    );
+                });
+                $('#date-'+kunci+'-to').datepicker({
+                    autoclose: true,
+                    format: 'dd/mm/yyyy',
+                    templates: {
+                        leftArrow: '<i class="simple-icon-arrow-left"></i>',
+                        rightArrow: '<i class="simple-icon-arrow-right"></i>'
+                    }
+                });
+                $('#date-'+kunci+'-to').on('changeDate', function() {
+                    $('#inp_date-'+kunci+'-to').val(
+                        $('#date-'+kunci+'-to').datepicker('getFormattedDate')
+                    );
+                });
+                $('div.range').on('click','#btn-ok-'+kunci+'-range',function(){
+                    $($target).val($('#date-'+kunci+'-from').datepicker('getFormattedDate'));
+                    $($target).trigger('change');
+                    field["from"] = $('#date-'+kunci+'-from').datepicker('getFormattedDate');
+                    field["fromname"] = $('#date-'+kunci+'-from').datepicker('getFormattedDate');
+                    field["to"] = $('#date-'+kunci+'-to').datepicker('getFormattedDate');;
+                    field["toname"] = $('#date-'+kunci+'-to').datepicker('getFormattedDate');;  
+                    $('#modal-search').modal('hide');
+                });
+                break;
+        }
+        $('#modal-search').modal('show');
+    }
+
     $.fn.reportFilter = function( options ) {
        
         var options = (function (opts, def) {
@@ -424,6 +575,9 @@
                 var idx = settings.kode.indexOf(kunci);
                 
                 var target1 = $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input');
+                var tmp = $(this).closest('div.sai-rpt-filter-entry-row').find('div > div > input').last().attr('class');
+                var tmp = tmp.split(" ");
+                datepicker = tmp.includes("datepicker");
                 switch(type){
                     case "all":
                         
@@ -450,7 +604,11 @@
                     case "<=":
                         
                         $aktif = "";
-                        showFilter(settings,idx,target1);
+                        if(datepicker){
+                            showDatePicker(settings,idx,target1,type,kunci);
+                        }else{
+                            showFilter(settings,idx,target1);
+                        }
                         $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').removeClass('col-md-3');
                         $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').addClass('col-md-8');
                         $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input').val(field.fromname);
@@ -470,7 +628,11 @@
                     case "range":
                         
                         $aktif = $(this);
-                        showFilter(settings,idx,target1,"range");
+                        if(datepicker){
+                            showDatePicker(settings,idx,target1,type,kunci);
+                        }else{
+                            showFilter(settings,idx,target1,"range");
+                        }
                         $('#modal-search').on('hide.bs.modal', function (e) {
                             if($aktif != ""){
         
@@ -504,7 +666,11 @@
                         
                         $aktif = '';
                         
-                        showFilter(settings,idx,target1,"in");
+                        if(datepicker){
+                            showDatePicker(settings,idx,target1,type,kunci);
+                        }else{
+                            showFilter(settings,idx,target1,"in");
+                        }
                         $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').removeClass('col-md-3');
                         $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').addClass('col-md-8');
                         $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input').val('');
@@ -528,17 +694,25 @@
             });
         
             $(this).on('click', '.search-item', function(){
-                console.log(settings.parameter);
+                
                 var kunci = $(this).closest('div.sai-rpt-filter-entry-row').find('.kunci').text();
                 var idx = settings.kode.indexOf(kunci);
                 var target1 = $(this).closest('.input-group').find('input');
                 
                 var type = $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-type')[0].selectize.getValue();
-                if(type == "in"){
-                    showFilter(settings,idx,target1,type);
+                var tmp = $(this).closest('div.sai-rpt-filter-entry-row').find('div > div > input').last().attr('class');
+                var datepicker = tmp.split(" ");
+                if(datepicker.includes("datepicker")){
+                    showDatePicker(settings,idx,target1,type,kunci);
                 }else{
-                    showFilter(settings,idx,target1);
+
+                    if(type == "in"){
+                        showFilter(settings,idx,target1,type);
+                    }else{
+                        showFilter(settings,idx,target1);
+                    }
                 }
+
             });
         
         });

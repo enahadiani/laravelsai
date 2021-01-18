@@ -13,7 +13,7 @@
                                     <div id="inputFilter">
                                         <!-- COMPONENT -->
                                         <x-inp-filter kode="periode" nama="Periode" selected="3" :option="array('3')"/>
-                                        <!-- <x-inp-filter kode="tgl" nama="Tanggal" selected="3" :option="array('3','2')"/> -->
+                                        <x-inp-filter kode="tgl" nama="Tanggal" selected="3" :option="array('1','2','3','4','i')" datepicker="true" />
                                         
                                         <!-- END COMPONENT -->
                                     </div>
@@ -53,6 +53,14 @@
             toname : "",
         }
 
+        var $tgl = {
+            type : "=",
+            from : "{{ date('d/m/Y') }}",
+            fromname : "{{ date('d/m/Y') }}",
+            to : "",
+            toname : "",
+        }
+
         var $aktif = "";
 
         var param_trace = {
@@ -75,20 +83,10 @@
         // $('#show').selectize();
 
         $('#periode-from').val(namaPeriode("{{ date('Ym') }}"));
-        // $('#tgl-from').val("{{ date('d/m/Y') }}");
-        // $('#tgl-to').val("{{ date('d/m/Y') }}");
-        // $('#tgl-from').addClass("datepicker");
-        // $('#tgl-to').addClass("datepicker");
-        // $('#tgl-from').attr("readonly",false);
-        
-        $(".datepicker").datepicker({
-            autoclose: true,
-            format: 'dd/mm/yyyy',
-            templates: {
-                leftArrow: '<i class="simple-icon-arrow-left"></i>',
-                rightArrow: '<i class="simple-icon-arrow-right"></i>'
-            }
-        });
+        $('#tgl-from').val("{{ date('d/m/Y') }}");
+        $('#tgl-to').val("{{ date('d/m/Y') }}");
+        $('#tgl-from').addClass("datepicker");
+        $('#tgl-to').addClass("datepicker");
         
         $('#btn-filter').click(function(e){
             $('#collapseFilter').show();
@@ -122,22 +120,23 @@
 
         $('.selectize').selectize();
         $('#inputFilter').reportFilter({
-            kode : ['periode'],
-            nama : ['Periode'],
-            header : [['Periode', 'Nama']],
-            headerpilih : [['Periode', 'Nama','Action']],
+            kode : ['periode','tgl'],
+            nama : ['Periode','Tanggal'],
+            header : [['Periode', 'Nama'],[]],
+            headerpilih : [['Periode', 'Nama','Action'],[]],
             columns: [
                 [
                     { data: 'periode' },
                     { data: 'nama' }
-                ]
+                ],
+                []
             ],
-            url :["{{ url('yakes-report/filter-periode-keu') }}"],
+            url :["{{ url('yakes-report/filter-periode-keu') }}",""],
             parameter:[],
-            orderby:[[[0,"desc"]]],
-            width:[['30%','70%']],
-            display:['name'],
-            pageLength:[12]
+            orderby:[[[0,"desc"]],[]],
+            width:[['30%','70%'],[]],
+            display:['name','kode'],
+            pageLength:[12,0]
         });
 
         var $formData = "";

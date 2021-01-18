@@ -16,13 +16,15 @@ class inpFilter extends Component
     public $option;
     public $selected;
     public $default;
+    public $datepicker;
 
-    public function __construct($kode, $nama, $option, $selected)
+    public function __construct($kode, $nama, $option, $selected, $datepicker = NULL)
     {
         $this->kode = $kode;
         $this->nama = $nama;
         $this->option = $option;
         $this->selected = $selected;
+        $this->datepicker = $datepicker;
     }
 
     /**
