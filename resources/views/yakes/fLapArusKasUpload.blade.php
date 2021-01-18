@@ -13,9 +13,11 @@
                                     <div id="inputFilter">
                                         <!-- COMPONENT -->
                                         <x-inp-filter kode="periode" nama="Periode" selected="3" :option="array('3')"/>
+                                        <!-- <x-inp-filter kode="tgl" nama="Tanggal" selected="3" :option="array('3','2')"/> -->
                                         
                                         <!-- END COMPONENT -->
                                     </div>
+
                                     <button id="btn-tampil" style="float:right;width:110px" class="btn btn-primary ml-2 mb-3" type="submit" >Tampilkan</button>
                                     <button type="button" id="btn-tutup" class="btn btn-light mb-3" style="float:right;width:110px" type="button" >Tutup</button>
                                 </form>
@@ -73,7 +75,21 @@
         // $('#show').selectize();
 
         $('#periode-from').val(namaPeriode("{{ date('Ym') }}"));
-
+        // $('#tgl-from').val("{{ date('d/m/Y') }}");
+        // $('#tgl-to').val("{{ date('d/m/Y') }}");
+        // $('#tgl-from').addClass("datepicker");
+        // $('#tgl-to').addClass("datepicker");
+        // $('#tgl-from').attr("readonly",false);
+        
+        $(".datepicker").datepicker({
+            autoclose: true,
+            format: 'dd/mm/yyyy',
+            templates: {
+                leftArrow: '<i class="simple-icon-arrow-left"></i>',
+                rightArrow: '<i class="simple-icon-arrow-right"></i>'
+            }
+        });
+        
         $('#btn-filter').click(function(e){
             $('#collapseFilter').show();
             $('#collapsePaging').hide();

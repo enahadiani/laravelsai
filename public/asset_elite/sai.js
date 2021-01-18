@@ -37,19 +37,37 @@ function DelDecimal(x){
     return Math.round(x);
 }
 
-function sepNumX(x){
-    if (typeof x === 'undefined' || !x) { 
-        return 0;
-    }else{
-        if(x < 0){
-            var x = parseFloat(x).toFixed(0);
-        }
+// function sepNumX(x){
+//     if (typeof x === 'undefined' || !x) { 
+//         return 0;
+//     }else{
+//         if(x < 0){
+//             var x = parseFloat(x).toFixed(0);
+//         }
         
-        var parts = x.toString().split(",");
-        parts[0] = parts[0].replace(/([0-9])(?=([0-9]{3})+$)/g,"$1.");
-        return parts.join(".");
+//         var parts = x.toString().split(",");
+//         parts[0] = parts[0].replace(/([0-9])(?=([0-9]{3})+$)/g,"$1.");
+//         return parts.join(".");
+//     }
+// }
+
+function sepNum(x){
+    if(!isNaN(x)){
+        if (typeof x === undefined || !x || x == 0) { 
+            return 0;
+        }else if(!isFinite(x)){
+            return 0;
+        }else{
+            var x = parseFloat(x).toFixed(0);
+            var parts = x.toString().split('.');
+            parts[0] = parts[0].replace(/([0-9])(?=([0-9]{3})+$)/g,'$1.');
+            return parts.join(',');
+        }
+    }else{
+        return 0;
     }
 }
+
 
 function namaPeriode(periode){
     var bulan = periode.substr(4,2);

@@ -17,7 +17,24 @@
 
    drawLap($formData);
 
-   function drawRptPage(data,res,from,to){
+    function sepNumber(x){
+        if(!isNaN(x)){
+            if (typeof x === undefined || !x || x == 0) { 
+                return 0;
+            }else if(!isFinite(x)){
+                return 0;
+            }else{
+                var x = parseFloat(x).toFixed(0);
+                var parts = x.toString().split('.');
+                parts[0] = parts[0].replace(/([0-9])(?=([0-9]{3})+$)/g,'$1.');
+                return parts.join(',');
+            }
+        }else{
+            return 0;
+        }
+    }
+
+    function drawRptPage(data,res,from,to){
         var data = data;
         if(data.length > 0){
             res.bentuk = '';
@@ -89,8 +106,8 @@
                 var line = data[i];
                 if (line.tipe!="Header")
                 {
-                    n1=sepNum(parseFloat(line.n1));
-                    n2=sepNum(parseFloat(line.n2));
+                    n1=sepNumber(parseFloat(line.n1));
+                    n2=sepNumber(parseFloat(line.n2));
                 }
 			
                 if (line.tipe=="Posting" && (line.n1 != 0 || line.n2 != 0))
