@@ -27,6 +27,7 @@ Route::get('filter-sumju', 'Esaku\HelperController@getFilterSumju');
 Route::get('filter-modul', 'Esaku\HelperController@getFilterModul');
 Route::get('filter-bukti-jurnal', 'Esaku\HelperController@getFilterBuktiJurnal');
 Route::get('filter-mutasi', 'Esaku\HelperController@getFilterMutasi');
+Route::get('filter-mutasi-kontrol', 'Esaku\HelperController@getFilterBuktiKontrolMutasi');
 Route::get('filter-gudang', 'Esaku\HelperController@getFilterGudang');
 Route::get('filter-barang-klp', 'Esaku\HelperController@getFilterKlpBarang');
 Route::get('filter-tahun', 'Esaku\HelperController@getFilterTahun');

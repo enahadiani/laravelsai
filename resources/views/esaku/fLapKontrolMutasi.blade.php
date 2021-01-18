@@ -2,7 +2,7 @@
 <div class="row" id="saku-filter">
     <div class="col-12">
         <div class="card" >
-            <x-report-header judul="Laporan Mutasi Kirim"/>
+            <x-report-header judul="Laporan Mutasi Terima"/>
             <div class="separator"></div>
                 <div class="row">
                     <div class="col-12 col-sm-12">
@@ -29,7 +29,7 @@
         </div>
     </div>
 </div>
-<x-report-result judul="Laporan Mutasi Kirim" padding="px-4 py-4"/>
+<x-report-result judul="Laporan Mutasi Terima" padding="px-4 py-4"/>
 
 @include('modal_search')
 @include('modal_email')
@@ -134,7 +134,7 @@
                 { data: 'keterangan' }
             ]
         ],
-        url :["{{ url('esaku-report/filter-periode') }}","{{ url('esaku-report/filter-gudang') }}","{{ url('esaku-report/filter-gudang') }}", "{{ url('esaku-trans/filter-bukti-mutasi-kirim') }}"],
+        url :["{{ url('esaku-report/filter-periode') }}","{{ url('esaku-report/filter-gudang') }}","{{ url('esaku-report/filter-gudang') }}", "{{ url('esaku-trans/filter-bukti-mutasi-terima') }}"],
         parameter:[{},{},{},{}],
         orderby:[[[0,"desc"]],[[0,"desc"]],[[0,"asc"]],[[0,"asc"]]],
         width:[['30%','70%'],['30%','70%'],['30%','70%'],['30%','70%']],
@@ -162,7 +162,7 @@
                         { data: 'keterangan' }
                     ]
                 ],
-                url :["{{ url('esaku-report/filter-periode') }}","{{ url('esaku-report/filter-gudang') }}","{{ url('esaku-report/filter-gudang') }}", "{{ url('esaku-trans/filter-bukti-mutasi-kirim') }}"],
+                url :["{{ url('esaku-report/filter-periode') }}","{{ url('esaku-report/filter-gudang') }}","{{ url('esaku-report/filter-gudang') }}", "{{ url('esaku-trans/filter-bukti-mutasi-terima') }}"],
                 parameter:[{},{},{},{}],
                 orderby:[[[0,"desc"]],[[0,"desc"]],[[0,"asc"]],[[0,"asc"]]],
                 width:[['30%','70%'],['30%','70%'],['30%','70%'],['30%','70%']],
@@ -192,7 +192,7 @@
             console.log(pair[0]+ ', '+ pair[1]); 
         }
         $('#saku-report').removeClass('hidden');
-        xurl = "{{ url('esaku-auth/form/rptMutasiKirim') }}";
+        xurl = "{{ url('esaku-auth/form/rptMutasiKontrol') }}";
         $('#saku-report #canvasPreview').load(xurl);
     });
 
@@ -214,7 +214,7 @@
             console.log(pair[0]+ ', '+ pair[1]); 
         }
         $('#saku-report').removeClass('hidden');
-        xurl = "{{ url('esaku-auth/form/rptMutasiKirim') }}";
+        xurl = "{{ url('esaku-auth/form/rptMutasiKontrol') }}";
         $('#saku-report #canvasPreview').load(xurl);
     });
 
@@ -234,8 +234,8 @@
         e.preventDefault();
         $("#saku-report #canvasPreview").table2excel({
             // exclude: ".excludeThisClass",
-            name: "Lap_MK_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}",
-            filename: "Lap_MK_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}.xls", // do include extension
+            name: "Lap_KM_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}",
+            filename: "Lap_KM_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}.xls", // do include extension
             preserveColors: false // set to true if you want background colors and font colors preserved
         });
     });
