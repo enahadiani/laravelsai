@@ -157,6 +157,11 @@
         return cek.length;
     }
 
+    function displayNamaBarang(kode_barang) {
+        var display = $dtBrg.filter(index => kode_barang.includes(index.kode));
+        return display[0].displayNama;
+    }
+
     function getNama(kode_barang) {
         var nama = $dtBrg.filter(index => kode_barang.includes(index.kode));
         return nama[0].nama;
@@ -167,16 +172,33 @@
         return parseFloat(harga[0].harga);
     }
 
-    function tambahBarang(kode_barang) {
+    function cekDiskondanBonus(kode_barang, callback) {
+        var tanggal = "{{ date('Y-m-d')}}";
+        var disc = 0;
+        var qty = 1;
+        var harga = getHarga(kode_barang);
+        $.ajax({
+            type:'GET',
+            url:"{{url('esaku-trans/penjualan-bonus')}}/"+kode_barang+"/"+tanggal+"/"+qty+"/"+harga,
+            dataType: 'json',
+            success: function(result) {
+                if(result.status) {
+                    disc = result.data.diskon;
+                    qty = result.data.jumlah
+                }
+                callback(kode_barang, disc, qty, harga);        
+            }
+        });
+    }
+
+    function tambahBarang(kode_barang, disc, qty, harga) {
         var cek = cekBarang(kode_barang);
         if(cek == 0) {
             alert('Barcode barang tidak ditemukan')
             return;
         }
         var input = "";
-        var qty = 1;
-        var disc = 0;
-        var harga = getHarga(kode_barang);
+        // var harga = getHarga(kode_barang);
         var nama = getNama(kode_barang);
         var displayTable = kode_barang+"-"+nama;
         var subtotal = (qty * harga) - disc;
@@ -289,13 +311,13 @@
              {
                 console.log('By Scanner');
                 var kode_barang = $(this).val();
-                tambahBarang(kode_barang);
+                cekDiskondanBonus(kode_barang, tambahBarang);
                 $(this).val('');
                 $(this).focus();
              }else {
                 console.log('By Manual Typing');
                 var kode_barang = $(this).val();
-                tambahBarang(kode_barang);
+                cekDiskondanBonus(kode_barang, tambahBarang);
                 $(this).val('');
                 $(this).focus();
              } 
@@ -374,7 +396,8 @@
                         $dtBrg.push({
                             harga: barang.hna,
                             nama: barang.nama,
-                            kode: barang.kode_barang
+                            kode: barang.kode_barang,
+                            displayNama: barang.kode_barang+"-"+barang.nama
                         });
                     }
 
