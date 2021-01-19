@@ -198,7 +198,6 @@
             return;
         }
         var input = "";
-        // var harga = getHarga(kode_barang);
         var nama = getNama(kode_barang);
         var displayTable = kode_barang+"-"+nama;
         var subtotal = (qty * harga) - disc;
