@@ -751,8 +751,22 @@
     // FUNCTION TAMBAHAN
     function format_number(x){
         var num = parseFloat(x).toFixed(0);
-        num = sepNum(num);
+        num = sepNumX(num);
         return num;
+    }
+
+    function sepNumX(x){
+        if (typeof x === 'undefined' || !x) { 
+            return 0;
+        }else{
+            if(x < 0){
+                var x = parseFloat(x).toFixed(0);
+            }
+            
+            var parts = x.toString().split(",");
+            parts[0] = parts[0].replace(/([0-9])(?=([0-9]{3})+$)/g,"$1.");
+            return parts.join(".");
+        }
     }
 
     function reverseDate2(date_str, separator, newseparator){
