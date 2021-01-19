@@ -50,6 +50,12 @@
 .right {
     text-align: right;
 }
+.hidden {
+    display: none;
+}
+.inp-qty {
+    width: 90%;
+}
 </style>
 <div class="container-fluid mt-3">
     <div class="row">
@@ -64,10 +70,10 @@
                                     <table class="table table-bordered table-condensed table-grid" id="input-grid">
                                         <thead>
                                             <tr>
-                                                <th style="width: 30%; text-align: center;">Barang</th>
-                                                <th style="width: 5%; text-align: center;">Qty</th>
-                                                <th style="width: 15%; text-align: center;">Harga</th>
-                                                <th style="width: 15%; text-align: center;">Diskon</th>
+                                                <th style="width: 40%; text-align: center;">Barang</th>
+                                                <th style="width: 15%; text-align: center;">Qty</th>
+                                                <th style="width: 10%; text-align: center;">Harga</th>
+                                                <th style="width: 10%; text-align: center;">Diskon</th>
                                                 <th style="width: 15%; text-align: center;">Harga Akhir</th>
                                                 <th style="width: 10%; text-align: center;">Aksi</th>
                                             </tr>
@@ -97,31 +103,18 @@
                                 </div>
                                 <div class="row mt-3">
                                     <div class="col-6">
-                                        <button class="btn btn-outline-light btn-helper" id="bayar">
-                                            <div class="btn-helper-icon">
-                                                <img style="width:25px;height:25px;position:absolute" src="{{url('asset_elite/img/debit-card.png')}}">
-                                            </div>
-                                            <div class="btn-helper-text">
-                                                <p class="label-text">Bayar</p>
-                                                <span class="label-text-shortcut">(Shift)</span>
-                                            </div>
-                                        </button>
-                                    </div>
-                                    <div class="col-6">
-                                        <button class="btn btn-outline-light btn-helper" id="input-pembayaran">
+                                        <button type="button" class="btn btn-outline-light btn-helper" id="input-pembayaran">
                                             <div class="btn-helper-icon">
                                                 <img style="width:25px;height:25px;position:absolute" src="{{url('asset_elite/img/debit-card.png')}}">
                                             </div>
                                             <div class="btn-helper-text">
                                                 <p class="label-text">Pembayaran</p>
-                                                <span style="display: inline;">(F8)</span>
+                                                <span class="label-text-shortcut">(F8)</span>
                                             </div>
                                         </button>
                                     </div>
-                                </div>
-                                <div class="row mt-3">
                                     <div class="col-6">
-                                        <button class="btn btn-outline-light btn-helper" id="edit-qty">
+                                        <button type="button" class="btn btn-outline-light btn-helper" id="edit-qty">
                                             <div class="btn-helper-icon">
                                                 <img style="width:25px;height:25px;position:absolute" src="{{ url('asset_elite/img/edit.png') }}">
                                             </div>
@@ -159,8 +152,9 @@
     $('#barcode').focus();
     $('#area_print').hide();
 
-    function getBarangDetail(kode_barang) {
-        return $dtBrg.filter(index => kode_barang.includes(index.kode));
+    function cekBarang(kode_barang) {
+        var cek = $dtBrg.filter(index => kode_barang.includes(index.kode));
+        return cek.length;
     }
 
     function getNama(kode_barang) {
@@ -174,7 +168,11 @@
     }
 
     function tambahBarang(kode_barang) {
-        console.log(getBarangDetail(kode_barang))
+        var cek = cekBarang(kode_barang);
+        if(cek == 0) {
+            alert('Barcode barang tidak ditemukan')
+            return;
+        }
         var input = "";
         var qty = 1;
         var disc = 0;
@@ -183,15 +181,11 @@
         var displayTable = kode_barang+"-"+nama;
         var subtotal = (qty * harga) - disc;
 
-        if(harga <= 0 || nama == '') {
-            alert('Masukkan barcode barang dengan valid');
-        }
-
         $('.row-grid').each(function(){
             var kodeBrgInTtable = $(this).closest('tr').find('.inp-kode').val();
-            var hargaBrgInTtable = $(this).closest('tr').find('.td-harga').text();
-            var qtyBrgInTtable = $(this).closest('tr').find('.td-qty').text();
-            var diskBrgInTtable = $(this).closest('tr').find('.td-diskon').text();
+            var hargaBrgInTtable = $(this).closest('tr').find('.span-harga').text();
+            var qtyBrgInTtable = $(this).closest('tr').find('.inp-qty').val();
+            var diskBrgInTtable = $(this).closest('tr').find('.span-diskon').text();
 
             if(kode_barang == kodeBrgInTtable) {
                 qty = qty + toNilai(qtyBrgInTtable);
@@ -202,15 +196,23 @@
         });
 
         input += "<tr class='row-grid'>";
-        input += "<td>"+displayTable+"<input type='hidden' name='kode_barang[]' value='"+kode_barang+"' class='inp-kode' readonly></td>";
-        input += "<td class='td-qty right'>"+sepNum(qty)+"<input type='hidden' name='qty_barang[]' value='"+sepNum(qty)+"' class='inp-qty' readonly></td>";
-        input += "<td class='td-harga right'>"+sepNum(harga)+"<input type='hidden' name='harga_barang[]' value='"+sepNum(harga)+"' class='inp-harga' readonly></td>";
-        input += "<td class='td-diskon right'>"+sepNum(disc)+"<input type='hidden' name='disc_barang[]' value='"+sepNum(disc)+"' class='inp-disc' readonly></td>";
-        input += "<td class='td-sub right'>"+sepNum(subtotal)+"<input type='hidden' name='sub_barang[]' value='"+sepNum(subtotal)+"' class='inp-sub' readonly></td>";
+        input += "<td class='td-kode'><span class='span-kode'>"+displayTable+"</span><input type='hidden' name='kode_barang[]' value='"+kode_barang+"' class='inp-kode' readonly></td>";
+        input += "<td class='td-qty'><input type='text' name='qty_barang[]' value='"+qty+"' class='inp-qty' readonly></td>";
+        input += "<td class='td-harga right'><span class='span-harga'>"+sepNum(harga)+"</span><input type='text' name='harga_barang[]' value='"+parseFloat(harga)+"' class='inp-harga hidden' readonly></td>";
+        input += "<td class='td-diskon right'><span class='span-disc'>"+sepNum(disc)+"</span><input type='text' name='disc_barang[]' value='"+parseFloat(disc)+"' class='inp-disc hidden' readonly></td>";
+        input += "<td class='td-sub right'><span class='span-sub'>"+sepNum(subtotal)+"</span><input type='text' name='sub_barang[]' value='"+parseFloat(subtotal)+"' class='inp-sub hidden' readonly></td>";
         input += "<td class='text-center'><a href='#' class='btn btn-sm ubah-barang' style='font-size:18px !important;padding:0'><i class='simple-icon-pencil'></i></a>&nbsp;<a href='#' class='btn btn-sm hapus-item' style='font-size:18px !important;margin-left:10px;padding:0'><i class='simple-icon-trash'></i></td>";
         input += "</tr>";
 
-        $('#input-grid tbody').append(input);
+        $('#input-grid tbody').prepend(input);
+
+        $('.inp-qty').inputmask("numeric", {
+            radixPoint: ",",
+            groupSeparator: ".",
+            digits: 2,
+            autoGroup: true,
+            rightAlign: true
+        });
         hitungTotal();
         $("#input-grid tr:last").focus();
         $('.table-grid').formNavigation();
@@ -219,13 +221,14 @@
     function hitungTotal() {
         var diskon = 0;
         var total = 0;
-        $('.row-grid').each(function(){
-            var diskon = $(this).closest('tr').find('.inp-disc').val();
-            var subtotal = $(this).closest('tr').find('.inp-sub').val();
-            diskon = diskon + toNilai(diskon);
-            total = total + toNilai(subtotal);
-        })
-
+        var total = 0;
+        $('#input-grid .row-grid').each(function(){
+            var diskonInRow = parseInt($(this).find('.inp-disc').val());
+            var subtotal = parseInt($(this).find('.inp-sub').val());
+            diskon = diskon + diskonInRow;
+            total += subtotal;
+        });
+        $totDisk = diskon;
         $('#totrans').val(total);
         $('#total-trans').text("Rp. "+sepNum(total));
     }
@@ -243,6 +246,11 @@
                 }
             }
         });
+    }
+
+    function hapusBarang(rowindex){
+        $("#input-grid tbody tr:eq("+rowindex+")").remove();
+        hitungTotal();
     }
 
     function DelayExecution(f, delay) {
@@ -301,15 +309,10 @@
         event.preventDefault();
         var ctrl = event.ctrlKey;
         var f1 = 112;
-        var shift = 16;
         var f7 = 118;
         var f8 = 119;
         if(ctrl && event.which == f1) {
             $('#barcode').focus();
-        }
-
-        if(ctrl && event.which == shift) {
-            $('#bayar').click();
         }
 
         if(ctrl && event.which == f7) {
@@ -327,6 +330,35 @@
         digits: 2,
         autoGroup: true,
         rightAlign: true
+    });
+
+    $('#edit-qty').click(function(){
+        var barang = $('#input-grid tbody tr').length;
+        if(barang < 1) {
+            alert('Data barang belum dimasukkan');
+        }
+        $('.inp-qty').first().prop('readonly', false);
+        $('.inp-qty').first().focus();
+    });
+
+    $('#input-grid tbody').on('change', '.inp-qty', function(){
+        var harga = $(this).closest('tr').find('.inp-harga').val();
+        var qty = $(this).val();
+        if(qty.length <= 2) {
+            qty = parseFloat(qty);
+        } else {
+            qty = toNilai(qty);
+        }
+        var subtotal = parseFloat(harga) * qty;
+        $(this).closest('tr').find('.inp-sub').val(subtotal);
+        $(this).closest('tr').find('.inp-sub').prop('readonly', true);
+        $(this).closest('tr').find('.span-sub').text(sepNum(subtotal));
+        hitungTotal();
+    });
+
+    $("#input-grid tbody").on("click", '.hapus-item', function(){
+        var index = $(this).closest('tr').index();
+        hapusBarang(index);
     });
 
     function getBarang() {
