@@ -751,7 +751,7 @@
     // FUNCTION TAMBAHAN
     function format_number(x){
         var num = parseFloat(x).toFixed(0);
-        num = sepNumX(num);
+        num = sepNum(num);
         return num;
     }
 
