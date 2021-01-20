@@ -132,6 +132,49 @@
             </div>
         </div>
     </div>
+    <div id="area_print"></div>
+</div>
+
+{{-- Modal Edit --}}
+<div class="modal" id="modal-edit" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form id="form-edit-barang">
+                <div class="modal-header">
+                    <h6 class="modal-title">Edit Barang</h6>
+                    <button type='button' class='close' data-dismiss='modal' aria-label='Close'></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mt-40">
+                        <div class="form-group">
+                            <label for="judul">Barang</label>
+                            <input type="text" class="form-control" id="modal-kode_barang" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="judul">Harga Barang</label>
+                            <input type="text" class="form-control currency" id="modal-harga" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="judul">Qty Barang</label>
+                            <input type="text" class="form-control currency" id="modal-qty">
+                        </div>
+                        <div class="form-group">
+                            <label for="judul">Diskon Barang</label>
+                            <input type="text" class="form-control currency" id="modal-diskon">
+                        </div>
+                        <div class="form-group">
+                            <label for="judul">Subtotal</label>
+                            <input type="text" class="form-control currency" id="modal-subtotal" readonly>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="btn-edit">Simpan</button>
+                    <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
 <script src="{{url('asset_elite/inputmask.js')}}"></script>
@@ -144,6 +187,7 @@
     var $totDisk = 0;
     var $totByr = 0;
     var $dtBrg = [];
+    var $index = 0;
     setHeightFormPOS();
     getNoOpen();
     getBarang();
@@ -274,6 +318,23 @@
         hitungTotal();
     }
 
+    function editBarang(rowIndex) {
+        $index = rowIndex;
+        var row = $("#input-grid tbody");
+        var kode_barang = row.find("tr:eq("+rowIndex+")").find('.td-kode').text();
+        var qty = row.find("tr:eq("+rowIndex+")").find('.td-qty').find('.inp-qty').val();
+        var harga = row.find("tr:eq("+rowIndex+")").find('.td-harga').text();
+        var diskon = row.find("tr:eq("+rowIndex+")").find('.td-diskon').text();
+        var subtotal = row.find("tr:eq("+rowIndex+")").find('.td-sub').text();
+        
+        $('#modal-kode_barang').val(kode_barang);
+        $('#modal-qty').val(toNilai(qty));
+        $('#modal-harga').val(toNilai(harga));
+        $('#modal-diskon').val(toNilai(diskon));
+        $('#modal-subtotal').val(toNilai(subtotal));
+        $('#modal-edit').modal('show');
+    }
+
     function DelayExecution(f, delay) {
         var timer = null;
         return function () {
@@ -353,6 +414,44 @@
         rightAlign: true
     });
 
+    $('#modal-qty, #modal-diskon').change(function(){
+        var qty = $('#modal-qty').val();
+        var diskon = $('#modal-diskon').val();
+        var harga = $('#modal-harga').val();
+
+        var subtotal = (toNilai(qty) * toNilai(harga)) - toNilai(diskon);
+        $('#modal-subtotal').val(subtotal);
+    });
+
+    $('#btn-edit').click(function() {
+        var row = $("#input-grid tbody");
+        var kode_barang = $('#modal-kode_barang').val();
+        var kodeBrg = kode_barang.split('-');
+        var qty = $('#modal-qty').val();
+        if(qty.length <= 2) {
+            qty = parseFloat(qty);
+        } else {
+            qty = toNilai(qty);
+        }
+        var harga = toNilai($('#modal-harga').val());
+        var diskon = toNilai($('#modal-diskon').val());
+        var subtotal = toNilai($('#modal-subtotal').val());
+
+        row.find("tr:eq("+$index+")").find('.td-kode').find('span-kode').text(kode_barang);
+        row.find("tr:eq("+$index+")").find('.td-kode').find('inp-kode').val(kodeBrg[0]);
+        row.find("tr:eq("+$index+")").find('.td-qty').find('.inp-qty').val(qty);
+        row.find("tr:eq("+$index+")").find('.td-harga').find('.span-qty').text(sepNum(harga));
+        row.find("tr:eq("+$index+")").find('.td-harga').find('.inp-harga').val(harga);
+        row.find("tr:eq("+$index+")").find('.td-diskon').find('.span-disc').text(sepNum(diskon));
+        row.find("tr:eq("+$index+")").find('.td-diskon').find('.inp-disc').val(diskon);
+        row.find("tr:eq("+$index+")").find('.td-sub').find('.span-sub').text(sepNum(subtotal)); 
+        row.find("tr:eq("+$index+")").find('.td-sub').find('.inp-sub').val(subtotal); 
+
+        hitungTotal();
+        $('#modal-edit').modal('hide');
+        $('#barcode').focus();
+    });
+
     $('#edit-qty').click(function(){
         var barang = $('#input-grid tbody tr').length;
         if(barang < 1) {
@@ -380,6 +479,11 @@
     $("#input-grid tbody").on("click", '.hapus-item', function(){
         var index = $(this).closest('tr').index();
         hapusBarang(index);
+    });
+
+    $("#input-grid tbody").on("click", '.ubah-barang', function(){
+        var index = $(this).closest('tr').index();
+        editBarang(index);
     });
 
     function getBarang() {
