@@ -1005,6 +1005,21 @@
         // }
     }
 
+    function setHeaderDash(){
+        var width_menu = $('.body-dash').width();
+        var header_top = 85;
+        // if($('.menu-mobile').length > 0 || $('.main-hidden').length > 0){
+        //     width_menu = 0;
+        // }
+        $('.header-dash').css('width',width_menu+'px');
+        var height_header =  $('.header-dash').height();
+        if(height_header == 0){
+            height_header = 120;
+        }
+        var tinggi = (height_header+header_top+20)+'px';
+        $('.body-dash').css('margin-top',tinggi);
+    }
+
     var lifetime = "{{ config('session.lifetime') }}";
     setTimeout(function(){
         window.location.href = "{{url('yakes-auth/sesi-habis')}}";
@@ -1020,6 +1035,9 @@
             setHeightReport();
         }
         setHeightForm();
+        if($('.header-dash').length > 0){
+            setHeaderDash();
+        }
     });
     
     $('#notificationButton').click(function(){

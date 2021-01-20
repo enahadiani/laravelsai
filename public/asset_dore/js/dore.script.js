@@ -601,6 +601,9 @@ $.dore = function (element, options) {
       event.preventDefault();
       // event.stopPropagation();
       setMenuClassNames(++menuClickCount);
+      if($('.header-dash').length > 0){
+        setHeaderDash();
+      }
     });
 
     $(".menu-button-mobile").on("click", function (event) {

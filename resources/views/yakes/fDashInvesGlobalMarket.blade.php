@@ -30,14 +30,26 @@ $thnLalu = substr($tahunLalu,2,2)
     .datepicker-inline,.ui-datepicker-calendar {
         width: 100%;
     }
+    .header-dash{
+        background-color: white;
+        position: fixed;
+        top: 9%;
+        margin: 0;
+        margin-bottom: 0px;
+        padding: 25px 0;
+        padding-right: 25px;
+        padding-bottom: 0;
+        margin-bottom: 40px;
+        width: 100%;
+        z-index: 1;
+    }
 </style>
 <div class="container-fluid mt-3">
     <div class="row header-dash">
-        
         <div class="col-md-6">
             <h6 class='font-weight-light' style='color: #000000; font-size:22px !important;'>Global and Market Issues <span id='jplan' style="font-size:22px !important;"></span></h6>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6 text-right">
             <button type='button' class='float-right ml-1' id='btn-refresh' style='border: 1px solid #d5d5d5;border-radius: 20px;padding: 5px 20px;background: white;'><i class='fa fa-refresh' style='padding-top: 4px;padding-bottom: 4px;'></i>
             </button>
             <div class="dropdown d-inline-block float-right ml-1" >
@@ -65,7 +77,7 @@ $thnLalu = substr($tahunLalu,2,2)
             <span id='kode_klp_view' style='font-size: 1.2rem;color: black;'></span><span id='kode_klp' hidden></span>
         </div>
     </div>
-    <div class="row body-dash mt-4">
+    <div class="row body-dash" style="position: relative;">
         <div class="col-md-12">
             <h6 style='background:#000000;color:white;width:150px'>GLOBAL ISSUES</h6>
             <table class='table table-striped table-condensed' id='table-global'>
@@ -143,6 +155,8 @@ $('html').addClass('dash-contents');
 //     $('#btn-filter').removeClass('btn-outline-dark');
 //     $('#btn-filter').addClass('btn-outline-light');
 // }
+
+setHeaderDash();
 function sepNum(x){
     if(!isNaN(x)){
         if (typeof x === undefined || !x || x == 0) { 
