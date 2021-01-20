@@ -59,3 +59,7 @@ Route::get('bond-index', 'Yakes\DashInvesController@getBondIndex');
 Route::get('persen-aset', 'Yakes\DashInvesController@getPersenAset');
 Route::get('table-alokasi', 'Yakes\DashInvesController@getTableAlokasi');
 Route::get('roi-kkp', 'Yakes\DashInvesController@getRoiKkp');
+
+Route::get('portofolio', 'Yakes\DashInvesController@getPortofolio');
+Route::get('persen', 'Yakes\DashInvesController@getBatasAlokasi');
+Route::get('aset-chart', 'Yakes\DashInvesController@getAset');
