@@ -65,9 +65,34 @@
     .select-dash {
         border-radius: 10px;
     }
+    .keterangan {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .pemberitahuan-judul {
+        color: #ffffff;
+        font-weight: bold;
+    }
+    .card-pemberitahuan {
+        background-color: #0058E4; 
+        box-shadow: none;
+        height: 250px;
+    }
+    .pemberitahuan-content {
+        color: #ffffff;
+    }
+    .list-pemberitahuan {
+        margin-left: -12px;
+    }
+    .list-pemberitahuan > li {
+        list-style-type: '-';
+        color: #ffffff;
+        padding: 0 4px;
+    }
 </style>
 
-<div class="row">
+<div class="row" id="baris-1">
     <div class="col-4">
         <div class="row">
             <div class="col-6 p-1">
@@ -82,13 +107,13 @@
                     <h3 id="pendapatan-today" class="ml-4 text-card">67%</h3>
                 </div>
             </div>
-            <div class="col-6 p-1">
+            <div class="col-6 p-1 mt-4">
                 <div class="card card-dash">
                     <p class="ml-4 mt-3 mb-0 judul-card">Operating Ratio YTD</p>
                     <h3 id="pendapatan-today" class="ml-4 text-card">23%</h3>
                 </div>
             </div>
-            <div class="col-6 p-1">
+            <div class="col-6 p-1 mt-4">
                 <div class="card card-dash">
                     <p class="ml-4 mt-3 mb-0 judul-card">Net Profit Margin YTD</p>
                     <h3 id="pendapatan-today" class="ml-4 text-card">53%</h3>
@@ -121,7 +146,68 @@
             </div>
             <div class="content-card">
                 <div id="arus-kas"></div>
-            </div>            
+                <div class="row">
+                    <div class="col-12 mb-2">
+                        <div class="keterangan">
+                            <div style="padding: 0 50px">
+                                <div style="height: 10px; width: 10px; border-radius: 50%; background-color:#0058E4;display:inline-block;"></div>
+                                <span style="padding-left: 6px;font-weight: bold;position: relative;top:-1px;font-size:10px !important;">Total Pendapatan</span>
+                            </div>
+                            <div style="padding: 0 50px">
+                                <div style="height: 10px; width: 10px; border-radius: 50%; background-color:#9FC4FF;display:inline-block;"></div>
+                                <span style="padding-left: 6px;font-weight: bold;position: relative;top:-1px;font-size:10px !important;">Total Beban</span>
+                            </div>
+                            <div style="padding: 0 50px">
+                                <div style="height: 10px; width: 10px; border-radius: 50%; background-color:#FFB703;display:inline-block;"></div>
+                                <span style="padding-left: 6px;font-weight: bold;position: relative;top:-1px;font-size:10px !important;">LabaRugi</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>            
+    </div>
+</div>
+
+<div class="row" id="baris-2">
+    <div class="col-4 p-1">
+        <div class="card card-dash card-pemberitahuan">
+            <p class="ml-4 mt-1 mb-0 judul-card pemberitahuan-judul">Pengingat</p>
+            <ul class="list-pemberitahuan">
+                <li>
+                    <p class="pemberitahuan-content">Hari ini menerima pembayaran Piutang Rp. 30.000.000</p>
+                </li>
+                <li>
+                    <p class="pemberitahuan-content">3 hari lagi membayar gaji karyawan Rp. 90.000.000</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-8 p-1">
+        <div class="card card-dash"> 
+            <div class="header-card">
+                <h6 class="ml-4 mt-2 mb-0">Saldo Laba Rugi</h6>
+            </div>
+            <div class="content-card">
+                <div id="laba-rugi"></div>
+                <div class="row">
+                    <div class="col-12 mb-2">
+                        <div class="keterangan">
+                        <div style="padding: 0 50px">
+                            <div style="height: 10px; width: 10px; border-radius: 50%; background-color:#0058E4;display:inline-block;"></div>
+                            <span style="padding-left: 6px;font-weight: bold;position: relative;top:-1px;font-size:10px !important;">Uang Masuk</span>
+                        </div>
+                        <div style="padding: 0 50px">
+                            <div style="height: 10px; width: 10px; border-radius: 50%; background-color:#9FC4FF;display:inline-block;"></div>
+                            <span style="padding-left: 6px;font-weight: bold;position: relative;top:-1px;font-size:10px !important;">Uang Keluar</span>
+                        </div>
+                        <div style="padding: 0 50px">
+                            <div style="height: 10px; width: 10px; border-radius: 50%; background-color:#FFB703;display:inline-block;"></div>
+                            <span style="padding-left: 6px;font-weight: bold;position: relative;top:-1px;font-size:10px !important;">Saldo KasBank</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -146,7 +232,7 @@ $('#arus-kas-select-content').on( 'click', 'li', function() {
 
 Highcharts.chart('arus-kas', {
     chart: {
-        height: 168
+        height: 166
         // marginLeft: marginLeft,
         // marginRight: marginRight
     },
@@ -159,53 +245,114 @@ Highcharts.chart('arus-kas', {
     subtitle: { text: '' },
     xAxis: {
         categories: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agt', 'Sep', 'Okt', 'Nov', 'Des'],
-        labels: {
-            enabled: false
-            }
+        labels: { enabled: false }
+    },
+    yAxis: [
+        {
+            linewidth: 1,
+            title:{ text: '' }
         },
-        yAxis: [
-            {
-                linewidth: 1,
-                title:{ text: '' }
-            },
-            {
-                linewidth: 1,
-                opposite: true,
-                title:{ text: '' }
-                },
-            ],
-            tooltip: {
+        {
+            linewidth: 1,
+            opposite: true,
+            title:{ text: '' }
+        },
+    ],
+    tooltip: {
+        enabled: false
+    },
+    plotOptions: {
+        series:{
+            pointPadding: 0,
+            shadow: false,
+            dataLabels: {
                 enabled: false
-            },
-            plotOptions: {
-                series:{
-                    pointPadding: 0,
-                    shadow: false,
-                    dataLabels: {
-                        enabled: true
-                    }
-                }
-            },
-            series: [
-                {
-                    type: 'column',
-                    name: 'Uang Masuk',
-                    data: [1000, 3000, 2500, 4000, 5000, 8000, 10000, 9000, 2000, 5500, 2500, 8000],
-                    color: '#0058E4'
-                },
-                {
-                    type: 'column',
-                    name: 'Uang Masuk',
-                    data: [2500, 4000, 3500, 6000, 7000, 4000, 7000, 5000, 6000, 7500, 4500, 7000],
-                    color: '#9FC4FF'
-                },
-                {
-                    type: 'spline',
-                    name: 'Saldo  KasBank',
-                    data: [50, 20, 30, 50, 20, 80, 40, 50, 80, 45, 65, 85],
-                    color: '#FFB703',
-                    yAxis: 1
-                },
-            ]
-        });
+            }
+        }
+    },
+    series: [
+        {
+            type: 'column',
+            name: 'Uang Masuk',
+            data: [1000, 3000, 2500, 4000, 5000, 8000, 10000, 9000, 2000, 5500, 2500, 8000],
+            color: '#0058E4'
+        },
+        {
+            type: 'column',
+            name: 'Uang Masuk',
+            data: [2500, 4000, 3500, 6000, 7000, 4000, 7000, 5000, 6000, 7500, 4500, 7000],
+            color: '#9FC4FF'
+        },
+        {
+            type: 'spline',
+            name: 'Saldo  KasBank',
+            data: [50, 20, 30, 50, 20, 80, 40, 50, 80, 45, 65, 85],
+            color: '#FFB703',
+            yAxis: 1
+        },
+    ]
+});
+
+Highcharts.chart('laba-rugi', {
+    chart: {
+        height: 170
+        // marginLeft: marginLeft,
+        // marginRight: marginRight
+    },
+    exporting:{
+        enabled: false
+    },
+    legend:{ enabled:false },
+    credits: { enabled: false },
+    title: { text: '' },
+    subtitle: { text: '' },
+    xAxis: {
+        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agt', 'Sep', 'Okt', 'Nov', 'Des'],
+        labels: { enabled: false }
+    },
+    yAxis: [
+        {
+            linewidth: 1,
+            title:{ text: '' }
+        },
+        {
+            linewidth: 1,
+            opposite: true,
+            title:{ text: '' }
+        },
+    ],
+    tooltip: {
+        enabled: false
+    },
+    plotOptions: {
+        series:{
+            pointPadding: 0,
+            shadow: false,
+            dataLabels: {
+                enabled: false
+            }
+        }
+    },
+    series: [
+        {
+            type: 'column',
+            name: 'Uang Masuk',
+            data: [1000, 3000, 2500, 4000, 5000, 8000, 10000, 9000, 2000, 5500, 2500, 8000],
+            color: '#0058E4'
+        },
+        {
+            type: 'column',
+            name: 'Uang Masuk',
+            data: [2500, 4000, 3500, 6000, 7000, 4000, 7000, 5000, 6000, 7500, 4500, 7000],
+            color: '#9FC4FF'
+        },
+        {
+            type: 'spline',
+            name: 'Saldo  KasBank',
+            data: [50, 20, 30, 50, 20, 80, 40, 50, 80, 45, 65, 85],
+            color: '#FFB703',
+            yAxis: 1
+        },
+    ]
+});
 </script>
