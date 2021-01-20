@@ -120,6 +120,40 @@
         #app-container.sub-show-temporary .sub-menu, #app-container.menu-mobile.sub-show-temporary .sub-menu, #app-container.menu-main-hidden.menu-mobile.main-show-temporary .sub-menu {
         transform: translateX(0); }
 
+        .modal-content
+        {
+            border-radius: 0.75rem !important;
+        }
+
+        .modal-header
+        {
+            padding-top: 0px !important;
+            padding-bottom: 0px !important;
+            height:49px !important;
+        }
+
+        .modal-header > h6
+        {
+            margin-top: 0.5rem;
+            margin-bottom: 0.5rem;
+            height: unset !important;
+        }
+        
+        .close
+        {
+            line-height:1.5;padding: 0 !important;background: none;appearance: unset;opacity: unset;position: relative;
+            right:-40px !important;top:5px !important;margin-right:0 !important;
+        }
+        .close > span 
+        {
+            border-radius: 50%;padding: 0 0.45rem 0.1rem 0.45rem;background: white;color: black;font-size: 1.2rem !important;font-weight: lighter;box-shadow:0px 1px 5px 1px #80808054
+        }
+
+        .close > span:hover
+        {
+            color:white;
+            background:red;
+        }
 
     </style>
     <script>
@@ -971,6 +1005,21 @@
         // }
     }
 
+    function setHeaderDash(){
+        var width_menu = $('.body-dash').width();
+        var header_top = 85;
+        // if($('.menu-mobile').length > 0 || $('.main-hidden').length > 0){
+        //     width_menu = 0;
+        // }
+        $('.header-dash').css('width',width_menu+'px');
+        var height_header =  $('.header-dash').height();
+        if(height_header == 0){
+            height_header = 120;
+        }
+        var tinggi = (height_header+header_top+20)+'px';
+        $('.body-dash').css('margin-top',tinggi);
+    }
+
     var lifetime = "{{ config('session.lifetime') }}";
     setTimeout(function(){
         window.location.href = "{{url('yakes-auth/sesi-habis')}}";
@@ -986,6 +1035,9 @@
             setHeightReport();
         }
         setHeightForm();
+        if($('.header-dash').length > 0){
+            setHeaderDash();
+        }
     });
     
     $('#notificationButton').click(function(){

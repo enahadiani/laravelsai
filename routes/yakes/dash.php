@@ -41,3 +41,13 @@ Route::get('data-claimant/{periode}/{jenis}/{regional}', 'Yakes\DashboardControl
 Route::get('data-kunj-total/{periode}/{jenis}/{regional}', 'Yakes\DashboardController@getdataKunjTotal');
 Route::get('data-layanan-kunj/{periode}/{jenis}/{regional}', 'Yakes\DashboardController@getdataKunjLayanan');
 Route::get('data-kpku/{tahun}/{jenis}', 'Yakes\DashboardController@getdataKPKU');
+
+Route::get('param-default', 'Yakes\DashInvesController@getParamDefault');
+Route::get('filter-plan', 'Yakes\DashInvesController@getFilterPlan');
+Route::get('filter-klp', 'Yakes\DashInvesController@getFilterKlp');
+Route::post('update-tgl', 'Yakes\DashInvesController@updateTgl');
+Route::post('update-param', 'Yakes\DashInvesController@updateParam');
+Route::get('global-market', 'Yakes\DashInvesController@getGlobalMarket');
+Route::get('chart-index', 'Yakes\DashInvesController@getBMark');
+Route::get('global-index', 'Yakes\DashInvesController@getGlobalIndex');
+Route::get('bond-index', 'Yakes\DashInvesController@getBondIndex');
