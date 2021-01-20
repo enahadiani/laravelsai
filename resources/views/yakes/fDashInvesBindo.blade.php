@@ -47,7 +47,7 @@ $thnLalu = substr($tahunLalu,2,2)
 <div class="container-fluid mt-3">
     <div class="row header-dash">
         <div class="col-md-6">
-            <h6 class='font-weight-light' style='color: #000000; font-size:22px !important;'>Global and Market Issues <span id='jplan' style="font-size:22px !important;"></span></h6>
+            <h6 class='font-weight-light' style='color: #000000; font-size:22px !important;'>Pergerakan JCI vs BINDO Index (YTD) <span id='jplan' style="font-size:22px !important;"></span></h6>
         </div>
         <div class="col-md-6 text-right">
             <button type='button' class='float-right ml-1' id='btn-refresh' style='border: 1px solid #d5d5d5;border-radius: 20px;padding: 5px 20px;background: white;'><i class='fa fa-refresh' style='padding-top: 4px;padding-bottom: 4px;'></i>
@@ -79,27 +79,35 @@ $thnLalu = substr($tahunLalu,2,2)
     </div>
     <div class="row body-dash" style="position: relative;">
         <div class="col-md-12">
-            <h6 style='background:#000000;color:white;width:150px'>GLOBAL ISSUES</h6>
-            <table class='table table-striped table-condensed' id='table-global'>
-                <thead>
+            <div id='chartIndex' style='margin: 0 auto; padding: 0 auto;height:400px'>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <table class='table table-striped table-condensed' id='global_index'>
+                <thead style='background:#F62424;color:white;vertical-align:middle;text-align:center'>
                     <tr>
-                        <th style='background:#000000;color:white;vertical-align:middle;text-align:center;width:5%'>No</th>
-                        <th style='background:#000000;color:white;vertical-align:middle;text-align:center;width:45%'>Katalis Positif</th>
-                        <th style='background:#000000;color:white;vertical-align:middle;text-align:center;width:50%'>Katalis Negatif</th>
+                        <th>No</th>
+                        <th>Global Index</th>
+                        <th style='vertical-align:middle;text-align:center'>Des <span class='thnLalu'></span></th>
+                        <th style='vertical-align:middle;text-align:center'><span class='blnNow'></span> <span class='thnNow'></span></th>
+                        <th style='vertical-align:middle;text-align:center'>Growth</th>
                     </tr>
                 </thead>
                 <tbody>
+                
                 </tbody>
             </table>
         </div>
-        <div class="col-md-12">
-            <h6 style='background:#000000;color:white;width:200px'>DOMESTIC ISSUES</h6>
-            <table class='table table-striped table-condensed' id='table-domestik'>
-                <thead>
+        <div class='col-md-6'>
+            <table class='table table-striped table-condensed' id='bond_index'>
+                <thead style='background:#F62424;color:white;vertical-align:middle;text-align:center'>
                     <tr>
-                        <th style='background:#000000;color:white;vertical-align:middle;text-align:center;width:5%'>No</th>
-                        <th style='background:#000000;color:white;vertical-align:middle;text-align:center;width:45%'>Katalis Positif</th>
-                        <th style='background:#000000;color:white;vertical-align:middle;text-align:center;width:50%'>Katalis Negatif</th>
+                        <th>No</th>
+                        <th>Bond Index</th>
+                        <th>Negara</th>
+                        <th style='vertical-align:middle;text-align:center'>Des <span class='thnLalu'></span></th>
+                        <th style='vertical-align:middle;text-align:center'><span class='blnNow'></span> <span class='thnNow'></span></th>
+                        <th style='vertical-align:middle;text-align:center'>Growth</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -278,7 +286,9 @@ function getParamDefault(){
             $('#thnSebelum').text(' vs plan aset '+$tahunSebelum);
             $('#tglChart').text('s/d '+reverseDateBaru($tgl_akhir));
             $('#jplan').text($nama_plan);
-            loadService('katalis','GET',"{{ url('yakes-dash/global-market') }}"); 
+            loadService('chartIndex','GET',"{{ url('yakes-dash/chart-index') }}"); 
+            loadService('global_index','GET',"{{ url('yakes-dash/global-index') }}");
+            loadService('bond_index','GET',"{{ url('yakes-dash/bond-index') }}"); 
         },
         error: function(jqXHR, textStatus, errorThrown) {       
             if(jqXHR.status == 422){
@@ -369,7 +379,10 @@ function getKlp(){
 getPlan();
 getKlp();
 $('.header-dash').on('click', '#btn-refresh', function(){
-    loadService('katalis','GET',"{{ url('yakes-dash/global-market') }}"); 
+    
+    loadService('chartIndex','GET',"{{ url('yakes-dash/chart-index') }}"); 
+    loadService('global_index','GET',"{{ url('yakes-dash/global-index') }}");
+    loadService('bond_index','GET',"{{ url('yakes-dash/bond-index') }}"); 
 });
 
 $('.header-dash').on('click', '#btn-filter', function(){
@@ -403,7 +416,9 @@ $('.modal-body').on('click','#btnOk',function(){
         success:function(result){  
             alert(result.data.message);  
             if(result.data.status){
-                loadService('katalis','GET',"{{ url('yakes-dash/global-market') }}"); 
+                loadService('chartIndex','GET',"{{ url('yakes-dash/chart-index') }}"); 
+                loadService('global_index','GET',"{{ url('yakes-dash/global-index') }}");
+                loadService('bond_index','GET',"{{ url('yakes-dash/bond-index') }}"); 
                 $('#modalFilter').modal('hide');
             }
         }
@@ -445,7 +460,9 @@ $('#calendar').on('changeDate', function() {
             success:function(result){  
                 alert(result.data.message);  
                 if(result.data.status){
-                    loadService('katalis','GET',"{{ url('yakes-dash/global-market') }}"); 
+                    loadService('chartIndex','GET',"{{ url('yakes-dash/chart-index') }}"); 
+                    loadService('global_index','GET',"{{ url('yakes-dash/global-index') }}");
+                    loadService('bond_index','GET',"{{ url('yakes-dash/bond-index') }}"); 
                 }
             }
         });
@@ -461,34 +478,171 @@ function loadService(index,method,url,param=null){
         success:function(result){    
             if(result.data.status){
                 switch(index){
-                    case 'katalis':
+                    case 'chartIndex':
+                        for(var i=0; i<result.data.data.length;i++){
+                            var data = result.data.data[i].data;
+                            data.reverse();
+                            
+                            data.forEach(function(point) {
+                                point[0] = new Date(point[0]).getTime();
+                            });
+                            
+                            result.data.data[i].data = data;
+                        }
+                        
+                        Highcharts.chart('chartIndex', {
+                            chart: {
+                                zoomType: 'x'
+                            },
+                            scrollbar: { enabled: true },
+                            title: {
+                                text: ''
+                            },
+                            xAxis: {
+                                type: 'datetime'
+                            },
+                            yAxis: [{ // Primary yAxis
+                                labels: {
+                                    format: '{value}',
+                                    style: {
+                                        color: '#FF2D55'
+                                    }
+                                },
+                                title: {
+                                    text: 'BINDO',
+                                    style: {
+                                        color: '#FF2D55'
+                                    }
+                                },
+                                min: result.data.min_bindo,
+                                max: result.data.max_bindo,
+                                opposite: true
+                                
+                            }, { // Secondary yAxis
+                                gridLineWidth: 0,
+                                title: {
+                                    text: 'JCI',
+                                    style: {
+                                        color: '#42B9FE'
+                                    }
+                                },
+                                labels: {
+                                    format: '{value}',
+                                    style: {
+                                        color: '#42B9FE'
+                                    }
+                                },
+                                min: result.data.min_jci,
+                                max: result.data_max_jci,
+                                
+                            }],
+                            legend: {
+                                enabled: true
+                            },
+                            tooltip: {
+                                shared: true
+                            },
+                            credits: {
+                                enabled: false
+                            },
+                            series: result.data.data
+                        });
+                    break;
+                    case 'global_index':
                         var html='';
-                        if(result.data.global.length>0){
-                            var no=1;
-                            for(var i=0;i<result.data.global.length;i++){
+                        var no=1;
+                        if(result.data.daftar.length > 0){
+                            for(var i=0;i<result.data.daftar.length;i++){
+                                var line = result.data.daftar[i];
                                 html+=`<tr>
                                 <td>`+no+`</td>
-                                <td>`+result.data.global[i].katalis_positif+`</td>
-                                <td>`+result.data.global[i].katalis_negatif+`</td>
+                                <td>`+line.nama+`</td>`;
+                                
+                                var nil1 = 0;
+                                var nil2 = 0;
+                                var growth = 0;
+                                switch(line.kode_bmark){
+                                    case 'JCI' :
+                                        nil1=result.data.nil1[0].ihsg;
+                                        nil2=result.data.nil2[0].ihsg;
+                                    break;
+                                    case 'LQ45' :
+                                        
+                                        nil1=result.data.nil1[0].lq45;
+                                        nil2=result.data.nil2[0].lq45;
+                                    break;
+                                    case 'DWJ' :
+                                        
+                                        nil1=result.data.nil1[0].dwjg;
+                                        nil2=result.data.nil2[0].dwjg;
+                                    break;
+                                    case 'NIKKEI' :
+                                        
+                                        nil1=result.data.nil1[0].nikkei;
+                                        nil2=result.data.nil2[0].nikkei;
+                                    break;
+                                    case 'SGC' :
+                                        
+                                        nil1=result.data.nil1[0].sgc;
+                                        nil2=result.data.nil2[0].sgc;
+                                    break;
+                                    case 'HSI' :
+                                        
+                                        nil1=result.data.nil1[0].hsi;
+                                        nil2=result.data.nil2[0].hsi;
+                                    break;
+                                }
+                                growth = ((parseFloat(nil2)-parseFloat(nil1))/parseFloat(nil1))*100;
+                                html+=`
+                                <td style='text-align:right'>`+sepNum(nil1)+`</td>
+                                <td style='text-align:right'>`+sepNum(nil2)+`</td>
+                                <td style='text-align:right'>`+sepNum(growth)+`%</td>
                                 </tr>`;
                                 no++;
                             }
                         }
-                        $('#table-global tbody').html(html);
-                        
-                        var html2='';
-                        if(result.data.domestik.length>0){
-                            var no=1;
-                            for(var i=0;i<result.data.domestik.length;i++){
-                                html2+=`<tr>
+                        $('#global_index tbody').html(html);
+                    break;
+                    case 'bond_index':
+                        var html='';
+                        var no=1;
+                        if(result.data.daftar.length > 0){
+                            for(var i=0;i<result.data.daftar.length;i++){
+                                var line = result.data.daftar[i];
+                                html+=`<tr>
                                 <td>`+no+`</td>
-                                <td>`+result.data.domestik[i].katalis_positif+`</td>
-                                <td>`+result.data.domestik[i].katalis_negatif+`</td>
+                                <td>`+line.nama+`</td>
+                                <td>`+line.negara+`</td>`;
+                                var nil1 = 0;
+                                var nil2 = 0;
+                                var growth = 0;
+                                switch(line.kode_bmark){
+                                    case 'yy10ind' :
+                                        
+                                        nil1=result.data.nil1[0].yy10ind;
+                                        nil2=result.data.nil2[0].yy10ind;
+                                        break;
+                                    case 'yy10us' :
+                                        nil1=result.data.nil1[0].yy10us;
+                                        nil2=result.data.nil2[0].yy10us;
+                                    break;
+                                    case 'yy10jp' :
+                                        
+                                        nil1=result.data.nil1[0].yy10jp;
+                                        nil2=result.data.nil2[0].yy10jp;
+                                    break;
+                                }
+                                growth = ((parseFloat(nil2)-parseFloat(nil1))/parseFloat(nil1))*100;
+                                
+                                html+=`
+                                <td style='text-align:right'>`+sepNum(nil1)+`</td>
+                                <td style='text-align:right'>`+sepNum(nil2)+`</td>
+                                <td style='text-align:right'>`+sepNum(growth)+`%</td>
                                 </tr>`;
                                 no++;
                             }
                         }
-                        $('#table-domestik tbody').html(html2);
+                        $('#bond_index tbody').html(html);
                     break;
                 }
             }

@@ -48,3 +48,6 @@ Route::get('filter-klp', 'Yakes\DashInvesController@getFilterKlp');
 Route::post('update-tgl', 'Yakes\DashInvesController@updateTgl');
 Route::post('update-param', 'Yakes\DashInvesController@updateParam');
 Route::get('global-market', 'Yakes\DashInvesController@getGlobalMarket');
+Route::get('chart-index', 'Yakes\DashInvesController@getBMark');
+Route::get('global-index', 'Yakes\DashInvesController@getGlobalIndex');
+Route::get('bond-index', 'Yakes\DashInvesController@getBondIndex');
