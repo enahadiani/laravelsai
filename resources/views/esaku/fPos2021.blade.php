@@ -245,6 +245,25 @@
     </div>
 </div>
 
+{{-- Modal Kembalian --}}
+<div class="modal" id="modal-bayar" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row mt-1">
+                    <div class="col-12" style="text-align: center;">
+                        <p id="total-kembalian">Kembalian</p>
+                        <h5 id="nominal-kembalian" class="nominal-bayar">Rp. 999.999.999</h5>
+                    </div>
+                    <div class="col-12 mt-2 nominal-bayar-button">
+                        <button type="button" id="cetak-bayar" class="btn btn-primary">Selesai</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="{{url('asset_elite/inputmask.js')}}"></script>
 <script src="{{url('asset_elite/jquery.scannerdetection.js')}}"></script>
 <script src="{{url('asset_elite/jquery.formnavigation.js')}}"></script>
