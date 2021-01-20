@@ -115,7 +115,7 @@
                                             <h6>Total</h6>
                                         </div>
                                         <div class="col-12">
-                                            <input type="hidden" name="totrans" id="totrans">
+                                            <input type="hidden" name="tot_trans" id="totrans">
                                             <h3 id="total-trans">Rp. 0</h3>
                                         </div>
                                     </div>
@@ -151,6 +151,7 @@
                                 </div>
                             </div>
                         </div>
+                        <button type="submit" id="submit-pos" class="hidden"></button>
                     </form>
                 </div>
             </div>
@@ -237,7 +238,7 @@
                         </div>
                     </div>
                     <div class="col-12 mt-2 nominal-bayar-button">
-                        <button type="submit" id="submit-bayar" class="btn btn-primary">Bayar Tunai</button>
+                        <button type="button" id="submit-bayar" class="btn btn-primary">Bayar Tunai</button>
                     </div>
                 </div>
             </div>
@@ -246,17 +247,17 @@
 </div>
 
 {{-- Modal Kembalian --}}
-<div class="modal" id="modal-bayar" tabindex="-1" role="dialog">
+<div class="modal" id="modal-kembalian" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
             <div class="modal-body">
                 <div class="row mt-1">
                     <div class="col-12" style="text-align: center;">
                         <p id="total-kembalian">Kembalian</p>
-                        <h5 id="nominal-kembalian" class="nominal-bayar">Rp. 999.999.999</h5>
+                        <h5 id="nominal-kembalian" class="nominal-bayar">Rp. 0</h5>
                     </div>
                     <div class="col-12 mt-2 nominal-bayar-button">
-                        <button type="button" id="cetak-bayar" class="btn btn-primary">Selesai</button>
+                        <button type="button" id="cetak-bayar" class="btn btn-primary" data-dismiss='modal'>Selesai</button>
                     </div>
                 </div>
             </div>
@@ -283,6 +284,22 @@
 
     $('#barcode').focus();
     $('#area_print').hide();
+
+    function resetForm() {
+        $('#input-grid tbody').empty();
+        $('#totrans').val(0);
+        $('#total-trans').text("Rp. 0");
+        $('#barcode').val('');
+        $('#modal-kode_barang').val('');
+        $('#modal-harga').val(0);
+        $('#modal-qty').val(0);
+        $('#modal-diskon').val(0);
+        $('#modal-subtotal').val(0);
+        $('#total-trans-modal').text("Rp. 0");
+        $('#total-potongan').text("Rp. 0");
+        $('#nominal-bayar').text("Rp. 0");
+        $('#input-bayar').val(0);
+    }
 
     function cekBarang(kode_barang) {
         var cek = $dtBrg.filter(index => kode_barang.includes(index.kode));
@@ -384,6 +401,40 @@
         $totTrans = total;
         $('#totrans').val(total);
         $('#total-trans').text("Rp. "+sepNum(total));
+    }
+
+    
+
+    function getBarang() {
+        $.ajax({
+            type:'GET',
+            url:"{{url('toko-master/barang')}}",
+            dataType: 'json',
+            async: false,
+            success: function(result) {
+                if(result.status) {
+                    for(var i=0;i<result.daftar.length;i++) {
+                        var barang = result.daftar[i];
+                        $dtBrg.push({
+                            harga: barang.hna,
+                            nama: barang.nama,
+                            kode: barang.kode_barang,
+                            displayNama: barang.kode_barang+"-"+barang.nama
+                        });
+                    }
+
+                }else if(!result.data.status && result.data.message == "Unauthorized"){
+                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                } else{
+                    msgDialog({
+                        id: '',
+                        type:'sukses',
+                        title: 'Error',
+                        text: result.data.message
+                    });
+                }
+            }
+        });
     }
 
     function getNoOpen() {
@@ -592,27 +643,63 @@
         $('#input-bayar').focus();
     });
 
-    function getBarang() {
-        $.ajax({
-            type:'GET',
-            url:"{{url('toko-master/barang')}}",
-            dataType: 'json',
-            async: false,
-            success: function(result) {
-                if(result.status) {
-                    for(var i=0;i<result.daftar.length;i++) {
-                        var barang = result.daftar[i];
-                        $dtBrg.push({
-                            harga: barang.hna,
-                            nama: barang.nama,
-                            kode: barang.kode_barang,
-                            displayNama: barang.kode_barang+"-"+barang.nama
-                        });
-                    }
+    $('#submit-bayar').click(function(){
+        $no_open = "test";
+        var nominal = toNilai($('#input-bayar').val());
+        if(nominal == '' || nominal <= 0 || nominal < $totByr) {
+            msgDialog({
+                id: '',
+                type:'sukses',
+                title: 'Error',
+                text:'Nilai Bayar kurang dari Total Bayar'
+            });
+            return;
+        }
 
-                }else if(!result.data.status && result.data.message == "Unauthorized"){
-                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
-                } else{
+        if($no_open == "" || $no_open == "-") {
+            msgDialog({
+                id: '',
+                type:'warning',
+                text:'Anda belum melakukan open kasir'
+            });
+            return; 
+        }
+        $('#web-form-pos').submit();
+    });
+
+    $('#web-form-pos').submit(function(event){
+        event.preventDefault();
+        var nominal = toNilai($('#input-bayar').val());
+        var formData = new FormData(this);
+        
+        formData.append('no_open', $no_open);
+        formData.append('total_disk', $totDisk);
+        formData.append('total_bayar', $totByr);
+        for(var pair of formData.entries()) {
+            console.log(pair[0]+ ', '+ pair[1]); 
+        }
+        $.ajax({
+            type: 'POST',
+            url: "{{url('esaku-trans/penjualan')}}",
+            dataType: 'json',
+            data: formData,
+            async:false,
+            contentType: false,
+            cache: false,
+            processData: false,
+            success: function(result) {
+                if(result.data.status){
+                    $('#modal-bayar').modal('hide');
+                    $('#modal-kembalian').modal('show');
+                    var kembalian = nominal - $totByr;
+                    if(kembalian <= 0) {
+                        kembalian = 0;
+                    }
+                    $('#nominal-kembalian').text("Rp. "+sepNum(kembalian));
+                    resetForm();
+                } else if(!result.data.status && result.data.message === "Unauthorized"){
+                    window.location.href = "{{ url('/esaku-auth/sesi-habis') }}";
+                }else{
                     msgDialog({
                         id: '',
                         type:'sukses',
@@ -622,5 +709,5 @@
                 }
             }
         });
-    }
+    });
 </script>
