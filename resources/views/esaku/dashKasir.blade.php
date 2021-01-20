@@ -170,40 +170,83 @@
 </div>
 
 <div class="row" id="baris-2">
-    <div class="col-4 p-1">
-        <div class="card card-dash card-pemberitahuan">
-            <p class="ml-4 mt-1 mb-0 judul-card pemberitahuan-judul">Pengingat</p>
-            <ul class="list-pemberitahuan">
-                <li>
-                    <p class="pemberitahuan-content">Hari ini menerima pembayaran Piutang Rp. 30.000.000</p>
-                </li>
-                <li>
-                    <p class="pemberitahuan-content">3 hari lagi membayar gaji karyawan Rp. 90.000.000</p>
-                </li>
-            </ul>
+        <div class="col-4 p-1">
+            <div class="card card-dash card-pemberitahuan">
+                <p class="ml-4 mt-1 mb-0 judul-card pemberitahuan-judul">Pengingat</p>
+                <ul class="list-pemberitahuan">
+                    <li>
+                        <p class="pemberitahuan-content">Hari ini menerima pembayaran Piutang Rp. 30.000.000</p>
+                    </li>
+                    <li>
+                        <p class="pemberitahuan-content">3 hari lagi membayar gaji karyawan Rp. 90.000.000</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-8 p-1">
+            <div class="card card-dash"> 
+                <div class="header-card">
+                    <h6 class="ml-4 mt-2 mb-0">Saldo Laba Rugi</h6>
+                </div>
+                <div class="content-card">
+                    <div id="laba-rugi"></div>
+                    <div class="row">
+                        <div class="col-12 mb-2">
+                            <div class="keterangan">
+                            <div style="padding: 0 50px">
+                                <div style="height: 10px; width: 10px; border-radius: 50%; background-color:#0058E4;display:inline-block;"></div>
+                                <span style="padding-left: 6px;font-weight: bold;position: relative;top:-1px;font-size:10px !important;">Uang Masuk</span>
+                            </div>
+                            <div style="padding: 0 50px">
+                                <div style="height: 10px; width: 10px; border-radius: 50%; background-color:#9FC4FF;display:inline-block;"></div>
+                                <span style="padding-left: 6px;font-weight: bold;position: relative;top:-1px;font-size:10px !important;">Uang Keluar</span>
+                            </div>
+                            <div style="padding: 0 50px">
+                                <div style="height: 10px; width: 10px; border-radius: 50%; background-color:#FFB703;display:inline-block;"></div>
+                                <span style="padding-left: 6px;font-weight: bold;position: relative;top:-1px;font-size:10px !important;">Saldo KasBank</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="col-8 p-1">
-        <div class="card card-dash"> 
+</div>
+
+<div class="row" id="baris-3">
+    <div class="col-4 p-1">
+        <div class="card card-dash">
             <div class="header-card">
-                <h6 class="ml-4 mt-2 mb-0">Saldo Laba Rugi</h6>
+                <h6 class="ml-4 mt-2 mb-0">Komposisi Pendapatan</h6>
             </div>
-            <div class="content-card">
-                <div id="laba-rugi"></div>
+            <div class="card-content">
+                <div id="komposisi-pendapatan"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-4 p-1">
+        <div class="card card-dash">
+            <div class="header-card">
+                <h6 class="ml-4 mt-2 mb-0">Komposisi Beban</h6>
+            </div>
+            <div class="card-content">
+                <div id="komposisi-beban"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-4 p-1">
+        <div class="card card-dash">
+            <div class="header-card">
+                <h6 class="ml-4 mt-2 mb-0">Umur Hutang-Piutang</h6>
+            </div>
+            <div class="card-content">
+                <div id="umur-piutang-hutang"></div>
                 <div class="row">
                     <div class="col-12 mb-2">
                         <div class="keterangan">
-                        <div style="padding: 0 50px">
-                            <div style="height: 10px; width: 10px; border-radius: 50%; background-color:#0058E4;display:inline-block;"></div>
-                            <span style="padding-left: 6px;font-weight: bold;position: relative;top:-1px;font-size:10px !important;">Uang Masuk</span>
-                        </div>
-                        <div style="padding: 0 50px">
-                            <div style="height: 10px; width: 10px; border-radius: 50%; background-color:#9FC4FF;display:inline-block;"></div>
-                            <span style="padding-left: 6px;font-weight: bold;position: relative;top:-1px;font-size:10px !important;">Uang Keluar</span>
-                        </div>
-                        <div style="padding: 0 50px">
-                            <div style="height: 10px; width: 10px; border-radius: 50%; background-color:#FFB703;display:inline-block;"></div>
-                            <span style="padding-left: 6px;font-weight: bold;position: relative;top:-1px;font-size:10px !important;">Saldo KasBank</span>
+                            <div style="padding: 0 50px">
+                                <span style="font-weight: bold;position: relative;font-size:12px !important;">Hari</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -231,14 +274,8 @@ $('#arus-kas-select-content').on( 'click', 'li', function() {
 });
 
 Highcharts.chart('arus-kas', {
-    chart: {
-        height: 166
-        // marginLeft: marginLeft,
-        // marginRight: marginRight
-    },
-    exporting:{
-        enabled: false
-    },
+    chart: { height: 166 },
+    exporting:{ enabled: false },
     legend:{ enabled:false },
     credits: { enabled: false },
     title: { text: '' },
@@ -294,14 +331,8 @@ Highcharts.chart('arus-kas', {
 });
 
 Highcharts.chart('laba-rugi', {
-    chart: {
-        height: 170
-        // marginLeft: marginLeft,
-        // marginRight: marginRight
-    },
-    exporting:{
-        enabled: false
-    },
+    chart: { height: 170 },
+    exporting:{ enabled: false },
     legend:{ enabled:false },
     credits: { enabled: false },
     title: { text: '' },
@@ -355,4 +386,77 @@ Highcharts.chart('laba-rugi', {
         },
     ]
 });
+
+Highcharts.chart('umur-piutang-hutang', {
+    chart: {
+        type: 'column',
+        height: 230
+    },
+    title: { text: '' },
+    subtitle: { text: '' },
+    exporting:{ enabled: false },
+    legend:{ enabled:false },
+    credits: { enabled: false },
+    xAxis: {
+        categories: [
+            '0-30',
+            '31-60',
+            '61-90',
+            '90-120',
+            '121+'
+        ],
+        crosshair: true
+    },
+    yAxis: {
+        min: 0,
+        title: {
+            text: ''
+        }
+    },
+    tooltip: {
+        enabled: false
+    },
+    plotOptions: {
+        column: {
+            pointPadding: 0.2,
+            borderWidth: 0
+        }
+    },
+    series: [{
+        name: 'Hari',
+        data: [20, 40, 65, 100, 125],
+        color: '#0058E4'
+    }]
+});
+
+// Highcharts.chart('komposisi-pendapatan', {
+//     chart: {
+//         type: 'pyramid'
+//     },
+//     title: { text: '' },
+//     plotOptions: {
+//         series: {
+//             dataLabels: {
+//                 enabled: true,
+//                 format: '<b>{point.name}</b> Rp. {point.y:,.0f}',
+//                 softConnector: true
+//             },
+//             center: ['40%', '50%'],
+//             width: '80%'
+//         }
+//     },
+//     legend: {
+//         enabled: false
+//     },
+//     series: [
+//         {
+//             name: 'Komposisi Pendapatan',
+//             data: [
+//                 ['Pendapatan C', 67],
+//                 ['Pendapatan B', 97],
+//                 ['Pendapatan A', 203]
+//             ]
+//         }
+//     ],
+// });
 </script>
