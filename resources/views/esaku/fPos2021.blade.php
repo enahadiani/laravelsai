@@ -208,14 +208,14 @@
             <div class="modal-body">
                 <div class="row mt-1">
                     <div class="col-12" style="text-align: center;">
-                        <p id="total-byr">Total Rp. 100.000</p>
+                        <p>Total <span id="total-trans-modal">Rp. 0</span></p>
                     </div>
                     <div class="col-12" style="text-align: center;">
-                        <p id="total-potongan">Potongan Rp. 100.000</p>
+                        <p>Potongan <span id="total-potongan">Rp. 0</span></p>
                     </div>
                     <div class="col-12" style="text-align: center;">
                         <p id="total-potongan">Nilai Bayar</p>
-                        <h5 id="nominal-bayar" class="nominal-bayar">Rp. 999.999.999</h5>
+                        <h5 id="nominal-bayar" class="nominal-bayar">Rp. 0</h5>
                     </div>
                     <div class="col-12">
                         <div class="form-group">
@@ -272,6 +272,7 @@
     var keyupFiredCount = 0;
     var $no_open = "";
     var $totDisk = 0;
+    var $totTrans = 0;
     var $totByr = 0;
     var $dtBrg = [];
     var $index = 0;
@@ -373,7 +374,6 @@
     function hitungTotal() {
         var diskon = 0;
         var total = 0;
-        var total = 0;
         $('#input-grid .row-grid').each(function(){
             var diskonInRow = parseInt($(this).find('.inp-disc').val());
             var subtotal = parseInt($(this).find('.inp-sub').val());
@@ -381,6 +381,7 @@
             total += subtotal;
         });
         $totDisk = diskon;
+        $totTrans = total;
         $('#totrans').val(total);
         $('#total-trans').text("Rp. "+sepNum(total));
     }
@@ -501,6 +502,11 @@
         rightAlign: true
     });
 
+    $('#nominal-1,#nominal-2,#nominal-3,#nominal-4').click(function(){
+        var nominal = toNilai($(this).text());
+        $('#input-bayar').val(nominal);
+    })
+
     $('#modal-qty, #modal-diskon').change(function(){
         var qty = $('#modal-qty').val();
         var diskon = $('#modal-diskon').val();
@@ -574,6 +580,14 @@
     });
 
     $('#input-pembayaran').click(function(){
+        if($totTrans == 0) {
+            alert('Transaksi tidak valid')
+            return;
+        }
+        $('#total-trans-modal').text("Rp. "+sepNum($totTrans));
+        $('#total-potongan').text("Rp. "+sepNum($totDisk));
+        $totByr = $totTrans - $totDisk;
+        $('#nominal-bayar').text("Rp. "+sepNum($totByr));
         $('#modal-bayar').modal('show');
         $('#input-bayar').focus();
     });
