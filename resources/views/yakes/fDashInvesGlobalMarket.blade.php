@@ -10,7 +10,6 @@ $thnIni = substr($tahun,2,2);
 $thnLalu = substr($tahunLalu,2,2)
 @endphp
 
-<link rel='stylesheet' type='text/css' href="{{ asset('asset_dore/css/font-awesome.css') }}"/>
 <style>
     .table td, .table th{
         padding: 4px !important;

@@ -162,6 +162,40 @@
             }
         }
 
+        public function simpanFilterKolom(Request $request)
+        {
+            try{
+
+                $client = new Client();
+                $response = $client->request('POST',  config('api.url').'yakes-dash/filter-kolom',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'form_params' => [
+                        'kolom1' => $request->kolom1,
+                        'kolom2' => $request->kolom2,
+                        'kolom3' => $request->kolom3,
+                        'kolom4' => $request->kolom4
+                    ]
+                ]);
+    
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                
+                    $data = json_decode($response_data,true);
+                    $data = $data;
+                }
+                return response()->json(['data' => $data], 200); 
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                $data['message'] = $res;
+                $data['status'] = false;
+                return response()->json(['data' => $data], 200);
+            }
+        }
+
         public function getGlobalMarket(Request $request)
         {
             try{
@@ -252,6 +286,118 @@
 
                 $client = new Client();
                 $response = $client->request('GET',  config('api.url').'yakes-dash/bond-index',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ]
+                ]);
+    
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                
+                    $data = json_decode($response_data,true);
+                    $data = $data;
+                }
+                return response()->json(['data' => $data], 200); 
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                $data['message'] = $res;
+                $data['status'] = false;
+                return response()->json(['data' => $data], 200);
+            }
+        }
+
+        public function getPersenAset(Request $request)
+        {
+            try{
+
+                $client = new Client();
+                $response = $client->request('GET',  config('api.url').'yakes-dash/persen-aset',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ]
+                ]);
+    
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                
+                    $data = json_decode($response_data,true);
+                    $data = $data;
+                }
+                return response()->json(['data' => $data], 200); 
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                $data['message'] = $res;
+                $data['status'] = false;
+                return response()->json(['data' => $data], 200);
+            }
+        }
+
+        public function getTableAlokasi(Request $request)
+        {
+            try{
+
+                $client = new Client();
+                $response = $client->request('GET',  config('api.url').'yakes-dash/table-alokasi',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ]
+                ]);
+    
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                
+                    $data = json_decode($response_data,true);
+                    $data = $data;
+                }
+                return response()->json(['data' => $data], 200); 
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                $data['message'] = $res;
+                $data['status'] = false;
+                return response()->json(['data' => $data], 200);
+            }
+        }
+
+        public function getRoiKkp(Request $request)
+        {
+            try{
+
+                $client = new Client();
+                $response = $client->request('GET',  config('api.url').'yakes-dash/roi-kkp',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ]
+                ]);
+    
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                
+                    $data = json_decode($response_data,true);
+                    $data = $data;
+                }
+                return response()->json(['data' => $data], 200); 
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                $data['message'] = $res;
+                $data['status'] = false;
+                return response()->json(['data' => $data], 200);
+            }
+        }
+
+        public function getFilKolom(Request $request)
+        {
+            try{
+
+                $client = new Client();
+                $response = $client->request('GET',  config('api.url').'yakes-dash/filter-kolom',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
