@@ -56,6 +56,30 @@
 .inp-qty {
     width: 90%;
 }
+.nominal-bayar {
+    margin-top: -8px;
+    font-weight: bold;
+}
+.input-bayar {
+    height: 40px;
+    font-size: 16px !important;
+}
+.nominal-shortcut {
+    display: flex;
+    justify-content: flex-end;
+    margin-left: 24px !important;
+}
+.btn-nominal {
+    height: 40px !important;
+    width: 100%;
+    padding: 4px !important;
+    font-size: 16px !important;
+}
+.nominal-bayar-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 </style>
 <div class="container-fluid mt-3">
     <div class="row">
@@ -173,6 +197,50 @@
                     <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>
                 </div>
             </form>
+        </div>
+    </div>
+</div>
+
+{{-- Modal Bayar --}}
+<div class="modal" id="modal-bayar" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row mt-1">
+                    <div class="col-12" style="text-align: center;">
+                        <p id="total-byr">Total Rp. 100.000</p>
+                    </div>
+                    <div class="col-12" style="text-align: center;">
+                        <p id="total-potongan">Potongan Rp. 100.000</p>
+                    </div>
+                    <div class="col-12" style="text-align: center;">
+                        <p id="total-potongan">Nilai Bayar</p>
+                        <h5 id="nominal-bayar" class="nominal-bayar">Rp. 999.999.999</h5>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-group">
+                            <input class="input-bayar form-control currency" id="input-bayar">
+                        </div>
+                    </div>
+                    <div class="col-12 nominal-shortcut">
+                        <div class="p-1">
+                            <button id="nominal-1" class="btn btn-light btn-nominal">100.000</button>
+                        </div>
+                        <div class="p-1">
+                            <button id="nominal-2" class="btn btn-light btn-nominal">50.000</button>
+                        </div>
+                        <div class="p-1">
+                            <button id="nominal-3" class="btn btn-light btn-nominal">20.000</button>
+                        </div>
+                        <div class="p-1">
+                            <button id="nominal-4" class="btn btn-light btn-nominal">10.000</button>
+                        </div>
+                    </div>
+                    <div class="col-12 mt-2 nominal-bayar-button">
+                        <button type="submit" id="submit-bayar" class="btn btn-primary">Bayar Tunai</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -484,6 +552,11 @@
     $("#input-grid tbody").on("click", '.ubah-barang', function(){
         var index = $(this).closest('tr').index();
         editBarang(index);
+    });
+
+    $('#input-pembayaran').click(function(){
+        $('#modal-bayar').modal('show');
+        $('#input-bayar').focus();
     });
 
     function getBarang() {
