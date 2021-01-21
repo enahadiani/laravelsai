@@ -45,10 +45,13 @@ $thnLalu = substr($tahunLalu,2,2)
 </style>
 <div class="container-fluid mt-3">
     <div class="row header-dash">
-        <div class="col-md-6">
+        <div class="col-md-8 px-0">
             <h6 class='font-weight-light' style='color: #000000; font-size:22px !important;'>Perbandingan Alokasi Aset <span id='jplan' style="font-size:22px !important;"></span></h6>
+            <span style='font-size: 1.2rem; color: black;position: relative;' id='tglChart'></span>
+            <span hidden id='kode_plan'></span>
+            <span id='kode_klp_view' style='font-size: 1.2rem;color: black;'></span><span id='kode_klp' hidden></span>
         </div>
-        <div class="col-md-6 text-right">
+        <div class="col-md-4 text-right px-0">
             <button type='button' class='float-right ml-1' id='btn-refresh' style='border: 1px solid #d5d5d5;border-radius: 20px;padding: 5px 20px;background: white;'><i class='fa fa-refresh' style='padding-top: 4px;padding-bottom: 4px;'></i>
             </button>
             <div class="dropdown d-inline-block float-right ml-1" >
@@ -72,10 +75,6 @@ $thnLalu = substr($tahunLalu,2,2)
             </button>
             <button type='button' class='pull-right' id='btn-colom' style='border: 1px solid #d5d5d5;border-radius: 20px;padding: 5px 20px;background: white;'><i class='fa fa-pencil' style='padding:4px 0px'></i> 
             </button>
-        </div>
-        <div class="col-md-12"><span style='font-size: 1.2rem; color: black;position: relative;' id='tglChart'></span>
-            <span hidden id='kode_plan'></span>
-            <span id='kode_klp_view' style='font-size: 1.2rem;color: black;'></span><span id='kode_klp' hidden></span>
         </div>
     </div>
     <div class="row body-dash" style="position: relative;">

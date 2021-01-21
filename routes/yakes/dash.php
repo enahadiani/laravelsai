@@ -63,3 +63,8 @@ Route::get('roi-kkp', 'Yakes\DashInvesController@getRoiKkp');
 Route::get('portofolio', 'Yakes\DashInvesController@getPortofolio');
 Route::get('persen', 'Yakes\DashInvesController@getBatasAlokasi');
 Route::get('aset-chart', 'Yakes\DashInvesController@getAset');
+
+Route::get('table-real', 'Yakes\DashInvesController@getRealHasil');
+Route::get('table-roi', 'Yakes\DashInvesController@getROIReal');
+
+Route::get('plan-aset', 'Yakes\DashInvesController@getPlanAset');

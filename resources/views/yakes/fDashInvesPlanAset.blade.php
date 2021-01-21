@@ -46,7 +46,7 @@ $thnLalu = substr($tahunLalu,2,2)
 <div class="container-fluid mt-3">
     <div class="row header-dash">
         <div class="col-md-8 px-0">
-            <h6 class='font-weight-light' style='color: #000000; font-size:22px !important;'>Global and Market Issues <span id='jplan' style="font-size:22px !important;"></span></h6>
+            <h6 class='font-weight-light' style='color: #000000; font-size:22px !important;'>Plan Asset vs Kewajiban Aktuaria <span id="rentang-tahun" style="font-size:22px !important;"></span>  <span id='jplan' style="font-size:22px !important;"></span></h6>
             <span style='font-size: 1.2rem; color: black;position: relative;' id='tglChart'></span>
             <span hidden id='kode_plan'></span>
             <span id='kode_klp_view' style='font-size: 1.2rem;color: black;'></span><span id='kode_klp' hidden></span>
@@ -77,30 +77,20 @@ $thnLalu = substr($tahunLalu,2,2)
     </div>
     <div class="row body-dash" style="position: relative;">
         <div class="col-md-12">
-            <h6 style='background:#000000;color:white;width:150px'>GLOBAL ISSUES</h6>
-            <table class='table table-striped table-condensed' id='table-global'>
-                <thead>
-                    <tr>
-                        <th style='background:#000000;color:white;vertical-align:middle;text-align:center;width:5%'>No</th>
-                        <th style='background:#000000;color:white;vertical-align:middle;text-align:center;width:45%'>Katalis Positif</th>
-                        <th style='background:#000000;color:white;vertical-align:middle;text-align:center;width:50%'>Katalis Negatif</th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
+            <div id='planAset' style='margin: 0 auto; padding: 0 auto;height:350px'>
+            </div>
         </div>
-        <div class="col-md-12">
-            <h6 style='background:#000000;color:white;width:200px'>DOMESTIC ISSUES</h6>
-            <table class='table table-striped table-condensed' id='table-domestik'>
-                <thead>
-                    <tr>
-                        <th style='background:#000000;color:white;vertical-align:middle;text-align:center;width:5%'>No</th>
-                        <th style='background:#000000;color:white;vertical-align:middle;text-align:center;width:45%'>Katalis Positif</th>
-                        <th style='background:#000000;color:white;vertical-align:middle;text-align:center;width:50%'>Katalis Negatif</th>
-                    </tr>
+        <div class='col-md-12'>
+            <style>
+            th,td{
+                border-bottom:1px solid black;
+                border-top:1px solid black;
+            }
+            </style>
+            <table class='table table-striped table-condensed' id='table-det'>
+                <thead style='background:#ffc000;border-color:black;vertical-align:middle;text-align:center;'>
                 </thead>
-                <tbody>
+                <tbody style=''>
                 </tbody>
             </table>
         </div>
@@ -276,7 +266,7 @@ function getParamDefault(){
             $('#thnSebelum').text(' vs plan aset '+$tahunSebelum);
             $('#tglChart').text('s/d '+reverseDateBaru($tgl_akhir));
             $('#jplan').text($nama_plan);
-            loadService('katalis','GET',"{{ url('yakes-dash/global-market') }}"); 
+            loadService('planAset','GET',"{{ url('yakes-dash/plan-aset') }}");
         },
         error: function(jqXHR, textStatus, errorThrown) {       
             if(jqXHR.status == 422){
@@ -367,7 +357,7 @@ function getKlp(){
 getPlan();
 getKlp();
 $('.header-dash').on('click', '#btn-refresh', function(){
-    loadService('katalis','GET',"{{ url('yakes-dash/global-market') }}"); 
+    loadService('planAset','GET',"{{ url('yakes-dash/plan-aset') }}"); 
 });
 
 $('.header-dash').on('click', '#btn-filter', function(){
@@ -401,7 +391,7 @@ $('.modal-body').on('click','#btnOk',function(){
         success:function(result){  
             alert(result.data.message);  
             if(result.data.status){
-                loadService('katalis','GET',"{{ url('yakes-dash/global-market') }}"); 
+                loadService('planAset','GET',"{{ url('yakes-dash/plan-aset') }}"); 
                 $('#modalFilter').modal('hide');
             }
         }
@@ -443,7 +433,7 @@ $('#calendar').on('changeDate', function() {
             success:function(result){  
                 alert(result.data.message);  
                 if(result.data.status){
-                    loadService('katalis','GET',"{{ url('yakes-dash/global-market') }}"); 
+                    loadService('planAset','GET',"{{ url('yakes-dash/plan-aset') }}"); 
                 }
             }
         });
@@ -459,34 +449,113 @@ function loadService(index,method,url,param=null){
         success:function(result){    
             if(result.data.status){
                 switch(index){
-                    case 'katalis':
-                        var html='';
-                        if(result.data.global.length>0){
-                            var no=1;
-                            for(var i=0;i<result.data.global.length;i++){
-                                html+=`<tr>
-                                <td>`+no+`</td>
-                                <td>`+result.data.global[i].katalis_positif+`</td>
-                                <td>`+result.data.global[i].katalis_negatif+`</td>
-                                </tr>`;
-                                no++;
+                    case 'planAset':
+                        Highcharts.chart('planAset', {
+                            chart: {
+                                zoomType: 'xy'
+                            },
+                            title:{
+                                text:null
+                            },
+                            xAxis: [{
+                                categories: result.data.category,
+                                crosshair: true
+                            }],
+                            yAxis: [{ // Primary yAxis
+                                labels: {
+                                    format: '{value}',
+                                    style: {
+                                        color: 'black'
+                                    }
+                                },
+                                title: {
+                                    text: null,
+                                    style: {
+                                        color: 'black'
+                                    }
+                                },
+                                min:3500,
+                                max:6500,
+                                tickInterval: 500,
+                                opposite: true
+                                
+                            }, { // Secondary yAxis
+                                gridLineWidth: 0,
+                                title: {
+                                    text: null,
+                                    style: {
+                                        color: 'black'
+                                    }
+                                },
+                                labels: {
+                                    format: '{value}',
+                                    style: {
+                                        color: 'black'
+                                    }
+                                },
+                                tickInterval: 2,
+                                min:0,
+                                max:16
+                                
+                            }],
+                            tooltip: {
+                                shared: true,
+                                formatter: function () {
+                                    var points = this.points;
+                                    var pointsLength = points.length;
+                                    var tooltipMarkup ='';
+                                    var index;
+                                    var y_value;
+                                    
+                                    for(index = 0; index < pointsLength; index += 1) {
+                                        y_value = sepNum(points[index].y);
+                                        
+                                        tooltipMarkup += '<span style=\"color:' + points[index].series.color + '\">' + points[index].series.name + ': <b>' + y_value  + '</b></span><br/>';
+                                    }
+                                    
+                                    return tooltipMarkup;
+                                }
+                            },
+                            plotOptions: {
+                                line: {
+                                    dataLabels: {
+                                        enabled: true,
+                                        formatter: function () {
+                                            return '<b>'+sepNum(this.y)+'</b>';
+                                        },
+                                    },
+                                },
+                                column:{
+                                    dataLabels: {
+                                        enabled: true,
+                                        formatter: function () {
+                                            return '<b>'+sepNum(this.y)+'</b>';
+                                        },
+                                        inside: true
+                                    },
+                                }
+                            },
+                            series:result.data.series,
+                            credits:{
+                                enabled:false
                             }
-                        }
-                        $('#table-global tbody').html(html);
+                        });
                         
-                        var html2='';
-                        if(result.data.domestik.length>0){
-                            var no=1;
-                            for(var i=0;i<result.data.domestik.length;i++){
-                                html2+=`<tr>
-                                <td>`+no+`</td>
-                                <td>`+result.data.domestik[i].katalis_positif+`</td>
-                                <td>`+result.data.domestik[i].katalis_negatif+`</td>
-                                </tr>`;
-                                no++;
-                            }
+                        var html='<tr><th>DF</th>';
+                        for(var i=0;i<result.data.df.length;i++){
+                            html+=`<th style='vertical-align:middle;text-align:center'>`+sepNum(result.data.df[i])+`%</th>`;
                         }
-                        $('#table-domestik tbody').html(html2);
+                        html+=`</tr>`;
+                        
+                        $('#table-det thead').html(html);
+                        
+                        
+                        var html='<tr><th>RKD</th>';
+                        for(var i=0;i<result.data.rkd.length;i++){
+                            html+=`<th style='vertical-align:middle;text-align:center'>`+sepNum(result.data.rkd[i])+`%</th>`;
+                        }
+                        html+=`</tr>`;
+                        $('#table-det tbody').html(html);
                     break;
                 }
             }
