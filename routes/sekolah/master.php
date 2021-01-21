@@ -129,3 +129,6 @@ Route::get('kelas-khusus-detail', 'Sekolah\KelasKhususController@show');
 Route::post('kelas-khusus', 'Sekolah\KelasKhususController@store');
 Route::put('kelas-khusus', 'Sekolah\KelasKhususController@update');
 Route::delete('kelas-khusus', 'Sekolah\KelasKhususController@destroy');
+
+Route::get('absen-kelas', 'Sekolah\AbsenKelasController@show');
+Route::post('absen-kelas', 'Sekolah\AbsenKelasController@store');
