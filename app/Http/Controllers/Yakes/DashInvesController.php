@@ -700,6 +700,174 @@
             }
         }
 
+        public function getCashOut(Request $request)
+        {
+            try{
+
+                $client = new Client();
+                $response = $client->request('GET',  config('api.url').'yakes-dash/cash-out',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ]
+                ]);
+    
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                
+                    $data = json_decode($response_data,true);
+                    $data = $data;
+                }
+                return response()->json(['data' => $data], 200); 
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                $data['message'] = $res;
+                $data['status'] = false;
+                return response()->json(['data' => $data], 200);
+            }
+        }
+
+        public function getTableObli(Request $request)
+        {
+            try{
+
+                $client = new Client();
+                $response = $client->request('GET',  config('api.url').'yakes-dash/table-portofolio',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ]
+                ]);
+    
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                
+                    $data = json_decode($response_data,true);
+                    $data = $data;
+                }
+                return response()->json(['data' => $data], 200); 
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                $data['message'] = $res;
+                $data['status'] = false;
+                return response()->json(['data' => $data], 200);
+            }
+        }
+
+        public function getKomposisi(Request $request)
+        {
+            try{
+
+                $client = new Client();
+                $response = $client->request('GET',  config('api.url').'yakes-dash/komposisi',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ]
+                ]);
+    
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                
+                    $data = json_decode($response_data,true);
+                    $data = $data;
+                }
+                return response()->json(['data' => $data], 200); 
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                $data['message'] = $res;
+                $data['status'] = false;
+                return response()->json(['data' => $data], 200);
+            }
+        }
+
+        public function getRating(Request $request)
+        {
+            try{
+
+                $client = new Client();
+                $response = $client->request('GET',  config('api.url').'yakes-dash/rating',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ]
+                ]);
+    
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                
+                    $data = json_decode($response_data,true);
+                    $data = $data;
+                }
+                return response()->json(['data' => $data], 200); 
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                $data['message'] = $res;
+                $data['status'] = false;
+                return response()->json(['data' => $data], 200);
+            }
+        }
+
+        public function getKomposisiTenor(Request $request)
+        {
+            try{
+
+                $client = new Client();
+                $response = $client->request('GET',  config('api.url').'yakes-dash/komposisi-tenor',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ]
+                ]);
+    
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                
+                    $data = json_decode($response_data,true);
+                    $data = $data;
+                }
+                return response()->json(['data' => $data], 200); 
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                $data['message'] = $res;
+                $data['status'] = false;
+                return response()->json(['data' => $data], 200);
+            }
+        }
+
+        public function getTenor(Request $request)
+        {
+            try{
+
+                $client = new Client();
+                $response = $client->request('GET',  config('api.url').'yakes-dash/tenor',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ]
+                ]);
+    
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                
+                    $data = json_decode($response_data,true);
+                    $data = $data;
+                }
+                return response()->json(['data' => $data], 200); 
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                $data['message'] = $res;
+                $data['status'] = false;
+                return response()->json(['data' => $data], 200);
+            }
+        }
+
 
     }
 ?>

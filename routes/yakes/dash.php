@@ -73,3 +73,12 @@ Route::get('kinerja-plan-aset', 'Yakes\DashInvesController@getKinerja');
 Route::get('kinerja-etf', 'Yakes\DashInvesController@getKinerjaETF');
 Route::get('bindo', 'Yakes\DashInvesController@getKinerjaBindo');
 Route::get('bmark', 'Yakes\DashInvesController@getKinerjaBmark');
+
+Route::get('cash-out', 'Yakes\DashInvesController@getCashOut');
+
+Route::get('table-portofolio', 'Yakes\DashInvesController@getTableObli');
+Route::get('komposisi', 'Yakes\DashInvesController@getKomposisi');
+Route::get('rating', 'Yakes\DashInvesController@getRating');
+
+Route::get('komposisi-tenor','Yakes\DashInvesController@getKomposisiTenor');
+Route::get('tenor','Yakes\DashInvesController@getTenor');
