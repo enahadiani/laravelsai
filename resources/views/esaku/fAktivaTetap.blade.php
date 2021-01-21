@@ -22,7 +22,6 @@
                         </div>
                         <div class="col-6">
                             <button type="submit" class="btn btn-primary ml-2"  style="float:right;" id="btn-save"><i class="fa fa-save"></i> Simpan</button>
-                            <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Keluar</button>
                         </div>
                     </div>
                 </div>
