@@ -74,3 +74,10 @@ Route::get('arus-kas', 'Yakes\ArusKasController@index');
 Route::post('arus-kas-import', 'Yakes\ArusKasController@importExcel');
 Route::get('arus-kas-tmp', 'Yakes\ArusKasController@getArusKasTmp');
 Route::post('arus-kas', 'Yakes\ArusKasController@store');
+
+Route::get('pendukung', 'Yakes\PendukungController@index');
+Route::get('pendukung-detail', 'Yakes\PendukungController@show');
+Route::post('pendukung', 'Yakes\PendukungController@store');
+Route::put('pendukung', 'Yakes\PendukungController@update');
+Route::delete('pendukung', 'Yakes\PendukungController@destroy');
+Route::get('pendukung-neraca', 'Yakes\PendukungController@getNeraca');
