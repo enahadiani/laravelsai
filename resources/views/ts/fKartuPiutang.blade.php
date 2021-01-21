@@ -425,7 +425,7 @@
                                     <td>`+line2.keterangan+`</td>
                                     <td>`+sepNumPas(line2.tagihan)+`</td>
                                     <td>`+sepNumPas(line2.bayar)+`</td>
-                                    <td>`+sepNumPas(saldo)+`</td>
+                                    <td>`+sepNumPas(tosaldo)+`</td>
                                 </tr>`;
                                 no++;
                             }
