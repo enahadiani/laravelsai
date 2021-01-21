@@ -12,7 +12,7 @@
 </style>
 
 <!-- LIST DATA -->
-    <x-list-data judul="Data Akun Aktiva Tetap" tambah="true" :thead="array('Kode','Nama','Umur (Thn)','Persentase','Akun Aktap','Akun BP','Akun Akumulasi','Aksi')" :thwidth="array(10,20,5,10,10,10,10,10)" :thclass="array('','','','','','','','text-center')" />
+    <x-list-data judul="Data Kelompok Barang" tambah="true" :thead="array('Kode','Nama','Kelompok Akun','Nama Kelompok Akun','Jenis','Aksi')" :thwidth="array(10,20,10,10,10,10)" :thclass="array('','','','','','text-center')" />
 <!-- END LIST DATA -->
 
 {{-- Form Input --}}
@@ -23,7 +23,7 @@
                 <div class="card-body form-header">
                     <div class="row">
                         <div class="col-6">
-                            <h6 id="judul-form" class="judul-form">Form Data Akun Aktiva Tetap</h6>
+                            <h6 id="judul-form" class="judul-form">Form Data Kelompok Barang</h6>
                         </div>
                         <div class="col-6">
                             <button type="submit" class="btn btn-primary ml-2"  style="float:right;" id="btn-save"><i class="fa fa-save"></i> Simpan</button>
@@ -41,8 +41,8 @@
                         <div class="form-group col-md-6 col-sm-12">
                             <div class="row">
                                 <div class="col-md-6 col-sm-12">
-                                    <label for="kode_klpakun">Kode Kelompok</label>
-                                    <input type="text" placeholder="Kode Kelompok" class="form-control" id="kode_klpakun" name="kode_klpakun" required>
+                                    <label for="kode_klpfa">Kode Kelompok</label>
+                                    <input type="text" placeholder="Kode Kelompok" class="form-control" id="kode_klpfa" name="kode_klpfa" required>
                                 </div>
                                 <div class="col-md-6 col-sm-12">
                                     <label for="nama">Nama Kelompok</label>
@@ -53,71 +53,25 @@
                         <div class="form-group col-md-6 col-sm-12">
                             <div class="row">
                                 <div class="col-md-6 col-sm-12">
-                                    <label for="umur">Umur</label>
-                                    <input type="text" placeholder="Umur" class="form-control currency" id="umur" name="umur" value="0" required>
-                                </div>
-                                <div class="col-md-6 col-sm-12">
-                                    <label for="nama">Persentase</label>
-                                    <input type="text" placeholder="Persentase" class="form-control currency" id="persen" name="persen" value="0" required readonly>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group col-md-6 col-sm-12">
-                            <div class="row">
-                                <div class="col-md-6 col-sm-12">
-                                    <label for="kode_akun">Akun Barang</label>
+                                    <label for="kode_klpakun">Kelompok Akun</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
-                                            <span class="input-group-text info-code_kode_akun" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                            <span class="input-group-text info-code_kode_klpakun" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
                                         </div>
-                                        <input type="text" class="cbbl form-control inp-label-kode_akun" id="kode_akun" name="kode_akun" value="" title="" readonly>
-                                        <span class="info-name_kode_akun hidden">
-                                            <span id="label_kode_akun"></span> 
+                                        <input type="text" class="cbbl form-control inp-label-kode_klpakun" id="kode_klpakun" name="kode_klpakun" value="" title="" readonly>
+                                        <span class="info-name_kode_klpakun hidden">
+                                            <span id="label_kode_klpakun"></span> 
                                         </span>
                                         <i class="simple-icon-close float-right info-icon-hapus hidden" style="cursor: pointer;"></i>
-                                        <i class="simple-icon-magnifier search-item2" id="search_kode_akun"></i>
+                                        <i class="simple-icon-magnifier search-item2" id="search_kode_klpakun"></i>
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-sm-12">
-                                    <label for="akun_bp">Akun Beban Susut</label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
-                                            <span class="input-group-text info-code_akun_bp" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
-                                        </div>
-                                        <input type="text" class="cbbl form-control inp-label-akun_bp" id="akun_bp" name="akun_bp" value="" title="" readonly>
-                                        <span class="info-name_akun_bp hidden">
-                                            <span id="label_akun_bp"></span> 
-                                        </span>
-                                        <i class="simple-icon-close float-right info-icon-hapus hidden" style="cursor: pointer;"></i>
-                                        <i class="simple-icon-magnifier search-item2" id="search_akun_bp"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group col-md-6 col-sm-12">
-                            <div class="row">
-                                <div class="col-md-6 col-sm-12">
-                                    <label for="akun_deprs">Akun Akumulasi</label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
-                                            <span class="input-group-text info-code_akun_deprs" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
-                                        </div>
-                                        <input type="text" class="cbbl form-control inp-label-akun_deprs" id="akun_deprs" name="akun_deprs" value="" title="" readonly>
-                                        <span class="info-name_akun_deprs hidden">
-                                            <span id="label_akun_deprs"></span> 
-                                        </span>
-                                        <i class="simple-icon-close float-right info-icon-hapus hidden" style="cursor: pointer;"></i>
-                                        <i class="simple-icon-magnifier search-item2" id="search_akun_deprs"></i>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-sm-12">
-                                    <label for="flag_susut">Status</label>
-                                    <select class="form-control" name="flag_susut" id="flag_susut">
-                                        <option value="0" selected>NONSUSUT</option>
-                                        <option value="1">SUSUT</option>
+                                    <label for="jenis">Jenis</label>
+                                    <select class="form-control" name="jenis" id="jenis">
+                                        <option value="AKTAP" selected>AKTAP</option>
+                                        <option value="INV">INVENTORI</option>
+                                        <option value="NON">NON</option>
                                     </select>
                                 </div>
                             </div>
@@ -144,14 +98,6 @@
     });
 
     $('.selectize').selectize();
-
-    $('.currency').inputmask("numeric", {
-        radixPoint: ",",
-        groupSeparator: ".",
-        digits: 2,
-        autoGroup: true,
-        rightAlign: true
-    });
 
     function last_add(param,isi){
         var rowIndexes = [];
@@ -226,27 +172,23 @@
     function editData(kode) {
         $.ajax({
             type: 'GET',
-            url: "{{ url('esaku-master/akun-aktiva-tetap-detail') }}",
-            data: { kode_klpakun:kode },
+            url: "{{ url('esaku-master/klp-barang-detail') }}",
+            data: { kode_klpfa:kode },
             dataType: 'json',
             success:function(result){
                 if(result.status){
                     var data = result.daftar[0];
                     $('#id_edit').val('edit');
                     $('#method').val('put');
-                    $('#kode_klpakun').attr('readonly', true);
+                    $('#kode_klpfa').attr('readonly', true);
                     $('#id').val(kode);
-                    $('#kode_klpakun').val(data.kode_klpakun);
+                    $('#kode_klpfa').val(data.kode_klpfa);
                     $('#nama').val(data.nama);
-                    $('#umur').val(parseFloat(data.umur));
-                    $('#persen').val(parseFloat(data.persen));
-                    $('#flag_susut').val(data.flag_susut);
+                    $('#jenis').val(data.jenis);
                     $('#saku-datatable').hide();
                     $('#modal-preview').modal('hide');
                     $('#saku-form').show();
-                    showInfoField('kode_akun',data.kode_akun,data.nama_akun);
-                    showInfoField('akun_bp',data.akun_bp,data.nama_bp);
-                    showInfoField('akun_deprs',data.akun_deprs,data.nama_deprs);
+                    showInfoField('kode_klpakun',data.kode_klpakun,data.nama_klpakun);
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
                     window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
@@ -258,13 +200,13 @@
     function hapusData(id){
         $.ajax({
             type: 'DELETE',
-            url: "{{ url('esaku-master/akun-aktiva-tetap') }}/"+id,
+            url: "{{ url('esaku-master/klp-barang') }}/"+id,
             dataType: 'json',
             async:false,
             success:function(result){
                 if(result.data.status){
                     dataTable.ajax.reload();                    
-                    showNotification("top", "center", "success",'Hapus Data','Data Akun Aktiva Tetap ('+id+') berhasil dihapus ');
+                    showNotification("top", "center", "success",'Hapus Data','Data Kelompok Barang ('+id+') berhasil dihapus ');
                     $('#modal-pesan-id').html('');
                     $('#table-delete tbody').html('');
                     $('#modal-pesan').modal('hide');
@@ -292,9 +234,9 @@
     var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
     var dataTable = generateTable(
         "table-data",
-        "{{ url('esaku-master/akun-aktiva-tetap') }}", 
+        "{{ url('esaku-master/klp-barang') }}", 
         [
-            {'targets': 7, data: null, 'defaultContent': action_html,'className': 'text-center' },
+            {'targets': 5, data: null, 'defaultContent': action_html,'className': 'text-center' },
             {
                 "targets": 0,
                 "createdCell": function (td, cellData, rowData, row, col) {
@@ -305,19 +247,17 @@
                 }
             },
             {
-                "targets": [4,5,6],
+                "targets": [3],
                 "visible": false,
                 "searchable": false
             }
         ],
         [
-            { data: 'kode_klpakun' },
+            { data: 'kode_klpfa' },
             { data: 'nama' },
-            { data: 'umur' },
-            { data: 'persen' },
-            { data: 'akun' },
-            { data: 'bp' },
-            { data: 'deprs' },
+            { data: 'kode_klpakun' },
+            { data: 'nama_klpakun' },
+            { data: 'jenis' }
         ],
         "{{ url('esaku-auth/sesi-habis') }}",
         [[2 ,"desc"]]
@@ -340,47 +280,30 @@
         if($(this).index() != 4){ 
             var html = "";
             var data = dataTable.row(this).data();
-            var kode = data.kode_klpakun;
+            var kode = data.kode_klpfa;
             var nama = data.nama;
-            var umur = data.umur + " tahun"; 
-            var persen = data.persen + "%";
-            var akun = data.akun;
-            var deprs = data.deprs;
-            var bp = data.bp;
-            var status = data.status;
+            var kelompok = data.kode_klpakun + " - "+ data.nama_klpakun; 
+            var jenis = data.jenis;
              
             html += "<tr>";
-            html += "<td style='border: none;'>Kode Kelompok Akun</td>"
+            html += "<td style='border: none;'>Kode Kelompok Barang</td>"
             html += "<td style='border: none;'>"+kode+"</td>"
             html += "</tr>";
             html += "<tr>";
-            html += "<td>Nama Akun Kelompok Akun</td>"
+            html += "<td>Nama Akun Kelompok Barang</td>"
             html += "<td>"+nama+"</td>"
             html += "</tr>";
             html += "<tr>";
-            html += "<td>Umur</td>"
-            html += "<td>"+umur+"</td>"
+            html += "<td>Kelompok Akun</td>"
+            html += "<td>"+kelompok+"</td>"
             html += "</tr>";
             html += "<tr>";
-            html += "<td>Persentase</td>"
-            html += "<td>"+persen+"</td>"
-            html += "</tr>";
-            html += "<tr>";
-            html += "<td>Akun Aktiva Tetap</td>"
-            html += "<td>"+akun+"</td>"
-            html += "</tr>";
-            html += "<td>Akun BP</td>"
-            html += "<td>"+bp+"</td>"
-            html += "</tr>";
-            html += "<td>Akun Depresiasi</td>"
-            html += "<td>"+deprs+"</td>"
-            html += "</tr>";
-            html += "<td>Status</td>"
-            html += "<td>"+status+"</td>"
+            html += "<td>Jenis</td>"
+            html += "<td>"+jenis+"</td>"
             html += "</tr>";
 
             $('#table-preview tbody').html(html);
-            $('#modal-preview-judul').css({'margin-top':'10px','padding':'0px !important'}).html('Preview Data Akun Aktiva Tetap').removeClass('py-2');
+            $('#modal-preview-judul').css({'margin-top':'10px','padding':'0px !important'}).html('Preview Data Akun Kelompok Barang').removeClass('py-2');
             $('#modal-preview-id').text(kode);
             $('#modal-preview').modal('show');
         }
@@ -388,7 +311,7 @@
 
     // Form //
     $('#saku-datatable').on('click', '#btn-tambah', function(){
-        $('#kode_klpakun').attr('readonly', false);
+        $('#kode_klpfa').attr('readonly', false);
         $('#form-tambah')[0].reset();
         $('#form-tambah').validate().resetForm();
         $('#method').val('post');
@@ -406,7 +329,7 @@
         resetForm();
         $('#btn-save').attr('type','button');
         $('#btn-save').attr('id','btn-update');
-        $('#judul-form').html('Form Data Akun Aktiva Tetap');
+        $('#judul-form').html('Form Data Kelompok Barang');
         editData(id);
     });
 
@@ -446,73 +369,24 @@
     $('.modal-header').on('click', '#btn-edit2', function(){
         var id= $('#modal-preview-id').text();
         $('#form-tambah').validate().resetForm();
-        $('#judul-form').html('Form Data Akun Aktiva Tetap');
+        $('#judul-form').html('Form Data Kelompok Barang');
         
         $('#btn-save').attr('type','button');
         $('#btn-save').attr('id','btn-update');
         editData(id)
     });
 
-    $('#umur').change(function(){
-        var umur = toNilai($(this).val());
-        var persen = 100/umur;
-        if(umur == 0 || umur == '') {
-            persen = 0;
-        }
-        $('#persen').val(persen);
-    });
-
     $('#form-tambah').on('click', '.search-item2', function(){
         var id = $(this).closest('div').find('input').attr('name');
         var options = {}
         switch(id){
-            case 'kode_akun':
+            case 'kode_klpakun':
                 options = {
                     id : id,
                     header : ['Kode', 'Nama'],
-                    url : "{{ url('esaku-master/masakun') }}",
+                    url : "{{ url('esaku-master/akun-aktiva-tetap') }}",
                     columns : [
-                        { data: 'kode_akun' },
-                        { data: 'nama' }
-                    ],
-                    judul : "Daftar Akun",
-                    pilih : "akun",
-                    jTarget1 : "text",
-                    jTarget2 : "text",
-                    target1 : ".info-code_"+id,
-                    target2 : ".info-name_"+id,
-                    target3 : "",
-                    target4 : "",
-                    width : ["30%","70%"],
-                }
-            break;
-            case 'akun_bp':
-                options = {
-                    id : id,
-                    header : ['Kode', 'Nama'],
-                    url : "{{ url('esaku-master/masakun') }}",
-                    columns : [
-                        { data: 'kode_akun' },
-                        { data: 'nama' }
-                    ],
-                    judul : "Daftar Akun",
-                    pilih : "akun",
-                    jTarget1 : "text",
-                    jTarget2 : "text",
-                    target1 : ".info-code_"+id,
-                    target2 : ".info-name_"+id,
-                    target3 : "",
-                    target4 : "",
-                    width : ["30%","70%"],
-                }
-            break;
-            case 'akun_deprs':
-                options = {
-                    id : id,
-                    header : ['Kode', 'Nama'],
-                    url : "{{ url('esaku-master/masakun') }}",
-                    columns : [
-                        { data: 'kode_akun' },
+                        { data: 'kode_klpakun' },
                         { data: 'nama' }
                     ],
                     judul : "Daftar Akun",
@@ -534,23 +408,17 @@
     $('#form-tambah').validate({
         ignore:[],
         rules: {
-            kode_klpakun:{
+            kode_klpfa:{
                 required: true
             },
             nama:{
-                required: true
-            },
-            umur:{
-                required: true
-            },
-            persen:{
                 required: true
             }
         },
         errorElement: "label",
         submitHandler: function(form) {
             var parameter = $(form).find('#id_edit').val();
-            var kode = $(form).find('#kode_klpakun').val();
+            var kode = $(form).find('#kode_klpfa').val();
             
             var formData = new FormData(form);
             for(var pair of formData.entries()) {
@@ -558,11 +426,11 @@
             }
 
             if(parameter != "") { 
-                var url = "{{ url('esaku-master/akun-aktiva-tetap') }}/"+kode;
+                var url = "{{ url('esaku-master/klp-barang') }}/"+kode;
                 var pesan = "updated";
                 var text = "Perubahan data "+kode+" telah tersimpan";                
             } else {
-                var url = "{{ url('esaku-master/akun-aktiva-tetap') }}";
+                var url = "{{ url('esaku-master/klp-barang') }}";
                 var pesan = "saved";
                 var text = "Data tersimpan dengan kode "+kode;
             }
@@ -583,7 +451,7 @@
                         $('#form-tambah').validate().resetForm();
                         $('[id^=label]').html('');
                         $('#id_edit').val('');
-                        $('#judul-form').html('Form Data Akun Aktiva Tetap');
+                        $('#judul-form').html('Form Data Kelompok Barang');
                         $('#method').val('post');
                         $('#kode_klpakun').attr('readonly', false);
                         resetForm();
@@ -591,7 +459,7 @@
                             id:kode,
                             type:'simpan'
                         });
-                        last_add("kode_klpakun",kode);
+                        last_add("kode_klpfa",kode);
                     }else if(!result.data.status && result.data.message === "Unauthorized"){
                         window.location.href = "{{ url('/esaku-auth/sesi-habis') }}";
                     }else {

@@ -20,6 +20,13 @@ Route::get('reftrans-pemasukan','Esaku\HelperController@getRefPemasukan');
 Route::get('reftrans-pengeluaran','Esaku\HelperController@getRefPengeluaran');
 Route::get('reftrans-pindah-buku','Esaku\HelperController@getRefPindahBuku');
 
+// Data Kelompok Barang //
+Route::get('klp-barang', 'Esaku\KelompokBarangAsetController@index');
+Route::get('klp-barang-detail', 'Esaku\KelompokBarangAsetController@show');
+Route::post('klp-barang', 'Esaku\KelompokBarangAsetController@store');
+Route::put('klp-barang/{kode}', 'Esaku\KelompokBarangAsetController@update');
+Route::delete('klp-barang/{kode}', 'Esaku\KelompokBarangAsetController@delete');
+
 // Data Akun Aktiva Tetap //
 Route::get('akun-aktiva-tetap', 'Esaku\AkunAktivaTetapController@index');
 Route::get('akun-aktiva-tetap-detail', 'Esaku\AkunAktivaTetapController@show');
