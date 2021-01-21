@@ -657,6 +657,16 @@ function loadService(index,method,url,param=null){
                             credits:{
                                 enabled:false
                             }
+                        },function(){
+                            var series = this.series;
+                            for (var i = 0, ie = series.length; i < ie; ++i) {
+                                var points = series[i].data;
+                                for (var j = 0, je = points.length; j < je; ++j) {
+                                    if (points[j].graphic) {
+                                        points[j].graphic.element.style.fill = color[j];
+                                    }
+                                }
+                            }
                         });
 
                         $('.kas').each(function (i, value) {
@@ -704,6 +714,16 @@ function loadService(index,method,url,param=null){
                             }],
                             credits:{
                                 enabled:false
+                            }
+                        },function(){
+                            var series = this.series;
+                            for (var i = 0, ie = series.length; i < ie; ++i) {
+                                var points = series[i].data;
+                                for (var j = 0, je = points.length; j < je; ++j) {
+                                    if (points[j].graphic) {
+                                        points[j].graphic.element.style.fill = color[j];
+                                    }
+                                }
                             }
                         });
 
@@ -753,6 +773,16 @@ function loadService(index,method,url,param=null){
                             credits:{
                                 enabled:false
                             }
+                        },function(){
+                            var series = this.series;
+                            for (var i = 0, ie = series.length; i < ie; ++i) {
+                                var points = series[i].data;
+                                for (var j = 0, je = points.length; j < je; ++j) {
+                                    if (points[j].graphic) {
+                                        points[j].graphic.element.style.fill = color[j];
+                                    }
+                                }
+                            }
                         });
 
                         $('.ebt').each(function (i, value) {
@@ -801,6 +831,16 @@ function loadService(index,method,url,param=null){
                             credits:{
                                 enabled:false
                             }
+                        },function(){
+                            var series = this.series;
+                            for (var i = 0, ie = series.length; i < ie; ++i) {
+                                var points = series[i].data;
+                                for (var j = 0, je = points.length; j < je; ++j) {
+                                    if (points[j].graphic) {
+                                        points[j].graphic.element.style.fill = color[j];
+                                    }
+                                }
+                            }
                         });
 
                         $('.pro').each(function (i, value) {
@@ -821,7 +861,7 @@ function loadService(index,method,url,param=null){
                         $('#persenPro').text(sepNumx(result.data.pro.persen)+'%');
                     break;
                     case 'asetchart':
-
+                        var color = ['#007AFF','#4CD964','#FF9500','#5856d6'];
                         Highcharts.chart('aset', {
                             chart: {
                                 plotBackgroundColor: null,
@@ -892,7 +932,7 @@ function loadService(index,method,url,param=null){
                                     color:'#007AFF',
                                     key: result.data.kas_acuan
                                 }, {
-                                    name: 'Pend Tetap',
+                                    name: 'Pend Tetap', 
                                     y: parseFloat(result.data.ebt),
                                     color:'#4CD964',
                                     key: result.data.ebt_acuan
@@ -910,6 +950,16 @@ function loadService(index,method,url,param=null){
                             }],
                             credits:{
                                 enabled:false
+                            }
+                        },function(){
+                            var series = this.series;
+                            for (var i = 0, ie = series.length; i < ie; ++i) {
+                                var points = series[i].data;
+                                for (var j = 0, je = points.length; j < je; ++j) {
+                                    if (points[j].graphic) {
+                                        points[j].graphic.element.style.fill = color[j];
+                                    }
+                                }
                             }
                         });
                     break;

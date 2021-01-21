@@ -646,6 +646,9 @@ function loadService(index,method,url,param=null){
                                     color: (spi < 0 ? Highcharts.getOptions().colors[5] : Highcharts.getOptions().colors[0]) 
                                 }]
                             }]
+                        },function(){
+                            $('.highcharts-point').removeClass('highcharts-color-0');
+                            $('.highcharts-point').removeClass('highcharts-color-1');
                         });    
                     break;
                 }

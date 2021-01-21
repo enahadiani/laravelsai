@@ -576,6 +576,16 @@ function loadService(index,method,url,param=null){
                             credits:{
                                 enabled:false
                             }
+                        },function(){
+                            var series = this.series;
+                            for (var i = 0, ie = series.length; i < ie; ++i) {
+                                var points = series[i].data;
+                                for (var j = 0, je = points.length; j < je; ++j) {
+                                    if (points[j].graphic) {
+                                        points[j].graphic.element.style.fill = color[j];
+                                    }
+                                }
+                            }
                         });
                         
                         $('.kom').each(function (i, value) {
@@ -651,6 +661,16 @@ function loadService(index,method,url,param=null){
                             series: result.data.series,
                             credits:{
                                 enabled:false
+                            }
+                        },function(){
+                            var series = this.series;
+                            for (var i = 0, ie = series.length; i < ie; ++i) {
+                                var points = series[i].data;
+                                for (var j = 0, je = points.length; j < je; ++j) {
+                                    if (points[j].graphic) {
+                                        points[j].graphic.element.style.fill = color[j];
+                                    }
+                                }
                             }
                         });
                         
