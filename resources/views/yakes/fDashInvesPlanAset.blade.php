@@ -260,6 +260,9 @@ function getParamDefault(){
             $nama_plan = result.data.nama_plan;
             $tahun = parseInt($tgl_akhir.substr(0,4));
             $tahunSebelum = $tahun - 1;
+            $tahun10 = $tahun - 10;
+            var rentang = $tahun10+' - '+$tahun;
+            $('#rentang-tahun').text(rentang);
             $('#kode_plan').text($kode_plan);
             $('#kode_klp').text($kode_klp);
             $('#kode_klp_view').text(view_klp($kode_klp));
@@ -421,6 +424,11 @@ $('#calendar').on('changeDate', function() {
         $('#tglChart').text('s/d '+tglgrafik);
         var thnSblm = parseInt(tgl.substr(6,4))-1;
         $('#thnSebelum').text(' vs plan aset '+thnSblm);
+
+        var tahun = parseInt(tgl.substr(6,4));
+        var tahun10 = tahun - 10;
+        var rentang = tahun10+' - '+tahun;
+        $('#rentang-tahun').text(rentang);
         
         var plan = $('#kode_plan').text();
         var kode_klp = $('#kode_klp').text(); 

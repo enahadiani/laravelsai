@@ -68,3 +68,8 @@ Route::get('table-real', 'Yakes\DashInvesController@getRealHasil');
 Route::get('table-roi', 'Yakes\DashInvesController@getROIReal');
 
 Route::get('plan-aset', 'Yakes\DashInvesController@getPlanAset');
+
+Route::get('kinerja-plan-aset', 'Yakes\DashInvesController@getKinerja');
+Route::get('kinerja-etf', 'Yakes\DashInvesController@getKinerjaETF');
+Route::get('bindo', 'Yakes\DashInvesController@getKinerjaBindo');
+Route::get('bmark', 'Yakes\DashInvesController@getKinerjaBmark');
