@@ -20,6 +20,13 @@ Route::get('reftrans-pemasukan','Esaku\HelperController@getRefPemasukan');
 Route::get('reftrans-pengeluaran','Esaku\HelperController@getRefPengeluaran');
 Route::get('reftrans-pindah-buku','Esaku\HelperController@getRefPindahBuku');
 
+// Data Akun Aktiva Tetap //
+Route::get('akun-aktiva-tetap', 'Esaku\AkunAktivaTetapController@index');
+Route::get('akun-aktiva-tetap-detail', 'Esaku\AkunAktivaTetapController@show');
+Route::post('akun-aktiva-tetap', 'Esaku\AkunAktivaTetapController@store');
+Route::put('akun-aktiva-tetap/{kode}', 'Esaku\AkunAktivaTetapController@update');
+Route::delete('akun-aktiva-tetap/{kode}', 'Esaku\AkunAktivaTetapController@delete');
+
 // Data Customer //
 Route::get('cust', 'Esaku\CustomerController@index');
 Route::get('cust/{id}', 'Esaku\CustomerController@getData');
@@ -201,4 +208,3 @@ Route::put('setting-rasio', 'Esaku\SettingRasioController@update');
 Route::delete('setting-rasio', 'Esaku\SettingRasioController@destroy');
 Route::get('setting-rasio-klp', 'Esaku\SettingRasioController@getKlp');
 Route::get('setting-rasio-neraca', 'Esaku\SettingRasioController@getNeraca');
-
