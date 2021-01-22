@@ -165,7 +165,11 @@
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
             $('#saku-report').removeClass('hidden');
-            xurl = "{{ url('dash-telu/form/rptLabaRugiAgg') }}";
+            if($output.from == "Laporan"){
+                xurl = "{{ url('dash-telu/form/rptLabaRugiAgg') }}";
+            }else{
+                xurl = "{{ url('dash-telu/form/rptLabaRugiAggGrid') }}";
+            }
             $('#saku-report #canvasPreview').load(xurl);
         });
 
@@ -183,14 +187,18 @@
             for(var pair of $formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
-            xurl = "{{ url('dash-telu/form/rptLabaRugiAgg') }}";
+            if($output.from == "Laporan"){
+                xurl = "{{ url('dash-telu/form/rptLabaRugiAgg') }}";
+            }else{
+                xurl = "{{ url('dash-telu/form/rptLabaRugiAggGrid') }}";
+            }
             $('#saku-report #canvasPreview').load(xurl);
         });
 
 
         $("#sai-rpt-pdf").click(function(e) {
             e.preventDefault();
-            var link = "{{ url('telu-report/lap-labarugi-pdf') }}?periode[]="+$periode.type+"&periode[]="+$periode.from+"&periode[]="+$periode.to+"&kode_fs[]="+$kode_fs.type+"&kode_fs[]="+$kode_fs.from+"&kode_fs[]="+$kode_fs.to+"&output[]="+$output.type+"&output[]="+$output.from+"&output[]="+$output.to;
+            var link = "{{ url('telu-report/lap-labarugi-agg-pdf') }}?periode[]="+$periode.type+"&periode[]="+$periode.from+"&periode[]="+$periode.to+"&kode_fs[]="+$kode_fs.type+"&kode_fs[]="+$kode_fs.from+"&kode_fs[]="+$kode_fs.to+"&output[]="+$output.type+"&output[]="+$output.from+"&output[]="+$output.to;
             window.open(link, '_blank'); 
         });
 
