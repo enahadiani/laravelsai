@@ -1,5 +1,5 @@
 <?php
-    namespace App\Http\Controllers\Yakes;
+    namespace App\Http\Controllers\DashTelu;
 
     use App\Http\Controllers\Controller;
     use GuzzleHttp\Client;

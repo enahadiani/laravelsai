@@ -54,10 +54,36 @@ class KaryawanController extends Controller
         }
     }
 
+    public function getLokasi(){
+        try {
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'yakes-master/lokasi',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["data"];
+            }
+            return response()->json(['daftar' => $data, 'status'=>true], 200); 
+
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+        }
+    }
+
     public function store(Request $request) {
         $this->validate($request, [
             'nik' => 'required',
             'nama' => 'required',
+            'kode_lokasi' => 'required',
             'alamat' => 'required',
             'email' => 'required',
             'kode_pp' => 'required',
@@ -70,9 +96,9 @@ class KaryawanController extends Controller
 
         try { 
             if($request->hasfile('file_gambar')) {
-                $name = array('nik','nama','alamat','email','kode_pp','jabatan','no_telp','no_hp','status','flag_aktif','file_gambar');
+                $name = array('nik','nama','alamat','email','kode_pp','jabatan','no_telp','no_hp','status','flag_aktif','kode_lokasi','file_gambar');
             } else {
-                $name = array('nik','nama','alamat','email','kode_pp','jabatan','no_telp','no_hp','status','flag_aktif');
+                $name = array('nik','nama','alamat','email','kode_pp','jabatan','no_telp','no_hp','status','flag_aktif','kode_lokasi');
             }
             $req = $request->all();
             $fields = array();
@@ -157,6 +183,7 @@ class KaryawanController extends Controller
         $this->validate($request, [
             'nik' => 'required',
             'nama' => 'required',
+            'kode_lokasi' => 'required',
             'alamat' => 'required',
             'email' => 'required',
             'kode_pp' => 'required',
@@ -169,9 +196,9 @@ class KaryawanController extends Controller
 
         try { 
             if($request->hasfile('file_gambar')) {
-                $name = array('nik','nama','alamat','email','kode_pp','jabatan','no_telp','no_hp','status','flag_aktif','file_gambar');
+                $name = array('nik','nama','alamat','email','kode_pp','jabatan','no_telp','no_hp','status','flag_aktif','kode_lokasi','file_gambar');
             } else {
-                $name = array('nik','nama','alamat','email','kode_pp','jabatan','no_telp','no_hp','status','flag_aktif');
+                $name = array('nik','nama','alamat','email','kode_pp','jabatan','no_telp','no_hp','status','flag_aktif','kode_lokasi');
             }
             $req = $request->all();
             $fields = array();
