@@ -479,6 +479,10 @@
                         $('#judul-form').html('Tambah Data Kelompok Barang');
                         $('#method').val('post');
                         $('#kode_klp').attr('readonly', false);
+                        $('.input-group-prepend').addClass('hidden');
+                        $('span[class^=info-name]').addClass('hidden');
+                        $('.info-icon-hapus').addClass('hidden');
+                        $('[class*=inp-label-]').attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important;border-left:1px solid #d7d7d7 !important');
                         msgDialog({
                             id:result.data.kode,
                             type:'simpan'
