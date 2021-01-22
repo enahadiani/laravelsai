@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="{{ asset('master.css') }}" />
     <!-- LIST DATA -->
-    <x-list-data judul="Data Karyawan" tambah="true" :thead="array('NIK','Nama','Alamat','Jabatan','No Telp','Email','Kode PP','Aksi')" :thwidth="array(10,20,20,10,10,10,10,10)" :thclass="array('','','','','','','','text-center')" />
+    <x-list-data judul="Data Karyawan" tambah="true" :thead="array('NIK','Nama','Alamat','Jabatan','No Telp','Email','Kode PP','Kode Lokasi','Aksi')" :thwidth="array(10,20,10,10,10,10,10,10,10)" :thclass="array('','','','','','','','','text-center')" />
     <!-- END LIST DATA -->
 
     <!-- FORM INPUT -->
@@ -114,7 +114,27 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>                                
+                        </div>  
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <label for="kode_lokasi">Kode Lokasi</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                                <span class="input-group-text info-code_kode_lokasi" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                            </div>
+                                            <input type="text" class="form-control inp-label-kode_lokasi" id="kode_lokasi" name="kode_lokasi" value="" title="">
+                                            <span class="info-name_kode_lokasi hidden">
+                                                <span></span> 
+                                            </span>
+                                            <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                            <i class="simple-icon-magnifier search-item2" id="search_kode_lokasi"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                              
                     </div>
                 </div>
             </div>
@@ -190,7 +210,7 @@
         "table-data",
         "{{ url('yakes-master/karyawan') }}", 
         [
-            {'targets': 7, data: null, 'defaultContent': action_html,'className': 'text-center' },
+            {'targets': 8, data: null, 'defaultContent': action_html,'className': 'text-center' },
         ],
         [
             { data: 'nik' },
@@ -200,6 +220,7 @@
             { data: 'no_telp' },
             { data: 'email' },
             { data: 'kode_pp' },
+            { data: 'kode_lokasi' },
         ],
         "{{ url('yakes-auth/sesi-habis') }}",
         []
@@ -271,6 +292,31 @@
         });
     }
 
+    function getKodeLokasi(id=null){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('yakes-master/lokasi') }}",
+            dataType: 'json',
+            data:{'kode_lokasi':id},
+            async:false,
+            success:function(result){    
+                if(result.status){
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                        showInfoField('kode_lokasi',result.daftar[0].kode_lokasi,result.daftar[0].nama);
+                    }else{
+                        $('#kode_lokasi').attr('readonly',false);
+                        $('#kode_lokasi').css('border-left','1px solid #d7d7d7');
+                        $('#kode_lokasi').val('');
+                        $('#kode_lokasi').focus();
+                    }
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    window.location.href = "{{ url('yakes-auth/sesi-habis') }}";
+                }
+            }
+        });
+    }
+
     $('#form-tambah').on('click', '.search-item2', function(){
         var id = $(this).closest('div').find('input').attr('name');
         switch(id){
@@ -294,6 +340,26 @@
                     width : ["30%","70%"],
                 };
             break;
+            case 'kode_lokasi' :
+                var settings = {
+                    id : id,
+                    header : ['Kode', 'Nama'],
+                    url : "{{ url('yakes-master/lokasi') }}",
+                    columns : [
+                        { data: 'kode_lokasi' },
+                        { data: 'nama' }
+                    ],
+                    judul : "Daftar Unit",
+                    pilih : "lokasi",
+                    jTarget1 : "text",
+                    jTarget2 : "text",
+                    target1 : ".info-code_"+id,
+                    target2 : ".info-name_"+id,
+                    target3 : "",
+                    target4 : "",
+                    width : ["30%","70%"],
+                };
+            break;
         }
         showInpFilter(settings);
     });
@@ -301,6 +367,11 @@
     $('#form-tambah').on('change', '#kode_pp', function(){
         var par = $(this).val();
         getKodePP(par);
+    });
+
+    $('#form-tambah').on('change', '#kode_lokasi', function(){
+        var par = $(this).val();
+        getKodeLokasi(par);
     });
 
     // END BAGIAN CBBL
@@ -353,6 +424,12 @@
                 required: true 
             },
             nama:{
+                required: true 
+            },
+            kode_lokasi:{
+                required: true 
+            },
+            kode_pp:{
                 required: true 
             },
             alamat:{
@@ -424,7 +501,7 @@
                             msgDialog({
                                 id: id,
                                 type: result.data.jenis,
-                                text:'Kode Form sudah digunakan'
+                                text: result.data.message
                             });
                         }else{
 
@@ -510,6 +587,8 @@
                     $('#no_telp').val(result.data[0].no_telp);
                     $('#no_hp').val(result.data[0].no_hp);
                     $('#email').val(result.data[0].email);
+                    $('#kode_pp').val(result.data[0].kode_pp);
+                    $('#kode_lokasi').val(result.data[0].kode_lokasi);
                     $('#flag_aktif')[0].selectize.setValue(result.data[0].flag_aktif);
 
                     var html = "<img style='width:120px' style='margin:0 auto' src='"+result.data[0].foto+"'>";
@@ -518,6 +597,7 @@
                     $('#modal-preview').modal('hide');
                     $('#saku-form').show();
                     showInfoField('kode_pp',result.data[0].kode_pp,result.data[0].nama_pp);
+                    showInfoField('kode_lokasi',result.data[0].kode_lokasi,result.data[0].nama_lokasi);
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
                     window.location.href = "{{ url('yakes-auth/sesi-habis') }}";
@@ -540,9 +620,9 @@
     // END BUTTON EDIT
     
     // HANDLER untuk enter dan tab
-    $('#nik,#nama,#alamat,#jabatan,#no_telp,#email,#kode_pp,#flag_aktif,#no_hp,#file_gambar').keydown(function(e){
+    $('#nik,#nama,#alamat,#jabatan,#no_telp,#email,#kode_pp,#flag_aktif,#no_hp,#kode_lokasi,#file_gambar').keydown(function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['nik','nama','alamat','jabatan','no_telp','email','kode_pp','flag_aktif','no_hp','file_gambar'];
+        var nxt = ['nik','nama','alamat','jabatan','no_telp','email','kode_pp','flag_aktif','no_hp','kode_lokasi','file_gambar'];
         if (code == 13 || code == 40) {
             e.preventDefault();
             var idx = nxt.indexOf(e.target.id);
@@ -591,6 +671,10 @@
             <tr>
                 <td>Kode PP</td>
                 <td>`+data.kode_pp+`</td>
+            </tr>
+            <tr>
+                <td>Kode Lokasi</td>
+                <td>`+data.kode_lokasi+`</td>
             </tr>
             <tr>
                 <td>Status Aktif</td>
