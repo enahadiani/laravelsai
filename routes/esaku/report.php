@@ -35,6 +35,14 @@ Route::get('filter-output', 'Esaku\HelperController@getFilterOutput');
 Route::get('filter-jeniscoa', 'Esaku\HelperController@getFilterJenisCOA');
 Route::get('filter-pp', 'Esaku\HelperController@getFilterPP');
 
+//AKTAP//
+Route::get('filter-periode-perolehan', 'Esaku\FilterAktapController@getPeriodePerolehan');
+Route::get('filter-periode-susut', 'Esaku\FilterAktapController@getPeriodeSusut');
+Route::get('filter-klp-akun', 'Esaku\FilterAktapController@getKlpAkun');
+Route::get('filter-jenis', 'Esaku\FilterAktapController@getJenis');
+Route::get('filter-asset', 'Esaku\FilterAktapController@getAsset');
+Route::get('filter-pp-aktap', 'Esaku\FilterAktapController@getPP');
+
 Route::post('lap-penjualan-harian', 'Esaku\LaporanController@getPenjualanHarian');
 Route::post('lap-penjualan', 'Esaku\LaporanController@getPenjualan');
 Route::post('lap-retur-beli', 'Esaku\LaporanController@getReturBeli');
