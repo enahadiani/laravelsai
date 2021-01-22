@@ -613,5 +613,5 @@
             $("label[for="+id+"]").append("<br/>");
             $("label[for="+id+"]").append(error);
         }
-    })
+    });
 </script>

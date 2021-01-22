@@ -17,6 +17,9 @@ Route::post('mutasi-barang', 'Esaku\MutasiController@store');
 Route::delete('mutasi-barang', 'Esaku\MutasiController@destroy');
 Route::put('mutasi-barang-update', 'Esaku\MutasiController@update');
 
+//Aktiva tetap //
+Route::post('aktap', 'Esaku\TransAktivaTetapController@store');
+
 //Penjualan Routes //
 Route::get('penjualan-open', 'Esaku\PenjualanController@getNoOpen');
 Route::get('penjualan-bonus/{kd_barang}/{tanggal}/{jumlah}/{harga}', 'Esaku\PenjualanController@cekBonus');
