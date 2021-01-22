@@ -2,7 +2,7 @@
 <script type="text/javascript">
     
     function drawLap(formData){
-        saiPostLoad("{{ url('telu-report/lap-neraca2') }}", null, formData, null, function(res){
+        saiPostLoad("{{ url('telu-report/lap-investasi') }}", null, formData, null, function(res){
            if(res.result.length > 0){
 
                 $('#pagination').html('');
@@ -118,13 +118,13 @@
                 .header_laporan{
                     vertical-align: middle !important;
                 }
-            </style>`+judul_lap("LAPORAN NERACA",lokasi,'Posisi: '+totime+' dan '+tahunrev)+`
+            </style>`+judul_lap("LAPORAN INVESTASI",lokasi,'Posisi: '+totime+' dan '+tahunrev)+`
             <div class='table-responsive'>
             <table class='table table-bordered report-table'>
                 <tr>
 					<th width='60%' class='header_laporan text-center' >Keterangan</th>
-					<th width='20%' class='header_laporan text-center' >Posisi Neraca <br>Per `+totime+`</th>
-					<th width='20%' class='header_laporan text-center' >Posisi Neraca <br>Per `+totimerev+`</th>
+					<th width='20%' class='header_laporan text-center' >Per `+totime+`</th>
+					<th width='20%' class='header_laporan text-center' >Per `+totimerev+`</th>
 				</tr>
             `;
             for (var i=0; i < data.length; i++)
@@ -163,7 +163,7 @@
                     $(this).addClass('clicked');
                     var top = $(this).position().top;
                     $('#grid-load').css('top',top);
-                    getChild(index,id,$formData,'telu-report/lap-neraca2-detail',parent);
+                    getChild(index,id,$formData,'telu-report/lap-investasi-detail',parent);
                 }
                 if(!$(this).hasClass('open-grid')){
                     $(this).addClass('open-grid');

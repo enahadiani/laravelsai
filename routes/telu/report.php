@@ -23,6 +23,7 @@ Route::post('lap-labarugi-agg-detail', 'DashTelu\LaporanController@getLabaRugiAg
 Route::post('lap-neraca2', 'DashTelu\LaporanController@getNeraca2');
 Route::post('lap-neraca2-detail', 'DashTelu\LaporanController@getNeraca2Detail');
 Route::post('lap-investasi', 'DashTelu\LaporanController@getInvestasi');
+Route::post('lap-investasi-detail', 'DashTelu\LaporanController@getInvestasiDetail');
 Route::post('lap-labarugi-agg-dir', 'DashTelu\LaporanController@getLabaRugiAggDir');
 Route::post('lap-labarugi-agg-dir-detail', 'DashTelu\LaporanController@getLabaRugiAggDirDetail');
 Route::post('lap-labarugi-agg-fak', 'DashTelu\LaporanController@getLabaRugiAggFak');
