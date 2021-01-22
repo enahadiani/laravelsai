@@ -14,22 +14,58 @@ class FilterAktapController extends Controller {
         }
     }
 
+    public function getTahun() {
+        $client = new Client();
+        $response = $client->request('GET',  config('api.url').'toko-report/filter-tahun',[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ]
+        ]);
+
+        if ($response->getStatusCode() == 200) { // 200 OK
+            $response_data = $response->getBody()->getContents();
+            
+            $data = json_decode($response_data,true);
+            $data = $data['data'];
+        }
+        return response()->json(['daftar' => $data, 'status' => true], 200);
+    }
+
+    public function getBuktiJurnalSusut() {
+        $client = new Client();
+        $response = $client->request('GET',  config('api.url').'toko-report/filter-bukti-jurnal-susut',[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ]
+        ]);
+
+        if ($response->getStatusCode() == 200) { // 200 OK
+            $response_data = $response->getBody()->getContents();
+            
+            $data = json_decode($response_data,true);
+            $data = $data['data'];
+        }
+        return response()->json(['daftar' => $data, 'status' => true], 200);
+    }
+
     public function getPP() {
         $client = new Client();
-            $response = $client->request('GET',  config('api.url').'toko-report/filter-pp',[
-                'headers' => [
-                    'Authorization' => 'Bearer '.Session::get('token'),
-                    'Accept'     => 'application/json',
-                ]
-            ]);
+        $response = $client->request('GET',  config('api.url').'toko-report/filter-pp',[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ]
+        ]);
 
-            if ($response->getStatusCode() == 200) { // 200 OK
-                $response_data = $response->getBody()->getContents();
+        if ($response->getStatusCode() == 200) { // 200 OK
+            $response_data = $response->getBody()->getContents();
             
-                $data = json_decode($response_data,true);
-                $data = $data['data'];
-            }
-            return response()->json(['daftar' => $data, 'status' => true], 200);
+            $data = json_decode($response_data,true);
+            $data = $data['data'];
+        }
+        return response()->json(['daftar' => $data, 'status' => true], 200);
     }
 
     public function getAsset() {

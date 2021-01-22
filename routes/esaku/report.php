@@ -42,6 +42,8 @@ Route::get('filter-klp-akun', 'Esaku\FilterAktapController@getKlpAkun');
 Route::get('filter-jenis', 'Esaku\FilterAktapController@getJenis');
 Route::get('filter-asset', 'Esaku\FilterAktapController@getAsset');
 Route::get('filter-pp-aktap', 'Esaku\FilterAktapController@getPP');
+Route::get('filter-bukti-jurnal-susut', 'Esaku\FilterAktapController@getBuktiJurnalSusut');
+Route::get('filter-tahun-aktap', 'Esaku\FilterAktapController@getTahun');
 
 Route::post('lap-penjualan-harian', 'Esaku\LaporanController@getPenjualanHarian');
 Route::post('lap-penjualan', 'Esaku\LaporanController@getPenjualan');
