@@ -64,69 +64,76 @@
             .header_laporan{
                 vertical-align: middle !important;
             }
-            </style>`+judul_lap("LAPORAN LABA RUGI ANGGARAN FAKULTAS",lokasi,'Periode '+$periode.fromname)+`
-            <table  class='table table-bordered' width='100%'>
-            <tr>
-                <th width='23%' height='25'  class='header_laporan text-center' align='center'>Keterangan</th>
-                <th width='11' class='header_laporan text-center' align='center'>RKA `+tahun+`</th>
-                <th width='11' class='header_laporan text-center' align='center'>RKA s.d Bulan Berjalan `+tahun+`</th>
-                <th width='11' class='header_laporan text-center' align='center'>Realisasi s.d Bulan Berjalan `+tahun+`</th>
-                <th width='11' class='header_laporan text-center' align='center'>Realisasi s.d Bulan Berjalan `+tahunrev+`</th>
-                <th width='11' class='header_laporan text-center' align='center'>Realisasi s.d Bulan Berjalan thd RKA `+tahun+`</th>
-                <th width='11' class='header_laporan text-center' align='center'>Realisasi s.d Bulan Berjalan thd RKA s.d Bulan Berjalan `+tahun+`</th>
-                <th width='11' class='header_laporan text-center' align='center'>Growth Thd `+tahunrev+`</th>
-            </tr>
-            <tr>
-                <td height='25'  class='header_laporan' align='center'>&nbsp;</td>
-                <td class='header_laporan' align='center'>1</td>
-                <td class='header_laporan' align='center'>2</td>
-                <td class='header_laporan' align='center'>3</td>
-                <td class='header_laporan' align='center'>4</td>
-                <td class='header_laporan' align='center'>5=3/1</td>
-                <td class='header_laporan' align='center'>6=3/2</td>
-                <td class='header_laporan' align='center'>7=(3-4)/4</td>
-            </tr>`;
-		
-            for (var i=0; i < data.length; i++)
-            {
-                var line = data[i];
-                var persen1=0;var persen2=0;var persen3=0;
-                if (line.n3!=0)
-                {
-                    persen1=(line.n1/line.n3)*100;
-                }
-                if (line.n4!=0)
-                {
-                    persen2=(line.n1/line.n4)*100;
-                }
-                if (line.n2!=0)
-                {
-                    persen3=(line.n1-line.n2)/line.n2*100;
-                }
-                html+=`<tr>
-                <td height='20' class='isi_laporan'>`+fnSpasi(line.level_spasi)+` `+line.nama+`</td>`;
-                if (line.kode_neraca!="OR" && line.kode_fs=="FS4")
-                {
-                    html+=`<td class='isi_laporan' align='right'>`+sepNum(line.n3)+`</td>
-                    <td class='isi_laporan' align='right'>`+sepNum(line.n4)+`</td>
-                    <td class='isi_laporan' align='right'>`+sepNum(line.n1)+`</td>
-                    <td class='isi_laporan' align='right'>`+sepNum(line.n2)+`</td>`;
-                }
-                else
-                {
-                    html+=`<td class='isi_laporan' align='center'>`+sepNum(line.n3)+`%</td>
-                        <td class='isi_laporan' align='center'>`+sepNum(line.n4)+`%</td>
-                        <td class='isi_laporan' align='center'>`+sepNum(line.n1)+`%</td>
-                        <td class='isi_laporan' align='center'>`+sepNum(line.n2)+`%</td>`;
-                }
-                    html+=`<td class='isi_laporan' align='center'>`+sepNum(persen1)+`%</td>
-                    <td class='isi_laporan' align='center'>`+sepNum(persen2)+`%</td>
-                    <td class='isi_laporan' align='center'>`+sepNum(persen3)+`%</td>
-                    </tr>`;
-                
+            .sbjudul{
+                text-transform:uppercase;
             }
+            </style>`;
+            for(var j=0; j < data.length; j++){
+
+                var linex = data[j];
+                html+=judul_lap("LAPORAN LABA RUGI ANGGARAN FAKULTAS <br><span class='sbjudul'>"+linex.nama+"</span>",lokasi,'Periode '+$periode.fromname)+`
+                <table  class='table table-bordered' width='100%'>
+                <tr>
+                    <th width='28%' height='25'  class='header_laporan text-center' align='center'>Keterangan</th>
+                    <th width='12%' class='header_laporan text-center' align='center'>RKA `+tahun+`</th>
+                    <th width='12%' class='header_laporan text-center' align='center'>RKA s.d Bulan Berjalan `+tahun+`</th>
+                    <th width='12%' class='header_laporan text-center' align='center'>Realisasi s.d Bulan Berjalan `+tahun+`</th>
+                    <th width='12%' class='header_laporan text-center' align='center'>Realisasi s.d Bulan Berjalan thd RKA `+tahun+`</th>
+                    <th width='12%' class='header_laporan text-center' align='center'>Realisasi s.d Bulan Berjalan thd RKA s.d Bulan Berjalan `+tahun+`</th>
+                    <th width='12%' class='header_laporan text-center' align='center'>Growth Thd `+tahunrev+`</th>
+                </tr>
+                <tr>
+                    <td height='25'  class='header_laporan' align='center'>&nbsp;</td>
+                    <td class='header_laporan' align='center'>1</td>
+                    <td class='header_laporan' align='center'>3</td>
+                    <td class='header_laporan' align='center'>4</td>
+                    <td class='header_laporan' align='center'>6=4/1</td>
+                    <td class='header_laporan' align='center'>7=4/3</td>
+                    <td class='header_laporan' align='center'>8=(3-4)/4</td>
+                </tr>`;
+            
+                for (var i=0; i < res.res.detail.length; i++)
+                {
+                    var line = res.res.detail[i];
+                    if(linex.kode_fakultas == line.kode_fakultas){
+
+                        var persen1=0;var persen2=0;var persen3=0;
+                        if (line.n1!=0)
+                        {
+                            persen1=(line.n4/line.n1)*100;
+                        }
+                        if (line.n2!=0)
+                        {
+                            persen2=(line.n4/line.n2)*100;
+                        }
+                        if (line.n5!=0)
+                        {
+                            persen3=(line.n4-line.n5)/line.n5*100;
+                        }
+                        html+=`<tr>
+                        <td height='20' class='isi_laporan'>`+fnSpasi(line.level_spasi)+` `+line.nama+`</td>`;
+                        if (line.kode_akun!="OR" && line.kode_fs=="FS4")
+                        {
+                            html+=`<td class='isi_laporan' align='right'>`+sepNum(line.n1)+`</td>
+                            <td class='isi_laporan' align='right'>`+sepNum(line.n2)+`</td>
+                            <td class='isi_laporan' align='right'>`+sepNum(line.n4)+`</td>`;
+                        }
+                        else
+                        {
+                            html+=`<td class='isi_laporan' align='center'>`+sepNum(line.n1)+`%</td>
+                                <td class='isi_laporan' align='center'>`+sepNum(line.n2)+`%</td>
+                                <td class='isi_laporan' align='center'>`+sepNum(line.n4)+`%</td>`;
+                        }
+                            html+=`<td class='isi_laporan' align='center'>`+sepNum(persen1)+`%</td>
+                            <td class='isi_laporan' align='center'>`+sepNum(persen2)+`%</td>
+                            <td class='isi_laporan' align='center'>`+sepNum(persen3)+`%</td>
+                            </tr>`;
+                        
+                    }
+                }
 		
-		    html+=`</table>`;
+                html+=`</table>`;
+            }
         }
         $('#canvasPreview').html(html);
         $('li.prev a ').html("<i class='simple-icon-arrow-left'></i>");
