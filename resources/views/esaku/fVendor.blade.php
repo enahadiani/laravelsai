@@ -54,7 +54,7 @@
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12">
                                         <label for="email">Email</label>
-                                        <input class="form-control" type="email" id="email" name="email" required>
+                                        <input class="form-control" type="text" id="email" name="email" required>
                                     </div>
                                     <div class="col-md-6 col-sm-12">
                                         <label for="npwp">NPWP</label>
@@ -92,7 +92,7 @@
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12">
                                         <label for="no_rek">No. Rekening</label>
-                                        <input class="form-control" type="number" id="no_rek" name="no_rek" required>
+                                        <input class="form-control" type="text" id="no_rek" name="no_rek" required>
                                         
                                     </div>
                                     <div class="col-md-6 col-sm-12">
@@ -425,12 +425,11 @@
                 maxlength:50   
             },
             no_tel:{
-                required: true,
-                number:true   
+                required: true, 
+                maxlength:50  
             },
             email:{
                 required: true,
-                email:true ,
                 maxlength:50  
             },
             alamat:
