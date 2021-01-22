@@ -67,7 +67,7 @@
                                             <span class="input-group-text info-code_kode_klpakun" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
                                         </div>
                                         <input type="text" class="cbbl form-control inp-label-kode_klpakun" id="kode_klpakun" name="kode_klpakun" value="" title="" readonly>
-                                        <span class="info-name_kode_klpfa hidden">
+                                        <span class="info-name_kode_klpakun hidden">
                                             <span id="label_kode_klpakun"></span> 
                                         </span>
                                         <i class="simple-icon-close float-right info-icon-hapus hidden" style="cursor: pointer;"></i>
@@ -86,7 +86,7 @@
                                     <input type="text" placeholder="Deskripsi Akun" class="form-control" id="deskripsi_akun" name="deskripsi_akun" readonly>
                                 </div>
                                 <div class="col-md-4 col-sm-12">
-                                    <label for="umur">Umur</label>
+                                    <label for="umur">Umur (Bulan)</label>
                                     <input type="text" placeholder="Umur" class="form-control currency" id="umur" name="umur" value="0" readonly required>
                                 </div>
                             </div>
@@ -206,6 +206,8 @@
 <script src="{{ asset('helper.js') }}"></script>
 <script type="text/javascript">
     setHeightForm();
+    var $nilaiPerolehan = 0;
+    var $jumlahPerolehan = 0;
     var scrollform = document.querySelector('.form-body');
     new PerfectScrollbar(scrollform);
 
@@ -217,6 +219,43 @@
 
     $('.selectize').selectize();
 
+    $('.info-icon-hapus').click(function(){
+        var par = $(this).closest('div').find('input').attr('name');
+        $('#'+par).val('');
+        // $('#'+par).attr('readonly',false);
+        $('#'+par).attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important');
+        $('.info-code_'+par).parent('div').addClass('hidden');
+        $('.info-name_'+par).addClass('hidden');
+        $(this).addClass('hidden');
+    });
+
+    function resetForm() {
+        $("[id^=label]").each(function(e){
+            $(this).text('');
+        });
+        $("[class^=cbbl]").each(function(e){
+            $(this).val('');
+        });
+        $("[class^=info-name]").each(function(e){
+            $(this).addClass('hidden');
+        });
+        $("[class^=input-group-text]").each(function(e){
+            $(this).text('');
+        });
+        $("[class^=input-group-prepend]").each(function(e){
+            $(this).addClass('hidden');
+        });
+        $("[class*='inp-label-']").each(function(e){
+            $(this).removeAttr("style");
+        })
+        $("[class^=info-code]").each(function(e){
+            $(this).text('');
+        });
+        $("[class^=simple-icon-close]").each(function(e){
+            $(this).addClass('hidden');
+        });
+    }
+
     $('.currency').inputmask("numeric", {
         radixPoint: ",",
         groupSeparator: ".",
@@ -225,5 +264,182 @@
         rightAlign: true
     });
 
+    $('#jumlah, #nilai_perolehan').change(function(){
+        var id = $(this).attr('id');
+        if(id == 'jumlah') {
+            $jumlahPerolehan = toNilai($(this).val());
+        } else if(id == 'nilai_perolehan') {
+            $nilaiPerolehan = toNilai($(this).val());
+        }
+        var total = $jumlahPerolehan * $nilaiPerolehan;
+        $('#total').val(total);
+    })
+
+    function custTarget(target, tr) {
+        var kode = tr.find('td:nth-child(1)').text();
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('esaku-master/akun-aktiva-tetap-detail') }}",
+            data: { kode_klpakun:kode },
+            dataType: 'json',
+            success:function(result){
+                if(result.status){
+                    var data = result.daftar[0];
+                    $('#deskripsi_akun').val(data.nama);
+                    $('#umur').val(parseFloat(data.umur));
+                    $('#persen').val(parseFloat(data.persen));
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                }
+            }
+        });
+    }
+
+    $('#form-tambah').on('click', '.search-item2', function(){
+        var id = $(this).closest('div').find('input').attr('name');
+        var options = {}
+        switch(id){
+            case 'kode_klpfa':
+                options = {
+                    id : id,
+                    header : ['Kode', 'Nama'],
+                    url : "{{ url('esaku-master/klp-barang') }}",
+                    columns : [
+                        { data: 'kode_klpfa' },
+                        { data: 'nama' }
+                    ],
+                    judul : "Daftar Kelompok",
+                    pilih : "",
+                    jTarget1 : "text",
+                    jTarget2 : "text",
+                    target1 : ".info-code_"+id,
+                    target2 : ".info-name_"+id,
+                    target3 : "",
+                    target4 : "",
+                    width : ["30%","70%"],
+                }
+            break;
+            case 'kode_klpakun':
+                options = {
+                    id : id,
+                    header : ['Kode', 'Nama'],
+                    url : "{{ url('esaku-master/akun-aktiva-tetap') }}",
+                    columns : [
+                        { data: 'kode_klpakun' },
+                        { data: 'nama' }
+                    ],
+                    judul : "Daftar Akun",
+                    pilih : "",
+                    jTarget1 : "text",
+                    jTarget2 : "text",
+                    target1 : ".info-code_"+id,
+                    target2 : ".info-name_"+id,
+                    target3 : "",
+                    target4 : "custom",
+                    width : ["30%","70%"],
+                }
+            break;
+            case 'kode_pp1':
+                options = {
+                    id : id,
+                    header : ['Kode', 'Nama'],
+                    url : "{{ url('esaku-report/filter-pp') }}",
+                    columns : [
+                        { data: 'kode_pp' },
+                        { data: 'nama' }
+                    ],
+                    judul : "Daftar Akun",
+                    pilih : "",
+                    jTarget1 : "text",
+                    jTarget2 : "text",
+                    target1 : ".info-code_"+id,
+                    target2 : ".info-name_"+id,
+                    target3 : "",
+                    target4 : "",
+                    width : ["30%","70%"],
+                }
+            break;
+            case 'kode_pp2':
+                options = {
+                    id : id,
+                    header : ['Kode', 'Nama'],
+                    url : "{{ url('esaku-report/filter-pp') }}",
+                    columns : [
+                        { data: 'kode_pp' },
+                        { data: 'nama' }
+                    ],
+                    judul : "Daftar Akun",
+                    pilih : "",
+                    jTarget1 : "text",
+                    jTarget2 : "text",
+                    target1 : ".info-code_"+id,
+                    target2 : ".info-name_"+id,
+                    target3 : "",
+                    target4 : "",
+                    width : ["30%","70%"],
+                }
+            break;
+        }
+        showInpFilter(options);
+    });
+
+    $('#form-tambah').validate({
+        ignore:[],
+        rules: {},
+        errorElement: "label",
+        submitHandler: function(form) {
+            var kode = $(form).find('#no_bukti').val();
+            var url = "{{ url('esaku-trans/aktap') }}";
+            var pesan = "saved";
+            var text = "Data tersimpan dengan kode "+kode;
+            var formData = new FormData(form);
+            for(var pair of formData.entries()) {
+                console.log(pair[0]+ ', '+ pair[1]); 
+            }
+
+            $.ajax({
+                type: 'POST', 
+                url: url,
+                dataType: 'json',
+                data: formData,
+                async:false,
+                contentType: false,
+                cache: false,
+                processData: false, 
+                success:function(result){
+                    if(result.data.status){
+                        $('#form-tambah')[0].reset();
+                        $('#form-tambah').validate().resetForm();
+                        $('[id^=label]').html('');
+                        $('#id_edit').val('');
+                        $('#judul-form').html('Form Input Aktiva Tetap');
+                        resetForm();
+                        msgDialog({
+                            id:result.data.no_fa,
+                            type:'simpan'
+                        });
+                    }else if(!result.data.status && result.data.message === "Unauthorized"){
+                        window.location.href = "{{ url('/esaku-auth/sesi-habis') }}";
+                    }else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Something went wrong!',
+                            footer: '<a href>'+result.data.message+'</a>'
+                        })
+                    }
+                },
+                fail: function(xhr, textStatus, errorThrown){
+                    alert('request failed:'+textStatus);
+                }
+            });
+        },
+        errorPlacement: function (error, element) {
+            var id = element.attr("id");
+            $("label[for="+id+"]").append("<br/>");
+            $("label[for="+id+"]").append(error);
+        }
+    });
 
 </script>
