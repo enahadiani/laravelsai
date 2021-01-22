@@ -165,7 +165,12 @@
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
             $('#saku-report').removeClass('hidden');
-            xurl = "{{ url('dash-telu/form/rptNeraca') }}";
+            if($output.from == "Laporan"){
+
+                xurl = "{{ url('dash-telu/form/rptNeraca') }}";
+            }else{
+                xurl = "{{ url('dash-telu/form/rptNeraca2Grid') }}";
+            }
             $('#saku-report #canvasPreview').load(xurl);
         });
 
@@ -183,7 +188,11 @@
             for(var pair of $formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
-            xurl = "{{ url('dash-telu/form/rptNeraca') }}";
+            if($output.from == "Laporan"){
+                xurl = "{{ url('dash-telu/form/rptNeraca') }}";
+            }else{
+                xurl = "{{ url('dash-telu/form/rptNeraca2Grid') }}";
+            }
             $('#saku-report #canvasPreview').load(xurl);
         });
 
