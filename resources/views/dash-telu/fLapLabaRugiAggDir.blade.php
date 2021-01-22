@@ -14,6 +14,7 @@
                                         <!-- COMPONENT -->
                                         <x-inp-filter kode="periode" nama="Periode" selected="3" :option="array('3')"/>
                                         <x-inp-filter kode="kode_fs" nama="Kode FS" selected="3" :option="array('3')"/>
+                                        <x-inp-filter kode="kode_rektor" nama="Kode Rektor" selected="1" :option="array('1','2','3','i')"/>
                                         <x-inp-filter kode="output" nama="Output" selected="3" :option="array('3')"/>
                                         
                                         <!-- END COMPONENT -->
@@ -56,6 +57,13 @@
             type : "=",
             from : "FS4",
             fromname : "FS4",
+            to : "",
+            toname : "",
+        }
+        var $kode_rektor = {
+            type : "All",
+            from : "",
+            fromname : "",
             to : "",
             toname : "",
         }
@@ -125,10 +133,10 @@
 
         $('.selectize').selectize();
         $('#inputFilter').reportFilter({
-            kode : ['periode','kode_fs','output'],
-            nama : ['Periode','Kode FS','Output'],
-            header : [['Periode', 'Nama'],['Kode', 'Nama'],['Kode']],
-            headerpilih : [['Periode', 'Nama','Action'],['Kode', 'Nama','Action'],['Kode','Action']],
+            kode : ['periode','kode_fs','kode_rektor','output'],
+            nama : ['Periode','Kode FS','Kode Rektor','Output'],
+            header : [['Periode', 'Nama'],['Kode', 'Nama'],['Kode', 'Nama'],['Kode']],
+            headerpilih : [['Periode', 'Nama','Action'],['Kode', 'Nama','Action'],['Kode', 'Nama','Action'],['Kode','Action']],
             columns: [
                 [
                     { data: 'periode' },
@@ -137,15 +145,18 @@
                     { data: 'kode_fs' },
                     { data: 'nama' }
                 ],[
+                    { data: 'kode_rektor' },
+                    { data: 'nama' }
+                ],[
                     { data: 'kode' }
                 ]
             ],
-            url :["{{ url('telu-report/filter-periode-keu') }}","{{ url('telu-report/filter-fs') }}","{{ url('telu-report/filter-output') }}"],
+            url :["{{ url('telu-report/filter-periode-keu') }}","{{ url('telu-report/filter-fs') }}","{{ url('telu-report/filter-rektor') }}","{{ url('telu-report/filter-output') }}"],
             parameter:[],
-            orderby:[[[0,"desc"]],[],[]],
-            width:[['30%','70%'],['30%','70%'],['30%','70%']],
-            display:['name','kode','kode'],
-            pageLength:[12,10,10]
+            orderby:[[[0,"desc"]],[],[],[]],
+            width:[['30%','70%'],['30%','70%'],['30%','70%'],['30%','70%']],
+            display:['name','kode','kode','kode'],
+            pageLength:[12,10,10,10]
         });
 
         var $formData = "";
@@ -161,11 +172,18 @@
             $formData.append("output[]",$output.type);
             $formData.append("output[]",$output.from);
             $formData.append("output[]",$output.to);
+            $formData.append("kode_rektor[]",$kode_rektor.type);
+            $formData.append("kode_rektor[]",$kode_rektor.from);
+            $formData.append("kode_rektor[]",$kode_rektor.to);
             for(var pair of $formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
             $('#saku-report').removeClass('hidden');
-            xurl = "{{ url('dash-telu/form/rptLabaRugiAggDir') }}";
+            if($output.from == "Laporan"){
+                xurl = "{{ url('dash-telu/form/rptLabaRugiAggDir') }}";
+            }else{
+                xurl = "{{ url('dash-telu/form/rptLabaRugiAggDirGrid') }}";
+            }
             $('#saku-report #canvasPreview').load(xurl);
         });
 
@@ -180,17 +198,24 @@
             $formData.append("output[]",$output.type);
             $formData.append("output[]",$output.from);
             $formData.append("output[]",$output.to);
+            $formData.append("kode_rektor[]",$kode_rektor.type);
+            $formData.append("kode_rektor[]",$kode_rektor.from);
+            $formData.append("kode_rektor[]",$kode_rektor.to);
             for(var pair of $formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
-            xurl = "{{ url('dash-telu/form/rptLabaRugiAggDir') }}";
+            if($output.from == "Laporan"){
+                xurl = "{{ url('dash-telu/form/rptLabaRugiAggDir') }}";
+            }else{
+                xurl = "{{ url('dash-telu/form/rptLabaRugiAggDirGrid') }}";
+            }
             $('#saku-report #canvasPreview').load(xurl);
         });
 
 
         $("#sai-rpt-pdf").click(function(e) {
             e.preventDefault();
-            var link = "{{ url('telu-report/lap-labarugi-pdf') }}?periode[]="+$periode.type+"&periode[]="+$periode.from+"&periode[]="+$periode.to+"&kode_fs[]="+$kode_fs.type+"&kode_fs[]="+$kode_fs.from+"&kode_fs[]="+$kode_fs.to+"&output[]="+$output.type+"&output[]="+$output.from+"&output[]="+$output.to;
+            var link = "{{ url('telu-report/lap-labarugi-agg-dir-pdf') }}?periode[]="+$periode.type+"&periode[]="+$periode.from+"&periode[]="+$periode.to+"&kode_fs[]="+$kode_fs.type+"&kode_fs[]="+$kode_fs.from+"&kode_fs[]="+$kode_fs.to+"&output[]="+$output.type+"&output[]="+$output.from+"&output[]="+$output.to+"&kode_rektor[]="+$kode_rektor.type+"&kode_rektor[]="+$kode_rektor.from+"&kode_rektor[]="+$kode_rektor.to;
             window.open(link, '_blank'); 
         });
 
@@ -435,6 +460,9 @@
             $formData.append("output[]",$output.type);
             $formData.append("output[]",$output.from);
             $formData.append("output[]",$output.to);
+            $formData.append("kode_rektor[]",$kode_rektor.type);
+            $formData.append("kode_rektor[]",$kode_rektor.from);
+            $formData.append("kode_rektor[]",$kode_rektor.to);
             for(var pair of formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
