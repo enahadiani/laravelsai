@@ -15,6 +15,7 @@ Route::get('filter-mutasi', 'DashTelu\FilterController@getFilterMutasi');
 Route::get('filter-pp', 'DashTelu\FilterController@getFilterPP');
 Route::get('filter-rektor', 'DashTelu\FilterController@getFilterRektor');
 Route::get('filter-fakultas', 'DashTelu\FilterController@getFilterFakultas');
+Route::get('filter-prodi', 'DashTelu\FilterController@getFilterProdi');
 Route::get('filter-output', 'DashTelu\FilterController@getFilterOutput');
 
 Route::post('lap-labarugi-agg', 'DashTelu\LaporanController@getLabaRugiAgg');
@@ -27,3 +28,4 @@ Route::post('lap-labarugi-agg-dir-detail', 'DashTelu\LaporanController@getLabaRu
 Route::post('lap-labarugi-agg-fak', 'DashTelu\LaporanController@getLabaRugiAggFak');
 Route::post('lap-labarugi-agg-fak-detail', 'DashTelu\LaporanController@getLabaRugiAggFakDetail');
 Route::post('lap-labarugi-agg-prodi', 'DashTelu\LaporanController@getLabaRugiAggProdi');
+Route::post('lap-labarugi-agg-prodi-detail', 'DashTelu\LaporanController@getLabaRugiAggProdiDetail');

@@ -2,7 +2,7 @@
 <script type="text/javascript">
     
     function drawLap(formData){
-        saiPostLoad('telu-report/lap-labarugi-agg-fak', null, formData, null, function(res){
+        saiPostLoad('telu-report/lap-labarugi-agg-prodi', null, formData, null, function(res){
            if(res.result.length > 0){
 
                 $('#pagination').html('');
@@ -39,12 +39,12 @@
         }
     }
 
-   function getChild(index,id,formData,url,parent = null,kode_fakultas){
+   function getChild(index,id,formData,url,parent = null,kode_pp){
         var kode = id.replace('grid-id-','');
         formData.delete('id');
         formData.append('id',kode);
         formData.delete('kode');
-        formData.append('kode',kode_fakultas);
+        formData.append('kode',kode_pp);
         saiPostGrid(url, null, formData, null, function(res){
             if(res.result.length > 0){
                 var no=1; var x=0;
@@ -74,7 +74,7 @@
                         var cursor = '';
                     }
 
-                    html+=`<tr id='grid-id-`+line.kode_neraca+`' style='`+cursor+`' data-parent='`+id+`' data-tipe='`+line.tipe+`' data-parentop=`+parent+` data-kode_fakultas='`+line.kode_fakultas+`'>
+                    html+=`<tr id='grid-id-`+line.kode_neraca+`' style='`+cursor+`' data-parent='`+id+`' data-tipe='`+line.tipe+`' data-parentop=`+parent+` data-kode_pp='`+line.kode_pp+`'>
                     <td height='20' class='isi_laporan'>`+fnSpasi(line.level_spasi)+` `+icon+` `+line.nama+`</td>`;
                     if (line.kode_akun!="OR" && line.kode_fs=="FS4")
                     {
@@ -138,7 +138,7 @@
             for(var j=0; j < data.length; j++){
 
                 var linex = data[j];
-                html+=judul_lap("LAPORAN LABA RUGI ANGGARAN FAKULTAS <br><span class='sbjudul'>"+linex.nama+"</span>",lokasi,'Periode '+$periode.fromname)+`
+                html+=judul_lap("LAPORAN LABA RUGI ANGGARAN PRODI <br><span class='sbjudul'>"+linex.nama+"</span>",lokasi,'Periode '+$periode.fromname)+`
                 <div class='table-responsive'>
                 <table class='table table-bordered report-table'>
                     <tr>
@@ -163,7 +163,7 @@
                 for (var i=0; i < res.res.detail.length; i++)
                 {
                     var line = res.res.detail[i];
-                    if(linex.kode_fakultas == line.kode_fakultas){
+                    if(linex.kode_pp == line.kode_pp){
                         
                         var persen1=0;var persen2=0;var persen3=0;
                         if (line.n1!=0)
@@ -185,7 +185,7 @@
                             var icon = '';
                             var cursor = '';
                         }
-                        html+=`<tr id='grid-id-`+line.kode_neraca+`' style='`+cursor+`' data-tipe='`+line.tipe+`' data-kode_fakultas='`+line.kode_fakultas+`'>
+                        html+=`<tr id='grid-id-`+line.kode_neraca+`' style='`+cursor+`' data-tipe='`+line.tipe+`' data-kode_pp='`+line.kode_pp+`'>
                         <td height='20' class='isi_laporan'>`+fnSpasi(line.level_spasi)+` `+icon+` `+line.nama+`</td>`;
                         if (line.kode_neraca!="OR" && line.kode_fs=="FS4")
                         {
@@ -214,13 +214,13 @@
                 if(tipe == 'Posting'){
                     var id = $(this).attr('id');
                     var parent = $(this).data('parent');
-                    var kode_fakultas = $(this).data('kode_fakultas');
+                    var kode_pp = $(this).data('kode_pp');
                     var index = $(this).closest('tr').index();
                     if(!$(this).hasClass('clicked')){
                         $(this).addClass('clicked');
                         var top = $(this).position().top;
                         $('#grid-load').css('top',top);
-                        getChild(index,id,$formData,'telu-report/lap-labarugi-agg-fak-detail',parent,kode_fakultas);
+                        getChild(index,id,$formData,'telu-report/lap-labarugi-agg-prodi-detail',parent,kode_pp);
                     }
                     if(!$(this).hasClass('open-grid')){
                         $(this).addClass('open-grid');
