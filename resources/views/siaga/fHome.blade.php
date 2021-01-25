@@ -1,10 +1,10 @@
 <link href="{{ asset('dash-siaga.css') }}" rel="stylesheet">
 <div id='dash_page_home'>
     <div class="row header-dash mb-2">
-        <div class="col-md-8">
+        <div class="col-md-8 px-0">
             <h6 class='font-weight-light' style='color: #000000; font-size:22px !important;'>Dashboard Summary</h6>
         </div>
-        <div class="col-md-4 text-right">
+        <div class="col-md-4 text-right px-0">
             <a class="btn btn-outline-light" href="#" id="btn-filter" style="position: absolute;right: 15px;font-size:1rem;top:0"><i class="simple-icon-equalizer" style="transform-style: ;"></i> &nbsp;&nbsp; Filter</a>
         </div>
     </div>
