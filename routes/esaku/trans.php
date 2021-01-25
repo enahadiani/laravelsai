@@ -30,6 +30,7 @@ Route::get('nota', 'Esaku\PenjualanController@printNota');
 Route::get('open-kasir', 'Esaku\OpenKasirController@index');
 Route::post('open-kasir', 'Esaku\OpenKasirController@store');
 Route::put('open-kasir', 'Esaku\OpenKasirController@update');
+Route::delete('open-kasir', 'Esaku\OpenKasirController@delete');
 
 //Close Kasir //
 Route::get('close-kasir-new', 'Esaku\CloseKasirController@indexNew');
