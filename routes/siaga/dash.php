@@ -13,3 +13,6 @@ use Illuminate\Support\Facades\Session;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('summary','Siaga\DashboardController@getSummary');
+Route::get('dept','Siaga\DashboardController@getDept');
+Route::get('periode','Siaga\DashboardController@getPeriode');
