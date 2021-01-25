@@ -113,6 +113,15 @@ Route::get('/jurnal-periode', 'Esaku\JurnalController@getPeriodeJurnal');
 Route::post('/import-excel', 'Esaku\JurnalController@importExcel');
 Route::get('jurnal-tmp', 'Esaku\JurnalController@getJurnalTmp');
 
+
+Route::get('/kas-bank', 'Esaku\KasBankController@index');
+Route::post('/kas-bank', 'Esaku\KasBankController@store');
+Route::get('/kas-bank/{id}', 'Esaku\KasBankController@show');
+Route::put('/kas-bank/{id}','Esaku\KasBankController@update');
+Route::delete('/kas-bank/{id}','Esaku\KasBankController@destroy');
+Route::post('/import-excel', 'Esaku\KasBankController@importExcel');
+Route::get('kas-bank-tmp', 'Esaku\KasBankController@getDataTmp');
+
 Route::get('sync-master', 'Esaku\SyncController@getSyncMaster');
 Route::post('sync-master', 'Esaku\SyncController@syncMaster');
 
