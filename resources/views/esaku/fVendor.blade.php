@@ -157,6 +157,8 @@
     <script src="{{ asset('helper.js') }}"></script>
     <script>
     // var $iconLoad = $('.preloader');
+    var telp = '';
+    var telp_pic = '';
     setHeightForm();
     
     $.ajaxSetup({
@@ -492,6 +494,8 @@
         submitHandler: function (form) {
             var parameter = $('#id_edit').val();
             var id = $('#kode_vendor').val();
+            var telpNow = $('#no_tel').val();
+            var telpPicNow = $('#no_pictel').val();
             if(parameter == "edit"){
                 var url = "{{ url('esaku-master/vendor') }}/"+id;
                 var pesan = "updated";
@@ -505,6 +509,18 @@
             var formData = new FormData(form);
             for(var pair of formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
+            }
+
+            if(parameter == 'edit') {
+                if(telp_pic == telpPicNow || telp == telpNow) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Gagal update data',
+                        text: 'No telp atau No telp PIC mohon untuk diubah',
+                        footer: ''
+                    })
+                    return;
+                }
             }
             
             $.ajax({
@@ -616,6 +632,8 @@
             success:function(res){
                 var result= res.data;
                 if(result.status){
+                    telp = result.data[0].no_tel;
+                    telp_pic = result.data[0].no_pictel;
                     $('#id_edit').val('edit');
                     $('#method').val('put');
                     $('#kode_vendor').attr('readonly', true);

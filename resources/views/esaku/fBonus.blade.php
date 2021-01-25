@@ -1,4 +1,9 @@
     <link rel="stylesheet" href="{{ asset('master.css') }}" />
+    <style>
+        .datepicker {
+            margin: 40px 0;
+        }
+    </style>
     <!-- LIST DATA -->
     <x-list-data judul="Data Bonus" tambah="true" :thead="array('Kode Barang','Nama Bonus','Referensi Qty','Bonus Qty','Tgl Mulai','Tgl Selesai','Tgl Input','Aksi')" :thwidth="array(15,35,10,10,10,10,0,10)" :thclass="array('','','','','','','','text-center')" />
     <!-- END LIST DATA -->
@@ -65,11 +70,11 @@
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12">    
                                         <label for="tgl_mulai">Tanggal Mulai</label>
-                                        <input class="form-control datepicker" type="text" id="tgl_mulai" name="tgl_mulai" autocomplete="off">
+                                        <input class="form-control tanggal" type="text" id="tgl_mulai" name="tgl_mulai" autocomplete="off">
                                     </div>
                                     <div class="col-md-6 col-sm-12">    
                                         <label for="tgl_lahir">Tanggal Selesai</label>
-                                        <input class="form-control datepicker" type="text" id="tgl_selesai" name="tgl_selesai" autocomplete="off">
+                                        <input class="form-control tanggal" type="text" id="tgl_selesai" name="tgl_selesai" autocomplete="off">
                                     </div>
                                 </div>
                             </div>
@@ -96,7 +101,7 @@
         }
     });
     
-    $('.datepicker').datepicker({
+    $('.tanggal').datepicker({
         format: 'dd/mm/yyyy',
         autoclose: true
     });

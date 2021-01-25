@@ -90,6 +90,24 @@
         color: #ffffff;
         padding: 0 4px;
     }
+    #komposisi-pendapatan .highcharts-color-0 {
+        fill: #0058E4 !important;
+    }
+    #komposisi-pendapatan .highcharts-color-1 {
+        fill: #9FC4FF !important;
+    }
+    #komposisi-pendapatan .highcharts-color-2 {
+        fill: #FFB703 !important;
+    }
+    #komposisi-beban .highcharts-color-0 {
+        fill: #0058E4 !important;
+    }
+    #komposisi-beban .highcharts-color-1 {
+        fill: #9FC4FF !important;
+    }
+    #komposisi-beban .highcharts-color-2 {
+        fill: #FFB703 !important;
+    }
 </style>
 
 <div class="row" id="baris-1">
@@ -429,34 +447,72 @@ Highcharts.chart('umur-piutang-hutang', {
     }]
 });
 
-// Highcharts.chart('komposisi-pendapatan', {
-//     chart: {
-//         type: 'pyramid'
-//     },
-//     title: { text: '' },
-//     plotOptions: {
-//         series: {
-//             dataLabels: {
-//                 enabled: true,
-//                 format: '<b>{point.name}</b> Rp. {point.y:,.0f}',
-//                 softConnector: true
-//             },
-//             center: ['40%', '50%'],
-//             width: '80%'
-//         }
-//     },
-//     legend: {
-//         enabled: false
-//     },
-//     series: [
-//         {
-//             name: 'Komposisi Pendapatan',
-//             data: [
-//                 ['Pendapatan C', 67],
-//                 ['Pendapatan B', 97],
-//                 ['Pendapatan A', 203]
-//             ]
-//         }
-//     ],
-// });
+Highcharts.chart('komposisi-pendapatan', {
+    chart: {
+        type: 'pyramid',
+        height: 258,
+        width: 350
+    },
+    credits: { enabled: false },
+    exporting:{ enabled: false },
+    title: { text: '' },
+    plotOptions: {
+        pyramid:{
+            dataLabels: {
+                enabled: true,
+                format: '<b>{point.name}</b><br/>Rp. {point.y:,.0f}',
+                softConnector: true
+            },
+            center: ['40%', '50%'],
+            width: '60%'
+        },
+    },
+    legend: {
+        enabled: false
+    },
+    series: [
+        {
+            name: 'Komposisi Pendapatan',
+            data: [
+                ['Pendapatan C', 67],
+                ['Pendapatan B', 97],
+                ['Pendapatan A', 203]
+            ]
+        }
+    ],
+});
+Highcharts.chart('komposisi-beban', {
+    chart: {
+        type: 'pyramid',
+        height: 258,
+        width: 350
+    },
+    credits: { enabled: false },
+    exporting:{ enabled: false },
+    title: { text: '' },
+    plotOptions: {
+        pyramid:{
+            dataLabels: {
+                enabled: true,
+                format: '<b>{point.name}</b><br/>Rp. {point.y:,.0f}',
+                softConnector: true
+            },
+            center: ['40%', '50%'],
+            width: '60%'
+        },
+    },
+    legend: {
+        enabled: false
+    },
+    series: [
+        {
+            name: 'Komposisi Beban',
+            data: [
+                ['Beban C', 67],
+                ['Beban B', 97],
+                ['Beban A', 203]
+            ]
+        }
+    ],
+});
 </script>
