@@ -29,6 +29,34 @@ class OpenKasirController extends Controller
      * @return \Illuminate\Http\Response
      */
 
+    public function delete(Request $request) {
+        try {
+            $client = new Client();
+            $response = $client->request('DELETE',  config('api.url').'toko-trans/open-kasir',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' => [
+                    'no_open' => $request->no_open
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["data"];
+            }
+            return response()->json(['daftar' => $data, 'status'=>true], 200); 
+
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+        }   
+    }
+
     public function index(Request $request){
         try {
             $client = new Client();

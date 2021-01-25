@@ -140,10 +140,43 @@
     getFilterNIK();
     jumFilter();
 
+    function hapusData(id){
+        $.ajax({
+            type: 'DELETE',
+            url: "{{ url('esaku-trans/open-kasir') }}",
+            dataType: 'json',
+            data:{no_open:id},
+            async:false,
+            success:function(result){
+                if(result.data.status){
+                    dataTable.ajax.reload();                    
+                    showNotification("top", "center", "success",'Hapus Data','Data Open Kasir ('+id+') berhasil dihapus ');
+                    $('#modal-pesan-id').html('');
+                    $('#table-delete tbody').html('');
+                    $('#modal-pesan').modal('hide');
+                } else if(!result.data.status) {
+                    showNotification("top", "center", "success",'Hapus Data',result.data.message);
+                    $('#modal-pesan-id').html('');
+                    $('#table-delete tbody').html('');
+                    $('#modal-pesan').modal('hide');
+                } else if(!result.data.status && result.data.message == "Unauthorized"){
+                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                }else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href>'+result.data.message+'</a>'
+                    });
+                }
+            }
+        });
+    }
+
     // END INISIASI
 
     // LIST DATA (DATATABLE)
-    var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a>";
+    var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a>&nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
     
     var dataTable = generateTable(
         "table-data",
@@ -287,8 +320,12 @@
                             });
                             
                             last_add("no_open",result.data.no_open);
-                        }
-                        else if(!result.data.status && result.data.message === "Unauthorized"){
+                        } else if(!result.data.status) {
+                            showNotification("top", "center", "success",'Hapus Data',result.data.message);
+                            $('#modal-pesan-id').html('');
+                            $('#table-delete tbody').html('');
+                            $('#modal-pesan').modal('hide');
+                        } else if(!result.data.status && result.data.message === "Unauthorized"){
                             window.location.href = "{{ url('sekolah-auth/sesi-habis') }}";
                         }else{
                             if(result.data.jenis == 'duplicate'){
