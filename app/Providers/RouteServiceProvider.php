@@ -83,6 +83,8 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapSiloRoutes();
         
         $this->mapTsRoutes();
+        
+        $this->mapSiagaRoutes();
     }
 
     /**
@@ -501,6 +503,21 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/silo/report.php'));
+   
+    }
+
+    protected function mapSiagaRoutes()
+    {
+        Route::prefix('siaga-auth')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/siaga/auth.php'));
+
+        Route::prefix('siaga-dash')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/siaga/dash.php'));
+    
    
     }
 
