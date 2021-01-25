@@ -92,7 +92,6 @@
           <td colspan='2' align='center' class='size_judul'>Terima Kasih </td>
         </tr>
       </table>
-      <a href='#' id='nonPrint' class='btn btn-secondary' style='margin-top:20px'><i class='fa fa-arrow-left'></i> Back </a>
+      {{-- <a href='#' id='nonPrint' class='btn btn-secondary' style='margin-top:20px'><i class='fa fa-arrow-left'></i> Back </a> --}}
     </body>
 </html>                
-                
