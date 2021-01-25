@@ -14,7 +14,7 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
-                <div class="card-body form-pos-body" >
+                <div class="card-body form-pos-body" id="pos-body">
                     <form class="form" id="web-form-pos" method="POST">
                         <div class="row">
                             <div class="col-4">
@@ -101,8 +101,9 @@
             </div>
         </div>
     </div>
-    <div id="area_print"></div>
 </div>
+
+<div id="area_print"></div>
 
 <!-- FORM MODAL BAYAR -->
 <div class='modal' id='modal-bayar' tabindex='-1' role='dialog'>
@@ -718,10 +719,48 @@
         }	
     });
 
+    function closePrint () {
+        document.body.removeChild(this.__container__);
+    }
+
+    function setPrint() {
+        this.contentWindow.__container__ = this;
+        this.contentWindow.onbeforeunload = closePrint;
+        this.contentWindow.onafterprint = closePrint;
+        this.contentWindow.focus();
+        this.contentWindow.print();
+    }
+
+    function printPage (sURL) {
+        var oHiddFrame = document.createElement("iframe");
+        oHiddFrame.onload = setPrint;
+        oHiddFrame.style.position = "fixed";
+        oHiddFrame.style.right = "0";
+        oHiddFrame.style.bottom = "0";
+        oHiddFrame.style.width = "0";
+        oHiddFrame.style.height = "0";
+        oHiddFrame.style.border = "0";
+        oHiddFrame.src = sURL;
+        document.body.appendChild(oHiddFrame);
+    }
+
+    function resetForm() {
+        $('#kd-barang2').val('');
+        $('#todisk').val(0);
+        $('#totrans').val(0);
+        $('#input-grid2 tbody').empty();
+        $('#tobyr').val(0);
+        $('#tostlh').val(0);
+        $('#kembalian').val(0);
+        $('#inp-byr').val(0);
+        $('#param').val('');
+    }
+
     $('#cetakBtn').click(function(){
-        var no_jual = $('#modal-no_jual').text();  
-        console.log(no_jual);
-        window.open("{{ url('esaku-trans/nota') }}/?no_jual="+no_jual);     
+        var no_jual = $('#modal-no_jual').text();
+        printPage("{{ url('esaku-trans/nota') }}/?no_jual="+no_jual);
+        resetForm();
+        $('#modal-bayar2').modal('hide');
     }); 
 
     $('#input-grid2').on('keydown', '.inp-qtyb', function(e){
