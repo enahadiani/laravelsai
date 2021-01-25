@@ -384,6 +384,16 @@
     });
     // END ENTER FIELD FORM
 
+    //Delete
+    $('#saku-datatable').on('click','#btn-delete',function(e){
+        var kode = $(this).closest('tr').find('td').eq(0).html();
+        msgDialog({
+            id: kode,
+            type:'hapus'
+        });
+    });
+    //End Delete
+
     // EDIT
     $('#saku-datatable').on('click', '#btn-edit', function(){
         var open= $(this).closest('tr').find('td').eq(0).html();

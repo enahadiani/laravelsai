@@ -46,9 +46,9 @@ class OpenKasirController extends Controller
                 $response_data = $response->getBody()->getContents();
                 
                 $data = json_decode($response_data,true);
-                $data = $data["data"];
+                $data = $data;
             }
-            return response()->json(['daftar' => $data, 'status'=>true], 200); 
+            return response()->json(['data' => $data, 'status'=>true], 200); 
 
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
