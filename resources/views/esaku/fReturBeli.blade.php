@@ -313,7 +313,6 @@
     // END LIST DATA
     $('#saku-datatable').on('click','#btn-delete',function(e){
         var kode = $(this).closest('tr').find('td').eq(0).html();
-        alert(kode)
         msgDialog({
             id: kode,
             type:'hapus'
