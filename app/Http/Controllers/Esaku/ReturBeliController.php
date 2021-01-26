@@ -154,7 +154,7 @@ class ReturBeliController extends Controller
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(),true);
-            $data['message'] = $res['message'];
+            $data['message'] = $res;
             $data['status'] = false;
             return response()->json(['data' => $data], 200);
         }
