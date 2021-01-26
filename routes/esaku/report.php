@@ -95,4 +95,5 @@ Route::get('lap-jurnal-kb-pdf', 'Esaku\LaporanController@getJurnalKBPDF');
 Route::post('lap-buktijurnal-kb', 'Esaku\LaporanController@getBuktiJurnalKB');
 Route::get('lap-buktijurnal-kb-pdf', 'Esaku\LaporanController@getBuktiJurnalKBPDF');
 Route::post('lap-buku-kb', 'Esaku\LaporanController@getBukuKas');
+Route::get('lap-buku-kb-pdf', 'Esaku\LaporanController@getBukuKasPDF');
 Route::post('lap-saldo-kb', 'Esaku\LaporanController@getSaldoKB');

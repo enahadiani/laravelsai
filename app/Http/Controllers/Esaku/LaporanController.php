@@ -815,6 +815,18 @@
            
         }
 
+        function getBukuKasPDF(Request $request)
+        {
+            set_time_limit(300);
+            $tmp = app('App\Http\Controllers\Esaku\LaporanController')->getBukuKas($request);
+            $tmp = json_decode(json_encode($tmp),true);
+            $data = $tmp['original'];
+            
+            $pdf = PDF::loadview('esaku.rptKbBukuBesarPDF',['data'=>$data["result"],'detail'=>$data["detail"],'periode'=>$request->periode[1],'lokasi'=>$data["lokasi"]]);
+    	    return $pdf->download('laporan-bukubesar-kb-pdf');   
+        }
+
+
         function getNeraca(Request $request){
             try{
     
