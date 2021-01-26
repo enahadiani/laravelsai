@@ -608,6 +608,17 @@
             } 
         }
 
+        function getBuktiJurnalKBPDF(Request $request)
+        {
+            set_time_limit(300);
+            $tmp = app('App\Http\Controllers\Esaku\LaporanController')->getBuktiJurnalKB($request);
+            $tmp = json_decode(json_encode($tmp),true);
+            $data = $tmp['original'];
+            $periode = $this->getNamaBulan(substr($request->periode[1],4,2)).' '.substr($request->periode[1],0,4);
+            $pdf = PDF::loadview('esaku.rptKbBuktiPDF',['data'=>$data["result"],'detail'=>$data["detail_jurnal"],'periode'=>$periode,'sumju'=>$request->sum_ju[1],'lokasi'=>$data["lokasi"]]);
+    	    return $pdf->download('laporan-bukti-kas-pdf');   
+        }
+
         function getJurnal(Request $request){
             try{
     
