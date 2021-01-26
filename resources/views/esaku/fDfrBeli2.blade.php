@@ -45,7 +45,7 @@
                                     <table class="table" style="margin-bottom: 5px">
                                         <tr>
                                             <th style='padding: 3px;width:25%' colspan='2'>
-                                                <input type='text' class='form-control' placeholder="Barcode [F1]" id="kd-barang2" >
+                                                <input type='text' class='form-control' placeholder="Barcode [F1]" id="kd-barang2" readonly>
                                                 <input type="hidden" id="method" name="_method" value="put">
                                                 <input type='hidden' id="id" >
                                             </th>
@@ -390,6 +390,7 @@
                             $dtBrg[res[i].kode_barang] = {harga:res[i].harga_seb,satuan:res[i].satuan,kode_akun:res[i].kode_akun,saldo:res[i].saldo,hrgjual:res[i].harga};  
                             $dtBrg2[res[i].barcode] = {harga:res[i].harga_seb,nama:res[i].nama,kd_barang:res[i].kode_barang,satuan:res[i].satuan,kode_akun:res[i].kode_akun,saldo:res[i].saldo,hrgjual:res[i].harga};
                         }
+                        control2.disable();
 
                     }else if(!result.data.status && result.data.message == "Unauthorized"){
                         Swal.fire({
