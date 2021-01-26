@@ -1,6 +1,6 @@
     <link rel="stylesheet" href="{{ asset('trans.css') }}" />
     <!-- LIST DATA -->
-    <x-list-data judul="Data Jurnal" tambah="true" :thead="array('No Bukti','Tanggal','No Dokumen','Deskripsi','Nilai','Tgl Input','Aksi')" :thwidth="array(15,15,15,30,15,0,10)" :thclass="array('','','','','','','text-center')" />
+    <x-list-data judul="Data Jurnal" tambah="true" :thead="array('No Bukti','Tanggal','No Dokumen','Deskripsi','Nilai','Posted','Tgl Input','Aksi')" :thwidth="array(15,15,15,20,15,10,0,10)" :thclass="array('','','','','','','','text-center')" />
     <!-- END LIST DATA -->
     <style>
         div.inp-div-jenis > input{
@@ -471,7 +471,8 @@
     // END SUGGESTION
 
     // LIST DATA
-    var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Upload' id='btn-upload'><i class='simple-icon-cloud-upload' style='font-size:18px'></i></a>";
+    var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
+    var action_html2 = "<a href='#' title='Upload' id='btn-upload'><i class='simple-icon-cloud-upload' style='font-size:18px'></i></a>";
     var dataTable = generateTable(
         "table-data",
         "{{ url('esaku-trans/jurnal') }}", 
@@ -490,11 +491,22 @@
                 'render': $.fn.dataTable.render.number( '.', ',', 0, '' ) 
             },
             {
-                "targets": [5],
+                "targets": [6],
                 "visible": false,
                 "searchable": false
             },
-            {'targets': 6, data: null, 'defaultContent': action_html, 'className': 'text-center' }
+            {
+                "targets" : 7,
+                "data": null,
+                "render": function ( data, type, row, meta ) {
+                    if(row.posted == "T"){
+                        return action_html2;
+                    }else{
+                        return action_html;
+                    }
+                }
+            }
+            // {   'targets': 7, data: null, 'defaultContent': action_html, 'className': 'text-center' }
         ],
         [
             { data: 'no_bukti' },
@@ -502,10 +514,11 @@
             { data: 'no_dokumen' },
             { data: 'keterangan' },
             { data: 'nilai1' },
+            { data: 'posted' },
             { data: 'tgl_input' }
         ],
         "{{ url('esaku-auth/sesi-habis') }}",
-        [[5 ,"desc"]]
+        [[6 ,"desc"]]
     );
 
     $.fn.DataTable.ext.pager.numbers_length = 5;
@@ -878,7 +891,7 @@
 
     // PREVIEW DATA
     $('#table-data tbody').on('click','td',function(e){
-        if($(this).index() != 5){
+        if($(this).index() != 6){
 
             var id = $(this).closest('tr').find('td').eq(0).html();
             $.ajax({

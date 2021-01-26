@@ -51,8 +51,8 @@ function generateTable(id,url,columnDefs,columns,url_sesi,byOrder = []) {
             }
         },
         'order':byOrder,
-        'columnDefs': columnDefs,
         'columns': columns,
+        'columnDefs': columnDefs,
         drawCallback: function () {
             $($(".dataTables_wrapper .pagination li:first-of-type"))
                 .find("a")
