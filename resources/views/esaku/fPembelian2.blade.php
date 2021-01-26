@@ -205,42 +205,69 @@
 
 <!-- FORM MODAL BAYAR 2-->
 <div class="modal" id="modal-bayar2" tabindex="-1" role="dialog" aria-modal="true">
-    <div role="document" style="" class="modal-dialog modal-sm modal-dialog-centered">
-        <div class="modal-content" style="border-radius: 15px !important;">
-            <div class="modal-header " style="display:block">
-                <div class="row text-center" style="">
-                    <div class="col-md-12">
-                        <h5 class="">Total Transaksi</h5>
-                        <h1 class="text-info" id="modal-toakhir">12.500</h1>
-                    </div>
-                </div>
-            </div>
+    <div role="document" style="" class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content" style="border-radius: 15px !important;">   
             <div class="modal-body">
-                <div class="row mb-2" style="">
-                    <div class="col-6" style="">
-                    Total Pembelian
-                    </div>
-                    <div class="col-6 text-right" id="modal-totrans">
-                    </div>
-                </div>
-                <div class="row mb-2">
-                <div class="col-6">
-                    Diskon 
-                    </div>
-                    <div class="col-6 text-right" id="modal-diskon">
-                    </div>
-                </div>
-                <div class="row mb-2">
-                    <div class="col-6">
-                    PPN 
-                    </div>
-                    <div class="col-6 text-right" id="modal-ppn">
-                    </div>
-                </div>
-                <div id="modal-nobukti" hidden></div>
-            </div>
-            <div class="modal-footer" style="padding: 0;">
-            <button id="cetakBtn" type="button" class="btn btn-info btn-block" style="border-bottom-left-radius: 15px;border-bottom-right-radius: 15px;">Cetak</button>
+                 <table class="table table-borderless">
+                    <thead>
+                        <tr>
+                            <th>Toko Asrama Putra TJ</th>
+                            <th>
+                                <button id="clear-pos" type="button" class="btn btn-primary float-right">Clear</button>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>Jl.Telekomunikasi No. 1 Trs.Buahbatu</th>
+                        </tr>
+                        <tr>
+                            <th>Bandung</th>
+                        </tr>
+                    </thead>
+                </table>
+                <table id="table-produk" class="table table-striped">
+                    <tbody>
+
+                    </tbody>
+                </table>
+                <table id="table-total" class="table table-borderless">
+                    <thead>
+                        <tr>
+                            <th>Total Pembelian</th>
+                            <th id="total-pembelian"></th>
+                        </tr>
+                        <tr>
+                            <th>Total Diskon</th>
+                            <th id="total-diskon"></th>
+                        </tr>
+                        <tr>
+                            <th>Total PPN</th>
+                            <th id="total-ppn"></th>
+                        </tr>
+                        <tr>
+                            <th>Total Transaksi</th>
+                            <th id="total-transaksi"></th>
+                        </tr>
+                    </thead>
+                </table>
+                <table id="table-data-nota" class="table table-borderless">
+                    <tbody>
+                        <tr>
+                            <td id="no-bukti"></td>
+                        </tr>
+                        <tr>
+                            <td id="tanggal-bukti"></td>
+                        </tr>
+                        <tr>
+                            <td id="kasir-bukti"></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Terima Kasih</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -334,6 +361,55 @@
             }
         }
     });
+
+    $('#clear-pos').click(function(){
+        clearPos();
+    })
+
+    function clearPos() {
+        var select = $('#kd-vendor').selectize();
+        var vendor = select[0].selectize;
+        $('#tostlh').val(0);
+        vendor.setValue('')
+        $('#totrans').val(0);
+        $('#input-grid2 tr:not(:first-child)').remove();
+        $('#todisk').val(0);
+        $('#toppn').val(0);
+        $('#no_faktur').val('');
+        $('#modal-bayar2').modal('hide');
+    }
+
+    function getNota(no_bukti) {
+        $.ajax({
+            type:'GET',
+            url:"{{url('esaku-trans/pembelian-data-nota')}}",
+            dataType: 'json',
+            data: {'no_bukti':no_bukti},
+            // async: false,
+            success: function(result) {
+                var dataNota = result.data;
+                var dataProduk = result.data.data;
+                $('#table-produk tbody').empty();
+                var tableProduk = "";
+                for(var i=0;i<dataProduk.length;i++) {
+                    var sub = (parseFloat(dataProduk[i].harga) * parseFloat(dataProduk[i].jumlah)) - parseFloat(dataProduk[i].diskon)
+                    tableProduk += "<tr>";
+                    tableProduk += "<td>"+dataProduk[i].nama+" X "+sepNum(dataProduk[i].jumlah)+"</td>";
+                    tableProduk += "<td>"+sepNum(sub)+"</td>"
+                    tableProduk += "</tr>";
+                }
+                $('#table-produk tbody').append(dataProduk);
+                $('#table-total #total-pembelian').text("Rp. "+sepNum(dataNota.totpemb))
+                $('#table-total #total-diskon').text("Rp. "+sepNum(parseFloat(dataNota.totdisk)))
+                $('#table-total #total-ppn').text("Rp. "+sepNum(parseFloat(dataNota.totppn)))
+                $('#table-total #total-transaksi').text("Rp. "+sepNum(parseFloat(dataNota.tottrans)))
+                $('#table-data-nota #no-bukti').text(dataNota.no_bukti)
+                $('#table-data-nota #tanggal-bukti').text(dataNota.tgl)
+                $('#table-data-nota #kasir-bukti').text(dataNota.nik)
+                $('#modal-bayar2').modal('show');
+            }
+        });   
+    }
 
     function getBarang() {
         $.ajax({
@@ -960,18 +1036,19 @@
                 url: "{{url('esaku-trans/pembelian')}}",
                 dataType: 'json',
                 data: formData,
-                async:false,
+                // async:false,
                 contentType: false,
                 cache: false,
                 processData: false,
                 success: function(result) {
                     if(result.data.status){
-                        $('#modal-totrans').text(sepNum(totrans));
-                        $('#modal-diskon').text(sepNum(todisk));
-                        $('#modal-ppn').text(sepNum(toppn)); 
-                        $('#modal-toakhir').text(sepNum(tostlh));
-                        $('#modal-nobukti').text(result.data.no_bukti);
-                        $('#modal-bayar2').modal('show');
+                        getNota(result.data.no_bukti);
+                        // $('#modal-totrans').text(sepNum(totrans));
+                        // $('#modal-diskon').text(sepNum(todisk));
+                        // $('#modal-ppn').text(sepNum(toppn)); 
+                        // $('#modal-toakhir').text(sepNum(tostlh));
+                        // $('#modal-nobukti').text(result.data.no_bukti);
+                        // $('#modal-bayar2').modal('show');
                     } else if(!result.data.status && result.data.message === "Unauthorized"){
                         window.location.href = "{{ url('/esaku-auth/sesi-habis') }}";
                     }else{
