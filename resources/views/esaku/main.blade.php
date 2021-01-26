@@ -384,6 +384,21 @@
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         }
     });
+
+    
+    function sepNumX(x){
+        if (typeof x === 'undefined' || !x) { 
+            return 0;
+        }else{
+            if(x < 0){
+                var x = parseFloat(x).toFixed(0);
+            }
+            
+            var parts = x.toString().split(",");
+            parts[0] = parts[0].replace(/([0-9])(?=([0-9]{3})+$)/g,"$1.");
+            return parts.join(".");
+        }
+    }
     
     function msgDialog(data){
         console.log(data.type);

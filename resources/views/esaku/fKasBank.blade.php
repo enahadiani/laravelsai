@@ -909,8 +909,8 @@
                             <td>`+result.jurnal[0].no_dokumen+`</td>
                         </tr>
                         <tr>
-                            <td>NIK Verifikasi</td>
-                            <td>`+result.jurnal[0].nik_periksa+`</td>
+                            <td>Status</td>
+                            <td>`+result.jurnal[0].status+`</td>
                         </tr>
                         <tr>
                             <td>Jenis</td>
@@ -1022,9 +1022,9 @@
         submitHandler: function (form) {
 
             var formData = new FormData(form);
-            for(var pair of formData.entries()) {
-                console.log(pair[0]+ ', '+ pair[1]); 
-            }
+            // for(var pair of formData.entries()) {
+            //     console.log(pair[0]+ ', '+ pair[1]); 
+            // }
             var total_d = $('#total_debet').val();
             var total_k = $('#total_kredit').val();
             var jumdet = $('#input-grid tr').length;
@@ -1033,9 +1033,9 @@
             var id = $('#no_bukti').val();
             // $iconLoad.show();
             if(param == "edit"){
-                var url = "{{ url('/esaku-trans/kas-bank') }}/"+id;
+                var url = "{{ url('esaku-trans/kas-bank') }}/"+id;
             }else{
-                var url = "{{ url('/esaku-trans/kas-bank') }}";
+                var url = "{{ url('esaku-trans/kas-bank') }}";
             }
 
             if(total_d != total_k){
@@ -1129,34 +1129,6 @@
         }
     });
     // END ENTER FIELD FORM
-
-    $('#form-tambah').on('click', '.search-item2', function(){
-        var id = $(this).closest('div').find('input').attr('name');
-        var options = {
-            id : id,
-            header : ['NIK', 'Nama'],
-            url : "{{ url('esaku-trans/nikperiksa') }}",
-            columns : [
-                { data: 'nik' },
-                { data: 'nama' }
-            ],
-            judul : "Daftar Karyawan",
-            pilih : "nik",
-            jTarget1 : "text",
-            jTarget2 : "text",
-            target1 : ".info-code_"+id,
-            target2 : ".info-name_"+id,
-            target3 : "",
-            target4 : "",
-            width : ["30%","70%"]
-        }
-        showInpFilter(options);
-    });
-
-    $('#form-tambah').on('change', '#nik_periksa', function(){
-        var par = $(this).val();
-        getNIKPeriksa(par);
-    });
 
 
     // GRID JURNAL

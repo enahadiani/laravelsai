@@ -84,16 +84,13 @@ class KasBankController extends Controller
         try{
 
             $nilai = array();
-            if(isset($request->kode_akun)){
-                $nilai = $request->nilai;
-                for($i=0;$i<count($nilai);$i++){
-                    $nilai[] = array(
-                        'nilai' => $this->joinNum($nilai[$i])
-                    );
+            if(isset($request->nilai)){
+                $nil = $request->nilai;
+                for($i=0;$i<count($nil);$i++){
+                    $nilai[] = $this->joinNum($nil[$i]);
                 }
             }
-    
-    
+            
             $fields =
                 array (
                     'no_bukti' => $request->no_bukti,
@@ -240,8 +237,8 @@ class KasBankController extends Controller
             
             $nilai = array();
             if(isset($request->nilai)){
-                for($i=0;$i<count($nilai);$i++){
-                    array_push($nilai,$this->joinNum($nilai[$i]));
+                for($i=0;$i<count($request->nilai);$i++){
+                    array_push($nilai,$this->joinNum($request->nilai[$i]));
                 }
             }
             
@@ -280,7 +277,7 @@ class KasBankController extends Controller
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(),true);
-            $result['message'] = $res["message"];
+            $result['message'] = $res['message'];
             $result['status']=false;
             return response()->json(["data" => $result], 200);
         } 
