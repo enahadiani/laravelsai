@@ -529,6 +529,17 @@
             } 
         }
 
+        function getSaldoKBPDF(Request $request)
+        {
+            set_time_limit(300);
+            $tmp = app('App\Http\Controllers\Esaku\LaporanController')->getSaldoKB($request);
+            $tmp = json_decode(json_encode($tmp),true);
+            $data = $tmp['original'];
+            
+            $pdf = PDF::loadview('esaku.rptKbSaldoPDF',['data'=>$data["result"],'periode'=>$request->periode[1],'lokasi'=>$data["lokasi"]]);
+    	    return $pdf->download('laporan-saldo-kb-pdf');   
+        }
+
         function getBuktiJurnal(Request $request){
             try{
     
