@@ -777,7 +777,6 @@
                     hitungTotalRow();
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
-                    showInfoField("nik_periksa",result.jurnal[0].nik_periksa,result.jurnal[0].nama_periksa);
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
                     window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
@@ -1887,7 +1886,7 @@
                     return xhr;
                 },
                 type: 'POST',
-                url: "{{ url('esaku-trans/import-excel') }}",
+                url: "{{ url('esaku-trans/kas-bank-import-excel') }}",
                 dataType: 'json',
                 data: formData,
                 // async:false,
@@ -1910,7 +1909,7 @@
                                 $('#process-upload').addClass('disabled');
                                 $('#process-upload').prop('disabled', true);
                             }
-                            var link = "{{ config('api.url').'toko-trans/export?kode_lokasi='.Session::get('lokasi').'&nik_user='.Session::get('nikUser').'&nik='.Session::get('userLog') }}";
+                            var link = "{{ config('api.url').'toko-trans/export-kas-bank?kode_lokasi='.Session::get('lokasi').'&nik_user='.Session::get('nikUser').'&nik='.Session::get('userLog') }}";
                             $('.pesan-upload-judul').html('Gagal upload!');
                             $('.pesan-upload-judul').removeClass('text-success');
                             $('.pesan-upload-judul').addClass('text-danger');
@@ -2054,7 +2053,7 @@
     // UPLOAD DOK
     $('#saku-datatable').on('click', '#btn-upload', function(){
         var id= $(this).closest('tr').find('td').eq(0).html();
-        $('.judul-form').html('Upload Dokumen Jurnal');
+        $('.judul-form').html('Upload Dokumen Kas Bank');
         $('#form-upload')[0].reset();
         $('#form-upload').validate().resetForm();
         $.ajax({
@@ -2153,7 +2152,7 @@
                         id:result.data.no_bukti,
                         type:'sukses',
                         title:'Sukses',
-                        text:'Dokumen Jurnal '+kode_jenis+' dengan no urut: '+no_urut+' berhasil dihapus'
+                        text:'Dokumen Kas Bank '+kode_jenis+' dengan no urut: '+no_urut+' berhasil dihapus'
                     });
 
                 }else{

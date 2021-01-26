@@ -345,7 +345,7 @@ class KasBankController extends Controller
             );
 
             $client = new Client();
-            $response = $client->request('POST',  config('api.url').'toko-trans/import-excel',[
+            $response = $client->request('POST',  config('api.url').'toko-trans/kas-bank-import-excel',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',

@@ -8,7 +8,7 @@
     use Illuminate\Support\Facades\Session;
     use GuzzleHttp\Exception\BadResponseException;
 
-    class UploadDokJurnalController extends Controller {
+    class UploadDokKasBankController extends Controller {
 
         public function __contruct() {
             if(!Session::get('login')){
@@ -23,7 +23,7 @@
             ]);
             try{
                 $client = new Client();
-                $response = $client->request('GET',  config('api.url').'toko-trans/jurnal-dok',[
+                $response = $client->request('GET',  config('api.url').'toko-trans/kas-bank-dok',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -115,7 +115,7 @@
                     }
                 }
                 $client = new Client();
-                $response = $client->request('POST',  config('api.url').'toko-trans/jurnal-dok',[
+                $response = $client->request('POST',  config('api.url').'toko-trans/kas-bank-dok',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -143,7 +143,7 @@
             
             try{
                 $client = new Client();
-                $response = $client->request('DELETE',  config('api.url').'toko-trans/jurnal-dok',
+                $response = $client->request('DELETE',  config('api.url').'toko-trans/kas-bank-dok',
                 [
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),

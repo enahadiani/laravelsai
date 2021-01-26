@@ -147,6 +147,10 @@ Route::get('jurnal-dok', 'Esaku\UploadDokJurnalController@show');
 Route::post('jurnal-dok', 'Esaku\UploadDokJurnalController@store');
 Route::delete('jurnal-dok', 'Esaku\UploadDokJurnalController@destroy');
 
+Route::get('kas-bank-dok', 'Esaku\UploadDokKasBankController@show');
+Route::post('kas-bank-dok', 'Esaku\UploadDokKasBankController@store');
+Route::delete('kas-bank-dok', 'Esaku\UploadDokKasBankController@destroy');
+
 //Closing Periode
 Route::get('closing-periode','Esaku\ClosingPeriodeController@show');
 Route::post('closing-periode','Esaku\ClosingPeriodeController@store');
