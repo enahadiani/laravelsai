@@ -42,10 +42,11 @@ Route::post('close-kasir', 'Esaku\CloseKasirController@store');
 Route::get('pembelian', 'Esaku\PembelianController@index');
 Route::get('pembelian-barang', 'Esaku\PembelianController@getBarang');
 Route::post('pembelian', 'Esaku\PembelianController@store');
-Route::put('pembelian/{no_bukti1}/{no_bukti2}/{no_bukti3}', 'Esaku\PembelianController@update');
+Route::put('pembelian-update', 'Esaku\PembelianController@update');
 Route::delete('pembelian/{no_bukti1}/{no_bukti2}/{no_bukti3}', 'Esaku\PembelianController@delete');
-Route::get('pembelian-detail/{no_bukti1}/{no_bukti2}/{no_bukti3}', 'Esaku\PembelianController@show');
+Route::get('pembelian-detail', 'Esaku\PembelianController@show');
 Route::get('pembelian-nota', 'Esaku\PembelianController@printNota');
+Route::get('pembelian-data-nota', 'Esaku\PembelianController@getDataNota');
 
 // Retur Pembelian //
 Route::post('retur-beli', 'Esaku\ReturBeliController@store');
