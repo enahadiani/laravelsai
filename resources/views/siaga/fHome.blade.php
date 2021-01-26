@@ -9,7 +9,7 @@
         </div>
     </div>
     <div class="row body-dash" style="position: relative;">
-        <div class='col-2dot4'>
+        <div class='col-md-2dot4 col-12'>
             <div class="small-box bg-yellow">
                 <div class="inner">
                     <center>
@@ -21,7 +21,7 @@
                 <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
             </div>
         </div>
-        <div class='col-2dot4'>
+        <div class='col-md-2dot4 col-12'>
             <div class="small-box bg-blue">
                 <div class="inner">
                     <center>
@@ -33,7 +33,7 @@
                 <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
             </div>
         </div>
-        <div class='col-2dot4'>
+        <div class='col-md-2dot4'>
             <div class="small-box bg-purple">
                 <div class="inner">
                     <center>
@@ -45,7 +45,7 @@
                 <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
             </div>
         </div>
-        <div class='col-2dot4'>
+        <div class='col-md-2dot4'>
             <div class="small-box bg-red">
                 <div class="inner">
                     <center>
@@ -57,7 +57,7 @@
                 <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
             </div>
         </div>
-        <div class='col-2dot4'>
+        <div class='col-md-2dot4'>
             <div class="small-box bg-aqua">
                 <div class="inner">
                     <center>
