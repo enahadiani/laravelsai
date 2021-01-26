@@ -145,9 +145,9 @@ class PembelianController extends Controller
         }
     }
 
-    public function show($id1,$id2,$id3) {
+    public function show(Request $request) {
         try{
-            $id = $id1."/".$id2."/".$id3;
+            $id = $request->no_bukti;
             $client = new Client();
             $response = $client->request('GET',  config('api.url').'toko-trans/pembelian-detail?no_bukti='.$id,
             [
@@ -172,7 +172,7 @@ class PembelianController extends Controller
         }
     }
 
-    public function update(Request $request, $id1,$id2,$id3) {
+    public function update(Request $request) {
         $this->validate($request, [
             'kode_vendor' => 'required',
             'no_faktur' => 'required',
@@ -217,7 +217,7 @@ class PembelianController extends Controller
                 'sub_barang'=> $data_sub
             );
             $client = new Client();
-            $no_bukti = $id1."/".$id2."/".$id3;
+            $no_bukti = $request->no_bukti;
             $response = $client->request('PUT',  config('api.url').'toko-trans/pembelian?no_bukti='.$no_bukti,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
