@@ -917,6 +917,7 @@
     $('#web-form-pos').submit(function(e){
         e.preventDefault()
         hitungTotal();
+        var barang = $('#input-grid2 tr').length;
         var totrans=toNilai($('#totrans').val());
         var todisk=toNilai($('#todisk').val());
         var tostlh=toNilai($('#tostlh').val());
@@ -928,11 +929,30 @@
                 title: 'Error',
                 text:'Total Transaksi tidak valid. Total Transaksi tidak boleh kurang dari atau sama dengan 0'
             });
-        }else{
+            return;
+        } else if(barang <= 1) {
+            msgDialog({
+                id: '',
+                type:'sukses',
+                title: 'Error',
+                text:'Harap mengisi data barang terlebih dahulu'
+            });
+            return;
+        }
+        else{
             var formData = new FormData(this);
-    
             for(var pair of formData.entries()) {
-                console.log(pair[0]+ ', '+ pair[1]); 
+                console.log(pair[0]+ ', '+ pair[1]);
+                if(pair[1] == '')  {
+                   msgDialog({
+                        id: '',
+                        type:'sukses',
+                        title: 'Error',
+                        text:'Tidak boleh ada data yang kosong'
+                    });
+                    break;
+                    return;  
+                } 
             }
 
             $.ajax({
