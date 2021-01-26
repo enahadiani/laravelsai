@@ -50,6 +50,7 @@ Route::get('pembelian-data-nota', 'Esaku\PembelianController@getDataNota');
 
 // Retur Pembelian //
 Route::post('retur-beli', 'Esaku\ReturBeliController@store');
+Route::delete('retur-beli', 'Esaku\ReturBeliController@delete');
 Route::get('retur-beli-new', 'Esaku\ReturBeliController@getNew');
 Route::get('retur-beli-finish', 'Esaku\ReturBeliController@getFinish');
 Route::get('retur-beli-barang/{no_bukti1}/{no_bukti2}/{no_bukti3}', 'Esaku\ReturBeliController@getBarang');

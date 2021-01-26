@@ -133,6 +133,33 @@ class ReturBeliController extends Controller
         }
     }
 
+    public function delete(Request $request) {
+        try{
+            $id = $request->no_bukti;
+            $client = new Client();
+            $response = $client->request('DELETE',  config('api.url').'toko-trans/retur-beli?no_bukti='.$id,
+            [
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+    
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+            }
+            return response()->json(['data' => $data], 200); 
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $data['message'] = $res;
+            $data['status'] = false;
+            return response()->json(['data' => $data], 200);
+        }
+    }
+
     public function store(Request $request) {
         try {
         $this->validate($request, [
