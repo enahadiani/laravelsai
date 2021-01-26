@@ -461,6 +461,74 @@
             } 
         }
 
+        function getSaldoKB(Request $request){
+            try{
+                
+                $client = new Client();
+        
+                if(isset($request->jenis)){
+                    $jenis = $request->jenis;
+                }else{
+                    $jenis = "";
+                }
+        
+                if(isset($request->trail)){
+                    $trail = $request->trail;
+                }else{
+                    $trail = "";
+                }
+        
+                if(isset($request->kode_neraca)){
+                    $kode_neraca = $request->kode_neraca;
+                }else{
+                    $kode_neraca = "";
+                }
+        
+                if(isset($request->kode_fs)){
+                    $kode_fs = $request->kode_fs;
+                }else{
+                    $kode_fs = "";
+                }
+                
+                $query = [
+                    'periode' => $request->periode,
+                    'kode_akun' => $request->kode_akun,
+                    'jenis' => $jenis,
+                    'trail' => $trail,
+                    'kode_neraca' => $kode_neraca,
+                    'kode_fs' => $kode_fs,
+                    'nik_user' => Session::get('nikUser')
+                ];
+        
+                $response = $client->request('GET',  config('api.url').'toko-report/lap-saldo-kb',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => $query
+                ]);
+        
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $res = json_decode($response_data,true);
+                    $data = $res["data"];
+                }
+        
+                if(isset($request->back)){
+                    $back = true;
+                }else{
+                    $back = false;
+                }
+                
+                return response()->json(['result' => $data, 'status'=>true,'lokasi'=>Session::get('namaLokasi'), 'auth_status'=>1,'back'=>$back], 200);    
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                return response()->json(['message' => $res["message"], 'status'=>false, 'auth_status'=>2], 200);
+            } 
+        }
+
         function getBuktiJurnal(Request $request){
             try{
     
@@ -473,6 +541,45 @@
                     'query' => [
                         'periode' => $request->periode,
                         'modul' => $request->modul,
+                        'no_bukti' => $request->no_bukti,
+                        'tgl_awal' => $request->tgl_awal,
+                        'tgl_akhir' => $request->tgl_akhir,
+                        'nik_user' => Session::get('nikUser')
+                    ]
+                ]);
+        
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $res = json_decode($response_data,true);
+                    $result = $res["data"];
+                    $detail = $res["detail_jurnal"];
+                    
+                }
+                if(isset($request->back)){
+                    $back = true;
+                }else{
+                    $back = false;
+                }
+                return response()->json(['result' => $result, 'status'=>true, 'auth_status'=>1, 'detail_jurnal'=>$detail,'lokasi'=>Session::get('namaLokasi'),'back'=>$back], 200); 
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                return response()->json(['message' => $res["message"], 'status'=>false, 'auth_status'=>2], 200);
+            } 
+        }
+
+        function getBuktiJurnalKB(Request $request){
+            try{
+    
+                $client = new Client();
+                $response = $client->request('GET',  config('api.url').'toko-report/lap-buktijurnal-kb',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => [
+                        'periode' => $request->periode,
                         'no_bukti' => $request->no_bukti,
                         'tgl_awal' => $request->tgl_awal,
                         'tgl_akhir' => $request->tgl_akhir,
@@ -547,9 +654,59 @@
             $tmp = app('App\Http\Controllers\Esaku\LaporanController')->getJurnal($request);
             $tmp = json_decode(json_encode($tmp),true);
             $data = $tmp['original'];
-            
-            $pdf = PDF::loadview('esaku.rptJurnalPDF',['data'=>$data["result"],'periode'=>$request->periode[1],'sumju'=>$request->sum_ju[1],'lokasi'=>$data["lokasi"]]);
+            $periode = $this->getNamaBulan(substr($request->periode[1],4,2)).' '.substr($request->periode[1],0,4);
+            $pdf = PDF::loadview('esaku.rptJurnalPDF',['data'=>$data["result"],'periode'=>$periode,'sumju'=>$request->sum_ju[1],'lokasi'=>$data["lokasi"]]);
     	    return $pdf->download('laporan-jurnal-pdf');   
+        }
+
+        function getJurnalKB(Request $request){
+            try{
+    
+                $client = new Client();
+                $response = $client->request('GET',  config('api.url').'toko-report/lap-jurnal-kb',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => [
+                        'periode' => $request->periode,
+                        'no_bukti' => $request->no_bukti,
+                        'tgl_awal' => $request->tgl_awal,
+                        'tgl_akhir' => $request->tgl_akhir,
+                        'nik_user' => Session::get('nikUser')
+                    ]
+                ]);
+        
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $res = json_decode($response_data,true);
+                    $result = $res["data"];
+                    
+                }
+                if(isset($request->back)){
+                    $back = true;
+                }else{
+                    $back = false;
+                }
+                return response()->json(['result' => $result, 'status'=>true, 'auth_status'=>1, 'sumju'=>$request->sum_ju[1],'lokasi'=>Session::get('namaLokasi'),'back'=>$back], 200); 
+                
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                return response()->json(['message' => $res["message"], 'status'=>false, 'auth_status'=>2], 200);
+            } 
+        }
+
+        function getJurnalKBPDF(Request $request)
+        {
+            set_time_limit(300);
+            $tmp = app('App\Http\Controllers\Esaku\LaporanController')->getJurnalKB($request);
+            $tmp = json_decode(json_encode($tmp),true);
+            $data = $tmp['original'];
+            $periode = $this->getNamaBulan(substr($request->periode[1],4,2)).' '.substr($request->periode[1],0,4);
+            $pdf = PDF::loadview('esaku.rptKbJurnalPDF',['data'=>$data["result"],'periode'=>$periode,'sumju'=>$request->sum_ju[1],'lokasi'=>$data["lokasi"]]);
+    	    return $pdf->download('laporan-jurnal-kb-pdf');   
         }
     
         function getBukuBesar(Request $request){
@@ -603,6 +760,48 @@
             
             $pdf = PDF::loadview('esaku.rptBukuBesarPDF',['data'=>$data["result"],'detail'=>$data["detail"],'periode'=>$request->periode[1],'lokasi'=>$data["lokasi"]]);
     	    return $pdf->download('laporan-bukubesar-pdf');   
+        }
+
+        function getBukuKas(Request $request){
+            try{
+    
+                $client = new Client();
+        
+                $response = $client->request('GET',  config('api.url').'toko-report/lap-buku-kb',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => [
+                        'periode' => $request->periode,
+                        'kode_akun' => $request->kode_akun,
+                        'tgl_awal' => $request->tgl_awal,
+                        'tgl_akhir' => $request->tgl_akhir,
+                        'mutasi' => $request->mutasi,
+                        'nik_user' => Session::get('nikUser')
+                    ]
+                ]);
+        
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $res = json_decode($response_data,true);
+                    $data = $res["data"];
+                    $detail = $res["data_detail"];
+                }
+                if(isset($request->back)){
+                    $back = true;
+                }else{
+                    $back = false;
+                }
+                
+                return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1, 'detail'=>$detail,'res'=>$res,'lokasi'=>Session::get('namaLokasi'),'back'=>$back], 200); 
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                return response()->json(['message' => $res["message"], 'status'=>false, 'auth_status'=>2], 200);
+            } 
+           
         }
 
         function getNeraca(Request $request){
