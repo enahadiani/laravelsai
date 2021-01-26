@@ -34,6 +34,8 @@ Route::get('filter-tahun', 'Esaku\HelperController@getFilterTahun');
 Route::get('filter-output', 'Esaku\HelperController@getFilterOutput');
 Route::get('filter-jeniscoa', 'Esaku\HelperController@getFilterJenisCOA');
 Route::get('filter-pp', 'Esaku\HelperController@getFilterPP');
+Route::get('filter-periode-kb', 'Esaku\HelperController@getFilterPeriodeKB');
+Route::get('filter-bukti-jurnal-kb', 'Esaku\HelperController@getFilterBuktiJurnalKB');
 
 //AKTAP//
 Route::get('filter-periode-perolehan', 'Esaku\FilterAktapController@getPeriodePerolehan');
@@ -86,3 +88,9 @@ Route::get('lap-coa-pdf', 'Esaku\LaporanController@getCOAPDF');
 Route::get('lap-coa-struktur-pdf', 'Esaku\LaporanController@getCOAStrukturPDF');
 Route::get('lap-labarugi-unit-pdf', 'Esaku\LaporanController@getLabaRugiUnitPDF');
 Route::get('lap-labarugi-unit-dc-pdf', 'Esaku\LaporanController@getLabaRugiUnitDCPDF');
+
+
+Route::post('lap-jurnal-kb', 'Esaku\LaporanController@getJurnalKB');
+Route::post('lap-buktijurnal-kb', 'Esaku\LaporanController@getBuktiJurnalKB');
+Route::post('lap-buku-kb', 'Esaku\LaporanController@getBukuKas');
+Route::post('lap-saldo-kb', 'Esaku\LaporanController@getSaldoKB');

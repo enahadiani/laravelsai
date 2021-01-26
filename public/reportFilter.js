@@ -237,7 +237,7 @@
                     lengthMenu: "Items Per Page _MENU_"
                 },
                 "columnDefs": [{
-                    "targets": 2, "data": null, "defaultContent": "<a class='hapus-item'><i class='simple-icon-trash' style='font-size:18px'></i></a>"
+                    "targets": settings.headerpilih[idx].length - 1, "data": null, "defaultContent": "<a class='hapus-item'><i class='simple-icon-trash' style='font-size:18px'></i></a>"
                 }],
                 pageLength : pageLength
             });

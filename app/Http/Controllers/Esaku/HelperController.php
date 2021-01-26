@@ -130,14 +130,15 @@
             return response()->json(['daftar' => $data, 'status' => true], 200);
         }
         
-        public function getFilterAkun() {
+        public function getFilterAkun(Request $request) {
 
             $client = new Client();
             $response = $client->request('GET',  config('api.url').'toko-report/filter-akun',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
-                ]
+                ],
+                'query' => $request->all()
             ]);
 
             if ($response->getStatusCode() == 200) { // 200 OK
@@ -714,6 +715,24 @@
             return response()->json(['daftar' => $data['data'], 'status' => true], 200);
         }
 
+        public function getFilterPeriodeKB() {
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'toko-report/filter-periode-kb',[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+            
+                $data = json_decode($response_data,true);
+                $data = $data;
+            }
+            return response()->json(['daftar' => $data['data'], 'status' => true], 200);
+        }
+
         public function getFilterFS() {
             $client = new Client();
             $response = $client->request('GET',  config('api.url').'toko-report/filter-fs',[
@@ -815,6 +834,27 @@
                 'query' => [
                     'periode' => $request->periode,
                     'modul' => $request->modul,
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+            
+                $data = json_decode($response_data,true);
+            }
+            return response()->json(['daftar' => $data['data'], 'status' => true], 200);
+        }
+
+        public function getFilterBuktiJurnalKB(Request $request) {
+            $client = new Client();
+
+            $response = $client->request('GET',  config('api.url').'toko-report/filter-bukti-jurnal-kb',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' => [
+                    'periode' => $request->periode
                 ]
             ]);
 
