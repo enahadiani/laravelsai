@@ -60,11 +60,14 @@
         @php $line = $data[$i]; @endphp
         <table width='100%'  class="table table-borderless">
             <tr>
-                <td class='style16 bold' colspan="5" rowspan="2" style='font-size:16px' width="80%">{{ $lokasi }}</td>
+                <td class='style16 bold' colspan="5" rowspan="3" style='font-size:16px' width="80%">{{ $line['nama_lokasi'] }} <br> {{ $line['kota'] }}</td>
                 <td align='center' class='bordered' width="40%">{{ $line['no_bukti'] }}</td>
             </tr>
             <tr>
                 <td align='center' class='bordered'>{{ $line['tgl'] }}</td>
+            </tr>
+            <tr>
+                <td align='center' class='bordered'>{{ $line['no_dokumen'] }}</td>
             </tr>
         </table>
         <h3 class='text-center'>BUKTI JURNAL</h3>
@@ -74,7 +77,8 @@
                 <td width='5%' class='bold'>NO</td>
                 <td width='10%' class='bold'>KODE AKUN </td>
                 <td width='20%' class='bold'>NAMA AKUN </td>
-                <td width='25%' class='bold'>KETERANGAN</td>
+                <td width='20%' class='bold'>KETERANGAN</td>
+                <td width='5%' class='bold'>ATENSI</td>
                 <td width='10%' class='bold'>PP</td>
                 <td width='15%' class='bold'>DEBET</td>
                 <td width='15%' class='bold'>KREDIT</td>
@@ -106,6 +110,7 @@
                         <td class='isi_laporan'>{{ $line2['kode_akun'] }}</td>
                         <td class='isi_laporan'>{{ $line2['nama'] }}</td>
                         <td class='isi_laporan'>{{ $line2['keterangan'] }}</td>
+                        <td class='isi_laporan'>{{ $line['no_ref1'] }}</td>
                         <td class='isi_laporan' align='center'>{{ $line2['kode_pp'] }}</td>
                         <td class='isi_laporan' align='right'>{{ $debet }}</td>
                         <td class='isi_laporan' align='right'>{{ $kredit }}</td>
@@ -118,7 +123,7 @@
                     @endphp
             @endfor
                 <tr>
-                    <td colspan='5' class='header_laporan bold' align='right'>Total</td>
+                    <td colspan='6' class='header_laporan bold' align='right'>Total</td>
                     <td class='isi_laporan bold' align='right'>{{ $tot_debet1 }}</td>
                     <td class='isi_laporan bold' align='right'>{{ $tot_kredit1 }}</td>
                 </tr>

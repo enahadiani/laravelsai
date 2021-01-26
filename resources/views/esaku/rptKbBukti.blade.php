@@ -45,11 +45,14 @@
                 html+=`
                 <table width='100%'  border='0' cellspacing='2' cellpadding='1'>
                     <tr>
-                        <td class='style16 bold' colspan="5" rowspan="2" style='font-size:16px' width="80%">`+lokasi+`</td>
+                        <td class='style16 bold' colspan="5" rowspan="3" style='font-size:16px;vertical-align:top' width="80%">`+line.nama_lokasi+` <br> `+line.kota+`</td>
                         <td align='center' class='bordered' width="40%">`+line.no_bukti+`</td>
                     </tr>
                     <tr>
                         <td align='center' class='bordered'>`+line.tgl+`</td>
+                    </tr>
+                    <tr>
+                        <td align='center' class='bordered'>`+line.no_dokumen+`</td>
                     </tr>
                 </table>
                 <h6 class='text-center'>BUKTI JURNAL</h6>
@@ -59,7 +62,8 @@
                         <td width='30' class='bold'>NO</td>
                         <td width='100' class='bold'>KODE AKUN </td>
                         <td width='200' class='bold'>NAMA AKUN </td>
-                        <td width='270' class='bold'>KETERANGAN</td>
+                        <td width='200' class='bold'>KETERANGAN</td>
+                        <td width='70' class='bold'>ATENSI</td>
                         <td width='60' class='bold'>PP</td>
                         <td width='100' class='bold'>DEBET</td>
                         <td width='100' class='bold'>KREDIT</td>
@@ -87,6 +91,7 @@
                                     <td class='isi_laporan'>`+line2.kode_akun+`</td>
                                     <td class='isi_laporan'>`+line2.nama+`</td>
                                     <td class='isi_laporan'>`+line2.keterangan+`</td>
+                                    <td class='isi_laporan'>`+line.no_ref1+`</td>
                                     <td class='isi_laporan' align='center'>`+line2.kode_pp+`</td>
                                     <td class='isi_laporan' align='right'>`+debet+`</td>
                                     <td class='isi_laporan' align='right'>`+kredit+`</td>
@@ -98,7 +103,7 @@
                         tot_kredit1=sepNum(tot_kredit);
                     html+=det+`<tr>
                 
-                    <td colspan='5' class='header_laporan bold' align='right'>Total</td>
+                    <td colspan='6' class='header_laporan bold' align='right'>Total</td>
                     <td class='isi_laporan bold' align='right'>`+tot_debet1+`</td>
                     <td class='isi_laporan bold' align='right'>`+tot_kredit1+`</td>
                 </tr>
