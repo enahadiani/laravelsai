@@ -115,12 +115,12 @@ Route::post('/import-excel', 'Esaku\JurnalController@importExcel');
 Route::get('jurnal-tmp', 'Esaku\JurnalController@getJurnalTmp');
 
 
-Route::get('/kas-bank', 'Esaku\KasBankController@index');
-Route::post('/kas-bank', 'Esaku\KasBankController@store');
-Route::get('/kas-bank/{id}', 'Esaku\KasBankController@show');
-Route::put('/kas-bank/{id}','Esaku\KasBankController@update');
-Route::delete('/kas-bank/{id}','Esaku\KasBankController@destroy');
-Route::post('/import-excel', 'Esaku\KasBankController@importExcel');
+Route::get('kas-bank', 'Esaku\KasBankController@index');
+Route::post('kas-bank', 'Esaku\KasBankController@store');
+Route::get('kas-bank/{id}', 'Esaku\KasBankController@show');
+Route::put('kas-bank/{id}','Esaku\KasBankController@update');
+Route::delete('kas-bank/{id}','Esaku\KasBankController@destroy');
+Route::post('kas-bank-import-excel', 'Esaku\KasBankController@importExcel');
 Route::get('kas-bank-tmp', 'Esaku\KasBankController@getDataTmp');
 
 Route::get('sync-master', 'Esaku\SyncController@getSyncMaster');
@@ -147,6 +147,10 @@ Route::post('unposting', 'Esaku\UnPostingController@store');
 Route::get('jurnal-dok', 'Esaku\UploadDokJurnalController@show');
 Route::post('jurnal-dok', 'Esaku\UploadDokJurnalController@store');
 Route::delete('jurnal-dok', 'Esaku\UploadDokJurnalController@destroy');
+
+Route::get('kas-bank-dok', 'Esaku\UploadDokKasBankController@show');
+Route::post('kas-bank-dok', 'Esaku\UploadDokKasBankController@store');
+Route::delete('kas-bank-dok', 'Esaku\UploadDokKasBankController@destroy');
 
 //Closing Periode
 Route::get('closing-periode','Esaku\ClosingPeriodeController@show');
