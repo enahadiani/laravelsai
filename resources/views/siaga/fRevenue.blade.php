@@ -4,7 +4,7 @@
         padding: 4px !important;
     }
 </style>
-<div id='dash_page_home'>
+<div id='dash_page_rev'>
     <div class="row header-dash mb-2">
         <div class="col-md-8 px-0">
             <h6 class='font-weight-light' style='color: #000000; font-size:22px !important;'>Dashboard Revenue</h6>
@@ -279,15 +279,15 @@
                     </div>
                     <div class="modal-body" style="border:none">
                         <div class="form-group">
-                            <label>Periode</label>
-                            <select class="form-control" data-width="100%" name="periode" id="periode">
-                                <option value='#'>Pilih Periode</option>
+                            <label>Lokasi</label>
+                            <select class="form-control" data-width="100%" name="dept" id="dept">
+                                <option value='#'>Pilih Lokasi</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label>Dept</label>
-                            <select class="form-control" data-width="100%" name="dept" id="dept">
-                                <option value='#'>Pilih Dept</option>
+                            <label>Periode</label>
+                            <select class="form-control" data-width="100%" name="periode" id="periode">
+                                <option value='#'>Pilih Periode</option>
                             </select>
                         </div>
                     </div>
@@ -303,7 +303,7 @@
     
 $('body').addClass('dash-contents');
 $('html').addClass('dash-contents');
-
+var periode = "";
     function sepNum2(x){
         var num = parseFloat(x).toFixed(2);
         var parts = num.toString().split(".");
@@ -405,14 +405,18 @@ $('html').addClass('dash-contents');
                 select = select[0];
                 var control = select.selectize;
                 if(result.status){
+                    var latest = "";
                     if(typeof result.data !== 'undefined' && result.data.length>0){
                         for(i=0;i<result.data.length;i++){
                             control.addOption([{text:result.data[i].periode, value:result.data[i].periode}]);
+                            latest = result.data[i].periode;
                         }
                     }
-                    if("{{ Session::get('periode') }}" != ""){
-                        control.setValue("{{ Session::get('periode') }}");
-                    }
+                    periode = (latest != "" ? latest : "{{ Session::get('periode') }}");
+                    control.setValue(periode);
+                    loadService('Revenue-Port','GET',"{{ url('siaga-dash/dataof-modul') }}",{periode : periode,dept: "All",field:"portofolio",modul:"REVENUE"});
+                    loadService('Revenue-Prod','GET',"{{ url('siaga-dash/dataof-modul') }}",{periode : periode,dept: "All",field:"produk",modul:"REVENUE"});
+    
                 }
             },
             error: function(jqXHR, textStatus, errorThrown) {       
@@ -561,9 +565,6 @@ $('html').addClass('dash-contents');
             }
         });
     }
-
-    loadService('Revenue-Port','GET',"{{ url('siaga-dash/dataof-modul') }}",{periode : "201708",dept: "All",field:"portofolio",modul:"REVENUE"});
-    loadService('Revenue-Prod','GET',"{{ url('siaga-dash/dataof-modul') }}",{periode : "201708",dept: "All",field:"produk",modul:"REVENUE"});
 
     $('#form-filter').submit(function(e){
         e.preventDefault();

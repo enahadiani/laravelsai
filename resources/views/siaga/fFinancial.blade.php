@@ -1,164 +1,70 @@
 <link href="{{ asset('dash-siaga.css') }}" rel="stylesheet">
-<div id='dash_page_home'>
+<style>
+    .table td{
+        padding: 4px !important;
+    }
+</style>
+<div id='dash_page_financial'>
     <div class="row header-dash mb-2">
         <div class="col-md-8 px-0">
-            <h6 class='font-weight-light' style='color: #000000; font-size:22px !important;'>Dashboard Summary</h6>
+            <h6 class='font-weight-light' style='color: #000000; font-size:22px !important;'>Dashboard Operating Expense</h6>
         </div>
         <div class="col-md-4 text-right px-0">
             <a class="btn btn-outline-light" href="#" id="btn-filter" style="position: absolute;right: 15px;font-size:1rem;top:0"><i class="simple-icon-equalizer" style="transform-style: ;"></i> &nbsp;&nbsp; Filter</a>
         </div>
     </div>
-    <div class="row body-dash" style="position: relative;">
-        <div class='col-2dot4'>
-            <div class="small-box bg-yellow">
-                <div class="inner">
-                    <center>
-                        <p>Revenue</p>
-                        <h3 id='home_revenue_box'></h3>
-                    </center>
+    <div class="body-dash" style="position: relative;">
+        <div class='row mb-2'>
+            <div class='col-md-6'>
+                <div class="row px-2">
+                    <div class="col-md-6">
+                        <p><i class="fa fa-bar-chart"></i> Neraca</p>
+                    </div>
+                    <div class="col-md-6">
+                        <ul class="nav nav-tabs col-12 justify-content-end" role="tablist">
+                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#tab_1" role="tab" aria-selected="true"><span class="hidden-xs-down">Chart</span></a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab_2" role="tab" aria-selected="false"><span class="hidden-xs-down">Data</span></a> </li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="icon"><i class="fa fa-line-chart"></i></div>
-                <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-            </div>
-        </div>
-        <div class='col-2dot4'>
-            <div class="small-box bg-blue">
-                <div class="inner">
-                    <center>
-                        <p>COGS</p>
-                        <h3 id='home_cogs_box'></h3>
-                    </center>
-                </div>
-                <div class="icon"><i class="fa fa-money"></i></div>
-                <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-            </div>
-        </div>
-        <div class='col-2dot4'>
-            <div class="small-box bg-purple">
-                <div class="inner">
-                    <center>
-                        <p>Gross Profit</p>
-                        <h3 id='home_gp_box'></h3>
-                    </center>
-                </div>
-                <div class="icon"><i class="fa fa-pie-chart"></i></div>
-                <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-            </div>
-        </div>
-        <div class='col-2dot4'>
-            <div class="small-box bg-red">
-                <div class="inner">
-                    <center>
-                        <p>Operating Expense</p>
-                        <h3 id='home_opex_box'></h3>
-                    </center>
-                </div>
-                <div class="icon"><i class="fa fa-credit-card"></i></div>
-                <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-            </div>
-        </div>
-        <div class='col-2dot4'>
-            <div class="small-box bg-aqua">
-                <div class="inner">
-                    <center>
-                        <p>Net Income</p>
-                        <h3 id='home_ni_box'></h3>
-                    </center>
-                </div>
-                <div class="icon"><i class="fa fa-bank"></i></div>
-                <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-            </div>
-        </div>
-    </div>
-
-    <div class='row'>
-        <div class='col-md-3'>
-            <div class='card card-primary'>
-                <div class='card-header pt-3'>
-                    <i class='fa fa-line-chart'></i> Revenue
-                </div>
-                <div class='card-body pad'>
-                    <div id='home_rev_chart1'></div>
+                <div class="row px-2">
+                    <div class="tab-content tabcontent-border col-12">
+                        <div class="tab-pane active" id="tab_1">
+                            <div id='financial_port_chart1'></div>
+                        </div>
+                        <div class="tab-pane" id="tab_2">
+                            <div id='financial_port_table1'></div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class='col-md-3'>
-            <div class='card card-success'>
-                <div class='card-header pt-3'>
-                    <i class='fa fa-line-chart'></i> Rev. Contribution
+            <div class='col-md-6'>
+                <div class="row px-2">
+                    <div class="col-md-6">
+                        <p><i class="fa fa-bar-chart"></i> Cashflow</p>
+                    </div>
+                    <div class="col-md-6">
+                        <ul class="nav nav-tabs col-12 justify-content-end" role="tablist">
+                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#tab_3" role="tab" aria-selected="true"><span class="hidden-xs-down">Chart</span></a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab_4" role="tab" aria-selected="false"><span class="hidden-xs-down">Data</span></a> </li>
+                        </ul>
+                    </div>
                 </div>
-                <div class='card-body pad'>
-                    <div id='home_rev_chart2'></div>
-                </div>
-            </div>
-        </div>
-        <div class='col-md-3'>
-            <div class='card card-warning'>
-                <div class='card-header pt-3'>
-                    <i class='fa fa-line-chart'></i> GP Contribution
-                </div>
-                <div class='card-body pad'>
-                    <div id='home_gp_chart1'></div>
-                </div>
-            </div>
-        </div>
-        <div class='col-md-3'>
-            <div class='card card-danger'>
-                <div class='card-header pt-3'>
-                    <i class='fa fa-line-chart'></i> GP
-                </div>
-                <div class='card-body pad'>
-                    <div id='home_gp_chart2'></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class='row'>
-        <div class='col-md-4'>
-            <div class='card card-warning'>
-                <div class='card-header pt-3'>
-                    <i class='fa fa-line-chart'></i> OPEX
-                </div>
-                <div class='card-body pad'>
-                    <div id='home_opex_chart1'></div>
-                </div>
-            </div>
-        </div>
-        <div class='col-md-4'>
-            <div class='card card-warning'>
-                <div class='card-header pt-3'>
-                    <i class='fa fa-line-chart'></i> Others
-                </div>
-                <div class='card-body pad'>
-                    <div id='home_others_chart1'></div>
-                </div>
-            </div>
-        </div>
-        <div class='col-md-4'>
-            <div class='card card-warning'>
-                <div class='card-header pt-3'>
-                    <i class='fa fa-line-chart'></i> Net Income
-                </div>
-                <div class='card-body pad'>
-                    <div id='home_ni_chart1'></div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class='row'>
-        <div class='col-md-12'>
-            <div class='card card-warning'>
-                <div class='card-header pt-3'>
-                    <i class='fa fa-line-chart'></i> Summary
-                </div>
-                <div class='card-body pad'>
-                    <div id='home_summary_table'></div>
+                <div class="row px-2">
+                    <div class="tab-content tabcontent-border col-12">
+                        <div class="tab-pane active" id="tab_3">
+                            <div id='financial_port_chart2'></div>
+                        </div>
+                        <div class="tab-pane" id="tab_4">
+                            <div id='financial_port_table2'></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 <div class="modal fade modal-right" id="modalFilter" tabindex="-1" role="dialog"
     aria-labelledby="modalFilter" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -196,8 +102,7 @@
     
 $('body').addClass('dash-contents');
 $('html').addClass('dash-contents');
-    var periode = "";
-
+var periode = "";
     function sepNum2(x){
         var num = parseFloat(x).toFixed(2);
         var parts = num.toString().split(".");
@@ -298,6 +203,7 @@ $('html').addClass('dash-contents');
                 var select = $('#periode').selectize();
                 select = select[0];
                 var control = select.selectize;
+
                 if(result.status){
                     var latest = "";
                     if(typeof result.data !== 'undefined' && result.data.length>0){
@@ -308,7 +214,9 @@ $('html').addClass('dash-contents');
                     }
                     periode = (latest != "" ? latest : "{{ Session::get('periode') }}");
                     control.setValue(periode);
-                    loadService('home','GET',"{{ url('siaga-dash/summary') }}",{periode : periode,dept: "All"});
+                    loadService('Financial-NRC','GET',"{{ url('siaga-dash/data-other') }}",{periode : "201708",dept: "All",klp:"NRC"});
+                    loadService('Financial-CF','GET',"{{ url('siaga-dash/data-other') }}",{periode : "201708",dept: "All",klp:"CF"});
+                    
                 }
             },
             error: function(jqXHR, textStatus, errorThrown) {       
@@ -375,45 +283,23 @@ $('html').addClass('dash-contents');
             success:function(data){    
                 if(data.status){
                     switch(index){
-                        case 'home':
-                            var periode = param.periode;
-                            $('#home_revenue_box').text(sepNum(data.REVENUE));
-                            $('#home_cogs_box').text(sepNum(data.COGS));
-                            $('#home_gp_box').text(sepNum(data.GP));
-                            $('#home_opex_box').text(sepNum(data.OPEX));
-                            $('#home_ni_box').text(sepNum(data["Net Income"]));
-                            
-                            drawChart('column', 'home_rev_chart1', [data.series.REVENUE], data.categories);
-                            drawChart('pie', 'home_rev_chart2', [data.grouping.REVENUE]);
-                            drawChart('pie', 'home_gp_chart1', [data.grouping.GP]);
-                            drawChart('column', 'home_gp_chart2', [data.series.GP], data.categories);
-                            drawChart('column', 'home_opex_chart1', [data.series.OPEX], data.categories);
-                            drawChart('column', 'home_others_chart1', [data.series.OTHERS], data.categories);
-                            drawChart('column', 'home_ni_chart1', [data.series["Net Income"]], data.categories);
-
-                            var tahun = periode.substr(0,4);
-                            var tahunLalu = parseFloat(tahun) - 1;
-                            var header_html =   "<tr>"+
-                                                    "<th rowspan='2'>Description</th>"+
-                                                    "<th colspan='2'>Actual</th>"+
-                                                    "<th colspan='2'>RKAP</th>"+
-                                                    "<th rowspan='2'>Actual sd</th>"+
-                                                    "<th colspan='2'>Achiev</th>"+
-                                                    "<th rowspan='2'>Growth</th>"+
-                                                "</tr>"+
-                                                "<tr>"+
-                                                    "<th>sd "+tahunLalu+"</th>"+
-                                                    "<th>Full "+tahunLalu+"</th>"+
-                                                    "<th>sd "+tahun+"</th>"+
-                                                    "<th>Full "+tahun+"</th>"+
-                                                    "<th>sd</th>"+
-                                                    "<th>Full</th>"+
-                                                "</tr>";
-                            var index_array = ["klp","ytd","fullyear","ytd_rkap","fullyear_rkap","n1","ach","ach2","grow"];
-                            var format_obj = {"ytd":"sepNum2Kanan","fullyear":"sepNum2Kanan","ytd_rkap":"sepNum2Kanan","fullyear_rkap":"sepNum2Kanan","n1":"sepNum2Kanan","ach":"sepNum2Kanan","ach2":"sepNum2Kanan","grow":"sepNum2Kanan"};
-
-                            drawTable('#home_summary_table', header_html, data.summary, index_array, "class='table table-bordered'", format_obj);
+                        case 'Financial-NRC':
+                            var thead = "<tr>"+
+                                            "<th>Tipe</th>"+
+                                            "<th>Nilai</th>"+
+                                        "</tr>";
+                            drawChart('column', 'financial_port_chart1', data.series, data.categories);
+                            drawTable('#financial_port_table1', thead, data.summary, ["tipe","n1"], "class='table table-striped table-bordered'", {"n1":"sepNum2Kanan"});
                         break;
+                        case 'Financial-CF':
+                            var thead = "<tr>"+
+                                            "<th>Tipe</th>"+
+                                            "<th>Nilai</th>"+
+                                        "</tr>";
+                            drawChart('column', 'financial_port_chart2', data.series, data.categories);
+                            drawTable('#financial_port_table2', thead, data.summary, ["tipe","n1"], "class='table table-striped table-bordered'", {"n1":"sepNum2Kanan"});
+                        break;
+                        
                     }
                 }
             }
@@ -422,9 +308,10 @@ $('html').addClass('dash-contents');
 
     $('#form-filter').submit(function(e){
         e.preventDefault();
-        var per = $('#periode')[0].selectize.getValue();
+        var periode = $('#periode')[0].selectize.getValue();
         var dept = $('#dept')[0].selectize.getValue();
-        loadService('home','GET',"{{ url('siaga-dash/summary') }}",{periode : per,dept: dept});
+        loadService('Financial-NRC','GET',"{{ url('siaga-dash/data-other') }}",{periode : "201708",dept: "All",klp:"NRC"});
+        loadService('Financial-CF','GET',"{{ url('siaga-dash/data-other') }}",{periode : "201708",dept: "All",klp:"CF"});
         
         $('#modalFilter').modal('hide');
         // $('.app-menu').hide();

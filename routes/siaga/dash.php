@@ -17,3 +17,4 @@ Route::get('summary','Siaga\DashboardController@getSummary');
 Route::get('dept','Siaga\DashboardController@getDept');
 Route::get('periode','Siaga\DashboardController@getPeriode');
 Route::get('dataof-modul','Siaga\DashboardController@getDataOfModul');
+Route::get('data-other','Siaga\DashboardController@getDataOther');
