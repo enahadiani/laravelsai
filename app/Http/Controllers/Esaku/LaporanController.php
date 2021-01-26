@@ -654,8 +654,8 @@
             $tmp = app('App\Http\Controllers\Esaku\LaporanController')->getJurnal($request);
             $tmp = json_decode(json_encode($tmp),true);
             $data = $tmp['original'];
-            
-            $pdf = PDF::loadview('esaku.rptJurnalPDF',['data'=>$data["result"],'periode'=>$request->periode[1],'sumju'=>$request->sum_ju[1],'lokasi'=>$data["lokasi"]]);
+            $periode = $this->getNamaBulan(substr($request->periode[1],4,2)).' '.substr($request->periode[1],0,4);
+            $pdf = PDF::loadview('esaku.rptJurnalPDF',['data'=>$data["result"],'periode'=>$periode,'sumju'=>$request->sum_ju[1],'lokasi'=>$data["lokasi"]]);
     	    return $pdf->download('laporan-jurnal-pdf');   
         }
 
@@ -696,6 +696,17 @@
                 $res = json_decode($response->getBody(),true);
                 return response()->json(['message' => $res["message"], 'status'=>false, 'auth_status'=>2], 200);
             } 
+        }
+
+        function getJurnalKBPDF(Request $request)
+        {
+            set_time_limit(300);
+            $tmp = app('App\Http\Controllers\Esaku\LaporanController')->getJurnalKB($request);
+            $tmp = json_decode(json_encode($tmp),true);
+            $data = $tmp['original'];
+            $periode = $this->getNamaBulan(substr($request->periode[1],4,2)).' '.substr($request->periode[1],0,4);
+            $pdf = PDF::loadview('esaku.rptKbJurnalPDF',['data'=>$data["result"],'periode'=>$periode,'sumju'=>$request->sum_ju[1],'lokasi'=>$data["lokasi"]]);
+    	    return $pdf->download('laporan-jurnal-kb-pdf');   
         }
     
         function getBukuBesar(Request $request){
