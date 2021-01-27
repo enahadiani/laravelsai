@@ -790,6 +790,7 @@
                     hitungTotalRow();
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
+                    $('#kode_form').val($form_aktif);
                     showInfoField("nik_periksa",result.jurnal[0].nik_periksa,result.jurnal[0].nama_periksa);
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
@@ -859,6 +860,7 @@
         $('#input-grid tbody').html('');
         $('#saku-datatable').hide();
         $('#saku-form').show();
+        $('#kode_form').val($form_aktif);
         addRow("default");
     });
     // END BUTTON TAMBAH
@@ -1086,6 +1088,7 @@
                             $('#id').val('');
                             $('#input-grid tbody').html('');
                             $('[id^=label]').html('');
+                            $('#kode_form').val($form_aktif);
                             
                             msgDialog({
                                 id:result.data.no_bukti,

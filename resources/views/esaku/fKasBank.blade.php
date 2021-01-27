@@ -51,6 +51,7 @@
                                         <option value='BM' selected>BM</option>
                                         </select>
                                         <input class="form-control" type="hidden" placeholder="No Bukti" id="no_bukti" name="no_bukti" readonly>
+                                        <input class="form-control" type="hidden" placeholder="No Bukti" id="kode_form" name="kode_form" readonly>
                                     </div>
                                     <div class="col-md-3 col-sm-12">
                                         <label for="status" >Status</label>
@@ -789,6 +790,7 @@
                     hitungTotalRow();
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
+                    $('#kode_form').val($form_aktif);
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
                     window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
@@ -857,6 +859,8 @@
         $('#input-grid tbody').html('');
         $('#saku-datatable').hide();
         $('#saku-form').show();
+        
+        $('#kode_form').val($form_aktif);
         addRow("default");
     });
     // END BUTTON TAMBAH
@@ -1088,6 +1092,7 @@
                             $('#id').val('');
                             $('#input-grid tbody').html('');
                             $('[id^=label]').html('');
+                            $('#kode_form').val($form_aktif);
                             
                             msgDialog({
                                 id:result.data.no_bukti,
