@@ -18,7 +18,7 @@
                     </center>
                 </div>
                 <div class="icon"><i class="fa fa-line-chart"></i></div>
-                <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                <!-- <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a> -->
             </div>
         </div>
         <div class='col-md-2dot4 col-12'>
@@ -30,7 +30,7 @@
                     </center>
                 </div>
                 <div class="icon"><i class="fa fa-money"></i></div>
-                <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                <!-- <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a> -->
             </div>
         </div>
         <div class='col-md-2dot4'>
@@ -42,7 +42,7 @@
                     </center>
                 </div>
                 <div class="icon"><i class="fa fa-pie-chart"></i></div>
-                <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                <!-- <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a> -->
             </div>
         </div>
         <div class='col-md-2dot4'>
@@ -54,7 +54,7 @@
                     </center>
                 </div>
                 <div class="icon"><i class="fa fa-credit-card"></i></div>
-                <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                <!-- <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a> -->
             </div>
         </div>
         <div class='col-md-2dot4'>
@@ -66,7 +66,7 @@
                     </center>
                 </div>
                 <div class="icon"><i class="fa fa-bank"></i></div>
-                <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                <!-- <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a> -->
             </div>
         </div>
     </div>
