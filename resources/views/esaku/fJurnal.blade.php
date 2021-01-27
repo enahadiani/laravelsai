@@ -499,7 +499,7 @@
                 "targets" : 7,
                 "data": null,
                 "render": function ( data, type, row, meta ) {
-                    if(row.posted == "T"){
+                    if(row.posted == "Close"){
                         return action_html2;
                     }else{
                         return action_html;
@@ -978,7 +978,7 @@
                             }
                             $('#table-ju-preview tbody').html(input);
                         }
-                        if(posted == "T"){
+                        if(posted == "Close"){
                             $('#btn-delete2').css('display','none');
                             $('#btn-edit2').css('display','none');
                         }else{
