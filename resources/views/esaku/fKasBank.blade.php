@@ -1092,12 +1092,12 @@
                             window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
                         }
                         else{
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Oops...',
-                                text: 'Something went wrong!',
-                                footer: '<a href>'+result.data.message+'</a>'
-                            })
+                            msgDialog({
+                                id: '-',
+                                type: 'warning',
+                                title: 'Error',
+                                text: result.data.message
+                            });
                         }
                         $iconLoad.hide();
                     },
