@@ -306,10 +306,11 @@ var periode = "";
         return parts.join(",");
     }
 
-    function drawChart(type, selector, series_array, categories, exporting, click_callback){
+    function drawChart(type, selector, series_array, categories, exporting, click_callback,tooltip){
         if (typeof categories === 'undefined') { categories = null; }
         if (typeof exporting === 'undefined') { exporting = false; }
         if (typeof click_callback === 'undefined') { click_callback = null; }
+        if (typeof tooltip === 'undefined') { tooltip = {}; }
         var options = {
             chart: {
                 renderTo: selector,
@@ -318,6 +319,7 @@ var periode = "";
             title:{
                 text:''
             },
+            tooltip: tooltip,
             exporting: { 
                 enabled: exporting
             },
@@ -356,7 +358,7 @@ var periode = "";
     function drawTable(parent_container, header_html, data_array, data_index_array, created_table_selector, col_format_obj){
         if (typeof created_table_selector === 'undefined') { created_table_selector = null; }
         if (typeof col_format_obj === 'undefined') { col_format_obj = null; }
-        var table = "<table "+created_table_selector+">";
+        var table = "<table "+created_table_selector+" width='100%'>";
         var col = "";
         table += header_html;
         for(x=0; x<data_array.length; x++){
@@ -478,10 +480,10 @@ var periode = "";
                 if(data.status){
                     switch(index){
                         case 'GP-Port':
-                            var thead1 = "<tr>"+
-                                            "<th>Uraian</th>"+
-                                            "<th>Actual</th>"+
-                                            "<th>RKAP</th>"+
+                            var thead1 =  "<tr>"+
+                                            "<th width='10%'>Uraian</th>"+
+                                            "<th width='45%'>RKAP</th>"+
+                                            "<th width='45%'>Actual</th>"+
                                         "</tr>";
                             var thead2 = "<tr>"+
                                             "<th>Uraian</th>"+
@@ -499,27 +501,50 @@ var periode = "";
                                             "<th>Desember</th>"+
                                         "</tr>";
                             var thead3 = "<tr>"+
-                                            "<th>Uraian</th>"+
-                                            "<th>Actual</th>"+
+                                            "<th width='15%'>Uraian</th>"+
+                                            "<th width='85%'>Actual</th>"+
+                                        "</tr>";
+                                        
+                            var thead4 = "<tr>"+
+                                            "<th width='15%'>Uraian</th>"+
+                                            "<th width='85%'>RKAP</th>"+
                                         "</tr>";
 
-                            drawTable('#gp_port_table1', thead1, data.summary, ["portofolio","n1","n2"], "class='table table-striped table-bordered'", {"n1":"sepNum2Kanan","n2":"sepNum2Kanan"});
-                            drawTable('#gp_port_table2', thead1, data.summary, ["portofolio","n1","n3"], "class='table table-striped table-bordered'", {"n1":"sepNum2Kanan","n3":"sepNum2Kanan"});
+                            drawTable('#gp_port_table1', thead1, data.summary, ["portofolio","n2","n1"], "class='table table-striped table-bordered'", {"n2":"sepNum2Kanan","n1":"sepNum2Kanan"});
+                            drawTable('#gp_port_table2', thead1, data.summary, ["portofolio","n3","n1"], "class='table table-striped table-bordered'", {"n3":"sepNum2Kanan","n1":"sepNum2Kanan"});
                             drawTable('#gp_port_table3', thead2, data.trend, ["portofolio","n1","n2","n3","n4","n5","n6","n7","n8","n9","n10","n11","n12"], "class='table table-striped table-bordered'", {"n1":"sepNum2Kanan","n2":"sepNum2Kanan","n3":"sepNum2Kanan","n4":"sepNum2Kanan","n5":"sepNum2Kanan","n6":"sepNum2Kanan","n7":"sepNum2Kanan","n8":"sepNum2Kanan","n9":"sepNum2Kanan","n10":"sepNum2Kanan","n11":"sepNum2Kanan","n12":"sepNum2Kanan"});
-                            drawTable('#gp_port_table4', thead1, data.summary, ["portofolio","n1"], "class='table table-striped table-bordered'", {"n1":"sepNum2Kanan"});
-                            drawTable('#gp_port_table5', thead1, data.summary, ["portofolio","n3"], "class='table table-striped table-bordered'", {"n3":"sepNum2Kanan"});
+                            drawTable('#gp_port_table4', thead3, data.summary, ["portofolio","n1"], "class='table table-striped table-bordered'", {"n1":"sepNum2Kanan"});
+                            drawTable('#gp_port_table5', thead4, data.summary, ["portofolio","n3"], "class='table table-striped table-bordered'", {"n3":"sepNum2Kanan"});
 
                             drawChart('column', 'gp_port_chart1', data.series, data.categories);
                             drawChart('column', 'gp_port_chart2', data.series2, data.categories);
-                            drawChart('line', 'gp_port_chart3', data.series3, ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Okt","Nop","Des"]);
-                            drawChart('pie', 'gp_port_chart4', [data.series4]);
-                            drawChart('pie', 'gp_port_chart5', [data.series5]);
+                            drawChart('spline', 'gp_port_chart3', data.series3, ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Okt","Nop","Des"]);
+                            drawChart('pie', 'gp_port_chart4', [data.series4],'',false,{
+                                pie: {
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: '<strong>{point.name}</strong><br>{point.percentage:.1f}%'
+                                    }
+                                }
+                            },{
+                                pointFormat: '{series.name}: <b>{point.y}</b><br><b>{point.percentage:.2f}%</b>'
+                            });
+                            drawChart('pie', 'gp_port_chart5', [data.series5],'',false,{
+                                pie: {
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: '<strong>{point.name}</strong><br>{point.percentage:.1f}%'
+                                    }
+                                }
+                            },{
+                                pointFormat: '{series.name}: <b>{point.y}</b><br><b>{point.percentage:.2f}%</b>'
+                            });
                         break;
                         case 'GP-Prod':
                             var thead1 = "<tr>"+
-                                            "<th>Uraian</th>"+
-                                            "<th>Actual</th>"+
-                                            "<th>RKAP</th>"+
+                                            "<th width='10%'>Uraian</th>"+
+                                            "<th width='45%'>RKAP</th>"+
+                                            "<th width='45%'>Actual</th>"+
                                         "</tr>";
                             var thead2 = "<tr>"+
                                             "<th>Uraian</th>"+
@@ -537,21 +562,44 @@ var periode = "";
                                             "<th>Desember</th>"+
                                         "</tr>";
                             var thead3 = "<tr>"+
-                                            "<th>Uraian</th>"+
-                                            "<th>Actual</th>"+
+                                            "<th width='15%'>Uraian</th>"+
+                                            "<th width='85%'>Actual</th>"+
+                                        "</tr>";
+                                        
+                            var thead4 = "<tr>"+
+                                            "<th width='15%'>Uraian</th>"+
+                                            "<th width='85%'>RKAP</th>"+
                                         "</tr>";
 
-                            drawTable('#gp_port_table6', thead1, data.summary, ["produk","n1","n2"], "class='table table-striped table-bordered'", {"n1":"sepNum2Kanan","n2":"sepNum2Kanan"});
-                            drawTable('#gp_port_table7', thead1, data.summary, ["produk","n1","n3"], "class='table table-striped table-bordered'", {"n1":"sepNum2Kanan","n3":"sepNum2Kanan"});
+                            drawTable('#gp_port_table6', thead1, data.summary, ["produk","n2","n1"], "class='table table-striped table-bordered'", {"n2":"sepNum2Kanan","n1":"sepNum2Kanan"});
+                            drawTable('#gp_port_table7', thead1, data.summary, ["produk","n3","n1"], "class='table table-striped table-bordered'", {"n3":"sepNum2Kanan","n1":"sepNum2Kanan"});
                             drawTable('#gp_port_table8', thead2, data.trend, ["produk","n1","n2","n3","n4","n5","n6","n7","n8","n9","n10","n11","n12"], "class='table table-striped table-bordered'", {"n1":"sepNum2Kanan","n2":"sepNum2Kanan","n3":"sepNum2Kanan","n4":"sepNum2Kanan","n5":"sepNum2Kanan","n6":"sepNum2Kanan","n7":"sepNum2Kanan","n8":"sepNum2Kanan","n9":"sepNum2Kanan","n10":"sepNum2Kanan","n11":"sepNum2Kanan","n12":"sepNum2Kanan"});
-                            drawTable('#gp_port_table9', thead1, data.summary, ["produk","n1"], "class='table table-striped table-bordered'", {"n1":"sepNum2Kanan"});
-                            drawTable('#gp_port_table10', thead1, data.summary, ["produk","n3"], "class='table table-striped table-bordered'", {"n3":"sepNum2Kanan"});
+                            drawTable('#gp_port_table9', thead3, data.summary, ["produk","n1"], "class='table table-striped table-bordered'", {"n1":"sepNum2Kanan"});
+                            drawTable('#gp_port_table10', thead4, data.summary, ["produk","n3"], "class='table table-striped table-bordered'", {"n3":"sepNum2Kanan"});
 
                             drawChart('column', 'gp_port_chart6', data.series, data.categories);
                             drawChart('column', 'gp_port_chart7', data.series2, data.categories);
                             drawChart('column', 'gp_port_chart8', data.series3, ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Okt","Nop","Des"]);
-                            drawChart('pie', 'gp_port_chart9', [data.series4]);
-                            drawChart('pie', 'gp_port_chart10', [data.series5]);
+                            drawChart('pie', 'gp_port_chart9', [data.series4],'',false,{
+                                pie: {
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: '<strong>{point.name}</strong><br>{point.percentage:.1f}%'
+                                    }
+                                }
+                            },{
+                                pointFormat: '{series.name}: <b>{point.y}</b><br><b>{point.percentage:.2f}%</b>'
+                            });
+                            drawChart('pie', 'gp_port_chart10', [data.series5],'',false,{
+                                pie: {
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: '<strong>{point.name}</strong><br>{point.percentage:.1f}%'
+                                    }
+                                }
+                            },{
+                                pointFormat: '{series.name}: <b>{point.y}</b><br><b>{point.percentage:.2f}%</b>'
+                            });
                         break;
                         
                     }
