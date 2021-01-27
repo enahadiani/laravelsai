@@ -52,7 +52,7 @@
                         </div>
                     </div>
                     <div class="row px-2">
-                        <div class="tab-content">
+                        <div class="tab-content  tabcontent-border  col-12">
                             <div class="tab-pane active" id="tab_3">
                                 <div id='rev_port_chart2'></div>
                             </div>
@@ -363,7 +363,7 @@ var periode = "";
     function drawTable(parent_container, header_html, data_array, data_index_array, created_table_selector, col_format_obj){
         if (typeof created_table_selector === 'undefined') { created_table_selector = null; }
         if (typeof col_format_obj === 'undefined') { col_format_obj = null; }
-        var table = "<table "+created_table_selector+">";
+        var table = "<table "+created_table_selector+" width='100%'>";
         var col = "";
         table += header_html;
         for(x=0; x<data_array.length; x++){
@@ -485,9 +485,9 @@ var periode = "";
                     switch(index){
                         case 'Revenue-Port':
                             var thead1 = "<tr>"+
-                                            "<th>Uraian</th>"+
-                                            "<th>Actual</th>"+
-                                            "<th>RKAP</th>"+
+                                            "<th width='10%'>Uraian</th>"+
+                                            "<th width='45%'>RKAP</th>"+
+                                            "<th width='45%'>Actual</th>"+
                                         "</tr>";
                             var thead2 = "<tr>"+
                                             "<th>Uraian</th>"+
@@ -505,27 +505,27 @@ var periode = "";
                                             "<th>Desember</th>"+
                                         "</tr>";
                             var thead3 = "<tr>"+
-                                            "<th>Uraian</th>"+
-                                            "<th>Actual</th>"+
+                                            "<th width='10%'>Uraian</th>"+
+                                            "<th width='90%'>Actual</th>"+
                                         "</tr>";
 
-                            drawTable('#rev_port_table1', thead1, data.summary, ["portofolio","n1","n2"], "class='table table-striped table-bordered'", {"n1":"sepNum2Kanan","n2":"sepNum2Kanan"});
-                            drawTable('#rev_port_table2', thead1, data.summary, ["portofolio","n1","n3"], "class='table table-striped table-bordered'", {"n1":"sepNum2Kanan","n3":"sepNum2Kanan"});
+                            drawTable('#rev_port_table1', thead1, data.summary, ["portofolio","n2","n1"], "class='table table-striped table-bordered'", {"n2":"sepNum2Kanan","n1":"sepNum2Kanan"});
+                            drawTable('#rev_port_table2', thead1, data.summary, ["portofolio","n3","n1"], "class='table table-striped table-bordered'", {"n3":"sepNum2Kanan","n1":"sepNum2Kanan"});
                             drawTable('#rev_port_table3', thead2, data.trend, ["portofolio","n1","n2","n3","n4","n5","n6","n7","n8","n9","n10","n11","n12"], "class='table table-striped table-bordered'", {"n1":"sepNum2Kanan","n2":"sepNum2Kanan","n3":"sepNum2Kanan","n4":"sepNum2Kanan","n5":"sepNum2Kanan","n6":"sepNum2Kanan","n7":"sepNum2Kanan","n8":"sepNum2Kanan","n9":"sepNum2Kanan","n10":"sepNum2Kanan","n11":"sepNum2Kanan","n12":"sepNum2Kanan"});
-                            drawTable('#rev_port_table4', thead1, data.summary, ["portofolio","n1"], "class='table table-striped table-bordered'", {"n1":"sepNum2Kanan"});
-                            drawTable('#rev_port_table5', thead1, data.summary, ["portofolio","n3"], "class='table table-striped table-bordered'", {"n3":"sepNum2Kanan"});
+                            drawTable('#rev_port_table4', thead3, data.summary, ["portofolio","n1"], "class='table table-striped table-bordered'", {"n1":"sepNum2Kanan"});
+                            drawTable('#rev_port_table5', thead3, data.summary, ["portofolio","n3"], "class='table table-striped table-bordered'", {"n3":"sepNum2Kanan"});
 
                             drawChart('column', 'rev_port_chart1', data.series, data.categories);
                             drawChart('column', 'rev_port_chart2', data.series2, data.categories);
-                            drawChart('line', 'rev_port_chart3', data.series3, ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Okt","Nop","Des"]);
+                            drawChart('spline', 'rev_port_chart3', data.series3, ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Okt","Nop","Des"]);
                             drawChart('pie', 'rev_port_chart4', [data.series4]);
                             drawChart('pie', 'rev_port_chart5', [data.series5]);
                         break;
                         case 'Revenue-Prod':
                             var thead1 = "<tr>"+
-                                            "<th>Uraian</th>"+
-                                            "<th>Actual</th>"+
-                                            "<th>RKAP</th>"+
+                                            "<th width='10%'>Uraian</th>"+
+                                            "<th width='45%'>RKAP</th>"+
+                                            "<th width='45%'>Actual</th>"+
                                         "</tr>";
                             var thead2 = "<tr>"+
                                             "<th>Uraian</th>"+
@@ -543,15 +543,15 @@ var periode = "";
                                             "<th>Desember</th>"+
                                         "</tr>";
                             var thead3 = "<tr>"+
-                                            "<th>Uraian</th>"+
-                                            "<th>Actual</th>"+
+                                            "<th width='20%'>Uraian</th>"+
+                                            "<th width='80%'>Actual</th>"+
                                         "</tr>";
 
-                            drawTable('#rev_port_table6', thead1, data.summary, ["produk","n1","n2"], "class='table table-striped table-bordered'", {"n1":"sepNum2Kanan","n2":"sepNum2Kanan"});
-                            drawTable('#rev_port_table7', thead1, data.summary, ["produk","n1","n3"], "class='table table-striped table-bordered'", {"n1":"sepNum2Kanan","n3":"sepNum2Kanan"});
+                            drawTable('#rev_port_table6', thead1, data.summary, ["produk","n2","n1"], "class='table table-striped table-bordered'", {"n2":"sepNum2Kanan","n1":"sepNum2Kanan"});
+                            drawTable('#rev_port_table7', thead1, data.summary, ["produk","n3","n1"], "class='table table-striped table-bordered'", {"n3":"sepNum2Kanan","n1":"sepNum2Kanan"});
                             drawTable('#rev_port_table8', thead2, data.trend, ["produk","n1","n2","n3","n4","n5","n6","n7","n8","n9","n10","n11","n12"], "class='table table-striped table-bordered'", {"n1":"sepNum2Kanan","n2":"sepNum2Kanan","n3":"sepNum2Kanan","n4":"sepNum2Kanan","n5":"sepNum2Kanan","n6":"sepNum2Kanan","n7":"sepNum2Kanan","n8":"sepNum2Kanan","n9":"sepNum2Kanan","n10":"sepNum2Kanan","n11":"sepNum2Kanan","n12":"sepNum2Kanan"});
-                            drawTable('#rev_port_table9', thead1, data.summary, ["produk","n1"], "class='table table-striped table-bordered'", {"n1":"sepNum2Kanan"});
-                            drawTable('#rev_port_table10', thead1, data.summary, ["produk","n3"], "class='table table-striped table-bordered'", {"n3":"sepNum2Kanan"});
+                            drawTable('#rev_port_table9', thead3, data.summary, ["produk","n1"], "class='table table-striped table-bordered'", {"n1":"sepNum2Kanan"});
+                            drawTable('#rev_port_table10', thead3, data.summary, ["produk","n3"], "class='table table-striped table-bordered'", {"n3":"sepNum2Kanan"});
 
                             drawChart('column', 'rev_port_chart6', data.series, data.categories);
                             drawChart('column', 'rev_port_chart7', data.series2, data.categories);
