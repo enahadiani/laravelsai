@@ -149,6 +149,7 @@ class AuthController extends Controller
                     $kode = array(); 
                     if(count($main_menu) > 0){
                         for($i=0; $i<count($main_menu); $i++){
+                            $kode_form = $main_menu[$i]['kode_form'];
                             $forms = str_replace("_","/", $main_menu[$i]['form']);
                             $this_lv = $main_menu[$i]['level_menu']; 
                             $forms = explode("/",$forms);
@@ -191,7 +192,7 @@ class AuthController extends Controller
                                 }else{
                                     $main .=" 
                                     <li>
-                                            <a href='#' data-href='$this_link' class='a_link'>
+                                            <a href='#' data-href='$this_link' data-kode_form='$kode_form' class='a_link'>
                                             <i class='".$main_menu[$i]['icon']."'></i>
                                                 <span>".$main_menu[$i]['nama']."</span>
                                             </a>
@@ -216,7 +217,7 @@ class AuthController extends Controller
                                     
                                     $sub[$level_nol] .= "
                                     <li class=''>
-                                        <a href='#' class='a_link' data-href='$this_link'>
+                                        <a href='#' class='a_link' data-href='$this_link' data-kode_form='$kode_form'>
                                             <i class='".$main_menu[$i]['icon']."'></i> <span class='d-inline-block'>".$main_menu[$i]['nama']."</span>
                                         </a>
                                     </li>
@@ -247,7 +248,7 @@ class AuthController extends Controller
                                 }else if(($this_lv > $prev_lv OR $this_lv == $prev_lv OR $this_lv < $prev_lv) AND $this_lv == $next_lv){
                                     $sub[$level_nol].= " 
                                     <li class=''>
-                                        <a href='#' class='a_link' data-href='$this_link'>
+                                        <a href='#' class='a_link' data-href='$this_link' data-kode_form='$kode_form'>
                                             <i class='".$main_menu[$i]['icon']."'></i> <span class='d-inline-block'>".$main_menu[$i]['nama']."</span>
                                         </a>
                                     </li>
@@ -255,7 +256,7 @@ class AuthController extends Controller
                                 }else if($this_lv > $prev_lv AND $this_lv > $next_lv){
                                     $sub[$level_nol].= " 
                                     <li class=''>
-                                        <a href='#' class='a_link' data-href='$this_link'>
+                                        <a href='#' class='a_link' data-href='$this_link' data-kode_form='$kode_form'>
                                             <i class='".$main_menu[$i]['icon']."'></i> <span class='d-inline-block'>".$main_menu[$i]['nama']."</span>
                                         </a>
                                     </li>                                
@@ -264,7 +265,7 @@ class AuthController extends Controller
                                 }else if(($this_lv == $prev_lv OR $this_lv < $prev_lv) AND $this_lv > $next_lv){
                                     $sub[$level_nol].= " 
                                     <li class=''>
-                                        <a href='#' class='a_link' data-href='$this_link'>
+                                        <a href='#' class='a_link' data-href='$this_link' data-kode_form='$kode_form'>
                                             <i class='".$main_menu[$i]['icon']."'></i> <span class='d-inline-block'>".$main_menu[$i]['nama']."</span>
                                         </a>
                                     </li>

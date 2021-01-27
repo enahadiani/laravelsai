@@ -371,6 +371,7 @@
     </main>
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
     <script>
+    var $form_aktif = "";
     // Enable pusher logging - don't include this in production
     Pusher.logToConsole = true;
     
@@ -970,6 +971,7 @@
     $('.sub-menu').on('click','.a_link',function(e){
         e.preventDefault();
         var form = $(this).data('href');
+        $form_aktif = $(this).data('kode_form');
         $('.sub-menu li').removeClass('active');
         $(this).closest('li').addClass('active');
         var url = "{{ url('esaku-auth/form')}}/"+form;

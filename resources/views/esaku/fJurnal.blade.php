@@ -52,12 +52,13 @@
                             <div class="form-group col-md-6 col-sm-12">
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12">
-                                        <label for="jenis" >Jenis</label>
+                                        <!-- <label for="jenis" >Jenis</label>
                                         <select class='form-control selectize' id="jenis" name="jenis">
                                         <option value=''>--- Pilih Jenis ---</option>
                                         <option value='MI' selected>MI</option>
-                                        </select>
+                                        </select> -->
                                         <input class="form-control" type="hidden" placeholder="No Bukti" id="no_bukti" name="no_bukti" readonly>
+                                        <input class="form-control" type="hidden" placeholder="No Bukti" id="kode_form" name="kode_form" readonly>
                                     </div>
                                     <div class="col-md-6 col-sm-12">
                                         <label for="nik_periksa" >NIK Periksa</label>
@@ -303,6 +304,7 @@
     
     $('#process-upload').addClass('disabled');
     $('#process-upload').prop('disabled', true);
+    $('#kode_form').val($form_aktif);
     
     var $iconLoad = $('.preloader');
     var $target = "";
@@ -707,7 +709,7 @@
                     $('#no_dokumen').val(result.jurnal[0].no_dokumen);
                     $('#total_debet').val(result.jurnal[0].nilai1);
                     $('#total_kredit').val(result.jurnal[0].nilai1);
-                    $('#jenis').val(result.jurnal[0].jenis);
+                    // $('#jenis').val(result.jurnal[0].jenis);
                     if(result.detail.length > 0){
                         var input = '';
                         var no=1;
@@ -925,10 +927,6 @@
                             <td>`+result.jurnal[0].nik_periksa+`</td>
                         </tr>
                         <tr>
-                            <td>Jenis</td>
-                            <td>`+result.jurnal[0].jenis+`</td>
-                        </tr>
-                        <tr>
                             <td>Total Debet</td>
                             <td>`+format_number(result.jurnal[0].nilai1)+`</td>
                         </tr>
@@ -1126,9 +1124,9 @@
     // END SIMPAN
 
     // ENTER FIELD FORM
-    $('#tanggal,#no_dokumen,#deskripsi,#jenis,#nik_periksa,#total_debet,#total_kredit').keydown(function(e){
+    $('#tanggal,#no_dokumen,#deskripsi,#nik_periksa,#total_debet,#total_kredit').keydown(function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['tanggal','no_dokumen','deskripsi','jenis','nik_periksa','total_debet','total_kredit'];
+        var nxt = ['tanggal','no_dokumen','deskripsi','nik_periksa','total_debet','total_kredit'];
         if (code == 13 || code == 40) {
             e.preventDefault();
             var idx = nxt.indexOf(e.target.id);

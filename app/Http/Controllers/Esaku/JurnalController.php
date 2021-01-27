@@ -151,7 +151,7 @@ class JurnalController extends Controller
         $this->validate($request, [
             'no_dokumen' => 'required',
             'tanggal' => 'required',
-            'jenis' => 'required',
+            'kode_form' => 'required',
             'deskripsi' => 'required',
             'total_debet' => 'required',
             'total_kredit' => 'required',
@@ -187,7 +187,7 @@ class JurnalController extends Controller
                   array (
                     'no_dokumen' => $request->no_dokumen,
                     'tanggal' => $this->reverseDate($request->tanggal,'/','-'),
-                    'jenis' => $request->jenis,
+                    'kode_form' => $request->kode_form,
                     'deskripsi' => $request->deskripsi,
                     'total_debet' => $this->joinNum($request->total_debet),
                     'total_kredit' => $this->joinNum($request->total_kredit),
@@ -310,7 +310,7 @@ class JurnalController extends Controller
         $this->validate($request, [
             'no_dokumen' => 'required',
             'tanggal' => 'required',
-            'jenis' => 'required',
+            'kode_form' => 'required',
             'deskripsi' => 'required',
             'total_debet' => 'required',
             'total_kredit' => 'required',
@@ -348,7 +348,7 @@ class JurnalController extends Controller
                     'no_bukti' => $request->no_bukti,
                     'no_dokumen' => $request->no_dokumen,
                     'tanggal' => $this->reverseDate($request->tanggal,'/','-'),
-                    'jenis' => $request->jenis,
+                    'kode_form' => $request->kode_form,
                     'deskripsi' => $request->deskripsi,
                     'total_debet' => $this->joinNum($request->total_debet),
                     'total_kredit' => $this->joinNum($request->total_kredit),
