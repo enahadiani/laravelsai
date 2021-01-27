@@ -824,11 +824,11 @@
                 }else if(!result.data.status && result.data.message == "Unauthorized"){
                     window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
                 }else{
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Something went wrong!',
-                        footer: '<a href>'+result.data.message+'</a>'
+                    msgDialog({
+                        id: '-',
+                        type: 'warning',
+                        title: 'Error',
+                        text: result.data.message
                     });
                 }
             }
@@ -1092,12 +1092,12 @@
                             window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
                         }
                         else{
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Oops...',
-                                text: 'Something went wrong!',
-                                footer: '<a href>'+result.data.message+'</a>'
-                            })
+                            msgDialog({
+                                id: '-',
+                                type: 'warning',
+                                title: 'Error',
+                                text: result.data.message
+                            });
                         }
                         $iconLoad.hide();
                     },
@@ -1960,12 +1960,12 @@
                         window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
                     }
                     else{
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Something went wrong!',
-                            footer: '<a href>'+result.data.message+'</a>'
-                        })
+                        msgDialog({
+                            id: '-',
+                            type: 'warning',
+                            title: 'Error',
+                            text: result.data.message
+                        });
                         $('.pesan-upload-judul').html('Gagal upload!');
                     }
                     
@@ -2264,11 +2264,11 @@
                         window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
                     }
                     else{
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Something went wrong!',
-                            footer: '<a href>'+result.data.message+'</a>'
+                        msgDialog({
+                            id: '-',
+                            type: 'warning',
+                            title: 'Error',
+                            text: result.data.message
                         });
                     }
                     
