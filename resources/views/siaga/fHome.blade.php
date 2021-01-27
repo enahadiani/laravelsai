@@ -207,10 +207,11 @@ $('html').addClass('dash-contents');
         return parts.join(",");
     }
 
-    function drawChart(type, selector, series_array, categories, exporting, click_callback){
+    function drawChart(type, selector, series_array, categories, exporting, click_callback,tooltip){
         if (typeof categories === 'undefined') { categories = null; }
         if (typeof exporting === 'undefined') { exporting = false; }
         if (typeof click_callback === 'undefined') { click_callback = null; }
+        if (typeof tooltip === 'undefined') { tooltip = {}; }
         var options = {
             chart: {
                 renderTo: selector,
@@ -219,6 +220,7 @@ $('html').addClass('dash-contents');
             title:{
                 text:''
             },
+            tooltip: tooltip,
             exporting: { 
                 enabled: exporting
             },
@@ -384,8 +386,34 @@ $('html').addClass('dash-contents');
                             $('#home_ni_box').text(sepNum(data["Net Income"]));
                             
                             drawChart('column', 'home_rev_chart1', [data.series.REVENUE], data.categories);
-                            drawChart('pie', 'home_rev_chart2', [data.grouping.REVENUE]);
-                            drawChart('pie', 'home_gp_chart1', [data.grouping.GP]);
+                            drawChart('pie', 'home_rev_chart2', [data.grouping.REVENUE],'',false,{
+                                pie: {
+                                    dataLabels: {
+                                        enabled: true,
+                                        // crop:false,
+                                        
+                                        alignTo: 'plotEdges',
+                                        overflow:'justify',
+                                        format: '<strong>{point.name}</strong><br>{point.percentage:.1f}%'
+                                    }
+                                }
+                            },{
+                                pointFormat: '{series.name}: <b>{point.y}</b><br><b>{point.percentage:.2f}%</b>'
+                            });
+                            drawChart('pie', 'home_gp_chart1',[data.grouping.GP],'',false,{
+                                pie: {
+                                    dataLabels: {
+                                        enabled: true,
+                                        // crop:false,
+                                        
+                                        alignTo: 'plotEdges',
+                                        overflow:'justify',
+                                        format: '<strong>{point.name}</strong><br>{point.percentage:.1f}%'
+                                    }
+                                }
+                            },{
+                                pointFormat: '{series.name}: <b>{point.y}</b><br><b>{point.percentage:.2f}%</b>'
+                            });
                             drawChart('column', 'home_gp_chart2', [data.series.GP], data.categories);
                             drawChart('column', 'home_opex_chart1', [data.series.OPEX], data.categories);
                             drawChart('column', 'home_others_chart1', [data.series.OTHERS], data.categories);
@@ -393,7 +421,7 @@ $('html').addClass('dash-contents');
 
                             var tahun = periode.substr(0,4);
                             var tahunLalu = parseFloat(tahun) - 1;
-                            var header_html =   "<tr>"+
+                            var header_html =   "<thead><tr>"+
                                                     "<th rowspan='2'>Description</th>"+
                                                     "<th colspan='2'>Actual</th>"+
                                                     "<th colspan='2'>RKAP</th>"+
@@ -408,11 +436,11 @@ $('html').addClass('dash-contents');
                                                     "<th>Full "+tahun+"</th>"+
                                                     "<th>sd</th>"+
                                                     "<th>Full</th>"+
-                                                "</tr>";
+                                                "</tr></thead>";
                             var index_array = ["klp","ytd","fullyear","ytd_rkap","fullyear_rkap","n1","ach","ach2","grow"];
                             var format_obj = {"ytd":"sepNum2Kanan","fullyear":"sepNum2Kanan","ytd_rkap":"sepNum2Kanan","fullyear_rkap":"sepNum2Kanan","n1":"sepNum2Kanan","ach":"sepNum2Kanan","ach2":"sepNum2Kanan","grow":"sepNum2Kanan"};
 
-                            drawTable('#home_summary_table', header_html, data.summary, index_array, "class='table table-bordered'", format_obj);
+                            drawTable('#home_summary_table', header_html, data.summary, index_array, "class='table table-bordered table-striped'", format_obj);
                         break;
                     }
                 }

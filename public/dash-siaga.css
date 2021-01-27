@@ -291,3 +291,7 @@ th{
         top: 9%;
     }
 }
+
+th{
+    vertical-align: middle !important;
+}
