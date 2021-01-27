@@ -487,9 +487,10 @@ var periode = "";
                     switch(index){
                         case 'Revenue-Port':
                             var thead1 = "<tr>"+
-                                            "<th width='10%'>Uraian</th>"+
-                                            "<th width='45%'>RKAP</th>"+
-                                            "<th width='45%'>Actual</th>"+
+                                            "<th width='15%'>Uraian</th>"+
+                                            "<th width='40%'>RKAP</th>"+
+                                            "<th width='35%'>Actual</th>"+
+                                            "<th width='10%'>%</th>"+
                                         "</tr>";
                             var thead2 = "<tr>"+
                                             "<th>Uraian</th>"+
@@ -516,8 +517,8 @@ var periode = "";
                                             "<th width='85%'>RKAP</th>"+
                                         "</tr>";
 
-                            drawTable('#rev_port_table1', thead1, data.summary, ["portofolio","n2","n1"], "class='table table-striped table-bordered'", {"n2":"sepNum2Kanan","n1":"sepNum2Kanan"});
-                            drawTable('#rev_port_table2', thead1, data.summary, ["portofolio","n3","n1"], "class='table table-striped table-bordered'", {"n3":"sepNum2Kanan","n1":"sepNum2Kanan"});
+                            drawTable('#rev_port_table1', thead1, data.summary, ["portofolio","n2","n1","persen1"], "class='table table-striped table-bordered'", {"n2":"sepNum2Kanan","n1":"sepNum2Kanan","persen1":"sepNum2Kanan%"});
+                            drawTable('#rev_port_table2', thead1, data.summary, ["portofolio","n3","n1","persen2"], "class='table table-striped table-bordered'", {"n3":"sepNum2Kanan","n1":"sepNum2Kanan","persen2":"sepNum2Kanan%"});
                             drawTable('#rev_port_table3', thead2, data.trend, ["portofolio","n1","n2","n3","n4","n5","n6","n7","n8","n9","n10","n11","n12"], "class='table table-striped table-bordered'", {"n1":"sepNum2Kanan","n2":"sepNum2Kanan","n3":"sepNum2Kanan","n4":"sepNum2Kanan","n5":"sepNum2Kanan","n6":"sepNum2Kanan","n7":"sepNum2Kanan","n8":"sepNum2Kanan","n9":"sepNum2Kanan","n10":"sepNum2Kanan","n11":"sepNum2Kanan","n12":"sepNum2Kanan"});
                             drawTable('#rev_port_table4', thead3, data.summary, ["portofolio","n1"], "class='table table-striped table-bordered'", {"n1":"sepNum2Kanan"});
                             drawTable('#rev_port_table5', thead4, data.summary, ["portofolio","n3"], "class='table table-striped table-bordered'", {"n3":"sepNum2Kanan"});

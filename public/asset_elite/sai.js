@@ -355,6 +355,7 @@ function generateFormat(format, str){
         case 'sepNum2': var formated_str = sepNum2(str); break;
         case 'sepNumKanan': var formated_str = "<p align='right'>"+sepNum(str)+"</p>"; break;
         case 'sepNum2Kanan': var formated_str = "<p align='right'>"+sepNum2(str)+"</p>"; break;
+        case 'sepNum2Kanan%': var formated_str = "<p align='right'>"+sepNum2(str)+"%</p>"; break;
         case 'toRp': var formated_str = toRp(str); break;
         case 'toNilai': var formated_str = toNilai(str); break;
     }
