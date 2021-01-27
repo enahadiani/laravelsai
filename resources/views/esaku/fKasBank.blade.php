@@ -891,9 +891,10 @@
 
     // PREVIEW DATA
     $('#table-data tbody').on('click','td',function(e){
-        if($(this).index() != 5){
+        if($(this).index() != 6){
 
             var id = $(this).closest('tr').find('td').eq(0).html();
+            var posted = $(this).closest('tr').find('td').eq(5).html();
             $.ajax({
                 type: 'GET',
                 url: "{{ url('/esaku-trans/kas-bank') }}/"+id,
@@ -976,6 +977,13 @@
                                 no++;
                             }
                             $('#table-ju-preview tbody').html(input);
+                        }
+                        if(posted == "T"){
+                            $('#btn-delete2').css('display','none');
+                            $('#btn-edit2').css('display','none');
+                        }else{
+                            $('#btn-delete2').css('display','inline-block');
+                            $('#btn-edit2').css('display','inline-block');
                         }
                         $('#modal-preview-id').text(id);
                         $('#modal-preview').modal('show');
