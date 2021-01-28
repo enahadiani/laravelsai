@@ -468,6 +468,12 @@
                     }
                 });
 
+                $('.body-notif').on('click','.message-center',function(e){
+                    e.preventDefault();
+                    var url = "{{ url('/dago-auth/form')}}"+"/fVerifikasi";
+                    loadForm(url);
+                });
+
                 $(document).ready(function(){
                     var lifetime = "{{ config('session.lifetime') }}";
                     setTimeout(function(){
