@@ -222,7 +222,7 @@
                                     <tbody>
                                     </tbody>
                                     </table>
-                                    <a type="button" href="#" data-id="0" title="add-row" class="add-row btn btn-light2 btn-block btn-sm">Tambah Baris</a>
+                                    <a type="button" href="#" data-id="0" title="add-row" class="add-row btn btn-light2 btn-block btn-sm"><img src="{{ url('img/add.svg') }}" width="14px" height="14px" class="mr-1"> Tambah Baris</a>
                                 </div>
                             </div>
                             <div class="tab-pane" id="data-dok" role="tabpanel">
@@ -244,7 +244,7 @@
                                         <tbody>
                                         </tbody>
                                     </table>
-                                    <a type="button" href="#" data-id="0" title="add-row-dok" class="add-row-dok btn btn-light2 btn-block btn-sm">Tambah Baris</a>
+                                    <a type="button" href="#" data-id="0" title="add-row-dok" class="add-row-dok btn btn-light2 btn-block btn-sm"><img src="{{ url('img/add.svg') }}" width="14px" height="14px" class="mr-1">  Tambah Baris</a>
                                 </div>
                             </div>
                         </div>
@@ -312,7 +312,7 @@
                                             <tbody>
                                             </tbody>
                                             </table>
-                                            <a type="button" href="#" data-id="0" title="add-row-dok" class="add-row-dok btn btn-light2 btn-block btn-sm">Tambah Baris</a>
+                                            <a type="button" href="#" data-id="0" title="add-row-dok" class="add-row-dok btn btn-light2 btn-block btn-sm"><img src="{{ url('img/add.svg') }}" width="14px" height="14px" class="mr-1"> Tambah Baris</a>
                                         </div>
                                     </div>
                                 </div>
