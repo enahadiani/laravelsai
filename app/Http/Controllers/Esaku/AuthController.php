@@ -118,6 +118,10 @@ class AuthController extends Controller
         return view('esaku.login');
     }
 
+    public function register(){
+        return view('esaku.register');
+    }
+
     public function logout(){
         Session::flush();
         return redirect('esaku-auth/login')->with('status','logout');

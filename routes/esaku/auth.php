@@ -44,6 +44,7 @@ Route::get('/', 'Esaku\AuthController@index');
 Route::get('/dash', 'Esaku\AuthController@index');
 Route::get('/menu', 'Esaku\AuthController@getMenu');
 Route::get('/login', 'Esaku\AuthController@login');
+Route::get('/register', 'Esaku\AuthController@register');
 Route::post('/login', 'Esaku\AuthController@cek_auth');
 Route::get('/logout', 'Esaku\AuthController@logout');
 
@@ -58,6 +59,3 @@ Route::post('notif-update-status','Esaku\NotifController@updateStatusRead');
 Route::post('search-form','Esaku\AuthController@searchForm');
 Route::get('search-form-list','Esaku\AuthController@searchFormList');
 Route::get('search-form-list2','Esaku\AuthController@searchFormList2');
-
-
-
