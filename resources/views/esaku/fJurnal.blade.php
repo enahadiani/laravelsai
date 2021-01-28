@@ -16,6 +16,13 @@
             z-index: 2;
             margin-left: 99px;
         }
+        .btn-full-round{
+            border-radius: 20px !important;
+        }
+        .btn-light2{
+            background: #b3b3b3;
+            color: white;
+        }
     </style>
     <!-- FORM INPUT -->
     <form id="form-tambah" class="tooltip-label-right" novalidate>
@@ -107,11 +114,12 @@
                         </div>
                         <ul class="nav nav-tabs col-12 " role="tablist">
                             <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-jurnal" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Jurnal</span></a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-dok" role="tab" aria-selected="true"><span class="hidden-xs-down">Berkas Bukti</span></a> </li>
                         </ul>
                         <div class="tab-content tabcontent-border col-12 p-0">
                             <div class="tab-pane active" id="data-jurnal" role="tabpanel">
 
-                                <div class='col-xs-12 nav-control' style="padding: 0px 5px;">
+                                <div class='col-md-12 nav-control' style="padding: 0px 5px;">
                                     <a type="button" href="#" id="copy-row" data-toggle="tooltip" title="Copy Row" style='font-size:18px'><i class='iconsminds-duplicate-layer' ></i> <span style="font-size:12.8px">Copy Row</span></a>
                                     <span class="pemisah mx-2" style="border:1px solid #d7d7d7;font-size:20px"></span>
                                     
@@ -126,7 +134,7 @@
                                     </div>
                                     <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row" ></span></a>
                                 </div>
-                                <div class='col-xs-12' style='min-height:420px; margin:0px; padding:0px;'>
+                                <div class='col-md-12' style='min-height:420px; margin:0px; padding:0px;'>
                                     <style>
                                         th{
                                             vertical-align:middle !important;
@@ -217,6 +225,28 @@
                                     <a type="button" href="#" data-id="0" title="add-row" class="add-row btn btn-light2 btn-block btn-sm">Tambah Baris</a>
                                 </div>
                             </div>
+                            <div class="tab-pane" id="data-dok" role="tabpanel">
+                                <div class='col-md-12 nav-control' style="padding: 0px 5px;">
+                                    <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row_dok" ></span></a>
+                                </div>
+                                <div class='col-md-12' style='min-height:420px; margin:0px; padding:0px;'>
+                                    <table class="table table-bordered table-condensed gridexample" id="input-dok" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                        <thead style="background:#F8F8F8">
+                                            <tr>
+                                                <th style="width:3%">No</th>
+                                                <th style="width:10%">Jenis</th>
+                                                <th style="width:27%">Nama</th>
+                                                <th style="width:20%">Path File</th>
+                                                <th width="20%">Upload File</th>
+                                                <th width="10%">Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                    <a type="button" href="#" data-id="0" title="add-row-dok" class="add-row-dok btn btn-light2 btn-block btn-sm">Tambah Baris</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -264,10 +294,10 @@
                                 </ul>
                                 <div class="tab-content tabcontent-border col-12 p-0">
                                     <div class="tab-pane active" id="data-dok" role="tabpanel">
-                                        <div class='col-xs-12 nav-control' style="padding: 0px 5px;">
+                                        <div class='col-md-12 nav-control' style="padding: 0px 5px;">
                                             <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row_dok" ></span></a>
                                         </div>
-                                        <div class='col-xs-12' style='min-height:420px; margin:0px; padding:0px;'>
+                                        <div class='col-md-12' style='min-height:420px; margin:0px; padding:0px;'>
                                             <table class="table table-bordered table-condensed gridexample" id="input-dok" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
                                             <thead style="background:#F8F8F8">
                                                 <tr>
@@ -337,8 +367,8 @@
         $('#total-row').html(total_row+' Baris');
     }
 
-    function hitungTotalRowUpload(){
-        var total_row = $('#input-dok tbody tr').length;
+    function hitungTotalRowUpload(form){
+        var total_row = $('#'+form+' #input-dok tbody tr').length;
         $('#total-row_dok').html(total_row+' Baris');
     }
 
@@ -491,6 +521,17 @@
             {   'targets': 4, 
                 'className': 'text-right',
                 'render': $.fn.dataTable.render.number( '.', ',', 0, '' ) 
+            },
+            {
+                "targets" : 5,
+                "data": null,
+                "render": function ( data, type, row, meta ) {
+                    if(row.posted == "Close"){
+                        return '<button class="btn btn-light2 btn-full-round btn-sm">Close</button>';
+                    }else{
+                        return '<button class="btn btn-success btn-full-round btn-sm">Open</button>';
+                    }
+                }
             },
             {
                 "targets": [6],
@@ -858,6 +899,7 @@
         $('#form-tambah').validate().resetForm();
         $('#id').val('');
         $('#input-grid tbody').html('');
+        $('#input-dok tbody').html('');
         $('#saku-datatable').hide();
         $('#saku-form').show();
         $('#kode_form').val($form_aktif);
@@ -1286,9 +1328,10 @@
         hitungTotalRow();
     }
 
-    function addRowDok(){
-        var no=$('#input-dok .row-dok:last').index();
+    function addRowDok(form){
+        var no=$('#'+form+' #input-dok .row-dok:last').index();
         no=no+2;
+        console.log(no);
         var input = "";
         input += "<tr class='row-dok'>";
         input += "<td class='no-dok text-center'>"+no+"</td>";
@@ -1302,8 +1345,9 @@
         </td>`;
         input+=`
         <td class='text-center action-dok'><a class='hapus-dok2'><i class='simple-icon-trash' style='font-size:18px'></i></a></td></tr>`;
-        $('#input-dok tbody').append(input);
-        hitungTotalRowUpload();
+        console.log(form);
+        $('#'+form+' #input-dok tbody').append(input);
+        hitungTotalRowUpload(form);
     }
 
     function custTarget(target,tr){
@@ -1544,7 +1588,11 @@
     });
 
     $('#form-upload').on('click', '.add-row-dok', function(){
-        addRowDok();
+        addRowDok("form-upload");
+    });
+
+    $('#form-tambah').on('click', '.add-row-dok', function(){
+        addRowDok("form-tambah");
     });
 
     function hideUnselectedRow() {
@@ -2160,7 +2208,7 @@
                         });
                         
                     }
-                    hitungTotalRowUpload();
+                    hitungTotalRowUpload('form-upload');
                     $('#saku-datatable').hide();
                     $('#saku-form-upload').show();
                 }
@@ -2195,7 +2243,7 @@
                         nom.html(no);
                         no++;
                     });
-                    hitungTotalRowUpload();
+                    hitungTotalRowUpload(param.form);
                     $("html, body").animate({ scrollTop: $(document).height() }, 1000);     
                     msgDialog({
                         id:result.data.no_bukti,
@@ -2216,7 +2264,7 @@
         });
     }
 
-    $('#input-dok').on('click', '.hapus-dok', function(){
+    $('#form-upload > #input-dok').on('click', '.hapus-dok', function(){
         var no_bukti = $('#no_bukti_upload').val();
         var kode_jenis = $(this).closest('tr').find('.inp-jenis').val();
         var nama_file = $(this).closest('tr').find('.inp-nama_file');
@@ -2227,13 +2275,30 @@
         msgDialog({
             id: kode_jenis,
             text: 'Dokumen akan terhapus secara permanen dari server dan tidak dapat mengurungkan.<br> ID Data : <b>'+kode_jenis+'</b> No urut : <b>'+no_urut+'</b>',
-            param: {'kode_jenis':kode_jenis,'no_bukti':no_bukti,'nama_file':nama_file,'td_nama_file':td_nama_file,'action_dok':action_dok, 'no_urut':no_urut,'ini':ini},
+            param: {'kode_jenis':kode_jenis,'no_bukti':no_bukti,'nama_file':nama_file,'td_nama_file':td_nama_file,'action_dok':action_dok, 'no_urut':no_urut,'ini':ini,'form':'form-upload'},
             type:'hapusDok'
         });
        
     });
 
-    $('#input-dok').on('click', '.hapus-dok2', function(){
+    $('#form-tambah > #input-dok').on('click', '.hapus-dok', function(){
+        var no_bukti = $('#no_bukti').val();
+        var kode_jenis = $(this).closest('tr').find('.inp-jenis').val();
+        var nama_file = $(this).closest('tr').find('.inp-nama_file');
+        var td_nama_file = $(this).closest('tr').find('.td-nama_file');
+        var action_dok = $(this).closest('tr').find('.action-dok');
+        var no_urut = $(this).closest('tr').find('.inp-no_urut').val();
+        var ini = $(this);
+        msgDialog({
+            id: kode_jenis,
+            text: 'Dokumen akan terhapus secara permanen dari server dan tidak dapat mengurungkan.<br> ID Data : <b>'+kode_jenis+'</b> No urut : <b>'+no_urut+'</b>',
+            param: {'kode_jenis':kode_jenis,'no_bukti':no_bukti,'nama_file':nama_file,'td_nama_file':td_nama_file,'action_dok':action_dok, 'no_urut':no_urut,'ini':ini,'form':'form-tambah'},
+            type:'hapusDok'
+        });
+       
+    });
+
+    $('#form-upload > #input-dok').on('click', '.hapus-dok2', function(){
         $(this).closest('tr').remove();
         no=1;
         $('.row-dok').each(function(){
@@ -2241,7 +2306,19 @@
             nom.html(no);
             no++;
         });
-        hitungTotalRowUpload();
+        hitungTotalRowUpload('form-upload');
+        $("html, body").animate({ scrollTop: $(document).height() }, 1000);     
+    });
+
+    $('#form-tambah > #input-dok').on('click', '.hapus-dok2', function(){
+        $(this).closest('tr').remove();
+        no=1;
+        $('.row-dok').each(function(){
+            var nom = $(this).closest('tr').find('.no-dok');
+            nom.html(no);
+            no++;
+        });
+        hitungTotalRowUpload('form-tambah');
         $("html, body").animate({ scrollTop: $(document).height() }, 1000);     
     });
 

@@ -16,6 +16,14 @@
             z-index: 2;
             margin-left: 99px;
         }
+        
+        .btn-full-round{
+            border-radius: 20px !important;
+        }
+        .btn-light2{
+            background: #b3b3b3;
+            color: white;
+        }
     </style>
     <!-- FORM INPUT -->
     <form id="form-tambah" class="tooltip-label-right" novalidate>
@@ -492,6 +500,17 @@
             {   'targets': 4, 
                 'className': 'text-right',
                 'render': $.fn.dataTable.render.number( '.', ',', 0, '' ) 
+            },
+            {
+                "targets" : 5,
+                "data": null,
+                "render": function ( data, type, row, meta ) {
+                    if(row.posted == "Close"){
+                        return '<button class="btn btn-light2 btn-full-round btn-sm">Close</button>';
+                    }else{
+                        return '<button class="btn btn-success btn-full-round btn-sm">Open</button>';
+                    }
+                }
             },
             {
                 "targets": [6],

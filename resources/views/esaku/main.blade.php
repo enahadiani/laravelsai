@@ -34,7 +34,7 @@
     <style>
         
         .logo{
-            background:url("{{ asset('asset_elite/images/sai_icon/esaku-landscape.png') }}") no-repeat;
+            background:url("{{ asset('img/SAKU2021.svg') }}") no-repeat;
             background-size: 100px;
             background-position-x: center;
             background-position-y: center;

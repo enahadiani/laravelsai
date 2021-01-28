@@ -58,7 +58,7 @@
             font-size: 0.8rem !important;
         }
         .logo-single{
-            background:url("{{ asset('asset_elite/images/sai_icon/esaku-landscape.png') }}") no-repeat;
+            background:url("{{ asset('img/SAKU2021.svg') }}") no-repeat;
             background-size: 150px;
             background-position-y: center;
             width:160px;
