@@ -72,7 +72,7 @@
                 vertical-align: middle !important;
             }
             </style>`+judul_lap("LAPORAN NERACA",lokasi,'Posisi: '+totime+' dan '+tahunrev)+`
-            <table class='table table-bordered' width='100%'>
+            <table class='table table-bordered table-striped' width='100%'>
 				<tr>
 					<th width='60%' class='header_laporan text-center' >Keterangan</th>
 					<th width='20%' class='header_laporan text-center' >Posisi Neraca <br>Per `+totime+`</th>

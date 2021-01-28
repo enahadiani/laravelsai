@@ -65,7 +65,7 @@
                 vertical-align: middle !important;
             }
             </style>`+judul_lap("LAPORAN LABA RUGI ANGGARAN",lokasi,'Periode '+$periode.fromname)+`
-            <table  class='table table-bordered' width='100%'>
+            <table  class='table table-bordered table-striped' width='100%'>
             <tr>
                 <th width='23%' height='25'  class='header_laporan text-center' align='center'>Keterangan</th>
                 <th width='11' class='header_laporan text-center' align='center'>RKA `+tahun+`</th>
@@ -91,33 +91,33 @@
             {
                 var line = data[i];
                 var persen1=0;var persen2=0;var persen3=0;
-                if (line.n3!=0)
+                if (line.n1!=0)
                 {
-                    persen1=(line.n1/line.n3)*100;
-                }
-                if (line.n4!=0)
-                {
-                    persen2=(line.n1/line.n4)*100;
+                    persen1=(line.n4/line.n1)*100;
                 }
                 if (line.n2!=0)
                 {
-                    persen3=(line.n1-line.n2)/line.n2*100;
+                    persen2=(line.n4/line.n2)*100;
+                }
+                if (line.n5!=0)
+                {
+                    persen3=(line.n4-line.n5)/line.n5*100;
                 }
                 html+=`<tr>
                 <td height='20' class='isi_laporan'>`+fnSpasi(line.level_spasi)+` `+line.nama+`</td>`;
                 if (line.kode_neraca!="OR" && line.kode_fs=="FS4")
                 {
-                    html+=`<td class='isi_laporan' align='right'>`+sepNum(line.n3)+`</td>
+                    html+=`<td class='isi_laporan' align='right'>`+sepNum(line.n1)+`</td>
+                    <td class='isi_laporan' align='right'>`+sepNum(line.n2)+`</td>
                     <td class='isi_laporan' align='right'>`+sepNum(line.n4)+`</td>
-                    <td class='isi_laporan' align='right'>`+sepNum(line.n1)+`</td>
-                    <td class='isi_laporan' align='right'>`+sepNum(line.n2)+`</td>`;
+                    <td class='isi_laporan' align='right'>`+sepNum(line.n5)+`</td>`;
                 }
                 else
                 {
-                    html+=`<td class='isi_laporan' align='center'>`+sepNum(line.n3)+`%</td>
+                    html+=`<td class='isi_laporan' align='center'>`+sepNum(line.n1)+`%</td>
+                        <td class='isi_laporan' align='center'>`+sepNum(line.n2)+`%</td>
                         <td class='isi_laporan' align='center'>`+sepNum(line.n4)+`%</td>
-                        <td class='isi_laporan' align='center'>`+sepNum(line.n1)+`%</td>
-                        <td class='isi_laporan' align='center'>`+sepNum(line.n2)+`%</td>`;
+                        <td class='isi_laporan' align='center'>`+sepNum(line.n5)+`%</td>`;
                 }
                     html+=`<td class='isi_laporan' align='center'>`+sepNum(persen1)+`%</td>
                     <td class='isi_laporan' align='center'>`+sepNum(persen2)+`%</td>

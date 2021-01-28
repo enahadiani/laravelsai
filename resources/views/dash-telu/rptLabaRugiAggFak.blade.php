@@ -72,7 +72,7 @@
 
                 var linex = data[j];
                 html+=judul_lap("LAPORAN LABA RUGI ANGGARAN FAKULTAS <br><span class='sbjudul'>"+linex.nama+"</span>",lokasi,'Periode '+$periode.fromname)+`
-                <table  class='table table-bordered' width='100%'>
+                <table  class='table table-bordered table-striped' width='100%'>
                 <tr>
                     <th width='28%' height='25'  class='header_laporan text-center' align='center'>Keterangan</th>
                     <th width='12%' class='header_laporan text-center' align='center'>RKA `+tahun+`</th>
