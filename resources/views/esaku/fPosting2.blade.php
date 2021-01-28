@@ -38,24 +38,10 @@
                             </div>
                             <div class="form-group col-md-6 col-sm-12">
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <label for="modul" >Modul</label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
-                                                <span class="input-group-text info-code_modul" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
-                                            </div>
-                                            <input type="text" class="form-control inp-label-modul" id="modul" name="modul" value="" title="">
-                                            <span class="info-name_modul hidden">
-                                                <span></span> 
-                                            </span>
-                                            <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                            <i class="simple-icon-magnifier search-item2" id="search_modul"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-12 text-right">
+                                    <div class="col-md-12 col-12 text-right">
                                         <label for="btn-control">&nbsp;</label>
                                         <div id="btn-control">
-                                            <button type="button" href="#" id="loadData" class="btn btn-primary mr-2">Tampil</button>
+                                            <button type="button" href="#" id="loadData" class="btn btn-primary mr-2">Load Data</button>
                                             <button type="button" href="#" id="postAll" class="btn btn-primary">Posting All</button>
                                         </div>
                                     </div>
@@ -63,11 +49,52 @@
                             </div>
                         </div>
                         <ul class="nav nav-tabs col-12 " role="tablist">
-                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#trans" role="tab" aria-selected="false"><span class="hidden-xs-down">Data Transaksi</span></a> </li>
+                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#modul" role="tab" aria-selected="true"><span class="hidden-xs-down">Modul</span></a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#trans" role="tab" aria-selected="false"><span class="hidden-xs-down">Data Transaksi Modul</span></a> </li>
                             <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#error" role="tab" aria-selected="false"><span class="hidden-xs-down">Pesan Error</span></a> </li>
                         </ul>
                         <div class="tab-content tabcontent-border">
-                            <div class="tab-pane active mt-2" id="trans" role="tabpanel">
+                            <div class="tab-pane active mt-2" id="modul" role="tabpanel">
+                                <p style='font-size:9px !important;font-weight:bold;margin-bottom:0'><i>* Klik status untuk merubah status</i></p>
+                                <div class="row">
+                                    <div class="dataTables_length col-sm-12" id="table-modul_length"></div>
+                                    <div class="d-block d-md-inline-block float-left col-md-6 col-sm-12">
+                                        <div class="page-countdata">
+                                            <label>Menampilkan 
+                                            <select style="border:none" id="page-count_table-modul">
+                                            <option value="10">10 per halaman</option>
+                                            <option value="25">25 per halaman</option>
+                                            <option value="50">50 per halaman</option>
+                                            <option value="100">100 per halaman</option>
+                                            </select>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2"></div>
+                                    <div class="d-block d-md-inline-block float-right col-md-4 col-sm-12">
+                                        <input type="text" class="form-control" placeholder="Search..."
+                                        aria-label="Search..." aria-describedby="filter-btn" id="searchData_table-modul" style="height: 31px;">
+                                    </div>
+                                </div>
+                                <div class='col-xs-12 px-0'>
+                                    <table id="table-modul" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th width="5%">No</th>
+                                                <th width="15%">Status</th>
+                                                <th width="20%">Modul</th>
+                                                <th width="35%">Deskripsi</th>
+                                                <th width="15%">Periode 1</th>
+                                                <th width="15">Periode 2</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="tab-pane mt-2" id="trans" role="tabpanel">
+                                <p style='font-size:9px !important;font-weight:bold;margin-bottom:0'><i>* Klik status untuk merubah status</i></p>
                                 <div class="row">
                                     <div class="dataTables_length col-sm-12" id="table-jurnal_length"></div>
                                     <div class="d-block d-md-inline-block float-left col-md-6 col-sm-12">
@@ -116,7 +143,7 @@
         </div>
     </form>
     <!-- FORM INPUT  --> 
-    @include('modal_search')
+    
     <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
     <script src="{{ asset('helper.js') }}"></script>
     <script>
@@ -135,87 +162,76 @@
             rightArrow: '<i class="simple-icon-arrow-right"></i>'
         }
     });
-
-    $('.info-icon-hapus').click(function(){
-        var par = $(this).closest('div').find('input').attr('name');
-        $('#'+par).val('');
-        $('#'+par).attr('readonly',false);
-        $('#'+par).attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important');
-        $('.info-code_'+par).parent('div').addClass('hidden');
-        $('.info-name_'+par).addClass('hidden');
-        $(this).addClass('hidden');
-    });
-
-    function showInfoField(kode,isi_kode,isi_nama){
-        $('#'+kode).val(isi_kode);
-        $('#'+kode).attr('style','border-left:0;border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important');
-        $('.info-code_'+kode).text(isi_kode).parent('div').removeClass('hidden');
-        $('.info-code_'+kode).attr('title',isi_nama);
-        $('.info-name_'+kode).removeClass('hidden');
-        $('.info-name_'+kode).attr('title',isi_nama);
-        $('.info-name_'+kode+' span').text(isi_nama);
-        var width = $('#'+kode).width()-$('#search_'+kode).width()-10;
-        var height =$('#'+kode).height();
-        var pos =$('#'+kode).position();
-        $('.info-name_'+kode).width(width).css({'left':pos.left,'height':height});
-        $('.info-name_'+kode).closest('div').find('.info-icon-hapus').removeClass('hidden');
-    }
     
-    $('#form-tambah').on('click', '.search-item2', function(){
-        var id = $(this).closest('div').find('input').attr('name');
-        var options = {
-            id : id,
-            header : ['Modul', 'Keterangan','Periode Awal','Periode Akhir'],
-            url : "{{ url('esaku-trans/modultrans') }}",
-            columns : [
-                { data: 'modul' },
-                { data: 'keterangan' },
-                { data: 'per1' },
-                { data: 'per2' }
-            ],
-            judul : "Daftar Modul",
-            pilih : "modul",
-            jTarget1 : "text",
-            jTarget2 : "text",
-            target1 : ".info-code_"+id,
-            target2 : ".info-name_"+id,
-            target3 : "",
-            target4 : "",
-            width : ["10%","60%","15%","15%"],
-            onItemSelected: function(data){
-                console.log(data);
-            }
-        };
-        showInpFilter(options);
-    });
-    
-    var tablejur = $("#table-jurnal").DataTable({
-        destroy: true,
-        bLengthChange: false,
-        sDom: 't<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
-        data: [],
-        columnDefs: [
+    var t = generateTable(
+        "table-modul",
+        "{{ url('esaku-trans/modultrans') }}", 
+        [
             {
-                "targets": 0,
                 "searchable": false,
                 "orderable": false,
-                "className": 'selectall-checkbox',
-                'render': function (data, type, full, meta){
-                    return '<input type="checkbox" name="checked[]">';
-                }
+                "targets": 0
             },
-            {   
-                'targets': 4, 
-                'className': 'text-right',
-                'render': $.fn.dataTable.render.number( '.', ',', 0, '' ) 
-            }, 
+            {'targets': 1, data: 'TRUE', 'defaultContent': 'TRUE',
+                createdCell: function (td, cellData, rowData, row, col) {
+                    if ( cellData === 'TRUE' ) {
+                        $(td).addClass('selected');
+                    }else{
+                        $(td).removeClass('selected');
+                    }
+                } 
+            }
         ],
-        select: {
-            style:    'multi',
-            selector: 'td:first-child'
-        },
-        columns: [
-            { data: 'checkbox' },
+        [
+            { data: 'no' },
+            { data: 'status' },
+            { data: 'modul' },
+            { data: 'keterangan' },
+            { data: 'per1' },
+            { data: 'per2' }
+        ],
+        "{{ url('esaku-auth/sesi-habis') }}",
+        [[2 ,"asc"]]
+    );
+ 
+    t.on( 'order.dt search.dt', function () {
+        t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+            cell.innerHTML = i+1;
+        });
+    } ).draw();
+
+    $("#searchData_table-modul").on("keyup", function (event) {
+        t.search($(this).val()).draw();
+    });
+
+    $("#page-count_table-modul").on("change", function (event) {
+        var selText = $(this).val();
+        t.page.len(parseInt(selText)).draw();
+    });
+
+    $('#table-modul tbody').on('click', 'td', function () {
+        var cell = t.cell( this );
+        if(cell.data() == 'TRUE'){
+            var isi = 'FALSE';
+            $(this).removeClass('selected');
+        }else if(cell.data() == 'FALSE'){
+            var isi = 'TRUE';
+            $(this).addClass('selected');
+        }
+        cell.data(isi).draw();
+    });
+
+    var tablejur = generateTableWithoutAjax(
+        "table-jurnal",
+        [
+            {
+                "searchable": false,
+                "orderable": false,
+                "targets": 0
+            }
+        ],
+        [
+            { data: 'no' },
             { data: 'status' },
             { data: 'no_bukti' },
             { data: 'no_dokumen' },
@@ -223,63 +239,16 @@
             { data: 'keterangan' },
             { data: 'form' }
         ],
-        order:[],
-        drawCallback: function () {
-            $($(".dataTables_wrapper .pagination li:first-of-type"))
-                .find("a")
-                .addClass("prev");
-            $($(".dataTables_wrapper .pagination li:last-of-type"))
-                .find("a")
-                .addClass("next");
+        [],
+        [[2, "asc"]]
+    );
+    
+    tablejur.on( 'order.dt search.dt', function () {
+        tablejur.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+            cell.innerHTML = i+1;
+        } );
+    }).draw();
 
-            $(".dataTables_wrapper .pagination").addClass("pagination-sm");
-        },
-        language: {
-            paginate: {
-                previous: "<i class='simple-icon-arrow-left'></i>",
-                next: "<i class='simple-icon-arrow-right'></i>"
-            },
-            search: "_INPUT_",
-            searchPlaceholder: "Search...",
-            lengthMenu: "Items Per Page _MENU_",
-            info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
-            infoEmpty: "Menampilkan 0 sampai 0 dari 0 entri",
-            infoFiltered: "(terfilter dari _MAX_ total entri)"
-        }
-    });
-
-    tablejur.on('select.dt deselect.dt', function (e, dt, type, indexes){
-        var countSelectedRows = tablejur.rows( { selected: true } ).count();
-        var countItems = tablejur.rows().count();
-
-        if (countItems > 0) {
-        if (countSelectedRows == countItems){
-                $('thead .selectall-checkbox input[type="checkbox"]', this).prop('checked', true);
-        } else {
-                $('thead .selectall-checkbox input[type="checkbox"]', this).prop('checked', false);
-        }
-        }
-
-        if (e.type === 'select') {
-            $('.selectall-checkbox input[type="checkbox"]', tablejur.rows({ selected: true }).nodes()).prop('checked', true);
-        } else {
-            $('.selectall-checkbox input[type="checkbox"]', tablejur.rows({ selected: false }).nodes()).prop('checked', false);
-        }
-    });
-
-    tablejur.on('click', 'thead .selectall-checkbox', function() {
-            $('input[type="checkbox"]', this).trigger('click');
-     });
-
-    tablejur.on('click', 'thead .selectall-checkbox input[type="checkbox"]', function(e) {
-        if (this.checked) {
-            tablejur.rows().select();
-        } else {
-            tablejur.rows().deselect();
-        }
-        
-        e.stopPropagation();
-    });
     
     $("#searchData_table-jurnal").on("keyup", function (event) {
         tablejur.search($(this).val()).draw();

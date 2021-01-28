@@ -36,17 +36,14 @@
                        
                        var line = data[i];
                        mon_html+=`
-                            <table class='table' cellspacing='0' cellpadding='1' class='kotak'>
-                                <style>
-                                    td,th{
-                                        padding:5px !important;
-                                    }
-                                    .style16{
-                                        border:none !important;
-                                    }
-                                </style>
-                                <tr >
-                                    <td height='23' colspan='7' style='border:none' class='header_laporan'>
+                       <style>
+                           td,th{
+                               padding:5px !important;
+                           }
+                           .style16{
+                               border:none !important;
+                           }
+                       </style>
                                         <table  class='table no-border' width='100%'>
                                             <tr>
                                                 <td width='30%' class='header_laporan'>No Registrasi</td>
@@ -87,11 +84,7 @@
                                                 <td class='header_laporan'>: `+sepNumPas(total_paket)+`</td>
                                             </tr>
                                         </table>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style='border:none'>
-                                        <table class='table table-bordered table-striped'>
+                                        <table class='table table-bordered table-striped' width='100%'>
                                         <thead style='vertical-align:middle !important;text-align:center'>
                                             <tr >
                                                 <th rowspan='2' style='vertical-align: middle;' width='50'>Tanggal</th>
@@ -147,10 +140,12 @@
                                             mon_html+=`
                                         </tbody>
                                         </table>
-                                    </td>
+                            <br>
+                            <table>
+                                <tr>
+                                    <td>&nbsp;</td>
                                 </tr>
                             </table>
-                            <br>
                        <div style="page-break-after:always"></div>`;
                    }               
                   mon_html+=`</div>`;

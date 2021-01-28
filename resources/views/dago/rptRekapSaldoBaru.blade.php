@@ -102,23 +102,20 @@
     var mon_html = `<div align='center' style='padding:10px;overflow-x:scroll;' id='sai-rpt-table-export-tbl-daftar-reg'>`;
                var x=1;
                mon_html+=`
-                    <table width="800px" class="table no-border">
-                        <style>
-                            td,th{
-                                padding:4px !important;
-                                vertical-align:middle !important;
-                            }
-                            thead td{
-                                border:none !important;
-                                text-align:center !important;
-                            }
-                            th{
-                                text-align:center !important;
-                            }
-                        </style>
-                        <tbody>
-                            <tr>
-                                <td align="center">
+               <style>
+                   td,th{
+                       padding:4px !important;
+                       vertical-align:middle !important;
+                   }
+                   thead td{
+                       border:none !important;
+                       text-align:center !important;
+                   }
+                   th{
+                       text-align:center !important;
+                   }
+               </style>
+                    
                                     <table width="100%" class="table table-striped color-table info-table">
                                         <thead>
                                             <tr>
@@ -217,10 +214,6 @@
                                             </tr>
                                         </tbody>
                                     </table>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table><br>
                     <div style="page-break-after:always"></div>`;
                         
                mon_html+="</div>"; 
