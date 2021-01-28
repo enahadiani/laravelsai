@@ -135,6 +135,47 @@
             border-radius: 10px;
             background-color: #ffffd5;
         }
+        .choose-saldo-awal-custom-1 {
+           background-color: #eeeeee;
+           height: 170px;
+           width: 160px;
+           padding: 8px 4px;
+           border-radius: 10px;
+        }
+        .choose-saldo-awal-custom-2 {
+           background-color: #a9a9a9;
+           height: 170px;
+           width: 160px;
+           padding: 8px 4px;
+           border-radius: 10px;
+        }
+        input[type='radio'] {
+            position: absolute;
+        }
+        input[type='radio']:after {
+            width: 15px;
+            height: 15px;
+            border-radius: 15px;
+            top: -2px;
+            left: -1px;
+            position: relative;
+            background-color: #fff;
+            content: '';
+            display: inline-block;
+            visibility: visible;
+            border: 2px solid white;
+        }
+        input[type='radio']:checked:after {
+            background:#6495ED;
+        }
+        .saldo-awal-label {
+            margin-top: 24px;
+            margin-left: 16px;
+        }
+        .label-radio-saldo {
+            margin-left: 8px;
+            margin-top: 24px;
+        }
         @media (max-width: 991px) {
             .auth-card .image-side {
                 width: 100%;
@@ -351,13 +392,35 @@
                                         </div>
                                     </div>
                                     <div id="step-2">
-                                        Saldo Awal
+                                        <form id="form-step-2" class="tooltip-label-right" novalidate>
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <div class="choose-saldo-awal-custom-1">
+                                                        <input type="radio" name="saldo-awal" id="custome" value="0">
+                                                        <label for="custome" class="saldo-awal-label">
+                                                            <p style="text-align: center;">Custome Akun</p>
+                                                            <p>Bagi anda yang sudah memiliki standar akun Akuntansi.</p>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="choose-saldo-awal-custom-2">
+                                                        <input type="radio" name="saldo-awal" id="standar" value="1">
+                                                        <label for="standar" class="saldo-awal-label">
+                                                            <p style="text-align: center;">Standar Akun</p>
+                                                            <p>Kami memberikan referensi standarisasi akun 
+                                                            dalam akuntansi.</p>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                                 <div class="btn-toolbar custom-toolbar text-center card-body btn-wizard">
                                     <button class="btn btn-secondary prev-btn" type="button">Sebelumnya</button>
                                     <button class="btn btn-secondary next-btn" type="button">Selanjutnya</button>
-                                    <button class="btn btn-secondary finish-btn" type="submit">Selesai</button>
+                                    <button class="btn btn-secondary finish-btn" type="submit">Selanjutnya</button>
                                 </div>
                             </div>
                         </div>
