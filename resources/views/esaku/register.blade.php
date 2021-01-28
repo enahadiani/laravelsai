@@ -136,6 +136,7 @@
             background-color: #ffffd5;
         }
         .choose-saldo-awal-custom-1 {
+           cursor: pointer;
            background-color: #eeeeee;
            height: 170px;
            width: 160px;
@@ -143,6 +144,7 @@
            border-radius: 10px;
         }
         .choose-saldo-awal-custom-2 {
+           cursor: pointer;
            background-color: #a9a9a9;
            height: 170px;
            width: 160px;
@@ -169,10 +171,12 @@
             background:#6495ED;
         }
         .saldo-awal-label {
+            cursor: pointer;
             margin-top: 24px;
             margin-left: 16px;
         }
         .label-radio-saldo {
+            cursor: pointer;
             margin-left: 8px;
             margin-top: 24px;
         }
