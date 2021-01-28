@@ -1116,8 +1116,10 @@
         var param = $(this).data('no_reg');
         var back = true;
         
-        $formData.delete('param');
-        $formData.append('param', param);
+        $formData.delete('no_reg[]');
+        $formData.append('no_reg[]', "=");
+        $formData.append('no_reg[]', param);
+        $formData.append('no_reg[]', "");
 
         $formData.delete('back');
         $formData.append('back', back);
@@ -1133,9 +1135,9 @@
         var back = true;
         
         $formData.delete('no_bayar');
-        $formData.append('no_kwitansi[]', "=");
-        $formData.append('no_kwitansi[]', param);
-        $formData.append('no_kwitansi[]', "");
+        $formData.append('no_kb[]', "=");
+        $formData.append('no_kb[]', param);
+        $formData.append('no_kb[]', "");
 
         $formData.delete('back');
         $formData.append('back', back);
@@ -1148,6 +1150,12 @@
     $('#saku-report #canvasPreview').on('click', '#btn-back', function(e){
         e.preventDefault();
         $formData.delete('back');
+        $formData.delete('no_reg[]');
+        $formData.append("no_reg[]",no_reg.type);
+        $formData.append("no_reg[]",no_reg.from);
+        $formData.append("no_reg[]",no_reg.to);
+        $formData.delete('no_kb[]');
+
         xurl = "{{ url('/dago-auth/form')}}/rptKartuPbyrBaru";
         $('#saku-report #canvasPreview').load(xurl);
         // drawLapReg(formData);

@@ -57,8 +57,10 @@
             if(res.res.back){
                 var back= `<button type="button" class="btn btn-secondary ml-2" id="btn-back" style="float:right;">
                 <i class="fa fa-undo"></i> Back</button>`;
+                var mb= "mb-5";
             }else{
                 var back= ``;
+                var mb = "";
             }
 
             var mon_html = `<div align='center' style='padding:10px' id='sai-rpt-table-export-tbl-daftar-reg'>`+back+`
@@ -68,7 +70,7 @@
                     for(var i=0;i<data.length;i++){
                         var line = data[i];
                         mon_html +=`
-                                <div class="kop" style="height:80px;width:100%">
+                                <div class="kop `+mb+`" style="height:80px;width:100%">
                                     <img src="{{ asset('asset_elite/images/dago_form_logo.jpeg') }}" style="height:80px;width:100%">
                                 </div>
                                 <div style="height:20px;width:100%;font-size: 14px;background:#009ed72b" class="subkop text-left">
