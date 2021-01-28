@@ -247,7 +247,7 @@
                                 <td width='5%'  class='no-dok'>`+no+`</td>
                                 <td width='10%' >`+line2.no_dokumen+`<input type='hidden' name='upload_no_dokumen[]' class='form-control upload_no_dokumen' value='`+line2.no_dokumen+`' required></td>
                                 <td width='20%'  class='upload_deskripsi'>`+line2.deskripsi+`</td>
-                                <td width='20%'  class='upload_path'>`+line2.fileaddres+`</td>
+                                <td width='20%'  class='upload_path'>`+line2.no_gambar2+`<input type='hidden' name='upload_nama_file_seb[]' class='form-control upload_nama_file_seb' value='`+line2.no_gambar2+`' required></td>
                                 <td width='20%' hidden><input type='text' name='upload_nik[]' class='form-control upload_nik' value='`+line2.nik+`' ></td>`;
                                 if(line2.fileaddres == "-" || line2.fileaddres == ""){
 
@@ -382,7 +382,7 @@
                     alert(result.data.message);
                     if(result.data.status){
                         dataTable.ajax.reload();
-                        path_file.html('-');
+                        path_file.html(`-<input type='hidden' name='upload_nama_file_seb[]' class='form-control upload_nama_file_seb' value='-' required>`);
                         action_dok.html('');
                     }else{
                         return false;

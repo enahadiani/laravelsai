@@ -116,28 +116,37 @@ class UploadDokController extends Controller
 
             $fields_foto = array();
             $fields_no_dok = array();
+            $fields_nama_file_seb = array();
             $cek = $request->file_dok;
             if(!empty($cek)){
 
-                if(count($request->file_dok) > 0){
+                if(count($request->upload_no_dokumen) > 0){
 
-                    for($i=0;$i<count($request->file_dok);$i++){
-                        $image_path = $request->file('file_dok')[$i]->getPathname();
-                        $image_mime = $request->file('file_dok')[$i]->getmimeType();
-                        $image_org  = $request->file('file_dok')[$i]->getClientOriginalName();
-                        $fields_foto[$i] = array(
-                            'name'     => 'file_dok[]',
-                            'filename' => $image_org,
-                            'Mime-Type'=> $image_mime,
-                            'contents' => fopen( $image_path, 'r' ),
-                        );
+                    for($i=0;$i<count($request->upload_no_dokumen);$i++){
+                        if(isset($request->file('file_dok')[$i])){
+                            $image_path = $request->file('file_dok')[$i]->getPathname();
+                            $image_mime = $request->file('file_dok')[$i]->getmimeType();
+                            $image_org  = $request->file('file_dok')[$i]->getClientOriginalName();
+                            $fields_foto[$i] = array(
+                                'name'     => 'file_dok['.$i.']',
+                                'filename' => $image_org,
+                                'Mime-Type'=> $image_mime,
+                                'contents' => fopen( $image_path, 'r' ),
+                            );
+                            
+                        }
                         $fields_no_dok[$i] = array(
                             'name'     => 'no_dokumen[]',
                             'contents' => $req['upload_no_dokumen'][$i],
                         );
+                        $fields_nama_file_seb[$i] = array(
+                            'name'     => 'nama_file_seb[]',
+                            'contents' => $req['upload_nama_file_seb'][$i],
+                        );
                     }
                     $fields = array_merge($fields,$fields_foto);
                     $fields = array_merge($fields,$fields_no_dok);
+                    $fields = array_merge($fields,$fields_nama_file_seb);
                 }
             }
             
