@@ -156,52 +156,139 @@ class JurnalController extends Controller
             'total_debet' => 'required',
             'total_kredit' => 'required',
             'nik_periksa' => 'required',
-            'kode_akun.*' => 'required',
-            'keterangan.*' => 'required',
-            'dc.*' => 'required',
-            'nilai.*' => 'required',
-            'kode_pp.*' => 'required'
+            'kode_akun' => 'required|array',
+            'keterangan' => 'required|array',
+            'dc' => 'required|array',
+            'nilai' => 'required|array',
+            'kode_pp' => 'required|array'
         ]);
         try{
+    
+            $fields = [
+                [
+                    'name' => 'no_dokumen',
+                    'contents' => $request->no_dokumen,
+                ],
+                [
+                    'name' => 'tanggal',
+                    'contents' => $this->reverseDate($request->tanggal,'/','-'),
+                ],
+                [
+                    'name' => 'deskripsi',
+                    'contents' => $request->deskripsi,
+                ],
+                [
+                    'name' => 'kode_form',
+                    'contents' => $request->kode_form,
+                ],
+                [
+                    'name' => 'total_debet',
+                    'contents' => $this->joinNum($request->total_debet),
+                ],
+                [
+                    'name' => 'total_kredit',
+                    'contents' => $this->joinNum($request->total_kredit),
+                ],
+                [
+                    'name' => 'nik_periksa',
+                    'contents' => $request->nik_periksa,
+                ]
+            ];
 
-            $detail = array();
-            if(isset($request->kode_akun)){
-                $kode_akun = $request->kode_akun;
-                $keterangan = $request->keterangan;
-                $dc = $request->dc;
-                $nilai = $request->nilai;
-                $kode_pp = $request->kode_pp;
-                for($i=0;$i<count($kode_akun);$i++){
-                    $detail[] = array(
-                        'kode_akun' => $kode_akun[$i],
-                        'keterangan' => $keterangan[$i],
-                        'dc' => $dc[$i],
-                        'nilai' => $this->joinNum($nilai[$i]),
-                        'kode_pp' => $kode_pp[$i]
+            $fields_kode_akun = array();
+            $fields_dc = array();
+            $fields_keterangan = array();
+            $fields_nilai = array();
+            $fields_kode_pp = array();
+            $send_data = array();
+            if(count($request->kode_akun) > 0){
+
+                for($i=0;$i<count($request->kode_akun);$i++){
+                    $fields_kode_akun[$i] = array(
+                        'name'     => 'kode_akun[]',
+                        'contents' => $request->kode_akun[$i],
+                    );
+                    $fields_dc[$i] = array(
+                        'name'     => 'dc[]',
+                        'contents' => $request->dc[$i],
+                    );
+                    $fields_nilai[$i] = array(
+                        'name'     => 'nilai[]',
+                        'contents' => $request->nilai[$i],
+                    );
+                    $fields_keterangan[$i] = array(
+                        'name'     => 'keterangan[]',
+                        'contents' => $request->keterangan[$i],
+                    );
+                    $fields_kode_pp[$i] = array(
+                        'name'     => 'kode_pp[]',
+                        'contents' => $request->kode_pp[$i],
                     );
                 }
+                $send_data = array_merge($fields,$fields_kode_akun);
+                $send_data = array_merge($send_data,$fields_dc);
+                $send_data = array_merge($send_data,$fields_nilai);
+                $send_data = array_merge($send_data,$fields_keterangan);
+                $send_data = array_merge($send_data,$fields_kode_pp);
+            }else{
+                $send_data = $fields;
             }
-    
-    
-            $fields['jurnal'][0] =
-                  array (
-                    'no_dokumen' => $request->no_dokumen,
-                    'tanggal' => $this->reverseDate($request->tanggal,'/','-'),
-                    'kode_form' => $request->kode_form,
-                    'deskripsi' => $request->deskripsi,
-                    'total_debet' => $this->joinNum($request->total_debet),
-                    'total_kredit' => $this->joinNum($request->total_kredit),
-                    'nik_periksa' => $request->nik_periksa,
-                    'detail' => $detail
-                  );
-    
+            
+            $fields_foto = array();
+            $fields_nama_file_seb = array();
+            $fields_jenis = array();
+            $fields_nama_dok = array();
+            $fields_no_urut = array();
+            $cek = $request->file_dok;
+            if(!empty($cek)){
+                
+                if(count($request->file_dok) > 0){
+                    
+                    for($i=0;$i<count($request->jenis);$i++){
+                        if(isset($request->file('file_dok')[$i])){
+                            $image_path = $request->file('file_dok')[$i]->getPathname();
+                            $image_mime = $request->file('file_dok')[$i]->getmimeType();
+                            $image_org  = $request->file('file_dok')[$i]->getClientOriginalName();
+                            $fields_foto[$i] = array(
+                                'name'     => 'file['.$i.']',
+                                'filename' => $image_org,
+                                'Mime-Type'=> $image_mime,
+                                'contents' => fopen( $image_path, 'r' ),
+                            );
+                            
+                        }
+                        $fields_jenis[$i] = array(
+                            'name'     => 'jenis[]',
+                            'contents' => $request->jenis[$i],
+                        );
+                        $fields_nama_dok[$i] = array(
+                            'name'     => 'nama_dok[]',
+                            'contents' => $request->nama_dok[$i],
+                        );
+                        $fields_no_urut[$i] = array(
+                            'name'     => 'no_urut[]',
+                            'contents' => $request->no_urut[$i],
+                        );
+                        $fields_nama_file_seb[$i] = array(
+                            'name'     => 'nama_file_seb[]',
+                            'contents' => $request->nama_file[$i],
+                        );
+                    }
+                    $send_data = array_merge($send_data,$fields_foto);
+                    $send_data = array_merge($send_data,$fields_nama_file_seb);
+                    $send_data = array_merge($send_data,$fields_jenis);
+                    $send_data = array_merge($send_data,$fields_no_urut);
+                    $send_data = array_merge($send_data,$fields_nama_dok);
+                }
+            }
+
             $client = new Client();
             $response = $client->request('POST',  config('api.url').'toko-trans/jurnal',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
-                    'Content-Type'     => 'application/json'
+                    'Accept'     => 'application/json',
                 ],
-                'body' => json_encode($fields)
+                'multipart' => $send_data
             ]);
             
             if ($response->getStatusCode() == 200) { // 200 OK
@@ -315,54 +402,143 @@ class JurnalController extends Controller
             'total_debet' => 'required',
             'total_kredit' => 'required',
             'nik_periksa' => 'required',
-            'kode_akun.*' => 'required',
-            'keterangan.*' => 'required',
-            'dc.*' => 'required',
-            'nilai.*' => 'required',
-            'kode_pp.*' => 'required'
+            'kode_akun' => 'required|array',
+            'keterangan' => 'required|array',
+            'dc' => 'required|array',
+            'nilai' => 'required|array',
+            'kode_pp' => 'required|array'
         ]);
-
         try{
-            
-            $detail = array();
-            if(isset($request->kode_akun)){
-                $kode_akun = $request->kode_akun;
-                $keterangan = $request->keterangan;
-                $dc = $request->dc;
-                $nilai = $request->nilai;
-                $kode_pp = $request->kode_pp;
-                for($i=0;$i<count($kode_akun);$i++){
-                    $detail[] = array(
-                        'kode_akun' => $kode_akun[$i],
-                        'keterangan' => $keterangan[$i],
-                        'dc' => $dc[$i],
-                        'nilai' => $this->joinNum($nilai[$i]),
-                        'kode_pp' => $kode_pp[$i]
+    
+            $fields = [
+                [
+                    'name' => 'no_dokumen',
+                    'contents' => $request->no_dokumen,
+                ],
+                [
+                    'name' => 'no_bukti',
+                    'contents' => $request->no_bukti,
+                ],
+                [
+                    'name' => 'tanggal',
+                    'contents' => $this->reverseDate($request->tanggal,'/','-'),
+                ],
+                [
+                    'name' => 'deskripsi',
+                    'contents' => $request->deskripsi,
+                ],
+                [
+                    'name' => 'kode_form',
+                    'contents' => $request->kode_form,
+                ],
+                [
+                    'name' => 'total_debet',
+                    'contents' => $this->joinNum($request->total_debet),
+                ],
+                [
+                    'name' => 'total_kredit',
+                    'contents' => $this->joinNum($request->total_kredit),
+                ],
+                [
+                    'name' => 'nik_periksa',
+                    'contents' => $request->nik_periksa,
+                ]
+            ];
+
+            $fields_kode_akun = array();
+            $fields_dc = array();
+            $fields_keterangan = array();
+            $fields_nilai = array();
+            $fields_kode_pp = array();
+            $send_data = array();
+            if(count($request->kode_akun) > 0){
+
+                for($i=0;$i<count($request->kode_akun);$i++){
+                    $fields_kode_akun[$i] = array(
+                        'name'     => 'kode_akun[]',
+                        'contents' => $request->kode_akun[$i],
+                    );
+                    $fields_dc[$i] = array(
+                        'name'     => 'dc[]',
+                        'contents' => $request->dc[$i],
+                    );
+                    $fields_nilai[$i] = array(
+                        'name'     => 'nilai[]',
+                        'contents' => $this->joinNum($request->nilai[$i]),
+                    );
+                    $fields_keterangan[$i] = array(
+                        'name'     => 'keterangan[]',
+                        'contents' => $request->keterangan[$i],
+                    );
+                    $fields_kode_pp[$i] = array(
+                        'name'     => 'kode_pp[]',
+                        'contents' => $request->kode_pp[$i],
                     );
                 }
+                $send_data = array_merge($fields,$fields_kode_akun);
+                $send_data = array_merge($send_data,$fields_dc);
+                $send_data = array_merge($send_data,$fields_nilai);
+                $send_data = array_merge($send_data,$fields_keterangan);
+                $send_data = array_merge($send_data,$fields_kode_pp);
+            }else{
+                $send_data = $fields;
             }
-    
-    
-            $fields['jurnal'][0] =
-                  array (
-                    'no_bukti' => $request->no_bukti,
-                    'no_dokumen' => $request->no_dokumen,
-                    'tanggal' => $this->reverseDate($request->tanggal,'/','-'),
-                    'kode_form' => $request->kode_form,
-                    'deskripsi' => $request->deskripsi,
-                    'total_debet' => $this->joinNum($request->total_debet),
-                    'total_kredit' => $this->joinNum($request->total_kredit),
-                    'nik_periksa' => $request->nik_periksa,
-                    'detail' => $detail
-                  );
-    
+            
+            $fields_foto = array();
+            $fields_nama_file_seb = array();
+            $fields_jenis = array();
+            $fields_nama_dok = array();
+            $fields_no_urut = array();
+            $cek = $request->file_dok;
+            if(!empty($cek)){
+                
+                if(count($request->file_dok) > 0){
+                    
+                    for($i=0;$i<count($request->jenis);$i++){
+                        if(isset($request->file('file_dok')[$i])){
+                            $image_path = $request->file('file_dok')[$i]->getPathname();
+                            $image_mime = $request->file('file_dok')[$i]->getmimeType();
+                            $image_org  = $request->file('file_dok')[$i]->getClientOriginalName();
+                            $fields_foto[$i] = array(
+                                'name'     => 'file['.$i.']',
+                                'filename' => $image_org,
+                                'Mime-Type'=> $image_mime,
+                                'contents' => fopen( $image_path, 'r' ),
+                            );
+                            
+                        }
+                        $fields_jenis[$i] = array(
+                            'name'     => 'jenis[]',
+                            'contents' => $request->jenis[$i],
+                        );
+                        $fields_nama_dok[$i] = array(
+                            'name'     => 'nama_dok[]',
+                            'contents' => $request->nama_dok[$i],
+                        );
+                        $fields_no_urut[$i] = array(
+                            'name'     => 'no_urut[]',
+                            'contents' => $request->no_urut[$i],
+                        );
+                        $fields_nama_file_seb[$i] = array(
+                            'name'     => 'nama_file_seb[]',
+                            'contents' => $request->nama_file[$i],
+                        );
+                    }
+                    $send_data = array_merge($send_data,$fields_foto);
+                    $send_data = array_merge($send_data,$fields_nama_file_seb);
+                    $send_data = array_merge($send_data,$fields_jenis);
+                    $send_data = array_merge($send_data,$fields_no_urut);
+                    $send_data = array_merge($send_data,$fields_nama_dok);
+                }
+            }
+
             $client = new Client();
-            $response = $client->request('PUT',  config('api.url').'toko-trans/jurnal',[
+            $response = $client->request('POST',  config('api.url').'toko-trans/jurnal-ubah',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
-                    'Content-Type'     => 'application/json'
+                    'Accept'     => 'application/json',
                 ],
-                'body' => json_encode($fields)
+                'multipart' => $send_data
             ]);
             
             if ($response->getStatusCode() == 200) { // 200 OK

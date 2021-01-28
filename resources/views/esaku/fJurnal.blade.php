@@ -741,7 +741,7 @@
                 var result= res.data;
                 if(result.status){
                     $('#id').val('edit');
-                    $('#method').val('put');
+                    $('#method').val('post');
                     $('#no_bukti').val(id);
                     $('#no_bukti').attr('readonly', true);
                     $('#tanggal').val(reverseDate2(result.jurnal[0].tanggal,'-','/'));
@@ -827,8 +827,46 @@
                         }
                         
                     }
+
+                    var input2 = "";
+                    if(result.dokumen.length > 0){
+                        var no=1;
+                        for(var i=0;i<result.dokumen.length;i++){
+                            var line =result.dokumen[i];
+                            input2 += "<tr class='row-dok'>";
+                            input2 += "<td class='no-dok text-center'>"+no+"</td>";
+                            input2 += "<td class='px-0 py-0'><div class='inp-div-jenis'><input type='text' name='jenis[]' class='form-control inp-jenis jeniske"+no+" ' value='"+line.jenis+"' required='' style='z-index: 1;' id='jeniskode"+no+"'><a href='#' class='search-item search-jenis'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></div></td>";
+                            input2 += "<td class='px-0 py-0'><input type='text' name='nama_dok[]' class='form-control inp-nama_dok nama_dokke"+no+"' value='"+line.nama+"' readonly></td>";
+                            var dok = "{{ config('api.url').'toko-auth/storage' }}/"+line.fileaddres;
+                            input2 += "<td><span class='td-nama_file tdnmfileke"+no+" tooltip-span'>"+line.fileaddres+"</span><input type='text' name='nama_file[]' class='form-control inp-nama_file nmfileke"+no+" hidden'  value='"+line.fileaddres+"' readonly></td>";
+                            if(line.fileaddres == "-" || line.fileaddres == ""){
+                                input2+=`
+                                <td>
+                                    <input type='file' name='file_dok[]' class='inp-file_dok'>
+                                    <input type='hidden' name='no_urut[]' class='form-control inp-no_urut' value='`+no+`'>
+                                </td>`;
+                            }else{
+                                input2+=`
+                                <td>
+                                    <input type='file' name='file_dok[]'>
+                                    <input type='hidden' name='no_urut[]' class='form-control inp-no_urut' value='`+no+`'>
+                                </td>`;
+                            }
+                            input2+=`
+                                <td class='text-center action-dok'>`;
+                                if(line.fileaddres != "-"){
+                                   var link =`<a class='download-dok' href='`+dok+`'target='_blank' title='Download'><i style='font-size:18px' class='simple-icon-cloud-download'></i></a>&nbsp;&nbsp;&nbsp;<a class='hapus-dok' href='#' title='Hapus Dokumen'><i class='simple-icon-trash' style='font-size:18px' ></i></a>`;
+                                }else{
+                                    var link =``;
+                                }
+                            input2+=link+"</td></tr>";
+                            no++;
+                        }
+                    }
+                    $('#form-tambah #input-dok tbody').html(input2);
                     hitungTotal();
                     hitungTotalRow();
+                    hitungTotalRowUpload("form-tambah");
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
                     $('#kode_form').val($form_aktif);
