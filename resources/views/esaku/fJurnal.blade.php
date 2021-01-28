@@ -19,7 +19,7 @@
         .btn-full-round{
             border-radius: 20px !important;
         }
-        .btn-light2{
+        .btn-light3{
             background: #b3b3b3;
             color: white;
         }
@@ -527,7 +527,7 @@
                 "data": null,
                 "render": function ( data, type, row, meta ) {
                     if(row.posted == "Close"){
-                        return '<button class="btn btn-light2 btn-full-round btn-sm">Close</button>';
+                        return '<button class="btn btn-light3 btn-full-round btn-sm">Close</button>';
                     }else{
                         return '<button class="btn btn-success btn-full-round btn-sm">Open</button>';
                     }
