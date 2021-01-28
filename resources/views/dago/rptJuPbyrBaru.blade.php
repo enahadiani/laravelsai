@@ -125,41 +125,30 @@
                 .bold {
                     font-weight:bold;
                 }
+                .bordered{
+                    border: 1px solid #e9ecef !important;
+                }
             </style>
             `+back;
             var lokasi = res.lokasi;
             for(var i=0;i<data.length;i++){
                 var line = data[i];
                 html+=`
-                <table class='table no-border'>
-                <tr>
-                    <td><table width='100%'  border='0' cellspacing='2' cellpadding='1'>
+                    <table width='100%'  border='0' cellspacing='2' cellpadding='1'>
                     <tr>
-                        <td width='80%'><table width='100%'  border='0' cellspacing='2' cellpadding='1'>
                         <tr>
-                            <td class='style16 bold' style='font-size:16px'>`+lokasi+`</td>
+                            <td class='style16 bold' colspan="6" rowspan="2" style='font-size:16px;vertical-align:top' width="80%">`+lokasi+`</td>
+                            <td align='center' class='bordered' width="40%">`+line.no_bukti+`</td>
                         </tr>
                         <tr>
-                            <td class='style16'></td>
-                        </tr>
-                        </table></td>
-                        <td width='20%' align='center'><table class='table table-bordered'>
-                        
-                        <tr>
-                            <td align='center' class='istyle15'>`+line.no_bukti+`</td>
+                            <td align='center' class='bordered'>`+line.tgl+`</td>
                         </tr>
                         <tr>
-                            <td align='center' class='istyle15'>`+line.tgl+`</td>
+                            <td align='center' class='' colspan='6'>&nbsp;</td>
                         </tr>
-                        </table></td>
                     </tr>
-                    </table></td>
-                </tr>
-                <tr>
-                    <td align='center' class='istyle17 bold' style='font-size:18px'>BUKTI JURNAL</td>
-                </tr>
-                <tr>
-                    <td><table width='100%' class='table table-bordered color-table info-table'>
+                    </table>
+                    <table width='100%' class='table table-bordered color-table info-table'>
                     <thead>
                     <tr>
                         <td width='30' class='bold'>NO</td>
@@ -209,29 +198,30 @@
                     <td class='isi_laporan' align='right'>`+tot_kredit1+`</td>
                 </tr>
                     </tbody>
-                    </table></td>
-                </tr>
-                <tr>
-                    <td>&nbsp;</td>
-                </tr>
-                <tr>
-                    <td align='right'><table class='table table-bordered' style='width:60%'>
-                    <tr>
-                        <td width='200' align='center'>Dibuat Oleh : </td>
-                        <td width='200' align='center'>Diperiksa Oleh : </td>
-                    </tr>
-                    <tr>
-                        <td align='center'>Paraf &amp; Tanggal </td>
-                        <td align='center'>Paraf &amp; Tanggal </td>
+                    </table>
+                    <table class='table table-borderless float-right' style='width:60%'>
+                        <tr>
+                            <td colspan="5" width="50%">&nbsp;</td>
+                            <td width='25%' align='center' class="bordered">Dibuat Oleh : </td>
+                            <td width='25%' align='center' class="bordered">Diperiksa Oleh : </td>
                         </tr>
-                    <tr>
-                        <td height='80'>&nbsp;</td>
-                        <td>&nbsp;</td>
+                        <tr>
+                            <td colspan="5" width="50%">&nbsp;</td>
+                            <td align='center' class="bordered">Paraf &amp; Tanggal </td>
+                            <td align='center' class="bordered">Paraf &amp; Tanggal </td>
+                            </tr>
+                        <tr>
+                            <td colspan="5" width="50%">&nbsp;</td>
+                            <td height='80' class="bordered">&nbsp;</td>
+                            <td class="bordered">&nbsp;</td>
                         </tr>
-                    </table></td>
-                </tr>
-
-                </table><br>
+                    </table>
+                    <br>
+                    <table>
+                        <tr>
+                            <td>&nbsp;</td>
+                        </tr>
+                    </table>
                 <DIV style='page-break-after:always'></DIV>`;
 
             }
