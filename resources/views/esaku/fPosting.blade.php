@@ -20,6 +20,8 @@
                         <div class="form-group row" id="row-id" hidden>
                             <div class="col-9">
                                 <input class="form-control" type="text" id="id" name="id" readonly hidden>
+                                <input type="text" class="form-control" id="per_awal" name="per_awal">
+                                <input type="text" class="form-control" id="per_akhir" name="per_akhir">
                             </div>
                         </div>
                         <div class="form-row">
@@ -56,7 +58,7 @@
                                         <label for="btn-control">&nbsp;</label>
                                         <div id="btn-control">
                                             <button type="button" href="#" id="loadData" class="btn btn-primary mr-2">Tampil</button>
-                                            <button type="button" href="#" id="postAll" class="btn btn-primary">Posting All</button>
+                                            <!-- <button type="button" href="#" id="postAll" class="btn btn-primary">Posting All</button> -->
                                         </div>
                                     </div>
                                 </div>
@@ -92,7 +94,7 @@
                                     <table id="table-jurnal" width="100%">
                                         <thead>
                                             <tr>
-                                                <th width="3%">No</th>
+                                                <th width="3%" id="checkbox"><input id="check-all" name="select_all" value="1" type="checkbox"></th>
                                                 <th width="12%">Status</th>
                                                 <th width="13%">No Bukti</th>
                                                 <th width="27%">No Dokumen</th>
@@ -183,7 +185,25 @@
             target4 : "",
             width : ["10%","60%","15%","15%"],
             onItemSelected: function(data){
-                console.log(data);
+                $("#"+id).val(data.modul);
+                $('#'+id).css('border-left',0);
+                $('#'+id).val(data.modul);
+                $(".info-code_"+id).text(data.modul);
+                $(".info-code_"+id).attr("title",data.keterangan);
+                $(".info-code_"+id).parents('div').removeClass('hidden');
+
+                 var width= $('#'+id).width()-$('#search_'+id).width()-10;
+                 var pos =$('#'+id).position();
+                 var height = $('#'+id).height();
+                 $('#'+id).attr('style','border-left:0;border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important');
+                 $(".info-name_"+id).width($('#'+id).width()-$('#search_'+id).width()-10).css({'left':pos.left,'height':height});
+                 $(".info-name_"+id+' span').text(data.keterangan);
+                 $(".info-name_"+id).attr("title",data.keterangan);
+                 $(".info-name_"+id).removeClass('hidden');
+                 $(".info-name_"+id).closest('div').find('.info-icon-hapus').removeClass('hidden')
+
+                $("#per_awal").val(data.per1);
+                $("#per_akhir").val(data.per2);
             }
         };
         showInpFilter(options);
@@ -203,12 +223,7 @@
                 'render': function (data, type, full, meta){
                     return '<input type="checkbox" name="checked[]">';
                 }
-            },
-            {   
-                'targets': 4, 
-                'className': 'text-right',
-                'render': $.fn.dataTable.render.number( '.', ',', 0, '' ) 
-            }, 
+            }
         ],
         select: {
             style:    'multi',
@@ -253,11 +268,11 @@
         var countItems = tablejur.rows().count();
 
         if (countItems > 0) {
-        if (countSelectedRows == countItems){
-                $('thead .selectall-checkbox input[type="checkbox"]', this).prop('checked', true);
-        } else {
-                $('thead .selectall-checkbox input[type="checkbox"]', this).prop('checked', false);
-        }
+            if (countSelectedRows == countItems){
+                    $('thead .selectall-checkbox input[type="checkbox"]', this).prop('checked', true);
+            } else {
+                    $('thead .selectall-checkbox input[type="checkbox"]', this).prop('checked', false);
+            }
         }
 
         if (e.type === 'select') {
@@ -268,8 +283,12 @@
     });
 
     tablejur.on('click', 'thead .selectall-checkbox', function() {
-            $('input[type="checkbox"]', this).trigger('click');
-     });
+        $('input[type="checkbox"]', this).trigger('click');
+        tablejur.rows().every(function (index, element) {
+            var row = tablejur.cell(index,1);
+            row.data('POSTING').draw().select();
+        });
+    });
 
     tablejur.on('click', 'thead .selectall-checkbox input[type="checkbox"]', function(e) {
         if (this.checked) {
@@ -295,19 +314,13 @@
     }
 
     $('#form-tambah').on('click', '#loadData', function(){
-        var data = t.data();
         var formData = new FormData();
-        
-        var tempData = []; 
-        var i=0;
-        $.each( data, function( key, value ) {
-            if(value.status.toUpperCase() == "TRUE"){
-                formData.append('modul[]',value.modul);
-                formData.append('per1[]',value.per1);
-                formData.append('per2[]',value.per2);
-                formData.append('status[]',value.status);
-            }
-        });
+        var modul = $('#modul').val();
+        var per1 = $('#per_awal').val();
+        var per2 = $('#per_akhir').val();
+        formData.append('modul[]',modul);
+        formData.append('per1[]',per1);
+        formData.append('per2[]',per2);
         $.ajax({
             type: 'POST',
             url: "{{ url('esaku-trans/loadJurnal') }}",
@@ -339,18 +352,6 @@
         });
     });
 
-    $('#table-jurnal tbody').on('click', 'td', function () {
-        var cell = tablejur.cell( this );
-        if(cell.data() == 'POSTING'){
-            $(this).removeClass('selected');
-            var isi = 'INPROG';
-        }else if(cell.data() == 'INPROG'){
-            $(this).addClass('selected');
-            var isi = 'POSTING';
-        }
-        cell.data(isi).draw();
-    });
-
     $('#form-tambah').validate({
         ignore: [],
         rules: 
@@ -368,11 +369,12 @@
             var url = "{{ url('esaku-trans/posting') }}";
 
             var formData = new FormData(form);
-            for(var pair of formData.entries()) {
-                console.log(pair[0]+ ', '+ pair[1]); 
-            }
+            // for(var pair of formData.entries()) {
+            //     console.log(pair[0]+ ', '+ pair[1]); 
+            // }
 
             var data = tablejur.data();
+            console.log(data);
 
             var tempData = []; 
             var i=0;
@@ -383,60 +385,61 @@
                     formData.append('status[]',value.status);
                     formData.append('no_bukti[]',value.no_bukti);
                     formData.append('form[]',value.form);
-                    if(value.status == "POSTING"){
-                        isAda = true;
-                    }
+                    console.log(value);
+                    // if(value.status == "POSTING"){
+                    //     isAda = true;
+                    // }
                 }
             });
 
-            if(data.length <= 0 || !isAda){
-                msgDialog({
-                    id:'-',
-                    type:'warning',
-                    text: "Transaksi tidak valid. Tidak ada transaksi dengan status POSTING."
-                });
-                return false;
-            }else{
-                $.ajax({
-                    type: 'POST', 
-                    url: url,
-                    dataType: 'json',
-                    data: formData,
-                    async:false,
-                    contentType: false,
-                    cache: false,
-                    processData: false, 
-                    success:function(result){
-                        if(result.data.status){
-                            msgDialog({
-                                id:result.data.no_bukti,
-                                type:'sukses',
-                                text: result.data.message
-                            });
-                            activaTab("trans");
-                            $('#form-tambah #loadData').click();
-                            $('#error_space').text('');
-                        }else if(!result.data.status && result.data.message === "Unauthorized"){
+            // if(data.length <= 0 || !isAda){
+            //     msgDialog({
+            //         id:'-',
+            //         type:'warning',
+            //         text: "Transaksi tidak valid. Tidak ada transaksi dengan status POSTING."
+            //     });
+            //     return false;
+            // }else{
+            //     $.ajax({
+            //         type: 'POST', 
+            //         url: url,
+            //         dataType: 'json',
+            //         data: formData,
+            //         async:false,
+            //         contentType: false,
+            //         cache: false,
+            //         processData: false, 
+            //         success:function(result){
+            //             if(result.data.status){
+            //                 msgDialog({
+            //                     id:result.data.no_bukti,
+            //                     type:'sukses',
+            //                     text: result.data.message
+            //                 });
+            //                 activaTab("trans");
+            //                 $('#form-tambah #loadData').click();
+            //                 $('#error_space').text('');
+            //             }else if(!result.data.status && result.data.message === "Unauthorized"){
                         
-                            window.location.href = "{{ url('/esaku-auth/sesi-habis') }}";
+            //                 window.location.href = "{{ url('/esaku-auth/sesi-habis') }}";
                             
-                        }else{
-                            msgDialog({
-                                id: id,
-                                type: 'sukses',
-                                title: 'Error',
-                                text: result.data.message
-                            });
+            //             }else{
+            //                 msgDialog({
+            //                     id: id,
+            //                     type: 'sukses',
+            //                     title: 'Error',
+            //                     text: result.data.message
+            //                 });
                             
-                            $('#error_space').text(result.data.message);
-                            activaTab("error");
-                        }
-                    },
-                    fail: function(xhr, textStatus, errorThrown){
-                        alert('request failed:'+textStatus);
-                    }
-                });
-            }
+            //                 $('#error_space').text(result.data.message);
+            //                 activaTab("error");
+            //             }
+            //         },
+            //         fail: function(xhr, textStatus, errorThrown){
+            //             alert('request failed:'+textStatus);
+            //         }
+            //     });
+            // }
         },
         errorPlacement: function (error, element) {
             var id = element.attr("id");

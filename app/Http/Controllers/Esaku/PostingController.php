@@ -60,7 +60,7 @@ class PostingController extends Controller
                 if(count($data) >0){
                     
                     for($i=0;$i<count($data);$i++){
-                        $data[$i]["no"] = ""; 
+                        $data[$i]["checkbox"] = ""; 
                         $data[$i]["status"] = "TRUE";
                     }
                 }
@@ -159,14 +159,11 @@ class PostingController extends Controller
                 $per2 = $request->per2;
                 $status = $request->status;
                 for($i=0;$i<count($modul);$i++){
-                    if($status[$i] == "TRUE"){
-    
-                        $detail['data_modul'][] = array(
-                            'modul' => $modul[$i],
-                            'periode_awal' => $per1[$i],
-                            'periode_akhir' => $per2[$i]
-                        );
-                    }
+                    $detail['data_modul'][] = array(
+                        'modul' => $modul[$i],
+                        'periode_awal' => $per1[$i],
+                        'periode_akhir' => $per2[$i]
+                    );
                 }
             }
     

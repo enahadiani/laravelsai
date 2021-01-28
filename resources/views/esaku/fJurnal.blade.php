@@ -23,6 +23,13 @@
             background: #b3b3b3;
             color: white;
         }
+        .icon-tambah{
+            background: #D4D4D4;
+            mask: url("{{ url('img/add.svg') }}");
+            width: 12px;
+            height: 12px;
+        }
+    
     </style>
     <!-- FORM INPUT -->
     <form id="form-tambah" class="tooltip-label-right" novalidate>
@@ -222,7 +229,7 @@
                                     <tbody>
                                     </tbody>
                                     </table>
-                                    <a type="button" href="#" data-id="0" title="add-row" class="add-row btn btn-light2 btn-block btn-sm"><img src="{{ url('img/add.svg') }}" width="14px" height="14px" class="mr-1"> Tambah Baris</a>
+                                    <a type="button" href="#" data-id="0" title="add-row" class="add-row btn btn-light2 btn-block btn-sm"><i class="saicon icon-tambah mr-1"></i>Tambah Baris</a>
                                 </div>
                             </div>
                             <div class="tab-pane" id="data-dok" role="tabpanel">
@@ -244,7 +251,8 @@
                                         <tbody>
                                         </tbody>
                                     </table>
-                                    <a type="button" href="#" data-id="0" title="add-row-dok" class="add-row-dok btn btn-light2 btn-block btn-sm"><img src="{{ url('img/add.svg') }}" width="14px" height="14px" class="mr-1">  Tambah Baris</a>
+                                    <a type="button" href="#" data-id="0" title="add-row-dok" class="add-row-dok btn btn-light2 btn-block btn-sm"> 
+                                    <i class="saicon icon-tambah mr-1"></i>Tambah Baris</a>
                                 </div>
                             </div>
                         </div>
@@ -312,7 +320,9 @@
                                             <tbody>
                                             </tbody>
                                             </table>
-                                            <a type="button" href="#" data-id="0" title="add-row-dok" class="add-row-dok btn btn-light2 btn-block btn-sm"><img src="{{ url('img/add.svg') }}" width="14px" height="14px" class="mr-1"> Tambah Baris</a>
+                                            <a type="button" href="#" data-id="0" title="add-row-dok" class="add-row-dok btn btn-light2 btn-block btn-sm">
+                                            <i class="saicon icon-tambah mr-1"></i>Tambah Baris
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
