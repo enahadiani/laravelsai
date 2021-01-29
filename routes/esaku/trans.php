@@ -168,3 +168,7 @@ Route::post('sawal', 'Esaku\SawalController@store');
 Route::post('jurnal-upload-upload', 'Esaku\JurnalUploadController@importExcel');
 Route::get('jurnal-upload-load', 'Esaku\JurnalUploadController@getJurnalUploadTmp');
 Route::post('jurnal-upload', 'Esaku\JurnalUploadController@store');
+
+Route::post('akun-upload', 'Esaku\AkunController@importExcel');
+Route::get('akun-load', 'Esaku\AkunController@getAkunTmp');
+Route::post('akun', 'Esaku\AkunController@store');
