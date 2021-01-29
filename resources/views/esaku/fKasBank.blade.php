@@ -530,13 +530,13 @@
                     if(row.posted == "Close"){
                         return `<button type="button" class="btn p-0"  
                                 data-toggle="popover" data-placement="top"
-                                data-content="Transaksi ini telah diposting sehingga tidak dapat dirubah ataupun dihapus."><i class="saicon icon-close"></i>
+                                data-content="Transaksi ini telah diposting sehingga tidak dapat dirubah ataupun dihapus."><i class="saicon icon-close bg-success"></i>
                             </button>`;
                     }else{
                         return `<button type="button" class="btn p-0"  
                                 data-toggle="popover" data-placement="top"
                                 data-content="Transaksi ini belum diposting sehingga dapat dirubah ataupun dihapus.">
-                                <i class="saicon icon-open bg-success"></i>
+                                <i class="saicon icon-open"></i>
                             </button>`;
                     }
                 }
