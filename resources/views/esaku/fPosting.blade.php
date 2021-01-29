@@ -44,15 +44,15 @@
                                             <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
                                                 <span class="input-group-text info-code_modul" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
                                             </div>
-                                            <input type="text" class="form-control inp-label-modul" id="modul" name="modul" value="" title="">
+                                            <input type="text" class="form-control inp-label-modul" id="modul" name="modul" value="" title="" readonly required>
                                             <span class="info-name_modul hidden">
                                                 <span></span> 
                                             </span>
-                                            <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                            <i class="simple-icon-magnifier search-item2" id="search_modul"></i>
+                                            <i class="simple-icon-close float-right info-icon-hapus hidden" style="background: none;"></i>
+                                            <i class="simple-icon-magnifier search-item2" id="search_modul" style="background: none;"></i>
                                         </div>
                                     </div>
-                                    <div class="col-md-6 col-12 text-right">
+                                    <div class="col-md-6 col-12">
                                         <label for="btn-control">&nbsp;</label>
                                         <div id="btn-control">
                                             <button type="button" href="#" id="loadData" class="btn btn-primary mr-2">Tampil</button>
@@ -127,6 +127,10 @@
         }
     });
 
+    
+    var scrollform = document.querySelector('.form-body');
+    var psscrollform = new PerfectScrollbar(scrollform);
+    
     $("input.datepicker").datepicker({
         autoclose: true,
         format: 'dd/mm/yyyy',
@@ -139,11 +143,10 @@
     $('.info-icon-hapus').click(function(){
         var par = $(this).closest('div').find('input').attr('name');
         $('#'+par).val('');
-        $('#'+par).attr('readonly',false);
-        $('#'+par).attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important');
-        $('.info-code_'+par).parent('div').addClass('hidden');
-        $('.info-name_'+par).addClass('hidden');
         $(this).addClass('hidden');
+        $modul = [];
+        $per1 = [];
+        $per2 = [];
     });
 
     function showInfoField(kode,isi_kode,isi_nama){
@@ -311,6 +314,16 @@
 
     $('#form-tambah').on('click', '#loadData', function(){
         var formData = new FormData();
+        if($modul.length == 0){
+            msgDialog({
+                id: '-',
+                type: 'warning',
+                title: 'Peringatan',
+                text: 'Modul wajib diisi'
+            });
+            tablejur.clear().draw();
+            return false;
+        }
         $.each($modul, function(i, val){
             formData.append('modul[]', $modul[i]);
             formData.append('per1[]', $per1[i]);
@@ -377,6 +390,7 @@
                     title: 'Gagal',
                     text: 'Tidak ada transaksi jurnal yang dipilih'
                 });
+                return false;
             }
             $.each(selected, function(i, val){
                 formData.append('no_bukti[]', selected[i].no_bukti)

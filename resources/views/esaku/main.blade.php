@@ -1125,7 +1125,7 @@
             loadForm("{{ url('yakes-auth/form') }}/blankform");
         }
     });
-    var $theme = "dore.light.redruby.min.css";
+    var $theme = "dore.light.bluesaku.min.css";
  
     </script>
     <script src="{{ asset('asset_dore/js/scripts.js') }}"></script>

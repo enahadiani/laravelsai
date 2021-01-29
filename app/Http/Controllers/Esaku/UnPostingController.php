@@ -84,7 +84,6 @@ class UnPostingController extends Controller
         $this->validate($request, [
             'tanggal' => 'required',
             'deskripsi' => 'required',
-            'status.*' => 'required',
             'no_bukti.*' => 'required',
             'form.*' => 'required'
         ]);
@@ -97,7 +96,6 @@ class UnPostingController extends Controller
                 $form = $request->form;
                 for($i=0;$i<count($no_bukti);$i++){
                     $detail[] = array(
-                        'status' => $status[$i],
                         'no_bukti' => $no_bukti[$i],
                         'form' => $form[$i]
                     );
@@ -159,14 +157,14 @@ class UnPostingController extends Controller
                 $per2 = $request->per2;
                 $status = $request->status;
                 for($i=0;$i<count($modul);$i++){
-                    if($status[$i] == "TRUE"){
+                    // if($status[$i] == "TRUE"){
     
                         $detail['data_modul'][] = array(
                             'modul' => $modul[$i],
                             'periode_awal' => $per1[$i],
                             'periode_akhir' => $per2[$i]
                         );
-                    }
+                    // }
                 }
             }
     

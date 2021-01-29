@@ -550,14 +550,15 @@
             {
                 "targets" : 5,
                 "data": null,
+                "className": 'text-center',
                 "render": function ( data, type, row, meta ) {
                     if(row.posted == "Close"){
-                        return `<button type="button" class="btn mb-2"  
+                        return `<button type="button" class="btn p-0"  
                                 data-toggle="popover" data-placement="top"
                                 data-content="Transaksi ini telah diposting sehingga tidak dapat dirubah ataupun dihapus."><i class="saicon icon-close"></i>
                             </button>`;
                     }else{
-                        return `<button type="button" class="btn mb-2"  
+                        return `<button type="button" class="btn p-0"  
                                 data-toggle="popover" data-placement="top"
                                 data-content="Transaksi ini belum diposting sehingga dapat dirubah ataupun dihapus.">
                                 <i class="saicon icon-open bg-success"></i>
