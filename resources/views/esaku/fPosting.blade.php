@@ -20,8 +20,6 @@
                         <div class="form-group row" id="row-id" hidden>
                             <div class="col-9">
                                 <input class="form-control" type="text" id="id" name="id" readonly hidden>
-                                <input type="text" class="form-control" id="per_awal" name="per_awal">
-                                <input type="text" class="form-control" id="per_akhir" name="per_akhir">
                             </div>
                         </div>
                         <div class="form-row">
@@ -162,6 +160,10 @@
         $('.info-name_'+kode).width(width).css({'left':pos.left,'height':height});
         $('.info-name_'+kode).closest('div').find('.info-icon-hapus').removeClass('hidden');
     }
+
+    var $modul = [];
+    var $per1 = [];
+    var $per2 = [];
     
     $('#form-tambah').on('click', '.search-item2', function(){
         var id = $(this).closest('div').find('input').attr('name');
@@ -184,26 +186,24 @@
             target3 : "",
             target4 : "",
             width : ["10%","60%","15%","15%"],
+            multi: true,
+            orderby:[[0,"desc"]],
             onItemSelected: function(data){
-                $("#"+id).val(data.modul);
-                $('#'+id).css('border-left',0);
-                $('#'+id).val(data.modul);
-                $(".info-code_"+id).text(data.modul);
-                $(".info-code_"+id).attr("title",data.keterangan);
-                $(".info-code_"+id).parents('div').removeClass('hidden');
-
-                 var width= $('#'+id).width()-$('#search_'+id).width()-10;
-                 var pos =$('#'+id).position();
-                 var height = $('#'+id).height();
-                 $('#'+id).attr('style','border-left:0;border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important');
-                 $(".info-name_"+id).width($('#'+id).width()-$('#search_'+id).width()-10).css({'left':pos.left,'height':height});
-                 $(".info-name_"+id+' span').text(data.keterangan);
-                 $(".info-name_"+id).attr("title",data.keterangan);
-                 $(".info-name_"+id).removeClass('hidden');
-                 $(".info-name_"+id).closest('div').find('.info-icon-hapus').removeClass('hidden')
-
-                $("#per_awal").val(data.per1);
-                $("#per_akhir").val(data.per2);
+                var modul = "";
+                $modul = []; 
+                $per1 = []; 
+                $per2 = [];
+                for(var i=0;i<data.length;i++){
+                    if(i == 0){
+                        modul +=data[i].modul;
+                    }else{
+                        modul +=','+data[i].modul;
+                    }
+                    $modul.push(data[i].modul);
+                    $per1.push(data[i].per1);
+                    $per2.push(data[i].per2);
+                }  
+                $("#"+id).val(modul);
             }
         };
         showInpFilter(options);
@@ -311,12 +311,15 @@
 
     $('#form-tambah').on('click', '#loadData', function(){
         var formData = new FormData();
-        var modul = $('#modul').val();
-        var per1 = $('#per_awal').val();
-        var per2 = $('#per_akhir').val();
-        formData.append('modul[]',modul);
-        formData.append('per1[]',per1);
-        formData.append('per2[]',per2);
+        $.each($modul, function(i, val){
+            formData.append('modul[]', $modul[i]);
+            formData.append('per1[]', $per1[i]);
+            formData.append('per2[]', $per2[i]);
+        });
+        // for(var pair of formData.entries()) {
+        //     console.log(pair[0]+ ', '+ pair[1]); 
+        // }
+        
         $.ajax({
             type: 'POST',
             url: "{{ url('esaku-trans/loadJurnal') }}",
@@ -327,8 +330,8 @@
             cache: false,
             processData: false, 
             success:function(result){
+                tablejur.clear().draw();
                 if(result.data.status){
-                    tablejur.clear().draw();
                     if(typeof result.data.data !== 'undefined' && result.data.data.length>0){
                         tablejur.rows.add(result.data.data).draw(false);
                         activaTab("trans");

@@ -137,7 +137,35 @@ function showInpFilter(settings){
         header_html +=  "<th style='width:"+width[i]+"'>"+header[i]+"</th>";
     }
 
-    var table = "<table class='' width='100%' id='table-search'><thead><tr>"+header_html+"</tr></thead>";
+    
+    if(settings.multi != undefined){
+        var headerpilih_html = '';
+        for(i=0; i<header.length; i++){
+            headerpilih_html +=  "<th style='width:"+width[i]+"'>"+header[i]+"</th>";
+        }
+        headerpilih_html +=  "<th style='width:10%'>Action</th>";
+        var table = `
+        <div class="tab-content tabcontent-border col-12 p-0">
+            <div class="tab-pane active" id="list" role="tabpanel">
+                <table class='' width='100%' id='table-search'><thead><tr>`+header_html+`</tr></thead>
+                <tbody></tbody></table>
+            </div>
+            <div class="tab-pane" id="terpilih" role="tabpanel">
+                <table class='' width='100%' id='table-search2'><thead><tr>`+headerpilih_html+`</tr></thead>
+                <tbody></tbody></table>
+            </div>
+        </div>
+        <button class='btn btn-primary float-right' id='btn-ok'>OK</button>`;
+        $('#modal-search .modal-header').css('padding-bottom','0');
+        $('#modal-search .modal-header ul').removeClass('hidden');
+    }else{
+
+        var table = "<table class='' width='100%' id='table-search'><thead><tr>"+header_html+"</tr></thead>";
+        if(!$('#modal-search .modal-header ul').hasClass('hidden')){
+            $('#modal-search .modal-header ul').addClass('hidden');
+            $('#modal-search .modal-header').css('padding-bottom','1.75rem');
+        }
+    }
     table += "<tbody></tbody></table>";
 
     $('#modal-search .modal-body').html(table);
@@ -182,82 +210,162 @@ function showInpFilter(settings){
     $('#modal-search').modal('show');
     searchTable.columns.adjust().draw();
 
-    if (settings.onItemSelected != undefined) {
-            
-        $('#table-search tbody').on('click', 'tr', function () {
-            if ( $(this).hasClass('selected') ) {
-                $(this).removeClass('selected');
-            }
-            else {
-                searchTable.$('tr.selected').removeClass('selected');
-                $(this).toggleClass('selected');
+    if(settings.multi != undefined){
+        var searchTable2 = $("#table-search2").DataTable({
+            sDom: '<"row view-filter"<"col-sm-12"<f>>>t<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
+            columns: columns,
+            order: settings.orderby,
+            drawCallback: function () {
+                $($(".dataTables_wrapper .pagination li:first-of-type"))
+                    .find("a")
+                    .addClass("prev");
+                $($(".dataTables_wrapper .pagination li:last-of-type"))
+                    .find("a")
+                    .addClass("next");
 
-                var select_data = searchTable.row(this).data();
-                if (typeof settings.onItemSelected === "function") {
-                    settings.onItemSelected.call(this, select_data);
-                }
-                $('#modal-search').modal('hide');
-            }
+                $(".dataTables_wrapper .pagination").addClass("pagination-sm");
+            },
+            language: {
+                paginate: {
+                    previous: "<i class='simple-icon-arrow-left'></i>",
+                    next: "<i class='simple-icon-arrow-right'></i>"
+                },
+                search: "_INPUT_",
+                searchPlaceholder: "Search...",
+                lengthMenu: "Items Per Page _MENU_"
+            },
+            "columnDefs": [{
+                "targets": settings.header, "data": null, "defaultContent": "<a class='hapus-item'><i class='simple-icon-trash' style='font-size:18px'></i></a>"
+            }]
         });
+        searchTable2.columns.adjust().draw();
 
-    }else{
         $('#table-search tbody').on('click', 'tr', function () {
             if ( $(this).hasClass('selected') ) {
                 $(this).removeClass('selected');
-            }
-            else {
-                searchTable.$('tr.selected').removeClass('selected');
+            }else{
                 $(this).addClass('selected');
-    
-                var kode = $(this).closest('tr').find('td:nth-child(1)').text();
-                var nama = $(this).closest('tr').find('td:nth-child(2)').text();
-                if(kode == "No data available in table"){
-                    return false;
-                }
-    
-                if(jTarget1 == "val"){
-                    $($target).val(kode);
-                }else{
-                    $('#'+par).css('border-left',0);
-                    $('#'+par).val(kode);
-                    $($target).text(kode);
-                    $($target).attr("title",nama);
-                    $($target).parents('div').removeClass('hidden');
-                }
-    
-                if(jTarget2 == "val"){
-                    $($target2).val(nama);
-                }else if(jTarget2 == "title"){
-                    $($target2).attr("title",nama);
-                    $($target2).removeClass('hidden');
-                }else if(jTarget2 == "text2"){
-                    $($target2).text(nama);
-                }else{
-                    var width= $('#'+par).width()-$('#search_'+par).width()-10;
-                    var pos =$('#'+par).position();
-                    var height = $('#'+par).height();
-                    console.log(par);
-                    $('#'+par).attr('style','border-left:0;border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important');
-                    $($target2).width($('#'+par).width()-$('#search_'+par).width()-10).css({'left':pos.left,'height':height});
-                    $($target2+' span').text(nama);
-                    $($target2).attr("title",nama);
-                    $($target2).removeClass('hidden');
-                    $($target2).closest('div').find('.info-icon-hapus').removeClass('hidden')
-                }
-    
-                if($target3 != ""){
-                    $($target3).text(nama);
-                }
-    
-                if($target4 != ""){
-                    if($target4 == "custom"){
-                        custTarget($target,$(this).closest('tr'));
-                    }
-                    $($target).closest('tr').find($target4).click();
-                }
-                $('#modal-search').modal('hide');
+            }
+            var datain = searchTable.rows('.selected').data();
+            searchTable2.clear().draw();
+            if(typeof datain !== 'undefined' && datain.length>0){
+                searchTable2.rows.add(datain).draw(false);
             }
         });
+
+        $('#table-search2 tbody').on('click', '.hapus-item', function () {
+            var kode = $(this).closest('tr').find('td:nth-child(1)').text();
+            searchTable2.row( $(this).parents('tr') ).remove().draw();
+            var rowIndexes = [];
+            searchTable.rows( function ( idx, data, node ) {             
+                if(data[kunci] === kode){
+                    rowIndexes.push(idx);                  
+                }
+                return false;
+            }); 
+            searchTable.row(rowIndexes).deselect();
+        });
+
+        $('#modal-search').on('click','#btn-ok',function(){
+            var datain = searchTable.rows('.selected').data();
+            if (settings.onItemSelected != undefined){
+                if (typeof settings.onItemSelected === "function") {
+                    settings.onItemSelected.call(this, datain);
+                }
+            }else{
+                var kode = '';
+                var nama = '';
+                for(var i=0;i<datain.length;i++){
+                    if(i == 0){
+                        kode +=datain[i];
+                    }else{
+                        kode +=','+datain[i];
+                    }
+                }   
+                $($target).val(kode);
+                $($target).trigger('change');
+            }
+            $('#modal-search').modal('hide');
+        });
+    }else{
+        if (settings.onItemSelected != undefined) {
+                
+            $('#table-search tbody').on('click', 'tr', function () {
+                if ( $(this).hasClass('selected') ) {
+                    $(this).removeClass('selected');
+                }
+                else {
+                    searchTable.$('tr.selected').removeClass('selected');
+                    $(this).toggleClass('selected');
+    
+                    var select_data = searchTable.row(this).data();
+                    if (typeof settings.onItemSelected === "function") {
+                        settings.onItemSelected.call(this, select_data);
+                    }
+                    $('#modal-search').modal('hide');
+                }
+            });
+    
+        }else{
+            $('#table-search tbody').on('click', 'tr', function () {
+                if ( $(this).hasClass('selected') ) {
+                    $(this).removeClass('selected');
+                }
+                else {
+                    searchTable.$('tr.selected').removeClass('selected');
+                    $(this).addClass('selected');
+        
+                    var kode = $(this).closest('tr').find('td:nth-child(1)').text();
+                    var nama = $(this).closest('tr').find('td:nth-child(2)').text();
+                    if(kode == "No data available in table"){
+                        return false;
+                    }
+        
+                    if(jTarget1 == "val"){
+                        $($target).val(kode);
+                    }else{
+                        $('#'+par).css('border-left',0);
+                        $('#'+par).val(kode);
+                        $($target).text(kode);
+                        $($target).attr("title",nama);
+                        $($target).parents('div').removeClass('hidden');
+                    }
+        
+                    if(jTarget2 == "val"){
+                        $($target2).val(nama);
+                    }else if(jTarget2 == "title"){
+                        $($target2).attr("title",nama);
+                        $($target2).removeClass('hidden');
+                    }else if(jTarget2 == "text2"){
+                        $($target2).text(nama);
+                    }else{
+                        var width= $('#'+par).width()-$('#search_'+par).width()-10;
+                        var pos =$('#'+par).position();
+                        var height = $('#'+par).height();
+                        console.log(par);
+                        $('#'+par).attr('style','border-left:0;border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important');
+                        $($target2).width($('#'+par).width()-$('#search_'+par).width()-10).css({'left':pos.left,'height':height});
+                        $($target2+' span').text(nama);
+                        $($target2).attr("title",nama);
+                        $($target2).removeClass('hidden');
+                        $($target2).closest('div').find('.info-icon-hapus').removeClass('hidden')
+                    }
+        
+                    if($target3 != ""){
+                        $($target3).text(nama);
+                    }
+        
+                    if($target4 != ""){
+                        if($target4 == "custom"){
+                            custTarget($target,$(this).closest('tr'));
+                        }
+                        $($target).closest('tr').find($target4).click();
+                    }
+                    $('#modal-search').modal('hide');
+                }
+            });
+        }
     }
+
 
 }
