@@ -60,8 +60,9 @@ class PostingController extends Controller
                 if(count($data) >0){
                     
                     for($i=0;$i<count($data);$i++){
-                        $data[$i]["checkbox"] = ""; 
-                        $data[$i]["status"] = "TRUE";
+                        $data[$i]["checkbox"] = $i; 
+                        $data[$i]["no"] = $i; 
+                        $data[$i]["status"] = "TRUE";  
                     }
                 }
             }
@@ -84,7 +85,6 @@ class PostingController extends Controller
         $this->validate($request, [
             'tanggal' => 'required',
             'deskripsi' => 'required',
-            'status.*' => 'required',
             'no_bukti.*' => 'required',
             'form.*' => 'required'
         ]);
@@ -97,7 +97,6 @@ class PostingController extends Controller
                 $form = $request->form;
                 for($i=0;$i<count($no_bukti);$i++){
                     $detail[] = array(
-                        'status' => $status[$i],
                         'no_bukti' => $no_bukti[$i],
                         'form' => $form[$i]
                     );
