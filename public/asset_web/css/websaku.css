@@ -3,6 +3,9 @@
     justify-content: center;
     align-items: center;
 }
+.image-welcome > img {
+    margin-top: -3rem;
+}
 #hubungi-welcome {
     background-color: #cee1ff;
     padding: 0.5rem;
