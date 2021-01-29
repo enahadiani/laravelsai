@@ -180,6 +180,40 @@
             margin-left: 8px;
             margin-top: 24px;
         }
+        .custome-akun-config {
+            height: 220px;
+            border-radius: 15px;
+            width: 470px;
+            padding: 8px;
+            background-color: #eeeeee;
+        }
+        .judul-doc-custome {
+            padding-top: 8px;
+            padding-left: 16px;
+        }
+        .list-doc-custome {
+            list-style: none;
+            margin-left: -24px;
+        }
+        .saldo-awal-form {
+            margin-left: 2px;
+        }
+        .btn-light.btn-register {
+            background-color: #000;
+            color: #fff;
+            outline: none !important;
+            box-shadow: none !important;
+        }
+        .data-akun {
+            border: 1px solid #000;
+            height: 450px;
+        }
+        .sw-main.sw-theme-check>ul.step-anchor>li.active>a:after {
+            background: #000 !important;
+        }
+        .sw-main>ul.step-anchor>li.active>a {
+            color: #000 !important;
+        }
         @media (max-width: 991px) {
             .auth-card .image-side {
                 width: 100%;
@@ -276,7 +310,7 @@
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-between align-items-center mt-4">
-                                    <button class="btn btn-primary btn-block" id="btn-register-1" type="button">Kirim</button>
+                                    <button class="btn btn-light btn-register btn-block" id="btn-register-1" type="button">Kirim</button>
                                 </div>
                             </form>
                         </div>
@@ -303,7 +337,7 @@
             <div class="row h-100">
                 <div class="col-12 mx-auto my-auto">
                     <div class="card card-auth" style="box-shadow: none;">
-                        <div class="form-side">
+                        <div id="form-wizard-area" class="form-side">
                             <div id="smartWizardValidation">
                                 <ul class="card-header">
                                     <li><a href="#step-0">Langkah 1<br /><small>Data Perusahaan</small></a></li>
@@ -397,7 +431,7 @@
                                     </div>
                                     <div id="step-2">
                                         <form id="form-step-2" class="tooltip-label-right" novalidate>
-                                            <div class="row">
+                                            <div id="saldo-awal-jenis" class="row">
                                                 <div class="col-6">
                                                     <div class="choose-saldo-awal-custom-1">
                                                         <input type="radio" name="saldo-awal" id="custome" value="0">
@@ -418,13 +452,58 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div id="custome-akun-config" class="custome-akun-config">
+                                                <div class="doc-custome-akun">
+                                                    <p class="judul-doc-custome">Custome Akun</p>
+                                                    <ul class="list-doc-custome">
+                                                        <li>1. Download format template saldo awal.</li>
+                                                        <li>2. Sesuaikan saldo awal anda dengan format template yang kami sediakan.</li>
+                                                        <li>3. Upload saldo awal anda yang sesuai dengan format kami.</li>
+                                                    </ul>
+                                                    <div class="row saldo-awal-form">
+                                                        <div class="col-6">
+                                                            <div class="form-group position-relative">
+                                                                <input type="text" class="form-control" name="saldo_awal" id="saldo_awal" placeholder="Masukkan saldo awal manual">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-3">
+                                                            <button type="button" class="btn btn-light btn-register">Download</button>
+                                                        </div>
+                                                        <div class="col-3">
+                                                            <input type="file" name="upload-akun" id="upload-akun" style="display: none;">
+                                                            <button type="button" class="btn btn-light btn-register">Upload</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </form>
                                     </div>
                                 </div>
                                 <div class="btn-toolbar custom-toolbar text-center card-body btn-wizard">
-                                    <button class="btn btn-secondary prev-btn" type="button">Sebelumnya</button>
-                                    <button class="btn btn-secondary next-btn" type="button">Selanjutnya</button>
-                                    <button class="btn btn-secondary finish-btn" type="submit">Selanjutnya</button>
+                                    <button class="btn btn-light btn-register prev-btn" type="button">Sebelumnya</button>
+                                    <button class="btn btn-light btn-register next-btn" type="button">Selanjutnya</button>
+                                    <button id="btn-done" class="btn btn-light btn-register finish-btn" type="button">Selanjutnya</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="table-data-akun" class="table-data-akun">
+                            <div id="table-data-akun-header" class="row w-100">
+                                <div class="col-12">
+                                    <button class="btn btn-light btn-register float-right" type="submit">Simpan</button>
+                                    <button id="tambah-akun" class="btn btn-light btn-register float-right" type="button">Tambah Akun</button>
+                                    <button class="btn btn-light btn-register float-right" type="button">Lihat Laporan</button>
+                                </div>
+                                <div class="col-12 mt-1 data-akun" id="data-akun">
+                                    <table class="table table-borderless" id="table-akun">
+                                        <thead>
+                                            <tr>
+                                                <th>Kode Akun</th>
+                                                <th>Nama Akun</th>
+                                                <th>Jenis Akun</th>
+                                                <th>Nilai</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -435,12 +514,40 @@
     </main>
     <script>
         $(document).ready(function() {
+            var $value = "";
             $('#register-1').show();
             $('#register-2').hide();
+            $('#custome-akun-config').hide();
+            $('#table-data-akun').hide();
+
+            $('.finish-btn').click(function(){
+                if($value == "") {
+                    alert('Harap pilih salah satu untuk input akun')
+                    return;
+                }
+                
+                $('#form-wizard-area').hide();
+                $('#table-data-akun').show();
+
+                if($value === "0") {
+                    $('#tambah-akun').hide();
+                } else {
+                    $('#tambah-akun').show();
+                }
+            })
 
             $('#btn-register-1').click(function(){
                 $('#register-1').hide();
                 $('#register-2').show();
+            });
+
+            $('#saldo-awal-jenis input:radio').click(function(){
+                var value = $(this).val();
+                $value = value;
+                if(value === "0") {
+                    $('#saldo-awal-jenis').hide();
+                    $('#custome-akun-config').show();
+                }
             })
 
             $('body').addClass('dash-contents');
