@@ -1,20 +1,37 @@
+.list-client-welcome > img {
+    margin: 0 0.5rem;
+}
+.list-client-welcome {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.image-welcome {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.image-welcome > img {
+    margin-top: -3rem;
+}
 #hubungi-welcome {
     background-color: #cee1ff;
-    padding: 8px;
-    border-radius: 40px;
+    padding: 0.5rem;
+    border-radius: 2.5rem;
     color: #1a69e7;
     border: none;
     outline: none;
-    margin: 1rem;
+    margin: 1rem 1rem 0;
 }
 #daftar-welcome {
     background-color: #0058e4;
-    padding: 8px;
-    border-radius: 40px;
+    padding: 0.5rem;
+    border-radius: 2.5rem;
     color: #fff;
     border: none;
     outline: none;
-    margin: 1rem;
+    margin: 1rem 1rem 0;
 }
 .action-welcome {
     display: flex;
@@ -22,8 +39,8 @@
 }
 #daftar-link {
     background-color: #0058e4;
-    padding: 8px;
-    border-radius: 40px;
+    padding: 0.5rem;
+    border-radius: 2.5rem;
     color: #fff;
 }
 #masuk-link:hover {
@@ -32,7 +49,7 @@
 #masuk-link {
     color: #000;
     font-weight: bold;
-    padding: 0 8px;
+    padding: 0 0.5rem;
 }
 #mainMenu2 nav > ul {
     list-style: none;
