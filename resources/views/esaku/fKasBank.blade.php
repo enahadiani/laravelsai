@@ -1,6 +1,6 @@
     <link rel="stylesheet" href="{{ asset('trans.css') }}" />
     <!-- LIST DATA -->
-    <x-list-data judul="Data Kasbank" tambah="true" :thead="array('No Bukti','Tanggal','No Dokumen','Deskripsi','Nilai','Posted','Tgl Input','Aksi')" :thwidth="array(15,15,15,20,15,10,0,10)" :thclass="array('','','','','','','','text-center')" />
+    <x-list-data judul="Data Kasbank" tambah="true" :thead="array('No Bukti','Tanggal','No Dokumen','Deskripsi','Nilai','Posting','Tgl Input','Aksi')" :thwidth="array(15,15,15,20,15,10,0,10)" :thclass="array('','','','','','','','text-center')" />
     <!-- END LIST DATA -->
     <style>
         div.inp-div-jenis > input{
@@ -23,6 +23,24 @@
         .btn-light3{
             background: #b3b3b3;
             color: white;
+        }
+        .icon-close{
+            background: #D4D4D4;
+            mask: url("{{ url('img/lock.svg') }}");
+            width: 18px;
+            height: 18px;
+        }
+        .icon-open{
+            background: #D4D4D4;
+            mask: url("{{ url('img/lock.svg') }}");
+            width: 18px;
+            height: 18px;
+        }
+        .icon-tambah{
+            background: #D4D4D4;
+            mask: url("{{ url('img/add.svg') }}");
+            width: 12px;
+            height: 12px;
         }
     </style>
     <!-- FORM INPUT -->
@@ -224,7 +242,7 @@
                                     <tbody>
                                     </tbody>
                                     </table>
-                                    <a type="button" href="#" data-id="0" title="add-row" class="add-row btn btn-light2 btn-block btn-sm"><img src="{{ url('img/add.svg') }}" width="14px" height="14px" class="mr-1"> Tambah Baris</a>
+                                    <a type="button" href="#" data-id="0" title="add-row" class="add-row btn btn-light2 btn-block btn-sm"><i class="saicon icon-tambah mr-1"></i>Tambah Baris</a>
                                 </div>
                             </div>
                         </div>
@@ -292,7 +310,7 @@
                                             <tbody>
                                             </tbody>
                                             </table>
-                                            <a type="button" href="#" data-id="0" title="add-row-dok" class="add-row-dok btn btn-light2 btn-block btn-sm"><img src="{{ url('img/add.svg') }}" width="14px" height="14px" class="mr-1"> Tambah Baris</a>
+                                            <a type="button" href="#" data-id="0" title="add-row-dok" class="add-row-dok btn btn-light2 btn-block btn-sm"><i class="saicon icon-tambah mr-1"></i>Tambah Baris</a>
                                         </div>
                                     </div>
                                 </div>
@@ -506,9 +524,16 @@
                 "data": null,
                 "render": function ( data, type, row, meta ) {
                     if(row.posted == "Close"){
-                        return '<button class="btn btn-light3 btn-full-round btn-sm">Close</button>';
+                        return `<button type="button" class="btn mb-2"  
+                                data-toggle="popover" data-placement="top"
+                                data-content="Transaksi ini telah diposting sehingga tidak dapat dirubah ataupun dihapus."><i class="saicon icon-close"></i>
+                            </button>`;
                     }else{
-                        return '<button class="btn btn-success btn-full-round btn-sm">Open</button>';
+                        return `<button type="button" class="btn mb-2"  
+                                data-toggle="popover" data-placement="top"
+                                data-content="Transaksi ini belum diposting sehingga dapat dirubah ataupun dihapus.">
+                                <i class="saicon icon-open bg-success"></i>
+                            </button>`;
                     }
                 }
             },
@@ -914,7 +939,7 @@
 
     // PREVIEW DATA
     $('#table-data tbody').on('click','td',function(e){
-        if($(this).index() != 6){
+        if($(this).index() != 6 && $(this).index() != 5){
 
             var id = $(this).closest('tr').find('td').eq(0).html();
             var posted = $(this).closest('tr').find('td').eq(5).html();

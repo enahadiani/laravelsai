@@ -122,9 +122,6 @@
 
         #app-container.sub-show-temporary .sub-menu, #app-container.menu-mobile.sub-show-temporary .sub-menu, #app-container.menu-main-hidden.menu-mobile.main-show-temporary .sub-menu {
         transform: translateX(0); }
-
-        
-    
         .modal-content
         {
             border-radius: 0.75rem !important;

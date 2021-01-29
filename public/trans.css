@@ -101,6 +101,14 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
     font-size : 0.7rem;
 }
 
+.saicon {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    background: black;
+    mask-size: cover !important;
+}
+
 .btn-light2{
     background:#F8F8F8;
     color:#D4D4D4;
@@ -113,6 +121,13 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
 .btn-light2:active{
     color: #131113;
     background-color: #d8d8d8;
+}
+
+.btn-light2:hover > i.saicon{
+    background:#131113;
+}
+.btn-light2:active > i.saicon{
+    color: #131113;
 }
 
 .custom-file-label::after{

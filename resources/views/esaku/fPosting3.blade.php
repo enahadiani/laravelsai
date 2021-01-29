@@ -20,6 +20,8 @@
                         <div class="form-group row" id="row-id" hidden>
                             <div class="col-9">
                                 <input class="form-control" type="text" id="id" name="id" readonly hidden>
+                                <input type="text" class="form-control" id="per_awal" name="per_awal">
+                                <input type="text" class="form-control" id="per_akhir" name="per_akhir">
                             </div>
                         </div>
                         <div class="form-row">
@@ -92,12 +94,12 @@
                                     <table id="table-jurnal" width="100%">
                                         <thead>
                                             <tr>
-                                                <th width="3%" id="checkbox"><input id="check-all" name="select_all" value="1" type="checkbox"></th>
-                                                <!-- <th width="12%">Status</th> -->
+                                                <th width="3%"><input name="select_all" value="1" type="checkbox"></th>
+                                                <th width="12%">Status</th>
                                                 <th width="13%">No Bukti</th>
                                                 <th width="27%">No Dokumen</th>
                                                 <th width="10%">Tanggal</th>
-                                                <th width="37">Keterangan</th>
+                                                <th width="25">Keterangan</th>
                                                 <th width="10">Form</th>
                                             </tr>
                                         </thead>
@@ -160,10 +162,6 @@
         $('.info-name_'+kode).width(width).css({'left':pos.left,'height':height});
         $('.info-name_'+kode).closest('div').find('.info-icon-hapus').removeClass('hidden');
     }
-
-    var $modul = [];
-    var $per1 = [];
-    var $per2 = [];
     
     $('#form-tambah').on('click', '.search-item2', function(){
         var id = $(this).closest('div').find('input').attr('name');
@@ -186,52 +184,87 @@
             target3 : "",
             target4 : "",
             width : ["10%","60%","15%","15%"],
-            multi: true,
-            orderby:[[0,"desc"]],
             onItemSelected: function(data){
-                var modul = "";
-                $modul = []; 
-                $per1 = []; 
-                $per2 = [];
-                for(var i=0;i<data.length;i++){
-                    if(i == 0){
-                        modul +=data[i].modul;
-                    }else{
-                        modul +=','+data[i].modul;
-                    }
-                    $modul.push(data[i].modul);
-                    $per1.push(data[i].per1);
-                    $per2.push(data[i].per2);
-                }  
-                $("#"+id).val(modul);
+                $("#"+id).val(data.modul);
+                $('#'+id).css('border-left',0);
+                $('#'+id).val(data.modul);
+                $(".info-code_"+id).text(data.modul);
+                $(".info-code_"+id).attr("title",data.keterangan);
+                $(".info-code_"+id).parents('div').removeClass('hidden');
+
+                 var width= $('#'+id).width()-$('#search_'+id).width()-10;
+                 var pos =$('#'+id).position();
+                 var height = $('#'+id).height();
+                 $('#'+id).attr('style','border-left:0;border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important');
+                 $(".info-name_"+id).width($('#'+id).width()-$('#search_'+id).width()-10).css({'left':pos.left,'height':height});
+                 $(".info-name_"+id+' span').text(data.keterangan);
+                 $(".info-name_"+id).attr("title",data.keterangan);
+                 $(".info-name_"+id).removeClass('hidden');
+                 $(".info-name_"+id).closest('div').find('.info-icon-hapus').removeClass('hidden')
+
+                $("#per_awal").val(data.per1);
+                $("#per_akhir").val(data.per2);
             }
         };
         showInpFilter(options);
     });
-    
+
+    function updateDataTableSelectAllCtrl(table){
+        var $table             = table.table().node();
+        var $chkbox_all        = $('tbody input[type="checkbox"]', $table);
+        var $chkbox_checked    = $('tbody input[type="checkbox"]:checked', $table);
+        var chkbox_select_all  = $('thead input[name="select_all"]', $table).get(0);
+
+        // If none of the checkboxes are checked
+        if($chkbox_checked.length === 0){
+            chkbox_select_all.checked = false;
+            if('indeterminate' in chkbox_select_all){
+                chkbox_select_all.indeterminate = false;
+            }
+
+        // If all of the checkboxes are checked
+        } else if ($chkbox_checked.length === $chkbox_all.length){
+            chkbox_select_all.checked = true;
+            if('indeterminate' in chkbox_select_all){
+                chkbox_select_all.indeterminate = false;
+            }
+
+        // If some of the checkboxes are checked
+        } else {
+            chkbox_select_all.checked = true;
+            if('indeterminate' in chkbox_select_all){
+                chkbox_select_all.indeterminate = true;
+            }
+        }
+    }
+
+    var rows_selected = [];
     var tablejur = $("#table-jurnal").DataTable({
         destroy: true,
         bLengthChange: false,
         sDom: 't<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
         data: [],
-        columnDefs: [
-            {
-                "targets": 0,
-                "searchable": false,
-                "orderable": false,
-                "className": 'selectall-checkbox',
-                'render': function (data, type, full, meta){
-                    return '<input type="checkbox" name="checked[]">';
-                }
+        columnDefs: [{
+            'targets': 0,
+            'searchable':false,
+            'orderable':false,
+            'className': 'dt-body-center',
+            'render': function (data, type, full, meta){
+                return '<input type="checkbox">';
             }
-        ],
-        select: {
-            style:    'multi',
-            selector: 'td:first-child'
+        }],
+        'rowCallback': function(row, data, dataIndex){
+            // Get row ID
+            var rowId = data[0];
+            // If row ID is in the list of selected row IDs
+            if($.inArray(rowId, rows_selected) !== -1){
+                $(row).find('input[type="checkbox"]').prop('checked', true);
+                $(row).addClass('selected');
+            }
         },
         columns: [
             { data: 'checkbox' },
-            // { data: 'status' },
+            { data: 'status' },
             { data: 'no_bukti' },
             { data: 'no_dokumen' },
             { data: 'tanggal' },
@@ -263,38 +296,73 @@
         }
     });
 
-    tablejur.on('select.dt deselect.dt', function (e, dt, type, indexes){
-        
-        var countSelectedRows = tablejur.rows({ selected: true }).count();
-        var countItems = tablejur.rows().count();
+     // Handle click on checkbox
+   $('#table-jurnal tbody').on('click', 'input[type="checkbox"]', function(e){
+      var $row = $(this).closest('tr');
 
-        if (countItems > 0) {
-            if (countSelectedRows == countItems){
-                $('thead .selectall-checkbox input[type="checkbox"]', this).prop('checked', true);
-            } else {
-                $('thead .selectall-checkbox input[type="checkbox"]', this).prop('checked', false);
-            }
-        }
+      // Get row data
+      var data = tablejur.row($row).data();
 
-        if (e.type === 'select') {
-            $('.selectall-checkbox input[type="checkbox"]', tablejur.rows({ selected: true }).nodes()).prop('checked', true);
-        } else {
-            $('.selectall-checkbox input[type="checkbox"]', tablejur.rows({ selected: false }).nodes()).prop('checked', false);
-        }
-    });
+      // Get row ID
+      var rowId = data[0];
 
-    tablejur.on('click', 'thead .selectall-checkbox', function() {
-        $('input[type="checkbox"]', this).trigger('click');
-    });
+      // Determine whether row ID is in the list of selected row IDs 
+      var index = $.inArray(rowId, rows_selected);
 
-    tablejur.on('click', 'thead .selectall-checkbox input[type="checkbox"]', function(e) {
-        if (this.checked) {
-            tablejur.rows().select();
-        } else {
-            tablejur.rows().deselect();
-        }
-        e.stopPropagation();
-    });
+      console.log(rows_selected);
+      // If checkbox is checked and row ID is not in list of selected row IDs
+      if(this.checked && index === -1){
+         rows_selected.push(rowId);
+
+      // Otherwise, if checkbox is not checked and row ID is in list of selected row IDs
+      } else if (!this.checked && index !== -1){
+         rows_selected.splice(index, 1);
+        //  tablejur.cell(rowId,1).data('INPROG');
+      }
+
+      if(this.checked){
+         $row.addClass('selected');
+      } else {
+         $row.removeClass('selected');
+      }
+
+      // Update state of "Select all" control
+      updateDataTableSelectAllCtrl(tablejur);
+
+      // Prevent click event from propagating to parent
+      e.stopPropagation();
+   });
+
+   // Handle click on table cells with checkboxes
+   $('#table-jur').on('click', 'tbody td, thead th:first-child', function(e){
+      $(this).parent().find('input[type="checkbox"]').trigger('click');
+   });
+
+   // Handle click on "Select all" control
+   $('thead input[name="select_all"]', tablejur.table().container()).on('click', function(e){
+      if(this.checked){
+        tablejur.rows().every(function (index, element) {
+            var row = tablejur.cell(index,1);
+            row.data('POSTING').draw();
+        });
+         $('tbody input[type="checkbox"]:not(:checked)', tablejur.table().container()).trigger('click');
+      } else {
+        tablejur.rows().every(function (index, element) {
+                var row = tablejur.cell(index,1);
+                row.data('INPROG').draw();
+            });
+         $('tbody input[type="checkbox"]:checked', tablejur.table().container()).trigger('click');
+      }
+
+      // Prevent click event from propagating to parent
+      e.stopPropagation();
+   });
+
+   // Handle table draw event
+   tablejur.on('draw', function(){
+      // Update state of "Select all" control
+      updateDataTableSelectAllCtrl(tablejur);
+   });
     
     $("#searchData_table-jurnal").on("keyup", function (event) {
         tablejur.search($(this).val()).draw();
@@ -311,15 +379,12 @@
 
     $('#form-tambah').on('click', '#loadData', function(){
         var formData = new FormData();
-        $.each($modul, function(i, val){
-            formData.append('modul[]', $modul[i]);
-            formData.append('per1[]', $per1[i]);
-            formData.append('per2[]', $per2[i]);
-        });
-        // for(var pair of formData.entries()) {
-        //     console.log(pair[0]+ ', '+ pair[1]); 
-        // }
-        
+        var modul = $('#modul').val();
+        var per1 = $('#per_awal').val();
+        var per2 = $('#per_akhir').val();
+        formData.append('modul[]',modul);
+        formData.append('per1[]',per1);
+        formData.append('per2[]',per2);
         $.ajax({
             type: 'POST',
             url: "{{ url('esaku-trans/loadJurnal') }}",
@@ -330,8 +395,8 @@
             cache: false,
             processData: false, 
             success:function(result){
-                tablejur.clear().draw();
                 if(result.data.status){
+                    tablejur.clear().draw();
                     if(typeof result.data.data !== 'undefined' && result.data.data.length>0){
                         tablejur.rows.add(result.data.data).draw(false);
                         activaTab("trans");
@@ -344,12 +409,12 @@
         });
     });
 
-    // $('#form-tambah').on('click', '#postAll', function(){
-    //     tablejur.rows().every(function (index, element) {
-    //         var row = tablejur.cell(index,1);
-    //         row.data('POSTING').draw().select();
-    //     });
-    // });
+    $('#form-tambah').on('click', '#postAll', function(){
+        tablejur.rows().every(function (index, element) {
+            var row = tablejur.cell(index,1);
+            row.data('POSTING').draw().select();
+        });
+    });
 
     $('#form-tambah').validate({
         ignore: [],
@@ -368,63 +433,77 @@
             var url = "{{ url('esaku-trans/posting') }}";
 
             var formData = new FormData(form);
-            var data = [];
-            var selected = tablejur.rows('.selected').data();
-            if(selected.length === 0) {
-                msgDialog({
-                    id: '-',
-                    type: 'warning',
-                    title: 'Gagal',
-                    text: 'Tidak ada transaksi jurnal yang dipilih'
-                });
-            }
-            $.each(selected, function(i, val){
-                formData.append('no_bukti[]', selected[i].no_bukti)
-                formData.append('form[]', selected[i].form)
-            });
-            
-            for(var pair of formData.entries()) {
-                console.log(pair[0]+ ', '+ pair[1]); 
-            }
-            $.ajax({
-                type: 'POST', 
-                url: url,
-                dataType: 'json',
-                data: formData,
-                async:false,
-                contentType: false,
-                cache: false,
-                processData: false, 
-                success:function(result){
-                    if(result.data.status){
-                        msgDialog({
-                            id:result.data.no_bukti,
-                            type:'sukses',
-                            text: result.data.message
-                        });
-                        activaTab("trans");
-                        $('#form-tambah #loadData').click();
-                        $('#error_space').text('');
-                    }else if(!result.data.status && result.data.message === "Unauthorized"){
-                        
-                        window.location.href = "{{ url('/esaku-auth/sesi-habis') }}";
-                        
-                    }else{
-                        msgDialog({
-                            id: id,
-                            type: 'sukses',
-                            title: 'Error',
-                            text: result.data.message
-                        });
-                        
-                        $('#error_space').text(result.data.message);
-                        activaTab("error");
-                    }
-                },
-                fail: function(xhr, textStatus, errorThrown){
-                    alert('request failed:'+textStatus);
+            // for(var pair of formData.entries()) {
+            //     console.log(pair[0]+ ', '+ pair[1]); 
+            // }
+
+            var data = tablejur.data();
+            console.log(data);
+
+            var tempData = []; 
+            var i=0;
+            var isAda = false
+
+            $.each( data, function( key, value ) {
+                if(value.status.toUpperCase() == "POSTING"){
+                    formData.append('status[]',value.status);
+                    formData.append('no_bukti[]',value.no_bukti);
+                    formData.append('form[]',value.form);
+                    console.log(value);
+                    // if(value.status == "POSTING"){
+                    //     isAda = true;
+                    // }
                 }
             });
+
+            // if(data.length <= 0 || !isAda){
+            //     msgDialog({
+            //         id:'-',
+            //         type:'warning',
+            //         text: "Transaksi tidak valid. Tidak ada transaksi dengan status POSTING."
+            //     });
+            //     return false;
+            // }else{
+            //     $.ajax({
+            //         type: 'POST', 
+            //         url: url,
+            //         dataType: 'json',
+            //         data: formData,
+            //         async:false,
+            //         contentType: false,
+            //         cache: false,
+            //         processData: false, 
+            //         success:function(result){
+            //             if(result.data.status){
+            //                 msgDialog({
+            //                     id:result.data.no_bukti,
+            //                     type:'sukses',
+            //                     text: result.data.message
+            //                 });
+            //                 activaTab("trans");
+            //                 $('#form-tambah #loadData').click();
+            //                 $('#error_space').text('');
+            //             }else if(!result.data.status && result.data.message === "Unauthorized"){
+                        
+            //                 window.location.href = "{{ url('/esaku-auth/sesi-habis') }}";
+                            
+            //             }else{
+            //                 msgDialog({
+            //                     id: id,
+            //                     type: 'sukses',
+            //                     title: 'Error',
+            //                     text: result.data.message
+            //                 });
+                            
+            //                 $('#error_space').text(result.data.message);
+            //                 activaTab("error");
+            //             }
+            //         },
+            //         fail: function(xhr, textStatus, errorThrown){
+            //             alert('request failed:'+textStatus);
+            //         }
+            //     });
+            // }
         },
         errorPlacement: function (error, element) {
             var id = element.attr("id");
