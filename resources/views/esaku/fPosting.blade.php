@@ -377,6 +377,7 @@
                     title: 'Gagal',
                     text: 'Tidak ada transaksi jurnal yang dipilih'
                 });
+                return false;
             }
             $.each(selected, function(i, val){
                 formData.append('no_bukti[]', selected[i].no_bukti)

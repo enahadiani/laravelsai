@@ -235,7 +235,7 @@ function showInpFilter(settings){
                 lengthMenu: "Items Per Page _MENU_"
             },
             "columnDefs": [{
-                "targets": settings.header, "data": null, "defaultContent": "<a class='hapus-item'><i class='simple-icon-trash' style='font-size:18px'></i></a>"
+                "targets": settings.header.length, "data": null, "defaultContent": "<a class='hapus-item'><i class='simple-icon-trash' style='font-size:18px'></i></a>"
             }]
         });
         searchTable2.columns.adjust().draw();
@@ -258,7 +258,7 @@ function showInpFilter(settings){
             searchTable2.row( $(this).parents('tr') ).remove().draw();
             var rowIndexes = [];
             searchTable.rows( function ( idx, data, node ) {             
-                if(data[kunci] === kode){
+                if(data[settings.id] === kode){
                     rowIndexes.push(idx);                  
                 }
                 return false;
