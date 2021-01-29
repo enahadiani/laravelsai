@@ -515,6 +515,7 @@
     </main>
     <script>
         $(document).ready(function() {
+            localStorage.setItem('dore-theme-color', 'dore.light.blueyale.min.css');
             var $value = "";
             $('#register-1').show();
             $('#register-2').hide();
