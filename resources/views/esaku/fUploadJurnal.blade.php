@@ -60,7 +60,6 @@
                                                 <th>Akun Debet</th>
                                                 <th>Akun Kredit</th>
                                                 <th>Nilai</th>
-                                                <th>Periode</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -178,15 +177,18 @@ var dataTable = generateTableWithoutAjax(
     "table-upload",
     [
         {
-            'targets': [1,2],
+            'targets': [5],
             'className': 'text-right',
             'render': $.fn.dataTable.render.number( '.', ',', 0, '' )
         }
     ],
     [
-        { data : 'kode_akun'},
-        { data : 'debet'},
-        { data : 'kredit'}
+        { data : 'tanggal'},
+        { data : 'no_bukti'},
+        { data : 'keterangan'},
+        { data : 'akun_debet'},
+        { data : 'akun_kredit'},
+        { data : 'nilai'}
     ],
     []
 );
