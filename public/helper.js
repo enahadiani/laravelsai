@@ -158,7 +158,22 @@ function showInpFilter(settings){
         <button class='btn btn-primary float-right' id='btn-ok'>OK</button>`;
         $('#modal-search .modal-header').css('padding-bottom','0');
         $('#modal-search .modal-header ul').removeClass('hidden');
-    }else{
+    }
+    else if(settings.multi2 != undefined){
+        var headerpilih_html = '';
+        headerpilih_html +=  "<th style='width:5%' id='checkbox_search'><input id='check-all_search' name='select_all_search' value='1' type='checkbox'></th>";
+        for(i=0; i<header.length; i++){
+            headerpilih_html +=  "<th style='width:"+width[i]+"'>"+header[i]+"</th>";
+        }
+        var table = `<table class='' width='100%' id='table-search'><thead><tr>`+headerpilih_html+`</tr></thead>
+        <tbody></tbody></table>
+        <button class='btn btn-primary float-right' id='btn-ok'>OK</button>`;
+        if(!$('#modal-search .modal-header ul').hasClass('hidden')){
+            $('#modal-search .modal-header ul').addClass('hidden');
+            $('#modal-search .modal-header').css('padding-bottom','1.75rem');
+        }
+    }
+    else{
 
         var table = "<table class='' width='100%' id='table-search'><thead><tr>"+header_html+"</tr></thead>";
         if(!$('#modal-search .modal-header ul').hasClass('hidden')){
@@ -170,41 +185,130 @@ function showInpFilter(settings){
 
     $('#modal-search .modal-body').html(table);
 
-    var searchTable = $("#table-search").DataTable({
-        sDom: '<"row view-filter"<"col-sm-12"<f>>>t<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
-        ajax: {
-            "url": toUrl,
-            "data": parameter,
-            "type": "GET",
-            "async": false,
-            "dataSrc" : function(json) {
-                return json.daftar;
-            }
-        },
-        columns: columns,
-        drawCallback: function () {
-            $($(".dataTables_wrapper .pagination li:first-of-type"))
-                .find("a")
-                .addClass("prev");
-            $($(".dataTables_wrapper .pagination li:last-of-type"))
-                .find("a")
-                .addClass("next");
-
-            $(".dataTables_wrapper .pagination").addClass("pagination-sm");
-        },
-        language: {
-            paginate: {
-                previous: "<i class='simple-icon-arrow-left'></i>",
-                next: "<i class='simple-icon-arrow-right'></i>"
+    if(settings.multi2 != undefined){
+        var searchTable = $("#table-search").DataTable({
+            sDom: '<"row view-filter"<"col-sm-12"<f>>>t<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
+            ajax: {
+                "url": toUrl,
+                "data": parameter,
+                "type": "GET",
+                "async": false,
+                "dataSrc" : function(json) {
+                    return json.daftar;
+                }
             },
-            search: "_INPUT_",
-            searchPlaceholder: "Search...",
-            lengthMenu: "Items Per Page _MENU_",
-            info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
-            infoEmpty: "Menampilkan 0 sampai 0 dari 0 entri",
-            infoFiltered: "(terfilter dari _MAX_ total entri)"
-        },
-    });
+            columnDefs: [
+                {
+                    "targets": 0,
+                    "searchable": false,
+                    "orderable": false,
+                    "className": 'selectall-checkbox_search',
+                    'render': function (data, type, full, meta){
+                        return '<input type="checkbox" name="checked_search[]">';
+                    }
+                }
+            ],
+            select: {
+                style:    'multi',
+                selector: 'td:first-child'
+            },
+            columns: columns,
+            drawCallback: function () {
+                $($(".dataTables_wrapper .pagination li:first-of-type"))
+                    .find("a")
+                    .addClass("prev");
+                $($(".dataTables_wrapper .pagination li:last-of-type"))
+                    .find("a")
+                    .addClass("next");
+    
+                $(".dataTables_wrapper .pagination").addClass("pagination-sm");
+            },
+            language: {
+                paginate: {
+                    previous: "<i class='simple-icon-arrow-left'></i>",
+                    next: "<i class='simple-icon-arrow-right'></i>"
+                },
+                search: "_INPUT_",
+                searchPlaceholder: "Search...",
+                lengthMenu: "Items Per Page _MENU_",
+                info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
+                infoEmpty: "Menampilkan 0 sampai 0 dari 0 entri",
+                infoFiltered: "(terfilter dari _MAX_ total entri)"
+            },
+        });
+
+        searchTable.on('select.dt deselect.dt', function (e, dt, type, indexes){
+        
+            var countSelectedRows = searchTable.rows({ selected: true }).count();
+            var countItems = searchTable.rows().count();
+    
+            if (countItems > 0) {
+                if (countSelectedRows == countItems){
+                    $('thead .selectall-checkbox_search input[type="checkbox"]', this).prop('checked', true);
+                } else {
+                    $('thead .selectall-checkbox_search input[type="checkbox"]', this).prop('checked', false);
+                }
+            }
+    
+            if (e.type === 'select') {
+                $('.selectall-checkbox_search input[type="checkbox"]', searchTable.rows({ selected: true }).nodes()).prop('checked', true);
+            } else {
+                $('.selectall-checkbox_search input[type="checkbox"]', searchTable.rows({ selected: false }).nodes()).prop('checked', false);
+            }
+        });
+    
+        searchTable.on('click', 'thead .selectall-checkbox_search', function() {
+            $('input[type="checkbox"]', this).trigger('click');
+        });
+    
+        searchTable.on('click', 'thead .selectall-checkbox_search input[type="checkbox"]', function(e) {
+            if (this.checked) {
+                searchTable.rows().select();
+            } else {
+                searchTable.rows().deselect();
+            }
+            e.stopPropagation();
+        });
+
+    }else{
+
+        var searchTable = $("#table-search").DataTable({
+            sDom: '<"row view-filter"<"col-sm-12"<f>>>t<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
+            ajax: {
+                "url": toUrl,
+                "data": parameter,
+                "type": "GET",
+                "async": false,
+                "dataSrc" : function(json) {
+                    return json.daftar;
+                }
+            },
+            columns: columns,
+            drawCallback: function () {
+                $($(".dataTables_wrapper .pagination li:first-of-type"))
+                    .find("a")
+                    .addClass("prev");
+                $($(".dataTables_wrapper .pagination li:last-of-type"))
+                    .find("a")
+                    .addClass("next");
+    
+                $(".dataTables_wrapper .pagination").addClass("pagination-sm");
+            },
+            language: {
+                paginate: {
+                    previous: "<i class='simple-icon-arrow-left'></i>",
+                    next: "<i class='simple-icon-arrow-right'></i>"
+                },
+                search: "_INPUT_",
+                searchPlaceholder: "Search...",
+                lengthMenu: "Items Per Page _MENU_",
+                info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
+                infoEmpty: "Menampilkan 0 sampai 0 dari 0 entri",
+                infoFiltered: "(terfilter dari _MAX_ total entri)"
+            },
+        });
+    }
+
 
     $('#modal-search .modal-title').html(judul);
     $('#modal-search').modal('show');
@@ -288,7 +392,32 @@ function showInpFilter(settings){
             $($target2).closest('div').find('.info-icon-hapus').removeClass('hidden');
             $('#modal-search').modal('hide');
         });
-    }else{
+    }
+    else if(settings.multi2 != undefined){
+        $('#modal-search').on('click','#btn-ok',function(){
+            var datain = searchTable.rows({ selected: true }).data();
+            if (settings.onItemSelected != undefined){
+                if (typeof settings.onItemSelected === "function") {
+                    settings.onItemSelected.call(this, datain);
+                }
+            }else{
+                var kode = '';
+                var nama = '';
+                for(var i=0;i<datain.length;i++){
+                    if(i == 0){
+                        kode +=datain[i];
+                    }else{
+                        kode +=','+datain[i];
+                    }
+                }   
+                $($target).val(kode);
+                $($target).trigger('change');
+            }
+            $($target2).closest('div').find('.info-icon-hapus').removeClass('hidden');
+            $('#modal-search').modal('hide');
+        });
+    }
+    else{
         if (settings.onItemSelected != undefined) {
                 
             $('#table-search tbody').on('click', 'tr', function () {

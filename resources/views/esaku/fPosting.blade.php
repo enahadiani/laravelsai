@@ -175,6 +175,7 @@
             header : ['Modul', 'Keterangan','Periode Awal','Periode Akhir'],
             url : "{{ url('esaku-trans/modultrans') }}",
             columns : [
+                { data: 'checkbox' },
                 { data: 'modul' },
                 { data: 'keterangan' },
                 { data: 'per1' },
@@ -188,8 +189,8 @@
             target2 : ".info-name_"+id,
             target3 : "",
             target4 : "",
-            width : ["10%","60%","15%","15%"],
-            multi: true,
+            width : ["10%","55%","15%","15%"],
+            multi2: true,
             orderby:[[0,"desc"]],
             onItemSelected: function(data){
                 var modul = "";
