@@ -1435,7 +1435,45 @@
         setTimeout(function() {  $(target).parents("tr").find(".inp-nama_pp").focus(); }, 100);
     }
 
-    $('#input-dok').on('click', '.search-item', function(){
+    $('#form-tambah #input-dok').on('click', '.search-item', function(){
+        var par = $(this).closest('td').find('input').attr('name');
+        
+        var tmp = $(this).closest('tr').find('input[name="'+par+'"]').attr('class');
+        var tmp2 = tmp.split(" ");
+        target1 = tmp2[2];
+
+        var tmp = $(this).closest('tr').find('input[name="nama_dok[]"]').attr('class');
+        var tmp2 = tmp.split(" ");
+        target2 = tmp2[2];
+        console.log(par,target1,target2)
+        
+        switch(par){
+            case 'jenis[]': 
+                var options = { 
+                    id : par,
+                    header : ['Kode', 'Nama'],
+                    url : "{{ url('esaku-master/dok-jenis') }}",
+                    columns : [
+                        { data: 'kode_jenis' },
+                        { data: 'nama' }
+                    ],
+                    judul : "Daftar Jenis Dokumen",
+                    pilih : "jenis",
+                    jTarget1 : "val",
+                    jTarget2 : "val",
+                    target1 : "."+target1,
+                    target2 : "."+target2,
+                    target3 : "",
+                    target4 : "",
+                    width : ["30%","70%"]
+                };
+            break;
+        }
+        showInpFilter(options);
+
+    });
+
+    $('#form-upload #input-dok').on('click', '.search-item', function(){
         var par = $(this).closest('td').find('input').attr('name');
         
         var tmp = $(this).closest('tr').find('input[name="'+par+'"]').attr('class');
