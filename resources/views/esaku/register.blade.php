@@ -199,7 +199,7 @@
             margin-left: 2px;
         }
         .btn-light.btn-register {
-            background-color: #000;
+            background-color: #0058e4;
             color: #fff;
             outline: none !important;
             box-shadow: none !important;
@@ -209,10 +209,10 @@
             height: 450px;
         }
         .sw-main.sw-theme-check>ul.step-anchor>li.active>a:after {
-            background: #000 !important;
+            background: #0058e4 !important;
         }
         .sw-main>ul.step-anchor>li.active>a {
-            color: #000 !important;
+            color: #0058e4 !important;
         }
         @media (max-width: 991px) {
             .auth-card .image-side {
@@ -220,7 +220,8 @@
                 padding: 30px; }
             .auth-card .form-side {
                 width: 100%;
-                padding: 30px; } }
+                padding: 30px; } 
+        }
         
     </style>
 
@@ -280,14 +281,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-12 col-sm-12">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="status-wa" name="statusWa">
-                                            <label class="custom-control-label" for="status-wa">Whatsapp aktif</label>
-                                        </div>
-                                    </div>
-                                </div>
                                 <div class="form-row mt-1">
                                     <div class="form-group col-md-12 col-sm-12">
                                         <div class="row">
@@ -295,6 +288,14 @@
                                                 <label for="telp">No. Telp</label>
                                                 <input class="form-control" type="text" id="telp" name="telp">
                                             </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row" style="margin-top: -0.5rem;">
+                                    <div class="form-group col-md-12 col-sm-12">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="status-wa" name="statusWa">
+                                            <label class="custom-control-label" for="status-wa">Whatsapp aktif</label>
                                         </div>
                                     </div>
                                 </div>
