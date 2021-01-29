@@ -38,63 +38,36 @@
                             </div>
                             <div class="form-group col-md-6 col-sm-12">
                                 <div class="row">
-                                    <div class="col-md-12 col-12 text-right">
+                                    <div class="col-md-6">
+                                        <label for="modul" >Modul</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                                <span class="input-group-text info-code_modul" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                            </div>
+                                            <input type="text" class="form-control inp-label-modul" id="modul" name="modul" value="" title="" readonly required>
+                                            <span class="info-name_modul hidden">
+                                                <span></span> 
+                                            </span>
+                                            <i class="simple-icon-close float-right info-icon-hapus hidden" style="background: none;"></i>
+                                            <i class="simple-icon-magnifier search-item2" id="search_modul" style="background: none;"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-12">
                                         <label for="btn-control">&nbsp;</label>
                                         <div id="btn-control">
-                                            <button type="button" href="#" id="loadData" class="btn btn-primary mr-2">Load Data</button>
-                                            <button type="button" href="#" id="postAll" class="btn btn-primary">UnPosting All</button>
+                                            <button type="button" href="#" id="loadData" class="btn btn-primary mr-2">Tampil</button>
+                                            <!-- <button type="button" href="#" id="postAll" class="btn btn-primary">Posting All</button> -->
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <ul class="nav nav-tabs col-12 " role="tablist">
-                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#modul" role="tab" aria-selected="true"><span class="hidden-xs-down">Modul</span></a> </li>
-                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#trans" role="tab" aria-selected="false"><span class="hidden-xs-down">Data Transaksi Modul</span></a> </li>
+                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#trans" role="tab" aria-selected="false"><span class="hidden-xs-down">Data Transaksi</span></a> </li>
                             <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#error" role="tab" aria-selected="false"><span class="hidden-xs-down">Pesan Error</span></a> </li>
                         </ul>
                         <div class="tab-content tabcontent-border">
-                            <div class="tab-pane active mt-2" id="modul" role="tabpanel">
-                                <p style='font-size:9px !important;font-weight:bold;margin-bottom:0'><i>* Klik status untuk merubah status</i></p>
-                                <div class="row">
-                                    <div class="dataTables_length col-sm-12" id="table-modul_length"></div>
-                                    <div class="d-block d-md-inline-block float-left col-md-6 col-sm-12">
-                                        <div class="page-countdata">
-                                            <label>Menampilkan 
-                                            <select style="border:none" id="page-count_table-modul">
-                                            <option value="10">10 per halaman</option>
-                                            <option value="25">25 per halaman</option>
-                                            <option value="50">50 per halaman</option>
-                                            <option value="100">100 per halaman</option>
-                                            </select>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2"></div>
-                                    <div class="d-block d-md-inline-block float-right col-md-4 col-sm-12">
-                                        <input type="text" class="form-control" placeholder="Search..."
-                                        aria-label="Search..." aria-describedby="filter-btn" id="searchData_table-modul" style="height: 31px;">
-                                    </div>
-                                </div>
-                                <div class='col-xs-12 px-0'>
-                                    <table id="table-modul" width="100%">
-                                        <thead>
-                                            <tr>
-                                                <th width="5%">No</th>
-                                                <th width="15%">Status</th>
-                                                <th width="20%">Modul</th>
-                                                <th width="35%">Deskripsi</th>
-                                                <th width="15%">Periode 1</th>
-                                                <th width="15">Periode 2</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <div class="tab-pane mt-2" id="trans" role="tabpanel">
-                                <p style='font-size:9px !important;font-weight:bold;margin-bottom:0'><i>* Klik status untuk merubah status</i></p>
+                            <div class="tab-pane active mt-2" id="trans" role="tabpanel">
                                 <div class="row">
                                     <div class="dataTables_length col-sm-12" id="table-jurnal_length"></div>
                                     <div class="d-block d-md-inline-block float-left col-md-6 col-sm-12">
@@ -119,12 +92,12 @@
                                     <table id="table-jurnal" width="100%">
                                         <thead>
                                             <tr>
-                                                <th width="3%">No</th>
-                                                <th width="12%">Status</th>
+                                                <th width="3%" id="checkbox"><input id="check-all" name="select_all" value="1" type="checkbox"></th>
+                                                <!-- <th width="12%">Status</th> -->
                                                 <th width="13%">No Bukti</th>
                                                 <th width="27%">No Dokumen</th>
                                                 <th width="10%">Tanggal</th>
-                                                <th width="25">Keterangan</th>
+                                                <th width="37">Keterangan</th>
                                                 <th width="10">Form</th>
                                             </tr>
                                         </thead>
@@ -143,7 +116,7 @@
         </div>
     </form>
     <!-- FORM INPUT  --> 
-    
+    @include('modal_search')
     <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
     <script src="{{ asset('helper.js') }}"></script>
     <script>
@@ -154,6 +127,9 @@
         }
     });
 
+    var scrollform = document.querySelector('.form-body');
+    var psscrollform = new PerfectScrollbar(scrollform);
+
     $("input.datepicker").datepicker({
         autoclose: true,
         format: 'dd/mm/yyyy',
@@ -162,94 +138,166 @@
             rightArrow: '<i class="simple-icon-arrow-right"></i>'
         }
     });
+
+    $('.info-icon-hapus').click(function(){
+        var par = $(this).closest('div').find('input').attr('name');
+        $('#'+par).val('');
+        $(this).addClass('hidden');
+        $modul = [];
+        $per1 = [];
+        $per2 = [];
+    });
+
+    function showInfoField(kode,isi_kode,isi_nama){
+        $('#'+kode).val(isi_kode);
+        $('#'+kode).attr('style','border-left:0;border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important');
+        $('.info-code_'+kode).text(isi_kode).parent('div').removeClass('hidden');
+        $('.info-code_'+kode).attr('title',isi_nama);
+        $('.info-name_'+kode).removeClass('hidden');
+        $('.info-name_'+kode).attr('title',isi_nama);
+        $('.info-name_'+kode+' span').text(isi_nama);
+        var width = $('#'+kode).width()-$('#search_'+kode).width()-10;
+        var height =$('#'+kode).height();
+        var pos =$('#'+kode).position();
+        $('.info-name_'+kode).width(width).css({'left':pos.left,'height':height});
+        $('.info-name_'+kode).closest('div').find('.info-icon-hapus').removeClass('hidden');
+    }
+
+    var $modul = [];
+    var $per1 = [];
+    var $per2 = [];
     
-    var t = generateTable(
-        "table-modul",
-        "{{ url('esaku-trans/modultrans') }}", 
-        [
-            {
-                "searchable": false,
-                "orderable": false,
-                "targets": 0
-            },
-            {'targets': 1, data: 'TRUE', 'defaultContent': 'TRUE',
-                createdCell: function (td, cellData, rowData, row, col) {
-                    if ( cellData === 'TRUE' ) {
-                        $(td).addClass('selected');
+    $('#form-tambah').on('click', '.search-item2', function(){
+        var id = $(this).closest('div').find('input').attr('name');
+        var options = {
+            id : id,
+            header : ['Modul', 'Keterangan','Periode Awal','Periode Akhir'],
+            url : "{{ url('esaku-trans/modultrans') }}",
+            columns : [
+                { data: 'modul' },
+                { data: 'keterangan' },
+                { data: 'per1' },
+                { data: 'per2' }
+            ],
+            judul : "Daftar Modul",
+            pilih : "modul",
+            jTarget1 : "text",
+            jTarget2 : "text",
+            target1 : ".info-code_"+id,
+            target2 : ".info-name_"+id,
+            target3 : "",
+            target4 : "",
+            width : ["10%","60%","15%","15%"],
+            multi: true,
+            orderby:[[0,"desc"]],
+            onItemSelected: function(data){
+                var modul = "";
+                $modul = []; 
+                $per1 = []; 
+                $per2 = [];
+                for(var i=0;i<data.length;i++){
+                    if(i == 0){
+                        modul +=data[i].modul;
                     }else{
-                        $(td).removeClass('selected');
+                        modul +=','+data[i].modul;
                     }
-                } 
+                    $modul.push(data[i].modul);
+                    $per1.push(data[i].per1);
+                    $per2.push(data[i].per2);
+                }  
+                $("#"+id).val(modul);
             }
-        ],
-        [
-            { data: 'no' },
-            { data: 'status' },
-            { data: 'modul' },
-            { data: 'keterangan' },
-            { data: 'per1' },
-            { data: 'per2' }
-        ],
-        "{{ url('esaku-auth/sesi-habis') }}",
-        [[2 ,"asc"]]
-    );
- 
-    t.on( 'order.dt search.dt', function () {
-        t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
-            cell.innerHTML = i+1;
-        });
-    } ).draw();
+        };
+        showInpFilter(options);
+    });
     
-    $("#searchData_table-modul").on("keyup", function (event) {
-        t.search($(this).val()).draw();
-    });
-
-    $("#page-count_table-modul").on("change", function (event) {
-        var selText = $(this).val();
-        t.page.len(parseInt(selText)).draw();
-    });
-
-
-    $('#table-modul tbody').on('click', 'td', function () {
-        var cell = t.cell( this );
-        if(cell.data() == 'TRUE'){
-            var isi = 'FALSE';
-            $(this).removeClass('selected');
-        }else if(cell.data() == 'FALSE'){
-            var isi = 'TRUE';
-            $(this).addClass('selected');
-        }
-        cell.data(isi).draw();
-    });
-
-    var tablejur = generateTableWithoutAjax(
-        "table-jurnal",
-        [
+    var tablejur = $("#table-jurnal").DataTable({
+        destroy: true,
+        bLengthChange: false,
+        sDom: 't<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
+        data: [],
+        columnDefs: [
             {
+                "targets": 0,
                 "searchable": false,
                 "orderable": false,
-                "targets": 0
+                "className": 'selectall-checkbox',
+                'render': function (data, type, full, meta){
+                    return '<input type="checkbox" name="checked[]">';
+                }
             }
         ],
-        [
-            { data: 'no' },
-            { data: 'status' },
+        select: {
+            style:    'multi',
+            selector: 'td:first-child'
+        },
+        columns: [
+            { data: 'checkbox' },
+            // { data: 'status' },
             { data: 'no_bukti' },
             { data: 'no_dokumen' },
             { data: 'tanggal' },
             { data: 'keterangan' },
             { data: 'form' }
         ],
-        [],
-        [[2, "asc"]]
-    );
-    
-    tablejur.on( 'order.dt search.dt', function () {
-        tablejur.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
-            cell.innerHTML = i+1;
-        } );
-    }).draw();
+        order:[],
+        drawCallback: function () {
+            $($(".dataTables_wrapper .pagination li:first-of-type"))
+                .find("a")
+                .addClass("prev");
+            $($(".dataTables_wrapper .pagination li:last-of-type"))
+                .find("a")
+                .addClass("next");
 
+            $(".dataTables_wrapper .pagination").addClass("pagination-sm");
+        },
+        language: {
+            paginate: {
+                previous: "<i class='simple-icon-arrow-left'></i>",
+                next: "<i class='simple-icon-arrow-right'></i>"
+            },
+            search: "_INPUT_",
+            searchPlaceholder: "Search...",
+            lengthMenu: "Items Per Page _MENU_",
+            info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
+            infoEmpty: "Menampilkan 0 sampai 0 dari 0 entri",
+            infoFiltered: "(terfilter dari _MAX_ total entri)"
+        }
+    });
+
+    tablejur.on('select.dt deselect.dt', function (e, dt, type, indexes){
+        
+        var countSelectedRows = tablejur.rows({ selected: true }).count();
+        var countItems = tablejur.rows().count();
+
+        if (countItems > 0) {
+            if (countSelectedRows == countItems){
+                $('thead .selectall-checkbox input[type="checkbox"]', this).prop('checked', true);
+            } else {
+                $('thead .selectall-checkbox input[type="checkbox"]', this).prop('checked', false);
+            }
+        }
+
+        if (e.type === 'select') {
+            $('.selectall-checkbox input[type="checkbox"]', tablejur.rows({ selected: true }).nodes()).prop('checked', true);
+        } else {
+            $('.selectall-checkbox input[type="checkbox"]', tablejur.rows({ selected: false }).nodes()).prop('checked', false);
+        }
+    });
+
+    tablejur.on('click', 'thead .selectall-checkbox', function() {
+        $('input[type="checkbox"]', this).trigger('click');
+    });
+
+    tablejur.on('click', 'thead .selectall-checkbox input[type="checkbox"]', function(e) {
+        if (this.checked) {
+            tablejur.rows().select();
+        } else {
+            tablejur.rows().deselect();
+        }
+        e.stopPropagation();
+    });
+    
     $("#searchData_table-jurnal").on("keyup", function (event) {
         tablejur.search($(this).val()).draw();
     });
@@ -264,20 +312,26 @@
     }
 
     $('#form-tambah').on('click', '#loadData', function(){
-        var data = t.data();
         var formData = new FormData();
-        
-        var tempData = []; 
-        var i=0;
-        $.each( data, function( key, value ) {
-            if(value.status.toUpperCase() == "TRUE"){
-
-                formData.append('modul[]',value.modul);
-                formData.append('per1[]',value.per1);
-                formData.append('per2[]',value.per2);
-                formData.append('status[]',value.status);
-            }
+        if($modul.length == 0){
+            msgDialog({
+                id: '-',
+                type: 'warning',
+                title: 'Peringatan',
+                text: 'Modul wajib diisi'
+            });
+            tablejur.clear().draw();
+            return false;
+        }
+        $.each($modul, function(i, val){
+            formData.append('modul[]', $modul[i]);
+            formData.append('per1[]', $per1[i]);
+            formData.append('per2[]', $per2[i]);
         });
+        // for(var pair of formData.entries()) {
+        //     console.log(pair[0]+ ', '+ pair[1]); 
+        // }
+        
         $.ajax({
             type: 'POST',
             url: "{{ url('esaku-trans/unposting-jurnal') }}",
@@ -288,8 +342,8 @@
             cache: false,
             processData: false, 
             success:function(result){
+                tablejur.clear().draw();
                 if(result.data.status){
-                    tablejur.clear().draw();
                     if(typeof result.data.data !== 'undefined' && result.data.data.length>0){
                         tablejur.rows.add(result.data.data).draw(false);
                         activaTab("trans");
@@ -302,24 +356,12 @@
         });
     });
 
-    $('#form-tambah').on('click', '#postAll', function(){
-        tablejur.rows().every(function (index, element) {
-            var row = tablejur.cell(index,1);
-            row.data('UNPOSTING').draw().select();
-        });
-    });
-
-    $('#table-jurnal tbody').on('click', 'td', function () {
-        var cell = tablejur.cell( this );
-        if(cell.data() == 'UNPOSTING'){
-            $(this).removeClass('selected');
-            var isi = 'INPROG';
-        }else if(cell.data() == 'INPROG'){
-            $(this).addClass('selected');
-            var isi = 'UNPOSTING';
-        }
-        cell.data(isi).draw();
-    });
+    // $('#form-tambah').on('click', '#postAll', function(){
+    //     tablejur.rows().every(function (index, element) {
+    //         var row = tablejur.cell(index,1);
+    //         row.data('POSTING').draw().select();
+    //     });
+    // });
 
     $('#form-tambah').validate({
         ignore: [],
@@ -338,75 +380,64 @@
             var url = "{{ url('esaku-trans/unposting') }}";
 
             var formData = new FormData(form);
+            var data = [];
+            var selected = tablejur.rows('.selected').data();
+            if(selected.length === 0) {
+                msgDialog({
+                    id: '-',
+                    type: 'warning',
+                    title: 'Gagal',
+                    text: 'Tidak ada transaksi jurnal yang dipilih'
+                });
+                return false;
+            }
+            $.each(selected, function(i, val){
+                formData.append('no_bukti[]', selected[i].no_bukti)
+                formData.append('form[]', selected[i].form)
+            });
+            
             for(var pair of formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
-
-            var data = tablejur.data();
-
-            var tempData = []; 
-            var i=0;
-            var isAda = false
-
-            $.each( data, function( key, value ) {
-                if(value.status.toUpperCase() == "UNPOSTING"){
-                    formData.append('status[]',value.status);
-                    formData.append('no_bukti[]',value.no_bukti);
-                    formData.append('form[]',value.form);
-                    if(value.status == "UNPOSTING"){
-                        isAda = true;
+            $.ajax({
+                type: 'POST', 
+                url: url,
+                dataType: 'json',
+                data: formData,
+                async:false,
+                contentType: false,
+                cache: false,
+                processData: false, 
+                success:function(result){
+                    if(result.data.status){
+                        msgDialog({
+                            id:result.data.no_bukti,
+                            type:'sukses',
+                            text: result.data.message
+                        });
+                        activaTab("trans");
+                        $('#form-tambah #loadData').click();
+                        $('#error_space').text('');
+                    }else if(!result.data.status && result.data.message === "Unauthorized"){
+                        
+                        window.location.href = "{{ url('/esaku-auth/sesi-habis') }}";
+                        
+                    }else{
+                        msgDialog({
+                            id: id,
+                            type: 'sukses',
+                            title: 'Error',
+                            text: result.data.message
+                        });
+                        
+                        $('#error_space').text(result.data.message);
+                        activaTab("error");
                     }
+                },
+                fail: function(xhr, textStatus, errorThrown){
+                    alert('request failed:'+textStatus);
                 }
             });
-            
-            if(data.length <= 0 || !isAda){
-                msgDialog({
-                    id:'-',
-                    type:'warning',
-                    text: "Transaksi tidak valid. Tidak ada transaksi dengan status UNPOSTING."
-                });
-                return false;
-            }else{
-                $.ajax({
-                    type: 'POST', 
-                    url: url,
-                    dataType: 'json',
-                    data: formData,
-                    async:false,
-                    contentType: false,
-                    cache: false,
-                    processData: false, 
-                    success:function(result){
-                        if(result.data.status){
-                            msgDialog({
-                                id:result.data.no_bukti,
-                                type:'sukses',
-                                text: result.data.message
-                            });
-                            activaTab("trans");
-                            $('#form-tambah #loadData').click();
-                            $('#error_space').text('');
-                        }else if(!result.data.status && result.data.message === "Unauthorized"){
-                        
-                            window.location.href = "{{ url('/esaku-auth/sesi-habis') }}";
-                            
-                        }else{
-                            msgDialog({
-                                id: id,
-                                type: 'sukses',
-                                title: 'Error',
-                                text: result.data.message
-                            });
-                            
-                            $('#error_space').text(result.data.message);
-                            activaTab("error");
-                        }
-                    },
-                    fail: function(xhr, textStatus, errorThrown){
-                        alert('request failed:'+textStatus);
-                    }
-                });
-            }
         },
         errorPlacement: function (error, element) {
             var id = element.attr("id");
