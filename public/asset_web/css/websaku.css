@@ -1,0 +1,62 @@
+#hubungi-welcome {
+    background-color: #cee1ff;
+    padding: 8px;
+    border-radius: 40px;
+    color: #1a69e7;
+    border: none;
+    outline: none;
+    margin: 1rem;
+}
+#daftar-welcome {
+    background-color: #0058e4;
+    padding: 8px;
+    border-radius: 40px;
+    color: #fff;
+    border: none;
+    outline: none;
+    margin: 1rem;
+}
+.action-welcome {
+    display: flex;
+    justify-content: center;
+}
+#daftar-link {
+    background-color: #0058e4;
+    padding: 8px;
+    border-radius: 40px;
+    color: #fff;
+}
+#masuk-link:hover {
+    color: #007bff;
+}
+#masuk-link {
+    color: #000;
+    font-weight: bold;
+    padding: 0 8px;
+}
+#mainMenu2 nav > ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.header-content-2 {
+    display: flex;
+    flex-direction: row;
+    padding-right: 10rem;
+}
+.header-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.header-content-1 {
+    display: flex;
+    flex-direction: row;
+    padding-left: 10rem;
+}
+.header-content-1 .main-menu {
+    margin-top: 0.5rem;
+}
+.header-content-2 .main-menu {
+    margin-top: 0.5rem;
+}
