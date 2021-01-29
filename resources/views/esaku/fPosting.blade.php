@@ -44,12 +44,12 @@
                                             <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
                                                 <span class="input-group-text info-code_modul" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
                                             </div>
-                                            <input type="text" class="form-control inp-label-modul" id="modul" name="modul" value="" title="">
+                                            <input type="text" class="form-control inp-label-modul" id="modul" name="modul" value="" title="" readonly>
                                             <span class="info-name_modul hidden">
                                                 <span></span> 
                                             </span>
-                                            <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                            <i class="simple-icon-magnifier search-item2" id="search_modul"></i>
+                                            <i class="simple-icon-close float-right info-icon-hapus hidden" style="background: none;"></i>
+                                            <i class="simple-icon-magnifier search-item2" id="search_modul" style="background: none;"></i>
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-12 text-right">
@@ -139,10 +139,6 @@
     $('.info-icon-hapus').click(function(){
         var par = $(this).closest('div').find('input').attr('name');
         $('#'+par).val('');
-        $('#'+par).attr('readonly',false);
-        $('#'+par).attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important');
-        $('.info-code_'+par).parent('div').addClass('hidden');
-        $('.info-name_'+par).addClass('hidden');
         $(this).addClass('hidden');
     });
 

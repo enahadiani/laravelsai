@@ -285,6 +285,7 @@ function showInpFilter(settings){
                 $($target).val(kode);
                 $($target).trigger('change');
             }
+            $($target2).closest('div').find('.info-icon-hapus').removeClass('hidden');
             $('#modal-search').modal('hide');
         });
     }else{
