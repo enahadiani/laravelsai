@@ -24,7 +24,7 @@
             color: white;
         }
         .icon-tambah{
-            background: #D4D4D4;
+            background: #505050;
             mask: url("{{ url('img/add.svg') }}");
             width: 12px;
             height: 12px;

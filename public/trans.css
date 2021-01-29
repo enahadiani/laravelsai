@@ -110,16 +110,16 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
 }
 
 .btn-light2{
-    background:#F8F8F8;
-    color:#D4D4D4;
+    background:#F8F8F8; 
+    color:#505050 !important;
 }
 
 .btn-light2:hover{
-    color:#131113;
+    color:#131113 !important;
 }
 
 .btn-light2:active{
-    color: #131113;
+    color: #131113 !important;
     background-color: #d8d8d8;
 }
 
