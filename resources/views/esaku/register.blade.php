@@ -281,14 +281,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-12 col-sm-12">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="status-wa" name="statusWa">
-                                            <label class="custom-control-label" for="status-wa">Whatsapp aktif</label>
-                                        </div>
-                                    </div>
-                                </div>
                                 <div class="form-row mt-1">
                                     <div class="form-group col-md-12 col-sm-12">
                                         <div class="row">
@@ -296,6 +288,14 @@
                                                 <label for="telp">No. Telp</label>
                                                 <input class="form-control" type="text" id="telp" name="telp">
                                             </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row" style="margin-top: -0.5rem;">
+                                    <div class="form-group col-md-12 col-sm-12">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="status-wa" name="statusWa">
+                                            <label class="custom-control-label" for="status-wa">Whatsapp aktif</label>
                                         </div>
                                     </div>
                                 </div>
