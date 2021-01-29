@@ -2,7 +2,16 @@
     <!-- LIST DATA -->
     <x-list-data judul="Data Setting Rasio" tambah="true" :thead="array('Kode','Nama','Kode Klp','Tgl Input','Action')" :thwidth="array(15,60,15,0,10)" :thclass="array('','','','','text-center')" />
     <!-- END LIST DATA -->
-
+    <style>
+        #input-grid td:nth-child(5)
+        {
+            overflow:hidden !important;
+        }
+        #input-grid td:nth-child(6)
+        {
+            overflow:unset !important;
+        }
+    </style>
     <!-- FORM INPUT -->
     <form id="form-tambah" class="tooltip-label-right" novalidate>
         <div class="row" id="saku-form" style="display:none;">
@@ -122,8 +131,8 @@
                                                 <th style="width:2%; text-align:center;">No</th>
                                                 <th style="width:3%; text-align:center;"></th>
                                                 <th style="width:25%; text-align:center;">Kode Neraca</th>
-                                                <th style="width:35%; text-align:center;">Nama Neraca</th>
-                                                <th style="width:35%; text-align:center;">Nama</th>
+                                                <th style="width:30%; text-align:center;">Nama Neraca</th>
+                                                <th style="width:30%; text-align:center;">Nama</th> <th style="width:10%; text-align:center;">DC</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -388,6 +397,8 @@
         }
     });
 
+    $('.selectize').selectize();
+
     function showInfoField(kode,isi_kode,isi_nama){
         $('#'+kode).val(isi_kode);
         $('#'+kode).attr('style','border-left:0;border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important');
@@ -636,10 +647,12 @@
             var kode_neraca = $('#input-grid tbody tr.selected-row').find(".inp-kode").val();
             var nama_neraca = $('#input-grid tbody tr.selected-row').find(".inp-nama").val();
             var nama2 = $('#input-grid tbody tr.selected-row').find(".inp-nama2").val();
+            var dc = $('#input-grid tbody tr.selected-row').find(".inp-dc")[0].selectize.getValue();
         }else{
             var kode_neraca = "";
             var nama_neraca = "";
             var nama2 = "";
+            var dc = ""; 
         }
 
         var no=$('#input-grid .row-grid:last').index();
@@ -651,6 +664,7 @@
         input += "<td><span class='td-kode tdneracake"+no+" tooltip-span'>"+kode_neraca+"</span><input autocomplete='off' type='text' name='kode_neraca[]' class='form-control inp-kode neracake"+no+" hidden' value='"+kode_neraca+"' required='' style='z-index: 1;position: relative;'  id='neracakode"+no+"'><a href='#' class='search-item search-neraca search-neracake"+no+" hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
         input += "<td><span class='td-nama tdnmneracake"+no+" tooltip-span'>"+nama_neraca+"</span><input autocomplete='off' type='text' name='nama_neraca[]' class='form-control inp-nama nmneracake"+no+" hidden'  value='"+nama_neraca+"' readonly></td>";
         input += "<td><span class='td-nama2 tdnmneraca2ke"+no+" tooltip-span'>"+nama2+"</span><input autocomplete='off' type='text' name='nama2[]' class='form-control inp-nama2 nmneraca2ke"+no+" hidden'  value='"+nama2+"'></td>";
+        input += "<td><span class='td-dc tddcke"+no+" tooltip-span'>"+dc+"</span><select hidden name='dc[]' class='form-control inp-dc dcke"+no+"' value='' required><option value='D'>D</option><option value='C'>C</option></select></td>";
         input += "</tr>";
 
         $('#input-grid tbody').append(input);
@@ -672,6 +686,15 @@
                 console.log(item.id);
             }
         });
+
+        $('.dcke'+no).selectize({
+            selectOnTab:true,
+            onChange: function(value) {
+                $('.tddcke'+no).text(value);
+            }
+        });
+        $('.dcke'+no)[0].selectize.setValue(dc);
+        $('.selectize-control.dcke'+no).addClass('hidden');
 
         // $(".search-neracake"+no).showFilter({
         //     title: 'Daftar Neraca',
@@ -718,10 +741,10 @@
         addRowGrid("satu");
     });
 
-    $('#input-grid').on('keydown','.inp-kode, .inp-nama, .inp-nama2',function(e){
+    $('#input-grid').on('keydown','.inp-kode, .inp-nama, .inp-nama2, .inp-dc',function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['.inp-kode','.inp-nama','.inp-nama2'];
-        var nxt2 = ['.td-kode','.td-nama','.td-nama2'];
+        var nxt = ['.inp-kode','.inp-nama','.inp-nama2','.inp-dc'];
+        var nxt2 = ['.td-kode','.td-nama','.td-nama2','.td-dc'];
         if (code == 13 || code == 9) {
             e.preventDefault();
             var idx = $(this).closest('td').index()-2;
@@ -760,6 +783,21 @@
                         $(this).closest('tr').find(nxt2[idx_next]).hide();
                         $(this).closest('tr').find(nxt[idx_next]).focus();
                         
+                    }else{
+                        alert('Nama yang dimasukkan tidak valid');
+                        return false;
+                    }
+                    break;
+                case 3:
+                    var isi = $(this).parents("tr").find(nxt[idx])[0].selectize.getValue();
+                    if(isi == 'D' || isi == 'C'){
+                        $("#input-grid td").removeClass("px-0 py-0 aktif");
+                        $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
+                        $(this).parents("tr").find(nxt[idx])[0].selectize.setValue(isi);
+                        $(this).parents("tr").find(nxt2[idx]).text(isi);
+                        $(this).parents("tr").find(".selectize-control").hide();
+                        $(this).closest('tr').find(nxt2[idx]).show();
+
                         var cek = $(this).parents('tr').next('tr').find('.td-kode');
                         if(cek.length > 0){
                             cek.click();
@@ -767,11 +805,10 @@
                             $('.add-row').click();
                         }
                     }else{
-                        alert('Nama yang dimasukkan tidak valid');
+                        alert('Posisi yang dimasukkan tidak valid');
                         return false;
                     }
                     break;
-
                 default:
                     break;
             }
@@ -788,6 +825,7 @@
                 var kode_neraca = $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-kode").val();
                 var nama_neraca = $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nama").val();
                 var nama2 = $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nama2").val();
+                var dc = $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-dc")[0].selectize.getValue();
 
                 $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-kode").val(kode_neraca);
                 $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-kode").text(kode_neraca);
@@ -795,6 +833,9 @@
                 $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-nama").text(nama_neraca);
                 $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nama2").val(nama2);
                 $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-nama2").text(nama2);
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-dc")[0].selectize.setValue(dc);
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-dc").text(dc);
+                
 
                 $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-kode").hide();
                 $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-kode").show();
@@ -803,6 +844,9 @@
                 $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-nama").show();
                 $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nama2").hide();
                 $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-nama2").show();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".selectize-control").hide();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-dc").show();
+               
             }
         })
     }
@@ -856,6 +900,7 @@
                 var nama_neraca = $(this).parents("tr").find(".inp-nama").val();
                 var nama2 = $(this).parents("tr").find(".inp-nama2").val();
                 var no = $(this).parents("tr").find("span.no-grid").text();
+                var dc = $(this).parents("tr").find(".inp-dc")[0].selectize.getValue();
 
                 $(this).parents("tr").find(".inp-kode").val(kode_neraca);
                 $(this).parents("tr").find(".td-kode").text(kode_neraca);
@@ -896,6 +941,25 @@
                     
                     $(this).parents("tr").find(".inp-nama2").hide();
                     $(this).parents("tr").find(".td-nama2").show();
+                }
+
+                $(this).parents("tr").find(".inp-dc")[0].selectize.setValue(dc);
+                $(this).parents("tr").find(".td-dc").text(dc);
+                if(idx == 5){
+                    $('.dcke'+no)[0].selectize.setValue(dc);
+                    var dcx = $('.tddcke'+no).text();
+                    if(dcx == ""){
+                        $('.tddcke'+no).text('D');  
+                    }
+                    
+                    $(this).parents("tr").find(".selectize-control").show();
+                    $(this).parents("tr").find(".td-dc").hide();
+                    $(this).parents("tr").find(".inp-dc")[0].selectize.focus();
+                    
+                }else{
+                    
+                    $(this).parents("tr").find(".selectize-control").hide();
+                    $(this).parents("tr").find(".td-dc").show();
                 }
             }
         }
@@ -1230,6 +1294,7 @@
                             input += "<td ><span class='td-kode tdneracake"+no+" tooltip-span'>"+data.kode_neraca+"</span><input type='text' name='kode_neraca[]' class='form-control inp-kode neracake"+no+" hidden' value='"+data.kode_neraca+"' required='' style='z-index: 1;position: relative;' id='neracakode"+no+"'><a href='#' class='search-item search-neraca hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
                             input += "<td><span class='td-nama tdnmneracake"+no+" tooltip-span'>"+data.nama_neraca+"</span><input type='text' name='nama_neraca[]' class='form-control inp-nama nmneracake"+no+" hidden'  value='"+data.nama_neraca+"' readonly></td>";
                             input += "<td><span class='td-nama2 tdnmneraca2ke"+no+" tooltip-span'>"+data.nama+"</span><input type='text' name='nama2[]' class='form-control inp-nama2 nmneraca2ke"+no+" hidden'  value='"+data.nama+"' ></td>";
+                            input += "<td ><span class='td-dc tddcke"+no+" tooltip-span'>"+data.dc+"</span><select hidden name='dc[]' class='form-control inp-dc dcke"+no+"' value='"+data.dc+"' required><option value='D'>D</option><option value='C'>C</option></select></td>";
                             input += "</tr>";
 
                             no++;
@@ -1243,6 +1308,12 @@
                         var no = 1;
                         for(var i=0;i<grid.length;i++){
                             var row = grid[i];
+                            $('.dcke'+no).selectize({
+                                selectOnTab:true,
+                                onChange: function(value) {
+                                    $('.tddcke'+no).text(value);
+                                }
+                            });
                             $('#neracakode'+no).typeahead({
                                 source:$dtkode_neraca,
                                 displayText:function(item){
@@ -1256,6 +1327,8 @@
                                     console.log(item.id);
                                 }
                             });
+                            $('.dcke'+no)[0].selectize.setValue(row.dc);
+                            $('.selectize-control.dcke'+no).addClass('hidden');
 
                             // $(".search-neracake"+no).showFilter({
                             //     title: 'Daftar Neraca',

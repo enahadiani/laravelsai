@@ -139,6 +139,7 @@ class SettingRasioController extends Controller
             'rumus' => 'required',
             'kode_neraca' => 'required|array',
             'nama2' => 'required|array',
+            'dc' => 'required|array'
         ]);
         try{
 
@@ -152,6 +153,7 @@ class SettingRasioController extends Controller
                     'rumus' => $request->rumus,
                     'kode_neraca' => $request->kode_neraca,
                     'nama2' => $request->nama2,
+                    'dc' => $request->dc,
                     'kode_fs' => $request->kode_fs
                   );
     
@@ -228,6 +230,7 @@ class SettingRasioController extends Controller
             'rumus' => 'required',
             'kode_neraca' => 'required|array',
             'nama2' => 'required|array',
+            'dc' => 'required|array'
         ]);
         try{
 
@@ -241,6 +244,7 @@ class SettingRasioController extends Controller
                     'rumus' => $request->rumus,
                     'kode_neraca' => $request->kode_neraca,
                     'nama2' => $request->nama2,
+                    'dc' => $request->dc,
                     'kode_fs' => $request->kode_fs
                   );
             
