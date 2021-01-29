@@ -85,6 +85,8 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapTsRoutes();
         
         $this->mapSiagaRoutes();
+
+        $this->mapWebesakuRoutes();
     }
 
     /**
@@ -519,6 +521,14 @@ class RouteServiceProvider extends ServiceProvider
             ->group(base_path('routes/siaga/dash.php'));
     
    
+    }
+
+    protected function mapWebesakuRoutes()
+    {
+        Route::prefix('webesaku')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/webesaku/web.php'));
     }
 
 }
