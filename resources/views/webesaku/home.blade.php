@@ -6,7 +6,7 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="author" content="PT. Samudera Aplikasi Indonesia" />
     <meta name="description" content="Penyedia software keuangan">
-    <link rel="icon" type="image/png" href="{{ asset('asset_web/img/SAKU2021.svg') }}">   
+    <link rel="icon" type="image/png" href="{{ asset('asset_web/img/esaku/SAKU2021.svg') }}">   
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- Document title -->
     <title>SAKU | Home</title>
@@ -28,10 +28,10 @@
                         <div id="logo">
                             <a href="index.html">
                                 <span class="logo-default">
-                                    <img src=" {{ asset('asset_web/img/SAKU2021.svg') }}" alt="logo" width="80"/>
+                                    <img src=" {{ asset('asset_web/img/esaku/SAKU2021.svg') }}" alt="logo" width="80"/>
                                 </span>
                                 <span class="logo-dark">
-                                    <img src=" {{ asset('asset_web/img/SAKU2021.svg') }}" alt="logo" width="80"/>
+                                    <img src=" {{ asset('asset_web/img/esaku/SAKU2021.svg') }}" alt="logo" width="80"/>
                                 </span>
                             </a>
                         </div>
@@ -74,9 +74,12 @@
                         dashboard bermanfaat.
                     </h5>
                 </div>
-                <div class="action-welcome">
+                <div class="action-welcome" data-animate="fadeInUp">
                     <button type="button" id="daftar-welcome">Daftar Gratis</button>
                     <button type="button" id="hubungi-welcome">Hubungi Kami</button>
+                </div>
+                <div class="image-welcome" data-animate="fadeInUp">
+                    <img src="{{ asset('asset_web/img/esaku/laptop.png')}}"/>
                 </div>
             </div>
         </section>
