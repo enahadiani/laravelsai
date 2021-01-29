@@ -199,7 +199,7 @@
             margin-left: 2px;
         }
         .btn-light.btn-register {
-            background-color: #000;
+            background-color: #0058e4;
             color: #fff;
             outline: none !important;
             box-shadow: none !important;
@@ -209,10 +209,10 @@
             height: 450px;
         }
         .sw-main.sw-theme-check>ul.step-anchor>li.active>a:after {
-            background: #000 !important;
+            background: #0058e4 !important;
         }
         .sw-main>ul.step-anchor>li.active>a {
-            color: #000 !important;
+            color: #0058e4 !important;
         }
         @media (max-width: 991px) {
             .auth-card .image-side {
@@ -220,7 +220,8 @@
                 padding: 30px; }
             .auth-card .form-side {
                 width: 100%;
-                padding: 30px; } }
+                padding: 30px; } 
+        }
         
     </style>
 
