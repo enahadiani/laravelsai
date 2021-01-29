@@ -79,7 +79,16 @@
                     <button type="button" id="hubungi-welcome">Hubungi Kami</button>
                 </div>
                 <div class="image-welcome" data-animate="fadeInUp">
-                    <img src="{{ asset('asset_web/img/esaku/laptop.png')}}"/>
+                    <img src="{{ asset('asset_web/img/esaku/laptop.png')}}" alt="laptop"/>
+                </div>
+                <div class="text-center m-b-30" data-animate="fadeInUp">
+                    <h5 class="lead">Banyak perusahaan yang sudah percaya pada kami</h5>
+                    <div class="list-client-welcome" data-animate="fadeInUp">
+                        <img alt="telkom" src="{{ asset('asset_web/img/esaku/telkom.png') }}"/>
+                        <img alt="tel-u" src="{{ asset('asset_web/img/esaku/tel-u.png') }}"/>
+                        <img alt="apparindo" src="{{ asset('asset_web/img/esaku/apparindo.png') }}"/>
+                        <img alt="yakkap" src="{{ asset('asset_web/img/esaku/yakkap.png') }}"/>
+                    </div>
                 </div>
             </div>
         </section>
