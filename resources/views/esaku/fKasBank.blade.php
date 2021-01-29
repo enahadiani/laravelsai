@@ -42,6 +42,9 @@
             width: 12px;
             height: 12px;
         }
+        .popover{
+            top: -80px !important;
+        }
     </style>
     <!-- FORM INPUT -->
     <form id="form-tambah" class="tooltip-label-right" novalidate>
@@ -569,6 +572,8 @@
     );
 
     $.fn.DataTable.ext.pager.numbers_length = 5;
+
+    $('[data-toggle="popover"]').popover({ trigger: "focus" });
 
     $("#searchData").on("keyup", function (event) {
         dataTable.search($(this).val()).draw();
