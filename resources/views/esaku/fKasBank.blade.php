@@ -340,7 +340,6 @@
     <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
     <script src="{{ asset('helper.js') }}"></script>
     <script>
-    
     $('#process-upload').addClass('disabled');
     $('#process-upload').prop('disabled', true);
     
@@ -442,7 +441,7 @@
     
     $('.selectize').selectize();
     
-    $("input.datepicker").datepicker({
+    $("input.datepicker").bootstrapDP({
         autoclose: true,
         format: 'dd/mm/yyyy',
         templates: {

@@ -114,8 +114,7 @@
     // }).catch( error => {
     //     console.error( error );
     // });
-
-    $("input.datepicker").datepicker({
+    $("input.datepicker").bootstrapDP({
         autoclose: true,
         format: 'dd/mm/yyyy',
         templates: {

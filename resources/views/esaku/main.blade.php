@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="{{ asset('asset_dore/css/vendor/glide.core.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('asset_dore/css/vendor/bootstrap-stars.css') }}" />
     <link rel="stylesheet" href="{{ asset('asset_dore/css/vendor/nouislider.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('asset_dore/css/jquery-ui.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('asset_dore/css/vendor/bootstrap-datepicker3.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('asset_dore/css/vendor/component-custom-switch.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('asset_dore/css/main.css') }}" />
@@ -182,6 +183,7 @@
     <script src="{{ asset('asset_dore/js/vendor/jquery.barrating.min.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/select2.full.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/nouislider.min.js') }}"></script>
+    <script src="{{ asset('asset_dore/js/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/bootstrap-datepicker.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/Sortable.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/mousetrap.min.js') }}"></script>
@@ -368,6 +370,10 @@
     </main>
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
     <script>
+    if (!$.fn.bootstrapDP && $.fn.datepicker && $.fn.datepicker.noConflict) {
+        var datepicker = $.fn.datepicker.noConflict();
+        $.fn.bootstrapDP = datepicker;
+    }
     var $form_aktif = "";
     // Enable pusher logging - don't include this in production
     Pusher.logToConsole = true;

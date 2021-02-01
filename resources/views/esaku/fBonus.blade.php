@@ -100,8 +100,8 @@
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         }
     });
-    
-    $('.tanggal').datepicker({
+
+    $('.tanggal').bootstrapDP({
         format: 'dd/mm/yyyy',
         autoclose: true
     });

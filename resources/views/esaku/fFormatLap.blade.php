@@ -285,7 +285,6 @@
 
 <!-- JS Tree -->
 
-<script src="{{ asset('asset_dore/js/jquery-ui.min.js') }}"></script>
 <script src="{{ asset('asset_elite/js/jquery.treegrid.js') }}"></script>
 <script type="text/javascript">
     var $kode_klp = "{{ Session::get('kodeMenu') }}";
@@ -297,15 +296,7 @@
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         }
     });
-
-    $("input.datepicker").datepicker({
-        autoclose: true,
-        format: 'dd/mm/yyyy',
-        templates: {
-            leftArrow: '<i class="simple-icon-arrow-left"></i>',
-            rightArrow: '<i class="simple-icon-arrow-right"></i>'
-        }
-    });
+    
     function init(kode_fs,modul){
         $.ajax({
             type: 'GET',
