@@ -72,10 +72,10 @@
             <div class="container">
                 <div class="heading-text heading-section text-center m-b-40" data-animate="fadeInUp">
                     <h1>Software Pencatatan Bisnis</h1>
-                    <h5 class="lead">
+                    <h4 class="lead">
                         Mengelola pencatatan bisnis anda sehingga menghasilkan laporan handal dan
                         dashboard bermanfaat.
-                    </h5>
+                    </h4>
                 </div>
                 <div class="action-welcome" data-animate="fadeInUp">
                     <button type="button" id="daftar-welcome">Daftar Gratis</button>
@@ -117,10 +117,10 @@
         <section id="alasan" class="p-b-25">
             <div class="container">
                 <div class="heading-text heading-section text-center m-b-40" data-animate="fadeInUp">
-                    <h4>
-                        Alasan kenapa <img alt="saku-text" src="{{ asset('asset_web/img/esaku/SAKU2021.svg')}}" width="80">
+                    <h1>
+                        Alasan kenapa <img alt="saku-text" src="{{ asset('asset_web/img/esaku/SAKU2021.svg')}}" width="120">
                         sangat layak untuk digunakan.
-                    </h4>
+                    </h1>
                     <div id="alasan-digunakan" class="daftar-alasan">
                         <div class="box-alasan" data-animate="fadeInUp">
                             <h5 class="alasan-text">Berpengalaman</h5>
@@ -148,10 +148,10 @@
         <section id="fitur" class="p-b-25">
             <div class="container">
                 <div class="heading-text heading-section text-center m-b-40" data-animate="fadeInUp">
-                    <h4>
-                        Fitur <img alt="saku-text" src="{{ asset('asset_web/img/esaku/SAKU2021.svg')}}" width="80">
+                    <h1>
+                        Fitur <img alt="saku-text" src="{{ asset('asset_web/img/esaku/SAKU2021.svg')}}" width="120">
                         yang membantu bisnis anda.
-                    </h4>
+                    </h1>
                     <h5 class="lead">
                         Pencatatan semakin mudah dengan fitur yang disediakan sehingga anda bisa fokus 
                         dalam pengembangan bisnis.
@@ -213,6 +213,144 @@
             </div>
         </section>
 
+        {{-- Section Feedback --}}
+        <section id="feedback" class="p-b-50">
+            <div class="container">
+                <div class="heading-text heading-section text-center m-b-40" data-animate="fadeInUp">
+                    <h1>
+                        Keberhasilan aplikasi adalah memiliki komitmen untuk menjalankannya.
+                    </h1>
+                    <h5 class="lead">
+                        Banyak perusahaan yang percaya kepada kami dan bertahan karena pelayanan kami serta 
+                        komitmen yang kami bangun untuk kesuksesan berjalannya aplikasi.
+                    </h5>
+                </div>
+                <div class="feedback-client" data-animate="fadeInUp">
+
+                    <div class="feedback-corousel">
+                        <div class="corousel-content fade-corousel">
+                            <div class="feedback-content">
+                                <div class="image-client">
+                                    <img src="{{ asset('asset_web/img/esaku/client-owner.jpg')}}" width="90" height="90">
+                                </div>
+                                <div class="keterangan-client">
+                                    <div>
+                                        <span class="jabatan-owner">Direktur Keuangan PT. Lorem Ipsum</span>
+                                    </div>
+                                    <div>
+                                        <span class="nama-owner">Bapak Khoirul Afnan 1</span>
+                                    </div>
+                                    <div>
+                                        <p class="keterangan-owner">
+                                            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="corousel-content fade-corousel">
+                            <div class="feedback-content">
+                                <div class="image-client">
+                                    <img src="{{ asset('asset_web/img/esaku/client-owner.jpg')}}" width="90" height="90">
+                                </div>
+                                <div class="keterangan-client">
+                                    <div>
+                                        <span class="jabatan-owner">Direktur Keuangan PT. Lorem Ipsum</span>
+                                    </div>
+                                    <div>
+                                        <span class="nama-owner">Bapak Khoirul Afnan 2</span>
+                                    </div>
+                                    <div>
+                                        <p class="keterangan-owner">
+                                            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="corousel-content fade-corousel">
+                            <div class="feedback-content">
+                                <div class="image-client">
+                                    <img src="{{ asset('asset_web/img/esaku/client-owner.jpg')}}" width="90" height="90">
+                                </div>
+                                <div class="keterangan-client">
+                                    <div>
+                                        <span class="jabatan-owner">Direktur Keuangan PT. Lorem Ipsum</span>
+                                    </div>
+                                    <div>
+                                        <span class="nama-owner">Bapak Khoirul Afnan 3</span>
+                                    </div>
+                                    <div>
+                                        <p class="keterangan-owner">
+                                            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="corousel-content fade-corousel">
+                            <div class="feedback-content">
+                                <div class="image-client">
+                                    <img src="{{ asset('asset_web/img/esaku/client-owner.jpg')}}" width="90" height="90">
+                                </div>
+                                <div class="keterangan-client">
+                                    <div>
+                                        <span class="jabatan-owner">Direktur Keuangan PT. Lorem Ipsum</span>
+                                    </div>
+                                    <div>
+                                        <span class="nama-owner">Bapak Khoirul Afnan 4</span>
+                                    </div>
+                                    <div>
+                                        <p class="keterangan-owner">
+                                            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="corousel-content fade-corousel">
+                            <div class="feedback-content">
+                                <div class="image-client">
+                                    <img src="{{ asset('asset_web/img/esaku/client-owner.jpg')}}" width="90" height="90">
+                                </div>
+                                <div class="keterangan-client">
+                                    <div>
+                                        <span class="jabatan-owner">Direktur Keuangan PT. Lorem Ipsum</span>
+                                    </div>
+                                    <div>
+                                        <span class="nama-owner">Bapak Khoirul Afnan 5</span>
+                                    </div>
+                                    <div>
+                                        <p class="keterangan-owner">
+                                            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="nav-corousel" data-animate="fadeInUp">
+                    <span class="dot" onclick="currentSlides(1)"></span>
+                    <span class="dot" onclick="currentSlides(2)"></span>
+                    <span class="dot" onclick="currentSlides(3)"></span>
+                    <span class="dot" onclick="currentSlides(4)"></span>
+                    <span class="dot" onclick="currentSlides(5)"></span>
+                </div>
+
+                <div class="trusted-client">
+                    <div class="trusted-client-content"></div>
+                    <div class="trusted-client-content"></div>
+                    <div class="trusted-client-content"></div>
+                </div>
+            </div>
+        </section>
+
     </div>
     {{-- end: Body Inner --}}
     {{-- Scroll top --}}
@@ -223,6 +361,34 @@
     <script src="{{ asset('asset_web/js/jquery.js')}}"></script>
     <script src="{{ asset('asset_web/js/plugins.js')}}"></script>
     <script src="{{ asset('asset_web/js/functions.js')}}"></script>
+
+    <script type="text/javascript">
+        var indexCorousel = 1;
+        showSlides(indexCorousel);
+
+        function currentSlides(index) {
+            showSlides(indexCorousel = index)
+        }
+
+        function showSlides(index) {
+            var i;
+            var corouselContent = document.getElementsByClassName('corousel-content')
+            var dots = document.getElementsByClassName('dot')
+
+            if (index > corouselContent.length) { slideIndex = 1 }
+            if (index < 1) { slideIndex = corouselContent.length }
+
+            for (i = 0; i < corouselContent.length; i++) {
+                corouselContent[i].style.display = "none";
+            }
+
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            corouselContent[indexCorousel-1].style.display = "block";
+            dots[indexCorousel-1].className += " active";
+        }
+    </script>
 </body>
 
 </html>
