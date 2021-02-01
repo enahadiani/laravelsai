@@ -285,7 +285,7 @@
 
 <!-- JS Tree -->
 
-<script src="{{ asset('asset_web/plugins/fullcalendar/lib/jquery-ui.min.js') }}"></script>
+<script src="{{ asset('asset_dore/js/jquery-ui.min.js') }}"></script>
 <script src="{{ asset('asset_elite/js/jquery.treegrid.js') }}"></script>
 <script type="text/javascript">
     var $kode_klp = "{{ Session::get('kodeMenu') }}";
@@ -298,6 +298,14 @@
         }
     });
 
+    $("input.datepicker").datepicker({
+        autoclose: true,
+        format: 'dd/mm/yyyy',
+        templates: {
+            leftArrow: '<i class="simple-icon-arrow-left"></i>',
+            rightArrow: '<i class="simple-icon-arrow-right"></i>'
+        }
+    });
     function init(kode_fs,modul){
         $.ajax({
             type: 'GET',

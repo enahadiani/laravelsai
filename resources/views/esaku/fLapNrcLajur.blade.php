@@ -1,4 +1,4 @@
-<link href="{{ asset('asset_elite/css/jquery.treegrid.css') }}" rel="stylesheet">
+    <link href="{{ asset('asset_elite/css/jquery.treegrid.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('report.css') }}" />
     <style>
         #scroll-top
@@ -80,7 +80,6 @@
     </div>
     <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
     <script src="{{ asset('reportFilter.js') }}"></script>
-    <script src="{{ asset('asset_web/plugins/fullcalendar/lib/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('asset_elite/js/jquery.treegrid.js') }}"></script>
     <script>
         $.ajaxSetup({
