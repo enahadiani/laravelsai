@@ -91,7 +91,6 @@
     setHeightForm();
     
     // FORM SMALL
-        $('#saku-datatable > .col-12').addClass('mx-auto col-lg-6');
         $('#saku-form > .col-12').addClass('mx-auto col-lg-6');
         $('#modal-preview > .modal-dialog').css({ 'max-width':'600px'});
     // 
