@@ -376,7 +376,7 @@
             <div class="container">
                 <div class="heading-text heading-section text-center m-b-40" data-animate="fadeInUp">
                     <h1>
-                        Mulai Sekarang.
+                        Mulai Sekarang
                     </h1>
                     <h5 class="lead">
                         Kami dapat membangun sistem mengikuti proses bisnis yang ada di perusahaan anda.
