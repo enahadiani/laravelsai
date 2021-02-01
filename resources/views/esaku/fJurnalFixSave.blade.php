@@ -77,6 +77,7 @@
             bottom: 15px;
             right: 0;
             margin-right: 30px;
+            z-index:3;
             height: 60px;
             border-top: ;
             border-bottom-right-radius: 1rem;
