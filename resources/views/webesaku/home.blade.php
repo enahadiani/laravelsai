@@ -16,7 +16,7 @@
     <link href="{{ asset('asset_web/webesaku/fontawesome/css/all.css')}}">
     <link href="{{ asset('asset_web/css/plugins.css') }}" rel="stylesheet">
     <link href="{{ asset('asset_web/css/style.css') }}" rel="stylesheet">
-    <link href="{{ asset('asset_web/css/websaku.css') }}" rel="stylesheet">
+    <link href="{{ asset('asset_web/css/websaku-home.css') }}" rel="stylesheet">
 </head>
 
 <body>
@@ -72,10 +72,10 @@
             <div class="container">
                 <div class="heading-text heading-section text-center m-b-40" data-animate="fadeInUp">
                     <h1>Software Pencatatan Bisnis</h1>
-                    <h4 class="lead">
+                    <h5 class="lead">
                         Mengelola pencatatan bisnis anda sehingga menghasilkan laporan handal dan
                         dashboard bermanfaat.
-                    </h4>
+                    </h5>
                 </div>
                 <div class="action-welcome" data-animate="fadeInUp">
                     <button type="button" id="daftar-welcome">Daftar Gratis</button>
@@ -214,7 +214,7 @@
         </section>
 
         {{-- Section Feedback --}}
-        <section id="feedback" class="p-b-50">
+        <section id="feedback" class="p-b-25">
             <div class="container">
                 <div class="heading-text heading-section text-center m-b-40" data-animate="fadeInUp">
                     <h1>
@@ -343,13 +343,147 @@
                     <span class="dot" onclick="currentSlides(5)"></span>
                 </div>
 
-                <div class="trusted-client">
-                    <div class="trusted-client-content"></div>
-                    <div class="trusted-client-content"></div>
-                    <div class="trusted-client-content"></div>
+                <div class="trusted-client" data-animate="fadeInUp">
+                    <div class="heading-section text-center m-t-40">
+                        <h5 class="trusted-company">Perusahaan yang sudah mempercayai kami.</h5>
+                    </div>
+                    <div class="trusted-client-content" data-animate="fadeInUp">
+                        <img src="{{ asset('asset_web/img/esaku/logo-client.svg') }}" alt="logo-client">
+                        <img src="{{ asset('asset_web/img/esaku/logo-client.svg') }}" alt="logo-client">
+                        <img src="{{ asset('asset_web/img/esaku/logo-client.svg') }}" alt="logo-client">
+                        <img src="{{ asset('asset_web/img/esaku/logo-client.svg') }}" alt="logo-client">
+                        <img src="{{ asset('asset_web/img/esaku/logo-client.svg') }}" alt="logo-client">
+                    </div>
+                    <div class="trusted-client-content" data-animate="fadeInUp">
+                        <img src="{{ asset('asset_web/img/esaku/logo-client.svg') }}" alt="logo-client">
+                        <img src="{{ asset('asset_web/img/esaku/logo-client.svg') }}" alt="logo-client">
+                        <img src="{{ asset('asset_web/img/esaku/logo-client.svg') }}" alt="logo-client">
+                        <img src="{{ asset('asset_web/img/esaku/logo-client.svg') }}" alt="logo-client">
+                        <img src="{{ asset('asset_web/img/esaku/logo-client.svg') }}" alt="logo-client">
+                    </div>
+                    <div class="trusted-client-content" data-animate="fadeInUp">
+                        <img src="{{ asset('asset_web/img/esaku/logo-client.svg') }}" alt="logo-client">
+                        <img src="{{ asset('asset_web/img/esaku/logo-client.svg') }}" alt="logo-client">
+                        <img src="{{ asset('asset_web/img/esaku/logo-client.svg') }}" alt="logo-client">
+                        <img src="{{ asset('asset_web/img/esaku/logo-client.svg') }}" alt="logo-client">
+                        <img src="{{ asset('asset_web/img/esaku/logo-client.svg') }}" alt="logo-client">
+                    </div>
                 </div>
             </div>
         </section>
+
+        <section id="presentation" class="p-b-25 background-presentation">
+            <div class="container">
+                <div class="heading-text heading-section text-center m-b-40" data-animate="fadeInUp">
+                    <h1>
+                        Mulai Sekarang.
+                    </h1>
+                    <h5 class="lead">
+                        Kami dapat membangun sistem mengikuti proses bisnis yang ada di perusahaan anda.
+                        Tim kami siap membantu dengan langkah-langkah yang kita susun dan sepakati bersama.
+                    </h5>
+                </div>
+                <div class="presentation-action" data-animate="fadeInUp">
+                    <button class="btn-presentation" type="button">Undang Presentasi</button>
+                </div>
+            </div>
+        </section>
+
+        <footer id="footer" class="footer-background">
+            <div class="footer-content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 p-b-25">
+                            <img alt="footer-logo" src="{{ asset('asset_web/img/esaku/SAKU2021.svg')}}" width="80">
+                        </div>
+                        <div class="col-4">
+                            <div class="row">
+                                <div class="col-12">
+                                    <h6 class="footer-text-nav">Hubungi Kami</h6>
+                                </div>
+                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="col-1">
+                                            <img alt="arroba" src="{{ asset('asset_web/img/esaku/arroba.svg')}}" height="20">
+                                        </div>
+                                        <div class="col-11">
+                                            <p class="footer-content-text">dedy@mysai.co.id</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="col-1">
+                                            <img alt="phone-call" src="{{ asset('asset_web/img/esaku/phone-call.svg')}}" height="20">
+                                        </div>
+                                        <div class="col-11">
+                                            <p class="footer-content-text">082240002911</p>
+                                        </div>
+                                    </div>
+                                    <a class="link-footer" href="#">
+                                        Hubungi Whatsapp  <i class="fas fa-arrow-up arrow-tilted"></i>
+                                    </a>
+                                </div>
+                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="col-1">
+                                            <img alt="pin" src="{{ asset('asset_web/img/esaku/Pin.svg')}}" height="20">
+                                        </div>
+                                        <div class="col-11">
+                                            <p class="footer-content-text">Jalan Raya Bojongsoang Pesona Bali Residence Blok D4/7 Bojongsoang, Kab. Bandung 40288</p>
+                                        </div>
+                                    </div>
+                                    <a class="link-footer" href="#">
+                                        Lihat Lokasi  <i class="fas fa-arrow-up arrow-tilted"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="row">
+                                <div class="col-12">
+                                    <h6 class="footer-text-nav">Perusahaan</h6>
+                                </div>
+                                <div class="col-12 col-footer">
+                                    <p class="footer-content-text">Tentang</p>
+                                </div>
+                                <div class="col-12 col-footer">
+                                    <p class="footer-content-text">Blog</p>
+                                </div>
+                                <div class="col-12 col-footer">
+                                    <p class="footer-content-text">Panduan Aplikasi</p>
+                                </div>
+                                <div class="col-12 col-footer">
+                                    <p class="footer-content-text">Magang</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="row">
+                                <div class="col-12">
+                                    <h6 class="footer-text-nav">Layanan</h6>
+                                </div>
+                                <div class="col-12 col-footer">
+                                    <p class="footer-content-text">Aplikasi Akuntansi Keuangan</p>
+                                </div>
+                                <div class="col-12 col-footer">
+                                    <p class="footer-content-text">Aplikasi Kasir</p>
+                                </div>
+                                <div class="col-12 col-footer">
+                                    <p class="footer-content-text">Integrasi Online Shop</p>
+                                </div>
+                                <div class="col-12 col-footer">
+                                    <p class="footer-content-text">Custome Aplikasi</p>
+                                </div>
+                                <div class="col-12 col-footer">
+                                    <p class="footer-content-text">Demo</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
 
     </div>
     {{-- end: Body Inner --}}
