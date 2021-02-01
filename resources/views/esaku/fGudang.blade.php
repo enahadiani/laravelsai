@@ -25,61 +25,53 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6 col-sm-12">
-                                <div class="row">
-                                    <div class="col-md-6 col-sm-12">
-                                        <label for="kode_gudang" >Kode</label>
-                                        <input class="form-control" type="text" name="kode_gudang" id="kode_gudang" required>
-                                    </div>
-                                    <div class="col-md-6 col-sm-12">
-                                        <label for="nama">Nama</label>
-                                        <input class="form-control" type="text" id="nama" name="nama" required>
-                                    </div>
-                                </div>
+                                <label for="kode_gudang" >Kode</label>
+                                <input class="form-control" type="text" name="kode_gudang" id="kode_gudang" required>
                             </div>
                             <div class="form-group col-md-6 col-sm-12">
-                                <div class="row">
-                                    <div class="col-md-6 col-sm-12">
-                                        <label for="telp">No Telp</label>
-                                        <input class="form-control" type="text" id="telp" name="telp" required>
-                                    </div>
-                                    <div class="col-md-6 col-sm-12">
-                                        <label for="alamat">Alamat</label>
-                                        <input class="form-control" type="text" id="alamat" name="alamat" required>
-                                    </div>
-                                </div>
+                                <label for="nama">Nama</label>
+                                <input class="form-control" type="text" id="nama" name="nama" required>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6 col-sm-12">
-                                <div class="row">
-                                    <div class="col-md-6 col-sm-12">
-                                        <label for="pic">Penanggung Jawab</label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
-                                                <span class="input-group-text info-code_pic" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
-                                            </div>
-                                            <input type="text" class="form-control inp-label-pic" id="pic" name="pic" value="" title="">
-                                            <span class="info-name_pic hidden">
-                                                <span></span> 
-                                            </span>
-                                            <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                            <i class="simple-icon-magnifier search-item2" id="search_pic"></i>
-                                        </div>
+                                <label for="telp">No Telp</label>
+                                <input class="form-control" type="text" id="telp" name="telp" required>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="pic">Penanggung Jawab</label>
+                                <div class="input-group">
+                                <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                <span class="input-group-text info-code_pic" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                </div>
+                                <input type="text" class="form-control inp-label-pic" id="pic" name="pic" value="" title="">
+                                <span class="info-name_pic hidden">
+                                <span></span> 
+                                </span>
+                                <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                <i class="simple-icon-magnifier search-item2" id="search_pic"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12 col-sm-12">
+                                <label for="alamat">Alamat</label>
+                                <input class="form-control" type="text" id="alamat" name="alamat" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="kode_pp">PP/Unit</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                        <span class="input-group-text info-code_kode_pp" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
                                     </div>
-                                    <div class="col-md-6 col-sm-12">
-                                        <label for="kode_pp">PP/Unit</label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
-                                                <span class="input-group-text info-code_kode_pp" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
-                                            </div>
-                                            <input type="text" class="form-control inp-label-kode_pp" id="kode_pp" name="kode_pp" value="" title="">
-                                            <span class="info-name_kode_pp hidden">
-                                                <span></span> 
-                                            </span>
-                                            <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                            <i class="simple-icon-magnifier search-item2" id="search_kode_pp"></i>
-                                        </div>
-                                    </div>
+                                    <input type="text" class="form-control inp-label-kode_pp" id="kode_pp" name="kode_pp" value="" title="">
+                                    <span class="info-name_kode_pp hidden">
+                                        <span></span> 
+                                    </span>
+                                    <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                    <i class="simple-icon-magnifier search-item2" id="search_kode_pp"></i>
                                 </div>
                             </div>
                         </div>
@@ -98,6 +90,10 @@
     <script>
     setHeightForm();
     
+    // FORM SMALL
+        $('#saku-datatable > .col-12').addClass('mx-auto col-lg-6');
+        $('#saku-form > .col-12').addClass('mx-auto col-lg-6');
+    // 
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
@@ -548,14 +544,14 @@
     // END BUTTON EDIT
     
     // HANDLER untuk enter dan tab
-    $('#kode_gudang,#nama,#telp,#alamat,#pic,#kode_pp').keydown(function(e){
+    $('#kode_gudang,#nama,#telp,#pic,#alamat,#kode_pp').keydown(function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['kode_gudang','nama','telp','alamat','pic','kode_pp'];
+        var nxt = ['kode_gudang','nama','telp','pic','alamat','kode_pp'];
         if (code == 13 || code == 40) {
             e.preventDefault();
             var idx = nxt.indexOf(e.target.id);
             idx++;
-            if(idx == 5){
+            if(idx == 4){
                 var kode = $('#pic').val();
                 getNIK(kode);
             }

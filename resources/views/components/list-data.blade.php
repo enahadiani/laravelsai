@@ -29,10 +29,10 @@
                     </div>
                 </div>
                 <div class="d-block d-md-inline-block float-right col-md-6 col-sm-12">
-                    <div class="input-group input-group-sm" style="width:321px;float:right">
+                    <div class="input-group input-group-sm" style="max-width:321px;float:right">
                         <input type="text" class="form-control" placeholder="Search..."
-                        aria-label="Search..." aria-describedby="filter-btn" id="searchData" style="border-top-right-radius: 0 !important;border-bottom-right-radius: 0 !important;width:230px !important">
-                        <div class="input-group-append" style="width:92px !important">
+                        aria-label="Search..." aria-describedby="filter-btn" id="searchData" style="border-top-right-radius: 0 !important;border-bottom-right-radius: 0 !important;max-width:230px !important">
+                        <div class="input-group-append" style="max-width:92px !important;width:100%">
                             <span class="input-group-text" id="filter-btn" style="border-top-right-radius: 0.5rem !important;border-bottom-right-radius: 0.5rem !important;width:100%"><span class="badge badge-pill badge-outline-primary mb-0" id="jum-filter" style="font-size: 8px;margin-right: 5px;padding: 0.5em 0.75em;"></span><i class="simple-icon-equalizer mr-1"></i> Filter</span>
                         </div>
                     </div>
