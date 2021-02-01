@@ -24,23 +24,31 @@
             background: #b3b3b3;
             color: white;
         }
+        .icon-tambah{
+            background: #505050;
+            /* mask: url("{{ url('img/add.svg') }}"); */
+            -webkit-mask-image: url("{{ url('img/add.svg') }}");
+            mask-image: url("{{ url('img/add.svg') }}");
+            width: 12px;
+            height: 12px;
+        }
         .icon-close{
             background: #D4D4D4;
-            mask: url("{{ url('img/lock.svg') }}");
+            /* mask: url("{{ url('img/lock.svg') }}");
+             */
+            -webkit-mask-image: url("{{ url('img/lock.svg') }}");
+            mask-image: url("{{ url('img/lock.svg') }}");
             width: 18px;
             height: 18px;
         }
         .icon-open{
             background: #D4D4D4;
-            mask: url("{{ url('img/lock.svg') }}");
+            /* mask: url("{{ url('img/lock.svg') }}");
+             */
+            -webkit-mask-image: url("{{ url('img/lock.svg') }}");
+            mask-image: url("{{ url('img/lock.svg') }}");
             width: 18px;
             height: 18px;
-        }
-        .icon-tambah{
-            background: #505050;
-            mask: url("{{ url('img/add.svg') }}");
-            width: 12px;
-            height: 12px;
         }
         .popover{
             top: -80px !important;

@@ -105,8 +105,9 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
     display: inline-block;
     width: 14px;
     height: 14px;
-    background: black;
-    mask-size: cover !important;
+    background: black; 
+    -webkit-mask-size: cover;
+    mask-size: cover;
 }
 
 .btn-light2{
