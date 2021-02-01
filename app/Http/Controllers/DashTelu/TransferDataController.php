@@ -58,6 +58,7 @@ class TransferDataController extends Controller
         
         $this->validate($request, [
             'periode' => 'required',
+            'kode_fs' => 'required'
         ]);
 
         try {
