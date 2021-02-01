@@ -1859,58 +1859,7 @@
         }
     });
 
-    $('#input-grid').on('keypress', '.inp-kode', function(e){
-        var this_index = $(this).closest('tbody tr').index();
-        if (e.which == 42) {
-            e.preventDefault();
-            if($("#input-grid tbody tr:eq("+(this_index - 1)+")").find('.inp-kode').val() != undefined){
-                $(this).val($("#input-grid tbody tr:eq("+(this_index - 1)+")").find('.inp-kode').val());
-            }else{
-                $(this).val('');
-            }
-        }
-    });
-
-    $('#input-grid').on('keypress', '.inp-dc', function(e){
-        var this_index = $(this).closest('tbody tr').index();
-        if (e.which == 42) {
-            e.preventDefault();
-            if($("#input-grid tbody tr:eq("+(this_index - 1)+")").find('.inp-dc')[0].selectize.getValue() != undefined){
-                $(this)[0].selectize.setValue($("#input-grid tbody tr:eq("+(this_index - 1)+")").find('.inp-dc')[0].selectize.getValue());
-            }else{
-                $(this)[0].selectize.setValue('');
-            }
-        }
-    });
-
-    $('#input-grid').on('keypress', '.inp-ket', function(e){
-        var this_index = $(this).closest('tbody tr').index();
-        if (e.which == 42) {
-            e.preventDefault();
-            if($("#input-grid tbody tr:eq("+(this_index - 1)+")").find('.inp-ket').val() != undefined){
-                $(this).val($("#input-grid tbody tr:eq("+(this_index - 1)+")").find('.inp-ket').val());
-            }else{
-                $(this).val('');
-            }
-        }
-    });
-
-    $('#input-grid').on('keypress', '.inp-nilai', function(e){
-        if (e.which == 42) {
-            e.preventDefault();
-            var dc = $(this).closest('tr').find('.inp-dc')[0].selectize.getValue();
-            if(dc == 'D' || dc == 'C'){
-                var selisih = Math.abs(toNilai($('#total_debet').val()) - toNilai($('#total_kredit').val()));
-                $(this).val(selisih);
-            }else{
-                alert('Posisi tidak valid, harap pilih posisi akun');
-                $(this).closest('tr').find('.inp-dc')[0].selectize.focus();
-            }
-        }
-    });
-
     $('#input-grid').on('change', '.inp-nilai', function(){
-        console.log('change-nilai');
         if($(this).closest('tr').find('.inp-nilai').val() != "" && $(this).closest('tr').find('.inp-nilai').val() != 0){
             hitungTotal();
             $(this).closest('tr').find('.inp-pp').val();
@@ -1933,18 +1882,6 @@
         }else{
             alert('PP yang dimasukkan tidak valid');
             return false;
-        }
-    });
-
-    $('#input-grid').on('keypress', '.inp-pp', function(e){
-        var this_index = $(this).closest('tbody tr').index();
-        if (e.which == 42) {
-            e.preventDefault();
-            if($("#input-grid tbody tr:eq("+(this_index - 1)+")").find('.inp-pp').val() != undefined){
-                $(this).val($("#input-grid tbody tr:eq("+(this_index - 1)+")").find('.inp-pp').val());
-            }else{
-                $(this).val('');
-            }
         }
     });
 
