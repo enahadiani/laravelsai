@@ -145,7 +145,7 @@
             </div>
         </section>
 
-        <section id="fitur" class="p-b-25">
+        <section id="fitur" class="p-b-0">
             <div class="container">
                 <div class="heading-text heading-section text-center m-b-40" data-animate="fadeInUp">
                     <h1>
@@ -372,7 +372,7 @@
             </div>
         </section>
 
-        <section id="presentation" class="p-b-25 background-presentation">
+        <section id="presentation" class="p-b-90 background-presentation">
             <div class="container">
                 <div class="heading-text heading-section text-center m-b-40" data-animate="fadeInUp">
                     <h1>
