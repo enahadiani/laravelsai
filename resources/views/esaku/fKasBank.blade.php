@@ -24,23 +24,31 @@
             background: #b3b3b3;
             color: white;
         }
+        .icon-tambah{
+            background: #505050;
+            /* mask: url("{{ url('img/add.svg') }}"); */
+            -webkit-mask-image: url("{{ url('img/add.svg') }}");
+            mask-image: url("{{ url('img/add.svg') }}");
+            width: 12px;
+            height: 12px;
+        }
         .icon-close{
             background: #D4D4D4;
-            mask: url("{{ url('img/lock.svg') }}");
+            /* mask: url("{{ url('img/lock.svg') }}");
+             */
+            -webkit-mask-image: url("{{ url('img/lock.svg') }}");
+            mask-image: url("{{ url('img/lock.svg') }}");
             width: 18px;
             height: 18px;
         }
         .icon-open{
             background: #D4D4D4;
-            mask: url("{{ url('img/lock.svg') }}");
+            /* mask: url("{{ url('img/lock.svg') }}");
+             */
+            -webkit-mask-image: url("{{ url('img/lock.svg') }}");
+            mask-image: url("{{ url('img/lock.svg') }}");
             width: 18px;
             height: 18px;
-        }
-        .icon-tambah{
-            background: #D4D4D4;
-            mask: url("{{ url('img/add.svg') }}");
-            width: 12px;
-            height: 12px;
         }
         .popover{
             top: -80px !important;
@@ -1490,6 +1498,15 @@
                         $(this).parents("tr").find(".selectize-control").hide();
                         $(this).closest('tr').find(nxt2[idx]).show();
 
+                        if ($(this).closest('tr').find(nxt[idx_next]).val() == ""){
+                            var index = $(this).closest('tr').index();
+                            if(index == 0){
+                                $(this).closest('tr').find(nxt[idx_next]).val($('#deskripsi').val());
+                            }else{
+                                var deskripsi = $("#input-grid tbody tr:eq("+(index - 1)+")").find('.inp-ket').val();
+                                $(this).closest('tr').find(nxt[idx_next]).val(deskripsi);
+                            }
+                        }
                         $(this).closest('tr').find(nxt[idx_next]).show();
                         $(this).closest('tr').find(nxt[idx_next]).focus();
                         $(this).closest('tr').find(nxt2[idx_next]).hide();
@@ -1506,6 +1523,19 @@
                         $(this).closest('tr').find(nxt2[idx]).text(isi);
                         $(this).closest('tr').find(nxt[idx]).hide();
                         $(this).closest('tr').find(nxt2[idx]).show();
+
+                        if ($(this).closest('tr').find(nxt[idx_next]).val() == ""){
+                            var index = $(this).closest('tr').index();
+                            var dc = $(this).closest('tr').find(nxt[idx-1]).val();
+                            if(dc == 'D' || dc == 'C'){
+                                var selisih = Math.abs(toNilai($('#total_debet').val()) - toNilai($('#total_kredit').val()));
+                                $(this).closest('tr').find(nxt[idx_next]).val(selisih);
+                                $(this).closest('tr').find(nxt2[idx_next]).text(selisih);
+                            }else{
+                                alert('Posisi tidak valid, harap pilih posisi akun');
+                                $(this).closest('tr').find('.inp-dc')[0].selectize.focus();
+                            }
+                        }
                         $(this).closest('tr').find(nxt[idx_next]).show();
                         $(this).closest('tr').find(nxt2[idx_next]).hide();
                         $(this).closest('tr').find(nxt[idx_next]).focus();
@@ -1699,7 +1729,6 @@
                     $(this).parents("tr").find(".inp-nama").hide();
                     $(this).parents("tr").find(".td-nama").show();
                 }
-        
                 
                 $(this).parents("tr").find(".inp-dc")[0].selectize.setValue(dc);
                 $(this).parents("tr").find(".td-dc").text(dc);
@@ -1720,8 +1749,21 @@
                     $(this).parents("tr").find(".td-dc").show();
                 }
         
-                $(this).parents("tr").find(".inp-ket").val(keterangan);
-                $(this).parents("tr").find(".td-ket").text(keterangan);
+                var idx_tr = $(this).closest('tr').index();
+                if(keterangan == "" && idx == 4){
+                    if(idx_tr == 0){
+                        var deskripsi = $('#deskripsi').val();
+                    }else{
+                        var deskripsi = $("#input-grid tbody tr:eq("+(idx_tr - 1)+")").find('.inp-ket').val();
+                    }
+                    $(this).parents("tr").find(".inp-ket").val(deskripsi);
+                    $(this).parents("tr").find(".td-ket").text(deskripsi);
+                }else{
+
+                    $(this).parents("tr").find(".inp-ket").val(keterangan);
+                    $(this).parents("tr").find(".td-ket").text(keterangan);
+                }
+
                 if(idx == 4){
                     $(this).parents("tr").find(".inp-ket").show();
                     $(this).parents("tr").find(".td-ket").hide();
@@ -1731,8 +1773,21 @@
                     $(this).parents("tr").find(".td-ket").show();
                 }
         
-                $(this).parents("tr").find(".inp-nilai").val(nilai);
-                $(this).parents("tr").find(".td-nilai").text(nilai);
+                if(nilai == "" && idx == 5){
+                    if(dc == 'D' || dc == 'C'){
+                        var selisih = Math.abs(toNilai($('#total_debet').val()) - toNilai($('#total_kredit').val()));
+                        $(this).parents("tr").find(".inp-nilai").val(selisih);
+                        $(this).parents("tr").find(".td-nilai").text(selisih);
+                    }else{
+                        alert('Posisi tidak valid, harap pilih posisi akun');
+                        $(this).closest('tr').find('.inp-dc')[0].selectize.focus();
+                    }
+                    
+                }else{
+
+                    $(this).parents("tr").find(".inp-nilai").val(nilai);
+                    $(this).parents("tr").find(".td-nilai").text(nilai);
+                }
                 if(idx == 5){
                     $(this).parents("tr").find(".inp-nilai").show();
                     $(this).parents("tr").find(".td-nilai").hide();
@@ -1812,58 +1867,7 @@
         }
     });
 
-    $('#input-grid').on('keypress', '.inp-kode', function(e){
-        var this_index = $(this).closest('tbody tr').index();
-        if (e.which == 42) {
-            e.preventDefault();
-            if($("#input-grid tbody tr:eq("+(this_index - 1)+")").find('.inp-kode').val() != undefined){
-                $(this).val($("#input-grid tbody tr:eq("+(this_index - 1)+")").find('.inp-kode').val());
-            }else{
-                $(this).val('');
-            }
-        }
-    });
-
-    $('#input-grid').on('keypress', '.inp-dc', function(e){
-        var this_index = $(this).closest('tbody tr').index();
-        if (e.which == 42) {
-            e.preventDefault();
-            if($("#input-grid tbody tr:eq("+(this_index - 1)+")").find('.inp-dc')[0].selectize.getValue() != undefined){
-                $(this)[0].selectize.setValue($("#input-grid tbody tr:eq("+(this_index - 1)+")").find('.inp-dc')[0].selectize.getValue());
-            }else{
-                $(this)[0].selectize.setValue('');
-            }
-        }
-    });
-
-    $('#input-grid').on('keypress', '.inp-ket', function(e){
-        var this_index = $(this).closest('tbody tr').index();
-        if (e.which == 42) {
-            e.preventDefault();
-            if($("#input-grid tbody tr:eq("+(this_index - 1)+")").find('.inp-ket').val() != undefined){
-                $(this).val($("#input-grid tbody tr:eq("+(this_index - 1)+")").find('.inp-ket').val());
-            }else{
-                $(this).val('');
-            }
-        }
-    });
-
-    $('#input-grid').on('keypress', '.inp-nilai', function(e){
-        if (e.which == 42) {
-            e.preventDefault();
-            var dc = $(this).closest('tr').find('.inp-dc')[0].selectize.getValue();
-            if(dc == 'D' || dc == 'C'){
-                var selisih = Math.abs(toNilai($('#total_debet').val()) - toNilai($('#total_kredit').val()));
-                $(this).val(selisih);
-            }else{
-                alert('Posisi tidak valid, harap pilih posisi akun');
-                $(this).closest('tr').find('.inp-dc')[0].selectize.focus();
-            }
-        }
-    });
-
     $('#input-grid').on('change', '.inp-nilai', function(){
-        console.log('change-nilai');
         if($(this).closest('tr').find('.inp-nilai').val() != "" && $(this).closest('tr').find('.inp-nilai').val() != 0){
             hitungTotal();
             $(this).closest('tr').find('.inp-pp').val();
@@ -1886,18 +1890,6 @@
         }else{
             alert('PP yang dimasukkan tidak valid');
             return false;
-        }
-    });
-
-    $('#input-grid').on('keypress', '.inp-pp', function(e){
-        var this_index = $(this).closest('tbody tr').index();
-        if (e.which == 42) {
-            e.preventDefault();
-            if($("#input-grid tbody tr:eq("+(this_index - 1)+")").find('.inp-pp').val() != undefined){
-                $(this).val($("#input-grid tbody tr:eq("+(this_index - 1)+")").find('.inp-pp').val());
-            }else{
-                $(this).val('');
-            }
         }
     });
 
