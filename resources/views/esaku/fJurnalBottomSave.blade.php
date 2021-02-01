@@ -53,16 +53,37 @@
             top: -80px !important;
         }
     
+        #btn-kembali
+        {
+            line-height:1.5;padding: 0;background: none;appearance: unset;opacity: unset;right: -40px;position: relative;
+            top: 0;
+            z-index: 10;
+            float: right;
+            margin-top: -30px;
+        }
+        #btn-kembali > span 
+        {
+            border-radius: 50%;padding: 0 0.45rem 0.1rem 0.45rem;background: white;color: black;font-size: 1.2rem !important;font-weight: lighter;box-shadow:0px 1px 5px 1px #80808054
+        }
+
+        #btn-kembali > span:hover
+        {
+            color:white;
+            background:red;
+        }
     </style>
     <!-- FORM INPUT -->
     <form id="form-tambah" class="tooltip-label-right" novalidate>
         <div class="row" id="saku-form" style="display:none;">
             <div class="col-sm-12">
                 <div class="card">
-                    <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;">
+                    <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;min-height:62.8px">
                         <h6 id="judul-form" style="position:absolute;top:25px"></h6>
                         
-                        <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Keluar</button>
+                        <!-- <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Keluar</button> -->
+                        <button type="button" id="btn-kembali" aria-label="Kembali" class="btn">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
                     <div class="separator mb-2"></div>
                     <div class="card-body pt-3 form-body">
