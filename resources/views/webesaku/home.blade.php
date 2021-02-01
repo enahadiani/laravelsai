@@ -109,6 +109,38 @@
             </div>
         </section>
 
+        {{-- Section Alasan --}}
+        <section id="alasan" class="p-b-0">
+            <div class="container">
+                <div class="heading-text heading-section text-center m-b-40" data-animate="fadeInUp">
+                    <h4>
+                        Alasan kenapa <img alt="saku-text" src="{{ asset('asset_web/img/esaku/SAKU2021.svg')}}" width="80">
+                        sangat layak untuk digunakan.
+                    </h4>
+                    <div id="alasan-digunakan" class="daftar-alasan">
+                        <div class="box-alasan" data-animate="fadeInUp">
+                            <h5 class="alasan-text">Berpengalaman</h5>
+                            <p class="alasan-content">
+                                20 tahun lebih diberikan kepercayaan klien dalam membangun sistem akuntansi keuangan.
+                            </p>
+                        </div>
+                        <div class="box-alasan" data-animate="fadeInUp">
+                            <h5 class="alasan-text">Online</h5>
+                            <p class="alasan-content">
+                                Akses data keuangan dimana saja dan kapanpun dengan jaringan internet.
+                            </p>
+                        </div>
+                        <div class="box-alasan" data-animate="fadeInUp">
+                            <h5 class="alasan-text">Pelayanan</h5>
+                            <p class="alasan-content">
+                                Kami siap membantu setiap kendala dengan layanan personal chat.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </div>
     {{-- end: Body Inner --}}
     {{-- Scroll top --}}

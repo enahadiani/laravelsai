@@ -1,3 +1,35 @@
+.alasan-content {
+    text-align: left;
+    margin: -1.5rem 0 0 1.7rem;
+    font-weight: 300 !important;
+}
+.alasan-text {
+    color: #0058e4;
+    font-size: 2rem;
+}
+.daftar-alasan .box-alasan:nth-child(3) {
+    float: right;
+    margin: 3rem 4rem 0 0;
+}
+.daftar-alasan .box-alasan:nth-child(2) {
+    float: left;
+    margin: 8rem 0 0 12rem;
+}
+.daftar-alasan .box-alasan:nth-child(1) {
+    float: right;
+    margin: 0 4rem 0 0;
+}
+.daftar-alasan .box-alasan {
+    height: 18.75rem;
+    width: 26.4375rem;
+    background-color: #fff;
+    border-radius: 2.5rem;
+    box-shadow: 0px 3px 20px #82828229;
+    padding: 3rem;
+}
+.daftar-alasan {
+    padding: 0 6rem 0 1rem;
+}
 .link-lanjut > .arrow-tilted {
     transform: rotate(40deg);
     padding-left: 0.5rem;
