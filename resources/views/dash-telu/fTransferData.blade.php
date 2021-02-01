@@ -23,6 +23,10 @@
                                     <label for="tanggal">Periode</label>
                                     <select name="periode" id="periode" class="form-control" required></select>
                                 </div>
+                                <div class="col-md-4 col-sm-12">
+                                    <label for="kode_fs">Kode FS</label>
+                                    <select name="kode_fs" id="kode_fs" class="form-control" required></select>
+                                </div>
                                 <div class="col-md-3 col-sm-12" style="min-height:64px;">
                                     <button type="submit" class="btn btn-primary" style="position:relative;top:25px" id="btn-save" ><i class="fa fa-save"></i> Proses</button>
                                 </div>
@@ -118,6 +122,48 @@ function getPeriodeSelect(){
 }
 
 getPeriodeSelect();
+
+    function getFSSelect(){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('telu-master/fs') }}",
+            dataType: 'json',
+            async:false,
+            success:function(result){   
+                var select = $('#kode_fs').selectize();
+                select = select[0];
+                var control = select.selectize;
+                if(result.status){
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                        for(i=0;i<result.daftar.length;i++){
+                            control.addOption([{text:result.daftar[i].kode_fs, value:result.daftar[i].kode_fs}]);
+                        }
+                        control.setValue("FS1");
+                    }
+                } 
+                else if(!result.status && result.message == "Unauthorized"){
+                    window.location.href = "{{ url('dash-telu/sesi-habis') }}";
+                } else{
+                    alert(result.message);
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {       
+                if(jqXHR.status == 422){
+                    var msg = jqXHR.responseText;
+                }else if(jqXHR.status == 500) {
+                    var msg = "Internal server error";
+                }else if(jqXHR.status == 401){
+                    var msg = "Unauthorized";
+                    window.location="{{ url('/dash-telu/sesi-habis') }}";
+                }else if(jqXHR.status == 405){
+                    var msg = "Route not valid. Page not found";
+                }
+                
+            }
+        });
+    }
+
+    getFSSelect();
 
 // DATATABLE FUNCTION //
 

@@ -604,6 +604,9 @@ $.dore = function (element, options) {
       if($('.header-dash').length > 0){
         setHeaderDash();
       }
+      if($('.card-body-footer').length > 0){
+        setWidthFooterCardBody();
+      }
     });
 
     $(".menu-button-mobile").on("click", function (event) {
