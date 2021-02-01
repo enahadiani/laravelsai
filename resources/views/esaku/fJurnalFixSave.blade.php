@@ -71,6 +71,24 @@
             color:white;
             background:red;
         }
+        .card-body-footer{
+            background: white;
+            position: fixed;
+            bottom: 15px;
+            right: 0;
+            margin-right: 30px;
+            height: 60px;
+            border-top: ;
+            border-bottom-right-radius: 1rem;
+            border-bottom-left-radius: 1rem;
+            box-shadow: 0 -5px 20px rgba(0,0,0,.04),0 1px 6px rgba(0,0,0,.04);
+        }
+
+        .card-body-footer > button{
+            float: right;
+            margin-top: 10px;
+            margin-right: 25px;
+        }
     </style>
     <!-- FORM INPUT -->
     <form id="form-tambah" class="tooltip-label-right" novalidate>
@@ -86,7 +104,7 @@
                     </div>
                     <div class="separator mb-2"></div>
                     <div class="card-body pt-3 form-body">
-                    <input type="hidden" id="method" name="_method" value="post">
+                        <input type="hidden" id="method" name="_method" value="post">
                         <div class="form-group row" id="row-id">
                             <div class="col-9">
                                 <input class="form-control" type="text" id="id" name="id" readonly hidden>
@@ -298,7 +316,9 @@
                                     <i class="saicon icon-tambah mr-1"></i>Tambah Baris</a>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary ml-2"  style="float: right;position: fixed;bottom: 35px;right: 0;margin-right: 60px;" id="btn-save" ><i class="fa fa-save"></i> Simpan</button>
+                        </div>
+                        <div class="card-body-footer">
+                            <button type="submit" class="btn btn-primary ml-2"  style="float: right;" id="btn-save" ><i class="fa fa-save"></i> Simpan</button>
                         </div>
                     </div>
                 </div>
@@ -934,6 +954,7 @@
                     $('#saku-form').show();
                     $('#kode_form').val($form_aktif);
                     showInfoField("nik_periksa",result.jurnal[0].nik_periksa,result.jurnal[0].nama_periksa);
+                    setWidthFooterCardBody();
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
                     window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
@@ -1005,6 +1026,7 @@
         $('#saku-form').show();
         $('#kode_form').val($form_aktif);
         addRow("default");
+        setWidthFooterCardBody();
     });
     // END BUTTON TAMBAH
 

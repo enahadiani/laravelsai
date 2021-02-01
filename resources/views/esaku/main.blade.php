@@ -1086,6 +1086,16 @@
         // if($('#saku-datatable').length > 0){
         //     $('#saku-datatable .card').css('min-height',tinggi);
         // }
+        if($('.card-body-footer').length > 0){
+            $('.card-body-footer').css('width',$('.form-body').width());
+        }
+    }
+
+    function setWidthFooterCardBody(){
+        if($('.card-body-footer').length > 0){
+            console.log($('.form-body').width());
+            $('.card-body-footer').css('width',$('.container-fluid').width()+'px');
+        }
     }
 
     function setHeightFormPOS(){
@@ -1117,6 +1127,7 @@
         }
         setHeightForm();
         setHeightFormPOS();
+        setWidthFooterCardBody();
     });
     
     $('#notificationButton').click(function(){
