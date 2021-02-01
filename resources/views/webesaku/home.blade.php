@@ -11,6 +11,7 @@
     <!-- Document title -->
     <title>SAKU | Home</title>
     <!-- Stylesheets & Fonts -->
+    <link href="{{ asset('asset_web/webesaku/fontawesome/css/all.css')}}">
     <link href="{{ asset('asset_web/css/plugins.css') }}" rel="stylesheet">
     <link href="{{ asset('asset_web/css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('asset_web/css/websaku.css') }}" rel="stylesheet">
@@ -89,6 +90,21 @@
                         <img alt="apparindo" src="{{ asset('asset_web/img/esaku/apparindo.png') }}"/>
                         <img alt="yakkap" src="{{ asset('asset_web/img/esaku/yakkap.png') }}"/>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        {{-- Section Welcome 2 --}}
+        <section id="welcome2" class="p-b-0">
+            <div class="container">
+                <div class="heading-text heading-section text-center m-b-40" data-animate="fadeInUp">
+                    <h1>Dashboard luar biasa untuk keputusan bisnis yang percaya diri.</h1>
+                    <h5 class="lead">
+                        Dari data transaksi yang anda miliki dapat menghasilkan informasi-informasi
+                        penting dalam bentuk visual yang mempermudah dalam mengambil keputusan.
+                    </h5>
+                    <a class="link-lanjut" href="#">Pelajari Lebih Lanjut  <i class="fas fa-arrow-up arrow-tilted"></i></a>
+                    <img alt="tablet" src="{{ asset('asset_web/img/esaku/tablet.png')}}">
                 </div>
             </div>
         </section>

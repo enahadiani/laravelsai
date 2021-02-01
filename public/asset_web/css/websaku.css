@@ -1,3 +1,11 @@
+.link-lanjut > .arrow-tilted {
+    transform: rotate(40deg);
+    padding-left: 0.5rem;
+}
+.link-lanjut {
+    font-size: 1.5rem;
+    color: #0058e4;
+}
 .list-client-welcome > img {
     margin: 0 0.5rem;
 }
