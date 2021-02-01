@@ -277,7 +277,7 @@
                                     <i class="saicon icon-tambah mr-1"></i>Tambah Baris</a>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary ml-2"  style="float: right;position: fixed;bottom: 15px;right: 0;margin-right: 60px;" id="btn-save" ><i class="fa fa-save"></i> Simpan</button>
+                            <button type="submit" class="btn btn-primary ml-2"  style="float: right;position: fixed;bottom: 25px;right: 0;margin-right: 60px;" id="btn-save" ><i class="fa fa-save"></i> Simpan</button>
                         </div>
                     </div>
                 </div>
