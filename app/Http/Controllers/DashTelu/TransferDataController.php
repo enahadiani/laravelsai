@@ -65,7 +65,8 @@ class TransferDataController extends Controller
             
             $client = new Client();
             $data = array(
-                'periode' => $request->periode
+                'periode' => $request->periode,
+                'kode_fs' => $request->kode_fs
             );
             $response = $client->request('POST',  config('api.url').'ypt-trans/transfer-data',[
                 'headers' => [
