@@ -104,13 +104,15 @@
                         penting dalam bentuk visual yang mempermudah dalam mengambil keputusan.
                     </h5>
                     <a class="link-lanjut" href="#">Pelajari Lebih Lanjut  <i class="fas fa-arrow-up arrow-tilted"></i></a>
+                </div>
+                <div class="image-welcome" data-animate="fadeInUp">
                     <img alt="tablet" src="{{ asset('asset_web/img/esaku/tablet.png')}}">
                 </div>
             </div>
         </section>
 
         {{-- Section Alasan --}}
-        <section id="alasan" class="p-b-0">
+        <section id="alasan" class="p-b-25">
             <div class="container">
                 <div class="heading-text heading-section text-center m-b-40" data-animate="fadeInUp">
                     <h4>
@@ -134,6 +136,74 @@
                             <h5 class="alasan-text">Pelayanan</h5>
                             <p class="alasan-content">
                                 Kami siap membantu setiap kendala dengan layanan personal chat.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="fitur" class="p-b-25">
+            <div class="container">
+                <div class="heading-text heading-section text-center m-b-40" data-animate="fadeInUp">
+                    <h4>
+                        Fitur <img alt="saku-text" src="{{ asset('asset_web/img/esaku/SAKU2021.svg')}}" width="80">
+                        yang membantu bisnis anda.
+                    </h4>
+                    <h5 class="lead">
+                        Pencatatan semakin mudah dengan fitur yang disediakan sehingga anda bisa fokus 
+                        dalam pengembangan bisnis.
+                    </h5>
+                    <a class="link-lanjut" href="#">Pelajari Lebih Lanjut  <i class="fas fa-arrow-up arrow-tilted"></i></a>
+                </div>
+                <div class="daftar-fitur">
+                    <div class="list-fitur" data-animate="fadeInUp">
+                        <div class="list-fitur-header">
+                            <img alt="online-shop" src="{{ asset('asset_web/img/esaku/Online Shop.svg')}}" width="65">
+                            <h4 class="list-fitur-name">Online Shop</h4>
+                        </div>
+                        <div class="list-fitur-body">
+                            <p>
+                                Satu aplikasi yang terintegrasi dengan online shop di Indonesia sehingga proses penjualan
+                                anda akan lebih menghemat waktu dan mudah untuk di kontrol.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="list-fitur" data-animate="fadeInUp">
+                        <div class="list-fitur-header">
+                            <img alt="online-shop" src="{{ asset('asset_web/img/esaku/Rekonsiliasi Bank.svg')}}" width="65">
+                            <h4 class="list-fitur-name">Rekonsiliasi Bank</h4>
+                        </div>
+                        <div class="list-fitur-body">
+                            <p>
+                                Anda dapat mencocokan pencatatan transaksi dari Bank dengan SAKU secara langsung
+                                sehingga kebiasaan pengecekan satu per satu bisa dikurangi.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="daftar-fitur">
+                    <div class="list-fitur" data-animate="fadeInUp">
+                        <div class="list-fitur-header">
+                            <img alt="online-shop" src="{{ asset('asset_web/img/esaku/Produk.svg')}}" width="65">
+                            <h4 class="list-fitur-name">Produk</h4>
+                        </div>
+                        <div class="list-fitur-body">
+                            <p>
+                                Kelola produk dari proses pembelian, penjualan, perpindahan produk antar gudang dan
+                                cabang dengan mudah.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="list-fitur" data-animate="fadeInUp">
+                        <div class="list-fitur-header">
+                            <img alt="online-shop" src="{{ asset('asset_web/img/esaku/Laporan.svg')}}" width="65">
+                            <h4 class="list-fitur-name">Laporan</h4>
+                        </div>
+                        <div class="list-fitur-body">
+                            <p>
+                                Berbagai jenis laporan yang dapat dilihat kapan saja secara realtime yang menggambarkan
+                                keadaan bisnis anda.
                             </p>
                         </div>
                     </div>
