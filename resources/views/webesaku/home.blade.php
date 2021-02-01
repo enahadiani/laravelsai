@@ -11,6 +11,8 @@
     <!-- Document title -->
     <title>SAKU | Home</title>
     <!-- Stylesheets & Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link href="{{ asset('asset_web/webesaku/fontawesome/css/all.css')}}">
     <link href="{{ asset('asset_web/css/plugins.css') }}" rel="stylesheet">
     <link href="{{ asset('asset_web/css/style.css') }}" rel="stylesheet">

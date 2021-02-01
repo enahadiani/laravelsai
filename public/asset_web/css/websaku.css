@@ -133,3 +133,17 @@
 .header-content-2 .main-menu {
     margin-top: 0.5rem;
 }
+h1,
+h2,
+h3 {
+    font-family: "Roboto", sans-serif;
+    font-weight: 700;
+}
+
+p,
+span,
+h4,
+h5 {
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+}
