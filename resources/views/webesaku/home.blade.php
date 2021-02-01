@@ -72,10 +72,10 @@
             <div class="container">
                 <div class="heading-text heading-section text-center m-b-40" data-animate="fadeInUp">
                     <h1>Software Pencatatan Bisnis</h1>
-                    <h5 class="lead">
+                    <h4 class="lead">
                         Mengelola pencatatan bisnis anda sehingga menghasilkan laporan handal dan
                         dashboard bermanfaat.
-                    </h5>
+                    </h4>
                 </div>
                 <div class="action-welcome" data-animate="fadeInUp">
                     <button type="button" id="daftar-welcome">Daftar Gratis</button>
@@ -341,6 +341,12 @@
                     <span class="dot" onclick="currentSlides(3)"></span>
                     <span class="dot" onclick="currentSlides(4)"></span>
                     <span class="dot" onclick="currentSlides(5)"></span>
+                </div>
+
+                <div class="trusted-client">
+                    <div class="trusted-client-content"></div>
+                    <div class="trusted-client-content"></div>
+                    <div class="trusted-client-content"></div>
                 </div>
             </div>
         </section>
