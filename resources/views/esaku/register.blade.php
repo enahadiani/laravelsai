@@ -214,6 +214,9 @@
         .sw-main>ul.step-anchor>li.active>a {
             color: #0058e4 !important;
         }
+        #form-wizard-area.form-side {
+            width: 40%;
+        }
         @media (max-width: 991px) {
             .auth-card .image-side {
                 width: 100%;
