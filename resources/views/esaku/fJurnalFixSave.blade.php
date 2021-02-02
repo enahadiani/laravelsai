@@ -63,7 +63,9 @@
         }
         #btn-kembali > span 
         {
-            border-radius: 50%;padding: 0 0.45rem 0.1rem 0.45rem;background: white;color: black;font-size: 1.2rem !important;font-weight: lighter;box-shadow:0px 1px 5px 1px #80808054
+            border-radius: 50%;padding: 0 0.45rem 0.1rem 0.45rem;font-size: 1.2rem !important;font-weight: lighter;box-shadow:0px 1px 5px 1px #80808054;
+            color:white;
+            background:red;
         }
 
         #btn-kembali > span:hover
