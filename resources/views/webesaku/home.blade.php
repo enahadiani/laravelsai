@@ -70,12 +70,16 @@
         {{-- Section Welcome --}}
         <section id="welcome" class="p-b-0">
             <div class="container">
-                <div class="heading-text heading-section text-center m-b-40" data-animate="fadeInUp">
+                <div class="heading-text heading-section text-center m-b-20" data-animate="fadeInUp">
                     <h1>Software Pencatatan Bisnis</h1>
-                    <h5 class="lead">
-                        Mengelola pencatatan bisnis anda sehingga menghasilkan laporan handal dan
-                        dashboard bermanfaat.
-                    </h5>
+                    <div class="heading-paragraph-container">
+                        <div class="heading-paragraph">
+                            <h5 class="lead">
+                                Mengelola pencatatan bisnis anda sehingga menghasilkan laporan handal dan
+                                dashboard bermanfaat.
+                            </h5>
+                        </div>
+                    </div>
                 </div>
                 <div class="action-welcome" data-animate="fadeInUp">
                     <button type="button" id="daftar-welcome">Daftar Gratis</button>
@@ -99,12 +103,16 @@
         {{-- Section Welcome 2 --}}
         <section id="welcome2" class="p-b-0">
             <div class="container">
-                <div class="heading-text heading-section text-center m-b-40" data-animate="fadeInUp">
+                <div class="heading-text heading-section text-center m-b-25" data-animate="fadeInUp">
                     <h1>Dashboard luar biasa untuk keputusan bisnis yang percaya diri.</h1>
-                    <h5 class="lead">
-                        Dari data transaksi yang anda miliki dapat menghasilkan informasi-informasi
-                        penting dalam bentuk visual yang mempermudah dalam mengambil keputusan.
-                    </h5>
+                    <div class="heading-paragraph-container-welcome-2">
+                        <div class="heading-paragraph-welcome-2">
+                            <h5 class="lead">
+                                Dari data transaksi yang anda miliki dapat menghasilkan informasi-informasi
+                                penting dalam bentuk visual yang mempermudah dalam mengambil keputusan.
+                            </h5>
+                        </div>
+                    </div>
                     <a class="link-lanjut" href="#">Pelajari Lebih Lanjut  <i class="fas fa-arrow-up arrow-tilted"></i></a>
                 </div>
                 <div class="image-welcome" data-animate="fadeInUp">
@@ -121,7 +129,7 @@
                         Alasan kenapa <img alt="saku-text" src="{{ asset('asset_web/img/esaku/SAKU2021.svg')}}" width="120">
                         sangat layak untuk digunakan.
                     </h1>
-                    <div id="alasan-digunakan" class="daftar-alasan">
+                    {{-- <div id="alasan-digunakan" class="daftar-alasan">
                         <div class="box-alasan" data-animate="fadeInUp">
                             <h5 class="alasan-text">Berpengalaman</h5>
                             <p class="alasan-content">
@@ -140,22 +148,53 @@
                                 Kami siap membantu setiap kendala dengan layanan personal chat.
                             </p>
                         </div>
+                    </div> --}}
+                </div>
+                <div id="alasan-digunakan" class="daftar-alasan">
+                    <div class="box-alasan" data-animate="fadeInUp">
+                        <h5 class="alasan-text">Berpengalaman</h5>
+                        <div class="alasan-container">
+                            <p class="alasan-content">
+                                20 tahun lebih diberikan kepercayaan klien dalam membangun sistem akuntansi keuangan.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="box-alasan" data-animate="fadeInUp">
+                        <h5 class="alasan-text">Online</h5>
+                        <div class="alasan-container">
+                            <p class="alasan-content">
+                                Akses data keuangan dimana saja dan kapanpun dengan jaringan internet.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="box-alasan" data-animate="fadeInUp">
+                        <h5 class="alasan-text">Pelayanan</h5>
+                        <div class="alasan-container">
+                            <p class="alasan-content">
+                                Kami siap membantu setiap kendala dengan layanan personal chat.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
+        {{-- Fitur --}}
         <section id="fitur" class="p-b-0">
             <div class="container">
-                <div class="heading-text heading-section text-center m-b-40" data-animate="fadeInUp">
+                <div class="heading-text heading-section text-center m-b-25" data-animate="fadeInUp">
                     <h1>
                         Fitur <img alt="saku-text" src="{{ asset('asset_web/img/esaku/SAKU2021.svg')}}" width="120">
                         yang membantu bisnis anda.
                     </h1>
-                    <h5 class="lead">
-                        Pencatatan semakin mudah dengan fitur yang disediakan sehingga anda bisa fokus 
-                        dalam pengembangan bisnis.
-                    </h5>
+                    <div class="heading-paragraph-container-fitur">
+                        <div class="heading-paragraph-fitur">
+                            <h5 class="lead">
+                                Pencatatan semakin mudah dengan fitur yang disediakan sehingga anda bisa fokus 
+                                dalam pengembangan bisnis.
+                            </h5>
+                        </div>
+                    </div>
                     <a class="link-lanjut" href="#">Pelajari Lebih Lanjut  <i class="fas fa-arrow-up arrow-tilted"></i></a>
                 </div>
                 <div class="daftar-fitur">

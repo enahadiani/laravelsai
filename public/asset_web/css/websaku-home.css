@@ -1,3 +1,32 @@
+.alasan-container {
+    width: 14rem;
+}
+.heading-paragraph-fitur {
+    width: 480px;
+    text-align: center;
+}
+.heading-paragraph-container-fitur {
+    display: flex;
+    justify-content: center;
+    height: 6rem;
+}
+.heading-paragraph-welcome-2 {
+    width: 30rem;
+    text-align: center;
+}
+.heading-paragraph-container-welcome-2 {
+    display: flex;
+    justify-content: center;
+    height: 10rem;
+}
+.heading-paragraph {
+    width: 22.5rem;
+    text-align: center;
+}
+.heading-paragraph-container {
+    display: flex;
+    justify-content: center;
+}
 .btn-presentation {
     background-color: #0058e4;
     color: #fff;
@@ -136,8 +165,8 @@
 }
 .alasan-content {
     text-align: left;
-    margin: -1.5rem 0 0 0;
-    font-weight: 300 !important;
+    margin: 1.5rem 0 0 0;
+    font-size: 1rem;
 }
 .alasan-text {
     color: #0058e4;
@@ -174,6 +203,7 @@
 .link-lanjut {
     font-size: 1.2rem;
     color: #0058e4;
+    margin-top: -10rem;
 }
 .list-client-welcome > img {
     margin: 0 0.5rem;
@@ -213,6 +243,7 @@
 .action-welcome {
     display: flex;
     justify-content: center;
+    margin-top: -2rem;
 }
 #daftar-link {
     background-color: #0058e4;
