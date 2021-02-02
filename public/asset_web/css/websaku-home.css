@@ -12,6 +12,7 @@ section:nth-child(6) {
 }
 #mainMenu nav > ul > li > a {
     text-transform: none !important;
+    font-size: 1rem;
 }
 .alasan-container {
     width: 14rem;
@@ -132,13 +133,13 @@ section:nth-child(6) {
     margin-left: -12rem;
     margin-top: -0.5rem;
 }
-.nama-owner {
+/* .nama-owner {
     font-size: 1rem;
     font-weight: 400;
-}
+} */
 .jabatan-owner {
     font-weight: bold;
-    font-size: 1rem;
+    /* font-size: 1rem; */
 }
 .keterangan-owner-container {
     margin-top: 1rem;
@@ -179,8 +180,12 @@ section:nth-child(6) {
     text-align: left;
     font-size: 1rem;
 }
+.list-fitur-header {
+    padding-bottom: 1.5rem;
+}
 .list-fitur-name {
     padding: 0.5rem 0 0 0;
+    font-weight: bold;
 }
 .daftar-fitur > .list-fitur {
     height: 18.75rem;

@@ -70,7 +70,7 @@
         {{-- Section Welcome --}}
         <section id="welcome" class="p-b-0">
             <div class="container">
-                <div class="heading-text heading-section text-center m-b-20" data-animate="fadeInUp">
+                <div class="heading-text heading-section text-center m-b-20">
                     <h1>Software Pencatatan Bisnis</h1>
                     <div class="heading-paragraph-container">
                         <div class="heading-paragraph">
@@ -81,7 +81,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="action-welcome" data-animate="fadeInUp">
+                <div class="action-welcome">
                     <button type="button" id="daftar-welcome">Daftar Gratis</button>
                     <button type="button" id="hubungi-welcome">Hubungi Kami</button>
                 </div>
@@ -103,7 +103,7 @@
         {{-- Section Welcome 2 --}}
         <section id="welcome2" class="p-b-0">
             <div class="container">
-                <div class="heading-text heading-section text-center m-b-25" data-animate="fadeInUp">
+                <div class="heading-text heading-section text-center m-b-25">
                     <h1>Dashboard luar biasa untuk keputusan bisnis yang percaya diri.</h1>
                     <div class="heading-paragraph-container-welcome-2">
                         <div class="heading-paragraph-welcome-2">
@@ -115,7 +115,7 @@
                     </div>
                     <a class="link-lanjut" href="#">Pelajari Lebih Lanjut  <i class="fas fa-arrow-up arrow-tilted"></i></a>
                 </div>
-                <div class="image-welcome" data-animate="fadeInUp">
+                <div class="image-welcome">
                     <img alt="tablet" src="{{ asset('asset_web/img/esaku/tablet.png')}}">
                 </div>
             </div>
@@ -124,7 +124,7 @@
         {{-- Section Alasan --}}
         <section id="alasan" class="p-b-25">
             <div class="container">
-                <div class="heading-text heading-section m-b-40" data-animate="fadeInUp">
+                <div class="heading-text heading-section m-b-40">
                     <h1>
                         Alasan kenapa <img alt="saku-text" src="{{ asset('asset_web/img/esaku/SAKU2021.svg')}}" height=50">
                         sangat layak untuk digunakan.
@@ -162,7 +162,7 @@
         {{-- Fitur --}}
         <section id="fitur" class="p-b-0">
             <div class="container">
-                <div class="heading-text heading-section text-center m-b-25" data-animate="fadeInUp">
+                <div class="heading-text heading-section text-center m-b-25">
                     <h1>
                         Fitur <img alt="saku-text" src="{{ asset('asset_web/img/esaku/SAKU2021.svg')}}" height=50">
                         yang membantu bisnis anda.
@@ -178,7 +178,7 @@
                     <a class="link-lanjut" href="#">Pelajari Lebih Lanjut  <i class="fas fa-arrow-up arrow-tilted"></i></a>
                 </div>
                 <div class="daftar-fitur">
-                    <div class="list-fitur" data-animate="fadeInUp">
+                    <div class="list-fitur">
                         <div class="list-fitur-header">
                             <img alt="online-shop" src="{{ asset('asset_web/img/esaku/Online Shop.svg')}}" height="120">
                             <h4 class="list-fitur-name">Online Shop</h4>
@@ -190,9 +190,9 @@
                             </p>
                         </div>
                     </div>
-                    <div class="list-fitur" data-animate="fadeInUp">
+                    <div class="list-fitur">
                         <div class="list-fitur-header">
-                            <img alt="online-shop" src="{{ asset('asset_web/img/esaku/Rekonsiliasi Bank.svg')}}" height="120">
+                            <img alt="rekon-bank" src="{{ asset('asset_web/img/esaku/Rekonsiliasi Bank.svg')}}" height="120">
                             <h4 class="list-fitur-name">Rekonsiliasi Bank</h4>
                         </div>
                         <div class="list-fitur-body">
@@ -204,9 +204,9 @@
                     </div>
                 </div>
                 <div class="daftar-fitur">
-                    <div class="list-fitur" data-animate="fadeInUp">
+                    <div class="list-fitur">
                         <div class="list-fitur-header">
-                            <img alt="online-shop" src="{{ asset('asset_web/img/esaku/Produk.svg')}}" height="120">
+                            <img alt="produk" src="{{ asset('asset_web/img/esaku/Produk.svg')}}" height="120">
                             <h4 class="list-fitur-name">Produk</h4>
                         </div>
                         <div class="list-fitur-body">
@@ -216,9 +216,9 @@
                             </p>
                         </div>
                     </div>
-                    <div class="list-fitur" data-animate="fadeInUp">
+                    <div class="list-fitur">
                         <div class="list-fitur-header">
-                            <img alt="online-shop" src="{{ asset('asset_web/img/esaku/Laporan.svg')}}" height="120">
+                            <img alt="laporan" src="{{ asset('asset_web/img/esaku/Laporan.svg')}}" height="120">
                             <h4 class="list-fitur-name">Laporan</h4>
                         </div>
                         <div class="list-fitur-body">
@@ -235,7 +235,7 @@
         {{-- Section Feedback --}}
         <section id="feedback" class="p-b-25">
             <div class="container">
-                <div class="heading-text heading-section text-center m-b-40" data-animate="fadeInUp">
+                <div class="heading-text heading-section text-center m-b-40">
                     <h1>
                         Keberhasilan aplikasi adalah memiliki komitmen untuk menjalankannya.
                     </h1>
@@ -248,7 +248,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="feedback-client" data-animate="fadeInUp">
+                <div class="feedback-client">
 
                     <div class="feedback-corousel">
                         <div class="corousel-content fade-corousel">
@@ -258,10 +258,10 @@
                                 </div>
                                 <div class="keterangan-client">
                                     <div>
-                                        <span class="jabatan-owner">Direktur Keuangan PT. Lorem Ipsum</span>
+                                        <h5 class="jabatan-owner">Direktur Keuangan PT. Lorem Ipsum</h5>
                                     </div>
                                     <div>
-                                        <span class="nama-owner">Bapak Khoirul Afnan 1</span>
+                                        <h5 class="nama-owner">Bapak Khoirul Afnan 1</h5>
                                     </div>
                                     <div class="keterangan-owner-container">
                                         <p class="keterangan-owner">
@@ -358,47 +358,20 @@
 
                     </div>
                 </div>
-                <div class="nav-corousel" data-animate="fadeInUp">
+                <div class="nav-corousel">
                     <span class="dot" onclick="currentSlides(1)"></span>
                     <span class="dot" onclick="currentSlides(2)"></span>
                     <span class="dot" onclick="currentSlides(3)"></span>
                     <span class="dot" onclick="currentSlides(4)"></span>
                     <span class="dot" onclick="currentSlides(5)"></span>
                 </div>
-
-                {{-- <div class="trusted-client" data-animate="fadeInUp">
-                    <div class="heading-section text-center m-t-40">
-                        <h5 class="trusted-company">Perusahaan yang sudah mempercayai kami.</h5>
-                    </div>
-                    <div class="trusted-client-content" data-animate="fadeInUp">
-                        <img src="{{ asset('asset_web/img/esaku/logo-client.svg') }}" alt="logo-client">
-                        <img src="{{ asset('asset_web/img/esaku/logo-client.svg') }}" alt="logo-client">
-                        <img src="{{ asset('asset_web/img/esaku/logo-client.svg') }}" alt="logo-client">
-                        <img src="{{ asset('asset_web/img/esaku/logo-client.svg') }}" alt="logo-client">
-                        <img src="{{ asset('asset_web/img/esaku/logo-client.svg') }}" alt="logo-client">
-                    </div>
-                    <div class="trusted-client-content" data-animate="fadeInUp">
-                        <img src="{{ asset('asset_web/img/esaku/logo-client.svg') }}" alt="logo-client">
-                        <img src="{{ asset('asset_web/img/esaku/logo-client.svg') }}" alt="logo-client">
-                        <img src="{{ asset('asset_web/img/esaku/logo-client.svg') }}" alt="logo-client">
-                        <img src="{{ asset('asset_web/img/esaku/logo-client.svg') }}" alt="logo-client">
-                        <img src="{{ asset('asset_web/img/esaku/logo-client.svg') }}" alt="logo-client">
-                    </div>
-                    <div class="trusted-client-content" data-animate="fadeInUp">
-                        <img src="{{ asset('asset_web/img/esaku/logo-client.svg') }}" alt="logo-client">
-                        <img src="{{ asset('asset_web/img/esaku/logo-client.svg') }}" alt="logo-client">
-                        <img src="{{ asset('asset_web/img/esaku/logo-client.svg') }}" alt="logo-client">
-                        <img src="{{ asset('asset_web/img/esaku/logo-client.svg') }}" alt="logo-client">
-                        <img src="{{ asset('asset_web/img/esaku/logo-client.svg') }}" alt="logo-client">
-                    </div>
-                </div> --}}
             </div>
         </section>
 
         {{-- Daftar client --}}
         <section id="client-list" class="p-b-25">
             <div class="container">
-                <div class="trusted-client" data-animate="fadeInUp">
+                <div class="trusted-client">
                     <div class="heading-section text-center m-t-40">
                         <h5 class="trusted-company">Perusahaan yang sudah mempercayai kami</h5>
                     </div>
@@ -429,7 +402,7 @@
 
         <section id="presentation" class="p-b-150 p-t-150 background-presentation">
             <div class="container">
-                <div class="heading-text heading-section text-center m-b-40" data-animate="fadeInUp">
+                <div class="heading-text heading-section text-center m-b-40">
                     <h1>
                         Mulai Sekarang
                     </h1>
@@ -438,7 +411,7 @@
                         Tim kami siap membantu dengan langkah-langkah yang kita susun dan sepakati bersama.
                     </h5>
                 </div>
-                <div class="presentation-action" data-animate="fadeInUp">
+                <div class="presentation-action">
                     <button class="btn-presentation" type="button">Undang Presentasi</button>
                 </div>
             </div>
