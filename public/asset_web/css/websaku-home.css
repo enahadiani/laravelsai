@@ -99,8 +99,8 @@ section:nth-child(6) {
     padding-top: 2rem !important;
 }
 .trusted-company {
-    font-weight: bold;
-    font-size: 1.2rem;
+    font-weight: bold !important;
+    font-size: 1.5rem;
 }
 .trusted-client .trusted-client-content {
     display: flex;
@@ -327,7 +327,7 @@ h4,
 h5,
 h6 {
     font-family: "Roboto", sans-serif !important;
-    font-weight: 400 !important;
+    font-weight: 400;
 }
 span {
     font-family: "Roboto", sans-serif !important;

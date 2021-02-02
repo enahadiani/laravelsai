@@ -366,9 +366,41 @@
                     <span class="dot" onclick="currentSlides(5)"></span>
                 </div>
 
-                <div class="trusted-client" data-animate="fadeInUp">
+                {{-- <div class="trusted-client" data-animate="fadeInUp">
                     <div class="heading-section text-center m-t-40">
                         <h5 class="trusted-company">Perusahaan yang sudah mempercayai kami.</h5>
+                    </div>
+                    <div class="trusted-client-content" data-animate="fadeInUp">
+                        <img src="{{ asset('asset_web/img/esaku/logo-client.svg') }}" alt="logo-client">
+                        <img src="{{ asset('asset_web/img/esaku/logo-client.svg') }}" alt="logo-client">
+                        <img src="{{ asset('asset_web/img/esaku/logo-client.svg') }}" alt="logo-client">
+                        <img src="{{ asset('asset_web/img/esaku/logo-client.svg') }}" alt="logo-client">
+                        <img src="{{ asset('asset_web/img/esaku/logo-client.svg') }}" alt="logo-client">
+                    </div>
+                    <div class="trusted-client-content" data-animate="fadeInUp">
+                        <img src="{{ asset('asset_web/img/esaku/logo-client.svg') }}" alt="logo-client">
+                        <img src="{{ asset('asset_web/img/esaku/logo-client.svg') }}" alt="logo-client">
+                        <img src="{{ asset('asset_web/img/esaku/logo-client.svg') }}" alt="logo-client">
+                        <img src="{{ asset('asset_web/img/esaku/logo-client.svg') }}" alt="logo-client">
+                        <img src="{{ asset('asset_web/img/esaku/logo-client.svg') }}" alt="logo-client">
+                    </div>
+                    <div class="trusted-client-content" data-animate="fadeInUp">
+                        <img src="{{ asset('asset_web/img/esaku/logo-client.svg') }}" alt="logo-client">
+                        <img src="{{ asset('asset_web/img/esaku/logo-client.svg') }}" alt="logo-client">
+                        <img src="{{ asset('asset_web/img/esaku/logo-client.svg') }}" alt="logo-client">
+                        <img src="{{ asset('asset_web/img/esaku/logo-client.svg') }}" alt="logo-client">
+                        <img src="{{ asset('asset_web/img/esaku/logo-client.svg') }}" alt="logo-client">
+                    </div>
+                </div> --}}
+            </div>
+        </section>
+
+        {{-- Daftar client --}}
+        <section id="client-list" class="p-b-25">
+            <div class="container">
+                <div class="trusted-client" data-animate="fadeInUp">
+                    <div class="heading-section text-center m-t-40">
+                        <h5 class="trusted-company">Perusahaan yang sudah mempercayai kami</h5>
                     </div>
                     <div class="trusted-client-content" data-animate="fadeInUp">
                         <img src="{{ asset('asset_web/img/esaku/logo-client.svg') }}" alt="logo-client">
