@@ -6,7 +6,7 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="author" content="PT. Samudera Aplikasi Indonesia" />
     <meta name="description" content="Penyedia software keuangan">
-    <link rel="icon" type="image/png" href="{{ asset('asset_web/img/esaku/SAKU2021.svg') }}">   
+    <link rel="icon" type="image/png" href="{{ asset('asset_web/img/esaku/ico-saku.svg') }}">   
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- Document title -->
     <title>SAKU | Home</title>
