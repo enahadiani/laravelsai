@@ -18,6 +18,7 @@ Route::delete('mutasi-barang', 'Esaku\MutasiController@destroy');
 Route::put('mutasi-barang-update', 'Esaku\MutasiController@update');
 
 Route::post('send-whatsapp', 'Esaku\WAController@sendMessage');
+Route::post('pooling', 'Esaku\WAController@storePooling');
 
 //Aktiva tetap //
 Route::post('aktap', 'Esaku\TransAktivaTetapController@store');
