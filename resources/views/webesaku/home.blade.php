@@ -58,7 +58,7 @@
                         <div id="mainMenu2" class="main-menu">
                             <div class="container">
                                 <a href="#" id="masuk-link">Masuk</a>
-                                <a href="#" id="daftar-link">Daftar Gratis</a>
+                                <a href="https://app.simkug.com/esaku-auth/register" id="daftar-link">Daftar Gratis</a>
                             </div>
                         </div>
                     </div>
@@ -82,7 +82,7 @@
                     </div>
                 </div>
                 <div class="action-welcome">
-                    <button type="button" id="daftar-welcome">Daftar Gratis</button>
+                    <button type="button" id="daftar-welcome" onclick="daftarEsaku()">Daftar Gratis</button>
                     <button type="button" id="hubungi-welcome">Hubungi Kami</button>
                 </div>
                 <div class="image-welcome" data-animate="fadeInUp">
@@ -527,6 +527,10 @@
     <script type="text/javascript">
         var indexCorousel = 1;
         showSlides(indexCorousel);
+
+        function daftarEsaku()  {
+            location.href = "https://app.simkug.com/esaku-auth/register";
+        }
 
         function currentSlides(index) {
             showSlides(indexCorousel = index)
