@@ -115,7 +115,7 @@
                     </div>
                     <a class="link-lanjut" href="#">Pelajari Lebih Lanjut  <i class="fas fa-arrow-up arrow-tilted"></i></a>
                 </div>
-                <div class="image-welcome">
+                <div class="image-welcome" data-animate="fadeInUp">
                     <img alt="tablet" src="{{ asset('asset_web/img/esaku/tablet.png')}}">
                 </div>
             </div>
