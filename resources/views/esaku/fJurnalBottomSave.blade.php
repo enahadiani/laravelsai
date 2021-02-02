@@ -299,8 +299,8 @@
                                     <i class="saicon icon-tambah mr-1"></i>Tambah Baris</a>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary mb-2 mt-2"  style="float:right;" id="btn-save" ><i class="fa fa-save"></i> Simpan</button>
                         </div>
+                        <button type="submit" class="btn btn-primary mb-2 mt-2"  style="float:right;" id="btn-save" ><i class="fa fa-save"></i> Simpan</button>
                     </div>
                 </div>
             </div>
