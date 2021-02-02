@@ -36,11 +36,11 @@
         
         .logo{
             background:url("{{ asset('img/SAKU2021.svg') }}") no-repeat;
-            background-size: 100px;
+            background-size: 80px;
             background-position-x: center;
             background-position-y: center;
-            width:100px;
-            height:35px;
+            width:80px;
+            height:30px;
         }
         .logo-mobile{
             background:url("{{ asset('asset_elite/images/sai_icon/logo.png') }}") no-repeat;
