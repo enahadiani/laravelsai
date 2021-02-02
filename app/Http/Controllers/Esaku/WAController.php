@@ -33,8 +33,7 @@ class WAController extends Controller
 
     public function sendMessage(Request $request) {
         $this->validate($request, [
-            'pesan' => 'required',
-            'no_telp' => 'required'
+            'id_pesan' => 'required'
         ]);
 
         try {   
@@ -45,8 +44,7 @@ class WAController extends Controller
                     'Accept'     => 'application/json',
                 ],
                 'form_params' => [
-                    'phone' => $request->no_telp,
-                    'body' => $request->pesan
+                    'id_pesan' => $request->id_pesan
                 ]
             ]);
             if ($response->getStatusCode() == 200) { // 200 OK
@@ -60,6 +58,42 @@ class WAController extends Controller
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(),true);
             $data['message'] = $res;
+            $data['status'] = false;
+            return response()->json(['data' => $data], 500);
+        }
+    }
+
+    public function storePooling(Request $request) {
+        $this->validate($request, [
+            'pesan' => 'required',
+            'no_telp' => 'required',
+            'email' => 'required'
+        ]);
+
+        try {   
+            $client = new Client();
+            $response = $client->request('POST',  config('api.url').'toko-trans/pooling',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'form_params' => [
+                    'phone' => $request->no_telp,
+                    'body' => $request->pesan,
+                    'email' => $request->email
+                ]
+            ]);
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                return response()->json(['data' => $data], 200);  
+            }
+
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $data['message'] = 'tes';
             $data['status'] = false;
             return response()->json(['data' => $data], 500);
         }

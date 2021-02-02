@@ -1,6 +1,6 @@
     <link rel="stylesheet" href="{{ asset('trans.css') }}" />
     <!-- LIST DATA -->
-    <x-list-data judul="Data Jurnal" tambah="true" :thead="array('No Bukti','Tanggal','No Dokumen','Deskripsi','Nilai','Posting','Tgl Input','Aksi')" :thwidth="array(15,15,15,20,15,10,0,10)" :thclass="array('','','','','','','','text-center')" />
+    <x-list-data judul="Data Jurnal" tambah="true" :thead="array('Tanggal','No Bukti','No Dokumen','Deskripsi','Nilai','Posting','Tgl Input','Aksi')" :thwidth="array(15,15,15,20,15,10,0,10)" :thclass="array('','','','','','','','text-center')" />
     <!-- END LIST DATA -->
     <style>
         div.inp-div-jenis > input{
@@ -91,6 +91,9 @@
             float: right;
             margin-top: 10px;
             margin-right: 25px;
+        }
+        .modal{
+            top: calc(100% - 528px) !important;
         }
     </style>
     <!-- FORM INPUT -->
@@ -637,8 +640,8 @@
             // {   'targets': 7, data: null, 'defaultContent': action_html, 'className': 'text-center' }
         ],
         [
-            { data: 'no_bukti' },
             { data: 'tanggal' },
+            { data: 'no_bukti' },
             { data: 'no_dokumen' },
             { data: 'keterangan' },
             { data: 'nilai1' },
@@ -966,7 +969,7 @@
         });
     }
     $('#saku-datatable').on('click', '#btn-edit', function(){
-        var id= $(this).closest('tr').find('td').eq(0).html();
+        var id= $(this).closest('tr').find('td').eq(1).html();
         $('#btn-save').attr('type','button');
         $('#btn-save').attr('id','btn-update');
         $('#judul-form').html('Edit Data Jurnal');
@@ -1005,7 +1008,7 @@
     }
 
     $('#saku-datatable').on('click','#btn-delete',function(e){
-        var id = $(this).closest('tr').find('td').eq(0).html();
+        var id = $(this).closest('tr').find('td').eq(1).html();
         msgDialog({
             id: id,
             type:'hapus'
@@ -1065,7 +1068,7 @@
     $('#table-data tbody').on('click','td',function(e){
         if($(this).index() != 6 && $(this).index() != 5){
 
-            var id = $(this).closest('tr').find('td').eq(0).html();
+            var id = $(this).closest('tr').find('td').eq(1).html();
             var posted = $(this).closest('tr').find('td').eq(5).html();
             $.ajax({
                 type: 'GET',
@@ -2362,7 +2365,7 @@
 
     // UPLOAD DOK
     $('#saku-datatable').on('click', '#btn-upload', function(){
-        var id= $(this).closest('tr').find('td').eq(0).html();
+        var id= $(this).closest('tr').find('td').eq(1).html();
         $('.judul-form').html('Upload Dokumen Jurnal');
         $('#form-upload')[0].reset();
         $('#form-upload').validate().resetForm();
