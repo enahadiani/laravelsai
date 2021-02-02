@@ -54,7 +54,7 @@ section:nth-child(6) {
 .btn-presentation {
     background-color: #0058e4;
     color: #fff;
-    padding: 1rem;
+    padding: 0.8rem 1rem;
     border: none;
     border-radius: 2.5rem;
 }
