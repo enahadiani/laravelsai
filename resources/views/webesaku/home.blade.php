@@ -124,31 +124,11 @@
         {{-- Section Alasan --}}
         <section id="alasan" class="p-b-25">
             <div class="container">
-                <div class="heading-text heading-section text-center m-b-40" data-animate="fadeInUp">
+                <div class="heading-text heading-section m-b-40" data-animate="fadeInUp">
                     <h1>
-                        Alasan kenapa <img alt="saku-text" src="{{ asset('asset_web/img/esaku/SAKU2021.svg')}}" width="120">
+                        Alasan kenapa <img alt="saku-text" src="{{ asset('asset_web/img/esaku/SAKU2021.svg')}}" height=50">
                         sangat layak untuk digunakan.
                     </h1>
-                    {{-- <div id="alasan-digunakan" class="daftar-alasan">
-                        <div class="box-alasan" data-animate="fadeInUp">
-                            <h5 class="alasan-text">Berpengalaman</h5>
-                            <p class="alasan-content">
-                                20 tahun lebih diberikan kepercayaan klien dalam membangun sistem akuntansi keuangan.
-                            </p>
-                        </div>
-                        <div class="box-alasan" data-animate="fadeInUp">
-                            <h5 class="alasan-text">Online</h5>
-                            <p class="alasan-content">
-                                Akses data keuangan dimana saja dan kapanpun dengan jaringan internet.
-                            </p>
-                        </div>
-                        <div class="box-alasan" data-animate="fadeInUp">
-                            <h5 class="alasan-text">Pelayanan</h5>
-                            <p class="alasan-content">
-                                Kami siap membantu setiap kendala dengan layanan personal chat.
-                            </p>
-                        </div>
-                    </div> --}}
                 </div>
                 <div id="alasan-digunakan" class="daftar-alasan">
                     <div class="box-alasan" data-animate="fadeInUp">
@@ -184,7 +164,7 @@
             <div class="container">
                 <div class="heading-text heading-section text-center m-b-25" data-animate="fadeInUp">
                     <h1>
-                        Fitur <img alt="saku-text" src="{{ asset('asset_web/img/esaku/SAKU2021.svg')}}" width="120">
+                        Fitur <img alt="saku-text" src="{{ asset('asset_web/img/esaku/SAKU2021.svg')}}" height=50">
                         yang membantu bisnis anda.
                     </h1>
                     <div class="heading-paragraph-container-fitur">
@@ -200,7 +180,7 @@
                 <div class="daftar-fitur">
                     <div class="list-fitur" data-animate="fadeInUp">
                         <div class="list-fitur-header">
-                            <img alt="online-shop" src="{{ asset('asset_web/img/esaku/Online Shop.svg')}}" width="65">
+                            <img alt="online-shop" src="{{ asset('asset_web/img/esaku/Online Shop.svg')}}" height="120">
                             <h4 class="list-fitur-name">Online Shop</h4>
                         </div>
                         <div class="list-fitur-body">
@@ -212,7 +192,7 @@
                     </div>
                     <div class="list-fitur" data-animate="fadeInUp">
                         <div class="list-fitur-header">
-                            <img alt="online-shop" src="{{ asset('asset_web/img/esaku/Rekonsiliasi Bank.svg')}}" width="65">
+                            <img alt="online-shop" src="{{ asset('asset_web/img/esaku/Rekonsiliasi Bank.svg')}}" height="120">
                             <h4 class="list-fitur-name">Rekonsiliasi Bank</h4>
                         </div>
                         <div class="list-fitur-body">
@@ -226,7 +206,7 @@
                 <div class="daftar-fitur">
                     <div class="list-fitur" data-animate="fadeInUp">
                         <div class="list-fitur-header">
-                            <img alt="online-shop" src="{{ asset('asset_web/img/esaku/Produk.svg')}}" width="65">
+                            <img alt="online-shop" src="{{ asset('asset_web/img/esaku/Produk.svg')}}" height="120">
                             <h4 class="list-fitur-name">Produk</h4>
                         </div>
                         <div class="list-fitur-body">
@@ -238,7 +218,7 @@
                     </div>
                     <div class="list-fitur" data-animate="fadeInUp">
                         <div class="list-fitur-header">
-                            <img alt="online-shop" src="{{ asset('asset_web/img/esaku/Laporan.svg')}}" width="65">
+                            <img alt="online-shop" src="{{ asset('asset_web/img/esaku/Laporan.svg')}}" height="120">
                             <h4 class="list-fitur-name">Laporan</h4>
                         </div>
                         <div class="list-fitur-body">
@@ -259,10 +239,14 @@
                     <h1>
                         Keberhasilan aplikasi adalah memiliki komitmen untuk menjalankannya.
                     </h1>
-                    <h5 class="lead">
-                        Banyak perusahaan yang percaya kepada kami dan bertahan karena pelayanan kami serta 
-                        komitmen yang kami bangun untuk kesuksesan berjalannya aplikasi.
-                    </h5>
+                    <div class="heading-paragraph-container-feedback">
+                        <div class="heading-paragraph-feedback">
+                            <h5 class="lead">
+                                Banyak perusahaan yang percaya kepada kami dan bertahan karena pelayanan kami serta 
+                                komitmen yang kami bangun untuk kesuksesan berjalannya aplikasi.
+                            </h5>
+                        </div>
+                    </div>
                 </div>
                 <div class="feedback-client" data-animate="fadeInUp">
 
@@ -270,7 +254,7 @@
                         <div class="corousel-content fade-corousel">
                             <div class="feedback-content">
                                 <div class="image-client">
-                                    <img src="{{ asset('asset_web/img/esaku/client-owner.jpg')}}" width="90" height="90">
+                                    <img src="{{ asset('asset_web/img/esaku/client-owner.jpg')}}" width="150" height="150">
                                 </div>
                                 <div class="keterangan-client">
                                     <div>
@@ -279,7 +263,7 @@
                                     <div>
                                         <span class="nama-owner">Bapak Khoirul Afnan 1</span>
                                     </div>
-                                    <div>
+                                    <div class="keterangan-owner-container">
                                         <p class="keterangan-owner">
                                             Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut.
                                         </p>
@@ -291,7 +275,7 @@
                         <div class="corousel-content fade-corousel">
                             <div class="feedback-content">
                                 <div class="image-client">
-                                    <img src="{{ asset('asset_web/img/esaku/client-owner.jpg')}}" width="90" height="90">
+                                    <img src="{{ asset('asset_web/img/esaku/client-owner.jpg')}}" width="150" height="150">
                                 </div>
                                 <div class="keterangan-client">
                                     <div>
@@ -300,7 +284,7 @@
                                     <div>
                                         <span class="nama-owner">Bapak Khoirul Afnan 2</span>
                                     </div>
-                                    <div>
+                                    <div class="keterangan-owner-container">
                                         <p class="keterangan-owner">
                                             Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut.
                                         </p>
@@ -312,7 +296,7 @@
                         <div class="corousel-content fade-corousel">
                             <div class="feedback-content">
                                 <div class="image-client">
-                                    <img src="{{ asset('asset_web/img/esaku/client-owner.jpg')}}" width="90" height="90">
+                                    <img src="{{ asset('asset_web/img/esaku/client-owner.jpg')}}" width="150" height="150">
                                 </div>
                                 <div class="keterangan-client">
                                     <div>
@@ -321,7 +305,7 @@
                                     <div>
                                         <span class="nama-owner">Bapak Khoirul Afnan 3</span>
                                     </div>
-                                    <div>
+                                    <div class="keterangan-owner-container">
                                         <p class="keterangan-owner">
                                             Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut.
                                         </p>
@@ -333,7 +317,7 @@
                         <div class="corousel-content fade-corousel">
                             <div class="feedback-content">
                                 <div class="image-client">
-                                    <img src="{{ asset('asset_web/img/esaku/client-owner.jpg')}}" width="90" height="90">
+                                    <img src="{{ asset('asset_web/img/esaku/client-owner.jpg')}}" width="150" height="150">
                                 </div>
                                 <div class="keterangan-client">
                                     <div>
@@ -342,7 +326,7 @@
                                     <div>
                                         <span class="nama-owner">Bapak Khoirul Afnan 4</span>
                                     </div>
-                                    <div>
+                                    <div class="keterangan-owner-container">
                                         <p class="keterangan-owner">
                                             Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut.
                                         </p>
@@ -354,7 +338,7 @@
                         <div class="corousel-content fade-corousel">
                             <div class="feedback-content">
                                 <div class="image-client">
-                                    <img src="{{ asset('asset_web/img/esaku/client-owner.jpg')}}" width="90" height="90">
+                                    <img src="{{ asset('asset_web/img/esaku/client-owner.jpg')}}" width="150" height="150">
                                 </div>
                                 <div class="keterangan-client">
                                     <div>
@@ -363,7 +347,7 @@
                                     <div>
                                         <span class="nama-owner">Bapak Khoirul Afnan 5</span>
                                     </div>
-                                    <div>
+                                    <div class="keterangan-owner-container">
                                         <p class="keterangan-owner">
                                             Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut.
                                         </p>
@@ -411,7 +395,7 @@
             </div>
         </section>
 
-        <section id="presentation" class="p-b-90 background-presentation">
+        <section id="presentation" class="p-b-150 p-t-150 background-presentation">
             <div class="container">
                 <div class="heading-text heading-section text-center m-b-40" data-animate="fadeInUp">
                     <h1>
