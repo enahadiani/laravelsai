@@ -137,8 +137,8 @@
 
         .modal-header > h6
         {
-            margin-top: 0.5rem;
-            margin-bottom: 0.5rem;
+            margin-top: 0.8rem;
+            margin-bottom: 0.8rem;
             height: unset !important;
         }
         
