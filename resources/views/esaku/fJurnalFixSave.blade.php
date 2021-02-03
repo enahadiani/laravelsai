@@ -56,7 +56,7 @@
         #btn-kembali
         {
             line-height:1.5;padding: 0;background: none;appearance: unset;opacity: unset;right: -40px;position: relative;
-            top: 0;
+            top: 5px;
             z-index: 10;
             float: right;
             margin-top: -30px;
@@ -123,8 +123,8 @@
         <div class="row" id="saku-form" style="display:none;">
             <div class="col-sm-12">
                 <div class="card">
-                    <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;min-height:62.8px">
-                        <h6 id="judul-form" style="position:absolute;top:25px"></h6>
+                    <div class="card-body form-header" style="padding-top:0.5rem;padding-bottom:0.5rem;min-height:48px">
+                        <h6 id="judul-form" style="position:absolute;top:13px"></h6>
                         <!-- <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Keluar</button> -->
                         <button type="button" id="btn-kembali" aria-label="Kembali" class="btn">
                             <span aria-hidden="true">&times;</span>

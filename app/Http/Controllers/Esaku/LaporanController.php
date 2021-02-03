@@ -445,6 +445,7 @@
                     
                     $res = json_decode($response_data,true);
                     $data = $res["data"];
+                    $lokasi = $res["lokasi"];
                 }
         
                 if(isset($request->back)){
@@ -453,7 +454,7 @@
                     $back = false;
                 }
                 
-                return response()->json(['result' => $data, 'status'=>true,'lokasi'=>Session::get('namaLokasi'), 'auth_status'=>1,'back'=>$back], 200);    
+                return response()->json(['result' => $data, 'status'=>true,'lokasi'=>$lokasi, 'auth_status'=>1,'back'=>$back], 200);    
             } catch (BadResponseException $ex) {
                 $response = $ex->getResponse();
                 $res = json_decode($response->getBody(),true);
@@ -769,6 +770,7 @@
                     $res = json_decode($response_data,true);
                     $data = $res["data"];
                     $detail = $res["data_detail"];
+                    $lokasi = $res["lokasi"];
                 }
                 if(isset($request->back)){
                     $back = true;
@@ -776,7 +778,7 @@
                     $back = false;
                 }
                 
-                return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1, 'detail'=>$detail,'res'=>$res,'lokasi'=>Session::get('namaLokasi'),'back'=>$back], 200); 
+                return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1, 'detail'=>$detail,'res'=>$res,'lokasi'=>$lokasi,'back'=>$back], 200); 
             } catch (BadResponseException $ex) {
                 $response = $ex->getResponse();
                 $res = json_decode($response->getBody(),true);

@@ -26,7 +26,7 @@
             }
             var lokasi = res.lokasi;
             periode = $periode;
-            var html = `<div>
+            var html = `
             <style>
                 .info-table thead{
                     background:#4286f5;
@@ -35,36 +35,76 @@
                 .bold {
                     font-weight:bold;
                 }
-                td.no-border{
-                    border:none;
+                table th.no-border{
+                    border:0 !important;
+                }
+                .table-header-prev td{
+                    padding: 2px !important;
+                }
+                .table-kop-prev td{
+                    padding: 0px !important;
+                }
+                .separator2{
+                    height:1rem;
+                    background:#f8f8f8;
+                    box-shadow: -1px 0px 1px 0px #e1e1e1;
+                }
+                .vtop{
+                    vertical-align:top !important;
+                }
+                .lh1{
+                    line-height:1;
+                }
+                .bg-highlight{
+                    background: #eaf2ff !important;
+                }
+                .bg-white{
+                    background: white !important;
                 }
             </style>
-            `+judul_lap("LAPORAN BUKU BESAR",lokasi,'Periode '+periode.fromname);
+            <div style='border-bottom: double #d7d7d7;padding:0 3rem'>
+                <table class="borderless mb-2 table-kop-prev" width="100%" >
+                    <tr>
+                        <td width="50%" colspan="5" class="vtop"><h6 class="text-primary bold">LAPORAN BUKU BESAR</h6></td>
+                        <td width="50%" colspan="3" class="vtop text-right"><h6 class="mb-2 bold">`+res.lokasi[0].nama+`</h6></td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" >Periode `+($periode.fromname)+`</td>
+                        <td colspan="3" class="vtop text-right"><p class="lh1">`+res.lokasi[0].alamat+`<br>`+res.lokasi[0].kota+` `+res.lokasi[0].kodepos+` </p></td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" >( Disajikan dalam jutaan Rupiah )</td>
+                        <td colspan="3" class="vtop text-right"><p class="mt-2">`+res.lokasi[0].email+` | `+res.lokasi[0].no_telp+`</p></td>
+                    </tr>
+                </table>
+            </div>
+            <div style="padding: 0 3rem" class="table table-responsive">
+            `;
             for(var i=0;i<data.length;i++){
                 var line = data[i];
                 html+=`
-                <table class='table table-bordered'>
+                <table class='table table-bordered table-striped mt-4'>
                 <tr>
-                    <td class='header_laporan no-border' width='100'>Kode Akun  </td>
-                    <td class='header_laporan no-border' colspan='7'>:&nbsp;`+line.kode_akun+`</td>
+                    <th class='header_laporan bg-white no-border' width='100'>Kode Akun  </th>
+                    <th class='header_laporan bg-white no-border' colspan='7'>:&nbsp;`+line.kode_akun+`</th>
                 </tr>
                 <tr>
-                    <td class='header_laporan no-border'>Nama Akun </td>
-                    <td class='header_laporan no-border' colspan='7'>:&nbsp;`+line.nama+`</td>
+                    <th class='header_laporan bg-white no-border'>Nama Akun </th>
+                    <th class='header_laporan bg-white no-border' colspan='7'>:&nbsp;`+line.nama+`</th>
                 </tr>
                 <tr>
-                    <td height='23' colspan='7' class='header_laporan' align='right'>Saldo Awal </td>
-                    <td class='header_laporan' align='right'>`+sepNum(line.so_awal)+`</td>
+                    <th width='80' height='23' class='header_laporan bg-primary' align='center'>No Bukti</th>
+                    <th width='80' height='23' class='header_laporan bg-primary' align='center'>No Dokumen</th>
+                    <th width='60' class='header_laporan bg-primary' align='center'>Tanggal</th>
+                    <th width='250' class='header_laporan bg-primary' align='center'>Keterangan</th>
+                    <th width='60' class='header_laporan bg-primary' align='center'>Kode PP</th>
+                    <th width='90' class='header_laporan bg-primary' align='center'>Debet</th>
+                    <th width='90' class='header_laporan bg-primary' align='center'>Kredit</th>
+                    <th width='90' class='header_laporan bg-primary' align='center'>Balance</th>
                 </tr>
                 <tr>
-                    <td width='80' height='23' class='header_laporan' align='center'>No Bukti</td>
-                    <td width='80' height='23' class='header_laporan' align='center'>No Dokumen</td>
-                    <td width='60' class='header_laporan' align='center'>Tanggal</td>
-                    <td width='250' class='header_laporan' align='center'>Keterangan</td>
-                    <td width='60' class='header_laporan' align='center'>Kode PP</td>
-                    <td width='90' class='header_laporan' align='center'>Debet</td>
-                    <td width='90' class='header_laporan' align='center'>Kredit</td>
-                    <td width='90' class='header_laporan' align='center'>Balance</td>
+                    <th height='23' colspan='7' class='header_laporan bg-highlight text-right'>Saldo Awal </th>
+                    <th class='header_laporan bg-highlight' align='right'>`+sepNum(line.so_awal)+`</th>
                 </tr>`;
 			    var saldo=parseFloat(line.so_awal);
                 var debet=0;
@@ -92,10 +132,10 @@
                     }
 			    }
             html +=det+`<tr>
-                <td height='23' colspan='5' valign='top' class='isi_laporan' align='right'>Total&nbsp;</td>
-                <td valign='top' class='isi_laporan' align='right'>`+sepNum(debet)+`</td>
-                <td valign='top' class='isi_laporan' align='right'>`+sepNum(kredit)+`</td>
-                <td valign='top' class='isi_laporan' align='right'>`+sepNum(saldo)+`</td>
+                <td height='23' colspan='5' valign='top' class='isi_laporan bg-primary' align='right'>Total&nbsp;</td>
+                <td valign='top' class='isi_laporan bg-primary' align='right'>`+sepNum(debet)+`</td>
+                <td valign='top' class='isi_laporan bg-primary' align='right'>`+sepNum(kredit)+`</td>
+                <td valign='top' class='isi_laporan bg-primary' align='right'>`+sepNum(saldo)+`</td>
             </tr>
             </table>
             <br>`;

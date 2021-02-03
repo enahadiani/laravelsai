@@ -67,7 +67,7 @@
             </div>
         </div>
     </div>
-    <x-report-result judul="Neraca Lajur" padding="px-4 py-4"/>  
+    <x-report-result judul="Neraca Lajur" padding="px-0 py-4"/>  
     
     @include('modal_search')
     @include('modal_email')
@@ -89,8 +89,8 @@
         });
         var $periode = {
             type : "=",
-            from : "{{ date('Ym') }}",
-            fromname : namaPeriode("{{ date('Ym') }}"),
+            from : "{{ Session::get('periode') }}",
+            fromname : namaPeriode("{{ Session::get('periode') }}"),
             to : "",
             toname : "",
         }
@@ -118,7 +118,7 @@
 
         // $('#show').selectize();
 
-        $('#periode-from').val(namaPeriode("{{ date('Ym') }}"));
+        $('#periode-from').val(namaPeriode("{{ Session::get('periode') }}"));
         $('#btn-filter').click(function(e){
             $('#collapseFilter').show();
             $('#collapsePaging').hide();
@@ -389,7 +389,7 @@
 
         $("#sai-rpt-pdf").click(function(e) {
             e.preventDefault();
-            var link = "{{ url('esaku-report/lap-nrclajur-pdf') }}?periode[]="+$periode.type+"&periode[]="+$periode.from+"&periode[]="+$periode.to+"&kode_akun[]="+$kode_akun.type+"&kode_akun[]="+$kode_akun.from+"&kode_akun[]="+$kode_akun.to+"&output[]="+$output.type+"&output[]="+$output.from+"&output[]="+$output.to;
+            var link = "{{ url('esaku-report/lap-nrclajur-pdf') }}?periode[]="+$periode.type+"&periode[]="+$periode.from+"&periode[]="+$periode.to+"&kode_akun[]="+$kode_akun.type+"&kode_akun[]="+$kode_akun.from+"&kode_akun[]="+$kode_akun.to;
             window.open(link, '_blank'); 
         });
 
