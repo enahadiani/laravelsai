@@ -1,5 +1,17 @@
 @media only screen and (max-width: 480px) {
     /* Fitur */
+    .list-fitur-name {
+        font-size: 1.2rem;
+    }
+    .list-fitur-header > img {
+        height: 80px;
+    }
+    .daftar-fitur {
+        padding: 0 1rem 1rem 1rem;
+    }
+    .heading-paragraph-container-fitur {
+        height: 11rem;
+    }
     #fitur > .container > .heading-text > h1 > img {
         height: 40px;
     }
