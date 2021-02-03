@@ -264,9 +264,9 @@
                                         <h5 class="nama-owner">Bapak Khoirul Afnan 1</h5>
                                     </div>
                                     <div class="keterangan-owner-container">
-                                        <p class="keterangan-owner">
+                                        <h5 class="keterangan-owner">
                                             Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut.
-                                        </p>
+                                        </h5>
                                     </div>
                                 </div>
                             </div>
@@ -285,9 +285,9 @@
                                         <span class="nama-owner">Bapak Khoirul Afnan 2</span>
                                     </div>
                                     <div class="keterangan-owner-container">
-                                        <p class="keterangan-owner">
+                                        <h5 class="keterangan-owner">
                                             Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut.
-                                        </p>
+                                        </h5>
                                     </div>
                                 </div>
                             </div>
@@ -306,9 +306,9 @@
                                         <span class="nama-owner">Bapak Khoirul Afnan 3</span>
                                     </div>
                                     <div class="keterangan-owner-container">
-                                        <p class="keterangan-owner">
+                                        <h5 class="keterangan-owner">
                                             Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut.
-                                        </p>
+                                        </h5>
                                     </div>
                                 </div>
                             </div>
@@ -327,9 +327,9 @@
                                         <span class="nama-owner">Bapak Khoirul Afnan 4</span>
                                     </div>
                                     <div class="keterangan-owner-container">
-                                        <p class="keterangan-owner">
+                                        <h5 class="keterangan-owner">
                                             Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut.
-                                        </p>
+                                        </h5>
                                     </div>
                                 </div>
                             </div>
@@ -348,9 +348,9 @@
                                         <span class="nama-owner">Bapak Khoirul Afnan 5</span>
                                     </div>
                                     <div class="keterangan-owner-container">
-                                        <p class="keterangan-owner">
+                                        <h5 class="keterangan-owner">
                                             Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut.
-                                        </p>
+                                        </h5>
                                     </div>
                                 </div>
                             </div>
