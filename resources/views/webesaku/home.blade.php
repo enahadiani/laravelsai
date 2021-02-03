@@ -177,7 +177,7 @@
                     </div>
                     <a class="link-lanjut" href="#">Pelajari Lebih Lanjut  <i class="fas fa-arrow-up arrow-tilted"></i></a>
                 </div>
-                <div class="daftar-fitur">
+                <div class="daftar-fitur p-b-90">
                     <div class="list-fitur">
                         <div class="list-fitur-header">
                             <img alt="online-shop" src="{{ asset('asset_web/img/esaku/Online Shop.svg')}}" height="120">
