@@ -336,7 +336,7 @@ class JurnalController extends Controller
                 $response_data = $response->getBody()->getContents();
                 
                 $data = json_decode($response_data,true);
-                return response()->json(["data" =>$data["success"]], 200);  
+                return response()->json(["data" =>$data], 200);  
             }
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
