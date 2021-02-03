@@ -64,11 +64,18 @@
         .lh1{
             line-height:1;
         }
+        .bg-primary{
+            background: #0058e4 !important;
+            color:white !important;
+        }
+        .text-right{
+            text-align:right !important;
+        }
     </style>
 </head>
 <body>
     <div style='border-bottom: double #d7d7d7;padding:0 3rem'>
-        <table class="borderless mb-2 table-kop-prev" width="100%" >
+        <table class="table-borderless mb-2 table-kop-prev" width="100%" >
             <tr>
                 <td width="25%" colspan="5" class="vtop"><h6 class="text-primary bold">BUKTI JURNAL</h6></td>
                 <td width="75%" colspan="3" class="vtop text-right"><h6 class="mb-2 bold">{{ $lokasi[0]['nama'] }}</h6><p class="lh1">{{ $lokasi[0]['alamat'] }}<br>{{ $lokasi[0]['kota'] }} {{$lokasi[0]['kodepos'] }} </p><p class="mt-2">{{ $lokasi[0]['email'] }} | {{ $lokasi[0]['no_telp'] }}</p></td>
@@ -77,7 +84,7 @@
     </div>
     @for($a=0; $a < count($data); $a++)
         <div style="padding:0 3rem">
-            <table class="borderless table-header-prev mt-2" width="100%">
+            <table class="table-borderless table-header-prev mt-2" width="100%">
                 <tr>
                     <td width="14%">Tanggal</td>
                     <td width="1%">:</td>
@@ -101,12 +108,12 @@
         <div style="padding:0 3.1rem">
             <table class="table table-striped table-body-prev mt-2" width="100%">
                 <tr style="background: var(--theme-color-1) !important;color:white !important">
-                    <th style="width:15%" colspan="2">Kode Akun</th>
-                    <th style="width:20%">Nama Akun</th>
-                    <th style="width:10">Nama PP</th>
-                    <th style="width:25%">Keterangan</th>
-                    <th style="width:15%" colspan="2">Debet</th>
-                    <th style="width:15%">Kredit</th>
+                    <th width="15%" colspan="2">Kode Akun</th>
+                    <th width="20%">Nama Akun</th>
+                    <th width="10">Nama PP</th>
+                    <th width="25%">Keterangan</th>
+                    <th width="15%" colspan="2">Debet</th>
+                    <th width="15%">Kredit</th>
                 </tr>
                 @php
                     $det = '';
@@ -135,8 +142,8 @@
                 @endfor
                 <tr style="background: var(--theme-color-1) !important;color:white !important">
                     <th colspan="5"></th>
-                    <th style="width:10%" class="text-right" colspan="2">{{ number_format($total_debet,0,",",".") }}</th>
-                    <th style="width:10%" class="text-right">{{ number_format($total_kredit,0,",",".") }}</th>
+                    <th width="10%" class="text-right" colspan="2">{{ number_format($total_debet,0,",",".") }}</th>
+                    <th width="10%" class="text-right">{{ number_format($total_kredit,0,",",".") }}</th>
                     </tr>
                 </table>
                 <table class="table-borderless mt-2" width="100%">
