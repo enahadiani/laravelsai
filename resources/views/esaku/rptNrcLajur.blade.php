@@ -26,8 +26,9 @@
             }
             var html = `<div>
             <style>
-                .info-table thead{
+                .info-table th{
                     // background:#e9ecef;
+                    text-align:center;
                 }
                 .no-border td{
                     border:0 !important;
@@ -35,28 +36,60 @@
                 .bold {
                     font-weight:bold;
                 }
+                
+                .table-header-prev td{
+                    padding: 2px !important;
+                }
+                .table-kop-prev td{
+                    padding: 0px !important;
+                }
+                .separator2{
+                    height:1rem;
+                    background:#f8f8f8;
+                    box-shadow: -1px 0px 1px 0px #e1e1e1;
+                }
+                .vtop{
+                    vertical-align:top !important;
+                }
+                .lh1{
+                    line-height:1;
+                }
             </style>
-
-            `;
-            periode = $periode;
-            var lokasi = res.lokasi;
-            html+=judul_lap("LAPORAN NERACA LAJUR",lokasi,'Periode '+periode.fromname)+`
-                <table class='table table-bordered info-table'>
+            <div style='border-bottom: double #d7d7d7;padding:0 3rem'>
+                <table class="borderless mb-2 table-kop-prev" width="100%" >
                     <tr>
-                        <td width='30' rowspan='2'  class='header_laporan' align='center'>No</td>
-                        <td width='70' rowspan='2' class='header_laporan' align='center'>Kode Akun</td>
-                        <td width='300' rowspan='2' class='header_laporan' align='center'>Nama Akun</td>
-                        <td height='25' colspan='2' class='header_laporan' align='center'>Saldo Awal </td>
-                        <td colspan='2' class='header_laporan' align='center'>Mutasi</td>
-                        <td colspan='2' class='header_laporan' align='center'>Saldo Akhir </td>
+                        <td width="50%" colspan="5" class="vtop"><h6 class="text-primary bold">LAPORAN NERACA LAJUR</h6></td>
+                        <td width="50%" colspan="3" class="vtop text-right"><h6 class="mb-2 bold">`+res.lokasi[0].nama+`</h6></td>
                     </tr>
-                    <tr> 
-                        <td width='90' height='25' class='header_laporan' align='center'>Debet</td>
-                        <td width='90' class='header_laporan' align='center'>Kredit</td>
-                        <td width='90' class='header_laporan' align='center'>Debet</td>
-                        <td width='90' class='header_laporan' align='center'>Kredit</td>
-                        <td width='90' class='header_laporan' align='center'>Debet</td>
-                        <td width='90' class='header_laporan' align='center'>Kredit</td>
+                    <tr>
+                        <td colspan="5" >Periode `+($periode.fromname)+`</td>
+                        <td colspan="3" class="vtop text-right"><p class="lh1">`+res.lokasi[0].alamat+`<br>`+res.lokasi[0].kota+` `+res.lokasi[0].kodepos+` </p></td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" >( Disajikan dalam jutaan Rupiah )</td>
+                        <td colspan="3" class="vtop text-right"><p class="mt-2">`+res.lokasi[0].email+` | `+res.lokasi[0].no_telp+`</p></td>
+                    </tr>
+                </table>
+            </div>
+            `;
+            html+=`
+            <div style="padding: 0 3rem" class="table table-responsive">
+                <table class='table table-bordered table-striped info-table mt-4'>
+                    <tr class="bg-primary">
+                        <th width='30' rowspan='2'  class='header_laporan bg-primary' align='center'>No</th>
+                        <th width='70' rowspan='2' class='header_laporan bg-primary' align='center'>Kode Akun</th>
+                        <th width='300' rowspan='2' class='header_laporan bg-primary' align='center'>Nama Akun</th>
+                        <th height='25' colspan='2' class='header_laporan bg-primary' align='center'>Saldo Awal </th>
+                        <th colspan='2' class='header_laporan bg-primary' align='center'>Mutasi</th>
+                        <th colspan='2' class='header_laporan bg-primary' align='center'>Saldo Akhir </th>
+                    </tr>
+                    <tr class="bg-primary"> 
+                        <th width='90' height='25' class='header_laporan bg-primary' align='center'>Debet</th>
+                        <th width='90' class='header_laporan bg-primary' align='center'>Kredit</th>
+                        <th width='90' class='header_laporan bg-primary' align='center'>Debet</th>
+                        <th width='90' class='header_laporan bg-primary' align='center'>Kredit</th>
+                        <th width='90' class='header_laporan bg-primary' align='center'>Debet</th>
+                        <th width='90' class='header_laporan bg-primary' align='center'>Kredit</th>
                     </tr>`;
                     var so_awal_debet=0;
                     var so_awal_kredit=0;
@@ -93,15 +126,16 @@
                         no++;
                     }
             html+=`<tr>
-                <td height='20' colspan='3' class='sum_laporan' align='right'>Total</td>
-                <td class='sum_laporan' align='right'>`+sepNum(so_awal_debet)+`</td>
-                <td class='sum_laporan' align='right'>`+sepNum(so_awal_kredit)+`</td>
-                <td class='sum_laporan' align='right'>`+sepNum(debet)+`</td>
-                <td class='sum_laporan' align='right'>`+sepNum(kredit)+`</td>
-                <td class='sum_laporan' align='right'>`+sepNum(so_akhir_debet)+`</td>
-                <td class='sum_laporan' align='right'>`+sepNum(so_akhir_kredit)+`</td>
+                <td height='20' colspan='3' class='sum_laporan bg-primary' align='right'>Total</td>
+                <td class='sum_laporan bg-primary' align='right'>`+sepNum(so_awal_debet)+`</td>
+                <td class='sum_laporan bg-primary' align='right'>`+sepNum(so_awal_kredit)+`</td>
+                <td class='sum_laporan bg-primary' align='right'>`+sepNum(debet)+`</td>
+                <td class='sum_laporan bg-primary' align='right'>`+sepNum(kredit)+`</td>
+                <td class='sum_laporan bg-primary' align='right'>`+sepNum(so_akhir_debet)+`</td>
+                <td class='sum_laporan bg-primary' align='right'>`+sepNum(so_akhir_kredit)+`</td>
                 </tr>
-            </table>`;
+            </table>
+            </div>`;
         }
         $('#canvasPreview').html(html);
         $('li.prev a ').html("<i class='simple-icon-arrow-left'></i>");
