@@ -1,4 +1,8 @@
 @media only screen and (max-width: 480px) {
+    /* Welcome */
+    #welcome > .container > .heading-text h1 {
+        font-size: 70px !important;
+    }
     /* Header */
     .nav-mobile-daftar {
         margin: 0 2rem 0 7rem;
