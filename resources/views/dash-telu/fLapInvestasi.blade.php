@@ -199,7 +199,7 @@
 
         $("#sai-rpt-pdf").click(function(e) {
             e.preventDefault();
-            var link = "{{ url('telu-report/lap-labarugi-pdf') }}?periode[]="+$periode.type+"&periode[]="+$periode.from+"&periode[]="+$periode.to+"&kode_fs[]="+$kode_fs.type+"&kode_fs[]="+$kode_fs.from+"&kode_fs[]="+$kode_fs.to+"&output[]="+$output.type+"&output[]="+$output.from+"&output[]="+$output.to;
+            var link = "{{ url('telu-report/lap-investasi-pdf') }}?periode[]="+$periode.type+"&periode[]="+$periode.from+"&periode[]="+$periode.to+"&kode_fs[]="+$kode_fs.type+"&kode_fs[]="+$kode_fs.from+"&kode_fs[]="+$kode_fs.to+"&output[]="+$output.type+"&output[]="+$output.from+"&output[]="+$output.to;
             window.open(link, '_blank'); 
         });
 

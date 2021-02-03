@@ -94,6 +94,19 @@
            
         }
 
+        function getLabaRugiAggPDF(Request $request)
+        {
+            set_time_limit(300);
+            $tmp = app('App\Http\Controllers\DashTelu\LaporanController')->getLabaRugiAgg($request);
+            $tmp = json_decode(json_encode($tmp),true);
+            $data = $tmp['original'];
+            $periode = $this->getNamaBulan(substr($request->periode[1],4,2)).' '.substr($request->periode[1],0,4);
+            $tahun = substr($periode,0,4);
+            $tahunrev = intval($tahun)-1;
+            $pdf = PDF::loadview('dash-telu.rptLabaRugiAggPDF',['data'=>$data["result"],'lokasi'=>Session::get('namaLokasi'),'periode'=>$periode,'tahun' => $tahun, 'tahunrev' => $tahunrev]);
+    	    return $pdf->download('laporan-labarugi-agg-pdf');   
+        }
+
         function getLabaRugiAggDetail(Request $request){
             try{
     
@@ -170,6 +183,19 @@
                 return response()->json(['message' => $res["message"], 'status'=>false, 'auth_status'=>2], 200);
             } 
            
+        }
+
+        function getLabaRugiAggDirPDF(Request $request)
+        {
+            set_time_limit(300);
+            $tmp = app('App\Http\Controllers\DashTelu\LaporanController')->getLabaRugiAggDir($request);
+            $tmp = json_decode(json_encode($tmp),true);
+            $data = $tmp['original'];
+            $periode = $this->getNamaBulan(substr($request->periode[1],4,2)).' '.substr($request->periode[1],0,4);
+            $tahun = substr($periode,0,4);
+            $tahunrev = intval($tahun)-1;
+            $pdf = PDF::loadview('dash-telu.rptLabaRugiAggDirPDF',['data'=>$data["result"],'detail' =>$data["res"]["detail"],'lokasi'=>Session::get('namaLokasi'),'periode'=>$periode,'tahun' => $tahun, 'tahunrev' => $tahunrev]);
+    	    return $pdf->download('laporan-labarugi-agg-dir-pdf');   
         }
 
         function getLabaRugiAggDirDetail(Request $request){
@@ -251,6 +277,19 @@
            
         }
 
+        function getLabaRugiAggFakPDF(Request $request)
+        {
+            set_time_limit(300);
+            $tmp = app('App\Http\Controllers\DashTelu\LaporanController')->getLabaRugiAggFak($request);
+            $tmp = json_decode(json_encode($tmp),true);
+            $data = $tmp['original'];
+            $periode = $this->getNamaBulan(substr($request->periode[1],4,2)).' '.substr($request->periode[1],0,4);
+            $tahun = substr($periode,0,4);
+            $tahunrev = intval($tahun)-1;
+            $pdf = PDF::loadview('dash-telu.rptLabaRugiAggFakPDF',['data'=>$data["result"],'detail' =>$data["res"]["detail"],'lokasi'=>Session::get('namaLokasi'),'periode'=>$periode,'tahun' => $tahun, 'tahunrev' => $tahunrev]);
+    	    return $pdf->download('laporan-labarugi-agg-fak-pdf');   
+        }
+
         function getLabaRugiAggFakDetail(Request $request){
             try{
     
@@ -330,6 +369,20 @@
            
         }
 
+        function getLabaRugiAggProdiPDF(Request $request)
+        {
+            set_time_limit(300);
+            $tmp = app('App\Http\Controllers\DashTelu\LaporanController')->getLabaRugiAggProdi($request);
+            $tmp = json_decode(json_encode($tmp),true);
+            $data = $tmp['original'];
+            $periode = $this->getNamaBulan(substr($request->periode[1],4,2)).' '.substr($request->periode[1],0,4);
+            $tahun = substr($periode,0,4);
+            $tahunrev = intval($tahun)-1;
+            $pdf = PDF::loadview('dash-telu.rptLabaRugiAggProdiPDF',['data'=>$data["result"],'detail' =>$data["res"]["detail"],'lokasi'=>Session::get('namaLokasi'),'periode'=>$periode,'tahun' => $tahun, 'tahunrev' => $tahunrev]);
+    	    return $pdf->download('laporan-labarugi-agg-prodi-pdf');   
+        }
+
+
         function getLabaRugiAggProdiDetail(Request $request){
             try{
     
@@ -408,6 +461,22 @@
            
         }
 
+        function getNeraca2PDF(Request $request)
+        {
+            set_time_limit(300);
+            $tmp = app('App\Http\Controllers\DashTelu\LaporanController')->getNeraca2($request);
+            $tmp = json_decode(json_encode($tmp),true);
+            $data = $tmp['original'];
+            $periode = $request->periode[1];
+            $tahun = substr($periode,0,4);
+            $tahunrev = intval($tahun)-1;
+            $bln = substr($periode,4,2);
+            $totime = date('d').' '.$this->getNamaBulan($bln).' '.$tahun;
+            $totimerev = date('d').' '.$this->getNamaBulan($bln).' '.$tahunrev;
+            $pdf = PDF::loadview('dash-telu.rptNeraca2PDF',['data'=>$data["result"],'lokasi'=>Session::get('namaLokasi'),'periode'=>$periode,'tahunrev'=>$tahunrev,'totime'=>$totime,'totimerev'=>$totimerev]);
+    	    return $pdf->download('laporan-neraca-pdf');   
+        }
+
         function getNeraca2Detail(Request $request){
             try{
     
@@ -483,6 +552,22 @@
                 return response()->json(['message' => $res["message"], 'status'=>false, 'auth_status'=>2], 200);
             } 
            
+        }
+
+        function getInvestasiPDF(Request $request)
+        {
+            set_time_limit(300);
+            $tmp = app('App\Http\Controllers\DashTelu\LaporanController')->getInvestasi($request);
+            $tmp = json_decode(json_encode($tmp),true);
+            $data = $tmp['original'];
+            $periode = $request->periode[1];
+            $tahun = substr($periode,0,4);
+            $tahunrev = intval($tahun)-1;
+            $bln = substr($periode,4,2);
+            $totime = date('d').' '.$this->getNamaBulan($bln).' '.$tahun;
+            $totimerev = date('d').' '.$this->getNamaBulan($bln).' '.$tahunrev;
+            $pdf = PDF::loadview('dash-telu.rptInvestasiPDF',['data'=>$data["result"],'lokasi'=>Session::get('namaLokasi'),'periode'=>$periode,'tahunrev'=>$tahunrev,'totime'=>$totime,'totimerev'=>$totimerev]);
+    	    return $pdf->download('laporan-investasi-pdf');   
         }
 
         function getInvestasiDetail(Request $request){

@@ -30,3 +30,17 @@ Route::post('lap-labarugi-agg-fak', 'DashTelu\LaporanController@getLabaRugiAggFa
 Route::post('lap-labarugi-agg-fak-detail', 'DashTelu\LaporanController@getLabaRugiAggFakDetail');
 Route::post('lap-labarugi-agg-prodi', 'DashTelu\LaporanController@getLabaRugiAggProdi');
 Route::post('lap-labarugi-agg-prodi-detail', 'DashTelu\LaporanController@getLabaRugiAggProdiDetail');
+
+Route::get('lap-labarugi-agg-pdf', 'DashTelu\LaporanController@getLabaRugiAggPDF');
+Route::get('lap-labarugi-agg-dir-pdf', 'DashTelu\LaporanController@getLabaRugiAggDirPDF');
+Route::get('lap-labarugi-agg-fak-pdf', 'DashTelu\LaporanController@getLabaRugiAggFakPDF');
+Route::get('lap-labarugi-agg-prodi-pdf', 'DashTelu\LaporanController@getLabaRugiAggProdiPDF');
+Route::get('lap-neraca2-pdf', 'DashTelu\LaporanController@getNeraca2PDF');
+Route::get('lap-investasi-pdf', 'DashTelu\LaporanController@getInvestasiPDF');
+
+Route::post('lap-labarugi-agg-email', 'DashTelu\LaporanController@getLabaRugiAggEmail');
+Route::post('lap-labarugi-agg-dir-email', 'DashTelu\LaporanController@getLabaRugiAggDirEmail');
+Route::post('lap-labarugi-agg-fak-email', 'DashTelu\LaporanController@getLabaRugiAggFakEmail');
+Route::post('lap-labarugi-agg-prodi-email', 'DashTelu\LaporanController@getLabaRugiAggProdiEmail');
+Route::post('lap-neraca2-email', 'DashTelu\LaporanController@getNeraca2Email');
+Route::post('lap-investasi-email', 'DashTelu\LaporanController@getInvestasiEmail');

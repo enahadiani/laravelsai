@@ -132,7 +132,8 @@
                     }
                 }
 		
-                html+=`</table>`;
+                html+=`</table>
+                <div style="page-break-after:always"></div>`;
             }
         }
         $('#canvasPreview').html(html);
