@@ -92,8 +92,8 @@
                     <button type="button" id="daftar-welcome" onclick="daftarEsaku()">Daftar Gratis</button>
                     <button type="button" id="hubungi-welcome">Hubungi Kami</button>
                 </div>
-                <div class="image-welcome" data-animate="fadeInUp">
-                    <img src="{{ asset('asset_web/img/esaku/laptop.png')}}" alt="laptop"/>
+                <div class="image-welcome m-t-25" data-animate="fadeInUp">
+                    <img src="{{ asset('asset_web/img/esaku/tablet.png')}}" alt="laptop"/>
                 </div>
                 <div class="text-center m-b-30" data-animate="fadeInUp">
                     <h5 class="lead">Banyak perusahaan yang sudah percaya pada kami</h5>
@@ -108,7 +108,7 @@
         </section>
 
         {{-- Section Welcome 2 --}}
-        <section id="welcome2" class="p-b-0">
+        {{-- <section id="welcome2" class="p-b-0">
             <div class="container">
                 <div class="heading-text heading-section text-center m-b-25">
                     <h1>Dashboard luar biasa untuk keputusan lebih percaya diri.</h1>
@@ -126,7 +126,7 @@
                     <img alt="tablet" src="{{ asset('asset_web/img/esaku/tablet.png')}}">
                 </div>
             </div>
-        </section>
+        </section> --}}
 
         {{-- Section Alasan --}}
         <section id="alasan" class="p-b-25">
@@ -199,13 +199,12 @@
                     </div>
                     <div class="list-fitur">
                         <div class="list-fitur-header">
-                            <img alt="rekon-bank" src="{{ asset('asset_web/img/esaku/Rekonsiliasi Bank.svg')}}" height="120">
-                            <h4 class="list-fitur-name">Rekonsiliasi Bank</h4>
+                            <img alt="dashboard" src="{{ asset('asset_web/img/esaku/Dashboard.png')}}" height="120">
+                            <h4 class="list-fitur-name">Dashboard</h4>
                         </div>
                         <div class="list-fitur-body">
                             <p>
-                                Anda dapat mencocokan pencatatan transaksi dari Bank dengan SAKU secara langsung
-                                sehingga kebiasaan pengecekan satu per satu bisa dikurangi.
+                                Mulai percaya diri untuk mengambil keputusan bisnis Anda dengan tampilan grafik yang informatif.
                             </p>
                         </div>
                     </div>
@@ -379,7 +378,7 @@
         <section id="client-list" class="p-b-25">
             <div class="container">
                 <div class="trusted-client">
-                    <div class="heading-section text-center m-t-40">
+                    <div class="heading-section text-center m-t-20">
                         <h5 class="trusted-company">Perusahaan yang sudah mempercayai kami</h5>
                     </div>
                     <div class="trusted-client-content" data-animate="fadeInUp">
@@ -431,7 +430,7 @@
                         <div class="col-12 p-b-25">
                             <img alt="footer-logo" src="{{ asset('asset_web/img/esaku/SAKU2021.svg')}}" width="80">
                         </div>
-                        <div class="col-4">
+                        <div class="col-lg-4 col-md-4 col-sm-6">
                             <div class="row">
                                 <div class="col-12">
                                     <h6 class="footer-text-nav">Hubungi Kami</h6>
@@ -474,43 +473,86 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-3 perusahaan-container">
+                        <div class="col-lg-3 col-md-3 col-sm-2 perusahaan-container col-dekstop">
                             <div class="row">
-                                <div class="col-12">
+                                <div class="col-lg-12 col-md-12 col-sm-3">
                                     <h6 class="footer-text-nav">Perusahaan</h6>
                                 </div>
-                                <div class="col-12 col-footer">
+                                <div class="col-lg-12 col-md-12 col-sm-3 col-footer">
                                     <p class="footer-content-text">Tentang</p>
                                 </div>
-                                <div class="col-12 col-footer">
+                                <div class="col-lg-12 col-md-12 col-sm-3 col-footer">
                                     <p class="footer-content-text">Blog</p>
                                 </div>
-                                <div class="col-12 col-footer">
+                                <div class="col-lg-12 col-md-12 col-sm-3 col-footer">
                                     <p class="footer-content-text">Panduan Aplikasi</p>
                                 </div>
-                                <div class="col-12 col-footer">
+                                <div class="col-lg-12 col-md-12 col-sm-3 col-footer">
                                     <p class="footer-content-text">Magang</p>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-3 layanan-container">
-                            <div class="row ml-auto">
-                                <div class="col-12">
+                        <div class="col-lg-3 col-md-3 col-sm-2 layanan-container col-dekstop">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-3">
                                     <h6 class="footer-text-nav">Layanan</h6>
                                 </div>
-                                <div class="col-12 col-footer">
+                                <div class="col-lg-12 col-md-12 col-sm-3 col-footer">
                                     <p class="footer-content-text">Aplikasi Akuntansi Keuangan</p>
                                 </div>
-                                <div class="col-12 col-footer">
+                                <div class="col-lg-12 col-md-12 col-sm-3 col-footer">
                                     <p class="footer-content-text">Aplikasi Kasir</p>
                                 </div>
-                                <div class="col-12 col-footer">
+                                <div class="col-lg-12 col-md-12 col-sm-3 col-footer">
                                     <p class="footer-content-text">Integrasi Online Shop</p>
                                 </div>
-                                <div class="col-12 col-footer">
+                                <div class="col-lg-12 col-md-12 col-sm-3 col-footer">
                                     <p class="footer-content-text">Custome Aplikasi</p>
                                 </div>
-                                <div class="col-12 col-footer">
+                                <div class="col-lg-12 col-md-12 col-sm-3 col-footer">
+                                    <p class="footer-content-text">Demo</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer-content-mobile col-mobile m-t-20">
+                        <div class="perusahaan-container">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-3">
+                                    <h6 class="footer-text-nav">Perusahaan</h6>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-3 col-footer">
+                                    <p class="footer-content-text">Tentang</p>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-3 col-footer">
+                                    <p class="footer-content-text">Blog</p>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-3 col-footer">
+                                    <p class="footer-content-text">Panduan Aplikasi</p>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-3 col-footer">
+                                    <p class="footer-content-text">Magang</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layanan-container">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-3">
+                                    <h6 class="footer-text-nav">Layanan</h6>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-3 col-footer">
+                                    <p class="footer-content-text">Aplikasi Akuntansi Keuangan</p>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-3 col-footer">
+                                    <p class="footer-content-text">Aplikasi Kasir</p>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-3 col-footer">
+                                    <p class="footer-content-text">Integrasi Online Shop</p>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-3 col-footer">
+                                    <p class="footer-content-text">Custome Aplikasi</p>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-3 col-footer">
                                     <p class="footer-content-text">Demo</p>
                                 </div>
                             </div>
