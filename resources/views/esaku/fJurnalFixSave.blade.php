@@ -437,6 +437,7 @@
     $('#process-upload').addClass('disabled');
     $('#process-upload').prop('disabled', true);
     $('#kode_form').val($form_aktif);
+    $('#modal-preview').addClass('fade');
     
     var $iconLoad = $('.preloader');
     var $target = "";
