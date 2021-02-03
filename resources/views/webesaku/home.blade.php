@@ -379,7 +379,7 @@
         <section id="client-list" class="p-b-25">
             <div class="container">
                 <div class="trusted-client">
-                    <div class="heading-section text-center m-t-40">
+                    <div class="heading-section text-center m-t-20">
                         <h5 class="trusted-company">Perusahaan yang sudah mempercayai kami</h5>
                     </div>
                     <div class="trusted-client-content" data-animate="fadeInUp">
@@ -431,7 +431,7 @@
                         <div class="col-12 p-b-25">
                             <img alt="footer-logo" src="{{ asset('asset_web/img/esaku/SAKU2021.svg')}}" width="80">
                         </div>
-                        <div class="col-4">
+                        <div class="col-lg-4 col-md-4 col-sm-6">
                             <div class="row">
                                 <div class="col-12">
                                     <h6 class="footer-text-nav">Hubungi Kami</h6>
@@ -474,43 +474,43 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-3 perusahaan-container">
+                        <div class="col-lg-3 col-md-3 col-sm-2 perusahaan-container">
                             <div class="row">
-                                <div class="col-12">
+                                <div class="col-lg-12 col-md-12 col-sm-3">
                                     <h6 class="footer-text-nav">Perusahaan</h6>
                                 </div>
-                                <div class="col-12 col-footer">
+                                <div class="col-lg-12 col-md-12 col-sm-3 col-footer">
                                     <p class="footer-content-text">Tentang</p>
                                 </div>
-                                <div class="col-12 col-footer">
+                                <div class="col-lg-12 col-md-12 col-sm-3 col-footer">
                                     <p class="footer-content-text">Blog</p>
                                 </div>
-                                <div class="col-12 col-footer">
+                                <div class="col-lg-12 col-md-12 col-sm-3 col-footer">
                                     <p class="footer-content-text">Panduan Aplikasi</p>
                                 </div>
-                                <div class="col-12 col-footer">
+                                <div class="col-lg-12 col-md-12 col-sm-3 col-footer">
                                     <p class="footer-content-text">Magang</p>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-3 layanan-container">
-                            <div class="row ml-auto">
-                                <div class="col-12">
+                        <div class="col-lg-3 col-md-3 col-sm-2 layanan-container">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-3">
                                     <h6 class="footer-text-nav">Layanan</h6>
                                 </div>
-                                <div class="col-12 col-footer">
+                                <div class="col-lg-12 col-md-12 col-sm-3 col-footer">
                                     <p class="footer-content-text">Aplikasi Akuntansi Keuangan</p>
                                 </div>
-                                <div class="col-12 col-footer">
+                                <div class="col-lg-12 col-md-12 col-sm-3 col-footer">
                                     <p class="footer-content-text">Aplikasi Kasir</p>
                                 </div>
-                                <div class="col-12 col-footer">
+                                <div class="col-lg-12 col-md-12 col-sm-3 col-footer">
                                     <p class="footer-content-text">Integrasi Online Shop</p>
                                 </div>
-                                <div class="col-12 col-footer">
+                                <div class="col-lg-12 col-md-12 col-sm-3 col-footer">
                                     <p class="footer-content-text">Custome Aplikasi</p>
                                 </div>
-                                <div class="col-12 col-footer">
+                                <div class="col-lg-12 col-md-12 col-sm-3 col-footer">
                                     <p class="footer-content-text">Demo</p>
                                 </div>
                             </div>

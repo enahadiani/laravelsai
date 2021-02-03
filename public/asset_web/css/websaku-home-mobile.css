@@ -1,4 +1,36 @@
 @media only screen and (max-width: 480px) {
+    #presentation > .container > .heading-text h1 {
+        font-size: 50px !important;
+    }
+    .trusted-client-content > img {
+        width: 70px;
+    }
+    .trusted-client {
+        padding: 0;
+    }
+    .trusted-company {
+        font-size: 1.2rem;
+    }
+    .nav-corousel {
+        margin-left: 1rem;
+        margin-top: 1rem;
+    }
+    .keterangan-client {
+        padding-top: 0;
+    }
+    #feedback .image-client > img {
+        height: 90px;
+        width: 90px;
+    }
+    #feedback .heading-section {
+        height: 37rem;
+    }
+    .heading-paragraph-feedback > h5 {
+        font-size: 20px !important;
+    }
+    #feedback > .container > .heading-text h1 {
+        font-size: 45px !important;
+    }
     /* Fitur */
     .list-fitur-name {
         font-size: 1.2rem;
@@ -60,6 +92,13 @@
     }
     #welcome > .container > .heading-text h1 {
         font-size: 50px !important;
+    }
+    /* Footer */
+    .layanan-container {
+        margin-left: 0;
+    }
+    .perusahaan-container {
+        margin-left: 0;
     }
     /* Header */
     .nav-mobile-daftar {
