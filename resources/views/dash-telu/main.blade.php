@@ -161,7 +161,8 @@
     <script src="{{ asset('asset_elite/dist/js/swal/sweetalert2.all.min.js') }}"></script>
     <script src="{{ asset('asset_elite/standalone/selectize.min.js') }}"></script>
     <script src="{{ asset('asset_elite/printThis/printThis.js') }}"></script>
-    <script src="{{ asset('asset_elite/jquery.tableToExcel.js') }}"></script>
+    <!-- <script src="{{ asset('asset_elite/jquery.tableToExcel.js') }}"></script> -->
+    <script src="{{ asset('asset_dore/js/jquery.table2excel.js') }}"></script>
     <script src="{{ asset('asset_elite/jquery.twbsPagination.min.js') }}"></script>
     <script src="{{ asset('asset_elite/sai.js') }}"></script>
     <script src="{{ asset('asset_elite/inputmask.js') }}"></script>

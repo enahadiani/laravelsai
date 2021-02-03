@@ -19,6 +19,7 @@ Route::put('mutasi-barang-update', 'Esaku\MutasiController@update');
 
 Route::post('send-whatsapp', 'Esaku\WAController@sendMessage');
 Route::post('pooling', 'Esaku\WAController@storePooling');
+Route::post('jurnal-notifikasi', 'Esaku\JurnalController@sendNotifikasi');
 
 //Aktiva tetap //
 Route::post('aktap', 'Esaku\TransAktivaTetapController@store');

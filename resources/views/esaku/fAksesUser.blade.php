@@ -28,25 +28,22 @@
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12">
                                         <label for="nik">NIK</label>
-                                        <input class="form-control" type="text" id="nik" name="nik" required>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                                <span class="input-group-text info-code_nik" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                            </div>
+                                            <input type="text" class="form-control inp-label-nik" id="nik" name="nik" value="" title="">
+                                            <span class="info-name_nik hidden">
+                                                <span></span> 
+                                            </span>
+                                            <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                            <i class="simple-icon-magnifier search-item2" id="search_nik"></i>
+                                        </div>
                                     </div>
-                                    <div class="col-md-6 col-sm-12">
-                                        <label for="nama">Nama</label>
-                                        <input class="form-control" type="text" id="nama" name="nama" required>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6 col-sm-12">
-                                <div class="row">
                                     <div class="col-md-6 col-sm-12">
                                         <label for="pass">Password</label>
                                         <input class="form-control" type="password" id="pass" name="pass" required>
-                                    </div>
-                                    <div class="col-md-6 col-sm-12">
-                                        <label for="klp_akses">Kelompok Akses</label>
-                                        <input class="form-control" type="text" id="klp_akses" name="klp_akses" required>
+                                        <input class="form-control" type="hidden" id="nama" name="nama" required>
                                     </div>
                                 </div>
                             </div>
@@ -64,6 +61,16 @@
                                         </select>
                                     </div>
                                     <div class="col-md-6 col-sm-12">
+                                        <label for="klp_akses">Kelompok Akses</label>
+                                        <input class="form-control" type="text" id="klp_akses" name="klp_akses" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
                                         <label for="kode_klp_menu">Kelompok Menu</label>
                                         <div class="input-group">
                                             <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
@@ -77,12 +84,6 @@
                                             <i class="simple-icon-magnifier search-item2" id="search_kode_klp_menu"></i>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6 col-sm-12">
-                                <div class="row">
                                     <div class="col-md-6 col-sm-12">
                                         <label for="path_view">Path View</label>
                                         <div class="input-group">
@@ -259,6 +260,31 @@
         });
     }
 
+    function getKaryawan(id=null){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('esaku-master/karyawan') }}",
+            dataType: 'json',
+            data:{'kode_klp':id},
+            async:false,
+            success:function(result){    
+                if(result.status){
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                        showInfoField('nik',result.daftar[0].kode_klp,result.daftar[0].nama);
+                    }else{
+                        $('#nik').attr('readonly',false);
+                        $('#nik').css('border-left','1px solid #d7d7d7');
+                        $('#nik').val('');
+                        $('#nik').focus();
+                    }
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                }
+            }
+        });
+    }
+
     $('#form-tambah').on('click', '.search-item2', function(){
         var id = $(this).closest('div').find('input').attr('name');
         console.log(id);
@@ -281,6 +307,44 @@
                     target3 : "",
                     target4 : "",
                     width : ["30%","70%"],
+                };
+            break;
+            case 'nik' :
+                var settings = {
+                    id : id,
+                    header : ['NIK', 'Nama'],
+                    url : "{{ url('esaku-master/karyawan') }}",
+                    columns : [
+                        { data: 'nik' },
+                        { data: 'nama' }
+                    ],
+                    judul : "Daftar Karyawan",
+                    pilih : "karyawan",
+                    jTarget1 : "text",
+                    jTarget2 : "text",
+                    target1 : ".info-code_"+id,
+                    target2 : ".info-name_"+id,
+                    target3 : "",
+                    target4 : "",
+                    width : ["30%","70%"],
+                    onItemSelected: function(data){
+                        $('#nik').css('border-left',0);
+                        $('#nik').val(data.nik);
+                        $('#nama').val(data.nama);
+                        $(".info-code_nik").text(data.nik);
+                        $(".info-code_nik").attr("title",data.nama);
+                        $(".info-code_nik").parents('div').removeClass('hidden');
+                        
+                        var width= $('#nik').width()-$('#search_nik').width()-10;
+                        var pos =$('#nik').position();
+                        var height = $('#nik').height();
+                        $('#nik').attr('style','border-left:0;border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important');
+                        $('.info-name_nik').width($('#nik').width()-$('#search_nik').width()-10).css({'left':pos.left,'height':height});
+                        $('.info-name_nik'+' span').text(data.nama);
+                        $('.info-name_nik').attr("title",data.nama);
+                        $('.info-name_nik').removeClass('hidden');
+                        $('.info-name_nik').closest('div').find('.info-icon-hapus').removeClass('hidden')
+                    }
                 };
             break;
             case 'path_view' :
@@ -526,6 +590,7 @@
                     $('#saku-datatable').hide();
                     $('#modal-preview').modal('hide');
                     $('#saku-form').show();
+                    showInfoField('nik',result.data[0].nik,result.data[0].nama);
                     showInfoField('kode_klp_menu',result.data[0].kode_klp_menu,result.data[0].nama_klp);
                     showInfoField('path_view',result.data[0].path_view,result.data[0].nama_form);
                 }

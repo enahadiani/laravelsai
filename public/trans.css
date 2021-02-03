@@ -290,7 +290,6 @@ div.dataTables_filter input{
     cursor:pointer;
 }
 
-
 .last-add::before{
     content: "***";
     background: var(--theme-color-1);
@@ -368,7 +367,7 @@ label{
     margin-bottom: 0.2rem;
 }   
 h6{
-    font-size: 1.25rem !important;
+    font-size: 1rem !important;
 }     
 
 #preview-close

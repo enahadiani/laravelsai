@@ -92,8 +92,30 @@
             margin-top: 10px;
             margin-right: 25px;
         }
-        .modal{
-            top: calc(100% - 528px) !important;
+    
+        .bold{
+            font-weight:bold;
+        }
+        .modal p{
+            color: #505050 !important;
+        }
+        .table-header-prev td,th{
+            padding: 2px 8px !important;
+        }
+        #modal-preview .modal-content
+        {
+            border-bottom-left-radius: 0px !important;
+            border-bottom-right-radius: 0px !important;
+        }
+
+        #modal-preview
+        {
+            top: calc(100vh - calc(100vh - 30px)) !important;
+        }
+
+        #modal-preview #content-preview 
+        {
+            height: calc(100vh - 105px) !important;
         }
     </style>
     <!-- FORM INPUT -->
@@ -415,6 +437,7 @@
     $('#process-upload').addClass('disabled');
     $('#process-upload').prop('disabled', true);
     $('#kode_form').val($form_aktif);
+    $('#modal-preview').addClass('fade');
     
     var $iconLoad = $('.preloader');
     var $target = "";
@@ -968,6 +991,7 @@
             }
         });
     }
+
     $('#saku-datatable').on('click', '#btn-edit', function(){
         var id= $(this).closest('tr').find('td').eq(1).html();
         $('#btn-save').attr('type','button');
@@ -1079,76 +1103,97 @@
                     var result= res.data;
                     if(result.status){
 
-                        var html = `<tr>
-                            <td style='border:none'>No Bukti</td>
-                            <td style='border:none'>`+id+`</td>
-                        </tr>
-                        <tr>
-                            <td>Tanggal</td>
-                            <td>`+reverseDate2(result.jurnal[0].tanggal,'-','/')+`</td>
-                        </tr>
-                        <tr>
-                            <td>Deskripsi</td>
-                            <td>`+result.jurnal[0].deskripsi+`</td>
-                        </tr>
-                        <tr>
-                            <td>No Dokumen</td>
-                            <td>`+result.jurnal[0].no_dokumen+`</td>
-                        </tr>
-                        <tr>
-                            <td>NIK Verifikasi</td>
-                            <td>`+result.jurnal[0].nik_periksa+`</td>
-                        </tr>
-                        <tr>
-                            <td>Total Debet</td>
-                            <td>`+format_number(result.jurnal[0].nilai1)+`</td>
-                        </tr>
-                        <tr>
-                            <td>Total Kredit</td>
-                            <td>`+format_number(result.jurnal[0].nilai1)+`</td>
-                        </tr>
-                        <tr>
-                            <td colspan='2'>
-                                <table id='table-ju-preview' class='table table-bordered'>
-                                    <thead>
-                                        <tr>
-                                            <th style="width:3%">No</th>
-                                            <th style="width:10%">Kode Akun</th>
-                                            <th style="width:18%">Nama Akun</th>
-                                            <th style="width:5%">DC</th>
-                                            <th style="width:20%">Keterangan</th>
-                                            <th style="width:15%">Nilai</th>
-                                            <th style="width:7">Kode PP</th>
-                                            <th style="width:17">Nama PP</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                </table>
-                            </td>
-                        </tr>`;
-                        
-                        $('#table-preview tbody').html(html);
-                        var det = ``;
-                        if(result.detail.length > 0){
-                            var input = '';
-                            var no=1;
-                            for(var i=0;i<result.detail.length;i++){
-                                var line =result.detail[i];
-                                input += "<tr>";
-                                input += "<td>"+no+"</td>";
-                                input += "<td >"+line.kode_akun+"</td>";
-                                input += "<td >"+line.nama_akun+"</td>";
-                                input += "<td >"+line.dc+"</td>";
-                                input += "<td >"+line.keterangan+"</td>";
-                                input += "<td class='text-right'>"+format_number(line.nilai)+"</td>";
-                                input += "<td >"+line.kode_pp+"</td>";
-                                input += "<td >"+line.nama_pp+"</td>";
-                                input += "</tr>";
-                                no++;
-                            }
-                            $('#table-ju-preview tbody').html(input);
-                        }
+                        var html = `<div style='border-bottom: double #d7d7d7;padding:0 1.5rem'>
+                            <table class="borderless mb-2" width="100%" >
+                                <tr>
+                                    <td width="25%" style="vertical-align:top !important"><h6 class="text-primary bold">JURNAL VOUCHER</h6></td>
+                                    <td width="75%" style="vertical-align:top !important;text-align:right"><h6 class="mb-2 bold">`+result.lokasi[0].nama+`</h6><p style="line-height:1">`+result.lokasi[0].alamat+`<br>`+result.lokasi[0].kota+` `+result.lokasi[0].kodepos+` </p><p class="mt-2">`+result.lokasi[0].email+` | `+result.lokasi[0].no_telp+`</p></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div style="padding:0 1.5rem">
+                            <table class="borderless table-header-prev mt-2" width="100%">
+                                <tr>
+                                    <td width="14%">Tanggal</td>
+                                    <td width="1%">:</td>
+                                    <td width="20%">`+result.jurnal[0].tanggal+`</td>
+                                    <td width="30%" rowspan="3"></td>
+                                    <td width="10%" rowspan="3" style="vertical-align:top !important">Deskripsi</td>
+                                    <td width="1%" rowspan="3" style="vertical-align:top !important">:</td>
+                                    <td width="24%" rowspan="3" style="vertical-align:top !important">`+result.jurnal[0].deskripsi+`</td>
+                                </tr>
+                                <tr>
+                                    <td width="14%">No Transaksi</td>
+                                    <td width="1%">:</td>
+                                    <td width="20%">`+result.jurnal[0].no_bukti+`</td>
+                                </tr>
+                                <tr>
+                                    <td width="14%">No Dokumen</td>
+                                    <td width="1%">:</td>
+                                    <td width="20%">`+result.jurnal[0].no_dokumen+`</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div style="padding:0 1.9rem">
+                            <table class="table table-striped table-body-prev mt-2" width="100%">
+                               <tr style="background: var(--theme-color-1) !important;color:white !important">
+                                    <th style="width:15%">Kode Akun</th>
+                                    <th style="width:20%">Nama Akun</th>
+                                    <th style="width:15">Nama PP</th>
+                                    <th style="width:30%">Keterangan</th>
+                                    <th style="width:10%">Debet</th>
+                                    <th style="width:10%">Kredit</th>
+                               </tr>`;
+                                var det = '';
+                                var total_debet = 0; var total_kredit =0;
+                                if(result.detail.length > 0){
+                                    var no=1;
+                                    for(var i=0;i<result.detail.length;i++){
+                                        var line =result.detail[i];
+                                        if(line.dc == "D"){
+                                            total_debet+=parseFloat(line.nilai);
+                                        }else{
+                                            
+                                            total_kredit+=parseFloat(line.nilai);
+                                        }
+                                        det += "<tr>";
+                                        det += "<td >"+line.kode_akun+"</td>";
+                                        det += "<td >"+line.nama_akun+"</td>";
+                                        det += "<td >"+line.nama_pp+"</td>";
+                                        det += "<td >"+line.keterangan+"</td>";
+                                        det += "<td class='text-right'>"+(line.dc == "D" ? format_number(line.nilai) : 0)+"</td>";
+                                        det += "<td class='text-right'>"+(line.dc == "C" ? format_number(line.nilai) : 0)+"</td>";
+                                        det += "</tr>";
+                                        no++;
+                                    }
+                                }
+                                det+=`<tr style="background: var(--theme-color-1) !important;color:white !important">
+                                    <th colspan="4"></th>
+                                    <th style="width:10%">`+format_number(total_debet)+`</th>
+                                    <th style="width:10%">`+format_number(total_kredit)+`</th>
+                               </tr>`;
+                               
+                               html+=det+`
+                            </table>
+                            <table class="table-borderless mt-2" width="100%">
+                                <tr>
+                                    <td width="25%">&nbsp;</td>
+                                    <td width="25%">&nbsp;</td>
+                                    <td width="10%">&nbsp;</td>
+                                    <td width="20%" class="text-center">Dibuat Oleh</td>
+                                    <td width="20%" class="text-center">Diperiksa Oleh</td>
+                                </tr>
+                                <tr>
+                                    <td width="25%">&nbsp;</td>
+                                    <td width="25%">&nbsp;</td>
+                                    <td width="10%">&nbsp;</td>
+                                    <td width="20%" style="height:180px"></td>
+                                    <td width="20%" style="height:180px"></td>
+                                </tr>
+                            </table>
+                        </div>`;
+                        $('#content-preview').html(html);
+                       
                         if(posted == "Close"){
                             $('#btn-delete2').css('display','none');
                             $('#btn-edit2').css('display','none');
@@ -1265,7 +1310,10 @@
                                 id:result.data.no_bukti,
                                 type:'simpan'
                             });
-                                
+
+                            if(result.data.no_pooling != undefined){
+                                kirimWAEmail(result.data.no_pooling);
+                            }
 
                         }
                         else if(!result.data.status && result.data.message == 'Unauthorized'){
@@ -2590,5 +2638,18 @@
         }
     });
 
-    
+
+    function kirimWAEmail(id){
+        
+        $.ajax({
+            type: 'POST',
+            url: "{{ url('esaku-trans/jurnal-notifikasi') }}",
+            dataType: 'json',
+            data:{'no_pooling': id},
+            async:false,
+            success:function(res){
+                console.log(res);
+            }
+        });
+    }
     </script>

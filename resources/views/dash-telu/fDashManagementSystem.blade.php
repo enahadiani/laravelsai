@@ -320,7 +320,7 @@ function getProfitLoss(periode=null)
                     var persen = sepNumPas(parseFloat(line.persen));
                     html+=`<tr class='trace ms-`+i+`'>
                     <td>`+line.nama+`</td>
-                    <td>`+nilai+`</td>
+                    <td class='text-right'>`+nilai+`</td>
                     <td class='text-right text-success' >`+persen+`%</td>
                     </tr>`;   
                 }
@@ -367,7 +367,7 @@ function getFxPosition(periode=null)
                     var line = result.data.data[i];
                     html+=`<tr>
                     <td>`+line.nama+`</td>
-                    <td>`+sepNumPas(parseFloat(line.nilai))+`</td>
+                    <td class='text-right'>`+sepNumPas(parseFloat(line.nilai))+`</td>
                     <td class='text-right text-success' >`+sepNumPas(parseFloat(line.persen))+`%</td>
                     </tr>`;   
                 }
@@ -414,7 +414,7 @@ function getPenyerapan(periode=null)
                     var line = result.data.data[i];
                     html+=`<tr class='trace serap-`+i+`'>
                     <td>`+line.nama+`</td>
-                    <td>`+sepNumPas(parseFloat(line.nilai))+`</td>
+                    <td class='text-right'>`+sepNumPas(parseFloat(line.nilai))+`</td>
                     <td class='text-right text-success' >`+sepNumPas(parseFloat(line.persen))+`%</td>
                     </tr>`;   
                 }
@@ -462,7 +462,7 @@ function getDebt(periode=null)
                     var line = result.data.data[i];
                     html+=`<tr>
                     <td>`+line.nama+`</td>
-                    <td>`+sepNumPas(parseFloat(line.nilai))+`</td>
+                    <td class='text-right'>`+sepNumPas(parseFloat(line.nilai))+`</td>
                     </tr>`;   
                 }
             }
@@ -508,7 +508,7 @@ function getKelola(periode=null)
                     var line = result.data.data[i];
                     html+=`<tr>
                     <td>`+line.nama+`</td>
-                    <td>`+sepNumPas(parseFloat(line.nilai))+`</td>
+                    <td class='text-right'>`+sepNumPas(parseFloat(line.nilai))+`</td>
                     </tr>`;   
                 }
             }
@@ -552,7 +552,7 @@ function getPin(periode=null)
                 {
                     var line = result.data.data[i];
                     html+=`<tr>
-                    <td>`+sepNumPas(parseFloat(line.nilai))+`</td>
+                    <td class='text-right'>`+sepNumPas(parseFloat(line.nilai))+`</td>
                     <td class='text-right text-success' >`+sepNumPas(parseFloat(line.persen))+`%</td>
                     </tr>`;   
                 }

@@ -192,6 +192,14 @@ class JurnalController extends Controller
                 [
                     'name' => 'nik_periksa',
                     'contents' => $request->nik_periksa,
+                ],
+                [
+                    'name' => 'no_telp_app',
+                    'contents' => Session::get('no_hp'),
+                ],
+                [
+                    'name' => 'email_app',
+                    'contents' => Session::get('email'),
                 ]
             ];
 
@@ -296,6 +304,39 @@ class JurnalController extends Controller
                 
                 $data = json_decode($response_data,true);
                 return response()->json(["data" =>$data["success"]], 200);  
+            }
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $result['message'] = $res["message"];
+            $result['status']=false;
+            return response()->json(["data" => $result], 200);
+        } 
+        
+    }
+
+    public function sendNotifikasi(Request $request)
+    {
+        $this->validate($request, [
+            'no_pooling' => 'required'
+        ]);
+        try{
+    
+            $client = new Client();
+            $response = $client->request('POST',  config('api.url').'toko-trans/jurnal-notifikasi',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'form_params' => [
+                    'no_pooling' => $request->no_pooling
+                ]
+            ]);  
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                return response()->json(["data" =>$data], 200);  
             }
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
