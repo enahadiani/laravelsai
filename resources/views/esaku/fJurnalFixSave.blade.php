@@ -92,10 +92,7 @@
             margin-top: 10px;
             margin-right: 25px;
         }
-        .modal{
-            top: calc(100% - 528px) !important;
-        }
-
+    
         .bold{
             font-weight:bold;
         }
@@ -104,6 +101,21 @@
         }
         .table-header-prev td,th{
             padding: 2px 8px !important;
+        }
+        #modal-preview .modal-content
+        {
+            border-bottom-left-radius: 0px !important;
+            border-bottom-right-radius: 0px !important;
+        }
+
+        #modal-preview
+        {
+            top: calc(100vh - calc(100vh - 30px)) !important;
+        }
+
+        #modal-preview #content-preview 
+        {
+            height: calc(100vh - 105px) !important;
         }
     </style>
     <!-- FORM INPUT -->
