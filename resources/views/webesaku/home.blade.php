@@ -473,7 +473,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-md-3 col-sm-2 perusahaan-container">
+                        <div class="col-lg-3 col-md-3 col-sm-2 perusahaan-container col-dekstop">
                             <div class="row">
                                 <div class="col-lg-12 col-md-12 col-sm-3">
                                     <h6 class="footer-text-nav">Perusahaan</h6>
@@ -492,7 +492,50 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-md-3 col-sm-2 layanan-container">
+                        <div class="col-lg-3 col-md-3 col-sm-2 layanan-container col-dekstop">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-3">
+                                    <h6 class="footer-text-nav">Layanan</h6>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-3 col-footer">
+                                    <p class="footer-content-text">Aplikasi Akuntansi Keuangan</p>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-3 col-footer">
+                                    <p class="footer-content-text">Aplikasi Kasir</p>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-3 col-footer">
+                                    <p class="footer-content-text">Integrasi Online Shop</p>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-3 col-footer">
+                                    <p class="footer-content-text">Custome Aplikasi</p>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-3 col-footer">
+                                    <p class="footer-content-text">Demo</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer-content-mobile col-mobile m-t-20">
+                        <div class="perusahaan-container">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-3">
+                                    <h6 class="footer-text-nav">Perusahaan</h6>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-3 col-footer">
+                                    <p class="footer-content-text">Tentang</p>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-3 col-footer">
+                                    <p class="footer-content-text">Blog</p>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-3 col-footer">
+                                    <p class="footer-content-text">Panduan Aplikasi</p>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-3 col-footer">
+                                    <p class="footer-content-text">Magang</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layanan-container">
                             <div class="row">
                                 <div class="col-lg-12 col-md-12 col-sm-3">
                                     <h6 class="footer-text-nav">Layanan</h6>

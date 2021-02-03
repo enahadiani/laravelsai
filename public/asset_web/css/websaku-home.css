@@ -1,3 +1,10 @@
+.footer-content-mobile .layanan-container {
+    margin-left: 5.2rem;
+}
+.footer-content-mobile {
+    display: flex !important;
+    justify-content: space-between;
+}
 .layanan-container {
     margin-left: 3.4rem;
 }
