@@ -9,6 +9,11 @@ use GuzzleHttp\Exception\BadResponseException;
 
 class WebController extends Controller {
 
+    public function produk() {
+
+        return view('webesaku.produk');  
+    }
+
     public function index() {
 
         return view('webesaku.home');  
