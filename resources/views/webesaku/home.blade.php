@@ -17,6 +17,7 @@
     <link href="{{ asset('asset_web/css/plugins.css') }}" rel="stylesheet">
     <link href="{{ asset('asset_web/css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('asset_web/css/websaku-home.css') }}" rel="stylesheet">
+    <link href="{{ asset('asset_web/css/websaku-home-mobile.css') }}" rel="stylesheet">
 </head>
 
 <body>
@@ -27,6 +28,9 @@
         <header id="header" data-transparent="true" data-fullwidth="true" class="submenu-light">
             <div class="header-inner">
                 <div class="container header-content">
+                    <div id="mainMenu-trigger">
+                        <a class="lines-button x"><span class="lines"></span></a>
+                    </div>
                     <div class="header-content-1">
                         <div id="logo">
                             <a href="index.html">
@@ -38,9 +42,6 @@
                                 </span>
                             </a>
                         </div>
-                        <div id="mainMenu-trigger">
-                            <a class="lines-button x"><span class="lines"></span></a>
-                        </div>
                         <div id="mainMenu" class="main-menu">
                             <div class="container">
                                 <nav>
@@ -51,11 +52,17 @@
                                         <li><a href="#">Harga</a></li>
                                     </ul>
                                 </nav>
+                                <div class="col-mobile">
+                                    <div class="nav-mobile-daftar">
+                                        <a href="#" id="masuk-link">Masuk</a>
+                                        <a href="https://app.simkug.com/esaku-auth/register" id="daftar-link">Daftar Gratis</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="header-content-2">
-                        <div id="mainMenu2" class="main-menu">
+                        <div id="mainMenu2" class="main-menu col-dekstop">
                             <div class="container">
                                 <a href="#" id="masuk-link">Masuk</a>
                                 <a href="https://app.simkug.com/esaku-auth/register" id="daftar-link">Daftar Gratis</a>
@@ -104,7 +111,7 @@
         <section id="welcome2" class="p-b-0">
             <div class="container">
                 <div class="heading-text heading-section text-center m-b-25">
-                    <h1>Dashboard luar biasa untuk keputusan bisnis yang percaya diri.</h1>
+                    <h1>Dashborad luar biasa untuk keputusan lebih percaya diri.</h1>
                     <div class="heading-paragraph-container-welcome-2">
                         <div class="heading-paragraph-welcome-2">
                             <h5 class="lead">
@@ -177,7 +184,7 @@
                     </div>
                     <a class="link-lanjut" href="#">Pelajari Lebih Lanjut  <i class="fas fa-arrow-up arrow-tilted"></i></a>
                 </div>
-                <div class="daftar-fitur">
+                <div class="daftar-fitur p-b-90">
                     <div class="list-fitur">
                         <div class="list-fitur-header">
                             <img alt="online-shop" src="{{ asset('asset_web/img/esaku/Online Shop.svg')}}" height="120">
@@ -264,9 +271,9 @@
                                         <h5 class="nama-owner">Bapak Khoirul Afnan 1</h5>
                                     </div>
                                     <div class="keterangan-owner-container">
-                                        <p class="keterangan-owner">
+                                        <h5 class="keterangan-owner">
                                             Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut.
-                                        </p>
+                                        </h5>
                                     </div>
                                 </div>
                             </div>
@@ -285,9 +292,9 @@
                                         <span class="nama-owner">Bapak Khoirul Afnan 2</span>
                                     </div>
                                     <div class="keterangan-owner-container">
-                                        <p class="keterangan-owner">
+                                        <h5 class="keterangan-owner">
                                             Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut.
-                                        </p>
+                                        </h5>
                                     </div>
                                 </div>
                             </div>
@@ -306,9 +313,9 @@
                                         <span class="nama-owner">Bapak Khoirul Afnan 3</span>
                                     </div>
                                     <div class="keterangan-owner-container">
-                                        <p class="keterangan-owner">
+                                        <h5 class="keterangan-owner">
                                             Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut.
-                                        </p>
+                                        </h5>
                                     </div>
                                 </div>
                             </div>
@@ -327,9 +334,9 @@
                                         <span class="nama-owner">Bapak Khoirul Afnan 4</span>
                                     </div>
                                     <div class="keterangan-owner-container">
-                                        <p class="keterangan-owner">
+                                        <h5 class="keterangan-owner">
                                             Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut.
-                                        </p>
+                                        </h5>
                                     </div>
                                 </div>
                             </div>
@@ -348,9 +355,9 @@
                                         <span class="nama-owner">Bapak Khoirul Afnan 5</span>
                                     </div>
                                     <div class="keterangan-owner-container">
-                                        <p class="keterangan-owner">
+                                        <h5 class="keterangan-owner">
                                             Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut.
-                                        </p>
+                                        </h5>
                                     </div>
                                 </div>
                             </div>
@@ -403,7 +410,7 @@
         <section id="presentation" class="p-b-150 p-t-150 background-presentation">
             <div class="container">
                 <div class="heading-text heading-section text-center m-b-40">
-                    <h1>
+                    <h1 class="mulai-sekarang">
                         Mulai Sekarang
                     </h1>
                     <h5 class="lead">

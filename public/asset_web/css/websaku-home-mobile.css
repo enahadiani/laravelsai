@@ -1,0 +1,35 @@
+@media only screen and (max-width: 480px) {
+    /* Welcome */
+    #welcome > .container > .heading-text h1 {
+        font-size: 70px !important;
+    }
+    /* Header */
+    .nav-mobile-daftar {
+        margin: 0 2rem 0 7rem;
+        width: 18rem;
+    }
+    #masuk-link {
+        text-align: center;
+    }
+    #daftar-link {
+        text-align: center;
+    }
+    .header-content-1 {
+        padding: 0;
+    }
+    .mainMenu-open #header #mainMenu {
+        overflow-y: hidden;
+    }
+    #mainMenu > .container {
+        margin-top: 2rem;
+    }
+    .header-content {
+        display: block;
+    }
+    .col-dekstop {
+        display: none;
+    }
+    .col-mobile {
+        display: block;
+    }
+}

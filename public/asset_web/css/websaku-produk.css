@@ -124,7 +124,7 @@ i.fas.fa-cog {
 
 .col-footer {
     margin-left: -0.5rem !important;
-    margin-bottom: -0.5rem !important;
+    margin-bottom: 0.6rem !important;
 }
 .link-footer > .arrow-tilted {
     transform: rotate(40deg);
