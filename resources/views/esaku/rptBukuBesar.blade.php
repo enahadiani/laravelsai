@@ -73,7 +73,7 @@
                         <td colspan="3" class="vtop text-right"><p class="lh1">`+res.lokasi[0].alamat+`<br>`+res.lokasi[0].kota+` `+res.lokasi[0].kodepos+` </p></td>
                     </tr>
                     <tr>
-                        <td colspan="5" >( Disajikan dalam jutaan Rupiah )</td>
+                        <td colspan="5" >( Disajikan dalam Rupiah )</td>
                         <td colspan="3" class="vtop text-right"><p class="mt-2">`+res.lokasi[0].email+` | `+res.lokasi[0].no_telp+`</p></td>
                     </tr>
                 </table>
@@ -93,9 +93,9 @@
                     <th class='header_laporan bg-white no-border' colspan='7'>:&nbsp;`+line.nama+`</th>
                 </tr>
                 <tr>
+                    <th width='60' class='header_laporan bg-primary' align='center'>Tanggal</th>
                     <th width='80' height='23' class='header_laporan bg-primary' align='center'>No Bukti</th>
                     <th width='80' height='23' class='header_laporan bg-primary' align='center'>No Dokumen</th>
-                    <th width='60' class='header_laporan bg-primary' align='center'>Tanggal</th>
                     <th width='250' class='header_laporan bg-primary' align='center'>Keterangan</th>
                     <th width='60' class='header_laporan bg-primary' align='center'>Kode PP</th>
                     <th width='90' class='header_laporan bg-primary' align='center'>Debet</th>
@@ -119,10 +119,10 @@
                     debet=debet + parseFloat(line2.debet);
                     kredit=kredit + parseFloat(line2.kredit);	
 				    det +=`<tr style='cursor:pointer;' class='jurnal report-link' data-no_bukti='`+line2.no_bukti+`' data-kode_akun='`+line.kode_akun+`'>
+                        <td height='23' valign='top' class='isi_laporan'>`+line2.tgl+`</td>
                         <td valign='top' class='isi_laporan link-report'>`+line2.no_bukti+`
                         </td>
                         <td valign='top' class='isi_laporan'>`+line2.no_dokumen+`</td>
-                        <td height='23' valign='top' class='isi_laporan'>`+line2.tgl+`</td>
                         <td valign='top' class='isi_laporan'>`+line2.keterangan+`</td>
                         <td valign='top' class='isi_laporan' >`+line2.kode_pp+`</td>
                         <td valign='top' class='isi_laporan' align='right'>`+sepNum(parseFloat(line2.debet))+`</td>

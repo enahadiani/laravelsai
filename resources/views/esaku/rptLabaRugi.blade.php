@@ -97,7 +97,7 @@
                         <td colspan="3" class="vtop text-right"><p class="lh1">`+res.lokasi[0].alamat+`<br>`+res.lokasi[0].kota+` `+res.lokasi[0].kodepos+` </p></td>
                     </tr>
                     <tr>
-                        <td colspan="5" >( Disajikan dalam jutaan Rupiah )</td>
+                        <td colspan="5" >( Disajikan dalam Rupiah )</td>
                         <td colspan="3" class="vtop text-right"><p class="mt-2">`+res.lokasi[0].email+` | `+res.lokasi[0].no_telp+`</p></td>
                     </tr>
                 </table>
