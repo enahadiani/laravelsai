@@ -30,7 +30,7 @@
             </div>
         </div>
     </div>
-    <x-report-result judul="Jurnal" padding="px-4 py-4"/>
+    <x-report-result judul="Jurnal" padding="py-4 px-0"/>
 
     @include('modal_search')
     @include('modal_email')
@@ -46,10 +46,18 @@
                 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
             }
         });
+
+        // FUNCTION TAMBAHAN
+        function format_number(x){
+            var num = parseFloat(x).toFixed(0);
+            num = sepNumX(num);
+            return num;
+        }
+        
         var $periode = {
             type : "=",
-            from : "{{ date('Ym') }}",
-            fromname : namaPeriode("{{ date('Ym') }}"),
+            from : "{{ Session::get('periode') }}",
+            fromname : namaPeriode("{{ Session::get('periode') }}"),
             to : "",
             toname : "",
         }
@@ -83,7 +91,7 @@
 
         // $('#show').selectize();
 
-        $('#periode-from').val(namaPeriode("{{ date('Ym') }}"));
+        $('#periode-from').val(namaPeriode("{{ Session::get('periode') }}"));
         $('#sum_ju-from').val("Ya");
 
         $('#btn-filter').click(function(e){
@@ -213,7 +221,7 @@
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
             $('#saku-report').removeClass('hidden');
-            xurl = "{{ url('esaku-auth/form/rptJurnal') }}";
+            xurl = "{{ url('esaku-auth/form/rptBuktiJurnal') }}";
             $('#saku-report #canvasPreview').load(xurl);
         });
 
@@ -234,7 +242,7 @@
             for(var pair of $formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
-            xurl = "{{ url('esaku-auth/form/rptJurnal') }}";
+            xurl = "{{ url('esaku-auth/form/rptBuktiJurnal') }}";
             $('#saku-report #canvasPreview').load(xurl);
         });
 

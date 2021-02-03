@@ -565,6 +565,7 @@
                     $res = json_decode($response_data,true);
                     $result = $res["data"];
                     $detail = $res["detail_jurnal"];
+                    $lokasi = $res["lokasi"];
                     
                 }
                 if(isset($request->back)){
@@ -572,12 +573,23 @@
                 }else{
                     $back = false;
                 }
-                return response()->json(['result' => $result, 'status'=>true, 'auth_status'=>1, 'detail_jurnal'=>$detail,'lokasi'=>Session::get('namaLokasi'),'back'=>$back], 200); 
+                return response()->json(['result' => $result, 'status'=>true, 'auth_status'=>1, 'detail_jurnal'=>$detail,'lokasi'=>$lokasi,'back'=>$back], 200); 
             } catch (BadResponseException $ex) {
                 $response = $ex->getResponse();
                 $res = json_decode($response->getBody(),true);
                 return response()->json(['message' => $res["message"], 'status'=>false, 'auth_status'=>2], 200);
             } 
+        }
+
+        function getBuktiJurnalPDF(Request $request)
+        {
+            set_time_limit(300);
+            $tmp = app('App\Http\Controllers\Esaku\LaporanController')->getBuktiJurnal($request);
+            $tmp = json_decode(json_encode($tmp),true);
+            $data = $tmp['original'];
+            $periode = $this->getNamaBulan(substr($request->periode[1],4,2)).' '.substr($request->periode[1],0,4);
+            $pdf = PDF::loadview('esaku.rptBuktiJurnalPDF',['data'=>$data["result"],'periode'=>$periode,'lokasi'=>$data['lokasi'],'detail_jurnal'=>$data["detail_jurnal"]]);
+            return $pdf->download('laporan-bukti-jurnal-pdf');   
         }
 
         function getBuktiJurnalKB(Request $request){
