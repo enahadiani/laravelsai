@@ -59,55 +59,104 @@
             .bold {
                 font-weight:bold;
             }
-            </style>`+judul_lap("LAPORAN LABA RUGI",lokasi,'Periode '+periode.fromname)+`
-            <table class='table table-bordered'>
+            
+            .table-header-prev td{
+                padding: 2px !important;
+            }
+            .table-kop-prev td{
+                padding: 0px !important;
+            }
+            .separator2{
+                height:1rem;
+                background:#f8f8f8;
+                box-shadow: -1px 0px 1px 0px #e1e1e1;
+            }
+            .vtop{
+                vertical-align:top !important;
+            }
+            .lh1{
+                line-height:1;
+            }
+            .bg-primary2{
+                background: #eaf2ff !important;
+            }
+            
+            .bg-primary0{
+                background: #00358a !important;
+                color:white !important;
+            }
+            </style>
+            <div style='border-bottom: double #d7d7d7;padding:0 3rem'>
+                <table class="borderless mb-2 table-kop-prev" width="100%" >
+                    <tr>
+                        <td width="50%" colspan="5" class="vtop"><h6 class="text-primary bold">LAPORAN LABA RUGI</h6></td>
+                        <td width="50%" colspan="3" class="vtop text-right"><h6 class="mb-2 bold">`+res.lokasi[0].nama+`</h6></td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" >Periode `+($periode.fromname)+`</td>
+                        <td colspan="3" class="vtop text-right"><p class="lh1">`+res.lokasi[0].alamat+`<br>`+res.lokasi[0].kota+` `+res.lokasi[0].kodepos+` </p></td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" >( Disajikan dalam jutaan Rupiah )</td>
+                        <td colspan="3" class="vtop text-right"><p class="mt-2">`+res.lokasi[0].email+` | `+res.lokasi[0].no_telp+`</p></td>
+                    </tr>
+                </table>
+            </div>
+            <div style="padding: 0 3rem" class="table table-responsive mt-4">
+            <table class='table table-bordered table-striped'>
             <tr>
-                <td width='500' height='25'  class='header_laporan'><div align='center'>Deskripsi</div></td>
-                <td width='100' class='header_laporan'><div align='center'>Jumlah</div></td>
+                <th width='500' height='25'  class='header_laporan bg-primary'><div align='center'>Deskripsi</div></th>
+                <th width='100' class='header_laporan bg-primary'><div align='center'>Jumlah</div></th>
             </tr>`;
             var no=1;
             for (var i=0;i < data.length;i++)
             {
                 var nilai="";
                 var line = data[i];
+                var color = "";
+                var bold = "";
                 if (line.tipe!="Header")
                 {
                     nilai=sepNum(parseFloat(line.n4));
+                    if(line.tipe == "Summary"){
+                        if(line.level_spasi == 0){
+                            color = "bg-primary0";
+                        }else if(line.level_spasi == 1){
+                            color = "bg-primary";
+                        }else{
+                            color = "bg-primary2";
+                        }
+                        bold = "bold";
+                    }
+                    else if(line.tipe == "SumPosted"){
+                        color = "";
+                        bold = "bold";
+                    }
+                    else{
+                        color = "";
+                        bold = "";
+                    }
+                }else{
+                    bold = "bold"; 
                 }
 			
                 if (line.tipe=="Posting" && line.n4 != 0)
                 {
                     html+=`<tr class='report-link neraca-lajur' style='cursor:pointer;' data-kode_neraca='`+line.kode_neraca+`' ><td height='20' class='isi_laporan link-report' >`+fnSpasi(line.level_spasi)+``+line.nama+`</td>
-                    <td class='isi_laporan'><div align='right'>`+nilai+`</div></td>
+                    <td class='isi_laporan `+color+` `+bold+`'><div align='right'>`+nilai+`</div></td>
                     </tr>`;
                 }
                 else
                 {
-                    html+=`<tr><td height='20' class='isi_laporan'>`+fnSpasi(line.level_spasi)+line.nama+`</td>
-                    <td class='isi_laporan'><div align='right'>`+nilai+`</div></td>
+                    html+=`<tr><td height='20' class='isi_laporan `+color+` `+bold+`'>`+fnSpasi(line.level_spasi)+line.nama+`</td>
+                    <td class='isi_laporan `+color+` `+bold+`'><div align='right'>`+nilai+`</div></td>
                     </tr>`;
                 }
-                // if (res.bentuk == "Detail" && line.tipe=="Posting")
-                // {
-                //     var kode_neraca=line.kode_neraca;
-                //     var kode_fs=line.kode_fs;
-                //     var kode_lokasi=line.kode_lokasi;
-                //     var det ='';
-                //     for (var x=0; x < res.data_detail.length; x++)
-                //     {	
-                //         var line2 = res.data_detail[x];
-                //         var so_akhir =sepNum(parseFloat(line2.so_akhir));
-                //         var nama=line2.kode_akun." - ".line2.nama;
-                //         det+=`<tr>
-                //             <td height='20' class='detail_laporan'>`+spasi(nama,line.level_spasi+1)+`</td>
-                //             <td class='detail_laporan'><div align='right'>`+so_akhir+`</div></td>
-                //         </tr>`;
-                //     }
-                // }
                 no++;
             }
             html+=`
-            </table>`;
+            </table>
+            </div>`;
         }
         $('#canvasPreview').html(html);
         $('li.prev a ').html("<i class='simple-icon-arrow-left'></i>");

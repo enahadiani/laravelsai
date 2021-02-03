@@ -78,11 +78,11 @@
                     </tr>
                 </table>
             </div>
-            <div style="padding: 0 3rem" class="table table-responsive">
             `;
             for(var i=0;i<data.length;i++){
                 var line = data[i];
                 html+=`
+                <div style="padding: 0 3rem" class="table table-responsive">
                 <table class='table table-bordered table-striped mt-4'>
                 <tr>
                     <th class='header_laporan bg-white no-border' width='100'>Kode Akun  </th>
@@ -104,7 +104,7 @@
                 </tr>
                 <tr>
                     <th height='23' colspan='7' class='header_laporan bg-highlight text-right'>Saldo Awal </th>
-                    <th class='header_laporan bg-highlight' align='right'>`+sepNum(line.so_awal)+`</th>
+                    <th class='header_laporan bg-highlight text-right'>`+sepNum(line.so_awal)+`</th>
                 </tr>`;
 			    var saldo=parseFloat(line.so_awal);
                 var debet=0;
@@ -139,10 +139,14 @@
             </tr>
             </table>
             <br>`;
+            
+            html+="</div>"; 
+                if(i != (data.length - 1)){
+                    html+=`<div class='separator2 mb-4'></div>`;
+                }
 
             }      
 
-            html+="</div>"; 
         }
         $('#canvasPreview').html(html);
         $('li.prev a ').html("<i class='simple-icon-arrow-left'></i>");
