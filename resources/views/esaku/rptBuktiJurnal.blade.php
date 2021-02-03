@@ -3,14 +3,11 @@
 <script type="text/javascript">
 
     function drawLap(formData){
-        saiPostLoad('esaku-report/lap-buktijurnal', null, formData, null, function(res){
-           console.log(res.result.length);
+        saiPostLoad("{{ url('esaku-report/lap-buktijurnal') }}", null, formData, null, function(res){
            if(res.result.length > 0){
-
                 $('#pagination').html('');
                 var show = $('#show').val();
                 generatePaginationDore('pagination',show,res);
-              
            }else{
                 $('#saku-report #canvasPreview').load("{{ url('esaku-auth/form/blank') }}");
            }
@@ -21,15 +18,13 @@
 
    function drawRptPage(data,res,from,to){
         var data = data;
-        console.log(data.length);
-        console.log(res.detail_jurnal);
         if(data.length > 0){
             if(res.back){
                 $('.navigation-lap').removeClass('hidden');
             }else{
                 $('.navigation-lap').addClass('hidden');
             }
-            var html = `<div>
+            var html = `
             <style>
                 .info-table thead{
                     background:#4286f5;
@@ -38,119 +33,117 @@
                 .bold {
                     font-weight:bold;
                 }
-            </style>
-            `;
-            var lokasi = res.lokasi;
-            for(var i=0;i<data.length;i++){
-                var line = data[i];
+                .table-header-prev td{
+                    padding: 2px !important;
+                }
+                .table-kop-prev td{
+                    padding: 0px !important;
+                }
+                .separator2{
+                    height:1rem;
+                    background:#f8f8f8;
+                    box-shadow: -1px 0px 1px 0px #e1e1e1;
+                }
+                .vtop{
+                    vertical-align:top !important;
+                }
+                .lh1{
+                    line-height:1;
+                }
+            </style>`;
+            html+= `
+            <div style='border-bottom: double #d7d7d7;padding:0 3rem'>
+                <table class="borderless mb-2 table-kop-prev" width="100%" >
+                    <tr>
+                        <td width="25%" colspan="5" class="vtop"><h6 class="text-primary bold">BUKTI JURNAL</h6></td>
+                        <td width="75%" colspan="3" class="vtop text-right"><h6 class="mb-2 bold">`+res.lokasi[0].nama+`</h6><p class="lh1">`+res.lokasi[0].alamat+`<br>`+res.lokasi[0].kota+` `+res.lokasi[0].kodepos+` </p><p class="mt-2">`+res.lokasi[0].email+` | `+res.lokasi[0].no_telp+`</p></td>
+                    </tr>
+                </table>
+            </div>`;
+            for(var a=0; a < data.length; a++)
+            {
                 html+=`
-                <table class='table table-borderless'>
-                <tr>
-                    <td><table width='100%'  border='0' cellspacing='2' cellpadding='1'>
-                    <tr>
-                        <td width='80%'><table width='100%'  border='0' cellspacing='2' cellpadding='1'>
+                <div style="padding:0 3rem">
+                    <table class="borderless table-header-prev mt-2" width="100%">
                         <tr>
-                            <td class='style16 bold' style='font-size:16px'>`+lokasi+`</td>
+                            <td width="14%">Tanggal</td>
+                            <td width="1%">:</td>
+                            <td width="54%" colspan="3">`+data[0].tgl+`</td>
+                            <td width="10%" rowspan="3" style="vertical-align:top !important">Deskripsi</td>
+                            <td width="1%" rowspan="3" style="vertical-align:top !important">:</td>
+                            <td width="20%" rowspan="3" style="vertical-align:top !important">`+data[0].keterangan+`</td>
                         </tr>
                         <tr>
-                            <td class='style16'></td>
-                        </tr>
-                        </table></td>
-                        <td width='20%' align='center'><table class='table table-bordered'>
-                        
-                        <tr>
-                            <td align='center' class='istyle15'>`+line.no_bukti+`</td>
+                            <td width="14%">No Transaksi</td>
+                            <td width="1%">:</td>
+                            <td width="54%" colspan="3">`+data[0].no_bukti+`</td>
                         </tr>
                         <tr>
-                            <td align='center' class='istyle15'>`+line.tgl+`</td>
+                            <td width="14%">No Dokumen</td>
+                            <td width="1%">:</td>
+                            <td width="54%" colspan="3">`+data[0].no_dokumen+`</td>
                         </tr>
-                        </table></td>
-                    </tr>
-                    </table></td>
-                </tr>
-                <tr>
-                    <td align='center' class='istyle17 bold' style='font-size:18px'>BUKTI JURNAL</td>
-                </tr>
-                <tr>
-                    <td><table width='100%' class='table table-bordered'>
-                    <thead>
-                    <tr>
-                        <td width='30' class='bold'>NO</td>
-                        <td width='100' class='bold'>KODE AKUN </td>
-                        <td width='200' class='bold'>NAMA AKUN </td>
-                        <td width='270' class='bold'>KETERANGAN</td>
-                        <td width='60' class='bold'>PP</td>
-                        <td width='100' class='bold'>DEBET</td>
-                        <td width='100' class='bold'>KREDIT</td>
-                    </tr>
-                    </thead>
-                    <tbody>`;
-                   
-                        var x=1;
-                        var tot_debet=0;
-                        var tot_kredit=0;
-                        var debet =0;
-                        var kredit =0;
-                        var det ='';
-                        for (var a=0; a<res.detail_jurnal.length;a++)
-                        {
-                            var line2 = res.detail_jurnal[a];
-                            if(line2.no_bukti == line.no_bukti){
+                    </table>
+                </div>
+                <div style="padding:0 3.1rem">
+                    <table class="table table-striped table-body-prev mt-2" width="100%">
+                        <tr style="background: var(--theme-color-1) !important;color:white !important">
+                            <th style="width:15%" colspan="2">Kode Akun</th>
+                            <th style="width:20%">Nama Akun</th>
+                            <th style="width:10">Nama PP</th>
+                            <th style="width:25%">Keterangan</th>
+                            <th style="width:15%" colspan="2">Debet</th>
+                            <th style="width:15%">Kredit</th>
+                        </tr>`;
+                        var det = '';
+                        var total_debet = 0; var total_kredit =0;
+                        var no=1;
+                        for(var i=0;i<res.detail_jurnal.length;i++){
+                            var line =res.detail_jurnal[i];
+                            if(data[0].no_bukti == line.no_bukti){
 
-                                debet=sepNum(parseFloat(line2.debet));
-                                kredit=sepNum(parseFloat(line2.kredit));
-                                tot_debet=tot_debet+parseFloat(line2.debet);
-                                tot_kredit=tot_kredit+parseFloat(line2.kredit);
-                                det+=`<tr>
-                                    <td class='isi_laporan' align='center'>`+x+`</td>
-                                    <td class='isi_laporan'>`+line2.kode_akun+`</td>
-                                    <td class='isi_laporan'>`+line2.nama_akun+`</td>
-                                    <td class='isi_laporan'>`+line2.keterangan+`</td>
-                                    <td class='isi_laporan' align='center'>`+line2.kode_pp+`</td>
-                                    <td class='isi_laporan' align='right'>`+debet+`</td>
-                                    <td class='isi_laporan' align='right'>`+kredit+`</td>
-                                </tr>`;
-                                x=x+1;
+                                total_debet+=parseFloat(line.debet);
+                                total_kredit+=parseFloat(line.kredit);
+                                det += "<tr>";
+                                det += "<td colspan='2'>"+line.kode_akun+"</td>";
+                                det += "<td >"+line.nama_akun+"</td>";
+                                det += "<td >"+line.nama_pp+"</td>";
+                                det += "<td >"+line.keterangan+"</td>";
+                                det += "<td class='text-right' colspan='2'>"+format_number(line.debet)+"</td>";
+                                det += "<td class='text-right'>"+format_number(line.kredit)+"</td>";
+                                det += "</tr>";
+                                no++;
                             }
                         }
-                        tot_debet1=sepNum(tot_debet);
-                        tot_kredit1=sepNum(tot_debet);
-                    html+=det+`<tr>
-                
-                    <td colspan='5' class='header_laporan' align='right'>Total</td>
-                    <td class='isi_laporan' align='right'>`+tot_debet1+`</td>
-                    <td class='isi_laporan' align='right'>`+tot_kredit1+`</td>
-                </tr>
-                    </tbody>
-                    </table></td>
-                </tr>
-                <tr>
-                    <td>&nbsp;</td>
-                </tr>
-                <tr>
-                    <td align='right'><table class='table table-bordered' style='width:60%'>
-                    <tr>
-                        <td width='200' align='center'>Dibuat Oleh : </td>
-                        <td width='200' align='center'>Diperiksa Oleh : </td>
-                    </tr>
-                    <tr>
-                        <td align='center'>Paraf &amp; Tanggal </td>
-                        <td align='center'>Paraf &amp; Tanggal </td>
+                        det+=`<tr style="background: var(--theme-color-1) !important;color:white !important">
+                        <th colspan="5"></th>
+                        <th style="width:10%" class="text-right" colspan="2">`+format_number(total_debet)+`</th>
+                        <th style="width:10%" class="text-right">`+format_number(total_kredit)+`</th>
+                        </tr>`;
+                        html+=det+`
+                    </table>
+                    <table class="table-borderless mt-2" width="100%">
+                        <tr>
+                            <td width="60%" colspan="5">&nbsp;</td>
+                            <td width="20%" class="text-center" colspan="2">Dibuat Oleh</td>
+                            <td width="20%" class="text-center">Diperiksa Oleh</td>
                         </tr>
-                    <tr>
-                        <td height='80'>&nbsp;</td>
-                        <td>&nbsp;</td>
+                        <tr>
+                            <td width="60%" colspan="5">&nbsp;</td>
+                            <td width="20%" style="height:100px" colspan="2"></td>
+                            <td width="20%" style="height:100px"></td>
                         </tr>
-                    </table></td>
-                </tr>
-
-                </table><br>
-                <DIV style='page-break-after:always'></DIV>`;
-
+                    </table>
+                </div>
+                <br>
+                `;
+                if(a != (data.length - 1)){
+                    html+=`<div class='separator2 mb-4'></div>`;
+                }
+                html+=`
+                <DIV style='page-break-after:always'></DIV>
+                `; 
             }
-
-                        
-            html+="</div>"; 
         }
         $('#canvasPreview').html(html);
         $('li.prev a ').html("<i class='simple-icon-arrow-left'></i>");

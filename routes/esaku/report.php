@@ -74,7 +74,7 @@ Route::post('lap-coa-struktur', 'Esaku\LaporanController@getCOAStruktur');
 Route::post('lap-labarugi-unit', 'Esaku\LaporanController@getLabaRugiUnit');
 Route::post('lap-labarugi-unit-dc', 'Esaku\LaporanController@getLabaRugiUnitDC');
 
-Route::get('lap-jurnal-pdf', 'Esaku\LaporanController@getJurnalPDF');
+Route::get('lap-jurnal-pdf', 'Esaku\LaporanController@getBuktiJurnalPDF');
 Route::get('lap-bukubesar-pdf', 'Esaku\LaporanController@getBukuBesarPDF');
 Route::get('lap-nrclajur-pdf', 'Esaku\LaporanController@getNrcLajurPDF');
 Route::get('lap-neraca-pdf', 'Esaku\LaporanController@getNeracaPDF');

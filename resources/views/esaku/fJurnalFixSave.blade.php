@@ -345,8 +345,13 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card-body-footer">
-                            <button type="submit" class="btn btn-primary ml-2"  style="float: right;" id="btn-save" ><i class="fa fa-save"></i> Simpan</button>
+                        <div class="card-body-footer row" style="width: 900px;padding: 0 25px;">
+                            <div style="vertical-align: middle;" class="col-md-10 text-right p-0">
+                                <p class="text-success" id="balance-label" style="margin-top: 20px;"></p>
+                            </div>
+                            <div style="text-align: right;" class="col-md-2 p-0 ">
+                                <button type="submit" style="margin-top: 10px;" id="btn-save" class="btn btn-primary"><i class="fa fa-save"></i> Simpan</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -490,6 +495,16 @@
             }
         });
 
+        if(total_d > 0 && total_k > 0){
+
+            if(total_d == total_k){
+                $('#balance-label').removeClass('text-danger').addClass('text-success').html('Balance');
+            }else{
+                $('#balance-label').removeClass('text-success').addClass('text-danger').html('Tidak Balance');
+            }
+        }else{
+            $('#balance-label').removeClass('text-success').removeClass('text-danger').html('');
+        }
         $('#total_debet').val(total_d);
         $('#total_kredit').val(total_k);
         
