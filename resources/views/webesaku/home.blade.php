@@ -92,8 +92,8 @@
                     <button type="button" id="daftar-welcome" onclick="daftarEsaku()">Daftar Gratis</button>
                     <button type="button" id="hubungi-welcome">Hubungi Kami</button>
                 </div>
-                <div class="image-welcome" data-animate="fadeInUp">
-                    <img src="{{ asset('asset_web/img/esaku/laptop.png')}}" alt="laptop"/>
+                <div class="image-welcome m-t-25" data-animate="fadeInUp">
+                    <img src="{{ asset('asset_web/img/esaku/tablet.png')}}" alt="laptop"/>
                 </div>
                 <div class="text-center m-b-30" data-animate="fadeInUp">
                     <h5 class="lead">Banyak perusahaan yang sudah percaya pada kami</h5>
@@ -108,7 +108,7 @@
         </section>
 
         {{-- Section Welcome 2 --}}
-        <section id="welcome2" class="p-b-0">
+        {{-- <section id="welcome2" class="p-b-0">
             <div class="container">
                 <div class="heading-text heading-section text-center m-b-25">
                     <h1>Dashboard luar biasa untuk keputusan lebih percaya diri.</h1>
@@ -126,7 +126,7 @@
                     <img alt="tablet" src="{{ asset('asset_web/img/esaku/tablet.png')}}">
                 </div>
             </div>
-        </section>
+        </section> --}}
 
         {{-- Section Alasan --}}
         <section id="alasan" class="p-b-25">
@@ -199,13 +199,12 @@
                     </div>
                     <div class="list-fitur">
                         <div class="list-fitur-header">
-                            <img alt="rekon-bank" src="{{ asset('asset_web/img/esaku/Rekonsiliasi Bank.svg')}}" height="120">
-                            <h4 class="list-fitur-name">Rekonsiliasi Bank</h4>
+                            <img alt="dashboard" src="{{ asset('asset_web/img/esaku/Dashboard.png')}}" height="120">
+                            <h4 class="list-fitur-name">Dashboard</h4>
                         </div>
                         <div class="list-fitur-body">
                             <p>
-                                Anda dapat mencocokan pencatatan transaksi dari Bank dengan SAKU secara langsung
-                                sehingga kebiasaan pengecekan satu per satu bisa dikurangi.
+                                Mulai percaya diri untuk mengambil keputusan bisnis Anda dengan tampilan grafik yang informatif.
                             </p>
                         </div>
                     </div>
