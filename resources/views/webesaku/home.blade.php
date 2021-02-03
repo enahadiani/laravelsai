@@ -17,6 +17,7 @@
     <link href="{{ asset('asset_web/css/plugins.css') }}" rel="stylesheet">
     <link href="{{ asset('asset_web/css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('asset_web/css/websaku-home.css') }}" rel="stylesheet">
+    <link href="{{ asset('asset_web/css/websaku-home-mobile.css') }}" rel="stylesheet">
 </head>
 
 <body>
@@ -27,6 +28,9 @@
         <header id="header" data-transparent="true" data-fullwidth="true" class="submenu-light">
             <div class="header-inner">
                 <div class="container header-content">
+                    <div id="mainMenu-trigger">
+                        <a class="lines-button x"><span class="lines"></span></a>
+                    </div>
                     <div class="header-content-1">
                         <div id="logo">
                             <a href="index.html">
@@ -37,9 +41,6 @@
                                     <img src=" {{ asset('asset_web/img/esaku/SAKU2021.svg') }}" alt="logo" width="80"/>
                                 </span>
                             </a>
-                        </div>
-                        <div id="mainMenu-trigger">
-                            <a class="lines-button x"><span class="lines"></span></a>
                         </div>
                         <div id="mainMenu" class="main-menu">
                             <div class="container">
@@ -104,7 +105,7 @@
         <section id="welcome2" class="p-b-0">
             <div class="container">
                 <div class="heading-text heading-section text-center m-b-25">
-                    <h1>Dashboard luar biasa untuk keputusan bisnis yang percaya diri.</h1>
+                    <h1>Dashborad luar biasa untuk keputusan lebih percaya diri.</h1>
                     <div class="heading-paragraph-container-welcome-2">
                         <div class="heading-paragraph-welcome-2">
                             <h5 class="lead">
@@ -403,7 +404,7 @@
         <section id="presentation" class="p-b-150 p-t-150 background-presentation">
             <div class="container">
                 <div class="heading-text heading-section text-center m-b-40">
-                    <h1>
+                    <h1 class="mulai-sekarang">
                         Mulai Sekarang
                     </h1>
                     <h5 class="lead">
