@@ -991,6 +991,7 @@
             }
         });
     }
+
     $('#saku-datatable').on('click', '#btn-edit', function(){
         var id= $(this).closest('tr').find('td').eq(1).html();
         $('#btn-save').attr('type','button');
@@ -1309,7 +1310,10 @@
                                 id:result.data.no_bukti,
                                 type:'simpan'
                             });
-                                
+
+                            if(result.data.no_pooling != undefined){
+                                kirimWAEmail(result.data.no_pooling);
+                            }
 
                         }
                         else if(!result.data.status && result.data.message == 'Unauthorized'){
@@ -2634,5 +2638,18 @@
         }
     });
 
-    
+
+    function kirimWAEmail(id){
+        
+        $.ajax({
+            type: 'POST',
+            url: "{{ url('esaku-trans/jurnal-notifikasi') }}",
+            dataType: 'json',
+            data:{'no_pooling': id},
+            async:false,
+            success:function(res){
+                console.log(res);
+            }
+        });
+    }
     </script>

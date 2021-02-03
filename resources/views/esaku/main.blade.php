@@ -405,7 +405,6 @@
     }
     
     function msgDialog(data){
-        console.log(data.type);
         switch(data.type){
             case 'hapus':
                 var btn1 = (data.btn1 != undefined ? data.btn1 : 'btn btn-red');
@@ -774,11 +773,8 @@
     
     var channel = pusher.subscribe('saitoko-channel-'+userNIK);
     channel.bind('saitoko-event', function(data) {
-        // alert(JSON.stringify(data));
-        console.log(JSON.stringify(data));
         getNotif();
         showNotification("top", "left", "primary",data.title,data.message);
-        
     });
 
     function loadForm(url){
@@ -978,7 +974,6 @@
         $('.sub-menu li').removeClass('active');
         $(this).closest('li').addClass('active');
         var url = "{{ url('esaku-auth/form')}}/"+form;
-        console.log(url);
         if(form == "" || form == "-"){
             // alert('Form dilock!');
             return false;
@@ -999,8 +994,6 @@
     });
 
     $('#cari').keydown(function(e){
-        // console.log(e.which);
-        
         var cari = $('#cari').val();
         if(e.which == 13){
             e.preventDefault();
@@ -1015,7 +1008,6 @@
             }));
         },
         afterSelect: function (item) {
-            console.log('cek');
             searchForm(item);
         }
     });
@@ -1093,7 +1085,6 @@
 
     function setWidthFooterCardBody(){
         if($('.card-body-footer').length > 0){
-            console.log($('.form-body').width());
             $('.card-body-footer').css('width',$('.container-fluid').width()+'px');
         }
     }
