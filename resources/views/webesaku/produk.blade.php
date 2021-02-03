@@ -218,6 +218,102 @@
             </div>
         </section>
 
+        <footer id="footer" class="footer-background">
+            <div class="footer-content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 p-b-25">
+                            <img alt="footer-logo" src="{{ asset('asset_web/img/esaku/SAKU2021.svg')}}" width="80">
+                        </div>
+                        <div class="col-4">
+                            <div class="row">
+                                <div class="col-12">
+                                    <h6 class="footer-text-nav">Hubungi Kami</h6>
+                                </div>
+                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="col-1">
+                                            <img alt="arroba" src="{{ asset('asset_web/img/esaku/arroba.svg')}}" height="20">
+                                        </div>
+                                        <div class="col-11">
+                                            <p class="footer-content-text">dedy@mysai.co.id</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="col-1">
+                                            <img alt="phone-call" src="{{ asset('asset_web/img/esaku/phone-call.svg')}}" height="20">
+                                        </div>
+                                        <div class="col-11">
+                                            <p class="footer-content-text">082240002911</p>
+                                        </div>
+                                    </div>
+                                    <a class="link-footer" href="#">
+                                        Hubungi Whatsapp  <i class="fas fa-arrow-up arrow-tilted"></i>
+                                    </a>
+                                </div>
+                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="col-1">
+                                            <img alt="pin" src="{{ asset('asset_web/img/esaku/Pin.svg')}}" height="20">
+                                        </div>
+                                        <div class="col-11">
+                                            <p class="footer-content-text">Jalan Raya Bojongsoang Pesona Bali Residence Blok D4/7 Bojongsoang, Kab. Bandung 40288</p>
+                                        </div>
+                                    </div>
+                                    <a class="link-footer" href="#">
+                                        Lihat Lokasi  <i class="fas fa-arrow-up arrow-tilted"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="row">
+                                <div class="col-12">
+                                    <h6 class="footer-text-nav">Perusahaan</h6>
+                                </div>
+                                <div class="col-12 col-footer">
+                                    <p class="footer-content-text">Tentang</p>
+                                </div>
+                                <div class="col-12 col-footer">
+                                    <p class="footer-content-text">Blog</p>
+                                </div>
+                                <div class="col-12 col-footer">
+                                    <p class="footer-content-text">Panduan Aplikasi</p>
+                                </div>
+                                <div class="col-12 col-footer">
+                                    <p class="footer-content-text">Magang</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="row">
+                                <div class="col-12">
+                                    <h6 class="footer-text-nav">Layanan</h6>
+                                </div>
+                                <div class="col-12 col-footer">
+                                    <p class="footer-content-text">Aplikasi Akuntansi Keuangan</p>
+                                </div>
+                                <div class="col-12 col-footer">
+                                    <p class="footer-content-text">Aplikasi Kasir</p>
+                                </div>
+                                <div class="col-12 col-footer">
+                                    <p class="footer-content-text">Integrasi Online Shop</p>
+                                </div>
+                                <div class="col-12 col-footer">
+                                    <p class="footer-content-text">Custome Aplikasi</p>
+                                </div>
+                                <div class="col-12 col-footer">
+                                    <p class="footer-content-text">Demo</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
     </div>
 
     <a id="scrollTop"><i class="icon-chevron-up"></i><i class="icon-chevron-up"></i></a>

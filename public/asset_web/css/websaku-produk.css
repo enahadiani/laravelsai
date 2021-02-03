@@ -120,6 +120,39 @@ i.fas.fa-cog {
     display: flex;
     justify-content: center;
 }
+/* Footer */
+
+.col-footer {
+    margin-left: -0.5rem !important;
+    margin-bottom: -0.5rem !important;
+}
+.link-footer > .arrow-tilted {
+    transform: rotate(40deg);
+    padding-left: 0.5rem;
+}
+.link-footer {
+    font-size: 1rem;
+    color: #0058e4 !important;
+    padding-left: 2.8rem;
+}
+.footer-content-text {
+    font-weight: 400;
+    font-size: 1rem;
+    padding-left: 0.5rem;
+    display: inline-block;
+    text-align: left;
+}
+.footer-text-nav {
+    color: #606060;
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+.footer-background {
+    background-color: #f2f2f2;
+}
+#footer .footer-content {
+    padding-top: 2rem !important;
+}
 /* Header */
 #daftar-link {
     background-color: #0058e4;
