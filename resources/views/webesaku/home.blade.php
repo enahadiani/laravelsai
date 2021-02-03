@@ -111,7 +111,7 @@
         <section id="welcome2" class="p-b-0">
             <div class="container">
                 <div class="heading-text heading-section text-center m-b-25">
-                    <h1>Dashborad luar biasa untuk keputusan lebih percaya diri.</h1>
+                    <h1>Dashboard luar biasa untuk keputusan lebih percaya diri.</h1>
                     <div class="heading-paragraph-container-welcome-2">
                         <div class="heading-paragraph-welcome-2">
                             <h5 class="lead">
@@ -474,7 +474,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-3 perusahaan-container">
                             <div class="row">
                                 <div class="col-12">
                                     <h6 class="footer-text-nav">Perusahaan</h6>
@@ -493,8 +493,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-4">
-                            <div class="row">
+                        <div class="col-3 layanan-container">
+                            <div class="row ml-auto">
                                 <div class="col-12">
                                     <h6 class="footer-text-nav">Layanan</h6>
                                 </div>
