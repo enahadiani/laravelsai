@@ -1092,8 +1092,8 @@
                         var html = `<div style='border-bottom: double #d7d7d7;padding:0 1.5rem'>
                             <table class="borderless mb-2" width="100%" >
                                 <tr>
-                                    <td width="75%" style="vertical-align:top !important;"><h6 class="mb-2 bold">`+result.lokasi[0].nama+`</h6><p style="line-height:1">`+result.lokasi[0].alamat+`<br>`+result.lokasi[0].kota+` `+result.lokasi[0].kodepos+` </p><p class="mt-2">`+result.lokasi[0].email+` | `+result.lokasi[0].no_telp+`</p></td>
-                                    <td width="25%" style="vertical-align:top !important"><h6 class="text-primary text-right bold">JURNAL VOUCHER</h6></td>
+                                    <td width="25%" style="vertical-align:top !important"><h6 class="text-primary bold">JURNAL VOUCHER</h6></td>
+                                    <td width="75%" style="vertical-align:top !important;text-align:right"><h6 class="mb-2 bold">`+result.lokasi[0].nama+`</h6><p style="line-height:1">`+result.lokasi[0].alamat+`<br>`+result.lokasi[0].kota+` `+result.lokasi[0].kodepos+` </p><p class="mt-2">`+result.lokasi[0].email+` | `+result.lokasi[0].no_telp+`</p></td>
                                 </tr>
                             </table>
                         </div>
