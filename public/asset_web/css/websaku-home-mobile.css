@@ -100,6 +100,13 @@
     .perusahaan-container {
         margin-left: 0;
     }
+    .footer-content-mobile .layanan-container {
+        margin-left: 5.2rem;
+    }
+    .footer-content-mobile {
+        display: flex !important;
+        justify-content: space-between;
+    }
     /* Header */
     .nav-mobile-daftar {
         margin: 0 2rem 0 7rem;
