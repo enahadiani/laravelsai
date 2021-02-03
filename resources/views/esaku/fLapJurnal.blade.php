@@ -46,6 +46,14 @@
                 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
             }
         });
+
+        // FUNCTION TAMBAHAN
+        function format_number(x){
+            var num = parseFloat(x).toFixed(0);
+            num = sepNumX(num);
+            return num;
+        }
+        
         var $periode = {
             type : "=",
             from : "{{ Session::get('periode') }}",
