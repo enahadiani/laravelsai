@@ -1,3 +1,9 @@
+.layanan-container {
+    margin-left: 3.4rem;
+}
+.perusahaan-container {
+    margin-left: 9rem;
+}
 .mulai-sekarang {
     color: #0058e4;
 }
@@ -64,6 +70,7 @@ section:nth-child(6) {
     border-radius: 2.5rem;
 }
 .presentation-action {
+    margin-top: 8rem;
     display: flex;
     justify-content: center;
 }
@@ -73,8 +80,8 @@ section:nth-child(6) {
     background-repeat: no-repeat;
 }
 .col-footer {
-    margin-left: -0.5rem !important;
-    margin-bottom: 0.6rem !important;
+    margin-left: -0.5rem;
+    margin-bottom: -0.5rem;
 }
 .link-footer > .arrow-tilted {
     transform: rotate(40deg);
