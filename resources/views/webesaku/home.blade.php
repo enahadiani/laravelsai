@@ -52,11 +52,17 @@
                                         <li><a href="#">Harga</a></li>
                                     </ul>
                                 </nav>
+                                <div class="col-mobile">
+                                    <div class="nav-mobile-daftar">
+                                        <a href="#" id="masuk-link">Masuk</a>
+                                        <a href="https://app.simkug.com/esaku-auth/register" id="daftar-link">Daftar Gratis</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="header-content-2">
-                        <div id="mainMenu2" class="main-menu">
+                        <div id="mainMenu2" class="main-menu col-dekstop">
                             <div class="container">
                                 <a href="#" id="masuk-link">Masuk</a>
                                 <a href="https://app.simkug.com/esaku-auth/register" id="daftar-link">Daftar Gratis</a>

@@ -351,6 +351,9 @@ span {
     animation-name: fade-corousel;
     animation-duration: 1.5s;
 }
+.col-mobile {
+    display: none;
+}
 
 @-webkit-keyframes fade-corousel {
     from {
