@@ -454,24 +454,20 @@
         $('#modalEmail').on('submit','#formEmail',function(e){
             e.preventDefault();
             var formData = new FormData(this);
-            $formData.append("periode[]",$periode.type);
-            $formData.append("periode[]",$periode.from);
-            $formData.append("periode[]",$periode.to);
-            $formData.append("kode_fs[]",$kode_fs.type);
-            $formData.append("kode_fs[]",$kode_fs.from);
-            $formData.append("kode_fs[]",$kode_fs.to);
-            $formData.append("output[]",$output.type);
-            $formData.append("output[]",$output.from);
-            $formData.append("output[]",$output.to);
-            $formData.append("kode_pp[]",$kode_pp.type);
-            $formData.append("kode_pp[]",$kode_pp.from);
-            $formData.append("kode_pp[]",$kode_pp.to);
-            for(var pair of formData.entries()) {
-                console.log(pair[0]+ ', '+ pair[1]); 
-            }
+            var html = `<head>`+$('head').html()+`</head><style>`+$('style').html()+`</style>
+            <body style='background:white;'>
+                <div>
+                    <div class="card" id="print-area">
+                        `+$('#canvasPreview').html()+`
+                    </div>
+                </div>
+            </body>`;
+            formData.append("html",html);
+            formData.append("text","Berikut ini kami lampiran Laba Rugi Anggaran Prodi:");
+            formData.append("subject","Laporan Laba Rugi Anggaran Prodi");
             $.ajax({
                 type: 'POST',
-                url: "{{ url('telu-report/send-laporan') }}",
+                url: "{{ url('telu-report/send-email-report') }}",
                 dataType: 'json',
                 data: formData,
                 async:false,
@@ -479,8 +475,8 @@
                 cache: false,
                 processData: false, 
                 success:function(result){
-                    alert(result.message);
-                    if(result.status){
+                    alert(result.data.message);
+                    if(result.data.id != undefined){
                         $('#modalEmail').modal('hide');
                     }
                     // $loadBar2.hide();

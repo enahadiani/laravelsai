@@ -643,5 +643,41 @@
                 return response()->json(['message' => $res["message"], 'status'=>false], 200);
             } 
         }
+
+        public function sendEmail(Request $request){
+            try{
+                
+                $client = new Client();
+                
+                $query = [
+                    'from' => 'devsaku5@gmail.com',
+                    'to' => $request->email,
+                    'html' => $request->html,
+                    'text' => $request->text,
+                    'subject' => $request->subject
+                ];
+        
+                $response = $client->request('POST',config('api.url').'ypt-report/send-email-report',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                    ],
+                    'form_params' => $query
+                ]);
+        
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $res = json_decode($response_data,true);
+                    $data = $res;
+                }
+
+                return response()->json($data, 200);    
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                return response()->json(['message' => $res, 'status'=>false], 200);
+                // var_dump($response);
+            } 
+        }
     }
 ?>
