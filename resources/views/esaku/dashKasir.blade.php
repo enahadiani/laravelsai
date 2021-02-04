@@ -1,7 +1,8 @@
 <link rel="stylesheet" href="{{ asset('master.css') }}" />
 <link rel="stylesheet" href="{{ asset('dash-asset/dash-esaku/dash-keuangan-desktop.css') }}" />
+<link rel="stylesheet" href="{{ asset('dash-asset/dash-esaku/dash-keuangan-tablet.css') }}" />
 
-<section id="baris-ke-1" class="dashboard-baris-1 pb-3">
+<section id="dekstop-baris-ke-1" class="dashboard-baris-1 pb-3 col-dekstop">
     <div class="row">
         <div class="col-md-3 col-lg-3 col-xl-3">
             <div class="card card-dash">
@@ -100,7 +101,7 @@
                     <div class="card card-dash">
                         <h6 class="ml-4 mt-3 mb-0 judul-card">Arus Kas</h6>
                         <div class="card-dash-body ml-4 mt-2">
-                            <div id="arus-kas"></div>
+                            <div id="arus-kas-dekstop"></div>
                             <div class="keterangan-grafik">
                                 <div class="label-grafik">
                                     <div class="legend-symbol-1"></div>
@@ -122,7 +123,7 @@
                     <div class="card card-dash">
                         <h6 class="ml-4 mt-3 mb-0 judul-card">Jumlah Piutang</h6>
                         <div class="card-dash-body ml-4 mt-2">
-                            <div id="jumlah-piutang"></div>
+                            <div id="jumlah-piutang-dekstop"></div>
                         </div>
                     </div>
                 </div>
@@ -131,13 +132,115 @@
     </div>
 </section>
 
-<section id="baris-ke-2" class="dashboard-baris-2 pb-3">
+<section id="mobile-baris-ke-1" class="dashboard-baris-1 pb-3 col-tablet"> 
+    <div class="row">
+        <div class="col-6">
+            <div class="card card-dash">
+                <h6 class="ml-4 mt-3 mb-0 judul-card">Overview Laba Rugi</h6>
+                {{-- Pendapatan --}}
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <span class="ml-4 overview-text">Pendapatan</span>
+                    </div>
+                    <div class="col-md-8 col-lg-8 col-xl-8">
+                         <h5 class="ml-4 overview-amount">900,82 jt</h5>
+                    </div>
+                     <div class="mt-2 col-md-4 col-lg-4 col-xl-4">
+                        <div class="glyph-icon iconsminds-up success-icon">
+                            <span class="percentage-overview success-text">12,83%</span>
+                        </div>
+                        <span class="ml-2 label-overview">Tahun lalu</span>
+                    </div>
+                </div>
+                {{-- Harga Pokok --}}
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <span class="ml-4 overview-text">Harga Pokok</span>
+                    </div>
+                    <div class="col-md-8 col-lg-8 col-xl-8">
+                        <h5 class="ml-4 overview-amount">273,24 jt</h5>
+                    </div>
+                    <div class="mt-2 col-md-4 col-lg-4 col-xl-4">
+                        <div class="glyph-icon iconsminds-up success-icon">
+                            <span class="percentage-overview success-text">3,22%</span>
+                        </div>
+                        <span class="ml-2 label-overview">Tahun lalu</span>
+                    </div>
+                </div>
+                {{-- Beban --}}
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <span class="ml-4 overview-text">Beban</span>
+                    </div>
+                    <div class="col-md-8 col-lg-8 col-xl-8">
+                        <h5 class="ml-4 overview-amount">492,06 jt</h5>
+                    </div>
+                    <div class="mt-2 col-md-4 col-lg-4 col-xl-4">
+                        <div class="glyph-icon iconsminds-up error-icon">
+                            <span class="percentage-overview error-text">2,01%</span>
+                        </div>
+                        <span class="ml-2 label-overview">Tahun lalu</span>
+                    </div>
+                </div>
+                {{-- Laba Rugi --}}
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <span class="ml-4 overview-text">Laba Rugi</span>
+                    </div>
+                    <div class="col-md-8 col-lg-8 col-xl-8">
+                        <h5 class="ml-4 overview-amount">135,52 jt</h5>
+                    </div>
+                    <div class="mt-2 col-md-4 col-lg-4 col-xl-4">
+                        <div class="glyph-icon iconsminds-up success-icon">
+                            <span class="percentage-overview success-text">10,73%</span>
+                        </div>
+                        <span class="ml-2 label-overview">Tahun lalu</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card card-dash card-dash-info">
+                        <h6 class="ml-4 mt-3 mb-0">Gross Profit Margin</h6>
+                        <div class="card-dash-body ml-4 mt-2">
+                            <h5 class="overview-amount">89,1%</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-12">
+                    <div class="card card-dash card-dash-info">
+                        <h6 class="ml-4 mt-3 mb-0">Operating Ratio</h6>
+                        <div class="card-dash-body ml-4 mt-2">
+                            <h5 class="overview-amount">23,9%</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-12">
+                    <div class="card card-dash card-dash-info">
+                        <h6 class="ml-4 mt-3 mb-0">Net Profit Margin</h6>
+                        <div class="card-dash-body ml-4 mt-2">
+                            <h5 class="overview-amount">54,2%</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="dekstop-baris-ke-2" class="dashboard-baris-2 pb-3 col-dekstop">
     <div class="row">
         <div class="col-lg-6 col-md-6 col-xl-6">
             <div class="card card-dash">
                 <h6 class="ml-4 mt-3 mb-0 judul-card">Laba Rugi</h6>
                 <div class="card-dash-body ml-4 mt-2">
-                    <div id="laba-rugi"></div>
+                    <div id="laba-rugi-dekstop"></div>
                     <div class="keterangan-grafik">
                         <div class="label-grafik">
                             <div class="legend-symbol-1"></div>
@@ -172,7 +275,7 @@
 </section>
 
 <script type="text/javascript">
-Highcharts.chart('laba-rugi', {
+Highcharts.chart('laba-rugi-dekstop', {
     chart: { height: 170 },
     exporting:{ enabled: false },
     legend:{ enabled:false },
@@ -229,7 +332,7 @@ Highcharts.chart('laba-rugi', {
     ]
 });
 
-Highcharts.chart('jumlah-piutang', {
+Highcharts.chart('jumlah-piutang-dekstop', {
     chart: { 
         type: 'spline',
         height: 190 
@@ -272,7 +375,7 @@ Highcharts.chart('jumlah-piutang', {
     }]
 });
 
-Highcharts.chart('arus-kas', {
+Highcharts.chart('arus-kas-dekstop', {
     chart: { height: 178 },
     exporting:{ enabled: false },
     legend:{ enabled:false },
