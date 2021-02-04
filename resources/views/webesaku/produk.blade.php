@@ -140,7 +140,7 @@
             </div>
         </section>
 
-        <section id="jenis-usaha" class="p-b-30">
+        <section id="jenis-usaha" class="p-b-25">
             <div class="container jenis-usaha">
                 <div class="jenis-usaha-container">
                     <div class="jenis-content">
@@ -165,7 +165,7 @@
                             <div class="col-12">
                                 <div class="jenis-text">
                                     <h5 class="lead">
-                                        Pencatatan transaksi secara otomatis dan menghasilkan laporan yang dapat dipertanggugjawabkan.
+                                        Pencatatan transaksi secara otomatis dan menghasilkan laporan yang dapat dipertanggungjawabkan.
                                     </h5>
                                 </div>
                             </div>

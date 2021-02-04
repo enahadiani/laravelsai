@@ -12,12 +12,41 @@
     }
     /* Produk fitur */
     .jenis-usaha-container {
+        margin: 1rem 0 6rem 0;
+    }
+    .jenis-usaha-container:nth-child(3) > .jenis-content:nth-child(1) {
+        margin-left: 0;
+    }
+    .jenis-usaha-container:nth-child(3) > .jenis-content:nth-child(2) {
+        margin-right: 0;
+    }
+    .jenis-usaha-container:nth-child(2) > .jenis-content:nth-child(1) {
+        margin-left: 0;
+    }
+    .jenis-usaha-container:nth-child(2) > .jenis-content:nth-child(2) {
+        margin-right: 0;
+    }
+    .jenis-usaha-container:nth-child(1) > .jenis-content:nth-child(1) {
+        margin-left: 0;
+    }
+    .jenis-usaha-container:nth-child(1) > .jenis-content:nth-child(2) {
+        margin-right: 0;
+    }
+    .jenis-usaha-container .jenis-content {
+        padding-bottom: 3rem;
+    }
+    .jenis-usaha-container {
         display: flex;
         justify-content: center;
+        padding: 2.5rem;
         flex-direction: column;
+        margin: 0;
     }
     .icon-container {
-        right: 0.8rem;
+        right: 4.3rem !important;
+    }
+    .card-custom {
+        margin: 0 !important;
     }
     .card-coba {
         margin: 0 0 1rem 0;

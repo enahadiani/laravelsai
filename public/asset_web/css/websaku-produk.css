@@ -38,24 +38,46 @@
 .jenis-text {
     width: 20rem;
 }
-.jenis-content {
-    width: 27rem;
-    padding: 4rem 3rem;
+.jenis-usaha-container {
+    margin: 1rem 0 6rem 0;
+}
+.jenis-usaha-container:nth-child(3) > .jenis-content:nth-child(1) {
+    width: 20rem;
+    margin-left: 17rem;
+}
+.jenis-usaha-container:nth-child(3) > .jenis-content:nth-child(2) {
+    width: 20rem;
+    margin-right: 18rem;
+}
+.jenis-usaha-container:nth-child(2) > .jenis-content:nth-child(1) {
+    width: 20rem;
+    margin-left: 17rem;
+}
+.jenis-usaha-container:nth-child(2) > .jenis-content:nth-child(2) {
+    width: 20rem;
+    margin-right: 18rem;
+}
+.jenis-usaha-container:nth-child(1) > .jenis-content:nth-child(1) {
+    width: 20rem;
+    margin-left: 17rem;
+}
+.jenis-usaha-container:nth-child(1) > .jenis-content:nth-child(2) {
+    width: 20rem;
+    margin-right: 18rem;
 }
 .jenis-usaha-container {
     display: flex;
-    justify-content: space-around;
-    width: 72rem;
+    justify-content: space-between;
 }
 .container.jenis-usaha {
     display: flex;
     justify-content: center;
     flex-direction: column;
-    padding: 0 4.5rem;
 }
 /* Produk Fitur */
 .icon-container {
     position: absolute;
+    right: 24.6rem;
     bottom: 1px;
     width: 370px;
 }
@@ -160,7 +182,7 @@ i.fas.fa-cog {
 .card-custom {
     background-color: #fff;
     height: 32rem;
-    width: 27rem;
+    width: 21rem;
     border-radius: 30px;
     padding: 4rem 3rem;
     border: 1px solid #f8f8f8;
@@ -219,22 +241,32 @@ i.fas.fa-cog {
         #fafafa 100%
     );
     height: 32rem;
-    width: 27rem;
+    width: 21rem;
     border-radius: 30px;
     padding: 4rem 3rem;
 }
+.produk-fitur-container .card-custom {
+    margin-left: 1rem;
+}
+.produk-fitur-container .card-coba {
+    margin-right: 1rem;
+}
 .produk-fitur-container {
     display: flex;
-    justify-content: space-around;
-    width: 72rem;
+    justify-content: center;
 }
 .container.produk-fitur {
     display: flex;
     justify-content: center;
 }
 /* Dashboard */
+.image-dashboard > img {
+    width: 58rem;
+    height: 21rem;
+}
 .image-dashboard {
-    margin-left: 1.5rem;
+    /* margin-left: 1rem; */
+    margin-right: 1rem;
     margin-top: -1.5rem;
 }
 .dashboard-sub-container {
@@ -251,9 +283,9 @@ i.fas.fa-cog {
 }
 .dashboard-container {
     background-color: #f2f2f2;
-    width: 72rem;
+    width: 60rem;
     height: 35rem;
-    padding: 2rem 2rem 0 2rem;
+    padding: 2rem 1rem 0 2rem;
     border-radius: 30px;
 }
 .container.dashboard {
@@ -371,4 +403,9 @@ span {
 }
 .heading-text h5 {
     font-size: 1.25rem !important;
+}
+@media only screen and (min-width: 1440px) {
+    .icon-container {
+        right: 27.2rem;
+    }
 }
