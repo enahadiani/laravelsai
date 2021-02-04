@@ -1,3 +1,36 @@
+/* Presentation */
+.presentation-action {
+    display: flex;
+    justify-content: center;
+}
+.btn-presentation {
+    background-color: #fff;
+    padding: 0.8rem 1rem;
+    border: none;
+    border-radius: 2.5rem;
+}
+.presentation-text {
+    width: 32rem;
+    margin: 0 auto;
+}
+.presentation-content {
+    padding: 2rem;
+}
+#presentation h1,
+#presentation h5 {
+    color: #fff;
+}
+#presentation > .container {
+    display: flex;
+    justify-content: center;
+}
+.background-presentation {
+    background-image: url("../img/esaku/background-produk.png");
+    width: 56rem;
+    height: 29rem;
+    border-radius: 30px;
+    background-repeat: no-repeat;
+}
 /* Jenis Usaha */
 .jenis-text-2 {
     width: 19rem;
@@ -32,12 +65,6 @@
 }
 i.fas.fa-cog {
     clip-path: polygon(50% 0%, 50% 100%, 0% 100%, 0% 0%);
-    /* background: rgb(55, 59, 68);
-    background: linear-gradient(
-        228deg,
-        rgba(55, 59, 68, 1) 1%,
-        rgba(66, 134, 244, 1) 45%
-    ); */
     background: linear-gradient(
         to bottom,
         #f9f9f9 0%,
@@ -86,12 +113,6 @@ i.fas.fa-cog {
     color: #fff !important;
 }
 .link-kontak {
-    /* background: rgb(55, 59, 68);
-    background: linear-gradient(
-        228deg,
-        rgba(55, 59, 68, 1) 1%,
-        rgba(66, 134, 244, 1) 45%
-    ); */
     background: linear-gradient(
         to bottom,
         #f9f9f9 0%,
@@ -160,12 +181,6 @@ i.fas.fa-cog {
     width: 200px;
 }
 .card-coba {
-    /* background: rgb(55, 59, 68);
-    background: linear-gradient(
-        228deg,
-        rgba(55, 59, 68, 1) 1%,
-        rgba(66, 134, 244, 1) 35%
-    ); */
     background: linear-gradient(
         to bottom,
         #f9f9f9 0%,
@@ -218,12 +233,26 @@ i.fas.fa-cog {
     justify-content: center;
 }
 /* Dashboard */
+.image-dashboard {
+    margin-left: 1.5rem;
+    margin-top: -1.5rem;
+}
+.dashboard-sub-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+.dashboard-subtext-container {
+    display: flex;
+    justify-content: center;
+}
 .dashboard-container > h1 {
     margin-bottom: 0;
 }
 .dashboard-container {
     background-color: #f2f2f2;
     width: 72rem;
+    height: 35rem;
     padding: 2rem 2rem 0 2rem;
     border-radius: 30px;
 }
@@ -232,10 +261,9 @@ i.fas.fa-cog {
     justify-content: center;
 }
 /* Footer */
-
 .col-footer {
-    margin-left: -0.5rem !important;
-    margin-bottom: 0.6rem !important;
+    margin-left: -0.5rem;
+    margin-bottom: -0.5rem;
 }
 .link-footer > .arrow-tilted {
     transform: rotate(40deg);
@@ -258,13 +286,11 @@ i.fas.fa-cog {
     font-weight: 700;
     font-size: 1.1rem;
 }
-.footer-background {
-    background-color: #f2f2f2;
-}
-#footer .footer-content {
-    padding-top: 2rem !important;
-}
 /* Header */
+#mainMenu-trigger {
+    cursor: pointer !important;
+    z-index: 2;
+}
 #daftar-link {
     background-color: #0058e4;
     padding: 0.8rem 1rem;
@@ -337,4 +363,12 @@ button {
 span {
     font-family: "Roboto", sans-serif !important;
     font-weight: bold;
+}
+
+/* General */
+.heading-text h1 {
+    font-size: 4.75rem !important;
+}
+.heading-text h5 {
+    font-size: 1.25rem !important;
 }
