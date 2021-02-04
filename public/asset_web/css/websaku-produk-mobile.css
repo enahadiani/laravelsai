@@ -1,5 +1,37 @@
 @media only screen and (max-width: 480px) {
+    /* Presentasi */
+    .presentation-text {
+        width: 26rem;
+    }
+    #presentation .mulai-sekarang {
+        font-size: 3.5rem !important;
+    }
+    .background-presentation {
+        width: 30.5rem;
+        height: 28rem;
+    }
+    /* Produk fitur */
+    .jenis-usaha-container {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+    }
+    .icon-container {
+        right: 0.8rem;
+    }
+    .card-coba {
+        margin: 0 0 1rem 0;
+    }
+    .produk-fitur-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
     /* Dashboard */
+    .image-dashboard > img {
+        height: 21.6rem;
+        width: 24rem;
+    }
     .dashboard-subtext {
         width: 20rem;
     }
