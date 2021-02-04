@@ -53,7 +53,7 @@
             top: -80px !important;
         }
     
-        #btn-kembali
+        .btn-back
         {
             line-height:1.5;padding: 0;background: none;appearance: unset;opacity: unset;right: -40px;position: relative;
             top: 5px;
@@ -61,14 +61,14 @@
             float: right;
             margin-top: -30px;
         }
-        #btn-kembali > span 
+        .btn-back > span 
         {
             border-radius: 50%;padding: 0 0.45rem 0.1rem 0.45rem;font-size: 1.2rem !important;font-weight: lighter;box-shadow:0px 1px 5px 1px #80808054;
             color:white;
             background:red;
         }
 
-        #btn-kembali > span:hover
+        .btn-back > span:hover
         {
             color:white;
             background:red;
@@ -117,6 +117,23 @@
         {
             height: calc(100vh - 105px) !important;
         }
+
+        .animate-bottom {
+            /* position: relative; */
+            animation: animatebottom 0.7s;
+        }
+        
+        @keyframes animatebottom {
+            from {
+                bottom: -300px;
+                opacity: 0;
+            }
+            
+            to {
+                bottom: 0;
+                opacity: 1;
+            }
+        }
     </style>
     <!-- FORM INPUT -->
     <form id="form-tambah" class="tooltip-label-right" novalidate>
@@ -125,8 +142,7 @@
                 <div class="card">
                     <div class="card-body form-header" style="padding-top:0.5rem;padding-bottom:0.5rem;min-height:48px">
                         <h6 id="judul-form" style="position:absolute;top:13px"></h6>
-                        <!-- <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Keluar</button> -->
-                        <button type="button" id="btn-kembali" aria-label="Kembali" class="btn">
+                        <button type="button" id="btn-kembali" aria-label="Kembali" class="btn btn-back">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -365,10 +381,11 @@
         <div class="row" id="saku-form-upload" style="display:none;">
             <div class="col-sm-12">
                 <div class="card">
-                    <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;">
-                        <h6 class="judul-form" style="position:absolute;top:25px"></h6>
-                        <button type="submit" class="btn btn-primary ml-2 btn-save"  style="float:right;" ><i class="fa fa-save"></i> Simpan</button>
-                        <button type="button" class="btn btn-light ml-2" id="btn-kembali-upload" style="float:right;"><i class="fa fa-undo"></i> Keluar</button>
+                    <div class="card-body form-header" style="padding-top:0.5rem;padding-bottom:0.5rem;min-height:48px">
+                        <h6 class="judul-form" style="position:absolute;top:13px"></h6>
+                        <button type="button" id="btn-kembali-upload" aria-label="Kembali" class="btn btn-back">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
                     <div class="separator"></div>
                     <div class="card-body form-body form-upload" style='background:#f8f8f8;padding: 0 !important;border-bottom-left-radius: .75rem;border-bottom-right-radius: .75rem;'>
@@ -425,6 +442,14 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="card-body-footer row" style="width: 900px;padding: 0 25px;">
+                            <div style="vertical-align: middle;" class="col-md-10 text-right p-0">
+                                <p class="text-success" style="margin-top: 20px;"></p>
+                            </div>
+                            <div style="text-align: right;" class="col-md-2 p-0 ">
+                                <button type="submit" style="margin-top: 10px;" class="btn btn-primary btn-save"><i class="fa fa-save"></i> Simpan</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -442,7 +467,8 @@
     $('#process-upload').addClass('disabled');
     $('#process-upload').prop('disabled', true);
     $('#kode_form').val($form_aktif);
-    $('#modal-preview').addClass('fade');
+    $('#modal-preview').addClass('fade animate');
+    $('#modal-preview .modal-content').addClass('animate-bottom');
     
     var $iconLoad = $('.preloader');
     var $target = "";
@@ -1202,8 +1228,8 @@
                                     <td width="25%">&nbsp;</td>
                                     <td width="25%">&nbsp;</td>
                                     <td width="10%">&nbsp;</td>
-                                    <td width="20%" style="height:180px"></td>
-                                    <td width="20%" style="height:180px"></td>
+                                    <td width="20%" style="height:100px"></td>
+                                    <td width="20%" style="height:100px"></td>
                                 </tr>
                             </table>
                         </div>`;

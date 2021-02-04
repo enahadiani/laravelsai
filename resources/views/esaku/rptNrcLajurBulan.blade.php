@@ -95,11 +95,7 @@
                         <th width='90' class='header_laporan bg-primary' align='center'>September</th>
                         <th width='90' class='header_laporan bg-primary' align='center'>Oktober</th>
                         <th width='90' class='header_laporan bg-primary' align='center'>November</th>
-                        <th width='90' class='header_laporan bg-primary' align='center'>Desember 1</th>
-                        <th width='90' class='header_laporan bg-primary' align='center'>Desember 2</th>
-                        <th width='90' class='header_laporan bg-primary' align='center'>Desember 3</th>
-                        <th width='90' class='header_laporan bg-primary' align='center'>Desember 4</th>
-                        <th width='90' class='header_laporan bg-primary' align='center'>Desember 5</th>
+                        <th width='90' class='header_laporan bg-primary' align='center'>Desember</th>
                         <th width='90' class='header_laporan bg-primary' align='center'>Saldo Akhir</th>
                     </tr>`;
                     
@@ -118,10 +114,6 @@
                     var periode10=tahun+"10"; 
                     var periode11=tahun+"11"; 
                     var periode12=tahun+"12";
-                    
-                    var periode13=tahun+"13"; 
-                    var periode14=tahun+"14"; 
-                    var periode15=tahun+"15"; 
                     var periode16=tahun+"16";
                     var so_awal=0;var total=0;
                     if(from != undefined){
@@ -146,9 +138,6 @@
                         n10+=parseFloat(line.n10);
                         n11+=parseFloat(line.n11);
                         n12+=parseFloat(line.n12);
-                        n13+=parseFloat(line.n13);
-                        n14+=parseFloat(line.n14);
-                        n15+=parseFloat(line.n15);
                         n16+=parseFloat(line.n16);
                         total+=parseFloat(line.total);
                         
@@ -169,10 +158,6 @@
                             <td  class='isi_laporan text-right' ><a class='report-link bukubesar' style='cursor:pointer;color:blue' data-kode_akun=`+line.kode_akun+` data-periode='`+periode10+`' >`+sepNum(parseFloat(line.n10))+`</a></td>
                             <td  class='isi_laporan text-right' ><a class='report-link bukubesar' style='cursor:pointer;color:blue' data-kode_akun=`+line.kode_akun+` data-periode='`+periode11+`' >`+sepNum(parseFloat(line.n11))+`</a></td>
                             <td  class='isi_laporan text-right' ><a class='report-link bukubesar' style='cursor:pointer;color:blue' data-kode_akun=`+line.kode_akun+` data-periode='`+periode12+`' >`+sepNum(parseFloat(line.n12))+`</a></td>
-                            <td  class='isi_laporan text-right' ><a class='report-link bukubesar' style='cursor:pointer;color:blue' data-kode_akun=`+line.kode_akun+` data-periode='`+periode13+`' >`+sepNum(parseFloat(line.n13))+`</a></td>
-                            <td  class='isi_laporan text-right' ><a class='report-link bukubesar' style='cursor:pointer;color:blue' data-kode_akun=`+line.kode_akun+` data-periode='`+periode14+`'>`+sepNum(parseFloat(line.n14))+`</a></td>
-                            <td  class='isi_laporan text-right' ><a class='report-link bukubesar' style='cursor:pointer;color:blue' data-kode_akun=`+line.kode_akun+` data-periode='`+periode15+`'>`+sepNum(parseFloat(line.n15))+`</a></td>
-                            <td  class='isi_laporan text-right' ><a class='report-link bukubesar' style='cursor:pointer;color:blue' data-kode_akun=`+line.kode_akun+` data-periode='`+periode16+`'>`+sepNum(parseFloat(line.n16))+`</a></td>
                             <td  class='isi_laporan text-right' ><a class='report-link bukubesar' style='cursor:pointer;color:blue' data-kode_akun=`+line.kode_akun+` data-periode='`+periode16+`'>`+sepNum(parseFloat(line.total))+`</a></td>
                         </tr>`;
                         no++;
@@ -192,10 +177,6 @@
                 <td class='header_laporan bg-primary' align='right'>`+sepNum(n10)+`</td>
                 <td class='header_laporan bg-primary' align='right'>`+sepNum(n11)+`</td>
                 <td class='header_laporan bg-primary' align='right'>`+sepNum(n12)+`</td>
-                <td class='header_laporan bg-primary' align='right'>`+sepNum(n13)+`</td>
-                <td class='header_laporan bg-primary' align='right'>`+sepNum(n14)+`</td>
-                <td class='header_laporan bg-primary' align='right'>`+sepNum(n15)+`</td>
-                <td class='header_laporan bg-primary' align='right'>`+sepNum(n16)+`</td>
                 <td class='header_laporan bg-primary' align='right'>`+sepNum(total)+`</td>
                 </tr>
             </table>
