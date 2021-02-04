@@ -48,8 +48,8 @@
         });
         var $periode = {
             type : "=",
-            from : "{{ date('Y') }}",
-            fromname : "{{ date('Y') }}",
+            from : "{{ substr(Session::get('periode'),0,4) }}",
+            fromname : "{{ substr(Session::get('periode'),0,4) }}",
             to : "",
             toname : "",
         }
@@ -99,7 +99,7 @@
 
         // $('#show').selectize();
 
-        $('#periode-from').val("{{ date('Y') }}");
+        $('#periode-from').val("{{ substr(Session::get('periode'),0,4) }}");
         $('#kode_fs-from').val("FS1");
         $('#level-from').val("1");
         $('#output-from').val("Laporan");

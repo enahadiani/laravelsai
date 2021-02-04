@@ -79,7 +79,7 @@
             <div style="padding: 0 3rem" class="table table-responsive mt-4">
             `;
             html+=`
-                    <table class='table table-bordered table-striped' width='100%'>
+                    <table class='table table-striped' width='100%'>
                         <tr>
                             <th class='text-center bg-primary' width='35%'>Deskripsi</th>
                             <th class='text-center bg-primary' width='15%'>Jumlah</th>
@@ -98,13 +98,14 @@
                         if (line.tipe1 != "Header" && line.nama1 != "." && line.nama1 != "")
                         {
                             if(line.tipe1 == "Summary"){
-                                if(line.level_spasi1 == 0){
-                                    color = "bg-primary0";
-                                }else if(line.level_spasi1 == 1){
-                                    color = "bg-primary";
-                                }else{
-                                    color = "bg-primary2";
-                                }
+                                // if(line.level_spasi1 == 0){
+                                //     color = "bg-primary0";
+                                // }else if(line.level_spasi1 == 1){
+                                //     color = "bg-primary";
+                                // }else{
+                                //     color = "bg-primary2";
+                                // }
+                                color = "";
                                 bold = "bold";
                             }
                             else if(line.tipe1 == "SumPosted"){
@@ -120,6 +121,11 @@
                             color = "";
                             bold = "bold";
                         }
+
+                        if(i == (data.length - 1)){
+                            color = "bg-primary0";
+                        }
+
                         det +="<tr>";
                         if (line.tipe1 == "Posting" && line.nilai1 != 0)
                         {
@@ -137,13 +143,14 @@
                         { 
                             nilai2=sepNum(parseFloat(line.nilai2));
                             if(line.tipe2 == "Summary"){
-                                if(line.level_spasi2 == 0){
-                                    color2 = "bg-primary0";
-                                }else if(line.level_spasi2 == 1){
-                                    color2 = "bg-primary";
-                                }else{
-                                    color2 = "bg-primary2";
-                                }
+                                // if(line.level_spasi2 == 0){
+                                //     color2 = "bg-primary0";
+                                // }else if(line.level_spasi2 == 1){
+                                //     color2 = "bg-primary";
+                                // }else{
+                                //     color2 = "bg-primary2";
+                                // }
+                                color2 = "";
                                 bold2 = "bold";
                             }
                             else if(line.tipe2 == "SumPosted"){
@@ -157,6 +164,10 @@
                         }else{
                             color2 = "";
                             bold2 = "bold";
+                        }
+
+                        if(i == (data.length - 1)){
+                            color2 = "bg-primary0";
                         }
                         if (line.tipe2 == "Posting" && line.nilai2 != 0)
                         {

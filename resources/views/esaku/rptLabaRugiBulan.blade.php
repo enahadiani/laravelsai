@@ -35,33 +35,69 @@
                 .bold {
                     font-weight:bold;
                 }
+                .table-header-prev td{
+                    padding: 2px !important;
+                }
+                .table-kop-prev td{
+                    padding: 0px !important;
+                }
+                .separator2{
+                    height:1rem;
+                    background:#f8f8f8;
+                    box-shadow: -1px 0px 1px 0px #e1e1e1;
+                }
+                .vtop{
+                    vertical-align:top !important;
+                }
+                .lh1{
+                    line-height:1;
+                }
+                .bg-primary2{
+                    background: #eaf2ff !important;
+                }
+                
+                .bg-primary0{
+                    background: #00358a !important;
+                    color:white !important;
+                }
             </style>
-
-            `;
-            periode = $periode;
-            var lokasi = res.lokasi;
-            html+=judul_lap("LAPORAN LABA RUGI",lokasi,'Tahun '+periode.from)+`
-            <div class='table-responsive'>
-                <table class='table table-bordered info-table'>
+            <div style='border-bottom: double #d7d7d7;padding:0 3rem'>
+                <table class="borderless mb-2 table-kop-prev" width="100%" >
                     <tr>
-                        <th width='300' class='header_laporan' align='center'>Keterangan</th>
-                        <th width='90' class='header_laporan' align='center'>Januari</th>
-                        <th width='90' class='header_laporan' align='center'>Februari</th>
-                        <th width='90' class='header_laporan' align='center'>Maret</th>
-                        <th width='90' class='header_laporan' align='center'>April</th>
-                        <th width='90' class='header_laporan' align='center'>Mei</th>
-                        <th width='90' class='header_laporan' align='center'>Juni</th>
-                        <th width='90' class='header_laporan' align='center'>Juli</th>
-                        <th width='90' class='header_laporan' align='center'>Agustus</th>
-                        <th width='90' class='header_laporan' align='center'>September</th>
-                        <th width='90' class='header_laporan' align='center'>Oktober</th>
-                        <th width='90' class='header_laporan' align='center'>November</th>
-                        <th width='90' class='header_laporan' align='center'>Desember 1</th>
-                        <th width='90' class='header_laporan' align='center'>Desember 2</th>
-                        <th width='90' class='header_laporan' align='center'>Desember 3</th>
-                        <th width='90' class='header_laporan' align='center'>Desember 4</th>
-                        <th width='90' class='header_laporan' align='center'>Desember 5</th>
-                        <th width='90' class='header_laporan' align='center'>Total</th>
+                        <td width="50%" colspan="5" class="vtop"><h6 class="text-primary bold">LAPORAN LABA RUGI PER BULAN</h6></td>
+                        <td width="50%" colspan="3" class="vtop text-right"><h6 class="mb-2 bold">`+res.lokasi[0].nama+`</h6></td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" >Tahun `+($periode.from)+`</td>
+                        <td colspan="3" class="vtop text-right"><p class="lh1">`+res.lokasi[0].alamat+`<br>`+res.lokasi[0].kota+` `+res.lokasi[0].kodepos+` </p></td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" >( Disajikan dalam Rupiah )</td>
+                        <td colspan="3" class="vtop text-right"><p class="mt-2">`+res.lokasi[0].email+` | `+res.lokasi[0].no_telp+`</p></td>
+                    </tr>
+                </table>
+            </div>
+            <div style="padding: 0 3rem" class="table table-responsive mt-4">
+                <table class='table table-bordered table-striped info-table'>
+                    <tr>
+                        <th width='300' class='header_laporan bg-primary' align='center'>Keterangan</th>
+                        <th width='90' class='header_laporan bg-primary' align='center'>Januari</th>
+                        <th width='90' class='header_laporan bg-primary' align='center'>Februari</th>
+                        <th width='90' class='header_laporan bg-primary' align='center'>Maret</th>
+                        <th width='90' class='header_laporan bg-primary' align='center'>April</th>
+                        <th width='90' class='header_laporan bg-primary' align='center'>Mei</th>
+                        <th width='90' class='header_laporan bg-primary' align='center'>Juni</th>
+                        <th width='90' class='header_laporan bg-primary' align='center'>Juli</th>
+                        <th width='90' class='header_laporan bg-primary' align='center'>Agustus</th>
+                        <th width='90' class='header_laporan bg-primary' align='center'>September</th>
+                        <th width='90' class='header_laporan bg-primary' align='center'>Oktober</th>
+                        <th width='90' class='header_laporan bg-primary' align='center'>November</th>
+                        <th width='90' class='header_laporan bg-primary' align='center'>Desember 1</th>
+                        <th width='90' class='header_laporan bg-primary' align='center'>Desember 2</th>
+                        <th width='90' class='header_laporan bg-primary' align='center'>Desember 3</th>
+                        <th width='90' class='header_laporan bg-primary' align='center'>Desember 4</th>
+                        <th width='90' class='header_laporan bg-primary' align='center'>Desember 5</th>
+                        <th width='90' class='header_laporan bg-primary' align='center'>Total</th>
                     </tr>`;
                     
                     var n01=0;var n02=0;var n03=0;var n04=0;var n05=0;var n06=0;var n07=0;var n08=0;var n09=0;var n10=0;var n11=0;var n12=0;var n13=0;var n14=0;var n15=0;var n16=0;var n17=0;

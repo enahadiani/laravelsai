@@ -103,7 +103,7 @@
                 </table>
             </div>
             <div style="padding: 0 3rem" class="table table-responsive mt-4">
-            <table class='table table-bordered table-striped'>
+            <table class='table table-striped'>
             <tr>
                 <th width='500' height='25'  class='header_laporan bg-primary'><div align='center'>Deskripsi</div></th>
                 <th width='100' class='header_laporan bg-primary'><div align='center'>Jumlah</div></th>
@@ -119,13 +119,7 @@
                 {
                     nilai=sepNum(parseFloat(line.n4));
                     if(line.tipe == "Summary"){
-                        if(line.level_spasi == 0){
-                            color = "bg-primary0";
-                        }else if(line.level_spasi == 1){
-                            color = "bg-primary";
-                        }else{
-                            color = "bg-primary2";
-                        }
+                        color = "";
                         bold = "bold";
                     }
                     else if(line.tipe == "SumPosted"){
@@ -137,7 +131,12 @@
                         bold = "";
                     }
                 }else{
+                    color = "";
                     bold = "bold"; 
+                }
+
+                if(i == (data.length - 1)){
+                    color = "bg-primary0";
                 }
 			
                 if (line.tipe=="Posting" && line.n4 != 0)
