@@ -1,6 +1,6 @@
     <link rel="stylesheet" href="{{ asset('trans.css') }}" />
     <!-- LIST DATA -->
-    <x-list-data judul="Data Kasbank" tambah="true" :thead="array('No Bukti','Tanggal','No Dokumen','Deskripsi','Nilai','Posting','Tgl Input','Aksi')" :thwidth="array(15,15,15,20,15,10,0,10)" :thclass="array('','','','','','','','text-center')" />
+    <x-list-data judul="Data Kasbank" tambah="true" :thead="array('Tanggal','No Bukti','No Dokumen','Deskripsi','Nilai','Posting','Tgl Input','Aksi')" :thwidth="array(15,15,15,20,15,10,0,10)" :thclass="array('','','','','','','','text-center')" />
     <!-- END LIST DATA -->
     <style>
         div.inp-div-jenis > input{
@@ -53,16 +53,84 @@
         .popover{
             top: -80px !important;
         }
+
+        
+    
+        .btn-back
+        {
+            line-height:1.5;padding: 0;background: none;appearance: unset;opacity: unset;right: -40px;position: relative;
+            top: 5px;
+            z-index: 10;
+            float: right;
+            margin-top: -30px;
+        }
+        .btn-back > span 
+        {
+            border-radius: 50%;padding: 0 0.45rem 0.1rem 0.45rem;font-size: 1.2rem !important;font-weight: lighter;box-shadow:0px 1px 5px 1px #80808054;
+            color:white;
+            background:red;
+        }
+
+        .btn-back > span:hover
+        {
+            color:white;
+            background:red;
+        }
+        .card-body-footer{
+            background: white;
+            position: fixed;
+            bottom: 15px;
+            right: 0;
+            margin-right: 30px;
+            z-index:3;
+            height: 60px;
+            border-top: ;
+            border-bottom-right-radius: 1rem;
+            border-bottom-left-radius: 1rem;
+            box-shadow: 0 -5px 20px rgba(0,0,0,.04),0 1px 6px rgba(0,0,0,.04);
+        }
+
+        .card-body-footer > button{
+            float: right;
+            margin-top: 10px;
+            margin-right: 25px;
+        }
+    
+        .bold{
+            font-weight:bold;
+        }
+        .modal p{
+            color: #505050 !important;
+        }
+        .table-header-prev td,th{
+            padding: 2px 8px !important;
+        }
+        #modal-preview .modal-content
+        {
+            border-bottom-left-radius: 0px !important;
+            border-bottom-right-radius: 0px !important;
+        }
+
+        #modal-preview
+        {
+            top: calc(100vh - calc(100vh - 30px)) !important;
+        }
+
+        #modal-preview #content-preview 
+        {
+            height: calc(100vh - 105px) !important;
+        }
     </style>
     <!-- FORM INPUT -->
     <form id="form-tambah" class="tooltip-label-right" novalidate>
         <div class="row" id="saku-form" style="display:none;">
             <div class="col-sm-12">
                 <div class="card">
-                    <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;">
-                        <h6 id="judul-form" style="position:absolute;top:25px"></h6>
-                        <button type="submit" class="btn btn-primary ml-2"  style="float:right;" id="btn-save" ><i class="fa fa-save"></i> Simpan</button>
-                        <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Keluar</button>
+                    <div class="card-body form-header" style="padding-top:0.5rem;padding-bottom:0.5rem;min-height:48px">
+                        <h6 id="judul-form" style="position:absolute;top:13px"></h6>
+                        <button type="button" id="btn-kembali" aria-label="Kembali" class="btn btn-back">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
                     <div class="separator mb-2"></div>
                     <div class="card-body pt-3 form-body">
@@ -257,6 +325,14 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="card-body-footer row" style="width: 900px;padding: 0 25px;">
+                            <div style="vertical-align: middle;" class="col-md-10 text-right p-0">
+                                <p class="text-success" id="balance-label" style="margin-top: 20px;"></p>
+                            </div>
+                            <div style="text-align: right;" class="col-md-2 p-0 ">
+                                <button type="submit" style="margin-top: 10px;" id="btn-save" class="btn btn-primary"><i class="fa fa-save"></i> Simpan</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -269,10 +345,11 @@
         <div class="row" id="saku-form-upload" style="display:none;">
             <div class="col-sm-12">
                 <div class="card">
-                    <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;">
-                        <h6 class="judul-form" style="position:absolute;top:25px"></h6>
-                        <button type="submit" class="btn btn-primary ml-2 btn-save"  style="float:right;" ><i class="fa fa-save"></i> Simpan</button>
-                        <button type="button" class="btn btn-light ml-2" id="btn-kembali-upload" style="float:right;"><i class="fa fa-undo"></i> Keluar</button>
+                    <div class="card-body form-header" style="padding-top:0.5rem;padding-bottom:0.5rem;min-height:48px">
+                        <h6 class="judul-form" style="position:absolute;top:13px"></h6>
+                        <button type="button" id="btn-kembali-upload" aria-label="Kembali" class="btn btn-back">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
                     <div class="separator"></div>
                     <div class="card-body form-body form-upload" style='background:#f8f8f8;padding: 0 !important;border-bottom-left-radius: .75rem;border-bottom-right-radius: .75rem;'>
@@ -328,6 +405,14 @@
                             </div>
                         </div>
                     </div>
+                    <div class="card-body-footer row" style="width: 900px;padding: 0 25px;">
+                        <div style="vertical-align: middle;" class="col-md-10 text-right p-0">
+                            <p class="text-success" style="margin-top: 20px;"></p>
+                        </div>
+                        <div style="text-align: right;" class="col-md-2 p-0 ">
+                            <button type="submit" style="margin-top: 10px;" class="btn btn-primary btn-save"><i class="fa fa-save"></i> Simpan</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -342,6 +427,8 @@
     <script>
     $('#process-upload').addClass('disabled');
     $('#process-upload').prop('disabled', true);
+    $('#kode_form').val($form_aktif);
+    $('#modal-preview').addClass('fade');
     
     var $iconLoad = $('.preloader');
     var $target = "";
@@ -393,6 +480,17 @@
                 total_k += +toNilai(nilai);
             }
         });
+
+        if(total_d > 0 && total_k > 0){
+
+        if(total_d == total_k){
+            $('#balance-label').removeClass('text-danger').addClass('text-success').html('Balance');
+        }else{
+            $('#balance-label').removeClass('text-success').addClass('text-danger').html('Tidak Balance');
+        }
+        }else{
+            $('#balance-label').removeClass('text-success').removeClass('text-danger').html('');
+        }
 
         $('#total_debet').val(total_d);
         $('#total_kredit').val(total_k);
@@ -566,8 +664,8 @@
             }
         ],
         [
-            { data: 'no_bukti' },
             { data: 'tanggal' },
+            { data: 'no_bukti' },
             { data: 'no_dokumen' },
             { data: 'keterangan' },
             { data: 'nilai1' },
@@ -856,7 +954,7 @@
         });
     }
     $('#saku-datatable').on('click', '#btn-edit', function(){
-        var id= $(this).closest('tr').find('td').eq(0).html();
+        var id= $(this).closest('tr').find('td').eq(1).html();
         $('#btn-save').attr('type','button');
         $('#btn-save').attr('id','btn-update');
         $('#judul-form').html('Edit Data Kasbank');
@@ -895,7 +993,7 @@
     }
 
     $('#saku-datatable').on('click','#btn-delete',function(e){
-        var id = $(this).closest('tr').find('td').eq(0).html();
+        var id = $(this).closest('tr').find('td').eq(1).html();
         msgDialog({
             id: id,
             type:'hapus'
@@ -954,7 +1052,7 @@
     $('#table-data tbody').on('click','td',function(e){
         if($(this).index() != 6 && $(this).index() != 5){
 
-            var id = $(this).closest('tr').find('td').eq(0).html();
+            var id = $(this).closest('tr').find('td').eq(1).html();
             var posted = $(this).closest('tr').find('td').eq(5).html();
             $.ajax({
                 type: 'GET',
@@ -964,81 +1062,97 @@
                 success:function(res){
                     var result= res.data;
                     if(result.status){
-
-                        var html = `<tr>
-                            <td style='border:none'>No Bukti</td>
-                            <td style='border:none'>`+id+`</td>
-                        </tr>
-                        <tr>
-                            <td>Tanggal</td>
-                            <td>`+reverseDate2(result.jurnal[0].tanggal,'-','/')+`</td>
-                        </tr>
-                        <tr>
-                            <td>Deskripsi</td>
-                            <td>`+result.jurnal[0].deskripsi+`</td>
-                        </tr>
-                        <tr>
-                            <td>No Dokumen</td>
-                            <td>`+result.jurnal[0].no_dokumen+`</td>
-                        </tr>
-                        <tr>
-                            <td>Status</td>
-                            <td>`+result.jurnal[0].status+`</td>
-                        </tr>
-                        <tr>
-                            <td>Jenis</td>
-                            <td>`+result.jurnal[0].jenis+`</td>
-                        </tr>
-                        <tr>
-                            <td>Total Debet</td>
-                            <td>`+format_number(result.jurnal[0].nilai1)+`</td>
-                        </tr>
-                        <tr>
-                            <td>Total Kredit</td>
-                            <td>`+format_number(result.jurnal[0].nilai1)+`</td>
-                        </tr>
-                        <tr>
-                            <td colspan='2'>
-                                <table id='table-ju-preview' class='table table-bordered'>
-                                    <thead>
-                                        <tr>
-                                            <th style="width:3%">No</th>
-                                            <th style="width:10%">Kode Akun</th>
-                                            <th style="width:18%">Nama Akun</th>
-                                            <th style="width:5%">DC</th>
-                                            <th style="width:20%">Keterangan</th>
-                                            <th style="width:15%">Nilai</th>
-                                            <th style="width:7">Kode PP</th>
-                                            <th style="width:17">Nama PP</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                </table>
-                            </td>
-                        </tr>`;
-                        
-                        $('#table-preview tbody').html(html);
-                        var det = ``;
-                        if(result.detail.length > 0){
-                            var input = '';
-                            var no=1;
-                            for(var i=0;i<result.detail.length;i++){
-                                var line =result.detail[i];
-                                input += "<tr>";
-                                input += "<td>"+no+"</td>";
-                                input += "<td >"+line.kode_akun+"</td>";
-                                input += "<td >"+line.nama_akun+"</td>";
-                                input += "<td >"+line.dc+"</td>";
-                                input += "<td >"+line.keterangan+"</td>";
-                                input += "<td class='text-right'>"+format_number(line.nilai)+"</td>";
-                                input += "<td >"+line.kode_pp+"</td>";
-                                input += "<td >"+line.nama_pp+"</td>";
-                                input += "</tr>";
-                                no++;
-                            }
-                            $('#table-ju-preview tbody').html(input);
-                        }
+                        var html = `<div style='border-bottom: double #d7d7d7;padding:0 1.5rem'>
+                            <table class="borderless mb-2" width="100%" >
+                                <tr>
+                                    <td width="25%" style="vertical-align:top !important"><h6 class="text-primary bold">BUKTI KAS</h6></td>
+                                    <td width="75%" style="vertical-align:top !important;text-align:right"><h6 class="mb-2 bold">`+result.lokasi[0].nama+`</h6><p style="line-height:1">`+result.lokasi[0].alamat+`<br>`+result.lokasi[0].kota+` `+result.lokasi[0].kodepos+` </p><p class="mt-2">`+result.lokasi[0].email+` | `+result.lokasi[0].no_telp+`</p></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div style="padding:0 1.5rem">
+                            <table class="borderless table-header-prev mt-2" width="100%">
+                                <tr>
+                                    <td width="14%">Tanggal</td>
+                                    <td width="1%">:</td>
+                                    <td width="20%">`+result.jurnal[0].tanggal+`</td>
+                                    <td width="30%" rowspan="3"></td>
+                                    <td width="10%" rowspan="3" style="vertical-align:top !important">Deskripsi</td>
+                                    <td width="1%" rowspan="3" style="vertical-align:top !important">:</td>
+                                    <td width="24%" rowspan="3" style="vertical-align:top !important">`+result.jurnal[0].deskripsi+`</td>
+                                </tr>
+                                <tr>
+                                    <td width="14%">No Transaksi</td>
+                                    <td width="1%">:</td>
+                                    <td width="20%">`+result.jurnal[0].no_bukti+`</td>
+                                </tr>
+                                <tr>
+                                    <td width="14%">No Dokumen</td>
+                                    <td width="1%">:</td>
+                                    <td width="20%">`+result.jurnal[0].no_dokumen+`</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div style="padding:0 1.9rem">
+                            <table class="table table-striped table-body-prev mt-2" width="100%">
+                               <tr style="background: var(--theme-color-1) !important;color:white !important">
+                                    <th style="width:15%">Kode Akun</th>
+                                    <th style="width:20%">Nama Akun</th>
+                                    <th style="width:15">Nama PP</th>
+                                    <th style="width:30%">Keterangan</th>
+                                    <th style="width:10%">Debet</th>
+                                    <th style="width:10%">Kredit</th>
+                               </tr>`;
+                                var det = '';
+                                var total_debet = 0; var total_kredit =0;
+                                if(result.detail.length > 0){
+                                    var no=1;
+                                    for(var i=0;i<result.detail.length;i++){
+                                        var line =result.detail[i];
+                                        if(line.dc == "D"){
+                                            total_debet+=parseFloat(line.nilai);
+                                        }else{
+                                            
+                                            total_kredit+=parseFloat(line.nilai);
+                                        }
+                                        det += "<tr>";
+                                        det += "<td >"+line.kode_akun+"</td>";
+                                        det += "<td >"+line.nama_akun+"</td>";
+                                        det += "<td >"+line.nama_pp+"</td>";
+                                        det += "<td >"+line.keterangan+"</td>";
+                                        det += "<td class='text-right'>"+(line.dc == "D" ? format_number(line.nilai) : 0)+"</td>";
+                                        det += "<td class='text-right'>"+(line.dc == "C" ? format_number(line.nilai) : 0)+"</td>";
+                                        det += "</tr>";
+                                        no++;
+                                    }
+                                }
+                                det+=`<tr style="background: var(--theme-color-1) !important;color:white !important">
+                                    <th colspan="4"></th>
+                                    <th style="width:10%">`+format_number(total_debet)+`</th>
+                                    <th style="width:10%">`+format_number(total_kredit)+`</th>
+                               </tr>`;
+                               
+                               html+=det+`
+                            </table>
+                            <table class="table-borderless mt-2" width="100%">
+                                <tr>
+                                    <td width="25%">&nbsp;</td>
+                                    <td width="25%">&nbsp;</td>
+                                    <td width="10%">&nbsp;</td>
+                                    <td width="20%" class="text-center">Dibuat Oleh</td>
+                                    <td width="20%" class="text-center">Diperiksa Oleh</td>
+                                </tr>
+                                <tr>
+                                    <td width="25%">&nbsp;</td>
+                                    <td width="25%">&nbsp;</td>
+                                    <td width="10%">&nbsp;</td>
+                                    <td width="20%" style="height:180px"></td>
+                                    <td width="20%" style="height:180px"></td>
+                                </tr>
+                            </table>
+                        </div>`;
+                        $('#content-preview').html(html);
+                       
                         if(posted == "Close"){
                             $('#btn-delete2').css('display','none');
                             $('#btn-edit2').css('display','none');
@@ -2118,7 +2232,7 @@
 
     // UPLOAD DOK
     $('#saku-datatable').on('click', '#btn-upload', function(){
-        var id= $(this).closest('tr').find('td').eq(0).html();
+        var id= $(this).closest('tr').find('td').eq(1).html();
         $('.judul-form').html('Upload Dokumen Kas Bank');
         $('#form-upload')[0].reset();
         $('#form-upload').validate().resetForm();
