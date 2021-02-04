@@ -120,6 +120,22 @@
         {
             height: calc(100vh - 105px) !important;
         }
+        .animate-bottom {
+            /* position: relative; */
+            animation: animatebottom 0.7s;
+        }
+        
+        @keyframes animatebottom {
+            from {
+                bottom: -300px;
+                opacity: 0;
+            }
+            
+            to {
+                bottom: 0;
+                opacity: 1;
+            }
+        }
     </style>
     <!-- FORM INPUT -->
     <form id="form-tambah" class="tooltip-label-right" novalidate>
@@ -428,7 +444,8 @@
     $('#process-upload').addClass('disabled');
     $('#process-upload').prop('disabled', true);
     $('#kode_form').val($form_aktif);
-    $('#modal-preview').addClass('fade');
+    $('#modal-preview').addClass('fade animate');
+    $('#modal-preview .modal-content').addClass('animate-bottom');
     
     var $iconLoad = $('.preloader');
     var $target = "";
