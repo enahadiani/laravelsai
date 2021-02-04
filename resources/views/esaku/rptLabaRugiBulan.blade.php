@@ -92,11 +92,7 @@
                         <th width='90' class='header_laporan bg-primary' align='center'>September</th>
                         <th width='90' class='header_laporan bg-primary' align='center'>Oktober</th>
                         <th width='90' class='header_laporan bg-primary' align='center'>November</th>
-                        <th width='90' class='header_laporan bg-primary' align='center'>Desember 1</th>
-                        <th width='90' class='header_laporan bg-primary' align='center'>Desember 2</th>
-                        <th width='90' class='header_laporan bg-primary' align='center'>Desember 3</th>
-                        <th width='90' class='header_laporan bg-primary' align='center'>Desember 4</th>
-                        <th width='90' class='header_laporan bg-primary' align='center'>Desember 5</th>
+                        <th width='90' class='header_laporan bg-primary' align='center'>Desember</th>
                         <th width='90' class='header_laporan bg-primary' align='center'>Total</th>
                     </tr>`;
                     
@@ -115,10 +111,6 @@
                     var periode10=tahun+"10"; 
                     var periode11=tahun+"11"; 
                     var periode12=tahun+"12";
-                    
-                    var periode13=tahun+"13"; 
-                    var periode14=tahun+"14"; 
-                    var periode15=tahun+"15"; 
                     var periode16=tahun+"16";
                     var so_awal=0;var total=0;
                     if(from != undefined){
@@ -142,10 +134,6 @@
                         if (line.tipe!="Header") v10=sepNum(parseFloat(line.n10))
                         if (line.tipe!="Header") v11=sepNum(parseFloat(line.n11))
                         if (line.tipe!="Header") v12=sepNum(parseFloat(line.n12))
-                        if (line.tipe!="Header") v13=sepNum(parseFloat(line.n13))
-                        if (line.tipe!="Header") v14=sepNum(parseFloat(line.n14))
-                        if (line.tipe!="Header") v15=sepNum(parseFloat(line.n15))
-                        if (line.tipe!="Header") v16=sepNum(parseFloat(line.n16))
                         if (line.tipe!="Header") v17=sepNum(parseFloat(line.n17))
                         html +=`<tr>
                             <td height='20' class='isi_laporan'>`+fnSpasi(line.level_spasi)+' '+line.nama+`</td>
@@ -161,10 +149,6 @@
                             <td  class='isi_laporan text-right' ><a class='report-link neraca-lajur' style='cursor:pointer;color:blue' data-kode_neraca=`+line.kode_neraca+` data-periode='`+periode10+`' >`+v10+`</a></td>
                             <td  class='isi_laporan text-right' ><a class='report-link neraca-lajur' style='cursor:pointer;color:blue' data-kode_neraca=`+line.kode_neraca+` data-periode='`+periode11+`' >`+v11+`</a></td>
                             <td  class='isi_laporan text-right' ><a class='report-link neraca-lajur' style='cursor:pointer;color:blue' data-kode_neraca=`+line.kode_neraca+` data-periode='`+periode12+`' >`+v12+`</a></td>
-                            <td  class='isi_laporan text-right' ><a class='report-link neraca-lajur' style='cursor:pointer;color:blue' data-kode_neraca=`+line.kode_neraca+` data-periode='`+periode13+`' >`+v13+`</a></td>
-                            <td  class='isi_laporan text-right' ><a class='report-link neraca-lajur' style='cursor:pointer;color:blue' data-kode_neraca=`+line.kode_neraca+` data-periode='`+periode14+`'>`+v14+`</a></td>
-                            <td  class='isi_laporan text-right' ><a class='report-link neraca-lajur' style='cursor:pointer;color:blue' data-kode_neraca=`+line.kode_neraca+` data-periode='`+periode15+`'>`+v15+`</a></td>
-                            <td  class='isi_laporan text-right' ><a class='report-link neraca-lajur' style='cursor:pointer;color:blue' data-kode_neraca=`+line.kode_neraca+` data-periode='`+periode16+`'>`+v16+`</a></td>
                             <td  class='isi_laporan text-right' >`+v17+`</td>
                         </tr>`;
                         no++;

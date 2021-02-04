@@ -31,7 +31,7 @@
             </div>
         </div>
     </div>
-    <x-report-result judul="Laba Rugi" padding="px-4 py-4" />
+    <x-report-result judul="Laba Rugi" padding="px-0 py-4" />
     
     @include('modal_search')
     @include('modal_email')

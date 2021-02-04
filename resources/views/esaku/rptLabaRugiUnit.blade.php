@@ -39,48 +39,100 @@
                 .uppercase{
                     text-transform:uppercase;
                 }
+                .table-header-prev td{
+                    padding: 2px !important;
+                }
+                .table-kop-prev td{
+                    padding: 0px !important;
+                }
+                .separator2{
+                    height:1rem;
+                    background:#f8f8f8;
+                    box-shadow: -1px 0px 1px 0px #e1e1e1;
+                }
+                .vtop{
+                    vertical-align:top !important;
+                }
+                .lh1{
+                    line-height:1;
+                }
+                .bg-primary2{
+                    background: #eaf2ff !important;
+                }
+                
+                .bg-primary0{
+                    background: #00358a !important;
+                    color:white !important;
+                }
             </style>
-
             `;
             periode = $periode;
-            var lokasi = res.lokasi;
             for (var i=0;i < data.length;i++)
             {
                 
                 var linex = data[i];
-            html+= judul_lap("LAPORAN LABA RUGI UNIT <span class='uppercase'>"+linex.nama+"</span>",lokasi,'Periode '+periode.fromname)+`
-            <div class='table-responsive'>
+            html+=`
+            <div style='border-bottom: double #d7d7d7;padding:0 3rem'>
+                <table class="borderless mb-2 table-kop-prev" width="100%" >
+                    <tr>
+                        <td width="50%" colspan="5" class="vtop"><h6 class="text-primary bold">LAPORAN LABA RUGI UNIT</h6></td>
+                        <td width="50%" colspan="3" class="vtop text-right"><h6 class="mb-2 bold">`+res.lokasi[0].nama+`</h6></td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" class='uppercase'>UNIT `+linex.nama+`</td>
+                        <td colspan="3" class="vtop text-right"><p class="lh1">`+res.lokasi[0].alamat+`<br>`+res.lokasi[0].kota+` `+res.lokasi[0].kodepos+` </p></td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" ></td>
+                        <td colspan="3" class="vtop text-right"><p class="mt-2">`+res.lokasi[0].email+` | `+res.lokasi[0].no_telp+`</p></td>
+                    </tr>
+                </table>
+            </div>
+            <div style="padding: 0 3rem" class="table table-responsive mt-4">
                 <table class='table table-bordered info-table'>
                     <tr>
-                        <th width='400' height='25'  class='header_laporan' align='center'>Keterangan</th>
-                        <th width='100' class='header_laporan' align='center'>Jumlah</th>
+                        <th width='400' height='25'  class='header_laporan bg-primary' align='center'>Keterangan</th>
+                        <th width='100' class='header_laporan bg-primary' align='center'>Jumlah</th>
                     </tr>`;
                 var no=1;
                 for (var j=0;j < res.res.detail.length;j++)
                 {
                     var nilai="";
                     var line = res.res.detail[j];
-                    if (line.tipe!="Header" && line.nama!="." && line.nama!="")
-                    {
-                        nilai=sepNum(parseFloat(line.n4));
+                    if(line.kode_pp == linex.kode_pp){
+
+                        var color = "";
+                        if (line.tipe!="Header" && line.nama!="." && line.nama!="")
+                        {
+                            nilai=sepNum(parseFloat(line.n4));
+                        }
+    
+                        if(j == (res.res.detail.length - 1)){
+                            color = "bg-primary0";
+                        }
+                    
+                        if (line.tipe=="Posting" && line.n4 != 0)
+                        {
+                            html+=`<tr class='report-link neraca-lajur' style='cursor:pointer;' data-kode_neraca='`+line.kode_neraca+`' ><td height='20' class='isi_laporan `+color+` link-report' >`+fnSpasi(line.level_spasi)+``+line.nama+`</td>
+                            <td class='isi_laporan `+color+`'><div align='right'>`+nilai+`</div></td>
+                            </tr>`;
+                        }
+                        else
+                        {
+                            html+=`<tr><td height='20' class='isi_laporan `+color+`'>`+fnSpasi(line.level_spasi)+line.nama+`</td>
+                            <td class='isi_laporan `+color+`'><div align='right'>`+nilai+`</div></td>
+                            </tr>`;
+                        }
+                        no++;
                     }
-                
-                    if (line.tipe=="Posting" && line.n4 != 0)
-                    {
-                        html+=`<tr class='report-link neraca-lajur' style='cursor:pointer;' data-kode_neraca='`+line.kode_neraca+`' ><td height='20' class='isi_laporan link-report' >`+fnSpasi(line.level_spasi)+``+line.nama+`</td>
-                        <td class='isi_laporan'><div align='right'>`+nilai+`</div></td>
-                        </tr>`;
-                    }
-                    else
-                    {
-                        html+=`<tr><td height='20' class='isi_laporan'>`+fnSpasi(line.level_spasi)+line.nama+`</td>
-                        <td class='isi_laporan'><div align='right'>`+nilai+`</div></td>
-                        </tr>`;
-                    }
-                    no++;
                 }
             html+=`
-            </table>`;
+            </table>
+            </div>
+            <br>`;
+            if(i != (data.length - 1)){
+                    html+=`<div class='separator2 mb-4'></div>`;
+                }
             }
         }
         $('#canvasPreview').html(html);
