@@ -4,15 +4,32 @@
         .selected{
             color : var(--theme-color-1);
         }
+        .card-body-footer{
+            background: white;
+            position: fixed;
+            bottom: 15px;
+            right: 0;
+            margin-right: 30px;
+            z-index:3;
+            height: 60px;
+            border-top: ;
+            border-bottom-right-radius: 1rem;
+            border-bottom-left-radius: 1rem;
+            box-shadow: 0 -5px 20px rgba(0,0,0,.04),0 1px 6px rgba(0,0,0,.04);
+        }
+
+        .card-body-footer > button{
+            float: right;
+            margin-top: 10px;
+            margin-right: 25px;
+        }
     </style>
     <form id="form-tambah" class="tooltip-label-right" novalidate>
         <div class="row" id="saku-form">
             <div class="col-sm-12">
                 <div class="card">
-                    <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;">
-                        <h6 id="judul-form" style="position:absolute;top:25px">Posting Jurnal</h6>
-                        <button type="submit" class="btn btn-primary ml-2"  style="float:right;" id="btn-save" ><i class="fa fa-save"></i> Simpan</button>
-                        <!-- <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Keluar</button> -->
+                    <div class="card-body form-header" style="padding-top:0.5rem;padding-bottom:0.5rem;min-height:48px">
+                        <h6 id="judul-form" style="position:absolute;top:13px">Posting Jurnal</h6>
                     </div>
                     <div class="separator mb-2"></div>
                     <div class="card-body pt-3 form-body">
@@ -108,6 +125,14 @@
                             </div>
                             <div class="tab-pane" id="error" role="tabpanel">
                                 <p id='error_space'></p>
+                            </div>
+                        </div>
+                        <div class="card-body-footer row" style="width: 900px;padding: 0 25px;">
+                            <div style="vertical-align: middle;" class="col-md-10 text-right p-0">
+                                <p class="text-success" style="margin-top: 20px;"></p>
+                            </div>
+                            <div style="text-align: right;" class="col-md-2 p-0 ">
+                                <button type="submit" style="margin-top: 10px;" id="btn-save" class="btn btn-primary"><i class="fa fa-save"></i> Simpan</button>
                             </div>
                         </div>
                     </div>
