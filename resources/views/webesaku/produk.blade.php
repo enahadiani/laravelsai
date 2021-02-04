@@ -24,6 +24,9 @@
         <header id="header" data-transparent="true" data-fullwidth="true" class="submenu-light">
             <div class="header-inner">
                 <div class="container header-content">
+                    <div id="mainMenu-trigger">
+                        <a class="lines-button x"><span class="lines"></span></a>
+                    </div>
                     <div class="header-content-1">
                         <div id="logo">
                             <a href="index.html">
@@ -35,9 +38,6 @@
                                 </span>
                             </a>
                         </div>
-                        <div id="mainMenu-trigger">
-                            <a class="lines-button x"><span class="lines"></span></a>
-                        </div>
                         <div id="mainMenu" class="main-menu">
                             <div class="container">
                                 <nav>
@@ -48,11 +48,17 @@
                                         <li><a href="#">Harga</a></li>
                                     </ul>
                                 </nav>
+                                <div class="col-mobile">
+                                    <div class="nav-mobile-daftar">
+                                        <a href="#" id="masuk-link">Masuk</a>
+                                        <a href="https://app.simkug.com/esaku-auth/register" id="daftar-link">Daftar Gratis</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="header-content-2">
-                        <div id="mainMenu2" class="main-menu">
+                        <div id="mainMenu2" class="main-menu col-dekstop">
                             <div class="container">
                                 <a href="#" id="masuk-link">Masuk</a>
                                 <a href="https://app.simkug.com/esaku-auth/register" id="daftar-link">Daftar Gratis</a>

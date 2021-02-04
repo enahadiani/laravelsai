@@ -32,11 +32,48 @@
 }
 i.fas.fa-cog {
     clip-path: polygon(50% 0%, 50% 100%, 0% 100%, 0% 0%);
-    background: rgb(55, 59, 68);
+    /* background: rgb(55, 59, 68);
     background: linear-gradient(
         228deg,
         rgba(55, 59, 68, 1) 1%,
         rgba(66, 134, 244, 1) 45%
+    ); */
+    background: linear-gradient(
+        to bottom,
+        #f9f9f9 0%,
+        #f9f9f9 0%,
+        #ffffff 1%,
+        #a7d7f1 1%,
+        #1194d8 1%,
+        #008dd6 2%,
+        #008cd6 3%,
+        #0094db 15%,
+        #0095d7 18%,
+        #019bdb 24%,
+        #009bd8 25%,
+        #00a1d8 36%,
+        #01a5dd 40%,
+        #00a4da 40%,
+        #00a9dd 49%,
+        #00aad9 50%,
+        #01b0de 58%,
+        #00b2da 61%,
+        #00b7de 69%,
+        #00b7db 70%,
+        #01b9dd 70%,
+        #00b7db 71%,
+        #01b9dd 71%,
+        #00b7db 72%,
+        #01bbde 74%,
+        #00bfdc 83%,
+        #00c4e0 88%,
+        #02c6df 93%,
+        #00c9dc 97%,
+        #02cbe0 98%,
+        #01cadf 99%,
+        #74dfeb 99%,
+        #f5f7f7 99%,
+        #fafafa 100%
     );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -49,11 +86,48 @@ i.fas.fa-cog {
     color: #fff !important;
 }
 .link-kontak {
-    background: rgb(55, 59, 68);
+    /* background: rgb(55, 59, 68);
     background: linear-gradient(
         228deg,
         rgba(55, 59, 68, 1) 1%,
         rgba(66, 134, 244, 1) 45%
+    ); */
+    background: linear-gradient(
+        to bottom,
+        #f9f9f9 0%,
+        #f9f9f9 0%,
+        #ffffff 1%,
+        #a7d7f1 1%,
+        #1194d8 1%,
+        #008dd6 2%,
+        #008cd6 3%,
+        #0094db 15%,
+        #0095d7 18%,
+        #019bdb 24%,
+        #009bd8 25%,
+        #00a1d8 36%,
+        #01a5dd 40%,
+        #00a4da 40%,
+        #00a9dd 49%,
+        #00aad9 50%,
+        #01b0de 58%,
+        #00b2da 61%,
+        #00b7de 69%,
+        #00b7db 70%,
+        #01b9dd 70%,
+        #00b7db 71%,
+        #01b9dd 71%,
+        #00b7db 72%,
+        #01bbde 74%,
+        #00bfdc 83%,
+        #00c4e0 88%,
+        #02c6df 93%,
+        #00c9dc 97%,
+        #02cbe0 98%,
+        #01cadf 99%,
+        #74dfeb 99%,
+        #f5f7f7 99%,
+        #fafafa 100%
     );
     padding: 0.8rem 2rem;
     border-radius: 2.5rem;
@@ -86,11 +160,48 @@ i.fas.fa-cog {
     width: 200px;
 }
 .card-coba {
-    background: rgb(55, 59, 68);
+    /* background: rgb(55, 59, 68);
     background: linear-gradient(
         228deg,
         rgba(55, 59, 68, 1) 1%,
         rgba(66, 134, 244, 1) 35%
+    ); */
+    background: linear-gradient(
+        to bottom,
+        #f9f9f9 0%,
+        #f9f9f9 0%,
+        #ffffff 1%,
+        #a7d7f1 1%,
+        #1194d8 1%,
+        #008dd6 2%,
+        #008cd6 3%,
+        #0094db 15%,
+        #0095d7 18%,
+        #019bdb 24%,
+        #009bd8 25%,
+        #00a1d8 36%,
+        #01a5dd 40%,
+        #00a4da 40%,
+        #00a9dd 49%,
+        #00aad9 50%,
+        #01b0de 58%,
+        #00b2da 61%,
+        #00b7de 69%,
+        #00b7db 70%,
+        #01b9dd 70%,
+        #00b7db 71%,
+        #01b9dd 71%,
+        #00b7db 72%,
+        #01bbde 74%,
+        #00bfdc 83%,
+        #00c4e0 88%,
+        #02c6df 93%,
+        #00c9dc 97%,
+        #02cbe0 98%,
+        #01cadf 99%,
+        #74dfeb 99%,
+        #f5f7f7 99%,
+        #fafafa 100%
     );
     height: 32rem;
     width: 27rem;
@@ -200,6 +311,9 @@ i.fas.fa-cog {
 }
 .header-content-2 .main-menu {
     margin-top: 0.5rem;
+}
+.col-mobile {
+    display: none;
 }
 h1,
 h2,
