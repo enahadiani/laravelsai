@@ -83,7 +83,7 @@
                 var line = data[i];
                 html+=`
                 <div style="padding: 0 3rem" class="table table-responsive">
-                <table class='table table-bordered table-striped mt-4'>
+                <table class='table table-striped mt-4'>
                 <tr>
                     <th class='header_laporan bg-white no-border' width='100'>Kode Akun  </th>
                     <th class='header_laporan bg-white no-border' colspan='7'>:&nbsp;`+line.kode_akun+`</th>

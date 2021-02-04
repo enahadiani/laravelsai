@@ -51,21 +51,62 @@
             var html = `
             <style>
             .info-table thead{
-                background:#4286f5;
-                color:white;
-            }
-            .no-border td{
-                border:0 !important;
-            }
-            .bold {
-                font-weight:bold;
-            }
-            </style>`+judul_lap("LAPORAN LABA RUGI",lokasi,'Untuk Periode yang berakhir pada '+res.tgl_akhir)+`
-            <table class='table table-bordered'>
+                    // background:#e9ecef;
+                }
+                .no-border td{
+                    border:0 !important;
+                }
+                .bold {
+                    font-weight:bold;
+                }
+                .table-header-prev td{
+                    padding: 2px !important;
+                }
+                .table-kop-prev td{
+                    padding: 0px !important;
+                }
+                .separator2{
+                    height:1rem;
+                    background:#f8f8f8;
+                    box-shadow: -1px 0px 1px 0px #e1e1e1;
+                }
+                .vtop{
+                    vertical-align:top !important;
+                }
+                .lh1{
+                    line-height:1;
+                }
+                .bg-primary2{
+                    background: #eaf2ff !important;
+                }
+                
+                .bg-primary0{
+                    background: #00358a !important;
+                    color:white !important;
+                }
+            </style>
+            <div style='border-bottom: double #d7d7d7;padding:0 3rem'>
+                <table class="borderless mb-2 table-kop-prev" width="100%" >
+                    <tr>
+                        <td width="50%" colspan="5" class="vtop"><h6 class="text-primary bold">LAPORAN LABA RUGI KOMPARASI</h6></td>
+                        <td width="50%" colspan="3" class="vtop text-right"><h6 class="mb-2 bold">`+res.lokasi[0].nama+`</h6></td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" >Periode yang berakhir pada `+(res.tgl_akhir)+`  `+$periode.fromname+`</td>
+                        <td colspan="3" class="vtop text-right"><p class="lh1">`+res.lokasi[0].alamat+`<br>`+res.lokasi[0].kota+` `+res.lokasi[0].kodepos+` </p></td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" >( Disajikan dalam Rupiah )</td>
+                        <td colspan="3" class="vtop text-right"><p class="mt-2">`+res.lokasi[0].email+` | `+res.lokasi[0].no_telp+`</p></td>
+                    </tr>
+                </table>
+            </div>
+            <div style="padding: 0 3rem" class="table table-responsive mt-4">
+            <table class='table table-bordered table-striped'>
             <tr>
-                <th width='60%' height='25'  class='header_laporan'><div align='center'>Deskripsi</div></th>
-                <th width='20%' class='header_laporan' align='center'>`+periode.from+`</th>
-                <th width='20%' class='header_laporan' align='center'>`+periode2.from+`</th>
+                <th width='60%' height='25'  class='header_laporan bg-primary'><div align='center'>Deskripsi</div></th>
+                <th width='20%' class='header_laporan bg-primary' align='center'>`+periode.from+`</th>
+                <th width='20%' class='header_laporan bg-primary' align='center'>`+periode2.from+`</th>
             </tr>`;
             var no=1;
             for (var i=0;i < data.length;i++)
@@ -73,29 +114,58 @@
                 var nilai1="";
                 var nilai2="";
                 var line = data[i];
+                var color = "";
+                var bold = "";
                 if (line.tipe!="Header" && line.nama!="." && line.nama!="" )
                 {
                     nilai1=sepNum(parseFloat(line.n1));
                     nilai2=sepNum(parseFloat(line.n2));
+                    if(line.tipe == "Summary"){
+                        // if(line.level_spasi == 0){
+                        //     color = "bg-primary0";
+                        // }else if(line.level_spasi == 1){
+                        //     color = "bg-primary";
+                        // }else{
+                        //     color = "bg-primary2";
+                        // }
+                        color = "";
+                        bold = "bold";
+                    }
+                    else if(line.tipe1 == "SumPosted"){
+                        color = "";
+                        bold = "bold";
+                    }
+                    else{
+                        color = "";
+                        bold = "";
+                    }
+                }else{
+                    color = "";
+                    bold = "bold";
                 }
-                html+="<tr><td height='20' class='isi_laporan'>"+fnSpasi(line.level_spasi)+" "+line.nama+"</td>";
+
+                
+                if(i == (data.length - 1)){
+                    color = "bg-primary0";
+                }
+                html+="<tr><td height='20' class='isi_laporan "+color+" "+bold+" '>"+fnSpasi(line.level_spasi)+" "+line.nama+"</td>";
                 if (line.tipe=="Posting" && line.n1 != 0)
                 {
                     html+=`
-                    <td class='report-link neraca-lajur text-right' style='cursor:pointer;color:blue' data-kode_neraca='`+line.kode_neraca+`' data-periode=`+$periode.from+`>`+nilai1+`</td>`;
+                    <td class='report-link neraca-lajur text-right `+color+` `+bold+` ' style='cursor:pointer;color:blue' data-kode_neraca='`+line.kode_neraca+`' data-periode=`+$periode.from+`>`+nilai1+`</td>`;
                 }
                 else
                 {
-                    html+=`<td class='text-right' >`+nilai1+`</td>`;
+                    html+=`<td class='text-right `+color+` `+bold+`' >`+nilai1+`</td>`;
                 }
                 if (line.tipe=="Posting" && line.n2 != 0)
                 {
                     html+=`
-                    <td class='report-link neraca-lajur text-right' style='cursor:pointer;color:blue' data-kode_neraca='`+line.kode_neraca+`'  data-periode=`+$periode2.from+`>`+nilai2+`</td>`;
+                    <td class='report-link neraca-lajur text-right `+color+` `+bold+`' style='cursor:pointer;color:blue' data-kode_neraca='`+line.kode_neraca+`'  data-periode=`+$periode2.from+`>`+nilai2+`</td>`;
                 }
                 else
                 {
-                    html+=`<td class='text-right' >`+nilai2+`</td>`;
+                    html+=`<td class='text-right `+color+` `+bold+`' >`+nilai2+`</td>`;
                 }
                 html+=`
                 </tr>`;

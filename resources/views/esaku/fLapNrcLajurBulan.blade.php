@@ -91,8 +91,8 @@
         });
         var $periode = {
             type : "=",
-            from : "{{ date('Y') }}",
-            fromname : "{{ date('Y') }}",
+            from : "{{ substr(Session::get('periode'),0,4) }}",
+            fromname : "{{ substr(Session::get('periode'),0,4) }}",
             to : "",
             toname : "",
         }
@@ -106,8 +106,8 @@
         
         var $mutasi = {
             type : "=",
-            from : "Tidak",
-            fromname : "Tidak",
+            from : "Ya",
+            fromname : "Ya",
             to : "",
             toname : "",
         }
@@ -133,8 +133,8 @@
 
         // $('#show').selectize();
 
-        $('#periode-from').val("{{ date('Y') }}");
-        $('#mutasi-from').val("Tidak");
+        $('#periode-from').val("{{ substr(Session::get('periode'),0,4) }}");
+        $('#mutasi-from').val("Ya");
         $('#btn-filter').click(function(e){
             $('#collapseFilter').show();
             $('#collapsePaging').hide();
