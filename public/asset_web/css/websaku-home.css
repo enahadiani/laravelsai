@@ -11,10 +11,10 @@ section:nth-child(6) {
     padding-top: 10px !important;
 }
 .heading-text h1 {
-    font-size: 76px !important;
+    font-size: 4.75rem !important;
 }
 .heading-text h5 {
-    font-size: 20px !important;
+    font-size: 1.25rem !important;
 }
 #logo {
     margin-right: 1.5rem;
@@ -142,13 +142,16 @@ section:nth-child(6) {
 .nav-corousel {
     position: relative;
     margin-left: -12rem;
-    margin-top: -0.5rem;
+    margin-top: -0.1rem;
 }
 .jabatan-owner {
     font-weight: bold;
 }
 .keterangan-owner-container {
     margin-top: 1rem;
+}
+.keterangan-owner {
+    font-size: 1.25rem;
 }
 .keterangan-client {
     display: flex;
