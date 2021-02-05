@@ -299,7 +299,7 @@
                                                     <td style="width:25%" class="text-right">`+nilai+`</td>
                                                 </tr>
                                                 <tr>
-                                                    <td style="width:75%">`+line4.keterangan+`</td>
+                                                    <td style="width:75%">`+line4.keterangan+` (`+line4.kode_param+`)</td>
                                                     <td style="width:25%">&nbsp;</td>
                                                 </tr>
                                                 <tr class="text-grey">
