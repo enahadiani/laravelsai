@@ -235,7 +235,7 @@
             </div>
         </section>
 
-        <section id="presentation" class="p-b-30">
+        <section id="presentation" class="p-b-60">
             <div class="container">
                 <div class="presentation-container background-presentation">
                     <div class="background-presentation">
