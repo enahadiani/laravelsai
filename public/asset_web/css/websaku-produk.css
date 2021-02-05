@@ -75,7 +75,7 @@
 /* Produk Fitur */
 .icon-container {
     position: absolute;
-    right: 24.6rem;
+    right: 17rem;
     bottom: 1px;
     width: 370px;
 }
@@ -180,13 +180,14 @@ i.fas.fa-cog {
 .card-custom {
     background-color: #fff;
     height: 32rem;
-    width: 21rem;
+    width: 28rem;
     border-radius: 30px;
     padding: 4rem 3rem;
     border: 1px solid #f8f8f8;
     -webkit-box-shadow: 0px 0px 6px 0px rgba(194, 194, 194, 1);
     -moz-box-shadow: 0px 0px 6px 0px rgba(194, 194, 194, 1);
     box-shadow: 0px 0px 6px 0px rgba(194, 194, 194, 1);
+    margin: 0 1rem 0 0;
 }
 .link-coba {
     background-color: #fff;
@@ -239,9 +240,10 @@ i.fas.fa-cog {
         #fafafa 100%
     );
     height: 32rem;
-    width: 21rem;
+    width: 28rem;
     border-radius: 30px;
     padding: 4rem 3rem;
+    margin: 0 4.2rem 0 0;
 }
 /* .produk-fitur-container .card-custom {
     margin-left: 1rem;
@@ -251,7 +253,7 @@ i.fas.fa-cog {
 } */
 .produk-fitur-container {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     flex-direction: row;
 }
 /* Dashboard */
