@@ -1,48 +1,88 @@
 <link rel="stylesheet" href="{{ asset('master.css') }}" />
-    <!-- LIST DATA -->
-    <div class="row" id="saku-datatable">
-        <div class="col-12">
-            <div class="card" >
-                <div class="card-body pb-3" style="padding-top:1rem;min-height:68px">
-                    <h6 style="position:absolute;top: 20px;">Closing Periode</h6>
-                    <button type="button" id="btn-save" class="btn btn-primary" style="float:right;">Simpan</button>
-                </div>
-                <div class="separator mb-2"></div>
-                <div class="row" style="padding-right:1.75rem;padding-left:1.75rem">    
-                    <div class="d-block d-md-inline-block float-right col-md-2 col-sm-12">
-                        <label for="per_aktif">Periode Aktif</label>
-                    </div>
-                    <div class="d-block d-md-inline-block float-right col-md-2 col-sm-12">
-                        <input type="text" class="form-control" id="per_aktif" readonly name="per_aktif">
-                        <input type="hidden" class="form-control" id="per_next" readonly name="per_next">
-                        <input type="hidden" class="form-control" id="max_periode" readonly name="max_periode">
-                    </div>
-                    <div class="d-block d-md-inline-block float-right col-md-2 col-sm-12">
-                        <button type="button" id="btn-close-periode" class="btn btn-primary">Close Periode</button>
-                    </div>
-                </div>
-                <div class="card-body" style="min-height:560px !important;padding-top:1rem;">
-                    <div class="table-responsive ">
-                        <table id="table-data" class="" style='width:100%'>
-                            <thead>
-                                <tr>
-                                    <th style="width:10%" class="">Modul</th>
-                                    <th style="width:32%" class="">Keterangan</th>
-                                    <th style="width:12%" class="">Periode Awal1</th>
-                                    <th style="width:12%" class="">Periode Akhir1</th>
-                                    <th style="width:12%" class="">Periode Awal2</th>
-                                    <th style="width:12%" class="">Periode Akhir2</th>
-                                </tr>
-                            </thead>
-                            <tbody>
+    <style>
+        .selected{
+            color : var(--theme-color-1);
+        }
+        .card-body-footer{
+            background: white;
+            position: fixed;
+            bottom: 15px;
+            right: 0;
+            margin-right: 30px;
+            z-index:3;
+            height: 60px;
+            border-top: ;
+            border-bottom-right-radius: 1rem;
+            border-bottom-left-radius: 1rem;
+            box-shadow: 0 -5px 20px rgba(0,0,0,.04),0 1px 6px rgba(0,0,0,.04);
+        }
 
-                            </tbody>
-                        </table>
+        .card-body-footer > button{
+            float: right;
+            margin-top: 10px;
+            margin-right: 25px;
+        }
+    </style>
+    <form id="form-tambah" class="tooltip-label-right" novalidate>
+        <div class="row" id="saku-form">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-body form-header" style="padding-top:0.5rem;padding-bottom:0.5rem;min-height:48px">
+                        <h6 id="judul-form" style="position:absolute;top:13px">Closing Periode</h6>
+                    </div>
+                    <div class="separator mb-2"></div>
+                    <div class="card-body pt-3 form-body">
+                    <input type="hidden" id="method" name="_method" value="post">
+                        <div class="form-group row" id="row-id" hidden>
+                            <div class="col-9">
+                                <input class="form-control" type="text" id="id" name="id" readonly hidden>
+                            </div>
+                        </div>
+                        <div class="row">    
+                            <div class="d-block d-md-inline-block float-right col-md-2 col-sm-12">
+                                <label for="per_aktif">Periode Aktif</label>
+                            </div>
+                            <div class="d-block d-md-inline-block float-right col-md-2 col-sm-12">
+                                <input type="text" class="form-control" id="per_aktif" readonly name="per_aktif">
+                                <input type="hidden" class="form-control" id="per_next" readonly name="per_next">
+                                <input type="hidden" class="form-control" id="max_periode" readonly name="max_periode">
+                            </div>
+                            <div class="d-block d-md-inline-block float-right col-md-2 col-sm-12">
+                                <button type="button" id="btn-close-periode" class="btn btn-primary">Close Periode</button>
+                            </div>
+                        </div>
+                        <div class="row mt-3 px-2">
+                            <div class="table-responsive ">
+                                <table id="table-data" class="" style='width:100%'>
+                                    <thead>
+                                        <tr>
+                                            <th style="width:10%" class="">Modul</th>
+                                            <th style="width:32%" class="">Keterangan</th>
+                                            <th style="width:12%" class="">Periode Awal1</th>
+                                            <th style="width:12%" class="">Periode Akhir1</th>
+                                            <th style="width:12%" class="">Periode Awal2</th>
+                                            <th style="width:12%" class="">Periode Akhir2</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="card-body-footer row" style="width: 900px;padding: 0 25px;">
+                            <div style="vertical-align: middle;" class="col-md-10 text-right p-0">
+                                <p class="text-success" style="margin-top: 20px;"></p>
+                            </div>
+                            <div style="text-align: right;" class="col-md-2 p-0 ">
+                                <button type="submit" style="margin-top: 10px;" id="btn-save" class="btn btn-primary"><i class="fa fa-save"></i> Simpan</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </form>
     
     <!-- END LIST DATA -->
 
@@ -59,6 +99,9 @@
         }
     });
 
+    
+    var scrollform = document.querySelector('.form-body');
+    var psscrollform = new PerfectScrollbar(scrollform);
     
     function closePeriode(periode, maksPeriode){	
         var bln = parseFloat(periode.substr(4,2));
@@ -133,8 +176,9 @@
     }
     
     //BUTTON SIMPAN /SUBMIT
-    $('#saku-datatable').on('click','#btn-save',function(e){
-        var formData = new FormData();
+    $('#form-tambah').submit(function(e){
+        e.preventDefault();
+        var formData = new FormData(this);
         var data = dataTable.data();
         var tempData = []; 
         $i=1;
@@ -167,8 +211,6 @@
         var per_next = $('#per_next').val();
         var per_aktif = $('#per_aktif').val();
         var max_periode = $('#max_periode').val();
-        formData.append('per_next',per_next);
-        formData.append('per_aktif',per_aktif);
         if (per_aktif.substr(4,2)=="16") {
             if (max_periode != parseInt("{{ Session::get('periode') }}".substr(4,2))) {
                 msgDialog({
@@ -236,7 +278,7 @@
     });
     // END BUTTON SIMPAN
     
-    $('#saku-datatable').on('click','#btn-close-periode', function(e){
+    $('#saku-form').on('click','#btn-close-periode', function(e){
         e.preventDefault();
         closing();
     });
