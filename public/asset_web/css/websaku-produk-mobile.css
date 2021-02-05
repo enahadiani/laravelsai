@@ -1,0 +1,114 @@
+@media only screen and (max-width: 480px) {
+    /* Presentasi */
+    .presentation-text {
+        width: 26rem;
+    }
+    #presentation .mulai-sekarang {
+        font-size: 3.5rem !important;
+    }
+    .background-presentation {
+        width: 30.5rem;
+        height: 28rem;
+    }
+    /* Produk fitur */
+    .jenis-usaha-container {
+        margin: 1rem 0 6rem 0;
+    }
+    .jenis-usaha-container:nth-child(3) > .jenis-content:nth-child(1) {
+        margin-left: 0;
+    }
+    .jenis-usaha-container:nth-child(3) > .jenis-content:nth-child(2) {
+        margin-right: 0;
+    }
+    .jenis-usaha-container:nth-child(2) > .jenis-content:nth-child(1) {
+        margin-left: 0;
+    }
+    .jenis-usaha-container:nth-child(2) > .jenis-content:nth-child(2) {
+        margin-right: 0;
+    }
+    .jenis-usaha-container:nth-child(1) > .jenis-content:nth-child(1) {
+        margin-left: 0;
+    }
+    .jenis-usaha-container:nth-child(1) > .jenis-content:nth-child(2) {
+        margin-right: 0;
+    }
+    .jenis-usaha-container .jenis-content {
+        padding-bottom: 3rem;
+    }
+    .jenis-usaha-container {
+        display: flex;
+        justify-content: center;
+        padding: 2.5rem;
+        flex-direction: column;
+        margin: 0;
+    }
+    .icon-container {
+        right: 4.3rem !important;
+    }
+    .card-custom {
+        margin: 0 !important;
+    }
+    .card-coba {
+        margin: 0 0 1rem 0;
+    }
+    .produk-fitur-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    /* Dashboard */
+    .image-dashboard > img {
+        height: 21.6rem;
+        width: 25.5rem;
+    }
+    .image-dashboard {
+        margin-right: 0;
+        margin-top: -1.5rem;
+    }
+    .dashboard-subtext {
+        width: 20rem;
+    }
+    /* Footer */
+    .layanan-container {
+        margin-left: 0;
+    }
+    .perusahaan-container {
+        margin-left: 0;
+    }
+    .footer-content-mobile .layanan-container {
+        margin-left: 5.2rem;
+    }
+    .footer-content-mobile {
+        display: flex !important;
+        justify-content: space-between;
+    }
+    /* Header */
+    .nav-mobile-daftar {
+        margin: 0 2rem 0 7rem;
+        width: 18rem;
+    }
+    #masuk-link {
+        text-align: center;
+    }
+    #daftar-link {
+        text-align: center;
+    }
+    .header-content-1 {
+        padding: 0;
+    }
+    .mainMenu-open #header #mainMenu {
+        overflow-y: hidden;
+    }
+    #mainMenu > .container {
+        margin-top: 2rem;
+    }
+    .header-content {
+        display: block;
+    }
+    .col-dekstop {
+        display: none;
+    }
+    .col-mobile {
+        display: block;
+    }
+}

@@ -25,12 +25,6 @@
     #feedback .heading-section {
         height: 37rem;
     }
-    .heading-paragraph-feedback > h5 {
-        font-size: 20px !important;
-    }
-    #feedback > .container > .heading-text h1 {
-        font-size: 45px !important;
-    }
     /* Fitur */
     .list-fitur-name {
         font-size: 1.2rem;
@@ -81,18 +75,12 @@
     .heading-paragraph-container-welcome-2 {
         height: 14rem;
     }
-    /* #welcome2 > .container > .heading-text h1 {
-        font-size: 50px !important;
-    } */
     .list-client-welcome > img {
         width: 70px;
     }
     .image-welcome > img {
         height: 320px;
     }
-    /* #welcome > .container > .heading-text h1 {
-        font-size: 50px !important;
-    } */
     /* Footer */
     .layanan-container {
         margin-left: 0;

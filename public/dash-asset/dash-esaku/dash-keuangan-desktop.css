@@ -91,7 +91,14 @@ h5.overview-amount {
 h6.judul-card {
     font-weight: bold;
 }
-.btn-outline-light:hover {
+.col-dekstop {
+    display: block;
+}
+.col-tablet {
+    display: none;
+}
+/* Not Used */
+/* .btn-outline-light:hover {
     color: #131113;
     background-color: #ececec;
     border-color: #ececec;
@@ -161,4 +168,4 @@ h6.judul-card {
     list-style-type: "-";
     color: #ffffff;
     padding: 0 4px;
-}
+} */
