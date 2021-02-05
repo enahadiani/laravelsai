@@ -10,7 +10,8 @@
         width: 30.5rem;
         height: 28rem;
     }
-    /* Produk fitur */
+    /* Jenis Usaha */
+
     .jenis-usaha-container {
         margin: 1rem 0 6rem 0;
     }
@@ -42,14 +43,17 @@
         flex-direction: column;
         margin: 0;
     }
+    /* Produk fitur */
     .icon-container {
         right: 4.3rem !important;
     }
     .card-custom {
-        margin: 0 !important;
+        align-self: center;
+        margin-top: 1rem;
     }
     .card-coba {
-        margin: 0 0 1rem 0;
+        align-self: center;
+        margin-bottom: 1rem;
     }
     .produk-fitur-container {
         display: flex;

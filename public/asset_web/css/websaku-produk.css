@@ -245,19 +245,16 @@ i.fas.fa-cog {
     border-radius: 30px;
     padding: 4rem 3rem;
 }
-.produk-fitur-container .card-custom {
+/* .produk-fitur-container .card-custom {
     margin-left: 1rem;
 }
 .produk-fitur-container .card-coba {
     margin-right: 1rem;
-}
+} */
 .produk-fitur-container {
     display: flex;
-    justify-content: center;
-}
-.container.produk-fitur {
-    display: flex;
-    justify-content: center;
+    justify-content: space-around;
+    flex-direction: row;
 }
 /* Dashboard */
 .image-dashboard > img {
