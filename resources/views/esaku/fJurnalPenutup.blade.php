@@ -4,18 +4,147 @@
     <!-- END LIST DATA -->
     <!-- FORM INPUT -->
     <style>
-        .selected{
-            color : var(--theme-color-1);
+        div.inp-div-jenis > input{
+            border-radius:0 !important;
+            z-index:1;
+            position:relative;
+        }
+
+        div.inp-div-jenis > .search-item{
+            position: absolute;
+            font-size: 18px;
+            margin-top: -27px;
+            z-index: 2;
+            margin-left: 99px;
+        }
+        .btn-full-round{
+            border-radius: 20px !important;
+        }
+        .btn-light3{
+            background: #b3b3b3;
+            color: white;
+        }
+        .icon-tambah{
+            background: #505050;
+            /* mask: url("{{ url('img/add.svg') }}"); */
+            -webkit-mask-image: url("{{ url('img/add.svg') }}");
+            mask-image: url("{{ url('img/add.svg') }}");
+            width: 12px;
+            height: 12px;
+        }
+        .icon-close{
+            background: #D4D4D4;
+            /* mask: url("{{ url('img/lock.svg') }}");
+             */
+            -webkit-mask-image: url("{{ url('img/lock.svg') }}");
+            mask-image: url("{{ url('img/lock.svg') }}");
+            width: 18px;
+            height: 18px;
+        }
+        .icon-open{
+            background: #D4D4D4;
+            /* mask: url("{{ url('img/lock.svg') }}");
+             */
+            -webkit-mask-image: url("{{ url('img/lock.svg') }}");
+            mask-image: url("{{ url('img/lock.svg') }}");
+            width: 18px;
+            height: 18px;
+        }
+        .popover{
+            top: -80px !important;
+        }
+    
+        .btn-back
+        {
+            line-height:1.5;padding: 0;background: none;appearance: unset;opacity: unset;right: -40px;position: relative;
+            top: 5px;
+            z-index: 10;
+            float: right;
+            margin-top: -30px;
+        }
+        .btn-back > span 
+        {
+            border-radius: 50%;padding: 0 0.45rem 0.1rem 0.45rem;font-size: 1.2rem !important;font-weight: lighter;box-shadow:0px 1px 5px 1px #80808054;
+            color:white;
+            background:red;
+        }
+
+        .btn-back > span:hover
+        {
+            color:white;
+            background:red;
+        }
+        .card-body-footer{
+            background: white;
+            position: fixed;
+            bottom: 15px;
+            right: 0;
+            margin-right: 30px;
+            z-index:3;
+            height: 60px;
+            border-top: ;
+            border-bottom-right-radius: 1rem;
+            border-bottom-left-radius: 1rem;
+            box-shadow: 0 -5px 20px rgba(0,0,0,.04),0 1px 6px rgba(0,0,0,.04);
+        }
+
+        .card-body-footer > button{
+            float: right;
+            margin-top: 10px;
+            margin-right: 25px;
+        }
+    
+        .bold{
+            font-weight:bold;
+        }
+        .modal p{
+            color: #505050 !important;
+        }
+        .table-header-prev td,th{
+            padding: 2px 8px !important;
+        }
+        #modal-preview .modal-content
+        {
+            border-bottom-left-radius: 0px !important;
+            border-bottom-right-radius: 0px !important;
+        }
+
+        #modal-preview
+        {
+            top: calc(100vh - calc(100vh - 30px)) !important;
+        }
+
+        #modal-preview #content-preview 
+        {
+            height: calc(100vh - 105px) !important;
+        }
+
+        .animate-bottom {
+            /* position: relative; */
+            animation: animatebottom 0.7s;
+        }
+        
+        @keyframes animatebottom {
+            from {
+                bottom: -300px;
+                opacity: 0;
+            }
+            
+            to {
+                bottom: 0;
+                opacity: 1;
+            }
         }
     </style>
     <form id="form-tambah" class="tooltip-label-right" novalidate>
         <div class="row" id="saku-form" style="display:none">
             <div class="col-sm-12">
                 <div class="card">
-                    <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;">
-                        <h6 id="judul-form" style="position:absolute;top:25px">Jurnal Penutup</h6>
-                        <button type="submit" class="btn btn-primary ml-2"  style="float:right;" id="btn-save" ><i class="fa fa-save"></i> Simpan</button>
-                        <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Keluar</button>
+                    <div class="card-body form-header" style="padding-top:0.5rem;padding-bottom:0.5rem;min-height:48px">
+                        <h6 id="judul-form" style="position:absolute;top:13px"></h6>
+                        <button type="button" id="btn-kembali" aria-label="Kembali" class="btn btn-back">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
                     <div class="separator mb-2"></div>
                     <div class="card-body pt-3 form-body">
@@ -83,6 +212,14 @@
                                         <label for="status">Status Closing</label>
                                         <textarea name="status" id="status" class="form-control"  rows="12" readonly></textarea>
                                     </div>
+                                </div>
+                            </div>
+                            <div class="card-body-footer row" style="width: 900px;padding: 0 25px;">
+                                <div style="vertical-align: middle;" class="col-md-10 text-right p-0">
+                                    <p class="text-success" id="balance-label" style="margin-top: 20px;"></p>
+                                </div>
+                                <div style="text-align: right;" class="col-md-2 p-0 ">
+                                    <button type="submit" style="margin-top: 10px;" id="btn-save" class="btn btn-primary"><i class="fa fa-save"></i> Simpan</button>
                                 </div>
                             </div>
                         </div>
