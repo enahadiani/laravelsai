@@ -59,7 +59,11 @@
     /* Dashboard */
     .image-dashboard > img {
         height: 21.6rem;
-        width: 24rem;
+        width: 25.5rem;
+    }
+    .image-dashboard {
+        margin-right: 0;
+        margin-top: -1.5rem;
     }
     .dashboard-subtext {
         width: 20rem;
