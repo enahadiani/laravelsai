@@ -114,6 +114,7 @@
         #modal-preview
         {
             top: calc(100vh - calc(100vh - 30px)) !important;
+            overflow: hidden;
         }
 
         #modal-preview #content-preview 
