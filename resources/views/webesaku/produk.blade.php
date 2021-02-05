@@ -137,54 +137,13 @@
                         </div>
                     </div>
                 </div>
-                {{-- <div class="produk-fitur-container">
-                    <div class="card-coba">
-                        <div class="row">
-                            <div class="col-12 p-b-30">
-                                <img alt="saku-white" src="{{ asset('asset_web/img/esaku/SAKU2021WHITE.svg') }}" width="120">
-                            </div>
-                            <div class="col-12 p-b-30">
-                                <div class="coba-text">
-                                    <h5 class="lead">
-                                        Mulai sekarang melakukan pembukuan bisnis Anda dengan semua fitur yang kami siapkan.
-                                    </h5>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <a href="#" class="link-coba">Coba Gratis</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-custom">
-                        <div class="row">
-                            <div class="col-12 p-b-30">
-                                <h1>Custome</h1>
-                            </div>
-                            <div class="col-12 p-b-30">
-                                <div class="custom-text">
-                                    <h5 class="lead">
-                                        Bangun sistem sesuai dengan kebutuhan bisnis Anda.
-                                    </h5>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <a href="#" class="link-kontak">Kontak Kami</a>
-                            </div>
-                            <div class="icon-container">
-                                <div class="cog-icon">
-                                    <i class="fas fa-cog cog-tilted"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> --}}
             </div>
         </section>
 
         <section id="jenis-usaha" class="p-b-25">
-            <div class="container jenis-usaha">
+            <div class="container">
                 <div class="jenis-usaha-container">
-                    <div class="jenis-content">
+                    <div class="jenis-usaha-col">
                         <div class="row">
                             <div class="col-12 p-b-20">
                                 <h1>Sekolah</h1>
@@ -198,7 +157,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="jenis-content">
+                    <div class="jenis-usaha-col">
                         <div class="row">
                             <div class="col-12 p-b-20">
                                 <h1>Jasa</h1>
@@ -214,7 +173,7 @@
                     </div>
                 </div>
                 <div class="jenis-usaha-container">
-                    <div class="jenis-content">
+                    <div class="jenis-usaha-col">
                         <div class="row">
                             <div class="col-12 p-b-20">
                                 <h1>Dagang</h1>
@@ -228,7 +187,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="jenis-content">
+                    <div class="jenis-usaha-col">
                         <div class="row">
                             <div class="col-12 p-b-20">
                                 <h1>Universitas</h1>
@@ -244,8 +203,8 @@
                     </div>
                 </div>
                 <div class="jenis-usaha-container">
-                    <div class="jenis-content">
-                        <div class="row">
+                    <div class="jenis-usaha-col">
+                       <div class="row">
                             <div class="col-12 p-b-20">
                                 <h1>Toko Online</h1>
                             </div>
@@ -258,7 +217,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="jenis-content">
+                    <div class="jenis-usaha-col">
                         <div class="row">
                             <div class="col-12 p-b-20">
                                 <h1>Usaha Mikro</h1>
