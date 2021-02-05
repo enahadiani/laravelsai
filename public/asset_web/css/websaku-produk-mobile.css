@@ -11,37 +11,30 @@
         height: 28rem;
     }
     /* Jenis Usaha */
-
-    .jenis-usaha-container {
-        margin: 1rem 0 6rem 0;
+    .jenis-usaha-container:nth-child(3) .jenis-usaha-col:nth-child(2) {
+        align-self: center;
     }
-    .jenis-usaha-container:nth-child(3) > .jenis-content:nth-child(1) {
-        margin-left: 0;
+    .jenis-usaha-container:nth-child(3) .jenis-usaha-col:nth-child(1) {
+        align-self: center;
     }
-    .jenis-usaha-container:nth-child(3) > .jenis-content:nth-child(2) {
-        margin-right: 0;
+    .jenis-usaha-container:nth-child(2) .jenis-usaha-col:nth-child(2) {
+        align-self: center;
     }
-    .jenis-usaha-container:nth-child(2) > .jenis-content:nth-child(1) {
-        margin-left: 0;
+    .jenis-usaha-container:nth-child(2) .jenis-usaha-col:nth-child(1) {
+        align-self: center;
     }
-    .jenis-usaha-container:nth-child(2) > .jenis-content:nth-child(2) {
-        margin-right: 0;
+    .jenis-usaha-container:nth-child(1) .jenis-usaha-col:nth-child(2) {
+        align-self: center;
     }
-    .jenis-usaha-container:nth-child(1) > .jenis-content:nth-child(1) {
-        margin-left: 0;
+    .jenis-usaha-container:nth-child(1) .jenis-usaha-col:nth-child(1) {
+        align-self: center;
     }
-    .jenis-usaha-container:nth-child(1) > .jenis-content:nth-child(2) {
-        margin-right: 0;
-    }
-    .jenis-usaha-container .jenis-content {
-        padding-bottom: 3rem;
+    .jenis-usaha-col {
+        margin: 1.5rem 0;
     }
     .jenis-usaha-container {
-        display: flex;
         justify-content: center;
-        padding: 2.5rem;
         flex-direction: column;
-        margin: 0;
     }
     /* Produk fitur */
     .icon-container {

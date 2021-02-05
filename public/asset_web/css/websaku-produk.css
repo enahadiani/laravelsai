@@ -65,14 +65,12 @@
     width: 20rem;
     margin-right: 18rem;
 }
+.jenis-usaha-col {
+    width: 21rem;
+}
 .jenis-usaha-container {
     display: flex;
-    justify-content: space-between;
-}
-.container.jenis-usaha {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
+    justify-content: space-around;
 }
 /* Produk Fitur */
 .icon-container {
