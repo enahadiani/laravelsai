@@ -111,6 +111,7 @@
         #modal-preview
         {
             top: calc(100vh - calc(100vh - 30px)) !important;
+            overflow: hidden;
         }
 
         #modal-preview #content-preview 
@@ -627,7 +628,7 @@
     }
 
     getDataTypeAhead("{{ url('esaku-master/unit') }}","kode_pp","kode_pp");
-    getDataTypeAhead("{{ url('esaku-master/nikperiksa') }}","nik_periksa","nik");
+    getDataTypeAhead("{{ url('esaku-trans/nikperiksa') }}","nik_periksa","nik");
     getDataTypeAhead("{{ url('esaku-master/masakun') }}","kode_akun","kode_akun");
 
     $('#nik_periksa').typeahead({
