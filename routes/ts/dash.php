@@ -22,6 +22,7 @@ Route::get('kartu-piutang', 'Ts\DashSiswaController@getKartuPiutang');
 Route::get('kartu-piutang-detail', 'Ts\DashSiswaController@getKartuPiutangDetail');
 Route::get('kartu-piutang-pdf', 'Ts\DashSiswaController@getKartuPiutangPDF');
 Route::get('kartu-pdd', 'Ts\DashSiswaController@getKartuPDD');
+Route::get('kartu-pdd-detail', 'Ts\DashSiswaController@getKartuPDDDetail');
 Route::get('kartu-pdd-pdf', 'Ts\DashSiswaController@getKartuPDDPDF');
 Route::get('dash-siswa-profile', 'Ts\DashSiswaController@getProfile');
 Route::get('raport-pdf', 'Ts\DashSiswaController@getRaportPDF');
