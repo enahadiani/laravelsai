@@ -264,7 +264,7 @@
                     <div class="kartu-d mt-2">
                         <div class="row">
                             <div class="col-sm-12 table-responsive" style="max-height:300px">
-                                <table class="table" id="table-detail">
+                                <table class="table table-borderless" id="table-detail">
                                     <tbody>
 
                                     </tbody>
