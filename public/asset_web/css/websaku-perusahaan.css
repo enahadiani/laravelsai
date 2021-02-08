@@ -1,6 +1,19 @@
 /* Pengalaman */
+.pengalaman-image > .image-meeting {
+    border-radius: 30px;
+    width: 72.5rem;
+    height: 40rem;
+}
+.pengalaman-image {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
 .pengalaman-container > h5.pengalaman-text {
     color: #0058e4;
+}
+.pengalaman-container {
+    padding-left: 1rem;
 }
 /* Footer */
 span.copyright {
