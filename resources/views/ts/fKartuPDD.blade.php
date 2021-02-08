@@ -206,75 +206,48 @@
             width:80px !important;
             height:100px !important;
         }
+
+        .separator-double{
+            border-bottom: 5px double #CFCFCF;
+        }
+
+        .bg-grey{
+            color: white !important;
+            background: #707070 !important;
+        }
+
+        #grid-load
+        {
+            position: absolute;
+            text-align: center;
+            width: 100%;
+            top: 200px;
+            display:none;
+        }
+        .report-klik{
+            cursor:pointer;
+        }
+
     </style>
     <div class="row" id="saku-dashboard">
         <div class="col-12">
-            <div class="card mb-3">
-                <div class="card-body pb-3" style="padding-top:1rem;">
-                    <h5 style="position:absolute;top: 25px;"></h5>
-                    <div class="dropdown float-right ml-2">
-                        <button id="btn-export" type="button" class="btn btn-outline-primary dropdown-toggle float-right"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="simple-icon-share-alt mr-1"></i> Export
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="btn-export" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 37px, 0px);">
-                            <a class="dropdown-item" href="#" id="sai-rpt-print"><img src="{{ asset('img/Print.svg') }}" style="width:16px;"> <span class="ml-2">Print</span></a>
-                            <a class="dropdown-item" href="#" id="sai-rpt-print-prev"><img src="{{ asset('img/PrintPreview.svg') }}" style="width:16px;height: 16px;"> <span class="ml-2">Print Preview</span></a>
-                            <a class="dropdown-item" href="#" id="sai-rpt-excel"><img src="{{ asset('img/excel.svg') }}" style="width:16px;"> <span class="ml-2">Excel</span></a>
-                            <a class="dropdown-item" href="#" id="sai-rpt-email"><img src="{{ asset('img/email.svg') }}" style="width:16px;height: 16px;margin-right: 3px;"><span class="ml-2">Email</span></a>
-                            <a class="dropdown-item" href="#" id="sai-rpt-pdf"><img src="{{ asset('img/PrintPreview.svg') }}" style="width:16px;height: 16px;"> <span class="ml-2">PDF</span></a>
-                        </div>
-                    </div>
-                    <button type="button" id="btn-kembali" class="btn btn-light" style="float:right;"><i class="simple-arrow-left mr-1"></i> Kembali</button>
-                </div>
-               
-            </div>
-            <div class="card" id="print-area">
+            <div class="card" id="print-area" style="height:100%">
                 <div class="card-body">
                     <div class="kop">
                         <div class="row">
-                            <div class="col-md-2 text-center"><img class="logo" src="{{ asset('img/ts-logo2.png') }}"></div>
-                            <div class="col-md-10">
+                            <div class="col-md-4"><h6 class="text-primary bold">Laporan Kartu Deposit</h6></div>
+                            <div class="col-md-8 text-right">
                                 <h3><b>SMK TELKOM JAKARTA</b></h3>
-                                <h6>Jl. Daan Mogot KM.1, Kedaung Kaliangke, Cengkareng</h6>
-                                <h6>Jakarta Barat 11710 Telp. 021-5442600 / 5442700</h6>
+                                <h6>Jl. Daan Mogot KM.1, Kedaung Kaliangke, Cengkareng <br> Jakarta Barat 11710 </h6>
+                                <h6>Telp. 021-5442600 / 5442700</h6>
                             </div>
                         </div>
                     </div>
-                    <div class="separator my-1"></div>
-                    <div class="kartu-m">
-                        <div class="row">
-                            <div class="col-sm-12 text-center"><h5><b><u>KARTU PDD</u></b></h5></div>
-                            <div class="col-sm-12"><h6><b>Identitas Siswa</b></h6></div>
-                            <div class="col-sm-2 col-4">NIS</div>
-                            <div class="col-sm-10 col-8" id="nis"></div>
-                            <div class="col-sm-2 col-4">ID Bank</div>
-                            <div class="col-sm-10 col-8" id="id_bank"></div>
-                            <div class="col-sm-2 col-4">Nama</div>
-                            <div class="col-sm-10 col-8" id="nama"></div>
-                            <div class="col-sm-2 col-4">Kelas</div>
-                            <div class="col-sm-10 col-8" id="kode_kelas"></div>
-                            <div class="col-sm-2 col-4">Angkatan</div>
-                            <div class="col-sm-10 col-8" id="kode_akt"></div>
-                            <div class="col-sm-2 col-4">Jurusan</div>
-                            <div class="col-sm-10 col-8" id="nama_jur"></div>
-                        </div>
-                    </div>
+                    <div class="separator-double mt-1 mb-2"></div>
                     <div class="kartu-d mt-2">
                         <div class="row">
-                            <div class="col-sm-12 table-responsive" style="max-height:300px">
-                                <table class="table table-bordered table-striped" id="table-detail">
-                                    <thead>
-                                        <tr>
-                                            <th width='20'>No</th>
-                                            <th width='60'>Tanggal </th>
-                                            <th width='80'>No Bukti</th>
-                                            <th width='60'>Modul</th>
-                                            <th width='200'>Keterangan</th>
-                                            <th width='90'>Debet</th>
-                                            <th width='90'>Kredit</th>
-                                        </tr>
-                                    </thead>
+                            <div class="col-sm-12" style="min-height:300px">
+                                <table class="table table-borderless" id="table-detail">
                                     <tbody>
 
                                     </tbody>
@@ -354,6 +327,40 @@
         return parts.join(',');
     }
 
+    function getChild(index,id,url,parent = null){
+        var kode = id.replace('grid-id-','');
+        $.ajax({
+            type: "GET",
+            url: url,
+            dataType: 'json',
+            data: {id: kode},
+            success:function(result){   
+                if(result.status){
+                    var det = "";
+                    if(result.daftar.length > 0){
+                        for(var j=0;j < result.daftar.length ;j++){
+                            var lined = result.daftar[j];
+                            if( j == 0){
+                                det +=`<tr class='text-grey' data-parent=`+id+`>
+                                <td>Deskripsi</td>
+                                <td>Parameter</td>
+                                <td>Nilai</td>
+                            </tr>`;
+                            }   
+                            det +=`
+                            <tr data-parent=`+id+`>
+                                <td>`+lined.keterangan+`</td>
+                                <td>`+lined.kode_param+`</td>
+                                <td class='text-right'>`+sepNumPas(lined.nilai)+`</td>
+                            </tr>`;
+                        }
+                        $('#table-detail').find('tr:eq('+index+')').after(det);
+                    }
+                }
+            }
+        });
+    }
+
     function getKartuPDD(){
         $.ajax({
             type: "GET",
@@ -362,48 +369,57 @@
             data: {},
             success:function(result){    
                 if(result.status){
-                    if(result.data.length > 0){
-                        var line = result.data[0];
-                        $('#nis').html(":&nbsp;"+line.nis);
-                        $('#id_bank').html(":&nbsp;"+line.id_bank);
-                        $('#nama').html(":&nbsp;"+line.nama);
-                        $('#kode_kelas').html(":&nbsp;"+line.kode_kelas);
-                        $('#nama_jur').html(":&nbsp;"+line.nama_jur);
-                        $('#kode_akt').html(":&nbsp;"+line.kode_akt);
-                        var detail = '';
-                        var no=1;
-                        var tosaldo=0;var debet=0; var kredit=0;
-                        $('#table-detail tbody').html(detail);
-                        if(result.detail.length > 0){
-                            for(var i=0;i < result.detail.length ;i++){
-                                var line2 = result.detail[i];
-                                debet += parseFloat(line2.debet);
-                                kredit += parseFloat(line2.kredit);
-                                detail +=`<tr>
-                                    <td>`+no+`</td>
-                                    <td>`+line2.tgl+`</td>
-                                    <td>`+line2.no_bukti+`</td>
-                                    <td>`+line2.modul+`</td>
-                                    <td>`+line2.keterangan+`</td>
-                                    <td>`+sepNumPas(line2.debet)+`</td>
-                                    <td>`+sepNumPas(line2.kredit)+`</td>
-                                </tr>`;
-                                no++;
-                            }
-                            tosaldo = debet-kredit;
-                            detail+=`<tr>
-                                <td colspan='5' class='text-right'><b>Total</b></td>
-                                <td>`+sepNumPas(debet)+`</td>
-                                <td>`+sepNumPas(kredit)+`</td>
+                    var detail = '';
+                    var no=1;
+                    var tosaldo=0;var debet=0; var kredit=0;
+                    $('#table-detail tbody').html(detail);
+                    if(result.detail.length > 0){
+                        for(var i=0;i < result.detail.length ;i++){
+                            var line2 = result.detail[i];
+                            nilai = parseFloat(line2.nilai);
+                            var ket1 = "Masuk || ";
+                            var ket2 = "Keluar || ";
+                            var ket = (line2.nilai > 0 ? ket1+line2.tgl+" || "+line2.no_rekon : ket2+line2.tgl+" || "+line2.no_rekon);
+                            tosaldo += nilai;
+                            detail +=`<tr class="bg-grey report-klik" id="`+line2.no_rekon+`">
+                            <td colspan="2"><i class='simple-icon-arrow-down mr-2' ></i> `+ket+`</td>
+                            <td class="text-right">`+sepNumPas(Math.abs(nilai))+`</td>
                             </tr>
-                            <tr>
-                                <td colspan='5' class='text-right'><b>Saldo</b></td>
-                                <td>`+sepNumPas(tosaldo)+`</td>
-                                <td>0</td>
+                            <tr  class="bg-primary" >
+                            <td colspan="2"></td>
+                            <td class="text-right">Kurang Bayar `+sepNumPas(tosaldo)+`</td>
                             </tr>`;
+                            no++;
                         }
-                        $('#table-detail tbody').html(detail);
                     }
+                    $('#table-detail tbody').html(detail);
+                    $('#table-detail').on('click','.report-klik',function(e){
+                        e.preventDefault();
+                        var id = $(this).attr('id');
+                        var index = $(this).closest('tr').index();
+                        if(!$(this).hasClass('clicked')){
+                            $(this).addClass('clicked');
+                            var top = $(this).position().top;
+                            $('#grid-load').css('top',top);
+                            getChild(index,id,'ts-dash/kartu-pdd-detail');
+                        }
+                        if(!$(this).hasClass('open-grid')){
+                            $(this).addClass('open-grid');
+                            $(this).closest('tr').find('i').removeClass('mr-2 simple-icon-arrow-down');
+                            $(this).closest('tr').find('i').addClass('mr-2 simple-icon-arrow-up');
+                            $(this).removeClass('close-grid');
+                            $('tr[data-parent="' + id + '"]').show();
+
+                        }else{
+                            $(this).addClass('close-grid');
+                            $(this).closest('tr').find('i').removeClass('mr-2 simple-icon-arrow-up');
+                            $(this).closest('tr').find('i').addClass('mr-2 simple-icon-arrow-down');
+                            $(this).removeClass('open-grid');
+                            $('tr[data-parent="' + id + '"]').hide();
+                            $('tr[data-parentop="' + id + '"]').hide();
+                        }
+                        
+                    });
                 }
             },
             error: function(jqXHR, textStatus, errorThrown) {       

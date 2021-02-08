@@ -58,12 +58,15 @@
         .klik-report{
             cursor:pointer;
         }
+        button.bg-primary:hover, button.bg-primary:focus {
+            background-color: #f3f3f3 !important;
+        }
     </style>
     <div class="row" >
         <div class="col-12 col-lg-4 col-xl-3 col-left ol-grid">
             <div class="card mb-4" style="height:100%">
                 <div class="position-absolute card-top-buttons">
-                    <button class="btn btn-outline-white icon-button bg-primary" style="border:0;border-radius:50% !important;width:32px;height:32px" >
+                    <button class="btn btn-outline-white icon-button bg-primary" id="btn-editprofile" style="border:0;border-radius:50% !important;width:32px;height:32px" >
                         <i class="simple-icon-pencil"></i>
                     </button>
                 </div>
@@ -332,4 +335,9 @@
 
     getProfile();
 
+    $('.card-top-buttons').on('click','#btn-editprofile',function(e){
+        e.preventDefault();
+        var url = "{{ url('ts-auth/form/fProfile') }}";
+        loadForm(url);
+    })
     </script>

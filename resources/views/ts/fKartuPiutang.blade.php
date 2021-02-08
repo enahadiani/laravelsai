@@ -248,7 +248,7 @@
     <div id='grid-load'><img src='{{ asset("img/loadgif.gif") }}' style='width:25px;height:25px'></div>
     <div class="row" id="saku-dashboard">
         <div class="col-12">
-            <div class="card" id="print-area">
+            <div class="card" id="print-area" style="height:100%">
                 <div class="card-body">
                     <div class="kop">
                         <div class="row">
@@ -263,8 +263,8 @@
                     <div class="separator-double mt-1 mb-2"></div>
                     <div class="kartu-d mt-2">
                         <div class="row">
-                            <div class="col-sm-12 table-responsive" style="max-height:300px">
-                                <table class="table" id="table-detail">
+                            <div class="col-sm-12" style="min-height:300px">
+                                <table class="table table-borderless" id="table-detail">
                                     <tbody>
 
                                     </tbody>
