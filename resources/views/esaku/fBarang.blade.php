@@ -1,4 +1,5 @@
     <link rel="stylesheet" href="{{ asset('master.css') }}" />
+    <link rel="stylesheet" href="{{ asset('form.css') }}" />
     <!-- LIST DATA -->
     <x-list-data judul="Data Barang" tambah="true" :thead="array('Kode Barang','Nama Barang','Satuan','Keterangan','Harga','Tgl Input','Aksi')" :thwidth="array(15,30,5,25,15,0,10)" :thclass="array('','','','','','','text-center')" />
     <!-- END LIST DATA -->
@@ -8,10 +9,11 @@
         <div class="row" id="saku-form" style="display:none;">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;">
-                        <h6 id="judul-form" style="position:absolute;top:25px"></h6>
-                        <button type="submit" class="btn btn-primary ml-2"  style="float:right;" id="btn-save"><i class="fa fa-save"></i> Simpan</button>
-                        <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Keluar</button>
+                    <div class="card-body form-header" style="padding-top:0.5rem;padding-bottom:0.5rem;min-height:48px;">
+                        <h6 id="judul-form" style="position:absolute;top:13px"></h6>
+                        <button type="button" id="btn-kembali" aria-label="Kembali" class="btn btn-back">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
                     <div class="separator mb-2"></div>
                     <!-- FORM BODY -->
@@ -25,190 +27,158 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6 col-sm-12">
-                                <div class="row">
-                                    <div class="col-md-6 col-sm-12">
-                                        <label for="kode_barang">Kode Barang</label>
-                                        <input class="form-control" type="text" id="kode_barang" name="kode_barang" required>
+                                <label for="kode_barang">Kode Barang</label>
+                                <input class="form-control" type="text" id="kode_barang" name="kode_barang" required>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="barcode">Barcode</label>
+                                <input class="form-control" type="text" id="barcode" name="barcode" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="kode_barang">Kode Barang</label>
+                                <input class="form-control" type="text" id="kode_barang" name="kode_barang" required>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="nama">Nama</label>
+                                <input class="form-control" type="text" id="nama" name="nama" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="satuan">Satuan Barang</label>
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                        <span class="input-group-text info-code_satuan" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
                                     </div>
-                                    <div class="col-md-6 col-sm-12">
-                                        <label for="barcode">Barcode</label>
-                                        <input class="form-control" type="text" id="barcode" name="barcode" required>
-                                    </div>
+                                    <input type="text" class="form-control inp-label-satuan" id="satuan" name="satuan" value="" title="">
+                                    <span class="info-name_satuan hidden">
+                                        <span></span> 
+                                    </span>
+                                    <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                    <i class="simple-icon-magnifier search-item2" id="search_satuan"></i>
                                 </div>
                             </div>
                             <div class="form-group col-md-6 col-sm-12">
-                                <div class="row">
-                                    <div class="col-md-12 col-sm-12">
-                                        <label for="nama">Nama</label>
-                                        <input class="form-control" type="text" id="nama" name="nama" required>
+                                <label for="kode_klp">Kelompok Barang</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                        <span class="input-group-text info-code_kode_klp" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
                                     </div>
+                                    <input type="text" class="form-control inp-label-kode_klp" id="kode_klp" name="kode_klp" value="" title="">
+                                    <span class="info-name_kode_klp hidden">
+                                        <span></span> 
+                                    </span>
+                                    <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                    <i class="simple-icon-magnifier search-item2" id="search_kode_klp"></i>
                                 </div>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6 col-sm-12">
-                                <div class="row">
-                                    <div class="col-md-6 col-sm-12">
-                                        <label for="satuan">Satuan Barang</label>
-                                        <div class="input-group mb-2">
-                                            <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
-                                                <span class="input-group-text info-code_satuan" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
-                                            </div>
-                                            <input type="text" class="form-control inp-label-satuan" id="satuan" name="satuan" value="" title="">
-                                            <span class="info-name_satuan hidden">
-                                                <span></span> 
-                                            </span>
-                                            <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                            <i class="simple-icon-magnifier search-item2" id="search_satuan"></i>
-                                        </div>
-                                    </div>
-                                    <div class='col-md-6 col-sm-12'>
-                                        <label for="kode_klp">Kelompok Barang</label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
-                                                <span class="input-group-text info-code_kode_klp" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
-                                            </div>
-                                            <input type="text" class="form-control inp-label-kode_klp" id="kode_klp" name="kode_klp" value="" title="">
-                                            <span class="info-name_kode_klp hidden">
-                                                <span></span> 
-                                            </span>
-                                            <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                            <i class="simple-icon-magnifier search-item2" id="search_kode_klp"></i>
-                                        </div>
-                                    </div>
-                                </div>
+                               <label for="keterangan">Keterangan</label>
+                                <input class="form-control" type="text" id="keterangan" name="keterangan" required>
                             </div>
                             <div class="form-group col-md-6 col-sm-12">
-                                <div class="row">
-                                    <div class="col-md-12 col-sm-12">
-                                        <label for="keterangan">Keterangan</label>
-                                        <input class="form-control" type="text" id="keterangan" name="keterangan" required>
+                                <label for="hrg_satuan">Harga Satuan</label>
+                                <input class="form-control currency nominal"  value="0" type="text" id="hrg_satuan" name="hrg_satuan" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="ppn">PPN (%)</label>
+                                <input class="form-control nominal" type="text" id="ppn" name="ppn" value="0" required>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="tarif-ppn">&nbsp;</label>
+                                <input class="form-control currency" type="text" id="tarif-ppn" value="0" readonly>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="sm">Slow Moving</label>
+                                <input class="form-control currency" type="text" id="sm1" name="sm1" required value="0">
+                            </div>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="sm2">&nbsp;</label>
+                                <input class="form-control currency" type="text" id="sm2" name="sm2" required value="0">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="profit">Profit (%)</label>
+                                <input class="form-control nominal" type="text" id="profit" name="profit" value="0" required>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="tarif-profit">&nbsp;</label>
+                                <input class="form-control currency" type="text" id="tarif-profit" value="0" readonly>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="mm1">Medium Moving</label>
+                                <input class="form-control currency" type="text" id="mm1" name="mm1" required value="0">
+                            </div>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="mm2">&nbsp;</label>
+                                <input class="form-control currency" type="text" id="mm2" name="mm2" required value="0">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="hna">Harga Jual</label>
+                                <input class="form-control currency nominal"  value="0" type="text" id="hna" name="hna" required>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="flag_aktif">Status Aktif</label>
+                                <select class='form-control selectize' id="flag_aktif" name="flag_aktif">
+                                    <option value='' disabled selected>--- Pilih Status Aktif ---</option>
+                                    <option value='1'>AKTIF</option>
+                                    <option value='0'>NON-AKTIF</option>
+                                </select>     
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="fm">Fast Moving</label>
+                                <input class="form-control currency" type="text" id="fm1" name="fm1" required value="0">
+                            </div>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="fm2">&nbsp;</label>
+                                <input class="form-control currency" type="text" id="fm2" name="fm2" required value="0">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="ss">Safety Stock</label>
+                                <input class="form-control currency" type="text"  id="ss" name="ss" value="0">
+                            </div>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label>Foto</label>
+                                <div class="input-group">
+                                    <div class="custom-file">
+                                        <input type="file" name="file_gambar" class="custom-file-input" id="file_gambar" accept="image/*" onchange="readURL(this)">
+                                        <label class="custom-file-label" for="file_gambar">Choose file</label>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group col-md-6 col-sm-12">
-                                <div class="row">
-                                    <div class="col-md-6 col-sm-12">
-                                        <label for="hrg_satuan">Harga Satuan</label>
-                                        <input class="form-control currency nominal"  value="0" type="text" id="hrg_satuan" name="hrg_satuan" required>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group col-md-6 col-sm-12">
-                                <div class="row">
-                                    <div class="col-md-6 col-sm-12">
-                                        <label for="ss">Safety Stock</label>
-                                        <input class="form-control currency" type="text"  id="ss" name="ss" value="0">
-                                    </div>
-                                </div>
+                            <div class="form-group col-md-12 col-sm-12" style="height: 150px;">
+                                <label>Preview</label>
+                                <div class="preview text-center" style="height:120px;width:120px;margin: 0 auto;">Preview</div>
                             </div>
                         </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6 col-sm-12">
-                                <div class="row">
-                                    <div class="col-md-6 col-sm-12">
-                                        <label for="ppn">PPN (%)</label>
-                                        <input class="form-control nominal" type="text" id="ppn" name="ppn" value="0" required>
-                                    </div>
-                                    <div class="col-md-6 col-sm-12">
-                                        <label for="tarif-ppn">&nbsp;</label>
-                                        <input class="form-control currency" type="text" id="tarif-ppn" value="0" readonly>
-                                    </div>
-                                </div>
+                    </div>
+                    {{-- Save Button --}}
+                    <div class="card-form-footer">
+                        <div class="footer-form-container">
+                            <div class="text-right message-action">
+                                <p class="text-success"></p>
                             </div>
-                            <div class="form-group col-md-6 col-sm-12">
-                                <div class="row">
-                                    <div class="col-md-6 col-sm-12">
-                                        <label for="sm">Slow Moving</label>
-                                        <input class="form-control currency" type="text" id="sm1" name="sm1" required value="0">
-                                    </div>
-                                    <div class="col-md-6 col-sm-12">
-                                        <label for="sm2">&nbsp;</label>
-                                        <input class="form-control currency" type="text" id="sm2" name="sm2" required value="0">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6 col-sm-12">
-                                <div class="row">
-                                    <div class="col-md-6 col-sm-12">
-                                        <label for="profit">Profit (%)</label>
-                                        <input class="form-control nominal" type="text" id="profit" name="profit" value="0" required>
-                                    </div>
-                                    <div class="col-md-6 col-sm-12">
-                                        <label for="tarif-profit">&nbsp;</label>
-                                        <input class="form-control currency" type="text" id="tarif-profit" value="0" readonly>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group col-md-6 col-sm-12">
-                                <div class="row">
-                                    <div class="col-md-6 col-sm-12">
-                                        <label for="mm1">Medium Moving</label>
-                                        <input class="form-control currency" type="text" id="mm1" name="mm1" required value="0">
-                                    </div>
-                                    <div class="col-md-6 col-sm-12">
-                                        <label for="mm2">&nbsp;</label>
-                                        <input class="form-control currency" type="text" id="mm2" name="mm2" required value="0">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6 col-sm-12">
-                                <div class="row">
-                                    <div class="col-md-6 col-sm-12">
-                                        <label for="hna">Harga Jual</label>
-                                        <input class="form-control currency nominal"  value="0" type="text" id="hna" name="hna" required>
-                                    </div>
-                                    <div class="col-md-6 col-sm-12">
-                                        <label for="flag_aktif">Status Aktif</label>
-                                        <select class='form-control selectize' id="flag_aktif" name="flag_aktif">
-                                        <option value='' disabled selected>--- Pilih Status Aktif ---</option>
-                                        <option value='1'>AKTIF</option>
-                                        <option value='0'>NON-AKTIF</option>
-                                        </select>           
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="form-group col-md-6 col-sm-12">
-                                <div class="row">
-                                    <div class="col-md-6 col-sm-12">
-                                        <label for="fm">Fast Moving</label>
-                                        <input class="form-control currency" type="text" id="fm1" name="fm1" required value="0">
-                                    </div>
-                                    <div class="col-md-6 col-sm-12">
-                                        <label for="fm2">&nbsp;</label>
-                                        <input class="form-control currency" type="text" id="fm2" name="fm2" required value="0">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-row">    
-                            <div class="form-group col-md-6 col-sm-12"> 
-                                <div class="row">
-                                    <div class="col-md-12 col-sm-12">
-                                        <label>Foto</label>
-                                        <div class="input-group">
-                                            <div class="custom-file">
-                                                <input type="file" name="file_gambar" class="custom-file-input" id="file_gambar" accept="image/*" onchange="readURL(this)">
-                                                <label class="custom-file-label" for="file_gambar">Choose file</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group col-md-6 col-sm-12">
-                                <div class="row">
-                                    <div class="col-md-12 col-sm-12" style="height:150px">
-                                    <label>Preview</label>
-                                    <div class="preview text-center" style="height:120px;width:120px;margin: 0 auto;">Preview</div>
-                                    </div>
-                                </div>
+                            <div class="action-footer">
+                                <button type="submit" style="margin-top: 10px;" class="btn btn-primary btn-save"><i class="fa fa-save"></i> Simpan</button>
                             </div>
                         </div>
                     </div>
@@ -225,6 +195,9 @@
     <script src="{{ asset('helper.js') }}"></script>
 
     <script>
+        // Small Form
+        $('#saku-form > .col-12').addClass('mx-auto col-lg-6');
+        $('#modal-preview > .modal-dialog').css({ 'max-width':'600px'});
         // var $iconLoad = $('.preloader');
         var $target = "";
         var $target2 = "";
