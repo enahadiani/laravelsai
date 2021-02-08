@@ -255,7 +255,7 @@ box-shadow: 1px 2px 2px 2px #e6e0e0e6;
                         <div class='card-body' style='padding: 0 10px 10px 10px;'>
                             <div class="row">
                                 <div style='border: 1px solid #ff9500;padding: 5px;border-bottom-right-radius: 20px;border-top-right-radius: 20px;background: #ff9500;color: white;width: 140px;cursor:pointer;height: 40px;' class='col-md-6' id='regHariClick'>Dokumen Upload</div>
-                                <div class='col-md-12' style='margin-top:10px;height: 340px;'>
+                                <div class='col-md-12' style='margin-top:10px;min-height: 340px;'>
                                 <table class="table table-striped table-bordered table-condensed" id="input-dok">
                                     <thead>
                                     <style>
@@ -310,95 +310,150 @@ function toJuta(x) {
     return sepNum(nil) + '';
 }
 
-$('#registrasi').text(2);
-$('#pbyr').text(1);
+function loadService(index,method,url){
+    $.ajax({
+        type: method,
+        url: url,
+        dataType: 'json',
+        success:function(result){    
+            if(result.status){
+                switch(index){
+                    case 'box' :
+                        $('#registrasi').text(result.reg);
+                        $('#pbyr').text(result.pbyr);
+                    break;
+                    case 'kartu' :
+                        if(result.daftar.length>0){
+                            var html='';
+                            var line = result.daftar[0];
+                            html+=`
+                            <table class='table' cellspacing='0' cellpadding='1' class='kotak'>
+                                <style>
+                                    td,th{
+                                        padding:5px !important;
+                                    }
+                                </style>
+                                <tr >
+                                    <td height='23' colspan='7' style='border:none' class='header_laporan'>
+                                        <table  class='table no-border' width='100%'>
+                                            <tr>
+                                                <td width='30%' class='header_laporan'>No Registrasi</td>
+                                                <td width='70%' class='header_laporan'>: `+line.no_reg+`</td>
+                                            </tr>
+                                            <tr>
+                                                <td width='99' class='header_laporan'>Peserta</td>
+                                                <td width='360' class='header_laporan'>: `+line.no_peserta+` - `+line.nama+`</td>
+                                            </tr>
+                                            <tr>
+                                                <td width='99' class='header_laporan'>Tanggal</td>
+                                                <td width='360' class='header_laporan'>: `+line.tgl+`</td>
+                                            </tr>
+                                            <tr>
+                                                <td class='header_laporan'>Paket </td>
+                                                <td class='header_laporan'>: `+line.no_paket+` - `+line.nama_paket+`</td>
+                                            </tr>
+                                            <tr>
+                                                <td class='header_laporan'>Agen </td>
+                                                <td class='header_laporan'>: `+line.no_agen+` - `+line.nama_agen+`</td>
+                                            </tr>
+                                            <tr>
+                                                <td class='header_laporan'>Nilai Paket </td>
+                                                <td class='header_laporan'>: `+sepNumPas(line.paket)+`</td>
+                                            </tr>
+                                            <tr>
+                                                <td class='header_laporan'>Nilai Tambahan </td>
+                                                <td class='header_laporan'>: `+sepNumPas(line.tambahan)+`</td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style='border:none'>
+                                        <table class='table table-bordered table-striped'>
+                                        <thead style='vertical-align:middle !important;text-align:center'>
+                                            <tr >
+                                                <th rowspan='2' style='vertical-align: middle;' width='50'>Tanggal</th>
+                                                <th rowspan='2' style='vertical-align: middle;' width='100'>No Bukti</th>
+                                                <th rowspan='2' style='vertical-align: middle;' width='250'>Keterangan</th>
+                                                <th colspan='2' style='vertical-align: middle;' >Pembayaran</th>
+                                            </tr>
+                                            <tr >
+                                                <th width='80'>Paket</th>
+                                                <th width='80'>Tambahan</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>`;
+                                            var saldo_paket=line.paket;
+                                            var saldo_tambahan=line.tambahan;
+                                            var nilai_p=0;
+                                            var nilai_t=0;
+                                            var det =``;
+                                            for(var i=0;i<result.daftar2.length;i++){
+                                                var line2 = result.daftar2[i];
+                                                nilai_p+=parseFloat(line2.nilai_p);
+                                                nilai_t+=parseFloat(line2.nilai_t);
+                                                det+=`<tr>
+                                                    <td>`+line2.tgl+`</td>
+                                                    <td>`+line2.no_kwitansi+`</td>
+                                                    <td>`+line2.keterangan+`</td>
+                                                    <td align='right'>`+sepNumPas(line2.nilai_p,0,',','.')+`</td>
+                                                    <td align='right'>`+sepNumPas(line2.nilai_t,0,',','.')+`</td>
+                                                </tr>`;
+                                                        
+                                            }
+                                            html+=det+`
+                                            <tr>
+                                                <td  colspan='3' valign='top' class='header_laporan' align='right'>Total Pembayaran&nbsp;</td>
+                                                <td valign='top' class='header_laporan' align='right'>`+sepNumPas(nilai_p,0,',','.')+`</td>
+                                                <td valign='top' class='header_laporan' align='right'>`+sepNumPas(nilai_t,0,',','.')+`</td>
+                                            </tr>
+                                            <tr>
+                                                <td  colspan='3' valign='top' class='header_laporan' align='right'>Saldo&nbsp;</td>
+                                                <td valign='top' class='header_laporan' align='right'>`+sepNumPas(line.paket-nilai_p,0,',','.')+`</td>
+                                                <td valign='top' class='header_laporan' align='right'>`+sepNumPas(line.tambahan-nilai_t,0,',','.')+`</td>
+                                            </tr>`;
+                                            html+=`
+                                        </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>`;
+                            $('#kartu').html(html);
+                        }
+                    break;
+                    case 'dokumen':
+                        if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                            var html='';
+                            var no=1;
+                            for(var i=0;i<result.daftar.length;i++){
+                                var line2 = result.daftar[i];
+                                
+                                html+= `<tr class='row-upload-dok dok'>"
+                                <td width='5%'  class='no-dok dok'>`+no+`</td>
+                                <td width='20%'  class='upload_deskripsi dok'>`+line2.deskripsi+`</td>
+                                <td width='5%' class='dok text-center'>`;
+                                if(line2.fileaddres != "-")
+                                {
+                                   var url = "{{ config('api.url') }}/"+line2.fileaddres;
+                                   var link =`<a class='btn btn-success btn-sm download-dok' style='font-size:8px' href="" target='_blank'><i class='fa fa-download fa-1'></i></a>`;
+                                }else{
+                                    var link =``;
+                                }
+                                html+=link+`</td>
+                                </tr>`;
+                                no++;
+                            }
+                            $('#input-dok tbody').html(html);
+                        }
+                    break;
+                    
+                }
+            }
+        }
+    });
+}
 
-var html ="";
-html += "<table class='table' cellspacing='0' cellpadding='1' class='kotak'>";
-html += "<style>td,th{ padding:5px !important; }</style>";
-html += "<tr>";
-html += "<td height='23' colspan='7' style='border:none' class='header_laporan'>";
-html += "<table  class='table no-border' width='100%'>";
-html += "<tr>";
-html += "<td width='30%' class='header_laporan'>No Registrasi</td>";
-html += "<td width='70%' class='header_laporan'>: REG-0001</td>";
-html += "</tr>";
-html += "<tr>";
-html += "<td width='99' class='header_laporan'>Peserta</td>";
-html += "<td width='360' class='header_laporan'>: PST-0001</td>";
-html += "</tr>";
-html += "<tr>";
-html += "<td width='99' class='header_laporan'>Tanggal</td>";
-html += "<td width='360' class='header_laporan'>: 21 Juni 2020</td>";
-html += "</tr>";
-html += "<tr>";
-html += "<td class='header_laporan'>Paket</td>";
-html += "<td class='header_laporan'>: PKT-20200621 - PAKET 2020</td>";
-html += "</tr>";
-html += "<tr>";
-html += "<td class='header_laporan'>Agen</td>";
-html += "<td class='header_laporan'>: AGN-00000001 - Nina Ritna</td>";
-html += "</tr>";
-html += "<tr>";
-html += "<td class='header_laporan'>Nilai Paket</td>";
-html += "<td class='header_laporan'>: Rp. 150.000.000</td>";
-html += "</tr>";
-html += "<tr>";
-html += "<td class='header_laporan'>Nilai Tambahan</td>";
-html += "<td class='header_laporan'>: Rp. 10.000.000</td>";
-html += "</tr>";
-html += "</tr>";
-html += "</table>"
-html += "<table class='table table-bordered table-striped'>";
-html += "<thead style='vertical-align:middle !important;text-align:center'>";
-html += "<tr>";
-html += "<th rowspan='2' style='vertical-align: middle;' width='50'>Tanggal</th>";
-html += "<th rowspan='2' style='vertical-align: middle;' width='100'>No Bukti</th>";
-html += "<th rowspan='2' style='vertical-align: middle;' width='250'>Keterangan</th>";
-html += "<th colspan='2' style='vertical-align: middle;' >Pembayaran</th>";
-html += "</tr>";
-html += "<tr>";
-html += "<th width='80'>Paket</th>";
-html += "<th width='80'>Tambahan</th>";
-html += "</tr>";
-html += "</thead>";
-html += "<tbody>";
-html += "<tr>";
-html += "<td>17/03/2020</td>";
-html += "<td style='font-size:12px;'>11-BM020200317</td>";
-html += "<td>Cicilan Pertama</td>";
-html += "<td align='right'>Rp. 50.000.000</td>";
-html += "<td align='right'>Rp. 5.000.000</td>";
-html += "</tr>";
-html += "<tr>";
-html += "<td  colspan='3' valign='top' class='header_laporan' align='right'>Total Pembayaran&nbsp;</td>";
-html += "<td valign='top' class='header_laporan' align='right'>Rp. 50.000.000</td>";
-html += "<td valign='top' class='header_laporan' align='right'>Rp. 5.000.000</td>";
-html += "</tr>";
-html += "<td  colspan='3' valign='top' class='header_laporan' align='right'>Saldo&nbsp;</td>";
-html += "<td valign='top' class='header_laporan' align='right'>Rp. 0</td>";
-html += "<td valign='top' class='header_laporan' align='right'>Rp. 250.000</td>";
-html += "</tr>";
-html += "</tbody>";
-html += "</table>";
-
-$('#kartu').html(html);
-
-var html2 = "";
-html2 += "<tr class='row-upload-dok dok'>";
-html2 += "<td width='5%'  class='no-dok dok'>1</td>"
-html2 += "<td width='20%'  class='upload_deskripsi dok'>Akta Kelahiran</td>"
-html2 += "<td width='5%' class='dok text-center'><a class='btn btn-success btn-sm download-dok' style='font-size:8px' href='#' target='_blank'><i class='fa fa-download fa-1'></i></a></td>"
-html2 += "</tr>";
-html2 += "<tr class='row-upload-dok dok'>";
-html2 += "<td width='5%'  class='no-dok dok'>2</td>"
-html2 += "<td width='20%'  class='upload_deskripsi dok'>Kartu Keluarga</td>"
-html2 += "<td width='5%' class='dok text-center'></td>"
-html2 += "</tr>";
-
-$('#input-dok tbody').html(html2);
-
-// $('#card-profile').click(function(){
-//     window.location.href='/fProfile';
-// })
+loadService('box','GET',"{{ url('dago-dash/data-box') }}");
+loadService('kartu','GET',"{{ url('dago-dash/kartu') }}");
+loadService('dokumen','GET',"{{ url('dago-dash/dokumen') }}" );
 </script>
