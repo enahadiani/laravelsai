@@ -13,21 +13,27 @@
     /* Jenis Usaha */
     .jenis-usaha-container:nth-child(3) .jenis-usaha-col:nth-child(2) {
         align-self: center;
+        margin-right: 0;
     }
     .jenis-usaha-container:nth-child(3) .jenis-usaha-col:nth-child(1) {
         align-self: center;
+        margin-left: 0;
     }
     .jenis-usaha-container:nth-child(2) .jenis-usaha-col:nth-child(2) {
         align-self: center;
+        margin-right: 0;
     }
     .jenis-usaha-container:nth-child(2) .jenis-usaha-col:nth-child(1) {
         align-self: center;
+        margin-left: 0;
     }
     .jenis-usaha-container:nth-child(1) .jenis-usaha-col:nth-child(2) {
         align-self: center;
+        margin-right: 0;
     }
     .jenis-usaha-container:nth-child(1) .jenis-usaha-col:nth-child(1) {
         align-self: center;
+        margin-left: 0;
     }
     .jenis-usaha-col {
         margin: 1.5rem 0;
@@ -44,8 +50,10 @@
         align-self: center;
         margin: 0 0 0 0;
         margin-top: 1rem;
+        width: 28rem;
     }
     .card-coba {
+        width: 28rem;
         align-self: center;
         margin: 0 0 0 0;
         margin-bottom: 1rem;
