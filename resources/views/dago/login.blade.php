@@ -44,7 +44,10 @@
             <div class="login-box card">
                 <div class="card-body">
                     <form class="form-horizontal form-material" method="post" id="loginform" action="{{ url('dago-auth/login') }}">
-                        <h3 class="box-title m-b-20 text-center">Sign In</h3>
+                        <!-- <h3 class="box-title m-b-20 text-center">Sign In</h3> -->
+                        <div class="mb-4 text-center" style="width:100%">
+                            <img src="{{ asset('img/dago.png') }}" alt="Logo" width="95px">
+                        </div>
                         @csrf
                         <div class="form-group ">
                             <div class="col-xs-12">

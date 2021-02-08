@@ -96,6 +96,7 @@
                                 Session::put('dash',$dash);
                                 Session::put('kode_fs',(isset($data2["kode_fs"][0]["kode_fs"]) ? $data2["kode_fs"][0]["kode_fs"] : ""));
                                 Session::put('kode_ta',(isset($data2["kode_ta"][0]["kode_ta"]) ? $data2["kode_ta"][0]["kode_ta"] : ""));
+                                Session::put('menu','menu-hidden');
                             }
                         }
                         
