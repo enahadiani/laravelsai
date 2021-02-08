@@ -116,7 +116,7 @@
                 </div>
             </div>                 
         </div>
-        <div class="col-12 col-lg-8 col-xl-9 col-right col-grid">
+        <div class="col-12 col-lg-8 col-xl-9 col-right col-grid" id="content-dash">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card">
@@ -212,7 +212,8 @@
     $('.table-lap').on('click','.klik-report',function(e){
         e.preventDefault();
         var form = $(this).find('.kode_form').html();
-        loadForm("{{url('ts-auth/form')}}/"+form);
+        var xurl = "{{url('ts-auth/form')}}/"+form;
+        $('#content-dash').load(xurl);
     });
 
     function getProfile(){

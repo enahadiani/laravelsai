@@ -46,6 +46,35 @@
             }
         }
 
+        public function getKartuPiutangDetail(Request $request)
+        {
+            try{
+                
+                $client = new Client();
+                $response = $client->request('GET',  config('api.url').'ts/kartu-piutang-detail',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => [
+                        'id' => $request->id
+                    ]
+                ]);
+    
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                
+                    $data = json_decode($response_data,true);
+                    $data = $data;
+                }
+                return response()->json($data, 200);
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                return response()->json(['message' => $res["message"], 'status'=>false], 200);
+            }
+        }
+
         public function getKartuPDD(Request $request)
         {
             try{
