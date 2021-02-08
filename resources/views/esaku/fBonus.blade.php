@@ -1,4 +1,5 @@
     <link rel="stylesheet" href="{{ asset('master.css') }}" />
+    <link rel="stylesheet" href="{{ asset('form.css') }}" />
     <style>
         .datepicker {
             margin: 40px 0;
@@ -12,10 +13,11 @@
         <div class="row" id="saku-form" style="display:none;">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;">
-                        <h6 id="judul-form" style="position:absolute;top:25px"></h6>
-                        <button type="submit" class="btn btn-primary ml-2"  style="float:right;" id="btn-save"><i class="fa fa-save"></i> Simpan</button>
-                        <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Keluar</button>
+                    <div class="card-body form-header" style="padding-top:0.5rem;padding-bottom:0.5rem;min-height:48px;">
+                        <h6 id="judul-form" style="position:absolute;top:13px"></h6>
+                        <button type="button" id="btn-kembali" aria-label="Kembali" class="btn btn-back">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
                     <div class="separator mb-2"></div>
                     <!-- FORM BODY -->
@@ -29,54 +31,53 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6 col-sm-12">
-                                <div class="row">
-                                    <div class="col-md-6 col-sm-12">    
-                                        <label for="kode_barang">Kode Barang</label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
-                                                <span class="input-group-text info-code_kode_barang" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
-                                            </div>
-                                            <input type="text" class="form-control inp-label-kode_barang" id="kode_barang" name="kode_barang" value="" title="">
-                                            <span class="info-name_kode_barang hidden">
-                                                <span></span> 
-                                            </span>
-                                            <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                            <i class="simple-icon-magnifier search-item2" id="search_kode_barang"></i>
-                                        </div>
+                                <label for="kode_barang">Kode Barang</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                        <span class="input-group-text info-code_kode_barang" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
                                     </div>
-                                    <div class="col-md-6 col-sm-12">  
-                                        <label for="keterangan">Keterangan</label>
-                                        <input class="form-control" type="text" id="keterangan" name="keterangan">
-                                    </div>
+                                    <input type="text" class="form-control inp-label-kode_barang" id="kode_barang" name="kode_barang" value="" title="">
+                                    <span class="info-name_kode_barang hidden">
+                                        <span></span> 
+                                    </span>
+                                    <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                    <i class="simple-icon-magnifier search-item2" id="search_kode_barang"></i>
                                 </div>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="keterangan">Keterangan</label>
+                                <input class="form-control" type="text" id="keterangan" name="keterangan">
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6 col-sm-12">
-                                <div class="row">
-                                    <div class="col-md-6 col-sm-12">    
-                                        <label for="ref_qty">Referensi Qty</label>
-                                        <input class="form-control qty" type="text" id="ref_qty" name="ref_qty">
-                                    </div>
-                                    <div class="col-md-6 col-sm-12">    
-                                        <label for="bonus_qty">Bonus Qty</label>
-                                        <input class="form-control qty" type="text" id="bonus_qty" name="bonus_qty">
-                                    </div>
-                                </div>
+                                <label for="ref_qty">Referensi Qty</label>
+                                <input class="form-control qty" type="text" id="ref_qty" name="ref_qty">
+                            </div>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="bonus_qty">Bonus Qty</label>
+                                <input class="form-control qty" type="text" id="bonus_qty" name="bonus_qty">
                             </div>
                         </div>
-                        <div class="form-row">
+                         <div class="form-row">
                             <div class="form-group col-md-6 col-sm-12">
-                                <div class="row">
-                                    <div class="col-md-6 col-sm-12">    
-                                        <label for="tgl_mulai">Tanggal Mulai</label>
-                                        <input class="form-control tanggal" type="text" id="tgl_mulai" name="tgl_mulai" autocomplete="off">
-                                    </div>
-                                    <div class="col-md-6 col-sm-12">    
-                                        <label for="tgl_lahir">Tanggal Selesai</label>
-                                        <input class="form-control tanggal" type="text" id="tgl_selesai" name="tgl_selesai" autocomplete="off">
-                                    </div>
-                                </div>
+                                <label for="tgl_mulai">Tanggal Mulai</label>
+                                <input class="form-control tanggal" type="text" id="tgl_mulai" name="tgl_mulai" autocomplete="off">
+                            </div>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="tgl_lahir">Tanggal Selesai</label>
+                                <input class="form-control tanggal" type="text" id="tgl_selesai" name="tgl_selesai" autocomplete="off">
+                            </div>
+                        </div>
+                    </div>
+                    {{-- Save Button --}}
+                    <div class="card-form-footer">
+                        <div class="footer-form-container">
+                            <div class="text-right message-action">
+                                <p class="text-success"></p>
+                            </div>
+                            <div class="action-footer">
+                                <button type="submit" style="margin-top: 10px;" class="btn btn-primary btn-save"><i class="fa fa-save"></i> Simpan</button>
                             </div>
                         </div>
                     </div>
@@ -91,6 +92,8 @@
     <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
     <script src="{{ asset('helper.js') }}"></script>
     <script>
+    $('#saku-form > .col-12').addClass('mx-auto col-lg-6');
+    $('#modal-preview > .modal-dialog').css({ 'max-width':'600px'});
     var $iconLoad = $('.preloader');
     var $target = "";
     var $target2 = "";
