@@ -98,11 +98,6 @@
                                 <td style="width:2%">:</td>
                                 <td style="width:48%" id="kode_kelas"></td>
                             </tr>
-                            <tr>
-                                <td style="width:40%">No Telepon</td>
-                                <td style="width:2%">:</td>
-                                <td style="width:48%" id="no_telp"></td>
-                            </tr>
                         </table>
                         <h6 class="bold">Laporan</h6>
                         <table class="table table-borderless table-lap" style="width:100%">
@@ -233,7 +228,6 @@
                         var line2 = result.data2[0];
                         $('#nis').html(line.nis);
                         $('#id_bank').html(line.id_bank);
-                        $('#no_telp').html(line.no_telp);
                         $('#nama').html(line.nama);
                         $('#kode_kelas').html(line.kode_kelas);
                         $('#kode_akt').html(line.kode_akt);
@@ -288,7 +282,7 @@
                         if(result.data4.length > 0){
                             for(var i=0; i < result.data4.length;i++){
                                 var line4 = result.data4[i];
-                                nilai=sepNumPas(line4.tagihan);
+                                nilai=sepNumPas(line4.sisa);
                                 html +=`<div class="row mb-3">
                                     <div class="col-12">
                                         <div class="card">
