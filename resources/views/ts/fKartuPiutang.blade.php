@@ -248,7 +248,7 @@
     <div id='grid-load'><img src='{{ asset("img/loadgif.gif") }}' style='width:25px;height:25px'></div>
     <div class="row" id="saku-dashboard">
         <div class="col-12">
-            <div class="card" id="print-area">
+            <div class="card" id="print-area" style="height:100%">
                 <div class="card-body">
                     <div class="kop">
                         <div class="row">
