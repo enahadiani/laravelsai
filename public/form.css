@@ -87,7 +87,7 @@ div.inp-div-jenis > .search-item {
     display: flex;
     justify-content: center;
     height: 3.75rem;
-    width: 88.5vh !important;
+    width: 88.5%;
     background: white;
     border-bottom-right-radius: 1rem;
     border-bottom-left-radius: 1rem;
@@ -147,8 +147,15 @@ th {
     }
 }
 
-@media only screen and (min-width: 1440px) {
+@media only screen and (max-width: 1440px) {
     .card-form-footer {
-        width: 64vh !important;
+        width: 42.8%;
+    }
+}
+
+@media only screen and (max-width: 1024px) {
+    .card-form-footer {
+        width: 41%;
+        left: 34.5%;
     }
 }
