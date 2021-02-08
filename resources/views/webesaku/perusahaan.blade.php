@@ -74,7 +74,18 @@
         <section id="pengalaman" class="p-b-25">
             <div class="container pengalaman">
                 <div class="pengalaman-container">
-                    
+                    <div class="heading-text heading-section text-center">
+                        <h5 class="pengalaman-text lead">Kami hadir untuk bisnis Anda</h5>
+                        <h1>20 tahun lebih pengalaman pengembangan Software Akuntansi.</h1>
+                    </div>
+                    <div class="pengalaman-image">
+                        <img class="image-meeting" alt="image-meeting" src="{{ asset('asset_web/img/esaku/meeting.jpg') }}"/>
+                        <div class="image-text">
+                            <h5 class="lead">
+                                Bermula dari membangun aplikasi yang berbasis desktop pada tahun 1998 sampai hadir menjadi aplikasi online seperti saat ini. Tidak perlu diragukan lagi dengan pengalaman dan fokus pengembangan kami sehingga mampu membantu merealisasikan keinginan Anda dalam menerapkan komputerisasi akuntansi.
+                            </h5>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
