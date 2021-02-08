@@ -183,7 +183,7 @@ box-shadow: 1px 2px 2px 2px #e6e0e0e6;
                                     </div>
                                     <div class="col-12">
                                         <div class="progress" id="prog_jamaah">
-                                            <div class="progress-bar bg-warning" role="progressbar" style="width: 85%; height: 6px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                            <div class="progress-bar bg-warning" role="progressbar" style="width: 0%; height: 6px;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -205,7 +205,7 @@ box-shadow: 1px 2px 2px 2px #e6e0e0e6;
                                     </div>
                                     <div class="col-12">
                                         <div class="progress" id="prog_registrasi">
-                                            <div class="progress-bar bg-info" role="progressbar" style="width: 85%; height: 6px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                            <div class="progress-bar bg-info" role="progressbar" style="width: 0%; height: 6px;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -227,7 +227,7 @@ box-shadow: 1px 2px 2px 2px #e6e0e0e6;
                                     </div>
                                     <div class="col-12">
                                         <div class="progress" id="prog_pbyr">
-                                            <div class="progress-bar bg-success" role="progressbar" style="width: 85%; height: 6px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                            <div class="progress-bar bg-success" role="progressbar" style="width: 0%; height: 6px;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -331,113 +331,84 @@ function toJuta(x) {
     return sepNum(nil) + '';
 }
 
-$('#jamaah').text(118);
-$('#registrasi').text(143);
-$('#pbyr').text(127);
-
-var htmlAgen = "";
-htmlAgen += '<tr>';
-htmlAgen += '<td>AG-001</td>';
-htmlAgen += '<td>Nina Ratna</td>';
-htmlAgen += '<td>19</td>';
-htmlAgen += '</tr>';
-htmlAgen += '<tr>';
-htmlAgen += '<td>AG-002</td>';
-htmlAgen += '<td>Wae</td>';
-htmlAgen += '<td>22</td>';
-htmlAgen += '</tr>';
-htmlAgen += '<tr>';
-htmlAgen += '<td>AG-003</td>';
-htmlAgen += '<td>Null</td>';
-htmlAgen += '<td>21</td>';
-htmlAgen += '</tr>';
-htmlAgen += '<tr>';
-htmlAgen += '<td>AG-004</td>';
-htmlAgen += '<td>Rino</td>';
-htmlAgen += '<td>25</td>';
-htmlAgen += '</tr>';
-htmlAgen += '<tr>';
-htmlAgen += '<td>AG-005</td>';
-htmlAgen += '<td>Roni</td>';
-htmlAgen += '<td>20</td>';
-htmlAgen += '</tr>';
-$('#top_agen tbody').html(htmlAgen);
-
- Highcharts.chart('regHari', {
-            chart: {
-                    type: 'column',
+function loadService(index,method,url){
+    $.ajax({
+        type: method,
+        url: url,
+        dataType: 'json',
+        success:function(result){    
+            if(result.status){
+                switch(index){
+                    case 'dataBox':
+                       $('#jamaah').html(result.jamaah);
+                       $('#registrasi').html(result.reg);
+                       $('#pbyr').html(result.pbyr);
+                       $('.progress-bar').attr('aria-valuenow', 100).css({
+                            width: 100 + '%'
+                       });
+                    break;
+                    case 'topAgen':
+                        var htmlAgen = "";
+                        for(var i =0; i < result.daftar.length; i++){
+                            var line = result.daftar[i];
+                            htmlAgen += '<tr>';
+                            htmlAgen += '<td>'+line.no_agen+'</td>';
+                            htmlAgen += '<td>'+line.nama_agen+'</td>';
+                            htmlAgen += '<td>'+sepNumPas(line.jum)+'</td>';
+                            htmlAgen += '</tr>';
+                        }
+                        $('#top_agen tbody').html(htmlAgen);
+                    break;
+                    case 'regHari':
+                        Highcharts.chart('regHari', {
+                            chart: {
+                                type: 'column',
                                 // height: (12 / 16 * 100) + '%' // 16:8 ratio
-                },
-            title: {
-                        text: ''
-                    },
-            xAxis: {
-                        title: {
-                                text: null
                             },
-                        categories: [
-                            '2020-03-08',
-                            '2020-03-09',
-                            '2020-03-11',
-                            '2020-03-12',
-                            '2020-03-13',
-                            '2020-03-16',
-                            '2020-03-17',
-                            '2020-03-18',
-                            '2020-04-05',
-                            '2020-04-07',
-                            '2020-06-10',
-                            '2020-06-11',
-                        ],
-                    },
-            yAxis: {
-                        min: 0,
+                            title: {
+                                text: ''
+                            },
+                            xAxis: {
+                                title: {
+                                    text: null
+                                },
+                                categories: result.ctg,
+                            },
+                            yAxis: {
+                                min: 0,
                                 title: {
                                     text: ''
-                            }
-                    },
-            credits:{
-                        enabled:false
-                    },
-            series: [
-                {
-                    name:'Total Registrasi',
-                    data: [3,4,5,7,9,8,2,5,7,3.5,3,2,6]
+                                }
+                            },
+                            credits:{
+                                enabled:false
+                            },
+                            series: result.series
+                            });
+                    break;
+                    case 'kuotaPaket':
+                        var htmlQuota = "";
+                        for(var i =0; i < result.daftar.length; i++){
+                            var line = result.daftar[i];
+                            htmlQuota += '<tr>';
+                            htmlQuota += '<td>'+line.nama+'</td>';
+                            htmlQuota += '<td>'+line.tgl_berangkat+'</td>';
+                            htmlQuota += '<td>'+sepNumPas(line.quota)+'</td>';
+                            htmlQuota += '<td>'+sepNumPas(line.sisa)+'</td>';
+                            htmlQuota += '</tr>';
+                        }
+                        $('#quota tbody').html(htmlQuota);
+
+                    break;
+                    
                 }
-            ]
-});
+            }
+        }
+    });
+}
 
-var htmlQuota = "";
-htmlQuota += '<tr>';
-htmlQuota += '<td>Testing</td>';
-htmlQuota += '<td>2020-08-18</td>';
-htmlQuota += '<td>45</td>';
-htmlQuota += '<td>40</td>';
-htmlQuota += '</tr>';
-htmlQuota += '<tr>';
-htmlQuota += '<td>Testing Paket</td>';
-htmlQuota += '<td>2020-08-19</td>';
-htmlQuota += '<td>30</td>';
-htmlQuota += '<td>20</td>';
-htmlQuota += '</tr>';
-htmlQuota += '<tr>';
-htmlQuota += '<td>Testing 2020</td>';
-htmlQuota += '<td>2020-08-20</td>';
-htmlQuota += '<td>10</td>';
-htmlQuota += '<td>5</td>';
-htmlQuota += '</tr>';
-htmlQuota += '<tr>';
-htmlQuota += '<td>Testing 2021</td>';
-htmlQuota += '<td>2021-08-21</td>';
-htmlQuota += '<td>5</td>';
-htmlQuota += '<td>0</td>';
-htmlQuota += '</tr>';
-htmlQuota += '<tr>';
-htmlQuota += '<td>Paket Libur</td>';
-htmlQuota += '<td>2020-08-25</td>';
-htmlQuota += '<td>4</td>';
-htmlQuota += '<td>0</td>';
-htmlQuota += '</tr>';
-$('#quota tbody').html(htmlQuota);
-
+loadService('dataBox','GET',"{{ url('dago-dash/data-box') }}");
+loadService('topAgen','GET',"{{ url('dago-dash/top-agen') }}");
+loadService('regHari','GET',"{{ url('dago-dash/reg-harian') }}");
+loadService('kuotaPaket','GET',"{{ url('dago-dash/kuota-paket') }}");
 </script>

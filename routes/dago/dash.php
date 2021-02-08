@@ -14,5 +14,10 @@ use Illuminate\Support\Facades\Session;
 |
 */
 
+Route::get('data-box','Dago\DashboardController@getDataBox');
+Route::get('top-agen','Dago\DashboardController@getTopAgen');
+Route::get('reg-harian','Dago\DashboardController@getRegHarian');
+Route::get('kuota-paket','Dago\DashboardController@getKuotaPaket');
+
 
 
