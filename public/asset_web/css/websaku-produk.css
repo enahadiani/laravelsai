@@ -290,6 +290,10 @@ i.fas.fa-cog {
     justify-content: center;
 }
 /* Footer */
+span.copyright {
+    font-size: 1rem;
+    font-weight: normal;
+}
 .col-footer {
     margin-left: -0.5rem;
     margin-bottom: -0.5rem;

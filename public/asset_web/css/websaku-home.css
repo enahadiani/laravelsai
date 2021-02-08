@@ -79,6 +79,10 @@ section:nth-child(6) {
     background-size: cover;
     background-repeat: no-repeat;
 }
+span.copyright {
+    font-size: 1rem;
+    font-weight: normal;
+}
 .col-footer {
     margin-left: -0.5rem;
     margin-bottom: -0.5rem;

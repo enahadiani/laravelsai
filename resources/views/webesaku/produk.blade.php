@@ -395,6 +395,12 @@
                             </div>
                         </div>
                     </div>
+                    <hr class="separator-footer"/>
+                    <div class="row">
+                        <div class="col-12">
+                            <span class="copyright">&copy; Copyright 2021 PT Samudra Aplikasi Indonesia</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </footer>
