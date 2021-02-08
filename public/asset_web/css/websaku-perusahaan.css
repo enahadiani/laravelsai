@@ -1,3 +1,7 @@
+/* Pengalaman */
+.pengalaman-container > h5.pengalaman-text {
+    color: #0058e4;
+}
 /* Footer */
 span.copyright {
     font-size: 1rem;

@@ -73,8 +73,9 @@
         {{-- Pengalaman --}}
         <section id="pengalaman" class="p-b-25">
             <div class="container pengalaman">
-                <div class="pengalaman-container">
-                    
+                <div class="pengalaman-container heading-text heading-section text-center">
+                    <h5 class="pengalaman-text">Kami hadir untuk bisnis Anda</h5>
+                    <h1>20 tahun lebih pengalaman pengembangan Software Akuntansi.</h1>
                 </div>
             </div>
         </section>
