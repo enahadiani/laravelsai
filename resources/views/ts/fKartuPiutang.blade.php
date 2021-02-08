@@ -263,7 +263,7 @@
                     <div class="separator-double mt-1 mb-2"></div>
                     <div class="kartu-d mt-2">
                         <div class="row">
-                            <div class="col-sm-12 table-responsive" style="max-height:300px">
+                            <div class="col-sm-12" style="min-height:300px">
                                 <table class="table table-borderless" id="table-detail">
                                     <tbody>
 
