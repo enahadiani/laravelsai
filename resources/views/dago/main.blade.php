@@ -385,7 +385,7 @@
                 var channel = $pusher.subscribe('saidago-channel-'+userNIK);
                 channel.bind('saidago-event', function(data) {
                     getNotif();
-                    showNotification("top", "left", "info",data.title,data.message);
+                    showNotification("top", "center", "info",data.title,data.message);
                 });
                 function sepNumX(x){
                     if (typeof x === 'undefined' || !x) { 

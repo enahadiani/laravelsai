@@ -353,26 +353,6 @@
     <!-- END MODAL --> 
 </div>
 <script>
-    var userNIK = "{{ Session::get('userLog') }}";
-
-    var channel = $pusher.subscribe('saidago-channel-'+userNIK);
-    channel.bind('saidago-event', function(data) {
-        // alert(JSON.stringify(data));
-        console.log(JSON.stringify(data));
-        getNotif();
-        $.toast({
-            heading: data.title,
-            text: data.message,
-            position: 'top-center',
-            loaderBg:'#ff6849',
-            icon: 'info',
-            hideAfter: 7200, 
-            stack: 6
-        });
-        
-    });
-
-    
     var $paket = 0;
     var $room = 0;
 
