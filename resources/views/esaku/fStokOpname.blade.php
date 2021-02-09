@@ -7,7 +7,7 @@
     <!-- FORM INPUT -->
     <form id="form-tambah" class="tooltip-label-right" novalidate>
         <div class="row" id="saku-form" style="display:none;">
-            <div class="col-12">
+            <div class="col-sm-12">
                 <div class="card">
                     <div class="card-body form-header" style="padding-top:0.5rem;padding-bottom:0.5rem;min-height:48px">
                         <h6 id="judul-form" style="position:absolute;top:13px"></h6>
