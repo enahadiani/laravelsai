@@ -75,17 +75,76 @@
             <div class="container pengalaman">
                 <div class="pengalaman-container">
                     <div class="heading-text heading-section text-center">
-                        <h5 class="pengalaman-text lead">Kami hadir untuk bisnis Anda</h5>
+                        <h5 class="pengalaman-text">Kami hadir untuk bisnis Anda</h5>
                         <h1>20 tahun lebih pengalaman pengembangan Software Akuntansi.</h1>
                     </div>
-                    <div class="pengalaman-image">
-                        <img class="image-meeting" alt="image-meeting" src="{{ asset('asset_web/img/esaku/meeting.jpg') }}"/>
-                        <div class="image-text">
-                            <h5 class="lead">
-                                Bermula dari membangun aplikasi yang berbasis desktop pada tahun 1998 sampai hadir menjadi aplikasi online seperti saat ini. Tidak perlu diragukan lagi dengan pengalaman dan fokus pengembangan kami sehingga mampu membantu merealisasikan keinginan Anda dalam menerapkan komputerisasi akuntansi.
-                            </h5>
+                </div>
+                <div class="pengalaman-image">
+                    <img class="image-meeting" alt="image-meeting" src="{{ asset('asset_web/img/esaku/meeting.jpg') }}"/>
+                    <div class="image-text">
+                        <h5 class="lead">
+                            Bermula dari membangun aplikasi yang berbasis desktop pada tahun 1998 sampai hadir menjadi aplikasi online seperti saat ini. Tidak perlu diragukan lagi dengan pengalaman dan fokus pengembangan kami sehingga mampu membantu merealisasikan keinginan Anda dalam menerapkan komputerisasi akuntansi.
+                        </h5>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        {{-- Produk Fitur --}}
+        <section id="produk-fitur" class="p-b-25">
+            <div class="container">
+                <div class="heading-text heading-section text-center">
+                    <h1>Pilihan tepat untuk bisnis anda dimulai dari sini.</h1>
+                </div>
+                <div class="produk-fitur-container">
+                    <div class="card-coba">
+                        <div class="row">
+                            <div class="col-12 p-b-30">
+                                <img alt="saku-white" src="{{ asset('asset_web/img/esaku/SAKU2021WHITE.svg') }}" width="120">
+                            </div>
+                            <div class="col-12 p-b-30">
+                                <div class="coba-text">
+                                    <h5 class="lead">
+                                        Mulai sekarang melakukan pembukuan bisnis Anda dengan semua fitur yang kami siapkan.
+                                    </h5>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <a href="#" class="link-coba">Coba Gratis</a>
+                            </div>
                         </div>
                     </div>
+                    <div class="card-custom">
+                        <div class="row">
+                            <div class="col-12 p-b-30">
+                                <h1>Custome</h1>
+                            </div>
+                            <div class="col-12 p-b-30">
+                                <div class="custom-text">
+                                    <h5 class="lead">
+                                        Bangun sistem sesuai dengan kebutuhan bisnis Anda.
+                                    </h5>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <a href="#" class="link-kontak">Kontak Kami</a>
+                            </div>
+                            <div class="icon-container">
+                                <div class="cog-icon">
+                                    <i class="fas fa-cog cog-tilted"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        {{-- Klien --}}
+        <section id="klien" class="p-b-25">
+            <div class="container">
+                <div class="heading-text heading-section title-klien">
+                    <h1>Klien kami bertahan karena pelayanan penuh dan kepercayaan yang di berikan.</h1>
                 </div>
             </div>
         </section>
