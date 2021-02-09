@@ -244,6 +244,10 @@
         .report-klik{
             cursor:pointer;
         }
+        #table-detail td.border-top
+        {
+            border-top: 1px solid black !important;
+        }
     </style>
     <div id='grid-load'><img src='{{ asset("img/loadgif.gif") }}' style='width:25px;height:25px'></div>
     <div class="row" id="saku-dashboard">
@@ -390,53 +394,85 @@
                     var no=1;
                     var tosaldo=0;var nilai=0; var bayar=0;
                     $('#table-detail tbody').html(detail);
-                    if(result.detail.length > 0){
-                        for(var i=0;i < result.detail.length ;i++){
-                            var line2 = result.detail[i];
-                            nilai = parseFloat(line2.nilai);
+                    if(result.daftar.length > 0){
+                        for(var i=0;i < result.daftar.length ;i++){
+                            var line = result.daftar[i];
+                            nilai = parseFloat(line.nilai);
                             var ket1 = "Tagihan || ";
-                            var ket2 = "Auto Pembayaran || ";
-                            var ket = (line2.jenis == "BILL" ? ket1+line2.tgl+" || "+line2.no_bill : ket2+line2.tgl+" || "+line2.no_bill);
-                            tosaldo += (line2.jenis == "BILL" ? nilai : nilai*-1 );
-                            detail +=`<tr class="bg-grey report-klik" id="`+line2.no_bill+`">
-                            <td colspan="2"><i class='simple-icon-arrow-down mr-2' ></i> `+ket+`</td>
-                            <td class="text-right">`+sepNumPas(nilai)+`</td>
+                            var ket2 = "Auto Bayar || ";
+                            var ket = (line.jenis == "BILL" ? ket1+line.tgl+" || "+line.no_bill : ket2+line.tgl+" || "+line.no_bill);
+                            tosaldo += (line.jenis == "BILL" ? nilai : nilai*-1 );
+                            var nil = (line.jenis == "BILL" ? "" : "("+sepNumPas(nilai)+")" );
+                            detail +=`<tr class="bold" id="`+line.no_bill+`">
+                            <td colspan="2">`+ket+`</td>
+                            <td class="text-right bold">`+nil+`</td>
                             </tr>
-                            <tr  class="bg-primary" >
+                            `;
+                            var det = "";
+                            var x =0;
+                            for(var j=0; j < result.detail.length; j++){
+                                
+                                var line2 = result.detail[j];
+                                var ket2 = "";
+                                if(line2.no_bill == line.no_bill){
+                                    if( x == 0){
+                                        det +=`<tr class='text-grey'>
+                                        <td>Deskripsi</td>
+                                        <td>Parameter</td>
+                                        <td class='text-right'>Nilai</td>
+                                        </tr>`;
+                                        ket2 = line.keterangan;
+                                    }else if(x == 1){
+                                        ket2 = "";
+                                    }else{
+                                        ket2 = "";
+                                    }
+                                    det +=`
+                                    <tr>
+                                    <td>`+ket2+`</td>
+                                    <td>`+line2.kode_param+`</td>
+                                    <td class='text-right'>`+sepNumPas(line2.nilai)+`</td>
+                                    </tr>`;
+                                    x++;
+                                }else{
+                                    x = 0;
+                                }
+                            }
+                            detail+=det+`<tr class="text-primary" >
                             <td colspan="2"></td>
-                            <td class="text-right">Kurang Bayar `+sepNumPas(tosaldo)+`</td>
+                            <td class="text-right border-top bold">Kurang Bayar `+sepNumPas(tosaldo)+`</td>
                             </tr>`;
                             no++;
                         }
                     }
                     $('#table-detail tbody').html(detail);
-                    $('#table-detail').on('click','.report-klik',function(e){
-                        e.preventDefault();
-                        var id = $(this).attr('id');
-                        var index = $(this).closest('tr').index();
-                        if(!$(this).hasClass('clicked')){
-                            $(this).addClass('clicked');
-                            var top = $(this).position().top;
-                            $('#grid-load').css('top',top);
-                            getChild(index,id,'ts-dash/kartu-piutang-detail');
-                        }
-                        if(!$(this).hasClass('open-grid')){
-                            $(this).addClass('open-grid');
-                            $(this).closest('tr').find('i').removeClass('mr-2 simple-icon-arrow-down');
-                            $(this).closest('tr').find('i').addClass('mr-2 simple-icon-arrow-up');
-                            $(this).removeClass('close-grid');
-                            $('tr[data-parent="' + id + '"]').show();
+                    // $('#table-detail').on('click','.report-klik',function(e){
+                    //     e.preventDefault();
+                    //     var id = $(this).attr('id');
+                    //     var index = $(this).closest('tr').index();
+                    //     if(!$(this).hasClass('clicked')){
+                    //         $(this).addClass('clicked');
+                    //         var top = $(this).position().top;
+                    //         $('#grid-load').css('top',top);
+                    //         getChild(index,id,'ts-dash/kartu-piutang-detail');
+                    //     }
+                    //     if(!$(this).hasClass('open-grid')){
+                    //         $(this).addClass('open-grid');
+                    //         $(this).closest('tr').find('i').removeClass('mr-2 simple-icon-arrow-down');
+                    //         $(this).closest('tr').find('i').addClass('mr-2 simple-icon-arrow-up');
+                    //         $(this).removeClass('close-grid');
+                    //         $('tr[data-parent="' + id + '"]').show();
 
-                        }else{
-                            $(this).addClass('close-grid');
-                            $(this).closest('tr').find('i').removeClass('mr-2 simple-icon-arrow-up');
-                            $(this).closest('tr').find('i').addClass('mr-2 simple-icon-arrow-down');
-                            $(this).removeClass('open-grid');
-                            $('tr[data-parent="' + id + '"]').hide();
-                            $('tr[data-parentop="' + id + '"]').hide();
-                        }
+                    //     }else{
+                    //         $(this).addClass('close-grid');
+                    //         $(this).closest('tr').find('i').removeClass('mr-2 simple-icon-arrow-up');
+                    //         $(this).closest('tr').find('i').addClass('mr-2 simple-icon-arrow-down');
+                    //         $(this).removeClass('open-grid');
+                    //         $('tr[data-parent="' + id + '"]').hide();
+                    //         $('tr[data-parentop="' + id + '"]').hide();
+                    //     }
                         
-                    });
+                    // });
                 }
             },
             error: function(jqXHR, textStatus, errorThrown) {       
@@ -456,10 +492,6 @@
     }
 
     getKartuPiutang();
-
-    
-    var scrollform = document.querySelector('.table-responsive');
-    var psscrollform = new PerfectScrollbar(scrollform);
    
     $('#saku-dashboard').on('click','#btn-print',function(e){
         e.preventDefault();

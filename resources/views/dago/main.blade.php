@@ -107,6 +107,9 @@
         input.form-control:focus{
             border-color:#929090;
         }
+        .dropdown-divider{
+            margin: 0.1rem 0 !important;
+        }
     </style>
     <script src="{{ asset('asset_elite/highcharts2.js') }}"></script>
     <script src="{{ asset('asset_elite/highcharts-more.js') }}"></script>
@@ -276,13 +279,25 @@
                             @endif
                             
                             <span class="hidden-md-down"> {{Session::get('namaUser')}} &nbsp;<i class="fa fa-angle-down"></i></span> </a>
-                            <div class="dropdown-menu dropdown-menu-right animated flipInY">
+                            <div class="dropdown-menu dropdown-menu-right animated flipInY" style="width:250px">
+                                @if (Session::get('foto') == "" || Session::get('foto') == "-" )
+                                    <img src="{{ asset('asset_elite/images/user.png') }}"  alt="user" class="" style="margin-right: 20px;left:25px;z-index: 2;position: absolute;width:50px;"> 
+                                @else
+                                    <img src="{{ asset('asset_elite/images/'.Session::get('foto')) }}"  alt="user" class="" style="margin-right: 20px;left:25px;z-index: 2;position: absolute;width:50px;">
+                                @endif
+                                <h4 style="margin-left:90px;margin-bottom:0px;text-transform: uppercase;">{{Session::get('namaUser')}}</h4>
+                                <h6 style="margin-left:90px;margin-bottom:20px">{{Session::get('userLog')}}</h6>
+                                <div class="dropdown-divider"></div>
+                                <a href="#" class="dropdown-item dropdown-periode"></a>
                                 <!-- text-->
-                                <a href="#" onclick="loadProfile()" class="dropdown-item"><i class="ti-user"></i> My Profile</a>
+                                <a href="#" class="dropdown-item dropdown-lokasi"></a>
                                 <!-- text-->
                                 <div class="dropdown-divider"></div>
                                 <!-- text-->
-                                <a href="{{url('dago-auth/logout')}}" class="dropdown-item"><i class="fa fa-power-off"></i> Logout</a>
+                                <a href="#" onclick="loadProfile()" class="dropdown-item"><i class="ti-user mr-2"></i> My Profile</a>
+                                <!-- text-->
+                                <!-- text-->
+                                <a href="{{url('dago-auth/logout')}}" class="dropdown-item"><i class="fa fa-power-off mr-2"></i> Logout</a>
                                 <!-- text-->
                             </div>
                         </li>
@@ -387,6 +402,11 @@
                     getNotif();
                     showNotification("top", "center", "info",data.title,data.message);
                 });
+
+                
+                $('.dropdown-periode').html("<span class='periode-label'>Periode</span> <span class='periode-app float-right'>"+namaPeriode2("{{ Session::get('periode') }}</span>"));
+                $('.dropdown-lokasi').html("<span class='lokasi-label'>Lokasi</span> <span class='periode-app float-right'>{{ Session::get('lokasi') }}</span>");
+
                 function sepNumX(x){
                     if (typeof x === 'undefined' || !x) { 
                         return 0;

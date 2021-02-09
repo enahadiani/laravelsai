@@ -373,53 +373,86 @@
                     var no=1;
                     var tosaldo=0;var debet=0; var kredit=0;
                     $('#table-detail tbody').html(detail);
-                    if(result.detail.length > 0){
-                        for(var i=0;i < result.detail.length ;i++){
-                            var line2 = result.detail[i];
-                            nilai = parseFloat(line2.nilai);
+                    if(result.daftar.length > 0){
+                        for(var i=0;i < result.daftar.length ;i++){
+                            var line = result.daftar[i];
+                            nilai = parseFloat(line.nilai);
                             var ket1 = "Masuk || ";
                             var ket2 = "Keluar || ";
-                            var ket = (line2.nilai > 0 ? ket1+line2.tgl+" || "+line2.no_rekon : ket2+line2.tgl+" || "+line2.no_rekon);
+                            var ket = (line.nilai > 0 ? ket1+line.tgl+" || "+line.no_rekon : ket2+line.tgl+" || "+line.no_rekon);
                             tosaldo += nilai;
-                            detail +=`<tr class="bg-grey report-klik" id="`+line2.no_rekon+`">
-                            <td colspan="2"><i class='simple-icon-arrow-down mr-2' ></i> `+ket+`</td>
-                            <td class="text-right">`+sepNumPas(Math.abs(nilai))+`</td>
+                            var nil = (line.nilai > 0 ? "" : "("+sepNumPas(Math.abs(nilai))+")" );
+                            detail +=`<tr class="bold" id="`+line.no_rekon+`">
+                            <td colspan="2">`+ket+`</td>
+                            <td class="text-right">`+nil+`</td>
                             </tr>
-                            <tr  class="bg-primary" >
+                            `;
+                            var det = "";
+                            var x =0;
+                            for(var j=0; j < result.detail.length; j++){
+                                
+                                var line2 = result.detail[j];
+                                var ket2 = "";
+                                if(line2.no_rekon == line.no_rekon){
+                                    if( x == 0){
+                                        det +=`<tr class='text-grey'>
+                                        <td>Deskripsi</td>
+                                        <td>Parameter</td>
+                                        <td class='text-right'>Nilai</td>
+                                        </tr>`;
+                                        ket2 = line.keterangan;
+                                    }else if(x == 1){
+                                        ket2 = "";
+                                    }else{
+                                        ket2 = "";
+                                    }
+                                    det +=`
+                                    <tr>
+                                    <td>`+ket2+`</td>
+                                    <td>`+line2.kode_param+`</td>
+                                    <td class='text-right'>`+sepNumPas(line2.nilai)+`</td>
+                                    </tr>`;
+                                    x++;
+                                }else{
+                                    x = 0;
+                                }
+                            }
+                            detail+=det+`
+                            <tr  class="text-primary" >
                             <td colspan="2"></td>
-                            <td class="text-right">Kurang Bayar `+sepNumPas(tosaldo)+`</td>
+                            <td class="text-right bold border-top">Kurang Bayar `+sepNumPas(tosaldo)+`</td>
                             </tr>`;
                             no++;
                         }
                     }
                     $('#table-detail tbody').html(detail);
-                    $('#table-detail').on('click','.report-klik',function(e){
-                        e.preventDefault();
-                        var id = $(this).attr('id');
-                        var index = $(this).closest('tr').index();
-                        if(!$(this).hasClass('clicked')){
-                            $(this).addClass('clicked');
-                            var top = $(this).position().top;
-                            $('#grid-load').css('top',top);
-                            getChild(index,id,'ts-dash/kartu-pdd-detail');
-                        }
-                        if(!$(this).hasClass('open-grid')){
-                            $(this).addClass('open-grid');
-                            $(this).closest('tr').find('i').removeClass('mr-2 simple-icon-arrow-down');
-                            $(this).closest('tr').find('i').addClass('mr-2 simple-icon-arrow-up');
-                            $(this).removeClass('close-grid');
-                            $('tr[data-parent="' + id + '"]').show();
+                    // $('#table-detail').on('click','.report-klik',function(e){
+                    //     e.preventDefault();
+                    //     var id = $(this).attr('id');
+                    //     var index = $(this).closest('tr').index();
+                    //     if(!$(this).hasClass('clicked')){
+                    //         $(this).addClass('clicked');
+                    //         var top = $(this).position().top;
+                    //         $('#grid-load').css('top',top);
+                    //         getChild(index,id,'ts-dash/kartu-pdd-detail');
+                    //     }
+                    //     if(!$(this).hasClass('open-grid')){
+                    //         $(this).addClass('open-grid');
+                    //         $(this).closest('tr').find('i').removeClass('mr-2 simple-icon-arrow-down');
+                    //         $(this).closest('tr').find('i').addClass('mr-2 simple-icon-arrow-up');
+                    //         $(this).removeClass('close-grid');
+                    //         $('tr[data-parent="' + id + '"]').show();
 
-                        }else{
-                            $(this).addClass('close-grid');
-                            $(this).closest('tr').find('i').removeClass('mr-2 simple-icon-arrow-up');
-                            $(this).closest('tr').find('i').addClass('mr-2 simple-icon-arrow-down');
-                            $(this).removeClass('open-grid');
-                            $('tr[data-parent="' + id + '"]').hide();
-                            $('tr[data-parentop="' + id + '"]').hide();
-                        }
+                    //     }else{
+                    //         $(this).addClass('close-grid');
+                    //         $(this).closest('tr').find('i').removeClass('mr-2 simple-icon-arrow-up');
+                    //         $(this).closest('tr').find('i').addClass('mr-2 simple-icon-arrow-down');
+                    //         $(this).removeClass('open-grid');
+                    //         $('tr[data-parent="' + id + '"]').hide();
+                    //         $('tr[data-parentop="' + id + '"]').hide();
+                    //     }
                         
-                    });
+                    // });
                 }
             },
             error: function(jqXHR, textStatus, errorThrown) {       

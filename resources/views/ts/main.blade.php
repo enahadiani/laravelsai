@@ -1308,6 +1308,14 @@
         // if($('#saku-datatable').length > 0){
         //     $('#saku-datatable .card').css('min-height',tinggi);
         // }
+        if($('.content-fix-height-left').length > 0){
+            var content = window.innerHeight;
+            var tinggi = content-120;
+            $('.content-fix-height-left').css('height',tinggi);
+            $('.content-fix-height-right').css('height',tinggi);
+            var scrollContent = document.querySelector('.content-fix-height-right');
+            var psscrollContent = new PerfectScrollbar(scrollContent,{suppressScrollX:true});
+        }
     }
 
     var lifetime = "{{ config('session.lifetime') }}";
