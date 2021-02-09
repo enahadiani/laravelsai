@@ -260,7 +260,11 @@
                 "targets": 9,
                 "data": null,
                 "render": function ( data, type, row, meta ) {
-                    return "<a href='#' title='Hapus' class='badge badge-danger' id='btn-delete'><i class='fa fa-trash'></i></a>";
+                    if(data.posted == "F"){
+                        return "<a href='#' title='Hapus' class='badge badge-danger' id='btn-delete'><i class='fa fa-trash'></i></a>";
+                    }else{
+                        return "";
+                    }
                 }
             }
         ]
