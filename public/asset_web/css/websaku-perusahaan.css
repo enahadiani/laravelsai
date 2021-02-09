@@ -1,19 +1,206 @@
+.title-klien {
+    width: 70rem;
+    margin: 2rem 8.5rem;
+}
+/* Produk Fitur */
+.icon-container {
+    position: absolute;
+    right: 16.1rem;
+    bottom: 1px;
+    width: 370px;
+}
+.cog-icon {
+    position: relative;
+    float: right;
+}
+i.fas.fa-cog {
+    clip-path: polygon(50% 0%, 50% 100%, 0% 100%, 0% 0%);
+    background: linear-gradient(
+        to bottom,
+        #f9f9f9 0%,
+        #f9f9f9 0%,
+        #ffffff 1%,
+        #a7d7f1 1%,
+        #1194d8 1%,
+        #008dd6 2%,
+        #008cd6 3%,
+        #0094db 15%,
+        #0095d7 18%,
+        #019bdb 24%,
+        #009bd8 25%,
+        #00a1d8 36%,
+        #01a5dd 40%,
+        #00a4da 40%,
+        #00a9dd 49%,
+        #00aad9 50%,
+        #01b0de 58%,
+        #00b2da 61%,
+        #00b7de 69%,
+        #00b7db 70%,
+        #01b9dd 70%,
+        #00b7db 71%,
+        #01b9dd 71%,
+        #00b7db 72%,
+        #01bbde 74%,
+        #00bfdc 83%,
+        #00c4e0 88%,
+        #02c6df 93%,
+        #00c9dc 97%,
+        #02cbe0 98%,
+        #01cadf 99%,
+        #74dfeb 99%,
+        #f5f7f7 99%,
+        #fafafa 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.cog-tilted {
+    font-size: 10rem;
+    transform: rotate(48deg);
+}
+.link-kontak:hover {
+    color: #fff !important;
+}
+.link-kontak {
+    background: linear-gradient(
+        to bottom,
+        #f9f9f9 0%,
+        #f9f9f9 0%,
+        #ffffff 1%,
+        #a7d7f1 1%,
+        #1194d8 1%,
+        #008dd6 2%,
+        #008cd6 3%,
+        #0094db 15%,
+        #0095d7 18%,
+        #019bdb 24%,
+        #009bd8 25%,
+        #00a1d8 36%,
+        #01a5dd 40%,
+        #00a4da 40%,
+        #00a9dd 49%,
+        #00aad9 50%,
+        #01b0de 58%,
+        #00b2da 61%,
+        #00b7de 69%,
+        #00b7db 70%,
+        #01b9dd 70%,
+        #00b7db 71%,
+        #01b9dd 71%,
+        #00b7db 72%,
+        #01bbde 74%,
+        #00bfdc 83%,
+        #00c4e0 88%,
+        #02c6df 93%,
+        #00c9dc 97%,
+        #02cbe0 98%,
+        #01cadf 99%,
+        #74dfeb 99%,
+        #f5f7f7 99%,
+        #fafafa 100%
+    );
+    padding: 0.8rem 2rem;
+    border-radius: 2.5rem;
+    color: #fff;
+}
+.custom-text {
+    width: 220px;
+}
+.card-custom {
+    background-color: #fff;
+    height: 34rem;
+    width: 30rem;
+    border-radius: 30px;
+    padding: 4rem 3rem;
+    border: 1px solid #f8f8f8;
+    -webkit-box-shadow: 0px 0px 6px 0px rgba(194, 194, 194, 1);
+    -moz-box-shadow: 0px 0px 6px 0px rgba(194, 194, 194, 1);
+    box-shadow: 0px 0px 6px 0px rgba(194, 194, 194, 1);
+    margin: 0 1rem 0 0;
+}
+.link-coba {
+    background-color: #fff;
+    padding: 0.8rem 2rem;
+    border-radius: 2.5rem;
+    color: #000;
+}
+.card-coba h5 {
+    color: #fff;
+}
+.coba-text {
+    width: 200px;
+}
+.card-coba {
+    background: linear-gradient(
+        to bottom,
+        #f9f9f9 0%,
+        #f9f9f9 0%,
+        #ffffff 1%,
+        #a7d7f1 1%,
+        #1194d8 1%,
+        #008dd6 2%,
+        #008cd6 3%,
+        #0094db 15%,
+        #0095d7 18%,
+        #019bdb 24%,
+        #009bd8 25%,
+        #00a1d8 36%,
+        #01a5dd 40%,
+        #00a4da 40%,
+        #00a9dd 49%,
+        #00aad9 50%,
+        #01b0de 58%,
+        #00b2da 61%,
+        #00b7de 69%,
+        #00b7db 70%,
+        #01b9dd 70%,
+        #00b7db 71%,
+        #01b9dd 71%,
+        #00b7db 72%,
+        #01bbde 74%,
+        #00bfdc 83%,
+        #00c4e0 88%,
+        #02c6df 93%,
+        #00c9dc 100%,
+        #02cbe0 98%,
+        #01cadf 99%,
+        #74dfeb 99%,
+        #f5f7f7 99%,
+        #fafafa 100%
+    );
+    height: 34rem;
+    width: 30rem;
+    border-radius: 30px;
+    padding: 4rem 3rem;
+    margin: 0 1rem 0 1rem;
+}
+.produk-fitur-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
 /* Pengalaman */
+.image-text {
+    text-align: center;
+    margin: 5rem auto;
+    padding: 0 3rem;
+    width: 48rem;
+}
 .pengalaman-image > .image-meeting {
     border-radius: 30px;
-    width: 72.5rem;
-    height: 40rem;
 }
 .pengalaman-image {
+    padding: 0 3.5rem;
     display: flex;
     justify-content: center;
     flex-direction: column;
 }
-.pengalaman-container > h5.pengalaman-text {
+.heading-section > h5.pengalaman-text {
     color: #0058e4;
 }
 .pengalaman-container {
-    padding-left: 1rem;
+    width: 75rem;
 }
 /* Footer */
 span.copyright {
