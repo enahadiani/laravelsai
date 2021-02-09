@@ -24,14 +24,14 @@
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group col-lg-6 col-sm-12">
+                            <div class="form-group col-md-6 col-sm-12">
                                 <div class="row">
-                                    <div class="col-lg-6 col-sm-12">
+                                    <div class="col-md-6 col-sm-12">
                                         <label for="tanggal" >Tanggal</label>
                                         <input class='form-control' type="date" id="tanggal" name="tanggal" value="{{ date('Y-m-d') }}">
                                         <input class="form-control" type="hidden" placeholder="No Bukti" id="no_bukti" name="no_bukti" readonly>
                                     </div>
-                                    <div class="col-lg-6 col-sm-12">
+                                    <div class="col-md-6 col-sm-12">
                                         <label for="kode_gudang" >Gudang</label>
                                         <select class='form-control' id="kode_gudang" name="kode_gudang">
                                         <option value=''>--- Pilih Gudang ---</option>
@@ -41,24 +41,24 @@
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group col-lg-6 col-sm-12">
+                            <div class="form-group col-md-6 col-sm-12">
                                 <div class="row">
-                                    <div class="col-lg-6 col-sm-12">
+                                    <div class="col-md-6 col-sm-12">
                                         <label for="deskripsi" >Deskripsi</label>
                                         <textarea name="deskripsi" class="form-control" id="deskripsi" rows="4"></textarea>
                                     </div>
-                                    <div class="col-lg-6 col-sm-12" style="min-height: 50px;">
+                                    <div class="col-md-6 col-sm-12" style="min-height: 50px;">
                                         <button type="button" class="btn btn-primary ml-2" id="btn-rekon" style="float: right;position: absolute;bottom: 0;right: 15px;">Rekon</button>
                                         <button type="button" class="btn btn-primary ml-2" id="btn-load" style="float: right;position: absolute;bottom: 0;right: 95px;margin-right:8px;">Load</button>
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group col-lg-6 col-sm-12">
+                            <div class="form-group col-md-6 col-sm-12">
                                 <div class="row">
-                                    <div class="col-lg-6 col-sm-12">
+                                    <div class="col-md-6 col-sm-12">
                                        
                                     </div>
-                                    <div class="col-lg-6 col-sm-12">
+                                    <div class="col-md-6 col-sm-12">
                                         
                                     </div>
                                 </div>
