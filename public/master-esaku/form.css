@@ -1,0 +1,16 @@
+.form-body {
+    padding-top: 0 !important;
+}
+
+.tab-form-content {
+    padding-top: 1rem !important;
+}
+
+.error-side {
+    display: flex;
+    align-items: center;
+}
+
+.error-text {
+    color: #ff0000;
+}

@@ -1,5 +1,6 @@
     <link rel="stylesheet" href="{{ asset('master.css') }}" />
     <link rel="stylesheet" href="{{ asset('form.css') }}" />
+    <link rel="stylesheet" href="{{ asset('master-esaku/form.css') }}" />
     <!-- LIST DATA -->
     <x-list-data judul="Data Vendor" tambah="true" :thead="array('Kode','Nama','Alamat','Tgl Input','Aksi')" :thwidth="array(20,25,35,10,10)" :thclass="array('','','','','text-center')" />
     <!-- END LIST DATA -->
@@ -15,17 +16,75 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="separator mb-2"></div>
                     <!-- FORM BODY -->
                     <div class="card-body pt-3 form-body">
-                        <div class="form-group row " id="row-id">
+                        <ul class="nav nav-tabs col-12 " role="tablist">
+                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#umum" role="tab" aria-selected="true"><span class="hidden-xs-down">Umum</span></a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#alamat" role="tab" aria-selected="true"><span class="hidden-xs-down">Alamat</span></a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#bank" role="tab" aria-selected="true"><span class="hidden-xs-down">Bank</span></a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#pic" role="tab" aria-selected="true"><span class="hidden-xs-down">PIC</span></a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#akuntansi" role="tab" aria-selected="true"><span class="hidden-xs-down">Akuntansi</span></a> </li>
+                        </ul>
+                        <div class="tab-content tab-form-content col-12 p-0">
+                            <div class="tab-pane active" id="umum" role="tabpanel">
+                                <div class="form-row">
+                                    <div class="col-12">
+                                        <input class="form-control" type="hidden" id="id_edit" name="id_edit">
+                                        <input type="hidden" id="method" name="_method" value="post">
+                                        <input type="hidden" id="id" name="id">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <label for="kode_vendor">Kode</label>
+                                        <input class="form-control" type="text" id="kode_vendor" name="kode_vendor" required>
+                                    </div>
+                                    <div class="error-side col-md-6 col-sm-12">
+                                        <p class="error-text" id="error-vendor">Kode Vendor sudah ada</p>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-12 col-sm-12">
+                                        <label for="nama">Nama</label>
+                                        <input class="form-control" type="text" id="nama" name="nama" required>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <label for="no_tel">No Telp</label>
+                                        <input class="form-control" type="text" id="no_tel" name="no_tel" required>
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <label for="email">Email</label>
+                                        <input class="form-control" type="text" id="email" name="email" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane" id="alamat" role="tabpanel">
+                                Ini Alamat
+                            </div>
+                            
+                            <div class="tab-pane" id="bank" role="tabpanel">
+                                Ini Bank
+                            </div>
+                            
+                            <div class="tab-pane" id="pic" role="tabpanel">
+                                pic
+                            </div>
+                            
+                            <div class="tab-pane" id="akuntansi" role="tabpanel">
+                                Ini Akuntansi
+                            </div>
+                        </div>
+                        {{-- <div class="form-group row " id="row-id">
                             <div class="col-9">
                                 <input class="form-control" type="hidden" id="id_edit" name="id_edit">
                                 <input type="hidden" id="method" name="_method" value="post">
                                 <input type="hidden" id="id" name="id">
                             </div>
-                        </div>
-                        <div class="form-row">
+                        </div> --}}
+                        {{-- <div class="form-row">
                             <div class="form-group col-md-6 col-sm-12">
                                 <label for="kode_vendor">Kode</label>
                                 <input class="form-control" type="text" id="kode_vendor" name="kode_vendor" required>
@@ -34,8 +93,8 @@
                                 <label for="nama">Nama</label>
                                 <input class="form-control" type="text" id="nama" name="nama" required>
                             </div>
-                        </div>
-                        <div class="form-row">
+                        </div> --}}
+                        {{-- <div class="form-row">
                             <div class="form-group col-md-6 col-sm-12">
                                 <label for="no_tel">No Telp</label>
                                 <input class="form-control" type="text" id="no_tel" name="no_tel" required>
@@ -44,8 +103,8 @@
                                 <label for="no_fax">No Fax</label>
                                 <input class="form-control" type="text" id="no_fax" name="no_fax" required>
                             </div>
-                        </div>
-                        <div class="form-row">
+                        </div> --}}
+                        {{-- <div class="form-row">
                             <div class="form-group col-md-6 col-sm-12">
                                 <label for="email">Email</label>
                                 <input class="form-control" type="text" id="email" name="email" required>
@@ -54,8 +113,8 @@
                                 <label for="npwp">NPWP</label>
                                 <input class="form-control" type="text" id="npwp" name="npwp" required>
                             </div>
-                        </div>
-                        <div class="form-row">
+                        </div> --}}
+                        {{-- <div class="form-row">
                             <div class="form-group col-md-6 col-sm-12">
                                 <label for="pic">PIC</label>
                                 <input class="form-control" type="text" id="pic" name="pic" required>
@@ -64,8 +123,8 @@
                                 <label for="no_tel">No Telp PIC</label>
                                 <input class="form-control" type="text" id="no_pictel" name="no_pictel" required>
                             </div>
-                        </div>
-                        <div class="form-row">
+                        </div> --}}
+                        {{-- <div class="form-row">
                             <div class="form-group col-md-6 col-sm-12">
                                 <label for="bank">Bank</label>
                                 <input class="form-control" type="text" id="bank" name="bank" required>
@@ -74,8 +133,8 @@
                                 <label for="cabang">Cabang</label>
                                 <input class="form-control" type="text" id="cabang" name="cabang" required>
                             </div>
-                        </div>
-                        <div class="form-row">
+                        </div> --}}
+                        {{-- <div class="form-row">
                             <div class="form-group col-md-6 col-sm-12">
                                 <label for="no_rek">No. Rekening</label>
                                 <input class="form-control" type="text" id="no_rek" name="no_rek" required>
@@ -84,8 +143,8 @@
                                 <label for="nama_rek">Nama Rekening</label>
                                 <input class="form-control" type="text" id="nama_rek" name="nama_rek" required>
                             </div>
-                        </div>
-                        <div class="form-row">
+                        </div> --}}
+                        {{-- <div class="form-row">
                             <div class="form-group col-md-6 col-sm-12">
                                 <label for="alamat">Alamat</label>
                                 <input class="form-control" type="text" id="alamat" name="alamat" required>
@@ -94,8 +153,8 @@
                                 <label for="alamat2">Alamat NPWP</label>
                                 <input class="form-control" type="text" id="alamat2" name="alamat2" required>
                             </div>
-                        </div>
-                        <div class="form-row">
+                        </div> --}}
+                        {{-- <div class="form-row">
                             <div class="form-group col-md-6 col-sm-12">
                                 <label for="akun_hutang">Akun Hutang</label>
                                 <div class="input-group">
@@ -110,7 +169,7 @@
                                     <i class="simple-icon-magnifier search-item2" id="search_akun_hutang"></i>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                     
                     {{-- Save Button --}}
@@ -140,7 +199,7 @@
     // Small Form
     $('#saku-form > .col-12').addClass('mx-auto col-lg-6');
     $('#modal-preview > .modal-dialog').css({ 'max-width':'600px'});
-    
+    $('#error-vendor').hide();
     var telp = '';
     var telp_pic = '';
     setHeightForm();
@@ -150,6 +209,28 @@
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         }
     });
+
+    var typingTime;
+    var doneTyping = 5000; // 2 detik
+    var $vendor = $('#kode_vendor');
+
+    $vendor.on('keyup', function(){
+        clearTimeout(typingTime);
+        typingTime = setTimeout(cekVendor($(this).val()), doneTyping);
+    })
+
+    $vendor.on('keydown', function(){
+        clearTimeout(typingTime);
+    })
+
+    function cekVendor(value) {
+        if(value !== "VS58" && value !== "") {
+            $('#error-vendor').show();
+        } else {
+            $('#error-vendor').hide();
+        }
+    }
+
 
     function last_add(param,isi){
         var rowIndexes = [];
