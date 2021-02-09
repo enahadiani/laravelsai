@@ -92,3 +92,47 @@ Route::get('kurs', 'Dago\KursController@index');
 Route::post('kurs', 'Dago\KursController@store');
 Route::put('kurs/{id}', 'Dago\KursController@update');
 Route::delete('kurs/{id}', 'Dago\KursController@delete');
+
+
+
+// Data Unit //
+Route::get('unit', 'Dago\UnitController@index');
+Route::get('unit/{id}', 'Dago\UnitController@getData');
+Route::post('unit', 'Dago\UnitController@store');
+Route::put('unit/{id}', 'Dago\UnitController@update');
+Route::delete('unit/{id}', 'Dago\UnitController@delete');
+
+// Data Klp Menu //
+Route::get('menu-klp', 'Dago\KelompokMenuController@index');
+Route::get('menu-klp/{id}', 'Dago\KelompokMenuController@getData');
+Route::post('menu-klp', 'Dago\KelompokMenuController@store');
+Route::put('menu-klp/{id}', 'Dago\KelompokMenuController@update');
+Route::delete('menu-klp/{id}', 'Dago\KelompokMenuController@delete');
+
+// Data Karyawan //
+Route::get('karyawan', 'Dago\KaryawanController@index');
+Route::get('karyawan/{id}', 'Dago\KaryawanController@getData');
+Route::post('karyawan', 'Dago\KaryawanController@store');
+Route::post('karyawan-ubah/{id}', 'Dago\KaryawanController@update');
+Route::delete('karyawan/{id}', 'Dago\KaryawanController@delete');
+
+// Data Akses //
+Route::get('akses-user', 'Dago\AksesUserController@index');
+Route::get('akses-user/{id}', 'Dago\AksesUserController@getData');
+Route::post('akses-user', 'Dago\AksesUserController@store');
+Route::put('akses-user/{id}', 'Dago\AksesUserController@update');
+Route::delete('akses-user/{id}', 'Dago\AksesUserController@delete');
+
+// Data Form //
+Route::get('form', 'Dago\FormController@index');
+Route::get('form/{id}', 'Dago\FormController@getData');
+Route::post('form', 'Dago\FormController@store');
+Route::put('form/{id}', 'Dago\FormController@update');
+Route::delete('form/{id}', 'Dago\FormController@delete');
+
+// Setting Menu Form //
+Route::get('setting-menu', 'Dago\SettingMenuController@show');
+Route::post('setting-menu', 'Dago\SettingMenuController@store');
+Route::post('setting-menu-move', 'Dago\SettingMenuController@storeMove');
+Route::put('setting-menu', 'Dago\SettingMenuController@update');
+Route::delete('setting-menu', 'Dago\SettingMenuController@delete');
