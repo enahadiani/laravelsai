@@ -1,16 +1,54 @@
+#table-bank .edit-bank {
+    cursor: pointer !important;
+}
+#table-bank .hapus-bank {
+    cursor: pointer !important;
+}
+#table-bank .nama-bank {
+    color: #0058e4;
+    padding-bottom: 0.1rem;
+}
+#table-bank .nama-rek {
+    color: #0058e4;
+    padding-bottom: 0.1rem;
+}
+#modal-bank .modal-footer {
+    padding: 0.8rem;
+}
+#table-bank_wrapper {
+    margin-bottom: 1rem;
+}
+.tambah-bank > .btn-group > .btn-secondary {
+    background-color: #0058e4;
+    border-color: #0058e4;
+    height: 2rem;
+    width: 5.5rem;
+    padding: 0.2rem 1rem 0.2rem 1rem;
+}
+.tambah-bank {
+    display: inline;
+    float: right;
+}
+.jumlah-data {
+    display: inline;
+    position: relative;
+    margin: 0 0 0 1rem;
+    top: 0.5rem;
+}
+.search-bank {
+    display: inline;
+    float: left;
+}
 .form-body {
     padding-top: 0 !important;
 }
-
 .tab-form-content {
     padding-top: 1rem !important;
 }
-
 .error-side {
     display: flex;
     align-items: center;
 }
-
 .error-text {
     color: #ff0000;
 }

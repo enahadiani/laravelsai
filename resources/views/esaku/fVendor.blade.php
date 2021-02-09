@@ -62,15 +62,62 @@
                             </div>
 
                             <div class="tab-pane" id="alamat" role="tabpanel">
-                                Ini Alamat
+                                <div class="form-row">
+                                    <div class="form-group col-md-12 col-sm-12">
+                                        <label for="alamat">Alamat</label>
+                                        <textarea class="form-control" rows="4" id="alamat" name="alamat" style="resize:none" required></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <label for="kode_pos">Kode POS</label>
+                                        <input class="form-control" type="text" id="kode_pos" name="kode_pos" required>
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <label for="kecamatan">Kecamatan</label>
+                                        <input class="form-control" type="text" id="kecamatan" name="kecamatan" required>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <label for="kota">Kota</label>
+                                        <input class="form-control" type="text" id="kota" name="kota" required>
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <label for="negara">Negara</label>
+                                        <input class="form-control" type="text" id="negara" name="negara" required>
+                                    </div>
+                                </div>
                             </div>
                             
                             <div class="tab-pane" id="bank" role="tabpanel">
-                                Ini Bank
+                                <table id="table-bank">
+                                    <thead>
+                                        <th>Nama Rekening</th>
+                                        <th>Info Bank</th>
+                                        <th>Aksi</th>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
                             </div>
                             
                             <div class="tab-pane" id="pic" role="tabpanel">
-                                pic
+                                <div class="form-row">
+                                    <div class="form-group col-md-12 col-sm-12">
+                                        <label for="pic">Nama Penangugung Jawab (Person in Change)</label>
+                                        <input class="form-control" type="text" id="pic" name="pic" required>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <label for="no_pictel">No Telepon</label>
+                                        <input class="form-control" type="text" id="no_pictel" name="no_pictel" required>
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <label for="email_pic">Email</label>
+                                        <input class="form-control" type="text" id="email_pic" name="email_pic" required>
+                                    </div>
+                                </div>
                             </div>
                             
                             <div class="tab-pane" id="akuntansi" role="tabpanel">
@@ -191,6 +238,46 @@
 
     @include('modal_search')
 
+    <!-- MODAL BANK-->
+    <div class="modal" tabindex="-1" role="dialog" id="modal-bank">
+        <div class="modal-dialog" role="document" style="max-width:600px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Data Bank</h5>
+                    <button type="button" class="close mr-2" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-row">
+                        <div class="form-group col-md-6 col-sm-12">
+                            <label for="no_rek">No. Rekening</label>
+                            <input class="form-control" type="text" id="no_rek" name="no_rek" required>
+                        </div>
+                        <div class="form-group col-md-6 col-sm-12">
+                            <label for="nama_rek">Nama Rekening</label>
+                            <input class="form-control" type="text" id="nama_rek" name="nama_rek" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6 col-sm-12">
+                            <label for="bank">Bank</label>
+                            <input class="form-control" type="text" id="bank" name="bank" required>
+                        </div>
+                        <div class="form-group col-md-6 col-sm-12">
+                            <label for="cabang">Cabang</label>
+                            <input class="form-control" type="text" id="cabang" name="cabang" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="save-bank" class="btn btn-primary" type="button">Simpan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- END MODAL --> 
+
     <!-- JAVASCRIPT  -->
     <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
     <script src="{{ asset('helper.js') }}"></script>
@@ -210,8 +297,92 @@
         }
     });
 
+    var dataBank = [];
+    var tableBank = $('#table-bank').DataTable({
+        'dom': '<"search-bank"f><"jumlah-data"><"tambah-bank"B>',
+        'language': { search: '', searchPlaceholder: 'Cari Bank...'},
+        'buttons': [
+            {
+                text: 'Tambah',
+                action: function() {
+                    $('#modal-bank').modal('show')
+                    $('#save-bank').removeAttr("rowindex");
+                    $('#modal-bank input').val('')
+                }
+            }
+        ],
+        "responsive": true,
+        "paging": false, 
+        'data': dataBank,
+        'columns': [
+            {
+                name: "data-rek",
+                data: function(row, type, set) {
+                    return "<p class='nama-rek'>"+row.nama_rek+"</p>"+"<p>"+row.no_rek+"</p>"
+                }
+            },
+            {
+                name: "data-bank",
+                data: function(row, type, set) {
+                    return "<p class='nama-bank'>"+row.bank+"</p>"+"<p>"+row.cabang+"</p>"
+                }
+            },
+            {
+                data:null,
+                defaultContent: "<i class='simple-icon-pencil edit-bank'></i>&nbsp;<i class='simple-icon-trash hapus-bank'></i>"
+            }
+        ]
+    });
+    var count = tableBank.data().count();
+    
+    $('#save-bank').attr('action', 'save');
+    $('div.jumlah-data').html("Menampilkan "+count+" per halaman");
+    $('#table-bank_filter input[type="search"]').unbind().keyup(function(){
+        console.log($(this).val());
+        tableBank.search($(this).val()).draw();
+        count = tableBank.data().count();
+        $('div.jumlah-data').html("Menampilkan "+count+" per halaman");
+    })
+    $('#modal-bank #save-bank').click(function(){
+        var data = {
+            no_rek: $('#modal-bank #no_rek').val(),
+            nama_rek: $('#modal-bank #nama_rek').val(),
+            bank: $('#modal-bank #bank').val(),
+            cabang: $('#modal-bank #cabang').val(),
+        }
+        if($(this).attr('action') === 'save') {
+            dataBank.push(data);
+            tableBank.row.add(data).draw();
+            count = tableBank.data().count();
+            $('div.jumlah-data').html("Menampilkan "+count+" per halaman");
+        } else if($(this).attr('action') === 'update') {
+            tableBank.row($(this).attr('rowindex')).data(data).draw();
+        }
+
+        $('#modal-bank input').val('');
+        $('#save-bank').attr('action', 'save');
+        $('#save-bank').removeAttr("rowindex");
+        $('#modal-bank').modal('hide')
+    })
+    $('#table-bank tbody').on('click', 'i.hapus-bank', function(){
+        tableBank.row($(this).parents('tr')).remove().draw();
+        count = tableBank.data().count();
+        $('div.jumlah-data').html("Menampilkan "+count+" per halaman");
+    })
+    $('#table-bank tbody').on('click', 'i.edit-bank', function(){
+        var data = tableBank.row($(this).parents('tr')).data();
+        var index = tableBank.row($(this).parents('tr')).index();
+        $('#modal-bank input#no_rek').val(data.no_rek);
+        $('#modal-bank input#nama_rek').val(data.nama_rek);
+        $('#modal-bank input#bank').val(data.bank);
+        $('#modal-bank input#cabang').val(data.cabang);
+        $('#save-bank').attr('action', 'update');
+        $('#save-bank').attr('rowindex', index);
+        $('#modal-bank').modal('show');
+    })
+
     var typingTime;
-    var doneTyping = 5000; // 2 detik
+    var doneTyping = 5000; // 5 detik
     var $vendor = $('#kode_vendor');
 
     $vendor.on('keyup', function(){
