@@ -63,7 +63,7 @@
         }
     </style>
     <div class="row" >
-        <div class="col-12 col-lg-4 col-xl-3 col-left ol-grid">
+        <div class="col-12 col-lg-4 col-xl-3 col-left col-grid content-fix-height-left" >
             <div class="card mb-4" style="height:100%">
                 <div class="position-absolute card-top-buttons">
                     <button class="btn btn-outline-white icon-button bg-primary" id="btn-editprofile" style="border:0;border-radius:50% !important;width:32px;height:32px" >
@@ -87,9 +87,9 @@
                                 <td style="width:48%" id="nis"></td>
                             </tr>
                             <tr>
-                                <td style="width:40%">VA</td>
-                                <td style="width:2%">:</td>
-                                <td style="width:48%"><span id="id_bank"></span> <img src="{{ url('img/bm.png') }}" width="20px"></td>
+                                <td style="width:40%;vertical-align:middle">VA</td>
+                                <td style="width:2%;vertical-align:middle">:</td>
+                                <td style="width:48%;vertical-align:middle"><span id="id_bank" class="mr-2"></span><img src="{{ url('img/bm.png') }}" width="35px"></td>
                             </tr>
                             <tr>
                                 <td style="width:40%">Angkatan</td>
@@ -119,7 +119,7 @@
                 </div>
             </div>                 
         </div>
-        <div class="col-12 col-lg-8 col-xl-9 col-right col-grid" id="content-dash">
+        <div class="col-12 col-lg-8 col-xl-9 col-right col-grid content-fix-height-right table-responsive" id="content-dash">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card">
@@ -176,6 +176,7 @@
     <script> 
     $('body').addClass('dash-contents');
     $('html').addClass('dash-contents');
+    setHeightForm();
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
@@ -297,11 +298,11 @@
                                                     <td style="width:25%" class="text-right">`+nilai+`</td>
                                                 </tr>
                                                 <tr>
-                                                    <td style="width:75%">`+line4.keterangan+` (`+line4.kode_param+`)</td>
+                                                    <td style="width:75%">`+line4.keterangan+` </td>
                                                     <td style="width:25%">&nbsp;</td>
                                                 </tr>
                                                 <tr class="text-grey">
-                                                    <td style="width:75%">`+line4.tgl+` || `+line4.no_bukti+`</td>
+                                                    <td style="width:75%">`+line4.tgl+` || `+line4.no_bukti+` || `+line4.kode_param+`</td>
                                                     <td style="width:25%">&nbsp;</td>
                                                 </tr>
                                             </table>
