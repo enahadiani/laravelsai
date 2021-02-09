@@ -338,7 +338,6 @@
     $('#save-bank').attr('action', 'save');
     $('div.jumlah-data').html("Menampilkan "+count+" per halaman");
     $('#table-bank_filter input[type="search"]').unbind().keyup(function(){
-        console.log($(this).val());
         tableBank.search($(this).val()).draw();
         count = tableBank.data().count();
         $('div.jumlah-data').html("Menampilkan "+count+" per halaman");
