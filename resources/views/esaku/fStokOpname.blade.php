@@ -1,4 +1,5 @@
     <link rel="stylesheet" href="{{ asset('trans.css') }}" />
+    <link rel="stylesheet" href="{{ asset('form-trans.css') }}" />
     <!-- LIST DATA -->
     <x-list-data judul="Data Stok Opname" tambah="true" :thead="array('No Bukti','Tanggal','Deskripsi','Action')" :thwidth="array(20,18,56,6)" :thclass="array('','','','text-center')" />
     <!-- END LIST DATA -->
@@ -8,10 +9,11 @@
         <div class="row" id="saku-form" style="display:none;">
             <div class="col-sm-12">
                 <div class="card">
-                    <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;">
-                        <h6 id="judul-form" style="position:absolute;top:25px"></h6>
-                        <button type="submit" class="btn btn-primary ml-2"  style="float:right;" id="btn-save" ><i class="fa fa-save"></i> Simpan</button>
-                        <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Keluar</button>
+                    <div class="card-body form-header" style="padding-top:0.5rem;padding-bottom:0.5rem;min-height:48px">
+                        <h6 id="judul-form" style="position:absolute;top:13px"></h6>
+                        <button type="button" id="btn-kembali" aria-label="Kembali" class="btn btn-back">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
                     <div class="separator mb-2"></div>
                     <div class="card-body pt-3 form-body">
@@ -22,14 +24,14 @@
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group col-lg-6 col-sm-12">
+                            <div class="form-group col-md-6 col-sm-12">
                                 <div class="row">
-                                    <div class="col-lg-6 col-sm-12">
+                                    <div class="col-md-6 col-sm-12">
                                         <label for="tanggal" >Tanggal</label>
                                         <input class='form-control' type="date" id="tanggal" name="tanggal" value="{{ date('Y-m-d') }}">
                                         <input class="form-control" type="hidden" placeholder="No Bukti" id="no_bukti" name="no_bukti" readonly>
                                     </div>
-                                    <div class="col-lg-6 col-sm-12">
+                                    <div class="col-md-6 col-sm-12">
                                         <label for="kode_gudang" >Gudang</label>
                                         <select class='form-control' id="kode_gudang" name="kode_gudang">
                                         <option value=''>--- Pilih Gudang ---</option>
@@ -39,24 +41,24 @@
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group col-lg-6 col-sm-12">
+                            <div class="form-group col-md-6 col-sm-12">
                                 <div class="row">
-                                    <div class="col-lg-6 col-sm-12">
+                                    <div class="col-md-6 col-sm-12">
                                         <label for="deskripsi" >Deskripsi</label>
                                         <textarea name="deskripsi" class="form-control" id="deskripsi" rows="4"></textarea>
                                     </div>
-                                    <div class="col-lg-6 col-sm-12" style="min-height: 50px;">
+                                    <div class="col-md-6 col-sm-12" style="min-height: 50px;">
                                         <button type="button" class="btn btn-primary ml-2" id="btn-rekon" style="float: right;position: absolute;bottom: 0;right: 15px;">Rekon</button>
                                         <button type="button" class="btn btn-primary ml-2" id="btn-load" style="float: right;position: absolute;bottom: 0;right: 95px;margin-right:8px;">Load</button>
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group col-lg-6 col-sm-12">
+                            <div class="form-group col-md-6 col-sm-12">
                                 <div class="row">
-                                    <div class="col-lg-6 col-sm-12">
+                                    <div class="col-md-6 col-sm-12">
                                        
                                     </div>
-                                    <div class="col-lg-6 col-sm-12">
+                                    <div class="col-md-6 col-sm-12">
                                         
                                     </div>
                                 </div>
@@ -121,6 +123,14 @@
                                     </tbody>
                                     </table>
                                 </div>      
+                            </div>
+                        </div>
+                        <div class="card-body-footer row" style="width: 900px;padding: 0 25px;">
+                            <div style="vertical-align: middle;" class="col-md-10 text-right p-0">
+                                <p class="text-success" id="balance-label" style="margin-top: 20px;"></p>
+                            </div>
+                            <div style="text-align: right;" class="col-md-2 p-0 ">
+                                <button type="submit" style="margin-top: 10px;" id="btn-save" class="btn btn-primary"><i class="fa fa-save"></i> Simpan</button>
                             </div>
                         </div>
                     </div>
