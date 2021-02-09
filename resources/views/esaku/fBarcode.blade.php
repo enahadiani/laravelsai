@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="{{ asset('trans.css') }}" />
+<link rel="stylesheet" href="{{ asset('form-trans.css') }}" />
 
 <style>
     th#checkbox {
@@ -25,9 +26,9 @@
     <div class="row" id="saku-form">
         <div class="col-sm-12">
             <div class="card">
-                <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;">
+                <div class="card-body form-header" style="padding-top:0.5rem;padding-bottom:0.5rem;min-height:48px">
                     <h6 id="judul-form" style="position:absolute;top:25px">Generate Barcode</h6>
-                    <button type="submit" class="btn btn-primary ml-2"  style="float:right;" id="btn-save" ><i class="fa fa-save"></i> Simpan</button>
+                    {{-- <button type="submit" class="btn btn-primary ml-2"  style="float:right;" id="btn-save" ><i class="fa fa-save"></i> Simpan</button> --}}
                 </div>
                 <div class="separator mb-2"></div>
                 <div class="card-body pt-3 form-body">
@@ -80,6 +81,14 @@
 
                             </tbody>
                         </table>
+                    </div>
+                    <div class="card-body-footer row" style="width: 900px;padding: 0 25px;">
+                        <div style="vertical-align: middle;" class="col-md-10 text-right p-0">
+                            <p class="text-success" id="balance-label" style="margin-top: 20px;"></p>
+                        </div>
+                        <div style="text-align: right;" class="col-md-2 p-0 ">
+                            <button type="submit" style="margin-top: 10px;" id="btn-save" class="btn btn-primary"><i class="fa fa-save"></i> Simpan</button>
+                        </div>
                     </div>
                 </div>
             </div>

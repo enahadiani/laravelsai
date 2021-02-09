@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="{{ asset('trans.css') }}" />
+<link rel="stylesheet" href="{{ asset('form-trans.css') }}" />
 <style>
     th {
         vertical-align:middle !important;
@@ -54,10 +55,11 @@
     <div class="row" id="saku-form" style="display:none;">
         <div class="col-sm-12">
             <div class="card">
-                <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;">
-                    <h6 id="judul-form" style="position:absolute;top:25px">Mutasi Barang</h6>
-                    <button type="submit" class="btn btn-primary ml-2"  style="float:right;" id="btn-save" ><i class="fa fa-save"></i> Simpan</button>
-                    <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Keluar</button>
+                <div class="card-body form-header" style="padding-top:0.5rem;padding-bottom:0.5rem;min-height:48px">
+                    <h6 id="judul-form" style="position:absolute;top:13px">Mutasi Terima Barang</h6>
+                    <button type="button" id="btn-kembali" aria-label="Kembali" class="btn btn-back">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
                 <div class="separator mb-2"></div>
                 <div id="form-body" class="card-body pt-3 form-body"> 
@@ -172,6 +174,14 @@
                                 </table>
                                 <a type="button" href="#" data-id="0" title="add-row" class="add-row btn btn-light2 btn-block btn-sm">Tambah Baris</a>
                             </div>
+                        </div>
+                    </div>
+                    <div class="card-body-footer row" style="width: 900px;padding: 0 25px;">
+                        <div style="vertical-align: middle;" class="col-md-10 text-right p-0">
+                            <p class="text-success" id="balance-label" style="margin-top: 20px;"></p>
+                        </div>
+                        <div style="text-align: right;" class="col-md-2 p-0 ">
+                            <button type="submit" style="margin-top: 10px;" id="btn-save" class="btn btn-primary"><i class="fa fa-save"></i> Simpan</button>
                         </div>
                     </div>
                 </div>
