@@ -116,6 +116,7 @@
                             </tr>
                         </table>
                     </div>
+                    <button class="btn btn-primary" id="beranda" style="position:absolute;bottom:0;margin:20px 70px">Beranda</button>
                 </div>
             </div>                 
         </div>
@@ -177,6 +178,7 @@
     $('body').addClass('dash-contents');
     $('html').addClass('dash-contents');
     setHeightForm();
+    $('#beranda').hide();
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
@@ -340,5 +342,10 @@
         e.preventDefault();
         var url = "{{ url('ts-auth/form/fProfile') }}";
         loadForm(url);
-    })
+    });
+
+    $('.card-body').on('click','#beranda',function(e){
+        e.preventDefault();
+        loadForm("{{ url('ts-auth/form') }}/"+form);
+    });
     </script>

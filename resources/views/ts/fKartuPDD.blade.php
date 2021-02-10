@@ -301,6 +301,8 @@
         }
     });
 
+    $('#beranda').show();
+
     function sepNum(x){
         if(!isNaN(x)){
             if (typeof x === undefined || !x || x == 0) { 
@@ -414,7 +416,7 @@
                                     <tr>
                                     <td>`+ket2+`</td>
                                     <td>`+line2.kode_param+`</td>
-                                    <td class='text-right'>`+sepNumPas(line2.nilai)+`</td>
+                                    <td class='text-right'>`+(line.nilai > 0 ? sepNumPas(line2.nilai) : "("+sepNumPas(line2.nilai)+")" )+`</td>
                                     </tr>`;
                                     x++;
                                 }else{
@@ -425,6 +427,9 @@
                             <tr  class="text-primary" >
                             <td colspan="2"></td>
                             <td class="text-right bold border-top">Saldo Akhir `+sepNumPas(tosaldo)+`</td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" style="border-top:1px dashed black !important">&nbsp;</td>
                             </tr>`;
                             no++;
                         }
@@ -580,5 +585,4 @@
         });
         
     });
-
     </script>

@@ -318,6 +318,7 @@
         }
     });
 
+    $('#beranda').show();
     function sepNum(x){
         if(!isNaN(x)){
             if (typeof x === undefined || !x || x == 0) { 
@@ -431,7 +432,7 @@
                                     <tr>
                                     <td>`+ket2+`</td>
                                     <td>`+line2.kode_param+`</td>
-                                    <td class='text-right'>`+sepNumPas(line2.nilai)+`</td>
+                                    <td class='text-right'>`+(line.jenis == "BILL" ? sepNumPas(line2.nilai) : "("+sepNumPas(line2.nilai)+")" )+`</td>
                                     </tr>`;
                                     x++;
                                 }else{
@@ -441,6 +442,9 @@
                             detail+=det+`<tr class="text-primary" >
                             <td colspan="2"></td>
                             <td class="text-right border-top bold">Kurang Bayar `+sepNumPas(tosaldo)+`</td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" style="border-top:1px dashed black !important">&nbsp;</td>
                             </tr>`;
                             no++;
                         }
