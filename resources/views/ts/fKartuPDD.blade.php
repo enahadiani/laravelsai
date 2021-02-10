@@ -420,7 +420,7 @@
                             detail+=det+`
                             <tr  class="text-primary" >
                             <td colspan="2"></td>
-                            <td class="text-right bold border-top">Kurang Bayar `+sepNumPas(tosaldo)+`</td>
+                            <td class="text-right bold border-top">Saldo Akhir `+sepNumPas(tosaldo)+`</td>
                             </tr>`;
                             no++;
                         }
