@@ -1,3 +1,36 @@
+/* Presentation */
+.presentation-action {
+    display: flex;
+    justify-content: center;
+}
+.btn-presentation {
+    background-color: #fff;
+    padding: 0.8rem 1rem;
+    border: none;
+    border-radius: 2.5rem;
+}
+.presentation-text {
+    width: 32rem;
+    margin: 0 auto;
+}
+.presentation-content {
+    padding: 2rem;
+}
+#presentation h1,
+#presentation h5 {
+    color: #fff;
+}
+#presentation > .container {
+    display: flex;
+    justify-content: center;
+}
+.background-presentation {
+    background-image: url("../img/esaku/background-produk.png");
+    width: 62rem;
+    height: 29rem;
+    border-radius: 30px;
+    background-repeat: no-repeat;
+}
 /* Klien */
 .trusted-client .trusted-client-content {
     display: flex;

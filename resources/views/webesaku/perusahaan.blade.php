@@ -172,6 +172,32 @@
             </div>
         </section>
 
+        {{-- Presentation --}}
+        <section id="presentation" class="p-b-60">
+            <div class="container">
+                <div class="presentation-container background-presentation">
+                    <div class="background-presentation">
+                        <div class="presentation-content">
+                            <div class="heading-text heading-section text-center m-b-40">
+                                <h1 class="mulai-sekarang">
+                                    Mulai Sekarang
+                                </h1>
+                                <div class="presentation-text m-t-30">
+                                    <h5 class="lead">
+                                        Kami dapat membangun sistem mengikuti proses bisnis yang ada di perusahaan anda.
+                                        Tim kami siap membantu dengan langkah-langkah yang kita susun dan sepakati bersama.
+                                    </h5>
+                                </div>
+                            </div>
+                            <div class="presentation-action">
+                                <button class="btn-presentation" type="button">Undang Presentasi</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <footer id="footer" class="footer-background">
             <div class="footer-content">
                 <div class="container">
