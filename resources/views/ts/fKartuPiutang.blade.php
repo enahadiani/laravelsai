@@ -248,6 +248,12 @@
         {
             border-top: 1px solid black !important;
         }
+        .separator3{
+            width: 100%;
+            height: 1px;
+            /* dashed border */
+            background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%23333' stroke-width='4' stroke-dasharray='1%2c 12' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
+        }
     </style>
     <div id='grid-load'><img src='{{ asset("img/loadgif.gif") }}' style='width:25px;height:25px'></div>
     <div class="row" id="saku-dashboard">
@@ -444,7 +450,7 @@
                             <td class="text-right border-top bold">Kurang Bayar `+sepNumPas(tosaldo)+`</td>
                             </tr>
                             <tr>
-                                <td colspan="3" style="border-top:1px dashed black !important">&nbsp;</td>
+                                <td colspan="3"><div class='separator3'></div></td>
                             </tr>`;
                             no++;
                         }
