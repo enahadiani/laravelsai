@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />    <meta name="author" content="INSPIRO" />    
 	<meta name="description" content="Themeforest Template Polo, html template">
-    <link rel="icon" type="image/png" href="{{ asset('asset_web/webjava/images/icon-java.png') }}">   
+    <link rel="icon" type="image/png" href="{{ asset('asset_web/webjava/images/icon-java-black.png') }}">   
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- Document title -->
     <title>JAVA | Home</title>
@@ -32,10 +32,10 @@
                             <div id="logo">
                                 <a href="index.html">
                                     <span class="logo-default">
-                                        <img alt="logo" src="{{ asset('asset_web/webjava/images/icon-java.png') }}" />
+                                        <img alt="logo" src="{{ asset('asset_web/webjava/images/icon-java-black.png') }}" />
                                     </span>
                                     <span class="logo-dark">
-                                        <img alt="logo" src="{{ asset('asset_web/webjava/images/icon-java.png') }}" />
+                                        <img alt="logo" src="{{ asset('asset_web/webjava/images/icon-java-white.png') }}" />
                                     </span>
                                 </a> 
                             </div>
