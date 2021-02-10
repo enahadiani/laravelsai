@@ -53,36 +53,6 @@
                             </div>
                         </div>   
                     </div>
-                    <!--Logo-->
-                    {{-- <div id="logo">
-                        <a href="index.html">
-                            <span class="logo-default">
-                                <img alt="logo" src="{{ asset('asset_web/webjava/images/icon-java.png') }}" />
-                            </span>
-                            <span class="logo-dark">
-                                <img alt="logo" src="{{ asset('asset_web/webjava/images/icon-java.png') }}" />
-                            </span>
-                        </a> 
-                    </div> --}}
-                    <!--End: Logo-->
-                    <!--end: Header Extras-->
-                    <!--Navigation Resposnive Trigger-->
-                    {{-- <div id="mainMenu-trigger"> <a class="lines-button x"><span class="lines"></span></a> </div> --}}
-                    <!--end: Navigation Resposnive Trigger-->
-                    <!--Navigation-->
-                    {{-- <div id="mainMenu">
-                        <div class="container">
-                            <nav>
-                                <ul>
-                                    <li><a href="#">Home</a></li>
-                                    <li><a href="#">Product</a></li>
-                                    <li><a href="#">Company</a></li>
-                                    <li><a href="#">Contact</a></li>
-                                </ul>
-                            </nav>
-                        </div>
-                    </div> --}}
-                    <!--end: Navigation-->
                 </div>
             </div>
         </header>
@@ -106,6 +76,271 @@
 
         </div>
 
+        {{-- Section 2 --}}
+        <section id="services" class="p-b-70">
+            <div class="container">
+                <div class="heading-text heading-section">
+                    <h4>Our Services</h4>
+                </div>
+                <div class="services-container">
+                    <div class="services-content">
+                        <div class="services-card">
+                            <div class="card-title">
+                                <h6>Renewable Energy Consultation</h6>
+                            </div>
+                            <div class="card-content">
+                                <p>
+                                    With significant focus on use of sustainable energy sources, we provide renewable 
+                                    energy generation system design including hydro, thermal, and biomass.
+                                </p>
+                            </div>
+                            <div class="card-footers">
+                                <a href="#">More >></a>
+                            </div>
+                        </div>
+                        <div class="services-card">
+                            <div class="card-title">
+                                <h6>Feasibility Study</h6>
+                            </div>
+                            <div class="card-content">
+                                <p>
+                                    Supported by experienced engineers and personnel from JPE team, 
+                                    feasibility study will give the accurate result to determine potential outcomes of 
+                                    a project, including consideration of all relevant factors i.e. 
+                                    rough investment cost and ROI to deliver and satisfy client requirements.
+                                </p>
+                            </div>
+                            <div class="card-footers">
+                                <a href="#">More >></a>
+                            </div>
+                        </div>
+                        <div class="services-card">
+                            <div class="card-title">
+                                <h6>Detail Engineering Design (DED)</h6>
+                            </div>
+                            <div class="card-content">
+                                <p>
+                                    Detailed Engineering Design (DED) stage is a fundamental necessity in refurbishment 
+                                    and construct that it exists at the intersection of several development process. 
+                                    Our engineers have expertise in related activities such as review of design criteria, 
+                                    review of contractor design documents and drawings, and project management.
+                                </p>
+                            </div>
+                            <div class="card-footers">
+                                <a href="#">More >></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="services-content">
+                        <div class="services-card">
+                            <div class="card-title">
+                                <h6>Fabrication</h6>
+                            </div>
+                            <div class="card-content">
+                                <p>
+                                    PT. Java Pratama Energi provides fabrication service for turbine and various 
+                                    mechanical parts. Fabrication of hydro turbines covers many types i.e. zuppinger, 
+                                    screw, cross flow, propeller, pelton, Kaplan, and francis turbine.
+                                </p>
+                            </div>
+                            <div class="card-footers">
+                                <a href="#">More >></a>
+                            </div>
+                        </div>
+                        <div class="services-card">
+                            <div class="card-title">
+                                <h6>Construction</h6>
+                            </div>
+                            <div class="card-content">
+                                <p>
+                                    JPE concerns on safety value for every construction activity. The team is 
+                                    equipped with safety awareness to create a safe working environment for 
+                                    both workers and project assets. JPE provide solutions for power plant construction, 
+                                    start from civil work to transmission line.
+                                </p>
+                            </div>
+                            <div class="card-footers">
+                                <a href="#">More >></a>
+                            </div>
+                        </div>
+                        <div class="services-card">
+                            <div class="card-title">
+                                <h6>Operation & Maintenance</h6>
+                            </div>
+                            <div class="card-content">
+                                <p>
+                                    We offer a complete range of Operations & Maintenance (O&M) services to power plant 
+                                    owners. By setting up full scope O&M organizations, we ensure safe and efficient 
+                                    operations, and reduce plant down time. By applying Reliability Centered Maintenance 
+                                    (RCM).
+                                </p>
+                            </div>
+                            <div class="card-footers">
+                                <a href="#">More >></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        {{-- Section 3 --}}
+        <section id="total-project" class="text-light p-t-150 p-b-150" data-bg-parallax="{{ asset('asset_web/webjava/images/total-project.jpg')}}">
+            <div class="bg-overlay"></div>
+            <div class="container">
+                <div class="total-project-container">
+                    <div class="total-project-text text-center">
+                        <h2>We have completed 130 projects</h2>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        {{-- Section 4 --}}
+        <section id="project" class="p-b-25">
+            <div class="container">
+                <div class="project-container">
+                    <div class="project-content">
+                        <div class="project-card">
+                            <img alt="card-image" src="{{ asset('asset_web/webjava/images/default.jpg') }}"/>
+                            <div class="card-title">
+                                <h6>Detailed Engineering Design of Rantau Suli MHPP 2x1.25 MW</h6>
+                            </div>
+                            <div class="card-footers">
+                                <a href="#">More >></a>
+                            </div>
+                        </div>
+                        <div class="project-card">
+                            <img alt="card-image" src="{{ asset('asset_web/webjava/images/default.jpg') }}"/>
+                            <div class="card-title">
+                                <h6>Plant Assessment of Merden MHPP 2x200kW</h6>
+                            </div>
+                            <div class="card-footers">
+                                <a href="#">More >></a>
+                            </div>
+                        </div>
+                        <div class="project-card">
+                            <img alt="card-image" src="{{ asset('asset_web/webjava/images/default.jpg') }}"/>
+                            <div class="card-title">
+                                <h6>Distribution Grid 20 kV of Sangir MHPP 2x5 MW</h6>
+                            </div>
+                            <div class="card-footers">
+                                <a href="#">More >></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-card">
+                            <img alt="card-image" src="{{ asset('asset_web/webjava/images/default.jpg') }}"/>
+                            <div class="card-title">
+                                <h6>EPC of Semawung MHPP 600 kW</h6>
+                            </div>
+                            <div class="card-footers">
+                                <a href="#">More >></a>
+                            </div>
+                        </div>
+                        <div class="project-card">
+                            <img alt="card-image" src="{{ asset('asset_web/webjava/images/default.jpg') }}"/>
+                            <div class="card-title">
+                                <h6>Mini Geothermal Steam Turbine, Bukit Daun Project</h6>
+                            </div>
+                            <div class="card-footers">
+                                <a href="#">More >></a>
+                            </div>
+                        </div>
+                        <div class="project-card">
+                            <img alt="card-image" src="{{ asset('asset_web/webjava/images/default.jpg') }}"/>
+                            <div class="card-title">
+                                <h6>Lube Oil Cooling System Modification of Lubuk Gadang MHPP 2x4 MW</h6>
+                            </div>
+                            <div class="card-footers">
+                                <a href="#">More >></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        {{-- Footer --}}
+        <footer id="footer" class="footer-background">
+            <div class="footer-content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <h2 class="m-b-10">Get in Touch with Us</h2>
+                                </div>
+                                <div class="col-lg-6 m-b-30">
+                                    <address>
+                                        <strong>Corporate Domicile</strong><br>
+                                        Jl. Maskumambang No. 9<br>
+                                        Turangga, Lengkong,<br>
+                                        Bandung<br>
+                                    </address>
+                                    <address>
+                                        <strong>Workshop<br>Representative office</strong><br>
+                                        Jl. Ahmad Yani 726<br>
+                                        Bandung<br>
+                                    </address>
+                                </div>
+                                <div class="col-lg-6 m-b-30">
+                                    <address>
+                                        <strong>Engineering office</strong><br>
+                                        De Primaterra Industrial Estate<br>
+                                        C2A-6<br>
+                                        Jalan Raya Sapan, Tegal Luar,<br>
+                                        Bojongsoang Bandung 40288<br>
+                                    </address>
+                                    Phone/Fax: +62 22 87306036
+                                    <br>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-5 offset-1">
+                            <form class="widget-contact-form" novalidate action="include/contact-form.php" role="form" method="post">
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label for="name">Name</label>
+                                        <input type="text" aria-required="true" name="widget-contact-form-name" class="form-control required name" placeholder="Enter your Name">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="email">Email</label>
+                                        <input type="email" aria-required="true" required name="widget-contact-form-email" class="form-control required email" placeholder="Enter your Email">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 form-group">
+                                        <label class="upper" for="phone">Phone</label>
+                                        <input type="text" class="form-control required" name="widget-contact-form-phone" placeholder="Enter phone" aria-required="true">
+                                    </div>
+
+                                    <div class="form-group col-lg-6">
+                                        <label>Services</label>
+                                        <select name="widget-contact-form-services">
+                                            <option value="">Select service</option>
+                                            <option value="Wordpress">Wordpress</option>
+                                            <option value="PHP / MySQL">PHP / MySQL</option>
+                                            <option value="HTML5 / CSS3">HTML5 / CSS3</option>
+                                            <option value="Graphic Design">Graphic Design</option>
+                                        </select>
+
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="message">Message</label>
+                                    <textarea type="text" name="widget-contact-form-message" rows="8" class="form-control required" placeholder="Enter your Message"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <button class="btn btn-light" type="submit" id="form-submit">Send email</button>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
     </div>
     <a id="scrollTop"><i class="icon-chevron-up"></i><i class="icon-chevron-up"></i></a>
     <!--Plugins-->
