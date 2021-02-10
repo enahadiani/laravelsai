@@ -121,7 +121,22 @@
                             </div>
                             
                             <div class="tab-pane" id="akuntansi" role="tabpanel">
-                                Ini Akuntansi
+                                <div class="form-row">
+                                    <div class="form-group col-md-6 col-sm-12">    
+                                        <label for="akun_hutang">Akun Hutang</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                                <span class="input-group-text info-code_akun_hutang" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                            </div>
+                                            <input type="text" class="form-control inp-label-akun_hutang" id="akun_hutang" name="akun_hutang" value="" title="">
+                                            <span class="info-name_akun_hutang hidden">
+                                                <span></span> 
+                                            </span>
+                                            <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                            <i class="simple-icon-magnifier search-item2" id="search_akun_hutang"></i>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         {{-- <div class="form-group row " id="row-id">
