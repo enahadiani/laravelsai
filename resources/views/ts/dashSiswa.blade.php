@@ -116,7 +116,7 @@
                             </tr>
                         </table>
                     </div>
-                    <button class="btn btn-primary" id="beranda" style="position:absolute;bottom:0;margin:20px 70px">Beranda</button>
+                    <button class="btn btn-light text-primary btn-block" id="beranda" style="position:absolute;bottom: 20px;width: calc(100% - 55px);">Beranda</button>
                 </div>
             </div>                 
         </div>
