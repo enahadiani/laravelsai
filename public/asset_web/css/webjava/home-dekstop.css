@@ -1,0 +1,32 @@
+/* Section 1 */
+.section-one-space {
+    padding-top: 2rem;
+}
+/* Header */
+.logo-nav {
+    display: flex;
+    justify-content: space-between;
+    margin-top: -2rem;
+}
+.information-contact > span:nth-child(2) {
+    padding-left: 2rem;
+}
+.information-contact > span {
+    color: #fff;
+    font-weight: normal !important;
+}
+.header-container {
+    display: flex;
+    flex-direction: column;
+}
+/* General */
+h5 {
+    font-family: "Roboto", sans-serif !important;
+    font-weight: 400;
+    font-size: 1.25rem !important;
+}
+h1 {
+    font-family: "Roboto", sans-serif;
+    font-weight: 700 !important;
+    font-size: 4.75rem !important;
+}

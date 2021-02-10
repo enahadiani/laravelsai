@@ -87,6 +87,8 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapSiagaRoutes();
 
         $this->mapWebesakuRoutes();
+        
+        $this->mapWebJavav2Routes();
     }
 
     /**
@@ -529,6 +531,14 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/webesaku/web.php'));
+    }
+
+    protected function mapWebJavav2Routes()
+    {
+        Route::prefix('webjava-v2')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/webjava/web-routes.php'));
     }
 
 }
