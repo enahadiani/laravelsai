@@ -227,6 +227,10 @@
         .report-klik{
             cursor:pointer;
         }
+        #table-detail td.border-top
+        {
+            border-top: 1px solid black !important;
+        }
 
     </style>
     <div class="row" id="saku-dashboard">
