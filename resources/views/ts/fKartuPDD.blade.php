@@ -231,7 +231,12 @@
         {
             border-top: 1px solid black !important;
         }
-
+        .separator3{
+            width: 100%;
+            height: 1px;
+            /* dashed border */
+            background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%23B0AFB0FF' stroke-width='4' stroke-dasharray='1%2c 12' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
+        }
     </style>
     <div class="row" id="saku-dashboard">
         <div class="col-12">
@@ -300,6 +305,8 @@
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         }
     });
+
+    $('#beranda').show();
 
     function sepNum(x){
         if(!isNaN(x)){
@@ -414,17 +421,19 @@
                                     <tr>
                                     <td>`+ket2+`</td>
                                     <td>`+line2.kode_param+`</td>
-                                    <td class='text-right'>`+sepNumPas(line2.nilai)+`</td>
+                                    <td class='text-right'>`+(line.nilai > 0 ? sepNumPas(line2.nilai) : "("+sepNumPas(line2.nilai)+")" )+`</td>
                                     </tr>`;
                                     x++;
                                 }else{
                                     x = 0;
                                 }
                             }
-                            detail+=det+`
-                            <tr  class="text-primary" >
+                            detail+=det+`<tr class="text-primary" >
                             <td colspan="2"></td>
                             <td class="text-right bold border-top">Saldo Akhir `+sepNumPas(tosaldo)+`</td>
+                            </tr>
+                            <tr>
+                                <td colspan="3"><div class='separator3'></div></td>
                             </tr>`;
                             no++;
                         }
@@ -477,8 +486,6 @@
 
     getKartuPDD();
     
-    var scrollform = document.querySelector('.table-responsive');
-    var psscrollform = new PerfectScrollbar(scrollform);
    
     $('#saku-dashboard').on('click','#btn-print',function(e){
         e.preventDefault();
@@ -580,5 +587,4 @@
         });
         
     });
-
     </script>

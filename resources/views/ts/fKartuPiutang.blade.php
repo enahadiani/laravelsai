@@ -248,6 +248,12 @@
         {
             border-top: 1px solid black !important;
         }
+        .separator3{
+            width: 100%;
+            height: 1px;
+            /* dashed border */
+            background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%23B0AFB0FF' stroke-width='4' stroke-dasharray='1%2c 12' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
+        }
     </style>
     <div id='grid-load'><img src='{{ asset("img/loadgif.gif") }}' style='width:25px;height:25px'></div>
     <div class="row" id="saku-dashboard">
@@ -318,6 +324,7 @@
         }
     });
 
+    $('#beranda').show();
     function sepNum(x){
         if(!isNaN(x)){
             if (typeof x === undefined || !x || x == 0) { 
@@ -431,7 +438,7 @@
                                     <tr>
                                     <td>`+ket2+`</td>
                                     <td>`+line2.kode_param+`</td>
-                                    <td class='text-right'>`+sepNumPas(line2.nilai)+`</td>
+                                    <td class='text-right'>`+(line.jenis == "BILL" ? sepNumPas(line2.nilai) : "("+sepNumPas(line2.nilai)+")" )+`</td>
                                     </tr>`;
                                     x++;
                                 }else{
@@ -441,6 +448,9 @@
                             detail+=det+`<tr class="text-primary" >
                             <td colspan="2"></td>
                             <td class="text-right border-top bold">Kurang Bayar `+sepNumPas(tosaldo)+`</td>
+                            </tr>
+                            <tr>
+                                <td colspan="3"><div class='separator3'></div></td>
                             </tr>`;
                             no++;
                         }
