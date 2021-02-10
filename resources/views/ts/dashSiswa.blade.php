@@ -124,7 +124,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card">
-                        <div class="card-body px-5 py-4"> 
+                        <div class="card-body px-5 py-4" style="background-image: url(http://127.0.0.1:8000/img/bg-tsinfo.png);background-size: cover;background-repeat: no-repeat;background-position-y: center;border-radius: 0.75rem;"> 
                             <div class="row">
                                 <div class="col-md-6 col-12 col-grid">
                                     <h1 class="text-primary bold">Informasi<br>Keuangan</h1>
