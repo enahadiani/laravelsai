@@ -31,6 +31,11 @@
                                 <input class="form-control" type="text"  id="kode_kirim" name="kode_kirim">
                             </div>
                             <div class="form-group col-md-6 col-sm-12">
+                                {{-- Error message kode --}}
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12 col-sm-12">
                                 <label for="nama">Nama</label>
                                 <input class="form-control" type="text" id="nama" name="nama">
                             </div>
@@ -78,7 +83,7 @@
                          <div class="form-row">
                             <div class="form-group col-md-12 col-sm-12">
                                 <label for="alamat">Alamat</label>
-                                <input class="form-control" type="text" id="alamat" name="alamat">
+                                <textarea class="form-control" rows="4" id="alamat" name="alamat" style="resize:none" required></textarea>
                             </div>
                         </div>
                     </div>
