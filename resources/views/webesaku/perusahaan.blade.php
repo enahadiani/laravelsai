@@ -146,6 +146,29 @@
                 <div class="heading-text heading-section title-klien">
                     <h1>Klien kami bertahan karena pelayanan penuh dan kepercayaan yang di berikan.</h1>
                 </div>
+                <div class="trusted-client">
+                    <div class="trusted-client-content" data-animate="fadeInUp">
+                        <img src="{{ asset('asset_web/img/esaku/logo-client.svg') }}" alt="logo-client">
+                        <img src="{{ asset('asset_web/img/esaku/logo-client.svg') }}" alt="logo-client">
+                        <img src="{{ asset('asset_web/img/esaku/logo-client.svg') }}" alt="logo-client">
+                        <img src="{{ asset('asset_web/img/esaku/logo-client.svg') }}" alt="logo-client">
+                        <img src="{{ asset('asset_web/img/esaku/logo-client.svg') }}" alt="logo-client">
+                    </div>
+                    <div class="trusted-client-content" data-animate="fadeInUp">
+                        <img src="{{ asset('asset_web/img/esaku/logo-client.svg') }}" alt="logo-client">
+                        <img src="{{ asset('asset_web/img/esaku/logo-client.svg') }}" alt="logo-client">
+                        <img src="{{ asset('asset_web/img/esaku/logo-client.svg') }}" alt="logo-client">
+                        <img src="{{ asset('asset_web/img/esaku/logo-client.svg') }}" alt="logo-client">
+                        <img src="{{ asset('asset_web/img/esaku/logo-client.svg') }}" alt="logo-client">
+                    </div>
+                    <div class="trusted-client-content" data-animate="fadeInUp">
+                        <img src="{{ asset('asset_web/img/esaku/logo-client.svg') }}" alt="logo-client">
+                        <img src="{{ asset('asset_web/img/esaku/logo-client.svg') }}" alt="logo-client">
+                        <img src="{{ asset('asset_web/img/esaku/logo-client.svg') }}" alt="logo-client">
+                        <img src="{{ asset('asset_web/img/esaku/logo-client.svg') }}" alt="logo-client">
+                        <img src="{{ asset('asset_web/img/esaku/logo-client.svg') }}" alt="logo-client">
+                    </div>
+                </div>
             </div>
         </section>
 
