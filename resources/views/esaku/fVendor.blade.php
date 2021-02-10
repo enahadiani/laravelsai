@@ -258,7 +258,7 @@
         <div class="modal-dialog" role="document" style="max-width:600px">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Data Bank</h5>
+                    <h6 class="modal-title">Data Bank</h6>
                     <button type="button" class="close mr-2" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
