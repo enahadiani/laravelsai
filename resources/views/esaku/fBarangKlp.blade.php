@@ -31,6 +31,11 @@
                                 <input class="form-control" type="text" id="kode_klp" name="kode_klp" required>
                             </div>
                             <div class="form-group col-md-6 col-sm-12">
+                                {{-- Error Kode --}}
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12 col-sm-12">
                                 <label for="nama">Nama</label>
                                 <input class="form-control" type="text" id="nama" name="nama" required>
                             </div>
