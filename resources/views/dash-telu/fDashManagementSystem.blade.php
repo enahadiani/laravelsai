@@ -275,8 +275,15 @@ function getPeriode(){
                         control.addOption([{text:result.data.data[i].periode, value:result.data.data[i].periode}]);
                     }
                 }
-                if("{{ Session::get('periode') }}" != ""){
-                    control.setValue("{{ Session::get('periode') }}")
+                if($filter_periode == ""){
+
+                    if("{{ Session::get('periode') }}" != ""){
+                        control.setValue("{{ Session::get('periode') }}");
+                        $filter_periode = "{{ Session::get('periode') }}";
+                    }
+                }else{
+                    control.setValue($filter_periode);
+                    
                 }
             }
         },
@@ -377,17 +384,33 @@ function getFxPosition(periode=null)
                 for(var i=0;i<result.data.data.length;i++)
                 {
                     var line = result.data.data[i];
+                    
                     if(line.nama != "Aset"){
                         var nilai = sepNumPas(parseFloat(line.nilai)*-1);
-                        var persen = (parseFloat(line.nilai)/parseFloat(result.data.data[0].nilai))*100;
+                        var nilai_lalu = sepNumPas(parseFloat(line.nilai_lalu)*-1);
+                        // var persen = (parseFloat(line.nilai)/parseFloat(result.data.data[0].nilai))*-100;
                     }else{
-                        var persen = 100;
+                        // var persen = 100;
                         var nilai = sepNumPas(parseFloat(line.nilai));
+                        var nilai_lalu = sepNumPas(parseFloat(line.nilai_lalu)*-1);
+                    }
+                    
+                    if(i == 0){
+                        var bulan = $filter_periode.substr(4,2);
+                        var thn_ini = parseInt($filter_periode.substr(0,4));
+                        var thn_lalu = thn_ini-1;
+                        html+=`<tr>
+                        <td></td>
+                        <td class='text-center'>`+thn_lalu+''+bulan+`</td>
+                        <td class='text-center'>`+thn_ini+''+bulan+`</td>
+                        <td class='text-center'>YoY</td>
+                        </tr>`;   
                     }
                     html+=`<tr>
                     <td>`+line.nama+`</td>
+                    <td class='text-right'>`+nilai_lalu+`</td>
                     <td class='text-right'>`+nilai+`</td>
-                    <td class='text-right text-success' >`+sepNumPas(persen)+`%</td>
+                    <td class='text-right text-success' >`+sepNumPas(line.persen)+`%</td>
                     </tr>`;   
                 }
             }
@@ -443,7 +466,7 @@ function getPenyerapan(periode=null)
                         <td class='text-center'>%</td>
                         </tr>`;   
                     }
-                    html+=`<tr class='trace ms-`+i+`'>
+                    html+=`<tr class='trace serap-`+i+`'>
                     <td>`+line.nama+`</td>
                     <td class='text-right'>`+n2+`</td>
                     <td class='text-right'>`+nilai+`</td>
@@ -493,8 +516,18 @@ function getDebt(periode=null)
                 for(var i=0;i<result.data.data.length;i++)
                 {
                     var line = result.data.data[i];
+                    if(i == 0){
+
+                        html+=`<tr>
+                        <td></td>
+                        <td class='text-center'>RKA</td>
+                        <td class='text-center'>Real</td>
+                        <td class='text-center'>%</td>
+                        </tr>`;   
+                    }
                     html+=`<tr>
                     <td>`+line.nama+`</td>
+                    <td class='text-right'>`+sepNumPas(parseFloat(line.n2))+`</td>
                     <td class='text-right'>`+sepNumPas(parseFloat(line.nilai))+`</td>
                     </tr>`;   
                 }
@@ -539,10 +572,20 @@ function getKelola(periode=null)
                 for(var i=0;i<result.data.data.length;i++)
                 {
                     var line = result.data.data[i];
-                    html+=`<tr>
-                    <td>`+line.nama+`</td>
-                    <td class='text-right'>`+sepNumPas(parseFloat(line.nilai))+`</td>
-                    </tr>`;   
+                    // if(i == 0){
+
+                    //     html+=`<tr>
+                    //     <td></td>
+                    //     <td class='text-center'>RKA</td>
+                    //     <td class='text-center'>Real</td>
+                    //     <td class='text-center'>%</td>
+                    //     </tr>`;   
+                    // }
+                        html+=`<tr>
+                        <td>`+line.nama+`</td>
+                        <td class='text-right'>`+sepNumPas(parseFloat(line.nilai))+`</td>
+                        </tr>`;   
+
                 }
             }
             $('.table-kelola').html(html);
@@ -584,10 +627,20 @@ function getPin(periode=null)
                 for(var i=0;i<result.data.data.length;i++)
                 {
                     var line = result.data.data[i];
-                    html+=`<tr>
-                    <td class='text-right'>`+sepNumPas(parseFloat(line.nilai))+`</td>
-                    <td class='text-right text-success' >`+sepNumPas(parseFloat(line.persen))+`%</td>
-                    </tr>`;   
+                    if(i == 0){
+
+                        html+=`<tr>
+                        <td></td>
+                        <td class='text-center'>RKA</td>
+                        <td class='text-center'>Real</td>
+                        <td class='text-center'>%</td>
+                        </tr>`;   
+                    }
+                        html+=`<tr>
+                        <td>`+line.nama+`</td>
+                        <td class='text-right'>`+sepNumPas(parseFloat(line.n2))+`</td>
+                        <td class='text-right'>`+sepNumPas(parseFloat(line.nilai))+`</td>
+                        </tr>`;   
                 }
             }
             $('.table-pin').html(html);
@@ -615,18 +668,31 @@ function getPin(periode=null)
     });
 }
 
-$('.nama-bulan').html(namaPeriode("{{ $periode }}"));
-$('.tahun').html("{{ $periode }}".substr(0,4));
-getProfitLoss("{{$periode}}");
-getFxPosition("{{$periode}}");
-getPenyerapan("{{$periode}}");
-getDebt("{{$periode}}");
-getKelola("{{$periode}}");
-getPin("{{$periode}}");
+if($filter_periode == ""){
+    $('.nama-bulan').html(namaPeriode("{{ $periode }}"));
+    $('.tahun').html("{{ $periode }}".substr(0,4));
+    getProfitLoss("{{$periode}}");
+    getFxPosition("{{$periode}}");
+    getPenyerapan("{{$periode}}");
+    getDebt("{{$periode}}");
+    getKelola("{{$periode}}");
+    getPin("{{$periode}}");
+
+}else{
+    $('.nama-bulan').html(namaPeriode($filter_periode));
+    $('.tahun').html($filter_periode.substr(0,4));
+    getProfitLoss($filter_periode);
+    getFxPosition($filter_periode);
+    getPenyerapan($filter_periode);
+    getDebt($filter_periode);
+    getKelola($filter_periode);
+    getPin($filter_periode);
+}
 
 $('#form-filter').submit(function(e){
     e.preventDefault();
     var periode = $('#periode')[0].selectize.getValue();
+    $filter_periode = periode;
     var tahun = parseInt(periode.substr(0,4));
     var tahunLalu = tahun-1;
     $('.tahun').text(tahun);
@@ -662,11 +728,11 @@ $("#btn-close").on("click", function (event) {
     $('#modalFilter').modal('hide');
 });
 
-$('.table').on('click','.ms-1',function(e){
+$('.table').on('click','.ms-0',function(e){
     var url = "{{ url('/dash-telu/form/fDashMSPendapatan') }}";
     loadForm(url);
 });
-$('.table').on('click','.ms-2',function(e){
+$('.table').on('click','.ms-1',function(e){
     var url = "{{ url('/dash-telu/form/fDashMSBeban') }}";
     loadForm(url);
 });

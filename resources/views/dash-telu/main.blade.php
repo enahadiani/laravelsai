@@ -132,6 +132,7 @@
     </style>
     <script>
         var $public_asset = "{{ asset('asset_dore') }}/";
+        var $filter_periode = "";
     </script>
     <script src="{{ asset('asset_dore/js/vendor/jquery-3.3.1.min.js') }}"></script>
     <!-- <script src="{{ asset('asset_elite/highcharts2.js') }}"></script>
