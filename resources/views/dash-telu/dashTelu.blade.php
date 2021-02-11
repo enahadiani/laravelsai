@@ -56,11 +56,11 @@ $thnLalu = substr($tahunLalu,2,2)
 </style>
 
 <div class="container-fluid mt-3">
-    <div class="row">
+    <div class="row mb-4">
         <div class="col-12">
             <h6>RKA Tahunan</h6>
             <a class="btn btn-outline-light" href="#" id="btn-filter" style="position: absolute;right: 15px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-equalizer" style="transform-style: ;"></i> &nbsp;&nbsp; Filter</a>
-            <p>s.d <span class='tahun'></span></p>
+            <!-- <p>s.d <span class='tahun'></span></p> -->
         </div>
     </div>
     <div class="row" >
@@ -209,6 +209,7 @@ function sepNum(x){
         return 0;
     }
 }
+
 function sepNumPas(x){
     var num = parseInt(x);
     var parts = num.toString().split('.');
@@ -298,6 +299,7 @@ function getPencapaianYoY(periode=null)
         type:"GET",
         url:"{{ url('/telu-dash/getPencapaianYoY') }}/"+periode,
         dataType: "JSON",
+        data:{mode: $mode},
         success: function(result){
             var html='';
             var nama = ['Pendapatan','Beban','SHU','OR'];
@@ -348,6 +350,7 @@ function getGrowthReal(periode=null){
         type:"GET",
         url:"{{ url('/telu-dash/getGrowthReal') }}/"+periode,
         dataType:"JSON",
+        data:{mode: $mode},
         success:function(result){
             Highcharts.chart('growthReal', {
                 chart: {
@@ -375,9 +378,20 @@ function getGrowthReal(periode=null){
                 plotOptions: {
                     spline: {
                         dataLabels: {
+                            padding:0,
+                            allowOverlap:true,
                             enabled: true,
+                            crop: false,
+                            overflow: 'none',
+                            useHTML:true,
                             formatter: function () {
-                                return '<b>'+sepNumPas(this.y)+' %</b>';
+                                // return '<span style="color:white;background:gray !important;"><b>'+sepNum(this.y)+' M</b></span>';
+                                return $('<div/>').css({
+                                    'color' : 'white', // work
+                                    'padding': '0 3px',
+                                    'font-size':'10px',
+                                    'backgroundColor' : this.series.color  // just white in my case
+                                }).text(sepNumPas(this.y)+'%')[0].outerHTML;
                             }
                         },
                         enableMouseTracking: false
@@ -389,8 +403,15 @@ function getGrowthReal(periode=null){
                             enabled: true,
                             crop: false,
                             overflow: 'none',
+                            useHTML:true,
                             formatter: function () {
-                                return '<b>'+sepNumPas(this.y)+' %</b>';
+                                // return '<span style="color:white;background:gray !important;"><b>'+sepNum(this.y)+' M</b></span>';
+                                return $('<div/>').css({
+                                    'color' : 'white', // work
+                                    'padding': '0 3px',
+                                    'font-size':'10px',
+                                    'backgroundColor' : this.series.color  // just white in my case
+                                }).text(sepNumPas(this.y)+'%')[0].outerHTML;
                             }
                         },
                         enableMouseTracking: false
@@ -421,6 +442,7 @@ function getGrowthRKA(periode=null){
         type:"GET",
         url:"{{ url('/telu-dash/getGrowthRka') }}/"+periode,
         dataType:"JSON",
+        data:{mode: $mode},
         success:function(result){
             Highcharts.chart('growthRKA', { 
                 title: {
@@ -432,7 +454,7 @@ function getGrowthRKA(periode=null){
                 tooltip: {
                     formatter: function () {
                         return this.series.name+':<b>'+sepNumPas(this.y)+' %</b>';
-                        }
+                    }
                 },
                 yAxis: {
                     title: {
@@ -455,11 +477,57 @@ function getGrowthRKA(periode=null){
                             enabled: true,
                             crop: false,
                             overflow: 'none',
+                            userHTML:true,
                             formatter: function () {
-                                return '<b>'+sepNumPas(this.y)+' %</b>';
+                                // return '<span style="color:white;background:gray !important;"><b>'+sepNum(this.y)+' M</b></span>';
+                                return $('<div/>').css({
+                                    'color' : 'white', // work
+                                    'padding': '0 3px',
+                                    'font-size':'10px',
+                                    'backgroundColor' : this.series.color  // just white in my case
+                                }).text(sepNumPas(this.y)+'%')[0].outerHTML;
+                            }
+                        }
+                    },
+                    spline:{
+                        dataLabels: {
+                            padding:0,
+                            allowOverlap:true,
+                            enabled: true,
+                            crop: false,
+                            overflow: 'none',
+                            useHTML:true,
+                            formatter: function () {
+                                // return '<span style="color:white;background:gray !important;"><b>'+sepNum(this.y)+' M</b></span>';
+                                return $('<div/>').css({
+                                    'color' : 'white', // work
+                                    'padding': '0 3px',
+                                    'font-size':'10px',
+                                    'backgroundColor' : this.series.color  // just white in my case
+                                }).text(sepNumPas(this.y)+'%')[0].outerHTML;
+                            }
+                        }
+                    },
+                    column:{
+                        dataLabels: {
+                            padding:0,
+                            allowOverlap:true,
+                            enabled: true,
+                            crop: false,
+                            overflow: 'none',
+                            useHTML:true,
+                            formatter: function () {
+                                // return '<span style="color:white;background:gray !important;"><b>'+sepNum(this.y)+' M</b></span>';
+                                return $('<div/>').css({
+                                    'color' : 'white', // work
+                                    'padding': '0 3px',
+                                    'font-size':'10px',
+                                    'backgroundColor' : this.series.color  // just white in my case
+                                }).text(sepNumPas(this.y)+'%')[0].outerHTML;
                             }
                         }
                     }
+
                 },
                 series: result.data.series
 
@@ -534,8 +602,15 @@ function getRkaVsReal(periode=null){
                             enabled: true,
                             crop: false,
                             overflow: 'none',
+                            useHTML:true,
                             formatter: function () {
-                                return '<b>'+toMilyar(this.y)+'</b>';
+                                // return '<span style="color:white;background:gray !important;"><b>'+sepNum(this.y)+' M</b></span>';
+                                return $('<div/>').css({
+                                    'color' : 'white', // work
+                                    'padding': '0 3px',
+                                    'font-size':'10px',
+                                    'backgroundColor' : this.series.color  // just white in my case
+                                }).text(toMilyar(this.y))[0].outerHTML;
                             }
                         }
                     }
