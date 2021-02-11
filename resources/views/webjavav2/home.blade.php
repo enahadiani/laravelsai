@@ -13,6 +13,7 @@
     <link href="{{ asset('asset_web/css/plugins.css') }}" rel="stylesheet">
     <link href="{{ asset('asset_web/css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('asset_web/css/webjava/home-dekstop.css') }}" rel="stylesheet">
+    <link href="{{ asset('asset_web/css/webjava/home-mobile.css') }}" rel="stylesheet">
 </head>
 
 <body>
@@ -23,6 +24,9 @@
         <header id="header" data-transparent="true" data-fullwidth="true" class="dark submenu-light ">
             <div class="header-inner">
                 <div class="container">
+                    <div id="mainMenu-trigger">
+                        <a class="lines-button x"><span class="lines"></span></a>
+                    </div>
                     <div class="header-container">
                         <div class="information-contact">
                             <span>Phone: +62 22 87306036</span>

@@ -279,19 +279,19 @@ Highcharts.chart('chart-ccr-prev', {
     },
     series: [
         {
-            name: 'Pembayaran',
-            color: '#22d36b',
-            stack: 1,
-            data: [81, 94, 100, 90, 60, 72],
-            dataLabels: {
-                x:50
-            }
-        },
-        {
             name: 'Belum Terbayar',
             color: '#ff3030',
             stack: 1,
-            data: [1, 3, 0, 4, 6, 4],
+            data: [30, 150, 0, 50, 250, 150],
+        },
+        {
+            name: 'Pembayaran',
+            color: '#22d36b',
+            stack: 1,
+            data: [70, 250, 600, 150, 50, 100],
+            dataLabels: {
+                x:50
+            }
         },
         {
             name: 'Tagihan',
@@ -304,7 +304,7 @@ Highcharts.chart('chart-ccr-prev', {
             },
             type: 'scatter',
             stack: 1,
-            data: [83, 98, 100, 96, 67, 76],
+            data: [100, 400, 600, 200, 300, 250],
             dataLabels:{
                 x:-50
             }
@@ -352,6 +352,7 @@ Highcharts.chart('chart-ccr-ytd', {
                 crop: false,
                 overflow: 'justify',
                 useHTML: true,
+                shared: true,
                 formatter: function () {
                     if(this.y < 0.1){
                         return '';
@@ -382,7 +383,7 @@ Highcharts.chart('chart-ccr-ytd', {
                                 'padding': '0 3px',
                                 'font-size': '10px',
                                 'backgroundColor' : this.point.color  // just white in my case
-                            }).text(sepNum(this.point.y)+'%')[0].outerHTML;
+                            }).text(sepNum(this.point.y)+'M')[0].outerHTML;
                         }
                 }
             }
@@ -390,19 +391,19 @@ Highcharts.chart('chart-ccr-ytd', {
     },
     series: [
         {
-            name: 'Pembayaran',
-            color: '#22d36b',
-            stack: 1,
-            data: [81, 94, 100, 90, 60, 72],
-            dataLabels: {
-                x:50
-            }
-        },
-        {
             name: 'Belum Terbayar',
             color: '#ff3030',
             stack: 1,
-            data: [1, 3, 0, 4, 6, 4],
+            data: [30, 150, 0, 50, 250, 150],
+        },
+        {
+            name: 'Pembayaran',
+            color: '#22d36b',
+            stack: 1,
+            data: [70, 250, 600, 150, 50, 100],
+            dataLabels: {
+                x:50
+            }
         },
         {
             name: 'Tagihan',
@@ -415,7 +416,7 @@ Highcharts.chart('chart-ccr-ytd', {
             },
             type: 'scatter',
             stack: 1,
-            data: [83, 98, 100, 96, 67, 76],
+            data: [100, 400, 600, 200, 300, 250],
             dataLabels:{
                 x:-50
             }
