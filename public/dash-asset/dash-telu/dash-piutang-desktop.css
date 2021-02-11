@@ -1,3 +1,35 @@
+.legend-ccr-3 > .legend-symbol {
+    height: 13px;
+    width: 13px;
+    border-radius: 50%;
+    background-color: #ff3030;
+}
+.legend-ccr-2 > .legend-symbol {
+    height: 13px;
+    width: 13px;
+    border-radius: 50%;
+    background-color: #22d36b;
+}
+.legend-ccr-1 > .legend-symbol {
+    height: 13px;
+    width: 15px;
+    background-color: #009d69;
+}
+.legend-ccr-1,
+.legend-ccr-2,
+.legend-ccr-3 {
+    display: flex;
+    flex-direction: row;
+    padding: 0 0.8rem;
+}
+.keterangan-ccr span {
+    padding-left: 0.5rem;
+}
+.keterangan-ccr {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
 .keterangan-piutang-fakultas span {
     padding-left: 0.5rem;
 }

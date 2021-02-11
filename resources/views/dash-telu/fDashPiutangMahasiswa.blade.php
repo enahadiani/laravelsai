@@ -90,7 +90,7 @@ $thnLalu = substr($tahunLalu,2,2)
         </div>
     </div>
     <div class="row">
-        <div class="col-12">
+        <div class="col-12 mb-4">
             <div class="card">
                 <h6 class="ml-3 mt-4">Piutang per Fakultas</h6>
                 <div class="card-body pt-0">
@@ -129,11 +129,299 @@ $thnLalu = substr($tahunLalu,2,2)
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-6 col-sm-12 mb-4">
+            <div class="card">
+                <h6 class="ml-3 mt-4">CCR 2021</h6>
+                <div class="card-body pt-0">
+                    <div class="row">
+                        <div class="col-12">
+                            <div id="chart-ccr-ytd"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="keterangan-ccr">
+                                <div class="legend-ccr-1">
+                                    <div class="legend-symbol"></div>
+                                    <span class="legend-text">Tagihan</span>
+                                </div>
+                                <div class="legend-ccr-2">
+                                    <div class="legend-symbol"></div>
+                                    <span class="legend-text">Pembayaran</span>
+                                </div>
+                                <div class="legend-ccr-3">
+                                    <div class="legend-symbol"></div>
+                                    <span class="legend-text">Belum Terbayar</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12 mb-4">
+            <div class="card">
+                <h6 class="ml-3 mt-4">CCR Tahun Sebelumnya</h6>
+                <div class="card-body pt-0">
+                    <div class="row">
+                        <div class="col-12">
+                            <div id="chart-ccr-prev"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="keterangan-ccr">
+                                <div class="legend-ccr-1">
+                                    <div class="legend-symbol"></div>
+                                    <span class="legend-text">Tagihan</span>
+                                </div>
+                                <div class="legend-ccr-2">
+                                    <div class="legend-symbol"></div>
+                                    <span class="legend-text">Pembayaran</span>
+                                </div>
+                                <div class="legend-ccr-3">
+                                    <div class="legend-symbol"></div>
+                                    <span class="legend-text">Belum Terbayar</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script type="text/javascript">
 $('body').addClass('dash-contents');
 $('html').addClass('dash-contents');
+
+Highcharts.SVGRenderer.prototype.symbols['c-rect'] = function (x, y, w, h) {
+    return ['M', x, y + h / 2, 'L', x + w, y + h / 2];
+};
+
+Highcharts.chart('chart-ccr-prev', {
+    chart: {
+        type: 'column'
+    },
+    credits:{
+        enabled:false
+    },
+    title: {
+        text: ''
+    },
+    subtitle: { 
+        text: '' 
+    },
+    exporting: {
+        enabled: false
+    },
+    legend: { 
+        enabled:false 
+    },
+    xAxis: {
+        categories: ['UP3','SDP2', 'BPP', 'Maba', 'SKS', 'Pendidikan Lainnya']
+    },
+    yAxis: {
+        title:'',
+        min: 0
+    },
+    tooltip: {
+        pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b>',
+    },
+    plotOptions: {
+        column: {
+            stacking: 'normal',
+            borderWidth: 0,
+            pointWidth: 50,
+            dataLabels: {
+                allowOverlap:true,
+                enabled: true,
+                crop: false,
+                overflow: 'justify',
+                useHTML: true,
+                formatter: function () {
+                    if(this.y < 0.1){
+                        return '';
+                    }else{
+                        return $('<div/>').css({
+                            'color' : 'white', // work
+                            'padding': '0 3px',
+                            'font-size': '10px',
+                            'backgroundColor' : this.point.color  // just white in my case
+                        }).text(sepNum(this.point.y)+'M')[0].outerHTML;
+                    }
+                }
+            }
+        },
+        scatter: {
+            dataLabels: {
+                allowOverlap:true,
+                enabled: true,
+                crop: false,
+                overflow: 'justify',
+                useHTML: true,
+                formatter: function () {
+                    if(this.y < 0.1){
+                        return '';
+                    }else{
+                        return $('<div/>').css({
+                                'color' : 'white', // work
+                                'padding': '0 3px',
+                                'font-size': '10px',
+                                'backgroundColor' : this.point.color  // just white in my case
+                            }).text(sepNum(this.point.y)+'%')[0].outerHTML;
+                        }
+                }
+            }
+        }
+    },
+    series: [
+        {
+            name: 'Pembayaran',
+            color: '#22d36b',
+            stack: 1,
+            data: [81, 94, 100, 90, 60, 72],
+            dataLabels: {
+                x:50
+            }
+        },
+        {
+            name: 'Belum Terbayar',
+            color: '#ff3030',
+            stack: 1,
+            data: [1, 3, 0, 4, 6, 4],
+        },
+        {
+            name: 'Tagihan',
+            color: '#009d69',
+            marker: {
+                symbol: 'c-rect',
+                lineWidth:5,
+                lineColor: '#009d69',
+                radius: 30
+            },
+            type: 'scatter',
+            stack: 1,
+            data: [83, 98, 100, 96, 67, 76],
+            dataLabels:{
+                x:-50
+            }
+        }
+    ]
+})
+
+Highcharts.chart('chart-ccr-ytd', {
+    chart: {
+        type: 'column'
+    },
+    credits:{
+        enabled:false
+    },
+    title: {
+        text: ''
+    },
+    subtitle: { 
+        text: '' 
+    },
+    exporting: {
+        enabled: false
+    },
+    legend: { 
+        enabled:false 
+    },
+    xAxis: {
+        categories: ['UP3','SDP2', 'BPP', 'Maba', 'SKS', 'Pendidikan Lainnya']
+    },
+    yAxis: {
+        title:'',
+        min: 0
+    },
+    tooltip: {
+        pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b>',
+    },
+    plotOptions: {
+        column: {
+            stacking: 'normal',
+            borderWidth: 0,
+            pointWidth: 50,
+            dataLabels: {
+                allowOverlap:true,
+                enabled: true,
+                crop: false,
+                overflow: 'justify',
+                useHTML: true,
+                formatter: function () {
+                    if(this.y < 0.1){
+                        return '';
+                    }else{
+                        return $('<div/>').css({
+                            'color' : 'white', // work
+                            'padding': '0 3px',
+                            'font-size': '10px',
+                            'backgroundColor' : this.point.color  // just white in my case
+                        }).text(sepNum(this.point.y)+'M')[0].outerHTML;
+                    }
+                }
+            }
+        },
+        scatter: {
+            dataLabels: {
+                allowOverlap:true,
+                enabled: true,
+                crop: false,
+                overflow: 'justify',
+                useHTML: true,
+                formatter: function () {
+                    if(this.y < 0.1){
+                        return '';
+                    }else{
+                        return $('<div/>').css({
+                                'color' : 'white', // work
+                                'padding': '0 3px',
+                                'font-size': '10px',
+                                'backgroundColor' : this.point.color  // just white in my case
+                            }).text(sepNum(this.point.y)+'%')[0].outerHTML;
+                        }
+                }
+            }
+        }
+    },
+    series: [
+        {
+            name: 'Pembayaran',
+            color: '#22d36b',
+            stack: 1,
+            data: [81, 94, 100, 90, 60, 72],
+            dataLabels: {
+                x:50
+            }
+        },
+        {
+            name: 'Belum Terbayar',
+            color: '#ff3030',
+            stack: 1,
+            data: [1, 3, 0, 4, 6, 4],
+        },
+        {
+            name: 'Tagihan',
+            color: '#009d69',
+            marker: {
+                symbol: 'c-rect',
+                lineWidth:5,
+                lineColor: '#009d69',
+                radius: 30
+            },
+            type: 'scatter',
+            stack: 1,
+            data: [83, 98, 100, 96, 67, 76],
+            dataLabels:{
+                x:-50
+            }
+        }
+    ]
+})
 
 Highcharts.chart('chart-piutang-fakultas', {
     chart: {
