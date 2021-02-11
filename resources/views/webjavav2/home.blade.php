@@ -108,7 +108,7 @@
         <section id="services" class="p-b-70">
             <div class="container">
                 <div class="heading-text heading-section">
-                    <h4>Our Services</h4>
+                    <h4>Our Product</h4>
                 </div>
                 <div class="services-container">
                     <div class="services-content">
