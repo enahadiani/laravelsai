@@ -43,7 +43,7 @@
             }
         }
 
-        public function getRkaVsReal($periode)
+        public function getRkaVsReal(Request $request, $periode)
         {
             try{
 
@@ -52,7 +52,8 @@
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
-                    ]
+                    ],
+                    'query' => $request->all()
                 ]);
     
                 if ($response->getStatusCode() == 200) { // 200 OK
