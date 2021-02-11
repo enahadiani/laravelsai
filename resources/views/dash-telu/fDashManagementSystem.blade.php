@@ -313,13 +313,25 @@ function getProfitLoss(periode=null)
                     var line = result.data.data[i];
                     if(line.nama != "Beban"){
                         var nilai = sepNumPas(parseFloat(line.nilai)*-1);
+                        var n2 = sepNumPas(parseFloat(line.n2)*-1);
                     }else{
                         
                         var nilai = sepNumPas(parseFloat(line.nilai));
+                        var n2 = sepNumPas(parseFloat(line.n2));
                     }
                     var persen = sepNumPas(parseFloat(line.persen));
+                    if(i == 0){
+
+                        html+=`<tr>
+                        <td></td>
+                        <td class='text-center'>RKA</td>
+                        <td class='text-center'>Real</td>
+                        <td class='text-center'>%</td>
+                        </tr>`;   
+                    }
                     html+=`<tr class='trace ms-`+i+`'>
                     <td>`+line.nama+`</td>
+                    <td class='text-right'>`+n2+`</td>
                     <td class='text-right'>`+nilai+`</td>
                     <td class='text-right text-success' >`+persen+`%</td>
                     </tr>`;   
@@ -365,10 +377,17 @@ function getFxPosition(periode=null)
                 for(var i=0;i<result.data.data.length;i++)
                 {
                     var line = result.data.data[i];
+                    if(line.nama != "Aset"){
+                        var nilai = sepNumPas(parseFloat(line.nilai)*-1);
+                        var persen = (parseFloat(line.nilai)/parseFloat(result.data.data[0].nilai))*100;
+                    }else{
+                        var persen = 100;
+                        var nilai = sepNumPas(parseFloat(line.nilai));
+                    }
                     html+=`<tr>
                     <td>`+line.nama+`</td>
-                    <td class='text-right'>`+sepNumPas(parseFloat(line.nilai))+`</td>
-                    <td class='text-right text-success' >`+sepNumPas(parseFloat(line.persen))+`%</td>
+                    <td class='text-right'>`+nilai+`</td>
+                    <td class='text-right text-success' >`+sepNumPas(persen)+`%</td>
                     </tr>`;   
                 }
             }
@@ -412,12 +431,26 @@ function getPenyerapan(periode=null)
                 for(var i=0;i<result.data.data.length;i++)
                 {
                     var line = result.data.data[i];
-                    html+=`<tr class='trace serap-`+i+`'>
+                    var nilai = sepNumPas(parseFloat(line.nilai));
+                    var n2 = sepNumPas(parseFloat(line.n2));
+                    var persen = sepNumPas(parseFloat(line.persen));
+                    if(i == 0){
+
+                        html+=`<tr>
+                        <td></td>
+                        <td class='text-center'>RKA</td>
+                        <td class='text-center'>Real</td>
+                        <td class='text-center'>%</td>
+                        </tr>`;   
+                    }
+                    html+=`<tr class='trace ms-`+i+`'>
                     <td>`+line.nama+`</td>
-                    <td class='text-right'>`+sepNumPas(parseFloat(line.nilai))+`</td>
-                    <td class='text-right text-success' >`+sepNumPas(parseFloat(line.persen))+`%</td>
+                    <td class='text-right'>`+n2+`</td>
+                    <td class='text-right'>`+nilai+`</td>
+                    <td class='text-right text-success' >`+persen+`%</td>
                     </tr>`;   
                 }
+
             }
             $('.table-penyerapan').html(html);
             $('.card-beban').animate({
@@ -629,11 +662,11 @@ $("#btn-close").on("click", function (event) {
     $('#modalFilter').modal('hide');
 });
 
-$('.table').on('click','.ms-0',function(e){
+$('.table').on('click','.ms-1',function(e){
     var url = "{{ url('/dash-telu/form/fDashMSPendapatan') }}";
     loadForm(url);
 });
-$('.table').on('click','.ms-1',function(e){
+$('.table').on('click','.ms-2',function(e){
     var url = "{{ url('/dash-telu/form/fDashMSBeban') }}";
     loadForm(url);
 });

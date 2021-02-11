@@ -307,7 +307,10 @@
     });
 
     $('#beranda').show();
-
+    
+    var scrollContent = document.querySelector('.content-fix-height-right');
+    var psscrollContent = new PerfectScrollbar(scrollContent,{suppressScrollX:true});
+    
     function sepNum(x){
         if(!isNaN(x)){
             if (typeof x === undefined || !x || x == 0) { 

@@ -61,6 +61,10 @@
         button.bg-primary:hover, button.bg-primary:focus {
             background-color: #f3f3f3 !important;
         }
+        .bg-img{
+            background-image: url("{{ asset('img/bg-tsinfo.png') }}");
+            background-size: cover;background-repeat: no-repeat;background-position-y: center;border-radius: 0.75rem;
+        }
     </style>
     <div class="row" >
         <div class="col-12 col-lg-4 col-xl-3 col-left col-grid content-fix-height-left" >
@@ -124,7 +128,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card">
-                        <div class="card-body px-5 py-4" style="background-image: url(http://127.0.0.1:8000/img/bg-tsinfo.png);background-size: cover;background-repeat: no-repeat;background-position-y: center;border-radius: 0.75rem;"> 
+                        <div class="card-body px-5 py-4 bg-img"> 
                             <div class="row">
                                 <div class="col-md-6 col-12 col-grid">
                                     <h1 class="text-primary bold">Informasi<br>Keuangan</h1>
@@ -185,6 +189,9 @@
         }
     });
 
+    var scrollContent = document.querySelector('.content-fix-height-right');
+    var psscrollContent = new PerfectScrollbar(scrollContent,{suppressScrollX:true});
+    
     function sepNum(x){
         if(!isNaN(x)){
             if (typeof x === undefined || !x || x == 0) { 

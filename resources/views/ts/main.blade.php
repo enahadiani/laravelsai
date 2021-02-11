@@ -1313,8 +1313,6 @@
             var tinggi = content-120;
             $('.content-fix-height-left').css('height',tinggi);
             $('.content-fix-height-right').css('height',tinggi);
-            var scrollContent = document.querySelector('.content-fix-height-right');
-            var psscrollContent = new PerfectScrollbar(scrollContent,{suppressScrollX:true});
         }
     }
 

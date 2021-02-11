@@ -323,6 +323,9 @@
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         }
     });
+    var scrollContent = document.querySelector('.content-fix-height-right');
+    var psscrollContent = new PerfectScrollbar(scrollContent,{suppressScrollX:true});
+    
 
     $('#beranda').show();
     function sepNum(x){
