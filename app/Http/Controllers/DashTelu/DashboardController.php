@@ -491,16 +491,17 @@
             }
         }
 
-        public function getBCRKA()
+        public function getBCRKA(Request $request)
         {
             try{
                 $client = new Client();
                 $response = $client->request('GET', config('api.url').'ypt-dash/rka',
-                    [
+                [
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
-                    ]
+                    ],
+                    'query' => $request->all()
                 ]);
     
                 if ($response->getStatusCode() == 200) { // 200 OK
@@ -543,7 +544,7 @@
             }
         }
 
-        public function getBCGrowthRKA()
+        public function getBCGrowthRKA(Request $request)
         {
             try{
                 $client = new Client();
@@ -552,7 +553,8 @@
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
-                    ]
+                    ],
+                    'query' => $request->all()
                 ]);
     
                 if ($response->getStatusCode() == 200) { // 200 OK
@@ -569,7 +571,7 @@
             }
         }
 
-        public function getBCTuition()
+        public function getBCTuition(Request $request)
         {
             try{
 
@@ -579,7 +581,8 @@
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
-                    ]
+                    ],
+                    'query' => $request->all()
                 ]);
     
                 if ($response->getStatusCode() == 200) { // 200 OK
@@ -596,7 +599,7 @@
             }
         }
 
-        public function getBCTuitionPersen()
+        public function getBCTuitionPersen(Request $request)
         {
             try{
 
@@ -606,7 +609,8 @@
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
-                    ]
+                    ],
+                    'query' => $request->all()
                 ]);
     
                 if ($response->getStatusCode() == 200) { // 200 OK
@@ -623,7 +627,7 @@
             }
         }
 
-        public function getBCGrowthTuition()
+        public function getBCGrowthTuition(Request $request)
         {
             try{
                 $client = new Client();
@@ -632,7 +636,8 @@
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
-                    ]
+                    ],
+                    'query' => $request->all()
                 ]);
     
                 if ($response->getStatusCode() == 200) { // 200 OK
@@ -656,6 +661,32 @@
             try{
                 $client = new Client();
                 $response = $client->request('GET', config('api.url').'ypt-dash/periode',
+                    [
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ]
+                ]);
+    
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $data = json_decode($response_data,true);
+                    $data = $data["success"];
+                }
+                return response()->json(['data' => $data], 200);
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                return response()->json(['message' => $res, 'status'=>false], $response->getStatusCode());
+            }
+        }
+
+        public function getTahun()
+        {
+            try{
+                $client = new Client();
+                $response = $client->request('GET', config('api.url').'ypt-dash/tahun',
                     [
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),

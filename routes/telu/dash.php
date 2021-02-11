@@ -55,6 +55,7 @@ Route::post('search-form','DashTelu\AuthController@searchForm');
 Route::get('search-form-list','DashTelu\AuthController@searchFormList');
 Route::get('search-form-list2','DashTelu\AuthController@searchFormList2');
 Route::get('periode','DashTelu\DashboardController@getPeriode');
+Route::get('tahun','DashTelu\DashboardController@getTahun');
 
 
 Route::get('watch/{id}', function ($id) {

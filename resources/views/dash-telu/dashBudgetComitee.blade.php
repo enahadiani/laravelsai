@@ -1,21 +1,4 @@
-@php
-$kode_lokasi = Session::get('lokasi');
-$periode = Session::get('periode');
-$kode_pp = Session::get('kodePP');
-$nik     = Session::get('userLog');
-
-$tahun= substr($periode,0,4);
-$tahunLalu = intval($tahun)-1;
-$thnIni = substr($tahun,2,2);
-$thnLalu = substr($tahunLalu,2,2)
-@endphp
-
 <style>
-    .card{
-        border-radius: 0 !important;
-        box-shadow: none;
-        border: 1px solid #f0f0f0;
-    }
     .btn-outline-light:hover {
         color: #131113;
         background-color: #ececec;
@@ -26,120 +9,85 @@ $thnLalu = substr($tahunLalu,2,2)
         background-color: white;
         border-color: white !important;
     }
-    /* #modalFilter
-    {
-        top:90px
-    }
-
-    @media (max-width: 1439px) {
-        #modalFilter
-        {
-            top:90px
-        }
-    }
-    @media (max-width: 1199px) {
-        #modalFilter
-        {
-            top:80px
-        }
-    }
-    @media (max-width: 767px) {
-        #modalFilter
-        {
-            top:70px
-        }   
-    }
-    @media (max-width: 575px) {
-        #modalFilter
-        {
-            top:70px
-        }
-    } */
-
-    
-    /* .modal-backdrop.show
-    {
-        opacity:0;
-    }
-    .modal-content{
-        box-shadow: 0 1px 15px rgba(0,0,0,.04),0 1px 6px rgba(0,0,0,.04);;
-    } */
 </style>
-    <div class="row">
+<div class="container-fluid mt-3">
+    <div class="row mb-3">
         <div class="col-12">
             <h6>Pertumbuhan Laba Rugi Tahunan</h6>
             <a class="btn btn-outline-light" href="#" id="btn-filter" style="position: absolute;right: 15px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-equalizer" style="transform-style: ;"></i> &nbsp;&nbsp; Filter</a>
-            <div class="separator mb-5"></div>
+            <p>s.d <span class='tahun'></span></p>
         </div>
     </div>
     <div class="row" >
-        <div class="col-md-6 col-sm-12 mb-4">
-            <div class="card">
-                <h6 class="ml-3 mt-4">Realisasi Growth PDPT, Beban, SHU, Beban SDM
-                <br> <span style="font-size:12px">Tahun 2014-2020</span>
-                </h6>
-                <div class="card-body p-2" id="trend2">
-                   
+        <div class="col-lg-6 col-12 mb-4">
+            <div class="card dash-card">
+                <div class="card-header">
+                    <h6 class="card-title">Realisasi Growth PDPT, Beban, SHU, Beban SDM</h6>
+                    <span style="font-size:12px">Tahun <span class="rentang-tahun"></span></span>
+                </div>
+                <div class="card-body">
+                    <div id="trend2"></div>
                 </div>
             </div>
         </div>
-        <div class="col-md-6 col-sm-12 mb-4">
-            <div class="card">
-                <h6 class="ml-3 mt-4">Realisasi Growth Tuition Fee - NON Tuition Fee
-                <br> <span style="font-size:12px">Tahun 2014-2020</span>
-                </h6>
-                <div class="card-body p-2" id="trend4">
-                   
+        <div class="col-lg-6 col-12 mb-4">
+            <div class="card dash-card">
+                <div class="card-header">
+                    <h6 class="card-title">Realisasi Growth Tuition Fee - NON Tuition Fee</h6>
+                    <span style="font-size:12px">Tahun <span class="rentang-tahun"></span></span>
+                </div>
+                <div class="card-body">
+                    <div id="trend4"></div>
                 </div>
             </div>
         </div>
     </div>
     <div class="row" >
-        <div class="col-md-6 col-sm-12 mb-4">
-            <div class="card">
-                <div class="row mx-3 my-3">
-                    <h6 class="col-md-9 col-sm-12 px-0">Realisasi PDPT, Beban, SHU, Beban SDM
-                       <br> <span style="font-size:12px">Tahun 2014-2020</span>
-                    </h6>
-                    <ul role="tablist" style="border: none;" class="nav nav-tabs col-md-3 col-sm-12 px-0 justify-content-end">
-                        <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#tab3-rp" role="tab" aria-selected="false"><span class="hidden-xs-down"><b>Rp</b></span></a> </li>
-                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab3-persen" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>%</b></span></a> </li>
-                    </ul>
-                </div>
-                <div class="tab-content tabcontent-border p-0">
-                    <div class="tab-pane active" id="tab3-rp" role="tabpanel">
-                        <div class="card-body p-2" id="trend1">
-                           
-                        </div>
+        <div class="col-lg-6 col-12 mb-4">
+            <div class="card dash-card">
+                <div class="card-header">
+                    <div class="row mx-0">
+                        <h6 class="card-title col-md-9 col-sm-12 px-0">Realisasi PDPT, Beban, SHU, Beban SDM
+                        <br> <span style="font-size:12px">Tahun <span class="rentang-tahun"></span></span>
+                        </h6>
+                        <ul role="tablist" style="border: none;" class="nav nav-tabs col-md-3 col-sm-12 px-0 justify-content-end">
+                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#tab3-rp" role="tab" aria-selected="false"><span class="hidden-xs-down"><b>Rp</b></span></a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab3-persen" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>%</b></span></a> </li>
+                        </ul>
                     </div>
-                    <div class="tab-pane" id="tab3-persen" role="tabpanel">
-                        <div class="card-body p-2" id="trend1-persen">
-                        
+                </div>
+                <div class="card-body">
+                    <div class="tab-content tabcontent-border p-0">
+                        <div class="tab-pane active" id="tab3-rp" role="tabpanel">
+                            <div id="trend1"></div>
+                        </div>
+                        <div class="tab-pane" id="tab3-persen" role="tabpanel">
+                            <div id="trend1-persen"></div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-6 col-sm-12 mb-4">
-            <div class="card">
-                <div class="row mx-3 my-3">
-                    <h6 class="col-md-9 col-sm-12 px-0">Realisasi Tuition Fee - Non Tuition Fee
-                       <br> <span style="font-size:12px">Tahun 2014-2020</span>
-                    </h6>
-                    <ul role="tablist" style="border: none;" class="nav nav-tabs col-md-3 col-sm-12 px-0 justify-content-end">
-                        <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#tab4-rp" role="tab" aria-selected="false"><span class="hidden-xs-down"><b>Rp</b></span></a> </li>
-                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab4-persen" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>%</b></span></a> </li>
-                    </ul>
-                </div>
-                <div class="tab-content tabcontent-border p-0">
-                    <div class="tab-pane active" id="tab4-rp" role="tabpanel">
-                        <div class="card-body p-2" id="trend3">
-                           
-                        </div>
+        <div class="col-lg-6 col-12 mb-4">
+            <div class="card dash-card">
+                <div class="card-header">
+                    <div class="row mx-0">
+                        <h6 class="card-title col-md-9 col-sm-12 px-0">Realisasi Tuition Fee - Non Tuition Fee
+                        <br> <span style="font-size:12px">Tahun <span class="rentang-tahun"></span></span>
+                        </h6>
+                        <ul role="tablist" style="border: none;" class="nav nav-tabs col-md-3 col-sm-12 px-0 justify-content-end">
+                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#tab4-rp" role="tab" aria-selected="false"><span class="hidden-xs-down"><b>Rp</b></span></a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab4-persen" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>%</b></span></a> </li>
+                        </ul>
                     </div>
-                    <div class="tab-pane" id="tab4-persen" role="tabpanel">
-                        <div class="card-body p-2" id="trend3-persen">
-                        
+                </div>
+                <div class="card-body">
+                    <div class="tab-content tabcontent-border p-0">
+                        <div class="tab-pane active" id="tab4-rp" role="tabpanel">
+                            <div id="trend3"></div>
+                        </div>
+                        <div class="tab-pane" id="tab4-persen" role="tabpanel">
+                            <div id="trend3-persen"></div>
                         </div>
                     </div>
                 </div>
@@ -148,7 +96,7 @@ $thnLalu = substr($tahunLalu,2,2)
         <!-- <div class="col-md-6 col-sm-12 mb-4">
             <div class="card">
                 <h6 class="ml-3 mt-4">Realisasi Growth PDPT, Beban, SHU, Beban SDM
-                2014-2020 (RKA)
+                <span class="rentang-tahun"></span> (RKA)
                 </h6>
                 <div class="card-body p-2" id="trend21">
                    
@@ -169,9 +117,9 @@ $thnLalu = substr($tahunLalu,2,2)
                     </div>
                     <div class="modal-body" style="border:none">
                         <div class="form-group">
-                            <label>Periode</label>
+                            <label>Tahun</label>
                             <select class="form-control" data-width="100%" name="periode" id="periode">
-                                <option value='#'>Pilih Periode</option>
+                                <option value='#'>Pilih Tahun</option>
                             </select>
                         </div>
                     </div>
@@ -211,10 +159,20 @@ $thnLalu = substr($tahunLalu,2,2)
             </div>
         </div>
     </div> -->
+</div>
 <script>
  
 $('body').addClass('dash-contents');
 $('html').addClass('dash-contents');
+if(localStorage.getItem("dore-theme") == "dark"){
+    $('#btn-filter').removeClass('btn-outline-light');
+    $('#btn-filter').addClass('btn-outline-dark');
+}else{
+    $('#btn-filter').removeClass('btn-outline-dark');
+    $('#btn-filter').addClass('btn-outline-light');
+}
+
+var $mode = localStorage.getItem("dore-theme");
 function sepNum(x){
     if(!isNaN(x)){
         if (typeof x === undefined || !x || x == 0) { 
@@ -285,16 +243,55 @@ function singkatNilai(num){
     }
 }
 
+function getTahun(){
+    $.ajax({
+        type:"GET",
+        url:"{{ url('/telu-dash/tahun') }}",
+        dataType: "JSON",
+        success: function(result){
+            var select = $('#periode').selectize();
+            select = select[0];
+            var control = select.selectize;
+            if(result.data.status){
+                if(typeof result.data.data !== 'undefined' && result.data.data.length>0){
+                    for(i=0;i<result.data.data.length;i++){
+                        control.addOption([{text:result.data.data[i].periode, value:result.data.data[i].periode}]);
+                    }
+                }
+                if("{{ Session::get('periode') }}" != ""){
+                    control.setValue("{{ Session::get('periode') }}".substr(0,4));
+                }
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {       
+            if(jqXHR.status == 422){
+                var msg = jqXHR.responseText;
+            }else if(jqXHR.status == 500) {
+                var msg = "Internal server error";
+            }else if(jqXHR.status == 401){
+                var msg = "Unauthorized";
+                window.location="{{ url('/dash-telu/sesi-habis') }}";
+            }else if(jqXHR.status == 405){
+                var msg = "Route not valid. Page not found";
+            }
+            
+        }
+    });
+}
 
-function getBCRKA(){
+getTahun();
+
+
+function getBCRKA(tahun){
     $.ajax({
         type:"GET",
         url:"{{ url('/telu-dash/rka') }}",
+        data:{ tahun: tahun, mode: $mode},
         dataType:"JSON",
         success: function(result){
             Highcharts.chart('trend1', {
                 chart: {
-                    type: 'line'
+                    type: 'spline'
                 },
                 title: {
                     text: null
@@ -304,7 +301,7 @@ function getBCRKA(){
                 },
                 tooltip: {
                     formatter: function () {
-                        return this.series.name+':<b>'+sepNumPas(this.y)+' M</b>';
+                        return this.series.name+':<b>'+toMilyar(this.y)+' M</b>';
                     }
                 },
                 yAxis: {
@@ -321,15 +318,31 @@ function getBCRKA(){
                     categories:result.data.ctg
                 },
                 plotOptions: {
-                    line: {
+                    // line: {
+                    //     dataLabels: {
+                    //         enabled: true,
+                    //         formatter: function () {
+                    //             return '<b>'+sepNumPas(this.y)+' M</b>';
+                    //         }
+                    //     },
+                    //     // enableMouseTracking: false
+                    // },
+                    spline: {
                         dataLabels: {
-                            enabled: true,
+                            // padding:15,
+                            // x:20,
+                            useHTML: true,
                             formatter: function () {
-                                return '<b>'+sepNumPas(this.y)+' M</b>';
+                                return $('<div/>').css({
+                                    'color' : 'white', // work
+                                    'padding': '0 5px',
+                                    'font-size':'8px',
+                                    'backgroundColor' : this.point.color  // just white in my case
+                                }).text(toMilyar(this.y)+'%')[0].outerHTML;
                             }
-                        },
+                        }
                         // enableMouseTracking: false
-                    }
+                    },
                 },
                 series: result.data.series
             });
@@ -414,16 +427,16 @@ function getBCRKAPersen(){
     })
 }
 
-function getBCGrowthRKA(){
+function getBCGrowthRKA(tahun){
     $.ajax({
         type:"GET",
         url:"{{ url('/telu-dash/growth-rka') }}",
+        data:{ tahun: tahun, mode: $mode},
         dataType:"JSON",
         success: function(result){
-            console.log(result)
             Highcharts.chart('trend2', {
                 chart: {
-                    type: 'line'
+                    type: 'spline'
                 },
                 title: {
                     text: null
@@ -450,19 +463,27 @@ function getBCGrowthRKA(){
                     categories:result.data.ctg
                 },
                 plotOptions: {
-                    line: {
+                    spline: {
                         dataLabels: {
+                            // padding:15,
+                            // x:20,
                             padding:0,
                             allowOverlap:true,
                             enabled: true,
                             crop: false,
                             overflow: 'none',
+                            useHTML: true,
                             formatter: function () {
-                                return '<b>'+sepNumPas(this.y)+' %</b>';
+                                return $('<div/>').css({
+                                    'color' : 'white', // work
+                                    'padding': '0 5px',
+                                    'font-size':'8px',
+                                    'backgroundColor' : this.point.color  // just white in my case
+                                }).text(sepNumPas(this.y)+'%')[0].outerHTML;
                             }
                         }
                         // enableMouseTracking: false
-                    }
+                    },
                 },
                 series: result.data.series
             });
@@ -483,11 +504,12 @@ function getBCGrowthRKA(){
     })
 }
 
-function getBCTuition(){
+function getBCTuition(tahun){
     $.ajax({
         type:"GET",
         url:"{{ url('/telu-dash/tuition') }}",
         dataType:"JSON",
+        data:{ tahun: tahun, mode: $mode},
         success:function(result){
             Highcharts.chart('trend3', { 
                 title: {
@@ -498,7 +520,7 @@ function getBCTuition(){
                 },
                 tooltip: {
                     formatter: function () {
-                        return this.series.name+':<b>'+sepNumPas(this.y)+' M</b>';
+                        return this.series.name+':<b>'+toMilyar(this.y)+' M</b>';
                     }
                 },
                 yAxis: {
@@ -519,7 +541,7 @@ function getBCTuition(){
                         dataLabels: {
                             enabled: true,
                             formatter: function () {
-                                return '<b>'+sepNumPas(this.y)+' M</b>';
+                                return '<b>'+toMilyar(this.y)+' M</b>';
                             }
                         }
                     }
@@ -545,11 +567,12 @@ function getBCTuition(){
     })
 }
 
-function getBCTuitionPersen(){
+function getBCTuitionPersen(tahun){
     $.ajax({
         type:"GET",
         url:"{{ url('/telu-dash/tuition-persen') }}",
         dataType:"JSON",
+        data:{ tahun: tahun, mode: $mode},
         success:function(result){
             Highcharts.chart('trend3-persen', { 
                 title: {
@@ -608,15 +631,16 @@ function getBCTuitionPersen(){
 }
 
 
-function getBCGrowthTuition(){
+function getBCGrowthTuition(tahun){
     $.ajax({
         type:"GET",
         url:"{{ url('/telu-dash/growth-tuition') }}",
         dataType:"JSON",
+        data:{ tahun: tahun, mode: $mode},
         success: function(result){
             Highcharts.chart('trend4', {
                 chart: {
-                    type: 'line'
+                    type: 'spline'
                 },
                 title: {
                     text: null
@@ -643,19 +667,27 @@ function getBCGrowthTuition(){
                     categories:result.data.ctg
                 },
                 plotOptions: {
-                    line: {
+                    spline: {
                         dataLabels: {
+                            // padding:15,
+                            // x:20,
                             padding:0,
                             allowOverlap:true,
                             enabled: true,
                             crop: false,
                             overflow: 'none',
+                            useHTML: true,
                             formatter: function () {
-                                return '<b>'+sepNumPas(this.y)+' %</b>';
+                                return $('<div/>').css({
+                                    'color' : 'white', // work
+                                    'padding': '0 5px',
+                                    'font-size':'8px',
+                                    'backgroundColor' : this.point.color  // just white in my case
+                                }).text(sepNumPas(this.y)+'%')[0].outerHTML;
                             }
                         }
                         // enableMouseTracking: false
-                    }
+                    },
                 },
                 series: result.data.series
             });
@@ -675,102 +707,54 @@ function getBCGrowthTuition(){
         }
     })
 }
-getBCGrowthRKA();
-getBCGrowthTuition();
-getBCRKA();
-getBCRKAPersen();
-getBCTuition();
-getBCTuitionPersen();
-// $('.app-menu').hide();
-// google.charts.load('current', {packages: ['corechart','line']});
-// google.charts.setOnLoadCallback(drawGoogleChart);
-// function drawGoogleChart() {
-//     var data = new google.visualization.arrayToDataTable([
-//         ['Periode', 'Pendapatan',{ role: 'annotation'}, 'Beban', { role: 'annotation'},'SDM', { role: 'annotation'},'SHU',{ role: 'annotation'}],
-//         ['2015', 44.08, '44.08', 18.36, '18.36', 19.11, '19.11',25.72, '25.72'],
-//         ['2016', 63.03, '63.03', 52.4, '52.4', 24.2, '24.2', 10.63, '10.63'],
-//         ['2017', 60.37, '63.37', 29.51, '29.51', 17.93, '17.93',30.86, '30.86'],
-//         ['2018', 53.38, '53.38', 57.42, '57.42', 34.56, '34.5', 0.97, '0.97'],
-//         ['2019', 48.46, '48.46', 39.66, '39.66', 19.08, '19.08', 8.8, '8.8'],
-//         ['2020', 20.92, '20.92', 18.25, '18.25', 18.16, '18.16', 2.67, '2.67'],
-//     ]);
 
-//     var options = {
-//         legend: { position: 'bottom', alignment:'center' ,maxLines: 4 },
-//         chart: {
-//           title: null,
-//           subtitle: null
-//         },
-//         height: 500,
-//         width: 540,
-//         chartArea: {'width': '90%', 'height': '90%'},
-//         axes: {
-//           x: {
-//             0: {side: 'top'}
-//           }
-//         }
-//     }
-
-//     var chart = new google.visualization.LineChart(document.getElementById('trend21'));
-
-//     chart.draw(data, options);
-// }
+var tahun = "{{ Session::get('periode') }}".substr(0,4);
+var tahunLima = parseInt(tahun) - 6;
+$('.rentang-tahun').text(tahunLima+" - "+tahun);
+$('.tahun').text(tahun);
+getBCGrowthRKA(tahun);
+getBCGrowthTuition(tahun);
+getBCRKA(tahun);
+getBCRKAPersen(tahun);
+getBCTuition(tahun);
+getBCTuitionPersen(tahun);
    
-$('#btn-filter').click(function(){
-    // console.log('ok');
-    // if ($(".app-menu").hasClass("shown")) {
-    //     $(".app-menu").removeClass("shown");
-    //     console.log("sudah");
-    // } else {
-    //     $('.app-menu').addClass('shown');
-    //     console.log("belum");
-    // }
-    // $('.app-menu').show();
+
+$('#form-filter').submit(function(e){
+    e.preventDefault();
+    var periode = $('#periode')[0].selectize.getValue();
+    var tahun = periode;
+    var tahunLima = parseInt(tahun) - 6;
+    $('.rentang-tahun').text(tahunLima+" - "+tahun);
+    $('.tahun').text(tahun);
+    getBCGrowthRKA(tahun);
+    getBCGrowthTuition(tahun);
+    getBCRKA(tahun);
+    getBCRKAPersen(tahun);
+    getBCTuition(tahun);
+    getBCTuitionPersen(tahun);
+    $('#modalFilter').modal('hide');
+    // $('.app-menu').hide();
+    if ($(".app-menu").hasClass("shown")) {
+        $(".app-menu").removeClass("shown");
+    } else {
+        $(".app-menu").addClass("shown");
+    }
+});
+
+$('#btn-reset').click(function(e){
+    e.preventDefault();
+    $('#periode')[0].selectize.setValue('');
     
+});
+
+$('#btn-filter').click(function(){
     $('#modalFilter').modal('show');
-    // var x = $('.app-menu');
-    // console.log(x);
 });
 
 $("#btn-close").on("click", function (event) {
     event.preventDefault();
-    // if ($(".app-menu").hasClass("shown")) {
-    //     $(".app-menu").removeClass("shown");
-    // } else {
-    //     $(".app-menu").addClass("shown");
-    // }
-    
-    // $('.app-menu').hide();
-    
     $('#modalFilter').modal('hide');
 });
-
-
-</script>
-<!--Load the AJAX API-->
-<!-- <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> -->
-<script type="text/javascript">
-
-// Load the Visualization API and the piechart package.
-// google.charts.load('current', {'packages':['corechart']});
-
-// // Set a callback to run when the Google Visualization API is loaded.
-// google.charts.setOnLoadCallback(drawChart);
-
-// function drawChart() {
-//     var jsonData = $.ajax({
-//         url: "{{ url('/telu-dash/rka') }}",
-//         dataType: "json",
-//         async: false
-//     }).responseText;
-    
-//     // Create our data table out of JSON data loaded from server.
-//     var data = new google.visualization.DataTable(jsonData);
-    
-//     // Instantiate and draw our chart, passing in some options.
-//     var chart = new google.visualization.LineChart(document.getElementById('trend1'));
-//     chart.draw(data, {width: 400, height: 240});
-// }
 
 </script>

@@ -53,43 +53,6 @@ $thnLalu = substr($tahunLalu,2,2)
     {
         padding: 4px !important;
     }
-    
-    /* #modalFilter
-    {
-        top:90px
-    }
-
-    @media (max-width: 1439px) {
-        #modalFilter
-        {
-            top:90px
-        }
-    }
-    @media (max-width: 1199px) {
-        #modalFilter
-        {
-            top:80px
-        }
-    }
-    @media (max-width: 767px) {
-        #modalFilter
-        {
-            top:70px
-        }   
-    }
-    @media (max-width: 575px) {
-        #modalFilter
-        {
-            top:70px
-        }
-    } */
-    /* .modal-backdrop.show
-    {
-        opacity:0;
-    }
-    .modal-content{
-        box-shadow: 0 1px 15px rgba(0,0,0,.04),0 1px 6px rgba(0,0,0,.04);;
-    } */
 </style>
 
 <div class="container-fluid mt-3">
@@ -97,13 +60,15 @@ $thnLalu = substr($tahunLalu,2,2)
         <div class="col-12">
             <h6>RKA Tahunan</h6>
             <a class="btn btn-outline-light" href="#" id="btn-filter" style="position: absolute;right: 15px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-equalizer" style="transform-style: ;"></i> &nbsp;&nbsp; Filter</a>
-            <div class="separator mb-5"></div>
+            <p>s.d <span class='tahun'></span></p>
         </div>
     </div>
     <div class="row" >
         <div class="col-md-6 col-sm-12 mb-4">
-            <div class="card">
-                <h6 class="ml-3 mt-4">PERFORMANSI LAP. KEU <span class="tahun-label"></span> BULAN <uppercase><span class="bulan-label"></span><uppercase> </h6>
+            <div class="card dash-card">
+                <div class="card-header">
+                    <h6 class="card-title">PERFORMANSI LAP. KEU <span class="tahun-label"></span> BULAN <span class="bulan-label" style="text-transform:uppercase"></span> </h6>
+                </div>
                 <div class="card-body"  style='height:300px'>
                     <table class='table' id='pencapaian'>
                         <thead>
@@ -122,8 +87,10 @@ $thnLalu = substr($tahunLalu,2,2)
             </div>
         </div>
         <div class="col-md-6 col-sm-12 mb-4">
-            <div class="card">
-                 <h6 class="ml-3 mt-4">RKA vs Realisasi YTD Bulan <span class="periode-label"></span></h6>
+            <div class="card dash-card">
+                <div class="card-header">
+                    <h6 class="card-title">RKA vs Realisasi YTD Bulan <span class="periode-label"></span></h6>
+                </div>
                 <div class="card-body" id='rkaVSreal' style='height:300px'>
                 </div>
             </div>
@@ -131,33 +98,21 @@ $thnLalu = substr($tahunLalu,2,2)
     </div>
     <div class="row" >
         <div class="col-md-6 col-sm-12 mb-4">
-            <div class="card">
-                 <h6 class="ml-3 mt-4">Growth RKA 5 Tahun</h6>
+            <div class="card dash-card">
+                <div class="card-header">
+                    <h6 class="card-title">Growth RKA 5 Tahun</h6>
+                </div>
                 <div class="card-body pt-0">
-                    <!-- <ul class="nav nav-tabs mb-2">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="#">Rp</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">%</a>
-                        </li>
-                    </ul> -->
                     <div id='growthRKA' style='height:500px;margin-top:10px;'></div>
                 </div>
             </div>
         </div>
         <div class="col-md-6 col-sm-12 mb-4">
-            <div class="card">
-                 <h6 class="ml-3 mt-4">Growth Realisasi 5 Tahun</h6>
+            <div class="card dash-card">
+                <div class="card-header">
+                    <h6 class="card-title">Growth Realisasi 5 Tahun</h6>
+                </div>
                 <div class="card-body pt-0">
-                    <!-- <ul class="nav nav-tabs mb-2">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="#">Rp</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">%</a>
-                        </li>
-                    </ul> -->
                     <div id='growthReal' style='height:500px;margin-top:10px;'></div>
                 </div>
             </div>
@@ -220,8 +175,19 @@ $thnLalu = substr($tahunLalu,2,2)
     </div> -->
 </div>
 <script> 
+
 $('body').addClass('dash-contents');
 $('html').addClass('dash-contents');
+if(localStorage.getItem("dore-theme") == "dark"){
+    $('#btn-filter').removeClass('btn-outline-light');
+    $('#btn-filter').addClass('btn-outline-dark');
+}else{
+    $('#btn-filter').removeClass('btn-outline-dark');
+    $('#btn-filter').addClass('btn-outline-light');
+}
+
+var $mode = localStorage.getItem("dore-theme");
+
 function sepNum(x){
     if(!isNaN(x)){
         if (typeof x === undefined || !x || x == 0) { 
