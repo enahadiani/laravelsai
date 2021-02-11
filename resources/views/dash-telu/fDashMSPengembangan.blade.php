@@ -76,14 +76,14 @@ $thnLalu = substr($tahunLalu,2,2)
             <h6 class="mb-0 bold">Pengembangan</h6>
             <a class='btn btn-outline-light' href='#' id='btnBack' style="position: absolute;right: 135px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-arrow-left mr-2"></i> Back</a>
             <a class="btn btn-outline-light" href="#" id="btn-filter" style="position: absolute;right: 15px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-equalizer" style="transform-style: ;"></i> &nbsp;&nbsp; Filter</a>
-            <p>Komparasi Anggaran dan Realisasi {{ $tahun }}</p>
+            <p>Komparasi Anggaran dan Realisasi <span class="tahun"></span></p>
         </div>
     </div>
     <div class="row" >
         <div class="col-lg-7 col-12 mb-4">
             <div class="card dash-card">
                 <div class="card-header">
-                    <h6 class="card-title mb-0">RKA Pengembangan {{ $tahunDepan }}</h6>
+                    <h6 class="card-title mb-0">RKA Pengembangan <span class="tahunDepan"></span></h6>
                 </div>
                 <div class="card-body">
                     <div id="rka" style="height:300px"></div>
@@ -233,9 +233,8 @@ function getPeriode(){
                         control.addOption([{text:result.data.data[i].periode, value:result.data.data[i].periode}]);
                     }
                 }
-                if("{{ Session::get('periode') }}" != ""){
-                    control.setValue("{{ Session::get('periode') }}");
-                }
+                
+                control.setValue($filter_periode);
             }
         },
         error: function(jqXHR, textStatus, errorThrown) {       
@@ -537,21 +536,24 @@ function getMsPengembanganKomposisi(periode=null){
     })
 }
 
-getMsPengembangan("{{$periode}}");
-getMsPengembanganKomposisi("{{$periode}}");
+
+var tahun = parseInt($filter_periode.substr(0,4));
+var tahunDepan = tahun+1;
+$('.tahun').text(tahun);
+$('.tahunDepan').text(tahunDepan);
+getMsPengembangan($filter_periode);
+getMsPengembanganKomposisi($filter_periode);
     
 $('#form-filter').submit(function(e){
     e.preventDefault();
     var periode = $('#periode')[0].selectize.getValue();
-    getMsPengembangan(periode);
-    getMsPengembanganKomposisi(periode);
-    var tahun = parseInt(periode.substr(0,4));
-    var tahunLalu = tahun-1;
-    $('.thnLalu').text(tahunLalu);
-    $('.thnIni').text(tahun);
-    $('.periode-label').html(namaPeriode(periode));
-    $('.bulan-label').html(namaPeriodeBulan(periode));
-    $('.tahun-label').html(periode.substr(0,4));
+    $filter_periode = periode;
+    getMsPengembangan($filter_periode);
+    getMsPengembanganKomposisi($filter_periode);
+    var tahun = parseInt($filter_periode.substr(0,4));
+    var tahunDepan = tahun+1;
+    $('.tahun').text(tahun);
+    $('.tahunDepan').text(tahunDepan);
     $('#modalFilter').modal('hide');
     // $('.app-menu').hide();
     if ($(".app-menu").hasClass("shown")) {

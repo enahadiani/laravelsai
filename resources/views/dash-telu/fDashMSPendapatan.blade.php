@@ -89,7 +89,7 @@ $thnLalu = substr($tahunLalu,2,2)
             <h6 class="mb-0 bold">Pendapatan</h6>
             <a class='btn' href='#' id='btnBack' style="position: absolute;right: 135px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-arrow-left mr-2"></i> Back</a>
             <a class="btn" href="#" id="btn-filter" style="position: absolute;right: 15px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-equalizer" style="transform-style: ;"></i> &nbsp;&nbsp; Filter</a>
-            <p>Komparasi Anggaran dan Realisasi {{ $tahun }}</p>
+            <p>Komparasi Anggaran dan Realisasi <span class="tahun"></span></p>
         </div>
     </div>
     <div class="row" >
@@ -273,9 +273,7 @@ function getPeriode(){
                         control.addOption([{text:result.data.data[i].periode, value:result.data.data[i].periode}]);
                     }
                 }
-                if("{{ Session::get('periode') }}" != ""){
-                    control.setValue("{{ Session::get('periode') }}")
-                }
+                control.setValue($filter_periode);
             }
         },
         error: function(jqXHR, textStatus, errorThrown) {       
@@ -621,21 +619,17 @@ function getMsPendKlp(periode=null,id){
     })
 }
 
-getMsPendRKA("{{$periode}}","capai-rka");
-getMsPendKlp("{{$periode}}","capai-klp");
+$('.tahun').text($filter_periode.substr(0,4));
+getMsPendRKA($filter_periode,"capai-rka");
+getMsPendKlp($filter_periode,"capai-klp");
 
 $('#form-filter').submit(function(e){
     e.preventDefault();
     var periode = $('#periode')[0].selectize.getValue();
-    getMsPendRKA("{{$periode}}","capai-rka");
-    getMsPendKlp("{{$periode}}","capai-klp");
-    var tahun = parseInt(periode.substr(0,4));
-    var tahunLalu = tahun-1;
-    $('.thnLalu').text(tahunLalu);
-    $('.thnIni').text(tahun);
-    $('.periode-label').html(namaPeriode(periode));
-    $('.bulan-label').html(namaPeriodeBulan(periode));
-    $('.tahun-label').html(periode.substr(0,4));
+    $filter_periode = periode;
+    getMsPendRKA($filter_periode,"capai-rka");
+    getMsPendKlp($filter_periode,"capai-klp");
+    $('.tahun').text($filter_periode.substr(0,4));
     $('#modalFilter').modal('hide');
     // $('.app-menu').hide();
     if ($(".app-menu").hasClass("shown")) {
