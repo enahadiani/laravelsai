@@ -266,13 +266,10 @@ Highcharts.chart('chart-ccr-prev', {
                     if(this.y < 0.1){
                         return '';
                     }else{
-                        return $('<div/>').css({
-                                'color' : 'white', // work
-                                'padding': '0 3px',
-                                'font-size': '10px',
-                                'backgroundColor' : this.point.color  // just white in my case
-                            }).text(sepNum(this.point.y)+'%')[0].outerHTML;
-                        }
+                        var persentase = sepNum((this.series.chart.series[1].yData[this.point.index]/this.point.y)*100);
+                        return "<div style='color: #fff; padding: 0 3px; font-size: 10px; background-color:"+this.point.color+";'>"+persentase+"%</div>"+ 
+                        "<div style='color: #fff; padding: 0 3px; font-size: 10px; background-color:"+this.point.color+";'>"+sepNum(this.point.y)+"M</div>" 
+                    }
                 }
             }
         }
@@ -311,7 +308,6 @@ Highcharts.chart('chart-ccr-prev', {
         }
     ]
 })
-
 Highcharts.chart('chart-ccr-ytd', {
     chart: {
         type: 'column'
@@ -352,7 +348,6 @@ Highcharts.chart('chart-ccr-ytd', {
                 crop: false,
                 overflow: 'justify',
                 useHTML: true,
-                shared: true,
                 formatter: function () {
                     if(this.y < 0.1){
                         return '';
@@ -374,17 +369,15 @@ Highcharts.chart('chart-ccr-ytd', {
                 crop: false,
                 overflow: 'justify',
                 useHTML: true,
+                shared: true,
                 formatter: function () {
                     if(this.y < 0.1){
                         return '';
                     }else{
-                        return $('<div/>').css({
-                                'color' : 'white', // work
-                                'padding': '0 3px',
-                                'font-size': '10px',
-                                'backgroundColor' : this.point.color  // just white in my case
-                            }).text(sepNum(this.point.y)+'M')[0].outerHTML;
-                        }
+                        var persentase = sepNum((this.series.chart.series[1].yData[this.point.index]/this.point.y)*100);
+                        return "<div style='color: #fff; padding: 0 3px; font-size: 10px; background-color:"+this.point.color+";'>"+persentase+"%</div>"+ 
+                        "<div style='color: #fff; padding: 0 3px; font-size: 10px; background-color:"+this.point.color+";'>"+sepNum(this.point.y)+"M</div>" 
+                    }
                 }
             }
         }
