@@ -11,8 +11,9 @@
     background-color: #22d36b;
 }
 .legend-ccr-1 > .legend-symbol {
-    height: 13px;
-    width: 15px;
+    height: 6px;
+    margin-top: 0.4rem;
+    width: 20px;
     background-color: #009d69;
 }
 .legend-ccr-1,
