@@ -709,7 +709,7 @@ function getBCGrowthTuition(tahun){
 }
 
 var tahun = "{{ Session::get('periode') }}".substr(0,4);
-var tahunLima = parseInt(tahun) - 5;
+var tahunLima = parseInt(tahun) - 6;
 $('.rentang-tahun').text(tahunLima+" - "+tahun);
 $('.tahun').text(tahun);
 getBCGrowthRKA(tahun);
@@ -724,7 +724,7 @@ $('#form-filter').submit(function(e){
     e.preventDefault();
     var periode = $('#periode')[0].selectize.getValue();
     var tahun = periode;
-    var tahunLima = parseInt(tahun) - 5;
+    var tahunLima = parseInt(tahun) - 6;
     $('.rentang-tahun').text(tahunLima+" - "+tahun);
     $('.tahun').text(tahun);
     getBCGrowthRKA(tahun);
