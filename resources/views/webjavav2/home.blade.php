@@ -27,7 +27,7 @@
                     <div id="mainMenu-trigger">
                         <a class="lines-button x"><span class="lines"></span></a>
                     </div>
-                    <div class="header-container">
+                    <div class="header-container col-dekstop">
                         <div class="information-contact">
                             <span>Phone: +62 22 87306036</span>
                             <span>Email: marketing@javaturbine.co.id</span>
@@ -56,6 +56,30 @@
                                 </div>
                             </div>
                         </div>   
+                    </div>
+                    <div class="col-mobile">
+                        <div id="logo">
+                            <a href="index.html">
+                                <span class="logo-default">
+                                    <img alt="logo" src="{{ asset('asset_web/webjava/images/icon-java-black.png') }}" />
+                                </span>
+                                <span class="logo-dark">
+                                    <img alt="logo" src="{{ asset('asset_web/webjava/images/icon-java-white.png') }}" />
+                                </span>
+                            </a> 
+                        </div>
+                        <div id="mainMenu">
+                            <div class="container">
+                                <nav>
+                                    <ul>
+                                        <li><a href="#">Home</a></li>
+                                        <li><a href="#">Product</a></li>
+                                        <li><a href="#">Company</a></li>
+                                        <li><a href="#">Contact</a></li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -203,6 +227,9 @@
         {{-- Section 4 --}}
         <section id="project" class="p-b-25">
             <div class="container">
+                <div class="heading-text heading-section">
+                    <h4>Project References</h4>
+                </div>
                 <div class="project-container">
                     <div class="project-content">
                         <div class="project-card">

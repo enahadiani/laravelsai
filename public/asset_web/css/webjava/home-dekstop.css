@@ -26,6 +26,16 @@
     flex-direction: row;
     margin: 2rem 0;
 }
+#project .heading-text.heading-section h4:before {
+    content: "";
+    position: absolute;
+    height: 2px;
+    width: 100px;
+    background-color: #2250fc;
+    bottom: -30px;
+    left: 0;
+    right: 0;
+}
 #project .project-container {
     display: flex;
     flex-direction: column;
@@ -117,4 +127,10 @@ h1 {
     font-family: "Roboto", sans-serif;
     font-weight: 700 !important;
     font-size: 4.75rem !important;
+}
+.col-dekstop {
+    display: flex;
+}
+.col-mobile {
+    display: none;
 }
