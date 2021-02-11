@@ -1,3 +1,73 @@
+.keterangan-piutang-fakultas span {
+    padding-left: 0.5rem;
+}
+.legend-symbol {
+    margin-top: 0.2rem;
+}
+.legend-piutang-fakultas-5 > .legend-symbol {
+    height: 13px;
+    width: 13px;
+    border-radius: 50%;
+    background-color: #ff3030;
+}
+.legend-piutang-fakultas-4 > .legend-symbol {
+    height: 13px;
+    width: 13px;
+    border-radius: 50%;
+    background-color: #22d36b;
+}
+.legend-piutang-fakultas-3 > .legend-symbol {
+    height: 13px;
+    width: 13px;
+    border-radius: 50%;
+    background-color: #009d69;
+}
+.legend-piutang-fakultas-2 > .legend-symbol {
+    height: 13px;
+    width: 13px;
+    border-radius: 50%;
+    background-color: #3353f7;
+}
+.legend-piutang-fakultas-1 > .legend-symbol {
+    height: 13px;
+    width: 13px;
+    border-radius: 50%;
+    background-color: #ffcf60;
+}
+.legend-piutang-fakultas-1,
+.legend-piutang-fakultas-2,
+.legend-piutang-fakultas-3,
+.legend-piutang-fakultas-4,
+.legend-piutang-fakultas-5 {
+    display: flex;
+    flex-direction: row;
+    padding: 0 0.8rem;
+}
+.keterangan-piutang-fakultas {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+#chart-piutang-fakultas .highcharts-color-4 {
+    fill: #ff3030;
+    stroke: #ff3030;
+}
+#chart-piutang-fakultas .highcharts-color-3 {
+    fill: #009d69;
+    stroke: #009d69;
+}
+#chart-piutang-fakultas .highcharts-color-2 {
+    fill: #22d36b;
+    stroke: #22d36b;
+}
+#chart-piutang-fakultas .highcharts-color-1 {
+    fill: #3353f7;
+    stroke: #3353f7;
+}
+#chart-piutang-fakultas .highcharts-color-0 {
+    fill: #ffcf60;
+    stroke: #ffcf60;
+}
 .percentage-komposisi-piutang {
     padding-left: 1.7rem;
 }
@@ -8,13 +78,13 @@
     width: 18px;
     height: 18px;
     border-radius: 50%;
-    background-color: #3053ff;
+    background-color: #3353f7;
 }
 .keterangan-komposisi-piutang-1 > .legend-komposisi-piutang {
     width: 18px;
     height: 18px;
     border-radius: 50%;
-    background-color: #2dea6c;
+    background-color: #22d36b;
 }
 .keterangan-komposisi-piutang-1,
 .keterangan-komposisi-piutang-2 {
@@ -22,14 +92,14 @@
     flex-direction: row;
 }
 #chart-komposisi-piutang .highcharts-color-1 {
-    fill: #3053ff;
+    fill: #3353f7;
 }
 #chart-komposisi-piutang .highcharts-color-0 {
-    fill: #2dea6c;
+    fill: #22d36b;
 }
 #chart-piutang .highcharts-color-0 {
-    fill: #2dea6c;
-    stroke: #2dea6c;
+    fill: #22d36b;
+    stroke: #22d36b;
 }
 .keterangan-piutang h6 {
     margin-top: -1rem;

@@ -99,6 +99,32 @@ $thnLalu = substr($tahunLalu,2,2)
                             <div id="chart-piutang-fakultas"></div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="keterangan-piutang-fakultas">
+                                <div class="legend-piutang-fakultas-1">
+                                    <div class="legend-symbol"></div>
+                                    <span class="legend-text">Saldo Awal</span>
+                                </div>
+                                <div class="legend-piutang-fakultas-2">
+                                    <div class="legend-symbol"></div>
+                                    <span class="legend-text">Tagihan</span>
+                                </div>
+                                <div class="legend-piutang-fakultas-3">
+                                    <div class="legend-symbol"></div>
+                                    <span class="legend-text">Pembayaran Beasiswa</span>
+                                </div>
+                                <div class="legend-piutang-fakultas-4">
+                                    <div class="legend-symbol"></div>
+                                    <span class="legend-text">Pembayaran Non Beasiswa</span>
+                                </div>
+                                <div class="legend-piutang-fakultas-5">
+                                    <div class="legend-symbol"></div>
+                                    <span class="legend-text">Saldo Akhir</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -139,13 +165,10 @@ Highcharts.chart('chart-piutang-fakultas', {
         title: {
             text: ''
         },
-        stackLabels: { 
-            enabled: true,
-        }
     },
     plotOptions: {
         column: {
-            stacking: 'normal',
+            // stacking: 'normal',
             dataLabels: {
                 enabled: false
             }
@@ -154,12 +177,28 @@ Highcharts.chart('chart-piutang-fakultas', {
     series: [
         {
             name: 'Saldo Awal',
-            data: [5, 0, 0, 0, 0, 0, 0]
+            data: [5, 5, 5, 5, 5, 5, 5]
         },
         {
             name: 'Tagihan',
-            data: [0, 10, 0, 0, 0, 0, 0]
+            data: [10, 10, 10, 10, 10, 10, 10]
         },
+        {
+            name: 'Pembayaran Beasiswa',
+            data: [3, 3, 3, 3, 3, 3, 3],
+            stacking: 'normal',
+            stack: 'A'
+        },
+        {
+            name: 'Pembayaran Beasiswa',
+            data: [6, 6, 6, 6, 6, 6, 6],
+            stacking: 'normal',
+            stack: 'A'
+        },
+        {
+            name: 'Saldo Akhir',
+            data: [5, 5, 5, 5, 5, 5, 5],
+        }
 ]
 })
 
