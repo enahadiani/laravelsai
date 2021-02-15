@@ -63,21 +63,15 @@
         <!-- end: Header -->
 
         {{-- Section 1 --}}
-        <div id="slider" class="inspiro-slider slider-fullscreen dots-creative" data-height-xs="360" data-animate-in="fadeIn" data-animate-out="fadeOut" data-items="1" data-loop="true">
-
-            <!-- Slide 1 -->
-            <div class="slide" style="background-image:url('{{ asset('asset_web/webjava/images/product.jpg') }}');">
-                <div class="container">
-                    <div class="slide-captions text-light section-one-space">
-                        <!-- Captions -->
-                        <h1 class="text-white text-center text-lg-x2">Contact Us</h1>
-                        <!-- end: Captions -->
-                    </div>
+        {{-- Section 2 --}}
+        <section id="page-title" data-bg-parallax="{{ asset('asset_web/webjava/images/product.jpg') }}">
+            <div class="bg-overlay"></div>
+            <div class="container">
+                <div class="page-title">
+                    <h1 class="text-uppercase text-medium">Contact</h1>
                 </div>
             </div>
-            <!-- end: Slide 1 -->
-
-        </div>
+        </section>
 
         <footer id="footer" class="footer-background">
             <div class="footer-content">

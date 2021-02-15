@@ -83,6 +83,11 @@ class Webv2Controller extends Controller {
 
         return view('webjavav2.contact');  
     }
+
+    public function company() {
+
+        return view('webjavav2.company');  
+    }
 }
 
 ?>
