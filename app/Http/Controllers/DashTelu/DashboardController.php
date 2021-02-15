@@ -231,7 +231,7 @@
             }
         }
 
-        public function getPendapatanFak($periode,$kodeNeraca)
+        public function getPendapatanFak(Request $request,$periode,$kodeNeraca)
         {
             try{
                 $client = new Client();
@@ -239,7 +239,8 @@
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
-                    ]
+                    ],
+                    'query' => $request->all()
                 ]);
     
                 if ($response->getStatusCode() == 200) { // 200 OK
@@ -257,7 +258,7 @@
             }
         }
 
-        public function getDetailPendapatan($periode,$kodeNeraca)
+        public function getDetailPendapatan(Request $request,$periode,$kodeNeraca)
         {
             try{
                 $client = new Client();
@@ -265,7 +266,8 @@
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
-                    ]
+                    ],
+                    'query' => $request->all()
                 ]);
     
                 if ($response->getStatusCode() == 200) { // 200 OK
@@ -283,7 +285,7 @@
             }
         }
 
-        public function getPendapatanJurusan($periode,$kodeNeraca,$kodeBidang)
+        public function getPendapatanJurusan(Request $request, $periode,$kodeNeraca,$kodeBidang)
         {
             try{
 
@@ -293,7 +295,8 @@
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
-                    ]
+                    ],
+                    'query' => $request->all()
                 ]);
     
                 if ($response->getStatusCode() == 200) { // 200 OK

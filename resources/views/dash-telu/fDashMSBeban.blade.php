@@ -131,6 +131,8 @@ if(localStorage.getItem("dore-theme") == "dark"){
     $('#btnBack,#btn-filter').removeClass('btn-outline-dark');
     $('#btnBack,#btn-filter').addClass('btn-outline-light');
 }
+
+$mode = localStorage.getItem("dore-theme");
 function sepNum(x){
     if(!isNaN(x)){
         if (typeof x === undefined || !x || x == 0) { 
