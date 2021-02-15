@@ -31,6 +31,11 @@ $nik     = Session::get('userLog');
         border-color: #ad1d3e;
     }
 
+    
+    .highcharts-data-label-connector{
+        fill: none !important;
+    }
+
     /* NAV TABS */
     .nav-tabs {
         border:none;
@@ -105,16 +110,18 @@ $nik     = Session::get('userLog');
 
 <div class="container-fluid mt-3">
     <div class="row">
-        <div class="col-12">
+        <div class="col-12 mb-4">
             <h6>Investasi</h6>
             <a class="btn btn-outline-light" href="#" id="btn-filter" style="position: absolute;right: 15px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-equalizer" style="transform-style: ;"></i> &nbsp;&nbsp; Filter</a>
-            <div class="separator mb-5"></div>
+            <p>Periode <span class='periode'></span></p>
         </div>
     </div>
     <div class="row" >
         <div class="col-md-6 col-sm-12 mb-4">
-            <div class="card">
-                <h6 class="ml-3 mt-4" >Komponen Investasi</h6>
+            <div class="card dash-card">
+                <div class="card-header">
+                    <h6 class="card-title" >Komponen Investasi</h6>
+                </div>
                 <div class="card-body pt-0">
                     <div id='komponen' style='height:350px'>
                     </div>
@@ -122,32 +129,26 @@ $nik     = Session::get('userLog');
             </div>
         </div>
         <div class="col-md-6 col-sm-12 mb-4">
-            <div class="card">
-                <h6 class="ml-3 mt-4" >RKA VS Realisasi</h6>
-                <!-- <p style='font-size:9px;padding-left:20px'>Klik bar untuk melihat detail</p> -->
+            <div class="card dash-card">
+                <div class="card-header">
+                    <h6 class="card-title" >RKA VS Realisasi</h6>
+                </div>
                 <div class="card-body pt-0">
                     <div id='rkaVSreal' style='height:350px'></div>
                 </div>
             </div>
         </div>
         <div class="col-md-6 col-sm-12 mb-4">
-            <div class="card">
-                <h6 class="ml-3 mt-4" >Penyerapan Inventaris Tahun 2020</h6>
+            <div class="card dash-card">
+                <div class="card-header">
+                    <h6 class="card-title" >Penyerapan Inventaris</h6>
+                </div>
                 <!-- <p style='font-size:9px;padding-left:20px'>Klik bar untuk melihat detail</p> -->
                 <div class="card-body pt-0">
                     <div id='serapInvestasi' style='height:350px'></div>
                 </div>
             </div>
         </div>
-        {{-- <div class="col-md-6 col-sm-12 mb-4">
-            <div class="card">
-                <h6 class="ml-3 mt-4" >Penyerapan Inventaris Tahun 2020</h6>
-                <!-- <p style='font-size:9px;padding-left:20px'>Klik bar untuk melihat detail</p> -->
-                <div class="card-body pt-0">
-                    <div id='rkaVSreal3' style='height:350px'></div>
-                </div>
-            </div>
-        </div> --}}
     </div>
     <div class="modal fade modal-right" id="modalFilter" tabindex="-1" role="dialog"
     aria-labelledby="modalFilter" aria-hidden="true">
@@ -263,6 +264,15 @@ $nik     = Session::get('userLog');
 <script>
 $('body').addClass('dash-contents');
 $('html').addClass('dash-contents');
+if(localStorage.getItem("dore-theme") == "dark"){
+    $('#btn-filter').removeClass('btn-outline-light');
+    $('#btn-filter').addClass('btn-outline-dark');
+}else{
+    $('#btn-filter').removeClass('btn-outline-dark');
+    $('#btn-filter').addClass('btn-outline-light');
+}
+
+var $mode = localStorage.getItem("dore-theme");
 var $kd = "";
 function sepNum(x){
     if(!isNaN(x)){
@@ -350,6 +360,10 @@ function getPeriode(){
                         control.addOption([{text:result.data.data[i].periode, value:result.data.data[i].periode}]);
                     }
                 }
+                if($filter_periode == ""){
+                    $filter_periode = "{{ Session::get('periode') }}";
+                }
+                control.setValue($filter_periode);
             }
         },
         error: function(jqXHR, textStatus, errorThrown) {       
@@ -374,7 +388,7 @@ function getRKARealInvestasi(periode=null){
     $.ajax({
         type:"GET",
         url:"{{ url('/telu-dash/rka-real-investasi') }}",
-        data:{periode:periode},
+        data:{periode:periode, mode: $mode},
         dataType:"JSON",
         success:function(result){
             Highcharts.chart('rkaVSreal', { 
@@ -389,27 +403,52 @@ function getRKARealInvestasi(periode=null){
                         return this.series.name+':<b>'+sepNum(this.y)+'</b>';
                     }
                 },
-                yAxis: {
+                yAxis: [{
                     title: {
                         text: ''
-                        },
+                    },
                     labels: {
                         formatter: function () {
                             return singkatNilai(this.value);
                         }
+                    }
+                },{
+                    title: {
+                        text: ''
                     },
-                },
+                    opposite: true
+                }],
                 xAxis: {
                     categories:result.data.ctg
                 },
                 plotOptions: {
-                    series: {
+                    column: {
                         dataLabels: {
                             enabled: true,
+                            useHTML: true,
                             formatter: function () {
-                                return '<b>'+sepNum(this.y)+'</b>';
+                                return $('<div/>').css({
+                                    'color' : 'white', // work
+                                    'padding': '0 5px',
+                                    'font-size':'8px',
+                                    'backgroundColor' : this.point.color  // just white in my case
+                                }).text(toMilyar(this.y))[0].outerHTML;
                             }
-                        }
+                        },
+                    },
+                    spline:{
+                        dataLabels: {
+                            enabled: true,
+                            useHTML: true,
+                            formatter: function () {
+                                return $('<div/>').css({
+                                    'color' : 'white', // work
+                                    'padding': '0 5px',
+                                    'font-size':'8px',
+                                    'backgroundColor' : this.point.color  // just white in my case
+                                }).text(sepNum(this.y)+"%")[0].outerHTML;
+                            }
+                        },
                     }
                 },
                 series: result.data.series
@@ -437,7 +476,7 @@ function getKomponenInvestasi(periode=null){
 $.ajax({
     type:"GET",
     url:"{{ url('/telu-dash/komponen-investasi') }}",
-    data:{periode:periode},
+    data:{periode:periode, mode: $mode},
     dataType:"JSON",
     success: function(result){
         Highcharts.chart('komponen', {
@@ -456,6 +495,13 @@ $.ajax({
             tooltip: {
                 pointFormat: '{series.name}: <b>{point.percentage:.2f}%</b>'
             },
+            yAxis:{
+                labels: {
+                    formatter: function () {
+                        return singkatNilai(this.value);
+                    }
+                },
+            },
             accessibility: {
                 point: {
                     valueSuffix: '%'
@@ -467,14 +513,16 @@ $.ajax({
                     cursor: 'pointer',
                     dataLabels: {
                         enabled: true,
-                        // distance:-30,
-                        
+                        useHTML: true,
                         alignTo: 'plotEdges',
-                        format:'<b>{point.name}</b>'
-                        // formatter: function () {
-                        //     // return Highcharts.numberFormat(this.percentage,2,",",".")+' %';
-                        //     return this.name;
-                        // }
+                        formatter: function () {
+                            return $('<div/>').css({
+                                'color' : 'var(--text-color)', // work
+                                'padding': '0 5px',
+                                'font-size':'8px',
+                                // 'backgroundColor' : this.point.color  // just white in my case
+                            }).text(this.point.name)[0].outerHTML;
+                        }
                     },
                     size:'100%',
                     showInLegend: false
@@ -490,6 +538,16 @@ $.ajax({
             //         fontSize:'8px'
             //     }
             // }
+        }, function(){
+            var series = this.series;
+            for (var i = 0, ie = series.length; i < ie; ++i) {
+                var points = series[i].data;
+                for (var j = 0, je = points.length; j < je; ++j) {
+                    if (points[j].graphic) {
+                        points[j].graphic.element.style.fill = result.data.colors[j];
+                    }
+                }
+            }
         });
     },
     error: function(jqXHR, textStatus, errorThrown) {       
@@ -514,7 +572,7 @@ function getSerapInvestasi(periode=null) {
         type:"GET",
         url:"{{ url('/telu-dash/penyerapan-investasi') }}",
         dataType:"JSON",
-        data:{periode:periode},
+        data:{periode:periode, mode: $mode},
         success:function(result){
 
             Highcharts.chart('serapInvestasi', {
@@ -524,6 +582,13 @@ function getSerapInvestasi(periode=null) {
                 xAxis:{
                     // categories: ['GEDUNG DAN BANGUNAN','SARANA PENDIDIKAN','Sarpen CELOE','Sarpen Telu','INVENTARIS KANTOR','SERTIFIKASI PENDIDIKAN','AKREDITASI DALAM','ALAT PENGOLAH DATA','ALAT CATUT DAYA']
                     categories : result.data.ctg
+                },
+                yAxis:{
+                    labels: {
+                        formatter: function () {
+                            return singkatNilai(this.value);
+                        }
+                    },
                 },
                 credits:{
                     enabled:false
@@ -546,26 +611,6 @@ function getSerapInvestasi(periode=null) {
                         stacking: 'normal'
                     }
                 },
-                // series:[
-                //     {
-                //         type:'area',
-                //         name:'RKA',
-                //         color:'#0004FF',
-                //         data: [150,200,250,300,350,270,170,220,210]
-                //     },
-                //     {
-                //         type:'column',
-                //         name:'Real',
-                //         color: '#FF8F01',
-                //         data: [5,9,7,6,5,3,8,8.5,9]
-                //     },
-                //     {
-                //         type:'column',
-                //         name:'On Progres',
-                //         color:'#A5A5A5 ',
-                //         data: [2,5,4,5,7,5,6,7.5,6]
-                //     }
-                // ]
                 series: result.data.series
             });
         },
@@ -585,17 +630,19 @@ function getSerapInvestasi(periode=null) {
     });
 }
 
-getKomponenInvestasi("{{$periode}}");
-// getOprNonOpr("{{$periode}}");
-getRKARealInvestasi("{{$periode}}");
-getSerapInvestasi("{{$periode}}");
+$('.periode').text(namaPeriode($filter_periode));
+getKomponenInvestasi($filter_periode);
+getRKARealInvestasi($filter_periode);
+getSerapInvestasi($filter_periode);
 
 $('#form-filter').submit(function(e){
     e.preventDefault();
     var periode = $('#periode')[0].selectize.getValue();
+    $filter_periode = periode;
     getKomponenInvestasi(periode);
-    // getOprNonOpr(periode);
     getRKARealInvestasi(periode);
+    getSerapInvestasi(periode);
+    $('.periode').text(namaPeriode($filter_periode));
     var tahun = parseInt(periode.substr(0,4));
     var tahunLalu = tahun-1;
     $('.thnLalu').text(tahunLalu);
