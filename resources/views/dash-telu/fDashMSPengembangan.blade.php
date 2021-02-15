@@ -76,7 +76,7 @@ $thnLalu = substr($tahunLalu,2,2)
             <h6 class="mb-0 bold">Pengembangan</h6>
             <a class='btn btn-outline-light' href='#' id='btnBack' style="position: absolute;right: 135px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-arrow-left mr-2"></i> Back</a>
             <a class="btn btn-outline-light" href="#" id="btn-filter" style="position: absolute;right: 15px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-equalizer" style="transform-style: ;"></i> &nbsp;&nbsp; Filter</a>
-            <p>Komparasi Anggaran dan Realisasi <span class="tahun"></span></p>
+            <p>Satuan Milyar Rupiah || Periode s/d <span class='nama-bulan'></span></p>
         </div>
     </div>
     <div class="row" >
@@ -539,7 +539,7 @@ function getMsPengembanganKomposisi(periode=null){
 
 var tahun = parseInt($filter_periode.substr(0,4));
 var tahunDepan = tahun+1;
-$('.tahun').text(tahun);
+$('.nama-bulan').text(namaPeriode($filter_periode));
 $('.tahunDepan').text(tahunDepan);
 getMsPengembangan($filter_periode);
 getMsPengembanganKomposisi($filter_periode);
@@ -552,7 +552,7 @@ $('#form-filter').submit(function(e){
     getMsPengembanganKomposisi($filter_periode);
     var tahun = parseInt($filter_periode.substr(0,4));
     var tahunDepan = tahun+1;
-    $('.tahun').text(tahun);
+    $('.nama-bulan').text(namaPeriode($filter_periode));
     $('.tahunDepan').text(tahunDepan);
     $('#modalFilter').modal('hide');
     // $('.app-menu').hide();
