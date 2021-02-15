@@ -321,7 +321,7 @@
                             fontSize: '8px'
                         }
                     },
-                    height: 25
+                    height: 25,
                 }, {
                     level: 1,
                     color: '#007ad0',
@@ -346,17 +346,20 @@
                 nodes: [{
                     id: 'Java Pratama Energi',
                     column: 0,
+                    width: 140
                 },{
                     id: 'Commercial and Support',
                     column: 1,
-                    offset: '-30%'
+                    offset: '-30%',
+                    width: 140
                     // title: 'CEO',
                     // name: 'Grethe Hjetland',
                     // image: 'https://wp-assets.highcharts.com/www-highcharts-com/blog/wp-content/uploads/2020/03/17131126/Highsoft_03862_.jpg'
                 }, {
                     id: 'Manufacturing and Support',
                     column: 1,
-                    offset: '0%'
+                    offset: '0%',
+                    width: 140
                     // title: 'HR/CFO',
                     // name: 'Anne Jorunn Fjærestad',
                     // color: '#007ad0',
@@ -364,7 +367,8 @@
                 }, {
                     id: 'Engineering, HSE, dan QC/QA',
                     column: 1,
-                    offset: '30%'
+                    offset: '30%',
+                    width: 140
                     // title: 'CTO',
                     // name: 'Christer Vasseng',
                     // image: 'https://wp-assets.highcharts.com/www-highcharts-com/blog/wp-content/uploads/2020/03/17131120/Highsoft_04074_.jpg'
