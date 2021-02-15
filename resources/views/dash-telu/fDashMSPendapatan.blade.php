@@ -85,7 +85,7 @@ $thnLalu = substr($tahunLalu,2,2)
 
 <div class="container-fluid mt-3">
     <div class="row">
-        <div class="col-12">
+        <div class="col-12 ms-pdpt">
             <h6 class="mb-0 bold">Pendapatan</h6>
             <a class='btn' href='#' id='btnBack' style="position: absolute;right: 135px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-arrow-left mr-2"></i> Back</a>
             <a class="btn" href="#" id="btn-filter" style="position: absolute;right: 15px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-equalizer" style="transform-style: ;"></i> &nbsp;&nbsp; Filter</a>
@@ -655,11 +655,11 @@ $("#btn-close").on("click", function (event) {
     $('#modalFilter').modal('hide');
 });
 
-$('#btnBack').click(function(e){
+$('.ms-pdpt').on('click','#btnBack',function(e){
     e.preventDefault();
     var url = "{{ url('/dash-telu/form/fDashManagementSystem') }}";
     loadForm(url);
-});
+})
 
 $('#fullsc-capai').click(function(e){
     e.preventDefault();

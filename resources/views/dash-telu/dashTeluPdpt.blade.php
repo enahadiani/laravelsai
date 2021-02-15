@@ -30,28 +30,6 @@ $nik     = Session::get('userLog');
         color:white;
         border-color: #ad1d3e;
     }
-
-    /* NAV TABS */
-    .nav-tabs {
-        border:none;
-    }
-
-    .nav-tabs .nav-link{
-        border: 1px solid #ad1d3e;
-        border-radius: 20px;
-        padding: 2px 25px;
-        color:#ad1d3e;
-    }
-    .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
-        color: white;
-        background-color: #ad1d3e;
-        border-color: #ad1d3e;
-    }
-
-    .nav-tabs .nav-item {
-        margin-bottom: -1px;
-        padding: 0px 10px 0px 0px;
-    }
     
     .btn-outline-light:hover {
         color: #131113;
@@ -124,21 +102,49 @@ $nik     = Session::get('userLog');
         <div class="col-md-6 col-sm-12 mb-4 col-grid">
             <div class="card dash-card">
                 <div class="card-header">
-                    <h6 class="card-title" >Presentase RKA VS Realisasi</h6>
+                    <div class="row mx-0">
+                        <h6 class="card-title col-md-9 col-sm-12 px-0">Presentase RKA VS Realisasi
+                        </h6>
+                        <ul role="tablist" style="border: none;" class="nav nav-tabs col-md-3 col-sm-12 px-0 justify-content-end">
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab3-rp" role="tab" aria-selected="false"><span class="hidden-xs-down"><b>Rp</b></span></a> </li>
+                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#tab3-persen" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>%</b></span></a> </li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="card-body pt-1">
                     <p style='font-size:9px;font-style:italic;margin:0'>Klik bar untuk melihat detail</p>
-                    <div id='rkaVSreal' style='height:350px'></div>
+                    <div class="tab-content tabcontent-border p-0">
+                        <div class="tab-pane active" id="tab3-persen" role="tabpanel">
+                            <div id='rkaVSreal' style='height:350px'></div>
+                        </div>
+                        <div class="tab-pane" id="tab3-rp" role="tabpanel">
+                            <div id='rkaVSrealRp' style='height:350px'></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="col-md-6 col-sm-12 mb-4 col-grid">
             <div class="card dash-card">
                 <div class="card-header">
-                    <h6 class="card-title">Komposisi Pendapatan</h6>
+                    <div class="row mx-0">
+                        <h6 class="card-title col-md-9 col-sm-12 px-0">Komposisi Pendapatan
+                        </h6>
+                        <ul role="tablist" style="border: none;" class="nav nav-tabs col-md-3 col-sm-12 px-0 justify-content-end">
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab4-rp" role="tab" aria-selected="false"><span class="hidden-xs-down"><b>Rp</b></span></a> </li>
+                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#tab4-persen" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>%</b></span></a> </li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="card-body pt-0">
-                    <div id='komposisi' style='height:350px'>
+                    <div class="tab-content tabcontent-border p-0">
+                        <div class="tab-pane active" id="tab4-persen" role="tabpanel">
+                            <div id='komposisi' style='height:350px'>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab4-rp" role="tabpanel">
+                            <div id='komposisiRp' style='height:350px'></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -329,6 +335,7 @@ function getPresentaseRkaRealisasi(periode=null){
         type:"GET",
         url:"{{ url('/telu-dash/getPresentaseRkaRealisasiPendapatan') }}/"+periode,
         dataType:"JSON",
+        data:{mode : $mode},
         success: function(result){
             Highcharts.chart('rkaVSreal', {
                 chart: {
@@ -362,8 +369,105 @@ function getPresentaseRkaRealisasi(periode=null){
                     bar: {
                         dataLabels: {
                             enabled: true,
+                            useHTML: true,
                             formatter: function () {
-                                return sepNum(this.y,2,",",".")+' %';
+                                return $('<div/>').css({
+                                    'color' : 'white', // work
+                                    'padding': '0 5px',
+                                    'font-size':'8px',
+                                    'backgroundColor' : this.point.color  // just white in my case
+                                }).text(sepNum(this.y)+'%')[0].outerHTML;
+                            }
+                        },
+                        cursor: 'pointer',
+                        //point
+                        point: {
+                            events: {
+                                click: function() {  
+                                    $kd= this.options.key;
+                                    var url = "{{ url('/dash-telu/form/dashTeluPdptDet') }}";
+                                    loadForm(url)
+                                }
+                            }
+                        }
+                    }
+                },
+                legend: {
+                    enabled:false
+                },
+                credits: {
+                    enabled: false
+                },
+                series: [{
+                    name: null,
+                    color: ($mode == "dark" ? "#2200FF" : "#00509D"),
+                    data: result.data.data
+                }]
+            });
+        },
+        error: function(jqXHR, textStatus, errorThrown) {       
+            if(jqXHR.status == 422){
+                var msg = jqXHR.responseText;
+            }else if(jqXHR.status == 500) {
+                var msg = "Internal server error";
+            }else if(jqXHR.status == 401){
+                var msg = "Unauthorized";
+                window.location="{{ url('/dash-telu/sesi-habis') }}";
+            }else if(jqXHR.status == 405){
+                var msg = "Route not valid. Page not found";
+            }
+            
+        }
+    });
+}
+
+function getPresentaseRkaRealisasiRp(periode=null){
+    $.ajax({
+        type:"GET",
+        url:"{{ url('/telu-dash/getPresentaseRkaRealisasiPendapatanRp') }}/"+periode,
+        dataType:"JSON",
+        data:{mode : $mode},
+        success: function(result){
+            Highcharts.chart('rkaVSrealRp', {
+                chart: {
+                    type: 'bar'
+                },
+                title: {
+                    text:  null
+                },
+                xAxis: {
+                    categories: result.data.category,
+                    title: {
+                        text: null
+                    }
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: '',
+                        align: 'high'
+                    },
+                    labels: {
+                        overflow: 'justify'
+                    }
+                },
+                tooltip: {
+                    formatter: function () {
+                        return this.point.name+':<b>'+toMilyar(this.y)+'</b>';
+                    }
+                },
+                plotOptions: {
+                    bar: {
+                        dataLabels: {
+                            enabled: true,
+                            useHTML: true,
+                            formatter: function () {
+                                return $('<div/>').css({
+                                    'color' : 'white', // work
+                                    'padding': '0 5px',
+                                    'font-size':'8px',
+                                    'backgroundColor' : this.point.color  // just white in my case
+                                }).text(toMilyar(this.y))[0].outerHTML;
                             }
                         },
                         cursor: 'pointer',
@@ -525,18 +629,112 @@ $.ajax({
 
 }
 
+function getKomposisiPendapatanRp(periode=null){
+$.ajax({
+    type:"GET",
+    url:"{{ url('/telu-dash/getKomposisiPendapatan') }}/"+periode,
+    dataType:"JSON",
+    data:{mode: $mode},
+    success: function(result){
+        Highcharts.chart('komposisiRp', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: null
+            },
+            credits:{
+                enabled:false
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.y:.2f}</b>'
+            },
+            accessibility: {
+                point: {
+                    valueSuffix: '%'
+                }
+            },
+            colors: result.data.colors,
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        // distance:-30,
+                        
+                        alignTo: 'plotEdges',
+                        useHTML: true,
+                        formatter: function () {
+                            var name = this.point.name.split(" ");
+                            return $('<div/>').css({
+                                'border' : '0',// just white in my case
+                                'max-width': '70px',
+                                'overflow':'hidden',
+                                'font-size': '10px',
+                                'color' : ($mode == "dark" ? "var(--text-color)" : "black")
+                            }).addClass('fs-8').html(toMilyar(this.y))[0].outerHTML;
+                        }
+                    },
+                    size:'110%',
+                    showInLegend: true
+                }
+            },
+            series: [{
+                name: 'Pendapatan',
+                data: result.data.data
+            }],
+            legend: {
+                itemStyle: {
+                    fontSize:'8px'
+                }
+            }
+        }, function(){
+            var series = this.series;
+            for (var i = 0, ie = series.length; i < ie; ++i) {
+                var points = series[i].data;
+                for (var j = 0, je = points.length; j < je; ++j) {
+                    if (points[j].graphic) {
+                        points[j].graphic.element.style.fill = result.data.colors[j];
+                    }
+                }
+            }
+        });
+    },
+    error: function(jqXHR, textStatus, errorThrown) {       
+        if(jqXHR.status == 422){
+            var msg = jqXHR.responseText;
+        }else if(jqXHR.status == 500) {
+            var msg = "Internal server error";
+        }else if(jqXHR.status == 401){
+            var msg = "Unauthorized";
+            window.location="{{ url('/dash-telu/sesi-habis') }}";
+        }else if(jqXHR.status == 405){
+            var msg = "Route not valid. Page not found";
+        }
+        
+    }
+});
+
+}
+
 $('.periode').text(namaPeriode($filter_periode));
 getKomposisiPendapatan($filter_periode);
-// getOprNonOpr($filter_periode);
 getPresentaseRkaRealisasi($filter_periode);
+getKomposisiPendapatanRp($filter_periode);
+getPresentaseRkaRealisasiRp($filter_periode);
 
 $('#form-filter').submit(function(e){
     e.preventDefault();
     var periode = $('#periode')[0].selectize.getValue();
     $filter_periode = periode;
     getKomposisiPendapatan(periode);
-    // getOprNonOpr(periode);
     getPresentaseRkaRealisasi(periode);
+    getKomposisiPendapatanRp(periode);
+    getPresentaseRkaRealisasiRp(periode);
     $('.periode').text(namaPeriode(periode));
     $('#modalFilter').modal('hide');
     

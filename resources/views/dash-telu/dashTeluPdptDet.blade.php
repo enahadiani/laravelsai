@@ -35,39 +35,20 @@ $thnLalu = substr($tahunLalu,2,2);
         border-color: #ad1d3e;
     }
 
-    /* NAV TABS */
-    .nav-tabs {
-        border:none;
-    }
-
-    .nav-tabs .nav-link{
-        border: 1px solid #ad1d3e;
-        border-radius: 20px;
-        padding: 2px 25px;
-        color:#ad1d3e;
-    }
-    .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
-        color: white;
-        background-color: #ad1d3e;
-        border-color: #ad1d3e;
-    }
-
-    .nav-tabs .nav-item {
-        margin-bottom: -1px;
-        padding: 0px 10px 0px 0px;
-    }
 </style>
 
 <div class="container-fluid mt-3">
-    <div class="row" >
-        <div class="col-12 mb-4 text-right">
-            <button class='btn btn-red btn-sm' id='btnBack'>Back</button>
+    <div class="row mb-3" >
+        <div class="col-12 mb-4 text-right detail-pdpt">
+        <a class='btn btn-outline-light' href='#' id='btnBack' style="position: absolute;right: 25px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-arrow-left mr-2"></i> Back</a>
         </div>
     </div>
     <div class="row mt-2" >
         <div class="col-12 mb-4">
-            <div class="card">
-                <h6 class="ml-3 mt-4">Pertumbuhan Pendapatan per Fakultas</h6>
+            <div class="card dash-card">
+                <div class="card-header">
+                    <h6 class="card-title">Pertumbuhan Pendapatan per Fakultas</h6>
+                </div>
                 <div class="card-body pt-0">
                     <div id='pertumbuhan' style='height:300px'>
                     </div>
@@ -75,8 +56,10 @@ $thnLalu = substr($tahunLalu,2,2);
             </div>
         </div>
         <div class="col-12 mb-4">
-            <div class="card">
-                 <h6 class="ml-3 mt-4">Pendapatan per Tahun untuk Fakultas</h6>
+            <div class="card dash-card">
+                <div class="card-header">
+                    <h6 class="card-title">Pendapatan per Tahun untuk Fakultas</h6>
+                </div>
                 <div class="card-body pt-0">
                     <div id='pdptFak' style='height:300px'>
                     </div>
@@ -84,8 +67,10 @@ $thnLalu = substr($tahunLalu,2,2);
             </div>
         </div>  
         <div class="col-12 mb-4 mb-5">
-            <div class="card" style="background:#f5f5f5;border-radius:15px">
-                <h6 class="ml-3 mt-4" class="mt-2">Pendapatan <span class='tahunIni'></span></h6>
+            <div class="card dash-card" style="background:#f5f5f5;border-radius:1.75rem !important">
+                <div class="card-header">
+                    <h6 class="card-title" class="mt-2">Pendapatan <span class='tahunIni'></span></h6>
+                </div>
                 <div class="card-body pt-0">
                     <table class='no-border' id='tablePend' style="width:100%">
                         <thead>
@@ -131,8 +116,17 @@ $thnLalu = substr($tahunLalu,2,2);
 </div>
 <script>
  
- $('body').addClass('dash-contents');
- $('html').addClass('dash-contents');
+
+$('body').addClass('dash-contents');
+$('html').addClass('dash-contents');
+if(localStorage.getItem("dore-theme") == "dark"){
+    $('#btnBack,#btn-filter').removeClass('btn-outline-light');
+    $('#btnBack,#btn-filter').addClass('btn-outline-dark');
+}else{
+    $('#btnBack,#btn-filter').removeClass('btn-outline-dark');
+    $('#btnBack,#btn-filter').addClass('btn-outline-light');
+}
+
 var $k2 = "";
 function sepNum(x){
     var num = parseFloat(x).toFixed(2);
@@ -363,14 +357,16 @@ function getPertumbuhanPendapatanFak(periode=null,kodeNeraca=null){
     })
 }
 
-getPertumbuhanPendapatanFak("{{$periode}}",$kd);
-getPendapatanFak("{{$periode}}",$kd);
-getDetailPendapatan("{{$periode}}",$kd);
+getPertumbuhanPendapatanFak($filter_periode,$kd);
+getPendapatanFak($filter_periode,$kd);
+getDetailPendapatan($filter_periode,$kd);
 
-$('.tahunIni').text("{{ $thnIni }}");
-$('.thnIni').text("{{ $thnIni }}");
 
-$('.container-fluid').on('click','#btnBack',function(e){
+$('.tahunIni').text($filter_periode.substr(0,4));
+$('.thnIni').text($filter_periode.substr(0,4));
+
+$('.detail-pdpt').on('click','#btnBack',function(e){
+    e.preventDefault();
     var url = "{{ url('/dash-telu/form/dashTeluPdpt') }}";
     loadForm(url);
 })
