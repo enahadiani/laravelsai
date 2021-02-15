@@ -110,3 +110,9 @@ Route::delete('unit/{id}', 'Yakes\UnitController@delete');
 Route::get('ttd', 'Yakes\TtdController@index');
 Route::put('ttd', 'Yakes\TtdController@store');
 
+Route::get('klp-akun', 'Yakes\KelompokAkunController@index');
+Route::get('klp-akun-detail', 'Yakes\KelompokAkunController@show');
+Route::post('klp-akun', 'Yakes\KelompokAkunController@store');
+Route::put('klp-akun', 'Yakes\KelompokAkunController@update');
+Route::delete('klp-akun', 'Yakes\KelompokAkunController@destroy');
+Route::get('klp-akun-akun', 'Yakes\KelompokAkunController@getAkun');
