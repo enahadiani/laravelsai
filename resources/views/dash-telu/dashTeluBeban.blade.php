@@ -23,65 +23,12 @@ $nik     = Session::get('userLog');
     td,th{
         padding:4px !important;
     }
-    /* NAV TABS */
-    .nav-tabs {
-        border:none;
-    }
-
-    .nav-tabs .nav-link{
-        border: 1px solid #ad1d3e;
-        border-radius: 20px;
-        padding: 2px 25px;
-        color:#ad1d3e;
-    }
-    .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
-        color: white;
-        background-color: #ad1d3e;
-        border-color: #ad1d3e;
-    }
-
-    .nav-tabs .nav-item {
-        margin-bottom: -1px;
-        padding: 0px 10px 0px 0px;
-    }
     
-    /* #modalFilter
-    {
-        top:90px
+    .highcharts-data-label-connector{
+        fill: none !important;
     }
 
-    @media (max-width: 1439px) {
-        #modalFilter
-        {
-            top:90px
-        }
-    }
-    @media (max-width: 1199px) {
-        #modalFilter
-        {
-            top:80px
-        }
-    }
-    @media (max-width: 767px) {
-        #modalFilter
-        {
-            top:70px
-        }   
-    }
-    @media (max-width: 575px) {
-        #modalFilter
-        {
-            top:70px
-        }
-    } */
-    
-    /* .modal-backdrop.show
-    {
-        opacity:0;
-    }
-    .modal-content{
-        box-shadow: 0 1px 15px rgba(0,0,0,.04),0 1px 6px rgba(0,0,0,.04);;
-    } */
+
 </style>
 
 <div class="container-fluid mt-3">
@@ -89,34 +36,57 @@ $nik     = Session::get('userLog');
         <div class="col-12">
             <h6>Beban</h6>
             <a class="btn btn-outline-light" href="#" id="btn-filter" style="position: absolute;right: 15px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-equalizer" style="transform-style: ;"></i> &nbsp;&nbsp; Filter</a>
-            <div class="separator mb-5"></div>
+            <p>Periode <span class='periode'></span></p>
         </div>
     </div>
     <div class="row" >
         <div class="col-md-6 col-sm-12 mb-4">
-            <div class="card">
-                <h6 class="ml-3 mt-4">Komposisi Beban</h6>
-                <div class="card-body pt-0">
-                    <div id='komposisi' style='height:350px'>
+            <div class="card dash-card">
+                <div class="card-header">
+                    <div class="row mx-0">
+                        <h6 class="card-title col-md-9 col-sm-12 px-0" >Presentase RKA VS Realisasi</h6>
+                        <ul role="tablist" style="border: none;" class="nav nav-tabs col-md-3 col-sm-12 px-0 justify-content-end">
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab3-rp" role="tab" aria-selected="false"><span class="hidden-xs-down"><b>Rp</b></span></a> </li>
+                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#tab3-persen" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>%</b></span></a> </li>
+                        </ul>
                     </div>
-                    <!-- <div class="row">
-                        <div class="col-md-6 col-sm-12 mb-4" style="background:#ad1d3e;color:white;height:50px;text-align:center">
-                            <h6 style='margin: 15px auto;'>Operasional : <span id='opr'></span></h6>
+                   
+                </div>
+                <div class="card-body pt-1">
+                    <p style='font-size:9px;padding-left:20px'>Klik bar untuk melihat detail</p>
+                    <div class="tab-content tabcontent-border p-0">
+                        <div class="tab-pane active" id="tab3-persen" role="tabpanel">
+                            <div id='rkaVSreal' style='height:350px'></div>
                         </div>
-                        <div class="col-md-6 col-sm-12 mb-4" style="background:#4c4c4c;color:white;height:50px;text-align:center">
-                            <h6 style='margin: 15px auto;'>Non Operasional : <span id='nonopr'></span>
-                            </h6>
+                        <div class="tab-pane" id="tab3-rp" role="tabpanel">
+                            <div id='rkaVSrealRp' style='height:350px'></div>
                         </div>
-                    </div> -->
+                    </div>
                 </div>
             </div>
         </div>
         <div class="col-md-6 col-sm-12 mb-4">
-            <div class="card">
-                <h6 class="ml-3 mt-4" >Presentase RKA VS Realisasi</h6>
-                <p style='font-size:9px;padding-left:20px'>Klik bar untuk melihat detail</p>
+            <div class="card dash-card">
+                <div class="card-header">
+                    <div class="row mx-0">
+                        <h6 class="card-title col-md-9 col-sm-12 px-0">Komposisi Beban
+                        </h6>
+                        <ul role="tablist" style="border: none;" class="nav nav-tabs col-md-3 col-sm-12 px-0 justify-content-end">
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab4-rp" role="tab" aria-selected="false"><span class="hidden-xs-down"><b>Rp</b></span></a> </li>
+                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#tab4-persen" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>%</b></span></a> </li>
+                        </ul>
+                    </div>
+                </div>
                 <div class="card-body pt-0">
-                    <div id='rkaVSreal' style='height:350px'></div>
+                    <div class="tab-content tabcontent-border p-0">
+                        <div class="tab-pane active" id="tab4-persen" role="tabpanel">
+                            <div id='komposisi' style='height:350px'>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab4-rp" role="tabpanel">
+                            <div id='komposisiRp' style='height:350px'></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -180,6 +150,14 @@ $nik     = Session::get('userLog');
 <script>
 $('body').addClass('dash-contents');
 $('html').addClass('dash-contents');
+if(localStorage.getItem("dore-theme") == "dark"){
+    $('#btn-filter').removeClass('btn-outline-light');
+    $('#btn-filter').addClass('btn-outline-dark');
+}else{
+    $('#btn-filter').removeClass('btn-outline-dark');
+    $('#btn-filter').addClass('btn-outline-light');
+}
+var $mode = localStorage.getItem("dore-theme");
 var $kd = "";
 function sepNum(x){
     if(!isNaN(x)){
@@ -291,6 +269,7 @@ function getPresentaseRkaRealisasi(periode=null){
         type:"GET",
         url:"{{ url('/telu-dash/getPresentaseRkaRealisasiBeban') }}/"+periode,
         dataType:"JSON",
+        data:{mode : $mode},
         success: function(result){
             Highcharts.chart('rkaVSreal', {
                 chart: {
@@ -324,8 +303,14 @@ function getPresentaseRkaRealisasi(periode=null){
                     bar: {
                         dataLabels: {
                             enabled: true,
+                            useHTML: true,
                             formatter: function () {
-                                return sepNum(this.y,2,",",".")+' %';
+                                return $('<div/>').css({
+                                    'color' : 'white', // work
+                                    'padding': '0 5px',
+                                    'font-size':'8px',
+                                    'backgroundColor' : this.point.color  // just white in my case
+                                }).text(sepNum(this.y)+'%')[0].outerHTML;
                             }
                         },
                         cursor: 'pointer',
@@ -349,7 +334,7 @@ function getPresentaseRkaRealisasi(periode=null){
                 },
                 series: [{
                     name: null,
-                    color:'#ad1d3e',
+                    color: ($mode == "dark" ? "#2200FF" : "#00509D"),
                     data: result.data.data
                 }]
             });
@@ -400,6 +385,7 @@ $.ajax({
     type:"GET",
     url:"{{ url('/telu-dash/getKomposisiBeban') }}/"+periode,
     dataType:"JSON",
+    data:{mode : $mode},
     success: function(result){
         Highcharts.chart('komposisi', {
             chart: {
@@ -428,9 +414,19 @@ $.ajax({
                     cursor: 'pointer',
                     dataLabels: {
                         enabled: true,
+                        // distance:-30,
+                        
                         alignTo: 'plotEdges',
+                        useHTML: true,
                         formatter: function () {
-                            return Highcharts.numberFormat(this.percentage,2,",",".")+' %';
+                            var name = this.point.name.split(" ");
+                            return $('<div/>').css({
+                                'border' : '0',// just white in my case
+                                'max-width': '70px',
+                                'overflow':'hidden',
+                                'font-size': '10px',
+                                'color' : ($mode == "dark" ? "var(--text-color)" : "black")
+                            }).addClass('fs-8').html(sepNum(this.percentage)+'%')[0].outerHTML;
                         }
                     },
                     size:'110%',
@@ -448,6 +444,16 @@ $.ajax({
                 }
             }
 
+        }, function(){
+            var series = this.series;
+            for (var i = 0, ie = series.length; i < ie; ++i) {
+                var points = series[i].data;
+                for (var j = 0, je = points.length; j < je; ++j) {
+                    if (points[j].graphic) {
+                        points[j].graphic.element.style.fill = result.data.colors[j];
+                    }
+                }
+            }
         });
     },
     error: function(jqXHR, textStatus, errorThrown) {       
@@ -467,15 +473,14 @@ $.ajax({
 
 }
 
-getKomposisiBeban("{{$periode}}");
-// getOprNonOpr("{{$periode}}");
-getPresentaseRkaRealisasi("{{$periode}}");
+getKomposisiBeban($filter_periode);
+getPresentaseRkaRealisasi($filter_periode);
 
 $('#form-filter').submit(function(e){
     e.preventDefault();
     var periode = $('#periode')[0].selectize.getValue();
+    $filter_periode = periode;
     getKomposisiBeban(periode);
-    // getOprNonOpr(periode);
     getPresentaseRkaRealisasi(periode);
     var tahun = parseInt(periode.substr(0,4));
     var tahunLalu = tahun-1;
