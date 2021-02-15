@@ -28,7 +28,7 @@
                             <div id="logo">
                                 <a href="index.html">
                                     <span class="logo-default">
-                                        <img alt="logo" src="{{ asset('asset_web/webjava/images/icon-java-black.png') }}" />
+                                        <img alt="logo" width="70" src="{{ asset('asset_web/webjava/images/icon-java-blue.png') }}" />
                                     </span>
                                     <span class="logo-dark">
                                         <img alt="logo" src="{{ asset('asset_web/webjava/images/icon-java-white.png') }}" />
@@ -198,6 +198,11 @@
 
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="copyright-content">
+                <div class="container">
+                    <div class="copyright-text text-center">&copy; {{ date('Y') }} Java Turbine</div>
                 </div>
             </div>
         </footer>

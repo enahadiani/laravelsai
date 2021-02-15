@@ -30,7 +30,7 @@
                             <div id="logo">
                                 <a href="index.html">
                                     <span class="logo-default">
-                                        <img alt="logo" src="{{ asset('asset_web/webjava/images/icon-java-black.png') }}" />
+                                        <img alt="logo" width="70" src="{{ asset('asset_web/webjava/images/icon-java-blue.png') }}" />
                                     </span>
                                     <span class="logo-dark">
                                         <img alt="logo" src="{{ asset('asset_web/webjava/images/icon-java-white.png') }}" />
@@ -103,7 +103,7 @@
         </section>
 
         {{-- Section 3 --}}
-        <section class="box-fancy section-fullwidth text-light no-padding">
+        <section class="box-fancy section-fullwidth p-b-150 text-light no-padding">
             <div class="row company-profile-box">
                 <div class="col-lg-6 text-left" style="background-color: #012068">
                     <h2>VISION</h2>
@@ -119,7 +119,7 @@
         </section>
 
         {{-- Section 4 --}}
-        <section class="p-t-100 p-b-100">
+        <section class="p-t-100 p-b-100 col-dekstop">
             <div class="container">
                 <div class="heading-text text-center heading-section m-b-80">
                     <h2>Organization</h2>
@@ -246,6 +246,11 @@
 
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="copyright-content">
+                <div class="container">
+                    <div class="copyright-text text-center">&copy; {{ date('Y') }} Java Turbine</div>
                 </div>
             </div>
         </footer>

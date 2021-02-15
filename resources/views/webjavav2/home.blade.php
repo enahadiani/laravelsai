@@ -36,7 +36,7 @@
                             <div id="logo">
                                 <a href="index.html">
                                     <span class="logo-default">
-                                        <img alt="logo" src="{{ asset('asset_web/webjava/images/icon-java-black.png') }}" />
+                                        <img alt="logo" width="70" src="{{ asset('asset_web/webjava/images/icon-java-blue.png') }}" />
                                     </span>
                                     <span class="logo-dark">
                                         <img alt="logo" src="{{ asset('asset_web/webjava/images/icon-java-white.png') }}" />
@@ -80,6 +80,9 @@
                         <h1 class="lead">Being a leading EPC company by always maintaining the quality of product and services.</h1>
                         <!-- end: Captions -->
                     </div>
+                </div>
+                <div class="scrolldown-animation" id="scroll-down">
+                    <a class="scroll-to" href="#services"><img src="{{ asset('asset_web/webjava/images/scrolldown.png') }}" alt=""></a>
                 </div>
             </div>
             <!-- end: Slide 1 -->
@@ -568,6 +571,11 @@
 
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="copyright-content">
+                <div class="container">
+                    <div class="copyright-text text-center">&copy; {{ date('Y') }} Java Turbine</div>
                 </div>
             </div>
         </footer>
