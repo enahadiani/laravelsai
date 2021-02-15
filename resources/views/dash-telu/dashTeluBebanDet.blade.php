@@ -9,11 +9,6 @@ $thnIni = substr($tahun,2,2);
 $thnLalu = substr($tahunLalu,2,2);  
 @endphp
 <style>
-    .card{
-        border-radius: 0 !important;
-        box-shadow: none;
-        border: 1px solid #f0f0f0;
-    }
     .btn-outline-light:hover {
         color: #131113;
         background-color: #ececec;
@@ -34,58 +29,42 @@ $thnLalu = substr($tahunLalu,2,2);
         color:white;
         border-color: #ad1d3e;
     }
-
-    /* NAV TABS */
-    .nav-tabs {
-        border:none;
-    }
-
-    .nav-tabs .nav-link{
-        border: 1px solid #ad1d3e;
-        border-radius: 20px;
-        padding: 2px 25px;
-        color:#ad1d3e;
-    }
-    .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
-        color: white;
-        background-color: #ad1d3e;
-        border-color: #ad1d3e;
-    }
-
-    .nav-tabs .nav-item {
-        margin-bottom: -1px;
-        padding: 0px 10px 0px 0px;
-    }
 </style>
 
 <div class="container-fluid mt-3">
-    <div class="row" >
-        <div class="col-12 mb-4 text-right">
-            <button class='btn btn-red btn-sm' id='btnBack'>Back</button>
+    <div class="row mb-4" >
+        <div class="col-12 mb-4 text-right detail-beban">
+        <a class='btn btn-outline-light' href='#' id='btnBack' style="position: absolute;right: 25px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-arrow-left"></i> Back</a>
         </div>
     </div>
     <div class="row mt-2" >
         <div class="col-12 mb-4">
-            <div class="card">
-                <h6 class="ml-3 mt-4">Beban Pendapatan per Fakultas</h6>
-                <div class="card-body pt-0">
-                    <div id='pertumbuhan' style='height:300px'>
-                    </div>
+            <div class="card dash-card">
+                <div class="card-header">
+                    <h6 class="card-title">Beban per Tahun untuk Fakultas</h6>
                 </div>
-            </div>
-        </div>
-        <div class="col-12 mb-4">
-            <div class="card">
-                <h6 class="ml-3 mt-4">Beban per Tahun untuk Fakultas</h6>
                 <div class="card-body pt-0">
                     <div id='pdptFak' style='height:300px'>
                     </div>
                 </div>
             </div>
         </div>  
+        <div class="col-12 mb-4">
+            <div class="card dash-card">
+                <div class="card-header">
+                    <h6 class="card-title">Beban Pendapatan per Fakultas</h6>
+                </div>
+                <div class="card-body pt-0">
+                    <div id='pertumbuhan' style='height:300px'>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="col-12 mb-4 mb-5">
-            <div class="card" style="background:#f5f5f5;border-radius:15px">
-                <h6 class="ml-3 mt-4">Beban <span class='tahunIni'></span></h6>
+            <div class="card dash-card" style="background:#f5f5f5;border-radius:1.75rem !important">
+                <div class="card-header">
+                    <h6 class="card-title">Beban <span class='tahunIni'></span></h6>
+                </div>
                 <div class="card-body pt-0">
                     <table class='no-border' id='tablePend' style="width:100%">
                         <thead>
@@ -102,6 +81,7 @@ $thnLalu = substr($tahunLalu,2,2);
                 </div>
             </div>
         </div>
+        
     </div>
     <div class="modal fade modal-right" id="modalFilter" tabindex="-1" role="dialog"
     aria-labelledby="modalFilter" aria-hidden="true">
@@ -130,8 +110,17 @@ $thnLalu = substr($tahunLalu,2,2);
     </div>
 </div>
 <script> 
+
 $('body').addClass('dash-contents');
 $('html').addClass('dash-contents');
+if(localStorage.getItem("dore-theme") == "dark"){
+    $('#btnBack,#btn-filter').removeClass('btn-outline-light');
+    $('#btnBack,#btn-filter').addClass('btn-outline-dark');
+}else{
+    $('#btnBack,#btn-filter').removeClass('btn-outline-dark');
+    $('#btnBack,#btn-filter').addClass('btn-outline-light');
+}
+$mode = localStorage.getItem("dore-theme");
 var $k2 = "";
 function sepNum(x){
     var num = parseFloat(x).toFixed(2);
@@ -199,15 +188,15 @@ function getDetailBeban(periode=null,kodeNeraca=null){
             var html='';
             for(var i=0;i<result.data.data.length;i++){
                 var line = result.data.data[i];
-                            
+                
                 html+=`<tr>
-                    <td style='font-weight:bold'>`+line.nama+`</td>
-                    <td class='text-right'>`+toMilyar(line.n4)+`</td>
-                    <td class='text-right'>`+toMilyar(line.n5)+`</td>
-                    <td class='text-right'>`+sepNum(line.capai)+`%</td>
-                     </tr>`;
-                            
-                }
+                <td style='font-weight:bold'>`+line.nama+`</td>
+                <td class='text-right'>`+toMilyar(line.n4)+`</td>
+                <td class='text-right'>`+toMilyar(line.n5)+`</td>
+                <td class='text-right'>`+sepNum(line.capai)+`%</td>
+                </tr>`;
+                
+            }
             $('#tablePend tbody').html(html);
         },
         error: function(jqXHR, textStatus, errorThrown) {       
@@ -230,61 +219,76 @@ function getBebanFak(periode=null, kodeNeraca=null){
     $.ajax({
         type:"GET",
         url:"{{ url('/telu-dash/getBebanFak') }}/"+periode+"/"+kodeNeraca,
+        data:{mode : $mode},
         dataType:"JSON",
         success:function(result){
             Highcharts.chart('pdptFak', {
                 chart: {
-                        type: 'column'
-                     },
+                    type: 'column'
+                },
                 title: {
-                        text: null
+                    text: null
+                },
+                xAxis: {
+                    categories: result.data.ctg,
+                    crosshair: true
+                },
+                yAxis: {
+                    title: {
+                        text: ''
                     },
-                        xAxis: {
-                            categories: result.data.ctg,
-                            crosshair: true
-                        },
-                        yAxis: {
-                            title: {
-                                text: ''
-                            },
-                            labels: {
-                                formatter: function () {
-                                    return singkatNilai(this.value);
+                    labels: {
+                        formatter: function () {
+                            return singkatNilai(this.value);
+                        }
+                    },
+                },
+                credits:{
+                    enabled:false
+                },
+                tooltip: {
+                    formatter: function () {
+                        return this.series.name+':<b>'+toMilyar(this.y)+'</b>';
+                    }
+                },
+                plotOptions: {
+                    column: {
+                        pointPadding: 0.2,
+                        borderWidth: 0,
+                        cursor: 'pointer',
+                        point: {
+                            events: {
+                                click: function() {  
+                                    $kd2 = this.options.tahun;
+                                    $kd3 = this.options.kode_bidang;
+                                    var url = "{{ url('/dash-telu/form/dashTeluBebanDet2') }}";
+                                    loadForm(url)
                                 }
-                            },
-                        },
-                        credits:{
-                            enabled:false
-                        },
-                        tooltip: {
-                                // headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                                // pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                                //     '<td style="padding:0"><b>{point.y:.2f}</b></td></tr>',
-                                // footerFormat: '</table>',
-                                // // shared: true,
-                                // useHTML: true
-                            formatter: function () {
-                                    return this.series.name+':<b>'+toMilyar(this.y)+'</b>';
                             }
                         },
-                        plotOptions: {
-                            column: {
-                                pointPadding: 0.2,
-                                borderWidth: 0,
-                                cursor: 'pointer',
-                                point: {
-                                        events: {
-                                            click: function() {  
-                                                $kd2 = this.options.tahun;
-                                                $kd3 = this.options.kode_bidang;
-                                                var url = "{{ url('/telu-dash/form/dashTeluBebanDet2') }}";
-                                                loadForm(url)
-                                            }
-                                        }
-                                    }
+                        dataLabels: {
+                            allowOverlap:true,
+                            enabled: true,
+                            crop: false,
+                            overflow: 'justify',
+                            useHTML: true,
+                            formatter: function () {
+                                if(this.y < 0.1){
+                                    return '';
+                                }else{
+                                    return $('<div/>').css({
+                                        'color' : 'white', // work
+                                        'padding': '0 3px',
+                                        'font-size': '10px',
+                                        'backgroundColor' : this.point.color  // just white in my case
+                                    }).text(toMilyar(this.y))[0].outerHTML;
                                 }
-                            },
-                            series: result.data.series
+                                // if(this.name)
+                            }
+                        }
+                    }
+                },
+                series: result.data.series
             })
         },
         error: function(jqXHR, textStatus, errorThrown) {       
@@ -308,42 +312,57 @@ function getPertumbuhanBebanFak(periode=null,kodeNeraca=null){
         type:"GET",
         url:"{{ url('/telu-dash/getBebanFak') }}/"+periode+"/"+kodeNeraca,
         dataType:"JSON",
+        data:{mode : $mode},
         success: function(result){
             Highcharts.chart('pertumbuhan', {
                 chart: {
-                        type: 'line'
-                    },
+                    type: 'spline'
+                },
                 title: {
-                        text: null
-                        },
-                        credits:{
-                            enabled:false
-                        },
-                        yAxis: {
-                            title: {
-                                text: ''
-                            },
-                            labels: {
-                                formatter: function () {
-                                    return singkatNilai(this.value);
+                    text: null
+                },
+                credits:{
+                    enabled:false
+                },
+                yAxis: {
+                    title: {
+                        text: ''
+                    },
+                    labels: {
+                        formatter: function () {
+                            return singkatNilai(this.value);
+                        }
+                    },
+                },
+                xAxis: {
+                    categories:result.data.ctg
+                },
+                plotOptions: {
+                    spline: {
+                        dataLabels: {
+                            allowOverlap:true,
+                            enabled: true,
+                            crop: false,
+                            overflow: 'justify',
+                            useHTML: true,
+                            formatter: function () {
+                                if(this.y < 0.1){
+                                    return '';
+                                }else{
+                                    return $('<div/>').css({
+                                        'color' : 'white', // work
+                                        'padding': '0 3px',
+                                        'font-size': '10px',
+                                        'backgroundColor' : this.point.color  // just white in my case
+                                    }).text(toMilyar(this.y))[0].outerHTML;
                                 }
-                            },
+                                // if(this.name)
+                            }
                         },
-                        xAxis: {
-                                categories:result.data.ctg
-                        },
-                        plotOptions: {
-                                line: {
-                                    dataLabels: {
-                                        enabled: true,
-                                        formatter: function () {
-                                            return '<b>'+toMilyar(this.y)+'</b>';
-                                        }
-                                    },
-                                    enableMouseTracking: false
-                                }
-                            },
-                            series: result.data.series
+                        enableMouseTracking: false
+                    }
+                },
+                series: result.data.series
             });
         },
         error: function(jqXHR, textStatus, errorThrown) {       
@@ -362,16 +381,17 @@ function getPertumbuhanBebanFak(periode=null,kodeNeraca=null){
     })
 }
 
-getPertumbuhanBebanFak("{{$periode}}",$kd);
-getBebanFak("{{$periode}}",$kd);
-getDetailBeban("{{$periode}}",$kd);
+getPertumbuhanBebanFak($filter_periode,$kd);
+getBebanFak($filter_periode,$kd);
+getDetailBeban($filter_periode,$kd);
 
-$('.tahunIni').text("{{ $thnIni }}");
-$('.thnIni').text("{{ $thnIni }}");
+$('.tahunIni').text($filter_periode.substr(0,4));
+$('.thnIni').text($filter_periode.substr(0,4));
 
-$('.container-fluid').on('click','#btnBack',function(e){
-    var url = "{{ url('/telu-dash/form/dashTeluBeban') }}";
+$('.detail-beban').on('click','#btnBack',function(e){
+    e.preventDefault();
+    var url = "{{ url('/dash-telu/form/dashTeluBeban') }}";
     loadForm(url);
-})
+});
 
 </script>

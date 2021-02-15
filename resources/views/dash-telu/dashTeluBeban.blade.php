@@ -243,6 +243,10 @@ function getPeriode(){
                     for(i=0;i<result.data.data.length;i++){
                         control.addOption([{text:result.data.data[i].periode, value:result.data.data[i].periode}]);
                     }
+                    if($filter_periode == ""){
+                        $filter_periode = "{{ Session::get('periode') }}";
+                    }
+                    control.setValue($filter_periode);
                 }
             }
         },
@@ -319,7 +323,98 @@ function getPresentaseRkaRealisasi(periode=null){
                             events: {
                                 click: function() {  
                                     $kd= this.options.key;
-                                    var url = "{{ url('/telu-dash/form/dashTeluBebanDet') }}";
+                                    var url = "{{ url('dash-telu/form/dashTeluBebanDet') }}";
+                                    loadForm(url)
+                                }
+                            }
+                        }
+                    }
+                },
+                legend: {
+                    enabled:false
+                },
+                credits: {
+                    enabled: false
+                },
+                series: [{
+                    name: null,
+                    color: ($mode == "dark" ? "#2200FF" : "#00509D"),
+                    data: result.data.data
+                }]
+            });
+        },
+        error: function(jqXHR, textStatus, errorThrown) {       
+            if(jqXHR.status == 422){
+                var msg = jqXHR.responseText;
+            }else if(jqXHR.status == 500) {
+                var msg = "Internal server error";
+            }else if(jqXHR.status == 401){
+                var msg = "Unauthorized";
+                window.location="{{ url('/dash-telu/sesi-habis') }}";
+            }else if(jqXHR.status == 405){
+                var msg = "Route not valid. Page not found";
+            }
+            
+        }  
+    });
+}
+
+function getPresentaseRkaRealisasiRp(periode=null){
+    $.ajax({
+        type:"GET",
+        url:"{{ url('/telu-dash/getPresentaseRkaRealisasiBebanRp') }}/"+periode,
+        dataType:"JSON",
+        data:{mode : $mode},
+        success: function(result){
+            Highcharts.chart('rkaVSrealRp', {
+                chart: {
+                    type: 'bar'
+                },
+                title: {
+                    text:  null
+                },
+                xAxis: {
+                    categories: result.data.category,
+                    title: {
+                        text: null
+                    }
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: '',
+                        align: 'high'
+                    },
+                    labels: {
+                        overflow: 'justify'
+                    }
+                },
+                tooltip: {
+                    formatter: function () {
+                        return this.point.name+':<b>'+toMilyar(this.y)+'</b>';
+                    }
+                },
+                plotOptions: {
+                    bar: {
+                        dataLabels: {
+                            enabled: true,
+                            useHTML: true,
+                            formatter: function () {
+                                return $('<div/>').css({
+                                    'color' : 'white', // work
+                                    'padding': '0 5px',
+                                    'font-size':'8px',
+                                    'backgroundColor' : this.point.color  // just white in my case
+                                }).text(toMilyar(this.y))[0].outerHTML;
+                            }
+                        },
+                        cursor: 'pointer',
+                        //point
+                        point: {
+                            events: {
+                                click: function() {  
+                                    $kd= this.options.key;
+                                    var url = "{{ url('dash-telu/form/dashTeluBebanDet') }}";
                                     loadForm(url)
                                 }
                             }
@@ -381,100 +476,196 @@ function getOprNonOpr(periode=null){
 }
 
 function getKomposisiBeban(periode=null){
-$.ajax({
-    type:"GET",
-    url:"{{ url('/telu-dash/getKomposisiBeban') }}/"+periode,
-    dataType:"JSON",
-    data:{mode : $mode},
-    success: function(result){
-        Highcharts.chart('komposisi', {
-            chart: {
-                plotBackgroundColor: null,
-                plotBorderWidth: null,
-                plotShadow: false,
-                type: 'pie'
-            },
-            title: {
-                text: null
-            },
-            credits:{
-                enabled:false
-            },
-            tooltip: {
-                pointFormat: '{series.name}: <b>{point.percentage:.2f}%</b>'
-            },
-            accessibility: {
-                point: {
-                    valueSuffix: '%'
-                }
-            },
-            plotOptions: {
-                pie: {
-                    allowPointSelect: true,
-                    cursor: 'pointer',
-                    dataLabels: {
-                        enabled: true,
-                        // distance:-30,
-                        
-                        alignTo: 'plotEdges',
-                        useHTML: true,
-                        formatter: function () {
-                            var name = this.point.name.split(" ");
-                            return $('<div/>').css({
-                                'border' : '0',// just white in my case
-                                'max-width': '70px',
-                                'overflow':'hidden',
-                                'font-size': '10px',
-                                'color' : ($mode == "dark" ? "var(--text-color)" : "black")
-                            }).addClass('fs-8').html(sepNum(this.percentage)+'%')[0].outerHTML;
-                        }
-                    },
-                    size:'110%',
-                    showInLegend: true
-                }
-            },
-            series: [{
-                name: 'Pendapatan',
-                colorByPoint: true,
-                data: result.data.data
-            }],
-            legend: {
-                itemStyle: {
-                    fontSize:'8px'
-                }
-            }
-
-        }, function(){
-            var series = this.series;
-            for (var i = 0, ie = series.length; i < ie; ++i) {
-                var points = series[i].data;
-                for (var j = 0, je = points.length; j < je; ++j) {
-                    if (points[j].graphic) {
-                        points[j].graphic.element.style.fill = result.data.colors[j];
+    $.ajax({
+        type:"GET",
+        url:"{{ url('/telu-dash/getKomposisiBeban') }}/"+periode,
+        dataType:"JSON",
+        data:{mode : $mode},
+        success: function(result){
+            Highcharts.chart('komposisi', {
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie'
+                },
+                title: {
+                    text: null
+                },
+                credits:{
+                    enabled:false
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.2f}%</b>'
+                },
+                accessibility: {
+                    point: {
+                        valueSuffix: '%'
+                    }
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            // distance:-30,
+                            
+                            alignTo: 'plotEdges',
+                            useHTML: true,
+                            formatter: function () {
+                                var name = this.point.name.split(" ");
+                                return $('<div/>').css({
+                                    'border' : '0',// just white in my case
+                                    'max-width': '70px',
+                                    'overflow':'hidden',
+                                    'font-size': '10px',
+                                    'color' : ($mode == "dark" ? "var(--text-color)" : "black")
+                                }).addClass('fs-8').html(sepNum(this.percentage)+'%')[0].outerHTML;
+                            }
+                        },
+                        size:'110%',
+                        showInLegend: true
+                    }
+                },
+                series: [{
+                    name: 'Pendapatan',
+                    colorByPoint: true,
+                    data: result.data.data
+                }],
+                legend: {
+                    itemStyle: {
+                        fontSize:'8px'
                     }
                 }
+                
+            }, function(){
+                var series = this.series;
+                for (var i = 0, ie = series.length; i < ie; ++i) {
+                    var points = series[i].data;
+                    for (var j = 0, je = points.length; j < je; ++j) {
+                        if (points[j].graphic) {
+                            points[j].graphic.element.style.fill = result.data.colors[j];
+                        }
+                    }
+                }
+            });
+        },
+        error: function(jqXHR, textStatus, errorThrown) {       
+            if(jqXHR.status == 422){
+                var msg = jqXHR.responseText;
+            }else if(jqXHR.status == 500) {
+                var msg = "Internal server error";
+            }else if(jqXHR.status == 401){
+                var msg = "Unauthorized";
+                window.location="{{ url('/dash-telu/sesi-habis') }}";
+            }else if(jqXHR.status == 405){
+                var msg = "Route not valid. Page not found";
             }
-        });
-    },
-    error: function(jqXHR, textStatus, errorThrown) {       
-        if(jqXHR.status == 422){
-            var msg = jqXHR.responseText;
-        }else if(jqXHR.status == 500) {
-            var msg = "Internal server error";
-        }else if(jqXHR.status == 401){
-            var msg = "Unauthorized";
-            window.location="{{ url('/dash-telu/sesi-habis') }}";
-        }else if(jqXHR.status == 405){
-            var msg = "Route not valid. Page not found";
+            
         }
-        
-    }
-});
+    });
+}
+
+function getKomposisiBebanRp(periode=null){
+    $.ajax({
+        type:"GET",
+        url:"{{ url('/telu-dash/getKomposisiBeban') }}/"+periode,
+        dataType:"JSON",
+        data:{mode : $mode},
+        success: function(result){
+            Highcharts.chart('komposisiRp', {
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie'
+                },
+                title: {
+                    text: null
+                },
+                credits:{
+                    enabled:false
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.y:.2f}</b>'
+                },
+                accessibility: {
+                    point: {
+                        valueSuffix: '%'
+                    }
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            // distance:-30,
+                            
+                            alignTo: 'plotEdges',
+                            useHTML: true,
+                            formatter: function () {
+                                var name = this.point.name.split(" ");
+                                return $('<div/>').css({
+                                    'border' : '0',// just white in my case
+                                    'max-width': '70px',
+                                    'overflow':'hidden',
+                                    'font-size': '10px',
+                                    'color' : ($mode == "dark" ? "var(--text-color)" : "black")
+                                }).addClass('fs-8').html(toMilyar(this.y))[0].outerHTML;
+                            }
+                        },
+                        size:'110%',
+                        showInLegend: true
+                    }
+                },
+                series: [{
+                    name: 'Pendapatan',
+                    colorByPoint: true,
+                    data: result.data.data
+                }],
+                legend: {
+                    itemStyle: {
+                        fontSize:'8px'
+                    }
+                }
+                
+            }, function(){
+                var series = this.series;
+                for (var i = 0, ie = series.length; i < ie; ++i) {
+                    var points = series[i].data;
+                    for (var j = 0, je = points.length; j < je; ++j) {
+                        if (points[j].graphic) {
+                            points[j].graphic.element.style.fill = result.data.colors[j];
+                        }
+                    }
+                }
+            });
+        },
+        error: function(jqXHR, textStatus, errorThrown) {       
+            if(jqXHR.status == 422){
+                var msg = jqXHR.responseText;
+            }else if(jqXHR.status == 500) {
+                var msg = "Internal server error";
+            }else if(jqXHR.status == 401){
+                var msg = "Unauthorized";
+                window.location="{{ url('/dash-telu/sesi-habis') }}";
+            }else if(jqXHR.status == 405){
+                var msg = "Route not valid. Page not found";
+            }
+            
+        }
+    });
 
 }
 
-getKomposisiBeban($filter_periode);
+
+$('.periode').text(namaPeriode($filter_periode));
 getPresentaseRkaRealisasi($filter_periode);
+getPresentaseRkaRealisasiRp($filter_periode);
+getKomposisiBeban($filter_periode);
+getKomposisiBebanRp($filter_periode);
 
 $('#form-filter').submit(function(e){
     e.preventDefault();
@@ -482,10 +673,7 @@ $('#form-filter').submit(function(e){
     $filter_periode = periode;
     getKomposisiBeban(periode);
     getPresentaseRkaRealisasi(periode);
-    var tahun = parseInt(periode.substr(0,4));
-    var tahunLalu = tahun-1;
-    $('.thnLalu').text(tahunLalu);
-    $('.thnIni').text(tahun);
+    $('.periode').text(namaPeriode($filter_periode));
     $('#modalFilter').modal('hide');
     // $('.app-menu').hide();
 });

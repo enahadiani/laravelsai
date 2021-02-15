@@ -59,15 +59,17 @@ $thnLalu = substr($tahunLalu,2,2);
 </style>
 
 <div class="container-fluid mt-3">
-    <div class="row" >
-        <div class="col-12 text-right">
-            <button class='btn btn-red btn-sm' id='btnBack'>Back</button>
+    <div class="row mb-4" >
+        <div class="col-12 text-right detail2-beban mb-4">
+        <a class='btn btn-outline-light' href='#' id='btnBack' style="position: absolute;right: 25px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-arrow-left"></i> Back</a>
         </div>
     </div>
     <div class="row mt-2" >
         <div class="col-md-6 col-sm-12 mb-4">
-            <div class="card">
-                <h6 class="ml-3 mt-4">Beban per tahun tiap Jurusan Fakultas <span class='nama_fakultas'></span></h6>
+            <div class="card dash-card">
+                <div class="card-header">
+                    <h6 class="card-title">Beban per tahun tiap Jurusan Fakultas <span class='nama_fakultas'></span></h6>
+                </div>
                 <div class="card-body pt-0">
                     <div id='bebanJur' style='height:350px'>
                     </div>
@@ -75,8 +77,10 @@ $thnLalu = substr($tahunLalu,2,2);
             </div>
         </div>
         <div class="col-md-6 col-sm-12 mb-4">
-            <div class="card" style="background:#f5f5f5;border-radius:15px">
-                <h6 class="mt-2">Beban <span class='tahunPilih'></span></h6>
+            <div class="card dash-card" style="background:#f5f5f5;border-radius:1.75rem !important">
+                <div class="card-header">
+                    <h6 class="mt-2">Beban <span class='tahunPilih'></span></h6>
+                </div>
                 <div class="card-body pt-0">
                     <table class='no-border' id='tableBeban' style="width:100%">
                         <thead>
@@ -123,6 +127,14 @@ $thnLalu = substr($tahunLalu,2,2);
 <script>
 $('body').addClass('dash-contents');
 $('html').addClass('dash-contents');
+if(localStorage.getItem("dore-theme") == "dark"){
+    $('#btnBack,#btn-filter').removeClass('btn-outline-light');
+    $('#btnBack,#btn-filter').addClass('btn-outline-dark');
+}else{
+    $('#btnBack,#btn-filter').removeClass('btn-outline-dark');
+    $('#btnBack,#btn-filter').addClass('btn-outline-light');
+}
+$mode = localStorage.getItem("dore-theme");
 function sepNum(x){
     var num = parseFloat(x).toFixed(2);
     var parts = num.toString().split('.');
@@ -186,17 +198,17 @@ function getDataBebanJurusan(periode=null,kodeNeraca=null,kodeBidang=null,tahun=
         url:"{{ url('/telu-dash/getDataBebanJurusan') }}/"+periode+"/"+kodeNeraca+"/"+kodeBidang+"/"+tahun,
         dataType:"JSON",
         success:function(result){
-                var html='';
-                for(var i=0;i<result.daftar.length;i++){
-                    var line = result.daftar[i];
-                            
-                     html+=`<tr>
-                            <td style='font-weight:bold'>`+line.nama+`</td>
-                            <td class='text-right'>`+toMilyar(line.n4)+`</td>
-                            <td class='text-right'>`+toMilyar(line.n5)+`</td>
-                            <td class='text-right'>`+sepNum(line.capai)+`%</td>
-                            </tr>`;     
-                }
+            var html='';
+            for(var i=0;i<result.data.data.length;i++){
+                var line = result.data.data[i];
+                
+                html+=`<tr>
+                <td style='font-weight:bold'>`+line.nama+`</td>
+                <td class='text-right'>`+toMilyar(line.n4)+`</td>
+                <td class='text-right'>`+toMilyar(line.n5)+`</td>
+                <td class='text-right'>`+sepNum(line.capai)+`%</td>
+                </tr>`;     
+            }
             $('#tableBeban tbody').html(html);
         },
         error: function(jqXHR, textStatus, errorThrown) {       
@@ -220,58 +232,72 @@ function getBebanJurusan(periode=null,kodeNeraca=null,kodeBidang=null){
         type:"GET",
         url:"{{ url('/telu-dash/getBebanJurusan') }}/"+periode+"/"+kodeNeraca+"/"+kodeBidang,
         dataType:"JSON",
+        data:{ mode : $mode},
         success:function(result){
             Highcharts.chart('bebanJur', {
                 chart: {
-                        type: 'bar'
+                    type: 'bar'
+                },
+                title: {
+                    text: null
+                },
+                xAxis: {
+                    categories: result.data.ctg,
+                    crosshair: true
+                },
+                yAxis: {
+                    title: {
+                        text: ''
                     },
-                        title: {
-                        text: null
+                    labels: {
+                        formatter: function () {
+                            return singkatNilai(this.value);
+                        }
                     },
-                        xAxis: {
-                                categories: result.data.ctg,
-                                crosshair: true
-                        },
-                        yAxis: {
-                                title: {
-                                    text: ''
-                                },
-                                labels: {
-                                    formatter: function () {
-                                        return singkatNilai(this.value);
-                                    }
-                                },
-                        },
-                        credits:{
-                                enabled:false
-                        },
-                        tooltip: {
-                                // headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                                // pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                                //     '<td style="padding:0"><b>{point.y:.2f}</b></td></tr>',
-                                // footerFormat: '</table>',
-                                // // shared: true,
-                                // useHTML: true
+                },
+                credits:{
+                    enabled:false
+                },
+                tooltip: {
+                    formatter: function () {
+                        return this.series.name+':<b>'+toMilyar(this.y)+'</b>';
+                    }
+                },
+                plotOptions: {
+                    bar: {
+                        pointPadding: 0.2,
+                        borderWidth: 0,
+                        cursor: 'pointer',
+                        point: {
+                            events: {
+                                click: function() {  
+                                    $kd2 = this.options.key;
+                                }
+                            },
+                            dataLabels: {
+                                allowOverlap:true,
+                                enabled: true,
+                                crop: false,
+                                overflow: 'justify',
+                                useHTML: true,
                                 formatter: function () {
-                                    return this.series.name+':<b>'+toMilyar(this.y)+'</b>';
-                                }
-                        },
-                        plotOptions: {
-                                bar: {
-                                    pointPadding: 0.2,
-                                    borderWidth: 0,
-                                    cursor: 'pointer',
-                                    point: {
-                                        events: {
-                                            click: function() {  
-                                                $kd2 = this.options.key;
-                                                
-                                            }
-                                        }
+                                    if(this.y < 0.1){
+                                        return '';
+                                    }else{
+                                        return $('<div/>').css({
+                                            'color' : 'white', // work
+                                            'padding': '0 3px',
+                                            'font-size': '10px',
+                                            'backgroundColor' : this.point.color  // just white in my case
+                                        }).text(toMilyar(this.y))[0].outerHTML;
                                     }
+                                    // if(this.name)
                                 }
-                        },
-                        series: result.data.series
+                            }
+                        }
+                    }
+                },
+                series: result.data.series
             });
         },
         error: function(jqXHR, textStatus, errorThrown) {       
@@ -290,14 +316,14 @@ function getBebanJurusan(periode=null,kodeNeraca=null,kodeBidang=null){
     })
 }
 
-getBebanJurusan("{{$periode}}",$kd,$kd3)
-getDataBebanJurusan("{{$periode}}",$kd,$kd3,"{{$tahun}}")
+getBebanJurusan($filter_periode,$kd,$kd3)
+getDataBebanJurusan($filter_periode,$kd,$kd3,$filter_periode.substr(0,4))
 
 $('.tahunPilih').text('20'+$kd2);
 $('.thnPilih').text($kd2);
 
-$('.container-fluid').on('click','#btnBack',function(e){
-    var url = "{{ url('/telu-dash/form/dashTeluBebanDet') }}";
+$('.detail2-beban').on('click','#btnBack',function(e){
+    var url = "{{ url('/dash-telu/form/dashTeluBebanDet') }}";
     loadForm(url);
 })
 </script>

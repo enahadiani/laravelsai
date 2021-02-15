@@ -14,16 +14,6 @@ $thnLalu = substr($tahunLalu,2,2);
         box-shadow: none;
         border: 1px solid #f0f0f0;
     }
-    .btn-outline-light:hover {
-        color: #131113;
-        background-color: #ececec;
-        border-color: #ececec;
-    }
-    .btn-outline-light {
-        color: #131113;
-        background-color: white;
-        border-color: white !important;
-    }
     td,th{
         padding:4px !important;
     }
