@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />    <meta name="author" content="INSPIRO" />    
 	<meta name="description" content="Themeforest Template Polo, html template">
-    <link rel="icon" type="image/png" href="{{ asset('asset_web/webjava/images/icon-java-black.png') }}">   
+    <link rel="icon" type="image/png" href="{{ asset('asset_web/webjava/images/icon-java-blue.png') }}">   
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- Document title -->
     <title>JAVA | Project Detail</title>
