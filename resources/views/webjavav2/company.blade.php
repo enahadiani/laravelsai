@@ -274,6 +274,7 @@
         Highcharts.chart('organization', {
             chart: {
                 height: 900,
+                width: 1136,
                 inverted: true
             },
             title: {
