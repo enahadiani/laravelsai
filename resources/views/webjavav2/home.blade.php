@@ -570,6 +570,11 @@
                     </div>
                 </div>
             </div>
+            <div class="copyright-content">
+                <div class="container">
+                    <div class="copyright-text text-center">&copy; {{ date('Y') }} Java Turbine</div>
+                </div>
+            </div>
         </footer>
     </div>
     <a id="scrollTop"><i class="icon-chevron-up"></i><i class="icon-chevron-up"></i></a>
