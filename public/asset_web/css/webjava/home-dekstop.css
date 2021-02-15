@@ -134,3 +134,7 @@ h1 {
 .col-mobile {
     display: none;
 }
+#mainMenu-trigger {
+    cursor: pointer !important;
+    z-index: 2;
+}
