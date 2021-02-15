@@ -19,5 +19,6 @@ Route::get('/home-project-detail-5', 'Webjava\Webv2Controller@homeProjectDetail5
 Route::get('/home-project-detail-6', 'Webjava\Webv2Controller@homeProjectDetail6');
 Route::get('/product', 'Webjava\Webv2Controller@product');
 Route::get('/contact', 'Webjava\Webv2Controller@contact');
+Route::get('/company', 'Webjava\Webv2Controller@company');
 
 ?>

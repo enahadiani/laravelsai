@@ -61,23 +61,15 @@
             </div>
         </header>
         <!-- end: Header -->
-
-        {{-- Section 1 --}}
-        <div id="slider" class="inspiro-slider slider-fullscreen dots-creative" data-height-xs="360" data-animate-in="fadeIn" data-animate-out="fadeOut" data-items="1" data-loop="true">
-
-            <!-- Slide 1 -->
-            <div class="slide" style="background-image:url('{{ asset('asset_web/webjava/images/product.jpg') }}');">
-                <div class="container">
-                    <div class="slide-captions text-light section-one-space">
-                        <!-- Captions -->
-                        <h1 class="text-white text-center text-lg-x2">Product</h1>
-                        <!-- end: Captions -->
-                    </div>
+        {{-- Section 2 --}}
+        <section id="page-title" data-bg-parallax="{{ asset('asset_web/webjava/images/product.jpg') }}">
+            <div class="bg-overlay"></div>
+            <div class="container">
+                <div class="page-title">
+                    <h1 class="text-uppercase text-medium">Product</h1>
                 </div>
             </div>
-            <!-- end: Slide 1 -->
-
-        </div>
+        </section>
 
         {{-- Section 2 --}}
         <section id="section-2" class="p-t-100 p-b-100">
