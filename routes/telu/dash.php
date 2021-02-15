@@ -13,6 +13,7 @@ Route::get('/getGrowthReal/{periode}','DashTelu\DashboardController@getGrowthRea
 Route::get('/getKomposisiPendapatan/{periode}','DashTelu\DashboardController@getKomposisiPendapatan');
 Route::get('/getOprNonOprPendapatan/{periode}','DashTelu\DashboardController@getOprNonOprPendapatan');
 Route::get('/getPresentaseRkaRealisasiPendapatan/{periode}','DashTelu\DashboardController@getPresentaseRkaRealisasiPendapatan');
+Route::get('/getPresentaseRkaRealisasiPendapatanRp/{periode}','DashTelu\DashboardController@getPresentaseRkaRealisasiPendapatanRp');
 //Detail Pendapatan 1
 Route::get('/getPendapatanFak/{periode}/{kodeNeraca}','DashTelu\DashboardController@getPendapatanFak');
 Route::get('/getDetailPendapatan/{periode}/{kodeNeraca}','DashTelu\DashboardController@getDetailPendapatan');

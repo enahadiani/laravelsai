@@ -363,15 +363,16 @@ function getBCRKA(tahun){
     })
 }
 
-function getBCRKAPersen(){
+function getBCRKAPersen(tahun){
     $.ajax({
         type:"GET",
-        url:"{{ url('/dash-telu/rka-persen') }}",
+        url:"{{ url('/telu-dash/rka-persen') }}",
         dataType:"JSON",
+        data:{mode: $mode, tahun: tahun},
         success: function(result){
             Highcharts.chart('trend1-persen', {
                 chart: {
-                    type: 'line'
+                    type: 'spline'
                 },
                 title: {
                     text: null
@@ -398,15 +399,27 @@ function getBCRKAPersen(){
                     categories:result.data.ctg
                 },
                 plotOptions: {
-                    line: {
+                    spline: {
                         dataLabels: {
+                            // padding:15,
+                            // x:20,
+                            padding:0,
+                            allowOverlap:true,
                             enabled: true,
+                            crop: false,
+                            overflow: 'none',
+                            useHTML: true,
                             formatter: function () {
-                                return '<b>'+sepNumPas(this.y)+' %</b>';
+                                return $('<div/>').css({
+                                    'color' : 'white', // work
+                                    'padding': '0 5px',
+                                    'font-size':'8px',
+                                    'backgroundColor' : this.point.color  // just white in my case
+                                }).text(sepNumPas(this.y)+'%')[0].outerHTML;
                             }
-                        },
+                        }
                         // enableMouseTracking: false
-                    }
+                    },
                 },
                 series: result.data.series
             });

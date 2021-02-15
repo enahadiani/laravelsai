@@ -177,7 +177,7 @@
             }
         }
 
-        public function getPresentaseRkaRealisasiPendapatan($periode)
+        public function getPresentaseRkaRealisasiPendapatan(Request $request,$periode)
         {
             try{
                 $client = new Client();
@@ -185,7 +185,8 @@
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
-                    ]
+                    ],
+                    'query' => $request->all()
                 ]);
     
                 if ($response->getStatusCode() == 200) { // 200 OK
@@ -203,7 +204,34 @@
             }
         }
 
-        public function getPendapatanFak($periode,$kodeNeraca)
+        public function getPresentaseRkaRealisasiPendapatanRp(Request $request,$periode)
+        {
+            try{
+                $client = new Client();
+                $response = $client->request('GET', config('api.url').'ypt-dash/rkaVSRealPdptRp/'.$periode,[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => $request->all()
+                ]);
+    
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $data = json_decode($response_data,true);
+                    $data = $data["success"];
+                }
+                return response()->json(['data' => $data], 200);
+
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                return response()->json(['message' => $res, 'status'=>false], $response->getStatusCode());
+            }
+        }
+
+        public function getPendapatanFak(Request $request,$periode,$kodeNeraca)
         {
             try{
                 $client = new Client();
@@ -211,7 +239,8 @@
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
-                    ]
+                    ],
+                    'query' => $request->all()
                 ]);
     
                 if ($response->getStatusCode() == 200) { // 200 OK
@@ -229,7 +258,7 @@
             }
         }
 
-        public function getDetailPendapatan($periode,$kodeNeraca)
+        public function getDetailPendapatan(Request $request,$periode,$kodeNeraca)
         {
             try{
                 $client = new Client();
@@ -237,7 +266,8 @@
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
-                    ]
+                    ],
+                    'query' => $request->all()
                 ]);
     
                 if ($response->getStatusCode() == 200) { // 200 OK
@@ -255,7 +285,7 @@
             }
         }
 
-        public function getPendapatanJurusan($periode,$kodeNeraca,$kodeBidang)
+        public function getPendapatanJurusan(Request $request, $periode,$kodeNeraca,$kodeBidang)
         {
             try{
 
@@ -265,7 +295,8 @@
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
-                    ]
+                    ],
+                    'query' => $request->all()
                 ]);
     
                 if ($response->getStatusCode() == 200) { // 200 OK
@@ -522,7 +553,7 @@
             }
         }
 
-        public function getBCRKAPersen()
+        public function getBCRKAPersen(Request $request)
         {
             try{
                 $client = new Client();
@@ -531,7 +562,8 @@
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
-                    ]
+                    ],
+                    'query' => $request->all()
                 ]);
     
                 if ($response->getStatusCode() == 200) { // 200 OK
