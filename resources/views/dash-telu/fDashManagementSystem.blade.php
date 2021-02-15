@@ -319,12 +319,12 @@ function getProfitLoss(periode=null)
                 {
                     var line = result.data.data[i];
                     if(line.nama != "Beban"){
-                        var nilai = toMilyar(parseFloat(line.nilai)*-1);
-                        var n2 = toMilyar(parseFloat(line.n2)*-1);
+                        var rka = toMilyar(parseFloat(line.nilai)*-1);
+                        var real = toMilyar(parseFloat(line.n4)*-1);
                     }else{
                         
-                        var nilai = toMilyar(parseFloat(line.nilai));
-                        var n2 = toMilyar(parseFloat(line.n2));
+                        var rka = toMilyar(parseFloat(line.nilai));
+                        var real = toMilyar(parseFloat(line.n4));
                     }
                     var persen = sepNumPas(parseFloat(line.persen));
                     if(i == 0){
@@ -338,8 +338,8 @@ function getProfitLoss(periode=null)
                     }
                     html+=`<tr class='trace ms-`+i+`'>
                     <td>`+line.nama+`</td>
-                    <td class='text-right'>`+n2+`</td>
-                    <td class='text-right'>`+nilai+`</td>
+                    <td class='text-right'>`+rka+`</td>
+                    <td class='text-right'>`+real+`</td>
                     <td class='text-right text-success' >`+persen+`%</td>
                     </tr>`;   
                 }
@@ -455,7 +455,7 @@ function getPenyerapan(periode=null)
                 {
                     var line = result.data.data[i];
                     var nilai = toMilyar(parseFloat(line.nilai));
-                    var n2 = toMilyar(parseFloat(line.n2));
+                    var n4 = toMilyar(parseFloat(line.n4));
                     var persen = sepNumPas(parseFloat(line.persen));
                     if(i == 0){
 
@@ -468,8 +468,8 @@ function getPenyerapan(periode=null)
                     }
                     html+=`<tr class='trace serap-`+i+`'>
                     <td>`+line.nama+`</td>
-                    <td class='text-right'>`+n2+`</td>
                     <td class='text-right'>`+nilai+`</td>
+                    <td class='text-right'>`+n4+`</td>
                     <td class='text-right text-success' >`+persen+`%</td>
                     </tr>`;   
                 }
@@ -527,8 +527,8 @@ function getDebt(periode=null)
                     }
                     html+=`<tr>
                     <td>`+line.nama+`</td>
-                    <td class='text-right'>`+toMilyar(parseFloat(line.n2))+`</td>
                     <td class='text-right'>`+toMilyar(parseFloat(line.nilai))+`</td>
+                    <td class='text-right'>`+toMilyar(parseFloat(line.n4))+`</td>
                     </tr>`;   
                 }
             }
@@ -583,7 +583,7 @@ function getKelola(periode=null)
                     // }
                         html+=`<tr>
                         <td>`+line.nama+`</td>
-                        <td class='text-right'>`+toMilyar(parseFloat(line.nilai))+`</td>
+                        <td class='text-right'>`+toMilyar(parseFloat(line.n4))+`</td>
                         </tr>`;   
 
                 }
@@ -638,8 +638,8 @@ function getPin(periode=null)
                     }
                         html+=`<tr>
                         <td>`+line.nama+`</td>
-                        <td class='text-right'>`+toMilyar(parseFloat(line.n2))+`</td>
                         <td class='text-right'>`+toMilyar(parseFloat(line.nilai))+`</td>
+                        <td class='text-right'>`+toMilyar(parseFloat(line.n4))+`</td>
                         </tr>`;   
                 }
             }
