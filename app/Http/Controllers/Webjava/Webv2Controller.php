@@ -13,6 +13,11 @@ class Webv2Controller extends Controller {
 
         return view('webjavav2.home');  
     }
+
+    public function product() {
+
+        return view('webjavav2.product');  
+    }
 }
 
 ?>
