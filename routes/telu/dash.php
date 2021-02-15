@@ -24,6 +24,7 @@ Route::get('/getDataPendJurusan/{periode}/{kodeNeraca}/{kodeBidang}/{tahun}','Da
 Route::get('/getKomposisiBeban/{periode}','DashTelu\DashboardController@getKomposisiBeban');
 Route::get('/getOprNonOprBeban/{periode}','DashTelu\DashboardController@getOprNonOprBeban');
 Route::get('/getPresentaseRkaRealisasiBeban/{periode}','DashTelu\DashboardController@getPresentaseRkaRealisasiBeban');
+Route::get('/getPresentaseRkaRealisasiBebanRp/{periode}','DashTelu\DashboardController@getPresentaseRkaRealisasiBebanRp');
 //Detail Beban 1
 Route::get('/getBebanFak/{periode}/{kodeNeraca}','DashTelu\DashboardController@getBebanFak');
 Route::get('/getDetailBeban/{periode}/{kodeNeraca}','DashTelu\DashboardController@getDetailBeban');
