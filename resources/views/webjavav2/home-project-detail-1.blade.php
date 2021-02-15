@@ -26,7 +26,7 @@
                     <div class="header-container">   
                         <div class="logo-nav">
                             <div id="logo">
-                                <a href="index.html">
+                                <a href="https://app.simkug.com/webjava-v2/home">
                                     <span class="logo-default">
                                         <img alt="logo" width="70" src="{{ asset('asset_web/webjava/images/icon-java-blue.png') }}" />
                                     </span>
