@@ -3,7 +3,8 @@
 .product-container:nth-child(7),
 .product-container:nth-child(8),
 .product-container:nth-child(9),
-.product-container:nth-child(10) {
+.product-container:nth-child(10),
+.product-container:nth-child(11) {
     margin-bottom: 15rem;
 }
 /* .flickity-viewport {
