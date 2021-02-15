@@ -47,17 +47,6 @@ $thnLalu = substr($tahunLalu,2,2);
         <div class="col-12 mb-4">
             <div class="card dash-card">
                 <div class="card-header">
-                    <h6 class="card-title">Pertumbuhan Pendapatan per Fakultas</h6>
-                </div>
-                <div class="card-body pt-0">
-                    <div id='pertumbuhan' style='height:300px'>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-12 mb-4">
-            <div class="card dash-card">
-                <div class="card-header">
                     <h6 class="card-title">Pendapatan per Tahun untuk Fakultas</h6>
                 </div>
                 <div class="card-body pt-0">
@@ -66,6 +55,17 @@ $thnLalu = substr($tahunLalu,2,2);
                 </div>
             </div>
         </div>  
+        <div class="col-12 mb-4">
+            <div class="card dash-card">
+                <div class="card-header">
+                    <h6 class="card-title">Pertumbuhan Pendapatan per Fakultas</h6>
+                </div>
+                <div class="card-body pt-0">
+                    <div id='pertumbuhan' style='height:300px'>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="col-12 mb-4 mb-5">
             <div class="card dash-card" style="background:#f5f5f5;border-radius:1.75rem !important">
                 <div class="card-header">

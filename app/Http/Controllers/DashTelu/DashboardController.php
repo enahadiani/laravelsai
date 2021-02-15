@@ -341,7 +341,7 @@
             }
         }
 
-        public function getKomposisiBeban($periode)
+        public function getKomposisiBeban(Request $request, $periode)
         {
             try{
 
@@ -350,7 +350,8 @@
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
-                    ]
+                    ],
+                    'query' => $request->all()
                 ]);
     
                 if ($response->getStatusCode() == 200) { // 200 OK
@@ -393,7 +394,7 @@
             }
         }
 
-        public function getPresentaseRkaRealisasiBeban($periode)
+        public function getPresentaseRkaRealisasiBeban(Request $request,$periode)
         {
             try{
 
@@ -402,7 +403,8 @@
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
-                    ]
+                    ],
+                    'query' => $request->all()
                 ]);
     
                 if ($response->getStatusCode() == 200) { // 200 OK
@@ -419,7 +421,7 @@
             }
         }
 
-        public function getBebanFak($periode,$kodeNeraca)
+        public function getBebanFak(Request $request,$periode,$kodeNeraca)
         {
             try{
 
@@ -428,7 +430,8 @@
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
-                    ]
+                    ],
+                    'query' => $request->all()
                 ]);
     
                 if ($response->getStatusCode() == 200) { // 200 OK
@@ -471,7 +474,7 @@
             }
         }
 
-        public function getBebanJurusan($periode,$kodeNeraca,$kodeBidang)
+        public function getBebanJurusan(Request $request, $periode,$kodeNeraca,$kodeBidang)
         {
             try{
 
@@ -481,7 +484,8 @@
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
-                    ]
+                    ],
+                    'query' => $request->all()
                 ]);
     
                 if ($response->getStatusCode() == 200) { // 200 OK
