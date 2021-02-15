@@ -81,6 +81,9 @@
                         <!-- end: Captions -->
                     </div>
                 </div>
+                <div class="scrolldown-animation" id="scroll-down">
+                    <a class="scroll-to" href="#services"><img src="{{ asset('asset_web/webjava/images/scrolldown.png') }}" alt=""></a>
+                </div>
             </div>
             <!-- end: Slide 1 -->
 
