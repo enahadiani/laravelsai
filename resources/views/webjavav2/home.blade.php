@@ -47,10 +47,10 @@
                                 <div class="container">
                                     <nav>
                                         <ul>
-                                            <li><a href="#">Home</a></li>
-                                            <li><a href="#">Product</a></li>
-                                            <li><a href="#">Company</a></li>
-                                            <li><a href="#">Contact</a></li>
+                                            <li><a href="https://app.simkug.com/webjava-v2/home">Home</a></li>
+                                            <li><a href="https://app.simkug.com/webjava-v2/product">Product</a></li>
+                                            <li><a href="https://app.simkug.com/webjava-v2/company">Company</a></li>
+                                            <li><a href="https://app.simkug.com/webjava-v2/contact">Contact</a></li>
                                         </ul>
                                     </nav>
                                     <div class="information-contact col-mobile">
@@ -106,7 +106,7 @@
                                 </p>
                             </div>
                             <div class="card-footers">
-                                <a href="#">More >></a>
+                                <a href="http://localhost/laravelsai/public/webjava-v2/home-product-detail">More >></a>
                             </div>
                         </div>
                     </div>
@@ -212,7 +212,7 @@
                                 </p>
                             </div>
                             <div class="card-footers">
-                                <a href="#">More >></a>
+                                <a href="http://localhost/laravelsai/public/webjava-v2/home-product-detail">More >></a>
                             </div>
                         </div>
                         <div class="services-card">
