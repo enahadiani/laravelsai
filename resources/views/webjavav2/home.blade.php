@@ -106,7 +106,7 @@
                                 </p>
                             </div>
                             <div class="card-footers">
-                                <a href="http://localhost/laravelsai/public/webjava-v2/home-product-detail">More >></a>
+                                <a href="https://app.simkug.com/webjava-v2/home-product-detail-1">More >></a>
                             </div>
                         </div>
                     </div>
@@ -124,7 +124,7 @@
                                 </p>
                             </div>
                             <div class="card-footers">
-                                <a href="#">More >></a>
+                                <a href="https://app.simkug.com/webjava-v2/home-product-detail-2">More >></a>
                             </div>
                         </div>
                     </div>
@@ -142,7 +142,7 @@
                                 </p>
                             </div>
                             <div class="card-footers">
-                                <a href="#">More >></a>
+                                <a href="https://app.simkug.com/webjava-v2/home-product-detail-3">More >></a>
                             </div>
                         </div>
                     </div>
@@ -159,7 +159,7 @@
                                 </p>
                             </div>
                             <div class="card-footers">
-                                <a href="#">More >></a>
+                                <a href="4">More >></a>
                             </div>
                         </div>
                     </div>
@@ -177,7 +177,7 @@
                                 </p>
                             </div>
                             <div class="card-footers">
-                                <a href="#">More >></a>
+                                <a href="5">More >></a>
                             </div>
                         </div>
                     </div>
@@ -195,7 +195,7 @@
                                 </p>
                             </div>
                             <div class="card-footers">
-                                <a href="#">More >></a>
+                                <a href="https://app.simkug.com/webjava-v2/home-product-detail-6">More >></a>
                             </div>
                         </div>
                     </div>
@@ -212,7 +212,7 @@
                                 </p>
                             </div>
                             <div class="card-footers">
-                                <a href="http://localhost/laravelsai/public/webjava-v2/home-product-detail">More >></a>
+                                <a href="https://app.simkug.com/webjava-v2/home-product-detail-1">More >></a>
                             </div>
                         </div>
                         <div class="services-card">
@@ -228,7 +228,7 @@
                                 </p>
                             </div>
                             <div class="card-footers">
-                                <a href="#">More >></a>
+                                <a href="https://app.simkug.com/webjava-v2/home-product-detail-2">More >></a>
                             </div>
                         </div>
                         <div class="services-card">
@@ -244,7 +244,7 @@
                                 </p>
                             </div>
                             <div class="card-footers">
-                                <a href="#">More >></a>
+                                <a href="https://app.simkug.com/webjava-v2/home-product-detail-3">More >></a>
                             </div>
                         </div>
                     </div>
@@ -261,7 +261,7 @@
                                 </p>
                             </div>
                             <div class="card-footers">
-                                <a href="#">More >></a>
+                                <a href="https://app.simkug.com/webjava-v2/home-product-detail-4">More >></a>
                             </div>
                         </div>
                         <div class="services-card">
@@ -277,7 +277,7 @@
                                 </p>
                             </div>
                             <div class="card-footers">
-                                <a href="#">More >></a>
+                                <a href="https://app.simkug.com/webjava-v2/home-product-detail-5">More >></a>
                             </div>
                         </div>
                         <div class="services-card">
@@ -293,7 +293,7 @@
                                 </p>
                             </div>
                             <div class="card-footers">
-                                <a href="#">More >></a>
+                                <a href="https://app.simkug.com/webjava-v2/home-product-detail-6">More >></a>
                             </div>
                         </div>
                     </div>
@@ -323,126 +323,126 @@
                     {{-- Mobile --}}
                     <div class="project-content col-mobile">
                         <div class="project-card">
-                            <img alt="card-image" src="{{ asset('asset_web/webjava/images/default.jpg') }}"/>
+                            <img alt="card-image" src="{{ asset('asset_web/webjava/images/project-reference-1.jpg') }}"/>
                             <div class="card-title">
                                 <h6>Detailed Engineering Design of Rantau Suli MHPP 2x1.25 MW</h6>
                             </div>
                             <div class="card-footers">
-                                <a href="#">More >></a>
+                                <a href="https://app.simkug.com/webjava-v2/home-project-detail-1">More >></a>
                             </div>
                         </div>
                     </div>
                     <div class="project-content col-mobile">
                         <div class="project-card">
-                            <img alt="card-image" src="{{ asset('asset_web/webjava/images/default.jpg') }}"/>
+                            <img alt="card-image" src="{{ asset('asset_web/webjava/images/project-reference-3.jpg') }}"/>
                             <div class="card-title">
                                 <h6>Plant Assessment of Merden MHPP 2x200kW</h6>
                             </div>
                             <div class="card-footers">
-                                <a href="#">More >></a>
+                                <a href="https://app.simkug.com/webjava-v2/home-project-detail-2">More >></a>
                             </div>
                         </div>
                     </div>
                     <div class="project-content col-mobile">
                         <div class="project-card">
-                            <img alt="card-image" src="{{ asset('asset_web/webjava/images/default.jpg') }}"/>
+                            <img alt="card-image" src="{{ asset('asset_web/webjava/images/project-reference-5.jpg') }}"/>
                             <div class="card-title">
                                 <h6>Distribution Grid 20 kV of Sangir MHPP 2x5 MW</h6>
                             </div>
                             <div class="card-footers">
-                                <a href="#">More >></a>
+                                <a href="https://app.simkug.com/webjava-v2/home-project-detail-3">More >></a>
                             </div>
                         </div>
                     </div>
                     <div class="project-content col-mobile">
                         <div class="project-card">
-                            <img alt="card-image" src="{{ asset('asset_web/webjava/images/default.jpg') }}"/>
+                            <img alt="card-image" src="{{ asset('asset_web/webjava/images/project-reference-7.jpg') }}"/>
                             <div class="card-title">
                                 <h6>EPC of Semawung MHPP 600 kW</h6>
                             </div>
                             <div class="card-footers">
-                                <a href="#">More >></a>
+                                <a href="https://app.simkug.com/webjava-v2/home-project-detail-4">More >></a>
                             </div>
                         </div>
                     </div>
                     <div class="project-content col-mobile">
                         <div class="project-card">
-                            <img alt="card-image" src="{{ asset('asset_web/webjava/images/default.jpg') }}"/>
+                            <img alt="card-image" src="{{ asset('asset_web/webjava/images/project-reference-9.jpg') }}"/>
                             <div class="card-title">
                                 <h6>Mini Geothermal Steam Turbine, Bukit Daun Project</h6>
                             </div>
                             <div class="card-footers">
-                                <a href="#">More >></a>
+                                <a href="https://app.simkug.com/webjava-v2/home-project-detail-5">More >></a>
                             </div>
                         </div>
                     </div>
                     <div class="project-content col-mobile">
                         <div class="project-card">
-                            <img alt="card-image" src="{{ asset('asset_web/webjava/images/default.jpg') }}"/>
+                            <img alt="card-image" src="{{ asset('asset_web/webjava/images/project-reference-11.jpg') }}"/>
                             <div class="card-title">
                                 <h6>Lube Oil Cooling System Modification of Lubuk Gadang MHPP 2x4 MW</h6>
                             </div>
                             <div class="card-footers">
-                                <a href="#">More >></a>
+                                <a href="https://app.simkug.com/webjava-v2/home-project-detail-6">More >></a>
                             </div>
                         </div>
                     </div>
                     {{-- Dekstop --}}
                     <div class="project-content col-dekstop">
                         <div class="project-card">
-                            <img alt="card-image" src="{{ asset('asset_web/webjava/images/default.jpg') }}"/>
+                            <img alt="card-image" src="{{ asset('asset_web/webjava/images/project-reference-1.jpg') }}"/>
                             <div class="card-title">
                                 <h6>Detailed Engineering Design of Rantau Suli MHPP 2x1.25 MW</h6>
                             </div>
                             <div class="card-footers">
-                                <a href="#">More >></a>
+                                <a href="https://app.simkug.com/webjava-v2/home-project-detail-1">More >></a>
                             </div>
                         </div>
                         <div class="project-card">
-                            <img alt="card-image" src="{{ asset('asset_web/webjava/images/default.jpg') }}"/>
+                            <img alt="card-image" src="{{ asset('asset_web/webjava/images/project-reference-3.jpg') }}"/>
                             <div class="card-title">
                                 <h6>Plant Assessment of Merden MHPP 2x200kW</h6>
                             </div>
                             <div class="card-footers">
-                                <a href="#">More >></a>
+                                <a href="https://app.simkug.com/webjava-v2/home-project-detail-2">More >></a>
                             </div>
                         </div>
                         <div class="project-card">
-                            <img alt="card-image" src="{{ asset('asset_web/webjava/images/default.jpg') }}"/>
+                            <img alt="card-image" src="{{ asset('asset_web/webjava/images/project-reference-5.jpg') }}"/>
                             <div class="card-title">
                                 <h6>Distribution Grid 20 kV of Sangir MHPP 2x5 MW</h6>
                             </div>
                             <div class="card-footers">
-                                <a href="#">More >></a>
+                                <a href="https://app.simkug.com/webjava-v2/home-project-detail-3">More >></a>
                             </div>
                         </div>
                     </div>
                     <div class="project-content col-dekstop">
                         <div class="project-card">
-                            <img alt="card-image" src="{{ asset('asset_web/webjava/images/default.jpg') }}"/>
+                            <img alt="card-image" src="{{ asset('asset_web/webjava/images/project-reference-7.jpg') }}"/>
                             <div class="card-title">
                                 <h6>EPC of Semawung MHPP 600 kW</h6>
                             </div>
                             <div class="card-footers">
-                                <a href="#">More >></a>
+                                <a href="https://app.simkug.com/webjava-v2/home-project-detail-4">More >></a>
                             </div>
                         </div>
                         <div class="project-card">
-                            <img alt="card-image" src="{{ asset('asset_web/webjava/images/default.jpg') }}"/>
+                            <img alt="card-image" src="{{ asset('asset_web/webjava/images/project-reference-9.jpg') }}"/>
                             <div class="card-title">
                                 <h6>Mini Geothermal Steam Turbine, Bukit Daun Project</h6>
                             </div>
                             <div class="card-footers">
-                                <a href="#">More >></a>
+                                <a href="https://app.simkug.com/webjava-v2/home-project-detail-5">More >></a>
                             </div>
                         </div>
                         <div class="project-card">
-                            <img alt="card-image" src="{{ asset('asset_web/webjava/images/default.jpg') }}"/>
+                            <img alt="card-image" src="{{ asset('asset_web/webjava/images/project-reference-11.jpg') }}"/>
                             <div class="card-title">
                                 <h6>Lube Oil Cooling System Modification of Lubuk Gadang MHPP 2x4 MW</h6>
                             </div>
                             <div class="card-footers">
-                                <a href="#">More >></a>
+                                <a href="https://app.simkug.com/webjava-v2/home-project-detail-6">More >></a>
                             </div>
                         </div>
                     </div>
