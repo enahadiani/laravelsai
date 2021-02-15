@@ -67,7 +67,7 @@ $thnLalu = substr($tahunLalu,2,2)
         <div class="col-12">
             <h6 class="mb-0 bold">Telkom University Management System</h6>
             <a class="btn" href="#" id="btn-filter" style="position: absolute;right: 15px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-equalizer" style="transform-style: ;"></i> &nbsp;&nbsp; Filter</a>
-            <p>Komparasi Anggaran dan Realisasi s/d <span class='nama-bulan'></span></p>
+            <p>Satuan Milyar Rupiah || Periode s/d <span class='nama-bulan'></span></p>
         </div>
     </div>
     <div class="row" >
@@ -319,12 +319,12 @@ function getProfitLoss(periode=null)
                 {
                     var line = result.data.data[i];
                     if(line.nama != "Beban"){
-                        var nilai = sepNumPas(parseFloat(line.nilai)*-1);
-                        var n2 = sepNumPas(parseFloat(line.n2)*-1);
+                        var nilai = toMilyar(parseFloat(line.nilai)*-1);
+                        var n2 = toMilyar(parseFloat(line.n2)*-1);
                     }else{
                         
-                        var nilai = sepNumPas(parseFloat(line.nilai));
-                        var n2 = sepNumPas(parseFloat(line.n2));
+                        var nilai = toMilyar(parseFloat(line.nilai));
+                        var n2 = toMilyar(parseFloat(line.n2));
                     }
                     var persen = sepNumPas(parseFloat(line.persen));
                     if(i == 0){
@@ -386,13 +386,13 @@ function getFxPosition(periode=null)
                     var line = result.data.data[i];
                     
                     if(line.nama != "Aset"){
-                        var nilai = sepNumPas(parseFloat(line.nilai)*-1);
-                        var nilai_lalu = sepNumPas(parseFloat(line.nilai_lalu)*-1);
+                        var nilai = toMilyar(parseFloat(line.nilai)*-1);
+                        var nilai_lalu = toMilyar(parseFloat(line.nilai_lalu)*-1);
                         // var persen = (parseFloat(line.nilai)/parseFloat(result.data.data[0].nilai))*-100;
                     }else{
                         // var persen = 100;
-                        var nilai = sepNumPas(parseFloat(line.nilai));
-                        var nilai_lalu = sepNumPas(parseFloat(line.nilai_lalu)*-1);
+                        var nilai = toMilyar(parseFloat(line.nilai));
+                        var nilai_lalu = toMilyar(parseFloat(line.nilai_lalu)*-1);
                     }
                     
                     if(i == 0){
@@ -454,8 +454,8 @@ function getPenyerapan(periode=null)
                 for(var i=0;i<result.data.data.length;i++)
                 {
                     var line = result.data.data[i];
-                    var nilai = sepNumPas(parseFloat(line.nilai));
-                    var n2 = sepNumPas(parseFloat(line.n2));
+                    var nilai = toMilyar(parseFloat(line.nilai));
+                    var n2 = toMilyar(parseFloat(line.n2));
                     var persen = sepNumPas(parseFloat(line.persen));
                     if(i == 0){
 
@@ -527,8 +527,8 @@ function getDebt(periode=null)
                     }
                     html+=`<tr>
                     <td>`+line.nama+`</td>
-                    <td class='text-right'>`+sepNumPas(parseFloat(line.n2))+`</td>
-                    <td class='text-right'>`+sepNumPas(parseFloat(line.nilai))+`</td>
+                    <td class='text-right'>`+toMilyar(parseFloat(line.n2))+`</td>
+                    <td class='text-right'>`+toMilyar(parseFloat(line.nilai))+`</td>
                     </tr>`;   
                 }
             }
@@ -583,7 +583,7 @@ function getKelola(periode=null)
                     // }
                         html+=`<tr>
                         <td>`+line.nama+`</td>
-                        <td class='text-right'>`+sepNumPas(parseFloat(line.nilai))+`</td>
+                        <td class='text-right'>`+toMilyar(parseFloat(line.nilai))+`</td>
                         </tr>`;   
 
                 }
@@ -638,8 +638,8 @@ function getPin(periode=null)
                     }
                         html+=`<tr>
                         <td>`+line.nama+`</td>
-                        <td class='text-right'>`+sepNumPas(parseFloat(line.n2))+`</td>
-                        <td class='text-right'>`+sepNumPas(parseFloat(line.nilai))+`</td>
+                        <td class='text-right'>`+toMilyar(parseFloat(line.n2))+`</td>
+                        <td class='text-right'>`+toMilyar(parseFloat(line.nilai))+`</td>
                         </tr>`;   
                 }
             }
