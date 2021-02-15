@@ -106,7 +106,7 @@
                                 </p>
                             </div>
                             <div class="card-footers">
-                                <a href="#">More >></a>
+                                <a href="http://localhost/laravelsai/public/webjava-v2/home-product-detail">More >></a>
                             </div>
                         </div>
                     </div>
@@ -212,7 +212,7 @@
                                 </p>
                             </div>
                             <div class="card-footers">
-                                <a href="#">More >></a>
+                                <a href="http://localhost/laravelsai/public/webjava-v2/home-product-detail">More >></a>
                             </div>
                         </div>
                         <div class="services-card">
