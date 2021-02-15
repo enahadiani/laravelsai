@@ -18,6 +18,6 @@ Route::get('/home-project-detail-4', 'Webjava\Webv2Controller@homeProjectDetail4
 Route::get('/home-project-detail-5', 'Webjava\Webv2Controller@homeProjectDetail5');
 Route::get('/home-project-detail-6', 'Webjava\Webv2Controller@homeProjectDetail6');
 Route::get('/product', 'Webjava\Webv2Controller@product');
-Route::get('/perusahaan', 'Webjava\Webv2Controller@perusahaan');
+Route::get('/contact', 'Webjava\Webv2Controller@contact');
 
 ?>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />    <meta name="author" content="INSPIRO" />    
@@ -7,17 +8,18 @@
     <link rel="icon" type="image/png" href="{{ asset('asset_web/webjava/images/icon-java-black.png') }}">   
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- Document title -->
-    <title>JAVA | Project Detail</title>
+    <title>JAVA | Contact</title>
     <!-- Stylesheets & Fonts -->
     <link href="{{ asset('asset_web/css/plugins.css') }}" rel="stylesheet">
     <link href="{{ asset('asset_web/css/style.css') }}" rel="stylesheet">
-    <link href="{{ asset('asset_web/css/webjava/home-product-detail-dekstop.css') }}" rel="stylesheet">
-    <link href="{{ asset('asset_web/css/webjava/home-product-detail-mobile.css') }}" rel="stylesheet">
+    <link href="{{ asset('asset_web/css/webjava/contact-dekstop.css') }}" rel="stylesheet">
+    <link href="{{ asset('asset_web/css/webjava/contact-mobile.css') }}" rel="stylesheet">
 </head>
+
 <body>
     <div class="body-inner">
-        {{-- Header --}}
-        <header id="header" data-transparent="true" data-fullwidth="true" class="submenu-light ">
+        <!-- Header -->
+        <header id="header" data-transparent="true" data-fullwidth="true" class="dark submenu-light ">
             <div class="header-inner">
                 <div class="container">
                     <div id="mainMenu-trigger">
@@ -58,30 +60,25 @@
                 </div>
             </div>
         </header>
-        {{-- End Header --}}
+        <!-- end: Header -->
+
         {{-- Section 1 --}}
-        <section id="section-2" class="p-t-100 p-b-100">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-7 m-b-30">
-                        <div class="carousel" data-items="1">
-                            <a href="#" data-lightbox="gallery-image"><img src="{{ asset('asset_web/webjava/images/project-reference-1.jpg') }}" alt=""></a>
-                            <a href="#" data-lightbox="gallery-image"><img src="{{ asset('asset_web/webjava/images/project-reference-2.jpg') }}" alt=""></a>
-                            <a href="#" data-lightbox="gallery-image"><img src="{{ asset('asset_web/webjava/images/project-reference-1.jpg') }}" alt=""></a>
-                        </div>
-                    </div>
-                    <div class="col-lg-5 p-l-40 p-r-40">
-                        <div class="m-b-40">
-                            <h5>Detailed Engineering Design of Rantau Suli MHPP 2x1.25 MW</h5>
-                            <p>
-                                The project consists of development of an off-grid 2 x 1.25 MW mini-hydropower plant (MHPP), in the village of Rantau Suli, Jambi Province, granted by Millennium Challenge Account. JPE provided detailed design of main M/E components and the balance of plant.
-                            </p>
-                        </div>
+        <div id="slider" class="inspiro-slider slider-fullscreen dots-creative" data-height-xs="360" data-animate-in="fadeIn" data-animate-out="fadeOut" data-items="1" data-loop="true">
+
+            <!-- Slide 1 -->
+            <div class="slide" style="background-image:url('{{ asset('asset_web/webjava/images/product.jpg') }}');">
+                <div class="container">
+                    <div class="slide-captions text-light section-one-space">
+                        <!-- Captions -->
+                        <h1 class="text-white text-center text-lg-x2">Contact Us</h1>
+                        <!-- end: Captions -->
                     </div>
                 </div>
             </div>
-        </section>
-    
+            <!-- end: Slide 1 -->
+
+        </div>
+
         <footer id="footer" class="footer-background">
             <div class="footer-content">
                 <div class="container">

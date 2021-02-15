@@ -78,6 +78,11 @@ class Webv2Controller extends Controller {
 
         return view('webjavav2.product');  
     }
+
+    public function contact() {
+
+        return view('webjavav2.contact');  
+    }
 }
 
 ?>
