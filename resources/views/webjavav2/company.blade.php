@@ -128,6 +128,15 @@
             </div>
         </section>
 
+        <section class="p-t-100 p-b-100 col-mobile">
+            <div class="container">
+                <div class="heading-text text-center heading-section m-b-80">
+                    <h2>Organization</h2>
+                </div>
+                <img alt="organization" src="{{ asset('asset_web/webjava/images/organization.png') }}" width="350" />
+            </div>
+        </section>
+
         <footer id="footer" class="footer-background">
             <div class="footer-content">
                 <div class="container">
