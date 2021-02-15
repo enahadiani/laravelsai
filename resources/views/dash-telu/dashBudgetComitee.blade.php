@@ -540,8 +540,15 @@ function getBCTuition(tahun){
                     series: {
                         dataLabels: {
                             enabled: true,
+                            useHTML: true,
                             formatter: function () {
-                                return '<b>'+toMilyar(this.y)+' M</b>';
+                                // return '<span style="color:white;background:gray !important;"><b>'+sepNum(this.y)+' M</b></span>';
+                                return $('<div/>').css({
+                                    'color' : 'white', // work
+                                    'padding': '0 3px',
+                                    'font-size':'10px',
+                                    'backgroundColor' : this.series.color  // just white in my case
+                                }).text(toMilyar(this.y))[0].outerHTML;
                             }
                         }
                     }
@@ -603,8 +610,15 @@ function getBCTuitionPersen(tahun){
                     series: {
                         dataLabels: {
                             enabled: true,
+                            useHTML: true,
                             formatter: function () {
-                                return '<b>'+sepNumPas(this.y)+' %</b>';
+                                // return '<span style="color:white;background:gray !important;"><b>'+sepNum(this.y)+' M</b></span>';
+                                return $('<div/>').css({
+                                    'color' : 'white', // work
+                                    'padding': '0 3px',
+                                    'font-size':'10px',
+                                    'backgroundColor' : this.series.color  // just white in my case
+                                }).text(sepNumPas(this.y)+'M')[0].outerHTML;
                             }
                         }
                     }

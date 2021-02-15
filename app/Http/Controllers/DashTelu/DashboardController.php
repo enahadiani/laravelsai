@@ -43,7 +43,7 @@
             }
         }
 
-        public function getRkaVsReal($periode)
+        public function getRkaVsReal(Request $request, $periode)
         {
             try{
 
@@ -52,7 +52,8 @@
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
-                    ]
+                    ],
+                    'query' => $request->all()
                 ]);
     
                 if ($response->getStatusCode() == 200) { // 200 OK
@@ -69,7 +70,7 @@
             }
         }
 
-        public function getGrowthRka($periode)
+        public function getGrowthRka(Request $request,$periode)
         {
             try{
 
@@ -78,7 +79,8 @@
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
-                    ]
+                    ],
+                    'query' => $request->all()
                 ]);
     
                 if ($response->getStatusCode() == 200) { // 200 OK
@@ -95,7 +97,7 @@
             }
         }
 
-        public function getGrowthReal($periode)
+        public function getGrowthReal(Request $request,$periode)
         {
             try{
 
@@ -104,7 +106,8 @@
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
-                    ]
+                    ],
+                    'query' => $request->all()
                 ]);
     
                 if ($response->getStatusCode() == 200) { // 200 OK
@@ -121,7 +124,7 @@
             }
         }
 
-        public function getKomposBebanapatan($periode)
+        public function getKomposisiPendapatan(Request $request,$periode)
         {
             try{
 
@@ -130,7 +133,8 @@
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
-                    ]
+                    ],
+                    'query' => $request->all()
                 ]);
     
                 if ($response->getStatusCode() == 200) { // 200 OK

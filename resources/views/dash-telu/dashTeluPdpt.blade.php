@@ -64,6 +64,14 @@ $nik     = Session::get('userLog');
         border-color: white !important;
     }
 
+    .highcharts-data-label-connector{
+        fill: none !important;
+    }
+
+    .col-grid {
+        display:grid !important;
+    }
+
     /* #modalFilter
     {
         top:90px
@@ -108,36 +116,34 @@ $nik     = Session::get('userLog');
         <div class="col-12">
             <h6>Pendapatan</h6>
             <a class="btn btn-outline-light" href="#" id="btn-filter" style="position: absolute;right: 15px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-equalizer" style="transform-style: ;"></i> &nbsp;&nbsp; Filter</a>
-            <div class="separator mb-5"></div>
+            <p>Periode <span class='periode'></span></p>
+            
         </div>
     </div>
     <div class="row" >
-        <div class="col-md-6 col-sm-12 mb-4">
-            <div class="card">
-                <h6 class="ml-3 mt-4" >Komposisi Pendapatan</h6>
-                <div class="card-body pt-0">
-                    <div id='komposisi' style='height:350px'>
-                    </div>
-                    <!-- <div class="row">
-                        <div class="col-md-6 col-sm-12 mb-4" style="background:#ad1d3e;color:white;height:50px;text-align:center">
-                            <h6 style='margin: 15px auto;'>Operasional : <span id='opr'></span></h6>
-                        </div>
-                        <div class="col-md-6 col-sm-12 mb-4" style="background:#4c4c4c;color:white;height:50px;text-align:center">
-                            <h6 style='margin: 15px auto;'>Non Operasional : <span id='nonopr'></span></h6>
-                        </div>
-                    </div> -->
+        <div class="col-md-6 col-sm-12 mb-4 col-grid">
+            <div class="card dash-card">
+                <div class="card-header">
+                    <h6 class="card-title" >Presentase RKA VS Realisasi</h6>
                 </div>
-            </div>
-        </div>
-        <div class="col-md-6 col-sm-12 mb-4">
-            <div class="card">
-                <h6 class="ml-3 mt-4" >Presentase RKA VS Realisasi</h6>
-                <p style='font-size:9px;padding-left:20px'>Klik bar untuk melihat detail</p>
-                <div class="card-body pt-0">
+                <div class="card-body pt-1">
+                    <p style='font-size:9px;font-style:italic;margin:0'>Klik bar untuk melihat detail</p>
                     <div id='rkaVSreal' style='height:350px'></div>
                 </div>
             </div>
         </div>
+        <div class="col-md-6 col-sm-12 mb-4 col-grid">
+            <div class="card dash-card">
+                <div class="card-header">
+                    <h6 class="card-title">Komposisi Pendapatan</h6>
+                </div>
+                <div class="card-body pt-0">
+                    <div id='komposisi' style='height:350px'>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
     </div>
     <div class="modal fade modal-right" id="modalFilter" tabindex="-1" role="dialog"
     aria-labelledby="modalFilter" aria-hidden="true">
@@ -198,6 +204,15 @@ $nik     = Session::get('userLog');
 <script> 
 $('body').addClass('dash-contents');
 $('html').addClass('dash-contents');
+if(localStorage.getItem("dore-theme") == "dark"){
+    $('#btn-filter').removeClass('btn-outline-light');
+    $('#btn-filter').addClass('btn-outline-dark');
+}else{
+    $('#btn-filter').removeClass('btn-outline-dark');
+    $('#btn-filter').addClass('btn-outline-light');
+}
+
+var $mode = localStorage.getItem("dore-theme");
 var $kd = "";
 function sepNum(x){
     if(!isNaN(x)){
@@ -285,6 +300,10 @@ function getPeriode(){
                         control.addOption([{text:result.data.data[i].periode, value:result.data.data[i].periode}]);
                     }
                 }
+                if($filter_periode == ""){
+                    $filter_periode = "{{ Session::get('periode') }}";
+                }
+                control.setValue($filter_periode);
             }
         },
         error: function(jqXHR, textStatus, errorThrown) {       
@@ -368,7 +387,7 @@ function getPresentaseRkaRealisasi(periode=null){
                 },
                 series: [{
                     name: null,
-                    color:'#ad1d3e',
+                    color: ($mode == "dark" ? "#2200FF" : "#00509D"),
                     data: result.data.data
                 }]
             });
@@ -419,6 +438,7 @@ $.ajax({
     type:"GET",
     url:"{{ url('/telu-dash/getKomposisiPendapatan') }}/"+periode,
     dataType:"JSON",
+    data:{mode: $mode},
     success: function(result){
         Highcharts.chart('komposisi', {
             chart: {
@@ -441,6 +461,7 @@ $.ajax({
                     valueSuffix: '%'
                 }
             },
+            colors: result.data.colors,
             plotOptions: {
                 pie: {
                     allowPointSelect: true,
@@ -450,8 +471,16 @@ $.ajax({
                         // distance:-30,
                         
                         alignTo: 'plotEdges',
+                        useHTML: true,
                         formatter: function () {
-                            return Highcharts.numberFormat(this.percentage,2,",",".")+' %';
+                            var name = this.point.name.split(" ");
+                            return $('<div/>').css({
+                                'border' : '0',// just white in my case
+                                'max-width': '70px',
+                                'overflow':'hidden',
+                                'font-size': '10px',
+                                'color' : ($mode == "dark" ? "var(--text-color)" : "black")
+                            }).addClass('fs-8').html(sepNum(this.percentage)+'%')[0].outerHTML;
                         }
                     },
                     size:'110%',
@@ -460,12 +489,21 @@ $.ajax({
             },
             series: [{
                 name: 'Pendapatan',
-                colorByPoint: true,
                 data: result.data.data
             }],
             legend: {
                 itemStyle: {
                     fontSize:'8px'
+                }
+            }
+        }, function(){
+            var series = this.series;
+            for (var i = 0, ie = series.length; i < ie; ++i) {
+                var points = series[i].data;
+                for (var j = 0, je = points.length; j < je; ++j) {
+                    if (points[j].graphic) {
+                        points[j].graphic.element.style.fill = result.data.colors[j];
+                    }
                 }
             }
         });
@@ -487,20 +525,19 @@ $.ajax({
 
 }
 
-getKomposisiPendapatan("{{$periode}}");
-// getOprNonOpr("{{$periode}}");
-getPresentaseRkaRealisasi("{{$periode}}");
+$('.periode').text(namaPeriode($filter_periode));
+getKomposisiPendapatan($filter_periode);
+// getOprNonOpr($filter_periode);
+getPresentaseRkaRealisasi($filter_periode);
 
 $('#form-filter').submit(function(e){
     e.preventDefault();
     var periode = $('#periode')[0].selectize.getValue();
+    $filter_periode = periode;
     getKomposisiPendapatan(periode);
     // getOprNonOpr(periode);
     getPresentaseRkaRealisasi(periode);
-    var tahun = parseInt(periode.substr(0,4));
-    var tahunLalu = tahun-1;
-    $('.thnLalu').text(tahunLalu);
-    $('.thnIni').text(tahun);
+    $('.periode').text(namaPeriode(periode));
     $('#modalFilter').modal('hide');
     
     // $('.app-menu').hide();
