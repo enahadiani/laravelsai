@@ -8,7 +8,7 @@
     <link rel="icon" type="image/png" href="{{ asset('asset_web/webjava/images/icon-java-black.png') }}">   
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- Document title -->
-    <title>JAVA | Home</title>
+    <title>JAVA | Product</title>
     <!-- Stylesheets & Fonts -->
     <link href="{{ asset('asset_web/css/plugins.css') }}" rel="stylesheet">
     <link href="{{ asset('asset_web/css/style.css') }}" rel="stylesheet">
