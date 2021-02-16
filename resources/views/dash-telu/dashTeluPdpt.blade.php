@@ -45,6 +45,16 @@ $nik     = Session::get('userLog');
         display:grid !important;
     }
 
+    
+    .nav-tabs .nav-link.active {
+        color: #fff;
+    }
+
+    .nav-tabs .nav-link.active::before {
+        background: #fff;
+        color: #fff;
+    }
+
 </style>
 
 <div class="container-fluid mt-3">

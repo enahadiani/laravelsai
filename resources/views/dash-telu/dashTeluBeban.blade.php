@@ -23,6 +23,15 @@ $nik     = Session::get('userLog');
         fill: none !important;
     }
 
+    
+    .nav-tabs .nav-link.active {
+        color: #fff;
+    }
+
+    .nav-tabs .nav-link.active::before {
+        background: #fff;
+        color: #fff;
+    }
 
 </style>
 
