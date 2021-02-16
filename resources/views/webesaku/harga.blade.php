@@ -8,20 +8,20 @@
     <link rel="icon" type="image/png" href="{{ asset('asset_web/img/esaku/ico-saku.svg') }}">   
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- Document title -->
-    <title>SAKU | Produk</title>
+    <title>SAKU | Harga</title>
     <!-- Stylesheets & Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link href="{{ asset('asset_web/webesaku/fontawesome/css/all.css')}}">
     <link href="{{ asset('asset_web/css/plugins.css') }}" rel="stylesheet">
     <link href="{{ asset('asset_web/css/style.css') }}" rel="stylesheet">
-    <link href="{{ asset('asset_web/css/websaku-produk.css') }}" rel="stylesheet">
-    <link href="{{ asset('asset_web/css/websaku-produk-mobile.css') }}" rel="stylesheet">
+    <link href="{{ asset('asset_web/css/websaku-harga.css') }}" rel="stylesheet">
+    <link href="{{ asset('asset_web/css/websaku-harga-mobile.css') }}" rel="stylesheet">
 </head>
 <body>
     
     <div class="body-inner">
-
+        {{-- Header --}}
         <header id="header" data-transparent="true" data-fullwidth="true" class="submenu-light">
             <div class="header-inner">
                 <div class="container header-content">
@@ -69,190 +69,185 @@
                 </div>
             </div>
         </header>
+        {{-- end: Header --}}
 
-        {{-- Dashboard --}}
-        <section id="dashboard" class="p-b-25">
-            <div class="container dashboard">
-                <div class="dashboard-container">
-                    <div class="dashboard-sub-container">
-                        <div class="heading-text heading-section text-center">
-                            <h1>Dashboard</h1>
-                            <div class="dashboard-subtext-container">
-                                <div class="dashboard-subtext">
-                                    <h5 class="lead">
-                                        Satu sumber data yang menghasilkan banyak analisa.
-                                    </h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="image-dashboard">
-                            <img alt="tablet" class="image-dashboard" src="{{ asset('asset_web/img/esaku/tablet-crop.png')}}"/>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        {{-- Produk Fitur --}}
-        <section id="produk-fitur" class="p-b-25">
+        {{-- Section 1 --}}
+        <section id="section-1" class="p-b-25">
             <div class="container">
-                <div class="produk-fitur-container">
-                    <div class="card-coba">
-                        <div class="row">
-                            <div class="col-12 p-b-30">
-                                <img alt="saku-white" src="{{ asset('asset_web/img/esaku/SAKU2021WHITE.svg') }}" width="120">
-                            </div>
-                            <div class="col-12 p-b-30">
-                                <div class="coba-text">
-                                    <h5 class="lead">
-                                        Mulai sekarang melakukan pembukuan bisnis Anda dengan semua fitur yang kami siapkan.
-                                    </h5>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <a href="#" class="link-coba">Coba Gratis</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-custom">
-                        <div class="row">
-                            <div class="col-12 p-b-30">
-                                <h1>Custome</h1>
-                            </div>
-                            <div class="col-12 p-b-30">
-                                <div class="custom-text">
-                                    <h5 class="lead">
-                                        Bangun sistem sesuai dengan kebutuhan bisnis Anda.
-                                    </h5>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <a href="#" class="link-kontak">Kontak Kami</a>
-                            </div>
-                            <div class="icon-container">
-                                <div class="cog-icon">
-                                    <i class="fas fa-cog cog-tilted"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="heading-text heading-section text-center">
+                    <h1>Nilai investasi sesuai kebutuhan</h1>
+                    <h5 class="lead">Tentukan harga sesuai dengan kebutuhan bisnis anda</h5>
                 </div>
-            </div>
-        </section>
-
-        <section id="jenis-usaha" class="p-b-25">
-            <div class="container">
-                <div class="jenis-usaha-container">
-                    <div class="jenis-usaha-col">
-                        <div class="row">
-                            <div class="col-12 p-b-20">
-                                <h1>Sekolah</h1>
+                <div class="list-harga">
+                    <div class="card-harga">
+                        <div class="card-header">
+                            <div class="paket-name">
+                                <h2 class="lite">Lite</h2>
+                                <button class="free-btn">Gratis</button>
                             </div>
-                            <div class="col-12">
-                                <div class="jenis-text">
-                                    <h5 class="lead">
-                                        Pelayanan yang penuh kepada orang tua siswa dari proses tagihan pembayaran siswa sampai laporan nilai sekolah.
-                                    </h5>
-                                </div>
+                            <div class="paket-price-month">
+                                <h2 class="price-month">
+                                    Rp. 99.000/bln
+                                </h2>
+                            </div>
+                            <div class="paket-price-day">
+                                <h4 class="price-day">
+                                    Rp. 3.300/hari
+                                </h4>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="list-fitur">
+                                <img alt="check" src="{{ asset('asset_web/img/esaku/check2.png')}}"/>
+                                <span class="active">Pemasukan</span>
+                            </div>
+                            <div class="list-fitur">
+                                <img alt="check" src="{{ asset('asset_web/img/esaku/check2.png')}}"/>
+                                <span class="active">Pengeluaran</span>
+                            </div>
+                            <div class="list-fitur">
+                                <img alt="check" src="{{ asset('asset_web/img/esaku/check2.png')}}"/>
+                                <span class="active">Penjualan</span>
+                            </div>
+                            <div class="list-fitur">
+                                <img alt="check" src="{{ asset('asset_web/img/esaku/check2.png')}}"/>
+                                <span class="active">Pembelian</span>
+                            </div>
+                            <div class="list-fitur">
+                                <img alt="cross" src="{{ asset('asset_web/img/esaku/cross.png')}}"/>
+                                <span class="not-active">Gudang</span>
+                            </div>
+                            <div class="list-fitur">
+                                <img alt="check" src="{{ asset('asset_web/img/esaku/check2.png')}}"/>
+                                <span class="active">POS</span>
+                            </div>
+                            <div class="list-fitur">
+                                <img alt="cross" src="{{ asset('asset_web/img/esaku/cross.png')}}"/>
+                                <span class="not-active">Dashboard</span>
+                            </div>
+                        </div>
+                        <div class="card-footer not-trial">
+                            <div class="trial-text">
+                                <p>Pakai secara gratis selama 3 bulan</p>
+                            </div>
+                            <div class="register-button">
+                                <button>Daftar sekarang</button>
                             </div>
                         </div>
                     </div>
-                    <div class="jenis-usaha-col">
-                        <div class="row">
-                            <div class="col-12 p-b-20">
-                                <h1>Jasa</h1>
+                    <div class="card-harga">
+                        <div class="card-header">
+                            <div class="paket-name">
+                                <h2 class="medium">Medium</h2>
                             </div>
-                            <div class="col-12">
-                                <div class="jenis-text">
-                                    <h5 class="lead">
-                                        Pencatatan transaksi secara otomatis dan menghasilkan laporan yang dapat dipertanggungjawabkan.
-                                    </h5>
-                                </div>
+                            <div class="paket-price-month">
+                                <h2 class="price-month">
+                                    Rp. 399.000/bln
+                                </h2>
+                            </div>
+                            <div class="paket-price-day">
+                                <h4 class="price-day">
+                                    Rp. 13.300/hari
+                                </h4>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="list-fitur">
+                                <img alt="check" src="{{ asset('asset_web/img/esaku/check2.png')}}"/>
+                                <span class="active">Pemasukan</span>
+                            </div>
+                            <div class="list-fitur">
+                                <img alt="check" src="{{ asset('asset_web/img/esaku/check2.png')}}"/>
+                                <span class="active">Pengeluaran</span>
+                            </div>
+                            <div class="list-fitur">
+                                <img alt="check" src="{{ asset('asset_web/img/esaku/check2.png')}}"/>
+                                <span class="active">Penjualan</span>
+                            </div>
+                            <div class="list-fitur">
+                                <img alt="check" src="{{ asset('asset_web/img/esaku/check2.png')}}"/>
+                                <span class="active">Pembelian</span>
+                            </div>
+                            <div class="list-fitur">
+                                <img alt="cross" src="{{ asset('asset_web/img/esaku/check2.png')}}"/>
+                                <span class="active">Gudang</span>
+                            </div>
+                            <div class="list-fitur">
+                                <img alt="check" src="{{ asset('asset_web/img/esaku/check2.png')}}"/>
+                                <span class="active">POS</span>
+                            </div>
+                            <div class="list-fitur">
+                                <img alt="cross" src="{{ asset('asset_web/img/esaku/cross.png')}}"/>
+                                <span class="not-active">Dashboard</span>
+                            </div>
+                        </div>
+                        <div class="card-footer with-trial">
+                            <div class="trial-button">
+                                <button>Coba gratis</button>
+                            </div>
+                            <div class="trial-text">
+                                <p>14 hari</p>
+                            </div>
+                            <div class="register-button">
+                                <button>Daftar sekarang</button>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="jenis-usaha-container">
-                    <div class="jenis-usaha-col">
-                        <div class="row">
-                            <div class="col-12 p-b-20">
-                                <h1>Dagang</h1>
+                    <div class="card-harga">
+                        <div class="card-header">
+                            <div class="paket-name">
+                                <h2 class="full">Full</h2>
                             </div>
-                            <div class="col-12">
-                                <div class="jenis-text-2">
-                                    <h5 class="lead">
-                                        Perhitungan HPP secara otomatis serta pengawasan terhadap produk yang anda jual serta terhubung dengan aplikasi POS.
-                                    </h5>
-                                </div>
+                            <div class="paket-price-month">
+                                <h2 class="price-month">
+                                    Rp. 999.000/bln
+                                </h2>
                             </div>
-                        </div>
-                    </div>
-                    <div class="jenis-usaha-col">
-                        <div class="row">
-                            <div class="col-12 p-b-20">
-                                <h1>Universitas</h1>
-                            </div>
-                            <div class="col-12">
-                                <div class="jenis-text">
-                                    <h5 class="lead">
-                                        Komplek transaksi dari Anggaran pendidikan sampai pemantauan tagihan serta pembayaran mahasiswa.
-                                    </h5>
-                                </div>
+                            <div class="paket-price-day">
+                                <h4 class="price-day">
+                                    Rp. 33.300/hari
+                                </h4>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="jenis-usaha-container">
-                    <div class="jenis-usaha-col">
-                       <div class="row">
-                            <div class="col-12 p-b-20">
-                                <h1>Toko Online</h1>
+                        <div class="card-body">
+                            <div class="list-fitur">
+                                <img alt="check" src="{{ asset('asset_web/img/esaku/check2.png')}}"/>
+                                <span class="active">Pemasukan</span>
                             </div>
-                            <div class="col-12">
-                                <div class="jenis-text">
-                                    <h5 class="lead">
-                                        Unggah semua produk anda ke market place dan catat penjualan yang didapatkan dalam satu aplikasi kami.
-                                    </h5>
-                                </div>
+                            <div class="list-fitur">
+                                <img alt="check" src="{{ asset('asset_web/img/esaku/check2.png')}}"/>
+                                <span class="active">Pengeluaran</span>
+                            </div>
+                            <div class="list-fitur">
+                                <img alt="check" src="{{ asset('asset_web/img/esaku/check2.png')}}"/>
+                                <span class="active">Penjualan</span>
+                            </div>
+                            <div class="list-fitur">
+                                <img alt="check" src="{{ asset('asset_web/img/esaku/check2.png')}}"/>
+                                <span class="active">Pembelian</span>
+                            </div>
+                            <div class="list-fitur">
+                                <img alt="cross" src="{{ asset('asset_web/img/esaku/check2.png')}}"/>
+                                <span class="active">Gudang</span>
+                            </div>
+                            <div class="list-fitur">
+                                <img alt="check" src="{{ asset('asset_web/img/esaku/check2.png')}}"/>
+                                <span class="active">POS</span>
+                            </div>
+                            <div class="list-fitur">
+                                <img alt="check" src="{{ asset('asset_web/img/esaku/check2.png')}}"/>
+                                <span class="active">Dashboard</span>
                             </div>
                         </div>
-                    </div>
-                    <div class="jenis-usaha-col">
-                        <div class="row">
-                            <div class="col-12 p-b-20">
-                                <h1>Usaha Mikro</h1>
+                        <div class="card-footer with-trial">
+                            <div class="trial-button">
+                                <button>Coba gratis</button>
                             </div>
-                            <div class="col-12">
-                                <div class="jenis-text">
-                                    <h5 class="lead">
-                                        Anda dapat melihat laporan keuangan yang lengkap dengan proses pencatatan yang sederhana.
-                                    </h5>
-                                </div>
+                            <div class="trial-text">
+                                <p>14 hari</p>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="presentation" class="p-b-60">
-            <div class="container">
-                <div class="presentation-container background-presentation">
-                    <div class="background-presentation">
-                        <div class="presentation-content">
-                            <div class="heading-text heading-section text-center m-b-40">
-                                <h1 class="mulai-sekarang">
-                                    Mulai Sekarang
-                                </h1>
-                                <div class="presentation-text m-t-30">
-                                    <h5 class="lead">
-                                        Kami dapat membangun sistem mengikuti proses bisnis yang ada di perusahaan anda.
-                                        Tim kami siap membantu dengan langkah-langkah yang kita susun dan sepakati bersama.
-                                    </h5>
-                                </div>
-                            </div>
-                            <div class="presentation-action">
-                                <button class="btn-presentation" type="button">Undang Presentasi</button>
+                            <div class="register-button">
+                                <button>Daftar sekarang</button>
                             </div>
                         </div>
                     </div>
@@ -414,6 +409,5 @@
     <script src="{{ asset('asset_web/js/jquery.js')}}"></script>
     <script src="{{ asset('asset_web/js/plugins.js')}}"></script>
     <script src="{{ asset('asset_web/js/functions.js')}}"></script>
-
 </body>
 </html>
