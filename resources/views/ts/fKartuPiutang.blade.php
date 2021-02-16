@@ -410,7 +410,19 @@
                             nilai = parseFloat(line.nilai);
                             var ket1 = "Tagihan || ";
                             var ket2 = "Auto Bayar || ";
-                            var ket = (line.jenis == "BILL" ? ket1+line.tgl+" || "+line.no_bill : ket2+line.tgl+" || "+line.no_bill);
+                            var ket3 = "Pembayaran || ";
+                            switch(line.modul){
+                                case "PIUSIS":
+                                    var ket = ket1+line.tgl+" || "+line.no_bill;
+                                break;
+                                case "LOADCD":
+                                    var ket = ket2+line.tgl+" || "+line.no_bill;
+                                break;
+                                case "LOADSISKB":
+                                    var ket = ket3+line.tgl+" || "+line.no_bill;
+                                break;
+                            }
+
                             tosaldo += (line.jenis == "BILL" ? nilai : nilai*-1 );
                             var nil = (line.jenis == "BILL" ? "" : "("+sepNumPas(nilai)+")" );
                             detail +=`<tr class="bold" id="`+line.no_bill+`">

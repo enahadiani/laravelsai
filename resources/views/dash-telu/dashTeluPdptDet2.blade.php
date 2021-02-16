@@ -30,33 +30,13 @@ $thnLalu = substr($tahunLalu,2,2);
         border-color: #ad1d3e;
     }
 
-    /* NAV TABS */
-    .nav-tabs {
-        border:none;
-    }
-
-    .nav-tabs .nav-link{
-        border: 1px solid #ad1d3e;
-        border-radius: 20px;
-        padding: 2px 25px;
-        color:#ad1d3e;
-    }
-    .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
-        color: white;
-        background-color: #ad1d3e;
-        border-color: #ad1d3e;
-    }
-
-    .nav-tabs .nav-item {
-        margin-bottom: -1px;
-        padding: 0px 10px 0px 0px;
-    }
 </style>
 
 <div class="container-fluid mt-3">
-    <div class="row mb-4" >
-        <div class="col-12 mb-4 text-right detail2-pdpt">
+    <div class="row" >
+        <div class="col-12 detail2-pdpt">
         <a class='btn btn-outline-light' href='#' id='btnBack' style="position: absolute;right: 25px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-arrow-left"></i> Back</a>
+        <p>Satuan Milyar Rupiah || Periode s/d <span class='nama-bulan'></span></p>
         </div>
     </div>
     <div class="row mt-2" >
@@ -322,7 +302,7 @@ function getPendapatanJurusan(periode=null,kodeNeraca=null,kodeBidang=null){
 
 getPendapatanJurusan($filter_periode,$kd,$kd3)
 getDataPendJurusan($filter_periode,$kd,$kd3,$filter_periode.substr(0,4))
-
+$('.nama-bulan').text(namaPeriode($filter_periode));
 $('.tahunPilih').text('20'+$kd2);
 $('.thnPilih').text($kd2);
 

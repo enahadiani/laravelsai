@@ -64,7 +64,7 @@ $thnLalu = substr($tahunLalu,2,2)
         <div class="col-12">
             <h6 class="mb-0 bold">Laba Rugi 5 Tahun</h6>
             <a class="btn btn-outline-light" href="#" id="btn-filter" style="position: absolute;right: 15px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-equalizer" style="transform-style: ;"></i> &nbsp;&nbsp; Filter</a>
-            <p>Komparasi Anggaran dan Realisasi {{ $tahun }}</p>
+            <p>Satuan Milyar Rupiah || Periode s/d <span class='nama-bulan'></span></p>
         </div>
     </div>
     <div class="row" >
@@ -200,9 +200,10 @@ function getPeriode(){
                         control.addOption([{text:result.data.data[i].periode, value:result.data.data[i].periode}]);
                     }
                 }
-                if("{{ Session::get('periode') }}" != ""){
-                    control.setValue("{{ Session::get('periode') }}")
+                if($filter_periode == ""){
+                    $filter_periode = "{{ Session::get('periode') }}";
                 }
+                control.setValue($filter_periode);
             }
         },
         error: function(jqXHR, textStatus, errorThrown) {       
@@ -427,27 +428,16 @@ function getLabaRugi(periode=null){
     })
 }
 
-getLabaRugi("{{$periode}}");
-// getRkaVsReal("{{$periode}}");
-// getGrowthRKA("{{$periode}}");
-// getGrowthReal("{{$periode}}");
+getLabaRugi($filter_periode);
+$('.nama-bulan').html(namaPeriode($filter_periode));
 
 $('#form-filter').submit(function(e){
     e.preventDefault();
     var periode = $('#periode')[0].selectize.getValue();
-    getPencapaianYoY(periode);
-    getRkaVsReal(periode);
-    getGrowthRKA(periode);
-    getGrowthReal(periode);
-    var tahun = parseInt(periode.substr(0,4));
-    var tahunLalu = tahun-1;
-    $('.thnLalu').text(tahunLalu);
-    $('.thnIni').text(tahun);
-    $('.periode-label').html(namaPeriode(periode));
-    $('.bulan-label').html(namaPeriodeBulan(periode));
-    $('.tahun-label').html(periode.substr(0,4));
+    getLabaRugi(periode);
+    $filter_periode = periode;
+    $('.nama-bulan').html(namaPeriode($filter_periode));
     $('#modalFilter').modal('hide');
-    // $('.app-menu').hide();
     if ($(".app-menu").hasClass("shown")) {
         $(".app-menu").removeClass("shown");
     } else {
@@ -469,17 +459,5 @@ $("#btn-close").on("click", function (event) {
     event.preventDefault();
     
     $('#modalFilter').modal('hide');
-});
-$('.table').on('click','.ms-pend',function(e){
-    var url = "{{ url('/dash-telu/form/fDashMSPendapatan') }}";
-    loadForm(url);
-});
-$('.table').on('click','.ms-beban',function(e){
-    var url = "{{ url('/dash-telu/form/fDashMSBeban') }}";
-    loadForm(url);
-});
-$('.table').on('click','.ms-pengembangan',function(e){
-    var url = "{{ url('/dash-telu/form/fDashMSPengembangan') }}";
-    loadForm(url);
 });
 </script>

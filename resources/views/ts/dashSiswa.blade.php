@@ -271,7 +271,11 @@
                                     color="#00A105";
                                     nilai=sepNumPas(line3.bayar);
                                     icon="iconsminds-up";
-                                    ket="Pembayaran";
+                                    if(line3.modul == "PDD"){
+                                        ket="Auto Bayar";
+                                    }else{
+                                        ket="Pembayaran";
+                                    }
                                 }
                                 html +=`
                                 <table class="table table-borderless table-riwayat-trans" style="width:100%">
