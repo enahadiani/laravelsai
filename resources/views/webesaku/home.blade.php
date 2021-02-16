@@ -48,7 +48,7 @@
                                     <ul>
                                         <li><a href="https://app.simkug.com/webesaku/home">Home</a></li>
                                         <li><a href="https://app.simkug.com/webesaku/produk">Produk</a></li>
-                                        <li><a href="#">Perusahaan</a></li>
+                                        <li><a href="https://app.simkug.com/webesaku/perusahaan">Perusahaan</a></li>
                                         <li><a href="#">Harga</a></li>
                                     </ul>
                                 </nav>
