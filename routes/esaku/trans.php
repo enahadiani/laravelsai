@@ -136,6 +136,15 @@ Route::delete('uang-masuk/{id}','Esaku\UangMasukController@destroy');
 Route::post('uang-masuk-import-excel', 'Esaku\UangMasukController@importExcel');
 Route::get('uang-masuk-tmp', 'Esaku\UangMasukController@getDataTmp');
 
+
+Route::get('uang-keluar', 'Esaku\UangKeluarController@index');
+Route::post('uang-keluar', 'Esaku\UangKeluarController@store');
+Route::get('uang-keluar/{id}', 'Esaku\UangKeluarController@show');
+Route::post('uang-keluar/{id}','Esaku\UangKeluarController@update');
+Route::delete('uang-keluar/{id}','Esaku\UangKeluarController@destroy');
+Route::post('uang-keluar-import-excel', 'Esaku\UangKeluarController@importExcel');
+Route::get('uang-keluar-tmp', 'Esaku\UangKeluarController@getDataTmp');
+
 Route::get('terima-dari', 'Esaku\UangMasukController@getTerimaDari');
 Route::get('akun-terima', 'Esaku\UangMasukController@getAkunTerima');
 
