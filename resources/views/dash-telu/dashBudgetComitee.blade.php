@@ -15,7 +15,7 @@
         <div class="col-12">
             <h6>Pertumbuhan Laba Rugi Tahunan</h6>
             <a class="btn btn-outline-light" href="#" id="btn-filter" style="position: absolute;right: 15px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-equalizer" style="transform-style: ;"></i> &nbsp;&nbsp; Filter</a>
-            <p>s.d <span class='tahun'></span></p>
+            <p>Satuan Milyar Rupiah || Periode s/d <span class='nama-bulan'></span></p>
         </div>
     </div>
     <div class="row" >
@@ -117,9 +117,9 @@
                     </div>
                     <div class="modal-body" style="border:none">
                         <div class="form-group">
-                            <label>Tahun</label>
+                            <label>Periode</label>
                             <select class="form-control" data-width="100%" name="periode" id="periode">
-                                <option value='#'>Pilih Tahun</option>
+                                <option value='#'>Pilih Periode</option>
                             </select>
                         </div>
                     </div>
@@ -243,10 +243,10 @@ function singkatNilai(num){
     }
 }
 
-function getTahun(){
+function getPeriode(){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/tahun') }}",
+        url:"{{ url('/telu-dash/periode') }}",
         dataType: "JSON",
         success: function(result){
             var select = $('#periode').selectize();
@@ -257,9 +257,10 @@ function getTahun(){
                     for(i=0;i<result.data.data.length;i++){
                         control.addOption([{text:result.data.data[i].periode, value:result.data.data[i].periode}]);
                     }
-                }
-                if("{{ Session::get('periode') }}" != ""){
-                    control.setValue("{{ Session::get('periode') }}".substr(0,4));
+                    if($filter_periode == ""){
+                        $filter_periode = "{{ Session::get('periode') }}";
+                    }
+                    control.setValue($filter_periode);
                 }
             }
         },
@@ -279,7 +280,7 @@ function getTahun(){
     });
 }
 
-getTahun();
+getPeriode();
 
 
 function getBCRKA(tahun){
@@ -735,10 +736,10 @@ function getBCGrowthTuition(tahun){
     })
 }
 
-var tahun = "{{ Session::get('periode') }}".substr(0,4);
+var tahun = $filter_periode.substr(0,4);
 var tahunLima = parseInt(tahun) - 6;
 $('.rentang-tahun').text(tahunLima+" - "+tahun);
-$('.tahun').text(tahun);
+$('.nama-bulan').text(namaPeriode($filter_periode));
 getBCGrowthRKA(tahun);
 getBCGrowthTuition(tahun);
 getBCRKA(tahun);
@@ -750,10 +751,11 @@ getBCTuitionPersen(tahun);
 $('#form-filter').submit(function(e){
     e.preventDefault();
     var periode = $('#periode')[0].selectize.getValue();
-    var tahun = periode;
+    $filter_periode = periode;
+    var tahun = $filter_periode.substr(0,4);
     var tahunLima = parseInt(tahun) - 6;
     $('.rentang-tahun').text(tahunLima+" - "+tahun);
-    $('.tahun').text(tahun);
+    $('.nama-bulan').text(namaPeriode($filter_periode));
     getBCGrowthRKA(tahun);
     getBCGrowthTuition(tahun);
     getBCRKA(tahun);

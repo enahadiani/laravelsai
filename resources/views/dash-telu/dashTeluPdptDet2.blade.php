@@ -9,11 +9,6 @@ $thnIni = substr($tahun,2,2);
 $thnLalu = substr($tahunLalu,2,2);    
 @endphp
 <style>
-    .card{
-        border-radius: 0 !important;
-        box-shadow: none;
-        border: 1px solid #f0f0f0;
-    }
     .btn-outline-light:hover {
         color: #131113;
         background-color: #ececec;
@@ -77,7 +72,7 @@ $thnLalu = substr($tahunLalu,2,2);
             </div>
         </div>
         <div class="col-md-6 col-sm-12 mb-4">
-            <div class="card dash-card" style="background:#f5f5f5;border-radius:1.75rem !important">
+            <div class="card dash-card">
                 <div class="card-header">
                     <h6 class="card-title">Pendapatan <span class='tahunPilih'></span></h6>
                 </div>

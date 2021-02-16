@@ -11,11 +11,7 @@ $thnLalu = substr($tahunLalu,2,2)
 @endphp
 
 <style>
-    .card{
-        border-radius: 0 !important;
-        box-shadow: none;
-        border: 1px solid #f0f0f0;
-    }
+   
     .btn-outline-light:hover {
         color: #131113;
         background-color: #ececec;
@@ -27,28 +23,6 @@ $thnLalu = substr($tahunLalu,2,2)
         border-color: white !important;
     }
 
-    /* NAV TABS */
-    .nav-tabs {
-        border:none;
-    }
-
-    .nav-tabs .nav-link{
-        border: 1px solid #ad1d3e;
-        border-radius: 20px;
-        padding: 2px 25px;
-        color:#ad1d3e;
-    }
-    .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
-        color: white;
-        background-color: #ad1d3e;
-        border-color: #ad1d3e;
-    }
-
-    .nav-tabs .nav-item {
-        margin-bottom: -1px;
-        padding: 0px 10px 0px 0px;
-    }
-
     #pencapaian > td, th 
     {
         padding: 4px !important;
@@ -56,16 +30,16 @@ $thnLalu = substr($tahunLalu,2,2)
 </style>
 
 <div class="container-fluid mt-3">
-    <div class="row mb-4">
+    <div class="row">
         <div class="col-12">
             <h6>RKA Tahunan</h6>
             <a class="btn btn-outline-light" href="#" id="btn-filter" style="position: absolute;right: 15px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-equalizer" style="transform-style: ;"></i> &nbsp;&nbsp; Filter</a>
-            <!-- <p>s.d <span class='tahun'></span></p> -->
+            <p>Satuan Milyar Rupiah || Periode s/d <span class='nama-bulan'></span></p>
         </div>
     </div>
     <div class="row" >
         <div class="col-md-6 col-sm-12 mb-4">
-            <div class="card dash-card">
+            <div class="card dash-card" >
                 <div class="card-header">
                     <h6 class="card-title">PERFORMANSI LAP. KEU <span class="tahun-label"></span> BULAN <span class="bulan-label" style="text-transform:uppercase"></span> </h6>
                 </div>
@@ -87,9 +61,9 @@ $thnLalu = substr($tahunLalu,2,2)
             </div>
         </div>
         <div class="col-md-6 col-sm-12 mb-4">
-            <div class="card dash-card">
+            <div class="card dash-card" >
                 <div class="card-header">
-                    <h6 class="card-title">RKA vs Realisasi YTD Bulan <span class="periode-label"></span></h6>
+                    <h6 class="card-title">RKA vs Realisasi YTD Bulan <span class="nama-bulan"></span></h6>
                 </div>
                 <div class="card-body" id='rkaVSreal' style='height:300px'>
                 </div>
@@ -98,7 +72,7 @@ $thnLalu = substr($tahunLalu,2,2)
     </div>
     <div class="row" >
         <div class="col-md-6 col-sm-12 mb-4">
-            <div class="card dash-card">
+            <div class="card dash-card" >
                 <div class="card-header">
                     <h6 class="card-title">Growth RKA 5 Tahun</h6>
                 </div>
@@ -108,7 +82,7 @@ $thnLalu = substr($tahunLalu,2,2)
             </div>
         </div>
         <div class="col-md-6 col-sm-12 mb-4">
-            <div class="card dash-card">
+            <div class="card dash-card" >
                 <div class="card-header">
                     <h6 class="card-title">Growth Realisasi 5 Tahun</h6>
                 </div>
@@ -273,6 +247,10 @@ function getPeriode(){
                     for(i=0;i<result.data.data.length;i++){
                         control.addOption([{text:result.data.data[i].periode, value:result.data.data[i].periode}]);
                     }
+                    if($filter_periode == ""){
+                        $filter_periode = "{{ Session::get('periode') }}";
+                    }
+                    control.setValue($filter_periode);
                 }
             }
         },
@@ -634,26 +612,27 @@ function getRkaVsReal(periode=null){
     });
 }
 
-getPencapaianYoY("{{$periode}}");
-getRkaVsReal("{{$periode}}");
-getGrowthRKA("{{$periode}}");
-getGrowthReal("{{$periode}}");
-$('.periode-label').html(namaPeriode("{{$periode}}"));
-$('.bulan-label').html(namaPeriodeBulan("{{$periode}}"));
-$('.tahun-label').html("{{$periode}}".substr(0,4));
+getPencapaianYoY($filter_periode);
+getRkaVsReal($filter_periode);
+getGrowthRKA($filter_periode);
+getGrowthReal($filter_periode);
+$('.nama-bulan').html(namaPeriode($filter_periode));
+$('.bulan-label').html(namaPeriodeBulan($filter_periode));
+$('.tahun-label').html($filter_periode.substr(0,4));
 
 $('#form-filter').submit(function(e){
     e.preventDefault();
     var periode = $('#periode')[0].selectize.getValue();
+    $filter_periode = periode;
     getPencapaianYoY(periode);
     getRkaVsReal(periode);
     getGrowthRKA(periode);
     getGrowthReal(periode);
     var tahun = parseInt(periode.substr(0,4));
     var tahunLalu = tahun-1;
+    $('.nama-bulan').html(namaPeriode(periode));
     $('.thnLalu').text(tahunLalu);
     $('.thnIni').text(tahun);
-    $('.periode-label').html(namaPeriode(periode));
     $('.bulan-label').html(namaPeriodeBulan(periode));
     $('.tahun-label').html(periode.substr(0,4));
     $('#modalFilter').modal('hide');
@@ -672,12 +651,6 @@ $('#btn-reset').click(function(e){
 });
    
 $('#btn-filter').click(function(){
-    // if ($(".app-menu").hasClass("shown")) {
-    //     $(".app-menu").removeClass("shown");
-    // } else {
-    //     $(".app-menu").addClass("shown");
-    // }
-    
     $('#modalFilter').modal('show');
 });
 
@@ -685,10 +658,5 @@ $("#btn-close").on("click", function (event) {
     event.preventDefault();
     
     $('#modalFilter').modal('hide');
-    // if ($(".app-menu").hasClass("shown")) {
-    //     $(".app-menu").removeClass("shown");
-    //   } else {
-    //     $(".app-menu").addClass("shown");
-    //   }
 });
 </script>

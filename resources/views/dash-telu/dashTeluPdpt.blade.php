@@ -5,11 +5,6 @@ $kode_pp = Session::get('kodePP');
 $nik     = Session::get('userLog');
 @endphp
 <style>
-   .card{
-        border-radius: 0 !important;
-        box-shadow: none;
-        border: 1px solid #f0f0f0;
-    }
     .btn-outline-light:hover {
         color: #131113;
         background-color: #ececec;
@@ -50,43 +45,6 @@ $nik     = Session::get('userLog');
         display:grid !important;
     }
 
-    /* #modalFilter
-    {
-        top:90px
-    }
-
-    @media (max-width: 1439px) {
-        #modalFilter
-        {
-            top:90px
-        }
-    }
-    @media (max-width: 1199px) {
-        #modalFilter
-        {
-            top:80px
-        }
-    }
-    @media (max-width: 767px) {
-        #modalFilter
-        {
-            top:70px
-        }   
-    }
-    @media (max-width: 575px) {
-        #modalFilter
-        {
-            top:70px
-        }
-    } */
-    
-    /* .modal-backdrop.show
-    {
-        opacity:0;
-    }
-    .modal-content{
-        box-shadow: 0 1px 15px rgba(0,0,0,.04),0 1px 6px rgba(0,0,0,.04);;
-    } */
 </style>
 
 <div class="container-fluid mt-3">
@@ -94,7 +52,7 @@ $nik     = Session::get('userLog');
         <div class="col-12">
             <h6>Pendapatan</h6>
             <a class="btn btn-outline-light" href="#" id="btn-filter" style="position: absolute;right: 15px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-equalizer" style="transform-style: ;"></i> &nbsp;&nbsp; Filter</a>
-            <p>Periode <span class='periode'></span></p>
+            <p>Satuan Milyar Rupiah || Periode s/d <span class='nama-bulan'></span></p>
             
         </div>
     </div>
@@ -721,7 +679,7 @@ $.ajax({
 
 }
 
-$('.periode').text(namaPeriode($filter_periode));
+$('.nama-bulan').text(namaPeriode($filter_periode));
 getKomposisiPendapatan($filter_periode);
 getPresentaseRkaRealisasi($filter_periode);
 getKomposisiPendapatanRp($filter_periode);
@@ -735,7 +693,7 @@ $('#form-filter').submit(function(e){
     getPresentaseRkaRealisasi(periode);
     getKomposisiPendapatanRp(periode);
     getPresentaseRkaRealisasiRp(periode);
-    $('.periode').text(namaPeriode(periode));
+    $('.nama-bulan').text(namaPeriode(periode));
     $('#modalFilter').modal('hide');
     
     // $('.app-menu').hide();

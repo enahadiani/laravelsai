@@ -9,11 +9,6 @@ $thnIni = substr($tahun,2,2);
 $thnLalu = substr($tahunLalu,2,2);  
 @endphp
 <style>
-     .card{
-        border-radius: 0 !important;
-        box-shadow: none;
-        border: 1px solid #f0f0f0;
-    }
     td,th{
         padding:4px !important;
     }
@@ -24,18 +19,29 @@ $thnLalu = substr($tahunLalu,2,2);
         color:white;
         border-color: #ad1d3e;
     }
+    .btn-outline-light:hover {
+        color: #131113;
+        background-color: #ececec;
+        border-color: #ececec;
+    }
+    .btn-outline-light {
+        color: #131113;
+        background-color: white;
+        border-color: white !important;
+    }
 
 </style>
 
 <div class="container-fluid mt-3">
-    <div class="row mb-4" >
-        <div class="col-12 mb-4 text-right detail-pdpt">
+    <div class="row" >
+        <div class="col-12 detail-pdpt">
         <a class='btn btn-outline-light' href='#' id='btnBack' style="position: absolute;right: 25px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-arrow-left"></i> Back</a>
+        <p>Satuan Milyar Rupiah || Periode s/d <span class='nama-bulan'></span></p>
         </div>
     </div>
     <div class="row mt-2" >
         <div class="col-12 mb-4">
-            <div class="card dash-card">
+            <div class="card dash-card" >
                 <div class="card-header">
                     <h6 class="card-title">Pendapatan per Tahun untuk Fakultas</h6>
                 </div>
@@ -46,7 +52,7 @@ $thnLalu = substr($tahunLalu,2,2);
             </div>
         </div>  
         <div class="col-12 mb-4">
-            <div class="card dash-card">
+            <div class="card dash-card" >
                 <div class="card-header">
                     <h6 class="card-title">Pertumbuhan Pendapatan per Fakultas</h6>
                 </div>
@@ -57,7 +63,7 @@ $thnLalu = substr($tahunLalu,2,2);
             </div>
         </div>
         <div class="col-12 mb-4 mb-5">
-            <div class="card dash-card" style="background:#f5f5f5;border-radius:1.75rem !important">
+            <div class="card dash-card" style="background:#f5f5f5;">
                 <div class="card-header">
                     <h6 class="card-title" class="mt-2">Pendapatan <span class='tahunIni'></span></h6>
                 </div>
@@ -384,6 +390,7 @@ function getPertumbuhanPendapatanFak(periode=null,kodeNeraca=null){
     })
 }
 
+$('.nama-bulan').text(namaPeriode($filter_periode));
 getPertumbuhanPendapatanFak($filter_periode,$kd);
 getPendapatanFak($filter_periode,$kd);
 getDetailPendapatan($filter_periode,$kd);

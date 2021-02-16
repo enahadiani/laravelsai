@@ -127,8 +127,9 @@
             margin-bottom:.5rem !important;
         }
 
-        
-
+        h6.card-title > span{
+            font-size: 0.85rem !important;
+        }
     </style>
     <script>
         var $public_asset = "{{ asset('asset_dore') }}/";
