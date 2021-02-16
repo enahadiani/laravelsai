@@ -133,7 +133,7 @@
                 <div class="heading-text text-center heading-section m-b-80">
                     <h2>Organization</h2>
                 </div>
-                <img alt="organization" src="{{ asset('asset_web/webjava/images/organization.png') }}" width="350" />
+                <img alt="organization" src="{{ asset('asset_web/webjava/images/organisasi.png') }}" height="400" width="350" />
             </div>
         </section>
 
