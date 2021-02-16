@@ -70,15 +70,13 @@ class UangMasukController extends Controller
         $this->validate($request, [
             'no_dokumen' => 'required',
             'tanggal' => 'required',
-            'status' => 'required',
-            'jenis' => 'required',
+            'jenis_terima' => 'required',
+            'terima_dari' => 'required',
+            'akun_terima' => 'required',
             'kode_form' => 'required',
             'deskripsi' => 'required',
-            'total_debet' => 'required',
-            'total_kredit' => 'required',
             'kode_akun' => 'required|array',
             'keterangan' => 'required|array',
-            'dc' => 'required|array',
             'nilai' => 'required|array',
             'kode_pp' => 'required|array'
         ]);
@@ -94,20 +92,17 @@ class UangMasukController extends Controller
             
             $fields =
                 array (
-                    'no_bukti' => $request->no_bukti,
                     'no_dokumen' => $request->no_dokumen,
                     'tanggal' => $this->reverseDate($request->tanggal,'/','-'),
-                    'jenis' => $request->jenis,
+                    'jenis_terima' => $request->jenis_terima,
+                    'terima_dari' => $request->terima_dari,
+                    'akun_terima' => $request->akun_terima,
                     'kode_form' => $request->kode_form,
                     'deskripsi' => $request->deskripsi,
-                    'total_debet' => $this->joinNum($request->total_debet),
-                    'total_kredit' => $this->joinNum($request->total_kredit),
-                    'status' => $request->status,
                     'kode_akun' => $request->kode_akun,
                     'keterangan' => $request->keterangan,
-                    'dc' => $request->dc,
                     'nilai' => $nilai,
-                    'kode_pp' => $request->kode_pp,
+                    'kode_pp' => $request->kode_pp
                 );
             $client = new Client();
             $response = $client->request('POST',  config('api.url').'toko-trans/uang-masuk',[
@@ -219,19 +214,18 @@ class UangMasukController extends Controller
     //  * @param  int  $id
     //  * @return \Illuminate\Http\Response
     //  */
-    public function update(Request $request, $no_bukti)
+    public function update(Request $request, $id)
     {
         $this->validate($request, [
             'no_dokumen' => 'required',
             'tanggal' => 'required',
-            'jenis' => 'required',
+            'jenis_terima' => 'required',
+            'terima_dari' => 'required',
+            'akun_terima' => 'required',
             'kode_form' => 'required',
             'deskripsi' => 'required',
-            'total_debet' => 'required',
-            'total_kredit' => 'required',
             'kode_akun' => 'required|array',
             'keterangan' => 'required|array',
-            'dc' => 'required|array',
             'nilai' => 'required|array',
             'kode_pp' => 'required|array'
         ]);
@@ -247,24 +241,22 @@ class UangMasukController extends Controller
             
             $fields =
                   array (
-                    'no_bukti' => $request->no_bukti,
+                    'no_bukti' => $id,
                     'no_dokumen' => $request->no_dokumen,
                     'tanggal' => $this->reverseDate($request->tanggal,'/','-'),
-                    'jenis' => $request->jenis,
+                    'jenis_terima' => $request->jenis_terima,
+                    'terima_dari' => $request->terima_dari,
+                    'akun_terima' => $request->akun_terima,
                     'kode_form' => $request->kode_form,
                     'deskripsi' => $request->deskripsi,
-                    'total_debet' => $this->joinNum($request->total_debet),
-                    'total_kredit' => $this->joinNum($request->total_kredit),
-                    'status' => $request->status,
                     'kode_akun' => $request->kode_akun,
                     'keterangan' => $request->keterangan,
-                    'dc' => $request->dc,
                     'nilai' => $nilai,
                     'kode_pp' => $request->kode_pp,
                   );
-    
+
             $client = new Client();
-            $response = $client->request('PUT',  config('api.url').'toko-trans/uang-masuk',[
+            $response = $client->request('POST',  config('api.url').'toko-trans/uang-masuk-ubah',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Content-Type'     => 'application/json'
@@ -278,10 +270,11 @@ class UangMasukController extends Controller
                 $data = json_decode($response_data,true);
                 return response()->json(["data" =>$data["success"]], 200);  
             }
+            
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(),true);
-            $result['message'] = $res['message'];
+            $result['message'] = $res;
             $result['status']=false;
             return response()->json(["data" => $result], 200);
         } 
@@ -401,6 +394,60 @@ class UangMasukController extends Controller
             $result['message'] = $res["message"];
             $result['status']=false;
             return response()->json(["data" => $result], 200);
+        } 
+    }
+
+    public function getTerimaDari()
+    {
+        try{
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'toko-trans/terima-dari',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+    
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+            }
+            return response()->json($data, 200); 
+
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $result['message'] = $res["message"];
+            $result['status']=false;
+            return response()->json($result, 200);
+        } 
+    }
+
+    public function getAkunTerima()
+    {
+        try{
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'toko-trans/akun-terima',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+    
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+            }
+            return response()->json($data, 200); 
+
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $result['message'] = $res["message"];
+            $result['status']=false;
+            return response()->json($result, 200);
         } 
     }
 }
