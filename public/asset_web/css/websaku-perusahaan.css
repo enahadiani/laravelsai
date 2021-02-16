@@ -226,11 +226,15 @@ i.fas.fa-cog {
     flex-direction: row;
 }
 /* Pengalaman */
+.image-text h2 {
+    font-weight: normal !important;
+    font-size: 2rem;
+}
 .image-text {
     text-align: center;
     margin: 5rem auto;
     padding: 0 3rem;
-    width: 48rem;
+    width: 72rem;
 }
 .pengalaman-image > .image-meeting {
     border-radius: 30px;
