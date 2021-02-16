@@ -9,7 +9,7 @@ use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Session;
 use GuzzleHttp\Exception\BadResponseException;
 
-class UangMasukController extends Controller
+class UangKeluarController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -44,7 +44,7 @@ class UangMasukController extends Controller
     public function index(){
         try { 
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'toko-trans/uang-masuk',[
+            $response = $client->request('GET',  config('api.url').'toko-trans/uang-keluar',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -105,7 +105,7 @@ class UangMasukController extends Controller
                     'kode_pp' => $request->kode_pp
                 );
             $client = new Client();
-            $response = $client->request('POST',  config('api.url').'toko-trans/uang-masuk',[
+            $response = $client->request('POST',  config('api.url').'toko-trans/uang-keluar',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Content-Type'     => 'application/json'
@@ -139,7 +139,7 @@ class UangMasukController extends Controller
     {
         try{
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'toko-trans/uang-masuk-detail',[
+            $response = $client->request('GET',  config('api.url').'toko-trans/uang-keluar-detail',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -256,7 +256,7 @@ class UangMasukController extends Controller
                   );
 
             $client = new Client();
-            $response = $client->request('POST',  config('api.url').'toko-trans/uang-masuk-ubah',[
+            $response = $client->request('POST',  config('api.url').'toko-trans/uang-keluar-ubah',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Content-Type'     => 'application/json'
@@ -292,7 +292,7 @@ class UangMasukController extends Controller
         try{
 
             $client = new Client();
-            $response = $client->request('DELETE',  config('api.url').'toko-trans/uang-masuk',[
+            $response = $client->request('DELETE',  config('api.url').'toko-trans/uang-keluar',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -342,7 +342,7 @@ class UangMasukController extends Controller
             );
 
             $client = new Client();
-            $response = $client->request('POST',  config('api.url').'toko-trans/uang-masuk-import-excel',[
+            $response = $client->request('POST',  config('api.url').'toko-trans/uang-keluar-import-excel',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -370,7 +370,7 @@ class UangMasukController extends Controller
     {
         try{
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'toko-trans/uang-masuk-tmp',[
+            $response = $client->request('GET',  config('api.url').'toko-trans/uang-keluar-tmp',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',

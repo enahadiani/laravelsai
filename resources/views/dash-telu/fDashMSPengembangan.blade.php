@@ -76,7 +76,7 @@ $thnLalu = substr($tahunLalu,2,2)
             <h6 class="mb-0 bold">Pengembangan</h6>
             <a class='btn btn-outline-light' href='#' id='btnBack' style="position: absolute;right: 135px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-arrow-left mr-2"></i> Back</a>
             <a class="btn btn-outline-light" href="#" id="btn-filter" style="position: absolute;right: 15px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-equalizer" style="transform-style: ;"></i> &nbsp;&nbsp; Filter</a>
-            <p>Satuan Milyar Rupiah || Periode s/d <span class='nama-bulan'></span></p>
+            <p>Satuan Jutaan Rupiah || Periode s/d <span class='nama-bulan'></span></p>
         </div>
     </div>
     <div class="row" >
@@ -327,7 +327,7 @@ function getMsPengembangan(periode=null){
                                             'padding': '0 3px',
                                             'font-size': '10px',
                                             'backgroundColor' : this.point.color  // just white in my case
-                                        }).text(toMilyar(this.y))[0].outerHTML;
+                                        }).text(toJuta(this.y))[0].outerHTML;
                                     }
                                     // if(this.name)
                                 }

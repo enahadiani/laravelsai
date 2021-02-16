@@ -319,12 +319,12 @@ function getProfitLoss(periode=null)
                 {
                     var line = result.data.data[i];
                     if(line.nama != "Beban"){
-                        var rka = toMilyar(parseFloat(line.nilai)*-1);
-                        var real = toMilyar(parseFloat(line.n4)*-1);
+                        var rka = toMilyar(parseFloat(line.rka)*-1);
+                        var real = toMilyar(parseFloat(line.real)*-1);
                     }else{
                         
-                        var rka = toMilyar(parseFloat(line.nilai));
-                        var real = toMilyar(parseFloat(line.n4));
+                        var rka = toMilyar(parseFloat(line.rka));
+                        var real = toMilyar(parseFloat(line.real));
                     }
                     var persen = sepNumPas(parseFloat(line.persen));
                     if(i == 0){
@@ -386,13 +386,13 @@ function getFxPosition(periode=null)
                     var line = result.data.data[i];
                     
                     if(line.nama != "Aset"){
-                        var nilai = toMilyar(parseFloat(line.nilai)*-1);
-                        var nilai_lalu = toMilyar(parseFloat(line.nilai_lalu)*-1);
-                        // var persen = (parseFloat(line.nilai)/parseFloat(result.data.data[0].nilai))*-100;
+                        var real = toMilyar(parseFloat(line.real)*-1);
+                        var real_lalu = toMilyar(parseFloat(line.real_lalu)*-1);
+                        // var persen = (parseFloat(line.real)/parseFloat(result.data.data[0].real))*-100;
                     }else{
                         // var persen = 100;
-                        var nilai = toMilyar(parseFloat(line.nilai));
-                        var nilai_lalu = toMilyar(parseFloat(line.nilai_lalu)*-1);
+                        var real = toMilyar(parseFloat(line.real));
+                        var real_lalu = toMilyar(parseFloat(line.real_lalu)*-1);
                     }
                     
                     if(i == 0){
@@ -408,8 +408,8 @@ function getFxPosition(periode=null)
                     }
                     html+=`<tr>
                     <td>`+line.nama+`</td>
-                    <td class='text-right'>`+nilai_lalu+`</td>
-                    <td class='text-right'>`+nilai+`</td>
+                    <td class='text-right'>`+real_lalu+`</td>
+                    <td class='text-right'>`+real+`</td>
                     <td class='text-right text-success' >`+sepNumPas(line.persen)+`%</td>
                     </tr>`;   
                 }
@@ -454,8 +454,8 @@ function getPenyerapan(periode=null)
                 for(var i=0;i<result.data.data.length;i++)
                 {
                     var line = result.data.data[i];
-                    var nilai = toMilyar(parseFloat(line.nilai));
-                    var n4 = toMilyar(parseFloat(line.n4));
+                    var rka = toMilyar(parseFloat(line.rka));
+                    var real = toMilyar(parseFloat(line.real));
                     var persen = sepNumPas(parseFloat(line.persen));
                     if(i == 0){
 
@@ -468,8 +468,8 @@ function getPenyerapan(periode=null)
                     }
                     html+=`<tr class='trace serap-`+i+`'>
                     <td>`+line.nama+`</td>
-                    <td class='text-right'>`+nilai+`</td>
-                    <td class='text-right'>`+n4+`</td>
+                    <td class='text-right'>`+rka+`</td>
+                    <td class='text-right'>`+real+`</td>
                     <td class='text-right text-success' >`+persen+`%</td>
                     </tr>`;   
                 }
@@ -527,8 +527,8 @@ function getDebt(periode=null)
                     }
                     html+=`<tr>
                     <td>`+line.nama+`</td>
-                    <td class='text-right'>`+toMilyar(parseFloat(line.nilai))+`</td>
-                    <td class='text-right'>`+toMilyar(parseFloat(line.n4))+`</td>
+                    <td class='text-right'>`+toMilyar(parseFloat(line.rka))+`</td>
+                    <td class='text-right'>`+toMilyar(parseFloat(line.real))+`</td>
                     </tr>`;   
                 }
             }
@@ -583,7 +583,7 @@ function getKelola(periode=null)
                     // }
                         html+=`<tr>
                         <td>`+line.nama+`</td>
-                        <td class='text-right'>`+toMilyar(parseFloat(line.n4))+`</td>
+                        <td class='text-right'>`+toMilyar(parseFloat(line.real))+`</td>
                         </tr>`;   
 
                 }
@@ -638,8 +638,8 @@ function getPin(periode=null)
                     }
                         html+=`<tr>
                         <td>`+line.nama+`</td>
-                        <td class='text-right'>`+toMilyar(parseFloat(line.nilai))+`</td>
-                        <td class='text-right'>`+toMilyar(parseFloat(line.n4))+`</td>
+                        <td class='text-right'>`+toMilyar(parseFloat(line.rka))+`</td>
+                        <td class='text-right'>`+toMilyar(parseFloat(line.real))+`</td>
                         </tr>`;   
                 }
             }

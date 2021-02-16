@@ -1,6 +1,6 @@
     <link rel="stylesheet" href="{{ asset('trans.css') }}" />
     <!-- LIST DATA -->
-    <x-list-data judul="Data Uang Masuk" tambah="true" :thead="array('Tanggal','No Bukti','No Dokumen','Deskripsi','Nilai','Posting','Tgl Input','Aksi')" :thwidth="array(15,15,15,20,15,10,0,10)" :thclass="array('','','','','','','','text-center')" />
+    <x-list-data judul="Data Uang Keluar" tambah="true" :thead="array('Tanggal','No Bukti','No Dokumen','Deskripsi','Nilai','Posting','Tgl Input','Aksi')" :thwidth="array(15,15,15,20,15,10,0,10)" :thclass="array('','','','','','','','text-center')" />
     <!-- END LIST DATA -->
     <style>
         div.inp-div-jenis > input{
@@ -238,11 +238,11 @@
                             </div>
                         </div>
                         <ul class="nav nav-tabs col-12 " role="tablist">
-                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-uang-masuk" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Uang Masuk</span></a> </li>
+                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-uang-keluar" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Uang Keluar</span></a> </li>
                             <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-dok" role="tab" aria-selected="true"><span class="hidden-xs-down">Berkas Bukti</span></a> </li>
                         </ul>
                         <div class="tab-content tabcontent-border col-12 p-0">
-                            <div class="tab-pane active" id="data-uang-masuk" role="tabpanel">
+                            <div class="tab-pane active" id="data-uang-keluar" role="tabpanel">
 
                                 <div class='col-md-12 nav-control' style="padding: 0px 5px;">
                                     <a type="button" href="#" id="copy-row" data-toggle="tooltip" title="Copy Row" style='font-size:18px'><i class='iconsminds-duplicate-layer' ></i> <span style="font-size:12.8px">Copy Row</span></a>
@@ -250,10 +250,10 @@
                                     
                                     <div class="dropdown d-inline-block mx-0">
                                         <a class="btn dropdown-toggle mb-1 px-0" href="#" role="button" id="dropdown-import" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style='font-size:18px'>
-                                        <i class='simple-icon-doc' ></i> <span style="font-size:12.8px">Upload Uang Masuk <i class='simple-icon-arrow-down' style="font-size:10px"></i></span> 
+                                        <i class='simple-icon-doc' ></i> <span style="font-size:12.8px">Upload Uang Keluar <i class='simple-icon-arrow-down' style="font-size:10px"></i></span> 
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="dropdown-import" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 45px, 0px); top: 0px; left: 0px; will-change: transform;">
-                                            <a class="dropdown-item" href="{{ config('api.url').'toko-auth/storage/template_upload_uang-masuk_esaku.xlsx' }}" target='_blank' id="download-template" >Download Template</a>
+                                            <a class="dropdown-item" href="{{ config('api.url').'toko-auth/storage/template_upload_uang-keluar_esaku.xlsx' }}" target='_blank' id="download-template" >Download Template</a>
                                             <a class="dropdown-item" href="#" id="import-excel" >Upload</a>
                                         </div>
                                     </div>
@@ -522,7 +522,7 @@
         var total_d = 0;
         var total_k = 0;
 
-        $('.row-uang-masuk').each(function(){
+        $('.row-uang-keluar').each(function(){
             var dc = $(this).closest('tr').find('.td-dc').text();
             var nilai = $(this).closest('tr').find('.inp-nilai').val();
             if(dc == "D"){
@@ -703,7 +703,7 @@
     var action_html2 = "<a href='#' title='Upload' id='btn-upload'><i class='simple-icon-cloud-upload' style='font-size:18px'></i></a>";
     var dataTable = generateTable(
         "table-data",
-        "{{ url('esaku-trans/uang-masuk') }}", 
+        "{{ url('esaku-trans/uang-keluar') }}", 
         [
             {
                 "targets": 0,
@@ -929,7 +929,7 @@
         
         $.ajax({
             type: 'GET',
-            url: "{{ url('/esaku-trans/uang-masuk') }}/"+id,
+            url: "{{ url('/esaku-trans/uang-keluar') }}/"+id,
             dataType: 'json',
             async:false,
             success:function(res){
@@ -1070,7 +1070,7 @@
         var id= $(this).closest('tr').find('td').eq(1).html();
         $('#btn-save').attr('type','button');
         $('#btn-save').attr('id','btn-update');
-        $('#judul-form').html('Edit Data Uang Masuk');
+        $('#judul-form').html('Edit Data Uang Keluar');
         $('#form-tambah')[0].reset();
         $('#form-tambah').validate().resetForm();
         editData(id)
@@ -1081,13 +1081,13 @@
     function hapusData(id){
         $.ajax({
             type: 'DELETE',
-            url: "{{ url('esaku-trans/uang-masuk') }}/"+id,
+            url: "{{ url('esaku-trans/uang-keluar') }}/"+id,
             dataType: 'json',
             async:false,
             success:function(result){
                 if(result.data.status){
                     dataTable.ajax.reload();                    
-                    showNotification("top", "center", "success",'Hapus Data','Data Uang Masuk ('+id+') berhasil dihapus ');
+                    showNotification("top", "center", "success",'Hapus Data','Data Uang Keluar ('+id+') berhasil dihapus ');
                     $('#modal-preview-id').html('');
                     $('#table-delete tbody').html('');
                     $('#modal-delete').modal('hide');
@@ -1118,7 +1118,7 @@
     $('#saku-datatable').on('click', '#btn-tambah', function(){
         $('#row-id').hide();
         $('#method').val('post');
-        $('#judul-form').html('Tambah Data Uang Masuk');
+        $('#judul-form').html('Tambah Data Uang Keluar');
         $('#btn-update').attr('id','btn-save');
         $('#btn-save').attr('type','submit');
         $('#form-tambah')[0].reset();
@@ -1170,7 +1170,7 @@
             var posted = $(this).closest('tr').find('td').eq(5).html();
             $.ajax({
                 type: 'GET',
-                url: "{{ url('/esaku-trans/uang-masuk') }}/"+id,
+                url: "{{ url('/esaku-trans/uang-keluar') }}/"+id,
                 dataType: 'json',
                 async:false,
                 success:function(res){
@@ -1298,7 +1298,7 @@
 
     $('.modal-header').on('click', '#btn-edit2', function(){
         var id= $('#modal-preview-id').text();
-        $('#judul-form').html('Edit Data Uang Masuk');
+        $('#judul-form').html('Edit Data Uang Keluar');
         $('#form-tambah')[0].reset();
         $('#form-tambah').validate().resetForm();
         
@@ -1342,9 +1342,9 @@
             var id = $('#no_bukti').val();
             // $iconLoad.show();
             if(param == "edit"){
-                var url = "{{ url('/esaku-trans/uang-masuk') }}/"+id;
+                var url = "{{ url('/esaku-trans/uang-keluar') }}/"+id;
             }else{
-                var url = "{{ url('/esaku-trans/uang-masuk') }}";
+                var url = "{{ url('/esaku-trans/uang-keluar') }}";
             }
 
             if(total_d != total_k){
@@ -1352,7 +1352,7 @@
             }else if( total_d <= 0 || total_k <= 0){
                 alert('Transaksi tidak valid. Total Debet dan Total Kredit tidak boleh sama dengan 0 atau kurang');
             }else if(jumdet <= 1){
-                alert('Transaksi tidak valid. Detail uang-masuk tidak boleh kosong ');
+                alert('Transaksi tidak valid. Detail uang-keluar tidak boleh kosong ');
             }else{
 
                 $.ajax({
@@ -1374,7 +1374,7 @@
                             $('#form-tambah').validate().resetForm();
                             $('#row-id').hide();
                             $('#method').val('post');
-                            $('#judul-form').html('Tambah Data Uang Masuk');
+                            $('#judul-form').html('Tambah Data Uang Keluar');
                             $('#id').val('');
                             $('#input-grid tbody').html('');
                             $('[id^=label]').html('');
@@ -2261,7 +2261,7 @@
     $('#process-upload').click(function(e){
         $.ajax({
             type: 'GET',
-            url: "{{ url('/esaku-trans/uang-masuk-tmp') }}",
+            url: "{{ url('/esaku-trans/uang-keluar-tmp') }}",
             dataType: 'json',
             async:false,
             success:function(res){
@@ -2349,12 +2349,12 @@
     // UPLOAD DOK
     $('#saku-datatable').on('click', '#btn-upload', function(){
         var id= $(this).closest('tr').find('td').eq(1).html();
-        $('.judul-form').html('Upload Dokumen Uang Masuk');
+        $('.judul-form').html('Upload Dokumen Uang Keluar');
         $('#form-upload')[0].reset();
         $('#form-upload').validate().resetForm();
         $.ajax({
             type: 'GET',
-            url: "{{ url('esaku-trans/uang-masuk-dok') }}",
+            url: "{{ url('esaku-trans/uang-keluar-dok') }}",
             dataType: 'json',
             data:{no_bukti:id},
             async:false,
@@ -2429,7 +2429,7 @@
         console.log(param);
         $.ajax({
             type: 'DELETE',
-            url: "{{ url('esaku-trans/uang-masuk-dok') }}",
+            url: "{{ url('esaku-trans/uang-keluar-dok') }}",
             dataType: 'json',
             data: {'no_bukti':no_bukti,'kode_jenis':kode_jenis, 'no_urut':no_urut},
             success:function(result){
@@ -2448,7 +2448,7 @@
                         id:result.data.no_bukti,
                         type:'sukses',
                         title:'Sukses',
-                        text:'Dokumen Uang Masuk '+kode_jenis+' dengan no urut: '+no_urut+' berhasil dihapus'
+                        text:'Dokumen Uang Keluar '+kode_jenis+' dengan no urut: '+no_urut+' berhasil dihapus'
                     });
 
                 }else{
@@ -2532,7 +2532,7 @@
             }
             $.ajax({
                 type: 'POST',
-                url: "{{ url('esaku-trans/uang-masuk-dok') }}",
+                url: "{{ url('esaku-trans/uang-keluar-dok') }}",
                 dataType: 'json',
                 data: formData,
                 contentType: false,
@@ -2578,7 +2578,7 @@
         
         $.ajax({
             type: 'POST',
-            url: "{{ url('esaku-trans/uang-masuk-notifikasi') }}",
+            url: "{{ url('esaku-trans/uang-keluar-notifikasi') }}",
             dataType: 'json',
             data:{'no_pooling': id},
             async:false,
