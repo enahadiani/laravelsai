@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />    <meta name="author" content="INSPIRO" />    
 	<meta name="description" content="Themeforest Template Polo, html template">
-    <link rel="icon" type="image/png" href="{{ asset('asset_web/webjava/images/icon-java-black.png') }}">   
+    <link rel="icon" type="image/png" href="{{ asset('asset_web/webjava/images/icon-java-blue.png') }}">   
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- Document title -->
     <title>JAVA | Contact</title>
@@ -125,6 +125,15 @@
                     <h2>Organization</h2>
                 </div>
                 <div id="organization"></div>
+            </div>
+        </section>
+
+        <section class="p-t-100 p-b-100 col-mobile">
+            <div class="container">
+                <div class="heading-text text-center heading-section m-b-80">
+                    <h2>Organization</h2>
+                </div>
+                <img alt="organization" src="{{ asset('asset_web/webjava/images/organisasi.png') }}" height="400" width="350" />
             </div>
         </section>
 
