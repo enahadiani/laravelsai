@@ -167,7 +167,7 @@
         </section>
 
         {{-- Fitur --}}
-        <section id="fitur" class="p-b-0">
+        <section id="fitur" class="p-b-25">
             <div class="container">
                 <div class="heading-text heading-section text-center m-b-25">
                     <h1>
@@ -241,7 +241,7 @@
         {{-- Section Feedback --}}
         <section id="feedback" class="p-b-25">
             <div class="container">
-                <div class="heading-text heading-section text-center m-b-40">
+                <div class="heading-text heading-section text-center">
                     <h1>
                         Keberhasilan aplikasi adalah memiliki komitmen untuk menjalankannya.
                     </h1>

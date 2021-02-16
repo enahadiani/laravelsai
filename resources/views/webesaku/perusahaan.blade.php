@@ -82,9 +82,9 @@
                 <div class="pengalaman-image">
                     <img class="image-meeting" alt="image-meeting" src="{{ asset('asset_web/img/esaku/meeting.jpg') }}"/>
                     <div class="image-text">
-                        <h5 class="lead">
+                        <h2 class="lead">
                             Bermula dari membangun aplikasi yang berbasis desktop pada tahun 1998 sampai hadir menjadi aplikasi online seperti saat ini. Tidak perlu diragukan lagi dengan pengalaman dan fokus pengembangan kami sehingga mampu membantu merealisasikan keinginan Anda dalam menerapkan komputerisasi akuntansi.
-                        </h5>
+                        </h2>
                     </div>
                 </div>
             </div>
