@@ -9,11 +9,6 @@ $thnIni = substr($tahun,2,2);
 $thnLalu = substr($tahunLalu,2,2);    
 @endphp
 <style>
-    .card{
-        border-radius: 0 !important;
-        box-shadow: none;
-        border: 1px solid #f0f0f0;
-    }
     .btn-outline-light:hover {
         color: #131113;
         background-color: #ececec;
@@ -59,9 +54,10 @@ $thnLalu = substr($tahunLalu,2,2);
 </style>
 
 <div class="container-fluid mt-3">
-    <div class="row mb-4" >
-        <div class="col-12 text-right detail2-beban mb-4">
+    <div class="row" >
+        <div class="col-12 detail2-beban">
         <a class='btn btn-outline-light' href='#' id='btnBack' style="position: absolute;right: 25px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-arrow-left"></i> Back</a>
+        <p>Satuan Milyar Rupiah || Periode s/d <span class='nama-bulan'></span></p>
         </div>
     </div>
     <div class="row mt-2" >
@@ -319,6 +315,7 @@ function getBebanJurusan(periode=null,kodeNeraca=null,kodeBidang=null){
 getBebanJurusan($filter_periode,$kd,$kd3)
 getDataBebanJurusan($filter_periode,$kd,$kd3,$filter_periode.substr(0,4))
 
+$('.nama-bulan').text(namaPeriode($filter_periode));
 $('.tahunPilih').text('20'+$kd2);
 $('.thnPilih').text($kd2);
 

@@ -5,11 +5,6 @@ $kode_pp = Session::get('kodePP');
 $nik     = Session::get('userLog');
 @endphp
 <style>
-    .card{
-        border-radius: 0 !important;
-        box-shadow: none;
-        border: 1px solid #f0f0f0;
-    }
     .btn-outline-light:hover {
         color: #131113;
         background-color: #ececec;
@@ -36,7 +31,7 @@ $nik     = Session::get('userLog');
         <div class="col-12">
             <h6>Beban</h6>
             <a class="btn btn-outline-light" href="#" id="btn-filter" style="position: absolute;right: 15px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-equalizer" style="transform-style: ;"></i> &nbsp;&nbsp; Filter</a>
-            <p>Periode <span class='periode'></span></p>
+            <p>Satuan Milyar Rupiah || Periode s/d <span class='nama-bulan'></span></p>
         </div>
     </div>
     <div class="row" >
@@ -661,7 +656,7 @@ function getKomposisiBebanRp(periode=null){
 }
 
 
-$('.periode').text(namaPeriode($filter_periode));
+$('.nama-bulan').text(namaPeriode($filter_periode));
 getPresentaseRkaRealisasi($filter_periode);
 getPresentaseRkaRealisasiRp($filter_periode);
 getKomposisiBeban($filter_periode);
@@ -673,7 +668,7 @@ $('#form-filter').submit(function(e){
     $filter_periode = periode;
     getKomposisiBeban(periode);
     getPresentaseRkaRealisasi(periode);
-    $('.periode').text(namaPeriode($filter_periode));
+    $('.nama-bulan').text(namaPeriode($filter_periode));
     $('#modalFilter').modal('hide');
     // $('.app-menu').hide();
 });

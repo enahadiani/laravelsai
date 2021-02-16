@@ -32,9 +32,10 @@ $thnLalu = substr($tahunLalu,2,2);
 </style>
 
 <div class="container-fluid mt-3">
-    <div class="row mb-4" >
-        <div class="col-12 mb-4 text-right detail-beban">
+    <div class="row" >
+        <div class="col-12 detail-beban">
         <a class='btn btn-outline-light' href='#' id='btnBack' style="position: absolute;right: 25px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-arrow-left"></i> Back</a>
+        <p>Satuan Milyar Rupiah || Periode s/d <span class='nama-bulan'></span></p>
         </div>
     </div>
     <div class="row mt-2" >
@@ -381,6 +382,7 @@ function getPertumbuhanBebanFak(periode=null,kodeNeraca=null){
     })
 }
 
+$('.nama-bulan').html(namaPeriode($filter_periode));
 getPertumbuhanBebanFak($filter_periode,$kd);
 getBebanFak($filter_periode,$kd);
 getDetailBeban($filter_periode,$kd);

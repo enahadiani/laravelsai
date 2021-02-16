@@ -5,11 +5,7 @@ $kode_pp = Session::get('kodePP');
 $nik     = Session::get('userLog');
 @endphp
 <style>
-   .card{
-        border-radius: 0 !important;
-        box-shadow: none;
-        border: 1px solid #f0f0f0;
-    }
+  
     .btn-outline-light:hover {
         color: #131113;
         background-color: #ececec;
@@ -35,28 +31,6 @@ $nik     = Session::get('userLog');
     .highcharts-data-label-connector{
         fill: none !important;
     }
-
-    /* NAV TABS */
-    .nav-tabs {
-        border:none;
-    }
-
-    .nav-tabs .nav-link{
-        border: 1px solid #ad1d3e;
-        border-radius: 20px;
-        padding: 2px 25px;
-        color:#ad1d3e;
-    }
-    .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
-        color: white;
-        background-color: #ad1d3e;
-        border-color: #ad1d3e;
-    }
-
-    .nav-tabs .nav-item {
-        margin-bottom: -1px;
-        padding: 0px 10px 0px 0px;
-    }
     
     .btn-outline-light:hover {
         color: #131113;
@@ -69,51 +43,14 @@ $nik     = Session::get('userLog');
         border-color: white !important;
     }
 
-    /* #modalFilter
-    {
-        top:90px
-    }
-
-    @media (max-width: 1439px) {
-        #modalFilter
-        {
-            top:90px
-        }
-    }
-    @media (max-width: 1199px) {
-        #modalFilter
-        {
-            top:80px
-        }
-    }
-    @media (max-width: 767px) {
-        #modalFilter
-        {
-            top:70px
-        }   
-    }
-    @media (max-width: 575px) {
-        #modalFilter
-        {
-            top:70px
-        }
-    } */
-    
-    /* .modal-backdrop.show
-    {
-        opacity:0;
-    }
-    .modal-content{
-        box-shadow: 0 1px 15px rgba(0,0,0,.04),0 1px 6px rgba(0,0,0,.04);;
-    } */
 </style>
 
 <div class="container-fluid mt-3">
     <div class="row">
-        <div class="col-12 mb-4">
+        <div class="col-12">
             <h6>Investasi</h6>
             <a class="btn btn-outline-light" href="#" id="btn-filter" style="position: absolute;right: 15px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-equalizer" style="transform-style: ;"></i> &nbsp;&nbsp; Filter</a>
-            <p>Periode <span class='periode'></span></p>
+            <p>Satuan Milyar Rupiah || Periode s/d <span class='nama-bulan'></span></p>
         </div>
     </div>
     <div class="row" >
@@ -630,7 +567,7 @@ function getSerapInvestasi(periode=null) {
     });
 }
 
-$('.periode').text(namaPeriode($filter_periode));
+$('.nama-bulan').text(namaPeriode($filter_periode));
 getKomponenInvestasi($filter_periode);
 getRKARealInvestasi($filter_periode);
 getSerapInvestasi($filter_periode);
@@ -642,7 +579,7 @@ $('#form-filter').submit(function(e){
     getKomponenInvestasi(periode);
     getRKARealInvestasi(periode);
     getSerapInvestasi(periode);
-    $('.periode').text(namaPeriode($filter_periode));
+    $('.nama-bulan').text(namaPeriode($filter_periode));
     var tahun = parseInt(periode.substr(0,4));
     var tahunLalu = tahun-1;
     $('.thnLalu').text(tahunLalu);
