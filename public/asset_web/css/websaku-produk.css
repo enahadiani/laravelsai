@@ -251,37 +251,27 @@ i.fas.fa-cog {
     flex-direction: row;
 }
 /* Dashboard */
-.image-dashboard > img {
-    width: 58rem;
-    height: 21rem;
-}
-.image-dashboard {
-    /* margin-left: 1rem; */
-    margin-right: 1rem;
-    margin-top: -1.5rem;
-}
-.dashboard-sub-container {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-}
-.dashboard-subtext-container {
+#dashboard .container {
     display: flex;
     justify-content: center;
 }
-.dashboard-container > h1 {
-    margin-bottom: 0;
-}
-.dashboard-container {
-    background-color: #f2f2f2;
-    width: 60rem;
-    height: 35rem;
-    padding: 2rem 1rem 0 2rem;
+#dashboard .card-dashboard .image-dashboard {
+    background-image: url("../img/esaku/tablet.png");
+    height: 100%;
+    width: 100%;
     border-radius: 30px;
 }
-.container.dashboard {
+#dashboard .card-dashboard {
+    background-color: #f2f2f2;
+    border-radius: 30px;
+    width: 62rem;
+    height: 35rem;
+    max-height: 35rem;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+}
+#dashboard .heading-text {
+    margin-bottom: 0;
 }
 /* Footer */
 span.copyright {

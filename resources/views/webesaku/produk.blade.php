@@ -71,7 +71,7 @@
         </header>
 
         {{-- Dashboard --}}
-        <section id="dashboard" class="p-b-25">
+        {{-- <section id="dashboard" class="p-b-25">
             <div class="container dashboard">
                 <div class="dashboard-container">
                     <div class="dashboard-sub-container">
@@ -89,6 +89,19 @@
                             <img alt="tablet" class="image-dashboard" src="{{ asset('asset_web/img/esaku/tablet-crop.png')}}"/>
                         </div>
                     </div>
+                </div>
+            </div>
+        </section> --}}
+        <section id="dashboard" class="p-b-25">
+            <div class="container">
+                <div class="card-dashboard">
+                    <div class="heading-text heading-section text-center">
+                        <h1>Dashboard</h1>
+                        <h5 class="lead">
+                            Satu sumber data yang menghasilkan banyak analisa.
+                        </h5>
+                    </div>
+                    <div class="image-dashboard" data-bg="{{ asset('asset_web/img/esaku/tablet.png') }}"></div>
                 </div>
             </div>
         </section>
@@ -414,6 +427,23 @@
     <script src="{{ asset('asset_web/js/jquery.js')}}"></script>
     <script src="{{ asset('asset_web/js/plugins.js')}}"></script>
     <script src="{{ asset('asset_web/js/functions.js')}}"></script>
+    <script type="text/javascript">
+        var $parallaxDashboard = $(".image-dashboard")
+        var $parallaxDasboardChange = false;
+        var media = window.matchMedia('all');
 
+        $(window).scroll(function(){
+            if(media.matches) {
+                if($(this).scrollTop() > 0 && !$parallaxDasboardChange) {
+                    $parallaxDasboardChange = true;
+                    $($parallaxDashboard).stop().animate({'marginTop': '-30px'}, 'slow');
+                } else if($(this).scrollTop() == 0 && $parallaxDasboardChange) {
+                    $parallaxDasboardChange = false;
+                    $($parallaxDashboard).stop().animate({'marginTop': '0px'}, 'slow');
+                } 
+            }
+        });
+
+    </script>
 </body>
 </html>
