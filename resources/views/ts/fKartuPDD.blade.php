@@ -403,9 +403,9 @@
                             `;
                             var det = "";
                             var x =0;
-                            for(var j=0; j < result.detail.length; j++){
+                            for(var j=0; j < line.detail.length; j++){
                                 
-                                var line2 = result.detail[j];
+                                var line2 = line.detail[j];
                                 var ket2 = "";
                                 if(line2.no_rekon == line.no_rekon){
                                     if( x == 0){
