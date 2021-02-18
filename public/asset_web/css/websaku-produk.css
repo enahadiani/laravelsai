@@ -196,7 +196,7 @@ i.fas.fa-cog {
     background-color: #fff;
     height: 45rem;
     width: 30rem;
-    border-radius: 55px;
+    border-radius: 45px;
     position: relative;
     padding: 4rem 3rem;
     border: 1px solid #f8f8f8;
@@ -257,7 +257,7 @@ i.fas.fa-cog {
     );
     height: 45rem;
     width: 30rem;
-    border-radius: 55px;
+    border-radius: 45px;
     padding: 4rem 3rem;
     margin: 0 1rem 0 1rem;
 }

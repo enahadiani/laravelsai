@@ -93,7 +93,7 @@
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-12 m-b-30 col-dekstop">
-                    <img alt="logo-company" src="{{ asset('asset_web/webjava/images/JavaTurbineLas2.jpg') }}" height="450" width="600"/>
+                    <img alt="logo-company" src="{{ asset('asset_web/webjava/images/JavaTurbineLas2.jpg') }}" style="object-fit: cover;" height="450" width="600"/>
                 </div>
             </div>
         </section>
