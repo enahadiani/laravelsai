@@ -44,22 +44,22 @@ Route::get('/', function () {
     }
 });
 
-Route::get('/midtrans', 'DonationController@index')->name('midtrans');
-Route::get('/midtrans/finish', function(){
-    return redirect()->route('midtrans');
-})->name('donation.finish');
+// Route::get('/midtrans', 'DonationController@index')->name('midtrans');
+// Route::get('/midtrans/finish', function(){
+//     return redirect()->route('midtrans');
+// })->name('donation.finish');
 
-Route::get('/midtrans/unfinish', function(){
-    return redirect()->route('midtrans');
-})->name('donation.unfinish');
+// Route::get('/midtrans/unfinish', function(){
+//     return redirect()->route('midtrans');
+// })->name('donation.unfinish');
 
-Route::get('/midtrans/error', function(){
-    return redirect()->route('midtrans');
-})->name('donation.error');
+// Route::get('/midtrans/error', function(){
+//     return redirect()->route('midtrans');
+// })->name('donation.error');
  
 
-Route::post('/donation/store', 'DonationController@submitDonation')->name('donation.store');
-Route::post('/midtrans/callback', 'DonationController@notificationHandler')->name('notification.handler');
+// Route::post('/donation/store', 'DonationController@submitDonation')->name('donation.store');
+// Route::post('/midtrans/callback', 'DonationController@notificationHandler')->name('notification.handler');
  
 Route::get('/auth/redirect/{provider}', 'SocialController@redirect');
 Route::get('/socialite/callback/{provider}', 'SocialController@callback');
