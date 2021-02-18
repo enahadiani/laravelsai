@@ -63,7 +63,7 @@
         <!-- end: Header -->
 
         {{-- Section 1 --}}
-        <section id="page-title" data-bg-parallax="{{ asset('asset_web/webjava/images/product.jpg') }}">
+        <section id="page-title" data-bg-parallax="{{ asset('asset_web/webjava/images/JavaTurbine2.jpg') }}">
             <div class="bg-overlay"></div>
             <div class="container">
                 <div class="page-title">
@@ -79,25 +79,21 @@
                     <div class="m-b-40">
                         <h2>Company Profile</h2>
                         <p>
-                            PT JAVA PRATAMA ENERGI established on October 3rd, 2014, by Notary Etic Srimartini, SH. MKn. 
-                            The company domiciled in Jl. Maskumambang No. 9, Turangga, Lengkong, Bandung.
+                            PT JAVA PRATAMA ENERGI established on October 3rd, 2014, by Notary Etic Srimartini, SH. MKn. The company domiciled in Bandung, West Java – Indonesia
+                            JAVA is the local end-to-end turbine manufacturer, with proven knowledge and track records in the turbine, mechanical and electrical sector.
+                            JAVA provides comprehensive solutions to industries that use either water or steam turbines for its energy needs.
                         </p>
                         <p>
-                            Founders of PT JAVA PRATAMA ENERGI background are practitioners in renewable energy, 
-                            as engineer, turbine manufacturer, and power plant manager that have the same vision to 
-                            create competitive local manufacturer of rotating turbomachinery both in hydro & thermal 
-                            energy.
-                        </p>
-                        <p>
-                            Equipped with experienced workmanship and production facility, We assure to deliver 
-                            highest quality of product to meet customer satisfaction. Sustain and reliable is our motto. 
-                            We strives upholding business transparency and considering longterm relations with all 
-                            stakeholder, i.e. clients, employees, subcontractors, suppliers and services provider.
+                            Equipped with experienced workmanship and production facility, 
+                            We assure to deliver highest quality of product to meet customer satisfaction. 
+                            Sustain and reliable is our motto. We strives upholding business transparency and considering 
+                            longterm relations with all stakeholder, i.e. clients, employees, subcontractors, 
+                            suppliers and services provider.
                         </p>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-12 m-b-30 col-dekstop">
-                    <img alt="logo-company" src="{{ asset('asset_web/webjava/images/company.png') }}" width="600"/>
+                    <img alt="logo-company" src="{{ asset('asset_web/webjava/images/JavaTurbineLas2.jpg') }}" height="450" width="600"/>
                 </div>
             </div>
         </section>
@@ -107,7 +103,11 @@
             <div class="row company-profile-box">
                 <div class="col-lg-6 text-left" style="background-color: #012068">
                     <h2>VISION</h2>
-                    <span>Being a leading EPC company by always maintain consistency of quality product sustainability. </span>
+                    <span>
+                        We aim to be one of the leading companies in providing services and
+                        technologies throughout the entire supply chain of clean and renewable
+                        energy sector.
+                    </span>
                 </div>
 
                 <div class="col-lg-6 text-left" style="background-color: #002D96">
@@ -119,21 +119,66 @@
         </section>
 
         {{-- Section 4 --}}
-        <section class="p-t-100 p-b-100 col-dekstop">
+        <section class="p-t-100 p-b-100">
             <div class="container">
                 <div class="heading-text text-center heading-section m-b-80">
-                    <h2>Organization</h2>
+                    <h2>Meet The Team</h2>
                 </div>
-                <div id="organization"></div>
-            </div>
-        </section>
-
-        <section class="p-t-100 p-b-100 col-mobile">
-            <div class="container">
-                <div class="heading-text text-center heading-section m-b-80">
-                    <h2>Organization</h2>
+                <div class="row team-members m-b-40">
+                    <div class="col-lg-4">
+                        <div class="team-member">
+                            <div class="team-image">
+                                <img src="{{ asset('asset_web/webjava/images/ceo.jpg')}}" height="300">
+                            </div>
+                            <div class="team-desc">
+                                <h3>Lukman Santoso</h3>
+                                <span>CEO</span>
+                                <p>
+                                    Lukman is a mechanical engineer who has more than 17 years
+                                    experience in designing and manufacturing turbines,
+                                    experiences in rehabilitation, uprating, and develop hydro
+                                    power. He co-founded Java with Lis.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="team-member">
+                            <div class="team-image">
+                                <img src="{{ asset('asset_web/webjava/images/coo.jpg')}}" height="300">
+                            </div>
+                            <div class="team-desc">
+                                <h3>Lis Sumarningsih</h3>
+                                <span>COO</span>
+                                <p>
+                                    Lis is a process engineer by background
+                                    She has more than 15 years of
+                                    experience in steam turbine, utility engineering, project
+                                    management, project controller, and a certified HSE auditor. She also experiences as implementing consultant..
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="team-member">
+                            <div class="team-image">
+                                <img src="{{ asset('asset_web/webjava/images/commissioner.jpg')}}" height="300">
+                            </div>
+                            <div class="team-desc">
+                                <h3>Elrika Hamdi</h3>
+                                <span>Commissioner</span>
+                                <p>
+                                    Elrika is a long-term specialist in the renewable energy
+                                    financial sector. She has helped a number of renwable
+                                    projects in Indonesia funded by bilateral and multilateral
+                                    donors such as USAID, AFD, GIZ, and UNEP. Elrika is the
+                                    Managing Director of PT Imaji, and is currently working as an
+                                    energy finance analyst with IEEFA.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <img alt="organization" src="{{ asset('asset_web/webjava/images/organisasi.png') }}" height="400" width="350" />
             </div>
         </section>
 
@@ -143,116 +188,19 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="row">
-                                <div class="col-lg-12">
-                                    <h2 class="m-b-10">Get in Touch with Us</h2>
-                                </div>
-                                <div class="col-lg-6 m-b-30">
+                                <div class="col-lg-6">
                                     <address>
-                                        <strong>Corporate Domicile</strong><br>
-                                        Jl. Maskumambang No. 9<br>
-                                        Turangga, Lengkong,<br>
-                                        Bandung<br>
-                                    </address>
-                                    <address>
-                                        <strong>Workshop<br>Representative office</strong><br>
-                                        Jl. Ahmad Yani 726<br>
-                                        Bandung<br>
-                                    </address>
-                                </div>
-                                <div class="col-lg-6 m-b-30">
-                                    <address>
-                                        <strong>Engineering office</strong><br>
+                                        <strong>Workshop & Engineering Office</strong><br>
                                         De Primaterra Industrial Estate<br>
                                         C2A-6<br>
                                         Jalan Raya Sapan, Tegal Luar,<br>
-                                        Bojongsoang Bandung 40288<br>
+                                        Bojongsoang, Bandung 40288<br>
+                                        West Java - Indonesia<br>
+                                        Phone/Fax: +62 22 87306036<br>
+                                        Email: marketing@javaturbine.co.id
                                     </address>
-                                    Phone/Fax: +62 22 87306036
-                                    <br>
                                 </div>
                             </div>
-                        </div>
-                        {{-- Mobile --}}
-                        <div class="col-lg-5 col-mobile">
-                            <form class="widget-contact-form" novalidate action="include/contact-form.php" role="form" method="post">
-                                <div class="row">
-                                    <div class="form-group col-md-6">
-                                        <label for="name">Name</label>
-                                        <input type="text" aria-required="true" name="widget-contact-form-name" class="form-control required name" placeholder="Enter your Name">
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="email">Email</label>
-                                        <input type="email" aria-required="true" required name="widget-contact-form-email" class="form-control required email" placeholder="Enter your Email">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6 form-group">
-                                        <label class="upper" for="phone">Phone</label>
-                                        <input type="text" class="form-control required" name="widget-contact-form-phone" placeholder="Enter phone" aria-required="true">
-                                    </div>
-
-                                    <div class="form-group col-lg-6">
-                                        <label>Services</label>
-                                        <select name="widget-contact-form-services">
-                                            <option value="">Select service</option>
-                                            <option value="Wordpress">Wordpress</option>
-                                            <option value="PHP / MySQL">PHP / MySQL</option>
-                                            <option value="HTML5 / CSS3">HTML5 / CSS3</option>
-                                            <option value="Graphic Design">Graphic Design</option>
-                                        </select>
-
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="message">Message</label>
-                                    <textarea type="text" name="widget-contact-form-message" rows="8" class="form-control required" placeholder="Enter your Message"></textarea>
-                                </div>
-                                <div class="form-group">
-                                    <button class="btn btn-light" type="submit" id="form-submit">Send email</button>
-                                </div>
-                            </form>
-
-                        </div>
-                        {{-- Dekstop --}}
-                        <div class="col-lg-5 offset-1 col-dekstop">
-                            <form class="widget-contact-form" novalidate action="include/contact-form.php" role="form" method="post">
-                                <div class="row">
-                                    <div class="form-group col-md-6">
-                                        <label for="name">Name</label>
-                                        <input type="text" aria-required="true" name="widget-contact-form-name" class="form-control required name" placeholder="Enter your Name">
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="email">Email</label>
-                                        <input type="email" aria-required="true" required name="widget-contact-form-email" class="form-control required email" placeholder="Enter your Email">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6 form-group">
-                                        <label class="upper" for="phone">Phone</label>
-                                        <input type="text" class="form-control required" name="widget-contact-form-phone" placeholder="Enter phone" aria-required="true">
-                                    </div>
-
-                                    <div class="form-group col-lg-6">
-                                        <label>Services</label>
-                                        <select name="widget-contact-form-services">
-                                            <option value="">Select service</option>
-                                            <option value="Wordpress">Wordpress</option>
-                                            <option value="PHP / MySQL">PHP / MySQL</option>
-                                            <option value="HTML5 / CSS3">HTML5 / CSS3</option>
-                                            <option value="Graphic Design">Graphic Design</option>
-                                        </select>
-
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="message">Message</label>
-                                    <textarea type="text" name="widget-contact-form-message" rows="8" class="form-control required" placeholder="Enter your Message"></textarea>
-                                </div>
-                                <div class="form-group">
-                                    <button class="btn btn-light" type="submit" id="form-submit">Send email</button>
-                                </div>
-                            </form>
-
                         </div>
                     </div>
                 </div>
@@ -279,7 +227,7 @@
 
     <!--Template functions-->
     <script src="{{ asset('asset_web/js/functions.js')}}"></script>
-    <script type="text/javascript">
+    {{-- <script type="text/javascript">
         Highcharts.chart('organization', {
             chart: {
                 height: 900,
@@ -445,6 +393,6 @@
             }
 
         });
-    </script>
+    </script> --}}
 </body>
 </html>

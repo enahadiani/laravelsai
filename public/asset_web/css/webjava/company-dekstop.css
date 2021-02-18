@@ -1,5 +1,5 @@
 /* Section 3 */
-#organization .highcharts-label:nth-child(2) h4,
+/* #organization .highcharts-label:nth-child(2) h4,
 #organization .highcharts-label:nth-child(3) h4,
 #organization .highcharts-label:nth-child(4) h4,
 #organization .highcharts-label:nth-child(5) h4,
@@ -15,7 +15,7 @@
 }
 #organization .highcharts-label:nth-child(1) h4 {
     color: #000000 !important;
-}
+} */
 /* Section 2 */
 .company-profile-box {
     height: 28rem;

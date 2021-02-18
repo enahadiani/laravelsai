@@ -305,7 +305,18 @@
         </section>
 
         {{-- Section 3 --}}
-        <section id="total-project" style="object-fit: none;" class="text-light p-t-150 p-b-150" data-bg-parallax="{{ asset('asset_web/webjava/images/JavaTurbineLas.jpg')}}">
+        <section id="total-project" style="object-fit: none;" class="col-dekstop text-light p-t-150 p-b-150" data-bg-parallax="{{ asset('asset_web/webjava/images/JavaTurbineLas.jpg')}}">
+            <div class="bg-overlay"></div>
+            <div class="container">
+                <div class="total-project-container">
+                    <div class="total-project-text text-center">
+                        <h2>We have completed 250+ projects</h2>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="total-project" class="col-mobile text-light p-t-150 p-b-150" data-bg-parallax="{{ asset('asset_web/webjava/images/JavaTurbineLasMobile.jpg')}}">
             <div class="bg-overlay"></div>
             <div class="container">
                 <div class="total-project-container">
@@ -459,116 +470,19 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="row">
-                                <div class="col-lg-12">
-                                    <h2 class="m-b-10">Get in Touch with Us</h2>
-                                </div>
-                                <div class="col-lg-6 m-b-30">
+                                <div class="col-lg-6">
                                     <address>
-                                        <strong>Corporate Domicile</strong><br>
-                                        Jl. Maskumambang No. 9<br>
-                                        Turangga, Lengkong,<br>
-                                        Bandung<br>
-                                    </address>
-                                    <address>
-                                        <strong>Workshop<br>Representative office</strong><br>
-                                        Jl. Ahmad Yani 726<br>
-                                        Bandung<br>
-                                    </address>
-                                </div>
-                                <div class="col-lg-6 m-b-30">
-                                    <address>
-                                        <strong>Engineering office</strong><br>
+                                        <strong>Workshop & Engineering Office</strong><br>
                                         De Primaterra Industrial Estate<br>
                                         C2A-6<br>
                                         Jalan Raya Sapan, Tegal Luar,<br>
-                                        Bojongsoang Bandung 40288<br>
+                                        Bojongsoang, Bandung 40288<br>
+                                        West Java - Indonesia<br>
+                                        Phone/Fax: +62 22 87306036<br>
+                                        Email: marketing@javaturbine.co.id
                                     </address>
-                                    Phone/Fax: +62 22 87306036
-                                    <br>
                                 </div>
                             </div>
-                        </div>
-                        {{-- Mobile --}}
-                        <div class="col-lg-5 col-mobile">
-                            <form class="widget-contact-form" novalidate action="include/contact-form.php" role="form" method="post">
-                                <div class="row">
-                                    <div class="form-group col-md-6">
-                                        <label for="name">Name</label>
-                                        <input type="text" aria-required="true" name="widget-contact-form-name" class="form-control required name" placeholder="Enter your Name">
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="email">Email</label>
-                                        <input type="email" aria-required="true" required name="widget-contact-form-email" class="form-control required email" placeholder="Enter your Email">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6 form-group">
-                                        <label class="upper" for="phone">Phone</label>
-                                        <input type="text" class="form-control required" name="widget-contact-form-phone" placeholder="Enter phone" aria-required="true">
-                                    </div>
-
-                                    <div class="form-group col-lg-6">
-                                        <label>Services</label>
-                                        <select name="widget-contact-form-services">
-                                            <option value="">Select service</option>
-                                            <option value="Wordpress">Wordpress</option>
-                                            <option value="PHP / MySQL">PHP / MySQL</option>
-                                            <option value="HTML5 / CSS3">HTML5 / CSS3</option>
-                                            <option value="Graphic Design">Graphic Design</option>
-                                        </select>
-
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="message">Message</label>
-                                    <textarea type="text" name="widget-contact-form-message" rows="8" class="form-control required" placeholder="Enter your Message"></textarea>
-                                </div>
-                                <div class="form-group">
-                                    <button class="btn btn-light" type="submit" id="form-submit">Send email</button>
-                                </div>
-                            </form>
-
-                        </div>
-                        {{-- Dekstop --}}
-                        <div class="col-lg-5 offset-1 col-dekstop">
-                            <form class="widget-contact-form" novalidate action="include/contact-form.php" role="form" method="post">
-                                <div class="row">
-                                    <div class="form-group col-md-6">
-                                        <label for="name">Name</label>
-                                        <input type="text" aria-required="true" name="widget-contact-form-name" class="form-control required name" placeholder="Enter your Name">
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="email">Email</label>
-                                        <input type="email" aria-required="true" required name="widget-contact-form-email" class="form-control required email" placeholder="Enter your Email">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6 form-group">
-                                        <label class="upper" for="phone">Phone</label>
-                                        <input type="text" class="form-control required" name="widget-contact-form-phone" placeholder="Enter phone" aria-required="true">
-                                    </div>
-
-                                    <div class="form-group col-lg-6">
-                                        <label>Services</label>
-                                        <select name="widget-contact-form-services">
-                                            <option value="">Select service</option>
-                                            <option value="Wordpress">Wordpress</option>
-                                            <option value="PHP / MySQL">PHP / MySQL</option>
-                                            <option value="HTML5 / CSS3">HTML5 / CSS3</option>
-                                            <option value="Graphic Design">Graphic Design</option>
-                                        </select>
-
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="message">Message</label>
-                                    <textarea type="text" name="widget-contact-form-message" rows="8" class="form-control required" placeholder="Enter your Message"></textarea>
-                                </div>
-                                <div class="form-group">
-                                    <button class="btn btn-light" type="submit" id="form-submit">Send email</button>
-                                </div>
-                            </form>
-
                         </div>
                     </div>
                 </div>
