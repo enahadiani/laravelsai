@@ -43,8 +43,9 @@
         flex-direction: column;
     }
     /* Produk fitur */
-    .icon-container {
-        right: 0.5rem !important;
+    .gear-icon {
+        margin-top: 2.2rem;
+        margin-left: 2.9rem;
     }
     .card-custom {
         align-self: center;
@@ -64,16 +65,20 @@
         justify-content: center;
     }
     /* Dashboard */
-    .image-dashboard > img {
-        height: 21.6rem;
-        width: 25.5rem;
+    #dashboard .card-dashboard .image-container img {
+        max-height: 100%;
+        max-width: 100%;
+        margin-left: 0.5rem;
     }
-    .image-dashboard {
-        margin-right: 0;
-        margin-top: -1.5rem;
+    #dashboard .card-dashboard .image-container {
+        margin-top: 3rem;
+        position: relative;
     }
-    .dashboard-subtext {
-        width: 20rem;
+    .card-dashboard h5 {
+        padding: 0 1rem;
+    }
+    .card-dashboard h1 {
+        font-size: 2.75rem !important;
     }
     /* Footer */
     .layanan-container {

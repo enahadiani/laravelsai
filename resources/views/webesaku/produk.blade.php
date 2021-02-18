@@ -71,27 +71,6 @@
         </header>
 
         {{-- Dashboard --}}
-        {{-- <section id="dashboard" class="p-b-25">
-            <div class="container dashboard">
-                <div class="dashboard-container">
-                    <div class="dashboard-sub-container">
-                        <div class="heading-text heading-section text-center">
-                            <h1>Dashboard</h1>
-                            <div class="dashboard-subtext-container">
-                                <div class="dashboard-subtext">
-                                    <h5 class="lead">
-                                        Satu sumber data yang menghasilkan banyak analisa.
-                                    </h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="image-dashboard">
-                            <img alt="tablet" class="image-dashboard" src="{{ asset('asset_web/img/esaku/tablet-crop.png')}}"/>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section> --}}
         <section id="dashboard" class="p-b-25">
             <div class="container">
                 <div class="card-dashboard">
@@ -101,7 +80,10 @@
                             Satu sumber data yang menghasilkan banyak analisa.
                         </h5>
                     </div>
-                    <div class="image-dashboard" data-bg="{{ asset('asset_web/img/esaku/tablet.png') }}"></div>
+                    <div class="image-dashboard col-dekstop" data-bg="{{ asset('asset_web/img/esaku/tablet.png') }}"></div>
+                    <div class="image-container col-mobile">
+                        <img alt="tablet" class="image-mobile-dashboard" src="{{ asset('asset_web/img/esaku/tablet.png')}}" />
+                    </div>
                 </div>
             </div>
         </section>
@@ -132,7 +114,7 @@
                             <div class="col-12 p-b-30">
                                 <h1>Custome</h1>
                             </div>
-                            <div class="col-12 p-b-30">
+                            <div class="col-12 p-b-65">
                                 <div class="custom-text">
                                     <h5 class="lead">
                                         Bangun sistem sesuai dengan kebutuhan bisnis Anda.
@@ -142,11 +124,9 @@
                             <div class="col-12">
                                 <a href="#" class="link-kontak">Kontak Kami</a>
                             </div>
-                            <div class="icon-container">
-                                <div class="cog-icon">
-                                    <i class="fas fa-cog cog-tilted"></i>
-                                </div>
-                            </div>
+                        </div>
+                        <div class="gear-icon">
+                            <div class="gear-image"></div>
                         </div>
                     </div>
                 </div>
@@ -431,6 +411,9 @@
         var $parallaxDashboard = $(".image-dashboard")
         var $parallaxDasboardChange = false;
         var media = window.matchMedia('all');
+        var $parallaxDashboardMobile = $(".image-mobile-dashboard")
+        var $parallaxDasboardChangeMobile = false;
+        var mediaMobile = window.matchMedia('max-width: 480px');
 
         $(window).scroll(function(){
             if(media.matches) {
@@ -443,6 +426,19 @@
                 } 
             }
         });
+
+        $(document.body).on('touchmove', onScroll);
+
+        function onScroll() {
+            console.log('test mobile')
+            // if($(this).scrollTop() > 0 && !$parallaxDasboardChangeMobile) {
+            //     $parallaxDasboardChangeMobile = true;
+            //     $($parallaxDashboardMobile).stop().animate({'marginTop': '-30px'}, 'slow');
+            // } else if($(this).scrollTop() == 0 && $parallaxDasboardChangeMobile) {
+            //     $parallaxDasboardChangeMobile = false;
+            //     $($parallaxDashboardMobile).stop().animate({'marginTop': '0px'}, 'slow');
+            // }
+        }
 
     </script>
 </body>
