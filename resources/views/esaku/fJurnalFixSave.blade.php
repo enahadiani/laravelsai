@@ -102,7 +102,7 @@
         .table-header-prev td,th{
             padding: 2px 8px !important;
         }
-        #modal-preview .modal-content
+        /* #modal-preview .modal-content
         {
             border-bottom-left-radius: 0px !important;
             border-bottom-right-radius: 0px !important;
@@ -120,7 +120,6 @@
         }
 
         .animate-bottom {
-            /* position: relative; */
             animation: animatebottom 0.7s;
         }
         
@@ -134,7 +133,17 @@
                 bottom: 0;
                 opacity: 1;
             }
+        } */
+        
+        .bottom-sheet{
+            max-height: 100% !important;
         }
+        
+        .bottom-sheet .modal.content{
+            width: 60%; 
+            margin: 0px auto
+        }
+
     </style>
     <!-- FORM INPUT -->
     <form id="form-tambah" class="tooltip-label-right" novalidate>
@@ -465,11 +474,29 @@
     <script src="{{ asset('helper.js') }}"></script>
     <script>
     
+    $('.modal').modal({
+        dismissible: true, // Modal can be dismissed by clicking outside of the modal
+        opacity: .5, // Opacity of modal background
+        inDuration: 300, // Transition in duration
+        outDuration: 200, // Transition out duration
+        startingTop: '4%', // Starting top style attribute
+        endingTop: '10%', // Ending top style attribute
+        ready: function(modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.
+        //  alert("Ready");
+            console.log(modal, trigger);
+        },
+        complete: function() { //alert('Closed');
+        } // Callback for Modal close
+        }
+    );
     $('#process-upload').addClass('disabled');
     $('#process-upload').prop('disabled', true);
     $('#kode_form').val($form_aktif);
-    $('#modal-preview').addClass('fade animate');
-    $('#modal-preview .modal-content').addClass('animate-bottom');
+    
+    $('#modal-preview').addClass('bottom-sheet modal-fixed-footer');
+    
+    // $('#modal-preview').addClass('fade animate');
+    // $('#modal-preview .modal-content').addClass('animate-bottom');
     
     var $iconLoad = $('.preloader');
     var $target = "";
@@ -1058,7 +1085,11 @@
                     showNotification("top", "center", "success",'Hapus Data','Data Jurnal ('+id+') berhasil dihapus ');
                     $('#modal-preview-id').html('');
                     $('#table-delete tbody').html('');
-                    $('#modal-delete').modal('hide');
+                    if(typeof M == 'undefined'){
+                        $('#modal-delete').modal('hide');
+                    }else{
+                        $('#modal-delete').bootstrapMD('hide');
+                    }
                 }else if(!result.data.status && result.data.message == "Unauthorized"){
                     window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
                 }else{
@@ -1244,7 +1275,7 @@
                             $('#btn-edit2').css('display','inline-block');
                         }
                         $('#modal-preview-id').text(id);
-                        $('#modal-preview').modal('show');
+                        $('#modal-preview').modal('open');
                     }
                     else if(!result.status && result.message == 'Unauthorized'){
                         window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
@@ -1257,7 +1288,7 @@
 
     $('.modal-header').on('click','#btn-delete2',function(e){
         var id = $('#modal-preview-id').text();
-        $('#modal-preview').modal('hide');
+        $('#modal-preview').modal('close');
         msgDialog({
             id:id,
             type:'hapus'
@@ -1272,7 +1303,7 @@
         
         $('#btn-save').attr('type','button');
         $('#btn-save').attr('id','btn-update');
-        $('#modal-preview').modal('hide');
+        $('#modal-preview').modal('close');
         editData(id);
     });
 
@@ -1281,6 +1312,10 @@
         $('.dropdown-ke1').addClass('hidden');
         $('.dropdown-ke2').removeClass('hidden');
         console.log('ok');
+    });
+
+    $('.modal-header').on('click','#preview-close',function(e){
+        $('.modal').modal('close');
     });
 
     $('.modal-header').on('click','#btn-cetak2',function(e){
@@ -2237,7 +2272,11 @@
         $('.pesan-upload .pesan-upload-judul').html('');
         $('.pesan-upload .pesan-upload-isi').html('')        
         $('.pesan-upload').hide();
-        $('#modal-import').modal('show');
+        if(typeof M == 'undefined'){
+            $('#modal-import').modal('show');
+        }else{
+            $('#modal-import').bootstrapMD('show');
+        }
     });
 
     $("#form-import").validate({
@@ -2442,7 +2481,11 @@
                     }
                     hitungTotal();
                     hitungTotalRow();
-                    $('#modal-import').modal('hide');
+                    if(typeof M == 'undefined'){
+                        $('#modal-import').modal('hide');
+                    }else{
+                        $('#modal-import').bootstrapMD('hide');
+                    }
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
                     window.location.href = "{{ url('esaku-auth/sesi-habis') }}";

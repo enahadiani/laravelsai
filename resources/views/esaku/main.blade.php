@@ -158,6 +158,100 @@
             background:red;
         }
 
+        .modal {
+            &:focus {
+                outline: none;
+            }
+
+            @extend .z-depth-5;
+
+            display: none;
+            position: fixed;
+            left: 0;
+            right: 0;
+            background-color: #fafafa;
+            padding: 0;
+            max-height: 70%;
+            width: 55%;
+            margin: auto;
+            overflow-y: auto;
+
+            border-radius: 2px;
+            will-change: top, opacity;
+
+            @media #{$medium-and-down} 
+            {
+            width: 80%;
+            }
+
+            h1,h2,h3,h4 {
+                margin-top: 0;
+            }
+
+            .modal-content {
+                padding: 24px;
+            }
+            .modal-close {
+                cursor: pointer;
+            }
+
+            .modal-footer {
+                border-radius: 0 0 2px 2px;
+                background-color: #fafafa;
+                padding: 4px 6px;
+                height: 56px;
+                width: 100%;
+                text-align: right;
+
+                .btn, .btn-flat {
+                margin: 6px 0;
+                }
+            }
+            }
+            .modal-overlay {
+            position: fixed;
+            z-index: 999;
+            top: -25%;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            height: 125%;
+            width: 100%;
+            background: #000;
+            display: none;
+
+            will-change: opacity;
+            }
+
+            .modal.modal-fixed-footer {
+            padding: 0;
+            height: 70%;
+
+            .modal-content {
+                position: absolute;
+                height: calc(100% - 56px);
+                max-height: 100%;
+                width: 100%;
+                overflow-y: auto;
+            }
+
+            .modal-footer {
+                border-top: 1px solid rgba(0,0,0,.1);
+                position: absolute;
+                bottom: 0;
+            }
+        }
+
+        .modal.bottom-sheet {
+            top: auto;
+            bottom: -100%;
+            margin: 0;
+            width: 100%;
+            max-height: 45%;
+            border-radius: 0;
+            will-change: bottom, opacity;
+        }
+
     </style>
     <script>
         var $public_asset = "{{ asset('asset_dore') }}/";
@@ -204,6 +298,12 @@
     <script src="{{ asset('asset_elite/sai.js') }}"></script>
     <script src="{{ asset('asset_elite/inputmask.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/bootstrap-tagsinput.min.js') }}"></script>
+    
+    <script src="{{ asset('asset_dore/js/materialize-modal/component.js') }}"></script>
+    <script src="{{ asset('asset_dore/js/materialize-modal/cash.js') }}"></script>
+    <script src="{{ asset('asset_dore/js/materialize-modal/global.js') }}"></script>
+    <script src="{{ asset('asset_dore/js/materialize-modal/anime.min.js') }}"></script>
+    <script src="{{ asset('asset_dore/js/materialize-modal/modal.js') }}"></script>
 </head>
 <!-- <div class="preloader-wrap">
     <div class="progress" id="load-page">
@@ -373,6 +473,11 @@
     if (!$.fn.bootstrapDP && $.fn.datepicker && $.fn.datepicker.noConflict) {
         var datepicker = $.fn.datepicker.noConflict();
         $.fn.bootstrapDP = datepicker;
+    }
+
+    if (!$.fn.bootstrapMD && $.fn.modal && $.fn.modal.noConflict) {
+        var modal = $.fn.modal.noConflict();
+        $.fn.bootstrapMD = modal;
     }
     var $form_aktif = "";
     // Enable pusher logging - don't include this in production

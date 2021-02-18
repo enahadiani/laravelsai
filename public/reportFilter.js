@@ -134,7 +134,11 @@
         });
 
         $('#modal-search .modal-title').html(judul);
-        $('#modal-search').modal('show');
+        if(typeof M == 'undefined'){
+            $('#modal-search').modal('show');
+        }else{
+            $('#modal-search').modal('open');
+        }
         searchTable.columns.adjust().draw();
 
         if(type == "range"){
@@ -327,7 +331,11 @@
                     $($target).trigger('change');
                     field[target2] = kode;
                     field[target3] = nama;
-                    $('#modal-search').modal('hide');
+                    if(typeof M == 'undefined'){
+                        $('#modal-search').modal('hide');
+                    }else{
+                        $('#modal-search').modal('close');
+                    }
                 }
 
             }
@@ -361,7 +369,11 @@
                     console.log(field);      
                     
                     $('#rentang-tag2').tagsinput('add', { id: kode, text: 'Rentang akhir:'+kode });       
-                    $('#modal-search').modal('hide');
+                    if(typeof M == 'undefined'){
+                        $('#modal-search').modal('hide');
+                    }else{
+                        $('#modal-search').modal('close');
+                    }
                 }
             }
         });
@@ -396,7 +408,11 @@
             $($target).trigger('change');
             field[target2] = kode;
             field[target3] = kode;
-            $('#modal-search').modal('hide');
+            if(typeof M == 'undefined'){
+                $('#modal-search').modal('hide');
+            }else{
+                $('#modal-search').modal('close');
+            }
         });
     }
 
@@ -470,7 +486,11 @@
                     $($target).trigger('change');
                     field[target2] = $('#date-'+kunci).datepicker('getFormattedDate');
                     field[target3] = $('#date-'+kunci).datepicker('getFormattedDate');
-                    $('#modal-search').modal('hide');
+                    if(typeof M == 'undefined'){
+                        $('#modal-search').modal('hide');
+                    }else{
+                        $('#modal-search').modal('close');
+                    }
                 });
                 break;
             case 'in':
@@ -498,7 +518,11 @@
                     $($target).trigger('change');
                     field[target2] = $('#date-'+kunci+'-in').datepicker('getFormattedDate');
                     field[target3] = $('#date-'+kunci+'-in').datepicker('getFormattedDate');
-                    $('#modal-search').modal('hide');
+                    if(typeof M == 'undefined'){
+                        $('#modal-search').modal('hide');
+                    }else{
+                        $('#modal-search').modal('close');
+                    }
                 });
                 break;
             case 'range':
@@ -544,11 +568,19 @@
                     field["fromname"] = $('#date-'+kunci+'-from').datepicker('getFormattedDate');
                     field["to"] = $('#date-'+kunci+'-to').datepicker('getFormattedDate');;
                     field["toname"] = $('#date-'+kunci+'-to').datepicker('getFormattedDate');;  
-                    $('#modal-search').modal('hide');
+                    if(typeof M == 'undefined'){
+                        $('#modal-search').modal('hide');
+                    }else{
+                        $('#modal-search').modal('close');
+                    }
                 });
                 break;
         }
-        $('#modal-search').modal('show');
+        if(typeof M == 'undefined'){
+            $('#modal-search').modal('show');
+        }else{
+            $('#modal-search').modal('open');
+        }
     }
 
     $.fn.reportFilter = function( options ) {
