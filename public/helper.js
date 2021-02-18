@@ -311,7 +311,11 @@ function showInpFilter(settings){
 
 
     $('#modal-search .modal-title').html(judul);
-    $('#modal-search').modal('show');
+    if(typeof M == 'undefined'){
+        $('#modal-search').modal('show');
+    }else{
+        $('#modal-search').modal('open');
+    }
     searchTable.columns.adjust().draw();
 
     if(settings.multi != undefined){
@@ -390,7 +394,11 @@ function showInpFilter(settings){
                 $($target).trigger('change');
             }
             $($target2).closest('div').find('.info-icon-hapus').removeClass('hidden');
-            $('#modal-search').modal('hide');
+            if(typeof M == 'undefined'){
+                $('#modal-search').modal('hide');
+            }else{
+                $('#modal-search').modal('close');
+            }
         });
     }
     else if(settings.multi2 != undefined){
@@ -414,7 +422,11 @@ function showInpFilter(settings){
                 $($target).trigger('change');
             }
             $($target2).closest('div').find('.info-icon-hapus').removeClass('hidden');
-            $('#modal-search').modal('hide');
+            if(typeof M == 'undefined'){
+                $('#modal-search').modal('hide');
+            }else{
+                $('#modal-search').modal('close');
+            }
         });
     }
     else{
@@ -432,7 +444,11 @@ function showInpFilter(settings){
                     if (typeof settings.onItemSelected === "function") {
                         settings.onItemSelected.call(this, select_data);
                     }
-                    $('#modal-search').modal('hide');
+                    if(typeof M == 'undefined'){
+                        $('#modal-search').modal('hide');
+                    }else{
+                        $('#modal-search').modal('close');
+                    }
                 }
             });
     
@@ -491,7 +507,11 @@ function showInpFilter(settings){
                         }
                         $($target).closest('tr').find($target4).click();
                     }
-                    $('#modal-search').modal('hide');
+                    if(typeof M == 'undefined'){
+                        $('#modal-search').modal('hide');
+                    }else{
+                        $('#modal-search').modal('close');
+                    }
                 }
             });
         }
