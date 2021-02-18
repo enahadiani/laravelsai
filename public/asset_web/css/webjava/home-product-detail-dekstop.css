@@ -1,3 +1,6 @@
+.polo-carousel-item img {
+    height: 364px !important;
+}
 /* Footer */
 .footer-background {
     background-color: #fcfcfc;

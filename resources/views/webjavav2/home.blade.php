@@ -72,7 +72,7 @@
         <div id="slider" class="inspiro-slider slider-fullscreen dots-creative" data-height-xs="360" data-animate-in="fadeIn" data-animate-out="fadeOut" data-items="1" data-loop="true">
 
             <!-- Slide 1 -->
-            <div class="slide" style="background-image:url('{{ asset('asset_web/webjava/images/section-1.png') }}');">
+            <div class="slide" style="background-image:url('{{ asset('asset_web/webjava/images/Group 2.png') }}');">
                 <div class="container">
                     <div class="slide-captions text-light section-one-space">
                         <!-- Captions -->
@@ -305,12 +305,12 @@
         </section>
 
         {{-- Section 3 --}}
-        <section id="total-project" class="text-light p-t-150 p-b-150" data-bg-parallax="{{ asset('asset_web/webjava/images/total-project.jpg')}}">
+        <section id="total-project" style="object-fit: none;" class="text-light p-t-150 p-b-150" data-bg-parallax="{{ asset('asset_web/webjava/images/JavaTurbineLas.jpg')}}">
             <div class="bg-overlay"></div>
             <div class="container">
                 <div class="total-project-container">
                     <div class="total-project-text text-center">
-                        <h2>We have completed 130 projects</h2>
+                        <h2>We have completed 250+ projects</h2>
                     </div>
                 </div>
             </div>
