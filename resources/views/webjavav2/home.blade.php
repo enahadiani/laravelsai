@@ -305,7 +305,18 @@
         </section>
 
         {{-- Section 3 --}}
-        <section id="total-project" style="object-fit: none;" class="text-light p-t-150 p-b-150" data-bg-parallax="{{ asset('asset_web/webjava/images/JavaTurbineLas.jpg')}}">
+        <section id="total-project" style="object-fit: none;" class="col-dekstop text-light p-t-150 p-b-150" data-bg-parallax="{{ asset('asset_web/webjava/images/JavaTurbineLas.jpg')}}">
+            <div class="bg-overlay"></div>
+            <div class="container">
+                <div class="total-project-container">
+                    <div class="total-project-text text-center">
+                        <h2>We have completed 250+ projects</h2>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="total-project" class="col-mobile text-light p-t-150 p-b-150" data-bg-parallax="{{ asset('asset_web/webjava/images/JavaTurbineLasMobile.jpg')}}">
             <div class="bg-overlay"></div>
             <div class="container">
                 <div class="total-project-container">
