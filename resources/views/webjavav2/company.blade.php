@@ -63,7 +63,7 @@
         <!-- end: Header -->
 
         {{-- Section 1 --}}
-        <section id="page-title" data-bg-parallax="{{ asset('asset_web/webjava/images/product.jpg') }}">
+        <section id="page-title" data-bg-parallax="{{ asset('asset_web/webjava/images/JavaTurbine2.jpg') }}">
             <div class="bg-overlay"></div>
             <div class="container">
                 <div class="page-title">
@@ -79,20 +79,16 @@
                     <div class="m-b-40">
                         <h2>Company Profile</h2>
                         <p>
-                            PT JAVA PRATAMA ENERGI established on October 3rd, 2014, by Notary Etic Srimartini, SH. MKn. 
-                            The company domiciled in Jl. Maskumambang No. 9, Turangga, Lengkong, Bandung.
+                            PT JAVA PRATAMA ENERGI established on October 3rd, 2014, by Notary Etic Srimartini, SH. MKn. The company domiciled in Bandung, West Java – Indonesia
+                            JAVA is the local end-to-end turbine manufacturer, with proven knowledge and track records in the turbine, mechanical and electrical sector.
+                            JAVA provides comprehensive solutions to industries that use either water or steam turbines for its energy needs.
                         </p>
                         <p>
-                            Founders of PT JAVA PRATAMA ENERGI background are practitioners in renewable energy, 
-                            as engineer, turbine manufacturer, and power plant manager that have the same vision to 
-                            create competitive local manufacturer of rotating turbomachinery both in hydro & thermal 
-                            energy.
-                        </p>
-                        <p>
-                            Equipped with experienced workmanship and production facility, We assure to deliver 
-                            highest quality of product to meet customer satisfaction. Sustain and reliable is our motto. 
-                            We strives upholding business transparency and considering longterm relations with all 
-                            stakeholder, i.e. clients, employees, subcontractors, suppliers and services provider.
+                            Equipped with experienced workmanship and production facility, 
+                            We assure to deliver highest quality of product to meet customer satisfaction. 
+                            Sustain and reliable is our motto. We strives upholding business transparency and considering 
+                            longterm relations with all stakeholder, i.e. clients, employees, subcontractors, 
+                            suppliers and services provider.
                         </p>
                     </div>
                 </div>
