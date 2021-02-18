@@ -38,7 +38,7 @@ class AuthController extends Controller
 
         try {
             $client = new Client();
-            $response = $client->request('POST',  config('api.url').'gl//login',[
+            $response = $client->request('POST',  config('api.url').'gl/login',[
                 'form_params' => [
                     'nik' => $request->input('nik'),
                     'password' => $request->input('password')
@@ -50,7 +50,7 @@ class AuthController extends Controller
                 if($data["message"] == "success"){
                     Session::put('token',$data["token"]);
                     Session::put('login',TRUE);
-                    $response2 = $client->request('GET',  config('api.url').'gl//profile',[
+                    $response2 = $client->request('GET',  config('api.url').'gl/profile',[
                         'headers' => [
                             'Authorization' => 'Bearer '.$data["token"],
                             'Accept'     => 'application/json',
@@ -120,7 +120,7 @@ class AuthController extends Controller
     public function getMenu(){
         $client = new Client();
         $kodemenu = Session::get('kodeMenu');
-        $response = $client->request('GET',  config('api.url').'gl//menu/'.$kodemenu,[
+        $response = $client->request('GET',  config('api.url').'gl/menu/'.$kodemenu,[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
