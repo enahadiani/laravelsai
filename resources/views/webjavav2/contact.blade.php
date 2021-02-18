@@ -72,7 +72,6 @@
                 </div>
             </div>
         </section>
-
         <footer id="footer" class="footer-background">
             <div class="footer-content">
                 <div class="container">
@@ -107,10 +106,10 @@
 
     <a id="scrollTop"><i class="icon-chevron-up"></i><i class="icon-chevron-up"></i></a>
     <!--Plugins-->
-    <script src="{{ asset('asset_web/js/jquery.js') }}"></script>
-    <script src="{{ asset('asset_web/js/plugins.js') }}"></script>
+    <sc src="{{ asset('asset_web/js/jquery.js') }}"></sc>
+    <sc src="{{ asset('asset_web/js/plugins.js') }}"></sc>
 
     <!--Template functions-->
-    <script src="{{ asset('asset_web/js/functions.js')}}"></script>
+    <sc src="{{ asset('asset_web/js/functions.js')}}"></sc>
 </body>
 </html>
