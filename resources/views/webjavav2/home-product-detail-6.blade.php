@@ -65,9 +65,9 @@
                 <div class="row">
                     <div class="col-lg-7 m-b-30">
                         <div class="carousel" data-items="1">
-                            <a href="#" data-lightbox="gallery-image"><img src="{{ asset('asset_web/webjava/images/operation-maintenance-1.png') }}" alt=""></a>
-                            <a href="#" data-lightbox="gallery-image"><img src="{{ asset('asset_web/webjava/images/operation-maintenance-1.png') }}" alt=""></a>
-                            <a href="#" data-lightbox="gallery-image"><img src="{{ asset('asset_web/webjava/images/operation-maintenance-1.png') }}" alt=""></a>
+                            <a href="#" data-lightbox="gallery-image"><img src="{{ asset('asset_web/webjava/images/operation-maintenance-1.jpg') }}" alt=""></a>
+                            <a href="#" data-lightbox="gallery-image"><img src="{{ asset('asset_web/webjava/images/operation-maintenance-2.png') }}" alt=""></a>
+                            <a href="#" data-lightbox="gallery-image"><img src="{{ asset('asset_web/webjava/images/operation-maintenance-1.jpg') }}" alt=""></a>
                         </div>
                     </div>
                     <div class="col-lg-5 p-l-40 p-r-40">

@@ -1,4 +1,7 @@
 /* Section 2 */
+.polo-carousel-item img {
+    height: 364px !important;
+}
 .product-container:nth-child(6),
 .product-container:nth-child(7),
 .product-container:nth-child(8),
@@ -7,9 +10,6 @@
 .product-container:nth-child(11) {
     margin-bottom: 15rem;
 }
-/* .flickity-viewport {
-    height: 15rem !important;
-} */
 /* Section 1 */
 .slide-captions {
     z-index: 10;

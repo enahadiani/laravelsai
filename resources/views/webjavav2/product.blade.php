@@ -62,11 +62,11 @@
         </header>
         <!-- end: Header -->
         {{-- Section 2 --}}
-        <section id="page-title" data-bg-parallax="{{ asset('asset_web/webjava/images/product.jpg') }}">
+        <section id="page-title" data-bg-parallax="{{ asset('asset_web/webjava/images/JavaTurbine2.jpg') }}">
             <div class="bg-overlay"></div>
             <div class="container">
                 <div class="page-title">
-                    <h1 class="text-uppercase text-medium">Product</h1>
+                    <h1 class="text-medium">Our Product</h1>
                 </div>
             </div>
         </section>
@@ -130,9 +130,9 @@
                     <div class="row">
                         <div class="col-lg-7 m-b-30">
                             <div class="carousel" data-items="1">
-                                <a href="#" data-lightbox="gallery-image"><img src="{{ asset('asset_web/webjava/images/fabrication-1.png') }}" alt=""></a>
-                                <a href="#" data-lightbox="gallery-image"><img src="{{ asset('asset_web/webjava/images/fabrication-1.png') }}" alt=""></a>
-                                <a href="#" data-lightbox="gallery-image"><img src="{{ asset('asset_web/webjava/images/fabrication-1.png') }}" alt=""></a>
+                                <a href="#" data-lightbox="gallery-image"><img src="{{ asset('asset_web/webjava/images/fabrication-1.jpg') }}" alt=""></a>
+                                <a href="#" data-lightbox="gallery-image"><img src="{{ asset('asset_web/webjava/images/fabrication-2.jpg') }}" alt=""></a>
+                                <a href="#" data-lightbox="gallery-image"><img src="{{ asset('asset_web/webjava/images/fabrication-3.png') }}" alt=""></a>
                             </div>
                         </div>
                         <div class="col-lg-5 p-l-40 p-r-40">
@@ -152,9 +152,9 @@
                     <div class="row">
                         <div class="col-lg-7 m-b-30">
                             <div class="carousel" data-items="1">
-                                <a href="#" data-lightbox="gallery-image"><img src="{{ asset('asset_web/webjava/images/construction-1.png') }}" alt=""></a>
-                                <a href="#" data-lightbox="gallery-image"><img src="{{ asset('asset_web/webjava/images/construction-1.png') }}" alt=""></a>
-                                <a href="#" data-lightbox="gallery-image"><img src="{{ asset('asset_web/webjava/images/construction-1.png') }}" alt=""></a>
+                                <a href="#" data-lightbox="gallery-image"><img src="{{ asset('asset_web/webjava/images/construction-1.jpg') }}" alt=""></a>
+                                <a href="#" data-lightbox="gallery-image"><img src="{{ asset('asset_web/webjava/images/construction-2.png') }}" alt=""></a>
+                                <a href="#" data-lightbox="gallery-image"><img src="{{ asset('asset_web/webjava/images/construction-1.jpg') }}" alt=""></a>
                             </div>
                         </div>
                         <div class="col-lg-5 p-l-40 p-r-40">
@@ -169,9 +169,9 @@
                     <div class="row">
                         <div class="col-lg-7 m-b-30">
                             <div class="carousel" data-items="1">
-                                <a href="#" data-lightbox="gallery-image"><img src="{{ asset('asset_web/webjava/images/operation-maintenance-1.png') }}" alt=""></a>
-                                <a href="#" data-lightbox="gallery-image"><img src="{{ asset('asset_web/webjava/images/operation-maintenance-1.png') }}" alt=""></a>
-                                <a href="#" data-lightbox="gallery-image"><img src="{{ asset('asset_web/webjava/images/operation-maintenance-1.png') }}" alt=""></a>
+                                <a href="#" data-lightbox="gallery-image"><img src="{{ asset('asset_web/webjava/images/operation-maintenance-1.jpg') }}" alt=""></a>
+                                <a href="#" data-lightbox="gallery-image"><img src="{{ asset('asset_web/webjava/images/operation-maintenance-2.png') }}" alt=""></a>
+                                <a href="#" data-lightbox="gallery-image"><img src="{{ asset('asset_web/webjava/images/operation-maintenance-1.jpg') }}" alt=""></a>
                             </div>
                         </div>
                         <div class="col-lg-5 p-l-40 p-r-40">
@@ -251,9 +251,9 @@
                         </div>
                         <div class="col-lg-7 m-b-30">
                             <div class="carousel" data-items="1">
-                                <a href="#" data-lightbox="gallery-image"><img src="{{ asset('asset_web/webjava/images/fabrication-1.png') }}" alt=""></a>
-                                <a href="#" data-lightbox="gallery-image"><img src="{{ asset('asset_web/webjava/images/fabrication-1.png') }}" alt=""></a>
-                                <a href="#" data-lightbox="gallery-image"><img src="{{ asset('asset_web/webjava/images/fabrication-1.png') }}" alt=""></a>
+                                <a href="#" data-lightbox="gallery-image"><img src="{{ asset('asset_web/webjava/images/fabrication-1.jpg') }}" alt="" height="364" width="550"></a>
+                                <a href="#" data-lightbox="gallery-image"><img src="{{ asset('asset_web/webjava/images/fabrication-2.jpg') }}" alt="" height="364" width="550"></a>
+                                <a href="#" data-lightbox="gallery-image"><img src="{{ asset('asset_web/webjava/images/fabrication-3.png') }}" alt="" height="364" width="550"></a>
                             </div>
                         </div>
                     </div>
@@ -262,9 +262,9 @@
                     <div class="row">
                         <div class="col-lg-7 m-b-30">
                             <div class="carousel" data-items="1">
-                                <a href="#" data-lightbox="gallery-image"><img src="{{ asset('asset_web/webjava/images/construction-1.png') }}" alt=""></a>
-                                <a href="#" data-lightbox="gallery-image"><img src="{{ asset('asset_web/webjava/images/construction-1.png') }}" alt=""></a>
-                                <a href="#" data-lightbox="gallery-image"><img src="{{ asset('asset_web/webjava/images/construction-1.png') }}" alt=""></a>
+                                <a href="#" data-lightbox="gallery-image"><img src="{{ asset('asset_web/webjava/images/construction-1.jpg') }}" alt=""></a>
+                                <a href="#" data-lightbox="gallery-image"><img src="{{ asset('asset_web/webjava/images/construction-2.png') }}" alt=""></a>
+                                <a href="#" data-lightbox="gallery-image"><img src="{{ asset('asset_web/webjava/images/construction-1.jpg') }}" alt=""></a>
                             </div>
                         </div>
                         <div class="col-lg-5 p-l-40 p-r-40">
@@ -287,9 +287,9 @@
                         </div>
                         <div class="col-lg-7 m-b-30">
                             <div class="carousel" data-items="1">
-                                <a href="#" data-lightbox="gallery-image"><img src="{{ asset('asset_web/webjava/images/operation-maintenance-1.png') }}" alt=""></a>
-                                <a href="#" data-lightbox="gallery-image"><img src="{{ asset('asset_web/webjava/images/operation-maintenance-1.png') }}" alt=""></a>
-                                <a href="#" data-lightbox="gallery-image"><img src="{{ asset('asset_web/webjava/images/operation-maintenance-1.png') }}" alt=""></a>
+                                <a href="#" data-lightbox="gallery-image"><img src="{{ asset('asset_web/webjava/images/operation-maintenance-1.jpg') }}" alt=""></a>
+                                <a href="#" data-lightbox="gallery-image"><img src="{{ asset('asset_web/webjava/images/operation-maintenance-2.png') }}" alt=""></a>
+                                <a href="#" data-lightbox="gallery-image"><img src="{{ asset('asset_web/webjava/images/operation-maintenance-1.jpg') }}" alt=""></a>
                             </div>
                         </div>
                     </div>
