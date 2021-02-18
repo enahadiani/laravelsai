@@ -1,5 +1,7 @@
 .polo-carousel-item img {
-    height: 364px !important;
+    object-fit: cover;
+    height: 400px;
+    width: 600px;
 }
 /* Footer */
 .footer-background {
