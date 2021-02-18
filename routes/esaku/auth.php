@@ -59,3 +59,13 @@ Route::post('notif-update-status','Esaku\NotifController@updateStatusRead');
 Route::post('search-form','Esaku\AuthController@searchForm');
 Route::get('search-form-list','Esaku\AuthController@searchFormList');
 Route::get('search-form-list2','Esaku\AuthController@searchFormList2');
+
+
+Route::get('/bottom-sheet', function () {
+    return view('esaku.modal');
+});
+
+
+Route::get('/bottom-sheet2', function () {
+    return view('esaku.modal2');
+});
