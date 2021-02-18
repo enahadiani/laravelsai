@@ -263,11 +263,13 @@
                 </div>
             </div>
             <div class="list-klien">
-                <img src="{{ asset('asset_web/img/esaku/logo-client.svg') }}" alt="logo-client">
-                <img src="{{ asset('asset_web/img/esaku/logo-client.svg') }}" alt="logo-client">
-                <img src="{{ asset('asset_web/img/esaku/logo-client.svg') }}" alt="logo-client">
-                <img src="{{ asset('asset_web/img/esaku/logo-client.svg') }}" alt="logo-client">
-                <img src="{{ asset('asset_web/img/esaku/logo-client.svg') }}" alt="logo-client">
+                <div class="list-klien-container">
+                    <img src="{{ asset('asset_web/img/esaku/logo-client.svg') }}" alt="logo-client">
+                    <img src="{{ asset('asset_web/img/esaku/logo-client.svg') }}" alt="logo-client">
+                    <img src="{{ asset('asset_web/img/esaku/logo-client.svg') }}" alt="logo-client">
+                    <img src="{{ asset('asset_web/img/esaku/logo-client.svg') }}" alt="logo-client">
+                    <img src="{{ asset('asset_web/img/esaku/logo-client.svg') }}" alt="logo-client">
+                </div>
             </div>
         </section>
 

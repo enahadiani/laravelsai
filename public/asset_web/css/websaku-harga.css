@@ -32,7 +32,7 @@
     background-repeat: no-repeat;
 }
 /* Section 2 */
-#section-2 .list-klien {
+#section-2 .list-klien .list-klien-container {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
