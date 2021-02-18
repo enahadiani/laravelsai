@@ -125,7 +125,7 @@
         
         @keyframes animatebottom {
             from {
-                bottom: -300px;
+                bottom: -400px;
                 opacity: 0.8;
             }
             
