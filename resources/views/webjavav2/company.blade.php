@@ -93,7 +93,7 @@
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-12 m-b-30 col-dekstop">
-                    <img alt="logo-company" src="{{ asset('asset_web/webjava/images/company.png') }}" width="600"/>
+                    <img alt="logo-company" src="{{ asset('asset_web/webjava/images/JavaTurbineLas2.jpg') }}" height="450" width="600"/>
                 </div>
             </div>
         </section>
@@ -103,7 +103,11 @@
             <div class="row company-profile-box">
                 <div class="col-lg-6 text-left" style="background-color: #012068">
                     <h2>VISION</h2>
-                    <span>Being a leading EPC company by always maintain consistency of quality product sustainability. </span>
+                    <span>
+                        We aim to be one of the leading companies in providing services and
+                        technologies throughout the entire supply chain of clean and renewable
+                        energy sector.
+                    </span>
                 </div>
 
                 <div class="col-lg-6 text-left" style="background-color: #002D96">
@@ -115,21 +119,66 @@
         </section>
 
         {{-- Section 4 --}}
-        <section class="p-t-100 p-b-100 col-dekstop">
+        <section class="p-t-100 p-b-100">
             <div class="container">
                 <div class="heading-text text-center heading-section m-b-80">
-                    <h2>Organization</h2>
+                    <h2>Meet The Team</h2>
                 </div>
-                <div id="organization"></div>
-            </div>
-        </section>
-
-        <section class="p-t-100 p-b-100 col-mobile">
-            <div class="container">
-                <div class="heading-text text-center heading-section m-b-80">
-                    <h2>Organization</h2>
+                <div class="row team-members m-b-40">
+                    <div class="col-lg-4">
+                        <div class="team-member">
+                            <div class="team-image">
+                                <img src="{{ asset('asset_web/webjava/images/ceo.jpg')}}" height="300">
+                            </div>
+                            <div class="team-desc">
+                                <h3>Lukman Santoso</h3>
+                                <span>CEO</span>
+                                <p>
+                                    Lukman is a mechanical engineer who has more than 17 years
+                                    experience in designing and manufacturing turbines,
+                                    experiences in rehabilitation, uprating, and develop hydro
+                                    power. He co-founded Java with Lis.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="team-member">
+                            <div class="team-image">
+                                <img src="{{ asset('asset_web/webjava/images/coo.jpg')}}" height="300">
+                            </div>
+                            <div class="team-desc">
+                                <h3>Lis Sumarningsih</h3>
+                                <span>COO</span>
+                                <p>
+                                    Lis is a process engineer by background
+                                    She has more than 15 years of
+                                    experience in steam turbine, utility engineering, project
+                                    management, project controller, and a certified HSE auditor. She also experiences as implementing consultant..
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="team-member">
+                            <div class="team-image">
+                                <img src="{{ asset('asset_web/webjava/images/commissioner.jpg')}}" height="300">
+                            </div>
+                            <div class="team-desc">
+                                <h3>Elrika Hamdi</h3>
+                                <span>Commissioner</span>
+                                <p>
+                                    Elrika is a long-term specialist in the renewable energy
+                                    financial sector. She has helped a number of renwable
+                                    projects in Indonesia funded by bilateral and multilateral
+                                    donors such as USAID, AFD, GIZ, and UNEP. Elrika is the
+                                    Managing Director of PT Imaji, and is currently working as an
+                                    energy finance analyst with IEEFA.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <img alt="organization" src="{{ asset('asset_web/webjava/images/organisasi.png') }}" height="400" width="350" />
             </div>
         </section>
 
@@ -275,7 +324,7 @@
 
     <!--Template functions-->
     <script src="{{ asset('asset_web/js/functions.js')}}"></script>
-    <script type="text/javascript">
+    {{-- <script type="text/javascript">
         Highcharts.chart('organization', {
             chart: {
                 height: 900,
@@ -441,6 +490,6 @@
             }
 
         });
-    </script>
+    </script> --}}
 </body>
 </html>
