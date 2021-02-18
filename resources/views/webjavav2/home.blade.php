@@ -464,35 +464,7 @@
             </div>
         </section>
         {{-- Footer --}}
-        <footer id="footer" class="footer-background">
-            <div class="footer-content">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <address>
-                                        <strong>Workshop & Engineering Office</strong><br>
-                                        De Primaterra Industrial Estate<br>
-                                        C2A-6<br>
-                                        Jalan Raya Sapan, Tegal Luar,<br>
-                                        Bojongsoang, Bandung 40288<br>
-                                        West Java - Indonesia<br>
-                                        Phone/Fax: +62 22 87306036<br>
-                                        Email: marketing@javaturbine.co.id
-                                    </address>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="copyright-content">
-                <div class="container">
-                    <div class="copyright-text text-center">&copy; {{ date('Y') }} Java Turbine</div>
-                </div>
-            </div>
-        </footer>
+        @include('webjavav2.footer')
     </div>
     <a id="scrollTop"><i class="icon-chevron-up"></i><i class="icon-chevron-up"></i></a>
     <!--Plugins-->
