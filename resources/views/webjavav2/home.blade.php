@@ -77,7 +77,7 @@
                     <div class="slide-captions text-light section-one-space">
                         <!-- Captions -->
                         <h5 class="text-dark text-lg-x2">PT. JAVA PRATAMA ENERGI</h5>
-                        <h1 class="lead">Being a leading EPC company by always maintaining the quality of product and services.</h1>
+                        <h1 class="lead">Renewable Energy & Energy Conservation Solution.</h1>
                         <!-- end: Captions -->
                     </div>
                 </div>
