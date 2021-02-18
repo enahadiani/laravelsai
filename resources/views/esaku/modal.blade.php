@@ -1,4 +1,4 @@
-        <link rel="stylesheet" href="{{ asset('asset_dore/bottom-sheet/style.css') }}" /> 
+        <link rel="stylesheet" href="{{ asset('asset_dore/bottom-sheet/style.scss') }}" /> 
         <div class="header">
 			<h1>Bottom-Sheet</h1>
 			<button id="country-select-button">Bottom ?</button>

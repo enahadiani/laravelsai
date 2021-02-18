@@ -158,7 +158,7 @@
             background:red;
         }
 
-        .modal {
+        /* .modal {
             &:focus {
                 outline: none;
             }
@@ -250,7 +250,7 @@
             max-height: 45%;
             border-radius: 0;
             will-change: bottom, opacity;
-        }
+        } */
 
     </style>
     <script>
@@ -299,11 +299,11 @@
     <script src="{{ asset('asset_elite/inputmask.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/bootstrap-tagsinput.min.js') }}"></script>
     
-    <script src="{{ asset('asset_dore/js/materialize-modal/component.js') }}"></script>
+    <!-- <script src="{{ asset('asset_dore/js/materialize-modal/component.js') }}"></script>
     <script src="{{ asset('asset_dore/js/materialize-modal/cash.js') }}"></script>
     <script src="{{ asset('asset_dore/js/materialize-modal/global.js') }}"></script>
     <script src="{{ asset('asset_dore/js/materialize-modal/anime.min.js') }}"></script>
-    <script src="{{ asset('asset_dore/js/materialize-modal/modal.js') }}"></script>
+    <script src="{{ asset('asset_dore/js/materialize-modal/modal.js') }}"></script> -->
 </head>
 <!-- <div class="preloader-wrap">
     <div class="progress" id="load-page">
@@ -475,10 +475,10 @@
         $.fn.bootstrapDP = datepicker;
     }
 
-    if (!$.fn.bootstrapMD && $.fn.modal && $.fn.modal.noConflict) {
-        var modal = $.fn.modal.noConflict();
-        $.fn.bootstrapMD = modal;
-    }
+    // if (!$.fn.bootstrapMD && $.fn.modal && $.fn.modal.noConflict) {
+    //     var modal = $.fn.modal.noConflict();
+    //     $.fn.bootstrapMD = modal;
+    // }
     var $form_aktif = "";
     // Enable pusher logging - don't include this in production
     Pusher.logToConsole = true;

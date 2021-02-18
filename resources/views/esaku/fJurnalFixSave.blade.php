@@ -102,7 +102,7 @@
         .table-header-prev td,th{
             padding: 2px 8px !important;
         }
-        /* #modal-preview .modal-content
+        #modal-preview .modal-content
         {
             border-bottom-left-radius: 0px !important;
             border-bottom-right-radius: 0px !important;
@@ -120,29 +120,29 @@
         }
 
         .animate-bottom {
-            animation: animatebottom 0.7s;
+            animation: animatebottom 0.5s;
         }
         
         @keyframes animatebottom {
             from {
-                bottom: -300px;
-                opacity: 0;
+                bottom: -400px;
+                opacity: 0.8;
             }
             
             to {
                 bottom: 0;
                 opacity: 1;
             }
-        } */
+        }
         
-        .bottom-sheet{
+        /* .bottom-sheet{
             max-height: 100% !important;
         }
         
         .bottom-sheet .modal.content{
             width: 60%; 
             margin: 0px auto
-        }
+        } */
 
     </style>
     <!-- FORM INPUT -->
@@ -474,29 +474,29 @@
     <script src="{{ asset('helper.js') }}"></script>
     <script>
     
-    $('.modal').modal({
-        dismissible: true, // Modal can be dismissed by clicking outside of the modal
-        opacity: .5, // Opacity of modal background
-        inDuration: 300, // Transition in duration
-        outDuration: 200, // Transition out duration
-        startingTop: '4%', // Starting top style attribute
-        endingTop: '10%', // Ending top style attribute
-        ready: function(modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.
-        //  alert("Ready");
-            console.log(modal, trigger);
-        },
-        complete: function() { //alert('Closed');
-        } // Callback for Modal close
-        }
-    );
+    // $('.modal').modal({
+    //     dismissible: true, // Modal can be dismissed by clicking outside of the modal
+    //     opacity: .5, // Opacity of modal background
+    //     inDuration: 300, // Transition in duration
+    //     outDuration: 200, // Transition out duration
+    //     startingTop: '4%', // Starting top style attribute
+    //     endingTop: '10%', // Ending top style attribute
+    //     ready: function(modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.
+    //     //  alert("Ready");
+    //         console.log(modal, trigger);
+    //     },
+    //     complete: function() { //alert('Closed');
+    //     } // Callback for Modal close
+    //     }
+    // );
     $('#process-upload').addClass('disabled');
     $('#process-upload').prop('disabled', true);
     $('#kode_form').val($form_aktif);
     
-    $('#modal-preview').addClass('bottom-sheet modal-fixed-footer');
+    // $('#modal-preview').addClass('bottom-sheet modal-fixed-footer');
     
-    // $('#modal-preview').addClass('fade animate');
-    // $('#modal-preview .modal-content').addClass('animate-bottom');
+    $('#modal-preview').addClass('animate');
+    $('#modal-preview .modal-content').addClass('animate-bottom');
     
     var $iconLoad = $('.preloader');
     var $target = "";
@@ -1275,7 +1275,7 @@
                             $('#btn-edit2').css('display','inline-block');
                         }
                         $('#modal-preview-id').text(id);
-                        $('#modal-preview').modal('open');
+                        $('#modal-preview').modal('show');
                     }
                     else if(!result.status && result.message == 'Unauthorized'){
                         window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
@@ -1288,7 +1288,7 @@
 
     $('.modal-header').on('click','#btn-delete2',function(e){
         var id = $('#modal-preview-id').text();
-        $('#modal-preview').modal('close');
+        $('#modal-preview').modal('hide');
         msgDialog({
             id:id,
             type:'hapus'
@@ -1303,7 +1303,7 @@
         
         $('#btn-save').attr('type','button');
         $('#btn-save').attr('id','btn-update');
-        $('#modal-preview').modal('close');
+        $('#modal-preview').modal('hide');
         editData(id);
     });
 
@@ -1315,7 +1315,7 @@
     });
 
     $('.modal-header').on('click','#preview-close',function(e){
-        $('.modal').modal('close');
+        $('.modal').modal('hide');
     });
 
     $('.modal-header').on('click','#btn-cetak2',function(e){
