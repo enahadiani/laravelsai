@@ -24,7 +24,7 @@
 
         {{-- Section 1 --}}
         {{-- Section 2 --}}
-        <section id="page-title" data-bg-parallax="{{ asset('asset_web/webjava/images/product.jpg') }}">
+        <section id="page-title" data-bg-parallax="{{ asset('asset_web/webjava/images/JavaTurbine2.jpg') }}">
             <div class="bg-overlay"></div>
             <div class="container">
                 <div class="page-title">
