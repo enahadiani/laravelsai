@@ -124,7 +124,7 @@ class DonasiController extends Controller
                         'name'     => ucwords(str_replace('_', ' ', $request->tipe_donasi))
                     ]
                 ],
-                'enabled_payments' => ['gopay','qris']
+                'enabled_payments' => ['gopay']
 
             ];
             $snapToken = Veritrans_Snap::getSnapToken($payload);
