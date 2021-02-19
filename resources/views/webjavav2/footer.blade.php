@@ -37,17 +37,18 @@
                                         <input type="text" class="form-control required" name="widget-contact-form-phone" placeholder="Enter phone" aria-required="true">
                                     </div>
 
-                                    <div class="form-group col-lg-6">
-                                        <label>Services</label>
+                                    {{-- <div class="form-group col-lg-6">
+                                        <label>Products</label>
                                         <select name="widget-contact-form-services">
-                                            <option value="">Select service</option>
-                                            <option value="Wordpress">Wordpress</option>
-                                            <option value="PHP / MySQL">PHP / MySQL</option>
-                                            <option value="HTML5 / CSS3">HTML5 / CSS3</option>
-                                            <option value="Graphic Design">Graphic Design</option>
+                                            <option value="">Select product</option>
+                                            <option value="REC">Renewable Energy Consultation</option>
+                                            <option value="FS">Feasibility Study</option>
+                                            <option value="DED">Detail Engineering Design</option>
+                                            <option value="FBR">Fabrication</option>
+                                            <option value="FBR">Fabrication</option>
                                         </select>
 
-                                    </div>
+                                    </div> --}}
                                 </div>
                                 <div class="form-group">
                                     <label for="message">Message</label>
@@ -78,7 +79,7 @@
                                         <input type="text" class="form-control required" name="widget-contact-form-phone" placeholder="Enter phone" aria-required="true">
                                     </div>
 
-                                    <div class="form-group col-lg-6">
+                                    {{-- <div class="form-group col-lg-6">
                                         <label>Services</label>
                                         <select name="widget-contact-form-services">
                                             <option value="">Select service</option>
@@ -88,7 +89,7 @@
                                             <option value="Graphic Design">Graphic Design</option>
                                         </select>
 
-                                    </div>
+                                    </div> --}}
                                 </div>
                                 <div class="form-group">
                                     <label for="message">Message</label>

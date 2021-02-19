@@ -128,7 +128,7 @@
                     <div class="col-lg-4">
                         <div class="team-member">
                             <div class="team-image">
-                                <img src="{{ asset('asset_web/webjava/images/ceo.jpg')}}" height="300">
+                                <img src="{{ asset('asset_web/webjava/images/ceo.jpg')}}" style="object-fit: cover;" height="300">
                             </div>
                             <div class="team-desc">
                                 <h3>Lukman Santoso</h3>
@@ -145,7 +145,7 @@
                     <div class="col-lg-4">
                         <div class="team-member">
                             <div class="team-image">
-                                <img src="{{ asset('asset_web/webjava/images/coo.jpg')}}" height="300">
+                                <img src="{{ asset('asset_web/webjava/images/coo.jpg')}}" style="object-fit: cover;" height="300">
                             </div>
                             <div class="team-desc">
                                 <h3>Lis Sumarningsih</h3>
@@ -162,7 +162,7 @@
                     <div class="col-lg-4">
                         <div class="team-member">
                             <div class="team-image">
-                                <img src="{{ asset('asset_web/webjava/images/commissioner.jpg')}}" height="300">
+                                <img src="{{ asset('asset_web/webjava/images/commissioner.jpg')}}" style="object-fit: cover;" height="300">
                             </div>
                             <div class="team-desc">
                                 <h3>Elrika Hamdi</h3>
