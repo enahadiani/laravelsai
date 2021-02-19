@@ -19,47 +19,7 @@
 <body>
     <div class="body-inner">
         <!-- Header -->
-        <header id="header" data-transparent="true" data-fullwidth="true" class="dark submenu-light ">
-            <div class="header-inner">
-                <div class="container">
-                    <div id="mainMenu-trigger">
-                        <a class="lines-button x"><span class="lines"></span></a>
-                    </div>
-                    <div class="header-container">   
-                        <div class="logo-nav">
-                            <div id="logo">
-                                <a href="https://app.simkug.com/webjava-v2/home">
-                                    <span class="logo-default">
-                                        <img alt="logo" width="70" src="{{ asset('asset_web/webjava/images/icon-java-blue.png') }}" />
-                                    </span>
-                                    <span class="logo-dark">
-                                        <img alt="logo" src="{{ asset('asset_web/webjava/images/icon-java-white.png') }}" />
-                                    </span>
-                                </a> 
-                            </div>
-                            <div id="mainMenu">
-                                <div class="container">
-                                    <nav>
-                                        <ul>
-                                            <li><a href="https://app.simkug.com/webjava-v2/home">Home</a></li>
-                                            <li><a href="https://app.simkug.com/webjava-v2/product">Product</a></li>
-                                            <li><a href="https://app.simkug.com/webjava-v2/company">Company</a></li>
-                                            <li><a href="https://app.simkug.com/webjava-v2/contact">Contact</a></li>
-                                        </ul>
-                                    </nav>
-                                    <div class="information-contact col-mobile">
-                                        <div>
-                                            <p>Phone: +62 22 87306036</p>
-                                            <p>Email: marketing@javaturbine.co.id</p>
-                                        </div>
-                                    </div>   
-                                </div>
-                            </div>
-                        </div>   
-                    </div>
-                </div>
-            </div>
-        </header>
+        @include('webjavav2.header')
         <!-- end: Header -->
 
         {{-- Section 1 --}}
@@ -79,7 +39,9 @@
                     <div class="m-b-40">
                         <h2>Company Profile</h2>
                         <p>
-                            PT JAVA PRATAMA ENERGI established on October 3rd, 2014, by Notary Etic Srimartini, SH. MKn. The company domiciled in Bandung, West Java – Indonesia
+                            PT JAVA PRATAMA ENERGI established on October 3rd, 2014, by Notary Etic Srimartini, SH. MKn. The company domiciled in Bandung, West Java – Indonesia.
+                        </p>
+                        <p>
                             JAVA is the local end-to-end turbine manufacturer, with proven knowledge and track records in the turbine, mechanical and electrical sector.
                             JAVA provides comprehensive solutions to industries that use either water or steam turbines for its energy needs.
                         </p>
@@ -125,7 +87,7 @@
                     <h2>Meet The Team</h2>
                 </div>
                 <div class="row team-members m-b-40">
-                    <div class="col-lg-4">
+                    <div class="col-lg-3">
                         <div class="team-member">
                             <div class="team-image">
                                 <img src="{{ asset('asset_web/webjava/images/ceo.jpg')}}" style="object-fit: cover;" height="300">
@@ -142,7 +104,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-3">
                         <div class="team-member">
                             <div class="team-image">
                                 <img src="{{ asset('asset_web/webjava/images/coo.jpg')}}" style="object-fit: cover;" height="300">
@@ -159,7 +121,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-3">
                         <div class="team-member">
                             <div class="team-image">
                                 <img src="{{ asset('asset_web/webjava/images/commissioner.jpg')}}" style="object-fit: cover;" height="300">
@@ -174,6 +136,26 @@
                                     donors such as USAID, AFD, GIZ, and UNEP. Elrika is the
                                     Managing Director of PT Imaji, and is currently working as an
                                     energy finance analyst with IEEFA.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="team-member">
+                            <div class="team-image">
+                                <img src="{{ asset('asset_web/webjava/images/advisor.jpg')}}" style="object-fit: cover;" height="300">
+                            </div>
+                            <div class="team-desc">
+                                <h3>M. Eddi Danusaputro</h3>
+                                <span>Special Advisor</span>
+                                <p>
+                                    Eddi is an experienced private equity player who has spent
+                                    most of his career in Singapore, first with Morgan Stanley, and
+                                    afterward co-founded Makara Capital, a boutique financial
+                                    services company. A few years ago Eddi returned to Indonesia
+                                    to co-found Imaji with Elrika. Eddi is currently the CEO of
+                                    Mandiri Capital Indonesia, the corporate venture capital
+                                    subsidiary of Bank Mandiri Tbk.
                                 </p>
                             </div>
                         </div>
