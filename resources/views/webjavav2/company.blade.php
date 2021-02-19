@@ -39,7 +39,9 @@
                     <div class="m-b-40">
                         <h2>Company Profile</h2>
                         <p>
-                            PT JAVA PRATAMA ENERGI established on October 3rd, 2014, by Notary Etic Srimartini, SH. MKn. The company domiciled in Bandung, West Java – Indonesia
+                            PT JAVA PRATAMA ENERGI established on October 3rd, 2014, by Notary Etic Srimartini, SH. MKn. The company domiciled in Bandung, West Java – Indonesia.
+                        </p>
+                        <p>
                             JAVA is the local end-to-end turbine manufacturer, with proven knowledge and track records in the turbine, mechanical and electrical sector.
                             JAVA provides comprehensive solutions to industries that use either water or steam turbines for its energy needs.
                         </p>
