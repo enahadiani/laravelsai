@@ -215,3 +215,12 @@ Route::put('setting-rasio', 'Esaku\SettingRasioController@update');
 Route::delete('setting-rasio', 'Esaku\SettingRasioController@destroy');
 Route::get('setting-rasio-klp', 'Esaku\SettingRasioController@getKlp');
 Route::get('setting-rasio-neraca', 'Esaku\SettingRasioController@getNeraca');
+
+Route::get('msakundet', 'Esaku\MasakunDetailController@index');
+Route::get('msakundet/{id}', 'Esaku\MasakunDetailController@getData');
+Route::post('msakundet', 'Esaku\MasakunDetailController@store');
+Route::put('msakundet/{id}', 'Esaku\MasakunDetailController@update');
+Route::delete('msakundet/{id}', 'Esaku\MasakunDetailController@delete');
+
+Route::get('msakundet-flag', 'Esaku\MasakunDetailController@getFlag');
+Route::get('msakundet-neraca', 'Esaku\MasakunDetailController@getNeraca');
