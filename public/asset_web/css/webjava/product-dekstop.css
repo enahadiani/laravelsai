@@ -1,8 +1,8 @@
 /* Section 2 */
 .polo-carousel-item img {
     object-fit: cover;
-    height: 400px;
-    width: 600px;
+    height: 300px;
+    width: 500px;
 }
 .product-container:nth-child(6),
 .product-container:nth-child(7),
