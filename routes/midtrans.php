@@ -40,8 +40,20 @@ Route::get('/unfinish', function(){
 Route::get('/error', function(){
     return response()->json(["message" => 'error'], 200);
 })->name('donation.error');
+
+Route::post('/finish', function(){
+    return response()->json(["message" => 'finish'], 200);
+})->name('donation.finish');
+
+Route::post('/unfinish', function(){
+    return response()->json(["message" => 'unfinish'], 200);
+})->name('donation.unfinish');
+
+Route::post('/error', function(){
+    return response()->json(["message" => 'error'], 200);
+})->name('donation.error');
  
-Route::post('/donation/store', 'Midtrans\DonasiController@store')->name('donation.store');
-Route::get('/donation', 'Midtrans\DonasiController@index');
-Route::post('/callback', 'Midtrans\DonasiController@notificationHandler')->name('notification.handler');
+Route::post('/donation/store', 'Midtrans\Donasi2Controller@store')->name('donation.store');
+Route::get('/donation', 'Midtrans\Donasi2Controller@index');
+Route::post('/callback', 'Midtrans\Donasi2Controller@notificationHandler')->name('notification.handler');
  
