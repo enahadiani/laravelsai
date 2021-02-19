@@ -87,7 +87,7 @@
                     <h2>Meet The Team</h2>
                 </div>
                 <div class="row team-members m-b-40">
-                    <div class="col-lg-4">
+                    <div class="col-lg-3">
                         <div class="team-member">
                             <div class="team-image">
                                 <img src="{{ asset('asset_web/webjava/images/ceo.jpg')}}" style="object-fit: cover;" height="300">
@@ -104,7 +104,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-3">
                         <div class="team-member">
                             <div class="team-image">
                                 <img src="{{ asset('asset_web/webjava/images/coo.jpg')}}" style="object-fit: cover;" height="300">
@@ -121,7 +121,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-3">
                         <div class="team-member">
                             <div class="team-image">
                                 <img src="{{ asset('asset_web/webjava/images/commissioner.jpg')}}" style="object-fit: cover;" height="300">
@@ -136,6 +136,26 @@
                                     donors such as USAID, AFD, GIZ, and UNEP. Elrika is the
                                     Managing Director of PT Imaji, and is currently working as an
                                     energy finance analyst with IEEFA.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="team-member">
+                            <div class="team-image">
+                                <img src="{{ asset('asset_web/webjava/images/advisor.jpg')}}" style="object-fit: cover;" height="300">
+                            </div>
+                            <div class="team-desc">
+                                <h3>M. Eddi Danusaputro</h3>
+                                <span>Special Advisor</span>
+                                <p>
+                                    Eddi is an experienced private equity player who has spent
+                                    most of his career in Singapore, first with Morgan Stanley, and
+                                    afterward co-founded Makara Capital, a boutique financial
+                                    services company. A few years ago Eddi returned to Indonesia
+                                    to co-found Imaji with Elrika. Eddi is currently the CEO of
+                                    Mandiri Capital Indonesia, the corporate venture capital
+                                    subsidiary of Bank Mandiri Tbk.
                                 </p>
                             </div>
                         </div>
