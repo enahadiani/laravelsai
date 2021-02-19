@@ -466,7 +466,7 @@
         </div>
     </form>
     <!-- FORM UPLOAD  -->
-
+    <button id="country-select-button" style="display:none">Bottom ?</button>
     @include('modal_search')
     @include('modal_upload')
     <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
@@ -489,6 +489,11 @@
     //     } // Callback for Modal close
     //     }
     // );
+
+    var bottomSheet = new BottomSheet("country-selector");
+    document.getElementById("country-select-button").addEventListener("click", bottomSheet.activate);
+    window.bottomSheet = bottomSheet;
+
     $('#process-upload').addClass('disabled');
     $('#process-upload').prop('disabled', true);
     $('#kode_form').val($form_aktif);
@@ -597,7 +602,7 @@
     var scrollform = document.querySelector('.form-body');
     var psscrollform = new PerfectScrollbar(scrollform);
     
-    var scroll = document.querySelector('#content-preview');
+    var scroll = document.querySelector('#content-bottom-sheet');
     var psscroll = new PerfectScrollbar(scroll);
 
     var scrollformupl = document.querySelector('.form-upload');
@@ -1265,17 +1270,18 @@
                                 </tr>
                             </table>
                         </div>`;
-                        $('#content-preview').html(html);
+                        $('#content-bottom-sheet').html(html);
                        
-                        if(posted == "Close"){
-                            $('#btn-delete2').css('display','none');
-                            $('#btn-edit2').css('display','none');
-                        }else{
-                            $('#btn-delete2').css('display','inline-block');
-                            $('#btn-edit2').css('display','inline-block');
-                        }
-                        $('#modal-preview-id').text(id);
-                        $('#modal-preview').modal('show');
+                        // if(posted == "Close"){
+                        //     $('#btn-delete2').css('display','none');
+                        //     $('#btn-edit2').css('display','none');
+                        // }else{
+                        //     $('#btn-delete2').css('display','inline-block');
+                        //     $('#btn-edit2').css('display','inline-block');
+                        // }
+                        // $('#modal-preview-id').text(id);
+                        // $('#modal-preview').modal('show');
+                        $('#country-select-button').trigger("click");
                     }
                     else if(!result.status && result.message == 'Unauthorized'){
                         window.location.href = "{{ url('esaku-auth/sesi-habis') }}";

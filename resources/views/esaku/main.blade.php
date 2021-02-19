@@ -480,19 +480,7 @@
 					<span></span>
 					<span></span>
 				</div>
-
-				<ul class="c-bottom-sheet__list">
-					<li class="c-bottom-sheet__item active">
-						<a class="c-bottom-sheet__link" href="/" class="d-flex justify-content-between">Indonesia
-							<i class="c-bottom-sheet__tick gi gi-tick"></i>
-						</a>
-					</li>
-					<li class="c-bottom-sheet__item"><a class="c-bottom-sheet__link" href="">Singapore</a></li>
-					<li class="c-bottom-sheet__item"><a class="c-bottom-sheet__link" href="">India</a></li>
-					<li class="c-bottom-sheet__item"><a class="c-bottom-sheet__link" href="">Thailand</a></li>
-					<li class="c-bottom-sheet__item"><a class="c-bottom-sheet__link" href="">Vietnam</a></li>
-				</ul>
-
+                <div id="content-bottom-sheet" style="max-height:80vh;overflow:scroll"></div>
 			</div>
 			<div class="c-bottom-sheet__container">
 

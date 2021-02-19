@@ -31,7 +31,7 @@
 			</div>
 		</div> -->
 <script>
-const bottomSheet = new BottomSheet("country-selector");
+var bottomSheet = new BottomSheet("country-selector");
 document.getElementById("country-select-button").addEventListener("click", bottomSheet.activate);
 window.bottomSheet = bottomSheet;
 </script>
