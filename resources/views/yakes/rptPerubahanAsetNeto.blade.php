@@ -51,7 +51,7 @@
             var bln = periode.from.substr(4,2);
             var tahunseb = parseInt(tahun)-1;
             var periode_pilih = namaPeriode(tahun+''+bln);
-            var periode_seb = namaPeriode(tahunseb+''+12);
+            var periode_seb = namaPeriode(tahunseb+''+bln);
             var html = `
             <style>
             <style>
