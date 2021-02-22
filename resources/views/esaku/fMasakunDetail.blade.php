@@ -1,12 +1,9 @@
 
     <link rel="stylesheet" href="{{ asset('trans.css') }}" />
-    <!-- LIST DATA -->
-    <x-list-data judul="Data Akun" tambah="true" :thead="array('Kode','Nama','Tgl Input','Aksi')" :thwidth="array(20,70,0,10)" :thclass="array('','','','text-center')" />
-    <!-- END LIST DATA -->
-
-    <!-- FORM INPUT -->
+    <link rel="stylesheet" href="{{ asset('form.css') }}" />
+    <link rel="stylesheet" href="{{ asset('master-esaku/form.css') }}" />
     <style>
-         .icon-tambah{
+        .icon-tambah {
             background: #505050;
             /* mask: url("{{ url('img/add.svg') }}"); */
             -webkit-mask-image: url("{{ url('img/add.svg') }}");
@@ -14,47 +11,23 @@
             width: 12px;
             height: 12px;
         }
-        .icon-close{
-            background: #D4D4D4;
+        .icon-close {
+            background: #d4d4d4;
             /* mask: url("{{ url('img/lock.svg') }}");
-             */
+                    */
             -webkit-mask-image: url("{{ url('img/lock.svg') }}");
             mask-image: url("{{ url('img/lock.svg') }}");
             width: 18px;
             height: 18px;
         }
-        .icon-open{
-            background: #D4D4D4;
+        .icon-open {
+            background: #d4d4d4;
             /* mask: url("{{ url('img/lock.svg') }}");
-             */
+                    */
             -webkit-mask-image: url("{{ url('img/lock.svg') }}");
             mask-image: url("{{ url('img/lock.svg') }}");
             width: 18px;
             height: 18px;
-        }
-        .popover{
-            top: -80px !important;
-        }
-    
-        .btn-back
-        {
-            line-height:1.5;padding: 0;background: none;appearance: unset;opacity: unset;right: -40px;position: relative;
-            top: 5px;
-            z-index: 10;
-            float: right;
-            margin-top: -30px;
-        }
-        .btn-back > span 
-        {
-            border-radius: 50%;padding: 0 0.45rem 0.1rem 0.45rem;font-size: 1.2rem !important;font-weight: lighter;box-shadow:0px 1px 5px 1px #80808054;
-            color:white;
-            background:red;
-        }
-
-        .btn-back > span:hover
-        {
-            color:white;
-            background:red;
         }
         .card-body-footer{
             background: white;
@@ -76,13 +49,15 @@
             margin-right: 25px;
         }
     
-        .bold{
-            font-weight:bold;
-        }
     </style>
+    <!-- LIST DATA -->
+    <x-list-data judul="Data Akun" tambah="true" :thead="array('Kode','Nama','Tgl Input','Aksi')" :thwidth="array(20,70,0,10)" :thclass="array('','','','text-center')" />
+    <!-- END LIST DATA -->
+
+    <!-- FORM INPUT -->
    <form id="form-tambah" class="tooltip-label-right" novalidate>
         <div class="row" id="saku-form" style="display:none;">
-            <div class="col-sm-12">
+            <div class="col-12">
                 <div class="card">
                     <div class="card-body form-header" style="padding-top:0.5rem;padding-bottom:0.5rem;min-height:48px">
                         <h6 id="judul-form" style="position:absolute;top:13px"></h6>
@@ -93,95 +68,104 @@
                     <div class="separator mb-2"></div>
                     <!-- FORM BODY -->
                     <div class="card-body pt-3 form-body">
-                        <div class="form-group row " id="row-id">
-                            <div class="col-9">
-                                <input class="form-control" type="hidden" id="id_edit" name="id_edit">
-                                <input type="hidden" id="method" name="_method" value="post">
-                                <input type="hidden" id="id" name="id">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6 col-sm-12">
-                                <div class="row">
-                                    <div class="col-md-6 col-sm-12">
-                                        <label for="kode_akun">Kode</label>
-                                        <input class="form-control" type="text" placeholder="Kode Akun" id="kode_akun" name="kode_akun" required>
-                                    </div>
-                                    <div class="col-md-6 col-sm-12">
-                                        <label for="nama">Nama</label>
-                                        <input class="form-control" type="text" placeholder="Nama" id="nama" name="nama" required>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group col-md-6 col-sm-12">
-                                <div class="row">
-                                    <div class="col-md-6 col-sm-12">
-                                        <label for="modul">Modul</label>
-                                        <select class="form-control selectize" id="modul" name="modul" required>
-                                            <option value="">--Pilih Modul--</option>
-                                            <option value="A">Aktiva</option>
-                                            <option value="P">Passiva</option>
-                                            <option value="L">Laba Rugi</option>
-                                        </select>
-                                        
-                                    </div>
-                                    <div class="col-md-6 col-sm-12">           
-                                        <label for="modul">Jenis</label>
-                                        <select class="form-control" id="jenis" name="jenis" required>
-                                        <option value="">--Pilih Jenis--</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6 col-sm-12">
-                                <div class="row">
-                                    <div class="col-md-6 col-sm-12">
-                                        <label for="kode_curr">Currency</label>
-                                        <input class="form-control" type="text" placeholder="Kode Currency" id="kode_curr" name="kode_curr" value="IDR" readonly required>            
-                                    </div>
-                                    <div class="col-md-6 col-sm-12">
-                                        <label for="account">Normal Account</label>
-                                        <select class="form-control selectize" id="account" name="account" required>
-                                        <option value="">--Pilih Normal Account--</option>
-                                        <option value="D">D - Debet</option>
-                                        <option value="C">C - Kredit</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group col-md-6 col-sm-12">
-                                <div class="row">
-                                    <div class="col-md-6 col-sm-12">
-                                        <label for="blok">Status Blok</label>
-                                        <select class="form-control selectize" id="blok" name="blok" required>
-                                            <option value="">--Pilih Status Blok--</option>
-                                            <option value="0">Unblok</option>
-                                            <option value="1">Blok</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-6 col-sm-12">
-                                        <label for="budget">Status Budget</label>
-                                        <select class="form-control selectize" id="budget" name="budget" required>
-                                            <option value="">--Pilih Status Budget--</option>
-                                            <option value="0">Uncheck</option>
-                                            <option value="1">Check</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         <ul class="nav nav-tabs col-12 " role="tablist">
-                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-flag" role="tab" aria-selected="true"><span class="hidden-xs-down">Flag Akun</span></a> </li>
-                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-lap" role="tab" aria-selected="true"><span class="hidden-xs-down">Laporan Keuangan</span></a> </li>
+                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#tab_umum" role="tab" aria-selected="true"><span class="hidden-xs-down">Umum</span></a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab_modul" role="tab" aria-selected="true"><span class="hidden-xs-down">Relasi Modul</span></a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab_laporan" role="tab" aria-selected="true"><span class="hidden-xs-down">Relasi Laporan</span></a> </li>
                         </ul>
-                        <div class="tab-content tabcontent-border col-12 p-0">
-                            <div class="tab-pane active" id="data-flag" role="tabpanel">
-                                <div class='col-md-12 nav-control' style="padding: 0px 5px;height:38px">
+                        <div class="tab-content tab-form-content col-12 p-0">
+                            <div class="tab-pane active" id="tab_umum" role="tabpanel">
+                                <div class="form-group row " id="row-id">
+                                    <div class="col-9">
+                                        <input class="form-control" type="hidden" id="id_edit" name="id_edit">
+                                        <input type="hidden" id="method" name="_method" value="post">
+                                        <input type="hidden" id="id" name="id">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-12 col-sm-12">
+                                        <div class="row">
+                                            <div class="col-md-12 col-sm-12">
+                                                <label for="nama">Nama</label>
+                                                <input class="form-control" type="text" placeholder="Nama" id="nama" name="nama" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-12 col-sm-12">
+                                        <div class="row">
+                                            <div class="col-md-6 col-sm-12">
+                                                <label for="modul">Kelompok Akun</label>
+                                                <select class="form-control selectize" id="modul" name="modul" required>
+                                                    <option value="">--Pilih--</option>
+                                                    <option value="A">Aktiva</option>
+                                                    <option value="P">Passiva</option>
+                                                    <option value="L">Laba Rugi</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6 col-sm-12">           
+                                                <label for="jenis">Kelompok Laporan</label>
+                                                <select class="form-control" id="jenis" name="jenis" required>
+                                                <option value="">--Pilih--</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-12 col-sm-12">
+                                        <div class="row">
+                                            <div class="col-md-6 col-sm-12">
+                                                <label for="account">Normal Akun</label>
+                                                <select class="form-control selectize" id="account" name="account" required>
+                                                <option value="">--Pilih--</option>
+                                                <option value="D">D - Debet</option>
+                                                <option value="C">C - Kredit</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6 col-sm-12">
+                                                <label for="kode_curr">Mata Uang</label>
+                                                <input class="form-control" type="text" id="kode_curr" name="kode_curr" value="IDR" readonly required>            
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <label for="kode_akun">Kode</label>
+                                        <input class="form-control" type="text" id="kode_akun" name="kode_akun" required>
+                                    </div>
+                                    <div class="error-side col-md-6 col-sm-12">
+                                        <p class="error-text" id="error-akun">Kode Akun sudah ada</p>
+                                    </div>
+                                </div>
+                                <div class="form-row" style="margin-bottom:70px">
+                                    <div class="form-group col-md-2 col-12 mb-0">
+                                        <div class="custom-switch custom-switch-primary mb-2">
+                                            <input class="custom-switch-input" id="block" type="checkbox">
+                                            <label class="custom-switch-btn" for="block"></label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-10 col-12">
+                                        <label for="block">Aktif</label>
+                                    </div>
+                                    <div class="form-group col-md-2 col-12">
+                                        <div class="custom-switch custom-switch-primary mb-2">
+                                            <input class="custom-switch-input" id="budget" type="checkbox">
+                                            <label class="custom-switch-btn" for="budget"></label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-10 col-12">
+                                        <label for="block">Cek Anggaran</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="tab_modul" role="tabpanel">
+                                <!-- <div class='col-md-12 nav-control' style="padding: 0px 5px;height:38px">
                                     <a type="button" href="#" id="copy-row" data-toggle="tooltip" title="Copy Row" style='font-size:18px'><i class='iconsminds-duplicate-layer' ></i> <span style="font-size:12.8px">Copy Row</span></a>
                                     <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row" ></span></a>
-                                </div>
+                                </div> -->
                                 <div class='col-md-12' style='min-height:420px; margin:0px; padding:0px;'>
                                     <style>
                                         th{
@@ -190,13 +174,13 @@
                                         /* #input-grid td{
                                             padding:0 !important;
                                         } */
-                                        #input-grid .selectize-input.focus, #input-grid input.form-control, #input-grid .custom-file-label
+                                        .gridexample .selectize-input.focus, .gridexample input.form-control, .gridexample .custom-file-label
                                         {
                                             border:1px solid black !important;
                                             border-radius:0 !important;
                                         }
 
-                                        #input-grid .selectize-input
+                                        .gridexample .selectize-input
                                         {
                                             border-radius:0 !important;
                                         } 
@@ -213,53 +197,46 @@
                                             /* background:#4286f5 !important; */
                                             /* color:white; */
                                         }
-                                        #input-grid td:not(:nth-child(1)):not(:nth-child(9)):hover
+                                        .gridexample td:not(:nth-child(1)):not(:nth-child(9)):hover
                                         {
                                             /* background: var(--theme-color-6) !important;
                                             color:white; */
                                             background:#f8f8f8;
                                             color:black;
                                         }
-                                        #input-grid input:hover,
-                                        #input-grid .selectize-input:hover,
+
+                                        .gridexample input:hover,
+                                        .gridexample .selectize-input:hover,
                                         {
                                             width:inherit;
                                         }
-                                        #input-grid ul.typeahead.dropdown-menu
+                                        .gridexample ul.typeahead.dropdown-menu
                                         {
                                             width:max-content !important;
                                         }
-                                        #input-grid td
+                                        .gridexample td
                                         {
                                             overflow:hidden !important;
                                             height:37.2px !important;
                                             padding:0px !important;
                                         }
 
-                                        #input-grid span
+                                        .gridexample span
                                         {
                                             padding:0px 10px !important;
                                         }
 
-                                        #input-grid input,#input-grid .selectize-input
+                                        .gridexample input,.gridexample .selectize-input
                                         {
                                             overflow:hidden !important;
                                             height:35px !important;
-                                        }
-
-
-                                        #input-grid td:nth-child(4)
-                                        {
-                                            overflow:unset !important;
                                         }
                                     </style>
                                     <table class="table table-bordered table-condensed gridexample" id="input-grid" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
                                     <thead style="background:#F8F8F8">
                                         <tr>
-                                            <th width="5%">No</th>
-                                            <th width="20%">Kode Flag</th>
-                                            <th width="65%">Nama Flag</th>
-                                            <th width="10%"></th>
+                                            <th width="15%" colspan="2">Aksi</th>
+                                            <th width="85%">Relasi Akun</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -268,21 +245,18 @@
                                     <a type="button" href="#" data-id="0" title="add-row" class="add-row btn btn-light2 btn-block btn-sm"><i class="saicon icon-tambah mr-1"></i>Tambah Baris</a>
                                 </div>
                             </div>
-                            <div class="tab-pane" id="data-lap" role="tabpanel">
-                                <div class='col-md-12 nav-control' style="padding: 0px 5px;height:38px">
+                            <div class="tab-pane" id="tab_laporan" role="tabpanel">
+                                <!-- <div class='col-md-12 nav-control' style="padding: 0px 5px;height:38px">
                                     <a type="button" href="#" id="copy-row" data-toggle="tooltip" title="Copy Row" style='font-size:18px'><i class='iconsminds-duplicate-layer' ></i> <span style="font-size:12.8px">Copy Row</span></a>
                                     <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row-lap" ></span></a>
-                                </div>
+                                </div> -->
                                 <div class='col-md-12' style='min-height:420px; margin:0px; padding:0px;'>
                                     <table class="table table-bordered table-condensed gridexample" id="input-lap" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
                                         <thead style="background:#F8F8F8">
                                             <tr>
-                                                <th width="5%">No</th>
-                                                <th width="15%">Kode FS</th>
-                                                <th width="25%">Nama FS</th>
-                                                <th width="15%">Kode Lap</th>
-                                                <th width="30%">Nama Lap</th>
-                                                <th width="10%"></th>
+                                                <th width="15%" colspan="2">Aksi</th>
+                                                <th width="40%">Versi Laporan</th>
+                                                <th width="45%">Kelompok Akun</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -293,7 +267,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card-body-footer row" style="width: 900px;padding: 0 25px;">
+                        <div class="card-body-footer row mx-auto" style="padding: 0 25px;">
                             <div style="vertical-align: middle;" class="col-md-10 text-right p-0">
                                 <p class="text-success" id="balance-label" style="margin-top: 20px;"></p>
                             </div>
@@ -314,6 +288,8 @@
     <script src="{{ asset('helper.js') }}"></script>
     <script>
     // var $iconLoad = $('.preloader');
+    $('#saku-form > .col-12').addClass('mx-auto col-lg-6');
+    $('#error-akun').hide();
     $optionJenis1 = [{value:'Neraca', text:'Neraca'}]
     $optionJenis2 = [{value:'Pendapatan', text:'Pendapatan'},{value:'Beban', text:'Beban'}]
     $dtkode_flag = [];
@@ -1208,10 +1184,8 @@
         var input = "";
         input += "<tr class='row-jurnal'>";
         input += "<td class='no-jurnal text-center'>"+no+"</td>";
-                                    
-        input += "<td><span class='td-kode tdflagke"+no+" tooltip-span'>"+kode_flag+"</span><input type='text' name='kode_flag[]' class='form-control inp-kode flagke"+no+" hidden' value='"+kode_flag+"' required='' style='z-index: 1;position: relative;' id='flagkode"+no+"'><a href='#' class='search-item search-flag hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
-        input += "<td><span class='td-nama tdnmflagke"+no+" tooltip-span'>"+nama_flag+"</span><input type='text' name='nama_flag[]' class='form-control inp-nama nmflagke"+no+" hidden'  value='"+nama_flag+"' readonly></td>";
         input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
+        input += "<td><span class='td-kode tdflagke"+no+" tooltip-span'>"+kode_flag+"</span><input type='text' name='kode_flag[]' class='form-control inp-kode flagke"+no+" hidden' value='"+kode_flag+"' required='' style='z-index: 1;position: relative;' id='flagkode"+no+"'><a href='#' class='search-item search-flag hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
         input += "</tr>";
         $('#input-grid tbody').append(input);
 
@@ -1223,7 +1197,7 @@
         hideUnselectedRow();
         if(param == "add"){
             $('#input-grid td').removeClass('px-0 py-0 aktif');
-            $('#input-grid tbody tr:last').find("td:eq(1)").addClass('px-0 py-0 aktif');
+            $('#input-grid tbody tr:last').find("td:eq(2)").addClass('px-0 py-0 aktif');
             $('#input-grid tbody tr:last').find(".inp-kode").show();
             $('#input-grid tbody tr:last').find(".td-kode").hide();
             $('#input-grid tbody tr:last').find(".search-flag").show();
@@ -1270,12 +1244,9 @@
         var input = "";
         input += "<tr class='row-lap'>";
         input += "<td class='no-lap text-center'>"+no+"</td>";
-                                    
-        input += "<td><span class='td-kode_fs tdfske"+no+" tooltip-span'>"+kode_fs+"</span><input type='text' name='kode_fs[]' class='form-control inp-kode_fs fske"+no+" hidden' value='"+kode_fs+"' required='' style='z-index: 1;position: relative;' id='fskode"+no+"'><a href='#' class='search-item search-fs hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
-        input += "<td><span class='td-nama_fs tdnmfske"+no+" tooltip-span'>"+nama_fs+"</span><input type='text' name='nama_fs[]' class='form-control inp-nama_fs nmfske"+no+" hidden'  value='"+nama_fs+"' readonly></td>";
-        input += "<td><span class='td-kode_neraca tdneracake"+no+" tooltip-span'>"+kode_neraca+"</span><input type='text' name='kode_neraca[]' class='form-control inp-kode_neraca neracake"+no+" hidden' value='"+kode_neraca+"' required='' style='z-index: 1;position: relative;' id='neracakode"+no+"'><a href='#' class='search-item search-neraca hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
-        input += "<td><span class='td-nama_neraca tdnmneracake"+no+" tooltip-span'>"+nama_neraca+"</span><input type='text' name='nama_neraca[]' class='form-control inp-nama_neraca nmneracake"+no+" hidden'  value='"+nama_neraca+"' readonly></td>";
         input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
+        input += "<td><span class='td-kode_fs tdfske"+no+" tooltip-span'>"+kode_fs+"</span><input type='text' name='kode_fs[]' class='form-control inp-kode_fs fske"+no+" hidden' value='"+kode_fs+"' required='' style='z-index: 1;position: relative;' id='fskode"+no+"'><a href='#' class='search-item search-fs hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+        input += "<td><span class='td-kode_neraca tdneracake"+no+" tooltip-span'>"+kode_neraca+"</span><input type='text' name='kode_neraca[]' class='form-control inp-kode_neraca neracake"+no+" hidden' value='"+kode_neraca+"' required='' style='z-index: 1;position: relative;' id='neracakode"+no+"'><a href='#' class='search-item search-neraca hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
         input += "</tr>";
         $('#input-lap tbody').append(input);
 
@@ -1287,7 +1258,7 @@
         hideUnselectedRowLap();
         if(param == "add"){
             $('#input-lap td').removeClass('px-0 py-0 aktif');
-            $('#input-lap tbody tr:last').find("td:eq(1)").addClass('px-0 py-0 aktif');
+            $('#input-lap tbody tr:last').find("td:eq(2)").addClass('px-0 py-0 aktif');
             $('#input-lap tbody tr:last').find(".inp-kode_fs").show();
             $('#input-lap tbody tr:last').find(".td-kode_fs").hide();
             $('#input-lap tbody tr:last').find(".search-fs").show();
@@ -1340,20 +1311,15 @@
 
     $('#input-grid').on('click', '.search-item', function(){
         var par = $(this).closest('td').find('input').attr('name');
+        var no =  $(this).parents("tr").find(".no-jurnal").text();
         switch(par){
             case 'kode_flag[]': 
-                var par2 = "nama_flag[]";
             break;
         }
         
         var tmp = $(this).closest('tr').find('input[name="'+par+'"]').attr('class');
         var tmp2 = tmp.split(" ");
         target1 = tmp2[2];
-
-        var tmp = $(this).closest('tr').find('input[name="'+par2+'"]').attr('class');
-        var tmp2 = tmp.split(" ");
-        target2 = tmp2[2];
-        console.log(target1,target2);
         switch(par){
             case 'kode_flag[]': 
                 var options = { 
@@ -1369,9 +1335,13 @@
                     jTarget1 : "val",
                     jTarget2 : "val",
                     target1 : "."+target1,
-                    target2 : "."+target2,
-                    target3 : ".td"+target2,
+                    target2 : "",
+                    target3 : "",
                     target4 : "",
+                    onItemSelected: function(data){
+                        $('.flagke'+no).val(data.kode_flag+" - "+data.nama);
+                        $('.tdflagke'+no).html(data.kode_flag+" - "+data.nama);
+                    },
                     width : ["30%","70%"]
                 };
             break;
@@ -1382,13 +1352,12 @@
 
     $('#input-lap').on('click', '.search-item', function(){
         var par = $(this).closest('td').find('input').attr('name');
+        var no =  $(this).parents("tr").find(".no-lap").text();
         console.log(par);
         switch(par){
             case 'kode_fs[]': 
-                var par2 = "nama_fs[]";
             break;
             case 'kode_neraca[]': 
-                var par2 = "nama_neraca[]";
                 var tmp = $(this).closest('tr').find('input[name="kode_fs[]"]').attr('class');
                 var tmp2 = tmp.split(" ");
                 var kode_fs = tmp2[2];
@@ -1398,10 +1367,6 @@
         var tmp = $(this).closest('tr').find('input[name="'+par+'"]').attr('class');
         var tmp2 = tmp.split(" ");
         target1 = tmp2[2];
-        
-        var tmp = $(this).closest('tr').find('input[name="'+par2+'"]').attr('class');
-        var tmp2 = tmp.split(" ");
-        target2 = tmp2[2];
         
         switch(par){
             case 'kode_fs[]': 
@@ -1418,13 +1383,19 @@
                     jTarget1 : "val",
                     jTarget2 : "val",
                     target1 : "."+target1,
-                    target2 : "."+target2,
-                    target3 : ".td"+target2,
+                    target2 : "",
+                    target3 : "",
                     target4 : "",
+                    onItemSelected: function(data){
+                        $('.fske'+no).val(data.kode_fs+" - "+data.nama);
+                        $('.tdfske'+no).html(data.kode_fs+" - "+data.nama);
+                    },
                     width : ["30%","70%"]
                 };
             break;
             case 'kode_neraca[]': 
+                var tmp = $(this).closest('tr').find('.inp-kode_fs').val().split(" - ");
+                var kode_fs = tmp[0];
                 var options = { 
                     id : par,
                     header : ['Kode', 'Nama'],
@@ -1438,10 +1409,14 @@
                     jTarget1 : "val",
                     jTarget2 : "val",
                     target1 : "."+target1,
-                    target2 : "."+target2,
-                    target3 : ".td"+target2,
+                    target2 : "",
+                    target3 : "",
                     target4 : "",
-                    parameter : {kode_fs: $(this).closest('tr').find('.inp-kode_fs').val()},
+                    onItemSelected: function(data){
+                        $('.neracake'+no).val(data.kode_neraca+" - "+data.nama);
+                        $('.tdneracake'+no).html(data.kode_neraca+" - "+data.nama);
+                    },
+                    parameter : {kode_fs: kode_fs},
                     width : ["30%","70%"]
                 };
             break;
@@ -1493,10 +1468,10 @@
         }
     });
 
-    $('#input-grid').on('keydown','.inp-kode_fs, .inp-nama_fs, .inp-kode_neraca, .inp-nama_neraca',function(e){
+    $('#input-grid').on('keydown','.inp-kode_fs, .inp-kode_neraca',function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['.inp-kode_fs','.inp-nama_fs','.inp-kode_neraca','.inp-nama_neraca'];
-        var nxt2 = ['.td-kode_fs','.td-nama_fs','.td-kode_neraca','.td-nama_neraca'];
+        var nxt = ['.inp-kode_fs','.inp-kode_neraca'];
+        var nxt2 = ['.td-kode_fs','.td-kode_neraca'];
         if (code == 13 || code == 9) {
             e.preventDefault();
             var idx = $(this).closest('td').index()-1;
@@ -1513,31 +1488,12 @@
                     getFS(kode,target1,target2,target3,'tab');                    
                     break;
                 case 1:
-                    $("#input-lap td").removeClass("px-0 py-0 aktif");
-                    $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
-                    $(this).closest('tr').find(nxt[idx]).hide();
-                    $(this).closest('tr').find(nxt2[idx]).show();
-
-                    $(this).closest('tr').find(nxt[idx_next]).show();
-                    $(this).closest('tr').find(nxt2[idx_next]).hide();
-                    break;
-                case 2:
                     var noidx = $(this).parents("tr").find(".no-lap").text();
                     var kode = $(this).val();
                     var target1 = "neracake"+noidx;
                     var target2 = "nmneracake"+noidx;
                     var target3 = "";
                     getNeraca(kode,target1,target2,target3,'tab');                    
-                    break;
-                case 2:
-                    $("#input-lap td").removeClass("px-0 py-0 aktif");
-                    $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
-                    $(this).closest('tr').find(nxt[idx]).hide();
-                    $(this).closest('tr').find(nxt2[idx]).show();
-                    
-                    $(this).closest('tr').find(nxt[idx_next]).show();
-                    $(this).closest('tr').find(nxt2[idx_next]).hide();
-                    
                     var cek = $(this).parents('tr').next('tr').find('.td-kode');
                     if(cek.length > 0){
                         cek.click();
@@ -1545,7 +1501,6 @@
                         $('.add-row').click();
                     }
                     break;
-
                 default:
                     break;
             }
@@ -1604,11 +1559,10 @@
                 $(this).addClass('px-0 py-0 aktif');
         
                 var kode_akun = $(this).parents("tr").find(".inp-kode").val();
-                var nama_akun = $(this).parents("tr").find(".inp-nama").val();
                 var no = $(this).parents("tr").find(".no-jurnal").text();
                 $(this).parents("tr").find(".inp-kode").val(kode_akun);
                 $(this).parents("tr").find(".td-kode").text(kode_akun);
-                if(idx == 1){
+                if(idx == 2){
                     $(this).parents("tr").find(".inp-kode").show();
                     $(this).parents("tr").find(".td-kode").hide();
                     $(this).parents("tr").find(".search-flag").show();
@@ -1618,18 +1572,6 @@
                     $(this).parents("tr").find(".td-kode").show();
                     $(this).parents("tr").find(".search-flag").hide();
                     
-                }
-        
-                $(this).parents("tr").find(".inp-nama").val(nama_akun);
-                $(this).parents("tr").find(".td-nama").text(nama_akun);
-                if(idx == 2){
-                    $(this).parents("tr").find(".inp-nama").show();
-                    $(this).parents("tr").find(".td-nama").hide();
-                    $(this).parents("tr").find(".inp-nama").focus();
-                }else{
-                    
-                    $(this).parents("tr").find(".inp-nama").hide();
-                    $(this).parents("tr").find(".td-nama").show();
                 }
             }
         }
@@ -1659,16 +1601,13 @@
                 $(this).addClass('px-0 py-0 aktif');
         
                 var kode_fs = $(this).parents("tr").find(".inp-kode_fs").val();
-                var nama_fs = $(this).parents("tr").find(".inp-nama_fs").val();
-                
                 var kode_neraca = $(this).parents("tr").find(".inp-kode_neraca").val();
-                var nama_neraca = $(this).parents("tr").find(".inp-nama_neraca").val();
 
                 var no = $(this).parents("tr").find(".no-lap").text();
 
                 $(this).parents("tr").find(".inp-kode_fs").val(kode_fs);
                 $(this).parents("tr").find(".td-kode_fs").text(kode_fs);
-                if(idx == 1){
+                if(idx == 2){
                     $(this).parents("tr").find(".inp-kode_fs").show();
                     $(this).parents("tr").find(".td-kode_fs").hide();
                     $(this).parents("tr").find(".search-fs").show();
@@ -1678,18 +1617,6 @@
                     $(this).parents("tr").find(".td-kode_fs").show();
                     $(this).parents("tr").find(".search-fs").hide();
                     
-                }
-        
-                $(this).parents("tr").find(".inp-nama_fs").val(nama_fs);
-                $(this).parents("tr").find(".td-nama_fs").text(nama_fs);
-                if(idx == 2){
-                    $(this).parents("tr").find(".inp-nama_fs").show();
-                    $(this).parents("tr").find(".td-nama_fs").hide();
-                    $(this).parents("tr").find(".inp-nama_fs").focus();
-                }else{
-                    
-                    $(this).parents("tr").find(".inp-nama_fs").hide();
-                    $(this).parents("tr").find(".td-nama_fs").show();
                 }
 
                 $(this).parents("tr").find(".inp-kode_neraca").val(kode_neraca);
@@ -1704,18 +1631,6 @@
                     $(this).parents("tr").find(".td-kode_neraca").show();
                     $(this).parents("tr").find(".search-neraca").hide();
                     
-                }
-
-                $(this).parents("tr").find(".inp-nama_neraca").val(nama_neraca);
-                $(this).parents("tr").find(".td-nama_neraca").text(nama_neraca);
-                if(idx == 4){
-                    $(this).parents("tr").find(".inp-nama_neraca").show();
-                    $(this).parents("tr").find(".td-nama_neraca").hide();
-                    $(this).parents("tr").find(".inp-nama_neraca").focus();
-                }else{
-                    
-                    $(this).parents("tr").find(".inp-nama_neraca").hide();
-                    $(this).parents("tr").find(".td-nama_neraca").show();
                 }
             }
         }

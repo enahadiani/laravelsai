@@ -1386,7 +1386,17 @@ class BottomSheet {
 
     function setWidthFooterCardBody(){
         if($('.card-body-footer').length > 0){
-            $('.card-body-footer').css('width',$('.container-fluid').width()+'px');
+            if($('#saku-form > .col-lg-6').length > 0){
+                var pos = $('#saku-form > .col-lg-6').position();
+                var main_width = $('.main-menu').width();
+                var main_pos = $('.main-menu').position();
+                if(main_pos.left < 0){
+                    main_width = 10;
+                }
+                $('.card-body-footer').css('width',$('#saku-form > .col-lg-6').width()+'px').css({'left':main_width});
+            }else{
+                $('.card-body-footer').css('width',$('.container-fluid').width()+'px');
+            }
         }
     }
 
