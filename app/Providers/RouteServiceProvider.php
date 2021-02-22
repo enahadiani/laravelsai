@@ -89,6 +89,8 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapWebesakuRoutes();
         
         $this->mapWebJavav2Routes();
+
+        $this->mapJavaRoutes();
     }
 
     /**
@@ -117,6 +119,34 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('api')
             ->namespace($this->namespace)
             ->group(base_path('routes/api.php'));
+    }
+
+    protected function mapJavaRoutes()
+    {
+        Route::prefix('java-auth')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/java/auth.php'));
+
+        Route::prefix('java-dash')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/java/dash.php'));
+    
+        Route::prefix('java-master')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/java/master.php'));
+    
+        Route::prefix('java-trans')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/java/trans.php'));
+    
+        Route::prefix('java-report')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/java/report.php'));
     }
 
     protected function mapSakuRoutes()
