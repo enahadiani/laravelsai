@@ -976,7 +976,7 @@ class BottomSheet {
     function getNotif(){
         $.ajax({
             type: 'GET',
-            url: "{{ url('esaku-auth/notif') }}",
+            url: "{{ url('java-auth/notif') }}",
             dataType: 'json',
             async:false,
             success:function(result){    
@@ -1035,7 +1035,7 @@ class BottomSheet {
                     var msg = "Internal server error";
                 }else if(jqXHR.status == 401){
                     var msg = "Unauthorized";
-                    window.location="{{ url('/esaku-auth/sesi-habis') }}";
+                    window.location="{{ url('/java-auth/sesi-habis') }}";
                 }else if(jqXHR.status == 405){
                     var msg = "Route not valid. Page not found";
                 }
@@ -1047,7 +1047,7 @@ class BottomSheet {
     function updateNotifRead(){
         $.ajax({
             type: 'POST',
-            url: "{{ url('esaku-auth/notif-update-status') }}",
+            url: "{{ url('java-auth/notif-update-status') }}",
             dataType: 'json',
             async:false,
             success:function(result){    
@@ -1063,7 +1063,7 @@ class BottomSheet {
                     var msg = "Internal server error";
                 }else if(jqXHR.status == 401){
                     var msg = "Unauthorized";
-                    window.location="{{ url('/esaku-auth/sesi-habis') }}";
+                    window.location="{{ url('/java-auth/sesi-habis') }}";
                 }else if(jqXHR.status == 405){
                     var msg = "Route not valid. Page not found";
                 }
@@ -1081,12 +1081,12 @@ class BottomSheet {
     function loadForm(url){
         $.ajax({
             type: 'GET',
-            url: "{{ url('esaku-auth/cek_session') }}",
+            url: "{{ url('java-auth/cek_session') }}",
             dataType: 'json',
             async:false,
             success:function(result){    
                 if(!result.status){
-                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                    window.location.href = "{{ url('java-auth/sesi-habis') }}";
                 }else{
                     
                     $('.body-content').load(url);
@@ -1102,7 +1102,7 @@ class BottomSheet {
                     var msg = "Internal server error";
                 }else if(jqXHR.status == 401){
                     var msg = "Unauthorized";
-                    window.location="{{ url('/esaku-auth/sesi-habis') }}";
+                    window.location="{{ url('/java-auth/sesi-habis') }}";
                 }else if(jqXHR.status == 405){
                     var msg = "Route not valid. Page not found";
                 }
@@ -1133,7 +1133,7 @@ class BottomSheet {
     function getFormList() {
         $.ajax({
             type:'GET',
-            url:"{{url('esaku-auth/search-form-list2')}}",
+            url:"{{url('java-auth/search-form-list2')}}",
             dataType: 'json',
             async: false,
             success: function(result) {
@@ -1144,7 +1144,7 @@ class BottomSheet {
                     }
 
                 }else if(!result.status && result.message == "Unauthorized"){
-                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                    window.location.href = "{{ url('java-auth/sesi-habis') }}";
                 } else{
                     console.log(result.message);
                 }
@@ -1156,7 +1156,7 @@ class BottomSheet {
                     var msg = "Internal server error";
                 }else if(jqXHR.status == 401){
                     var msg = "Unauthorized";
-                    window.location="{{ url('/esaku-auth/sesi-habis') }}";
+                    window.location="{{ url('/java-auth/sesi-habis') }}";
                 }else if(jqXHR.status == 405){
                     var msg = "Route not valid. Page not found";
                 }
@@ -1170,7 +1170,7 @@ class BottomSheet {
     function searchForm(cari){
         $.ajax({
             type: 'POST',
-            url: "{{ url('esaku-auth/search-form') }}",
+            url: "{{ url('java-auth/search-form') }}",
             dataType: 'json',
             data:{'cari':cari},
             async:false,
@@ -1190,7 +1190,7 @@ class BottomSheet {
                         $('.main-menu li').removeClass('active');
                         $('a[href="#'+target+'"]').parents("li").addClass("active");
 
-                        loadForm("{{ url('esaku-auth/form')}}/"+form);
+                        loadForm("{{ url('java-auth/form')}}/"+form);
                         return false;
                     }
                 }else{
@@ -1207,7 +1207,7 @@ class BottomSheet {
                     var msg = "Internal server error";
                 }else if(jqXHR.status == 401){
                     var msg = "Unauthorized";
-                    window.location="{{ url('/esaku-auth/sesi-habis') }}";
+                    window.location="{{ url('/java-auth/sesi-habis') }}";
                 }else if(jqXHR.status == 405){
                     var msg = "Route not valid. Page not found";
                 }
@@ -1217,13 +1217,13 @@ class BottomSheet {
     }
 
     function loadProfile(){
-        loadForm("{{url('esaku-auth/form/fProfile')}}");
+        loadForm("{{url('java-auth/form/fProfile')}}");
     }
     
     function loadMenu(){
         $.ajax({
             type: 'GET',
-            url: "{{ url('esaku-auth/menu') }}",
+            url: "{{ url('java-auth/menu') }}",
             dataType: 'json',
             async:false,
             success:function(result){  
@@ -1247,7 +1247,7 @@ class BottomSheet {
                     var msg = "Internal server error";
                 }else if(jqXHR.status == 401){
                     var msg = "Unauthorized";
-                    window.location="{{ url('/esaku-auth/sesi-habis') }}";
+                    window.location="{{ url('/java-auth/sesi-habis') }}";
                 }else if(jqXHR.status == 405){
                     var msg = "Route not valid. Page not found";
                 }
@@ -1265,7 +1265,7 @@ class BottomSheet {
     $('.dropdown-lokasi').html("<span class='lokasi-label'>Lokasi</span> <span class='periode-app float-right'>{{ Session::get('lokasi') }}</span>");
     
     if(form !="" || form != "-"){
-        loadForm("{{ url('esaku-auth/form')}}/"+form)
+        loadForm("{{ url('java-auth/form')}}/"+form)
     }
     
     $('.sub-menu').on('click','.a_link',function(e){
@@ -1274,7 +1274,7 @@ class BottomSheet {
         $form_aktif = $(this).data('kode_form');
         $('.sub-menu li').removeClass('active');
         $(this).closest('li').addClass('active');
-        var url = "{{ url('esaku-auth/form')}}/"+form;
+        var url = "{{ url('java-auth/form')}}/"+form;
         if(form == "" || form == "-"){
             // alert('Form dilock!');
             return false;
@@ -1329,14 +1329,14 @@ class BottomSheet {
     });
 
     $('#btn-newtab').click(function(){
-        var url = "{{url('esaku-auth')}}";
+        var url = "{{url('java-auth')}}";
         window.open(url, '_blank');
     });
 
     // $('#cari').typeahead({
     //     source: function (cari, result) {
     //         $.ajax({
-    //             url: "{{ url('esaku-auth/search-form-list') }}",
+    //             url: "{{ url('java-auth/search-form-list') }}",
     //             data: {cari:cari},            
     //             dataType: "json",
     //             type: "GET",
@@ -1405,12 +1405,12 @@ class BottomSheet {
 
     var lifetime = "{{ config('session.lifetime') }}";
     setTimeout(function(){
-        window.location.href = "{{url('esaku-auth/sesi-habis')}}";
+        window.location.href = "{{url('java-auth/sesi-habis')}}";
     }, 1000 * 60 * parseInt(lifetime));
     
     var form ="{{ Session::get('dash') }}";
     if(form !="" || form != "-"){
-        loadForm("{{ url('esaku-auth/form') }}/"+form);
+        loadForm("{{ url('java-auth/form') }}/"+form);
     }
     
     $( window ).resize(function() {
@@ -1445,7 +1445,7 @@ class BottomSheet {
         function storageChange (event) {
             if(event.key === 'logged_in') {
                 if(window.localStorage.getItem('logged_in') == "false"){
-                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                    window.location.href = "{{ url('java-auth/sesi-habis') }}";
                 }
             }
         }
