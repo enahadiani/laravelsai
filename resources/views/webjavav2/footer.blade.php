@@ -106,7 +106,7 @@
     </div>
     <div class="copyright-content">
         <div class="container">
-            <div class="copyright-text text-center">&copy; {{ date('Y') }} Java Turbine</div>
+            <div class="copyright-text text-center">&copy; {{ date('Y') }} Java Turbine a member of Imaji group</div>
         </div>
     </div>
 </footer>
