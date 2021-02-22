@@ -106,7 +106,7 @@
     </div>
     <div class="copyright-content">
         <div class="container">
-            <div class="copyright-text text-center">&copy; {{ date('Y') }} Java Turbine a member of <a href="http://imajigroup.com/">Imaji group</a></div>
+            <div class="copyright-text text-center">&copy; {{ date('Y') }} Java Turbine a member of <a class="link-footer" href="http://imajigroup.com/">Imaji group</a></div>
         </div>
     </div>
 </footer>

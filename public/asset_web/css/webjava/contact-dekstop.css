@@ -19,6 +19,9 @@
     height: 80vh;
 }
 /* Footer */
+#footer a:not(.btn):not(:hover) {
+    color: #0058e4 !important;
+}
 .footer-background {
     background-color: #fcfcfc;
 }
