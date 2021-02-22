@@ -302,26 +302,26 @@
         $('#modal-bank').modal('show');
     })
 
-    var typingTime;
-    var doneTyping = 5000; // 5 detik
-    var $customer = $('#kode_customer');
+    // var typingTime;
+    // var doneTyping = 5000; // 5 detik
+    // var $customer = $('#kode_customer');
 
-    $customer.on('keyup', function(){
-        clearTimeout(typingTime);
-        typingTime = setTimeout(cekVendor($(this).val()), doneTyping);
-    })
+    // $customer.on('keyup', function(){
+    //     clearTimeout(typingTime);
+    //     typingTime = setTimeout(cekVendor($(this).val()), doneTyping);
+    // })
 
-    $customer.on('keydown', function(){
-        clearTimeout(typingTime);
-    })
+    // $customer.on('keydown', function(){
+    //     clearTimeout(typingTime);
+    // })
 
-    function cekVendor(value) {
-        if(value !== "VS58" && value !== "") {
-            $('#error-customer').show();
-        } else {
-            $('#error-customer').hide();
-        }
-    }
+    // function cekVendor(value) {
+    //     if(value !== "VS58" && value !== "") {
+    //         $('#error-customer').show();
+    //     } else {
+    //         $('#error-customer').hide();
+    //     }
+    // }
 
 
     function last_add(param,isi){
