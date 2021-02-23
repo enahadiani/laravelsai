@@ -2,7 +2,7 @@
     <link rel="stylesheet" href="{{ asset('form.css') }}" />
     <link rel="stylesheet" href="{{ asset('master-esaku/form.css') }}" />
     <!-- LIST DATA -->
-    <x-list-data judul="Data Vendor" tambah="true" :thead="array('Kode','Nama','Alamat','Tgl Input','Aksi')" :thwidth="array(20,25,35,10,10)" :thclass="array('','','','','text-center')" />
+    <x-list-data judul="Data Supplier" tambah="true" :thead="array('Kode','Nama','Alamat','Tgl Input','Aksi')" :thwidth="array(20,25,35,10,10)" :thclass="array('','','','','text-center')" />
     <!-- END LIST DATA -->
 
     <!-- FORM INPUT -->
@@ -40,7 +40,7 @@
                                         <input class="form-control" type="text" id="kode_vendor" name="kode_vendor" required>
                                     </div>
                                     <div class="error-side col-md-6 col-sm-12">
-                                        <p class="error-text" id="error-vendor">Kode Vendor sudah ada</p>
+                                        <p class="error-text" id="error-vendor">Kode Supplier sudah ada</p>
                                     </div>
                                 </div>
                                 <div class="form-row">
@@ -535,7 +535,7 @@
         $('div.jumlah-data').html("Menampilkan "+count+" per halaman");
         $('#row-id').hide();
         $('#id_edit').val('');
-        $('#judul-form').html('Tambah Data Vendor');
+        $('#judul-form').html('Tambah Data Supplier');
         $('#btn-update').attr('id','btn-save');
         $('#btn-save').attr('type','submit');
         $('#form-tambah')[0].reset();
@@ -673,7 +673,7 @@
                         $('#form-tambah').validate().resetForm();
                         $('[id^=label]').html('');
                         $('#id_edit').val('');
-                        $('#judul-form').html('Tambah Data Vendor');
+                        $('#judul-form').html('Tambah Data Supplier');
                         $('#method').val('post');
                         $('#kode_vendor').attr('readonly', false);
                         msgDialog({
@@ -729,7 +729,7 @@
             success:function(result){
                 if(result.data.status){
                     dataTable.ajax.reload();                    
-                    showNotification("top", "center", "success",'Hapus Data','Data Vendor ('+id+') berhasil dihapus ');
+                    showNotification("top", "center", "success",'Hapus Data','Data Supplier ('+id+') berhasil dihapus ');
                     $('#modal-pesan-id').html('');
                     $('#table-delete tbody').html('');
                     $('#modal-pesan').modal('hide');
@@ -862,7 +862,7 @@
                 async:false,
                 success:function(res){ 
                      var html = `<tr>
-                        <td style='border:none'>Kode Vendor</td>
+                        <td style='border:none'>Kode Supplier</td>
                         <td style='border:none'>`+id+`</td>
                     </tr>
                     <tr>
