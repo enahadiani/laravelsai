@@ -173,7 +173,7 @@ class ProyekController extends Controller
     public function getData(Request $request) {
         try{
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'java-trans/prpyek?no_proyek='.$request->query('kode'),
+            $response = $client->request('GET',  config('api.url').'java-trans/proyek?no_proyek='.$request->query('kode'),
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -190,7 +190,7 @@ class ProyekController extends Controller
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(),true);
-            $data['message'] = $res['message'];
+            $data['message'] = $res;
             $data['status'] = false;
             return response()->json(['data' => $data], 200);
         }

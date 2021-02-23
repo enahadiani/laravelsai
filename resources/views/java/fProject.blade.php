@@ -518,27 +518,16 @@
                     </tr>
                     <tr>
                         <td>Vendor</td>
-                        <td>`+res.data.data[0].kode_cust+`-`+res.data.data[0].nama_akun+`</td>
+                        <td>`+res.data.data[0].kode_cust+`-`+res.data.data[0].nama+`</td>
                     </tr>
                     <tr>
                         <td>Keterangan</td>
                         <td>`+res.data.data[0].keterangan+`</td>
                     </tr>
                     `;
-                    $('#table-preview tbody').html(html);
-                    var html2;
-                    for(var i=0;i<res.data.bank.length;i++) {
-                        html2 += `<tr>
-                            <td>`+res.data.bank[i].no_rek+`</td>
-                            <td>`+res.data.bank[i].nama_rekening+`</td>
-                            <td>`+res.data.bank[i].bank+`</td>
-                            <td>`+res.data.bank[i].cabang+`</td>
-                        </tr>` 
-                    }
-                    $('#table-bank-detail tbody').html(html2);    
+                    $('#table-preview tbody').html(html);    
                     $('#modal-preview-judul').css({'margin-top':'10px','padding':'0px !important'}).html('Preview Data Vendor').removeClass('py-2');
-                    $('#modal-preview-id').text(id);
-                    $('#modal-preview #content-preview').css({'overflow-y': 'scroll'});      
+                    $('#modal-preview-id').text(id);      
                     $('#modal-preview').modal('show');      
                 }
             })
