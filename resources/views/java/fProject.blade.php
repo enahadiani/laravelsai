@@ -4,6 +4,9 @@
  <x-list-data judul="Data Project" tambah="true" :thead="array('No Proyek','No Kontrak','Tanggal Selesai','Nilai','Aksi')" :thwidth="array(15,15,10,10,10)" :thclass="array('','','','','text-center')" />
 
  <form id="form-tambah" class="tooltip-label-right" novalidate>
+    <input class="form-control" type="hidden" id="id_edit" name="id_edit">
+    <input type="hidden" id="method" name="_method" value="post">
+    <input type="hidden" id="id" name="id">
         <div class="row" id="saku-form" style="display:none;">
             <div class="col-sm-12">
                 <div class="card">
@@ -15,12 +18,6 @@
                     </div>
                     <div class="separator mb-2"></div>
                     <div class="card-body pt-3 form-body">
-                    <input type="hidden" id="method" name="_method" value="post">
-                        <div class="form-group row" id="row-id">
-                            <div class="col-9">
-                                <input class="form-control" type="text" id="id" name="id" readonly hidden>
-                            </div>
-                        </div>
                         <div class="form-row">
                             <div class="form-group col-md-6 col-sm-12">
                                 <div class="row">
@@ -114,7 +111,7 @@
     <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
     <script src="{{ asset('helper.js') }}"></script>
     <script type="text/javascript">
-    var status_ppn = 0;
+    var status_ppn = '0';
     var nilai_ppn = 0;
     var $iconLoad = $('.preloader');
     var $target = "";
@@ -129,6 +126,15 @@
     var scrollform = document.querySelector('.form-body');
     var psscrollform = new PerfectScrollbar(scrollform);
 
+    function reverseDate2(date_str, separator, newseparator){
+        if(typeof separator === 'undefined'){separator = '-'}
+        if(typeof newseparator === 'undefined'){newseparator = '-'}
+        date_str = date_str.split(' ');
+        var str = date_str[0].split(separator);
+
+        return str[2]+newseparator+str[1]+newseparator+str[0];
+    }
+
     function format_number(x){
         var num = parseFloat(x).toFixed(0);
         num = sepNumX(num);
@@ -137,11 +143,11 @@
 
     $('#status_ppn').change(function() {
         var nilai = $('#nilai').val();
-        if(status_ppn === 0) {
-            status_ppn = 1;
+        if(status_ppn === '0') {
+            status_ppn = '1';
             nilai_ppn = toNilai(nilai) * (10/100);
         } else {
-            status_ppn = 0
+            status_ppn = '0'
             nilai_ppn = 0
         }
     })
@@ -532,5 +538,65 @@
                 }
             })
         }
+    });
+
+    // BUTTON EDIT
+    function editData(id){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('java-trans/proyek-show') }}",
+            data: { kode: id },
+            dataType: 'json',
+            async:false,
+            success:function(res){
+                var result= res.data;
+                if(result.status){
+                    console.log(result)
+                    $('#id_edit').val('edit');
+                    $('#method').val('put');
+                    $('#no_proyek').attr('readonly', true);
+                    $('#no_proyek').val(id);
+                    $('#id').val(id);
+                    $('#no_kontrak').val(result.data[0].no_kontrak);
+                    $('#tanggal_mulai').val(reverseDate2(result.data[0].tgl_mulai,'-','/'));
+                    $('#tanggal_selesai').val(reverseDate2(result.data[0].tgl_selesai,'-','/'));
+                    $('#nilai').val(toNilai(result.data[0].nilai));
+                    $('#keterangan').val(result.data[0].keterangan);
+                    status_ppn = result.data[0].status_ppn; 
+                    if(result.data[0].status_ppn === '1') {
+                        $('#status_ppn').prop("checked", true)
+                    } else {
+                        $('#status_ppn').prop("checked", false)
+                    }         
+                    $('#saku-datatable').hide();
+                    $('#modal-preview').modal('hide');
+                    $('#saku-form').show();
+                    showInfoField('kode_cust',result.data[0].kode_cust,result.data[0].nama);
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    window.location.href = "{{ url('java-auth/sesi-habis') }}";
+                }
+                // $iconLoad.hide();
+            }
+        });
+    }
+    $('#saku-datatable').on('click', '#btn-edit', function(){
+        var id= $(this).closest('tr').find('td').eq(0).html();
+        // $iconLoad.show();
+        $('#form-tambah').validate().resetForm();
+        
+        $('#btn-save').attr('type','button');
+        $('#btn-save').attr('id','btn-update');
+
+        $('#judul-form').html('Edit Data Vendor');
+        editData(id);
+    });
+
+    $('#saku-form').on('click', '#btn-update', function(){
+        var kode = $('#kode_customer').val();
+        msgDialog({
+            id:kode,
+            type:'edit'
+        });
     });
     </script>
