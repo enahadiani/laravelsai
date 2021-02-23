@@ -142,7 +142,7 @@
                     </div>
                 </div>
                 <div class="col-lg-4 col-grid">
-                    <form action="">
+                    <form id="form-bayar" onsubmit="return submitForm();">
                         <div class="card" style="height:100%">
                             <div class="card-body">
                                 <h6 class="bold">Pembayaran</h6>
@@ -150,6 +150,8 @@
                                     <div class="form-row mt-4">
                                         <div class="form-group col-md-12 px-1">
                                             <input type="text" name="nilai" id="nilai" class="form-control" style="padding-left:35px" placeholder="Masukkan Nilai Pembayaran"> <i style="position: absolute;top: 9px;left:10px" class="saicon icon-pbyr"></i>
+                                            <input type="hidden" name="no_bill" id="no_bill">
+                                            <input type="hidden" name="ket" id="ket">
                                         </div>
                                     </div>
                                     <div class="row">
@@ -225,8 +227,8 @@
         if(total_bill < total_d){
             alert('Total Bayar tidak boleh lebih besar dari Total Bill');
             $('#nilai').val('');
-            return false;
             $('#total-label').html(sepNum(0));
+            return false;
         }else{
             $('#total-label').html(sepNum(total_d));
         }
@@ -263,8 +265,10 @@
                                 html +=`<div class="row mb-3">
                                     <div class="col-1 my-auto">
                                         <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="customCheckThis">
-                                            <label class="custom-control-label" for="customCheckThis"></label>
+                                            <input type="checkbox" class="custom-control-input" id="check-bayar`+i+`" name="check-bayar[]">
+                                            <label class="custom-control-label" for="check-bayar`+i+`"></label>
+                                            <p hidden class='inp-no_bill'>`+line4.no_bukti+`</p>
+                                            <p hidden class='inp-ket'>`+line4.keterangan+`</p>
                                         </div>
                                     </div>
                                     <div class="col-11">
@@ -291,6 +295,33 @@
                             }
                         }
                         $('.daftar-tagihan').html(html);
+
+                        
+                        $('input[type="checkbox"]').click(function(){
+
+                            var $box = $(this);
+                            if ($box.is(":checked")) {
+                                var group = "input:checkbox[name='" + $box.attr("name") + "']";
+                                $(group).prop("checked", false);
+                                $box.prop("checked", true);
+                                var no_bill = $(this).closest('div').find('.inp-no_bill').html();
+                                var ket = $(this).closest('div').find('.inp-ket').html();
+                                $('#no_bill').val(no_bill);
+                                $('#ket').val(ket);
+                            } else {
+                                $box.prop("checked", false);
+                                $('#no_bill').val('');
+                                $('#ket').val('');
+                            }
+
+                            // if($(this).is(":checked")){
+                            // }
+                            // else if($(this).is(":not(:checked)")){
+                            // }
+
+                        });
+
+   
                         
                     }
                     
@@ -314,39 +345,21 @@
 
     getTagihan();
 
-
-    var dataTable = $('#table-list').DataTable({
-        ajax: {
-            _token: '{{ csrf_token() }}',
-            url: "{{ url('midtrans/donation') }}" ,
-            data: {},
-            async:false,
-            type: 'GET',
-            dataSrc : function(json) {
-                return json.daftar;   
-            }
-        },
-        columns: [
-            { data: 'no_bukti' },
-            { data: 'nama' },
-            { data: 'nilai' },
-            { data: 'type_donasi' },
-            { data: 'status' },
-            { data: 'action' }
-        ],
-    });
-
     function submitForm() {
         // Kirim request ajax
-        $.post("{{ route('donation.store') }}",
+        if(toNilai($('#total-label').html()) <= 0){
+            alert('Total bayar tidak valid. Total Bayar tidak boleh kurang dari sama dengan 0');
+            return false;
+        }
+
+        $.post("{{ url('ts-dash/sis-mid-bayar') }}",
         {
             _method: 'POST',
             _token: '{{ csrf_token() }}',
-            nilai: $('input#amount').val(),
-            keterangan: $('textarea#note').val(),
-            tipe_donasi: $('select#donation_type').val(),
-            nama: $('input#donor_name').val(),
-            email: $('input#donor_email').val(),
+            nilai: toNilai($('input#nilai').val()),
+            keterangan: $('input#ket').val(),
+            nis: "{{ Session::get('userLog') }}",
+            no_bill: $('input#no_bill').val(),
         },
         function (data, status) {
             snap.pay(data.snap_token, {
@@ -354,16 +367,16 @@
                 onSuccess: function (result) {
                     console.log(result);
                     alert(result.status_message);
-                    dataTable.ajax.reload();
-                    $('#donation')[0].reset();
+                    // dataTable.ajax.reload();
+                    // $('#donation')[0].reset();
 
                 },
                 // Optional
                 onPending: function (result) {
                     console.log(result);
                     alert(result.status_message);
-                    dataTable.ajax.reload();
-                    $('#donation')[0].reset();
+                    // dataTable.ajax.reload();
+                    // $('#donation')[0].reset();
                 },
                 // Optional
                 onError: function (result) {
@@ -374,27 +387,4 @@
         });
         return false;
     }
-
-
-
-    $('#navigasi').on('click','#donasi',function(e){
-        e.preventDefault();
-        console.log('ini');
-        $('.saku-form').show();
-        $('.saku-datatable').hide();
-    });
-
-    $('#navigasi').on('click','#list',function(e){
-        e.preventDefault();
-        console.log('itu');
-        $('.saku-form').hide();
-        $('.saku-datatable').show();
-    });
-
-    $('#table-list').on('click','.complete-pay',function(e){
-        e.preventDefault();
-        var snap_token = $(this).data('snap');
-        snap.pay(snap_token);
-    });    
-
     </script>
