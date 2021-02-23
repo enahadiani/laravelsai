@@ -65,7 +65,7 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-12 col-sm-12">
                                         <label for="alamat">Alamat</label>
-                                        <textarea class="form-control" rows="4" id="alamat" name="alamat" style="resize:none" required></textarea>
+                                        <textarea class="form-control" rows="4" id="alamat" name="alamat" required></textarea>
                                     </div>
                                 </div>
                                 <div class="form-row">
