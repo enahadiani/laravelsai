@@ -75,3 +75,20 @@ div.inp-div-jenis > .search-item {
     color: white;
     background: red;
 }
+.form-body {
+    position: relative;
+}
+.btn-div {
+    position: absolute;
+    bottom: 0;
+    border-radius: 15px;
+    padding-right: 1rem;
+    box-shadow: 0px 2px 8px #80808054;
+    background-color: #fff;
+    width: 100%;
+    margin-left: -1.8rem;
+}
+
+.datepicker.datepicker-dropdown {
+    margin-top: 10rem;
+}
