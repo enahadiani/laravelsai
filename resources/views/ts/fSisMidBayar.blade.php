@@ -149,7 +149,7 @@
                                 <div class="pembayaran">
                                     <div class="form-row mt-4">
                                         <div class="form-group col-md-12 px-1">
-                                            <input type="text" name="nilai" id="nilai" class="form-control" style="padding-left:35px" placeholder="Masukkan Nilai Pembayaran"> <i style="position: absolute;top: 10px;left:10px" class="saicon icon-pbyr"></i>
+                                            <input type="text" name="nilai" id="nilai" class="form-control" style="padding-left:35px" placeholder="Masukkan Nilai Pembayaran"> <i style="position: absolute;top: 9px;left:10px" class="saicon icon-pbyr"></i>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -180,7 +180,7 @@
                             <div class="card-body-footer" style="padding: 0 25px;display:flex">
                                 <div style="vertical-align: middle;" class="col-md-9 p-0">
                                     <p class="text-grey mb-0 mt-2">Total</p>
-                                    <p class="bold mb-2" id="total-label">12.000.000</p>
+                                    <p class="bold mb-2" id="total-label">0</p>
                                 </div>
                                 <div style="text-align: right;" class="col-md-3 p-0 ">
                                     <button type="submit" style="margin-top: 10px;" id="btn-save" class="btn btn-primary"><i class="fa fa-save"></i> Bayar</button>
@@ -195,7 +195,42 @@
     <script> 
     $('body').addClass('dash-contents');
     $('html').addClass('dash-contents');
+    $('#beranda').show();
     setHeightForm();
+    
+    $('#nilai').inputmask("numeric", {
+        radixPoint: ",",
+        groupSeparator: ".",
+        digits: 2,
+        autoGroup: true,
+        rightAlign: true,
+        oncleared: function () { self.Value(''); }
+    });
+
+    $('#nilai').change(function(e){
+        hitungTotal();
+    });
+
+    function hitungTotal(){
+        var nilai = $('#nilai').val();
+        var total_d = toNilai(nilai);
+
+        var total_bill =0;
+        $('.daftar-tagihan > .row').each(function(){
+            if($(this).closest('div').find('.col-1 .custom-control-input').prop('checked')){
+                var nilai = $(this).closest('div').find('.col-11 .inp-nilai').html();
+                total_bill += +toNilai(nilai);
+            }
+        });
+        if(total_bill < total_d){
+            alert('Total Bayar tidak boleh lebih besar dari Total Bill');
+            $('#nilai').val('');
+            return false;
+            $('#total-label').html(sepNum(0));
+        }else{
+            $('#total-label').html(sepNum(total_d));
+        }
+    }
 
     $.ajaxSetup({
         headers: {
@@ -238,7 +273,7 @@
                                             <table class="table table-borderless table-tagihan" style="width:100%">
                                                 <tr class="text-primary bold">
                                                     <td style="width:75%">Tagihan</td>
-                                                    <td style="width:25%" class="text-right">`+nilai+`</td>
+                                                    <td style="width:25%" class="text-right inp-nilai">`+nilai+`</td>
                                                 </tr>
                                                 <tr>
                                                     <td style="width:75%">`+line4.keterangan+` </td>
