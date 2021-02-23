@@ -194,6 +194,7 @@
             </div>
    
     <script src="{{ !config('services.midtrans.isProduction') ? 'https://app.sandbox.midtrans.com/snap/snap.js' : 'https://app.midtrans.com/snap/snap.js' }}" data-client-key="{{ config('services.midtrans.clientKey') }}"></script>
+    <!-- <script src="{{ asset('asset_elite/inputmask.js') }}"></script> -->
     <script> 
     $('body').addClass('dash-contents');
     $('html').addClass('dash-contents');
@@ -352,7 +353,7 @@
             return false;
         }
 
-        $.post("{{ url('ts-dash/sis-mid-bayar') }}",
+        $.post("{{ route('bayar.store') }}",
         {
             _method: 'POST',
             _token: '{{ csrf_token() }}',
@@ -361,6 +362,16 @@
             nis: "{{ Session::get('userLog') }}",
             no_bill: $('input#no_bill').val(),
         },
+        // $.post("{{ route('donation.store') }}",
+        // {
+        //     _method: 'POST',
+        //     _token: '{{ csrf_token() }}',
+        //     nilai: "11000",
+        //     keterangan: "tes",
+        //     tipe_donasi: "XX",
+        //     nama: "ena hd",
+        //     email: "ena@gmail.com",
+        // },
         function (data, status) {
             snap.pay(data.snap_token, {
                 // Optional

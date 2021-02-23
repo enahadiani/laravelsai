@@ -4,17 +4,20 @@
 
     use App\Http\Controllers\Controller;
     use Illuminate\Http\Request;
+    use Midtrans\Config;
+    use Midtrans\Snap;
+    use Midtrans\Notification;
     use GuzzleHttp\Client;
     use Illuminate\Support\Facades\Session;
     use GuzzleHttp\Exception\BadResponseException;
     use PDF;
-    use Midtrans\Config;
-    use Midtrans\Snap;
-    use Midtrans\Notification;
 
     class DashSiswaController extends Controller {
 
-        public function __contruct(Request $request) {
+        
+        protected $request;
+
+        public function __construct(Request $request) {
             $this->request = $request;
             Config::$serverKey = config('services.midtrans.serverKey');
             Config::$isProduction = config('services.midtrans.isProduction');
@@ -298,7 +301,7 @@
                     ],
                     'customer_details' => [
                         'first_name'    => $request->nis,
-                        'email'         => '-'
+                        'email' => "tes@gmail.com"
                     ],
                     'item_details' => [
                         [
@@ -308,12 +311,12 @@
                             'name'     => $request->keterangan
                         ]
                     ],
-                    'enabled_payments' => ['mandiri_clickpay','other_va']
+                    'enabled_payments' => ['echannel']
 
                 ];
                 $snapToken = Snap::getSnapToken($payload);
 
-                $response = $client->request('POST',  config('api.url').'midtrans/sis-midtrans-bayar',[
+                $response = $client->request('POST',  config('api.url').'midtrans/sis-midtrans',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
