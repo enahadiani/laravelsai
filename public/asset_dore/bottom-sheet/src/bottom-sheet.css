@@ -42,7 +42,7 @@
     min-height: 38vh;
     background-color: white;
     border-radius: 12px 12px 0 0;
-    padding: 0 1.5rem calc(1rem + 100px) 1.5rem;
+    padding: 0 0 calc(1rem + 100px) 0;
     transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
     transform: translateY(100%);
   }
@@ -57,7 +57,7 @@
     flex-direction: column;
     align-items: center;
     padding-top: 0.5rem;
-    padding-bottom: 1rem;
+    padding-bottom: 0rem;
   }
   .c-bottom-sheet__handle > span {
     display: block;
@@ -106,5 +106,21 @@
   }
   .c-bottom-sheet__item.active .c-bottom-sheet__tick {
     display: block;
+  }
+
+  .c-bottom-sheet__close > button
+  {
+      line-height:1.5;padding: 0;background: none;appearance: unset;opacity: unset;right: -10px !important;position: relative;top: -15px !important;
+
+  }
+  .c-bottom-sheet__close > button > span 
+  {
+      border-radius: 50%;padding: 0 0.45rem 0.1rem 0.45rem;background: white;color: black;font-size: 1.2rem !important;font-weight: lighter;box-shadow:0px 1px 5px 1px #80808054
+  }
+
+  .c-bottom-sheet__close > button > span:hover
+  {
+      color:white;
+      background:red;
   }
   

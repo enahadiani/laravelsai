@@ -65,7 +65,6 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="separator mb-2"></div>
                     <!-- FORM BODY -->
                     <div class="card-body pt-3 form-body">
                         <ul class="nav nav-tabs col-12 " role="tablist">
@@ -143,7 +142,7 @@
                                 <div class="form-row" style="margin-bottom:70px">
                                     <div class="form-group col-md-2 col-12 mb-0">
                                         <div class="custom-switch custom-switch-primary mb-2">
-                                            <input class="custom-switch-input" id="block" type="checkbox">
+                                            <input class="custom-switch-input" id="block" name="blok" type="checkbox" value="0">
                                             <label class="custom-switch-btn" for="block"></label>
                                         </div>
                                     </div>
@@ -152,7 +151,7 @@
                                     </div>
                                     <div class="form-group col-md-2 col-12">
                                         <div class="custom-switch custom-switch-primary mb-2">
-                                            <input class="custom-switch-input" id="budget" type="checkbox">
+                                            <input class="custom-switch-input" name="budget" id="budget" type="checkbox" value="0">
                                             <label class="custom-switch-btn" for="budget"></label>
                                         </div>
                                     </div>
@@ -302,6 +301,15 @@
     });
 
     $('.selectize').selectize();
+    
+    $('input[type="checkbox"]').click(function(){
+        if($(this).is(":checked")){
+            $(this).val(1);
+        }
+        else if($(this).is(":not(:checked)")){
+            $(this).val(0);
+        }
+    });
 
     function hitungTotalRow(){
         var total_row = $('#input-grid tbody tr').length;
@@ -643,6 +651,12 @@
             }
 
             var formData = new FormData(form);
+            if(!formData.has('blok')){
+                formData.append('blok',0);  
+            }
+            if(!formData.has('budget')){
+                formData.append('budget',0);  
+            }
             for(var pair of formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
@@ -769,8 +783,19 @@
                     $('#modul').trigger('change');
                     $('#jenis')[0].selectize.setValue(result.data[0].jenis);
                     $('#kode_curr').val(result.data[0].kode_curr);
-                    $('#blok')[0].selectize.setValue(result.data[0].block);                  
-                    $('#budget')[0].selectize.setValue(parseInt(result.data[0].status_gar));                  
+                    // $('#blok')[0].selectize.setValue(result.data[0].block);                  
+                    // $('#budget')[0].selectize.setValue(parseInt(result.data[0].status_gar));                  
+                    if(result.data[0].block == 1){
+                        $('#block').prop('checked', true);
+                    }else{
+                        $('#block').prop('checked', false);
+                    }
+                    
+                    if(result.data[0].status_gar == 1){
+                        $('#budget').prop('checked', true);
+                    }else{
+                        $('#budget').prop('checked', false);
+                    }
                     $('#account')[0].selectize.setValue(result.data[0].normal);
                     
                     $('#input-grid tbody').html('');
@@ -781,9 +806,8 @@
                             var line =result.detail_relasi[i];
                             input += "<tr class='row-jurnal'>";
                             input += "<td class='no-jurnal text-center'>"+no+"</td>";
-                            input += "<td ><span class='td-kode tdflagke"+no+" tooltip-span'>"+line.kode_flag+"</span><input type='text' id='flagkode"+no+"' name='kode_flag[]' class='form-control inp-kode flagke"+no+" hidden' value='"+line.kode_flag+"' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-flag hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
-                            input += "<td ><span class='td-nama tdnmflagke"+no+" tooltip-span'>"+line.nama_flag+"</span><input type='text' name='nama_flag[]' class='form-control inp-nama nmflagke"+no+" hidden'  value='"+line.nama_flag+"' readonly></td>";
                             input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
+                            input += "<td ><span class='td-kode tdflagke"+no+" tooltip-span'>"+line.kode_flag+" - "+line.nama_flag+"</span><input type='text' id='flagkode"+no+"' name='kode_flag[]' class='form-control inp-kode flagke"+no+" hidden' value='"+line.kode_flag+" - "+line.nama_flag+"' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-flag hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
                             input += "</tr>";
                             no++;
                         }
@@ -823,11 +847,9 @@
                             var line =result.detail_keuangan[i];
                             input += "<tr class='row-lap'>";
                             input += "<td class='no-lap text-center'>"+no+"</td>";
-                            input += "<td ><span class='td-kode_fs tdfske"+no+" tooltip-span'>"+line.kode_fs+"</span><input type='text' id='fskode"+no+"' name='kode_fs[]' class='form-control inp-kode_fs fske"+no+" hidden' value='"+line.kode_fs+"' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-fs hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
-                            input += "<td ><span class='td-nama_fs tdnmfske"+no+" tooltip-span'>"+line.nama_fs+"</span><input type='text' name='nama_fs[]' class='form-control inp-nama_fs nmfske"+no+" hidden'  value='"+line.nama_fs+"' readonly></td>";
-                            input += "<td ><span class='td-kode_neraca tdneracake"+no+" tooltip-span'>"+line.kode_neraca+"</span><input type='text' id='neracakode"+no+"' name='kode_neraca[]' class='form-control inp-kode_neraca neracake"+no+" hidden' value='"+line.kode_neraca+"' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-neraca hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
-                            input += "<td ><span class='td-nama_neraca tdnmneracake"+no+" tooltip-span'>"+line.nama_neraca+"</span><input type='text' name='nama_neraca[]' class='form-control inp-nama_neraca nmneracake"+no+" hidden'  value='"+line.nama_neraca+"' readonly></td>";
                             input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
+                            input += "<td ><span class='td-kode_fs tdfske"+no+" tooltip-span'>"+line.kode_fs+" - "+line.nama_fs+"</span><input type='text' id='fskode"+no+"' name='kode_fs[]' class='form-control inp-kode_fs fske"+no+" hidden' value='"+line.kode_fs+" - "+line.nama_fs+"' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-fs hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+                            input += "<td ><span class='td-kode_neraca tdneracake"+no+" tooltip-span'>"+line.kode_neraca+" - "+line.nama_neraca+"</span><input type='text' id='neracakode"+no+"' name='kode_neraca[]' class='form-control inp-kode_neraca neracake"+no+" hidden' value='"+line.kode_neraca+" - "+line.nama_neraca+"' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-neraca hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
                             input += "</tr>";
                             no++;
                         }
@@ -991,8 +1013,8 @@
                         `;
                         var det = `
                         <ul class="nav nav-tabs col-12 " role="tablist">
-                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#prev-flag" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Jurnal</span></a> </li>
-                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#prev-lap" role="tab" aria-selected="true"><span class="hidden-xs-down">Berkas Bukti</span></a> </li>
+                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#prev-flag" role="tab" aria-selected="true"><span class="hidden-xs-down">Relasi Modul</span></a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#prev-lap" role="tab" aria-selected="true"><span class="hidden-xs-down">Relasi Laporan</span></a> </li>
                         </ul>
                         <div class="tab-content tabcontent-border col-12 p-0">
                             <div class="tab-pane active" id="prev-flag" role="tabpanel">

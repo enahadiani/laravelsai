@@ -472,15 +472,19 @@
             </div>
         </div>
     </main>
-    <div id="country-selector" class="c-bottom-sheet c-bottom-sheet--list">
+        <div id="country-selector" class="c-bottom-sheet c-bottom-sheet--list">
 			<div class="c-bottom-sheet__scrim"></div>
 			<div class="c-bottom-sheet__sheet">
-
+                <div class="c-bottom-sheet__close">
+                    <button type="button" aria-label="Close" class="close" id="bottom-sheet-close">
+                    <span>×</span>
+                    </button>
+                </div>
 				<div class="c-bottom-sheet__handle">
 					<span></span>
 					<span></span>
 				</div>
-                <div id="content-bottom-sheet" style="max-height:80vh;overflow:scroll"></div>
+                <div id="content-bottom-sheet" style="max-height:75vh;width:100%"></div>
 			</div>
 			<div class="c-bottom-sheet__container">
 
@@ -688,6 +692,11 @@ class BottomSheet {
         headers: {
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         }
+    });
+
+    $('.c-bottom-sheet__close').on('click','#bottom-sheet-close',function(e){
+        e.preventDefault();
+        $('.c-bottom-sheet').removeClass('active');
     });
 
     
