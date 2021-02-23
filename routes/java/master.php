@@ -10,6 +10,7 @@ Route::get('vendor-akun', 'Java\HelperController@getAkunVendor');
 // Data Customer //
 Route::get('customer', 'Java\CustomerController@index');
 Route::get('customer-show', 'Java\CustomerController@getData');
+Route::get('customer-check', 'Java\CustomerController@isUnik');
 Route::post('customer', 'Java\CustomerController@store');
 Route::put('customer-ubah', 'Java\CustomerController@update');
 Route::delete('customer', 'Java\CustomerController@delete');

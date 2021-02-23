@@ -914,26 +914,28 @@
                         <td>Akun Piutang</td>
                         <td>`+result.data[0].akun_piutang+`-`+result.data[0].nama_akun+`</td>
                     </tr>
-                    <table class='table'>
-                        <thead>
-                            <tr>
-                                <th>No Rekening</th>
-                                <th>Nama Rekening</th>
-                                <th>Bank</th>
-                                <th>Cabang</th>
-                            </tr>
-                        </thead>
-                        <tbody>`
-                        for(var i=0;i<result.bank.length;i++) {
-                            `<tr>
-                                <td>`+result.bank[i].no_rek+`</td>
-                                <td>`+result.bank[i].nama_rek+`</td>
-                                <td>`+result.bank[i].bank+`</td>
-                                <td>`+result.bank[i].cabang+`</td>
-                            </tr>`
-                        }
-                        `</tbody>
-                    </table>
+                    <tr>
+                        <td colspan='2'>
+                            <table class='table table-bordered' id='table-bank-detail'>
+                                <thead>
+                                    <tr>
+                                        <th>No. Rekening</th>    
+                                        <th>Nama</th>    
+                                        <th>Bank</th>    
+                                        <th>Cabang</th>    
+                                    </tr>    
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1234</td>    
+                                        <td>1234</td>    
+                                        <td>1234</td>    
+                                        <td>1234</td>    
+                                    </tr>    
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
                     `;
 
                     $('#table-preview tbody').html(html);
