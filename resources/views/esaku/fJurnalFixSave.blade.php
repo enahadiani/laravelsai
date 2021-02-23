@@ -601,9 +601,6 @@
 
     var scrollform = document.querySelector('.form-body');
     var psscrollform = new PerfectScrollbar(scrollform);
-    
-    var scroll = document.querySelector('#content-bottom-sheet');
-    var psscroll = new PerfectScrollbar(scroll);
 
     var scrollformupl = document.querySelector('.form-upload');
     var psscrollformupl = new PerfectScrollbar(scrollformupl);
@@ -1171,7 +1168,8 @@
         if($(this).index() != 6 && $(this).index() != 5){
 
             var id = $(this).closest('tr').find('td').eq(1).html();
-            var posted = $(this).closest('tr').find('td').eq(5).html();
+            var data = dataTable.row(this).data();
+            var posted = data.posted;
             $.ajax({
                 type: 'GET',
                 url: "{{ url('/esaku-trans/jurnal') }}/"+id,
@@ -1181,106 +1179,164 @@
                     var result= res.data;
                     if(result.status){
 
-                        var html = `<div style='border-bottom: double #d7d7d7;padding:0 1.5rem'>
-                            <table class="borderless mb-2" width="100%" >
-                                <tr>
-                                    <td width="25%" style="vertical-align:top !important"><h6 class="text-primary bold">JURNAL VOUCHER</h6></td>
-                                    <td width="75%" style="vertical-align:top !important;text-align:right"><h6 class="mb-2 bold">`+result.lokasi[0].nama+`</h6><p style="line-height:1">`+result.lokasi[0].alamat+`<br>`+result.lokasi[0].kota+` `+result.lokasi[0].kodepos+` </p><p class="mt-2">`+result.lokasi[0].email+` | `+result.lokasi[0].no_telp+`</p></td>
-                                </tr>
-                            </table>
+                        var html = `<div class="preview-header" style="display:block;height:39px;padding: 0 1.75rem" >
+                            <h6 style="position: absolute;" id="preview-judul">Preview Data</h6>
+                            <span id="preview-nama" style="display:none"></span><span id="preview-id" style="display:none">`+id+`</span> 
+                            <div class="dropdown d-inline-block float-right">
+                                <button type="button" id="dropdownAksi" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding: 0.2rem 1rem;border-radius: 1rem !important;" class="btn dropdown-toggle btn-light">
+                                <span class="my-0">Aksi <i style="font-size: 10px;" class="simple-icon-arrow-down ml-3"></i></span>
+                                </button>
+                                <div class="dropdown-menu dropdown-aksi" aria-labelledby="dropdownAksi" x-placement="bottom-start" style="position: absolute; will-change: transform; top: -10px; left: 0px; transform: translate3d(0px, 37px, 0px);">
+                                    <a class="dropdown-item dropdown-ke1" href="#" id="btn-delete2"><i class="simple-icon-trash mr-1"></i> Hapus</a>
+                                    <a class="dropdown-item dropdown-ke1" href="#" id="btn-edit2"><i class="simple-icon-pencil mr-1"></i> Edit</a>
+                                    <a class="dropdown-item dropdown-ke1" href="#" id="btn-cetak"><i class="simple-icon-printer mr-1"></i> Cetak</a>
+                                    <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-cetak2" style="border-bottom: 1px solid #d7d7d7;"><i class="simple-icon-arrow-left mr-1"></i> Cetak</a>
+                                    <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-excel"> Excel</a>
+                                    <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-pdf"> PDF</a>
+                                    <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-print"> Print</a>
+                                </div>
+                            </div>
                         </div>
-                        <div style="padding:0 1.5rem">
-                            <table class="borderless table-header-prev mt-2" width="100%">
-                                <tr>
-                                    <td width="14%">Tanggal</td>
-                                    <td width="1%">:</td>
-                                    <td width="20%">`+result.jurnal[0].tanggal+`</td>
-                                    <td width="30%" rowspan="3"></td>
-                                    <td width="10%" rowspan="3" style="vertical-align:top !important">Deskripsi</td>
-                                    <td width="1%" rowspan="3" style="vertical-align:top !important">:</td>
-                                    <td width="24%" rowspan="3" style="vertical-align:top !important">`+result.jurnal[0].deskripsi+`</td>
-                                </tr>
-                                <tr>
-                                    <td width="14%">No Transaksi</td>
-                                    <td width="1%">:</td>
-                                    <td width="20%">`+result.jurnal[0].no_bukti+`</td>
-                                </tr>
-                                <tr>
-                                    <td width="14%">No Dokumen</td>
-                                    <td width="1%">:</td>
-                                    <td width="20%">`+result.jurnal[0].no_dokumen+`</td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div style="padding:0 1.9rem">
-                            <table class="table table-striped table-body-prev mt-2" width="100%">
-                               <tr style="background: var(--theme-color-1) !important;color:white !important">
-                                    <th style="width:15%">Kode Akun</th>
-                                    <th style="width:20%">Nama Akun</th>
-                                    <th style="width:15">Nama PP</th>
-                                    <th style="width:30%">Keterangan</th>
-                                    <th style="width:10%">Debet</th>
-                                    <th style="width:10%">Kredit</th>
-                               </tr>`;
-                                var det = '';
-                                var total_debet = 0; var total_kredit =0;
-                                if(result.detail.length > 0){
-                                    var no=1;
-                                    for(var i=0;i<result.detail.length;i++){
-                                        var line =result.detail[i];
-                                        if(line.dc == "D"){
-                                            total_debet+=parseFloat(line.nilai);
-                                        }else{
-                                            
-                                            total_kredit+=parseFloat(line.nilai);
+                        <div class='separator'></div>
+                        <div class='preview-body' style='padding: 0 1.75rem;height: calc(75vh - 56px) '>
+                            <div style='border-bottom: double #d7d7d7;padding:0 1.5rem'>
+                                <table class="borderless mb-2" width="100%" >
+                                    <tr>
+                                        <td width="25%" style="vertical-align:top !important"><h6 class="text-primary bold">JURNAL VOUCHER</h6></td>
+                                        <td width="75%" style="vertical-align:top !important;text-align:right"><h6 class="mb-2 bold">`+result.lokasi[0].nama+`</h6><p style="line-height:1">`+result.lokasi[0].alamat+`<br>`+result.lokasi[0].kota+` `+result.lokasi[0].kodepos+` </p><p class="mt-2">`+result.lokasi[0].email+` | `+result.lokasi[0].no_telp+`</p></td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div style="padding:0 1.5rem">
+                                <table class="borderless table-header-prev mt-2" width="100%">
+                                    <tr>
+                                        <td width="14%">Tanggal</td>
+                                        <td width="1%">:</td>
+                                        <td width="20%">`+result.jurnal[0].tanggal+`</td>
+                                        <td width="30%" rowspan="3"></td>
+                                        <td width="10%" rowspan="3" style="vertical-align:top !important">Deskripsi</td>
+                                        <td width="1%" rowspan="3" style="vertical-align:top !important">:</td>
+                                        <td width="24%" rowspan="3" style="vertical-align:top !important">`+result.jurnal[0].deskripsi+`</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="14%">No Transaksi</td>
+                                        <td width="1%">:</td>
+                                        <td width="20%">`+result.jurnal[0].no_bukti+`</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="14%">No Dokumen</td>
+                                        <td width="1%">:</td>
+                                        <td width="20%">`+result.jurnal[0].no_dokumen+`</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div style="padding:0 1.9rem">
+                                <table class="table table-striped table-body-prev mt-2" width="100%">
+                                <tr style="background: var(--theme-color-1) !important;color:white !important">
+                                        <th style="width:15%">Kode Akun</th>
+                                        <th style="width:20%">Nama Akun</th>
+                                        <th style="width:15">Nama PP</th>
+                                        <th style="width:30%">Keterangan</th>
+                                        <th style="width:10%">Debet</th>
+                                        <th style="width:10%">Kredit</th>
+                                </tr>`;
+                                    var det = '';
+                                    var total_debet = 0; var total_kredit =0;
+                                    if(result.detail.length > 0){
+                                        var no=1;
+                                        for(var i=0;i<result.detail.length;i++){
+                                            var line =result.detail[i];
+                                            if(line.dc == "D"){
+                                                total_debet+=parseFloat(line.nilai);
+                                            }else{
+                                                
+                                                total_kredit+=parseFloat(line.nilai);
+                                            }
+                                            det += "<tr>";
+                                            det += "<td >"+line.kode_akun+"</td>";
+                                            det += "<td >"+line.nama_akun+"</td>";
+                                            det += "<td >"+line.nama_pp+"</td>";
+                                            det += "<td >"+line.keterangan+"</td>";
+                                            det += "<td class='text-right'>"+(line.dc == "D" ? format_number(line.nilai) : 0)+"</td>";
+                                            det += "<td class='text-right'>"+(line.dc == "C" ? format_number(line.nilai) : 0)+"</td>";
+                                            det += "</tr>";
+                                            no++;
                                         }
-                                        det += "<tr>";
-                                        det += "<td >"+line.kode_akun+"</td>";
-                                        det += "<td >"+line.nama_akun+"</td>";
-                                        det += "<td >"+line.nama_pp+"</td>";
-                                        det += "<td >"+line.keterangan+"</td>";
-                                        det += "<td class='text-right'>"+(line.dc == "D" ? format_number(line.nilai) : 0)+"</td>";
-                                        det += "<td class='text-right'>"+(line.dc == "C" ? format_number(line.nilai) : 0)+"</td>";
-                                        det += "</tr>";
-                                        no++;
                                     }
-                                }
-                                det+=`<tr style="background: var(--theme-color-1) !important;color:white !important">
-                                    <th colspan="4"></th>
-                                    <th style="width:10%">`+format_number(total_debet)+`</th>
-                                    <th style="width:10%">`+format_number(total_kredit)+`</th>
-                               </tr>`;
-                               
-                               html+=det+`
-                            </table>
-                            <table class="table-borderless mt-2" width="100%">
-                                <tr>
-                                    <td width="25%">&nbsp;</td>
-                                    <td width="25%">&nbsp;</td>
-                                    <td width="10%">&nbsp;</td>
-                                    <td width="20%" class="text-center">Dibuat Oleh</td>
-                                    <td width="20%" class="text-center">Diperiksa Oleh</td>
-                                </tr>
-                                <tr>
-                                    <td width="25%">&nbsp;</td>
-                                    <td width="25%">&nbsp;</td>
-                                    <td width="10%">&nbsp;</td>
-                                    <td width="20%" style="height:100px"></td>
-                                    <td width="20%" style="height:100px"></td>
-                                </tr>
-                            </table>
+                                    det+=`<tr style="background: var(--theme-color-1) !important;color:white !important">
+                                        <th colspan="4"></th>
+                                        <th style="width:10%">`+format_number(total_debet)+`</th>
+                                        <th style="width:10%">`+format_number(total_kredit)+`</th>
+                                </tr>`;
+                                
+                                html+=det+`
+                                </table>
+                                <table class="table-borderless mt-2" width="100%">
+                                    <tr>
+                                        <td width="25%">&nbsp;</td>
+                                        <td width="25%">&nbsp;</td>
+                                        <td width="10%">&nbsp;</td>
+                                        <td width="20%" class="text-center">Dibuat Oleh</td>
+                                        <td width="20%" class="text-center">Diperiksa Oleh</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="25%">&nbsp;</td>
+                                        <td width="25%">&nbsp;</td>
+                                        <td width="10%">&nbsp;</td>
+                                        <td width="20%" style="height:100px"></td>
+                                        <td width="20%" style="height:100px"></td>
+                                    </tr>
+                                </table>
+                            </div>
                         </div>`;
                         $('#content-bottom-sheet').html(html);
-                       
-                        // if(posted == "Close"){
-                        //     $('#btn-delete2').css('display','none');
-                        //     $('#btn-edit2').css('display','none');
-                        // }else{
-                        //     $('#btn-delete2').css('display','inline-block');
-                        //     $('#btn-edit2').css('display','inline-block');
-                        // }
-                        // $('#modal-preview-id').text(id);
-                        // $('#modal-preview').modal('show');
+                        
+                        var scroll = document.querySelector('.preview-body');
+                        var psscroll = new PerfectScrollbar(scroll);
+
+                        $('.preview-header').on('click','#btn-delete2',function(e){
+                            var id = $('#preview-id').text();
+                            $('.c-bottom-sheet').removeClass('active');
+                            msgDialog({
+                                id:id,
+                                type:'hapus'
+                            });
+                        });
+
+                        $('.preview-header').on('click', '#btn-edit2', function(){
+                            var id= $('#preview-id').text();
+                            $('#judul-form').html('Edit Data Jurnal');
+                            $('#form-tambah')[0].reset();
+                            $('#form-tambah').validate().resetForm();
+                            
+                            $('#btn-save').attr('type','button');
+                            $('#btn-save').attr('id','btn-update');
+                            $('.c-bottom-sheet').removeClass('active');
+                            editData(id);
+                        });
+
+                        $('.preview-header').on('click','#btn-cetak',function(e){
+                            e.stopPropagation();
+                            $('.dropdown-ke1').addClass('hidden');
+                            $('.dropdown-ke2').removeClass('hidden');
+                            console.log('ok');
+                        });
+
+                        $('.preview-header').on('click','#btn-cetak2',function(e){
+                            // $('#dropdownAksi').dropdown('toggle');
+                            e.stopPropagation();
+                            $('.dropdown-ke1').removeClass('hidden');
+                            $('.dropdown-ke2').addClass('hidden');
+                        });
+
+                        if(posted == "Close"){
+                            console.log(posted);
+                            $('.preview-header #btn-delete2').css('display','none');
+                            $('.preview-header #btn-edit2').css('display','none');
+                        }else{
+                            $('.preview-header #btn-delete2').css('display','inline-block');
+                            $('.preview-header #btn-edit2').css('display','inline-block');
+                        }
                         $('#country-select-button').trigger("click");
                     }
                     else if(!result.status && result.message == 'Unauthorized'){
@@ -1290,45 +1346,6 @@
             });
             
         }
-    });
-
-    $('.modal-header').on('click','#btn-delete2',function(e){
-        var id = $('#modal-preview-id').text();
-        $('#modal-preview').modal('hide');
-        msgDialog({
-            id:id,
-            type:'hapus'
-        });
-    });
-
-    $('.modal-header').on('click', '#btn-edit2', function(){
-        var id= $('#modal-preview-id').text();
-        $('#judul-form').html('Edit Data Jurnal');
-        $('#form-tambah')[0].reset();
-        $('#form-tambah').validate().resetForm();
-        
-        $('#btn-save').attr('type','button');
-        $('#btn-save').attr('id','btn-update');
-        $('#modal-preview').modal('hide');
-        editData(id);
-    });
-
-    $('.modal-header').on('click','#btn-cetak',function(e){
-        e.stopPropagation();
-        $('.dropdown-ke1').addClass('hidden');
-        $('.dropdown-ke2').removeClass('hidden');
-        console.log('ok');
-    });
-
-    $('.modal-header').on('click','#preview-close',function(e){
-        $('.modal').modal('hide');
-    });
-
-    $('.modal-header').on('click','#btn-cetak2',function(e){
-        // $('#dropdownAksi').dropdown('toggle');
-        e.stopPropagation();
-        $('.dropdown-ke1').removeClass('hidden');
-        $('.dropdown-ke2').addClass('hidden');
     });
 
     // END PREVIEW
