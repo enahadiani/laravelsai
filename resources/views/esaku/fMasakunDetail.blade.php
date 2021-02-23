@@ -65,7 +65,6 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="separator mb-2"></div>
                     <!-- FORM BODY -->
                     <div class="card-body pt-3 form-body">
                         <ul class="nav nav-tabs col-12 " role="tablist">
@@ -143,7 +142,7 @@
                                 <div class="form-row" style="margin-bottom:70px">
                                     <div class="form-group col-md-2 col-12 mb-0">
                                         <div class="custom-switch custom-switch-primary mb-2">
-                                            <input class="custom-switch-input" id="block" type="checkbox">
+                                            <input class="custom-switch-input" id="block" name="blok" type="checkbox" value="0">
                                             <label class="custom-switch-btn" for="block"></label>
                                         </div>
                                     </div>
@@ -152,7 +151,7 @@
                                     </div>
                                     <div class="form-group col-md-2 col-12">
                                         <div class="custom-switch custom-switch-primary mb-2">
-                                            <input class="custom-switch-input" id="budget" type="checkbox">
+                                            <input class="custom-switch-input" name="budget" id="budget" type="checkbox" value="0">
                                             <label class="custom-switch-btn" for="budget"></label>
                                         </div>
                                     </div>
@@ -302,6 +301,15 @@
     });
 
     $('.selectize').selectize();
+    
+    $('input[type="checkbox"]').click(function(){
+        if($(this).is(":checked")){
+            $(this).val(1);
+        }
+        else if($(this).is(":not(:checked)")){
+            $(this).val(0);
+        }
+    });
 
     function hitungTotalRow(){
         var total_row = $('#input-grid tbody tr').length;
@@ -643,6 +651,12 @@
             }
 
             var formData = new FormData(form);
+            if(!formData.has('blok')){
+                formData.append('blok',0);  
+            }
+            if(!formData.has('budget')){
+                formData.append('budget',0);  
+            }
             for(var pair of formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
