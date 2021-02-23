@@ -302,26 +302,26 @@
         $('#modal-bank').modal('show');
     })
 
-    // var typingTime;
-    // var doneTyping = 5000; // 5 detik
-    // var $vendor = $('#kode_vendor');
+    $('#kode_vendor').blur(function() {
+        cekVendor($(this).val())
+    })
 
-    // $vendor.on('keyup', function(){
-    //     clearTimeout(typingTime);
-    //     typingTime = setTimeout(cekVendor($(this).val()), doneTyping);
-    // })
-
-    // $vendor.on('keydown', function(){
-    //     clearTimeout(typingTime);
-    // })
-
-    // function cekVendor(value) {
-    //     if(value !== "VS58" && value !== "") {
-    //         $('#error-vendor').show();
-    //     } else {
-    //         $('#error-vendor').hide();
-    //     }
-    // }
+    function cekVendor(value) {
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('java-master/vendor-check') }}",
+            data: { kode: value },
+            dataType: 'json',
+            async:false,
+            success:function(result){ 
+                if(result.data) {
+                    $('#error-vendor').hide();
+                } else {
+                    $('#error-vendor').show();
+                }
+            }
+        })
+    }
 
 
     function last_add(param,isi){
@@ -506,7 +506,7 @@
             }
         ],
         [
-            { data: 'kode_cust' },
+            { data: 'kode_vendor' },
             { data: 'nama' },
             { data: 'alamat' },
             { data: 'tgl_input' },
@@ -861,7 +861,6 @@
                 dataType: 'json',
                 async:false,
                 success:function(res){ 
-                    var result= res.data;
                      var html = `<tr>
                         <td style='border:none'>Kode Vendor</td>
                         <td style='border:none'>`+id+`</td>
@@ -872,11 +871,11 @@
                     </tr>
                     <tr>
                         <td>No Telp</td>
-                        <td>`+result.data[0].no_telp+`</td>
+                        <td>`+res.data.data[0].no_telp+`</td>
                     </tr>
                     <tr>
                         <td>Email</td>
-                        <td>`+result.data[0].email+`</td>
+                        <td>`+res.data.data[0].email+`</td>
                     </tr>
                     <tr>
                         <td>Alamat</td>
@@ -884,35 +883,35 @@
                     </tr>
                     <tr>
                         <td>Kode POS</td>
-                        <td>`+result.data[0].kode_pos+`</td>
+                        <td>`+res.data.data[0].kode_pos+`</td>
                     </tr>
                     <tr>
                         <td>Kecamatan</td>
-                        <td>`+result.data[0].kecamatan+`</td>
+                        <td>`+res.data.data[0].kecamatan+`</td>
                     </tr>
                     <tr>
                         <td>Kota</td>
-                        <td>`+result.data[0].kota+`</td>
+                        <td>`+res.data.data[0].kota+`</td>
                     </tr>
                     <tr>
                         <td>Negara</td>
-                        <td>`+result.data[0].negara+`</td>
+                        <td>`+res.data.data[0].negara+`</td>
                     </tr>
                     <tr>
                         <td>PIC</td>
-                        <td>`+result.data[0].pic+`</td>
+                        <td>`+res.data.data[0].pic+`</td>
                     </tr>
                     <tr>
                         <td>No. Telp PIC</td>
-                        <td>`+result.data[0].no_telp_pic+`</td>
+                        <td>`+res.data.data[0].no_telp_pic+`</td>
                     </tr>
                     <tr>
                         <td>Email PIC</td>
-                        <td>`+result.data[0].email_pic+`</td>
+                        <td>`+res.data.data[0].email_pic+`</td>
                     </tr>
                     <tr>
-                        <td>Akun Piutang</td>
-                        <td>`+result.data[0].akun_piutang+`-`+result.data[0].nama_akun+`</td>
+                        <td>Akun Hutang</td>
+                        <td>`+res.data.data[0].akun_hutang+`-`+res.data.data[0].nama_akun+`</td>
                     </tr>
                     <tr>
                         <td colspan='2'>
@@ -925,23 +924,26 @@
                                         <th>Cabang</th>    
                                     </tr>    
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1234</td>    
-                                        <td>1234</td>    
-                                        <td>1234</td>    
-                                        <td>1234</td>    
-                                    </tr>    
-                                </tbody>
+                                <tbody></tbody>
                             </table>
                         </td>
                     </tr>
                     `;
 
                     $('#table-preview tbody').html(html);
-            
+                    var html2;
+                    for(var i=0;i<res.data.bank.length;i++) {
+                        html2 += `<tr>
+                            <td>`+res.data.bank[i].no_rek+`</td>
+                            <td>`+res.data.bank[i].nama_rekening+`</td>
+                            <td>`+res.data.bank[i].bank+`</td>
+                            <td>`+res.data.bank[i].cabang+`</td>
+                        </tr>` 
+                    }
+                    $('#table-bank-detail tbody').html(html2);
                     $('#modal-preview-judul').css({'margin-top':'10px','padding':'0px !important'}).html('Preview Data Vendor').removeClass('py-2');
                     $('#modal-preview-id').text(id);
+                    $('#modal-preview #content-preview').css({'overflow-y': 'scroll'}); 
                     $('#modal-preview').modal('show');      
                 }
             })
