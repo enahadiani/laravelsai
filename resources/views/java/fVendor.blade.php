@@ -2,7 +2,7 @@
     <link rel="stylesheet" href="{{ asset('form.css') }}" />
     <link rel="stylesheet" href="{{ asset('master-esaku/form.css') }}" />
     <!-- LIST DATA -->
-    <x-list-data judul="Data Customer" tambah="true" :thead="array('Kode','Nama','Alamat','Tgl Input','Aksi')" :thwidth="array(20,25,35,10,10)" :thclass="array('','','','','text-center')" />
+    <x-list-data judul="Data Vendor" tambah="true" :thead="array('Kode','Nama','Alamat','Tgl Input','Aksi')" :thwidth="array(20,25,35,10,10)" :thclass="array('','','','','text-center')" />
     <!-- END LIST DATA -->
 
     <!-- FORM INPUT -->
@@ -36,11 +36,11 @@
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6 col-sm-12">
-                                        <label for="kode_customer">Kode</label>
-                                        <input class="form-control" type="text" id="kode_customer" name="kode_customer" required>
+                                        <label for="kode_vendor">Kode</label>
+                                        <input class="form-control" type="text" id="kode_vendor" name="kode_vendor" required>
                                     </div>
                                     <div class="error-side col-md-6 col-sm-12">
-                                        <p class="error-text" id="error-customer">Kode Customer sudah ada</p>
+                                        <p class="error-text" id="error-vendor">Kode Vendor sudah ada</p>
                                     </div>
                                 </div>
                                 <div class="form-row">
@@ -123,17 +123,17 @@
                             <div class="tab-pane" id="akuntansi" role="tabpanel">
                                 <div class="form-row">
                                     <div class="form-group col-md-6 col-sm-12">    
-                                        <label for="akun_piutang">Akun Piutang</label>
+                                        <label for="akun_hutang">Akun Hutang</label>
                                         <div class="input-group">
                                             <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
-                                                <span class="input-group-text info-code_akun_piutang" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                                <span class="input-group-text info-code_akun_hutang" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
                                             </div>
-                                            <input type="text" class="form-control inp-label-akun_piutang" id="akun_piutang" name="akun_piutang" value="" title="">
-                                            <span class="info-name_akun_piutang hidden">
+                                            <input type="text" class="form-control inp-label-akun_hutang" id="akun_hutang" name="akun_hutang" value="" title="">
+                                            <span class="info-name_akun_hutang hidden">
                                                 <span></span> 
                                             </span>
                                             <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                            <i class="simple-icon-magnifier search-item2" id="search_akun_piutang"></i>
+                                            <i class="simple-icon-magnifier search-item2" id="search_akun_hutang"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -208,7 +208,7 @@
     // Small Form
     $('#saku-form > .col-12').addClass('mx-auto col-lg-6');
     $('#modal-preview > .modal-dialog').css({ 'max-width':'600px'});
-    $('#error-customer').hide();
+    $('#error-vendor').hide();
     var telp = '';
     var telp_pic = '';
     setHeightForm();
@@ -304,22 +304,22 @@
 
     // var typingTime;
     // var doneTyping = 5000; // 5 detik
-    // var $customer = $('#kode_customer');
+    // var $vendor = $('#kode_vendor');
 
-    // $customer.on('keyup', function(){
+    // $vendor.on('keyup', function(){
     //     clearTimeout(typingTime);
     //     typingTime = setTimeout(cekVendor($(this).val()), doneTyping);
     // })
 
-    // $customer.on('keydown', function(){
+    // $vendor.on('keydown', function(){
     //     clearTimeout(typingTime);
     // })
 
     // function cekVendor(value) {
     //     if(value !== "VS58" && value !== "") {
-    //         $('#error-customer').show();
+    //         $('#error-vendor').show();
     //     } else {
-    //         $('#error-customer').hide();
+    //         $('#error-vendor').hide();
     //     }
     // }
 
@@ -374,19 +374,19 @@
     function getAkun(id=null){
         $.ajax({
             type: 'GET',
-            url: "{{ url('esaku-master/customer-akun') }}",
+            url: "{{ url('esaku-master/vendor-akun') }}",
             dataType: 'json',
             data:{'kode_akun':id},
             async:false,
             success:function(result){    
                 if(result.status){
                     if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                        showInfoField('akun_piutang',result.daftar[0].kode_akun,result.daftar[0].nama);
+                        showInfoField('akun_hutang',result.daftar[0].kode_akun,result.daftar[0].nama);
                     }else{
-                        $('#akun_piutang').attr('readonly',false);
-                        $('#akun_piutang').css('border-left','1px solid #d7d7d7');
-                        $('#akun_piutang').val('');
-                        $('#akun_piutang').focus();
+                        $('#akun_hutang').attr('readonly',false);
+                        $('#akun_hutang').css('border-left','1px solid #d7d7d7');
+                        $('#akun_hutang').val('');
+                        $('#akun_hutang').focus();
                     }
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
@@ -401,7 +401,7 @@
         showInpFilter({
             id : id,
             header : ['Kode', 'Nama'],
-            url : "{{ url('java-master/customer-akun') }}",
+            url : "{{ url('java-master/vendor-akun') }}",
             columns : [
                 { data: 'kode_akun' },
                 { data: 'nama' }
@@ -418,7 +418,7 @@
         });
     });
 
-    $('#form-tambah').on('change', '#akun_piutang', function(){
+    $('#form-tambah').on('change', '#akun_hutang', function(){
         var par = $(this).val();
         getAkun(par);
     });
@@ -428,10 +428,10 @@
     // SUGGESSION DI CBBL
     var $dtVendor = new Array();
 
-    function getCustomerAkun() {
+    function getVendorAkun() {
         $.ajax({
             type:'GET',
-            url:"{{ url('java-master/customer-akun') }}",
+            url:"{{ url('java-master/vendor-akun') }}",
             dataType: 'json',
             async: false,
             success: function(result) {
@@ -463,9 +463,9 @@
         });
     }
 
-    getCustomerAkun();
+    getVendorAkun();
 
-    $('#akun_piutang').typeahead({
+    $('#akun_hutang').typeahead({
         source: function (cari, result) {
             result($.map($dtVendor, function (item) {
                 return item.kode_akun;
@@ -487,7 +487,7 @@
     var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
     var dataTable = generateTable(
         "table-data",
-        "{{ url('java-master/customer') }}", 
+        "{{ url('java-master/vendor') }}", 
         [
             {'targets': 4, data: null, 'defaultContent': action_html,'className': 'text-center' },
             {
@@ -535,13 +535,13 @@
         $('div.jumlah-data').html("Menampilkan "+count+" per halaman");
         $('#row-id').hide();
         $('#id_edit').val('');
-        $('#judul-form').html('Tambah Data Customer');
+        $('#judul-form').html('Tambah Data Vendor');
         $('#btn-update').attr('id','btn-save');
         $('#btn-save').attr('type','submit');
         $('#form-tambah')[0].reset();
         $('#form-tambah').validate().resetForm();
         $('#method').val('post');
-        $('#kode_customer').attr('readonly', false);
+        $('#kode_vendor').attr('readonly', false);
         $('#saku-datatable').hide();
         $('#saku-form').show();
         $('.input-group-prepend').addClass('hidden');
@@ -561,7 +561,7 @@
     });
 
     $('#saku-form').on('click', '#btn-update', function(){
-        var kode = $('#kode_customer').val();
+        var kode = $('#kode_vendor').val();
         msgDialog({
             id:kode,
             type:'edit'
@@ -575,7 +575,7 @@
         ignore: [],
         rules: 
         {
-            kode_customer:{
+            kode_vendor:{
                 required: true,
                 maxlength:10   
             },
@@ -610,7 +610,7 @@
                 required: true,
                 maxlength:50  
             },
-            akun_piutang:
+            akun_hutang:
             {
                 required: true,
                 maxlength:20
@@ -619,15 +619,15 @@
         errorElement: "label",
         submitHandler: function (form) {
             var parameter = $('#id_edit').val();
-            var id = $('#kode_customer').val();
+            var id = $('#kode_vendor').val();
             var telpNow = $('#no_telp').val();
             var telpPicNow = $('#no_telp_pic').val();
             if(parameter == "edit"){
-                var url = "{{ url('java-master/customer-ubah') }}";
+                var url = "{{ url('java-master/vendor-ubah') }}";
                 var pesan = "updated";
                 var text = "Perubahan data "+id+" telah tersimpan";
             }else{
-                var url = "{{ url('java-master/customer') }}";
+                var url = "{{ url('java-master/vendor') }}";
                 var pesan = "saved";
                 var text = "Data tersimpan dengan kode "+id;
             }
@@ -673,14 +673,14 @@
                         $('#form-tambah').validate().resetForm();
                         $('[id^=label]').html('');
                         $('#id_edit').val('');
-                        $('#judul-form').html('Tambah Data Customer');
+                        $('#judul-form').html('Tambah Data Vendor');
                         $('#method').val('post');
-                        $('#kode_customer').attr('readonly', false);
+                        $('#kode_vendor').attr('readonly', false);
                         msgDialog({
                             id:result.data.kode,
                             type:'simpan'
                         });
-                        last_add("kode_customer",result.data.kode);
+                        last_add("kode_vendor",result.data.kode);
                     }else if(!result.data.status && result.data.message === "Unauthorized"){
                     
                         window.location.href = "{{ url('/java-auth/sesi-habis') }}";
@@ -690,7 +690,7 @@
                             msgDialog({
                                 id: id,
                                 type: result.data.jenis,
-                                text:'Kode customer sudah digunakan'
+                                text:'Kode vendor sudah digunakan'
                             });
                         }else{
 
@@ -722,14 +722,14 @@
         console.log(id)
         $.ajax({
             type: 'DELETE',
-            url: "{{ url('java-master/customer') }}",
+            url: "{{ url('java-master/vendor') }}",
             data: { kode: id },
             dataType: 'json',
             async:false,
             success:function(result){
                 if(result.data.status){
                     dataTable.ajax.reload();                    
-                    showNotification("top", "center", "success",'Hapus Data','Data Customer ('+id+') berhasil dihapus ');
+                    showNotification("top", "center", "success",'Hapus Data','Data Vendor ('+id+') berhasil dihapus ');
                     $('#modal-pesan-id').html('');
                     $('#table-delete tbody').html('');
                     $('#modal-pesan').modal('hide');
@@ -761,7 +761,7 @@
     function editData(id){
         $.ajax({
             type: 'GET',
-            url: "{{ url('java-master/customer-show') }}",
+            url: "{{ url('java-master/vendor-show') }}",
             data: { kode: id },
             dataType: 'json',
             async:false,
@@ -774,8 +774,8 @@
                     telp_pic = result.data[0].no_pictel;
                     $('#id_edit').val('edit');
                     $('#method').val('put');
-                    $('#kode_customer').attr('readonly', true);
-                    $('#kode_customer').val(id);
+                    $('#kode_vendor').attr('readonly', true);
+                    $('#kode_vendor').val(id);
                     $('#id').val(id);
                     $('#nama').val(result.data[0].nama);
                     $('#no_telp').val(result.data[0].no_telp);
@@ -791,7 +791,7 @@
                     $('#saku-datatable').hide();
                     $('#modal-preview').modal('hide');
                     $('#saku-form').show();
-                    showInfoField('akun_piutang',result.data[0].akun_piutang,result.data[0].nama_akun);
+                    showInfoField('akun_hutang',result.data[0].akun_hutang,result.data[0].nama_akun);
                     for(var i=0;i<result.bank.length;i++) {
                         dataBank.push({
                             no_rek: result.bank[i].no_rek,
@@ -825,15 +825,15 @@
     // END BUTTON EDIT
     
     // // HANDLER untuk enter dan tab
-    // $('#kode_customer,#nama,#no_tel,#no_fax,#email,#npwp,#pic,#no_pictel,#bank,#cabang,#no_rek,#nama_rek,#alamat,#alamat2,#akun_piutang').keydown(function(e){
+    // $('#kode_vendor,#nama,#no_tel,#no_fax,#email,#npwp,#pic,#no_pictel,#bank,#cabang,#no_rek,#nama_rek,#alamat,#alamat2,#akun_hutang').keydown(function(e){
     //     var code = (e.keyCode ? e.keyCode : e.which);
-    //     var nxt = ['kode_customer','nama','no_tel','no_fax','email','npwp','pic','no_pictel','bank','cabang','no_rek','nama_rek','alamat','alamat2','akun_piutang'];
+    //     var nxt = ['kode_vendor','nama','no_tel','no_fax','email','npwp','pic','no_pictel','bank','cabang','no_rek','nama_rek','alamat','alamat2','akun_hutang'];
     //     if (code == 13 || code == 40) {
     //         e.preventDefault();
     //         var idx = nxt.indexOf(e.target.id);
     //         idx++;
     //         if(idx == 15){
-    //             var akun = $('#akun_piutang').val();
+    //             var akun = $('#akun_hutang').val();
     //             getAkun(akun);
     //         }else{
     //             $('#'+nxt[idx]).focus();
@@ -856,14 +856,14 @@
             var data = dataTable.row(this).data();
             $.ajax({
                 type: 'GET',
-                url: "{{ url('java-master/customer-show') }}",
+                url: "{{ url('java-master/vendor-show') }}",
                 data: { kode: id },
                 dataType: 'json',
                 async:false,
                 success:function(res){ 
                     var result= res.data;
                      var html = `<tr>
-                        <td style='border:none'>Kode Customer</td>
+                        <td style='border:none'>Kode Vendor</td>
                         <td style='border:none'>`+id+`</td>
                     </tr>
                     <tr>
