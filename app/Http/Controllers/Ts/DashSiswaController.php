@@ -8,15 +8,26 @@
     use Illuminate\Support\Facades\Session;
     use GuzzleHttp\Exception\BadResponseException;
     use PDF;
+    use Midtrans\Config;
+    use Midtrans\Snap;
+    use Midtrans\Notification;
 
     class DashSiswaController extends Controller {
 
-        public function __contruct() {
+        public function __contruct(Request $request) {
+            $this->request = $request;
+            Config::$serverKey = config('services.midtrans.serverKey');
+            Config::$isProduction = config('services.midtrans.isProduction');
+            Config::$isSanitized = config('services.midtrans.isSanitized');
+            Config::$is3ds = config('services.midtrans.is3ds');
+            
             if(!Session::get('login')){
                 return redirect('ts-auth/login')->with('alert','Session telah habis !');
             }
+     
+            // Set midtrans configuration
         }
-
+ 
         public function getKartuPiutang(Request $request)
         {
             try{
@@ -252,6 +263,86 @@
                 'chroot'  => public_path('/img'),
             ]);
             return $pdf->download('skl-pdf');   
+        }
+
+        public function store(Request $request)
+        {
+            
+            $request->validate([
+                'nis' => 'required',
+                'no_bill' => 'required',
+                'nilai' => 'required',
+                'keterangan' => 'required'
+            ]);
+                
+            try{
+                $client = new Client();
+                $response = $client->request('GET',  config('api.url').'midtrans/sis-midtrans-kode',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ]
+                ]);
+        
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $data = json_decode($response_data,true);
+                    $orderId = $data["no_bukti"];
+                }
+                //transaksi ke midtrans
+                $payload = [
+                    'transaction_details' => [
+                        'order_id'      => $orderId,
+                        'gross_amount'  => $request->nilai,
+                    ],
+                    'customer_details' => [
+                        'first_name'    => $request->nis,
+                        'email'         => '-'
+                    ],
+                    'item_details' => [
+                        [
+                            'id'       => $request->no_bill,
+                            'price'    => $request->nilai,
+                            'quantity' => 1,
+                            'name'     => $request->keterangan
+                        ]
+                    ],
+                    'enabled_payments' => ['mandiri_clickpay','other_va']
+
+                ];
+                $snapToken = Snap::getSnapToken($payload);
+
+                $response = $client->request('POST',  config('api.url').'midtrans/sis-midtrans-bayar',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'form_params' => [
+                        'no_bukti' => $orderId,
+                        'nis' => $request->nis,
+                        'no_bill' => $request->no_bill,
+                        'nilai' => $request->nilai,
+                        'keterangan' => $request->keterangan,
+                        'status' => 'process',
+                        'snap_token' => $snapToken
+                    ]
+                ]);
+                
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $data = json_decode($response_data,true);
+                }
+                return response()->json(['data' => $data["success"], 'snap_token' => $snapToken], 200);
+            } catch (BadResponseException $ex) {
+
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                $result['message'] = $res;
+                $result['status']=false;
+                return response()->json(["data" => $result], 200);
+            } 
         }
         
     }

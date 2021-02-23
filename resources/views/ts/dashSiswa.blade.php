@@ -67,7 +67,7 @@
         }
     </style>
     <div class="row" >
-        <div class="col-12 col-lg-4 col-xl-3 col-left col-grid content-fix-height-left" >
+        <div class="col-12 col-lg-4 col-xl-3 col-left col-grid content-fix-height-left mb-3" >
             <div class="card mb-4" style="height:100%">
                 <div class="position-absolute card-top-buttons">
                     <button class="btn btn-outline-white icon-button bg-primary" id="btn-editprofile" style="border:0;border-radius:50% !important;width:32px;height:32px" >
@@ -124,7 +124,7 @@
                 </div>
             </div>                 
         </div>
-        <div class="col-12 col-lg-8 col-xl-9 col-right col-grid content-fix-height-right table-responsive" id="content-dash">
+        <div class="col-12 col-lg-8 col-xl-9 col-right col-grid content-fix-height-right table-responsive mb-3" id="content-dash">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card">
@@ -134,7 +134,7 @@
                                     <h1 class="text-primary bold">Informasi<br>Keuangan</h1>
                                 </div>
                                 <div class="col-md-3 col-12 col-grid">
-                                    <div class="card" style="background:#AF1F22">
+                                    <div class="card" style="background:#AF1F22;cursor:pointer" id="sis-mid-bayar">
                                         <div class="card-body py-3">
                                             <p class="text-white mb-2">Tagihan</p>
                                             <h6 class="text-white bold" id="piutang"></h6>
@@ -155,7 +155,7 @@
                 </div>
             </div>
             <div class="row mt-3" style="min-height:340px">
-                <div class="col-lg-8 col-grid">
+                <div class="col-lg-8 col-grid mb-3">
                     <div class="card">
                         <div class="card-body">
                             <h6 class="bold">Daftar Tagihan</h6>
@@ -165,7 +165,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-grid">
+                <div class="col-lg-4 col-grid mb-3">
                     <div class="card">
                         <div class="card-body">
                             <h6 class="bold">Riwayat Transaksi</h6>
@@ -226,6 +226,12 @@
         e.preventDefault();
         var form = $(this).find('.kode_form').html();
         var xurl = "{{url('ts-auth/form')}}/"+form;
+        $('#content-dash').load(xurl);
+    });
+
+    $('.col-grid').on('click','#sis-mid-bayar',function(e){
+        e.preventDefault();
+        var xurl = "{{url('ts-auth/form')}}/fSisMidBayar";
         $('#content-dash').load(xurl);
     });
 
@@ -312,11 +318,10 @@
                                                 </tr>
                                                 <tr>
                                                     <td style="width:75%">`+line4.keterangan+` </td>
-                                                    <td style="width:25%">&nbsp;</td>
+                                                    <td style="width:25%;text-align:right" rowspan='2'></td>
                                                 </tr>
                                                 <tr class="text-grey">
                                                     <td style="width:75%">`+line4.tgl+` || `+line4.no_bukti+` || `+line4.kode_param+`</td>
-                                                    <td style="width:25%">&nbsp;</td>
                                                 </tr>
                                             </table>
                                             </div>
@@ -327,6 +332,7 @@
                             }
                         }
                         $('.daftar-tagihan').html(html);
+                        
                     }
                     
                 }
