@@ -21,9 +21,6 @@ class HelperController extends Controller {
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
-            ],
-            'query' => [
-                'kode_akun' => $request->kode_akun
             ]
         ]);
 

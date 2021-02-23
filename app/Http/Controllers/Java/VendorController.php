@@ -28,6 +28,30 @@ class VendorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function isUnik(Request $request) {
+        try {
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'java-master/vendor-check?kode='.$request->query('kode'),[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["status"];
+            }
+            return response()->json(['data' => $data, 'status'=>true], 200); 
+
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+        }
+    }
 
     public function index(){
         try {
@@ -65,11 +89,10 @@ class VendorController extends Controller
             'kecamatan' => 'required',
             'kota' => 'required',
             'negara' => 'required',
-            'akun_piutang' => 'required',
             'pic' => 'required',
             'no_telp_pic' => 'required',
             'email_pic' => 'required',
-            'akun_piutang' => 'required',
+            'akun_hutang' => 'required',
             'no_rek' => 'required|array',
             'nama_rek' => 'required|array',
             'bank' => 'required|array',
@@ -101,7 +124,7 @@ class VendorController extends Controller
                 'pic' => $request->input('pic'),
                 'no_telp_pic' => $request->input('no_telp_pic'),
                 'email_pic' => $request->input('email_pic'),
-                'akun_piutang' => $request->input('akun_piutang'),
+                'akun_hutang' => $request->input('akun_hutang'),
                 'no_rek' => $no_rek,
                 'nama_rek' => $nama_rek,
                 'bank' => $bank,
@@ -168,11 +191,10 @@ class VendorController extends Controller
             'kecamatan' => 'required',
             'kota' => 'required',
             'negara' => 'required',
-            'akun_piutang' => 'required',
             'pic' => 'required',
             'no_telp_pic' => 'required',
             'email_pic' => 'required',
-            'akun_piutang' => 'required',
+            'akun_hutang' => 'required',
             'no_rek' => 'required|array',
             'nama_rek' => 'required|array',
             'bank' => 'required|array',
@@ -204,7 +226,7 @@ class VendorController extends Controller
                 'pic' => $request->input('pic'),
                 'no_telp_pic' => $request->input('no_telp_pic'),
                 'email_pic' => $request->input('email_pic'),
-                'akun_piutang' => $request->input('akun_piutang'),
+                'akun_hutang' => $request->input('akun_hutang'),
                 'no_rek' => $no_rek,
                 'nama_rek' => $nama_rek,
                 'bank' => $bank,
