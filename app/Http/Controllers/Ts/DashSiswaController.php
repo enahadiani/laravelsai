@@ -467,7 +467,8 @@
             //     $data = $data["success"];
             // }
             
-            return response()->json(["message" => $message,"sts_bayar" => $sts_bayar], 200);
+            // return response()->json(["message" => $message,"sts_bayar" => $sts_bayar], 200);
+            return view('ts.status',["message" => $message,"sts_bayar" => $sts_bayar]);
         }
         
     }
