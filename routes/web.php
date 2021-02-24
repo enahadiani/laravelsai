@@ -38,6 +38,9 @@ Route::get('/', function () {
         case 'sidarwis.com' : 
             return redirect('wisata-auth/login');
         break;
+        case 'dash.simkug.com' : 
+            return redirect('dash-telu/login');
+        break;
         default : 
             return view('welcome');
         break;
