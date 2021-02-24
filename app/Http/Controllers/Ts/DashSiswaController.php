@@ -396,7 +396,7 @@
             $client = new Client();
             $transaction = $request->transaction_status;
             $orderId = $request->order_id;
-            $response = $client->request('GET',  config('api.url').'midtrans/sis-midtrans/status',[
+            $response = $client->request('GET',  config('api.url').'midtrans/sis-midtrans-status',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -410,8 +410,8 @@
                 $response_data = $response->getBody()->getContents();
                 
                 $data = json_decode($response_data,true);
-                // $transaction = $data['transaction_status'];
-                // $type = $data['payment_type'];
+                $transaction = $data['transaction_status'];
+                $type = $data['payment_type'];
             }
     
             if ($transaction == 'settlement') {
@@ -467,7 +467,7 @@
             //     $data = $data["success"];
             // }
             
-            return response()->json(["message" => $message, "data"=>$data,"sts_bayar" => $sts_bayar], 200);
+            return response()->json(["message" => $message,"sts_bayar" => $sts_bayar], 200);
         }
         
     }
