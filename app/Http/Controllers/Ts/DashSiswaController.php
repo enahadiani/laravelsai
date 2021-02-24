@@ -294,6 +294,8 @@
                     $orderId = $data["no_bukti"];
                 }
                 //transaksi ke midtrans
+                date_default_timezone_set('Asia/Jakarta');
+                $start_time = date( 'Y-m-d H:i:s O', time() );
                 $payload = [
                     'transaction_details' => [
                         'order_id'      => $orderId,
@@ -311,8 +313,15 @@
                             'name'     => $request->keterangan
                         ]
                     ],
-                    'enabled_payments' => ['echannel']
-
+                    'enabled_payments' => ['echannel'],
+                    'expiry' => [
+                        'start_time' => $start_time,
+                        'unit' => 'minutes',
+                        'duration' => 180
+                    ],
+                    'callbacks'=> [
+                        'finish'=> 'https://app.simkug.com/ts-auth/finish'
+                    ]
                 ];
                 $snapToken = Snap::getSnapToken($payload);
 
@@ -380,6 +389,86 @@
                 $res = json_decode($response->getBody(),true);
                 return response()->json(['message' => $res["message"], 'status'=>false], 200);
             } 
+        }
+
+        public function notificationHandler(Request $request)
+        {
+            $client = new Client();
+            $transaction = $request->transaction_status;
+            $orderId = $request->order_id;
+            $response = $client->request('GET',  config('api.url').'midtrans/sis-midtrans-status',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' => [
+                    'order_id' => $orderId
+                ]
+            ]);
+    
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $transaction = $data['transaction_status'];
+                $type = $data['payment_type'];
+            }
+    
+            if ($transaction == 'settlement') {
+                
+                // TODO set payment status in merchant's database to 'Settlement'
+                // $donation->addUpdate("Transaction order_id: " . $orderId ." successfully transfered using " . $type);
+                $message = "Transaction order_id: " . $orderId ." successfully transfered ";
+                // $donation->setSuccess();
+                $sts_bayar = 'success';
+                
+            } elseif($transaction == 'pending'){
+                
+                // TODO set payment status in merchant's database to 'Pending'
+                // $donation->addUpdate("Waiting customer to finish transaction order_id: " . $orderId . " ");
+                $message = "Waiting customer to finish transaction order_id: " . $orderId;
+                // $donation->setPending();
+                $sts_bayar = 'pending';
+                
+            } elseif ($transaction == 'deny') {
+                
+                // TODO set payment status in merchant's database to 'Failed'
+                // $donation->addUpdate("Payment for transaction order_id: " . $orderId . " is Failed.");
+                $message = "Payment for transaction order_id: " . $orderId . " is Failed.";
+                // $donation->setFailed();
+                $sts_bayar = 'failed';
+                
+            } elseif ($transaction == 'expire') {
+                
+                // TODO set payment status in merchant's database to 'expire'
+                // $donation->addUpdate("Payment for transaction order_id: " . $orderId . " is expired.");
+                $message = "Payment for transaction order_id: " . $orderId . " is expired.";
+                // $donation->setExpired();
+                $sts_bayar = 'expired';
+                
+            } elseif ($transaction == 'cancel') {
+                
+                // TODO set payment status in merchant's database to 'Failed'
+                // $donation->addUpdate("Payment for transaction order_id: " . $orderId . " is canceled.");
+                $message = "Payment for transaction order_id: " . $orderId . " is canceled.";
+                // $donation->setFailed();
+                $sts_bayar = 'cancel';
+                
+            }
+    
+            // $client = new Client();
+            // $response = $client->request('PUT',  config('api.url').'midtrans/donasi/'.$orderId.'/'.$sts_bayar,[]);
+            // $response = $client->request('PUT',  config('api.url').'midtrans/sis-midtrans/'.$orderId.'/'.$sts_bayar,[]);
+    
+            // if ($response->getStatusCode() == 200) { // 200 OK
+            //     $response_data = $response->getBody()->getContents();
+                
+            //     $data = json_decode($response_data,true);
+            //     $data = $data["success"];
+            // }
+            
+            // return response()->json(["message" => $message,"sts_bayar" => $sts_bayar], 200);
+            return view('ts.status',["message" => $message,"sts_bayar" => $sts_bayar]);
         }
         
     }
