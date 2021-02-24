@@ -393,32 +393,28 @@
 
         public function notificationHandler(Request $request)
         {
-            // $notif = new Notification();
+            $client = new Client();
+            
             $orderId = $request->order_id;
-            $transaction = $request->transaction_status;
+            $response = $client->request('GET',  config('api.url').'midtrans/sis-midtrans/status',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' => [
+                    'order_id' => $orderId
+                ]
+            ]);
     
-            if ($transaction == 'capture') {
-                // For credit card transaction, we need to check whether transaction is challenge by FDS or not
-                // if ($type == 'credit_card') {
-                    
-                //     if($fraud == 'challenge') {
-                //         // TODO set payment status in merchant's database to 'Challenge by FDS'
-                //         // TODO merchant should decide whether this transaction is authorized or not in MAP
-                //         // $donation->addUpdate("Transaction order_id: " . $orderId ." is challenged by FDS");
-                //         $message = "Transaction order_id: " . $orderId ." is challenged by FDS";
-                //         // $donation->setPending();
-                //         $sts_bayar = 'pending';
-                //     } else {
-                //         // TODO set payment status in merchant's database to 'Success'
-                //         // $donation->addUpdate("Transaction order_id: " . $orderId ." successfully captured using " . $type);
-                //         $message = "Transaction order_id: " . $orderId ." successfully captured using " . $type;
-                //         // $donation->setSuccess();
-                //         $sts_bayar = 'success';
-                //     }
-                    
-                // }
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
                 
-            } elseif ($transaction == 'settlement') {
+                $data = json_decode($response_data,true);
+                $transaction = $data['transaction_status'];
+                $type = $data['payment_type'];
+            }
+    
+            if ($transaction == 'settlement') {
                 
                 // TODO set payment status in merchant's database to 'Settlement'
                 // $donation->addUpdate("Transaction order_id: " . $orderId ." successfully transfered using " . $type);
