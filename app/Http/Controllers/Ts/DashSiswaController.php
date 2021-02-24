@@ -393,77 +393,74 @@
 
         public function notificationHandler(Request $request)
         {
-            $notif = new Notification();
-            $orderId = $notif->order_id;
-            $transaction = $notif->transaction_status;
-            $type = $notif->payment_type;
-            $orderId = $notif->order_id;
-            $fraud = $notif->fraud_status;
+            // $notif = new Notification();
+            $orderId = $request->order_id;
+            $transaction = $request->transaction_status;
     
             if ($transaction == 'capture') {
                 // For credit card transaction, we need to check whether transaction is challenge by FDS or not
-                if ($type == 'credit_card') {
+                // if ($type == 'credit_card') {
                     
-                    if($fraud == 'challenge') {
-                        // TODO set payment status in merchant's database to 'Challenge by FDS'
-                        // TODO merchant should decide whether this transaction is authorized or not in MAP
-                        // $donation->addUpdate("Transaction order_id: " . $orderId ." is challenged by FDS");
-                        $message = "Transaction order_id: " . $orderId ." is challenged by FDS";
-                        // $donation->setPending();
-                        $sts_bayar = 'pending';
-                    } else {
-                        // TODO set payment status in merchant's database to 'Success'
-                        // $donation->addUpdate("Transaction order_id: " . $orderId ." successfully captured using " . $type);
-                        $message = "Transaction order_id: " . $orderId ." successfully captured using " . $type;
-                        // $donation->setSuccess();
-                        $sts_bayar = 'success';
-                    }
+                //     if($fraud == 'challenge') {
+                //         // TODO set payment status in merchant's database to 'Challenge by FDS'
+                //         // TODO merchant should decide whether this transaction is authorized or not in MAP
+                //         // $donation->addUpdate("Transaction order_id: " . $orderId ." is challenged by FDS");
+                //         $message = "Transaction order_id: " . $orderId ." is challenged by FDS";
+                //         // $donation->setPending();
+                //         $sts_bayar = 'pending';
+                //     } else {
+                //         // TODO set payment status in merchant's database to 'Success'
+                //         // $donation->addUpdate("Transaction order_id: " . $orderId ." successfully captured using " . $type);
+                //         $message = "Transaction order_id: " . $orderId ." successfully captured using " . $type;
+                //         // $donation->setSuccess();
+                //         $sts_bayar = 'success';
+                //     }
                     
-                }
+                // }
                 
             } elseif ($transaction == 'settlement') {
                 
                 // TODO set payment status in merchant's database to 'Settlement'
                 // $donation->addUpdate("Transaction order_id: " . $orderId ." successfully transfered using " . $type);
-                $message = "Transaction order_id: " . $orderId ." successfully transfered using " . $type;
+                $message = "Transaction order_id: " . $orderId ." successfully transfered ";
                 // $donation->setSuccess();
                 $sts_bayar = 'success';
                 
             } elseif($transaction == 'pending'){
                 
                 // TODO set payment status in merchant's database to 'Pending'
-                // $donation->addUpdate("Waiting customer to finish transaction order_id: " . $orderId . " using " . $type);
-                $message = "Waiting customer to finish transaction order_id: " . $orderId . " using " . $type;
+                // $donation->addUpdate("Waiting customer to finish transaction order_id: " . $orderId . " ");
+                $message = "Waiting customer to finish transaction order_id: " . $orderId;
                 // $donation->setPending();
                 $sts_bayar = 'pending';
                 
             } elseif ($transaction == 'deny') {
                 
                 // TODO set payment status in merchant's database to 'Failed'
-                // $donation->addUpdate("Payment using " . $type . " for transaction order_id: " . $orderId . " is Failed.");
-                $message = "Payment using " . $type . " for transaction order_id: " . $orderId . " is Failed.";
+                // $donation->addUpdate("Payment for transaction order_id: " . $orderId . " is Failed.");
+                $message = "Payment for transaction order_id: " . $orderId . " is Failed.";
                 // $donation->setFailed();
                 $sts_bayar = 'failed';
                 
             } elseif ($transaction == 'expire') {
                 
                 // TODO set payment status in merchant's database to 'expire'
-                // $donation->addUpdate("Payment using " . $type . " for transaction order_id: " . $orderId . " is expired.");
-                $message = "Payment using " . $type . " for transaction order_id: " . $orderId . " is expired.";
+                // $donation->addUpdate("Payment for transaction order_id: " . $orderId . " is expired.");
+                $message = "Payment for transaction order_id: " . $orderId . " is expired.";
                 // $donation->setExpired();
                 $sts_bayar = 'expired';
                 
             } elseif ($transaction == 'cancel') {
                 
                 // TODO set payment status in merchant's database to 'Failed'
-                // $donation->addUpdate("Payment using " . $type . " for transaction order_id: " . $orderId . " is canceled.");
-                $message = "Payment using " . $type . " for transaction order_id: " . $orderId . " is canceled.";
+                // $donation->addUpdate("Payment for transaction order_id: " . $orderId . " is canceled.");
+                $message = "Payment for transaction order_id: " . $orderId . " is canceled.";
                 // $donation->setFailed();
                 $sts_bayar = 'cancel';
                 
             }
     
-            $client = new Client();
+            // $client = new Client();
             // $response = $client->request('PUT',  config('api.url').'midtrans/donasi/'.$orderId.'/'.$sts_bayar,[]);
             // $response = $client->request('PUT',  config('api.url').'midtrans/sis-midtrans/'.$orderId.'/'.$sts_bayar,[]);
     
