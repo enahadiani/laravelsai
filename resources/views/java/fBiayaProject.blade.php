@@ -103,6 +103,9 @@
                             </div>
                         </div>
                     </div>
+                    <div class="btn-div">
+                        <button type="submit" class="btn btn-primary mb-2 mt-2"  style="float:right;" id="btn-save" ><i class="fa fa-save"></i> Simpan</button>
+                    </div>
                 </div>
             </div>
         </div>
