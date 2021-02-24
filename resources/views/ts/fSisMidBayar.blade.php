@@ -134,7 +134,7 @@
                 <div class="col-lg-8 col-grid">
                     <div class="card">
                         <div class="card-body">
-                            <h6 class="bold">Daftar Tagihan</h6>
+                            <h6 class="bold">Daftar Tagihan <a href="#" class="text-primary float-right" id="riwayat-pbyr" style="font-size:12px;text-decoration: underline;font-style: italic;"> Riwayat Pembayaran</a></h6>
                             <div class="daftar-tagihan">
 
                             </div>
@@ -398,4 +398,11 @@
         });
         return false;
     }
+
+    $('h6').on('click','#riwayat-pbyr',function(e){
+        e.preventDefault();
+        var xurl = "{{url('ts-auth/form')}}/fListMidBayar";
+        $('#content-dash').load(xurl);
+    });
+
     </script>

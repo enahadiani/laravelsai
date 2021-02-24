@@ -31,3 +31,4 @@ Route::get('skl-pdf', 'Ts\DashSiswaController@getSklPDF');
 Route::post('sis-mid-bayar', 'Ts\DashSiswaController@store');
 
 Route::post('bayar/store', 'Ts\DashSiswaController@store')->name('bayar.store');
+Route::get('sis-mid-bayar', 'Ts\DashSiswaController@index');

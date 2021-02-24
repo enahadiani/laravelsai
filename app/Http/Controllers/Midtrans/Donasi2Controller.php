@@ -236,7 +236,8 @@ class Donasi2Controller extends Controller
         }
 
         $client = new Client();
-        $response = $client->request('PUT',  config('api.url').'midtrans/donasi/'.$orderId.'/'.$sts_bayar,[]);
+        // $response = $client->request('PUT',  config('api.url').'midtrans/donasi/'.$orderId.'/'.$sts_bayar,[]);
+        $response = $client->request('PUT',  config('api.url').'midtrans/sis-midtrans/'.$orderId.'/'.$sts_bayar,[]);
 
         if ($response->getStatusCode() == 200) { // 200 OK
             $response_data = $response->getBody()->getContents();
