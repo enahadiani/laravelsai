@@ -47,6 +47,8 @@ Route::get('search-form-list2','Ts\AuthController@searchFormList2');
 
 Route::post('/finish', 'Ts\DashSiswaController@notificationHandler');
 Route::get('/finish', 'Ts\DashSiswaController@notificationHandler');
+Route::post('/finish-trans', 'Ts\DashSiswaController@notificationHandler2');
+Route::get('/finish-trans', 'Ts\DashSiswaController@notificationHandler2');
 
 
 
