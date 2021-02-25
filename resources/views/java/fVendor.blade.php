@@ -390,7 +390,7 @@
                     }
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
-                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                    window.location.href = "{{ url('java-auth/sesi-habis') }}";
                 }
             }
         });

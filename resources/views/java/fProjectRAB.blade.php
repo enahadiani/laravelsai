@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="{{ asset('trans-esaku/form.css') }}" />
 <link rel="stylesheet" href="{{ asset('trans-esaku/grid.css') }}" />
 
-<x-list-data judul="Data Anggaran Project" tambah="true" :thead="array('No Proyek', 'Tanggal','Vendor','Anggaran Tersisa','Aksi')" :thwidth="array(15,15,10,10,10)" :thclass="array('','','','','text-center')" />
+<x-list-data judul="Data Anggaran Project" tambah="true" :thead="array('No Anggaran', 'No Proyek', 'Tanggal', 'Keterangan', 'Nilai Anggaran', 'Aksi')" :thwidth="array(15,15,15,10,10,10)" :thclass="array('','','','','','text-center')" />
 
 <form id="form-tambah" class="tooltip-label-right" novalidate>
     <input class="form-control" type="hidden" id="id_edit" name="id_edit">
@@ -124,6 +124,24 @@ var $iconLoad = $('.preloader');
         return num;
     }
 
+    function last_add(param,isi){
+        var rowIndexes = [];
+        dataTable.rows( function ( idx, data, node ) {             
+            if(data[param] === isi){
+                rowIndexes.push(idx);                  
+            }
+            return false;
+        }); 
+        dataTable.row(rowIndexes).select();
+        $('.selected td:eq(0)').addClass('last-add');
+        console.log('last-add');
+        setTimeout(function() {
+            console.log('timeout');
+            $('.selected td:eq(0)').removeClass('last-add');
+            dataTable.row(rowIndexes).deselect();
+        }, 1000 * 60 * 10);
+    }
+
     $('.currency').inputmask("numeric", {
         radixPoint: ",",
         groupSeparator: ".",
@@ -157,6 +175,136 @@ var $iconLoad = $('.preloader');
             id:kode,
             type:'keluar'
         });
+    });
+
+    var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
+
+    var dataTable = generateTable(
+        "table-data",
+        "{{ url('java-trans/rab-proyek') }}", 
+        [
+            {
+                "targets": 0,
+                "createdCell": function (td, cellData, rowData, row, col) {
+                    if ( rowData.status == "baru" ) {
+                        $(td).parents('tr').addClass('selected');
+                        $(td).addClass('last-add');
+                    }
+                }
+            },
+            {   'targets': 4, 
+                'className': 'text-right',
+                'render': $.fn.dataTable.render.number( '.', ',', 0, '' ) 
+            },
+            {'targets': 5, data: null, 'defaultContent': action_html,'className': 'text-center' }
+        ],
+        [
+            { data: 'no_rab' },
+            { data: 'no_proyek' },
+            { data: 'tanggal' },
+            { data: 'keterangan' },
+            { data: 'nilai_anggaran' }
+        ],
+        "{{ url('java-auth/sesi-habis') }}",
+        [[5 ,"desc"]]
+    );
+
+    $.fn.DataTable.ext.pager.numbers_length = 5;
+
+    $("#searchData").on("keyup", function (event) {
+        dataTable.search($(this).val()).draw();
+    });
+
+    $("#page-count").on("change", function (event) {
+        var selText = $(this).val();
+        dataTable.page.len(parseInt(selText)).draw();
+    });
+
+    $('[data-toggle="popover"]').popover({ trigger: "focus" });
+
+    $('.info-icon-hapus').click(function(){
+        var par = $(this).closest('div').find('input').attr('name');
+        $('#'+par).val('');
+        $('#'+par).attr('readonly',false);
+        $('#'+par).attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important');
+        $('.info-code_'+par).parent('div').addClass('hidden');
+        $('.info-name_'+par).addClass('hidden');
+        $(this).addClass('hidden');
+    });
+
+    function showInfoField(kode,isi_kode,isi_nama){
+        $('#'+kode).val(isi_kode);
+        $('#'+kode).attr('style','border-left:0;border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important');
+        $('.info-code_'+kode).text(isi_kode).parent('div').removeClass('hidden');
+        $('.info-code_'+kode).attr('title',isi_nama);
+        $('.info-name_'+kode).removeClass('hidden');
+        $('.info-name_'+kode).attr('title',isi_nama);
+        $('.info-name_'+kode+' span').text(isi_nama);
+        var width = $('#'+kode).width()-$('#search_'+kode).width()-10;
+        var height =$('#'+kode).height();
+        var pos =$('#'+kode).position();
+        $('.info-name_'+kode).width(width).css({'left':pos.left,'height':height});
+        $('.info-name_'+kode).closest('div').find('.info-icon-hapus').removeClass('hidden');
+    }
+
+    function getKontrak(id=null){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('java-trans/rab-proyek-cbbl') }}",
+            dataType: 'json',
+            data:{'no_proyek':id},
+            async:false,
+            success:function(result){    
+                if(result.status){
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                        showInfoField('no_proyek',result.daftar[0].no_proyek,result.daftar[0].no_proyek);
+                        $('#nilai_kontrak').val(parseInt(result.daftar[0].nilai))
+                    }else{
+                        $('#no_proyek').attr('readonly',false);
+                        $('#no_proyek').css('border-left','1px solid #d7d7d7');
+                        $('#no_proyek').val('');
+                        $('#no_proyek').focus();
+                    }
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    window.location.href = "{{ url('java-auth/sesi-habis') }}";
+                }
+            }
+        });
+    }
+
+    function custTarget(target, tr) {
+        console.log(tr);
+        // $(target).parents('.ongkir').find('#nilai_ongkir').val(tr.find('td:nth-child(3)').text());
+        // $(target).parents('.ongkir').find('#lama_hari').val(tr.find('td:nth-child(4)').text());
+    }
+
+    $('#form-tambah').on('click', '.search-item2', function(){
+        var id = $(this).closest('div').find('input').attr('name');
+        showInpFilter({
+            id : id,
+            header : ['Kode', 'Keterangan'],
+            url : "{{ url('java-trans/rab-proyek-cbbl') }}",
+            columns : [
+                { data: 'no_proyek' },
+                { data: 'keterangan' },
+                { data: 'nilai' }
+            ],
+            judul : "Daftar Proyek",
+            pilih : "akun",
+            jTarget1 : "text",
+            jTarget2 : "text",
+            target1 : ".info-code_"+id,
+            target2 : ".info-name_"+id,
+            target3 : "custom",
+            target4 : "",
+            width : ["30%","70%"],
+        });
+    });
+
+    $('#form-tambah').on('change', '#no_proyek', function(){
+        var par = $(this).val();
+        getKontrak(par);
     });
 
 </script>
