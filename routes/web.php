@@ -23,7 +23,7 @@ Route::get('/', function () {
             return redirect('apv/login');
         break;
         case 'javaturbine.co.id' : 
-            return redirect('webjava/');
+            return redirect('webjava-v2/');
         break;
         case 'trengginasjaya.com' :
         case 'www.trengginasjaya.com' : 
