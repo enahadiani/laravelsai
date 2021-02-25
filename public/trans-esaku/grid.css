@@ -35,7 +35,7 @@ th {
 }
 #input-grid input:hover,
 #input-grid .selectize-input:hover {
-    width: inherit;
+    width: 100%;
 }
 #input-grid ul.typeahead.dropdown-menu {
     width: max-content !important;
@@ -58,4 +58,14 @@ th {
 
 #input-grid td:nth-child(4) {
     overflow: unset !important;
+}
+
+.btn-div {
+    position: fixed;
+    bottom: 1rem;
+    border-radius: 15px;
+    padding-right: 1rem;
+    box-shadow: 0px 2px 8px #80808054;
+    background-color: #fff;
+    width: 87.5%;
 }
