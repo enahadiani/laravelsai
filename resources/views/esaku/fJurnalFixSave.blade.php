@@ -466,8 +466,7 @@
         </div>
     </form>
     <!-- FORM UPLOAD  -->
-    <button id="country-select-button" style="display:none">Bottom ?</button>
-    @include('modal_search')
+    <button id="trigger-bottom-sheet" style="display:none">Bottom ?</button>
     @include('modal_upload')
     <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
     <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
@@ -491,7 +490,7 @@
     // );
 
     var bottomSheet = new BottomSheet("country-selector");
-    document.getElementById("country-select-button").addEventListener("click", bottomSheet.activate);
+    document.getElementById("trigger-bottom-sheet").addEventListener("click", bottomSheet.activate);
     window.bottomSheet = bottomSheet;
 
     $('#process-upload').addClass('disabled');
@@ -500,8 +499,8 @@
     
     // $('#modal-preview').addClass('bottom-sheet modal-fixed-footer');
     
-    $('#modal-preview').addClass('animate');
-    $('#modal-preview .modal-content').addClass('animate-bottom');
+    // $('#modal-preview').addClass('animate');
+    // $('#modal-preview .modal-content').addClass('animate-bottom');
     
     var $iconLoad = $('.preloader');
     var $target = "";
@@ -1085,7 +1084,7 @@
                 if(result.data.status){
                     dataTable.ajax.reload();                    
                     showNotification("top", "center", "success",'Hapus Data','Data Jurnal ('+id+') berhasil dihapus ');
-                    $('#modal-preview-id').html('');
+                    // $('#modal-preview-id').html('');
                     $('#table-delete tbody').html('');
                     if(typeof M == 'undefined'){
                         $('#modal-delete').modal('hide');
@@ -1294,6 +1293,9 @@
                         var scroll = document.querySelector('.preview-body');
                         var psscroll = new PerfectScrollbar(scroll);
 
+                        
+                        $('.c-bottom-sheet__sheet').css({ "width":"70%","margin-left": "15%", "margin-right":"15%"});
+
                         $('.preview-header').on('click','#btn-delete2',function(e){
                             var id = $('#preview-id').text();
                             $('.c-bottom-sheet').removeClass('active');
@@ -1337,7 +1339,7 @@
                             $('.preview-header #btn-delete2').css('display','inline-block');
                             $('.preview-header #btn-edit2').css('display','inline-block');
                         }
-                        $('#country-select-button').trigger("click");
+                        $('#trigger-bottom-sheet').trigger("click");
                     }
                     else if(!result.status && result.message == 'Unauthorized'){
                         window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
@@ -1489,7 +1491,7 @@
             target4 : "",
             width : ["30%","70%"]
         }
-        showInpFilter(options);
+        showInpFilterBSheet(options);
     });
 
     $('#form-tambah').on('change', '#nik_periksa', function(){
@@ -1674,7 +1676,7 @@
                 };
             break;
         }
-        showInpFilter(options);
+        showInpFilterBSheet(options);
 
     });
 
@@ -1712,7 +1714,7 @@
                 };
             break;
         }
-        showInpFilter(options);
+        showInpFilterBSheet(options);
 
     });
 
@@ -1779,7 +1781,7 @@
                 };
             break;
         }
-        showInpFilter(options);
+        showInpFilterBSheet(options);
 
     });
     

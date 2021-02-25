@@ -280,8 +280,8 @@
         </div> 
     </form>
     <!-- END FORM INPUT -->
-
-    @include('modal_search')
+    
+    <button id="trigger-bottom-sheet" style="display:none">Bottom ?</button>
     <!-- JAVASCRIPT  -->
     <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
     <script src="{{ asset('helper.js') }}"></script>
@@ -289,6 +289,11 @@
     // var $iconLoad = $('.preloader');
     $('#saku-form > .col-12').addClass('mx-auto col-lg-6');
     $('#error-akun').hide();
+
+    var bottomSheet = new BottomSheet("country-selector");
+    document.getElementById("trigger-bottom-sheet").addEventListener("click", bottomSheet.activate);
+    window.bottomSheet = bottomSheet;
+
     $optionJenis1 = [{value:'Neraca', text:'Neraca'}]
     $optionJenis2 = [{value:'Pendapatan', text:'Pendapatan'},{value:'Beban', text:'Beban'}]
     $dtkode_flag = [];
@@ -531,8 +536,6 @@
     }
     
     // PLUGIN SCROLL di bagian preview dan form input
-    var scroll = document.querySelector('#content-preview');
-    var psscroll = new PerfectScrollbar(scroll);
 
     var scrollform = document.querySelector('.form-body');
     var psscrollform = new PerfectScrollbar(scrollform);
@@ -897,7 +900,8 @@
                     
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
-                    $('#modal-preview').modal('hide');
+                    // $('#modal-preview').modal('hide');
+                    $('.c-bottom-sheet').removeClass('active');
                     setWidthFooterCardBody();
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
@@ -978,81 +982,103 @@
                         } else {
                             normal = "Kredit"
                         }
-                        var html = `<tr>
-                            <td style='border:none'>Kode Akun</td>
-                            <td style='border:none'>`+id+`</td>
-                        </tr>
-                        <tr>
-                            <td>Nama Akun</td>
-                            <td>`+data.nama+`</td>
-                        </tr>
-                        <tr>
-                            <td>Modul</td>
-                            <td>`+modul+`</td>
-                        </tr>
-                        <tr>
-                            <td>Jenis</td>
-                            <td>`+data.jenis+`</td>
-                        </tr>
-                        <tr>
-                            <td>Currency</td>
-                            <td>`+data.kode_curr+`</td>
-                        </tr>
-                        <tr>
-                            <td>Status Block</td>
-                            <td>`+block+`</td>
-                        </tr>
-                        <tr>
-                            <td>Status Budget</td>
-                            <td>`+gar+`</td>
-                        </tr>
-                        <tr>
-                            <td>Normal Account</td>
-                            <td>`+normal+`</td>
-                        </tr>
+                        var html = `
+                        <div class="preview-header" style="display:block;height:39px;padding: 0 1.75rem" >
+                            <h6 style="position: absolute;" id="preview-judul">Preview Data</h6>
+                            <span id="preview-nama" style="display:none"></span><span id="preview-id" style="display:none">`+id+`</span> 
+                            <div class="dropdown d-inline-block float-right">
+                                <button type="button" id="dropdownAksi" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding: 0.2rem 1rem;border-radius: 1rem !important;" class="btn dropdown-toggle btn-light">
+                                <span class="my-0">Aksi <i style="font-size: 10px;" class="simple-icon-arrow-down ml-3"></i></span>
+                                </button>
+                                <div class="dropdown-menu dropdown-aksi" aria-labelledby="dropdownAksi" x-placement="bottom-start" style="position: absolute; will-change: transform; top: -10px; left: 0px; transform: translate3d(0px, 37px, 0px);">
+                                    <a class="dropdown-item dropdown-ke1" href="#" id="btn-delete2"><i class="simple-icon-trash mr-1"></i> Hapus</a>
+                                    <a class="dropdown-item dropdown-ke1" href="#" id="btn-edit2"><i class="simple-icon-pencil mr-1"></i> Edit</a>
+                                    <a class="dropdown-item dropdown-ke1" href="#" id="btn-cetak"><i class="simple-icon-printer mr-1"></i> Cetak</a>
+                                    <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-cetak2" style="border-bottom: 1px solid #d7d7d7;"><i class="simple-icon-arrow-left mr-1"></i> Cetak</a>
+                                    <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-excel"> Excel</a>
+                                    <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-pdf"> PDF</a>
+                                    <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-print"> Print</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class='separator'></div>
+                        <div class='preview-body' style='padding: 0 1.75rem;height: calc(75vh - 56px) '>
+                                <table class="table table-prev mt-2" width="100%">
+                                    <tr>
+                                        <td style='border:none'>Kode Akun</td>
+                                        <td style='border:none'>`+id+`</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Nama Akun</td>
+                                        <td>`+data.nama+`</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Modul</td>
+                                        <td>`+modul+`</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Jenis</td>
+                                        <td>`+data.jenis+`</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Currency</td>
+                                        <td>`+data.kode_curr+`</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Status Block</td>
+                                        <td>`+block+`</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Status Budget</td>
+                                        <td>`+gar+`</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Normal Account</td>
+                                        <td>`+normal+`</td>
+                                    </tr>
+                                </table>
+                                <ul class="nav nav-tabs col-12 " role="tablist">
+                                    <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#prev-flag" role="tab" aria-selected="true"><span class="hidden-xs-down">Relasi Modul</span></a> </li>
+                                    <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#prev-lap" role="tab" aria-selected="true"><span class="hidden-xs-down">Relasi Laporan</span></a> </li>
+                                </ul>
+                                <div class="tab-content tabcontent-border col-12 p-0">
+                                    <div class="tab-pane active" id="prev-flag" role="tabpanel">
+                                        <div class='col-md-12' style='margin:0px; padding:0px;'>
+                                            <table class="table table-bordered table-condensed gridexample" id="tbprev-flag" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                            <thead style="background:#F8F8F8">
+                                                <tr>
+                                                    <th width="5%">No</th>
+                                                    <th width="30%">Kode Flag</th>
+                                                    <th width="65%">Nama Flag</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="prev-lap" role="tabpanel">
+                                        <div class='col-md-12' style='margin:0px; padding:0px;'>
+                                            <table class="table table-bordered table-condensed gridexample" id="tbprev-lap" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                                <thead style="background:#F8F8F8">
+                                                    <tr>
+                                                        <th width="5%">No</th>
+                                                        <th width="15%">Kode FS</th>
+                                                        <th width="25%">Nama FS</th>
+                                                        <th width="15%">Kode Lap</th>
+                                                        <th width="40%">Nama Lap</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
                         `;
-                        var det = `
-                        <ul class="nav nav-tabs col-12 " role="tablist">
-                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#prev-flag" role="tab" aria-selected="true"><span class="hidden-xs-down">Relasi Modul</span></a> </li>
-                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#prev-lap" role="tab" aria-selected="true"><span class="hidden-xs-down">Relasi Laporan</span></a> </li>
-                        </ul>
-                        <div class="tab-content tabcontent-border col-12 p-0">
-                            <div class="tab-pane active" id="prev-flag" role="tabpanel">
-                                <div class='col-md-12' style='margin:0px; padding:0px;'>
-                                    <table class="table table-bordered table-condensed gridexample" id="tbprev-flag" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
-                                    <thead style="background:#F8F8F8">
-                                        <tr>
-                                            <th width="5%">No</th>
-                                            <th width="30%">Kode Flag</th>
-                                            <th width="65%">Nama Flag</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <div class="tab-pane" id="prev-lap" role="tabpanel">
-                                <div class='col-md-12' style='margin:0px; padding:0px;'>
-                                    <table class="table table-bordered table-condensed gridexample" id="tbprev-lap" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
-                                        <thead style="background:#F8F8F8">
-                                            <tr>
-                                                <th width="5%">No</th>
-                                                <th width="15%">Kode FS</th>
-                                                <th width="25%">Nama FS</th>
-                                                <th width="15%">Kode Lap</th>
-                                                <th width="40%">Nama Lap</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>`;
 
-                        $('#table-preview tbody').html(html);
-                        $(det).insertAfter("#table-preview");
+                        $('#content-bottom-sheet').html(html);
                         
                         $('#tbprev-flag tbody').html('');
                         if(result.detail_relasi.length > 0){
@@ -1089,8 +1115,48 @@
                             $('#tbprev-lap tbody').html(input);
                         }
 
-                        $('#modal-preview-id').text(id);
-                        $('#modal-preview').modal('show');
+                        var scroll = document.querySelector('.preview-body');
+                        var psscroll = new PerfectScrollbar(scroll);
+
+                        
+                        $('.c-bottom-sheet__sheet').css({ "width":"70%","margin-left": "15%", "margin-right":"15%"});
+
+                        $('.preview-header').on('click','#btn-delete2',function(e){
+                            var id = $('#preview-id').text();
+                            $('.c-bottom-sheet').removeClass('active');
+                            msgDialog({
+                                id:id,
+                                type:'hapus'
+                            });
+                        });
+
+                        $('.preview-header').on('click', '#btn-edit2', function(){
+                            var id= $('#preview-id').text();
+                            $('#judul-form').html('Edit Data Jurnal');
+                            $('#form-tambah')[0].reset();
+                            $('#form-tambah').validate().resetForm();
+                            
+                            $('#btn-save').attr('type','button');
+                            $('#btn-save').attr('id','btn-update');
+                            $('.c-bottom-sheet').removeClass('active');
+                            editData(id);
+                        });
+
+                        $('.preview-header').on('click','#btn-cetak',function(e){
+                            e.stopPropagation();
+                            $('.dropdown-ke1').addClass('hidden');
+                            $('.dropdown-ke2').removeClass('hidden');
+                            console.log('ok');
+                        });
+
+                        $('.preview-header').on('click','#btn-cetak2',function(e){
+                            // $('#dropdownAksi').dropdown('toggle');
+                            e.stopPropagation();
+                            $('.dropdown-ke1').removeClass('hidden');
+                            $('.dropdown-ke2').addClass('hidden');
+                        });
+
+                        $('#trigger-bottom-sheet').trigger("click");
                         
                     }
                     else if(!result.status && result.message == 'Unauthorized'){
@@ -1101,41 +1167,6 @@
             
         }
     });
-
-    $('.modal-header').on('click','#btn-delete2',function(e){
-        var id = $('#modal-preview-id').text();
-        $('#modal-preview').modal('hide');
-        msgDialog({
-            id:id,
-            type:'hapus'
-        });
-    });
-
-    $('.modal-header').on('click', '#btn-edit2', function(){
-        var id= $('#modal-preview-id').text();
-        // $iconLoad.show();
-        $('#form-tambah').validate().resetForm();
-        $('#judul-form').html('Edit Data Akun');
-        
-        $('#btn-save').attr('type','button');
-        $('#btn-save').attr('id','btn-update');
-        editData(id);
-    });
-
-    $('.modal-header').on('click','#btn-cetak',function(e){
-        e.stopPropagation();
-        $('.dropdown-ke1').addClass('hidden');
-        $('.dropdown-ke2').removeClass('hidden');
-        console.log('ok');
-    });
-
-    $('.modal-header').on('click','#btn-cetak2',function(e){
-        // $('#dropdownAksi').dropdown('toggle');
-        e.stopPropagation();
-        $('.dropdown-ke1').removeClass('hidden');
-        $('.dropdown-ke2').addClass('hidden');
-    });
-
 
     // GRID
 
@@ -1368,7 +1399,7 @@
                 };
             break;
         }
-        showInpFilter(options);
+        showInpFilterBSheet(options);
 
     });
 
@@ -1443,7 +1474,7 @@
                 };
             break;
         }
-        showInpFilter(options);
+        showInpFilterBSheet(options);
 
     });
     
