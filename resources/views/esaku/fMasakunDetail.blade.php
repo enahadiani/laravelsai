@@ -1045,7 +1045,7 @@
                             </div>
                         </div>
                         <div class='separator'></div>
-                        <div class='preview-body' style='padding: 0 1.75rem;height: calc(75vh - 56px) '>
+                        <div class='preview-body' style='padding: 0 1.75rem;height: calc(75vh - 56px) position:sticky'>
                                 <table class="table table-prev mt-2" width="100%">
                                     <tr>
                                         <td style='border:none'>Kode Akun</td>

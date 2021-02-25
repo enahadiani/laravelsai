@@ -550,7 +550,7 @@ function showInpFilterBSheet(settings){
             </ul>
         </div>
         <div class='separator'></div>
-        <div class="search-body p-3" style="height: calc(75vh - 56px)">
+        <div class="search-body p-3" style="height: calc(75vh - 56px);position:sticky">
                     
         </div>
     </div>
