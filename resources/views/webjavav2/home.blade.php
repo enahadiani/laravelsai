@@ -47,10 +47,10 @@
                                 <div class="container">
                                     <nav>
                                         <ul>
-                                            <li><a href="{{ url('webjava-v2/home') }}/home">Home</a></li>
-                                            <li><a href="{{ url('webjava-v2/home') }}/company">Company</a></li>
-                                            <li><a href="{{ url('webjava-v2/home') }}/product">Product</a></li>
-                                            <li><a href="{{ url('webjava-v2/home') }}/contact">Contact</a></li>
+                                            <li><a href="{{ url('webjava-v2/home') }}">Home</a></li>
+                                            <li><a href="{{ url('webjava-v2/company') }}">Company</a></li>
+                                            <li><a href="{{ url('webjava-v2/product') }}">Product</a></li>
+                                            <li><a href="{{ url('webjava-v2/contact') }}">Contact</a></li>
                                         </ul>
                                     </nav>
                                     <div class="information-contact col-mobile">
@@ -109,7 +109,7 @@
                                 </p>
                             </div>
                             <div class="card-footers">
-                                <a href="{{ url('webjava-v2/home') }}/home-product-detail-1">More >></a>
+                                <a href="{{ url('webjava-v2/home-product-detail-1') }}">More >></a>
                             </div>
                         </div>
                     </div>
@@ -127,7 +127,7 @@
                                 </p>
                             </div>
                             <div class="card-footers">
-                                <a href="{{ url('webjava-v2/home') }}/home-product-detail-2">More >></a>
+                                <a href="{{ url('webjava-v2/home-product-detail-2') }}">More >></a>
                             </div>
                         </div>
                     </div>
@@ -145,7 +145,7 @@
                                 </p>
                             </div>
                             <div class="card-footers">
-                                <a href="{{ url('webjava-v2/home') }}/home-product-detail-3">More >></a>
+                                <a href="{{ url('webjava-v2/home-product-detail-3') }}">More >></a>
                             </div>
                         </div>
                     </div>
@@ -162,7 +162,7 @@
                                 </p>
                             </div>
                             <div class="card-footers">
-                                <a href="4">More >></a>
+                                <a href="{{ url('webjava-v2/home-product-detail-4') }}">More >></a>
                             </div>
                         </div>
                     </div>
@@ -180,7 +180,7 @@
                                 </p>
                             </div>
                             <div class="card-footers">
-                                <a href="5">More >></a>
+                                <a href="{{ url('webjava-v2/home-product-detail-5') }}">More >></a>
                             </div>
                         </div>
                     </div>
@@ -198,7 +198,7 @@
                                 </p>
                             </div>
                             <div class="card-footers">
-                                <a href="{{ url('webjava-v2/home') }}/home-product-detail-6">More >></a>
+                                <a href="{{ url('webjava-v2/home-product-detail-6') }}">More >></a>
                             </div>
                         </div>
                     </div>
@@ -215,7 +215,7 @@
                                 </p>
                             </div>
                             <div class="card-footers">
-                                <a href="{{ url('webjava-v2/home') }}/home-product-detail-1">More >></a>
+                                <a href="{{ url('webjava-v2/home-product-detail-1') }}">More >></a>
                             </div>
                         </div>
                         <div class="services-card">
@@ -231,7 +231,7 @@
                                 </p>
                             </div>
                             <div class="card-footers">
-                                <a href="{{ url('webjava-v2/home') }}/home-product-detail-2">More >></a>
+                                <a href="{{ url('webjava-v2/home-product-detail-2') }}">More >></a>
                             </div>
                         </div>
                         <div class="services-card">
@@ -247,7 +247,7 @@
                                 </p>
                             </div>
                             <div class="card-footers">
-                                <a href="{{ url('webjava-v2/home') }}/home-product-detail-3">More >></a>
+                                <a href="{{ url('webjava-v2/home-product-detail-3') }}">More >></a>
                             </div>
                         </div>
                     </div>
@@ -264,7 +264,7 @@
                                 </p>
                             </div>
                             <div class="card-footers">
-                                <a href="{{ url('webjava-v2/home') }}/home-product-detail-4">More >></a>
+                                <a href="{{ url('webjava-v2/home-product-detail-4') }}">More >></a>
                             </div>
                         </div>
                         <div class="services-card">
@@ -280,7 +280,7 @@
                                 </p>
                             </div>
                             <div class="card-footers">
-                                <a href="{{ url('webjava-v2/home') }}/home-product-detail-5">More >></a>
+                                <a href="{{ url('webjava-v2/home-product-detail-5') }}">More >></a>
                             </div>
                         </div>
                         <div class="services-card">
@@ -296,7 +296,7 @@
                                 </p>
                             </div>
                             <div class="card-footers">
-                                <a href="{{ url('webjava-v2/home') }}/home-product-detail-6">More >></a>
+                                <a href="{{ url('webjava-v2/home-product-detail-6') }}">More >></a>
                             </div>
                         </div>
                     </div>
@@ -342,7 +342,7 @@
                                 <h6>Detailed Engineering Design of Rantau Suli MHPP 2x1.25 MW</h6>
                             </div>
                             <div class="card-footers">
-                                <a href="{{ url('webjava-v2/home') }}/home-project-detail-1">More >></a>
+                                <a href="{{ url('webjava-v2/home-project-detail-1') }}">More >></a>
                             </div>
                         </div>
                     </div>
@@ -353,7 +353,7 @@
                                 <h6>Plant Assessment of Merden MHPP 2x200kW</h6>
                             </div>
                             <div class="card-footers">
-                                <a href="{{ url('webjava-v2/home') }}/home-project-detail-2">More >></a>
+                                <a href="{{ url('webjava-v2/home-project-detail-2') }}">More >></a>
                             </div>
                         </div>
                     </div>
@@ -364,7 +364,7 @@
                                 <h6>Distribution Grid 20 kV of Sangir MHPP 2x5 MW</h6>
                             </div>
                             <div class="card-footers">
-                                <a href="{{ url('webjava-v2/home') }}/home-project-detail-3">More >></a>
+                                <a href="{{ url('webjava-v2/home-project-detail-3') }}">More >></a>
                             </div>
                         </div>
                     </div>
@@ -375,7 +375,7 @@
                                 <h6>EPC of Semawung MHPP 600 kW</h6>
                             </div>
                             <div class="card-footers">
-                                <a href="{{ url('webjava-v2/home') }}/home-project-detail-4">More >></a>
+                                <a href="{{ url('webjava-v2/home-project-detail-4') }}">More >></a>
                             </div>
                         </div>
                     </div>
@@ -386,7 +386,7 @@
                                 <h6>Mini Geothermal Steam Turbine, Bukit Daun Project</h6>
                             </div>
                             <div class="card-footers">
-                                <a href="{{ url('webjava-v2/home') }}/home-project-detail-5">More >></a>
+                                <a href="{{ url('webjava-v2/home-project-detail-5') }}">More >></a>
                             </div>
                         </div>
                     </div>
@@ -397,7 +397,7 @@
                                 <h6>Lube Oil Cooling System Modification of Lubuk Gadang MHPP 2x4 MW</h6>
                             </div>
                             <div class="card-footers">
-                                <a href="{{ url('webjava-v2/home') }}/home-project-detail-6">More >></a>
+                                <a href="{{ url('webjava-v2/home-project-detail-6') }}">More >></a>
                             </div>
                         </div>
                     </div>
@@ -409,7 +409,7 @@
                                 <h6>Detailed Engineering Design of Rantau Suli MHPP 2x1.25 MW</h6>
                             </div>
                             <div class="card-footers">
-                                <a href="{{ url('webjava-v2/home') }}/home-project-detail-1">More >></a>
+                                <a href="{{ url('webjava-v2/home-project-detail-1') }}">More >></a>
                             </div>
                         </div>
                         <div class="project-card">
@@ -418,7 +418,7 @@
                                 <h6>Plant Assessment of Merden MHPP 2x200kW</h6>
                             </div>
                             <div class="card-footers">
-                                <a href="{{ url('webjava-v2/home') }}/home-project-detail-2">More >></a>
+                                <a href="{{ url('webjava-v2/home-project-detail-2') }}">More >></a>
                             </div>
                         </div>
                         <div class="project-card">
@@ -427,7 +427,7 @@
                                 <h6>Distribution Grid 20 kV of Sangir MHPP 2x5 MW</h6>
                             </div>
                             <div class="card-footers">
-                                <a href="{{ url('webjava-v2/home') }}/home-project-detail-3">More >></a>
+                                <a href="{{ url('webjava-v2/home-project-detail-3') }}">More >></a>
                             </div>
                         </div>
                     </div>
@@ -438,7 +438,7 @@
                                 <h6>EPC of Semawung MHPP 600 kW</h6>
                             </div>
                             <div class="card-footers">
-                                <a href="{{ url('webjava-v2/home') }}/home-project-detail-4">More >></a>
+                                <a href="{{ url('webjava-v2/home-project-detail-4') }}">More >></a>
                             </div>
                         </div>
                         <div class="project-card">
@@ -447,7 +447,7 @@
                                 <h6>Mini Geothermal Steam Turbine, Bukit Daun Project</h6>
                             </div>
                             <div class="card-footers">
-                                <a href="{{ url('webjava-v2/home') }}/home-project-detail-5">More >></a>
+                                <a href="{{ url('webjava-v2/home-project-detail-5') }}">More >></a>
                             </div>
                         </div>
                         <div class="project-card">
@@ -456,7 +456,7 @@
                                 <h6>Lube Oil Cooling System Modification of Lubuk Gadang MHPP 2x4 MW</h6>
                             </div>
                             <div class="card-footers">
-                                <a href="{{ url('webjava-v2/home') }}/home-project-detail-6">More >></a>
+                                <a href="{{ url('webjava-v2/home-project-detail-6') }}">More >></a>
                             </div>
                         </div>
                     </div>

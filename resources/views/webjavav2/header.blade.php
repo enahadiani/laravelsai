@@ -7,7 +7,7 @@
                     <div class="header-container">   
                         <div class="logo-nav">
                             <div id="logo">
-                                <a href="{{ url('webjava-v2/home') }}/home">
+                                <a href="{{ url('webjava-v2/home') }}">
                                     <span class="logo-default">
                                         <img alt="logo" width="70" src="{{ asset('asset_web/webjava/images/icon-java-blue.png') }}" />
                                     </span>
@@ -20,10 +20,10 @@
                                 <div class="container">
                                     <nav>
                                         <ul>
-                                            <li><a href="{{ url('webjava-v2/home') }}/home">Home</a></li>
-                                            <li><a href="{{ url('webjava-v2/home') }}/company">Company</a></li>
-                                            <li><a href="{{ url('webjava-v2/home') }}/product">Product</a></li>
-                                            <li><a href="{{ url('webjava-v2/home') }}/contact">Contact</a></li>
+                                            <li><a href="{{ url('webjava-v2/home') }}">Home</a></li>
+                                            <li><a href="{{ url('webjava-v2/company') }}">Company</a></li>
+                                            <li><a href="{{ url('webjava-v2/product') }}">Product</a></li>
+                                            <li><a href="{{ url('webjava-v2/contact') }}">Contact</a></li>
                                         </ul>
                                     </nav>
                                     <div class="information-contact col-mobile">
