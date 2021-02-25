@@ -5,14 +5,7 @@
     <meta charset="UTF-8">
     <title>SAKU - Admin Dashboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
-    <link rel="stylesheet" href="{{ asset('asset_dore/font/iconsmind-s/css/iconsminds.css') }}" />
-    <link rel="stylesheet" href="{{ asset('asset_dore/font/simple-line-icons/css/simple-line-icons.css') }}" />
-
     <link rel="stylesheet" href="{{ asset('asset_dore/css/vendor/bootstrap.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('asset_dore/css/vendor/bootstrap.rtl.only.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('asset_dore/css/vendor/bootstrap-float-label.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('asset_dore/css/main.css') }}" />
     <style>
         @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 
@@ -58,15 +51,6 @@
     </style>
     <script src="{{ asset('asset_dore/js/vendor/jquery-3.3.1.min.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('asset_dore/js/dore.script.js') }}"></script>
-    <script>
-        var $public_asset = "{{ asset('asset_dore') }}/";
-        var $theme = "dore.light.redruby.min.css";
-    </script>
-    <script src="{{ asset('asset_dore/js/scripts.js') }}"></script>
-    <script>
-        $('div.theme-colors').hide();
-    </script>
 </head>
 
 <body class="background show-spinner" style="border-radius:0 !important">
