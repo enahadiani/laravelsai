@@ -312,7 +312,7 @@
                             'id'       => $request->no_bill,
                             'price'    => $request->nilai,
                             'quantity' => 1,
-                            'name'     => $request->keterangan
+                            'name'     => $request->kode_param
                         ]
                     ],
                     'enabled_payments' => ['echannel'],
@@ -337,7 +337,7 @@
                         'nis' => $request->nis,
                         'no_bill' => $request->no_bill,
                         'nilai' => $request->nilai,
-                        'keterangan' => $request->keterangan,
+                        'keterangan' => $request->kode_param,
                         'status' => 'process',
                         'kode_param' => $request->kode_param,
                         'periode_bill' => $request->periode_bill,
