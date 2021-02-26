@@ -11,6 +11,7 @@
     use Illuminate\Support\Facades\Session;
     use GuzzleHttp\Exception\BadResponseException;
     use PDF;
+    use Log;
 
     class DashSiswaController extends Controller {
 
@@ -355,6 +356,7 @@
 
                 $response = $ex->getResponse();
                 $res = json_decode($response->getBody(),true);
+                Log::error($res);
                 $result['message'] = $res;
                 $result['status']=false;
                 return response()->json(["data" => $result], 200);
