@@ -230,10 +230,10 @@
         if(total_bill < total_d){
             alert('Total Bayar tidak boleh lebih besar dari Total Bill');
             $('#nilai').val('');
-            $('#total-label').html(sepNum(0));
+            $('#total-label').html(sepNumPas(0));
             return false;
         }else{
-            $('#total-label').html(sepNum(total_d));
+            $('#total-label').html(sepNumPas(total_d));
         }
     }
 
@@ -274,6 +274,7 @@
                                             <p hidden class='inp-ket'>`+line4.keterangan+`</p>
                                             <p hidden class='inp-kode_param'>`+line4.kode_param+`</p>
                                             <p hidden class='inp-periode_bill'>`+line4.periode+`</p>
+                                            <p hidden class='inp-total_bill'>`+line4.sisa+`</p>
                                         </div>
                                     </div>
                                     <div class="col-11">
@@ -314,16 +315,20 @@
                                 
                                 var kode_param = $(this).closest('div').find('.inp-kode_param').html();
                                 var periode_bill = $(this).closest('div').find('.inp-periode_bill').html();
+                                var total_bill = $(this).closest('div').find('.inp-total_bill').html();
+                                
                                 $('#no_bill').val(no_bill);
                                 $('#ket').val(ket);
                                 $('#periode_bill').val(periode_bill);
                                 $('#kode_param').val(kode_param);
+                                $('#nilai').val(parseInt(total_bill));
                             } else {
                                 $box.prop("checked", false);
                                 $('#no_bill').val('');
                                 $('#ket').val('');
                                 $('#periode_bill').val('');
                                 $('#kode_param').val('');
+                                $('#nilai').val(0);
                             }
 
                             // if($(this).is(":checked")){
