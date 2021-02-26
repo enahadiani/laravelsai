@@ -329,7 +329,6 @@
     //EVENT DROPDOWN//
     var jenis = $('#jenis').selectize();
 
-
     $('#modul').change(function(){
         var  select = jenis[0];
         var control = select.selectize;
@@ -366,6 +365,9 @@
     function getFlag(id,target1,target2,jenis){
         var tmp = id.split(" - ");
         kode = tmp[0];
+        if(kode == ""){
+            return false;
+        }
         $.ajax({
             type: 'GET',
             url: "{{ url('/esaku-master/msakundet-flag') }}",
@@ -373,33 +375,30 @@
             data:{kode_flag:kode},
             async:false,
             success:function(result){    
-                if(result.data.status){
-                    if(typeof result.data.data !== 'undefined' && result.data.data.length>0){
+                if(result.status){
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
                         if(jenis == 'change'){
-                            $('.'+target1).val(kode);
-                            $('.td'+target1).text(kode);
-                            $('.'+target2).val(result.data.data[0].nama);
-                            $('.td'+target2).text(result.data.data[0].nama);
-
+                            $('.'+target1).val(kode+" - "+result.daftar[0].nama);
+                            $('.td'+target1).text(kode+" - "+result.daftar[0].nama);
                         }else{
-                            $("#input-grid td").removeClass("px-0 py-0 aktif");
-                            $('.'+target2).closest('td').addClass("px-0 py-0 aktif");
 
-                            $('.'+target1).closest('tr').find('.search-pp').hide();
-                            $('.'+target1).val(id);
-                            $('.td'+target1).text(id);
+                            $("#input-grid td").removeClass("px-0 py-0 aktif");
+                            $('.'+target1).closest('tr').find('.search-akun').hide();
+                            $('.'+target1).val(kode+" - "+result.daftar[0].nama);
+                            $('.td'+target1).text(kode+" - "+result.daftar[0].nama);
                             $('.'+target1).hide();
                             $('.td'+target1).show();
 
-                            $('.'+target2).val(result.data.data[0].nama);
-                            $('.td'+target2).text(result.data.data[0].nama);
-                            $('.'+target2).show();
-                            $('.td'+target2).hide();
-                            $('.'+target2).focus();
+                            var cek = $('.td'+target1).parents('tr').next('tr').find('.td-kode');
+                            if(cek.length > 0){
+                                cek.click();
+                            }else{
+                                $('.add-row').click();
+                            }
                         }
                     }
                 }
-                else if(!result.data.status && result.data.message == 'Unauthorized'){
+                else if(!result.status && result.message == 'Unauthorized'){
                     window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
                 }
                 else{
@@ -423,6 +422,9 @@
     function getFS(id,target1,target2,target3,jenis){
         var tmp = id.split(" - ");
         kode = tmp[0];
+        if(kode == ""){
+            return false;
+        }
         $.ajax({
             type: 'GET',
             url: "{{ url('/esaku-master/fs') }}/"+kode,
@@ -432,28 +434,23 @@
                 if(result.data.status){
                     if(typeof result.data.data !== 'undefined' && result.data.data.length>0){
                         if(jenis == 'change'){
-                            $('.'+target1).val(kode);
-                            $('.td'+target1).text(kode);
-                            $('.'+target2).val(result.data.data[0].nama);
-                            $('.td'+target2).text(result.data.data[0].nama);
+                            $('.'+target1).val(kode+" - "+result.data.data[0].nama);
+                            $('.td'+target1).text(kode+" - "+result.data.data[0].nama);
                         }else{
 
-                            $("#input-lap td").removeClass("px-0 py-0 aktif");
-                            $('.'+target2).closest('td').addClass("px-0 py-0 aktif");
-
-                            $('.'+target1).closest('tr').find('.search-fs').hide();
-                            $('.'+target1).val(id);
-                            $('.td'+target1).text(id);
+                            $("#input-grid td").removeClass("px-0 py-0 aktif");
+                            $('.'+target1).closest('tr').find('.search-akun').hide();
+                            $('.'+target1).val(kode+" - "+result.data.data[0].nama);
+                            $('.td'+target1).text(kode+" - "+result.data.data[0].nama);
                             $('.'+target1).hide();
                             $('.td'+target1).show();
 
-                            $('.'+target2).val(result.data.data[0].nama);
-                            $('.td'+target2).text(result.data.data[0].nama);
+                            $('.td'+target2).addClass("px-0 py-0 aktif");
                             $('.'+target2).show();
                             $('.td'+target2).hide();
                             $('.'+target2).focus();
-                            $('.td'+target3).text('D');
                         }
+                        getDataTypeAhead("{{ url('esaku-master/msakundet-neraca') }}","kode_neraca","kode_neraca",{ kode_fs: kode});
                     }
                 }
                 else if(!result.data.status && result.data.message == 'Unauthorized'){
@@ -481,6 +478,9 @@
     function getNeraca(id,target1,target2,jenis){
         var tmp = id.split(" - ");
         kode = tmp[0];
+        if(kode == ""){
+            return false;
+        }
         $.ajax({
             type: 'GET',
             url: "{{ url('/esaku-master/msakundet-neraca') }}",
@@ -488,33 +488,30 @@
             data:{kode_neraca:kode},
             async:false,
             success:function(result){    
-                if(result.data.status){
-                    if(typeof result.data.data !== 'undefined' && result.data.data.length>0){
+                if(result.status){
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
                         if(jenis == 'change'){
-                            $('.'+target1).val(kode);
-                            $('.td'+target1).text(kode);
-                            $('.'+target2).val(result.data.data[0].nama);
-                            $('.td'+target2).text(result.data.data[0].nama);
-
+                            $('.'+target1).val(kode+" - "+result.daftar[0].nama);
+                            $('.td'+target1).text(kode+" - "+result.daftar[0].nama);
                         }else{
-                            $("#input-lap td").removeClass("px-0 py-0 aktif");
-                            $('.'+target2).closest('td').addClass("px-0 py-0 aktif");
 
-                            $('.'+target1).closest('tr').find('.search-neraca').hide();
-                            $('.'+target1).val(id);
-                            $('.td'+target1).text(id);
+                            $("#input-grid td").removeClass("px-0 py-0 aktif");
+                            $('.'+target1).closest('tr').find('.search-akun').hide();
+                            $('.'+target1).val(kode+" - "+result.daftar[0].nama);
+                            $('.td'+target1).text(kode+" - "+result.daftar[0].nama);
                             $('.'+target1).hide();
                             $('.td'+target1).show();
 
-                            $('.'+target2).val(result.data.data[0].nama);
-                            $('.td'+target2).text(result.data.data[0].nama);
-                            $('.'+target2).show();
-                            $('.td'+target2).hide();
-                            $('.'+target2).focus();
+                            var cek = $('.td'+target1).parents('tr').next('tr').find('.td-kode_fs');
+                            if(cek.length > 0){
+                                cek.click();
+                            }else{
+                                $('.add-row-lap').click();
+                            }
                         }
                     }
                 }
-                else if(!result.data.status && result.data.message == 'Unauthorized'){
+                else if(!result.status && result.message == 'Unauthorized'){
                     window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
                 }
                 else{
@@ -535,6 +532,52 @@
         });
     }
     
+
+    function getDataTypeAhead(url,param,kode,filter={}){
+        $.ajax({
+            type: 'GET',
+            url: url,
+            dataType: 'json',
+            data:filter,
+            async:false,
+            success:function(result){  
+                eval('$dt'+param+' = []');    
+                if(result.status) {
+                    if(kode == "kode_flag" || kode == "kode_fs" || kode == "kode_neraca"){
+                        for(i=0;i<result.daftar.length;i++){
+                            eval('$dt'+param+'['+i+'] = '+JSON.stringify({id:eval('result.daftar['+i+'].'+kode)+' - '+result.daftar[i].nama,name:result.daftar[i].nama}));  
+                        }
+                    }else{
+
+                        for(i=0;i<result.daftar.length;i++){
+                            eval('$dt'+param+'['+i+'] = '+JSON.stringify({id:eval('result.daftar['+i+'].'+kode),name:result.daftar[i].nama}));  
+                        }
+                    }
+                }else if(!result.status && result.message == "Unauthorized"){
+                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                } else{
+                    alert(result.message);
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {       
+                if(jqXHR.status == 422){
+                    var msg = jqXHR.responseText;
+                }else if(jqXHR.status == 500) {
+                    var msg = "Internal server error";
+                }else if(jqXHR.status == 401){
+                    var msg = "Unauthorized";
+                    window.location="{{ url('/esaku-auth/sesi-habis') }}";
+                }else if(jqXHR.status == 405){
+                    var msg = "Route not valid. Page not found";
+                }
+                
+            }
+        });
+    }
+
+    getDataTypeAhead("{{ url('esaku-master/msakundet-flag') }}","kode_flag","kode_flag");
+    getDataTypeAhead("{{ url('esaku-master/fs') }}","kode_fs","kode_fs");
+    getDataTypeAhead("{{ url('esaku-master/msakundet-neraca') }}","kode_neraca","kode_neraca");
     // PLUGIN SCROLL di bagian preview dan form input
 
     var scrollform = document.querySelector('.form-body');
@@ -827,7 +870,7 @@
                             $('#flagkode'+no).typeahead({
                                 source:$dtkode_flag,
                                 displayText:function(item){
-                                    return item.id+' - '+item.name;
+                                    return item.id;
                                 },
                                 autoSelect:false,
                                 changeInputOnSelect:false,
@@ -869,7 +912,7 @@
                             $('#fskode'+no).typeahead({
                                 source:$dtkode_fs,
                                 displayText:function(item){
-                                    return item.id+' - '+item.name;
+                                    return item.id;
                                 },
                                 autoSelect:false,
                                 changeInputOnSelect:false,
@@ -883,7 +926,7 @@
                             $('#neracakode'+no).typeahead({
                                 source:$dtkode_neraca,
                                 displayText:function(item){
-                                    return item.id+' - '+item.name;
+                                    return item.id;
                                 },
                                 autoSelect:false,
                                 changeInputOnSelect:false,
@@ -1002,7 +1045,7 @@
                             </div>
                         </div>
                         <div class='separator'></div>
-                        <div class='preview-body' style='padding: 0 1.75rem;height: calc(75vh - 56px) '>
+                        <div class='preview-body' style='padding: 0 1.75rem;height: calc(75vh - 56px) position:sticky'>
                                 <table class="table table-prev mt-2" width="100%">
                                     <tr>
                                         <td style='border:none'>Kode Akun</td>
@@ -1260,7 +1303,7 @@
         $('#flagkode'+no).typeahead({
             source:$dtkode_flag,
             displayText:function(item){
-                return item.id+' - '+item.name;
+                return item.id;
             },
             autoSelect:false,
             changeInputOnSelect:false,
@@ -1321,7 +1364,7 @@
         $('#fskode'+no).typeahead({
             source:$dtkode_fs,
             displayText:function(item){
-                return item.id+' - '+item.name;
+                return item.id;
             },
             autoSelect:false,
             changeInputOnSelect:false,
@@ -1335,7 +1378,7 @@
         $('#neracakode'+no).typeahead({
             source:$dtkode_neraca,
             displayText:function(item){
-                return item.id+' - '+item.name;
+                return item.id;
             },
             autoSelect:false,
             changeInputOnSelect:false,
@@ -1442,6 +1485,7 @@
                     onItemSelected: function(data){
                         $('.fske'+no).val(data.kode_fs+" - "+data.nama);
                         $('.tdfske'+no).html(data.kode_fs+" - "+data.nama);
+                        getDataTypeAhead("{{ url('esaku-master/msakundet-neraca') }}","kode_neraca","kode_neraca",{ kode_fs: data.kode_fs});
                     },
                     width : ["30%","70%"]
                 };
@@ -1478,10 +1522,10 @@
 
     });
     
-    $('#input-grid').on('keydown','.inp-kode, .inp-nama',function(e){
+    $('#input-grid').on('keydown','.inp-kode',function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['.inp-kode','.inp-nama'];
-        var nxt2 = ['.td-kode','.td-nama'];
+        var nxt = ['.inp-kode'];
+        var nxt2 = ['.td-kode'];
         if (code == 13 || code == 9) {
             e.preventDefault();
             var idx = $(this).closest('td').index()-1;
@@ -1489,28 +1533,14 @@
             var kunci = $(this).closest('td').index()+1;
             var isi = $(this).val();
             switch (idx) {
-                case 0:
+                case 1:
                     var noidx = $(this).parents("tr").find(".no-jurnal").text();
                     var kode = $(this).val();
                     var target1 = "flagke"+noidx;
                     var target2 = "nmflagke"+noidx;
                     var target3 = "";
-                    getAkun(kode,target1,target2,target3,'tab');                    
+                    getFlag(kode,target1,target2,target3,'tab');                    
                     break;
-                case 1:
-                    $("#input-grid td").removeClass("px-0 py-0 aktif");
-                    $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
-                    $(this).closest('tr').find(nxt[idx]).hide();
-                    $(this).closest('tr').find(nxt2[idx]).show();
-                    
-                    var cek = $(this).parents('tr').next('tr').find('.td-kode');
-                    if(cek.length > 0){
-                        cek.click();
-                    }else{
-                        $('.add-row').click();
-                    }
-                    break;
-
                 default:
                     break;
             }
@@ -1521,7 +1551,7 @@
         }
     });
 
-    $('#input-grid').on('keydown','.inp-kode_fs, .inp-kode_neraca',function(e){
+    $('#input-lap').on('keydown','.inp-kode_fs, .inp-kode_neraca',function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
         var nxt = ['.inp-kode_fs','.inp-kode_neraca'];
         var nxt2 = ['.td-kode_fs','.td-kode_neraca'];
@@ -1532,27 +1562,21 @@
             var kunci = $(this).closest('td').index()+1;
             var isi = $(this).val();
             switch (idx) {
-                case 0:
-                    var noidx = $(this).parents("tr").find(".no-jurnal").text();
+                case 1:
+                    var noidx = $(this).parents("tr").find(".no-lap").text();
                     var kode = $(this).val();
                     var target1 = "fske"+noidx;
-                    var target2 = "nmfske"+noidx;
+                    var target2 = "neracake"+noidx;
                     var target3 = "";
                     getFS(kode,target1,target2,target3,'tab');                    
                     break;
-                case 1:
+                case 2:
                     var noidx = $(this).parents("tr").find(".no-lap").text();
                     var kode = $(this).val();
                     var target1 = "neracake"+noidx;
                     var target2 = "nmneracake"+noidx;
                     var target3 = "";
-                    getNeraca(kode,target1,target2,target3,'tab');                    
-                    var cek = $(this).parents('tr').next('tr').find('.td-kode');
-                    if(cek.length > 0){
-                        cek.click();
-                    }else{
-                        $('.add-row').click();
-                    }
+                    getNeraca(kode,target1,target2,target3,'tab'); 
                     break;
                 default:
                     break;
