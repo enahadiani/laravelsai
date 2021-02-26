@@ -23,7 +23,6 @@
                             <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#alamat-pane" role="tab" aria-selected="true"><span class="hidden-xs-down">Alamat</span></a> </li>
                             <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#bank" role="tab" aria-selected="true"><span class="hidden-xs-down">Bank</span></a> </li>
                             <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#pic-pane" role="tab" aria-selected="true"><span class="hidden-xs-down">PIC</span></a> </li>
-                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#akuntansi" role="tab" aria-selected="true"><span class="hidden-xs-down">Akuntansi</span></a> </li>
                         </ul>
                         <div class="tab-content tab-form-content col-12 p-0">
                             <div class="tab-pane active" id="umum" role="tabpanel">
@@ -57,6 +56,22 @@
                                     <div class="form-group col-md-6 col-sm-12">
                                         <label for="email">Email</label>
                                         <input class="form-control" type="text" id="email" name="email" required>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6 col-sm-12">    
+                                        <label for="akun_hutang">Akun Relasi</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                                <span class="input-group-text info-code_akun_hutang" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                            </div>
+                                            <input type="text" class="form-control inp-label-akun_hutang" id="akun_hutang" name="akun_hutang" value="" title="">
+                                            <span class="info-name_akun_hutang hidden">
+                                                <span></span> 
+                                            </span>
+                                            <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                            <i class="simple-icon-magnifier search-item2" id="search_akun_hutang"></i>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -116,25 +131,6 @@
                                     <div class="form-group col-md-6 col-sm-12">
                                         <label for="email_pic">Email</label>
                                         <input class="form-control" type="text" id="email_pic" name="email_pic" required>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="tab-pane" id="akuntansi" role="tabpanel">
-                                <div class="form-row">
-                                    <div class="form-group col-md-6 col-sm-12">    
-                                        <label for="akun_hutang">Akun Hutang</label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
-                                                <span class="input-group-text info-code_akun_hutang" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
-                                            </div>
-                                            <input type="text" class="form-control inp-label-akun_hutang" id="akun_hutang" name="akun_hutang" value="" title="">
-                                            <span class="info-name_akun_hutang hidden">
-                                                <span></span> 
-                                            </span>
-                                            <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                            <i class="simple-icon-magnifier search-item2" id="search_akun_hutang"></i>
-                                        </div>
                                     </div>
                                 </div>
                             </div>

@@ -66,7 +66,7 @@
                     <div class="tab-content tabcontent-border col-12 p-0" style="margin-bottom: 2.5rem;">
                         <div class="tab-pane active" id="data-anggaran" role="tabpanel">
                             <div class='col-md-12 nav-control' style="padding: 0px 5px;">
-                                <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row_dok" ></span></a>
+                                <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row" ></span></a>
                             </div>
                             <table class="table table-bordered table-condensed gridexample" id="input-grid" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
                                 <thead style="background:#F8F8F8">
@@ -99,7 +99,7 @@
 <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
 <script src="{{ asset('helper.js') }}"></script>
 <script type="text/javascript">
-var $iconLoad = $('.preloader');
+    var $iconLoad = $('.preloader');
     var $target = "";
     var $target2 = "";
     var $target3 = "";
@@ -111,6 +111,16 @@ var $iconLoad = $('.preloader');
 
     var scrollform = document.querySelector('.form-body');
     var psscrollform = new PerfectScrollbar(scrollform);
+
+    function hitungGridTotal() {
+        var gridTotal = 0;
+        $('#input-grid tbody tr').each(function(index) {
+            var total = toNilai($(this).find('.td-total').text())
+            gridTotal += total
+        })
+
+        return gridTotal;
+    }
 
     function hideUnselectedRow() {
         $('#input-grid > tbody > tr').each(function(index, row) {
@@ -189,7 +199,7 @@ var $iconLoad = $('.preloader');
         no=no+2;
         var input = "";
         input += "<tr class='row-grid'>";
-        input += "<td class='text-center'>"+no+"<input type='hidden' name='no[]' class='form-control inp-no noke"+no+" hidden'  value='"+no+"' required></td>";
+        input += "<td class='text-center no-grid'>"+no+"<input type='text' name='no[]' class='form-control inp-no noke"+no+" hidden'  value='"+no+"' required></td>";
         input += "<td><span class='td-keterangan tdketke"+no+" tooltip-span'></span><input type='text' name='keterangan[]' class='form-control inp-keterangan ketke"+no+" hidden'  value='' required></td>";
         input += "<td class='text-right'><span class='td-qty tdqtyke"+no+" tooltip-span'></span><input type='text' name='qty[]' class='form-control numeric inp-qty qtyke"+no+" hidden'  value='0' required></td>";
         input += "<td><span class='td-satuan tdsatke"+no+" tooltip-span'></span><input type='text' name='satuan[]' class='form-control inp-satuan satke"+no+" hidden'  value='' required></td>";
@@ -462,6 +472,18 @@ var $iconLoad = $('.preloader');
         addRow("add");
     });
 
+    $('#input-grid').on('click', '.hapus-item', function(){
+        $(this).closest('tr').remove();
+        no=1;
+        $('.row-grid').each(function(){
+            var nom = $(this).closest('tr').find('.no-grid');
+            nom.html(no);
+            no++;
+        });
+        hitungTotalRow();
+        $("html, body").animate({ scrollTop: $(document).height() }, 1000);
+    });
+
     function hitungTotaldiGrid(selectorInput, selectorCell, number1, number2) {
         number1 = toNilai(number1)
         number2 = toNilai(number2)
@@ -549,7 +571,6 @@ var $iconLoad = $('.preloader');
                         var number1 = $('.qtyke'+cell).val();
                         var number2 = $('.hargake'+cell).val();
                         hitungTotaldiGrid('.totalke'+cell, '.tdtotalke'+cell, number1, number2)
-                        
                         var cek = $(this).parents('tr').next('tr').find('.td-kode');
                         if(cek.length > 0){
                             cek.click();
@@ -569,6 +590,207 @@ var $iconLoad = $('.preloader');
             var idx = nxt.indexOf(e.target.id);
             idx--;
         }
+    });
+
+    $('#form-tambah').validate({
+        ignore: [],
+        rules: 
+        {
+            no_proyek:{
+                required: true   
+            },
+            nilai_kontrak:{
+                required: true   
+            },
+            nilai_anggaran:{
+                required: true  
+            }
+        },
+        errorElement: "label",
+        submitHandler: function (form, event) {
+            event.preventDefault();
+            var totalGrid = hitungGridTotal();
+            var anggaran = toNilai($('#nilai_anggaran').val())
+            
+            if(anggaran < totalGrid) {
+                alert('Total detail anggaran tidak boleh melebihi nilai anggaran')
+                return;
+            }
+
+            var parameter = $('#id_edit').val();
+            var id = $('#no_proyek').val();
+            if(parameter == "edit"){
+                var url = "{{ url('java-trans/rab-proyek-ubah') }}";
+                var pesan = "updated";
+                var text = "Perubahan data "+id+" telah tersimpan";
+            }else{
+                var url = "{{ url('java-trans/rab-proyek') }}";
+                var pesan = "saved";
+                var text = "Data tersimpan dengan kode "+id;
+            }
+
+            var formData = new FormData(form);
+            $('#input-grid tbody tr').each(function(index) {
+                formData.append('no[]', $(this).find('.no-grid').text())
+            })
+            for(var pair of formData.entries()) {
+                console.log(pair[0]+ ', '+ pair[1]); 
+            }
+            
+            $.ajax({
+                type: 'POST', 
+                url: url,
+                dataType: 'json',
+                data: formData,
+                async:false,
+                contentType: false,
+                cache: false,
+                processData: false, 
+                success:function(result){
+                    if(result.data.status){
+                        dataTable.ajax.reload();
+                        $('#row-id').hide();
+                        $('#form-tambah')[0].reset();
+                        $('#form-tambah').validate().resetForm();
+                        $('[id^=label]').html('');
+                        $('#id_edit').val('');
+                        $('#judul-form').html('Tambah Data Anggaran Proyek');
+                        $('#method').val('post');
+                        $('#no_kontrak').attr('readonly', false);
+                        $('#search_no_proyek').show();
+                        msgDialog({
+                            id:result.data.kode,
+                            type:'simpan'
+                        });
+                        last_add("kode_customer",result.data.kode);
+                    }else if(!result.data.status && result.data.message === "Unauthorized"){
+                    
+                        window.location.href = "{{ url('/java-auth/sesi-habis') }}";
+                        
+                    }else{
+                        if(result.data.kode == "-" && result.data.jenis != undefined){
+                            msgDialog({
+                                id: id,
+                                type: result.data.jenis,
+                                text:'Kode customer sudah digunakan'
+                            });
+                        }else{
+
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Something went wrong!',
+                                footer: '<a href>'+result.data.message+'</a>'
+                            })
+                        }
+                    }
+                },
+                fail: function(xhr, textStatus, errorThrown){
+                    alert('request failed:'+textStatus);
+                }
+            });
+            $('#btn-simpan').html("Simpan").removeAttr('disabled');
+        },
+        errorPlacement: function (error, element) {
+            var id = element.attr("id");
+            $("label[for="+id+"]").append("<br/>");
+            $("label[for="+id+"]").append(error);
+        }
+    });
+
+    $('#table-data tbody').on('click','td',function(e){
+        if($(this).index() != 4){
+
+            var id = $(this).closest('tr').find('td').eq(0).html();
+            var data = dataTable.row(this).data();
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('java-trans/rab-proyek-show') }}",
+                data: { kode: id },
+                dataType: 'json',
+                async:false,
+                success:function(res){ 
+                    console.log(res)
+                     var html = `<tr>
+                        <td style='border:none'>No Anggaran</td>
+                        <td style='border:none'>`+id+`</td>
+                    </tr>
+                    <tr>
+                        <td>No Proyek</td>
+                        <td>`+data.no_proyek+`</td>
+                    </tr>
+                    <tr>
+                        <td>No Kontrak</td>
+                        <td>`+res.data.data[0].no_kontrak+`</td>
+                    </tr>
+                    <tr>
+                        <td>Nilai Kontrak</td>
+                        <td>`+format_number(res.data.data[0].nilai)+`</td>
+                    </tr>
+                    <tr>
+                        <td>Nilai Anggaran</td>
+                        <td>`+format_number(res.data.data[0].nilai_anggaran)+`</td>
+                    </tr>
+                    <tr>
+                        <td colspan='2'>
+                            <table class='table table-bordered' id='table-detail'>
+                                <thead>
+                                    <tr>
+                                        <th>No</th>    
+                                        <th>Uraian Pekerjaan</th>    
+                                        <th>Qty</th>    
+                                        <th>satuan</th>    
+                                        <th>Harga</th>    
+                                        <th>Total</th>    
+                                    </tr>    
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    `;
+                    $('#table-preview tbody').html(html);
+                    var html2;
+                    for(var i=0;i<res.data.detail.length;i++) {
+                        var total = parseFloat(res.data.detail[i].harga) * parseFloat(res.data.detail[i].jumlah)
+                        console.log(total)
+                        html2 += `<tr>
+                            <td>`+res.data.detail[i].no+`</td>
+                            <td>`+res.data.detail[i].keterangan+`</td>
+                            <td>`+format_number(res.data.detail[i].jumlah)+`</td>
+                            <td>`+res.data.detail[i].satuan+`</td>
+                            <td>`+format_number(res.data.detail[i].harga)+`</td>
+                            <td>`+format_number(total)+`</td>
+                        </tr>` 
+                    }    
+                    $('#table-detail tbody').html(html2);
+                    $('#modal-preview-judul').css({'margin-top':'10px','padding':'0px !important'}).html('Preview Data Anggaran Proyek').removeClass('py-2');
+                    $('#modal-preview-id').text(id);
+                    $('#modal-preview #content-preview').css({'overflow-y': 'scroll'}); 
+                    $('#modal-preview').modal('show');      
+                }
+            })
+        }
+    });
+
+    $('.modal-header').on('click','#btn-delete2',function(e){
+        var id = $('#modal-preview-id').text();
+        $('#modal-preview').modal('hide');
+        msgDialog({
+            id:id,
+            type:'hapus'
+        });
+    });
+
+    $('.modal-header').on('click', '#btn-edit2', function(){
+        var id= $('#modal-preview-id').text();
+        // $iconLoad.show();
+        $('#form-tambah').validate().resetForm();
+        $('#judul-form').html('Edit Data Vendor');
+        
+        $('#btn-save').attr('type','button');
+        $('#btn-save').attr('id','btn-update');
+        editData(id)
     });
 
 </script>
