@@ -49,13 +49,20 @@
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-md-6 col-sm-12"></div>
+                        <div class="form-group col-md-6 col-sm-12">
+                            <div class="row" id="no-rab">
+                                <div class="col-md-6 col-sm-12">
+                                    <label for="no_rab">No Anggaran</label>
+                                    <input class="form-control" type="text" placeholder="No Anggaran" id="no_rab" name="no_rab" readonly>
+                                </div>
+                            </div>
+                        </div>
                         <div class="form-group col-md-6 col-sm-12">
                             <div class="row">
                                 <div class="col-md-6 col-sm-12"></div>
                                 <div class="col-md-6 col-sm-12">
                                     <label for="nilai_anggaran">Nilai Anggaran</label>
-                                    <input class="form-control currency" type="text" placeholder="Nilai Anggaran" id="nilai_anggaran" name="nilai_anggaran" value="0">
+                                    <input class="form-control currency" type="text" placeholder="Nilai Anggaran" id="nilai_anggaran" name="nilai_anggaran" value="0" readonly>
                                 </div>
                             </div>
                         </div>
@@ -112,12 +119,39 @@
     var scrollform = document.querySelector('.form-body');
     var psscrollform = new PerfectScrollbar(scrollform);
 
+    function resetForm() {
+        $('#no-rab').hide();
+        $("[id^=label]").each(function(e){
+            $(this).text('');
+        });
+        $("[class^=info-name]").each(function(e){
+            $(this).addClass('hidden');
+        });
+        $("[class^=input-group-text]").each(function(e){
+            $(this).text('');
+        });
+        $("[class^=input-group-prepend]").each(function(e){
+            $(this).addClass('hidden');
+        });
+        $("[class*='inp-label-']").each(function(e){
+            $(this).removeAttr("style");
+        })
+        $("[class^=info-code]").each(function(e){
+            $(this).text('');
+        });
+        $("[class^=simple-icon-close]").each(function(e){
+            $(this).addClass('hidden');
+        });
+        $('#input-grid tbody').empty();
+    }
+
     function hitungGridTotal() {
         var gridTotal = 0;
         $('#input-grid tbody tr').each(function(index) {
             var total = toNilai($(this).find('.td-total').text())
             gridTotal += total
         })
+        $('#nilai_anggaran').val(gridTotal)
 
         return gridTotal;
     }
@@ -245,7 +279,7 @@
     });
 
     $('#saku-datatable').on('click', '#btn-tambah', function(){
-        addRow("default");
+        $('#no-rab').hide();
         $('#row-id').hide();
         $('#method').val('post');
         $('#judul-form').html('Tambah Data Anggaran Proyek');
@@ -256,11 +290,8 @@
         $('#id').val('');
         $('#saku-datatable').hide();
         $('#saku-form').show();
-        $('.input-group-prepend').addClass('hidden');
-        $('span[class^=info-name]').addClass('hidden');
-        $('.info-icon-hapus').addClass('hidden');
-        $('[class*=inp-label-]').val('')
-        $('[class*=inp-label-]').attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important;border-left:1px solid #d7d7d7 !important');
+        resetForm();
+        addRow("default");
     });
 
     $('#saku-form').on('click', '#btn-kembali', function(){
@@ -269,6 +300,26 @@
             id:kode,
             type:'keluar'
         });
+    });
+
+    $('#saku-form').on('click', '#btn-update', function(){
+        var kode = $('#kode_vendor').val();
+        msgDialog({
+            id:kode,
+            type:'edit'
+        });
+    });
+
+    $('#saku-datatable').on('click', '#btn-edit', function(){
+        var id= $(this).closest('tr').find('td').eq(0).html();
+        // $iconLoad.show();
+        $('#form-tambah').validate().resetForm();
+        
+        $('#btn-save').attr('type','button');
+        $('#btn-save').attr('id','btn-update');
+
+        $('#judul-form').html('Edit Data Vendor');
+        editData(id);
     });
 
     var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
@@ -460,6 +511,7 @@
                     $(this).parents("tr").find(".inp-harga").show();
                     $(this).parents("tr").find(".td-harga").hide();
                     $(this).parents("tr").find(".inp-harga").focus();
+                    hitungGridTotal();
                 }else{
                     $(this).parents("tr").find(".inp-harga").hide();
                     $(this).parents("tr").find(".td-harga").show();
@@ -571,6 +623,7 @@
                         var number1 = $('.qtyke'+cell).val();
                         var number2 = $('.hargake'+cell).val();
                         hitungTotaldiGrid('.totalke'+cell, '.tdtotalke'+cell, number1, number2)
+                        hitungGridTotal();
                         var cek = $(this).parents('tr').next('tr').find('.td-kode');
                         if(cek.length > 0){
                             cek.click();
@@ -658,6 +711,7 @@
                         $('#method').val('post');
                         $('#no_kontrak').attr('readonly', false);
                         $('#search_no_proyek').show();
+                        resetForm();
                         msgDialog({
                             id:result.data.kode,
                             type:'simpan'
@@ -791,6 +845,107 @@
         $('#btn-save').attr('type','button');
         $('#btn-save').attr('id','btn-update');
         editData(id)
+    });
+
+    function editData(id){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('/java-trans/rab-proyek-show') }}",
+            dataType: 'json',
+            data:{ 'kode':id},
+            async:false,
+            success:function(res){
+                var result= res.data;
+                if(result.status){
+                    $('#no-rab').show();
+                    $('#input-grid tbody').empty();
+                    $('#id_edit').val('edit');
+                    $('#id').val(id);
+                    $('#no_rab').val(id);
+                    $('#method').val('put');
+                    $('#nilai_kontrak').val(parseFloat(result.data[0].nilai));
+                    $('#nilai_anggaran').val(result.data[0].nilai_anggaran);
+                    showInfoField('no_proyek',result.data[0].no_proyek,result.data[0].keterangan);
+                    if(result.detail.length > 0){
+                        var input = '';
+                        var no=1;
+                        for(var i=0;i<result.detail.length;i++){
+                            var line =result.detail[i];
+                            var total = parseFloat(line.jumlah) * parseFloat(line.harga)
+                            input += "<tr class='row-grid'>";
+                            input += "<td class='text-center no-grid'>"+line.no+"<input type='text' name='no[]' class='form-control inp-no noke"+line.no+" hidden'  value='"+line.no+"' required></td>";
+                            input += "<td><span class='td-keterangan tdketke"+no+" tooltip-span'>"+line.keterangan+"</span><input type='text' name='keterangan[]' class='form-control inp-keterangan ketke"+no+" hidden'  value='"+line.keterangan+"' required></td>";
+                            input += "<td class='text-right'><span class='td-qty tdqtyke"+no+" tooltip-span'>"+format_number(line.jumlah)+"</span><input type='text' name='qty[]' class='form-control numeric inp-qty qtyke"+no+" hidden'  value='"+parseFloat(line.jumlah)+"' required></td>";
+                            input += "<td><span class='td-satuan tdsatke"+no+" tooltip-span'>"+line.satuan+"</span><input type='text' name='satuan[]' class='form-control inp-satuan satke"+no+" hidden'  value='"+line.satuan+"' required></td>";
+                            input += "<td class='text-right'><span class='td-harga tdhargake"+no+" tooltip-span'>"+format_number(line.harga)+"</span><input type='text' name='harga[]' class='form-control numeric inp-harga hargake"+no+" hidden'  value='"+parseFloat(line.harga)+"' required></td>";
+                            input += "<td class='text-right'><span class='td-total tdtotalke"+no+" tooltip-span'>"+format_number(total)+"</span><input type='text' name='total[]' class='form-control numeric inp-total totalke"+no+" hidden'  value='"+total+"' required readonly></td>";
+                            input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
+                            input += "</tr>";
+        
+                            no++;
+                        }
+                        $('#input-grid tbody').html(input);
+                        $('.tooltip-span').tooltip({
+                            title: function(){
+                                return $(this).text();
+                            }
+                        })
+                        $('.numeric').inputmask("numeric", {
+                            radixPoint: ",",
+                            groupSeparator: ".",
+                            digits: 2,
+                            autoGroup: true,
+                            rightAlign: true,
+                            oncleared: function () {  }
+                        });
+                        no= 1;
+                    }
+                    hitungTotalRow();
+                    hitungGridTotal();
+                    $('#saku-datatable').hide();
+                    $('#saku-form').show();
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    window.location.href = "{{ url('java-auth/sesi-habis') }}";
+                }
+            }
+        });
+    }
+
+    function hapusData(id){
+        $.ajax({
+            type: 'DELETE',
+            url: "{{ url('java-trans/rab-proyek') }}",
+            dataType: 'json',
+            data: {'kode':id},
+            async:false,
+            success:function(result){
+                if(result.data.status){
+                    dataTable.ajax.reload();                    
+                    showNotification("top", "center", "success",'Hapus Data','Data Anggaran ('+id+') berhasil dihapus ');
+                    $('#modal-preview-id').html('');
+                    $('#table-delete tbody').html('');
+                    $('#modal-delete').modal('hide');
+                }else if(!result.data.status && result.data.message == "Unauthorized"){
+                    window.location.href = "{{ url('java-auth/sesi-habis') }}";
+                }else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href>'+result.data.message+'</a>'
+                    });
+                }
+            }
+        });
+    }
+
+    $('#saku-datatable').on('click','#btn-delete',function(e){
+        var kode = $(this).closest('tr').find('td').eq(0).html();
+        msgDialog({
+            id: kode,
+            type:'hapus'
+        });
     });
 
 </script>
