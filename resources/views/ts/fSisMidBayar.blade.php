@@ -152,6 +152,8 @@
                                             <input type="text" name="nilai" id="nilai" class="form-control" style="padding-left:35px" placeholder="Masukkan Nilai Pembayaran"> <i style="position: absolute;top: 9px;left:10px" class="saicon icon-pbyr"></i>
                                             <input type="hidden" name="no_bill" id="no_bill">
                                             <input type="hidden" name="ket" id="ket">
+                                            <input type="hidden" name="periode_bill" id="periode_bill">
+                                            <input type="hidden" name="kode_param" id="kode_param">
                                         </div>
                                     </div>
                                     <div class="row">
@@ -228,10 +230,10 @@
         if(total_bill < total_d){
             alert('Total Bayar tidak boleh lebih besar dari Total Bill');
             $('#nilai').val('');
-            $('#total-label').html(sepNum(0));
+            $('#total-label').html(sepNumPas(0));
             return false;
         }else{
-            $('#total-label').html(sepNum(total_d));
+            $('#total-label').html(sepNumPas(total_d));
         }
     }
 
@@ -270,6 +272,9 @@
                                             <label class="custom-control-label" for="check-bayar`+i+`"></label>
                                             <p hidden class='inp-no_bill'>`+line4.no_bukti+`</p>
                                             <p hidden class='inp-ket'>`+line4.keterangan+`</p>
+                                            <p hidden class='inp-kode_param'>`+line4.kode_param+`</p>
+                                            <p hidden class='inp-periode_bill'>`+line4.periode+`</p>
+                                            <p hidden class='inp-total_bill'>`+line4.sisa+`</p>
                                         </div>
                                     </div>
                                     <div class="col-11">
@@ -307,12 +312,23 @@
                                 $box.prop("checked", true);
                                 var no_bill = $(this).closest('div').find('.inp-no_bill').html();
                                 var ket = $(this).closest('div').find('.inp-ket').html();
+                                
+                                var kode_param = $(this).closest('div').find('.inp-kode_param').html();
+                                var periode_bill = $(this).closest('div').find('.inp-periode_bill').html();
+                                var total_bill = $(this).closest('div').find('.inp-total_bill').html();
+                                
                                 $('#no_bill').val(no_bill);
                                 $('#ket').val(ket);
+                                $('#periode_bill').val(periode_bill);
+                                $('#kode_param').val(kode_param);
+                                $('#nilai').val(parseInt(total_bill));
                             } else {
                                 $box.prop("checked", false);
                                 $('#no_bill').val('');
                                 $('#ket').val('');
+                                $('#periode_bill').val('');
+                                $('#kode_param').val('');
+                                $('#nilai').val(0);
                             }
 
                             // if($(this).is(":checked")){
@@ -361,6 +377,8 @@
             keterangan: $('input#ket').val(),
             nis: "{{ Session::get('userLog') }}",
             no_bill: $('input#no_bill').val(),
+            periode_bill: $('input#periode_bill').val(),
+            kode_param: $('input#kode_param').val(),
         },
         // $.post("{{ route('donation.store') }}",
         // {

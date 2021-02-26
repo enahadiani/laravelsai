@@ -275,7 +275,9 @@
                 'nis' => 'required',
                 'no_bill' => 'required',
                 'nilai' => 'required',
-                'keterangan' => 'required'
+                'keterangan' => 'required',
+                'periode_bill' => 'required',
+                'kode_param' => 'required'
             ]);
                 
             try{
@@ -337,6 +339,8 @@
                         'nilai' => $request->nilai,
                         'keterangan' => $request->keterangan,
                         'status' => 'process',
+                        'kode_param' => $request->kode_param,
+                        'periode_bill' => $request->periode_bill,
                         'snap_token' => $snapToken
                     ]
                 ]);
