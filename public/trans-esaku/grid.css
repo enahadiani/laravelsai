@@ -60,7 +60,7 @@ th {
     overflow: unset !important;
 }
 
-.btn-div {
+/* .btn-div {
     position: fixed;
     bottom: 1rem;
     border-radius: 15px;
@@ -68,4 +68,4 @@ th {
     box-shadow: 0px 2px 8px #80808054;
     background-color: #fff;
     width: 87.5%;
-}
+} */
