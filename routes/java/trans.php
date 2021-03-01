@@ -8,6 +8,7 @@ Route::get('customer', 'Java\HelperController@getCustomer');
 Route::get('vendor', 'Java\HelperController@getVendor');
 Route::get('rab-proyek-cbbl', 'Java\HelperController@getProyekRab');
 Route::get('beban-proyek-cbbl', 'Java\HelperController@getProyekBeban');
+Route::get('tagihan-proyek-cbbl', 'Java\HelperController@getProyekTagihan');
 
 // Data Proyek //
 Route::get('proyek', 'Java\ProyekController@index');

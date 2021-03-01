@@ -525,6 +525,7 @@
                 success:function(result){
                     if(result.data.status){
                         dataTable.ajax.reload();
+                        $('.no_bukti').hide();
                         $('#row-id').hide();
                         $('#form-tambah')[0].reset();
                         $('#form-tambah').validate().resetForm();
