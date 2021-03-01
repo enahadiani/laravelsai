@@ -45,7 +45,7 @@ $thnLalu = substr($tahunLalu,2,2);
                     <h6 class="card-title">Beban per Tahun untuk Fakultas</h6>
                 </div>
                 <div class="card-body pt-0">
-                    <div id='pdptFak' style='height:300px'>
+                    <div id='bebanFak' style='height:300px'>
                     </div>
                 </div>
             </div>
@@ -223,7 +223,8 @@ function getBebanFak(periode=null, kodeNeraca=null){
         data:{mode : $mode},
         dataType:"JSON",
         success:function(result){
-            Highcharts.chart('pdptFak', {
+            console.log(result);
+            Highcharts.chart('bebanFak', {
                 chart: {
                     type: 'column'
                 },
