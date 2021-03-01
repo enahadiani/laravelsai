@@ -133,7 +133,7 @@ $thnLalu = substr($tahunLalu,2,2)
         <div class="col-lg-4 col-12 mb-4">
             <div class="card dash-card card-daftar">
                 <div class="card-header">
-                    <h6 class="card-title mb-0">Pendaftaran Maba</h6>
+                    <h6 class="card-title mb-0">Investasi</h6>
                 </div>
                 <div class="card-body">
                     <table class="table table-borderless table-pin" >
@@ -386,13 +386,13 @@ function getFxPosition(periode=null)
                     var line = result.data.data[i];
                     
                     if(line.nama != "Aset"){
-                        var real = toMilyar(parseFloat(line.real)*-1);
-                        var real_lalu = toMilyar(parseFloat(line.real_lalu)*-1);
+                        var real = toMilyar(parseFloat(line.real));
+                        var real_lalu = toMilyar(parseFloat(line.real_lalu));
                         // var persen = (parseFloat(line.real)/parseFloat(result.data.data[0].real))*-100;
                     }else{
                         // var persen = 100;
                         var real = toMilyar(parseFloat(line.real));
-                        var real_lalu = toMilyar(parseFloat(line.real_lalu)*-1);
+                        var real_lalu = toMilyar(parseFloat(line.real_lalu));
                     }
                     
                     if(i == 0){
@@ -516,20 +516,11 @@ function getDebt(periode=null)
                 for(var i=0;i<result.data.data.length;i++)
                 {
                     var line = result.data.data[i];
-                    if(i == 0){
-
-                        html+=`<tr>
-                        <td></td>
-                        <td class='text-center'>RKA</td>
-                        <td class='text-center'>Real</td>
-                        <td class='text-center'>%</td>
-                        </tr>`;   
-                    }
                     html+=`<tr>
-                    <td>`+line.nama+`</td>
-                    <td class='text-right'>`+toMilyar(parseFloat(line.rka))+`</td>
-                    <td class='text-right'>`+toMilyar(parseFloat(line.real))+`</td>
-                    </tr>`;   
+                        <td>`+line.nama+`</td>
+                        <td class='text-right'>`+toMilyar(parseFloat(line.real))+`</td>
+                        </tr>`; 
+                  
                 }
             }
             $('.table-debt').html(html);
@@ -572,19 +563,11 @@ function getKelola(periode=null)
                 for(var i=0;i<result.data.data.length;i++)
                 {
                     var line = result.data.data[i];
-                    // if(i == 0){
-
-                    //     html+=`<tr>
-                    //     <td></td>
-                    //     <td class='text-center'>RKA</td>
-                    //     <td class='text-center'>Real</td>
-                    //     <td class='text-center'>%</td>
-                    //     </tr>`;   
-                    // }
-                        html+=`<tr>
+                    html+=`<tr>
                         <td>`+line.nama+`</td>
                         <td class='text-right'>`+toMilyar(parseFloat(line.real))+`</td>
-                        </tr>`;   
+                        </tr>`; 
+                      
 
                 }
             }
@@ -627,20 +610,11 @@ function getPin(periode=null)
                 for(var i=0;i<result.data.data.length;i++)
                 {
                     var line = result.data.data[i];
-                    if(i == 0){
-
-                        html+=`<tr>
-                        <td></td>
-                        <td class='text-center'>RKA</td>
-                        <td class='text-center'>Real</td>
-                        <td class='text-center'>%</td>
-                        </tr>`;   
-                    }
-                        html+=`<tr>
+                    html+=`<tr>
                         <td>`+line.nama+`</td>
-                        <td class='text-right'>`+toMilyar(parseFloat(line.rka))+`</td>
                         <td class='text-right'>`+toMilyar(parseFloat(line.real))+`</td>
-                        </tr>`;   
+                        </tr>`;  
+                   
                 }
             }
             $('.table-pin').html(html);
