@@ -27,5 +27,9 @@ Route::delete('rab-proyek', 'Java\RabProyekController@delete');
 
 // Data Beban
 Route::get('biaya-proyek', 'Java\BiayaProyekController@index');
+Route::get('biaya-proyek-show', 'Java\BiayaProyekController@getData');
+Route::post('biaya-proyek', 'Java\BiayaProyekController@store');
+Route::put('biaya-proyek-ubah', 'Java\BiayaProyekController@update');
+Route::delete('biaya-proyek', 'Java\BiayaProyekController@delete');
 
 ?>

@@ -17,7 +17,7 @@ class HelperController extends Controller {
 
     public function getProyekBeban(Request $request) {
         $client = new Client();
-        $response = $client->request('GET',  config('api.url').'java-trans/proyek-biaya-cbbl?kode_vendor='.$request->query('kode'),[
+        $response = $client->request('GET',  config('api.url').'java-trans/proyek-biaya-cbbl?kode_cust='.$request->query('kode'),[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -30,7 +30,7 @@ class HelperController extends Controller {
             $data = json_decode($response_data,true);
             $data = $data;
         }
-        return response()->json(['daftar' => $data, 'status' => true], 200);
+        return response()->json(['daftar' => $data['data'], 'status' => true], 200);
     }
 
     public function getProyekRab() {

@@ -559,7 +559,7 @@
                     $('#no_kontrak').val(result.data[0].no_kontrak);
                     $('#tanggal_mulai').val(reverseDate2(result.data[0].tgl_mulai,'-','/'));
                     $('#tanggal_selesai').val(reverseDate2(result.data[0].tgl_selesai,'-','/'));
-                    $('#nilai').val(toNilai(result.data[0].nilai));
+                    $('#nilai').val(parseInt(result.data[0].nilai));
                     $('#keterangan').val(result.data[0].keterangan);
                     status_ppn = result.data[0].status_ppn; 
                     if(result.data[0].status_ppn === '1') {
