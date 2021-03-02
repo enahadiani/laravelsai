@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Java;
 
 use App\Http\Controllers\Controller;
@@ -9,7 +8,7 @@ use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Session;
 use GuzzleHttp\Exception\BadResponseException;
 
-class BiayaProyekController extends Controller {
+class TagihanController extends Controller { 
 
     /**
      * Display a listing of the resource.
@@ -30,12 +29,6 @@ class BiayaProyekController extends Controller {
         return $num;
     }
 
-    public function convertPeriode($date) {
-        $explode = explode("/", $date);
-
-        return "$explode[2]$explode[1]";
-    }
-
     public function convertDate($date, $from = '/', $to = '-') {
         $explode = explode($from, $date);
         return "$explode[2]"."$to"."$explode[1]"."$to"."$explode[0]";
@@ -44,7 +37,7 @@ class BiayaProyekController extends Controller {
     public function index() {
         try {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'java-trans/biaya-proyek',[
+            $response = $client->request('GET',  config('api.url').'java-trans/tagihan-proyek',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -68,33 +61,46 @@ class BiayaProyekController extends Controller {
 
     public function store(Request $request) {
         $this->validate($request, [
-            'tanggal' => 'required',
-            'kode_cust' => 'required',
-            'kode_vendor' => 'required',
             'no_proyek' => 'required',
-            'nilai' => 'required',
+            'tanggal' => 'required',
             'keterangan' => 'required',
-            'no_dokumen' => 'required',
-            'status' => 'required',
-            'no_rab' => 'required'
+            'nilai' => 'required',
+            'biaya_lain' => 'required',
+            'pajak' => 'required',
+            'uang_muka' => 'required',
+            'kode_cust' => 'required',
+            'no' => 'required|array',
+            'item' => 'required|array',
+            'harga' => 'required|array'
         ]);
 
-        try {  
+        try {
+            $no = array();
+            $item = array();
+            $harga = array();
+
+            for($i=0;$i<count($request->input('no'));$i++) {
+                array_push($no, $request->input('no')[$i]);
+                array_push($item, $request->input('item')[$i]);
+                array_push($harga, $this->joinNum($request->input('harga')[$i]));
+            }
+
             $form = array(
-                'tanggal' => $this->convertDate($request->input('tanggal')),
-                'kode_cust' => $request->input('kode_cust'),
-                'nilai' => $this->joinNum($request->input('nilai')),
-                'kode_vendor' => $request->input('kode_vendor'),
-                'kode_cust' => $request->input('kode_cust'),
                 'no_proyek' => $request->input('no_proyek'),
+                'tanggal' => $this->convertDate($request->input('tanggal')),
                 'keterangan' => $request->input('keterangan'),
-                'no_dokumen' => $request->input('no_dokumen'),
-                'status' => $request->input('status'),
-                'no_rab' => $request->input('no_rab')
+                'nilai' => $this->joinNum($request->input('nilai')),
+                'biaya_lain' => $this->joinNum($request->input('biaya_lain')),
+                'pajak' => $this->joinNum($request->input('pajak')),
+                'uang_muka' => $this->joinNum($request->input('uang_muka')),
+                'kode_cust' => $request->input('kode_cust'),
+                'nomor' => $no,
+                'item' => $item,
+                'harga' => $harga,
             );
 
             $client = new Client();
-            $response = $client->request('POST',  config('api.url').'java-trans/biaya-proyek',[
+            $response = $client->request('POST',  config('api.url').'java-trans/tagihan-proyek',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -107,19 +113,20 @@ class BiayaProyekController extends Controller {
                 $data = json_decode($response_data,true);
                 return response()->json(['data' => $data], 200);  
             }
+
         } catch (BadResponseException $ex) {
-                $response = $ex->getResponse();
-                $res = json_decode($response->getBody(),true);
-                $data['message'] = $res;
-                $data['status'] = false;
-                return response()->json(['data' => $data], 500);
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $data['message'] = $res;
+            $data['status'] = false;
+            return response()->json(['data' => $data], 500);
         }
     }
 
     public function getData(Request $request) {
         try{
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'java-trans/biaya-proyek?no_bukti='.$request->query('kode'),
+            $response = $client->request('GET',  config('api.url').'java-trans/tagihan-proyek?no_tagihan='.$request->query('kode'),
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -144,35 +151,48 @@ class BiayaProyekController extends Controller {
 
     public function update(Request $request) {
         $this->validate($request, [
-            'no_bukti' => 'required',
-            'tanggal' => 'required',
-            'kode_cust' => 'required',
-            'kode_vendor' => 'required',
+            'no_tagihan' => 'required',
             'no_proyek' => 'required',
-            'nilai' => 'required',
+            'tanggal' => 'required',
             'keterangan' => 'required',
-            'no_dokumen' => 'required',
-            'status' => 'required',
-            'no_rab' => 'required'
+            'nilai' => 'required',
+            'biaya_lain' => 'required',
+            'pajak' => 'required',
+            'uang_muka' => 'required',
+            'kode_cust' => 'required',
+            'no' => 'required|array',
+            'item' => 'required|array',
+            'harga' => 'required|array'
         ]);
 
-        try {  
+        try {
+            $no = array();
+            $item = array();
+            $harga = array();
+
+            for($i=0;$i<count($request->input('no'));$i++) {
+                array_push($no, $request->input('no')[$i]);
+                array_push($item, $request->input('item')[$i]);
+                array_push($harga, $this->joinNum($request->input('harga')[$i]));
+            }
+
             $form = array(
-                'tanggal' => $this->convertDate($request->input('tanggal')),
-                'kode_cust' => $request->input('kode_cust'),
-                'nilai' => $this->joinNum($request->input('nilai')),
-                'kode_vendor' => $request->input('kode_vendor'),
-                'kode_cust' => $request->input('kode_cust'),
+                'no_tagihan' => $request->input('no_tagihan'),
                 'no_proyek' => $request->input('no_proyek'),
+                'tanggal' => $this->convertDate($request->input('tanggal')),
                 'keterangan' => $request->input('keterangan'),
-                'no_dokumen' => $request->input('no_dokumen'),
-                'status' => $request->input('status'),
-                'no_rab' => $request->input('no_rab'),
-                'no_bukti' => $request->input('no_bukti')
+                'nilai' => $this->joinNum($request->input('nilai')),
+                'biaya_lain' => $this->joinNum($request->input('biaya_lain')),
+                'pajak' => $this->joinNum($request->input('pajak')),
+                'uang_muka' => $this->joinNum($request->input('uang_muka')),
+                'kode_cust' => $request->input('kode_cust'),
+                'nomor' => $no,
+                'item' => $item,
+                'harga' => $harga,
             );
 
             $client = new Client();
-            $response = $client->request('PUT',  config('api.url').'java-trans/biaya-proyek',[
+            $response = $client->request('PUT',  config('api.url').'java-trans/tagihan-proyek',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -185,19 +205,20 @@ class BiayaProyekController extends Controller {
                 $data = json_decode($response_data,true);
                 return response()->json(['data' => $data], 200);  
             }
+
         } catch (BadResponseException $ex) {
-                $response = $ex->getResponse();
-                $res = json_decode($response->getBody(),true);
-                $data['message'] = $res;
-                $data['status'] = false;
-                return response()->json(['data' => $data], 500);
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $data['message'] = $res;
+            $data['status'] = false;
+            return response()->json(['data' => $data], 500);
         }
     }
 
     public function delete(Request $request) {
         try{
             $client = new Client();
-            $response = $client->request('DELETE',  config('api.url').'java-trans/biaya-proyek?no_bukti='.$request->input('kode'),
+            $response = $client->request('DELETE',  config('api.url').'java-trans/tagihan-proyek?no_tagihan='.$request->input('kode'),
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -220,7 +241,6 @@ class BiayaProyekController extends Controller {
         }
 
     }
-
 }
 
 ?>

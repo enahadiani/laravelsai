@@ -8,6 +8,7 @@ Route::get('customer', 'Java\HelperController@getCustomer');
 Route::get('vendor', 'Java\HelperController@getVendor');
 Route::get('rab-proyek-cbbl', 'Java\HelperController@getProyekRab');
 Route::get('beban-proyek-cbbl', 'Java\HelperController@getProyekBeban');
+Route::get('tagihan-proyek-cbbl', 'Java\HelperController@getProyekTagihan');
 
 // Data Proyek //
 Route::get('proyek', 'Java\ProyekController@index');
@@ -27,5 +28,16 @@ Route::delete('rab-proyek', 'Java\RabProyekController@delete');
 
 // Data Beban
 Route::get('biaya-proyek', 'Java\BiayaProyekController@index');
+Route::get('biaya-proyek-show', 'Java\BiayaProyekController@getData');
+Route::post('biaya-proyek', 'Java\BiayaProyekController@store');
+Route::put('biaya-proyek-ubah', 'Java\BiayaProyekController@update');
+Route::delete('biaya-proyek', 'Java\BiayaProyekController@delete');
+
+// Data Tagihan
+Route::get('tagihan-proyek', 'Java\TagihanController@index');
+Route::get('tagihan-proyek-show', 'Java\TagihanController@getData');
+Route::post('tagihan-proyek', 'Java\TagihanController@store');
+Route::put('tagihan-proyek-ubah', 'Java\TagihanController@update');
+Route::delete('tagihan-proyek', 'Java\TagihanController@delete');
 
 ?>

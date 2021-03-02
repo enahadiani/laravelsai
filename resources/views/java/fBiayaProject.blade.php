@@ -81,8 +81,8 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-sm-12">
-                                    <label for="anggaran">Anggaran tersisa</label>
-                                    <input class="form-control currency" type="text" placeholder="Anggaran tersisa" id="anggaran" name="anggaran" readonly value="0">
+                                    <label for="no_dokumen">No Dokumen</label>
+                                    <input class="form-control" type="text" placeholder="No Dokumen" id="no_dokumen" name="no_dokumen">
                                 </div>
                             </div>
                         </div>
@@ -90,8 +90,8 @@
                             <div class="row">
                                 <div class="col-md-4 col-sm-12"></div>
                                 <div class="col-md-8 col-sm-12">
-                                    <label for="nilai">Nilai</label>
-                                    <input class="form-control currency" type="text" placeholder="Nilai" id="nilai" name="nilai" value="0">
+                                    <label for="anggaran">Anggaran tersisa</label>
+                                    <input class="form-control currency" type="text" placeholder="Anggaran tersisa" id="anggaran" name="anggaran" readonly value="0">
                                 </div>
                             </div>
                         </div>
@@ -109,8 +109,19 @@
                             <div class="row">
                                 <div class="col-md-4 col-sm-12"></div>
                                 <div class="col-md-8 col-sm-12">
-                                    <label for="no_dokumen">No Dokumen</label>
-                                    <input class="form-control" type="text" placeholder="No Dokumen" id="no_dokumen" name="no_dokumen">
+                                    <label for="nilai">Nilai</label>
+                                    <input class="form-control currency" type="text" placeholder="Nilai" id="nilai" name="nilai" value="0">
+                                    <br/>
+                                    <div class="switch-toggle">
+                                        <label class="switch">
+                                            <input type="checkbox" id="status-paid">
+                                            <span class="slider round"></span>
+                                        </label>
+                                        <div class="label-switch">
+                                            <span id="paid">PAID</span>
+                                            <span id="unpaid">UNPAID</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -118,15 +129,9 @@
                     <div class="form-row">
                         <div class="form-group col-md-6 col-sm-12">
                             <div class="row">
-                                <div class="col-md-6 col-sm-12 switch-toggle">
-                                    <label class="switch">
-                                        <input type="checkbox" id="status-paid">
-                                        <span class="slider round"></span>
-                                    </label>
-                                    <div class="label-switch">
-                                        <span id="paid">PAID</span>
-                                        <span id="unpaid">UNPAID</span>
-                                    </div>
+                                <div class="col-md-8 col-sm-12 no_bukti">
+                                    <label for="no_bukti">No Bukti</label>
+                                    <input class="form-control" type="text" placeholder="No Bukti" id="no_bukti" name="no_bukti">
                                 </div>
                             </div>
                         </div>
@@ -151,6 +156,7 @@
     var $target = "";
     var $target2 = "";
     var $target3 = "";
+    var $no_rab = '';
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
@@ -202,6 +208,9 @@
     });
 
     $('#saku-datatable').on('click', '#btn-tambah', function(){
+        status_paid = false
+        isChecked()
+        $('.no_bukti').hide();
         $('#row-id').hide();
         $('#method').val('post');
         $('#judul-form').html('Tambah Data Biaya Proyek');
@@ -334,6 +343,29 @@
         });
     }
 
+    $('#nilai').on('change', function() {
+        var value = toNilai($(this).val());
+        var anggaran = toNilai($('#anggaran').val());
+        if(anggaran == 0 || anggaran == '') {
+            alert('Anggaran tidak boleh kosong atau 0')
+        } else if(value > anggaran) {
+            alert('Nilai beban tidak boleh melebihi anggaran')
+            $(this).focus()
+        } else {
+            return;
+        }
+    })
+
+    function custTarget(target, tr) {
+        var from = target;
+        var keyString = '_'
+        var fromTarget = from.substr(from.indexOf(keyString) + keyString.length, from.length);
+        if(fromTarget === 'no_proyek') {
+            $('#anggaran').val(parseInt(tr.find('td:nth-child(3)').text()))
+            $no_rab = tr.find('td:nth-child(2)').text()
+        }
+    }
+
     $('#form-tambah').on('click', '.search-item2', function(){
         var id = $(this).closest('div').find('input').attr('name');
         var customer = $('#kode_cust').val();
@@ -387,11 +419,12 @@
             case 'no_proyek': 
                 var settings = {
                     id : id,
-                    header : ['Kode', 'Nama'],
+                    header : ['No Proyek', 'No Rab', 'Nilai'],
                     url : "{{ url('java-trans/beban-proyek-cbbl') }}",
                     columns : [
-                        { data: 'kode_vendor' },
-                        { data: 'nama' }
+                        { data: 'no_proyek' },
+                        { data: 'no_rab' },
+                        { data: 'nilai_anggaran' }
                     ],
                     parameter: {
                         kode: customer
@@ -402,8 +435,8 @@
                     jTarget2 : "text",
                     target1 : ".info-code_"+id,
                     target2 : ".info-name_"+id,
-                    target3 : "",
-                    target4 : "",
+                    target3 : "custom",
+                    target4 : "custom",
                     width : ["30%","70%"],
                 }
             break;
@@ -474,6 +507,7 @@
             } else {
                 formData.append('status', 'UNPAID')
             }
+            formData.append('no_rab', $no_rab)
             
             for(var pair of formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
@@ -491,6 +525,7 @@
                 success:function(result){
                     if(result.data.status){
                         dataTable.ajax.reload();
+                        $('.no_bukti').hide();
                         $('#row-id').hide();
                         $('#form-tambah')[0].reset();
                         $('#form-tambah').validate().resetForm();
@@ -537,6 +572,171 @@
             $("label[for="+id+"]").append("<br/>");
             $("label[for="+id+"]").append(error);
         }
+    });
+
+    $('#table-data tbody').on('click','td',function(e){
+        if($(this).index() != 4){
+
+            var id = $(this).closest('tr').find('td').eq(0).html();
+            var data = dataTable.row(this).data();
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('java-trans/biaya-proyek-show') }}",
+                data: { kode: id },
+                dataType: 'json',
+                async:false,
+                success:function(res){
+                     var html = `<tr>
+                        <td style='border:none'>No Bukti</td>
+                        <td style='border:none'>`+id+`</td>
+                    </tr>
+                    <tr>
+                        <td>No Proyek</td>
+                        <td>`+data.no_proyek+`</td>
+                    </tr>
+                    <tr>
+                        <td>Tanggal</td>
+                        <td>`+res.data.data[0].tanggal+`</td>
+                    </tr>
+                    <tr>
+                        <td>No Dokumen</td>
+                        <td>`+res.data.data[0].no_dokumen+`</td>
+                    </tr>
+                    <tr>
+                        <td>status</td>
+                        <td>`+res.data.data[0].status+`</td>
+                    </tr>
+                    <tr>
+                        <td>Nilai</td>
+                        <td>`+format_number(res.data.data[0].nilai)+`</td>
+                    </tr>
+                    <tr>
+                        <td>Vendor</td>
+                        <td>`+res.data.data[0].kode_cust+` - `+res.data.data[0].nama_customer+`</td>
+                    </tr>
+                    <tr>
+                        <td>Supplier</td>
+                        <td>`+res.data.data[0].kode_vendor+` - `+res.data.data[0].nama_vendor+`</td>
+                    </tr>
+                    <tr>
+                        <td>Keterangan</td>
+                        <td>`+res.data.data[0].keterangan+`</td>
+                    </tr>
+                    `;
+                    $('#table-preview tbody').html(html);    
+                    $('#modal-preview-judul').css({'margin-top':'10px','padding':'0px !important'}).html('Preview Data Vendor').removeClass('py-2');
+                    $('#modal-preview-id').text(id);      
+                    $('#modal-preview').modal('show');      
+                }
+            })
+        }
+    });
+
+    // BUTTON EDIT
+    function editData(id, no_proyek){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('java-trans/biaya-proyek-show') }}",
+            data: { kode: id },
+            dataType: 'json',
+            async:false,
+            success:function(res){
+                var result= res.data;
+                if(result.status){
+                    $no_rab = result.data[0].no_rab;
+                    $('.no_bukti').show();
+                    $('#id_edit').val('edit');
+                    $('#method').val('put');
+                    $('#no_bukti').attr('readonly', true);
+                    $('#no_bukti').val(id);
+                    $('#id').val(id);
+                    $('#tanggal').val(reverseDate2(result.data[0].tanggal,'-','/'));
+                    $('#anggaran').val(parseInt(result.data[0].nilai_anggaran));
+                    $('#nilai').val(parseInt(result.data[0].nilai));
+                    $('#no_dokumen').val(result.data[0].no_dokumen);
+                    $('#keterangan').val(result.data[0].keterangan);
+                    if(result.data[0].status === 'UNPAID') {
+                        status_paid = false
+                        $('#status-paid').prop('checked', false)
+                        $('#paid').hide()        
+                        $('#unpaid').show()
+                    } else {
+                        status_paid = true
+                        $('#status-paid').prop('checked', true)
+                        $('#paid').show()        
+                        $('#unpaid').hide()
+                    }         
+                    $('#saku-datatable').hide();
+                    $('#modal-preview').modal('hide');
+                    $('#saku-form').show();
+                    showInfoField('kode_cust',result.data[0].kode_cust,result.data[0].nama_customer);
+                    showInfoField('kode_vendor',result.data[0].kode_vendor,result.data[0].nama_vendor);
+                    showInfoField('no_proyek',result.data[0].no_proyek,result.data[0].no_rab);
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    window.location.href = "{{ url('java-auth/sesi-habis') }}";
+                }
+                // $iconLoad.hide();
+            }
+        });
+    }
+
+    $('#saku-form').on('click', '#btn-update', function(){
+        var kode = $('#no_bukti').val();
+        msgDialog({
+            id:kode,
+            type:'edit'
+        });
+    });
+
+    $('#saku-datatable').on('click', '#btn-edit', function(){
+        var id= $(this).closest('tr').find('td').eq(0).html();
+        // $iconLoad.show();
+        $('#form-tambah').validate().resetForm();
+        
+        $('#btn-save').attr('type','button');
+        $('#btn-save').attr('id','btn-update');
+
+        $('#judul-form').html('Edit Data Vendor');
+        editData(id);
+    });
+
+    // BUTTON HAPUS DATA
+    function hapusData(id){
+        console.log(id)
+        $.ajax({
+            type: 'DELETE',
+            url: "{{ url('java-trans/biaya-proyek') }}",
+            data: { kode: id },
+            dataType: 'json',
+            async:false,
+            success:function(result){
+                if(result.data.status){
+                    dataTable.ajax.reload();                    
+                    showNotification("top", "center", "success",'Hapus Data','Data Biaya Proyek ('+id+') berhasil dihapus ');
+                    $('#modal-pesan-id').html('');
+                    $('#table-delete tbody').html('');
+                    $('#modal-pesan').modal('hide');
+                }else if(!result.data.status && result.data.message == "Unauthorized"){
+                    window.location.href = "{{ url('java-auth/sesi-habis') }}";
+                }else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href>'+result.data.message+'</a>'
+                    });
+                }
+            }
+        });
+    }
+
+    $('#saku-datatable').on('click','#btn-delete',function(e){
+        var kode = $(this).closest('tr').find('td').eq(0).html();
+        msgDialog({
+            id: kode,
+            type:'hapus'
+        });
     });
 
 </script>
