@@ -716,7 +716,7 @@
                             id:result.data.kode,
                             type:'simpan'
                         });
-                        last_add("kode_customer",result.data.kode);
+                        last_add("no_proyek",result.data.kode);
                     }else if(!result.data.status && result.data.message === "Unauthorized"){
                     
                         window.location.href = "{{ url('/java-auth/sesi-habis') }}";
