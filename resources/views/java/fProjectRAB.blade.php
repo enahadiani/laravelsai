@@ -763,8 +763,7 @@
                 data: { kode: id },
                 dataType: 'json',
                 async:false,
-                success:function(res){ 
-                    console.log(res)
+                success:function(res){
                      var html = `<tr>
                         <td style='border:none'>No Anggaran</td>
                         <td style='border:none'>`+id+`</td>
