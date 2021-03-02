@@ -101,12 +101,12 @@ div.inp-div-jenis > .search-item {
     display: inline-block;
 }
 
-.info-transaction {
-    padding: 1rem;
+.pull-right {
+    float: right;
 }
 
-.info-transaction .input-other-currency {
-    margin-right: 4rem;
+.info-transaction {
+    padding: 1rem;
 }
 
 .info-transaction .group-input {

@@ -104,7 +104,7 @@
                                     </div>
                                     <div class="col-md-1 col-sm-2"></div>
                                 </div>
-                                <div class="row">
+                                <div class="row mt-2">
                                     <div class="col-md-5 col-sm-5"></div>
                                     <div class="col-md-2 col-sm-3">
                                         <span>Pajak</span>
@@ -116,6 +116,50 @@
                                         </div>
                                     </div>
                                     <div class="col-md-4 col-sm-2"></div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-md-5 col-sm-5"></div>
+                                    <div class="col-md-6 col-sm-5">
+                                        <div class="separator mb-2"></div>
+                                    </div>
+                                    <div class="col-md-1 col-sm-2"></div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-md-5 col-sm-5"></div>
+                                    <div class="col-md-4 col-sm-4">
+                                        Subtotal
+                                    </div>
+                                    <div class="col-md-2 col-sm-2">
+                                        <span class="pull-right" id="subtotal-tagihan">Rp. 0</span>
+                                    </div>
+                                    <div class="col-md-1 col-sm-2"></div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-md-5 col-sm-5"></div>
+                                    <div class="col-md-4 col-sm-3">
+                                        <span>Uang Muka</span>
+                                    </div>
+                                    <div class="col-md-2 col-sm-2">
+                                        <input class="form-control currency" type="text" placeholder="Uang Muka" id="uang_muka" name="uang_muka" value="0">
+                                    </div>
+                                    <div class="col-md-1 col-sm-2"></div>
+                                </div>
+                                 <div class="row mt-2">
+                                    <div class="col-md-5 col-sm-5"></div>
+                                    <div class="col-md-6 col-sm-5">
+                                        <div class="separator mb-2"></div>
+                                    </div>
+                                    <div class="col-md-1 col-sm-2"></div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-md-5 col-sm-5"></div>
+                                    <div class="col-md-4 col-sm-4">
+                                        Kurang bayar
+                                    </div>
+                                    <div class="col-md-2 col-sm-2">
+                                        <span class="pull-right" id="kurang-bayar-tagihan">Rp. 0</span>
+                                    </div>
+                                    <div class="col-md-1 col-sm-2"></div>
                                 </div>
                             </div>
                         </div>
