@@ -79,6 +79,7 @@ class RegistrasiController extends Controller
         $this->validate($request, [
             'periode2' => 'required',
             'paket' => 'required',
+            'tgl_input' => 'required',
             'jadwal' => 'required|integer',
             'no_peserta' => 'required',
             'agen' => 'required',
@@ -165,7 +166,8 @@ class RegistrasiController extends Controller
             }
             
             $fields = array (
-                'periode' => $request->periode2,
+                'periode' => $request->periode2, 
+                'tanggal' => $this->reverseDate($request->tgl_input,"/","-"),
                 'paket' => $request->paket,
                 'jadwal' => $request->jadwal,
                 'no_peserta' => $request->no_peserta,
@@ -280,6 +282,7 @@ class RegistrasiController extends Controller
     {
         $this->validate($request, [
             'periode2' => 'required',
+            'tgl_input' => 'required',
             'no_reg' => 'required',
             'paket' => 'required',
             'jadwal' => 'required|integer',
@@ -364,6 +367,7 @@ class RegistrasiController extends Controller
 
             $fields = array (
                 'periode' => $request->periode2,
+                'tanggal' => $this->reverseDate($request->tgl_input,"/","-"),
                 'no_reg' => $request->no_reg,
                 'paket' => $request->paket,
                 'jadwal' => $request->jadwal,
