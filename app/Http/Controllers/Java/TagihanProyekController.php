@@ -8,7 +8,7 @@ use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Session;
 use GuzzleHttp\Exception\BadResponseException;
 
-class TagihanController extends Controller { 
+class TagihanProyekController extends Controller { 
 
     /**
      * Display a listing of the resource.

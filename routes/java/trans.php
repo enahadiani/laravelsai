@@ -34,10 +34,10 @@ Route::put('biaya-proyek-ubah', 'Java\BiayaProyekController@update');
 Route::delete('biaya-proyek', 'Java\BiayaProyekController@delete');
 
 // Data Tagihan
-Route::get('tagihan-proyek', 'Java\TagihanController@index');
-Route::get('tagihan-proyek-show', 'Java\TagihanController@getData');
-Route::post('tagihan-proyek', 'Java\TagihanController@store');
-Route::put('tagihan-proyek-ubah', 'Java\TagihanController@update');
-Route::delete('tagihan-proyek', 'Java\TagihanController@delete');
+Route::get('tagihan-proyek', 'Java\TagihanProyekController@index');
+Route::get('tagihan-proyek-show', 'Java\TagihanProyekController@getData');
+Route::post('tagihan-proyek', 'Java\TagihanProyekController@store');
+Route::put('tagihan-proyek-ubah', 'Java\TagihanProyekController@update');
+Route::delete('tagihan-proyek', 'Java\TagihanProyekController@delete');
 
 ?>

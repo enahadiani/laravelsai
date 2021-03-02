@@ -56,7 +56,7 @@
                     <div class="form-row form-no-margin">
                         <div class="form-group col-md-6 col-sm-12">
                             <div class="row">
-                                <div class="col-md-12 col-sm-12">
+                                <div class="col-md-8 col-sm-12">
                                     <label for="no_proyek" >No Proyek</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
@@ -69,6 +69,10 @@
                                         <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
                                         <i class="simple-icon-magnifier search-item2" id="search_no_proyek"></i>
                                     </div>
+                                </div>
+                                <div class="col-md-4 col-sm-12 no_tagihan">
+                                    <label for="no_tagihan">No Tagihan</label>
+                                    <input class='form-control' type="text" id="no_tagihan" name="no_tagihan" readonly>
                                 </div>
                             </div>
                         </div>
@@ -179,6 +183,7 @@
 <script src="{{ asset('helper.js') }}"></script>
 <script type="text/javascript">
     var $iconLoad = $('.preloader');
+    var subtotal = 0;
     var $target = "";
     var $target2 = "";
     var $target3 = "";
@@ -193,6 +198,8 @@
 
     function resetForm() {
         $('.no_tagihan').hide();
+        $('#search_no_proyek').show();
+        $('#search_kode_cust').show();
         $("[id^=label]").each(function(e){
             $(this).text('');
         });
@@ -215,6 +222,29 @@
             $(this).addClass('hidden');
         });
         $('#input-grid tbody').empty();
+    }
+
+    function hitungSubtotal() {
+        var biaya_lain = toNilai($('#biaya_lain').val())
+        var pajak = toNilai($('#pajak').val())
+        var uang_muka = toNilai($('#uang_muka').val())
+        subtotal = 0;
+        $('#input-grid tbody tr').each(function(index) {
+            var total = toNilai($(this).find('.td-harga').text())
+            subtotal += total
+        })
+        if(pajak == 0) {
+            pajak = 0
+        } else {
+            pajak = parseInt(subtotal * (pajak/100))   
+        }
+        var totalAkhir = biaya_lain + pajak + subtotal;
+        var kurang_bayar = totalAkhir - uang_muka;
+        if(kurang_bayar < 0) {
+            kurang_bayar = 0;
+        }
+        $('#subtotal-tagihan').text('Rp. '+format_number(totalAkhir))
+        $('#kurang-bayar-tagihan').text('Rp '+format_number(kurang_bayar))
     }
 
     function hitungTotalRow(){
@@ -254,6 +284,101 @@
             dataTable.row(rowIndexes).deselect();
         }, 1000 * 60 * 10);
     }
+
+    $('.info-icon-hapus').click(function(){
+        var par = $(this).closest('div').find('input').attr('name');
+        $('#'+par).val('');
+        $('#'+par).attr('readonly',false);
+        $('#'+par).attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important');
+        $('.info-code_'+par).parent('div').addClass('hidden');
+        $('.info-name_'+par).addClass('hidden');
+        $(this).addClass('hidden');
+    });
+
+    function showInfoField(kode,isi_kode,isi_nama){
+        $('#'+kode).val(isi_kode);
+        $('#'+kode).attr('style','border-left:0;border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important');
+        $('.info-code_'+kode).text(isi_kode).parent('div').removeClass('hidden');
+        $('.info-code_'+kode).attr('title',isi_nama);
+        $('.info-name_'+kode).removeClass('hidden');
+        $('.info-name_'+kode).attr('title',isi_nama);
+        $('.info-name_'+kode+' span').text(isi_nama);
+        var width = $('#'+kode).width()-$('#search_'+kode).width()-10;
+        var height =$('#'+kode).height();
+        var pos =$('#'+kode).position();
+        $('.info-name_'+kode).width(width).css({'left':pos.left,'height':height});
+        $('.info-name_'+kode).closest('div').find('.info-icon-hapus').removeClass('hidden');
+    }
+
+    function addRow(param) {
+        var no=$('#input-grid .row-grid:last').index();
+        no=no+2;
+        var input = "";
+        input += "<tr class='row-grid'>";
+        input += "<td class='text-center no-grid'>"+no+"<input type='text' name='no[]' class='form-control inp-no noke"+no+" hidden'  value='"+no+"' required></td>";
+        input += "<td><span class='td-item tdketke"+no+" tooltip-span'></span><input type='text' name='item[]' class='form-control inp-item ketke"+no+" hidden'  value='' required></td>";
+        input += "<td class='text-right'><span class='td-harga tdhargake"+no+" tooltip-span'></span><input type='text' name='harga[]' class='form-control numeric inp-harga hargake"+no+" hidden'  value='0' required></td>";
+        input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
+        input += "</tr>";
+
+        $('#input-grid tbody').append(input);
+
+        $('.numeric').inputmask("numeric", {
+            radixPoint: ",",
+            groupSeparator: ".",
+            digits: 2,
+            autoGroup: true,
+            rightAlign: true,
+            oncleared: function () {  }
+        });
+
+        hideUnselectedRow();
+        if(param == "add"){
+            $('#input-grid td').removeClass('px-0 py-0 aktif');
+            $('#input-grid tbody tr:last').find("td:eq(1)").addClass('px-0 py-0 aktif');
+            $('#input-grid tbody tr:last').find(".inp-item").show();
+            $('#input-grid tbody tr:last').find(".td-item").hide();
+            $('#input-grid tbody tr:last').find(".inp-item").focus();
+        }
+        $('.tooltip-span').tooltip({
+            title: function(){
+                return $(this).text();
+            }
+        });
+        hitungTotalRow();
+    }
+
+    function hideUnselectedRow() {
+        $('#input-grid > tbody > tr').each(function(index, row) {
+            if(!$(row).hasClass('selected-row')) {
+                var item = $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-item").val();
+                var harga = $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-harga").val();
+
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-item").val(item);
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-item").text(item);
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-harga").val(harga);
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-harga").text(harga);
+
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-item").hide();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-item").show();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-harga").hide();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-harga").show();
+            }
+        })
+    }
+
+    $('#input-grid').on('click', '.hapus-item', function(){
+        $(this).closest('tr').remove();
+        no=1;
+        $('.row-grid').each(function(){
+            var nom = $(this).closest('tr').find('.no-grid');
+            nom.html(no);
+            no++;
+        });
+        hitungTotalRow();
+        hitungSubtotal();
+        $("html, body").animate({ scrollTop: $(document).height() }, 1000);
+    });
 
     var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
 
@@ -318,7 +443,6 @@
     });
 
     $('#saku-datatable').on('click', '#btn-tambah', function(){
-        $('.no_tagihan').hide();
         $('#row-id').hide();
         $('#method').val('post');
         $('#judul-form').html('Tambah Data Tagihan Proyek');
@@ -330,7 +454,7 @@
         $('#saku-datatable').hide();
         $('#saku-form').show();
         resetForm();
-        // addRow("default");
+        addRow("default");
     });
 
     $('#saku-form').on('click', '#btn-kembali', function(){
@@ -340,5 +464,532 @@
             type:'keluar'
         });
     });
+
+    $('#saku-form').on('click', '#btn-update', function(){
+        var kode = $('#kode_vendor').val();
+        msgDialog({
+            id:kode,
+            type:'edit'
+        });
+    });
+
+    $('#form-tambah').on('click', '.add-row', function(){
+        addRow("add");
+    });
+
+    $('#form-tambah').on('click', '.search-item2', function(){
+        var id = $(this).closest('div').find('input').attr('name');
+        switch(id) {
+            case 'kode_cust': 
+                var settings = {
+                    id : id,
+                    header : ['Kode', 'Nama'],
+                    url : "{{ url('java-trans/customer') }}",
+                    columns : [
+                        { data: 'kode_cust' },
+                        { data: 'nama' }
+                    ],
+                    judul : "Daftar Customer",
+                    pilih : "",
+                    jTarget1 : "text",
+                    jTarget2 : "text",
+                    target1 : ".info-code_"+id,
+                    target2 : ".info-name_"+id,
+                    target3 : "",
+                    target4 : "",
+                    width : ["30%","70%"],
+                    }
+            break;
+            case 'no_proyek': 
+                var settings = {
+                    id : id,
+                    header : ['No Proyek', 'Keterangan'],
+                    url : "{{ url('java-trans/tagihan-proyek-cbbl') }}",
+                    columns : [
+                        { data: 'no_proyek' },
+                        { data: 'keterangan' }
+                    ],
+                    judul : "Daftar Proyek",
+                    pilih : "",
+                    jTarget1 : "text",
+                    jTarget2 : "text",
+                    target1 : ".info-code_"+id,
+                    target2 : ".info-name_"+id,
+                    target3 : "",
+                    target4 : "",
+                    width : ["30%","70%"],
+                }
+            break;
+            default:
+            break;
+        }
+            showInpFilter(settings);
+    });
+
+    $('#input-grid').on('keydown','.inp-item, .inp-harga',function(e){
+        var code = (e.keyCode ? e.keyCode : e.which);
+        var nxt = ['.inp-item', '.inp-harga'];
+        var nxt2 = ['.td-item', '.td-harga'];
+        if (code == 13 || code == 9) {
+            e.preventDefault();
+            var idx = $(this).closest('td').index()-1;
+            var idx_next = idx+1;
+            var kunci = $(this).closest('td').index()+1;
+            var isi = $(this).val();
+            switch (idx) {
+                case 0:
+                    if($.trim($(this).val()).length){
+                        console.log(nxt[idx])
+                        console.log(nxt2[idx])
+                        $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
+                        $(this).closest('tr').find(nxt[idx]).val(isi);
+                        $(this).closest('tr').find(nxt2[idx]).text(isi);
+                        $(this).closest('tr').find(nxt[idx]).hide();
+                        $(this).closest('tr').find(nxt2[idx]).show();
+
+                        $(this).closest('tr').find(nxt[idx_next]).show();
+                        $(this).closest('tr').find(nxt2[idx_next]).hide();
+                        $(this).closest('tr').find(nxt[idx_next]).focus();
+                    }else{
+                        alert('Keterangan yang dimasukkan tidak valid');
+                        return false;
+                    }
+                break;
+                case 1:
+                    if(isi != "" && isi != 0){
+                        $("#input-grid td").removeClass("px-0 py-0 aktif");
+                        $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
+                        $(this).closest('tr').find(nxt[idx]).val(isi);
+                        $(this).closest('tr').find(nxt2[idx]).text(isi);
+                        $(this).closest('tr').find(nxt[idx]).hide();
+                        $(this).closest('tr').find(nxt2[idx]).show();
+                        hitungSubtotal();
+                        var cek = $(this).parents('tr').next('tr').find('.td-item');
+                        if(cek.length > 0){
+                            cek.click();
+                        }else{
+                            $('.add-row').click();
+                        }
+                    }else{
+                        alert('Harga yang dimasukkan tidak valid');
+                        return false;
+                    }
+                break;
+                default:
+                break;   
+            }
+        }else if(code == 38){
+            e.preventDefault();
+            var idx = nxt.indexOf(e.target.id);
+            idx--;
+        }
+    });
+
+    $('#input-grid').on('click', 'td', function(){
+        var idx = $(this).index();
+        if(idx == 0 || idx == 3){
+            return false;
+        }else{
+            if($(this).hasClass('px-0 py-0 aktif')){
+                return false;            
+            }else{
+                $('#input-grid td').removeClass('px-0 py-0 aktif');
+                $(this).addClass('px-0 py-0 aktif');
+        
+                var keterangan = $(this).parents("tr").find(".inp-item").val();
+                var harga = $(this).parents("tr").find(".inp-harga").val();
+                var no = $(this).parents("tr").find(".no-grid").text();
+                $(this).parents("tr").find(".inp-item").val(keterangan);
+                $(this).parents("tr").find(".td-item").text(keterangan);
+                if(idx == 1){
+                    $(this).parents("tr").find(".inp-item").show();
+                    $(this).parents("tr").find(".td-item").hide();
+                    $(this).parents("tr").find(".inp-item").focus();
+                }else{
+                    $(this).parents("tr").find(".inp-item").hide();
+                    $(this).parents("tr").find(".td-item").show();   
+                }
+
+                $(this).parents("tr").find(".inp-harga").val(harga);
+                $(this).parents("tr").find(".td-harga").text(harga);
+                if(idx == 2){
+                    $(this).parents("tr").find(".inp-harga").show();
+                    $(this).parents("tr").find(".td-harga").hide();
+                    $(this).parents("tr").find(".inp-harga").focus();
+                    hitungSubtotal();
+                }else{
+                    $(this).parents("tr").find(".inp-harga").hide();
+                    $(this).parents("tr").find(".td-harga").show();
+                }
+            }
+        }
+    });
+
+    $('#biaya_lain, #pajak, #uang_muka').on('change', function() {
+        hitungSubtotal()
+    })
+
+    $('#form-tambah').validate({
+        ignore: [],
+        rules: 
+        {
+            no_proyek:{
+                required: true   
+            },
+            tanggal:{
+                required: true   
+            },
+            kode_cust:{
+                required: true  
+            },
+            keterangan:{
+                required: true  
+            }
+        },
+        errorElement: "label",
+        submitHandler: function (form, event) {
+            event.preventDefault();
+        
+            if(subtotal < 0) {
+                alert('Harap mengisi detail tagihan dengan benar')
+                return;
+            }
+
+            var parameter = $('#id_edit').val();
+            var id = $('#no_tagihan').val();
+            if(parameter == "edit"){
+                var url = "{{ url('java-trans/tagihan-proyek-ubah') }}";
+                var pesan = "updated";
+                var text = "Perubahan data "+id+" telah tersimpan";
+            }else{
+                var url = "{{ url('java-trans/tagihan-proyek') }}";
+                var pesan = "saved";
+                var text = "Data tersimpan dengan kode "+id;
+            }
+
+            var formData = new FormData(form);
+            $('#input-grid tbody tr').each(function(index) {
+                formData.append('no[]', $(this).find('.no-grid').text())
+            })
+            formData.append('nilai', subtotal)
+            for(var pair of formData.entries()) {
+                console.log(pair[0]+ ', '+ pair[1]); 
+            }
+            
+            $.ajax({
+                type: 'POST', 
+                url: url,
+                dataType: 'json',
+                data: formData,
+                async:false,
+                contentType: false,
+                cache: false,
+                processData: false, 
+                success:function(result){
+                    if(result.data.status){
+                        dataTable.ajax.reload();
+                        $('#row-id').hide();
+                        $('#form-tambah')[0].reset();
+                        $('#form-tambah').validate().resetForm();
+                        $('[id^=label]').html('');
+                        $('#id_edit').val('');
+                        $('#judul-form').html('Tambah Data Tagihan Proyek');
+                        $('#method').val('post');
+                        $('#no_kontrak').attr('readonly', false);
+                        $('#search_no_proyek').show();
+                        $('#search_kode_cust').show();
+                        resetForm();
+                        msgDialog({
+                            id:result.data.kode,
+                            type:'simpan'
+                        });
+                        last_add("no_tagihan",result.data.kode);
+                    }else if(!result.data.status && result.data.message === "Unauthorized"){
+                    
+                        window.location.href = "{{ url('/java-auth/sesi-habis') }}";
+                        
+                    }else{
+                        if(result.data.kode == "-" && result.data.jenis != undefined){
+                            msgDialog({
+                                id: id,
+                                type: result.data.jenis,
+                                text:'No tagihan sudah digunakan'
+                            });
+                        }else{
+
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Something went wrong!',
+                                footer: '<a href>'+result.data.message+'</a>'
+                            })
+                        }
+                    }
+                },
+                fail: function(xhr, textStatus, errorThrown){
+                    alert('request failed:'+textStatus);
+                }
+            });
+            $('#btn-simpan').html("Simpan").removeAttr('disabled');
+        },
+        errorPlacement: function (error, element) {
+            var id = element.attr("id");
+            $("label[for="+id+"]").append("<br/>");
+            $("label[for="+id+"]").append(error);
+        }
+    });
+
+    $('#table-data tbody').on('click','td',function(e){
+        if($(this).index() != 4){
+
+            var id = $(this).closest('tr').find('td').eq(0).html();
+            var data = dataTable.row(this).data();
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('java-trans/tagihan-proyek-show') }}",
+                data: { kode: id },
+                dataType: 'json',
+                async:false,
+                success:function(res){ 
+                    var result = res.data;
+                    var nilai_tagihan = parseFloat(result.data[0].nilai)
+                    var pajak = parseFloat(result.data[0].pajak)
+                    var nilai_pajak = nilai_tagihan*(pajak/100)
+                    var biaya_lain = parseFloat(result.data[0].biaya_lain)
+                    var nilai_akhir = nilai_tagihan + (nilai_tagihan*(pajak/100)) + biaya_lain;
+                    var uang_muka = parseFloat(result.data[0].uang_muka)
+                    var kurang_bayar = nilai_akhir - uang_muka;
+
+                    if(kurang_bayar < 0) {
+                        kurang_bayar = 0
+                    }
+                    
+                    var html = `<tr>
+                        <td style='border:none'>No Tagihan</td>
+                        <td style='border:none'>`+id+`</td>
+                    </tr>
+                    <tr>
+                        <td>No Proyek</td>
+                        <td>`+data.no_proyek+`</td>
+                    </tr>
+                    <tr>
+                        <td>Tanggal</td>
+                        <td>`+data.tanggal+`</td>
+                    </tr>
+                    <tr>
+                        <td>Keterangan</td>
+                        <td>`+result.data[0].keterangan+`</td>
+                    </tr>
+                    <tr>
+                        <td>Vendor</td>
+                        <td>`+result.data[0].kode_cust+` - `+result.data[0].nama+`</td>
+                    </tr>
+                    <tr>
+                        <td>Nilai Tagihan</td>
+                        <td>`+format_number(nilai_tagihan)+`</td>
+                    </tr>
+                    <tr>
+                        <td>Biaya Lain</td>
+                        <td>`+format_number(biaya_lain)+`</td>
+                    </tr>
+                    <tr>
+                        <td>Pajak (`+pajak+`%)</td>
+                        <td>`+format_number(nilai_pajak)+`</td>
+                    </tr>
+                    <tr>
+                        <td>Subtotal</td>
+                        <td>`+format_number(nilai_akhir)+`</td>
+                    </tr>
+                    <tr>
+                        <td>Uang Muka</td>
+                        <td>`+format_number(uang_muka)+`</td>
+                    </tr>
+                    <tr>
+                        <td>Kurang Bayar</td>
+                        <td>`+format_number(kurang_bayar)+`</td>
+                    </tr>
+                    <tr>
+                        <td colspan='2'>
+                            <table class='table table-bordered' id='table-detail'>
+                                <thead>
+                                    <tr>
+                                        <th>No</th>    
+                                        <th>Uraian Pekerjaan</th>    
+                                        <th>Harga</th>    
+                                    </tr>    
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    `;
+                    $('#table-preview tbody').html(html);
+                    var html2;
+                    for(var i=0;i<result.detail.length;i++) {
+                        html2 += `<tr>
+                            <td>`+result.detail[i].no+`</td>
+                            <td>`+result.detail[i].item+`</td>
+                            <td>`+format_number(result.detail[i].harga)+`</td>
+                        </tr>` 
+                    }    
+                    $('#table-detail tbody').html(html2);
+                    $('#modal-preview-judul').css({'margin-top':'10px','padding':'0px !important'}).html('Preview Data Anggaran Proyek').removeClass('py-2');
+                    $('#modal-preview-id').text(id);
+                    $('#modal-preview #content-preview').css({'overflow-y': 'scroll'}); 
+                    $('#modal-preview').modal('show');      
+                }
+            })
+        }
+    });
+
+    $('.modal-header').on('click','#btn-delete2',function(e){
+        var id = $('#modal-preview-id').text();
+        $('#modal-preview').modal('hide');
+        msgDialog({
+            id:id,
+            type:'hapus'
+        });
+    });
+
+    $('.modal-header').on('click', '#btn-edit2', function(){
+        var id= $('#modal-preview-id').text();
+        // $iconLoad.show();
+        $('#form-tambah').validate().resetForm();
+        $('#judul-form').html('Edit Data Vendor');
+        
+        $('#btn-save').attr('type','button');
+        $('#btn-save').attr('id','btn-update');
+        editData(id)
+    });
+
+    $('#saku-datatable').on('click', '#btn-edit', function(){
+        var id= $(this).closest('tr').find('td').eq(0).html();
+        // $iconLoad.show();
+        $('#form-tambah').validate().resetForm();
+        
+        $('#btn-save').attr('type','button');
+        $('#btn-save').attr('id','btn-update');
+
+        $('#judul-form').html('Edit Data Vendor');
+        editData(id);
+    });
+
+    function editData(id){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('/java-trans/tagihan-proyek-show') }}",
+            dataType: 'json',
+            data:{ 'kode':id},
+            async:false,
+            success:function(res){
+                var result= res.data;
+                if(result.status){
+                    var nilai_tagihan = parseFloat(result.data[0].nilai)
+                    var pajak = parseFloat(result.data[0].pajak)
+                    var nilai_pajak = nilai_tagihan*(pajak/100)
+                    var biaya_lain = parseFloat(result.data[0].biaya_lain)
+                    var nilai_akhir = nilai_tagihan + (nilai_tagihan*(pajak/100)) + biaya_lain;
+                    var uang_muka = parseFloat(result.data[0].uang_muka)
+                    var kurang_bayar = nilai_akhir - uang_muka;
+                    
+                    if(kurang_bayar < 0) {
+                        kurang_bayar = 0
+                    }
+
+                    // $('#search_no_proyek').hide();
+                    // $('#search_kode_cust').hide();
+                    $('.no-tagihan').show();
+                    $('#input-grid tbody').empty();
+                    $('#id_edit').val('edit');
+                    $('#id').val(id);
+                    $('#no_tagihan').val(id);
+                    $('#method').val('put');
+                    $('#keterangan').val(result.data[0].keterangan);
+                    $('#tanggal').val(reverseDate2(result.data[0].tanggal,'-','/'));
+                    showInfoField('no_proyek',result.data[0].no_proyek,result.data[0].keterangan);
+                    showInfoField('kode_cust',result.data[0].kode_cust,result.data[0].nama);
+                    $('#biaya_lain').val(biaya_lain)
+                    $('#pajak').val(pajak)
+                    $('#subtotal-tagihan').text('Rp. '+nilai_akhir)
+                    $('#uang_muka').val(uang_muka)
+                    $('#kurang-bayar-tagihan').text('Rp. '+kurang_bayar)
+                    if(result.detail.length > 0){
+                        var input = '';
+                        var no=1;
+                        for(var i=0;i<result.detail.length;i++){
+                            var line =result.detail[i];
+                            input += "<tr class='row-grid'>";
+                            input += "<td class='text-center no-grid'>"+line.no+"<input type='text' name='no[]' class='form-control inp-no noke"+line.no+" hidden'  value='"+line.no+"' required></td>";
+                            input += "<td><span class='td-item tdketke"+line.no+" tooltip-span'>"+line.item+"</span><input type='text' name='item[]' class='form-control inp-item ketke"+line.no+" hidden'  value='"+line.item+"' required></td>";
+                            input += "<td class='text-right'><span class='td-harga tdhargake"+line.no+" tooltip-span'>"+format_number(line.harga)+"</span><input type='text' name='harga[]' class='form-control numeric inp-harga hargake"+no+" hidden'  value='"+parseFloat(line.harga)+"' required></td>";
+                            input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
+                            input += "</tr>";
+        
+                            no++;
+                        }
+                        $('#input-grid tbody').html(input);
+                        $('.tooltip-span').tooltip({
+                            title: function(){
+                                return $(this).text();
+                            }
+                        })
+                        $('.numeric').inputmask("numeric", {
+                            radixPoint: ",",
+                            groupSeparator: ".",
+                            digits: 2,
+                            autoGroup: true,
+                            rightAlign: true,
+                            oncleared: function () {  }
+                        });
+                        no= 1;
+                    }
+                    hitungTotalRow();
+                    hitungSubtotal();
+                    $('#saku-datatable').hide();
+                    $('#saku-form').show();
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    window.location.href = "{{ url('java-auth/sesi-habis') }}";
+                }
+            }
+        });
+    }
+
+    function hapusData(id){
+        $.ajax({
+            type: 'DELETE',
+            url: "{{ url('java-trans/tagihan-proyek') }}",
+            dataType: 'json',
+            data: {'kode':id},
+            async:false,
+            success:function(result){
+                if(result.data.status){
+                    dataTable.ajax.reload();                    
+                    showNotification("top", "center", "success",'Hapus Data','Data Tagihan ('+id+') berhasil dihapus ');
+                    $('#modal-preview-id').html('');
+                    $('#table-delete tbody').html('');
+                    $('#modal-delete').modal('hide');
+                }else if(!result.data.status && result.data.message == "Unauthorized"){
+                    window.location.href = "{{ url('java-auth/sesi-habis') }}";
+                }else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href>'+result.data.message+'</a>'
+                    });
+                }
+            }
+        });
+    }
+
+    $('#saku-datatable').on('click','#btn-delete',function(e){
+        var kode = $(this).closest('tr').find('td').eq(0).html();
+        msgDialog({
+            id: kode,
+            type:'hapus'
+        });
+    });
+
 
 </script>
