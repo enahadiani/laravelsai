@@ -1403,9 +1403,6 @@
                                                     </tr>
                                                     <tr><td colspan='3'>&nbsp;</td>
                                                         </tr>
-                                                    <tr>
-                                                            <td colspan='3' style='font-size:12px;'><i>Catatan: Tanda terima ini bukan kwitansi pembayaran, pembayaran dianggap sah setelah mendapat kwitansi yang ditanda tangani dan diberi cap Finance</i></td>
-                                                        </tr>
                                                     </tbody>
                                                 </table>
                                             </div>

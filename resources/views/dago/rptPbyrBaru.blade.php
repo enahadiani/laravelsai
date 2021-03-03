@@ -287,7 +287,7 @@
                                                     <tr>
                                                         <td valign="top" align="center">KEU/DWI/FORM/001</td>
                                                         <td align="center">Rev 0.0</td>
-                                                        <td align="center">Tanggal `+line.tgl_bayar.substr(8,2)+` `+getNamaBulan(line.tgl_bayar.substr(5,2))+` `+line.tgl_bayar.substr(0,4)+`</td>
+                                                        <td align="center">Tanggal `+line.tgl_bayar.substr(0,2)+` `+getNamaBulan(line.tgl_bayar.substr(3,2))+` `+line.tgl_bayar.substr(6,4)+`</td>
                                                     </tr>
                                                     </tbody>
                                                 </table>
@@ -302,7 +302,7 @@
                     }
                mon_html+=`</div>`;
             }
-            console.log(mon_html);
+            // console.log(mon_html);
         $('#canvasPreview').html(mon_html);
         $('li.prev a ').html("<i class='icon-arrow-left'></i>");
         $('li.next a ').html("<i class='icon-arrow-right'></i>");
