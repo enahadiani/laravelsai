@@ -170,12 +170,12 @@
 
     function hitungTotal() {
         var biaya_lain = toNilai($('#biaya_lain').val())
-        subtotal = 0;
+        $total = 0;
         $('#input-grid tbody tr').each(function(index) {
-            var total = toNilai($(this).find('.td-nilai_bayar').text())
-            subtotal += total
+            var subtotal = toNilai($(this).find('.td-nilai_bayar').text())
+            $total += subtotal
         })
-        var totalAkhir = biaya_lain + subtotal;
+        var totalAkhir = biaya_lain + $total;
         $('#total-tagihan').text('Rp. '+format_number(totalAkhir))
     }
 
@@ -754,6 +754,119 @@
         hitungTotalRow();
         hitungTotal();
         $("html, body").animate({ scrollTop: $(document).height() }, 1000);
+    });
+
+    $('#form-tambah').validate({
+        ignore: [],
+        rules: 
+        {
+            tanggal:{
+                required: true   
+            },
+            kode_cust:{
+                required: true   
+            },
+            kode_bank:{
+                required: true  
+            },
+            keterangan:{
+                required: true  
+            },
+            jenis:{
+                required: true  
+            }
+        },
+        errorElement: "label",
+        submitHandler: function (form, event) {
+            event.preventDefault();
+        
+            if($total < 0) {
+                alert('Harap mengisi detail pembayaran dengan benar')
+                return;
+            }
+
+            var parameter = $('#id_edit').val();
+            var id = $('#no_tagihan').val();
+            if(parameter == "edit"){
+                var url = "{{ url('java-trans/bayar-proyek-ubah') }}";
+                var pesan = "updated";
+                var text = "Perubahan data "+id+" telah tersimpan";
+            }else{
+                var url = "{{ url('java-trans/bayar-proyek') }}";
+                var pesan = "saved";
+                var text = "Data tersimpan dengan kode "+id;
+            }
+
+            var formData = new FormData(form);
+            $('#input-grid tbody tr').each(function(index) {
+                formData.append('no[]', $(this).find('.no-grid').text())
+            })
+            formData.append('nilai', $total)
+            for(var pair of formData.entries()) {
+                console.log(pair[0]+ ', '+ pair[1]); 
+            }
+            
+            $.ajax({
+                type: 'POST', 
+                url: url,
+                dataType: 'json',
+                data: formData,
+                async:false,
+                contentType: false,
+                cache: false,
+                processData: false, 
+                success:function(result){
+                    if(result.data.status){
+                        dataTable.ajax.reload();
+                        $('#row-id').hide();
+                        $('#form-tambah')[0].reset();
+                        $('#form-tambah').validate().resetForm();
+                        $('[id^=label]').html('');
+                        $('#id_edit').val('');
+                        $('#judul-form').html('Tambah Data Pembayaran Proyek');
+                        $('#method').val('post');
+                        // $('#no_kontrak').attr('readonly', false);
+                        $('#search_no_proyek').show();
+                        $('#search_kode_cust').show();
+                        resetForm();
+                        msgDialog({
+                            id:result.data.kode,
+                            type:'simpan'
+                        });
+                        last_add("no_tagihan",result.data.kode);
+                    }else if(!result.data.status && result.data.message === "Unauthorized"){
+                    
+                        window.location.href = "{{ url('/java-auth/sesi-habis') }}";
+                        
+                    }else{
+                        if(result.data.kode == "-" && result.data.jenis != undefined){
+                            msgDialog({
+                                id: id,
+                                type: result.data.jenis,
+                                text:'No tagihan sudah digunakan'
+                            });
+                        }else{
+
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Something went wrong!',
+                                footer: '<a href>'+result.data.message+'</a>'
+                            })
+                        }
+                    }
+                },
+                fail: function(xhr, textStatus, errorThrown){
+                    alert('request failed:'+textStatus);
+                }
+            });
+            $('#btn-simpan').html("Simpan").removeAttr('disabled');
+        },
+        errorPlacement: function (error, element) {
+            var id = element.attr("id");
+            $("label[for="+id+"]").append("<br/>");
+            $("label[for="+id+"]").append(error);
+        }
     });
 
 </script>
