@@ -302,7 +302,7 @@
                     }
                mon_html+=`</div>`;
             }
-            console.log(mon_html);
+            // console.log(mon_html);
         $('#canvasPreview').html(mon_html);
         $('li.prev a ').html("<i class='icon-arrow-left'></i>");
         $('li.next a ').html("<i class='icon-arrow-right'></i>");
