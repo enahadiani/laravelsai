@@ -1287,6 +1287,10 @@
                                                             <td colspan='2'>: `+line.kode_curr+` `+sepNumPas(line.diskon)+`</td>
                                                         </tr>
                                                         <tr>
+                                                            <td>KETERANGAN DISKON</td>
+                                                            <td colspan='2'>: `+line.ket_diskon+`</td>
+                                                        </tr>
+                                                        <tr>
                                                             <td>BIAYA TAMBAHAN + DOKUMEN </td>
                                                             <td colspan='2'>: IDR `+sepNumPas(line.biaya_tambah)+`</td>
                                                         </tr>
