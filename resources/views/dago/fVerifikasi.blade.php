@@ -1283,6 +1283,10 @@
                                                             <td>: `+line.kode_curr+` `+format_number(line.harga_paket)+`</td>
                                                         </tr>
                                                         <tr>
+                                                            <td>DISKON PAKET </td>
+                                                            <td colspan='2'>: `+line.kode_curr+` `+sepNumPas(line.diskon)+`</td>
+                                                        </tr>
+                                                        <tr>
                                                             <td>BIAYA TAMBAHAN + DOKUMEN </td>
                                                             <td colspan='2'>: IDR `+sepNumPas(line.biaya_tambah)+`</td>
                                                         </tr>

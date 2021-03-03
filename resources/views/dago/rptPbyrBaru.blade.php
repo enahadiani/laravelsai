@@ -175,6 +175,10 @@
                                                             <td colspan='2'>: IDR `+sepNumPas(line.biaya_tambah)+`</td>
                                                         </tr>
                                                         <tr>
+                                                            <td>DISKON PAKET </td>
+                                                            <td colspan='2'>: `+line.kode_curr+` `+sepNumPas(line.diskon)+`</td>
+                                                        </tr>
+                                                        <tr>
                                                             <td>KEBERANGKATAN </td>
                                                             <td colspan='2'>: `+reverseDateNew(line.jadwal,'-','/')+`</td>
                                                         </tr>
