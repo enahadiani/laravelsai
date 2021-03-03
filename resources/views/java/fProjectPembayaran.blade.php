@@ -500,6 +500,19 @@
         });
     });
 
+    $('#biaya_lain').on('change', function() {
+        hitungTotal()
+    })
+
+    $('.currency').inputmask("numeric", {
+        radixPoint: ",",
+        groupSeparator: ".",
+        digits: 2,
+        autoGroup: true,
+        rightAlign: true,
+        oncleared: function () {  }
+    });
+
     function getDataTagihan(kode) {
         $.ajax({
             type: 'GET',
