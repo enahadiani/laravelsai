@@ -168,6 +168,17 @@
         $('#total-row').html(total_row+' Baris');
     }
 
+    function hitungTotal() {
+        var biaya_lain = toNilai($('#biaya_lain').val())
+        subtotal = 0;
+        $('#input-grid tbody tr').each(function(index) {
+            var total = toNilai($(this).find('.td-nilai_bayar').text())
+            subtotal += total
+        })
+        var totalAkhir = biaya_lain + subtotal;
+        $('#total-tagihan').text('Rp. '+format_number(totalAkhir))
+    }
+
     function reverseDate2(date_str, separator, newseparator){
         if(typeof separator === 'undefined'){separator = '-'}
         if(typeof newseparator === 'undefined'){newseparator = '-'}
@@ -324,6 +335,7 @@
                         $('.td'+target3).hide()
                         $('.'+target3).focus()
                     }
+                    hitungTotal();
                 } else {
                     alert('No Tagihan tidak ditemukan')
                     $('.'+target1).show()
@@ -697,7 +709,6 @@
                         $(this).closest('tr').find(nxt2[idx]).text(isi);
                         $(this).closest('tr').find(nxt[idx]).hide();
                         $(this).closest('tr').find(nxt2[idx]).show();
-                        hitungSubtotal();
                         var cek = $(this).parents('tr').next('tr').find('.td-tagihan');
                         if(cek.length > 0){
                             cek.click();
@@ -717,6 +728,19 @@
             var idx = nxt.indexOf(e.target.id);
             idx--;
         }
+    });
+
+    $('#input-grid').on('click', '.hapus-item', function(){
+        $(this).closest('tr').remove();
+        no=1;
+        $('.row-grid').each(function(){
+            var nom = $(this).closest('tr').find('.no-grid');
+            nom.html(no);
+            no++;
+        });
+        hitungTotalRow();
+        hitungTotal();
+        $("html, body").animate({ scrollTop: $(document).height() }, 1000);
     });
 
 </script>
