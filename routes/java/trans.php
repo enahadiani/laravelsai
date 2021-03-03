@@ -9,6 +9,8 @@ Route::get('vendor', 'Java\HelperController@getVendor');
 Route::get('rab-proyek-cbbl', 'Java\HelperController@getProyekRab');
 Route::get('beban-proyek-cbbl', 'Java\HelperController@getProyekBeban');
 Route::get('tagihan-proyek-cbbl', 'Java\HelperController@getProyekTagihan');
+Route::get('bank-bayar-cbbl', 'Java\HelperController@getBankBayar');
+Route::get('tagihan-bayar-cbbl', 'Java\HelperController@getTagihanBayar');
 
 // Data Proyek //
 Route::get('proyek', 'Java\ProyekController@index');
@@ -39,5 +41,12 @@ Route::get('tagihan-proyek-show', 'Java\TagihanProyekController@getData');
 Route::post('tagihan-proyek', 'Java\TagihanProyekController@store');
 Route::put('tagihan-proyek-ubah', 'Java\TagihanProyekController@update');
 Route::delete('tagihan-proyek', 'Java\TagihanProyekController@delete');
+
+// Data Bayar
+Route::get('bayar-proyek', 'Java\PembayaranProyekController@index');
+Route::get('bayar-proyek-show', 'Java\PembayaranProyekController@getData');
+Route::post('bayar-proyek', 'Java\PembayaranProyekController@store');
+Route::put('bayar-proyek-ubah', 'Java\PembayaranProyekController@update');
+Route::delete('bayar-proyek', 'Java\PembayaranProyekController@delete');
 
 ?>
