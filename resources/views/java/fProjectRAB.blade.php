@@ -716,7 +716,7 @@
                             id:result.data.kode,
                             type:'simpan'
                         });
-                        last_add("kode_customer",result.data.kode);
+                        last_add("no_proyek",result.data.kode);
                     }else if(!result.data.status && result.data.message === "Unauthorized"){
                     
                         window.location.href = "{{ url('/java-auth/sesi-habis') }}";
@@ -763,8 +763,7 @@
                 data: { kode: id },
                 dataType: 'json',
                 async:false,
-                success:function(res){ 
-                    console.log(res)
+                success:function(res){
                      var html = `<tr>
                         <td style='border:none'>No Anggaran</td>
                         <td style='border:none'>`+id+`</td>
