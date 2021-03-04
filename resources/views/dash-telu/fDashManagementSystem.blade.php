@@ -57,8 +57,8 @@ $thnLalu = substr($tahunLalu,2,2)
     .trace {
         cursor:pointer;
     }
-    .dash-card{
-        height: 41.8px;
+    .col-grid{
+        display:grid;
     }
     </style>
 
@@ -71,7 +71,7 @@ $thnLalu = substr($tahunLalu,2,2)
         </div>
     </div>
     <div class="row" >
-        <div class="col-lg-4 col-12 mb-4">
+        <div class="col-lg-4 col-12 mb-4 col-grid">
             <div class="card dash-card card-labarugi">
                 <div class="card-header">
                     <h6 class="card-title mb-0">Laba Rugi</h6>
@@ -82,7 +82,7 @@ $thnLalu = substr($tahunLalu,2,2)
                 </div>
             </div>
         </div>
-        <div class="col-lg-4 col-12 mb-4">
+        <div class="col-lg-4 col-12 mb-4 col-grid">
             <div class="card dash-card card-neraca">
                 <div class="card-header">
                     <h6 class="card-title mb-0">Posisi Neraca</h6>
@@ -94,7 +94,7 @@ $thnLalu = substr($tahunLalu,2,2)
                 </div>
             </div>
         </div>
-        <div class="col-lg-4 col-12 mb-4">
+        <div class="col-lg-4 col-12 mb-4 col-grid">
             <div class="card dash-card card-beban">
                 <div class="card-header">
                     <h6 class="card-title mb-0">Penyerapan Beban</h6>
@@ -106,7 +106,7 @@ $thnLalu = substr($tahunLalu,2,2)
                 </div>
             </div>
         </div>
-        <div class="col-lg-4 col-12 mb-4">
+        <div class="col-lg-4 col-12 mb-4 col-grid">
             <div class="card dash-card card-piutang">
                 <div class="card-header">
                     <h6 class="card-title mb-0">Piutang</h6>
@@ -118,7 +118,7 @@ $thnLalu = substr($tahunLalu,2,2)
                 </div>
             </div>
         </div>
-        <div class="col-lg-4 col-12 mb-4">
+        <div class="col-lg-4 col-12 mb-4 col-grid">
             <div class="card dash-card card-keuangan">
                 <div class="card-header">
                     <h6 class="card-title mb-0">Keuangan</h6>
@@ -130,7 +130,7 @@ $thnLalu = substr($tahunLalu,2,2)
                 </div>
             </div>
         </div>
-        <div class="col-lg-4 col-12 mb-4">
+        <div class="col-lg-4 col-12 mb-4 col-grid">
             <div class="card dash-card card-daftar">
                 <div class="card-header">
                     <h6 class="card-title mb-0">Investasi</h6>
@@ -346,7 +346,7 @@ function getProfitLoss(periode=null)
             }
             $('.table-profit').html(html);
             $('.card-labarugi').animate({
-                height: "200px"
+                minHeight: "200px"
                 }, {
                 queue: false,
                 duration: 1000
@@ -416,7 +416,7 @@ function getFxPosition(periode=null)
             }
             $('.table-fx').html(html);
             $('.card-neraca').animate({
-                height: "200px"
+                minHeight: "200px"
                 }, {
                 queue: false,
                 duration: 1000
@@ -477,7 +477,7 @@ function getPenyerapan(periode=null)
             }
             $('.table-penyerapan').html(html);
             $('.card-beban').animate({
-                height: "200px"
+                minHeight: "200px"
                 }, {
                 queue: false,
                 duration: 1000
@@ -525,7 +525,7 @@ function getDebt(periode=null)
             }
             $('.table-debt').html(html);
             $('.card-piutang').animate({
-                height: "200px"
+                minHeight: "200px"
                 }, {
                 queue: false,
                 duration: 1000
@@ -573,7 +573,7 @@ function getKelola(periode=null)
             }
             $('.table-kelola').html(html);
             $('.card-keuangan').animate({
-                height: "200px"
+                minHeight: "200px"
                 }, {
                 queue: false,
                 duration: 1000
@@ -610,17 +610,30 @@ function getPin(periode=null)
                 for(var i=0;i<result.data.data.length;i++)
                 {
                     var line = result.data.data[i];
-                    html+=`<tr>
-                        <td>`+line.nama+`</td>
-                        <td class='text-right'>`+toMilyar(parseFloat(line.real))+`</td>
-                        </tr>`;  
-                   
+                    var rka = toMilyar(parseFloat(line.rka));
+                    var real = toMilyar(parseFloat(line.real));
+                    var persen = sepNumPas(parseFloat(line.persen));
+                    if(i == 0){
+
+                        html+=`<tr>
+                        <td></td>
+                        <td class='text-center'>RKA</td>
+                        <td class='text-center'>Real</td>
+                        <td class='text-center'>%</td>
+                        </tr>`;   
+                    }
+                    html+=`<tr class='trace serap-`+i+`'>
+                    <td>`+line.nama+`</td>
+                    <td class='text-right'>`+rka+`</td>
+                    <td class='text-right'>`+real+`</td>
+                    <td class='text-right text-success' >`+persen+`%</td>
+                    </tr>`;   
                 }
             }
             $('.table-pin').html(html);
             
             $('.card-daftar').animate({
-                height: "200px"
+                minHeight: "200px"
                 }, {
                 queue: false,
                 duration: 1000
