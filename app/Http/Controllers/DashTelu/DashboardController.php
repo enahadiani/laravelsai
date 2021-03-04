@@ -17,38 +17,12 @@
             }
         }
 
-        public function getPencapaianYoY($periode)
+        public function getPencapaianYoY(Request $request)
         {
             try{
 
                 $client = new Client();
-                $response = $client->request('GET', config('api.url').'ypt-dash/pencapaianYoY/'.$periode,[
-                    'headers' => [
-                        'Authorization' => 'Bearer '.Session::get('token'),
-                        'Accept'     => 'application/json',
-                    ]
-                ]);
-    
-                if ($response->getStatusCode() == 200) { // 200 OK
-                    $response_data = $response->getBody()->getContents();
-                    
-                    $data = json_decode($response_data,true);
-                    $data = $data["success"];
-                }
-                return response()->json(['data' => $data], 200);
-            } catch (BadResponseException $ex) {
-                $response = $ex->getResponse();
-                $res = json_decode($response->getBody(),true);
-                return response()->json(['message' => $res, 'status'=>false], $response->getStatusCode());
-            }
-        }
-
-        public function getRkaVsReal(Request $request, $periode)
-        {
-            try{
-
-                $client = new Client();
-                $response = $client->request('GET', config('api.url').'ypt-dash/rkaVSReal/'.$periode,[
+                $response = $client->request('GET', config('api.url').'ypt-dash/pencapaianYoY',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -70,12 +44,12 @@
             }
         }
 
-        public function getGrowthRka(Request $request,$periode)
+        public function getRkaVsReal(Request $request)
         {
             try{
 
                 $client = new Client();
-                $response = $client->request('GET', config('api.url').'ypt-dash/growthRKA/'.$periode,[
+                $response = $client->request('GET', config('api.url').'ypt-dash/rkaVSReal',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -97,12 +71,39 @@
             }
         }
 
-        public function getGrowthReal(Request $request,$periode)
+        public function getGrowthRka(Request $request)
         {
             try{
 
                 $client = new Client();
-                $response = $client->request('GET', config('api.url').'ypt-dash/growthReal/'.$periode,[
+                $response = $client->request('GET', config('api.url').'ypt-dash/growthRKA',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => $request->all()
+                ]);
+    
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $data = json_decode($response_data,true);
+                    $data = $data["success"];
+                }
+                return response()->json(['data' => $data], 200);
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                return response()->json(['message' => $res, 'status'=>false], $response->getStatusCode());
+            }
+        }
+
+        public function getGrowthReal(Request $request)
+        {
+            try{
+
+                $client = new Client();
+                $response = $client->request('GET', config('api.url').'ypt-dash/growthReal',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',

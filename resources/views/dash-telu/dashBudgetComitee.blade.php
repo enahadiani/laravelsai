@@ -913,7 +913,6 @@ $('#form-filter').submit(function(e){
         break;
     }
     $('.label-periode-filter').html(label);
-    $filter_periode = $dash_periode.from;
     var tahun = $dash_periode.from.substr(0,4);
     var tahunLima = parseInt(tahun) - 6;
     $('.rentang-tahun').text(tahunLima+" - "+tahun);
