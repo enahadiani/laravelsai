@@ -624,12 +624,23 @@
                     </tr>
                     `;
                     $('#table-preview tbody').html(html);    
-                    $('#modal-preview-judul').css({'margin-top':'10px','padding':'0px !important'}).html('Preview Data Vendor').removeClass('py-2');
+                    $('#modal-preview-judul').css({'margin-top':'10px','padding':'0px !important'}).html('Preview Data Biaya Proyek').removeClass('py-2');
                     $('#modal-preview-id').text(id);      
                     $('#modal-preview').modal('show');      
                 }
             })
         }
+    });
+
+    $('.modal-header').on('click', '#btn-edit2', function(){
+        var id= $('#modal-preview-id').text();
+        // $iconLoad.show();
+        $('#form-tambah').validate().resetForm();
+        $('#judul-form').html('Edit Data Biaya Proyek');
+        
+        $('#btn-save').attr('type','button');
+        $('#btn-save').attr('id','btn-update');
+        editData(id)
     });
 
     // BUTTON EDIT
@@ -697,7 +708,7 @@
         $('#btn-save').attr('type','button');
         $('#btn-save').attr('id','btn-update');
 
-        $('#judul-form').html('Edit Data Vendor');
+        $('#judul-form').html('Edit Data Biaya Proyek');
         editData(id);
     });
 
