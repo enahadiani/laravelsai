@@ -73,31 +73,6 @@ $thnLalu = substr($tahunLalu,2,2);
             </div>
         </div>
     </div>
-    <div class="modal fade modal-right" id="modalFilter" tabindex="-1" role="dialog"
-    aria-labelledby="modalFilter" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h6 class="modal-title">Filter</h6>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="form-group">
-                            <label>Periode</label>
-                            <input type="text" class="form-control" placeholder="">
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-primary" id="btn-reset">Reset</button>
-                    <button type="button" class="btn btn-primary">Submit</button>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 <script>
  
@@ -172,7 +147,10 @@ function singkatNilai(num){
 function getDataPendJurusan(periode=null,kodeNeraca=null,kodeBidang=null,tahun=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/getDataPendJurusan') }}/"+periode+"/"+kodeNeraca+"/"+kodeBidang+"/"+tahun,
+        url:"{{ url('/telu-dash/getDataPendJurusan') }}",
+        data:{ 'periode[0]' : periode.type,
+            'periode[1]' : periode.from,
+            'periode[2]' : periode.to, mode: $mode,'kode_neraca':kodeNeraca,'kode_bidang':kodeBidang,'tahun':tahun},
         dataType:"JSON",
         success:function(result){
             var html='';
@@ -207,9 +185,11 @@ function getDataPendJurusan(periode=null,kodeNeraca=null,kodeBidang=null,tahun=n
 function getPendapatanJurusan(periode=null,kodeNeraca=null,kodeBidang=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/getPendapatanJurusan') }}/"+periode+"/"+kodeNeraca+"/"+kodeBidang,
+        url:"{{ url('/telu-dash/getPendapatanJurusan') }}",
         dataType:"JSON",
-        data:{mode : $mode},
+        data:{'periode[0]' : periode.type,
+            'periode[1]' : periode.from,
+            'periode[2]' : periode.to, mode: $mode,'kode_neraca':kodeNeraca,'kode_bidang':kodeBidang,'tahun':tahun},
         success:function(result){
             Highcharts.chart('pdptJur', {
                 chart: {
@@ -300,9 +280,51 @@ function getPendapatanJurusan(periode=null,kodeNeraca=null,kodeBidang=null){
     })
 }
 
-getPendapatanJurusan($filter_periode,$kd,$kd3)
-getDataPendJurusan($filter_periode,$kd,$kd3,$filter_periode.substr(0,4))
-$('.nama-bulan').text(namaPeriode($filter_periode));
+switch($dash_periode.type){
+    case '=':
+        var label = 'Periode '+namaPeriode($dash_periode.from);
+        if($dash_periode.from == ""){
+            if("{{ Session::get('periode') }}" != ""){
+                $dash_periode.from = "{{ Session::get('periode') }}";
+            }
+        }
+    break;
+    case '<=':
+        
+        var label = 'Periode s.d '+namaPeriode($dash_periode.from);
+        if($dash_periode.from == ""){
+            if("{{ Session::get('periode') }}" != ""){
+                $dash_periode.from = "{{ Session::get('periode') }}";
+            }
+        }
+    break;
+    case 'range':
+        
+        if($dash_periode.from == ""){
+            if("{{ Session::get('periode') }}" != ""){
+                $dash_periode.from = "{{ Session::get('periode') }}";
+            }
+        }
+    
+        if($dash_periode.to == ""){
+            if("{{ Session::get('periode') }}" != ""){
+                $dash_periode.to = "{{ Session::get('periode') }}";
+            }
+        }
+        var label = 'Periode '+namaPeriode($dash_periode.from)+' s.d '+namaPeriode($dash_periode.to);
+    
+    break;
+    default:
+        if($dash_periode.from == ""){
+            if("{{ Session::get('periode') }}" != ""){
+                $dash_periode.from = "{{ Session::get('periode') }}";
+            }
+        }
+    break;
+}
+$('.label-periode-filter').html(label);
+getPendapatanJurusan($dash_periode,$kd,$kd3)
+getDataPendJurusan($dash_periode,$kd,$kd3,$dash_periode.from.substr(0,4));
 $('.tahunPilih').text('20'+$kd2);
 $('.thnPilih').text($kd2);
 

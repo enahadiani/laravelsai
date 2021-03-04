@@ -36,7 +36,7 @@ $thnLalu = substr($tahunLalu,2,2);
     <div class="row" >
         <div class="col-12 detail-pdpt">
         <a class='btn btn-outline-light' href='#' id='btnBack' style="position: absolute;right: 25px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-arrow-left"></i> Back</a>
-        <p>Satuan Milyar Rupiah || Periode s/d <span class='nama-bulan'></span></p>
+        <p>Satuan Milyar Rupiah || <span class='label-periode-filter'></span></p>
         </div>
     </div>
     <div class="row mt-2" >
@@ -80,31 +80,6 @@ $thnLalu = substr($tahunLalu,2,2);
                         <tbody>
                         </tbody>
                     </table>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade modal-right" id="modalFilter" tabindex="-1" role="dialog"
-    aria-labelledby="modalFilter" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h6 class="modal-title">Filter</h6>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="form-group">
-                            <label>Periode</label>
-                            <input type="text" class="form-control" placeholder="">
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-primary" id="btn-reset">Reset</button>
-                    <button type="button" class="btn btn-primary">Submit</button>
                 </div>
             </div>
         </div>
@@ -184,9 +159,11 @@ function singkatNilai(num){
 function getDetailPendapatan(periode=null,kodeNeraca=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/getDetailPendapatan') }}/"+periode+"/"+kodeNeraca,
+        url:"{{ url('/telu-dash/getDetailPendapatan') }}",
         dataType:"JSON",
-        data:{ mode : $mode},
+        data:{ 'periode[0]' : periode.type,
+            'periode[1]' : periode.from,
+            'periode[2]' : periode.to, mode: $mode,'kode_neraca':kodeNeraca},
         success:function(result){
             var html='';
             for(var i=0;i<result.data.data.length;i++){
@@ -221,9 +198,11 @@ function getDetailPendapatan(periode=null,kodeNeraca=null){
 function getPendapatanFak(periode=null, kodeNeraca=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/getPendapatanFak') }}/"+periode+"/"+kodeNeraca,
+        url:"{{ url('/telu-dash/getPendapatanFak') }}",
         dataType:"JSON",
-        data:{ mode : $mode},
+        data:{ 'periode[0]' : periode.type,
+            'periode[1]' : periode.from,
+            'periode[2]' : periode.to, mode: $mode,kode_neraca:kodeNeraca},
         success:function(result){
             Highcharts.chart('pdptFak', {
                 chart: {
@@ -319,9 +298,11 @@ function getPendapatanFak(periode=null, kodeNeraca=null){
 function getPertumbuhanPendapatanFak(periode=null,kodeNeraca=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/getPendapatanFak') }}/"+periode+"/"+kodeNeraca,
+        url:"{{ url('/telu-dash/getPendapatanFak') }}",
         dataType:"JSON",
-        data:{ mode : $mode},
+        data:{ 'periode[0]' : periode.type,
+            'periode[1]' : periode.from,
+            'periode[2]' : periode.to, mode: $mode,kode_neraca:kodeNeraca},
         success: function(result){
             Highcharts.chart('pertumbuhan', {
                 chart: {
@@ -390,14 +371,55 @@ function getPertumbuhanPendapatanFak(periode=null,kodeNeraca=null){
     })
 }
 
-$('.nama-bulan').text(namaPeriode($filter_periode));
-getPertumbuhanPendapatanFak($filter_periode,$kd);
-getPendapatanFak($filter_periode,$kd);
-getDetailPendapatan($filter_periode,$kd);
+switch($dash_periode.type){
+    case '=':
+        var label = 'Periode '+namaPeriode($dash_periode.from);
+        if($dash_periode.from == ""){
+            if("{{ Session::get('periode') }}" != ""){
+                $dash_periode.from = "{{ Session::get('periode') }}";
+            }
+        }
+    break;
+    case '<=':
+        
+        var label = 'Periode s.d '+namaPeriode($dash_periode.from);
+        if($dash_periode.from == ""){
+            if("{{ Session::get('periode') }}" != ""){
+                $dash_periode.from = "{{ Session::get('periode') }}";
+            }
+        }
+    break;
+    case 'range':
+        
+        if($dash_periode.from == ""){
+            if("{{ Session::get('periode') }}" != ""){
+                $dash_periode.from = "{{ Session::get('periode') }}";
+            }
+        }
+    
+        if($dash_periode.to == ""){
+            if("{{ Session::get('periode') }}" != ""){
+                $dash_periode.to = "{{ Session::get('periode') }}";
+            }
+        }
+        var label = 'Periode '+namaPeriode($dash_periode.from)+' s.d '+namaPeriode($dash_periode.to);
+    
+    break;
+    default:
+        if($dash_periode.from == ""){
+            if("{{ Session::get('periode') }}" != ""){
+                $dash_periode.from = "{{ Session::get('periode') }}";
+            }
+        }
+    break;
+}
+$('.label-periode-filter').html(label);
+getPertumbuhanPendapatanFak($dash_periode,$kd);
+getPendapatanFak($dash_periode,$kd);
+getDetailPendapatan($dash_periode,$kd);
 
-
-$('.tahunIni').text($filter_periode.substr(0,4));
-$('.thnIni').text($filter_periode.substr(0,4));
+$('.tahunIni').text($dash_periode.from.substr(0,4));
+$('.thnIni').text($dash_periode.from.substr(0,4));
 
 $('.detail-pdpt').on('click','#btnBack',function(e){
     e.preventDefault();

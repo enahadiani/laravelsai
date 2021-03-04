@@ -10,21 +10,21 @@ Route::get('/getRkaVsReal','DashTelu\DashboardController@getRkaVsReal');
 Route::get('/getGrowthRka','DashTelu\DashboardController@getGrowthRka');
 Route::get('/getGrowthReal','DashTelu\DashboardController@getGrowthReal');
 //Pendapatan
-Route::get('/getKomposisiPendapatan/{periode}','DashTelu\DashboardController@getKomposisiPendapatan');
-Route::get('/getOprNonOprPendapatan/{periode}','DashTelu\DashboardController@getOprNonOprPendapatan');
-Route::get('/getPresentaseRkaRealisasiPendapatan/{periode}','DashTelu\DashboardController@getPresentaseRkaRealisasiPendapatan');
-Route::get('/getPresentaseRkaRealisasiPendapatanRp/{periode}','DashTelu\DashboardController@getPresentaseRkaRealisasiPendapatanRp');
+Route::get('/getKomposisiPendapatan','DashTelu\DashboardController@getKomposisiPendapatan');
+Route::get('/getOprNonOprPendapatan','DashTelu\DashboardController@getOprNonOprPendapatan');
+Route::get('/getPresentaseRkaRealisasiPendapatan','DashTelu\DashboardController@getPresentaseRkaRealisasiPendapatan');
+Route::get('/getPresentaseRkaRealisasiPendapatanRp','DashTelu\DashboardController@getPresentaseRkaRealisasiPendapatanRp');
 //Detail Pendapatan 1
-Route::get('/getPendapatanFak/{periode}/{kodeNeraca}','DashTelu\DashboardController@getPendapatanFak');
-Route::get('/getDetailPendapatan/{periode}/{kodeNeraca}','DashTelu\DashboardController@getDetailPendapatan');
+Route::get('/getPendapatanFak','DashTelu\DashboardController@getPendapatanFak');
+Route::get('/getDetailPendapatan','DashTelu\DashboardController@getDetailPendapatan');
 //Detail Pendapatan 2
-Route::get('/getPendapatanJurusan/{periode}/{kodeNeraca}/{kodeBidang}','DashTelu\DashboardController@getPendapatanJurusan');
-Route::get('/getDataPendJurusan/{periode}/{kodeNeraca}/{kodeBidang}/{tahun}','DashTelu\DashboardController@getDataPendJurusan');
+Route::get('/getPendapatanJurusan','DashTelu\DashboardController@getPendapatanJurusan');
+Route::get('/getDataPendJurusan','DashTelu\DashboardController@getDataPendJurusan');
 //Beban
-Route::get('/getKomposisiBeban/{periode}','DashTelu\DashboardController@getKomposisiBeban');
-Route::get('/getOprNonOprBeban/{periode}','DashTelu\DashboardController@getOprNonOprBeban');
-Route::get('/getPresentaseRkaRealisasiBeban/{periode}','DashTelu\DashboardController@getPresentaseRkaRealisasiBeban');
-Route::get('/getPresentaseRkaRealisasiBebanRp/{periode}','DashTelu\DashboardController@getPresentaseRkaRealisasiBebanRp');
+Route::get('/getKomposisiBeban','DashTelu\DashboardController@getKomposisiBeban');
+Route::get('/getOprNonOprBeban','DashTelu\DashboardController@getOprNonOprBeban');
+Route::get('/getPresentaseRkaRealisasiBeban','DashTelu\DashboardController@getPresentaseRkaRealisasiBeban');
+Route::get('/getPresentaseRkaRealisasiBebanRp','DashTelu\DashboardController@getPresentaseRkaRealisasiBebanRp');
 //Detail Beban 1
 Route::get('/getBebanFak/{periode}/{kodeNeraca}','DashTelu\DashboardController@getBebanFak');
 Route::get('/getDetailBeban/{periode}/{kodeNeraca}','DashTelu\DashboardController@getDetailBeban');
