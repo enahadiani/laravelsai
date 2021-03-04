@@ -5,10 +5,10 @@ use Illuminate\Http\Request;
 
 //Dashboard
 //Home
-Route::get('/getPencapaianYoY/{periode}','DashTelu\DashboardController@getPencapaianYoY');
-Route::get('/getRkaVsReal/{periode}','DashTelu\DashboardController@getRkaVsReal');
-Route::get('/getGrowthRka/{periode}','DashTelu\DashboardController@getGrowthRka');
-Route::get('/getGrowthReal/{periode}','DashTelu\DashboardController@getGrowthReal');
+Route::get('/getPencapaianYoY','DashTelu\DashboardController@getPencapaianYoY');
+Route::get('/getRkaVsReal','DashTelu\DashboardController@getRkaVsReal');
+Route::get('/getGrowthRka','DashTelu\DashboardController@getGrowthRka');
+Route::get('/getGrowthReal','DashTelu\DashboardController@getGrowthReal');
 //Pendapatan
 Route::get('/getKomposisiPendapatan/{periode}','DashTelu\DashboardController@getKomposisiPendapatan');
 Route::get('/getOprNonOprPendapatan/{periode}','DashTelu\DashboardController@getOprNonOprPendapatan');
