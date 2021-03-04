@@ -21,206 +21,206 @@ Route::get('reftrans-pengeluaran','Esaku\HelperController@getRefPengeluaran');
 Route::get('reftrans-pindah-buku','Esaku\HelperController@getRefPindahBuku');
 
 // Data Kelompok Barang //
-Route::get('klp-barang', 'Esaku\KelompokBarangAsetController@index');
-Route::get('klp-barang-detail', 'Esaku\KelompokBarangAsetController@show');
-Route::post('klp-barang', 'Esaku\KelompokBarangAsetController@store');
-Route::put('klp-barang/{kode}', 'Esaku\KelompokBarangAsetController@update');
-Route::delete('klp-barang/{kode}', 'Esaku\KelompokBarangAsetController@delete');
+Route::get('klp-barang', 'Esaku\Aktap\KelompokBarangAsetController@index');
+Route::get('klp-barang-detail', 'Esaku\Aktap\KelompokBarangAsetController@show');
+Route::post('klp-barang', 'Esaku\Aktap\KelompokBarangAsetController@store');
+Route::put('klp-barang/{kode}', 'Esaku\Aktap\KelompokBarangAsetController@update');
+Route::delete('klp-barang/{kode}', 'Esaku\Aktap\KelompokBarangAsetController@delete');
 
 // Data Akun Aktiva Tetap //
-Route::get('akun-aktiva-tetap', 'Esaku\AkunAktivaTetapController@index');
-Route::get('akun-aktiva-tetap-detail', 'Esaku\AkunAktivaTetapController@show');
-Route::post('akun-aktiva-tetap', 'Esaku\AkunAktivaTetapController@store');
-Route::put('akun-aktiva-tetap/{kode}', 'Esaku\AkunAktivaTetapController@update');
-Route::delete('akun-aktiva-tetap/{kode}', 'Esaku\AkunAktivaTetapController@delete');
+Route::get('akun-aktiva-tetap', 'Esaku\Aktap\AkunAktivaTetapController@index');
+Route::get('akun-aktiva-tetap-detail', 'Esaku\Aktap\AkunAktivaTetapController@show');
+Route::post('akun-aktiva-tetap', 'Esaku\Aktap\AkunAktivaTetapController@store');
+Route::put('akun-aktiva-tetap/{kode}', 'Esaku\Aktap\AkunAktivaTetapController@update');
+Route::delete('akun-aktiva-tetap/{kode}', 'Esaku\Aktap\AkunAktivaTetapController@delete');
 
 // Data Customer //
-Route::get('cust', 'Esaku\CustomerController@index');
-Route::get('cust/{id}', 'Esaku\CustomerController@getData');
-Route::post('cust', 'Esaku\CustomerController@store');
-Route::put('cust/{id}', 'Esaku\CustomerController@update');
-Route::delete('cust/{id}', 'Esaku\CustomerController@delete');
+Route::get('cust', 'Esaku\Inventori\CustomerController@index');
+Route::get('cust/{id}', 'Esaku\Inventori\CustomerController@getData');
+Route::post('cust', 'Esaku\Inventori\CustomerController@store');
+Route::put('cust/{id}', 'Esaku\Inventori\CustomerController@update');
+Route::delete('cust/{id}', 'Esaku\Inventori\CustomerController@delete');
 
 // Data Vendor //
-Route::get('vendor', 'Esaku\VendorController@index');
-Route::get('vendor/{id}', 'Esaku\VendorController@getData');
-Route::post('vendor', 'Esaku\VendorController@store');
-Route::put('vendor/{id}', 'Esaku\VendorController@update');
-Route::delete('vendor/{id}', 'Esaku\VendorController@delete');
+Route::get('vendor', 'Esaku\Inventori\VendorController@index');
+Route::get('vendor/{id}', 'Esaku\Inventori\VendorController@getData');
+Route::post('vendor', 'Esaku\Inventori\VendorController@store');
+Route::put('vendor/{id}', 'Esaku\Inventori\VendorController@update');
+Route::delete('vendor/{id}', 'Esaku\Inventori\VendorController@delete');
 
 // Data Gudang //
-Route::get('gudang', 'Esaku\GudangController@index');
-Route::get('gudang/{id}', 'Esaku\GudangController@getData');
-Route::post('gudang', 'Esaku\GudangController@store');
-Route::put('gudang/{id}', 'Esaku\GudangController@update');
-Route::delete('gudang/{id}', 'Esaku\GudangController@delete');
+Route::get('gudang', 'Esaku\Inventori\GudangController@index');
+Route::get('gudang/{id}', 'Esaku\Inventori\GudangController@getData');
+Route::post('gudang', 'Esaku\Inventori\GudangController@store');
+Route::put('gudang/{id}', 'Esaku\Inventori\GudangController@update');
+Route::delete('gudang/{id}', 'Esaku\Inventori\GudangController@delete');
 
 // Data Kelompok Barang //
-Route::get('barang-klp', 'Esaku\KelompokBarangController@index');
-Route::get('barang-klp/{id}', 'Esaku\KelompokBarangController@getData');
-Route::post('barang-klp', 'Esaku\KelompokBarangController@store');
-Route::put('barang-klp/{id}', 'Esaku\KelompokBarangController@update');
-Route::delete('barang-klp/{id}', 'Esaku\KelompokBarangController@delete');
+Route::get('barang-klp', 'Esaku\Inventori\KelompokBarangController@index');
+Route::get('barang-klp/{id}', 'Esaku\Inventori\KelompokBarangController@getData');
+Route::post('barang-klp', 'Esaku\Inventori\KelompokBarangController@store');
+Route::put('barang-klp/{id}', 'Esaku\Inventori\KelompokBarangController@update');
+Route::delete('barang-klp/{id}', 'Esaku\Inventori\KelompokBarangController@delete');
 
 // Data Satuan Barang //
-Route::get('barang-satuan', 'Esaku\SatuanBarangController@index');
-Route::get('barang-satuan/{id}', 'Esaku\SatuanBarangController@getData');
-Route::post('barang-satuan', 'Esaku\SatuanBarangController@store');
-Route::put('barang-satuan/{id}', 'Esaku\SatuanBarangController@update');
-Route::delete('barang-satuan/{id}', 'Esaku\SatuanBarangController@delete');
+Route::get('barang-satuan', 'Esaku\Inventori\SatuanBarangController@index');
+Route::get('barang-satuan/{id}', 'Esaku\Inventori\SatuanBarangController@getData');
+Route::post('barang-satuan', 'Esaku\Inventori\SatuanBarangController@store');
+Route::put('barang-satuan/{id}', 'Esaku\Inventori\SatuanBarangController@update');
+Route::delete('barang-satuan/{id}', 'Esaku\Inventori\SatuanBarangController@delete');
 
 // Data Barang //
-Route::get('barang', 'Esaku\BarangController@index');
-Route::get('barang/{id}', 'Esaku\BarangController@getData');
-Route::post('barang', 'Esaku\BarangController@store');
-Route::put('barang/{id}', 'Esaku\BarangController@update');
-Route::delete('barang/{id}', 'Esaku\BarangController@delete');
+Route::get('barang', 'Esaku\Inventori\BarangController@index');
+Route::get('barang/{id}', 'Esaku\Inventori\BarangController@getData');
+Route::post('barang', 'Esaku\Inventori\BarangController@store');
+Route::put('barang/{id}', 'Esaku\Inventori\BarangController@update');
+Route::delete('barang/{id}', 'Esaku\Inventori\BarangController@delete');
 
 // Data Bonus //
-Route::get('bonus', 'Esaku\BonusController@index');
-Route::get('bonus/{id}', 'Esaku\BonusController@getData');
-Route::post('bonus', 'Esaku\BonusController@store');
-Route::put('bonus/{id}', 'Esaku\BonusController@update');
-Route::delete('bonus/{id}', 'Esaku\BonusController@delete');
+Route::get('bonus', 'Esaku\Inventori\BonusController@index');
+Route::get('bonus/{id}', 'Esaku\Inventori\BonusController@getData');
+Route::post('bonus', 'Esaku\Inventori\BonusController@store');
+Route::put('bonus/{id}', 'Esaku\Inventori\BonusController@update');
+Route::delete('bonus/{id}', 'Esaku\Inventori\BonusController@delete');
 
 // Data Unit //
-Route::get('unit', 'Esaku\UnitController@index');
-Route::get('unit/{id}', 'Esaku\UnitController@getData');
-Route::post('unit', 'Esaku\UnitController@store');
-Route::put('unit/{id}', 'Esaku\UnitController@update');
-Route::delete('unit/{id}', 'Esaku\UnitController@delete');
+Route::get('unit', 'Esaku\Setting\UnitController@index');
+Route::get('unit/{id}', 'Esaku\Setting\UnitController@getData');
+Route::post('unit', 'Esaku\Setting\UnitController@store');
+Route::put('unit/{id}', 'Esaku\Setting\UnitController@update');
+Route::delete('unit/{id}', 'Esaku\Setting\UnitController@delete');
 
 // Data Klp Menu //
-Route::get('menu-klp', 'Esaku\KelompokMenuController@index');
-Route::get('menu-klp/{id}', 'Esaku\KelompokMenuController@getData');
-Route::post('menu-klp', 'Esaku\KelompokMenuController@store');
-Route::put('menu-klp/{id}', 'Esaku\KelompokMenuController@update');
-Route::delete('menu-klp/{id}', 'Esaku\KelompokMenuController@delete');
+Route::get('menu-klp', 'Esaku\Setting\KelompokMenuController@index');
+Route::get('menu-klp/{id}', 'Esaku\Setting\KelompokMenuController@getData');
+Route::post('menu-klp', 'Esaku\Setting\KelompokMenuController@store');
+Route::put('menu-klp/{id}', 'Esaku\Setting\KelompokMenuController@update');
+Route::delete('menu-klp/{id}', 'Esaku\Setting\KelompokMenuController@delete');
 
 // Data Karyawan //
-Route::get('karyawan', 'Esaku\KaryawanController@index');
-Route::get('karyawan/{id}', 'Esaku\KaryawanController@getData');
-Route::post('karyawan', 'Esaku\KaryawanController@store');
-Route::post('karyawan-ubah/{id}', 'Esaku\KaryawanController@update');
-Route::delete('karyawan/{id}', 'Esaku\KaryawanController@delete');
+Route::get('karyawan', 'Esaku\Setting\KaryawanController@index');
+Route::get('karyawan/{id}', 'Esaku\Setting\KaryawanController@getData');
+Route::post('karyawan', 'Esaku\Setting\KaryawanController@store');
+Route::post('karyawan-ubah/{id}', 'Esaku\Setting\KaryawanController@update');
+Route::delete('karyawan/{id}', 'Esaku\Setting\KaryawanController@delete');
 
 // Data Akses //
-Route::get('akses-user', 'Esaku\AksesUserController@index');
-Route::get('akses-user/{id}', 'Esaku\AksesUserController@getData');
-Route::post('akses-user', 'Esaku\AksesUserController@store');
-Route::put('akses-user/{id}', 'Esaku\AksesUserController@update');
-Route::delete('akses-user/{id}', 'Esaku\AksesUserController@delete');
+Route::get('akses-user', 'Esaku\Setting\AksesUserController@index');
+Route::get('akses-user/{id}', 'Esaku\Setting\AksesUserController@getData');
+Route::post('akses-user', 'Esaku\Setting\AksesUserController@store');
+Route::put('akses-user/{id}', 'Esaku\Setting\AksesUserController@update');
+Route::delete('akses-user/{id}', 'Esaku\Setting\AksesUserController@delete');
 
 // Data Form //
-Route::get('form', 'Esaku\FormController@index');
-Route::get('form/{id}', 'Esaku\FormController@getData');
-Route::post('form', 'Esaku\FormController@store');
-Route::put('form/{id}', 'Esaku\FormController@update');
-Route::delete('form/{id}', 'Esaku\FormController@delete');
+Route::get('form', 'Esaku\Setting\FormController@index');
+Route::get('form/{id}', 'Esaku\Setting\FormController@getData');
+Route::post('form', 'Esaku\Setting\FormController@store');
+Route::put('form/{id}', 'Esaku\Setting\FormController@update');
+Route::delete('form/{id}', 'Esaku\Setting\FormController@delete');
 
 // Setting Menu Form //
-Route::get('setting-menu', 'Esaku\SettingMenuController@show');
-Route::post('setting-menu', 'Esaku\SettingMenuController@store');
-Route::post('setting-menu-move', 'Esaku\SettingMenuController@storeMove');
-Route::put('setting-menu', 'Esaku\SettingMenuController@update');
-Route::delete('setting-menu', 'Esaku\SettingMenuController@delete');
+Route::get('setting-menu', 'Esaku\Setting\SettingMenuController@show');
+Route::post('setting-menu', 'Esaku\Setting\SettingMenuController@store');
+Route::post('setting-menu-move', 'Esaku\Setting\SettingMenuController@storeMove');
+Route::put('setting-menu', 'Esaku\Setting\SettingMenuController@update');
+Route::delete('setting-menu', 'Esaku\Setting\SettingMenuController@delete');
 
 // Data Masakun //
-Route::get('masakun', 'Esaku\MasakunController@index');
-Route::get('masakun/{id}', 'Esaku\MasakunController@getData');
-Route::post('masakun', 'Esaku\MasakunController@store');
-Route::put('masakun/{id}', 'Esaku\MasakunController@update');
-Route::delete('masakun/{id}', 'Esaku\MasakunController@delete');
+Route::get('masakun', 'Esaku\Keuangan\MasakunController@index');
+Route::get('masakun/{id}', 'Esaku\Keuangan\MasakunController@getData');
+Route::post('masakun', 'Esaku\Keuangan\MasakunController@store');
+Route::put('masakun/{id}', 'Esaku\Keuangan\MasakunController@update');
+Route::delete('masakun/{id}', 'Esaku\Keuangan\MasakunController@delete');
 
 // Data Referensi Transaksi //
-Route::get('reftrans', 'Esaku\ReferensiTransController@index');
-Route::get('reftrans-detail/{id}', 'Esaku\ReferensiTransController@getData');
-Route::post('reftrans', 'Esaku\ReferensiTransController@store');
-Route::put('reftrans/{id}', 'Esaku\ReferensiTransController@update');
-Route::delete('reftrans/{id}', 'Esaku\ReferensiTransController@delete');
+Route::get('reftrans', 'Esaku\KasBank\ReferensiTransController@index');
+Route::get('reftrans-detail/{id}', 'Esaku\KasBank\ReferensiTransController@getData');
+Route::post('reftrans', 'Esaku\KasBank\ReferensiTransController@store');
+Route::put('reftrans/{id}', 'Esaku\KasBank\ReferensiTransController@update');
+Route::delete('reftrans/{id}', 'Esaku\KasBank\ReferensiTransController@delete');
 
 // Data Jasa Kirim //
-Route::get('jasa-kirim', 'Esaku\JasaKirimController@index');
-Route::get('jasa-kirim-detail', 'Esaku\JasaKirimController@getData');
-Route::post('jasa-kirim', 'Esaku\JasaKirimController@store');
-Route::put('jasa-kirim', 'Esaku\JasaKirimController@update');
-Route::delete('jasa-kirim', 'Esaku\JasaKirimController@delete');
+Route::get('jasa-kirim', 'Esaku\Inventori\JasaKirimController@index');
+Route::get('jasa-kirim-detail', 'Esaku\Inventori\JasaKirimController@getData');
+Route::post('jasa-kirim', 'Esaku\Inventori\JasaKirimController@store');
+Route::put('jasa-kirim', 'Esaku\Inventori\JasaKirimController@update');
+Route::delete('jasa-kirim', 'Esaku\Inventori\JasaKirimController@delete');
 
 // Data Customer //
-Route::get('cust-ol', 'Esaku\CustomerOLController@index');
-Route::get('cust-ol/{id}', 'Esaku\CustomerOLController@getData');
-Route::post('cust-ol', 'Esaku\CustomerOLController@store');
-Route::put('cust-ol/{id}', 'Esaku\CustomerOLController@update');
-Route::delete('cust-ol/{id}', 'Esaku\CustomerOLController@delete');
+Route::get('cust-ol', 'Esaku\Inventori\CustomerOLController@index');
+Route::get('cust-ol/{id}', 'Esaku\Inventori\CustomerOLController@getData');
+Route::post('cust-ol', 'Esaku\Inventori\CustomerOLController@store');
+Route::put('cust-ol/{id}', 'Esaku\Inventori\CustomerOLController@update');
+Route::delete('cust-ol/{id}', 'Esaku\Inventori\CustomerOLController@delete');
 
 //Format Laporan
-Route::get('format-laporan','Esaku\FormatLaporanController@show');
-Route::post('format-laporan','Esaku\FormatLaporanController@store');
-Route::put('format-laporan','Esaku\FormatLaporanController@update');
-Route::delete('format-laporan','Esaku\FormatLaporanController@destroy');
-Route::get('format-laporan-versi','Esaku\FormatLaporanController@getVersi');
-Route::get('format-laporan-tipe','Esaku\FormatLaporanController@getTipe');
-Route::get('format-laporan-relakun','Esaku\FormatLaporanController@getRelakun');
-Route::post('format-laporan-relasi','Esaku\FormatLaporanController@simpanRelasi');
-Route::post('format-laporan-move','Esaku\FormatLaporanController@simpanMove');
+Route::get('format-laporan','Esaku\Keuangan\FormatLaporanController@show');
+Route::post('format-laporan','Esaku\Keuangan\FormatLaporanController@store');
+Route::put('format-laporan','Esaku\Keuangan\FormatLaporanController@update');
+Route::delete('format-laporan','Esaku\Keuangan\FormatLaporanController@destroy');
+Route::get('format-laporan-versi','Esaku\Keuangan\FormatLaporanController@getVersi');
+Route::get('format-laporan-tipe','Esaku\Keuangan\FormatLaporanController@getTipe');
+Route::get('format-laporan-relakun','Esaku\Keuangan\FormatLaporanController@getRelakun');
+Route::post('format-laporan-relasi','Esaku\Keuangan\FormatLaporanController@simpanRelasi');
+Route::post('format-laporan-move','Esaku\Keuangan\FormatLaporanController@simpanMove');
 
 // Data FS //
-Route::get('fs', 'Esaku\FSController@index');
-Route::get('fs/{id}', 'Esaku\FSController@getData');
-Route::post('fs', 'Esaku\FSController@store');
-Route::put('fs/{id}', 'Esaku\FSController@update');
-Route::delete('fs/{id}', 'Esaku\FSController@delete');
+Route::get('fs', 'Esaku\Keuangan\FSController@index');
+Route::get('fs/{id}', 'Esaku\Keuangan\FSController@getData');
+Route::post('fs', 'Esaku\Keuangan\FSController@store');
+Route::put('fs/{id}', 'Esaku\Keuangan\FSController@update');
+Route::delete('fs/{id}', 'Esaku\Keuangan\FSController@delete');
 
 // Data Flag Akun //
-Route::get('flag-akun', 'Esaku\FlagAkunController@index');
-Route::get('flag-akun/{id}', 'Esaku\FlagAkunController@getData');
-Route::post('flag-akun', 'Esaku\FlagAkunController@store');
-Route::put('flag-akun/{id}', 'Esaku\FlagAkunController@update');
-Route::delete('flag-akun/{id}', 'Esaku\FlagAkunController@delete');
+Route::get('flag-akun', 'Esaku\Keuangan\FlagAkunController@index');
+Route::get('flag-akun/{id}', 'Esaku\Keuangan\FlagAkunController@getData');
+Route::post('flag-akun', 'Esaku\Keuangan\FlagAkunController@store');
+Route::put('flag-akun/{id}', 'Esaku\Keuangan\FlagAkunController@update');
+Route::delete('flag-akun/{id}', 'Esaku\Keuangan\FlagAkunController@delete');
 
 // Data Flag Relasi //
-Route::get('flag-relasi', 'Esaku\FlagRelasiController@index');
-Route::get('flag-relasi/{id}', 'Esaku\FlagRelasiController@getData');
-Route::get('flag-relasi-akun', 'Esaku\FlagRelasiController@getAkun');
-Route::put('flag-relasi/{id}', 'Esaku\FlagRelasiController@update');
-Route::delete('flag-relasi/{id}', 'Esaku\FlagRelasiController@delete');
+Route::get('flag-relasi', 'Esaku\Keuangan\FlagRelasiController@index');
+Route::get('flag-relasi/{id}', 'Esaku\Keuangan\FlagRelasiController@getData');
+Route::get('flag-relasi-akun', 'Esaku\Keuangan\FlagRelasiController@getAkun');
+Route::put('flag-relasi/{id}', 'Esaku\Keuangan\FlagRelasiController@update');
+Route::delete('flag-relasi/{id}', 'Esaku\Keuangan\FlagRelasiController@delete');
 
 // Data Flag Relasi //
-Route::get('periode-aktif', 'Esaku\PeriodeAktifController@index');
-Route::post('periode-aktif', 'Esaku\PeriodeAktifController@store');
-Route::get('periode-aktif/{id}', 'Esaku\PeriodeAktifController@show');
-Route::get('periode-aktif-periode', 'Esaku\PeriodeAktifController@getPeriode');
-Route::put('periode-aktif/{id}', 'Esaku\PeriodeAktifController@update');
-Route::delete('periode-aktif/{id}', 'Esaku\PeriodeAktifController@destroy');
+Route::get('periode-aktif', 'Esaku\Keuangan\PeriodeAktifController@index');
+Route::post('periode-aktif', 'Esaku\Keuangan\PeriodeAktifController@store');
+Route::get('periode-aktif/{id}', 'Esaku\Keuangan\PeriodeAktifController@show');
+Route::get('periode-aktif-periode', 'Esaku\Keuangan\PeriodeAktifController@getPeriode');
+Route::put('periode-aktif/{id}', 'Esaku\Keuangan\PeriodeAktifController@update');
+Route::delete('periode-aktif/{id}', 'Esaku\Keuangan\PeriodeAktifController@destroy');
 
 // Data Dok Jenis //
-Route::get('dok-jenis', 'Esaku\JenisDokController@index');
-Route::get('dok-jenis-detail', 'Esaku\JenisDokController@show');
-Route::post('dok-jenis', 'Esaku\JenisDokController@store');
-Route::put('dok-jenis', 'Esaku\JenisDokController@update');
-Route::delete('dok-jenis', 'Esaku\JenisDokController@destroy');
+Route::get('dok-jenis', 'Esaku\Keuangan\JenisDokController@index');
+Route::get('dok-jenis-detail', 'Esaku\Keuangan\JenisDokController@show');
+Route::post('dok-jenis', 'Esaku\Keuangan\JenisDokController@store');
+Route::put('dok-jenis', 'Esaku\Keuangan\JenisDokController@update');
+Route::delete('dok-jenis', 'Esaku\Keuangan\JenisDokController@destroy');
 
-Route::get('setting-grafik', 'Esaku\SettingGrafikController@index');
-Route::get('setting-grafik-detail', 'Esaku\SettingGrafikController@show');
-Route::post('setting-grafik', 'Esaku\SettingGrafikController@store');
-Route::put('setting-grafik', 'Esaku\SettingGrafikController@update');
-Route::delete('setting-grafik', 'Esaku\SettingGrafikController@destroy');
-Route::get('setting-grafik-klp', 'Esaku\SettingGrafikController@getKlp');
-Route::get('setting-grafik-neraca', 'Esaku\SettingGrafikController@getNeraca');
+Route::get('setting-grafik', 'Esaku\Setting\SettingGrafikController@index');
+Route::get('setting-grafik-detail', 'Esaku\Setting\SettingGrafikController@show');
+Route::post('setting-grafik', 'Esaku\Setting\SettingGrafikController@store');
+Route::put('setting-grafik', 'Esaku\Setting\SettingGrafikController@update');
+Route::delete('setting-grafik', 'Esaku\Setting\SettingGrafikController@destroy');
+Route::get('setting-grafik-klp', 'Esaku\Setting\SettingGrafikController@getKlp');
+Route::get('setting-grafik-neraca', 'Esaku\Setting\SettingGrafikController@getNeraca');
 
-Route::get('setting-rasio', 'Esaku\SettingRasioController@index');
-Route::get('setting-rasio-detail', 'Esaku\SettingRasioController@show');
-Route::post('setting-rasio', 'Esaku\SettingRasioController@store');
-Route::put('setting-rasio', 'Esaku\SettingRasioController@update');
-Route::delete('setting-rasio', 'Esaku\SettingRasioController@destroy');
-Route::get('setting-rasio-klp', 'Esaku\SettingRasioController@getKlp');
-Route::get('setting-rasio-neraca', 'Esaku\SettingRasioController@getNeraca');
+Route::get('setting-rasio', 'Esaku\Setting\SettingRasioController@index');
+Route::get('setting-rasio-detail', 'Esaku\Setting\SettingRasioController@show');
+Route::post('setting-rasio', 'Esaku\Setting\SettingRasioController@store');
+Route::put('setting-rasio', 'Esaku\Setting\SettingRasioController@update');
+Route::delete('setting-rasio', 'Esaku\Setting\SettingRasioController@destroy');
+Route::get('setting-rasio-klp', 'Esaku\Setting\SettingRasioController@getKlp');
+Route::get('setting-rasio-neraca', 'Esaku\Setting\SettingRasioController@getNeraca');
 
-Route::get('msakundet', 'Esaku\MasakunDetailController@index');
-Route::get('msakundet/{id}', 'Esaku\MasakunDetailController@getData');
-Route::post('msakundet', 'Esaku\MasakunDetailController@store');
-Route::put('msakundet/{id}', 'Esaku\MasakunDetailController@update');
-Route::delete('msakundet/{id}', 'Esaku\MasakunDetailController@delete');
+Route::get('msakundet', 'Esaku\Keuangan\MasakunDetailController@index');
+Route::get('msakundet/{id}', 'Esaku\Keuangan\MasakunDetailController@getData');
+Route::post('msakundet', 'Esaku\Keuangan\MasakunDetailController@store');
+Route::put('msakundet/{id}', 'Esaku\Keuangan\MasakunDetailController@update');
+Route::delete('msakundet/{id}', 'Esaku\Keuangan\MasakunDetailController@delete');
 
-Route::get('msakundet-flag', 'Esaku\MasakunDetailController@getFlag');
-Route::get('msakundet-neraca', 'Esaku\MasakunDetailController@getNeraca');
+Route::get('msakundet-flag', 'Esaku\Keuangan\MasakunDetailController@getFlag');
+Route::get('msakundet-neraca', 'Esaku\Keuangan\MasakunDetailController@getNeraca');

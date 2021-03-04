@@ -19,7 +19,12 @@ Route::get('/form/{id}', function ($id) {
         // return redirect('dash-telu/login');
         return view('esaku.sesi');
     }else{
-        return view('esaku.'.$id);
+        $tmp = explode("_",$id);
+        if(isset($tmp[1])){
+            return view('esaku.'.$tmp[0].'.'.$tmp[1]);
+        }else{
+            return view('esaku.'.$id);
+        }
     }
 });
 
@@ -54,8 +59,8 @@ Route::post('/update-password', 'Esaku\AuthController@updatePassword');
 Route::post('/update-foto', 'Esaku\AuthController@updatePhoto');
 Route::post('/update-background', 'Esaku\AuthController@updateBackground');
 
-Route::get('notif','Esaku\NotifController@getNotif');
-Route::post('notif-update-status','Esaku\NotifController@updateStatusRead');
+Route::get('notif','Esaku\Setting\NotifController@getNotif');
+Route::post('notif-update-status','Esaku\Setting\NotifController@updateStatusRead');
 Route::post('search-form','Esaku\AuthController@searchForm');
 Route::get('search-form-list','Esaku\AuthController@searchFormList');
 Route::get('search-form-list2','Esaku\AuthController@searchFormList2');

@@ -142,6 +142,7 @@
     <script src="https://code.highcharts.com/highcharts-more.js"></script>
     <script src="https://code.highcharts.com/modules/full-screen.js"></script>
     <script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
+    <!-- <script src="https://code.highcharts.com/modules/exporting.js"></script> -->
     <script src="{{ asset('asset_dore/js/vendor/typeahead.bundle.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/moment.min.js') }}"></script>
@@ -171,6 +172,7 @@
     <script src="{{ asset('asset_elite/sai.js') }}"></script>
     <script src="{{ asset('asset_elite/inputmask.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/bootstrap-tagsinput.min.js') }}"></script>
+    <script src="{{ asset('asset_dore/js/pptxgen.bundle.js') }}"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script>
         var $google = google;
@@ -1018,9 +1020,24 @@
     var mode = window.localStorage.getItem('dore-theme');
     if (mode == "dark") {
         $theme = $theme.replace("light", "dark");
+        var url_logo = "{{ asset('img/whitelogo Telu.png') }}";
+        console.log(url_logo);
+        $('.logo').css({
+            'background': "url('"+url_logo+"') no-repeat",
+            'background-size': '100px',
+            'height':'35px',
+        });
+
       // localStorage.setItem("dore-theme", mode);
     } else if (mode == "light") {
         $theme = $theme.replace("dark", "light");
+        var url_logo = "{{ asset('img/Tel-U-logo_1.PRIMER-Utama.png') }}";
+        console.log(url_logo);
+        $('.logo').css({
+            'background': "url('"+url_logo+"') no-repeat",
+            'background-size': '120px',
+            'height':'45px',
+        });
     }
  
     </script>
