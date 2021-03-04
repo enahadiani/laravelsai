@@ -991,14 +991,14 @@
     function editData(id){
         $.ajax({
             type: 'GET',
-            url: "{{ url('/java-trans/tagihan-proyek-show') }}",
+            url: "{{ url('/java-trans/bayar-proyek-show') }}",
             dataType: 'json',
             data:{ 'kode':id},
             async:false,
             success:function(res){
                 var result= res.data;
                 if(result.status){
-                    var subtotal = parseFloat(result.data[0].nilai) - parseFloat(result.data[0].biaya_lain)
+                    // var subtotal = parseFloat(result.data[0].nilai) - parseFloat(result.data[0].biaya_lain)
                     getDataTagihan(result.data[0].kode_cust)
                     $('.no-bayar').show();
                     $('#input-grid tbody').empty();
@@ -1011,8 +1011,8 @@
                     $('#tanggal').val(reverseDate2(result.data[0].tanggal,'-','/'));
                     showInfoField('kode_bank',result.data[0].kode_bank,result.data[0].nama_bank);
                     showInfoField('kode_cust',result.data[0].kode_cust,result.data[0].nama);
-                    $('#biaya_lain').val(parseFloat(result.data[0].biaya_lain)
-                    $('#total-tagihan').text('Rp. '+format_number(result.data[0].nilai)))
+                    $('#biaya_lain').val(parseFloat(result.data[0].biaya_lain))
+                    $('#total-tagihan').text('Rp. '+format_number(result.data[0].nilai))
                     if(result.detail.length > 0){
                         var input = '';
                         var no=1;
@@ -1063,7 +1063,7 @@
                         no= 1;
                     }
                     hitungTotalRow();
-                    hitungSubtotal();
+                    hitungTotal();
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
                 }
@@ -1073,5 +1073,41 @@
             }
         });
     }
+
+    function hapusData(id){
+        $.ajax({
+            type: 'DELETE',
+            url: "{{ url('java-trans/bayar-proyek') }}",
+            dataType: 'json',
+            data: {'kode':id},
+            async:false,
+            success:function(result){
+                if(result.data.status){
+                    dataTable.ajax.reload();                    
+                    showNotification("top", "center", "success",'Hapus Data','Data Pembayaran ('+id+') berhasil dihapus ');
+                    $('#modal-preview-id').html('');
+                    $('#table-delete tbody').html('');
+                    $('#modal-delete').modal('hide');
+                }else if(!result.data.status && result.data.message == "Unauthorized"){
+                    window.location.href = "{{ url('java-auth/sesi-habis') }}";
+                }else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href>'+result.data.message+'</a>'
+                    });
+                }
+            }
+        });
+    }
+
+    $('#saku-datatable').on('click','#btn-delete',function(e){
+        var kode = $(this).closest('tr').find('td').eq(0).html();
+        msgDialog({
+            id: kode,
+            type:'hapus'
+        });
+    });
 
 </script>
