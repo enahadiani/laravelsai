@@ -62,4 +62,127 @@
             $('#no_proyek-from').val(initial);
         }
     })
+
+    $('#btn-filter').click(function(e){
+        $('#collapseFilter').show();
+        $('#collapsePaging').hide();
+        if($(this).hasClass("btn-primary")){
+            $(this).removeClass("btn-primary");
+            $(this).addClass("btn-light");
+        }
+            
+        $('#btn-filter').addClass("hidden");
+        $('#btn-export').addClass("hidden");
+    });
+        
+    $('#btn-tutup').click(function(e){
+        $('#collapseFilter').hide();
+        $('#collapsePaging').show();
+        $('#btn-filter').addClass("btn-primary");
+        $('#btn-filter').removeClass("btn-light");
+        $('#btn-filter').removeClass("hidden");
+        $('#btn-export').removeClass("hidden");
+    });
+
+    $('#btn-tampil').click(function(e){
+        $('#collapseFilter').hide();
+        $('#collapsePaging').show();
+        $('#btn-filter').addClass("btn-primary");
+        $('#btn-filter').removeClass("btn-light");
+        $('#btn-filter').removeClass("hidden");
+        $('#btn-export').removeClass("hidden");
+    });
+
+    $('.selectize').selectize();
+
+    $('#inputFilter').reportFilter({
+        kode : ['no_proyek'],
+        nama : ['No Proyek'],
+            header : [['No Proyek', 'Keterangan']],
+            headerpilih : [['No Proyek', 'Keterangan','Action']],
+            columns: [
+                [
+                    { data: 'no_proyek' },
+                    { data: 'keterangan' }
+                ]
+            ],
+            url :["{{ url('java-report/filter-kartu-tagihan') }}"],
+            parameter:[],
+            orderby:[[]],
+            width:[['30%','70%']],
+            display:['kode'],
+            pageLength:[10]
+    });
+    $('#inputFilter').on('change','input',function(e){
+        setTimeout(() => {
+            $('#inputFilter').reportFilter({
+            kode : ['no_proyek'],
+            nama : ['No Proyek'],
+                header : [['No Proyek', 'Keterangan']],
+                headerpilih : [['No Proyek', 'Keterangan','Action']],
+                columns: [
+                    [
+                        { data: 'no_proyek' },
+                        { data: 'keterangan' }
+                    ]
+                ],
+                url :["{{ url('java-report/filter-kartu-tagihan') }}"],
+                parameter:[],
+                orderby:[[]],
+                width:[['30%','70%']],
+                display:['kode'],
+                pageLength:[10]
+            });
+        }, 500)
+    });
+
+    var $formData = "";
+    $('#form-filter').submit(function(e){
+        e.preventDefault();
+        $formData = new FormData();
+        $formData.append("no_proyek[]",$no_proyek.type);
+        $formData.append("no_proyek[]",$no_proyek.from);
+        $formData.append("proyek[]",$no_proyek.to);
+        for(var pair of $formData.entries()) {
+            console.log(pair[0]+ ', '+ pair[1]); 
+        }
+        $('#saku-report').removeClass('hidden');
+        xurl = "{{ url('java-auth/form/rptKartuProyek') }}";
+        $('#saku-report #canvasPreview').load(xurl);
+    });
+
+    $('#show').change(function(e){
+        $formData = new FormData();
+        $formData.append("no_proyek[]",$no_proyek.type);
+        $formData.append("no_proyek[]",$no_proyek.from);
+        $formData.append("proyek[]",$no_proyek.to);
+        for(var pair of $formData.entries()) {
+            console.log(pair[0]+ ', '+ pair[1]); 
+        }
+        $('#saku-report').removeClass('hidden');
+        xurl = "{{ url('java-auth/form/rptKartuProyek') }}";
+        $('#saku-report #canvasPreview').load(xurl);
+    });
+
+    $('#sai-rpt-print').click(function(){
+        $('#saku-report #canvasPreview').printThis({
+            removeInline: true
+        });
+    });
+
+    $('#sai-rpt-print-prev').click(function(){
+        var newWindow = window.open();
+        var html = `<head>`+$('head').html()+`</head><style>`+$('style').html()+`</style><body style='background:white;'><div align="center">`+$('#canvasPreview').html()+`</div></body>`;
+        newWindow.document.write(html);
+    });
+
+    $("#sai-rpt-excel").click(function(e) {
+        e.preventDefault();
+        $("#saku-report #canvasPreview").table2excel({
+            // exclude: ".excludeThisClass",
+            name: "Lap_Kartu_Proyek_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}",
+            filename: "Lap_Kartu_Proyek_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}.xls", // do include extension
+            preserveColors: false // set to true if you want background colors and font colors preserved
+        });
+    });
 </script>
