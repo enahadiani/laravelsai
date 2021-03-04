@@ -162,6 +162,10 @@ class AuthController extends Controller
                             $forms = explode("/",$forms);
                             if(ISSET($forms[2])){
                                 $this_link = $forms[2];
+                                
+                                if(isset($forms[3])){
+                                    $this_link = $forms[2].'_'.$forms[3];
+                                }
                             }else{
                                 $this_link = "";
                             }

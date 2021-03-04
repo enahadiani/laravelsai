@@ -19,7 +19,12 @@ Route::get('/form/{id}', function ($id) {
         // return redirect('dash-telu/login');
         return view('esaku.sesi');
     }else{
-        return view('esaku.'.$id);
+        $tmp = explode("_",$id);
+        if(isset($tmp[1])){
+            return view('esaku.'.$tmp[0].'.'.$tmp[1]);
+        }else{
+            return view('esaku.'.$id);
+        }
     }
 });
 
