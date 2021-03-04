@@ -100,8 +100,8 @@ class PembayaranProyekController extends Controller {
                 'nilai' => $this->joinNum($request->input('nilai')),
                 'kode_cust' => $request->input('kode_cust'),
                 'kode_bank' => $request->input('kode_bank'),
-                'jenis' => $request->input('kode_bank'),
-                'biaya_lain' => $request->input('biaya_lain'),
+                'jenis' => $request->input('jenis'),
+                'biaya_lain' => $this->joinNum($request->input('biaya_lain')),
                 'nomor' => $no,
                 'no_tagihan' => $no_tagihan,
                 'no_dokumen' => $no_dokumen,
@@ -109,7 +109,7 @@ class PembayaranProyekController extends Controller {
             );
 
             $client = new Client();
-            $response = $client->request('POST',  config('api.url').'java-trans/tagihan-proyek',[
+            $response = $client->request('POST',  config('api.url').'java-trans/bayar-proyek',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -129,6 +129,32 @@ class PembayaranProyekController extends Controller {
             $data['message'] = $res;
             $data['status'] = false;
             return response()->json(['data' => $data], 500);
+        }
+    }
+
+    public function getData(Request $request) {
+        try{
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'java-trans/bayar-proyek?no_bayar='.$request->query('kode'),
+            [
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+    
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+            }
+            return response()->json(['data' => $data], 200); 
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $data['message'] = $res;
+            $data['status'] = false;
+            return response()->json(['data' => $data], 200);
         }
     }
 }
