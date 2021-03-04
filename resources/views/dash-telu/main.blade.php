@@ -1021,24 +1021,35 @@
     if (mode == "dark") {
         $theme = $theme.replace("light", "dark");
         var url_logo = "{{ asset('img/whitelogo Telu.png') }}";
-        console.log(url_logo);
+        var url_logo_mob = "{{ asset('img/telu_darkmode_mini.jpeg') }}";
         $('.logo').css({
             'background': "url('"+url_logo+"') no-repeat",
             'background-size': '100px',
             'height':'35px',
+        });
+        $('.logo-mobile').css({
+            'background': "url('"+url_logo_mob+"') no-repeat",
+            'background-size': '30px',
+            'height': '30px',
         });
 
       // localStorage.setItem("dore-theme", mode);
     } else if (mode == "light") {
         $theme = $theme.replace("dark", "light");
         var url_logo = "{{ asset('img/Tel-U-logo_1.PRIMER-Utama.png') }}";
-        console.log(url_logo);
+        var url_logo_mob = "{{ asset('img/logo-telu.png') }}";
         $('.logo').css({
             'background': "url('"+url_logo+"') no-repeat",
             'background-size': '120px',
             'height':'45px',
         });
+        $('.logo-mobile').css({
+            'background': "url('"+url_logo_mob+"') no-repeat",
+            'background-size': '30px',
+            'height': '30px',
+        });
     }
+    console.log(url_logo_mob);
  
     </script>
     <script src="{{ asset('asset_dore/js/scripts.js') }}"></script>

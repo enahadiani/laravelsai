@@ -65,7 +65,7 @@ $tahun5 = intval($tahun-5);
         <div class="col-12">
             <h6 class="mb-0 bold">Pendapatan 5 Tahun</h6>
             <a class="btn btn-outline-light" href="#" id="btn-filter" style="position: absolute;right: 15px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-equalizer" style="transform-style: ;"></i> &nbsp;&nbsp; Filter</a>
-            <a class="btn btn-outline-light" href="#" id="btn-pptx" style="position: absolute;right: 215px;border:1px solid black;font-size:1rem;top:0">Export PPTX</a>
+            <!-- <a class="btn btn-outline-light" href="#" id="btn-pptx" style="position: absolute;right: 215px;border:1px solid black;font-size:1rem;top:0">Export PPTX</a> -->
             <p>Satuan Milyar Rupiah || Periode s/d <span class='nama-bulan'></span></p>
         </div>
     </div>
