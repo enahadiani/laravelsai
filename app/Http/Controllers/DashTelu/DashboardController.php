@@ -342,12 +342,12 @@
             }
         }
 
-        public function getKomposisiBeban(Request $request, $periode)
+        public function getKomposisiBeban(Request $request)
         {
             try{
 
                 $client = new Client();
-                $response = $client->request('GET', config('api.url').'ypt-dash/komposisiBeban/'.$periode,[
+                $response = $client->request('GET', config('api.url').'ypt-dash/komposisiBeban',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -369,38 +369,12 @@
             }
         }
 
-        public function getOprNonOprBeban($periode)
+        public function getOprNonOprBeban(Request $request)
         {
             try{
                 
                 $client = new Client();
-                $response = $client->request('GET', config('api.url').'ypt-dash/totalBeban/'.$periode,[
-                    'headers' => [
-                        'Authorization' => 'Bearer '.Session::get('token'),
-                        'Accept'     => 'application/json',
-                    ]
-                ]);
-    
-                if ($response->getStatusCode() == 200) { // 200 OK
-                    $response_data = $response->getBody()->getContents();
-                    
-                    $data = json_decode($response_data,true);
-                    $data = $data["success"];
-                }
-                return response()->json(['data' => $data], 200);
-            } catch (BadResponseException $ex) {
-                $response = $ex->getResponse();
-                $res = json_decode($response->getBody(),true);
-                return response()->json(['message' => $res, 'status'=>false], $response->getStatusCode());
-            }
-        }
-
-        public function getPresentaseRkaRealisasiBeban(Request $request,$periode)
-        {
-            try{
-
-                $client = new Client();
-                $response = $client->request('GET', config('api.url').'ypt-dash/rkaVSRealBeban/'.$periode,[
+                $response = $client->request('GET', config('api.url').'ypt-dash/totalBeban',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -422,12 +396,39 @@
             }
         }
 
-        public function getPresentaseRkaRealisasiBebanRp(Request $request,$periode)
+        public function getPresentaseRkaRealisasiBeban(Request $request)
         {
             try{
 
                 $client = new Client();
-                $response = $client->request('GET', config('api.url').'ypt-dash/rkaVSRealBebanRp/'.$periode,[
+                $response = $client->request('GET', config('api.url').'ypt-dash/rkaVSRealBeban',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => $request->all()
+                ]);
+    
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $data = json_decode($response_data,true);
+                    $data = $data["success"];
+                }
+                return response()->json(['data' => $data], 200);
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                return response()->json(['message' => $res, 'status'=>false], $response->getStatusCode());
+            }
+        }
+
+        public function getPresentaseRkaRealisasiBebanRp(Request $request)
+        {
+            try{
+
+                $client = new Client();
+                $response = $client->request('GET', config('api.url').'ypt-dash/rkaVSRealBebanRp',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
