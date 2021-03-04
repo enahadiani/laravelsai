@@ -18,7 +18,7 @@
         public function getFilterBuktiKontrolMutasi() {
 
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'toko-report/filter-bukti-kontrol-mutasi',[
+            $response = $client->request('GET',  config('api.url').'esaku-report/filter-bukti-kontrol-mutasi',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -37,7 +37,7 @@
         public function getFilterBuktiMutasiTerima() {
 
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'toko-trans/filter-bukti-mutasi-terima',[
+            $response = $client->request('GET',  config('api.url').'esaku-trans/filter-bukti-mutasi-terima',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -56,7 +56,7 @@
         public function getFilterBuktiMutasiKirim() {
 
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'toko-trans/filter-bukti-mutasi-kirim',[
+            $response = $client->request('GET',  config('api.url').'esaku-trans/filter-bukti-mutasi-kirim',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -75,7 +75,7 @@
         public function getFilterMutasiBarang() {
 
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'toko-trans/filter-barang-mutasi',[
+            $response = $client->request('GET',  config('api.url').'esaku-trans/filter-barang-mutasi',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -94,7 +94,7 @@
         public function getFilterKlpBarang() {
 
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'toko-report/filter-barang-klp',[
+            $response = $client->request('GET',  config('api.url').'esaku-report/filter-barang-klp',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -114,7 +114,7 @@
         public function getFilterGudang() {
 
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'toko-report/filter-gudang',[
+            $response = $client->request('GET',  config('api.url').'esaku-report/filter-gudang',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -133,7 +133,7 @@
         public function getFilterAkun(Request $request) {
 
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'toko-report/filter-akun',[
+            $response = $client->request('GET',  config('api.url').'esaku-report/filter-akun',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -153,7 +153,7 @@
         public function getRefPindahBuku() {
 
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'toko-master/reftrans?jenis=PINDAH BUKU',[
+            $response = $client->request('GET',  config('api.url').'esaku-master/reftrans?jenis=PINDAH BUKU',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -172,7 +172,7 @@
         public function getRefPengeluaran() {
 
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'toko-master/reftrans?jenis=PENGELUARAN',[
+            $response = $client->request('GET',  config('api.url').'esaku-master/reftrans?jenis=PENGELUARAN',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -191,7 +191,7 @@
         public function getRefPemasukan() {
 
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'toko-master/reftrans?jenis=PEMASUKAN',[
+            $response = $client->request('GET',  config('api.url').'esaku-master/reftrans?jenis=PEMASUKAN',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -210,7 +210,7 @@
         public function getRef($jenis) {
 
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'toko-master/reftrans-kode?jenis='.$jenis,[
+            $response = $client->request('GET',  config('api.url').'esaku-master/reftrans-kode?jenis='.$jenis,[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -229,7 +229,7 @@
         public function getCurr() {
 
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'toko-master/masakun-curr',[
+            $response = $client->request('GET',  config('api.url').'esaku-master/masakun-curr',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -248,7 +248,7 @@
         public function getModul() {
 
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'toko-master/masakun-modul',[
+            $response = $client->request('GET',  config('api.url').'esaku-master/masakun-modul',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -266,7 +266,7 @@
 
         public function getLabMenu() {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'toko-master/form',[
+            $response = $client->request('GET',  config('api.url').'esaku-master/form',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -284,7 +284,7 @@
 
         public function getKlpMenu() {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'toko-master/menu-klp',[
+            $response = $client->request('GET',  config('api.url').'esaku-master/menu-klp',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -302,7 +302,7 @@
 
         public function getBuktiRetur() {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'toko-report/filter-bukti-retur',[
+            $response = $client->request('GET',  config('api.url').'esaku-report/filter-bukti-retur',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -320,7 +320,7 @@
 
         public function getNikRetur() {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'toko-report/filter-nik-retur',[
+            $response = $client->request('GET',  config('api.url').'esaku-report/filter-nik-retur',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -338,7 +338,7 @@
 
         public function getPeriodeRetur() {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'toko-report/filter-periode-retur',[
+            $response = $client->request('GET',  config('api.url').'esaku-report/filter-periode-retur',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -356,7 +356,7 @@
 
         public function getBarang() {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'toko-report/filter-barang',[
+            $response = $client->request('GET',  config('api.url').'esaku-report/filter-barang',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -374,7 +374,7 @@
 
         public function getBuktiClose() {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'toko-report/filter-bukti-close',[
+            $response = $client->request('GET',  config('api.url').'esaku-report/filter-bukti-close',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -392,7 +392,7 @@
 
         public function getNikClose() {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'toko-report/filter-nik-close',[
+            $response = $client->request('GET',  config('api.url').'esaku-report/filter-nik-close',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -410,7 +410,7 @@
 
         public function getPeriodeClose() {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'toko-report/filter-periode-close',[
+            $response = $client->request('GET',  config('api.url').'esaku-report/filter-periode-close',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -428,7 +428,7 @@
 
         public function getBuktiPmb() {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'toko-report/filter-bukti-pmb',[
+            $response = $client->request('GET',  config('api.url').'esaku-report/filter-bukti-pmb',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -446,7 +446,7 @@
 
         public function getNikPmb() {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'toko-report/filter-nik-pmb',[
+            $response = $client->request('GET',  config('api.url').'esaku-report/filter-nik-pmb',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -464,7 +464,7 @@
 
         public function getPeriodePmb() {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'toko-report/filter-periode-pmb',[
+            $response = $client->request('GET',  config('api.url').'esaku-report/filter-periode-pmb',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -482,7 +482,7 @@
 
         public function getBuktiPnj() {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'toko-report/filter-bukti',[
+            $response = $client->request('GET',  config('api.url').'esaku-report/filter-bukti',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -500,7 +500,7 @@
 
         public function getNikPnj() {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'toko-report/filter-nik',[
+            $response = $client->request('GET',  config('api.url').'esaku-report/filter-nik',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -518,7 +518,7 @@
 
         public function getTanggalPnj() {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'toko-report/filter-tanggal',[
+            $response = $client->request('GET',  config('api.url').'esaku-report/filter-tanggal',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -536,7 +536,7 @@
 
         public function getPeriodePnj() {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'toko-report/filter-periode',[
+            $response = $client->request('GET',  config('api.url').'esaku-report/filter-periode',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -555,7 +555,7 @@
         public function getAkunCust() {
 
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'toko-master/cust-akun',[
+            $response = $client->request('GET',  config('api.url').'esaku-master/cust-akun',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -574,7 +574,7 @@
         public function getAkunVend(Request $request) {
 
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'toko-master/vendor-akun',[
+            $response = $client->request('GET',  config('api.url').'esaku-master/vendor-akun',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -596,7 +596,7 @@
         public function getNIKGud() {
 
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'toko-master/gudang-nik',[
+            $response = $client->request('GET',  config('api.url').'esaku-master/gudang-nik',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -615,7 +615,7 @@
         public function getPPGud() {
 
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'toko-master/gudang-pp',[
+            $response = $client->request('GET',  config('api.url').'esaku-master/gudang-pp',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -634,7 +634,7 @@
         public function getAkunPersKelBar(Request $request) {
 
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'toko-master/barang-klp-persediaan',[
+            $response = $client->request('GET',  config('api.url').'esaku-master/barang-klp-persediaan',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -656,7 +656,7 @@
         public function getAkunPdptKelBar(Request $request) {
 
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'toko-master/barang-klp-pendapatan',[
+            $response = $client->request('GET',  config('api.url').'esaku-master/barang-klp-pendapatan',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -678,7 +678,7 @@
         public function getAkunHPPKelBar(Request $request) {
 
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'toko-master/barang-klp-hpp',[
+            $response = $client->request('GET',  config('api.url').'esaku-master/barang-klp-hpp',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -699,7 +699,7 @@
 
         public function getFilterPeriodeKeuangan() {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'toko-report/filter-periode-keu',[
+            $response = $client->request('GET',  config('api.url').'esaku-report/filter-periode-keu',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -717,7 +717,7 @@
 
         public function getFilterPeriodeKB() {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'toko-report/filter-periode-kb',[
+            $response = $client->request('GET',  config('api.url').'esaku-report/filter-periode-kb',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -735,7 +735,7 @@
 
         public function getFilterFS() {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'toko-report/filter-fs',[
+            $response = $client->request('GET',  config('api.url').'esaku-report/filter-fs',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -753,7 +753,7 @@
 
         public function getFilterLevel() {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'toko-report/filter-level',[
+            $response = $client->request('GET',  config('api.url').'esaku-report/filter-level',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -771,7 +771,7 @@
 
         public function getFilterFormat() {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'toko-report/filter-format',[
+            $response = $client->request('GET',  config('api.url').'esaku-report/filter-format',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -789,7 +789,7 @@
 
         public function getFilterSumju() {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'toko-report/filter-sumju',[
+            $response = $client->request('GET',  config('api.url').'esaku-report/filter-sumju',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -807,7 +807,7 @@
 
         public function getFilterModul() {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'toko-report/filter-modul',[
+            $response = $client->request('GET',  config('api.url').'esaku-report/filter-modul',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -826,7 +826,7 @@
         public function getFilterBuktiJurnal(Request $request) {
             $client = new Client();
 
-            $response = $client->request('GET',  config('api.url').'toko-report/filter-bukti-jurnal',[
+            $response = $client->request('GET',  config('api.url').'esaku-report/filter-bukti-jurnal',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -848,7 +848,7 @@
         public function getFilterBuktiJurnalKB(Request $request) {
             $client = new Client();
 
-            $response = $client->request('GET',  config('api.url').'toko-report/filter-bukti-jurnal-kb',[
+            $response = $client->request('GET',  config('api.url').'esaku-report/filter-bukti-jurnal-kb',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -869,7 +869,7 @@
         public function getFilterMutasi(Request $request) {
             $client = new Client();
 
-            $response = $client->request('GET',  config('api.url').'toko-report/filter-mutasi',[
+            $response = $client->request('GET',  config('api.url').'esaku-report/filter-mutasi',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -891,7 +891,7 @@
         public function getFilterTahun() {
 
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'toko-report/filter-tahun-keu',[
+            $response = $client->request('GET',  config('api.url').'esaku-report/filter-tahun-keu',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -929,7 +929,7 @@
         public function getFilterPP() {
 
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'toko-report/filter-pp-keu',[
+            $response = $client->request('GET',  config('api.url').'esaku-report/filter-pp-keu',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
