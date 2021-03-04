@@ -815,8 +815,19 @@
         $('#btn-save').attr('type','button');
         $('#btn-save').attr('id','btn-update');
 
-        $('#judul-form').html('Edit Data Vendor');
+        $('#judul-form').html('Edit Data Customer');
         editData(id);
+    });
+
+    $('.modal-header').on('click', '#btn-edit2', function(){
+        var id= $('#modal-preview-id').text();
+        // $iconLoad.show();
+        $('#form-tambah').validate().resetForm();
+        $('#judul-form').html('Edit Data Customer');
+        
+        $('#btn-save').attr('type','button');
+        $('#btn-save').attr('id','btn-update');
+        editData(id)
     });
     // END BUTTON EDIT
     

@@ -668,9 +668,9 @@
             }
 
             var formData = new FormData(form);
-            $('#input-grid tbody tr').each(function(index) {
-                formData.append('no[]', $(this).find('.no-grid').text())
-            })
+            // $('#input-grid tbody tr').each(function(index) {
+            //     formData.append('no[]', $(this).find('.no-grid').text())
+            // })
             formData.append('nilai', subtotal)
             for(var pair of formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
@@ -855,7 +855,7 @@
         var id= $('#modal-preview-id').text();
         // $iconLoad.show();
         $('#form-tambah').validate().resetForm();
-        $('#judul-form').html('Edit Data Vendor');
+        $('#judul-form').html('Edit Data Tagihan Proyek');
         
         $('#btn-save').attr('type','button');
         $('#btn-save').attr('id','btn-update');
@@ -870,7 +870,7 @@
         $('#btn-save').attr('type','button');
         $('#btn-save').attr('id','btn-update');
 
-        $('#judul-form').html('Edit Data Vendor');
+        $('#judul-form').html('Edit Data Tagihan Proyek');
         editData(id);
     });
 

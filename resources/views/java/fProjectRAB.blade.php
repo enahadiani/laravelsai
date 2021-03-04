@@ -318,7 +318,7 @@
         $('#btn-save').attr('type','button');
         $('#btn-save').attr('id','btn-update');
 
-        $('#judul-form').html('Edit Data Vendor');
+        $('#judul-form').html('Edit Data Anggaran Proyek');
         editData(id);
     });
 
@@ -839,7 +839,7 @@
         var id= $('#modal-preview-id').text();
         // $iconLoad.show();
         $('#form-tambah').validate().resetForm();
-        $('#judul-form').html('Edit Data Vendor');
+        $('#judul-form').html('Edit Data Anggaran Proyek');
         
         $('#btn-save').attr('type','button');
         $('#btn-save').attr('id','btn-update');
