@@ -125,12 +125,12 @@
             }
         }
 
-        public function getKomposisiPendapatan(Request $request,$periode)
+        public function getKomposisiPendapatan(Request $request)
         {
             try{
 
                 $client = new Client();
-                $response = $client->request('GET', config('api.url').'ypt-dash/komposisiPdpt/'.$periode,[
+                $response = $client->request('GET', config('api.url').'ypt-dash/komposisiPdpt',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -178,11 +178,11 @@
             }
         }
 
-        public function getPresentaseRkaRealisasiPendapatan(Request $request,$periode)
+        public function getPresentaseRkaRealisasiPendapatan(Request $request)
         {
             try{
                 $client = new Client();
-                $response = $client->request('GET', config('api.url').'ypt-dash/rkaVSRealPdpt/'.$periode,[
+                $response = $client->request('GET', config('api.url').'ypt-dash/rkaVSRealPdpt',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -205,11 +205,11 @@
             }
         }
 
-        public function getPresentaseRkaRealisasiPendapatanRp(Request $request,$periode)
+        public function getPresentaseRkaRealisasiPendapatanRp(Request $request)
         {
             try{
                 $client = new Client();
-                $response = $client->request('GET', config('api.url').'ypt-dash/rkaVSRealPdptRp/'.$periode,[
+                $response = $client->request('GET', config('api.url').'ypt-dash/rkaVSRealPdptRp',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -232,11 +232,11 @@
             }
         }
 
-        public function getPendapatanFak(Request $request,$periode,$kodeNeraca)
+        public function getPendapatanFak(Request $request)
         {
             try{
                 $client = new Client();
-                $response = $client->request('GET', config('api.url').'ypt-dash/pdptFakultas/'.$periode.'/'.$kodeNeraca,[
+                $response = $client->request('GET', config('api.url').'ypt-dash/pdptFakultas',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -259,11 +259,11 @@
             }
         }
 
-        public function getDetailPendapatan(Request $request,$periode,$kodeNeraca)
+        public function getDetailPendapatan(Request $request)
         {
             try{
                 $client = new Client();
-                $response = $client->request('GET', config('api.url').'ypt-dash/detailPdpt/'.$periode.'/'.$kodeNeraca,[
+                $response = $client->request('GET', config('api.url').'ypt-dash/detailPdpt',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -286,12 +286,12 @@
             }
         }
 
-        public function getPendapatanJurusan(Request $request, $periode,$kodeNeraca,$kodeBidang)
+        public function getPendapatanJurusan(Request $request)
         {
             try{
 
                 $client = new Client();
-                $response = $client->request('GET', config('api.url').'ypt-dash/pdptJurusan/'.$periode.'/'.$kodeNeraca.'/'.$kodeBidang,
+                $response = $client->request('GET', config('api.url').'ypt-dash/pdptJurusan',
                 [
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
@@ -314,18 +314,18 @@
             }
         }
 
-        public function getDataPendJurusan($periode,$kodeNeraca,$kodeBidang,$tahun)
+        public function getDataPendJurusan(Request $request)
         {
             try{
 
                 $client = new Client();
-                $response = $client->request('GET', config('api.url').'ypt-dash/detailPdptJurusan/'.$periode.'/'.$kodeNeraca.
-                '/'.$kodeBidang.'/'.$tahun,
+                $response = $client->request('GET', config('api.url').'ypt-dash/detailPdptJurusan',
                 [
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
-                    ]
+                    ],
+                    'query' => $request->all()
                 ]);
     
                 if ($response->getStatusCode() == 200) { // 200 OK
