@@ -15,9 +15,9 @@ class HelperController extends Controller {
         }
     }
 
-    public function getKartuBukti() {
+    public function getKartuBukti(Request $request) {
         $client = new Client();
-        $response = $client->request('GET',  config('api.url').'java-report/filter-proyek',[
+        $response = $client->request('GET',  config('api.url').'java-report/filter-proyek?kode_cust='.$request->query('kode'),[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',

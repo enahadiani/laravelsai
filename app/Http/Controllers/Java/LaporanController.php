@@ -58,7 +58,8 @@ class LaporanController extends Controller {
                     'Accept'     => 'application/json',
                 ],
                 'query' => [
-                    'no_proyek' => $request->no_proyek
+                    'no_proyek' => $request->no_proyek,
+                    'kode_cust' => $request->kode_cust
                 ]
             ]);
 
@@ -75,10 +76,12 @@ class LaporanController extends Controller {
             }
 
             if(isset($request->back)){
-                $res['back']=true;
+                $back = true;
+            }else{
+                $back = false;
             }
                 
-            return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'periode'=>$periode,'sumju'=>$request->sumju,'res'=>$res], 200); 
+            return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'periode'=>$periode,'sumju'=>$request->sumju,'res'=>$res, 'back'=>$back], 200); 
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(),true);
