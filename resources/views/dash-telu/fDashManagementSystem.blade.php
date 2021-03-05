@@ -512,8 +512,8 @@ function getFxPosition(periode=null)
                     }
                     
                     if(i == 0){
-                        var bulan = $filter_periode.substr(4,2);
-                        var thn_ini = parseInt($filter_periode.substr(0,4));
+                        var bulan = $dash_periode.from.substr(4,2);
+                        var thn_ini = parseInt($dash_periode.from.substr(0,4));
                         var thn_lalu = thn_ini-1;
                         html+=`<tr>
                         <td></td>

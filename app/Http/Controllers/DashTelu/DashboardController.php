@@ -450,12 +450,12 @@
             }
         }
 
-        public function getBebanFak(Request $request,$periode,$kodeNeraca)
+        public function getBebanFak(Request $request)
         {
             try{
 
                 $client = new Client();
-                $response = $client->request('GET', config('api.url').'ypt-dash/bebanFakultas/'.$periode.'/'.$kodeNeraca,[
+                $response = $client->request('GET', config('api.url').'ypt-dash/bebanFakultas',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -477,16 +477,17 @@
             }
         }
 
-        public function getDetailBeban($periode,$kodeNeraca)
+        public function getDetailBeban(Request $request)
         {
             try{
 
                 $client = new Client();
-                $response = $client->request('GET', config('api.url').'ypt-dash/detailBeban/'.$periode.'/'.$kodeNeraca,[
+                $response = $client->request('GET', config('api.url').'ypt-dash/detailBeban',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
-                    ]
+                    ],
+                    'query' => $request->all()
                 ]);
     
                 if ($response->getStatusCode() == 200) { // 200 OK
@@ -503,12 +504,12 @@
             }
         }
 
-        public function getBebanJurusan(Request $request, $periode,$kodeNeraca,$kodeBidang)
+        public function getBebanJurusan(Request $request)
         {
             try{
 
                 $client = new Client();
-                $response = $client->request('GET', config('api.url').'ypt-dash/bebanJurusan/'.$periode.'/'.$kodeNeraca.'/'.$kodeBidang,
+                $response = $client->request('GET', config('api.url').'ypt-dash/bebanJurusan',
                     [
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
@@ -531,18 +532,18 @@
             }
         }
 
-        public function getDataBebanJurusan($periode,$kodeNeraca,$kodeBidang,$tahun)
+        public function getDataBebanJurusan(Request $request)
         {
             try{
 
                 $client = new Client();
-                $response = $client->request('GET', config('api.url').'ypt-dash/detailBebanJurusan/'.$periode.'/'.$kodeNeraca.
-                '/'.$kodeBidang.'/'.$tahun,
+                $response = $client->request('GET', config('api.url').'ypt-dash/detailBebanJurusan',
                 [
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
-                    ]
+                    ],
+                    'query' => $request->all()
                 ]);
     
                 if ($response->getStatusCode() == 200) { // 200 OK
