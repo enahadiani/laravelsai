@@ -44,9 +44,9 @@ function drawRptPage(data,res,from,to){
         var no = 1;
         for(var i=0;i<data.length;i++) {
             var line = data[i];
-            html += "<tr>";
+            html += "<tr class='report-link kartuproyek' style='cursor:pointer;' data-no_proyek='"+line.no_proyek+"'>";
             html += "<td class='text-center'>"+no+"</td>"
-            html += "<td class='text-left'>"+line.no_proyek+"</td>"
+            html += "<td class='text-left link-report'>"+line.no_proyek+"</td>"
             html += "<td class='text-left'>"+line.no_kontrak+"</td>"
             html += "<td class='text-center'>"+line.tgl_mulai+"</td>"
             html += "<td class='text-center'>"+line.tgl_selesai+"</td>"

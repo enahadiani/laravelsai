@@ -20,6 +20,12 @@ function drawRptPage(data,res,from,to){
     var arr_tl = [0,0,0,0,0,0,0,0,0];
     var x=1;
     if(data.data_proyek.length > 0) {
+        console.log(res.back);
+        if(res.back){
+            $('.navigation-lap').removeClass('hidden');
+        }else{
+            $('.navigation-lap').addClass('hidden');
+        }
         var proyek = data.data_proyek[0];
         html += "<div id='sai-rpt-table-export-tbl-daftar-pnj'>";
         html += "<h6 class='text-center'>Project Financial Summary</h6>";
