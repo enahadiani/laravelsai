@@ -182,6 +182,7 @@ $thnLalu = substr($tahunLalu,2,2)
     </div>
 </div>
 <script>
+$('.tahunDepan').hide();
 $('body').addClass('dash-contents');
 $('html').addClass('dash-contents');
 if(localStorage.getItem("dore-theme") == "dark"){
