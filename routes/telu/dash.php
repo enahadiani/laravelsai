@@ -75,6 +75,7 @@ Route::get('/kelola-keuangan','DashTelu\DashboardController@kelolaKeuangan');
 Route::get('/penjualan-pin','DashTelu\DashboardController@penjualanPin');
 
 Route::get('/ms-pengembangan-rka','DashTelu\DashboardController@msPengembanganRKA');
+Route::get('/ms-pengembangan-rka-dir','DashTelu\DashboardController@msPengembanganRKADir');
 Route::get('/ms-pengembangan-komposisi','DashTelu\DashboardController@msPengembanganKomposisi');
 
 Route::get('/laba-rugi-5tahun','DashTelu\DashboardController@getLabaRugi5Tahun');

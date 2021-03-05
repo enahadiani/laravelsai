@@ -76,14 +76,14 @@ $thnLalu = substr($tahunLalu,2,2)
             <h6 class="mb-0 bold">Pengembangan</h6>
             <a class='btn btn-outline-light' href='#' id='btnBack' style="position: absolute;right: 135px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-arrow-left mr-2"></i> Back</a>
             <a class="btn btn-outline-light" href="#" id="btn-filter" style="position: absolute;right: 15px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-equalizer" style="transform-style: ;"></i> &nbsp;&nbsp; Filter</a>
-            <p>Satuan Jutaan Rupiah || Periode s/d <span class='nama-bulan'></span></p>
+            <p>Satuan Milyar Rupiah || <span class='label-periode-filter'></span></p>
         </div>
     </div>
     <div class="row" >
         <div class="col-lg-7 col-12 mb-4">
             <div class="card dash-card">
                 <div class="card-header">
-                    <h6 class="card-title mb-0">RKA Pengembangan <span class="tahunDepan"></span></h6>
+                    <h6 class="card-title mb-0">RKA Pengembangan <span class="tahunDepan"></span> per Fakultas </h6>
                 </div>
                 <div class="card-body">
                     <div id="rka" style="height:300px"></div>
@@ -108,9 +108,38 @@ $thnLalu = substr($tahunLalu,2,2)
             </div>
         </div>
     </div>
+    <div class="row" >
+        <div class="col-lg-7 col-12 mb-4">
+            <div class="card dash-card">
+                <div class="card-header">
+                    <h6 class="card-title mb-0">RKA Pengembangan <span class="tahunDepan"></span> per Direktorat </h6>
+                </div>
+                <div class="card-body">
+                    <div id="rka_dir" style="height:300px"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-5 col-12 mb-4">
+            <div class="card dash-card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-md-6 col-12">
+                            <h6 class="card-title mb-0">Komposisi Realisasi</h6>
+                        </div>
+                        <div class="col-md-6 col-12">
+                            <h6 class="card-title mb-0 text-right" id="komposisi-total2"></h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div id="komposisi2"  style="height:300px"></div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="modal fade modal-right" id="modalFilter" tabindex="-1" role="dialog"
     aria-labelledby="modalFilter" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog" role="document" style="max-width: 480px;">
             <div class="modal-content">
                 <form id="form-filter">
                     <div class="modal-header pb-0" style="border:none">
@@ -120,14 +149,30 @@ $thnLalu = substr($tahunLalu,2,2)
                         </button>
                     </div>
                     <div class="modal-body" style="border:none">
-                        <div class="form-group">
-                            <label>Periode</label>
-                            <select class="form-control" data-width="100%" name="periode" id="periode">
-                                <option value='#'>Pilih Periode</option>
-                            </select>
+                        <div class="form-group row dash-filter">
+                            <p class="dash-kunci" hidden>dash_periode</p> 
+                            <label class="col-md-12">Periode</label>
+                            <div class="col-md-4">
+                                <select class="form-control dash-filter-type" data-width="100%" name="periode[]" id="periode_type">
+                                    <option value='' disabled>Pilih</option>
+                                    <option value='='>=</option>
+                                    <option value='<='><=</option>
+                                    <option value='range'>Range</option>
+                                </select>
+                            </div>
+                            <div class="col-md-8 dash-filter-from">
+                                <select class="form-control" data-width="100%" name="periode[]" id="periode_from">
+                                    <option value='' disabled>Pilih</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4 dash-filter-to">
+                                <select class="form-control" data-width="100%" name="periode[]" id="periode_to">
+                                    <option value='' disabled>Pilih</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
-                    <div class="modal-footer" style="border:none">
+                    <div class="modal-footer" style="border:none;position:absolute;bottom:0;justify-content:flex-end;width:100%">
                         <button type="button" class="btn btn-outline-primary" id="btn-reset">Reset</button>
                         <button type="submit" class="btn btn-primary">Tampilkan</button>
                     </div>
@@ -137,6 +182,7 @@ $thnLalu = substr($tahunLalu,2,2)
     </div>
 </div>
 <script>
+$('.tahunDepan').hide();
 $('body').addClass('dash-contents');
 $('html').addClass('dash-contents');
 if(localStorage.getItem("dore-theme") == "dark"){
@@ -224,17 +270,83 @@ function getPeriode(){
         url:"{{ url('/telu-dash/periode') }}",
         dataType: "JSON",
         success: function(result){
-            var select = $('#periode').selectize();
+            $('#periode_type').selectize();
+            var select = $("#periode_from").selectize();
             select = select[0];
             var control = select.selectize;
+
+            var select2 = $("#periode_to").selectize();
+            select2 = select2[0];
+            var control2 = select2.selectize;
             if(result.data.status){
                 if(typeof result.data.data !== 'undefined' && result.data.data.length>0){
                     for(i=0;i<result.data.data.length;i++){
                         control.addOption([{text:result.data.data[i].periode, value:result.data.data[i].periode}]);
+                        control2.addOption([{text:result.data.data[i].periode, value:result.data.data[i].periode}]);
                     }
                 }
+
+                $('#periode_to').closest('div.dash-filter-to').hide();
+                $('#periode_from').closest('div.dash-filter-from').removeClass('col-md-4').addClass('col-md-8');
+
+                if($dash_periode.type == ""){
+                    $dash_periode.type = "=";
+                }
                 
-                control.setValue($filter_periode);
+                $('#periode_type')[0].selectize.setValue($dash_periode.type);
+
+                switch($dash_periode.type){
+                    case '=':
+                        var label = 'Periode '+namaPeriode($dash_periode.from);
+                        if($dash_periode.from == ""){
+                            if("{{ Session::get('periode') }}" != ""){
+                                control.setValue("{{ Session::get('periode') }}");
+                                $dash_periode.from = "{{ Session::get('periode') }}";
+                            }
+                        }else{
+                            control.setValue($dash_periode.from);
+                        }
+                        control2.setValue('');
+                    break;
+                    case '<=':
+                        
+                        var label = 'Periode s.d '+namaPeriode($dash_periode.from);
+                    break;
+                    case 'range':
+                        
+                        var label = 'Periode '+namaPeriode($dash_periode.from)+' s.d '+namaPeriode($dash_periode.to);
+                        if($dash_periode.from == ""){
+                            if("{{ Session::get('periode') }}" != ""){
+                                control.setValue("{{ Session::get('periode') }}");
+                                $dash_periode.from = "{{ Session::get('periode') }}";
+                            }
+                        }else{
+                            control.setValue($dash_periode.from);
+                        }
+                        control2.setValue('');
+
+                    break;
+                    default:
+                        if($dash_periode.from == ""){
+                            if("{{ Session::get('periode') }}" != ""){
+                                control.setValue("{{ Session::get('periode') }}");
+                                $dash_periode.from = "{{ Session::get('periode') }}";
+                            }
+                        }else{
+                            control.setValue($dash_periode.from);
+                        }
+                        control2.setValue('');
+                        break;
+                }
+                $('.label-periode-filter').html(label);
+                
+                var tahun = parseInt($dash_periode.from.substr(0,4));
+                var tahunDepan = tahun+1;
+                $('.tahunDepan').text(tahunDepan);
+                getMsPengembangan($dash_periode);
+                getMsPengembanganDir($dash_periode);
+                getMsPengembanganKomposisi($dash_periode);
+                        
             }
         },
         error: function(jqXHR, textStatus, errorThrown) {       
@@ -255,11 +367,47 @@ function getPeriode(){
 
 getPeriode();
 
+
+$('.dash-filter').on('change', '.dash-filter-type', function(){
+    var type = $(this).val();
+    var kunci = $(this).closest('div.dash-filter').find('.dash-kunci').text();
+    var tmp = kunci.split("_");
+    var kunci2 = tmp[1];
+    var field = eval('$'+kunci);
+    console.log(type,kunci,kunci2);
+    switch(type){
+        case "=": 
+        case "<=":
+            $(this).closest('div.dash-filter').find('.dash-filter-from').removeClass('col-md-4');
+            $(this).closest('div.dash-filter').find('.dash-filter-from').addClass('col-md-8');
+            $(this).closest('div.dash-filter').find('.dash-filter-from #'+kunci2+"_from")[0].selectize.setValue(field.from);
+            $(this).closest('div.dash-filter').find('.dash-filter-to').hide();
+            field.type = type;
+            field.from = field.from;
+            field.to = "";
+        break;
+        case "range":
+            
+            field.type = type;
+            field.from = field.from;
+            field.to = field.to;
+            
+            $(this).closest('div.dash-filter').find('.dash-filter-from').removeClass('col-md-8');
+            $(this).closest('div.dash-filter').find('.dash-filter-from').addClass('col-md-4');
+            $(this).closest('div.dash-filter').find('.dash-filter-from #'+kunci2+"_from")[0].selectize.setValue(field.from);
+            $(this).closest('div.dash-filter').find('.dash-filter-to #'+kunci2+"_to")[0].selectize.setValue(field.to);
+            $(this).closest('div.dash-filter').find('.dash-filter-to').show();
+        break;
+    }
+});
+
 function getMsPengembangan(periode=null){
     $.ajax({
         type:"GET",
         url:"{{ url('/telu-dash/ms-pengembangan-rka') }}",
-        data:{periode : periode, mode: $mode},
+        data:{'periode[0]' : periode.type,
+            'periode[1]' : periode.from,
+            'periode[2]' : periode.to, mode: $mode},
         dataType:"JSON",
         success:function(result){
             // if(result.series.length > 0){
@@ -389,11 +537,149 @@ function getMsPengembangan(periode=null){
     })
 }
 
+function getMsPengembanganDir(periode=null){
+    $.ajax({
+        type:"GET",
+        url:"{{ url('/telu-dash/ms-pengembangan-rka-dir') }}",
+        data:{'periode[0]' : periode.type,
+            'periode[1]' : periode.from,
+            'periode[2]' : periode.to, mode: $mode},
+        dataType:"JSON",
+        success:function(result){
+            // if(result.series.length > 0){
+                var $colors = result.colors;
+                // Highcharts.addEvent(Highcharts.Chart.prototype, 'render', function colorPoints() {
+                //     var series = this.series;
+                //     for (var i = 0, ie = series.length; i < ie; ++i) {
+                //         var points = series[i].data;
+                //         for (var j = 0, je = points.length; j < je; ++j) {
+                //             if (points[j].graphic) {
+                //                 points[j].graphic.element.style.fill = $colors[j];
+                //             }
+                //         }
+                //     }
+                // });
+                
+                Highcharts.chart('rka_dir', {
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text: ''
+                    },
+                    xAxis: {
+                        categories: result.ctg
+                    },
+                    yAxis: [{
+                        min: 0,
+                        title: {
+                            text: ''
+                        },
+                        labels: {
+                            formatter: function () {
+                                return singkatNilai(this.value);
+                            }
+                        },
+                    }],
+                    legend:{
+                        enabled: false
+                    },
+                    credits: {
+                        enabled: false
+                    },
+                    tooltip: {
+                        shared: true
+                    },
+                    plotOptions: {
+                        column: {
+                            grouping: false,
+                            shadow: false,
+                            borderWidth: 0,
+                            dataLabels: {
+                                // padding:10,
+                                allowOverlap:true,
+                                enabled: true,
+                                crop: false,
+                                overflow: 'justify',
+                                useHTML: true,
+                                formatter: function () {
+                                    if(this.y < 0.1){
+                                        return '';
+                                    }else{
+                                        return $('<div/>').css({
+                                            'color' : 'white', // work
+                                            'padding': '0 3px',
+                                            'font-size': '10px',
+                                            'backgroundColor' : this.point.color  // just white in my case
+                                        }).text(toJuta(this.y))[0].outerHTML;
+                                    }
+                                    // if(this.name)
+                                }
+                            }
+                        }
+                    },
+                    series: result.series
+                }, function(){
+                    var series = this.series;
+                    for (var i = 0, ie = series.length; i < ie; ++i) {
+                        var points = series[i].data;
+                        for (var j = 0, je = points.length; j < je; ++j) {
+                            if (points[j].graphic) {
+                                points[j].graphic.element.style.fill = $colors[j];
+                            }
+                        }
+                    }
+                });
+                
+                // $google.charts.load("current", {packages:['corechart']});
+                // $google.charts.setOnLoadCallback(function(){
+                //     var data = $google.visualization.arrayToDataTable(result.data);
+                        
+                //         var view = new google.visualization.DataView(data);
+                        
+                //         var options = {
+                //             chartArea:{
+                //                 width: '80%',
+                //                 height: '85%'
+                //             },
+                //             height:'100%',
+                //             width: '100%',
+                //             legend: {position: 'none'},
+                //             vAxis: {format: 'decimal', title: 'Milyar Rupiah'},
+                //             animation: {
+                //                 startup: true,
+                //                 duration: 1000,
+                //                 easing: 'out'
+                //             }
+                //         };
+                //         var chart = new google.visualization.ColumnChart(document.getElementById("rka"));
+                //         chart.draw(view, options);
+                // });
+            // }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {       
+            if(jqXHR.status == 422){
+                var msg = jqXHR.responseText;
+            }else if(jqXHR.status == 500) {
+                var msg = "Internal server error";
+            }else if(jqXHR.status == 401){
+                var msg = "Unauthorized";
+                window.location="{{ url('/dash-telu/sesi-habis') }}";
+            }else if(jqXHR.status == 405){
+                var msg = "Route not valid. Page not found";
+            }
+            
+        }
+    })
+}
+
 function getMsPengembanganKomposisi(periode=null){
     $.ajax({
         type:"GET",
         url:"{{ url('/telu-dash/ms-pengembangan-komposisi') }}",
-        data:{periode : periode, mode: $mode},
+        data:{'periode[0]' : periode.type,
+            'periode[1]' : periode.from,
+            'periode[2]' : periode.to, mode: $mode},
         dataType:"JSON",
         success:function(result){
             // $('#komposisi-total').html('Rp.'+sepNumPas(result.total));
@@ -474,6 +760,72 @@ function getMsPengembanganKomposisi(periode=null){
                         }
                     }
             });
+
+            Highcharts.chart('komposisi2', {
+                chart: {
+                    type: 'pie'
+                },
+                title: {
+                    text: 'Rp. '+sepNumPas(result.total_real),
+                    align: 'center',
+                    style: {
+                        fontSize: '14px'
+                    },
+                    verticalAlign: 'middle',
+                    y: 10,
+                    x: 0
+                },
+                yAxis: [{
+                    min: 0,
+                    title: {
+                        text: ''
+                    }
+                }],
+                legend:{
+                    enabled: false
+                },
+                credits: {
+                    enabled: false
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.name} : {point.y} </b><br/><b>{point.percentage:.1f}%</b>'
+                },
+                colors: result.colors,
+                plotOptions: {
+                    pie: {
+                        padding: 10,
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        innerSize: '75%',
+                        size: '70%',
+                        dataLabels: {
+                            enabled: true,
+                            useHTML: true,
+                            align: 'left',
+                            formatter: function () {
+                                var name = this.point.name.split(" ");
+                                return $('<div/>').css({
+                                    'border' : '0',// just white in my case
+                                    'max-width': '70px',
+                                    'overflow':'hidden',
+                                    'color' : ($mode == "dark" ? "var(--text-color)" : "black")
+                                }).addClass('fs-8').html(name[0]+' '+name[1]+'<br>'+name[2]+':<br/>'+sepNum(this.percentage)+'%')[0].outerHTML;
+                            }
+                        }
+                    }
+                },
+                series: result.series_real
+            }, function(){
+                var series = this.series;
+                    for (var i = 0, ie = series.length; i < ie; ++i) {
+                        var points = series[i].data;
+                        for (var j = 0, je = points.length; j < je; ++j) {
+                            if (points[j].graphic) {
+                                points[j].graphic.element.style.fill = $colors[j];
+                            }
+                        }
+                    }
+            });
             // if(result.data.length > 0){
             //     console.log(result.data);
             //     $google.charts.load('current', {'packages':['corechart']});
@@ -536,23 +888,33 @@ function getMsPengembanganKomposisi(periode=null){
     })
 }
 
-
-var tahun = parseInt($filter_periode.substr(0,4));
-var tahunDepan = tahun+1;
-$('.nama-bulan').text(namaPeriode($filter_periode));
-$('.tahunDepan').text(tahunDepan);
-getMsPengembangan($filter_periode);
-getMsPengembanganKomposisi($filter_periode);
     
 $('#form-filter').submit(function(e){
     e.preventDefault();
-    var periode = $('#periode')[0].selectize.getValue();
-    $filter_periode = periode;
-    getMsPengembangan($filter_periode);
-    getMsPengembanganKomposisi($filter_periode);
-    var tahun = parseInt($filter_periode.substr(0,4));
+    $dash_periode.type = $('#periode_type')[0].selectize.getValue();
+    $dash_periode.from = $('#periode_from')[0].selectize.getValue();
+    $dash_periode.to = $('#periode_to')[0].selectize.getValue();
+    $filter_periode = $dash_periode.from;
+    switch($dash_periode.type){
+        case '=':
+            var label = 'Periode '+namaPeriode($dash_periode.from);    
+        break;
+        case '<=':
+            
+            var label = 'Periode s.d '+namaPeriode($dash_periode.from);
+        break;
+        case 'range':
+            
+            var label = 'Periode '+namaPeriode($dash_periode.from)+' s.d '+namaPeriode($dash_periode.to);
+
+        break;
+    }
+    $('.label-periode-filter').html(label);
+    getMsPengembangan($dash_periode);
+    getMsPengembanganDir($dash_periode);
+    getMsPengembanganKomposisi($dash_periode);
+    var tahun = parseInt($dash_periode.from.substr(0,4));
     var tahunDepan = tahun+1;
-    $('.nama-bulan').text(namaPeriode($filter_periode));
     $('.tahunDepan').text(tahunDepan);
     $('#modalFilter').modal('hide');
     // $('.app-menu').hide();
