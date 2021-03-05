@@ -189,7 +189,7 @@ function getPendapatanJurusan(periode=null,kodeNeraca=null,kodeBidang=null){
         dataType:"JSON",
         data:{'periode[0]' : periode.type,
             'periode[1]' : periode.from,
-            'periode[2]' : periode.to, mode: $mode,'kode_neraca':kodeNeraca,'kode_bidang':kodeBidang,'tahun':tahun},
+            'periode[2]' : periode.to, mode: $mode,'kode_neraca':kodeNeraca,'kode_bidang':kodeBidang},
         success:function(result){
             Highcharts.chart('pdptJur', {
                 chart: {

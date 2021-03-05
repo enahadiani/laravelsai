@@ -512,8 +512,8 @@ function getFxPosition(periode=null)
                     }
                     
                     if(i == 0){
-                        var bulan = $filter_periode.substr(4,2);
-                        var thn_ini = parseInt($filter_periode.substr(0,4));
+                        var bulan = $dash_periode.from.substr(4,2);
+                        var thn_ini = parseInt($dash_periode.from.substr(0,4));
                         var thn_lalu = thn_ini-1;
                         html+=`<tr>
                         <td></td>
@@ -636,16 +636,40 @@ function getDebt(periode=null)
 
             var html='';
             if(result.data.data.length > 0){
-                
+                var persen =0;
+
                 for(var i=0;i<result.data.data.length;i++)
                 {
                     var line = result.data.data[i];
+                    
+                    var real = toMilyar(parseFloat(line.real));
+                    var real_lalu = toMilyar(parseFloat(line.real_lalu));
+                    var persen = (parseFloat(line.real)/parseFloat(result.data.total))*100;
+                    
+                    if(i == 0){
+                        var bulan = $dash_periode.from.substr(4,2);
+                        var thn_ini = parseInt($dash_periode.from.substr(0,4));
+                        var thn_lalu = thn_ini-1;
+                        html+=`<tr>
+                        <td></td>
+                        <td class='text-center'>`+thn_ini+''+bulan+`</td>
+                        <td class='text-center'>%</td>
+                        <td class='text-center'>YoY</td>
+                        </tr>`;   
+                    }
                     html+=`<tr>
-                        <td>`+line.nama+`</td>
-                        <td class='text-right'>`+toMilyar(parseFloat(line.real))+`</td>
-                        </tr>`; 
-                  
+                    <td>`+line.nama+`</td>
+                    <td class='text-right'>`+real+`</td>
+                    <td class='text-right'>`+sepNum(persen)+`%</td>
+                    <td class='text-right text-success' >`+sepNumPas(line.yoy)+`%</td>
+                    </tr>`;   
                 }
+                html+=`<tr>
+                    <td class='bold'>Sub Total</td>
+                    <td class='text-right bold'>`+toMilyar(result.data.total)+`</td>
+                    <td class='text-right bold'>100%</td>
+                    <td class='text-right bold text-success' ></td>
+                    </tr>`;  
             }
             $('.table-debt').html(html);
             $('.card-piutang').animate({
@@ -691,13 +715,31 @@ function getKelola(periode=null)
                 for(var i=0;i<result.data.data.length;i++)
                 {
                     var line = result.data.data[i];
+                    
+                    var real = toMilyar(parseFloat(line.real));
+                    var real_lalu = toMilyar(parseFloat(line.real_lalu));
+                    
+                    if(i == 0){
+                        var bulan = $dash_periode.from.substr(4,2);
+                        var thn_ini = parseInt($dash_periode.from.substr(0,4));
+                        var thn_lalu = thn_ini-1;
+                        html+=`<tr>
+                        <td></td>
+                        <td class='text-center'>`+thn_ini+''+bulan+`</td>
+                        <td class='text-center'>YoY</td>
+                        </tr>`;   
+                    }
                     html+=`<tr>
-                        <td>`+line.nama+`</td>
-                        <td class='text-right'>`+toMilyar(parseFloat(line.real))+`</td>
-                        </tr>`; 
-                      
-
+                    <td>`+line.nama+`</td>
+                    <td class='text-right'>`+real+`</td>
+                    <td class='text-right text-success' >`+sepNumPas(line.yoy)+`%</td>
+                    </tr>`;   
                 }
+                html+=`<tr>
+                    <td class='bold'>Sub Total</td>
+                    <td class='text-right bold'>`+toMilyar(result.data.total)+`</td>
+                    <td class='text-right bold text-success' ></td>
+                    </tr>`;  
             }
             $('.table-kelola').html(html);
             $('.card-keuangan').animate({
@@ -761,6 +803,12 @@ function getPin(periode=null)
                     <td class='text-right text-success' >`+persen+`%</td>
                     </tr>`;   
                 }
+                html+=`<tr>
+                    <td class='bold'>Sub Total</td>
+                    <td class='text-right bold'>`+toMilyar(result.data.total_rka)+`</td>
+                    <td class='text-right bold'>`+toMilyar(result.data.total_real)+`</td>
+                    <td class='text-right bold text-success' ></td>
+                    </tr>`;  
             }
             $('.table-pin').html(html);
             

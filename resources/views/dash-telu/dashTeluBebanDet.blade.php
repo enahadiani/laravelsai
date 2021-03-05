@@ -35,7 +35,7 @@ $thnLalu = substr($tahunLalu,2,2);
     <div class="row" >
         <div class="col-12 detail-beban">
         <a class='btn btn-outline-light' href='#' id='btnBack' style="position: absolute;right: 25px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-arrow-left"></i> Back</a>
-        <p>Satuan Milyar Rupiah || Periode s/d <span class='nama-bulan'></span></p>
+        <p>Satuan Milyar Rupiah || <span class='label-periode-filter'></span></p>
         </div>
     </div>
     <div class="row mt-2" >
@@ -183,8 +183,11 @@ function singkatNilai(num){
 function getDetailBeban(periode=null,kodeNeraca=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/getDetailBeban') }}/"+periode+"/"+kodeNeraca,
+        url:"{{ url('/telu-dash/getDetailBeban') }}",
         dataType:"JSON",
+        data:{'periode[0]' : periode.type,
+            'periode[1]' : periode.from,
+            'periode[2]' : periode.to, mode: $mode,'kode_neraca':kodeNeraca},
         success:function(result){
             var html='';
             for(var i=0;i<result.data.data.length;i++){
@@ -219,8 +222,10 @@ function getDetailBeban(periode=null,kodeNeraca=null){
 function getBebanFak(periode=null, kodeNeraca=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/getBebanFak') }}/"+periode+"/"+kodeNeraca,
-        data:{mode : $mode},
+        url:"{{ url('/telu-dash/getBebanFak') }}",
+        data:{'periode[0]' : periode.type,
+            'periode[1]' : periode.from,
+            'periode[2]' : periode.to, mode: $mode,'kode_neraca':kodeNeraca},
         dataType:"JSON",
         success:function(result){
             console.log(result);
@@ -312,9 +317,11 @@ function getBebanFak(periode=null, kodeNeraca=null){
 function getPertumbuhanBebanFak(periode=null,kodeNeraca=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/getBebanFak') }}/"+periode+"/"+kodeNeraca,
+        url:"{{ url('/telu-dash/getBebanFak') }}",
         dataType:"JSON",
-        data:{mode : $mode},
+        data:{'periode[0]' : periode.type,
+            'periode[1]' : periode.from,
+            'periode[2]' : periode.to, mode: $mode,'kode_neraca':kodeNeraca},
         success: function(result){
             Highcharts.chart('pertumbuhan', {
                 chart: {
@@ -383,13 +390,55 @@ function getPertumbuhanBebanFak(periode=null,kodeNeraca=null){
     })
 }
 
-$('.nama-bulan').html(namaPeriode($filter_periode));
-getPertumbuhanBebanFak($filter_periode,$kd);
-getBebanFak($filter_periode,$kd);
-getDetailBeban($filter_periode,$kd);
+switch($dash_periode.type){
+    case '=':
+        var label = 'Periode '+namaPeriode($dash_periode.from);
+        if($dash_periode.from == ""){
+            if("{{ Session::get('periode') }}" != ""){
+                $dash_periode.from = "{{ Session::get('periode') }}";
+            }
+        }
+    break;
+    case '<=':
+        
+        var label = 'Periode s.d '+namaPeriode($dash_periode.from);
+        if($dash_periode.from == ""){
+            if("{{ Session::get('periode') }}" != ""){
+                $dash_periode.from = "{{ Session::get('periode') }}";
+            }
+        }
+    break;
+    case 'range':
+        
+        if($dash_periode.from == ""){
+            if("{{ Session::get('periode') }}" != ""){
+                $dash_periode.from = "{{ Session::get('periode') }}";
+            }
+        }
+    
+        if($dash_periode.to == ""){
+            if("{{ Session::get('periode') }}" != ""){
+                $dash_periode.to = "{{ Session::get('periode') }}";
+            }
+        }
+        var label = 'Periode '+namaPeriode($dash_periode.from)+' s.d '+namaPeriode($dash_periode.to);
+    
+    break;
+    default:
+        if($dash_periode.from == ""){
+            if("{{ Session::get('periode') }}" != ""){
+                $dash_periode.from = "{{ Session::get('periode') }}";
+            }
+        }
+    break;
+}
+$('.label-periode-filter').html(label);
+getPertumbuhanBebanFak($dash_periode,$kd);
+getBebanFak($dash_periode,$kd);
+getDetailBeban($dash_periode,$kd);
 
-$('.tahunIni').text($filter_periode.substr(0,4));
-$('.thnIni').text($filter_periode.substr(0,4));
+$('.tahunIni').text($dash_periode.from.substr(0,4));
+$('.thnIni').text($dash_periode.from.substr(0,4));
 
 $('.detail-beban').on('click','#btnBack',function(e){
     e.preventDefault();
