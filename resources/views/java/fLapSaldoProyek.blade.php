@@ -2,7 +2,7 @@
 <div class="row" id="saku-filter">
     <div class="col-12">
         <div class="card" >
-            <x-report-header judul="Laporan Kartu Proyek" padding="px-4 py-4"/>  
+            <x-report-header judul="Laporan Saldo Proyek" padding="px-4 py-4"/>  
             <div class="separator"></div>
             <div class="row">
                 <div class="col-12 col-sm-12">
@@ -27,7 +27,7 @@
         </div>
     </div>
 </div>
-<x-report-result judul="Laporan Kartu Proyek" padding="px-0 py-4"/>
+<x-report-result judul="Laporan Saldo Proyek" padding="px-0 py-4"/>
 @include('modal_search')
 @include('modal_email')
     
@@ -176,7 +176,7 @@
             console.log(pair[0]+ ', '+ pair[1]); 
         }
         $('#saku-report').removeClass('hidden');
-        xurl = "{{ url('java-auth/form/rptKartuProyek') }}";
+        xurl = "{{ url('java-auth/form/rptSaldoProyek') }}";
         $('#saku-report #canvasPreview').load(xurl);
     });
 
@@ -192,7 +192,7 @@
             console.log(pair[0]+ ', '+ pair[1]); 
         }
         $('#saku-report').removeClass('hidden');
-        xurl = "{{ url('java-auth/form/rptKartuProyek') }}";
+        xurl = "{{ url('java-auth/form/rptSaldoProyek') }}";
         $('#saku-report #canvasPreview').load(xurl);
     });
 
@@ -212,8 +212,8 @@
         e.preventDefault();
         $("#saku-report #canvasPreview").table2excel({
             // exclude: ".excludeThisClass",
-            name: "Lap_Kartu_Proyek_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}",
-            filename: "Lap_Kartu_Proyek_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}.xls", // do include extension
+            name: "Lap_Saldo_Proyek_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}",
+            filename: "Lap_Saldo_Proyek_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}.xls", // do include extension
             preserveColors: false // set to true if you want background colors and font colors preserved
         });
     });
