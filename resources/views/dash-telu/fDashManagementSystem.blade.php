@@ -785,6 +785,12 @@ function getPin(periode=null)
                     <td class='text-right text-success' >`+persen+`%</td>
                     </tr>`;   
                 }
+                html+=`<tr>
+                    <td class='bold'>Sub Total</td>
+                    <td class='text-right bold'>`+toMilyar(result.data.total_rka)+`</td>
+                    <td class='text-right bold'>`+toMilyar(result.data.total_real)+`</td>
+                    <td class='text-right bold text-success' ></td>
+                    </tr>`;  
             }
             $('.table-pin').html(html);
             
