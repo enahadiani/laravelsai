@@ -1053,10 +1053,35 @@
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
                     ],
-                    'query' => [
-                        'periode' => $request->periode,
-                        'mode' => $request->mode
-                    ]
+                    'query' => $request->all()
+                ]);
+    
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $data = json_decode($response_data,true);
+                    $data = $data["success"];
+                }
+                return response()->json($data, 200);
+                
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                return response()->json(['message' => $res, 'status'=>false], $response->getStatusCode());
+            }
+        }
+
+        public function msPengembanganRKADir(Request $request)
+        {
+            try{
+
+                $client = new Client();
+                $response = $client->request('GET', config('api.url').'ypt-dash/ms-pengembangan-rka-dir',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => $request->all()
                 ]);
     
                 if ($response->getStatusCode() == 200) { // 200 OK
@@ -1084,10 +1109,7 @@
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
                     ],
-                    'query' => [
-                        'periode' => $request->periode,
-                        'mode' => $request->mode
-                    ]
+                    'query' => $request->all()
                 ]);
     
                 if ($response->getStatusCode() == 200) { // 200 OK
@@ -1115,10 +1137,7 @@
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
                     ],
-                    'query' => [
-                        'periode' => $request->periode,
-                        'mode' => $request->mode
-                    ]
+                    'query' => $request->all()
                 ]);
     
                 if ($response->getStatusCode() == 200) { // 200 OK
@@ -1146,10 +1165,7 @@
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
                     ],
-                    'query' => [
-                        'periode' => $request->periode,
-                        'mode' => $request->mode
-                    ]
+                    'query' => $request->all()
                 ]);
     
                 if ($response->getStatusCode() == 200) { // 200 OK
@@ -1177,10 +1193,7 @@
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
                     ],
-                    'query' => [
-                        'periode' => $request->periode,
-                        'mode' => $request->mode
-                    ]
+                    'query' => $request->all()
                 ]);
     
                 if ($response->getStatusCode() == 200) { // 200 OK
@@ -1208,10 +1221,7 @@
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
                     ],
-                    'query' => [
-                        'periode' => $request->periode,
-                        'mode' => $request->mode
-                    ]
+                    'query' => $request->all()
                 ]);
     
                 if ($response->getStatusCode() == 200) { // 200 OK
@@ -1239,10 +1249,7 @@
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
                     ],
-                    'query' => [
-                        'periode' => $request->periode,
-                        'mode' => $request->mode
-                    ]
+                    'query' => $request->all()
                 ]);
     
                 if ($response->getStatusCode() == 200) { // 200 OK
@@ -1270,10 +1277,7 @@
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
                     ],
-                    'query' => [
-                        'periode' => $request->periode,
-                        'mode' => $request->mode
-                    ]
+                    'query' => $request->all()
                 ]);
     
                 if ($response->getStatusCode() == 200) { // 200 OK
@@ -1302,10 +1306,7 @@
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
                     ],
-                    'query' => [
-                        'periode' => $request->periode,
-                        'mode' => $request->mode
-                    ]
+                    'query' => $request->all()
                 ]);
     
                 if ($response->getStatusCode() == 200) { // 200 OK
@@ -1333,10 +1334,7 @@
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
                     ],
-                    'query' => [
-                        'periode' => $request->periode,
-                        'mode' => $request->mode
-                    ]
+                    'query' => $request->all()
                 ]);
     
                 if ($response->getStatusCode() == 200) { // 200 OK
@@ -1364,10 +1362,7 @@
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
                     ],
-                    'query' => [
-                        'periode' => $request->periode,
-                        'mode' => $request->mode
-                    ]
+                    'query' => $request->all()
                 ]);
     
                 if ($response->getStatusCode() == 200) { // 200 OK
@@ -1395,10 +1390,7 @@
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
                     ],
-                    'query' => [
-                        'periode' => $request->periode,
-                        'mode' => $request->mode
-                    ]
+                    'query' => $request->all()
                 ]);
     
                 if ($response->getStatusCode() == 200) { // 200 OK
@@ -1426,10 +1418,7 @@
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
                     ],
-                    'query' => [
-                        'periode' => $request->periode,
-                        'mode' => $request->mode
-                    ]
+                    'query' => $request->all()
                 ]);
     
                 if ($response->getStatusCode() == 200) { // 200 OK
