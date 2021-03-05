@@ -191,8 +191,11 @@ function singkatNilai(num){
 function getDataBebanJurusan(periode=null,kodeNeraca=null,kodeBidang=null,tahun=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/getDataBebanJurusan') }}/"+periode+"/"+kodeNeraca+"/"+kodeBidang+"/"+tahun,
+        url:"{{ url('/telu-dash/getDataBebanJurusan') }}",
         dataType:"JSON",
+        data:{ 'periode[0]' : periode.type,
+            'periode[1]' : periode.from,
+            'periode[2]' : periode.to, mode: $mode,'kode_neraca':kodeNeraca,'kode_bidang':kodeBidang,'tahun':tahun},
         success:function(result){
             var html='';
             for(var i=0;i<result.data.data.length;i++){
@@ -226,9 +229,11 @@ function getDataBebanJurusan(periode=null,kodeNeraca=null,kodeBidang=null,tahun=
 function getBebanJurusan(periode=null,kodeNeraca=null,kodeBidang=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/getBebanJurusan') }}/"+periode+"/"+kodeNeraca+"/"+kodeBidang,
+        url:"{{ url('/telu-dash/getBebanJurusan') }}",
         dataType:"JSON",
-        data:{ mode : $mode},
+        data:{ 'periode[0]' : periode.type,
+            'periode[1]' : periode.from,
+            'periode[2]' : periode.to, mode: $mode,'kode_neraca':kodeNeraca,'kode_bidang':kodeBidang},
         success:function(result){
             Highcharts.chart('bebanJur', {
                 chart: {
@@ -312,10 +317,54 @@ function getBebanJurusan(periode=null,kodeNeraca=null,kodeBidang=null){
     })
 }
 
-getBebanJurusan($filter_periode,$kd,$kd3)
-getDataBebanJurusan($filter_periode,$kd,$kd3,$filter_periode.substr(0,4))
 
-$('.nama-bulan').text(namaPeriode($filter_periode));
+
+switch($dash_periode.type){
+    case '=':
+        var label = 'Periode '+namaPeriode($dash_periode.from);
+        if($dash_periode.from == ""){
+            if("{{ Session::get('periode') }}" != ""){
+                $dash_periode.from = "{{ Session::get('periode') }}";
+            }
+        }
+    break;
+    case '<=':
+        
+        var label = 'Periode s.d '+namaPeriode($dash_periode.from);
+        if($dash_periode.from == ""){
+            if("{{ Session::get('periode') }}" != ""){
+                $dash_periode.from = "{{ Session::get('periode') }}";
+            }
+        }
+    break;
+    case 'range':
+        
+        if($dash_periode.from == ""){
+            if("{{ Session::get('periode') }}" != ""){
+                $dash_periode.from = "{{ Session::get('periode') }}";
+            }
+        }
+    
+        if($dash_periode.to == ""){
+            if("{{ Session::get('periode') }}" != ""){
+                $dash_periode.to = "{{ Session::get('periode') }}";
+            }
+        }
+        var label = 'Periode '+namaPeriode($dash_periode.from)+' s.d '+namaPeriode($dash_periode.to);
+    
+    break;
+    default:
+        if($dash_periode.from == ""){
+            if("{{ Session::get('periode') }}" != ""){
+                $dash_periode.from = "{{ Session::get('periode') }}";
+            }
+        }
+    break;
+}
+$('.label-periode-filter').html(label);
+getBebanJurusan($dash_periode,$kd,$kd3)
+getDataBebanJurusan($dash_periode,$kd,$kd3,$dash_periode.from.substr(0,4))
+
 $('.tahunPilih').text('20'+$kd2);
 $('.thnPilih').text($kd2);
 

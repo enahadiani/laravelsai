@@ -26,11 +26,11 @@ Route::get('/getOprNonOprBeban','DashTelu\DashboardController@getOprNonOprBeban'
 Route::get('/getPresentaseRkaRealisasiBeban','DashTelu\DashboardController@getPresentaseRkaRealisasiBeban');
 Route::get('/getPresentaseRkaRealisasiBebanRp','DashTelu\DashboardController@getPresentaseRkaRealisasiBebanRp');
 //Detail Beban 1
-Route::get('/getBebanFak/{periode}/{kodeNeraca}','DashTelu\DashboardController@getBebanFak');
-Route::get('/getDetailBeban/{periode}/{kodeNeraca}','DashTelu\DashboardController@getDetailBeban');
-//Detail Pendapatan 2
-Route::get('/getBebanJurusan/{periode}/{kodeNeraca}/{kodeBidang}','DashTelu\DashboardController@getBebanJurusan');
-Route::get('/getDataBebanJurusan/{periode}/{kodeNeraca}/{kodeBidang}/{tahun}','DashTelu\DashboardController@getDataBebanJurusan');
+Route::get('/getBebanFak','DashTelu\DashboardController@getBebanFak');
+Route::get('/getDetailBeban','DashTelu\DashboardController@getDetailBeban');
+//Detail Beban 2
+Route::get('/getBebanJurusan','DashTelu\DashboardController@getBebanJurusan');
+Route::get('/getDataBebanJurusan','DashTelu\DashboardController@getDataBebanJurusan');
 
 
 //BudgetComitee
@@ -75,6 +75,7 @@ Route::get('/kelola-keuangan','DashTelu\DashboardController@kelolaKeuangan');
 Route::get('/penjualan-pin','DashTelu\DashboardController@penjualanPin');
 
 Route::get('/ms-pengembangan-rka','DashTelu\DashboardController@msPengembanganRKA');
+Route::get('/ms-pengembangan-rka-dir','DashTelu\DashboardController@msPengembanganRKADir');
 Route::get('/ms-pengembangan-komposisi','DashTelu\DashboardController@msPengembanganKomposisi');
 
 Route::get('/laba-rugi-5tahun','DashTelu\DashboardController@getLabaRugi5Tahun');

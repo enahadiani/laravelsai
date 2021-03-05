@@ -74,18 +74,18 @@ $nik     = Session::get('userLog');
                         <h6 class="card-title col-md-9 col-sm-12 px-0">Presentase RKA VS Realisasi
                         </h6>
                         <ul role="tablist" style="border: none;" class="nav nav-tabs col-md-3 col-sm-12 px-0 justify-content-end">
-                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab3-rp" role="tab" aria-selected="false"><span class="hidden-xs-down"><b>Rp</b></span></a> </li>
-                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#tab3-persen" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>%</b></span></a> </li>
+                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#tab3-rp" role="tab" aria-selected="false"><span class="hidden-xs-down"><b>Rp</b></span></a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab3-persen" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>%</b></span></a> </li>
                         </ul>
                     </div>
                 </div>
                 <div class="card-body pt-1">
                     <p style='font-size:9px;font-style:italic;margin:0'>Klik bar untuk melihat detail</p>
                     <div class="tab-content tabcontent-border p-0">
-                        <div class="tab-pane active" id="tab3-persen" role="tabpanel">
+                        <div class="tab-pane" id="tab3-persen" role="tabpanel">
                             <div id='rkaVSreal' style='height:350px'></div>
                         </div>
-                        <div class="tab-pane" id="tab3-rp" role="tabpanel">
+                        <div class="tab-pane active" id="tab3-rp" role="tabpanel">
                             <div id='rkaVSrealRp' style='height:350px'></div>
                         </div>
                     </div>
@@ -99,18 +99,18 @@ $nik     = Session::get('userLog');
                         <h6 class="card-title col-md-9 col-sm-12 px-0">Komposisi Pendapatan
                         </h6>
                         <ul role="tablist" style="border: none;" class="nav nav-tabs col-md-3 col-sm-12 px-0 justify-content-end">
-                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab4-rp" role="tab" aria-selected="false"><span class="hidden-xs-down"><b>Rp</b></span></a> </li>
-                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#tab4-persen" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>%</b></span></a> </li>
+                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#tab4-rp" role="tab" aria-selected="false"><span class="hidden-xs-down"><b>Rp</b></span></a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab4-persen" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>%</b></span></a> </li>
                         </ul>
                     </div>
                 </div>
                 <div class="card-body pt-0">
                     <div class="tab-content tabcontent-border p-0">
-                        <div class="tab-pane active" id="tab4-persen" role="tabpanel">
+                        <div class="tab-pane" id="tab4-persen" role="tabpanel">
                             <div id='komposisi' style='height:350px'>
                             </div>
                         </div>
-                        <div class="tab-pane" id="tab4-rp" role="tabpanel">
+                        <div class="tab-pane active" id="tab4-rp" role="tabpanel">
                             <div id='komposisiRp' style='height:350px'></div>
                         </div>
                     </div>
@@ -690,7 +690,7 @@ $.ajax({
                         }
                     },
                     size:'110%',
-                    showInLegend: true
+                    showInLegend: false
                 }
             },
             series: [{

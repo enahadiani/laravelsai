@@ -30,37 +30,14 @@
         <div class="col-lg-6 col-12 mb-4">
             <div class="card dash-card">
                 <div class="card-header">
-                    <h6 class="card-title">Realisasi Growth PDPT, Beban, SHU, Beban SDM</h6>
-                    <span style="font-size:12px">Tahun <span class="rentang-tahun"></span></span>
-                </div>
-                <div class="card-body">
-                    <div id="trend2"></div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-6 col-12 mb-4">
-            <div class="card dash-card">
-                <div class="card-header">
-                    <h6 class="card-title">Realisasi Growth Tuition Fee - NON Tuition Fee</h6>
-                    <span style="font-size:12px">Tahun <span class="rentang-tahun"></span></span>
-                </div>
-                <div class="card-body">
-                    <div id="trend4"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row" >
-        <div class="col-lg-6 col-12 mb-4">
-            <div class="card dash-card">
-                <div class="card-header">
                     <div class="row mx-0">
-                        <h6 class="card-title col-md-9 col-sm-12 px-0">Realisasi PDPT, Beban, SHU, Beban SDM
+                        <h6 class="card-title col-md-8 col-sm-12 px-0">Realisasi Growth PDPT, Beban, SHU, Beban SDM
                         <br> <span style="font-size:12px">Tahun <span class="rentang-tahun"></span></span>
                         </h6>
-                        <ul role="tablist" style="border: none;" class="nav nav-tabs col-md-3 col-sm-12 px-0 justify-content-end">
+                        <ul role="tablist" style="border: none;" class="nav nav-tabs col-md-4 col-sm-12 px-0 justify-content-end">
                             <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#tab3-rp" role="tab" aria-selected="false"><span class="hidden-xs-down"><b>Rp</b></span></a> </li>
                             <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab3-persen" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>%</b></span></a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab3-growth" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>Growth</b></span></a> </li>
                         </ul>
                     </div>
                 </div>
@@ -72,6 +49,9 @@
                         <div class="tab-pane" id="tab3-persen" role="tabpanel">
                             <div id="trend1-persen"></div>
                         </div>
+                        <div class="tab-pane" id="tab3-growth" role="tabpanel">
+                            <div id="trend2"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -80,12 +60,13 @@
             <div class="card dash-card">
                 <div class="card-header">
                     <div class="row mx-0">
-                        <h6 class="card-title col-md-9 col-sm-12 px-0">Realisasi Tuition Fee - Non Tuition Fee
+                        <h6 class="card-title col-md-8 col-sm-12 px-0">Realisasi Growth Tuition Fee - NON Tuition Fee
                         <br> <span style="font-size:12px">Tahun <span class="rentang-tahun"></span></span>
                         </h6>
-                        <ul role="tablist" style="border: none;" class="nav nav-tabs col-md-3 col-sm-12 px-0 justify-content-end">
+                        <ul role="tablist" style="border: none;" class="nav nav-tabs col-md-4 col-sm-12 px-0 justify-content-end">
                             <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#tab4-rp" role="tab" aria-selected="false"><span class="hidden-xs-down"><b>Rp</b></span></a> </li>
                             <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab4-persen" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>%</b></span></a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab4-growth" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>Growth</b></span></a> </li>
                         </ul>
                     </div>
                 </div>
@@ -96,6 +77,9 @@
                         </div>
                         <div class="tab-pane" id="tab4-persen" role="tabpanel">
                             <div id="trend3-persen"></div>
+                        </div>
+                        <div class="tab-pane" id="tab4-growth" role="tabpanel">
+                            <div id="trend4"></div>
                         </div>
                     </div>
                 </div>

@@ -714,7 +714,7 @@ function getKomposisiBeban(periode=null){
 function getKomposisiBebanRp(periode=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/getKomposisiBeban') }}/"+periode,
+        url:"{{ url('/telu-dash/getKomposisiBeban') }}",
         dataType:"JSON",
         data:{'periode[0]' : periode.type,
             'periode[1]' : periode.from,

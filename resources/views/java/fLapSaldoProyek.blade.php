@@ -2,7 +2,7 @@
 <div class="row" id="saku-filter">
     <div class="col-12">
         <div class="card" >
-            <x-report-header judul="Laporan Kartu Proyek" padding="px-4 py-4"/>  
+            <x-report-header judul="Laporan Saldo Proyek" padding="px-4 py-4"/>  
             <div class="separator"></div>
             <div class="row">
                 <div class="col-12 col-sm-12">
@@ -12,8 +12,8 @@
                                 <h6>Filter</h6>
                                 <div id="inputFilter">
                                     <!-- COMPONENT -->
-                                    <x-inp-filter kode="kode_cust" nama="Vendor" selected="3" :option="array('3')"/>
                                     <x-inp-filter kode="no_proyek" nama="No Proyek" selected="3" :option="array('3')"/>
+                                    <x-inp-filter kode="kode_cust" nama="Vendor" selected="3" :option="array('3')"/>
                                     <!-- END COMPONENT -->
                                 </div>
                                 <button id="btn-tampil" style="float:right;width:110px" class="btn btn-primary ml-2 mb-3" type="submit" >Tampilkan</button>
@@ -27,7 +27,7 @@
         </div>
     </div>
 </div>
-<x-report-result judul="Laporan Kartu Proyek" padding="px-0 py-4"/>
+<x-report-result judul="Laporan Saldo Proyek" padding="px-0 py-4"/>
 @include('modal_search')
 @include('modal_email')
     
@@ -129,7 +129,12 @@
                 ]
             ],
             url :["{{ url('java-report/filter-kartu-tagihan') }}"],
-            parameter:[],
+            parameter:[
+                {
+                    kode: $kode_cust.from
+                },
+                {}
+            ],
             orderby:[[]],
             width:[['30%','70%']],
             display:['kode'],
@@ -153,9 +158,7 @@
                     ]
                 ],
                 url :["{{ url('java-report/filter-kartu-tagihan') }}", "{{ url('java-trans/customer') }}"],
-                parameter:[{
-                    kode: $kode_cust.from
-                },{}],
+                parameter:[],
                 orderby:[[],[]],
                 width:[['30%','70%'],['30%','70%']],
                 display:['kode', 'kode'],
@@ -178,7 +181,7 @@
             console.log(pair[0]+ ', '+ pair[1]); 
         }
         $('#saku-report').removeClass('hidden');
-        xurl = "{{ url('java-auth/form/rptKartuProyek') }}";
+        xurl = "{{ url('java-auth/form/rptSaldoProyek') }}";
         $('#saku-report #canvasPreview').load(xurl);
     });
 
@@ -194,9 +197,63 @@
             console.log(pair[0]+ ', '+ pair[1]); 
         }
         $('#saku-report').removeClass('hidden');
-        xurl = "{{ url('java-auth/form/rptKartuProyek') }}";
+        xurl = "{{ url('java-auth/form/rptSaldoProyek') }}";
         $('#saku-report #canvasPreview').load(xurl);
     });
+
+    $('#saku-report #canvasPreview').on('click', '.kartuproyek', function(e){
+        e.preventDefault();
+        var no_proyek = $(this).data('no_proyek');
+        var kode_cust = $kode_cust.from;
+        var back = true;
+            
+        $formData.delete('no_proyek[]');
+        $formData.delete('kode_cust[]');
+        $formData.append('no_proyek[]', "=");
+        $formData.append('no_proyek[]', no_proyek);
+        $formData.append('kode_akun[]', "");
+        $formData.append('kode_cust[]', "=");
+        $formData.append('kode_cust[]', kode_cust);
+        $formData.append('kode_cust[]', "");
+
+        $formData.delete('back');
+        $formData.append('back', back);
+        $('.breadcrumb').html('');
+        $('.breadcrumb').append(`
+            <li class="breadcrumb-item">
+                <a href="#" class="klik-report" data-href="saldo-proyek" aria-param="">Laporan Saldo Proyek</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="kartu-proyek" aria-param="`+no_proyek+`">Laporan Kartu Proyek</li>
+        `);
+        xurl ="java-auth/form/rptKartuProyek";
+        $('#saku-report #canvasPreview').load(xurl);
+    });
+
+    $('.navigation-lap').on('click', '#btn-back', function(e){
+            e.preventDefault();
+            $formData.delete('kode_cust[]');
+            $formData.append("kode_cust[]",$kode_cust.type);
+            $formData.append("kode_cust[]",$kode_cust.from);
+            $formData.append("kode_cust[]",$kode_cust.to);
+
+            var aktif = $('.breadcrumb-item.active').attr('aria-current');
+            var tmp = $('.breadcrumb-item.active').attr('aria-param').split("|");
+            var param = tmp[0];
+            if(aktif == "kartu-proyek"){
+                $formData.delete('back');
+                $formData.delete('no_proyek[]');
+                $formData.append("no_proyek[]",$no_proyek.type);
+                $formData.append("no_proyek[]",$no_proyek.from);
+                $formData.append("no_proyek[]",$no_proyek.to);
+                xurl = "java-auth/form/rptSaldoProyek";
+                $('.breadcrumb').html('');
+                $('.breadcrumb').append(`
+                    <li class="breadcrumb-item active" aria-current="saldo-proyek" aria-param="">Laporan Saldo Proyek</li>
+                `);
+                $('.navigation-lap').addClass('hidden');
+            }
+            $('#saku-report #canvasPreview').load(xurl);
+        });
 
     $('#sai-rpt-print').click(function(){
         $('#saku-report #canvasPreview').printThis({
@@ -214,8 +271,8 @@
         e.preventDefault();
         $("#saku-report #canvasPreview").table2excel({
             // exclude: ".excludeThisClass",
-            name: "Lap_Kartu_Proyek_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}",
-            filename: "Lap_Kartu_Proyek_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}.xls", // do include extension
+            name: "Lap_Saldo_Proyek_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}",
+            filename: "Lap_Saldo_Proyek_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}.xls", // do include extension
             preserveColors: false // set to true if you want background colors and font colors preserved
         });
     });
