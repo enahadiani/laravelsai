@@ -13,6 +13,7 @@
                                 <div id="inputFilter">
                                     <!-- COMPONENT -->
                                     <x-inp-filter kode="no_proyek" nama="No Proyek" selected="3" :option="array('3')"/>
+                                    <x-inp-filter kode="kode_cust" nama="Vendor" selected="3" :option="array('3')"/>
                                     <!-- END COMPONENT -->
                                 </div>
                                 <button id="btn-tampil" style="float:right;width:110px" class="btn btn-primary ml-2 mb-3" type="submit" >Tampilkan</button>
@@ -50,6 +51,14 @@
         toname : "",
     }
 
+    var $kode_cust = {
+        type : "=",
+        from : "",
+        fromname : "",
+        to : "",
+        toname : "",
+    }
+
     $.ajax({
         type: 'GET',
         url: "{{ url('java-report/filter-kartu-tagihan') }}",
@@ -60,6 +69,19 @@
             $no_proyek.from = initial;
             $no_proyek.fromname = initial;
             $('#no_proyek-from').val(initial);
+        }
+    })
+
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('java-trans/customer') }}",
+        dataType: 'json',
+        async:false,
+        success: function(result) {
+            var initial = result.daftar[0].kode_cust;
+            $kode_cust.from = initial;
+            $kode_cust.fromname = initial;
+            $('#kode_cust-from').val(initial);
         }
     })
 
@@ -116,22 +138,26 @@
     $('#inputFilter').on('change','input',function(e){
         setTimeout(() => {
             $('#inputFilter').reportFilter({
-            kode : ['no_proyek'],
-            nama : ['No Proyek'],
-                header : [['No Proyek', 'Keterangan']],
-                headerpilih : [['No Proyek', 'Keterangan','Action']],
+            kode : ['no_proyek', 'kode_cust'],
+            nama : ['No Proyek', 'Kode Vendor'],
+                header : [['No Proyek', 'Keterangan'], ['Kode Vendor', 'Nama']],
+                headerpilih : [['No Proyek', 'Keterangan','Action'], ['Kode Vendor', 'Nama','Action']],
                 columns: [
                     [
                         { data: 'no_proyek' },
                         { data: 'keterangan' }
+                    ],
+                    [
+                        { data: 'kode_cust' },
+                        { data: 'nama' }
                     ]
                 ],
-                url :["{{ url('java-report/filter-kartu-tagihan') }}"],
+                url :["{{ url('java-report/filter-kartu-tagihan') }}", "{{ url('java-trans/customer') }}"],
                 parameter:[],
-                orderby:[[]],
-                width:[['30%','70%']],
-                display:['kode'],
-                pageLength:[10]
+                orderby:[[],[]],
+                width:[['30%','70%'],['30%','70%']],
+                display:['kode', 'kode'],
+                pageLength:[10, 10]
             });
         }, 500)
     });
@@ -142,7 +168,10 @@
         $formData = new FormData();
         $formData.append("no_proyek[]",$no_proyek.type);
         $formData.append("no_proyek[]",$no_proyek.from);
-        $formData.append("proyek[]",$no_proyek.to);
+        $formData.append("no_proyek[]",$no_proyek.to);
+        $formData.append("kode_cust[]",$kode_cust.type);
+        $formData.append("kode_cust[]",$kode_cust.from);
+        $formData.append("kode_cust[]",$kode_cust.to);
         for(var pair of $formData.entries()) {
             console.log(pair[0]+ ', '+ pair[1]); 
         }
@@ -155,7 +184,10 @@
         $formData = new FormData();
         $formData.append("no_proyek[]",$no_proyek.type);
         $formData.append("no_proyek[]",$no_proyek.from);
-        $formData.append("proyek[]",$no_proyek.to);
+        $formData.append("no_proyek[]",$no_proyek.to);
+        $formData.append("kode_cust[]",$kode_cust.type);
+        $formData.append("kode_cust[]",$kode_cust.from);
+        $formData.append("kode_cust[]",$kode_cust.to);
         for(var pair of $formData.entries()) {
             console.log(pair[0]+ ', '+ pair[1]); 
         }
