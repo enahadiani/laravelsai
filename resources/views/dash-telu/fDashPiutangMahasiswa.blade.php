@@ -15,7 +15,7 @@ $thnLalu = substr($tahunLalu,2,2)
     <div class="row">
         <div class="col-12">
             <h6 class="mb-0 bold">Piutang Mahasiswa</h6>
-            <a class="btn" href="#" id="btn-filter" style="position: absolute;right: 15px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-equalizer" style="transform-style: ;"></i> &nbsp;&nbsp; Filter</a>
+            <a class="btn btn-outline-light" href="#" id="btn-filter" style="position: absolute;right: 15px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-equalizer" style="transform-style: ;"></i> &nbsp;&nbsp; Filter</a>
             <p>Periode <span id="tanggal-1">10 Januari 2021</span> - <span id="tanggal-2">10 Februari 2021</span></p>
         </div>
     </div>
@@ -191,12 +191,213 @@ $thnLalu = substr($tahunLalu,2,2)
             </div>
         </div>
     </div>
+    <div class="modal fade modal-right" id="modalFilter" tabindex="-1" role="dialog"
+    aria-labelledby="modalFilter" aria-hidden="true">
+        <div class="modal-dialog" role="document" style="max-width: 480px;">
+            <div class="modal-content">
+                <form id="form-filter">
+                    <div class="modal-header pb-0" style="border:none">
+                        <h6 class="modal-title pl-0">Filter</h6>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" style="border:none">
+                        <div class="form-group row dash-filter">
+                            <p class="dash-kunci" hidden>dash_periode</p> 
+                            <label class="col-md-12">Periode</label>
+                            <div class="col-md-4">
+                                <select class="form-control dash-filter-type" data-width="100%" name="periode[]" id="periode_type">
+                                    <option value='' disabled>Pilih</option>
+                                    <option value='='>=</option>
+                                    <option value='<='><=</option>
+                                    <option value='range'>Range</option>
+                                </select>
+                            </div>
+                            <div class="col-md-8 dash-filter-from">
+                                <select class="form-control" data-width="100%" name="periode[]" id="periode_from">
+                                    <option value='' disabled>Pilih</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4 dash-filter-to">
+                                <select class="form-control" data-width="100%" name="periode[]" id="periode_to">
+                                    <option value='' disabled>Pilih</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="border:none;position:absolute;bottom:0;justify-content:flex-end;width:100%">
+                        <button type="button" class="btn btn-outline-primary" id="btn-reset">Reset</button>
+                        <button type="submit" class="btn btn-primary">Tampilkan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script type="text/javascript">
 $('body').addClass('dash-contents');
 $('html').addClass('dash-contents');
+if(localStorage.getItem("dore-theme") == "dark"){
+    $('#btn-filter').removeClass('btn-outline-light');
+    $('#btn-filter').addClass('btn-outline-dark');
+}else{
+    $('#btn-filter').removeClass('btn-outline-dark');
+    $('#btn-filter').addClass('btn-outline-light');
+}
+var $mode = localStorage.getItem("dore-theme");
 
+function getPeriode(){
+    $.ajax({
+        type:"GET",
+        url:"{{ url('/telu-dash/periode') }}",
+        dataType: "JSON",
+        success: function(result){
+            $('#periode_type').selectize();
+            var select = $("#periode_from").selectize();
+            select = select[0];
+            var control = select.selectize;
+
+            var select2 = $("#periode_to").selectize();
+            select2 = select2[0];
+            var control2 = select2.selectize;
+            if(result.data.status){
+                if(typeof result.data.data !== 'undefined' && result.data.data.length>0){
+                    for(i=0;i<result.data.data.length;i++){
+                        control.addOption([{text:result.data.data[i].periode, value:result.data.data[i].periode}]);
+                        control2.addOption([{text:result.data.data[i].periode, value:result.data.data[i].periode}]);
+                    }
+                }
+
+                $('#periode_to').closest('div.dash-filter-to').hide();
+                $('#periode_from').closest('div.dash-filter-from').removeClass('col-md-4').addClass('col-md-8');
+
+                if($dash_periode.type == ""){
+                    $dash_periode.type = "=";
+                }
+                
+                $('#periode_type')[0].selectize.setValue($dash_periode.type);
+
+                
+                switch($dash_periode.type){
+                    case '=':
+                        var label = 'Periode '+namaPeriode($dash_periode.from);
+                        if($dash_periode.from == ""){
+                            if("{{ Session::get('periode') }}" != ""){
+                                control.setValue("{{ Session::get('periode') }}");
+                                $dash_periode.from = "{{ Session::get('periode') }}";
+                            }
+                        }else{
+                            control.setValue($dash_periode.from);
+                        }
+                        control2.setValue('');
+                    break;
+                    case '<=':
+                        
+                        var label = 'Periode s.d '+namaPeriode($dash_periode.from);
+                        if($dash_periode.from == ""){
+                            if("{{ Session::get('periode') }}" != ""){
+                                control.setValue("{{ Session::get('periode') }}");
+                                $dash_periode.from = "{{ Session::get('periode') }}";
+                            }
+                        }else{
+                            control.setValue($dash_periode.from);
+                        }
+                        control2.setValue('');
+                    break;
+                    case 'range':
+                        
+                        if($dash_periode.from == ""){
+                            if("{{ Session::get('periode') }}" != ""){
+                                control.setValue("{{ Session::get('periode') }}");
+                                $dash_periode.from = "{{ Session::get('periode') }}";
+                            }
+                        }else{
+                            control.setValue($dash_periode.from);
+                        }
+        
+                        if($dash_periode.to == ""){
+                            if("{{ Session::get('periode') }}" != ""){
+                                control.setValue("{{ Session::get('periode') }}");
+                                $dash_periode.to = "{{ Session::get('periode') }}";
+                            }
+                        }else{
+                            control2.setValue($dash_periode.to);
+                        }
+                        var label = 'Periode '+namaPeriode($dash_periode.from)+' s.d '+namaPeriode($dash_periode.to);
+
+                    break;
+                    default:
+                        if($dash_periode.from == ""){
+                            if("{{ Session::get('periode') }}" != ""){
+                                control.setValue("{{ Session::get('periode') }}");
+                                $dash_periode.from = "{{ Session::get('periode') }}";
+                            }
+                        }else{
+                            control.setValue($dash_periode.from);
+                        }
+                        control2.setValue('');
+                    break;
+                }
+                $('.label-periode-filter').html(label);
+                // var tahun = $dash_periode.from.substr(0,4);
+                // var tahunLima = parseInt(tahun)-5;
+                // $('.rentang-tahun').html(tahunLima +' - '+tahun);
+                // getSHU($dash_periode);
+                        
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {       
+            if(jqXHR.status == 422){
+                var msg = jqXHR.responseText;
+            }else if(jqXHR.status == 500) {
+                var msg = "Internal server error";
+            }else if(jqXHR.status == 401){
+                var msg = "Unauthorized";
+                window.location="{{ url('/dash-telu/sesi-habis') }}";
+            }else if(jqXHR.status == 405){
+                var msg = "Route not valid. Page not found";
+            }
+            
+        }
+    });
+}
+
+getPeriode();
+
+$('.dash-filter').on('change', '.dash-filter-type', function(){
+    var type = $(this).val();
+    var kunci = $(this).closest('div.dash-filter').find('.dash-kunci').text();
+    var tmp = kunci.split("_");
+    var kunci2 = tmp[1];
+    var field = eval('$'+kunci);
+    console.log(type,kunci,kunci2);
+    switch(type){
+        case "=": 
+        case "<=":
+            $(this).closest('div.dash-filter').find('.dash-filter-from').removeClass('col-md-4');
+            $(this).closest('div.dash-filter').find('.dash-filter-from').addClass('col-md-8');
+            $(this).closest('div.dash-filter').find('.dash-filter-from #'+kunci2+"_from")[0].selectize.setValue(field.from);
+            $(this).closest('div.dash-filter').find('.dash-filter-to').hide();
+            field.type = type;
+            field.from = field.from;
+            field.to = "";
+        break;
+        case "range":
+            
+            field.type = type;
+            field.from = field.from;
+            field.to = field.to;
+            
+            $(this).closest('div.dash-filter').find('.dash-filter-from').removeClass('col-md-8');
+            $(this).closest('div.dash-filter').find('.dash-filter-from').addClass('col-md-4');
+            $(this).closest('div.dash-filter').find('.dash-filter-from #'+kunci2+"_from")[0].selectize.setValue(field.from);
+            $(this).closest('div.dash-filter').find('.dash-filter-to #'+kunci2+"_to")[0].selectize.setValue(field.to);
+            $(this).closest('div.dash-filter').find('.dash-filter-to').show();
+        break;
+    }
+});
 Highcharts.SVGRenderer.prototype.symbols['c-rect'] = function (x, y, w, h) {
     return ['M', x, y + h / 2, 'L', x + w, y + h / 2];
 };
@@ -599,5 +800,21 @@ Highcharts.chart('chart-piutang', Highcharts.merge(
             }
         ]
     }
-))
+));
+
+$('#btn-reset').click(function(e){
+    e.preventDefault();
+    $('#periode')[0].selectize.setValue('');
+    
+});
+   
+$('#btn-filter').click(function(){
+    $('#modalFilter').modal('show');
+});
+
+$("#btn-close").on("click", function (event) {
+    event.preventDefault();
+    
+    $('#modalFilter').modal('hide');
+});
 </script>
