@@ -659,7 +659,7 @@ function getDebt(periode=null)
                     }
                     html+=`<tr>
                     <td>`+line.nama+`</td>
-                    <td class='text-right'>`+real_lalu+`</td>
+                    <td class='text-right'>`+real+`</td>
                     <td class='text-right'>`+sepNum(persen)+`%</td>
                     <td class='text-right text-success' >`+sepNumPas(line.yoy)+`%</td>
                     </tr>`;   
@@ -715,13 +715,31 @@ function getKelola(periode=null)
                 for(var i=0;i<result.data.data.length;i++)
                 {
                     var line = result.data.data[i];
+                    
+                    var real = toMilyar(parseFloat(line.real));
+                    var real_lalu = toMilyar(parseFloat(line.real_lalu));
+                    
+                    if(i == 0){
+                        var bulan = $dash_periode.from.substr(4,2);
+                        var thn_ini = parseInt($dash_periode.from.substr(0,4));
+                        var thn_lalu = thn_ini-1;
+                        html+=`<tr>
+                        <td></td>
+                        <td class='text-center'>`+thn_ini+''+bulan+`</td>
+                        <td class='text-center'>YoY</td>
+                        </tr>`;   
+                    }
                     html+=`<tr>
-                        <td>`+line.nama+`</td>
-                        <td class='text-right'>`+toMilyar(parseFloat(line.real))+`</td>
-                        </tr>`; 
-                      
-
+                    <td>`+line.nama+`</td>
+                    <td class='text-right'>`+real+`</td>
+                    <td class='text-right text-success' >`+sepNumPas(line.yoy)+`%</td>
+                    </tr>`;   
                 }
+                html+=`<tr>
+                    <td class='bold'>Sub Total</td>
+                    <td class='text-right bold'>`+toMilyar(result.data.total)+`</td>
+                    <td class='text-right bold text-success' ></td>
+                    </tr>`;  
             }
             $('.table-kelola').html(html);
             $('.card-keuangan').animate({
