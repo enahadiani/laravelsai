@@ -129,7 +129,12 @@
                 ]
             ],
             url :["{{ url('java-report/filter-kartu-tagihan') }}"],
-            parameter:[],
+            parameter:[
+                {
+                    kode: $kode_cust.from
+                },
+                {}
+            ],
             orderby:[[]],
             width:[['30%','70%']],
             display:['kode'],

@@ -58,7 +58,8 @@ class LaporanController extends Controller {
                     'Accept'     => 'application/json',
                 ],
                 'query' => [
-                    'no_proyek' => $request->no_proyek
+                    'no_proyek' => $request->no_proyek,
+                    'kode_cust' => $request->kode_cust
                 ]
             ]);
 
