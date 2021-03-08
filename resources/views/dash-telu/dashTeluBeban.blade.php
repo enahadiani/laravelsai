@@ -186,7 +186,8 @@ if(localStorage.getItem("dore-theme") == "dark"){
     $('#btn-filter').addClass('btn-outline-light');
 }
 var $mode = localStorage.getItem("dore-theme");
-var $kd = "";
+$kd = "";
+$kd_grafik = "";
 function sepNum(x){
     if(!isNaN(x)){
         if (typeof x === undefined || !x || x == 0) { 
@@ -466,7 +467,9 @@ function getPresentaseRkaRealisasi(periode=null){
                         //point
                         point: {
                             events: {
-                                click: function() {  
+                                click: function() { 
+                                    
+                                    $form_back = "dashTeluBeban"; 
                                     $kd= this.options.key;
                                     var url = "{{ url('/dash-telu/form/dashTeluBebanDet') }}";
                                     loadForm(url)
@@ -539,6 +542,8 @@ function getPresentaseRkaRealisasi(periode=null){
                         point: {
                             events: {
                                 click: function() {  
+                                    
+                                    $form_back = "dashTeluBeban";
                                     $kd= this.options.key;
                                     var url = "{{ url('/dash-telu/form/dashTeluBebanDet') }}";
                                     loadForm(url)
@@ -650,6 +655,8 @@ function getPresentaseRkaRealisasiRp(periode=null){
                         point: {
                             events: {
                                 click: function() {  
+                                    
+                                    $form_back = "dashTeluBeban";
                                     $kd= this.options.key;
                                     var url = "{{ url('/dash-telu/form/dashTeluBebanDet') }}";
                                     loadForm(url)
@@ -728,7 +735,9 @@ function getPresentaseRkaRealisasiRp(periode=null){
                         //point
                         point: {
                             events: {
-                                click: function() {  
+                                click: function() {
+                                    
+                                    $form_back = "dashTeluBeban";  
                                     $kd= this.options.key;
                                     var url = "{{ url('/dash-telu/form/dashTeluBebanDet') }}";
                                     loadForm(url)

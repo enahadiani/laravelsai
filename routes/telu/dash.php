@@ -27,7 +27,9 @@ Route::get('/getPresentaseRkaRealisasiBeban','DashTelu\DashboardController@getPr
 Route::get('/getPresentaseRkaRealisasiBebanRp','DashTelu\DashboardController@getPresentaseRkaRealisasiBebanRp');
 //Detail Beban 1
 Route::get('/getBebanFak','DashTelu\DashboardController@getBebanFak');
+Route::get('/getBebanFakNon','DashTelu\DashboardController@getBebanFakNon');
 Route::get('/getDetailBeban','DashTelu\DashboardController@getDetailBeban');
+Route::get('/getDetailBebanNon','DashTelu\DashboardController@getDetailBebanNon');
 //Detail Beban 2
 Route::get('/getBebanJurusan','DashTelu\DashboardController@getBebanJurusan');
 Route::get('/getDataBebanJurusan','DashTelu\DashboardController@getDataBebanJurusan');

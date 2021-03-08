@@ -134,6 +134,9 @@
     <script>
         var $public_asset = "{{ asset('asset_dore') }}/";
         var $filter_periode = "";
+        var $form_back = "";
+        var $kd_grafik = "";
+        var $kd = "";
         var $dash_periode = {
             type : "",
             from : "",
