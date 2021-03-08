@@ -84,32 +84,38 @@ class CustomerController extends Controller
             'nama' => 'required',
             'no_telp' => 'required',
             'email' => 'required',
-            'alamat' => 'required',
-            'kode_pos' => 'required',
-            'kecamatan' => 'required',
-            'kota' => 'required',
-            'negara' => 'required',
-            'pic' => 'required',
-            'no_telp_pic' => 'required',
-            'email_pic' => 'required',
+            // 'alamat' => 'required',
+            // 'kode_pos' => 'required',
+            // 'kecamatan' => 'required',
+            // 'kota' => 'required',
+            // 'negara' => 'required',
+            // 'pic' => 'required',
+            // 'no_telp_pic' => 'required',
+            // 'email_pic' => 'required',
             'akun_piutang' => 'required',
-            'no_rek' => 'required|array',
-            'nama_rek' => 'required|array',
-            'bank' => 'required|array',
-            'cabang' => 'required|array',
+            // 'no_rek' => 'required|array',
+            // 'nama_rek' => 'required|array',
+            // 'bank' => 'required|array',
+            // 'cabang' => 'required|array',
         ]);
 
-        try {   
+        try {
             $no_rek = array();
             $nama_rek = array();
             $bank = array();
             $cabang = array();
-            for($i=0;$i<count($request->input('no_rek'));$i++) {
-                array_push($no_rek, $request->input('no_rek')[$i]);
-                array_push($nama_rek, $request->input('nama_rek')[$i]);
-                array_push($bank, $request->input('bank')[$i]);
-                array_push($cabang, $request->input('cabang')[$i]);
+            if($request->input('no_rek') !== null) {
+                if(count($request->input('no_rek')) > 0) {
+                    for($i=0;$i<count($request->input('no_rek'));$i++) {
+                        array_push($no_rek, $request->input('no_rek')[$i]);
+                        array_push($nama_rek, $request->input('nama_rek')[$i]);
+                        array_push($bank, $request->input('bank')[$i]);
+                        array_push($cabang, $request->input('cabang')[$i]);
+                    }
+                }
             }
+
+            var_dump($no_rek);
 
             $form = array(
                 'kode_customer' => $request->input('kode_customer'),
@@ -117,14 +123,14 @@ class CustomerController extends Controller
                 'no_telp' => $request->input('no_telp'),
                 'email' => $request->input('email'),
                 'alamat' => $request->input('alamat'),
-                'kode_pos' => $request->input('kode_pos'),
-                'kecamatan' => $request->input('kecamatan'),
-                'kota' => $request->input('kota'),
-                'negara' => $request->input('negara'),
-                'pic' => $request->input('pic'),
-                'no_telp_pic' => $request->input('no_telp_pic'),
-                'email_pic' => $request->input('email_pic'),
-                'akun_piutang' => $request->input('akun_piutang'),
+                'kode_pos' => $request->input('kode_pos') !== '' ? $request->input('kode_pos') : '-',
+                'kecamatan' => $request->input('kecamatan') !== '' ? $request->input('kecamatan') : '-',
+                'kota' => $request->input('kota') !== '' ? $request->input('kota') : '-',
+                'negara' => $request->input('negara') !== '' ? $request->input('negara') : '-',
+                'pic' => $request->input('pic') !== '' ? $request->input('pic') : '-',
+                'no_telp_pic' => $request->input('no_telp_pic') !== '' ? $request->input('no_telp_pic') : '-',
+                'email_pic' => $request->input('email_pic') !== '' ? $request->input('email_pic') : '-',
+                'akun_piutang' => $request->input('akun_piutang') !== '' ? $request->input('akun_piutang') : '-',
                 'no_rek' => $no_rek,
                 'nama_rek' => $nama_rek,
                 'bank' => $bank,
@@ -186,19 +192,19 @@ class CustomerController extends Controller
             'nama' => 'required',
             'no_telp' => 'required',
             'email' => 'required',
-            'alamat' => 'required',
-            'kode_pos' => 'required',
-            'kecamatan' => 'required',
-            'kota' => 'required',
-            'negara' => 'required',
-            'pic' => 'required',
-            'no_telp_pic' => 'required',
-            'email_pic' => 'required',
+            // 'alamat' => 'required',
+            // 'kode_pos' => 'required',
+            // 'kecamatan' => 'required',
+            // 'kota' => 'required',
+            // 'negara' => 'required',
+            // 'pic' => 'required',
+            // 'no_telp_pic' => 'required',
+            // 'email_pic' => 'required',
             'akun_piutang' => 'required',
-            'no_rek' => 'required|array',
-            'nama_rek' => 'required|array',
-            'bank' => 'required|array',
-            'cabang' => 'required|array',
+            // 'no_rek' => 'required|array',
+            // 'nama_rek' => 'required|array',
+            // 'bank' => 'required|array',
+            // 'cabang' => 'required|array',
         ]);
 
         try {   
@@ -219,14 +225,14 @@ class CustomerController extends Controller
                 'no_telp' => $request->input('no_telp'),
                 'email' => $request->input('email'),
                 'alamat' => $request->input('alamat'),
-                'kode_pos' => $request->input('kode_pos'),
-                'kecamatan' => $request->input('kecamatan'),
-                'kota' => $request->input('kota'),
-                'negara' => $request->input('negara'),
-                'pic' => $request->input('pic'),
-                'no_telp_pic' => $request->input('no_telp_pic'),
-                'email_pic' => $request->input('email_pic'),
-                'akun_piutang' => $request->input('akun_piutang'),
+                'kode_pos' => $request->input('kode_pos') !== '' ? $request->input('kode_pos') : '-',
+                'kecamatan' => $request->input('kecamatan') !== '' ? $request->input('kecamatan') : '-',
+                'kota' => $request->input('kota') !== '' ? $request->input('kota') : '-',
+                'negara' => $request->input('negara') !== '' ? $request->input('negara') : '-',
+                'pic' => $request->input('pic') !== '' ? $request->input('pic') : '-',
+                'no_telp_pic' => $request->input('no_telp_pic') !== '' ? $request->input('no_telp_pic') : '-',
+                'email_pic' => $request->input('email_pic') !== '' ? $request->input('email_pic') : '-',
+                'akun_piutang' => $request->input('akun_piutang') !== '' ? $request->input('akun_piutang') : '-',
                 'no_rek' => $no_rek,
                 'nama_rek' => $nama_rek,
                 'bank' => $bank,

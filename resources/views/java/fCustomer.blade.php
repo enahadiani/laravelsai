@@ -39,7 +39,7 @@
                                         <input class="form-control" type="text" id="kode_customer" name="kode_customer" required>
                                     </div>
                                     <div class="error-side col-md-6 col-sm-12">
-                                        <p class="error-text" id="error-customer">Kode Customer sudah ada</p>
+                                        <p class="error-text" id="error-customer"></p>
                                     </div>
                                 </div>
                                 <div class="form-row">
@@ -50,7 +50,7 @@
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6 col-sm-12">
-                                        <label for="no_tel">No Telp</label>
+                                        <label for="no_telp">No Telp</label>
                                         <input class="form-control" type="text" id="no_telp" name="no_telp" required>
                                     </div>
                                     <div class="form-group col-md-6 col-sm-12">
@@ -80,27 +80,27 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-12 col-sm-12">
                                         <label for="alamat">Alamat</label>
-                                        <textarea class="form-control" rows="4" id="alamat" name="alamat" required></textarea>
+                                        <textarea class="form-control" rows="4" id="alamat" name="alamat"></textarea>
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6 col-sm-12">
                                         <label for="kode_pos">Kode POS</label>
-                                        <input class="form-control" type="text" id="kode_pos" name="kode_pos" required>
+                                        <input class="form-control" type="text" id="kode_pos" name="kode_pos">
                                     </div>
                                     <div class="form-group col-md-6 col-sm-12">
                                         <label for="kecamatan">Kecamatan</label>
-                                        <input class="form-control" type="text" id="kecamatan" name="kecamatan" required>
+                                        <input class="form-control" type="text" id="kecamatan" name="kecamatan">
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6 col-sm-12">
                                         <label for="kota">Kota</label>
-                                        <input class="form-control" type="text" id="kota" name="kota" required>
+                                        <input class="form-control" type="text" id="kota" name="kota">
                                     </div>
                                     <div class="form-group col-md-6 col-sm-12">
                                         <label for="negara">Negara</label>
-                                        <input class="form-control" type="text" id="negara" name="negara" required>
+                                        <input class="form-control" type="text" id="negara" name="negara">
                                     </div>
                                 </div>
                             </div>
@@ -120,17 +120,17 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-12 col-sm-12">
                                         <label for="pic">Nama Penangugung Jawab (Person in Change)</label>
-                                        <input class="form-control" type="text" id="pic" name="pic" required>
+                                        <input class="form-control" type="text" id="pic" name="pic">
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6 col-sm-12">
                                         <label for="no_pictel">No Telepon</label>
-                                        <input class="form-control" type="text" id="no_telp_pic" name="no_telp_pic" required>
+                                        <input class="form-control" type="text" id="no_telp_pic" name="no_telp_pic">
                                     </div>
                                     <div class="form-group col-md-6 col-sm-12">
                                         <label for="email_pic">Email</label>
-                                        <input class="form-control" type="text" id="email_pic" name="email_pic" required>
+                                        <input class="form-control" type="text" id="email_pic" name="email_pic">
                                     </div>
                                 </div>
                             </div>
@@ -312,8 +312,10 @@
             success:function(result){ 
                 if(result.data) {
                     $('#error-customer').hide();
+                    $('#error-customer').text('')
                 } else {
                     $('#error-customer').show();
+                    $('#error-customer').text('Kode customer sudah tersimpan')
                 }
             }
         })
@@ -587,25 +589,6 @@
                 required: true,
                 maxlength:50  
             },
-            alamat:
-            {
-                required: true,
-                maxlength:300
-            },
-            pic:
-            {
-                required: true,
-                maxlength:50
-            },
-            no_telp_pic:
-            {
-                required: true,
-                maxlength:50
-            },
-            email_pic:{
-                required: true,
-                maxlength:50  
-            },
             akun_piutang:
             {
                 required: true,
@@ -698,6 +681,15 @@
                             })
                         }
                     }
+                },
+                error: function(xhr, status, error) {
+                    var error = JSON.parse(xhr.responseText);
+                    var detail = Object.values(error.errors)
+                    Swal.fire({
+                        type: 'error',
+                        title: error.message,
+                        text: detail[0]
+                    })
                 },
                 fail: function(xhr, textStatus, errorThrown){
                     alert('request failed:'+textStatus);
