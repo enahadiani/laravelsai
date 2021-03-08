@@ -1,5 +1,9 @@
+<link rel="stylesheet" href="{{ asset('trans.css') }}" />
+<link rel="stylesheet" href="{{ asset('trans-java/trans.css') }}" />
 <link rel="stylesheet" href="{{ asset('master.css') }}" />
 <link rel="stylesheet" href="{{ asset('form.css') }}" />
+<link rel="stylesheet" href="{{ asset('master-esaku/form.css') }}" />
+<link rel="stylesheet" href="{{ asset('trans.css') }}" />
 <style>
     div.inp-div-jenis>input {
         border-radius: 0 !important;
@@ -236,10 +240,18 @@
                                 required>
                         </div>
                         <div class="form-group col-md-6 col-sm-12">
-                            <div style="margin-top:15px;margin-left:35px;top: 0; right: 25px;">
-                                <div class="custom-control custom-switch">
-                                    <input type="checkbox" class="custom-control-input" value="1" id="customSwitch1">
-                                    <label class="custom-control-label" for="customSwitch1">Aktif</label>
+                            <div class="row">
+                                <div class="col-md-8 col-sm-12">
+                                    <div class="switch-toggle">
+                                        <label class="switch">
+                                            <input type="checkbox" value="1" id="status-aktif">
+                                            <span class="slider round"></span>
+                                        </label>
+                                        <div class="label-switch">
+                                            <span id="aktif" style="display: none">AKTIF</span>
+                                            <span id="unaktif">UNAKTIF</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -272,6 +284,7 @@
 <script src="{{ asset('helper.js') }}"></script>
 <script>
     setHeightForm();
+    var status_aktif = false;
 
     // FORM SMALL
     $('#saku-form > .col-12').addClass('mx-auto col-lg-6');
@@ -283,6 +296,23 @@
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         }
     });
+
+    function isChecked() {
+        if (status_aktif) {
+            $('#status-aktif').prop('checked', true)
+            $('#aktif').show()
+            $('#unaktif').hide()
+        } else {
+            $('#status-aktif').prop('checked', false)
+            $('#aktif').hide()
+            $('#unaktif').show()
+        }
+    }
+
+    $('#status-aktif').click(function() {
+        status_aktif = !status_aktif
+        isChecked()
+    })
 
     function last_add(param, isi) {
         var rowIndexes = [];
