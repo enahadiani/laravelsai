@@ -455,8 +455,36 @@
         hideUnselectedRow();
     });
 
+    $('#input-grid').on('blur', '.inp-qty, .inp-harga', function(){
+        var cell = $(this).closest('tr').index() + 1;
+        var number1 = $('.qtyke'+cell).val();
+        var number2 = $('.hargake'+cell).val();
+        hitungTotaldiGrid('.totalke'+cell, '.tdtotalke'+cell, number1, number2)
+        hitungGridTotal()
+    })
+
+    $(document).keydown(function(event){
+        var code = (event.keyCode ? event.keyCode : event.which);
+        if(code == 13 || code == 9) {
+            var cek = $('#input-grid tbody tr').length;
+            console.log(cek)
+            if(cek > 0){
+                var cek = $('#input-grid').find('tr').last();
+                var focus = cek.find('.td-keterangan')
+                focus.click();
+            }else{
+                $('.add-row').click();
+            }
+        }
+    });  
+
     $('#input-grid').on('click', 'td', function(){
         var idx = $(this).index();
+        var cell = $(this).closest('tr').index() + 1;
+        var number1 = $('.qtyke'+cell).val();
+        var number2 = $('.hargake'+cell).val();
+        hitungTotaldiGrid('.totalke'+cell, '.tdtotalke'+cell, number1, number2)
+        hitungGridTotal()
         if(idx == 0 || idx == 5){
             return false;
         }else{
@@ -465,7 +493,7 @@
             }else{
                 $('#input-grid td').removeClass('px-0 py-0 aktif');
                 $(this).addClass('px-0 py-0 aktif');
-        
+                
                 var keterangan = $(this).parents("tr").find(".inp-keterangan").val();
                 var qty = $(this).parents("tr").find(".inp-qty").val();
                 var satuan = $(this).parents("tr").find(".inp-satuan").val();
@@ -624,7 +652,7 @@
                         var number2 = $('.hargake'+cell).val();
                         hitungTotaldiGrid('.totalke'+cell, '.tdtotalke'+cell, number1, number2)
                         hitungGridTotal();
-                        var cek = $(this).parents('tr').next('tr').find('.td-kode');
+                        var cek = $(this).parents('tr').next('tr').find('.td-keterangan');
                         if(cek.length > 0){
                             cek.click();
                         }else{
