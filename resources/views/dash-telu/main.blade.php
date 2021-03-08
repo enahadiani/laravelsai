@@ -178,6 +178,7 @@
     <script src="{{ asset('asset_elite/inputmask.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/bootstrap-tagsinput.min.js') }}"></script>
     <script src="{{ asset('asset_dore/js/pptxgen.bundle.js') }}"></script>
+    <!-- <script src="{{ asset('asset_dore/js/html2canvas.min.js') }}"></script> -->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script>
         var $google = google;

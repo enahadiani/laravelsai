@@ -89,7 +89,7 @@ $thnLalu = substr($tahunLalu,2,2)
             <h6 class="mb-0 bold">Pendapatan</h6>
             <a class='btn' href='#' id='btnBack' style="position: absolute;right: 135px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-arrow-left mr-2"></i> Back</a>
             <a class="btn" href="#" id="btn-filter" style="position: absolute;right: 15px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-equalizer" style="transform-style: ;"></i> &nbsp;&nbsp; Filter</a>
-            <p>Satuan Milyar Rupiah || Periode s/d <span class='nama-bulan'></span></p>
+            <p>Satuan Milyar Rupiah || <span class='label-periode-filter'></span></p>
         </div>
     </div>
     <div class="row" >
@@ -118,7 +118,7 @@ $thnLalu = substr($tahunLalu,2,2)
     </div>
     <div class="modal fade modal-right" id="modalFilter" tabindex="-1" role="dialog"
     aria-labelledby="modalFilter" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog" role="document" style="max-width: 480px;">
             <div class="modal-content">
                 <form id="form-filter">
                     <div class="modal-header pb-0" style="border:none">
@@ -128,14 +128,30 @@ $thnLalu = substr($tahunLalu,2,2)
                         </button>
                     </div>
                     <div class="modal-body" style="border:none">
-                        <div class="form-group">
-                            <label>Periode</label>
-                            <select class="form-control" data-width="100%" name="periode" id="periode">
-                                <option value='#'>Pilih Periode</option>
-                            </select>
+                        <div class="form-group row dash-filter">
+                            <p class="dash-kunci" hidden>dash_periode</p> 
+                            <label class="col-md-12">Periode</label>
+                            <div class="col-md-4">
+                                <select class="form-control dash-filter-type" data-width="100%" name="periode[]" id="periode_type">
+                                    <option value='' disabled>Pilih</option>
+                                    <option value='='>=</option>
+                                    <option value='<='><=</option>
+                                    <option value='range'>Range</option>
+                                </select>
+                            </div>
+                            <div class="col-md-8 dash-filter-from">
+                                <select class="form-control" data-width="100%" name="periode[]" id="periode_from">
+                                    <option value='' disabled>Pilih</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4 dash-filter-to">
+                                <select class="form-control" data-width="100%" name="periode[]" id="periode_to">
+                                    <option value='' disabled>Pilih</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
-                    <div class="modal-footer" style="border:none">
+                    <div class="modal-footer" style="border:none;position:absolute;bottom:0;justify-content:flex-end;width:100%">
                         <button type="button" class="btn btn-outline-primary" id="btn-reset">Reset</button>
                         <button type="submit" class="btn btn-primary">Tampilkan</button>
                     </div>
@@ -266,16 +282,77 @@ function getPeriode(){
         url:"{{ url('/telu-dash/periode') }}",
         dataType: "JSON",
         success: function(result){
-            var select = $('#periode').selectize();
+            $('#periode_type').selectize();
+            var select = $("#periode_from").selectize();
             select = select[0];
             var control = select.selectize;
+
+            var select2 = $("#periode_to").selectize();
+            select2 = select2[0];
+            var control2 = select2.selectize;
             if(result.data.status){
                 if(typeof result.data.data !== 'undefined' && result.data.data.length>0){
                     for(i=0;i<result.data.data.length;i++){
                         control.addOption([{text:result.data.data[i].periode, value:result.data.data[i].periode}]);
+                        control2.addOption([{text:result.data.data[i].periode, value:result.data.data[i].periode}]);
                     }
                 }
-                control.setValue($filter_periode);
+
+                $('#periode_to').closest('div.dash-filter-to').hide();
+                $('#periode_from').closest('div.dash-filter-from').removeClass('col-md-4').addClass('col-md-8');
+
+                if($dash_periode.type == ""){
+                    $dash_periode.type = "=";
+                }
+                
+                $('#periode_type')[0].selectize.setValue($dash_periode.type);
+
+                switch($dash_periode.type){
+                    case '=':
+                        var label = 'Periode '+namaPeriode($dash_periode.from);
+                        if($dash_periode.from == ""){
+                            if("{{ Session::get('periode') }}" != ""){
+                                control.setValue("{{ Session::get('periode') }}");
+                                $dash_periode.from = "{{ Session::get('periode') }}";
+                            }
+                        }else{
+                            control.setValue($dash_periode.from);
+                        }
+                        control2.setValue('');
+                    break;
+                    case '<=':
+                        
+                        var label = 'Periode s.d '+namaPeriode($dash_periode.from);
+                    break;
+                    case 'range':
+                        
+                        var label = 'Periode '+namaPeriode($dash_periode.from)+' s.d '+namaPeriode($dash_periode.to);
+                        if($dash_periode.from == ""){
+                            if("{{ Session::get('periode') }}" != ""){
+                                control.setValue("{{ Session::get('periode') }}");
+                                $dash_periode.from = "{{ Session::get('periode') }}";
+                            }
+                        }else{
+                            control.setValue($dash_periode.from);
+                        }
+                        control2.setValue('');
+
+                    break;
+                    default:
+                        if($dash_periode.from == ""){
+                            if("{{ Session::get('periode') }}" != ""){
+                                control.setValue("{{ Session::get('periode') }}");
+                                $dash_periode.from = "{{ Session::get('periode') }}";
+                            }
+                        }else{
+                            control.setValue($dash_periode.from);
+                        }
+                        control2.setValue('');
+                        break;
+                }
+                $('.label-periode-filter').html(label);
+                getMsPendRKA($dash_periode,"capai-rka");
+                getMsPendKlp($dash_periode,"capai-klp");
             }
         },
         error: function(jqXHR, textStatus, errorThrown) {       
@@ -296,11 +373,48 @@ function getPeriode(){
 
 getPeriode();
 
+
+$('.dash-filter').on('change', '.dash-filter-type', function(){
+    var type = $(this).val();
+    var kunci = $(this).closest('div.dash-filter').find('.dash-kunci').text();
+    var tmp = kunci.split("_");
+    var kunci2 = tmp[1];
+    var field = eval('$'+kunci);
+    console.log(type,kunci,kunci2);
+    switch(type){
+        case "=": 
+        case "<=":
+            $(this).closest('div.dash-filter').find('.dash-filter-from').removeClass('col-md-4');
+            $(this).closest('div.dash-filter').find('.dash-filter-from').addClass('col-md-8');
+            $(this).closest('div.dash-filter').find('.dash-filter-from #'+kunci2+"_from")[0].selectize.setValue(field.from);
+            $(this).closest('div.dash-filter').find('.dash-filter-to').hide();
+            field.type = type;
+            field.from = field.from;
+            field.to = "";
+        break;
+        case "range":
+            
+            field.type = type;
+            field.from = field.from;
+            field.to = field.to;
+            
+            $(this).closest('div.dash-filter').find('.dash-filter-from').removeClass('col-md-8');
+            $(this).closest('div.dash-filter').find('.dash-filter-from').addClass('col-md-4');
+            $(this).closest('div.dash-filter').find('.dash-filter-from #'+kunci2+"_from")[0].selectize.setValue(field.from);
+            $(this).closest('div.dash-filter').find('.dash-filter-to #'+kunci2+"_to")[0].selectize.setValue(field.to);
+            $(this).closest('div.dash-filter').find('.dash-filter-to').show();
+        break;
+    }
+});
+
+
 function getMsPendRKA(periode=null, id){
     $.ajax({
         type:"GET",
         url:"{{ url('/telu-dash/ms-pend-capai') }}",
-        data:{periode: periode},
+        data:{'periode[0]' : periode.type,
+            'periode[1]' : periode.from,
+            'periode[2]' : periode.to, mode: $mode},
         dataType:"JSON",
         success:function(result){
             // Highcharts.chart('capai-rka', {
@@ -478,7 +592,9 @@ function getMsPendKlp(periode=null,id){
     $.ajax({
         type:"GET",
         url:"{{ url('/telu-dash/ms-pend-capai-klp') }}",
-        data:{periode: periode},
+        data:{'periode[0]' : periode.type,
+            'periode[1]' : periode.from,
+            'periode[2]' : periode.to, mode: $mode},
         dataType:"JSON",
         success:function(result){
             
@@ -621,17 +737,29 @@ function getMsPendKlp(periode=null,id){
     })
 }
 
-$('.nama-bulan').text(namaPeriode($filter_periode));
-getMsPendRKA($filter_periode,"capai-rka");
-getMsPendKlp($filter_periode,"capai-klp");
-
 $('#form-filter').submit(function(e){
     e.preventDefault();
-    var periode = $('#periode')[0].selectize.getValue();
-    $filter_periode = periode;
-    getMsPendRKA($filter_periode,"capai-rka");
-    getMsPendKlp($filter_periode,"capai-klp");
-    $('.nama-bulan').text(namaPeriode($filter_periode));
+    $dash_periode.type = $('#periode_type')[0].selectize.getValue();
+    $dash_periode.from = $('#periode_from')[0].selectize.getValue();
+    $dash_periode.to = $('#periode_to')[0].selectize.getValue();
+    $filter_periode = $dash_periode.from;
+    switch($dash_periode.type){
+        case '=':
+            var label = 'Periode '+namaPeriode($dash_periode.from);    
+        break;
+        case '<=':
+            
+            var label = 'Periode s.d '+namaPeriode($dash_periode.from);
+        break;
+        case 'range':
+            
+            var label = 'Periode '+namaPeriode($dash_periode.from)+' s.d '+namaPeriode($dash_periode.to);
+
+        break;
+    }
+    $('.label-periode-filter').html(label);
+    getMsPendRKA($dash_periode,"capai-rka");
+    getMsPendKlp($dash_periode,"capai-klp");
     $('#modalFilter').modal('hide');
     // $('.app-menu').hide();
     if ($(".app-menu").hasClass("shown")) {
