@@ -17,6 +17,9 @@ Route::get('/getPresentaseRkaRealisasiPendapatanRp','DashTelu\DashboardControlle
 //Detail Pendapatan 1
 Route::get('/getPendapatanFak','DashTelu\DashboardController@getPendapatanFak');
 Route::get('/getDetailPendapatan','DashTelu\DashboardController@getDetailPendapatan');
+
+Route::get('/getPendapatanFakNon','DashTelu\DashboardController@getPendapatanFakNon');
+Route::get('/getDetailPendapatanNon','DashTelu\DashboardController@getDetailPendapatanNon');
 //Detail Pendapatan 2
 Route::get('/getPendapatanJurusan','DashTelu\DashboardController@getPendapatanJurusan');
 Route::get('/getDataPendJurusan','DashTelu\DashboardController@getDataPendJurusan');
