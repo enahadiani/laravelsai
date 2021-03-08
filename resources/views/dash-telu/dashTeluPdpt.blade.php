@@ -212,6 +212,8 @@ if(localStorage.getItem("dore-theme") == "dark"){
 
 var $mode = localStorage.getItem("dore-theme");
 var $kd = "";
+$form_back = "";
+$kode_grafik = "";
 function sepNum(x){
     if(!isNaN(x)){
         if (typeof x === undefined || !x || x == 0) { 
@@ -491,6 +493,7 @@ function getPresentaseRkaRealisasi(periode=null){
                             events: {
                                 click: function() {  
                                     $kd= this.options.key;
+                                    $form_back = "dashTeluPdpt"; 
                                     var url = "{{ url('/dash-telu/form/dashTeluPdptDet') }}";
                                     loadForm(url)
                                 }
@@ -563,6 +566,7 @@ function getPresentaseRkaRealisasi(periode=null){
                             events: {
                                 click: function() {  
                                     $kd= this.options.key;
+                                    $form_back = "dashTeluPdpt"; 
                                     var url = "{{ url('/dash-telu/form/dashTeluPdptDet') }}";
                                     loadForm(url)
                                 }
@@ -590,12 +594,14 @@ function getPresentaseRkaRealisasi(periode=null){
             $('#rkaVSreal .highcharts-xaxis-labels text').on('click', function () {
                 // $(this).css({''});
                 $kd = result.data.data_tf[$(this).index()].key;
+                $form_back = "dashTeluPdpt"; 
                 var url = "{{ url('/dash-telu/form/dashTeluPdptDet') }}";
                 loadForm(url)
             });
             $('#rkaVSrealNTF .highcharts-xaxis-labels text').on('click', function () {
                 // $(this).css({''});
                 $kd = result.data.data_ntf[$(this).index()].key;
+                $form_back = "dashTeluPdpt"; 
                 var url = "{{ url('/dash-telu/form/dashTeluPdptDet') }}";
                 loadForm(url)
             });
@@ -700,6 +706,7 @@ function getPresentaseRkaRealisasiRp(periode=null){
             $('#rkaVSrealRp .highcharts-xaxis-labels text').on('click', function () {
                 // $(this).css({''});
                 $kd = result.data.data_tf[$(this).index()].key;
+                $form_back = "dashTeluPdpt"; 
                 var url = "{{ url('/dash-telu/form/dashTeluPdptDet') }}";
                 loadForm(url)
             });
@@ -779,6 +786,7 @@ function getPresentaseRkaRealisasiRp(periode=null){
             $('#rkaVSrealNTFRp .highcharts-xaxis-labels text').on('click', function () {
                 // $(this).css({''});
                 $kd = result.data.data_ntf[$(this).index()].key;
+                $form_back = "dashTeluPdpt"; 
                 var url = "{{ url('/dash-telu/form/dashTeluPdptDet') }}";
                 loadForm(url)
             });

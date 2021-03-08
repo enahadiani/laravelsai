@@ -187,7 +187,8 @@ if(localStorage.getItem("dore-theme") == "dark"){
 }
 var $mode = localStorage.getItem("dore-theme");
 $kd = "";
-$kd_grafik = "";
+$form_back = "";
+$kode_grafik = "";
 function sepNum(x){
     if(!isNaN(x)){
         if (typeof x === undefined || !x || x == 0) { 
@@ -572,12 +573,14 @@ function getPresentaseRkaRealisasi(periode=null){
             $('#rkaVSreal .highcharts-xaxis-labels text').on('click', function () {
                 // $(this).css({''});
                 $kd = result.data.data_sdm[$(this).index()].key;
+                $form_back = "dashTeluBeban"; 
                 var url = "{{ url('/dash-telu/form/dashTeluBebanDet') }}";
                 loadForm(url)
             });
             $('#rkaVSrealNon .highcharts-xaxis-labels text').on('click', function () {
                 // $(this).css({''});
                 $kd = result.data.data_non[$(this).index()].key;
+                $form_back = "dashTeluBeban"; 
                 var url = "{{ url('/dash-telu/form/dashTeluBebanDet') }}";
                 loadForm(url)
             });
@@ -685,6 +688,7 @@ function getPresentaseRkaRealisasiRp(periode=null){
             $('#rkaVSrealRp .highcharts-xaxis-labels text').on('click', function () {
                 // $(this).css({''});
                 $kd = result.data.data_sdm[$(this).index()].key;
+                $form_back = "dashTeluBeban"; 
                 var url = "{{ url('/dash-telu/form/dashTeluBebanDet') }}";
                 loadForm(url)
             });
@@ -766,6 +770,7 @@ function getPresentaseRkaRealisasiRp(periode=null){
             $('#rkaVSrealNonRp .highcharts-xaxis-labels text').on('click', function () {
                 // $(this).css({''});
                 $kd = result.data.data_non[$(this).index()].key;
+                $form_back = "dashTeluBeban"; 
                 var url = "{{ url('/dash-telu/form/dashTeluBebanDet') }}";
                 loadForm(url)
             });

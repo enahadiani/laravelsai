@@ -149,7 +149,8 @@ if(localStorage.getItem("dore-theme") == "dark"){
 }
 
 $kd = "";
-$kd_grafik = "";
+$form_back = "";
+$kode_grafik = "";
 $mode = localStorage.getItem("dore-theme");
 function sepNum(x){
     if(!isNaN(x)){
