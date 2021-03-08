@@ -27,7 +27,7 @@
                                         <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;" class="simple-icon-calendar date-search"></i>
                                     </div>
                                     <div class="col-md-8 col-sm-12">
-                                        <label for="kode_cust" >Vendor</label>
+                                        <label for="kode_cust" >Customer</label>
                                         <div class="input-group">
                                             <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
                                                 <span class="input-group-text info-code_kode_cust" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
