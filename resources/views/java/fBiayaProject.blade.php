@@ -267,7 +267,7 @@
             { data: 'no_rab' },
             { data: 'keterangan' },
             { data: 'nilai' },
-            { data: 'status' }
+            { data: 'status_bayar' }
         ],
         "{{ url('java-auth/sesi-habis') }}",
         [[5 ,"desc"]]
