@@ -17,9 +17,10 @@
                 <div class="row mt-3">
                     <div class="col-md-10 col-lg-10 col-xl-10">
                         <div class="ml-4 overview-project">
-                            <div class="project-progress">
-                                <div class="progress progress-1"></div>
-                                <div class="progress-value">70%</div>
+                            <div class="progress-project">
+                                <div class="circle-progress-project">
+                                    70%
+                                </div>
                             </div>
                         </div>
                     </div>
