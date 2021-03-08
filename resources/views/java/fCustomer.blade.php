@@ -207,6 +207,7 @@
     $('#error-customer').hide();
     var telp = '';
     var telp_pic = '';
+    var valid = true;
     setHeightForm();
     
     $.ajaxSetup({
@@ -311,9 +312,11 @@
             async:false,
             success:function(result){ 
                 if(result.data) {
+                    valid = true;
                     $('#error-customer').hide();
                     $('#error-customer').text('')
                 } else {
+                    valid = false;
                     $('#error-customer').show();
                     $('#error-customer').text('Kode customer sudah tersimpan')
                 }
@@ -623,6 +626,16 @@
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
 
+            if(valid == false) {
+                Swal.fire({
+                        type: 'error',
+                        title: 'Gagal simpan data',
+                        text: 'Kode customer sudah tersimpan',
+                        footer: ''
+                })
+                return;
+            }
+
             if(parameter == 'edit') {
                 if(telp_pic == telpPicNow || telp == telpNow) {
                     Swal.fire({
@@ -780,17 +793,19 @@
                     $('#modal-preview').modal('hide');
                     $('#saku-form').show();
                     showInfoField('akun_piutang',result.data[0].akun_piutang,result.data[0].nama_akun);
-                    for(var i=0;i<result.bank.length;i++) {
-                        dataBank.push({
-                            no_rek: result.bank[i].no_rek,
-                            nama_rek: result.bank[i].nama_rekening,
-                            bank: result.bank[i].bank,
-                            cabang: result.bank[i].cabang,
-                        })    
+                    if(result.bank.length > 0) {
+                        for(var i=0;i<result.bank.length;i++) {
+                            dataBank.push({
+                                no_rek: result.bank[i].no_rek,
+                                nama_rek: result.bank[i].nama_rekening,
+                                bank: result.bank[i].bank,
+                                cabang: result.bank[i].cabang,
+                            })    
+                        }
+                        tableBank.rows.add(dataBank).draw();
+                        count = tableBank.data().count();
+                        $('div.jumlah-data').html("Menampilkan "+count+" per halaman");
                     }
-                    tableBank.rows.add(dataBank).draw();
-                    count = tableBank.data().count();
-                    $('div.jumlah-data').html("Menampilkan "+count+" per halaman");
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
                     window.location.href = "{{ url('java-auth/sesi-habis') }}";
@@ -930,13 +945,15 @@
                     `;
                     $('#table-preview tbody').html(html);
                     var html2;
-                    for(var i=0;i<res.data.bank.length;i++) {
+                    if(res.data.bank.length > 0) {
+                        for(var i=0;i<res.data.bank.length;i++) {
                         html2 += `<tr>
                             <td>`+res.data.bank[i].no_rek+`</td>
                             <td>`+res.data.bank[i].nama_rekening+`</td>
                             <td>`+res.data.bank[i].bank+`</td>
                             <td>`+res.data.bank[i].cabang+`</td>
-                        </tr>` 
+                            </tr>` 
+                        }
                     }
                     $('#table-bank-detail tbody').html(html2);    
                     $('#modal-preview-judul').css({'margin-top':'10px','padding':'0px !important'}).html('Preview Data Vendor').removeClass('py-2');

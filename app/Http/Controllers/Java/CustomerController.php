@@ -115,8 +115,6 @@ class CustomerController extends Controller
                 }
             }
 
-            var_dump($no_rek);
-
             $form = array(
                 'kode_customer' => $request->input('kode_customer'),
                 'nama' => $request->input('nama'),
@@ -212,11 +210,15 @@ class CustomerController extends Controller
             $nama_rek = array();
             $bank = array();
             $cabang = array();
-            for($i=0;$i<count($request->input('no_rek'));$i++) {
-                array_push($no_rek, $request->input('no_rek')[$i]);
-                array_push($nama_rek, $request->input('nama_rek')[$i]);
-                array_push($bank, $request->input('bank')[$i]);
-                array_push($cabang, $request->input('cabang')[$i]);
+            if($request->input('no_rek') !== null) {
+                if(count($request->input('no_rek')) > 0) {
+                    for($i=0;$i<count($request->input('no_rek'));$i++) {
+                        array_push($no_rek, $request->input('no_rek')[$i]);
+                        array_push($nama_rek, $request->input('nama_rek')[$i]);
+                        array_push($bank, $request->input('bank')[$i]);
+                        array_push($cabang, $request->input('cabang')[$i]);
+                    }
+                }
             }
 
             $form = array(
