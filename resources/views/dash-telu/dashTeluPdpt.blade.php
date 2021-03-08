@@ -501,6 +501,22 @@ function getPresentaseRkaRealisasi(periode=null){
                     color: ($mode == "dark" ? "#2200FF" : "#00509D"),
                     data: result.data.data
                 }]
+            },function(){
+                this.xAxis[0].labelGroup.element.childNodes.forEach(function(label) {
+                    label.style.cursor = "pointer";
+                    // label.onclick = function() {
+                    //     var x = this.textContent.replace(" ","");
+                        
+                    //     alert(ctg.indexOf(x));
+                    // }
+                });
+            });
+
+            $('#rkaVSreal .highcharts-xaxis-labels text').on('click', function () {
+                // $(this).css({''});
+                $kd = result.data.data[$(this).index()].key;
+                var url = "{{ url('/dash-telu/form/dashTeluPdptDet') }}";
+                loadForm(url)
             });
         },
         error: function(jqXHR, textStatus, errorThrown) {       
@@ -594,7 +610,24 @@ function getPresentaseRkaRealisasiRp(periode=null){
                     color: ($mode == "dark" ? "#2200FF" : "#00509D"),
                     data: result.data.data
                 }]
+            },function(){
+                this.xAxis[0].labelGroup.element.childNodes.forEach(function(label) {
+                    label.style.cursor = "pointer";
+                    // label.onclick = function() {
+                    //     var x = this.textContent.replace(" ","");
+                        
+                    //     alert(ctg.indexOf(x));
+                    // }
+                });
             });
+
+            $('#rkaVSreal .highcharts-xaxis-labels text').on('click', function () {
+                // $(this).css({''});
+                $kd = result.data.data[$(this).index()].key;
+                var url = "{{ url('/dash-telu/form/dashTeluPdptDet') }}";
+                loadForm(url)
+            });
+
         },
         error: function(jqXHR, textStatus, errorThrown) {       
             if(jqXHR.status == 422){
