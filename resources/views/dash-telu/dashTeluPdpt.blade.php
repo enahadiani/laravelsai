@@ -621,7 +621,7 @@ function getPresentaseRkaRealisasiRp(periode=null){
                 });
             });
 
-            $('#rkaVSreal .highcharts-xaxis-labels text').on('click', function () {
+            $('#rkaVSrealRp .highcharts-xaxis-labels text').on('click', function () {
                 // $(this).css({''});
                 $kd = result.data.data[$(this).index()].key;
                 var url = "{{ url('/dash-telu/form/dashTeluPdptDet') }}";
