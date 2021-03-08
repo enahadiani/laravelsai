@@ -70,12 +70,7 @@ class RabProyekController extends Controller {
         $this->validate($request, [
             'no_proyek' => 'required',
             'nilai_kontrak' => 'required',
-            'nilai_anggaran' => 'required',
-            'no' => 'required|array',
-            'keterangan' => 'required|array',
-            'qty' => 'required|array',
-            'harga' => 'required|array',
-            'satuan' => 'required|array',
+            'nilai_anggaran' => 'required'
         ]);
 
         try {
@@ -85,12 +80,16 @@ class RabProyekController extends Controller {
             $harga = array();
             $satuan = array();
 
-            for($i=0;$i<count($request->input('no'));$i++) {
-                array_push($no, $request->input('no')[$i]);
-                array_push($keterangan, $request->input('keterangan')[$i]);
-                array_push($qty,$this->joinNum($request->input('qty')[$i]));
-                array_push($harga, $this->joinNum($request->input('harga')[$i]));
-                array_push($satuan, $request->input('satuan')[$i]);
+            if($request->input('no') !== null) {
+                if(count($request->input('no')) > 0) {
+                    for($i=0;$i<count($request->input('no'));$i++) {
+                        array_push($no, $request->input('no')[$i]);
+                        array_push($keterangan, $request->input('keterangan')[$i]);
+                        array_push($qty,$this->joinNum($request->input('qty')[$i]));
+                        array_push($harga, $this->joinNum($request->input('harga')[$i]));
+                        array_push($satuan, $request->input('satuan')[$i]);
+                    }
+                }
             }
 
             $form = array(
@@ -159,11 +158,6 @@ class RabProyekController extends Controller {
             'no_proyek' => 'required',
             'nilai_kontrak' => 'required',
             'nilai_anggaran' => 'required',
-            'no' => 'required|array',
-            'keterangan' => 'required|array',
-            'qty' => 'required|array',
-            'harga' => 'required|array',
-            'satuan' => 'required|array',
         ]);
 
         try {
@@ -173,12 +167,16 @@ class RabProyekController extends Controller {
             $harga = array();
             $satuan = array();
 
-            for($i=0;$i<count($request->input('no'));$i++) {
-                array_push($no, $request->input('no')[$i]);
-                array_push($keterangan, $request->input('keterangan')[$i]);
-                array_push($qty,$this->joinNum($request->input('qty')[$i]));
-                array_push($harga, $this->joinNum($request->input('harga')[$i]));
-                array_push($satuan, $request->input('satuan')[$i]);
+            if($request->input('no') !== null) {
+                if(count($request->input('no')) > 0) {
+                    for($i=0;$i<count($request->input('no'));$i++) {
+                        array_push($no, $request->input('no')[$i]);
+                        array_push($keterangan, $request->input('keterangan')[$i]);
+                        array_push($qty,$this->joinNum($request->input('qty')[$i]));
+                        array_push($harga, $this->joinNum($request->input('harga')[$i]));
+                        array_push($satuan, $request->input('satuan')[$i]);
+                    }
+                }
             }
 
             $form = array(
