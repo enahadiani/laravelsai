@@ -304,7 +304,7 @@
                 { data: 'kode_cust' },
                 { data: 'nama' }
             ],
-            judul : "Daftar Vendor",
+            judul : "Daftar Customer",
             pilih : "akun",
             jTarget1 : "text",
             jTarget2 : "text",
