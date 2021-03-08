@@ -53,19 +53,19 @@
                             <div class="row" id="no-rab">
                                 <div class="col-md-6 col-sm-12">
                                     <label for="no_rab">No Anggaran</label>
-                                    <input class="form-control" type="text" placeholder="No Anggaran" id="no_rab" name="no_rab" readonly>
+                                    <input class="form-control" type="hidden" placeholder="No Anggaran" id="no_rab" name="no_rab" readonly>
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group col-md-6 col-sm-12">
+                        {{-- <div class="form-group col-md-6 col-sm-12">
                             <div class="row">
                                 <div class="col-md-6 col-sm-12"></div>
                                 <div class="col-md-6 col-sm-12">
-                                    <label for="nilai_anggaran">Nilai Anggaran</label>
-                                    <input class="form-control currency" type="text" placeholder="Nilai Anggaran" id="nilai_anggaran" name="nilai_anggaran" value="0" readonly>
-                                </div>
+                                    <label for="nilai_anggaran">Nilai Anggaran</label> --}}
+                                    <input class="form-control currency" type="hidden" placeholder="Nilai Anggaran" id="nilai_anggaran" name="nilai_anggaran" value="0" readonly>
+                                {{-- </div>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                     <ul class="nav nav-tabs col-12 " role="tablist">
                         <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-anggaran" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Anggaran</span></a> </li>
@@ -94,6 +94,7 @@
                     </div>
                     <div class="btn-div">
                         <button type="submit" class="btn btn-primary mb-2 mt-2"  style="float:right;" id="btn-save" ><i class="fa fa-save"></i> Simpan</button>
+                        <span id="nilai-anggaran" class="nilai-keterangan"></span>
                     </div>
                 </div>
             </div>
@@ -110,6 +111,7 @@
     var $target = "";
     var $target2 = "";
     var $target3 = "";
+    var valid = true;
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
@@ -152,7 +154,7 @@
             gridTotal += total
         })
         $('#nilai_anggaran').val(gridTotal)
-
+        $('#nilai-anggaran').text('Rp. '+format_number(gridTotal))
         return gridTotal;
     }
 
@@ -233,12 +235,12 @@
         no=no+2;
         var input = "";
         input += "<tr class='row-grid'>";
-        input += "<td class='text-center no-grid'>"+no+"<input type='text' name='no[]' class='form-control inp-no noke"+no+" hidden'  value='"+no+"' required></td>";
-        input += "<td><span class='td-keterangan tdketke"+no+" tooltip-span'></span><input type='text' name='keterangan[]' class='form-control inp-keterangan ketke"+no+" hidden'  value='' required></td>";
-        input += "<td class='text-right'><span class='td-qty tdqtyke"+no+" tooltip-span'></span><input type='text' name='qty[]' class='form-control numeric inp-qty qtyke"+no+" hidden'  value='0' required></td>";
-        input += "<td><span class='td-satuan tdsatke"+no+" tooltip-span'></span><input type='text' name='satuan[]' class='form-control inp-satuan satke"+no+" hidden'  value='' required></td>";
-        input += "<td class='text-right'><span class='td-harga tdhargake"+no+" tooltip-span'></span><input type='text' name='harga[]' class='form-control numeric inp-harga hargake"+no+" hidden'  value='0' required></td>";
-        input += "<td class='text-right'><span class='td-total tdtotalke"+no+" tooltip-span'></span><input type='text' name='total[]' class='form-control numeric inp-total totalke"+no+" hidden'  value='0' required readonly></td>";
+        input += "<td class='text-center no-grid'>"+no+"</td>";
+        input += "<td><span class='td-keterangan tdketke"+no+" tooltip-span'></span><input type='text' name='keterangan[]' class='form-control inp-keterangan ketke"+no+" hidden'  value=''></td>";
+        input += "<td class='text-right'><span class='td-qty tdqtyke"+no+" tooltip-span'></span><input type='text' name='qty[]' class='form-control numeric inp-qty qtyke"+no+" hidden'  value='0'></td>";
+        input += "<td><span class='td-satuan tdsatke"+no+" tooltip-span'></span><input type='text' name='satuan[]' class='form-control inp-satuan satke"+no+" hidden'  value=''></td>";
+        input += "<td class='text-right'><span class='td-harga tdhargake"+no+" tooltip-span'></span><input type='text' name='harga[]' class='form-control numeric inp-harga hargake"+no+" hidden'  value='0'></td>";
+        input += "<td class='text-right'><span class='td-total tdtotalke"+no+" tooltip-span'></span><input type='text' name='total[]' class='form-control numeric inp-total totalke"+no+" hidden'  value='0' readonly></td>";
         input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
         input += "</tr>";
 
@@ -465,7 +467,7 @@
 
     $(document).keydown(function(event){
         var code = (event.keyCode ? event.keyCode : event.which);
-        if(code == 13 || code == 9) {
+        if(event.ctrlKey && code == 13 ||event.ctrlKey && code == 9) {
             var cek = $('#input-grid tbody tr').length;
             console.log(cek)
             if(cek > 0){
@@ -561,6 +563,8 @@
             no++;
         });
         hitungTotalRow();
+        hitungGridTotal()
+        valid = true;
         $("html, body").animate({ scrollTop: $(document).height() }, 1000);
     });
 
@@ -682,9 +686,6 @@
             },
             nilai_kontrak:{
                 required: true   
-            },
-            nilai_anggaran:{
-                required: true  
             }
         },
         errorElement: "label",
@@ -697,6 +698,18 @@
                 alert('Total detail anggaran tidak boleh melebihi nilai anggaran')
                 return;
             }
+
+            $("#input-grid tbody tr td:not(:first-child):not(:last-child)").each(function() {
+                if($(this).find('span').text().trim().length == 0) {
+                    console.log($(this).find('span').text().length)
+                    console.log($(this).find('span'))
+                    alert('Data anggaran tidak boleh kosong, harap dihapus untuk melanjutkan')
+                    valid = false;
+                    return false;
+                } else {
+                    console.log($(this).find('span'))
+                }
+            });
 
             var parameter = $('#id_edit').val();
             var id = $('#no_proyek').val();
@@ -717,61 +730,62 @@
             for(var pair of formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
-            
-            $.ajax({
-                type: 'POST', 
-                url: url,
-                dataType: 'json',
-                data: formData,
-                async:false,
-                contentType: false,
-                cache: false,
-                processData: false, 
-                success:function(result){
-                    if(result.data.status){
-                        dataTable.ajax.reload();
-                        $('#row-id').hide();
-                        $('#form-tambah')[0].reset();
-                        $('#form-tambah').validate().resetForm();
-                        $('[id^=label]').html('');
-                        $('#id_edit').val('');
-                        $('#judul-form').html('Tambah Data Anggaran Proyek');
-                        $('#method').val('post');
-                        $('#no_kontrak').attr('readonly', false);
-                        $('#search_no_proyek').show();
-                        resetForm();
-                        msgDialog({
-                            id:result.data.kode,
-                            type:'simpan'
-                        });
-                        last_add("no_proyek",result.data.kode);
-                    }else if(!result.data.status && result.data.message === "Unauthorized"){
-                    
-                        window.location.href = "{{ url('/java-auth/sesi-habis') }}";
-                        
-                    }else{
-                        if(result.data.kode == "-" && result.data.jenis != undefined){
+            if(valid) {
+                $.ajax({
+                    type: 'POST', 
+                    url: url,
+                    dataType: 'json',
+                    data: formData,
+                    async:false,
+                    contentType: false,
+                    cache: false,
+                    processData: false, 
+                    success:function(result){
+                        if(result.data.status){
+                            dataTable.ajax.reload();
+                            $('#row-id').hide();
+                            $('#form-tambah')[0].reset();
+                            $('#form-tambah').validate().resetForm();
+                            $('[id^=label]').html('');
+                            $('#id_edit').val('');
+                            $('#judul-form').html('Tambah Data Anggaran Proyek');
+                            $('#method').val('post');
+                            $('#no_kontrak').attr('readonly', false);
+                            $('#search_no_proyek').show();
+                            resetForm();
                             msgDialog({
-                                id: id,
-                                type: result.data.jenis,
-                                text:'Kode customer sudah digunakan'
+                                id:result.data.kode,
+                                type:'simpan'
                             });
+                            last_add("no_proyek",result.data.kode);
+                        }else if(!result.data.status && result.data.message === "Unauthorized"){
+                        
+                            window.location.href = "{{ url('/java-auth/sesi-habis') }}";
+                            
                         }else{
+                            if(result.data.kode == "-" && result.data.jenis != undefined){
+                                msgDialog({
+                                    id: id,
+                                    type: result.data.jenis,
+                                    text:'Kode customer sudah digunakan'
+                                });
+                            }else{
 
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Oops...',
-                                text: 'Something went wrong!',
-                                footer: '<a href>'+result.data.message+'</a>'
-                            })
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Oops...',
+                                    text: 'Something went wrong!',
+                                    footer: '<a href>'+result.data.message+'</a>'
+                                })
+                            }
                         }
+                    },
+                    fail: function(xhr, textStatus, errorThrown){
+                        alert('request failed:'+textStatus);
                     }
-                },
-                fail: function(xhr, textStatus, errorThrown){
-                    alert('request failed:'+textStatus);
-                }
-            });
-            $('#btn-simpan').html("Simpan").removeAttr('disabled');
+                });
+                $('#btn-simpan').html("Simpan").removeAttr('disabled');
+            }
         },
         errorPlacement: function (error, element) {
             var id = element.attr("id");
@@ -900,12 +914,12 @@
                             var line =result.detail[i];
                             var total = parseFloat(line.jumlah) * parseFloat(line.harga)
                             input += "<tr class='row-grid'>";
-                            input += "<td class='text-center no-grid'>"+line.no+"<input type='text' name='no[]' class='form-control inp-no noke"+line.no+" hidden'  value='"+line.no+"' required></td>";
-                            input += "<td><span class='td-keterangan tdketke"+no+" tooltip-span'>"+line.keterangan+"</span><input type='text' name='keterangan[]' class='form-control inp-keterangan ketke"+no+" hidden'  value='"+line.keterangan+"' required></td>";
-                            input += "<td class='text-right'><span class='td-qty tdqtyke"+no+" tooltip-span'>"+format_number(line.jumlah)+"</span><input type='text' name='qty[]' class='form-control numeric inp-qty qtyke"+no+" hidden'  value='"+parseFloat(line.jumlah)+"' required></td>";
-                            input += "<td><span class='td-satuan tdsatke"+no+" tooltip-span'>"+line.satuan+"</span><input type='text' name='satuan[]' class='form-control inp-satuan satke"+no+" hidden'  value='"+line.satuan+"' required></td>";
-                            input += "<td class='text-right'><span class='td-harga tdhargake"+no+" tooltip-span'>"+format_number(line.harga)+"</span><input type='text' name='harga[]' class='form-control numeric inp-harga hargake"+no+" hidden'  value='"+parseFloat(line.harga)+"' required></td>";
-                            input += "<td class='text-right'><span class='td-total tdtotalke"+no+" tooltip-span'>"+format_number(total)+"</span><input type='text' name='total[]' class='form-control numeric inp-total totalke"+no+" hidden'  value='"+total+"' required readonly></td>";
+                            input += "<td class='text-center no-grid'>"+line.no+"</td>";
+                            input += "<td><span class='td-keterangan tdketke"+no+" tooltip-span'>"+line.keterangan+"</span><input type='text' name='keterangan[]' class='form-control inp-keterangan ketke"+no+" hidden'  value='"+line.keterangan+"'></td>";
+                            input += "<td class='text-right'><span class='td-qty tdqtyke"+no+" tooltip-span'>"+format_number(line.jumlah)+"</span><input type='text' name='qty[]' class='form-control numeric inp-qty qtyke"+no+" hidden'  value='"+parseFloat(line.jumlah)+"'></td>";
+                            input += "<td><span class='td-satuan tdsatke"+no+" tooltip-span'>"+line.satuan+"</span><input type='text' name='satuan[]' class='form-control inp-satuan satke"+no+" hidden'  value='"+line.satuan+"'></td>";
+                            input += "<td class='text-right'><span class='td-harga tdhargake"+no+" tooltip-span'>"+format_number(line.harga)+"</span><input type='text' name='harga[]' class='form-control numeric inp-harga hargake"+no+" hidden'  value='"+parseFloat(line.harga)+"'></td>";
+                            input += "<td class='text-right'><span class='td-total tdtotalke"+no+" tooltip-span'>"+format_number(total)+"</span><input type='text' name='total[]' class='form-control numeric inp-total totalke"+no+" hidden'  value='"+total+"' readonly></td>";
                             input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
                             input += "</tr>";
         

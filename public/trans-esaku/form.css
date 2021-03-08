@@ -1,3 +1,10 @@
+.nilai-keterangan {
+    float: right;
+    vertical-align: middle;
+    padding-right: 1rem;
+    padding-top: 1.2rem;
+    color: #0058e4;
+}
 div.inp-div-jenis > input {
     border-radius: 0 !important;
     z-index: 1;
