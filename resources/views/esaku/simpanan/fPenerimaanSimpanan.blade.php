@@ -182,11 +182,15 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="tab-pane active mt-2" id="deposit" role="tabpanel">
+                            {{-- Pembayaran Deposit Tab --}}
+                        </div>
                     </div>
                     <div class="card-body-footer row" style="width: 900px;padding: 0 25px;">
                         <div style="vertical-align: middle;" class="col-md-10 text-right p-0">
-                            <p style="margin-top: 20px;" id="total-pembatalan">
-                                <b>Total Pembatalan 0</b>
+                            <p style="margin-top: 20px;" id="total-penerimaan">
+                                <b>Total Penerimaan 0</b>
                             </p>
                         </div>
                         <div style="text-align: right;" class="col-md-2 p-0 ">
