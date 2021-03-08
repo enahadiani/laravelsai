@@ -12,8 +12,8 @@
                                 <h6>Filter</h6>
                                 <div id="inputFilter">
                                     <!-- COMPONENT -->
-                                    <x-inp-filter kode="no_proyek" nama="No Proyek" selected="3" :option="array('3')"/>
-                                    <x-inp-filter kode="kode_cust" nama="Vendor" selected="3" :option="array('3')"/>
+                                    <x-inp-filter kode="no_proyek" nama="No Proyek" selected="3" :option="array('1','2','3','i')"/>
+                                    <x-inp-filter kode="kode_cust" nama="Vendor" selected="3" :option="array('1','2','3','i')"/>
                                     <!-- END COMPONENT -->
                                 </div>
                                 <button id="btn-tampil" style="float:right;width:110px" class="btn btn-primary ml-2 mb-3" type="submit" >Tampilkan</button>
