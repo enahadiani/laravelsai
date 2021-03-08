@@ -408,7 +408,7 @@ function getMsBebanRKA(periode=null){
                     text: ''
                 },
                 xAxis: {
-                    categories: ['Operasional','Non Operasional']
+                    categories: ['Beban SDM','Beban Non SDM']
                 },
                 yAxis: {
                         title:'',
