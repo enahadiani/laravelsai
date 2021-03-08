@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="{{ asset('trans-esaku/form.css') }}" />
 <link rel="stylesheet" href="{{ asset('trans-java/trans.css') }}" />
 
-<x-list-data judul="Data Biaya Project" tambah="true" :thead="array('No Bukti', 'No Proyek', 'Keterangan', 'Nilai','Aksi')" :thwidth="array(15,15,10,10,10)" :thclass="array('','','','','text-center')" />
+<x-list-data judul="Data Biaya Project" tambah="true" :thead="array('No Bukti', 'No Proyek', 'No Anggaran','Keterangan', 'Nilai','Status','Aksi')" :thwidth="array(15,15,10,10,10,10,10)" :thclass="array('','','','','','','text-center')" />
 
 <form id="form-tambah" class="tooltip-label-right" novalidate>
     <input class="form-control" type="hidden" id="id_edit" name="id_edit">
@@ -28,7 +28,7 @@
                                     <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;" class="simple-icon-calendar date-search"></i>
                                 </div>
                                 <div class="col-md-8 col-sm-12">
-                                    <label for="kode_cust" >Vendor</label>
+                                    <label for="kode_cust" >Customer</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
                                             <span class="input-group-text info-code_kode_cust" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
@@ -251,20 +251,26 @@
                     }
                 }
             },
-            {   'targets': 3, 
+            {   'targets': 2, 
+                'visible': false,
+                'searchable': false 
+            },
+            {   'targets': 4, 
                 'className': 'text-right',
                 'render': $.fn.dataTable.render.number( '.', ',', 0, '' ) 
             },
-            {'targets': 4, data: null, 'defaultContent': action_html,'className': 'text-center' }
+            {'targets': 6, data: null, 'defaultContent': action_html,'className': 'text-center' }
         ],
         [
             { data: 'no_bukti' },
             { data: 'no_proyek' },
+            { data: 'no_rab' },
             { data: 'keterangan' },
-            { data: 'nilai' }
+            { data: 'nilai' },
+            { data: 'status' }
         ],
         "{{ url('java-auth/sesi-habis') }}",
-        [[4 ,"desc"]]
+        [[5 ,"desc"]]
     );
 
     $.fn.DataTable.ext.pager.numbers_length = 5;
