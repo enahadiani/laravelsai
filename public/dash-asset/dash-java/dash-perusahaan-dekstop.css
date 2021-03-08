@@ -1,0 +1,58 @@
+.progress-1 {
+    top: 0;
+    left: 0;
+    background-color: #000;
+    border-radius: 100% 0 0 0;
+}
+.progress-value {
+    width: 50%;
+    height: 50%;
+    background-color: #0058e4;
+    top: 25%;
+    left: 25%;
+    border-radius: 50%;
+}
+.progress {
+    position: absolute;
+    width: 50%;
+    height: 50%;
+}
+.project-progress {
+    position: relative;
+    width: 57px;
+    height: 57px;
+    margin: 0 auto;
+}
+.text-bold {
+    font-weight: bold;
+}
+
+.btn-filter {
+    float: right;
+    border-color: #000;
+    width: 90px !important;
+    background-color: #fff;
+    border-radius: 30px !important;
+}
+
+.btn-filter:hover {
+    background-color: #fafafa;
+}
+
+.card {
+    border-radius: 10px !important;
+    box-shadow: 0 2px 3px 0 #ccc;
+    border: 1px solid #f0f0f0;
+}
+.card-dash {
+    padding: 0.5rem 0.5rem 1rem 0.5rem;
+}
+h6.judul-card {
+    font-weight: bold;
+}
+.col-dekstop {
+    display: block;
+}
+.col-tablet {
+    display: none;
+}
