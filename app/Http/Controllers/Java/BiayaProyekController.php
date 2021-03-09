@@ -119,7 +119,7 @@ class BiayaProyekController extends Controller {
     public function getData(Request $request) {
         try{
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'java-trans/biaya-proyek?no_bukti='.$request->query('kode'),
+            $response = $client->request('GET',  config('api.url').'java-trans/biaya-proyek?no_bukti='.$request->query('kode').'&no_rab='.$request->query('no_rab'),
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),

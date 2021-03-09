@@ -151,6 +151,8 @@
 <script src="{{ asset('helper.js') }}"></script>
 
 <script type="text/javascript">
+    var $previousNilai = 0;
+    var $previousAnggaran = 0;
     var status_paid = false;
     var $iconLoad = $('.preloader');
     var $target = "";
@@ -210,6 +212,8 @@
     $('#saku-datatable').on('click', '#btn-tambah', function(){
         status_paid = false
         isChecked()
+        $previousNilai = 0;
+        $previousAnggaran = 0;
         $('.no_bukti').hide();
         $('#row-id').hide();
         $('#method').val('post');
@@ -351,14 +355,20 @@
 
     $('#nilai').on('change', function() {
         var value = toNilai($(this).val());
-        var anggaran = toNilai($('#anggaran').val());
+        var anggaran = $previousAnggaran;
         if(anggaran == 0 || anggaran == '') {
             alert('Anggaran tidak boleh kosong atau 0')
         } else if(value > anggaran) {
             alert('Nilai beban tidak boleh melebihi anggaran')
             $(this).focus()
         } else {
-            return;
+            if(value == 0 || value == '') {
+                $previousNilai = 0
+                anggaran = $previousAnggaran
+            }
+            var selisih = (anggaran + $previousNilai) - value
+            $('#anggaran').val(selisih) 
+            
         }
     })
 
@@ -367,6 +377,7 @@
         var keyString = '_'
         var fromTarget = from.substr(from.indexOf(keyString) + keyString.length, from.length);
         if(fromTarget === 'no_proyek') {
+            $previousAnggaran = parseInt(tr.find('td:nth-child(3)').text())
             $('#anggaran').val(parseInt(tr.find('td:nth-child(3)').text()))
             $no_rab = tr.find('td:nth-child(2)').text()
         }
@@ -430,12 +441,12 @@
                     columns : [
                         { data: 'no_proyek' },
                         { data: 'no_rab' },
-                        { data: 'nilai_anggaran' }
+                        { data: 'sisa_anggaran' }
                     ],
                     parameter: {
                         kode: customer
                     },
-                    judul : "Daftar Supplier",
+                    judul : "Daftar Anggaran",
                     pilih : "",
                     jTarget1 : "text",
                     jTarget2 : "text",
@@ -531,6 +542,7 @@
                 success:function(result){
                     if(result.data.status){
                         dataTable.ajax.reload();
+                        $previousNilai = 0;
                         $('.no_bukti').hide();
                         $('#row-id').hide();
                         $('#form-tambah')[0].reset();
@@ -567,6 +579,9 @@
                         }
                     }
                 },
+                error: function(xhr, textStatus, errorThrown) {
+                    alert('request failed:'+textStatus);
+                },
                 fail: function(xhr, textStatus, errorThrown){
                     alert('request failed:'+textStatus);
                 }
@@ -581,14 +596,15 @@
     });
 
     $('#table-data tbody').on('click','td',function(e){
-        if($(this).index() != 4){
+        if($(this).index() != 5){
 
-            var id = $(this).closest('tr').find('td').eq(0).html();
+            var id = $(this).closest('tr').find('td').eq(0).html();;
             var data = dataTable.row(this).data();
+            $no_rab = data.no_rab;
             $.ajax({
                 type: 'GET',
                 url: "{{ url('java-trans/biaya-proyek-show') }}",
-                data: { kode: id },
+                data: { kode: id, no_rab:$no_rab },
                 dataType: 'json',
                 async:false,
                 success:function(res){
@@ -650,17 +666,19 @@
     });
 
     // BUTTON EDIT
-    function editData(id, no_proyek){
+    function editData(id, no_rab){
         $.ajax({
             type: 'GET',
             url: "{{ url('java-trans/biaya-proyek-show') }}",
-            data: { kode: id },
+            data: { kode: id, no_rab:no_rab },
             dataType: 'json',
             async:false,
             success:function(res){
                 var result= res.data;
                 if(result.status){
                     $no_rab = result.data[0].no_rab;
+                    $previousNilai = parseInt(result.data[0].nilai)
+                    $previousAnggaran = parseInt(result.data[0].sisa_anggaran) 
                     $('.no_bukti').show();
                     $('#id_edit').val('edit');
                     $('#method').val('put');
@@ -668,7 +686,7 @@
                     $('#no_bukti').val(id);
                     $('#id').val(id);
                     $('#tanggal').val(reverseDate2(result.data[0].tanggal,'-','/'));
-                    $('#anggaran').val(parseInt(result.data[0].nilai_anggaran));
+                    $('#anggaran').val(parseInt(result.data[0].sisa_anggaran));
                     $('#nilai').val(parseInt(result.data[0].nilai));
                     $('#no_dokumen').val(result.data[0].no_dokumen);
                     $('#keterangan').val(result.data[0].keterangan);
@@ -708,14 +726,16 @@
 
     $('#saku-datatable').on('click', '#btn-edit', function(){
         var id= $(this).closest('tr').find('td').eq(0).html();
-        // $iconLoad.show();
+        var data = dataTable.row($(this).parents('tr')).data();
+        $no_rab = data.no_rab;
+        $iconLoad.show();
         $('#form-tambah').validate().resetForm();
         
         $('#btn-save').attr('type','button');
         $('#btn-save').attr('id','btn-update');
 
         $('#judul-form').html('Edit Data Biaya Proyek');
-        editData(id);
+        editData(id, $no_rab);
     });
 
     // BUTTON HAPUS DATA
