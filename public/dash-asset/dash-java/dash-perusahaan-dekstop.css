@@ -8,20 +8,37 @@
     vertical-align: middle;
     line-height: 55px;
     font-size: 1rem;
-    position: absolute;
 }
 
-/* .progress-project {
-    position: relative;
-    border: 1px solid #000;
-    background-color: transparent;
-    height: 59px;
-    width: 59px;
+.nama-project {
+    font-weight: bold;
+}
+
+.detail-icon {
+    align-self: center;
+    margin-left: auto;
+}
+
+.detail-icon > .detail-proyek {
+    font-size: 20px !important;
+}
+
+.overview-project {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-} */
+    flex-direction: row;
+    margin: 0.5rem 0;
+    width: 325px;
+}
+
+.list-project {
+    display: flex;
+    flex-direction: column;
+}
+
+.keterangan-project {
+    padding-left: 0.5rem;
+    padding-top: 0.5rem;
+}
 
 .text-bold {
     font-weight: bold;
@@ -55,4 +72,28 @@ h6.judul-card {
 }
 .col-tablet {
     display: none;
+}
+
+#pendapatan-dekstop .highcharts-color-0 {
+    fill: #7cafff;
+}
+
+#pendapatan-dekstop .highcharts-color-1 {
+    fill: #0058e4;
+}
+
+#beban-dekstop .highcharts-color-0 {
+    fill: #7cafff;
+}
+
+#beban-dekstop .highcharts-color-1 {
+    fill: #0058e4;
+}
+
+#beban-dekstop .highcharts-color-2 {
+    fill: #a8c9fe;
+}
+
+#beban-dekstop .highcharts-color-3 {
+    fill: #cadeff;
 }
