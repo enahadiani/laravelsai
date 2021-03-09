@@ -237,7 +237,7 @@ function getDetailBeban(periode=null,kodeNeraca=null){
         type:"GET",
         url:"{{ url('/telu-dash/getDetailBeban') }}",
         dataType:"JSON",
-        data:{'periode[0]' : periode.type,
+        data:{'form':$form_back,'periode[0]' : periode.type,
             'periode[1]' : periode.from,
             'periode[2]' : periode.to, mode: $mode,'kode_neraca':kodeNeraca, 'kode_grafik':($kd_grafik != undefined ? $kd_grafik : "")},
         success:function(result){
@@ -276,7 +276,7 @@ function getDetailBebanNon(periode=null,kodeNeraca=null){
         type:"GET",
         url:"{{ url('/telu-dash/getDetailBebanNon') }}",
         dataType:"JSON",
-        data:{'periode[0]' : periode.type,
+        data:{'form':$form_back,'periode[0]' : periode.type,
             'periode[1]' : periode.from,
             'periode[2]' : periode.to, mode: $mode,'kode_neraca':kodeNeraca, 'kode_grafik':($kd_grafik != undefined ? $kd_grafik : "")},
         success:function(result){
@@ -314,7 +314,7 @@ function getBebanFak(periode=null, kodeNeraca=null){
     $.ajax({
         type:"GET",
         url:"{{ url('/telu-dash/getBebanFak') }}",
-        data:{'periode[0]' : periode.type,
+        data:{'form':$form_back,'periode[0]' : periode.type,
             'periode[1]' : periode.from,
             'periode[2]' : periode.to, mode: $mode,'kode_neraca':kodeNeraca, 'kode_grafik':($kd_grafik != undefined ? $kd_grafik : "")},
         dataType:"JSON",
@@ -409,7 +409,7 @@ function getBebanFakNon(periode=null, kodeNeraca=null){
     $.ajax({
         type:"GET",
         url:"{{ url('/telu-dash/getBebanFakNon') }}",
-        data:{'periode[0]' : periode.type,
+        data:{'form':$form_back,'periode[0]' : periode.type,
             'periode[1]' : periode.from,
             'periode[2]' : periode.to, mode: $mode,'kode_neraca':kodeNeraca, 'kode_grafik':($kd_grafik != undefined ? $kd_grafik : "")},
         dataType:"JSON",
@@ -505,7 +505,7 @@ function getPertumbuhanBebanFak(periode=null,kodeNeraca=null){
         type:"GET",
         url:"{{ url('/telu-dash/getBebanFak') }}",
         dataType:"JSON",
-        data:{'periode[0]' : periode.type,
+        data:{'form':$form_back,'periode[0]' : periode.type,
             'periode[1]' : periode.from,
             'periode[2]' : periode.to, mode: $mode,'kode_neraca':kodeNeraca, 'kode_grafik':($kd_grafik != undefined ? $kd_grafik : "")},
         success: function(result){
@@ -581,7 +581,7 @@ function getPertumbuhanBebanFakNon(periode=null,kodeNeraca=null){
         type:"GET",
         url:"{{ url('/telu-dash/getBebanFakNon') }}",
         dataType:"JSON",
-        data:{'periode[0]' : periode.type,
+        data:{'form':$form_back,'periode[0]' : periode.type,
             'periode[1]' : periode.from,
             'periode[2]' : periode.to, mode: $mode,'kode_neraca':kodeNeraca, 'kode_grafik':($kd_grafik != undefined ? $kd_grafik : "")},
         success: function(result){
