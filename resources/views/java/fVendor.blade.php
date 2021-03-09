@@ -2,7 +2,7 @@
     <link rel="stylesheet" href="{{ asset('form.css') }}" />
     <link rel="stylesheet" href="{{ asset('master-esaku/form.css') }}" />
     <!-- LIST DATA -->
-    <x-list-data judul="Data Supplier" tambah="true" :thead="array('Kode','Nama','Alamat','Tgl Input','Aksi')" :thwidth="array(20,25,35,10,10)" :thclass="array('','','','','text-center')" />
+    <x-list-data judul="Data Vendor" tambah="true" :thead="array('Kode','Nama','Alamat','Tgl Input','Aksi')" :thwidth="array(20,25,35,10,10)" :thclass="array('','','','','text-center')" />
     <!-- END LIST DATA -->
 
     <!-- FORM INPUT -->
@@ -39,7 +39,7 @@
                                         <input class="form-control" type="text" id="kode_vendor" name="kode_vendor" required>
                                     </div>
                                     <div class="error-side col-md-6 col-sm-12">
-                                        <p class="error-text" id="error-vendor">Kode Supplier sudah ada</p>
+                                        <p class="error-text" id="error-vendor"></p>
                                     </div>
                                 </div>
                                 <div class="form-row">
@@ -50,7 +50,7 @@
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6 col-sm-12">
-                                        <label for="no_tel">No Telp</label>
+                                        <label for="no_telp">No Telp</label>
                                         <input class="form-control" type="text" id="no_telp" name="no_telp" required>
                                     </div>
                                     <div class="form-group col-md-6 col-sm-12">
@@ -80,27 +80,27 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-12 col-sm-12">
                                         <label for="alamat">Alamat</label>
-                                        <textarea class="form-control" rows="4" id="alamat" name="alamat" required></textarea>
+                                        <textarea class="form-control" rows="4" id="alamat" name="alamat"></textarea>
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6 col-sm-12">
                                         <label for="kode_pos">Kode POS</label>
-                                        <input class="form-control" type="text" id="kode_pos" name="kode_pos" required>
+                                        <input class="form-control" type="text" id="kode_pos" name="kode_pos">
                                     </div>
                                     <div class="form-group col-md-6 col-sm-12">
                                         <label for="kecamatan">Kecamatan</label>
-                                        <input class="form-control" type="text" id="kecamatan" name="kecamatan" required>
+                                        <input class="form-control" type="text" id="kecamatan" name="kecamatan">
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6 col-sm-12">
                                         <label for="kota">Kota</label>
-                                        <input class="form-control" type="text" id="kota" name="kota" required>
+                                        <input class="form-control" type="text" id="kota" name="kota">
                                     </div>
                                     <div class="form-group col-md-6 col-sm-12">
                                         <label for="negara">Negara</label>
-                                        <input class="form-control" type="text" id="negara" name="negara" required>
+                                        <input class="form-control" type="text" id="negara" name="negara">
                                     </div>
                                 </div>
                             </div>
@@ -120,17 +120,17 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-12 col-sm-12">
                                         <label for="pic">Nama Penangugung Jawab (Person in Change)</label>
-                                        <input class="form-control" type="text" id="pic" name="pic" required>
+                                        <input class="form-control" type="text" id="pic" name="pic">
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6 col-sm-12">
                                         <label for="no_pictel">No Telepon</label>
-                                        <input class="form-control" type="text" id="no_telp_pic" name="no_telp_pic" required>
+                                        <input class="form-control" type="text" id="no_telp_pic" name="no_telp_pic">
                                     </div>
                                     <div class="form-group col-md-6 col-sm-12">
                                         <label for="email_pic">Email</label>
-                                        <input class="form-control" type="text" id="email_pic" name="email_pic" required>
+                                        <input class="form-control" type="text" id="email_pic" name="email_pic">
                                     </div>
                                 </div>
                             </div>
@@ -207,6 +207,7 @@
     $('#error-vendor').hide();
     var telp = '';
     var telp_pic = '';
+    var valid = true;
     setHeightForm();
     
     $.ajaxSetup({
@@ -311,8 +312,12 @@
             async:false,
             success:function(result){ 
                 if(result.data) {
+                    valid = true;
+                    $('#error-vendor').text('')
                     $('#error-vendor').hide();
                 } else {
+                    valid = false;
+                    $('#error-vendor').text('Kode Supplier sudah ada')
                     $('#error-vendor').show();
                 }
             }
@@ -587,25 +592,6 @@
                 required: true,
                 maxlength:50  
             },
-            alamat:
-            {
-                required: true,
-                maxlength:300
-            },
-            pic:
-            {
-                required: true,
-                maxlength:50
-            },
-            no_telp_pic:
-            {
-                required: true,
-                maxlength:50
-            },
-            email_pic:{
-                required: true,
-                maxlength:50  
-            },
             akun_hutang:
             {
                 required: true,
@@ -638,6 +624,16 @@
             }
             for(var pair of formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
+            }
+
+            if(valid == false) {
+                Swal.fire({
+                        type: 'error',
+                        title: 'Gagal simpan data',
+                        text: 'Kode supplier sudah tersimpan',
+                        footer: ''
+                })
+                return;
             }
 
             if(parameter == 'edit') {
@@ -698,6 +694,15 @@
                             })
                         }
                     }
+                },
+                error: function(xhr, status, error) {
+                    var error = JSON.parse(xhr.responseText);
+                    var detail = Object.values(error.errors)
+                    Swal.fire({
+                        type: 'error',
+                        title: error.message,
+                        text: detail[0]
+                    })
                 },
                 fail: function(xhr, textStatus, errorThrown){
                     alert('request failed:'+textStatus);
@@ -788,17 +793,19 @@
                     $('#modal-preview').modal('hide');
                     $('#saku-form').show();
                     showInfoField('akun_hutang',result.data[0].akun_hutang,result.data[0].nama_akun);
-                    for(var i=0;i<result.bank.length;i++) {
-                        dataBank.push({
-                            no_rek: result.bank[i].no_rek,
-                            nama_rek: result.bank[i].nama_rekening,
-                            bank: result.bank[i].bank,
-                            cabang: result.bank[i].cabang,
-                        })    
+                    if(result.bank.length > 0) {
+                        for(var i=0;i<result.bank.length;i++) {
+                            dataBank.push({
+                                no_rek: result.bank[i].no_rek,
+                                nama_rek: result.bank[i].nama_rekening,
+                                bank: result.bank[i].bank,
+                                cabang: result.bank[i].cabang,
+                            })    
+                        }
+                        tableBank.rows.add(dataBank).draw();
+                        count = tableBank.data().count();
+                        $('div.jumlah-data').html("Menampilkan "+count+" per halaman");
                     }
-                    tableBank.rows.add(dataBank).draw();
-                    count = tableBank.data().count();
-                    $('div.jumlah-data').html("Menampilkan "+count+" per halaman");
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
                     window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
@@ -928,13 +935,15 @@
 
                     $('#table-preview tbody').html(html);
                     var html2;
-                    for(var i=0;i<res.data.bank.length;i++) {
+                    if(res.data.bank.length > 0) {
+                        for(var i=0;i<res.data.bank.length;i++) {
                         html2 += `<tr>
                             <td>`+res.data.bank[i].no_rek+`</td>
                             <td>`+res.data.bank[i].nama_rekening+`</td>
                             <td>`+res.data.bank[i].bank+`</td>
                             <td>`+res.data.bank[i].cabang+`</td>
-                        </tr>` 
+                            </tr>` 
+                        }
                     }
                     $('#table-bank-detail tbody').html(html2);
                     $('#modal-preview-judul').css({'margin-top':'10px','padding':'0px !important'}).html('Preview Data Vendor').removeClass('py-2');

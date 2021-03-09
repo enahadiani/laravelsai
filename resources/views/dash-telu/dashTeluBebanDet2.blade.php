@@ -193,9 +193,9 @@ function getDataBebanJurusan(periode=null,kodeNeraca=null,kodeBidang=null,tahun=
         type:"GET",
         url:"{{ url('/telu-dash/getDataBebanJurusan') }}",
         dataType:"JSON",
-        data:{ 'periode[0]' : periode.type,
+        data:{ 'form':$form_back,'periode[0]' : periode.type,
             'periode[1]' : periode.from,
-            'periode[2]' : periode.to, mode: $mode,'kode_neraca':kodeNeraca,'kode_bidang':kodeBidang,'tahun':tahun},
+            'periode[2]' : periode.to, mode: $mode,'kode_neraca':kodeNeraca,'kode_bidang':kodeBidang,'kode_grafik':($kd_grafik != undefined ? $kd_grafik : ""),'tahun':tahun},
         success:function(result){
             var html='';
             for(var i=0;i<result.data.data.length;i++){
@@ -203,8 +203,8 @@ function getDataBebanJurusan(periode=null,kodeNeraca=null,kodeBidang=null,tahun=
                 
                 html+=`<tr>
                 <td style='font-weight:bold'>`+line.nama+`</td>
+                <td class='text-right'>`+toMilyar(line.n2)+`</td>
                 <td class='text-right'>`+toMilyar(line.n4)+`</td>
-                <td class='text-right'>`+toMilyar(line.n5)+`</td>
                 <td class='text-right'>`+sepNum(line.capai)+`%</td>
                 </tr>`;     
             }
@@ -231,9 +231,9 @@ function getBebanJurusan(periode=null,kodeNeraca=null,kodeBidang=null){
         type:"GET",
         url:"{{ url('/telu-dash/getBebanJurusan') }}",
         dataType:"JSON",
-        data:{ 'periode[0]' : periode.type,
+        data:{ 'form':$form_back,'periode[0]' : periode.type,
             'periode[1]' : periode.from,
-            'periode[2]' : periode.to, mode: $mode,'kode_neraca':kodeNeraca,'kode_bidang':kodeBidang},
+            'periode[2]' : periode.to, mode: $mode,'kode_neraca':kodeNeraca,'kode_bidang':kodeBidang,'kode_grafik':($kd_grafik != undefined ? $kd_grafik : "")},
         success:function(result){
             Highcharts.chart('bebanJur', {
                 chart: {
@@ -363,7 +363,7 @@ switch($dash_periode.type){
 }
 $('.label-periode-filter').html(label);
 getBebanJurusan($dash_periode,$kd,$kd3)
-getDataBebanJurusan($dash_periode,$kd,$kd3,$dash_periode.from.substr(0,4))
+getDataBebanJurusan($dash_periode,$kd,$kd3,'20'+$kd2)
 
 $('.tahunPilih').text('20'+$kd2);
 $('.thnPilih').text($kd2);

@@ -48,10 +48,12 @@ $nik     = Session::get('userLog');
             <div class="card dash-card">
                 <div class="card-header">
                     <div class="row mx-0">
-                        <h6 class="card-title col-md-9 col-sm-12 px-0" >Presentase RKA VS Realisasi</h6>
-                        <ul role="tablist" style="border: none;" class="nav nav-tabs col-md-3 col-sm-12 px-0 justify-content-end">
-                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab3-rp" role="tab" aria-selected="false"><span class="hidden-xs-down"><b>Rp</b></span></a> </li>
-                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#tab3-persen" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>%</b></span></a> </li>
+                        <h6 class="card-title col-md-3 col-sm-12 px-0" >Presentase RKA VS Realisasi</h6>
+                        <ul role="tablist" style="border: none;" class="nav nav-tabs col-md-9 col-sm-12 px-0 justify-content-end">
+                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#tab3-rp" role="tab" aria-selected="false"><span class="hidden-xs-down"><b>SDM Rp</b></span></a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab3-persen" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>SDM %</b></span></a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab3-rp2" role="tab" aria-selected="false"><span class="hidden-xs-down"><b>Non SDM Rp</b></span></a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab3-persen2" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>Non SDM %</b></span></a> </li>
                         </ul>
                     </div>
                    
@@ -59,11 +61,17 @@ $nik     = Session::get('userLog');
                 <div class="card-body pt-1">
                     <p style='font-size:9px;padding-left:20px'>Klik bar untuk melihat detail</p>
                     <div class="tab-content tabcontent-border p-0">
-                        <div class="tab-pane active" id="tab3-persen" role="tabpanel">
+                        <div class="tab-pane" id="tab3-persen" role="tabpanel">
                             <div id='rkaVSreal' style='height:350px'></div>
                         </div>
-                        <div class="tab-pane" id="tab3-rp" role="tabpanel">
+                        <div class="tab-pane active" id="tab3-rp" role="tabpanel">
                             <div id='rkaVSrealRp' style='height:350px'></div>
+                        </div>
+                        <div class="tab-pane" id="tab3-persen2" role="tabpanel">
+                            <div id='rkaVSrealNon' style='height:350px'></div>
+                        </div>
+                        <div class="tab-pane" id="tab3-rp2" role="tabpanel">
+                            <div id='rkaVSrealNonRp' style='height:350px'></div>
                         </div>
                     </div>
                 </div>
@@ -178,7 +186,9 @@ if(localStorage.getItem("dore-theme") == "dark"){
     $('#btn-filter').addClass('btn-outline-light');
 }
 var $mode = localStorage.getItem("dore-theme");
-var $kd = "";
+$kd = "";
+$form_back = "";
+$kd_grafik = "";
 function sepNum(x){
     if(!isNaN(x)){
         if (typeof x === undefined || !x || x == 0) { 
@@ -420,7 +430,82 @@ function getPresentaseRkaRealisasi(periode=null){
                     text:  null
                 },
                 xAxis: {
-                    categories: result.data.category,
+                    categories: result.data.categori_sdm,
+                    title: {
+                        text: null
+                    }
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: '',
+                        align: 'high'
+                    },
+                    labels: {
+                        overflow: 'justify'
+                    }
+                },
+                tooltip: {
+                    formatter: function () {
+                        return this.point.name+':<b>'+sepNum(this.y)+'</b> %';
+                    }
+                },
+                plotOptions: {
+                    bar: {
+                        dataLabels: {
+                            enabled: true,
+                            useHTML: true,
+                            formatter: function () {
+                                return $('<div/>').css({
+                                    'color' : 'white', // work
+                                    'padding': '0 5px',
+                                    'font-size':'8px',
+                                    'backgroundColor' : this.point.color  // just white in my case
+                                }).text(sepNum(this.y)+'%')[0].outerHTML;
+                            }
+                        },
+                        cursor: 'pointer',
+                        //point
+                        point: {
+                            events: {
+                                click: function() { 
+                                    
+                                    $form_back = "dashTeluBeban"; 
+                                    $kd= this.options.key;
+                                    
+                                    var url = "{{ url('/dash-telu/form/dashTeluBebanDet') }}";
+                                    loadForm(url)
+                                }
+                            }
+                        }
+                    }
+                },
+                legend: {
+                    enabled:false
+                },
+                credits: {
+                    enabled: false
+                },
+                series: [{
+                    name: null,
+                    color: ($mode == "dark" ? "#2200FF" : "#00509D"),
+                    data: result.data.data_sdm
+                }]
+            },function(){
+                this.xAxis[0].labelGroup.element.childNodes.forEach(function(label) {
+                    label.style.cursor = "pointer";
+                });
+            });
+
+            Highcharts.chart('rkaVSrealNon', {
+                chart: {
+                    type: 'bar'
+                },
+                title: {
+                    text:  null
+                },
+                xAxis: {
+                    categories: result.data.categori_non,
                     title: {
                         text: null
                     }
@@ -459,8 +544,11 @@ function getPresentaseRkaRealisasi(periode=null){
                         point: {
                             events: {
                                 click: function() {  
+                                    
+                                    $form_back = "dashTeluBeban";
                                     $kd= this.options.key;
-                                    var url = "{{ url('dash-telu/form/dashTeluBebanDet') }}";
+                                    
+                                    var url = "{{ url('/dash-telu/form/dashTeluBebanDet') }}";
                                     loadForm(url)
                                 }
                             }
@@ -476,9 +564,29 @@ function getPresentaseRkaRealisasi(periode=null){
                 series: [{
                     name: null,
                     color: ($mode == "dark" ? "#2200FF" : "#00509D"),
-                    data: result.data.data
+                    data: result.data.data_non
                 }]
+            },function(){
+                this.xAxis[0].labelGroup.element.childNodes.forEach(function(label) {
+                    label.style.cursor = "pointer";
+                });
             });
+
+            $('#rkaVSreal .highcharts-xaxis-labels text').on('click', function () {
+                // $(this).css({''});
+                $kd = result.data.data_sdm[$(this).index()].key;
+                $form_back = "dashTeluBeban"; 
+                var url = "{{ url('/dash-telu/form/dashTeluBebanDet') }}";
+                loadForm(url)
+            });
+            $('#rkaVSrealNon .highcharts-xaxis-labels text').on('click', function () {
+                // $(this).css({''});
+                $kd = result.data.data_non[$(this).index()].key;
+                $form_back = "dashTeluBeban"; 
+                var url = "{{ url('/dash-telu/form/dashTeluBebanDet') }}";
+                loadForm(url)
+            });
+
         },
         error: function(jqXHR, textStatus, errorThrown) {       
             if(jqXHR.status == 422){
@@ -513,7 +621,7 @@ function getPresentaseRkaRealisasiRp(periode=null){
                     text:  null
                 },
                 xAxis: {
-                    categories: result.data.category,
+                    categories: result.data.categori_sdm,
                     title: {
                         text: null
                     }
@@ -552,8 +660,11 @@ function getPresentaseRkaRealisasiRp(periode=null){
                         point: {
                             events: {
                                 click: function() {  
+                                    
+                                    $form_back = "dashTeluBeban";
                                     $kd= this.options.key;
-                                    var url = "{{ url('dash-telu/form/dashTeluBebanDet') }}";
+                                    
+                                    var url = "{{ url('/dash-telu/form/dashTeluBebanDet') }}";
                                     loadForm(url)
                                 }
                             }
@@ -569,9 +680,105 @@ function getPresentaseRkaRealisasiRp(periode=null){
                 series: [{
                     name: null,
                     color: ($mode == "dark" ? "#2200FF" : "#00509D"),
-                    data: result.data.data
+                    data: result.data.data_sdm
                 }]
+            },function(){
+                this.xAxis[0].labelGroup.element.childNodes.forEach(function(label) {
+                    label.style.cursor = "pointer";
+                });
             });
+
+            $('#rkaVSrealRp .highcharts-xaxis-labels text').on('click', function () {
+                // $(this).css({''});
+                $kd = result.data.data_sdm[$(this).index()].key;
+                $form_back = "dashTeluBeban"; 
+                var url = "{{ url('/dash-telu/form/dashTeluBebanDet') }}";
+                loadForm(url)
+            });
+
+            Highcharts.chart('rkaVSrealNonRp', {
+                chart: {
+                    type: 'bar'
+                },
+                title: {
+                    text:  null
+                },
+                xAxis: {
+                    categories: result.data.categori_non,
+                    title: {
+                        text: null
+                    }
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: '',
+                        align: 'high'
+                    },
+                    labels: {
+                        overflow: 'justify'
+                    }
+                },
+                tooltip: {
+                    formatter: function () {
+                        return this.point.name+':<b>'+toMilyar(this.y)+'</b>';
+                    }
+                },
+                plotOptions: {
+                    bar: {
+                        dataLabels: {
+                            enabled: true,
+                            useHTML: true,
+                            formatter: function () {
+                                return $('<div/>').css({
+                                    'color' : 'white', // work
+                                    'padding': '0 5px',
+                                    'font-size':'8px',
+                                    'backgroundColor' : this.point.color  // just white in my case
+                                }).text(toMilyar(this.y))[0].outerHTML;
+                            }
+                        },
+                        cursor: 'pointer',
+                        //point
+                        point: {
+                            events: {
+                                click: function() {
+                                    
+                                    $form_back = "dashTeluBeban";  
+                                    $kd= this.options.key;
+                                    
+                                    var url = "{{ url('/dash-telu/form/dashTeluBebanDet') }}";
+                                    loadForm(url)
+                                }
+                            }
+                        }
+                    }
+                },
+                legend: {
+                    enabled:false
+                },
+                credits: {
+                    enabled: false
+                },
+                series: [{
+                    name: null,
+                    color: ($mode == "dark" ? "#2200FF" : "#00509D"),
+                    data: result.data.data_non
+                }]
+            },function(){
+                this.xAxis[0].labelGroup.element.childNodes.forEach(function(label) {
+                    label.style.cursor = "pointer";
+                });
+            });
+
+            $('#rkaVSrealNonRp .highcharts-xaxis-labels text').on('click', function () {
+                // $(this).css({''});
+                $kd = result.data.data_non[$(this).index()].key;
+                $form_back = "dashTeluBeban"; 
+                var url = "{{ url('/dash-telu/form/dashTeluBebanDet') }}";
+                loadForm(url)
+            });
+
         },
         error: function(jqXHR, textStatus, errorThrown) {       
             if(jqXHR.status == 422){

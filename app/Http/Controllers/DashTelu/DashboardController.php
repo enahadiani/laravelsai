@@ -286,6 +286,60 @@
             }
         }
 
+        public function getPendapatanFakNon(Request $request)
+        {
+            try{
+                $client = new Client();
+                $response = $client->request('GET', config('api.url').'ypt-dash/pdptFakultasNon',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => $request->all()
+                ]);
+    
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $data = json_decode($response_data,true);
+                    $data = $data["success"];
+                }
+                return response()->json(['data' => $data], 200);
+
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                return response()->json(['message' => $res, 'status'=>false], $response->getStatusCode());
+            }
+        }
+
+        public function getDetailPendapatanNon(Request $request)
+        {
+            try{
+                $client = new Client();
+                $response = $client->request('GET', config('api.url').'ypt-dash/detailPdptNon',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => $request->all()
+                ]);
+    
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $data = json_decode($response_data,true);
+                    $data = $data["success"];
+                }
+                return response()->json(['data' => $data], 200);
+
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                return response()->json(['message' => $res, 'status'=>false], $response->getStatusCode());
+            }
+        }
+
         public function getPendapatanJurusan(Request $request)
         {
             try{
@@ -477,12 +531,66 @@
             }
         }
 
+        public function getBebanFakNon(Request $request)
+        {
+            try{
+
+                $client = new Client();
+                $response = $client->request('GET', config('api.url').'ypt-dash/bebanFakultasNon',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => $request->all()
+                ]);
+    
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $data = json_decode($response_data,true);
+                    $data = $data["success"];
+                }
+                return response()->json(['data' => $data], 200);
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                return response()->json(['message' => $res, 'status'=>false], $response->getStatusCode());
+            }
+        }
+
         public function getDetailBeban(Request $request)
         {
             try{
 
                 $client = new Client();
                 $response = $client->request('GET', config('api.url').'ypt-dash/detailBeban',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => $request->all()
+                ]);
+    
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $data = json_decode($response_data,true);
+                    $data = $data["success"];
+                }
+                return response()->json(['data' => $data], 200);
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                return response()->json(['message' => $res, 'status'=>false], $response->getStatusCode());
+            }
+        }
+
+        public function getDetailBebanNon(Request $request)
+        {
+            try{
+
+                $client = new Client();
+                $response = $client->request('GET', config('api.url').'ypt-dash/detailBebanNon',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',

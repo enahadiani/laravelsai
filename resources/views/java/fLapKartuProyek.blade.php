@@ -12,8 +12,8 @@
                                 <h6>Filter</h6>
                                 <div id="inputFilter">
                                     <!-- COMPONENT -->
-                                    <x-inp-filter kode="kode_cust" nama="Vendor" selected="3" :option="array('3')"/>
-                                    <x-inp-filter kode="no_proyek" nama="No Proyek" selected="3" :option="array('3')"/>
+                                    <x-inp-filter kode="kode_cust" nama="Vendor" selected="1" :option="array('1','2','3','i')"/>
+                                    <x-inp-filter kode="no_proyek" nama="No Proyek" selected="1" :option="array('1','2','3','i')"/>
                                     <!-- END COMPONENT -->
                                 </div>
                                 <button id="btn-tampil" style="float:right;width:110px" class="btn btn-primary ml-2 mb-3" type="submit" >Tampilkan</button>
@@ -44,7 +44,7 @@
         }
     });
     var $no_proyek = {
-        type : "=",
+        type : "all",
         from : "",
         fromname : "",
         to : "",
@@ -52,38 +52,38 @@
     }
 
     var $kode_cust = {
-        type : "=",
+        type : "all",
         from : "",
         fromname : "",
         to : "",
         toname : "",
     }
 
-    $.ajax({
-        type: 'GET',
-        url: "{{ url('java-report/filter-kartu-tagihan') }}",
-        dataType: 'json',
-        async:false,
-        success: function(result) {
-            var initial = result.daftar[result.daftar.length - 1].no_proyek;
-            $no_proyek.from = initial;
-            $no_proyek.fromname = initial;
-            $('#no_proyek-from').val(initial);
-        }
-    })
+    // $.ajax({
+    //     type: 'GET',
+    //     url: "{{ url('java-report/filter-kartu-tagihan') }}",
+    //     dataType: 'json',
+    //     async:false,
+    //     success: function(result) {
+    //         var initial = result.daftar[result.daftar.length - 1].no_proyek;
+    //         $no_proyek.from = initial;
+    //         $no_proyek.fromname = initial;
+    //         $('#no_proyek-from').val(initial);
+    //     }
+    // })
 
-    $.ajax({
-        type: 'GET',
-        url: "{{ url('java-trans/customer') }}",
-        dataType: 'json',
-        async:false,
-        success: function(result) {
-            var initial = result.daftar[0].kode_cust;
-            $kode_cust.from = initial;
-            $kode_cust.fromname = initial;
-            $('#kode_cust-from').val(initial);
-        }
-    })
+    // $.ajax({
+    //     type: 'GET',
+    //     url: "{{ url('java-trans/customer') }}",
+    //     dataType: 'json',
+    //     async:false,
+    //     success: function(result) {
+    //         var initial = result.daftar[0].kode_cust;
+    //         $kode_cust.from = initial;
+    //         $kode_cust.fromname = initial;
+    //         $('#kode_cust-from').val(initial);
+    //     }
+    // })
 
     $('#btn-filter').click(function(e){
         $('#collapseFilter').show();

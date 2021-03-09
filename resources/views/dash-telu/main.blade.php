@@ -134,6 +134,9 @@
     <script>
         var $public_asset = "{{ asset('asset_dore') }}/";
         var $filter_periode = "";
+        var $form_back = "";
+        var $kd_grafik = "";
+        var $kd = "";
         var $dash_periode = {
             type : "",
             from : "",
@@ -178,6 +181,7 @@
     <script src="{{ asset('asset_elite/inputmask.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/bootstrap-tagsinput.min.js') }}"></script>
     <script src="{{ asset('asset_dore/js/pptxgen.bundle.js') }}"></script>
+    <!-- <script src="{{ asset('asset_dore/js/html2canvas.min.js') }}"></script> -->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script>
         var $google = google;

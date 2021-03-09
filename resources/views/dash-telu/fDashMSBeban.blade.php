@@ -148,6 +148,9 @@ if(localStorage.getItem("dore-theme") == "dark"){
     $('#btnBack,#btn-filter').addClass('btn-outline-light');
 }
 
+$kd = "";
+$form_back = "";
+$kode_grafik = "";
 $mode = localStorage.getItem("dore-theme");
 function sepNum(x){
     if(!isNaN(x)){
@@ -408,7 +411,7 @@ function getMsBebanRKA(periode=null){
                     text: ''
                 },
                 xAxis: {
-                    categories: ['Operasional','Non Operasional']
+                    categories: ['Beban SDM','Beban Non SDM']
                 },
                 yAxis: {
                         title:'',
@@ -443,6 +446,19 @@ function getMsBebanRKA(periode=null){
                                 }
                                 // if(this.name)
                             }
+                        },
+                        cursor: 'pointer',
+                        //point
+                        point: {
+                            events: {
+                                click: function() {  
+                                    $kd= this.options.key;
+                                    $kd_grafik= this.options.key2;
+                                    $form_back = "fDashMSBeban";
+                                    var url = "{{ url('/dash-telu/form/dashTeluBebanDet') }}";
+                                    loadForm(url)
+                                }
+                            }
                         }
                     },
                     scatter: {
@@ -464,6 +480,19 @@ function getMsBebanRKA(periode=null){
                                         'font-size': '10px',
                                         'backgroundColor' : this.point.color  // just white in my case
                                     }).text(sepNum(this.point.nlabel)+'M')[0].outerHTML;
+                                }
+                            }
+                        },
+                        cursor: 'pointer',
+                        //point
+                        point: {
+                            events: {
+                                click: function() {  
+                                    $kd= this.options.key;
+                                    $kd_grafik= this.options.key2;
+                                    $form_back = "fDashMSBeban";
+                                    var url = "{{ url('/dash-telu/form/dashTeluBebanDet') }}";
+                                    loadForm(url)
                                 }
                             }
                         }

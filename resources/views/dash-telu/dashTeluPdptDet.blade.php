@@ -41,45 +41,123 @@ $thnLalu = substr($tahunLalu,2,2);
     </div>
     <div class="row mt-2" >
         <div class="col-12 mb-4">
-            <div class="card dash-card" >
+            <div class="card dash-card">
                 <div class="card-header">
-                    <h6 class="card-title">Pendapatan per Tahun untuk Fakultas</h6>
+                    <div class="row mx-0">
+                        <h6 class="card-title col-md-4 col-sm-12 px-0">Pendapatan per Tahun untuk Fakultas</h6>
+                        <ul role="tablist" style="border: none;" class="nav nav-tabs col-md-8 col-sm-12 px-0 justify-content-end">
+                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#tab_fak" role="tab" aria-selected="false"><span class="hidden-xs-down"><b>Fakultas</b></span></a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab_dir" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>Direktorat</b></span></a> </li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="card-body pt-0">
-                    <div id='pdptFak' style='height:300px'>
+                    <div class="tab-content tabcontent-border p-0">
+                        <div class="tab-pane active" id="tab_fak" role="tabpanel">
+                            <div id='pdptFak' style='height:300px'>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab_dir" role="tabpanel">
+                            <div id='pdptFakNon' style='height:300px'>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>  
         <div class="col-12 mb-4">
-            <div class="card dash-card" >
+            <div class="card dash-card">
                 <div class="card-header">
-                    <h6 class="card-title">Pertumbuhan Pendapatan per Fakultas</h6>
+                    <div class="row mx-0">
+                        <h6 class="card-title col-md-4 col-sm-12 px-0">Pertumbuhan Pendapatan per Fakultas</h6>
+                        <ul role="tablist" style="border: none;" class="nav nav-tabs col-md-8 col-sm-12 px-0 justify-content-end">
+                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#tab2_fak" role="tab" aria-selected="false"><span class="hidden-xs-down"><b>Fakultas</b></span></a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab2_dir" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>Direktorat</b></span></a> </li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="card-body pt-0">
-                    <div id='pertumbuhan' style='height:300px'>
+                    <div class="tab-content tabcontent-border p-0">
+                        <div class="tab-pane active" id="tab2_fak" role="tabpanel">
+                            <div id='pertumbuhan' style='height:300px'>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab2_dir" role="tabpanel">
+                            <div id='pertumbuhanNon' style='height:300px'>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-12 mb-4 mb-5">
-            <div class="card dash-card" style="background:#f5f5f5;">
+            <div class="card dash-card" style="background:#f5f5f5;border-radius:1.75rem !important">
                 <div class="card-header">
-                    <h6 class="card-title" class="mt-2">Pendapatan <span class='tahunIni'></span></h6>
+                    <div class="row mx-0">
+                        <h6 class="card-title col-md-4 col-sm-12 px-0">Pendapatan <span class='tahunIni'></span></h6>
+                        <ul role="tablist" style="border: none;" class="nav nav-tabs col-md-8 col-sm-12 px-0 justify-content-end">
+                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#tab3_fak" role="tab" aria-selected="false"><span class="hidden-xs-down"><b>Fakultas</b></span></a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab3_dir" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>Direktorat</b></span></a> </li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="card-body pt-0">
-                    <table class='no-border' id='tablePend' style="width:100%">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th class="text-right">RKA '<span class='thnIni'></span></th>
-                                <th class="text-right">Realisasi '<span class='thnIni'></span></th>
-                                <th class="text-right">Pencapaian</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
+                    <div class="tab-content tabcontent-border p-0">
+                        <div class="tab-pane active" id="tab3_fak" role="tabpanel">
+                            <table class='no-border' id='tablePend' style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th class="text-right">RKA '<span class='thnIni'></span></th>
+                                        <th class="text-right">Realisasi '<span class='thnIni'></span></th>
+                                        <th class="text-right">Pencapaian</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="tab-pane" id="tab3_dir" role="tabpanel">
+                            <table class='no-border' id='tablePendNon' style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th class="text-right">RKA '<span class='thnIni'></span></th>
+                                        <th class="text-right">Realisasi '<span class='thnIni'></span></th>
+                                        <th class="text-right">Pencapaian</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <div class="modal fade modal-right" id="modalFilter" tabindex="-1" role="dialog"
+    aria-labelledby="modalFilter" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title">Filter</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label>Periode</label>
+                            <input type="text" class="form-control" placeholder="">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-primary" id="btn-reset">Reset</button>
+                    <button type="button" class="btn btn-primary">Submit</button>
                 </div>
             </div>
         </div>
@@ -99,6 +177,7 @@ if(localStorage.getItem("dore-theme") == "dark"){
 }
 $mode = localStorage.getItem("dore-theme");
 var $k2 = "";
+$kd_grafik = "";
 function sepNum(x){
     var num = parseFloat(x).toFixed(2);
     var parts = num.toString().split('.');
@@ -163,7 +242,7 @@ function getDetailPendapatan(periode=null,kodeNeraca=null){
         dataType:"JSON",
         data:{ 'periode[0]' : periode.type,
             'periode[1]' : periode.from,
-            'periode[2]' : periode.to, mode: $mode,'kode_neraca':kodeNeraca},
+            'periode[2]' : periode.to, mode: $mode,'kode_neraca':kodeNeraca, 'kode_grafik':($kd_grafik != undefined ? $kd_grafik : "")},
         success:function(result){
             var html='';
             for(var i=0;i<result.data.data.length;i++){
@@ -202,7 +281,7 @@ function getPendapatanFak(periode=null, kodeNeraca=null){
         dataType:"JSON",
         data:{ 'periode[0]' : periode.type,
             'periode[1]' : periode.from,
-            'periode[2]' : periode.to, mode: $mode,kode_neraca:kodeNeraca},
+            'periode[2]' : periode.to, mode: $mode,kode_neraca:kodeNeraca, 'kode_grafik':($kd_grafik != undefined ? $kd_grafik : "")},
         success:function(result){
             Highcharts.chart('pdptFak', {
                 chart: {
@@ -302,9 +381,224 @@ function getPertumbuhanPendapatanFak(periode=null,kodeNeraca=null){
         dataType:"JSON",
         data:{ 'periode[0]' : periode.type,
             'periode[1]' : periode.from,
-            'periode[2]' : periode.to, mode: $mode,kode_neraca:kodeNeraca},
+            'periode[2]' : periode.to, mode: $mode,kode_neraca:kodeNeraca, 'kode_grafik':($kd_grafik != undefined ? $kd_grafik : "")},
         success: function(result){
             Highcharts.chart('pertumbuhan', {
+                chart: {
+                    type: 'spline'
+                },
+                title: {
+                    text: null
+                },
+                credits:{
+                    enabled:false
+                },
+                yAxis: {
+                    title: {
+                        text: ''
+                    },
+                    labels: {
+                        formatter: function () {
+                            return singkatNilai(this.value);
+                        }
+                    },
+                },
+                xAxis: {
+                    categories:result.data.ctg
+                },
+                plotOptions: {
+                    spline: {
+                        dataLabels: {
+                            allowOverlap:true,
+                            enabled: true,
+                            crop: false,
+                            overflow: 'justify',
+                            useHTML: true,
+                            formatter: function () {
+                                if(this.y < 0.1){
+                                    return '';
+                                }else{
+                                    return $('<div/>').css({
+                                        'color' : 'white', // work
+                                        'padding': '0 3px',
+                                        'font-size': '10px',
+                                        'backgroundColor' : this.point.color  // just white in my case
+                                    }).text(toMilyar(this.y))[0].outerHTML;
+                                }
+                                // if(this.name)
+                            }
+                        },
+                        enableMouseTracking: false
+                    }
+                },
+                series: result.data.series
+            });
+        },
+        error: function(jqXHR, textStatus, errorThrown) {       
+            if(jqXHR.status == 422){
+                var msg = jqXHR.responseText;
+            }else if(jqXHR.status == 500) {
+                var msg = "Internal server error";
+            }else if(jqXHR.status == 401){
+                var msg = "Unauthorized";
+                window.location="{{ url('/dash-telu/sesi-habis') }}";
+            }else if(jqXHR.status == 405){
+                var msg = "Route not valid. Page not found";
+            }
+            
+        }
+    })
+}
+
+function getDetailPendapatanNon(periode=null,kodeNeraca=null){
+    $.ajax({
+        type:"GET",
+        url:"{{ url('/telu-dash/getDetailPendapatanNon') }}",
+        dataType:"JSON",
+        data:{ 'periode[0]' : periode.type,
+            'periode[1]' : periode.from,
+            'periode[2]' : periode.to, mode: $mode,'kode_neraca':kodeNeraca, 'kode_grafik':($kd_grafik != undefined ? $kd_grafik : "")},
+        success:function(result){
+            var html='';
+            for(var i=0;i<result.data.data.length;i++){
+                var line = result.data.data[i];
+                            
+                html+=`<tr>
+                    <td style='font-weight:bold'>`+line.nama+`</td>
+                    <td class='text-right'>`+toMilyar(line.n4)+`</td>
+                    <td class='text-right'>`+toMilyar(line.n5)+`</td>
+                    <td class='text-right'>`+sepNum(line.capai)+`%</td>
+                     </tr>`;
+                            
+                }
+            $('#tablePendNon tbody').html(html);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {       
+            if(jqXHR.status == 422){
+                var msg = jqXHR.responseText;
+            }else if(jqXHR.status == 500) {
+                var msg = "Internal server error";
+            }else if(jqXHR.status == 401){
+                var msg = "Unauthorized";
+                window.location="{{ url('/dash-telu/sesi-habis') }}";
+            }else if(jqXHR.status == 405){
+                var msg = "Route not valid. Page not found";
+            }
+            
+        }
+    })
+}
+
+function getPendapatanFakNon(periode=null, kodeNeraca=null){
+    $.ajax({
+        type:"GET",
+        url:"{{ url('/telu-dash/getPendapatanFakNon') }}",
+        dataType:"JSON",
+        data:{ 'periode[0]' : periode.type,
+            'periode[1]' : periode.from,
+            'periode[2]' : periode.to, mode: $mode,kode_neraca:kodeNeraca, 'kode_grafik':($kd_grafik != undefined ? $kd_grafik : "")},
+        success:function(result){
+            Highcharts.chart('pdptFakNon', {
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: null
+                },
+                xAxis: {
+                    categories: result.data.ctg,
+                    crosshair: true
+                },
+                yAxis: {
+                    title: {
+                        text: ''
+                    },
+                    labels: {
+                        formatter: function () {
+                            return singkatNilai(this.value);
+                        }
+                    },
+                },
+                credits:{
+                    enabled:false
+                },
+                tooltip: {
+                    // headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                    // pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    //     '<td style="padding:0"><b>{point.y:.2f}</b></td></tr>',
+                    // footerFormat: '</table>',
+                    // // shared: true,
+                    // useHTML: true
+                    formatter: function () {
+                        return this.series.name+':<b>'+toMilyar(this.y)+'</b>';
+                    }
+                },
+                plotOptions: {
+                    column: {
+                        pointPadding: 0.2,
+                        borderWidth: 0,
+                        cursor: 'pointer',
+                        point: {
+                            events: {
+                                click: function() {  
+                                    $kd2 = this.options.tahun;
+                                    $kd3 = this.options.kode_bidang;
+                                    var url = "{{ url('/dash-telu/form/dashTeluPdptDet2') }}";
+                                    loadForm(url)
+                                }
+                            }
+                        },
+                        dataLabels: {
+                            allowOverlap:true,
+                            enabled: true,
+                            crop: false,
+                            overflow: 'justify',
+                            useHTML: true,
+                            formatter: function () {
+                                if(this.y < 0.1){
+                                    return '';
+                                }else{
+                                    return $('<div/>').css({
+                                        'color' : 'white', // work
+                                        'padding': '0 3px',
+                                        'font-size': '10px',
+                                        'backgroundColor' : this.point.color  // just white in my case
+                                    }).text(toMilyar(this.y))[0].outerHTML;
+                                }
+                                // if(this.name)
+                            }
+                        }
+                    }
+                },
+                series: result.data.series
+            })
+        },
+        error: function(jqXHR, textStatus, errorThrown) {       
+            if(jqXHR.status == 422){
+                var msg = jqXHR.responseText;
+            }else if(jqXHR.status == 500) {
+                var msg = "Internal server error";
+            }else if(jqXHR.status == 401){
+                var msg = "Unauthorized";
+                window.location="{{ url('/dash-telu/sesi-habis') }}";
+            }else if(jqXHR.status == 405){
+                var msg = "Route not valid. Page not found";
+            }
+            
+        }
+    })
+}
+
+function getPertumbuhanPendapatanFakNon(periode=null,kodeNeraca=null){
+    $.ajax({
+        type:"GET",
+        url:"{{ url('/telu-dash/getPendapatanFakNon') }}",
+        dataType:"JSON",
+        data:{ 'periode[0]' : periode.type,
+            'periode[1]' : periode.from,
+            'periode[2]' : periode.to, mode: $mode,kode_neraca:kodeNeraca, 'kode_grafik':($kd_grafik != undefined ? $kd_grafik : "")},
+        success: function(result){
+            Highcharts.chart('pertumbuhanNon', {
                 chart: {
                     type: 'spline'
                 },
@@ -417,13 +711,21 @@ $('.label-periode-filter').html(label);
 getPertumbuhanPendapatanFak($dash_periode,$kd);
 getPendapatanFak($dash_periode,$kd);
 getDetailPendapatan($dash_periode,$kd);
+getPertumbuhanPendapatanFakNon($dash_periode,$kd);
+getPendapatanFakNon($dash_periode,$kd);
+getDetailPendapatanNon($dash_periode,$kd);
 
 $('.tahunIni').text($dash_periode.from.substr(0,4));
 $('.thnIni').text($dash_periode.from.substr(0,4));
 
 $('.detail-pdpt').on('click','#btnBack',function(e){
     e.preventDefault();
-    var url = "{{ url('/dash-telu/form/dashTeluPdpt') }}";
+    if($form_back != ""){
+        var url = "{{ url('/dash-telu/form') }}/"+$form_back;
+    }else{
+
+        var url = "{{ url('/dash-telu/form/dashTeluPdpt') }}";
+    }
     loadForm(url);
 })
 
