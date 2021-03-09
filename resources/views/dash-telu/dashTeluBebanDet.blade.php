@@ -286,8 +286,8 @@ function getDetailBebanNon(periode=null,kodeNeraca=null){
                 
                 html+=`<tr>
                 <td style='font-weight:bold'>`+line.nama+`</td>
+                <td class='text-right'>`+toMilyar(line.n2)+`</td>
                 <td class='text-right'>`+toMilyar(line.n4)+`</td>
-                <td class='text-right'>`+toMilyar(line.n5)+`</td>
                 <td class='text-right'>`+sepNum(line.capai)+`%</td>
                 </tr>`;
                 
@@ -319,7 +319,6 @@ function getBebanFak(periode=null, kodeNeraca=null){
             'periode[2]' : periode.to, mode: $mode,'kode_neraca':kodeNeraca, 'kode_grafik':($kd_grafik != undefined ? $kd_grafik : "")},
         dataType:"JSON",
         success:function(result){
-            console.log(result);
             Highcharts.chart('bebanFak', {
                 chart: {
                     type: 'column'
@@ -414,7 +413,6 @@ function getBebanFakNon(periode=null, kodeNeraca=null){
             'periode[2]' : periode.to, mode: $mode,'kode_neraca':kodeNeraca, 'kode_grafik':($kd_grafik != undefined ? $kd_grafik : "")},
         dataType:"JSON",
         success:function(result){
-            console.log(result);
             Highcharts.chart('bebanFakNon', {
                 chart: {
                     type: 'column'
