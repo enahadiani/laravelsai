@@ -363,7 +363,7 @@ switch($dash_periode.type){
 }
 $('.label-periode-filter').html(label);
 getBebanJurusan($dash_periode,$kd,$kd3)
-getDataBebanJurusan($dash_periode,$kd,$kd3,$dash_periode.from.substr(0,4))
+getDataBebanJurusan($dash_periode,$kd,$kd3,'20'+$kd2)
 
 $('.tahunPilih').text('20'+$kd2);
 $('.thnPilih').text($kd2);
