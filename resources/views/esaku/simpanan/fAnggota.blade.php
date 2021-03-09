@@ -347,9 +347,8 @@
     var bottomSheet = new BottomSheet("country-selector");
     document.getElementById("trigger-bottom-sheet").addEventListener("click", bottomSheet.activate);
     window.bottomSheet = bottomSheet;
-    // var $iconLoad = $('.preloader');
-    // Small Form
-    // $('#saku-form > .col-12').addClass('mx-auto col-lg-6');
+    var $iconLoad = $('.preloader');
+    $('#saku-form > .col-12').addClass('mx-auto col-lg-6');
     // $('#modal-preview').addClass('fade animate');
     // $('#modal-preview .modal-content').addClass('animate-bottom');
     $('#error-vendor').hide();
