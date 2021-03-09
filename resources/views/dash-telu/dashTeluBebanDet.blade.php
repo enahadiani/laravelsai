@@ -247,8 +247,8 @@ function getDetailBeban(periode=null,kodeNeraca=null){
                 
                 html+=`<tr>
                 <td style='font-weight:bold'>`+line.nama+`</td>
-                <td class='text-right'>`+toMilyar(line.n2)+`</td>
                 <td class='text-right'>`+toMilyar(line.n4)+`</td>
+                <td class='text-right'>`+toMilyar(line.n5)+`</td>
                 <td class='text-right'>`+sepNum(line.capai)+`%</td>
                 </tr>`;
                 

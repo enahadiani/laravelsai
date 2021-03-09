@@ -188,7 +188,7 @@ if(localStorage.getItem("dore-theme") == "dark"){
 var $mode = localStorage.getItem("dore-theme");
 $kd = "";
 $form_back = "";
-$kode_grafik = "";
+$kd_grafik = "";
 function sepNum(x){
     if(!isNaN(x)){
         if (typeof x === undefined || !x || x == 0) { 
@@ -472,6 +472,7 @@ function getPresentaseRkaRealisasi(periode=null){
                                     
                                     $form_back = "dashTeluBeban"; 
                                     $kd= this.options.key;
+                                    
                                     var url = "{{ url('/dash-telu/form/dashTeluBebanDet') }}";
                                     loadForm(url)
                                 }
@@ -546,6 +547,7 @@ function getPresentaseRkaRealisasi(periode=null){
                                     
                                     $form_back = "dashTeluBeban";
                                     $kd= this.options.key;
+                                    
                                     var url = "{{ url('/dash-telu/form/dashTeluBebanDet') }}";
                                     loadForm(url)
                                 }
@@ -661,6 +663,7 @@ function getPresentaseRkaRealisasiRp(periode=null){
                                     
                                     $form_back = "dashTeluBeban";
                                     $kd= this.options.key;
+                                    
                                     var url = "{{ url('/dash-telu/form/dashTeluBebanDet') }}";
                                     loadForm(url)
                                 }
@@ -743,6 +746,7 @@ function getPresentaseRkaRealisasiRp(periode=null){
                                     
                                     $form_back = "dashTeluBeban";  
                                     $kd= this.options.key;
+                                    
                                     var url = "{{ url('/dash-telu/form/dashTeluBebanDet') }}";
                                     loadForm(url)
                                 }
