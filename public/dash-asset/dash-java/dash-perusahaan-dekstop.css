@@ -1,28 +1,28 @@
-.progress-1 {
-    top: 0;
-    left: 0;
-    background-color: #000;
-    border-radius: 100% 0 0 0;
-}
-.progress-value {
-    width: 50%;
-    height: 50%;
+.circle-progress-project {
     background-color: #0058e4;
-    top: 25%;
-    left: 25%;
+    height: 55px;
+    width: 55px;
+    color: #fff;
     border-radius: 50%;
-}
-.progress {
+    text-align: center;
+    vertical-align: middle;
+    line-height: 55px;
+    font-size: 1rem;
     position: absolute;
-    width: 50%;
-    height: 50%;
 }
-.project-progress {
+
+/* .progress-project {
     position: relative;
-    width: 57px;
-    height: 57px;
-    margin: 0 auto;
-}
+    border: 1px solid #000;
+    background-color: transparent;
+    height: 59px;
+    width: 59px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+} */
+
 .text-bold {
     font-weight: bold;
 }
