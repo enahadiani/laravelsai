@@ -22,7 +22,7 @@
                         </div>
                     </div>
                 </div>
-                <x-report-paging :option="array()" default="All" />  
+                <x-report-paging :option="array(1)" default="1" />  
             </div>                    
         </div>
     </div>
