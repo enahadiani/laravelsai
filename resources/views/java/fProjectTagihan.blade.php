@@ -240,7 +240,6 @@
         $('#input-grid tbody tr').each(function(index) {
             var total = toNilai($(this).find('.td-harga').text())
             subtotal += total
-            console.log($(this).find('.td-harga').text())
         })
         if(pajak == 0) {
             pajak = 0
@@ -674,7 +673,6 @@
 
     $('#input-grid').on('click', 'td', function(){
         var idx = $(this).index();
-        console.log(idx)
         hitungSubtotal();
         if(idx == 0 || idx == 3){
             return false;
@@ -757,8 +755,6 @@
             // }
             $("#input-grid tbody tr td:not(:first-child):not(:last-child)").each(function() {
                 if($(this).find('span').text().trim().length == 0) {
-                    console.log($(this).find('span').text().length)
-                    console.log($(this).find('span'))
                     alert('Data tagihan tidak boleh kosong, harap dihapus untuk melanjutkan')
                     valid = false;
                     return false;
