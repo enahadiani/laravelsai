@@ -126,6 +126,7 @@ function drawRptPage(data,res,from,to){
                         html += "<td class='text-right'>"+sepNum(beban.nilai)+"</td>"
                         html += "<td class='text-center'>"+beban.status+"</td>"
                         html += "</tr>";
+                        no++;
                     }
                 }
             }
