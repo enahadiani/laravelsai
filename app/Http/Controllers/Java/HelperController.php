@@ -69,9 +69,9 @@ class HelperController extends Controller {
         return response()->json(['daftar' => $data['data'], 'status' => true], 200);
     }
 
-    public function getProyekTagihan() {
+    public function getProyekTagihan(Request $request) {
         $client = new Client();
-        $response = $client->request('GET',  config('api.url').'java-trans/tagihan-proyek-cbbl',[
+        $response = $client->request('GET',  config('api.url').'java-trans/tagihan-proyek-cbbl?kode_cust='.$request->query('kode'),[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',

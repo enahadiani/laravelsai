@@ -28,7 +28,7 @@
                                     <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;" class="simple-icon-calendar date-search"></i>
                                 </div>
                                 <div class="col-md-8 col-sm-12">
-                                    <label for="kode_cust" >Vendor</label>
+                                    <label for="kode_cust" >Customer</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
                                             <span class="input-group-text info-code_kode_cust" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
@@ -53,7 +53,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-row form-no-margin">
+                    <div class="form-row">
                         <div class="form-group col-md-6 col-sm-12">
                             <div class="row">
                                 <div class="col-md-8 col-sm-12">
@@ -70,6 +70,21 @@
                                         <i class="simple-icon-magnifier search-item2" id="search_no_proyek"></i>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6 col-sm-12">
+                            <div class="row">
+                                <div class="col-md-4 col-sm-12"></div>
+                                <div class="col-md-8 col-sm-12">
+                                    <label for="nilai_kontrak">Nilai Kontrak</label>
+                                    <input class="form-control currency" type="text" placeholder="Nilai Kontrak" id="nilai_kontrak" value="0" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6 col-sm-12">
+                            <div class="row">
                                 <div class="col-md-4 col-sm-12 no_tagihan">
                                     <label for="no_tagihan">No Tagihan</label>
                                     <input class='form-control' type="text" id="no_tagihan" name="no_tagihan" readonly>
@@ -98,16 +113,6 @@
                             </table>
                             <a type="button" href="#" data-id="0" title="add-row" class="add-row btn btn-light2 btn-block btn-sm"><i class="saicon icon-tambah mr-1"></i>Tambah Baris</a>
                             <div class="info-transaction">
-                                <div class="row">
-                                    <div class="col-md-5 col-sm-5"></div>
-                                    <div class="col-md-4 col-sm-3">
-                                        <span>Biaya Lain</span>
-                                    </div>
-                                    <div class="col-md-2 col-sm-2">
-                                        <input class="form-control currency" type="text" placeholder="Biaya Lain" id="biaya_lain" name="biaya_lain" value="0">
-                                    </div>
-                                    <div class="col-md-1 col-sm-2"></div>
-                                </div>
                                 <div class="row mt-2">
                                     <div class="col-md-5 col-sm-5"></div>
                                     <div class="col-md-2 col-sm-3">
@@ -119,7 +124,10 @@
                                             <span>%</span>
                                         </div>
                                     </div>
-                                    <div class="col-md-4 col-sm-2"></div>
+                                    <div class="col-md-3 col-sm-3" style="text-align: right;">
+                                        <span id="nilai_pajak" class="nilai-pajak"></span>
+                                    </div>
+                                    <div class="col-md-1 col-sm-1"></div>
                                 </div>
                                 <div class="row mt-2">
                                     <div class="col-md-5 col-sm-5"></div>
@@ -187,6 +195,7 @@
     var $target = "";
     var $target2 = "";
     var $target3 = "";
+    var valid = true;
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
@@ -225,20 +234,20 @@
     }
 
     function hitungSubtotal() {
-        var biaya_lain = toNilai($('#biaya_lain').val())
         var pajak = toNilai($('#pajak').val())
         var uang_muka = toNilai($('#uang_muka').val())
         subtotal = 0;
         $('#input-grid tbody tr').each(function(index) {
             var total = toNilai($(this).find('.td-harga').text())
             subtotal += total
+            console.log($(this).find('.td-harga').text())
         })
         if(pajak == 0) {
             pajak = 0
         } else {
             pajak = parseInt(subtotal * (pajak/100))   
         }
-        var totalAkhir = biaya_lain + pajak + subtotal;
+        var totalAkhir = pajak + subtotal;
         var kurang_bayar = totalAkhir - uang_muka;
         if(kurang_bayar < 0) {
             kurang_bayar = 0;
@@ -315,9 +324,9 @@
         no=no+2;
         var input = "";
         input += "<tr class='row-grid'>";
-        input += "<td class='text-center no-grid'>"+no+"<input type='text' name='no[]' class='form-control inp-no noke"+no+" hidden'  value='"+no+"' required></td>";
-        input += "<td><span class='td-item tdketke"+no+" tooltip-span'></span><input type='text' name='item[]' class='form-control inp-item ketke"+no+" hidden'  value='' required></td>";
-        input += "<td class='text-right'><span class='td-harga tdhargake"+no+" tooltip-span'></span><input type='text' name='harga[]' class='form-control numeric inp-harga hargake"+no+" hidden'  value='0' required></td>";
+        input += "<td class='text-center no-grid'>"+no+"</td>";
+        input += "<td><span class='td-item tditemke"+no+" tooltip-span'></span><input type='text' name='item[]' class='form-control inp-item itemke"+no+" hidden'  value=''></td>";
+        input += "<td class='text-right'><span class='td-harga tdhargake"+no+" tooltip-span'></span><input type='text' name='harga[]' class='form-control numeric inp-harga hargake"+no+" hidden'  value='0'></td>";
         input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
         input += "</tr>";
 
@@ -334,6 +343,7 @@
 
         hideUnselectedRow();
         if(param == "add"){
+            $('#input-grid tbody tr:last').click()
             $('#input-grid td').removeClass('px-0 py-0 aktif');
             $('#input-grid tbody tr:last').find("td:eq(1)").addClass('px-0 py-0 aktif');
             $('#input-grid tbody tr:last').find(".inp-item").show();
@@ -345,7 +355,26 @@
                 return $(this).text();
             }
         });
+        hitungSubtotal();
         hitungTotalRow();
+    }
+
+    function hideAllSelectedRow() {
+        $('#input-grid tbody tr').removeClass('selected-row');
+        $('#input-grid > tbody > tr').each(function(index, row) { 
+            var item = $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-item").val();
+            var harga = $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-harga").val();
+
+            $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-item").val(item);
+            $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-item").text(item);
+            $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-harga").val(harga);
+            $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-harga").text(harga);
+
+            $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-item").hide();
+            $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-item").show();
+            $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-harga").hide();
+            $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-harga").show();
+        })
     }
 
     function hideUnselectedRow() {
@@ -375,6 +404,7 @@
             nom.html(no);
             no++;
         });
+        valid = true
         hitungTotalRow();
         hitungSubtotal();
         $("html, body").animate({ scrollTop: $(document).height() }, 1000);
@@ -477,8 +507,26 @@
         addRow("add");
     });
 
+    function custTarget(target, tr) {
+        var from = target;
+        var keyString = '_'
+        var fromTarget = from.substr(from.indexOf(keyString) + keyString.length, from.length);
+        if(fromTarget === 'no_proyek') {
+            var nilai = toNilai(tr.find('td:nth-child(3)').text());
+            $('#nilai_kontrak').val(nilai)
+        }
+    }
+
     $('#form-tambah').on('click', '.search-item2', function(){
         var id = $(this).closest('div').find('input').attr('name');
+        var cust = $('#kode_cust').val();
+        if(id == 'no_proyek') {
+            if(cust == '') {
+                alert('Pilih Customer terlebih dahulu')
+                return false;
+            }
+        }
+        
         switch(id) {
             case 'kode_cust': 
                 var settings = {
@@ -503,20 +551,24 @@
             case 'no_proyek': 
                 var settings = {
                     id : id,
-                    header : ['No Proyek', 'Keterangan'],
+                    header : ['No Proyek', 'Keterangan', 'Nilai'],
                     url : "{{ url('java-trans/tagihan-proyek-cbbl') }}",
                     columns : [
                         { data: 'no_proyek' },
-                        { data: 'keterangan' }
+                        { data: 'keterangan' },
+                        { data: 'nilai', render: $.fn.dataTable.render.number( '.', '.', 0 ) }
                     ],
+                    parameter: {
+                        kode: cust
+                    },
                     judul : "Daftar Proyek",
                     pilih : "",
                     jTarget1 : "text",
                     jTarget2 : "text",
                     target1 : ".info-code_"+id,
                     target2 : ".info-name_"+id,
-                    target3 : "",
-                    target4 : "",
+                    target3 : "custom",
+                    target4 : "custom",
                     width : ["30%","70%"],
                 }
             break;
@@ -585,8 +637,39 @@
         }
     });
 
+    $(document).keydown(function(event){
+        var code = (event.keyCode ? event.keyCode : event.which);
+        if(event.ctrlKey && code == 13 ||event.ctrlKey && code == 9) {
+            var cek = $('#input-grid tbody tr').length;
+            console.log(cek)
+            if(cek > 0){
+                var cek = $('#input-grid').find('tr').last();
+                var focus = cek.find('.td-item')
+                focus.click();
+            }else{
+                $('.add-row').click();
+            }
+        } else if(event.ctrlKey && code == 16) {
+            hideAllSelectedRow()
+            hitungSubtotal()
+            $('#pajak').focus()
+        }
+    });
+
+    $('#input-grid').on('blur', '.inp-harga', function(){
+        hitungSubtotal();
+    })
+
+    $('#input-grid tbody').on('click', 'tr', function(){
+        $(this).addClass('selected-row');
+        $('#input-grid tbody tr').not(this).removeClass('selected-row');
+        hideUnselectedRow();
+    });
+
     $('#input-grid').on('click', 'td', function(){
         var idx = $(this).index();
+        console.log(idx)
+        hitungSubtotal();
         if(idx == 0 || idx == 3){
             return false;
         }else{
@@ -623,10 +706,21 @@
                 }
             }
         }
+        hitungSubtotal();
     });
-
-    $('#biaya_lain, #pajak, #uang_muka').on('change', function() {
+    $('#pajak, #uang_muka').on('change', function() {
         hitungSubtotal()
+    })
+
+    $('#pajak').on('change', function() {
+        var value = $(this).val();
+        var nilai_pajak = 0;
+        if(value < 0 || value == 0) {
+            nilai_pajak = 0;
+        } else {
+            nilai_pajak = subtotal * (value/100)
+        }
+        $('#nilai_pajak').text('Rp. '+format_number(nilai_pajak))
     })
 
     $('#form-tambah').validate({
@@ -649,11 +743,23 @@
         errorElement: "label",
         submitHandler: function (form, event) {
             event.preventDefault();
-        
+            hideAllSelectedRow()
             if(subtotal < 0) {
                 alert('Harap mengisi detail tagihan dengan benar')
-                return;
+                valid = false;
+                return false;
             }
+            $("#input-grid tbody tr td:not(:first-child):not(:last-child)").each(function() {
+                if($(this).find('span').text().trim().length == 0) {
+                    console.log($(this).find('span').text().length)
+                    console.log($(this).find('span'))
+                    alert('Data tagihan tidak boleh kosong, harap dihapus untuk melanjutkan')
+                    valid = false;
+                    return false;
+                } else {
+                    console.log($(this).find('span'))
+                }
+            });
 
             var parameter = $('#id_edit').val();
             var id = $('#no_tagihan').val();
@@ -668,69 +774,80 @@
             }
 
             var formData = new FormData(form);
-            // $('#input-grid tbody tr').each(function(index) {
-            //     formData.append('no[]', $(this).find('.no-grid').text())
-            // })
+            $('#input-grid tbody tr').each(function(index) {
+                formData.append('no[]', $(this).find('.no-grid').text())
+            })
             formData.append('nilai', subtotal)
             for(var pair of formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
             
-            $.ajax({
-                type: 'POST', 
-                url: url,
-                dataType: 'json',
-                data: formData,
-                async:false,
-                contentType: false,
-                cache: false,
-                processData: false, 
-                success:function(result){
-                    if(result.data.status){
-                        dataTable.ajax.reload();
-                        $('#row-id').hide();
-                        $('#form-tambah')[0].reset();
-                        $('#form-tambah').validate().resetForm();
-                        $('[id^=label]').html('');
-                        $('#id_edit').val('');
-                        $('#judul-form').html('Tambah Data Tagihan Proyek');
-                        $('#method').val('post');
-                        $('#no_kontrak').attr('readonly', false);
-                        $('#search_no_proyek').show();
-                        $('#search_kode_cust').show();
-                        resetForm();
-                        msgDialog({
-                            id:result.data.kode,
-                            type:'simpan'
-                        });
-                        last_add("no_tagihan",result.data.kode);
-                    }else if(!result.data.status && result.data.message === "Unauthorized"){
-                    
-                        window.location.href = "{{ url('/java-auth/sesi-habis') }}";
-                        
-                    }else{
-                        if(result.data.kode == "-" && result.data.jenis != undefined){
+            if(valid) {
+                $.ajax({
+                    type: 'POST', 
+                    url: url,
+                    dataType: 'json',
+                    data: formData,
+                    async:false,
+                    contentType: false,
+                    cache: false,
+                    processData: false, 
+                    success:function(result){
+                        if(result.data.status){
+                            dataTable.ajax.reload();
+                            $('#row-id').hide();
+                            $('#form-tambah')[0].reset();
+                            $('#form-tambah').validate().resetForm();
+                            $('[id^=label]').html('');
+                            $('#id_edit').val('');
+                            $('#judul-form').html('Tambah Data Tagihan Proyek');
+                            $('#method').val('post');
+                            $('#no_kontrak').attr('readonly', false);
+                            $('#search_no_proyek').show();
+                            $('#search_kode_cust').show();
+                            resetForm();
                             msgDialog({
-                                id: id,
-                                type: result.data.jenis,
-                                text:'No tagihan sudah digunakan'
+                                id:result.data.kode,
+                                type:'simpan'
                             });
+                            last_add("no_tagihan",result.data.kode);
+                        }else if(!result.data.status && result.data.message === "Unauthorized"){
+                        
+                            window.location.href = "{{ url('/java-auth/sesi-habis') }}";
+                            
                         }else{
+                            if(result.data.kode == "-" && result.data.jenis != undefined){
+                                msgDialog({
+                                    id: id,
+                                    type: result.data.jenis,
+                                    text:'No tagihan sudah digunakan'
+                                });
+                            }else{
 
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Oops...',
-                                text: 'Something went wrong!',
-                                footer: '<a href>'+result.data.message+'</a>'
-                            })
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Oops...',
+                                    text: 'Something went wrong!',
+                                    footer: '<a href>'+result.data.message+'</a>'
+                                })
+                            }
                         }
+                    },
+                    error: function(xhr, status, error) {
+                        var error = JSON.parse(xhr.responseText);
+                        var detail = Object.values(error.errors)
+                        Swal.fire({
+                            type: 'error',
+                            title: error.message,
+                            text: detail[0]
+                        })
+                    },
+                    fail: function(xhr, textStatus, errorThrown){
+                        alert('request failed:'+textStatus);
                     }
-                },
-                fail: function(xhr, textStatus, errorThrown){
-                    alert('request failed:'+textStatus);
-                }
-            });
-            $('#btn-simpan').html("Simpan").removeAttr('disabled');
+                });
+                $('#btn-simpan').html("Simpan").removeAttr('disabled');
+            }
         },
         errorPlacement: function (error, element) {
             var id = element.attr("id");
@@ -920,7 +1037,7 @@
                             var line =result.detail[i];
                             input += "<tr class='row-grid'>";
                             input += "<td class='text-center no-grid'>"+line.no+"<input type='text' name='no[]' class='form-control inp-no noke"+line.no+" hidden'  value='"+line.no+"' required></td>";
-                            input += "<td><span class='td-item tdketke"+line.no+" tooltip-span'>"+line.item+"</span><input type='text' name='item[]' class='form-control inp-item ketke"+line.no+" hidden'  value='"+line.item+"' required></td>";
+                            input += "<td><span class='td-item tditemke"+line.no+" tooltip-span'>"+line.item+"</span><input type='text' name='item[]' class='form-control inp-item itemke"+line.no+" hidden'  value='"+line.item+"' required></td>";
                             input += "<td class='text-right'><span class='td-harga tdhargake"+line.no+" tooltip-span'>"+format_number(line.harga)+"</span><input type='text' name='harga[]' class='form-control numeric inp-harga hargake"+no+" hidden'  value='"+parseFloat(line.harga)+"' required></td>";
                             input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
                             input += "</tr>";

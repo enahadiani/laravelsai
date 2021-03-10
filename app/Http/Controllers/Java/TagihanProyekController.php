@@ -65,13 +65,10 @@ class TagihanProyekController extends Controller {
             'tanggal' => 'required',
             'keterangan' => 'required',
             'nilai' => 'required',
-            'biaya_lain' => 'required',
+            // 'biaya_lain' => 'required',
             'pajak' => 'required',
             'uang_muka' => 'required',
             'kode_cust' => 'required',
-            'no' => 'required|array',
-            'item' => 'required|array',
-            'harga' => 'required|array'
         ]);
 
         try {
@@ -79,10 +76,14 @@ class TagihanProyekController extends Controller {
             $item = array();
             $harga = array();
 
-            for($i=0;$i<count($request->input('no'));$i++) {
-                array_push($no, $request->input('no')[$i]);
-                array_push($item, $request->input('item')[$i]);
-                array_push($harga, $this->joinNum($request->input('harga')[$i]));
+            if($request->input('no') !== null) { 
+                if(count($request->input('no')) > 0) { 
+                    for($i=0;$i<count($request->input('no'));$i++) {
+                        array_push($no, $request->input('no')[$i]);
+                        array_push($item, $request->input('item')[$i]);
+                        array_push($harga, $this->joinNum($request->input('harga')[$i]));
+                    }
+                }
             }
 
             $form = array(
@@ -90,7 +91,7 @@ class TagihanProyekController extends Controller {
                 'tanggal' => $this->convertDate($request->input('tanggal')),
                 'keterangan' => $request->input('keterangan'),
                 'nilai' => $this->joinNum($request->input('nilai')),
-                'biaya_lain' => $this->joinNum($request->input('biaya_lain')),
+                'biaya_lain' => 0,//$this->joinNum($request->input('biaya_lain')),
                 'pajak' => $this->joinNum($request->input('pajak')),
                 'uang_muka' => $this->joinNum($request->input('uang_muka')),
                 'kode_cust' => $request->input('kode_cust'),
@@ -156,13 +157,10 @@ class TagihanProyekController extends Controller {
             'tanggal' => 'required',
             'keterangan' => 'required',
             'nilai' => 'required',
-            'biaya_lain' => 'required',
+            // 'biaya_lain' => 'required',
             'pajak' => 'required',
             'uang_muka' => 'required',
             'kode_cust' => 'required',
-            'no' => 'required|array',
-            'item' => 'required|array',
-            'harga' => 'required|array'
         ]);
 
         try {
@@ -170,10 +168,14 @@ class TagihanProyekController extends Controller {
             $item = array();
             $harga = array();
 
-            for($i=0;$i<count($request->input('no'));$i++) {
-                array_push($no, $request->input('no')[$i]);
-                array_push($item, $request->input('item')[$i]);
-                array_push($harga, $this->joinNum($request->input('harga')[$i]));
+            if($request->input('no') !== null) { 
+                if(count($request->input('no')) > 0) { 
+                    for($i=0;$i<count($request->input('no'));$i++) {
+                        array_push($no, $request->input('no')[$i]);
+                        array_push($item, $request->input('item')[$i]);
+                        array_push($harga, $this->joinNum($request->input('harga')[$i]));
+                    }
+                }
             }
 
             $form = array(
@@ -182,7 +184,7 @@ class TagihanProyekController extends Controller {
                 'tanggal' => $this->convertDate($request->input('tanggal')),
                 'keterangan' => $request->input('keterangan'),
                 'nilai' => $this->joinNum($request->input('nilai')),
-                'biaya_lain' => $this->joinNum($request->input('biaya_lain')),
+                'biaya_lain' => 0,
                 'pajak' => $this->joinNum($request->input('pajak')),
                 'uang_muka' => $this->joinNum($request->input('uang_muka')),
                 'kode_cust' => $request->input('kode_cust'),
