@@ -744,11 +744,11 @@
         submitHandler: function (form, event) {
             event.preventDefault();
             hideAllSelectedRow()
-            if(subtotal < 0) {
-                alert('Harap mengisi detail tagihan dengan benar')
-                valid = false;
-                return false;
-            }
+            // if(subtotal < 0) {
+            //     alert('Harap mengisi detail tagihan dengan benar')
+            //     valid = false;
+            //     return false;
+            // }
             $("#input-grid tbody tr td:not(:first-child):not(:last-child)").each(function() {
                 if($(this).find('span').text().trim().length == 0) {
                     console.log($(this).find('span').text().length)
