@@ -255,7 +255,7 @@
             oncleared: function () {  }
         });
 
-        // hideUnselectedRow();
+        hideUnselectedRow();
         if(param == "add"){
             $('#input-grid td').removeClass('px-0 py-0 aktif');
             $('#input-grid tbody tr:last').find("td:eq(1)").addClass('px-0 py-0 aktif');
