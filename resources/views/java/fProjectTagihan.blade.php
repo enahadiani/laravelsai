@@ -361,6 +361,7 @@
 
     function hideAllSelectedRow() {
         $('#input-grid tbody tr').removeClass('selected-row');
+        $('#input-grid tbody td').removeClass('px-0 py-0 aktif');
         $('#input-grid > tbody > tr').each(function(index, row) { 
             var item = $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-item").val();
             var harga = $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-harga").val();
@@ -655,6 +656,11 @@
             $('#pajak').focus()
         }
     });
+
+    $('#pajak').on('focus', function(){
+        hideAllSelectedRow()
+        hitungSubtotal()
+    })
 
     $('#input-grid').on('blur', '.inp-harga', function(){
         hitungSubtotal();
@@ -1021,6 +1027,7 @@
                     $('#id').val(id);
                     $('#no_tagihan').val(id);
                     $('#method').val('put');
+                    $('#nilai').val(parseFloat(result.data[0].nilai))
                     $('#keterangan').val(result.data[0].keterangan);
                     $('#tanggal').val(reverseDate2(result.data[0].tanggal,'-','/'));
                     showInfoField('no_proyek',result.data[0].no_proyek,result.data[0].keterangan);
