@@ -103,4 +103,6 @@ Route::get('/ms-pend-capai-klp','DashTelu\DashboardController@getPendCapaiKlp');
 Route::get('/ms-beban-capai','DashTelu\DashboardController@getBebanCapai');
 Route::get('/ms-beban-capai-klp','DashTelu\DashboardController@getBebanCapaiKlp');
 
+Route::get('/ms-bank','DashTelu\DashboardController@getDaftarBank');
+
 ?>

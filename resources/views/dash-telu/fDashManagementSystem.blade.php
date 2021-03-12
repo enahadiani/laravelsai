@@ -729,7 +729,7 @@ function getKelola(periode=null)
                         <td class='text-center'>YoY</td>
                         </tr>`;   
                     }
-                    html+=`<tr>
+                    html+=`<tr class='trace keuangan-`+i+`'>
                     <td>`+line.nama+`</td>
                     <td class='text-right'>`+real+`</td>
                     <td class='text-right text-success' >`+sepNumPas(line.yoy)+`%</td>
@@ -898,6 +898,11 @@ $('.table').on('click','.ms-1',function(e){
 });
 $('.table').on('click','.serap-0',function(e){
     var url = "{{ url('/dash-telu/form/fDashMSPengembangan') }}";
+    loadForm(url);
+});
+
+$('.table').on('click','.keuangan-1',function(e){
+    var url = "{{ url('/dash-telu/form/fDashMSBank') }}";
     loadForm(url);
 });
 </script>
