@@ -896,6 +896,11 @@ $('.table').on('click','.ms-1',function(e){
     var url = "{{ url('/dash-telu/form/fDashMSBeban') }}";
     loadForm(url);
 });
+
+$('.table').on('click','.ms-2',function(e){
+    var url = "{{ url('/dash-telu/form/fDashMSSHU') }}";
+    loadForm(url);
+});
 $('.table').on('click','.serap-0',function(e){
     var url = "{{ url('/dash-telu/form/fDashMSPengembangan') }}";
     loadForm(url);
