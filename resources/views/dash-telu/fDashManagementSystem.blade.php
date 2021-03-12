@@ -522,7 +522,7 @@ function getFxPosition(periode=null)
                         <td class='text-center'>YoY</td>
                         </tr>`;   
                     }
-                    html+=`<tr>
+                    html+=`<tr class='trace neraca-`+i+`'>
                     <td>`+line.nama+`</td>
                     <td class='text-right'>`+real_lalu+`</td>
                     <td class='text-right'>`+real+`</td>
@@ -903,6 +903,17 @@ $('.table').on('click','.ms-2',function(e){
 });
 $('.table').on('click','.serap-0',function(e){
     var url = "{{ url('/dash-telu/form/fDashMSPengembangan') }}";
+    loadForm(url);
+});
+
+
+$('.table').on('click','.neraca-0',function(e){
+    var url = "{{ url('/dash-telu/form/fDashMSAset') }}";
+    loadForm(url);
+});
+
+$('.table').on('click','.neraca-1',function(e){
+    var url = "{{ url('/dash-telu/form/fDashMSHutang') }}";
     loadForm(url);
 });
 
