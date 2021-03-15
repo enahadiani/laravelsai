@@ -522,7 +522,7 @@ function getFxPosition(periode=null)
                         <td class='text-center'>YoY</td>
                         </tr>`;   
                     }
-                    html+=`<tr>
+                    html+=`<tr class='trace neraca-`+i+`'>
                     <td>`+line.nama+`</td>
                     <td class='text-right'>`+real_lalu+`</td>
                     <td class='text-right'>`+real+`</td>
@@ -729,7 +729,7 @@ function getKelola(periode=null)
                         <td class='text-center'>YoY</td>
                         </tr>`;   
                     }
-                    html+=`<tr>
+                    html+=`<tr class='trace keuangan-`+i+`'>
                     <td>`+line.nama+`</td>
                     <td class='text-right'>`+real+`</td>
                     <td class='text-right text-success' >`+sepNumPas(line.yoy)+`%</td>
@@ -896,8 +896,29 @@ $('.table').on('click','.ms-1',function(e){
     var url = "{{ url('/dash-telu/form/fDashMSBeban') }}";
     loadForm(url);
 });
+
+$('.table').on('click','.ms-2',function(e){
+    var url = "{{ url('/dash-telu/form/fDashMSSHU') }}";
+    loadForm(url);
+});
 $('.table').on('click','.serap-0',function(e){
     var url = "{{ url('/dash-telu/form/fDashMSPengembangan') }}";
+    loadForm(url);
+});
+
+
+$('.table').on('click','.neraca-0',function(e){
+    var url = "{{ url('/dash-telu/form/fDashMSAset') }}";
+    loadForm(url);
+});
+
+$('.table').on('click','.neraca-1',function(e){
+    var url = "{{ url('/dash-telu/form/fDashMSHutang') }}";
+    loadForm(url);
+});
+
+$('.table').on('click','.keuangan-1',function(e){
+    var url = "{{ url('/dash-telu/form/fDashMSBank') }}";
     loadForm(url);
 });
 </script>
