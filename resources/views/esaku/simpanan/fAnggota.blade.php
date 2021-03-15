@@ -1,8 +1,6 @@
-<link rel="stylesheet" href="{{ asset('trans.css') }}" />
 <link rel="stylesheet" href="{{ asset('trans-java/trans.css') }}" />
 <link rel="stylesheet" href="{{ asset('master.css') }}" />
 <link rel="stylesheet" href="{{ asset('form.css') }}" />
-<link rel="stylesheet" href="{{ asset('master-esaku/form.css') }}" />
 <link rel="stylesheet" href="{{ asset('trans.css') }}" />
 <style>
     div.inp-div-jenis>input {
