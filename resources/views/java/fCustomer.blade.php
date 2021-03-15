@@ -338,21 +338,6 @@
         })
     }
 
-    function getOneProvinsi(value) {
-        $.ajax({
-            type: 'GET',
-            url: "{{ url('java-master/provinsi') }}",
-            data: { kode: value },
-            dataType: 'json',
-            async: false,
-            success: function(result) {
-                var data = result.daftar.data;
-                $('#provinsi-nama').val(data.province)
-                $('#provinsi').val(data.province_id)
-            }
-        })
-    }
-
     getProvinsi()
 
     function getKota(value, province) {
@@ -381,21 +366,6 @@
         })
     }
 
-    function getOneKota(value, province) {
-        $.ajax({
-            type: 'GET',
-            url: "{{ url('java-master/kota') }}",
-            data: { kode: value, province: province },
-            dataType: 'json',
-            async: false,
-            success: function(result) {
-                var data = result.daftar.data;
-                $('#kota-nama').val(data.city_name)
-                $('#kota').val(data.city_id)
-            }
-        })
-    }
-
     function getKecamatan(value, city) {
         $.ajax({
             type: 'GET',
@@ -417,21 +387,6 @@
                         $('#kecamatan-nama').val(item.subdistrict_name)
                     }
                 });
-            }
-        })
-    }
-
-    function getOneKecamatan(value, city) {
-        $.ajax({
-            type: 'GET',
-            url: "{{ url('java-master/kecamatan') }}",
-            data: { kode: value, city: city },
-            dataType: 'json',
-            async: false,
-            success: function(result) {
-                var data = result.daftar.data;
-                $('#kota-nama').val(data.city_name)
-                $('#kota').val(data.city_id)
             }
         })
     }
@@ -916,8 +871,12 @@
                     $('#email').val(result.data[0].email);
                     $('#alamat').val(result.data[0].alamat);
                     $('#kode_pos').val(result.data[0].kode_pos);
+                    $('#provinsi').val(result.data[0].provinsi);
+                    $('#provinsi-nama').val(result.data[0].provinsi_name);
                     $('#kecamatan').val(result.data[0].kecamatan);
+                    $('#kecamatan-nama').val(result.data[0].kecamatan_name);
                     $('#kota').val(result.data[0].kota);
+                    $('#kota-nama').val(result.data[0].kota_name);
                     $('#negara').val(result.data[0].negara);
                     $('#pic').val(result.data[0].pic);
                     $('#no_telp_pic').val(result.data[0].no_telp_pic);
@@ -925,6 +884,8 @@
                     $('#saku-datatable').hide();
                     $('#modal-preview').modal('hide');
                     $('#saku-form').show();
+                    getKota(null, result.data[0].provinsi)
+                    getKecamatan(null, result.data[0].kota)
                     showInfoField('akun_piutang',result.data[0].akun_piutang,result.data[0].nama_akun);
                     if(result.bank.length > 0) {
                         for(var i=0;i<result.bank.length;i++) {

@@ -916,8 +916,12 @@
                     $('#email').val(result.data[0].email);
                     $('#alamat').val(result.data[0].alamat);
                     $('#kode_pos').val(result.data[0].kode_pos);
+                    $('#provinsi').val(result.data[0].provinsi);
+                    $('#provinsi-nama').val(result.data[0].provinsi_name);
                     $('#kecamatan').val(result.data[0].kecamatan);
+                    $('#kecamatan-nama').val(result.data[0].kecamatan_name);
                     $('#kota').val(result.data[0].kota);
+                    $('#kota-nama').val(result.data[0].kota_name);
                     $('#negara').val(result.data[0].negara);
                     $('#pic').val(result.data[0].pic);
                     $('#no_telp_pic').val(result.data[0].no_telp_pic);
