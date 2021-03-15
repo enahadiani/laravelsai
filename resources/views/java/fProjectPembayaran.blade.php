@@ -216,6 +216,31 @@
         }, 1000 * 60 * 10);
     }
 
+    function hideAllSelectedRow() {
+        $('#input-grid tbody tr').removeClass('selected-row');
+        $('#input-grid tbody td').removeClass('px-0 py-0 aktif');
+        $('#input-grid > tbody > tr').each(function(index, row) { 
+            var tagihan = $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-tagihan").val();
+            var dokumen = $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-dokumen").val();
+            var nilai_bayar = $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nilai_bayar").val();
+
+            $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-tagihan").val(tagihan);
+            $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-tagihan").text(tagihan);
+            $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-dokumen").val(dokumen);
+            $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-dokumen").text(dokumen);
+            $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nilai_bayar").val(nilai_bayar);
+            $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-nilai_bayar").text(nilai_bayar);
+
+            $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-tagihan").hide();
+            $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-tagihan").show();
+            $('#input-grid > tbody > tr:eq('+index+') > td').find(".search-tagihan").hide();
+            $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-dokumen").hide();
+            $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-dokumen").show();
+            $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nilai_bayar").hide();
+            $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-nilai_bayar").show();
+        })
+    }
+
     function hideUnselectedRow() {
         $('#input-grid > tbody > tr').each(function(index, row) {
             if(!$(row).hasClass('selected-row')) {
@@ -359,11 +384,11 @@
         var input = "";
 
         input += "<tr class='row-grid'>";
-        input += "<td class='text-center no-grid'>"+no+"<input type='text' name='no[]' class='form-control inp-no noke"+no+" hidden'  value='"+no+"' required></td>";
+        input += "<td class='text-center no-grid'>"+no+"</td>";
         input += "<td><span class='td-tagihan tdtagihanke"+no+" tooltip-span'></span><input autocomplete='off' type='text' name='no_tagihan[]' class='form-control inp-tagihan tagihanke"+no+" hidden' value='' required='' style='z-index: 1;position: relative;' id='tagihankode"+no+"'><a href='#' class='search-item search-tagihan hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
         input += "<td><span class='td-dokumen tddokumenke"+no+" tooltip-span'></span><input type='text' name='no_dokumen[]' class='form-control inp-dokumen dokumenke"+no+" hidden'  value='' required></td>";
         input += "<td class='text-right'><span class='td-nilai_bayar tdnilai_bayarke"+no+" tooltip-span'></span><input type='text' name='nilai_bayar[]' class='form-control inp-nilai_bayar nilai_bayarke"+no+" hidden numeric'  value='0' required readonly></td>";
-        input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
+        input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px;cursor:pointer;'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
         input += "</tr>";
         $('#input-grid tbody').append(input);
 
@@ -479,6 +504,35 @@
         // addRow("default");
     });
 
+    $(document).keydown(function(event){
+        var code = (event.keyCode ? event.keyCode : event.which);
+        if(event.ctrlKey && code == 13 ||event.ctrlKey && code == 9) {
+            var vendor = $('#kode_cust').val();
+            if(vendor === '') {
+                alert('Harap pilih vendor terlebih dahulu')
+            } else {
+                var cek = $('#input-grid tbody tr').length;
+                if(cek > 0){
+                    var cek = $('#input-grid').find('tr').last();
+                    var focus = cek.find('.td-tagihan')
+                    focus.click();
+                }else{
+                    $('.add-row').click();
+                }
+            }
+        } else if(event.ctrlKey && code == 16) {
+            hideAllSelectedRow()
+            hitungTotal()
+            $('#biaya_lain').focus()
+        }
+    });
+
+    $('#input-grid tbody').on('click', 'tr', function(){
+        $(this).addClass('selected-row');
+        $('#input-grid tbody tr').not(this).removeClass('selected-row');
+        hideUnselectedRow();
+    });
+
     $('#form-tambah').on('click', '.add-row', function(){
         var vendor = $('#kode_cust').val();
         if(vendor === '') {
@@ -537,9 +591,25 @@
         var from = target;
         var keyString = '_'
         var fromTarget = from.substr(from.indexOf(keyString) + keyString.length, from.length);
+
         if(fromTarget === 'kode_cust') {
             var kode = tr.find('td:nth-child(1)').text();
             getDataTagihan(kode)
+        } else if(fromTarget.includes('.tagihanke')) {
+            var index = fromTarget.split('e');
+            var tagihan = $(fromTarget).val()
+            $(fromTarget).closest("td").removeClass('px-0 py-0 aktif');
+            $('.tddokumenke'+index[1]).closest("td").addClass('px-0 py-0 aktif');
+            $('.tdtagihanke'+index[1]).text(tagihan)
+            $(fromTarget).val(tagihan)
+            $('.tdtagihanke'+index[1]).show()
+            $(fromTarget).hide()
+            $('.search-tagihan').hide()
+
+            $('.tddokumenke'+index[1]).hide()
+            $('.dokumenke'+index[1]).show()
+            setTimeout(function() { $('.dokumenke'+index[1]).focus() }, 500)
+            hitungTotal();
         }
     }
 
@@ -629,7 +699,7 @@
                     target1 : "."+target1,
                     target2 : "."+target2,
                     target3 : ".td"+target2,
-                    target4 : ".td-dokumen",
+                    target4 : "custom",
                     width : ["30%","70%"]
                 };
             break;
@@ -689,7 +759,7 @@
             var kode = $(this).val();
             cekTagihan(kode,target1,target2,target3,'blur');
         }else{
-            alert('No Tagihan tidak boleh kosong');
+            // alert('No Tagihan tidak boleh kosong');
             return false;
         }
     });
@@ -726,6 +796,7 @@
                         $(this).closest('tr').find(nxt2[idx]).text(isi);
                         $(this).closest('tr').find(nxt[idx]).hide();
                         $(this).closest('tr').find(nxt2[idx]).show();
+                        hitungTotal();
                         var cek = $(this).parents('tr').next('tr').find('.td-tagihan');
                         if(cek.length > 0){
                             cek.click();
@@ -802,9 +873,9 @@
             }
 
             var formData = new FormData(form);
-            // $('#input-grid tbody tr').each(function(index) {
-            //     formData.append('no[]', $(this).find('.no-grid').text())
-            // })
+            $('#input-grid tbody tr').each(function(index) {
+                formData.append('no[]', $(this).find('.no-grid').text())
+            })
             formData.append('nilai', $total_akhir)
             for(var pair of formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
@@ -1023,7 +1094,7 @@
                             input += "<td><span class='td-tagihan tdtagihanke"+no+" tooltip-span'>"+line.no_tagihan+"</span><input autocomplete='off' type='text' name='no_tagihan[]' class='form-control inp-tagihan tagihanke"+no+" hidden' value='"+line.no_tagihan+"' required='' style='z-index: 1;position: relative;' id='tagihankode"+no+"'><a href='#' class='search-item search-tagihan hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
                             input += "<td><span class='td-dokumen tddokumenke"+no+" tooltip-span'>"+line.no_dokumen+"</span><input type='text' name='no_dokumen[]' class='form-control inp-dokumen dokumenke"+no+" hidden'  value='"+line.no_dokumen+"' required></td>";
                             input += "<td class='text-right'><span class='td-nilai_bayar tdnilai_bayarke"+no+" tooltip-span'>"+format_number(line.nilai_bayar)+"</span><input type='text' name='nilai_bayar[]' class='form-control inp-nilai_bayar nilai_bayarke"+no+" hidden numeric'  value='"+parseFloat(line.nilai_bayar)+"' required readonly></td>";
-                            input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
+                            input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px;cursor:pointer;'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
                             input += "</tr>";
         
                             no++;
