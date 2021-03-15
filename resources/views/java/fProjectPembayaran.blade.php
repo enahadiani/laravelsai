@@ -71,8 +71,11 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4 col-sm-12">
-                                    <label for="no_tagihan">Jenis Penerimaan</label>
-                                    <input class='form-control' type="text" id="jenis" name="jenis">
+                                    <label for="jenis">Jenis Penerimaan</label>
+                                    <select name="jenis" class="form-control">
+                                        <option value="TUNAI" selected>TUNAI</option>
+                                        <option value="TRANSFER">TRANSFER</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
