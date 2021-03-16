@@ -185,7 +185,7 @@
                                         </div>
                                         <div class="form-group row sai-rpt-filter-entry-row">
                                             <p class="kunci" hidden>usia</p>
-                                            <label for="usia" class="col-md-2 col-sm-12 col-form-label">Status</label>
+                                            <label for="usia" class="col-md-2 col-sm-12 col-form-label">Usia</label>
                                             <div class="col-md-2 col-sm-12" >
                                                 <select name='usia[]' class='form-control sai-rpt-filter-type selectize'><option value='all' selected>Semua</option><option value='='>Sama dengan</option><option value='range'>Rentang</option><option value='in'>Pilihan</option></select>
                                             </div>
