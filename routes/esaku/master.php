@@ -245,3 +245,7 @@ Route::get('jenis-simpanan/{id}','Esaku\Simpanan\Master\JenisSImpananController@
 Route::post('jenis-simpanan','Esaku\Simpanan\Master\JenisSImpananController@store');
 Route::put('jenis-simpanan/{id}','Esaku\Simpanan\Master\JenisSImpananController@update');
 Route::delete('jenis-simpanan/{id}','Esaku\Simpanan\Master\JenisSImpananController@destroy');
+
+
+// Data Master Akun -- (Data References)
+Route::get('akun-simpanan','Esaku\Simpanan\Master\JenisSImpananController@getAkun');

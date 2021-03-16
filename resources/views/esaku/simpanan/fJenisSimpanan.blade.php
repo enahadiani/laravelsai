@@ -188,11 +188,13 @@
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6 col-sm-12">
-                            <label for="kode_gudang">Kode</label>
-                            <input class="form-control" type="text" name="kode_gudang" id="kode_gudang" required>
+                            <label for="kode_param">Kode</label>
+                            <input class="form-control" type="text" name="kode_param" id="kode_param" required>
                         </div>
                         <div class="form-group col-md-6 col-sm-12">
                             {{-- Error message kode --}}
+                            <p class="text-danger" id="error-kode">Kode Jenis Simpanan Sudah ada</p>
+                            <p class="text-success" id="success-kode">Kode Jenis Simpanan Siap Digunakan</p>
                         </div>
                     </div>
                     <div class="form-row">
@@ -202,57 +204,57 @@
                         </div>
                     </div>
                     <div class="form-row">
+                        <div class="form-group col-md-6 col-sm-12">
+                            <label for="akun_piutang">Akun Piutang</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                    <span class="input-group-text info-code_akun_piutang" readonly="readonly" title=""
+                                        data-toggle="tooltip" data-placement="top"></span>
+                                </div>
+                                <input type="text" class="form-control inp-label-akun_piutang" id="akun_piutang"
+                                    name="akun_piutang" value="" title="">
+                                <span class="info-name_akun_piutang hidden">
+                                    <span></span>
+                                </span>
+                                <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                <i class="simple-icon-magnifier search-item2" id="search_akun_piutang"></i>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6 col-sm-12">
+                            <label for="akun_simpanan">Akun Simpanan</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                    <span class="input-group-text info-code_akun_simpanan" readonly="readonly" title=""
+                                        data-toggle="tooltip" data-placement="top"></span>
+                                </div>
+                                <input type="text" class="form-control inp-label-akun_simpanan" id="akun_simpanan"
+                                    name="akun_simpanan" value="" title="">
+                                <span class="info-name_akun_simpanan hidden">
+                                    <span></span>
+                                </span>
+                                <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                <i class="simple-icon-magnifier search-item2" id="search_akun_simpanan"></i>
+                            </div>
+                        </div>
 
-                        <div class="form-group col-md-6 col-sm-12">
-                            <label for="kode_pp">Akun Piutang</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
-                                    <span class="input-group-text info-code_kode_pp" readonly="readonly" title=""
-                                        data-toggle="tooltip" data-placement="top"></span>
-                                </div>
-                                <input type="text" class="form-control inp-label-kode_pp" id="kode_pp" name="kode_pp"
-                                    value="" title="">
-                                <span class="info-name_kode_pp hidden">
-                                    <span></span>
-                                </span>
-                                <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                <i class="simple-icon-magnifier search-item2" id="search_kode_pp"></i>
-                            </div>
-                        </div>
-                        <div class="form-group col-md-6 col-sm-12">
-                            <label for="pic">Akun Simpanan</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
-                                    <span class="input-group-text info-code_pic" readonly="readonly" title=""
-                                        data-toggle="tooltip" data-placement="top"></span>
-                                </div>
-                                <input type="text" class="form-control inp-label-pic" id="pic" name="pic" value=""
-                                    title="">
-                                <span class="info-name_pic hidden">
-                                    <span></span>
-                                </span>
-                                <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                <i class="simple-icon-magnifier search-item2" id="search_pic"></i>
-                            </div>
-                        </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6 col-sm-12">
-                            <label for="flag_aktif">Jenis Simpanan</label>
-                            <select class='form-control selectize' id="flag_aktif" name="flag_aktif">
+                            <label for="jenis_simpanan">Jenis Simpanan</label>
+                            <select class='form-control selectize' id="jenis_simpanan" name="jenis_simpanan">
                                 <option value='SP'>SP</option>
                                 <option value='SW'>SW</option>
                                 <option value='SS' selected>SS</option>
                             </select>
                         </div>
                         <div class="form-group col-md-6 col-sm-12">
-                            <label for="hna">Nilai Referensi</label>
-                            <input class="form-control currency nominal" value="0" type="text" id="hna" name="hna"
-                                required>
+                            <label for="nilai_ref">Nilai Referensi</label>
+                            <input class="form-control currency nominal" value="0" type="text" id="nilai_ref"
+                                name="nilai_ref" required>
                         </div>
                         <div class="form-group col-md-6 col-sm-12">
-                            <label for="hna">% Jasa/Tahun</label>
-                            <input class="form-control currency nominal" value="0" type="text" id="hna" name="hna"
+                            <label for="bunga">% Jasa/Tahun</label>
+                            <input class="form-control currency nominal" value="0" type="text" id="bunga" name="bunga"
                                 required>
                         </div>
                     </div>
@@ -285,7 +287,8 @@
 <script src="{{ asset('helper.js') }}"></script>
 <script>
     setHeightForm();
-
+    $('#error-kode').hide();
+    $('#success-kode').hide();
     // FORM SMALL
     var bottomSheet = new BottomSheet("country-selector");
     document.getElementById("trigger-bottom-sheet").addEventListener("click", bottomSheet.activate);
@@ -298,6 +301,45 @@
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         }
     });
+
+    var typingTime;
+    var doneTyping = 20000; // 20 detik
+    var $jenis = $('#kode_param');
+    $jenis.on('keyup', function() {
+        clearTimeout(typingTime);
+        typingTime = setTimeout(cekAnggota($(this).val()), doneTyping);
+    })
+
+    $jenis.on('keydown', function() {
+        clearTimeout(typingTime);
+    })
+
+    function cekAnggota(value) {
+        if (value !== "" || value !== null || value != "") {
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('esaku-master/jenis-simpanan') }}/" + value,
+                dataType: 'json',
+                async: false,
+                success: function(result) {
+                    if (result.data.status) {
+                        $('#error-kode').show();
+                        $('#success-kode').hide();
+                        console.log("Code Already Taken!")
+                    } else if (!result.data.status && result.data.message == "Data Kosong!") {
+                        $('#error-kode').hide();
+                        $('#success-kode').show();
+                        console.log("Code Ready to use!")
+                    } else if (!result.status && result.message == 'Unauthorized') {
+                        window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                    }
+                }
+            });
+
+        } else {
+            $('#error-kode').hide();
+        }
+    }
 
     function format_number(x) {
         var num = parseFloat(x).toFixed(0);
@@ -528,19 +570,19 @@
     $('#form-tambah').on('click', '.search-item2', function() {
         var id = $(this).closest('div').find('input').attr('name');
         switch (id) {
-            case 'pic':
+            case 'akun_simpanan':
                 var settings = {
                     id: id,
-                    header: ['NIK', 'Nama'],
-                    url: "{{ url('esaku-master/gudang-nik') }}",
+                    header: ['Kode Akun', 'Nama'],
+                    url: "{{ url('esaku-master/akun-simpanan') }}",
                     columns: [{
-                            data: 'nik'
+                            data: 'kode_akun'
                         },
                         {
                             data: 'nama'
                         }
                     ],
-                    judul: "Daftar PIC",
+                    judul: "Pilih Akun Simpanan",
                     pilih: "akun",
                     jTarget1: "text",
                     jTarget2: "text",
@@ -551,19 +593,19 @@
                     width: ["30%", "70%"],
                 }
                 break;
-            case 'kode_pp':
+            case 'akun_piutang':
                 var settings = {
                     id: id,
-                    header: ['Kode', 'Nama'],
-                    url: "{{ url('esaku-master/gudang-pp') }}",
+                    header: ['Kode Akun', 'Nama'],
+                    url: "{{ url('esaku-master/akun-simpanan') }}",
                     columns: [{
-                            data: 'kode_pp'
+                            data: 'kode_akun'
                         },
                         {
                             data: 'nama'
                         }
                     ],
-                    judul: "Daftar PP",
+                    judul: "Pilih Akun Piutang",
                     pilih: "akun",
                     jTarget1: "text",
                     jTarget2: "text",
@@ -593,24 +635,27 @@
     $('#form-tambah').validate({
         ignore: [],
         rules: {
-            kode_gudang: {
+            kode_param: {
                 required: true,
                 maxlength: 10
             },
             nama: {
                 required: true
             },
-            telp: {
+            akun_piutang: {
                 required: true,
                 number: true
             },
-            alamat: {
+            akun_simpanan: {
                 required: true
             },
-            pic: {
+            jenis_simpanan: {
                 required: true
             },
-            kode_pp: {
+            nilai_ref: {
+                required: true
+            },
+            bunga: {
                 required: true
             }
         },
@@ -619,11 +664,11 @@
             var parameter = $('#id_edit').val();
             var id = $('#kode_gudang').val();
             if (parameter == "edit") {
-                var url = "{{ url('esaku-master/gudang') }}/" + id;
+                var url = "{{ url('esaku-master/jenis-simpanan') }}/" + id;
                 var pesan = "updated";
                 var text = "Perubahan data " + id + " telah tersimpan";
             } else {
-                var url = "{{ url('esaku-master/gudang') }}";
+                var url = "{{ url('esaku-master/jenis-simpanan') }}";
                 var pesan = "saved";
                 var text = "Data tersimpan dengan kode " + id;
             }
@@ -667,7 +712,7 @@
                             msgDialog({
                                 id: id,
                                 type: result.data.jenis,
-                                text: 'Kode Gudang sudah digunakan'
+                                text: 'Kode Jenis sudah digunakan'
                             });
                         } else {
 
