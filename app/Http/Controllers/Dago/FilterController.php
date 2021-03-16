@@ -461,9 +461,7 @@ class FilterController extends Controller
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
                 ],
-                'query' => [
-                    'no_peserta' => $request->peserta
-                ]
+                'query' => $request->all()
             ]);
     
             if ($response->getStatusCode() == 200) { // 200 OK
@@ -479,6 +477,43 @@ class FilterController extends Controller
             $res = json_decode($response->getBody(),true);
             return response()->json(['message' => $res["message"], 'status'=>false], 200);
         } 
+    }
+
+    
+
+    function getFilter2Status(Request $request){
+        try{
+            $client = new Client();
+            $response = $client->request('GET', config('api.url').'dago-report/filter2-status',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' =>  $request->all()
+            ]);
+    
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["data"];
+            }
+            return response()->json(['daftar' => $data, 'status'=>true ,'message'=>'success'], 200); 
+            
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+        } 
+    }
+
+    function getFilter2Usia() {
+
+        $data =  array(
+            0 => array('kode' => "<= 45"),
+            1 => array('kode' => "> 45")
+        );
+        return response()->json(['daftar' => $data, 'status' => true], 200);
     }
 
     function getFilter2Kwitansi(Request $request){

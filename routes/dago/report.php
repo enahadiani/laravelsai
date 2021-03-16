@@ -31,6 +31,8 @@ Route::get('filter2-noreg','Dago\FilterController@getFilter2NoReg');
 Route::get('filter2-peserta','Dago\FilterController@getFilter2Peserta');
 Route::get('filter2-kwitansi','Dago\FilterController@getFilter2Kwitansi');
 Route::get('filter2-jk','Dago\FilterController@getFilter2JK');
+Route::get('filter2-status','Dago\FilterController@getFilter2Status');
+Route::get('filter2-usia','Dago\FilterController@getFilter2Usia');
 Route::get('filter2-terima','Dago\FilterController@getFilter2Terima');
 Route::get('filter2-periode-bayar','Dago\FilterController@getFilter2PeriodeBayar');
 
@@ -61,6 +63,7 @@ Route::post('lap-mku-keuangan','Dago\LaporanController@getMkuKeuangan');
 Route::post('lap-paket','Dago\LaporanController@getPaket');
 Route::post('lap-dokumen','Dago\LaporanController@getDokumen');
 Route::post('lap-jamaah','Dago\LaporanController@getJamaah');
+Route::post('lap2-jamaah-list','Dago\Laporan2Controller@getDaftarJamaah');
 
 Route::post('lap2-form-registrasi','Dago\Laporan2Controller@getFormRegistrasi');
 Route::post('lap2-registrasi','Dago\Laporan2Controller@getRegistrasi');
