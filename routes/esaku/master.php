@@ -224,3 +224,13 @@ Route::delete('msakundet/{id}', 'Esaku\Keuangan\MasakunDetailController@delete')
 
 Route::get('msakundet-flag', 'Esaku\Keuangan\MasakunDetailController@getFlag');
 Route::get('msakundet-neraca', 'Esaku\Keuangan\MasakunDetailController@getNeraca');
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Modul Simpanan -Master
+|--------------------------------------------------------------------------
+*/
+Route::get('anggota','Esaku\Simpanan\Master\AnggotaController@index');
+Route::get('anggota/{id}','Esaku\Simpanan\Master\AnggotaController@show');

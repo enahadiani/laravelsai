@@ -366,6 +366,38 @@
     var doneTyping = 5000; // 5 detik
     var $vendor = $('#kode_vendor');
 
+    function isActive(active) {
+        if (active == "1" || active == 1) {
+            var html = '<span class="text-success"><b>Aktif</b></span>'
+        } else {
+            var html = '<span class="text-danger"><b>Unaktif</b></span>'
+        }
+
+        return html;
+    }
+
+    function formatDate(date) {
+        if (date !== undefined && date !== "") {
+            var myDate = new Date(date);
+            var month = [
+                "Januari",
+                "Februari",
+                "Maret",
+                "April",
+                "Mai",
+                "Juni",
+                "Juli",
+                "Augustus",
+                "September",
+                "Octtober",
+                "November",
+                "Desember",
+            ][myDate.getMonth()];
+            var str = myDate.getDate() + " " + month + " " + myDate.getFullYear();
+            return str;
+        }
+        return "";
+    }
 
     function isChecked() {
         if (status_aktif) {
@@ -566,10 +598,10 @@
     });
     // END SUGGESTION
 
-    // PLUGIN SCROLL di bagian preview dan form input
-    var scrollform = document.querySelector('.form-body');
-    var psscrollform = new PerfectScrollbar(scrollform);
-    // END PLUGIN SCROLL di bagian preview dan form input
+    // // PLUGIN SCROLL di bagian preview dan form input
+    // var scrollform = document.querySelector('.form-body');
+    // var psscrollform = new PerfectScrollbar(scrollform);
+    // // END PLUGIN SCROLL di bagian preview dan form input
 
     $("input.datepicker").bootstrapDP({
         autoclose: true,
@@ -585,7 +617,7 @@
         "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
     var dataTable = generateTable(
         "table-data",
-        "{{ url('esaku-master/vendor') }}",
+        "{{ url('esaku-master/anggota') }}",
         [{
                 'targets': 4,
                 data: null,
@@ -608,7 +640,7 @@
             }
         ],
         [{
-                data: 'kode_vendor'
+                data: 'no_agg'
             },
             {
                 data: 'nama'
@@ -960,16 +992,18 @@
             }
         });
 
+
+
     // PREVIEW DATA
     $('#table-data tbody').on('click', 'td', function(e) {
-        if ($(this).index() != 6 && $(this).index() != 5) {
+        if ($(this).index() != 3 && $(this).index() != 4) {
 
             var id = $(this).closest('tr').find('td').eq(0).html();
             var data = dataTable.row(this).data();
             var posted = data.posted;
             $.ajax({
                 type: 'GET',
-                url: "{{ url('esaku-master/vendor') }}/" + id,
+                url: "{{ url('/esaku-master/anggota') }}/" + id,
                 dataType: 'json',
                 async: false,
                 success: function(res) {
@@ -999,85 +1033,110 @@
                         </div>
                         <div class='separator'></div>
                         <div class='preview-body' style='padding: 0 1.75rem;height: calc(75vh - 56px) ;position:sticky'>
-                            <div style='border-bottom: double #d7d7d7;padding:0 1.5rem'>
-                                <table class="borderless mb-2" width="100%" >
+
+                            <div style="padding:0 1.5rem">
+                                <table class="borderless table-header-prev mt-3" width="100%">
+                                    <tr style="background: var(--theme-color-1) !important;color:white !important">
+                                        <th colspan="3" style="width:15%">I. Umum</th>
+                                    </tr>
                                     <tr>
-                                        <td width="30%" style="vertical-align:top !important"><h6 class="text-primary bold">DATA ANGGOTA (Example Only)</h6></td>
-                                        <td width="75%" style="vertical-align:top !important;text-align:right"><h6 class="mb-2 bold">PT TEST AJA LOH </h6><p style="line-height:1">JL AADC MANA ? <br>Bandung Dong 651144 </p><p | 081280055856</p></td>
+                                        <td width="20%">No Anggota</td>
+                                        <td width="1%">:</td>
+                                        <td>` + result.data[0].no_agg + `</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%">ID Lain</td>
+                                        <td width="1%">:</td>
+                                        <td>` + result.data[0].id_lain + `</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%">Kode Lokasi</td>
+                                        <td width="1%">:</td>
+                                        <td>` + result.data[0].kode_lokasi + `</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%">Nama Anggota</td>
+                                        <td width="1%">:</td>
+                                        <td>` + result.data[0].nama + `</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%">Tanggal Lahir</td>
+                                        <td width="1%">:</td>
+                                        <td>` + formatDate(result.data[0].tgl_lahir) + `</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%">Alamat</td>
+                                        <td width="1%">:</td>
+                                        <td>` + result.data[0].alamat + `</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%"></td>
+                                        <td width="1%">:</td>
+                                        <td>` + result.data[0].kecamatan + `</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%"></td>
+                                        <td width="1%">:</td>
+                                        <td>` + result.data[0].kota + `</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%"></td>
+                                        <td width="1%">:</td>
+                                        <td>` + result.data[0].provinsi + `</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%">Kode Pos</td>
+                                        <td width="1%">:</td>
+                                        <td>` + result.data[0].kode_pos + `</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%">No Telepon</td>
+                                        <td width="1%">:</td>
+                                        <td>` + result.data[0].no_tel + `</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%">Email</td>
+                                        <td width="1%">:</td>
+                                        <td>` + result.data[0].email + `</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%">Status</td>
+                                        <td width="1%">:</td>
+                                        <td>` + isActive(result.data[0].flag_aktif) + `</td>
+                                    </tr>
+
+                                    <tr style="background: var(--theme-color-1) !important;color:white !important">
+                                        <th colspan="3" style="width:15%">II. Bank</th>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%">Nama Bank</td>
+                                        <td width="1%">:</td>
+                                        <td>` + result.data[0].bank + `</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%">Cabang</td>
+                                        <td width="1%">:</td>
+                                        <td>` + result.data[0].cabang + `</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%">No Rekening</td>
+                                        <td width="1%">:</td>
+                                        <td>` + result.data[0].no_rek + `</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%">Nama Pemilik Rekening</td>
+                                        <td width="1%">:</td>
+                                        <td>` + result.data[0].nama_rek + `</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" class="text-right">
+                                            <small><i>Created at: ` + result.data[0].tgl_input + ` </i></small>
+                                        </td>
                                     </tr>
                                 </table>
                             </div>
-                            <div style="padding:0 1.5rem">
-                                <table class="borderless table-header-prev mt-2" width="100%">
-                                    <tr>
-                                        <td width="14%">Kode</td>
-                                        <td width="1%">:</td>
-                                        <td width="20%">` + result.data[0].kode_vendor + `</td>
-                                        <td width="30%" rowspan="3"></td>
-                                    </tr>
-                                    <tr>
-                                        <td width="14%">Nama</td>
-                                        <td width="1%">:</td>
-                                        <td width="30%">` + result.data[0].nama + `</td>
-                                    </tr>
-                                    <tr>
-                                        <td width="14%">No Dokumen</td>
-                                        <td width="1%">:</td>
-                                        <td width="20%">` + result.data[0].npwp + `</td>
-                                    </tr>
-                                </table>
-                            </div>`;
-                        // <div style="padding:0 1.9rem">
-                        //     <table class="table table-striped table-body-prev mt-2" width="100%">
-                        //     <tr style="background: var(--theme-color-1) !important;color:white !important">
-                        //             <th style="width:15%">Kode Akun</th>
-                        //             <th style="width:20%">Nama Akun</th>
-                        //             <th style="width:15">Nama PP</th>
-                        //             <th style="width:30%">Keterangan</th>
-                        //             <th style="width:10%">Debet</th>
-                        //             <th style="width:10%">Kredit</th>
-                        //     </tr>`;
-
-                        // if (result.data.length > 0) {
-                        //     var no = 1;
-                        //     for (var i = 0; i < result.data.length; i++) {
-                        //         var line = result.data[i];
-                        //         det += "<tr>";
-                        //         det += "<td >" + line.kode_akun + "</td>";
-                        //         det += "<td >" + line.nama_akun + "</td>";
-                        //         det += "<td >" + line.nama_pp + "</td>";
-                        //         det += "<td >" + line.keterangan + "</td>";
-                        //         det += "<td class='text-right'>" + (line.dc == "D" ? format_number(
-                        //             line.nilai) : 0) + "</td>";
-                        //         det += "<td class='text-right'>" + (line.dc == "C" ? format_number(
-                        //             line.nilai) : 0) + "</td>";
-                        //         det += "</tr>";
-                        //         no++;
-                        //     }
-                        // }
-
-
-                        // html +=
-                        //         </table>
-                        //         <table class="table-borderless mt-2" width="100%">
-                        //             <tr>
-                        //                 <td width="25%">&nbsp;</td>
-                        //                 <td width="25%">&nbsp;</td>
-                        //                 <td width="10%">&nbsp;</td>
-                        //                 <td width="20%" class="text-center">Dibuat Oleh</td>
-                        //                 <td width="20%" class="text-center">Diperiksa Oleh</td>
-                        //             </tr>
-                        //             <tr>
-                        //                 <td width="25%">&nbsp;</td>
-                        //                 <td width="25%">&nbsp;</td>
-                        //                 <td width="10%">&nbsp;</td>
-                        //                 <td width="20%" style="height:100px"></td>
-                        //                 <td width="20%" style="height:100px"></td>
-                        //             </tr>
-                        //         </table>
-                        //     </div>
-                        // </div>;
-                        // $('#content-bottom-sheet').html(html);
+                        </div></div>`;
+                        $('#content-bottom-sheet').html(html);
 
                         var scroll = document.querySelector('.preview-body');
                         var psscroll = new PerfectScrollbar(scroll);
@@ -1141,6 +1200,8 @@
 
         }
     });
+
+    // END PREVIEW
 
     $('.modal-header').on('click', '#btn-delete2', function(e) {
         var id = $('#modal-preview-id').text();
