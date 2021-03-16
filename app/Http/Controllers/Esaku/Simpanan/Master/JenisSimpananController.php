@@ -107,56 +107,31 @@ class JenisSimpananController extends Controller
 
     public function store(Request $request) {
         $this->validate($request, [
-            'no_agg' => 'required',
+            'kode_param' => 'required',
             'nama' => 'required',
-            'alamat' => 'required',
-            'no_tel' => 'required',
-            'email' => 'required',
-            'bank' => 'required',
-            'cabang' => 'required',
-            'no_rek' => 'required',
-            'nama_rek' => 'required'
+            'akun_piutang' => 'required',
+            'akun_simpanan' => 'required',
+            'jenis_simpanan' => 'required',
+            'nilai_ref' => 'required',
+            'bunga' => 'required'
         ]);
 
         try {
-                $prefix = $request->id_lain_prefix;
-                $set    = $request->id_lain_set;
-                $isActive = $request->flag_aktif;
-                if($prefix == '' || $set == ''){
-                    $id_lain = '-';
-                }else{
-                    $id_lain = $prefix.'-'.$set;
-                }
 
-                if($isActive == ''){
-                    $status = 0;
-                }else{
-                    $status = $isActive;
-                }
                 $client = new Client();
-                $response = $client->request('POST',  config('api.url').'esaku-master/anggota',[
+                $response = $client->request('POST',  config('api.url').'esaku-master/jenis-simpanan',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
                     ],
                     'form_params' => [
-                        'no_agg' => $request->no_agg,
+                        'kode_param' => $request->kode_param,
                         'nama' => $request->nama,
-                        'tgl_lahir' => $request->tgl_lahir,
-                        'alamat' => $request->alamat,
-                        'no_tel' => $request->no_tel,
-                        'bank' => $request->bank,
-                        'cabang' => $request->cabang,
-                        'no_rek' => $request->no_rek,
-                        'nama_rek' => $request->nama_rek,
-                        'flag_aktif' => $status,
-                        'id_lain' => $id_lain,
-                        'email' => $request->email,
-                        'provinsi' => $request->provinsi,
-                        'kota'      => $request->kota,
-                        'kecamatan' => $request->kecamatan,
-                        'kode_pos'  => $request->kode_pos
-
+                        'akun_piutang' => $request->akun_piutang,
+                        'akun_titip' => $request->akun_simpanan,
+                        'jenis' => $request->jenis_simpanan,
+                        'nilai' => $request->nilai_ref,
+                        'p_bunga' => $request->bunga
                     ]
                 ]);
                 if ($response->getStatusCode() == 200) { // 200 OK

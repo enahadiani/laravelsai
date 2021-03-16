@@ -662,7 +662,7 @@
         errorElement: "label",
         submitHandler: function(form) {
             var parameter = $('#id_edit').val();
-            var id = $('#kode_gudang').val();
+            var id = $('#kode_param').val();
             if (parameter == "edit") {
                 var url = "{{ url('esaku-master/jenis-simpanan') }}/" + id;
                 var pesan = "updated";
