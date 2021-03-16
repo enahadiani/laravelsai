@@ -250,7 +250,7 @@
                         <nav class="breadcrumb-container d-none d-sm-block d-lg-inline-block" aria-label="breadcrumb">
                             <ol class="breadcrumb py-0 my-0">
                                 <li class="breadcrumb-item active">
-                                    Jurnal
+                                    Jamaah
                                 </li>
                             </ol>
                         </nav>            
@@ -359,6 +359,11 @@
             to : "",
             toname : "",
         }
+
+        var param_trace = {
+            no_peserta : ""
+        }
+
         var $aktif = "";
         
         $.fn.DataTable.ext.pager.numbers_length = 5;
@@ -961,6 +966,66 @@
             }
             xurl = "{{ url('dago-auth/form/rptJamaah') }}";
             $('#saku-report #canvasPreview').load(xurl);
+        });
+
+        $('#saku-report #canvasPreview').on('click', '.detail_jamaah', function(e){
+            e.preventDefault();
+            var no_peserta = $(this).data('no_peserta');
+            param_trace.no_peserta = no_peserta;
+            var back = true;
+            
+            $formData.delete('no_peserta[]');
+            $formData.append('no_peserta[]', "=");
+            $formData.append('no_peserta[]', no_peserta);
+            $formData.append('no_peserta[]', "");
+
+            $formData.delete('back');
+            $formData.append('back', back);
+            $('.breadcrumb').html('');
+            $('.breadcrumb').append(`
+                <li class="breadcrumb-item">
+                    <a href="#" class="klik-report" data-href="jamaah">Jamaah</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="detail-jamaah">Detail Jamaah</li>
+            `);
+            $('.navigation-lap').removeClass('hidden');
+            xurl ="dago-auth/form/rptDetailJamaah";
+            $('#saku-report #canvasPreview').load(xurl);
+            // drawLapReg(formData);
+        });
+
+        $('.navigation-lap').on('click', '#btn-back', function(e){
+            e.preventDefault();
+
+            var aktif = $('.breadcrumb-item.active').attr('aria-current');
+
+            if(aktif == "detail-jamaah"){
+                xurl = "dago-auth/form/rptJamaah";
+                $formData.delete('back');
+                $('.breadcrumb').html('');
+                $('.breadcrumb').append(`
+                    <li class="breadcrumb-item active" aria-current="buku-besar">Jamaah</li>
+                `);
+                $('.navigation-lap').addClass('hidden');
+            }
+            $('#saku-report #canvasPreview').load(xurl);
+            // drawLapReg(formData);
+        });
+
+        $('.breadcrumb').on('click', '.klik-report', function(e){
+            e.preventDefault();
+            var tujuan = $(this).data('href');
+            if(tujuan == "jamaah"){
+                $formData.delete('back');
+                xurl = "dago-auth/form/rptJamaah";
+                $('.breadcrumb').html('');
+                $('.breadcrumb').append(`
+                    <li class="breadcrumb-item active" aria-current="jamaah" >Jamaah</li>
+                `);
+                $('.navigation-lap').addClass('hidden');
+            }
+            $('#saku-report #canvasPreview').load(xurl);
+            
         });
 
         $('#sai-rpt-print').click(function(){

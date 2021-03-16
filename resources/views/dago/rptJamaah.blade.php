@@ -134,7 +134,7 @@
                             
                             det+=`<tr>
                             <td align='center' class='isi_laporan'>`+no+`</td>
-                            <td  class='isi_laporan'>`+line2.no_peserta+`</td>
+                            <td  class='isi_laporan report-link detail_jamaah' data-no_peserta='`+line2.no_peserta+`' style='cursor:pointer;color:blue'>`+line2.no_peserta+`</td>
                             <td class='isi_laporan'>`+line2.id_peserta+`</td>
                             <td class='isi_laporan'>`+line2.nama+`</td>
                             <td  class='isi_laporan'>`+line2.tgl_lahir+`</td>

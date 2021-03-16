@@ -64,6 +64,7 @@ Route::post('lap-paket','Dago\LaporanController@getPaket');
 Route::post('lap-dokumen','Dago\LaporanController@getDokumen');
 Route::post('lap-jamaah','Dago\LaporanController@getJamaah');
 Route::post('lap2-jamaah-list','Dago\Laporan2Controller@getDaftarJamaah');
+Route::post('lap2-detail-jamaah','Dago\Laporan2Controller@getDetailJamaah');
 
 Route::post('lap2-form-registrasi','Dago\Laporan2Controller@getFormRegistrasi');
 Route::post('lap2-registrasi','Dago\Laporan2Controller@getRegistrasi');

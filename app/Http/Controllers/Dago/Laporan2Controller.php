@@ -112,6 +112,44 @@ class Laporan2Controller extends Controller
         } 
     }
 
+    public function getDetailJamaah(Request $request){
+        try{
+            $client = new Client();
+            $response = $client->request('GET', config('api.url').'dago-report/lap2-detail-jamaah',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' => [
+                    'no_peserta' => $request->no_peserta
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $res = json_decode($response_data,true);
+                $data = $res["data"];
+            }
+            if($request->periode != ""){
+                $periode = $request->periode;
+            }else{
+                $periode = "Semua Periode";
+            }
+
+            if(isset($request->back)){
+                $res['back']=true;
+            }
+            
+            return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'periode'=>$periode,'res'=>$res
+            ], 200); 
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false, 'auth_status'=>2], 200);
+        } 
+    }
+
     public function getMkuKeuangan(Request $request){
         try{
             $client = new Client();
