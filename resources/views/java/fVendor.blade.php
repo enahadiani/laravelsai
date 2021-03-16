@@ -89,15 +89,24 @@
                                         <input class="form-control" type="text" id="kode_pos" name="kode_pos">
                                     </div>
                                     <div class="form-group col-md-6 col-sm-12">
-                                        <label for="kecamatan">Kecamatan</label>
-                                        <input class="form-control" type="text" id="kecamatan" name="kecamatan">
+                                        <label for="provinsi">Provinsi</label>
+                                        <input class="form-control" type="text" id="provinsi-nama" name="provinsi_name">
+                                        <input class="form-control hidden" type="text" id="provinsi" name="provinsi">
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6 col-sm-12">
                                         <label for="kota">Kota</label>
-                                        <input class="form-control" type="text" id="kota" name="kota">
+                                        <input class="form-control" type="text" id="kota-nama" name="kota_name">
+                                        <input class="form-control hidden" type="text" id="kota" name="kota">
                                     </div>
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <label for="kecamatan">Kecamatan</label>
+                                        <input class="form-control" type="text" id="kecamatan-nama" name="kecamatan_name">
+                                        <input class="form-control hidden" type="text" id="kecamatan" name="kecamatan">
+                                    </div>
+                                </div>
+                                <div class="form-row">
                                     <div class="form-group col-md-6 col-sm-12">
                                         <label for="negara">Negara</label>
                                         <input class="form-control" type="text" id="negara" name="negara">
@@ -206,6 +215,12 @@
     $('#modal-preview > .modal-dialog').css({ 'max-width':'600px'});
     $('#error-vendor').hide();
     var telp = '';
+    var provinceCall = 0;
+    var kotaCall = 0;
+    var kecamatanCall = 0;
+    var $dtProvinsi = []
+    var $dtKota = []
+    var $dtKecamatan = []
     var telp_pic = '';
     var valid = true;
     setHeightForm();
@@ -303,6 +318,115 @@
         cekVendor($(this).val())
     })
 
+    function getProvinsi(value) {
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('java-master/provinsi') }}",
+            data: { kode: value },
+            dataType: 'json',
+            success: function(result) {
+                if(provinceCall == 0) {
+                    $dtProvinsi.push(result.daftar.data)
+                }
+                provinceCall = 1
+
+                $('#provinsi-nama').typeahead({
+                    source:result.daftar.data,
+                    displayText:function(item){
+                        return item.province;
+                    },
+                    autoSelect:false,
+                    changeInputOnSelect:false,
+                    changeInputOnMove:false,
+                    selectOnBlur:false,
+                    afterSelect: function (item) {
+                        $('#provinsi').val(item.province_id)
+                        $('#provinsi-nama').val(item.province)
+                        getKota(null,item.province_id)
+                    }
+                });
+            }
+        })
+    }
+
+    getProvinsi()
+
+    function getKota(value, province) {
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('java-master/kota') }}",
+            data: { kode: value, province: province },
+            dataType: 'json',
+            success: function(result) {
+                if(kotaCall == 0) {
+                    $dtKota.push(result.daftar.data)
+                }
+                kotaCall = 1
+
+                $('#kota-nama').typeahead({
+                    source:result.daftar.data,
+                    displayText:function(item){
+                        return item.city_name;
+                    },
+                    autoSelect:false,
+                    changeInputOnSelect:false,
+                    changeInputOnMove:false,
+                    selectOnBlur:false,
+                    afterSelect: function (item) {
+                        $('#kota').val(item.city_id)
+                        $('#kota-nama').val(item.city_name)
+                        getKecamatan(null, item.city_id)
+                    }
+                });
+            }
+        })
+    }
+
+    function getKecamatan(value, city) {
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('java-master/kecamatan') }}",
+            data: { kode: value, city: city },
+            dataType: 'json',
+            success: function(result) {
+                if(kecamatanCall == 0) {
+                    $dtKecamatan.push(result.daftar.data)
+                }
+                kecamatanCall = 1
+                
+                $('#kecamatan-nama').typeahead({
+                    source:result.daftar.data,
+                    displayText:function(item){
+                        return item.subdistrict_name;
+                    },
+                    autoSelect:false,
+                    changeInputOnSelect:false,
+                    changeInputOnMove:false,
+                    selectOnBlur:false,
+                    afterSelect: function (item) {
+                        $('#kecamatan').val(item.subdistrict_id)
+                        $('#kecamatan-nama').val(item.subdistrict_name)
+                    }
+                });
+            }
+        })
+    }
+
+    function getOneKecamatan(value, city) {
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('java-master/kecamatan') }}",
+            data: { kode: value, city: city },
+            dataType: 'json',
+            async: false,
+            success: function(result) {
+                var data = result.daftar.data;
+                $('#kota-nama').val(data.city_name)
+                $('#kota').val(data.city_id)
+            }
+        })
+    }
+
     function cekVendor(value) {
         $.ajax({
             type: 'GET',
@@ -323,6 +447,54 @@
             }
         })
     }
+
+    function onChangeProvinsi(value,action=null) {
+        if(action == 'change') {
+            var filter = $dtProvinsi[0].filter(function(data){
+                return data.province.toLowerCase() == value.toLowerCase()
+            })
+            $('#provinsi-nama').val(filter[0].province)
+            $('#provinsi').val(filter[0].province_id)
+            getKota(null, filter[0].province_id)
+        }
+    }
+
+    function onChangeKota(value,action=null) {
+        if(action == 'change') {
+            var filter = $dtKota[0].filter(function(data){
+                return data.city_name.toLowerCase() == value.toLowerCase()
+            })
+            $('#kota-nama').val(filter[0].city_name)
+            $('#kota').val(filter[0].city_id)
+            getKecamatan(null, filter[0].city_id)
+        }
+    }
+
+    function onChangeKecamatan(value,action=null) {
+        if(action == 'change') {
+            var filter = $dtKecamatan[0].filter(function(data){
+                return data.subdistrict_name.toLowerCase() == value.toLowerCase()
+            })
+            $('#kecamatan-nama').val(filter[0].subdistrict_name)
+            $('#kecamatan').val(filter[0].subdistrict_id)
+            getKecamatan(null, filter[0].subdistrict_id)
+        }
+    }
+
+    $('#provinsi-nama').on('change', function(){
+        var value = $(this).val()
+        onChangeProvinsi(value, 'change')
+    })
+
+    $('#kota-nama').on('change', function(){
+        var value = $(this).val()
+        onChangeKota(value, 'change')
+    })
+
+    $('#kecamatan-nama').on('change', function(){
+        var value = $(this).val()
+        onChangeKecamatan(value, 'change')
+    })
 
 
     function last_add(param,isi){
@@ -783,8 +955,12 @@
                     $('#email').val(result.data[0].email);
                     $('#alamat').val(result.data[0].alamat);
                     $('#kode_pos').val(result.data[0].kode_pos);
+                    $('#provinsi').val(result.data[0].provinsi);
+                    $('#provinsi-nama').val(result.data[0].provinsi_name);
                     $('#kecamatan').val(result.data[0].kecamatan);
+                    $('#kecamatan-nama').val(result.data[0].kecamatan_name);
                     $('#kota').val(result.data[0].kota);
+                    $('#kota-nama').val(result.data[0].kota_name);
                     $('#negara').val(result.data[0].negara);
                     $('#pic').val(result.data[0].pic);
                     $('#no_telp_pic').val(result.data[0].no_telp_pic);
@@ -889,12 +1065,16 @@
                         <td>`+res.data.data[0].kode_pos+`</td>
                     </tr>
                     <tr>
+                        <td>Provinsi</td>
+                        <td>`+res.data.data[0].provinsi_name+`</td>
+                    </tr>
+                    <tr>
                         <td>Kecamatan</td>
-                        <td>`+res.data.data[0].kecamatan+`</td>
+                        <td>`+res.data.data[0].kecamatan_name+`</td>
                     </tr>
                     <tr>
                         <td>Kota</td>
-                        <td>`+res.data.data[0].kota+`</td>
+                        <td>`+res.data.data[0].kota_name+`</td>
                     </tr>
                     <tr>
                         <td>Negara</td>

@@ -575,7 +575,8 @@
         $(selectorInput).val(format_number(total))
         $(selectorCell).text(format_number(total))
     }
-
+    
+    var $twicePress = 0;
     $('#input-grid').on('keydown','.inp-keterangan, .inp-qty, .inp-satuan, .inp-harga, .inp-total',function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
         var nxt = ['.inp-keterangan','.inp-qty', '.inp-satuan', '.inp-harga', '.inp-total'];
@@ -647,20 +648,26 @@
                     if(isi != "" && isi != 0){
                         $("#input-grid td").removeClass("px-0 py-0 aktif");
                         $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
-                        $(this).closest('tr').find(nxt[idx]).val(isi);
-                        $(this).closest('tr').find(nxt2[idx]).text(isi);
-                        $(this).closest('tr').find(nxt[idx]).hide();
-                        $(this).closest('tr').find(nxt2[idx]).show();
                         var cell = $(this).closest('tr').index() + 1;
                         var number1 = $('.qtyke'+cell).val();
                         var number2 = $('.hargake'+cell).val();
                         hitungTotaldiGrid('.totalke'+cell, '.tdtotalke'+cell, number1, number2)
                         hitungGridTotal();
-                        var cek = $(this).parents('tr').next('tr').find('.td-keterangan');
-                        if(cek.length > 0){
-                            cek.click();
-                        }else{
-                            $('.add-row').click();
+                        if(code == 13 || code == 9) {
+                            if($twicePress == 1) {
+                                $(this).closest('tr').find(nxt[idx]).val(isi);
+                                $(this).closest('tr').find(nxt2[idx]).text(isi);
+                                $(this).closest('tr').find(nxt[idx]).hide();
+                                $(this).closest('tr').find(nxt2[idx]).show();
+                                var cek = $(this).parents('tr').next('tr').find('.td-keterangan');
+                                if(cek.length > 0){
+                                    cek.click();
+                                }else{
+                                    $('.add-row').click();
+                                }
+                            }
+                            $twicePress = 1
+                            setTimeout(() => $twicePress = 0, 1000)
                         }
                     }else{
                         alert('Harga yang dimasukkan tidak valid');

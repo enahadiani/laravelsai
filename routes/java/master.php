@@ -6,6 +6,10 @@ use Illuminate\Support\Facades\Session;
 // Helper
 Route::get('customer-akun', 'Java\HelperController@getAkunCustomer');
 Route::get('vendor-akun', 'Java\HelperController@getAkunVendor');
+Route::get('negara', 'Java\HelperController@getNegara');
+Route::get('provinsi', 'Java\HelperController@getProvinsi');
+Route::get('kota', 'Java\HelperController@getKota');
+Route::get('kecamatan', 'Java\HelperController@getKecamatan');
 
 // Data Customer //
 Route::get('customer', 'Java\CustomerController@index');
