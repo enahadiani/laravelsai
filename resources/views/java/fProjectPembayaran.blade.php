@@ -73,8 +73,8 @@
                                 <div class="col-md-4 col-sm-12">
                                     <label for="jenis">Jenis Penerimaan</label>
                                     <select name="jenis" class="form-control">
-                                        <option value="TUNAI" selected>TUNAI</option>
-                                        <option value="TRANSFER">TRANSFER</option>
+                                        <option value="TUNAI">TUNAI</option>
+                                        <option value="TRANSFER" selected>TRANSFER</option>
                                     </select>
                                 </div>
                             </div>

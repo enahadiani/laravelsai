@@ -215,7 +215,13 @@
     $('#modal-preview > .modal-dialog').css({ 'max-width':'600px'});
     $('#error-customer').hide();
     var telp = '';
+    var provinceCall = 0;
+    var kotaCall = 0;
+    var kecamatanCall = 0;
     var telp_pic = '';
+    var $dtProvinsi = []
+    var $dtKota = []
+    var $dtKecamatan = []
     var valid = true;
     setHeightForm();
     
@@ -319,6 +325,11 @@
             data: { kode: value },
             dataType: 'json',
             success: function(result) {
+                if(provinceCall == 0) {
+                    $dtProvinsi.push(result.daftar.data)
+                }
+                provinceCall = 1
+
                 $('#provinsi-nama').typeahead({
                     source:result.daftar.data,
                     displayText:function(item){
@@ -347,6 +358,11 @@
             data: { kode: value, province: province },
             dataType: 'json',
             success: function(result) {
+                if(kotaCall == 0) {
+                    $dtKota.push(result.daftar.data)
+                }
+                kotaCall = 1
+
                 $('#kota-nama').typeahead({
                     source:result.daftar.data,
                     displayText:function(item){
@@ -373,6 +389,11 @@
             data: { kode: value, city: city },
             dataType: 'json',
             success: function(result) {
+                if(kecamatanCall == 0) {
+                    $dtKecamatan.push(result.daftar.data)
+                }
+                kecamatanCall = 1
+
                 $('#kecamatan-nama').typeahead({
                     source:result.daftar.data,
                     displayText:function(item){
@@ -390,6 +411,54 @@
             }
         })
     }
+
+    function onChangeProvinsi(value,action=null) {
+        if(action == 'change') {
+            var filter = $dtProvinsi[0].filter(function(data){
+                return data.province.toLowerCase() == value.toLowerCase()
+            })
+            $('#provinsi-nama').val(filter[0].province)
+            $('#provinsi').val(filter[0].province_id)
+            getKota(null, filter[0].province_id)
+        }
+    }
+
+    function onChangeKota(value,action=null) {
+        if(action == 'change') {
+            var filter = $dtKota[0].filter(function(data){
+                return data.city_name.toLowerCase() == value.toLowerCase()
+            })
+            $('#kota-nama').val(filter[0].city_name)
+            $('#kota').val(filter[0].city_id)
+            getKecamatan(null, filter[0].city_id)
+        }
+    }
+
+    function onChangeKecamatan(value,action=null) {
+        if(action == 'change') {
+            var filter = $dtKecamatan[0].filter(function(data){
+                return data.subdistrict_name.toLowerCase() == value.toLowerCase()
+            })
+            $('#kecamatan-nama').val(filter[0].subdistrict_name)
+            $('#kecamatan').val(filter[0].subdistrict_id)
+            getKecamatan(null, filter[0].subdistrict_id)
+        }
+    }
+
+    $('#provinsi-nama').on('change', function(){
+        var value = $(this).val()
+        onChangeProvinsi(value, 'change')
+    })
+
+    $('#kota-nama').on('change', function(){
+        var value = $(this).val()
+        onChangeKota(value, 'change')
+    })
+
+    $('#kecamatan-nama').on('change', function(){
+        var value = $(this).val()
+        onChangeKecamatan(value, 'change')
+    })
 
     function cekCustomer(value) {
         $.ajax({
