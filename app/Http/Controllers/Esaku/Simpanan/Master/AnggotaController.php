@@ -100,7 +100,7 @@ class AnggotaController extends Controller
                 if($prefix == '' || $set == ''){
                     $id_lain = '-';
                 }else{
-                    $id_lain = $prefix.''.$set;
+                    $id_lain = $prefix.'-'.$set;
                 }
 
                 if($isActive == ''){
@@ -150,54 +150,58 @@ class AnggotaController extends Controller
             }
     }
 
-
-
-    public function update(Request $request, $id) {
+    public function update(Request $request,$id) {
         $this->validate($request, [
-            'kode_vendor' => 'required',
+            'no_agg' => 'required',
             'nama' => 'required',
             'alamat' => 'required',
-            'alamat2' => 'required',
             'no_tel' => 'required',
-            'no_fax' => 'required',
-            'npwp' => 'required',
             'email' => 'required',
-            'pic' => 'required',
-            'akun_hutang' => 'required',
             'bank' => 'required',
             'cabang' => 'required',
             'no_rek' => 'required',
-            'nama_rek' => 'required',
-            'no_pictel' => 'required',
+            'nama_rek' => 'required'
         ]);
 
         try {
+                $prefix = $request->id_lain_prefix;
+                $set    = $request->id_lain_set;
+                $isActive = $request->flag_aktif;
+                if($prefix == '' || $set == ''){
+                    $id_lain = '-';
+                }else{
+                    $id_lain = $prefix.'-'.$set;
+                }
+
+                if($isActive == ''){
+                    $status = 0;
+                }else{
+                    $status = $isActive;
+                }
                 $client = new Client();
-                $response = $client->request('PUT',  config('api.url').'esaku-master/vendor?kode_vendor='.$id,[
+                $response = $client->request('PUT',  config('api.url').'esaku-master/anggota',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
                     ],
                     'form_params' => [
-                        'kode_vendor' => $request->kode_vendor,
+                        'no_agg' => $request->no_agg,
                         'nama' => $request->nama,
+                        'tgl_lahir' => $request->tgl_lahir,
                         'alamat' => $request->alamat,
-                        'alamat2' => $request->alamat2,
                         'no_tel' => $request->no_tel,
-                        'no_fax' => $request->no_fax,
-                        'npwp' => $request->npwp,
-                        'email' => $request->email,
-                        'pic' => $request->pic,
-                        'akun_hutang' => $request->akun_hutang,
                         'bank' => $request->bank,
                         'cabang' => $request->cabang,
                         'no_rek' => $request->no_rek,
                         'nama_rek' => $request->nama_rek,
-                        'no_pictel' => $request->no_pictel,
-                        'bank_trans' => '-',
-                        'kode_klpvendor' => '-',
-                        'penilaian' => '-',
-                        'spek' => '-',
+                        'flag_aktif' => $status,
+                        'id_lain' => $id_lain,
+                        'email' => $request->email,
+                        'provinsi' => $request->provinsi,
+                        'kota'      => $request->kota,
+                        'kecamatan' => $request->kecamatan,
+                        'kode_pos'  => $request->kode_pos
+
                     ]
                 ]);
                 if ($response->getStatusCode() == 200) { // 200 OK
@@ -210,11 +214,15 @@ class AnggotaController extends Controller
         } catch (BadResponseException $ex) {
                 $response = $ex->getResponse();
                 $res = json_decode($response->getBody(),true);
-                $data['message'] = $res['message'];
+                $data['message'] = $res;
                 $data['status'] = false;
                 return response()->json(['data' => $data], 500);
             }
     }
+
+
+
+
 
     public function delete($id) {
         try{
