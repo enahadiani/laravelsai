@@ -187,7 +187,9 @@
                                             <p class="kunci" hidden>usia</p>
                                             <label for="usia" class="col-md-2 col-sm-12 col-form-label">Usia</label>
                                             <div class="col-md-2 col-sm-12" >
-                                                <select name='usia[]' class='form-control sai-rpt-filter-type selectize'><option value='all' selected>Semua</option><option value='='>Sama dengan</option><option value='range'>Rentang</option><option value='in'>Pilihan</option></select>
+                                                <select name='usia[]' class='form-control sai-rpt-filter-type selectize'><option value='all' selected>Semua</option><option value='='>Sama dengan</option>
+                                                <!-- <option value='range'>Rentang</option><option value='in'>Pilihan</option> -->
+                                                </select>
                                             </div>
                                             <div class="col-md-8 col-sm-12 sai-rpt-filter-from">
                                                 <div class="input-group">
