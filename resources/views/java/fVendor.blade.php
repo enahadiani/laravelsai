@@ -215,6 +215,12 @@
     $('#modal-preview > .modal-dialog').css({ 'max-width':'600px'});
     $('#error-vendor').hide();
     var telp = '';
+    var provinceCall = 0;
+    var kotaCall = 0;
+    var kecamatanCall = 0;
+    var $dtProvinsi = []
+    var $dtKota = []
+    var $dtKecamatan = []
     var telp_pic = '';
     var valid = true;
     setHeightForm();
@@ -319,6 +325,11 @@
             data: { kode: value },
             dataType: 'json',
             success: function(result) {
+                if(provinceCall == 0) {
+                    $dtProvinsi.push(result.daftar.data)
+                }
+                provinceCall = 1
+
                 $('#provinsi-nama').typeahead({
                     source:result.daftar.data,
                     displayText:function(item){
@@ -338,21 +349,6 @@
         })
     }
 
-    function getOneProvinsi(value) {
-        $.ajax({
-            type: 'GET',
-            url: "{{ url('java-master/provinsi') }}",
-            data: { kode: value },
-            dataType: 'json',
-            async: false,
-            success: function(result) {
-                var data = result.daftar.data;
-                $('#provinsi-nama').val(data.province)
-                $('#provinsi').val(data.province_id)
-            }
-        })
-    }
-
     getProvinsi()
 
     function getKota(value, province) {
@@ -362,6 +358,11 @@
             data: { kode: value, province: province },
             dataType: 'json',
             success: function(result) {
+                if(kotaCall == 0) {
+                    $dtKota.push(result.daftar.data)
+                }
+                kotaCall = 1
+
                 $('#kota-nama').typeahead({
                     source:result.daftar.data,
                     displayText:function(item){
@@ -381,21 +382,6 @@
         })
     }
 
-    function getOneKota(value, province) {
-        $.ajax({
-            type: 'GET',
-            url: "{{ url('java-master/kota') }}",
-            data: { kode: value, province: province },
-            dataType: 'json',
-            async: false,
-            success: function(result) {
-                var data = result.daftar.data;
-                $('#kota-nama').val(data.city_name)
-                $('#kota').val(data.city_id)
-            }
-        })
-    }
-
     function getKecamatan(value, city) {
         $.ajax({
             type: 'GET',
@@ -403,6 +389,11 @@
             data: { kode: value, city: city },
             dataType: 'json',
             success: function(result) {
+                if(kecamatanCall == 0) {
+                    $dtKecamatan.push(result.daftar.data)
+                }
+                kecamatanCall = 1
+                
                 $('#kecamatan-nama').typeahead({
                     source:result.daftar.data,
                     displayText:function(item){
@@ -456,6 +447,54 @@
             }
         })
     }
+
+    function onChangeProvinsi(value,action=null) {
+        if(action == 'change') {
+            var filter = $dtProvinsi[0].filter(function(data){
+                return data.province.toLowerCase() == value.toLowerCase()
+            })
+            $('#provinsi-nama').val(filter[0].province)
+            $('#provinsi').val(filter[0].province_id)
+            getKota(null, filter[0].province_id)
+        }
+    }
+
+    function onChangeKota(value,action=null) {
+        if(action == 'change') {
+            var filter = $dtKota[0].filter(function(data){
+                return data.city_name.toLowerCase() == value.toLowerCase()
+            })
+            $('#kota-nama').val(filter[0].city_name)
+            $('#kota').val(filter[0].city_id)
+            getKecamatan(null, filter[0].city_id)
+        }
+    }
+
+    function onChangeKecamatan(value,action=null) {
+        if(action == 'change') {
+            var filter = $dtKecamatan[0].filter(function(data){
+                return data.subdistrict_name.toLowerCase() == value.toLowerCase()
+            })
+            $('#kecamatan-nama').val(filter[0].subdistrict_name)
+            $('#kecamatan').val(filter[0].subdistrict_id)
+            getKecamatan(null, filter[0].subdistrict_id)
+        }
+    }
+
+    $('#provinsi-nama').on('change', function(){
+        var value = $(this).val()
+        onChangeProvinsi(value, 'change')
+    })
+
+    $('#kota-nama').on('change', function(){
+        var value = $(this).val()
+        onChangeKota(value, 'change')
+    })
+
+    $('#kecamatan-nama').on('change', function(){
+        var value = $(this).val()
+        onChangeKecamatan(value, 'change')
+    })
 
 
     function last_add(param,isi){
