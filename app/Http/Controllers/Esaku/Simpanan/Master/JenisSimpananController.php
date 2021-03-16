@@ -197,7 +197,7 @@ class JenisSimpananController extends Controller
     public function destroy($id) {
         try{
             $client = new Client();
-            $response = $client->request('DELETE',  config('api.url').'esaku-master/anggota?no_agg='.$id,
+            $response = $client->request('DELETE',  config('api.url').'esaku-master/jenis-simpanan?kode_param='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
