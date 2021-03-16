@@ -237,3 +237,11 @@ Route::get('anggota/{id}','Esaku\Simpanan\Master\AnggotaController@show');
 Route::post('anggota','Esaku\Simpanan\Master\AnggotaController@store');
 Route::put('anggota/{id}','Esaku\Simpanan\Master\AnggotaController@update');
 Route::delete('anggota/{id}','Esaku\Simpanan\Master\AnggotaController@destroy');
+
+
+// Data Master Jenis Simpanan
+Route::get('jenis-simpanan','Esaku\Simpanan\Master\JenisSImpananController@index');
+Route::get('jenis-simpanan/{id}','Esaku\Simpanan\Master\JenisSImpananController@show');
+Route::post('jenis-simpanan','Esaku\Simpanan\Master\JenisSImpananController@store');
+Route::put('jenis-simpanan/{id}','Esaku\Simpanan\Master\JenisSImpananController@update');
+Route::delete('jenis-simpanan/{id}','Esaku\Simpanan\Master\JenisSImpananController@destroy');

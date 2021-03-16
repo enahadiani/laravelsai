@@ -57,8 +57,6 @@
         top: -80px !important;
     }
 
-
-
     .btn-back {
         line-height: 1.5;
         padding: 0;
@@ -136,14 +134,13 @@
     }
 
     .animate-bottom {
-        /* position: relative; */
-        animation: animatebottom 0.7s;
+        animation: animatebottom 0.5s;
     }
 
     @keyframes animatebottom {
         from {
-            bottom: -300px;
-            opacity: 0;
+            bottom: -400px;
+            opacity: 0.8;
         }
 
         to {
@@ -151,6 +148,15 @@
             opacity: 1;
         }
     }
+
+    /* .bottom-sheet{
+        max-height: 100% !important;
+    }
+
+    .bottom-sheet .modal.content{
+        width: 60%;
+        margin: 0px auto
+    } */
 
 </style>
 <!-- LIST DATA -->
@@ -270,6 +276,8 @@
 </form>
 <!-- END FORM INPUT -->
 
+<button id="trigger-bottom-sheet" style="display:none">Bottom ?</button>
+@include('modal_upload')
 @include('modal_search')
 
 <!-- JAVASCRIPT  -->
@@ -279,15 +287,23 @@
     setHeightForm();
 
     // FORM SMALL
+    var bottomSheet = new BottomSheet("country-selector");
+    document.getElementById("trigger-bottom-sheet").addEventListener("click", bottomSheet.activate);
+    window.bottomSheet = bottomSheet;
+    var $iconLoad = $('.preloader');
     $('#saku-form > .col-12').addClass('mx-auto col-lg-6');
-    $('#modal-preview').addClass('fade animate');
-    $('#modal-preview .modal-content').addClass('animate-bottom');
     //
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         }
     });
+
+    function format_number(x) {
+        var num = parseFloat(x).toFixed(0);
+        num = sepNumX(num);
+        return num;
+    }
 
     function last_add(param, isi) {
         var rowIndexes = [];
@@ -404,7 +420,7 @@
         "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
     var dataTable = generateTable(
         "table-data",
-        "{{ url('esaku-master/gudang') }}",
+        "{{ url('esaku-master/jenis-simpanan') }}",
         [{
                 'targets': 6,
                 data: null,
@@ -421,33 +437,38 @@
                 }
             },
             {
+                'targets': 5,
+                'className': 'text-right',
+                'render': $.fn.dataTable.render.number('.', ',', 0, '')
+            },
+            {
                 "targets": [],
                 "visible": false,
                 "searchable": false
             }
         ],
         [{
-                data: 'kode_gudang'
+                data: 'kode_param'
             },
             {
                 data: 'nama'
             },
             {
-                data: null
+                data: 'akun_piutang'
             },
             {
-                data: null
+                data: 'akun_titip'
             },
             {
-                data: null
+                data: 'jenis'
             },
             {
-                data: null
+                data: 'nilai'
             }
         ],
         "{{ url('esaku-auth/sesi-habis') }}",
         [
-            [5, "desc"]
+            [6, "desc"]
         ]
     );
 
@@ -784,45 +805,162 @@
         }
     });
 
-    // PREVIEW saat klik di list data
+    // PREVIEW DATA
     $('#table-data tbody').on('click', 'td', function(e) {
         if ($(this).index() != 6) {
 
             var id = $(this).closest('tr').find('td').eq(0).html();
+            console.log(id)
             var data = dataTable.row(this).data();
-            var html = `<tr>
-            <td style='border:none'>Kode Gudang</td>
-            <td style='border:none'>` + id + `</td>
-        </tr>
-        <tr>
-            <td>Nama Gudang</td>
-            <td>` + data.nama + `</td>
-        </tr>
-        <tr>
-            <td>No Telp</td>
-            <td>` + data.telp + `</td>
-        </tr>
-        <tr>
-            <td>Alamat</td>
-            <td>` + data.alamat + `</td>
-        </tr>
-        <tr>
-            <td>Penanggung Jawab</td>
-            <td>` + data.pic + `</td>
-        </tr>
-        <tr>
-            <td>PP/Unit</td>
-            <td>` + data.kode_pp + `</td>
-        </tr>
-        `;
-            $('#table-preview tbody').html(html);
+            var posted = data.posted;
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('/esaku-master/jenis-simpanan') }}/" + id,
+                dataType: 'json',
+                async: false,
+                success: function(res) {
+                    var result = res.data;
+                    if (result.status) {
 
-            $('#modal-preview-judul').css({
-                'margin-top': '10px',
-                'padding': '0px !important'
-            }).html('Preview Data Gudang').removeClass('py-2');
-            $('#modal-preview-id').text(id);
-            $('#modal-preview').modal('show');
+                        var html =
+                            `<div class="preview-header" style="display:block;height:39px;padding: 0 1.75rem" >
+                            <h6 style="position: absolute;" id="preview-judul">Preview Data</h6>
+                            <span id="preview-nama" style="display:none"></span><span id="preview-id" style="display:none">` +
+                            id +
+                            `</span>
+                            <div class="dropdown d-inline-block float-right">
+                                <button type="button" id="dropdownAksi" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding: 0.2rem 1rem;border-radius: 1rem !important;" class="btn dropdown-toggle btn-light">
+                                <span class="my-0">Aksi <i style="font-size: 10px;" class="simple-icon-arrow-down ml-3"></i></span>
+                                </button>
+                                <div class="dropdown-menu dropdown-aksi" aria-labelledby="dropdownAksi" x-placement="bottom-start" style="position: absolute; will-change: transform; top: -10px; left: 0px; transform: translate3d(0px, 37px, 0px);">
+                                    <a class="dropdown-item dropdown-ke1" href="#" id="btn-delete2"><i class="simple-icon-trash mr-1"></i> Hapus</a>
+                                    <a class="dropdown-item dropdown-ke1" href="#" id="btn-edit2"><i class="simple-icon-pencil mr-1"></i> Edit</a>
+                                    <a class="dropdown-item dropdown-ke1" href="#" id="btn-cetak"><i class="simple-icon-printer mr-1"></i> Cetak</a>
+                                    <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-cetak2" style="border-bottom: 1px solid #d7d7d7;"><i class="simple-icon-arrow-left mr-1"></i> Cetak</a>
+                                    <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-excel"> Excel</a>
+                                    <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-pdf"> PDF</a>
+                                    <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-print"> Print</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class='separator'></div>
+                        <div class='preview-body' style='padding: 0 1.75rem;height: calc(75vh - 56px) ;position:sticky'>
+
+                            <div style="padding:0 1.5rem">
+                                <table class="table table-header-prev mt-3" width="100%">
+                                    <tr style="background: var(--theme-color-1) !important;color:white !important">
+                                        <th colspan="3" style="width:15%">Jenis Simpanan</th>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%">Kode</td>
+                                        <td width="1%">:</td>
+                                        <td>` + result.data[0].kode_param + `</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%">Nama Jenis Simpanan</td>
+                                        <td width="1%">:</td>
+                                        <td>` + result.data[0].nama + `</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%">Akun Piutang</td>
+                                        <td width="1%">:</td>
+                                        <td>` + result.data[0].akun_piutang + `</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%">Akun Simpanan</td>
+                                        <td width="1%">:</td>
+                                        <td>` + result.data[0].akun_titip + `</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%">Jenis</td>
+                                        <td width="1%">:</td>
+                                        <td>` + result.data[0].jenis + `</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%">% Jasa/Tahun</td>
+                                        <td width="1%">:</td>
+                                        <td>` + parseFloat(result.data[0].p_bunga) + `</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%">Jenis</td>
+                                        <td width="1%">:</td>
+                                        <td>` + result.data[0].jenis + `</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%">Nilai Ref</td>
+                                        <td width="1%">:</td>
+                                        <td>` + format_number(result.data[0].nilai) + `</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" class="text-right">
+                                            <small><i>Created at: ` + result.data[0].tgl_input + ` </i></small>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div></div>`;
+                        $('#content-bottom-sheet').html(html);
+
+                        var scroll = document.querySelector('.preview-body');
+                        var psscroll = new PerfectScrollbar(scroll);
+
+
+                        $('.c-bottom-sheet__sheet').css({
+                            "width": "70%",
+                            "margin-left": "15%",
+                            "margin-right": "15%"
+                        });
+
+                        $('.preview-header').on('click', '#btn-delete2', function(e) {
+                            var id = $('#preview-id').text();
+                            $('.c-bottom-sheet').removeClass('active');
+                            msgDialog({
+                                id: id,
+                                type: 'hapus'
+                            });
+                        });
+
+                        $('.preview-header').on('click', '#btn-edit2', function() {
+                            var id = $('#preview-id').text();
+                            $('#judul-form').html('Edit Data Anggota');
+                            $('#form-tambah')[0].reset();
+                            $('#form-tambah').validate().resetForm();
+
+                            $('#btn-save').attr('type', 'button');
+                            $('#btn-save').attr('id', 'btn-update');
+                            $('.c-bottom-sheet').removeClass('active');
+                            editData(id);
+                        });
+
+                        $('.preview-header').on('click', '#btn-cetak', function(e) {
+                            e.stopPropagation();
+                            $('.dropdown-ke1').addClass('hidden');
+                            $('.dropdown-ke2').removeClass('hidden');
+                            console.log('ok');
+                        });
+
+                        $('.preview-header').on('click', '#btn-cetak2', function(e) {
+                            // $('#dropdownAksi').dropdown('toggle');
+                            e.stopPropagation();
+                            $('.dropdown-ke1').removeClass('hidden');
+                            $('.dropdown-ke2').addClass('hidden');
+                        });
+
+                        if (posted == "Close") {
+                            console.log(posted);
+                            $('.preview-header #btn-delete2').css('display', 'none');
+                            $('.preview-header #btn-edit2').css('display', 'none');
+                        } else {
+                            $('.preview-header #btn-delete2').css('display', 'inline-block');
+                            $('.preview-header #btn-edit2').css('display', 'inline-block');
+                        }
+                        $('#trigger-bottom-sheet').trigger("click");
+                    } else if (!result.status && result.message == 'Unauthorized') {
+                        window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                    }
+                }
+            });
+
         }
     });
 
