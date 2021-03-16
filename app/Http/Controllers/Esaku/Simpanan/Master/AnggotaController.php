@@ -94,6 +94,20 @@ class AnggotaController extends Controller
         ]);
 
         try {
+                $prefix = $request->id_lain_prefix;
+                $set    = $request->id_lain_set;
+                $isActive = $request->flag_aktif;
+                if($prefix == '' || $set == ''){
+                    $id_lain = '-';
+                }else{
+                    $id_lain = $prefix.''.$set;
+                }
+
+                if($isActive == ''){
+                    $status = 0;
+                }else{
+                    $status = $isActive;
+                }
                 $client = new Client();
                 $response = $client->request('POST',  config('api.url').'esaku-master/anggota',[
                     'headers' => [
@@ -103,13 +117,21 @@ class AnggotaController extends Controller
                     'form_params' => [
                         'no_agg' => $request->no_agg,
                         'nama' => $request->nama,
+                        'tgl_lahir' => $request->tgl_lahir,
                         'alamat' => $request->alamat,
                         'no_tel' => $request->no_tel,
-                        'email' => $request->email,
                         'bank' => $request->bank,
                         'cabang' => $request->cabang,
                         'no_rek' => $request->no_rek,
                         'nama_rek' => $request->nama_rek,
+                        'flag_aktif' => $status,
+                        'id_lain' => $id_lain,
+                        'email' => $request->email,
+                        'provinsi' => $request->provinsi,
+                        'kota'      => $request->kota,
+                        'kecamatan' => $request->kecamatan,
+                        'kode_pos'  => $request->kode_pos
+
                     ]
                 ]);
                 if ($response->getStatusCode() == 200) { // 200 OK

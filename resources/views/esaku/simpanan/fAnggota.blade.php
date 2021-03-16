@@ -244,7 +244,8 @@
                             <div class="form-row">
                                 <div class="form-group col-md-6 col-sm-12">
                                     <label for="tgl_input">Tanggal Masuk</label>
-                                    <input class="form-control" type="date" id="tgl_input" name="tgl_input" required>
+                                    <input class="form-control" type="date" id="tgl_input" name="tgl_input"
+                                        value="{{ date('Y-m-d') }}" required>
                                 </div>
                                 <div class="form-group col-md-6 col-sm-12">
                                     <div class="row">
@@ -252,7 +253,8 @@
                                             <br>
                                             <div class="switch-toggle">
                                                 <label class="switch">
-                                                    <input type="checkbox" value="1" id="status-aktif">
+                                                    <input type="checkbox" name="flag_aktif" value="1"
+                                                        id="status-aktif">
                                                     <span class="slider round"></span>
                                                 </label>
                                                 <div class="label-switch">
@@ -277,7 +279,7 @@
                             <div class="form-row">
                                 <div class="form-group col-md-6 col-sm-12">
                                     <label for="negara">Provinsi</label>
-                                    <input class="form-control" type="text" id="negara" name="negara" required>
+                                    <input class="form-control" type="text" id="provinsi" name="provinsi" required>
                                 </div>
                                 <div class="form-group col-md-6 col-sm-12">
                                     <label for="kota">Kota/Kabupaten</label>
@@ -296,13 +298,12 @@
                         <div class="tab-pane mt-3" id="bank" role="tabpanel">
                             <div class="form-row">
                                 <div class="form-group col-md-6 col-sm-12">
-                                    <label for="nama_bank">Nama Bank</label>
-                                    <input class="form-control" type="text" id="nama_bank" name="nama_bank" required>
+                                    <label for="bank">Nama Bank</label>
+                                    <input class="form-control" type="text" id="bank" name="bank" required>
                                 </div>
                                 <div class="form-group col-md-6 col-sm-12">
-                                    <label for="nama_cabang">Nama Cabang</label>
-                                    <input class="form-control" type="text" id="nama_cabang" name="nama_cabang"
-                                        required>
+                                    <label for="cabang">Nama Cabang</label>
+                                    <input class="form-control" type="text" id="cabang" name="cabang" required>
                                 </div>
                             </div>
                             <div class="form-row">
