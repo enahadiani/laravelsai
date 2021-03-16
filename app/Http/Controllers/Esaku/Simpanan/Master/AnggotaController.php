@@ -224,10 +224,10 @@ class AnggotaController extends Controller
 
 
 
-    public function delete($id) {
+    public function destroy($id) {
         try{
             $client = new Client();
-            $response = $client->request('DELETE',  config('api.url').'esaku-master/vendor?kode_vendor='.$id,
+            $response = $client->request('DELETE',  config('api.url').'esaku-master/anggota?no_agg='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),

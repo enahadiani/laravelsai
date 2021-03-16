@@ -795,13 +795,13 @@
     function hapusData(id) {
         $.ajax({
             type: 'DELETE',
-            url: "{{ url('esaku-master/vendor') }}/" + id,
+            url: "{{ url('esaku-master/anggota') }}/" + id,
             dataType: 'json',
             async: false,
             success: function(result) {
                 if (result.data.status) {
                     dataTable.ajax.reload();
-                    showNotification("top", "center", "success", 'Hapus Data', 'Data Vendor (' + id +
+                    showNotification("top", "center", "success", 'Hapus Data', 'Data Anggota (' + id +
                         ') berhasil dihapus ');
                     $('#modal-pesan-id').html('');
                     $('#table-delete tbody').html('');

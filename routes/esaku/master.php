@@ -236,3 +236,4 @@ Route::get('anggota','Esaku\Simpanan\Master\AnggotaController@index');
 Route::get('anggota/{id}','Esaku\Simpanan\Master\AnggotaController@show');
 Route::post('anggota','Esaku\Simpanan\Master\AnggotaController@store');
 Route::put('anggota/{id}','Esaku\Simpanan\Master\AnggotaController@update');
+Route::delete('anggota/{id}','Esaku\Simpanan\Master\AnggotaController@destroy');
