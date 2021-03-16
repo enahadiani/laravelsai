@@ -889,7 +889,7 @@
         $('#btn-save').attr('type', 'button');
         $('#btn-save').attr('id', 'btn-update');
 
-        $('#judul-form').html('Edit Data Vendor');
+        $('#judul-form').html('Edit Data Anggota');
         editData(id);
     });
     // END BUTTON EDIT
@@ -1088,7 +1088,7 @@
 
                         $('.preview-header').on('click', '#btn-edit2', function() {
                             var id = $('#preview-id').text();
-                            $('#judul-form').html('Edit Data Jurnal');
+                            $('#judul-form').html('Edit Data Anggota');
                             $('#form-tambah')[0].reset();
                             $('#form-tambah').validate().resetForm();
 
@@ -1145,7 +1145,7 @@
         var id = $('#modal-preview-id').text();
         // $iconLoad.show();
         $('#form-tambah').validate().resetForm();
-        $('#judul-form').html('Edit Data Vendor');
+        $('#judul-form').html('Edit Data Anggota');
 
         $('#btn-save').attr('type', 'button');
         $('#btn-save').attr('id', 'btn-update');
