@@ -190,7 +190,7 @@
 
                     </ul>
                     <div class="tab-content tab-form-content col-12 p-0">
-                        <div class="tab-pane active" id="umum" role="tabpanel">
+                        <div class="tab-pane active mt-3" id="umum" role="tabpanel">
                             <div class="form-row">
                                 <div class="col-12">
                                     <input class="form-control" type="hidden" id="id_edit" name="id_edit">
@@ -200,24 +200,30 @@
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6 col-sm-12">
-                                    <label for="kode_vendor">Kode</label>
-                                    <input class="form-control" type="text" id="kode_vendor" name="kode_vendor"
-                                        required>
+                                    <label for="no_agg">Kode</label>
+                                    <input class="form-control" type="text" id="no_agg" name="no_agg" required>
                                 </div>
                                 <div class="error-side col-md-6 col-sm-12">
-                                    <p class="error-text" id="error-vendor">Kode Vendor sudah ada</p>
+                                    <p class="text-danger" id="error-anggota">No Anggota sudah ada</p>
+                                    <p class="text-success" id="success-anggota">No Anggota Siap Digunakan</p>
                                 </div>
                             </div>
                             <div class="form-row">
-                                <div class="form-group col-md-12 col-sm-12">
+                                <div class="form-group col-md-8 col-sm-12">
                                     <label for="nama">Nama</label>
                                     <input class="form-control" type="text" id="nama" name="nama" required>
                                 </div>
+                                <div class="form-group col-md-4 col-sm-12">
+                                    <label for="tgl_lahir">Tanggal Lahir</label>
+                                    <input class="form-control" type="date" id="tgl_lahir" name="tgl_lahir" required>
+                                </div>
                             </div>
+
                             <div class="form-row">
                                 <div class="form-group col-md-3 col-sm-12">
                                     <label for="id_lain">ID Lain</label>
-                                    <input class="form-control" type="text" id="id_lain" name="id_lain" required>
+                                    <input class="form-control" type="text" id="id_lain_prefix" name="id_lain_prefix"
+                                        required>
                                 </div>
                                 <div class="form-group col-md-9 col-sm-12">
                                     <label for="id_lain_set">&nbsp;</label>
@@ -237,11 +243,8 @@
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6 col-sm-12">
-                                    <label for="tgl_masuk">Tanggal Masuk</label>
-                                    <input class='form-control datepicker' type="text" id="tgl_masuk" name="tgl_masuk"
-                                        value="{{ date('d/m/Y') }}">
-                                    <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;"
-                                        class="simple-icon-calendar date-search"></i>
+                                    <label for="tgl_input">Tanggal Masuk</label>
+                                    <input class="form-control" type="date" id="tgl_input" name="tgl_input" required>
                                 </div>
                                 <div class="form-group col-md-6 col-sm-12">
                                     <div class="row">
@@ -263,7 +266,7 @@
                             </div>
                         </div>
 
-                        <div class="tab-pane" id="alamat" role="tabpanel">
+                        <div class="tab-pane mt-3" id="alamat" role="tabpanel">
                             <div class="form-row">
                                 <div class="form-group col-md-12 col-sm-12">
                                     <label for="alamat">Nama Jalan, Gedung, No Rumah/Unit</label>
@@ -290,7 +293,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane" id="bank" role="tabpanel">
+                        <div class="tab-pane mt-3" id="bank" role="tabpanel">
                             <div class="form-row">
                                 <div class="form-group col-md-6 col-sm-12">
                                     <label for="nama_bank">Nama Bank</label>
@@ -349,7 +352,8 @@
     $('#saku-form > .col-12').addClass('mx-auto col-lg-6');
     // $('#modal-preview').addClass('fade animate');
     // $('#modal-preview .modal-content').addClass('animate-bottom');
-    $('#error-vendor').hide();
+    $('#error-anggota').hide();
+    $('#success-anggota').hide();
     var telp = '';
     var telp_pic = '';
     var status_aktif = false;
@@ -363,8 +367,8 @@
 
 
     var typingTime;
-    var doneTyping = 5000; // 5 detik
-    var $vendor = $('#kode_vendor');
+    var doneTyping = 20000; // 10 detik
+    var $anggota = $('#no_agg');
 
     function isActive(active) {
         if (active == "1" || active == 1) {
@@ -416,20 +420,40 @@
         isChecked()
     })
 
-    $vendor.on('keyup', function() {
+    $anggota.on('keyup', function() {
         clearTimeout(typingTime);
-        typingTime = setTimeout(cekVendor($(this).val()), doneTyping);
+        typingTime = setTimeout(cekAnggota($(this).val()), doneTyping);
     })
 
-    $vendor.on('keydown', function() {
+    $anggota.on('keydown', function() {
         clearTimeout(typingTime);
     })
 
-    function cekVendor(value) {
-        if (value !== "VS58" && value !== "") {
-            $('#error-vendor').show();
+    function cekAnggota(value) {
+        if (value !== "" || value !== null || value != "") {
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('esaku-master/anggota') }}/" + value,
+                dataType: 'json',
+                async: false,
+                success: function(result) {
+
+                    if (result.data.status) {
+                        $('#error-anggota').show();
+                        $('#success-anggota').hide();
+                        console.log("Code Already Taken!")
+                    } else if (!result.data.status && result.data.message == "Data Kosong!") {
+                        $('#error-anggota').hide();
+                        $('#success-anggota').show();
+                        console.log("Code Ready to use!")
+                    } else if (!result.status && result.message == 'Unauthorized') {
+                        window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                    }
+                }
+            });
+
         } else {
-            $('#error-vendor').hide();
+            $('#error-anggota').hide();
         }
     }
 
@@ -512,105 +536,14 @@
         });
     }
 
-    $('#form-tambah').on('click', '.search-item2', function() {
-        var id = $(this).closest('div').find('input').attr('name');
-        showInpFilter({
-            id: id,
-            header: ['Kode', 'Nama'],
-            url: "{{ url('esaku-master/vendor-akun') }}",
-            columns: [{
-                    data: 'kode_akun'
-                },
-                {
-                    data: 'nama'
-                }
-            ],
-            judul: "Daftar Akun",
-            pilih: "akun",
-            jTarget1: "text",
-            jTarget2: "text",
-            target1: ".info-code_" + id,
-            target2: ".info-name_" + id,
-            target3: "",
-            target4: "",
-            width: ["30%", "70%"],
-        });
-    });
 
-    $('#form-tambah').on('change', '#akun_hutang', function() {
-        var par = $(this).val();
-        getAkun(par);
-    });
 
-    // END BAGIAN CBBL
-
-    // SUGGESSION DI CBBL
-    var $dtVendor = new Array();
-
-    function getVendorAkun() {
-        $.ajax({
-            type: 'GET',
-            url: "{{ url('esaku-master/vendor-akun') }}",
-            dataType: 'json',
-            async: false,
-            success: function(result) {
-                if (result.status) {
-
-                    for (i = 0; i < result.daftar.length; i++) {
-                        $dtVendor[i] = {
-                            kode_akun: result.daftar[i].kode_akun
-                        };
-                    }
-
-                } else if (!result.status && result.message == "Unauthorized") {
-                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
-                } else {
-                    alert(result.message);
-                }
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                if (jqXHR.status == 422) {
-                    var msg = jqXHR.responseText;
-                } else if (jqXHR.status == 500) {
-                    var msg = "Internal server error";
-                } else if (jqXHR.status == 401) {
-                    var msg = "Unauthorized";
-                    window.location = "{{ url('/esaku-auth/sesi-habis') }}";
-                } else if (jqXHR.status == 405) {
-                    var msg = "Route not valid. Page not found";
-                }
-
-            }
-        });
-    }
-
-    getVendorAkun();
-
-    $('#akun_hutang').typeahead({
-        source: function(cari, result) {
-            result($.map($dtVendor, function(item) {
-                return item.kode_akun;
-            }));
-        },
-        afterSelect: function(item) {
-            // console.log('cek');
-        }
-    });
-    // END SUGGESTION
 
     // // PLUGIN SCROLL di bagian preview dan form input
     // var scrollform = document.querySelector('.form-body');
     // var psscrollform = new PerfectScrollbar(scrollform);
     // // END PLUGIN SCROLL di bagian preview dan form input
 
-    $("input.datepicker").bootstrapDP({
-        autoclose: true,
-        format: 'dd/mm/yyyy',
-        templates: {
-            leftArrow: '<i class="simple-icon-arrow-left"></i>',
-            rightArrow: '<i class="simple-icon-arrow-right"></i>'
-        }
-    });
 
     //LIST DATA
     var action_html =
@@ -716,9 +649,9 @@
     $('#form-tambah').validate({
         ignore: [],
         rules: {
-            kode_vendor: {
+            no_agg: {
                 required: true,
-                maxlength: 10
+                maxlength: 20
             },
             nama: {
                 required: true,
@@ -734,19 +667,10 @@
             },
             alamat: {
                 required: true,
-                maxlength: 300
-            },
-            npwp: {
-                required: true,
-                maxlength: 50
-            },
-            pic: {
-                required: true,
-                maxlength: 50
-            },
-            alamat2: {
-                required: true,
                 maxlength: 200
+            },
+            tgl_lahir: {
+                required: true
             },
             bank: {
                 required: true,
@@ -764,31 +688,27 @@
                 required: true,
                 maxlength: 50
             },
-            no_fax: {
-                required: true,
-                maxlength: 50
+            id_lain_prefix: {
+                required: false,
+                maxlength: 4,
             },
-            no_pictel: {
-                required: true,
-                maxlength: 50
-            },
-            akun_hutang: {
-                required: true,
-                maxlength: 20
+            id_lain_set: {
+                required: false,
+                maxlength: 16
             }
         },
         errorElement: "label",
         submitHandler: function(form) {
             var parameter = $('#id_edit').val();
-            var id = $('#kode_vendor').val();
+            var id = $('#no_agg').val();
             var telpNow = $('#no_tel').val();
             var telpPicNow = $('#no_pictel').val();
             if (parameter == "edit") {
-                var url = "{{ url('esaku-master/vendor') }}/" + id;
+                var url = "{{ url('esaku-master/anggota') }}/" + id;
                 var pesan = "updated";
                 var text = "Perubahan data " + id + " telah tersimpan";
             } else {
-                var url = "{{ url('esaku-master/vendor') }}";
+                var url = "{{ url('esaku-master/anggota') }}";
                 var pesan = "saved";
                 var text = "Data tersimpan dengan kode " + id;
             }

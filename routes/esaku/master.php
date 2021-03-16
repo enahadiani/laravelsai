@@ -234,3 +234,4 @@ Route::get('msakundet-neraca', 'Esaku\Keuangan\MasakunDetailController@getNeraca
 */
 Route::get('anggota','Esaku\Simpanan\Master\AnggotaController@index');
 Route::get('anggota/{id}','Esaku\Simpanan\Master\AnggotaController@show');
+Route::post('anggota','Esaku\Simpanan\Master\AnggotaController@store');

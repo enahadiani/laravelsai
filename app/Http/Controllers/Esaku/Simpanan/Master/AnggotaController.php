@@ -82,50 +82,34 @@ class AnggotaController extends Controller
 
     public function store(Request $request) {
         $this->validate($request, [
-            'kode_vendor' => 'required',
+            'no_agg' => 'required',
             'nama' => 'required',
             'alamat' => 'required',
-            'alamat2' => 'required',
             'no_tel' => 'required',
-            'no_fax' => 'required',
-            'npwp' => 'required',
             'email' => 'required',
-            'pic' => 'required',
-            'akun_hutang' => 'required',
             'bank' => 'required',
             'cabang' => 'required',
             'no_rek' => 'required',
-            'nama_rek' => 'required',
-            'no_pictel' => 'required',
+            'nama_rek' => 'required'
         ]);
 
         try {
                 $client = new Client();
-                $response = $client->request('POST',  config('api.url').'esaku-master/vendor',[
+                $response = $client->request('POST',  config('api.url').'esaku-master/anggota',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
                     ],
                     'form_params' => [
-                        'kode_vendor' => $request->kode_vendor,
+                        'no_agg' => $request->no_agg,
                         'nama' => $request->nama,
                         'alamat' => $request->alamat,
-                        'alamat2' => $request->alamat2,
                         'no_tel' => $request->no_tel,
-                        'no_fax' => $request->no_fax,
-                        'npwp' => $request->npwp,
                         'email' => $request->email,
-                        'pic' => $request->pic,
-                        'akun_hutang' => $request->akun_hutang,
                         'bank' => $request->bank,
                         'cabang' => $request->cabang,
                         'no_rek' => $request->no_rek,
                         'nama_rek' => $request->nama_rek,
-                        'no_pictel' => $request->no_pictel,
-                        'bank_trans' => '-',
-                        'kode_klpvendor' => '-',
-                        'penilaian' => '-',
-                        'spek' => '-',
                     ]
                 ]);
                 if ($response->getStatusCode() == 200) { // 200 OK
