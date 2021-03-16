@@ -241,10 +241,12 @@
                     <div class="form-row">
                         <div class="form-group col-md-6 col-sm-12">
                             <label for="jenis_simpanan">Jenis Simpanan</label>
-                            <select class='form-control selectize' id="jenis_simpanan" name="jenis_simpanan">
+                            <select class='form-control selectize jenis_simpanan' id="jenis_simpanan"
+                                name="jenis_simpanan">
+                                <option value=""></option>
                                 <option value='SP'>SP</option>
                                 <option value='SW'>SW</option>
-                                <option value='SS' selected>SS</option>
+                                <option value='SS'>SS</option>
                             </select>
                         </div>
                         <div class="form-group col-md-6 col-sm-12">
@@ -782,7 +784,7 @@
     function editData(id) {
         $.ajax({
             type: 'GET',
-            url: "{{ url('esaku-master/gudang') }}/" + id,
+            url: "{{ url('esaku-master/jenis-simpanan') }}/" + id,
             dataType: 'json',
             async: false,
             success: function(res) {
@@ -790,19 +792,21 @@
                 if (result.status) {
                     $('#id_edit').val('edit');
                     $('#method').val('put');
-                    $('#kode_gudang').attr('readonly', true);
-                    $('#kode_gudang').val(id);
+                    $('#kode_param').attr('readonly', true);
+                    $('#kode_param').val(id);
                     $('#id').val(id);
                     $('#nama').val(result.data[0].nama);
-                    $('#alamat').val(result.data[0].alamat);
-                    $('#pic').val(result.data[0].pic);
-                    $('#kode_pp').val(result.data[0].kode_pp);
-                    $('#telp').val(result.data[0].telp);
+                    $('#akun_piutang').val(result.data[0].akun_piutang);
+                    $('#akun_simpanan').val(result.data[0].akun_titip);
+                    $('#jenis_simpanan').val(result.data[0].jenis);
+                    $('#nilai_ref').val(parseFloat(result.data[0].nilai));
+                    $('#bunga').val(parseFloat(result.data[0].p_bunga));
+
                     $('#saku-datatable').hide();
                     $('#modal-preview').modal('hide');
                     $('#saku-form').show();
-                    showInfoField('pic', result.data[0].pic, result.data[0].nama_pic);
-                    showInfoField('kode_pp', result.data[0].kode_pp, result.data[0].nama_pp);
+                    showInfoField('akun_simpanan', result.data[0].akun_titip, result.data[0].akun_titip);
+                    showInfoField('akun_piutang', result.data[0].akun_piutang, result.data[0].akun_piutang);
                 } else if (!result.status && result.message == 'Unauthorized') {
                     window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
                 }
@@ -818,7 +822,7 @@
         $('#btn-save').attr('type', 'button');
         $('#btn-save').attr('id', 'btn-update');
 
-        $('#judul-form').html('Edit Data Vendor');
+        $('#judul-form').html('Edit Data Jenis Simpanan');
         editData(id);
     });
     // END BUTTON EDIT
@@ -967,7 +971,7 @@
 
                         $('.preview-header').on('click', '#btn-edit2', function() {
                             var id = $('#preview-id').text();
-                            $('#judul-form').html('Edit Data Anggota');
+                            $('#judul-form').html('Edit Data Jenis Simpanan');
                             $('#form-tambah')[0].reset();
                             $('#form-tambah').validate().resetForm();
 
@@ -1022,7 +1026,7 @@
         var id = $('#modal-preview-id').text();
         // $iconLoad.show();
         $('#form-tambah').validate().resetForm();
-        $('#judul-form').html('Edit Data Vendor');
+        $('#judul-form').html('Edit Data Jenis Simpanan');
 
         $('#btn-save').attr('type', 'button');
         $('#btn-save').attr('id', 'btn-update');
