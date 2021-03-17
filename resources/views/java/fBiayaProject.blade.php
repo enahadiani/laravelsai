@@ -355,7 +355,7 @@
 
     $('#nilai').on('change', function() {
         var value = toNilai($(this).val());
-        var anggaran = $previousAnggaran;
+        var anggaran = toNilai($previousAnggaran);
         if(anggaran == 0 || anggaran == '') {
             alert('Anggaran tidak boleh kosong atau 0')
         } else if(value > anggaran) {
@@ -377,9 +377,9 @@
         var keyString = '_'
         var fromTarget = from.substr(from.indexOf(keyString) + keyString.length, from.length);
         if(fromTarget === 'no_proyek') {
-            $previousAnggaran = parseInt(tr.find('td:nth-child(3)').text())
-            $('#anggaran').val(parseInt(tr.find('td:nth-child(3)').text()))
-            $no_rab = tr.find('td:nth-child(2)').text()
+            $previousAnggaran = tr.find('td:nth-child(3)').text()
+            $('#anggaran').val(tr.find('td:nth-child(3)').text())
+            // $no_rab = tr.find('td:nth-child(2)').text()
         }
     }
 
@@ -436,12 +436,12 @@
             case 'no_proyek': 
                 var settings = {
                     id : id,
-                    header : ['No Proyek', 'No Rab', 'Nilai'],
+                    header : ['No Proyek', 'Keterangan', 'Saldo'],
                     url : "{{ url('java-trans/beban-proyek-cbbl') }}",
                     columns : [
                         { data: 'no_proyek' },
-                        { data: 'no_rab' },
-                        { data: 'sisa_anggaran' }
+                        { data: 'keterangan' },
+                        { data: 'saldo', render: $.fn.dataTable.render.number( '.', '.', 0 ) }
                     ],
                     parameter: {
                         kode: customer
@@ -524,7 +524,7 @@
             } else {
                 formData.append('status', 'UNPAID')
             }
-            formData.append('no_rab', $no_rab)
+            formData.append('no_rab', '-')
             
             for(var pair of formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
