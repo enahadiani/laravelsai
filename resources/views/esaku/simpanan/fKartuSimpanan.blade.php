@@ -188,46 +188,47 @@
                             <input class="form-control" type="hidden" id="id_edit" name="id_edit">
                             <input type="hidden" id="method" name="_method" value="post">
                             <input type="hidden" id="id" name="id">
+                            <input type="hidden" name="no_simp" id="no_simp" value="">
                         </div>
                     </div>
 
                     <div class="form-row">
 
                         <div class="form-group col-md-12 col-sm-12">
-                            <label for="kode_pp">Anggota</label>
+                            <label for="no_agg">Anggota</label>
                             <div class="input-group">
                                 <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
-                                    <span class="input-group-text info-code_kode_pp" readonly="readonly" title=""
+                                    <span class="input-group-text info-code_no_agg" readonly="readonly" title=""
                                         data-toggle="tooltip" data-placement="top"></span>
                                 </div>
-                                <input type="text" class="form-control inp-label-kode_pp" id="kode_pp" name="kode_pp"
+                                <input type="text" class="form-control inp-label-no_agg" id="no_agg" name="no_agg"
                                     value="" title="">
-                                <span class="info-name_kode_pp hidden">
+                                <span class="info-name_no_agg hidden">
                                     <span></span>
                                 </span>
                                 <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                <i class="simple-icon-magnifier search-item2" id="search_kode_pp"></i>
+                                <i class="simple-icon-magnifier search-item2" id="search_no_agg"></i>
                             </div>
                         </div>
                         <div class="form-group col-md-6 col-sm-12">
-                            <label for="pic">Jenis Simpanan</label>
+                            <label for="jenis_simpanan">Jenis Simpanan</label>
                             <div class="input-group">
                                 <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
-                                    <span class="input-group-text info-code_pic" readonly="readonly" title=""
+                                    <span class="input-group-text info-code_jenis_simpanan" readonly="readonly" title=""
                                         data-toggle="tooltip" data-placement="top"></span>
                                 </div>
-                                <input type="text" class="form-control inp-label-pic" id="pic" name="pic" value=""
-                                    title="">
-                                <span class="info-name_pic hidden">
+                                <input type="text" class="form-control inp-label-jenis_simpanan" id="jenis_simpanan"
+                                    name="jenis_simpanan" value="" title="">
+                                <span class="info-name_jenis_simpanan hidden">
                                     <span></span>
                                 </span>
                                 <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                <i class="simple-icon-magnifier search-item2" id="search_pic"></i>
+                                <i class="simple-icon-magnifier search-item2" id="search_jenis_simpanan"></i>
                             </div>
                         </div>
                         <div class="form-group col-md-6 col-sm-12">
-                            <label for="flag_aktif">Jenis Pembayran</label>
-                            <select class='form-control selectize' id="flag_aktif" name="flag_aktif">
+                            <label for="status_bayar">Jenis Pembayran</label>
+                            <select class='form-control selectize' id="status_bayar" name="status_bayar">
                                 <option value='PGAJI'>PGAJI</option>
                                 <option value='TUNAI'>TUNAI</option>
                             </select>
@@ -236,21 +237,27 @@
                     <div class="form-row">
 
                         <div class="form-group col-md-6 col-sm-12">
-                            <label for="hna">Nilai Simpanan</label>
-                            <input class="form-control currency nominal" value="0" type="text" id="hna" name="hna"
+                            <label for="nilai">Nilai Simpanan</label>
+                            <input class="form-control currency nominal" value="0" type="text" id="nilai" name="nilai"
                                 required>
                         </div>
                         <div class="form-group col-md-6 col-sm-12">
-                            <label for="hna">% Jasa/Tahun</label>
-                            <input class="form-control currency nominal" value="0" type="text" id="hna" name="hna"
+                            <label for="p_bunga">% Jasa/Tahun</label>
+                            <input class="form-control currency nominal" value="0" type="text" id="p_bunga"
+                                name="p_bunga" required>
+                        </div>
+                        <div class="form-group col-md-6 col-sm-12">
+                            <label for="tgl_tagih">Tanggal Tagih</label>
+                            <input class="form-control currency nominal" type="date" id="tgl_tagih" name="tgl_tagih"
                                 required>
                         </div>
                         <div class="form-group col-md-6 col-sm-12">
                             <div class="row">
                                 <div class="col-md-8 col-sm-12">
+                                    <br>
                                     <div class="switch-toggle">
                                         <label class="switch">
-                                            <input type="checkbox" value="1" id="status-aktif">
+                                            <input type="checkbox" name="flag_aktif" value="1" id="status-aktif">
                                             <span class="slider round"></span>
                                         </label>
                                         <div class="label-switch">
@@ -311,6 +318,17 @@
         var num = parseFloat(x).toFixed(0);
         num = sepNumX(num);
         return num;
+    }
+
+    function formatDate2(date) {
+        if (date !== undefined && date !== "") {
+            var myDate = new Date(date);
+            var day = ("0" + myDate.getDate()).slice(-2);
+            var month = ("0" + (myDate.getMonth() + 1)).slice(-2);
+            var str = myDate.getFullYear() + "-" + month + "-" + day;
+            return str;
+        }
+        return "";
     }
 
     function isActive(active) {
@@ -563,19 +581,19 @@
     $('#form-tambah').on('click', '.search-item2', function() {
         var id = $(this).closest('div').find('input').attr('name');
         switch (id) {
-            case 'pic':
+            case 'no_agg':
                 var settings = {
                     id: id,
-                    header: ['NIK', 'Nama'],
-                    url: "{{ url('esaku-master/gudang-nik') }}",
+                    header: ['No Anggota', 'Nama'],
+                    url: "{{ url('esaku-master/anggota') }}",
                     columns: [{
-                            data: 'nik'
+                            data: 'no_agg'
                         },
                         {
                             data: 'nama'
                         }
                     ],
-                    judul: "Daftar PIC",
+                    judul: "Daftar Anggota",
                     pilih: "akun",
                     jTarget1: "text",
                     jTarget2: "text",
@@ -586,19 +604,19 @@
                     width: ["30%", "70%"],
                 }
                 break;
-            case 'kode_pp':
+            case 'jenis_simpanan':
                 var settings = {
                     id: id,
                     header: ['Kode', 'Nama'],
-                    url: "{{ url('esaku-master/gudang-pp') }}",
+                    url: "{{ url('esaku-master/jenis-simpanan') }}",
                     columns: [{
-                            data: 'kode_pp'
+                            data: 'kode_param'
                         },
                         {
                             data: 'nama'
                         }
                     ],
-                    judul: "Daftar PP",
+                    judul: "Jenis Simpanan",
                     pilih: "akun",
                     jTarget1: "text",
                     jTarget2: "text",
@@ -628,39 +646,38 @@
     $('#form-tambah').validate({
         ignore: [],
         rules: {
-            kode_gudang: {
+            no_agg: {
                 required: true,
                 maxlength: 10
             },
-            nama: {
+            jenis_simpanan: {
                 required: true
             },
-            telp: {
+            status_bayar: {
                 required: true,
-                number: true
             },
-            alamat: {
+            nilai: {
                 required: true
             },
-            pic: {
+            p_bunga: {
                 required: true
             },
-            kode_pp: {
+            tgl_tagih: {
                 required: true
             }
         },
         errorElement: "label",
         submitHandler: function(form) {
             var parameter = $('#id_edit').val();
-            var id = $('#kode_gudang').val();
+            var id = $('#no_simp').val();
             if (parameter == "edit") {
-                var url = "{{ url('esaku-master/gudang') }}/" + id;
+                var url = "{{ url('esaku-master/kartu-simpanan') }}";
                 var pesan = "updated";
                 var text = "Perubahan data " + id + " telah tersimpan";
             } else {
-                var url = "{{ url('esaku-master/gudang') }}";
+                var url = "{{ url('esaku-master/kartu-simpanan') }}";
                 var pesan = "saved";
-                var text = "Data tersimpan dengan kode " + id;
+                var text = "Data Kartu Simpanan Berhasil di Simpan "
             }
 
             var formData = new FormData(form);
@@ -689,7 +706,7 @@
                         $('#method').val('post');
                         $('#kode_gudang').attr('readonly', false);
                         msgDialog({
-                            id: result.data.kode,
+                            id: result.data.no_bukti,
                             type: 'simpan'
                         });
                         last_add("kode_gudang", result.data.kode);
@@ -733,13 +750,13 @@
     function hapusData(id) {
         $.ajax({
             type: 'DELETE',
-            url: "{{ url('esaku-master/gudang') }}/" + id,
+            url: "{{ url('esaku-master/kartu-simpanan') }}/" + id,
             dataType: 'json',
             async: false,
             success: function(result) {
                 if (result.data.status) {
                     dataTable.ajax.reload();
-                    showNotification("top", "center", "success", 'Hapus Data', 'Data Gudang (' + id +
+                    showNotification("top", "center", "success", 'Hapus Data', 'Data Karu Simpanan (' + id +
                         ') berhasil dihapus ');
                     $('#modal-pesan-id').html('');
                     $('#table-delete tbody').html('');
@@ -772,7 +789,7 @@
     function editData(id) {
         $.ajax({
             type: 'GET',
-            url: "{{ url('esaku-master/gudang') }}/" + id,
+            url: "{{ url('esaku-master/kartu-simpanan') }}/" + id,
             dataType: 'json',
             async: false,
             success: function(res) {
@@ -780,19 +797,28 @@
                 if (result.status) {
                     $('#id_edit').val('edit');
                     $('#method').val('put');
-                    $('#kode_gudang').attr('readonly', true);
-                    $('#kode_gudang').val(id);
                     $('#id').val(id);
-                    $('#nama').val(result.data[0].nama);
-                    $('#alamat').val(result.data[0].alamat);
-                    $('#pic').val(result.data[0].pic);
-                    $('#kode_pp').val(result.data[0].kode_pp);
-                    $('#telp').val(result.data[0].telp);
+                    $('#no_simp').val(id);
+                    $('#no_agg').val(result.data[0].no_agg);
+                    $('#jenis_simpanan').val(result.data[0].kode_param);
+                    $('#status_bayar').val(result.data[0].status_bayar);
+                    $('#nilai').val(parseFloat(result.data[0].nilai));
+                    $('#p_bunga').val(parseFloat(result.data[0].p_bunga));
+                    $('#tgl_tagih').val(formatDate2(result.data[0].tgl_tagih));
+                    if (result.data[0].flag_aktif == 1) {
+                        $('#status-aktif').prop('checked', true)
+                        $('#aktif').show()
+                        $('#unaktif').hide()
+                    } else {
+                        $('#status-aktif').prop('checked', false)
+                        $('#aktif').hide()
+                        $('#unaktif').show()
+                    }
                     $('#saku-datatable').hide();
                     $('#modal-preview').modal('hide');
                     $('#saku-form').show();
-                    showInfoField('pic', result.data[0].pic, result.data[0].nama_pic);
-                    showInfoField('kode_pp', result.data[0].kode_pp, result.data[0].nama_pp);
+                    showInfoField('no_agg', result.data[0].no_agg, result.data[0].nama_anggota);
+                    showInfoField('jenis_simpanan', result.data[0].kode_param, result.data[0].jenis);
                 } else if (!result.status && result.message == 'Unauthorized') {
                     window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
                 }
@@ -808,7 +834,7 @@
         $('#btn-save').attr('type', 'button');
         $('#btn-save').attr('id', 'btn-update');
 
-        $('#judul-form').html('Edit Data Vendor');
+        $('#judul-form').html('Edit Data Kartu Simpanan');
         editData(id);
     });
     // END BUTTON EDIT
@@ -976,7 +1002,7 @@
 
                         $('.preview-header').on('click', '#btn-edit2', function() {
                             var id = $('#preview-id').text();
-                            $('#judul-form').html('Edit Data Jenis Simpanan');
+                            $('#judul-form').html('Edit Data Kartu Simpanan');
                             $('#form-tambah')[0].reset();
                             $('#form-tambah').validate().resetForm();
 
@@ -1031,7 +1057,7 @@
         var id = $('#modal-preview-id').text();
         // $iconLoad.show();
         $('#form-tambah').validate().resetForm();
-        $('#judul-form').html('Edit Data Vendor');
+        $('#judul-form').html('Edit Data Kartu Simpanan');
 
         $('#btn-save').attr('type', 'button');
         $('#btn-save').attr('id', 'btn-update');

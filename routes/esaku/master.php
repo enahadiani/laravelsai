@@ -254,5 +254,5 @@ Route::get('akun-simpanan','Esaku\Simpanan\Master\JenisSImpananController@getAku
 Route::get('kartu-simpanan','Esaku\Simpanan\Master\KartuSimpananController@index');
 Route::get('kartu-simpanan/{id}','Esaku\Simpanan\Master\KartuSimpananController@show');
 Route::post('kartu-simpanan','Esaku\Simpanan\Master\KartuSimpananController@store');
-Route::put('kartu-simpanan/{id}','Esaku\Simpanan\Master\KartuSimpananController@update');
+Route::put('kartu-simpanan','Esaku\Simpanan\Master\KartuSimpananController@update');
 Route::delete('kartu-simpanan/{id}','Esaku\Simpanan\Master\KartuSimpananController@destroy');
