@@ -1002,7 +1002,7 @@
 
                         $('.preview-header').on('click', '#btn-edit2', function() {
                             var id = $('#preview-id').text();
-                            $('#judul-form').html('Edit Data Jenis Simpanan');
+                            $('#judul-form').html('Edit Data Kartu Simpanan');
                             $('#form-tambah')[0].reset();
                             $('#form-tambah').validate().resetForm();
 
