@@ -188,6 +188,7 @@
                             <input class="form-control" type="hidden" id="id_edit" name="id_edit">
                             <input type="hidden" id="method" name="_method" value="post">
                             <input type="hidden" id="id" name="id">
+                            <input type="hidden" name="no_simp" id="no_simp" value="">
                         </div>
                     </div>
 
@@ -317,6 +318,17 @@
         var num = parseFloat(x).toFixed(0);
         num = sepNumX(num);
         return num;
+    }
+
+    function formatDate2(date) {
+        if (date !== undefined && date !== "") {
+            var myDate = new Date(date);
+            var day = ("0" + myDate.getDate()).slice(-2);
+            var month = ("0" + (myDate.getMonth() + 1)).slice(-2);
+            var str = myDate.getFullYear() + "-" + month + "-" + day;
+            return str;
+        }
+        return "";
     }
 
     function isActive(active) {
@@ -657,9 +669,9 @@
         errorElement: "label",
         submitHandler: function(form) {
             var parameter = $('#id_edit').val();
-            var id = $('#kode_vendor').val();
+            var id = $('#no_simp').val();
             if (parameter == "edit") {
-                var url = "{{ url('esaku-master/gudang') }}/" + id;
+                var url = "{{ url('esaku-master/kartu-simpanan') }}";
                 var pesan = "updated";
                 var text = "Perubahan data " + id + " telah tersimpan";
             } else {
@@ -777,7 +789,7 @@
     function editData(id) {
         $.ajax({
             type: 'GET',
-            url: "{{ url('esaku-master/gudang') }}/" + id,
+            url: "{{ url('esaku-master/kartu-simpanan') }}/" + id,
             dataType: 'json',
             async: false,
             success: function(res) {
@@ -785,19 +797,28 @@
                 if (result.status) {
                     $('#id_edit').val('edit');
                     $('#method').val('put');
-                    $('#kode_gudang').attr('readonly', true);
-                    $('#kode_gudang').val(id);
                     $('#id').val(id);
-                    $('#nama').val(result.data[0].nama);
-                    $('#alamat').val(result.data[0].alamat);
-                    $('#pic').val(result.data[0].pic);
-                    $('#kode_pp').val(result.data[0].kode_pp);
-                    $('#telp').val(result.data[0].telp);
+                    $('#no_simp').val(id);
+                    $('#no_agg').val(result.data[0].no_agg);
+                    $('#jenis_simpanan').val(result.data[0].kode_param);
+                    $('#status_bayar').val(result.data[0].status_bayar);
+                    $('#nilai').val(parseFloat(result.data[0].nilai));
+                    $('#p_bunga').val(parseFloat(result.data[0].p_bunga));
+                    $('#tgl_tagih').val(formatDate2(result.data[0].tgl_tagih));
+                    if (result.data[0].flag_aktif == 1) {
+                        $('#status-aktif').prop('checked', true)
+                        $('#aktif').show()
+                        $('#unaktif').hide()
+                    } else {
+                        $('#status-aktif').prop('checked', false)
+                        $('#aktif').hide()
+                        $('#unaktif').show()
+                    }
                     $('#saku-datatable').hide();
                     $('#modal-preview').modal('hide');
                     $('#saku-form').show();
-                    showInfoField('pic', result.data[0].pic, result.data[0].nama_pic);
-                    showInfoField('kode_pp', result.data[0].kode_pp, result.data[0].nama_pp);
+                    showInfoField('no_agg', result.data[0].no_agg, result.data[0].no_agg);
+                    showInfoField('jenis_simpanan', result.data[0].kode_param, result.data[0].jenis);
                 } else if (!result.status && result.message == 'Unauthorized') {
                     window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
                 }
@@ -813,7 +834,7 @@
         $('#btn-save').attr('type', 'button');
         $('#btn-save').attr('id', 'btn-update');
 
-        $('#judul-form').html('Edit Data Vendor');
+        $('#judul-form').html('Edit Data Kartu Simpanan');
         editData(id);
     });
     // END BUTTON EDIT
@@ -1036,7 +1057,7 @@
         var id = $('#modal-preview-id').text();
         // $iconLoad.show();
         $('#form-tambah').validate().resetForm();
-        $('#judul-form').html('Edit Data Vendor');
+        $('#judul-form').html('Edit Data Kartu Simpanan');
 
         $('#btn-save').attr('type', 'button');
         $('#btn-save').attr('id', 'btn-update');
