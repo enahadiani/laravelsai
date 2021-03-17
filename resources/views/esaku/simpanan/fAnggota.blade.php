@@ -272,8 +272,10 @@
                             <div class="form-row">
                                 <div class="form-group col-md-12 col-sm-12">
                                     <label for="alamat">Nama Jalan, Gedung, No Rumah/Unit</label>
-                                    <textarea class="form-control" rows="4" id="alamat" name="alamat"
-                                        style="resize:none" required></textarea>
+                                    <textarea class="form-control alamat" rows="4" id="alamat" name="alamat"
+                                        style="resize:none" required>
+
+                                    </textarea>
                                 </div>
                             </div>
                             <div class="form-row">
@@ -299,7 +301,7 @@
                             <div class="form-row">
                                 <div class="form-group col-md-6 col-sm-12">
                                     <label for="bank">Nama Bank</label>
-                                    <input class="form-control" type="text" id="bank" name="bank" required>
+                                    <input class="form-control nama-bank" type="text" id="bank" name="bank" required>
                                 </div>
                                 <div class="form-group col-md-6 col-sm-12">
                                     <label for="cabang">Nama Cabang</label>
@@ -381,6 +383,8 @@
         return html;
     }
 
+
+
     function formatDate(date) {
         if (date !== undefined && date !== "") {
             var myDate = new Date(date);
@@ -402,6 +406,26 @@
             return str;
         }
         return "";
+    }
+
+    function formatDate2(date) {
+        if (date !== undefined && date !== "") {
+            var myDate = new Date(date);
+            var day = ("0" + myDate.getDate()).slice(-2);
+            var month = ("0" + (myDate.getMonth() + 1)).slice(-2);
+            var str = myDate.getFullYear() + "-" + month + "-" + day;
+            return str;
+        }
+        return "";
+    }
+
+    function splitString(str) {
+        var res = str.split("-");
+        var splitSring = {
+            pefix: res[0],
+            set: res[1]
+        }
+        return splitSring;
     }
 
     function isChecked() {
@@ -510,34 +534,6 @@
         });
         $('.info-name_' + kode).closest('div').find('.info-icon-hapus').removeClass('hidden');
     }
-
-    function getAkun(id = null) {
-        $.ajax({
-            type: 'GET',
-            url: "{{ url('esaku-master/vendor-akun') }}",
-            dataType: 'json',
-            data: {
-                'kode_akun': id
-            },
-            async: false,
-            success: function(result) {
-                if (result.status) {
-                    if (typeof result.daftar !== 'undefined' && result.daftar.length > 0) {
-                        showInfoField('akun_hutang', result.daftar[0].kode_akun, result.daftar[0].nama);
-                    } else {
-                        $('#akun_hutang').attr('readonly', false);
-                        $('#akun_hutang').css('border-left', '1px solid #d7d7d7');
-                        $('#akun_hutang').val('');
-                        $('#akun_hutang').focus();
-                    }
-                } else if (!result.status && result.message == 'Unauthorized') {
-                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
-                }
-            }
-        });
-    }
-
-
 
 
     // // PLUGIN SCROLL di bagian preview dan form input
@@ -705,10 +701,12 @@
             var telpNow = $('#no_tel').val();
             var telpPicNow = $('#no_pictel').val();
             if (parameter == "edit") {
+                var method = "PUT";
                 var url = "{{ url('esaku-master/anggota') }}/" + id;
                 var pesan = "updated";
                 var text = "Perubahan data " + id + " telah tersimpan";
             } else {
+                var method = "POST";
                 var url = "{{ url('esaku-master/anggota') }}";
                 var pesan = "saved";
                 var text = "Data tersimpan dengan kode " + id;
@@ -797,13 +795,13 @@
     function hapusData(id) {
         $.ajax({
             type: 'DELETE',
-            url: "{{ url('esaku-master/vendor') }}/" + id,
+            url: "{{ url('esaku-master/anggota') }}/" + id,
             dataType: 'json',
             async: false,
             success: function(result) {
                 if (result.data.status) {
                     dataTable.ajax.reload();
-                    showNotification("top", "center", "success", 'Hapus Data', 'Data Vendor (' + id +
+                    showNotification("top", "center", "success", 'Hapus Data', 'Data Anggota (' + id +
                         ') berhasil dihapus ');
                     $('#modal-pesan-id').html('');
                     $('#table-delete tbody').html('');
@@ -836,36 +834,46 @@
     function editData(id) {
         $.ajax({
             type: 'GET',
-            url: "{{ url('esaku-master/vendor') }}/" + id,
+            url: "{{ url('esaku-master/anggota') }}/" + id,
             dataType: 'json',
             async: false,
             success: function(res) {
                 var result = res.data;
+                console.log(result)
                 if (result.status) {
-                    telp = result.data[0].no_tel;
-                    telp_pic = result.data[0].no_pictel;
+                    var idLain = splitString(result.data[0].id_lain);
                     $('#id_edit').val('edit');
                     $('#method').val('put');
-                    $('#kode_vendor').attr('readonly', true);
-                    $('#kode_vendor').val(id);
+                    $('#no_agg').attr('readonly', true);
+                    $('#no_agg').val(id);
                     $('#id').val(id);
                     $('#nama').val(result.data[0].nama);
-                    $('#alamat').val(result.data[0].alamat);
-                    $('#alamat2').val(result.data[0].alamat2);
+                    $("#tgl_lahir").val(formatDate2(result.data[0].tgl_lahir))
+                    $('.alamat').val(result.data[0].alamat);
                     $('#email').val(result.data[0].email);
-                    $('#npwp').val(result.data[0].npwp);
-                    $('#pic').val(result.data[0].pic);
-                    $('#no_pictel').val(result.data[0].no_pictel);
                     $('#no_tel').val(result.data[0].no_tel);
-                    $('#no_fax').val(result.data[0].no_fax);
-                    $('#bank').val(result.data[0].bank);
+                    $('.nama-bank').val(result.data[0].bank);
                     $('#cabang').val(result.data[0].cabang);
                     $('#no_rek').val(result.data[0].no_rek);
                     $('#nama_rek').val(result.data[0].nama_rek);
+                    $('#kota').val(result.data[0].kota);
+                    $('#provinsi').val(result.data[0].provinsi);
+                    $('#kecamatan').val(result.data[0].kecamatan);
+                    $('#kode_pos').val(result.data[0].kode_pos);
+                    $('#id_lain_prefix').val(idLain.pefix);
+                    $('#id_lain_set').val(idLain.set);
+                    if (result.data[0].flag_aktif == 1) {
+                        $('#status-aktif').prop('checked', true)
+                        $('#aktif').show()
+                        $('#unaktif').hide()
+                    } else {
+                        $('#status-aktif').prop('checked', false)
+                        $('#aktif').hide()
+                        $('#unaktif').show()
+                    }
                     $('#saku-datatable').hide();
                     $('#modal-preview').modal('hide');
                     $('#saku-form').show();
-                    showInfoField('akun_hutang', result.data[0].akun_hutang, result.data[0].nama_akun);
                 } else if (!result.status && result.message == 'Unauthorized') {
                     window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
                 }
@@ -881,7 +889,7 @@
         $('#btn-save').attr('type', 'button');
         $('#btn-save').attr('id', 'btn-update');
 
-        $('#judul-form').html('Edit Data Vendor');
+        $('#judul-form').html('Edit Data Anggota');
         editData(id);
     });
     // END BUTTON EDIT
@@ -1080,7 +1088,7 @@
 
                         $('.preview-header').on('click', '#btn-edit2', function() {
                             var id = $('#preview-id').text();
-                            $('#judul-form').html('Edit Data Jurnal');
+                            $('#judul-form').html('Edit Data Anggota');
                             $('#form-tambah')[0].reset();
                             $('#form-tambah').validate().resetForm();
 
@@ -1137,7 +1145,7 @@
         var id = $('#modal-preview-id').text();
         // $iconLoad.show();
         $('#form-tambah').validate().resetForm();
-        $('#judul-form').html('Edit Data Vendor');
+        $('#judul-form').html('Edit Data Anggota');
 
         $('#btn-save').attr('type', 'button');
         $('#btn-save').attr('id', 'btn-update');

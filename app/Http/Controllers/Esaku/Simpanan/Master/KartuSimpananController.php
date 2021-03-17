@@ -9,7 +9,7 @@ use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Session;
 use GuzzleHttp\Exception\BadResponseException;
 
-class AnggotaController extends Controller
+class KartuSimpananController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -32,7 +32,7 @@ class AnggotaController extends Controller
     public function index(){
         try {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'esaku-master/anggota',[
+            $response = $client->request('GET',  config('api.url').'esaku-master/kartu-simpanan',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -57,7 +57,7 @@ class AnggotaController extends Controller
     public function show($id) {
         try{
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'esaku-master/anggota?no_agg='.$id,
+            $response = $client->request('GET',  config('api.url').'esaku-master/kartu-simpanan?no_simp='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -80,58 +80,58 @@ class AnggotaController extends Controller
         }
     }
 
+    public function getAkun(){
+        try {
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'esaku-master/akun-simpanan',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+
+                $data = json_decode($response_data,true);
+                $data = $data["data"];
+            }
+            return response()->json(['daftar' => $data, 'status'=>true], 200);
+
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+        }
+    }
+
     public function store(Request $request) {
         $this->validate($request, [
-            'no_agg' => 'required',
+            'kode_param' => 'required',
             'nama' => 'required',
-            'alamat' => 'required',
-            'no_tel' => 'required',
-            'email' => 'required',
-            'bank' => 'required',
-            'cabang' => 'required',
-            'no_rek' => 'required',
-            'nama_rek' => 'required'
+            'akun_piutang' => 'required',
+            'akun_simpanan' => 'required',
+            'jenis_simpanan' => 'required',
+            'nilai_ref' => 'required',
+            'bunga' => 'required'
         ]);
 
         try {
-                $prefix = $request->id_lain_prefix;
-                $set    = $request->id_lain_set;
-                $isActive = $request->flag_aktif;
-                if($prefix == '' || $set == ''){
-                    $id_lain = '-';
-                }else{
-                    $id_lain = $prefix.'-'.$set;
-                }
 
-                if($isActive == ''){
-                    $status = 0;
-                }else{
-                    $status = $isActive;
-                }
                 $client = new Client();
-                $response = $client->request('POST',  config('api.url').'esaku-master/anggota',[
+                $response = $client->request('POST',  config('api.url').'esaku-master/jenis-simpanan',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
                     ],
                     'form_params' => [
-                        'no_agg' => $request->no_agg,
+                        'kode_param' => $request->kode_param,
                         'nama' => $request->nama,
-                        'tgl_lahir' => $request->tgl_lahir,
-                        'alamat' => $request->alamat,
-                        'no_tel' => $request->no_tel,
-                        'bank' => $request->bank,
-                        'cabang' => $request->cabang,
-                        'no_rek' => $request->no_rek,
-                        'nama_rek' => $request->nama_rek,
-                        'flag_aktif' => $status,
-                        'id_lain' => $id_lain,
-                        'email' => $request->email,
-                        'provinsi' => $request->provinsi,
-                        'kota'      => $request->kota,
-                        'kecamatan' => $request->kecamatan,
-                        'kode_pos'  => $request->kode_pos
-
+                        'akun_piutang' => $request->akun_piutang,
+                        'akun_titip' => $request->akun_simpanan,
+                        'jenis' => $request->jenis_simpanan,
+                        'nilai' => $request->nilai_ref,
+                        'p_bunga' => $request->bunga
                     ]
                 ]);
                 if ($response->getStatusCode() == 200) { // 200 OK
@@ -149,59 +149,33 @@ class AnggotaController extends Controller
                 return response()->json(['data' => $data], 500);
             }
     }
-
-    public function update(Request $request,$id) {
+    public function update(Request $request) {
         $this->validate($request, [
-            'no_agg' => 'required',
+            'kode_param' => 'required',
             'nama' => 'required',
-            'alamat' => 'required',
-            'no_tel' => 'required',
-            'email' => 'required',
-            'bank' => 'required',
-            'cabang' => 'required',
-            'no_rek' => 'required',
-            'nama_rek' => 'required'
+            'akun_piutang' => 'required',
+            'akun_simpanan' => 'required',
+            'jenis_simpanan' => 'required',
+            'nilai_ref' => 'required',
+            'bunga' => 'required'
         ]);
 
         try {
-                $prefix = $request->id_lain_prefix;
-                $set    = $request->id_lain_set;
-                $isActive = $request->flag_aktif;
-                if($prefix == '' || $set == ''){
-                    $id_lain = '-';
-                }else{
-                    $id_lain = $prefix.'-'.$set;
-                }
 
-                if($isActive == ''){
-                    $status = 0;
-                }else{
-                    $status = $isActive;
-                }
                 $client = new Client();
-                $response = $client->request('PUT',  config('api.url').'esaku-master/anggota',[
+                $response = $client->request('PUT',  config('api.url').'esaku-master/jenis-simpanan',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
                     ],
                     'form_params' => [
-                        'no_agg' => $request->no_agg,
+                        'kode_param' => $request->kode_param,
                         'nama' => $request->nama,
-                        'tgl_lahir' => $request->tgl_lahir,
-                        'alamat' => $request->alamat,
-                        'no_tel' => $request->no_tel,
-                        'bank' => $request->bank,
-                        'cabang' => $request->cabang,
-                        'no_rek' => $request->no_rek,
-                        'nama_rek' => $request->nama_rek,
-                        'flag_aktif' => $status,
-                        'id_lain' => $id_lain,
-                        'email' => $request->email,
-                        'provinsi' => $request->provinsi,
-                        'kota'      => $request->kota,
-                        'kecamatan' => $request->kecamatan,
-                        'kode_pos'  => $request->kode_pos
-
+                        'akun_piutang' => $request->akun_piutang,
+                        'akun_titip' => $request->akun_simpanan,
+                        'jenis' => $request->jenis_simpanan,
+                        'nilai' => $request->nilai_ref,
+                        'p_bunga' => $request->bunga
                     ]
                 ]);
                 if ($response->getStatusCode() == 200) { // 200 OK
@@ -219,15 +193,11 @@ class AnggotaController extends Controller
                 return response()->json(['data' => $data], 500);
             }
     }
-
-
-
-
 
     public function destroy($id) {
         try{
             $client = new Client();
-            $response = $client->request('DELETE',  config('api.url').'esaku-master/anggota?no_agg='.$id,
+            $response = $client->request('DELETE',  config('api.url').'esaku-master/jenis-simpanan?kode_param='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),

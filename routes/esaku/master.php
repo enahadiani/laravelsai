@@ -235,3 +235,24 @@ Route::get('msakundet-neraca', 'Esaku\Keuangan\MasakunDetailController@getNeraca
 Route::get('anggota','Esaku\Simpanan\Master\AnggotaController@index');
 Route::get('anggota/{id}','Esaku\Simpanan\Master\AnggotaController@show');
 Route::post('anggota','Esaku\Simpanan\Master\AnggotaController@store');
+Route::put('anggota/{id}','Esaku\Simpanan\Master\AnggotaController@update');
+Route::delete('anggota/{id}','Esaku\Simpanan\Master\AnggotaController@destroy');
+
+
+// Data Master Jenis Simpanan
+Route::get('jenis-simpanan','Esaku\Simpanan\Master\JenisSimpananController@index');
+Route::get('jenis-simpanan/{id}','Esaku\Simpanan\Master\JenisSimpananController@show');
+Route::post('jenis-simpanan','Esaku\Simpanan\Master\JenisSimpananController@store');
+Route::put('jenis-simpanan/{id}','Esaku\Simpanan\Master\JenisSimpananController@update');
+Route::delete('jenis-simpanan/{id}','Esaku\Simpanan\Master\JenisSimpananController@destroy');
+
+
+// Data Master Akun -- (Data References)
+Route::get('akun-simpanan','Esaku\Simpanan\Master\JenisSImpananController@getAkun');
+
+//Data Master Kartu Simpanan
+Route::get('kartu-simpanan','Esaku\Simpanan\Master\KartuSimpananController@index');
+Route::get('kartu-simpanan/{id}','Esaku\Simpanan\Master\KartuSimpananController@show');
+Route::post('kartu-simpanan','Esaku\Simpanan\Master\KartuSimpananController@store');
+Route::put('kartu-simpanan/{id}','Esaku\Simpanan\Master\KartuSimpananController@update');
+Route::delete('kartu-simpanan/{id}','Esaku\Simpanan\Master\KartuSimpananController@destroy');
