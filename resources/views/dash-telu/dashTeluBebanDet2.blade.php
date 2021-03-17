@@ -57,14 +57,14 @@ $thnLalu = substr($tahunLalu,2,2);
     <div class="row" >
         <div class="col-12 detail2-beban">
         <a class='btn btn-outline-light' href='#' id='btnBack' style="position: absolute;right: 25px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-arrow-left"></i> Back</a>
-        <p>Satuan Milyar Rupiah || Periode s/d <span class='nama-bulan'></span></p>
+        <p>Satuan Milyar Rupiah || <span class='label-periode-filter'></span> || <span class='label-bidang'></span></p>
         </div>
     </div>
     <div class="row mt-2" >
         <div class="col-md-6 col-sm-12 mb-4">
             <div class="card dash-card">
                 <div class="card-header">
-                    <h6 class="card-title">Beban per tahun tiap Jurusan Fakultas <span class='nama_fakultas'></span></h6>
+                    <h6 class="card-title">Beban per tahun tiap <span class='label-pp'></span> di <span class='label-bidang'></span></h6>
                 </div>
                 <div class="card-body pt-0">
                     <div id='bebanJur' style='height:350px'>
@@ -235,6 +235,8 @@ function getBebanJurusan(periode=null,kodeNeraca=null,kodeBidang=null){
             'periode[1]' : periode.from,
             'periode[2]' : periode.to, mode: $mode,'kode_neraca':kodeNeraca,'kode_bidang':kodeBidang,'kode_grafik':($kd_grafik != undefined ? $kd_grafik : "")},
         success:function(result){
+            $('.label-bidang').html(result.data.nama_bidang);
+            $('.label-pp').html(result.data.nama_pp);
             Highcharts.chart('bebanJur', {
                 chart: {
                     type: 'bar'

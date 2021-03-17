@@ -597,7 +597,7 @@
                 $(".search-neracake"+no).hide();
                 $(".nmneracake"+no).show();
                 $(".tdnmneracake"+no).hide();
-                setTimeout(function() {  $(".tddcke"+no).click(); }, 100);
+                
             }
         });
 
@@ -640,7 +640,7 @@
                         $(".search-neracake"+no).hide();
                         $(".nmneracake"+no).show();
                         $(".tdnmneracake"+no).hide();
-                        setTimeout(function() {  $(".tddcke"+no).click(); }, 100);
+                        
                     }
                 });
             }
@@ -1323,9 +1323,9 @@
                             input += "<tr class='row-grid'>";
                             input += "<td class='text-center'><span class='no-grid'>"+no+"</span><input class='no-grid' type='hidden' name='no_urut[]' value='"+no+"'></td>";
                             input += "<td class='text-center'><a class=' hapus-item' style='font-size:12px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
-                            input += "<td><span class='td-fs tdfske"+no+" tooltip-span'>"+data.kode_fs+"</span><input type='text' id='fskode"+no+"' name='kode_fs[]' class='form-control inp-fs fske"+no+" hidden' value='"+data.kode_fs+"' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-fs hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
-                            input += "<td><span class='td-nama_fs tdnmfske"+no+" tooltip-span'>"+data.nama_fs+"</span><input type='text' name='nama_fs[]' class='form-control inp-nama_fs nmfske"+no+" hidden'  value='"+data.nama_fs+"' readonly></td>";
-                            input += "<td ><span class='td-kode tdneracake"+no+" tooltip-span'>"+data.kode_neraca+"</span><input type='text' name='kode_neraca[]' class='form-control inp-kode neracake"+no+" hidden' value='"+data.kode_neraca+"' required='' style='z-index: 1;position: relative;' id='neracakode"+no+"'><a href='#' class='search-item search-neraca hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+                            input += "<td><span class='td-fs tdfske"+no+" tooltip-span'>"+data.kode_fs+"</span><input autocomplete='off' type='text'  id='fskode"+no+"' name='kode_fs[]' class='form-control inp-fs fske"+no+" hidden' value='"+data.kode_fs+"' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-fs search-fske"+no+" hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+                            input += "<td><span class='td-nama_fs tdnmfske"+no+" tooltip-span'>"+data.nama_fs+"</span><input autocomplete='off' type='text' name='nama_fs[]' class='form-control inp-nama_fs nmfske"+no+" hidden'  value='"+data.nama_fs+"' readonly></td>";
+                            input += "<td ><span class='td-kode tdneracake"+no+" tooltip-span'>"+data.kode_neraca+"</span><input type='text' name='kode_neraca[]' class='form-control inp-kode neracake"+no+" hidden' value='"+data.kode_neraca+"' required='' style='z-index: 1;position: relative;' id='neracakode"+no+"'><a href='#' class='search-item search-neraca search-neracake"+no+"  hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
                             input += "<td><span class='td-nama tdnmneracake"+no+" tooltip-span'>"+data.nama_neraca+"</span><input type='text' name='nama_neraca[]' class='form-control inp-nama nmneracake"+no+" hidden'  value='"+data.nama_neraca+"' readonly></td>";
                             input += "</tr>";
 
@@ -1380,7 +1380,7 @@
                                     $(".search-neracake"+no).hide();
                                     $(".nmneracake"+no).show();
                                     $(".tdnmneracake"+no).hide();
-                                    setTimeout(function() {  $(".tddcke"+no).click(); }, 100);
+                                    
                                 }
                             });
 
@@ -1423,7 +1423,7 @@
                                             $(".search-neracake"+no).hide();
                                             $(".nmneracake"+no).show();
                                             $(".tdnmneracake"+no).hide();
-                                            setTimeout(function() {  $(".tddcke"+no).click(); }, 100);
+                                            
                                         }
                                     });
                                 }
