@@ -706,7 +706,7 @@
                         $('#method').val('post');
                         $('#kode_gudang').attr('readonly', false);
                         msgDialog({
-                            id: result.data.kode,
+                            id: result.data.no_bukti,
                             type: 'simpan'
                         });
                         last_add("kode_gudang", result.data.kode);
@@ -817,7 +817,7 @@
                     $('#saku-datatable').hide();
                     $('#modal-preview').modal('hide');
                     $('#saku-form').show();
-                    showInfoField('no_agg', result.data[0].no_agg, result.data[0].no_agg);
+                    showInfoField('no_agg', result.data[0].no_agg, result.data[0].nama_anggota);
                     showInfoField('jenis_simpanan', result.data[0].kode_param, result.data[0].jenis);
                 } else if (!result.status && result.message == 'Unauthorized') {
                     window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
