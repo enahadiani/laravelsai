@@ -19,6 +19,48 @@ class HelperController extends Controller {
         }
     }
 
+    private function convertMonthName($month) {
+        $array = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+        'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+
+        return $array[$month];
+    }
+
+    private function convertPeriode($array) {
+        $newArray = [];
+        for($i=0;$i<count($array);$i++) {
+            $explode = explode('-', $array[$i]['periode']);
+            $convert = intval($explode[1]);
+            array_push($newArray, [
+                'value' => $array[$i]['periode'],
+                'text' => $this->convertMonthName($convert)." ".$explode[0]
+            ]);
+        }
+
+        return $newArray;
+    }
+
+    public function getPeriode() {
+        $client = new Client();
+        $response = $client->request('GET',  config('api.url').'java-dash/periode',[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ]
+        ]);
+
+        if ($response->getStatusCode() == 200) { // 200 OK
+            $response_data = $response->getBody()->getContents();
+            
+            $data = json_decode($response_data,true);
+            $data = $data['data'];
+            if(!empty($data)) {
+                $data = $this->convertPeriode($data);
+            }
+        }
+        return response()->json(['daftar' => $data, 'status' => true], 200);
+    }
+
     public function getNegara(Request $request) {
         $client = new Client();
         $response = $client->request('GET',  $this->url_api_2.'internationalDestination',[
