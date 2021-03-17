@@ -107,31 +107,36 @@ class KartuSimpananController extends Controller
 
     public function store(Request $request) {
         $this->validate($request, [
-            'kode_param' => 'required',
-            'nama' => 'required',
-            'akun_piutang' => 'required',
-            'akun_simpanan' => 'required',
+            'no_agg' => 'required',
             'jenis_simpanan' => 'required',
-            'nilai_ref' => 'required',
-            'bunga' => 'required'
+            'status_bayar' => 'required',
+            'nilai' => 'required',
+            'p_bunga' => 'required',
+            'tgl_tagih' => 'required',
         ]);
 
         try {
-
+                $isActive = $request->flag_aktif;
+                if($isActive == ''){
+                    $status = 0;
+                }else{
+                    $status = $isActive;
+                }
                 $client = new Client();
-                $response = $client->request('POST',  config('api.url').'esaku-master/jenis-simpanan',[
+                $response = $client->request('POST',  config('api.url').'esaku-master/kartu-simpanan',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
                     ],
                     'form_params' => [
-                        'kode_param' => $request->kode_param,
-                        'nama' => $request->nama,
-                        'akun_piutang' => $request->akun_piutang,
-                        'akun_titip' => $request->akun_simpanan,
+                        'no_agg' => $request->no_agg,
+                        'kode_param' => $request->jenis_simpanan,
                         'jenis' => $request->jenis_simpanan,
-                        'nilai' => $request->nilai_ref,
-                        'p_bunga' => $request->bunga
+                        'nilai' => $request->nilai,
+                        'p_bunga' => $request->p_bunga,
+                        'tgl_tagih' => $request->tgl_tagih,
+                        'status_bayar' => $request->status_bayar,
+                        'flag_aktif'    => $status
                     ]
                 ]);
                 if ($response->getStatusCode() == 200) { // 200 OK

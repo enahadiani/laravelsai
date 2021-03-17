@@ -194,40 +194,40 @@
                     <div class="form-row">
 
                         <div class="form-group col-md-12 col-sm-12">
-                            <label for="kode_pp">Anggota</label>
+                            <label for="no_agg">Anggota</label>
                             <div class="input-group">
                                 <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
-                                    <span class="input-group-text info-code_kode_pp" readonly="readonly" title=""
+                                    <span class="input-group-text info-code_no_agg" readonly="readonly" title=""
                                         data-toggle="tooltip" data-placement="top"></span>
                                 </div>
-                                <input type="text" class="form-control inp-label-kode_pp" id="kode_pp" name="kode_pp"
+                                <input type="text" class="form-control inp-label-no_agg" id="no_agg" name="no_agg"
                                     value="" title="">
-                                <span class="info-name_kode_pp hidden">
+                                <span class="info-name_no_agg hidden">
                                     <span></span>
                                 </span>
                                 <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                <i class="simple-icon-magnifier search-item2" id="search_kode_pp"></i>
+                                <i class="simple-icon-magnifier search-item2" id="search_no_agg"></i>
                             </div>
                         </div>
                         <div class="form-group col-md-6 col-sm-12">
-                            <label for="pic">Jenis Simpanan</label>
+                            <label for="jenis_simpanan">Jenis Simpanan</label>
                             <div class="input-group">
                                 <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
-                                    <span class="input-group-text info-code_pic" readonly="readonly" title=""
+                                    <span class="input-group-text info-code_jenis_simpanan" readonly="readonly" title=""
                                         data-toggle="tooltip" data-placement="top"></span>
                                 </div>
-                                <input type="text" class="form-control inp-label-pic" id="pic" name="pic" value=""
-                                    title="">
-                                <span class="info-name_pic hidden">
+                                <input type="text" class="form-control inp-label-jenis_simpanan" id="jenis_simpanan"
+                                    name="jenis_simpanan" value="" title="">
+                                <span class="info-name_jenis_simpanan hidden">
                                     <span></span>
                                 </span>
                                 <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                <i class="simple-icon-magnifier search-item2" id="search_pic"></i>
+                                <i class="simple-icon-magnifier search-item2" id="search_jenis_simpanan"></i>
                             </div>
                         </div>
                         <div class="form-group col-md-6 col-sm-12">
-                            <label for="flag_aktif">Jenis Pembayran</label>
-                            <select class='form-control selectize' id="flag_aktif" name="flag_aktif">
+                            <label for="status_bayar">Jenis Pembayran</label>
+                            <select class='form-control selectize' id="status_bayar" name="status_bayar">
                                 <option value='PGAJI'>PGAJI</option>
                                 <option value='TUNAI'>TUNAI</option>
                             </select>
@@ -236,21 +236,27 @@
                     <div class="form-row">
 
                         <div class="form-group col-md-6 col-sm-12">
-                            <label for="hna">Nilai Simpanan</label>
-                            <input class="form-control currency nominal" value="0" type="text" id="hna" name="hna"
+                            <label for="nilai">Nilai Simpanan</label>
+                            <input class="form-control currency nominal" value="0" type="text" id="nilai" name="nilai"
                                 required>
                         </div>
                         <div class="form-group col-md-6 col-sm-12">
-                            <label for="hna">% Jasa/Tahun</label>
-                            <input class="form-control currency nominal" value="0" type="text" id="hna" name="hna"
+                            <label for="p_bunga">% Jasa/Tahun</label>
+                            <input class="form-control currency nominal" value="0" type="text" id="p_bunga"
+                                name="p_bunga" required>
+                        </div>
+                        <div class="form-group col-md-6 col-sm-12">
+                            <label for="tgl_tagih">Tanggal Tagih</label>
+                            <input class="form-control currency nominal" type="date" id="tgl_tagih" name="tgl_tagih"
                                 required>
                         </div>
                         <div class="form-group col-md-6 col-sm-12">
                             <div class="row">
                                 <div class="col-md-8 col-sm-12">
+                                    <br>
                                     <div class="switch-toggle">
                                         <label class="switch">
-                                            <input type="checkbox" value="1" id="status-aktif">
+                                            <input type="checkbox" name="flag_aktif" value="1" id="status-aktif">
                                             <span class="slider round"></span>
                                         </label>
                                         <div class="label-switch">
@@ -563,19 +569,19 @@
     $('#form-tambah').on('click', '.search-item2', function() {
         var id = $(this).closest('div').find('input').attr('name');
         switch (id) {
-            case 'pic':
+            case 'no_agg':
                 var settings = {
                     id: id,
-                    header: ['NIK', 'Nama'],
-                    url: "{{ url('esaku-master/gudang-nik') }}",
+                    header: ['No Anggota', 'Nama'],
+                    url: "{{ url('esaku-master/anggota') }}",
                     columns: [{
-                            data: 'nik'
+                            data: 'no_agg'
                         },
                         {
                             data: 'nama'
                         }
                     ],
-                    judul: "Daftar PIC",
+                    judul: "Daftar Anggota",
                     pilih: "akun",
                     jTarget1: "text",
                     jTarget2: "text",
@@ -586,19 +592,19 @@
                     width: ["30%", "70%"],
                 }
                 break;
-            case 'kode_pp':
+            case 'jenis_simpanan':
                 var settings = {
                     id: id,
                     header: ['Kode', 'Nama'],
-                    url: "{{ url('esaku-master/gudang-pp') }}",
+                    url: "{{ url('esaku-master/jenis-simpanan') }}",
                     columns: [{
-                            data: 'kode_pp'
+                            data: 'kode_param'
                         },
                         {
                             data: 'nama'
                         }
                     ],
-                    judul: "Daftar PP",
+                    judul: "Jenis Simpanan",
                     pilih: "akun",
                     jTarget1: "text",
                     jTarget2: "text",
@@ -628,39 +634,38 @@
     $('#form-tambah').validate({
         ignore: [],
         rules: {
-            kode_gudang: {
+            no_agg: {
                 required: true,
                 maxlength: 10
             },
-            nama: {
+            jenis_simpanan: {
                 required: true
             },
-            telp: {
+            status_bayar: {
                 required: true,
-                number: true
             },
-            alamat: {
+            nilai: {
                 required: true
             },
-            pic: {
+            p_bunga: {
                 required: true
             },
-            kode_pp: {
+            tgl_tagih: {
                 required: true
             }
         },
         errorElement: "label",
         submitHandler: function(form) {
             var parameter = $('#id_edit').val();
-            var id = $('#kode_gudang').val();
+            var id = $('#kode_vendor').val();
             if (parameter == "edit") {
                 var url = "{{ url('esaku-master/gudang') }}/" + id;
                 var pesan = "updated";
                 var text = "Perubahan data " + id + " telah tersimpan";
             } else {
-                var url = "{{ url('esaku-master/gudang') }}";
+                var url = "{{ url('esaku-master/kartu-simpanan') }}";
                 var pesan = "saved";
-                var text = "Data tersimpan dengan kode " + id;
+                var text = "Data Kartu Simpanan Berhasil di Simpan "
             }
 
             var formData = new FormData(form);
