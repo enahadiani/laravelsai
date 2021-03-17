@@ -190,7 +190,7 @@
 
                     </ul>
                     <div class="tab-content tab-form-content col-12 p-0">
-                        <div class="tab-pane active" id="umum" role="tabpanel">
+                        <div class="tab-pane active mt-3" id="umum" role="tabpanel">
                             <div class="form-row">
                                 <div class="col-12">
                                     <input class="form-control" type="hidden" id="id_edit" name="id_edit">
@@ -200,24 +200,30 @@
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6 col-sm-12">
-                                    <label for="kode_vendor">Kode</label>
-                                    <input class="form-control" type="text" id="kode_vendor" name="kode_vendor"
-                                        required>
+                                    <label for="no_agg">Kode</label>
+                                    <input class="form-control" type="text" id="no_agg" name="no_agg" required>
                                 </div>
                                 <div class="error-side col-md-6 col-sm-12">
-                                    <p class="error-text" id="error-vendor">Kode Vendor sudah ada</p>
+                                    <p class="text-danger" id="error-anggota">No Anggota sudah ada</p>
+                                    <p class="text-success" id="success-anggota">No Anggota Siap Digunakan</p>
                                 </div>
                             </div>
                             <div class="form-row">
-                                <div class="form-group col-md-12 col-sm-12">
+                                <div class="form-group col-md-8 col-sm-12">
                                     <label for="nama">Nama</label>
                                     <input class="form-control" type="text" id="nama" name="nama" required>
                                 </div>
+                                <div class="form-group col-md-4 col-sm-12">
+                                    <label for="tgl_lahir">Tanggal Lahir</label>
+                                    <input class="form-control" type="date" id="tgl_lahir" name="tgl_lahir" required>
+                                </div>
                             </div>
+
                             <div class="form-row">
                                 <div class="form-group col-md-3 col-sm-12">
                                     <label for="id_lain">ID Lain</label>
-                                    <input class="form-control" type="text" id="id_lain" name="id_lain" required>
+                                    <input class="form-control" type="text" id="id_lain_prefix" name="id_lain_prefix"
+                                        required>
                                 </div>
                                 <div class="form-group col-md-9 col-sm-12">
                                     <label for="id_lain_set">&nbsp;</label>
@@ -237,11 +243,9 @@
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6 col-sm-12">
-                                    <label for="tgl_masuk">Tanggal Masuk</label>
-                                    <input class='form-control datepicker' type="text" id="tgl_masuk" name="tgl_masuk"
-                                        value="{{ date('d/m/Y') }}">
-                                    <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;"
-                                        class="simple-icon-calendar date-search"></i>
+                                    <label for="tgl_input">Tanggal Masuk</label>
+                                    <input class="form-control" type="date" id="tgl_input" name="tgl_input"
+                                        value="{{ date('Y-m-d') }}" required>
                                 </div>
                                 <div class="form-group col-md-6 col-sm-12">
                                     <div class="row">
@@ -249,7 +253,8 @@
                                             <br>
                                             <div class="switch-toggle">
                                                 <label class="switch">
-                                                    <input type="checkbox" value="1" id="status-aktif">
+                                                    <input type="checkbox" name="flag_aktif" value="1"
+                                                        id="status-aktif">
                                                     <span class="slider round"></span>
                                                 </label>
                                                 <div class="label-switch">
@@ -263,18 +268,20 @@
                             </div>
                         </div>
 
-                        <div class="tab-pane" id="alamat" role="tabpanel">
+                        <div class="tab-pane mt-3" id="alamat" role="tabpanel">
                             <div class="form-row">
                                 <div class="form-group col-md-12 col-sm-12">
                                     <label for="alamat">Nama Jalan, Gedung, No Rumah/Unit</label>
-                                    <textarea class="form-control" rows="4" id="alamat" name="alamat"
-                                        style="resize:none" required></textarea>
+                                    <textarea class="form-control alamat" rows="4" id="alamat" name="alamat"
+                                        style="resize:none" required>
+
+                                    </textarea>
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6 col-sm-12">
                                     <label for="negara">Provinsi</label>
-                                    <input class="form-control" type="text" id="negara" name="negara" required>
+                                    <input class="form-control" type="text" id="provinsi" name="provinsi" required>
                                 </div>
                                 <div class="form-group col-md-6 col-sm-12">
                                     <label for="kota">Kota/Kabupaten</label>
@@ -290,16 +297,15 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane" id="bank" role="tabpanel">
+                        <div class="tab-pane mt-3" id="bank" role="tabpanel">
                             <div class="form-row">
                                 <div class="form-group col-md-6 col-sm-12">
-                                    <label for="nama_bank">Nama Bank</label>
-                                    <input class="form-control" type="text" id="nama_bank" name="nama_bank" required>
+                                    <label for="bank">Nama Bank</label>
+                                    <input class="form-control nama-bank" type="text" id="bank" name="bank" required>
                                 </div>
                                 <div class="form-group col-md-6 col-sm-12">
-                                    <label for="nama_cabang">Nama Cabang</label>
-                                    <input class="form-control" type="text" id="nama_cabang" name="nama_cabang"
-                                        required>
+                                    <label for="cabang">Nama Cabang</label>
+                                    <input class="form-control" type="text" id="cabang" name="cabang" required>
                                 </div>
                             </div>
                             <div class="form-row">
@@ -349,7 +355,8 @@
     $('#saku-form > .col-12').addClass('mx-auto col-lg-6');
     // $('#modal-preview').addClass('fade animate');
     // $('#modal-preview .modal-content').addClass('animate-bottom');
-    $('#error-vendor').hide();
+    $('#error-anggota').hide();
+    $('#success-anggota').hide();
     var telp = '';
     var telp_pic = '';
     var status_aktif = false;
@@ -363,9 +370,63 @@
 
 
     var typingTime;
-    var doneTyping = 5000; // 5 detik
-    var $vendor = $('#kode_vendor');
+    var doneTyping = 20000; // 10 detik
+    var $anggota = $('#no_agg');
 
+    function isActive(active) {
+        if (active == "1" || active == 1) {
+            var html = '<span class="text-success"><b>Aktif</b></span>'
+        } else {
+            var html = '<span class="text-danger"><b>Unaktif</b></span>'
+        }
+
+        return html;
+    }
+
+
+
+    function formatDate(date) {
+        if (date !== undefined && date !== "") {
+            var myDate = new Date(date);
+            var month = [
+                "Januari",
+                "Februari",
+                "Maret",
+                "April",
+                "Mai",
+                "Juni",
+                "Juli",
+                "Augustus",
+                "September",
+                "Octtober",
+                "November",
+                "Desember",
+            ][myDate.getMonth()];
+            var str = myDate.getDate() + " " + month + " " + myDate.getFullYear();
+            return str;
+        }
+        return "";
+    }
+
+    function formatDate2(date) {
+        if (date !== undefined && date !== "") {
+            var myDate = new Date(date);
+            var day = ("0" + myDate.getDate()).slice(-2);
+            var month = ("0" + (myDate.getMonth() + 1)).slice(-2);
+            var str = myDate.getFullYear() + "-" + month + "-" + day;
+            return str;
+        }
+        return "";
+    }
+
+    function splitString(str) {
+        var res = str.split("-");
+        var splitSring = {
+            pefix: res[0],
+            set: res[1]
+        }
+        return splitSring;
+    }
 
     function isChecked() {
         if (status_aktif) {
@@ -384,20 +445,40 @@
         isChecked()
     })
 
-    $vendor.on('keyup', function() {
+    $anggota.on('keyup', function() {
         clearTimeout(typingTime);
-        typingTime = setTimeout(cekVendor($(this).val()), doneTyping);
+        typingTime = setTimeout(cekAnggota($(this).val()), doneTyping);
     })
 
-    $vendor.on('keydown', function() {
+    $anggota.on('keydown', function() {
         clearTimeout(typingTime);
     })
 
-    function cekVendor(value) {
-        if (value !== "VS58" && value !== "") {
-            $('#error-vendor').show();
+    function cekAnggota(value) {
+        if (value !== "" || value !== null || value != "") {
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('esaku-master/anggota') }}/" + value,
+                dataType: 'json',
+                async: false,
+                success: function(result) {
+
+                    if (result.data.status) {
+                        $('#error-anggota').show();
+                        $('#success-anggota').hide();
+                        console.log("Code Already Taken!")
+                    } else if (!result.data.status && result.data.message == "Data Kosong!") {
+                        $('#error-anggota').hide();
+                        $('#success-anggota').show();
+                        console.log("Code Ready to use!")
+                    } else if (!result.status && result.message == 'Unauthorized') {
+                        window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                    }
+                }
+            });
+
         } else {
-            $('#error-vendor').hide();
+            $('#error-anggota').hide();
         }
     }
 
@@ -454,138 +535,19 @@
         $('.info-name_' + kode).closest('div').find('.info-icon-hapus').removeClass('hidden');
     }
 
-    function getAkun(id = null) {
-        $.ajax({
-            type: 'GET',
-            url: "{{ url('esaku-master/vendor-akun') }}",
-            dataType: 'json',
-            data: {
-                'kode_akun': id
-            },
-            async: false,
-            success: function(result) {
-                if (result.status) {
-                    if (typeof result.daftar !== 'undefined' && result.daftar.length > 0) {
-                        showInfoField('akun_hutang', result.daftar[0].kode_akun, result.daftar[0].nama);
-                    } else {
-                        $('#akun_hutang').attr('readonly', false);
-                        $('#akun_hutang').css('border-left', '1px solid #d7d7d7');
-                        $('#akun_hutang').val('');
-                        $('#akun_hutang').focus();
-                    }
-                } else if (!result.status && result.message == 'Unauthorized') {
-                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
-                }
-            }
-        });
-    }
 
-    $('#form-tambah').on('click', '.search-item2', function() {
-        var id = $(this).closest('div').find('input').attr('name');
-        showInpFilter({
-            id: id,
-            header: ['Kode', 'Nama'],
-            url: "{{ url('esaku-master/vendor-akun') }}",
-            columns: [{
-                    data: 'kode_akun'
-                },
-                {
-                    data: 'nama'
-                }
-            ],
-            judul: "Daftar Akun",
-            pilih: "akun",
-            jTarget1: "text",
-            jTarget2: "text",
-            target1: ".info-code_" + id,
-            target2: ".info-name_" + id,
-            target3: "",
-            target4: "",
-            width: ["30%", "70%"],
-        });
-    });
+    // // PLUGIN SCROLL di bagian preview dan form input
+    // var scrollform = document.querySelector('.form-body');
+    // var psscrollform = new PerfectScrollbar(scrollform);
+    // // END PLUGIN SCROLL di bagian preview dan form input
 
-    $('#form-tambah').on('change', '#akun_hutang', function() {
-        var par = $(this).val();
-        getAkun(par);
-    });
-
-    // END BAGIAN CBBL
-
-    // SUGGESSION DI CBBL
-    var $dtVendor = new Array();
-
-    function getVendorAkun() {
-        $.ajax({
-            type: 'GET',
-            url: "{{ url('esaku-master/vendor-akun') }}",
-            dataType: 'json',
-            async: false,
-            success: function(result) {
-                if (result.status) {
-
-                    for (i = 0; i < result.daftar.length; i++) {
-                        $dtVendor[i] = {
-                            kode_akun: result.daftar[i].kode_akun
-                        };
-                    }
-
-                } else if (!result.status && result.message == "Unauthorized") {
-                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
-                } else {
-                    alert(result.message);
-                }
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                if (jqXHR.status == 422) {
-                    var msg = jqXHR.responseText;
-                } else if (jqXHR.status == 500) {
-                    var msg = "Internal server error";
-                } else if (jqXHR.status == 401) {
-                    var msg = "Unauthorized";
-                    window.location = "{{ url('/esaku-auth/sesi-habis') }}";
-                } else if (jqXHR.status == 405) {
-                    var msg = "Route not valid. Page not found";
-                }
-
-            }
-        });
-    }
-
-    getVendorAkun();
-
-    $('#akun_hutang').typeahead({
-        source: function(cari, result) {
-            result($.map($dtVendor, function(item) {
-                return item.kode_akun;
-            }));
-        },
-        afterSelect: function(item) {
-            // console.log('cek');
-        }
-    });
-    // END SUGGESTION
-
-    // PLUGIN SCROLL di bagian preview dan form input
-    var scrollform = document.querySelector('.form-body');
-    var psscrollform = new PerfectScrollbar(scrollform);
-    // END PLUGIN SCROLL di bagian preview dan form input
-
-    $("input.datepicker").bootstrapDP({
-        autoclose: true,
-        format: 'dd/mm/yyyy',
-        templates: {
-            leftArrow: '<i class="simple-icon-arrow-left"></i>',
-            rightArrow: '<i class="simple-icon-arrow-right"></i>'
-        }
-    });
 
     //LIST DATA
     var action_html =
         "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
     var dataTable = generateTable(
         "table-data",
-        "{{ url('esaku-master/vendor') }}",
+        "{{ url('esaku-master/anggota') }}",
         [{
                 'targets': 4,
                 data: null,
@@ -608,7 +570,7 @@
             }
         ],
         [{
-                data: 'kode_vendor'
+                data: 'no_agg'
             },
             {
                 data: 'nama'
@@ -684,9 +646,9 @@
     $('#form-tambah').validate({
         ignore: [],
         rules: {
-            kode_vendor: {
+            no_agg: {
                 required: true,
-                maxlength: 10
+                maxlength: 20
             },
             nama: {
                 required: true,
@@ -702,19 +664,10 @@
             },
             alamat: {
                 required: true,
-                maxlength: 300
-            },
-            npwp: {
-                required: true,
-                maxlength: 50
-            },
-            pic: {
-                required: true,
-                maxlength: 50
-            },
-            alamat2: {
-                required: true,
                 maxlength: 200
+            },
+            tgl_lahir: {
+                required: true
             },
             bank: {
                 required: true,
@@ -732,31 +685,29 @@
                 required: true,
                 maxlength: 50
             },
-            no_fax: {
-                required: true,
-                maxlength: 50
+            id_lain_prefix: {
+                required: false,
+                maxlength: 4,
             },
-            no_pictel: {
-                required: true,
-                maxlength: 50
-            },
-            akun_hutang: {
-                required: true,
-                maxlength: 20
+            id_lain_set: {
+                required: false,
+                maxlength: 16
             }
         },
         errorElement: "label",
         submitHandler: function(form) {
             var parameter = $('#id_edit').val();
-            var id = $('#kode_vendor').val();
+            var id = $('#no_agg').val();
             var telpNow = $('#no_tel').val();
             var telpPicNow = $('#no_pictel').val();
             if (parameter == "edit") {
-                var url = "{{ url('esaku-master/vendor') }}/" + id;
+                var method = "PUT";
+                var url = "{{ url('esaku-master/anggota') }}/" + id;
                 var pesan = "updated";
                 var text = "Perubahan data " + id + " telah tersimpan";
             } else {
-                var url = "{{ url('esaku-master/vendor') }}";
+                var method = "POST";
+                var url = "{{ url('esaku-master/anggota') }}";
                 var pesan = "saved";
                 var text = "Data tersimpan dengan kode " + id;
             }
@@ -844,13 +795,13 @@
     function hapusData(id) {
         $.ajax({
             type: 'DELETE',
-            url: "{{ url('esaku-master/vendor') }}/" + id,
+            url: "{{ url('esaku-master/anggota') }}/" + id,
             dataType: 'json',
             async: false,
             success: function(result) {
                 if (result.data.status) {
                     dataTable.ajax.reload();
-                    showNotification("top", "center", "success", 'Hapus Data', 'Data Vendor (' + id +
+                    showNotification("top", "center", "success", 'Hapus Data', 'Data Anggota (' + id +
                         ') berhasil dihapus ');
                     $('#modal-pesan-id').html('');
                     $('#table-delete tbody').html('');
@@ -883,36 +834,46 @@
     function editData(id) {
         $.ajax({
             type: 'GET',
-            url: "{{ url('esaku-master/vendor') }}/" + id,
+            url: "{{ url('esaku-master/anggota') }}/" + id,
             dataType: 'json',
             async: false,
             success: function(res) {
                 var result = res.data;
+                console.log(result)
                 if (result.status) {
-                    telp = result.data[0].no_tel;
-                    telp_pic = result.data[0].no_pictel;
+                    var idLain = splitString(result.data[0].id_lain);
                     $('#id_edit').val('edit');
                     $('#method').val('put');
-                    $('#kode_vendor').attr('readonly', true);
-                    $('#kode_vendor').val(id);
+                    $('#no_agg').attr('readonly', true);
+                    $('#no_agg').val(id);
                     $('#id').val(id);
                     $('#nama').val(result.data[0].nama);
-                    $('#alamat').val(result.data[0].alamat);
-                    $('#alamat2').val(result.data[0].alamat2);
+                    $("#tgl_lahir").val(formatDate2(result.data[0].tgl_lahir))
+                    $('.alamat').val(result.data[0].alamat);
                     $('#email').val(result.data[0].email);
-                    $('#npwp').val(result.data[0].npwp);
-                    $('#pic').val(result.data[0].pic);
-                    $('#no_pictel').val(result.data[0].no_pictel);
                     $('#no_tel').val(result.data[0].no_tel);
-                    $('#no_fax').val(result.data[0].no_fax);
-                    $('#bank').val(result.data[0].bank);
+                    $('.nama-bank').val(result.data[0].bank);
                     $('#cabang').val(result.data[0].cabang);
                     $('#no_rek').val(result.data[0].no_rek);
                     $('#nama_rek').val(result.data[0].nama_rek);
+                    $('#kota').val(result.data[0].kota);
+                    $('#provinsi').val(result.data[0].provinsi);
+                    $('#kecamatan').val(result.data[0].kecamatan);
+                    $('#kode_pos').val(result.data[0].kode_pos);
+                    $('#id_lain_prefix').val(idLain.pefix);
+                    $('#id_lain_set').val(idLain.set);
+                    if (result.data[0].flag_aktif == 1) {
+                        $('#status-aktif').prop('checked', true)
+                        $('#aktif').show()
+                        $('#unaktif').hide()
+                    } else {
+                        $('#status-aktif').prop('checked', false)
+                        $('#aktif').hide()
+                        $('#unaktif').show()
+                    }
                     $('#saku-datatable').hide();
                     $('#modal-preview').modal('hide');
                     $('#saku-form').show();
-                    showInfoField('akun_hutang', result.data[0].akun_hutang, result.data[0].nama_akun);
                 } else if (!result.status && result.message == 'Unauthorized') {
                     window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
                 }
@@ -928,7 +889,7 @@
         $('#btn-save').attr('type', 'button');
         $('#btn-save').attr('id', 'btn-update');
 
-        $('#judul-form').html('Edit Data Vendor');
+        $('#judul-form').html('Edit Data Anggota');
         editData(id);
     });
     // END BUTTON EDIT
@@ -960,16 +921,18 @@
             }
         });
 
+
+
     // PREVIEW DATA
     $('#table-data tbody').on('click', 'td', function(e) {
-        if ($(this).index() != 6 && $(this).index() != 5) {
+        if ($(this).index() != 3 && $(this).index() != 4) {
 
             var id = $(this).closest('tr').find('td').eq(0).html();
             var data = dataTable.row(this).data();
             var posted = data.posted;
             $.ajax({
                 type: 'GET',
-                url: "{{ url('esaku-master/vendor') }}/" + id,
+                url: "{{ url('/esaku-master/anggota') }}/" + id,
                 dataType: 'json',
                 async: false,
                 success: function(res) {
@@ -999,85 +962,110 @@
                         </div>
                         <div class='separator'></div>
                         <div class='preview-body' style='padding: 0 1.75rem;height: calc(75vh - 56px) ;position:sticky'>
-                            <div style='border-bottom: double #d7d7d7;padding:0 1.5rem'>
-                                <table class="borderless mb-2" width="100%" >
+
+                            <div style="padding:0 1.5rem">
+                                <table class="borderless table-header-prev mt-3" width="100%">
+                                    <tr style="background: var(--theme-color-1) !important;color:white !important">
+                                        <th colspan="3" style="width:15%">I. Umum</th>
+                                    </tr>
                                     <tr>
-                                        <td width="30%" style="vertical-align:top !important"><h6 class="text-primary bold">DATA ANGGOTA (Example Only)</h6></td>
-                                        <td width="75%" style="vertical-align:top !important;text-align:right"><h6 class="mb-2 bold">PT TEST AJA LOH </h6><p style="line-height:1">JL AADC MANA ? <br>Bandung Dong 651144 </p><p | 081280055856</p></td>
+                                        <td width="20%">No Anggota</td>
+                                        <td width="1%">:</td>
+                                        <td>` + result.data[0].no_agg + `</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%">ID Lain</td>
+                                        <td width="1%">:</td>
+                                        <td>` + result.data[0].id_lain + `</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%">Kode Lokasi</td>
+                                        <td width="1%">:</td>
+                                        <td>` + result.data[0].kode_lokasi + `</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%">Nama Anggota</td>
+                                        <td width="1%">:</td>
+                                        <td>` + result.data[0].nama + `</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%">Tanggal Lahir</td>
+                                        <td width="1%">:</td>
+                                        <td>` + formatDate(result.data[0].tgl_lahir) + `</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%">Alamat</td>
+                                        <td width="1%">:</td>
+                                        <td>` + result.data[0].alamat + `</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%"></td>
+                                        <td width="1%">:</td>
+                                        <td>` + result.data[0].kecamatan + `</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%"></td>
+                                        <td width="1%">:</td>
+                                        <td>` + result.data[0].kota + `</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%"></td>
+                                        <td width="1%">:</td>
+                                        <td>` + result.data[0].provinsi + `</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%">Kode Pos</td>
+                                        <td width="1%">:</td>
+                                        <td>` + result.data[0].kode_pos + `</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%">No Telepon</td>
+                                        <td width="1%">:</td>
+                                        <td>` + result.data[0].no_tel + `</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%">Email</td>
+                                        <td width="1%">:</td>
+                                        <td>` + result.data[0].email + `</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%">Status</td>
+                                        <td width="1%">:</td>
+                                        <td>` + isActive(result.data[0].flag_aktif) + `</td>
+                                    </tr>
+
+                                    <tr style="background: var(--theme-color-1) !important;color:white !important">
+                                        <th colspan="3" style="width:15%">II. Bank</th>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%">Nama Bank</td>
+                                        <td width="1%">:</td>
+                                        <td>` + result.data[0].bank + `</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%">Cabang</td>
+                                        <td width="1%">:</td>
+                                        <td>` + result.data[0].cabang + `</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%">No Rekening</td>
+                                        <td width="1%">:</td>
+                                        <td>` + result.data[0].no_rek + `</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%">Nama Pemilik Rekening</td>
+                                        <td width="1%">:</td>
+                                        <td>` + result.data[0].nama_rek + `</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" class="text-right">
+                                            <small><i>Created at: ` + result.data[0].tgl_input + ` </i></small>
+                                        </td>
                                     </tr>
                                 </table>
                             </div>
-                            <div style="padding:0 1.5rem">
-                                <table class="borderless table-header-prev mt-2" width="100%">
-                                    <tr>
-                                        <td width="14%">Kode</td>
-                                        <td width="1%">:</td>
-                                        <td width="20%">` + result.data[0].kode_vendor + `</td>
-                                        <td width="30%" rowspan="3"></td>
-                                    </tr>
-                                    <tr>
-                                        <td width="14%">Nama</td>
-                                        <td width="1%">:</td>
-                                        <td width="30%">` + result.data[0].nama + `</td>
-                                    </tr>
-                                    <tr>
-                                        <td width="14%">No Dokumen</td>
-                                        <td width="1%">:</td>
-                                        <td width="20%">` + result.data[0].npwp + `</td>
-                                    </tr>
-                                </table>
-                            </div>`;
-                        // <div style="padding:0 1.9rem">
-                        //     <table class="table table-striped table-body-prev mt-2" width="100%">
-                        //     <tr style="background: var(--theme-color-1) !important;color:white !important">
-                        //             <th style="width:15%">Kode Akun</th>
-                        //             <th style="width:20%">Nama Akun</th>
-                        //             <th style="width:15">Nama PP</th>
-                        //             <th style="width:30%">Keterangan</th>
-                        //             <th style="width:10%">Debet</th>
-                        //             <th style="width:10%">Kredit</th>
-                        //     </tr>`;
-
-                        // if (result.data.length > 0) {
-                        //     var no = 1;
-                        //     for (var i = 0; i < result.data.length; i++) {
-                        //         var line = result.data[i];
-                        //         det += "<tr>";
-                        //         det += "<td >" + line.kode_akun + "</td>";
-                        //         det += "<td >" + line.nama_akun + "</td>";
-                        //         det += "<td >" + line.nama_pp + "</td>";
-                        //         det += "<td >" + line.keterangan + "</td>";
-                        //         det += "<td class='text-right'>" + (line.dc == "D" ? format_number(
-                        //             line.nilai) : 0) + "</td>";
-                        //         det += "<td class='text-right'>" + (line.dc == "C" ? format_number(
-                        //             line.nilai) : 0) + "</td>";
-                        //         det += "</tr>";
-                        //         no++;
-                        //     }
-                        // }
-
-
-                        // html +=
-                        //         </table>
-                        //         <table class="table-borderless mt-2" width="100%">
-                        //             <tr>
-                        //                 <td width="25%">&nbsp;</td>
-                        //                 <td width="25%">&nbsp;</td>
-                        //                 <td width="10%">&nbsp;</td>
-                        //                 <td width="20%" class="text-center">Dibuat Oleh</td>
-                        //                 <td width="20%" class="text-center">Diperiksa Oleh</td>
-                        //             </tr>
-                        //             <tr>
-                        //                 <td width="25%">&nbsp;</td>
-                        //                 <td width="25%">&nbsp;</td>
-                        //                 <td width="10%">&nbsp;</td>
-                        //                 <td width="20%" style="height:100px"></td>
-                        //                 <td width="20%" style="height:100px"></td>
-                        //             </tr>
-                        //         </table>
-                        //     </div>
-                        // </div>;
-                        // $('#content-bottom-sheet').html(html);
+                        </div></div>`;
+                        $('#content-bottom-sheet').html(html);
 
                         var scroll = document.querySelector('.preview-body');
                         var psscroll = new PerfectScrollbar(scroll);
@@ -1100,7 +1088,7 @@
 
                         $('.preview-header').on('click', '#btn-edit2', function() {
                             var id = $('#preview-id').text();
-                            $('#judul-form').html('Edit Data Jurnal');
+                            $('#judul-form').html('Edit Data Anggota');
                             $('#form-tambah')[0].reset();
                             $('#form-tambah').validate().resetForm();
 
@@ -1142,6 +1130,8 @@
         }
     });
 
+    // END PREVIEW
+
     $('.modal-header').on('click', '#btn-delete2', function(e) {
         var id = $('#modal-preview-id').text();
         $('#modal-preview').modal('hide');
@@ -1155,7 +1145,7 @@
         var id = $('#modal-preview-id').text();
         // $iconLoad.show();
         $('#form-tambah').validate().resetForm();
-        $('#judul-form').html('Edit Data Vendor');
+        $('#judul-form').html('Edit Data Anggota');
 
         $('#btn-save').attr('type', 'button');
         $('#btn-save').attr('id', 'btn-update');
