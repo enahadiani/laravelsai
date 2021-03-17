@@ -1,4 +1,6 @@
     <link rel="stylesheet" href="{{ asset('master.css') }}" />
+    <link rel="stylesheet" href="{{ asset('form.css') }}" />
+    <link rel="stylesheet" href="{{ asset('master-esaku/form.css') }}" />
     <!-- LIST DATA -->
     <x-list-data judul="Data Referensi Transaksi" tambah="true" :thead="array('Kode','Nama','Akun Debet','Akun Kredit','Jenis','PP','Tgl Input','Aksi')" :thwidth="array(10,25,15,15,10,15,0,10)" :thclass="array('','','','','','','','text-center')" />
     <!-- END LIST DATA -->
@@ -8,10 +10,11 @@
         <div class="row" id="saku-form" style="display:none;">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;">
-                        <h6 id="judul-form" style="position:absolute;top:25px"></h6>
-                        <button type="submit" class="btn btn-primary ml-2"  style="float:right;" id="btn-save"><i class="fa fa-save"></i> Simpan</button>
-                        <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Keluar</button>
+                    <div class="card-body form-header" style="padding-top:0.5rem;padding-bottom:0.5rem;min-height:48px;">
+                        <h6 id="judul-form" style="position:absolute;top:13px"></h6>
+                        <button type="button" id="btn-kembali" aria-label="Kembali" class="btn btn-back">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
                     <div class="separator mb-2"></div>
                     <!-- FORM BODY -->
@@ -24,6 +27,78 @@
                             </div>
                         </div>
                         <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="jenis">Jenis</label>
+                                <select required class='form-control selectize' id="jenis" name="jenis" required>
+                                    <option value=''>--- Pilih Jenis ---</option>
+                                    <option value='PENGELUARAN'>PENGELUARAN</option>
+                                    <option value='PEMASUKAN'>PEMASUKAN</option>
+                                    <option value='PINDAH BUKU'>PINDAH BUKU</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="kode_ref">Kode</label>
+                                <div class="input-group readonly">
+                                    <input class="form-control" type="text" placeholder="Kode Ref" id="kode_ref" name="kode_ref" required readonly="readonly" style="border-top-right-radius:0px !important;border-bottom-right-radius:0px !important">
+                                    <div class="input-group-append">
+                                        <button disabled="true" style="border-top-left-radius:0px !important;border-bottom-left-radius:0px !important;" class="btn btn-info py-0 px-3" id="getRef" type="button"><i class="simple-icon-refresh"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12 col-sm-12">
+                                <label for="deskripsi">Deskripsi</label>
+                                <textarea class="form-control" rows="4" id="nama" name="nama"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="akun_debet">Akun Debet</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                        <span class="input-group-text info-code_akun_debet" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                    </div>
+                                    <input type="text" class="form-control inp-label-akun_debet" id="akun_debet" name="akun_debet" value="" title="">
+                                    <span class="info-name_akun_debet hidden">
+                                        <span></span> 
+                                    </span>
+                                    <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                    <i class="simple-icon-magnifier search-item2" id="search_akun_debet"></i>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="akun_kredit">Akun Kredit</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                        <span class="input-group-text info-code_akun_kredit" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                    </div>
+                                    <input type="text" class="form-control inp-label-akun_kredit" id="akun_kredit" name="akun_kredit" value="" title="">
+                                    <span class="info-name_akun_kredit hidden">
+                                        <span></span> 
+                                    </span>
+                                    <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                    <i class="simple-icon-magnifier search-item2" id="search_akun_kredit"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-6 col-sm-12">
+                                <label for="kode_pp">Unit/PP</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                        <span class="input-group-text info-code_kode_pp" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                    </div>
+                                    <input type="text" class="form-control inp-label-kode_pp" id="kode_pp" name="kode_pp" value="" title="">
+                                    <span class="info-name_kode_pp hidden">
+                                        <span></span> 
+                                    </span>
+                                    <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                    <i class="simple-icon-magnifier search-item2" id="search_kode_pp"></i>
+                                </div>
+                            </div>
+                        </div>
+                        {{-- <div class="form-row">
                             <div class="form-group col-md-6 col-sm-12">
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12">
@@ -46,8 +121,8 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="form-row">
+                        </div> --}}
+                        {{-- <div class="form-row">
                             <div class="form-group col-md-6 col-sm-12">
                                 <div class="row">
                                     <div class="col-md-12 col-sm-12">
@@ -56,8 +131,8 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="form-row">
+                        </div> --}}
+                        {{-- <div class="form-row">
                             <div class="form-group col-md-6 col-sm-12">
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12">
@@ -90,8 +165,8 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="form-row">
+                        </div> --}}
+                        {{-- <div class="form-row">
                             <div class="form-group col-md-6 col-sm-12">
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12">
@@ -110,6 +185,16 @@
                                     </div>
                                 </div>
                             </div>
+                        </div> --}}
+                    </div>
+                    <div class="card-form-footer">
+                        <div class="footer-form-container">
+                            <div class="text-right message-action">
+                                <p class="text-success"></p>
+                            </div>
+                            <div class="action-footer">
+                                <button type="submit" style="margin-top: 10px;" class="btn btn-primary btn-save"><i class="fa fa-save"></i> Simpan</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -125,6 +210,8 @@
     <script src="{{ asset('helper.js') }}"></script>
     <script>
     // var $iconLoad = $('.preloader');
+    $('#saku-form > .col-12').addClass('mx-auto col-lg-6');
+    $('#modal-preview > .modal-dialog').css({ 'max-width':'600px'});
     setHeightForm();
     
     $.ajaxSetup({

@@ -1,5 +1,7 @@
     {{-- Referensi file fVendor folder Esaku --}}
     <link rel="stylesheet" href="{{ asset('master.css') }}" />
+    <link rel="stylesheet" href="{{ asset('form.css') }}" />
+    <link rel="stylesheet" href="{{ asset('master-esaku/form.css') }}" />
 
     <x-list-data judul="Data Flag Akun" tambah="true" :thead="array('Kode','Nama','Action')" :thwidth="array(30,58,15)" :thclass="array('','','text-center')" />
     <!-- END LIST DATA -->
@@ -9,10 +11,11 @@
         <div class="row" id="saku-form" style="display:none;">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;">
-                        <h6 id="judul-form" style="position:absolute;top:25px"></h6>
-                        <button type="submit" class="btn btn-primary ml-2"  style="float:right;" id="btn-save"><i class="fa fa-save"></i> Simpan</button>
-                        <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Keluar</button>
+                    <div class="card-body form-header" style="padding-top:0.5rem;padding-bottom:0.5rem;min-height:48px;">
+                        <h6 id="judul-form" style="position:absolute;top:13px"></h6>
+                        <button type="button" id="btn-kembali" aria-label="Kembali" class="btn btn-back">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
                     <div class="separator mb-2"></div>
                     <!-- FORM BODY -->
@@ -24,19 +27,41 @@
                                 <input type="hidden" id="id" name="id">
                             </div>
                         </div>
-                        <div class="form-group row">
+                         <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="kode_fs" >Kode</label>
+                                <input class="form-control" type="text" placeholder="Kode Flag" id="kode_flag" name="kode_flag" required>                        
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12 col-sm-12">
+                                <label for="nama" >Nama</label>
+                                <input class="form-control" type="text" placeholder="Nama" id="nama" name="nama" required>                         
+                            </div>
+                        </div>
+                        {{-- <div class="form-group row">
                             <label for="kode_fs" class="col-md-2 col-sm-12 col-form-label">Kode</label>
                             <div class="col-md-3 col-sm-12">
                                 <input class="form-control" type="text" placeholder="Kode Flag" id="kode_flag" name="kode_flag" required>                                
                             </div>
-                        </div>
-                        <div class="form-group row ">
+                        </div> --}}
+                        {{-- <div class="form-group row ">
                             <label for="nama" class="col-md-2 col-sm-12 col-form-label">Nama</label>
                             <div class="col-md-3 col-sm-12">
                                 <input class="form-control" type="text" placeholder="Nama" id="nama" name="nama" required>
                             </div>
                             <div class="col-md-2 col-sm-12">
                             </div>                            
+                        </div> --}}
+                    </div>
+                    <div class="card-form-footer">
+                        <div class="footer-form-container">
+                            <div class="text-right message-action">
+                                <p class="text-success"></p>
+                            </div>
+                            <div class="action-footer">
+                                <button type="submit" style="margin-top: 10px;" class="btn btn-primary btn-save"><i class="fa fa-save"></i> Simpan</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -50,6 +75,8 @@
     <script>
     // var $iconLoad = $('.preloader');
     setHeightForm();
+    $('#saku-form > .col-12').addClass('mx-auto col-lg-6');
+    $('#modal-preview > .modal-dialog').css({ 'max-width':'600px'});
     
     $.ajaxSetup({
         headers: {

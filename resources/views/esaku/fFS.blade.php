@@ -1,4 +1,6 @@
     <link rel="stylesheet" href="{{ asset('master.css') }}" />
+    <link rel="stylesheet" href="{{ asset('form.css') }}" />
+    <link rel="stylesheet" href="{{ asset('master-esaku/form.css') }}" />
     <!-- LIST DATA -->
     <x-list-data judul="Data FS" tambah="true" :thead="array('Kode','Nama','Status','Action')" :thwidth="array(30,40,15,15)" :thclass="array('','','','text-center')" />
     <!-- END LIST DATA -->
@@ -8,16 +10,11 @@
         <div class="row" id="saku-form" style="display:none;">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <h6 id="judul-form" style='margin-bottom:0;margin-top:5px'>Form Data Akun</h6>
-                            </div>
-                            <div class="col-md-6">
-                                <button type="submit" class="btn btn-primary ml-2"  style="float:right;" id="btn-save"><i class="fa fa-save"></i> Simpan</button>
-                                <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Keluar</button>
-                            </div>
-                        </div>
+                    <div class="card-body form-header" style="padding-top:0.5rem;padding-bottom:0.5rem;min-height:48px;">
+                        <h6 id="judul-form" style="position:absolute;top:13px"></h6>
+                        <button type="button" id="btn-kembali" aria-label="Kembali" class="btn btn-back">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
                     <div class="separator mb-2"></div>
                     <!-- FORM BODY -->
@@ -31,6 +28,32 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6 col-sm-12">
+                                <label for="kode_fs" >Kode</label>
+                                <input class="form-control" type="text" placeholder="Kode FS" id="kode_fs" name="kode_fs" required>                         
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12 col-sm-12">
+                                <label for="nama" >Nama</label>
+                                <input class="form-control" type="text" placeholder="Nama" id="nama" name="nama" required>                         
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="switch-toggle">
+                                    <label class="switch">
+                                        <input type="checkbox" id="status-aktif">
+                                        <span class="slider round"></span>
+                                    </label>
+                                    <div class="label-switch">
+                                        <span id="active">Aktif</span>
+                                        <span id="unactive">Tidak Aktif</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{-- <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12">
                                         <label for="kode_fs" >Kode</label>
@@ -38,8 +61,8 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="form-row">
+                        </div> --}}
+                        {{-- <div class="form-row">
                             <div class="form-group col-md-6 col-sm-12">
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12">
@@ -48,8 +71,8 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="form-row">
+                        </div> --}}
+                        {{-- <div class="form-row">
                             <div class="form-group col-md-6 col-sm-12">
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12">                        
@@ -60,6 +83,16 @@
                                         </select>
                                     </div>
                                 </div>
+                            </div>
+                        </div> --}}
+                    </div>
+                    <div class="card-form-footer">
+                        <div class="footer-form-container">
+                            <div class="text-right message-action">
+                                <p class="text-success"></p>
+                            </div>
+                            <div class="action-footer">
+                                <button type="submit" style="margin-top: 10px;" class="btn btn-primary btn-save"><i class="fa fa-save"></i> Simpan</button>
                             </div>
                         </div>
                     </div>
@@ -73,7 +106,22 @@
     <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
     <script>
     // var $iconLoad = $('.preloader');
+    var $status_aktif = false;
+    $('#saku-form > .col-12').addClass('mx-auto col-lg-6');
+    $('#modal-preview > .modal-dialog').css({ 'max-width':'600px'});
     setHeightForm();
+
+    function isCheckedAktif() {
+        if($status_aktif) {
+            $('#status-aktif').prop('checked', true)
+            $('#active').show()        
+            $('#unactive').hide()        
+        } else {
+            $('#status-aktif').prop('checked', false)
+            $('#active').hide()        
+            $('#unactive').show()        
+        }
+    }
     
     $.ajaxSetup({
         headers: {
@@ -82,6 +130,11 @@
     });
 
     $('.selectize').selectize();
+
+    $('#status-aktif').click(function() {
+        $status_aktif = !$status_aktif
+        isCheckedAktif()
+    })
 
     function last_add(param,isi){
         var rowIndexes = [];
@@ -193,6 +246,7 @@
     $('#saku-datatable').on('click', '#btn-tambah', function(){
         $('#row-id').hide();
         $('#id_edit').val('');
+        isCheckedAktif()
         $('#judul-form').html('Tambah Data FS');
         $('#btn-update').attr('id','btn-save');
         $('#btn-save').attr('type','submit');
@@ -253,9 +307,17 @@
             }
 
             var formData = new FormData(form);
+            
+            if($status_aktif) {
+                formData.append('status', '1')
+            } else {
+                formData.append('status', '0')
+            }
+
             for(var pair of formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
+            
             
             $.ajax({
                 type: 'POST', 
@@ -381,7 +443,15 @@
                     $('#kode_fs').val(id);
                     $('#id').val(id);
                     $('#nama').val(result.data[0].nama);
-                    $('#status')[0].selectize.setValue(result.data[0].flag_status);
+                    // $('#status')[0].selectize.setValue(result.data[0].flag_status);
+                    if(result.data[0].flag_status == 0) {
+                        $status_aktif = false
+                        isCheckedAktif()
+                    } else {
+                        $status_aktif = true
+                        isCheckedAktif()
+                    }
+
                     $('#kode_fs').val(result.data[0].kode_fs);                  
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
@@ -486,7 +556,16 @@
                     $('#id').val(id);
                     $('#nama').val(result.data[0].nama);
                     $('#kode_fs').val(result.data[0].kode_fs);  
-                    $('#status')[0].selectize.setValue(result.data[0].flag_status);             
+                    // $('#status')[0].selectize.setValue(result.data[0].flag_status);
+                    
+                    if(result.data[0].flag_status == 0) {
+                        $status_aktif = false
+                        isCheckedAktif()
+                    } else {
+                        $status_aktif = true
+                        isCheckedAktif()
+                    }
+
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
                     $('#modal-preview').modal('hide');

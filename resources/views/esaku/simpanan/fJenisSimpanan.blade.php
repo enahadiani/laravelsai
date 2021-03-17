@@ -806,8 +806,10 @@
                     $('#saku-datatable').hide();
                     $('#modal-preview').modal('hide');
                     $('#saku-form').show();
-                    showInfoField('akun_simpanan', result.data[0].akun_titip, result.data[0].akun_titip);
-                    showInfoField('akun_piutang', result.data[0].akun_piutang, result.data[0].akun_piutang);
+                    showInfoField('akun_simpanan', result.data[0].akun_titip, result.data[0]
+                    .nama_akuntitip);
+                    showInfoField('akun_piutang', result.data[0].akun_piutang, result.data[0]
+                        .nama_akunpiutang);
                 } else if (!result.status && result.message == 'Unauthorized') {
                     window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
                 }
