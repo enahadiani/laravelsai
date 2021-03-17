@@ -750,13 +750,13 @@
     function hapusData(id) {
         $.ajax({
             type: 'DELETE',
-            url: "{{ url('esaku-master/gudang') }}/" + id,
+            url: "{{ url('esaku-master/kartu-simpanan') }}/" + id,
             dataType: 'json',
             async: false,
             success: function(result) {
                 if (result.data.status) {
                     dataTable.ajax.reload();
-                    showNotification("top", "center", "success", 'Hapus Data', 'Data Gudang (' + id +
+                    showNotification("top", "center", "success", 'Hapus Data', 'Data Karu Simpanan (' + id +
                         ') berhasil dihapus ');
                     $('#modal-pesan-id').html('');
                     $('#table-delete tbody').html('');
