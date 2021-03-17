@@ -181,6 +181,16 @@
                             </div>
                         </div> --}}
                     </div>
+                    <div class="card-form-footer">
+                        <div class="footer-form-container">
+                            <div class="text-right message-action">
+                                <p class="text-success"></p>
+                            </div>
+                            <div class="action-footer">
+                                <button type="submit" style="margin-top: 10px;" class="btn btn-primary btn-save"><i class="fa fa-save"></i> Simpan</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div> 
