@@ -1,4 +1,6 @@
-<link rel="stylesheet" href="{{ asset('master.css') }}" />
+    <link rel="stylesheet" href="{{ asset('master.css') }}" />
+    <link rel="stylesheet" href="{{ asset('form.css') }}" />
+    <link rel="stylesheet" href="{{ asset('master-esaku/form.css') }}" />
     <!-- LIST DATA -->
     <x-list-data judul="Data Periode Aktif" tambah="true" :thead="array('Modul','Keterangan','Periode Awal1','Periode Akhir1','Periode Awal2','Periode Akhir2','Tgl Input','Aksi')" :thwidth="array(10,32,12,12,12,12,0,10)" :thclass="array('','','','','','','','text-center')" />
     <!-- END LIST DATA -->
@@ -8,10 +10,11 @@
         <div class="row" id="saku-form" style="display:none;">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;">
-                        <h6 id="judul-form" style="position:absolute;top:25px"></h6>
-                        <button type="submit" class="btn btn-primary ml-2"  style="float:right;" id="btn-save"><i class="fa fa-save"></i> Simpan</button>
-                        <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Keluar</button>
+                    <div class="card-body form-header" style="padding-top:0.5rem;padding-bottom:0.5rem;min-height:48px;">
+                        <h6 id="judul-form" style="position:absolute;top:13px"></h6>
+                        <button type="button" id="btn-kembali" aria-label="Kembali" class="btn btn-back">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
                     <div class="separator mb-2"></div>
                     <!-- FORM BODY -->
@@ -25,6 +28,46 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6 col-sm-12">
+                                <label for="modul">Modul</label>
+                                <input class="form-control" type="text" id="modul" name="modul" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12 col-sm-12">
+                                <label for="keterangan">Keterangan</label>
+                                <textarea class="form-control" rows="4" id="keterangan" name="keterangan"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="per_awal1">Periode Awal1</label>
+                                <select name="per_awal1" id="per_awal1" class="form-control">
+                                    <option value="" disabled>Pilih Periode</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="per_akhir1">Periode Akhir1</label>
+                                <select name="per_akhir1" id="per_akhir1" class="form-control">
+                                    <option value="" disabled>Pilih Periode</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="per_awal2">Periode Awal2</label>
+                                <select name="per_awal2" id="per_awal2" class="form-control">
+                                    <option value="" disabled>Pilih Periode</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="per_akhir2">Periode Akhir2</label>
+                                <select name="per_akhir2" id="per_akhir2" class="form-control">
+                                    <option value="" disabled>Pilih Periode</option>
+                                </select>
+                            </div>
+                        </div>
+                        {{-- <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12">
                                         <label for="modul">Modul</label>
@@ -36,8 +79,8 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="form-row">
+                        </div> --}}
+                        {{-- <div class="form-row">
                             <div class="form-group col-md-6 col-sm-12">
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12">
@@ -54,8 +97,8 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="form-row">
+                        </div> --}}
+                        {{-- <div class="form-row">
                             <div class="form-group col-md-6 col-sm-12">
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12">
@@ -72,6 +115,16 @@
                                     </div>
                                 </div>
                             </div>
+                        </div> --}}
+                    </div>
+                    <div class="card-form-footer">
+                        <div class="footer-form-container">
+                            <div class="text-right message-action">
+                                <p class="text-success"></p>
+                            </div>
+                            <div class="action-footer">
+                                <button type="submit" style="margin-top: 10px;" class="btn btn-primary btn-save"><i class="fa fa-save"></i> Simpan</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -86,7 +139,9 @@
     <script>
     // var $iconLoad = $('.preloader');
     setHeightForm();
-    
+    $('#saku-form > .col-12').addClass('mx-auto col-lg-6');
+    $('#modal-preview > .modal-dialog').css({ 'max-width':'600px'});
+
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
