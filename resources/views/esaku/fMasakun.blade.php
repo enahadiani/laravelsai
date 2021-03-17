@@ -718,9 +718,26 @@
                     $('#modul').trigger('change');
                     $('#jenis')[0].selectize.setValue(result.data[0].jenis);
                     $('#kode_curr').val(result.data[0].kode_curr);
-                    $('#blok')[0].selectize.setValue(result.data[0].block);                         
-                    $('#budget')[0].selectize.setValue(parseInt(result.data[0].status_gar));                             
-                    $('#account')[0].selectize.setValue(result.data[0].normal);                   
+                    // $('#blok')[0].selectize.setValue(result.data[0].block);                         
+                    // $('#budget')[0].selectize.setValue(parseInt(result.data[0].status_gar));                             
+                    $('#account')[0].selectize.setValue(result.data[0].normal);
+                    
+                    if(result.data[0].block == 0) {
+                        $status_aktif = false
+                        isCheckedAktif()
+                    } else {
+                        $status_aktif = true
+                        isCheckedAktif()
+                    }
+                    
+                    if(result.data[0].status_gar == 0) {
+                        $status_cek = false
+                        isCheckedAnggaran()
+                    } else {
+                        $status_cek = true
+                        isCheckedAnggaran()
+                    }
+                    
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
                     $('#modal-preview').modal('hide');
