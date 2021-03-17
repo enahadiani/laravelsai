@@ -842,7 +842,10 @@
                             'Great Job!',
                             'Your data has been '+pesan+'.'+result.data.message,
                             'success'
-                            )                   
+                            )   
+                        
+                        $('#saku-data-reg').show();
+                        $('#form-tambah-reg').hide();                
                     }else{
                         Swal.fire({
                             icon: 'error',
@@ -899,150 +902,45 @@
         // $iconLoad.show();
         $.ajax({
             type: 'GET',
-            url: "{{ url('dago-trans/registrasi-detail') }}",
+            url: "{{ url('dago-trans/closing-jadwal-detail') }}",
             dataType: 'json',
             async:false,
-            data: {'no_reg':id},
+            data: {'no_bukti':id},
             success:function(result){
-                $('#label_no_peserta').text('');
                 $('#label_paket').text('');
                 $('#label_jadwal').text('');
-                $('#label_agen').text('');
-                $('#label_marketing').text('');
-                
-                $('.inp-btambah_jumlah').val(0);
-                $('.td-btambah_jumlah').text(0);
-                $('.inp-bdok_jumlah').val(0);
-                $('.td-bdok_jumlah').text(0);
-
-                $('.inp-btambah_total').val(0);
-                $('.td-btambah_total').text(0);
-                $('.inp-bdok_total').val(0);
-                $('.td-bdok_total').text(0);
                 if(result.data.status == "SUCCESS"){
                     $('#id').val('edit');
                     $('#method').val('put');
-                    $('#no_reg').val(id);
-                    $('#tgl_input').val(reverseDateNew(result.data.data[0].tgl_input,'-','/'));
-                    $('#no_peserta').val(result.data.data[0].no_peserta);
-                    $('#label_no_peserta').text(result.data.data[0].nama_peserta);
-                    $('#data-jamaah').show();
+                    $('#no_bukti').val(id);
+                    $('#tgl_input').val(reverseDateNew(result.data.data[0].tanggal,'-','/'));
+                    $('#keterangan').val(result.data.data[0].keterangan);
                     $('#paket').val(result.data.data[0].no_paket);
                     $('#label_paket').text(result.data.data[0].nama_paket);
                     $('#jadwal').val(result.data.data[0].no_jadwal);
-                    $('#label_jadwal').text(reverseDateNew(result.data.data[0].tgl_berangkat,'-','/'));
-                    $('#kode_pp').val(result.data.data[0].kode_pp);
-                    $('#label_kode_pp').text(result.data.data[0].nama_pp);
-                    $('#jenis_paket')[0].selectize.setValue(result.data.data[0].jenis);
-                    $('#jenis_promo')[0].selectize.setValue(result.data.data[0].kode_harga);
-                    $('#quota').val(result.data.data[0].no_quota);
-                    $('#lama_hari').val(result.data.data[0].lama_hari);
+                    $('#label_jadwal').text(result.data.data[0].tgl_jadwal);
                     $('#kode_curr').val(result.data.data[0].kode_curr);
-                    $('#harga_paket').val(format_number(result.data.data[0].harga));
-                    $('#type_room')[0].selectize.setValue(result.data.data[0].no_type);
-                    $('#harga_room').val(format_number(result.data.data[0].harga_room));
-                    $('#tgl_berangkat').val(reverseDateNew(result.data.data[0].tgl_berangkat,'-','/'));
-                    $('#no_peserta_ref').val(result.data.data[0].no_peserta_ref);
-                    $('#referal').val(result.data.data[0].referal);
-                    $('#brkt_dgn').val(result.data.data[0].brkt_dgn);
-                    $('#hubungan').val(result.data.data[0].hubungan);
-                    $('#ket_diskon').val(result.data.data[0].ket_diskon);
-
-                    $('#flag_group')[0].selectize.setValue(result.data.data[0].flag_group);
-                    $('#ukuran_pakaian')[0].selectize.setValue(result.data.data[0].uk_pakaian);
-                    $('#agen').val(result.data.data[0].no_agen);
-                    $('#label_agen').text(result.data.data[0].nama_agen);
-                    $('#marketing').val(result.data.data[0].no_marketing);
-                    $('#label_marketing').text(result.data.data[0].nama_marketing);
-                    $('#sumber')[0].selectize.setValue(result.data.data[0].info);
-                    $('#diskon').val(format_number(result.data.data[0].diskon));
-                    // $('#tot_tambah').val(format_number(result.data.data[0].total_tambah));
-                    // $('#tot_dokumen').val(format_number(result.data.data[0].total_dokumen));
-
+                    $('#kurs').val(parseFloat(result.data.data[0].kurs));
                     var input="";
                     var no=1;
                     var tot=0;
-                    if(result.data.biaya_tambahan.length>0){
-                        for(var x=0;x<result.data.biaya_tambahan.length;x++){
-                            var line = result.data.biaya_tambahan[x];
-                            input+=`<tr class='row-btambah'>
-                            <td width='5%' class='no-btambah'>`+no+`</td>
-                            <td width='10%'><span class='td-btambah_kode_biaya tdbtambah_kode_biayake`+no+`'>`+line.kode_biaya+`</span><input type='text' name='btambah_kode_biaya[]' class='form-control inp-btambah_kode_biaya btambah_kode_biayake`+no+` hidden' value='`+line.kode_biaya+`' readonly></td>
-                            <td width='35%' style='text-align:right'><span class='td-btambah_nama tdbtambah_namake`+no+`'>`+line.nama+`</span><input type='text' name='btambah_nama[]' class='form-control inp-btambah_nama btambah_namake`+no+` hidden' value='`+line.nama+`' readonly required></td>
-                            <td width='20%' style='text-align:right'><span class='td-btambah_nilai tdbtambah_nilaike`+no+`'>`+format_number(line.tarif)+`</span><input type='text' name='btambah_nilai[]' class='form-control inp-btambah_nilai btambah_nilaike`+no+` currency hidden'  value='`+format_number(line.tarif)+`' readonly required></td>
-                            <td width='10%' style='text-align:right'><span class='td-btambah_jumlah tdbtambah_jumlahke`+no+`'>`+format_number(line.jml)+`</span><input type='text' name='btambah_jumlah[]' class='form-control inp-btambah_jumlah btambah_jumlahke`+no+` currency hidden' value='`+format_number(line.jml)+`' required></td>
-                            <td width='20%' style='text-align:right'><span class='td-btambah_total tdbtambah_totalke`+no+`'>`+format_number(line.nilai)+`</span><input type='text' name='btambah_total[]' class='form-control inp-btambah_total currency hidden'  value='`+format_number(line.nilai)+`' required></td>
-                            </tr>`;
-                            no++;
-                            tot+=parseFloat(line.nilai);
-                        }
-                    }
-                    $('#tot_tambah').val(tot);
-                    var no=1;
-                    var input2='';
-                    var tot2=0;
-                    if(result.data.biaya_dokumen.length>0){
-                        for(var i=0;i< result.data.biaya_dokumen.length;i++){
-                            var line = result.data.biaya_dokumen[i];
-                            // input2+=`<tr class='row-bdok'>
-                            // <td width='5%' class='no-bdok'>`+no+`</td>
-                            // <td width='10%'>`+line.kode_biaya+`<input type='hidden' name='bdok_kode_biaya[]' class='form-control inp-bdok_kode_biaya' value='`+line.kode_biaya+`' readonly></td>
-                            // <td width='35%' style='text-align:right'>`+line.nama+`<input type='hidden' name='bdok_nama[]' class='form-control inp-bdok_nama'  value='`+line.nama+`' readonly required></td>
-                            // <td width='20%' style='text-align:right'>`+format_number(line.tarif)+`<input type='hidden' name='bdok_nilai[]' class='form-control inp-bdok_nilai currency2'  value='`+format_number(line.tarif)+`' readonly required></td>
-                            // <td width='10%' style='text-align:right'><input type='text' name='bdok_jumlah[]' class='form-control inp-bdok_jumlah currency2'  value='`+line.jml+`' required></td>
-                            // <td width='20%' style='text-align:right'><input type='text' name='bdok_total[]' class='form-control inp-bdok_total currency2'  value='`+line.nilai+`' required></td>
-                            // </tr>`;
-                            input2+=`<tr class='row-bdok'>
-                            <td width='5%' class='no-bdok'>`+no+`</td>
-                            <td width='10%'><span class='td-bdok_kode_biaya tdbdok_kode_biayake`+no+`'>`+line.kode_biaya+`</span><input type='text' name='bdok_kode_biaya[]' class='form-control inp-bdok_kode_biaya bdok_kode_biayake`+no+` hidden' value='`+line.kode_biaya+`' readonly></td>
-                            <td width='35%' style='text-align:right'><span class='td-bdok_nama tdbdok_namake`+no+`'>`+line.nama+`</span><input type='text' name='bdok_nama[]' class='form-control inp-bdok_nama bdok_namake`+no+` hidden'  value='`+line.nama+`' readonly required></td>
-                            <td width='20%' style='text-align:right'><span class='td-bdok_nilai tdbdok_nilaike`+no+`'>`+format_number(line.tarif)+`</span><input type='text' name='bdok_nilai[]' class='form-control inp-bdok_nilai bdok_nilaike`+no+` currency2 hidden'  value='`+format_number(line.tarif)+`' readonly required></td>
-                            <td width='10%' style='text-align:right'><span class='td-bdok_jumlah tdbdok_jumlahke`+no+`'>`+format_number(line.jml)+`</span><input type='text' name='bdok_jumlah[]' class='form-control inp-bdok_jumlah bdok_jumlahke`+no+` hidden currency2'  value='`+format_number(line.jml)+`' required></td>
-                            <td width='20%' style='text-align:right'><span class='td-bdok_total tdbdok_totalke`+no+`'>`+format_number(line.nilai)+`</span><input type='text' name='bdok_total[]' class='form-control inp-bdok_total bdok_totalke`+no+` currency2 hidden'  value='`+format_number(line.nilai)+`' required></td>
-                            </tr>`;
-                            no++;
-                            
-                            tot2+=parseFloat(line.nilai);
-                        }
-                    }
-                    
-                    $('#tot_dokumen').val(tot2);
-                    var no=1;
-                    var input3='';
-                    if(result.data.dokumen.length>0){
-                        for(var i=0;i< result.data.dokumen.length;i++){
-                            var line = result.data.dokumen[i];
-                            input3+=`<tr class='row-dok'>
-                            <td width='5%' class='no-dok'>`+no+`</td>
-                            <td width='10%'>`+line.no_dok+`<input type='hidden' name='dok_no_dokumen[]' class='form-control inp-dok_no_dokumen' value='`+line.no_dok+`' readonly></td>
-                            <td width='35%' style='text-align:right'>`+line.ket+`<input type='hidden' name='dok_deskripsi[]' class='form-control inp-dok_deskripsi'  value='`+line.ket+`' readonly required></td>
-                            <td width='20%' style='text-align:right'>`+line.jenis+`<input type='hidden' name='dok_jenis[]' class='form-control inp-dok_jenis'  value='`+line.jenis+`' required readonly></td>
-                            </tr>`;
-                            no++;
-                        }
+                   
+                    table_reg.clear().draw();
+                    if(typeof result.data.detail !== 'undefined' && result.data.detail.length>0){
+                        table_reg.rows.add(result.data.detail).draw(false);
+                        totTitip = totPiu = totPdpt = 0;
+                        for (var i=0;i < result.data.detail.length;i++){
+                            var line = result.data.detail[i]; 
+                            totTitip += parseFloat(line.bayar_p_idr); 
+                            totPiu += parseFloat(line.tot_saldo_idr); 
+                            totPdpt += parseFloat(line.bayar_p_idr) + parseFloat(line.tot_saldo_idr); 
+                        }	
+                        
+                        $('#total_titipan').val(parseFloat(totTitip));
+                        $('#total_tunggakan').val(parseFloat(totPiu));
+                        $('#total_pdpt').val(parseFloat(totPdpt));
                     }
 
-                    $('#table-btambah tbody').html(input);
-                    $('#table-bdok tbody').html(input2);
-                    $('#table-dok tbody').html(input3);
-                    $('.currency').inputmask("numeric", {
-                        radixPoint: ",",
-                        groupSeparator: ".",
-                        digits: 2,
-                        autoGroup: true,
-                        rightAlign: true,
-                        oncleared: function () { self.Value(''); }
-                    });
-                    $('.currency2').inputmask("numeric", {
-                        radixPoint: ",",
-                        groupSeparator: ".",
-                        digits: 2,
-                        autoGroup: true,
-                        rightAlign: true,
-                        oncleared: function () { self.Value(''); }
-                    });
-                    hitungTambah2();
-                    hitungDok2();
                     $('#saku-data-reg').hide();
                     $('#form-tambah-reg').show();
                 }
@@ -1066,10 +964,10 @@
                 
                 $.ajax({
                     type: 'DELETE',
-                    url: "{{ url('dago-trans/registrasi') }}",
+                    url: "{{ url('dago-trans/closing-jadwal') }}",
                     dataType: 'json',
                     async:false,
-                    data: {'no_reg':kode},
+                    data: {'no_bukti':kode},
                     success:function(result){
                         if(result.data.status){
                             dataTable.ajax.reload();
