@@ -275,6 +275,11 @@
 <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
 <script src="{{ asset('helper.js') }}"></script>
 <script>
+    // state
+    var $akun_piutang = [];
+    var $akun_simpanan = [];
+    var $nilai = [];
+
     var $iconLoad = $('.preloader');
     $('#modal-preview').addClass('fade animate');
     $('#modal-preview .modal-content').addClass('animate-bottom');
@@ -313,93 +318,6 @@
         return num;
     }
 
-    $('.info-icon-hapus').click(function() {
-        var par = $(this).closest('div').find('input').attr('name');
-        $('#' + par).val('');
-        $(this).addClass('hidden');
-        $modul = [];
-        $per1 = [];
-        $per2 = [];
-    });
-
-    function showInfoField(kode, isi_kode, isi_nama) {
-        $('#' + kode).val(isi_kode);
-        $('#' + kode).attr('style',
-            'border-left:0;border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important');
-        $('.info-code_' + kode).text(isi_kode).parent('div').removeClass('hidden');
-        $('.info-code_' + kode).attr('title', isi_nama);
-        $('.info-name_' + kode).removeClass('hidden');
-        $('.info-name_' + kode).attr('title', isi_nama);
-        $('.info-name_' + kode + ' span').text(isi_nama);
-        var width = $('#' + kode).width() - $('#search_' + kode).width() - 10;
-        var height = $('#' + kode).height();
-        var pos = $('#' + kode).position();
-        $('.info-name_' + kode).width(width).css({
-            'left': pos.left,
-            'height': height
-        });
-        $('.info-name_' + kode).closest('div').find('.info-icon-hapus').removeClass('hidden');
-    }
-
-    var $modul = [];
-    var $per1 = [];
-    var $per2 = [];
-
-    $('#form-tambah').on('click', '.search-item2', function() {
-        var id = $(this).closest('div').find('input').attr('name');
-        var options = {
-            id: id,
-            header: ['Modul', 'Keterangan', 'Periode Awal', 'Periode Akhir'],
-            url: "{{ url('esaku-trans/modultrans') }}",
-            columns: [{
-                    data: 'checkbox'
-                },
-                {
-                    data: 'modul'
-                },
-                {
-                    data: 'keterangan'
-                },
-                {
-                    data: 'per1'
-                },
-                {
-                    data: 'per2'
-                }
-            ],
-            judul: "Daftar Modul",
-            pilih: "modul",
-            jTarget1: "text",
-            jTarget2: "text",
-            target1: ".info-code_" + id,
-            target2: ".info-name_" + id,
-            target3: "",
-            target4: "",
-            width: ["10%", "60%", "15%", "15%"],
-            multi2: true,
-            orderby: [
-                [0, "desc"]
-            ],
-            onItemSelected: function(data) {
-                var modul = "";
-                $modul = [];
-                $per1 = [];
-                $per2 = [];
-                for (var i = 0; i < data.length; i++) {
-                    if (i == 0) {
-                        modul += data[i].modul;
-                    } else {
-                        modul += ',' + data[i].modul;
-                    }
-                    $modul.push(data[i].modul);
-                    $per1.push(data[i].per1);
-                    $per2.push(data[i].per2);
-                }
-                $("#" + id).val(modul);
-            }
-        };
-        showInpFilter(options);
-    });
 
     var tablejur = $("#table-jurnal").DataTable({
         destroy: true,
@@ -466,44 +384,7 @@
         }
     });
 
-    tablejur.on('select.dt deselect.dt', function(e, dt, type, indexes) {
 
-        var countSelectedRows = tablejur.rows({
-            selected: true
-        }).count();
-        var countItems = tablejur.rows().count();
-
-        if (countItems > 0) {
-            if (countSelectedRows == countItems) {
-                $('thead .selectall-checkbox input[type="checkbox"]', this).prop('checked', true);
-            } else {
-                $('thead .selectall-checkbox input[type="checkbox"]', this).prop('checked', false);
-            }
-        }
-
-        if (e.type === 'select') {
-            $('.selectall-checkbox input[type="checkbox"]', tablejur.rows({
-                selected: true
-            }).nodes()).prop('checked', true);
-        } else {
-            $('.selectall-checkbox input[type="checkbox"]', tablejur.rows({
-                selected: false
-            }).nodes()).prop('checked', false);
-        }
-    });
-
-    tablejur.on('click', 'thead .selectall-checkbox', function() {
-        $('input[type="checkbox"]', this).trigger('click');
-    });
-
-    tablejur.on('click', 'thead .selectall-checkbox input[type="checkbox"]', function(e) {
-        if (this.checked) {
-            tablejur.rows().select();
-        } else {
-            tablejur.rows().deselect();
-        }
-        e.stopPropagation();
-    });
 
     $("#searchData_table-jurnal").on("keyup", function(event) {
         tablejur.search($(this).val()).draw();
@@ -554,6 +435,14 @@
                         $('#total').html(format_number(result.daftar.total))
                         tablejur.rows.add(result.daftar.data).draw(false);
                         activaTab("trans");
+                        var data = result.daftar.all.data;
+                        for (var i = 0; i < result.daftar.data.length; i++) {
+                            $akun_simpanan.push(data[i].akun_titip);
+                            $akun_piutang.push(data[i].akun_piutang);
+                            $nilai.push(parseFloat(data[i].total));
+                        }
+                        console.log("Data", data);
+
                     }
                 }
             },
@@ -588,24 +477,27 @@
         errorElement: "label",
         submitHandler: function(form) {
             var parameter = $('#id_edit').val();
-            var url = "{{ url('esaku-trans/unposting') }}";
+            var url = "{{ url('esaku-trans/akru-simp-jurnal') }}";
 
             var formData = new FormData(form);
             var data = [];
             var selected = tablejur.rows('.selected').data();
-            if (selected.length === 0) {
+            if ($akun_piutang.length === 0 || $akun_simpanan.length === 0 || $nilai.length === 0) {
                 msgDialog({
                     id: '-',
                     type: 'warning',
                     title: 'Gagal',
-                    text: 'Tidak ada transaksi jurnal yang dipilih'
+                    text: 'Data Jurnal Kosong!'
                 });
                 return false;
             }
-            $.each(selected, function(i, val) {
-                formData.append('no_bukti[]', selected[i].no_bukti)
-                formData.append('form[]', selected[i].form)
-            });
+            console.log("Akun Simpanan", $akun_simpanan);
+            console.log("Akun Piutang", $akun_piutang);
+            console.log("Nilai", $nilai);
+            // appemd state to form data
+            formData.append('akun_piutang[]', $akun_piutang)
+            formData.append('akun_simpanan[]', $akun_simpanan)
+            formData.append('nilai[]', $nilai)
 
             for (var pair of formData.entries()) {
                 console.log(pair[0] + ', ' + pair[1]);

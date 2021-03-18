@@ -84,33 +84,40 @@ class AkruBillingController extends Controller
         $this->validate($request, [
             'tanggal' => 'required',
             'deskripsi' => 'required',
-            'no_bukti.*' => 'required',
-            'form.*' => 'required'
+            'akun_piutang.*' => 'required',
+            'akun_simpanan.*' => 'required',
+            'nilai.*' => 'required',
         ]);
 
         try{
             $detail = array();
-            if(isset($request->no_bukti)){
-                $no_bukti = $request->no_bukti;
-                $status = $request->status;
-                $form = $request->form;
-                for($i=0;$i<count($no_bukti);$i++){
+            if(isset($request->tanggal)){
+                $tanggal = $request->tanggal;
+                $deskripsi = $request->deskripsi;
+                $akun_piutang = $request->akun_piutang;
+                $akun_simpanan = $request->akun_simpanan;
+                $nilai = $request->nilai;
+                for($i=0;$i<count($akun_piutang);$i++){
                     $detail[] = array(
-                        'no_bukti' => $no_bukti[$i],
-                        'form' => $form[$i]
+                        'akun_piutang' => $akun_piutang[$i],
+                        'akun_simpanan' => $akun_simpanan[$i],
+                        'nilai'         => $nilai[$i]
                     );
                 }
             }
 
-            $fields =
+             $fields =
                   array (
-                    'tanggal' => $this->reverseDate($request->tanggal,"/","-"),
-                    'deskripsi' => $request->deskripsi,
-                    'detail' => $detail
-                  );
+                    'tanggal' => $tanggal,
+                    'keterangan' => $deskripsi,
+                    'akun_simpanan' => $akun_simpanan,
+                    'akun_piutang'  => $akun_piutang,
+                    'nilai'     => $nilai
+                );
+                // var_dump($fields);
 
             $client = new Client();
-            $response = $client->request('POST',  config('api.url').'esaku-trans/unposting',[
+            $response = $client->request('POST',  config('api.url').'esaku-trans/akru-simp',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Content-Type'     => 'application/json'
@@ -122,14 +129,14 @@ class AkruBillingController extends Controller
                 $response_data = $response->getBody()->getContents();
 
                 $data = json_decode($response_data,true);
-                return response()->json(["data" =>$data["success"]], 200);
+                return response()->json(["data" =>$data], 200);
             }
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(),true);
-            $result['message'] = $res["message"];
-            $result['status']=false;
-            return response()->json(["data" => $result], 200);
+            $result['message'] = $res["keterangan"];
+            // $result['status']=false;
+            return response()->json(["data" => $res], 500);
         }
 
     }
@@ -171,6 +178,7 @@ class AkruBillingController extends Controller
                     }
                     $results["status"] = $data["status"];
                     $results["total"] = $total;
+                    $results["all"]   = $data;
                 }else{
                     $results["total"] = $total;
                     $results = $data;

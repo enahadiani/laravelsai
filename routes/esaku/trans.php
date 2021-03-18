@@ -203,3 +203,4 @@ Route::post('akun', 'Esaku\Keuangan\AkunController@store');
 |--------------------------------------------------------------------------
 */
 Route::get('akru-simp-jurnal/{tanggal}','Esaku\Simpanan\Transaksi\AkruBillingController@loadJurnal');
+Route::post('akru-simp-jurnal','Esaku\Simpanan\Transaksi\AkruBillingController@store');
