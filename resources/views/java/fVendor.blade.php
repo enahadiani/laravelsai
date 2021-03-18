@@ -33,10 +33,10 @@
                                         <input type="hidden" id="id" name="id">
                                     </div>
                                 </div>
-                                <div class="form-row">
+                                <div class="form-row" id="kode-vendor">
                                     <div class="form-group col-md-6 col-sm-12">
                                         <label for="kode_vendor">Kode</label>
-                                        <input class="form-control" type="text" id="kode_vendor" name="kode_vendor" required>
+                                        <input class="form-control" type="text" id="kode_vendor" name="kode_vendor" required readonly>
                                     </div>
                                     <div class="error-side col-md-6 col-sm-12">
                                         <p class="error-text" id="error-vendor"></p>
@@ -707,6 +707,7 @@
         count = tableBank.data().count();
         $('div.jumlah-data').html("Menampilkan "+count+" per halaman");
         $('#row-id').hide();
+        $('#kode-vendor').hide();
         $('#id_edit').val('');
         $('#judul-form').html('Tambah Data Supplier');
         $('#btn-update').attr('id','btn-save');
@@ -748,10 +749,6 @@
         ignore: [],
         rules: 
         {
-            kode_vendor:{
-                required: true,
-                maxlength:10   
-            },
             nama:{
                 required: true,
                 maxlength:50   
@@ -833,6 +830,7 @@
                     if(result.data.status){
                         dataTable.ajax.reload();
                         $('#row-id').hide();
+                        $('#kode-vendor').hide()
                         $('#form-tambah')[0].reset();
                         $('#form-tambah').validate().resetForm();
                         $('[id^=label]').html('');
@@ -945,6 +943,7 @@
                     tableBank.clear().draw();
                     telp = result.data[0].no_tel;
                     telp_pic = result.data[0].no_pictel;
+                    $('#kode-vendor').show()
                     $('#id_edit').val('edit');
                     $('#method').val('put');
                     $('#kode_vendor').attr('readonly', true);

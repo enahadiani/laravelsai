@@ -80,7 +80,7 @@ class VendorController extends Controller
 
     public function store(Request $request) {
         $this->validate($request, [
-            'kode_vendor' => 'required',
+            // 'kode_vendor' => 'required',
             'nama' => 'required',
             'no_telp' => 'required',
             'email' => 'required',
@@ -112,7 +112,7 @@ class VendorController extends Controller
             }
 
             $form = array(
-                'kode_vendor' => $request->input('kode_vendor'),
+                // 'kode_vendor' => $request->input('kode_vendor'),
                 'nama' => $request->input('nama'),
                 'no_telp' => $request->input('no_telp'),
                 'email' => $request->input('email'),
