@@ -50,7 +50,7 @@
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6 col-sm-12">
-                                        <label for="no_telp">No Telp</label>
+                                        <label for="no_telp">No Telepon</label>
                                         <input class="form-control" type="text" id="no_telp" name="no_telp" required>
                                     </div>
                                     <div class="form-group col-md-6 col-sm-12">
