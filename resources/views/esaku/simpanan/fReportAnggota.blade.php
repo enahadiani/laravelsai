@@ -12,7 +12,7 @@
                                 <h6>Filter</h6>
                                 <div id="inputFilter">
                                     <!-- COMPONENT -->
-                                    <x-inp-filter kode="barang" nama="Anggota" selected="1" :option="array('1','3')" />
+                                    <x-inp-filter kode="anggota" nama="Anggota" selected="1" :option="array('1','3')" />
                                     <!-- END COMPONENT -->
                                 </div>
                                 <button id="btn-tampil" style="float:right;width:110px"
@@ -47,7 +47,7 @@ date_default_timezone_set('Asia/Bangkok');
         }
     });
 
-    var $barang = {
+    var $anggota = {
         type: "all",
         from: "",
         fromname: "",
@@ -90,8 +90,8 @@ date_default_timezone_set('Asia/Bangkok');
 
     $('.selectize').selectize();
     $('#inputFilter').reportFilter({
-        kode: ['barang'],
-        nama: ['Barang'],
+        kode: ['anggota'],
+        nama: ['Anggota'],
         header: [
             ['Kode', 'Nama']
         ],
@@ -100,14 +100,14 @@ date_default_timezone_set('Asia/Bangkok');
         ],
         columns: [
             [{
-                    data: 'kode_barang'
+                    data: 'kode'
                 },
                 {
                     data: 'nama'
                 },
             ]
         ],
-        url: ["{{ url('esaku-report/filter-barang') }}"],
+        url: ["{{ url('esaku-report/filter-anggota') }}"],
         parameter: [{}],
         orderby: [
             [
@@ -123,8 +123,8 @@ date_default_timezone_set('Asia/Bangkok');
     $('#inputFilter').on('change', 'input', function(e) {
         setTimeout(() => {
             $('#inputFilter').reportFilter({
-                kode: ['barang'],
-                nama: ['Barang'],
+                kode: ['anggota'],
+                nama: ['Anggota'],
                 header: [
                     ['Kode', 'Nama']
                 ],
@@ -133,14 +133,14 @@ date_default_timezone_set('Asia/Bangkok');
                 ],
                 columns: [
                     [{
-                            data: 'kode_barang'
+                            data: 'kode'
                         },
                         {
                             data: 'nama'
                         },
                     ]
                 ],
-                url: ["{{ url('esaku-report/filter-barang') }}"],
+                url: ["{{ url('esaku-report/filter-anggota') }}"],
                 parameter: [{}],
                 orderby: [
                     [
@@ -160,9 +160,9 @@ date_default_timezone_set('Asia/Bangkok');
     $('#form-filter').submit(function(e) {
         e.preventDefault();
         $formData = new FormData();
-        $formData.append("kode_barang[]", $barang.type);
-        $formData.append("kode_barang[]", $barang.from);
-        $formData.append("kode_barang[]", $barang.to);
+        $formData.append("no_agg[]", $anggota.type);
+        $formData.append("no_agg[]", $anggota.from);
+        $formData.append("no_agg[]", $anggota.to);
         for (var pair of $formData.entries()) {
             console.log(pair[0] + ', ' + pair[1]);
         }
@@ -173,9 +173,9 @@ date_default_timezone_set('Asia/Bangkok');
 
     $('#show').change(function(e) {
         $formData = new FormData();
-        $formData.append("kode_barang[]", $barang.type);
-        $formData.append("kode_barang[]", $barang.from);
-        $formData.append("kode_barang[]", $barang.to);
+        $formData.append("no_agg[]", $anggota.type);
+        $formData.append("no_agg[]", $anggota.from);
+        $formData.append("no_agg[]", $anggota.to);
         for (var pair of $formData.entries()) {
             console.log(pair[0] + ', ' + pair[1]);
         }
