@@ -128,7 +128,7 @@
                             <div class="tab-pane" id="pic-pane" role="tabpanel">
                                 <div class="form-row">
                                     <div class="form-group col-md-12 col-sm-12">
-                                        <label for="pic">Nama Penangugung Jawab (Person in Change)</label>
+                                        <label for="pic">Nama Penanggung Jawab (Person in Change)</label>
                                         <input class="form-control" type="text" id="pic" name="pic">
                                     </div>
                                 </div>
