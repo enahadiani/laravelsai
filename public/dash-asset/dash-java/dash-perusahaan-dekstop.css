@@ -108,3 +108,10 @@ h6.judul-card {
 #beban-dekstop .highcharts-color-3 {
     fill: #cadeff;
 }
+
+@media only screen and (max-width: 1024px) {
+    .detail-icon {
+        align-self: center;
+        margin-left: 1.5rem;
+    }
+}

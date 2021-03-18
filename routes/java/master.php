@@ -27,4 +27,12 @@ Route::post('vendor', 'Java\VendorController@store');
 Route::put('vendor-ubah', 'Java\VendorController@update');
 Route::delete('vendor', 'Java\VendorController@delete');
 
+// Data Bank //
+Route::get('bank', 'Java\BankController@index');
+Route::get('bank-show', 'Java\BankController@getData');
+Route::get('bank-check', 'Java\BankController@isUnik');
+Route::post('bank', 'Java\BankController@store');
+Route::put('bank-ubah', 'Java\BankController@update');
+Route::delete('bank', 'Java\BankController@delete');
+
 ?>
