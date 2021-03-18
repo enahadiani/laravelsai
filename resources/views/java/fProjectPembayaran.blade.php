@@ -767,6 +767,7 @@
         }
     });
 
+    var $twicePress = 0;
     $('#input-grid').on('keydown','.inp-tagihan, .inp-dokumen',function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
         var nxt = ['.inp-tagihan', '.inp-dokumen'];
@@ -795,16 +796,22 @@
                     if(isi != ""){
                         $("#input-grid td").removeClass("px-0 py-0 aktif");
                         $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
-                        $(this).closest('tr').find(nxt[idx]).val(isi);
-                        $(this).closest('tr').find(nxt2[idx]).text(isi);
-                        $(this).closest('tr').find(nxt[idx]).hide();
-                        $(this).closest('tr').find(nxt2[idx]).show();
                         hitungTotal();
-                        var cek = $(this).parents('tr').next('tr').find('.td-tagihan');
-                        if(cek.length > 0){
-                            cek.click();
-                        }else{
-                            $('.add-row').click();
+                        if(code == 13 || code == 9) {
+                            if($twicePress == 1) {
+                                $(this).closest('tr').find(nxt[idx]).val(isi);
+                                $(this).closest('tr').find(nxt2[idx]).text(isi);
+                                $(this).closest('tr').find(nxt[idx]).hide();
+                                $(this).closest('tr').find(nxt2[idx]).show();
+                                var cek = $(this).parents('tr').next('tr').find('.td-tagihan');
+                                if(cek.length > 0){
+                                    cek.click();
+                                }else{
+                                    $('.add-row').click();
+                                }
+                            }
+                            $twicePress = 1
+                            setTimeout(() => $twicePress = 0, 1000)
                         }
                     }else{
                         alert('Dokumen yang dimasukkan tidak valid');
