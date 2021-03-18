@@ -512,6 +512,9 @@
                 cache: false,
                 processData: false,
                 success: function(result) {
+                    console.log($akun_piutang)
+                    console.log($akun_simpanan)
+                    console.log($nilai)
                     if (result.data.status) {
                         msgDialog({
                             id: result.data.no_bukti,
