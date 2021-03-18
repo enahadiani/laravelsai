@@ -271,7 +271,13 @@
             { data: 'no_rab' },
             { data: 'keterangan' },
             { data: 'nilai' },
-            { data: 'status_bayar' }
+            { data: 'status_bayar', render: function(data) {
+                if(data == 1) {
+                    return 'Lunas'
+                } else {
+                    return 'Belum Lunas'
+                }
+            } }
         ],
         "{{ url('java-auth/sesi-habis') }}",
         [[5 ,"desc"]]
