@@ -197,15 +197,15 @@
                             det += "<td >"+line2.nama_akun+"</td>";
                             det += "<td >"+line2.nama_pp+"</td>";
                             det += "<td >"+line2.keterangan+"</td>";
-                            det += "<td class='text-right' colspan='2'>"+format_number(line2.debet)+"</td>";
-                            det += "<td class='text-right'>"+format_number(line2.kredit)+"</td>";
+                            det += "<td class='text-right' colspan='2'>"+format_number2(line2.debet)+"</td>";
+                            det += "<td class='text-right'>"+format_number2(line2.kredit)+"</td>";
                             det += "</tr>";
                             no++;
                         }
                         det+=`<tr style="background: #4286f5 !important;color:white !important">
                         <th colspan="5"></th>
-                        <th style="width:10%" class="text-right" colspan="2">`+format_number(total_debet)+`</th>
-                        <th style="width:10%" class="text-right">`+format_number(total_kredit)+`</th>
+                        <th style="width:10%" class="text-right" colspan="2">`+format_number2(total_debet)+`</th>
+                        <th style="width:10%" class="text-right">`+format_number2(total_kredit)+`</th>
                         </tr>`;
                         html+=det+`
                     </table>
