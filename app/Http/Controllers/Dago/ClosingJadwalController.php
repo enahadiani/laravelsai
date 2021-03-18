@@ -110,14 +110,18 @@ class ClosingJadwalController extends Controller
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
                 ],
-                'query' => $request->all()
+                'query' => [
+                    'no_jadwal' => $request->no_jadwal,
+                    'no_paket' => $request->no_paket,
+                    'kurs' => $this->joinNum($request->kurs)
+                ]
             ]);
 
             if ($response->getStatusCode() == 200) { // 200 OK
                 $response_data = $response->getBody()->getContents();
                 
-                $data = json_decode($response_data,true);
-                $data = $data["data"];
+                $res = json_decode($response_data,true);
+                $data = $res["data"];
             }
             return response()->json(['daftar' => $data, 'status'=>true], 200); 
 
