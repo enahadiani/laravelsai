@@ -106,3 +106,4 @@ Route::get('lap-saldo-kb-pdf', 'Esaku\Inventori\LaporanController@getSaldoKBPDF'
 |--------------------------------------------------------------------------
 */
 Route::get('filter-anggota','Esaku\Simpanan\Laporan\ReportAnggotaController@getAnggota');
+Route::post('report-anggota','Esaku\Simpanan\Laporan\ReportAnggotaController@index');

@@ -14,8 +14,11 @@
 </style>
 <script type="text/javascript">
     function drawLap(formData) {
-        saiPostLoad('esaku-report/lap-barang', null, formData, null, function(res) {
-            if (res.result.length > 0) {
+        saiPostLoad('esaku-report/report-anggota', null, formData, null, function(res) {
+            const data = res;
+
+            console.log(data)
+            if (data.length > 0) {
                 $('#pagination').html('');
                 var show = $('#show').val();
                 generatePaginationDore('pagination', show, res);
