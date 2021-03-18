@@ -796,12 +796,11 @@
         var titip = $('#total_titipan').val();
         var tunggakan = $('#total_tunggakan').val();
         var pdpt = $('#total_pdpt').val();
-        if ((parseFloat(titip) + parseFloat(tunggakan)) != parseFloat(pdpt)) {
+        if ((toNilai(titip) + toNilai(tunggakan)) != toNilai(pdpt)) {
             alert("Transaksi tidak valid. Total Titipan + Total Tunggakan tidak sama dengan Total Pdpt.");
             return false;						
         }
-
-        if (parseFloat(pdpt) <= 0) {
+        if (toNilai(pdpt) <= 0) {
             alert("Transaksi tidak valid. Total pendapatan tidak boleh nol atau kurang.");
             return false;						
         }

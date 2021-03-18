@@ -86,6 +86,7 @@ class RegistrasiGroupController extends Controller
     {
         $this->validate($request, [
             'group_no_reg' => 'required',
+            'group_tgl_terima' => 'required',
             'group_sts_reg' => 'required|array',
             'group_no_anggota' => 'required|array'
         ]);
@@ -108,6 +109,7 @@ class RegistrasiGroupController extends Controller
 
             $fields = array (
                 'no_reg' => $request->group_no_reg,
+                'tgl_terima' => $this->reverseDate($request->group_tgl_terima,"/","-"),
                 'group' => $group
             );
     
