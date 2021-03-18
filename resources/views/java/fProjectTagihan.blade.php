@@ -614,6 +614,12 @@
                         $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
                         hitungSubtotal();
                         if(code == 13 || code == 9) {
+                            if($twicePress == 0) {
+                                $(this).closest('tr').find(nxt[idx]).blur();
+                                $(this).closest('tr').find(nxt2[idx]).text(isi);
+                                hitungSubtotal();
+                                setTimeout(() => $(this).closest('tr').find(nxt[idx]).focus(), 800)
+                            }
                             if($twicePress == 1) {
                                 $(this).closest('tr').find(nxt[idx]).val(isi);
                                 $(this).closest('tr').find(nxt2[idx]).text(isi);

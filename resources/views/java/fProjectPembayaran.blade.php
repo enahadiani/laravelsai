@@ -798,6 +798,12 @@
                         $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
                         hitungTotal();
                         if(code == 13 || code == 9) {
+                            if($twicePress == 0) {
+                                // $(this).closest('tr').find(nxt[idx]).blur();
+                                $(this).closest('tr').find(nxt2[idx]).text(isi);
+                                hitungTotal();
+                                setTimeout(() => $(this).closest('tr').find(nxt[idx]).focus(), 800)
+                            }
                             if($twicePress == 1) {
                                 $(this).closest('tr').find(nxt[idx]).val(isi);
                                 $(this).closest('tr').find(nxt2[idx]).text(isi);
@@ -811,7 +817,7 @@
                                 }
                             }
                             $twicePress = 1
-                            setTimeout(() => $twicePress = 0, 1000)
+                            setTimeout(() => $twicePress = 0, 2000)
                         }
                     }else{
                         alert('Dokumen yang dimasukkan tidak valid');
