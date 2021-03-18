@@ -981,7 +981,7 @@
                     $('#jadwal').val(result.data.data[0].no_jadwal);
                     $('#label_jadwal').text(result.data.data[0].tgl_jadwal);
                     $('#kode_curr').val(result.data.data[0].kode_curr);
-                    $('#kurs').val(parseFloat(result.data.data[0].kurs));
+                    $('#kurs').val(sepNum(parseFloat(result.data.data[0].kurs)));
                     var input="";
                     var no=1;
                     var tot=0;
