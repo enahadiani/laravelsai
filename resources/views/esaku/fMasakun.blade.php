@@ -1,5 +1,7 @@
     {{-- Referensi file fVendor folder Esaku --}}
     <link rel="stylesheet" href="{{ asset('master.css') }}" />
+    <link rel="stylesheet" href="{{ asset('form.css') }}" />
+    <link rel="stylesheet" href="{{ asset('master-esaku/form.css') }}" />
     <!-- LIST DATA -->
     <x-list-data judul="Data Akun" tambah="true" :thead="array('Kode','Nama','Tgl Input','Aksi')" :thwidth="array(20,70,0,10)" :thclass="array('','','','text-center')" />
     <!-- END LIST DATA -->
@@ -9,16 +11,11 @@
         <div class="row" id="saku-form" style="display:none;">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <h6 id="judul-form" style='margin-bottom:0;margin-top:5px'>Form Data Akun</h6>
-                            </div>
-                            <div class="col-md-6">
-                                <button type="submit" class="btn btn-primary ml-2"  style="float:right;" id="btn-save"><i class="fa fa-save"></i> Simpan</button>
-                                <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Keluar</button>
-                            </div>
-                        </div>
+                    <div class="card-body form-header" style="padding-top:0.5rem;padding-bottom:0.5rem;min-height:48px;">
+                        <h6 id="judul-form" style="position:absolute;top:13px"></h6>
+                        <button type="button" id="btn-kembali" aria-label="Kembali" class="btn btn-back">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
                     <div class="separator mb-2"></div>
                     <!-- FORM BODY -->
@@ -31,6 +28,77 @@
                             </div>
                         </div>
                         <div class="form-row">
+                            <div class="form-group col-md-12 col-sm-12">
+                                <label for="nama">Nama</label>
+                                <input class="form-control" type="text" placeholder="Nama" id="nama" name="nama" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="modul">Kelompok Akun</label>
+                                <select class="form-control selectize" id="modul" name="modul" required>
+                                    <option value="">--Pilih Modul--</option>
+                                    <option value="A">Aktiva</option>
+                                    <option value="P">Passiva</option>
+                                    <option value="L">Laba Rugi</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-12">           
+                                <label for="jenis">Kelompok Laporan</label>
+                                <select class="form-control" id="jenis" name="jenis" required>
+                                    <option value="">--Pilih Jenis--</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="account">Normal Account</label>
+                                <select class="form-control selectize" id="account" name="account" required>
+                                    <option value="">--Pilih Normal Account--</option>
+                                    <option value="D">D - Debet</option>
+                                    <option value="C">C - Kredit</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="kode_curr">Currency</label>
+                                <input class="form-control" type="text" placeholder="Kode Currency" id="kode_curr" name="kode_curr" value="IDR" readonly required>            
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="kode_akun">Kode</label>
+                                <input class="form-control" type="text" placeholder="Kode Akun" id="kode_akun" name="kode_akun" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="switch-toggle">
+                                    <label class="switch">
+                                        <input type="checkbox" id="status-aktif">
+                                        <span class="slider round"></span>
+                                    </label>
+                                    <div class="label-switch">
+                                        <span id="active">Aktif</span>
+                                        <span id="unactive">Tidak Aktif</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="switch-toggle">
+                                    <label class="switch">
+                                        <input type="checkbox" id="status-anggaran">
+                                        <span class="slider round"></span>
+                                    </label>
+                                    <div class="label-switch">
+                                        <span id="check">Cek Anggaran</span>
+                                        <span id="uncheck">Tidak Cek Anggaran</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{-- <div class="form-row">
                             <div class="form-group col-md-6 col-sm-12">
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12">
@@ -43,8 +111,8 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="form-row">
+                        </div> --}}
+                        {{-- <div class="form-row">
                             <div class="form-group col-md-6 col-sm-12">
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12">
@@ -65,8 +133,8 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="form-row">
+                        </div> --}}
+                        {{-- <div class="form-row">
                             <div class="form-group col-md-6 col-sm-12">
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12">
@@ -75,8 +143,8 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="form-row">
+                        </div> --}}
+                        {{-- <div class="form-row">
                             <div class="form-group col-md-6 col-sm-12">
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12">
@@ -97,8 +165,8 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="form-row">
+                        </div> --}}
+                        {{-- <div class="form-row">
                             <div class="form-group col-md-6 col-sm-12">
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12">
@@ -110,6 +178,16 @@
                                         </select>
                                     </div>
                                 </div>
+                            </div>
+                        </div> --}}
+                    </div>
+                    <div class="card-form-footer">
+                        <div class="footer-form-container">
+                            <div class="text-right message-action">
+                                <p class="text-success"></p>
+                            </div>
+                            <div class="action-footer">
+                                <button type="submit" style="margin-top: 10px;" class="btn btn-primary btn-save"><i class="fa fa-save"></i> Simpan</button>
                             </div>
                         </div>
                     </div>
@@ -123,6 +201,10 @@
     <script src="{{ asset('helper.js') }}"></script>
     <script>
     // var $iconLoad = $('.preloader');
+    var $status_aktif = false;
+    var $status_cek = false;
+    $('#saku-form > .col-12').addClass('mx-auto col-lg-6');
+    $('#modal-preview > .modal-dialog').css({ 'max-width':'600px'});
     setHeightForm();
     $optionJenis1 = [{value:'Neraca', text:'Neraca'}]
     $optionJenis2 = [{value:'Pendapatan', text:'Pendapatan'},{value:'Beban', text:'Beban'}]
@@ -132,6 +214,40 @@
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         }
     });
+
+    function isCheckedAktif() {
+        if($status_aktif) {
+            $('#status-aktif').prop('checked', true)
+            $('#active').show()        
+            $('#unactive').hide()        
+        } else {
+            $('#status-aktif').prop('checked', false)
+            $('#active').hide()        
+            $('#unactive').show()        
+        }
+    }
+
+    function isCheckedAnggaran() {
+        if($status_cek) {
+            $('#status-anggaran').prop('checked', true)
+            $('#check').show()        
+            $('#uncheck').hide()        
+        } else {
+            $('#status-anggaran').prop('checked', false)
+            $('#check').hide()        
+            $('#uncheck').show()        
+        }
+    }
+
+    $('#status-aktif').click(function() {
+        $status_aktif = !$status_aktif
+        isCheckedAktif()
+    })
+
+    $('#status-anggaran').click(function() {
+        $status_cek = !$status_cek
+        isCheckedAnggaran()
+    })
 
     $('.selectize').selectize();
     //EVENT DROPDOWN//
@@ -226,6 +342,8 @@
     // BUTTON TAMBAH
     $('#saku-datatable').on('click', '#btn-tambah', function(){
         $('#row-id').hide();
+        isCheckedAktif()
+        isCheckedAnggaran()
         $('#id_edit').val('');
         $('#judul-form').html('Tambah Data Akun');
         $('#btn-update').attr('id','btn-save');
@@ -289,6 +407,18 @@
             var formData = new FormData(form);
             for(var pair of formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
+            }
+
+            if($status_aktif) {
+                formData.append('blok', '1')
+            } else {
+                formData.append('blok', '0')
+            }
+
+            if($status_cek) {
+                formData.append('budget', '1')
+            } else {
+                formData.append('budget', '0')
             }
             
             $.ajax({
@@ -419,9 +549,26 @@
                     $('#modul').trigger('change');
                     $('#jenis')[0].selectize.setValue(result.data[0].jenis);
                     $('#kode_curr').val(result.data[0].kode_curr);
-                    $('#blok')[0].selectize.setValue(result.data[0].block);                  
-                    $('#budget')[0].selectize.setValue(parseInt(result.data[0].status_gar));                  
-                    $('#account')[0].selectize.setValue(result.data[0].normal);                  
+                    // $('#blok')[0].selectize.setValue(result.data[0].block);                  
+                    // $('#budget')[0].selectize.setValue(parseInt(result.data[0].status_gar));                  
+                    $('#account')[0].selectize.setValue(result.data[0].normal);
+                    
+                    if(result.data[0].block == 0) {
+                        $status_aktif = false
+                        isCheckedAktif()
+                    } else {
+                        $status_aktif = true
+                        isCheckedAktif()
+                    }
+                    
+                    if(result.data[0].status_gar == 0) {
+                        $status_cek = false
+                        isCheckedAnggaran()
+                    } else {
+                        $status_cek = true
+                        isCheckedAnggaran()
+                    }
+
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
                 }
@@ -571,9 +718,26 @@
                     $('#modul').trigger('change');
                     $('#jenis')[0].selectize.setValue(result.data[0].jenis);
                     $('#kode_curr').val(result.data[0].kode_curr);
-                    $('#blok')[0].selectize.setValue(result.data[0].block);                         
-                    $('#budget')[0].selectize.setValue(parseInt(result.data[0].status_gar));                             
-                    $('#account')[0].selectize.setValue(result.data[0].normal);                   
+                    // $('#blok')[0].selectize.setValue(result.data[0].block);                         
+                    // $('#budget')[0].selectize.setValue(parseInt(result.data[0].status_gar));                             
+                    $('#account')[0].selectize.setValue(result.data[0].normal);
+                    
+                    if(result.data[0].block == 0) {
+                        $status_aktif = false
+                        isCheckedAktif()
+                    } else {
+                        $status_aktif = true
+                        isCheckedAktif()
+                    }
+                    
+                    if(result.data[0].status_gar == 0) {
+                        $status_cek = false
+                        isCheckedAnggaran()
+                    } else {
+                        $status_cek = true
+                        isCheckedAnggaran()
+                    }
+                    
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
                     $('#modal-preview').modal('hide');

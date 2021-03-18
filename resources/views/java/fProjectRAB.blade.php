@@ -53,7 +53,7 @@
                             <div class="row" id="no-rab">
                                 <div class="col-md-6 col-sm-12">
                                     <label for="no_rab">No Anggaran</label>
-                                    <input class="form-control" type="hidden" placeholder="No Anggaran" id="no_rab" name="no_rab" readonly>
+                                    <input class="form-control" type="text" placeholder="No Anggaran" id="no_rab" name="no_rab" readonly>
                                 </div>
                             </div>
                         </div>
@@ -654,6 +654,13 @@
                         hitungTotaldiGrid('.totalke'+cell, '.tdtotalke'+cell, number1, number2)
                         hitungGridTotal();
                         if(code == 13 || code == 9) {
+                            if($twicePress == 0) {
+                                var cell = $(this).closest('tr').index() + 1;
+                                var number1 = $('.qtyke'+cell).val();
+                                var number2 = $('.hargake'+cell).val();
+                                hitungTotaldiGrid('.totalke'+cell, '.tdtotalke'+cell, number1, number2)
+                                hitungGridTotal();
+                            }
                             if($twicePress == 1) {
                                 $(this).closest('tr').find(nxt[idx]).val(isi);
                                 $(this).closest('tr').find(nxt2[idx]).text(isi);
@@ -759,6 +766,7 @@
                             $('#method').val('post');
                             $('#no_kontrak').attr('readonly', false);
                             $('#search_no_proyek').show();
+                            $('#no-rab').hide();
                             resetForm();
                             msgDialog({
                                 id:result.data.kode,

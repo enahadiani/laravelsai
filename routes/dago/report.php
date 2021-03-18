@@ -30,6 +30,7 @@ Route::get('filter2-jadwal','Dago\FilterController@getFilter2Jadwal');
 Route::get('filter2-noreg','Dago\FilterController@getFilter2NoReg');
 Route::get('filter2-peserta','Dago\FilterController@getFilter2Peserta');
 Route::get('filter2-kwitansi','Dago\FilterController@getFilter2Kwitansi');
+Route::get('filter2-nobukti','Dago\FilterController@getFilter2NoBukti');
 Route::get('filter2-jk','Dago\FilterController@getFilter2JK');
 Route::get('filter2-status','Dago\FilterController@getFilter2Status');
 Route::get('filter2-usia','Dago\FilterController@getFilter2Usia');

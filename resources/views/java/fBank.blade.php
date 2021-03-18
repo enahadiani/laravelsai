@@ -1,11 +1,11 @@
     <link rel="stylesheet" href="{{ asset('master.css') }}" />
     <link rel="stylesheet" href="{{ asset('form.css') }}" />
     <link rel="stylesheet" href="{{ asset('master-esaku/form.css') }}" />
+
     <!-- LIST DATA -->
-    <x-list-data judul="Data Jenis Dokumen" tambah="true" :thead="array('Kode','Nama','Tgl Input','Aksi')" :thwidth="array(30,60,0,10)" :thclass="array('','','','text-center')" />
+    <x-list-data judul="Data Bank" tambah="true" :thead="array('Kode','Nama','No. Rek','Aksi')" :thwidth="array(20,25,25,10)" :thclass="array('','','','text-center')" />
     <!-- END LIST DATA -->
 
-    <!-- FORM INPUT -->
     <form id="form-tambah" class="tooltip-label-right" novalidate>
         <div class="row" id="saku-form" style="display:none;">
             <div class="col-12">
@@ -28,30 +28,22 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6 col-sm-12">
-                                <label for="kode_jenis">Kode</label>
-                                <input class="form-control" type="text" id="kode_jenis" name="kode_jenis" required>
+                                <label for="kode_bank" >Kode</label>
+                                <input class="form-control" type="text" placeholder="Kode Bank" id="kode_bank" name="kode_bank" required>                         
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-12 col-sm-12">
-                                <label for="nama">Nama</label>
-                                <input class="form-control" type="text" id="nama" name="nama" required>
+                                <label for="nama" >Nama</label>
+                                <input class="form-control" type="text" placeholder="Nama" id="nama" name="nama" required>                         
                             </div>
                         </div>
-                        {{-- <div class="form-row">
-                            <div class="form-group col-md-6 col-sm-12">
-                                <div class="row">
-                                    <div class="col-md-6 col-sm-12">
-                                        <label for="kode_jenis">Kode</label>
-                                        <input class="form-control" type="text" id="kode_jenis" name="kode_jenis" required>
-                                    </div>
-                                    <div class="col-md-6 col-sm-12">
-                                        <label for="nama">Nama</label>
-                                        <input class="form-control" type="text" id="nama" name="nama" required>
-                                    </div>
-                                </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-8 col-sm-12">
+                                <label for="no_rek" >No Rek</label>
+                                <input class="form-control" type="text" placeholder="Nomor Rekening" id="no_rek" name="no_rek" required>                         
                             </div>
-                        </div> --}}
+                        </div>
                     </div>
                     <div class="card-form-footer">
                         <div class="footer-form-container">
@@ -68,17 +60,19 @@
         </div> 
     </form>
     <!-- END FORM INPUT -->
-
     @include('modal_search')
 
-    <!-- JAVASCRIPT  -->
     <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
     <script src="{{ asset('helper.js') }}"></script>
-    <script>
+    <script type="text/javascript">
+    var valid = true;
     $('#saku-form > .col-12').addClass('mx-auto col-lg-6');
     $('#modal-preview > .modal-dialog').css({ 'max-width':'600px'});
-    // var $iconLoad = $('.preloader');
+
     setHeightForm();
+
+    var scrollform = document.querySelector('.form-body');
+    var psscrollform = new PerfectScrollbar(scrollform);
     
     $.ajaxSetup({
         headers: {
@@ -104,20 +98,11 @@
         }, 1000 * 60 * 10);
     }
 
-    // PLUGIN SCROLL di bagian preview dan form input
-    var scroll = document.querySelector('#content-preview');
-    var psscroll = new PerfectScrollbar(scroll);
-
-    var scrollform = document.querySelector('.form-body');
-    var psscrollform = new PerfectScrollbar(scrollform);
-    // END PLUGIN SCROLL di bagian preview dan form input
-
-
     //LIST DATA
     var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
     var dataTable = generateTable(
         "table-data",
-        "{{ url('esaku-master/dok-jenis') }}", 
+        "{{ url('java-master/bank') }}", 
         [
             {'targets': 3, data: null, 'defaultContent': action_html,'className': 'text-center' },
             {
@@ -128,20 +113,15 @@
                         $(td).addClass('last-add');
                     }
                 }
-            },
-            {
-                "targets": [2],
-                "visible": false,
-                "searchable": false
             }
         ],
         [
-            { data: 'kode_jenis' },
+            { data: 'kode_bank' },
             { data: 'nama' },
-            { data: 'tgl_input' },
+            { data: 'no_rek' }
         ],
-        "{{ url('esaku-auth/sesi-habis') }}",
-        [[2 ,"desc"]]
+        "{{ url('java-auth/sesi-habis') }}",
+        [[3 ,"desc"]]
     );
 
     $.fn.DataTable.ext.pager.numbers_length = 5;
@@ -156,23 +136,22 @@
     });
     // END LIST DATA
 
-
     // BUTTON TAMBAH
     $('#saku-datatable').on('click', '#btn-tambah', function(){
         $('#row-id').hide();
         $('#id_edit').val('');
-        $('#judul-form').html('Tambah Data Jenis Dokumen');
+        $('#judul-form').html('Tambah Data Bank');
         $('#btn-update').attr('id','btn-save');
         $('#btn-save').attr('type','submit');
         $('#form-tambah')[0].reset();
         $('#form-tambah').validate().resetForm();
         $('#method').val('post');
-        $('#kode_jenis').attr('readonly', false);
+        $('#kode_bank').attr('readonly', false);
         $('#saku-datatable').hide();
         $('#saku-form').show();
     });
     // END BUTTON TAMBAH
-    
+
     // BUTTON KEMBALI
     $('#saku-form').on('click', '#btn-kembali', function(){
         var kode = null;
@@ -183,39 +162,42 @@
     });
 
     $('#saku-form').on('click', '#btn-update', function(){
-        var kode = $('#kode_jenis').val();
+        var kode = $('#kode_bank').val();
         msgDialog({
             id:kode,
             type:'edit'
         });
     });
-    
-    // END BUTTON KEMBALI
 
     //BUTTON SIMPAN /SUBMIT
     $('#form-tambah').validate({
         ignore: [],
         rules: 
         {
-            kode_jenis:{
+            kode_bank:{
                 required: true,
                 maxlength:10   
             },
             nama:{
                 required: true,
                 maxlength:50   
+            },
+            no_rek:{
+                required: true, 
+                maxlength:50  
             }
         },
         errorElement: "label",
-        submitHandler: function (form) {
+        submitHandler: function (form, event) {
+            event.preventDefault();
             var parameter = $('#id_edit').val();
-            var id = $('#kode_jenis').val();
+            var id = $('#kode_bank').val();
             if(parameter == "edit"){
-                var url = "{{ url('esaku-master/dok-jenis') }}";
+                var url = "{{ url('java-master/bank-ubah') }}";
                 var pesan = "updated";
                 var text = "Perubahan data "+id+" telah tersimpan";
             }else{
-                var url = "{{ url('esaku-master/dok-jenis') }}";
+                var url = "{{ url('java-master/bank') }}";
                 var pesan = "saved";
                 var text = "Data tersimpan dengan kode "+id;
             }
@@ -224,7 +206,17 @@
             for(var pair of formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
-            
+
+            if(valid == false) {
+                Swal.fire({
+                        type: 'error',
+                        title: 'Gagal simpan data',
+                        text: 'Kode bank sudah tersimpan',
+                        footer: ''
+                })
+                return;
+            }
+        
             $.ajax({
                 type: 'POST', 
                 url: url,
@@ -242,24 +234,24 @@
                         $('#form-tambah').validate().resetForm();
                         $('[id^=label]').html('');
                         $('#id_edit').val('');
-                        $('#judul-form').html('Tambah Data Jenis Dokumen');
+                        $('#judul-form').html('Tambah Data Bank');
                         $('#method').val('post');
-                        $('#kode_jenis').attr('readonly', false);
+                        $('#kode_bank').attr('readonly', false);
                         msgDialog({
                             id:result.data.kode,
                             type:'simpan'
                         });
-                        last_add("kode_jenis",result.data.kode);
+                        last_add("kode_bank",result.data.kode);
                     }else if(!result.data.status && result.data.message === "Unauthorized"){
                     
-                        window.location.href = "{{ url('/esaku-auth/sesi-habis') }}";
+                        window.location.href = "{{ url('/java-auth/sesi-habis') }}";
                         
                     }else{
                         if(result.data.kode == "-" && result.data.jenis != undefined){
                             msgDialog({
                                 id: id,
                                 type: result.data.jenis,
-                                text:'Kode Jenis sudah digunakan'
+                                text:'Kode bank sudah digunakan'
                             });
                         }else{
 
@@ -272,11 +264,20 @@
                         }
                     }
                 },
+                error: function(xhr, status, error) {
+                    var error = JSON.parse(xhr.responseText);
+                    var detail = Object.values(error.errors)
+                    Swal.fire({
+                        type: 'error',
+                        title: error.message,
+                        text: detail[0]
+                    })
+                },
                 fail: function(xhr, textStatus, errorThrown){
                     alert('request failed:'+textStatus);
                 }
             });
-            // $('#btn-simpan').html("Simpan").removeAttr('disabled');
+            $('#btn-save').html("Simpan").removeAttr('disabled');
         },
         errorPlacement: function (error, element) {
             var id = element.attr("id");
@@ -284,25 +285,25 @@
             $("label[for="+id+"]").append(error);
         }
     });
-    // END BUTTON SIMPAN
 
     // BUTTON HAPUS DATA
     function hapusData(id){
+        console.log(id)
         $.ajax({
             type: 'DELETE',
-            url: "{{ url('esaku-master/dok-jenis') }}",
-            data:{kode_jenis: id},
+            url: "{{ url('java-master/bank') }}",
+            data: { kode: id },
             dataType: 'json',
             async:false,
             success:function(result){
                 if(result.data.status){
                     dataTable.ajax.reload();                    
-                    showNotification("top", "center", "success",'Hapus Data','Data Jenis Dokumen ('+id+') berhasil dihapus ');
+                    showNotification("top", "center", "success",'Hapus Data','Data Bank ('+id+') berhasil dihapus ');
                     $('#modal-pesan-id').html('');
                     $('#table-delete tbody').html('');
                     $('#modal-pesan').modal('hide');
                 }else if(!result.data.status && result.data.message == "Unauthorized"){
-                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                    window.location.href = "{{ url('java-auth/sesi-habis') }}";
                 }else{
                     Swal.fire({
                         icon: 'error',
@@ -323,36 +324,36 @@
         });
     });
 
-    // END BUTTON HAPUS
-    
     // BUTTON EDIT
     function editData(id){
         $.ajax({
             type: 'GET',
-            url: "{{ url('esaku-master/dok-jenis-detail') }}",
+            url: "{{ url('java-master/bank-show') }}",
+            data: { kode: id },
             dataType: 'json',
-            data:{kode_jenis:id},
             async:false,
             success:function(res){
                 var result= res.data;
                 if(result.status){
                     $('#id_edit').val('edit');
                     $('#method').val('put');
-                    $('#kode_jenis').attr('readonly', true);
-                    $('#kode_jenis').val(id);
+                    $('#kode_bank').attr('readonly', true);
+                    $('#kode_bank').val(id);
                     $('#id').val(id);
-                    $('#nama').val(result.data[0].nama);        
+                    $('#nama').val(result.data[0].nama);
+                    $('#no_rek').val(result.data[0].no_rek);          
                     $('#saku-datatable').hide();
                     $('#modal-preview').modal('hide');
                     $('#saku-form').show();
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
-                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                    window.location.href = "{{ url('java-auth/sesi-habis') }}";
                 }
                 // $iconLoad.hide();
             }
         });
     }
+
     $('#saku-datatable').on('click', '#btn-edit', function(){
         var id= $(this).closest('tr').find('td').eq(0).html();
         // $iconLoad.show();
@@ -361,55 +362,44 @@
         $('#btn-save').attr('type','button');
         $('#btn-save').attr('id','btn-update');
 
-        $('#judul-form').html('Edit Data Jenis Dokumen');
+        $('#judul-form').html('Edit Data Bank');
         editData(id);
     });
-    // END BUTTON EDIT
-    
-    // HANDLER untuk enter dan tab
-    $('#kode_jenis,#nama').keydown(function(e){
-        var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['kode_jenis','nama'];
-        if (code == 13 || code == 40) {
-            e.preventDefault();
-            var idx = nxt.indexOf(e.target.id);
-            idx++;
-            $('#'+nxt[idx]).focus();
-           
-        }else if(code == 38){
-            e.preventDefault();
-            var idx = nxt.indexOf(e.target.id);
-            idx--;
-            if(idx != -1){ 
-                $('#'+nxt[idx]).focus();
-            }
-        }
+
+    $('.modal-header').on('click', '#btn-edit2', function(){
+        var id= $('#modal-preview-id').text();
+        // $iconLoad.show();
+        $('#form-tambah').validate().resetForm();
+        $('#judul-form').html('Edit Data Bank');
+        
+        $('#btn-save').attr('type','button');
+        $('#btn-save').attr('id','btn-update');
+        editData(id)
     });
 
-    // PREVIEW saat klik di list data
     $('#table-data tbody').on('click','td',function(e){
-        if($(this).index() != 2){
+        if($(this).index() != 3){
 
             var id = $(this).closest('tr').find('td').eq(0).html();
             var data = dataTable.row(this).data();
             var html = `<tr>
-                <td style='border:none'>Kode Jenis</td>
-                <td style='border:none'>`+id+`</td>
-            </tr>
-            <tr>
-                <td>Nama Jenis</td>
-                <td>`+data.nama+`</td>
-            </tr>
-            <tr>
-                <td>Tgl Input</td>
-                <td>`+data.tgl_input+`</td>
-            </tr>
-            `;
-            $('#table-preview tbody').html(html);
-            
-            $('#modal-preview-judul').css({'margin-top':'10px','padding':'0px !important'}).html('Preview Data Jenis Dokumen').removeClass('py-2');
+                        <td style='border:none'>Kode Bank</td>
+                        <td style='border:none'>`+id+`</td>
+                    </tr>
+                    <tr>
+                        <td>Nama Bank</td>
+                        <td>`+data.nama+`</td>
+                    </tr>
+                    <tr>
+                        <td>No Rekening</td>
+                        <td>`+data.no_rek+`</td>
+                    </tr>
+                    `;
+            $('#table-preview tbody').html(html);    
+            $('#modal-preview-judul').css({'margin-top':'10px','padding':'0px !important'}).html('Preview Data Bank').removeClass('py-2');
             $('#modal-preview-id').text(id);
-            $('#modal-preview').modal('show');
+            // $('#modal-preview #content-preview').css({'overflow-y': 'scroll'});      
+            $('#modal-preview').modal('show');  
         }
     });
 
@@ -426,7 +416,7 @@
         var id= $('#modal-preview-id').text();
         // $iconLoad.show();
         $('#form-tambah').validate().resetForm();
-        $('#judul-form').html('Edit Data Jenis Dokumen');
+        $('#judul-form').html('Edit Data Vendor');
         
         $('#btn-save').attr('type','button');
         $('#btn-save').attr('id','btn-update');
@@ -446,6 +436,4 @@
         $('.dropdown-ke1').removeClass('hidden');
         $('.dropdown-ke2').addClass('hidden');
     });
-
-
     </script>

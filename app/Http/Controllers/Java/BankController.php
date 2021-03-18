@@ -9,7 +9,7 @@ use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Session;
 use GuzzleHttp\Exception\BadResponseException;
 
-class VendorController extends Controller
+class BankController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -31,7 +31,7 @@ class VendorController extends Controller
     public function isUnik(Request $request) {
         try {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'java-master/vendor-check?kode='.$request->query('kode'),[
+            $response = $client->request('GET',  config('api.url').'java-master/bank?kode='.$request->query('kode'),[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -42,7 +42,7 @@ class VendorController extends Controller
                 $response_data = $response->getBody()->getContents();
                 
                 $data = json_decode($response_data,true);
-                $data = $data["status"];
+                $data = $data["data"];
             }
             return response()->json(['data' => $data, 'status'=>true], 200); 
 
@@ -56,7 +56,7 @@ class VendorController extends Controller
     public function index(){
         try {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'java-master/vendor',[
+            $response = $client->request('GET',  config('api.url').'java-master/bank',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -80,63 +80,20 @@ class VendorController extends Controller
 
     public function store(Request $request) {
         $this->validate($request, [
-            // 'kode_vendor' => 'required',
+            'kode_bank' => 'required',
             'nama' => 'required',
-            'no_telp' => 'required',
-            'email' => 'required',
-            // 'alamat' => 'required',
-            // 'kode_pos' => 'required',
-            // 'kecamatan' => 'required',
-            // 'kota' => 'required',
-            // 'negara' => 'required',
-            // 'pic' => 'required',
-            // 'no_telp_pic' => 'required',
-            // 'email_pic' => 'required',
-            'akun_hutang' => 'required',
+            'no_rek' => 'required'
         ]);
 
-        try {   
-            $no_rek = array();
-            $nama_rek = array();
-            $bank = array();
-            $cabang = array();
-            if($request->input('no_rek') !== null) {
-                if(count($request->input('no_rek')) > 0) {
-                    for($i=0;$i<count($request->input('no_rek'));$i++) {
-                        array_push($no_rek, $request->input('no_rek')[$i]);
-                        array_push($nama_rek, $request->input('nama_rek')[$i]);
-                        array_push($bank, $request->input('bank')[$i]);
-                        array_push($cabang, $request->input('cabang')[$i]);
-                    }
-                }
-            }
-
+        try {
             $form = array(
-                // 'kode_vendor' => $request->input('kode_vendor'),
+                'kode_bank' => $request->input('kode_bank'),
                 'nama' => $request->input('nama'),
-                'no_telp' => $request->input('no_telp'),
-                'email' => $request->input('email'),
-                'alamat' => $request->input('alamat'),
-                'kode_pos' => $request->input('kode_pos'),
-                'provinsi' => $request->input('provinsi'),
-                'provinsi_name' => $request->input('provinsi_name'),
-                'kecamatan' => $request->input('kecamatan'),
-                'kecamatan_name' => $request->input('kecamatan_name'),
-                'kota' => $request->input('kota'),
-                'kota_name' => $request->input('kota_name'),
-                'negara' => $request->input('negara'),
-                'pic' => $request->input('pic'),
-                'no_telp_pic' => $request->input('no_telp_pic'),
-                'email_pic' => $request->input('email_pic'),
-                'akun_hutang' => $request->input('akun_hutang'),
-                'no_rek' => $no_rek,
-                'nama_rek' => $nama_rek,
-                'bank' => $bank,
-                'cabang' => $cabang
+                'no_rek' => $request->input('no_rek')
             );
 
             $client = new Client();
-            $response = $client->request('POST',  config('api.url').'java-master/vendor',[
+            $response = $client->request('POST',  config('api.url').'java-master/bank',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -161,7 +118,7 @@ class VendorController extends Controller
     public function getData(Request $request) {
         try{
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'java-master/vendor?kode_vendor='.$request->query('kode'),
+            $response = $client->request('GET',  config('api.url').'java-master/bank?kode_bank='.$request->query('kode'),
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -186,63 +143,20 @@ class VendorController extends Controller
 
     public function update(Request $request) {
         $this->validate($request, [
-            'kode_vendor' => 'required',
+            'kode_bank' => 'required',
             'nama' => 'required',
-            'no_telp' => 'required',
-            'email' => 'required',
-            // 'alamat' => 'required',
-            // 'kode_pos' => 'required',
-            // 'kecamatan' => 'required',
-            // 'kota' => 'required',
-            // 'negara' => 'required',
-            // 'pic' => 'required',
-            // 'no_telp_pic' => 'required',
-            // 'email_pic' => 'required',
-            'akun_hutang' => 'required',
+            'no_rek' => 'required'
         ]);
 
-        try {   
-            $no_rek = array();
-            $nama_rek = array();
-            $bank = array();
-            $cabang = array();
-            if($request->input('no_rek') !== null) {
-                if(count($request->input('no_rek')) > 0) {
-                    for($i=0;$i<count($request->input('no_rek'));$i++) {
-                        array_push($no_rek, $request->input('no_rek')[$i]);
-                        array_push($nama_rek, $request->input('nama_rek')[$i]);
-                        array_push($bank, $request->input('bank')[$i]);
-                        array_push($cabang, $request->input('cabang')[$i]);
-                    }
-                }
-            }
-
+        try {  
             $form = array(
-                'kode_vendor' => $request->input('kode_vendor'),
+                'kode_bank' => $request->input('kode_bank'),
                 'nama' => $request->input('nama'),
-                'no_telp' => $request->input('no_telp'),
-                'email' => $request->input('email'),
-                'alamat' => $request->input('alamat'),
-                'kode_pos' => $request->input('kode_pos'),
-                'provinsi' => $request->input('provinsi'),
-                'provinsi_name' => $request->input('provinsi_name'),
-                'kecamatan' => $request->input('kecamatan'),
-                'kecamatan_name' => $request->input('kecamatan_name'),
-                'kota' => $request->input('kota'),
-                'kota_name' => $request->input('kota_name'),
-                'negara' => $request->input('negara'),
-                'pic' => $request->input('pic'),
-                'no_telp_pic' => $request->input('no_telp_pic'),
-                'email_pic' => $request->input('email_pic'),
-                'akun_hutang' => $request->input('akun_hutang'),
-                'no_rek' => $no_rek,
-                'nama_rek' => $nama_rek,
-                'bank' => $bank,
-                'cabang' => $cabang
+                'no_rek' => $request->input('no_rek')
             );
 
             $client = new Client();
-            $response = $client->request('PUT',  config('api.url').'java-master/vendor',[
+            $response = $client->request('PUT',  config('api.url').'java-master/bank',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -267,7 +181,7 @@ class VendorController extends Controller
     public function delete(Request $request) {
         try{
             $client = new Client();
-            $response = $client->request('DELETE',  config('api.url').'java-master/vendor?kode_vendor='.$request->input('kode'),
+            $response = $client->request('DELETE',  config('api.url').'java-master/bank?kode_bank='.$request->input('kode'),
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),

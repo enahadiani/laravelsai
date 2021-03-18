@@ -87,3 +87,11 @@ Route::put('pembayaran-group','Dago\PembayaranGroupController@update');
 Route::delete('pembayaran-group','Dago\PembayaranGroupController@destroy');
 Route::delete('pembayaran-group-det','Dago\PembayaranGroupController@destroyDetTmp');
 Route::get('jamaah-group','Dago\PembayaranGroupController@getJamaahGroup');
+
+//Closing Jadwal
+Route::get('closing-jadwal-reg','Dago\ClosingJadwalController@getRegistrasi');
+Route::get('closing-jadwal','Dago\ClosingJadwalController@index');
+Route::post('closing-jadwal','Dago\ClosingJadwalController@store');
+Route::get('closing-jadwal-detail','Dago\ClosingJadwalController@show');
+Route::put('closing-jadwal','Dago\ClosingJadwalController@update');
+Route::delete('closing-jadwal','Dago\ClosingJadwalController@destroy');

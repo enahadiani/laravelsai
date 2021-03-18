@@ -193,13 +193,24 @@
                             <td  class='isi_laporan'>`+line2.status+`</td>
                             <td  class='isi_laporan'>`+line2.agen+`</td>
                             <td  class='isi_laporan'>&nbsp;</td>
+                            <td  class='isi_laporan'>`+line2.dok_ps+`</td>
+                            <td  class='isi_laporan'>`;
+                            url = "{{ config('api.url') }}dago-auth/storage/";
+                            det+=(line2.dok_ktp != "-" ? `<a class='btn btn-success btn-sm download-dok' style='font-size:8px' href='`+url+line2.dok_ktp+`'target='_blank'><i class='fa fa-download fa-1'></i></a>` : line2.dok_ktp);
+                            det+=`</td>
+                            <td  class='isi_laporan'>`;
+                            det+=(line2.dok_kk != "-" ? `<a class='btn btn-success btn-sm download-dok' style='font-size:8px' href='`+url+line2.dok_kk+`'target='_blank'><i class='fa fa-download fa-1'></i></a>` : line2.dok_kk);
+                            det+=`</td>
+                            <td  class='isi_laporan'>`;
+                            det+=(line2.dok_sn != "-" ? `<a class='btn btn-success btn-sm download-dok' style='font-size:8px' href='`+url+line2.dok_sn+`'target='_blank'><i class='fa fa-download fa-1'></i></a>` : line2.dok_sn);
+                            det+=`</td>
+                            <td  class='isi_laporan'>`;
+                            det+=(line2.dok_ak != "-" ? `<a class='btn btn-success btn-sm download-dok' style='font-size:8px' href='`+url+line2.dok_ak+`'target='_blank'><i class='fa fa-download fa-1'></i></a>` : line2.dok_ak);
+                            det+=`</td>
                             <td  class='isi_laporan'>&nbsp;</td>
-                            <td  class='isi_laporan'>&nbsp;</td>
-                            <td  class='isi_laporan'>&nbsp;</td>
-                            <td  class='isi_laporan'>&nbsp;</td>
-                            <td  class='isi_laporan'>&nbsp;</td>
-                            <td  class='isi_laporan'>&nbsp;</td>
-                            <td  class='isi_laporan'>&nbsp;</td>
+                            <td  class='isi_laporan'>`;
+                            det+=(line2.dok_pf != "-" ? `<a class='btn btn-success btn-sm download-dok' style='font-size:8px' href='`+url+line2.dok_pf+`'target='_blank'><i class='fa fa-download fa-1'></i></a>` : line2.dok_pf);
+                            det+=`</td>
                             <td  class='isi_laporan'>&nbsp;</td>
                             </tr>`;	
                             no++;
