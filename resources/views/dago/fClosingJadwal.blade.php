@@ -219,6 +219,42 @@
                 </div>
             </div>
         </div>
+
+        <div class="row" id="slide-print" style="display:none;">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row" style="display:none">
+                            <div class="col-sm-6">
+                                <button type="submit" class="btn btn-primary" style="margin-left: 6px;margin-top: 0" id="btnPreview"><i class="far fa-list-alt"></i> Preview</button>
+                                <button type="button" id='btn-lanjut' class="btn btn-secondary" style="margin-left: 6px;margin-top: 0"><i class="fa fa-filter"></i> Filter</button>
+                                <div id="pager" style='padding-top: 0px;position: absolute;top: 0;right: 0;'>
+                                    <ul id="pagination" class="pagination pagination-sm2"></ul>
+                                </div>
+                            </div>
+                            <div class='col-sm-1' style='padding-top: 0'>
+                                <select name="show" id="show" class="form-control" style=''>
+                                    <option value="10">10</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                    <option value="All">All</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
+                        <button type="button" class="btn btn-info ml-2" id="btn-print" style="float:right;"><i class="fa fa-print"></i> Print</button>
+                        <div id="print-area" class="mt-5" width='100%' style='border:none;min-height:480px;padding:0px;'>
+                            <div id='canvasPreview' style=';'>
+                            </div>
+                            <div class="script">
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>    
     
     <!-- MODAL SEARCH AKUN-->
@@ -281,6 +317,21 @@
         }
 
         return bulan;
+    }
+
+    var $formData = new FormData(); 
+    function reportJurnal(kode){
+        // getset value
+        $formData.forEach(function(val, key, fD){
+            $formData.delete(key);
+        });
+        $formData.append("no_bukti[]", "=");
+        $formData.append("no_bukti[]", kode);
+        $formData.append("no_bukti[]", "");
+        xurl = "{{ url('/dago-auth/form')}}/rptJuPbyrBaru";
+        $('#print-area > .script').load(xurl);
+        $('#slide-print').show();
+        $('#saku-data-reg').hide();
     }
 
     var $iconLoad = $('.preloader');
@@ -853,8 +904,9 @@
                             'success'
                             )   
                         
-                        $('#saku-data-reg').show();
-                        $('#form-tambah-reg').hide();                
+                        // $('#saku-data-reg').show();
+                        $('#form-tambah-reg').hide(); 
+                        reportJurnal(result.data.no_bukti);               
                     }else{
                         Swal.fire({
                             icon: 'error',
@@ -1025,5 +1077,9 @@
         }
     });
 
+    $('#slide-print').on('click', '#btn-kembali', function(){
+        $('#saku-data-reg').show();
+        $('#slide-print').hide();
+    });   
     
     </script>
