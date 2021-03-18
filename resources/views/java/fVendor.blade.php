@@ -36,7 +36,7 @@
                                 <div class="form-row" id="kode-vendor">
                                     <div class="form-group col-md-6 col-sm-12">
                                         <label for="kode_vendor">Kode</label>
-                                        <input class="form-control" type="text" id="kode_vendor" name="kode_vendor" required readonly>
+                                        <input class="form-control" type="text" id="kode_vendor" name="kode_vendor" readonly>
                                     </div>
                                     <div class="error-side col-md-6 col-sm-12">
                                         <p class="error-text" id="error-vendor"></p>
