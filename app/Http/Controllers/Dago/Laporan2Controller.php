@@ -701,7 +701,7 @@ class Laporan2Controller extends Controller
                 
                 $res = json_decode($response_data,true);
                 $data = $res["data"];
-                $detail = $res["detail_jurnal"];
+                $lokasi = $res["lokasi"];
                 
             }
             if($request->periode != ""){
@@ -714,7 +714,7 @@ class Laporan2Controller extends Controller
                 $res['back']=true;
             }
 
-            return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'periode'=>$periode,'sumju'=>$request->sumju,'res'=>$res,'detail_jurnal'=>$detail,'lokasi'=>Session::get('namaLokasi'),], 200); 
+            return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'periode'=>$periode,'sumju'=>$request->sumju,'res'=>$res, 'lokasi' => $lokasi], 200); 
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(),true);

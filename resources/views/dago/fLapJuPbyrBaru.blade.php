@@ -159,14 +159,14 @@
                                         </div>
                                        
                                         <div class="form-group row sai-rpt-filter-entry-row">
-                                            <p class="kunci" hidden>no_kb</p>
-                                            <label for="no_kb" class="col-md-2 col-sm-12 col-form-label">No Kwitansi</label>
+                                            <p class="kunci" hidden>no_bukti</p>
+                                            <label for="no_bukti" class="col-md-2 col-sm-12 col-form-label">No Bukti</label>
                                             <div class="col-md-2 col-sm-12" >
-                                                <select name='no_kb[]' class='form-control sai-rpt-filter-type selectize'><option value='all' selected>Semua</option><option value='='>Sama dengan</option><option value='range'>Rentang</option><option value='in'>Pilihan</option></select>
+                                                <select name='no_bukti[]' class='form-control sai-rpt-filter-type selectize'><option value='all' selected>Semua</option><option value='='>Sama dengan</option><option value='range'>Rentang</option><option value='in'>Pilihan</option></select>
                                             </div>
                                             <div class="col-md-8 col-sm-12 sai-rpt-filter-from">
                                                 <div class="input-group">
-                                                    <input type="text" class="form-control border-right-0 " name="no_kb[]" id="no_kb-from" readonly value="Menampilkan semua kwitansi">
+                                                    <input type="text" class="form-control border-right-0 " name="no_bukti[]" id="no_bukti-from" readonly value="Menampilkan semua kwitansi">
                                                     <div class="input-group-append border-left-0">
                                                     <a href="#" class="text-primary input-group-text"></a>
                                                     </div>
@@ -177,7 +177,7 @@
                                             </div>
                                             <div class="col-md-3 col-sm-12 sai-rpt-filter-to hidden" >
                                                 <div class="input-group" >
-                                                    <input type="text" class="form-control border-right-0 " name="no_kb[]" id="no_kb_to" readonly>
+                                                    <input type="text" class="form-control border-right-0 " name="no_bukti[]" id="no_bukti_to" readonly>
                                                     <div class="input-group-append border-left-0">
                                                     <a href="#" class="text-primary input-group-text search-item">ubah</a>
                                                     </div>
@@ -315,7 +315,7 @@
             to : "",
             toname : "",
         }
-        var no_kb = {
+        var no_bukti = {
             type : "all",
             from : "",
             fromname : "",
@@ -374,21 +374,21 @@
             target3 = tmp[1]+'name';
             
             switch(par){
-                case 'no_kb[]': 
+                case 'no_bukti[]': 
                     header = ['No Kwitansi','No Reg'];
-                    var toUrl = "{{ url('dago-report/filter2-kwitansi') }}";
+                    var toUrl = "{{ url('dago-report/filter2-nobukti') }}";
                     var columns = [
-                        { data: 'no_kb' },
-                        { data: 'no_reg' }
+                        { data: 'no_bukti' },
+                        { data: 'keterangan' }
                     ];
-                    header_pilih = ['No Kwitansi','No Reg','Action'];
-                    var judul = "Daftar Kwitansi <span class='modal-subtitle'></span>";
-                    var pilih = "kwitansi";
+                    header_pilih = ['No Bukti','Keterangan','Action'];
+                    var judul = "Daftar Transaksi <span class='modal-subtitle'></span>";
+                    var pilih = "no bukti";
                     $target = $target;
                     $target2 = target2;
                     var display = "kode";
-                    var field = eval("no_kb");
-                    var kunci = "no_kb";
+                    var field = eval("no_bukti");
+                    var kunci = "no_bukti";
                     var orderby = [];
                     parameter = {
                         'periode[0]' : periode.type,
@@ -881,9 +881,9 @@
             $formData.append("periode[]",periode.type);
             $formData.append("periode[]",periode.from);
             $formData.append("periode[]",periode.to);
-            $formData.append("no_kb[]",no_kb.type);
-            $formData.append("no_kb[]",no_kb.from);
-            $formData.append("no_kb[]",no_kb.to);
+            $formData.append("no_bukti[]",no_bukti.type);
+            $formData.append("no_bukti[]",no_bukti.from);
+            $formData.append("no_bukti[]",no_bukti.to);
             for(var pair of $formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
@@ -897,9 +897,9 @@
             $formData.append("periode[]",periode.type);
             $formData.append("periode[]",periode.from);
             $formData.append("periode[]",periode.to);
-            $formData.append("no_kb[]",no_kb.type);
-            $formData.append("no_kb[]",no_kb.from);
-            $formData.append("no_kb[]",no_kb.to);
+            $formData.append("no_bukti[]",no_bukti.type);
+            $formData.append("no_bukti[]",no_bukti.from);
+            $formData.append("no_bukti[]",no_bukti.to);
             for(var pair of $formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
@@ -942,9 +942,9 @@
             $formData.append("periode[]",periode.type);
             $formData.append("periode[]",periode.from);
             $formData.append("periode[]",periode.to);
-            $formData.append("no_kb[]",no_kb.type);
-            $formData.append("no_kb[]",no_kb.from);
-            $formData.append("no_kb[]",no_kb.to);
+            $formData.append("no_bukti[]",no_bukti.type);
+            $formData.append("no_bukti[]",no_bukti.from);
+            $formData.append("no_bukti[]",no_bukti.to);
             for(var pair of formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
