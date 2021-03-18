@@ -483,8 +483,6 @@
                         $('#total_titipan').val(parseFloat(totTitip));
                         $('#total_tunggakan').val(parseFloat(totPiu));
                         $('#total_pdpt').val(parseFloat(totPdpt));
-                    }else{
-                       
                     }
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
@@ -785,7 +783,13 @@
         var paket = $('#paket').val();
         var jadwal = $('#jadwal').val();
         var kurs= $('#kurs').val();
-        getRegistrasi(paket,jadwal,kurs);
+        if(toNilai(kurs) == 0){
+            alert('Nilai Kurs tidak boleh 0');
+            return false;
+        }
+        if(paket != "" && jadwal != "" && kurs != ""){
+            getRegistrasi(paket,jadwal,kurs);
+        }
     });
 
     $('#form-tambah-reg').on('submit', '#form-tambah', function(e){
