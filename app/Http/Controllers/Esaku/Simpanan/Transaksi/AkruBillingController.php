@@ -22,8 +22,6 @@ class AkruBillingController extends Controller
             return redirect('esaku-auth/login')->with('alert','Session telah habis !');
         }
     }
-
-
     /**
      * Show the form for creating a new resource.
      *
@@ -40,37 +38,6 @@ class AkruBillingController extends Controller
     public function reverseDate($ymd_or_dmy_date, $org_sep='-', $new_sep='-'){
         $arr = explode($org_sep, $ymd_or_dmy_date);
         return $arr[2].$new_sep.$arr[1].$new_sep.$arr[0];
-    }
-
-    public function getModul(){
-        try {
-            $client = new Client();
-            $response = $client->request('GET',  config('api.url').'esaku-trans/modul2',[
-                'headers' => [
-                    'Authorization' => 'Bearer '.Session::get('token'),
-                    'Accept'     => 'application/json',
-                ]
-            ]);
-
-            if ($response->getStatusCode() == 200) { // 200 OK
-                $response_data = $response->getBody()->getContents();
-
-                $data = json_decode($response_data,true);
-                $data = $data["success"]["data"];
-                if(count($data) >0){
-
-                    for($i=0;$i<count($data);$i++){
-                        $data[$i]["no"] = "";
-                        $data[$i]["status"] = "TRUE";
-                    }
-                }
-            }
-            return response()->json(['daftar' => $data , 'status'=>true, 'message'=>'success'], 200);
-        } catch (BadResponseException $ex) {
-            $response = $ex->getResponse();
-            $res = json_decode($response->getBody(),true);
-            return response()->json(['message' => $res["message"], 'status'=>false], 200);
-        }
     }
 
     /**
