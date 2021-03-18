@@ -193,13 +193,13 @@
                             <td  class='isi_laporan'>`+line2.status+`</td>
                             <td  class='isi_laporan'>`+line2.agen+`</td>
                             <td  class='isi_laporan'>&nbsp;</td>
+                            <td  class='isi_laporan'>`+line2.dok_ps+`</td>
+                            <td  class='isi_laporan'>`+line2.dok_ktp+`</td>
+                            <td  class='isi_laporan'>`+line2.dok_kk+`</td>
+                            <td  class='isi_laporan'>`+line2.dok_sn+`</td>
+                            <td  class='isi_laporan'>`+line2.dok_ak+`</td>
                             <td  class='isi_laporan'>&nbsp;</td>
-                            <td  class='isi_laporan'>&nbsp;</td>
-                            <td  class='isi_laporan'>&nbsp;</td>
-                            <td  class='isi_laporan'>&nbsp;</td>
-                            <td  class='isi_laporan'>&nbsp;</td>
-                            <td  class='isi_laporan'>&nbsp;</td>
-                            <td  class='isi_laporan'>&nbsp;</td>
+                            <td  class='isi_laporan'>`+line2.dok_pf+`</td>
                             <td  class='isi_laporan'>&nbsp;</td>
                             </tr>`;	
                             no++;
