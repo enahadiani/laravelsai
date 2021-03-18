@@ -271,7 +271,13 @@
             { data: 'no_rab' },
             { data: 'keterangan' },
             { data: 'nilai' },
-            { data: 'status_bayar' }
+            { data: 'status_bayar', render: function(data) {
+                if(data == 1) {
+                    return 'Lunas'
+                } else {
+                    return 'Belum Lunas'
+                }
+            } }
         ],
         "{{ url('java-auth/sesi-habis') }}",
         [[5 ,"desc"]]
@@ -313,7 +319,7 @@
         $(this).addClass('hidden');
     });
 
-    function showInfoField(kode,isi_kode,isi_nama){
+    function showInfoField(kode,isi_kode,isi_nama,isi_nilai=null){
         $('#'+kode).val(isi_kode);
         $('#'+kode).attr('style','border-left:0;border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important');
         $('.info-code_'+kode).text(isi_kode).parent('div').removeClass('hidden');
@@ -326,6 +332,9 @@
         var pos =$('#'+kode).position();
         $('.info-name_'+kode).width(width).css({'left':pos.left,'height':height});
         $('.info-name_'+kode).closest('div').find('.info-icon-hapus').removeClass('hidden');
+        if(kode == 'no_proyek') {
+            $('#anggaran').val(isi_nilai)
+        }
     }
 
     function getAkun(id=null){
@@ -706,7 +715,7 @@
                     $('#saku-form').show();
                     showInfoField('kode_cust',result.data[0].kode_cust,result.data[0].nama_customer);
                     showInfoField('kode_vendor',result.data[0].kode_vendor,result.data[0].nama_vendor);
-                    showInfoField('no_proyek',result.data[0].no_proyek,result.data[0].no_rab);
+                    showInfoField('no_proyek',result.data[0].no_proyek,result.data[0].keterangan_proyek, result.data[0].saldo);
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
                     window.location.href = "{{ url('java-auth/sesi-habis') }}";
