@@ -1,5 +1,7 @@
 {{-- Referensi file fVendor folder Esaku --}}
 <link rel="stylesheet" href="{{ asset('master.css') }}" />
+<link rel="stylesheet" href="{{ asset('form.css') }}" />
+<link rel="stylesheet" href="{{ asset('master-esaku/form.css') }}" />
 <style>
     .form-header {
         padding-top:1rem;
@@ -20,16 +22,11 @@
     <div class="row" id="saku-form" style="display: none;">
         <div class="col-12">
             <div class="card">
-                <div class="card-body form-header">
-                    <div class="row">
-                        <div class="col-6">
-                            <h6 id="judul-form" class="judul-form">Form Data Akun Aktiva Tetap</h6>
-                        </div>
-                        <div class="col-6">
-                            <button type="submit" class="btn btn-primary ml-2"  style="float:right;" id="btn-save"><i class="fa fa-save"></i> Simpan</button>
-                            <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Keluar</button>
-                        </div>
-                    </div>
+                <div class="card-body form-header" style="padding-top:0.5rem;padding-bottom:0.5rem;min-height:48px;">
+                    <h6 id="judul-form" style="position:absolute;top:13px"></h6>
+                    <button type="button" id="btn-kembali" aria-label="Kembali" class="btn btn-back">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
                 <div class="separator mb-2"></div>
                 <div class="card-body pt-3 form-body">
@@ -38,6 +35,82 @@
                     <input type="hidden" id="id" name="id">
 
                     <div class="form-row">
+                        <div class="form-group col-md-6 col-sm-12">
+                            <label for="kode_klpakun">Kode Kelompok</label>
+                            <input type="text" placeholder="Kode Kelompok" class="form-control" id="kode_klpakun" name="kode_klpakun" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-12 col-sm-12">
+                            <label for="nama">Nama Kelompok</label>
+                            <input type="text" placeholder="Nama Kelompok" class="form-control" id="nama" name="nama" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6 col-sm-12">
+                            <label for="umur">Umur</label>
+                            <input type="text" placeholder="Umur" class="form-control currency" id="umur" name="umur" value="0" required>
+                        </div>
+                        <div class="form-group col-md-6 col-sm-12">
+                            <label for="nama">Persentase</label>
+                            <input type="text" placeholder="Persentase" class="form-control currency" id="persen" name="persen" value="0" required readonly>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6 col-sm-12">
+                            <label for="kode_akun">Akun Aktiva Tetap</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                    <span class="input-group-text info-code_kode_akun" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                </div>
+                                <input type="text" class="cbbl form-control inp-label-kode_akun" id="kode_akun" name="kode_akun" value="" title="" readonly>
+                                <span class="info-name_kode_akun hidden">
+                                    <span id="label_kode_akun"></span> 
+                                </span>
+                                <i class="simple-icon-close float-right info-icon-hapus hidden" style="cursor: pointer;"></i>
+                                <i class="simple-icon-magnifier search-item2" id="search_kode_akun"></i>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6 col-sm-12">
+                            <label for="akun_bp">Akun Beban Susut</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                    <span class="input-group-text info-code_akun_bp" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                </div>
+                                <input type="text" class="cbbl form-control inp-label-akun_bp" id="akun_bp" name="akun_bp" value="" title="" readonly>
+                                <span class="info-name_akun_bp hidden">
+                                    <span id="label_akun_bp"></span> 
+                                </span>
+                                <i class="simple-icon-close float-right info-icon-hapus hidden" style="cursor: pointer;"></i>
+                                <i class="simple-icon-magnifier search-item2" id="search_akun_bp"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6 col-sm-12">
+                            <label for="akun_deprs">Akun Akumulasi</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                    <span class="input-group-text info-code_akun_deprs" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                </div>
+                                <input type="text" class="cbbl form-control inp-label-akun_deprs" id="akun_deprs" name="akun_deprs" value="" title="" readonly>
+                                <span class="info-name_akun_deprs hidden">
+                                    <span id="label_akun_deprs"></span> 
+                                </span>
+                                <i class="simple-icon-close float-right info-icon-hapus hidden" style="cursor: pointer;"></i>
+                                <i class="simple-icon-magnifier search-item2" id="search_akun_deprs"></i>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6 col-sm-12">
+                            <label for="flag_susut">Status</label>
+                            <select class="form-control" name="flag_susut" id="flag_susut">
+                                <option value="0" selected>NONSUSUT</option>
+                                <option value="1">SUSUT</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    {{-- <div class="form-row">
                         <div class="form-group col-md-6 col-sm-12">
                             <div class="row">
                                 <div class="col-md-6 col-sm-12">
@@ -62,9 +135,9 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
 
-                    <div class="form-row">
+                    {{-- <div class="form-row">
                         <div class="form-group col-md-6 col-sm-12">
                             <div class="row">
                                 <div class="col-md-6 col-sm-12">
@@ -122,8 +195,18 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
 
+                </div>
+                <div class="card-form-footer">
+                    <div class="footer-form-container">
+                        <div class="text-right message-action">
+                            <p class="text-success"></p>
+                        </div>
+                        <div class="action-footer">
+                            <button type="submit" style="margin-top: 10px;" class="btn btn-primary btn-save"><i class="fa fa-save"></i> Simpan</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -136,6 +219,8 @@
 <script src="{{ asset('helper.js') }}"></script>
 <script type="text/javascript">
     setHeightForm();
+    $('#saku-form > .col-12').addClass('mx-auto col-lg-6');
+    $('#modal-preview > .modal-dialog').css({ 'max-width':'600px'});
 
     $.ajaxSetup({
         headers: {
@@ -391,6 +476,7 @@
         $('#kode_klpakun').attr('readonly', false);
         $('#form-tambah')[0].reset();
         $('#form-tambah').validate().resetForm();
+        $('#judul-form').html('Form Data Akun Aktiva Tetap');
         $('#method').val('post');
         $('#id_edit').val('');
         $('#btn-update').attr('id','btn-save');
