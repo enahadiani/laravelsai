@@ -320,7 +320,13 @@
             "data": null,
             "render": function ( data, type, row, meta ) {
                 
-                return "<a href='#' title='Edit' class='badge badge-info' id='btn-edit'><i class='fas fa-pencil-alt'></i></a> &nbsp; <a href='#' title='Hapus' class='badge badge-danger' id='btn-delete'><i class='fa fa-trash'></i></a>";
+                if(row.closing == "-"){
+                    
+                    return "<a href='#' title='Edit' class='badge badge-info' id='btn-edit'><i class='fas fa-pencil-alt'></i></a> &nbsp; <a href='#' title='Hapus' class='badge badge-danger' id='btn-delete'><i class='fa fa-trash'></i></a>";
+                    
+                }else{
+                    return "";
+                }
                
             }
         },{
