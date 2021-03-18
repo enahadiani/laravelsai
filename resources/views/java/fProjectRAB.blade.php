@@ -53,7 +53,7 @@
                             <div class="row" id="no-rab">
                                 <div class="col-md-6 col-sm-12">
                                     <label for="no_rab">No Anggaran</label>
-                                    <input class="form-control" type="hidden" placeholder="No Anggaran" id="no_rab" name="no_rab" readonly>
+                                    <input class="form-control" type="text" placeholder="No Anggaran" id="no_rab" name="no_rab" readonly>
                                 </div>
                             </div>
                         </div>
@@ -759,6 +759,7 @@
                             $('#method').val('post');
                             $('#no_kontrak').attr('readonly', false);
                             $('#search_no_proyek').show();
+                            $('#no-rab').hide();
                             resetForm();
                             msgDialog({
                                 id:result.data.kode,
