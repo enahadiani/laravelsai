@@ -196,3 +196,10 @@ Route::post('jurnal-upload', 'Esaku\Keuangan\JurnalUploadController@store');
 Route::post('akun-upload', 'Esaku\Keuangan\AkunController@importExcel');
 Route::get('akun-load', 'Esaku\Keuangan\AkunController@getAkunTmp');
 Route::post('akun', 'Esaku\Keuangan\AkunController@store');
+
+/*
+|--------------------------------------------------------------------------
+| Modul Simpanan -Transaksi
+|--------------------------------------------------------------------------
+*/
+Route::get('akru-simp-jurnal/{tanggal}','Esaku\Simpanan\Transaksi\AkruBillingController@loadJurnal');

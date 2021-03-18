@@ -198,7 +198,7 @@
                                 <div class="col-md-4 col-12">
                                     <label for="tanggal">Tanggal</label>
                                     <input class='form-control datepicker' type="text" id="tanggal" name="tanggal"
-                                        value="{{ date('d/m/Y') }}">
+                                        value="{{ date('Y-m-d') }}">
                                     <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;"
                                         class="simple-icon-calendar date-search"></i>
                                 </div>
@@ -236,11 +236,12 @@
                                 <table id="table-jurnal" width="100%">
                                     <thead>
                                         <tr>
+                                            <th width="5%">No</th>
                                             <th width="20%">Nama Simpanan</th>
                                             <th width="20%">Akun Simpanan</th>
                                             <th width="20%">Akun Piutang</th>
                                             <th width="20%">Total Akru</th>
-                                            <th width="20%">&nbsp;</th>
+                                            <th width="15%">&nbsp;</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -254,7 +255,9 @@
                     </div>
                     <div class="card-body-footer row" style="width: 900px;padding: 0 25px;">
                         <div style="vertical-align: middle;" class="col-md-10 text-right p-0">
-                            <p class="text-success" style="margin-top: 20px;"></p>
+                            <p style="margin-top: 20px;" id="total-penerimaan">
+                                <b>Total <span id="total">0</span></b>
+                            </p>
                         </div>
                         <div style="text-align: right;" class="col-md-2 p-0 ">
                             <button type="submit" style="margin-top: 10px;" id="btn-save" class="btn btn-primary"><i
@@ -286,12 +289,29 @@
 
     $("input.datepicker").bootstrapDP({
         autoclose: true,
-        format: 'dd/mm/yyyy',
+        format: 'yyyy-mm-dd',
         templates: {
             leftArrow: '<i class="simple-icon-arrow-left"></i>',
             rightArrow: '<i class="simple-icon-arrow-right"></i>'
         }
     });
+
+    function formatDate2(date) {
+        if (date !== undefined && date !== "") {
+            var myDate = new Date(date);
+            var day = ("0" + myDate.getDate()).slice(-2);
+            var month = ("0" + (myDate.getMonth() + 1)).slice(-2);
+            var str = myDate.getFullYear() + "-" + month + "-" + day;
+            return str;
+        }
+        return "";
+    }
+
+    function format_number(x) {
+        var num = parseFloat(x).toFixed(0);
+        num = sepNumX(num);
+        return num;
+    }
 
     $('.info-icon-hapus').click(function() {
         var par = $(this).closest('div').find('input').attr('name');
@@ -390,7 +410,7 @@
         sDom: 't<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
         data: [],
         columnDefs: [{
-                "targets": 4,
+                "targets": 5,
                 "searchable": false,
                 "orderable": false,
                 "className": 'text-center',
@@ -399,23 +419,26 @@
                 }
             },
             {
-                'targets': 3,
+                'targets': 4,
                 'className': 'text-right',
                 'render': $.fn.dataTable.render.number('.', ',', 0, '')
             }
         ],
 
         columns: [{
-                data: 'no_bukti'
+                data: "no"
             },
             {
-                data: 'no_bukti'
+                data: 'nama_simp'
             },
             {
-                data: 'keterangan'
+                data: 'akun_simpanan'
             },
             {
-                data: 'nilai1'
+                data: 'akun_piutang'
+            },
+            {
+                data: 'total'
             }
         ],
         order: [],
@@ -503,7 +526,7 @@
                 id: '-',
                 type: 'warning',
                 title: 'Peringatan',
-                text: 'Modul wajib diisi'
+                text: 'Tanggal Wajib di Isi'
             });
             tablejur.clear().draw();
             return false;
@@ -512,18 +535,24 @@
 
         $.ajax({
             type: 'GET',
-            url: "{{ url('toko-trans/pemasukan') }}",
+            url: "{{ url('esaku-trans/akru-simp-jurnal') }}/" + tanggal,
             dataType: 'json',
             async: false,
             contentType: false,
             cache: false,
             processData: false,
             success: function(result) {
+
                 tablejur.clear().draw();
                 // console.log(result.daftar);
-                if (result.status) {
-                    if (typeof result.daftar !== 'undefined' && result.daftar.length > 0) {
-                        tablejur.rows.add(result.daftar).draw(false);
+                if (result.daftar.status) {
+
+                    if (typeof result.daftar.data !== 'undefined' && result.daftar.data.length >
+                        0) {
+                        console.log(result.daftar.data)
+                        console.log(result.daftar.total)
+                        $('#total').html(format_number(result.daftar.total))
+                        tablejur.rows.add(result.daftar.data).draw(false);
                         activaTab("trans");
                     }
                 }
