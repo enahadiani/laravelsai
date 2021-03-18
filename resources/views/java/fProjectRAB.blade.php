@@ -654,6 +654,13 @@
                         hitungTotaldiGrid('.totalke'+cell, '.tdtotalke'+cell, number1, number2)
                         hitungGridTotal();
                         if(code == 13 || code == 9) {
+                            if($twicePress == 0) {
+                                var cell = $(this).closest('tr').index() + 1;
+                                var number1 = $('.qtyke'+cell).val();
+                                var number2 = $('.hargake'+cell).val();
+                                hitungTotaldiGrid('.totalke'+cell, '.tdtotalke'+cell, number1, number2)
+                                hitungGridTotal();
+                            }
                             if($twicePress == 1) {
                                 $(this).closest('tr').find(nxt[idx]).val(isi);
                                 $(this).closest('tr').find(nxt2[idx]).text(isi);
