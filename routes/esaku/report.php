@@ -98,3 +98,11 @@ Route::post('lap-buku-kb', 'Esaku\Inventori\LaporanController@getBukuKas');
 Route::get('lap-buku-kb-pdf', 'Esaku\Inventori\LaporanController@getBukuKasPDF');
 Route::post('lap-saldo-kb', 'Esaku\Inventori\LaporanController@getSaldoKB');
 Route::get('lap-saldo-kb-pdf', 'Esaku\Inventori\LaporanController@getSaldoKBPDF');
+
+
+/*
+|--------------------------------------------------------------------------
+| Modul Simpanan -Laporan
+|--------------------------------------------------------------------------
+*/
+Route::get('filter-anggota','Esaku\Simpanan\Laporan\ReportAnggotaController@getAnggota');
