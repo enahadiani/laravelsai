@@ -21,7 +21,6 @@ function drawRptPage(data,res,from,to){
     var html = "";
     var arr_tl = [0,0,0,0,0,0,0,0,0];
     var total_beban = 0;
-    var total_actual = 0;
     var x=1;
     if(data.length > 0) {
         console.log(res.back);
@@ -138,6 +137,20 @@ function drawRptPage(data,res,from,to){
                     }
                 }
             }
+            var profit = parseInt(proyek.nilai) - parseInt(total_beban)
+            var presentase = ((profit/parseInt(proyek.nilai))*100).toFixed(2)
+            if(profit < 0) {
+                profit = '-'+sepNum(profit)
+            } else {
+                profit = sepNum(profit)
+            }
+
+            if(presentase < 0) {
+                presentase = '-'+sepNum(presentase)
+            } else if(isNaN(presentase)) {
+                presentase = 0
+            }
+
             html += "</tbody>";
             html += "</table>";
             html += "</div>";
@@ -147,17 +160,17 @@ function drawRptPage(data,res,from,to){
             html += "<tr>";
             html += "<th style='width: 15%;'>Total Beban Kontrak</th>";
             html += "<th style='width: 5%;'>:</th>";
-            html += "<th>Rp. "+sepNum(total_beban)+"</th>";
+            html += "<th>"+sepNum(total_beban)+"</th>";
             html += "</tr>"
             html += "<tr>";
             html += "<th style='width: 15%;'>Total Profit Kontrak</th>";
             html += "<th style='width: 5%;'>:</th>";
-            html += "<th>Rp. 999.999.999</th>";
+            html += "<th>"+profit+"</th>";
             html += "</tr>"
             html += "<tr>";
             html += "<th style='width: 15%;'>Total Presentase Profit</th>";
             html += "<th style='width: 5%;'>:</th>";
-            html += "<th>999%</th>";
+            html += "<th>"+presentase+"%</th>";
             html += "</tr>"
             html += "</thead>";
             html += "</table>";
