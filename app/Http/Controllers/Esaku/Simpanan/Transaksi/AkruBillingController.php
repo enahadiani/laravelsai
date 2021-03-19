@@ -64,24 +64,16 @@ class AkruBillingController extends Controller
                 $akun_piutang = $request->akun_piutang;
                 $akun_simpanan = $request->akun_simpanan;
                 $nilai = $request->nilai;
-                for($i=0;$i<count($akun_piutang);$i++){
-                    $detail[] = array(
-                        'akun_piutang' => $akun_piutang[$i],
-                        'akun_simpanan' => $akun_simpanan[$i],
-                        'nilai'         => $nilai[$i]
-                    );
-                }
             }
 
              $fields =
                   array (
                     'tanggal' => $tanggal,
                     'keterangan' => $deskripsi,
-                    'akun_simpanan' => $akun_simpanan,
-                    'akun_piutang'  => $akun_piutang,
-                    'nilai'     => $nilai
+                    'akun_piutang'  =>  $akun_piutang,
+                    'akun_simpanan'  =>  $akun_simpanan,
+                    'nilai'  =>  $nilai,
                 );
-                // var_dump($fields);
 
             $client = new Client();
             $response = $client->request('POST',  config('api.url').'esaku-trans/akru-simp',[
@@ -96,14 +88,14 @@ class AkruBillingController extends Controller
                 $response_data = $response->getBody()->getContents();
 
                 $data = json_decode($response_data,true);
-                return response()->json(["data" =>$data], 200);
+                return response()->json(["data" =>$data,"body" => $fields], 200);
             }
-        } catch (BadResponseException $ex) {
-            $response = $ex->getResponse();
-            $res = json_decode($response->getBody(),true);
-            $result['message'] = $res["keterangan"];
+        } catch (\Exception $ex) {
+
+            $result['message'] =$ex->getMessage();
+            $result['rows'] = $request->akun_piutang;
             // $result['status']=false;
-            return response()->json(["data" => $res], 500);
+            return response()->json(["data" => $result], 500);
         }
 
     }
