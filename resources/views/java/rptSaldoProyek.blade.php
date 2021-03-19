@@ -47,9 +47,14 @@ function drawRptPage(data,res,from,to){
         for(var i=0;i<data.length;i++) {
             var line = data[i];
             var profit = parseInt(line.bayar)-parseInt(line.beban);
-            var presentase =  (parseInt(line.bayar)/parseInt(line.beban))*100
+            var presentase =  (profit/parseInt(line.beban))*100
             if(profit < 0) {
                 profit = '-'+sepNum(profit)
+            }
+            if(presentase < 0) {
+                presentase = '-'+sepNum(presentase)
+            } else if(isNaN(presentase)) {
+                presentase = 0
             }
             html += "<tr class='report-link kartuproyek' style='cursor:pointer;' data-no_proyek='"+line.no_proyek+"'>";
             html += "<td class='text-center'>"+no+"</td>"
@@ -64,7 +69,7 @@ function drawRptPage(data,res,from,to){
             html += "<td class='text-right'>"+sepNum(line.tagihan)+"</td>"
             html += "<td class='text-right'>"+sepNum(line.bayar)+"</td>"
             html += "<td class='text-right'>"+profit+"</td>"
-            html += "<td class='text-right'>"+sepNum(presentase)+"%</td>"
+            html += "<td class='text-right'>"+presentase+"%</td>"
             html += "</tr>";
 
             no++;
