@@ -24,11 +24,11 @@ function drawRptPage(data,res,from,to){
         html += "<h6 class='text-center'>Saldo Proyek</h6>";
         html += "<hr />";
         html += "<div class='ml-2 mr-2' style='overflow-x: scroll;'>";
-        html += "<table class='table table-bordered' style='width: 1350px;'>";
+        html += "<table class='table table-bordered' style='width: 1475px;'>";
         html += "<thead>";
         html += "<tr>";
         html += "<th class='text-center' style='width: 10px;'>No</th>";
-        html += "<th class='text-center' style='width: 100px;'>No Proyek</th>";
+        html += "<th class='text-center' style='width: 140px;'>No Proyek</th>";
         html += "<th class='text-center' style='width: 250px'>No Kontrak</th>";
         html += "<th class='text-center' style='width: 100px'>Tanggal Mulai</th>";
         html += "<th class='text-center' style='width: 120px'>Tanggal Selesai</th>";
@@ -39,6 +39,7 @@ function drawRptPage(data,res,from,to){
         html += "<th class='text-center' style='width: 90px'>Tagihan</th>";
         html += "<th class='text-center' style='width: 90px'>Pembayaran</th>";
         html += "<th class='text-center' style='width: 90px'>Profit</th>";
+        html += "<th class='text-center' style='width: 50px'>Persentase</th>";
         html += "<tr>";
         html += "</thead>";
         html += "<tbody>";
@@ -46,6 +47,7 @@ function drawRptPage(data,res,from,to){
         for(var i=0;i<data.length;i++) {
             var line = data[i];
             var profit = parseInt(line.bayar)-parseInt(line.beban);
+            var presentase =  (parseInt(line.bayar)/parseInt(line.beban))*100
             if(profit < 0) {
                 profit = '-'+sepNum(profit)
             }
@@ -62,6 +64,7 @@ function drawRptPage(data,res,from,to){
             html += "<td class='text-right'>"+sepNum(line.tagihan)+"</td>"
             html += "<td class='text-right'>"+sepNum(line.bayar)+"</td>"
             html += "<td class='text-right'>"+profit+"</td>"
+            html += "<td class='text-right'>"+sepNum(presentase)+"%</td>"
             html += "</tr>";
 
             no++;
