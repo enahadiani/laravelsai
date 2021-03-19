@@ -280,6 +280,8 @@
     var $akun_simpanan = [];
     var $nilai = [];
 
+    var $data = [];
+
     var $iconLoad = $('.preloader');
     $('#modal-preview').addClass('fade animate');
     $('#modal-preview .modal-content').addClass('animate-bottom');
@@ -430,19 +432,12 @@
 
                     if (typeof result.daftar.data !== 'undefined' && result.daftar.data.length >
                         0) {
-                        console.log(result.daftar.data)
-                        console.log(result.daftar.total)
+
                         $('#total').html(format_number(result.daftar.total))
                         tablejur.rows.add(result.daftar.data).draw(false);
                         activaTab("trans");
                         var data = result.daftar.all.data;
-                        for (var i = 0; i < result.daftar.data.length; i++) {
-                            $akun_simpanan.push(data[i].akun_titip);
-                            $akun_piutang.push(data[i].akun_piutang);
-                            $nilai.push(parseFloat(data[i].total));
-                        }
-                        console.log("Data", data);
-
+                        $data = data;
                     }
                 }
             },
@@ -481,8 +476,7 @@
 
             var formData = new FormData(form);
             var data = [];
-            var selected = tablejur.rows('.selected').data();
-            if ($akun_piutang.length === 0 || $akun_simpanan.length === 0 || $nilai.length === 0) {
+            if ($data.length === 0) {
                 msgDialog({
                     id: '-',
                     type: 'warning',
@@ -491,13 +485,15 @@
                 });
                 return false;
             }
-            console.log("Akun Simpanan", $akun_simpanan);
-            console.log("Akun Piutang", $akun_piutang);
-            console.log("Nilai", $nilai);
-            // appemd state to form data
-            formData.append('akun_piutang[]', $akun_piutang)
-            formData.append('akun_simpanan[]', $akun_simpanan)
-            formData.append('nilai[]', $nilai)
+
+
+            //append to Form Data
+            $.each($data, function(i, val) {
+                formData.append('akun_piutang[]', $data[i].akun_piutang)
+                formData.append('akun_simpanan[]', $data[i].akun_titip)
+                formData.append('nilai[]', $data[i].total)
+            });
+
 
             for (var pair of formData.entries()) {
                 console.log(pair[0] + ', ' + pair[1]);
