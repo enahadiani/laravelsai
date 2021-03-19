@@ -62,32 +62,31 @@ function drawRptPage(data,res,from,to){
             html += "<th style='width: 15%;'>Deskripsi Project</th>";
             html += "<th style='width: 5%;'>:</th>";
             html += "<th>"+proyek.keterangan+"</th>";
-            html += "<th style='width: 15%;'>Total Beban Kontrak</th>";
+            html += "<th style='width: 15%;'>Nilai Kontrak (non-ppn)</th>";
             html += "<th style='width: 5%;'>:</th>";
-            html += "<th>"+sepNum(total_beban)+"</th>";
+            html += "<th>"+sepNum(proyek.nilai)+"</th>";
             html += "</tr>"
             html += "<tr>";
             html += "<th style='width: 15%;'>Nomor Kontrak</th>";
             html += "<th style='width: 5%;'>:</th>";
             html += "<th>"+proyek.no_kontrak+"</th>";
-            html += "<th style='width: 15%;'>Total Profit Kontrak</th>";
+            html += "<th style='width: 15%;'>Total Beban Kontrak</th>";
             html += "<th style='width: 5%;'>:</th>";
-            html += "<th>"+profit+"</th>";
+            html += "<th>"+sepNum(total_beban)+"</th>";
             html += "</tr>"
             html += "<th style='width: 15%;'>Vendor</th>";
             html += "<th style='width: 5%;'>:</th>";
             html += "<th>"+proyek.nama_cust+"</th>";
-            html += "<th style='width: 15%;'>Total Presentase Profit</th>";
+            html += "<th style='width: 15%;'>Total Profit Kontrak</th>";
             html += "<th style='width: 5%;'>:</th>";
-            html += "<th>"+presentase+"%</th>";
+            html += "<th>"+profit+"</th>";
             html += "</tr>"
             html += "<th style='width: 15%;'>Tgl Berakhir Kontrak</th>";
             html += "<th style='width: 5%;'>:</th>";
             html += "<th>"+proyek.tgl_selesai+"</th>";
-            html += "</tr>"
-            html += "<th style='width: 15%;'>Nilai Kontrak (non-ppn)</th>";
+             html += "<th style='width: 15%;'>Total Presentase Profit</th>";
             html += "<th style='width: 5%;'>:</th>";
-            html += "<th>"+sepNum(proyek.nilai)+"</th>";
+            html += "<th>"+presentase+"%</th>";
             html += "</tr>"
             html += "</thead>";
             html += "</table>";
