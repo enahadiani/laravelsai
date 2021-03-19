@@ -38,12 +38,17 @@ function drawRptPage(data,res,from,to){
         html += "<th class='text-center' style='width: 90px'>Beban</th>";
         html += "<th class='text-center' style='width: 90px'>Tagihan</th>";
         html += "<th class='text-center' style='width: 90px'>Pembayaran</th>";
+        html += "<th class='text-center' style='width: 90px'>Profit</th>";
         html += "<tr>";
         html += "</thead>";
         html += "<tbody>";
         var no = 1;
         for(var i=0;i<data.length;i++) {
             var line = data[i];
+            var profit = parseInt(line.bayar)-parseInt(line.beban);
+            if(profit < 0) {
+                profit = '-'+sepNum(profit)
+            }
             html += "<tr class='report-link kartuproyek' style='cursor:pointer;' data-no_proyek='"+line.no_proyek+"'>";
             html += "<td class='text-center'>"+no+"</td>"
             html += "<td class='text-left link-report'>"+line.no_proyek+"</td>"
@@ -56,6 +61,7 @@ function drawRptPage(data,res,from,to){
             html += "<td class='text-right'>"+sepNum(line.beban)+"</td>"
             html += "<td class='text-right'>"+sepNum(line.tagihan)+"</td>"
             html += "<td class='text-right'>"+sepNum(line.bayar)+"</td>"
+            html += "<td class='text-right'>"+profit+"</td>"
             html += "</tr>";
 
             no++;
