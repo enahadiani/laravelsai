@@ -20,6 +20,8 @@ function drawRptPage(data,res,from,to){
     var daftar_beban = res.res.data_detail.data_beban;
     var html = "";
     var arr_tl = [0,0,0,0,0,0,0,0,0];
+    var total_beban = 0;
+    var total_actual = 0;
     var x=1;
     if(data.length > 0) {
         console.log(res.back);
@@ -60,19 +62,19 @@ function drawRptPage(data,res,from,to){
             html += "</tr>"
             html += "</thead>";
             html += "</table>";
-            html += "<div class='table-responsive ml-2 mr-2'>";
-            html += "<table class='table table-bordered' style='width: 98%;'>";
+            html += "<div class='ml-2 mr-2' style='overflow-x: scroll;display:flex;flex-direction:row;'>";
+            html += "<table class='table table-bordered' style='width: 600px;'>";
             html += "<thead>";
             html += "<tr>";
             html += "<th class='text-center' colspan='6'>Budget</th>";
+            html += "</tr>";
             html += "<tr>";
-            html += "<tr>";
-            html += "<th class='text-center' style='width: 5%;'>No</th>";
-            html += "<th class='text-center' style='width: 30%;'>Uraian Pekerjaan</th>";
-            html += "<th class='text-center' style='width: 8%;'>Qty</th>";
-            html += "<th class='text-center' style='width: 8%;'>Satuan</th>";
-            html += "<th class='text-center' style='width: 15%;'>Harga (Rp)</th>";
-            html += "<th class='text-center' style='width: 15%;'>Total (Rp)</th>";
+            html += "<th class='text-center' style='width: 15px;'>No</th>";
+            html += "<th class='text-center' style='width: 250px;'>Uraian Pekerjaan</th>";
+            html += "<th class='text-center' style='width: 50px;'>Qty</th>";
+            html += "<th class='text-center' style='width: 50px;'>Satuan</th>";
+            html += "<th class='text-center' style='width: 90px'>Harga (Rp)</th>";
+            html += "<th class='text-center' style='width: 90px'>Total (Rp)</th>";
             html += "<tr>";
             html += "</thead>";
             html += "<tbody>";
@@ -95,20 +97,19 @@ function drawRptPage(data,res,from,to){
             }
             html += "</tbody>";
             html += "</table>";
-            html += "<br/>"
-            html += "<table class='table table-bordered' style='width: 98%;'>";
+            html += "<table class='table table-bordered' style='width: 870px;'>";
             html += "<thead>";
             html += "<tr>";
             html += "<th class='text-center' colspan='7'>Actual</th>";
+            html += "</tr>";
             html += "<tr>";
-            html += "<tr>";
-            html += "<th class='text-center' style='width: 5%;'>No</th>";
-            html += "<th class='text-center' style='width: 10%;'>Tanggal</th>";
-            html += "<th class='text-center' style='width: 10%;'>No Doc</th>";
-            html += "<th class='text-center' style='width: 25%;'>Uraian Pekerjaan</th>";
-            html += "<th class='text-center' style='width: 20%;'>Supplier</th>";
-            html += "<th class='text-center' style='width: 15%;'>Jumlah (Rp)</th>";
-            html += "<th class='text-center' style='width: 10%;'>Status</th>";
+            html += "<th class='text-center' style='width: 15px'>No</th>";
+            html += "<th class='text-center' style='width: 100px;'>Tanggal</th>";
+            html += "<th class='text-center' style='width: 150px'>No Doc</th>";
+            html += "<th class='text-center' style='width: 250px;'>Uraian Pekerjaan</th>";
+            html += "<th class='text-center' style='width: 180px;'>Supplier</th>";
+            html += "<th class='text-center' style='width: 90px'>Jumlah (Rp)</th>";
+            html += "<th class='text-center' style='width: 15px'>Status</th>";
             html += "<tr>";
             html += "</thead>";
             html += "<tbody>";
@@ -116,7 +117,14 @@ function drawRptPage(data,res,from,to){
                 var no = 1;
                 for(var k=0;k<daftar_beban.length;k++) {
                     var beban = daftar_beban[k]
+                    var status = null
+                    if(beban.status == 1) {
+                        status = 'PAID'
+                    } else {
+                        status = 'UNPAID'
+                    }
                     if(proyek.no_proyek == beban.no_proyek) {
+                        total_beban = total_beban + parseInt(beban.nilai)
                         html += "<tr>";
                         html += "<td class='text-center'>"+no+"</td>"
                         html += "<td class='text-center'>"+beban.tgl+"</td>"
@@ -124,13 +132,34 @@ function drawRptPage(data,res,from,to){
                         html += "<td class='text-left'>"+beban.keterangan+"</td>"
                         html += "<td class='text-left'>"+beban.nama_vendor+"</td>"
                         html += "<td class='text-right'>"+sepNum(beban.nilai)+"</td>"
-                        html += "<td class='text-center'>"+beban.status+"</td>"
+                        html += "<td class='text-center'>"+status+"</td>"
                         html += "</tr>";
                         no++;
                     }
                 }
             }
             html += "</tbody>";
+            html += "</table>";
+            html += "</div>";
+            html += "<br/>"
+            html += "<table class='table table-borderless ml-4'>";
+            html += "<thead>";
+            html += "<tr>";
+            html += "<th style='width: 15%;'>Total Beban Kontrak</th>";
+            html += "<th style='width: 5%;'>:</th>";
+            html += "<th>Rp. "+sepNum(total_beban)+"</th>";
+            html += "</tr>"
+            html += "<tr>";
+            html += "<th style='width: 15%;'>Total Profit Kontrak</th>";
+            html += "<th style='width: 5%;'>:</th>";
+            html += "<th>Rp. 999.999.999</th>";
+            html += "</tr>"
+            html += "<tr>";
+            html += "<th style='width: 15%;'>Total Presentase Profit</th>";
+            html += "<th style='width: 5%;'>:</th>";
+            html += "<th>999%</th>";
+            html += "</tr>"
+            html += "</thead>";
             html += "</table>";
         }
         html += "<div style='page-break-after:always'></div>";
