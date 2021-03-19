@@ -93,6 +93,26 @@ div.inp-div-jenis > .search-item {
     border-bottom-left-radius: 1rem;
     box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.04), 0 1px 6px rgba(0, 0, 0, 0.04);
 }
+.card-form-footer-full {
+    padding: 1rem;
+    position: fixed;
+    bottom: 2rem;
+    /* left: 32.8%; */
+    z-index: 4;
+    display: flex;
+    justify-content: flex-start;
+    height: 3.75rem;
+    width: 87.5%;
+    background: white;
+    border-bottom-right-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+    box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.04), 0 1px 6px rgba(0, 0, 0, 0.04);
+}
+.footer-form-container-full {
+    width: 98%;
+    display: flex;
+    justify-content: flex-end;
+}
 .footer-form-container {
     width: 95%;
     display: flex;
