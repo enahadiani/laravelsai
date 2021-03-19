@@ -32,6 +32,27 @@ function drawRptPage(data,res,from,to){
         html += "<div id='sai-rpt-table-export-tbl-daftar-pnj'>";
         for(var i=0;i<data.length;i++) {
             var proyek = data[i];
+            
+            for(var k=0;k<daftar_beban.length;k++) { 
+                var beban = daftar_beban[k]
+                if(proyek.no_proyek == beban.no_proyek) { 
+                    total_beban = total_beban + parseInt(beban.nilai)
+                }
+            }
+            var profit = parseInt(proyek.nilai) - parseInt(total_beban)
+            var presentase = ((profit/parseInt(proyek.nilai))*100).toFixed(2)
+            if(profit < 0) {
+                profit = '-'+sepNum(profit)
+            } else {
+                profit = sepNum(profit)
+            }
+
+            if(presentase < 0) {
+                presentase = '-'+sepNum(presentase)
+            } else if(isNaN(presentase)) {
+                presentase = 0
+            }
+
             html += "<h6 class='text-center'>Project Financial Summary</h6>";
             html += "<h6 class='text-center'>"+proyek.no_proyek+"</h6>";
             html += "<hr />";
@@ -41,15 +62,24 @@ function drawRptPage(data,res,from,to){
             html += "<th style='width: 15%;'>Deskripsi Project</th>";
             html += "<th style='width: 5%;'>:</th>";
             html += "<th>"+proyek.keterangan+"</th>";
+            html += "<th style='width: 15%;'>Total Beban Kontrak</th>";
+            html += "<th style='width: 5%;'>:</th>";
+            html += "<th>"+sepNum(total_beban)+"</th>";
             html += "</tr>"
             html += "<tr>";
             html += "<th style='width: 15%;'>Nomor Kontrak</th>";
             html += "<th style='width: 5%;'>:</th>";
             html += "<th>"+proyek.no_kontrak+"</th>";
+            html += "<th style='width: 15%;'>Total Profit Kontrak</th>";
+            html += "<th style='width: 5%;'>:</th>";
+            html += "<th>"+profit+"</th>";
             html += "</tr>"
             html += "<th style='width: 15%;'>Vendor</th>";
             html += "<th style='width: 5%;'>:</th>";
             html += "<th>"+proyek.nama_cust+"</th>";
+            html += "<th style='width: 15%;'>Total Presentase Profit</th>";
+            html += "<th style='width: 5%;'>:</th>";
+            html += "<th>"+presentase+"%</th>";
             html += "</tr>"
             html += "<th style='width: 15%;'>Tgl Berakhir Kontrak</th>";
             html += "<th style='width: 5%;'>:</th>";
@@ -123,7 +153,6 @@ function drawRptPage(data,res,from,to){
                         status = 'UNPAID'
                     }
                     if(proyek.no_proyek == beban.no_proyek) {
-                        total_beban = total_beban + parseInt(beban.nilai)
                         html += "<tr>";
                         html += "<td class='text-center'>"+no+"</td>"
                         html += "<td class='text-center'>"+beban.tgl+"</td>"
@@ -137,43 +166,10 @@ function drawRptPage(data,res,from,to){
                     }
                 }
             }
-            var profit = parseInt(proyek.nilai) - parseInt(total_beban)
-            var presentase = ((profit/parseInt(proyek.nilai))*100).toFixed(2)
-            if(profit < 0) {
-                profit = '-'+sepNum(profit)
-            } else {
-                profit = sepNum(profit)
-            }
-
-            if(presentase < 0) {
-                presentase = '-'+sepNum(presentase)
-            } else if(isNaN(presentase)) {
-                presentase = 0
-            }
 
             html += "</tbody>";
             html += "</table>";
             html += "</div>";
-            html += "<br/>"
-            html += "<table class='table table-borderless ml-4'>";
-            html += "<thead>";
-            html += "<tr>";
-            html += "<th style='width: 15%;'>Total Beban Kontrak</th>";
-            html += "<th style='width: 5%;'>:</th>";
-            html += "<th>"+sepNum(total_beban)+"</th>";
-            html += "</tr>"
-            html += "<tr>";
-            html += "<th style='width: 15%;'>Total Profit Kontrak</th>";
-            html += "<th style='width: 5%;'>:</th>";
-            html += "<th>"+profit+"</th>";
-            html += "</tr>"
-            html += "<tr>";
-            html += "<th style='width: 15%;'>Total Presentase Profit</th>";
-            html += "<th style='width: 5%;'>:</th>";
-            html += "<th>"+presentase+"%</th>";
-            html += "</tr>"
-            html += "</thead>";
-            html += "</table>";
         }
         html += "<div style='page-break-after:always'></div>";
         html += "</div>";
