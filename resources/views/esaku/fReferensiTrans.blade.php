@@ -38,12 +38,13 @@
                             </div>
                             <div class="form-group col-md-6 col-sm-12">
                                 <label for="kode_ref">Kode</label>
-                                <div class="input-group readonly">
+                                <input class="form-control" type="text" placeholder="Kode Ref" id="kode_ref" name="kode_ref" required>
+                                {{-- <div class="input-group readonly">
                                     <input class="form-control" type="text" placeholder="Kode Ref" id="kode_ref" name="kode_ref" required readonly="readonly" style="border-top-right-radius:0px !important;border-bottom-right-radius:0px !important">
                                     <div class="input-group-append">
                                         <button disabled="true" style="border-top-left-radius:0px !important;border-bottom-left-radius:0px !important;" class="btn btn-info py-0 px-3" id="getRef" type="button"><i class="simple-icon-refresh"></i></button>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                         <div class="form-row">
