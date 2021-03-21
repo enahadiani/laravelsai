@@ -81,61 +81,55 @@
         max-width: 100%
     }
 
+    .overlay{
+        opacity: 0 !important;
+    }
 </style>
 <div class="container-fluid mt-3">
     <div class="row">
         <div class="col-12">
             <h6>Video</h6>
             <a class="btn btn-outline-light" href="#" id="btn-filter" style="position: absolute;right: 15px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-equalizer" style="transform-style: ;"></i> &nbsp;&nbsp; Filter</a>
-            <div class="separator mb-5"></div>
         </div>
     </div>
-    <div class="row" >
+    <div class="row mt-3" >
         <div class="col-xs-12 col-sm-4 col-md-3">
             <div class="recent-work-wrap">
-                <iframe class="img-responsive" src="https://www.youtube.com/embed/tbbZpqUeHcs"></iframe> 
-                <div class="overlay">
-                    <div class="recent-work-inner">
-                        <p>Proses Bisnis Penetapan Biaya Pendidikan di Telkom University</p>
-                        <p class="mb-0">22 Agustus 2020</p>
-                        <a href="#" data-href="{{ url('telu-dash/watch/1') }}" style="color:white;"><i class="simple-icon-eye"></i> Watch</a>
-                    </div> 
+                <iframe class="img-responsive" src="https://www.youtube.com/embed/tbbZpqUeHcs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <div class="recent-work-inner">
+                    <p>Proses Bisnis Penetapan Biaya Pendidikan di Telkom University</p>
+                </div> 
+                <div class="overlay" style="cursor:pointer" data-href="{{ url('telu-dash/watch/1') }}">
                 </div>
             </div>
         </div>
         <div class="col-xs-12 col-sm-4 col-md-3">
             <div class="recent-work-wrap">
-                <iframe class="img-responsive" src="https://www.youtube.com/embed/tbbZpqUeHcs"></iframe> 
-                <div class="overlay">
-                    <div class="recent-work-inner">
-                        <p>Proses Bisnis Penetapan Biaya Pendidikan di Telkom University</p>
-                        <p class="mb-0">22 Agustus 2020</p>
-                        <a href="#" data-href="{{ url('telu-dash/watch/1') }}" style="color:white;"><i class="simple-icon-eye"></i> Watch</a>
-                    </div> 
+                <iframe class="img-responsive" src="https://www.youtube.com/embed/tbbZpqUeHcs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <div class="recent-work-inner">
+                    <p>Proses Bisnis Penetapan Biaya Pendidikan di Telkom University</p>
+                </div> 
+                <div class="overlay" style="cursor:pointer" data-href="{{ url('telu-dash/watch/1') }}">
                 </div>
             </div>
         </div>
         <div class="col-xs-12 col-sm-4 col-md-3">
             <div class="recent-work-wrap">
-                <iframe class="img-responsive" src="https://www.youtube.com/embed/tbbZpqUeHcs"></iframe> 
-                <div class="overlay">
-                    <div class="recent-work-inner">
-                        <p>Proses Bisnis Penetapan Biaya Pendidikan di Telkom University</p>
-                        <p class="mb-0">22 Agustus 2020</p>
-                        <a href="#" data-href="{{ url('telu-dash/watch/1') }}" style="color:white;"><i class="simple-icon-eye"></i> Watch</a>
-                    </div> 
+                <iframe class="img-responsive" src="https://www.youtube.com/embed/tbbZpqUeHcs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <div class="recent-work-inner">
+                    <p>Proses Bisnis Penetapan Biaya Pendidikan di Telkom University</p>
+                </div> 
+                <div class="overlay" style="cursor:pointer" data-href="{{ url('telu-dash/watch/1') }}">
                 </div>
             </div>
         </div>
         <div class="col-xs-12 col-sm-4 col-md-3">
             <div class="recent-work-wrap">
-                <iframe class="img-responsive" src="https://www.youtube.com/embed/tbbZpqUeHcs"></iframe> 
-                <div class="overlay">
-                    <div class="recent-work-inner">
-                        <p>Proses Bisnis Penetapan Biaya Pendidikan di Telkom University</p>
-                        <p class="mb-0">22 Agustus 2020</p>
-                        <a href="#" data-href="{{ url('telu-dash/watch/1') }}" style="color:white;"><i class="simple-icon-eye"></i> Watch</a>
-                    </div> 
+                <iframe class="img-responsive" src="https://www.youtube.com/embed/tbbZpqUeHcs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <div class="recent-work-inner">
+                    <p>Proses Bisnis Penetapan Biaya Pendidikan di Telkom University</p>
+                </div> 
+                <div class="overlay" style="cursor:pointer" data-href="{{ url('telu-dash/watch/1') }}">
                 </div>
             </div>
         </div>
@@ -146,7 +140,7 @@
  $('body').addClass('dash-contents');
  $('html').addClass('dash-contents');
 
-$('.recent-work-inner').on('click','a',function(e){
+$('.recent-work-wrap').on('click','.overlay',function(e){
     e.preventDefault();
     var form = $(this).data('href');
     var url = form;
