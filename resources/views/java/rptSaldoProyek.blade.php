@@ -24,7 +24,7 @@ function drawRptPage(data,res,from,to){
         html += "<h6 class='text-center'>Saldo Proyek</h6>";
         html += "<hr />";
         html += "<div class='ml-2 mr-2' style='overflow-x: scroll;'>";
-        html += "<table class='table table-bordered' style='width: 1475px;'>";
+        html += "<table class='table table-bordered' style='width: 1580px;'>";
         html += "<thead>";
         html += "<tr>";
         html += "<th class='text-center' style='width: 10px;'>No</th>";
@@ -34,6 +34,7 @@ function drawRptPage(data,res,from,to){
         html += "<th class='text-center' style='width: 120px'>Tanggal Selesai</th>";
         html += "<th class='text-center' style='width: 200px'>Keterangan</th>";
         html += "<th class='text-center' style='width: 150px'>Vendor</th>";
+        html += "<th class='text-center' style='width: 90px'>Nilai Proyek</th>";
         html += "<th class='text-center' style='width: 90px'>Anggaran</th>";
         html += "<th class='text-center' style='width: 90px'>Beban</th>";
         html += "<th class='text-center' style='width: 90px'>Tagihan</th>";
@@ -46,10 +47,12 @@ function drawRptPage(data,res,from,to){
         var no = 1;
         for(var i=0;i<data.length;i++) {
             var line = data[i];
-            var profit = parseInt(line.bayar)-parseInt(line.beban);
-            var presentase =  (profit/parseInt(line.beban))*100
+            var profit = parseInt(line.nilai_proyek)-parseInt(line.beban);
+            var presentase =  ((profit/parseInt(line.nilai_proyek))*100).toFixed(2)
             if(profit < 0) {
                 profit = '-'+sepNum(profit)
+            } else {
+                profit = sepNum(profit)
             }
             if(presentase < 0) {
                 presentase = '-'+sepNum(presentase)
@@ -64,6 +67,7 @@ function drawRptPage(data,res,from,to){
             html += "<td class='text-center'>"+line.tgl_selesai+"</td>"
             html += "<td class='text-left'>"+line.keterangan+"</td>"
             html += "<td class='text-left'>"+line.nama_cust+"</td>"
+            html += "<td class='text-right'>"+sepNum(line.nilai_proyek)+"</td>"
             html += "<td class='text-right'>"+sepNum(line.rab)+"</td>"
             html += "<td class='text-right'>"+sepNum(line.beban)+"</td>"
             html += "<td class='text-right'>"+sepNum(line.tagihan)+"</td>"
