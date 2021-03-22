@@ -87,6 +87,41 @@ class AkruBillingController extends Controller
     }
 
     /**
+     * show data by no bukti .
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Request $request,$no_bukti)
+    {
+        try{
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'esaku-trans/akru-simp-detail?no_bukti='.$no_bukti,[
+                'headers' => [
+                    'Authorization'     => 'Bearer '.Session::get('token'),
+                    'Accept'            => 'application/json',
+                    'Content-Type'      => 'application/json'
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+
+                $data = json_decode($response_data,true);
+                $data = $data;
+            }
+            return response()->json(['daftar' => $data, 'status' => true], 200);
+        }catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $result['message'] = $res["message"];
+            $result['status']=false;
+            return response()->json(["data" => $result], 200);
+        }
+
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -193,6 +228,42 @@ class AkruBillingController extends Controller
             }
             return response()->json(['daftar' => $results], 200);
         }catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $result['message'] = $res["message"];
+            $result['status']=false;
+            return response()->json(["data" => $result], 200);
+        }
+
+    }
+
+
+    // /**
+    //  * Destroy the specified resource.
+    //  *
+    //  * @param  int  $no_bukti
+    //  * @return \Illuminate\Http\Response
+    //  */
+    public function destroy($no_bukti)
+    {
+        try{
+
+            $client = new Client();
+            $response = $client->request('DELETE',  config('api.url').'esaku-trans/akru-simp?no_bukti='.$no_bukti,[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+
+                $data = json_decode($response_data,true);
+                $data = $data;
+            }
+            return response()->json(['data' => $data], 200);
+        } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(),true);
             $result['message'] = $res["message"];
