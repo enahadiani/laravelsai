@@ -214,3 +214,4 @@ Route::delete('akru-simp/{no_bukti}','Esaku\Simpanan\Transaksi\AkruBillingContro
 Route::get('reverse-akru-simp','Esaku\Simpanan\Transaksi\ReverseController@index');
 Route::get('reverse-get-anggota','Esaku\Simpanan\Transaksi\ReverseController@getAnggota');
 Route::get('reverse-akru-simp-nokartu/{no_agg}','Esaku\Simpanan\Transaksi\ReverseController@getKartuSimpanan');
+Route::delete('reverse-akru-simp/{no_bukti}','Esaku\Simpanan\Transaksi\ReverseController@destroy');

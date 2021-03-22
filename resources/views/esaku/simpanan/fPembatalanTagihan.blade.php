@@ -715,13 +715,14 @@
     function hapusData(id) {
         $.ajax({
             type: 'DELETE',
-            url: "{{ url('esaku-trans/akru-simp') }}/" + id,
+            url: "{{ url('esaku-trans/reverse-akru-simp') }}/" + id,
             dataType: 'json',
             async: false,
             success: function(result) {
                 if (result.data.status) {
                     dataTable.ajax.reload();
-                    showNotification("top", "center", "success", 'Hapus Data', 'Data Akru Simpanan (' + id +
+                    showNotification("top", "center", "success", 'Hapus Data',
+                        'Data Reverse Akru Simpanan (' + id +
                         ') berhasil dihapus ');
                     // $('#modal-preview-id').html('');
                     $('#table-delete tbody').html('');
