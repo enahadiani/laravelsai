@@ -40,6 +40,53 @@ class AkruBillingController extends Controller
         return $arr[2].$new_sep.$arr[1].$new_sep.$arr[0];
     }
 
+    public function index(Request $request)
+    {
+        try{
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'esaku-trans/akru-simp',[
+                'headers' => [
+                    'Authorization'     => 'Bearer '.Session::get('token'),
+                    'Accept'            => 'application/json',
+                    'Content-Type'      => 'application/json'
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+
+                $data = json_decode($response_data,true);
+                $data = $data;
+                if(count($data["data"]) >0){
+                    $no = 1;
+
+                    for($i=0;$i<count($data["data"]);$i++){
+                        $results["data"][$i]["no"] = $no++;
+                        $results["data"][$i]["no_bukti"] = $data["data"][$i]["no_bukti"];
+                        $results["data"][$i]["tgl"] = $data["data"][$i]["tgl"];
+                        $results["data"][$i]["keterangan"] = $data["data"][$i]["keterangan"];
+                        $results["data"][$i]["total"] = $data["data"][$i]["nilai1"];
+                        $results["data"][$i]["status"] = $data["data"][$i]["status"];
+                        $results["data"][$i]["tgl_input"] = $data["data"][$i]["tgl_input"];
+
+                    }
+                }else{
+                    $results = $data;
+                }
+
+
+            }
+            return response()->json(['daftar' => $results], 200);
+        }catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $result['message'] = $res["message"];
+            $result['status']=false;
+            return response()->json(["data" => $result], 200);
+        }
+
+    }
+
     /**
      * Store a newly created resource in storage.
      *
