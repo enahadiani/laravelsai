@@ -52,9 +52,9 @@
                     if(result.data.length > 0){
                         for(var i=0; i < result.data.length; i++){
                             var line = result.data[i];
-                            html +=` <div class="col-4 mb-2">
+                            html +=` <div class="col-4 mb-4">
                                 <div class="card" style="border-radius:20px;">
-                                    <div class="card-body mx-auto text-center" style="padding:1.8rem 0.5rem;">
+                                    <div class="card-body mx-auto text-center" style="padding:1.2rem 0.5rem;">
                                         <img src="{{ asset('img/mobile-tarbak/icon-matpel/`+line.kode_matpel+`.png') }}" alt="" style="width:50px">
                                         <p class="mb-0">`+line.singkatan+`</p>
                                     </div>
