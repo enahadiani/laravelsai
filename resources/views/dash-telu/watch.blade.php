@@ -84,21 +84,28 @@
 </style>
 <div class="container-fluid mt-3">
     <div class="row">
-        <div class="col-12">
-            <h1>Video</h1>
-            <a class="btn btn-outline-light" href="#" id="btn-filter" style="position: absolute;right: 15px;border:1px solid black;font-size:1rem"><i class="simple-icon-equalizer" style="transform-style: ;"></i> &nbsp;&nbsp; Filter</a>
-            <div class="separator mb-5"></div>
+        <div class="col-12 video">
+            <h6>Proses Bisnis Penetapan Biaya Pendidikan di Telkom University</h6>
+            <a class='btn btn-outline-light' href='#' id='btnBack' style="position: absolute;right: 25px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-arrow-left"></i> Back</a>
         </div>
     </div>
-    <div class="row" id="content-video">
-        <div class="col-md-12 text-center">
-            <iframe src='https://www.youtube.com/embed/tbbZpqUeHcs' style='width:80%; height:50%; min-height:280px; min-width:280px; max-width:560px;'></iframe>
+    <div class="row mt-3" id="content-video">
+        <div class="col-md-12">
+            <iframe src='https://www.youtube.com/embed/tbbZpqUeHcs' style="width:100%;height:75vh"></iframe>
         </div>
     </div>
-    <br>
+    <!-- <br>
     <div class="row" id="keterangan">
-        <div class="col-md-12 text-center">
+        <div class="col-md-12">
             <a href="https://www.youtube.com/watch?v=tbbZpqUeHcs&feature=youtu.be" target="_blank"> https://www.youtube.com/watch?v=tbbZpqUeHcs&feature=youtu.be</a>
         </div>
-    </div>
+    </div> -->
 </div>
+
+<script>
+$('.video').on('click','#btnBack',function(e){
+    e.preventDefault();
+    var url = "{{ url('/dash-telu/form/dashTeluVideo') }}";
+    loadForm(url);
+});
+</script>
