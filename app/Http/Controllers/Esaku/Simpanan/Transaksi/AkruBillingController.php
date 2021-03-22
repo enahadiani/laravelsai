@@ -67,7 +67,6 @@ class AkruBillingController extends Controller
                         $results["data"][$i]["keterangan"] = $data["data"][$i]["keterangan"];
                         $results["data"][$i]["total"] = $data["data"][$i]["nilai1"];
                         $results["data"][$i]["status"] = $data["data"][$i]["status"];
-                        $results["data"][$i]["tgl_input"] = $data["data"][$i]["tgl_input"];
 
                     }
                 }else{
@@ -76,7 +75,7 @@ class AkruBillingController extends Controller
 
 
             }
-            return response()->json(['daftar' => $results], 200);
+            return response()->json(['daftar' => $results['data'], 'status' => true], 200);
         }catch (BadResponseException $ex) {
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(),true);
