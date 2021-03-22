@@ -330,7 +330,7 @@
                 position: fixed;
                 bottom: 0;
                 width: 100%;
-                box-shadow: 0 -3pt 6pt 0 hsla(0, 0%, 0%, 0.16);
+                box-shadow:0 -1pt 1pt 0 #80808029;
             }
 
             /* Style the links inside the navigation bar */
@@ -342,6 +342,7 @@
                 padding: 14px 16px;
                 text-decoration: none;
                 font-size: 17px;
+                line-height: 0.5rem;
             }
 
             /* Change the color of links on hover */
@@ -387,7 +388,7 @@
                 background: #505050;
                 -webkit-mask-image: url("{{ url('img/mobile-tarbak/AkunOff.svg') }}");
                 mask-image: url("{{ url('img/mobile-tarbak/AkunOff.svg') }}");
-                width: 20pt;
+                width: 16pt;
                 height: 20pt;
             }
     </style>

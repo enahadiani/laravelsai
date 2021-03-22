@@ -32,7 +32,7 @@
 </div>
 <div class="row" style="margin-top:40px">
     <div class="col-12">
-        <h6 class="bold" style="font-size:10pt !important">Matapelajaran</h6>
+        <h6 class="bold" style="font-size:10pt !important">Mata Pelajaran</h6>
     </div>
 </div>
 <div class="row matpel" style="margin-bottom:100px">
@@ -56,7 +56,7 @@
                                 <div class="card" style="border-radius:20px;">
                                     <div class="card-body mx-auto text-center" style="padding:1.2rem 0.5rem;">
                                         <img src="{{ asset('img/mobile-tarbak/icon-matpel/`+line.kode_matpel+`.png') }}" alt="" style="width:50px">
-                                        <p class="mb-0">`+line.singkatan+`</p>
+                                        <p class="mb-0" style="font-size:0.85rem !important">`+line.singkatan+`</p>
                                     </div>
                                 </div>
                             </div>`;
