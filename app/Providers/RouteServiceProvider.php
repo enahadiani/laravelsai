@@ -93,6 +93,8 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapJavaRoutes();
 
         $this->mapMobileTSRoutes();
+
+        $this->mapMobileTarbakRoutes();
     }
 
     /**
@@ -578,6 +580,14 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/mobile_ts/auth.php'));
+    }
+
+    protected function mapMobileTarbakRoutes()
+    {
+        Route::prefix('mobile-tarbak')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/mobile_tarbak/auth.php'));
     }
 
 }
