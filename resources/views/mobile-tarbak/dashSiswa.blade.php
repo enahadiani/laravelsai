@@ -38,6 +38,8 @@
 <div class="row matpel" style="margin-bottom:70px">
 </div>
 <script>
+    $('body').addClass('dash-contents');
+    $('html').addClass('dash-contents');
     function getMatpel(){
         $.ajax({
             type: "GET",
