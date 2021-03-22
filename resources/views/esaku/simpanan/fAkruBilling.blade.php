@@ -486,6 +486,7 @@
         var table = $('#example').DataTable();
         $('#form-tambah')[0].reset();
         $data = []
+        $('#total').html('0')
         tablejur.clear().draw();
     });
 
@@ -512,7 +513,7 @@
                     var detail = result.detail;
                     if (detail.length > 0) {
                         var input = '';
-                        $('#total').html(format_number(result.data[0].total))
+                        $('#total').html(format_number(result.data[0].nilai1))
                         tablejur.rows.add(detail).draw(false);
                         activaTab("trans");
                         var data = detail;
@@ -537,6 +538,16 @@
         $('#form-tambah').validate().resetForm();
         editData(id)
     });
+
+    // BUTTON UPDATE DATA
+    $('#saku-form').on('click', '#btn-update', function() {
+        var kode = $('#no_bukti').val();
+        msgDialog({
+            id: kode,
+            type: 'edit'
+        });
+    });
+    // END BUTTON UPDATE
     // END BUTTON EDIT
 
     var tablejur = $("#table-jurnal").DataTable({
@@ -705,8 +716,14 @@
         },
         errorElement: "label",
         submitHandler: function(form) {
-            var parameter = $('#id_edit').val();
-            var url = "{{ url('esaku-trans/akru-simp-jurnal') }}";
+            var param = $('#id_edit').val();
+            if (param == "edit") {
+                var url = "{{ url('/esaku-trans/update-akru-simp-jurnal') }}/" + id;
+            } else {
+                var url = "{{ url('esaku-trans/akru-simp-jurnal') }}";
+            }
+
+
 
             var formData = new FormData(form);
             var data = [];
@@ -751,9 +768,14 @@
                         });
                         activaTab("trans");
                         $data = []
+                        $('#total').html('0')
+
+                        $('#form-tambah')[0].reset();
+
                         tablejur.clear().draw();
                         $('#form-tambah #loadData').click();
                         $('#error_space').text('');
+                        console.log(data);
                     } else if (!result.data.status && result.data.message ===
                         "Unauthorized") {
 
