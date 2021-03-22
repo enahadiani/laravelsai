@@ -211,7 +211,7 @@ class AkruBillingController extends Controller
                     for($i=0;$i<count($data["data"]);$i++){
                         $results["data"][$i]["no"] = $no++;
                         $results["data"][$i]["nama_simp"] = $data["data"][$i]["nama_simp"];
-                        $results["data"][$i]["akun_simpanan"] = $data["data"][$i]["akun_titip"].'-'.$data["data"][$i]["nama_asimp"];
+                        $results["data"][$i]["akun_titip"] = $data["data"][$i]["akun_titip"].'-'.$data["data"][$i]["nama_asimp"];
                         $results["data"][$i]["akun_piutang"] = $data["data"][$i]["akun_piutang"].'-'.$data["data"][$i]["nama_ar"];
                         $results["data"][$i]["total"] = $data["data"][$i]["total"];
                         $total += $data["data"][$i]["total"];

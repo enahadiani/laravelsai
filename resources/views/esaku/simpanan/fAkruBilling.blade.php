@@ -483,6 +483,10 @@
             id: kode,
             type: 'keluar'
         });
+        var table = $('#example').DataTable();
+        $('#form-tambah')[0].reset();
+        $data = []
+        tablejur.clear().draw();
     });
 
     // BUTTON EDIT
@@ -496,6 +500,7 @@
             success: function(res) {
 
                 var result = res.daftar;
+
                 if (result.status) {
                     console.log(result.detail)
                     $('#id').val('edit');
@@ -504,168 +509,20 @@
                     $('#tanggal').val(result.data[0].tanggal, '-', '/');
                     $('#deskripsi').val(result.data[0].keterangan);
                     // $('#jenis').val(result.jurnal[0].jenis);
-                    if (result.detail.length > 0) {
+                    var detail = result.detail;
+                    if (detail.length > 0) {
                         var input = '';
-                        var no = 1;
-                        for (var i = 0; i < result.detail.length; i++) {
-                            var line = result.detail[i];
-                            input += "<tr class='row-jurnal'>";
-                            input += "<td class='no-jurnal text-center'>" + no + "</td>";
-                            input += "<td ><span class='td-kode tdakunke" + no + " tooltip-span'>" + line
-                                .kode_akun + "</span><input type='text' id='akunkode" + no +
-                                "' name='kode_akun[]' class='form-control inp-kode akunke" + no +
-                                " hidden' value='" + line.kode_akun +
-                                "' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-akun hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
-                            input += "<td ><span class='td-nama tdnmakunke" + no + " tooltip-span'>" + line
-                                .nama_akun +
-                                "</span><input type='text' name='nama_akun[]' class='form-control inp-nama nmakunke" +
-                                no + " hidden'  value='" + line.nama_akun + "' readonly></td>";
-                            input += "<td ><span class='td-dc tddcke" + no + " tooltip-span'>" + line.dc +
-                                "</span><select hidden name='dc[]' class='form-control inp-dc dcke" + no +
-                                "' value='" + line.dc +
-                                "' required><option value='D'>D</option><option value='C'>C</option></select></td>";
-                            input += "<td ><span class='td-ket tdketke" + no + " tooltip-span'>" + line
-                                .keterangan +
-                                "</span><input type='text' name='keterangan[]' class='form-control inp-ket ketke" +
-                                no + " hidden'  value='" + line.keterangan + "' required></td>";
-                            input += "<td class='text-right'><span class='td-nilai tdnilke" + no +
-                                " tooltip-span'>" + format_number(line.nilai) +
-                                "</span><input type='text' name='nilai[]' class='form-control inp-nilai nilke" +
-                                no + " hidden'  value='" + parseInt(line.nilai) + "' required></td>";
-                            input += "<td ><span class='td-pp tdppke" + no + " tooltip-span'>" + line
-                                .kode_pp + "</span><input type='text' id='ppkode" + no +
-                                "' name='kode_pp[]' class='form-control inp-pp ppke" + no +
-                                " hidden' value='" + line.kode_pp +
-                                "' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-pp hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
-                            input += "<td ><span class='td-nama_pp tdnmppke" + no + " tooltip-span'>" + line
-                                .nama_pp +
-                                "</span><input type='text' name='nama_pp[]' class='form-control inp-nama_pp nmppke" +
-                                no + " hidden'  value='" + line.nama_pp + "' readonly></td>";
-                            input +=
-                                "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
-                            input += "</tr>";
-
-                            no++;
-                        }
-                        $('#input-grid tbody').html(input);
-                        $('.tooltip-span').tooltip({
-                            title: function() {
-                                return $(this).text();
-                            }
-                        })
-                        no = 1;
-                        for (var i = 0; i < result.detail.length; i++) {
-                            var line = result.detail[i];
-                            $('.dcke' + no).selectize({
-                                selectOnTab: true,
-                                onChange: function(value) {
-                                    $('.tddcke' + no).text(value);
-                                    hitungTotal();
-                                }
-                            });
-                            $('#akunkode' + no).typeahead({
-                                source: $dtkode_akun,
-                                displayText: function(item) {
-                                    return item.id + ' - ' + item.name;
-                                },
-                                autoSelect: false,
-                                changeInputOnSelect: false,
-                                changeInputOnMove: false,
-                                selectOnBlur: false,
-                                afterSelect: function(item) {
-                                    console.log(item.id);
-                                }
-                            });
-
-                            $('#ppkode' + no).typeahead({
-                                source: $dtkode_pp,
-                                displayText: function(item) {
-                                    return item.id + ' - ' + item.name;
-                                },
-                                autoSelect: false,
-                                changeInputOnSelect: false,
-                                changeInputOnMove: false,
-                                selectOnBlur: false,
-                                afterSelect: function(item) {
-                                    console.log(item.id);
-                                }
-                            });
-                            $('.dcke' + no)[0].selectize.setValue(line.dc);
-                            $('.selectize-control.dcke' + no).addClass('hidden');
-                            $('.nilke' + no).inputmask("numeric", {
-                                radixPoint: ",",
-                                groupSeparator: ".",
-                                digits: 2,
-                                autoGroup: true,
-                                rightAlign: true,
-                                oncleared: function() {
-                                    self.Value('');
-                                }
-                            });
-                            no++;
-                        }
-
+                        $('#total').html(format_number(result.data[0].total))
+                        tablejur.rows.add(detail).draw(false);
+                        activaTab("trans");
+                        var data = detail;
+                        $data = data;
+                        $('#saku-datatable').hide();
+                        $('#saku-form').show();
+                        $('#kode_form').val($form_aktif);
+                    } else if (!result.status && result.message == 'Unauthorized') {
+                        window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
                     }
-
-                    var input2 = "";
-                    if (result.dokumen.length > 0) {
-                        var no = 1;
-                        for (var i = 0; i < result.dokumen.length; i++) {
-                            var line = result.dokumen[i];
-                            input2 += "<tr class='row-dok'>";
-                            input2 += "<td class='no-dok text-center'>" + no + "</td>";
-                            input2 +=
-                                "<td class='px-0 py-0'><div class='inp-div-jenis'><input type='text' name='jenis[]' class='form-control inp-jenis jeniske" +
-                                no + " ' value='" + line.jenis +
-                                "' required='' style='z-index: 1;' id='jeniskode" + no +
-                                "'><a href='#' class='search-item search-jenis'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></div></td>";
-                            input2 +=
-                                "<td class='px-0 py-0'><input type='text' name='nama_dok[]' class='form-control inp-nama_dok nama_dokke" +
-                                no + "' value='" + line.nama + "' readonly></td>";
-                            var dok = "{{ config('api.url') . 'toko-auth/storage' }}/" + line.fileaddres;
-                            input2 += "<td><span class='td-nama_file tdnmfileke" + no + " tooltip-span'>" +
-                                line.fileaddres +
-                                "</span><input type='text' name='nama_file[]' class='form-control inp-nama_file nmfileke" +
-                                no + " hidden'  value='" + line.fileaddres + "' readonly></td>";
-                            if (line.fileaddres == "-" || line.fileaddres == "") {
-                                input2 += `
-                                <td>
-                                    <input type='file' name='file_dok[]' class='inp-file_dok'>
-                                    <input type='hidden' name='no_urut[]' class='form-control inp-no_urut' value='` +
-                                    no + `'>
-                                </td>`;
-                            } else {
-                                input2 += `
-                                <td>
-                                    <input type='file' name='file_dok[]'>
-                                    <input type='hidden' name='no_urut[]' class='form-control inp-no_urut' value='` +
-                                    no + `'>
-                                </td>`;
-                            }
-                            input2 += `
-                                <td class='text-center action-dok'>`;
-                            if (line.fileaddres != "-") {
-                                var link = `<a class='download-dok' href='` + dok +
-                                    `'target='_blank' title='Download'><i style='font-size:18px' class='simple-icon-cloud-download'></i></a>&nbsp;&nbsp;&nbsp;<a class='hapus-dok' href='#' title='Hapus Dokumen'><i class='simple-icon-trash' style='font-size:18px' ></i></a>`;
-                            } else {
-                                var link = ``;
-                            }
-                            input2 += link + "</td></tr>";
-                            no++;
-                        }
-                    }
-                    $('#form-tambah #input-dok tbody').html(input2);
-                    hitungTotal();
-                    hitungTotalRow();
-                    hitungTotalRowUpload("form-tambah");
-                    $('#saku-datatable').hide();
-                    $('#saku-form').show();
-                    $('#kode_form').val($form_aktif);
-                    showInfoField("nik_periksa", result.jurnal[0].nik_periksa, result.jurnal[0]
-                        .nama_periksa);
-                    setWidthFooterCardBody();
-                } else if (!result.status && result.message == 'Unauthorized') {
-                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
                 }
             }
         });
@@ -700,6 +557,11 @@
                 }
             },
             {
+                "searchable": false,
+                "orderable": false,
+                "targets": 0
+            },
+            {
                 'targets': 4,
                 'className': 'text-right',
                 'render': $.fn.dataTable.render.number('.', ',', 0, '')
@@ -707,13 +569,13 @@
         ],
 
         columns: [{
-                data: "no"
+                data: null
             },
             {
                 data: 'nama_simp'
             },
             {
-                data: 'akun_simpanan'
+                data: 'akun_titip'
             },
             {
                 data: 'akun_piutang'
@@ -723,6 +585,7 @@
             }
         ],
         order: [],
+
         drawCallback: function() {
             $($(".dataTables_wrapper .pagination li:first-of-type"))
                 .find("a")
@@ -746,6 +609,15 @@
             infoFiltered: "(terfilter dari _MAX_ total entri)"
         }
     });
+
+    tablejur.on('order.dt search.dt', function() {
+        tablejur.column(0, {
+            search: 'applied',
+            order: 'applied'
+        }).nodes().each(function(cell, i) {
+            cell.innerHTML = i + 1;
+        });
+    }).draw();
 
 
 
@@ -791,7 +663,8 @@
                 // console.log(result.daftar);
                 if (result.daftar.status) {
 
-                    if (typeof result.daftar.data !== 'undefined' && result.daftar.data.length >
+                    if (typeof result.daftar.data !== 'undefined' && result.daftar.data
+                        .length >
                         0) {
 
                         $('#total').html(format_number(result.daftar.total))
@@ -878,6 +751,7 @@
                         });
                         activaTab("trans");
                         $data = []
+                        tablejur.clear().draw();
                         $('#form-tambah #loadData').click();
                         $('#error_space').text('');
                     } else if (!result.data.status && result.data.message ===
@@ -1064,8 +938,10 @@
                                 det += "<tr>";
                                 det += "<td>" + no + "</td>"
                                 det += "<td >" + line.nama_simp + "</td>";
-                                det += "<td >" + line.akun_piutang + '-' + line.nama_simp + "</td>";
-                                det += "<td >" + line.akun_titip + '-' + line.nama_asimp + "</td>";
+                                det += "<td >" + line.akun_piutang + '-' + line.nama_simp +
+                                    "</td>";
+                                det += "<td >" + line.akun_titip + '-' + line.nama_asimp +
+                                    "</td>";
                                 det += "<td >" + format_number(line.total) + "</td>";
                                 no++;
                             }
@@ -1144,7 +1020,8 @@
                             $('.preview-header #btn-delete2').css('display', 'none');
                             $('.preview-header #btn-edit2').css('display', 'none');
                         } else {
-                            $('.preview-header #btn-delete2').css('display', 'inline-block');
+                            $('.preview-header #btn-delete2').css('display',
+                                'inline-block');
                             $('.preview-header #btn-edit2').css('display', 'inline-block');
                         }
                         $('#trigger-bottom-sheet').trigger("click");
