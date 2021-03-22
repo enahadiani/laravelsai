@@ -1,10 +1,118 @@
-/* button.closes {
-    margin: -0.4rem auto -1rem -2rem !important;
-    right: 0 !important;
-    float: left !important;
-    border: none !important;
-    background: none;
-} */
+.card-list-kegiatan {
+    height: 100px;
+    width: 220px;
+    background-color: #0454d4;
+    border-radius: 10px;
+}
+.list-kegiatan-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.list-kegiatan-container:not(:first-child) {
+    padding-top: 1.5rem;
+}
+.mt-1 {
+    margin-top: 16px !important;
+}
+.list-keuangan-proyek {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 8px 0 2px 0;
+    justify-content: space-between;
+}
+.ml--1 {
+    margin-left: -10px;
+}
+.text-secondary {
+    color: #c6cec9 !important;
+}
+.profit-amount {
+    margin-top: -16px;
+}
+.profit-percentage {
+    color: #64e95f;
+}
+
+.keterangan-container {
+    padding-top: 20px;
+    padding-left: 25px;
+}
+.keterangan {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.running {
+    height: 12px;
+    width: 12px;
+    border-radius: 100%;
+    background-color: #f6ff00;
+    /* margin-top: 25px;
+    margin-left: 25px; */
+}
+.accepted {
+    height: 12px;
+    width: 12px;
+    border-radius: 100%;
+    background-color: #00e14b;
+    /* margin-top: 25px;
+    margin-left: 25px; */
+}
+.card-project {
+    height: 120px;
+    background-image: linear-gradient(
+        to right,
+        #6a5cf5,
+        #5f4ae0,
+        #5538ca,
+        #4925b6,
+        #3e0da1
+    );
+    position: static;
+    border-radius: 10px !important;
+}
+.card-pendapatan {
+    height: 120px;
+    background-image: linear-gradient(
+        to right top,
+        #fcb812,
+        #fbb10f,
+        #fbab0d,
+        #faa40b,
+        #f99d0b,
+        #f89709,
+        #f79107,
+        #f68b07,
+        #f58405,
+        #f47c03,
+        #f27503,
+        #f16d04
+    );
+    position: static;
+    border-radius: 10px !important;
+}
+.card-beban {
+    height: 120px;
+    background-image: linear-gradient(
+        to right top,
+        #ed4162,
+        #eb336c,
+        #e82578,
+        #e21684,
+        #da0991,
+        #d70a94,
+        #d30d97,
+        #d00f9a,
+        #d41493,
+        #d71a8c,
+        #da2186,
+        #dc2880
+    );
+    position: static;
+    border-radius: 10px !important;
+}
 .modal-content {
     border-top-right-radius: 0 !important;
     border-bottom-right-radius: 0 !important;
@@ -55,6 +163,15 @@
     font-weight: bold;
 }
 
+.btn-back {
+    float: right;
+    border-color: #c7c9cb;
+    width: 90px !important;
+    margin-right: 16px;
+    background-color: #fafafa;
+    border-radius: 30px !important;
+}
+
 .btn-filter {
     float: right;
     border-color: #000;
@@ -73,8 +190,19 @@
     border: 1px solid #f0f0f0;
 }
 .card-dash {
-    padding: 0.5rem 0.5rem 1rem 0.5rem;
+    height: 220px;
 }
+.card-dash-default {
+    height: 250px;
+}
+.card-dash-detail-row-1 {
+    height: 230px;
+}
+
+.card-dash-detail-row-2 {
+    height: 450px;
+}
+
 h6.judul-card {
     font-weight: bold;
 }
