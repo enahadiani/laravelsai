@@ -206,3 +206,4 @@ Route::get('akru-simp','Esaku\Simpanan\Transaksi\AkruBillingController@index');
 Route::get('show-akru/{no_bukti}','Esaku\Simpanan\Transaksi\AkruBillingController@show');
 Route::get('akru-simp-jurnal/{tanggal}','Esaku\Simpanan\Transaksi\AkruBillingController@loadJurnal');
 Route::post('akru-simp-jurnal','Esaku\Simpanan\Transaksi\AkruBillingController@store');
+Route::delete('akru-simp/{no_bukti}','Esaku\Simpanan\Transaksi\AkruBillingController@destroy');
