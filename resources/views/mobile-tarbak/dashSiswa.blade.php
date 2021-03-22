@@ -35,7 +35,7 @@
         <h6 class="bold" style="font-size:10pt !important">Matapelajaran</h6>
     </div>
 </div>
-<div class="row matpel" style="margin-bottom:70px">
+<div class="row matpel" style="margin-bottom:100px">
 </div>
 <script>
     $('body').addClass('dash-contents');
