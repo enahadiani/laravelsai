@@ -202,5 +202,6 @@ Route::post('akun', 'Esaku\Keuangan\AkunController@store');
 | Modul Simpanan -Transaksi
 |--------------------------------------------------------------------------
 */
+Route::get('akru-simp','Esaku\Simpanan\Transaksi\AkruBillingController@index');
 Route::get('akru-simp-jurnal/{tanggal}','Esaku\Simpanan\Transaksi\AkruBillingController@loadJurnal');
 Route::post('akru-simp-jurnal','Esaku\Simpanan\Transaksi\AkruBillingController@store');
