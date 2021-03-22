@@ -91,6 +91,8 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapWebJavav2Routes();
 
         $this->mapJavaRoutes();
+
+        $this->mapMobileTSRoutes();
     }
 
     /**
@@ -568,6 +570,14 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/webjava/web-routes.php'));
+    }
+
+    protected function mapMobileTSRoutes()
+    {
+        Route::prefix('mobile-ts')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/mobile_ts/auth.php'));
     }
 
 }

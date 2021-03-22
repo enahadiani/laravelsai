@@ -1,129 +1,277 @@
 <link rel="stylesheet" href="{{ asset('dash-asset/dash-java/dash-perusahaan-dekstop.css') }}" />
 <div class="row">
     <div class="col-md-6 col-sm-6">
-        <h6 class="text-bold">Dashboard Perusahaan</h6>
+        <h6 class="text-bold">Project Tahun Ini</h6>
         <p id="periode-text">Periode Januari 2021</p>
     </div>
     <div class="col-md-6 col-sm-6">
         <button id="button-filter" class="btn btn-filter">Filter</button>
+        <button id="button-back" class="btn btn-back">Back</button>
     </div>
 </div>
 
 <section id="dekstop-baris-ke-1" class="dasboard-ke-1 col-dekstop pb-3">
     <div class="row">
-        <div class="col-md-4 col-lg-4 col-xl-4">
+        <div class="col-md-3 col-lg-3 col-xl-3">
             <div class="card card-dash">
-                <h6 class="ml-4 mt-3 mb-0 judul-card">Anggaran Proyek</h6>
-                <div class="row mt-2">
-                    <div class="col-md-10 col-lg-10 col-xl-10">
-                        <div class="list-project">
-                            <div class="ml-4 overview-project">
-                                <div class="progress-project">
-                                    <div class="circle-progress-project">
-                                        70%
-                                    </div>
-                                </div>                            
-                                <div class="keterangan-project">
-                                    <span class="nama-project">Project A</span>
-                                    <p class="tanggal-berakhir">Selesai 10/03/2021</p>
-                                </div>
-                                <div class="detail-icon">
-                                    <div class="glyph-icon simple-icon-arrow-right detail-proyek"></div>
-                                </div>
+                <div class="card-project">
+                    <h6 class="pt-4 pl-4 text-white">Project</h6>
+                    <h4 class="pt-1 pl-4 text-white">30</h4>
+                </div>
+                <div class="keterangan-card">
+                    <div class="row keterangan-container">
+                        <div class="col-md-9 col-sm-9 col-lg-9">
+                            <div class="keterangan">
+                                <div class="accepted"></div>
+                                <span class="pl-2">Selesai</span>
                             </div>
-                            <div class="ml-4 overview-project">
-                                <div class="progress-project">
-                                    <div class="circle-progress-project">
-                                        70%
-                                    </div>
-                                </div>                            
-                                <div class="keterangan-project">
-                                    <span class="nama-project">Project B</span>
-                                    <p class="tanggal-berakhir">Selesai 10/03/2021</p>
-                                </div>
-                                <div class="detail-icon">
-                                    <div class="glyph-icon simple-icon-arrow-right detail-proyek"></div>
-                                </div>
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-lg-3">
+                            <span class="text-bold">17</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="keterangan-card">
+                    <div class="row keterangan-container">
+                        <div class="col-md-9 col-sm-9 col-lg-9">
+                            <div class="keterangan">
+                                <div class="running"></div>
+                                <span class="pl-2">Berjalan</span>
                             </div>
-                            <div class="ml-4 overview-project">
-                                <div class="progress-project">
-                                    <div class="circle-progress-project">
-                                        70%
-                                    </div>
-                                </div>                            
-                                <div class="keterangan-project">
-                                    <span class="nama-project">Project C</span>
-                                    <p class="tanggal-berakhir">Selesai 10/03/2021</p>
-                                </div>
-                                <div class="detail-icon">
-                                    <div class="glyph-icon simple-icon-arrow-right detail-proyek"></div>
-                                </div>
-                            </div>
-                            <div class="ml-4 overview-project">
-                                <div class="progress-project">
-                                    <div class="circle-progress-project">
-                                        70%
-                                    </div>
-                                </div>                            
-                                <div class="keterangan-project">
-                                    <span class="nama-project">Project D</span>
-                                    <p class="tanggal-berakhir">Selesai 10/03/2021</p>
-                                </div>
-                                <div class="detail-icon">
-                                    <div class="glyph-icon simple-icon-arrow-right detail-proyek"></div>
-                                </div>
-                            </div>
-                            <div class="ml-4 overview-project">
-                                <div class="progress-project">
-                                    <div class="circle-progress-project">
-                                        70%
-                                    </div>
-                                </div>                            
-                                <div class="keterangan-project">
-                                    <span class="nama-project">Project E</span>
-                                    <p class="tanggal-berakhir">Selesai 10/03/2021</p>
-                                </div>
-                                <div class="detail-icon">
-                                    <div class="glyph-icon simple-icon-arrow-right detail-proyek"></div>
-                                </div>
-                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-lg-3">
+                            <span class="text-bold">13</span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-8 col-lg-8 col-xl-8">
-            <div class="row">
-                <div class="col-md-6 col-lg-6 col-xl-6">
-                    <div class="card card-dash">
-                        <h6 class="ml-4 mt-3 mb-0 judul-card">Beban Unpaid</h6>
-                        <div class="card-dash-body ml-3 mt-2">
-                            <h5 class="ml-2 mt-2" id="beban-unpaid">0</h5>
+        <div class="col-md-3 col-lg-3 col-xl-3">
+            <div class="card card-dash">
+                <div class="card-pendapatan">
+                    <h6 class="pt-4 pl-4 text-white">Pendapatan</h6>
+                    <h4 class="pt-1 pl-4 text-white">2.1 M</h4>
+                </div>
+                <div class="keterangan-card">
+                    <div class="row keterangan-container">
+                        <div class="col-md-8 col-sm-8 col-lg-8">
+                            <div class="keterangan">
+                                <div class="accepted"></div>
+                                <span class="pl-2">Diterima</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-lg-4">
+                            <span class="text-bold pr-2">1.9 M</span>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-6 col-xl-6">
-                    <div class="card card-dash">
-                        <h6 class="ml-4 mt-3 mb-0 judul-card">Proyek Aktif</h6>
-                        <div class="card-dash-body ml-3 mt-2">
-                            <h5 class="ml-2 mt-2" id="total-project">0</h5>
+                <div class="keterangan-card">
+                    <div class="row keterangan-container">
+                        <div class="col-md-8 col-sm-8 col-lg-8">
+                            <div class="keterangan">
+                                <div class="running"></div>
+                                <span class="pl-2">Piutang</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-lg-4">
+                            <span class="text-bold pr-2">298 jt</span>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row mt-3">
-                <div class="col-md-12 col-lg-12 col-xl-12">
-                    <div class="card card-dash">
-                        <h6 class="ml-4 mt-3 mb-0 judul-card">Proyek Jatuh Tempo</h6>
-                        <div class="card-dash-body ml-4 mt-2">
-                            <div id="pendapatan-dekstop"></div>
+        </div>
+        <div class="col-md-3 col-lg-3 col-xl-3">
+            <div class="card card-dash">
+                <div class="card-beban">
+                    <h6 class="pt-4 pl-4 text-white">Beban</h6>
+                    <h4 class="pt-1 pl-4 text-white">987 jt</h4>
+                </div>
+                <div class="keterangan-card">
+                    <div class="row keterangan-container">
+                        <div class="col-md-8 col-sm-8 col-lg-8">
+                            <div class="keterangan">
+                                <div class="accepted"></div>
+                                <span class="pl-2">Terbayar</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-lg-4">
+                            <span class="text-bold pr-2">728 jt</span>
                         </div>
                     </div>
                 </div>
+                <div class="keterangan-card">
+                    <div class="row keterangan-container">
+                        <div class="col-md-8 col-sm-8 col-lg-8">
+                            <div class="keterangan">
+                                <div class="running"></div>
+                                <span class="pl-2">Belum Terbayar</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-lg-4">
+                            <span class="text-bold pr-2">259 jt</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-lg-3 col-xl-3">
+            <div class="card card-dash">
+                <h6 class="pt-4 pl-4">Profit</h6>
+                <h1 class="pt-1 pl-4 text-bold profit-percentage">53%</h1>
+                <h5 class="pl-4 text-bold profit-amount">1.1 M</h5>
+                <p class="pl-4 text-secondary">Naik 6,2% vs tahun lalu</p>
             </div>
         </div>
     </div>
 </section>
+
+<section id="dekstop-baris-ke-2" class="dasboard-ke-2 col-dekstop pb-1" style="display: none;">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-lg-12">
+            <div class="card card-dash-default pt-4 pl-4 pr-2">
+                <h6 class="text-bold">Project Aktif</h6>
+                <table class="table table-borderless table-hover mt-1 ml--1" id="project-active">
+                    <thead>
+                        <tr>
+                            <th>Customer</th>
+                            <th>No Kontrak</th>
+                            <th>Kontrak Selesai</th>
+                            <th>Nilai Kontrak</th>
+                            <th>Anggaran</th>
+                            <th>Beban</th>
+                            <th>% Profit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>PT. Samudera Aplikasi Indonesia</td>
+                            <td>294/KD/ERIU</td>
+                            <td>11/08/21</td>
+                            <td>13.000.000</td>
+                            <td>12.000.000</td>
+                            <td>10.000.000</td>
+                            <td>23.0%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div id="detail">
+    <section id="dekstop-detail-baris-ke-1" class="dasboard-ke-1 col-dekstop pb-1">
+        <div class="row">
+            <div class="col-md-8 com-sm-8 col-lg-8">
+                <div class="card card-dash-detail-row-1">
+                    <h6 class="pl-4 pt-4 text-bold">PT Konsumen Proyek</h6>
+                    <p class="text-secondary pl-4 pr-4 pt-2">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4 col-lg-4">
+                <div class="card card-dash-detail-row-1">
+                    <h6 class="pl-4 pt-4 text-bold">Keuangan Proyek</h6>
+                    <div class="pl-4 pr-4 list-keuangan-proyek">
+                        <span>Nilai Project</span>
+                        <span id="project-amount">20.000.0000</span>
+                    </div>
+                    <div class="pl-4 pr-4 list-keuangan-proyek">
+                        <span>Tanggal Selesai</span>
+                        <span id="date-finish">05/06/2021</span>
+                    </div>
+                    <div class="pl-4 pr-4 list-keuangan-proyek">
+                        <span>Budget</span>
+                        <span id="budget">7.000.000</span>
+                    </div>
+                    <div class="pl-4 pr-4 list-keuangan-proyek">
+                        <span>Actual</span>
+                        <span id="actual">4.000.000</span>
+                    </div>
+                    <div class="pl-4 pr-4 list-keuangan-proyek">
+                        <span>Profit</span>
+                        <span id="profit">26.000.000</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="dekstop-detail-baris-ke-2" class="dasboard-ke-2 col-dekstop pb-1 mt-1">
+        <div class="row">
+            <div class="col-md-8 com-sm-8 col-lg-8">
+                <div class="card card-dash-detail-row-2 pt-4 pl-4 pr-2">
+                    <h6 class="text-bold">Pembayaran Supplier</h6>
+                    <table class="table table-borderless table-hover ml--1" id="table-supplier">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Tanggal</th>
+                                <th>No Doc</th>
+                                <th>Uraian Pekerjaan</th>
+                                <th>Supplier</th>
+                                <th>Jumlah</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4 col-lg-4">
+                <div class="card card-dash-detail-row-2 pt-4 pl-4 pr-2">
+                    <h6 class="text-bold">Detail Kegiatan</h6>
+                    <div class="list-kegiatan-container pt-1 pr-4">
+                        <span class="text-secondary">05/03/21</span>
+                        <div class="card-list-kegiatan pl-4 pt-3">
+                            <h6 class="text-white">12.000.000</h6>
+                            <p class="text-white">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                            </p>
+                        </div>
+                    </div>
+                    <div class="list-kegiatan-container pr-4">
+                        <span class="text-secondary">23/02/21</span>
+                        <div class="card-list-kegiatan pl-4 pt-3">
+                            <h6 class="text-white">10.000.000</h6>
+                            <p class="text-white">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                            </p>
+                        </div>
+                    </div>
+                    <div class="list-kegiatan-container pr-4">
+                        <span class="text-secondary">04/02/21</span>
+                        <div class="card-list-kegiatan pl-4 pt-3">
+                            <h6 class="text-white">1.000.000</h6>
+                            <p class="text-white">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="dekstop-detail-baris-ke-3" class="dasboard-ke-3 col-dekstop pb-1 mt-1">
+        <div class="row">
+            <div class="col-md-8 com-sm-8 col-lg-8">
+                <div class="card card-dash-default pt-4 pl-4 pr-2">
+                    <h6 class="text-bold">Pembayaran Customer</h6>
+                    <table class="table table-borderless table-hover ml--1" id="table-supplier">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Tanggal</th>
+                                <th>No Doc</th>
+                                <th>Uraian Pekerjaan</th>
+                                <th>Jumlah</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
 
 {{-- Modal Filter --}}
 <div class="modal fade modal-right" id="modalFilter" tabindex="-1" role="dialog"aria-labelledby="modalFilter" aria-hidden="true">
@@ -153,6 +301,10 @@
 
 <script src="{{ asset('helper.js') }}"></script>
 <script type="text/javascript">
+    $('#detail').hide();
+    $('#button-back').hide();
+    $('#dekstop-baris-ke-1').show()
+    $('#dekstop-baris-ke-2').show()
     var $initialPeriode = "{{ date('Y')}}-{{ date('m') }}"
     var $periodeText = ''
     var $periode = ''
@@ -187,8 +339,8 @@
             })
 
             if(filter.length > 0) {
-                $('#periode-text').text('Periode '+$initialPeriode)
-                $('#periode').val($initialPeriode)
+                // $('#periode-text').text('Periode '+$initialPeriode)
+                // $('#periode').val($initialPeriode)
                 getBebanUnpaid($initialPeriode)
                 getTotalProject($initialPeriode)
                 $periodeText = convertPeriode($initialPeriode)
@@ -197,38 +349,52 @@
                 $periodeText = convertPeriode(result.daftar[result.daftar.length-1].value)
                 $('#periode').val(result.daftar[result.daftar.length-1].value)
                 $('#periode-text').text('Periode '+result.daftar[result.daftar.length-1].text)
-                getBebanUnpaid(result.daftar[result.daftar.length-1].value)
-                getTotalProject(result.daftar[result.daftar.length-1].value)
+                // getBebanUnpaid(result.daftar[result.daftar.length-1].value)
+                // getTotalProject(result.daftar[result.daftar.length-1].value)
             }
             $('#periode-text').text('Periode '+$periodeText)
         }
     });
 
-    function getBebanUnpaid(periode) {
-        $.ajax({
-            type: 'GET',
-            url: "{{ url('java-dash/beban-unpaid') }}",
-            dataType: 'json',
-            data: { periode: periode },
-            async:false,
-            success:function(result){    
-                $('#beban-unpaid').text(format_number(result.data.data[0].beban_unpaid))
-            }
-        });
-    }
+    $('#project-active tbody tr').on('click', function(){
+        $('#dekstop-baris-ke-1').hide()
+        $('#dekstop-baris-ke-2').hide()
+        $('#detail').show()
+        $('#button-back').show();
+    })
 
-    function getTotalProject(periode) {
-        $.ajax({
-            type: 'GET',
-            url: "{{ url('java-dash/total-project') }}",
-            dataType: 'json',
-            data: { periode: periode },
-            async:false,
-            success:function(result){    
-                $('#total-project').text(format_number(result.data.data[0].jumlah))
-            }
-        });
-    }
+    $('#button-back').on('click', function() {
+        $('#detail').hide()
+        $('#button-back').hide();
+        $('#dekstop-baris-ke-1').show()
+        $('#dekstop-baris-ke-2').show()
+    })
+
+    // function getBebanUnpaid(periode) {
+    //     $.ajax({
+    //         type: 'GET',
+    //         url: "{{ url('java-dash/beban-unpaid') }}",
+    //         dataType: 'json',
+    //         data: { periode: periode },
+    //         async:false,
+    //         success:function(result){    
+    //             $('#beban-unpaid').text(format_number(result.data.data[0].beban_unpaid))
+    //         }
+    //     });
+    // }
+
+    // function getTotalProject(periode) {
+    //     $.ajax({
+    //         type: 'GET',
+    //         url: "{{ url('java-dash/total-project') }}",
+    //         dataType: 'json',
+    //         data: { periode: periode },
+    //         async:false,
+    //         success:function(result){    
+    //             $('#total-project').text(format_number(result.data.data[0].jumlah))
+    //         }
+    //     });
+    // }
 
     $('#form-filter #btn-tampil').on('click', function(){
         $periode = $('#periode').val()
@@ -243,164 +409,4 @@
         $('#periode').val($initialPeriode)
         $periode = $initialPeriode
     })
-// Highcharts.chart('pendapatan-dekstop', {
-//     chart: {
-//         plotBackgroundColor: null,
-//         plotBorderWidth: null,
-//         plotShadow: false,
-//         type: 'pie',
-//         height: 140
-
-//     },
-//     title: {
-//         text: ''
-//     },
-//     exporting:{ enabled: false },
-//     legend:{ enabled:false },
-//     credits: { enabled: false },
-//     title: { text: '' },
-//     subtitle: { text: '' },
-//     tooltip: {
-//         enabled: true
-//     },
-//     accessibility: {
-//         point: {
-//             valueSuffix: '%'
-//         }
-//     },
-//     plotOptions: {
-//         pie: {
-//             allowPointSelect: true,
-//             size: 130,
-//             cursor: 'pointer',
-//             dataLabels: {
-//                 enabled: false,
-//                 format: '<b>{point.name}</b>: {point.percentage:.1f} %'
-//             }
-//         }
-//     },
-//     series: [{
-//         name: 'Pendapatan',
-//         colorByPoint: true,
-//         data: [{
-//             name: 'A',
-//             y: 60
-//         }, {
-//             name: 'B',
-//             y: 40
-//         }]
-//     }]
-// });
-
-// Highcharts.chart('beban-dekstop', {
-//     chart: {
-//         plotBackgroundColor: null,
-//         plotBorderWidth: null,
-//         plotShadow: false,
-//         type: 'pie',
-//         height: 140
-
-//     },
-//     title: {
-//         text: ''
-//     },
-//     exporting:{ enabled: false },
-//     legend:{ enabled:false },
-//     credits: { enabled: false },
-//     title: { text: '' },
-//     subtitle: { text: '' },
-//     tooltip: {
-//         enabled: true
-//     },
-//     accessibility: {
-//         point: {
-//             valueSuffix: '%'
-//         }
-//     },
-//     plotOptions: {
-//         pie: {
-//             allowPointSelect: true,
-//             size: 130,
-//             cursor: 'pointer',
-//             dataLabels: {
-//                 enabled: false,
-//                 format: '<b>{point.name}</b>: {point.percentage:.1f} %'
-//             }
-//         }
-//     },
-//     series: [{
-//         name: 'Pendapatan',
-//         colorByPoint: true,
-//         data: [{
-//             name: 'A',
-//             y: 60
-//         },{
-//             name: 'B',
-//             y: 20
-//         },{
-//             name: 'C',
-//             y: 20
-//         },{
-//             name: 'D',
-//             y: 10
-//         }]
-//     }]
-// });
-
-// Highcharts.chart('laba-rugi-dekstop', {
-//     chart: { height: 170 },
-//     exporting:{ enabled: false },
-//     legend:{ enabled:false },
-//     credits: { enabled: false },
-//     title: { text: '' },
-//     subtitle: { text: '' },
-//     xAxis: {
-//         categories: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agt', 'Sep', 'Okt', 'Nov', 'Des'],
-//         labels: { enabled: false }
-//     },
-//     yAxis: [
-//         {
-//             linewidth: 1,
-//             title:{ text: '' }
-//         },
-//         {
-//             linewidth: 1,
-//             opposite: true,
-//             title:{ text: '' }
-//         },
-//     ],
-//     tooltip: {
-//         enabled: false
-//     },
-//     plotOptions: {
-//         series:{
-//             pointPadding: 0,
-//             shadow: false,
-//             dataLabels: {
-//                 enabled: false
-//             }
-//         }
-//     },
-//     series: [
-//         {
-//             type: 'column',
-//             name: 'Uang Masuk',
-//             data: [1000, 3000, 2500, 4000, 5000, 8000, 10000, 9000, 2000, 5500, 2500, 8000],
-//             color: '#0058E4'
-//         },
-//         {
-//             type: 'column',
-//             name: 'Uang Masuk',
-//             data: [2500, 4000, 3500, 6000, 7000, 4000, 7000, 5000, 6000, 7500, 4500, 7000],
-//             color: '#9FC4FF'
-//         },
-//         {
-//             type: 'spline',
-//             name: 'Saldo  KasBank',
-//             data: [50, 20, 30, 50, 20, 80, 40, 50, 80, 45, 65, 85],
-//             color: '#FFB703',
-//             yAxis: 1
-//         },
-//     ]
-// });
 </script>
