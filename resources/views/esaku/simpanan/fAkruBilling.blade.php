@@ -177,12 +177,22 @@
     }
 
 </style>
+
+<!-- LIST DATA -->
+<x-list-data judul="Data Akru Billing Simpanan" tambah="true"
+    :thead="array('No','No Bukti','Tanggal','Keterangan','Status','Total','Aksi')" :thwidth="array(5,10,25,10,10,10,10)"
+    :thclass="array('','','','','','','text-center')" />
+<!-- END LIST DATA -->
+
 <form id="form-tambah" class="tooltip-label-right" novalidate>
-    <div class="row" id="saku-form">
+    <div class="row" id="saku-form" style="display:none;">
         <div class="col-sm-12">
             <div class="card">
-                <div class="card-body form-header" style="padding-top:0.5rem;padding-bottom:0.5rem;min-height:48px">
-                    <h6 id="judul-form" style="position:absolute;top:13px">Pengakuan Tagihan</h6>
+                <div class="card-body form-header" style="padding-top:0.5rem;padding-bottom:0.5rem;min-height:48px;">
+                    <h6 id="judul-form" style="position:absolute;top:13px"></h6>
+                    <button type="button" id="btn-kembali" aria-label="Kembali" class="btn btn-back">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
                 <div class="separator mb-2"></div>
                 <div class="card-body pt-3 form-body">
@@ -272,9 +282,11 @@
 <!-- FORM INPUT  -->
 @include('modal_search')
 @include('modal_preview')
+<script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
 <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
 <script src="{{ asset('helper.js') }}"></script>
 <script>
+    setHeightForm();
     // state
     var $akun_piutang = [];
     var $akun_simpanan = [];
@@ -320,6 +332,204 @@
         return num;
     }
 
+    //LIST DATA
+    var action_html =
+        "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
+    var dataTable = generateTable(
+        "table-data",
+        "{{ url('esaku-trans/akru-simp') }}",
+        [{
+                'targets': 6,
+                data: null,
+                'defaultContent': action_html,
+                'className': 'text-center'
+            },
+            {
+                "targets": 0,
+                "createdCell": function(td, cellData, rowData, row, col) {
+                    if (rowData.status == "baru") {
+                        $(td).parents('tr').addClass('selected');
+                        $(td).addClass('last-add');
+                    }
+                }
+            },
+            {
+                'targets': 5,
+                'className': 'text-right',
+                'render': $.fn.dataTable.render.number('.', ',', 0, '')
+            },
+            {
+                "targets": [],
+                "visible": false,
+                "searchable": false
+            }
+        ],
+        [{
+                data: 'no'
+            },
+            {
+                data: 'no_bukti'
+            },
+            {
+                data: 'tgl'
+            },
+            {
+                data: 'keterangan'
+            },
+            {
+                data: 'status'
+            },
+            {
+                data: 'total'
+            }
+        ],
+        "{{ url('esaku-auth/sesi-habis') }}",
+        [
+            [6, "desc"]
+        ]
+    );
+
+    $.fn.DataTable.ext.pager.numbers_length = 5;
+
+    $("#searchData").on("keyup", function(event) {
+        dataTable.search($(this).val()).draw();
+    });
+
+    $("#page-count").on("change", function(event) {
+        var selText = $(this).val();
+        dataTable.page.len(parseInt(selText)).draw();
+    });
+
+    $('[data-toggle="popover"]').popover({
+        trigger: "focus"
+    });
+    // END LIST DATA
+
+    // BUTTON HAPUS DATA
+    function hapusData(id) {
+        $.ajax({
+            type: 'DELETE',
+            url: "{{ url('esaku-master/kartu-simpanan') }}/" + id,
+            dataType: 'json',
+            async: false,
+            success: function(result) {
+                if (result.data.status) {
+                    dataTable.ajax.reload();
+                    showNotification("top", "center", "success", 'Hapus Data',
+                        'Data Karu Simpanan (' + id +
+                        ') berhasil dihapus ');
+                    $('#modal-pesan-id').html('');
+                    $('#table-delete tbody').html('');
+                    $('#modal-pesan').modal('hide');
+                } else if (!result.data.status && result.data.message == "Unauthorized") {
+                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href>' + result.data.message + '</a>'
+                    });
+                }
+            }
+        });
+    }
+
+    $('#saku-datatable').on('click', '#btn-delete', function(e) {
+        var kode = $(this).closest('tr').find('td').eq(0).html();
+        msgDialog({
+            id: kode,
+            type: 'hapus'
+        });
+    });
+
+    // END BUTTON HAPUS
+
+    // BUTTON TAMBAH
+    $('#saku-datatable').on('click', '#btn-tambah', function() {
+        $('#row-id').hide();
+        $('#id_edit').val('');
+        $('#judul-form').html('Tambah Kartu Simpanan');
+        $('#btn-update').attr('id', 'btn-save');
+        $('#btn-save').attr('type', 'submit');
+        $('#form-tambah')[0].reset();
+        $('#form-tambah').validate().resetForm();
+        $('#method').val('post');
+        $('#kode_gudang').attr('readonly', false);
+        $('#saku-datatable').hide();
+        $('#saku-form').show();
+        $('.input-group-prepend').addClass('hidden');
+        $('span[class^=info-name]').addClass('hidden');
+        $('.info-icon-hapus').addClass('hidden');
+        $('[class*=inp-label-]').attr('style',
+            'border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important;border-left:1px solid #d7d7d7 !important'
+        );
+    });
+    // END BUTTON TAMBAH
+
+    // BUTTON KEMBALI
+    $('#saku-form').on('click', '#btn-kembali', function() {
+        var kode = null;
+        msgDialog({
+            id: kode,
+            type: 'keluar'
+        });
+    });
+
+    // BUTTON EDIT
+    function editData(id) {
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('esaku-master/kartu-simpanan') }}/" + id,
+            dataType: 'json',
+            async: false,
+            success: function(res) {
+                var result = res.data;
+                if (result.status) {
+                    $('#id_edit').val('edit');
+                    $('#method').val('put');
+                    $('#id').val(id);
+                    $('#no_simp').val(id);
+                    $('#no_agg').val(result.data[0].no_agg);
+                    $('#jenis_simpanan').val(result.data[0].kode_param);
+                    $('#status_bayar').val(result.data[0].status_bayar);
+                    $('#nilai').val(parseFloat(result.data[0].nilai));
+                    $('#p_bunga').val(parseFloat(result.data[0].p_bunga));
+                    $('#tgl_tagih').val(formatDate2(result.data[0].tgl_tagih));
+                    if (result.data[0].flag_aktif == 1) {
+                        $('#status-aktif').prop('checked', true)
+                        $('#aktif').show()
+                        $('#unaktif').hide()
+                    } else {
+                        $('#status-aktif').prop('checked', false)
+                        $('#aktif').hide()
+                        $('#unaktif').show()
+                    }
+                    $('#saku-datatable').hide();
+                    $('#modal-preview').modal('hide');
+                    $('#saku-form').show();
+                    showInfoField('no_agg', result.data[0].no_agg, result.data[0].nama_anggota);
+                    showInfoField('jenis_simpanan', result.data[0].kode_param, result.data[0]
+                        .jenis);
+                } else if (!result.status && result.message == 'Unauthorized') {
+                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                }
+                // $iconLoad.hide();
+            }
+        });
+    }
+    $('#saku-datatable').on('click', '#btn-edit', function() {
+        var id = $(this).closest('tr').find('td').eq(0).html();
+        // $iconLoad.show();
+        $('#form-tambah').validate().resetForm();
+
+        $('#btn-save').attr('type', 'button');
+        $('#btn-save').attr('id', 'btn-update');
+
+        $('#judul-form').html('Edit Data Kartu Simpanan');
+        editData(id);
+    });
+    // END BUTTON EDIT
 
     var tablejur = $("#table-jurnal").DataTable({
         destroy: true,
@@ -485,8 +695,6 @@
                 });
                 return false;
             }
-
-
             //append to Form Data
             $.each($data, function(i, val) {
                 formData.append('akun_piutang[]', $data[i].akun_piutang)

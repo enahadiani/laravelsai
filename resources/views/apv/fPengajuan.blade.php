@@ -327,7 +327,6 @@
             var sub = toNilai($(this).closest('tr').find('.inp-grand_total').val());
             var this_val = sub;
             total += +this_val;
-            console.log(sub);
             
             $('#total').val(sepNum(total));
         });
@@ -1286,8 +1285,8 @@
             // formData.append('nama_pp',pp);
             // formData.append('nama_kota',kota);
             for(var pair of formData.entries()) {
-                    console.log(pair[0]+ ', '+ pair[1]); 
-                }
+                console.log(pair[0]+ ', '+ pair[1]); 
+            }
 
             $.ajax({
                 type: 'POST',
@@ -1331,15 +1330,22 @@
                     alert('request failed:'+textStatus);
                 }, 
                 error: function(jqXHR, textStatus, errorThrown) {       
-                if(jqXHR.status==422){
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Something went wrong!',
-                        footer: '<a href>'+jqXHR.responseText+'</a>'
-                    })
+                    if(jqXHR.status==422){
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Something went wrong!',
+                            footer: '<a href>'+jqXHR.responseText+'</a>'
+                        })
+                    }else{
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Something went wrong!',
+                            footer: '<a href>'+jqXHR.responseText+'</a>'
+                        })
+                    }
                 }
-            }
             });   
             $iconLoad.hide();
         }     
