@@ -167,7 +167,7 @@
                                 <span class="logo-single"></span>
                             </a>
                             
-                            <form method="POST" action="{{ url('ts-auth/login') }}" id="form-login">
+                            <form method="POST" action="{{ url('mobile-ts/login') }}" id="form-login">
                                 @csrf
                                 @if(Session::has('alert'))
                                 <div class="alert alert-danger rounded" role="alert" style="border-radius: 0.5rem !important;">
