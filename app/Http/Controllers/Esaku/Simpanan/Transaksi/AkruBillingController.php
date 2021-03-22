@@ -181,6 +181,67 @@ class AkruBillingController extends Controller
 
     }
 
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request)
+    {
+        $this->validate($request, [
+            'tanggal' => 'required',
+            'deskripsi' => 'required',
+            'akun_piutang.*' => 'required',
+            'akun_simpanan.*' => 'required',
+            'nilai.*' => 'required',
+        ]);
+
+        try{
+            $detail = array();
+            if(isset($request->tanggal)){
+                $tanggal = $request->tanggal;
+                $deskripsi = $request->deskripsi;
+                $akun_piutang = $request->akun_piutang;
+                $akun_simpanan = $request->akun_simpanan;
+                $nilai = $request->nilai;
+            }
+
+             $fields =
+                  array (
+                      'no_bukti' => $request->no_bukti,
+                    'tanggal' => $tanggal,
+                    'keterangan' => $deskripsi,
+                    'akun_piutang'  =>  $akun_piutang,
+                    'akun_simpanan'  =>  $akun_simpanan,
+                    'nilai'  =>  $nilai,
+                );
+
+            $client = new Client();
+            $response = $client->request('PUT',  config('api.url').'esaku-trans/akru-simp',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Content-Type'     => 'application/json'
+                ],
+                'body' => json_encode($fields)
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+
+                $data = json_decode($response_data,true);
+                return response()->json(["data" =>$data,"body" => $fields], 200);
+            }
+        } catch (\Exception $ex) {
+
+            $result['message'] =$ex->getMessage();
+            $result['rows'] = $request->akun_piutang;
+            // $result['status']=false;
+            return response()->json(["data" => $result], 500);
+        }
+
+    }
+
     // /**
     //  * Display the specified resource.
     //  *
@@ -211,7 +272,7 @@ class AkruBillingController extends Controller
                     for($i=0;$i<count($data["data"]);$i++){
                         $results["data"][$i]["no"] = $no++;
                         $results["data"][$i]["nama_simp"] = $data["data"][$i]["nama_simp"];
-                        $results["data"][$i]["akun_simpanan"] = $data["data"][$i]["akun_titip"].'-'.$data["data"][$i]["nama_asimp"];
+                        $results["data"][$i]["akun_titip"] = $data["data"][$i]["akun_titip"].'-'.$data["data"][$i]["nama_asimp"];
                         $results["data"][$i]["akun_piutang"] = $data["data"][$i]["akun_piutang"].'-'.$data["data"][$i]["nama_ar"];
                         $results["data"][$i]["total"] = $data["data"][$i]["total"];
                         $total += $data["data"][$i]["total"];
