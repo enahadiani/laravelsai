@@ -208,3 +208,7 @@ Route::get('akru-simp-jurnal/{tanggal}','Esaku\Simpanan\Transaksi\AkruBillingCon
 Route::post('akru-simp-jurnal','Esaku\Simpanan\Transaksi\AkruBillingController@store');
 Route::post('update-akru-simp-jurnal','Esaku\Simpanan\Transaksi\AkruBillingController@update');
 Route::delete('akru-simp/{no_bukti}','Esaku\Simpanan\Transaksi\AkruBillingController@destroy');
+
+
+/*transaksi reverse akru simpanan*/
+Route::get('reverse-akru-simp','Esaku\Simpanan\Transaksi\ReverseController@index');
