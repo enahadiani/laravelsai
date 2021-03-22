@@ -180,8 +180,8 @@
 
 <!-- LIST DATA -->
 <x-list-data judul="Data Akru Billing Simpanan" tambah="true"
-    :thead="array('No','No Bukti','Tanggal','Keterangan','Status','Total','Created at','Aksi')"
-    :thwidth="array(5,10,25,10,10,10,10,10)" :thclass="array('','','','','','','','text-center')" />
+    :thead="array('No','No Bukti','Tanggal','Keterangan','Status','Total','Aksi')" :thwidth="array(5,10,25,10,10,10,10)"
+    :thclass="array('','','','','','','text-center')" />
 <!-- END LIST DATA -->
 
 <form id="form-tambah" class="tooltip-label-right" novalidate>
@@ -282,6 +282,7 @@
 <!-- FORM INPUT  -->
 @include('modal_search')
 @include('modal_preview')
+<script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
 <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
 <script src="{{ asset('helper.js') }}"></script>
 <script>
@@ -338,7 +339,7 @@
         "table-data",
         "{{ url('esaku-trans/akru-simp') }}",
         [{
-                'targets': 7,
+                'targets': 6,
                 data: null,
                 'defaultContent': action_html,
                 'className': 'text-center'
@@ -380,9 +381,6 @@
             },
             {
                 data: 'total'
-            },
-            {
-                data: 'tgl_input'
             }
         ],
         "{{ url('esaku-auth/sesi-habis') }}",
@@ -417,7 +415,8 @@
             success: function(result) {
                 if (result.data.status) {
                     dataTable.ajax.reload();
-                    showNotification("top", "center", "success", 'Hapus Data', 'Data Karu Simpanan (' + id +
+                    showNotification("top", "center", "success", 'Hapus Data',
+                        'Data Karu Simpanan (' + id +
                         ') berhasil dihapus ');
                     $('#modal-pesan-id').html('');
                     $('#table-delete tbody').html('');
@@ -510,7 +509,8 @@
                     $('#modal-preview').modal('hide');
                     $('#saku-form').show();
                     showInfoField('no_agg', result.data[0].no_agg, result.data[0].nama_anggota);
-                    showInfoField('jenis_simpanan', result.data[0].kode_param, result.data[0].jenis);
+                    showInfoField('jenis_simpanan', result.data[0].kode_param, result.data[0]
+                        .jenis);
                 } else if (!result.status && result.message == 'Unauthorized') {
                     window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
                 }
