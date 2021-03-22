@@ -1,7 +1,7 @@
 <style>
     .bg-blue{
         background:#4361EE;
-        height:15vh;
+        height:100px;
         border-bottom-left-radius:25px;
         border-bottom-right-radius:25px;
     }
