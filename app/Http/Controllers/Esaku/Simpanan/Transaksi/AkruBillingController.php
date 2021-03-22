@@ -209,6 +209,7 @@ class AkruBillingController extends Controller
 
              $fields =
                   array (
+                      'no_bukti' => $request->no_bukti,
                     'tanggal' => $tanggal,
                     'keterangan' => $deskripsi,
                     'akun_piutang'  =>  $akun_piutang,

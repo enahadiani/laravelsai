@@ -200,6 +200,7 @@
                     <div class="form-group row" id="row-id" hidden>
                         <div class="col-9">
                             <input class="form-control" type="text" id="id" name="id" readonly hidden>
+                            <input class="form-control" type="text" id="id_edit" name="id_edit" readonly hidden>
                         </div>
                     </div>
                     <div class="form-row">
@@ -504,7 +505,7 @@
 
                 if (result.status) {
                     console.log(result.detail)
-                    $('#id').val('edit');
+                    $('#id_edit').val('edit');
                     $('#method').val('post');
                     $('#no_bukti').val(id);
                     $('#tanggal').val(result.data[0].tanggal, '-', '/');
@@ -718,7 +719,7 @@
         submitHandler: function(form) {
             var param = $('#id_edit').val();
             if (param == "edit") {
-                var url = "{{ url('/esaku-trans/update-akru-simp-jurnal') }}/" + id;
+                var url = "{{ url('/esaku-trans/update-akru-simp-jurnal') }}";
             } else {
                 var url = "{{ url('esaku-trans/akru-simp-jurnal') }}";
             }
@@ -775,6 +776,7 @@
                         tablejur.clear().draw();
                         $('#form-tambah #loadData').click();
                         $('#error_space').text('');
+                        dataTable.ajax.reload();
                         console.log(data);
                     } else if (!result.data.status && result.data.message ===
                         "Unauthorized") {
