@@ -118,9 +118,15 @@
         </div>
     </div>
 </div>
+<button id="trigger-bottom-sheet" style="display:none">Bottom ?</button>
 <script>
     $('#logo-matpel').attr("src", "{{ asset('img/mobile-tarbak/icon-matpel')}}/"+$kode_matpel+".png");
 
+    var bottomSheet = new BottomSheet("country-selector");
+    document.getElementById("trigger-bottom-sheet").addEventListener("click", bottomSheet.activate);
+    window.bottomSheet = bottomSheet;
+
+    $('.c-bottom-sheet__sheet').css({ "width":"100%","margin-left": "0%", "margin-right":"0%"});
     function getDetail(kode_sem){
         $.ajax({
             type: "GET",
@@ -157,7 +163,7 @@
                                             var color = "#E63946";
                                         }
                                         det+=`
-                                        <div class="card mb-3" style="box-shadow:none">
+                                        <div class="card mb-3 preview-detail" style="box-shadow:none;cursor:pointer" data-kode_kd='`+line.kode_kd+`' data-nama_kd='`+line.nama_kd+`' data-nilai='`+parseInt(line2.nilai)+`' data-pelaksanaan='`+line2.pelaksanaan+`' data-keterangan='`+line2.keterangan+`' data-semester='`+line2.semester+`' data-tgl='`+line2.tgl+`'>
                                         <div class="card-body bg-grey p-3" style="border-radius:0.75rem">
                                         <p class="bold mb-0" style="font-size:0.75rem !important">`+line2.pelaksanaan+`</p>
                                         <p class="text-right" style="color:`+color+`;font-size:0.75rem !important;margin-bottom:5px">`+parseInt(line2.nilai)+`/100</p>
@@ -175,11 +181,11 @@
                                 content+=det+`
                                 </div>`;
                             if(i+1 == result.data_kompetensi.length){
-                                html +=`<div class="row" style="margin-bottom:100px">
+                                html +=`<div class="row kompetensi" style="margin-bottom:100px">
                                 `+content+`
                                 </div>`;
                             }else{
-                                html +=`<div class="row">
+                                html +=`<div class="row kompetensi">
                                 `+content+`
                                 </div>`;
                             }
@@ -196,6 +202,41 @@
                     }
                 }
                 $('.matpel').html(html);
+                $('.kompetensi').on('click', '.preview-detail', function(e){
+                    e.preventDefault();
+                    $('#bottom-sheet-close').hide();
+                    $('#content-bottom-sheet').html('');
+                    var kode_kd = $(this).data('kode_kd');
+                    var nama_kd = $(this).data('nama_kd');
+                    var pelaksanaan = $(this).data('pelaksanaan');
+                    var nilai = $(this).data('nilai');
+                    var keterangan = $(this).data('keterangan');
+                    var semester = $(this).data('semester');
+                    var tgl = $(this).data('tgl');
+                    var html = `
+                    <div class="row kompetensi p-3">
+                        <div class="col-12">
+                            <p class="bold">Kompetensi Dasar `+kode_kd+`</p>
+                            <p>`+nama_kd+`</p>
+                            <div class="card mb-3 preview-detail" style="box-shadow:none;cursor:pointer">
+                                <div class="card-body bg-grey p-3" style="border-radius:0.75rem">
+                                    <p class="bold mb-0" style="font-size:0.75rem !important">`+pelaksanaan+`</p>
+                                    <p class="text-right" style="color:#4361EE;font-size:0.75rem !important;margin-bottom:5px">`+nilai+`/100</p>
+                                    <div class="progress mb-2">
+                                        <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: `+nilai+`%;background:#4361EE !important"></div>
+                                    </div>
+                                    <p style="font-size:0.75rem !important;margin-bottom:10px">`+keterangan+`</p>
+                                    <p class="mb-0">
+                                        <span style="font-size:0.75rem !important;color:#d7d7d7">`+semester+` * `+tgl+`</span><span class="text-right float-right" style="font-size:0.75rem !important;color:#4361EE;">Selengkapnya</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    `;
+                    $('#content-bottom-sheet').html(html);
+                    $('#trigger-bottom-sheet').trigger("click");
+                })
             },
             error: function(jqXHR, textStatus, errorThrown) {       
                 if(jqXHR.status == 422){
