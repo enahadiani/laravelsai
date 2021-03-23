@@ -28,7 +28,7 @@
                     <input type="hidden" placeholder="Deskripsi Akun" class="form-control" id="deskripsi_akun" name="deskripsi_akun" readonly>
                     <input type="hidden" placeholder="Persentase" class="form-control currency" id="persen" name="persen" value="0" readonly>
                     <input type="hidden" class="cbbl form-control inp-label-kode_pp1" id="kode_pp1" name="kode_pp1" value="-" title="" readonly>
-                    <input type="text" class="cbbl form-control inp-label-kode_pp2" id="kode_pp2" name="kode_pp2" value="-" title="" readonly>
+                    <input type="hidden" class="cbbl form-control inp-label-kode_pp2" id="kode_pp2" name="kode_pp2" value="-" title="" readonly>
 
                     <div class="form-row">
                         <div class="form-group col-md-3 col-sm-12">
