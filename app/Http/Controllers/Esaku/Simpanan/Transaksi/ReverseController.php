@@ -129,6 +129,41 @@ class ReverseController extends Controller
         }
 
     }
+    /**
+     * show data by no agg.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function loadData(Request $request)
+    {
+        try{
+            $no_kartu = $request->no_kartu;
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'esaku-trans/reverse-akru-simp-listakru?no_simp='.$no_kartu,[
+                'headers' => [
+                    'Authorization'     => 'Bearer '.Session::get('token'),
+                    'Accept'            => 'application/json',
+                    'Content-Type'      => 'application/json'
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+
+                $data = json_decode($response_data,true);
+                $data = $data;
+            }
+            return response()->json(['daftar' => $data['data'], 'status' => true], 200);
+        }catch(BadResponseException $ex){
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $result['message'] = $res["message"];
+            $result['status']=false;
+            return response()->json(["data" => $result], 200);
+        }
+
+    }
 
     /**
      * Store a newly created resource in storage.

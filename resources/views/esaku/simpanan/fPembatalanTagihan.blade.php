@@ -282,10 +282,9 @@
                                 <table id="table-jurnal" width="100%">
                                     <thead>
                                         <tr>
-                                            <th width="5%">No</th>
-                                            <th width="5%">Pembatalan</th>
+                                            <th width="1%">Pembatalan</th>
                                             <th width="10%">Jenis</th>
-                                            <th width="10%">No Bukti</th>
+                                            <th width="20%">No Bukti</th>
                                             <th width="20%">Keterangan</th>
                                             <th width="10%">Periode</th>
                                             <th width="10%">Akun Simpanan</th>
@@ -536,14 +535,20 @@
         sDom: 't<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
         data: [],
         columnDefs: [{
-            "targets": 1,
-            "searchable": false,
-            "orderable": false,
-            "className": 'selectall-checkbox',
-            'render': function(data, type, full, meta) {
-                return '<input type="checkbox" name="checked[]">';
+                "targets": 0,
+                "searchable": false,
+                "orderable": false,
+                "className": 'selectall-checkbox',
+                'render': function(data, type, full, meta) {
+                    return '<input type="checkbox" name="checked[]">';
+                }
+            },
+            {
+                'targets': [7, 8],
+                'className': 'text-right',
+                'render': $.fn.dataTable.render.number('.', ',', 0, '')
             }
-        }],
+        ],
         select: {
             style: 'multi',
             selector: 'td:first-child'
@@ -551,33 +556,30 @@
         columns: [{
                 data: 'checkbox'
             },
-            {
-                data: 'checkbox'
-            },
             // { data: 'status' },
             {
-                data: 'no_bukti'
+                data: 'jenis'
             },
             {
-                data: 'no_dokumen'
+                data: 'no_bill'
             },
             {
-                data: 'tanggal'
+                data: 'ket'
             },
             {
-                data: 'keterangan'
+                data: 'periode'
             },
             {
-                data: 'form'
+                data: 'akun_titip'
             },
             {
-                data: 'form'
+                data: 'akun_piutang'
             },
             {
-                data: 'form'
+                data: 'nilai'
             },
             {
-                data: 'form'
+                data: 'bayar'
             }
         ],
         order: [],
@@ -670,18 +672,15 @@
             tablejur.clear().draw();
             return false;
         }
-        $.each($modul, function(i, val) {
-            formData.append('modul[]', $modul[i]);
-            formData.append('per1[]', $per1[i]);
-            formData.append('per2[]', $per2[i]);
-        });
+        formData.append('no_kartu', no_kartu);
+
         // for(var pair of formData.entries()) {
         //     console.log(pair[0]+ ', '+ pair[1]);
         // }
 
         $.ajax({
             type: 'POST',
-            url: "{{ url('esaku-trans/unposting-jurnal') }}",
+            url: "{{ url('esaku-trans/load-reverse-akru') }}",
             dataType: 'json',
             data: formData,
             async: false,
@@ -689,10 +688,12 @@
             cache: false,
             processData: false,
             success: function(result) {
+                console.log(result.daftar)
                 tablejur.clear().draw();
-                if (result.data.status) {
-                    if (typeof result.data.data !== 'undefined' && result.data.data.length > 0) {
-                        tablejur.rows.add(result.data.data).draw(false);
+                var res = result.daftar
+                if (result.status) {
+                    if (typeof res !== 'undefined' && res.length > 0) {
+                        tablejur.rows.add(res).draw(false);
                         activaTab("trans");
                     }
                 }
