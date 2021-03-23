@@ -68,7 +68,7 @@
                 <p class="text-muted text-small mb-1">Tanggal Lahir</p>
                 <p class="list-item-heading truncate" id="tanggal_lahir"></p>
                 <p class="text-muted text-small mb-1">Jenis Kelamin</p>
-                <p class="list-item-heading truncate" id="jenis_kelamin"></p>
+                <p class="list-item-heading truncate" id="jk"></p>
                 <p class="text-muted text-small mb-1">Email</p>
                 <p class="list-item-heading truncate" id="email"></p>
             </div>
@@ -249,11 +249,11 @@
                     <div class="form-group mb-3">
                         <label>Jenis Kelamin</label>
                         <div class="custom-control custom-radio">
-                            <input type="radio" id="inp_laki_laki" value="L" name="customRadio" class="custom-control-input">
+                            <input type="radio" id="inp_laki_laki" value="L" name="inp_jk" class="custom-control-input">
                             <label class="custom-control-label" for="inp_laki_laki">Laki-Laki</label>
                         </div>
                         <div class="custom-control custom-radio">
-                            <input type="radio" id="inp_perempuan" value="P" name="customRadio" class="custom-control-input">
+                            <input type="radio" id="inp_perempuan" value="P" name="inp_jk" class="custom-control-input">
                             <label class="custom-control-label" for="inp_perempuan">Perempuan</label>
                         </div>
                     </div>
