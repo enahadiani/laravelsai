@@ -68,7 +68,7 @@
         {
             try {
                 $client = new Client();
-                $response = $client->request('POST',  config('api.url').'sekolah/login',[
+                $response = $client->request('POST',  config('api.url').'mobile-sekolah/login-siswa',[
                     'form_params' => [
                         'nik' => $request->input('nik'),
                         'password' => $request->input('password')
@@ -80,7 +80,7 @@
                     if($data["message"] == "success"){
                         Session::put('token',$data["token"]);
                         Session::put('login',TRUE);
-                        $response2 = $client->request('GET',  config('api.url').'sekolah/profile',[
+                        $response2 = $client->request('GET',  config('api.url').'mobile-sekolah/profile-siswa',[
                             'headers' => [
                                 'Authorization' => 'Bearer '.$data["token"],
                                 'Accept'     => 'application/json',
