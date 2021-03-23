@@ -207,10 +207,7 @@
                             <div class="row">
                                 <div class="col-md-3 col-12">
                                     <label for="tanggal">Tanggal</label>
-                                    <input class='form-control datepicker' type="text" id="tanggal" name="tanggal"
-                                        value="{{ date('d/m/Y') }}">
-                                    <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;"
-                                        class="simple-icon-calendar date-search"></i>
+                                    <input class='form-control' type="date" id="tanggal" name="tanggal">
                                 </div>
                                 <div class="col-md-3 col-12">
                                     <label for="anggota">Anggota</label>
@@ -865,7 +862,7 @@
         errorElement: "label",
         submitHandler: function(form) {
             var parameter = $('#id_edit').val();
-            var url = "{{ url('esaku-trans/unposting') }}";
+            var url = "{{ url('esaku-trans/reverse-akru-simp') }}";
 
             var formData = new FormData(form);
             var data = [];
@@ -879,11 +876,16 @@
                 });
                 return false;
             }
-            $.each(selected, function(i, val) {
-                formData.append('no_bukti[]', selected[i].no_bukti)
-                formData.append('form[]', selected[i].form)
-            });
 
+            $.each(selected, function(i, val) {
+                formData.append('akun_piutang[]', selected[i].akun_piutang)
+                formData.append('akun_simpanan[]', selected[i].akun_titip)
+                formData.append('no_akru[]', selected[i].no_bill)
+                formData.append('no_kartu[]', selected[i].no_simp)
+                formData.append('nilai[]', parseFloat(selected[i].nilai))
+                formData.append('angsuran[]', parseFloat(selected[i].bayar))
+            });
+            console.log(formData)
             for (var pair of formData.entries()) {
                 console.log(pair[0] + ', ' + pair[1]);
             }
@@ -897,15 +899,20 @@
                 cache: false,
                 processData: false,
                 success: function(result) {
-                    if (result.data.status) {
+                    console.log(result.data)
+                    if (result.data) {
                         msgDialog({
                             id: result.data.no_bukti,
                             type: 'sukses',
                             text: result.data.message
                         });
                         activaTab("trans");
-                        $('#form-tambah #loadData').click();
-                        $('#error_space').text('');
+                        $('#form-tambah')[0].reset();
+
+                        tablejur.clear().draw();
+                        // $('#form-tambah #loadData').click();
+                        // $('#error_space').text('');
+                        dataTable.ajax.reload();
                     } else if (!result.data.status && result.data.message === "Unauthorized") {
 
                         window.location.href = "{{ url('/esaku-auth/sesi-habis') }}";
