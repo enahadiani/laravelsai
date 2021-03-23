@@ -69,7 +69,7 @@
                 <p class="mb-0" id="nama_ta"></p>
             </div>
         </div>
-        <div class="row mt-5 mx-auto ">
+        <div class="row mt-3 mx-auto ">
             <div class="col-12 p-0">
                 <div class="card box-bottom">
                     <div class="card-body">
@@ -116,6 +116,7 @@
                         $('#nama_matpel').html(result.data_guru[0].nama_matpel);
                     }
                     if(result.data_kompetensi.length > 0){
+                        result.data_kompetensi.reverse()
                         for(var i=0; i < result.data_kompetensi.length; i++){
                             var line = result.data_kompetensi[i];
                             var content = `<div class="col-12">
