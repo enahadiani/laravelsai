@@ -31,8 +31,14 @@
         width: 80px;
     }
 
-    .nav-custom > .nav-link.active::before {
+    .nav-custom .nav-link.active::before {
+        content: unset !important;
         background: unset !important;
+        color: #fff !important;
+        border-radius: unset !important;
+        position: unset !important;
+        transform: unset !important;
+        top: unset !important;
     }
     .nav-custom .nav-link.disabled {
         color: black !important;
@@ -65,7 +71,7 @@
             <div class="col-4 text-center mx-auto my-auto"><img src="" alt="" id="logo-matpel"></div>
             <div class="col-8 deskripsi-matpel">
                 <h6 id="nama_matpel"></h6>
-                <p class="mb-0" id="nama_guru"></p>
+                <p class="mb-2" id="nama_guru"></p>
                 <p class="mb-0" id="nama_ta"></p>
             </div>
         </div>
@@ -79,7 +85,7 @@
                             <li class="nav-item"> <a class="nav-link" data-toggle="tab" data-href="1"  href="#data-ganjil" role="tab" aria-selected="true"><span class="hidden-xs-down">Ganjil</span></a> </li>
                             <li class="nav-item"> <a class="nav-link" data-toggle="tab" data-href="2" href="#data-genap" role="tab" aria-selected="true"><span class="hidden-xs-down">Genap</span></a> </li>
                         </ul>
-                        <div class="tab-content tabcontent-border col-12 p-0">
+                        <div class="tab-content tabcontent-border col-12 p-0" style="height: calc(100vh - 250px);overflow-x:hidden;overflow-y:scroll">
                             <div class="tab-pane active" id="data-semua" role="tabpanel">
                             </div>
                             <div class="tab-pane" id="data-ganjil" role="tabpanel">
