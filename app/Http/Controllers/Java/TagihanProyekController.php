@@ -73,9 +73,9 @@ class TagihanProyekController extends Controller {
 
         try {
             if($request->hasfile('file')) {
-                $name = array('no_proyek','tanggal','keterangan','nilai','pajak','uang_muka','kode_cust','file');
+                $name = array('no_proyek','tanggal','keterangan','nilai','pajak','uang_muka','kode_cust','biaya_lain','file');
             } else {
-                $name = array('no_proyek','tanggal','keterangan','nilai','pajak','uang_muka','kode_cust');
+                $name = array('no_proyek','tanggal','keterangan','nilai','pajak','uang_muka','kode_cust','biaya_lain');
             }
 
             $req = $request->all();
@@ -116,6 +116,11 @@ class TagihanProyekController extends Controller {
                         'name'     => $name[$i],
                         'contents' => $this->convertDate($request->input('tanggal'))
                     );
+                } elseif($name[$i] == 'biaya_lain') {
+                    $fields_data[$i] = array(
+                        'name'     => $name[$i],
+                        'contents' => 0
+                    );
                 } else {
                     $fields_data[$i] = array(
                         'name'     => $name[$i],
@@ -142,10 +147,10 @@ class TagihanProyekController extends Controller {
                             'name'     => 'harga[]',
                             'contents' => $this->joinNum($request->harga[$i]),
                         );
-                        $fields = array_merge($fields,$no);
-                        $fields = array_merge($fields,$item);
-                        $fields = array_merge($fields,$harga);
                     }
+                    $fields = array_merge($fields,$no);
+                    $fields = array_merge($fields,$item);
+                    $fields = array_merge($fields,$harga);
                 }
             }
 
@@ -228,9 +233,9 @@ class TagihanProyekController extends Controller {
 
         try {
              if($request->hasfile('file')) {
-                $name = array('no_proyek','tanggal','keterangan','nilai','pajak','uang_muka','kode_cust','file');
+                $name = array('no_tagihan','no_proyek','tanggal','keterangan','nilai','pajak','uang_muka','kode_cust','biaya_lain','file');
             } else {
-                $name = array('no_proyek','tanggal','keterangan','nilai','pajak','uang_muka','kode_cust');
+                $name = array('no_tagihan','no_proyek','tanggal','keterangan','nilai','pajak','uang_muka','kode_cust','biaya_lain');
             }
 
             $req = $request->all();
@@ -271,6 +276,11 @@ class TagihanProyekController extends Controller {
                         'name'     => $name[$i],
                         'contents' => $this->convertDate($request->input('tanggal'))
                     );
+                } elseif($name[$i] == 'biaya_lain') {
+                    $fields_data[$i] = array(
+                        'name'     => $name[$i],
+                        'contents' => 0
+                    );
                 } else {
                     $fields_data[$i] = array(
                         'name'     => $name[$i],
@@ -297,10 +307,10 @@ class TagihanProyekController extends Controller {
                             'name'     => 'harga[]',
                             'contents' => $this->joinNum($request->harga[$i]),
                         );
-                        $fields = array_merge($fields,$no);
-                        $fields = array_merge($fields,$item);
-                        $fields = array_merge($fields,$harga);
                     }
+                    $fields = array_merge($fields,$no);
+                    $fields = array_merge($fields,$item);
+                    $fields = array_merge($fields,$harga);
                 }
             }
 

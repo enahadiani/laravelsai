@@ -242,9 +242,9 @@ class PembayaranProyekController extends Controller {
 
         try {
             if($request->hasfile('file')) {
-                $name = array('kode_cust','tanggal','keterangan','nilai','biaya_lain','kode_bank','jenis','file');
+                $name = array('no_bayar','kode_cust','tanggal','keterangan','nilai','biaya_lain','kode_bank','jenis','file');
             } else {
-                $name = array('kode_cust','tanggal','keterangan','nilai','biaya_lain','kode_bank','jenis');
+                $name = array('no_bayar','kode_cust','tanggal','keterangan','nilai','biaya_lain','kode_bank','jenis');
             }
 
             $req = $request->all();
@@ -320,7 +320,7 @@ class PembayaranProyekController extends Controller {
             $fields = array_merge($fields,$nilai_bayar);
 
             $client = new Client();
-            $response = $client->request('PUT',  config('api.url').'java-trans/bayar-proyek-ubah',[
+            $response = $client->request('POST',  config('api.url').'java-trans/bayar-proyek-ubah',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
