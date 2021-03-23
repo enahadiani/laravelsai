@@ -152,7 +152,7 @@
                 $tgl_lahir = result.user[0].tgl_lahir;
                 $email = result.user[0].email;
                 if(result.user[0].foto != "-" && result.user[0].foto != ""){
-                    var url = "{{ config('api.url') }}.sekolah/storage/"+result.user[0].foto;
+                    var url = "{{ config('api.url') }}sekolah/storage/"+result.user[0].foto;
                 }else{
                     var url = "{{ asset('asset_elite/images/user.png') }}";
                 }
