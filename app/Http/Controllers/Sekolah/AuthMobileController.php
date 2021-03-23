@@ -397,6 +397,31 @@
                 return response()->json(['message' => $res, 'status'=>false], 200);
             }
         }
+
+        public function getMatpelDetail(Request $request){
+            try {
+                $client = new Client();
+                $response = $client->request('GET',  config('api.url').'mobile-sekolah/mata-pelajaran-detail',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => $request->all()
+                ]);
+    
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $data = json_decode($response_data,true);
+                }
+                return response()->json($data["success"], 200); 
+    
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                return response()->json(['message' => $res, 'status'=>false], 200);
+            }
+        }
     
         public function updatePassword(Request $request){
             $this->validate($request,[
