@@ -61,6 +61,25 @@
     .progress-bar{
         background:  #4361EE !important;
     }
+    html {
+    --scrollbarBG: #fff0;
+    --thumbBG: #fff0;
+    }
+    .tab-content::-webkit-scrollbar {
+    width: 11px;
+    }
+    .tab-content {
+    scrollbar-width: thin;
+    scrollbar-color: var(--thumbBG) var(--scrollbarBG);
+    }
+    .tab-content::-webkit-scrollbar-track {
+    background: var(--scrollbarBG);
+    }
+    .tab-content::-webkit-scrollbar-thumb {
+    background-color: var(--thumbBG) ;
+    border-radius: 6px;
+    border: 3px solid var(--scrollbarBG);
+    }
 </style>
 <div class="row">
     <div class="col-12 bg-grey p-0">
