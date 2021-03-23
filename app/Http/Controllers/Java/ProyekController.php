@@ -138,7 +138,7 @@ class ProyekController extends Controller
             if($request->hasfile('file')) {
                 $name = array('tanggal_mulai','kode_cust','nilai','ppn','no_proyek','no_kontrak','status_ppn','keterangan','tanggal_selesai','status','periode','file');
             } else {
-                $name = array('tanggal_mulai','kode_cust','nilai','ppn','no_proyek','no_kontrak','status_ppn','keterangan','tanggal_selesai','status');
+                $name = array('tanggal_mulai','kode_cust','nilai','ppn','no_proyek','no_kontrak','status_ppn','keterangan','tanggal_selesai','status', 'periode');
             } 
             $req = $request->all();
             $fields = array();
@@ -266,7 +266,7 @@ class ProyekController extends Controller
             if($request->hasfile('file')) {
                 $name = array('no_proyek','tanggal_mulai','kode_cust','nilai','ppn','no_proyek','no_kontrak','status_ppn','keterangan','tanggal_selesai','status','periode','file');
             } else {
-                $name = array('no_proyek','tanggal_mulai','kode_cust','nilai','ppn','no_proyek','no_kontrak','status_ppn','keterangan','tanggal_selesai','status');
+                $name = array('no_proyek','tanggal_mulai','kode_cust','nilai','ppn','no_proyek','no_kontrak','status_ppn','keterangan','tanggal_selesai','status','periode');
             } 
             $req = $request->all();
             $fields = array();
