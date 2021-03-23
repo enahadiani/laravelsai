@@ -331,6 +331,7 @@
                 bottom: 0;
                 width: 100%;
                 box-shadow:0 -1pt 1pt 0 #80808029;
+                z-index:10;
             }
 
             /* Style the links inside the navigation bar */
@@ -370,34 +371,38 @@
                 background: #4361EE !important;
             }
 
+            a.active > p{
+                color: #4361EE !important;
+            }
+
             .icon-pelajaran{
                 background: #505050;
                 -webkit-mask-image: url("{{ url('img/mobile-tarbak/Pelajaran.svg') }}");
                 mask-image: url("{{ url('img/mobile-tarbak/Pelajaran.svg') }}");
-                width: 20pt;
-                height: 20pt;
+                width: 21pt;
+                height: 16pt;
             }
             .icon-pesan{
                 background: #505050;
                 -webkit-mask-image: url("{{ url('img/mobile-tarbak/PesanOff.svg') }}");
                 mask-image: url("{{ url('img/mobile-tarbak/PesanOff.svg') }}");
-                width: 20pt;
-                height: 20pt;
+                width: 18pt;
+                height: 18pt;
             }
             .icon-user{
                 background: #505050;
                 -webkit-mask-image: url("{{ url('img/mobile-tarbak/AkunOff.svg') }}");
                 mask-image: url("{{ url('img/mobile-tarbak/AkunOff.svg') }}");
-                width: 16pt;
-                height: 20pt;
+                width: 15pt;
+                height: 18pt;
             }
     </style>
     <div class='navbar_bottom' style=''>
-        <a href="#home" class='active' style='padding:10px 0px 0px 0px;width: 33%;'>
+        <a href="#" data-href="dashSiswa" class='active' style='padding:10px 0px 0px 0px;width: 33%;'>
         <i class='saicon icon-pelajaran' style='text-align: center;'></i><p style='text-align: center;font-size: 14px;margin-bottom:0'>Pelajaran</p></a>
-        <a href='#notif' style='padding:10px 0px 0px 0px;width: 33%;'>
+        <a href='#' data-href="dashPesan" style='padding:10px 0px 0px 0px;width: 33%;'>
         <i class='saicon icon-pesan' style='text-align: center;'></i><p style='text-align: center;font-size: 14px;margin-bottom:0'>Pesan</p></a>
-        <a href='#dokumen' style='padding:10px 0px 0px 0px;width: 33%;'>
+        <a href='#' data-href="dashAkun" style='padding:10px 0px 0px 0px;width: 33%;'>
         <i class='saicon icon-user' style='text-align: center;'></i><p style='text-align: center;font-size: 14px;margin-bottom:0'>Akun</p></a>
     </div>
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
@@ -1156,6 +1161,21 @@
             loadForm("{{ url('mobile-tarbak/form') }}/blankform");
         }
     });
+
+    $('.navbar_bottom').on('click','a',function(e){
+        e.preventDefault();
+        var url = $(this).data('href'); 
+        $('.navbar_bottom a').removeClass('active');
+        if(!$(this).hasClass('active')){
+            $(this).addClass('active');
+        }
+        if(url != "" || url != "-"){
+            loadForm("{{ url('mobile-tarbak/form') }}/"+url);
+        }else{
+            loadForm("{{ url('mobile-tarbak/form') }}/blankform");
+        }
+    });
+
     var $theme = "dore.light.blueolympic.min.css";
  
     </script>

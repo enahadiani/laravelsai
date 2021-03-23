@@ -40,12 +40,14 @@
 <script>
     $('body').addClass('dash-contents');
     $('html').addClass('dash-contents');
+    var $kode_matpel = "";
+    var $kode_kelas = "{{ Session::get('kode_kelas') }}";
     function getMatpel(){
         $.ajax({
             type: "GET",
             url: "{{ url('mobile-tarbak/matpel') }}",
             dataType: 'json',
-            data: {'kode_kelas': "{{ Session::get('kode_kelas') }}",'kode_pp': "{{ Session::get('kodePP') }}"},
+            data: {'kode_kelas': $kode_kelas},
             success:function(result){  
                 var html = "";  
                 if(result.status){
@@ -53,7 +55,7 @@
                         for(var i=0; i < result.data.length; i++){
                             var line = result.data[i];
                             html +=` <div class="col-4 mb-4">
-                                <div class="card" style="border-radius:30px;">
+                                <div class="card trace-matpel" style="border-radius:30px;cursor:pointer" data-kode_matpel="`+line.kode_matpel+`" >
                                     <div class="card-body mx-auto text-center" style="padding:1.5rem 0.5rem;">
                                         <img src="{{ asset('img/mobile-tarbak/icon-matpel/`+line.kode_matpel+`.png') }}" alt="" style="width:50px">
                                         <p class="mb-0" style="font-size:0.95rem !important">`+line.singkatan+`</p>
@@ -82,5 +84,9 @@
     }
 
     getMatpel();
-
+    $('.matpel').on('click','.trace-matpel',function(e){
+        e.preventDefault();
+        $kode_matpel = $(this).data('kode_matpel');
+        loadForm("{{ url('mobile-tarbak/form/dashSiswaDetail') }}");
+    })
 </script>

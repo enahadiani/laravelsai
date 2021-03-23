@@ -46,6 +46,7 @@ Route::get('search-form-list','Sekolah\AuthMobileController@searchFormList');
 Route::get('search-form-list2','Sekolah\AuthMobileController@searchFormList2');
 
 Route::get('matpel', 'Sekolah\AuthMobileController@getMatpel');
+Route::get('matpel-detail', 'Sekolah\AuthMobileController@getMatpelDetail');
 
 
 
