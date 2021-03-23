@@ -1,6 +1,11 @@
+
+<link rel="stylesheet" href="{{ asset('asset_dore/css/croppie.css') }}" />
 <style>
     .bold{
         font-weight:bold;
+    }
+    .hidden{
+        display:none;
     }
     html {
     --scrollbarBG: #fff0;
@@ -38,9 +43,10 @@
 </style>
 <div class="row mt-2">
     <div class="col-12">
-        <div class="text-center">
+        <div class="text-center dash-profile">
             <img alt="Profile" src="" id="profile-mobile" class="img-thumbnail border-0 rounded-circle mb-2 list-thumbnail" style="width:80px">
             <p class="list-item-heading mb-1"><a id="ubah-profile" href="#" style="color:#4361EE;cursor:pointer">Ubah Profile</a></p>
+            <input type="file" name="file_foto" class="hidden" id="file-foto" />
         </div>
     </div>
 </div>
@@ -82,12 +88,14 @@
         </div>
     </div>
 </div>
-<div class="row mt-3" style="margin-bottom:60px">
+<div class="row mt-3" style="margin-bottom:100px">
     <div class="col-12 text-center">
         <a href="{{ url('mobile-tarbak/logout') }}" style="color:red">Keluar</a>
     </div>
 </div>
 <button id="trigger-bottom-sheet" style="display:none">Bottom ?</button>
+
+<script src="{{ asset('asset_dore/js/croppie.min.js') }}"></script>
 <script>
     var bottomSheet = new BottomSheet("country-selector");
     document.getElementById("trigger-bottom-sheet").addEventListener("click", bottomSheet.activate);
@@ -120,6 +128,7 @@
     var $tgl_lahir = "";
     var $tempat_lahir = "";
     var $email_lahir = "";
+    var $image_crop = "";
     function getProfile(){
         $.ajax({
             type: "GET",
@@ -321,5 +330,105 @@
             });
         })
         $('#trigger-bottom-sheet').trigger("click");
+    });
+
+
+    $('#file-foto').change(function(e){
+        e.preventDefault();
+        $('#content-bottom-sheet').html('');
+        var html = `
+        <div class="row mx-auto">
+            <div class="col-md-12 text-center">
+                <h6>Crop &amp; Upload</h6>
+            </div>
+        </div>
+        <div class="row mx-auto">
+            <div class="col-md-12 text-center">
+                <div id="image_demo"></div>
+            </div>
+        </div>
+        <div class="row mx-auto">
+            <button class="btn btn-success crop_image">Crop &amp; Upload</button>
+        </div>`;
+        $('#content-bottom-sheet').html(html);
+        
+        $image_crop = $('#image_demo').croppie({
+            enableExif: true,
+            viewport: {
+                width:250,
+                height:250,
+                type:'circle'
+            },
+            boundary:{
+                width:300,
+                height:300
+            }
+        });
+
+        setTimeout(() => {
+            var reader = new FileReader();
+            reader.onload = function (event) {
+            $image_crop.croppie('bind', {
+                url: event.target.result
+            }).then(function(){
+                console.log('jQuery bind complete');
+            });
+            }
+            reader.readAsDataURL(this.files[0]);
+            $('.crop_image').click(function(event){
+                $image_crop.croppie('result', {
+                    type: 'blob',
+                    size: 'viewport'
+                }).then(function(response){
+        
+                    var formData = new FormData();
+                    var toUrl = "{{ url('mobile-tarbak/update-foto') }}";
+                    
+                    formData.append('foto', response, 'profile.png');
+                    $.ajax({
+                        url : toUrl,
+                        method: 'POST',
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        success:function(result)
+                        {
+                            if(result.data.status){
+                                msgDialog({
+                                    id: '-',
+                                    type: 'warning',
+                                    title: 'Sukses',
+                                    text: result.data.message
+                                });
+                                $('.c-bottom-sheet').removeClass('active');
+                                loadForm("{{ url('mobile-tarbak/form/dashAkun') }}");
+                                
+                            }
+                            else if(!result.data.status && result.data.message == 'Unauthorized'){
+                                window.location.href = "{{ url('mobile-tarbak/sesi-habis') }}";
+                            }
+                            else{
+                                alert(result.data.message);
+                            }
+                        },
+                        fail: function(xhr, textStatus, errorThrown){
+                            alert('request failed:'+textStatus);
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {       
+                            if(jqXHR.status==422){
+                                alert(jqXHR.responseText);
+                            }
+                        }
+                    })
+                })
+            });
+            $('#trigger-bottom-sheet').trigger("click");
+        }, 10 * 60);
+
+    });
+
+    $('.dash-profile').on('click','#ubah-profile',function(e){
+        e.preventDefault();
+        $('#file-foto').click();
     });
 </script>
