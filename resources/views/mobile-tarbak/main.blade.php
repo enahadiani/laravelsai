@@ -29,6 +29,8 @@
     <link href="{{ asset('asset_elite/selectize.bootstrap3.css') }}" rel="stylesheet">
     
     <link rel="stylesheet" href="{{ asset('asset_dore/css/vendor/bootstrap-tagsinput.css') }}" />
+    <link rel="stylesheet" href="{{ asset('asset_dore/css/jquery-ui.min.css') }}" />
+    <script src="{{ asset('asset_dore/js/jquery-ui.min.js') }}"></script>
     <!-- <link rel="stylesheet" href="{{ asset('asset_dore/css/loading.css') }}" /> -->
     
     <style>
@@ -426,6 +428,10 @@
 	</div>
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
     <script>
+     if (!$.fn.bootstrapDP && $.fn.datepicker && $.fn.datepicker.noConflict) {
+        var datepicker = $.fn.datepicker.noConflict();
+        $.fn.bootstrapDP = datepicker;
+    }
     // Enable pusher logging - don't include this in production
     Pusher.logToConsole = true;
     
