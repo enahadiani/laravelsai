@@ -91,6 +91,20 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="form-group col-md-6 col-sm-12">
+                            <div class="row">
+                                <div class="col-md-4 col-sm-12"></div>
+                                <div class="col-md-8 col-sm-12">
+                                    <label>Upload File</label>
+                                    <div class="input-group">
+                                        <div class="custom-file">
+                                            <input type="file" name="file" class="custom-file-input" id="file" accept="application/pdf,image/jpeg,image/png">
+                                            <label class="custom-file-label" style="border-radius: 0.5rem;" for="file">Choose file</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <ul class="nav nav-tabs col-12 " role="tablist">
                         <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-tagihan" role="tab" aria-selected="true"><span class="hidden-xs-down">Rincian Tagihan</span></a> </li>
@@ -204,6 +218,11 @@
 
     var scrollform = document.querySelector('.form-body');
     var psscrollform = new PerfectScrollbar(scrollform);
+
+    $('.custom-file-input').on('change',function(){
+        var fileName = $(this).val();
+        $(this).next('.custom-file-label').html(fileName);
+    });
 
     function resetForm() {
         $('.no_tagihan').hide();

@@ -135,6 +135,20 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="form-group col-md-6 col-sm-12">
+                            <div class="row">
+                                <div class="col-md-4 col-sm-12"></div>
+                                <div class="col-md-8 col-sm-12">
+                                    <label>Upload File</label>
+                                    <div class="input-group">
+                                        <div class="custom-file">
+                                            <input type="file" name="file" class="custom-file-input" id="file" accept="application/pdf,image/jpeg,image/png">
+                                            <label class="custom-file-label" style="border-radius: 0.5rem;" for="file">Choose file</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="btn-div">
                         <button type="submit" class="btn btn-primary mb-2 mt-2"  style="float:right;" id="btn-save" ><i class="fa fa-save"></i> Simpan</button>
@@ -163,6 +177,11 @@
         headers: {
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         }
+    });
+
+    $('.custom-file-input').on('change',function(){
+        var fileName = $(this).val();
+        $(this).next('.custom-file-label').html(fileName);
     });
 
     function isChecked() {
