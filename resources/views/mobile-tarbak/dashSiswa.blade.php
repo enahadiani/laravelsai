@@ -15,7 +15,7 @@
         color:white !important;font-size:12pt !important;z-index:1">SD Taruna Bakti</p>
         <div class="card d-flex flex-row mb-4" style="margin: 0 18px;">
             <a class="d-flex" href="#">
-            <img alt="Profile" src="{{ asset('asset_dore/img/profiles/l-8.jpg') }}" class="img-thumbnail border-0 rounded-circle m-4 list-thumbnail align-self-center" style="height: 50px;margin: 15px !important;">
+            <img alt="Profile" id="profile-img" src="" class="img-thumbnail border-0 rounded-circle m-4 list-thumbnail align-self-center" style="height: 50px;margin: 15px !important;">
             </a>
             <div class=" d-flex flex-grow-1 min-width-zero">
                 <div class="card-body pl-0 align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero" style="padding: 1rem;">
@@ -40,6 +40,13 @@
 <script>
     $('body').addClass('dash-contents');
     $('html').addClass('dash-contents');
+    if("{{ Session::get('foto') }}" != "-" && "{{ Session::get('foto') }}" != ""){
+        var img = "{{ config('api.url') }}sekolah/storage/{{ Session::get('foto') }}";
+    }else{
+        var img = "{{ asset('asset_elite/images/user.png') }}";
+    }
+    $('#profile-img').attr('src',img);
+
     var $kode_matpel = "";
     var $kode_kelas = "{{ Session::get('kode_kelas') }}";
     function getMatpel(){
