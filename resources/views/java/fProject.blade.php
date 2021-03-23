@@ -1,5 +1,6 @@
  <link rel="stylesheet" href="{{ asset('trans.css') }}" />
  <link rel="stylesheet" href="{{ asset('trans-esaku/form.css') }}" />
+ <link rel="stylesheet" href="{{ asset('trans-java/trans.css') }}" />
 
  <x-list-data judul="Data Project" tambah="true" :thead="array('No Proyek','No Kontrak','Tanggal Selesai','Nilai','Aksi')" :thwidth="array(15,15,10,10,10)" :thclass="array('','','','','text-center')" />
 
@@ -93,6 +94,26 @@
                                         <label for="tanggal">Tanggal Berakhir Kontrak</label>
                                         <input class='form-control datepicker' type="text" id="tanggal_selesai" name="tanggal_selesai" value="{{ date('d/m/Y') }}">
                                         <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;" class="simple-icon-calendar date-search"></i>
+                                        <br/>
+                                        <div class="custom-control custom-checkbox" id="project-status">
+                                            <input type="checkbox" class="custom-control-input" id="status" name="status">
+                                            <label class="custom-control-label" for="status">Selesai</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12">
+                                        <label>Upload File</label>
+                                        <div class="input-group">
+                                            <div class="custom-file">
+                                                <input type="file" name="file" class="custom-file-input" id="file" accept="application/pdf,image/jpeg,image/png">
+                                                <label class="custom-file-label" style="border-radius: 0.5rem;" for="file">Choose file</label>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -113,6 +134,7 @@
     <script type="text/javascript">
     var status_ppn = '0';
     var nilai_ppn = 0;
+    var status_project = '0';
     var $iconLoad = $('.preloader');
     var $target = "";
     var $target2 = "";
@@ -125,6 +147,19 @@
 
     var scrollform = document.querySelector('.form-body');
     var psscrollform = new PerfectScrollbar(scrollform);
+
+    $('#status').change(function() {
+        if(status_project === '0') {
+            status_project = '1';
+        } else {
+            status_project = '0'
+        }
+    })
+
+    $('.custom-file-input').on('change',function(){
+        var fileName = $(this).val();
+        $(this).next('.custom-file-label').html(fileName);
+    });
 
     function reverseDate2(date_str, separator, newseparator){
         if(typeof separator === 'undefined'){separator = '-'}
@@ -162,7 +197,9 @@
     });
 
     $('#saku-datatable').on('click', '#btn-tambah', function(){
+        status_project = '0'
         $('#row-id').hide();
+        $('#project-status').hide();
         $('#method').val('post');
         $('#judul-form').html('Tambah Data Proyek');
         $('#btn-update').attr('id','btn-save');
@@ -419,6 +456,7 @@
             }
 
             var formData = new FormData(form);
+            formData.append('status', status_project)
             formData.append('status_ppn', status_ppn)
             formData.append('ppn', nilai_ppn)
             for(var pair of formData.entries()) {

@@ -165,7 +165,7 @@
             <div class="row">
                 <div class="col-12 col-md-10 mx-auto" style="height:45vh">
                     <div class="card auth-card" style="box-shadow:none">
-                        <div class="row mt-3">
+                        <div class="row mt-3 mx-auto">
                             <div class="col-2 pr-0">
                                 <span class="logo-single mb-0"></span>
                             </div>
@@ -173,8 +173,10 @@
                                 <p class="mb-0">Yayasan </p> 
                                 <p class="mb-0">Taruna Bakti</p>
                             </div>
-                            <img src="{{ asset('img/mobile-tarbak/login.png') }}" alt="" style="margin: 0 auto;height: calc(40vh - 90px);">
-                            <p class="text-center" style="margin:0 auto">Praktek membuat kita benar, pengulangan <br> membuat kita sempurna.</p>
+                            <div class="col-12 text-center">
+                                <img src="{{ asset('img/mobile-tarbak/login.png') }}" alt="" style="margin: 0 auto;height: calc(40vh - 90px);">
+                                <p class="text-center" style="margin:0 auto">Praktek membuat kita benar, pengulangan <br> membuat kita sempurna.</p>
+                            </div>
                         </div>
                     </div>
                 </div>

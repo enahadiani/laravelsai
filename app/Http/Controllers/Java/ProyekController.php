@@ -130,30 +130,62 @@ class ProyekController extends Controller
             'no_kontrak' => 'required',
             'status_ppn' => 'required',
             'keterangan' => 'required',
-            'tanggal_selesai' => 'required'
+            'tanggal_selesai' => 'required',
+            'file' => 'file|max:2048',
         ]);
 
-        try {  
-            $form = array(
-                'tgl_mulai' => $this->convertDate($request->input('tanggal_mulai')),
-                'kode_cust' => $request->input('kode_cust'),
-                'nilai' => $this->joinNum($request->input('nilai')),
-                'ppn' => $request->input('ppn'),
-                'status_ppn' => $request->input('status_ppn'),
-                'periode' => $this->convertPeriode($request->input('tanggal_mulai')),
-                'keterangan' => $request->input('keterangan'),
-                'tgl_selesai' => $this->convertDate($request->input('tanggal_selesai')),
-                'no_proyek' => $request->input('no_proyek'),
-                'no_kontrak' => $request->input('no_kontrak')
-            );
+        try { 
+            if($request->hasfile('file')) {
+                $name = array('tanggal_mulai','kode_cust','nilai','ppn','no_proyek','no_kontrak','status_ppn','keterangan','tanggal_selesai','status','file');
+            } else {
+                $name = array('tanggal_mulai','kode_cust','nilai','ppn','no_proyek','no_kontrak','status_ppn','keterangan','tanggal_selesai','status');
+            } 
+            $req = $request->all();
+            $fields = array();
+            $data = array();
+
+            for($i=0;$i<count($name);$i++) { 
+                if($name[$i] == 'file') {
+                    $image_path = $request->file('file')->getPathname();
+                    $image_mime = $request->file('file')->getmimeType();
+                    $image_org  = $request->file('file')->getClientOriginalName();
+                    $fields_data[$i] = array(
+                        'name'     => $name[$i],
+                        'filename' => $image_org,
+                        'Mime-Type'=> $image_mime,
+                        'contents' => fopen($image_path, 'r' ),
+                    );
+                } else {
+                    $fields_data[$i] = array(
+                        'name'     => $name[$i],
+                        'contents' => $req[$name[$i]],
+                    );
+                }
+                $data[$i] = $name[$i];
+            }
+
+            $fields = array_merge($fields,$fields_data);
+            // var_dump($fields);
+            // $form = array(
+            //     'tgl_mulai' => $this->convertDate($request->input('tanggal_mulai')),
+            //     'kode_cust' => $request->input('kode_cust'),
+            //     'nilai' => $this->joinNum($request->input('nilai')),
+            //     'ppn' => $request->input('ppn'),
+            //     'status_ppn' => $request->input('status_ppn'),
+            //     'periode' => $this->convertPeriode($request->input('tanggal_mulai')),
+            //     'keterangan' => $request->input('keterangan'),
+            //     'tgl_selesai' => $this->convertDate($request->input('tanggal_selesai')),
+            //     'no_proyek' => $request->input('no_proyek'),
+            //     'no_kontrak' => $request->input('no_kontrak')
+            // );
 
             $client = new Client();
             $response = $client->request('POST',  config('api.url').'java-trans/proyek',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
-                    'Accept'     => 'application/json',
+                    'Content-Type'     => 'multipart/form-data',
                 ],
-                'form_params' => $form
+                'multipart' => $fields
             ]);
             if ($response->getStatusCode() == 200) { // 200 OK
                 $response_data = $response->getBody()->getContents();
@@ -225,7 +257,7 @@ class ProyekController extends Controller
             );
 
             $client = new Client();
-            $response = $client->request('PUT',  config('api.url').'java-trans/proyek',[
+            $response = $client->request('POST',  config('api.url').'java-trans/proyek',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
