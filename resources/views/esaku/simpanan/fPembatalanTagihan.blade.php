@@ -237,8 +237,8 @@
                                             <span class="input-group-text info-code_no_kartu" readonly="readonly"
                                                 title="" data-toggle="tooltip" data-placement="top"></span>
                                         </div>
-                                        <input type="text" class="form-control inp-label-no_kartu" id="no_kartu"
-                                            name="no_kartu" value="" title="" readonly required>
+                                        <input type="text" class="form-control inp-label-no_kartu no-kartu"
+                                            id="no_kartu" name="no_kartu" value="" title="" readonly required>
                                         <span class="info-name_no_kartu hidden">
                                             <span></span>
                                         </span>
@@ -253,12 +253,19 @@
 
                         <div class="form-group col-md-12 col-sm-12">
                             <div class="row">
-                                <div class="col-md-6 col-12">
+                                <div class="col-md-8 col-12">
                                     <label for="deskripsi">Keterangan</label>
                                     <textarea name="deskripsi" class="form-control" id="deskripsi" cols="30" rows="5"
                                         required></textarea>
                                 </div>
-
+                                <div class="col-md-4 col-12">
+                                    <label for="btn-control">&nbsp;</label>
+                                    <div id="btn-control">
+                                        <button type="button" href="#" id="loadData"
+                                            class="btn btn-primary mr-2">Tampil</button>
+                                        <!-- <button type="button" href="#" id="postAll" class="btn btn-primary">Posting All</button> -->
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -379,6 +386,78 @@
     var $per1 = [];
     var $per2 = [];
 
+    // CBBL
+    $('#form-tambah').on('click', '.search-item2', function() {
+        var id = $(this).closest('div').find('input').attr('name');
+        switch (id) {
+            case 'anggota':
+                var settings = {
+                    id: id,
+                    header: ['No Anggota', 'Nama'],
+                    url: "{{ url('esaku-trans/reverse-get-anggota') }}",
+                    columns: [{
+                            data: 'no_agg'
+                        },
+                        {
+                            data: 'nama'
+                        }
+                    ],
+                    judul: "Daftar Anggota",
+                    pilih: "akun",
+                    jTarget1: "text",
+                    jTarget2: "text",
+                    target1: ".info-code_" + id,
+                    target2: ".info-name_" + id,
+                    target3: "",
+                    target4: "",
+                    width: ["30%", "70%"],
+                }
+                break;
+            case 'no_kartu':
+                var no_agg = $('#anggota').val();
+                if (no_agg == '' || no_agg == undefined) {
+                    msgDialog({
+                        id: '-',
+                        type: 'warning',
+                        title: 'Warning',
+                        text: 'Harap Pilih Anggota Terlebih Dahulu!'
+                    });
+                    return false;
+                } else {
+                    var settings = {
+                        id: id,
+                        header: ['Kode', 'Nama'],
+                        url: "{{ url('esaku-trans/reverse-akru-simp-nokartu') }}/" + no_agg,
+                        columns: [{
+                                data: 'no_simp'
+                            },
+                            {
+                                data: 'nama'
+                            }
+                        ],
+                        judul: "Daftar Kartu Anggota",
+                        pilih: "akun",
+                        jTarget1: "text",
+                        jTarget2: "text",
+                        target1: ".info-code_" + id,
+                        target2: ".info-name_" + id,
+                        target3: "",
+                        target4: "",
+                        width: ["30%", "70%"],
+                    }
+                }
+
+                break;
+        }
+        showInpFilter(settings);
+    });
+
+    $('#form-tambah').on('change', '.no-kartu', function() {
+        console.log('Hello Load Dasta')
+    })
+
+
+
     // datatables initialize
     var action_html =
         "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
@@ -446,58 +525,6 @@
     }).draw();
 
 
-    $('#form-tambah').on('click', '.search-item2', function() {
-        var id = $(this).closest('div').find('input').attr('name');
-        switch (id) {
-            case 'anggota':
-                var settings = {
-                    id: id,
-                    header: ['No Anggota', 'Nama'],
-                    url: "{{ url('esaku-master/gudang-nik') }}",
-                    columns: [{
-                            data: 'nik'
-                        },
-                        {
-                            data: 'nama'
-                        }
-                    ],
-                    judul: "Daftar Anggota",
-                    pilih: "akun",
-                    jTarget1: "text",
-                    jTarget2: "text",
-                    target1: ".info-code_" + id,
-                    target2: ".info-name_" + id,
-                    target3: "",
-                    target4: "",
-                    width: ["30%", "70%"],
-                }
-                break;
-            case 'no_kartu':
-                var settings = {
-                    id: id,
-                    header: ['Kode', 'Nama'],
-                    url: "{{ url('esaku-master/gudang-pp') }}",
-                    columns: [{
-                            data: 'kode_pp'
-                        },
-                        {
-                            data: 'nama'
-                        }
-                    ],
-                    judul: "Daftar Kartu Anggota",
-                    pilih: "akun",
-                    jTarget1: "text",
-                    jTarget2: "text",
-                    target1: ".info-code_" + id,
-                    target2: ".info-name_" + id,
-                    target3: "",
-                    target4: "",
-                    width: ["30%", "70%"],
-                }
-                break;
-        }
-        showInpFilter(settings);
-    });
 
     var tablejur = $("#table-jurnal").DataTable({
         destroy: true,
@@ -631,13 +658,14 @@
     }
 
     $('#form-tambah').on('click', '#loadData', function() {
+        var no_kartu = $('#no_kartu').val();
         var formData = new FormData();
-        if ($modul.length == 0) {
+        if (no_kartu == '' || no_kartu == undefined) {
             msgDialog({
                 id: '-',
                 type: 'warning',
                 title: 'Peringatan',
-                text: 'Modul wajib diisi'
+                text: 'Nomor Kartu Wajib di Isi'
             });
             tablejur.clear().draw();
             return false;
@@ -687,13 +715,14 @@
     function hapusData(id) {
         $.ajax({
             type: 'DELETE',
-            url: "{{ url('esaku-trans/akru-simp') }}/" + id,
+            url: "{{ url('esaku-trans/reverse-akru-simp') }}/" + id,
             dataType: 'json',
             async: false,
             success: function(result) {
                 if (result.data.status) {
                     dataTable.ajax.reload();
-                    showNotification("top", "center", "success", 'Hapus Data', 'Data Akru Simpanan (' + id +
+                    showNotification("top", "center", "success", 'Hapus Data',
+                        'Data Reverse Akru Simpanan (' + id +
                         ') berhasil dihapus ');
                     // $('#modal-preview-id').html('');
                     $('#table-delete tbody').html('');
@@ -970,7 +999,7 @@
                             <div class="mt-3" style='border-bottom: double #d7d7d7;padding:0 1.5rem'>
                                 <table class="borderless mb-2" width="100%" >
                                     <tr>
-                                        <td width="50%" style="vertical-align:top !important"><h6 class="text-primary bold">AKRU BILLING SIMPANAN</h6></td>
+                                        <td width="50%" style="vertical-align:top !important"><h6 class="text-primary bold">REVERSE AKRU BILLING</h6></td>
                                     </tr>
                                 </table>
                             </div>
