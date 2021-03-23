@@ -600,6 +600,7 @@
                 var result= res.data;
                 if(result.status){
                     console.log(result)
+                    $('#project-status').show();
                     $('#id_edit').val('edit');
                     $('#method').val('put');
                     $('#no_proyek').attr('readonly', true);
@@ -615,7 +616,13 @@
                         $('#status_ppn').prop("checked", true)
                     } else {
                         $('#status_ppn').prop("checked", false)
-                    }         
+                    }
+                    if(result.data[0].flag_aktif === '1') {
+                        $('#status').prop("checked", true)
+                    } else {
+                        $('#status').prop("checked", false)
+                    }
+                    $('.custom-file-label').html(result.data[0].file_dok)         
                     $('#saku-datatable').hide();
                     $('#modal-preview').modal('hide');
                     $('#saku-form').show();
