@@ -1,6 +1,6 @@
 <style>
     .bg-grey{
-        background: #F1FAEE;
+        background: #f0f2fe;
         height: 100%;
     }
     #logo-matpel
