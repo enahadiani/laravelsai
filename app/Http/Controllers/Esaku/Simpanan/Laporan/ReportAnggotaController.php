@@ -27,10 +27,13 @@ class ReportAnggotaController extends Controller
     public function index(Request $request){
         try {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'esaku-master/anggota',[
+            $response = $client->request('GET',  config('api.url').'esaku-report/lap-simp-anggota',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
+                ],
+                'query' => [
+                    'no_agg' => $request->no_agg,
                 ]
             ]);
 
@@ -39,30 +42,12 @@ class ReportAnggotaController extends Controller
 
                 $data = json_decode($response_data,true);
                 $data = $data["data"];
-                $results = [];
-                if(count($data) > 0) {
-                    $no = 0;
-                    foreach($data as $key => $row){
-                       $results[] = [
-                            'no'        => $no += 1,
-                            'kode'      => $data[$key]['no_agg'],
-                            'id_lain'   => null,
-                            'nama'      => $data[$key]['nama'],
-                            'bank'      => $data[$key]['bank'],
-                            'cabang'    => null,
-                            'no_rek'    => $data[$key]['rek'],
-                            'nama_rek'  => null
-                       ];
-                    }
-                }
-            }
-            if(isset($request->back)){
-                $back = true;
-            }else{
-                $back = false;
+
+
             }
 
-            return response()->json(['status'=>true, 'auth_status'=>1,'result'=>$results,'back'=>$back], 200);
+
+            return response()->json(['status'=>true, 'auth_status'=>1,'result'=>$data], 200);
 
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();

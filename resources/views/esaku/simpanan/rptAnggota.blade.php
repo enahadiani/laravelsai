@@ -15,9 +15,8 @@
 <script type="text/javascript">
     function drawLap(formData) {
         saiPostLoad('esaku-report/report-anggota', null, formData, null, function(res) {
-            const data = res;
-
-            console.log(data)
+            const data = res.result;
+            // console.log('data', data)
             if (data.length > 0) {
                 $('#pagination').html('');
                 var show = $('#show').val();
@@ -52,13 +51,13 @@
                 var value = data[i];
                 html += "<tr>";
                 html += "<td valign='middle' class='isi_laporan' align='center'>" + no + "</td>";
-                html += "<td valign='middle' class='isi_laporan' align='left'>" + value.kode_barang + "</td>";
-                html += "<td valign='middle' class='isi_laporan' align='left'>" + value.kode_barang + "</td>";
+                html += "<td valign='middle' class='isi_laporan' align='left'>" + value.no_agg + "</td>";
+                html += "<td valign='middle' class='isi_laporan' align='left'>" + value.id_lain + "</td>";
                 html += "<td valign='middle' class='isi_laporan' align='left'>" + value.nama + "</td>";
-                html += "<td valign='middle' class='isi_laporan' align='center'>" + value.satuan + "</td>";
-                html += "<td valign='middle' class='isi_laporan' align='left'>" + value.kode_klp + "</td>";
-                html += "<td valign='middle' class='isi_laporan' align='left'>" + value.barcode + "</td>";
-                html += "<td valign='middle' class='isi_laporan' align='left'>" + value.barcode + "</td>";
+                html += "<td valign='middle' class='isi_laporan' align='center'>" + value.bank + "</td>";
+                html += "<td valign='middle' class='isi_laporan' align='left'>" + value.cabang + "</td>";
+                html += "<td valign='middle' class='isi_laporan' align='left'>" + value.no_rek + "</td>";
+                html += "<td valign='middle' class='isi_laporan' align='left'>" + value.nama_rek + "</td>";
                 html += "</tr>";
                 no++;
             }

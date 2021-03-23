@@ -129,6 +129,41 @@ class ReverseController extends Controller
         }
 
     }
+    /**
+     * show data by no agg.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function loadData(Request $request)
+    {
+        try{
+            $no_kartu = $request->no_kartu;
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'esaku-trans/reverse-akru-simp-listakru?no_simp='.$no_kartu,[
+                'headers' => [
+                    'Authorization'     => 'Bearer '.Session::get('token'),
+                    'Accept'            => 'application/json',
+                    'Content-Type'      => 'application/json'
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+
+                $data = json_decode($response_data,true);
+                $data = $data;
+            }
+            return response()->json(['daftar' => $data['data'], 'status' => true], 200);
+        }catch(BadResponseException $ex){
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $result['message'] = $res["message"];
+            $result['status']=false;
+            return response()->json(["data" => $result], 200);
+        }
+
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -138,7 +173,66 @@ class ReverseController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'tanggal' => 'required',
+            'anggota' => 'required',
+            'deskripsi' => 'required',
+            'akun_piutang.*' => 'required',
+            'akun_simpanan.*' => 'required',
+            'no_akru.*' => 'required',
+            'no_kartu.*' => 'required',
+            'nilai.*' => 'required',
+            'angsuran.*' => 'required'
+        ]);
 
+        try{
+
+            if(isset($request->anggota)){
+                $no_agg = $request->anggota;
+                $tanggal = $request->tanggal;
+                $keterangan = $request->deskripsi;
+                $akun_piutang = $request->akun_piutang;
+                $akun_simpanan = $request->akun_simpanan;
+                $no_akru = $request->no_akru;
+                $no_kartu = $request->no_kartu;
+                $nilai = $request->nilai;
+                $angsuran = $request->angsuran;
+            }
+            $fields= array (
+                'no_agg'        => $no_agg,
+                'tanggal'       => $tanggal,
+                'keterangan'    => $keterangan,
+                'akun_piutang'  => $akun_piutang,
+                'akun_simpanan' => $akun_simpanan,
+                'no_akru'       => $no_akru,
+                'no_kartu'      => $no_kartu,
+                'nilai'         => $nilai,
+                'angsuran'      => $angsuran
+            );
+
+
+            $client = new Client();
+            $response = $client->request('POST',  config('api.url').'esaku-trans/reverse-akru-simp',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Content-Type'     => 'application/json'
+                ],
+                'body' => json_encode($fields)
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+
+                $data = json_decode($response_data,true);
+                return response()->json(["data" =>$data["status"],'body' => $fields,'res' => $data], 200);
+            }
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            // $result['message'] = $res["message"];
+            $result['status']=false;
+            return response()->json(["data" => $result], 200);
+        }
 
     }
 
