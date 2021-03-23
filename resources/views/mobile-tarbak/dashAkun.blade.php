@@ -104,7 +104,7 @@
     $('#content-bottom-sheet').css({"max-height":"95vh","overflow-y":"scroll","overflow-x":"hidden"});
 
     $('.c-bottom-sheet__sheet').css({ "width":"100%","margin-left": "0%", "margin-right":"0%"});
-
+    $('#bottom-sheet-close').hide();
     function typePass(str){
         if(str != "" || str != undefined){
 
@@ -180,7 +180,6 @@
     getProfile();
     $('.data-pribadi').on('click', '#ubah-data', function(e){
         e.preventDefault();
-        $('#bottom-sheet-close').hide();
         $('#content-bottom-sheet').html('');
         html =`
 
@@ -348,7 +347,7 @@
             </div>
         </div>
         <div class="row mx-auto">
-            <button class="btn btn-success crop_image">Crop &amp; Upload</button>
+            <button class="btn btn-success crop_image mx-auto" style="background:#4361EE">Crop &amp; Upload</button>
         </div>`;
         $('#content-bottom-sheet').html(html);
         
