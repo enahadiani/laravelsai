@@ -249,12 +249,12 @@
                     <div class="form-group mb-3">
                         <label>Jenis Kelamin</label>
                         <div class="custom-control custom-radio">
-                            <input type="radio" id="inp_laki_laki" name="inp_jk" class="custom-control-input">
-                            <label class="custom-control-label" for="laki_laki">Laki-laki</label>
+                            <input type="radio" id="inp_laki_laki" value="L" name="customRadio" class="custom-control-input">
+                            <label class="custom-control-label" for="inp_laki_laki">Laki-Laki</label>
                         </div>
                         <div class="custom-control custom-radio">
-                            <input type="radio" id="inp_perempuan" name="inp_jk" class="custom-control-input">
-                            <label class="custom-control-label" for="perempuan">Perempuan</label>
+                            <input type="radio" id="inp_perempuan" value="P" name="customRadio" class="custom-control-input">
+                            <label class="custom-control-label" for="inp_perempuan">Perempuan</label>
                         </div>
                     </div>
                 </div>
