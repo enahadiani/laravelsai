@@ -41,6 +41,9 @@ Route::get('/', function () {
         case 'dash.simkug.com' : 
             return redirect('dash-telu/login');
         break;
+        case 'siswa.simkug.com' : 
+            return redirect('mobile-tarbak/login');
+        break;
         default : 
             return view('welcome');
         break;
