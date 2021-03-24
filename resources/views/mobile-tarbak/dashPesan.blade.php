@@ -51,6 +51,7 @@
     window.bottomSheet = bottomSheet;
     
     $('#bottom-sheet-close').hide();
+    $('#content-bottom-sheet').css({"max-height":"95vh","overflow-y":"scroll","overflow-x":"hidden"});
     $('.c-bottom-sheet__sheet').css({ "width":"100%","margin-left": "0%", "margin-right":"0%"});
     function getInfo(jenis){
         if(jenis == "info"){
