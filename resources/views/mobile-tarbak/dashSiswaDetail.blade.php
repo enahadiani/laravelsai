@@ -201,7 +201,6 @@
                         $('#data-genap').html(html);
                     }
                 }
-                $('.matpel').html(html);
                 $('.kompetensi').on('click', '.preview-detail', function(e){
                     e.preventDefault();
                     $('#bottom-sheet-close').hide();
