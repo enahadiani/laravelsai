@@ -19,6 +19,9 @@
     .col-grid{
         display:grid !important;
     }
+    .bold{
+        font-weight:bold;
+    }
 </style>
 <div class="row mt-3">
     <div class="col-12 px-0">
@@ -41,7 +44,14 @@
         </div>
     </div>
 </div>
+<button id="trigger-bottom-sheet" style="display:none">Bottom ?</button>
 <script>
+    var bottomSheet = new BottomSheet("country-selector");
+    document.getElementById("trigger-bottom-sheet").addEventListener("click", bottomSheet.activate);
+    window.bottomSheet = bottomSheet;
+    
+    $('#bottom-sheet-close').hide();
+    $('.c-bottom-sheet__sheet').css({ "width":"100%","margin-left": "0%", "margin-right":"0%"});
     function getInfo(jenis){
         if(jenis == "info"){
             var url = "{{ url('mobile-tarbak/mob-info') }}";
@@ -70,7 +80,7 @@
                                 }
                                 html+=`<div class="row mb-3">
                                     <div class="col-2 text-center pr-0">
-                                        <img src="`+img+`" alt="Profile" class="img-thumbnail border-0 rounded-circle list-thumbnail align-self-center xsmall" style="height:50px">
+                                        <img src="`+img+`" class="img-thumbnail border-0 rounded-circle list-thumbnail align-self-center xsmall" style="height:50px">
                                     </div>
                                     <div class="col-10">
                                         <p class="list-item-heading mb-1 truncate">`+line.nama+` <span class='float-right text-right text-muted' style="font-size:10px !important">`+line.tanggal+`</span></p>
@@ -86,11 +96,11 @@
                                 config = "https://api.simkug.com/api/";
                                 if(line.file_dok != "" && line.file_dok != "-" ){
                                     var img = config+"mobile-sekolah/storage/"+line.file_dok;
-                                    html+=`<div class="row">
+                                    html+=`<div class="row detail-notif" data-tanggal="`+line.tanggal+`" data-pesan="`+line.pesan+`" data-img="`+img+`">
                                     <div class="col-12 col-grid">
                                     <p class="text-muted text-small mb-0" style="font-size:9px !important"><img src="{{ asset('img/mobile-tarbak/notifc.jpeg') }}" class="mr-3"> Pemberitahuan | `+line.tanggal+`</p>
                                     </div>
-                                    <div class="col-9 col-grid" style="display: -webkit-box;overflow: hidden;text-overflow: ellipsis;-webkit-line-clamp: 4;-webkit-box-orient: vertical;max-height: 80px;word-break: break-all;">
+                                    <div class="col-9 col-grid" style="display: -webkit-box;overflow: hidden;text-overflow: ellipsis;-webkit-line-clamp: 4;-webkit-box-orient: vertical;max-height: 80px;word-break: break-word;">
                                     `+line.pesan+`
                                     </div>
                                     <div class="col-3 pl-0">
@@ -100,7 +110,7 @@
                                 <div class="separator mt-4 mb-3"></div>`;
                                 }else{
                                     
-                                    html+=`<div class="row">
+                                    html+=`<div class="row detail-notif" data-tanggal="`+line.tanggal+`" data-pesan="`+line.pesan+`" data-img="-">
                                     <div class="col-12 col-grid">
                                         <p class="text-muted text-small mb-0" style="font-size:9px !important"><img src="{{ asset('img/mobile-tarbak/notifc.jpeg') }}" class="mr-3"> Pemberitahuan | `+line.tanggal+`</p>
                                         </div>
@@ -112,6 +122,30 @@
                                 }
                             }
                             $('.tab-notif').html(html);
+                            $('.tab-notif').on('click', '.detail-notif', function(e){
+                                e.preventDefault();
+                                $('#content-bottom-sheet').html('');
+                                var img = $(this).data('img');
+                                var tanggal = $(this).data('tanggal');
+                                var pesan = $(this).data('pesan');
+                                if(img == "-"){
+                                    var html_img = "";
+                                }else{
+                                    var html_img = `<img src="`+img+`" class="mb-4 mx-auto" style='width:80vw'>`;
+                                }
+                                var html = `
+                                <div class="row p-3">
+                                    <div class="col-12 text-center">
+                                        <p class="bold mb-4">Pemberitahuan</p>
+                                        `+html_img+`
+                                        <p class="bold mb-2 text-small text-left">`+tanggal+`</p>
+                                        <p class="text-left">`+pesan+`</p>
+                                    </div>
+                                </div>
+                                `;
+                                $('#content-bottom-sheet').html(html);
+                                $('#trigger-bottom-sheet').trigger("click");
+                            })
                         }
                     }
                 }
