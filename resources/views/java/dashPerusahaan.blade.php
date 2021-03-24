@@ -341,14 +341,14 @@
             if(filter.length > 0) {
                 $('#periode').val($initialPeriode)
                 getProjectDashboard($initialPeriode)
-                getProjectAktif($initialPeriode)
+                // getProjectAktif($initialPeriode)
                 $periodeText = convertPeriode($initialPeriode)
             } else {
                 $initialPeriode = result.daftar[result.daftar.length-1].value;
                 $periodeText = convertPeriode(result.daftar[result.daftar.length-1].value)
                 $('#periode').val(result.daftar[result.daftar.length-1].value)
                 getProjectDashboard(result.daftar[result.daftar.length-1].value)
-                getProjectAktif(result.daftar[result.daftar.length-1].value)
+                // getProjectAktif(result.daftar[result.daftar.length-1].value)
             }
             $('#periode-text').text('Periode '+$periodeText)
         }
@@ -413,11 +413,11 @@
     }
 
     $('#form-filter #btn-tampil').on('click', function(){
-        $('#project-active tbody').empty()
+        // $('#project-active tbody').empty()
         $periode = $('#periode').val()
         $periodeText = convertPeriode($periode)
         getProjectDashboard($periode)
-        getProjectAktif($periode)
+        // getProjectAktif($periode)
         $('#periode-text').text('Periode '+$periodeText)
         $('#modalFilter').modal('hide');
     })
