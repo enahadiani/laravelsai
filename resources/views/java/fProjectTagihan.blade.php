@@ -342,7 +342,7 @@
         no=no+2;
         var input = "";
         input += "<tr class='row-grid'>";
-        input += "<td class='text-center no-grid'>"+no+"</td>";
+        input += "<td class='text-center no-grid'>"+no+"<input type='text' name='no[]' class='form-control inp-no noke"+no+" hidden'  value='"+no+"'></td>";
         input += "<td><span class='td-item tditemke"+no+" tooltip-span'></span><input type='text' name='item[]' class='form-control inp-item itemke"+no+" hidden'  value=''></td>";
         input += "<td class='text-right'><span class='td-harga tdhargake"+no+" tooltip-span'></span><input type='text' name='harga[]' class='form-control numeric inp-harga hargake"+no+" hidden'  value='0'></td>";
         input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
@@ -808,9 +808,9 @@
             }
 
             var formData = new FormData(form);
-            $('#input-grid tbody tr').each(function(index) {
-                formData.append('no[]', $(this).find('.no-grid').text())
-            })
+            // $('#input-grid tbody tr').each(function(index) {
+            //     formData.append('no[]', $(this).find('.no-grid').text())
+            // })
             formData.append('nilai', subtotal)
             for(var pair of formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
