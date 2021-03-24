@@ -380,8 +380,8 @@
 
             .icon-pelajaran{
                 background: #505050;
-                -webkit-mask-image: url("{{ url('img/mobile-tarbak/Pelajaran.svg') }}");
-                mask-image: url("{{ url('img/mobile-tarbak/Pelajaran.svg') }}");
+                -webkit-mask-image: url("{{ url('img/mobile-tarbak/PelajaranOff.svg') }}");
+                mask-image: url("{{ url('img/mobile-tarbak/PelajaranOff.svg') }}");
                 width: 21pt;
                 height: 16pt;
             }
@@ -396,6 +396,28 @@
                 background: #505050;
                 -webkit-mask-image: url("{{ url('img/mobile-tarbak/AkunOff.svg') }}");
                 mask-image: url("{{ url('img/mobile-tarbak/AkunOff.svg') }}");
+                width: 15pt;
+                height: 18pt;
+            }
+
+            a.active > .saicon.icon-pelajaran{
+                background: #4361EE;
+                -webkit-mask-image: url("{{ url('img/mobile-tarbak/PelajaranOn.svg') }}");
+                mask-image: url("{{ url('img/mobile-tarbak/PelajaranOn.svg') }}");
+                width: 21pt;
+                height: 16pt;
+            }
+            a.active > .saicon.icon-pesan{
+                background: #4361EE;
+                -webkit-mask-image: url("{{ url('img/mobile-tarbak/PesanOn.svg') }}");
+                mask-image: url("{{ url('img/mobile-tarbak/PesanOn.svg') }}");
+                width: 18pt;
+                height: 18pt;
+            }
+            a.active > .saicon.icon-user{
+                background: #4361EE;
+                -webkit-mask-image: url("{{ url('img/mobile-tarbak/AkunOn.svg') }}");
+                mask-image: url("{{ url('img/mobile-tarbak/AkunOn.svg') }}");
                 width: 15pt;
                 height: 18pt;
             }
