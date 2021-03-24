@@ -16,7 +16,7 @@
             <div class="card card-dash">
                 <div class="card-project">
                     <h6 class="pt-4 pl-4 text-white">Project</h6>
-                    <h4 class="pt-1 pl-4 text-white">30</h4>
+                    <h4 class="pt-1 pl-4 text-white" id="project-total">0</h4>
                 </div>
                 <div class="keterangan-card">
                     <div class="row keterangan-container">
@@ -27,7 +27,7 @@
                             </div>
                         </div>
                         <div class="col-md-3 col-sm-3 col-lg-3">
-                            <span class="text-bold">17</span>
+                            <span class="text-bold" id="project-selesai">0</span>
                         </div>
                     </div>
                 </div>
@@ -40,7 +40,7 @@
                             </div>
                         </div>
                         <div class="col-md-3 col-sm-3 col-lg-3">
-                            <span class="text-bold">13</span>
+                            <span class="text-bold" id="project-berjalan">0</span>
                         </div>
                     </div>
                 </div>
@@ -319,7 +319,7 @@
         var split = periode.split('-')
         var convert = parseInt(split[1])
 
-        return array[convert]+" "+split[0]
+        return array[convert - 1]+" "+split[0]
     }
 
     $.ajax({
@@ -339,28 +339,31 @@
             })
 
             if(filter.length > 0) {
-                // $('#periode-text').text('Periode '+$initialPeriode)
-                // $('#periode').val($initialPeriode)
-                getBebanUnpaid($initialPeriode)
-                getTotalProject($initialPeriode)
+                $('#periode').val($initialPeriode)
+                getProjectDashboard($initialPeriode)
+                getProjectAktif($initialPeriode)
                 $periodeText = convertPeriode($initialPeriode)
             } else {
                 $initialPeriode = result.daftar[result.daftar.length-1].value;
                 $periodeText = convertPeriode(result.daftar[result.daftar.length-1].value)
                 $('#periode').val(result.daftar[result.daftar.length-1].value)
-                $('#periode-text').text('Periode '+result.daftar[result.daftar.length-1].text)
-                // getBebanUnpaid(result.daftar[result.daftar.length-1].value)
-                // getTotalProject(result.daftar[result.daftar.length-1].value)
+                getProjectDashboard(result.daftar[result.daftar.length-1].value)
+                getProjectAktif(result.daftar[result.daftar.length-1].value)
             }
             $('#periode-text').text('Periode '+$periodeText)
         }
     });
 
     $('#project-active tbody tr').on('click', function(){
-        $('#dekstop-baris-ke-1').hide()
-        $('#dekstop-baris-ke-2').hide()
-        $('#detail').show()
-        $('#button-back').show();
+        var countTd = $(this).children('td').length;
+        if(countTd <= 1) {
+            return;
+        } else {
+            $('#dekstop-baris-ke-1').hide()
+            $('#dekstop-baris-ke-2').hide()
+            $('#detail').show()
+            $('#button-back').show();
+        }
     })
 
     $('#button-back').on('click', function() {
@@ -370,37 +373,51 @@
         $('#dekstop-baris-ke-2').show()
     })
 
-    // function getBebanUnpaid(periode) {
-    //     $.ajax({
-    //         type: 'GET',
-    //         url: "{{ url('java-dash/beban-unpaid') }}",
-    //         dataType: 'json',
-    //         data: { periode: periode },
-    //         async:false,
-    //         success:function(result){    
-    //             $('#beban-unpaid').text(format_number(result.data.data[0].beban_unpaid))
-    //         }
-    //     });
-    // }
+    function getProjectDashboard(periode) {
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('java-dash/project-dashboard') }}",
+            dataType: 'json',
+            data: { periode: periode },
+            async:false,
+            success:function(result){    
+                var data = result.data.data[0]
+                $('#project-total').text(format_number(data.jumlah_proyek))
+                $('#project-selesai').text(format_number(data.proyek_selesai))
+                $('#project-berjalan').text(format_number(data.proyek_berjalan))
+            }
+        });
+    }
 
-    // function getTotalProject(periode) {
-    //     $.ajax({
-    //         type: 'GET',
-    //         url: "{{ url('java-dash/total-project') }}",
-    //         dataType: 'json',
-    //         data: { periode: periode },
-    //         async:false,
-    //         success:function(result){    
-    //             $('#total-project').text(format_number(result.data.data[0].jumlah))
-    //         }
-    //     });
-    // }
+    function getProjectAktif(periode) {
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('java-dash/project-aktif') }}",
+            dataType: 'json',
+            data: { periode: periode },
+            async:false,
+            success:function(result){    
+                console.log(result)
+                var data = result.data.data
+                console.log(data)
+                html = ""
+                if(data.length == 0) {
+                    html += "<tr>"
+                    html += "<td colspan='7' style='text-align:center;'>Tidak ada data</td>"
+                    html += "</tr>"
+                } 
+
+                // $('#project-active tbody').append(html)
+            }
+        });
+    }
 
     $('#form-filter #btn-tampil').on('click', function(){
+        $('#project-active tbody').empty()
         $periode = $('#periode').val()
         $periodeText = convertPeriode($periode)
-        getTotalProject($periode)
-        getBebanUnpaid($periode)
+        getProjectDashboard($periode)
+        getProjectAktif($periode)
         $('#periode-text').text('Periode '+$periodeText)
         $('#modalFilter').modal('hide');
     })

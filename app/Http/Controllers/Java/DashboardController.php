@@ -15,12 +15,12 @@ class DashboardController extends Controller {
         }
     }
 
-    public function getBebanUnpaid(Request $request) {
+    public function getProjectAktif(Request $request) {
         try{
             $client = new Client();
             $periode = $request->query('periode');
             $explode = explode('-', $periode);
-            $response = $client->request('GET',  config('api.url').'java-dash/beban-unpaid',
+            $response = $client->request('GET',  config('api.url').'java-dash/project-aktif',
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -47,12 +47,12 @@ class DashboardController extends Controller {
         }
     }
 
-    public function getTotalProject(Request $request) {
+    public function getProjectDashboard(Request $request) {
         try{
             $client = new Client();
             $periode = $request->query('periode');
             $explode = explode('-', $periode);
-            $response = $client->request('GET',  config('api.url').'java-dash/total-project',
+            $response = $client->request('GET',  config('api.url').'java-dash/project-dashboard',
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
