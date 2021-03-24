@@ -23,7 +23,7 @@ class HelperController extends Controller {
         $array = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
         'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
 
-        return $array[$month];
+        return $array[$month - 1];
     }
 
     private function convertPeriode($array) {
