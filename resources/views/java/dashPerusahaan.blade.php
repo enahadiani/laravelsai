@@ -319,7 +319,7 @@
         var split = periode.split('-')
         var convert = parseInt(split[1])
 
-        return array[convert]+" "+split[0]
+        return array[convert - 1]+" "+split[0]
     }
 
     $.ajax({
