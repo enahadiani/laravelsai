@@ -3999,7 +3999,7 @@ $.dore = function (element, options) {
       $(".theme-colors").addClass("default-transition");
       $("body > *").animate({ opacity: 1 }, 100);
       if( $("body > .logo-tarbak-overlay").length > 0){
-        $("body > .logo-tarbak-overlay").css('display','none');
+        $("body > .logo-tarbak-overlay").css({'display':'none','opacity':0});
       }
     }, 300);
 
