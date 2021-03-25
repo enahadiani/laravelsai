@@ -111,3 +111,6 @@ Route::post('report-anggota','Esaku\Simpanan\Laporan\ReportAnggotaController@ind
 
 // Laporan Simpanan
 Route::post('lap-simp-simpanan','Esaku\Simpanan\Laporan\ReportSimpananController@index');
+
+//Laporan Saldo Simpanan
+Route::post('lap-simp-saldo','Esaku\Simpanan\Laporan\ReportSaldoSimpananController@index');
