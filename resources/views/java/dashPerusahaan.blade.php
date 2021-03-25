@@ -401,7 +401,11 @@
                 } else {
                     persentase = (profit/parseInt(data.nilai_proyek))*100
                 }
-                profit = toJuta(profit)
+                if(profit.toString().length <= 9) {
+                    profit = toJuta(profit)
+                } else {
+                    profit = toMilyar(profit)
+                }
                 $('#profit-percentage').text(format_number(persentase)+'%')
                 $('#profit-amount').text(profit)
                 // $('#project-berjalan').text(format_number(data.proyek_berjalan))
