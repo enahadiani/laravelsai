@@ -22,6 +22,9 @@
     .bold{
         font-weight:bold;
     }
+    .detail-pesan,.detail-notif{
+        cursor:pointer;
+    }
 </style>
 <div class="row mt-3">
     <div class="col-12 px-0">
@@ -49,7 +52,8 @@
     var bottomSheet = new BottomSheet("country-selector");
     document.getElementById("trigger-bottom-sheet").addEventListener("click", bottomSheet.activate);
     window.bottomSheet = bottomSheet;
-    
+    $kode_matpel = "";
+    $nik_guru = "";
     $('#bottom-sheet-close').hide();
     $('#content-bottom-sheet').css({"max-height":"95vh","overflow-y":"scroll","overflow-x":"hidden"});
     $('.c-bottom-sheet__sheet').css({ "width":"100%","margin-left": "0%", "margin-right":"0%"});
@@ -79,17 +83,23 @@
                                 }else{
                                     var img = "{{ asset('asset_elite/images/user.png') }}";   
                                 }
-                                html+=`<div class="row mb-3">
+                                html+=`<div class="row mb-3 detail-pesan" data-nik_guru="`+line.nik_user+`" data-kode_matpel="`+line.kode_matpel+`">
                                     <div class="col-2 text-center pr-0">
-                                        <img src="`+img+`" class="img-thumbnail border-0 rounded-circle list-thumbnail align-self-center xsmall" style="height:50px">
+                                        <img src="`+img+`" class="img-thumbnail border-0 rounded-circle list-thumbnail align-self-center xsmall" style="height:45px">
                                     </div>
                                     <div class="col-10">
-                                        <p class="list-item-heading mb-1 truncate">`+line.nama+` <span class='float-right text-right text-muted' style="font-size:10px !important">`+line.tanggal+`</span></p>
+                                        <p class="list-item-heading mb-1 truncate" style="font-size:1rem !important">`+line.nama+` <span class='float-right text-right text-muted' style="font-size:10px !important">`+line.tanggal+`</span></p>
                                         <p class="mb-2 text-muted text-small" style="text-overflow: ellipsis;overflow: hidden;white-space: nowrap;">`+line.judul+`</p>
                                     </div>
                                 </div>`;
                             }
-                            $('.tab-pesan').html(html);
+                            $('.tab-pesan').html(html+"<div style='height:100px;'>&nbsp;</div>");
+                            $('.tab-pesan').on('click', '.detail-pesan', function(e){
+                                e.preventDefault();
+                                $kode_matpel = $(this).data('kode_matpel');
+                                $nik_guru = $(this).data('nik_guru');
+                                loadForm("{{ url('mobile-tarbak/form/dashPesanDetail') }}");
+                            })
                         }else{
                             for(var i=0; i < result.data.length ; i++){
                                 var line = result.data[i];
@@ -115,14 +125,14 @@
                                     <div class="col-12 col-grid">
                                         <p class="text-muted text-small mb-0" style="font-size:9px !important"><img src="{{ asset('img/mobile-tarbak/notifc.jpeg') }}" class="mr-3"> Pemberitahuan | `+line.tanggal+`</p>
                                         </div>
-                                        <div class="col-12" style="display: -webkit-box;overflow: hidden;text-overflow: ellipsis;-webkit-line-clamp: 4;-webkit-box-orient: vertical;max-height: 80px;word-break: break-all;">
+                                        <div class="col-12" style="display: -webkit-box;overflow: hidden;text-overflow: ellipsis;-webkit-line-clamp: 4;-webkit-box-orient: vertical;max-height: 80px;word-break: break-all;white-space: pre-wrap;">
                                         `+line.pesan+`
                                         </div>
                                     </div>
                                     <div class="separator mt-4 mb-3"></div>`;
                                 }
                             }
-                            $('.tab-notif').html(html);
+                            $('.tab-notif').html(html+"<div style='height:100px;'>&nbsp;</div>");
                             $('.tab-notif').on('click', '.detail-notif', function(e){
                                 e.preventDefault();
                                 $('#content-bottom-sheet').html('');
