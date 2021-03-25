@@ -143,7 +143,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        {{-- <tr>
                             <td>PT. Samudera Aplikasi Indonesia</td>
                             <td>294/KD/ERIU</td>
                             <td>11/08/21</td>
@@ -151,7 +151,7 @@
                             <td>12.000.000</td>
                             <td>10.000.000</td>
                             <td>23.0%</td>
-                        </tr>
+                        </tr> --}}
                     </tbody>
                 </table>
             </div>
@@ -352,7 +352,7 @@
                 $('#periode').val($initialPeriode)
                 getProjectDashboard($initialPeriode)
                 getProfitDashboard($initialPeriode)
-                // getProjectAktif($initialPeriode)
+                getProjectAktif($initialPeriode)
                 $periodeText = convertPeriode($initialPeriode)
             } else {
                 $initialPeriode = result.daftar[result.daftar.length-1].value;
@@ -360,7 +360,7 @@
                 $('#periode').val(result.daftar[result.daftar.length-1].value)
                 getProjectDashboard(result.daftar[result.daftar.length-1].value)
                 getProfitDashboard(result.daftar[result.daftar.length-1].value)
-                // getProjectAktif(result.daftar[result.daftar.length-1].value)
+                getProjectAktif(result.daftar[result.daftar.length-1].value)
             }
             $('#periode-text').text('Periode '+$periodeText)
         }
@@ -445,20 +445,37 @@
                     html += "<tr>"
                     html += "<td colspan='7' style='text-align:center;'>Tidak ada data</td>"
                     html += "</tr>"
+                } else {
+                    for(var i=0;i<data.length;i++) {
+                        var profit = 0
+                        var percentage = 0
+                        var line = data[i]
+                        profit = parseInt(line.nilai_proyek) - parseInt(line.rab)
+                        percentage = (profit/parseInt(line.nilai_proyek))*100
+                        html += "<tr>";
+                        html += "<td>"+line.nama_cust+"</td>"
+                        html += "<td>"+line.no_kontrak+"</td>"
+                        html += "<td>"+line.tgl_selesai+"</td>"
+                        html += "<td>"+format_number(line.nilai_proyek)+"</td>"
+                        html += "<td>"+format_number(line.rab)+"</td>"
+                        html += "<td>"+format_number(line.beban)+"</td>"
+                        html += "<td>"+format_number(percentage)+"%</td>"
+                        html += "</tr>";
+                    }
                 } 
 
-                // $('#project-active tbody').append(html)
+                $('#project-active tbody').append(html)
             }
         });
     }
 
     $('#form-filter #btn-tampil').on('click', function(){
-        // $('#project-active tbody').empty()
+        $('#project-active tbody').empty()
         $periode = $('#periode').val()
         $periodeText = convertPeriode($periode)
         getProjectDashboard($periode)
         getProfitDashboard($periode)
-        // getProjectAktif($periode)
+        getProjectAktif($periode)
         $('#periode-text').text('Periode '+$periodeText)
         $('#modalFilter').modal('hide');
     })
