@@ -3992,17 +3992,15 @@ $.dore = function (element, options) {
     $("body > *").css({ opacity: 0 });
 
     setTimeout(function () {
-      if( $("body > .logo-tarbak-overlay").length > 0){
-        setTimeout(function(){
-            $("body > .logo-tarbak-overlay").css('display','none');
-        },400)
-      }
       $("body").removeClass("show-spinner");
       $("main").addClass("default-transition");
       $(".sub-menu").addClass("default-transition");
       $(".main-menu").addClass("default-transition");
       $(".theme-colors").addClass("default-transition");
       $("body > *").animate({ opacity: 1 }, 100);
+      if( $("body > .logo-tarbak-overlay").length > 0){
+        $("body > .logo-tarbak-overlay").css('display','none');
+      }
     }, 300);
 
 
