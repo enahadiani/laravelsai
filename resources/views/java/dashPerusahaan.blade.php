@@ -131,7 +131,7 @@
             <div class="card card-dash-default pt-4 pl-4 pr-2">
                 <h6 class="text-bold">Project Aktif</h6>
                 <div class="table-scroll">
-                    <table class="table table-borderless table-hover mt-1 ml--1" id="project-active">
+                    <table class="table table-borderless table-striped table-hover mt-1 ml--1" id="project-active">
                         <thead>
                             <tr>
                                 <th>Customer</th>
@@ -205,7 +205,7 @@
                 <div class="card card-dash-detail-row-2 pt-4 pl-4 pr-2">
                     <h6 class="text-bold">Pembayaran Supplier</h6>
                     <div style="height: 430px;overflow: auto;">
-                        <table class="table table-borderless table-hover ml--1" id="table-supplier">
+                        <table class="table table-borderless table-striped table-hover ml--1" id="table-supplier">
                             <thead>
                                 <tr>
                                     <th>No</th>
@@ -261,7 +261,7 @@
             <div class="col-md-8 com-sm-8 col-lg-8">
                 <div class="card card-dash-default pt-4 pl-4 pr-2">
                     <h6 class="text-bold">Pembayaran Customer</h6>
-                    <table class="table table-borderless table-hover ml--1" id="table-customer">
+                    <table class="table table-borderless table-striped table-hover ml--1" id="table-customer">
                         <thead>
                             <tr>
                                 <th>No</th>
