@@ -134,7 +134,7 @@
                     <thead>
                         <tr>
                             <th>Customer</th>
-                            <th>No Kontrak</th>
+                            <th>No Proyek</th>
                             <th>Kontrak Selesai</th>
                             <th>Nilai Kontrak</th>
                             <th>Anggaran</th>
@@ -454,7 +454,7 @@
                         percentage = (profit/parseInt(line.nilai_proyek))*100
                         html += "<tr>";
                         html += "<td>"+line.nama_cust+"</td>"
-                        html += "<td>"+line.no_kontrak+"</td>"
+                        html += "<td>"+line.no_proyek+"</td>"
                         html += "<td>"+line.tgl_selesai+"</td>"
                         html += "<td>"+format_number(line.nilai_proyek)+"</td>"
                         html += "<td>"+format_number(line.rab)+"</td>"
