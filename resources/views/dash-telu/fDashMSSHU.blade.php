@@ -241,8 +241,8 @@ function getPeriode(){
             if(result.data.status){
                 if(typeof result.data.data !== 'undefined' && result.data.data.length>0){
                     for(i=0;i<result.data.data.length;i++){
-                        control.addOption([{text:result.data.data[i].periode, value:result.data.data[i].periode}]);
-                        control2.addOption([{text:result.data.data[i].periode, value:result.data.data[i].periode}]);
+                        control.addOption([{text:result.data.data[i].nama, value:result.data.data[i].periode}]);
+                        control2.addOption([{text:result.data.data[i].nama, value:result.data.data[i].periode}]);
                     }
                 }
 
