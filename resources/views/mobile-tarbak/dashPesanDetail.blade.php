@@ -55,6 +55,17 @@
                                         <p class="mb-1 text-muted text-small" style='font-size:10px !important'>`+line.tanggal+`</p>
                                         <p class="list-item-heading mb-3 truncate bold" style="color:#4361EE">`+line.judul+`</p>
                                         <p style="white-space: pre-wrap;">`+line.pesan+`</p>
+                                        `;
+                                        var det =``;
+                                        if(line.file_dok.length > 0){
+                                            for(var j=0; j < line.file_dok.length;j++){
+                                                var line2 = line.file_dok[j];
+                                                det+=`
+                                                <a class='btn btn-block btn-outline-primary mb-3' href='`+line2.url+`' style='background:#f0f2fe;border:none !important;min-height:35.2px;color:#4361EE;' target='_blank'><span class='float-left'>`+line2.nama+`</span> <span class='float-right'>Buka</span></a>
+                                                `;
+                                            }
+                                        }
+                                        html+=det+`
                                         </div>
                                     </div>
                                 </div>
