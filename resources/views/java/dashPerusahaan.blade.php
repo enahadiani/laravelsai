@@ -117,8 +117,8 @@
         <div class="col-md-3 col-lg-3 col-xl-3">
             <div class="card card-dash">
                 <h6 class="pt-4 pl-4">Profit</h6>
-                <h1 class="pt-1 pl-4 text-bold profit-percentage">53%</h1>
-                <h5 class="pl-4 text-bold profit-amount">1.1 M</h5>
+                <h1 class="pt-1 pl-4 text-bold profit-percentage" id="profit-percentage">0%</h1>
+                <h5 class="pl-4 text-bold profit-amount" id="profit-amount">0 M</h5>
                 <p class="pl-4 text-secondary">Naik 6,2% vs tahun lalu</p>
             </div>
         </div>
@@ -312,6 +312,16 @@
         $('#modalFilter').modal('show');
     })
 
+    function toMilyar(x) {
+        var nil = x / 1000000000;
+        return sepNum(nil) + ' M';
+    }
+
+    function toJuta(x) {
+        var nil = x / 1000000;
+        return sepNum(nil) + ' Jt';
+    }
+
     function convertPeriode(periode) {
         var array = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September',
         'Oktober', 'November', 'Desember']
@@ -341,6 +351,7 @@
             if(filter.length > 0) {
                 $('#periode').val($initialPeriode)
                 getProjectDashboard($initialPeriode)
+                getProfitDashboard($initialPeriode)
                 // getProjectAktif($initialPeriode)
                 $periodeText = convertPeriode($initialPeriode)
             } else {
@@ -348,6 +359,7 @@
                 $periodeText = convertPeriode(result.daftar[result.daftar.length-1].value)
                 $('#periode').val(result.daftar[result.daftar.length-1].value)
                 getProjectDashboard(result.daftar[result.daftar.length-1].value)
+                getProfitDashboard(result.daftar[result.daftar.length-1].value)
                 // getProjectAktif(result.daftar[result.daftar.length-1].value)
             }
             $('#periode-text').text('Periode '+$periodeText)
@@ -372,6 +384,30 @@
         $('#dekstop-baris-ke-1').show()
         $('#dekstop-baris-ke-2').show()
     })
+
+    function getProfitDashboard(periode) {
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('java-dash/profit-dashboard') }}",
+            dataType: 'json',
+            data: { periode: periode },
+            async:false,
+            success:function(result){  
+                var data = result.data.data[0]  
+                var profit = parseInt(data.nilai_proyek) - parseInt(data.nilai_beban)
+                var persentase = 0;
+                if(profit == 0) {
+                    persentase = 0
+                } else {
+                    persentase = (profit/parseInt(data.nilai_proyek))*100
+                }
+                profit = toJuta(profit)
+                $('#profit-percentage').text(format_number(persentase)+'%')
+                $('#profit-amount').text(profit)
+                // $('#project-berjalan').text(format_number(data.proyek_berjalan))
+            }
+        });
+    }
 
     function getProjectDashboard(periode) {
         $.ajax({
@@ -417,6 +453,7 @@
         $periode = $('#periode').val()
         $periodeText = convertPeriode($periode)
         getProjectDashboard($periode)
+        getProfitDashboard($periode)
         // getProjectAktif($periode)
         $('#periode-text').text('Periode '+$periodeText)
         $('#modalFilter').modal('hide');
