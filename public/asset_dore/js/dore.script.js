@@ -3993,7 +3993,9 @@ $.dore = function (element, options) {
 
     setTimeout(function () {
       if( $("body > .logo-tarbak-overlay").length > 0){
-        $("body > .logo-tarbak-overlay").css('display','none');
+        setTimeout(function(){
+            $("body > .logo-tarbak-overlay").css('display','none');
+        },400)
       }
       $("body").removeClass("show-spinner");
       $("main").addClass("default-transition");
