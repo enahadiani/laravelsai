@@ -51,6 +51,7 @@ Route::get('profile-siswa', 'Sekolah\AuthMobileController@getProfileSiswa');
 Route::post('update-profile-siswa', 'Sekolah\AuthMobileController@updateProfileSiswa');
 Route::get('mob-info', 'Sekolah\AuthMobileController@getInfo');
 Route::get('mob-notif', 'Sekolah\AuthMobileController@getNotif');
+Route::get('mob-info-detail', 'Sekolah\AuthMobileController@getDetailInfo');
 
 
 
