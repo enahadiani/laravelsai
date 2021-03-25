@@ -92,47 +92,7 @@
             <a class="btn btn-outline-light" href="#" id="btn-filter" style="position: absolute;right: 15px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-equalizer" style="transform-style: ;"></i> &nbsp;&nbsp; Filter</a>
         </div>
     </div>
-    <div class="row mt-3" >
-        <div class="col-xs-12 col-sm-4 col-md-3">
-            <div class="recent-work-wrap">
-                <iframe class="img-responsive" src="https://www.youtube.com/embed/tbbZpqUeHcs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="recent-work-inner">
-                    <p>Proses Bisnis Penetapan Biaya Pendidikan di Telkom University</p>
-                </div> 
-                <div class="overlay" style="cursor:pointer" data-href="{{ url('telu-dash/watch/1') }}">
-                </div>
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-4 col-md-3">
-            <div class="recent-work-wrap">
-                <iframe class="img-responsive" src="https://www.youtube.com/embed/tbbZpqUeHcs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="recent-work-inner">
-                    <p>Proses Bisnis Penetapan Biaya Pendidikan di Telkom University</p>
-                </div> 
-                <div class="overlay" style="cursor:pointer" data-href="{{ url('telu-dash/watch/1') }}">
-                </div>
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-4 col-md-3">
-            <div class="recent-work-wrap">
-                <iframe class="img-responsive" src="https://www.youtube.com/embed/tbbZpqUeHcs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="recent-work-inner">
-                    <p>Proses Bisnis Penetapan Biaya Pendidikan di Telkom University</p>
-                </div> 
-                <div class="overlay" style="cursor:pointer" data-href="{{ url('telu-dash/watch/1') }}">
-                </div>
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-4 col-md-3">
-            <div class="recent-work-wrap">
-                <iframe class="img-responsive" src="https://www.youtube.com/embed/tbbZpqUeHcs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="recent-work-inner">
-                    <p>Proses Bisnis Penetapan Biaya Pendidikan di Telkom University</p>
-                </div> 
-                <div class="overlay" style="cursor:pointer" data-href="{{ url('telu-dash/watch/1') }}">
-                </div>
-            </div>
-        </div>
+    <div class="row mt-3" id="list-video">
     </div>
 </div>
 <script>
@@ -140,15 +100,78 @@
  $('body').addClass('dash-contents');
  $('html').addClass('dash-contents');
 
-$('.recent-work-wrap').on('click','.overlay',function(e){
-    e.preventDefault();
-    var form = $(this).data('href');
-    var url = form;
-    console.log(url);
-    if(form == "" || form == "-"){
-        return false;
-    }else{
-        loadForm(url); 
-    }
-});
+if(localStorage.getItem("dore-theme") == "dark"){
+    $('#btn-filter').removeClass('btn-outline-light');
+    $('#btn-filter').addClass('btn-outline-dark');
+}else{
+    $('#btn-filter').removeClass('btn-outline-dark');
+    $('#btn-filter').addClass('btn-outline-light');
+}
+
+var $mode = localStorage.getItem("dore-theme");
+var $watch_id = "";
+var $watch_ket = "";
+ function getVideoList(){
+    $.ajax({
+        type:"GET",
+        url:"{{ url('telu-dash/video-list') }}",
+        dataType:"JSON",
+        data:{mode: $mode},
+        success: function(result){
+            var html = "";
+            $('#list-video').html(html);
+            if(result.status){
+                if(result.data.length > 0){
+                    for(var i=0; i < result.data.length; i++){
+                        var line = result.data[i];
+                        var tmp = line.link.split("https://youtu.be/");
+                        var link = "https://www.youtube.com/embed/"+tmp[1];
+                        html+=`
+                        <div class="col-xs-12 col-sm-4 col-md-3 mb-3">
+                            <div class="recent-work-wrap">
+                                <iframe class="img-responsive" src="`+link+`" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                <div class="recent-work-inner">
+                                    <p>`+line.keterangan+`</p>
+                                </div> 
+                                <div class="overlay" style="cursor:pointer" data-href="{{ url('telu-dash/watch/') }}/`+line.no_bukti+`" data-watch_id="`+tmp[1]+`" data-watch_ket="`+line.keterangan+`">
+                                </div>
+                            </div>
+                        </div>
+                        `;
+                    }
+                    $('#list-video').html(html);
+                    $('.recent-work-wrap').on('click','.overlay',function(e){
+                        e.preventDefault();
+                        var form = $(this).data('href');
+                        $watch_id = $(this).data('watch_id');
+                        $watch_ket = $(this).data('watch_ket');
+                        var url = form;
+                        if(form == "" || form == "-"){
+                            return false;
+                        }else{
+                            loadForm(url); 
+                        }
+                    });
+
+                }
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {       
+            if(jqXHR.status == 422){
+                var msg = jqXHR.responseText;
+            }else if(jqXHR.status == 500) {
+                var msg = "Internal server error";
+            }else if(jqXHR.status == 401){
+                var msg = "Unauthorized";
+                window.location="{{ url('/dash-telu/sesi-habis') }}";
+            }else if(jqXHR.status == 405){
+                var msg = "Route not valid. Page not found";
+            }
+            
+        }
+    });
+    
+}
+
+getVideoList();
 </script>

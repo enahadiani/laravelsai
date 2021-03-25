@@ -109,4 +109,6 @@ Route::get('/ms-shu','DashTelu\DashboardController@getSHUDetail');
 Route::get('/ms-aset','DashTelu\DashboardController@getMSAset');
 Route::get('/ms-hutang','DashTelu\DashboardController@getMSHutang');
 
+Route::get('video-list','DashTelu\DashboardController@getVideoList');
+
 ?>

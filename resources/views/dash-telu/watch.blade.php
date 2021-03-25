@@ -85,27 +85,21 @@
 <div class="container-fluid mt-3">
     <div class="row">
         <div class="col-12 video">
-            <h6>Proses Bisnis Penetapan Biaya Pendidikan di Telkom University</h6>
+            <h6 id="watch_ket"></h6>
             <a class='btn btn-outline-light' href='#' id='btnBack' style="position: absolute;right: 25px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-arrow-left"></i> Back</a>
         </div>
     </div>
     <div class="row mt-3" id="content-video">
-        <div class="col-md-12">
-            <iframe src='https://www.youtube.com/embed/tbbZpqUeHcs' style="width:100%;height:75vh"></iframe>
-        </div>
     </div>
-    <!-- <br>
-    <div class="row" id="keterangan">
-        <div class="col-md-12">
-            <a href="https://www.youtube.com/watch?v=tbbZpqUeHcs&feature=youtu.be" target="_blank"> https://www.youtube.com/watch?v=tbbZpqUeHcs&feature=youtu.be</a>
-        </div>
-    </div> -->
 </div>
 
 <script>
+$('#watch_ket').html($watch_ket);
+$('#content-video').html(`<div class="col-md-12"><iframe src='https://www.youtube.com/embed/`+$watch_id+`' style="width:100%;height:75vh"></iframe></div>`);
+
 $('.video').on('click','#btnBack',function(e){
     e.preventDefault();
     var url = "{{ url('/dash-telu/form/dashTeluVideo') }}";
     loadForm(url);
 });
-</script>
+</script> 
