@@ -1,6 +1,7 @@
 <script type="text/javascript">
     function drawLap(formData) {
-        saiPostLoad('esaku-report/lap-buku-kb', null, formData, null, function(res) {
+        saiPostLoad('esaku-report/lap-simp-simpanan', null, formData, null, function(res) {
+
             if (res.result.length > 0) {
 
                 $('#pagination').html('');
@@ -18,14 +19,12 @@
     function drawRptPage(data, res, from, to) {
         var data = data;
         if (data.length > 0) {
-            console.log(res.back);
+
             if (res.back) {
                 $('.navigation-lap').removeClass('hidden');
             } else {
                 $('.navigation-lap').addClass('hidden');
             }
-            var lokasi = res.lokasi;
-            periode = $periode;
             var html = `<style>
                 .info-table thead{
                     background:#4286f5;
@@ -65,54 +64,71 @@
                 <table class="borderless mb-2 table-kop-prev" width="100%" >
                     <tr>
                         <td width="50%" colspan="5" class="vtop"><h6 class="text-primary bold">LAPORAN DATA SIMPANAN</h6></td>
-                        <td width="50%" colspan="3" class="vtop text-right"><h6 class="mb-2 bold">` + res.lokasi[0]
-                .nama + `</h6></td>
+
                     </tr>
-                    <tr>
-                        <td colspan="5" >Periode ` + ($periode.fromname) + `</td>
-                        <td colspan="3" class="vtop text-right"><p class="lh1">` + res.lokasi[0].alamat + `<br>` + res
-                .lokasi[0].kota + ` ` + res.lokasi[0].kodepos + ` </p></td>
-                    </tr>
+
                     <tr>
                         <td colspan="5" >( Disajikan dalam Rupiah )</td>
-                        <td colspan="3" class="vtop text-right"><p class="mt-2">` + res.lokasi[0].email + ` | ` + res
-                .lokasi[0].no_telp + `</p></td>
+
                     </tr>
                 </table>
             </div>
             `;
+
             for (var i = 0; i < data.length; i++) {
                 var line = data[i];
                 html += `
                 <div style="padding: 0 3rem" class="table table-responsive">
                 <table class='table table-striped mt-4'>
-                <tr>
-                    <th class='header_laporan bg-white no-border' width='100'>Kode Akun  </th>
-                    <th class='header_laporan bg-white no-border' colspan='7'>:&nbsp;` + line.kode_akun + `</th>
+                 <tr>
+                    <th class='header_laporan bg-white no-border'>Anggota </th>
+                    <th class='header_laporan bg-white no-border' colspan='7'>:&nbsp;` + line.no_agg + ' - ' + line
+                    .nama + `</th>
                 </tr>
                 <tr>
-                    <th class='header_laporan bg-white no-border'>Nama Akun </th>
-                    <th class='header_laporan bg-white no-border' colspan='7'>:&nbsp;` + line.nama + `</th>
+                    <th class='header_laporan bg-white no-border' width='100'>No Kartu  </th>
+                    <th class='header_laporan bg-white no-border' colspan='7'>:&nbsp;` + line.no_simp + `</th>
                 </tr>
                 <tr>
-                    <th width='60' class='header_laporan bg-primary' align='center'>Tanggal</th>
-                    <th width='80' height='23' class='header_laporan bg-primary' align='center'>No Bukti</th>
-                    <th width='80' height='23' class='header_laporan bg-primary' align='center'>No Dokumen</th>
-                    <th width='250' class='header_laporan bg-primary' align='center'>Keterangan</th>
-                    <th width='60' class='header_laporan bg-primary' align='center'>Kode PP</th>
-                    <th width='90' class='header_laporan bg-primary' align='center'>Debet</th>
-                    <th width='90' class='header_laporan bg-primary' align='center'>Kredit</th>
-                    <th width='90' class='header_laporan bg-primary' align='center'>Balance</th>
+                    <th class='header_laporan bg-white no-border' width='100'>Tanggal Tagihan  </th>
+                    <th class='header_laporan bg-white no-border' colspan='7'>:&nbsp;` + line
+                    .tgl_tagih + `</th>
                 </tr>
                 <tr>
-                    <th height='23' colspan='7' class='header_laporan bg-highlight text-right'>Saldo Awal </th>
-                    <th class='header_laporan bg-highlight text-right'>` + sepNum(line.so_awal) + `</th>
-                </tr>`;
+                    <th class='header_laporan bg-white no-border'>Jenis Simpanan </th>
+                    <th class='header_laporan bg-white no-border' colspan='7'>:&nbsp;` + line.jenis + ' - ' + line
+                    .nama_param + `</th>
+                </tr>
+                <tr>
+                    <th class='header_laporan bg-white no-border'>Status Bayar </th>
+                    <th class='header_laporan bg-white no-border' colspan='7'>:&nbsp;` + line.status_bayar + `</th>
+                </tr>
+                <tr>
+                    <th class='header_laporan bg-white no-border'>Nilai </th>
+                    <th class='header_laporan bg-white no-border' colspan='7'>:&nbsp;` + sepNum(line.nilai) + `</th>
+                </tr>
+                <tr>
+                    <th class='header_laporan bg-white no-border'>Bunga</th>
+                    <th class='header_laporan bg-white no-border' colspan='7'>:&nbsp;` + sepNum(line.p_bunga) + `</th>
+                </tr>
+                <tr>
+                    <th width='60' class='header_laporan bg-primary' align='center'>Tanggal Tagihan</th>
+                    <th width='80' height='23' class='header_laporan bg-primary' align='center'>No Bill</th>
+                    <th width='80' height='23' class='header_laporan bg-primary' align='center'>Tagihan</th>
+                    <th width='80' class='header_laporan bg-primary' align='center'>Pokok</th>
+                    <th width='60' class='header_laporan bg-primary' align='center'>Bunga</th>
+                    <th width='90' class='header_laporan bg-primary' align='center'>Bayar</th>
+                    <th width='90' class='header_laporan bg-primary' align='center'>Saldo</th>
+                    <th width='90' class='header_laporan bg-primary' align='center'>Tgl Bayar</th>
+                    <th width='90' class='header_laporan bg-primary' align='center'>No Bayar</th>
+                </tr>
+                <tr>`;
                 var saldo = parseFloat(line.so_awal);
                 var debet = 0;
                 var kredit = 0;
                 var det = "";
-                for (var x = 0; x < res.detail.length; x++) {
+                console.log(res);
+                for (var x = 0; x < line.detail.length; x++) {
                     var line2 = res.detail[x];
                     if (line.kode_akun == line2.kode_akun) {
 
@@ -133,13 +149,8 @@
                    </tr>`;
                     }
                 }
-                html += det + `<tr>
-                <td height='23' colspan='5' valign='top' class='isi_laporan bg-primary' align='right'>Total&nbsp;</td>
-                <td valign='top' class='isi_laporan bg-primary' align='right'>` + sepNum(debet) + `</td>
-                <td valign='top' class='isi_laporan bg-primary' align='right'>` + sepNum(kredit) + `</td>
-                <td valign='top' class='isi_laporan bg-primary' align='right'>` + sepNum(saldo) + `</td>
-            </tr>
-            </table>
+
+                `</table>
             <br>`;
 
                 html += "</div>";
