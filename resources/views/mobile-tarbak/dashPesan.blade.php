@@ -104,7 +104,6 @@
                             for(var i=0; i < result.data.length ; i++){
                                 var line = result.data[i];
                                 var config = "{{ config('api.url') }}";
-                                config = "https://api.simkug.com/api/";
                                 if(line.file_dok != "" && line.file_dok != "-" ){
                                     var img = config+"mobile-sekolah/storage/"+line.file_dok;
                                     html+=`<div class="row detail-notif" data-tanggal="`+line.tanggal+`" data-pesan="`+line.pesan+`" data-img="`+img+`">

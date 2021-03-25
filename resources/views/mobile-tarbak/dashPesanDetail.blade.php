@@ -35,7 +35,6 @@
                 $('#detail_pesan').html('');
                 if(result.status){
                     var config = "{{ config('api.url') }}";
-                    config = "https://api.simkug.com/api/";
                     if(result.data_guru[0].foto != "" && result.data_guru[0].foto != "-" ){
                         var img = config+"mobile-sekolah/storage/"+result.data_guru[0].foto;
                     }else{
