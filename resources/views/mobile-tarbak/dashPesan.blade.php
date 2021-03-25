@@ -22,6 +22,15 @@
     .bold{
         font-weight:bold;
     }
+    .bold-text{
+        font-weight:bold;
+        color:black !important;
+    }
+    
+    .bold-grey{
+        font-weight:bold;
+        background:#f0f2fe;
+    }
     .detail-pesan,.detail-notif{
         cursor:pointer;
     }
@@ -83,13 +92,18 @@
                                 }else{
                                     var img = "{{ asset('asset_elite/images/user.png') }}";   
                                 }
+                                if(line.sts_read_mob == 0){
+                                    var bold = "bold-text";
+                                }else{
+                                    var bold = "";
+                                }
                                 html+=`<div class="row mb-3 detail-pesan" data-nik_guru="`+line.nik_user+`" data-kode_matpel="`+line.kode_matpel+`">
                                     <div class="col-2 text-center pr-0">
                                         <img src="`+img+`" class="img-thumbnail border-0 rounded-circle list-thumbnail align-self-center xsmall" style="height:45px;width: 45px;">
                                     </div>
                                     <div class="col-10">
-                                        <p class="list-item-heading mb-1 truncate" style="font-size:1rem !important">`+line.nama+` <span class='float-right text-right text-muted' style="font-size:10px !important">`+line.tanggal+`</span></p>
-                                        <p class="mb-2 text-muted text-small" style="text-overflow: ellipsis;overflow: hidden;white-space: nowrap;">`+line.judul+`</p>
+                                        <p class="`+bold+` list-item-heading mb-1 truncate" style="font-size:1rem !important">`+line.nama+` <span class='float-right text-right text-muted' style="font-size:10px !important">`+line.tanggal+`</span></p>
+                                        <p class="`+bold+` mb-2 text-muted text-small" style="text-overflow: ellipsis;overflow: hidden;white-space: nowrap;">`+line.judul+`</p>
                                     </div>
                                 </div>`;
                             }
@@ -104,9 +118,14 @@
                             for(var i=0; i < result.data.length ; i++){
                                 var line = result.data[i];
                                 var config = "{{ config('api.url') }}";
+                                if(line.sts_read_mob == 0){
+                                    var bold = "bold-grey";
+                                }else{
+                                    var bold = "";
+                                }
                                 if(line.file_dok != "" && line.file_dok != "-" ){
                                     var img = config+"mobile-sekolah/storage/"+line.file_dok;
-                                    html+=`<div class="row detail-notif" data-tanggal="`+line.tanggal+`" data-pesan="`+line.pesan+`" data-img="`+img+`">
+                                    html+=`<div class="row mx-1 detail-notif `+bold+`" data-tanggal="`+line.tanggal+`" data-pesan="`+line.pesan+`" data-img="`+img+`">
                                     <div class="col-12 col-grid">
                                     <p class="text-muted text-small mb-0" style="font-size:9px !important"><img src="{{ asset('img/mobile-tarbak/notifc.jpeg') }}" class="mr-3"> Pemberitahuan | `+line.tanggal+`</p>
                                     </div>
@@ -114,13 +133,13 @@
                                     `+line.pesan+`
                                     </div>
                                     <div class="col-3 pl-0">
-                                        <img src="`+img+`" alt="" style="width:80px;height:80px;border-radius:20px">
+                                        <img src="`+img+`" alt="" style="width:80px;height:80px;border-radius:20px;margin-bottom:10px">
                                     </div>
                                 </div>
-                                <div class="separator mt-4 mb-3"></div>`;
+                                <div class="separator mx-0"></div>`;
                                 }else{
                                     
-                                    html+=`<div class="row detail-notif" data-tanggal="`+line.tanggal+`" data-pesan="`+line.pesan+`" data-img="-">
+                                    html+=`<div class="row mx-1 detail-notif `+bold+`" data-tanggal="`+line.tanggal+`" data-pesan="`+line.pesan+`" data-img="-">
                                     <div class="col-12 col-grid">
                                         <p class="text-muted text-small mb-0" style="font-size:9px !important"><img src="{{ asset('img/mobile-tarbak/notifc.jpeg') }}" class="mr-3"> Pemberitahuan | `+line.tanggal+`</p>
                                         </div>
@@ -128,7 +147,7 @@
                                         `+line.pesan+`
                                         </div>
                                     </div>
-                                    <div class="separator mt-4 mb-3"></div>`;
+                                    <div class="separator mx-0"></div>`;
                                 }
                             }
                             $('.tab-notif').html(html+"<div style='height:100px;'>&nbsp;</div>");
