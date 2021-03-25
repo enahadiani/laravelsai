@@ -1,3 +1,11 @@
+.table-scroll > table thead th {
+    position: sticky;
+    top: 0;
+}
+.table-scroll {
+    overflow-y: auto;
+    height: 280px;
+}
 .card-list-kegiatan {
     height: 100px;
     width: 220px;
