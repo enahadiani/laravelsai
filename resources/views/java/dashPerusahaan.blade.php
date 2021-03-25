@@ -404,7 +404,6 @@
                 if(profit.toString().length <= 9) {
                     profit = toJuta(profit)
                 } else {
-                    console.log(profit)
                     profit = toMilyar(profit)
                 }
                 $('#profit-percentage').text(format_number(persentase)+'%')
