@@ -191,9 +191,11 @@
 }
 .card-dash {
     height: 220px;
+    box-shadow: 0 3px 8px 0 #f0f0f0;
 }
 .card-dash-default {
     height: 250px;
+    box-shadow: 0 3px 8px 0 #f0f0f0;
 }
 .card-dash-detail-row-1 {
     height: 230px;
