@@ -12,10 +12,9 @@
                                 <h6>Filter</h6>
                                 <div id="inputFilter">
                                     <!-- COMPONENT -->
-                                    <x-inp-filter kode="periode" nama="Periode" selected="3" :option="array('3')" />
-                                    <x-inp-filter kode="kode_akun" nama="Kode Akun" selected="1"
-                                        :option="array('1','2','3','i')" />
-                                    <x-inp-filter kode="mutasi" nama="Mutasi" selected="1" :option="array('1','3')" />
+                                    <x-inp-filter kode="no_agg" nama="Anggota" selected="1" :option="array('1','3')" />
+                                    <x-inp-filter kode="no_kartu" nama="No Kartu" selected="1"
+                                        :option="array('1','3')" />
                                     <!-- END COMPONENT -->
                                 </div>
 
@@ -47,22 +46,17 @@ date_default_timezone_set('Asia/Bangkok');
             'X-CSRF-TOKEN': $('meta[name="-token"]').attr('content')
         }
     });
-    var $periode = {
-        type: "=",
-        from: "{{ Session::get('periode') }}",
-        fromname: namaPeriode("{{ Session::get('periode') }}"),
-        to: "",
-        toname: "",
-    }
-    var $kode_akun = {
+
+
+
+    var $no_agg = {
         type: "all",
         from: "",
         fromname: "",
         to: "",
         toname: "",
     }
-
-    var $mutasi = {
+    var $no_kartu = {
         type: "all",
         from: "",
         fromname: "",
@@ -123,12 +117,11 @@ date_default_timezone_set('Asia/Bangkok');
     $('.selectize').selectize();
 
     $('#inputFilter').reportFilter({
-        kode: ['periode', 'kode_akun', 'mutasi'],
-        nama: ['Periode', 'Kode Akun', 'Mutasi'],
+        kode: ['no_kartu', 'no_agg'],
+        nama: ['No Kartu', 'Anggota'],
         header: [
-            ['Periode', 'Nama'],
-            ['Kode', 'Nama'],
-            ['Kode']
+            ['No Kartu', 'Keterangan'],
+            ['No Anggota', 'Nama']
         ],
         headerpilih: [
             ['Periode', 'Nama', 'Action'],
@@ -137,14 +130,14 @@ date_default_timezone_set('Asia/Bangkok');
         ],
         columns: [
             [{
-                    data: 'periode'
+                    data: 'no_simp'
                 },
                 {
-                    data: 'nama'
+                    data: 'jenis'
                 }
             ],
             [{
-                    data: 'kode_akun'
+                    data: 'kode'
                 },
                 {
                     data: 'nama'
@@ -154,9 +147,7 @@ date_default_timezone_set('Asia/Bangkok');
                 data: 'kode'
             }]
         ],
-        url: ["{{ url('esaku-report/filter-periode-kb') }}", "{{ url('esaku-report/filter-akun') }}",
-            "{{ url('esaku-report/filter-mutasi') }}"
-        ],
+        url: ["{{ url('esaku-report/filter-kartu') }}", "{{ url('esaku-report/filter-anggota') }}"],
         parameter: [{}, {
             jenis_akun: "KAS"
         }, {}],
@@ -182,15 +173,12 @@ date_default_timezone_set('Asia/Bangkok');
     $('#form-filter').submit(function(e) {
         e.preventDefault();
         $formData = new FormData();
-        $formData.append("periode[]", $periode.type);
-        $formData.append("periode[]", $periode.from);
-        $formData.append("periode[]", $periode.to);
-        $formData.append("kode_akun[]", $kode_akun.type);
-        $formData.append("kode_akun[]", $kode_akun.from);
-        $formData.append("kode_akun[]", $kode_akun.to);
-        $formData.append("mutasi[]", $mutasi.type);
-        $formData.append("mutasi[]", $mutasi.from);
-        $formData.append("mutasi[]", $mutasi.to);
+        $formData.append("no_agg[]", $no_agg.type);
+        $formData.append("no_agg[]", $no_agg.from);
+        $formData.append("no_agg[]", $no_agg.to);
+        $formData.append("no_kartu[]", $no_kartu.type);
+        $formData.append("no_kartu[]", $no_kartu.from);
+        $formData.append("no_kartu[]", $no_kartu.to);
         for (var pair of $formData.entries()) {
             console.log(pair[0] + ', ' + pair[1]);
         }
@@ -201,15 +189,12 @@ date_default_timezone_set('Asia/Bangkok');
 
     $('#show').change(function(e) {
         $formData = new FormData();
-        $formData.append("periode[]", $periode.type);
-        $formData.append("periode[]", $periode.from);
-        $formData.append("periode[]", $periode.to);
-        $formData.append("kode_akun[]", $kode_akun.type);
-        $formData.append("kode_akun[]", $kode_akun.from);
-        $formData.append("kode_akun[]", $kode_akun.to);
-        $formData.append("mutasi[]", $mutasi.type);
-        $formData.append("mutasi[]", $mutasi.from);
-        $formData.append("mutasi[]", $mutasi.to);
+        $formData.append("no_kartu[]", $no_kartu.type);
+        $formData.append("no_kartu[]", $no_kartu.from);
+        $formData.append("no_kartu[]", $no_kartu.to);
+        $formData.append("no_agg[]", $no_agg.type);
+        $formData.append("no_agg[]", $no_agg.from);
+        $formData.append("no_agg[]", $no_agg.to);
         for (var pair of $formData.entries()) {
             console.log(pair[0] + ', ' + pair[1]);
         }
@@ -328,8 +313,8 @@ date_default_timezone_set('Asia/Bangkok');
         e.preventDefault();
         var link = "{{ url('esaku-report/lap-buku-kb-pdf') }}?periode[]=" + $periode.type + "&periode[]=" +
             $periode.from + "&periode[]=" + $periode.to + "&kode_akun[]=" + $kode_akun.type + "&kode_akun[]=" +
-            $kode_akun.from + "&kode_akun[]=" + $kode_akun.to + "&mutasi[]=" + $mutasi.type + "&mutasi[]=" +
-            $mutasi.from + "&mutasi[]=" + $mutasi.to;
+            $kode_akun.from + "&kode_akun[]=" + $kode_akun.to + "&no_agg[]=" + $no_agg.type + "&no_agg[]=" +
+            $no_agg.from + "&no_agg[]=" + $no_agg.to;
         window.open(link, '_blank');
     });
 
@@ -342,9 +327,9 @@ date_default_timezone_set('Asia/Bangkok');
         formData.append("kode_akun[]", $kode_akun.type);
         formData.append("kode_akun[]", $kode_akun.from);
         formData.append("kode_akun[]", $kode_akun.to);
-        formData.append("mutasi[]", $mutasi.type);
-        formData.append("mutasi[]", $mutasi.from);
-        formData.append("mutasi[]", $mutasi.to);
+        formData.append("no_agg[]", $no_agg.type);
+        formData.append("no_agg[]", $no_agg.from);
+        formData.append("no_agg[]", $no_agg.to);
         for (var pair of formData.entries()) {
             console.log(pair[0] + ', ' + pair[1]);
         }

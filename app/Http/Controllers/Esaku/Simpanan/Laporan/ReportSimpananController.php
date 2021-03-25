@@ -9,7 +9,7 @@ use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Session;
 use GuzzleHttp\Exception\BadResponseException;
 
-class ReportAnggotaController extends Controller
+class ReportSimpananController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,13 +27,14 @@ class ReportAnggotaController extends Controller
     public function index(Request $request){
         try {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'esaku-report/lap-simp-anggota',[
+            $response = $client->request('GET',  config('api.url').'esaku-report/lap-simp-simpanan',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
                 ],
                 'query' => [
-                    'no_agg' => $request->no_agg,
+                    'no_agg'        => $request->no_agg,
+                    'no_kartu'      => $request->no_kartu
                 ]
             ]);
 
