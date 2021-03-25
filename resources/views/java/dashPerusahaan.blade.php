@@ -130,30 +130,32 @@
         <div class="col-md-12 col-sm-12 col-lg-12">
             <div class="card card-dash-default pt-4 pl-4 pr-2">
                 <h6 class="text-bold">Project Aktif</h6>
-                <table class="table table-borderless table-hover mt-1 ml--1" id="project-active">
-                    <thead>
-                        <tr>
-                            <th>Customer</th>
-                            <th>No Kontrak</th>
-                            <th>Kontrak Selesai</th>
-                            <th>Nilai Kontrak</th>
-                            <th>Anggaran</th>
-                            <th>Beban</th>
-                            <th>% Profit</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>PT. Samudera Aplikasi Indonesia</td>
-                            <td>294/KD/ERIU</td>
-                            <td>11/08/21</td>
-                            <td>13.000.000</td>
-                            <td>12.000.000</td>
-                            <td>10.000.000</td>
-                            <td>23.0%</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="table-scroll">
+                    <table class="table table-borderless table-hover mt-1 ml--1" id="project-active">
+                        <thead>
+                            <tr>
+                                <th>Customer</th>
+                                <th>No Proyek</th>
+                                <th>Kontrak Selesai</th>
+                                <th>Nilai Kontrak</th>
+                                <th>Anggaran</th>
+                                <th>Beban</th>
+                                <th>% Profit</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{-- <tr>
+                                <td>PT. Samudera Aplikasi Indonesia</td>
+                                <td>294/KD/ERIU</td>
+                                <td>11/08/21</td>
+                                <td>13.000.000</td>
+                                <td>12.000.000</td>
+                                <td>10.000.000</td>
+                                <td>23.0%</td>
+                            </tr> --}}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -164,7 +166,7 @@
         <div class="row">
             <div class="col-md-8 com-sm-8 col-lg-8">
                 <div class="card card-dash-detail-row-1">
-                    <h6 class="pl-4 pt-4 text-bold">PT Konsumen Proyek</h6>
+                    <h6 class="pl-4 pt-4 text-bold" id="customer-name">PT Konsumen Proyek</h6>
                     <p class="text-secondary pl-4 pr-4 pt-2">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                     </p>
@@ -175,23 +177,23 @@
                     <h6 class="pl-4 pt-4 text-bold">Keuangan Proyek</h6>
                     <div class="pl-4 pr-4 list-keuangan-proyek">
                         <span>Nilai Project</span>
-                        <span id="project-amount">20.000.0000</span>
+                        <span id="project-amount">0</span>
                     </div>
                     <div class="pl-4 pr-4 list-keuangan-proyek">
                         <span>Tanggal Selesai</span>
-                        <span id="date-finish">05/06/2021</span>
+                        <span id="date-finish">0</span>
                     </div>
                     <div class="pl-4 pr-4 list-keuangan-proyek">
                         <span>Budget</span>
-                        <span id="budget">7.000.000</span>
+                        <span id="budget">0</span>
                     </div>
                     <div class="pl-4 pr-4 list-keuangan-proyek">
                         <span>Actual</span>
-                        <span id="actual">4.000.000</span>
+                        <span id="actual">0</span>
                     </div>
                     <div class="pl-4 pr-4 list-keuangan-proyek">
                         <span>Profit</span>
-                        <span id="profit">26.000.000</span>
+                        <span id="profit">0</span>
                     </div>
                 </div>
             </div>
@@ -202,19 +204,22 @@
             <div class="col-md-8 com-sm-8 col-lg-8">
                 <div class="card card-dash-detail-row-2 pt-4 pl-4 pr-2">
                     <h6 class="text-bold">Pembayaran Supplier</h6>
-                    <table class="table table-borderless table-hover ml--1" id="table-supplier">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Tanggal</th>
-                                <th>No Doc</th>
-                                <th>Uraian Pekerjaan</th>
-                                <th>Supplier</th>
-                                <th>Jumlah</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                    </table>
+                    <div style="height: 430px;overflow: auto;">
+                        <table class="table table-borderless table-hover ml--1" id="table-supplier">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Tanggal</th>
+                                    <th>No Doc</th>
+                                    <th>Uraian Pekerjaan</th>
+                                    <th>Supplier</th>
+                                    <th>Jumlah</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
             <div class="col-md-4 col-sm-4 col-lg-4">
@@ -256,7 +261,7 @@
             <div class="col-md-8 com-sm-8 col-lg-8">
                 <div class="card card-dash-default pt-4 pl-4 pr-2">
                     <h6 class="text-bold">Pembayaran Customer</h6>
-                    <table class="table table-borderless table-hover ml--1" id="table-supplier">
+                    <table class="table table-borderless table-hover ml--1" id="table-customer">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -266,6 +271,7 @@
                                 <th>Jumlah</th>
                             </tr>
                         </thead>
+                        <tbody></tbody>
                     </table>
                 </div>
             </div>
@@ -352,7 +358,7 @@
                 $('#periode').val($initialPeriode)
                 getProjectDashboard($initialPeriode)
                 getProfitDashboard($initialPeriode)
-                // getProjectAktif($initialPeriode)
+                getProjectAktif($initialPeriode)
                 $periodeText = convertPeriode($initialPeriode)
             } else {
                 $initialPeriode = result.daftar[result.daftar.length-1].value;
@@ -360,7 +366,7 @@
                 $('#periode').val(result.daftar[result.daftar.length-1].value)
                 getProjectDashboard(result.daftar[result.daftar.length-1].value)
                 getProfitDashboard(result.daftar[result.daftar.length-1].value)
-                // getProjectAktif(result.daftar[result.daftar.length-1].value)
+                getProjectAktif(result.daftar[result.daftar.length-1].value)
             }
             $('#periode-text').text('Periode '+$periodeText)
         }
@@ -371,6 +377,15 @@
         if(countTd <= 1) {
             return;
         } else {
+            var customer = $(this).find('td').eq(0).html()
+            var no_proyek = $(this).find('td').eq(1).html()
+            var selesai = $(this).find('td').eq(2).html()
+            var kontrak = $(this).find('td').eq(3).html()
+            var anggaran = $(this).find('td').eq(4).html()
+            var beban = $(this).find('td').eq(5).html()
+            var profit = $(this).find('td').eq(7).html()
+            var kode_cust = $(this).find('td').eq(8).html()
+            getDetail(no_proyek, customer, kontrak, selesai, anggaran, beban, profit, kode_cust)
             $('#dekstop-baris-ke-1').hide()
             $('#dekstop-baris-ke-2').hide()
             $('#detail').show()
@@ -384,6 +399,85 @@
         $('#dekstop-baris-ke-1').show()
         $('#dekstop-baris-ke-2').show()
     })
+
+    function getDetail(proyek, customer, nilai_proyek, tgl_selesai, budget, actual, profit, kode_cust) {
+        $('#customer-name').text(customer)
+        $('#project-amount').text(nilai_proyek)
+        $('#date-finish').text(tgl_selesai)
+        $('#budget').text(budget)
+        $('#actual').text(actual)
+        $('#profit').text(profit)
+
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('java-dash/project-detail-supplier') }}",
+            dataType: 'json',
+            data: { proyek: proyek },
+            async:false,
+            success:function(result){ 
+                $('#table-supplier tbody').empty() 
+                var data = result.data.data
+                var html = "";
+                var no = 1;
+                for(var i=0;i<data.length;i++) {
+                    var line = data[i]
+                    var status = ''
+                    if(line.status == 1) {
+                        status = 'Lunas'
+                    } else {
+                        status = 'Belum Lunas'
+                    }
+
+                    html += "<tr>"
+                    html += "<td>"+no+"</td>"
+                    html += "<td>"+line.tanggal+"</td>"
+                    html += "<td>"+line.no_dokumen+"</td>"
+                    html += "<td>"+line.keterangan+"</td>"
+                    html += "<td>"+line.nama+"</td>"
+                    html += "<td>-</td>"
+                    html += "<td>"+status+"</td>"
+                    html += "</tr>"
+
+                    no++
+                }
+                $('#table-supplier tbody').append(html)
+            }
+        });
+
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('java-dash/project-detail-customer') }}",
+            dataType: 'json',
+            data: { customer: kode_cust },
+            async:false,
+            success:function(result){  
+                $('#table-customer tbody').empty()
+                var data = result.data.data
+                var html = "";
+                var no = 1;
+                if(data.length == 0) {
+                    html += "<tr>"
+                    html += "<td colspan='5' style='text-align:center;'>Tidak ada data</td>"
+                    html += "</tr>"
+                } else {
+                    for(var i=0;i<data.length;i++) {
+                        var line = data[i]
+
+                        html += "<tr>"
+                        html += "<td>"+no+"</td>"
+                        html += "<td>"+line.tanggal+"</td>"
+                        html += "<td>"+line.no_dokumen+"</td>"
+                        html += "<td>"+line.keterangan+"</td>"
+                        html += "<td>-</td>"
+                        html += "</tr>"
+
+                        no++
+                    }
+                }
+                $('#table-customer tbody').append(html)
+            }
+        });
+    }
 
     function getProfitDashboard(periode) {
         $.ajax({
@@ -437,28 +531,45 @@
             data: { periode: periode },
             async:false,
             success:function(result){    
-                console.log(result)
                 var data = result.data.data
-                console.log(data)
-                html = ""
+                var html = ""
                 if(data.length == 0) {
                     html += "<tr>"
                     html += "<td colspan='7' style='text-align:center;'>Tidak ada data</td>"
                     html += "</tr>"
+                } else {
+                    for(var i=0;i<data.length;i++) {
+                        var profit = 0
+                        var percentage = 0
+                        var line = data[i]
+                        profit = parseInt(line.nilai_proyek) - parseInt(line.beban)
+                        percentage = (profit/parseInt(line.nilai_proyek))*100
+                        html += "<tr>";
+                        html += "<td>"+line.nama_cust+"</td>"
+                        html += "<td>"+line.no_proyek+"</td>"
+                        html += "<td>"+line.tgl_selesai+"</td>"
+                        html += "<td>"+format_number(line.nilai_proyek)+"</td>"
+                        html += "<td>"+format_number(line.rab)+"</td>"
+                        html += "<td>"+format_number(line.beban)+"</td>"
+                        html += "<td>"+format_number(percentage)+"%</td>"
+                        html += "<td style='display:none'>"+format_number(profit)+"</td>"
+                        html += "<td style='display:none'>"+line.kode_cust+"</td>"
+                        html += "</tr>";
+                    }
                 } 
 
-                // $('#project-active tbody').append(html)
+                $('#project-active tbody').append(html)
             }
         });
     }
 
     $('#form-filter #btn-tampil').on('click', function(){
-        // $('#project-active tbody').empty()
+        $('#project-active tbody').empty()
         $periode = $('#periode').val()
         $periodeText = convertPeriode($periode)
         getProjectDashboard($periode)
         getProfitDashboard($periode)
-        // getProjectAktif($periode)
+        getProjectAktif($periode)
         $('#periode-text').text('Periode '+$periodeText)
         $('#modalFilter').modal('hide');
     })
