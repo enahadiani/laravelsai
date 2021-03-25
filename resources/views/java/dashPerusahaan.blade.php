@@ -16,7 +16,7 @@
             <div class="card card-dash">
                 <div class="card-project">
                     <h6 class="pt-4 pl-4 text-white">Project</h6>
-                    <h4 class="pt-1 pl-4 text-white">30</h4>
+                    <h4 class="pt-1 pl-4 text-white" id="project-total">0</h4>
                 </div>
                 <div class="keterangan-card">
                     <div class="row keterangan-container">
@@ -27,7 +27,7 @@
                             </div>
                         </div>
                         <div class="col-md-3 col-sm-3 col-lg-3">
-                            <span class="text-bold">17</span>
+                            <span class="text-bold" id="project-selesai">0</span>
                         </div>
                     </div>
                 </div>
@@ -40,7 +40,7 @@
                             </div>
                         </div>
                         <div class="col-md-3 col-sm-3 col-lg-3">
-                            <span class="text-bold">13</span>
+                            <span class="text-bold" id="project-berjalan">0</span>
                         </div>
                     </div>
                 </div>
@@ -117,8 +117,8 @@
         <div class="col-md-3 col-lg-3 col-xl-3">
             <div class="card card-dash">
                 <h6 class="pt-4 pl-4">Profit</h6>
-                <h1 class="pt-1 pl-4 text-bold profit-percentage">53%</h1>
-                <h5 class="pl-4 text-bold profit-amount">1.1 M</h5>
+                <h1 class="pt-1 pl-4 text-bold profit-percentage" id="profit-percentage">0%</h1>
+                <h5 class="pl-4 text-bold profit-amount" id="profit-amount">0 M</h5>
                 <p class="pl-4 text-secondary">Naik 6,2% vs tahun lalu</p>
             </div>
         </div>
@@ -312,6 +312,16 @@
         $('#modalFilter').modal('show');
     })
 
+    function toMilyar(x) {
+        var nil = x / 1000000000;
+        return sepNum(nil) + ' M';
+    }
+
+    function toJuta(x) {
+        var nil = x / 1000000;
+        return sepNum(nil) + ' Jt';
+    }
+
     function convertPeriode(periode) {
         var array = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September',
         'Oktober', 'November', 'Desember']
@@ -319,7 +329,7 @@
         var split = periode.split('-')
         var convert = parseInt(split[1])
 
-        return array[convert]+" "+split[0]
+        return array[convert - 1]+" "+split[0]
     }
 
     $.ajax({
@@ -339,28 +349,33 @@
             })
 
             if(filter.length > 0) {
-                // $('#periode-text').text('Periode '+$initialPeriode)
-                // $('#periode').val($initialPeriode)
-                getBebanUnpaid($initialPeriode)
-                getTotalProject($initialPeriode)
+                $('#periode').val($initialPeriode)
+                getProjectDashboard($initialPeriode)
+                getProfitDashboard($initialPeriode)
+                // getProjectAktif($initialPeriode)
                 $periodeText = convertPeriode($initialPeriode)
             } else {
                 $initialPeriode = result.daftar[result.daftar.length-1].value;
                 $periodeText = convertPeriode(result.daftar[result.daftar.length-1].value)
                 $('#periode').val(result.daftar[result.daftar.length-1].value)
-                $('#periode-text').text('Periode '+result.daftar[result.daftar.length-1].text)
-                // getBebanUnpaid(result.daftar[result.daftar.length-1].value)
-                // getTotalProject(result.daftar[result.daftar.length-1].value)
+                getProjectDashboard(result.daftar[result.daftar.length-1].value)
+                getProfitDashboard(result.daftar[result.daftar.length-1].value)
+                // getProjectAktif(result.daftar[result.daftar.length-1].value)
             }
             $('#periode-text').text('Periode '+$periodeText)
         }
     });
 
     $('#project-active tbody tr').on('click', function(){
-        $('#dekstop-baris-ke-1').hide()
-        $('#dekstop-baris-ke-2').hide()
-        $('#detail').show()
-        $('#button-back').show();
+        var countTd = $(this).children('td').length;
+        if(countTd <= 1) {
+            return;
+        } else {
+            $('#dekstop-baris-ke-1').hide()
+            $('#dekstop-baris-ke-2').hide()
+            $('#detail').show()
+            $('#button-back').show();
+        }
     })
 
     $('#button-back').on('click', function() {
@@ -370,37 +385,80 @@
         $('#dekstop-baris-ke-2').show()
     })
 
-    // function getBebanUnpaid(periode) {
-    //     $.ajax({
-    //         type: 'GET',
-    //         url: "{{ url('java-dash/beban-unpaid') }}",
-    //         dataType: 'json',
-    //         data: { periode: periode },
-    //         async:false,
-    //         success:function(result){    
-    //             $('#beban-unpaid').text(format_number(result.data.data[0].beban_unpaid))
-    //         }
-    //     });
-    // }
+    function getProfitDashboard(periode) {
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('java-dash/profit-dashboard') }}",
+            dataType: 'json',
+            data: { periode: periode },
+            async:false,
+            success:function(result){  
+                var data = result.data.data[0]  
+                var profit = parseInt(data.nilai_proyek) - parseInt(data.nilai_beban)
+                var persentase = 0;
+                if(profit == 0) {
+                    persentase = 0
+                } else {
+                    persentase = (profit/parseInt(data.nilai_proyek))*100
+                }
+                if(profit.toString().length <= 9) {
+                    profit = toJuta(profit)
+                } else {
+                    profit = toMilyar(profit)
+                }
+                $('#profit-percentage').text(format_number(persentase)+'%')
+                $('#profit-amount').text(profit)
+                // $('#project-berjalan').text(format_number(data.proyek_berjalan))
+            }
+        });
+    }
 
-    // function getTotalProject(periode) {
-    //     $.ajax({
-    //         type: 'GET',
-    //         url: "{{ url('java-dash/total-project') }}",
-    //         dataType: 'json',
-    //         data: { periode: periode },
-    //         async:false,
-    //         success:function(result){    
-    //             $('#total-project').text(format_number(result.data.data[0].jumlah))
-    //         }
-    //     });
-    // }
+    function getProjectDashboard(periode) {
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('java-dash/project-dashboard') }}",
+            dataType: 'json',
+            data: { periode: periode },
+            async:false,
+            success:function(result){    
+                var data = result.data.data[0]
+                $('#project-total').text(format_number(data.jumlah_proyek))
+                $('#project-selesai').text(format_number(data.proyek_selesai))
+                $('#project-berjalan').text(format_number(data.proyek_berjalan))
+            }
+        });
+    }
+
+    function getProjectAktif(periode) {
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('java-dash/project-aktif') }}",
+            dataType: 'json',
+            data: { periode: periode },
+            async:false,
+            success:function(result){    
+                console.log(result)
+                var data = result.data.data
+                console.log(data)
+                html = ""
+                if(data.length == 0) {
+                    html += "<tr>"
+                    html += "<td colspan='7' style='text-align:center;'>Tidak ada data</td>"
+                    html += "</tr>"
+                } 
+
+                // $('#project-active tbody').append(html)
+            }
+        });
+    }
 
     $('#form-filter #btn-tampil').on('click', function(){
+        // $('#project-active tbody').empty()
         $periode = $('#periode').val()
         $periodeText = convertPeriode($periode)
-        getTotalProject($periode)
-        getBebanUnpaid($periode)
+        getProjectDashboard($periode)
+        getProfitDashboard($periode)
+        // getProjectAktif($periode)
         $('#periode-text').text('Periode '+$periodeText)
         $('#modalFilter').modal('hide');
     })

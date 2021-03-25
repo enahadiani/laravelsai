@@ -29,6 +29,8 @@
     <link href="{{ asset('asset_elite/selectize.bootstrap3.css') }}" rel="stylesheet">
     
     <link rel="stylesheet" href="{{ asset('asset_dore/css/vendor/bootstrap-tagsinput.css') }}" />
+    <link rel="stylesheet" href="{{ asset('asset_dore/css/jquery-ui.min.css') }}" />
+    <script src="{{ asset('asset_dore/js/jquery-ui.min.js') }}"></script>
     <!-- <link rel="stylesheet" href="{{ asset('asset_dore/css/loading.css') }}" /> -->
     
     <style>
@@ -378,8 +380,8 @@
 
             .icon-pelajaran{
                 background: #505050;
-                -webkit-mask-image: url("{{ url('img/mobile-tarbak/Pelajaran.svg') }}");
-                mask-image: url("{{ url('img/mobile-tarbak/Pelajaran.svg') }}");
+                -webkit-mask-image: url("{{ url('img/mobile-tarbak/PelajaranOff.svg') }}");
+                mask-image: url("{{ url('img/mobile-tarbak/PelajaranOff.svg') }}");
                 width: 21pt;
                 height: 16pt;
             }
@@ -397,12 +399,34 @@
                 width: 15pt;
                 height: 18pt;
             }
+
+            a.active > .saicon.icon-pelajaran{
+                background: #4361EE;
+                -webkit-mask-image: url("{{ url('img/mobile-tarbak/PelajaranOn.svg') }}");
+                mask-image: url("{{ url('img/mobile-tarbak/PelajaranOn.svg') }}");
+                width: 21pt;
+                height: 16pt;
+            }
+            a.active > .saicon.icon-pesan{
+                background: #4361EE;
+                -webkit-mask-image: url("{{ url('img/mobile-tarbak/PesanOn.svg') }}");
+                mask-image: url("{{ url('img/mobile-tarbak/PesanOn.svg') }}");
+                width: 18pt;
+                height: 18pt;
+            }
+            a.active > .saicon.icon-user{
+                background: #4361EE;
+                -webkit-mask-image: url("{{ url('img/mobile-tarbak/AkunOn.svg') }}");
+                mask-image: url("{{ url('img/mobile-tarbak/AkunOn.svg') }}");
+                width: 15pt;
+                height: 18pt;
+            }
     </style>
     <div class='navbar_bottom' style=''>
         <a href="#" data-href="dashSiswa" class='active' style='padding:10px 0px 0px 0px;width: 33%;'>
         <i class='saicon icon-pelajaran' style='text-align: center;'></i><p style='text-align: center;font-size: 14px;margin-bottom:0'>Pelajaran</p></a>
         <a href='#' data-href="dashPesan" style='padding:10px 0px 0px 0px;width: 33%;'>
-        <i class='saicon icon-pesan' style='text-align: center;'></i><p style='text-align: center;font-size: 14px;margin-bottom:0'>Pesan</p></a>
+        <i class='saicon icon-pesan' style='text-align: center;'></i><p style='text-align: center;font-size: 14px;margin-bottom:0'>Pesan <span class="badge badge-pill badge-info jum-read" style="background: #FF3B30;padding: 0.35rem;position: absolute;top: 2px;border-radius: 50%;min-width: 20px;font-size: 9px !important;min-height: 20px;margin-left: -10px !important;">0</span></p></a>
         <a href='#' data-href="dashAkun" style='padding:10px 0px 0px 0px;width: 33%;'>
         <i class='saicon icon-user' style='text-align: center;'></i><p style='text-align: center;font-size: 14px;margin-bottom:0'>Akun</p></a>
     </div>
@@ -426,6 +450,10 @@
 	</div>
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
     <script>
+     if (!$.fn.bootstrapDP && $.fn.datepicker && $.fn.datepicker.noConflict) {
+        var datepicker = $.fn.datepicker.noConflict();
+        $.fn.bootstrapDP = datepicker;
+    }
     // Enable pusher logging - don't include this in production
     Pusher.logToConsole = true;
     
@@ -1000,9 +1028,38 @@
         // alert(JSON.stringify(data));
         console.log(JSON.stringify(data));
         getNotif();
+        getJumlahNotRead();
         showNotification("top", "left", "primary",data.title,data.message);
         
     });
+
+    function getJumlahNotRead(){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('mobile-tarbak/jum-status-read') }}",
+            dataType: 'json',
+            async:false,
+            success:function(result){    
+                $('.jum-read').html(result.jum);
+            },
+            fail: function(xhr, textStatus, errorThrown){
+                alert('request failed:'+textStatus);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {       
+                if(jqXHR.status == 422){
+                    var msg = jqXHR.responseText;
+                }else if(jqXHR.status == 500) {
+                    var msg = "Internal server error";
+                }else if(jqXHR.status == 401){
+                    var msg = "Unauthorized";
+                    window.location="{{ url('/mobile-tarbak/sesi-habis') }}";
+                }else if(jqXHR.status == 405){
+                    var msg = "Route not valid. Page not found";
+                }
+                
+            }
+        });
+    }
 
     function loadForm(url){
         $.ajax({
@@ -1169,6 +1226,7 @@
     
     loadMenu();
     getNotif();
+    getJumlahNotRead();
     $('.dropdown-periode').html("<span class='periode-label'>Periode</span> <span class='periode-app float-right'>"+namaPeriode2("{{ Session::get('periode') }}</span>"));
     $('.dropdown-lokasi').html("<span class='lokasi-label'>Lokasi</span> <span class='periode-app float-right'>{{ Session::get('lokasi') }}</span>");
     

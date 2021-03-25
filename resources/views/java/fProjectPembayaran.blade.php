@@ -89,6 +89,20 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="form-group col-md-6 col-sm-12">
+                            <div class="row">
+                                <div class="col-md-4 col-sm-12"></div>
+                                <div class="col-md-8 col-sm-12">
+                                    <label>Upload File</label>
+                                    <div class="input-group">
+                                        <div class="custom-file">
+                                            <input type="file" name="file" class="custom-file-input" id="file" accept="application/pdf,image/jpeg,image/png">
+                                            <label class="custom-file-label" style="border-radius: 0.5rem;" for="file">Choose file</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <ul class="nav nav-tabs col-12 " role="tablist">
                         <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-tagihan" role="tab" aria-selected="true"><span class="hidden-xs-down">Rincian Pembayaran</span></a> </li>
@@ -387,7 +401,7 @@
         var input = "";
 
         input += "<tr class='row-grid'>";
-        input += "<td class='text-center no-grid'>"+no+"</td>";
+        input += "<td class='text-center no-grid'>"+no+"<input type='text' name='no[]' class='form-control inp-no noke"+no+" hidden'  value='"+no+"' required></td>";
         input += "<td><span class='td-tagihan tdtagihanke"+no+" tooltip-span'></span><input autocomplete='off' type='text' name='no_tagihan[]' class='form-control inp-tagihan tagihanke"+no+" hidden' value='' required='' style='z-index: 1;position: relative;' id='tagihankode"+no+"'><a href='#' class='search-item search-tagihan hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
         input += "<td><span class='td-dokumen tddokumenke"+no+" tooltip-span'></span><input type='text' name='no_dokumen[]' class='form-control inp-dokumen dokumenke"+no+" hidden'  value='' required></td>";
         input += "<td class='text-right'><span class='td-nilai_bayar tdnilai_bayarke"+no+" tooltip-span'></span><input type='text' name='nilai_bayar[]' class='form-control inp-nilai_bayar nilai_bayarke"+no+" hidden numeric'  value='0' required readonly></td>";
@@ -564,6 +578,11 @@
     $('#biaya_lain').on('change', function() {
         hitungTotal()
     })
+
+    $('.custom-file-input').on('change',function(){
+        var fileName = $(this).val();
+        $(this).next('.custom-file-label').html(fileName);
+    });
 
     $('.currency').inputmask("numeric", {
         radixPoint: ",",
@@ -889,9 +908,9 @@
             }
 
             var formData = new FormData(form);
-            $('#input-grid tbody tr').each(function(index) {
-                formData.append('no[]', $(this).find('.no-grid').text())
-            })
+            // $('#input-grid tbody tr').each(function(index) {
+            //     formData.append('no[]', $(this).find('.no-grid').text())
+            // })
             formData.append('nilai', $total_akhir)
             for(var pair of formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
@@ -1106,10 +1125,10 @@
                         for(var i=0;i<result.detail.length;i++){
                             var line =result.detail[i];
                             input += "<tr class='row-grid'>";
-                            input += "<td class='text-center no-grid'>"+line.no+"<input type='text' name='no[]' class='form-control inp-no noke"+no+" hidden'  value='"+line.no+"' required></td>";
-                            input += "<td><span class='td-tagihan tdtagihanke"+no+" tooltip-span'>"+line.no_tagihan+"</span><input autocomplete='off' type='text' name='no_tagihan[]' class='form-control inp-tagihan tagihanke"+no+" hidden' value='"+line.no_tagihan+"' required='' style='z-index: 1;position: relative;' id='tagihankode"+no+"'><a href='#' class='search-item search-tagihan hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
-                            input += "<td><span class='td-dokumen tddokumenke"+no+" tooltip-span'>"+line.no_dokumen+"</span><input type='text' name='no_dokumen[]' class='form-control inp-dokumen dokumenke"+no+" hidden'  value='"+line.no_dokumen+"' required></td>";
-                            input += "<td class='text-right'><span class='td-nilai_bayar tdnilai_bayarke"+no+" tooltip-span'>"+format_number(line.nilai_bayar)+"</span><input type='text' name='nilai_bayar[]' class='form-control inp-nilai_bayar nilai_bayarke"+no+" hidden numeric'  value='"+parseFloat(line.nilai_bayar)+"' required readonly></td>";
+                            input += "<td class='text-center no-grid'>"+line.no+"<input type='text' name='no[]' class='form-control inp-no noke"+line.no+" hidden'  value='"+line.no+"' required></td>";
+                            input += "<td><span class='td-tagihan tdtagihanke"+line.no+" tooltip-span'>"+line.no_tagihan+"</span><input autocomplete='off' type='text' name='no_tagihan[]' class='form-control inp-tagihan tagihanke"+line.no+" hidden' value='"+line.no_tagihan+"' required='' style='z-index: 1;position: relative;' id='tagihankode"+no+"'><a href='#' class='search-item search-tagihan hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+                            input += "<td><span class='td-dokumen tddokumenke"+line.no+" tooltip-span'>"+line.no_dokumen+"</span><input type='text' name='no_dokumen[]' class='form-control inp-dokumen dokumenke"+line.no+" hidden'  value='"+line.no_dokumen+"' required></td>";
+                            input += "<td class='text-right'><span class='td-nilai_bayar tdnilai_bayarke"+line.no+" tooltip-span'>"+format_number(line.nilai_bayar)+"</span><input type='text' name='nilai_bayar[]' class='form-control inp-nilai_bayar nilai_bayarke"+line.no+" hidden numeric'  value='"+parseFloat(line.nilai_bayar)+"' required readonly></td>";
                             input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px;cursor:pointer;'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
                             input += "</tr>";
         

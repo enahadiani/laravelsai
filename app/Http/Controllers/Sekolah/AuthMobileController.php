@@ -21,6 +21,12 @@
             }            
         }
 
+        
+        public function reverseDate($ymd_or_dmy_date, $org_sep='-', $new_sep='-'){
+            $arr = explode($org_sep, $ymd_or_dmy_date);
+            return $arr[2].$new_sep.$arr[1].$new_sep.$arr[0];
+        }
+
         public function cekLengthMenu($nama){
             if(strlen($nama) > 23){
                 $str_nama = explode(" ",$nama);
@@ -62,7 +68,7 @@
         {
             try {
                 $client = new Client();
-                $response = $client->request('POST',  config('api.url').'sekolah/login',[
+                $response = $client->request('POST',  config('api.url').'mobile-sekolah/login-siswa',[
                     'form_params' => [
                         'nik' => $request->input('nik'),
                         'password' => $request->input('password')
@@ -74,7 +80,7 @@
                     if($data["message"] == "success"){
                         Session::put('token',$data["token"]);
                         Session::put('login',TRUE);
-                        $response2 = $client->request('GET',  config('api.url').'sekolah/profile',[
+                        $response2 = $client->request('GET',  config('api.url').'mobile-sekolah/profile-siswa',[
                             'headers' => [
                                 'Authorization' => 'Bearer '.$data["token"],
                                 'Accept'     => 'application/json',
@@ -422,6 +428,31 @@
                 return response()->json(['message' => $res, 'status'=>false], 200);
             }
         }
+
+        public function getProfileSiswa(Request $request){
+            try {
+                $client = new Client();
+                $response = $client->request('GET',  config('api.url').'mobile-sekolah/profile-siswa',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => $request->all()
+                ]);
+    
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $data = json_decode($response_data,true);
+                }
+                return response()->json($data, 200); 
+    
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                return response()->json(['message' => $res, 'status'=>false], 200);
+            }
+        }
     
         public function updatePassword(Request $request){
             $this->validate($request,[
@@ -548,6 +579,44 @@
                 return response()->json(['message' => $res, 'status'=>false], 200);
             }
         }
+
+        public function updateProfileSiswa(Request $request){
+            $this->validate($request,[
+                'tgl_lahir' => 'date_format:d/m/Y'
+            ]);
+            try {
+                $client = new Client();
+                $response = $client->request('POST',  config('api.url').'mobile-sekolah/update-profile-siswa',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'form_params' => [
+                        'nis' => $request->inp_nis,
+                        'nama' => $request->inp_nama,
+                        'kode_kelas' => $request->inp_kode_kelas,
+                        'jk' => $request->inp_jk,
+                        'tgl_lahir' => $this->reverseDate($request->inp_tgl_lahir,"/","-"),
+                        'tmp_lahir' => $request->inp_tempat_lahir,
+                        'agama' => $request->inp_agama,
+                        'email' => $request->inp_email,
+                    ]
+                ]);
+    
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $data = json_decode($response_data,true);
+                    $data = $data;
+                }
+                return response()->json(['data' => $data, 'status'=>true], 200); 
+    
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                return response()->json(['message' => $res, 'status'=>false], 200);
+            }
+        }
     
         public function searchForm(Request $request){
             $this->validate($request,[
@@ -632,7 +701,138 @@
                 return response()->json(['message' => $res, 'status'=>false], 200);
             }
         }
+
+        public function getInfo(Request $request){
+            try {
+                $client = new Client();
+                $response = $client->request('GET',  config('api.url').'mobile-sekolah/info2',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => $request->all()
+                ]);
     
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $data = json_decode($response_data,true);
+                }
+                return response()->json($data, 200); 
+    
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                return response()->json(['message' => $res, 'status'=>false], 200);
+            }
+        }
+
+        public function getNotif(Request $request){
+            try {
+                $client = new Client();
+                $response = $client->request('GET',  config('api.url').'mobile-sekolah/notif',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => $request->all()
+                ]);
+    
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $data = json_decode($response_data,true);
+                }
+                return response()->json($data, 200); 
+    
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                return response()->json(['message' => $res, 'status'=>false], 200);
+            }
+        }
+
+        public function getDetailInfo(Request $request){
+            try {
+                $client = new Client();
+                $response = $client->request('GET',  config('api.url').'mobile-sekolah/info2-detail',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => $request->all()
+                ]);
+    
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $data = json_decode($response_data,true);
+                }
+                return response()->json($data, 200); 
+    
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                return response()->json(['message' => $res, 'status'=>false], 200);
+            }
+        }
+    
+
+        public function getJumlahNotRead(Request $request){
+            try {
+                $client = new Client();
+                $response = $client->request('GET',  config('api.url').'mobile-sekolah/jum-status-read',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => $request->all()
+                ]);
+    
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $data = json_decode($response_data,true);
+                }
+                return response()->json($data, 200); 
+    
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                return response()->json(['message' => $res, 'status'=>false], 200);
+            }
+        }
+
+        public function updateStatusReadMobile(Request $request){
+            $this->validate($request,[
+                'no_pesan' => 'required'
+            ]);
+            try {
+                $client = new Client();
+                $response = $client->request('PUT',  config('api.url').'mobile-sekolah/update-status-read',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'form_params' => [
+                        'no_pesan' => $request->no_pesan
+                    ]
+                ]);
+    
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $data = json_decode($response_data,true);
+                    $data = $data;
+                }
+                return response()->json(['data' => $data, 'status'=>true], 200); 
+    
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                return response()->json(['message' => $res, 'status'=>false], 200);
+            }
+        }
     }
 
 

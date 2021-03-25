@@ -47,6 +47,13 @@ Route::get('search-form-list2','Sekolah\AuthMobileController@searchFormList2');
 
 Route::get('matpel', 'Sekolah\AuthMobileController@getMatpel');
 Route::get('matpel-detail', 'Sekolah\AuthMobileController@getMatpelDetail');
+Route::get('profile-siswa', 'Sekolah\AuthMobileController@getProfileSiswa');
+Route::post('update-profile-siswa', 'Sekolah\AuthMobileController@updateProfileSiswa');
+Route::get('mob-info', 'Sekolah\AuthMobileController@getInfo');
+Route::get('mob-notif', 'Sekolah\AuthMobileController@getNotif');
+Route::get('mob-info-detail', 'Sekolah\AuthMobileController@getDetailInfo');
+Route::get('jum-status-read', 'Sekolah\AuthMobileController@getJumlahNotRead');
+Route::post('update-status-read', 'Sekolah\AuthMobileController@updateStatusReadMobile');
 
 
 

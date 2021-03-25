@@ -15,12 +15,12 @@ class DashboardController extends Controller {
         }
     }
 
-    public function getBebanUnpaid(Request $request) {
+    public function getProfitDashboard(Request $request) {
         try{
             $client = new Client();
             $periode = $request->query('periode');
             $explode = explode('-', $periode);
-            $response = $client->request('GET',  config('api.url').'java-dash/beban-unpaid',
+            $response = $client->request('GET',  config('api.url').'java-dash/profit-dashboard',
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -47,12 +47,44 @@ class DashboardController extends Controller {
         }
     }
 
-    public function getTotalProject(Request $request) {
+    public function getProjectAktif(Request $request) {
         try{
             $client = new Client();
             $periode = $request->query('periode');
             $explode = explode('-', $periode);
-            $response = $client->request('GET',  config('api.url').'java-dash/total-project',
+            $response = $client->request('GET',  config('api.url').'java-dash/project-aktif',
+            [
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' => [
+                    'bulan' => $explode[1],
+                    'tahun' => $explode[0]
+                ]
+            ]);
+    
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+            }
+            return response()->json(['data' => $data], 200); 
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $data['message'] = $res;
+            $data['status'] = false;
+            return response()->json(['data' => $data], 200);
+        }
+    }
+
+    public function getProjectDashboard(Request $request) {
+        try{
+            $client = new Client();
+            $periode = $request->query('periode');
+            $explode = explode('-', $periode);
+            $response = $client->request('GET',  config('api.url').'java-dash/project-dashboard',
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),

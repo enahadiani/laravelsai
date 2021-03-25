@@ -79,19 +79,60 @@ class BiayaProyekController extends Controller {
             'no_rab' => 'required'
         ]);
 
-        try {  
-            $form = array(
-                'tanggal' => $this->convertDate($request->input('tanggal')),
-                'kode_cust' => $request->input('kode_cust'),
-                'nilai' => $this->joinNum($request->input('nilai')),
-                'kode_vendor' => $request->input('kode_vendor'),
-                'kode_cust' => $request->input('kode_cust'),
-                'no_proyek' => $request->input('no_proyek'),
-                'keterangan' => $request->input('keterangan'),
-                'no_dokumen' => $request->input('no_dokumen'),
-                'status' => $request->input('status'),
-                'no_rab' => $request->input('no_rab')
-            );
+        try {
+            if($request->hasfile('file')) {
+                $name = array('tanggal','kode_cust','kode_vendor', 'no_proyek', 'nilai', 'keterangan', 'no_dokumen', 'status', 'no_rab', 'file');
+            } else {
+                $name = array('tanggal','kode_cust','kode_vendor', 'no_proyek', 'nilai', 'keterangan', 'no_dokumen', 'status', 'no_rab');
+            }  
+            $req = $request->all();
+            $fields = array();
+            $data = array();
+
+            for($i=0;$i<count($name);$i++) { 
+                if($name[$i] == 'file') {
+                    $image_path = $request->file('file')->getPathname();
+                    $image_mime = $request->file('file')->getmimeType();
+                    $image_org  = $request->file('file')->getClientOriginalName();
+                    $fields_data[$i] = array(
+                        'name'     => $name[$i],
+                        'filename' => $image_org,
+                        'Mime-Type'=> $image_mime,
+                        'contents' => fopen($image_path, 'r' ),
+                    );
+                } elseif($name[$i] == 'nilai') {
+                    $fields_data[$i] = array(
+                        'name'     => $name[$i],
+                        'contents' => $this->joinNum($request->input('nilai'))
+                    );
+                } elseif($name[$i] == 'tanggal') {
+                    $fields_data[$i] = array(
+                        'name'     => $name[$i],
+                        'contents' => $this->convertDate($request->input('tanggal'))
+                    );
+                } else {
+                    $fields_data[$i] = array(
+                        'name'     => $name[$i],
+                        'contents' => $req[$name[$i]]
+                    );
+                }
+                $data[$i] = $name[$i];
+            }
+
+            $fields = array_merge($fields,$fields_data);
+
+            // $form = array(
+            //     'tanggal' => $this->convertDate($request->input('tanggal')),
+            //     'kode_cust' => $request->input('kode_cust'),
+            //     'nilai' => $this->joinNum($request->input('nilai')),
+            //     'kode_vendor' => $request->input('kode_vendor'),
+            //     'kode_cust' => $request->input('kode_cust'),
+            //     'no_proyek' => $request->input('no_proyek'),
+            //     'keterangan' => $request->input('keterangan'),
+            //     'no_dokumen' => $request->input('no_dokumen'),
+            //     'status' => $request->input('status'),
+            //     'no_rab' => $request->input('no_rab')
+            // );
 
             $client = new Client();
             $response = $client->request('POST',  config('api.url').'java-trans/biaya-proyek',[
@@ -99,7 +140,7 @@ class BiayaProyekController extends Controller {
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
                 ],
-                'form_params' => $form
+                'multipart' => $fields
             ]);
             if ($response->getStatusCode() == 200) { // 200 OK
                 $response_data = $response->getBody()->getContents();
@@ -156,28 +197,68 @@ class BiayaProyekController extends Controller {
             'no_rab' => 'required'
         ]);
 
-        try {  
-            $form = array(
-                'tanggal' => $this->convertDate($request->input('tanggal')),
-                'kode_cust' => $request->input('kode_cust'),
-                'nilai' => $this->joinNum($request->input('nilai')),
-                'kode_vendor' => $request->input('kode_vendor'),
-                'kode_cust' => $request->input('kode_cust'),
-                'no_proyek' => $request->input('no_proyek'),
-                'keterangan' => $request->input('keterangan'),
-                'no_dokumen' => $request->input('no_dokumen'),
-                'status' => $request->input('status'),
-                'no_rab' => $request->input('no_rab'),
-                'no_bukti' => $request->input('no_bukti')
-            );
+        try {
+             if($request->hasfile('file')) {
+                $name = array('tanggal','kode_cust','kode_vendor', 'no_proyek', 'nilai', 'keterangan', 'no_dokumen', 'status', 'no_rab', 'file');
+            } else {
+                $name = array('tanggal','kode_cust','kode_vendor', 'no_proyek', 'nilai', 'keterangan', 'no_dokumen', 'status', 'no_rab');
+            }  
+            $req = $request->all();
+            $fields = array();
+            $data = array();
+
+            for($i=0;$i<count($name);$i++) { 
+                if($name[$i] == 'file') {
+                    $image_path = $request->file('file')->getPathname();
+                    $image_mime = $request->file('file')->getmimeType();
+                    $image_org  = $request->file('file')->getClientOriginalName();
+                    $fields_data[$i] = array(
+                        'name'     => $name[$i],
+                        'filename' => $image_org,
+                        'Mime-Type'=> $image_mime,
+                        'contents' => fopen($image_path, 'r' ),
+                    );
+                } elseif($name[$i] == 'nilai') {
+                    $fields_data[$i] = array(
+                        'name'     => $name[$i],
+                        'contents' => $this->joinNum($request->input('nilai'))
+                    );
+                } elseif($name[$i] == 'tanggal') {
+                    $fields_data[$i] = array(
+                        'name'     => $name[$i],
+                        'contents' => $this->convertDate($request->input('tanggal'))
+                    );
+                } else {
+                    $fields_data[$i] = array(
+                        'name'     => $name[$i],
+                        'contents' => $req[$name[$i]]
+                    );
+                }
+                $data[$i] = $name[$i];
+            }
+
+            $fields = array_merge($fields,$fields_data);  
+            // $form = array(
+            //     'tanggal' => $this->convertDate($request->input('tanggal')),
+            //     'kode_cust' => $request->input('kode_cust'),
+            //     'nilai' => $this->joinNum($request->input('nilai')),
+            //     'kode_vendor' => $request->input('kode_vendor'),
+            //     'kode_cust' => $request->input('kode_cust'),
+            //     'no_proyek' => $request->input('no_proyek'),
+            //     'keterangan' => $request->input('keterangan'),
+            //     'no_dokumen' => $request->input('no_dokumen'),
+            //     'status' => $request->input('status'),
+            //     'no_rab' => $request->input('no_rab'),
+            //     'no_bukti' => $request->input('no_bukti')
+            // );
 
             $client = new Client();
-            $response = $client->request('PUT',  config('api.url').'java-trans/biaya-proyek',[
+            $response = $client->request('POST',  config('api.url').'java-trans/biaya-proyek-ubah',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
                 ],
-                'form_params' => $form
+                'multipart' => $fields
             ]);
             if ($response->getStatusCode() == 200) { // 200 OK
                 $response_data = $response->getBody()->getContents();

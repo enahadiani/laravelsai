@@ -82,31 +82,97 @@ class PembayaranProyekController extends Controller {
         ]);
 
         try {
+            if($request->hasfile('file')) {
+                $name = array('kode_cust','tanggal','keterangan','nilai','biaya_lain','kode_bank','jenis','file');
+            } else {
+                $name = array('kode_cust','tanggal','keterangan','nilai','biaya_lain','kode_bank','jenis');
+            }
+
+            $req = $request->all();
+            $fields = array();
+            $data = array();
             $no = array();
             $no_tagihan = array();
             $no_dokumen = array();
             $nilai_bayar = array();
 
-            for($i=0;$i<count($request->input('no'));$i++) {
-                array_push($no, $request->input('no')[$i]);
-                array_push($no_tagihan, $request->input('no_tagihan')[$i]);
-                array_push($no_dokumen, $request->input('no_dokumen')[$i]);
-                array_push($nilai_bayar, $this->joinNum($request->input('nilai_bayar')[$i]));
+            for($i=0;$i<count($name);$i++) { 
+                if($name[$i] == 'file') {
+                    $image_path = $request->file('file')->getPathname();
+                    $image_mime = $request->file('file')->getmimeType();
+                    $image_org  = $request->file('file')->getClientOriginalName();
+                    $fields_data[$i] = array(
+                        'name'     => $name[$i],
+                        'filename' => $image_org,
+                        'Mime-Type'=> $image_mime,
+                        'contents' => fopen($image_path, 'r' ),
+                    );
+                } elseif($name[$i] == 'nilai') {
+                    $fields_data[$i] = array(
+                        'name'     => $name[$i],
+                        'contents' => $this->joinNum($request->input('nilai'))
+                    );
+                } elseif($name[$i] == 'biaya_lain') {
+                    $fields_data[$i] = array(
+                        'name'     => $name[$i],
+                        'contents' => $this->joinNum($request->input('biaya_lain'))
+                    );
+                } elseif($name[$i] == 'tanggal') {
+                    $fields_data[$i] = array(
+                        'name'     => $name[$i],
+                        'contents' => $this->convertDate($request->input('tanggal'))
+                    );
+                } else {
+                    $fields_data[$i] = array(
+                        'name'     => $name[$i],
+                        'contents' => $req[$name[$i]]
+                    );
+                }
+                $data[$i] = $name[$i];
             }
 
-            $form = array(
-                'tanggal' => $this->convertDate($request->input('tanggal')),
-                'keterangan' => $request->input('keterangan'),
-                'nilai' => $this->joinNum($request->input('nilai')),
-                'kode_cust' => $request->input('kode_cust'),
-                'kode_bank' => $request->input('kode_bank'),
-                'jenis' => $request->input('jenis'),
-                'biaya_lain' => $this->joinNum($request->input('biaya_lain')),
-                'nomor' => $no,
-                'no_tagihan' => $no_tagihan,
-                'no_dokumen' => $no_dokumen,
-                'nilai_bayar' => $nilai_bayar
-            );
+            $fields = array_merge($fields,$fields_data);
+
+            for($i=0;$i<count($request->input('no'));$i++) {
+                $no[$i] = array(
+                    'name'     => 'nomor[]',
+                    'contents' => $request->no[$i],
+                );
+                $no_tagihan[$i] = array(
+                    'name'     => 'no_tagihan[]',
+                    'contents' => $request->no_tagihan[$i],
+                );
+                $no_dokumen[$i] = array(
+                    'name'     => 'no_dokumen[]',
+                    'contents' => $request->no_dokumen[$i],
+                );
+                $nilai_bayar[$i] = array(
+                    'name'     => 'nilai_bayar[]',
+                    'contents' => $this->joinNum($request->nilai_bayar[$i]),
+                );
+                // array_push($no, $request->input('no')[$i]);
+                // array_push($no_tagihan, $request->input('no_tagihan')[$i]);
+                // array_push($no_dokumen, $request->input('no_dokumen')[$i]);
+                // array_push($nilai_bayar, $this->joinNum($request->input('nilai_bayar')[$i]));
+            }
+            $fields = array_merge($fields,$no);
+            $fields = array_merge($fields,$no_tagihan);
+            $fields = array_merge($fields,$no_dokumen);
+            $fields = array_merge($fields,$nilai_bayar);
+
+            // $form = array(
+            //     'tanggal' => $this->convertDate($request->input('tanggal')),
+            //     'keterangan' => $request->input('keterangan'),
+            //     'nilai' => $this->joinNum($request->input('nilai')),
+            //     'kode_cust' => $request->input('kode_cust'),
+            //     'kode_bank' => $request->input('kode_bank'),
+            //     'jenis' => $request->input('jenis'),
+            //     'biaya_lain' => $this->joinNum($request->input('biaya_lain')),
+            //     'nomor' => $no,
+            //     'no_tagihan' => $no_tagihan,
+            //     'no_dokumen' => $no_dokumen,
+            //     'nilai_bayar' => $nilai_bayar
+            // );
 
             $client = new Client();
             $response = $client->request('POST',  config('api.url').'java-trans/bayar-proyek',[
@@ -114,7 +180,7 @@ class PembayaranProyekController extends Controller {
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
                 ],
-                'form_params' => $form
+                'multipart' => $fields
             ]);
             if ($response->getStatusCode() == 200) { // 200 OK
                 $response_data = $response->getBody()->getContents();
@@ -175,40 +241,91 @@ class PembayaranProyekController extends Controller {
         ]);
 
         try {
+            if($request->hasfile('file')) {
+                $name = array('no_bayar','kode_cust','tanggal','keterangan','nilai','biaya_lain','kode_bank','jenis','file');
+            } else {
+                $name = array('no_bayar','kode_cust','tanggal','keterangan','nilai','biaya_lain','kode_bank','jenis');
+            }
+
+            $req = $request->all();
+            $fields = array();
+            $data = array();
             $no = array();
             $no_tagihan = array();
             $no_dokumen = array();
             $nilai_bayar = array();
 
-            for($i=0;$i<count($request->input('no'));$i++) {
-                array_push($no, $request->input('no')[$i]);
-                array_push($no_tagihan, $request->input('no_tagihan')[$i]);
-                array_push($no_dokumen, $request->input('no_dokumen')[$i]);
-                array_push($nilai_bayar, $this->joinNum($request->input('nilai_bayar')[$i]));
+            for($i=0;$i<count($name);$i++) { 
+                if($name[$i] == 'file') {
+                    $image_path = $request->file('file')->getPathname();
+                    $image_mime = $request->file('file')->getmimeType();
+                    $image_org  = $request->file('file')->getClientOriginalName();
+                    $fields_data[$i] = array(
+                        'name'     => $name[$i],
+                        'filename' => $image_org,
+                        'Mime-Type'=> $image_mime,
+                        'contents' => fopen($image_path, 'r' ),
+                    );
+                } elseif($name[$i] == 'nilai') {
+                    $fields_data[$i] = array(
+                        'name'     => $name[$i],
+                        'contents' => $this->joinNum($request->input('nilai'))
+                    );
+                } elseif($name[$i] == 'biaya_lain') {
+                    $fields_data[$i] = array(
+                        'name'     => $name[$i],
+                        'contents' => $this->joinNum($request->input('biaya_lain'))
+                    );
+                } elseif($name[$i] == 'tanggal') {
+                    $fields_data[$i] = array(
+                        'name'     => $name[$i],
+                        'contents' => $this->convertDate($request->input('tanggal'))
+                    );
+                } else {
+                    $fields_data[$i] = array(
+                        'name'     => $name[$i],
+                        'contents' => $req[$name[$i]]
+                    );
+                }
+                $data[$i] = $name[$i];
             }
 
-            $form = array(
-                'tanggal' => $this->convertDate($request->input('tanggal')),
-                'keterangan' => $request->input('keterangan'),
-                'no_bayar' => $request->input('no_bayar'),
-                'nilai' => $this->joinNum($request->input('nilai')),
-                'kode_cust' => $request->input('kode_cust'),
-                'kode_bank' => $request->input('kode_bank'),
-                'jenis' => $request->input('jenis'),
-                'biaya_lain' => $this->joinNum($request->input('biaya_lain')),
-                'nomor' => $no,
-                'no_tagihan' => $no_tagihan,
-                'no_dokumen' => $no_dokumen,
-                'nilai_bayar' => $nilai_bayar
-            );
+            $fields = array_merge($fields,$fields_data);
+
+            for($i=0;$i<count($request->input('no'));$i++) {
+                $no[$i] = array(
+                    'name'     => 'nomor[]',
+                    'contents' => $request->no[$i],
+                );
+                $no_tagihan[$i] = array(
+                    'name'     => 'no_tagihan[]',
+                    'contents' => $request->no_tagihan[$i],
+                );
+                $no_dokumen[$i] = array(
+                    'name'     => 'no_dokumen[]',
+                    'contents' => $request->no_dokumen[$i],
+                );
+                $nilai_bayar[$i] = array(
+                    'name'     => 'nilai_bayar[]',
+                    'contents' => $this->joinNum($request->nilai_bayar[$i]),
+                );
+                // array_push($no, $request->input('no')[$i]);
+                // array_push($no_tagihan, $request->input('no_tagihan')[$i]);
+                // array_push($no_dokumen, $request->input('no_dokumen')[$i]);
+                // array_push($nilai_bayar, $this->joinNum($request->input('nilai_bayar')[$i]));
+            }
+            $fields = array_merge($fields,$no);
+            $fields = array_merge($fields,$no_tagihan);
+            $fields = array_merge($fields,$no_dokumen);
+            $fields = array_merge($fields,$nilai_bayar);
 
             $client = new Client();
-            $response = $client->request('PUT',  config('api.url').'java-trans/bayar-proyek',[
+            $response = $client->request('POST',  config('api.url').'java-trans/bayar-proyek-ubah',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
                 ],
-                'form_params' => $form
+                'multipart' => $fields
             ]);
             if ($response->getStatusCode() == 200) { // 200 OK
                 $response_data = $response->getBody()->getContents();

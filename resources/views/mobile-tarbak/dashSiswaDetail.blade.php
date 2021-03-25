@@ -180,28 +180,21 @@
                                 }
                                 content+=det+`
                                 </div>`;
-                            if(i+1 == result.data_kompetensi.length){
-                                html +=`<div class="row kompetensi" style="margin-bottom:100px">
-                                `+content+`
-                                </div>`;
-                            }else{
                                 html +=`<div class="row kompetensi">
                                 `+content+`
                                 </div>`;
-                            }
                         }
                     }
                     if(kode_sem == "All"){
-                        $('#data-semua').html(html);
+                        $('#data-semua').html(html+"<div style='height:100px;'>&nbsp;</div>");
                     }else if(kode_sem == 1){
                         
-                        $('#data-ganjil').html(html);
+                        $('#data-ganjil').html(html+"<div style='height:100px;'>&nbsp;</div>");
 
                     }else{
-                        $('#data-genap').html(html);
+                        $('#data-genap').html(html+"<div style='height:100px;'>&nbsp;</div>");
                     }
                 }
-                $('.matpel').html(html);
                 $('.kompetensi').on('click', '.preview-detail', function(e){
                     e.preventDefault();
                     $('#bottom-sheet-close').hide();
@@ -234,7 +227,7 @@
                         </div>
                     </div>
                     `;
-                    $('#content-bottom-sheet').html(html);
+                    $('#content-bottom-sheet').html(html+"<div style='height:100px;'>&nbsp;</div>");
                     $('#trigger-bottom-sheet').trigger("click");
                 })
             },
