@@ -88,11 +88,12 @@
         </div>
     </div>
 </div>
-<div class="row mt-3" style="margin-bottom:100px">
+<div class="row mt-3">
     <div class="col-12 text-center">
         <a href="{{ url('mobile-tarbak/logout') }}" style="color:red">Keluar</a>
     </div>
 </div>
+<div style='height:100px;'>&nbsp;</div>
 <button id="trigger-bottom-sheet" style="display:none">Bottom ?</button>
 
 <script src="{{ asset('asset_dore/js/croppie.min.js') }}"></script>
@@ -274,7 +275,7 @@
             </div>
         </form>
         `;
-        $('#content-bottom-sheet').html(html);
+        $('#content-bottom-sheet').html(html+"<div style='height:100px;'>&nbsp;</div>");
         $('.selectize').selectize();
         $('#inp_agama')[0].selectize.setValue($agama);
         if($jk != null){
@@ -349,7 +350,7 @@
         <div class="row mx-auto">
             <button class="btn btn-success crop_image mx-auto" style="background:#4361EE">Crop &amp; Upload</button>
         </div>`;
-        $('#content-bottom-sheet').html(html);
+        $('#content-bottom-sheet').html(html+"<div style='height:100px;'>&nbsp;</div>");
         
         $image_crop = $('#image_demo').croppie({
             enableExif: true,
