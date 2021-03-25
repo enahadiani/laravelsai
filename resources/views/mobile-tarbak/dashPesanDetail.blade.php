@@ -5,7 +5,7 @@
                 <a href="#" id="btn-back"><i class="iconsminds-left" style="font-size:18px; font-weight:bold"></i></a>
             </div>
             <a class="d-flex" href="#">
-            <img alt="" id="img-guru" src="" class="img-thumbnail border-0 rounded-circle m-4 list-thumbnail align-self-center" style="height: 50px;margin: 15px !important;">
+            <img alt="" id="img-guru" src="" class="img-thumbnail border-0 rounded-circle m-4 list-thumbnail align-self-center" style="height:45px;width: 45px;margin: 15px !important;">
             </a>
             <div class=" d-flex flex-grow-1 min-width-zero">
                 <div class="card-body pl-0 align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero" style="padding: 1rem;">

@@ -85,7 +85,7 @@
                                 }
                                 html+=`<div class="row mb-3 detail-pesan" data-nik_guru="`+line.nik_user+`" data-kode_matpel="`+line.kode_matpel+`">
                                     <div class="col-2 text-center pr-0">
-                                        <img src="`+img+`" class="img-thumbnail border-0 rounded-circle list-thumbnail align-self-center xsmall" style="height:45px">
+                                        <img src="`+img+`" class="img-thumbnail border-0 rounded-circle list-thumbnail align-self-center xsmall" style="height:45px;width: 45px;">
                                     </div>
                                     <div class="col-10">
                                         <p class="list-item-heading mb-1 truncate" style="font-size:1rem !important">`+line.nama+` <span class='float-right text-right text-muted' style="font-size:10px !important">`+line.tanggal+`</span></p>
