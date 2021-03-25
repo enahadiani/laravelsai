@@ -158,7 +158,7 @@
                                 }
                                 if(line.file_dok != "" && line.file_dok != "-" ){
                                     var img = config+"mobile-sekolah/storage/"+line.file_dok;
-                                    html+=`<div class="row mx-1 detail-notif `+bold+`" data-tanggal="`+line.tanggal+`" data-pesan="`+line.pesan+`" data-img="`+img+`" data-no_pesan="`+line.no_bukti+`">
+                                    html+=`<div class="row mx-1 py-2 detail-notif `+bold+`" data-tanggal="`+line.tanggal+`" data-pesan="`+line.pesan+`" data-img="`+img+`" data-no_pesan="`+line.no_bukti+`">
                                     <div class="col-12 col-grid">
                                     <p class="text-muted text-small mb-0" style="font-size:9px !important"><img src="{{ asset('img/mobile-tarbak/notifc.jpeg') }}" class="mr-3"> Pemberitahuan | `+line.tanggal+`</p>
                                     </div>
@@ -172,7 +172,7 @@
                                 <div class="separator mx-0"></div>`;
                                 }else{
                                     
-                                    html+=`<div class="row mx-1 detail-notif `+bold+`" data-tanggal="`+line.tanggal+`" data-pesan="`+line.pesan+`" data-img="-" data-no_pesan="`+line.no_bukti+`">
+                                    html+=`<div class="row mx-1 py-2 detail-notif `+bold+`" data-tanggal="`+line.tanggal+`" data-pesan="`+line.pesan+`" data-img="-" data-no_pesan="`+line.no_bukti+`">
                                     <div class="col-12 col-grid">
                                         <p class="text-muted text-small mb-0" style="font-size:9px !important"><img src="{{ asset('img/mobile-tarbak/notifc.jpeg') }}" class="mr-3"> Pemberitahuan | `+line.tanggal+`</p>
                                         </div>
