@@ -204,7 +204,7 @@
             <div class="col-md-8 com-sm-8 col-lg-8">
                 <div class="card card-dash-detail-row-2 pt-4 pl-4 pr-2">
                     <h6 class="text-bold">Pembayaran Supplier</h6>
-                    {{-- <div style="width: 700px;overflow-x: auto;"> --}}
+                    <div style="height: 430px;overflow: auto;">
                         <table class="table table-borderless table-hover ml--1" id="table-supplier">
                             <thead>
                                 <tr>
@@ -219,7 +219,7 @@
                             </thead>
                             <tbody></tbody>
                         </table>
-                    {{-- </div> --}}
+                    </div>
                 </div>
             </div>
             <div class="col-md-4 col-sm-4 col-lg-4">
@@ -455,18 +455,24 @@
                 var data = result.data.data
                 var html = "";
                 var no = 1;
-                for(var i=0;i<data.length;i++) {
-                    var line = data[i]
-
+                if(data.length == 0) {
                     html += "<tr>"
-                    html += "<td>"+no+"</td>"
-                    html += "<td>"+line.tanggal+"</td>"
-                    html += "<td>"+line.no_dokumen+"</td>"
-                    html += "<td>"+line.keterangan+"</td>"
-                    html += "<td>-</td>"
+                    html += "<td colspan='5' style='text-align:center;'>Tidak ada data</td>"
                     html += "</tr>"
+                } else {
+                    for(var i=0;i<data.length;i++) {
+                        var line = data[i]
 
-                    no++
+                        html += "<tr>"
+                        html += "<td>"+no+"</td>"
+                        html += "<td>"+line.tanggal+"</td>"
+                        html += "<td>"+line.no_dokumen+"</td>"
+                        html += "<td>"+line.keterangan+"</td>"
+                        html += "<td>-</td>"
+                        html += "</tr>"
+
+                        no++
+                    }
                 }
                 $('#table-customer tbody').append(html)
             }
