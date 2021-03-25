@@ -777,6 +777,62 @@
             }
         }
     
+
+        public function getJumlahNotRead(Request $request){
+            try {
+                $client = new Client();
+                $response = $client->request('GET',  config('api.url').'mobile-sekolah/jum-status-read',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => $request->all()
+                ]);
+    
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $data = json_decode($response_data,true);
+                }
+                return response()->json($data, 200); 
+    
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                return response()->json(['message' => $res, 'status'=>false], 200);
+            }
+        }
+
+        public function updateStatusReadMobile(Request $request){
+            $this->validate($request,[
+                'no_pesan' => 'required'
+            ]);
+            try {
+                $client = new Client();
+                $response = $client->request('PUT',  config('api.url').'mobile-sekolah/update-status-read',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'form_params' => [
+                        'no_pesan' => $request->no_pesan
+                    ]
+                ]);
+    
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $data = json_decode($response_data,true);
+                    $data = $data;
+                }
+                return response()->json(['data' => $data, 'status'=>true], 200); 
+    
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                return response()->json(['message' => $res, 'status'=>false], 200);
+            }
+        }
     }
 
 

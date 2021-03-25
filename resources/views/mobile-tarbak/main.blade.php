@@ -426,7 +426,7 @@
         <a href="#" data-href="dashSiswa" class='active' style='padding:10px 0px 0px 0px;width: 33%;'>
         <i class='saicon icon-pelajaran' style='text-align: center;'></i><p style='text-align: center;font-size: 14px;margin-bottom:0'>Pelajaran</p></a>
         <a href='#' data-href="dashPesan" style='padding:10px 0px 0px 0px;width: 33%;'>
-        <i class='saicon icon-pesan' style='text-align: center;'></i><p style='text-align: center;font-size: 14px;margin-bottom:0'>Pesan <span class="badge badge-pill badge-info" style="background: #FF3B30;padding: 0.35rem;position: absolute;top: 2px;border-radius: 50%;min-width: 20px;font-size: 9px !important;min-height: 20px;margin-left: -10px !important;">1</span></p></a>
+        <i class='saicon icon-pesan' style='text-align: center;'></i><p style='text-align: center;font-size: 14px;margin-bottom:0'>Pesan <span class="badge badge-pill badge-info jum-read" style="background: #FF3B30;padding: 0.35rem;position: absolute;top: 2px;border-radius: 50%;min-width: 20px;font-size: 9px !important;min-height: 20px;margin-left: -10px !important;">0</span></p></a>
         <a href='#' data-href="dashAkun" style='padding:10px 0px 0px 0px;width: 33%;'>
         <i class='saicon icon-user' style='text-align: center;'></i><p style='text-align: center;font-size: 14px;margin-bottom:0'>Akun</p></a>
     </div>
@@ -1028,9 +1028,38 @@
         // alert(JSON.stringify(data));
         console.log(JSON.stringify(data));
         getNotif();
+        getJumlahNotRead();
         showNotification("top", "left", "primary",data.title,data.message);
         
     });
+
+    function getJumlahNotRead(){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('mobile-tarbak/jum-status-read') }}",
+            dataType: 'json',
+            async:false,
+            success:function(result){    
+                $('.jum-read').html(result.jum);
+            },
+            fail: function(xhr, textStatus, errorThrown){
+                alert('request failed:'+textStatus);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {       
+                if(jqXHR.status == 422){
+                    var msg = jqXHR.responseText;
+                }else if(jqXHR.status == 500) {
+                    var msg = "Internal server error";
+                }else if(jqXHR.status == 401){
+                    var msg = "Unauthorized";
+                    window.location="{{ url('/mobile-tarbak/sesi-habis') }}";
+                }else if(jqXHR.status == 405){
+                    var msg = "Route not valid. Page not found";
+                }
+                
+            }
+        });
+    }
 
     function loadForm(url){
         $.ajax({
@@ -1197,6 +1226,7 @@
     
     loadMenu();
     getNotif();
+    getJumlahNotRead();
     $('.dropdown-periode').html("<span class='periode-label'>Periode</span> <span class='periode-app float-right'>"+namaPeriode2("{{ Session::get('periode') }}</span>"));
     $('.dropdown-lokasi').html("<span class='lokasi-label'>Lokasi</span> <span class='periode-app float-right'>{{ Session::get('lokasi') }}</span>");
     
