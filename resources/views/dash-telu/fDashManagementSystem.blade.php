@@ -190,6 +190,8 @@ $thnLalu = substr($tahunLalu,2,2)
 <script>
 $('body').addClass('dash-contents');
 $('html').addClass('dash-contents');
+var $kode_grafik = "";
+var $nama = "";
 if(localStorage.getItem("dore-theme") == "dark"){
     $('#btn-filter').removeClass('btn-outline-light');
     $('#btn-filter').addClass('btn-outline-dark');
@@ -587,7 +589,7 @@ function getPenyerapan(periode=null)
                         <td class='text-center'>%</td>
                         </tr>`;   
                     }
-                    html+=`<tr class='trace serap-`+i+`'>
+                    html+=`<tr class='trace serap-`+i+` penyerapan' data-kode_grafik='`+line.kode_grafik+`' data-nama='`+line.nama+`'>
                     <td>`+line.nama+`</td>
                     <td class='text-right'>`+rka+`</td>
                     <td class='text-right'>`+real+`</td>
@@ -902,7 +904,10 @@ $('.table').on('click','.ms-2',function(e){
     var url = "{{ url('/dash-telu/form/fDashMSSHU') }}";
     loadForm(url);
 });
-$('.table').on('click','.serap-0',function(e){
+
+$('.table').on('click','.penyerapan',function(e){
+    $kode_grafik = $(this).data('kode_grafik');
+    $nama = $(this).data('nama');
     var url = "{{ url('/dash-telu/form/fDashMSPengembangan') }}";
     loadForm(url);
 });

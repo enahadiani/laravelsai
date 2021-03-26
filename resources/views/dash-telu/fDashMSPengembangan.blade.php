@@ -73,7 +73,7 @@ $thnLalu = substr($tahunLalu,2,2)
 <div class="container-fluid mt-3">
     <div class="row">
         <div class="col-12 pengembangan">
-            <h6 class="mb-0 bold">Pengembangan</h6>
+            <h6 class="mb-0 bold"><span class="nama-pengembangan"></span></h6>
             <a class='btn btn-outline-light' href='#' id='btnBack' style="position: absolute;right: 135px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-arrow-left mr-2"></i> Back</a>
             <a class="btn btn-outline-light" href="#" id="btn-filter" style="position: absolute;right: 15px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-equalizer" style="transform-style: ;"></i> &nbsp;&nbsp; Filter</a>
             <p>Satuan Milyar Rupiah || <span class='label-periode-filter'></span></p>
@@ -83,7 +83,7 @@ $thnLalu = substr($tahunLalu,2,2)
         <div class="col-lg-7 col-12 mb-4">
             <div class="card dash-card">
                 <div class="card-header">
-                    <h6 class="card-title mb-0">RKA Pengembangan <span class="tahunDepan"></span> per Fakultas </h6>
+                    <h6 class="card-title mb-0">RKA <span class="nama-pengembangan"></span> <span class="tahunDepan"></span> per Fakultas </h6>
                 </div>
                 <div class="card-body">
                     <div id="rka" style="height:300px"></div>
@@ -112,7 +112,7 @@ $thnLalu = substr($tahunLalu,2,2)
         <div class="col-lg-7 col-12 mb-4">
             <div class="card dash-card">
                 <div class="card-header">
-                    <h6 class="card-title mb-0">RKA Pengembangan <span class="tahunDepan"></span> per Direktorat </h6>
+                    <h6 class="card-title mb-0">RKA <span class="nama-pengembangan"></span> <span class="tahunDepan"></span> per Direktorat </h6>
                 </div>
                 <div class="card-body">
                     <div id="rka_dir" style="height:300px"></div>
@@ -182,6 +182,7 @@ $thnLalu = substr($tahunLalu,2,2)
     </div>
 </div>
 <script>
+$('.nama-pengembangan').html($nama);
 $('.tahunDepan').hide();
 $('body').addClass('dash-contents');
 $('html').addClass('dash-contents');
@@ -343,9 +344,10 @@ function getPeriode(){
                 var tahun = parseInt($dash_periode.from.substr(0,4));
                 var tahunDepan = tahun+1;
                 $('.tahunDepan').text(tahunDepan);
-                getMsPengembangan($dash_periode);
-                getMsPengembanganDir($dash_periode);
-                getMsPengembanganKomposisi($dash_periode);
+                
+                getMsPengembangan($dash_periode,$kode_grafik,$nama);
+                getMsPengembanganDir($dash_periode,$kode_grafik,$nama);
+                getMsPengembanganKomposisi($dash_periode,$kode_grafik,$nama);
                         
             }
         },
@@ -401,13 +403,13 @@ $('.dash-filter').on('change', '.dash-filter-type', function(){
     }
 });
 
-function getMsPengembangan(periode=null){
+function getMsPengembangan(periode=null,kode_grafik,nama){
     $.ajax({
         type:"GET",
         url:"{{ url('/telu-dash/ms-pengembangan-rka') }}",
         data:{'periode[0]' : periode.type,
             'periode[1]' : periode.from,
-            'periode[2]' : periode.to, mode: $mode},
+            'periode[2]' : periode.to, mode: $mode, kode_grafik:kode_grafik, nama:nama},
         dataType:"JSON",
         success:function(result){
             // if(result.series.length > 0){
@@ -537,13 +539,13 @@ function getMsPengembangan(periode=null){
     })
 }
 
-function getMsPengembanganDir(periode=null){
+function getMsPengembanganDir(periode=null,kode_grafik,nama){
     $.ajax({
         type:"GET",
         url:"{{ url('/telu-dash/ms-pengembangan-rka-dir') }}",
         data:{'periode[0]' : periode.type,
             'periode[1]' : periode.from,
-            'periode[2]' : periode.to, mode: $mode},
+            'periode[2]' : periode.to, mode: $mode, kode_grafik:kode_grafik, nama:nama},
         dataType:"JSON",
         success:function(result){
             // if(result.series.length > 0){
@@ -673,13 +675,13 @@ function getMsPengembanganDir(periode=null){
     })
 }
 
-function getMsPengembanganKomposisi(periode=null){
+function getMsPengembanganKomposisi(periode=null,kode_grafik,nama){
     $.ajax({
         type:"GET",
         url:"{{ url('/telu-dash/ms-pengembangan-komposisi') }}",
         data:{'periode[0]' : periode.type,
             'periode[1]' : periode.from,
-            'periode[2]' : periode.to, mode: $mode},
+            'periode[2]' : periode.to, mode: $mode, kode_grafik:kode_grafik, nama:nama},
         dataType:"JSON",
         success:function(result){
             // $('#komposisi-total').html('Rp.'+sepNumPas(result.total));
@@ -910,9 +912,9 @@ $('#form-filter').submit(function(e){
         break;
     }
     $('.label-periode-filter').html(label);
-    getMsPengembangan($dash_periode);
-    getMsPengembanganDir($dash_periode);
-    getMsPengembanganKomposisi($dash_periode);
+    getMsPengembangan($dash_periode,$kode_grafik,$nama);
+    getMsPengembanganDir($dash_periode,$kode_grafik,$nama);
+    getMsPengembanganKomposisi($dash_periode,$kode_grafik,$nama);
     var tahun = parseInt($dash_periode.from.substr(0,4));
     var tahunDepan = tahun+1;
     $('.tahunDepan').text(tahunDepan);
