@@ -130,6 +130,23 @@
         h6.card-title > span{
             font-size: 0.85rem !important;
         }
+
+        .close
+        {
+            line-height:1.5;padding: 0 !important;background: none;appearance: unset;opacity: unset;position: relative;
+            right:0px !important;top:12px !important;margin-right:0 !important;
+        }
+        .close > span 
+        {
+            border-radius: 50%;padding: 0 0.45rem 0.1rem 0.45rem;background: white;color: black;font-size: 1.2rem !important;font-weight: lighter;box-shadow:0px 1px 5px 1px #80808054
+        }
+
+        .close > span:hover
+        {
+            color:white;
+            background:red;
+        }
+
     </style>
     <script>
         var $public_asset = "{{ asset('asset_dore') }}/";

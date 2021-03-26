@@ -145,7 +145,7 @@ $thnLalu = substr($tahunLalu,2,2)
     </div>
     <div class="modal fade modal-right" id="modalFilter" tabindex="-1" role="dialog"
     aria-labelledby="modalFilter" aria-hidden="true">
-        <div class="modal-dialog" role="document" style="max-width: 480px;">
+        <div class="modal-dialog" role="document" style="max-width: 380px;">
             <div class="modal-content">
                 <form id="form-filter">
                     <div class="modal-header pb-0" style="border:none">
@@ -158,7 +158,7 @@ $thnLalu = substr($tahunLalu,2,2)
                         <div class="form-group row dash-filter">
                             <p class="dash-kunci" hidden>dash_periode</p> 
                             <label class="col-md-12">Periode</label>
-                            <div class="col-md-4">
+                            <div class="col-md-4 dash-filter-typediv">
                                 <select class="form-control dash-filter-type" data-width="100%" name="periode[]" id="periode_type">
                                     <option value='' disabled>Pilih</option>
                                     <option value='='>=</option>
@@ -166,7 +166,7 @@ $thnLalu = substr($tahunLalu,2,2)
                                     <option value='range'>Range</option>
                                 </select>
                             </div>
-                            <div class="col-md-8 dash-filter-from">
+                            <div class="col-md-12 dash-filter-from">
                                 <select class="form-control" data-width="100%" name="periode[]" id="periode_from">
                                     <option value='' disabled>Pilih</option>
                                 </select>
@@ -298,6 +298,7 @@ function getPeriode(){
                     }
                 }
 
+                $('.dash-filter-typediv').hide();
                 $('#periode_to').closest('div.dash-filter-to').hide();
                 $('#periode_from').closest('div.dash-filter-from').removeClass('col-md-4').addClass('col-md-8');
 
