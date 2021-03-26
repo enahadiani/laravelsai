@@ -660,7 +660,7 @@ function getDebt(periode=null)
                         <td class='text-center'>YoY</td>
                         </tr>`;   
                     }
-                    html+=`<tr>
+                    html+=`<tr class='trace piutang-`+i+` piutang-detail' data-kode_grafik='`+line.kode_grafik+`' data-nama='`+line.nama+`'>
                     <td>`+line.nama+`</td>
                     <td class='text-right'>`+real+`</td>
                     <td class='text-right'>`+sepNum(persen)+`%</td>
@@ -925,6 +925,13 @@ $('.table').on('click','.neraca-1',function(e){
 
 $('.table').on('click','.keuangan-1',function(e){
     var url = "{{ url('/dash-telu/form/fDashMSBank') }}";
+    loadForm(url);
+});
+
+$('.table').on('click','.piutang-detail',function(e){
+    $kode_grafik = $(this).data('kode_grafik');
+    $nama = $(this).data('nama');
+    var url = "{{ url('/dash-telu/form/fDashMSPiutang') }}";
     loadForm(url);
 });
 </script>
