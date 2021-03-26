@@ -229,7 +229,7 @@ class ProyekController extends Controller
             }
 
             $client = new Client();
-            $response = $client->request('POST',  config('api.url').'java-trans/proyek-test',[
+            $response = $client->request('POST',  config('api.url').'java-trans/proyek',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
