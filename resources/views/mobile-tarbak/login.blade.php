@@ -134,6 +134,9 @@
             display:none !important;
             z-index: -100;
         }
+        .show-index{
+            z-index: 100;
+        }
     </style>
 
     <script src="{{ asset('asset_dore/js/vendor/jquery-3.3.1.min.js') }}"></script>
@@ -163,7 +166,7 @@
     </div>
 </div> -->
 <body class="background show-spinner" style="border-radius:0 !important">
-    <div class="mx-auto my-auto logo-tarbak-overlay" style="width: 100vw; height: 100vh; background: white none repeat scroll 0% 0%; position: fixed; top: 0px; opacity: 1;overflow: hidden;z-index:100">
+    <div class="mx-auto my-auto logo-tarbak-overlay show-index" style="width: 100vw; height: 100vh; background: white none repeat scroll 0% 0%; position: fixed; top: 0px; opacity: 1;overflow: hidden">
         <img src="{{ asset('img/mobile-tarbak/logo-tarbak-siswa.png') }}" style="width:300px;margin-left: calc((100vw - 300px)/2);margin-top: calc((100vh - 300px)/2);height: 300px;position: fixed;">
     </div>
     <main>

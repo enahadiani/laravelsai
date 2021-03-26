@@ -4000,6 +4000,7 @@ $.dore = function (element, options) {
       $("body > *").animate({ opacity: 1 }, 100);
       if( $("body > .logo-tarbak-overlay").length > 0){
         $("body > .logo-tarbak-overlay").addClass('hidden-index');
+        $("body > .logo-tarbak-overlay").removeClass('show-index');
       }
     }, 300);
 
