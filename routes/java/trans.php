@@ -21,6 +21,7 @@ Route::get('kontrak-check', 'Java\ProyekController@isUnikKontrak');
 Route::post('proyek', 'Java\ProyekController@store');
 Route::put('proyek-ubah', 'Java\ProyekController@update');
 Route::delete('proyek', 'Java\ProyekController@delete');
+Route::delete('proyek-file', 'Java\ProyekController@deleteFile');
 
 // Data Proyek RAB //
 Route::get('rab-proyek', 'Java\RabProyekController@index');
