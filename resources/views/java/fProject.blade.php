@@ -230,10 +230,10 @@
         html += "<tr class='row-upload'>";
         html += "<td class='no-upload text-center'>"+no+"</td>"
         html += "<td class='px-0 py-0'><div class='inp-div-jenis'>"
-        html += "<input type='hidden' name='kode_jenis[]' class='kode_jenis-ke-"+no+"'/>"
+        html += "<input type='hidden' name='kode_jenis[]' class='inp-jenis kode_jenis-ke-"+no+"'/>"
         html += "<input type='text' name='jenis[]' class='form-control inp-jenis inp-jenis-"+no+"' value='' style='z-index: 1;'><a href='#' class='search-item search-jenis'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a>"
         html += "</div></td>"
-        html += "<td class='td-nama_file tooltip-span'></td>";
+        html += "<td class='td-nama_file tooltip-span'>-</td>";
         html += "<td><input type='file' name='file_dok[]' class='hidden file-dok-"+no+"'></td>"
         html += "<td class='text-center action-dok'><a class='hapus-dok' style='cursor: pointer;'><i class='simple-icon-trash' style='font-size:18px'></i></a></td>"
         html += "</tr>"
@@ -260,6 +260,65 @@
     $('#add-row-dok').on('click', function() {
         addRowUpload()
     })
+
+    $('#upload').on('click', '.hapus-dok-with-file', function(){
+        var no_bukti = $('#no_proyek').val();
+        var nama_file = $(this).closest('tr').find('.td-nama_file').html();
+        var kode_jenis = $(this).closest('tr').find('.inp-jenis').val();
+        var no_urut = $(this).closest('tr').find('.no-upload').html();
+        var self = this
+        
+        msgDialog({
+            id: kode_jenis,
+            text: 'Dokumen akan terhapus secara permanen dari server dan tidak dapat mengurungkan.<br> ID Data : <b>'+kode_jenis+'</b> No urut : <b>'+no_urut+'</b>',
+            param: {'kode_jenis':kode_jenis,'no_bukti':no_bukti,'fileName':nama_file, 'self':self, 'no_urut':no_urut},
+            type:'hapusDok'
+        });
+       
+    });
+
+    function hapusDok(param){
+        console.log(param)
+        var no_bukti = param.no_bukti; 
+        var kode_jenis= param.kode_jenis;
+        var fileName= param.fileName;
+        var no_urut = param.no_urut
+        var self = param.self
+        $.ajax({
+            type: 'DELETE',
+            url: "{{ url('java-trans/proyek-file') }}",
+            dataType: 'json',
+            data: {'no_bukti':no_bukti,'kode_jenis':kode_jenis, 'fileName':fileName},
+            success:function(result){
+                // console.log(result.data.message);
+                if(result.data.status){
+                    $(self).closest('tr').remove();
+                    no=1;
+                    $('.row-upload').each(function(){
+                        var nom = $(self).closest('tr').find('.no-upload');
+                        nom.html(no);
+                        no++;
+                    });
+                    hitungTotalRowUpload();
+                    $("html, body").animate({ scrollTop: $(document).height() }, 1000);     
+                    msgDialog({
+                        id:no_bukti,
+                        type:'sukses',
+                        title:'Sukses',
+                        text:'Dokumen Proyek '+kode_jenis+' dengan no urut: '+no_urut+' berhasil dihapus'
+                    });
+
+                }else{
+                    msgDialog({
+                        id:result.data.no_bukti,
+                        title:'Error',
+                        back: false,
+                        text:result.data.message
+                    });
+                }
+            }
+        });
+    }
 
     // Upload
 
@@ -563,19 +622,27 @@
 
             var formData = new FormData(form);
             if(countDokRow > 0) {
-                $('#upload .row-upload').each(function(){
-                    var files = $(this).find("td:eq(3) input[type='file']")[0]
-                    var check = files.files.length
-                    if(check == 0) {
-                        alert('Upload dokumen tidak boleh kosong, hapus baris jika tidak diperlukan')
-                        valid = false
-                        return false
-                    } else {
-                        valid = true
-                    }
-                })
                 $('#upload tbody tr').each(function(index) {
                     formData.append('no_dok[]', $(this).find('.no-upload').text())
+                })
+                $('#upload tbody tr').each(function(){
+                    var namaFile = $(this).find('.td-nama_file').text()
+                    if(namaFile == '-') {
+                        var files = $(this).find("td:eq(3) input[type='file']")[0]
+                        var check = files.files.length
+                        if(check == 0) {
+                            alert('Upload dokumen tidak boleh kosong, hapus baris jika tidak diperlukan')
+                            valid = false
+                            return false
+                        } else {
+                            valid = true
+                        }
+                    }
+                })
+            }
+            if(parameter === 'edit') {
+                $('#upload tbody tr').each(function(index) {
+                    formData.append('nama_dok[]', $(this).find('.td-nama_file').text())
                 })
             }
 
@@ -587,59 +654,60 @@
             }
 
             if(valid) {
-                $.ajax({
-                    type: 'POST', 
-                    url: url,
-                    dataType: 'json',
-                    data: formData,
-                    async:false,
-                    contentType: false,
-                    cache: false,
-                    processData: false, 
-                    success:function(result){
-                        if(result.data.status){
-                            dataTable.ajax.reload();
-                            $('#upload tbody').empty()
-                            $('#row-id').hide();
-                            $('#form-tambah')[0].reset();
-                            $('#form-tambah').validate().resetForm();
-                            $('[id^=label]').html('');
-                            $('#id_edit').val('');
-                            $('#judul-form').html('Tambah Data Proyek');
-                            $('#method').val('post');
-                            $('#kode_customer').attr('readonly', false);
-                            msgDialog({
-                                id:result.data.kode,
-                                type:'simpan'
-                            });
-                            last_add("kode_customer",result.data.kode);
-                        }else if(!result.data.status && result.data.message === "Unauthorized"){
+                console.log('update')
+                // $.ajax({
+                //     type: 'POST', 
+                //     url: url,
+                //     dataType: 'json',
+                //     data: formData,
+                //     async:false,
+                //     contentType: false,
+                //     cache: false,
+                //     processData: false, 
+                //     success:function(result){
+                //         if(result.data.status){
+                //             dataTable.ajax.reload();
+                //             $('#upload tbody').empty()
+                //             $('#row-id').hide();
+                //             $('#form-tambah')[0].reset();
+                //             $('#form-tambah').validate().resetForm();
+                //             $('[id^=label]').html('');
+                //             $('#id_edit').val('');
+                //             $('#judul-form').html('Tambah Data Proyek');
+                //             $('#method').val('post');
+                //             $('#kode_customer').attr('readonly', false);
+                //             msgDialog({
+                //                 id:result.data.kode,
+                //                 type:'simpan'
+                //             });
+                //             last_add("kode_customer",result.data.kode);
+                //         }else if(!result.data.status && result.data.message === "Unauthorized"){
                         
-                            window.location.href = "{{ url('/java-auth/sesi-habis') }}";
+                //             window.location.href = "{{ url('/java-auth/sesi-habis') }}";
                             
-                        }else{
-                            if(result.data.kode == "-" && result.data.jenis != undefined){
-                                msgDialog({
-                                    id: id,
-                                    type: result.data.jenis,
-                                    text:'No Proyek atau No Kontrak sudah digunakan'
-                                });
-                            }else{
+                //         }else{
+                //             if(result.data.kode == "-" && result.data.jenis != undefined){
+                //                 msgDialog({
+                //                     id: id,
+                //                     type: result.data.jenis,
+                //                     text:'No Proyek atau No Kontrak sudah digunakan'
+                //                 });
+                //             }else{
 
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Oops...',
-                                    text: 'Something went wrong!',
-                                    footer: '<a href>'+result.data.message+'</a>'
-                                })
-                            }
-                        }
-                    },
-                    fail: function(xhr, textStatus, errorThrown){
-                        alert('request failed:'+textStatus);
-                    }
-                });
-                $('#btn-simpan').html("Simpan").removeAttr('disabled');
+                //                 Swal.fire({
+                //                     icon: 'error',
+                //                     title: 'Oops...',
+                //                     text: 'Something went wrong!',
+                //                     footer: '<a href>'+result.data.message+'</a>'
+                //                 })
+                //             }
+                //         }
+                //     },
+                //     fail: function(xhr, textStatus, errorThrown){
+                //         alert('request failed:'+textStatus);
+                //     }
+                // });
+                // $('#btn-simpan').html("Simpan").removeAttr('disabled');
             }
         },
         errorPlacement: function (error, element) {
@@ -727,7 +795,6 @@
                 if(result.status){
                     $('#upload tbody').empty()
                     var html = ""
-                    console.log(result)
                     $('#project-status').show();
                     $('#id_edit').val('edit');
                     $('#method').val('put');
@@ -755,10 +822,10 @@
                         for(var i=0;i<result.file.length;i++) {
                             var line = result.file[i]
                             var dok = "{{ config('api.url').'java-auth/storage' }}/"+line.file_dok;
-                            html += "<tr>"
+                            html += "<tr class='row-upload'>"
                             html += "<td class='no-upload text-center'>"+no+"</td>"
                             html += "<td class='px-0 py-0'><div class='inp-div-jenis'>"
-                            html += "<input type='hidden' name='kode_jenis[]' value='"+line.jenis+"' class='kode_jenis-ke-"+no+"'/>"
+                            html += "<input type='hidden' name='kode_jenis[]' value='"+line.jenis+"' class='inp-jenis kode_jenis-ke-"+no+"'/>"
                             html += "<input type='text' name='jenis[]' value='"+line.nama+"' class='form-control inp-jenis inp-jenis-"+no+"' value='' style='z-index: 1;'><a href='#' class='search-item search-jenis'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a>"
                             html += "</div></td>"
                             html += "<td class='td-nama_file tooltip-span'>"+line.file_dok+"</td>";
@@ -767,7 +834,8 @@
                             html += "</tr>"
                             no++
                         }
-                        $('#upload tbody').append(html)                        
+                        $('#upload tbody').append(html)   
+                        hitungTotalRowUpload()                     
                     }
                     $('#saku-datatable').hide();
                     $('#modal-preview').modal('hide');
