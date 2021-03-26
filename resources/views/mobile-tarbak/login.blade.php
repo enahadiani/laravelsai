@@ -129,6 +129,10 @@
             .auth-card .form-side {
                 width: 100%;
                 padding: 30px; } }
+
+        .hidden{
+            display:none !important;
+        }
     </style>
 
     <script src="{{ asset('asset_dore/js/vendor/jquery-3.3.1.min.js') }}"></script>
