@@ -233,7 +233,7 @@
         html += "<input type='hidden' name='kode_jenis[]' class='kode_jenis-ke-"+no+"'/>"
         html += "<input type='text' name='jenis[]' class='form-control inp-jenis inp-jenis-"+no+"' value='' style='z-index: 1;'><a href='#' class='search-item search-jenis'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a>"
         html += "</div></td>"
-        html += "<td><span class='td-nama_file tooltip-span'>-</span></td>";
+        html += "<td class='td-nama_file tooltip-span'></td>";
         html += "<td><input type='file' name='file_dok[]' class='hidden file-dok-"+no+"'></td>"
         html += "<td class='text-center action-dok'><a class='hapus-dok' style='cursor: pointer;'><i class='simple-icon-trash' style='font-size:18px'></i></a></td>"
         html += "</tr>"
@@ -725,6 +725,8 @@
             success:function(res){
                 var result= res.data;
                 if(result.status){
+                    $('#upload tbody').empty()
+                    var html = ""
                     console.log(result)
                     $('#project-status').show();
                     $('#id_edit').val('edit');
@@ -747,8 +749,26 @@
                         $('#status').prop("checked", true)
                     } else {
                         $('#status').prop("checked", false)
+                    }         
+                    if(result.file.length > 0) {
+                        var no = 1;
+                        for(var i=0;i<result.file.length;i++) {
+                            var line = result.file[i]
+                            var dok = "{{ config('api.url').'java-auth/storage' }}/"+line.file_dok;
+                            html += "<tr>"
+                            html += "<td class='no-upload text-center'>"+no+"</td>"
+                            html += "<td class='px-0 py-0'><div class='inp-div-jenis'>"
+                            html += "<input type='hidden' name='kode_jenis[]' value='"+line.jenis+"' class='kode_jenis-ke-"+no+"'/>"
+                            html += "<input type='text' name='jenis[]' value='"+line.nama+"' class='form-control inp-jenis inp-jenis-"+no+"' value='' style='z-index: 1;'><a href='#' class='search-item search-jenis'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a>"
+                            html += "</div></td>"
+                            html += "<td class='td-nama_file tooltip-span'>"+line.file_dok+"</td>";
+                            html += "<td><input type='file' name='file_dok[]' class='file-dok-"+no+"'></td>"
+                            html += "<td class='text-center action-dok'><a class='download-dok' href='"+dok+"' target='_blank' title='Download'><i style='font-size:18px' class='simple-icon-cloud-download'></i></a>&nbsp;&nbsp;&nbsp;<a class='hapus-dok-with-file' style='cursor: pointer;'><i class='simple-icon-trash' style='font-size:18px'></i></a></td>"  
+                            html += "</tr>"
+                            no++
+                        }
+                        $('#upload tbody').append(html)                        
                     }
-                    $('.custom-file-label').html(result.data[0].file_dok)         
                     $('#saku-datatable').hide();
                     $('#modal-preview').modal('hide');
                     $('#saku-form').show();
