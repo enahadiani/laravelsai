@@ -505,90 +505,207 @@ function getPendapatan(periode=null){
             //     'packages': ['corechart']
             // });
             // $google.charts.setOnLoadCallback(drawVisualization);
-            $chart = Highcharts.chart('agg', { 
+            // $chart = Highcharts.chart('agg', { 
+            //     chart: {
+            //         alignTicks: false
+            //     },
+            //     title: {
+            //         text: null
+            //     },
+            //     credits:{
+            //         enabled:false
+            //     },
+            //     exporting: {
+            //         enabled:false,
+            //         allowHTML: true
+            //     },
+            //     tooltip: {
+            //         formatter: function () {
+            //             return this.series.name+':<b>'+sepNumPas(this.y)+' </b>';
+            //         }
+            //     },
+            //     yAxis: [{
+            //         title: {
+            //             text: 'DALAM MILIAR RUPIAH'
+            //         },
+            //         labels: {
+            //             formatter: function () {
+            //                 return singkatNilai(this.value);
+            //             }
+            //         },
+            //         tickInterval: 100
+            //     },{
+            //         title: {
+            //             text: 'PROSENTASE CAPAIAN'
+            //         },
+            //         opposite: true,
+            //         tickInterval: 5
+            //     }],
+            //     xAxis: {
+            //         categories:result.ctg
+            //     },
+            //     plotOptions: {
+            //         column: {
+            //             dataLabels: {
+            //                 enabled: true,
+            //                 useHTML: true,
+            //                 formatter: function () {
+            //                     // return '<span style="color:white;background:gray !important;"><b>'+sepNum(this.y)+' </b></span>';
+            //                     return $('<div/>').css({
+            //                         'color' : 'white', // work
+            //                         'padding': '0 5px',
+            //                         'fontSize': '10px',
+            //                         'backgroundColor' : this.point.color  // just white in my case
+            //                     }).text(sepNum(this.y)+'M')[0].outerHTML;
+            //                 }
+            //             }
+            //         },
+            //         spline: {
+            //             dataLabels: {
+            //                 // padding:15,
+            //                 enabled: true,
+            //                 x:20,
+            //                 useHTML: true,
+            //                 formatter: function () {
+            //                     return $('<div/>').css({
+            //                         'color' : 'white', // work
+            //                         'padding': '0 5px',
+            //                         'fontSize': '10px',
+            //                         'backgroundColor' : this.point.color  // just white in my case
+            //                     }).text(sepNum(this.y)+'%')[0].outerHTML;
+            //                 }
+            //             }
+            //             // enableMouseTracking: false
+            //         },
+            //         series:{
+            //             dataLabels: {
+            //                 allowOverlap:true,
+            //                 enabled: true,
+            //                 crop: false,
+            //                 fontSize: '10px !important',
+            //                 overflow: 'justify'
+            //             }
+            //         }
+            //     },
+            //     series: result.series
+
+            // });
+            Highcharts.SVGRenderer.prototype.symbols['c-rect'] = function (x, y, w, h) {
+                    return ['M', x, y + h / 2, 'L', x + w, y + h / 2];
+                };
+                
+            $chart = Highcharts.chart('agg', {
                 chart: {
-                    alignTicks: false
-                },
-                title: {
-                    text: null
+                    type: 'column'
                 },
                 credits:{
                     enabled:false
                 },
-                exporting: {
-                    enabled:false,
-                    allowHTML: true
+                title: {
+                    text: ''
+                },
+                xAxis: {
+                    categories: result.categories
+                },
+                yAxis: {
+                        title:'',
+                    min: 0
                 },
                 tooltip: {
-                    formatter: function () {
-                        return this.series.name+':<b>'+sepNumPas(this.y)+' </b>';
-                    }
-                },
-                yAxis: [{
-                    title: {
-                        text: 'DALAM MILIAR RUPIAH'
-                    },
-                    labels: {
-                        formatter: function () {
-                            return singkatNilai(this.value);
-                        }
-                    },
-                    tickInterval: 100
-                },{
-                    title: {
-                        text: 'PROSENTASE CAPAIAN'
-                    },
-                    opposite: true,
-                    tickInterval: 5
-                }],
-                xAxis: {
-                    categories:result.ctg
+                    pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b>',
+                    /* shared: true */
                 },
                 plotOptions: {
                     column: {
+                        stacking: 'normal',
+                        borderWidth: 0,
+                        pointWidth: 50,
                         dataLabels: {
-                            enabled: true,
-                            useHTML: true,
-                            formatter: function () {
-                                // return '<span style="color:white;background:gray !important;"><b>'+sepNum(this.y)+' </b></span>';
-                                return $('<div/>').css({
-                                    'color' : 'white', // work
-                                    'padding': '0 5px',
-                                    'fontSize': '10px',
-                                    'backgroundColor' : this.point.color  // just white in my case
-                                }).text(sepNum(this.y)+'M')[0].outerHTML;
-                            }
-                        }
-                    },
-                    spline: {
-                        dataLabels: {
-                            // padding:15,
-                            enabled: true,
-                            x:20,
-                            useHTML: true,
-                            formatter: function () {
-                                return $('<div/>').css({
-                                    'color' : 'white', // work
-                                    'padding': '0 5px',
-                                    'fontSize': '10px',
-                                    'backgroundColor' : this.point.color  // just white in my case
-                                }).text(sepNum(this.y)+'%')[0].outerHTML;
-                            }
-                        }
-                        // enableMouseTracking: false
-                    },
-                    series:{
-                        dataLabels: {
+                            // padding:10,
                             allowOverlap:true,
                             enabled: true,
                             crop: false,
-                            fontSize: '10px !important',
-                            overflow: 'justify'
+                            overflow: 'justify',
+                            useHTML: true,
+                            formatter: function () {
+                                if(this.y < 0.1){
+                                    return '';
+                                }else{
+                                    return $('<div/>').css({
+                                        'color' : 'white', // work
+                                        'padding': '0 3px',
+                                        'font-size': '10px',
+                                        'backgroundColor' : this.point.color  // just white in my case
+                                    }).text(sepNum(this.point.nlabel)+'M')[0].outerHTML;
+                                }
+                                // if(this.name)
+                            }
+                        }
+                    },
+                    scatter: {
+                        dataLabels: {
+                            // padding:10,
+                            allowOverlap:true,
+                            enabled: true,
+                            crop: false,
+                            overflow: 'justify',
+                            useHTML: true,
+                            formatter: function () {
+                                // return '<span style="color:white;background:gray !important;"><b>'+sepNum(this.y)+' M</b></span>';
+                                if(this.y < 0.1){
+                                    return '';
+                                }else{
+                                    return $('<div/>').css({
+                                        'color' : 'white', // work
+                                        'padding': '0 3px',
+                                        'font-size': '10px',
+                                        'backgroundColor' : this.point.color  // just white in my case
+                                    }).text(sepNum(this.point.nlabel)+'M')[0].outerHTML;
+                                }
+                            }
                         }
                     }
                 },
-                series: result.series
-
+                series: [{
+                    name: 'Melampaui',
+                    color: (localStorage.getItem("dore-theme") == "dark" ? '#28DA66' :  '#16ff14'),
+                    type: 'column',
+                    stack: 1,
+                    data: result.melampaui,
+                    dataLabels:{
+                        y:-20
+                    }
+                },{
+                    name: 'Target/RKA',
+                    color: (localStorage.getItem("dore-theme") == "dark" ? '#2200FF' :  '#003F88'),
+                    marker: {
+                        symbol: 'c-rect',
+                        lineWidth:5,
+                        lineColor: (localStorage.getItem("dore-theme") == "dark" ? '#2200FF' :  '#003F88'),
+                        radius: 50
+                    },
+                    type: 'scatter',
+                    stack: 2,
+                    data: result.rka,
+                    dataLabels:{
+                        x:-50
+                    }
+                }, {
+                    name: 'Tidak Tercapai',
+                    type: 'column',
+                    color:  (localStorage.getItem("dore-theme") == "dark" ? '#ED4346' :  '#900604'),
+                    stack: 1,
+                    data: result.tdkcapai,
+                    dataLabels:{
+                        x:50,
+                    }
+                }, {
+                    name: 'Actual',
+                    type: 'column',
+                    color: (localStorage.getItem("dore-theme") == "dark" ? '#434343' :  '#CED4DA'),
+                    stack: 1,
+                    data: result.actual
+                }]
             });
 
         },
@@ -699,87 +816,206 @@ function getPendapatanTF(periode=null){
             //     'packages': ['corechart']
             // });
             // $google.charts.setOnLoadCallback(drawVisualizationTF);
-            $chart2 = { 
+            // $chart2 = { 
+            //     chart: {
+            //         alignTicks: false
+            //     },
+            //     title: {
+            //         text: null
+            //     },
+            //     credits:{
+            //         enabled:false
+            //     },
+            //     tooltip: {
+            //         formatter: function () {
+            //             return this.series.name+':<b>'+sepNumPas(this.y)+'</b>';
+            //         }
+            //     },
+            //     yAxis: [{
+            //         title: {
+            //             text: 'DALAM MILIAR RUPIAH'
+            //         },
+            //         labels: {
+            //             formatter: function () {
+            //                 return singkatNilai(this.value);
+            //             }
+            //         },
+            //         tickInterval: 50
+            //     },{
+            //         title: {
+            //             text: 'PROSENTASE CAPAIAN'
+            //         },
+            //         opposite: true,
+            //         tickInterval: 2
+            //     }],
+            //     xAxis: {
+            //         categories:result.ctg
+            //     },
+            //     plotOptions: {
+            //         column: {
+            //             dataLabels: {
+            //                 // padding:10,
+            //                 y:20,
+            //                 useHTML: true,
+            //                 formatter: function () {
+            //                     // return '<span style="color:white;background:gray !important;"><b>'+sepNum(this.y)+' </b></span>';
+            //                     return $('<div/>').css({
+            //                         'color' : 'white', // work
+            //                         'padding': '0 2px',
+            //                         'font-size':'8px',
+            //                         'backgroundColor' : this.point.color  // just white in my case
+            //                     }).text(sepNum(this.y)+'M')[0].outerHTML;
+            //                 }
+            //             }
+            //         },
+            //         spline: {
+            //             dataLabels: {
+            //                 // padding:15,
+            //                 // x:20,
+            //                 useHTML: true,
+            //                 formatter: function () {
+            //                     return $('<div/>').css({
+            //                         'color' : 'white', // work
+            //                         'padding': '0 5px',
+            //                         'font-size':'8px',
+            //                         'backgroundColor' : this.point.color  // just white in my case
+            //                     }).text(sepNum(this.y)+'%')[0].outerHTML;
+            //                 }
+            //             }
+            //             // enableMouseTracking: false
+            //         },
+            //         series:{
+            //             dataLabels: {
+            //                 allowOverlap:true,
+            //                 enabled: true,
+            //                 crop: false,
+            //                 overflow: 'justify'
+            //             }
+            //         }
+            //     },
+            //     series: result.series
+
+            // };
+            // Highcharts.chart('tf', $chart2);
+
+            Highcharts.SVGRenderer.prototype.symbols['c-rect'] = function (x, y, w, h) {
+                    return ['M', x, y + h / 2, 'L', x + w, y + h / 2];
+                };
+                
+            $chart2 = Highcharts.chart('tf', {
                 chart: {
-                    alignTicks: false
-                },
-                title: {
-                    text: null
+                    type: 'column'
                 },
                 credits:{
                     enabled:false
                 },
-                tooltip: {
-                    formatter: function () {
-                        return this.series.name+':<b>'+sepNumPas(this.y)+'</b>';
-                    }
+                title: {
+                    text: ''
                 },
-                yAxis: [{
-                    title: {
-                        text: 'DALAM MILIAR RUPIAH'
-                    },
-                    labels: {
-                        formatter: function () {
-                            return singkatNilai(this.value);
-                        }
-                    },
-                    tickInterval: 50
-                },{
-                    title: {
-                        text: 'PROSENTASE CAPAIAN'
-                    },
-                    opposite: true,
-                    tickInterval: 2
-                }],
                 xAxis: {
-                    categories:result.ctg
+                    categories: result.categories
+                },
+                yAxis: {
+                        title:'',
+                    min: 0
+                },
+                tooltip: {
+                    pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b>',
+                    /* shared: true */
                 },
                 plotOptions: {
                     column: {
+                        stacking: 'normal',
+                        borderWidth: 0,
+                        pointWidth: 50,
                         dataLabels: {
                             // padding:10,
-                            y:20,
-                            useHTML: true,
-                            formatter: function () {
-                                // return '<span style="color:white;background:gray !important;"><b>'+sepNum(this.y)+' </b></span>';
-                                return $('<div/>').css({
-                                    'color' : 'white', // work
-                                    'padding': '0 2px',
-                                    'font-size':'8px',
-                                    'backgroundColor' : this.point.color  // just white in my case
-                                }).text(sepNum(this.y)+'M')[0].outerHTML;
-                            }
-                        }
-                    },
-                    spline: {
-                        dataLabels: {
-                            // padding:15,
-                            // x:20,
-                            useHTML: true,
-                            formatter: function () {
-                                return $('<div/>').css({
-                                    'color' : 'white', // work
-                                    'padding': '0 5px',
-                                    'font-size':'8px',
-                                    'backgroundColor' : this.point.color  // just white in my case
-                                }).text(sepNum(this.y)+'%')[0].outerHTML;
-                            }
-                        }
-                        // enableMouseTracking: false
-                    },
-                    series:{
-                        dataLabels: {
                             allowOverlap:true,
                             enabled: true,
                             crop: false,
-                            overflow: 'justify'
+                            overflow: 'justify',
+                            useHTML: true,
+                            formatter: function () {
+                                if(this.y < 0.1){
+                                    return '';
+                                }else{
+                                    return $('<div/>').css({
+                                        'color' : 'white', // work
+                                        'padding': '0 3px',
+                                        'font-size': '10px',
+                                        'backgroundColor' : this.point.color  // just white in my case
+                                    }).text(sepNum(this.point.nlabel)+'M')[0].outerHTML;
+                                }
+                                // if(this.name)
+                            }
+                        }
+                    },
+                    scatter: {
+                        dataLabels: {
+                            // padding:10,
+                            allowOverlap:true,
+                            enabled: true,
+                            crop: false,
+                            overflow: 'justify',
+                            useHTML: true,
+                            formatter: function () {
+                                // return '<span style="color:white;background:gray !important;"><b>'+sepNum(this.y)+' M</b></span>';
+                                if(this.y < 0.1){
+                                    return '';
+                                }else{
+                                    return $('<div/>').css({
+                                        'color' : 'white', // work
+                                        'padding': '0 3px',
+                                        'font-size': '10px',
+                                        'backgroundColor' : this.point.color  // just white in my case
+                                    }).text(sepNum(this.point.nlabel)+'M')[0].outerHTML;
+                                }
+                            }
                         }
                     }
                 },
-                series: result.series
+                series: [{
+                    name: 'Melampaui',
+                    color: (localStorage.getItem("dore-theme") == "dark" ? '#28DA66' :  '#16ff14'),
+                    type: 'column',
+                    stack: 1,
+                    data: result.melampaui,
+                    dataLabels:{
+                        y:-20
+                    }
+                },{
+                    name: 'Target/RKA',
+                    color: (localStorage.getItem("dore-theme") == "dark" ? '#2200FF' :  '#003F88'),
+                    marker: {
+                        symbol: 'c-rect',
+                        lineWidth:5,
+                        lineColor: (localStorage.getItem("dore-theme") == "dark" ? '#2200FF' :  '#003F88'),
+                        radius: 50
+                    },
+                    type: 'scatter',
+                    stack: 2,
+                    data: result.rka,
+                    dataLabels:{
+                        x:-50
+                    }
+                }, {
+                    name: 'Tidak Tercapai',
+                    type: 'column',
+                    color:  (localStorage.getItem("dore-theme") == "dark" ? '#ED4346' :  '#900604'),
+                    stack: 1,
+                    data: result.tdkcapai,
+                    dataLabels:{
+                        x:50,
+                    }
+                }, {
+                    name: 'Actual',
+                    type: 'column',
+                    color: (localStorage.getItem("dore-theme") == "dark" ? '#434343' :  '#CED4DA'),
+                    stack: 1,
+                    data: result.actual
+                }]
+            });
 
-            };
-            Highcharts.chart('tf', $chart2);
 
         },
         error: function(jqXHR, textStatus, errorThrown) {       
@@ -889,89 +1125,207 @@ function getPendapatanNTF(periode=null){
             //     'packages': ['corechart']
             // });
             // $google.charts.setOnLoadCallback(drawVisualizationNTF);
-            Highcharts.chart('ntf', { 
+            // Highcharts.chart('ntf', { 
+            //     chart: {
+            //         alignTicks: false
+            //     },
+            //     title: {
+            //         text: null
+            //     },
+            //     credits:{
+            //         enabled:false
+            //     },
+            //     tooltip: {
+            //         formatter: function () {
+            //             return this.series.name+':<b>'+sepNumPas(this.y)+' </b>';
+            //         }
+            //     },
+            //     yAxis: [{
+            //         title: {
+            //             text: 'DALAM MILIAR RUPIAH'
+            //         },
+            //         labels: {
+            //             formatter: function () {
+            //                 return singkatNilai(this.value);
+            //             }
+            //         },
+            //         tickInterval: 10
+            //     },{
+            //         title: {
+            //             text: 'PROSENTASE CAPAIAN'
+            //         },
+            //         opposite: true,
+            //         tickInterval: 20
+            //     }],
+            //     xAxis: {
+            //         categories:result.ctg
+            //     },
+            //     plotOptions: {
+            //         column: {
+            //             dataLabels: {
+            //                 padding:10,
+            //                 y:20,
+            //                 useHTML: true,
+            //                 formatter: function () {
+            //                     // return '<span style="color:white;background:gray !important;"><b>'+sepNum(this.y)+' </b></span>';
+            //                     return $('<div/>').css({
+            //                         'color' : 'white', // work
+            //                         'padding': '0 2px',
+            //                         'font-size':'8px',
+                                    
+            //                         'backgroundColor' : this.point.color  // just white in my case
+            //                     }).text(sepNum(this.y)+'M')[0].outerHTML;
+            //                 }
+            //             }
+            //         },
+            //         spline: {
+            //             dataLabels: {
+            //                 padding:15,
+            //                 x:20,
+            //                 useHTML: true,
+            //                 formatter: function () {
+            //                     return $('<div/>').css({
+            //                         'color' : 'white', // work
+            //                         'padding': '0 5px',
+            //                         'font-size':'8px',
+                                    
+            //                         'backgroundColor' : this.point.color  // just white in my case
+            //                     }).text(sepNum(this.y)+'%')[0].outerHTML;
+            //                 }
+            //             }
+            //             // enableMouseTracking: false
+            //         },
+            //         series:{
+            //             dataLabels: {
+            //                 allowOverlap:true,
+            //                 enabled: true,
+            //                 crop: false,
+            //                 fontSize: '12px',
+            //                 overflow: 'justify'
+            //             }
+            //         }
+            //     },
+            //     series: result.series
+
+            // });
+            Highcharts.SVGRenderer.prototype.symbols['c-rect'] = function (x, y, w, h) {
+                    return ['M', x, y + h / 2, 'L', x + w, y + h / 2];
+                };
+                
+            Highcharts.chart('ntf', {
                 chart: {
-                    alignTicks: false
-                },
-                title: {
-                    text: null
+                    type: 'column'
                 },
                 credits:{
                     enabled:false
                 },
-                tooltip: {
-                    formatter: function () {
-                        return this.series.name+':<b>'+sepNumPas(this.y)+' </b>';
-                    }
+                title: {
+                    text: ''
                 },
-                yAxis: [{
-                    title: {
-                        text: 'DALAM MILIAR RUPIAH'
-                    },
-                    labels: {
-                        formatter: function () {
-                            return singkatNilai(this.value);
-                        }
-                    },
-                    tickInterval: 10
-                },{
-                    title: {
-                        text: 'PROSENTASE CAPAIAN'
-                    },
-                    opposite: true,
-                    tickInterval: 20
-                }],
                 xAxis: {
-                    categories:result.ctg
+                    categories: result.categories
+                },
+                yAxis: {
+                        title:'',
+                    min: 0
+                },
+                tooltip: {
+                    pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b>',
+                    /* shared: true */
                 },
                 plotOptions: {
                     column: {
+                        stacking: 'normal',
+                        borderWidth: 0,
+                        pointWidth: 50,
                         dataLabels: {
-                            padding:10,
-                            y:20,
-                            useHTML: true,
-                            formatter: function () {
-                                // return '<span style="color:white;background:gray !important;"><b>'+sepNum(this.y)+' </b></span>';
-                                return $('<div/>').css({
-                                    'color' : 'white', // work
-                                    'padding': '0 2px',
-                                    'font-size':'8px',
-                                    
-                                    'backgroundColor' : this.point.color  // just white in my case
-                                }).text(sepNum(this.y)+'M')[0].outerHTML;
-                            }
-                        }
-                    },
-                    spline: {
-                        dataLabels: {
-                            padding:15,
-                            x:20,
-                            useHTML: true,
-                            formatter: function () {
-                                return $('<div/>').css({
-                                    'color' : 'white', // work
-                                    'padding': '0 5px',
-                                    'font-size':'8px',
-                                    
-                                    'backgroundColor' : this.point.color  // just white in my case
-                                }).text(sepNum(this.y)+'%')[0].outerHTML;
-                            }
-                        }
-                        // enableMouseTracking: false
-                    },
-                    series:{
-                        dataLabels: {
+                            // padding:10,
                             allowOverlap:true,
                             enabled: true,
                             crop: false,
-                            fontSize: '12px',
-                            overflow: 'justify'
+                            overflow: 'justify',
+                            useHTML: true,
+                            formatter: function () {
+                                if(this.y < 0.1){
+                                    return '';
+                                }else{
+                                    return $('<div/>').css({
+                                        'color' : 'white', // work
+                                        'padding': '0 3px',
+                                        'font-size': '10px',
+                                        'backgroundColor' : this.point.color  // just white in my case
+                                    }).text(sepNum(this.point.nlabel)+'M')[0].outerHTML;
+                                }
+                                // if(this.name)
+                            }
+                        }
+                    },
+                    scatter: {
+                        dataLabels: {
+                            // padding:10,
+                            allowOverlap:true,
+                            enabled: true,
+                            crop: false,
+                            overflow: 'justify',
+                            useHTML: true,
+                            formatter: function () {
+                                // return '<span style="color:white;background:gray !important;"><b>'+sepNum(this.y)+' M</b></span>';
+                                if(this.y < 0.1){
+                                    return '';
+                                }else{
+                                    return $('<div/>').css({
+                                        'color' : 'white', // work
+                                        'padding': '0 3px',
+                                        'font-size': '10px',
+                                        'backgroundColor' : this.point.color  // just white in my case
+                                    }).text(sepNum(this.point.nlabel)+'M')[0].outerHTML;
+                                }
+                            }
                         }
                     }
                 },
-                series: result.series
-
+                series: [{
+                    name: 'Melampaui',
+                    color: (localStorage.getItem("dore-theme") == "dark" ? '#28DA66' :  '#16ff14'),
+                    type: 'column',
+                    stack: 1,
+                    data: result.melampaui,
+                    dataLabels:{
+                        y:-20
+                    }
+                },{
+                    name: 'Target/RKA',
+                    color: (localStorage.getItem("dore-theme") == "dark" ? '#2200FF' :  '#003F88'),
+                    marker: {
+                        symbol: 'c-rect',
+                        lineWidth:5,
+                        lineColor: (localStorage.getItem("dore-theme") == "dark" ? '#2200FF' :  '#003F88'),
+                        radius: 50
+                    },
+                    type: 'scatter',
+                    stack: 2,
+                    data: result.rka,
+                    dataLabels:{
+                        x:-50
+                    }
+                }, {
+                    name: 'Tidak Tercapai',
+                    type: 'column',
+                    color:  (localStorage.getItem("dore-theme") == "dark" ? '#ED4346' :  '#900604'),
+                    stack: 1,
+                    data: result.tdkcapai,
+                    dataLabels:{
+                        x:50,
+                    }
+                }, {
+                    name: 'Actual',
+                    type: 'column',
+                    color: (localStorage.getItem("dore-theme") == "dark" ? '#434343' :  '#CED4DA'),
+                    stack: 1,
+                    data: result.actual
+                }]
             });
+
 
         },
         error: function(jqXHR, textStatus, errorThrown) {       
