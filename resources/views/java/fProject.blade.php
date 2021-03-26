@@ -103,23 +103,41 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6 col-sm-12">
-                                <div class="row">
-                                    <div class="col-md-12 col-sm-12">
-                                        <label>Upload File</label>
-                                        <div class="input-group">
-                                            <div class="custom-file">
-                                                <input type="file" name="file" class="custom-file-input" id="file" accept="application/pdf,image/jpeg,image/png">
-                                                <label class="custom-file-label" style="border-radius: 0.5rem;" for="file">Choose file</label>
-                                            </div>
-                                        </div>
-                                    </div>
+                        <ul class="nav nav-tabs col-12 " role="tablist">
+                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-upload" role="tab" aria-selected="true"><span class="hidden-xs-down">Upload File</span></a> </li>
+                        </ul>
+                        <div class="tab-content tabcontent-border col-12 p-0">
+                            <div class="tab-pane active" id="data-upload" role="tabpanel">
+                                <div class='col-md-12 nav-control' style="padding: 0px 5px;">
+                                    <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row_dok" ></span></a>
+                                </div>
+                                <div class='col-md-12' style='min-height:420px; margin:0px; padding:0px;'>
+                                    <table class="table table-bordered table-condensed gridexample" id="upload" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                        <thead style="background:#F8F8F8">
+                                            <tr>
+                                                <th style="width:3%">No</th>
+                                                <th style="width:20%">Jenis</th>
+                                                <th style="width:30%">Path File</th>
+                                                <th width="25%">Upload File</th>
+                                                <th width="10%">Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                    <a type="button" href="#" id="add-row-dok" data-id="0" title="add-row-dok" class="add-row-dok btn btn-light2 btn-block btn-sm"><i class="saicon icon-tambah mr-1"></i>Tambah Baris</a>
                                 </div>
                             </div>
                         </div>
-                        <div class="btn-div">
-                            <button type="submit" class="btn btn-primary mb-2 mt-2"  style="float:right;" id="btn-save" ><i class="fa fa-save"></i> Simpan</button>
+                    </div>
+                    <div class="card-form-footer-full">
+                        <div class="footer-form-container-full">
+                            <div class="text-right message-action">
+                                <p class="text-success"></p>
+                            </div>
+                            <div class="action-footer">
+                                <button type="submit" style="margin-top: 10px;" class="btn btn-primary btn-save"><i class="fa fa-save"></i> Simpan</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -139,6 +157,7 @@
     var $target = "";
     var $target2 = "";
     var $target3 = "";
+    var valid = true;
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
@@ -156,10 +175,93 @@
         }
     })
 
-    $('.custom-file-input').on('change',function(){
-        var fileName = $(this).val();
-        $(this).next('.custom-file-label').html(fileName);
+    
+    // Upload grid
+    $('#upload').on('click', '.search-item', function() {
+        var param = $(this).closest('div').find('input[type="text"]').attr('name')
+        var target1 = $(this).closest('div').find('input[type="text"]').attr('class')
+        var target2 = $(this).closest('div').find('input[type="hidden"]').attr('class')
+        var target3 = $(this).closest('tr').find('td:eq(3) input[type="file"]').attr('class')
+        var tmp = target1.split(" ");
+        var tmp2 = target3.split(" ")
+        target1 = tmp[2];
+        target3 = tmp2[1]
+
+        switch(param){
+            case 'jenis[]': 
+                var options = { 
+                    id : param,
+                    header : ['Kode', 'Nama'],
+                    url : "{{ url('java-trans/dok-jenis') }}",
+                    columns : [
+                        { data: 'kode_jenis' },
+                        { data: 'nama' }
+                    ],
+                    judul : "Daftar Jenis Dokumen",
+                    pilih : "jenis",
+                    jTarget1 : "val",
+                    jTarget2 : "val",
+                    target1 : "",
+                    target2 : "",
+                    target3 : "",
+                    target4 : "",
+                    onItemSelected: function(data) {
+                        $('.'+target3).removeClass('hidden')
+                        $('.'+target1).val(data.nama)
+                        $('.'+target2).val(data.kode_jenis)
+                    },
+                    width : ["30%","70%"]
+                };
+            break;
+        }
+
+        showInpFilter(options);
+    })
+
+    function hitungTotalRowUpload(form){
+        var total_row = $('#upload tbody tr').length;
+        $('#total-row_dok').html(total_row+' Baris');
+    }
+
+    function addRowUpload() {
+        var no=$('#upload .row-upload:last').index();
+        no=no+2;
+        var html = "";
+        html += "<tr class='row-upload'>";
+        html += "<td class='no-upload text-center'>"+no+"</td>"
+        html += "<td class='px-0 py-0'><div class='inp-div-jenis'>"
+        html += "<input type='hidden' name='kode_jenis[]' class='kode_jenis-ke-"+no+"'/>"
+        html += "<input type='text' name='jenis[]' class='form-control inp-jenis inp-jenis-"+no+"' value='' style='z-index: 1;'><a href='#' class='search-item search-jenis'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a>"
+        html += "</div></td>"
+        html += "<td><span class='td-nama_file tooltip-span'>-</span></td>";
+        html += "<td><input type='file' name='file_dok[]' class='hidden file-dok-"+no+"'></td>"
+        html += "<td class='text-center action-dok'><a class='hapus-dok' style='cursor: pointer;'><i class='simple-icon-trash' style='font-size:18px'></i></a></td>"
+        html += "</tr>"
+
+        $('#upload tbody').append(html);
+        hitungTotalRowUpload()
+    }
+
+    
+
+    $('#upload').on('click', '.hapus-dok', function(){
+        valid = true
+        $(this).closest('tr').remove();
+        no=1;
+        $('.row-upload').each(function(){
+            var nom = $(this).closest('tr').find('.no-upload');
+            nom.html(no);
+            no++;
+        });
+        hitungTotalRowUpload();
+        $("html, body").animate({ scrollTop: $(document).height() }, 1000);     
     });
+
+    $('#add-row-dok').on('click', function() {
+        addRowUpload()
+    })
+
+    // Upload
 
     function reverseDate2(date_str, separator, newseparator){
         if(typeof separator === 'undefined'){separator = '-'}
@@ -198,6 +300,7 @@
 
     $('#saku-datatable').on('click', '#btn-tambah', function(){
         status_project = '0'
+        $('#upload tbody').empty()
         $('#row-id').hide();
         $('#project-status').hide();
         $('#method').val('post');
@@ -442,9 +545,12 @@
             }
         },
         errorElement: "label",
-        submitHandler: function (form) {
+        submitHandler: function (form, event) {
+            event.preventDefault();
+            
             var parameter = $('#id_edit').val();
             var id = $('#no_proyek').val();
+            var countDokRow = $('#upload tbody tr').length
             if(parameter == "edit"){
                 var url = "{{ url('java-trans/proyek-ubah') }}";
                 var pesan = "updated";
@@ -456,65 +562,85 @@
             }
 
             var formData = new FormData(form);
+            if(countDokRow > 0) {
+                $('#upload .row-upload').each(function(){
+                    var files = $(this).find("td:eq(3) input[type='file']")[0]
+                    var check = files.files.length
+                    if(check == 0) {
+                        alert('Upload dokumen tidak boleh kosong, hapus baris jika tidak diperlukan')
+                        valid = false
+                        return false
+                    } else {
+                        valid = true
+                    }
+                })
+                $('#upload tbody tr').each(function(index) {
+                    formData.append('no_dok[]', $(this).find('.no-upload').text())
+                })
+            }
+
             formData.append('status', status_project)
             formData.append('status_ppn', status_ppn)
             formData.append('ppn', nilai_ppn)
             for(var pair of formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
-            
-            $.ajax({
-                type: 'POST', 
-                url: url,
-                dataType: 'json',
-                data: formData,
-                async:false,
-                contentType: false,
-                cache: false,
-                processData: false, 
-                success:function(result){
-                    if(result.data.status){
-                        dataTable.ajax.reload();
-                        $('#row-id').hide();
-                        $('#form-tambah')[0].reset();
-                        $('#form-tambah').validate().resetForm();
-                        $('[id^=label]').html('');
-                        $('#id_edit').val('');
-                        $('#judul-form').html('Tambah Data Customer');
-                        $('#method').val('post');
-                        $('#kode_customer').attr('readonly', false);
-                        msgDialog({
-                            id:result.data.kode,
-                            type:'simpan'
-                        });
-                        last_add("kode_customer",result.data.kode);
-                    }else if(!result.data.status && result.data.message === "Unauthorized"){
-                    
-                        window.location.href = "{{ url('/java-auth/sesi-habis') }}";
-                        
-                    }else{
-                        if(result.data.kode == "-" && result.data.jenis != undefined){
-                            msgDialog({
-                                id: id,
-                                type: result.data.jenis,
-                                text:'Kode customer sudah digunakan'
-                            });
-                        }else{
 
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Oops...',
-                                text: 'Something went wrong!',
-                                footer: '<a href>'+result.data.message+'</a>'
-                            })
+            if(valid) {
+                $.ajax({
+                    type: 'POST', 
+                    url: url,
+                    dataType: 'json',
+                    data: formData,
+                    async:false,
+                    contentType: false,
+                    cache: false,
+                    processData: false, 
+                    success:function(result){
+                        if(result.data.status){
+                            dataTable.ajax.reload();
+                            $('#upload tbody').empty()
+                            $('#row-id').hide();
+                            $('#form-tambah')[0].reset();
+                            $('#form-tambah').validate().resetForm();
+                            $('[id^=label]').html('');
+                            $('#id_edit').val('');
+                            $('#judul-form').html('Tambah Data Proyek');
+                            $('#method').val('post');
+                            $('#kode_customer').attr('readonly', false);
+                            msgDialog({
+                                id:result.data.kode,
+                                type:'simpan'
+                            });
+                            last_add("kode_customer",result.data.kode);
+                        }else if(!result.data.status && result.data.message === "Unauthorized"){
+                        
+                            window.location.href = "{{ url('/java-auth/sesi-habis') }}";
+                            
+                        }else{
+                            if(result.data.kode == "-" && result.data.jenis != undefined){
+                                msgDialog({
+                                    id: id,
+                                    type: result.data.jenis,
+                                    text:'No Proyek atau No Kontrak sudah digunakan'
+                                });
+                            }else{
+
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Oops...',
+                                    text: 'Something went wrong!',
+                                    footer: '<a href>'+result.data.message+'</a>'
+                                })
+                            }
                         }
+                    },
+                    fail: function(xhr, textStatus, errorThrown){
+                        alert('request failed:'+textStatus);
                     }
-                },
-                fail: function(xhr, textStatus, errorThrown){
-                    alert('request failed:'+textStatus);
-                }
-            });
-            $('#btn-simpan').html("Simpan").removeAttr('disabled');
+                });
+                $('#btn-simpan').html("Simpan").removeAttr('disabled');
+            }
         },
         errorPlacement: function (error, element) {
             var id = element.attr("id");
