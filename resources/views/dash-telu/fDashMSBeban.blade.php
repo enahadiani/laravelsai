@@ -27,6 +27,10 @@ $thnLalu = substr($tahunLalu,2,2)
         border:none;
     }
 
+    .highcharts-point {
+        stroke-width: 2px !important;
+    }
+
     .nav-tabs .nav-link{
         border: 1px solid #ad1d3e;
         border-radius: 20px;
@@ -42,9 +46,6 @@ $thnLalu = substr($tahunLalu,2,2)
     .nav-tabs .nav-item {
         margin-bottom: -1px;
         padding: 0px 10px 0px 0px;
-    }
-    .highcharts-point {
-        stroke-width: 2px !important;
     }
 
     #pencapaian > td, th 

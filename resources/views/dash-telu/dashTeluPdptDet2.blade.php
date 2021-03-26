@@ -148,7 +148,7 @@ function getDataPendJurusan(periode=null,kodeNeraca=null,kodeBidang=null,tahun=n
     $.ajax({
         type:"GET",
         url:"{{ url('/telu-dash/getDataPendJurusan') }}",
-        data:{ 'periode[0]' : periode.type,
+        data:{'form':$form_back,'periode[0]' : periode.type,
             'periode[1]' : periode.from,
             'periode[2]' : periode.to, mode: $mode,'kode_neraca':kodeNeraca,'kode_bidang':kodeBidang,'tahun':tahun},
         dataType:"JSON",
@@ -187,7 +187,7 @@ function getPendapatanJurusan(periode=null,kodeNeraca=null,kodeBidang=null){
         type:"GET",
         url:"{{ url('/telu-dash/getPendapatanJurusan') }}",
         dataType:"JSON",
-        data:{'periode[0]' : periode.type,
+        data:{'form':$form_back,'periode[0]' : periode.type,
             'periode[1]' : periode.from,
             'periode[2]' : periode.to, mode: $mode,'kode_neraca':kodeNeraca,'kode_bidang':kodeBidang},
         success:function(result){
