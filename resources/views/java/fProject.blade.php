@@ -184,8 +184,11 @@
         var target3 = $(this).closest('tr').find('td:eq(3) input[type="file"]').attr('class')
         var tmp = target1.split(" ");
         var tmp2 = target3.split(" ")
+        var tmp3 = target2.split(" ")
         target1 = tmp[2];
         target3 = tmp2[1]
+        target2 = tmp3[1]
+        console.log(target2)
 
         switch(param){
             case 'jenis[]': 
@@ -278,12 +281,12 @@
     });
 
     function hapusDok(param){
-        console.log(param)
         var no_bukti = param.no_bukti; 
         var kode_jenis= param.kode_jenis;
         var fileName= param.fileName;
         var no_urut = param.no_urut
         var self = param.self
+        console.log(self)
         $.ajax({
             type: 'DELETE',
             url: "{{ url('java-trans/proyek-file') }}",
@@ -642,7 +645,7 @@
             }
             if(parameter === 'edit') {
                 $('#upload tbody tr').each(function(index) {
-                    formData.append('nama_dok[]', $(this).find('.td-nama_file').text())
+                    formData.append('nama_file[]', $(this).find('.td-nama_file').text())
                 })
             }
 
@@ -654,60 +657,59 @@
             }
 
             if(valid) {
-                console.log('update')
-                // $.ajax({
-                //     type: 'POST', 
-                //     url: url,
-                //     dataType: 'json',
-                //     data: formData,
-                //     async:false,
-                //     contentType: false,
-                //     cache: false,
-                //     processData: false, 
-                //     success:function(result){
-                //         if(result.data.status){
-                //             dataTable.ajax.reload();
-                //             $('#upload tbody').empty()
-                //             $('#row-id').hide();
-                //             $('#form-tambah')[0].reset();
-                //             $('#form-tambah').validate().resetForm();
-                //             $('[id^=label]').html('');
-                //             $('#id_edit').val('');
-                //             $('#judul-form').html('Tambah Data Proyek');
-                //             $('#method').val('post');
-                //             $('#kode_customer').attr('readonly', false);
-                //             msgDialog({
-                //                 id:result.data.kode,
-                //                 type:'simpan'
-                //             });
-                //             last_add("kode_customer",result.data.kode);
-                //         }else if(!result.data.status && result.data.message === "Unauthorized"){
+                $.ajax({
+                    type: 'POST', 
+                    url: url,
+                    dataType: 'json',
+                    data: formData,
+                    async:false,
+                    contentType: false,
+                    cache: false,
+                    processData: false, 
+                    success:function(result){
+                        if(result.data.status){
+                            dataTable.ajax.reload();
+                            $('#upload tbody').empty()
+                            $('#row-id').hide();
+                            $('#form-tambah')[0].reset();
+                            $('#form-tambah').validate().resetForm();
+                            $('[id^=label]').html('');
+                            $('#id_edit').val('');
+                            $('#judul-form').html('Tambah Data Proyek');
+                            $('#method').val('post');
+                            $('#kode_customer').attr('readonly', false);
+                            msgDialog({
+                                id:result.data.kode,
+                                type:'simpan'
+                            });
+                            last_add("kode_customer",result.data.kode);
+                        }else if(!result.data.status && result.data.message === "Unauthorized"){
                         
-                //             window.location.href = "{{ url('/java-auth/sesi-habis') }}";
+                            window.location.href = "{{ url('/java-auth/sesi-habis') }}";
                             
-                //         }else{
-                //             if(result.data.kode == "-" && result.data.jenis != undefined){
-                //                 msgDialog({
-                //                     id: id,
-                //                     type: result.data.jenis,
-                //                     text:'No Proyek atau No Kontrak sudah digunakan'
-                //                 });
-                //             }else{
+                        }else{
+                            if(result.data.kode == "-" && result.data.jenis != undefined){
+                                msgDialog({
+                                    id: id,
+                                    type: result.data.jenis,
+                                    text:'No Proyek atau No Kontrak sudah digunakan'
+                                });
+                            }else{
 
-                //                 Swal.fire({
-                //                     icon: 'error',
-                //                     title: 'Oops...',
-                //                     text: 'Something went wrong!',
-                //                     footer: '<a href>'+result.data.message+'</a>'
-                //                 })
-                //             }
-                //         }
-                //     },
-                //     fail: function(xhr, textStatus, errorThrown){
-                //         alert('request failed:'+textStatus);
-                //     }
-                // });
-                // $('#btn-simpan').html("Simpan").removeAttr('disabled');
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Oops...',
+                                    text: 'Something went wrong!',
+                                    footer: '<a href>'+result.data.message+'</a>'
+                                })
+                            }
+                        }
+                    },
+                    fail: function(xhr, textStatus, errorThrown){
+                        alert('request failed:'+textStatus);
+                    }
+                });
+                $('#btn-simpan').html("Simpan").removeAttr('disabled');
             }
         },
         errorPlacement: function (error, element) {

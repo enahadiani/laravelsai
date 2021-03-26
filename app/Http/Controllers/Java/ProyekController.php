@@ -362,11 +362,11 @@ class ProyekController extends Controller
                         }
                         $fields_jenis[$i] = array(
                             'name'     => 'jenis[]',
-                            'contents' => $request->jenis[$i],
+                            'contents' => $request->kode_jenis[$i],
                         );
                         $fields_nama_dok[$i] = array(
                             'name'     => 'nama_dok[]',
-                            'contents' => $request->nama_dok[$i],
+                            'contents' => '-',
                         );
                         $fields_no_dok[$i] = array(
                             'name'     => 'no_urut[]',
@@ -385,76 +385,24 @@ class ProyekController extends Controller
                 }
             }
 
-            var_dump($fields);
+            // echo "<pre>";
+            // var_dump($fields);
+            // echo "</pre>";
 
-            // for($i=0;$i<count($name);$i++) { 
-            //     if($name[$i] == 'file') {
-            //         $image_path = $request->file('file')->getPathname();
-            //         $image_mime = $request->file('file')->getmimeType();
-            //         $image_org  = $request->file('file')->getClientOriginalName();
-            //         $fields_data[$i] = array(
-            //             'name'     => $name[$i],
-            //             'filename' => $image_org,
-            //             'Mime-Type'=> $image_mime,
-            //             'contents' => fopen($image_path, 'r' ),
-            //         );
-            //     } elseif($name[$i] == 'periode') {
-            //         $fields_data[$i] = array(
-            //             'name'     => 'periode',
-            //             'contents' => $this->convertPeriode($request->input('tanggal_mulai'))
-            //         );
-            //     } elseif($name[$i] == 'tanggal_mulai') {
-            //         $fields_data[$i] = array(
-            //             'name'     => 'tgl_mulai',
-            //             'contents' => $this->convertDate($request->input('tanggal_mulai'))
-            //         );
-            //     } elseif($name[$i] == 'tanggal_selesai') {
-            //         $fields_data[$i] = array(
-            //             'name'     => 'tgl_selesai',
-            //             'contents' => $this->convertDate($request->input('tanggal_selesai'))
-            //         );
-            //     } elseif($name[$i] == 'nilai') {
-            //         $fields_data[$i] = array(
-            //             'name'     => 'nilai',
-            //             'contents' => $this->joinNum($request->input('nilai'))
-            //         );
-            //     } else {
-            //         $fields_data[$i] = array(
-            //             'name'     => $name[$i],
-            //             'contents' => $req[$name[$i]],
-            //         );
-            //     }
-            //     $data[$i] = $name[$i];
-            // }
-
-            // $fields = array_merge($fields,$fields_data);
-            // $form = array(
-            //     'tgl_mulai' => $this->convertDate($request->input('tanggal_mulai')),
-            //     'kode_cust' => $request->input('kode_cust'),
-            //     'nilai' => $this->joinNum($request->input('nilai')),
-            //     'ppn' => $request->input('ppn'),
-            //     'status_ppn' => $request->input('status_ppn'),
-            //     'periode' => $this->convertPeriode($request->input('tanggal_mulai')),
-            //     'keterangan' => $request->input('keterangan'),
-            //     'tgl_selesai' => $this->convertDate($request->input('tanggal_selesai')),
-            //     'no_proyek' => $request->input('no_proyek'),
-            //     'no_kontrak' => $request->input('no_kontrak')
-            // );
-
-            // $client = new Client();
-            // $response = $client->request('POST',  config('api.url').'java-trans/proyek-ubah',[
-            //     'headers' => [
-            //         'Authorization' => 'Bearer '.Session::get('token'),
-            //         'Accept'     => 'application/json',
-            //     ],
-            //     'multipart' => $fields
-            // ]);
-            // if ($response->getStatusCode() == 200) { // 200 OK
-            //     $response_data = $response->getBody()->getContents();
+            $client = new Client();
+            $response = $client->request('POST',  config('api.url').'java-trans/proyek-ubah',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'multipart' => $fields
+            ]);
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
                     
-            //     $data = json_decode($response_data,true);
-            //     return response()->json(['data' => $data], 200);  
-            // }
+                $data = json_decode($response_data,true);
+                return response()->json(['data' => $data], 200);  
+            }
         } catch (BadResponseException $ex) {
                 $response = $ex->getResponse();
                 $res = json_decode($response->getBody(),true);
