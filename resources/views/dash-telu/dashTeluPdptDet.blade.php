@@ -9,16 +9,6 @@ $thnIni = substr($tahun,2,2);
 $thnLalu = substr($tahunLalu,2,2);  
 @endphp
 <style>
-    td,th{
-        padding:4px !important;
-    }
-    .btn-red{
-        padding: 2px 20px;
-        border-radius: 15px; 
-        background:#ad1d3e;
-        color:white;
-        border-color: #ad1d3e;
-    }
     .btn-outline-light:hover {
         color: #131113;
         background-color: #ececec;
@@ -29,7 +19,16 @@ $thnLalu = substr($tahunLalu,2,2);
         background-color: white;
         border-color: white !important;
     }
-
+    td,th{
+        padding:4px !important;
+    }
+    .btn-red{
+        padding: 2px 20px;
+        border-radius: 15px; 
+        background:#ad1d3e;
+        color:white;
+        border-color: #ad1d3e;
+    }
 </style>
 
 <div class="container-fluid mt-3">
@@ -177,7 +176,6 @@ if(localStorage.getItem("dore-theme") == "dark"){
 }
 $mode = localStorage.getItem("dore-theme");
 var $k2 = "";
-$kd_grafik = "";
 function sepNum(x){
     var num = parseFloat(x).toFixed(2);
     var parts = num.toString().split('.');
@@ -240,7 +238,7 @@ function getDetailPendapatan(periode=null,kodeNeraca=null){
         type:"GET",
         url:"{{ url('/telu-dash/getDetailPendapatan') }}",
         dataType:"JSON",
-        data:{ 'periode[0]' : periode.type,
+        data:{'form':$form_back,'periode[0]' : periode.type,
             'periode[1]' : periode.from,
             'periode[2]' : periode.to, mode: $mode,'kode_neraca':kodeNeraca, 'kode_grafik':($kd_grafik != undefined ? $kd_grafik : "")},
         success:function(result){
@@ -250,8 +248,8 @@ function getDetailPendapatan(periode=null,kodeNeraca=null){
                             
                 html+=`<tr>
                     <td style='font-weight:bold'>`+line.nama+`</td>
+                    <td class='text-right'>`+toMilyar(line.n2)+`</td>
                     <td class='text-right'>`+toMilyar(line.n4)+`</td>
-                    <td class='text-right'>`+toMilyar(line.n5)+`</td>
                     <td class='text-right'>`+sepNum(line.capai)+`%</td>
                      </tr>`;
                             
@@ -274,16 +272,155 @@ function getDetailPendapatan(periode=null,kodeNeraca=null){
     })
 }
 
+function getDetailPendapatanNon(periode=null,kodeNeraca=null){
+    $.ajax({
+        type:"GET",
+        url:"{{ url('/telu-dash/getDetailPendapatanNon') }}",
+        dataType:"JSON",
+        data:{'form':$form_back,'periode[0]' : periode.type,
+            'periode[1]' : periode.from,
+            'periode[2]' : periode.to, mode: $mode,'kode_neraca':kodeNeraca, 'kode_grafik':($kd_grafik != undefined ? $kd_grafik : "")},
+        success:function(result){
+            var html='';
+            for(var i=0;i<result.data.data.length;i++){
+                var line = result.data.data[i];
+                            
+                html+=`<tr>
+                    <td style='font-weight:bold'>`+line.nama+`</td>
+                    <td class='text-right'>`+toMilyar(line.n2)+`</td>
+                    <td class='text-right'>`+toMilyar(line.n4)+`</td>
+                    <td class='text-right'>`+sepNum(line.capai)+`%</td>
+                     </tr>`;
+                            
+                }
+            $('#tablePendNon tbody').html(html);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {       
+            if(jqXHR.status == 422){
+                var msg = jqXHR.responseText;
+            }else if(jqXHR.status == 500) {
+                var msg = "Internal server error";
+            }else if(jqXHR.status == 401){
+                var msg = "Unauthorized";
+                window.location="{{ url('/dash-telu/sesi-habis') }}";
+            }else if(jqXHR.status == 405){
+                var msg = "Route not valid. Page not found";
+            }
+            
+        }
+    })
+}
+
 function getPendapatanFak(periode=null, kodeNeraca=null){
     $.ajax({
         type:"GET",
         url:"{{ url('/telu-dash/getPendapatanFak') }}",
         dataType:"JSON",
-        data:{ 'periode[0]' : periode.type,
+        data:{'form':$form_back,'periode[0]' : periode.type,
             'periode[1]' : periode.from,
             'periode[2]' : periode.to, mode: $mode,kode_neraca:kodeNeraca, 'kode_grafik':($kd_grafik != undefined ? $kd_grafik : "")},
         success:function(result){
             Highcharts.chart('pdptFak', {
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: null
+                },
+                xAxis: {
+                    categories: result.data.ctg,
+                    crosshair: true
+                },
+                yAxis: {
+                    title: {
+                        text: ''
+                    },
+                    labels: {
+                        formatter: function () {
+                            return singkatNilai(this.value);
+                        }
+                    },
+                },
+                credits:{
+                    enabled:false
+                },
+                tooltip: {
+                    // headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                    // pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    //     '<td style="padding:0"><b>{point.y:.2f}</b></td></tr>',
+                    // footerFormat: '</table>',
+                    // // shared: true,
+                    // useHTML: true
+                    formatter: function () {
+                        return this.series.name+':<b>'+toMilyar(this.y)+'</b>';
+                    }
+                },
+                plotOptions: {
+                    column: {
+                        pointPadding: 0.2,
+                        borderWidth: 0,
+                        cursor: 'pointer',
+                        point: {
+                            events: {
+                                click: function() {  
+                                    $kd2 = this.options.tahun;
+                                    $kd3 = this.options.kode_bidang;
+                                    var url = "{{ url('/dash-telu/form/dashTeluPdptDet2') }}";
+                                    loadForm(url)
+                                }
+                            }
+                        },
+                        dataLabels: {
+                            allowOverlap:true,
+                            enabled: true,
+                            crop: false,
+                            overflow: 'justify',
+                            useHTML: true,
+                            formatter: function () {
+                                if(this.y < 0.1){
+                                    return '';
+                                }else{
+                                    return $('<div/>').css({
+                                        'color' : 'white', // work
+                                        'padding': '0 3px',
+                                        'font-size': '10px',
+                                        'backgroundColor' : this.point.color  // just white in my case
+                                    }).text(toMilyar(this.y))[0].outerHTML;
+                                }
+                                // if(this.name)
+                            }
+                        }
+                    }
+                },
+                series: result.data.series
+            })
+        },
+        error: function(jqXHR, textStatus, errorThrown) {       
+            if(jqXHR.status == 422){
+                var msg = jqXHR.responseText;
+            }else if(jqXHR.status == 500) {
+                var msg = "Internal server error";
+            }else if(jqXHR.status == 401){
+                var msg = "Unauthorized";
+                window.location="{{ url('/dash-telu/sesi-habis') }}";
+            }else if(jqXHR.status == 405){
+                var msg = "Route not valid. Page not found";
+            }
+            
+        }
+    })
+}
+
+function getPendapatanFakNon(periode=null, kodeNeraca=null){
+    $.ajax({
+        type:"GET",
+        url:"{{ url('/telu-dash/getPendapatanFakNon') }}",
+        dataType:"JSON",
+        data:{'form':$form_back,'periode[0]' : periode.type,
+            'periode[1]' : periode.from,
+            'periode[2]' : periode.to, mode: $mode,kode_neraca:kodeNeraca, 'kode_grafik':($kd_grafik != undefined ? $kd_grafik : "")},
+        success:function(result){
+            Highcharts.chart('pdptFakNon', {
                 chart: {
                     type: 'column'
                 },
@@ -379,7 +516,7 @@ function getPertumbuhanPendapatanFak(periode=null,kodeNeraca=null){
         type:"GET",
         url:"{{ url('/telu-dash/getPendapatanFak') }}",
         dataType:"JSON",
-        data:{ 'periode[0]' : periode.type,
+        data:{'form':$form_back,'periode[0]' : periode.type,
             'periode[1]' : periode.from,
             'periode[2]' : periode.to, mode: $mode,kode_neraca:kodeNeraca, 'kode_grafik':($kd_grafik != undefined ? $kd_grafik : "")},
         success: function(result){
@@ -450,151 +587,12 @@ function getPertumbuhanPendapatanFak(periode=null,kodeNeraca=null){
     })
 }
 
-function getDetailPendapatanNon(periode=null,kodeNeraca=null){
-    $.ajax({
-        type:"GET",
-        url:"{{ url('/telu-dash/getDetailPendapatanNon') }}",
-        dataType:"JSON",
-        data:{ 'periode[0]' : periode.type,
-            'periode[1]' : periode.from,
-            'periode[2]' : periode.to, mode: $mode,'kode_neraca':kodeNeraca, 'kode_grafik':($kd_grafik != undefined ? $kd_grafik : "")},
-        success:function(result){
-            var html='';
-            for(var i=0;i<result.data.data.length;i++){
-                var line = result.data.data[i];
-                            
-                html+=`<tr>
-                    <td style='font-weight:bold'>`+line.nama+`</td>
-                    <td class='text-right'>`+toMilyar(line.n4)+`</td>
-                    <td class='text-right'>`+toMilyar(line.n5)+`</td>
-                    <td class='text-right'>`+sepNum(line.capai)+`%</td>
-                     </tr>`;
-                            
-                }
-            $('#tablePendNon tbody').html(html);
-        },
-        error: function(jqXHR, textStatus, errorThrown) {       
-            if(jqXHR.status == 422){
-                var msg = jqXHR.responseText;
-            }else if(jqXHR.status == 500) {
-                var msg = "Internal server error";
-            }else if(jqXHR.status == 401){
-                var msg = "Unauthorized";
-                window.location="{{ url('/dash-telu/sesi-habis') }}";
-            }else if(jqXHR.status == 405){
-                var msg = "Route not valid. Page not found";
-            }
-            
-        }
-    })
-}
-
-function getPendapatanFakNon(periode=null, kodeNeraca=null){
-    $.ajax({
-        type:"GET",
-        url:"{{ url('/telu-dash/getPendapatanFakNon') }}",
-        dataType:"JSON",
-        data:{ 'periode[0]' : periode.type,
-            'periode[1]' : periode.from,
-            'periode[2]' : periode.to, mode: $mode,kode_neraca:kodeNeraca, 'kode_grafik':($kd_grafik != undefined ? $kd_grafik : "")},
-        success:function(result){
-            Highcharts.chart('pdptFakNon', {
-                chart: {
-                    type: 'column'
-                },
-                title: {
-                    text: null
-                },
-                xAxis: {
-                    categories: result.data.ctg,
-                    crosshair: true
-                },
-                yAxis: {
-                    title: {
-                        text: ''
-                    },
-                    labels: {
-                        formatter: function () {
-                            return singkatNilai(this.value);
-                        }
-                    },
-                },
-                credits:{
-                    enabled:false
-                },
-                tooltip: {
-                    // headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                    // pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                    //     '<td style="padding:0"><b>{point.y:.2f}</b></td></tr>',
-                    // footerFormat: '</table>',
-                    // // shared: true,
-                    // useHTML: true
-                    formatter: function () {
-                        return this.series.name+':<b>'+toMilyar(this.y)+'</b>';
-                    }
-                },
-                plotOptions: {
-                    column: {
-                        pointPadding: 0.2,
-                        borderWidth: 0,
-                        cursor: 'pointer',
-                        point: {
-                            events: {
-                                click: function() {  
-                                    $kd2 = this.options.tahun;
-                                    $kd3 = this.options.kode_bidang;
-                                    var url = "{{ url('/dash-telu/form/dashTeluPdptDet2') }}";
-                                    loadForm(url)
-                                }
-                            }
-                        },
-                        dataLabels: {
-                            allowOverlap:true,
-                            enabled: true,
-                            crop: false,
-                            overflow: 'justify',
-                            useHTML: true,
-                            formatter: function () {
-                                if(this.y < 0.1){
-                                    return '';
-                                }else{
-                                    return $('<div/>').css({
-                                        'color' : 'white', // work
-                                        'padding': '0 3px',
-                                        'font-size': '10px',
-                                        'backgroundColor' : this.point.color  // just white in my case
-                                    }).text(toMilyar(this.y))[0].outerHTML;
-                                }
-                                // if(this.name)
-                            }
-                        }
-                    }
-                },
-                series: result.data.series
-            })
-        },
-        error: function(jqXHR, textStatus, errorThrown) {       
-            if(jqXHR.status == 422){
-                var msg = jqXHR.responseText;
-            }else if(jqXHR.status == 500) {
-                var msg = "Internal server error";
-            }else if(jqXHR.status == 401){
-                var msg = "Unauthorized";
-                window.location="{{ url('/dash-telu/sesi-habis') }}";
-            }else if(jqXHR.status == 405){
-                var msg = "Route not valid. Page not found";
-            }
-            
-        }
-    })
-}
-
 function getPertumbuhanPendapatanFakNon(periode=null,kodeNeraca=null){
     $.ajax({
         type:"GET",
         url:"{{ url('/telu-dash/getPendapatanFakNon') }}",
         dataType:"JSON",
-        data:{ 'periode[0]' : periode.type,
+        data:{'form':$form_back,'periode[0]' : periode.type,
             'periode[1]' : periode.from,
             'periode[2]' : periode.to, mode: $mode,kode_neraca:kodeNeraca, 'kode_grafik':($kd_grafik != undefined ? $kd_grafik : "")},
         success: function(result){
