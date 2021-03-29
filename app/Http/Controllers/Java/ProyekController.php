@@ -362,6 +362,8 @@ class ProyekController extends Controller
                         } else {
                             $fields_foto[$i] = array(
                                 'name'     => 'file[]',
+                                'filename' => 'empty.jpg',
+                                'Mime-Type'=> 'image/jpeg',
                                 'contents' => null
                             );
                         }

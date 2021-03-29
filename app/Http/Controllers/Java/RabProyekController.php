@@ -146,6 +146,13 @@ class RabProyekController extends Controller {
                                 'contents' => fopen( $image_path, 'r' ),
                             );
                             
+                        } else {
+                            $fields_foto[$i] = array(
+                                'name'     => 'file[]',
+                                'filename' => 'empty.jpg',
+                                'Mime-Type'=> 'image/jpeg',
+                                'contents' => null
+                            );
                         }
                         $fields_jenis[$i] = array(
                             'name'     => 'jenis[]',
