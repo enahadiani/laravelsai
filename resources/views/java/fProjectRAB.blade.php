@@ -141,11 +141,6 @@
         }
     });
 
-    $('.custom-file-input').on('change',function(){
-        var fileName = $(this).val();
-        $(this).next('.custom-file-label').html(fileName);
-    });
-
     var scrollform = document.querySelector('.form-body');
     var psscrollform = new PerfectScrollbar(scrollform);
 
