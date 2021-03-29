@@ -119,6 +119,10 @@ Route::post('lap-simp-saldo','Esaku\Simpanan\Laporan\ReportSaldoSimpananControll
 Route::get('filter-bukti','Esaku\Simpanan\Laporan\ReportAkruSimpananController@getBukti');
 Route::post('lap-simp-akru','Esaku\Simpanan\Laporan\ReportAkruSimpananController@index');
 
-// Laporan
+// Laporan Pembayaran Simpanan
 Route::get('filter-bukti-bayar','Esaku\Simpanan\Laporan\ReportBayarSimpananController@getBukti');
 Route::post('lap-simp-bayar','Esaku\Simpanan\Laporan\ReportBayarSimpananController@index');
+
+//Laporan Pembatalan Simpanan
+Route::get('filter-bukti-batal','Esaku\Simpanan\Laporan\ReportBatalSimpananController@getBukti');
+Route::post('lap-simp-batal','Esaku\Simpanan\Laporan\ReportBatalSimpananController@index');
