@@ -525,7 +525,7 @@ function getFxPosition(periode=null)
                         <td class='text-center'>YoY</td>
                         </tr>`;   
                     }
-                    html+=`<tr class='trace neraca-`+i+`'>
+                    html+=`<tr class='trace neraca-`+i+`' data-kode_grafik='`+line.kode_grafik+`' data-nama='`+line.nama+`'>
                     <td>`+line.nama+`</td>
                     <td class='text-right'>`+real_lalu+`</td>
                     <td class='text-right'>`+real+`</td>
@@ -732,7 +732,7 @@ function getKelola(periode=null)
                         <td class='text-center'>YoY</td>
                         </tr>`;   
                     }
-                    html+=`<tr class='trace keuangan-`+i+`'>
+                    html+=`<tr class='trace keuangan-`+i+` keuangan-detail' data-kode_grafik='`+line.kode_grafik+`' data-nama='`+line.nama+`'>
                     <td>`+line.nama+`</td>
                     <td class='text-right'>`+real+`</td>
                     <td class='text-right text-success' >`+sepNumPas(line.yoy)+`%</td>
@@ -923,8 +923,17 @@ $('.table').on('click','.neraca-1',function(e){
     loadForm(url);
 });
 
-$('.table').on('click','.keuangan-1',function(e){
-    var url = "{{ url('/dash-telu/form/fDashMSBank') }}";
+$('.table').on('click','.neraca-2',function(e){
+    $kode_grafik = $(this).data('kode_grafik');
+    $nama = $(this).data('nama');
+    var url = "{{ url('/dash-telu/form/fDashMSModal') }}";
+    loadForm(url);
+});
+
+$('.table').on('click','.keuangan-detail',function(e){
+    $kode_grafik = $(this).data('kode_grafik');
+    $nama = $(this).data('nama');
+    var url = "{{ url('/dash-telu/form/fDashMSKasBank') }}";
     loadForm(url);
 });
 

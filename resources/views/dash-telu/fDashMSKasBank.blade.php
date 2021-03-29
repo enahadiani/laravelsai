@@ -72,8 +72,8 @@ $thnLalu = substr($tahunLalu,2,2)
 
 <div class="container-fluid mt-3">
     <div class="row">
-        <div class="col-12 piutang">
-            <h6 class="mb-0 bold">Piutang</h6>
+        <div class="col-12 kas">
+            <h6 class="mb-0 bold"><span class='nama'></span></h6>
             <a class='btn btn-outline-light' href='#' id='btnBack' style="position: absolute;right: 135px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-arrow-left mr-2"></i> Back</a>
             <a class="btn btn-outline-light" href="#" id="btn-filter" style="position: absolute;right: 15px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-equalizer" style="transform-style: ;"></i> &nbsp;&nbsp; Filter</a>
             <p>Satuan Jutaan Rupiah || <span class='label-periode-filter'></span></p>
@@ -83,10 +83,10 @@ $thnLalu = substr($tahunLalu,2,2)
         <div class="col-lg-7 col-12 mb-4">
             <div class="card dash-card">
                 <div class="card-header">
-                    <h6 class="card-title mb-0"><span class='nama-piutang'></span></h6>
+                    <h6 class="card-title mb-0"><span class='nama'></span></h6>
                 </div>
                 <div class="card-body">
-                    <div id="real-piutang" style="height:300px"></div>
+                    <div id="real-kas" style="height:300px"></div>
                 </div>
             </div>
         </div>
@@ -139,8 +139,7 @@ $thnLalu = substr($tahunLalu,2,2)
 $('.tahunDepan').hide();
 $('body').addClass('dash-contents');
 $('html').addClass('dash-contents');
-$nama = "Piutang "+$nama;
-$('.nama-piutang').html($nama);
+$('.nama').html($nama);
 if(localStorage.getItem("dore-theme") == "dark"){
     $('#btnBack,#btn-filter').removeClass('btn-outline-light');
     $('#btnBack,#btn-filter').addClass('btn-outline-dark');
@@ -150,6 +149,7 @@ if(localStorage.getItem("dore-theme") == "dark"){
 }
 
 var $mode = localStorage.getItem("dore-theme");
+$nama = "";
 function sepNum(x){
     if(!isNaN(x)){
         if (typeof x === undefined || !x || x == 0) { 
@@ -296,7 +296,7 @@ function getPeriode(){
                 }
                 $('.label-periode-filter').html(label);
                 
-                getPiutang($dash_periode,$kode_grafik);
+                getKas($dash_periode);
                         
             }
         },
@@ -325,6 +325,7 @@ $('.dash-filter').on('change', '.dash-filter-type', function(){
     var tmp = kunci.split("_");
     var kunci2 = tmp[1];
     var field = eval('$'+kunci);
+    console.log(type,kunci,kunci2);
     switch(type){
         case "=": 
         case "<=":
@@ -351,18 +352,18 @@ $('.dash-filter').on('change', '.dash-filter-type', function(){
     }
 });
 
-function getPiutang(periode=null,kode_grafik,nama){
+function getKas(periode=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/ms-piutang') }}",
+        url:"{{ url('/telu-dash/ms-kasbank') }}",
         data:{'periode[0]' : periode.type,
             'periode[1]' : periode.from,
-            'periode[2]' : periode.to, mode: $mode,kode_grafik:kode_grafik,nama:nama},
+            'periode[2]' : periode.to, mode: $mode, 'kode_grafik':$kode_grafik},
         dataType:"JSON",
         success:function(result){
             // if(result.series.length > 0){
                 var $colors = result.colors;
-                Highcharts.chart('real-piutang', {
+                Highcharts.chart('real-kas', {
                     chart: {
                         type: 'column'
                     },
@@ -425,15 +426,164 @@ function getPiutang(periode=null,kode_grafik,nama){
                     var series = this.series;
                     for (var i = 0, ie = series.length; i < ie; ++i) {
                         var points = series[i].data;
+                        var x =0;
                         for (var j = 0, je = points.length; j < je; ++j) {
                             if (points[j].graphic) {
-                                points[j].graphic.element.style.fill = $colors[j];
+                                if($colors[j] == undefined){
+                                    x = 0;
+                                }
+                                points[j].graphic.element.style.fill = $colors[x];
+                                x++;
                             }
                         }
                     }
                 });
                 
+                // Highcharts.SVGRenderer.prototype.symbols['c-rect'] = function (x, y, w, h) {
+                //     return ['M', x, y + h / 2, 'L', x + w, y + h / 2];
+                // };
                 
+                // var chart = Highcharts.chart('real-kas', {
+                //     chart: {
+                //         type: 'column'
+                //     },
+                //     credits:{
+                //         enabled:false
+                //     },
+                //     title: {
+                //         text: ''
+                //     },
+                //     xAxis: {
+                //         categories: result.categories
+                //     },
+                //     yAxis: {
+                //             title:'',
+                //         min: 0
+                //     },
+                //     tooltip: {
+                //         pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b>',
+                //         /* shared: true */
+                //     },
+                //     plotOptions: {
+                //         column: {
+                //             stacking: 'normal',
+                //             borderWidth: 0,
+                //             pointWidth: 50,
+                //             dataLabels: {
+                //                 // padding:10,
+                //                 allowOverlap:true,
+                //                 enabled: true,
+                //                 crop: false,
+                //                 overflow: 'justify',
+                //                 useHTML: true,
+                //                 formatter: function () {
+                //                     if(this.y < 0.1){
+                //                         return '';
+                //                     }else{
+                //                         return $('<div/>').css({
+                //                             'color' : 'white', // work
+                //                             'padding': '0 3px',
+                //                             'font-size': '10px',
+                //                             'backgroundColor' : this.point.color  // just white in my case
+                //                         }).text(sepNum(this.point.nlabel)+'M')[0].outerHTML;
+                //                     }
+                //                     // if(this.name)
+                //                 }
+                //             },
+                //             cursor: 'pointer',
+                //             //point
+                //             point: {
+                //                 events: {
+                //                     click: function() {  
+                //                         $kd= this.options.key;
+                //                         $kd_grafik= this.options.key2;
+                //                         $form_back = "fDashMSAset";
+                //                         $nama = this.options.name;
+                //                         var url = "{{ url('/dash-telu/form/dashMSBidang') }}";
+                //                         loadForm(url)
+                //                     }
+                //                 }
+                //             }
+                //         },
+                //         scatter: {
+                //             dataLabels: {
+                //                 // padding:10,
+                //                 allowOverlap:true,
+                //                 enabled: true,
+                //                 crop: false,
+                //                 overflow: 'justify',
+                //                 useHTML: true,
+                //                 formatter: function () {
+                //                     // return '<span style="color:white;background:gray !important;"><b>'+sepNum(this.y)+' M</b></span>';
+                //                     if(this.y < 0.1){
+                //                         return '';
+                //                     }else{
+                //                         return $('<div/>').css({
+                //                             'color' : 'white', // work
+                //                             'padding': '0 3px',
+                //                             'font-size': '10px',
+                //                             'backgroundColor' : this.point.color  // just white in my case
+                //                         }).text(sepNum(this.point.nlabel)+'M')[0].outerHTML;
+                //                     }
+                //                 }
+                //             },
+                //             cursor: 'pointer',
+                //             //point
+                //             point: {
+                //                 events: {
+                //                     click: function() {  
+                //                         $kd= this.options.key;
+                //                         $kd_grafik= this.options.key2;
+                //                         $nama = this.options.name;
+                //                         $form_back = "fDashMSAset";
+                //                         var url = "{{ url('/dash-telu/form/dashMSBidang') }}";
+                //                         loadForm(url)
+                //                     }
+                //                 }
+                //             }
+                //         }
+                //     },
+                //     series: [{
+                //         name: 'Melampaui',
+                //         color: (localStorage.getItem("dore-theme") == "dark" ? '#28DA66' :  '#16ff14'),
+                //         type: 'column',
+                //         stack: 1,
+                //         data: result.melampaui,
+                //         dataLabels:{
+                //             y:-20
+                //         }
+                //     },{
+                //         name: 'Target/RKA',
+                //         color: (localStorage.getItem("dore-theme") == "dark" ? '#2200FF' :  '#003F88'),
+                //         marker: {
+                //             symbol: 'c-rect',
+                //             lineWidth:5,
+                //             lineColor: (localStorage.getItem("dore-theme") == "dark" ? '#2200FF' :  '#003F88'),
+                //             radius: 50
+                //         },
+                //         type: 'scatter',
+                //         stack: 2,
+                //         data: result.rka,
+                //         dataLabels:{
+                //             x:-50
+                //         }
+                //     }, {
+                //         name: 'Tidak Tercapai',
+                //         type: 'column',
+                //         color:  (localStorage.getItem("dore-theme") == "dark" ? '#ED4346' :  '#900604'),
+                //         stack: 1,
+                //         data: result.tdkcapai,
+                //         dataLabels:{
+                //             x:50,
+                //         }
+                //     }, {
+                //         name: 'Actual',
+                //         type: 'column',
+                //         color: (localStorage.getItem("dore-theme") == "dark" ? '#434343' :  '#CED4DA'),
+                //         stack: 1,
+                //         data: result.actual
+                //     }]
+                // });
                 
             // }
         },
@@ -474,7 +624,7 @@ $('#form-filter').submit(function(e){
         break;
     }
     $('.label-periode-filter').html(label);
-    getPiutang($dash_periode,$kode_grafik);
+    getKas($dash_periode);
     $('#modalFilter').modal('hide');
     // $('.app-menu').hide();
     if ($(".app-menu").hasClass("shown")) {
@@ -500,7 +650,7 @@ $("#btn-close").on("click", function (event) {
     $('#modalFilter').modal('hide');
 });
 
-$('.piutang').on('click','#btnBack',function(e){
+$('.kas').on('click','#btnBack',function(e){
     e.preventDefault();
     var url = "{{ url('/dash-telu/form/fDashManagementSystem') }}";
     loadForm(url);
