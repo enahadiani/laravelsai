@@ -131,73 +131,102 @@ class ProyekController extends Controller
             'status_ppn' => 'required',
             'keterangan' => 'required',
             'tanggal_selesai' => 'required',
-            'file' => 'file|max:2048',
         ]);
 
         try { 
-            if($request->hasfile('file')) {
-                $name = array('tanggal_mulai','kode_cust','nilai','ppn','no_proyek','no_kontrak','status_ppn','keterangan','tanggal_selesai','status','periode','file');
-            } else {
-                $name = array('tanggal_mulai','kode_cust','nilai','ppn','no_proyek','no_kontrak','status_ppn','keterangan','tanggal_selesai','status', 'periode');
-            } 
-            $req = $request->all();
-            $fields = array();
-            $data = array();
+            $fields = array(
+                array(
+                    "name" => "no_proyek",
+                    "contents" => $request->no_proyek
+                ),
+                array(
+                    "name" => "tgl_mulai",
+                    "contents" => $this->convertDate($request->input('tanggal_mulai'))
+                ),
+                array(
+                    "name" => "tgl_selesai",
+                    "contents" => $this->convertDate($request->input('tanggal_selesai'))
+                ),
+                array(
+                    "name" => "nilai",
+                    "contents" => $this->joinNum($request->input('nilai'))
+                ),
+                array(
+                    "name" => "kode_cust",
+                    "contents" => $request->kode_cust
+                ),
+                array(
+                    "name" => "ppn",
+                    "contents" => $request->ppn
+                ),
+                array(
+                    "name" => "status_ppn",
+                    "contents" => $request->status_ppn
+                ),
+                array(
+                    "name" => "status",
+                    "contents" => $request->status
+                ),
+                array(
+                    "name" => "keterangan",
+                    "contents" => $request->keterangan
+                ),
+                array(
+                    "name" => "periode",
+                    "contents" => $this->convertPeriode($request->tanggal_mulai)
+                ),
+                array(
+                    "name" => "no_kontrak",
+                    "contents" => $request->no_kontrak
+                ),
+            );
 
-            for($i=0;$i<count($name);$i++) { 
-                if($name[$i] == 'file') {
-                    $image_path = $request->file('file')->getPathname();
-                    $image_mime = $request->file('file')->getmimeType();
-                    $image_org  = $request->file('file')->getClientOriginalName();
-                    $fields_data[$i] = array(
-                        'name'     => $name[$i],
-                        'filename' => $image_org,
-                        'Mime-Type'=> $image_mime,
-                        'contents' => fopen($image_path, 'r' ),
-                    );
-                } elseif($name[$i] == 'periode') {
-                    $fields_data[$i] = array(
-                        'name'     => 'periode',
-                        'contents' => $this->convertPeriode($request->input('tanggal_mulai'))
-                    );
-                } elseif($name[$i] == 'tanggal_mulai') {
-                    $fields_data[$i] = array(
-                        'name'     => 'tgl_mulai',
-                        'contents' => $this->convertDate($request->input('tanggal_mulai'))
-                    );
-                } elseif($name[$i] == 'tanggal_selesai') {
-                    $fields_data[$i] = array(
-                        'name'     => 'tgl_selesai',
-                        'contents' => $this->convertDate($request->input('tanggal_selesai'))
-                    );
-                } elseif($name[$i] == 'nilai') {
-                    $fields_data[$i] = array(
-                        'name'     => 'nilai',
-                        'contents' => $this->joinNum($request->input('nilai'))
-                    );
-                } else {
-                    $fields_data[$i] = array(
-                        'name'     => $name[$i],
-                        'contents' => $req[$name[$i]],
-                    );
+            $fields_foto = array();
+            $fields_nama_file_seb = array();
+            $fields_jenis = array();
+            $fields_nama_dok = array();
+            $fields_no_dok = array();
+            $cek = $request->file_dok;
+
+            if(!empty($cek)) {
+                if(count($request->file_dok) > 0) {
+                    for($i=0;$i<count($request->jenis);$i++){ 
+                        if(isset($request->file('file_dok')[$i])){
+                            $image_path = $request->file('file_dok')[$i]->getPathname();
+                            $image_mime = $request->file('file_dok')[$i]->getmimeType();
+                            $image_org  = $request->file('file_dok')[$i]->getClientOriginalName();
+                            $fields_foto[$i] = array(
+                                'name'     => 'file[]',
+                                'filename' => $image_org,
+                                'Mime-Type'=> $image_mime,
+                                'contents' => fopen( $image_path, 'r' ),
+                            );
+                            
+                        }
+                        $fields_jenis[$i] = array(
+                            'name'     => 'jenis[]',
+                            'contents' => $request->kode_jenis[$i],
+                        );
+                        $fields_nama_dok[$i] = array(
+                            'name'     => 'nama_dok[]',
+                            'contents' => '-',
+                        );
+                        $fields_no_dok[$i] = array(
+                            'name'     => 'no_urut[]',
+                            'contents' => $request->no_dok[$i],
+                        );
+                        $fields_nama_file_seb[$i] = array(
+                            'name'     => 'nama_file_seb[]',
+                            'contents' => '-',
+                        );
+                    }
+                    $fields = array_merge($fields, $fields_foto);
+                    $fields = array_merge($fields, $fields_jenis);
+                    $fields = array_merge($fields, $fields_nama_dok);
+                    $fields = array_merge($fields, $fields_no_dok);
+                    $fields = array_merge($fields, $fields_nama_file_seb);
                 }
-                $data[$i] = $name[$i];
             }
-
-            $fields = array_merge($fields,$fields_data);
-            // var_dump($fields);
-            // $form = array(
-            //     'tgl_mulai' => $this->convertDate($request->input('tanggal_mulai')),
-            //     'kode_cust' => $request->input('kode_cust'),
-            //     'nilai' => $this->joinNum($request->input('nilai')),
-            //     'ppn' => $request->input('ppn'),
-            //     'status_ppn' => $request->input('status_ppn'),
-            //     'periode' => $this->convertPeriode($request->input('tanggal_mulai')),
-            //     'keterangan' => $request->input('keterangan'),
-            //     'tgl_selesai' => $this->convertDate($request->input('tanggal_selesai')),
-            //     'no_proyek' => $request->input('no_proyek'),
-            //     'no_kontrak' => $request->input('no_kontrak')
-            // );
 
             $client = new Client();
             $response = $client->request('POST',  config('api.url').'java-trans/proyek',[
@@ -262,69 +291,108 @@ class ProyekController extends Controller
         ]);
 
         try {
+            $fields = array(
+                array(
+                    "name" => "no_proyek",
+                    "contents" => $request->no_proyek
+                ),
+                array(
+                    "name" => "tgl_mulai",
+                    "contents" => $this->convertDate($request->input('tanggal_mulai'))
+                ),
+                array(
+                    "name" => "tgl_selesai",
+                    "contents" => $this->convertDate($request->input('tanggal_selesai'))
+                ),
+                array(
+                    "name" => "nilai",
+                    "contents" => $this->joinNum($request->input('nilai'))
+                ),
+                array(
+                    "name" => "kode_cust",
+                    "contents" => $request->kode_cust
+                ),
+                array(
+                    "name" => "ppn",
+                    "contents" => $request->ppn
+                ),
+                array(
+                    "name" => "status_ppn",
+                    "contents" => $request->status_ppn
+                ),
+                array(
+                    "name" => "status",
+                    "contents" => $request->status
+                ),
+                array(
+                    "name" => "keterangan",
+                    "contents" => $request->keterangan
+                ),
+                array(
+                    "name" => "periode",
+                    "contents" => $this->convertPeriode($request->tanggal_mulai)
+                ),
+                array(
+                    "name" => "no_kontrak",
+                    "contents" => $request->no_kontrak
+                ),
+            );
 
-            if($request->hasfile('file')) {
-                $name = array('no_proyek','tanggal_mulai','kode_cust','nilai','ppn','no_proyek','no_kontrak','status_ppn','keterangan','tanggal_selesai','status','periode','file');
-            } else {
-                $name = array('no_proyek','tanggal_mulai','kode_cust','nilai','ppn','no_proyek','no_kontrak','status_ppn','keterangan','tanggal_selesai','status','periode');
-            } 
-            $req = $request->all();
-            $fields = array();
-            $data = array();
+            $fields_foto = array();
+            $fields_nama_file_seb = array();
+            $fields_jenis = array();
+            $fields_nama_dok = array();
+            $fields_no_dok = array();
+            $cek = $request->file_dok;
 
-            for($i=0;$i<count($name);$i++) { 
-                if($name[$i] == 'file') {
-                    $image_path = $request->file('file')->getPathname();
-                    $image_mime = $request->file('file')->getmimeType();
-                    $image_org  = $request->file('file')->getClientOriginalName();
-                    $fields_data[$i] = array(
-                        'name'     => $name[$i],
-                        'filename' => $image_org,
-                        'Mime-Type'=> $image_mime,
-                        'contents' => fopen($image_path, 'r' ),
-                    );
-                } elseif($name[$i] == 'periode') {
-                    $fields_data[$i] = array(
-                        'name'     => 'periode',
-                        'contents' => $this->convertPeriode($request->input('tanggal_mulai'))
-                    );
-                } elseif($name[$i] == 'tanggal_mulai') {
-                    $fields_data[$i] = array(
-                        'name'     => 'tgl_mulai',
-                        'contents' => $this->convertDate($request->input('tanggal_mulai'))
-                    );
-                } elseif($name[$i] == 'tanggal_selesai') {
-                    $fields_data[$i] = array(
-                        'name'     => 'tgl_selesai',
-                        'contents' => $this->convertDate($request->input('tanggal_selesai'))
-                    );
-                } elseif($name[$i] == 'nilai') {
-                    $fields_data[$i] = array(
-                        'name'     => 'nilai',
-                        'contents' => $this->joinNum($request->input('nilai'))
-                    );
-                } else {
-                    $fields_data[$i] = array(
-                        'name'     => $name[$i],
-                        'contents' => $req[$name[$i]],
-                    );
+            if(!empty($cek)) {
+                if(count($request->file_dok) > 0) {
+                    for($i=0;$i<count($request->jenis);$i++){ 
+                        if(isset($request->file('file_dok')[$i])){
+                            $image_path = $request->file('file_dok')[$i]->getPathname();
+                            $image_mime = $request->file('file_dok')[$i]->getmimeType();
+                            $image_org  = $request->file('file_dok')[$i]->getClientOriginalName();
+                            $fields_foto[$i] = array(
+                                'name'     => 'file[]',
+                                'filename' => $image_org,
+                                'Mime-Type'=> $image_mime,
+                                'contents' => fopen( $image_path, 'r' ),
+                            );
+                            
+                        } else {
+                            $fields_foto[$i] = array(
+                                'name'     => 'file[]',
+                                'contents' => null
+                            );
+                        }
+                        $fields_jenis[$i] = array(
+                            'name'     => 'jenis[]',
+                            'contents' => $request->kode_jenis[$i],
+                        );
+                        $fields_nama_dok[$i] = array(
+                            'name'     => 'nama_dok[]',
+                            'contents' => $request->nama_file[$i],
+                        );
+                        $fields_no_dok[$i] = array(
+                            'name'     => 'no_urut[]',
+                            'contents' => $request->no_dok[$i],
+                        );
+                        $fields_nama_file_seb[$i] = array(
+                            'name'     => 'nama_file_seb[]',
+                            'contents' => $request->nama_file[$i],
+                        );
+                    }
+                    $fields = array_merge($fields, $fields_foto);
+                    $fields = array_merge($fields, $fields_jenis);
+                    $fields = array_merge($fields, $fields_nama_dok);
+                    $fields = array_merge($fields, $fields_no_dok);
+                    $fields = array_merge($fields, $fields_nama_file_seb);
                 }
-                $data[$i] = $name[$i];
             }
 
-            $fields = array_merge($fields,$fields_data);
-            // $form = array(
-            //     'tgl_mulai' => $this->convertDate($request->input('tanggal_mulai')),
-            //     'kode_cust' => $request->input('kode_cust'),
-            //     'nilai' => $this->joinNum($request->input('nilai')),
-            //     'ppn' => $request->input('ppn'),
-            //     'status_ppn' => $request->input('status_ppn'),
-            //     'periode' => $this->convertPeriode($request->input('tanggal_mulai')),
-            //     'keterangan' => $request->input('keterangan'),
-            //     'tgl_selesai' => $this->convertDate($request->input('tanggal_selesai')),
-            //     'no_proyek' => $request->input('no_proyek'),
-            //     'no_kontrak' => $request->input('no_kontrak')
-            // );
+            // echo "<pre>";
+            // var_dump($fields);
+            // echo "</pre>";
 
             $client = new Client();
             $response = $client->request('POST',  config('api.url').'java-trans/proyek-ubah',[
@@ -357,6 +425,38 @@ class ProyekController extends Controller
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
+                ]
+            ]);
+    
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+            }
+            return response()->json(['data' => $data], 200); 
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $data['message'] = $res;
+            $data['status'] = false;
+            return response()->json(['data' => $data], 200);
+        }
+
+    }
+
+    public function deleteFile(Request $request) {
+        try{
+            $client = new Client();
+            $response = $client->request('DELETE',  config('api.url').'java-trans/proyek-file',
+            [
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' => [
+                    'no_bukti' => $request->input('no_bukti'),
+                    'kode_jenis' => $request->input('kode_jenis'),
+                    'fileName' => $request->input('fileName')
                 ]
             ]);
     

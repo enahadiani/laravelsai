@@ -109,4 +109,15 @@ Route::get('/ms-shu','DashTelu\DashboardController@getSHUDetail');
 Route::get('/ms-aset','DashTelu\DashboardController@getMSAset');
 Route::get('/ms-hutang','DashTelu\DashboardController@getMSHutang');
 
+Route::get('/ms-piutang','DashTelu\DashboardController@getMSPiutang');
+Route::get('drill-fakultas','DashTelu\DashboardController@getDrillFakultas');
+Route::get('drill-detail-fakultas','DashTelu\DashboardController@getDetailDrillFakultas');
+Route::get('drill-direktorat','DashTelu\DashboardController@getDrillDirektorat');
+Route::get('drill-detail-direktorat','DashTelu\DashboardController@getDetailDrillDirektorat');
+
+Route::get('drill-pp','DashTelu\DashboardController@getDrillPP');
+Route::get('drill-detail-pp','DashTelu\DashboardController@getDetailDrillPP');
+
+Route::get('video-list','DashTelu\DashboardController@getVideoList');
+
 ?>

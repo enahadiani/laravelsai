@@ -211,9 +211,10 @@ if(localStorage.getItem("dore-theme") == "dark"){
 }
 
 var $mode = localStorage.getItem("dore-theme");
-var $kd = "";
+$kd = "";
 $form_back = "";
 $kode_grafik = "";
+$kd_grafik="";
 function sepNum(x){
     if(!isNaN(x)){
         if (typeof x === undefined || !x || x == 0) { 
@@ -301,8 +302,8 @@ function getPeriode(){
             if(result.data.status){
                 if(typeof result.data.data !== 'undefined' && result.data.data.length>0){
                     for(i=0;i<result.data.data.length;i++){
-                        control.addOption([{text:result.data.data[i].periode, value:result.data.data[i].periode}]);
-                        control2.addOption([{text:result.data.data[i].periode, value:result.data.data[i].periode}]);
+                        control.addOption([{text:result.data.data[i].nama, value:result.data.data[i].periode}]);
+                        control2.addOption([{text:result.data.data[i].nama, value:result.data.data[i].periode}]);
                     }
                 }
 
@@ -377,10 +378,10 @@ function getPeriode(){
                     break;
                 }
                 $('.label-periode-filter').html(label);
-                getKomposisiPendapatan($dash_periode);
                 getPresentaseRkaRealisasi($dash_periode);
-                getKomposisiPendapatanRp($dash_periode);
                 getPresentaseRkaRealisasiRp($dash_periode);
+                getKomposisiPendapatan($dash_periode);
+                getKomposisiPendapatanRp($dash_periode);
 
                         
             }
@@ -492,8 +493,8 @@ function getPresentaseRkaRealisasi(periode=null){
                         point: {
                             events: {
                                 click: function() {  
-                                    $kd= this.options.key;
                                     $form_back = "dashTeluPdpt"; 
+                                    $kd= this.options.key;
                                     var url = "{{ url('/dash-telu/form/dashTeluPdptDet') }}";
                                     loadForm(url)
                                 }
@@ -565,8 +566,8 @@ function getPresentaseRkaRealisasi(periode=null){
                         point: {
                             events: {
                                 click: function() {  
-                                    $kd= this.options.key;
                                     $form_back = "dashTeluPdpt"; 
+                                    $kd= this.options.key;
                                     var url = "{{ url('/dash-telu/form/dashTeluPdptDet') }}";
                                     loadForm(url)
                                 }
@@ -678,6 +679,7 @@ function getPresentaseRkaRealisasiRp(periode=null){
                         point: {
                             events: {
                                 click: function() {  
+                                    $form_back = "dashTeluPdpt";
                                     $kd= this.options.key;
                                     var url = "{{ url('/dash-telu/form/dashTeluPdptDet') }}";
                                     loadForm(url)
@@ -758,6 +760,7 @@ function getPresentaseRkaRealisasiRp(periode=null){
                         point: {
                             events: {
                                 click: function() {  
+                                    $form_back = "dashTeluPdpt";
                                     $kd= this.options.key;
                                     var url = "{{ url('/dash-telu/form/dashTeluPdptDet') }}";
                                     loadForm(url)

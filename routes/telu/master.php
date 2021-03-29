@@ -53,3 +53,10 @@ Route::post('fs', 'DashTelu\FSController@store');
 Route::put('fs/{id}', 'DashTelu\FSController@update');
 Route::delete('fs/{id}', 'DashTelu\FSController@delete');
 
+// VIDEO
+Route::get('video', 'DashTelu\VideoController@index');
+Route::get('video/{id}', 'DashTelu\VideoController@getData');
+Route::post('video', 'DashTelu\VideoController@store');
+Route::put('video/{id}', 'DashTelu\VideoController@update');
+Route::delete('video/{id}', 'DashTelu\VideoController@delete');
+

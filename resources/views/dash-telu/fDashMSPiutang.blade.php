@@ -72,8 +72,8 @@ $thnLalu = substr($tahunLalu,2,2)
 
 <div class="container-fluid mt-3">
     <div class="row">
-        <div class="col-12 hutang">
-            <h6 class="mb-0 bold">Hutang</h6>
+        <div class="col-12 piutang">
+            <h6 class="mb-0 bold">Piutang</h6>
             <a class='btn btn-outline-light' href='#' id='btnBack' style="position: absolute;right: 135px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-arrow-left mr-2"></i> Back</a>
             <a class="btn btn-outline-light" href="#" id="btn-filter" style="position: absolute;right: 15px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-equalizer" style="transform-style: ;"></i> &nbsp;&nbsp; Filter</a>
             <p>Satuan Milyar Rupiah || <span class='label-periode-filter'></span></p>
@@ -83,10 +83,10 @@ $thnLalu = substr($tahunLalu,2,2)
         <div class="col-lg-7 col-12 mb-4">
             <div class="card dash-card">
                 <div class="card-header">
-                    <h6 class="card-title mb-0">Hutang</h6>
+                    <h6 class="card-title mb-0"><span class='nama-piutang'></span></h6>
                 </div>
                 <div class="card-body">
-                    <div id="real-hutang" style="height:300px"></div>
+                    <div id="real-piutang" style="height:300px"></div>
                 </div>
             </div>
         </div>
@@ -139,6 +139,8 @@ $thnLalu = substr($tahunLalu,2,2)
 $('.tahunDepan').hide();
 $('body').addClass('dash-contents');
 $('html').addClass('dash-contents');
+$nama = "Piutang "+$nama;
+$('.nama-piutang').html($nama);
 if(localStorage.getItem("dore-theme") == "dark"){
     $('#btnBack,#btn-filter').removeClass('btn-outline-light');
     $('#btnBack,#btn-filter').addClass('btn-outline-dark');
@@ -294,7 +296,7 @@ function getPeriode(){
                 }
                 $('.label-periode-filter').html(label);
                 
-                getHutang($dash_periode);
+                getPiutang($dash_periode,$kode_grafik);
                         
             }
         },
@@ -323,7 +325,6 @@ $('.dash-filter').on('change', '.dash-filter-type', function(){
     var tmp = kunci.split("_");
     var kunci2 = tmp[1];
     var field = eval('$'+kunci);
-    console.log(type,kunci,kunci2);
     switch(type){
         case "=": 
         case "<=":
@@ -350,18 +351,18 @@ $('.dash-filter').on('change', '.dash-filter-type', function(){
     }
 });
 
-function getHutang(periode=null){
+function getPiutang(periode=null,kode_grafik,nama){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/ms-hutang') }}",
+        url:"{{ url('/telu-dash/ms-piutang') }}",
         data:{'periode[0]' : periode.type,
             'periode[1]' : periode.from,
-            'periode[2]' : periode.to, mode: $mode},
+            'periode[2]' : periode.to, mode: $mode,kode_grafik:kode_grafik,nama:nama},
         dataType:"JSON",
         success:function(result){
             // if(result.series.length > 0){
                 var $colors = result.colors;
-                // Highcharts.chart('real-hutang', {
+                // Highcharts.chart('real-piutang', {
                 //     chart: {
                 //         type: 'column'
                 //     },
@@ -431,12 +432,12 @@ function getHutang(periode=null){
                 //         }
                 //     }
                 // });
-
+                
                 Highcharts.SVGRenderer.prototype.symbols['c-rect'] = function (x, y, w, h) {
                     return ['M', x, y + h / 2, 'L', x + w, y + h / 2];
                 };
                 
-                var chart = Highcharts.chart('real-hutang', {
+                var chart = Highcharts.chart('real-piutang', {
                     chart: {
                         type: 'column'
                     },
@@ -490,8 +491,7 @@ function getHutang(periode=null){
                                     click: function() {  
                                         $kd= this.options.key;
                                         $kd_grafik= this.options.key2;
-                                        $form_back = "fDashMSAset";
-                                        $nama = this.options.name;
+                                        $form_back = "fDashMSPiutang";
                                         var url = "{{ url('/dash-telu/form/dashMSBidang') }}";
                                         loadForm(url)
                                     }
@@ -527,8 +527,7 @@ function getHutang(periode=null){
                                     click: function() {  
                                         $kd= this.options.key;
                                         $kd_grafik= this.options.key2;
-                                        $form_back = "fDashMSAset";
-                                        $nama = this.options.name;
+                                        $form_back = "fDashMSPiutang";
                                         var url = "{{ url('/dash-telu/form/dashMSBidang') }}";
                                         loadForm(url)
                                     }
@@ -578,7 +577,6 @@ function getHutang(periode=null){
                     }]
                 });
                 
-                
             // }
         },
         error: function(jqXHR, textStatus, errorThrown) {       
@@ -618,7 +616,7 @@ $('#form-filter').submit(function(e){
         break;
     }
     $('.label-periode-filter').html(label);
-    getHutang($dash_periode);
+    getPiutang($dash_periode,$kode_grafik);
     $('#modalFilter').modal('hide');
     // $('.app-menu').hide();
     if ($(".app-menu").hasClass("shown")) {
@@ -644,7 +642,7 @@ $("#btn-close").on("click", function (event) {
     $('#modalFilter').modal('hide');
 });
 
-$('.hutang').on('click','#btnBack',function(e){
+$('.piutang').on('click','#btnBack',function(e){
     e.preventDefault();
     var url = "{{ url('/dash-telu/form/fDashManagementSystem') }}";
     loadForm(url);

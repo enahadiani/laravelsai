@@ -3998,9 +3998,10 @@ $.dore = function (element, options) {
       $(".main-menu").addClass("default-transition");
       $(".theme-colors").addClass("default-transition");
       $("body > *").animate({ opacity: 1 }, 100);
-      if( $("body > .logo-tarbak-overlay").length > 0){
-        $("body > .logo-tarbak-overlay").css({'display':'none','opacity':0});
-      }
+      // if( $("body > .logo-tarbak-overlay").length > 0){
+      //   $("body > .logo-tarbak-overlay").css({'opacity':0});
+      //   $("body > .logo-tarbak-overlay").hide();
+      // }
     }, 300);
 
 

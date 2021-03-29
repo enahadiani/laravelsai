@@ -40,6 +40,24 @@ class HelperController extends Controller {
         return $newArray;
     }
 
+    public function getJenisDokumen() {
+        $client = new Client();
+        $response = $client->request('GET',  config('api.url').'java-trans/file-jenis-cbbl',[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ]
+        ]);
+
+        if ($response->getStatusCode() == 200) { // 200 OK
+            $response_data = $response->getBody()->getContents();
+            
+            $data = json_decode($response_data,true);
+            $data = $data['data'];
+        }
+        return response()->json(['daftar' => $data, 'status' => true], 200);
+    }
+
     public function getPeriode() {
         $client = new Client();
         $response = $client->request('GET',  config('api.url').'java-dash/periode',[

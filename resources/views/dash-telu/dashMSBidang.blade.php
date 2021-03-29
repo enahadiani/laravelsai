@@ -33,7 +33,7 @@ $thnLalu = substr($tahunLalu,2,2);
 
 <div class="container-fluid mt-3">
     <div class="row" >
-        <div class="col-12 detail-pdpt">
+        <div class="col-12 detail-beban">
         <a class='btn btn-outline-light' href='#' id='btnBack' style="position: absolute;right: 25px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-arrow-left"></i> Back</a>
         <p>Satuan Milyar Rupiah || <span class='label-periode-filter'></span></p>
         </div>
@@ -43,7 +43,7 @@ $thnLalu = substr($tahunLalu,2,2);
             <div class="card dash-card">
                 <div class="card-header">
                     <div class="row mx-0">
-                        <h6 class="card-title col-md-4 col-sm-12 px-0">Pendapatan per Tahun untuk Fakultas</h6>
+                        <h6 class="card-title col-md-4 col-sm-12 px-0"><span class='nama'></span> per Tahun untuk Fakultas</h6>
                         <ul role="tablist" style="border: none;" class="nav nav-tabs col-md-8 col-sm-12 px-0 justify-content-end">
                             <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#tab_fak" role="tab" aria-selected="false"><span class="hidden-xs-down"><b>Fakultas</b></span></a> </li>
                             <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab_dir" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>Direktorat</b></span></a> </li>
@@ -53,11 +53,11 @@ $thnLalu = substr($tahunLalu,2,2);
                 <div class="card-body pt-0">
                     <div class="tab-content tabcontent-border p-0">
                         <div class="tab-pane active" id="tab_fak" role="tabpanel">
-                            <div id='pdptFak' style='height:300px'>
+                            <div id='bebanFak' style='height:300px'>
                             </div>
                         </div>
                         <div class="tab-pane" id="tab_dir" role="tabpanel">
-                            <div id='pdptFakNon' style='height:300px'>
+                            <div id='bebanFakNon' style='height:300px'>
                             </div>
                         </div>
                     </div>
@@ -68,7 +68,7 @@ $thnLalu = substr($tahunLalu,2,2);
             <div class="card dash-card">
                 <div class="card-header">
                     <div class="row mx-0">
-                        <h6 class="card-title col-md-4 col-sm-12 px-0">Pertumbuhan Pendapatan per Fakultas</h6>
+                        <h6 class="card-title col-md-4 col-sm-12 px-0">Pertumbuhan <span class='nama'></span> per Fakultas</h6>
                         <ul role="tablist" style="border: none;" class="nav nav-tabs col-md-8 col-sm-12 px-0 justify-content-end">
                             <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#tab2_fak" role="tab" aria-selected="false"><span class="hidden-xs-down"><b>Fakultas</b></span></a> </li>
                             <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab2_dir" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>Direktorat</b></span></a> </li>
@@ -93,7 +93,7 @@ $thnLalu = substr($tahunLalu,2,2);
             <div class="card dash-card" style="background:#f5f5f5;border-radius:1.75rem !important">
                 <div class="card-header">
                     <div class="row mx-0">
-                        <h6 class="card-title col-md-4 col-sm-12 px-0">Pendapatan <span class='tahunIni'></span></h6>
+                        <h6 class="card-title col-md-4 col-sm-12 px-0"><span class='nama'></span> <span class='tahunIni'></span></h6>
                         <ul role="tablist" style="border: none;" class="nav nav-tabs col-md-8 col-sm-12 px-0 justify-content-end">
                             <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#tab3_fak" role="tab" aria-selected="false"><span class="hidden-xs-down"><b>Fakultas</b></span></a> </li>
                             <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab3_dir" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>Direktorat</b></span></a> </li>
@@ -162,8 +162,7 @@ $thnLalu = substr($tahunLalu,2,2);
         </div>
     </div>
 </div>
-<script>
- 
+<script> 
 
 $('body').addClass('dash-contents');
 $('html').addClass('dash-contents');
@@ -174,6 +173,7 @@ if(localStorage.getItem("dore-theme") == "dark"){
     $('#btnBack,#btn-filter').removeClass('btn-outline-dark');
     $('#btnBack,#btn-filter').addClass('btn-outline-light');
 }
+$('.nama').html($nama);
 $mode = localStorage.getItem("dore-theme");
 var $k2 = "";
 function sepNum(x){
@@ -233,10 +233,10 @@ function singkatNilai(num){
     }
 }
 
-function getDetailPendapatan(periode=null,kodeNeraca=null){
+function getDetail(periode=null,kodeNeraca=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/getDetailPendapatan') }}",
+        url:"{{ url('/telu-dash/detail-drill-fakultas') }}",
         dataType:"JSON",
         data:{'form':$form_back,'periode[0]' : periode.type,
             'periode[1]' : periode.from,
@@ -245,15 +245,15 @@ function getDetailPendapatan(periode=null,kodeNeraca=null){
             var html='';
             for(var i=0;i<result.data.data.length;i++){
                 var line = result.data.data[i];
-                            
+                
                 html+=`<tr>
-                    <td style='font-weight:bold'>`+line.nama+`</td>
-                    <td class='text-right'>`+toMilyar(line.n2)+`</td>
-                    <td class='text-right'>`+toMilyar(line.n4)+`</td>
-                    <td class='text-right'>`+sepNum(line.capai)+`%</td>
-                     </tr>`;
-                            
-                }
+                <td style='font-weight:bold'>`+line.nama+`</td>
+                <td class='text-right'>`+toMilyar(line.n2)+`</td>
+                <td class='text-right'>`+toMilyar(line.n4)+`</td>
+                <td class='text-right'>`+sepNum(line.capai)+`%</td>
+                </tr>`;
+                
+            }
             $('#tablePend tbody').html(html);
         },
         error: function(jqXHR, textStatus, errorThrown) {       
@@ -272,10 +272,10 @@ function getDetailPendapatan(periode=null,kodeNeraca=null){
     })
 }
 
-function getDetailPendapatanNon(periode=null,kodeNeraca=null){
+function getDetailNon(periode=null,kodeNeraca=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/getDetailPendapatanNon') }}",
+        url:"{{ url('/telu-dash/drill-detail-direktorat') }}",
         dataType:"JSON",
         data:{'form':$form_back,'periode[0]' : periode.type,
             'periode[1]' : periode.from,
@@ -284,15 +284,15 @@ function getDetailPendapatanNon(periode=null,kodeNeraca=null){
             var html='';
             for(var i=0;i<result.data.data.length;i++){
                 var line = result.data.data[i];
-                            
+                
                 html+=`<tr>
-                    <td style='font-weight:bold'>`+line.nama+`</td>
-                    <td class='text-right'>`+toMilyar(line.n2)+`</td>
-                    <td class='text-right'>`+toMilyar(line.n4)+`</td>
-                    <td class='text-right'>`+sepNum(line.capai)+`%</td>
-                     </tr>`;
-                            
-                }
+                <td style='font-weight:bold'>`+line.nama+`</td>
+                <td class='text-right'>`+toMilyar(line.n2)+`</td>
+                <td class='text-right'>`+toMilyar(line.n4)+`</td>
+                <td class='text-right'>`+sepNum(line.capai)+`%</td>
+                </tr>`;
+                
+            }
             $('#tablePendNon tbody').html(html);
         },
         error: function(jqXHR, textStatus, errorThrown) {       
@@ -311,16 +311,16 @@ function getDetailPendapatanNon(periode=null,kodeNeraca=null){
     })
 }
 
-function getPendapatanFak(periode=null, kodeNeraca=null){
+function getFak(periode=null, kodeNeraca=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/getPendapatanFak') }}",
-        dataType:"JSON",
+        url:"{{ url('/telu-dash/drill-fakultas') }}",
         data:{'form':$form_back,'periode[0]' : periode.type,
             'periode[1]' : periode.from,
-            'periode[2]' : periode.to, mode: $mode,kode_neraca:kodeNeraca, 'kode_grafik':($kd_grafik != undefined ? $kd_grafik : "")},
+            'periode[2]' : periode.to, mode: $mode,'kode_neraca':kodeNeraca, 'kode_grafik':($kd_grafik != undefined ? $kd_grafik : "")},
+        dataType:"JSON",
         success:function(result){
-            Highcharts.chart('pdptFak', {
+            Highcharts.chart('bebanFak', {
                 chart: {
                     type: 'column'
                 },
@@ -345,12 +345,6 @@ function getPendapatanFak(periode=null, kodeNeraca=null){
                     enabled:false
                 },
                 tooltip: {
-                    // headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                    // pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                    //     '<td style="padding:0"><b>{point.y:.2f}</b></td></tr>',
-                    // footerFormat: '</table>',
-                    // // shared: true,
-                    // useHTML: true
                     formatter: function () {
                         return this.series.name+':<b>'+toMilyar(this.y)+'</b>';
                     }
@@ -365,7 +359,7 @@ function getPendapatanFak(periode=null, kodeNeraca=null){
                                 click: function() {  
                                     $kd2 = this.options.tahun;
                                     $kd3 = this.options.kode_bidang;
-                                    var url = "{{ url('/dash-telu/form/dashTeluPdptDet2') }}";
+                                    var url = "{{ url('/dash-telu/form/dashMSPp') }}";
                                     loadForm(url)
                                 }
                             }
@@ -411,16 +405,16 @@ function getPendapatanFak(periode=null, kodeNeraca=null){
     })
 }
 
-function getPendapatanFakNon(periode=null, kodeNeraca=null){
+function getFakNon(periode=null, kodeNeraca=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/getPendapatanFakNon') }}",
-        dataType:"JSON",
+        url:"{{ url('/telu-dash/drill-direktorat') }}",
         data:{'form':$form_back,'periode[0]' : periode.type,
             'periode[1]' : periode.from,
-            'periode[2]' : periode.to, mode: $mode,kode_neraca:kodeNeraca, 'kode_grafik':($kd_grafik != undefined ? $kd_grafik : "")},
+            'periode[2]' : periode.to, mode: $mode,'kode_neraca':kodeNeraca, 'kode_grafik':($kd_grafik != undefined ? $kd_grafik : "")},
+        dataType:"JSON",
         success:function(result){
-            Highcharts.chart('pdptFakNon', {
+            Highcharts.chart('bebanFakNon', {
                 chart: {
                     type: 'column'
                 },
@@ -445,12 +439,6 @@ function getPendapatanFakNon(periode=null, kodeNeraca=null){
                     enabled:false
                 },
                 tooltip: {
-                    // headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                    // pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                    //     '<td style="padding:0"><b>{point.y:.2f}</b></td></tr>',
-                    // footerFormat: '</table>',
-                    // // shared: true,
-                    // useHTML: true
                     formatter: function () {
                         return this.series.name+':<b>'+toMilyar(this.y)+'</b>';
                     }
@@ -465,7 +453,7 @@ function getPendapatanFakNon(periode=null, kodeNeraca=null){
                                 click: function() {  
                                     $kd2 = this.options.tahun;
                                     $kd3 = this.options.kode_bidang;
-                                    var url = "{{ url('/dash-telu/form/dashTeluPdptDet2') }}";
+                                    var url = "{{ url('/dash-telu/form/dashMSPp') }}";
                                     loadForm(url)
                                 }
                             }
@@ -511,14 +499,14 @@ function getPendapatanFakNon(periode=null, kodeNeraca=null){
     })
 }
 
-function getPertumbuhanPendapatanFak(periode=null,kodeNeraca=null){
+function getPertumbuhanBebanFak(periode=null,kodeNeraca=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/getPendapatanFak') }}",
+        url:"{{ url('/telu-dash/getFak') }}",
         dataType:"JSON",
         data:{'form':$form_back,'periode[0]' : periode.type,
             'periode[1]' : periode.from,
-            'periode[2]' : periode.to, mode: $mode,kode_neraca:kodeNeraca, 'kode_grafik':($kd_grafik != undefined ? $kd_grafik : "")},
+            'periode[2]' : periode.to, mode: $mode,'kode_neraca':kodeNeraca, 'kode_grafik':($kd_grafik != undefined ? $kd_grafik : "")},
         success: function(result){
             Highcharts.chart('pertumbuhan', {
                 chart: {
@@ -587,14 +575,14 @@ function getPertumbuhanPendapatanFak(periode=null,kodeNeraca=null){
     })
 }
 
-function getPertumbuhanPendapatanFakNon(periode=null,kodeNeraca=null){
+function getPertumbuhanBebanFakNon(periode=null,kodeNeraca=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/getPendapatanFakNon') }}",
+        url:"{{ url('/telu-dash/getFakNon') }}",
         dataType:"JSON",
         data:{'form':$form_back,'periode[0]' : periode.type,
             'periode[1]' : periode.from,
-            'periode[2]' : periode.to, mode: $mode,kode_neraca:kodeNeraca, 'kode_grafik':($kd_grafik != undefined ? $kd_grafik : "")},
+            'periode[2]' : periode.to, mode: $mode,'kode_neraca':kodeNeraca, 'kode_grafik':($kd_grafik != undefined ? $kd_grafik : "")},
         success: function(result){
             Highcharts.chart('pertumbuhanNon', {
                 chart: {
@@ -706,25 +694,25 @@ switch($dash_periode.type){
     break;
 }
 $('.label-periode-filter').html(label);
-getPertumbuhanPendapatanFak($dash_periode,$kd);
-getPendapatanFak($dash_periode,$kd);
-getDetailPendapatan($dash_periode,$kd);
-getPertumbuhanPendapatanFakNon($dash_periode,$kd);
-getPendapatanFakNon($dash_periode,$kd);
-getDetailPendapatanNon($dash_periode,$kd);
+getPertumbuhanBebanFak($dash_periode,$kd);
+getPertumbuhanBebanFakNon($dash_periode,$kd);
+getFak($dash_periode,$kd);
+getFakNon($dash_periode,$kd);
+getDetail($dash_periode,$kd);
+getDetailNon($dash_periode,$kd);
 
 $('.tahunIni').text($dash_periode.from.substr(0,4));
 $('.thnIni').text($dash_periode.from.substr(0,4));
 
-$('.detail-pdpt').on('click','#btnBack',function(e){
+$('.detail-beban').on('click','#btnBack',function(e){
     e.preventDefault();
     if($form_back != ""){
         var url = "{{ url('/dash-telu/form') }}/"+$form_back;
     }else{
 
-        var url = "{{ url('/dash-telu/form/dashTeluPdpt') }}";
+        var url = "{{ url('/dash-telu/form/fDashMSPiutang') }}";
     }
     loadForm(url);
-})
+});
 
 </script>

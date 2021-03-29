@@ -145,7 +145,7 @@ $thnLalu = substr($tahunLalu,2,2)
     </div>
     <div class="modal fade modal-right" id="modalFilter" tabindex="-1" role="dialog"
     aria-labelledby="modalFilter" aria-hidden="true">
-        <div class="modal-dialog" role="document" style="max-width: 480px;">
+        <div class="modal-dialog" role="document" style="max-width: 380px;">
             <div class="modal-content">
                 <form id="form-filter">
                     <div class="modal-header pb-0" style="border:none">
@@ -158,7 +158,7 @@ $thnLalu = substr($tahunLalu,2,2)
                         <div class="form-group row dash-filter">
                             <p class="dash-kunci" hidden>dash_periode</p> 
                             <label class="col-md-12">Periode</label>
-                            <div class="col-md-4">
+                            <div class="col-md-4 dash-filter-typediv">
                                 <select class="form-control dash-filter-type" data-width="100%" name="periode[]" id="periode_type">
                                     <option value='' disabled>Pilih</option>
                                     <option value='='>=</option>
@@ -166,7 +166,7 @@ $thnLalu = substr($tahunLalu,2,2)
                                     <option value='range'>Range</option>
                                 </select>
                             </div>
-                            <div class="col-md-8 dash-filter-from">
+                            <div class="col-md-12 dash-filter-from">
                                 <select class="form-control" data-width="100%" name="periode[]" id="periode_from">
                                     <option value='' disabled>Pilih</option>
                                 </select>
@@ -190,6 +190,8 @@ $thnLalu = substr($tahunLalu,2,2)
 <script>
 $('body').addClass('dash-contents');
 $('html').addClass('dash-contents');
+var $kode_grafik = "";
+var $nama = "";
 if(localStorage.getItem("dore-theme") == "dark"){
     $('#btn-filter').removeClass('btn-outline-light');
     $('#btn-filter').addClass('btn-outline-dark');
@@ -293,11 +295,12 @@ function getPeriode(){
             if(result.data.status){
                 if(typeof result.data.data !== 'undefined' && result.data.data.length>0){
                     for(i=0;i<result.data.data.length;i++){
-                        control.addOption([{text:result.data.data[i].periode, value:result.data.data[i].periode}]);
-                        control2.addOption([{text:result.data.data[i].periode, value:result.data.data[i].periode}]);
+                        control.addOption([{text:result.data.data[i].nama, value:result.data.data[i].periode}]);
+                        control2.addOption([{text:result.data.data[i].nama, value:result.data.data[i].periode}]);
                     }
                 }
 
+                $('.dash-filter-typediv').hide();
                 $('#periode_to').closest('div.dash-filter-to').hide();
                 $('#periode_from').closest('div.dash-filter-from').removeClass('col-md-4').addClass('col-md-8');
 
@@ -586,7 +589,7 @@ function getPenyerapan(periode=null)
                         <td class='text-center'>%</td>
                         </tr>`;   
                     }
-                    html+=`<tr class='trace serap-`+i+`'>
+                    html+=`<tr class='trace serap-`+i+` penyerapan' data-kode_grafik='`+line.kode_grafik+`' data-nama='`+line.nama+`'>
                     <td>`+line.nama+`</td>
                     <td class='text-right'>`+rka+`</td>
                     <td class='text-right'>`+real+`</td>
@@ -657,7 +660,7 @@ function getDebt(periode=null)
                         <td class='text-center'>YoY</td>
                         </tr>`;   
                     }
-                    html+=`<tr>
+                    html+=`<tr class='trace piutang-`+i+` piutang-detail' data-kode_grafik='`+line.kode_grafik+`' data-nama='`+line.nama+`'>
                     <td>`+line.nama+`</td>
                     <td class='text-right'>`+real+`</td>
                     <td class='text-right'>`+sepNum(persen)+`%</td>
@@ -901,7 +904,10 @@ $('.table').on('click','.ms-2',function(e){
     var url = "{{ url('/dash-telu/form/fDashMSSHU') }}";
     loadForm(url);
 });
-$('.table').on('click','.serap-0',function(e){
+
+$('.table').on('click','.penyerapan',function(e){
+    $kode_grafik = $(this).data('kode_grafik');
+    $nama = $(this).data('nama');
     var url = "{{ url('/dash-telu/form/fDashMSPengembangan') }}";
     loadForm(url);
 });
@@ -919,6 +925,13 @@ $('.table').on('click','.neraca-1',function(e){
 
 $('.table').on('click','.keuangan-1',function(e){
     var url = "{{ url('/dash-telu/form/fDashMSBank') }}";
+    loadForm(url);
+});
+
+$('.table').on('click','.piutang-detail',function(e){
+    $kode_grafik = $(this).data('kode_grafik');
+    $nama = $(this).data('nama');
+    var url = "{{ url('/dash-telu/form/fDashMSPiutang') }}";
     loadForm(url);
 });
 </script>

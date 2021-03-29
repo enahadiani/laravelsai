@@ -204,7 +204,9 @@ if(localStorage.getItem("dore-theme") == "dark"){
     $('#btnBack,#btn-filter').removeClass('btn-outline-dark');
     $('#btnBack,#btn-filter').addClass('btn-outline-light');
 }
-
+$kd = "";
+$form_back = "";
+$kode_grafik = "";
 $mode = localStorage.getItem("dore-theme");
 function sepNum(x){
     if(!isNaN(x)){
@@ -293,8 +295,8 @@ function getPeriode(){
             if(result.data.status){
                 if(typeof result.data.data !== 'undefined' && result.data.data.length>0){
                     for(i=0;i<result.data.data.length;i++){
-                        control.addOption([{text:result.data.data[i].periode, value:result.data.data[i].periode}]);
-                        control2.addOption([{text:result.data.data[i].periode, value:result.data.data[i].periode}]);
+                        control.addOption([{text:result.data.data[i].nama, value:result.data.data[i].periode}]);
+                        control2.addOption([{text:result.data.data[i].nama, value:result.data.data[i].periode}]);
                     }
                 }
 
@@ -499,6 +501,19 @@ function getMsPendRKA(periode=null, id){
                                 }
                                 // if(this.name)
                             }
+                        },
+                        cursor: 'pointer',
+                        //point
+                        point: {
+                            events: {
+                                click: function() {  
+                                    $kd= this.options.key;
+                                    $kd_grafik= this.options.key2;
+                                    $form_back = "fDashMSPendapatan";
+                                    var url = "{{ url('/dash-telu/form/dashTeluPdptDet') }}";
+                                    loadForm(url)
+                                }
+                            }
                         }
                     },
                     scatter: {
@@ -520,6 +535,19 @@ function getMsPendRKA(periode=null, id){
                                         'font-size': '10px',
                                         'backgroundColor' : this.point.color  // just white in my case
                                     }).text(sepNum(this.point.nlabel)+'M')[0].outerHTML;
+                                }
+                            }
+                        },
+                        cursor: 'pointer',
+                        //point
+                        point: {
+                            events: {
+                                click: function() {  
+                                    $kd= this.options.key;
+                                    $kd_grafik= this.options.key2;
+                                    $form_back = "fDashMSPendapatan";
+                                    var url = "{{ url('/dash-telu/form/dashTeluPdptDet') }}";
+                                    loadForm(url)
                                 }
                             }
                         }

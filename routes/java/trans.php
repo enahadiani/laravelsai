@@ -11,6 +11,7 @@ Route::get('beban-proyek-cbbl', 'Java\HelperController@getProyekBeban');
 Route::get('tagihan-proyek-cbbl', 'Java\HelperController@getProyekTagihan');
 Route::get('bank-bayar-cbbl', 'Java\HelperController@getBankBayar');
 Route::get('tagihan-bayar-cbbl', 'Java\HelperController@getTagihanBayar');
+Route::get('dok-jenis', 'Java\HelperController@getJenisDokumen');
 
 // Data Proyek //
 Route::get('proyek', 'Java\ProyekController@index');
@@ -20,6 +21,7 @@ Route::get('kontrak-check', 'Java\ProyekController@isUnikKontrak');
 Route::post('proyek', 'Java\ProyekController@store');
 Route::put('proyek-ubah', 'Java\ProyekController@update');
 Route::delete('proyek', 'Java\ProyekController@delete');
+Route::delete('proyek-file', 'Java\ProyekController@deleteFile');
 
 // Data Proyek RAB //
 Route::get('rab-proyek', 'Java\RabProyekController@index');

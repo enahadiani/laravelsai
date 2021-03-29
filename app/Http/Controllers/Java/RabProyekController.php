@@ -74,13 +74,7 @@ class RabProyekController extends Controller {
         ]);
 
         try {
-            if($request->hasfile('file')) {
-                $name = array('no_proyek','nilai_anggaran', 'file');
-            } else {
-                $name = array('no_proyek','nilai_anggaran');
-            }
 
-            $req = $request->all();
             $fields = array();
             $data = array();
             $no = array();
@@ -88,33 +82,23 @@ class RabProyekController extends Controller {
             $qty = array();
             $harga = array();
             $satuan = array();
+            $fields_foto = array();
+            $fields_nama_file_seb = array();
+            $fields_jenis = array();
+            $fields_nama_dok = array();
+            $fields_no_dok = array();
+            $cek = $request->file_dok;
 
-            for($i=0;$i<count($name);$i++) { 
-                if($name[$i] == 'file') {
-                    $image_path = $request->file('file')->getPathname();
-                    $image_mime = $request->file('file')->getmimeType();
-                    $image_org  = $request->file('file')->getClientOriginalName();
-                    $fields_data[$i] = array(
-                        'name'     => $name[$i],
-                        'filename' => $image_org,
-                        'Mime-Type'=> $image_mime,
-                        'contents' => fopen($image_path, 'r' ),
-                    );
-                } elseif($name[$i] == 'nilai_anggaran') {
-                    $fields_data[$i] = array(
-                        'name'     => $name[$i],
-                        'contents' => $this->joinNum($request->input('nilai_anggaran'))
-                    );
-                } else {
-                    $fields_data[$i] = array(
-                        'name'     => $name[$i],
-                        'contents' => $req[$name[$i]]
-                    );
-                }
-                $data[$i] = $name[$i];
-            }
-
-            $fields = array_merge($fields,$fields_data);
+            $fields = array(
+                array(
+                    "name" => "no_proyek",
+                    "contents" => $request->no_proyek
+                ),
+                array(
+                    "name" => "nilai_anggaran",
+                    "contents" => $this->joinNum($request->nilai_anggaran)
+                )
+            );
             
             if($request->input('no') !== null) {
                 if(count($request->input('no')) > 0) {
@@ -147,15 +131,46 @@ class RabProyekController extends Controller {
                     $fields = array_merge($fields,$satuan);
                 }
             }
-            // $form = array(
-            //     'no_proyek' => $request->input('no_proyek'),
-            //     'nilai_anggaran' => $this->joinNum($request->input('nilai_anggaran')),
-            //     'nomor' => $no,
-            //     'keterangan' => $keterangan,
-            //     'jumlah' => $qty,
-            //     'satuan' => $satuan,
-            //     'harga' => $harga,
-            // );
+
+            if(!empty($cek)) {
+                if(count($request->file_dok) > 0) {
+                    for($i=0;$i<count($request->jenis);$i++){ 
+                        if(isset($request->file('file_dok')[$i])){
+                            $image_path = $request->file('file_dok')[$i]->getPathname();
+                            $image_mime = $request->file('file_dok')[$i]->getmimeType();
+                            $image_org  = $request->file('file_dok')[$i]->getClientOriginalName();
+                            $fields_foto[$i] = array(
+                                'name'     => 'file[]',
+                                'filename' => $image_org,
+                                'Mime-Type'=> $image_mime,
+                                'contents' => fopen( $image_path, 'r' ),
+                            );
+                            
+                        }
+                        $fields_jenis[$i] = array(
+                            'name'     => 'jenis[]',
+                            'contents' => $request->kode_jenis[$i],
+                        );
+                        $fields_nama_dok[$i] = array(
+                            'name'     => 'nama_dok[]',
+                            'contents' => '-',
+                        );
+                        $fields_no_dok[$i] = array(
+                            'name'     => 'no_urut[]',
+                            'contents' => $request->no_dok[$i],
+                        );
+                        $fields_nama_file_seb[$i] = array(
+                            'name'     => 'nama_file_seb[]',
+                            'contents' => '-',
+                        );
+                    }
+                    $fields = array_merge($fields, $fields_foto);
+                    $fields = array_merge($fields, $fields_jenis);
+                    $fields = array_merge($fields, $fields_nama_dok);
+                    $fields = array_merge($fields, $fields_no_dok);
+                    $fields = array_merge($fields, $fields_nama_file_seb);
+                }
+            }
                 // echo "<pre>";
                 // var_dump($fields);
                 // echo "</pre>";
@@ -218,13 +233,7 @@ class RabProyekController extends Controller {
         ]);
 
         try {
-            if($request->hasfile('file')) {
-                $name = array('no_rab','no_proyek','nilai_anggaran', 'file');
-            } else {
-                $name = array('no_rab','no_proyek','nilai_anggaran');
-            }
 
-            $req = $request->all();
             $fields = array();
             $data = array();
             $no = array();
@@ -232,33 +241,72 @@ class RabProyekController extends Controller {
             $qty = array();
             $harga = array();
             $satuan = array();
+            $fields_foto = array();
+            $fields_nama_file_seb = array();
+            $fields_jenis = array();
+            $fields_nama_dok = array();
+            $fields_no_dok = array();
+            $cek = $request->file_dok;
 
-            for($i=0;$i<count($name);$i++) { 
-                if($name[$i] == 'file') {
-                    $image_path = $request->file('file')->getPathname();
-                    $image_mime = $request->file('file')->getmimeType();
-                    $image_org  = $request->file('file')->getClientOriginalName();
-                    $fields_data[$i] = array(
-                        'name'     => $name[$i],
-                        'filename' => $image_org,
-                        'Mime-Type'=> $image_mime,
-                        'contents' => fopen($image_path, 'r' ),
-                    );
-                } elseif($name[$i] == 'nilai_anggaran') {
-                    $fields_data[$i] = array(
-                        'name'     => $name[$i],
-                        'contents' => $this->joinNum($request->input('nilai_anggaran'))
-                    );
-                } else {
-                    $fields_data[$i] = array(
-                        'name'     => $name[$i],
-                        'contents' => $req[$name[$i]]
-                    );
+            $fields = array(
+                array(
+                    "name" => "no_rab",
+                    "contents" => $request->no_rab
+                ),
+                array(
+                    "name" => "no_proyek",
+                    "contents" => $request->no_proyek
+                ),
+                array(
+                    "name" => "nilai_anggaran",
+                    "contents" => $this->joinNum($request->nilai_anggaran)
+                )
+            );
+
+            if(!empty($cek)) {
+                if(count($request->file_dok) > 0) {
+                    for($i=0;$i<count($request->jenis);$i++){ 
+                        if(isset($request->file('file_dok')[$i])){
+                            $image_path = $request->file('file_dok')[$i]->getPathname();
+                            $image_mime = $request->file('file_dok')[$i]->getmimeType();
+                            $image_org  = $request->file('file_dok')[$i]->getClientOriginalName();
+                            $fields_foto[$i] = array(
+                                'name'     => 'file[]',
+                                'filename' => $image_org,
+                                'Mime-Type'=> $image_mime,
+                                'contents' => fopen( $image_path, 'r' ),
+                            );
+                            
+                        } else {
+                            $fields_foto[$i] = array(
+                                'name'     => 'file[]',
+                                'contents' => null
+                            );
+                        }
+                        $fields_jenis[$i] = array(
+                            'name'     => 'jenis[]',
+                            'contents' => $request->kode_jenis[$i],
+                        );
+                        $fields_nama_dok[$i] = array(
+                            'name'     => 'nama_dok[]',
+                            'contents' => $request->nama_file[$i],
+                        );
+                        $fields_no_dok[$i] = array(
+                            'name'     => 'no_urut[]',
+                            'contents' => $request->no_dok[$i],
+                        );
+                        $fields_nama_file_seb[$i] = array(
+                            'name'     => 'nama_file_seb[]',
+                            'contents' => $request->nama_file[$i],
+                        );
+                    }
+                    $fields = array_merge($fields, $fields_foto);
+                    $fields = array_merge($fields, $fields_jenis);
+                    $fields = array_merge($fields, $fields_nama_dok);
+                    $fields = array_merge($fields, $fields_no_dok);
+                    $fields = array_merge($fields, $fields_nama_file_seb);
                 }
-                $data[$i] = $name[$i];
             }
-
-            $fields = array_merge($fields,$fields_data);
             
             if($request->input('no') !== null) {
                 if(count($request->input('no')) > 0) {
