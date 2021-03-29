@@ -1,6 +1,7 @@
 <link rel="stylesheet" href="{{ asset('trans.css') }}" />
 <link rel="stylesheet" href="{{ asset('trans-esaku/form.css') }}" />
 <link rel="stylesheet" href="{{ asset('trans-esaku/grid.css') }}" />
+<link rel="stylesheet" href="{{ asset('trans-java/trans.css') }}" />
 
 <x-list-data judul="Data Anggaran Project" tambah="true" :thead="array('No Anggaran', 'No Proyek', 'Tanggal', 'Nilai Anggaran', 'Aksi')" :thwidth="array(15,15,10,10,10)" :thclass="array('','','','','text-center')" />
 
@@ -57,20 +58,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group col-md-6 col-sm-12">
-                            <div class="row">
-                                <div class="col-md-6 col-sm-12"></div>
-                                <div class="col-md-6 col-sm-12">
-                                    <label>Upload File</label>
-                                    <div class="input-group">
-                                        <div class="custom-file">
-                                            <input type="file" name="file" class="custom-file-input" id="file" accept="application/pdf,image/jpeg,image/png">
-                                            <label class="custom-file-label" style="border-radius: 0.5rem;" for="file">Choose file</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         {{-- <div class="form-group col-md-6 col-sm-12">
                             <div class="row">
                                 <div class="col-md-6 col-sm-12"></div>
@@ -83,6 +70,7 @@
                     </div>
                     <ul class="nav nav-tabs col-12 " role="tablist">
                         <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-anggaran" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Anggaran</span></a> </li>
+                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-upload" role="tab" aria-selected="true"><span class="hidden-xs-down">Upload File</span></a> </li>
                     </ul>
                     <div class="tab-content tabcontent-border col-12 p-0" style="margin-bottom: 2.5rem;">
                         <div class="tab-pane active" id="data-anggaran" role="tabpanel">
@@ -104,6 +92,27 @@
                                 <tbody></tbody>
                             </table>
                             <a type="button" href="#" data-id="0" title="add-row" class="add-row btn btn-light2 btn-block btn-sm"><i class="saicon icon-tambah mr-1"></i>Tambah Baris</a>
+                        </div>
+                        <div class="tab-pane" id="data-upload" role="tabpanel">
+                            <div class='col-md-12 nav-control' style="padding: 0px 5px;">
+                                <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row_dok" ></span></a>
+                            </div>
+                            <div class='col-md-12' style='min-height:420px; margin:0px; padding:0px;'>
+                                <table class="table table-bordered table-condensed gridexample" id="upload" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                    <thead style="background:#F8F8F8">
+                                        <tr>
+                                            <th style="width:3%">No</th>
+                                            <th style="width:20%">Jenis</th>
+                                            <th style="width:30%">Path File</th>
+                                            <th width="25%">Upload File</th>
+                                            <th width="10%">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                                <a type="button" href="#" id="add-row-dok" data-id="0" title="add-row-dok" class="add-row-dok btn btn-light2 btn-block btn-sm"><i class="saicon icon-tambah mr-1"></i>Tambah Baris</a>
+                            </div>
                         </div>
                     </div>
                     <div class="btn-div">
@@ -140,7 +149,157 @@
     var scrollform = document.querySelector('.form-body');
     var psscrollform = new PerfectScrollbar(scrollform);
 
+    // Upload grid
+    $('#upload').on('click', '.search-item', function() {
+        var param = $(this).closest('div').find('input[type="text"]').attr('name')
+        var target1 = $(this).closest('div').find('input[type="text"]').attr('class')
+        var target2 = $(this).closest('div').find('input[type="hidden"]').attr('class')
+        var target3 = $(this).closest('tr').find('td:eq(3) input[type="file"]').attr('class')
+        var tmp = target1.split(" ");
+        var tmp2 = target3.split(" ")
+        var tmp3 = target2.split(" ")
+        target1 = tmp[2];
+        target3 = tmp2[1]
+        target2 = tmp3[1]
+        console.log(target2)
+
+        switch(param){
+            case 'jenis[]': 
+                var options = { 
+                    id : param,
+                    header : ['Kode', 'Nama'],
+                    url : "{{ url('java-trans/dok-jenis') }}",
+                    columns : [
+                        { data: 'kode_jenis' },
+                        { data: 'nama' }
+                    ],
+                    judul : "Daftar Jenis Dokumen",
+                    pilih : "jenis",
+                    jTarget1 : "val",
+                    jTarget2 : "val",
+                    target1 : "",
+                    target2 : "",
+                    target3 : "",
+                    target4 : "",
+                    onItemSelected: function(data) {
+                        $('.'+target3).removeClass('hidden')
+                        $('.'+target1).val(data.nama)
+                        $('.'+target2).val(data.kode_jenis)
+                    },
+                    width : ["30%","70%"]
+                };
+            break;
+        }
+
+        showInpFilter(options);
+    })
+
+    function hitungTotalRowUpload(form){
+        var total_row = $('#upload tbody tr').length;
+        $('#total-row_dok').html(total_row+' Baris');
+    }
+
+    function addRowUpload() {
+        var no=$('#upload .row-upload:last').index();
+        no=no+2;
+        var html = "";
+        html += "<tr class='row-upload'>";
+        html += "<td class='no-upload text-center'>"+no+"</td>"
+        html += "<td class='px-0 py-0'><div class='inp-div-jenis'>"
+        html += "<input type='hidden' name='kode_jenis[]' class='inp-jenis kode_jenis-ke-"+no+"'/>"
+        html += "<input type='text' name='jenis[]' class='form-control inp-jenis inp-jenis-"+no+"' value='' style='z-index: 1;'><a href='#' class='search-item search-jenis'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a>"
+        html += "</div></td>"
+        html += "<td class='td-nama_file tooltip-span'>-</td>";
+        html += "<td><input type='file' name='file_dok[]' class='hidden file-dok-"+no+"'></td>"
+        html += "<td class='text-center action-dok'><a class='hapus-dok' style='cursor: pointer;'><i class='simple-icon-trash' style='font-size:18px'></i></a></td>"
+        html += "</tr>"
+
+        $('#upload tbody').append(html);
+        hitungTotalRowUpload()
+    }
+
+    
+
+    $('#upload').on('click', '.hapus-dok', function(){
+        valid = true
+        $(this).closest('tr').remove();
+        no=1;
+        $('.row-upload').each(function(){
+            var nom = $(this).closest('tr').find('.no-upload');
+            nom.html(no);
+            no++;
+        });
+        hitungTotalRowUpload();
+        $("html, body").animate({ scrollTop: $(document).height() }, 1000);     
+    });
+
+    $('#add-row-dok').on('click', function() {
+        addRowUpload()
+    })
+
+    $('#upload').on('click', '.hapus-dok-with-file', function(){
+        var no_bukti = $('#no_proyek').val();
+        var nama_file = $(this).closest('tr').find('.td-nama_file').html();
+        var kode_jenis = $(this).closest('tr').find('.inp-jenis').val();
+        var no_urut = $(this).closest('tr').find('.no-upload').html();
+        var self = this
+        
+        msgDialog({
+            id: kode_jenis,
+            text: 'Dokumen akan terhapus secara permanen dari server dan tidak dapat mengurungkan.<br> ID Data : <b>'+kode_jenis+'</b> No urut : <b>'+no_urut+'</b>',
+            param: {'kode_jenis':kode_jenis,'no_bukti':no_bukti,'fileName':nama_file, 'self':self, 'no_urut':no_urut},
+            type:'hapusDok'
+        });
+       
+    });
+
+    function hapusDok(param){
+        var no_bukti = param.no_bukti; 
+        var kode_jenis= param.kode_jenis;
+        var fileName= param.fileName;
+        var no_urut = param.no_urut
+        var self = param.self
+        console.log(self)
+        $.ajax({
+            type: 'DELETE',
+            url: "{{ url('java-trans/proyek-file') }}",
+            dataType: 'json',
+            data: {'no_bukti':no_bukti,'kode_jenis':kode_jenis, 'fileName':fileName},
+            success:function(result){
+                // console.log(result.data.message);
+                if(result.data.status){
+                    $(self).closest('tr').remove();
+                    no=1;
+                    $('.row-upload').each(function(){
+                        var nom = $(self).closest('tr').find('.no-upload');
+                        nom.html(no);
+                        no++;
+                    });
+                    hitungTotalRowUpload();
+                    $("html, body").animate({ scrollTop: $(document).height() }, 1000);     
+                    msgDialog({
+                        id:no_bukti,
+                        type:'sukses',
+                        title:'Sukses',
+                        text:'Dokumen Proyek '+kode_jenis+' dengan no urut: '+no_urut+' berhasil dihapus'
+                    });
+
+                }else{
+                    msgDialog({
+                        id:result.data.no_bukti,
+                        title:'Error',
+                        back: false,
+                        text:result.data.message
+                    });
+                }
+            }
+        });
+    }
+
+    // Upload
+
     function resetForm() {
+        $('#upload tbody').empty()
         $('#no-rab').hide();
         $("[id^=label]").each(function(e){
             $(this).text('');
@@ -746,6 +905,8 @@
 
             var parameter = $('#id_edit').val();
             var id = $('#no_proyek').val();
+            var countDokRow = $('#upload tbody tr').length
+
             if(parameter == "edit"){
                 var url = "{{ url('java-trans/rab-proyek-ubah') }}";
                 var pesan = "updated";
@@ -760,6 +921,30 @@
             $('#input-grid tbody tr').each(function(index) {
                 formData.append('no[]', $(this).find('.no-grid').text())
             })
+            if(countDokRow > 0) {
+                $('#upload tbody tr').each(function(index) {
+                    formData.append('no_dok[]', $(this).find('.no-upload').text())
+                })
+                $('#upload tbody tr').each(function(){
+                    var namaFile = $(this).find('.td-nama_file').text()
+                    if(namaFile == '-') {
+                        var files = $(this).find("td:eq(3) input[type='file']")[0]
+                        var check = files.files.length
+                        if(check == 0) {
+                            alert('Upload dokumen tidak boleh kosong, hapus baris jika tidak diperlukan')
+                            valid = false
+                            return false
+                        } else {
+                            valid = true
+                        }
+                    }
+                })
+            }
+            if(parameter === 'edit') {
+                $('#upload tbody tr').each(function(index) {
+                    formData.append('nama_file[]', $(this).find('.td-nama_file').text())
+                })
+            }
             for(var pair of formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
@@ -974,6 +1159,27 @@
                             oncleared: function () {  }
                         });
                         no= 1;
+                    }
+                    var html = ""
+                    if(result.file.length > 0) {
+                        var no = 1;
+                        for(var i=0;i<result.file.length;i++) {
+                            var line = result.file[i]
+                            var dok = "{{ config('api.url').'java-auth/storage' }}/"+line.file_dok;
+                            html += "<tr class='row-upload'>"
+                            html += "<td class='no-upload text-center'>"+no+"</td>"
+                            html += "<td class='px-0 py-0'><div class='inp-div-jenis'>"
+                            html += "<input type='hidden' name='kode_jenis[]' value='"+line.jenis+"' class='inp-jenis kode_jenis-ke-"+no+"'/>"
+                            html += "<input type='text' name='jenis[]' value='"+line.nama+"' class='form-control inp-jenis inp-jenis-"+no+"' value='' style='z-index: 1;'><a href='#' class='search-item search-jenis'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a>"
+                            html += "</div></td>"
+                            html += "<td class='td-nama_file tooltip-span'>"+line.file_dok+"</td>";
+                            html += "<td><input type='file' name='file_dok[]' class='file-dok-"+no+"'></td>"
+                            html += "<td class='text-center action-dok'><a class='download-dok' href='"+dok+"' target='_blank' title='Download'><i style='font-size:18px' class='simple-icon-cloud-download'></i></a>&nbsp;&nbsp;&nbsp;<a class='hapus-dok-with-file' style='cursor: pointer;'><i class='simple-icon-trash' style='font-size:18px'></i></a></td>"  
+                            html += "</tr>"
+                            no++
+                        }
+                        $('#upload tbody').append(html)   
+                        hitungTotalRowUpload()                     
                     }
                     hitungTotalRow();
                     hitungGridTotal();
