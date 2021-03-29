@@ -361,41 +361,107 @@ function getHutang(periode=null){
         success:function(result){
             // if(result.series.length > 0){
                 var $colors = result.colors;
-                // Highcharts.chart('real-hutang', {
+                Highcharts.chart('real-hutang', {
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text: ''
+                    },
+                    xAxis: {
+                        categories: result.ctg
+                    },
+                    yAxis: [{
+                        min: 0,
+                        title: {
+                            text: ''
+                        },
+                        labels: {
+                            formatter: function () {
+                                return singkatNilai(this.value);
+                            }
+                        },
+                    }],
+                    legend:{
+                        enabled: false
+                    },
+                    credits: {
+                        enabled: false
+                    },
+                    tooltip: {
+                        shared: true
+                    },
+                    plotOptions: {
+                        column: {
+                            grouping: false,
+                            shadow: false,
+                            borderWidth: 0,
+                            dataLabels: {
+                                // padding:10,
+                                allowOverlap:true,
+                                enabled: true,
+                                crop: false,
+                                overflow: 'justify',
+                                useHTML: true,
+                                formatter: function () {
+                                    if(this.y < 0.1){
+                                        return '';
+                                    }else{
+                                        return $('<div/>').css({
+                                            'color' : 'white', // work
+                                            'padding': '0 3px',
+                                            'font-size': '10px',
+                                            'backgroundColor' : this.point.color  // just white in my case
+                                        }).text(toMilyar(this.y))[0].outerHTML;
+                                    }
+                                    // if(this.name)
+                                }
+                            }
+                        }
+                    },
+                    series: result.series
+                }, function(){
+                    var series = this.series;
+                    for (var i = 0, ie = series.length; i < ie; ++i) {
+                        var points = series[i].data;
+                        for (var j = 0, je = points.length; j < je; ++j) {
+                            if (points[j].graphic) {
+                                points[j].graphic.element.style.fill = $colors[j];
+                            }
+                        }
+                    }
+                });
+
+                // Highcharts.SVGRenderer.prototype.symbols['c-rect'] = function (x, y, w, h) {
+                //     return ['M', x, y + h / 2, 'L', x + w, y + h / 2];
+                // };
+                
+                // var chart = Highcharts.chart('real-hutang', {
                 //     chart: {
                 //         type: 'column'
+                //     },
+                //     credits:{
+                //         enabled:false
                 //     },
                 //     title: {
                 //         text: ''
                 //     },
                 //     xAxis: {
-                //         categories: result.ctg
+                //         categories: result.categories
                 //     },
-                //     yAxis: [{
-                //         min: 0,
-                //         title: {
-                //             text: ''
-                //         },
-                //         labels: {
-                //             formatter: function () {
-                //                 return singkatNilai(this.value);
-                //             }
-                //         },
-                //     }],
-                //     legend:{
-                //         enabled: false
-                //     },
-                //     credits: {
-                //         enabled: false
+                //     yAxis: {
+                //             title:'',
+                //         min: 0
                 //     },
                 //     tooltip: {
-                //         shared: true
+                //         pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b>',
+                //         /* shared: true */
                 //     },
                 //     plotOptions: {
                 //         column: {
-                //             grouping: false,
-                //             shadow: false,
+                //             stacking: 'normal',
                 //             borderWidth: 0,
+                //             pointWidth: 50,
                 //             dataLabels: {
                 //                 // padding:10,
                 //                 allowOverlap:true,
@@ -412,171 +478,105 @@ function getHutang(periode=null){
                 //                             'padding': '0 3px',
                 //                             'font-size': '10px',
                 //                             'backgroundColor' : this.point.color  // just white in my case
-                //                         }).text(toMilyar(this.y))[0].outerHTML;
+                //                         }).text(sepNum(this.point.nlabel)+'M')[0].outerHTML;
                 //                     }
                 //                     // if(this.name)
+                //                 }
+                //             },
+                //             cursor: 'pointer',
+                //             //point
+                //             point: {
+                //                 events: {
+                //                     click: function() {  
+                //                         $kd= this.options.key;
+                //                         $kd_grafik= this.options.key2;
+                //                         $form_back = "fDashMSAset";
+                //                         $nama = this.options.name;
+                //                         var url = "{{ url('/dash-telu/form/dashMSBidang') }}";
+                //                         loadForm(url)
+                //                     }
+                //                 }
+                //             }
+                //         },
+                //         scatter: {
+                //             dataLabels: {
+                //                 // padding:10,
+                //                 allowOverlap:true,
+                //                 enabled: true,
+                //                 crop: false,
+                //                 overflow: 'justify',
+                //                 useHTML: true,
+                //                 formatter: function () {
+                //                     // return '<span style="color:white;background:gray !important;"><b>'+sepNum(this.y)+' M</b></span>';
+                //                     if(this.y < 0.1){
+                //                         return '';
+                //                     }else{
+                //                         return $('<div/>').css({
+                //                             'color' : 'white', // work
+                //                             'padding': '0 3px',
+                //                             'font-size': '10px',
+                //                             'backgroundColor' : this.point.color  // just white in my case
+                //                         }).text(sepNum(this.point.nlabel)+'M')[0].outerHTML;
+                //                     }
+                //                 }
+                //             },
+                //             cursor: 'pointer',
+                //             //point
+                //             point: {
+                //                 events: {
+                //                     click: function() {  
+                //                         $kd= this.options.key;
+                //                         $kd_grafik= this.options.key2;
+                //                         $form_back = "fDashMSAset";
+                //                         $nama = this.options.name;
+                //                         var url = "{{ url('/dash-telu/form/dashMSBidang') }}";
+                //                         loadForm(url)
+                //                     }
                 //                 }
                 //             }
                 //         }
                 //     },
-                //     series: result.series
-                // }, function(){
-                //     var series = this.series;
-                //     for (var i = 0, ie = series.length; i < ie; ++i) {
-                //         var points = series[i].data;
-                //         for (var j = 0, je = points.length; j < je; ++j) {
-                //             if (points[j].graphic) {
-                //                 points[j].graphic.element.style.fill = $colors[j];
-                //             }
+                //     series: [{
+                //         name: 'Melampaui',
+                //         color: (localStorage.getItem("dore-theme") == "dark" ? '#28DA66' :  '#16ff14'),
+                //         type: 'column',
+                //         stack: 1,
+                //         data: result.melampaui,
+                //         dataLabels:{
+                //             y:-20
                 //         }
-                //     }
+                //     },{
+                //         name: 'Target/RKA',
+                //         color: (localStorage.getItem("dore-theme") == "dark" ? '#2200FF' :  '#003F88'),
+                //         marker: {
+                //             symbol: 'c-rect',
+                //             lineWidth:5,
+                //             lineColor: (localStorage.getItem("dore-theme") == "dark" ? '#2200FF' :  '#003F88'),
+                //             radius: 50
+                //         },
+                //         type: 'scatter',
+                //         stack: 2,
+                //         data: result.rka,
+                //         dataLabels:{
+                //             x:-50
+                //         }
+                //     }, {
+                //         name: 'Tidak Tercapai',
+                //         type: 'column',
+                //         color:  (localStorage.getItem("dore-theme") == "dark" ? '#ED4346' :  '#900604'),
+                //         stack: 1,
+                //         data: result.tdkcapai,
+                //         dataLabels:{
+                //             x:50,
+                //         }
+                //     }, {
+                //         name: 'Actual',
+                //         type: 'column',
+                //         color: (localStorage.getItem("dore-theme") == "dark" ? '#434343' :  '#CED4DA'),
+                //         stack: 1,
+                //         data: result.actual
+                //     }]
                 // });
-
-                Highcharts.SVGRenderer.prototype.symbols['c-rect'] = function (x, y, w, h) {
-                    return ['M', x, y + h / 2, 'L', x + w, y + h / 2];
-                };
-                
-                var chart = Highcharts.chart('real-hutang', {
-                    chart: {
-                        type: 'column'
-                    },
-                    credits:{
-                        enabled:false
-                    },
-                    title: {
-                        text: ''
-                    },
-                    xAxis: {
-                        categories: result.categories
-                    },
-                    yAxis: {
-                            title:'',
-                        min: 0
-                    },
-                    tooltip: {
-                        pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b>',
-                        /* shared: true */
-                    },
-                    plotOptions: {
-                        column: {
-                            stacking: 'normal',
-                            borderWidth: 0,
-                            pointWidth: 50,
-                            dataLabels: {
-                                // padding:10,
-                                allowOverlap:true,
-                                enabled: true,
-                                crop: false,
-                                overflow: 'justify',
-                                useHTML: true,
-                                formatter: function () {
-                                    if(this.y < 0.1){
-                                        return '';
-                                    }else{
-                                        return $('<div/>').css({
-                                            'color' : 'white', // work
-                                            'padding': '0 3px',
-                                            'font-size': '10px',
-                                            'backgroundColor' : this.point.color  // just white in my case
-                                        }).text(sepNum(this.point.nlabel)+'M')[0].outerHTML;
-                                    }
-                                    // if(this.name)
-                                }
-                            },
-                            cursor: 'pointer',
-                            //point
-                            point: {
-                                events: {
-                                    click: function() {  
-                                        $kd= this.options.key;
-                                        $kd_grafik= this.options.key2;
-                                        $form_back = "fDashMSAset";
-                                        $nama = this.options.name;
-                                        var url = "{{ url('/dash-telu/form/dashMSBidang') }}";
-                                        loadForm(url)
-                                    }
-                                }
-                            }
-                        },
-                        scatter: {
-                            dataLabels: {
-                                // padding:10,
-                                allowOverlap:true,
-                                enabled: true,
-                                crop: false,
-                                overflow: 'justify',
-                                useHTML: true,
-                                formatter: function () {
-                                    // return '<span style="color:white;background:gray !important;"><b>'+sepNum(this.y)+' M</b></span>';
-                                    if(this.y < 0.1){
-                                        return '';
-                                    }else{
-                                        return $('<div/>').css({
-                                            'color' : 'white', // work
-                                            'padding': '0 3px',
-                                            'font-size': '10px',
-                                            'backgroundColor' : this.point.color  // just white in my case
-                                        }).text(sepNum(this.point.nlabel)+'M')[0].outerHTML;
-                                    }
-                                }
-                            },
-                            cursor: 'pointer',
-                            //point
-                            point: {
-                                events: {
-                                    click: function() {  
-                                        $kd= this.options.key;
-                                        $kd_grafik= this.options.key2;
-                                        $form_back = "fDashMSAset";
-                                        $nama = this.options.name;
-                                        var url = "{{ url('/dash-telu/form/dashMSBidang') }}";
-                                        loadForm(url)
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    series: [{
-                        name: 'Melampaui',
-                        color: (localStorage.getItem("dore-theme") == "dark" ? '#28DA66' :  '#16ff14'),
-                        type: 'column',
-                        stack: 1,
-                        data: result.melampaui,
-                        dataLabels:{
-                            y:-20
-                        }
-                    },{
-                        name: 'Target/RKA',
-                        color: (localStorage.getItem("dore-theme") == "dark" ? '#2200FF' :  '#003F88'),
-                        marker: {
-                            symbol: 'c-rect',
-                            lineWidth:5,
-                            lineColor: (localStorage.getItem("dore-theme") == "dark" ? '#2200FF' :  '#003F88'),
-                            radius: 50
-                        },
-                        type: 'scatter',
-                        stack: 2,
-                        data: result.rka,
-                        dataLabels:{
-                            x:-50
-                        }
-                    }, {
-                        name: 'Tidak Tercapai',
-                        type: 'column',
-                        color:  (localStorage.getItem("dore-theme") == "dark" ? '#ED4346' :  '#900604'),
-                        stack: 1,
-                        data: result.tdkcapai,
-                        dataLabels:{
-                            x:50,
-                        }
-                    }, {
-                        name: 'Actual',
-                        type: 'column',
-                        color: (localStorage.getItem("dore-theme") == "dark" ? '#434343' :  '#CED4DA'),
-                        stack: 1,
-                        data: result.actual
-                    }]
-                });
                 
                 
             // }
