@@ -491,7 +491,8 @@ function getHutang(periode=null){
                                         $kd= this.options.key;
                                         $kd_grafik= this.options.key2;
                                         $form_back = "fDashMSAset";
-                                        var url = "{{ url('/dash-telu/form/dashMSAsetDet') }}";
+                                        $nama = this.options.name;
+                                        var url = "{{ url('/dash-telu/form/dashMSBidang') }}";
                                         loadForm(url)
                                     }
                                 }
@@ -527,7 +528,8 @@ function getHutang(periode=null){
                                         $kd= this.options.key;
                                         $kd_grafik= this.options.key2;
                                         $form_back = "fDashMSAset";
-                                        var url = "{{ url('/dash-telu/form/dashMSAsetDet') }}";
+                                        $nama = this.options.name;
+                                        var url = "{{ url('/dash-telu/form/dashMSBidang') }}";
                                         loadForm(url)
                                     }
                                 }

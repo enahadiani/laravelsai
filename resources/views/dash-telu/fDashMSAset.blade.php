@@ -148,6 +148,7 @@ if(localStorage.getItem("dore-theme") == "dark"){
 }
 
 var $mode = localStorage.getItem("dore-theme");
+$nama = "";
 function sepNum(x){
     if(!isNaN(x)){
         if (typeof x === undefined || !x || x == 0) { 
@@ -491,7 +492,8 @@ function getAset(periode=null){
                                         $kd= this.options.key;
                                         $kd_grafik= this.options.key2;
                                         $form_back = "fDashMSAset";
-                                        var url = "{{ url('/dash-telu/form/dashMSAsetDet') }}";
+                                        $nama = this.options.name;
+                                        var url = "{{ url('/dash-telu/form/dashMSBidang') }}";
                                         loadForm(url)
                                     }
                                 }
@@ -526,8 +528,9 @@ function getAset(periode=null){
                                     click: function() {  
                                         $kd= this.options.key;
                                         $kd_grafik= this.options.key2;
+                                        $nama = this.options.name;
                                         $form_back = "fDashMSAset";
-                                        var url = "{{ url('/dash-telu/form/dashMSAsetDet') }}";
+                                        var url = "{{ url('/dash-telu/form/dashMSBidang') }}";
                                         loadForm(url)
                                     }
                                 }

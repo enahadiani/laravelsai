@@ -83,7 +83,7 @@ $thnLalu = substr($tahunLalu,2,2)
         <div class="col-lg-7 col-12 mb-4">
             <div class="card dash-card">
                 <div class="card-header">
-                    <h6 class="card-title mb-0">Piutang <span class='nama-piutang'></span></h6>
+                    <h6 class="card-title mb-0"><span class='nama-piutang'></span></h6>
                 </div>
                 <div class="card-body">
                     <div id="real-piutang" style="height:300px"></div>
@@ -139,6 +139,7 @@ $thnLalu = substr($tahunLalu,2,2)
 $('.tahunDepan').hide();
 $('body').addClass('dash-contents');
 $('html').addClass('dash-contents');
+$nama = "Piutang "+$nama;
 $('.nama-piutang').html($nama);
 if(localStorage.getItem("dore-theme") == "dark"){
     $('#btnBack,#btn-filter').removeClass('btn-outline-light');
