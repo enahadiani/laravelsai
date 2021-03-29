@@ -359,6 +359,11 @@ class ProyekController extends Controller
                                 'contents' => fopen( $image_path, 'r' ),
                             );
                             
+                        } else {
+                            $fields_foto[$i] = array(
+                                'name'     => 'file[]',
+                                'contents' => null
+                            );
                         }
                         $fields_jenis[$i] = array(
                             'name'     => 'jenis[]',
@@ -366,7 +371,7 @@ class ProyekController extends Controller
                         );
                         $fields_nama_dok[$i] = array(
                             'name'     => 'nama_dok[]',
-                            'contents' => '-',
+                            'contents' => $request->nama_file[$i],
                         );
                         $fields_no_dok[$i] = array(
                             'name'     => 'no_urut[]',
