@@ -34,7 +34,7 @@ class ReportAkruSimpananController extends Controller
                 ],
                 'query' => [
                     'periode'        => $request->periode,
-                    'no_agg'         => $request->no_agg
+                    'no_bukti'        => $request->no_bukti
                 ]
             ]);
 
