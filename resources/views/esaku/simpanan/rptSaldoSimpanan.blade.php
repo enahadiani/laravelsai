@@ -23,8 +23,7 @@
             } else {
                 $('.navigation-lap').addClass('hidden');
             }
-            var html = `<div>
-            <style>
+            var html = `<style>
                 .info-table thead{
                     background:#4286f5;
                     color:white;
@@ -32,31 +31,57 @@
                 .bold {
                     font-weight:bold;
                 }
-            </style>
-            `;
+                table th.no-border{
+                    border:0 !important;
+                }
+                .table-header-prev td{
+                    padding: 2px !important;
+                }
+                .table-kop-prev td{
+                    padding: 0px !important;
+                }
+                .separator2{
+                    height:1rem;
+                    background:#f8f8f8;
+                    box-shadow: -1px 0px 1px 0px #e1e1e1;
+                }
+                .vtop{
+                    vertical-align:top !important;
+                }
+                .lh1{
+                    line-height:1;
+                }
+                .bg-highlight{
+                    background: #eaf2ff !important;
+                }
+                .bg-white{
+                    background: white !important;
+                }
+            </style>`;
             periode = $periode;
             var lokasi = res.lokasi;
             html += judul_lap("LAPORAN SALDO SIMPANAN", lokasi, 'Periode ' + periode.fromname) + `
                 <table width='100%' class='table table-bordered'>
+                    <thead>
                     <tr>
-                         <th rowspan='2' width='20'  class='header_laporan'  style="vertical-align:middle;text-align: center;">No</th>
-                         <th rowspan='2' width='80' class='header_laporan'  style="vertical-align:middle;text-align: center;">No Anggota</th>
-                         <th rowspan='2' width='200' class='header_laporan'  style="vertical-align:middle;text-align: center;">Nama Anggota</th>
-                         <th colspan='2' class='header_laporan'  style="vertical-align:middle;text-align: center;">Simpanan Pokok</th>
-                         <th colspan='2' class='header_laporan'  style="vertical-align:middle;text-align: center;">Simpanan Wajib</th>
-                         <th colspan='2' class='header_laporan'  style="vertical-align:middle;text-align: center;">Simpanan Sukarela</th>
-                         <th width='80' rowspan='2' class='header_laporan'  style="vertical-align:middle;text-align: center;">Bunga</th>
-                         <th width='80' rowspan='2' class='header_laporan'  style="vertical-align:middle;text-align: center;">Total Tunggakan</th>
-                         <th width='80' rowspan='2' class='header_laporan'  style="vertical-align:middle;text-align: center;">Total Setoran</th>
+                         <th rowspan='2' width='20'  class='header_laporan bg-primary'  style="vertical-align:middle;text-align: center;">No</th>
+                         <th rowspan='2' width='80' class='header_laporan bg-primary'  style="vertical-align:middle;text-align: center;">No Anggota</th>
+                         <th rowspan='2' width='200' class='header_laporan bg-primary'  style="vertical-align:middle;text-align: center;">Nama Anggota</th>
+                         <th colspan='2' class='header_laporan bg-primary'  style="vertical-align:middle;text-align: center;">Simpanan Pokok</th>
+                         <th colspan='2' class='header_laporan bg-primary'  style="vertical-align:middle;text-align: center;">Simpanan Wajib</th>
+                         <th colspan='2' class='header_laporan bg-primary'  style="vertical-align:middle;text-align: center;">Simpanan Sukarela</th>
+                         <th width='80' rowspan='2' class='header_laporan bg-primary'  style="vertical-align:middle;text-align: center;">Bunga</th>
+                         <th width='80' rowspan='2' class='header_laporan bg-primary'  style="vertical-align:middle;text-align: center;">Total Tunggakan</th>
+                         <th width='80' rowspan='2' class='header_laporan bg-primary'  style="vertical-align:middle;text-align: center;">Total Setoran</th>
                     </tr>
                     <tr>
-                        <th width='80' class='header_laporan' style="vertical-align:middle;text-align: center;">Tunggakan</th>
-                        <th width='80' class='header_laporan' style="vertical-align:middle;text-align: center;">Setoran</th>
-                        <th width='80' class='header_laporan' style="vertical-align:middle;text-align: center;">Tunggakan</th>
-                        <th width='80' class='header_laporan' style="vertical-align:middle;text-align: center;">Setoran</th>
-                        <th width='80' class='header_laporan' style="vertical-align:middle;text-align: center;">Tunggakan</th>
-                        <th width='80' class='header_laporan' style="vertical-align:middle;text-align: center;">Setoran</th>
-                    </tr>`;
+                        <th width='80' class='header_laporan bg-primary' style="vertical-align:middle;text-align: center;">Tunggakan</th>
+                        <th width='80' class='header_laporan bg-primary' style="vertical-align:middle;text-align: center;">Setoran</th>
+                        <th width='80' class='header_laporan bg-primary' style="vertical-align:middle;text-align: center;">Tunggakan</th>
+                        <th width='80' class='header_laporan bg-primary' style="vertical-align:middle;text-align: center;">Setoran</th>
+                        <th width='80' class='header_laporan bg-primary' style="vertical-align:middle;text-align: center;">Tunggakan</th>
+                        <th width='80' class='header_laporan bg-primary' style="vertical-align:middle;text-align: center;">Setoran</th>
+                    </tr></thead>`;
             var total = 0;
             var det = '';
             if (from != undefined) {
@@ -118,16 +143,16 @@
 
 
             det += `<tr>
-                            <td height='25' colspan='3' align='right'  class='bold'>Total</td>
-                            <td class='bold' align='right'>` + sepNum(tgk_sp) + `</td>
-                            <td class='bold' align='right'>` + sepNum(byr_sp) + `</td>
-                            <td class='bold' align='right'>` + sepNum(tgk_sw) + `</td>
-                            <td class='bold' align='right'>` + sepNum(byr_sw) + `</td>
-                            <td class='bold' align='right'>` + sepNum(tgk_ss) + `</td>
-                            <td class='bold' align='right'>` + sepNum(byr_ss) + `</td>
-                            <td class='bold' align='right'>` + sepNum(nilai_bunga) + `</td>
-                            <td class='bold' align='right'>` + sepNum(tgk_total) + `</td>
-                            <td class='bold' align='right'>` + sepNum(byr_total) + `</td>
+                            <td height='25' colspan='3' align='right'  class='bold bg-primary'>Total</td>
+                            <td class='bold bg-primary' align='right'>` + sepNum(tgk_sp) + `</td>
+                            <td class='bold bg-primary' align='right'>` + sepNum(byr_sp) + `</td>
+                            <td class='bold bg-primary' align='right'>` + sepNum(tgk_sw) + `</td>
+                            <td class='bold bg-primary' align='right'>` + sepNum(byr_sw) + `</td>
+                            <td class='bold bg-primary' align='right'>` + sepNum(tgk_ss) + `</td>
+                            <td class='bold bg-primary' align='right'>` + sepNum(byr_ss) + `</td>
+                            <td class='bold bg-primary' align='right'>` + sepNum(nilai_bunga) + `</td>
+                            <td class='bold bg-primary' align='right'>` + sepNum(tgk_total) + `</td>
+                            <td class='bold bg-primary' align='right'>` + sepNum(byr_total) + `</td>
                             </tr>`;
             html += det + `
                     </table>
