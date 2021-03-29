@@ -926,7 +926,7 @@ $('.table').on('click','.neraca-1',function(e){
 $('.table').on('click','.neraca-2',function(e){
     $kode_grafik = $(this).data('kode_grafik');
     $nama = $(this).data('nama');
-    var url = "{{ url('/dash-telu/form/fDashMSModal') }}";
+    var url = "{{ url('/dash-telu/form/fDashMsModal') }}";
     loadForm(url);
 });
 
