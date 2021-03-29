@@ -126,3 +126,6 @@ Route::post('lap-simp-bayar','Esaku\Simpanan\Laporan\ReportBayarSimpananControll
 //Laporan Pembatalan Simpanan
 Route::get('filter-bukti-batal','Esaku\Simpanan\Laporan\ReportBatalSimpananController@getBukti');
 Route::post('lap-simp-batal','Esaku\Simpanan\Laporan\ReportBatalSimpananController@index');
+
+// Laporan Rekap Simpanan
+Route::post('lap-simp-rekap','Esaku\Simpanan\Laporan\ReportRekapSimpananController@index');
