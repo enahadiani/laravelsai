@@ -525,7 +525,7 @@ function getFxPosition(periode=null)
                         <td class='text-center'>YoY</td>
                         </tr>`;   
                     }
-                    html+=`<tr class='trace neraca-`+i+`'>
+                    html+=`<tr class='trace neraca-`+i+`' data-kode_grafik='`+line.kode_grafik+`' data-nama='`+line.nama+`'>
                     <td>`+line.nama+`</td>
                     <td class='text-right'>`+real_lalu+`</td>
                     <td class='text-right'>`+real+`</td>
@@ -920,6 +920,13 @@ $('.table').on('click','.neraca-0',function(e){
 
 $('.table').on('click','.neraca-1',function(e){
     var url = "{{ url('/dash-telu/form/fDashMSHutang') }}";
+    loadForm(url);
+});
+
+$('.table').on('click','.neraca-2',function(e){
+    $kode_grafik = $(this).data('kode_grafik');
+    $nama = $(this).data('nama');
+    var url = "{{ url('/dash-telu/form/fDashMSModal') }}";
     loadForm(url);
 });
 
