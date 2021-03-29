@@ -143,16 +143,16 @@
 
 
             det += `<tr>
-                            <td height='25' colspan='3' align='right'  class='bold'>Total</td>
-                            <td class='bold' align='right'>` + sepNum(tgk_sp) + `</td>
-                            <td class='bold' align='right'>` + sepNum(byr_sp) + `</td>
-                            <td class='bold' align='right'>` + sepNum(tgk_sw) + `</td>
-                            <td class='bold' align='right'>` + sepNum(byr_sw) + `</td>
-                            <td class='bold' align='right'>` + sepNum(tgk_ss) + `</td>
-                            <td class='bold' align='right'>` + sepNum(byr_ss) + `</td>
-                            <td class='bold' align='right'>` + sepNum(nilai_bunga) + `</td>
-                            <td class='bold' align='right'>` + sepNum(tgk_total) + `</td>
-                            <td class='bold' align='right'>` + sepNum(byr_total) + `</td>
+                            <td height='25' colspan='3' align='right'  class='bold bg-primary'>Total</td>
+                            <td class='bold bg-primary' align='right'>` + sepNum(tgk_sp) + `</td>
+                            <td class='bold bg-primary' align='right'>` + sepNum(byr_sp) + `</td>
+                            <td class='bold bg-primary' align='right'>` + sepNum(tgk_sw) + `</td>
+                            <td class='bold bg-primary' align='right'>` + sepNum(byr_sw) + `</td>
+                            <td class='bold bg-primary' align='right'>` + sepNum(tgk_ss) + `</td>
+                            <td class='bold bg-primary' align='right'>` + sepNum(byr_ss) + `</td>
+                            <td class='bold bg-primary' align='right'>` + sepNum(nilai_bunga) + `</td>
+                            <td class='bold bg-primary' align='right'>` + sepNum(tgk_total) + `</td>
+                            <td class='bold bg-primary' align='right'>` + sepNum(byr_total) + `</td>
                             </tr>`;
             html += det + `
                     </table>
