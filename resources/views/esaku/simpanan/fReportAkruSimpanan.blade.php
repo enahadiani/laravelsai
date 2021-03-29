@@ -2,7 +2,7 @@
 <div class="row" id="saku-filter">
     <div class="col-12">
         <div class="card">
-            <x-report-header judul="Laporan Saldo Simpanan" />
+            <x-report-header judul="Laporan Akru Simpanan" />
             <div class="separator"></div>
             <div class="row">
                 <div class="col-12 col-sm-12">
@@ -13,7 +13,8 @@
                                 <div id="inputFilter">
                                     <!-- COMPONENT -->
                                     <x-inp-filter kode="periode" nama="Periode" selected="1" :option="array('1','3')" />
-                                    <x-inp-filter kode="anggota" nama="Anggota" selected="1" :option="array('1','3')" />
+                                    <x-inp-filter kode="no_bukti" nama="No Bukti" selected="1"
+                                        :option="array('1','3')" />
                                     <!-- END COMPONENT -->
                                 </div>
                                 <button id="btn-tampil" style="float:right;width:110px"
@@ -60,7 +61,7 @@ date_default_timezone_set('Asia/Bangkok');
         to: "",
         toname: "",
     }
-    var $anggota = {
+    var $no_bukti = {
         type: "all",
         from: "",
         fromname: "",
@@ -109,11 +110,11 @@ date_default_timezone_set('Asia/Bangkok');
     $('.selectize').selectize();
 
     $('#inputFilter').reportFilter({
-        kode: ['periode', 'anggota'],
-        nama: ['Periode', 'anggota'],
+        kode: ['periode', 'no_bukti'],
+        nama: ['Periode', 'no_bukti'],
         header: [
             ['Periode', 'Keterangan'],
-            ['No Anggota', 'Nama'],
+            ['No Bukti', 'Keterangan'],
         ],
         headerpilih: [
             ['Periode', 'Nama'],
@@ -133,14 +134,14 @@ date_default_timezone_set('Asia/Bangkok');
                 data: 'nama'
             }]
         ],
-        url: ["{{ url('esaku-report/filter-periode-keu') }}", "{{ url('esaku-report/filter-anggota') }}"],
+        url: ["{{ url('esaku-report/filter-periode-keu') }}", "{{ url('esaku-report/filter-bukti') }}"],
         parameter: [{}, {}, {
             'periode[0]': $periode.type,
             'periode[1]': $periode.from,
             'periode[2]': $periode.to,
-            'anggota[0]': $anggota.type,
-            'anggota[1]': $anggota.from,
-            'anggota[2]': $anggota.to,
+            'no_bukti[0]': $no_bukti.type,
+            'no_bukti[1]': $no_bukti.from,
+            'no_bukti[2]': $no_bukti.to,
         }, {}],
         orderby: [
             [
@@ -166,18 +167,18 @@ date_default_timezone_set('Asia/Bangkok');
         setTimeout(() => {
 
             var periode = $periode;
-            var anggota = $anggota;
+            var no_bukti = $no_bukti;
             console.log(periode);
             $('#inputFilter').reportFilter({
-                kode: ['periode', 'anggota'],
-                nama: ['Periode', 'anggota'],
+                kode: ['periode', 'no_bukti'],
+                nama: ['Periode', 'no_bukti'],
                 header: [
                     ['Periode', 'Nama'],
-                    ['No Anggota', 'Nama']
+                    ['No no_bukti', 'Nama']
                 ],
                 headerpilih: [
                     ['Periode', 'Nama'],
-                    ['No Anggota', 'Nama']
+                    ['No no_bukti', 'Nama']
                 ],
                 columns: [
                     [{
@@ -189,7 +190,7 @@ date_default_timezone_set('Asia/Bangkok');
                     ],
 
                     [{
-                            data: 'no_anggota'
+                            data: 'no_no_bukti'
                         },
                         {
                             data: 'Nama'
@@ -198,15 +199,15 @@ date_default_timezone_set('Asia/Bangkok');
 
                 ],
                 url: ["{{ url('esaku-report/filter-periode-keu') }}",
-                    "{{ url('esaku-report/filter-anggota') }}",
+                    "{{ url('esaku-report/filter-no_bukti') }}",
                 ],
                 parameter: [{}, {}, {
                     'periode[0]': periode.type,
                     'periode[1]': periode.from,
                     'periode[2]': periode.to,
-                    'anggota[0]': anggota.type,
-                    'anggota[1]': anggota.from,
-                    'anggota[2]': anggota.to,
+                    'no_bukti[0]': no_bukti.type,
+                    'no_bukti[1]': no_bukti.from,
+                    'no_bukti[2]': no_bukti.to,
                 }, {}],
                 orderby: [
                     [
@@ -238,9 +239,9 @@ date_default_timezone_set('Asia/Bangkok');
         $formData.append("periode[]", $periode.type);
         $formData.append("periode[]", $periode.from);
         $formData.append("periode[]", $periode.to);
-        $formData.append("anggota[]", $anggota.type);
-        $formData.append("anggota[]", $anggota.from);
-        $formData.append("anggota[]", $anggota.to);
+        $formData.append("no_bukti[]", $no_bukti.type);
+        $formData.append("no_bukti[]", $no_bukti.from);
+        $formData.append("no_bukti[]", $no_bukti.to);
         for (var pair of $formData.entries()) {
             console.log(pair[0] + ', ' + pair[1]);
         }
@@ -254,15 +255,9 @@ date_default_timezone_set('Asia/Bangkok');
         $formData.append("periode[]", $periode.type);
         $formData.append("periode[]", $periode.from);
         $formData.append("periode[]", $periode.to);
-        $formData.append("anggota[]", $anggota.type);
-        $formData.append("anggota[]", $anggota.from);
-        $formData.append("anggota[]", $anggota.to);
         $formData.append("no_bukti[]", $no_bukti.type);
         $formData.append("no_bukti[]", $no_bukti.from);
         $formData.append("no_bukti[]", $no_bukti.to);
-        $formData.append("sum_ju[]", $sum_ju.type);
-        $formData.append("sum_ju[]", $sum_ju.from);
-        $formData.append("sum_ju[]", $sum_ju.to);
         for (var pair of $formData.entries()) {
             console.log(pair[0] + ', ' + pair[1]);
         }
@@ -304,9 +299,9 @@ date_default_timezone_set('Asia/Bangkok');
     $("#sai-rpt-pdf").click(function(e) {
         e.preventDefault();
         var link = "{{ url('esaku-report/lap-jurnal-pdf') }}?periode[]=" + $periode.type + "&periode[]=" +
-            $periode.from + "&periode[]=" + $periode.to + "&anggota[]=" + $anggota.type + "&anggota[]=" +
-            $anggota
-            .from + "&anggota[]=" + $anggota.to + "&no_bukti[]=" + $no_bukti.type + "&no_bukti[]=" + $no_bukti
+            $periode.from + "&periode[]=" + $periode.to + "&no_bukti[]=" + $no_bukti.type + "&no_bukti[]=" +
+            $no_bukti
+            .from + "&no_bukti[]=" + $no_bukti.to + "&no_bukti[]=" + $no_bukti.type + "&no_bukti[]=" + $no_bukti
             .from + "&no_bukti[]=" + $no_bukti.to + "&sum_ju[]=" + $sum_ju.type + "&sum_ju[]=" + $sum_ju.from +
             "&sum_ju[]=" + $sum_ju.to;
         window.open(link, '_blank');
@@ -318,9 +313,9 @@ date_default_timezone_set('Asia/Bangkok');
         $formData.append("periode[]", $periode.type);
         $formData.append("periode[]", $periode.from);
         $formData.append("periode[]", $periode.to);
-        $formData.append("anggota[]", $anggota.type);
-        $formData.append("anggota[]", $anggota.from);
-        $formData.append("anggota[]", $anggota.to);
+        $formData.append("no_bukti[]", $no_bukti.type);
+        $formData.append("no_bukti[]", $no_bukti.from);
+        $formData.append("no_bukti[]", $no_bukti.to);
         $formData.append("no_bukti[]", $no_bukti.type);
         $formData.append("no_bukti[]", $no_bukti.from);
         $formData.append("no_bukti[]", $no_bukti.to);

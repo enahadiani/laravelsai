@@ -116,4 +116,5 @@ Route::post('lap-simp-simpanan','Esaku\Simpanan\Laporan\ReportSimpananController
 Route::post('lap-simp-saldo','Esaku\Simpanan\Laporan\ReportSaldoSimpananController@index');
 
 // Laporan Akru Simpanan
+Route::get('filter-bukti','Esaku\Simpanan\Laporan\ReportAkruSimpananController@getBukti');
 Route::post('lap-simp-akru','Esaku\Simpanan\Laporan\ReportAkruSimpananController@index');
