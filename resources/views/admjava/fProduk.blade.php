@@ -28,6 +28,9 @@
                             <br />
                             <label for="keterangan">Keterangan</label>
                             <textarea class="form-control" name="keterangan" id="editor" rows="10" cols="80"></textarea>
+                            <br />
+                            <label for="kode_produk" class="id_produk">Kode Produk</label>
+                            <input class="form-control id_produk" type="text" placeholder="Kode Produk" id="kode_produk" name="kode_produk" readonly>
                         </div>
                         <div class="form-group col-md-6 col-sm-12">
                             <div class="select-from-library-container mb-1">
@@ -141,6 +144,7 @@
     $('#saku-datatable').on('click', '#btn-tambah', function(){
         editor.setData('');
         resetImage()
+        $('.id_produk').hide();
         $('#row-id').hide();
         $('#project-status').hide();
         $('#method').val('post');
@@ -219,29 +223,8 @@
         ignore: [],
         rules: 
         {
-            no_proyek:{
+            nama_produk:{
                 required: true   
-            },
-            no_kontrak:{
-                required: true   
-            },
-            keterangan:{
-                required: true  
-            },
-            nilai:{
-                required: true 
-            },
-            kode_cust:
-            {
-                required: true
-            },
-            tanggal_mulai:
-            {
-                required: true
-            },
-            tanggal_selesai:
-            {
-                required: true
             }
         },
         errorElement: "label",
@@ -318,6 +301,72 @@
             $("label[for="+id+"]").append("<br/>");
             $("label[for="+id+"]").append(error);
         }
+    });
+
+    $('.modal-header').on('click', '#btn-edit2', function(){
+        var id= $('#modal-preview-id').text();
+        // $iconLoad.show();
+        $('#form-tambah').validate().resetForm();
+        $('#judul-form').html('Edit Data Produk');
+        
+        $('#btn-save').attr('type','button');
+        $('#btn-save').attr('id','btn-update');
+        editData(id)
+    });
+
+    // BUTTON EDIT
+    function editData(id){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('admjava-content/produk-show') }}",
+            data: { kode: id },
+            dataType: 'json',
+            async:false,
+            success:function(response){
+                var result = response.data
+                if(result.status){
+                    $('.id_produk').show();
+                    $('#id_edit').val('edit');
+                    $('#method').val('post');
+                    $('#kode_produk').val(id);
+                    $('#id').val(id);
+                    $('#nama_produk').val(result.data[0].nama_produk);
+                    editor.setData(result.data[0].keterangan);
+
+                    for(var i=0;i<result.file.length;i++) {
+                        var file = result.file[i]
+                        if(file.path_foto != null || file.path_foto != undefined || file.path_foto != '') {
+                            $('.photo-text').eq(i).hide()
+                            $('.nama-gambar').eq(i).val(file.path_foto)
+                            $('.preview-photo').eq(i).show()
+                            $('.preview-photo').eq(i).attr('src', 'https://api.simkug.com/api/admjava-auth/storage/'+file.path_foto);
+                        } else {
+                            $('.photo-text').eq(i).show()
+                            $('.preview-photo').eq(i).hide()
+                        }
+                    }
+                    
+                    $('#saku-datatable').hide();
+                    $('#modal-preview').modal('hide');
+                    $('#saku-form').show();
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    window.location.href = "{{ url('admjava-auth/sesi-habis') }}";
+                }
+                // $iconLoad.hide();
+            }
+        });
+    }
+    $('#saku-datatable').on('click', '#btn-edit', function(){
+        var id= $(this).closest('tr').find('td').eq(0).html();
+        // $iconLoad.show();
+        $('#form-tambah').validate().resetForm();
+        
+        $('#btn-save').attr('type','button');
+        $('#btn-save').attr('id','btn-update');
+
+        $('#judul-form').html('Edit Data Produk');
+        editData(id);
     });
 
 </script>

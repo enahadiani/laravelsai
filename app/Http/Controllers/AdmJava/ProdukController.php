@@ -119,6 +119,32 @@ class ProdukController extends Controller {
             return response()->json(['data' => $data], 500);
         }
     }
+
+    public function getData(Request $request) {
+        try{
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'admjava-content/produk?kode_produk='.$request->query('kode'),
+            [
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+    
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+            }
+            return response()->json(['data' => $data], 200); 
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $data['message'] = $res;
+            $data['status'] = false;
+            return response()->json(['data' => $data], 200);
+        }
+    }
 }
 
 ?>
