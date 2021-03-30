@@ -1,0 +1,28 @@
+.upload-photo {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.border-image-upload {
+    position: relative;
+    height: 150px;
+    display: flex;
+    padding: 8px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    border-style: dashed;
+    border-width: 0.5px;
+    border-color: #000;
+}
+
+.form-body {
+    padding-bottom: 50px !important;
+}
