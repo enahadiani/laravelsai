@@ -35,7 +35,7 @@
                                 <div class="border-image-upload">
                                     <span class="photo-text">Click to upload</span>
                                     <img alt="photo" class="preview-photo" height="140" width="300">
-                                    <input type="hidden" class="nama-gambar" name="nama_gambar[]">
+                                    <input type="hidden" class="nama-gambar" name="nama_gambar[]" value="-">
                                     <input type="file" class="upload-photo" name="gambar[]">
                                 </div>
                             </div>
@@ -45,7 +45,7 @@
                                 <div class="border-image-upload">
                                     <span class="photo-text">Click to upload</span>
                                     <img alt="photo" class="preview-photo" height="140" width="300">
-                                    <input type="hidden" class="nama-gambar" name="nama_gambar[]">
+                                    <input type="hidden" class="nama-gambar" name="nama_gambar[]" value="-">
                                     <input type="file" class="upload-photo" name="gambar[]">
                                 </div>
                             </div>
@@ -55,7 +55,7 @@
                                 <div class="border-image-upload">
                                     <span class="photo-text">Click to upload</span>
                                     <img alt="photo" class="preview-photo" height="140" width="300">
-                                    <input type="hidden" class="nama-gambar" name="nama_gambar[]">
+                                    <input type="hidden" class="nama-gambar" name="nama_gambar[]" value="-">
                                     <input type="file" class="upload-photo" name="gambar[]">
                                 </div>
                             </div>
@@ -214,5 +214,110 @@
             $(this).hide()
         })
     }
+
+    $('#form-tambah').validate({
+        ignore: [],
+        rules: 
+        {
+            no_proyek:{
+                required: true   
+            },
+            no_kontrak:{
+                required: true   
+            },
+            keterangan:{
+                required: true  
+            },
+            nilai:{
+                required: true 
+            },
+            kode_cust:
+            {
+                required: true
+            },
+            tanggal_mulai:
+            {
+                required: true
+            },
+            tanggal_selesai:
+            {
+                required: true
+            }
+        },
+        errorElement: "label",
+        submitHandler: function (form, event) {
+            event.preventDefault();
+        
+            var parameter = $('#id_edit').val();
+            var id = $('#id_produk').val();
+            if(parameter == "edit"){
+                var url = "{{ url('admjava-content/produk-ubah') }}";
+                var pesan = "updated";
+                var text = "Perubahan data "+id+" telah tersimpan";
+            }else{
+                var url = "{{ url('admjava-content/produk') }}";
+                var pesan = "saved";
+                var text = "Data tersimpan dengan kode "+id;
+            }
+
+            CKEDITOR.instances['editor'].updateElement()
+            var formData = new FormData(form);
+            for(var pair of formData.entries()) {
+                console.log(pair[0]+ ', '+ pair[1]); 
+            }
+
+            if(valid) {
+                $.ajax({
+                    type: 'POST', 
+                    url: url,
+                    dataType: 'json',
+                    data: formData,
+                    async:false,
+                    contentType: false,
+                    cache: false,
+                    processData: false, 
+                    success:function(result){
+                        if(result.data.status){
+                            dataTable.ajax.reload();
+                            resetImage()
+                            $('#row-id').hide();
+                            $('#form-tambah')[0].reset();
+                            $('#form-tambah').validate().resetForm();
+                            $('[id^=label]').html('');
+                            $('#id_edit').val('');
+                            $('#judul-form').html('Tambah Data Proyek');
+                            $('#method').val('post');
+                            $('#kode_customer').attr('readonly', false);
+                            msgDialog({
+                                id:result.data.kode,
+                                type:'simpan'
+                            });
+                            last_add("id_produk",result.data.kode);
+                        }else if(!result.data.status && result.data.message === "Unauthorized"){
+                        
+                            window.location.href = "{{ url('/admjava-auth/sesi-habis') }}";
+                            
+                        }else{
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Something went wrong!',
+                                footer: '<a href>'+result.data.message+'</a>'
+                            })
+                        }
+                    },
+                    fail: function(xhr, textStatus, errorThrown){
+                        alert('request failed:'+textStatus);
+                    }
+                });
+                $('#btn-simpan').html("Simpan").removeAttr('disabled');
+            }
+        },
+        errorPlacement: function (error, element) {
+            var id = element.attr("id");
+            $("label[for="+id+"]").append("<br/>");
+            $("label[for="+id+"]").append(error);
+        }
+    });
 
 </script>
