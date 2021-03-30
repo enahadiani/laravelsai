@@ -95,6 +95,8 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapMobileTSRoutes();
 
         $this->mapMobileTarbakRoutes();
+
+        $this->mapAdmJavaRoutes();
     }
 
     /**
@@ -123,6 +125,19 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('api')
             ->namespace($this->namespace)
             ->group(base_path('routes/api.php'));
+    }
+
+    protected function mapAdmJavaRoutes()
+    {
+        Route::prefix('admjava-auth')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/admjava/auth.php'));
+
+        Route::prefix('admjava-content')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/admjava/content.php'));
     }
 
     protected function mapJavaRoutes()

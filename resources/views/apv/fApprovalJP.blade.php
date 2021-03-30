@@ -159,6 +159,7 @@
                                 <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#det" role="tab" aria-selected="true"><span class="hidden-xs-down">Barang</span></a> </li>
                                 <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#dok" role="tab" aria-selected="false"><span class="hidden-xs-down">Dokumen PO</span></a> </li>
                                 <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#dok2" role="tab" aria-selected="false"><span class="hidden-xs-down">Dokumen Pembanding</span></a> </li>
+                                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#dok3" role="tab" aria-selected="false"><span class="hidden-xs-down">Upload Dokumen</span></a> </li>
                                 <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#catt" role="tab" aria-selected="false"><span class="hidden-xs-down">Catatan Approve</span></a> </li>
                             </ul>
                             <div class="tab-content tabcontent-border">
@@ -232,6 +233,29 @@
                                         </table>
                                     </div>
                                 </div>
+                                <div class="tab-pane" id="dok3" role="tabpanel">
+                                <div class='col-xs-12 mt-2' style='overflow-y: scroll; height:300px; margin:0px; padding:0px;'>
+                                        <style>
+                                            th,td{
+                                                padding:8px !important;
+                                                vertical-align:middle !important;
+                                            }
+                                        </style>
+                                        <table class="table table-striped table-bordered table-condensed" id="input-dok3" style='width:100%'>
+                                        <thead>
+                                            <tr>
+                                                <th width="5%">No</th>
+                                                <th width="30%">Nama Dokumen</th>
+                                                <th width="30%">Nama File Upload</th>
+                                                <th width="30%">Upload File</th>
+                                                <th width="5%"><button type="button" href="#" id="add-row-dok" class="btn btn-default"><i class="fa fa-plus-circle"></i></button></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                                 <div class="tab-pane" id="catt" role="tabpanel">
                                     <div class='col-xs-12 mt-2' style='overflow-y: scroll; height:300px; margin:0px; padding:0px;'>
                                         <style>
@@ -278,6 +302,7 @@
     <script>
     
     setHeightForm();
+    var $nik_user = "{{ Session::get('userLog') }}";
     function sepNum(x){
         var num = parseFloat(x).toFixed(0);
         var parts = num.toString().split(".");
@@ -285,6 +310,20 @@
         // parts[1] = parts[1]/(Math.pow(10, len));
         parts[0] = parts[0].replace(/(.)(?=(.{3})+$)/g,"$1.");
         return parts.join(",");
+    }
+
+    function sepNumX(x){
+        if (typeof x === 'undefined' || !x) { 
+            return 0;
+        }else{
+            if(x < 0){
+                var x = parseFloat(x).toFixed(0);
+            }
+            
+            var parts = x.toString().split(",");
+            parts[0] = parts[0].replace(/([0-9])(?=([0-9]{3})+$)/g,"$1.");
+            return parts.join(".");
+        }
     }
 
     function toRp(num){
@@ -604,9 +643,34 @@
                         }
                     }
 
+                    var inputdok = "";
+                    var no=1;
+                    if(result.data_dokumen3.length > 0){
+
+                        for(var i=0;i< result.data_dokumen3.length;i++){
+                            var line3 = result.data_dokumen3[i];
+                            inputdok += "<tr class='row-dok2'>";
+                            inputdok += "<td width='5%'  class='no-dok2'>"+no+"</td>";
+                            inputdok += "<td width='30%'><input type='text' name='nama_dok[]' class='form-control inp-dok' value='"+line3.nama+"' required><input type='hidden' name='jenis_dok[]' class='form-control inp-jenis_dok' value='"+line3.jenis+"' required><input type='hidden' name='nik_input[]' class='form-control inp-nik_input' value='"+line3.nik_input+"' required></td>";
+                            inputdok += "<td width='20%' class='path_dok'><input type='text' name='nama_file[]' class='form-control inp-nama' value='"+line3.file_dok+"' required readonly></td>";
+                            inputdok += "<td width='30%'>"+
+                            "<input type='file' name='file_dok[]' class='inp-file_dok'>"+
+                            "</td>";
+                            if(line3.nik_input == "{{ Session::get('userLog') }}"){
+                                inputdok += "<td width='5%' class='action_dok'><a class='btn btn-danger btn-sm hapus-dok2' style='font-size:8px' data-no_bukti='"+line3.no_bukti+"' data-nama_file='"+line3.file_dok+"'><i class='fa fa-times fa-1'></i></a><a class='btn btn-success btn-sm down-dok' style='font-size:8px' href='http://api.simkug.com/api/apv/storage/"+line3.file_dok+"' target='_blank'><i class='fa fa-download fa-1'></i></a></td>";
+                            }else{
+
+                                inputdok += "<td width='5%' class='action_dok'><a class='btn btn-success btn-sm down-dok' style='font-size:8px' href='http://api.simkug.com/api/apv/storage/"+line3.file_dok+"' target='_blank'><i class='fa fa-download fa-1'></i></a></td>";
+                            }
+                            inputdok += "</tr>";
+                            no++;
+                        }
+                    }
+
                     $('#input-grid2 tbody').html(input);
                     $('#input-dok tbody').html(input2);
                     $('#input-dok2 tbody').html(input3);
+                    $('#input-dok3 tbody').html(inputdok);
                     $('.currency').inputmask("numeric", {
                         radixPoint: ",",
                         groupSeparator: ".",
@@ -719,6 +783,30 @@
         oncleared: function () { self.Value(''); }
     });
 
+    function deleteDok(no_bukti,nama_file,self){
+        $.ajax({
+            type: 'DELETE',
+            url: "{{ url('apv/juspo_app_dok') }}",
+            dataType: 'json',
+            data: {'no_bukti':no_bukti,'nama_file':nama_file},
+            success:function(result){
+                alert(result.data.message);
+                if(result.data.status){
+                    self.closest('tr').remove();
+                    no=1;
+                    $('.row-dok').each(function(){
+                        var nom = self.closest('tr').find('.no-dok');
+                        nom.html(no);
+                        no++;
+                    });
+                    $("html, body").animate({ scrollTop: $(document).height() }, 1000);
+                }else{
+                    return false;
+                }
+            }
+        });
+    }
+
     $('#slide-print').on('click','#btn-aju-print',function(e){
         e.preventDefault();
         var w=window.open();
@@ -763,5 +851,46 @@
                 w.close();
             }, 1500);
     });
+
+    $('#saku-form').on('click', '#add-row-dok', function(){
+        var no=$('#input-dok3 .row-dok:last').index();
+        no=no+2;
+        var input="";
+        input = "<tr class='row-dok'>";
+        input += "<td width='5%'  class='no-dok'>"+no+"</td>";
+        input += "<td width='30%'><input type='text' name='nama_dok[]' class='form-control inp-dok' value='' required><input type='hidden' name='jenis_dok[]' class='form-control inp-jenis_dok' value='APP' required><input type='hidden' name='nik_input[]' class='form-control inp-nik_input' value='"+$nik_user+"' required></td>";
+        input += "<td width='30%'><input type='text' name='nama_file[]' class='form-control inp-nama' value='-' required readonly></td>";
+        input += "<td width='30%'>"+
+        "<input type='file' name='file_dok[]' required  class='inp-file_dok'>"+
+        "</td>";
+        input += "<td width='5%'><a class='btn btn-danger btn-sm hapus-dok' style='font-size:8px'><i class='fa fa-times fa-1'></i></td>";
+        input += "</tr>";
+        $('#input-dok3 tbody').append(input);
+    });
+
+    $('#input-dok3').on('click', '.hapus-dok', function(){
+        $(this).closest('tr').remove();
+        no=1;
+        $('.row-dok').each(function(){
+            var nom = $(this).closest('tr').find('.no-dok');
+            nom.html(no);
+            no++;
+        });
+        $("html, body").animate({ scrollTop: $(document).height() }, 1000);
+    });
+
+    $('#input-dok3').on('click', '.hapus-dok2', function(){
+        if(confirm('Sistem akan menghapus dokumen dari server. Apakah anda ingin menghapus dokumen ini? ')){
+            var no_bukti = $(this).data('no_bukti');
+            var nama_file = $(this).data('nama_file');
+            var self = $(this);
+            deleteDok(no_bukti,nama_file,self);
+
+        }else{
+            return false;
+        }
+    });
+
+    
 
     </script>

@@ -128,6 +128,7 @@ Route::get('juspo_app/{no_bukti}','Apv\JuspoApprovalController@show');
 Route::post('juspo_app','Apv\JuspoApprovalController@store');
 Route::get('juspo_app_status','Apv\JuspoApprovalController@getStatus');
 Route::get('juspo_app_preview/{no_bukti}/{id}','Apv\JuspoApprovalController@getPreview');
+Route::delete('juspo_app_dok','Apv\JuspoApprovalController@deleteDok');
 
 Route::get('dash_databox','Apv\DashboardController@getDataBox');
 Route::get('dash_posisi','Apv\DashboardController@getPosisi');
