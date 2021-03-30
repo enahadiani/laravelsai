@@ -140,6 +140,7 @@
 
     $('#saku-datatable').on('click', '#btn-tambah', function(){
         editor.setData('');
+        resetImage()
         $('#row-id').hide();
         $('#project-status').hide();
         $('#method').val('post');
@@ -195,5 +196,23 @@
         
         fileReader(index, span, photo, nama, input)
     })
+
+    function resetImage() {
+        $('.preview-photo').each(function(){
+            $(this).attr('src', '');
+        })
+
+        $('.upload-photo').each(function(){
+            $(this).val(null)
+        })
+
+        $('.photo-text').each(function(){
+            $(this).show()
+        })
+
+        $('.preview-photo').each(function(){
+            $(this).hide()
+        })
+    }
 
 </script>
