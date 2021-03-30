@@ -349,7 +349,7 @@
                     'expiry' => [
                         'start_time' => $start_time,
                         'unit' => 'minutes',
-                        'duration' => 180
+                        'duration' => 1440
                     ],
                     'callbacks'=> [
                         'finish'=> 'https://app.simkug.com/ts-auth/finish'
