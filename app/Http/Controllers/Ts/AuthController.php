@@ -69,6 +69,8 @@
                                 Session::put('isLoggedIn',TRUE);
                                 if($res[0]['kode_klp_menu'] == "SISWA"){
                                     Session::put('menu','menu-hidden');
+                                }else{
+                                    Session::put('menu','menu-default');
                                 }
                                 Session::put('kodeMenu',$res[0]["kode_klp_menu"]);
                                 Session::put('userLog',$res[0]["nik"]);
@@ -96,7 +98,7 @@
                                 Session::put('dash',$dash);
                                 Session::put('kode_fs',(isset($data2["kode_fs"][0]["kode_fs"]) ? $data2["kode_fs"][0]["kode_fs"] : ""));
                                 Session::put('kode_ta',(isset($data2["kode_ta"][0]["kode_ta"]) ? $data2["kode_ta"][0]["kode_ta"] : ""));
-                                Session::put('menu','menu-hidden');
+                                // Session::put('menu','menu-hidden');
                             }
                         }
                         
