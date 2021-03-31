@@ -19,7 +19,7 @@ class ProdukController extends Controller {
 
     public function __contruct(){
         if(!Session::get('login')){
-            return redirect('java-auth/login');
+            return redirect('admjava-auth/login');
         }
     }
 
