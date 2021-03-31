@@ -102,6 +102,24 @@ class ProfileController extends Controller {
                     "contents" => $request->email
                 ),
             );
+
+            if($request->hasfile('gambar')) {
+                $image_path = $request->file('gambar')->getPathname();
+                $image_mime = $request->file('gambar')->getmimeType();
+                $image_org  = $request->file('gambar')->getClientOriginalName();
+                $fields[] = array(
+                    'name'=>'file',
+                    'file_name' => $image_org,
+                    'Mime-Type' => $image_mime,
+                    'contents' => fopen($image_path, 'r')
+                    );
+            } else {
+                $fields[] = array(
+                'name' => 'file',
+                'contents' => null
+                );    
+            }
+
         } catch(BadResponseException $ex) {
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(),true);

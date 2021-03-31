@@ -20,7 +20,6 @@
                                 <div class="border-image-upload logo-perusahaan">
                                     <span class="photo-text">Click to upload</span>
                                     <img alt="photo" class="preview-photo" height="240" width="300">
-                                    <input type="hidden" class="nama-gambar" name="nama_gambar" value="-">
                                     <input type="file" class="upload-photo" name="gambar">
                                 </div>
                             </div>
