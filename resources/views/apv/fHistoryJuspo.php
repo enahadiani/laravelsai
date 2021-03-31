@@ -1081,12 +1081,11 @@
             dataType: 'json',
             data: {no_bukti : id},
             async:false,
-            success:function(res){
-                var result= res.data;   
-                dataDok.clear().draw();
+            success:function(result){   
+                dokTable.clear().draw();
                 if(result.status){
-                    if(typeof result.data !== 'undefined' && result.data.length>0){
-                        dataDok.rows.add(result.data).draw(false);
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                        dokTable.rows.add(result.daftar).draw(false);
                     }
                     $('#saku-datatable').hide();
                     $('#slide-dok').show();
