@@ -414,4 +414,35 @@
         });
     });
 
+    $('.modal-header').on('click','#btn-delete2',function(e){
+        var id = $('#modal-preview-id').text();
+        $('#modal-preview').modal('hide');
+        msgDialog({
+            id:id,
+            type:'hapus'
+        });
+    });
+
+    $('#table-data tbody').on('click','td',function(e){
+        if($(this).index() != 2){
+
+            var id = $(this).closest('tr').find('td').eq(0).html();
+            var data = dataTable.row(this).data();
+            var html = `<tr>
+                        <td style='border:none'>Kode Produk</td>
+                        <td style='border:none'>`+id+`</td>
+                    </tr>
+                    <tr>
+                        <td>Nama Produk</td>
+                        <td>`+data.nama_produk+`</td>
+                    </tr>
+                    `;
+            $('#table-preview tbody').html(html);    
+            $('#modal-preview-judul').css({'margin-top':'10px','padding':'0px !important'}).html('Preview Data Produk').removeClass('py-2');
+            $('#modal-preview-id').text(id);
+            // $('#modal-preview #content-preview').css({'overflow-y': 'scroll'});      
+            $('#modal-preview').modal('show');  
+        }
+    });
+
 </script>
