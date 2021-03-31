@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="{{ asset('trans-java/trans.css') }}" />
 <link rel="stylesheet" href="{{ asset('asset_adm/java/styles.css') }}" />
 
-<x-list-data judul="Data Produk" tambah="true" :thead="array('Kode Produk', 'Nama Produk', 'Aksi')" :thwidth="array(10,15,10)" :thclass="array('','','text-center')" />
+<x-list-data judul="Data Produk" tambah="true" :thead="array('Kode Project', 'Nama Project', 'Aksi')" :thwidth="array(10,15,10)" :thclass="array('','','text-center')" />
 
 <!-- FORM INPUT -->
 <form id="form-tambah" class="tooltip-label-right" novalidate>
@@ -23,14 +23,14 @@
                 <div class="card-body pt-3 form-body">
                     <div class="form-row">
                         <div class="form-group col-md-6 col-sm-12">
-                            <label for="nama_produk">Nama Produk</label>
-                            <input class="form-control" type="text" placeholder="Nama Produk" id="nama_produk" name="nama_produk">
+                            <label for="nama_produk">Nama Project</label>
+                            <input class="form-control" type="text" placeholder="Nama Project" id="nama_project" name="nama_project">
                             <br />
                             <label for="keterangan">Keterangan</label>
                             <textarea class="form-control" name="keterangan" id="editor" rows="10" cols="80"></textarea>
                             <br />
-                            <label for="kode_produk" class="id_produk">Kode Produk</label>
-                            <input class="form-control id_produk" type="text" placeholder="Kode Produk" id="kode_produk" name="kode_produk" readonly>
+                            <label for="kode_produk" class="id_project">Kode Project</label>
+                            <input class="form-control id_project" type="text" placeholder="Kode Project" id="kode_project" name="kode_project" readonly>
                         </div>
                         <div class="form-group col-md-6 col-sm-12">
                             <div class="select-from-library-container mb-1">
@@ -125,7 +125,7 @@
 
     var dataTable = generateTable(
         "table-data",
-        "{{ url('admjava-content/produk') }}", 
+        "{{ url('admjava-content/project') }}", 
         [
             {
                 "targets": 0,
@@ -139,8 +139,8 @@
             {'targets': 2, data: null, 'defaultContent': action_html,'className': 'text-center' }
         ],
         [
-            { data: 'id_produk' },
-            { data: 'nama_produk' }
+            { data: 'id_project' },
+            { data: 'nama_project' }
         ],
         "{{ url('admjava-auth/sesi-habis') }}",
         [[2 ,"desc"]]
@@ -162,10 +162,10 @@
     $('#saku-datatable').on('click', '#btn-tambah', function(){
         editor.setData('');
         resetImage()
-        $('.id_produk').hide();
+        $('.id_project').hide();
         $('#row-id').hide();
         $('#method').val('post');
-        $('#judul-form').html('Tambah Data Produk');
+        $('#judul-form').html('Tambah Data Project');
         $('#btn-update').attr('id','btn-save');
         $('#btn-save').attr('type','submit');
         $('#form-tambah')[0].reset();
@@ -248,7 +248,7 @@
         ignore: [],
         rules: 
         {
-            nama_produk:{
+            nama_project:{
                 required: true   
             }
         },
@@ -257,13 +257,13 @@
             event.preventDefault();
         
             var parameter = $('#id_edit').val();
-            var id = $('#kode_produk').val();
+            var id = $('#kode_project').val();
             if(parameter == "edit"){
-                var url = "{{ url('admjava-content/produk-ubah') }}";
+                var url = "{{ url('admjava-content/project-ubah') }}";
                 var pesan = "updated";
                 var text = "Perubahan data "+id+" telah tersimpan";
             }else{
-                var url = "{{ url('admjava-content/produk') }}";
+                var url = "{{ url('admjava-content/project') }}";
                 var pesan = "saved";
                 var text = "Data tersimpan dengan kode "+id;
             }
@@ -299,7 +299,7 @@
                                 id:result.data.kode,
                                 type:'simpan'
                             });
-                            last_add("id_produk",result.data.kode);
+                            last_add("id_project",result.data.kode);
                         }else if(!result.data.status && result.data.message === "Unauthorized"){
                         
                             window.location.href = "{{ url('/admjava-auth/sesi-habis') }}";
@@ -342,19 +342,19 @@
     function editData(id){
         $.ajax({
             type: 'GET',
-            url: "{{ url('admjava-content/produk-show') }}",
+            url: "{{ url('admjava-content/project-show') }}",
             data: { kode: id },
             dataType: 'json',
             async:false,
             success:function(response){
                 var result = response.data
                 if(result.status){
-                    $('.id_produk').show();
+                    $('.id_project').show();
                     $('#id_edit').val('edit');
                     $('#method').val('post');
-                    $('#kode_produk').val(id);
+                    $('#kode_project').val(id);
                     $('#id').val(id);
-                    $('#nama_produk').val(result.data[0].nama_produk);
+                    $('#nama_project').val(result.data[0].nama_project);
                     editor.setData(result.data[0].keterangan);
 
                     for(var i=0;i<result.file.length;i++) {
@@ -389,7 +389,7 @@
         $('#btn-save').attr('type','button');
         $('#btn-save').attr('id','btn-update');
 
-        $('#judul-form').html('Edit Data Produk');
+        $('#judul-form').html('Edit Data Project');
         editData(id);
     });
 
@@ -397,7 +397,7 @@
         console.log(id)
         $.ajax({
             type: 'DELETE',
-            url: "{{ url('admjava-content/produk') }}",
+            url: "{{ url('admjava-content/project') }}",
             data: { kode: id },
             dataType: 'json',
             async:false,
@@ -445,12 +445,12 @@
             var id = $(this).closest('tr').find('td').eq(0).html();
             var data = dataTable.row(this).data();
             var html = `<tr>
-                        <td style='border:none'>Kode Produk</td>
+                        <td style='border:none'>Kode Project</td>
                         <td style='border:none'>`+id+`</td>
                     </tr>
                     <tr>
-                        <td>Nama Produk</td>
-                        <td>`+data.nama_produk+`</td>
+                        <td>Nama Project</td>
+                        <td>`+data.nama_project+`</td>
                     </tr>
                     `;
             $('#table-preview tbody').html(html);    
