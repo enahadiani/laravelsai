@@ -120,7 +120,6 @@
                                 <table id="table-jurnal" width="100%">
                                     <thead>
                                         <tr>
-                                            <th width="5%">No</th>
                                             <th width="5%">Bayar</th>
                                             <th width="10%">No Bill</th>
                                             <th width="10%">Jenis</th>
@@ -326,7 +325,7 @@
         sDom: 't<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
         data: [],
         columnDefs: [{
-            "targets": 1,
+            "targets": 0,
             "searchable": false,
             "orderable": false,
             "className": 'selectall-checkbox',
@@ -339,9 +338,6 @@
             selector: 'td:first-child'
         },
         columns: [{
-                data: 'checkbox'
-            },
-            {
                 data: 'checkbox'
             },
             // { data: 'status' },
@@ -401,15 +397,12 @@
             url: "{{ url('esaku-trans/terima-simp-tagihan') }}/" + kode,
             dataType: 'json',
             success: function(result) {
-                console.log(result.daftar)
+                // console.log(result.daftar)
                 tablejur.clear().draw();
                 var res = result.daftar
-                console.log(res.length)
-                if (result.status) {
-                    if (typeof res !== 'undefined' && res.length > 0) {
-                        tablejur.rows.add(res).draw(false);
-                        activaTab("trans");
-                    }
+                if (typeof res !== 'undefined' && res.length > 0) {
+                    tablejur.rows.add(res).draw(false);
+                    activaTab("trans");
                 }
             },
             fail: function(xhr, textStatus, errorThrown) {
