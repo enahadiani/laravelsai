@@ -261,25 +261,8 @@
     var $per1 = [];
     var $per2 = [];
 
-    function custTarget(target, tr) {
-        var kode = tr.find('td:nth-child(1)').text();
-        console.log(kode)
-        $.ajax({
-            type: 'GET',
-            url: "{{ url('esaku-trans/terima-simp-tagihan') }}/" + kode,
-            dataType: 'json',
-            success: function(result) {
-                // if (result.status) {
-                //     var data = result.daftar[0];
-                //     $('#deskripsi_akun').val(data.nama);
-                //     $('#umur').val(parseFloat(data.umur));
-                //     $('#persen').val(parseFloat(data.persen));
-                // } else if (!result.status && result.message == 'Unauthorized') {
-                //     window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
-                // }
-            }
-        });
-    }
+
+
     $('#form-tambah').on('click', '.search-item2', function() {
         var id = $(this).closest('div').find('input').attr('name');
         switch (id) {
@@ -363,25 +346,26 @@
             },
             // { data: 'status' },
             {
-                data: 'no_bukti'
+                data: 'no_bill'
             },
             {
-                data: 'no_dokumen'
+                data: 'jenis'
             },
             {
-                data: 'tanggal'
+                data: 'no_simp'
             },
             {
-                data: 'keterangan'
+                data: 'nama'
             },
             {
-                data: 'form'
+                data: 'periode'
             },
             {
-                data: 'form'
+                data: 'akun_piutang'
             },
+
             {
-                data: 'form'
+                data: 'saldo'
             }
         ],
         order: [],
@@ -408,6 +392,31 @@
             infoFiltered: "(terfilter dari _MAX_ total entri)"
         }
     });
+
+    function custTarget(target, tr) {
+        var kode = tr.find('td:nth-child(1)').text();
+        console.log(kode)
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('esaku-trans/terima-simp-tagihan') }}/" + kode,
+            dataType: 'json',
+            success: function(result) {
+                console.log(result.daftar)
+                tablejur.clear().draw();
+                var res = result.daftar
+                console.log(res.length)
+                if (result.status) {
+                    if (typeof res !== 'undefined' && res.length > 0) {
+                        tablejur.rows.add(res).draw(false);
+                        activaTab("trans");
+                    }
+                }
+            },
+            fail: function(xhr, textStatus, errorThrown) {
+                alert('request failed:' + textStatus);
+            }
+        });
+    }
 
     tablejur.on('select.dt deselect.dt', function(e, dt, type, indexes) {
 
