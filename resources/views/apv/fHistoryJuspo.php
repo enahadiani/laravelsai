@@ -234,14 +234,14 @@
                     <div class="card-body">
                         <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
                         <div class="dokumen-area mt-5">
-                            <table class='table table-bordered table-striped' id="table-dok">
+                            <table class='table table-bordered table-striped' style='width:100%' id="table-dok">
                                 <thead>
                                     <tr>
-                                        <td>No</td>
-                                        <td>No Bukti</td>
-                                        <td>Nama</td>
-                                        <td>Jenis</td>
-                                        <td>Action</td>
+                                        <td style='width:10%'>No</td>
+                                        <td style='width:20%'>No Bukti</td>
+                                        <td style='width:50%'>Nama</td>
+                                        <td style='width:10%'>Jenis</td>
+                                        <td style='width:10%'>Action</td>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -746,6 +746,12 @@
         $('#slide-history').hide();
     });
 
+    $('#slide-dokumen').on('click', '#btn-kembali', function(){
+        $('#saku-datatable').show();
+        $('#saku-form').hide();
+        $('#slide-dokumen').hide();
+    });
+
     $('#slide-print').on('click', '#btn-kembali', function(){
         $('#saku-datatable').show();
         $('#saku-form').hide();
@@ -1088,7 +1094,7 @@
                         dokTable.rows.add(result.daftar).draw(false);
                     }
                     $('#saku-datatable').hide();
-                    $('#slide-dok').show();
+                    $('#slide-dokumen').show();
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
                     Swal.fire({
