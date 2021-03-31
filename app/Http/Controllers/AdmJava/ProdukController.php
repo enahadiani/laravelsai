@@ -155,7 +155,7 @@ class ProdukController extends Controller {
         try {
             $fields = array(
                 array(
-                    "name" => "kode_produk",
+                    "name" => "id_produk",
                     "contents" => $request->kode_produk
                 ),
                 array(
@@ -187,23 +187,34 @@ class ProdukController extends Controller {
                                 'contents' => fopen( $image_path, 'r' ),
                             );
                             
-                        } else {
+                            $fields_nama_foto[$i] = array(
+                                'name'     => 'nama_foto[]',
+                                'contents' => $request->nama_gambar[$i],
+                            );
+
+                            $fields_nama_foto_seb[$i] = array(
+                                'name'     => 'nama_file_seb[]',
+                                'contents' => $request->nama_gambar[$i],
+                            );
+                            
+                        } elseif($request->nama_gambar[$i] != '-') {
                             $fields_foto[$i] = array(
                                 'name'     => 'file[]',
                                 'filename' => 'empty.jpg',
                                 'Mime-Type'=> 'image/jpeg',
                                 'contents' => null
                             );
-                        }
-                        $fields_nama_foto[$i] = array(
-                            'name'     => 'nama_foto[]',
-                            'contents' => $request->nama_gambar[$i],
-                        );
 
-                        $fields_nama_foto_seb[$i] = array(
-                            'name'     => 'nama_file_seb[]',
-                            'contents' => $request->nama_gambar[$i],
-                        );
+                            $fields_nama_foto[$i] = array(
+                                'name'     => 'nama_foto[]',
+                                'contents' => $request->nama_gambar[$i],
+                            );
+
+                            $fields_nama_foto_seb[$i] = array(
+                                'name'     => 'nama_file_seb[]',
+                                'contents' => $request->nama_gambar[$i],
+                            );
+                        }
                     }
                     $fields = array_merge($fields, $fields_foto);
                     $fields = array_merge($fields, $fields_nama_foto);
@@ -211,8 +222,12 @@ class ProdukController extends Controller {
                 }
             }
 
+            // echo "<pre>";
+            // var_dump($fields);
+            // echo "</pre>";
+
             $client = new Client();
-            $response = $client->request('POST',  config('api.url').'admjava-content/produk',[
+            $response = $client->request('POST',  config('api.url').'admjava-content/produk-ubah',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -233,6 +248,33 @@ class ProdukController extends Controller {
             $data['status'] = false;
             return response()->json(['data' => $data], 500);
         }
+    }
+
+    public function delete(Request $request) {
+        try{
+            $client = new Client();
+            $response = $client->request('DELETE',  config('api.url').'admjava-content/produk?id_produk='.$request->input('kode'),
+            [
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+    
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+            }
+            return response()->json(['data' => $data], 200); 
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $data['message'] = $res;
+            $data['status'] = false;
+            return response()->json(['data' => $data], 200);
+        }
+
     }
 }
 
