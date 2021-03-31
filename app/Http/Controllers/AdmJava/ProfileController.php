@@ -59,6 +59,56 @@ class ProfileController extends Controller {
             'visi' => 'required'
         ]);
 
+        try { 
+            $fields = array(
+                array(
+                    "name" => "id_perusahaan",
+                    "contents" => "JAVA"
+                ),
+                array(
+                    "name" => "nama_perusahaan",
+                    "contents" => $request->nama_perusahaan
+                ),
+                array(
+                    "name" => "wa",
+                    "contents" => $request->wa
+                ),
+                array(
+                    "name" => "no_fax",
+                    "contents" => $request->no_fax
+                ),
+                array(
+                    "name" => "koordinat",
+                    "contents" => $request->koordinat
+                ),
+                array(
+                    "name" => "deskripsi",
+                    "contents" => $request->deskripsi
+                ),
+                array(
+                    "name" => "visi",
+                    "contents" => $request->visi
+                ),
+                array(
+                    "name" => "alamat",
+                    "contents" => $request->alamat
+                ),
+                array(
+                    "name" => "no_telp",
+                    "contents" => $request->no_telp
+                ),
+                array(
+                    "name" => "email",
+                    "contents" => $request->email
+                ),
+            );
+        } catch(BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $data['message'] = $res;
+            $data['status'] = false;
+            return response()->json(['data' => $data], 500);
+        }
     }
 }
 ?>

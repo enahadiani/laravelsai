@@ -56,7 +56,7 @@
                             <textarea class="form-control" rows="4" id="alamat" name="alamat"></textarea>
                             <br/>
                             <label for="deskripsi">Deskripsi Perusahaan</label>
-                            <textarea class="form-control" rows="4" id="deskripsi" name="deskripsi"></textarea>
+                            <textarea class="form-control" rows="4" id="editor" name="deskripsi"></textarea>
                             <br />
                             <label for="visi">Visi Perusahaan</label>
                             <textarea class="form-control" rows="4" id="visi" name="visi"></textarea>
@@ -102,6 +102,7 @@
     </div>
 </form>
 
+<script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
 <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
 <script src="{{ asset('helper.js') }}"></script>
 <script type="text/javascript">
@@ -114,6 +115,10 @@
         headers: {
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         }
+    });
+
+    var editor = CKEDITOR.replace('editor', {
+        removeButtons: 'Save,Source,NewPage,ExportPdf,Preview,Print,Templates,Find,Replace,SelectAll,Scayt,Cut,Copy,Paste,PasteText,PasteFromWord,Undo,Redo,Form,Checkbox,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,Bold,Italic,Underline,Strike,Subscript,Superscript,Image,Unlink,Link,Flash,Table,Anchor,HorizontalRule,Smiley,SpecialChar,PageBreak,Iframe,Language,JustifyBlock,JustifyRight,JustifyCenter,BidiRtl,BidiLtr,JustifyLeft,Blockquote,CreateDiv,Indent,Outdent,BulletedList,RemoveFormat,CopyFormatting,NumberedList,Styles,Format,Font,FontSize,TextColor,BGColor,ShowBlocks,Maximize,About'
     });
 
     // Misi grid
@@ -307,6 +312,7 @@
             var pesan = "updated";
             var text = "Perubahan data perusahaan telah tersimpan";
 
+            CKEDITOR.instances['editor'].updateElement()
             var formData = new FormData(form);
             $('#misi tbody tr').each(function(index) {
                 formData.append('no[]', $(this).find('.no-grid').text())
