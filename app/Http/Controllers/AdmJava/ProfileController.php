@@ -100,7 +100,7 @@ class ProfileController extends Controller {
                 array(
                     "name" => "email",
                     "contents" => $request->email
-                ),
+                )
             );
 
             if($request->hasfile('gambar')) {
@@ -118,6 +118,41 @@ class ProfileController extends Controller {
                 'name' => 'file',
                 'contents' => null
                 );    
+            }
+
+            $no_urut = array();
+            $misi = array();
+
+            if($request->no !== null) {
+                if(count($request->no) > 0) {
+                    for($i=0;$i<count($request->no);$i++) {
+                        $no_urut[$i] = array(
+                            'name'     => 'no_urut[]',
+                            'contents' => $request->no[$i],
+                        );
+                        $misi[$i] = array(
+                            'name'     => 'misi[]',
+                            'contents' => $request->misi[$i],
+                        );
+                    }
+                    $fields = array_merge($fields,$no_urut);
+                    $fields = array_merge($fields,$misi);
+                }
+            }
+
+            $client = new Client();
+            $response = $client->request('POST',  config('api.url').'admjava-content/profile',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'multipart' => $fields
+            ]);
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                    
+                $data = json_decode($response_data,true);
+                return response()->json(['data' => $data], 200);  
             }
 
         } catch(BadResponseException $ex) {
