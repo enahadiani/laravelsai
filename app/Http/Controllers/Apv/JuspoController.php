@@ -190,7 +190,7 @@ class JuspoController extends Controller
                             $data[$i]["action"] = "<a href='#' title='Hapus' class='badge badge-danger' id='btn-delete'><i class='fa fa-trash'></i></a>&nbsp; <a href='#' title='History' class='badge badge-success' id='btn-history'><i class='fas fa-history'></i></a>&nbsp; <a href='#' title='Preview' class='badge badge-info' id='btn-print'><i class='fas fa-print'></i></a>&nbsp;<a href='#' title='Edit' class='badge badge-info' id='btn-edit2'><i class='fas fa-pencil-alt'></i></a>";
                         }
                         else{
-                            $data[$i]["action"] = "<a href='#' title='History' class='badge badge-success' id='btn-history'><i class='fas fa-history'></i></a>&nbsp; <a href='#' title='Preview' class='badge badge-info' id='btn-print'><i class='fas fa-print'></i></a>";
+                            $data[$i]["action"] = "<a href='#' title='Download Dokumen' class='badge badge-success' id='btn-download'><i class='ti-download'></i></a>&nbsp;<a href='#' title='History' class='badge badge-success' id='btn-history'><i class='fas fa-history'></i></a>&nbsp; <a href='#' title='Preview' class='badge badge-info' id='btn-print'><i class='fas fa-print'></i></a>";
                         }
                     }
                 }

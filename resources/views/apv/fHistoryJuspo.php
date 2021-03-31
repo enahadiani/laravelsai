@@ -228,6 +228,31 @@
                 </div>
             </div>
         </div>
+        <div class="row" id="slide-dokumen" style="display:none;">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
+                        <div class="dokumen-area mt-5">
+                            <table class='table table-bordered table-striped' id="table-dok">
+                                <thead>
+                                    <tr>
+                                        <td>No</td>
+                                        <td>No Bukti</td>
+                                        <td>Nama</td>
+                                        <td>Jenis</td>
+                                        <td>Action</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                        
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>     
     <script>
     
@@ -491,6 +516,26 @@
             { data: 'posisi' },
             { data: 'nilai' },
             { data: 'action'}
+        ]
+    });
+
+    
+    var dokTable = $('#table-dok').DataTable({
+        data: [],
+        columnDefs: [
+            {   
+                "targets": 4,
+                "data": null,
+                "render": function ( data, type, row, meta ) {
+                    return "<a href='"+row.url+"' title='Download Dokumen' class='badge badge-success' id='btn-download-preview' target='_blank'><i class='ti-download'></i></a>";
+                }
+            }
+        ],
+        columns: [
+            { data: 'no' },
+            { data: 'no_bukti' },
+            { data: 'nama' },
+            { data: 'jenis' }
         ]
     });
 
@@ -1024,6 +1069,38 @@
             importCSS: true,            // import parent page css
             importStyle: true,         // import style tags
             printContainer: true,       // print outer container/$.selector
+        });
+    });
+
+    $('#saku-datatable').on('click', '#btn-download', function(e){
+        e.preventDefault();
+        var id= $(this).closest('tr').find('td').eq(1).html();
+        $.ajax({
+            type: 'GET',
+            url: "apv/juskeb-dok",
+            dataType: 'json',
+            data: {no_bukti : id},
+            async:false,
+            success:function(res){
+                var result= res.data;   
+                dataDok.clear().draw();
+                if(result.status){
+                    if(typeof result.data !== 'undefined' && result.data.length>0){
+                        dataDok.rows.add(result.data).draw(false);
+                    }
+                    $('#saku-datatable').hide();
+                    $('#slide-dok').show();
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    Swal.fire({
+                        title: 'Session telah habis',
+                        text: 'harap login terlebih dahulu!',
+                        icon: 'error'
+                    }).then(function() {
+                        window.location.href = "{{ url('apv/logout') }}";
+                    })
+                }
+            }
         });
     });
 

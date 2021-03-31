@@ -166,6 +166,37 @@ class JuskebController extends Controller
         }
     }
 
+    public function getDokumen(Request $request){
+        try {
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'apv/juskeb-dok',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' => $request->all()
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["success"]["data"];
+                if(count($data) > 0){
+                    for($i=0;$i<count($data);$i++){
+                        $data[$i]['no'] = $i + 1;
+                    }
+                }
+            }
+            return response()->json(['daftar' => $data, 'status'=>true], 200); 
+
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+        }
+    }
+
     public function getJuskebFinish(){
         try {
             $client = new Client();
