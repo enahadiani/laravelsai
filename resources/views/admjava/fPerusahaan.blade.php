@@ -278,4 +278,81 @@
         }
     });
     // Misi grid
+
+    $('#form-tambah').validate({
+        ignore: [],
+        rules: {},
+        errorElement: "label",
+        submitHandler: function (form, event) {
+            event.preventDefault();
+
+            var countRow = $('#misi tbody tr').length
+            if(countRow <= 0) {
+                valid = false
+                alert('Misi perusahaan wajib diisi')
+                return;
+            }
+
+            $("#misi tbody tr td:not(:first-child):not(:last-child)").each(function() {
+                if($(this).find('span').text().trim().length == 0) {
+                    console.log($(this).find('span').text().length)
+                    console.log($(this).find('span'))
+                    alert('Misi tidak boleh kosong, harap dihapus untuk melanjutkan')
+                    valid = false;
+                    return false;
+                } 
+            });
+
+            var url = "{{ url('admjava-content/perusahaan') }}";
+            var pesan = "updated";
+            var text = "Perubahan data perusahaan telah tersimpan";
+
+            var formData = new FormData(form);
+            $('#misi tbody tr').each(function(index) {
+                formData.append('no[]', $(this).find('.no-grid').text())
+            })
+            for(var pair of formData.entries()) {
+                console.log(pair[0]+ ', '+ pair[1]); 
+            }
+            if(valid) {
+                $.ajax({
+                    type: 'POST', 
+                    url: url,
+                    dataType: 'json',
+                    data: formData,
+                    async:false,
+                    contentType: false,
+                    cache: false,
+                    processData: false, 
+                    success:function(result){
+                        if(result.data.status){
+                            msgDialog({
+                                id:result.data.kode,
+                                type:'simpan'
+                            });
+                        }else if(!result.data.status && result.data.message === "Unauthorized"){
+                            window.location.href = "{{ url('/admjava-auth/sesi-habis') }}";
+                            
+                        }else{
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Something went wrong!',
+                                footer: '<a href>'+result.data.message+'</a>'
+                            })
+                        }
+                    },
+                    fail: function(xhr, textStatus, errorThrown){
+                        alert('request failed:'+textStatus);
+                    }
+                });
+                $('#btn-simpan').html("Simpan").removeAttr('disabled');
+            }
+        },
+        errorPlacement: function (error, element) {
+            var id = element.attr("id");
+            $("label[for="+id+"]").append("<br/>");
+            $("label[for="+id+"]").append(error);
+        }
+    });
 </script>
