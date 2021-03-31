@@ -95,6 +95,7 @@ Route::delete('juskeb/{no_bukti}','Apv\JuskebController@destroy');
 Route::get('juskeb_history/{no_bukti}','Apv\JuskebController@getHistory');
 Route::get('juskeb_preview/{no_bukti}','Apv\JuskebController@getPreview');
 Route::get('juskeb_preview2/{no_bukti}','Apv\JuskebController@getPreview2');
+Route::get('juskeb-dok','Apv\JuskebController@getDokumen');
 
 Route::get('verifikasi','Apv\VerifikasiController@index');
 Route::get('verifikasi/{no_bukti}','Apv\VerifikasiController@show');

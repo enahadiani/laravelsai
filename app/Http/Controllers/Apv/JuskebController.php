@@ -166,6 +166,37 @@ class JuskebController extends Controller
         }
     }
 
+    public function getDokumen(Request $request){
+        try {
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'apv/juskeb-dok',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' => $request->all()
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["success"]["data"];
+                if(count($data) > 0){
+                    for($i=0;$i<count($data);$i++){
+                        $data[$i]['no'] = $i + 1;
+                    }
+                }
+            }
+            return response()->json(['daftar' => $data, 'status'=>true], 200); 
+
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+        }
+    }
+
     public function getJuskebFinish(){
         try {
             $client = new Client();
@@ -192,7 +223,7 @@ class JuskebController extends Controller
                         if($data[$i]['progress'] == "A" || $data[$i]['progress'] == "3" || $data[$i]['progress'] == "F"){
                             $data[$i]["action"] = "<a href='#' title='Edit' class='badge badge-warning' id='btn-edit'><i class='fas fa-pencil-alt'></i></a> &nbsp; <a href='#' title='Hapus' class='badge badge-danger' id='btn-delete'><i class='fa fa-trash'></i></a>&nbsp; <a href='#' title='History' class='badge badge-$color' id='btn-history'><i class='fas fa-history'></i></a>&nbsp; <a href='#' title='Preview' class='badge badge-info' id='btn-print'><i class='fas fa-print'></i></a>";
                         }else{
-                            $data[$i]["action"] = "<a href='#' title='History' class='badge badge-$color' id='btn-history'><i class='fas fa-history'></i></a>&nbsp; <a href='#' title='Preview' class='badge badge-info' id='btn-print'><i class='fas fa-print'></i></a>";
+                            $data[$i]["action"] = "<a href='#' title='Download Dokumen' class='badge badge-success' id='btn-download'><i class='ti-download'></i></a>&nbsp;<a href='#' title='History' class='badge badge-$color' id='btn-history'><i class='fas fa-history'></i></a>&nbsp; <a href='#' title='Preview' class='badge badge-info' id='btn-print'><i class='fas fa-print'></i></a>";
                         }
                     }
                 }
