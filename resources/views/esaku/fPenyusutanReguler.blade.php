@@ -115,6 +115,15 @@
     $('#btn-sheet').on('click', function(event){
         event.preventDefault()
         bottomSheet.activate()
-    })    
+        addContentBottomSheet()
+    })
+    
+    function addContentBottomSheet() {
+        $('#content-bottom-sheet').empty()
+        var html = "";
+        html += "<div class='header-sheet'><h6>Detail Penyusutan</h6></div>"
+
+        $('#content-bottom-sheet').append(html)
+    }
 
 </script>
