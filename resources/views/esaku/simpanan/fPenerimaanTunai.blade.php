@@ -269,6 +269,7 @@
     var $per2 = [];
 
     var totalTagihan = 0
+    var totalBayar = 0
 
 
     $('#form-tambah').on('click', '.search-item2', function() {
@@ -434,12 +435,13 @@
 
 
     tablejur.on('select.dt deselect.dt', function(e, dt, type, indexes) {
-        var totalBayar = tablejur.rows({
+        totalBayar = tablejur.rows({
             selected: true
         }).data().pluck('saldo').sum()
         var sisaBayar = totalTagihan - totalBayar
         $('#total-bayar').html(format_number(totalBayar));
         $('#sisa-bayar').html(format_number(sisaBayar));
+        $('#total-penerimaan').html('Total Penerimaan ' + format_number(totalBayar));
         var countSelectedRows = tablejur.rows({
             selected: true
         }).count();
@@ -556,12 +558,15 @@
             },
             deskripsi: {
                 required: true
+            },
+            no_dokumen: {
+                required: true
             }
         },
         errorElement: "label",
         submitHandler: function(form) {
             var parameter = $('#id_edit').val();
-            var url = "{{ url('esaku-trans/unposting') }}";
+            var url = "{{ url('esaku-trans/terima-simp') }}";
 
             var formData = new FormData(form);
             var data = [];
@@ -571,10 +576,11 @@
                     id: '-',
                     type: 'warning',
                     title: 'Gagal',
-                    text: 'Tidak ada transaksi jurnal yang dipilih'
+                    text: 'Tidak ada Tagihan  yang dipilih'
                 });
                 return false;
             }
+            formData.append('nilai_bayar', totalBayar)
             $.each(selected, function(i, val) {
                 formData.append('no_bukti[]', selected[i].no_bukti)
                 formData.append('form[]', selected[i].form)
