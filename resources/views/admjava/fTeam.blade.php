@@ -238,6 +238,7 @@
                     if(result.data.status){
                         dataTable.ajax.reload();
                         resetImage()
+                        editor.setData('');
                         $('.id_team').hide()
                         $('#row-id').hide();
                         $('#form-tambah')[0].reset();

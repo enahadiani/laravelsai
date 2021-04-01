@@ -288,6 +288,7 @@
                         if(result.data.status){
                             dataTable.ajax.reload();
                             resetImage()
+                            editor.setData('');
                             $('#row-id').hide();
                             $('#form-tambah')[0].reset();
                             $('#form-tambah').validate().resetForm();
