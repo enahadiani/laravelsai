@@ -14,3 +14,13 @@ Route::get('notif-pembayaran-norekon', 'Ts\NotifPembayaranController@getNoRekon'
 Route::get('notif-pembayaran', 'Ts\NotifPembayaranController@index');
 Route::post('notif-pembayaran', 'Ts\NotifPembayaranController@store');
 Route::delete('notif-pembayaran', 'Ts\NotifPembayaranController@destroy');
+
+Route::get('notif-umum-siswa', 'Ts\NotifUmumController@getSiswa');
+Route::get('notif-umum-kelas', 'Ts\NotifUmumController@getKelas');
+Route::get('notif-umum-pp', 'Ts\NotifUmumController@getPP');
+Route::get('notif-umum', 'Ts\NotifUmumController@index');
+Route::get('notif-umum-detail', 'Ts\NotifUmumController@show');
+Route::post('notif-umum', 'Ts\NotifUmumController@store');
+Route::post('notif-umum-ubah', 'Ts\NotifUmumController@update');
+Route::delete('notif-umum', 'Ts\NotifUmumController@destroy');
+Route::delete('notif-umum-dok', 'Ts\NotifUmumController@deleteDokumen');

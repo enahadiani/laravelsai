@@ -76,6 +76,31 @@
                 </div>
             </div>
         </div>
+        <div class="row" id="slide-dokumen" style="display:none;">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
+                        <div class="dokumen-area mt-5">
+                            <table class='table table-bordered table-striped' style='width:100%' id="table-dok">
+                                <thead>
+                                    <tr>
+                                        <td style='width:10%'>No</td>
+                                        <td style='width:20%'>No Bukti</td>
+                                        <td style='width:50%'>Nama</td>
+                                        <td style='width:10%'>Jenis</td>
+                                        <td style='width:10%'>Action</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                        
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>     
     <script>
     setHeightForm();
@@ -105,7 +130,7 @@
     }
 
     
-    var action_html = "<a href='#' title='Preview' class='badge badge-info' id='btn-print'><i class='fas fa-print'></i></a>";
+    var action_html = "<a href='#' title='Download Dokumen' class='badge badge-success' id='btn-download'><i class='ti-download'></i></a>&nbsp;<a href='#' title='Preview' class='badge badge-info' id='btn-print'><i class='fas fa-print'></i></a>";
     
     var dataTable2 = $('#table-app').DataTable({
         // 'processing': true,
@@ -140,6 +165,26 @@
             { data: 'tanggal' }
         ]
     });
+
+    var dokTable = $('#table-dok').DataTable({
+        data: [],
+        columnDefs: [
+            {   
+                "targets": 4,
+                "data": null,
+                "render": function ( data, type, row, meta ) {
+                    return "<a href='"+row.url+"' title='Download Dokumen' class='badge badge-success' id='btn-download-preview' target='_blank'><i class='ti-download'></i></a>";
+                }
+            }
+        ],
+        columns: [
+            { data: 'no' },
+            { data: 'no_bukti' },
+            { data: 'nama' },
+            { data: 'jenis' }
+        ]
+    });
+
 
     function getNamaBulan(no_bulan){
         switch (no_bulan){
@@ -245,6 +290,43 @@
     }
 
 
+    $('#saku-datatable').on('click', '#btn-download', function(e){
+        e.preventDefault();
+        var id= $(this).closest('tr').find('td').eq(0).html();
+        $.ajax({
+            type: 'GET',
+            url: "apv/juskeb-dok",
+            dataType: 'json',
+            data: {no_bukti : id},
+            async:false,
+            success:function(result){   
+                dokTable.clear().draw();
+                if(result.status){
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                        dokTable.rows.add(result.daftar).draw(false);
+                    }
+                    $('#saku-datatable').hide();
+                    $('#slide-dokumen').show();
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    Swal.fire({
+                        title: 'Session telah habis',
+                        text: 'harap login terlebih dahulu!',
+                        icon: 'error'
+                    }).then(function() {
+                        window.location.href = "{{ url('apv/logout') }}";
+                    })
+                }
+            }
+        });
+    });
+    
+    $('#slide-dokumen').on('click', '#btn-kembali', function(){
+        $('#saku-datatable').show();
+        $('#saku-form').hide();
+        $('#slide-dokumen').hide();
+    });
+    
 
     $('#slide-print').on('click', '#btn-kembali', function(){
         $('#saku-datatable').show();
