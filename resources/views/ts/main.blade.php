@@ -592,6 +592,7 @@
     </main>
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
     <script>
+    console.log("{{ Session::get('menu') }}")
     // Enable pusher logging - don't include this in production
     Pusher.logToConsole = true;
     

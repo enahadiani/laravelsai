@@ -134,7 +134,7 @@
                             <div class="form-group row">
                                 <label for="tanggal" class="col-3 col-form-label">Tanggal</label>
                                 <div class="col-3">
-                                    <input class="form-control" type="date" id="tanggal" name="tanggal" value="{{ date('Y-m-d') }}" required>
+                                    <input class="form-control datepicker" type="text" id="tanggal" name="tanggal"  placeholder="dd/mm/yyyy" value="{{ date('d/m/Y') }}" required>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -154,7 +154,7 @@
                                 </div>
                                 <label for="tgl_berangkat" class="col-3 col-form-label">Jadwal</label>
                                 <div class="col-3">
-                                <input class="form-control" type="text" id="tgl_berangkat" name="tgl_berangkat" readonly>
+                                <input class="form-control datepicker" type="text" id="tgl_berangkat" name="tgl_berangkat" readonly>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -355,6 +355,19 @@
 <script>
     var $paket = 0;
     var $room = 0;
+
+    $('.datepicker').datepicker({
+        format: 'dd/mm/yyyy',
+        autoclose: true,
+    });
+
+    function reverseDateNew(date_str, separator, newseparator){
+        if(typeof separator === 'undefined'){separator = '-'}
+        date_str = date_str.split(' ');
+        var str = date_str[0].split(separator);
+
+        return str[2]+newseparator+str[1]+newseparator+str[0];
+    }
 
     function format_number(x){
         var num = parseFloat(x).toFixed(0);
@@ -965,11 +978,11 @@
                         $('#id_edit').val('edit');
                         $('#jenis').val(line.jenis);
                         $('#no_reg').val(line.no_reg);
-                        $('#tanggal').val(line.tgl_bayar);
+                        $('#tanggal').val(reverseDateNew(line.tgl_bayar,"-","/"));
                         $('#no_bukti').val(no_bukti);
                         $('#nama').val(line.nama);
                         $('#status_bayar')[0].selectize.setValue(line.status_bayar);
-                        $('#tgl_berangkat').val(line.tgl_berangkat);	
+                        $('#tgl_berangkat').val(reverseDateNew(line.tgl_berangkat,"-","/"));	
                         $('#kode_curr').val(line.kode_curr);
                         $('#kurs').val(format_number(line.kurs));
                         $('#paket').val(line.paket);

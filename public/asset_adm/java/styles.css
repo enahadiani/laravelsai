@@ -10,6 +10,19 @@
     cursor: pointer;
 }
 
+.border-image-upload.logo-perusahaan {
+    position: relative;
+    height: 250px;
+    display: flex;
+    padding: 8px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    border-style: dashed;
+    border-width: 0.5px;
+    border-color: #000;
+}
+
 .border-image-upload {
     position: relative;
     height: 150px;

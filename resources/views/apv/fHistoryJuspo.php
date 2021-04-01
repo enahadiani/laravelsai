@@ -775,6 +775,8 @@
                                 <div class="sl-right">
                                     <div><a href="javascript:void(0)" class="link">`+result.data.data[i].nama+`</a> <span class="sl-date">`+result.data.data[i].tanggal+`</span>
                                     <div class="row mt-3 mb-2">
+                                        <div class="col-md-6">NIK/Nama : </div>
+                                        <div class="col-md-6">`+result.data.data[i].nik+` / `+result.data.data[i].nama_nik+`</div>
                                         <div class="col-md-6">No Bukti : </div>
                                         <div class="col-md-6">`+result.data.data[i].no_bukti+`</div>
                                         <div class="col-md-6">Catatan : </div>

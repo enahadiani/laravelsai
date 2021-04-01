@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="{{ asset('trans-java/trans.css') }}" />
 <link rel="stylesheet" href="{{ asset('asset_adm/java/styles.css') }}" />
 
-<x-list-data judul="Data Produk" tambah="true" :thead="array('Kode Project', 'Nama Project', 'Aksi')" :thwidth="array(10,15,10)" :thclass="array('','','text-center')" />
+<x-list-data judul="Data Project" tambah="true" :thead="array('Kode Project', 'Nama Project', 'Aksi')" :thwidth="array(10,15,10)" :thclass="array('','','text-center')" />
 
 <!-- FORM INPUT -->
 <form id="form-tambah" class="tooltip-label-right" novalidate>
