@@ -35,7 +35,7 @@ class ProfileController extends Controller {
                 $response_data = $response->getBody()->getContents();
                 
                 $data = json_decode($response_data,true);
-                $data = $data["data"];
+                $data = $data;
             }
             return response()->json(['daftar' => $data, 'status'=>true], 200); 
 
@@ -140,20 +140,24 @@ class ProfileController extends Controller {
                 }
             }
 
-            $client = new Client();
-            $response = $client->request('POST',  config('api.url').'admjava-content/profile',[
-                'headers' => [
-                    'Authorization' => 'Bearer '.Session::get('token'),
-                    'Accept'     => 'application/json',
-                ],
-                'multipart' => $fields
-            ]);
-            if ($response->getStatusCode() == 200) { // 200 OK
-                $response_data = $response->getBody()->getContents();
-                    
-                $data = json_decode($response_data,true);
-                return response()->json(['data' => $data], 200);  
-            }
+            // echo "<pre>";
+            // var_dump($fields);
+            // echo "</pre>";
+
+                $client = new Client();
+                $response = $client->request('POST',  config('api.url').'admjava-content/profile',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'multipart' => $fields
+                ]);
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                        
+                    $data = json_decode($response_data,true);
+                    return response()->json(['data' => $data], 200);  
+                }
 
         } catch(BadResponseException $ex) {
             $response = $ex->getResponse();
