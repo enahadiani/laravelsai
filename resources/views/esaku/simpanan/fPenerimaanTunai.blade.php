@@ -83,15 +83,15 @@
                                     </div>
                                 </div>
                                 <div class="col-md-12 col-12 mb-3">
-                                    <label for="no_kartu">Kas Bank Penerimaan</label>
+                                    <label for="akun_kas">Kas Bank Penerimaan</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
-                                            <span class="input-group-text info-code_no_kartu" readonly="readonly"
+                                            <span class="input-group-text info-code_akun_kas" readonly="readonly"
                                                 title="" data-toggle="tooltip" data-placement="top"></span>
                                         </div>
-                                        <input type="text" class="form-control inp-label-no_kartu" id="no_kartu"
-                                            name="no_kartu" value="" title="" readonly required>
-                                        <span class="info-name_no_kartu hidden">
+                                        <input type="text" class="form-control inp-label-akun_kas" id="akun_kas"
+                                            name="akun_kas" value="" title="" readonly required>
+                                        <span class="info-name_akun_kas hidden">
                                             <span></span>
                                         </span>
                                         <i class="simple-icon-close float-right info-icon-hapus hidden"
@@ -297,13 +297,13 @@
                     width: ["30%", "70%"],
                 }
                 break;
-            case 'no_kartu':
+            case 'akun_kas':
                 var settings = {
                     id: id,
                     header: ['Kode', 'Nama'],
-                    url: "{{ url('esaku-master/gudang-pp') }}",
+                    url: "{{ url('esaku-trans/terima-simp-akunkas') }}",
                     columns: [{
-                            data: 'kode_pp'
+                            data: 'kode_akun'
                         },
                         {
                             data: 'nama'
@@ -334,14 +334,21 @@
         sDom: 't<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
         data: [],
         columnDefs: [{
-            "targets": 0,
-            "searchable": false,
-            "orderable": false,
-            "className": 'selectall-checkbox',
-            'render': function(data, type, full, meta) {
-                return '<input type="checkbox" name="checked[]">';
-            }
-        }],
+                "targets": 0,
+                "searchable": false,
+                "orderable": false,
+                "className": 'selectall-checkbox',
+                'render': function(data, type, full, meta) {
+                    return '<input type="checkbox" name="checked[]">';
+                },
+
+            },
+            {
+                'targets': [7],
+                'className': 'text-right',
+                'render': $.fn.dataTable.render.number('.', ',', 0, '')
+            },
+        ],
         select: {
             style: 'multi',
             selector: 'td:first-child'

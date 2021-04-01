@@ -279,6 +279,36 @@ class PenerimaanTunaiController extends Controller
 
     }
 
+     public function getAkun(Request $request)
+    {
+        try{
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'esaku-trans/terima-simp-akunkas',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                    'Content-Type'     => 'application/json'
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+
+                $data = json_decode($response_data,true);
+                $data = $data["data"];
+
+            }
+            return response()->json(['daftar' => $data], 200);
+        }catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $result['message'] = $res["message"];
+            $result['status']=false;
+            return response()->json(["data" => $result], 200);
+        }
+
+    }
+
 
     // /**
     //  * Destroy the specified resource.

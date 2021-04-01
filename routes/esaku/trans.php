@@ -219,4 +219,5 @@ Route::post('reverse-akru-simp','Esaku\Simpanan\Transaksi\ReverseController@stor
 Route::delete('reverse-akru-simp/{no_bukti}','Esaku\Simpanan\Transaksi\ReverseController@destroy');
 
 /*transaksi penerimaan simpanan tunai  */
+Route::get('terima-simp-akunkas','Esaku\Simpanan\Transaksi\PenerimaanTunaiController@getAkun');
 Route::get('terima-simp-tagihan/{no_agg}','Esaku\Simpanan\Transaksi\PenerimaanTunaiController@loadTagihan');
