@@ -1,3 +1,10 @@
+.btn-sheet {
+    border: none;
+    background-color: #f8f8f8;
+    border-radius: 30px !important;
+    padding: 8px;
+    color: #0058e4;
+}
 .message-action {
     margin-top: 0.2rem;
     margin-right: 1rem;
@@ -24,7 +31,7 @@
 .footer-form-container-full {
     width: 98%;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
 }
 .footer-form-container {
     width: 95%;
