@@ -1196,7 +1196,7 @@
             function( settings, data, dataIndex ) {
                 var tmp = $('#inp-filter_kode_pp').val().split("-");
                 var kode_pp = tmp[0];
-                var col_kode_pp = data[6];
+                var col_kode_pp = data[5];
                 if(kode_pp != ""){
                     if(kode_pp == col_kode_pp){
                         return true;
