@@ -157,7 +157,7 @@
                                             Total Pembayaran
                                         </div>
                                         <div class="col-md-2 col-sm-2 text-right">
-                                            <span class="text-right" id="total-bayar">0</span>
+                                            <span class="text-right total-bayar" id="total-bayar">0</span>
                                         </div>
                                         <div class="col-md-1 col-sm-2"></div>
                                     </div>
@@ -205,9 +205,17 @@
 <!-- FORM INPUT  -->
 @include('modal_search')
 <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
+<script src="https://cdn.datatables.net/plug-ins/1.10.20/api/sum().js"></script>
 <script src="{{ asset('helper.js') }}"></script>
 <script>
     var $iconLoad = $('.preloader');
+
+    function format_number(x) {
+        var num = parseFloat(x).toFixed(0);
+        num = sepNumX(num);
+        return num;
+    }
+
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
@@ -403,6 +411,10 @@
                 if (typeof res !== 'undefined' && res.length > 0) {
                     tablejur.rows.add(res).draw(false);
                     activaTab("trans");
+                    var totalTagihan = tablejur.column(7).data().sum();
+                    var sumTagihan = format_number(totalTagihan)
+                    console.log(sumTagihan)
+                    $('#total-tagihan').html((sumTagihan));
                 }
             },
             fail: function(xhr, textStatus, errorThrown) {
@@ -411,7 +423,12 @@
         });
     }
 
+
+
     tablejur.on('select.dt deselect.dt', function(e, dt, type, indexes) {
+        console.log(tablejur.rows({
+            selected: true
+        }).data().pluck(7).sum())
 
         var countSelectedRows = tablejur.rows({
             selected: true
@@ -426,15 +443,20 @@
             }
         }
 
+
         if (e.type === 'select') {
+
             $('.selectall-checkbox input[type="checkbox"]', tablejur.rows({
                 selected: true
             }).nodes()).prop('checked', true);
+
         } else {
             $('.selectall-checkbox input[type="checkbox"]', tablejur.rows({
                 selected: false
             }).nodes()).prop('checked', false);
         }
+
+        // console.log(test)
     });
 
     tablejur.on('click', 'thead .selectall-checkbox', function() {
@@ -496,7 +518,8 @@
             success: function(result) {
                 tablejur.clear().draw();
                 if (result.data.status) {
-                    if (typeof result.data.data !== 'undefined' && result.data.data.length > 0) {
+                    if (typeof result.data.data !== 'undefined' && result.data.data.length >
+                        0) {
                         tablejur.rows.add(result.data.data).draw(false);
                         activaTab("trans");
                     }
@@ -569,7 +592,8 @@
                         activaTab("trans");
                         $('#form-tambah #loadData').click();
                         $('#error_space').text('');
-                    } else if (!result.data.status && result.data.message === "Unauthorized") {
+                    } else if (!result.data.status && result.data.message ===
+                        "Unauthorized") {
 
                         window.location.href = "{{ url('/esaku-auth/sesi-habis') }}";
 
