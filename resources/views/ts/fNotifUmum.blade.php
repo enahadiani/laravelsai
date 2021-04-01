@@ -848,7 +848,7 @@
 
     // PREVIEW DATA
     $('#table-data tbody').on('click','td',function(e){
-        if($(this).index() != 5){
+        if($(this).index() != 4){
 
             var id = $(this).closest('tr').find('td').eq(0).html();
             var data = dataTable.row( $(this).parents('tr') ).data();
