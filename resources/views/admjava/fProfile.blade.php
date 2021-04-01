@@ -181,6 +181,7 @@
 
     $('#misi').on('click', '.hapus-item', function(){
         $(this).closest('tr').remove();
+        valid = true
         no=1;
         $('.row-grid').each(function(){
             var nom = $(this).closest('tr').find('.no-grid');
@@ -281,6 +282,10 @@
             idx--;
         }
     });
+
+    $('#misi').on('change', '.inp-misi', function() {
+        hideUnselectedRow()
+    })
     // Misi grid
 
     $('#form-tambah').validate({
@@ -307,7 +312,7 @@
                 } 
             });
 
-            var url = "{{ url('admjava-content/perusahaan') }}";
+            var url = "{{ url('admjava-content/profile') }}";
             var pesan = "updated";
             var text = "Perubahan data perusahaan telah tersimpan";
 
@@ -331,10 +336,12 @@
                     processData: false, 
                     success:function(result){
                         if(result.data.status){
-                            msgDialog({
-                                id:result.data.kode,
-                                type:'simpan'
-                            });
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success',
+                                text: 'Data profile perusahaan berhasil disimpan',
+                                footer: ''
+                            })
                         }else if(!result.data.status && result.data.message === "Unauthorized"){
                             window.location.href = "{{ url('/admjava-auth/sesi-habis') }}";
                             
@@ -360,4 +367,74 @@
             $("label[for="+id+"]").append(error);
         }
     });
+
+    $.ajax({
+        type:'GET',
+        url: "{{ url('admjava-content/profile') }}",
+        dataType: 'JSON',
+        success: function(response) {
+            var result = response.daftar.data[0]
+            var detail = response.daftar.detail
+            $('#nama_perusahaan').val(result.nama_perusahaan)            
+            $('#no_telp').val(result.no_telp)            
+            $('#no_fax').val(result.no_fax)            
+            $('#email').val(result.email)            
+            $('#wa').val(result.link_wa)            
+            $('#koordinat').val(result.koordinat)
+            $('#alamat').val(result.alamat)            
+            $('#visi').val(result.visi)
+            editor.setData(result.deskripsi);   
+            if(result.path_foto != null || result.path_foto != undefined || result.path_foto != '') {
+                
+                $('.photo-text').hide();
+                $('.preview-photo').show();
+                $(".preview-photo").attr('src', 'https://api.simkug.com/api/admjava-auth/storage/'+result.path_foto)
+            } else {
+                $(".preview-photo").attr('src', '')
+                $('.preview-photo').hide();
+                $('.photo-text').show();
+            }
+
+            if(detail.length > 0) {
+                var html ="";
+                var no = 1;
+                for(var i=0; i<detail.length;i++) {
+                    var data = detail[i]
+                    html += "<tr class='row-grid'>";
+                    html += "<td class='text-center no-grid'>"+no+"</td>";
+                    html += "<td><span class='td-misi tdmisike"+no+" tooltip-span'>"+data.misi+"</span><input type='text' name='misi[]' class='form-control inp-misi misike"+no+" hidden'  value='"+data.misi+"' required></td>";
+                    html += "<td class='text-center'><a class=' hapus-item' style='font-size:18px;cursor:pointer;'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
+                    html += "</tr>";
+
+                    no++
+                }
+                $('#misi tbody').append(html);
+            }         
+        }
+    });
+
+    function fileReader(index, span, image, input) {
+        var inputFile = $('.'+input).eq(index)
+        $(inputFile).on('change', function(){
+            if(this.files && this.files[0]) { 
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('.'+image).eq(index).show();
+                    $('.'+span).eq(index).hide();
+                    $("."+image).eq(index).attr('src', e.target.result)
+                }
+                reader.readAsDataURL(this.files[0])
+            }
+        })
+    }
+
+    $('.border-image-upload').on('click', function() {
+        var index = $('.select-from-library-container').find('.border-image-upload').index(this)
+        var children = $(this).children()
+        var span = $(children[0]).attr('class')
+        var photo = $(children[1]).attr('class')
+        var input = $(children[2]).attr('class')
+        
+        fileReader(index, span, photo, input)
+    })
 </script>

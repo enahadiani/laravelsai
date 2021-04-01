@@ -14,4 +14,9 @@ Route::post('project', 'AdmJava\ProjectController@store');
 Route::post('project-ubah', 'AdmJava\ProjectController@update');
 Route::delete('project', 'AdmJava\ProjectController@delete');
 
+// Data Profile perusahaan
+Route::get('profile', 'AdmJava\ProfileController@index');
+Route::post('profile', 'AdmJava\ProfileController@store');
+
+
 ?>
