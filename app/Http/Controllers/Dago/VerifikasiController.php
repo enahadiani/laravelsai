@@ -25,6 +25,11 @@ class VerifikasiController extends Controller
         return $num;
     }
 
+    public function reverseDate($ymd_or_dmy_date, $org_sep='-', $new_sep='-'){
+        $arr = explode($org_sep, $ymd_or_dmy_date);
+        return $arr[2].$new_sep.$arr[1].$new_sep.$arr[0];
+    }
+
     public function __contruct(){
         if(!Session::get('login')){
             return redirect('dago-auth/login')->with('alert','Session telah habis !');
@@ -109,7 +114,7 @@ class VerifikasiController extends Controller
     public function update(Request $request)
     {
         $this->validate($request, [
-            'tanggal' => 'required|date_format:Y-m-d',
+            'tanggal' => 'required|date_format:d/m/Y',
             'no_reg' => 'required',
             'nama' => 'required',
             'no_bukti' => 'required',
@@ -123,7 +128,7 @@ class VerifikasiController extends Controller
             'akun_dokumen' => 'required',
             'paket' => 'required',
             'jenis' => 'required',
-            'tgl_berangkat' => 'required|date_format:Y-m-d',
+            'tgl_berangkat' => 'required|date_format:d/m/Y',
             'status_bayar' => 'required|in:TUNAI,TRANSFER',
             'total_bayar' => 'required',
             'bayar_paket' => 'required',
@@ -153,7 +158,7 @@ class VerifikasiController extends Controller
             }
 
             $fields = array (
-                'tanggal' => $request->tanggal,
+                'tanggal' => $this->reverseDate($request->tanggal,"/","-"),
                 'no_reg' => $request->no_reg,
                 'nama' => $request->nama,
                 'no_bukti' => $request->no_bukti,
@@ -168,7 +173,7 @@ class VerifikasiController extends Controller
                 'akun_dokumen' => $request->akun_dokumen,
                 'paket' => $request->paket,
                 'jenis' => $request->jenis,
-                'tgl_berangkat' => $request->tgl_berangkat,
+                'tgl_berangkat' => $this->reverseDate($request->tgl_berangkat,"/","-"),
                 'status_bayar' => $request->status_bayar,
                 'total_bayar' => $this->joinNum($request->total_bayar),
                 'bayar_paket' => $this->joinNum($request->bayar_paket),
