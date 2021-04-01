@@ -180,15 +180,15 @@ class JuskebController extends Controller
             if ($response->getStatusCode() == 200) { // 200 OK
                 $response_data = $response->getBody()->getContents();
                 
-                $data = json_decode($response_data,true);
-                $data = $data["success"]["data"];
+                $res = json_decode($response_data,true);
+                $data = $res["success"]["data"];
                 if(count($data) > 0){
                     for($i=0;$i<count($data);$i++){
                         $data[$i]['no'] = $i + 1;
                     }
                 }
             }
-            return response()->json(['daftar' => $data, 'status'=>true], 200); 
+            return response()->json(['daftar' => $data, 'status'=>true, 'res' => $res], 200); 
 
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();

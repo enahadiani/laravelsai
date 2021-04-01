@@ -4,7 +4,7 @@
         <div class="col-12">
             <div class="card" >
                 <div class="card-body pb-3" style="padding-top:1rem;">
-                    <h6 style="position:absolute;top: 25px;">Data Pesan</h6>
+                    <h6 style="position:absolute;top: 25px;">Data Notifikasi Umum</h6>
                     <button type="button" id="btn-tambah" class="btn btn-primary" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
                 </div>
                 <div class="separator mb-2"></div>
@@ -190,7 +190,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:800px">
             <div class="modal-content" style="border-radius:0.75em">
                 <div class="modal-header py-0" style="display:block;height:49px">
-                    <h6 class="modal-title py-2" style="position: absolute;">Preview Data Pesan <span id="modal-preview-nama"></span><span id="modal-preview-id" style="display:none"></span><span id="modal-preview-kode" style="display:none"></span> </h6>
+                    <h6 class="modal-title py-2" style="position: absolute;">Preview Data Notifikasi Umum <span id="modal-preview-nama"></span><span id="modal-preview-id" style="display:none"></span><span id="modal-preview-kode" style="display:none"></span> </h6>
                     <button type="button" class="close float-right ml-2" data-dismiss="modal" aria-label="Close" id="preview-close">
                     <span>×</span>
                     </button>
@@ -332,7 +332,7 @@
     function getTAPp() {
         $.ajax({
             type:'GET',
-            url:"{{ url('ts-master/pp') }}",
+            url:"{{ url('ts-trans/notif-umum-pp') }}",
             dataType: 'json',
             async: false,
             success: function(result) {
@@ -386,7 +386,7 @@
         bLengthChange: false,
         sDom: 't<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
         'ajax': {
-            'url': "{{ url('ts-trans/pesan') }}",
+            'url': "{{ url('ts-trans/notif-umum') }}",
             'async':false,
             'type': 'GET',
             'dataSrc' : function(json) {
@@ -471,10 +471,10 @@
     function getKontak(id,pp=null,jenis){
 
         if(jenis == "Siswa"){
-            var toUrl = "{{ url('ts-trans/siswa') }}";
+            var toUrl = "{{ url('ts-trans/notif-umum-siswa') }}";
             var param = {kode_pp:pp,nis:id};
         }else{  
-            var toUrl = "{{ url('ts-master/kelas') }}";
+            var toUrl = "{{ url('ts-trans/notif-umum-kelas') }}";
             var param = {kode_pp:pp,kode_kelas:id};
         }
         $.ajax({
@@ -518,27 +518,19 @@
         switch(par){
             case 'kontak': 
                 if($('#jenis')[0].selectize.getValue() == "Siswa"){
-                    header = ['ID', 'Nama','Kelas','NIS'];  
-                    if("{{ Session::get('statusAdmin') }}" == "G" ){
-                        var toUrl = "{{ url('ts-trans/penilaian-siswa') }}";
-                    }else{
-                        var toUrl = "{{ url('ts-trans/siswa') }}";
-                    }
+                    header = ['ID', 'Nama','Kelas'];  
+                    var toUrl = "{{ url('ts-trans/notif-umum-siswa') }}";
+                    
                     var columns = [
                         { data: 'nis' },
                         { data: 'nama' },
-                        { data: 'kode_kelas' },
-                        { data: 'nis2' }
+                        { data: 'kode_kelas' }
                     ];
                     var judul = "Daftar Siswa";
                     var pilih = "siswa";
                 }else{  
                     header = ['Kode', 'Nama'];  
-                    if("{{ Session::get('statusAdmin') }}" == "G" ){
-                        var toUrl = "{{ url('ts-trans/penilaian-kelas') }}";
-                    }else{
-                        var toUrl = "{{ url('ts-master/kelas') }}";
-                    }
+                    var toUrl = "{{ url('ts-trans/notif-umum-kelas') }}";
                     var columns = [
                         { data: 'kode_kelas' },
                         { data: 'nama' }
@@ -688,13 +680,13 @@
         var data = dataTable.row( $(this).parents('tr') ).data();
         $('#btn-save').attr('type','button');
         $('#btn-save').attr('id','btn-update');
-        $('#judul-form').html('Edit Data Pesan');
+        $('#judul-form').html('Edit Data Notifikasi Umum');
         $('#form-tambah')[0].reset();
         $('#form-tambah').validate().resetForm();
         $iconLoad.show();
         $.ajax({
             type: 'GET',
-            url: "{{ url('ts-trans/pesan-detail') }}",
+            url: "{{ url('ts-trans/notif-umum-detail') }}",
             dataType: 'json',
             data:{no_bukti:id, kode_pp:data.kode_pp},
             async:false,
@@ -768,14 +760,14 @@
     function hapusData(id,kode){
         $.ajax({
             type: 'DELETE',
-            url: "{{ url('ts-trans/pesan') }}",
+            url: "{{ url('ts-trans/notif-umum') }}",
             dataType: 'json',
             data:{kode_pp:kode,no_bukti:id},
             async:false,
             success:function(result){
                 if(result.data.status){
                     dataTable.ajax.reload();                    
-                    showNotification("top", "center", "success",'Hapus Data','Data Pesan ('+id+') berhasil dihapus ');
+                    showNotification("top", "center", "success",'Hapus Data','Data Notifikasi Umum ('+id+') berhasil dihapus ');
                     $('#modal-preview-id').html('');
                     $('#table-delete tbody').html('');
                     $('#modal-delete').modal('hide');
@@ -813,7 +805,7 @@
     $('#saku-datatable').on('click', '#btn-tambah', function(){
         $('#row-id').hide();
         $('#method').val('post');
-        $('#judul-form').html('Tambah Data Pesan');
+        $('#judul-form').html('Tambah Data Notifikasi Umum');
         $('#btn-update').attr('id','btn-save');
         $('#btn-save').attr('type','submit');
         $('#form-tambah')[0].reset();
@@ -863,7 +855,7 @@
             var kode_pp = data.kode_pp;
             $.ajax({
                 type: 'GET',
-                url: "{{ url('ts-trans/pesan-detail') }}",
+                url: "{{ url('ts-trans/notif-umum-detail') }}",
                 data:{kode_pp:kode_pp,no_bukti:id},
                 dataType: 'json',
                 async:false,
@@ -925,7 +917,7 @@
     $('.modal-header').on('click', '#btn-edit2', function(){
         var id= $('#modal-preview-id').text();
         var kode_pp= $('#modal-preview-kode').text();
-        $('#judul-form').html('Edit Data Pesan');
+        $('#judul-form').html('Edit Data Notifikasi Umum');
         $('#form-tambah')[0].reset();
         $('#form-tambah').validate().resetForm();
         
@@ -933,7 +925,7 @@
         $('#btn-save').attr('id','btn-update');
         $.ajax({
             type: 'GET',
-            url: "{{ url('ts-trans/pesan-detail') }}",
+            url: "{{ url('ts-trans/notif-umum-detail') }}",
             dataType: 'json',
             data:{kode_pp:kode_pp,no_bukti:id},
             async:false,
@@ -1031,9 +1023,9 @@
             var tmp = $('#inp-filter_kode_pp').val().split('-');
             // $iconLoad.show();
             if(param == "edit"){
-                var url = "{{ url('ts-trans/pesan-ubah') }}";
+                var url = "{{ url('ts-trans/notif-umum-ubah') }}";
             }else{
-                var url = "{{ url('ts-trans/pesan') }}";
+                var url = "{{ url('ts-trans/notif-umum') }}";
             }
             formData.append('kode_pp', tmp[0]);
             for(var pair of formData.entries()) {
@@ -1057,7 +1049,7 @@
                         $('#form-tambah').validate().resetForm();
                         $('#row-id').hide();
                         $('#method').val('post');
-                        $('#judul-form').html('Tambah Data Pesan');
+                        $('#judul-form').html('Tambah Data Notifikasi Umum');
                         $('#id').val('');
                         $('#jenis')[0].selectize.setValue('');
                         $('#pesan').text('');
@@ -1137,8 +1129,8 @@
     $('#form-tambah').on('change','#jenis',function(){
         if($(this).val() == "Semua"){
             $('#kontak').parents('div').find('.input-group').addClass('readonly');
-            $('#kontak').val('-');
             $('#kontak').attr('readonly',true);
+            $('#kontak').val('-');
             $('#kontak').attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important');
             $('.info-code_kontak').parent('div').addClass('hidden');
             $('.info-name_kontak').addClass('hidden');
@@ -1146,6 +1138,11 @@
         }else{
             $('#kontak').parents('div').find('.input-group').removeClass('readonly');
             $('#kontak').attr('readonly',false);
+            $('#kontak').val('');
+            $('#kontak').attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important');
+            $('.info-code_kontak').parent('div').addClass('hidden');
+            $('.info-name_kontak').addClass('hidden');
+            $('.info-icon-hapus').addClass('hidden');
         }
     });
 
