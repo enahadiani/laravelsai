@@ -174,7 +174,7 @@
                                             Kurang Bayar
                                         </div>
                                         <div class="col-md-2 col-sm-2 text-right">
-                                            <span id="total-bayar">0</span>
+                                            <span id="sisa-bayar">0</span>
                                         </div>
                                         <div class="col-md-1 col-sm-2"></div>
                                     </div>
@@ -268,6 +268,7 @@
     var $per1 = [];
     var $per2 = [];
 
+    var totalTagihan = 0
 
 
     $('#form-tambah').on('click', '.search-item2', function() {
@@ -411,7 +412,7 @@
                 if (typeof res !== 'undefined' && res.length > 0) {
                     tablejur.rows.add(res).draw(false);
                     activaTab("trans");
-                    var totalTagihan = tablejur.column(7).data().sum();
+                    totalTagihan = tablejur.column(7).data().sum();
                     var sumTagihan = format_number(totalTagihan)
                     console.log(sumTagihan)
                     $('#total-tagihan').html((sumTagihan));
@@ -426,10 +427,12 @@
 
 
     tablejur.on('select.dt deselect.dt', function(e, dt, type, indexes) {
-        console.log(tablejur.rows({
+        var totalBayar = tablejur.rows({
             selected: true
-        }).data().pluck(7).sum())
-
+        }).data().pluck('saldo').sum()
+        var sisaBayar = totalTagihan - totalBayar
+        $('#total-bayar').html(format_number(totalBayar));
+        $('#sisa-bayar').html(format_number(sisaBayar));
         var countSelectedRows = tablejur.rows({
             selected: true
         }).count();
