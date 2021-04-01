@@ -83,15 +83,15 @@
                                     </div>
                                 </div>
                                 <div class="col-md-12 col-12 mb-3">
-                                    <label for="no_kartu">Kas Bank Penerimaan</label>
+                                    <label for="akun_kas">Kas Bank Penerimaan</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
-                                            <span class="input-group-text info-code_no_kartu" readonly="readonly"
+                                            <span class="input-group-text info-code_akun_kas" readonly="readonly"
                                                 title="" data-toggle="tooltip" data-placement="top"></span>
                                         </div>
-                                        <input type="text" class="form-control inp-label-no_kartu" id="no_kartu"
-                                            name="no_kartu" value="" title="" readonly required>
-                                        <span class="info-name_no_kartu hidden">
+                                        <input type="text" class="form-control inp-label-akun_kas" id="akun_kas"
+                                            name="akun_kas" value="" title="" readonly required>
+                                        <span class="info-name_akun_kas hidden">
                                             <span></span>
                                         </span>
                                         <i class="simple-icon-close float-right info-icon-hapus hidden"
@@ -157,7 +157,7 @@
                                             Total Pembayaran
                                         </div>
                                         <div class="col-md-2 col-sm-2 text-right">
-                                            <span class="text-right" id="total-bayar">0</span>
+                                            <span class="text-right total-bayar" id="total-bayar">0</span>
                                         </div>
                                         <div class="col-md-1 col-sm-2"></div>
                                     </div>
@@ -174,7 +174,7 @@
                                             Kurang Bayar
                                         </div>
                                         <div class="col-md-2 col-sm-2 text-right">
-                                            <span id="total-bayar">0</span>
+                                            <span id="sisa-bayar">0</span>
                                         </div>
                                         <div class="col-md-1 col-sm-2"></div>
                                     </div>
@@ -205,9 +205,17 @@
 <!-- FORM INPUT  -->
 @include('modal_search')
 <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
+<script src="https://cdn.datatables.net/plug-ins/1.10.20/api/sum().js"></script>
 <script src="{{ asset('helper.js') }}"></script>
 <script>
     var $iconLoad = $('.preloader');
+
+    function format_number(x) {
+        var num = parseFloat(x).toFixed(0);
+        num = sepNumX(num);
+        return num;
+    }
+
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
@@ -260,6 +268,7 @@
     var $per1 = [];
     var $per2 = [];
 
+    var totalTagihan = 0
 
 
     $('#form-tambah').on('click', '.search-item2', function() {
@@ -288,13 +297,13 @@
                     width: ["30%", "70%"],
                 }
                 break;
-            case 'no_kartu':
+            case 'akun_kas':
                 var settings = {
                     id: id,
                     header: ['Kode', 'Nama'],
-                    url: "{{ url('esaku-master/gudang-pp') }}",
+                    url: "{{ url('esaku-trans/terima-simp-akunkas') }}",
                     columns: [{
-                            data: 'kode_pp'
+                            data: 'kode_akun'
                         },
                         {
                             data: 'nama'
@@ -325,14 +334,21 @@
         sDom: 't<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
         data: [],
         columnDefs: [{
-            "targets": 0,
-            "searchable": false,
-            "orderable": false,
-            "className": 'selectall-checkbox',
-            'render': function(data, type, full, meta) {
-                return '<input type="checkbox" name="checked[]">';
-            }
-        }],
+                "targets": 0,
+                "searchable": false,
+                "orderable": false,
+                "className": 'selectall-checkbox',
+                'render': function(data, type, full, meta) {
+                    return '<input type="checkbox" name="checked[]">';
+                },
+
+            },
+            {
+                'targets': [7],
+                'className': 'text-right',
+                'render': $.fn.dataTable.render.number('.', ',', 0, '')
+            },
+        ],
         select: {
             style: 'multi',
             selector: 'td:first-child'
@@ -403,6 +419,10 @@
                 if (typeof res !== 'undefined' && res.length > 0) {
                     tablejur.rows.add(res).draw(false);
                     activaTab("trans");
+                    totalTagihan = tablejur.column(7).data().sum();
+                    var sumTagihan = format_number(totalTagihan)
+                    console.log(sumTagihan)
+                    $('#total-tagihan').html((sumTagihan));
                 }
             },
             fail: function(xhr, textStatus, errorThrown) {
@@ -411,8 +431,15 @@
         });
     }
 
-    tablejur.on('select.dt deselect.dt', function(e, dt, type, indexes) {
 
+
+    tablejur.on('select.dt deselect.dt', function(e, dt, type, indexes) {
+        var totalBayar = tablejur.rows({
+            selected: true
+        }).data().pluck('saldo').sum()
+        var sisaBayar = totalTagihan - totalBayar
+        $('#total-bayar').html(format_number(totalBayar));
+        $('#sisa-bayar').html(format_number(sisaBayar));
         var countSelectedRows = tablejur.rows({
             selected: true
         }).count();
@@ -426,15 +453,20 @@
             }
         }
 
+
         if (e.type === 'select') {
+
             $('.selectall-checkbox input[type="checkbox"]', tablejur.rows({
                 selected: true
             }).nodes()).prop('checked', true);
+
         } else {
             $('.selectall-checkbox input[type="checkbox"]', tablejur.rows({
                 selected: false
             }).nodes()).prop('checked', false);
         }
+
+        // console.log(test)
     });
 
     tablejur.on('click', 'thead .selectall-checkbox', function() {
@@ -496,7 +528,8 @@
             success: function(result) {
                 tablejur.clear().draw();
                 if (result.data.status) {
-                    if (typeof result.data.data !== 'undefined' && result.data.data.length > 0) {
+                    if (typeof result.data.data !== 'undefined' && result.data.data.length >
+                        0) {
                         tablejur.rows.add(result.data.data).draw(false);
                         activaTab("trans");
                     }
@@ -569,7 +602,8 @@
                         activaTab("trans");
                         $('#form-tambah #loadData').click();
                         $('#error_space').text('');
-                    } else if (!result.data.status && result.data.message === "Unauthorized") {
+                    } else if (!result.data.status && result.data.message ===
+                        "Unauthorized") {
 
                         window.location.href = "{{ url('/esaku-auth/sesi-habis') }}";
 
