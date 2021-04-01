@@ -1,6 +1,6 @@
     <link rel="stylesheet" href="{{ asset('trans.css') }}" />
     <!-- LIST DATA -->
-    <x-list-data judul="Data Notif Billing" tambah="true" :thead="array('No Bukti','Judul','Kode PP','Tgl Input','Aksi')" :thwidth="array(20,35,10,0,10)" :thclass="array('','','','','text-center')" />
+    <x-list-data judul="Data Notif Pembayaran" tambah="true" :thead="array('No Bukti','Judul','Kode PP','Tgl Input','Aksi')" :thwidth="array(20,35,10,0,10)" :thclass="array('','','','','text-center')" />
     <!-- END LIST DATA -->
 
     <!-- FORM INPUT -->
@@ -38,17 +38,17 @@
                             <div class="form-group col-md-6 col-sm-12">
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12">
-                                        <label for="no_bill">No Bill</label>
+                                        <label for="no_rekon">No Rekon</label>
                                         <div class="input-group">
                                             <div class="input-group-prepend" style="border: 1px solid #d7d7d7;">
-                                                <span class="input-group-text info-code_no_bill" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                                <span class="input-group-text info-code_no_rekon" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
                                             </div>
-                                            <input type="text" class="form-control inp-label-no_bill" id="no_bill" name="no_bill" value="" title="">
-                                            <span class="info-name_no_bill">
+                                            <input type="text" class="form-control inp-label-no_rekon" id="no_rekon" name="no_rekon" value="" title="">
+                                            <span class="info-name_no_rekon">
                                                 <span></span> 
                                             </span>
                                             <i class="simple-icon-close float-right info-icon-hapus"></i>
-                                            <i class="simple-icon-magnifier search-item2" id="search_no_bill"></i>
+                                            <i class="simple-icon-magnifier search-item2" id="search_no_rekon"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -138,7 +138,7 @@
     function getPeriodeSelect(){
         $.ajax({
             type: 'GET',
-            url: "{{ url('ts-trans/notif-billing-periode') }}",
+            url: "{{ url('ts-trans/notif-pembayaran-periode') }}",
             dataType: 'json',
             async:false,
             success:function(result){   
@@ -177,22 +177,22 @@
 
     getPeriodeSelect();
 
-    function getNoBill(id=null){
+    function getNoRekon(id=null){
         $.ajax({
             type: 'GET',
-            url: "{{ url('ts-trans/notif-billing-nobill') }}",
+            url: "{{ url('ts-trans/notif-pembayaran-norekon') }}",
             dataType: 'json',
             data:{periode:id},
             async:false,
             success:function(result){    
                 if(result.status){
                     if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                        showInfoField('no_bill',result.daftar[0].no_bill,result.daftar[0].keterangan);
+                        showInfoField('no_rekon',result.daftar[0].no_rekon,result.daftar[0].keterangan);
                     }else{
-                        $('#no_bill').attr('readonly',false);
-                        $('#no_bill').css('border-left','1px solid #d7d7d7');
-                        $('#no_bill').val('');
-                        $('#no_bill').focus();
+                        $('#no_rekon').attr('readonly',false);
+                        $('#no_rekon').css('border-left','1px solid #d7d7d7');
+                        $('#no_rekon').val('');
+                        $('#no_rekon').focus();
                     }
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
@@ -206,13 +206,13 @@
         var id = $(this).closest('div').find('input').attr('name');
         showInpFilter({
             id : id,
-            header : ['No Bill', 'Keterangan'],
-            url : "{{ url('ts-trans/notif-billing-nobill') }}",
+            header : ['No Rekon', 'Keterangan'],
+            url : "{{ url('ts-trans/notif-pembayaran-norekon') }}",
             columns : [
-                { data: 'no_bill' },
+                { data: 'no_rekon' },
                 { data: 'keterangan' }
             ],
-            judul : "Daftar Billing",
+            judul : "Daftar Pembayaran",
             pilih : "bill",
             jTarget1 : "text",
             jTarget2 : "text",
@@ -225,9 +225,9 @@
         });
     });
 
-    $('#form-tambah').on('change', '#no_bill', function(){
+    $('#form-tambah').on('change', '#no_rekon', function(){
         var par = $(this).val();
-        getNoBill(par);
+        getNoRekon(par);
     });
 
     // END BAGIAN CBBL
@@ -243,7 +243,7 @@
     
     var dataTable = generateTable(
         "table-data",
-        "{{ url('ts-trans/notif-billing') }}", 
+        "{{ url('ts-trans/notif-pembayaran') }}", 
         [
             {
                 'targets': 4, data: null, 'defaultContent': action_html,'className': 'text-center' 
@@ -290,7 +290,7 @@
     $('#saku-datatable').on('click', '#btn-tambah', function(){
         $('#row-id').hide();
         $('#id_edit').val('');
-        $('#judul-form').html('Tambah Notifikasi Billing');
+        $('#judul-form').html('Tambah Notifikasi Pembayaran');
         $('#btn-update').attr('id','btn-save');
         $('#btn-save').attr('type','submit');
         $('#form-tambah')[0].reset();
@@ -333,7 +333,7 @@
                 required: true,
                 maxlength:6   
             },
-            no_bill:{
+            no_rekon:{
                 required: true, 
                 maxlength:20  
             },
@@ -347,11 +347,11 @@
             var parameter = $('#id_edit').val();
             var id = $('#no_bukti').val();
             if(parameter == "edit"){
-                var url = "{{ url('ts-trans/notif-billing-ubah') }}";
+                var url = "{{ url('ts-trans/notif-pembayaran-ubah') }}";
                 var pesan = "updated";
                 var text = "Perubahan data "+id+" telah tersimpan";
             }else{
-                var url = "{{ url('ts-trans/notif-billing') }}";
+                var url = "{{ url('ts-trans/notif-pembayaran') }}";
                 var pesan = "saved";
                 var text = "Data tersimpan dengan kode "+id;
             }
@@ -379,7 +379,7 @@
                         $('#form-tambah').validate().resetForm();
                         $('[id^=label]').html('');
                         $('#id_edit').val('');
-                        $('#judul-form').html('Tambah Notif Billing');
+                        $('#judul-form').html('Tambah Notif Pembayaran');
                         $('#method').val('post');
                         $('#no_bukti').attr('readonly', false);
                         msgDialog({
@@ -427,14 +427,14 @@
     function hapusData(id){
         $.ajax({
             type: 'DELETE',
-            url: "{{ url('ts-trans/notif-billing') }}",
+            url: "{{ url('ts-trans/notif-pembayaran') }}",
             data: { no_bukti: id },
             dataType: 'json',
             async:false,
             success:function(result){
                 if(result.data.status){
                     dataTable.ajax.reload();                    
-                    showNotification("top", "center", "success",'Hapus Data','Notif Billing ('+id+') berhasil dihapus ');
+                    showNotification("top", "center", "success",'Hapus Data','Notif Pembayaran ('+id+') berhasil dihapus ');
                     $('#modal-pesan-id').html('');
                     $('#table-delete tbody').html('');
                     $('#modal-pesan').modal('hide');
