@@ -30,6 +30,9 @@
                                     <input type="file" class="upload-photo" name="gambar">
                                 </div>
                             </div>
+                            <br />
+                            <label for="kode_tim" class="id_team">Kode Tim</label>
+                            <input class="form-control id_team" type="text" placeholder="Kode Tim" id="kode_team" name="kode_team" readonly>
                         </div>
                         <div class="form-group col-md-8 col-sm-12">
                             <label for="nama_team">Nama</label>
@@ -66,6 +69,7 @@
 
 <script type="text/javascript">
     $('.preview-photo').hide()
+    $('.id_team').hide()
     var $iconLoad = $('.preloader');
     var scrollform = document.querySelector('.form-body');
     var psscrollform = new PerfectScrollbar(scrollform);
@@ -122,7 +126,7 @@
     $('#saku-datatable').on('click', '#btn-tambah', function(){
         editor.setData('');
         resetImage()
-        $('.id_produk').hide();
+        $('.id_team').hide()
         $('#row-id').hide();
         $('#method').val('post');
         $('#judul-form').html('Tambah Data Team');
@@ -190,5 +194,243 @@
         
         fileReader(index, span, photo, input)
     })
+
+    $('#form-tambah').validate({
+        ignore: [],
+        rules: 
+        {
+            nama_produk:{
+                required: true   
+            }
+        },
+        errorElement: "label",
+        submitHandler: function (form, event) {
+            event.preventDefault();
+        
+            var parameter = $('#id_edit').val();
+            var id = $('#kode_team').val();
+            if(parameter == "edit"){
+                var url = "{{ url('admjava-content/team-ubah') }}";
+                var pesan = "updated";
+                var text = "Perubahan data "+id+" telah tersimpan";
+            }else{
+                var url = "{{ url('admjava-content/team') }}";
+                var pesan = "saved";
+                var text = "Data tersimpan dengan kode "+id;
+            }
+
+            CKEDITOR.instances['editor'].updateElement()
+            var formData = new FormData(form);
+            for(var pair of formData.entries()) {
+                console.log(pair[0]+ ', '+ pair[1]); 
+            }
+
+            $.ajax({
+                type: 'POST', 
+                url: url,
+                dataType: 'json',
+                data: formData,
+                async:false,
+                contentType: false,
+                cache: false,
+                processData: false, 
+                success:function(result){
+                    if(result.data.status){
+                        dataTable.ajax.reload();
+                        resetImage()
+                        $('.id_team').hide()
+                        $('#row-id').hide();
+                        $('#form-tambah')[0].reset();
+                        $('#form-tambah').validate().resetForm();
+                        $('[id^=label]').html('');
+                        $('#id_edit').val('');
+                        $('#judul-form').html('Tambah Data Team');
+                        $('#method').val('post');
+                        msgDialog({
+                            id:result.data.kode,
+                            type:'simpan'
+                        });
+                        last_add("id_team",result.data.kode);
+                    }else if(!result.data.status && result.data.message === "Unauthorized"){
+                        
+                        window.location.href = "{{ url('/admjava-auth/sesi-habis') }}";
+                        
+                    }else{
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Something went wrong!',
+                            footer: '<a href>'+result.data.message+'</a>'
+                        })
+                    }
+                },
+                fail: function(xhr, textStatus, errorThrown){
+                    alert('request failed:'+textStatus);
+                }
+            });
+            $('#btn-simpan').html("Simpan").removeAttr('disabled');
+        },
+        errorPlacement: function (error, element) {
+            var id = element.attr("id");
+            $("label[for="+id+"]").append("<br/>");
+            $("label[for="+id+"]").append(error);
+        }
+    });
+
+    function last_add(param,isi){
+        var rowIndexes = [];
+        dataTable.rows( function ( idx, data, node ) {             
+            if(data[param] === isi){
+                rowIndexes.push(idx);                  
+            }
+            return false;
+        }); 
+        dataTable.row(rowIndexes).select();
+        $('.selected td:eq(0)').addClass('last-add');
+        console.log('last-add');
+        setTimeout(function() {
+            console.log('timeout');
+            $('.selected td:eq(0)').removeClass('last-add');
+            dataTable.row(rowIndexes).deselect();
+        }, 1000 * 60 * 10);
+    }
+
+    // BUTTON EDIT
+    function editData(id){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('admjava-content/team-show') }}",
+            data: { kode: id },
+            dataType: 'json',
+            async:false,
+            success:function(response){
+                var result = response.data
+                if(result.status){
+                    console.log(id)
+                    $('.id_team').show();
+                    $('#id_edit').val('edit');
+                    $('#method').val('post');
+                    $('#kode_team').val(id);
+                    $('#id').val(id);
+                    $('#nama_team').val(result.data[0].nama_team);
+                    $('#jabatan_team').val(result.data[0].jabatan_team);
+                    editor.setData(result.data[0].deskripsi);
+
+                    if(result.data[0].path_foto != null || result.data[0].path_foto != undefined || result.data[0].path_foto != '') {
+                
+                        $('.photo-text').hide();
+                        $('.preview-photo').show();
+                        $(".preview-photo").attr('src', 'https://api.simkug.com/api/admjava-auth/storage/'+result.data[0].path_foto)
+                    } else {
+                        $(".preview-photo").attr('src', '')
+                        $('.preview-photo').hide();
+                        $('.photo-text').show();
+                    }
+                    
+                    $('#saku-datatable').hide();
+                    $('#modal-preview').modal('hide');
+                    $('#saku-form').show();
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    window.location.href = "{{ url('admjava-auth/sesi-habis') }}";
+                }
+                // $iconLoad.hide();
+            }
+        });
+    }
+    $('#saku-datatable').on('click', '#btn-edit', function(){
+        var id= $(this).closest('tr').find('td').eq(0).html();
+        // $iconLoad.show();
+        $('#form-tambah').validate().resetForm();
+        
+        $('#btn-save').attr('type','button');
+        $('#btn-save').attr('id','btn-update');
+
+        $('#judul-form').html('Edit Data Project');
+        editData(id);
+    });
+
+    $('.modal-header').on('click', '#btn-edit2', function(){
+        var id= $('#modal-preview-id').text();
+        // $iconLoad.show();
+        $('#form-tambah').validate().resetForm();
+        $('#judul-form').html('Edit Data Bank');
+        
+        $('#btn-save').attr('type','button');
+        $('#btn-save').attr('id','btn-update');
+        editData(id)
+    });
+
+    $('#table-data tbody').on('click','td',function(e){
+        if($(this).index() != 3){
+
+            var id = $(this).closest('tr').find('td').eq(0).html();
+            var data = dataTable.row(this).data();
+            var html = `<tr>
+                        <td style='border:none'>Kode Team</td>
+                        <td style='border:none'>`+id+`</td>
+                    </tr>
+                    <tr>
+                        <td>Nama Team</td>
+                        <td>`+data.nama_team+`</td>
+                    </tr>
+                    <tr>
+                        <td>Jabatan Team</td>
+                        <td>`+data.jabatan_team+`</td>
+                    </tr>
+                    `;
+            $('#table-preview tbody').html(html);    
+            $('#modal-preview-judul').css({'margin-top':'10px','padding':'0px !important'}).html('Preview Data Produk').removeClass('py-2');
+            $('#modal-preview-id').text(id);
+            // $('#modal-preview #content-preview').css({'overflow-y': 'scroll'});      
+            $('#modal-preview').modal('show');  
+        }
+    });
+
+    function hapusData(id){
+        console.log(id)
+        $.ajax({
+            type: 'DELETE',
+            url: "{{ url('admjava-content/team') }}",
+            data: { kode: id },
+            dataType: 'json',
+            async:false,
+            success:function(result){
+                if(result.data.status){
+                    dataTable.ajax.reload();                    
+                    showNotification("top", "center", "success",'Hapus Data','Data Team ('+id+') berhasil dihapus ');
+                    $('#modal-pesan-id').html('');
+                    $('#table-delete tbody').html('');
+                    $('#modal-pesan').modal('hide');
+                }else if(!result.data.status && result.data.message == "Unauthorized"){
+                    window.location.href = "{{ url('admjava-auth/sesi-habis') }}";
+                }else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href>'+result.data.message+'</a>'
+                    });
+                }
+            }
+        });
+    }
+
+    $('#saku-datatable').on('click','#btn-delete',function(e){
+        var kode = $(this).closest('tr').find('td').eq(0).html();
+        msgDialog({
+            id: kode,
+            type:'hapus'
+        });
+    });
+
+    $('.modal-header').on('click','#btn-delete2',function(e){
+        var id = $('#modal-preview-id').text();
+        $('#modal-preview').modal('hide');
+        msgDialog({
+            id:id,
+            type:'hapus'
+        });
+    });
 
 </script>
