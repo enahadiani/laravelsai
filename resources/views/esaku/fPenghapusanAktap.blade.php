@@ -132,3 +132,17 @@
         </div>
     </div>
 </form>
+
+@include('modal_search')
+<script src="{{url('asset_elite/inputmask.js')}}"></script>
+<script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
+<script src="{{ asset('helper.js') }}"></script>
+<script type="text/javascript">
+    $('.currency').inputmask("numeric", {
+        radixPoint: ",",
+        groupSeparator: ".",
+        digits: 2,
+        autoGroup: true,
+        rightAlign: true
+    });
+</script>
