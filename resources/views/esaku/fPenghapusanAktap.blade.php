@@ -16,7 +16,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body form-header" style="padding-top:0.5rem;padding-bottom:0.5rem;min-height:48px;">
-                    <h6 id="judul-form" style="position:absolute;top:13px">Percepatan Penyusutan</h6>
+                    <h6 id="judul-form" style="position:absolute;top:13px">Hapus Aktiva Tetap</h6>
                     {{-- <button type="button" id="btn-kembali" aria-label="Kembali" class="btn btn-back">
                         <span aria-hidden="true">&times;</span>
                     </button> --}}
@@ -31,6 +31,11 @@
                             <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;" class="simple-icon-calendar date-search"></i>
                         </div>
                         <div class="form-group col-md-3 col-sm-12">
+                            <label for="no_dokumen">No Dokumen</label>
+                            <input type="text" placeholder="No Dokumen" class="form-control" id="no_dokumen" name="no_dokumen" required>
+                        </div>
+                        <div class="form-group col-md-3 col-sm-12"></div>
+                        <div class="form-group col-md-3 col-sm-12">
                             <label for="aktiva_tetap">No Aktiva Tetap</label>
                             <div class="input-group">
                                 <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
@@ -44,11 +49,6 @@
                                 <i class="simple-icon-magnifier search-item2" id="search_aktiva_tetap"></i>
                             </div>
                         </div>
-                        <div class="form-group col-md-3 col-sm-12"></div>
-                        <div class="form-group col-md-3 col-sm-12">
-                            <label for="jumlah">Jumlah Penyusutan</label>
-                            <input type="text" placeholder="Jumlah" class="form-control currency" id="jumlah" name="jumlah" value="0" required>
-                        </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6 col-sm-12">
@@ -57,8 +57,18 @@
                         </div>
                         <div class="form-group col-md-3 col-sm-12"></div>
                         <div class="form-group col-md-3 col-sm-12">
-                            <label for="nilai_penyusutan">Nilai Penyusutan</label>
-                            <input type="text" placeholder="Nilai Penyusutan" class="form-control currency" id="nilai_penyusutan" name="nilai_penyusutanh" value="0" required>
+                            <label for="beban_penghapusan">Beban Penghapusan</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                    <span class="input-group-text info-code_beban_penghapusan" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                </div>
+                                <input type="text" class="cbbl form-control inp-label-beban_penghapusan" id="beban_penghapusan" name="aktiva_tetap" value="" title="" readonly>
+                                <span class="info-name_beban_penghapusan hidden">
+                                    <span id="label_beban_penghapusan"></span> 
+                                </span>
+                                <i class="simple-icon-close float-right info-icon-hapus hidden" style="cursor: pointer;"></i>
+                                <i class="simple-icon-magnifier search-item2" id="search_beban_penghapusan"></i>
+                            </div>
                         </div>
                     </div>
                     <div class="form-row">
@@ -122,17 +132,3 @@
         </div>
     </div>
 </form>
-
-@include('modal_search')
-<script src="{{url('asset_elite/inputmask.js')}}"></script>
-<script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
-<script src="{{ asset('helper.js') }}"></script>
-<script type="text/javascript">
-    $('.currency').inputmask("numeric", {
-        radixPoint: ",",
-        groupSeparator: ".",
-        digits: 2,
-        autoGroup: true,
-        rightAlign: true
-    });
-</script>
