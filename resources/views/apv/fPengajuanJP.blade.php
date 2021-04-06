@@ -249,7 +249,8 @@
                                                 <th width="7%">Qty</th>
                                                 <th width="15%">Subtotal</th>
                                                 <th width="10%">PPN</th>
-                                                <th width="20%">Grand Total</th>
+                                                <th width="20%">Grand Total</th> 
+                                                <th width="5%"><button type="button" href="#" id="add-row" class="btn btn-default"><i class="fa fa-plus-circle"></i></button></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -877,66 +878,71 @@
 
     $('#saku-form').on('click', '#add-row', function(){
 
-        var no=$('#input-grid2 .row-barang:last').index();
-        no=no+2;
-        var input = "";
-        input += "<tr class='row-barang'>";
-        input += "<td width='5%' class='no-barang'>"+no+"</td>";
-        input += "<td width='45%'><input type='text' name='barang[]' class='form-control inp-brg' value='' required></td>";
-        input += "<td width='15%' style='text-align:right'><input type='text' name='harga[]' class='form-control currency inp-hrg'  value='0' required></td>";
-        input += "<td width='10%' style='text-align:right'><input type='text' name='qty[]' class='form-control currency inp-qty'  value='0' required></td>";
-        input += "<td width='20%' style='text-align:right'><input type='text' name='nilai[]' class='form-control currency inp-sub' readonly value='0' required></td>";
-        input += "<td width='5%'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></td>";
-        input += "</tr>";
-        $('#input-grid2 tbody').append(input);
-        $('.currency').inputmask("numeric", {
-            radixPoint: ",",
-            groupSeparator: ".",
-            digits: 2,
-            autoGroup: true,
-            rightAlign: true,
-            oncleared: function () { self.Value(''); }
-        });
-        $('#input-grid2 tbody tr:last').find('.inp-brg').focus();
+    var no=$('#input-grid2 .row-barang:last').index();
+    no=no+2;
+    var input = "";
+    input += "<tr class='row-barang'>";
+    input += "<td class='no-barang'>"+no+"</td>";
+    input += "<td><select name='barang_klp[]' class='form-control inp-barang_klp barang_klpke"+no+"' value='' required></select></td>";
+    input += "<td><input type='text' name='barang[]' class='form-control inp-brg' value='' required></td>";
+    input += "<td style='text-align:right'><input type='text' name='harga[]' class='form-control currency inp-hrg'  value='0' required></td>";
+    input += "<td style='text-align:right'><input type='text' name='qty[]' class='form-control currency inp-qty'  value='0' required></td>";
+    input += "<td style='text-align:right'><input type='text' name='nilai[]' class='form-control currency inp-sub' readonly value='0' required></td>";
+    input += "<td style='text-align:right'><input type='text' name='ppn[]' class='form-control currency inp-ppn' value='0' required></td>";
+    input += "<td style='text-align:right'><input type='text' name='grand_total[]' class='form-control currency inp-grand_total' readonly value='0' required></td>";
+    input += "<td><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></td>";
+    input += "</tr>";
+    $('#input-grid2 tbody').append(input);
+    getBarangKlp('barang_klpke'+no);
+    $('.currency').inputmask("numeric", {
+        radixPoint: ",",
+        groupSeparator: ".",
+        digits: 2,
+        autoGroup: true,
+        rightAlign: true,
+        oncleared: function () { self.Value(''); }
+    });
+    $('#input-grid2 tbody tr:last').find('.inp-brg').focus();
     });
 
     $('#input-grid2').on('keydown', '.inp-brg', function(e){
-        if (e.which == 13 || e.which == 9) {
-            e.preventDefault();
-            $(this).closest('tr').find('.inp-hrg').focus();
-        }
+    if (e.which == 13 || e.which == 9) {
+        e.preventDefault();
+        $(this).closest('tr').find('.inp-hrg').focus();
+    }
     });
 
     $('#input-grid2').on('keydown', '.inp-hrg', function(e){
-        if (e.which == 13 || e.which == 9) {
-            e.preventDefault();
-            var hrg = $(this).closest('tr').find('.inp-hrg').val();
-            var qty = $(this).closest('tr').find('.inp-qty').val();
-            var sub = toNilai(hrg)*toNilai(qty);
-            $(this).closest('tr').find('.inp-qty').focus();
-            $(this).closest('tr').find('.inp-sub').val(sub);
-            
-            var ppn = toNilai($(this).closest('tr').find('.inp-ppn').val());
-            var grand = sub+((ppn/100)*sub);
-            $(this).closest('tr').find('.inp-grand_total').val(grand);
+    if (e.which == 13 || e.which == 9) {
+        e.preventDefault();
+        var hrg = $(this).closest('tr').find('.inp-hrg').val();
+        var qty = $(this).closest('tr').find('.inp-qty').val();
+        var sub = toNilai(hrg)*toNilai(qty);
+        $(this).closest('tr').find('.inp-qty').focus();
+        $(this).closest('tr').find('.inp-sub').val(sub);
+        var ppn = $(this).closest('tr').find('.inp-ppn').val();
+        var nppn = toNilai(ppn)/100;
+        var grand = sub+(nppn*sub);
+        $(this).closest('tr').find('.inp-grand_total').val(grand);
 
-            hitungBrg();
-        }
+        hitungBrg();
+    }
     });
 
     $('#input-grid2').on('change', '.inp-hrg', function(e){
-        // if (e.which == 13 || e.which == 9) {
-            e.preventDefault();
-            var hrg = $(this).closest('tr').find('.inp-hrg').val();
-            var qty = $(this).closest('tr').find('.inp-qty').val();
-            var sub = toNilai(hrg)*toNilai(qty);
-            $(this).closest('tr').find('.inp-qty').focus();
-            $(this).closest('tr').find('.inp-sub').val(sub);
-            var ppn = toNilai($(this).closest('tr').find('.inp-ppn').val());
-            var grand = sub+((ppn/100)*sub);
-            $(this).closest('tr').find('.inp-grand_total').val(grand);
-            hitungBrg();
-        // }
+    // if (e.which == 13 || e.which == 9) {
+        e.preventDefault();
+        var hrg = $(this).closest('tr').find('.inp-hrg').val();
+        var qty = $(this).closest('tr').find('.inp-qty').val();
+        var sub = toNilai(hrg)*toNilai(qty);
+        $(this).closest('tr').find('.inp-qty').focus();
+        $(this).closest('tr').find('.inp-sub').val(sub);
+        var ppn = $(this).closest('tr').find('.inp-ppn').val();
+        var nppn = toNilai(ppn)/100;
+        var grand = sub+(nppn*sub);
+        $(this).closest('tr').find('.inp-grand_total').val(grand);
+        hitungBrg();
+    // }
     });
 
     $('#input-grid2').on('keydown', '.inp-qty', function(e){
@@ -946,11 +952,12 @@
             var qty = $(this).closest('tr').find('.inp-qty').val();
             var sub = toNilai(hrg)*toNilai(qty);
             $(this).closest('tr').find('.inp-sub').val(sub);
-            var ppn = toNilai($(this).closest('tr').find('.inp-ppn').val());
-            var grand = sub+((ppn/100)*sub);
+            var ppn = $(this).closest('tr').find('.inp-ppn').val();
+            var nppn = toNilai(ppn)/100;
+            var grand = sub+(nppn*sub);
             $(this).closest('tr').find('.inp-grand_total').val(grand);
             hitungBrg();
-            $('#add-row').click();
+            // $('#add-row').click();
         }
     });
 
@@ -961,8 +968,9 @@
             var qty = $(this).closest('tr').find('.inp-qty').val();
             var sub = toNilai(hrg)*toNilai(qty);
             $(this).closest('tr').find('.inp-sub').val(sub);
-            var ppn = toNilai($(this).closest('tr').find('.inp-ppn').val());
-            var grand = sub+((ppn/100)*sub);
+            var ppn = $(this).closest('tr').find('.inp-ppn').val();
+            var nppn = toNilai(ppn)/100;
+            var grand = sub+(nppn*sub);
             $(this).closest('tr').find('.inp-grand_total').val(grand);
             hitungBrg();
         // }
@@ -977,7 +985,7 @@
             var grand = sub+((ppn/100)*sub);
             $(this).closest('tr').find('.inp-grand_total').val(grand);
             hitungBrg();
-            $('#add-row').click();
+            // $('#add-row').click();
         }
     });
 
@@ -986,7 +994,7 @@
             e.preventDefault();
             var sub = toNilai($(this).closest('tr').find('.inp-sub').val());
             var ppn = toNilai($(this).closest('tr').find('.inp-ppn').val());
-            var grand = sub+((ppn/100)*sub);
+            var grand = parseFloat(sub+((ppn/100)*sub)).toFixed(0);
             $(this).closest('tr').find('.inp-grand_total').val(grand);
             hitungBrg();
         // }
@@ -1039,6 +1047,7 @@
                                 input += "<td style='text-align:right'><input type='text' name='nilai[]' class='form-control inp-sub currency' readonly value='"+toRp(line.nilai)+"' required></td>";
                                 input += "<td style='text-align:right'><input type='text' name='ppn[]' class='form-control inp-ppn currency' value='"+toRp(line.ppn)+"' required></td>";
                                 input += "<td style='text-align:right'><input type='text' name='grand_total[]' class='form-control inp-grand_total currency' readonly value='"+toRp(line.grand_total)+"' required></td>";
+                                input += "<td><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></td>";
                                 input += "</tr>";
                                 no++;
                             }
