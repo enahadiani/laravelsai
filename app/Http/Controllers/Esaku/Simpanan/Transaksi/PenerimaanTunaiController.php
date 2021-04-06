@@ -128,53 +128,70 @@ class PenerimaanTunaiController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'tanggal' => 'required',
-            'deskripsi' => 'required',
-            'akun_piutang.*' => 'required',
-            'akun_simpanan.*' => 'required',
-            'nilai.*' => 'required',
+            'anggota'           => 'required',
+            'tanggal'           => 'required',
+            'anggota'           => 'required',
+            'deskripsi'         => 'required',
+            'akun_piutang.*'    => 'required',
+            'nilai_tagihan.*'   => 'required',
+            'no_akru.*'         => 'required',
+            'no_kartu.*'        => 'required',
         ]);
 
         try{
             $detail = array();
             if(isset($request->tanggal)){
-                $tanggal = $request->tanggal;
-                $deskripsi = $request->deskripsi;
-                $akun_piutang = $request->akun_piutang;
-                $akun_simpanan = $request->akun_simpanan;
-                $nilai = $request->nilai;
+                $tanggal        = $request->tanggal;
+                $deskripsi      = $request->deskripsi;
+                $nilai_bayar    = $request->nilai_bayar;
+                $no_dokumen     = $request->no_dokumen;
+                $akun_kas       = $request->akun_kas;
+                $no_agg         = $request->anggota;
+                $jenis          = $request->jenis;
+                $nilai_tagihan  = $request->nilai_tagihan;
+                $akun_piutang   = $request->akun_piutang;
+                $no_akru        = $request->no_akru;
+                $no_kartu       = $request->no_kartu;
             }
 
              $fields =
                   array (
-                    'tanggal' => $tanggal,
-                    'keterangan' => $deskripsi,
-                    'akun_piutang'  =>  $akun_piutang,
-                    'akun_simpanan'  =>  $akun_simpanan,
-                    'nilai'  =>  $nilai,
+                    'tanggal'           => $tanggal,
+                    'keterangan'        => $deskripsi,
+                    'nilai_deposit'     => 0,
+                    'nilai_bayar'       => $nilai_bayar,
+                    'no_dokumen'        => $no_dokumen,
+                    'akun_kas'          => $akun_kas,
+                    'no_agg'            => $no_agg,
+                    'jenis'             => $jenis,
+                    'akun_piutang'      => $akun_piutang,
+                    'nilai_tagihan'     => $nilai_tagihan,
+                    'no_akru'           => $no_akru,
+                    'no_kartu'          => $no_kartu
                 );
 
             $client = new Client();
-            $response = $client->request('POST',  config('api.url').'esaku-trans/akru-simp',[
-                'headers' => [
-                    'Authorization' => 'Bearer '.Session::get('token'),
-                    'Content-Type'     => 'application/json'
-                ],
-                'body' => json_encode($fields)
-            ]);
+            // $response = $client->request('POST',  config('api.url').'esaku-trans/terima-simp',[
+            //     'headers' => [
+            //         'Authorization'     => 'Bearer '.Session::get('token'),
+            //         'Content-Type'      => 'application/json'
+            //     ],
+            //     'body' => json_encode($fields)
+            // ]);
 
-            if ($response->getStatusCode() == 200) { // 200 OK
-                $response_data = $response->getBody()->getContents();
+            // if ($response->getStatusCode() == 200) { // 200 OK
+            //     $response_data = $response->getBody()->getContents();
 
-                $data = json_decode($response_data,true);
-                return response()->json(["data" =>$data,"body" => $fields], 200);
-            }
+            //     $data = json_decode($response_data,true);
+            //     return response()->json(["data" =>$data,"body" => $fields], 200);
+            // }
+              return response()->json(["body" => $fields], 200);
         } catch (\Exception $ex) {
 
             $result['message'] =$ex->getMessage();
             $result['rows'] = $request->akun_piutang;
             // $result['status']=false;
-            return response()->json(["data" => $result], 500);
+            return response()->json(['status' => true,"data" => $result], 500);
         }
 
     }

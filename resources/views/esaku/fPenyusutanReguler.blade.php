@@ -76,9 +76,12 @@
                 </div>
                 <div class="card-form-footer-full">
                     <div class="footer-form-container-full">
-                        <div class="text-right message-action">
-                            <p class="text-success"></p>
+                        <div class="bottom-sheet-action">
+                            <button type="button" id="btn-sheet" class="btn btn-sheet">Detail Penyusutan</button>
                         </div>
+                        {{-- <div class="text-right message-action">
+                            <p class="text-success"></p>
+                        </div> --}}
                         <div class="action-footer">
                             <button type="submit" style="margin-top: 10px;" class="btn btn-primary btn-save"><i class="fa fa-save"></i> Simpan</button>
                         </div>
@@ -95,9 +98,10 @@
 <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
 <script src="{{ asset('helper.js') }}"></script>
 <script type="text/javascript">
-    setHeightForm();
+    // setHeightForm();
     var scrollform = document.querySelector('.form-body');
     new PerfectScrollbar(scrollform);
+
     $('#judul-form').html('Form Penyusutan Reguler');
 
     $.ajaxSetup({
@@ -105,5 +109,21 @@
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         }
     });
+
+    // Bottom sheet
+    var bottomSheet = new BottomSheet("country-selector");
+    $('#btn-sheet').on('click', function(event){
+        event.preventDefault()
+        bottomSheet.activate()
+        addContentBottomSheet()
+    })
+    
+    function addContentBottomSheet() {
+        $('#content-bottom-sheet').empty()
+        var html = "";
+        html += "<div class='header-sheet'><h6>Detail Penyusutan</h6></div>"
+
+        $('#content-bottom-sheet').append(html)
+    }
 
 </script>
