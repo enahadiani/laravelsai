@@ -62,7 +62,7 @@
                                 <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
                                     <span class="input-group-text info-code_beban_penghapusan" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
                                 </div>
-                                <input type="text" class="cbbl form-control inp-label-beban_penghapusan" id="beban_penghapusan" name="aktiva_tetap" value="" title="" readonly>
+                                <input type="text" class="cbbl form-control inp-label-beban_penghapusan" id="beban_penghapusan" name="beban_penghapusan" value="" title="" readonly>
                                 <span class="info-name_beban_penghapusan hidden">
                                     <span id="label_beban_penghapusan"></span> 
                                 </span>
