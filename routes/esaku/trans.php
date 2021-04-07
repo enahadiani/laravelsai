@@ -230,3 +230,6 @@ Route::post('percepatan-penyusutan', 'Esaku\Aktap\PercepatanPenyusutanController
 
 ## Penghapusan Aktiva
 Route::post('penghapusan-aktiva', 'Esaku\Aktap\PenghapusanAktapController@store');
+
+## Pembatalan Penyusutan
+Route::post('pembatalan-penyusutan', 'Esaku\Aktap\PembatalanPenyusutanController@store');
