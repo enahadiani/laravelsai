@@ -227,3 +227,6 @@ Route::post('terima-simp','Esaku\Simpanan\Transaksi\PenerimaanTunaiController@st
 // Transaksi Aktiva Tetap
 ## Percepatan Penyusutan
 Route::post('percepatan-penyusutan', 'Esaku\Aktap\PercepatanPenyusutanController@store');
+
+## Penghapusan Aktiva
+Route::post('penghapusan-aktiva', 'Esaku\Aktap\PenghapusanAktapController@store');
