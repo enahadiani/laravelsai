@@ -203,8 +203,8 @@ $thnLalu = substr($tahunLalu,2,2)
                         <div class="col-md-6">
                             <div class="card bg-red">
                                 <div class="card-body px-3 py-2 text-center">
-                                    <p class="mb-2">Target</p>
-                                    <p class="text-danger mb-0">92,05%</p>
+                                    <p class="mb-2">Real</p>
+                                    <p class="text-danger mb-0">91,58%</p>
                                 </div>
                             </div>
                         </div>
@@ -540,8 +540,8 @@ function getChartOR(periode=null)
                         'stroke-linejoin': 'round',
                         'stroke-width': 2,
                         zIndex: 10
-                    })
-                    .add(this.series[2].group);
+                    });
+                    // .add(this.series[2].group);
                 }
                 this.series[0].icon.translate(
                     this.chartWidth / 2 - 10,
@@ -561,8 +561,8 @@ function getChartOR(periode=null)
                             'stroke-linejoin': 'round',
                             'stroke-width': 2,
                             zIndex: 10
-                        })
-                        .add(this.series[2].group);
+                        });
+                        // .add(this.series[2].group);
                     }
                     this.series[1].icon.translate(
                         this.chartWidth / 2 - 10,
@@ -572,7 +572,7 @@ function getChartOR(periode=null)
                     
                     
                 }
-                
+
                 Highcharts.chart('chart-or', {
                     
                     chart: {
@@ -632,7 +632,9 @@ function getChartOR(periode=null)
                         lineWidth: 0,
                         tickPositions: []
                     },
-                    
+                    colors:[Highcharts.color(Highcharts.getOptions().colors[0])
+                            .get(),Highcharts.color(Highcharts.getOptions().colors[5])
+                            .get()],
                     plotOptions: {
                         solidgauge: {
                             dataLabels: {
@@ -645,22 +647,29 @@ function getChartOR(periode=null)
                     },
                     
                     series: [{
-                        name: 'Move',
+                        name: 'Target',
                         data: [{
                             color: Highcharts.getOptions().colors[0],
                             radius: '112%',
                             innerRadius: '88%',
-                            y: 80
+                            y: 92.05
                         }]
                     }, {
-                        name: 'Exercise',
+                        name: 'Real',
                         data: [{
-                            color: Highcharts.getOptions().colors[1],
+                            color: Highcharts.getOptions().colors[5],
                             radius: '87%',
                             innerRadius: '63%',
-                            y: 65
+                            y: 91.58
                         }]
                     }]
+                }, function(){
+                    var series = this.series;
+                    var colors = this.options.colors;
+                    for (var i = 0, ie = series.length; i < ie; ++i) {
+                        var points = series[i].data;
+                        points[0].graphic.element.style.fill = colors[i];
+                    }
                 });
             
     //     },
