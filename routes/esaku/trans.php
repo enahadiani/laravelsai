@@ -222,3 +222,14 @@ Route::delete('reverse-akru-simp/{no_bukti}','Esaku\Simpanan\Transaksi\ReverseCo
 Route::get('terima-simp-akunkas','Esaku\Simpanan\Transaksi\PenerimaanTunaiController@getAkun');
 Route::get('terima-simp-tagihan/{no_agg}','Esaku\Simpanan\Transaksi\PenerimaanTunaiController@loadTagihan');
 Route::post('terima-simp','Esaku\Simpanan\Transaksi\PenerimaanTunaiController@store');
+
+
+// Transaksi Aktiva Tetap
+## Percepatan Penyusutan
+Route::post('percepatan-penyusutan', 'Esaku\Aktap\PercepatanPenyusutanController@store');
+
+## Penghapusan Aktiva
+Route::post('penghapusan-aktiva', 'Esaku\Aktap\PenghapusanAktapController@store');
+
+## Pembatalan Penyusutan
+Route::post('pembatalan-penyusutan', 'Esaku\Aktap\PembatalanPenyusutanController@store');
