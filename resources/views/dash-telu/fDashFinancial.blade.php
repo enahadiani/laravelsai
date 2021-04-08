@@ -209,12 +209,13 @@ $thnLalu = substr($tahunLalu,2,2)
                             </div>
                         </div>
                     </div>
-                    <div class="separator px-2 my-3"></div>
+                    <div class="separator px-2 my-5"></div>
                     <div class="row">
                         <div class="col-md-12">
                             <p>Target OR tercapai (di bawah target) yang ditetapkan Q1</p>
                         </div>
                     </div>
+                    <i class="simple-icon-note text-right" style="font-size: 25px;position: absolute;bottom: 20px;right: 20px;color: #f3f3f3;"></i>
                 </div>
             </div>
         </div>
