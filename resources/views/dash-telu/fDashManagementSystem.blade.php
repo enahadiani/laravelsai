@@ -206,7 +206,7 @@ function sepNum(x){
         }else if(!isFinite(x)){
             return 0;
         }else{
-            var x = parseFloat(x).toFixed(2);
+            // var x = parseFloat(x).toFixed(2);
             // console.log(x);
             var tmp = x.toString().split('.');
             // console.dir(tmp);
@@ -433,15 +433,15 @@ function getProfitLoss(periode=null)
                 for(var i=0;i<result.data.data.length;i++)
                 {
                     var line = result.data.data[i];
-                    if(line.nama != "Beban"){
-                        var rka = toMilyar(parseFloat(line.rka)*-1);
-                        var real = toMilyar(parseFloat(line.real)*-1);
-                    }else{
+                    // if(line.nama != "Beban"){
+                    //     var rka = toMilyar(parseFloat(line.rka)*-1);
+                    //     var real = toMilyar(parseFloat(line.real)*-1);
+                    // }else{
                         
                         var rka = toMilyar(parseFloat(line.rka));
                         var real = toMilyar(parseFloat(line.real));
-                    }
-                    var persen = sepNumPas(parseFloat(line.persen));
+                    // }
+                    var persen = sepNum(parseFloat(line.persen));
                     if(i == 0){
 
                         html+=`<tr>
