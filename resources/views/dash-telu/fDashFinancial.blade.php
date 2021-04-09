@@ -510,7 +510,7 @@ function getTarget(periode=null)
                                                 <h5 class="bold">`+toMilyar(line.realisasi)+`</h5>
                                                 <p>Target `+toMilyar(line.rka_sd)+`</p>
                                                 <table class="table table-borderless table-target" style="width:90%">`;
-                                                    if(parseFloat(line.persen) >= 0){
+                                                    if(parseFloat(line.persen) >= 100){
                                                         var text = "text-success";
                                                         var icon = "simple-icon-arrow-up-circle";
                                                     }else{
