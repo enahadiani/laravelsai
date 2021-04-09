@@ -7755,3 +7755,11 @@ div.row-notif  a:hover {
 .dash-card > .card-body > .table tr:hover{
   background: #1b1919;
 }
+.card-target > .card-body {
+  background: #2B2B2B !important;
+  color:#8f8f8f;
+  border-radius: 25px !important;
+}
+.dash-contents h6,.dash-contents p,.dash-contents span{
+  color:#8f8f8f !important;
+}

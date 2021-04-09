@@ -7732,3 +7732,7 @@ div.row-notif  a:hover {
 .dash-card > .card-body > .table tr:hover{
   background: #f8f8f8;
 }
+.card-target > .card-body {
+  background: white !important;
+  border-radius: 25px !important;
+}

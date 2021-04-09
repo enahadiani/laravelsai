@@ -90,7 +90,7 @@ $thnLalu = substr($tahunLalu,2,2)
            
         </div>
         <div class="col-lg-4 col-12 mb-4 col-grid">
-            <div class="card card-target">
+            <div class="card card-target ">
                 <div class="card-body or-row">
                     <h6>Operating Ratio</h6>
                     <div class="row">
@@ -502,7 +502,7 @@ function getTarget(periode=null)
                         html +=` 
                         <div class="row `+margin+`">
                             <div class="col-lg-12">
-                                <div class="card card-target">
+                                <div class="card card-target ">
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-md-5 col-12 col-grid">
