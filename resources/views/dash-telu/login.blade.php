@@ -252,6 +252,8 @@
                 'height':'50px'
             });
 
+            $('.auth-card').css('background','#1b1919');
+
         // localStorage.setItem("dore-theme", mode);
         } else if (mode == "light") {
             
