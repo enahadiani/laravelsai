@@ -91,7 +91,7 @@ $thnLalu = substr($tahunLalu,2,2)
         </div>
         <div class="col-lg-4 col-12 mb-4 col-grid">
             <div class="card card-target">
-                <div class="card-body">
+                <div class="card-body or-row">
                     <h6>Operating Ratio</h6>
                     <div class="row">
                         <div class="col-md-12">
@@ -123,7 +123,7 @@ $thnLalu = substr($tahunLalu,2,2)
                             <p id="ket-or"></p>
                         </div>
                     </div>
-                    <a class='edit-note' href='#'>
+                    <a class='edit-note' id='note-or' href='#'>
                         <i class="simple-icon-note text-right" style="font-size: 25px;position: absolute;bottom: 20px;right: 20px;color: #f3f3f3;"></i>
                     </a>
                 </div>
@@ -692,6 +692,9 @@ function getTarget(periode=null)
 
             if(result.data2.length > 0){
                 
+                $('#note-or').attr('data-kode_grafik',result.data2[0].kode_grafik);
+                $('#note-or').attr('data-nama',result.data2[0].nama);
+                $('#note-or').attr('data-periode',quarter($dash_periode.from));
                 $('#target-or').html(sepNum(result.data2[0].rka_sd));
                 $('#real-or').html(sepNum(result.data2[0].realisasi));
                 $('#ket-or').html(result.data2[0].keterangan);
@@ -863,6 +866,96 @@ $("#btn-close").on("click", function (event) {
     event.preventDefault();
     
     $('#modalFilter').modal('hide');
+});
+
+$('.or-row').on("click", '#note-or',function(e){
+    e.preventDefault();
+    var note = $('#ket-or');
+    var periode = $(this).data('periode');
+    var kode_grafik = $(this).data('kode_grafik');
+    var nama = $(this).data('nama');
+    var keterangan = note.html();
+    
+    $('#content-bottom-sheet').html('');
+    var html =`
+    <form id="form-note" class="mx-3 mt-4 tooltip-label-right" novalidate>
+    <input type="hidden" name="kode_grafik" value="`+kode_grafik+`">
+    <input type="hidden" name="periode" value="`+periode+`">
+    <input type="hidden" name="nama" value="`+nama+`">
+    <div class="form-row">
+    <div class="form-group col-lg-12 col-sm-12">
+    <label for="tanggal">Keterangan</label>
+    <textarea class='form-control' row='4' name='keterangan' id='keterangan'></textarea>
+    </div>
+    </div>
+    <div class="form-row mt-4">
+    <div class="form-group col-lg-12 col-sm-12">
+    <button type="submit" id="btn-note" class="btn btn-primary float-right"> Simpan </button>
+    </div>
+    </div>
+    </form>
+    `;
+    $('#content-bottom-sheet').html(html);
+    $('#keterangan').val(keterangan);
+    $('#form-note').validate({
+        ignore: [],
+        errorElement: "label",
+        submitHandler: function (form) {
+            
+            var formData = new FormData(form);
+            for(var pair of formData.entries()) {
+                console.log(pair[0]+ ', '+ pair[1]); 
+            }
+            
+            var url = "{{ url('/telu-dash/note') }}";
+            
+            $.ajax({
+                type: 'POST',
+                url: url,
+                dataType: 'json',
+                data: formData,
+                async:false,
+                contentType: false,
+                cache: false,
+                processData: false, 
+                success:function(result){
+                    if(result.status){
+                        console.log(note.html());
+                        note.html(result.keterangan);
+                        console.log(note.html());
+                        msgDialog({
+                            id:'-',
+                            type:'warning',
+                            title: 'Sukses',
+                            text: result.message
+                        });
+                        $('.c-bottom-sheet').removeClass('active');
+                    }
+                    else if(!result.status && result.message == 'Unauthorized'){
+                        window.location.href = "{{ url('dash-telu/sesi-habis') }}";
+                    }
+                    else{
+                        msgDialog({
+                            id: '-',
+                            type: 'warning',
+                            title: 'Gagal',
+                            text: result.message
+                        });
+                    }
+                },
+                fail: function(xhr, textStatus, errorThrown){
+                    alert('request failed:'+textStatus);
+                }
+            });
+        },
+        errorPlacement: function (error, element) {
+            var id = element.attr("id");
+            $("label[for="+id+"]").append("<br/>");
+            $("label[for="+id+"]").append(error);
+        }
+    });
+    $('.c-bottom-sheet__sheet').css({ "width":"70%","margin-left": "15%", "margin-right":"15%"});
+    $('#trigger-bottom-sheet').trigger("click");
 });
 
 </script>
