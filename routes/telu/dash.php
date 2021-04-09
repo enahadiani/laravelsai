@@ -92,6 +92,7 @@ Route::get('/pend-5tahun-growth','DashTelu\DashboardController@getPend5TahunGrow
 
 Route::get('/beban-5tahun','DashTelu\DashboardController@getBeban5Tahun');
 Route::get('/beban-5tahun-sdm','DashTelu\DashboardController@getBeban5TahunSDM');
+Route::get('/beban-5tahun-non-sdm','DashTelu\DashboardController@getBeban5TahunNonSDM');
 Route::get('/beban-5tahun-komposisi','DashTelu\DashboardController@getBeban5TahunKomposisi');
 Route::get('/beban-5tahun-growth','DashTelu\DashboardController@getBeban5TahunGrowth');
 

@@ -69,7 +69,7 @@ $tahun5 = intval($tahun-5);
         </div>
     </div>
     <div class="row" >
-        <div class="col-lg-6 col-12 mb-4">
+        <div class="col-lg-12 col-12 mb-4">
              <div class="card dash-card">
                 <div class="card-header">
                     <h6 class="card-title">SHU <span class="rentang-tahun"></span></h6>
