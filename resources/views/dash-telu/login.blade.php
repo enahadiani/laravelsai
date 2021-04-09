@@ -260,7 +260,7 @@
             $('.logo-single').css({
                 'background': "url('"+url_logo+"') no-repeat",
                 'background-size': '150px',
-                'background-position-y': 'center';
+                'background-position-y': 'center',
                 'width':'160px',
                 'height':'45px'
             });
