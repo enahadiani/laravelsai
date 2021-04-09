@@ -121,5 +121,6 @@ Route::get('drill-pp','DashTelu\DashboardController@getDrillPP');
 Route::get('drill-detail-pp','DashTelu\DashboardController@getDetailDrillPP');
 
 Route::get('video-list','DashTelu\DashboardController@getVideoList');
+Route::get('financial-target','DashTelu\DashboardController@getTarget');
 
 ?>

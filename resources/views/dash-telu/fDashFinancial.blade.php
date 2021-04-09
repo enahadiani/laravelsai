@@ -83,103 +83,8 @@ $thnLalu = substr($tahunLalu,2,2)
         </div>
     </div>
     <div class="row" >
-        <div class="col-lg-8 col-12 mb-4 col-grid">
-            <div class="row mb-4">
-                <div class="col-lg-12">
-                    <div class="card card-target">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-5 col-12 col-grid">
-                                    <h6>Revenue</h6>
-                                    <h5 class="bold">126,679 M</h5>
-                                    <p>Target 126,115M</p>
-                                    <table class="table table-borderless table-target" style="width:90%">
-                                        <tr>
-                                            <td style="width:10%" rowspan="2"><i class="simple-icon-arrow-up-circle text-success" style="font-size:25px;"></i></td>
-                                            <td class="bold text-success" style="width:30%">100,45%</td>
-                                            <td style="width:10%" rowspan="2"><i class="simple-icon-arrow-down-circle text-danger" style="font-size:25px"></i></td>
-                                            <td class="bold text-danger" style="width:30%">-1,75%</td>
-                                            <td rowspan="2" style="width:20%">&nbsp;</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="">Pencapaian</td>
-                                            <td class="">YoY</td>
-                                        </tr>
-                                    </table>
-                                </div>
-                                <div class="col-md-7 col-12 col-grid border-left">
-                                    <p>Target Q1 terlampaui namaun pertumbuhan negatif YoY karena Q1 tahun lalu kantik beroperasi</p>
-                                    <i class="simple-icon-note text-right" style="font-size: 25px;position: absolute;bottom: 0;right: 20px;color: #f3f3f3;"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row mb-4">
-            <div class="col-lg-12">
-                    <div class="card card-target">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-5 col-12 col-grid">
-                                    <h6>Beban</h6>
-                                    <h5 class="bold">126,679 M</h5>
-                                    <p>Target 126,115M</p>
-                                    <table class="table table-borderless table-target" style="width:90%">
-                                        <tr>
-                                            <td style="width:10%" rowspan="2"><i class="simple-icon-arrow-up-circle text-success" style="font-size:25px;"></i></td>
-                                            <td class="bold text-success" style="width:30%">100,45%</td>
-                                            <td style="width:10%" rowspan="2"><i class="simple-icon-arrow-down-circle text-danger" style="font-size:25px"></i></td>
-                                            <td class="bold text-danger" style="width:30%">-1,75%</td>
-                                            <td rowspan="2" style="width:20%">&nbsp;</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="">Pencapaian</td>
-                                            <td class="">YoY</td>
-                                        </tr>
-                                    </table>
-                                </div>
-                                <div class="col-md-7 col-12 col-grid border-left">
-                                    <p>Target Q1 terlampaui namaun pertumbuhan negatif YoY karena Q1 tahun lalu kantik beroperasi</p>
-                                    <i class="simple-icon-note text-right" style="font-size: 25px;position: absolute;bottom: 0;right: 20px;color: #f3f3f3;"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="card card-target">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-5 col-12 col-grid">
-                                    <h6>SHU</h6>
-                                    <h5 class="bold">126,679 M</h5>
-                                    <p>Target 126,115M</p>
-                                    <table class="table table-borderless table-target" style="width:90%">
-                                        <tr>
-                                            <td style="width:10%" rowspan="2"><i class="simple-icon-arrow-up-circle text-success" style="font-size:25px;"></i></td>
-                                            <td class="bold text-success" style="width:30%">100,45%</td>
-                                            <td style="width:10%" rowspan="2"><i class="simple-icon-arrow-down-circle text-danger" style="font-size:25px"></i></td>
-                                            <td class="bold text-danger" style="width:30%">-1,75%</td>
-                                            <td rowspan="2" style="width:20%">&nbsp;</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="">Pencapaian</td>
-                                            <td class="">YoY</td>
-                                        </tr>
-                                    </table>
-                                </div>
-                                <div class="col-md-7 col-12 col-grid border-left">
-                                    <p>Target Q1 terlampaui namaun pertumbuhan negatif YoY karena Q1 tahun lalu kantik beroperasi</p>
-                                    <i class="simple-icon-note text-right" style="font-size: 25px;position: absolute;bottom: 0;right: 20px;color: #f3f3f3;"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="col-lg-8 col-12 mb-4 col-grid" id="target-box">
+           
         </div>
         <div class="col-lg-4 col-12 mb-4 col-grid">
             <div class="card card-target">
@@ -196,7 +101,7 @@ $thnLalu = substr($tahunLalu,2,2)
                             <div class="card bg-blue">
                                 <div class="card-body px-3 py-2 text-center">
                                     <p class="mb-2">Target</p>
-                                    <p class="text-info mb-0">92,05%</p>
+                                    <p class="text-info mb-0" id="target-or"></p>
                                 </div>
                             </div>
                         </div>
@@ -204,7 +109,7 @@ $thnLalu = substr($tahunLalu,2,2)
                             <div class="card bg-red">
                                 <div class="card-body px-3 py-2 text-center">
                                     <p class="mb-2">Real</p>
-                                    <p class="text-danger mb-0">91,58%</p>
+                                    <p class="text-danger mb-0" id="real-or"></p>
                                 </div>
                             </div>
                         </div>
@@ -212,7 +117,7 @@ $thnLalu = substr($tahunLalu,2,2)
                     <div class="separator px-2 my-5"></div>
                     <div class="row">
                         <div class="col-md-12">
-                            <p>Target OR tercapai (di bawah target) yang ditetapkan Q1</p>
+                            <p id="ket-or"></p>
                         </div>
                     </div>
                     <i class="simple-icon-note text-right" style="font-size: 25px;position: absolute;bottom: 20px;right: 20px;color: #f3f3f3;"></i>
@@ -307,7 +212,7 @@ function sepNum(x){
         }else if(!isFinite(x)){
             return 0;
         }else{
-            var x = parseFloat(x).toFixed(2);
+            // var x = parseFloat(x).toFixed(2);
             // console.log(x);
             var tmp = x.toString().split('.');
             // console.dir(tmp);
@@ -321,6 +226,29 @@ function sepNum(x){
         return 0;
     }
 }
+
+function cutDes(x){
+    if(!isNaN(x)){
+        if (typeof x === undefined || !x || x == 0) { 
+            return 0;
+        }else if(!isFinite(x)){
+            return 0;
+        }else{
+            // var x = parseFloat(x).toFixed(2);
+            // console.log(x);
+            var tmp = x.toString().split('.');
+            // console.dir(tmp);
+            var y = tmp[1].substr(0,2);
+            var z = tmp[0]+'.'+y;
+            var parts = z.split('.');
+            parts[0] = parts[0].replace(/([0-9])(?=([0-9]{3})+$)/g,'$1.');
+            return parts.join('.');
+        }
+    }else{
+        return 0;
+    }
+}
+
 function sepNumPas(x){
     if(!isNaN(x)){
         if (typeof x === undefined || !x || x == 0) { 
@@ -455,7 +383,7 @@ function getPeriode(){
                         break;
                 }
                 $('.label-periode-filter').html(label);
-                getChartOR($dash_periode);
+                getTarget($dash_periode);
                 // getFxPosition($dash_periode);
                 // getPenyerapan($dash_periode);
                 // getDebt($dash_periode);
@@ -516,19 +444,62 @@ $('.dash-filter').on('change', '.dash-filter-type', function(){
     }
 });
 
-function getChartOR(periode=null)
+function getTarget(periode=null)
 {
-    // $.ajax({
-    //     type:"GET",
-    //     url:"{{ url('/telu-dash/profit-loss') }}",
-    //     data: {
-    //         'periode[0]' : periode.type,
-    //         'periode[1]' : periode.from,
-    //         'periode[2]' : periode.to
-    //     },
-    //     dataType: "JSON",
-    //     success: function(result){
+    $.ajax({
+        type:"GET",
+        url:"{{ url('/telu-dash/financial-target') }}",
+        data: {
+            'periode[0]' : periode.type,
+            'periode[1]' : periode.from,
+            'periode[2]' : periode.to
+        },
+        dataType: "JSON",
+        success: function(result){
+            var html = "";
+            if(result.status){
+                if(result.data.length > 0){
+                    for(var i=0; i < result.data.length; i++){
+                        var line = result.data[i];
+                        html +=` 
+                        <div class="row mb-4">
+                            <div class="col-lg-12">
+                                <div class="card card-target">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-5 col-12 col-grid">
+                                                <h6>`+line.nama_target+`</h6>
+                                                <h5 class="bold">`+toMilyar(line.realisasi)+`</h5>
+                                                <p>Target `+toMilyar(line.rka_sd)+`</p>
+                                                <table class="table table-borderless table-target" style="width:90%">
+                                                    <tr>
+                                                        <td style="width:10%" rowspan="2"><i class="simple-icon-arrow-up-circle text-success" style="font-size:25px;"></i></td>
+                                                        <td class="bold text-success" style="width:30%">`+sepNum(line.persen)+`%</td>
+                                                        <td style="width:10%" rowspan="2"><i class="simple-icon-arrow-down-circle text-danger" style="font-size:25px"></i></td>
+                                                        <td class="bold text-danger" style="width:30%">`+sepNum(line.yoy)+`%</td>
+                                                        <td rowspan="2" style="width:20%">&nbsp;</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="">Pencapaian</td>
+                                                        <td class="">YoY</td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                            <div class="col-md-7 col-12 col-grid border-left">
+                                                <p>`+line.keterangan+`</p>
+                                                <i class="simple-icon-note text-right" style="font-size: 25px;position: absolute;bottom: 0;right: 20px;color: #f3f3f3;"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>`;
 
+                    }
+                }
+            }
+
+            $('#target-box').html(html);
 
             function renderIcons() {
                 
@@ -564,16 +535,21 @@ function getChartOR(periode=null)
                             zIndex: 10
                         });
                         // .add(this.series[2].group);
-                    }
-                    this.series[1].icon.translate(
-                        this.chartWidth / 2 - 10,
-                        this.plotHeight / 2 - this.series[1].points[0].shapeArgs.innerR -
-                        (this.series[1].points[0].shapeArgs.r - this.series[1].points[0].shapeArgs.innerR) / 2
-                    );
-                    
-                    
                 }
 
+                this.series[1].icon.translate(
+                    this.chartWidth / 2 - 10,
+                    this.plotHeight / 2 - this.series[1].points[0].shapeArgs.innerR -
+                    (this.series[1].points[0].shapeArgs.r - this.series[1].points[0].shapeArgs.innerR) / 2
+                );  
+            }
+
+            if(result.data2.length > 0){
+                
+                $('#target-or').html(sepNum(result.data2[0].rka_sd));
+                $('#real-or').html(sepNum(result.data2[0].realisasi));
+                $('#ket-or').html(result.data2[0].keterangan);
+                
                 Highcharts.chart('chart-or', {
                     
                     chart: {
@@ -634,8 +610,8 @@ function getChartOR(periode=null)
                         tickPositions: []
                     },
                     colors:[Highcharts.color(Highcharts.getOptions().colors[0])
-                            .get(),Highcharts.color(Highcharts.getOptions().colors[5])
-                            .get()],
+                    .get(),Highcharts.color(Highcharts.getOptions().colors[5])
+                    .get()],
                     plotOptions: {
                         solidgauge: {
                             dataLabels: {
@@ -653,7 +629,7 @@ function getChartOR(periode=null)
                             color: Highcharts.getOptions().colors[0],
                             radius: '112%',
                             innerRadius: '88%',
-                            y: 92.05
+                            y: Math.abs(parseFloat(cutDes(result.data2[0].rka_sd)))
                         }]
                     }, {
                         name: 'Real',
@@ -661,7 +637,7 @@ function getChartOR(periode=null)
                             color: Highcharts.getOptions().colors[5],
                             radius: '87%',
                             innerRadius: '63%',
-                            y: 91.58
+                            y: Math.abs(parseFloat(cutDes(result.data2[0].realisasi)))
                         }]
                     }]
                 }, function(){
@@ -672,22 +648,26 @@ function getChartOR(periode=null)
                         points[0].graphic.element.style.fill = colors[i];
                     }
                 });
+            }else{
+                $('#target-or').html('');
+                $('#real-or').html('');
+                $('#ket-or').html('');
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {       
+            if(jqXHR.status == 422){
+                var msg = jqXHR.responseText;
+            }else if(jqXHR.status == 500) {
+                var msg = "Internal server error";
+            }else if(jqXHR.status == 401){
+                var msg = "Unauthorized";
+                window.location="{{ url('/dash-telu/sesi-habis') }}";
+            }else if(jqXHR.status == 405){
+                var msg = "Route not valid. Page not found";
+            }
             
-    //     },
-    //     error: function(jqXHR, textStatus, errorThrown) {       
-    //         if(jqXHR.status == 422){
-    //             var msg = jqXHR.responseText;
-    //         }else if(jqXHR.status == 500) {
-    //             var msg = "Internal server error";
-    //         }else if(jqXHR.status == 401){
-    //             var msg = "Unauthorized";
-    //             window.location="{{ url('/dash-telu/sesi-habis') }}";
-    //         }else if(jqXHR.status == 405){
-    //             var msg = "Route not valid. Page not found";
-    //         }
-            
-    //     }
-    // });
+        }
+    });
 }
 
 
@@ -713,13 +693,7 @@ $('#form-filter').submit(function(e){
         break;
     }
     $('.label-periode-filter').html(label);
-
-    // getProfitLoss($dash_periode);
-    // getFxPosition($dash_periode);
-    // getPenyerapan($dash_periode);
-    // getDebt($dash_periode);
-    // getKelola($dash_periode);
-    // getPin($dash_periode);
+    getTarget($dash_periode);
     $('#modalFilter').modal('hide');
     // $('.app-menu').hide();
     if ($(".app-menu").hasClass("shown")) {
