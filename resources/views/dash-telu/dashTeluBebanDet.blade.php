@@ -654,8 +654,8 @@ switch($dash_periode.type){
     case '=':
         var label = 'Periode '+namaPeriode($dash_periode.from);
         if($dash_periode.from == ""){
-            if("{{ Session::get('periode') }}" != ""){
-                $dash_periode.from = "{{ Session::get('periode') }}";
+            if(result.data.periode_max != ""){
+                $dash_periode.from = result.data.periode_max;
             }
         }
     break;
@@ -663,22 +663,22 @@ switch($dash_periode.type){
         
         var label = 'Periode s.d '+namaPeriode($dash_periode.from);
         if($dash_periode.from == ""){
-            if("{{ Session::get('periode') }}" != ""){
-                $dash_periode.from = "{{ Session::get('periode') }}";
+            if(result.data.periode_max != ""){
+                $dash_periode.from = result.data.periode_max;
             }
         }
     break;
     case 'range':
         
         if($dash_periode.from == ""){
-            if("{{ Session::get('periode') }}" != ""){
-                $dash_periode.from = "{{ Session::get('periode') }}";
+            if(result.data.periode_max != ""){
+                $dash_periode.from = result.data.periode_max;
             }
         }
     
         if($dash_periode.to == ""){
-            if("{{ Session::get('periode') }}" != ""){
-                $dash_periode.to = "{{ Session::get('periode') }}";
+            if(result.data.periode_max != ""){
+                $dash_periode.to = result.data.periode_max;
             }
         }
         var label = 'Periode '+namaPeriode($dash_periode.from)+' s.d '+namaPeriode($dash_periode.to);
@@ -686,8 +686,8 @@ switch($dash_periode.type){
     break;
     default:
         if($dash_periode.from == ""){
-            if("{{ Session::get('periode') }}" != ""){
-                $dash_periode.from = "{{ Session::get('periode') }}";
+            if(result.data.periode_max != ""){
+                $dash_periode.from = result.data.periode_max;
             }
         }
     break;

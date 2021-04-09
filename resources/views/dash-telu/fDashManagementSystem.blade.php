@@ -314,9 +314,9 @@ function getPeriode(){
                     case '=':
                         var label = 'Periode '+namaPeriode($dash_periode.from);
                         if($dash_periode.from == ""){
-                            if("{{ Session::get('periode') }}" != ""){
-                                control.setValue("{{ Session::get('periode') }}");
-                                $dash_periode.from = "{{ Session::get('periode') }}";
+                            if(result.data.periode_max != ""){
+                                control.setValue(result.data.periode_max);
+                                $dash_periode.from = result.data.periode_max;
                             }
                         }else{
                             control.setValue($dash_periode.from);
@@ -331,9 +331,9 @@ function getPeriode(){
                         
                         var label = 'Periode '+namaPeriode($dash_periode.from)+' s.d '+namaPeriode($dash_periode.to);
                         if($dash_periode.from == ""){
-                            if("{{ Session::get('periode') }}" != ""){
-                                control.setValue("{{ Session::get('periode') }}");
-                                $dash_periode.from = "{{ Session::get('periode') }}";
+                            if(result.data.periode_max != ""){
+                                control.setValue(result.data.periode_max);
+                                $dash_periode.from = result.data.periode_max;
                             }
                         }else{
                             control.setValue($dash_periode.from);
@@ -343,9 +343,9 @@ function getPeriode(){
                     break;
                     default:
                         if($dash_periode.from == ""){
-                            if("{{ Session::get('periode') }}" != ""){
-                                control.setValue("{{ Session::get('periode') }}");
-                                $dash_periode.from = "{{ Session::get('periode') }}";
+                            if(result.data.periode_max != ""){
+                                control.setValue(result.data.periode_max);
+                                $dash_periode.from = result.data.periode_max;
                             }
                         }else{
                             control.setValue($dash_periode.from);
