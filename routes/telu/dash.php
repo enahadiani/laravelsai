@@ -122,5 +122,6 @@ Route::get('drill-detail-pp','DashTelu\DashboardController@getDetailDrillPP');
 
 Route::get('video-list','DashTelu\DashboardController@getVideoList');
 Route::get('financial-target','DashTelu\DashboardController@getTarget');
+Route::post('note','DashTelu\DashboardController@updateNoteTarget');
 
 ?>

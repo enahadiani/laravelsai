@@ -72,6 +72,9 @@ $thnLalu = substr($tahunLalu,2,2)
     .bg-red{
         background:#ff6c0024;
     }
+    i.simple-icon-note:hover {
+        color:black !important;
+    }
     </style>
 
 <div class="container-fluid mt-3">
@@ -120,7 +123,9 @@ $thnLalu = substr($tahunLalu,2,2)
                             <p id="ket-or"></p>
                         </div>
                     </div>
-                    <i class="simple-icon-note text-right" style="font-size: 25px;position: absolute;bottom: 20px;right: 20px;color: #f3f3f3;"></i>
+                    <a class='edit-note' href='#'>
+                        <i class="simple-icon-note text-right" style="font-size: 25px;position: absolute;bottom: 20px;right: 20px;color: #f3f3f3;"></i>
+                    </a>
                 </div>
             </div>
         </div>
@@ -128,7 +133,7 @@ $thnLalu = substr($tahunLalu,2,2)
     </div>
     <div class="modal fade modal-right" id="modalFilter" tabindex="-1" role="dialog"
     aria-labelledby="modalFilter" aria-hidden="true">
-        <div class="modal-dialog" role="document" style="max-width: 380px;">
+        <div class="modal-dialog" role="document" style="max-width: 480px;">
             <div class="modal-content">
                 <form id="form-filter">
                     <div class="modal-header pb-0" style="border:none">
@@ -149,7 +154,7 @@ $thnLalu = substr($tahunLalu,2,2)
                                     <option value='range'>Range</option>
                                 </select>
                             </div>
-                            <div class="col-md-12 dash-filter-from">
+                            <div class="col-md-4 dash-filter-from">
                                 <select class="form-control" data-width="100%" name="periode[]" id="periode_from">
                                     <option value='' disabled>Pilih</option>
                                 </select>
@@ -170,6 +175,8 @@ $thnLalu = substr($tahunLalu,2,2)
         </div>
     </div>
 </div>
+<button id="trigger-bottom-sheet" style="display:none">Bottom ?</button>
+<script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
 <script>
 $('body').addClass('dash-contents');
 $('html').addClass('dash-contents');
@@ -182,6 +189,10 @@ if(localStorage.getItem("dore-theme") == "dark"){
     $('#btn-filter').removeClass('btn-outline-dark');
     $('#btn-filter').addClass('btn-outline-light');
 }
+
+var bottomSheet = new BottomSheet("country-selector");
+document.getElementById("trigger-bottom-sheet").addEventListener("click", bottomSheet.activate);
+window.bottomSheet = bottomSheet;
 
 function namaQuarter(periode){
     var bulan = periode.substr(4,2);
@@ -203,6 +214,28 @@ function namaQuarter(periode){
     }
 
     return bulan+' '+tahun;
+}
+
+function quarter(periode){
+    var bulan = periode.substr(4,2);
+    var tahun = periode.substr(0,4);
+    switch (bulan){
+        case 1 : case '1' : case '01': 
+        case 2 : case '2' : case '02':
+        case 3 : case '3' : case '03': bulan = "03"; break;
+        case 4 : case '4' : case '04': 
+        case 5 : case '5' : case '05': 
+        case 6 : case '6' : case '06': bulan = "06"; break;
+        case 7 : case '7' : case '07': 
+        case 8 : case '8' : case '08': 
+        case 9 : case '9' : case '09': bulan = "09"; break;
+        case 10 : case '10' : case '10': 
+        case 11 : case '11' : case '11': 
+        case 12 : case '12' : case '12': bulan = "12"; break;
+        default: bulan = null;
+    }
+
+    return tahun+''+bulan;
 }
 
 function sepNum(x){
@@ -329,8 +362,8 @@ function getPeriode(){
                     }
                 }
 
-                $('.dash-filter-typediv').hide();
-                $('#periode_to').closest('div.dash-filter-to').hide();
+                // $('.dash-filter-typediv').hide();
+                // $('#periode_to').closest('div.dash-filter-to').hide();
                 $('#periode_from').closest('div.dash-filter-from').removeClass('col-md-4').addClass('col-md-8');
 
                 if($dash_periode.type == ""){
@@ -461,22 +494,44 @@ function getTarget(periode=null)
                 if(result.data.length > 0){
                     for(var i=0; i < result.data.length; i++){
                         var line = result.data[i];
+                        if(i == (result.data.length - 1)){
+                            var margin = "";
+                        }else{
+                            var margin = "mb-4";
+                        }
                         html +=` 
-                        <div class="row mb-4">
+                        <div class="row `+margin+`">
                             <div class="col-lg-12">
                                 <div class="card card-target">
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-md-5 col-12 col-grid">
-                                                <h6>`+line.nama_target+`</h6>
+                                                <h6>`+line.nama+`</h6>
                                                 <h5 class="bold">`+toMilyar(line.realisasi)+`</h5>
                                                 <p>Target `+toMilyar(line.rka_sd)+`</p>
-                                                <table class="table table-borderless table-target" style="width:90%">
+                                                <table class="table table-borderless table-target" style="width:90%">`;
+                                                    if(parseFloat(line.persen) >= 0){
+                                                        var text = "text-success";
+                                                        var icon = "simple-icon-arrow-up-circle";
+                                                    }else{
+                                                        var text = "text-danger";
+                                                        var icon = "simple-icon-arrow-down-circle";
+                                                    }
+
+                                                    if(parseFloat(line.yoy) >= 0){
+                                                        var text2 = "text-success";
+                                                        var icon2 = "simple-icon-arrow-up-circle";
+                                                    }else{
+                                                        var text2 = "text-danger";
+                                                        var icon2 = "simple-icon-arrow-down-circle";
+                                                    }
+                                                    
+                                                    html+=`
                                                     <tr>
-                                                        <td style="width:10%" rowspan="2"><i class="simple-icon-arrow-up-circle text-success" style="font-size:25px;"></i></td>
-                                                        <td class="bold text-success" style="width:30%">`+sepNum(line.persen)+`%</td>
-                                                        <td style="width:10%" rowspan="2"><i class="simple-icon-arrow-down-circle text-danger" style="font-size:25px"></i></td>
-                                                        <td class="bold text-danger" style="width:30%">`+sepNum(line.yoy)+`%</td>
+                                                        <td style="width:10%" rowspan="2"><i class="`+icon+` `+text+`" style="font-size:25px;"></i></td>
+                                                        <td class="bold `+text+`" style="width:30%">`+sepNum(line.persen)+`%</td>
+                                                        <td style="width:10%" rowspan="2"><i class="`+icon2+` `+text2+`" style="font-size:25px"></i></td>
+                                                        <td class="bold `+text2+`" style="width:30%">`+sepNum(line.yoy)+`%</td>
                                                         <td rowspan="2" style="width:20%">&nbsp;</td>
                                                     </tr>
                                                     <tr>
@@ -485,21 +540,112 @@ function getTarget(periode=null)
                                                     </tr>
                                                 </table>
                                             </div>
-                                            <div class="col-md-7 col-12 col-grid border-left">
-                                                <p>`+line.keterangan+`</p>
-                                                <i class="simple-icon-note text-right" style="font-size: 25px;position: absolute;bottom: 0;right: 20px;color: #f3f3f3;"></i>
+                                            <div class="col-md-7 col-12 col-grid row-note">
+                                                <p class='note-text'>`+line.keterangan+`</p>
+                                                <a class='edit-note' href='#' data-kode_grafik='`+line.kode_grafik+`' data-periode='`+quarter($dash_periode.from)+`' data-nama='`+line.nama+`'>
+                                                    <i class="simple-icon-note text-right" style="font-size: 25px;position: absolute;bottom: 0;right: 20px;color: #f3f3f3;"></i>
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>`;
-
+                        
                     }
                 }
             }
-
+            
             $('#target-box').html(html);
+            $('.row-note').on("click", '.edit-note',function(e){
+                e.preventDefault();
+                var note = $(this).closest('div').find('p.note-text');
+                var periode = $(this).data('periode');
+                var kode_grafik = $(this).data('kode_grafik');
+                var nama = $(this).data('nama');
+                var keterangan = note.html();
+                
+                $('#content-bottom-sheet').html('');
+                var html =`
+                <form id="form-note" class="mx-3 mt-4 tooltip-label-right" novalidate>
+                    <input type="hidden" name="kode_grafik" value="`+kode_grafik+`">
+                    <input type="hidden" name="periode" value="`+periode+`">
+                    <input type="hidden" name="nama" value="`+nama+`">
+                    <div class="form-row">
+                        <div class="form-group col-lg-12 col-sm-12">
+                            <label for="tanggal">Keterangan</label>
+                            <textarea class='form-control' row='4' name='keterangan' id='keterangan'></textarea>
+                        </div>
+                    </div>
+                    <div class="form-row mt-4">
+                        <div class="form-group col-lg-12 col-sm-12">
+                            <button type="submit" id="btn-note" class="btn btn-primary float-right"> Simpan </button>
+                        </div>
+                    </div>
+                </form>
+                `;
+                $('#content-bottom-sheet').html(html);
+                $('#keterangan').val(keterangan);
+                $('#form-note').validate({
+                    ignore: [],
+                    errorElement: "label",
+                    submitHandler: function (form) {
+
+                        var formData = new FormData(form);
+                        for(var pair of formData.entries()) {
+                            console.log(pair[0]+ ', '+ pair[1]); 
+                        }
+                       
+                        var url = "{{ url('/telu-dash/note') }}";
+                        
+                        $.ajax({
+                            type: 'POST',
+                            url: url,
+                            dataType: 'json',
+                            data: formData,
+                            async:false,
+                            contentType: false,
+                            cache: false,
+                            processData: false, 
+                            success:function(result){
+                                if(result.status){
+                                    console.log(note.html());
+                                    note.html(result.keterangan);
+                                    console.log(note.html());
+                                    msgDialog({
+                                        id:'-',
+                                        type:'warning',
+                                        title: 'Sukses',
+                                        text: result.message
+                                    });
+                                    $('.c-bottom-sheet').removeClass('active');
+                                }
+                                else if(!result.status && result.message == 'Unauthorized'){
+                                    window.location.href = "{{ url('dash-telu/sesi-habis') }}";
+                                }
+                                else{
+                                    msgDialog({
+                                        id: '-',
+                                        type: 'warning',
+                                        title: 'Gagal',
+                                        text: result.message
+                                    });
+                                }
+                            },
+                            fail: function(xhr, textStatus, errorThrown){
+                                alert('request failed:'+textStatus);
+                            }
+                        });
+                    },
+                    errorPlacement: function (error, element) {
+                        var id = element.attr("id");
+                        $("label[for="+id+"]").append("<br/>");
+                        $("label[for="+id+"]").append(error);
+                    }
+                });
+                $('.c-bottom-sheet__sheet').css({ "width":"70%","margin-left": "15%", "margin-right":"15%"});
+                $('#trigger-bottom-sheet').trigger("click");
+            });
 
             function renderIcons() {
                 
