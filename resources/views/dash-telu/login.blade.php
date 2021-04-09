@@ -31,6 +31,15 @@
             height:45px;
             margin-bottom:30px;
         }
+        .logo-single2 {
+            background:url("{{ asset('img/KUG Dark.png') }}") no-repeat;
+            background-size: contain;
+            background-position-y: center;
+            width:50px;
+            height:50px;
+            margin-bottom:30px;
+            display: inline-flex;
+        }
         .form-side{
             margin: 0 auto;
         }
@@ -137,6 +146,13 @@
     <script>
         var $public_asset = "{{ asset('asset_dore') }}/";
         var $theme = "dore.light.redruby.min.css";
+
+        var mode = window.localStorage.getItem('dore-theme');
+        if (mode == "dark") {
+            $theme = $theme.replace("light", "dark");
+        } else if (mode == "light") {
+            $theme = $theme.replace("dark", "light");
+        }
     </script>
     <script src="{{ asset('asset_dore/js/scripts.js') }}"></script>
     <script>
@@ -154,6 +170,7 @@
                         <div class="form-side">
                         <a href="#" style="display: block;text-align: center;">
                                 <span class="logo-single"></span>
+                                <span class="logo-single2"></span>
                             </a>
                             <!-- <h6 class="mb-0">Masuk</h6>
                             <h6 class="mb-4">Selamat Datang -->
@@ -219,6 +236,41 @@
         </footer>
     </main>
     <script>
+         if (mode == "dark") {
+            console.log('mode')
+            var url_logo = "{{ asset('img/whitelogo Telu.png') }}";
+            var url_logo2 = "{{ asset('img/KUG Light.png') }}";
+            $('.logo-single').css({
+                'background': "url('"+url_logo+"') no-repeat",
+                'background-size': '130px',
+                'height':'45px'
+            });
+            $('.logo-single2').css({
+                'background': "url('"+url_logo2+"') no-repeat",
+                'background-size': 'contain',
+                'width':'50px',
+                'height':'50px'
+            });
+
+        // localStorage.setItem("dore-theme", mode);
+        } else if (mode == "light") {
+            
+            var url_logo = "{{ asset('img/Tel-U-logo_1.PRIMER-Utama.png') }}";
+            var url_logo2 = "{{ asset('img/KUG Dark.png') }}";
+            $('.logo-single').css({
+                'background': "url('"+url_logo+"') no-repeat",
+                'background-size': '150px',
+                'background-position-y': 'center';
+                'width':'160px',
+                'height':'45px'
+            });
+            $('.logo-single2').css({
+                'background': "url('"+url_logo2+"') no-repeat",  
+                'background-size': 'contain',
+                'width':'50px',
+                'height':'50px'
+            });
+        }
         function showNotification(placementFrom, placementAlign, type,title,message) {
             $.notify(
                 {
