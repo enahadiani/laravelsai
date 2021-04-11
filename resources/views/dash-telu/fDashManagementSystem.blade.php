@@ -736,15 +736,15 @@ function getKelola(periode=null)
                     }
                     html+=`<tr class='trace keuangan-`+i+` keuangan-detail' data-kode_grafik='`+line.kode_grafik+`' data-nama='`+line.nama+`'>
                     <td>`+line.nama+`</td>
-                    <td class='text-right'>`+real+`</td>
                     <td class='text-right'>`+real_lalu+`</td>
+                    <td class='text-right'>`+real+`</td>
                     <td class='text-right text-success' >`+sepNumPas(line.persen)+`%</td>
                     </tr>`;   
                 }
                 html+=`<tr>
                     <td class='bold'>Sub Total</td>
-                    <td class='text-right bold'>`+toMilyar(result.data.total)+`</td>
                     <td class='text-right bold'>`+toMilyar(result.data.total2)+`</td>
+                    <td class='text-right bold'>`+toMilyar(result.data.total)+`</td>
                     <td class='text-right bold text-success' ></td>
                     </tr>`;  
             }
