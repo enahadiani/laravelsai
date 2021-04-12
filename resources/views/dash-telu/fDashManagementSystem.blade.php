@@ -655,24 +655,25 @@ function getDebt(periode=null)
                         var thn_lalu = thn_ini-1;
                         html+=`<tr>
                         <td></td>
+                        <td class='text-center'>`+thn_lalu+''+bulan+`</td>
                         <td class='text-center'>`+thn_ini+''+bulan+`</td>
-                        <td class='text-center'>%</td>
                         <td class='text-center'>YoY</td>
                         </tr>`;   
                     }
                     html+=`<tr class='trace piutang-`+i+` piutang-detail' data-kode_grafik='`+line.kode_grafik+`' data-nama='`+line.nama+`'>
                     <td>`+line.nama+`</td>
+                    <td class='text-right'>`+real_lalu+`</td>
                     <td class='text-right'>`+real+`</td>
-                    <td class='text-right'>`+sepNum(persen)+`%</td>
-                    <td class='text-right text-success' >`+sepNumPas(line.yoy)+`%</td>
+                    <td class='text-right text-success' >`+sepNumPas(line.persen)+`%</td>
                     </tr>`;   
                 }
                 html+=`<tr>
                     <td class='bold'>Sub Total</td>
+                    <td class='text-right bold'>`+toMilyar(result.data.total2)+`</td>
                     <td class='text-right bold'>`+toMilyar(result.data.total)+`</td>
-                    <td class='text-right bold'>100%</td>
                     <td class='text-right bold text-success' ></td>
                     </tr>`;  
+               
             }
             $('.table-debt').html(html);
             $('.card-piutang').animate({
@@ -728,18 +729,21 @@ function getKelola(periode=null)
                         var thn_lalu = thn_ini-1;
                         html+=`<tr>
                         <td></td>
+                        <td class='text-center'>`+thn_lalu+''+bulan+`</td>
                         <td class='text-center'>`+thn_ini+''+bulan+`</td>
                         <td class='text-center'>YoY</td>
                         </tr>`;   
                     }
                     html+=`<tr class='trace keuangan-`+i+` keuangan-detail' data-kode_grafik='`+line.kode_grafik+`' data-nama='`+line.nama+`'>
                     <td>`+line.nama+`</td>
+                    <td class='text-right'>`+real_lalu+`</td>
                     <td class='text-right'>`+real+`</td>
-                    <td class='text-right text-success' >`+sepNumPas(line.yoy)+`%</td>
+                    <td class='text-right text-success' >`+sepNumPas(line.persen)+`%</td>
                     </tr>`;   
                 }
                 html+=`<tr>
                     <td class='bold'>Sub Total</td>
+                    <td class='text-right bold'>`+toMilyar(result.data.total2)+`</td>
                     <td class='text-right bold'>`+toMilyar(result.data.total)+`</td>
                     <td class='text-right bold text-success' ></td>
                     </tr>`;  
