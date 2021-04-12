@@ -225,6 +225,10 @@ Route::post('terima-simp','Esaku\Simpanan\Transaksi\PenerimaanTunaiController@st
 
 
 // Transaksi Aktiva Tetap
+## Percepatan Reguler
+Route::get('hitung-reguler', 'Esaku\Aktap\PenyusutanRegulerController@hitungPenyusutan');
+Route::post('susut-reguler', 'Esaku\Aktap\PenyusutanRegulerController@store');
+
 ## Percepatan Penyusutan
 Route::post('percepatan-penyusutan', 'Esaku\Aktap\PercepatanPenyusutanController@store');
 
