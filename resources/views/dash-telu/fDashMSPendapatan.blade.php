@@ -466,7 +466,14 @@ function getMsPendRKA(periode=null, id){
                     text: ''
                 },
                 xAxis: {
-                    categories: ['TF','NTF']
+                    categories: result.ctg,
+                    labels: {
+                        useHTML:true,
+                        formatter: function() {
+                            var tmp = this.value.split("|");
+                            return '<p class="mb-0"><span class="text-center" style="display:inherit">'+tmp[0]+'</span><span class="text-center bold" style="display:inherit">'+sepNum(tmp[1])+'%</span></p>';
+                        },
+                    }
                 },
                 yAxis: {
                         title:'',
@@ -641,7 +648,14 @@ function getMsPendKlp(periode=null,id){
                     text: ''
                 },
                 xAxis: {
-                    categories: result.ctg
+                    categories: result.ctg,
+                    labels: {
+                        useHTML:true,
+                        formatter: function() {
+                            var tmp = this.value.split("|");
+                            return '<p class="mb-0"><span class="text-center" style="display:inherit">'+tmp[0]+'</span><span class="text-center bold" style="display:inherit">'+sepNum(tmp[1])+'%</span></p>';
+                        },
+                    }
                 },
                 yAxis: {
                         title:'',

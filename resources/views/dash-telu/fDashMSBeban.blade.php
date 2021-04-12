@@ -412,7 +412,14 @@ function getMsBebanRKA(periode=null){
                     text: ''
                 },
                 xAxis: {
-                    categories: ['Beban SDM','Beban Non SDM']
+                    categories: result.ctg,
+                    labels: {
+                        useHTML:true,
+                        formatter: function() {
+                            var tmp = this.value.split("|");
+                            return '<p class="mb-0"><span class="text-center" style="display:inherit">'+tmp[0]+'</span><span class="text-center bold" style="display:inherit">'+sepNum(tmp[1])+'%</span></p>';
+                        },
+                    }
                 },
                 yAxis: {
                         title:'',
@@ -583,7 +590,14 @@ function getMsBebanKlp(periode=null){
                     text: ''
                 },
                 xAxis: {
-                    categories: result.ctg
+                    categories: result.ctg,
+                    labels: {
+                        useHTML:true,
+                        formatter: function() {
+                            var tmp = this.value.split("|");
+                            return '<p class="mb-0"><span class="text-center" style="display:inherit;font-size:10px !important;line-height: 1.5">'+tmp[0]+'</span><span class="text-center bold" style="display:inherit">'+sepNum(tmp[1])+'%</span></p>';
+                        },
+                    }
                 },
                 yAxis: {
                         title:'',
