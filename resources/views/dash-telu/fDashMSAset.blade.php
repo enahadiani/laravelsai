@@ -73,7 +73,7 @@ $thnLalu = substr($tahunLalu,2,2)
 <div class="container-fluid mt-3">
     <div class="row">
         <div class="col-12 aset">
-            <h6 class="mb-0 bold">Kas</h6>
+            <h6 class="mb-0 bold">Aset</h6>
             <a class='btn btn-outline-light' href='#' id='btnBack' style="position: absolute;right: 135px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-arrow-left mr-2"></i> Back</a>
             <a class="btn btn-outline-light" href="#" id="btn-filter" style="position: absolute;right: 15px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-equalizer" style="transform-style: ;"></i> &nbsp;&nbsp; Filter</a>
             <p>Satuan Milyar Rupiah || <span class='label-periode-filter'></span></p>
@@ -83,7 +83,7 @@ $thnLalu = substr($tahunLalu,2,2)
         <div class="col-lg-7 col-12 mb-4">
             <div class="card dash-card">
                 <div class="card-header">
-                    <h6 class="card-title mb-0">Kas</h6>
+                    <h6 class="card-title mb-0">Aset</h6>
                 </div>
                 <div class="card-body">
                     <div id="real-aset" style="height:300px"></div>
@@ -357,7 +357,7 @@ function getAset(periode=null){
         url:"{{ url('/telu-dash/ms-aset') }}",
         data:{'periode[0]' : periode.type,
             'periode[1]' : periode.from,
-            'periode[2]' : periode.to, mode: $mode},
+            'periode[2]' : periode.to, mode: $mode, 'kode_grafik':$kode_grafik},
         dataType:"JSON",
         success:function(result){
             // if(result.series.length > 0){

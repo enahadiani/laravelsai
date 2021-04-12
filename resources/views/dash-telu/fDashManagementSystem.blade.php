@@ -918,6 +918,8 @@ $('.table').on('click','.penyerapan',function(e){
 
 
 $('.table').on('click','.neraca-0',function(e){
+    $kode_grafik = $(this).data('kode_grafik');
+    $nama = $(this).data('nama');
     var url = "{{ url('/dash-telu/form/fDashMSAset') }}";
     loadForm(url);
 });
