@@ -118,7 +118,7 @@ $thnLalu = substr($tahunLalu,2,2);
                 <div class="card-body pt-0">
                     <div class="tab-content tabcontent-border p-0">
                         <div class="tab-pane active" id="tab3_fak" role="tabpanel">
-                            <table class='no-border' id='tablePend' style="width:100%">
+                            <table class='table table-borderless' id='tablePend' style="width:100%">
                                 <thead>
                                     <tr>
                                         <th></th>
