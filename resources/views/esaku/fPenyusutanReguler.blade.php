@@ -40,7 +40,7 @@
                             <input type="text" placeholder="Total Penyusutan" class="form-control currency" id="total" name="total" value="0" readonly required>
                         </div>
                         <div class="form-group col-md-3 col-sm-12">
-                            <button class="btn btn-primary btn-hitung" id="hitung">Hitung</button>
+                            <button type="button" class="btn btn-primary btn-hitung" id="hitung">Hitung</button>
                         </div>
                     </div>
                     <div class="form-row">
@@ -65,12 +65,10 @@
                                         <th style="width:35%">Akun Biaya Penyusutan</th>
                                         <th style="width:35%">Akun Depresiasi</th>
                                         <th style="width:15%">Nilai</th>
-                                        <th style="width:5%"></th>
                                     </tr>
                                 </thead>
                                 <tbody></tbody>
                             </table>
-                            <a type="button" href="#" data-id="0" title="add-row" class="add-row btn btn-light2 btn-block btn-sm"><i class="saicon icon-tambah mr-1"></i>Tambah Baris</a>
                         </div>
                     </div>
                 </div>
@@ -110,6 +108,24 @@
         }
     });
 
+    $('.currency').inputmask("numeric", {
+        radixPoint: ",",
+        groupSeparator: ".",
+        digits: 2,
+        autoGroup: true,
+        rightAlign: true,
+        oncleared: function () {  }
+    });
+
+    $("input.datepicker").bootstrapDP({
+        autoclose: true,
+        format: 'dd/mm/yyyy',
+        templates: {
+            leftArrow: '<i class="simple-icon-arrow-left"></i>',
+            rightArrow: '<i class="simple-icon-arrow-right"></i>'
+        }
+    });
+
     // Bottom sheet
     var bottomSheet = new BottomSheet("country-selector");
     $('#btn-sheet').on('click', function(event){
@@ -125,5 +141,130 @@
 
         $('#content-bottom-sheet').append(html)
     }
+
+    function hitungPenyusutan(tanggal) {
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('esaku-trans/hitung-reguler') }}",
+            data: { 'tanggal':tanggal},
+            dataType: 'json',
+            async:false,
+            success:function(result){
+                var $total = 0;
+                var data = result.data.success.data
+                if(data.length > 0) {
+                    $('#input-grid tbody').empty()
+                    var html = "";
+                    var no = 1;
+                    
+                    for(var i=0;i<data.length;i++) {
+                        var dt = data[i]
+                        html += "<tr>";
+                        html += "<td class='no-grid'>"+no+"</td>"
+                        html += "<td class='akun-bp'>"+dt.akun_bp+" - "+dt.nama_bp+"</td>"
+                        html += "<td class='akun-deprs'>"+dt.akun_deprs+" - "+dt.nama_deprs+"</td>"
+                        html += "<td class='nilai-susut'>"+format_number(dt.nilai_susut)+"</td>"
+                        html += "<td style='display: none;' class='pp-susut'>"+dt.kode_pp_susut+"</td>"
+                        html += "</tr>";
+                    }
+                    $('#input-grid tbody').append(html)
+                    $('#input-grid tbody tr').each(function(index) {
+                        var subtotal = toNilai($(this).find('.nilai-susut').text())
+                        $total += subtotal
+                    })
+                    $('#total').val($total)
+                } else {
+                    alert('Tidak ada aktiva tetap yang disusut di periode ini')
+                }
+            }
+        })
+    }
+
+    $('#hitung').on('click', function() {
+        var tanggal = $('#tanggal').val()
+        hitungPenyusutan(tanggal)
+    })
+
+    $('#form-tambah').validate({
+        ignore: [],
+        rules: 
+        {
+            no_proyek:{
+                required: true   
+            },
+            nilai_kontrak:{
+                required: true   
+            }
+        },
+        errorElement: "label",
+        submitHandler: function (form, event) {
+            event.preventDefault();
+            
+            var url = "{{ url('esaku-trans/susut-reguler') }}";
+            var pesan = "saved";
+            var text = "Data tersimpan dengan kode "+id;
+
+            var formData = new FormData(form);
+            $('#input-grid tbody tr').each(function(index) {
+                var akun_deprs = $(this).find('.akun-deprs').text()
+                var split_akunDeprs = akun_deprs.split('-').map(item => item.trim())
+                var akun_bp = $(this).find('.akun-bp').text()
+                var split_akunBp = akun_bp.split('-').map(item => item.trim())
+
+                formData.append('no[]', $(this).find('.no-grid').text())
+                formData.append('akun_deprs[]', split_akunDeprs[0])
+                formData.append('akun_bp[]', split_akunBp[0])
+                formData.append('nilai[]', $(this).find('.nilai-susut').text())
+                formData.append('pp_susut[]', $(this).find('.pp-susut').text())
+            })
+            for(var pair of formData.entries()) {
+                console.log(pair[0]+ ', '+ pair[1]); 
+            }
+            $.ajax({
+                type: 'POST', 
+                url: url,
+                dataType: 'json',
+                data: formData,
+                async:false,
+                contentType: false,
+                cache: false,
+                processData: false, 
+                success:function(result){
+                    if(result.data.success.status){
+                        $('#row-id').hide();
+                        $('#form-tambah')[0].reset();
+                        $('#form-tambah').validate().resetForm();
+                        $('[id^=label]').html('');
+                        $('#id_edit').val('');
+                        $('#input-grid tbody').empty()
+                        $('#method').val('post');
+                        resetForm();
+                        msgDialog({
+                            id:result.data.success.no_bukti,
+                            type:'simpan'
+                        });
+                    }else if(!result.data.status && result.data.message === "Unauthorized"){
+                        window.location.href = "{{ url('/java-auth/sesi-habis') }}";
+                    }else{
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Something went wrong!',
+                                footer: '<a href>'+result.data.message+'</a>'
+                            })
+                        }
+                    },
+                    fail: function(xhr, textStatus, errorThrown){
+                        alert('request failed:'+textStatus);
+                    }
+            });
+            $('#btn-simpan').html("Simpan").removeAttr('disabled');
+        },
+        errorPlacement: function (error, element) {
+            var id = element.attr("id");
+            $("label[for="+id+"]").append("<br/>");
+            $("label[for="+id+"]").append(error);
+        }
+    });
 
 </script>
