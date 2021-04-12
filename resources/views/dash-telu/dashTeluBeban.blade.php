@@ -189,6 +189,7 @@ var $mode = localStorage.getItem("dore-theme");
 $kd = "";
 $form_back = "";
 $kd_grafik = "";
+$nama ="";
 function sepNum(x){
     if(!isNaN(x)){
         if (typeof x === undefined || !x || x == 0) { 
@@ -472,6 +473,7 @@ function getPresentaseRkaRealisasi(periode=null){
                                     
                                     $form_back = "dashTeluBeban"; 
                                     $kd= this.options.key;
+                                    $nama = this.options.name;
                                     
                                     var url = "{{ url('/dash-telu/form/dashTeluBebanDet') }}";
                                     loadForm(url)
@@ -547,6 +549,7 @@ function getPresentaseRkaRealisasi(periode=null){
                                     
                                     $form_back = "dashTeluBeban";
                                     $kd= this.options.key;
+                                    $nama = this.options.name;
                                     
                                     var url = "{{ url('/dash-telu/form/dashTeluBebanDet') }}";
                                     loadForm(url)
@@ -575,6 +578,7 @@ function getPresentaseRkaRealisasi(periode=null){
             $('#rkaVSreal .highcharts-xaxis-labels text').on('click', function () {
                 // $(this).css({''});
                 $kd = result.data.data_sdm[$(this).index()].key;
+                $nama = result.data.data_sdm[$(this).index()].name;
                 $form_back = "dashTeluBeban"; 
                 var url = "{{ url('/dash-telu/form/dashTeluBebanDet') }}";
                 loadForm(url)
@@ -583,6 +587,7 @@ function getPresentaseRkaRealisasi(periode=null){
                 // $(this).css({''});
                 $kd = result.data.data_non[$(this).index()].key;
                 $form_back = "dashTeluBeban"; 
+                $nama = result.data.data_sdm[$(this).index()].name;
                 var url = "{{ url('/dash-telu/form/dashTeluBebanDet') }}";
                 loadForm(url)
             });
@@ -663,7 +668,7 @@ function getPresentaseRkaRealisasiRp(periode=null){
                                     
                                     $form_back = "dashTeluBeban";
                                     $kd= this.options.key;
-                                    
+                                    $nama= this.options.name;
                                     var url = "{{ url('/dash-telu/form/dashTeluBebanDet') }}";
                                     loadForm(url)
                                 }
@@ -691,6 +696,7 @@ function getPresentaseRkaRealisasiRp(periode=null){
             $('#rkaVSrealRp .highcharts-xaxis-labels text').on('click', function () {
                 // $(this).css({''});
                 $kd = result.data.data_sdm[$(this).index()].key;
+                $nama = result.data.data_sdm[$(this).index()].name;
                 $form_back = "dashTeluBeban"; 
                 var url = "{{ url('/dash-telu/form/dashTeluBebanDet') }}";
                 loadForm(url)
@@ -746,6 +752,7 @@ function getPresentaseRkaRealisasiRp(periode=null){
                                     
                                     $form_back = "dashTeluBeban";  
                                     $kd= this.options.key;
+                                    $nama= this.options.name;
                                     
                                     var url = "{{ url('/dash-telu/form/dashTeluBebanDet') }}";
                                     loadForm(url)
@@ -775,6 +782,7 @@ function getPresentaseRkaRealisasiRp(periode=null){
                 // $(this).css({''});
                 $kd = result.data.data_non[$(this).index()].key;
                 $form_back = "dashTeluBeban"; 
+                $nama = result.data.data_non[$(this).index()].name;
                 var url = "{{ url('/dash-telu/form/dashTeluBebanDet') }}";
                 loadForm(url)
             });

@@ -132,7 +132,7 @@ $thnLalu = substr($tahunLalu,2,2);
                             </table>
                         </div>
                         <div class="tab-pane" id="tab3_dir" role="tabpanel">
-                            <table class='no-border' id='tablePendNon' style="width:100%">
+                            <table class='table table-borderless' id='tablePendNon' style="width:100%">
                                 <thead>
                                     <tr>
                                         <th></th>
