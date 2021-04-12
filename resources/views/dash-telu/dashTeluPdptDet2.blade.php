@@ -72,7 +72,7 @@ $thnLalu = substr($tahunLalu,2,2);
                     <h6 class="card-title">Pendapatan <span class='tahunPilih'></span></h6>
                 </div>
                 <div class="card-body pt-0">
-                    <table class='no-border' id='tablePend' style="width:100%">
+                    <table class='table table-borderless' id='tablePend' style="width:100%">
                         <thead>
                             <tr>
                                 <th></th>
