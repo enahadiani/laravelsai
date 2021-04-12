@@ -68,6 +68,12 @@ $thnLalu = substr($tahunLalu,2,2)
     .trace {
         cursor:pointer;
     }
+    .breadcrumb-item + .breadcrumb-item::before {
+        content: ">";
+    }
+    .breadcrumb-item.active > a{
+        font-weight:bold;
+    }
     </style>
 
 <div class="container-fluid mt-3">
@@ -76,7 +82,14 @@ $thnLalu = substr($tahunLalu,2,2)
             <h6 class="mb-0 bold">SHU</h6>
             <a class='btn btn-outline-light' href='#' id='btnBack' style="position: absolute;right: 135px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-arrow-left mr-2"></i> Back</a>
             <a class="btn btn-outline-light" href="#" id="btn-filter" style="position: absolute;right: 15px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-equalizer" style="transform-style: ;"></i> &nbsp;&nbsp; Filter</a>
-            <p>Satuan Rupiah || <span class='label-periode-filter'></span></p>
+            <p class="mb-0">Satuan Milyar Rupiah || <span class='label-periode-filter'></span></p>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb px-0 pt-0">
+                    <li class="breadcrumb-item"><a href="#">Management System</a></li>
+                    <li class="breadcrumb-item"><a href="#">Laba Rugi</a></li>
+                    <li class="breadcrumb-item active"><a href="#">SHU</a></li>
+                </ol>
+            </nav>
         </div>
     </div>
     <div class="row" >
@@ -86,7 +99,7 @@ $thnLalu = substr($tahunLalu,2,2)
                     <h6 class="card-title mb-0">Detail SHU</h6>
                 </div>
                 <div class="card-body">
-                    <table class='no-border' id='tableSHU' style="width:100%">
+                    <table class='table table-borderless' id='tableSHU' style="width:100%">
                         <thead>
                         </thead>
                         <tbody>

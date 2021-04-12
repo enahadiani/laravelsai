@@ -29,13 +29,28 @@ $thnLalu = substr($tahunLalu,2,2);
         color:white;
         border-color: #ad1d3e;
     }
+    
+    .breadcrumb-item + .breadcrumb-item::before {
+        content: ">";
+    }
+    .breadcrumb-item.active > a{
+        font-weight:bold;
+    }
 </style>
 
 <div class="container-fluid mt-3">
     <div class="row" >
         <div class="col-12 detail-beban">
-        <a class='btn btn-outline-light' href='#' id='btnBack' style="position: absolute;right: 25px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-arrow-left"></i> Back</a>
-        <p>Satuan Milyar Rupiah || <span class='label-periode-filter'></span></p>
+            <a class='btn btn-outline-light' href='#' id='btnBack' style="position: absolute;right: 25px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-arrow-left"></i> Back</a>
+            <p class="mb-0">Satuan Milyar Rupiah || <span class='label-periode-filter'></span></p>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb px-0 pt-0">
+                    <li class="breadcrumb-item"><a href="#">Management System</a></li>
+                    <li class="breadcrumb-item"><a href="#">Laba Rugi</a></li>
+                    <li class="breadcrumb-item"><a href="#">Beban</a></li>
+                    <li class="breadcrumb-item active"><a href="#" id="breadcrumb-current"></a></li>
+                </ol>
+            </nav>
         </div>
     </div>
     <div class="row mt-2" >
@@ -103,7 +118,7 @@ $thnLalu = substr($tahunLalu,2,2);
                 <div class="card-body pt-0">
                     <div class="tab-content tabcontent-border p-0">
                         <div class="tab-pane active" id="tab3_fak" role="tabpanel">
-                            <table class='no-border' id='tablePend' style="width:100%">
+                            <table class='table table-borderless' id='tablePend' style="width:100%">
                                 <thead>
                                     <tr>
                                         <th></th>
@@ -117,7 +132,7 @@ $thnLalu = substr($tahunLalu,2,2);
                             </table>
                         </div>
                         <div class="tab-pane" id="tab3_dir" role="tabpanel">
-                            <table class='no-border' id='tablePendNon' style="width:100%">
+                            <table class='table table-borderless' id='tablePendNon' style="width:100%">
                                 <thead>
                                     <tr>
                                         <th></th>
@@ -174,6 +189,7 @@ if(localStorage.getItem("dore-theme") == "dark"){
     $('#btnBack,#btn-filter').addClass('btn-outline-light');
 }
 $mode = localStorage.getItem("dore-theme");
+$('#breadcrumb-current').html($nama);
 var $k2 = "";
 function sepNum(x){
     var num = parseFloat(x).toFixed(2);

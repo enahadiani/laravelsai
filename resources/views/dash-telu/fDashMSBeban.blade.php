@@ -61,6 +61,12 @@ $thnLalu = substr($tahunLalu,2,2)
     .trace {
         cursor:pointer;
     }
+    .breadcrumb-item + .breadcrumb-item::before {
+        content: ">";
+    }
+    .breadcrumb-item.active > a{
+        font-weight:bold;
+    }
     </style>
 
 <div class="container-fluid mt-3">
@@ -69,7 +75,14 @@ $thnLalu = substr($tahunLalu,2,2)
             <h6 class="mb-0 bold">Beban</h6>
             <a class='btn btn-outline-light' href='#' id='btnBack' style="position: absolute;right: 135px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-arrow-left mr-2"></i> Back</a>
             <a class="btn btn-outline-light" href="#" id="btn-filter" style="position: absolute;right: 15px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-equalizer" style="transform-style: ;"></i> &nbsp;&nbsp; Filter</a>
-            <p>Satuan Milyar Rupiah || <span class='label-periode-filter'></span></p>
+            <p class="mb-0">Satuan Milyar Rupiah || <span class='label-periode-filter'></span></p>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb px-0 pt-0">
+                    <li class="breadcrumb-item"><a href="#">Management System</a></li>
+                    <li class="breadcrumb-item"><a href="#">Laba Rugi</a></li>
+                    <li class="breadcrumb-item active"><a href="#">Beban</a></li>
+                </ol>
+            </nav>
         </div>
     </div>
     <div class="row" >
@@ -152,6 +165,7 @@ if(localStorage.getItem("dore-theme") == "dark"){
 $kd = "";
 $form_back = "";
 $kode_grafik = "";
+$nama = "";
 $mode = localStorage.getItem("dore-theme");
 function sepNum(x){
     if(!isNaN(x)){
@@ -426,7 +440,11 @@ function getMsBebanRKA(periode=null){
                     min: 0
                 },
                 tooltip: {
-                    pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b>',
+                    formatter: function () {   
+                        var tmp = this.x.split("|");   
+                        return tmp[0]+'<br><span style="color:' + this.series.color + '">' + this.series.name + '</span>: <b>' + sepNum(this.y);
+                    }
+                    // pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b>',
                     /* shared: true */
                 },
                 plotOptions: {
@@ -459,9 +477,11 @@ function getMsBebanRKA(periode=null){
                         //point
                         point: {
                             events: {
-                                click: function() {  
+                                click: function(e) {  
                                     $kd= this.options.key;
                                     $kd_grafik= this.options.key2;
+                                    var tmp = e.point.category.split("|");
+                                    $nama = tmp[0];
                                     $form_back = "fDashMSBeban";
                                     var url = "{{ url('/dash-telu/form/dashTeluBebanDet') }}";
                                     loadForm(url)
@@ -495,10 +515,12 @@ function getMsBebanRKA(periode=null){
                         //point
                         point: {
                             events: {
-                                click: function() {  
+                                click: function(e) {  
                                     $kd= this.options.key;
                                     $kd_grafik= this.options.key2;
                                     $form_back = "fDashMSBeban";
+                                    var tmp = e.point.category.split("|");
+                                    $nama = tmp[0];
                                     var url = "{{ url('/dash-telu/form/dashTeluBebanDet') }}";
                                     loadForm(url)
                                 }

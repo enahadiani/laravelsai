@@ -40,7 +40,7 @@
             </div>
             <div class="card-body" style="min-height:560px !important;padding-top:1rem;">
                 <div class="table-responsive ">
-                    <table id="table-data" class="" style='width:100%'>
+                    <table id="table-data" class="table table-borderless" style='width:100%'>
                         <thead>
                             <tr>
                             @for($i=0; $i < count($thead); $i++ )
