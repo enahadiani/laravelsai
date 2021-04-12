@@ -29,13 +29,28 @@ $thnLalu = substr($tahunLalu,2,2);
         color:white;
         border-color: #ad1d3e;
     }
+    
+    .breadcrumb-item + .breadcrumb-item::before {
+        content: ">";
+    }
+    .breadcrumb-item.active > a{
+        font-weight:bold;
+    }
 </style>
 
 <div class="container-fluid mt-3">
     <div class="row" >
         <div class="col-12 detail-pdpt">
-        <a class='btn btn-outline-light' href='#' id='btnBack' style="position: absolute;right: 25px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-arrow-left"></i> Back</a>
-        <p>Satuan Milyar Rupiah || <span class='label-periode-filter'></span></p>
+            <a class='btn btn-outline-light' href='#' id='btnBack' style="position: absolute;right: 25px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-arrow-left"></i> Back</a>
+            <p class="mb-0">Satuan Milyar Rupiah || <span class='label-periode-filter'></span></p>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb px-0 pt-0">
+                    <li class="breadcrumb-item"><a href="#">Management System</a></li>
+                    <li class="breadcrumb-item"><a href="#">Laba Rugi</a></li>
+                    <li class="breadcrumb-item"><a href="#">Pendapatan</a></li>
+                    <li class="breadcrumb-item active"><a href="#" id="breadcrumb-current"></a></li>
+                </ol>
+            </nav>
         </div>
     </div>
     <div class="row mt-2" >
@@ -175,6 +190,7 @@ if(localStorage.getItem("dore-theme") == "dark"){
     $('#btnBack,#btn-filter').addClass('btn-outline-light');
 }
 $mode = localStorage.getItem("dore-theme");
+$('#breadcrumb-current').html($nama);
 var $k2 = "";
 function sepNum(x){
     var num = parseFloat(x).toFixed(2);
