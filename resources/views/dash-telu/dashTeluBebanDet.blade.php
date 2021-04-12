@@ -61,7 +61,7 @@ $thnLalu = substr($tahunLalu,2,2);
                         <h6 class="card-title col-md-4 col-sm-12 px-0">Beban per Tahun untuk Fakultas</h6>
                         <ul role="tablist" style="border: none;" class="nav nav-tabs col-md-8 col-sm-12 px-0 justify-content-end">
                             <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#tab_fak" role="tab" aria-selected="false"><span class="hidden-xs-down"><b>Fakultas</b></span></a> </li>
-                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab_dir" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>Direktorat</b></span></a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab_dir" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>Rektorat</b></span></a> </li>
                         </ul>
                     </div>
                 </div>
@@ -86,7 +86,7 @@ $thnLalu = substr($tahunLalu,2,2);
                         <h6 class="card-title col-md-4 col-sm-12 px-0">Pertumbuhan Beban per Fakultas</h6>
                         <ul role="tablist" style="border: none;" class="nav nav-tabs col-md-8 col-sm-12 px-0 justify-content-end">
                             <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#tab2_fak" role="tab" aria-selected="false"><span class="hidden-xs-down"><b>Fakultas</b></span></a> </li>
-                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab2_dir" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>Direktorat</b></span></a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab2_dir" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>Rektorat</b></span></a> </li>
                         </ul>
                     </div>
                 </div>
@@ -111,7 +111,7 @@ $thnLalu = substr($tahunLalu,2,2);
                         <h6 class="card-title col-md-4 col-sm-12 px-0">Beban <span class='tahunIni'></span></h6>
                         <ul role="tablist" style="border: none;" class="nav nav-tabs col-md-8 col-sm-12 px-0 justify-content-end">
                             <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#tab3_fak" role="tab" aria-selected="false"><span class="hidden-xs-down"><b>Fakultas</b></span></a> </li>
-                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab3_dir" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>Direktorat</b></span></a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab3_dir" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>Rektorat</b></span></a> </li>
                         </ul>
                     </div>
                 </div>

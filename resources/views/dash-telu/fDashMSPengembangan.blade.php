@@ -125,7 +125,7 @@ $thnLalu = substr($tahunLalu,2,2)
         <div class="col-lg-7 col-12 mb-4">
             <div class="card dash-card">
                 <div class="card-header">
-                    <h6 class="card-title mb-0">RKA <span class="nama-pengembangan"></span> <span class="tahunDepan"></span> per Direktorat </h6>
+                    <h6 class="card-title mb-0">RKA <span class="nama-pengembangan"></span> <span class="tahunDepan"></span> per Rektorat </h6>
                 </div>
                 <div class="card-body">
                     <div id="rka_dir" style="height:300px"></div>
