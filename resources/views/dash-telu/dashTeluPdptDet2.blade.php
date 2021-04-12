@@ -29,14 +29,29 @@ $thnLalu = substr($tahunLalu,2,2);
         color:white;
         border-color: #ad1d3e;
     }
-
+    
+    .breadcrumb-item + .breadcrumb-item::before {
+        content: ">";
+    }
+    .breadcrumb-item.active > a{
+        font-weight:bold;
+    }
 </style>
 
 <div class="container-fluid mt-3">
     <div class="row" >
         <div class="col-12 detail2-pdpt">
-        <a class='btn btn-outline-light' href='#' id='btnBack' style="position: absolute;right: 25px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-arrow-left"></i> Back</a>
-        <p>Satuan Milyar Rupiah || <span class='label-periode-filter'></span> || <span class='label-bidang'></span></p>
+            <a class='btn btn-outline-light' href='#' id='btnBack' style="position: absolute;right: 25px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-arrow-left"></i> Back</a>
+            <p class="mb-0">Satuan Milyar Rupiah || <span class='label-periode-filter'></span></p>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb px-0 pt-0">
+                    <li class="breadcrumb-item"><a href="#">Management System</a></li>
+                    <li class="breadcrumb-item"><a href="#">Laba Rugi</a></li>
+                    <li class="breadcrumb-item"><a href="#">Pendapatan</a></li>
+                    <li class="breadcrumb-item"><a href="#" id="breadcrumb-current"></a></li>
+                    <li class="breadcrumb-item active"><a href="#" class='label-bidang'></a></li>
+                </ol>
+            </nav>
         </div>
     </div>
     <div class="row mt-2" >
@@ -57,7 +72,7 @@ $thnLalu = substr($tahunLalu,2,2);
                     <h6 class="card-title">Pendapatan <span class='tahunPilih'></span></h6>
                 </div>
                 <div class="card-body pt-0">
-                    <table class='no-border' id='tablePend' style="width:100%">
+                    <table class='table table-borderless' id='tablePend' style="width:100%">
                         <thead>
                             <tr>
                                 <th></th>
@@ -87,6 +102,7 @@ if(localStorage.getItem("dore-theme") == "dark"){
 }
 $mode = localStorage.getItem("dore-theme");
 
+$('#breadcrumb-current').html($nama);
 function sepNum(x){
     var num = parseFloat(x).toFixed(2);
     var parts = num.toString().split('.');

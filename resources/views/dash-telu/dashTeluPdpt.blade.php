@@ -54,7 +54,11 @@ $nik     = Session::get('userLog');
         background: #fff;
         color: #fff;
     }
-
+    .preview-close > span
+    {
+        color:white;
+        background:red;
+    }
 </style>
 
 <div class="container-fluid mt-3">
@@ -62,8 +66,7 @@ $nik     = Session::get('userLog');
         <div class="col-12">
             <h6>Pendapatan</h6>
             <a class="btn btn-outline-light" href="#" id="btn-filter" style="position: absolute;right: 15px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-equalizer" style="transform-style: ;"></i> &nbsp;&nbsp; Filter</a>
-            <p>Satuan Milyar Rupiah || <span class='label-periode-filter'></span></p>
-            
+            <p >Satuan Milyar Rupiah || <span class='label-periode-filter'></span></p>
         </div>
     </div>
     <div class="row" >
@@ -215,6 +218,7 @@ $kd = "";
 $form_back = "";
 $kode_grafik = "";
 $kd_grafik="";
+$nama = "";
 function sepNum(x){
     if(!isNaN(x)){
         if (typeof x === undefined || !x || x == 0) { 
@@ -495,6 +499,7 @@ function getPresentaseRkaRealisasi(periode=null){
                                 click: function() {  
                                     $form_back = "dashTeluPdpt"; 
                                     $kd= this.options.key;
+                                    $nama = this.options.name;
                                     var url = "{{ url('/dash-telu/form/dashTeluPdptDet') }}";
                                     loadForm(url)
                                 }
@@ -568,6 +573,7 @@ function getPresentaseRkaRealisasi(periode=null){
                                 click: function() {  
                                     $form_back = "dashTeluPdpt"; 
                                     $kd= this.options.key;
+                                    $nama = this.options.name;
                                     var url = "{{ url('/dash-telu/form/dashTeluPdptDet') }}";
                                     loadForm(url)
                                 }
@@ -596,12 +602,14 @@ function getPresentaseRkaRealisasi(periode=null){
                 // $(this).css({''});
                 $kd = result.data.data_tf[$(this).index()].key;
                 $form_back = "dashTeluPdpt"; 
+                $nama = result.data.data_tf[$(this).index()].name;
                 var url = "{{ url('/dash-telu/form/dashTeluPdptDet') }}";
                 loadForm(url)
             });
             $('#rkaVSrealNTF .highcharts-xaxis-labels text').on('click', function () {
                 // $(this).css({''});
                 $kd = result.data.data_ntf[$(this).index()].key;
+                $nama = result.data.data_ntg[$(this).index()].name;
                 $form_back = "dashTeluPdpt"; 
                 var url = "{{ url('/dash-telu/form/dashTeluPdptDet') }}";
                 loadForm(url)
@@ -681,6 +689,7 @@ function getPresentaseRkaRealisasiRp(periode=null){
                                 click: function() {  
                                     $form_back = "dashTeluPdpt";
                                     $kd= this.options.key;
+                                    $nama = this.options.name;
                                     var url = "{{ url('/dash-telu/form/dashTeluPdptDet') }}";
                                     loadForm(url)
                                 }
@@ -708,6 +717,7 @@ function getPresentaseRkaRealisasiRp(periode=null){
             $('#rkaVSrealRp .highcharts-xaxis-labels text').on('click', function () {
                 // $(this).css({''});
                 $kd = result.data.data_tf[$(this).index()].key;
+                $nama = result.data.data_tf[$(this).index()].name;
                 $form_back = "dashTeluPdpt"; 
                 var url = "{{ url('/dash-telu/form/dashTeluPdptDet') }}";
                 loadForm(url)
@@ -762,6 +772,7 @@ function getPresentaseRkaRealisasiRp(periode=null){
                                 click: function() {  
                                     $form_back = "dashTeluPdpt";
                                     $kd= this.options.key;
+                                    $nama = this.options.name;
                                     var url = "{{ url('/dash-telu/form/dashTeluPdptDet') }}";
                                     loadForm(url)
                                 }
@@ -789,6 +800,7 @@ function getPresentaseRkaRealisasiRp(periode=null){
             $('#rkaVSrealNTFRp .highcharts-xaxis-labels text').on('click', function () {
                 // $(this).css({''});
                 $kd = result.data.data_ntf[$(this).index()].key;
+                $nama = result.data.data_ntf[$(this).index()].name;
                 $form_back = "dashTeluPdpt"; 
                 var url = "{{ url('/dash-telu/form/dashTeluPdptDet') }}";
                 loadForm(url)
