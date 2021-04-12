@@ -446,7 +446,7 @@ function getProfitLoss(periode=null)
 
                         html+=`<tr>
                         <td></td>
-                        <td class='text-center'>RKA</td>
+                        <td class='text-center'>RKA s.d.</td>
                         <td class='text-center'>Real</td>
                         <td class='text-center'>%</td>
                         </tr>`;   
@@ -584,7 +584,7 @@ function getPenyerapan(periode=null)
 
                         html+=`<tr>
                         <td></td>
-                        <td class='text-center'>RKA</td>
+                        <td class='text-center'>RKA s.d.</td>
                         <td class='text-center'>Real</td>
                         <td class='text-center'>%</td>
                         </tr>`;   
@@ -794,7 +794,7 @@ function getPin(periode=null)
 
                         html+=`<tr>
                         <td></td>
-                        <td class='text-center'>RKA</td>
+                        <td class='text-center'>RKA THN</td>
                         <td class='text-center'>Real</td>
                         <td class='text-center'>%</td>
                         </tr>`;   
