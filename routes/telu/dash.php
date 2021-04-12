@@ -84,12 +84,17 @@ Route::get('/ms-pengembangan-rka-dir','DashTelu\DashboardController@msPengembang
 Route::get('/ms-pengembangan-komposisi','DashTelu\DashboardController@msPengembanganKomposisi');
 
 Route::get('/laba-rugi-5tahun','DashTelu\DashboardController@getLabaRugi5Tahun');
+Route::get('/laba-rugi-5tahun-yoy','DashTelu\DashboardController@getLabaRugi5TahunYoY');
 Route::get('/pend-5tahun','DashTelu\DashboardController@getPend5Tahun');
 Route::get('/pend-5tahun-yoy','DashTelu\DashboardController@getPend5TahunYoY');
 Route::get('/pend-5tahun-tf','DashTelu\DashboardController@getPend5TahunTF');
+Route::get('/pend-5tahun-tf-yoy','DashTelu\DashboardController@getPend5TahunTFYoY');
 Route::get('/pend-5tahun-ntf','DashTelu\DashboardController@getPend5TahunNTF');
+Route::get('/pend-5tahun-ntf-yoy','DashTelu\DashboardController@getPend5TahunNTFYoY');
 Route::get('/pend-5tahun-komposisi','DashTelu\DashboardController@getPend5TahunKomposisi');
+Route::get('/pend-5tahun-komposisi-yoy','DashTelu\DashboardController@getPend5TahunKomposisiYoY');
 Route::get('/pend-5tahun-growth','DashTelu\DashboardController@getPend5TahunGrowth');
+Route::get('/pend-5tahun-growth-yoy','DashTelu\DashboardController@getPend5TahunGrowthYoY');
 
 Route::get('/beban-5tahun','DashTelu\DashboardController@getBeban5Tahun');
 Route::get('/beban-5tahun-sdm','DashTelu\DashboardController@getBeban5TahunSDM');

@@ -22,28 +22,6 @@ $thnLalu = substr($tahunLalu,2,2)
         border-color: white !important;
     }
 
-    /* NAV TABS */
-    .nav-tabs {
-        border:none;
-    }
-
-    .nav-tabs .nav-link{
-        border: 1px solid #ad1d3e;
-        border-radius: 20px;
-        padding: 2px 25px;
-        color:#ad1d3e;
-    }
-    .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
-        color: white;
-        background-color: #ad1d3e;
-        border-color: #ad1d3e;
-    }
-
-    .nav-tabs .nav-item {
-        margin-bottom: -1px;
-        padding: 0px 10px 0px 0px;
-    }
-
     #pencapaian > td, th 
     {
         padding: 4px !important;
@@ -70,8 +48,24 @@ $thnLalu = substr($tahunLalu,2,2)
     <div class="row" >
         <div class="col-lg-12 col-12 mb-4">
             <div class="card dash-card">
+                <div class="card-header">
+                    <div class="row mx-0">
+                        <h6 class="card-title col-md-6 col-12">&nbsp;</h6>
+                        <ul role="tablist" style="border: none;" class="nav nav-tabs col-md-6 col-12 px-0 justify-content-end">
+                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#tab_yoy" role="tab" aria-selected="false"><span class="hidden-xs-down"><b>YoY</b></span></a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab_curr" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>Current</b></span></a> </li>
+                        </ul>
+                    </div>
+                </div>
                 <div class="card-body" style='border-radius:.75rem !important'>
-                    <div id="laba-rugi" style='height:450px;'></div>
+                    <div class="tab-content tabcontent-border p-0">
+                        <div class="tab-pane active" id="tab_yoy" role="tabpanel">
+                            <div id="laba-rugi-yoy" style='height:450px;'></div>
+                        </div>
+                        <div class="tab-pane" id="tab_curr" role="tabpanel">
+                            <div id="laba-rugi" style='height:450px;'></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -297,6 +291,7 @@ function getPeriode(){
                 $('.label-periode-filter').html(label);
 
                 getLabaRugi($dash_periode);
+                getLabaRugiYoY($dash_periode);
 
                         
             }
@@ -676,6 +671,150 @@ function getLabaRugi(periode=null){
     })
 }
 
+function getLabaRugiYoY(periode=null){
+    $.ajax({
+        type:"GET",
+        url:"{{ url('/telu-dash/laba-rugi-5tahun-yoy') }}",
+        data:{'periode[0]' : periode.type,
+            'periode[1]' : periode.from,
+            'periode[2]' : periode.to, mode: $mode},
+        dataType:"JSON",
+        success:function(result){
+
+            Highcharts.SVGRenderer.prototype.symbols['c-rect'] = function (x, y, w, h) {
+                    return ['M', x, y + h / 2, 'L', x + w, y + h / 2];
+                };
+                
+            var chart = Highcharts.chart('laba-rugi-yoy', {
+                chart: {
+                    type: 'column'
+                },
+                credits:{
+                    enabled:false
+                },
+                title: {
+                    text: ''
+                },
+                xAxis: {
+                    categories: result.categories
+                },
+                yAxis: {
+                        title:'',
+                    min: 0
+                },
+                tooltip: {
+                    pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b>',
+                    /* shared: true */
+                },
+                plotOptions: {
+                    column: {
+                        stacking: 'normal',
+                        borderWidth: 0,
+                        pointWidth: 50,
+                        dataLabels: {
+                            // padding:10,
+                            allowOverlap:true,
+                            enabled: true,
+                            crop: false,
+                            overflow: 'justify',
+                            useHTML: true,
+                            formatter: function () {
+                                if(this.y < 0.1){
+                                    return '';
+                                }else{
+                                    return $('<div/>').css({
+                                        'color' : 'white', // work
+                                        'padding': '0 3px',
+                                        'font-size': '10px',
+                                        'backgroundColor' : this.point.color  // just white in my case
+                                    }).text(sepNum(this.point.nlabel)+'M')[0].outerHTML;
+                                }
+                                // if(this.name)
+                            }
+                        }
+                    },
+                    scatter: {
+                        dataLabels: {
+                            // padding:10,
+                            allowOverlap:true,
+                            enabled: true,
+                            crop: false,
+                            overflow: 'justify',
+                            useHTML: true,
+                            formatter: function () {
+                                // return '<span style="color:white;background:gray !important;"><b>'+sepNum(this.y)+' M</b></span>';
+                                if(this.y < 0.1){
+                                    return '';
+                                }else{
+                                    return $('<div/>').css({
+                                        'color' : 'white', // work
+                                        'padding': '0 3px',
+                                        'font-size': '10px',
+                                        'backgroundColor' : this.point.color  // just white in my case
+                                    }).text(sepNum(this.point.nlabel)+'M')[0].outerHTML;
+                                }
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    name: 'Melampaui',
+                    color: (localStorage.getItem("dore-theme") == "dark" ? '#28DA66' :  '#16ff14'),
+                    type: 'column',
+                    stack: 1,
+                    data: result.melampaui,
+                    dataLabels:{
+                        y:-20
+                    }
+                },{
+                    name: 'Target/RKA',
+                    color: (localStorage.getItem("dore-theme") == "dark" ? '#2200FF' :  '#003F88'),
+                    marker: {
+                        symbol: 'c-rect',
+                        lineWidth:5,
+                        lineColor: (localStorage.getItem("dore-theme") == "dark" ? '#2200FF' :  '#003F88'),
+                        radius: 50
+                    },
+                    type: 'scatter',
+                    stack: 2,
+                    data: result.rka,
+                    dataLabels:{
+                        x:-50
+                    }
+                }, {
+                    name: 'Tidak Tercapai',
+                    type: 'column',
+                    color:  (localStorage.getItem("dore-theme") == "dark" ? '#ED4346' :  '#900604'),
+                    stack: 1,
+                    data: result.tdkcapai,
+                    dataLabels:{
+                        x:50,
+                    }
+                }, {
+                    name: 'Actual',
+                    type: 'column',
+                    color: (localStorage.getItem("dore-theme") == "dark" ? '#434343' :  '#CED4DA'),
+                    stack: 1,
+                    data: result.actual
+                }]
+            });
+        },
+        error: function(jqXHR, textStatus, errorThrown) {       
+            if(jqXHR.status == 422){
+                var msg = jqXHR.responseText;
+            }else if(jqXHR.status == 500) {
+                var msg = "Internal server error";
+            }else if(jqXHR.status == 401){
+                var msg = "Unauthorized";
+                window.location="{{ url('/dash-telu/sesi-habis') }}";
+            }else if(jqXHR.status == 405){
+                var msg = "Route not valid. Page not found";
+            }
+            
+        }
+    })
+}
+
 
 $('#form-filter').submit(function(e){
     e.preventDefault();
@@ -699,6 +838,7 @@ $('#form-filter').submit(function(e){
     }
     $('.label-periode-filter').html(label);
     getLabaRugi($dash_periode);
+    getLabaRugiYoY($dash_periode);
     $('#modalFilter').modal('hide');
     if ($(".app-menu").hasClass("shown")) {
         $(".app-menu").removeClass("shown");
