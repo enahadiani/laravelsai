@@ -238,7 +238,6 @@
                         $('#id_edit').val('');
                         $('#input-grid tbody').empty()
                         $('#method').val('post');
-                        resetForm();
                         msgDialog({
                             id:result.data.success.no_bukti,
                             type:'simpan'
@@ -250,7 +249,7 @@
                                 icon: 'error',
                                 title: 'Oops...',
                                 text: 'Something went wrong!',
-                                footer: '<a href>'+result.data.message+'</a>'
+                                footer: '<p>'+result.data.success.message+'</p>'
                             })
                         }
                     },

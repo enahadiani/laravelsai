@@ -34,58 +34,104 @@ class PercepatanPenyusutanController extends Controller
         return "$explode[2]"."$to"."$explode[1]"."$to"."$explode[0]";
     }
 
+    public function convertPeriode($date) {
+        $explode = explode("/", $date);
+
+        return "$explode[2]$explode[1]";
+    }
+
+    public function getAktap(Request $request) {
+        $periode = $this->convertPeriode($request->tanggal);
+        $client = new Client();
+        $response = $client->request('GET',  config('api.url').'esaku-trans/susutcpt-noaktap',[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ],
+            'query' => [
+                'periode' => $periode
+            ]
+        ]);
+
+        if ($response->getStatusCode() == 200) { // 200 OK
+            $response_data = $response->getBody()->getContents();
+            
+            $data = json_decode($response_data,true);
+            $data = $data;
+        }
+        return response()->json(['daftar' => $data['success']['data'], 'status' => true], 200);
+    }
+
+    public function getDataAktap(Request $request) {
+        $periode = $this->convertPeriode($request->tanggal);
+        $client = new Client();
+        $response = $client->request('GET',  config('api.url').'esaku-trans/susutcpt-load',[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ],
+            'query' => [
+                'periode' => $periode,
+                'no_fa' => $request->aktap
+            ]
+        ]);
+
+        if ($response->getStatusCode() == 200) { // 200 OK
+            $response_data = $response->getBody()->getContents();
+            
+            $data = json_decode($response_data,true);
+            $data = $data;
+        }
+        return response()->json(['data' => $data, 'status' => true], 200);
+    }
+
     public function store(Request $request) {
         $this->validate($request, [
             'tanggal' => 'required',
+            'umur' => 'required',
+            'kode_pp_susut' => 'required',
+            'kode_akun' => 'required',
             'aktiva_tetap' => 'required',
-            'jumlah' => 'required',
             'keterangan' => 'required',
             'nilai_penyusutan' => 'required',
             'nilai_perolehan' => 'required',
-            'total_penyusutan' => 'required',
             'nilai_buku' => 'required',
-            'nilai_residu' => 'required',
-            'nilai_referensi_susut' => 'required',
-            'no_seri' => 'required',
-            'merk' => 'required',
-            'tipe' => 'required',
             'akun_akumulasi' => 'required',
             'akun_beban_penyusutan' => 'required',
         ]);
 
         try {
+            $explodeAkunAkumulasi = explode('-',preg_replace('/\s+/', '', $request->akun_akumulasi));
+            $explodeAkunBebanPenyusutan = explode('-',preg_replace('/\s+/', '', $request->akun_beban_penyusutan));
             $form = array(
                 'tanggal' => $this->convertDate($request->tanggal),
-                'aktiva_tetap' => $request->aktiva_tetap,
-                'jumlah' => $this->joinNum($request->jumlah),
+                'no_fa' => $request->aktiva_tetap,
+                'kode_ppsusut' => $request->kode_pp_susut,
+                'umur' => $request->umur,
+                'kode_akun' => $request->kode_akun,
                 'keterangan' => $request->keterangan,
-                'nilai_penyusutan' => $this->joinNum($request->nilai_penyusutan),
-                'nilai_perolehan' => $this->joinNum($request->nilai_perolehan),
-                'total_penyusutan' => $this->joinNum($request->total_penyusutan),
+                'kode_pp' => Session::get('kodePP'),
+                'nilai' => $this->joinNum($request->nilai_penyusutan),
+                'harga_perolehan' => $this->joinNum($request->nilai_perolehan),
                 'nilai_buku' => $this->joinNum($request->nilai_buku),
-                'nilai_residu' => $this->joinNum($request->nilai_residu),
-                'nilai_referensi_susut' => $this->joinNum($request->nilai_referensi_susut),
-                'no_seri' => $request->no_seri,
-                'merk' => $request->merk,
-                'tipe' => $request->tipe,
-                'akun_akumulasi' => $request->akun_akumulasi,
-                'akun_beban_penyusutan' => $request->akun_beban_penyusutan
+                'akun_deprs' => $explodeAkunAkumulasi[0],
+                'akun_bp' => $explodeAkunBebanPenyusutan[0]
             );
 
-            // $client = new Client();
-            // $response = $client->request('POST',  config('api.url').'java-master/bank',[
-            //     'headers' => [
-            //         'Authorization' => 'Bearer '.Session::get('token'),
-            //         'Accept'     => 'application/json',
-            //     ],
-            //     'form_params' => $form
-            // ]);
-            // if ($response->getStatusCode() == 200) { // 200 OK
-            //     $response_data = $response->getBody()->getContents();
+            $client = new Client();
+            $response = $client->request('POST',  config('api.url').'esaku-trans/susutcpt',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'form_params' => $form
+            ]);
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
                     
-            //     $data = json_decode($response_data,true);
-            //     return response()->json(['data' => $data], 200);  
-            // }
+                $data = json_decode($response_data,true);
+                return response()->json(['data' => $data], 200);  
+            }
         } catch (BadResponseException $ex) {
                 $response = $ex->getResponse();
                 $res = json_decode($response->getBody(),true);

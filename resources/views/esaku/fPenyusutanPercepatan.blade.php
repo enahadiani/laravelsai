@@ -12,6 +12,9 @@
 </style>
 
 <form id="form-tambah" class="tooltip-label-right" novalidate>
+    <input type="hidden" name="kode_akun" id="kode_akun">
+    <input type="hidden" name="umur" id="umur">
+    <input type="hidden" name="kode_pp_susut" id="kode_pp_susut">
     <div class="row" id="saku-form">
         <div class="col-12">
             <div class="card">
@@ -58,7 +61,7 @@
                         <div class="form-group col-md-3 col-sm-12"></div>
                         <div class="form-group col-md-3 col-sm-12">
                             <label for="nilai_penyusutan">Nilai Penyusutan</label>
-                            <input type="text" placeholder="Nilai Penyusutan" class="form-control currency" id="nilai_penyusutan" name="nilai_penyusutanh" value="0" required>
+                            <input type="text" placeholder="Nilai Penyusutan" class="form-control currency" id="nilai_penyusutan" name="nilai_penyusutan" value="0" required>
                         </div>
                     </div>
                     <div class="form-row">
@@ -134,5 +137,169 @@
         digits: 2,
         autoGroup: true,
         rightAlign: true
+    });
+
+    $("input.datepicker").bootstrapDP({
+        autoclose: true,
+        format: 'dd/mm/yyyy',
+        templates: {
+            leftArrow: '<i class="simple-icon-arrow-left"></i>',
+            rightArrow: '<i class="simple-icon-arrow-right"></i>'
+        }
+    });
+
+    function resetForm() {
+        $('#upload tbody').empty()
+        $('#no-rab').hide();
+        $("[id^=label]").each(function(e){
+            $(this).text('');
+        });
+        $("[class^=info-name]").each(function(e){
+            $(this).addClass('hidden');
+        });
+        $("[class^=input-group-text]").each(function(e){
+            $(this).text('');
+        });
+        $("[class^=input-group-prepend]").each(function(e){
+            $(this).addClass('hidden');
+        });
+        $("[class*='inp-label-']").each(function(e){
+            $(this).removeAttr("style");
+        })
+        $("[class^=info-code]").each(function(e){
+            $(this).text('');
+        });
+        $("[class^=simple-icon-close]").each(function(e){
+            $(this).addClass('hidden');
+        });
+        $('#input-grid tbody').empty();
+    }
+
+    $('#form-tambah').on('click', '.search-item2', function(){
+        var tanggal = $('#tanggal').val()
+        var id = $(this).closest('div').find('input').attr('name');
+        showInpFilter({
+            id : id,
+            header : ['Kode', 'Nama'],
+            url : "{{ url('esaku-trans/percepatan-aktap') }}",
+            columns : [
+                { data: 'no_fa' },
+                { data: 'nama' }
+            ],
+            parameter: {
+                tanggal: tanggal
+            },
+            judul : "Daftar Aktiva Tetap",
+            pilih : "akun",
+            jTarget1 : "text",
+            jTarget2 : "text",
+            target1 : ".info-code_"+id,
+            target2 : ".info-name_"+id,
+            target3 : "custom",
+            target4 : "custom",
+            width : ["30%","70%"],
+        });
+    });
+
+    function custTarget(target, tr) {
+        var from = target;
+        var keyString = '_'
+        var fromTarget = from.substr(from.indexOf(keyString) + keyString.length, from.length);
+        if(fromTarget === 'aktiva_tetap') {
+            var tanggal = $('#tanggal').val()
+            var aktap = $('#aktiva_tetap').val()
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('esaku-trans/percepatan-data-aktap') }}",
+                data: { 'tanggal':tanggal, 'aktap':aktap},
+                dataType: 'json',
+                async:false,
+                success:function(result) {
+                    var data = result.data.success.data[0]
+                    $('#kode_akun').val(data.kode_akun)
+                    $('#kode_pp_susut').val(data.kode_pp_susut)
+                    $('#merk').val(data.merk)
+                    $('#tipe').val(data.tipe)
+                    $('#no_seri').val(data.no_seri)
+                    $('#akun_akumulasi').val(data.akun_deprs +"-"+ data.nama_deprs)
+                    $('#akun_beban_penyusutan').val(data.akun_bp +"-"+ data.nama_bp)
+                    $('#nilai_perolehan').val(parseInt(data.nilai))
+                    $('#nilai_buku').val(parseInt(data.nilai_buku))
+                    $('#nilai_residu').val(parseInt(data.nilai_residu))
+                    $('#nilai_referensi_susut').val(parseInt(data.nilai_susut))
+                    $('#nilai_penyusutan').val(parseInt(data.tot_susut))
+                    $('#umur').val(data.umur)
+                }
+            })
+        }
+    }
+
+    $('#form-tambah').validate({
+        ignore: [],
+        rules: 
+        {
+            no_proyek:{
+                required: true   
+            },
+            nilai_kontrak:{
+                required: true   
+            }
+        },
+        errorElement: "label",
+        submitHandler: function (form, event) {
+            event.preventDefault();
+            
+            var url = "{{ url('esaku-trans/percepatan-penyusutan') }}";
+            var pesan = "saved";
+            var text = "Data tersimpan";
+
+            var formData = new FormData(form);
+            for(var pair of formData.entries()) {
+                console.log(pair[0]+ ', '+ pair[1]); 
+            }
+            $.ajax({
+                type: 'POST', 
+                url: url,
+                dataType: 'json',
+                data: formData,
+                async:false,
+                contentType: false,
+                cache: false,
+                processData: false, 
+                success:function(result){
+                    if(result.data.success.status){
+                        $('#row-id').hide();
+                        $('#form-tambah')[0].reset();
+                        $('#form-tambah').validate().resetForm();
+                        $('[id^=label]').html('');
+                        $('#id_edit').val('');
+                        $('#method').val('post');
+                        resetForm();
+                        msgDialog({
+                            id:result.data.success.no_bukti,
+                            type:'simpan'
+                        });
+                    }else if(!result.data.status && result.data.message === "Unauthorized"){
+                        window.location.href = "{{ url('/java-auth/sesi-habis') }}";
+                    }else{
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Something went wrong!',
+                                footer: '<p>'+result.data.success.message+'</p>'
+                            })
+                        }
+                    },
+                    fail: function(xhr, textStatus, errorThrown){
+                        alert('request failed:'+textStatus);
+                    }
+            });
+            $('#btn-simpan').html("Simpan").removeAttr('disabled');
+        },
+        errorPlacement: function (error, element) {
+            var id = element.attr("id");
+            $("label[for="+id+"]").append("<br/>");
+            $("label[for="+id+"]").append(error);
+        }
     });
 </script>

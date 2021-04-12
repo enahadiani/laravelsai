@@ -231,6 +231,8 @@ Route::post('susut-reguler', 'Esaku\Aktap\PenyusutanRegulerController@store');
 
 ## Percepatan Penyusutan
 Route::post('percepatan-penyusutan', 'Esaku\Aktap\PercepatanPenyusutanController@store');
+Route::get('percepatan-aktap', 'Esaku\Aktap\PercepatanPenyusutanController@getAktap');
+Route::get('percepatan-data-aktap', 'Esaku\Aktap\PercepatanPenyusutanController@getDataAktap');
 
 ## Penghapusan Aktiva
 Route::post('penghapusan-aktiva', 'Esaku\Aktap\PenghapusanAktapController@store');
