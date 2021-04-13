@@ -45,7 +45,7 @@
         }
 
         .logo{
-            background:url("{{ asset('img/logo-ypt.jpg') }}") no-repeat;
+            background:url("{{ asset('img/ts-logo.png') }}") no-repeat;
             background-size: 100px;
             background-position-x: center;
             background-position-y: center;

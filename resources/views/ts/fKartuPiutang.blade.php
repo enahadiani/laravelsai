@@ -264,9 +264,9 @@
                         <div class="row">
                             <div class="col-md-4"><h6 class="text-primary bold">Laporan Kartu Keuangan</h6></div>
                             <div class="col-md-8 text-right">
-                                <h3><b>SMK TELKOM JAKARTA</b></h3>
-                                <h6>Jl. Daan Mogot KM.1, Kedaung Kaliangke, Cengkareng <br> Jakarta Barat 11710 </h6>
-                                <h6>Telp. 021-5442600 / 5442700</h6>
+                                <h3 id="nama_sekolah"></h3>
+                                <h6 id="alamat_sekolah"></h6>
+                                <h6 id="alamat_sekolah2"></h6>
                             </div>
                         </div>
                     </div>
@@ -404,6 +404,11 @@
                     var no=1;
                     var tosaldo=0;var nilai=0; var bayar=0;
                     $('#table-detail tbody').html(detail);
+                    if(result.lokasi.length > 0){
+                        $('#nama_sekolah').html(result.lokasi[0].nama);
+                        $('#alamat_sekolah').html(result.lokasi[0].alamat);
+                        $('#alamat_sekolah2').html(result.lokasi[0].alamat2);
+                    }
                     if(result.daftar.length > 0){
                         for(var i=0;i < result.daftar.length ;i++){
                             var line = result.daftar[i];
