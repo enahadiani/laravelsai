@@ -1570,7 +1570,6 @@
                 return response()->json(['message' => $res, 'status'=>false], $response->getStatusCode());
             }
         }
-
         
         public function getBeban5Tahun(Request $request)
         {
@@ -1578,6 +1577,34 @@
 
                 $client = new Client();
                 $response = $client->request('GET', config('api.url').'ypt-dash/beban-5tahun',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => $request->all()
+                ]);
+    
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $data = json_decode($response_data,true);
+                    $data = $data["success"];
+                }
+                return response()->json($data, 200);
+                
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                return response()->json(['message' => $res, 'status'=>false], $response->getStatusCode());
+            }
+        }
+
+        public function getBeban5TahunYoY(Request $request)
+        {
+            try{
+
+                $client = new Client();
+                $response = $client->request('GET', config('api.url').'ypt-dash/beban-5tahun-yoy',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -1628,12 +1655,68 @@
             }
         }
 
+        public function getBeban5TahunSDMYoY(Request $request)
+        {
+            try{
+
+                $client = new Client();
+                $response = $client->request('GET', config('api.url').'ypt-dash/beban-5tahun-sdm-yoy',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => $request->all()
+                ]);
+    
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $data = json_decode($response_data,true);
+                    $data = $data["success"];
+                }
+                return response()->json($data, 200);
+                
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                return response()->json(['message' => $res, 'status'=>false], $response->getStatusCode());
+            }
+        }
+
         public function getBeban5TahunNonSDM(Request $request)
         {
             try{
 
                 $client = new Client();
                 $response = $client->request('GET', config('api.url').'ypt-dash/beban-5tahun-non-sdm',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => $request->all()
+                ]);
+    
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $data = json_decode($response_data,true);
+                    $data = $data["success"];
+                }
+                return response()->json($data, 200);
+                
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                return response()->json(['message' => $res, 'status'=>false], $response->getStatusCode());
+            }
+        }
+
+        public function getBeban5TahunNonSDMYoY(Request $request)
+        {
+            try{
+
+                $client = new Client();
+                $response = $client->request('GET', config('api.url').'ypt-dash/beban-5tahun-non-sdm-yoy',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -1684,12 +1767,68 @@
             }
         }
 
+        public function getBeban5TahunKomposisiYoY(Request $request)
+        {
+            try{
+
+                $client = new Client();
+                $response = $client->request('GET', config('api.url').'ypt-dash/beban-5tahun-komposisi-yoy',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => $request->all()
+                ]);
+    
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $data = json_decode($response_data,true);
+                    $data = $data["success"];
+                }
+                return response()->json($data, 200);
+                
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                return response()->json(['message' => $res, 'status'=>false], $response->getStatusCode());
+            }
+        }
+
         public function getBeban5TahunGrowth(Request $request)
         {
             try{
 
                 $client = new Client();
                 $response = $client->request('GET', config('api.url').'ypt-dash/beban-5tahun-growth',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => $request->all()
+                ]);
+    
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $data = json_decode($response_data,true);
+                    $data = $data["success"];
+                }
+                return response()->json($data, 200);
+                
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                return response()->json(['message' => $res, 'status'=>false], $response->getStatusCode());
+            }
+        }
+
+        public function getBeban5TahunGrowthYoY(Request $request)
+        {
+            try{
+
+                $client = new Client();
+                $response = $client->request('GET', config('api.url').'ypt-dash/beban-5tahun-growth-yoy',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',

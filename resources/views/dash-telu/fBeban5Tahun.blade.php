@@ -23,28 +23,6 @@ $tahun5 = intval($tahun-5);
         border-color: white !important;
     }
 
-    /* NAV TABS */
-    .nav-tabs {
-        border:none;
-    }
-
-    .nav-tabs .nav-link{
-        border: 1px solid #ad1d3e;
-        border-radius: 20px;
-        padding: 2px 25px;
-        color:#ad1d3e;
-    }
-    .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
-        color: white;
-        background-color: #ad1d3e;
-        border-color: #ad1d3e;
-    }
-
-    .nav-tabs .nav-item {
-        margin-bottom: -1px;
-        padding: 0px 10px 0px 0px;
-    }
-
     #pencapaian > td, th 
     {
         padding: 4px !important;
@@ -72,10 +50,23 @@ $tahun5 = intval($tahun-5);
         <div class="col-lg-12 col-12 mb-4">
              <div class="card dash-card">
                 <div class="card-header">
-                    <h6 class="card-title">Beban <span class="rentang-tahun"></span></h6>
+                    <div class="row mx-0">
+                        <h6 class="card-title col-md-6 col-12">Beban <span class="rentang-tahun"></span></h6>
+                        <ul role="tablist" style="border: none;" class="nav nav-tabs col-md-6 col-12 px-0 justify-content-end">
+                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#tab_yoy" role="tab" aria-selected="false"><span class="hidden-xs-down"><b>YoY</b></span></a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab_curr" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>Current</b></span></a> </li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="card-body">
-                    <div id="beban" style='height:400px'></div>
+                    <div class="tab-content tabcontent-border p-0">
+                        <div class="tab-pane active" id="tab_yoy" role="tabpanel">
+                            <div id="beban-yoy" style='height:400px'></div>
+                        </div>
+                        <div class="tab-pane" id="tab_curr" role="tabpanel">
+                            <div id="beban" style='height:400px'></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -84,20 +75,46 @@ $tahun5 = intval($tahun-5);
         <div class="col-lg-6 col-12 mb-4">
              <div class="card dash-card">
                 <div class="card-header">
-                    <h6 class="card-title">Beban SDM <span class="rentang-tahun"></span></h6>
+                    <div class="row mx-0">
+                        <h6 class="card-title col-md-6 col-12">Beban SDM <span class="rentang-tahun"></span></h6>
+                        <ul role="tablist" style="border: none;" class="nav nav-tabs col-md-6 col-12 px-0 justify-content-end">
+                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#tab2_yoy" role="tab" aria-selected="false"><span class="hidden-xs-down"><b>YoY</b></span></a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab2_curr" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>Current</b></span></a> </li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="card-body">
-                    <div id="sdm" style='height:400px'></div>
+                    <div class="tab-content tabcontent-border p-0">
+                        <div class="tab-pane active" id="tab2_yoy" role="tabpanel">
+                            <div id="sdm-yoy" style='height:400px'></div>
+                        </div>
+                        <div class="tab-pane" id="tab2_curr" role="tabpanel">
+                            <div id="sdm" style='height:400px'></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="col-lg-6 col-12 mb-4">
              <div class="card dash-card">
                 <div class="card-header">
-                    <h6 class="card-title">Beban Non SDM <span class="rentang-tahun"></span></h6>
+                    <div class="row mx-0">
+                        <h6 class="card-title col-md-6 col-12">Beban Non SDM <span class="rentang-tahun"></span></h6>
+                        <ul role="tablist" style="border: none;" class="nav nav-tabs col-md-6 col-12 px-0 justify-content-end">
+                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#tab3_yoy" role="tab" aria-selected="false"><span class="hidden-xs-down"><b>YoY</b></span></a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab3_curr" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>Current</b></span></a> </li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="card-body">
-                    <div id="non-sdm" style='height:400px'></div>
+                    <div class="tab-content tabcontent-border p-0">
+                        <div class="tab-pane active" id="tab3_yoy" role="tabpanel">
+                            <div id="non-sdm-yoy" style='height:400px'></div>
+                        </div>
+                        <div class="tab-pane" id="tab3_curr" role="tabpanel">
+                            <div id="non-sdm" style='height:400px'></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -106,20 +123,46 @@ $tahun5 = intval($tahun-5);
         <div class="col-lg-6 col-12 mb-4">
              <div class="card dash-card">
                 <div class="card-header">
-                    <h6 class="card-title">Komposisi SDM dan Beban Lain <span class="rentang-tahun"></span></h6>
+                    <div class="row mx-0">
+                        <h6 class="card-title col-md-6 col-12">Komposisi SDM dan Beban Lain <span class="rentang-tahun"></span></h6>
+                        <ul role="tablist" style="border: none;" class="nav nav-tabs col-md-6 col-12 px-0 justify-content-end">
+                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#tab4_yoy" role="tab" aria-selected="false"><span class="hidden-xs-down"><b>YoY</b></span></a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab4_curr" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>Current</b></span></a> </li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="card-body">
-                    <div id="komposisi" style='height:400px'></div>
+                    <div class="tab-content tabcontent-border p-0">
+                        <div class="tab-pane active" id="tab4_yoy" role="tabpanel">
+                            <div id="komposisi-yoy" style='height:400px'></div>
+                        </div>
+                        <div class="tab-pane" id="tab4_curr" role="tabpanel">
+                            <div id="komposisi" style='height:400px'></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="col-lg-6 col-12 mb-4">
              <div class="card dash-card">
                 <div class="card-header">
-                    <h6 class="card-title">Realisasi Growth PDPT, Beban, SDM dan SHU <span class="rentang-tahun"></span></h6>
+                    <div class="row mx-0">
+                        <h6 class="card-title col-md-6 col-12">Realisasi Growth PDPT, Beban, SDM dan SHU <span class="rentang-tahun"></span></h6>
+                        <ul role="tablist" style="border: none;" class="nav nav-tabs col-md-6 col-12 px-0 justify-content-end">
+                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#tab5_yoy" role="tab" aria-selected="false"><span class="hidden-xs-down"><b>YoY</b></span></a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab5_curr" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>Current</b></span></a> </li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="card-body">
-                    <div id="komposisi2" style='height:400px'></div>
+                    <div class="tab-content tabcontent-border p-0">
+                        <div class="tab-pane active" id="tab5_yoy" role="tabpanel">
+                            <div id="komposisi2-yoy" style='height:400px'></div>
+                        </div>
+                        <div class="tab-pane" id="tab5_curr" role="tabpanel">
+                            <div id="komposisi2" style='height:400px'></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -349,10 +392,16 @@ function getPeriode(){
         
                 $('.rentang-tahun').html(tahunLima +' - '+tahun);
                 getBeban($dash_periode);
+                getBebanYoY($dash_periode);
                 getBebanSDM($dash_periode);
+                getBebanSDMYoY($dash_periode);
                 getBebanNonSDM($dash_periode);
+                getBebanNonSDMYoY($dash_periode);
                 getKomposisi($dash_periode);
+                getKomposisiYoY($dash_periode);
                 getBebanGrowth($dash_periode);
+                getBebanGrowthYoY($dash_periode);
+                
                         
             }
         },
@@ -583,6 +632,150 @@ function getBeban(periode=null){
                 };
                 
             Highcharts.chart('beban', {
+                chart: {
+                    type: 'column'
+                },
+                credits:{
+                    enabled:false
+                },
+                title: {
+                    text: ''
+                },
+                xAxis: {
+                    categories: result.categories
+                },
+                yAxis: {
+                        title:'',
+                    min: 0
+                },
+                tooltip: {
+                    pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b>',
+                    /* shared: true */
+                },
+                plotOptions: {
+                    column: {
+                        stacking: 'normal',
+                        borderWidth: 0,
+                        pointWidth: 50,
+                        dataLabels: {
+                            // padding:10,
+                            allowOverlap:true,
+                            enabled: true,
+                            crop: false,
+                            overflow: 'justify',
+                            useHTML: true,
+                            formatter: function () {
+                                if(this.y < 0.1){
+                                    return '';
+                                }else{
+                                    return $('<div/>').css({
+                                        'color' : 'white', // work
+                                        'padding': '0 3px',
+                                        'font-size': '10px',
+                                        'backgroundColor' : this.point.color  // just white in my case
+                                    }).text(sepNum(this.point.nlabel)+'M')[0].outerHTML;
+                                }
+                                // if(this.name)
+                            }
+                        }
+                    },
+                    scatter: {
+                        dataLabels: {
+                            // padding:10,
+                            allowOverlap:true,
+                            enabled: true,
+                            crop: false,
+                            overflow: 'justify',
+                            useHTML: true,
+                            formatter: function () {
+                                // return '<span style="color:white;background:gray !important;"><b>'+sepNum(this.y)+' M</b></span>';
+                                if(this.y < 0.1){
+                                    return '';
+                                }else{
+                                    return $('<div/>').css({
+                                        'color' : 'white', // work
+                                        'padding': '0 3px',
+                                        'font-size': '10px',
+                                        'backgroundColor' : this.point.color  // just white in my case
+                                    }).text(sepNum(this.point.nlabel)+'M')[0].outerHTML;
+                                }
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    name: 'Melampaui',
+                    color: (localStorage.getItem("dore-theme") == "dark" ? '#28DA66' :  '#16ff14'),
+                    type: 'column',
+                    stack: 1,
+                    data: result.melampaui,
+                    dataLabels:{
+                        y:-20
+                    }
+                },{
+                    name: 'Target/RKA',
+                    color: (localStorage.getItem("dore-theme") == "dark" ? '#2200FF' :  '#003F88'),
+                    marker: {
+                        symbol: 'c-rect',
+                        lineWidth:5,
+                        lineColor: (localStorage.getItem("dore-theme") == "dark" ? '#2200FF' :  '#003F88'),
+                        radius: 50
+                    },
+                    type: 'scatter',
+                    stack: 2,
+                    data: result.rka,
+                    dataLabels:{
+                        x:-50
+                    }
+                }, {
+                    name: 'Tidak Tercapai',
+                    type: 'column',
+                    color:  (localStorage.getItem("dore-theme") == "dark" ? '#ED4346' :  '#900604'),
+                    stack: 1,
+                    data: result.tdkcapai,
+                    dataLabels:{
+                        x:50,
+                    }
+                }, {
+                    name: 'Actual',
+                    type: 'column',
+                    color: (localStorage.getItem("dore-theme") == "dark" ? '#434343' :  '#CED4DA'),
+                    stack: 1,
+                    data: result.actual
+                }]
+            });
+        },
+        error: function(jqXHR, textStatus, errorThrown) {       
+            if(jqXHR.status == 422){
+                var msg = jqXHR.responseText;
+            }else if(jqXHR.status == 500) {
+                var msg = "Internal server error";
+            }else if(jqXHR.status == 401){
+                var msg = "Unauthorized";
+                window.location="{{ url('/dash-telu/sesi-habis') }}";
+            }else if(jqXHR.status == 405){
+                var msg = "Route not valid. Page not found";
+            }
+            
+        }
+    })
+}
+
+function getBebanYoY(periode=null){
+    $.ajax({
+        type:"GET",
+        url:"{{ url('/telu-dash/beban-5tahun-yoy') }}",
+        data:{'periode[0]' : periode.type,
+            'periode[1]' : periode.from,
+            'periode[2]' : periode.to, mode: $mode},
+        dataType:"JSON",
+        success:function(result){
+            
+            Highcharts.SVGRenderer.prototype.symbols['c-rect'] = function (x, y, w, h) {
+                    return ['M', x, y + h / 2, 'L', x + w, y + h / 2];
+                };
+                
+            Highcharts.chart('beban-yoy', {
                 chart: {
                     type: 'column'
                 },
@@ -1019,6 +1212,151 @@ function getBebanSDM(periode=null){
     })
 }
 
+function getBebanSDMYoY(periode=null){
+    $.ajax({
+        type:"GET",
+        url:"{{ url('/telu-dash/beban-5tahun-sdm-yoy') }}",
+        data:{'periode[0]' : periode.type,
+            'periode[1]' : periode.from,
+            'periode[2]' : periode.to, mode: $mode},
+        dataType:"JSON",
+        success:function(result){
+            
+            Highcharts.SVGRenderer.prototype.symbols['c-rect'] = function (x, y, w, h) {
+                    return ['M', x, y + h / 2, 'L', x + w, y + h / 2];
+                };
+                
+            Highcharts.chart('sdm-yoy', {
+                chart: {
+                    type: 'column'
+                },
+                credits:{
+                    enabled:false
+                },
+                title: {
+                    text: ''
+                },
+                xAxis: {
+                    categories: result.categories
+                },
+                yAxis: {
+                        title:'',
+                    min: 0
+                },
+                tooltip: {
+                    pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b>',
+                    /* shared: true */
+                },
+                plotOptions: {
+                    column: {
+                        stacking: 'normal',
+                        borderWidth: 0,
+                        pointWidth: 50,
+                        dataLabels: {
+                            // padding:10,
+                            allowOverlap:true,
+                            enabled: true,
+                            crop: false,
+                            overflow: 'justify',
+                            useHTML: true,
+                            formatter: function () {
+                                if(this.y < 0.1){
+                                    return '';
+                                }else{
+                                    return $('<div/>').css({
+                                        'color' : 'white', // work
+                                        'padding': '0 3px',
+                                        'font-size': '10px',
+                                        'backgroundColor' : this.point.color  // just white in my case
+                                    }).text(sepNum(this.point.nlabel)+'M')[0].outerHTML;
+                                }
+                                // if(this.name)
+                            }
+                        }
+                    },
+                    scatter: {
+                        dataLabels: {
+                            // padding:10,
+                            allowOverlap:true,
+                            enabled: true,
+                            crop: false,
+                            overflow: 'justify',
+                            useHTML: true,
+                            formatter: function () {
+                                // return '<span style="color:white;background:gray !important;"><b>'+sepNum(this.y)+' M</b></span>';
+                                if(this.y < 0.1){
+                                    return '';
+                                }else{
+                                    return $('<div/>').css({
+                                        'color' : 'white', // work
+                                        'padding': '0 3px',
+                                        'font-size': '10px',
+                                        'backgroundColor' : this.point.color  // just white in my case
+                                    }).text(sepNum(this.point.nlabel)+'M')[0].outerHTML;
+                                }
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    name: 'Melampaui',
+                    color: (localStorage.getItem("dore-theme") == "dark" ? '#28DA66' :  '#16ff14'),
+                    type: 'column',
+                    stack: 1,
+                    data: result.melampaui,
+                    dataLabels:{
+                        y:-20
+                    }
+                },{
+                    name: 'Target/RKA',
+                    color: (localStorage.getItem("dore-theme") == "dark" ? '#2200FF' :  '#003F88'),
+                    marker: {
+                        symbol: 'c-rect',
+                        lineWidth:5,
+                        lineColor: (localStorage.getItem("dore-theme") == "dark" ? '#2200FF' :  '#003F88'),
+                        radius: 50
+                    },
+                    type: 'scatter',
+                    stack: 2,
+                    data: result.rka,
+                    dataLabels:{
+                        x:-50
+                    }
+                }, {
+                    name: 'Tidak Tercapai',
+                    type: 'column',
+                    color:  (localStorage.getItem("dore-theme") == "dark" ? '#ED4346' :  '#900604'),
+                    stack: 1,
+                    data: result.tdkcapai,
+                    dataLabels:{
+                        x:50,
+                    }
+                }, {
+                    name: 'Actual',
+                    type: 'column',
+                    color: (localStorage.getItem("dore-theme") == "dark" ? '#434343' :  '#CED4DA'),
+                    stack: 1,
+                    data: result.actual
+                }]
+            });
+
+        },
+        error: function(jqXHR, textStatus, errorThrown) {       
+            if(jqXHR.status == 422){
+                var msg = jqXHR.responseText;
+            }else if(jqXHR.status == 500) {
+                var msg = "Internal server error";
+            }else if(jqXHR.status == 401){
+                var msg = "Unauthorized";
+                window.location="{{ url('/dash-telu/sesi-habis') }}";
+            }else if(jqXHR.status == 405){
+                var msg = "Route not valid. Page not found";
+            }
+            
+        }
+    })
+}
+
 function getBebanNonSDM(periode=null){
     $.ajax({
         type:"GET",
@@ -1029,96 +1367,157 @@ function getBebanNonSDM(periode=null){
         dataType:"JSON",
         success:function(result){
             
-            // $google.charts.load('current', {
-            //     'packages': ['corechart']
-            // });
-            // $google.charts.setOnLoadCallback(drawVisualizationNTF);
-            // Highcharts.chart('sdm', { 
-            //     chart: {
-            //         alignTicks: false
-            //     },
-            //     title: {
-            //         text: null
-            //     },
-            //     credits:{
-            //         enabled:false
-            //     },
-            //     tooltip: {
-            //         formatter: function () {
-            //             return this.series.name+':<b>'+sepNumPas(this.y)+' </b>';
-            //         }
-            //     },
-            //     yAxis: [{
-            //         title: {
-            //             text: 'DALAM MILIAR RUPIAH'
-            //         },
-            //         labels: {
-            //             formatter: function () {
-            //                 return singkatNilai(this.value);
-            //             }
-            //         },
-            //         tickInterval: 10
-            //     },{
-            //         title: {
-            //             text: 'PROSENTASE CAPAIAN'
-            //         },
-            //         opposite: true,
-            //         tickInterval: 20
-            //     }],
-            //     xAxis: {
-            //         categories:result.ctg
-            //     },
-            //     plotOptions: {
-            //         column: {
-            //             dataLabels: {
-            //                 padding:10,
-            //                 y:20,
-            //                 useHTML: true,
-            //                 formatter: function () {
-            //                     // return '<span style="color:white;background:gray !important;"><b>'+sepNum(this.y)+' </b></span>';
-            //                     return $('<div/>').css({
-            //                         'color' : 'white', // work
-            //                         'padding': '0 2px',
-            //                         'font-size':'8px',
-            //                         'backgroundColor' : this.point.color  // just white in my case
-            //                     }).text(sepNum(this.y)+'M')[0].outerHTML;
-            //                 }
-            //             }
-            //         },
-            //         spline: {
-            //             dataLabels: {
-            //                 padding:15,
-            //                 x:20,
-            //                 useHTML: true,
-            //                 formatter: function () {
-            //                     return $('<div/>').css({
-            //                         'color' : 'white', // work
-            //                         'padding': '0 5px',
-            //                         'font-size':'8px',
-            //                         'backgroundColor' : this.point.color  // just white in my case
-            //                     }).text(sepNum(this.y)+'%')[0].outerHTML;
-            //                 }
-            //             }
-            //             // enableMouseTracking: false
-            //         },
-            //         series:{
-            //             dataLabels: {
-            //                 allowOverlap:true,
-            //                 enabled: true,
-            //                 crop: false,
-            //                 fontSize: '12px',
-            //                 overflow: 'justify'
-            //             }
-            //         }
-            //     },
-            //     series: result.series
-
-            // });
             Highcharts.SVGRenderer.prototype.symbols['c-rect'] = function (x, y, w, h) {
                     return ['M', x, y + h / 2, 'L', x + w, y + h / 2];
                 };
                 
             Highcharts.chart('non-sdm', {
+                chart: {
+                    type: 'column'
+                },
+                credits:{
+                    enabled:false
+                },
+                title: {
+                    text: ''
+                },
+                xAxis: {
+                    categories: result.categories
+                },
+                yAxis: {
+                        title:'',
+                    min: 0
+                },
+                tooltip: {
+                    pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b>',
+                    /* shared: true */
+                },
+                plotOptions: {
+                    column: {
+                        stacking: 'normal',
+                        borderWidth: 0,
+                        pointWidth: 50,
+                        dataLabels: {
+                            // padding:10,
+                            allowOverlap:true,
+                            enabled: true,
+                            crop: false,
+                            overflow: 'justify',
+                            useHTML: true,
+                            formatter: function () {
+                                if(this.y < 0.1){
+                                    return '';
+                                }else{
+                                    return $('<div/>').css({
+                                        'color' : 'white', // work
+                                        'padding': '0 3px',
+                                        'font-size': '10px',
+                                        'backgroundColor' : this.point.color  // just white in my case
+                                    }).text(sepNum(this.point.nlabel)+'M')[0].outerHTML;
+                                }
+                                // if(this.name)
+                            }
+                        }
+                    },
+                    scatter: {
+                        dataLabels: {
+                            // padding:10,
+                            allowOverlap:true,
+                            enabled: true,
+                            crop: false,
+                            overflow: 'justify',
+                            useHTML: true,
+                            formatter: function () {
+                                // return '<span style="color:white;background:gray !important;"><b>'+sepNum(this.y)+' M</b></span>';
+                                if(this.y < 0.1){
+                                    return '';
+                                }else{
+                                    return $('<div/>').css({
+                                        'color' : 'white', // work
+                                        'padding': '0 3px',
+                                        'font-size': '10px',
+                                        'backgroundColor' : this.point.color  // just white in my case
+                                    }).text(sepNum(this.point.nlabel)+'M')[0].outerHTML;
+                                }
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    name: 'Melampaui',
+                    color: (localStorage.getItem("dore-theme") == "dark" ? '#28DA66' :  '#16ff14'),
+                    type: 'column',
+                    stack: 1,
+                    data: result.melampaui,
+                    dataLabels:{
+                        y:-20
+                    }
+                },{
+                    name: 'Target/RKA',
+                    color: (localStorage.getItem("dore-theme") == "dark" ? '#2200FF' :  '#003F88'),
+                    marker: {
+                        symbol: 'c-rect',
+                        lineWidth:5,
+                        lineColor: (localStorage.getItem("dore-theme") == "dark" ? '#2200FF' :  '#003F88'),
+                        radius: 50
+                    },
+                    type: 'scatter',
+                    stack: 2,
+                    data: result.rka,
+                    dataLabels:{
+                        x:-50
+                    }
+                }, {
+                    name: 'Tidak Tercapai',
+                    type: 'column',
+                    color:  (localStorage.getItem("dore-theme") == "dark" ? '#ED4346' :  '#900604'),
+                    stack: 1,
+                    data: result.tdkcapai,
+                    dataLabels:{
+                        x:50,
+                    }
+                }, {
+                    name: 'Actual',
+                    type: 'column',
+                    color: (localStorage.getItem("dore-theme") == "dark" ? '#434343' :  '#CED4DA'),
+                    stack: 1,
+                    data: result.actual
+                }]
+            });
+
+        },
+        error: function(jqXHR, textStatus, errorThrown) {       
+            if(jqXHR.status == 422){
+                var msg = jqXHR.responseText;
+            }else if(jqXHR.status == 500) {
+                var msg = "Internal server error";
+            }else if(jqXHR.status == 401){
+                var msg = "Unauthorized";
+                window.location="{{ url('/dash-telu/sesi-habis') }}";
+            }else if(jqXHR.status == 405){
+                var msg = "Route not valid. Page not found";
+            }
+            
+        }
+    })
+}
+
+
+function getBebanNonSDMYoY(periode=null){
+    $.ajax({
+        type:"GET",
+        url:"{{ url('/telu-dash/beban-5tahun-non-sdm-yoy') }}",
+        data:{'periode[0]' : periode.type,
+            'periode[1]' : periode.from,
+            'periode[2]' : periode.to, mode: $mode},
+        dataType:"JSON",
+        success:function(result){
+            
+            Highcharts.SVGRenderer.prototype.symbols['c-rect'] = function (x, y, w, h) {
+                    return ['M', x, y + h / 2, 'L', x + w, y + h / 2];
+                };
+                
+            Highcharts.chart('non-sdm-yoy', {
                 chart: {
                     type: 'column'
                 },
@@ -1305,7 +1704,6 @@ function drawVisualizationKomposisi() {
         chart.draw(data, options);
 }
 
-
 function getKomposisi(periode=null){
     $.ajax({
         type:"GET",
@@ -1321,6 +1719,87 @@ function getKomposisi(periode=null){
             // });
             // $google.charts.setOnLoadCallback(drawVisualizationKomposisi);
             Highcharts.chart('komposisi', { 
+                chart: {
+                    alignTicks: false
+                },
+                title: {
+                    text: null
+                },
+                credits:{
+                    enabled:false
+                },
+                // tooltip: {
+                //     formatter: function () {
+                //         return this.series.name+':<b>'+sepNumPas(this.y)+' </b>';
+                //     }
+                // },
+                tooltip: {
+                    pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
+                    shared: true
+                },
+                xAxis: {
+                    categories:result.ctg
+                },
+                plotOptions: {
+                    column: {
+                        stacking: 'percent',
+                        dataLabels: {
+                            enabled: true,
+                            padding:10,
+                            useHTML: true,
+                            formatter: function () {
+                                // return '<span style="color:white;background:gray !important;"><b>'+sepNum(this.y)+' </b></span>';
+                                return $('<div/>').css({
+                                    'color' : 'white', // work
+                                    'padding': '0 2px',
+                                    'font-size':'8px',
+                                    'backgroundColor' : this.point.color  // just white in my case
+                                }).text(sepNum(this.percentage)+'%')[0].outerHTML;
+                            }
+                        }
+                    },
+                    series:{
+                        dataLabels: {
+                            allowOverlap:true,
+                            enabled: true,
+                            crop: false,
+                            fontSize: '12px',
+                            overflow: 'justify'
+                        }
+                    }
+                },
+                series: result.series
+
+            });
+
+        },
+        error: function(jqXHR, textStatus, errorThrown) {       
+            if(jqXHR.status == 422){
+                var msg = jqXHR.responseText;
+            }else if(jqXHR.status == 500) {
+                var msg = "Internal server error";
+            }else if(jqXHR.status == 401){
+                var msg = "Unauthorized";
+                window.location="{{ url('/dash-telu/sesi-habis') }}";
+            }else if(jqXHR.status == 405){
+                var msg = "Route not valid. Page not found";
+            }
+            
+        }
+    })
+}
+
+function getKomposisiYoY(periode=null){
+    $.ajax({
+        type:"GET",
+        url:"{{ url('/telu-dash/beban-5tahun-komposisi-yoy') }}",
+        dataType:"JSON",
+        data:{'periode[0]' : periode.type,
+            'periode[1]' : periode.from,
+            'periode[2]' : periode.to, mode: $mode},
+        success:function(result){
+            
+            Highcharts.chart('komposisi-yoy', { 
                 chart: {
                     alignTicks: false
                 },
@@ -1572,6 +2051,114 @@ function getBebanGrowth(periode=null){
     })
 }
 
+function getBebanGrowthYoY(periode=null){
+    $.ajax({
+        type:"GET",
+        url:"{{ url('/telu-dash/beban-5tahun-growth-yoy') }}",
+        data: {'periode[0]' : periode.type,
+            'periode[1]' : periode.from,
+            'periode[2]' : periode.to, mode: $mode},
+        dataType:"JSON",
+        success:function(result){
+            
+            Highcharts.chart('komposisi2-yoy', { 
+                chart: {
+                    // alignTicks: false
+                },
+                title: {
+                    text: null
+                },
+                credits:{
+                    enabled:false
+                },
+                tooltip: {
+                    formatter: function () {
+                        return this.series.name+':<b>'+sepNumPas(this.y)+' </b>';
+                    }
+                },
+                yAxis: [{
+                    title: {
+                        text: 'DALAM MILIAR RUPIAH'
+                    },
+                    labels: {
+                        formatter: function () {
+                            return singkatNilai(this.value);
+                        }
+                    },
+                    tickInterval: 50
+                },{
+                    title: {
+                        text: 'PROSENTASE CAPAIAN'
+                    },
+                    opposite: true,
+                    tickInterval: 2
+                }],
+                xAxis: {
+                    categories:result.ctg
+                },
+                plotOptions: {
+                    column: {
+                        dataLabels: {
+                            // padding:10,
+                            y:20,
+                            useHTML: true,
+                            formatter: function () {
+                                // return '<span style="color:white;background:gray !important;"><b>'+sepNum(this.y)+' </b></span>';
+                                return $('<div/>').css({
+                                    'color' : 'white', // work
+                                    'padding': '0 2px',
+                                    'font-size':'8px',
+                                    'backgroundColor' : this.point.color  // just white in my case
+                                }).text(sepNum(this.y)+'M')[0].outerHTML;
+                            }
+                        }
+                    },
+                    spline: {
+                        dataLabels: {
+                            // padding:15,
+                            // x:20,
+                            useHTML: true,
+                            formatter: function () {
+                                return $('<div/>').css({
+                                    'color' : 'white', // work
+                                    'padding': '0 5px',
+                                    'font-size':'8px',
+                                    'backgroundColor' : this.point.color  // just white in my case
+                                }).text(sepNum(this.y)+'%')[0].outerHTML;
+                            }
+                        }
+                        // enableMouseTracking: false
+                    },
+                    series:{
+                        dataLabels: {
+                            allowOverlap:true,
+                            enabled: true,
+                            crop: false,
+                            overflow: 'justify'
+                        }
+                    }
+                },
+                series: result.series
+
+            });
+
+        },
+        error: function(jqXHR, textStatus, errorThrown) {       
+            if(jqXHR.status == 422){
+                var msg = jqXHR.responseText;
+            }else if(jqXHR.status == 500) {
+                var msg = "Internal server error";
+            }else if(jqXHR.status == 401){
+                var msg = "Unauthorized";
+                window.location="{{ url('/dash-telu/sesi-habis') }}";
+            }else if(jqXHR.status == 405){
+                var msg = "Route not valid. Page not found";
+            }
+            
+        }
+    })
+}
+
 $('#form-filter').submit(function(e){
     e.preventDefault();
     $dash_periode.type = $('#periode_type')[0].selectize.getValue();
@@ -1597,10 +2184,15 @@ $('#form-filter').submit(function(e){
     var tahunLima = parseInt(tahun)-5;
     $('.rentang-tahun').html(tahunLima +' - '+tahun);
     getBeban($dash_periode);
+    getBebanYoY($dash_periode);
     getBebanSDM($dash_periode);
+    getBebanSDMYoY($dash_periode);
     getBebanNonSDM($dash_periode);
+    getBebanNonSDMYoY($dash_periode);
     getKomposisi($dash_periode);
+    getKomposisiYoY($dash_periode);
     getBebanGrowth($dash_periode);
+    getBebanGrowthYoY($dash_periode);
 
     $('#modalFilter').modal('hide');
     // $('.app-menu').hide();
