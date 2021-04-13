@@ -235,7 +235,14 @@ Route::get('percepatan-aktap', 'Esaku\Aktap\PercepatanPenyusutanController@getAk
 Route::get('percepatan-data-aktap', 'Esaku\Aktap\PercepatanPenyusutanController@getDataAktap');
 
 ## Penghapusan Aktiva
+Route::get('penghapusan-data', 'Esaku\Aktap\PenghapusanAktapController@index');
+Route::get('penghapusan-aktap', 'Esaku\Aktap\PenghapusanAktapController@getAktap');
+Route::get('penghapusan-akun', 'Esaku\Aktap\PenghapusanAktapController@getAkunBeban');
+Route::get('penghapusan-show', 'Esaku\Aktap\PenghapusanAktapController@getData');
+Route::get('penghapusan-data-aktap', 'Esaku\Aktap\PenghapusanAktapController@getDataAktap');
 Route::post('penghapusan-aktiva', 'Esaku\Aktap\PenghapusanAktapController@store');
+Route::delete('penghapusan-aktiva-hapus', 'Esaku\Aktap\PenghapusanAktapController@delete');
+Route::put('penghapusan-aktiva-ubah', 'Esaku\Aktap\PenghapusanAktapController@update');
 
 ## Pembatalan Penyusutan
 Route::post('pembatalan-penyusutan', 'Esaku\Aktap\PembatalanPenyusutanController@store');
