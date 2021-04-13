@@ -253,7 +253,7 @@
                         $('#kode_akt').html(line.kode_akt);
                         $('#nama_jur').html(line.nama_jur);
                         $('#piutang').html(sepNumPas(line.sak_total));
-                        $('#pdd').html(sepNumPas(line2.so_akhir));
+                        $('#pdd').html(sepNumPas((line2 != undefined ? line2.so_akhir : 0)));
                         if(line.foto != "-"){
                             var foto = "{{ config('api.url') }}/"+line.foto;
                         }else{

@@ -255,7 +255,7 @@
                         var line = result.data[0];
                         var line2 = result.data2[0];
                         $('#piutang').html(sepNumPas(line.sak_total));
-                        $('#pdd').html(sepNumPas(line2.so_akhir));
+                        $('#pdd').html(sepNumPas((line2 != undefined ? line2.so_akhir : 0)));
                         
                         var html = "";
                         var color ="";
