@@ -816,7 +816,7 @@ function getPin(periode=null)
                     <td class='bold'>Sub Total</td>
                     <td class='text-right bold'>`+toMilyar(result.data.total_rka_thn)+`</td>
                     <td class='text-right bold'>`+toMilyar(result.data.total_rka_sd)+`</td>
-                    <td class='text-right bold'>`+toMilyar(result.data.total_real_sd)+`</td>
+                    <td class='text-right bold'>`+toMilyar(result.data.total_real)+`</td>
                     <td class='text-right bold text-success' ></td>
                     </tr>`;  
             }
