@@ -247,7 +247,7 @@
                                             </tr>
                                             <tr>
                                                 <td>Nilai</td>
-                                                <td>: `+sepNumX(parseFloat(result.data[0].nilai))+`</td>
+                                                <td>: `+toRp(parseFloat(result.data[0].nilai))+`</td>
                                             </tr>
                                             <tr>
                                                 <td>Status</td>
