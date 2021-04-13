@@ -34,6 +34,75 @@ class PenghapusanAktapController extends Controller
         return "$explode[2]"."$to"."$explode[1]"."$to"."$explode[0]";
     }
 
+    public function convertPeriode($date, $symbol = "/") {
+        $explode = explode($symbol, $date);
+
+        return "$explode[2]$explode[1]";
+    }
+
+    public function getDataAktap(Request $request) {
+        $periode = $this->convertPeriode($request->tanggal);
+        $client = new Client();
+        $response = $client->request('GET',  config('api.url').'esaku-trans/hapus-aktap-load',[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ],
+            'query' => [
+                'periode' => $periode,
+                'no_fa' => $request->aktap
+            ]
+        ]);
+
+        if ($response->getStatusCode() == 200) { // 200 OK
+            $response_data = $response->getBody()->getContents();
+            
+            $data = json_decode($response_data,true);
+            $data = $data;
+        }
+        return response()->json(['data' => $data, 'status' => true], 200);
+    }
+
+    public function getAkunBeban() {
+        $client = new Client();
+        $response = $client->request('GET',  config('api.url').'esaku-trans/hapus-aktap-akun',[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ]
+        ]);
+
+        if ($response->getStatusCode() == 200) { // 200 OK
+            $response_data = $response->getBody()->getContents();
+            
+            $data = json_decode($response_data,true);
+            $data = $data;
+        }
+        return response()->json(['daftar' => $data['success']['data'], 'status' => true], 200);
+    }
+
+    public function getAktap(Request $request) {
+        $periode = $this->convertPeriode($request->tanggal);
+        $client = new Client();
+        $response = $client->request('GET',  config('api.url').'esaku-trans/hapus-aktap-noaktap',[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ],
+            'query' => [
+                'periode' => $periode
+            ]
+        ]);
+
+        if ($response->getStatusCode() == 200) { // 200 OK
+            $response_data = $response->getBody()->getContents();
+            
+            $data = json_decode($response_data,true);
+            $data = $data;
+        }
+        return response()->json(['daftar' => $data['success']['data'], 'status' => true], 200);
+    }
+
     public function store(Request $request) {
         $this->validate($request, [
             'tanggal' => 'required',
@@ -43,49 +112,44 @@ class PenghapusanAktapController extends Controller
             'beban_penghapusan' => 'required',
             'nilai_perolehan' => 'required',
             'total_penyusutan' => 'required',
-            'nilai_buku' => 'required',
-            'nilai_residu' => 'required',
             'nilai_referensi_susut' => 'required',
-            'no_seri' => 'required',
-            'merk' => 'required',
-            'tipe' => 'required',
             'akun_akumulasi' => 'required',
             'akun_beban_penyusutan' => 'required',
+            'kode_pp' => 'required',
         ]);
 
         try {
+            $explodeAkunAkumulasi = explode('-',preg_replace('/\s+/', '', $request->akun_akumulasi));
+            $explodeAkunBebanPenyusutan = explode('-',preg_replace('/\s+/', '', $request->akun_beban_penyusutan));
+            $explodeBebanPenghapusan = explode('-',preg_replace('/\s+/', '', $request->beban_penghapusan));
             $form = array(
                 'tanggal' => $this->convertDate($request->tanggal),
-                'aktiva_tetap' => $request->aktiva_tetap,
+                'no_fa' => $request->aktiva_tetap,
                 'no_dokumen' => $request->no_dokumen,
                 'keterangan' => $request->keterangan,
-                'beban_penyusutan' => $request->beban_penyusutan,
-                'nilai_perolehan' => $this->joinNum($request->nilai_perolehan),
-                'total_penyusutan' => $this->joinNum($request->total_penyusutan),
-                'nilai_buku' => $this->joinNum($request->nilai_buku),
-                'nilai_residu' => $this->joinNum($request->nilai_residu),
-                'nilai_referensi_susut' => $this->joinNum($request->nilai_referensi_susut),
-                'no_seri' => $request->no_seri,
-                'merk' => $request->merk,
-                'tipe' => $request->tipe,
-                'akun_akumulasi' => $request->akun_akumulasi,
-                'akun_beban_penyusutan' => $request->akun_beban_penyusutan
+                'akun_beban' => $explodeBebanPenghapusan[0],
+                'harga_perolehan' => $this->joinNum($request->nilai_perolehan),
+                'total_susut' => $this->joinNum($request->total_penyusutan),
+                'nilai_susut' => $this->joinNum($request->nilai_referensi_susut),
+                'akun_deprs' => $explodeAkunAkumulasi[0],
+                'kode_akun' => $explodeAkunBebanPenyusutan[0],
+                'kode_ppsusut' => $request->kode_pp,
             );
 
-            // $client = new Client();
-            // $response = $client->request('POST',  config('api.url').'java-master/bank',[
-            //     'headers' => [
-            //         'Authorization' => 'Bearer '.Session::get('token'),
-            //         'Accept'     => 'application/json',
-            //     ],
-            //     'form_params' => $form
-            // ]);
-            // if ($response->getStatusCode() == 200) { // 200 OK
-            //     $response_data = $response->getBody()->getContents();
+            $client = new Client();
+            $response = $client->request('POST',  config('api.url').'esaku-trans/hapus-aktap',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'form_params' => $form
+            ]);
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
                     
-            //     $data = json_decode($response_data,true);
-            //     return response()->json(['data' => $data], 200);  
-            // }
+                $data = json_decode($response_data,true);
+                return response()->json(['data' => $data], 200);  
+            }
         } catch (BadResponseException $ex) {
                 $response = $ex->getResponse();
                 $res = json_decode($response->getBody(),true);
@@ -93,6 +157,149 @@ class PenghapusanAktapController extends Controller
                 $data['status'] = false;
                 return response()->json(['data' => $data], 500);
         }
+    }
+
+    public function index() {
+        try {
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'esaku-trans/hapus-aktap',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["success"]['jurnal'];
+            }
+            return response()->json(['daftar' => $data, 'status'=>true], 200); 
+
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+        }
+    }
+
+    public function getData(Request $request) {
+        try{
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'esaku-trans/hapus-aktap-detail',
+            [
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' => [
+                    'no_bukti' => $request->query('kode')
+                ]
+            ]);
+    
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+            }
+            return response()->json(['data' => $data], 200); 
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $data['message'] = $res['message'];
+            $data['status'] = false;
+            return response()->json(['data' => $data], 200);
+        }
+    }
+
+    public function update(Request $request) { 
+        $this->validate($request, [
+            'tanggal' => 'required',
+            'aktiva_tetap' => 'required',
+            'no_dokumen' => 'required',
+            'keterangan' => 'required',
+            'beban_penghapusan' => 'required',
+            'nilai_perolehan' => 'required',
+            'total_penyusutan' => 'required',
+            'nilai_referensi_susut' => 'required',
+            'akun_akumulasi' => 'required',
+            'akun_beban_penyusutan' => 'required',
+            'kode_pp' => 'required',
+        ]);
+
+        try {
+            $explodeAkunAkumulasi = explode('-',preg_replace('/\s+/', '', $request->akun_akumulasi));
+            $explodeAkunBebanPenyusutan = explode('-',preg_replace('/\s+/', '', $request->akun_beban_penyusutan));
+            $explodeBebanPenghapusan = explode('-',preg_replace('/\s+/', '', $request->beban_penghapusan));
+            $form = array(
+                'no_bukti' => $request->id,
+                'tanggal' => $this->convertDate($request->tanggal),
+                'no_fa' => $request->aktiva_tetap,
+                'no_dokumen' => $request->no_dokumen,
+                'keterangan' => $request->keterangan,
+                'akun_beban' => $explodeBebanPenghapusan[0],
+                'harga_perolehan' => $this->joinNum($request->nilai_perolehan),
+                'total_susut' => $this->joinNum($request->total_penyusutan),
+                'nilai_susut' => $this->joinNum($request->nilai_referensi_susut),
+                'akun_deprs' => $explodeAkunAkumulasi[0],
+                'kode_akun' => $explodeAkunBebanPenyusutan[0],
+                'kode_ppsusut' => $request->kode_pp,
+            );
+
+            $client = new Client();
+            $response = $client->request('PUT',  config('api.url').'esaku-trans/hapus-aktap-ubah',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'form_params' => $form
+            ]);
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                    
+                $data = json_decode($response_data,true);
+                return response()->json(['data' => $data], 200);  
+            }
+        } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                $data['message'] = $res;
+                $data['status'] = false;
+                return response()->json(['data' => $data], 500);
+        }
+    }
+
+    public function delete(Request $request) {
+        try{
+            $periode = $this->convertPeriode($request->input('tanggal'));
+            $client = new Client();
+            $response = $client->request('DELETE',  config('api.url').'esaku-trans/hapus-aktap',
+            [
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' => [
+                    'no_bukti' => $request->input('kode'),
+                    'periode' => $periode
+                ]
+            ]);
+    
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+            }
+            return response()->json(['data' => $data], 200); 
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $data['message'] = $res;
+            $data['status'] = false;
+            return response()->json(['data' => $data], 200);
+        }
+
     }
 }
 
