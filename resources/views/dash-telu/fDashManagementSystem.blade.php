@@ -787,33 +787,36 @@ function getPin(periode=null)
         success: function(result){
             var html='';
             if(result.data.data.length > 0){
-                
                 for(var i=0;i<result.data.data.length;i++)
                 {
                     var line = result.data.data[i];
-                    var rka = toMilyar(parseFloat(line.rka));
-                    var real = toMilyar(parseFloat(line.real));
+                    var rka_thn = toMilyar(parseFloat(line.rka_tahun));
+                    var rka_sd = toMilyar(parseFloat(line.rka_sd));
+                    var real_sd = toMilyar(parseFloat(line.real_sd));
                     var persen = sepNumPas(parseFloat(line.persen));
                     if(i == 0){
 
                         html+=`<tr>
                         <td></td>
                         <td class='text-center'>RKA THN</td>
+                        <td class='text-center'>RKA SD</td>
                         <td class='text-center'>Real</td>
                         <td class='text-center'>%</td>
                         </tr>`;   
                     }
                     html+=`<tr class='trace serap-`+i+`'>
                     <td>`+line.nama+`</td>
-                    <td class='text-right'>`+rka+`</td>
-                    <td class='text-right'>`+real+`</td>
+                    <td class='text-right'>`+rka_thn+`</td>
+                    <td class='text-right'>`+rka_sd+`</td>
+                    <td class='text-right'>`+real_sd+`</td>
                     <td class='text-right text-success' >`+persen+`%</td>
                     </tr>`;   
                 }
                 html+=`<tr>
                     <td class='bold'>Sub Total</td>
-                    <td class='text-right bold'>`+toMilyar(result.data.total_rka)+`</td>
-                    <td class='text-right bold'>`+toMilyar(result.data.total_real)+`</td>
+                    <td class='text-right bold'>`+toMilyar(result.data.total_rka_thn)+`</td>
+                    <td class='text-right bold'>`+toMilyar(result.data.total_rka_sd)+`</td>
+                    <td class='text-right bold'>`+toMilyar(result.data.total_real_sd)+`</td>
                     <td class='text-right bold text-success' ></td>
                     </tr>`;  
             }
