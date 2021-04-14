@@ -106,25 +106,25 @@ $thnLalu = substr($tahunLalu,2,2)
         </div>
     </div>
     <div class="row" >
-        <div class="col-lg-5 col-12 mb-4">
+        <div class="col-lg-6 col-12 mb-4">
             <div class="card dash-card">
                 <div class="card-header">
                     <h6 class="card-title mb-0" style="position:absolute">Pencapaian Pendapatan Terhadap RKA Bulan Berjalan</h6>
                     <button id="fullsc-capai" class="btn float-right px-0 py-0 text-light" title="Full Screen"><i class="simple-icon-size-fullscreen"></i></button>
                 </div>
                 <div class="card-body">
-                    <div id="capai-rka" style="height:300px"></div>
+                    <div id="capai-rka" style="height:500px"></div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-7 col-12 mb-4">
+        <div class="col-lg-12 col-12 mb-4">
             <div class="card dash-card">
                 <div class="card-header">
                     <h6 class="card-title mb-0" style="position:absolute">Capaian Kelompok Pdpt Non Pdkk</h6>
                     <button id="fullsc-capai-klp" class="btn float-right px-0 py-0 text-light" title="Full Screen"><i class="simple-icon-size-fullscreen"></i></button>
                 </div>
                 <div class="card-body">
-                    <div id="capai-klp"  style="height:300px"></div>
+                    <div id="capai-klp"  style="height:500px"></div>
                 </div>
             </div>
         </div>
@@ -592,7 +592,7 @@ function getMsPendRKA(periode=null, id){
                         y:-20
                     }
                 },{
-                    name: 'Target/RKA',
+                    name: 'RKA s.d.',
                     color: (localStorage.getItem("dore-theme") == "dark" ? '#2200FF' :  '#003F88'),
                     marker: {
                         symbol: 'c-rect',
@@ -752,7 +752,7 @@ function getMsPendKlp(periode=null,id){
                         y:-20
                     }
                 },{
-                    name: 'Target/RKA',
+                    name: 'RKA s.d.',
                     color: (localStorage.getItem("dore-theme") == "dark" ? '#2200FF' :  '#003F88'),
                     marker: {
                         symbol: 'c-rect',
