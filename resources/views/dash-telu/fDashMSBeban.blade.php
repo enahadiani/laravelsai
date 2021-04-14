@@ -86,23 +86,23 @@ $thnLalu = substr($tahunLalu,2,2)
         </div>
     </div>
     <div class="row" >
-        <div class="col-lg-5 col-12 mb-4">
+        <div class="col-lg-6 col-12 mb-4">
             <div class="card dash-card">
                 <div class="card-header">
                     <h6 class="card-title mb-0">Pencapaian Beban Terhadap RKA Bulan Berjalan</h6>
                 </div>
                 <div class="card-body">
-                    <div id="capai-rka" style="height:300px"></div>
+                    <div id="capai-rka" style="height:500px"></div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-7 col-12 mb-4">
+        <div class="col-lg-12 col-12 mb-4">
             <div class="card dash-card">
                 <div class="card-header">
                     <h6 class="card-title mb-0">Capaian Kelompok Beban Non Pdkk</h6>
                 </div>
                 <div class="card-body">
-                    <div id="capai-klp"  style="height:300px"></div>
+                    <div id="capai-klp"  style="height:500px"></div>
                 </div>
             </div>
         </div>
@@ -431,7 +431,9 @@ function getMsBebanRKA(periode=null){
                         useHTML:true,
                         formatter: function() {
                             var tmp = this.value.split("|");
-                            return '<p class="mb-0"><span class="text-center" style="display:inherit">'+tmp[0]+'</span><span class="text-center bold" style="display:inherit">'+sepNum(tmp[1])+'%</span></p>';
+                            var nama = tmp[0].replace("Beban","");
+                            nama = nama.replace("BEBAN","");
+                            return '<p class="mb-0"><span class="text-center" style="display:inherit">'+nama+'</span><span class="text-center bold" style="display:inherit">'+sepNum(tmp[1])+'%</span></p>';
                         },
                     }
                 },
@@ -442,7 +444,9 @@ function getMsBebanRKA(periode=null){
                 tooltip: {
                     formatter: function () {   
                         var tmp = this.x.split("|");   
-                        return tmp[0]+'<br><span style="color:' + this.series.color + '">' + this.series.name + '</span>: <b>' + sepNum(this.y);
+                        var nama = tmp[0].replace("Beban","");
+                            nama = nama.replace("BEBAN","");
+                        return nama+'<br><span style="color:' + this.series.color + '">' + this.series.name + '</span>: <b>' + sepNum(this.y);
                     }
                     // pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b>',
                     /* shared: true */
@@ -481,7 +485,9 @@ function getMsBebanRKA(periode=null){
                                     $kd= this.options.key;
                                     $kd_grafik= this.options.key2;
                                     var tmp = e.point.category.split("|");
-                                    $nama = tmp[0];
+                                    var nama = tmp[0].replace("Beban","");
+                                    nama = nama.replace("BEBAN","");
+                                    $nama = nama;
                                     $form_back = "fDashMSBeban";
                                     var url = "{{ url('/dash-telu/form/dashTeluBebanDet') }}";
                                     loadForm(url)
@@ -520,7 +526,9 @@ function getMsBebanRKA(periode=null){
                                     $kd_grafik= this.options.key2;
                                     $form_back = "fDashMSBeban";
                                     var tmp = e.point.category.split("|");
-                                    $nama = tmp[0];
+                                    var nama = tmp[0].replace("Beban","");
+                                    nama = nama.replace("BEBAN","");
+                                    $nama = nama;
                                     var url = "{{ url('/dash-telu/form/dashTeluBebanDet') }}";
                                     loadForm(url)
                                 }
@@ -538,7 +546,7 @@ function getMsBebanRKA(periode=null){
                         y:-20
                     }
                 },{
-                    name: 'Target/RKA',
+                    name: 'RKA s.d.',
                     color: (localStorage.getItem("dore-theme") == "dark" ? '#2200FF' :  '#003F88'),
                     marker: {
                         symbol: 'c-rect',
@@ -617,7 +625,9 @@ function getMsBebanKlp(periode=null){
                         useHTML:true,
                         formatter: function() {
                             var tmp = this.value.split("|");
-                            return '<p class="mb-0"><span class="text-center" style="display:inherit;font-size:10px !important;line-height: 1.5">'+tmp[0]+'</span><span class="text-center bold" style="display:inherit">'+sepNum(tmp[1])+'%</span></p>';
+                            var nama = tmp[0].replace("Beban","");
+                            nama = nama.replace("BEBAN","");
+                            return '<p class="mb-0"><span class="text-center" style="display:inherit;font-size:10px !important;line-height: 1.5">'+nama+'</span><span class="text-center bold" style="display:inherit">'+sepNum(tmp[1])+'%</span></p>';
                         },
                     }
                 },
@@ -690,7 +700,7 @@ function getMsBebanKlp(periode=null){
                         y:-20
                     }
                 },{
-                    name: 'Target/RKA',
+                    name: 'RKA s.d.',
                     color: (localStorage.getItem("dore-theme") == "dark" ? '#2200FF' :  '#003F88'),
                     marker: {
                         symbol: 'c-rect',
