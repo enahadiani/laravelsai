@@ -675,7 +675,9 @@ function getMsPendKlp(periode=null,id){
                         useHTML:true,
                         formatter: function() {
                             var tmp = this.value.split("|");
-                            return '<p class="mb-0"><span class="text-center" style="display:inherit">'+tmp[0]+'</span><span class="text-center bold" style="display:inherit">'+sepNum(tmp[1])+'%</span></p>';
+                            var nama = tmp[0].replace("PENDAPATAN","");
+                            nama = nama.replace("PENDPT.","");
+                            return '<p class="mb-0"><span class="text-center" style="display:inherit">'+nama+'</span><span class="text-center bold" style="display:inherit">'+sepNum(tmp[1])+'%</span></p>';
                         },
                     }
                 },
@@ -686,7 +688,9 @@ function getMsPendKlp(periode=null,id){
                 tooltip: {
                     formatter: function () {   
                         var tmp = this.x.split("|");   
-                        return tmp[0]+'<br><span style="color:' + this.series.color + '">' + this.series.name + '</span>: <b>' + sepNum(this.y);
+                        var nama = tmp[0].replace("PENDAPATAN","");
+                            nama = nama.replace("PENDPT.","");
+                        return nama+'<br><span style="color:' + this.series.color + '">' + this.series.name + '</span>: <b>' + sepNum(this.y);
                     }
                     // pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b>',
                     /* shared: true */
