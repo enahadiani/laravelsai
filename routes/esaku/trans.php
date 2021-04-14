@@ -246,3 +246,9 @@ Route::put('penghapusan-aktiva-ubah', 'Esaku\Aktap\PenghapusanAktapController@up
 
 ## Pembatalan Penyusutan
 Route::post('pembatalan-penyusutan', 'Esaku\Aktap\PembatalanPenyusutanController@store');
+
+## Edit Aktiva Tetap
+Route::get('edit-show-aktap', 'Esaku\Aktap\EditAktapController@getAktap');
+Route::get('edit-data-aktap', 'Esaku\Aktap\EditAktapController@getDataAktap');
+Route::put('edit-aktap', 'Esaku\Aktap\EditAktapController@store');
+Route::delete('edit-aktap', 'Esaku\Aktap\EditAktapController@delete');
