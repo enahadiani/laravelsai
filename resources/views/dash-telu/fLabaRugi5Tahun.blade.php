@@ -449,94 +449,6 @@ function getLabaRugi(periode=null){
         dataType:"JSON",
         success:function(result){
             
-            // $google.charts.load('current', {
-            //     'packages': ['corechart']
-            // });
-            // $google.charts.setOnLoadCallback(drawVisualization);
-            // var $colors = result.colors;
-            
-            // Highcharts.chart('laba-rugi', { 
-            //     title: {
-            //         text: null
-            //     },
-            //     credits:{
-            //         enabled:false
-            //     },
-            //     tooltip: {
-            //         formatter: function () {
-            //             return this.series.name+':<b>'+sepNumPas(this.y)+'</b>';
-            //         }
-            //     },
-            //     yAxis: [{
-            //         title: {
-            //             text: 'DALAM MILIAR RUPIAH'
-            //         },
-            //         labels: {
-            //             formatter: function () {
-            //                 return singkatNilai(this.value);
-            //             }
-            //         },
-            //     },{
-            //         title: {
-            //             text: 'PROSENTASE CAPAIAN'
-            //         },
-            //         opposite: true
-            //     }],
-            //     xAxis: {
-            //         categories:result.ctg
-            //     },
-            //     plotOptions: {
-            //         column: {
-            //             dataLabels: {
-            //                 useHTML: true,
-            //                 formatter: function () {
-            //                     // return '<span style="color:white;background:gray !important;"><b>'+sepNum(this.y)+' M</b></span>';
-            //                     return $('<div/>').css({
-            //                         'color' : 'white', // work
-            //                         'padding': '0 3px',
-            //                         'backgroundColor' : this.series.color  // just white in my case
-            //                     }).text(sepNum(this.y)+'M')[0].outerHTML;
-            //                 }
-            //             }
-            //         },
-            //         spline: {
-            //             dataLabels: {
-            //                 padding:15,
-            //                 x:20,
-            //                 useHTML: true,
-            //                 formatter: function () {
-            //                     if(this.series.name == 'OR'){
-            //                         return $('<div/>').css({
-            //                             'color' : 'white', // work
-            //                             'padding': '0 5px',
-            //                             'backgroundColor' : this.series.color  // just white in my case
-            //                         }).text(sepNum(this.y)+'%')[0].outerHTML;
-            //                     }else{
-
-            //                         return $('<div/>').css({
-            //                             'color' : 'white', // work
-            //                             'padding': '0 5px',
-            //                             'backgroundColor' : this.series.color  // just white in my case
-            //                         }).text(sepNum(this.y)+'M')[0].outerHTML;
-            //                     }
-            //                 }
-            //             }
-            //             // enableMouseTracking: false
-            //         },
-            //         series:{
-            //             dataLabels: {
-            //                 allowOverlap:true,
-            //                 enabled: true,
-            //                 crop: false,
-            //                 fontSize: '12px',
-            //                 overflow: 'justify'
-            //             }
-            //         }
-            //     },
-            //     series: result.series
-
-            // });
-
             Highcharts.SVGRenderer.prototype.symbols['c-rect'] = function (x, y, w, h) {
                     return ['M', x, y + h / 2, 'L', x + w, y + h / 2];
                 };
@@ -552,15 +464,24 @@ function getLabaRugi(periode=null){
                     text: ''
                 },
                 xAxis: {
-                    categories: result.categories
+                    categories: result.categories,
+                    labels: {
+                        useHTML:true,
+                        formatter: function() {
+                            var tmp = this.value.split("|");
+                            return '<p class="mb-0"><span class="text-center" style="display:inherit">'+tmp[0]+'</span><span class="text-center bold" style="display:inherit">'+sepNum(tmp[1])+'%</span></p>';
+                        },
+                    }
                 },
                 yAxis: {
                         title:'',
                     min: 0
                 },
                 tooltip: {
-                    pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b>',
-                    /* shared: true */
+                    formatter: function () {   
+                        var tmp = this.x.split("|");   
+                        return tmp[0]+'<br><span style="color:' + this.series.color + '">' + this.series.name + '</span>: <b>' + sepNum(this.y);
+                    }
                 },
                 plotOptions: {
                     column: {
@@ -696,15 +617,24 @@ function getLabaRugiYoY(periode=null){
                     text: ''
                 },
                 xAxis: {
-                    categories: result.categories
+                    categories: result.categories,
+                    labels: {
+                        useHTML:true,
+                        formatter: function() {
+                            var tmp = this.value.split("|");
+                            return '<p class="mb-0"><span class="text-center" style="display:inherit">'+tmp[0]+'</span><span class="text-center bold" style="display:inherit">'+sepNum(tmp[1])+'%</span></p>';
+                        },
+                    }
                 },
                 yAxis: {
                         title:'',
                     min: 0
                 },
                 tooltip: {
-                    pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b>',
-                    /* shared: true */
+                    formatter: function () {   
+                        var tmp = this.x.split("|");   
+                        return tmp[0]+'<br><span style="color:' + this.series.color + '">' + this.series.name + '</span>: <b>' + sepNum(this.y);
+                    }
                 },
                 plotOptions: {
                     column: {

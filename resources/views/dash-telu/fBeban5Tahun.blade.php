@@ -543,90 +543,6 @@ function getBeban(periode=null){
         dataType:"JSON",
         success:function(result){
             
-            // $google.charts.load('current', {
-            //     'packages': ['corechart']
-            // });
-            // $google.charts.setOnLoadCallback(drawVisualizationTF);
-            // Highcharts.chart('beban', { 
-            //     chart: {
-            //         alignTicks: false
-            //     },
-            //     title: {
-            //         text: null
-            //     },
-            //     credits:{
-            //         enabled:false
-            //     },
-            //     tooltip: {
-            //         formatter: function () {
-            //             return this.series.name+':<b>'+sepNumPas(this.y)+' </b>';
-            //         }
-            //     },
-            //     yAxis: [{
-            //         title: {
-            //             text: 'DALAM MILIAR RUPIAH'
-            //         },
-            //         labels: {
-            //             formatter: function () {
-            //                 return singkatNilai(this.value);
-            //             }
-            //         },
-            //         tickInterval: 50
-            //     },{
-            //         title: {
-            //             text: 'PROSENTASE CAPAIAN'
-            //         },
-            //         opposite: true,
-            //         tickInterval: 2
-            //     }],
-            //     xAxis: {
-            //         categories:result.ctg
-            //     },
-            //     plotOptions: {
-            //         column: {
-            //             dataLabels: {
-            //                 // padding:10,
-            //                 y:20,
-            //                 useHTML: true,
-            //                 formatter: function () {
-            //                     // return '<span style="color:white;background:gray !important;"><b>'+sepNum(this.y)+' </b></span>';
-            //                     return $('<div/>').css({
-            //                         'color' : 'white', // work
-            //                         'padding': '0 2px',
-            //                         'font-size':'8px',
-            //                         'backgroundColor' : this.point.color  // just white in my case
-            //                     }).text(sepNum(this.y)+'M')[0].outerHTML;
-            //                 }
-            //             }
-            //         },
-            //         spline: {
-            //             dataLabels: {
-            //                 // padding:15,
-            //                 // x:20,
-            //                 useHTML: true,
-            //                 formatter: function () {
-            //                     return $('<div/>').css({
-            //                         'color' : 'white', // work
-            //                         'padding': '0 5px',
-            //                         'font-size':'8px',
-            //                         'backgroundColor' : this.point.color  // just white in my case
-            //                     }).text(sepNum(this.y)+'%')[0].outerHTML;
-            //                 }
-            //             }
-            //             // enableMouseTracking: false
-            //         },
-            //         series:{
-            //             dataLabels: {
-            //                 allowOverlap:true,
-            //                 enabled: true,
-            //                 crop: false,
-            //                 overflow: 'justify'
-            //             }
-            //         }
-            //     },
-            //     series: result.series
-
-            // });
             Highcharts.SVGRenderer.prototype.symbols['c-rect'] = function (x, y, w, h) {
                     return ['M', x, y + h / 2, 'L', x + w, y + h / 2];
                 };
@@ -642,15 +558,24 @@ function getBeban(periode=null){
                     text: ''
                 },
                 xAxis: {
-                    categories: result.categories
+                    categories: result.categories,
+                    labels: {
+                        useHTML:true,
+                        formatter: function() {
+                            var tmp = this.value.split("|");
+                            return '<p class="mb-0"><span class="text-center" style="display:inherit">'+tmp[0]+'</span><span class="text-center bold" style="display:inherit">'+sepNum(tmp[1])+'%</span></p>';
+                        },
+                    }
                 },
                 yAxis: {
                         title:'',
                     min: 0
                 },
                 tooltip: {
-                    pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b>',
-                    /* shared: true */
+                    formatter: function () {   
+                        var tmp = this.x.split("|");   
+                        return tmp[0]+'<br><span style="color:' + this.series.color + '">' + this.series.name + '</span>: <b>' + sepNum(this.y);
+                    }
                 },
                 plotOptions: {
                     column: {
@@ -786,15 +711,24 @@ function getBebanYoY(periode=null){
                     text: ''
                 },
                 xAxis: {
-                    categories: result.categories
+                    categories: result.categories,
+                    labels: {
+                        useHTML:true,
+                        formatter: function() {
+                            var tmp = this.value.split("|");
+                            return '<p class="mb-0"><span class="text-center" style="display:inherit">'+tmp[0]+'</span><span class="text-center bold" style="display:inherit">'+sepNum(tmp[1])+'%</span></p>';
+                        },
+                    }
                 },
                 yAxis: {
                         title:'',
                     min: 0
                 },
                 tooltip: {
-                    pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b>',
-                    /* shared: true */
+                    formatter: function () {   
+                        var tmp = this.x.split("|");   
+                        return tmp[0]+'<br><span style="color:' + this.series.color + '">' + this.series.name + '</span>: <b>' + sepNum(this.y);
+                    }
                 },
                 plotOptions: {
                     column: {
@@ -992,91 +926,7 @@ function getBebanSDM(periode=null){
         dataType:"JSON",
         success:function(result){
             
-            // $google.charts.load('current', {
-            //     'packages': ['corechart']
-            // });
-            // $google.charts.setOnLoadCallback(drawVisualizationNTF);
-            // Highcharts.chart('sdm', { 
-            //     chart: {
-            //         alignTicks: false
-            //     },
-            //     title: {
-            //         text: null
-            //     },
-            //     credits:{
-            //         enabled:false
-            //     },
-            //     tooltip: {
-            //         formatter: function () {
-            //             return this.series.name+':<b>'+sepNumPas(this.y)+' </b>';
-            //         }
-            //     },
-            //     yAxis: [{
-            //         title: {
-            //             text: 'DALAM MILIAR RUPIAH'
-            //         },
-            //         labels: {
-            //             formatter: function () {
-            //                 return singkatNilai(this.value);
-            //             }
-            //         },
-            //         tickInterval: 10
-            //     },{
-            //         title: {
-            //             text: 'PROSENTASE CAPAIAN'
-            //         },
-            //         opposite: true,
-            //         tickInterval: 20
-            //     }],
-            //     xAxis: {
-            //         categories:result.ctg
-            //     },
-            //     plotOptions: {
-            //         column: {
-            //             dataLabels: {
-            //                 padding:10,
-            //                 y:20,
-            //                 useHTML: true,
-            //                 formatter: function () {
-            //                     // return '<span style="color:white;background:gray !important;"><b>'+sepNum(this.y)+' </b></span>';
-            //                     return $('<div/>').css({
-            //                         'color' : 'white', // work
-            //                         'padding': '0 2px',
-            //                         'font-size':'8px',
-            //                         'backgroundColor' : this.point.color  // just white in my case
-            //                     }).text(sepNum(this.y)+'M')[0].outerHTML;
-            //                 }
-            //             }
-            //         },
-            //         spline: {
-            //             dataLabels: {
-            //                 padding:15,
-            //                 x:20,
-            //                 useHTML: true,
-            //                 formatter: function () {
-            //                     return $('<div/>').css({
-            //                         'color' : 'white', // work
-            //                         'padding': '0 5px',
-            //                         'font-size':'8px',
-            //                         'backgroundColor' : this.point.color  // just white in my case
-            //                     }).text(sepNum(this.y)+'%')[0].outerHTML;
-            //                 }
-            //             }
-            //             // enableMouseTracking: false
-            //         },
-            //         series:{
-            //             dataLabels: {
-            //                 allowOverlap:true,
-            //                 enabled: true,
-            //                 crop: false,
-            //                 fontSize: '12px',
-            //                 overflow: 'justify'
-            //             }
-            //         }
-            //     },
-            //     series: result.series
-
-            // });
+            
             Highcharts.SVGRenderer.prototype.symbols['c-rect'] = function (x, y, w, h) {
                     return ['M', x, y + h / 2, 'L', x + w, y + h / 2];
                 };
@@ -1092,15 +942,24 @@ function getBebanSDM(periode=null){
                     text: ''
                 },
                 xAxis: {
-                    categories: result.categories
+                    categories: result.categories,
+                    labels: {
+                        useHTML:true,
+                        formatter: function() {
+                            var tmp = this.value.split("|");
+                            return '<p class="mb-0"><span class="text-center" style="display:inherit">'+tmp[0]+'</span><span class="text-center bold" style="display:inherit">'+sepNum(tmp[1])+'%</span></p>';
+                        },
+                    }
                 },
                 yAxis: {
                         title:'',
                     min: 0
                 },
                 tooltip: {
-                    pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b>',
-                    /* shared: true */
+                    formatter: function () {   
+                        var tmp = this.x.split("|");   
+                        return tmp[0]+'<br><span style="color:' + this.series.color + '">' + this.series.name + '</span>: <b>' + sepNum(this.y);
+                    }
                 },
                 plotOptions: {
                     column: {
@@ -1237,15 +1096,24 @@ function getBebanSDMYoY(periode=null){
                     text: ''
                 },
                 xAxis: {
-                    categories: result.categories
+                    categories: result.categories,
+                    labels: {
+                        useHTML:true,
+                        formatter: function() {
+                            var tmp = this.value.split("|");
+                            return '<p class="mb-0"><span class="text-center" style="display:inherit">'+tmp[0]+'</span><span class="text-center bold" style="display:inherit">'+sepNum(tmp[1])+'%</span></p>';
+                        },
+                    }
                 },
                 yAxis: {
                         title:'',
                     min: 0
                 },
                 tooltip: {
-                    pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b>',
-                    /* shared: true */
+                    formatter: function () {   
+                        var tmp = this.x.split("|");   
+                        return tmp[0]+'<br><span style="color:' + this.series.color + '">' + this.series.name + '</span>: <b>' + sepNum(this.y);
+                    }
                 },
                 plotOptions: {
                     column: {
@@ -1382,15 +1250,24 @@ function getBebanNonSDM(periode=null){
                     text: ''
                 },
                 xAxis: {
-                    categories: result.categories
+                    categories: result.categories,
+                    labels: {
+                        useHTML:true,
+                        formatter: function() {
+                            var tmp = this.value.split("|");
+                            return '<p class="mb-0"><span class="text-center" style="display:inherit">'+tmp[0]+'</span><span class="text-center bold" style="display:inherit">'+sepNum(tmp[1])+'%</span></p>';
+                        },
+                    }
                 },
                 yAxis: {
                         title:'',
                     min: 0
                 },
                 tooltip: {
-                    pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b>',
-                    /* shared: true */
+                    formatter: function () {   
+                        var tmp = this.x.split("|");   
+                        return tmp[0]+'<br><span style="color:' + this.series.color + '">' + this.series.name + '</span>: <b>' + sepNum(this.y);
+                    }
                 },
                 plotOptions: {
                     column: {
@@ -1528,15 +1405,24 @@ function getBebanNonSDMYoY(periode=null){
                     text: ''
                 },
                 xAxis: {
-                    categories: result.categories
+                    categories: result.categories,
+                    labels: {
+                        useHTML:true,
+                        formatter: function() {
+                            var tmp = this.value.split("|");
+                            return '<p class="mb-0"><span class="text-center" style="display:inherit">'+tmp[0]+'</span><span class="text-center bold" style="display:inherit">'+sepNum(tmp[1])+'%</span></p>';
+                        },
+                    }
                 },
                 yAxis: {
                         title:'',
                     min: 0
                 },
                 tooltip: {
-                    pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b>',
-                    /* shared: true */
+                    formatter: function () {   
+                        var tmp = this.x.split("|");   
+                        return tmp[0]+'<br><span style="color:' + this.series.color + '">' + this.series.name + '</span>: <b>' + sepNum(this.y);
+                    }
                 },
                 plotOptions: {
                     column: {
