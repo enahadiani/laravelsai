@@ -595,14 +595,17 @@ function getPenyerapan(periode=null)
                         tot_rka += parseFloat(data[2].rka) - (parseFloat(data[0].rka)+parseFloat(data[1].rka));
                         tot_real += parseFloat(data[2].real) - (parseFloat(data[0].real)+parseFloat(data[1].real));
                         tot_persen = (tot_rka != 0 ? (tot_real/tot_rka) * 100 : 0);
-                html+=`<tr class='trace serap-`+i+` penyerapan border-top' data-kode_grafik='GRXX' data-nama='Non SDM & Pengembangan'>
+                html+=`<tr class='trace serap-`+i+` penyerapan' data-kode_grafik='GRXX' data-nama='Non SDM & Pengembangan'>
                         <td>Non SDM & Pengembangan</td>
                         <td class='text-right'>`+toMilyar(tot_rka)+`</td>
                         <td class='text-right'>`+toMilyar(tot_real)+`</td>
                         <td class='text-right text-success' >`+sepNum(tot_persen)+`%</td>
-                        </tr>`;   
+                        </tr>`;  
+                        var border='border-top'; 
+                    }else{
+                        var border= '';
                     }
-                    html+=`<tr class='trace serap-`+i+` penyerapan' data-kode_grafik='`+line.kode_grafik+`' data-nama='`+line.nama+`'>
+                    html+=`<tr class='trace serap-`+i+` penyerapan `+border+`' data-kode_grafik='`+line.kode_grafik+`' data-nama='`+line.nama+`'>
                     <td>`+line.nama+`</td>
                     <td class='text-right'>`+rka+`</td>
                     <td class='text-right'>`+real+`</td>
