@@ -87,7 +87,7 @@ $thnLalu = substr($tahunLalu,2,2)
                 <ol class="breadcrumb px-0 pt-0">
                     <li class="breadcrumb-item"><a href="#">Management System</a></li>
                     <li class="breadcrumb-item"><a href="#">Penyerapan Beban</a></li>
-                    <li class="breadcrumb-item active"><a href="#">Pengembangan</a></li>
+                    <li class="breadcrumb-item active"><a href="#" id="nama"></a></li>
                 </ol>
             </nav>
         </div>
@@ -208,6 +208,7 @@ if(localStorage.getItem("dore-theme") == "dark"){
 }
 
 var $mode = localStorage.getItem("dore-theme");
+$('#nama').html($nama);
 function sepNum(x){
     if(!isNaN(x)){
         if (typeof x === undefined || !x || x == 0) { 
@@ -219,8 +220,12 @@ function sepNum(x){
             // console.log(x);
             var tmp = x.toString().split('.');
             // console.dir(tmp);
-            var y = tmp[1].substr(0,1);
-            var z = tmp[0]+'.'+y;
+            if(tmp[1] != undefined){
+                var y = tmp[1].substr(0,1);
+                var z = tmp[0]+'.'+y;
+            }else{
+                var z = tmp[0];
+            }
             var parts = z.split('.');
             parts[0] = parts[0].replace(/([0-9])(?=([0-9]{3})+$)/g,'$1.');
             return parts.join(',');
@@ -952,7 +957,7 @@ function getMsPengembanganKomposisi(periode=null,kode_grafik,nama){
                                     'max-width': '70px',
                                     'overflow':'hidden',
                                     'color' : ($mode == "dark" ? "var(--text-color)" : "black")
-                                }).addClass('fs-8').html(name[0]+' '+name[1]+'<br>'+name[2]+':<br/>'+sepNum(this.percentage)+'%')[0].outerHTML;
+                                }).addClass('fs-8').html(name[0]+' '+(name[1] != undefined ? name[1] : '')+'<br>'+(name[2] != undefined ? name[2] : '')+':<br/>'+sepNum(this.percentage)+'%')[0].outerHTML;
                             }
                         }
                     }
@@ -1018,7 +1023,7 @@ function getMsPengembanganKomposisi(periode=null,kode_grafik,nama){
                                     'max-width': '70px',
                                     'overflow':'hidden',
                                     'color' : ($mode == "dark" ? "var(--text-color)" : "black")
-                                }).addClass('fs-8').html(name[0]+' '+name[1]+'<br>'+name[2]+':<br/>'+sepNum(this.percentage)+'%')[0].outerHTML;
+                                }).addClass('fs-8').html(name[0]+' '+(name[1] != undefined ? name[1] : '')+'<br>'+(name[2] != undefined ? name[2] : '')+':<br/>'+sepNum(this.percentage)+'%')[0].outerHTML;
                             }
                         }
                     }
