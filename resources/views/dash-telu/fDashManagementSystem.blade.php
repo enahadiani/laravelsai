@@ -577,6 +577,7 @@ function getPenyerapan(periode=null)
                 for(var i=0;i<result.data.data.length;i++)
                 {
                     var line = result.data.data[i];
+                    var data = result.data.data;
                     var rka = toMilyar(parseFloat(line.rka));
                     var real = toMilyar(parseFloat(line.real));
                     var persen = sepNum(parseFloat(line.persen));
@@ -589,27 +590,28 @@ function getPenyerapan(periode=null)
                         <td class='text-center'>Real</td>
                         <td class='text-center'>%</td>
                         </tr>`;   
-                        tot_rka += parseFloat(line.rka);
-                        tot_real += parseFloat(line.real);
-                    }else{
-                        tot_rka -= parseFloat(line.rka);
-                        tot_real -= parseFloat(line.real);
                     }
-                    html+=`<tr class='trace serap-`+i+` penyerapan' data-kode_grafik='`+line.kode_grafik+`' data-nama='`+line.nama+`'>
+                    if(i == 2){
+                        tot_rka += parseFloat(data[2].rka) - (parseFloat(data[0].rka)+parseFloat(data[1].rka));
+                        tot_real += parseFloat(data[2].real) - (parseFloat(data[0].real)+parseFloat(data[1].real));
+                        tot_persen = (tot_rka != 0 ? (tot_real/tot_rka) * 100 : 0);
+                html+=`<tr class='trace serap-`+i+` penyerapan' data-kode_grafik='GRXX' data-nama='Non SDM & Pengembangan'>
+                        <td>Non SDM & Pengembangan</td>
+                        <td class='text-right'>`+toMilyar(tot_rka)+`</td>
+                        <td class='text-right'>`+toMilyar(tot_real)+`</td>
+                        <td class='text-right text-success' >`+sepNum(tot_persen)+`%</td>
+                        </tr>`;  
+                        var border='border-top'; 
+                    }else{
+                        var border= '';
+                    }
+                    html+=`<tr class='trace serap-`+i+` penyerapan `+border+`' data-kode_grafik='`+line.kode_grafik+`' data-nama='`+line.nama+`'>
                     <td>`+line.nama+`</td>
                     <td class='text-right'>`+rka+`</td>
                     <td class='text-right'>`+real+`</td>
                     <td class='text-right text-success' >`+persen+`%</td>
                     </tr>`;   
                 }
-                i++;
-                tot_persen = (tot_rka != 0 ? (tot_real/tot_rka) * 100 : 0);
-                html+=`<tr class='trace serap-`+i+` penyerapan border-top' data-kode_grafik='GRXX' data-nama='Non SDM & Pengembangan'>
-                    <td>Non SDM & Pengembangan</td>
-                    <td class='text-right'>`+toMilyar(tot_rka)+`</td>
-                    <td class='text-right'>`+toMilyar(tot_real)+`</td>
-                    <td class='text-right text-success' >`+sepNum(tot_persen)+`%</td>
-                    </tr>`;   
             }
             $('.table-penyerapan').html(html);
             $('.card-beban').animate({

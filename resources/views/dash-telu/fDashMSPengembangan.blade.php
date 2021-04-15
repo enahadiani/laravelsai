@@ -99,7 +99,7 @@ $thnLalu = substr($tahunLalu,2,2)
                     <h6 class="card-title mb-0">RKA <span class="nama-pengembangan"></span> <span class="tahunDepan"></span> per Fakultas </h6>
                 </div>
                 <div class="card-body">
-                    <div id="rka" style="height:300px"></div>
+                    <div id="rka" style="height:450px"></div>
                 </div>
             </div>
         </div>
@@ -116,7 +116,7 @@ $thnLalu = substr($tahunLalu,2,2)
                     </div>
                 </div>
                 <div class="card-body">
-                    <div id="komposisi"  style="height:300px"></div>
+                    <div id="komposisi"  style="height:450px"></div>
                 </div>
             </div>
         </div>
@@ -128,7 +128,7 @@ $thnLalu = substr($tahunLalu,2,2)
                     <h6 class="card-title mb-0">RKA <span class="nama-pengembangan"></span> <span class="tahunDepan"></span> per Rektorat </h6>
                 </div>
                 <div class="card-body">
-                    <div id="rka_dir" style="height:300px"></div>
+                    <div id="rka_dir" style="height:450px"></div>
                 </div>
             </div>
         </div>
@@ -145,7 +145,7 @@ $thnLalu = substr($tahunLalu,2,2)
                     </div>
                 </div>
                 <div class="card-body">
-                    <div id="komposisi2"  style="height:300px"></div>
+                    <div id="komposisi2"  style="height:450px"></div>
                 </div>
             </div>
         </div>
@@ -215,11 +215,11 @@ function sepNum(x){
         }else if(!isFinite(x)){
             return 0;
         }else{
-            var x = parseFloat(x).toFixed(1);
+            var x = parseFloat(x);
             // console.log(x);
             var tmp = x.toString().split('.');
             // console.dir(tmp);
-            var y = tmp[1].substr(0,2);
+            var y = tmp[1].substr(0,1);
             var z = tmp[0]+'.'+y;
             var parts = z.split('.');
             parts[0] = parts[0].replace(/([0-9])(?=([0-9]{3})+$)/g,'$1.');
@@ -427,7 +427,67 @@ function getMsPengembangan(periode=null,kode_grafik,nama){
         success:function(result){
             // if(result.series.length > 0){
                 var $colors = result.colors;
-                // Highcharts.addEvent(Highcharts.Chart.prototype, 'render', function colorPoints() {
+                
+                // Highcharts.chart('rka', {
+                //     chart: {
+                //         type: 'column'
+                //     },
+                //     title: {
+                //         text: ''
+                //     },
+                //     xAxis: {
+                //         categories: result.ctg
+                //     },
+                //     yAxis: [{
+                //         min: 0,
+                //         title: {
+                //             text: ''
+                //         },
+                //         labels: {
+                //             formatter: function () {
+                //                 return singkatNilai(this.value);
+                //             }
+                //         },
+                //     }],
+                //     legend:{
+                //         enabled: false
+                //     },
+                //     credits: {
+                //         enabled: false
+                //     },
+                //     tooltip: {
+                //         shared: true
+                //     },
+                //     plotOptions: {
+                //         column: {
+                //             grouping: false,
+                //             shadow: false,
+                //             borderWidth: 0,
+                //             dataLabels: {
+                //                 // padding:10,
+                //                 allowOverlap:true,
+                //                 enabled: true,
+                //                 crop: false,
+                //                 overflow: 'justify',
+                //                 useHTML: true,
+                //                 formatter: function () {
+                //                     if(this.y < 0.1){
+                //                         return '';
+                //                     }else{
+                //                         return $('<div/>').css({
+                //                             'color' : 'white', // work
+                //                             'padding': '0 3px',
+                //                             'font-size': '10px',
+                //                             'backgroundColor' : this.point.color  // just white in my case
+                //                         }).text(toJuta(this.y))[0].outerHTML;
+                //                     }
+                //                     // if(this.name)
+                //                 }
+                //             }
+                //         }
+                //     },
+                //     series: result.series
+                // }, function(){
                 //     var series = this.series;
                 //     for (var i = 0, ie = series.length; i < ie; ++i) {
                 //         var points = series[i].data;
@@ -439,41 +499,50 @@ function getMsPengembangan(periode=null,kode_grafik,nama){
                 //     }
                 // });
                 
+                
+                Highcharts.SVGRenderer.prototype.symbols['c-rect'] = function (x, y, w, h) {
+                    return ['M', x, y + h / 2, 'L', x + w, y + h / 2];
+                };
+                
                 Highcharts.chart('rka', {
                     chart: {
                         type: 'column'
+                    },
+                    credits:{
+                        enabled:false
                     },
                     title: {
                         text: ''
                     },
                     xAxis: {
-                        categories: result.ctg
-                    },
-                    yAxis: [{
-                        min: 0,
-                        title: {
-                            text: ''
-                        },
+                        categories: result.ctg,
                         labels: {
-                            formatter: function () {
-                                return singkatNilai(this.value);
-                            }
-                        },
-                    }],
-                    legend:{
-                        enabled: false
+                            useHTML:true,
+                            formatter: function() {
+                                var tmp = this.value.split("|");
+                                var nama = tmp[0];
+                                return '<p class="mb-0"><span class="text-center" style="display:inherit">'+nama+'</span><span class="text-center bold" style="display:inherit">'+sepNum(tmp[1])+'%</span></p>';
+                            },
+                        }
                     },
-                    credits: {
-                        enabled: false
+                    yAxis: {
+                            title:'',
+                        min: 0
                     },
                     tooltip: {
-                        shared: true
+                        formatter: function () {   
+                            var tmp = this.x.split("|");   
+                            var nama = tmp[0];
+                            return nama+'<br><span style="color:' + this.series.color + '">' + this.series.name + '</span>: <b>' + sepNum(this.y);
+                        }
+                        // pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b>',
+                        /* shared: true */
                     },
                     plotOptions: {
                         column: {
-                            grouping: false,
-                            shadow: false,
+                            stacking: 'normal',
                             borderWidth: 0,
+                            pointWidth: 50,
                             dataLabels: {
                                 // padding:10,
                                 allowOverlap:true,
@@ -490,50 +559,78 @@ function getMsPengembangan(periode=null,kode_grafik,nama){
                                             'padding': '0 3px',
                                             'font-size': '10px',
                                             'backgroundColor' : this.point.color  // just white in my case
-                                        }).text(toJuta(this.y))[0].outerHTML;
+                                        }).text(sepNum(this.point.nlabel))[0].outerHTML;
                                     }
                                     // if(this.name)
                                 }
                             }
-                        }
-                    },
-                    series: result.series
-                }, function(){
-                    var series = this.series;
-                    for (var i = 0, ie = series.length; i < ie; ++i) {
-                        var points = series[i].data;
-                        for (var j = 0, je = points.length; j < je; ++j) {
-                            if (points[j].graphic) {
-                                points[j].graphic.element.style.fill = $colors[j];
+                        },
+                        scatter: {
+                            dataLabels: {
+                                // padding:10,
+                                allowOverlap:true,
+                                enabled: true,
+                                crop: false,
+                                overflow: 'justify',
+                                useHTML: true,
+                                formatter: function () {
+                                    // return '<span style="color:white;background:gray !important;"><b>'+sepNum(this.y)+' M</b></span>';
+                                    if(this.y < 0.1){
+                                        return '';
+                                    }else{
+                                        return $('<div/>').css({
+                                            'color' : 'white', // work
+                                            'padding': '0 3px',
+                                            'font-size': '10px',
+                                            'backgroundColor' : this.point.color  // just white in my case
+                                        }).text(sepNum(this.point.nlabel))[0].outerHTML;
+                                    }
+                                }
                             }
                         }
-                    }
+                    },
+                    series: [{
+                        name: 'Melampaui',
+                        color: (localStorage.getItem("dore-theme") == "dark" ? '#28DA66' :  '#16ff14'),
+                        type: 'column',
+                        stack: 1,
+                        data: result.melampaui,
+                        dataLabels:{
+                            y:-20
+                        }
+                    },{
+                        name: 'RKA s.d.',
+                        color: (localStorage.getItem("dore-theme") == "dark" ? '#2200FF' :  '#003F88'),
+                        marker: {
+                            symbol: 'c-rect',
+                            lineWidth:5,
+                            lineColor: (localStorage.getItem("dore-theme") == "dark" ? '#2200FF' :  '#003F88'),
+                            radius: 50
+                        },
+                        type: 'scatter',
+                        stack: 2,
+                        data: result.rka,
+                        dataLabels:{
+                            x:-50
+                        }
+                    }, {
+                        name: 'Tidak Tercapai',
+                        type: 'column',
+                        color:  (localStorage.getItem("dore-theme") == "dark" ? '#ED4346' :  '#900604'),
+                        stack: 1,
+                        data: result.tdkcapai,
+                        dataLabels:{
+                            x:50,
+                        }
+                    }, {
+                        name: 'Actual',
+                        type: 'column',
+                        color: (localStorage.getItem("dore-theme") == "dark" ? '#434343' :  '#CED4DA'),
+                        stack: 1,
+                        data: result.actual
+                    }]
                 });
-                
-                // $google.charts.load("current", {packages:['corechart']});
-                // $google.charts.setOnLoadCallback(function(){
-                //     var data = $google.visualization.arrayToDataTable(result.data);
-                        
-                //         var view = new google.visualization.DataView(data);
-                        
-                //         var options = {
-                //             chartArea:{
-                //                 width: '80%',
-                //                 height: '85%'
-                //             },
-                //             height:'100%',
-                //             width: '100%',
-                //             legend: {position: 'none'},
-                //             vAxis: {format: 'decimal', title: 'Milyar Rupiah'},
-                //             animation: {
-                //                 startup: true,
-                //                 duration: 1000,
-                //                 easing: 'out'
-                //             }
-                //         };
-                //         var chart = new google.visualization.ColumnChart(document.getElementById("rka"));
-                //         chart.draw(view, options);
-                // });
+
             // }
         },
         error: function(jqXHR, textStatus, errorThrown) {       
@@ -563,7 +660,67 @@ function getMsPengembanganDir(periode=null,kode_grafik,nama){
         success:function(result){
             // if(result.series.length > 0){
                 var $colors = result.colors;
-                // Highcharts.addEvent(Highcharts.Chart.prototype, 'render', function colorPoints() {
+                
+                // Highcharts.chart('rka_dir', {
+                //     chart: {
+                //         type: 'column'
+                //     },
+                //     title: {
+                //         text: ''
+                //     },
+                //     xAxis: {
+                //         categories: result.ctg
+                //     },
+                //     yAxis: [{
+                //         min: 0,
+                //         title: {
+                //             text: ''
+                //         },
+                //         labels: {
+                //             formatter: function () {
+                //                 return singkatNilai(this.value);
+                //             }
+                //         },
+                //     }],
+                //     legend:{
+                //         enabled: false
+                //     },
+                //     credits: {
+                //         enabled: false
+                //     },
+                //     tooltip: {
+                //         shared: true
+                //     },
+                //     plotOptions: {
+                //         column: {
+                //             grouping: false,
+                //             shadow: false,
+                //             borderWidth: 0,
+                //             dataLabels: {
+                //                 // padding:10,
+                //                 allowOverlap:true,
+                //                 enabled: true,
+                //                 crop: false,
+                //                 overflow: 'justify',
+                //                 useHTML: true,
+                //                 formatter: function () {
+                //                     if(this.y < 0.1){
+                //                         return '';
+                //                     }else{
+                //                         return $('<div/>').css({
+                //                             'color' : 'white', // work
+                //                             'padding': '0 3px',
+                //                             'font-size': '10px',
+                //                             'backgroundColor' : this.point.color  // just white in my case
+                //                         }).text(toJuta(this.y))[0].outerHTML;
+                //                     }
+                //                     // if(this.name)
+                //                 }
+                //             }
+                //         }
+                //     },
+                //     series: result.series
+                // }, function(){
                 //     var series = this.series;
                 //     for (var i = 0, ie = series.length; i < ie; ++i) {
                 //         var points = series[i].data;
@@ -575,41 +732,49 @@ function getMsPengembanganDir(periode=null,kode_grafik,nama){
                 //     }
                 // });
                 
+                Highcharts.SVGRenderer.prototype.symbols['c-rect'] = function (x, y, w, h) {
+                    return ['M', x, y + h / 2, 'L', x + w, y + h / 2];
+                };
+                
                 Highcharts.chart('rka_dir', {
                     chart: {
                         type: 'column'
+                    },
+                    credits:{
+                        enabled:false
                     },
                     title: {
                         text: ''
                     },
                     xAxis: {
-                        categories: result.ctg
-                    },
-                    yAxis: [{
-                        min: 0,
-                        title: {
-                            text: ''
-                        },
+                        categories: result.ctg,
                         labels: {
-                            formatter: function () {
-                                return singkatNilai(this.value);
-                            }
-                        },
-                    }],
-                    legend:{
-                        enabled: false
+                            useHTML:true,
+                            formatter: function() {
+                                var tmp = this.value.split("|");
+                                var nama = tmp[0];
+                                return '<p class="mb-0"><span class="text-center" style="display:inherit">'+nama+'</span><span class="text-center bold" style="display:inherit">'+sepNum(tmp[1])+'%</span></p>';
+                            },
+                        }
                     },
-                    credits: {
-                        enabled: false
+                    yAxis: {
+                            title:'',
+                        min: 0
                     },
                     tooltip: {
-                        shared: true
+                        formatter: function () {   
+                            var tmp = this.x.split("|");   
+                            var nama = tmp[0];
+                            return nama+'<br><span style="color:' + this.series.color + '">' + this.series.name + '</span>: <b>' + sepNum(this.y);
+                        }
+                        // pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b>',
+                        /* shared: true */
                     },
                     plotOptions: {
                         column: {
-                            grouping: false,
-                            shadow: false,
+                            stacking: 'normal',
                             borderWidth: 0,
+                            pointWidth: 50,
                             dataLabels: {
                                 // padding:10,
                                 allowOverlap:true,
@@ -626,50 +791,79 @@ function getMsPengembanganDir(periode=null,kode_grafik,nama){
                                             'padding': '0 3px',
                                             'font-size': '10px',
                                             'backgroundColor' : this.point.color  // just white in my case
-                                        }).text(toJuta(this.y))[0].outerHTML;
+                                        }).text(sepNum(this.point.nlabel))[0].outerHTML;
                                     }
                                     // if(this.name)
                                 }
                             }
-                        }
-                    },
-                    series: result.series
-                }, function(){
-                    var series = this.series;
-                    for (var i = 0, ie = series.length; i < ie; ++i) {
-                        var points = series[i].data;
-                        for (var j = 0, je = points.length; j < je; ++j) {
-                            if (points[j].graphic) {
-                                points[j].graphic.element.style.fill = $colors[j];
+                        },
+                        scatter: {
+                            dataLabels: {
+                                // padding:10,
+                                allowOverlap:true,
+                                enabled: true,
+                                crop: false,
+                                overflow: 'justify',
+                                useHTML: true,
+                                formatter: function () {
+                                    // return '<span style="color:white;background:gray !important;"><b>'+sepNum(this.y)+' M</b></span>';
+                                    if(this.y < 0.1){
+                                        return '';
+                                    }else{
+                                        return $('<div/>').css({
+                                            'color' : 'white', // work
+                                            'padding': '0 3px',
+                                            'font-size': '10px',
+                                            'backgroundColor' : this.point.color  // just white in my case
+                                        }).text(sepNum(this.point.nlabel))[0].outerHTML;
+                                    }
+                                }
                             }
                         }
-                    }
+                    },
+                    series: [{
+                        name: 'Melampaui',
+                        color: (localStorage.getItem("dore-theme") == "dark" ? '#28DA66' :  '#16ff14'),
+                        type: 'column',
+                        stack: 1,
+                        data: result.melampaui,
+                        dataLabels:{
+                            y:-20
+                        }
+                    },{
+                        name: 'RKA s.d.',
+                        color: (localStorage.getItem("dore-theme") == "dark" ? '#2200FF' :  '#003F88'),
+                        marker: {
+                            symbol: 'c-rect',
+                            lineWidth:5,
+                            lineColor: (localStorage.getItem("dore-theme") == "dark" ? '#2200FF' :  '#003F88'),
+                            radius: 50
+                        },
+                        type: 'scatter',
+                        stack: 2,
+                        data: result.rka,
+                        dataLabels:{
+                            x:-50
+                        }
+                    }, {
+                        name: 'Tidak Tercapai',
+                        type: 'column',
+                        color:  (localStorage.getItem("dore-theme") == "dark" ? '#ED4346' :  '#900604'),
+                        stack: 1,
+                        data: result.tdkcapai,
+                        dataLabels:{
+                            x:50,
+                        }
+                    }, {
+                        name: 'Actual',
+                        type: 'column',
+                        color: (localStorage.getItem("dore-theme") == "dark" ? '#434343' :  '#CED4DA'),
+                        stack: 1,
+                        data: result.actual
+                    }]
                 });
-                
-                // $google.charts.load("current", {packages:['corechart']});
-                // $google.charts.setOnLoadCallback(function(){
-                //     var data = $google.visualization.arrayToDataTable(result.data);
-                        
-                //         var view = new google.visualization.DataView(data);
-                        
-                //         var options = {
-                //             chartArea:{
-                //                 width: '80%',
-                //                 height: '85%'
-                //             },
-                //             height:'100%',
-                //             width: '100%',
-                //             legend: {position: 'none'},
-                //             vAxis: {format: 'decimal', title: 'Milyar Rupiah'},
-                //             animation: {
-                //                 startup: true,
-                //                 duration: 1000,
-                //                 easing: 'out'
-                //             }
-                //         };
-                //         var chart = new google.visualization.ColumnChart(document.getElementById("rka"));
-                //         chart.draw(view, options);
-                // });
+
+               
             // }
         },
         error: function(jqXHR, textStatus, errorThrown) {       
