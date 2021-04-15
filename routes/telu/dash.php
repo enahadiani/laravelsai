@@ -121,6 +121,7 @@ Route::get('/ms-shu','DashTelu\DashboardController@getSHUDetail');
 
 Route::get('/ms-aset','DashTelu\DashboardController@getMSAset');
 Route::get('/ms-hutang','DashTelu\DashboardController@getMSHutang');
+Route::get('/ms-hutang-klp','DashTelu\DashboardController@getMSHutangKlp');
 Route::get('/ms-modal','DashTelu\DashboardController@getMSModal');
 Route::get('/ms-kasbank','DashTelu\DashboardController@getMSKasBank');
 
