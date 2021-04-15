@@ -14,6 +14,28 @@ class FilterAktapController extends Controller {
         }
     }
 
+    private function convertMonthName($month) {
+        $array = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+        'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+
+        return $array[$month - 1];
+    }
+
+    private function convertPeriode($array) {
+        $newArray = [];
+        for($i=0;$i<count($array);$i++) {
+            $tahun = substr($array[$i]['periode'], 0, 4);
+            $explode = substr($array[$i]['periode'], -2, 2);
+            $convert = intval($explode);
+            array_push($newArray, [
+                'value' => $array[$i]['periode'],
+                'text' => $this->convertMonthName($convert)." ".$tahun
+            ]);
+        }
+
+        return $newArray;
+    }
+
     public function getTahun() {
         $client = new Client();
         $response = $client->request('GET',  config('api.url').'esaku-report/filter-tahun',[
@@ -136,6 +158,9 @@ class FilterAktapController extends Controller {
             
                 $data = json_decode($response_data,true);
                 $data = $data['data'];
+                if(!empty($data)) {
+                    $data = $this->convertPeriode($data);
+                }
             }
             return response()->json(['daftar' => $data, 'status' => true], 200);
     }
@@ -154,6 +179,9 @@ class FilterAktapController extends Controller {
             
                 $data = json_decode($response_data,true);
                 $data = $data['data'];
+                if(!empty($data)) {
+                    $data = $this->convertPeriode($data);
+                }
             }
             return response()->json(['daftar' => $data, 'status' => true], 200);
     }
