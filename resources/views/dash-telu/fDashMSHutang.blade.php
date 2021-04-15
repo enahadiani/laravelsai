@@ -93,13 +93,23 @@ $thnLalu = substr($tahunLalu,2,2)
         </div>
     </div>
     <div class="row" >
-        <div class="col-lg-7 col-12 mb-4">
+        <div class="col-lg-6 col-12 mb-4">
             <div class="card dash-card">
                 <div class="card-header">
-                    <h6 class="card-title mb-0">Hutang</h6>
+                    <h6 class="card-title mb-0">Rincian Hutang</h6>
                 </div>
                 <div class="card-body">
                     <div id="real-hutang" style="height:300px"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-12 mb-4">
+            <div class="card dash-card">
+                <div class="card-header">
+                    <h6 class="card-title mb-0">Kelompok Hutang</h6>
+                </div>
+                <div class="card-body">
+                    <div id="real-hutang-klp" style="height:300px"></div>
                 </div>
             </div>
         </div>
@@ -308,6 +318,7 @@ function getPeriode(){
                 $('.label-periode-filter').html(label);
                 
                 getHutang($dash_periode);
+                getHutangKlp($dash_periode);
                         
             }
         },
@@ -609,6 +620,107 @@ function getHutang(periode=null){
         }
     })
 }
+
+function getHutangKlp(periode=null){
+    $.ajax({
+        type:"GET",
+        url:"{{ url('/telu-dash/ms-hutang-klp') }}",
+        data:{'periode[0]' : periode.type,
+            'periode[1]' : periode.from,
+            'periode[2]' : periode.to, mode: $mode},
+        dataType:"JSON",
+        success:function(result){
+            // if(result.series.length > 0){
+                var $colors = result.colors;
+                Highcharts.chart('real-hutang-klp', {
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text: ''
+                    },
+                    xAxis: {
+                        categories: result.ctg
+                    },
+                    yAxis: [{
+                        min: 0,
+                        title: {
+                            text: ''
+                        },
+                        labels: {
+                            formatter: function () {
+                                return singkatNilai(this.value);
+                            }
+                        },
+                    }],
+                    legend:{
+                        enabled: false
+                    },
+                    credits: {
+                        enabled: false
+                    },
+                    tooltip: {
+                        shared: true
+                    },
+                    plotOptions: {
+                        column: {
+                            grouping: false,
+                            shadow: false,
+                            borderWidth: 0,
+                            dataLabels: {
+                                // padding:10,
+                                allowOverlap:true,
+                                enabled: true,
+                                crop: false,
+                                overflow: 'justify',
+                                useHTML: true,
+                                formatter: function () {
+                                    if(this.y < 0.1){
+                                        return '';
+                                    }else{
+                                        return $('<div/>').css({
+                                            'color' : 'white', // work
+                                            'padding': '0 3px',
+                                            'font-size': '10px',
+                                            'backgroundColor' : this.point.color  // just white in my case
+                                        }).text(toMilyar(this.y))[0].outerHTML;
+                                    }
+                                    // if(this.name)
+                                }
+                            }
+                        }
+                    },
+                    series: result.series
+                }, function(){
+                    var series = this.series;
+                    for (var i = 0, ie = series.length; i < ie; ++i) {
+                        var points = series[i].data;
+                        for (var j = 0, je = points.length; j < je; ++j) {
+                            if (points[j].graphic) {
+                                points[j].graphic.element.style.fill = $colors[j];
+                            }
+                        }
+                    }
+                });
+
+                
+            // }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {       
+            if(jqXHR.status == 422){
+                var msg = jqXHR.responseText;
+            }else if(jqXHR.status == 500) {
+                var msg = "Internal server error";
+            }else if(jqXHR.status == 401){
+                var msg = "Unauthorized";
+                window.location="{{ url('/dash-telu/sesi-habis') }}";
+            }else if(jqXHR.status == 405){
+                var msg = "Route not valid. Page not found";
+            }
+            
+        }
+    })
+}
     
 $('#form-filter').submit(function(e){
     e.preventDefault();
@@ -632,6 +744,7 @@ $('#form-filter').submit(function(e){
     }
     $('.label-periode-filter').html(label);
     getHutang($dash_periode);
+    getHutangKlp($dash_periode);
     $('#modalFilter').modal('hide');
     // $('.app-menu').hide();
     if ($(".app-menu").hasClass("shown")) {
