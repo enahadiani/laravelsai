@@ -14,8 +14,6 @@ function drawLap(formData){
 drawLap($formData);
 
 function drawRptPage(data,res,from,to) { 
-    console.log(data)
-    console.log(res)
     var html = ""
     if(data.length > 0) {
         var no = 1;
