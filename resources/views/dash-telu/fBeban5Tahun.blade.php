@@ -147,7 +147,7 @@ $tahun5 = intval($tahun-5);
              <div class="card dash-card">
                 <div class="card-header">
                     <div class="row mx-0">
-                        <h6 class="card-title col-md-6 col-12">Realisasi Growth PDPT, Beban, SDM dan SHU <span class="rentang-tahun"></span></h6>
+                        <h6 class="card-title col-md-6 col-12">Realisasi Pencapaian PDPT, Beban, SDM dan SHU <span class="rentang-tahun"></span></h6>
                         <ul role="tablist" style="border: none;" class="nav nav-tabs col-md-6 col-12 px-0 justify-content-end">
                             <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#tab5_yoy" role="tab" aria-selected="false"><span class="hidden-xs-down"><b>YoY</b></span></a> </li>
                             <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab5_curr" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>Current</b></span></a> </li>
