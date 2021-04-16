@@ -82,7 +82,7 @@ $thnLalu = substr($tahunLalu,2,2)
             <h6 class="mb-0 bold"><span class="nama-pengembangan"></span></h6>
             <a class='btn btn-outline-light' href='#' id='btnBack' style="position: absolute;right: 135px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-arrow-left mr-2"></i> Back</a>
             <a class="btn btn-outline-light" href="#" id="btn-filter" style="position: absolute;right: 15px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-equalizer" style="transform-style: ;"></i> &nbsp;&nbsp; Filter</a>
-            <p class="mb-0">Satuan Milyar Rupiah || <span class='label-periode-filter'></span></p>
+            <p class="mb-0">Satuan Jutaan Rupiah || <span class='label-periode-filter'></span></p>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb px-0 pt-0">
                     <li class="breadcrumb-item"><a href="#">Management System</a></li>
