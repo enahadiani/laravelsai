@@ -596,7 +596,7 @@ function getMsPengembangan(periode=null,kode_grafik,nama){
                     },
                     series: [{
                         name: 'Melampaui',
-                        color: (localStorage.getItem("dore-theme") == "dark" ? '#28DA66' :  '#16ff14'),
+                        color: (localStorage.getItem("dore-theme") == "dark" ? '#ED4346' :  '#900604'),
                         type: 'column',
                         stack: 1,
                         data: result.melampaui,
@@ -621,7 +621,7 @@ function getMsPengembangan(periode=null,kode_grafik,nama){
                     }, {
                         name: 'Tidak Tercapai',
                         type: 'column',
-                        color:  (localStorage.getItem("dore-theme") == "dark" ? '#ED4346' :  '#900604'),
+                        color:  (localStorage.getItem("dore-theme") == "dark" ? '#28DA66' :  '#16ff14'),
                         stack: 1,
                         data: result.tdkcapai,
                         dataLabels:{
@@ -828,7 +828,7 @@ function getMsPengembanganDir(periode=null,kode_grafik,nama){
                     },
                     series: [{
                         name: 'Melampaui',
-                        color: (localStorage.getItem("dore-theme") == "dark" ? '#28DA66' :  '#16ff14'),
+                        color: (localStorage.getItem("dore-theme") == "dark" ? '#ED4346' :  '#900604'),
                         type: 'column',
                         stack: 1,
                         data: result.melampaui,
@@ -853,7 +853,7 @@ function getMsPengembanganDir(periode=null,kode_grafik,nama){
                     }, {
                         name: 'Tidak Tercapai',
                         type: 'column',
-                        color:  (localStorage.getItem("dore-theme") == "dark" ? '#ED4346' :  '#900604'),
+                        color:  (localStorage.getItem("dore-theme") == "dark" ? '#28DA66' :  '#16ff14'),
                         stack: 1,
                         data: result.tdkcapai,
                         dataLabels:{
