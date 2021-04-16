@@ -514,7 +514,7 @@ function getMsPendRKA(periode=null, id){
                             overflow: 'justify',
                             useHTML: true,
                             formatter: function () {
-                                if(this.y < 0.1){
+                                if(this.y < 0.01){
                                     return '';
                                 }else{
                                     return $('<div/>').css({
@@ -553,7 +553,7 @@ function getMsPendRKA(periode=null, id){
                             useHTML: true,
                             formatter: function () {
                                 // return '<span style="color:white;background:gray !important;"><b>'+sepNum(this.y)+' M</b></span>';
-                                if(this.y < 0.1){
+                                if(this.y < 0.01){
                                     return '';
                                 }else{
                                     return $('<div/>').css({
@@ -708,7 +708,7 @@ function getMsPendKlp(periode=null,id){
                             overflow: 'justify',
                             useHTML: true,
                             formatter: function () {
-                                if(this.y < 0.1){
+                                if(this.y < 0.01){
                                     return '';
                                 }else{
                                     return $('<div/>').css({
@@ -732,7 +732,7 @@ function getMsPendKlp(periode=null,id){
                             useHTML: true,
                             formatter: function () {
                                 // return '<span style="color:white;background:gray !important;"><b>'+sepNum(this.y)+' M</b></span>';
-                                if(this.y < 0.1){
+                                if(this.y < 0.01){
                                     return '';
                                 }else{
                                     return $('<div/>').css({

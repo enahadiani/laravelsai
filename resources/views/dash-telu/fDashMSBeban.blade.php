@@ -464,7 +464,7 @@ function getMsBebanRKA(periode=null){
                             overflow: 'justify',
                             useHTML: true,
                             formatter: function () {
-                                if(this.y < 0.1){
+                                if(this.y < 0.01){
                                     return '';
                                 }else{
                                     return $('<div/>').css({
@@ -505,7 +505,7 @@ function getMsBebanRKA(periode=null){
                             useHTML: true,
                             formatter: function () {
                                 // return '<span style="color:white;background:gray !important;"><b>'+sepNum(this.y)+' M</b></span>';
-                                if(this.y < 0.1){
+                                if(this.y < 0.01){
                                     return '';
                                 }else{
                                     return $('<div/>').css({
@@ -652,7 +652,7 @@ function getMsBebanKlp(periode=null){
                             overflow: 'justify',
                             useHTML: true,
                             formatter: function () {
-                                if(this.y < 0.1){
+                                if(this.y < 0.01){
                                     return '';
                                 }else{
                                     return $('<div/>').css({
@@ -676,7 +676,7 @@ function getMsBebanKlp(periode=null){
                             useHTML: true,
                             formatter: function () {
                                 // return '<span style="color:white;background:gray !important;"><b>'+sepNum(this.y)+' M</b></span>';
-                                if(this.y < 0.1){
+                                if(this.y < 0.01){
                                     return '';
                                 }else{
                                     return $('<div/>').css({
