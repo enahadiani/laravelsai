@@ -538,7 +538,7 @@ function getMsBebanRKA(periode=null){
                 },
                 series: [{
                     name: 'Melampaui',
-                    color: (localStorage.getItem("dore-theme") == "dark" ? '#28DA66' :  '#16ff14'),
+                    color: (localStorage.getItem("dore-theme") == "dark" ? '#ED4346' :  '#900604'),
                     type: 'column',
                     stack: 1,
                     data: result.melampaui,
@@ -563,7 +563,7 @@ function getMsBebanRKA(periode=null){
                 }, {
                     name: 'Tidak Tercapai',
                     type: 'column',
-                    color:  (localStorage.getItem("dore-theme") == "dark" ? '#ED4346' :  '#900604'),
+                    color:(localStorage.getItem("dore-theme") == "dark" ? '#28DA66' :  '#16ff14'),
                     stack: 1,
                     data: result.tdkcapai,
                     dataLabels:{
@@ -692,7 +692,7 @@ function getMsBebanKlp(periode=null){
                 },
                 series: [{
                     name: 'Melampaui',
-                    color: (localStorage.getItem("dore-theme") == "dark" ? '#28DA66' :  '#16ff14'),
+                    color: (localStorage.getItem("dore-theme") == "dark" ? '#ED4346' :  '#900604'),
                     type: 'column',
                     stack: 1,
                     data: result.melampaui,
@@ -717,7 +717,7 @@ function getMsBebanKlp(periode=null){
                 }, {
                     name: 'Tidak Tercapai',
                     type: 'column',
-                    color: (localStorage.getItem("dore-theme") == "dark" ? '#ED4346' :  '#900604'),
+                    color: (localStorage.getItem("dore-theme") == "dark" ? '#28DA66' :  '#16ff14'),
                     stack: 1,
                     data: result.tdkcapai,
                     dataLabels:{
