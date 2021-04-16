@@ -48,6 +48,7 @@ Route::get('filter-bukti-jurnal-susut', 'Esaku\Aktap\FilterAktapController@getBu
 Route::get('filter-tahun-aktap', 'Esaku\Aktap\FilterAktapController@getTahun');
 
 Route::post('lap-aktap', 'Esaku\Aktap\LaporanController@getLaporanAktap');
+Route::post('lap-aktap-tahun', 'Esaku\Aktap\LaporanController@getSaldoAktapTahunan');
 Route::post('kartu-aktap', 'Esaku\Aktap\LaporanController@getKartuAktap');
 Route::post('saldo-aktap', 'Esaku\Aktap\LaporanController@getSaldoAktap');
 

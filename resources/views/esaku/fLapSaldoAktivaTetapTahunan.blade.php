@@ -12,9 +12,10 @@
                                     <h6>Filter</h6>
                                     <div id="inputFilter">
                                         <!-- COMPONENT -->
-                                        <x-inp-filter kode="tahun" nama="Tahun" selected="3" :option="array('2','3')"/>
-                                        <x-inp-filter kode="no_fa" nama="No Asset" selected="1" :option="array('1','3')"/>
+                                        <x-inp-filter kode="tahun" nama="Tahun" selected="3" :option="array('1','2','3')"/>
+                                        <x-inp-filter kode="periode_perolehan" nama="Periode Perolehan" selected="3" :option="array('2','3')"/>
                                         <x-inp-filter kode="periode_susut" nama="Periode Penyusutan" selected="3" :option="array('2','3')"/>
+                                        <x-inp-filter kode="kode_klpakun" nama="Kelompok Akun" selected="1" :option="array('1','3')"/>
                                         <!-- END COMPONENT -->
                                     </div>
                                     <button id="btn-tampil" style="float:right;width:110px" class="btn btn-primary ml-2 mb-3" type="submit" >Tampilkan</button>
@@ -54,6 +55,13 @@
             to : "",
             toname : "",
         }
+    var $periode_perolehan = {
+            type : "=",
+            from : "{{ date('Ym') }}",
+            fromname : namaPeriode("{{ date('Ym') }}"),
+            to : "",
+            toname : "",
+        }
     var $periode_susut = {
             type : "=",
             from : "{{ date('Ym') }}",
@@ -61,7 +69,7 @@
             to : "",
             toname : "",
         }
-    var $no_fa = {
+    var $kode_klpakun = {
             type : "all",
             from : "",
             fromname : "",
@@ -74,6 +82,7 @@
 
     $('#tahun-from').val("{{ date('Y') }}");
     $('#periode_susut-from').val(namaPeriode("{{ date('Ym') }}"));
+    $('#periode_perolehan-from').val(namaPeriode("{{ date('Ym') }}"));
 
     $('#btn-filter').click(function(e){
         $('#collapseFilter').show();
@@ -108,50 +117,62 @@
     $('.selectize').selectize();
 
     $('#inputFilter').reportFilter({
-        kode : ['tahun','periode_susut','no_fa'],
-        nama : ['Tahun','Periode Susut','No Asset'],
-        header : [['Tahun'],['Periode'],['Kode','Nama']],
-        headerpilih : [['Tahun','Action'],['Periode','Action'],['Kode','Nama','Action']],
+        kode : ['tahun','periode_perolehan','periode_susut','kode_klpakun'],
+        nama : ['Tahun','Periode Perolehan','Periode Susut','Kelompok Akun'],
+        header : [['Tahun'],['Periode', 'Periode'],['Periode', 'Periode'],['Kode','Nama']],
+        headerpilih : [['Tahun','Action'],['Periode','Periode','Action'],['Periode','Periode','Action'],['Kode','Nama','Action']],
         columns: [
             [
                 { data: 'tahun' },
             ],[
-                { data: 'periode' }
-            ],[
+                { data: 'value' },
+                { data: 'text' },
+            ],
+            [
+                { data: 'value' },
+                { data: 'text' },
+            ],
+            [
                 { data: 'no_fa' },
                 { data: 'nama' }
             ]
         ],
-        url :["{{ url('esaku-report/filter-tahun-aktap') }}","{{ url('esaku-report/filter-periode-susut') }}","{{ url('esaku-report/filter-asset') }}"],
+        url :["{{ url('esaku-report/filter-tahun-aktap') }}","{{ url('esaku-report/filter-periode-perolehan') }}","{{ url('esaku-report/filter-periode-susut') }}","{{ url('esaku-report/filter-asset') }}"],
         parameter:[{},{},{}],
-        orderby:[[[0,"desc"]],[[0,"desc"]],[[0,"asc"]]],
-        width:[['30%','70%'],['30%','70%'],['30%','70%']],
-        display:['kode','kode','kode'],
-        pageLength:[12,12,10]
+        orderby:[[[0,"desc"]],[[0,"desc"]],[[0,"desc"]],[[0,"asc"]]],
+        width:[['30%','70%'],['30%','70%'],['30%','70%'],['30%','70%']],
+        display:['kode','kode','kode','kode'],
+        pageLength:[12,12,12,10]
     })
     $('#inputFilter').on('change','input',function(e){
         setTimeout(() => {
             $('#inputFilter').reportFilter({
-                kode : ['tahun','periode_susut','no_fa'],
-                nama : ['Tahun','Periode Susut','No Asset'],
-                header : [['Tahun'],['Periode'],['Kode','Nama']],
-                headerpilih : [['Tahun','Action'],['Periode','Action'],['Kode','Nama','Action']],
+                kode : ['tahun','periode_perolehan','periode_susut','kode_klpakun'],
+                nama : ['Tahun','Periode Perolehan','Periode Susut','Kelompok Akun'],
+                header : [['Tahun'],['Periode', 'Periode'],['Periode', 'Periode'],['Kode','Nama']],
+                headerpilih : [['Tahun','Action'],['Periode','Periode','Action'],['Periode','Periode','Action'],['Kode','Nama','Action']],
                 columns: [
                     [
                         { data: 'tahun' },
                     ],[
-                        { data: 'periode' }
-                    ],[
+                        { data: 'value' },
+                        { data: 'text' },
+                    ],
+                    [
+                        { data: 'value' },
+                        { data: 'text' },
+                    ],
+                    [
                         { data: 'no_fa' },
                         { data: 'nama' }
                     ]
                 ],
-                url :["{{ url('esaku-report/filter-tahun-aktap') }}","{{ url('esaku-report/filter-periode-susut') }}","{{ url('esaku-report/filter-asset') }}"],
+                url :["{{ url('esaku-report/filter-tahun-aktap') }}","{{ url('esaku-report/filter-periode-perolehan') }}","{{ url('esaku-report/filter-periode-susut') }}","{{ url('esaku-report/filter-asset') }}"],
                 parameter:[{},{},{}],
-                orderby:[[[0,"desc"]],[[0,"desc"]],[[0,"asc"]]],
-                width:[['30%','70%'],['30%','70%'],['30%','70%']],
-                display:['kode','kode','kode'],
-                pageLength:[12,12,10]
+                orderby:[[[0,"desc"]],[[0,"desc"]],[[0,"desc"]],[[0,"asc"]]],
+                width:[['30%','70%'],['30%','70%'],['30%','70%'],['30%','70%']],
+                display:['kode','kode','kode','kode'],
+                pageLength:[12,12,12,10]
             })
         }, 500)
     });
@@ -163,12 +184,15 @@
         $formData.append("tahun[]",$tahun.type);
         $formData.append("tahun[]",$tahun.from);
         $formData.append("tahun[]",$tahun.to);
+        $formData.append("periode[]",$periode_perolehan.type);
+        $formData.append("periode[]",$periode_perolehan.from);
+        $formData.append("periode[]",$periode_perolehan.to);
         $formData.append("periode_susut[]",$periode_susut.type);
         $formData.append("periode_susut[]",$periode_susut.from);
         $formData.append("periode_susut[]",$periode_susut.to);
-        $formData.append("no_fa[]",$no_fa.type);
-        $formData.append("no_fa[]",$no_fa.from);
-        $formData.append("no_fa[]",$no_fa.to);
+        $formData.append("kode_klpakun[]",$kode_klpakun.type);
+        $formData.append("kode_klpakun[]",$kode_klpakun.from);
+        $formData.append("kode_klpakun[]",$kode_klpakun.to);
         for(var pair of $formData.entries()) {
             console.log(pair[0]+ ', '+ pair[1]); 
         }
@@ -182,12 +206,15 @@
         $formData.append("tahun[]",$tahun.type);
         $formData.append("tahun[]",$tahun.from);
         $formData.append("tahun[]",$tahun.to);
+        $formData.append("periode[]",$periode_perolehan.type);
+        $formData.append("periode[]",$periode_perolehan.from);
+        $formData.append("periode[]",$periode_perolehan.to);
         $formData.append("periode_susut[]",$periode_susut.type);
         $formData.append("periode_susut[]",$periode_susut.from);
         $formData.append("periode_susut[]",$periode_susut.to);
-        $formData.append("no_fa[]",$no_fa.type);
-        $formData.append("no_fa[]",$no_fa.from);
-        $formData.append("no_fa[]",$no_fa.to);
+        $formData.append("kode_klpakun[]",$kode_klpakun.type);
+        $formData.append("kode_klpakun[]",$kode_klpakun.from);
+        $formData.append("kode_klpakun[]",$kode_klpakun.to);
         for(var pair of $formData.entries()) {
             console.log(pair[0]+ ', '+ pair[1]); 
         }
