@@ -17,6 +17,10 @@ $thnLalu = substr($tahunLalu,2,2)
         background-color: #ececec;
         border-color: #ececec;
     }
+    .highcharts-color-1
+    {
+        fill: none !important;
+    }
     .fs-8{
         font-size: 8px !important;
     }
