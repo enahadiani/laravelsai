@@ -111,13 +111,15 @@
     $('#inputFilter').reportFilter({
         kode : ['periode_perolehan','periode_susut','kode_klpakun'],
         nama : ['Periode Perolehan','Periode Susut','Kelompok Akun'],
-        header : [['Periode'],['Periode'],['Kode','Nama']],
-        headerpilih : [['Periode','Action'],['Periode','Action'],['Kode','Nama','Action']],
+        header : [['Periode', 'Periode'],['Periode', 'Periode'],['Kode','Nama']],
+        headerpilih : [['Periode','Periode','Action'],['Periode','Periode','Action'],['Kode','Nama','Action']],
         columns: [
             [
-                { data: 'periode' },
+                { data: 'value' },
+                { data: 'text' },
             ],[
-                { data: 'periode' }
+                { data: 'value' },
+                { data: 'text' },
             ],[
                 { data: 'kode_klpakun' },
                 { data: 'nama' }
@@ -135,13 +137,15 @@
             $('#inputFilter').reportFilter({
                 kode : ['periode_perolehan','periode_susut','kode_klpakun'],
                 nama : ['Periode Perolehan','Periode Susut','Kelompok Akun'],
-                header : [['Periode'],['Periode'],['Kode','Nama']],
-                headerpilih : [['Periode','Action'],['Periode','Action'],['Kode','Nama','Action']],
+                header : [['Periode', 'Periode'],['Periode', 'Periode'],['Kode','Nama']],
+                headerpilih : [['Periode','Periode','Action'],['Periode','Periode','Action'],['Kode','Nama','Action']],
                 columns: [
                     [
-                        { data: 'periode' },
+                        { data: 'value' },
+                        { data: 'text' },
                     ],[
-                        { data: 'periode' }
+                        { data: 'value' },
+                        { data: 'text' },
                     ],[
                         { data: 'kode_klpakun' },
                         { data: 'nama' }
