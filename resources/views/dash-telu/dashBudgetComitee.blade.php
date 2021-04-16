@@ -130,6 +130,30 @@
                                 </select>
                             </div>
                         </div>
+                        <div class="form-group row dash-filter">
+                            <p class="dash-kunci" hidden>dash_jenis</p> 
+                            <label class="col-md-12">Jenis</label>
+                            <div class="col-md-4">
+                                <select class="form-control dash-filter-type" data-width="100%" name="jenis[]" id="jenis_type">
+                                    <option value='' disabled>Pilih</option>
+                                    <option value='=' selected>=</option>
+                                </select>
+                            </div>
+                            <div class="col-md-8 dash-filter-from">
+                                <select class="form-control" data-width="100%" name="jenis[]" id="jenis_from">
+                                    <option value='' disabled>Pilih</option>
+                                    <option value='YoY' selected>YoY</option>
+                                    <option value='Current'>Current</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4 dash-filter-to">
+                                <select class="form-control" data-width="100%" name="jenis[]" id="jenis_to">
+                                    <option value='' disabled>Pilih</option>
+                                    <option value='YoY' selected>YoY</option>
+                                    <option value='Current'>Current</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer" style="border:none;position:absolute;bottom:0;justify-content:flex-end;width:100%">
                         <button type="button" class="btn btn-outline-primary" id="btn-reset">Reset</button>
@@ -251,6 +275,12 @@ function singkatNilai(num){
     }
 }
 
+var $dash_jenis = {
+    type: "=",
+    from: "YoY",
+    to:""
+} 
+
 function getPeriode(){
     $.ajax({
         type:"GET",
@@ -265,6 +295,13 @@ function getPeriode(){
             var select2 = $("#periode_to").selectize();
             select2 = select2[0];
             var control2 = select2.selectize;
+            $('#jenis_type').selectize();
+            $('#jenis_from').selectize();
+            $('#jenis_to').selectize();
+
+            $('#jenis_type')[0].selectize.setValue($dash_jenis.type);
+            $('#jenis_from')[0].selectize.setValue($dash_jenis.from);
+            $('#jenis_to')[0].selectize.setValue($dash_jenis.to);
             if(result.data.status){
                 if(typeof result.data.data !== 'undefined' && result.data.data.length>0){
                     for(i=0;i<result.data.data.length;i++){
@@ -348,12 +385,12 @@ function getPeriode(){
                 var tahun = $dash_periode.from.substr(0,4);
                 var tahunLima = parseInt(tahun) - 6;
                 $('.rentang-tahun').text(tahunLima+" - "+tahun);
-                getBCGrowthRKA($dash_periode);
-                getBCGrowthTuition($dash_periode);
-                getBCRKA($dash_periode);
-                getBCRKAPersen($dash_periode);
-                getBCTuition($dash_periode);
-                getBCTuitionPersen($dash_periode);
+                getBCGrowthRKA($dash_periode,$dash_jenis);
+                getBCGrowthTuition($dash_periode,$dash_jenis);
+                getBCRKA($dash_periode,$dash_jenis);
+                getBCRKAPersen($dash_periode,$dash_jenis);
+                getBCTuition($dash_periode,$dash_jenis);
+                getBCTuitionPersen($dash_periode,$dash_jenis);
 
                         
             }
@@ -411,13 +448,16 @@ $('.dash-filter').on('change', '.dash-filter-type', function(){
 
 
 
-function getBCRKA(periode){
+function getBCRKA(periode,jenis){
     $.ajax({
         type:"GET",
         url:"{{ url('/telu-dash/rka') }}",
         data:{ 'periode[0]' : periode.type,
             'periode[1]' : periode.from,
-            'periode[2]' : periode.to, mode: $mode},
+            'periode[2]' : periode.to, mode: $mode,
+            'jenis[0]' : jenis.type,
+            'jenis[1]' : jenis.from,
+            'jenis[2]' : jenis.to},
         dataType:"JSON",
         success: function(result){
             Highcharts.chart('trend1', {
@@ -494,14 +534,17 @@ function getBCRKA(periode){
     })
 }
 
-function getBCRKAPersen(periode){
+function getBCRKAPersen(periode,jenis){
     $.ajax({
         type:"GET",
         url:"{{ url('/telu-dash/rka-persen') }}",
         dataType:"JSON",
         data:{mode: $mode, 'periode[0]' : periode.type,
             'periode[1]' : periode.from,
-            'periode[2]' : periode.to},
+            'periode[2]' : periode.to,
+            'jenis[0]' : jenis.type,
+            'jenis[1]' : jenis.from,
+            'jenis[2]' : jenis.to},
         success: function(result){
             Highcharts.chart('trend1-persen', {
                 chart: {
@@ -573,13 +616,16 @@ function getBCRKAPersen(periode){
     })
 }
 
-function getBCGrowthRKA(periode){
+function getBCGrowthRKA(periode,jenis){
     $.ajax({
         type:"GET",
         url:"{{ url('/telu-dash/growth-rka') }}",
         data:{ 'periode[0]' : periode.type,
             'periode[1]' : periode.from,
-            'periode[2]' : periode.to, mode: $mode},
+            'periode[2]' : periode.to, mode: $mode,
+            'jenis[0]' : jenis.type,
+            'jenis[1]' : jenis.from,
+            'jenis[2]' : jenis.to},
         dataType:"JSON",
         success: function(result){
             Highcharts.chart('trend2', {
@@ -652,14 +698,17 @@ function getBCGrowthRKA(periode){
     })
 }
 
-function getBCTuition(periode){
+function getBCTuition(periode,jenis){
     $.ajax({
         type:"GET",
         url:"{{ url('/telu-dash/tuition') }}",
         dataType:"JSON",
         data:{ 'periode[0]' : periode.type,
             'periode[1]' : periode.from,
-            'periode[2]' : periode.to, mode: $mode},
+            'periode[2]' : periode.to, mode: $mode,
+            'jenis[0]' : jenis.type,
+            'jenis[1]' : jenis.from,
+            'jenis[2]' : jenis.to},
         success:function(result){
             Highcharts.chart('trend3', { 
                 title: {
@@ -724,14 +773,17 @@ function getBCTuition(periode){
     })
 }
 
-function getBCTuitionPersen(periode){
+function getBCTuitionPersen(periode,jenis){
     $.ajax({
         type:"GET",
         url:"{{ url('/telu-dash/tuition-persen') }}",
         dataType:"JSON",
         data:{ 'periode[0]' : periode.type,
             'periode[1]' : periode.from,
-            'periode[2]' : periode.to, mode: $mode},
+            'periode[2]' : periode.to, mode: $mode,
+            'jenis[0]' : jenis.type,
+            'jenis[1]' : jenis.from,
+            'jenis[2]' : jenis.to},
         success:function(result){
             Highcharts.chart('trend3-persen', { 
                 title: {
@@ -797,14 +849,17 @@ function getBCTuitionPersen(periode){
 }
 
 
-function getBCGrowthTuition(periode){
+function getBCGrowthTuition(periode,jenis){
     $.ajax({
         type:"GET",
         url:"{{ url('/telu-dash/growth-tuition') }}",
         dataType:"JSON",
         data:{ 'periode[0]' : periode.type,
             'periode[1]' : periode.from,
-            'periode[2]' : periode.to, mode: $mode},
+            'periode[2]' : periode.to, mode: $mode,
+            'jenis[0]' : jenis.type,
+            'jenis[1]' : jenis.from,
+            'jenis[2]' : jenis.to},
         success: function(result){
             Highcharts.chart('trend4', {
                 chart: {
@@ -881,6 +936,10 @@ $('#form-filter').submit(function(e){
     $dash_periode.type = $('#periode_type')[0].selectize.getValue();
     $dash_periode.from = $('#periode_from')[0].selectize.getValue();
     $dash_periode.to = $('#periode_to')[0].selectize.getValue();
+
+    $dash_jenis.type = $('#jenis_type')[0].selectize.getValue();
+    $dash_jenis.from = $('#jenis_from')[0].selectize.getValue();
+    $dash_jenis.to = $('#jenis_to')[0].selectize.getValue();
     $filter_periode = $dash_periode.from;
     switch($dash_periode.type){
         case '=':
@@ -900,12 +959,12 @@ $('#form-filter').submit(function(e){
     var tahun = $dash_periode.from.substr(0,4);
     var tahunLima = parseInt(tahun) - 6;
     $('.rentang-tahun').text(tahunLima+" - "+tahun);
-    getBCGrowthRKA($dash_periode);
-    getBCGrowthTuition($dash_periode);
-    getBCRKA($dash_periode);
-    getBCRKAPersen($dash_periode);
-    getBCTuition($dash_periode);
-    getBCTuitionPersen($dash_periode);
+    getBCGrowthRKA($dash_periode,$dash_jenis);
+    getBCGrowthTuition($dash_periode,$dash_jenis);
+    getBCRKA($dash_periode,$dash_jenis);
+    getBCRKAPersen($dash_periode,$dash_jenis);
+    getBCTuition($dash_periode,$dash_jenis);
+    getBCTuitionPersen($dash_periode,$dash_jenis);
     $('#modalFilter').modal('hide');
     // $('.app-menu').hide();
     if ($(".app-menu").hasClass("shown")) {

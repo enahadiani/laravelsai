@@ -266,8 +266,9 @@
                                 <div class="col-3">
                                     <select class='form-control' id="ukuran_pakaian" name="ukuran_pakaian" required>
                                     <option value=''>--- Pilih Ukuran ---</option>
-                                    <option value='S'>S</option>
                                     <option value='XS'>XS</option>
+                                    <option value='S'>S</option>
+                                    <option value='M'>M</option>
                                     <option value='L'>L</option>
                                     <option value='2L'>2L</option>
                                     <option value='3L'>3L</option>
@@ -326,6 +327,7 @@
                                     <option value='Surat Kabar'>Surat Kabar</option>
                                     <option value='Marketing'>Marketing</option>
                                     <option value='Agen Umroh'>Agen Umroh</option>
+                                    <option value='Alumni'>Alumni</option>
                                     </select>
                                 </div>
                                 <label for="tot_dokumen" class="col-3 col-form-label">Total Dokumen</label>
