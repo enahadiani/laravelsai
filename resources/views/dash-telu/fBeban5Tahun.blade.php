@@ -594,7 +594,7 @@ function getBeban(periode=null){
                             overflow: 'justify',
                             useHTML: true,
                             formatter: function () {
-                                if(this.y < 0.1){
+                                if(this.y < 0.01){
                                     return '';
                                 }else{
                                     return $('<div/>').css({
@@ -618,7 +618,7 @@ function getBeban(periode=null){
                             useHTML: true,
                             formatter: function () {
                                 // return '<span style="color:white;background:gray !important;"><b>'+sepNum(this.y)+' M</b></span>';
-                                if(this.y < 0.1){
+                                if(this.y < 0.01){
                                     return '';
                                 }else{
                                     return $('<div/>').css({
@@ -747,7 +747,7 @@ function getBebanYoY(periode=null){
                             overflow: 'justify',
                             useHTML: true,
                             formatter: function () {
-                                if(this.y < 0.1){
+                                if(this.y < 0.01){
                                     return '';
                                 }else{
                                     return $('<div/>').css({
@@ -771,7 +771,7 @@ function getBebanYoY(periode=null){
                             useHTML: true,
                             formatter: function () {
                                 // return '<span style="color:white;background:gray !important;"><b>'+sepNum(this.y)+' M</b></span>';
-                                if(this.y < 0.1){
+                                if(this.y < 0.01){
                                     return '';
                                 }else{
                                     return $('<div/>').css({
@@ -978,7 +978,7 @@ function getBebanSDM(periode=null){
                             overflow: 'justify',
                             useHTML: true,
                             formatter: function () {
-                                if(this.y < 0.1){
+                                if(this.y < 0.01){
                                     return '';
                                 }else{
                                     return $('<div/>').css({
@@ -1002,7 +1002,7 @@ function getBebanSDM(periode=null){
                             useHTML: true,
                             formatter: function () {
                                 // return '<span style="color:white;background:gray !important;"><b>'+sepNum(this.y)+' M</b></span>';
-                                if(this.y < 0.1){
+                                if(this.y < 0.01){
                                     return '';
                                 }else{
                                     return $('<div/>').css({
@@ -1132,7 +1132,7 @@ function getBebanSDMYoY(periode=null){
                             overflow: 'justify',
                             useHTML: true,
                             formatter: function () {
-                                if(this.y < 0.1){
+                                if(this.y < 0.01){
                                     return '';
                                 }else{
                                     return $('<div/>').css({
@@ -1156,7 +1156,7 @@ function getBebanSDMYoY(periode=null){
                             useHTML: true,
                             formatter: function () {
                                 // return '<span style="color:white;background:gray !important;"><b>'+sepNum(this.y)+' M</b></span>';
-                                if(this.y < 0.1){
+                                if(this.y < 0.01){
                                     return '';
                                 }else{
                                     return $('<div/>').css({
@@ -1286,7 +1286,7 @@ function getBebanNonSDM(periode=null){
                             overflow: 'justify',
                             useHTML: true,
                             formatter: function () {
-                                if(this.y < 0.1){
+                                if(this.y < 0.01){
                                     return '';
                                 }else{
                                     return $('<div/>').css({
@@ -1310,7 +1310,7 @@ function getBebanNonSDM(periode=null){
                             useHTML: true,
                             formatter: function () {
                                 // return '<span style="color:white;background:gray !important;"><b>'+sepNum(this.y)+' M</b></span>';
-                                if(this.y < 0.1){
+                                if(this.y < 0.01){
                                     return '';
                                 }else{
                                     return $('<div/>').css({
@@ -1441,7 +1441,7 @@ function getBebanNonSDMYoY(periode=null){
                             overflow: 'justify',
                             useHTML: true,
                             formatter: function () {
-                                if(this.y < 0.1){
+                                if(this.y < 0.01){
                                     return '';
                                 }else{
                                     return $('<div/>').css({
@@ -1465,7 +1465,7 @@ function getBebanNonSDMYoY(periode=null){
                             useHTML: true,
                             formatter: function () {
                                 // return '<span style="color:white;background:gray !important;"><b>'+sepNum(this.y)+' M</b></span>';
-                                if(this.y < 0.1){
+                                if(this.y < 0.01){
                                     return '';
                                 }else{
                                     return $('<div/>').css({
