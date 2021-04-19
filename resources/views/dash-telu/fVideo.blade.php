@@ -69,6 +69,20 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <label for="flag_rektor">Status Rektor</label>
+                                        <select class='form-control' id="flag_rektor" name="flag_rektor">
+                                        <option value='' disabled selected>--- Pilih Status ---</option>
+                                        <option value='1'>AKTIF</option>
+                                        <option value='0'>NON-AKTIF</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -91,6 +105,7 @@
         }
     });
     $('#flag_aktif').selectize();
+    $('#flag_rektor').selectize();
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
@@ -208,6 +223,9 @@
                 required: true
             },
             flag_aktif:{
+                required: true
+            },
+            flag_rektor:{
                 required: true
             }
         },
@@ -348,6 +366,7 @@
                     $('#keterangan').val(result.data[0].keterangan);
                     $('#link').val(result.data[0].link);
                     $('#flag_aktif')[0].selectize.setValue(result.data[0].flag_aktif);
+                    $('#flag_rektor')[0].selectize.setValue(result.data[0].flag_rektor);
                     $('#saku-datatable').hide();
                     $('#modal-preview').modal('hide');
                     $('#saku-form').show();
@@ -373,9 +392,9 @@
     // END BUTTON EDIT
     
     // HANDLER untuk enter dan tab
-    $('#tanggal,#keterangan,#link,#flag_aktif').keydown(function(e){
+    $('#tanggal,#keterangan,#link,#flag_aktif,#flag_rektor').keydown(function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['tanggal','keterangan','link','flag_aktif'];
+        var nxt = ['tanggal','keterangan','link','flag_aktif','flag_rektor'];
         if (code == 13 || code == 40) {
             e.preventDefault();
             var idx = nxt.indexOf(e.target.id);

@@ -65,7 +65,8 @@ class VideoController extends Controller
             'tanggal' => 'required',
             'keterangan' => 'required',
             'link' => 'required',
-            'flag_aktif' => 'required'
+            'flag_aktif' => 'required',
+            'flag_rektor' => 'required'
         ]);
 
         try {   
@@ -79,7 +80,8 @@ class VideoController extends Controller
                         'tanggal' => $this->reverseDate($request->tanggal,"/","-"),
                         'keterangan' => $request->keterangan,
                         'link' => $request->link,
-                        'flag_aktif' => $request->flag_aktif
+                        'flag_aktif' => $request->flag_aktif,
+                        'flag_rektor' => $request->flag_rektor
                     ]
                 ]);
                 if ($response->getStatusCode() == 200) { // 200 OK
@@ -130,7 +132,8 @@ class VideoController extends Controller
             'tanggal' => 'required',
             'keterangan' => 'required',
             'link' => 'required',
-            'flag_aktif' => 'required'
+            'flag_aktif' => 'required',
+            'flag_rektor' => 'required'
         ]);
 
         try {
@@ -145,7 +148,8 @@ class VideoController extends Controller
                         'keterangan' => $request->keterangan,
                         'tanggal' => $this->reverseDate($request->tanggal,"/","-"),
                         'link' => $request->link,
-                        'flag_aktif' => $request->flag_aktif
+                        'flag_aktif' => $request->flag_aktif,
+                        'flag_rektor' => $request->flag_rektor
                     ]
                 ]);
                 if ($response->getStatusCode() == 200) { // 200 OK
