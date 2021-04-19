@@ -254,3 +254,8 @@ Route::get('edit-show-aktap', 'Esaku\Aktap\EditAktapController@getAktap');
 Route::get('edit-data-aktap', 'Esaku\Aktap\EditAktapController@getDataAktap');
 Route::put('edit-aktap', 'Esaku\Aktap\EditAktapController@store');
 Route::delete('edit-aktap', 'Esaku\Aktap\EditAktapController@delete');
+
+## Upload Data Anggaran
+Route::post('import-anggaran-excel', 'Esaku\Anggaran\UploadAnggaranController@importExcel');
+Route::post('simpan-anggaran', 'Esaku\Anggaran\UploadAnggaranController@store');
+Route::get('load-anggaran', 'Esaku\Anggaran\UploadAnggaranController@loadAnggaran');
