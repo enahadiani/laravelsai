@@ -17,12 +17,13 @@ $thnLalu = substr($tahunLalu,2,2)
         background-color: #ececec;
         border-color: #ececec;
     }
-    .highcharts-color-1
+    .highcharts-data-label-connector.highcharts-color-1
     {
         fill: none !important;
     }
     .fs-8{
         font-size: 8px !important;
+        text-overflow: ellipsis;overflow: hidden;white-space: nowrap;
     }
     
     .fs-10{
@@ -956,12 +957,20 @@ function getMsPengembanganKomposisi(periode=null,kode_grafik,nama){
                             align: 'left',
                             formatter: function () {
                                 var name = this.point.name.split(" ");
+                                var html = '';
+                                for(i=0;i < name.length; i++){
+                                    if (i == 1){
+                                        html+=name[i]+'<br>';
+                                    }else{
+                                        html+=name[i]+'<br>';
+                                    }
+                                }
                                 return $('<div/>').css({
                                     'border' : '0',// just white in my case
                                     'max-width': '70px',
                                     'overflow':'hidden',
                                     'color' : ($mode == "dark" ? "var(--text-color)" : "black")
-                                }).addClass('fs-8').html(name[0]+' '+(name[1] != undefined ? name[1] : '')+'<br>'+(name[2] != undefined ? name[2] : '')+':<br/>'+sepNum(this.percentage)+'%')[0].outerHTML;
+                                }).addClass('fs-8').html(html+':<br/>'+sepNum(this.percentage)+'%')[0].outerHTML;
                             }
                         }
                     }
@@ -1022,12 +1031,20 @@ function getMsPengembanganKomposisi(periode=null,kode_grafik,nama){
                             align: 'left',
                             formatter: function () {
                                 var name = this.point.name.split(" ");
+                                var html = '';
+                                for(i=0;i < name.length; i++){
+                                    if (i == 1){
+                                        html+=name[i]+'<br>';
+                                    }else{
+                                        html+=name[i]+'<br>';
+                                    }
+                                }
                                 return $('<div/>').css({
                                     'border' : '0',// just white in my case
                                     'max-width': '70px',
                                     'overflow':'hidden',
                                     'color' : ($mode == "dark" ? "var(--text-color)" : "black")
-                                }).addClass('fs-8').html(name[0]+' '+(name[1] != undefined ? name[1] : '')+'<br>'+(name[2] != undefined ? name[2] : '')+':<br/>'+sepNum(this.percentage)+'%')[0].outerHTML;
+                                }).addClass('fs-8').html(html+':<br/>'+sepNum(this.percentage)+'%')[0].outerHTML;
                             }
                         }
                     }

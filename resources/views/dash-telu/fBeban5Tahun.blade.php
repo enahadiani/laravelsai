@@ -230,12 +230,16 @@ function sepNum(x){
         }else if(!isFinite(x)){
             return 0;
         }else{
-            var x = parseFloat(x).toFixed(1);
+            var x = parseFloat(x);
             // console.log(x);
             var tmp = x.toString().split('.');
             // console.dir(tmp);
-            var y = tmp[1].substr(0,2);
-            var z = tmp[0]+'.'+y;
+            if(tmp[1] != undefined){
+                var y = tmp[1].substr(0,2);
+                var z = tmp[0]+'.'+y;
+            }else{
+                var z = tmp[0];
+            }
             var parts = z.split('.');
             parts[0] = parts[0].replace(/([0-9])(?=([0-9]{3})+$)/g,'$1.');
             return parts.join(',');
@@ -590,7 +594,7 @@ function getBeban(periode=null){
                             overflow: 'justify',
                             useHTML: true,
                             formatter: function () {
-                                if(this.y < 0.1){
+                                if(this.y < 0.01){
                                     return '';
                                 }else{
                                     return $('<div/>').css({
@@ -614,7 +618,7 @@ function getBeban(periode=null){
                             useHTML: true,
                             formatter: function () {
                                 // return '<span style="color:white;background:gray !important;"><b>'+sepNum(this.y)+' M</b></span>';
-                                if(this.y < 0.1){
+                                if(this.y < 0.01){
                                     return '';
                                 }else{
                                     return $('<div/>').css({
@@ -743,7 +747,7 @@ function getBebanYoY(periode=null){
                             overflow: 'justify',
                             useHTML: true,
                             formatter: function () {
-                                if(this.y < 0.1){
+                                if(this.y < 0.01){
                                     return '';
                                 }else{
                                     return $('<div/>').css({
@@ -767,7 +771,7 @@ function getBebanYoY(periode=null){
                             useHTML: true,
                             formatter: function () {
                                 // return '<span style="color:white;background:gray !important;"><b>'+sepNum(this.y)+' M</b></span>';
-                                if(this.y < 0.1){
+                                if(this.y < 0.01){
                                     return '';
                                 }else{
                                     return $('<div/>').css({
@@ -974,7 +978,7 @@ function getBebanSDM(periode=null){
                             overflow: 'justify',
                             useHTML: true,
                             formatter: function () {
-                                if(this.y < 0.1){
+                                if(this.y < 0.01){
                                     return '';
                                 }else{
                                     return $('<div/>').css({
@@ -998,7 +1002,7 @@ function getBebanSDM(periode=null){
                             useHTML: true,
                             formatter: function () {
                                 // return '<span style="color:white;background:gray !important;"><b>'+sepNum(this.y)+' M</b></span>';
-                                if(this.y < 0.1){
+                                if(this.y < 0.01){
                                     return '';
                                 }else{
                                     return $('<div/>').css({
@@ -1128,7 +1132,7 @@ function getBebanSDMYoY(periode=null){
                             overflow: 'justify',
                             useHTML: true,
                             formatter: function () {
-                                if(this.y < 0.1){
+                                if(this.y < 0.01){
                                     return '';
                                 }else{
                                     return $('<div/>').css({
@@ -1152,7 +1156,7 @@ function getBebanSDMYoY(periode=null){
                             useHTML: true,
                             formatter: function () {
                                 // return '<span style="color:white;background:gray !important;"><b>'+sepNum(this.y)+' M</b></span>';
-                                if(this.y < 0.1){
+                                if(this.y < 0.01){
                                     return '';
                                 }else{
                                     return $('<div/>').css({
@@ -1282,7 +1286,7 @@ function getBebanNonSDM(periode=null){
                             overflow: 'justify',
                             useHTML: true,
                             formatter: function () {
-                                if(this.y < 0.1){
+                                if(this.y < 0.01){
                                     return '';
                                 }else{
                                     return $('<div/>').css({
@@ -1306,7 +1310,7 @@ function getBebanNonSDM(periode=null){
                             useHTML: true,
                             formatter: function () {
                                 // return '<span style="color:white;background:gray !important;"><b>'+sepNum(this.y)+' M</b></span>';
-                                if(this.y < 0.1){
+                                if(this.y < 0.01){
                                     return '';
                                 }else{
                                     return $('<div/>').css({
@@ -1437,7 +1441,7 @@ function getBebanNonSDMYoY(periode=null){
                             overflow: 'justify',
                             useHTML: true,
                             formatter: function () {
-                                if(this.y < 0.1){
+                                if(this.y < 0.01){
                                     return '';
                                 }else{
                                     return $('<div/>').css({
@@ -1461,7 +1465,7 @@ function getBebanNonSDMYoY(periode=null){
                             useHTML: true,
                             formatter: function () {
                                 // return '<span style="color:white;background:gray !important;"><b>'+sepNum(this.y)+' M</b></span>';
-                                if(this.y < 0.1){
+                                if(this.y < 0.01){
                                     return '';
                                 }else{
                                     return $('<div/>').css({
