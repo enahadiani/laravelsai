@@ -453,7 +453,7 @@
 					<span></span>
 					<span></span>
 				</div>
-                <div id="content-bottom-sheet" style="max-height:75vh;width:100%"></div>
+                <div id="content-bottom-sheet" style="min-height: 50vh;max-height:90vh;width:100%"></div>
 			</div>
 			<div class="c-bottom-sheet__container">
 
@@ -477,6 +477,11 @@
         headers: {
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         }
+    });
+
+    $('.c-bottom-sheet__close').on('click','#bottom-sheet-close',function(e){
+        e.preventDefault();
+        $('.c-bottom-sheet').removeClass('active');
     });
 
     class TouchDragListener {

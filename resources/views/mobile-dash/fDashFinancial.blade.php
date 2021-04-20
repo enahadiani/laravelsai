@@ -659,7 +659,7 @@ function getTarget(periode=null)
                         $("label[for="+id+"]").append(error);
                     }
                 });
-                $('.c-bottom-sheet__sheet').css({ "width":"70%","margin-left": "15%", "margin-right":"15%"});
+                $('.c-bottom-sheet__sheet').css({ "width":"90%","margin-left": "5%", "margin-right":"5%"});
                 $('#trigger-bottom-sheet').trigger("click");
             });
 
@@ -971,7 +971,7 @@ $('.or-row').on("click", '#note-or',function(e){
             $("label[for="+id+"]").append(error);
         }
     });
-    $('.c-bottom-sheet__sheet').css({ "width":"70%","margin-left": "15%", "margin-right":"15%"});
+    $('.c-bottom-sheet__sheet').css({ "width":"90%","margin-left": "5%", "margin-right":"5%"});
     $('#trigger-bottom-sheet').trigger("click");
 });
 
