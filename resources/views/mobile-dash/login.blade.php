@@ -172,12 +172,12 @@
             <div class="row">
             <div class="col-12 col-md-10 mx-auto" style="height:25vh">
                     <div style="box-shadow:none;background:none" class="card auth-card mt-4">
-                        <div class="row mt-3">
-                            <div style="margin-left: 30px;" class="col-6 pr-0 my-auto">
+                        <div class="row mt-3" style="width:100%">
+                            <div style="padding-left: 30px;" class="col-sm-6 col-6 pr-0 my-auto">
                                 <h6 style="color:white">SAKU</h6>
                                 <p style="color:white">Pantau bisnis dalam <br> gengaman tangan.</p>
                             </div>
-                            <div class="col-5 text-center">
+                            <div class="col-sm-6 col-5 text-center">
                                 <img class="mx-auto" src="{{ asset('/img/mobile-dash/lock-open.png') }}" alt="" style="margin: 0 auto;height: 130px;">
                             </div>
                         </div>

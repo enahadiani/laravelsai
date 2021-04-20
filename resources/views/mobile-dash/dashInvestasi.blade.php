@@ -167,6 +167,8 @@ $nik     = Session::get('userLog');
     var darkMode = localStorage.getItem('dore-theme-color');
     var color = '';
     var colorText = '';
+    
+    $('.nama-menu').html($nama_menu);
     function drawChart() {
         console.log(darkMode);
         if(darkMode == 'dore.dark.redruby.min.css'){

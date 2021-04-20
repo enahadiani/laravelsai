@@ -193,6 +193,8 @@ $('body').addClass('dash-contents');
 $('html').addClass('dash-contents');
 var $kode_grafik = "";
 var $nama = "";
+
+$('.nama-menu').html($nama_menu);
 if(localStorage.getItem("dore-theme") == "dark"){
     $('#btn-filter').removeClass('btn-outline-light');
     $('#btn-filter').addClass('btn-outline-dark');

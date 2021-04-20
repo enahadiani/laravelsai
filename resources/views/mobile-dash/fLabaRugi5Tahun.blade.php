@@ -213,6 +213,8 @@ $thnLalu = substr($tahunLalu,2,2)
 <script>
 $('body').addClass('dash-contents');
 $('html').addClass('dash-contents');
+
+$('.nama-menu').html($nama_menu);
 if(localStorage.getItem("dore-theme") == "dark"){
     $('#btn-filter').removeClass('btn-outline-light');
     $('#btn-filter').addClass('btn-outline-dark');

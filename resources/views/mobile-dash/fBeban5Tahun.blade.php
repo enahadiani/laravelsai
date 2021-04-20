@@ -39,6 +39,7 @@ $tahun5 = intval($tahun-5);
     </style>
 
 <div class="container-fluid mt-3">
+@include('mobile-dash.back')
     <div class="row">
         <div class="col-12">
             <h6 class="mb-0 bold">Beban 5 Tahun</h6>
@@ -212,6 +213,8 @@ $tahun5 = intval($tahun-5);
     </div>
 </div>
 <script>
+
+$('.nama-menu').html($nama_menu);
 $('body').addClass('dash-contents');
 $('html').addClass('dash-contents');
 if(localStorage.getItem("dore-theme") == "dark"){

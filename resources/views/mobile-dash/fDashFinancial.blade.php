@@ -78,6 +78,7 @@ $thnLalu = substr($tahunLalu,2,2)
     </style>
 
 <div class="container-fluid mt-3">
+    @include('mobile-dash.back')
     <div class="row">
         <div class="col-12">
             <h6 class="mb-0 bold">Laporan Keuangan Telkom University</h6>
@@ -91,38 +92,36 @@ $thnLalu = substr($tahunLalu,2,2)
                 <div class="card-body or-row">
                     <h6>Operating Ratio</h6>
                     <div class="row">
-                        <div class="col-md-12">
-                            <div id="chart-or">
+                        <div class="col-md-6 col-6">
+                            <p class="mb-0 mt-2">
+                            Pencapaian 
+                            </p>
+                            <span class="text-info mb-0 badge badge-pill badge-info" id="acv-or" style="color:white !important"></span>
+                            <p class="mb-0 mt-2">
+                            Target <span class="text-info mb-0" id="target-or"></span>
+                            </p>
+                            <p class="mb-0">
+                            Realisasi <span class="text-danger mb-0" id="real-or"></span>
+                            </p>
+                        </div>
+                        <div class="col-md-6 col-6">
+                            <div id="chart-or" style="max-height:250px">
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="card bg-blue">
-                                <div class="card-body px-3 py-2 text-center">
-                                    <p class="mb-2">Target</p>
-                                    <p class="text-info mb-0" id="target-or"></p>
-                                </div>
-                            </div>
+                    <div class="collapse" id="collaps-or" style="">
+                        <div class="p-4 border mt-0" style="border-radius:0.25rem;background:#F8F8F8">
+                        <p id="ket-or"></p>
                         </div>
-                        <div class="col-md-6">
-                            <div class="card bg-red">
-                                <div class="card-body px-3 py-2 text-center">
-                                    <p class="mb-2">Real</p>
-                                    <p class="text-danger mb-0" id="real-or"></p>
-                                </div>
-                            </div>
-                        </div>
+                        <a class='edit-note' id='note-or' href='#'>
+                            <i class="simple-icon-note text-right" style="font-size: 25px;position: absolute;bottom: 50px;right: 30px;color: #f3f3f3;"></i>
+                        </a>
                     </div>
-                    <div class="separator px-2 my-5"></div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <p id="ket-or"></p>
-                        </div>
-                    </div>
-                    <a class='edit-note' id='note-or' href='#'>
-                        <i class="simple-icon-note text-right" style="font-size: 25px;position: absolute;bottom: 20px;right: 20px;color: #f3f3f3;"></i>
-                    </a>
+                    <p class="mb-0 text-center">
+                        <a class="mb-1" data-toggle="collapse" href="#collaps-or" role="button" aria-expanded="true" aria-controls="collaps-or">
+                        <i class="simple-icon-arrow-down"></i>
+                        </a>
+                    </p>
                 </div>
             </div>
         </div>
@@ -181,6 +180,7 @@ $('body').addClass('dash-contents');
 $('html').addClass('dash-contents');
 var $kode_grafik = "";
 var $nama = "";
+$('.nama-menu').html($nama_menu);
 if(localStorage.getItem("dore-theme") == "dark"){
     $('#btn-filter').removeClass('btn-outline-light');
     $('#btn-filter').addClass('btn-outline-dark');
@@ -504,10 +504,15 @@ function getTarget(periode=null)
                                 <div class="card card-target ">
                                     <div class="card-body">
                                         <div class="row">
-                                            <div class="col-md-5 col-12 col-grid">
+                                            <div class="col-md-12 col-12">
                                                 <h6>`+line.nama+`</h6>
+                                            </div>
+                                            <div class="col-md-6 col-6">
                                                 <h5 class="bold">`+toMilyar(line.realisasi)+`</h5>
-                                                <p>Target `+toMilyar(line.rka_sd)+`</p>
+                                                <p class="mb-0">Target `+toMilyar(line.rka_sd)+`</p>
+                                                <p>Tahun Lalu `+toMilyar(line.realisasi_lalu)+`</p>
+                                            </div>
+                                            <div class="col-md-6 col-6 col-grid">
                                                 <table class="table table-borderless table-target" style="width:90%">`;
                                                     if(parseFloat(line.persen) >= 100){
                                                         var text = "text-success";
@@ -527,23 +532,35 @@ function getTarget(periode=null)
                                                     
                                                     html+=`
                                                     <tr>
-                                                        <td style="width:10%" rowspan="2"><i class="`+icon+` `+text+`" style="font-size:25px;"></i></td>
-                                                        <td class="bold `+text+`" style="width:30%">`+sepNum(line.persen)+`%</td>
-                                                        <td style="width:10%" rowspan="2"><i class="`+icon2+` `+text2+`" style="font-size:25px"></i></td>
-                                                        <td class="bold `+text2+`" style="width:30%">`+sepNum(line.yoy)+`%</td>
-                                                        <td rowspan="2" style="width:20%">&nbsp;</td>
+                                                        <td class="">Pencapaian</td>
                                                     </tr>
                                                     <tr>
-                                                        <td class="">Pencapaian</td>
+                                                    <tr>
+                                                        <td style="width:20%"  colspan="2"><i class="`+icon+` `+text+` mr-2" style="font-size:25px;"></i><span class="bold `+text+`" style="width:80%;font-size:16px !important;position:absolute;padding-bottom:10px">`+sepNum(line.persen)+`%</span></td>
+                                                    </tr>
+                                                    <tr>
                                                         <td class="">YoY</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width:20%"  colspan="2"><i class="`+icon2+` `+text2+` mr-2" style="font-size:25px"></i><span class="bold `+text2+`" style="width:80%;font-size:16px !important;position:absolute;padding-bottom:10px">`+sepNum(line.yoy)+`%</span></td>
+                                                        <td  style="width:20%">&nbsp;</td>
                                                     </tr>
                                                 </table>
                                             </div>
                                             <div class="col-md-7 col-12 col-grid row-note">
-                                                <p class='note-text'>`+line.keterangan+`</p>
-                                                <a class='edit-note' href='#' data-kode_grafik='`+line.kode_grafik+`' data-periode='`+quarter($dash_periode.from)+`' data-nama='`+line.nama+`'>
-                                                    <i class="simple-icon-note text-right" style="font-size: 25px;position: absolute;bottom: 0;right: 20px;color: #f3f3f3;"></i>
-                                                </a>
+                                                <div class="collapse" id="collaps`+line.kode_grafik+`" style="">
+                                                    <div class="p-4 border mt-0" style="border-radius:0.25rem;background:#F8F8F8">
+                                                        <p class='note-text'>`+line.keterangan+`</p>
+                                                        <a class='edit-note' href='#' data-kode_grafik='`+line.kode_grafik+`' data-periode='`+quarter($dash_periode.from)+`' data-nama='`+line.nama+`'>
+                                                            <i class="simple-icon-note text-right" style="font-size: 25px;position: absolute;bottom: 30px;right: 20px;color: #f3f3f3;"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <p class="mb-0 text-center">
+                                                    <a class="mb-1" data-toggle="collapse" href="#collaps`+line.kode_grafik+`" role="button" aria-expanded="true" aria-controls="collaps`+line.kode_grafik+`">
+                                                    <i class="simple-icon-arrow-down"></i>
+                                                    </a>
+                                                </p>
                                             </div>
                                         </div>
                                     </div>
@@ -555,7 +572,7 @@ function getTarget(periode=null)
                 }
             }
             
-            $('#target-box').html(html);
+            $('#target-box').html(html+"<div style='height:100px;'>&nbsp;</div>");
             $('.row-note').on("click", '.edit-note',function(e){
                 e.preventDefault();
                 var note = $(this).closest('div').find('p.note-text');
@@ -696,13 +713,14 @@ function getTarget(periode=null)
                 $('#note-or').attr('data-periode',quarter($dash_periode.from));
                 $('#target-or').html(sepNum(result.data2[0].rka_sd));
                 $('#real-or').html(sepNum(result.data2[0].realisasi));
+                $('#acv-or').html(sepNum(result.data2[0].persen));
                 $('#ket-or').html(result.data2[0].keterangan);
                 
                 Highcharts.chart('chart-or', {
                     
                     chart: {
                         type: 'solidgauge',
-                        height: '110%',
+                        height: '80%',
                         events: {
                             render: renderIcons
                         }

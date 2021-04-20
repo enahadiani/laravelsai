@@ -117,6 +117,8 @@ $tahun5 = intval($tahun-5);
     </div>
 </div>
 <script>
+
+$('.nama-menu').html($nama_menu);
 $('body').addClass('dash-contents');
 $('html').addClass('dash-contents');
 if(localStorage.getItem("dore-theme") == "dark"){
