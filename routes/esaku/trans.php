@@ -259,3 +259,12 @@ Route::delete('edit-aktap', 'Esaku\Aktap\EditAktapController@delete');
 Route::post('import-anggaran-excel', 'Esaku\Anggaran\UploadAnggaranController@importExcel');
 Route::post('simpan-anggaran', 'Esaku\Anggaran\UploadAnggaranController@store');
 Route::get('load-anggaran', 'Esaku\Anggaran\UploadAnggaranController@loadAnggaran');
+
+## Pengajua RRA
+Route::get('pengajuan-rra', 'Esaku\Anggaran\PengajuanAnggaranController@index');
+Route::get('nik-approve', 'Esaku\Anggaran\PengajuanAnggaranController@getNikApprove');
+Route::get('pp-terima', 'Esaku\Anggaran\PengajuanAnggaranController@getPPTerima');
+Route::get('akun-terima', 'Esaku\Anggaran\PengajuanAnggaranController@getAkunTerima');
+Route::get('mata-anggaran', 'Esaku\Anggaran\PengajuanAnggaranController@getMataAnggaran');
+Route::get('pp-anggaran', 'Esaku\Anggaran\PengajuanAnggaranController@getPPAnggaran');
+Route::get('cek-saldo', 'Esaku\Anggaran\PengajuanAnggaranController@getSaldoAnggaran');
