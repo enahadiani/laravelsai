@@ -7763,3 +7763,9 @@ div.row-notif  a:hover {
 .dash-contents h6,.dash-contents p,.dash-contents span,.dash-contents label{
   color:#8f8f8f !important;
 }
+.list-menudash > .list-group-item{
+  background:#8f8f8f
+}
+.navbar-bottom, .navbar-bottom a.active{
+  background:#242424;
+}

@@ -131,7 +131,7 @@ var $watch_ket = "";
                         html+=`
                         <div class="col-xs-12 col-sm-4 col-md-3 mb-3">
                             <div class="recent-work-wrap">
-                                <iframe class="img-responsive" src="`+link+`" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="width: -moz-available;"></iframe>
+                                <iframe class="img-responsive" src="`+link+`" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="width: -moz-available;width: -webkit-fill-available;"></iframe>
                                 <div class="recent-work-inner">
                                     <p>`+line.keterangan+`</p>
                                 </div> 
