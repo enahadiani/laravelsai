@@ -203,10 +203,73 @@
 <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
 <script src="{{ asset('helper.js') }}"></script>
 <script type="text/javascript">
-    var tahun = "{{ date('Y') }}"
+    var $tahun = "{{ date('Y') }}"
+    var $mataAnggaran = []
+    var $ppAnggaran = []
+    var $drkAnggaran = []
+
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+        }
+    });
+
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('esaku-trans/mata-anggaran') }}",
+        dataType: 'json',
+        data: { tahun: $tahun },
+        async:false,
+        success:function(result){    
+            var data = result.daftar
+            if(data.length > 0) {
+                for(var i=0;i<data.length;i++) {
+                    var dt = data[i]
+                    $mataAnggaran.push({ id: dt.kode_akun, name: dt.nama })
+                }
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {       
+            if(jqXHR.status == 422){
+                var msg = jqXHR.responseText;
+            }else if(jqXHR.status == 500) {
+                var msg = "Internal server error";
+            }else if(jqXHR.status == 401){
+                var msg = "Unauthorized";
+                window.location="{{ url('/esaku-auth/sesi-habis') }}";
+            }else if(jqXHR.status == 405){
+                var msg = "Route not valid. Page not found";
+            }    
+        }
+    });
+
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('esaku-trans/pp-anggaran') }}",
+        dataType: 'json',
+        data: { tahun: $tahun },
+        async:false,
+        success:function(result){    
+            var data = result.daftar
+            if(data.length > 0) {
+                for(var i=0;i<data.length;i++) {
+                    var dt = data[i]
+                    $ppAnggaran.push({ id: dt.kode_pp, name: dt.nama })
+                    $drkAnggaran.push({ id: dt.kode_pp, name: dt.nama })
+                }
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {       
+            if(jqXHR.status == 422){
+                var msg = jqXHR.responseText;
+            }else if(jqXHR.status == 500) {
+                var msg = "Internal server error";
+            }else if(jqXHR.status == 401){
+                var msg = "Unauthorized";
+                window.location="{{ url('/esaku-auth/sesi-habis') }}";
+            }else if(jqXHR.status == 405){
+                var msg = "Route not valid. Page not found";
+            }    
         }
     });
 
@@ -328,7 +391,6 @@
 
     $('#form-tambah').on('click', '.search-item2', function() { 
         var id = $(this).closest('div').find('input').attr('name');
-        console.log(id)
         switch(id) {
             case 'nik_approve': 
                 var settings = {
@@ -513,31 +575,31 @@
         var html = "";
         html += "<tr class='row-pemberi'>"
         html += "<td class='no-pemberi text-center hidden'>"+no+"</td>"
-        html += "<td>"
+        html += "<td><div>"
         html += "<span class='td-anggaran tdanggaranke"+no+" tooltip-span'></span>"
-        html += "<input autocomplete='off' type='text' name='anggaran[]' class='form-control inp-anggaran anggaranke"+no+" hidden' value='' required='' style='z-index: 1;position: relative;' id='anggarankode"+no+"'><a href='#' class='search-item search-anggaran hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a>"
-        html += "</td>"
-        html += "<td>"
+        html += "<input autocomplete='off' type='text' name='anggaran[]' class='inp-anggaran anggaranke"+no+" form-control hidden' value='' required='' style='z-index: 1;position: relative;' id='anggarankode"+no+"'><a href='#' class='search-item search-anggaran hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a>"
+        html += "</div></td>"
+        html += "<td><div>"
         html += "<span class='td-pp tdppke"+no+" tooltip-span'></span>"
-        html += "<input autocomplete='off' type='text' name='pp[]' class='form-control inp-pp ppke"+no+" hidden' value='' required='' style='z-index: 1;position: relative;' id='ppkode"+no+"'><a href='#' class='search-item search-pp hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a>"
-        html += "</td>"
-        html += "<td>"
+        html += "<input autocomplete='off' type='text' name='pp[]' class='inp-pp ppke"+no+" form-control hidden' value='' required='' style='z-index: 1;position: relative;' id='ppkode"+no+"'><a href='#' class='search-item search-pp hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a>"
+        html += "</div></td>"
+        html += "<td><div>"
         html += "<span class='td-drk tddrkke"+no+" tooltip-span'></span>"
-        html += "<input autocomplete='off' type='text' name='drk[]' class='form-control inp-drk drkke"+no+" hidden' value='' required='' style='z-index: 1;position: relative;' id='drkkode"+no+"'><a href='#' class='search-item search-drk hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a>"
-        html += "</td>"
-        html += "<td class='text-center'>"
+        html += "<input autocomplete='off' type='text' name='drk[]' class='inp-drk drkke"+no+" form-control hidden' value='' required='' style='z-index: 1;position: relative;' id='drkkode"+no+"'><a href='#' class='search-item search-drk hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a>"
+        html += "</div></td>"
+        html += "<td class='text-center'><div>"
         html += "<span class='td-bulan tdbulanke"+no+" tooltip-span'></span>"
-        html += "<select class='form-control hidden inp-bulan' name='bulan[]'>"
+        html += "<select class='hidden form-control inp-bulan bulanke"+no+"' name='bulan[]'>"
         html += "<option value='01' selected>01</option><option value='02'>02</option><option value='03'>03</option><option value='04'>04</option><option value='05'>05</option><option value='06'>06</option><option value='07'>07</option><option value='08'>08</option><option value='09'>09</option><option value='10'>10</option><option value='11'>11</option><option value='12'>12</option>"
         html += "</select>"
-        html += "</td>"
-        html += "<td class='text-right'>"
+        html += "</div></td>"
+        html += "<td class='text-right'><div>"
         html += "<span class='td-saldo tdsaldoke"+no+"'>0</span>"
-        html += "<input type='text' name='saldo[]' class='form-control inp-saldo saldoke"+no+" hidden currency'  value='0' required readonly>"
-        html += "</td>"
+        html += "<input type='text' name='saldo[]' class='inp-saldo form-control saldoke"+no+" hidden currency'  value='0' required readonly>"
+        html += "</div></td>"
         html += "<td class='text-right'>"
         html += "<span class='td-nilai tdnilaike"+no+"'>0</span>"
-        html += "<input type='text' name='nilai[]' class='form-control inp-nilai nilaike"+no+" hidden currency'  value='0' required>"
+        html += "<input type='text' name='nilai[]' class='inp-nilai form-control nilaike"+no+" hidden currency'  value='0' required>"
         html += "</td>"
         html += "<td class='text-center'><a class='hapus-pemberi' style='font-size:18px;cursor:pointer;'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
         html += "</tr>"
@@ -556,6 +618,48 @@
         $('.tooltip-span').tooltip({
             title: function(){
                 return $(this).text();
+            }
+        });
+
+        $('.inp-anggaran').typeahead({
+            source:$mataAnggaran,
+            displayText:function(item){
+                return item.id+'-'+item.name;
+            },
+            autoSelect:false,
+            changeInputOnSelect:false,
+            changeInputOnMove:false,
+            selectOnBlur:false,
+            afterSelect: function (item) {
+                console.log(item.id);
+            }
+        });
+
+        $('.inp-pp').typeahead({
+            source:$ppAnggaran,
+            displayText:function(item){
+                return item.id+'-'+item.name;
+            },
+            autoSelect:false,
+            changeInputOnSelect:false,
+            changeInputOnMove:false,
+            selectOnBlur:false,
+            afterSelect: function (item) {
+                console.log(item.id);
+            }
+        });
+
+        $('.inp-drk').typeahead({
+            source:$ppAnggaran,
+            displayText:function(item){
+                return item.id+'-'+item.name;
+            },
+            autoSelect:false,
+            changeInputOnSelect:false,
+            changeInputOnMove:false,
+            selectOnBlur:false,
+            afterSelect: function (item) {
+                console.log(item.id);
             }
         });
 
@@ -587,4 +691,256 @@
         hitungTotalRowPemberi();
         $("html, body").animate({ scrollTop: $(document).height() }, 1000);     
     });
+
+    $('#pemberi-grid').on('click', '.search-item', function() {
+        var param = $(this).closest('div').find('input[type="text"]').attr('name')
+        var target1 = $(this).closest('div').find('input[type="text"]').attr('class')
+        var target2 = $(this).closest('div').find('span').attr('class')
+        var target3 = $(this).closest('td').next('td').find('input[type="text"]').attr('class')
+        var target4 = $(this).closest('td').next('td').find('span').attr('class')
+        var tmp = target1.split(" ");
+        var tmp2 = target2.split(" ")
+        if(typeof target3 !== 'undefined') {
+            var tmp3 = target3.split(" ")
+            target3 = tmp3[1]
+        }
+        if(typeof target4 !== 'undefined') {
+            var tmp4 = target4.split(" ")
+            target4 = tmp4[1]
+        }
+        target1 = tmp[1];
+        target2 = tmp2[1]
+
+        switch(param){
+            case 'anggaran[]': 
+                var options = { 
+                    id : param,
+                    header : ['Kode', 'Nama'],
+                    url : "{{ url('esaku-trans/mata-anggaran') }}",
+                    columns : [
+                        { data: 'kode_akun' },
+                        { data: 'nama' }
+                    ],
+                    parameter: {
+                        tahun: $tahun
+                    },
+                    judul : "Daftar Mata Anggaran",
+                    pilih : "jenis",
+                    jTarget1 : "val",
+                    jTarget2 : "val",
+                    target1 : "",
+                    target2 : "",
+                    target3 : "",
+                    target4 : "",
+                    onItemSelected: function(data) {
+                        var string = data.kode_akun+'-'+data.nama
+                        if(string.length > 30) {
+                            string = string.substr(0, 30) + '...'
+                        }
+                        $('.'+target1).val(string)
+                        $('.'+target2).text(string)
+                        $('.'+target1).hide()
+                        $('.search-anggaran').hide()
+                        $('.'+target2).show()
+                        $('.search-pp').show()
+                        $('.'+target3).show()
+                        $('.'+target4).hide()
+                    },
+                    width : ["30%","70%"]
+                };
+            break;
+            case 'pp[]': 
+                var options = { 
+                    id : param,
+                    header : ['Kode', 'Nama'],
+                    url : "{{ url('esaku-trans/pp-anggaran') }}",
+                    columns : [
+                        { data: 'kode_pp' },
+                        { data: 'nama' }
+                    ],
+                    parameter: {
+                        tahun: $tahun
+                    },
+                    judul : "Daftar PP",
+                    pilih : "jenis",
+                    jTarget1 : "val",
+                    jTarget2 : "val",
+                    target1 : "",
+                    target2 : "",
+                    target3 : "",
+                    target4 : "",
+                    onItemSelected: function(data) {
+                        var string = data.kode_pp+'-'+data.nama
+                        if(string.length > 30) {
+                            string = string.substr(0, 30) + '...'
+                        }
+                        $('.'+target1).val(string)
+                        $('.'+target2).text(string)
+                        $('.'+target1).hide()
+                        $('.search-pp').hide()
+                        $('.'+target2).show()
+                        $('.search-drk').show()
+                        $('.'+target3).show()
+                        $('.'+target4).hide()
+                    },
+                    width : ["30%","70%"]
+                };
+            break;
+            case 'drk[]': 
+                var options = { 
+                    id : param,
+                    header : ['Kode', 'Nama'],
+                    url : "{{ url('esaku-trans/pp-anggaran') }}",
+                    columns : [
+                        { data: 'kode_pp' },
+                        { data: 'nama' }
+                    ],
+                    parameter: {
+                        tahun: $tahun
+                    },
+                    judul : "Daftar DRK",
+                    pilih : "jenis",
+                    jTarget1 : "val",
+                    jTarget2 : "val",
+                    target1 : "",
+                    target2 : "",
+                    target3 : "",
+                    target4 : "",
+                    onItemSelected: function(data) {
+                        var string = data.kode_pp+'-'+data.nama
+                        if(string.length > 30) {
+                            string = string.substr(0, 30) + '...'
+                        }
+                        $('.'+target1).val(string)
+                        $('.'+target2).text(string)
+                        $('.'+target1).hide()
+                        $('.'+target2).show()
+                        $('.search-drk').hide()
+                    },
+                    width : ["30%","70%"]
+                };
+            break;
+            default:
+            break;
+        }
+
+        showInpFilter(options);
+    })
+
+    $('#pemberi-grid tbody').on('click', 'tr', function(){
+        $(this).addClass('selected-row');
+        $('#pemberi-grid tbody tr').not(this).removeClass('selected-row');
+        hideUnselectedRowPemberi();
+    });
+
+    $('#pemberi-grid').on('click', 'td', function(){
+        var idx = $(this).index();
+        if(idx == 6){
+            return false;
+        }else{
+            if($(this).hasClass('px-0 py-0 aktif')){
+                return false;            
+            }else{
+                $('#pemberi-grid td').removeClass('px-0 py-0 aktif');
+                $(this).addClass('px-0 py-0 aktif');
+        
+                var anggaran = $(this).parents("tr").find(".inp-anggaran").val();
+                var pp = $(this).parents("tr").find(".inp-pp").val();
+                var drk = $(this).parents("tr").find(".inp-drk").val();
+                var bulan = $(this).parents("tr").find(".inp-bulan").val();
+                var nilai = $(this).parents("tr").find(".inp-nilai").val();
+
+                $(this).parents("tr").find(".inp-anggaran").val(anggaran);
+                $(this).parents("tr").find(".td-anggaran").text(anggaran);
+                if(idx == 1){
+                    $(this).parents("tr").find(".inp-anggaran").show();
+                    $(this).parents("tr").find(".search-anggaran").show();
+                    $(this).parents("tr").find(".td-anggaran").hide();
+                    $(this).parents("tr").find(".inp-anggaran").focus();
+                }else{
+                    $(this).parents("tr").find(".inp-anggaran").hide();
+                    $(this).parents("tr").find(".search-anggaran").hide();
+                    $(this).parents("tr").find(".td-anggaran").show();   
+                }
+
+                $(this).parents("tr").find(".inp-pp").val(pp);
+                $(this).parents("tr").find(".td-pp").text(pp);
+                if(idx == 2){
+                    $(this).parents("tr").find(".inp-pp").show();
+                    $(this).parents("tr").find(".search-pp").show();
+                    $(this).parents("tr").find(".td-pp").hide();
+                    $(this).parents("tr").find(".inp-pp").focus();
+                }else{
+                    $(this).parents("tr").find(".inp-pp").hide();
+                    $(this).parents("tr").find(".search-pp").hide();
+                    $(this).parents("tr").find(".td-pp").show();
+                }
+
+                $(this).parents("tr").find(".inp-drk").val(drk);
+                $(this).parents("tr").find(".td-drk").text(drk);
+                if(idx == 3){
+                    $(this).parents("tr").find(".inp-drk").show();
+                    $(this).parents("tr").find(".search-drk").show();
+                    $(this).parents("tr").find(".td-drk").hide();
+                    $(this).parents("tr").find(".inp-drk").focus();
+                }else{
+                    $(this).parents("tr").find(".inp-drk").hide();
+                    $(this).parents("tr").find(".search-drk").hide();
+                    $(this).parents("tr").find(".td-drk").show();
+                }
+
+                $(this).parents("tr").find(".inp-bulan").val(bulan);
+                $(this).parents("tr").find(".td-bulan").text(bulan);
+                if(idx == 4){
+                    $(this).parents("tr").find(".inp-bulan").show();
+                    $(this).parents("tr").find(".td-bulan").hide();
+                }else{
+                    $(this).parents("tr").find(".inp-bulan").hide();
+                    $(this).parents("tr").find(".td-bulan").show();
+                }
+
+                $(this).parents("tr").find(".inp-nilai").val(nilai);
+                $(this).parents("tr").find(".td-nilai").text(nilai);
+                if(idx == 6){
+                    $(this).parents("tr").find(".inp-nilai").show();
+                    $(this).parents("tr").find(".td-nilai").hide();
+                    $(this).parents("tr").find(".inp-nilai").focus();
+                }else{
+                    $(this).parents("tr").find(".inp-nilai").hide();
+                    $(this).parents("tr").find(".td-nilai").show();
+                }
+            }
+        }
+    });
+
+    $('#bulan').on('change', function(){
+        var bulan = $(this).val()
+        var pp = $('#pp_penerima').val()
+        var anggaran = $('#akun_penerima').val()
+        var periode = $tahun.concat(bulan)
+
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('esaku-trans/cek-saldo') }}",
+            dataType: 'json',
+            data: { bulan: bulan, kode_pp: pp, kode_akun: anggaran, periode: periode },
+            async:false,
+            success:function(result){    
+                var saldo = result.daftar
+                $('#saldo').val(parseInt(saldo))
+            },
+            error: function(jqXHR, textStatus, errorThrown) {       
+                if(jqXHR.status == 422){
+                    var msg = jqXHR.responseText;
+                }else if(jqXHR.status == 500) {
+                    var msg = "Internal server error";
+                }else if(jqXHR.status == 401){
+                    var msg = "Unauthorized";
+                    window.location="{{ url('/esaku-auth/sesi-habis') }}";
+                }else if(jqXHR.status == 405){
+                    var msg = "Route not valid. Page not found";
+                }    
+            }
+        });
+    })
 </script>

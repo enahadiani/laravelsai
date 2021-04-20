@@ -21,6 +21,73 @@ class PengajuanAnggaranController extends Controller {
         }
     }
 
+    public function getSaldoAnggaran(Request $request) {
+        $client = new Client();
+        $response = $client->request('GET',  config('api.url').'esaku-trans/rra-agg-saldo',[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ],
+            'query' => [
+                'bulan_terima' => $request->bulan,
+                'kode_pp_terima' => $request->kode_pp,
+                'kode_akun_terima' => $request->kode_akun,
+                'periode' => $request->periode,
+                'no_bukti' => '-'
+            ]
+        ]);
+
+        if ($response->getStatusCode() == 200) { // 200 OK
+            $response_data = $response->getBody()->getContents();
+            
+            $data = json_decode($response_data,true);
+            $data = $data['success']['saldo'];
+        }
+        return response()->json(['daftar' => $data, 'status' => true], 200);
+    }
+
+    public function getPPAnggaran(Request $request) {
+        $client = new Client();
+        $response = $client->request('GET',  config('api.url').'esaku-trans/rra-pp',[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ],
+            'query' => [
+                'tahun' => $request->tahun
+            ]
+        ]);
+
+        if ($response->getStatusCode() == 200) { // 200 OK
+            $response_data = $response->getBody()->getContents();
+            
+            $data = json_decode($response_data,true);
+            $data = $data['success']['data'];
+        }
+        return response()->json(['daftar' => $data, 'status' => true], 200);
+    }
+
+    public function getMataAnggaran(Request $request) {
+        $client = new Client();
+        $response = $client->request('GET',  config('api.url').'esaku-trans/rra-mta',[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ],
+            'query' => [
+                'tahun' => $request->tahun
+            ]
+        ]);
+
+        if ($response->getStatusCode() == 200) { // 200 OK
+            $response_data = $response->getBody()->getContents();
+            
+            $data = json_decode($response_data,true);
+            $data = $data['success']['data'];
+        }
+        return response()->json(['daftar' => $data, 'status' => true], 200);
+    }
+
     public function getAkunTerima() {
         $client = new Client();
         $response = $client->request('GET',  config('api.url').'esaku-trans/rra-akun-terima',[
