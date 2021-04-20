@@ -595,7 +595,7 @@
         html += "</div></td>"
         html += "<td class='text-right'><div>"
         html += "<span class='td-saldo tdsaldoke"+no+"'>0</span>"
-        html += "<input type='text' name='saldo[]' class='inp-saldo form-control saldoke"+no+" hidden currency'  value='0' required readonly>"
+        html += "<input type='text' name='saldo[]' class='inp-saldo form-control saldoke"+no+" hidden currency'  value='0' required>"
         html += "</div></td>"
         html += "<td class='text-right'>"
         html += "<span class='td-nilai tdnilaike"+no+"'>0</span>"
@@ -693,6 +693,7 @@
     });
 
     $('#pemberi-grid').on('click', '.search-item', function() {
+        var idx = $(this).closest('tr').find('.no-pemberi').text()
         var param = $(this).closest('div').find('input[type="text"]').attr('name')
         var target1 = $(this).closest('div').find('input[type="text"]').attr('class')
         var target2 = $(this).closest('div').find('span').attr('class')
@@ -816,6 +817,9 @@
                         $('.'+target1).hide()
                         $('.'+target2).show()
                         $('.search-drk').hide()
+                        $('.tdbulanke'+idx).hide()
+                        $('.bulanke'+idx).show()
+                        $('.bulanke'+idx).focus()
                     },
                     width : ["30%","70%"]
                 };
@@ -849,6 +853,7 @@
                 var drk = $(this).parents("tr").find(".inp-drk").val();
                 var bulan = $(this).parents("tr").find(".inp-bulan").val();
                 var nilai = $(this).parents("tr").find(".inp-nilai").val();
+                var saldo = $(this).parents("tr").find(".inp-saldo").val();
 
                 $(this).parents("tr").find(".inp-anggaran").val(anggaran);
                 $(this).parents("tr").find(".td-anggaran").text(anggaran);
@@ -899,6 +904,17 @@
                     $(this).parents("tr").find(".td-bulan").show();
                 }
 
+                $(this).parents("tr").find(".inp-saldo").val(saldo);
+                $(this).parents("tr").find(".td-saldo").text(saldo);
+                if(idx == 5){
+                    $(this).parents("tr").find(".inp-saldo").show();
+                    $(this).parents("tr").find(".td-saldo").hide();
+                    $(this).parents("tr").find(".inp-saldo").focus();
+                }else{
+                    $(this).parents("tr").find(".inp-saldo").hide();
+                    $(this).parents("tr").find(".td-saldo").show();
+                }
+
                 $(this).parents("tr").find(".inp-nilai").val(nilai);
                 $(this).parents("tr").find(".td-nilai").text(nilai);
                 if(idx == 6){
@@ -911,6 +927,20 @@
                 }
             }
         }
+    });
+
+    $('#pemberi-grid').on('change', '.inp-bulan', function(e){
+        e.preventDefault();
+        var noidx =  $(this).parents("tr").find(".no-pemberi").text();
+        target1 = "saldoke"+noidx;
+        target2 = "tdsaldoke"+noidx;
+        var value = $(this).val();
+        $('.tdbulanke'+noidx).text(value)
+        $('.bulanke'+noidx).hide()
+        $('.tdbulanke'+noidx).show()
+        $('.saldoke'+noidx).show()
+        $('.tdsaldoke'+noidx).hide()
+        setTimeout(() => $('.saldoke'+noidx).focus(), 800)
     });
 
     $('#bulan').on('change', function(){
