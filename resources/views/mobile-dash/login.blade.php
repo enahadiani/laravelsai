@@ -132,8 +132,8 @@
         .show-spinner > .logo-tarbak-overlay{
             display: block !important;
         }
-        .bg-blue{
-            background:#0058E4 !important;
+        .bg-red{
+            background:var(--theme-color-1) !important;
         }
     </style>
 
@@ -144,6 +144,21 @@
     <script>
         var $public_asset = "{{ asset('asset_dore') }}/";
         var $theme = "dore.light.redruby.min.css";
+        var $theme = "dore.dark.redruby.min.css";
+        var mode = window.localStorage.getItem('dore-theme');
+        if (mode == "dark") {
+            $theme = $theme.replace("light", "dark");
+
+        // localStorage.setItem("dore-theme", mode);
+        } else if (mode == "light") {
+            $theme = $theme.replace("dark", "light");
+           
+        }else{
+            window.localStorage.setItem('dore-theme',"dark");
+            $theme = $theme.replace("light", "dark");
+           
+        }
+ 
     </script>
     <script src="{{ asset('asset_dore/js/scripts.js') }}"></script>
     <script>
@@ -174,16 +189,17 @@
                     <div style="box-shadow:none;background:none" class="card auth-card mt-4">
                         <div class="row mt-3" style="width:100%">
                             <div style="padding-left: 30px;" class="col-sm-6 col-6 pr-0 my-auto">
-                                <h6 style="color:white">SAKU</h6>
+                                <h6 style="color:white">Dashboard</h6>
                                 <p style="color:white">Pantau bisnis dalam <br> gengaman tangan.</p>
                             </div>
                             <div class="col-sm-6 col-5 text-center">
-                                <img class="mx-auto" src="{{ asset('/img/mobile-dash/lock-open.png') }}" alt="" style="margin: 0 auto;height: 130px;">
+                                <img class="" id="logo1" src="" alt="" style="margin: 0 auto;height: 50px">
+                                <img class="mt-3" id="logo2" src="" alt="" style="margin: 0 auto;height: 50px">
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-md-10 mx-auto" style="height:75vh;background:white;border-top-left-radius:20px;border-top-right-radius:20px">
+                <div class="col-12 col-md-10 mx-auto dash-login" style="height:75vh;background:white;border-top-left-radius:20px;border-top-right-radius:20px">
                     <div class="card auth-card" style="box-shadow:none;background:none">
                         <div class="form-side">
                             <form method="POST" action="{{ url('mobile-dash/login') }}" id="form-login">
@@ -220,7 +236,7 @@
                                     <label style='cursor:pointer'>Lupa password?</label>
                                 </div>
                                 <div class="d-flex justify-content-between align-items-center mt-4">
-                                    <button class="btn btn-primary btn-block" style="background:#4361EE" type="submit">Masuk</button>
+                                    <button class="btn btn-primary btn-block" style="background:var(--theme-color-1)" type="submit">Masuk</button>
                                 </div>
                                 <!-- <div class="mt-5">
                                     <p class="mx-auto text-center mb-0" style="font-size: 0.7rem !important;color: #4361ee;">
@@ -253,7 +269,22 @@
     </main>
     
     <script>
-      
+      if (mode == "dark") {
+            var url_logo = "{{ asset('img/whitelogo Telu.png') }}";
+            var url_logo2 = "{{ asset('img/KUG Light.png') }}";
+            $('#logo1').attr('src', url_logo);
+            $('#logo2').attr('src', url_logo2);
+
+        // localStorage.setItem("dore-theme", mode);
+        } else if (mode == "light") {
+            
+            var url_logo = "{{ asset('img/Tel-U-logo_1.PRIMER-Utama.png') }}";
+            var url_logo2 = "{{ asset('img/KUG Dark.png') }}";
+            
+            $('#logo1').attr('src', url_logo);
+            $('#logo2').attr('src', url_logo2);
+        }
+
         function showNotification(placementFrom, placementAlign, type,title,message) {
             $.notify(
                 {
@@ -329,7 +360,7 @@
                     }
                 }
             });
-            $('body').addClass('bg-blue');
+            $('body').addClass('bg-red');
 
             $('#btn-eye').click(function(){
                 console.log('click');

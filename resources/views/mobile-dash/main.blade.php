@@ -1419,6 +1419,20 @@
             'background-size': '30px',
             'height': '30px',
         });
+    }else{
+        $theme = $theme.replace("light", "dark");
+        var url_logo = "{{ asset('img/whitelogo Telu.png') }}";
+        var url_logo_mob = "{{ asset('img/telu_darkmode_mini.jpeg') }}";
+        $('.logo').css({
+            'background': "url('"+url_logo+"') no-repeat",
+            'background-size': '100px',
+            'height':'35px',
+        });
+        $('.logo-mobile').css({
+            'background': "url('"+url_logo_mob+"') no-repeat",
+            'background-size': '30px',
+            'height': '30px',
+        });
     }
  
     </script>
