@@ -128,7 +128,7 @@
                 $nama = result.data[0].nama;
                 $email = result.data[0].email;
                 if(result.data[0].foto != "-" && result.data[0].foto != ""){
-                    var url = "{{ config('api.url') }}ypt-auth/storage/"+result.data[0].foto;
+                    var url = "{{ config('api.url') }}ypt-auth/storage2/"+result.data[0].foto;
                 }else{
                     var url = "{{ asset('asset_elite/images/user.png') }}";
                 }
