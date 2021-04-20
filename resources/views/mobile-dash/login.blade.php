@@ -163,6 +163,18 @@
     <script src="{{ asset('asset_dore/js/scripts.js') }}"></script>
     <script>
         $('div.theme-colors').hide();
+        var $theme = "dore.dark.redruby.min.css";
+        var mode = window.localStorage.getItem('dore-theme');
+        if (mode == "dark") {
+            $theme = $theme.replace("light", "dark");
+
+        // localStorage.setItem("dore-theme", mode);
+        } else if (mode == "light") {
+            $theme = $theme.replace("dark", "light");
+        }else{
+            $theme = $theme.replace("light", "dark");
+        }
+ 
     </script>
     <!-- <script src="{{ asset('asset_dore/js/loading.js') }}"></script> -->
 </head>
