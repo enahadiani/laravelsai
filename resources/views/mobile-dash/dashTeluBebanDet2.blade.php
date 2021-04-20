@@ -208,7 +208,7 @@ function singkatNilai(num){
 function getDataBebanJurusan(periode=null,kodeNeraca=null,kodeBidang=null,tahun=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/getDataBebanJurusan') }}",
+        url:"{{ url('/mobile-dash/getDataBebanJurusan') }}",
         dataType:"JSON",
         data:{ 'form':$form_back,'periode[0]' : periode.type,
             'periode[1]' : periode.from,
@@ -234,7 +234,7 @@ function getDataBebanJurusan(periode=null,kodeNeraca=null,kodeBidang=null,tahun=
                 var msg = "Internal server error";
             }else if(jqXHR.status == 401){
                 var msg = "Unauthorized";
-                window.location="{{ url('/dash-telu/sesi-habis') }}";
+                window.location="{{ url('/mobile-dash/sesi-habis') }}";
             }else if(jqXHR.status == 405){
                 var msg = "Route not valid. Page not found";
             }
@@ -246,7 +246,7 @@ function getDataBebanJurusan(periode=null,kodeNeraca=null,kodeBidang=null,tahun=
 function getBebanJurusan(periode=null,kodeNeraca=null,kodeBidang=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/getBebanJurusan') }}",
+        url:"{{ url('/mobile-dash/getBebanJurusan') }}",
         dataType:"JSON",
         data:{ 'form':$form_back,'periode[0]' : periode.type,
             'periode[1]' : periode.from,
@@ -327,7 +327,7 @@ function getBebanJurusan(periode=null,kodeNeraca=null,kodeBidang=null){
                 var msg = "Internal server error";
             }else if(jqXHR.status == 401){
                 var msg = "Unauthorized";
-                window.location="{{ url('/dash-telu/sesi-habis') }}";
+                window.location="{{ url('/mobile-dash/sesi-habis') }}";
             }else if(jqXHR.status == 405){
                 var msg = "Route not valid. Page not found";
             }
@@ -388,7 +388,7 @@ $('.tahunPilih').text('20'+$kd2);
 $('.thnPilih').text($kd2);
 
 $('.detail2-beban').on('click','#btnBack',function(e){
-    var url = "{{ url('/dash-telu/form/dashTeluBebanDet') }}";
+    var url = "{{ url('/mobile-dash/form/dashTeluBebanDet') }}";
     loadForm(url);
 })
 </script>

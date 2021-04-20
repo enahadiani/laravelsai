@@ -284,7 +284,7 @@ function singkatNilai(num){
 function getPeriode(){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/periode') }}",
+        url:"{{ url('/mobile-dash/periode') }}",
         dataType: "JSON",
         success: function(result){
             $('#periode_type').selectize();
@@ -374,7 +374,7 @@ function getPeriode(){
                 var msg = "Internal server error";
             }else if(jqXHR.status == 401){
                 var msg = "Unauthorized";
-                window.location="{{ url('/dash-telu/sesi-habis') }}";
+                window.location="{{ url('/mobile-dash/sesi-habis') }}";
             }else if(jqXHR.status == 405){
                 var msg = "Route not valid. Page not found";
             }
@@ -422,7 +422,7 @@ function getProfitLoss(periode=null)
 {
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/profit-loss') }}",
+        url:"{{ url('/mobile-dash/profit-loss') }}",
         data: {
             'periode[0]' : periode.type,
             'periode[1]' : periode.from,
@@ -478,7 +478,7 @@ function getProfitLoss(periode=null)
                 var msg = "Internal server error";
             }else if(jqXHR.status == 401){
                 var msg = "Unauthorized";
-                window.location="{{ url('/dash-telu/sesi-habis') }}";
+                window.location="{{ url('/mobile-dash/sesi-habis') }}";
             }else if(jqXHR.status == 405){
                 var msg = "Route not valid. Page not found";
             }
@@ -491,7 +491,7 @@ function getFxPosition(periode=null)
 {
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/fx-position') }}",
+        url:"{{ url('/mobile-dash/fx-position') }}",
         data:  {
             'periode[0]' : periode.type,
             'periode[1]' : periode.from,
@@ -552,7 +552,7 @@ function getFxPosition(periode=null)
                 var msg = "Internal server error";
             }else if(jqXHR.status == 401){
                 var msg = "Unauthorized";
-                window.location="{{ url('/dash-telu/sesi-habis') }}";
+                window.location="{{ url('/mobile-dash/sesi-habis') }}";
             }else if(jqXHR.status == 405){
                 var msg = "Route not valid. Page not found";
             }
@@ -565,7 +565,7 @@ function getPenyerapan(periode=null)
 {
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/penyerapan-beban') }}",
+        url:"{{ url('/mobile-dash/penyerapan-beban') }}",
         data:  {
             'periode[0]' : periode.type,
             'periode[1]' : periode.from,
@@ -644,7 +644,7 @@ function getPenyerapan(periode=null)
                 var msg = "Internal server error";
             }else if(jqXHR.status == 401){
                 var msg = "Unauthorized";
-                window.location="{{ url('/dash-telu/sesi-habis') }}";
+                window.location="{{ url('/mobile-dash/sesi-habis') }}";
             }else if(jqXHR.status == 405){
                 var msg = "Route not valid. Page not found";
             }
@@ -657,7 +657,7 @@ function getDebt(periode=null)
 {
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/debt') }}",
+        url:"{{ url('/mobile-dash/debt') }}",
         data:  {
             'periode[0]' : periode.type,
             'periode[1]' : periode.from,
@@ -721,7 +721,7 @@ function getDebt(periode=null)
                 var msg = "Internal server error";
             }else if(jqXHR.status == 401){
                 var msg = "Unauthorized";
-                window.location="{{ url('/dash-telu/sesi-habis') }}";
+                window.location="{{ url('/mobile-dash/sesi-habis') }}";
             }else if(jqXHR.status == 405){
                 var msg = "Route not valid. Page not found";
             }
@@ -734,7 +734,7 @@ function getKelola(periode=null)
 {
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/kelola-keuangan') }}",
+        url:"{{ url('/mobile-dash/kelola-keuangan') }}",
         data:  {
             'periode[0]' : periode.type,
             'periode[1]' : periode.from,
@@ -794,7 +794,7 @@ function getKelola(periode=null)
                 var msg = "Internal server error";
             }else if(jqXHR.status == 401){
                 var msg = "Unauthorized";
-                window.location="{{ url('/dash-telu/sesi-habis') }}";
+                window.location="{{ url('/mobile-dash/sesi-habis') }}";
             }else if(jqXHR.status == 405){
                 var msg = "Route not valid. Page not found";
             }
@@ -807,7 +807,7 @@ function getPin(periode=null)
 {
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/penjualan-pin') }}",
+        url:"{{ url('/mobile-dash/penjualan-pin') }}",
         data:  {
             'periode[0]' : periode.type,
             'periode[1]' : periode.from,
@@ -866,7 +866,7 @@ function getPin(periode=null)
                 var msg = "Internal server error";
             }else if(jqXHR.status == 401){
                 var msg = "Unauthorized";
-                window.location="{{ url('/dash-telu/sesi-habis') }}";
+                window.location="{{ url('/mobile-dash/sesi-habis') }}";
             }else if(jqXHR.status == 405){
                 var msg = "Route not valid. Page not found";
             }
@@ -929,23 +929,23 @@ $("#btn-close").on("click", function (event) {
 });
 
 $('.table').on('click','.ms-0',function(e){
-    var url = "{{ url('/dash-telu/form/fDashMSPendapatan') }}";
+    var url = "{{ url('/mobile-dash/form/fDashMSPendapatan') }}";
     loadForm(url);
 });
 $('.table').on('click','.ms-1',function(e){
-    var url = "{{ url('/dash-telu/form/fDashMSBeban') }}";
+    var url = "{{ url('/mobile-dash/form/fDashMSBeban') }}";
     loadForm(url);
 });
 
 $('.table').on('click','.ms-2',function(e){
-    var url = "{{ url('/dash-telu/form/fDashMSSHU') }}";
+    var url = "{{ url('/mobile-dash/form/fDashMSSHU') }}";
     loadForm(url);
 });
 
 $('.table').on('click','.penyerapan',function(e){
     $kode_grafik = $(this).data('kode_grafik');
     $nama = $(this).data('nama');
-    var url = "{{ url('/dash-telu/form/fDashMSPengembangan') }}";
+    var url = "{{ url('/mobile-dash/form/fDashMSPengembangan') }}";
     loadForm(url);
 });
 
@@ -953,33 +953,33 @@ $('.table').on('click','.penyerapan',function(e){
 $('.table').on('click','.neraca-0',function(e){
     $kode_grafik = $(this).data('kode_grafik');
     $nama = $(this).data('nama');
-    var url = "{{ url('/dash-telu/form/fDashMSAset') }}";
+    var url = "{{ url('/mobile-dash/form/fDashMSAset') }}";
     loadForm(url);
 });
 
 $('.table').on('click','.neraca-1',function(e){
-    var url = "{{ url('/dash-telu/form/fDashMSHutang') }}";
+    var url = "{{ url('/mobile-dash/form/fDashMSHutang') }}";
     loadForm(url);
 });
 
 $('.table').on('click','.neraca-2',function(e){
     $kode_grafik = $(this).data('kode_grafik');
     $nama = $(this).data('nama');
-    var url = "{{ url('/dash-telu/form/fDashMsModal') }}";
+    var url = "{{ url('/mobile-dash/form/fDashMsModal') }}";
     loadForm(url);
 });
 
 $('.table').on('click','.keuangan-detail',function(e){
     $kode_grafik = $(this).data('kode_grafik');
     $nama = $(this).data('nama');
-    var url = "{{ url('/dash-telu/form/fDashMSKasBank') }}";
+    var url = "{{ url('/mobile-dash/form/fDashMSKasBank') }}";
     loadForm(url);
 });
 
 $('.table').on('click','.piutang-detail',function(e){
     $kode_grafik = $(this).data('kode_grafik');
     $nama = $(this).data('nama');
-    var url = "{{ url('/dash-telu/form/fDashMSPiutang') }}";
+    var url = "{{ url('/mobile-dash/form/fDashMSPiutang') }}";
     loadForm(url);
 });
 </script>

@@ -236,7 +236,7 @@ function singkatNilai(num){
 function getPeriode(){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/periode') }}",
+        url:"{{ url('/mobile-dash/periode') }}",
         dataType: "JSON",
         success: function(result){
             $('#periode_type').selectize();
@@ -320,7 +320,7 @@ function getPeriode(){
                 var msg = "Internal server error";
             }else if(jqXHR.status == 401){
                 var msg = "Unauthorized";
-                window.location="{{ url('/dash-telu/sesi-habis') }}";
+                window.location="{{ url('/mobile-dash/sesi-habis') }}";
             }else if(jqXHR.status == 405){
                 var msg = "Route not valid. Page not found";
             }
@@ -368,7 +368,7 @@ $('.dash-filter').on('change', '.dash-filter-type', function(){
 function getKas(periode=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/ms-kasbank') }}",
+        url:"{{ url('/mobile-dash/ms-kasbank') }}",
         data:{'periode[0]' : periode.type,
             'periode[1]' : periode.from,
             'periode[2]' : periode.to, mode: $mode, 'kode_grafik':$kode_grafik},
@@ -512,7 +512,7 @@ function getKas(periode=null){
                 //                         $kd_grafik= this.options.key2;
                 //                         $form_back = "fDashMSAset";
                 //                         $nama = this.options.name;
-                //                         var url = "{{ url('/dash-telu/form/dashMSBidang') }}";
+                //                         var url = "{{ url('/mobile-dash/form/dashMSBidang') }}";
                 //                         loadForm(url)
                 //                     }
                 //                 }
@@ -549,7 +549,7 @@ function getKas(periode=null){
                 //                         $kd_grafik= this.options.key2;
                 //                         $nama = this.options.name;
                 //                         $form_back = "fDashMSAset";
-                //                         var url = "{{ url('/dash-telu/form/dashMSBidang') }}";
+                //                         var url = "{{ url('/mobile-dash/form/dashMSBidang') }}";
                 //                         loadForm(url)
                 //                     }
                 //                 }
@@ -607,7 +607,7 @@ function getKas(periode=null){
                 var msg = "Internal server error";
             }else if(jqXHR.status == 401){
                 var msg = "Unauthorized";
-                window.location="{{ url('/dash-telu/sesi-habis') }}";
+                window.location="{{ url('/mobile-dash/sesi-habis') }}";
             }else if(jqXHR.status == 405){
                 var msg = "Route not valid. Page not found";
             }
@@ -665,7 +665,7 @@ $("#btn-close").on("click", function (event) {
 
 $('.kas').on('click','#btnBack',function(e){
     e.preventDefault();
-    var url = "{{ url('/dash-telu/form/fDashManagementSystem') }}";
+    var url = "{{ url('/mobile-dash/form/fDashManagementSystem') }}";
     loadForm(url);
 })
 

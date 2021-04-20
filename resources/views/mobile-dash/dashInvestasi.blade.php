@@ -304,7 +304,7 @@ function singkatNilai(num){
 function getPeriode(){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/periode') }}",
+        url:"{{ url('/mobile-dash/periode') }}",
         dataType: "JSON",
         success: function(result){
             $('#periode_type').selectize();
@@ -409,7 +409,7 @@ function getPeriode(){
                 var msg = "Internal server error";
             }else if(jqXHR.status == 401){
                 var msg = "Unauthorized";
-                window.location="{{ url('/dash-telu/sesi-habis') }}";
+                window.location="{{ url('/mobile-dash/sesi-habis') }}";
             }else if(jqXHR.status == 405){
                 var msg = "Route not valid. Page not found";
             }
@@ -423,7 +423,7 @@ getPeriode();
 function getRKARealInvestasi(periode=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/rka-real-investasi') }}",
+        url:"{{ url('/mobile-dash/rka-real-investasi') }}",
         data:{'periode[0]' : periode.type,
             'periode[1]' : periode.from,
             'periode[2]' : periode.to, mode: $mode},
@@ -501,7 +501,7 @@ function getRKARealInvestasi(periode=null){
                 var msg = "Internal server error";
             }else if(jqXHR.status == 401){
                 var msg = "Unauthorized";
-                window.location="{{ url('/dash-telu/sesi-habis') }}";
+                window.location="{{ url('/mobile-dash/sesi-habis') }}";
             }else if(jqXHR.status == 405){
                 var msg = "Route not valid. Page not found";
             }
@@ -546,7 +546,7 @@ $('.dash-filter').on('change', '.dash-filter-type', function(){
 function getKomponenInvestasi(periode=null){
 $.ajax({
     type:"GET",
-    url:"{{ url('/telu-dash/komponen-investasi') }}",
+    url:"{{ url('/mobile-dash/komponen-investasi') }}",
     data:{'periode[0]' : periode.type,
             'periode[1]' : periode.from,
             'periode[2]' : periode.to, mode: $mode},
@@ -630,7 +630,7 @@ $.ajax({
             var msg = "Internal server error";
         }else if(jqXHR.status == 401){
             var msg = "Unauthorized";
-            window.location="{{ url('/dash-telu/sesi-habis') }}";
+            window.location="{{ url('/mobile-dash/sesi-habis') }}";
         }else if(jqXHR.status == 405){
             var msg = "Route not valid. Page not found";
         }
@@ -643,7 +643,7 @@ $.ajax({
 function getSerapInvestasi(periode=null) {
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/penyerapan-investasi') }}",
+        url:"{{ url('/mobile-dash/penyerapan-investasi') }}",
         dataType:"JSON",
         data:{'periode[0]' : periode.type,
             'periode[1]' : periode.from,
@@ -801,7 +801,7 @@ function getSerapInvestasi(periode=null) {
                 var msg = "Internal server error";
             }else if(jqXHR.status == 401){
                 var msg = "Unauthorized";
-                window.location="{{ url('/dash-telu/sesi-habis') }}";
+                window.location="{{ url('/mobile-dash/sesi-habis') }}";
             }else if(jqXHR.status == 405){
                 var msg = "Route not valid. Page not found";
             }

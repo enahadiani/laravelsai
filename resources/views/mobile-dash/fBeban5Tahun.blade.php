@@ -304,7 +304,7 @@ function singkatNilai(num){
 function getPeriode(){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/periode') }}",
+        url:"{{ url('/mobile-dash/periode') }}",
         dataType: "JSON",
         success: function(result){
             $('#periode_type').selectize();
@@ -419,7 +419,7 @@ function getPeriode(){
                 var msg = "Internal server error";
             }else if(jqXHR.status == 401){
                 var msg = "Unauthorized";
-                window.location="{{ url('/dash-telu/sesi-habis') }}";
+                window.location="{{ url('/mobile-dash/sesi-habis') }}";
             }else if(jqXHR.status == 405){
                 var msg = "Route not valid. Page not found";
             }
@@ -543,7 +543,7 @@ function drawVisualizationBeban() {
 function getBeban(periode=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/beban-5tahun') }}",
+        url:"{{ url('/mobile-dash/beban-5tahun') }}",
         data:{'periode[0]' : periode.type,
             'periode[1]' : periode.from,
             'periode[2]' : periode.to, mode: $mode},
@@ -684,7 +684,7 @@ function getBeban(periode=null){
                 var msg = "Internal server error";
             }else if(jqXHR.status == 401){
                 var msg = "Unauthorized";
-                window.location="{{ url('/dash-telu/sesi-habis') }}";
+                window.location="{{ url('/mobile-dash/sesi-habis') }}";
             }else if(jqXHR.status == 405){
                 var msg = "Route not valid. Page not found";
             }
@@ -696,7 +696,7 @@ function getBeban(periode=null){
 function getBebanYoY(periode=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/beban-5tahun-yoy') }}",
+        url:"{{ url('/mobile-dash/beban-5tahun-yoy') }}",
         data:{'periode[0]' : periode.type,
             'periode[1]' : periode.from,
             'periode[2]' : periode.to, mode: $mode},
@@ -837,7 +837,7 @@ function getBebanYoY(periode=null){
                 var msg = "Internal server error";
             }else if(jqXHR.status == 401){
                 var msg = "Unauthorized";
-                window.location="{{ url('/dash-telu/sesi-habis') }}";
+                window.location="{{ url('/mobile-dash/sesi-habis') }}";
             }else if(jqXHR.status == 405){
                 var msg = "Route not valid. Page not found";
             }
@@ -926,7 +926,7 @@ function drawVisualizationSDM() {
 function getBebanSDM(periode=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/beban-5tahun-sdm') }}",
+        url:"{{ url('/mobile-dash/beban-5tahun-sdm') }}",
         data:{'periode[0]' : periode.type,
             'periode[1]' : periode.from,
             'periode[2]' : periode.to, mode: $mode},
@@ -1069,7 +1069,7 @@ function getBebanSDM(periode=null){
                 var msg = "Internal server error";
             }else if(jqXHR.status == 401){
                 var msg = "Unauthorized";
-                window.location="{{ url('/dash-telu/sesi-habis') }}";
+                window.location="{{ url('/mobile-dash/sesi-habis') }}";
             }else if(jqXHR.status == 405){
                 var msg = "Route not valid. Page not found";
             }
@@ -1081,7 +1081,7 @@ function getBebanSDM(periode=null){
 function getBebanSDMYoY(periode=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/beban-5tahun-sdm-yoy') }}",
+        url:"{{ url('/mobile-dash/beban-5tahun-sdm-yoy') }}",
         data:{'periode[0]' : periode.type,
             'periode[1]' : periode.from,
             'periode[2]' : periode.to, mode: $mode},
@@ -1223,7 +1223,7 @@ function getBebanSDMYoY(periode=null){
                 var msg = "Internal server error";
             }else if(jqXHR.status == 401){
                 var msg = "Unauthorized";
-                window.location="{{ url('/dash-telu/sesi-habis') }}";
+                window.location="{{ url('/mobile-dash/sesi-habis') }}";
             }else if(jqXHR.status == 405){
                 var msg = "Route not valid. Page not found";
             }
@@ -1235,7 +1235,7 @@ function getBebanSDMYoY(periode=null){
 function getBebanNonSDM(periode=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/beban-5tahun-non-sdm') }}",
+        url:"{{ url('/mobile-dash/beban-5tahun-non-sdm') }}",
         data:{'periode[0]' : periode.type,
             'periode[1]' : periode.from,
             'periode[2]' : periode.to, mode: $mode},
@@ -1377,7 +1377,7 @@ function getBebanNonSDM(periode=null){
                 var msg = "Internal server error";
             }else if(jqXHR.status == 401){
                 var msg = "Unauthorized";
-                window.location="{{ url('/dash-telu/sesi-habis') }}";
+                window.location="{{ url('/mobile-dash/sesi-habis') }}";
             }else if(jqXHR.status == 405){
                 var msg = "Route not valid. Page not found";
             }
@@ -1390,7 +1390,7 @@ function getBebanNonSDM(periode=null){
 function getBebanNonSDMYoY(periode=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/beban-5tahun-non-sdm-yoy') }}",
+        url:"{{ url('/mobile-dash/beban-5tahun-non-sdm-yoy') }}",
         data:{'periode[0]' : periode.type,
             'periode[1]' : periode.from,
             'periode[2]' : periode.to, mode: $mode},
@@ -1532,7 +1532,7 @@ function getBebanNonSDMYoY(periode=null){
                 var msg = "Internal server error";
             }else if(jqXHR.status == 401){
                 var msg = "Unauthorized";
-                window.location="{{ url('/dash-telu/sesi-habis') }}";
+                window.location="{{ url('/mobile-dash/sesi-habis') }}";
             }else if(jqXHR.status == 405){
                 var msg = "Route not valid. Page not found";
             }
@@ -1600,7 +1600,7 @@ function drawVisualizationKomposisi() {
 function getKomposisi(periode=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/beban-5tahun-komposisi') }}",
+        url:"{{ url('/mobile-dash/beban-5tahun-komposisi') }}",
         dataType:"JSON",
         data:{'periode[0]' : periode.type,
             'periode[1]' : periode.from,
@@ -1673,7 +1673,7 @@ function getKomposisi(periode=null){
                 var msg = "Internal server error";
             }else if(jqXHR.status == 401){
                 var msg = "Unauthorized";
-                window.location="{{ url('/dash-telu/sesi-habis') }}";
+                window.location="{{ url('/mobile-dash/sesi-habis') }}";
             }else if(jqXHR.status == 405){
                 var msg = "Route not valid. Page not found";
             }
@@ -1685,7 +1685,7 @@ function getKomposisi(periode=null){
 function getKomposisiYoY(periode=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/beban-5tahun-komposisi-yoy') }}",
+        url:"{{ url('/mobile-dash/beban-5tahun-komposisi-yoy') }}",
         dataType:"JSON",
         data:{'periode[0]' : periode.type,
             'periode[1]' : periode.from,
@@ -1754,7 +1754,7 @@ function getKomposisiYoY(periode=null){
                 var msg = "Internal server error";
             }else if(jqXHR.status == 401){
                 var msg = "Unauthorized";
-                window.location="{{ url('/dash-telu/sesi-habis') }}";
+                window.location="{{ url('/mobile-dash/sesi-habis') }}";
             }else if(jqXHR.status == 405){
                 var msg = "Route not valid. Page not found";
             }
@@ -1835,7 +1835,7 @@ function drawVisualizationGrowth() {
 function getBebanGrowth(periode=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/beban-5tahun-growth') }}",
+        url:"{{ url('/mobile-dash/beban-5tahun-growth') }}",
         data: {'periode[0]' : periode.type,
             'periode[1]' : periode.from,
             'periode[2]' : periode.to, mode: $mode},
@@ -1935,7 +1935,7 @@ function getBebanGrowth(periode=null){
                 var msg = "Internal server error";
             }else if(jqXHR.status == 401){
                 var msg = "Unauthorized";
-                window.location="{{ url('/dash-telu/sesi-habis') }}";
+                window.location="{{ url('/mobile-dash/sesi-habis') }}";
             }else if(jqXHR.status == 405){
                 var msg = "Route not valid. Page not found";
             }
@@ -1947,7 +1947,7 @@ function getBebanGrowth(periode=null){
 function getBebanGrowthYoY(periode=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/beban-5tahun-growth-yoy') }}",
+        url:"{{ url('/mobile-dash/beban-5tahun-growth-yoy') }}",
         data: {'periode[0]' : periode.type,
             'periode[1]' : periode.from,
             'periode[2]' : periode.to, mode: $mode},
@@ -2043,7 +2043,7 @@ function getBebanGrowthYoY(periode=null){
                 var msg = "Internal server error";
             }else if(jqXHR.status == 401){
                 var msg = "Unauthorized";
-                window.location="{{ url('/dash-telu/sesi-habis') }}";
+                window.location="{{ url('/mobile-dash/sesi-habis') }}";
             }else if(jqXHR.status == 405){
                 var msg = "Route not valid. Page not found";
             }

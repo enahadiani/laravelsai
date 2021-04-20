@@ -116,7 +116,7 @@ var $watch_ket = "";
  function getVideoList(){
     $.ajax({
         type:"GET",
-        url:"{{ url('telu-dash/video-list') }}",
+        url:"{{ url('mobile-dash/video-list') }}",
         dataType:"JSON",
         data:{mode: $mode},
         success: function(result){
@@ -131,11 +131,11 @@ var $watch_ket = "";
                         html+=`
                         <div class="col-xs-12 col-sm-4 col-md-3 mb-3">
                             <div class="recent-work-wrap">
-                                <iframe class="img-responsive" src="`+link+`" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                <iframe class="img-responsive" src="`+link+`" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="width: -moz-available;"></iframe>
                                 <div class="recent-work-inner">
                                     <p>`+line.keterangan+`</p>
                                 </div> 
-                                <div class="overlay" style="cursor:pointer" data-href="{{ url('telu-dash/watch/') }}/`+line.no_bukti+`" data-watch_id="`+tmp[1]+`" data-watch_ket="`+line.keterangan+`">
+                                <div class="overlay" style="cursor:pointer" data-href="{{ url('mobile-dash/watch/') }}/`+line.no_bukti+`" data-watch_id="`+tmp[1]+`" data-watch_ket="`+line.keterangan+`">
                                 </div>
                             </div>
                         </div>
@@ -165,7 +165,7 @@ var $watch_ket = "";
                 var msg = "Internal server error";
             }else if(jqXHR.status == 401){
                 var msg = "Unauthorized";
-                window.location="{{ url('/dash-telu/sesi-habis') }}";
+                window.location="{{ url('/mobile-dash/sesi-habis') }}";
             }else if(jqXHR.status == 405){
                 var msg = "Route not valid. Page not found";
             }

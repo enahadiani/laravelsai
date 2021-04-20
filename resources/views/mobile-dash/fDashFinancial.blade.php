@@ -342,7 +342,7 @@ function singkatNilai(num){
 function getPeriode(){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/periode') }}",
+        url:"{{ url('/mobile-dash/periode') }}",
         dataType: "JSON",
         success: function(result){
             $('#periode_type').selectize();
@@ -432,7 +432,7 @@ function getPeriode(){
                 var msg = "Internal server error";
             }else if(jqXHR.status == 401){
                 var msg = "Unauthorized";
-                window.location="{{ url('/dash-telu/sesi-habis') }}";
+                window.location="{{ url('/mobile-dash/sesi-habis') }}";
             }else if(jqXHR.status == 405){
                 var msg = "Route not valid. Page not found";
             }
@@ -480,7 +480,7 @@ function getTarget(periode=null)
 {
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/financial-target') }}",
+        url:"{{ url('/mobile-dash/financial-target') }}",
         data: {
             'periode[0]' : periode.type,
             'periode[1]' : periode.from,
@@ -547,7 +547,7 @@ function getTarget(periode=null)
                                                     </tr>
                                                 </table>
                                             </div>
-                                            <div class="col-md-7 col-12 col-grid row-note">
+                                            <div class="col-md-12 col-12 col-grid row-note">
                                                 <div class="collapse" id="collaps`+line.kode_grafik+`" style="">
                                                     <div class="p-4 border mt-0" style="border-radius:0.25rem;background:#F8F8F8">
                                                         <p class='note-text'>`+line.keterangan+`</p>
@@ -612,7 +612,7 @@ function getTarget(periode=null)
                             console.log(pair[0]+ ', '+ pair[1]); 
                         }
                        
-                        var url = "{{ url('/telu-dash/note') }}";
+                        var url = "{{ url('/mobile-dash/note') }}";
                         
                         $.ajax({
                             type: 'POST',
@@ -637,7 +637,7 @@ function getTarget(periode=null)
                                     $('.c-bottom-sheet').removeClass('active');
                                 }
                                 else if(!result.status && result.message == 'Unauthorized'){
-                                    window.location.href = "{{ url('dash-telu/sesi-habis') }}";
+                                    window.location.href = "{{ url('mobile-dash/sesi-habis') }}";
                                 }
                                 else{
                                     msgDialog({
@@ -827,7 +827,7 @@ function getTarget(periode=null)
                 var msg = "Internal server error";
             }else if(jqXHR.status == 401){
                 var msg = "Unauthorized";
-                window.location="{{ url('/dash-telu/sesi-habis') }}";
+                window.location="{{ url('/mobile-dash/sesi-habis') }}";
             }else if(jqXHR.status == 405){
                 var msg = "Route not valid. Page not found";
             }
@@ -924,7 +924,7 @@ $('.or-row').on("click", '#note-or',function(e){
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
             
-            var url = "{{ url('/telu-dash/note') }}";
+            var url = "{{ url('/mobile-dash/note') }}";
             
             $.ajax({
                 type: 'POST',
@@ -949,7 +949,7 @@ $('.or-row').on("click", '#note-or',function(e){
                         $('.c-bottom-sheet').removeClass('active');
                     }
                     else if(!result.status && result.message == 'Unauthorized'){
-                        window.location.href = "{{ url('dash-telu/sesi-habis') }}";
+                        window.location.href = "{{ url('mobile-dash/sesi-habis') }}";
                     }
                     else{
                         msgDialog({

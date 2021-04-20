@@ -163,7 +163,7 @@ function singkatNilai(num){
 function getDataPendJurusan(periode=null,kodeNeraca=null,kodeBidang=null,tahun=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/getDataPendJurusan') }}",
+        url:"{{ url('/mobile-dash/getDataPendJurusan') }}",
         data:{'form':$form_back,'periode[0]' : periode.type,
             'periode[1]' : periode.from,
             'periode[2]' : periode.to, mode: $mode,'kode_neraca':kodeNeraca,'kode_bidang':kodeBidang,'tahun':tahun},
@@ -189,7 +189,7 @@ function getDataPendJurusan(periode=null,kodeNeraca=null,kodeBidang=null,tahun=n
                 var msg = "Internal server error";
             }else if(jqXHR.status == 401){
                 var msg = "Unauthorized";
-                window.location="{{ url('/dash-telu/sesi-habis') }}";
+                window.location="{{ url('/mobile-dash/sesi-habis') }}";
             }else if(jqXHR.status == 405){
                 var msg = "Route not valid. Page not found";
             }
@@ -201,7 +201,7 @@ function getDataPendJurusan(periode=null,kodeNeraca=null,kodeBidang=null,tahun=n
 function getPendapatanJurusan(periode=null,kodeNeraca=null,kodeBidang=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/getPendapatanJurusan') }}",
+        url:"{{ url('/mobile-dash/getPendapatanJurusan') }}",
         dataType:"JSON",
         data:{'form':$form_back,'periode[0]' : periode.type,
             'periode[1]' : periode.from,
@@ -289,7 +289,7 @@ function getPendapatanJurusan(periode=null,kodeNeraca=null,kodeBidang=null){
                 var msg = "Internal server error";
             }else if(jqXHR.status == 401){
                 var msg = "Unauthorized";
-                window.location="{{ url('/dash-telu/sesi-habis') }}";
+                window.location="{{ url('/mobile-dash/sesi-habis') }}";
             }else if(jqXHR.status == 405){
                 var msg = "Route not valid. Page not found";
             }
@@ -348,7 +348,7 @@ $('.thnPilih').text($kd2);
 
 $('.detail2-pdpt').on('click','#btnBack',function(e){
     e.preventDefault();
-    var url = "{{ url('/dash-telu/form/dashTeluPdptDet') }}";
+    var url = "{{ url('/mobile-dash/form/dashTeluPdptDet') }}";
     loadForm(url);
 })
 </script>
