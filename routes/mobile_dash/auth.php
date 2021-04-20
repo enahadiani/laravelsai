@@ -109,7 +109,7 @@ Route::get('tahun','DashTelu\DashboardController@getTahun');
 
 Route::get('watch/{id}', function ($id) {
     $data['id'] = $id;
-    return view('dash-telu.watch',$data);
+    return view('mobile-dash.watch',$data);
 });
 
 //Management System
