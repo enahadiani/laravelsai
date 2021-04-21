@@ -101,6 +101,7 @@
  $('body').addClass('dash-contents');
  $('html').addClass('dash-contents');
 
+ $('.navbar_bottom').hide();
  $('.nama-menu').html($nama_menu);
 if(localStorage.getItem("dore-theme") == "dark"){
     $('#btn-filter').removeClass('btn-outline-light');

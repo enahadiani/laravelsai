@@ -176,6 +176,9 @@ $nik     = Session::get('userLog');
     </div> -->
 </div>
 <script>
+    
+$('.navbar_bottom').hide();
+$('.nama-menu').html($nama_menu);
 $('body').addClass('dash-contents');
 $('html').addClass('dash-contents');
 if(localStorage.getItem("dore-theme") == "dark"){

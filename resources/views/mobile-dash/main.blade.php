@@ -312,6 +312,7 @@
 
     <main style='margin-top:0px !important'>
         <div class="container-fluid">
+            <div style="height:50px">&nbsp;</div>
             <div class="body-content"></div>
         </div>
         <div class="modal fade" id="modal-pesan" tabindex="-1" role="dialog" aria-labelledby="modal-pesantitle" aria-hidden="true">
@@ -339,6 +340,16 @@
     <style>
         /* Place the navbar at the bottom of the page, and make it stick */
             .navbar_bottom {
+                background-color: #fff;
+                overflow: hidden;
+                position: fixed;
+                bottom: 0;
+                width: 100%;
+                box-shadow:0 -1pt 1pt 0 #80808029;
+                z-index:10;
+            }
+
+            .navbar_filter {
                 background-color: #fff;
                 overflow: hidden;
                 position: fixed;
@@ -440,6 +451,9 @@
         <i class='saicon icon-pesan' style='text-align: center;'></i><p style='text-align: center;font-size: 14px;margin-bottom:0'>Notifikasi</p></a>
         <a href='#' data-href="dashAkun" style='padding:10px 0px 0px 0px;width: 33%;'>
         <i class='saicon icon-user' style='text-align: center;'></i><p style='text-align: center;font-size: 14px;margin-bottom:0'>Akun</p></a>
+    </div>
+    <div class="navbar_filter">
+        <a class="btn btn-outline-dark btn-block" href="#" id="btn-filter" style="position: absolute;right: 15px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-equalizer" style="transform-style: ;"></i> &nbsp;&nbsp; Filter</a>
     </div>
     <div id="country-selector" class="c-bottom-sheet c-bottom-sheet--list">
 			<div class="c-bottom-sheet__scrim"></div>

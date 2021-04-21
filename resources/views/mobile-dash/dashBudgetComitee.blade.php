@@ -197,6 +197,8 @@
 $('.nama-menu').html($nama_menu);
 $('body').addClass('dash-contents');
 $('html').addClass('dash-contents');
+$('.navbar_bottom').hide();
+$('.navbar_filter').show();
 if(localStorage.getItem("dore-theme") == "dark"){
     $('#btn-filter').removeClass('btn-outline-light');
     $('#btn-filter').addClass('btn-outline-dark');

@@ -180,7 +180,6 @@ $nik     = Session::get('userLog');
     var color = '';
     var colorText = '';
     
-    $('.nama-menu').html($nama_menu);
     function drawChart() {
         console.log(darkMode);
         if(darkMode == 'dore.dark.redruby.min.css'){
@@ -232,6 +231,9 @@ $nik     = Session::get('userLog');
 <script>
 $('body').addClass('dash-contents');
 $('html').addClass('dash-contents');
+
+$('.navbar_bottom').hide();
+$('.nama-menu').html($nama_menu);
 if(localStorage.getItem("dore-theme") == "dark"){
     $('#btn-filter').removeClass('btn-outline-light');
     $('#btn-filter').addClass('btn-outline-dark');

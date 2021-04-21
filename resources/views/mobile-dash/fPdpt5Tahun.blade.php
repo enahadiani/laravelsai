@@ -218,6 +218,7 @@ $tahun5 = intval($tahun-5);
 <script src="{{ asset('asset_dore/js/base64.js') }}"></script>
 <script>
 
+$('.navbar_bottom').hide();
 $('.nama-menu').html($nama_menu);
 $('body').addClass('dash-contents');
 $('html').addClass('dash-contents');

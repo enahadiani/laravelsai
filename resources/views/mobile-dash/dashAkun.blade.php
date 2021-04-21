@@ -41,6 +41,7 @@
         color: #e9ecef;
     }
 </style>
+<div style="height:50px">&nbsp;</div>
 <div class="row mt-2">
     <div class="col-12">
         <div class="text-center dash-profile">
