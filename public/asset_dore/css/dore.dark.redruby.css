@@ -7763,8 +7763,8 @@ div.row-notif  a:hover {
 .dash-contents h6,.dash-contents h5,.dash-contents p,.dash-contents span,.dash-contents label,.bg-red h6{
   color:#8f8f8f !important;
 }
-.list-menudash > .list-group-item{
-  background:#8f8f8f
+.list-menudash > .list-group-item:focus{
+  background:#8f8f8f !important;
 }
 .navbar-bottom, .navbar-bottom a.active{
   background:#242424;
@@ -7777,4 +7777,7 @@ div.row-notif  a:hover {
 }
 .row-note > div, #collaps-or div{
   background:#313131!important
+}
+#judul-login{
+  color:white !important;
 }

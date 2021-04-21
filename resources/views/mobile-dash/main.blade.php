@@ -437,7 +437,7 @@
         <a href="#" data-href="dashHome" class='active' style='padding:10px 0px 0px 0px;width: 33%;'>
         <i class='saicon icon-home' style='text-align: center;'></i><p style='text-align: center;font-size: 14px;margin-bottom:0'>Home</p></a>
         <a href='#' data-href="dashPesan" style='padding:10px 0px 0px 0px;width: 33%;'>
-        <i class='saicon icon-pesan' style='text-align: center;'></i><p style='text-align: center;font-size: 14px;margin-bottom:0'>Notifikasi <span class="badge badge-pill badge-info jum-read" style="background: #FF3B30;padding: 0.35rem;position: absolute;top: 2px;border-radius: 50%;min-width: 20px;font-size: 9px !important;min-height: 20px;margin-left: -10px !important;">0</span></p></a>
+        <i class='saicon icon-pesan' style='text-align: center;'></i><p style='text-align: center;font-size: 14px;margin-bottom:0'>Notifikasi</p></a>
         <a href='#' data-href="dashAkun" style='padding:10px 0px 0px 0px;width: 33%;'>
         <i class='saicon icon-user' style='text-align: center;'></i><p style='text-align: center;font-size: 14px;margin-bottom:0'>Akun</p></a>
     </div>

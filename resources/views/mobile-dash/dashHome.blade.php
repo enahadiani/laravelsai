@@ -1,6 +1,7 @@
 <style>
     .list-group-item {
         border:none;
+        background:none;
     }
     .bold{
         font-weight:bold;
@@ -12,6 +13,10 @@
     }
     .text-blue{
         color:#0058E4 !important;
+    }
+    
+    .list-menudash > .list-group-item:active, .list-group-item:hover {
+        background: #242424 !important;
     }
 </style>
 <div class="row">
