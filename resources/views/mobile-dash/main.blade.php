@@ -1540,6 +1540,9 @@
             }else if($(window).scrollTop() + $(window).height() == $(document).height()){
                 $('#scroll-top').show();
                 $('#scroll-bottom').hide();
+            }else if($(window).scrollTop() > $(window).height()){
+                $('#scroll-top').show();
+                $('#scroll-bottom').show();
             }
         });
 
