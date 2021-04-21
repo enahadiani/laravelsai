@@ -82,7 +82,6 @@ $thnLalu = substr($tahunLalu,2,2)
     <div class="row">
         <div class="col-12">
             <h6 class="mb-0 bold">Laporan Keuangan Telkom University</h6>
-            <a class="btn" href="#" id="btn-filter" style="position: absolute;right: 15px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-equalizer" style="transform-style: ;"></i> &nbsp;&nbsp; Filter</a>
             <p><span class='label-periode-filter'></span></p>
         </div>
     </div>
@@ -129,22 +128,32 @@ $thnLalu = substr($tahunLalu,2,2)
            
         </div>
     </div>
-    <div class="modal fade modal-right" id="modalFilter" tabindex="-1" role="dialog"
-    aria-labelledby="modalFilter" aria-hidden="true">
-        <div class="modal-dialog" role="document" style="max-width: 480px;">
-            <div class="modal-content">
+    
+</div>
+<button id="trigger-bottom-sheet" style="display:none">Bottom ?</button>
+<script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
+
+<div style="height:50px">&nbsp;</div>
+<script>
+$('#scroll-top').hide();
+$('#scroll-bottom').hide();
+
+$('body').addClass('dash-contents');
+$('html').addClass('dash-contents');
+var $kode_grafik = "";
+var $nama = "";
+$('.navbar_bottom').hide();
+$('.nama-menu').html($nama_menu);
+var html = `
                 <form id="form-filter">
                     <div class="modal-header pb-0" style="border:none">
                         <h6 class="modal-title pl-0">Filter</h6>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
                     </div>
                     <div class="modal-body" style="border:none">
                         <div class="form-group row dash-filter">
                             <p class="dash-kunci" hidden>dash_periode</p> 
                             <label class="col-md-12">Periode</label>
-                            <div class="col-md-4 dash-filter-typediv">
+                            <div class="col-md-4">
                                 <select class="form-control dash-filter-type" data-width="100%" name="periode[]" id="periode_type">
                                     <option value='' disabled>Pilih</option>
                                     <option value='='>=</option>
@@ -152,7 +161,7 @@ $thnLalu = substr($tahunLalu,2,2)
                                     <option value='range'>Range</option>
                                 </select>
                             </div>
-                            <div class="col-md-4 dash-filter-from">
+                            <div class="col-md-8 dash-filter-from">
                                 <select class="form-control" data-width="100%" name="periode[]" id="periode_from">
                                     <option value='' disabled>Pilih</option>
                                 </select>
@@ -164,25 +173,15 @@ $thnLalu = substr($tahunLalu,2,2)
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer" style="border:none;position:absolute;bottom:0;justify-content:flex-end;width:100%">
+                    <div class="modal-footer" style="justify-content:flex-end;width:100%;border:none !important">
                         <button type="button" class="btn btn-outline-primary" id="btn-reset">Reset</button>
                         <button type="submit" class="btn btn-primary">Tampilkan</button>
                     </div>
                 </form>
-            </div>
-        </div>
-    </div>
-</div>
-<button id="trigger-bottom-sheet" style="display:none">Bottom ?</button>
-<script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
-<script>
-
-$('body').addClass('dash-contents');
-$('html').addClass('dash-contents');
-var $kode_grafik = "";
-var $nama = "";
-$('.navbar_bottom').hide();
-$('.nama-menu').html($nama_menu);
+    `;
+    
+    $('#content-bottom-sheet').html(html);
+    $('.c-bottom-sheet__sheet').css({ "width":"100%","margin-left": "0%", "margin-right":"0%"});
 if(localStorage.getItem("dore-theme") == "dark"){
     $('#btn-filter').removeClass('btn-outline-light');
     $('#btn-filter').addClass('btn-outline-dark');
@@ -374,48 +373,65 @@ function getPeriode(){
                 $('#periode_type')[0].selectize.setValue($dash_periode.type);
 
                 switch($dash_periode.type){
-                    case '=':
-                        var label = namaQuarter($dash_periode.from);
-                        if($dash_periode.from == ""){
-                            if(result.data.periode_max != ""){
-                                control.setValue(result.data.periode_max);
-                                $dash_periode.from = result.data.periode_max;
+                        case '=':
+                            if($dash_periode.from == ""){
+                                if(result.data.periode_max != ""){
+                                    control.setValue(result.data.periode_max);
+                                    $dash_periode.from = result.data.periode_max;
+                                }
+                            }else{
+                                control.setValue($dash_periode.from);
                             }
-                        }else{
-                            control.setValue($dash_periode.from);
-                        }
-                        control2.setValue('');
-                    break;
-                    case '<=':
-                        
-                        var label = 's.d '+namaQuarter($dash_periode.from);
-                    break;
-                    case 'range':
-                        
-                        var label = namaQuarter($dash_periode.from)+' s.d '+namaQuarter($dash_periode.to);
-                        if($dash_periode.from == ""){
-                            if(result.data.periode_max != ""){
-                                control.setValue(result.data.periode_max);
-                                $dash_periode.from = result.data.periode_max;
-                            }
-                        }else{
-                            control.setValue($dash_periode.from);
-                        }
-                        control2.setValue('');
-
-                    break;
-                    default:
-                        if($dash_periode.from == ""){
-                            if(result.data.periode_max != ""){
-                                control.setValue(result.data.periode_max);
-                                $dash_periode.from = result.data.periode_max;
-                            }
-                        }else{
-                            control.setValue($dash_periode.from);
-                        }
-                        control2.setValue('');
+                            control2.setValue('');
+                            var label = 'Periode '+namaPeriode($dash_periode.from);
                         break;
-                }
+                        case '<=':
+                            
+                            if($dash_periode.from == ""){
+                                if(result.data.periode_max != ""){
+                                    control.setValue(result.data.periode_max);
+                                    $dash_periode.from = result.data.periode_max;
+                                }
+                            }else{
+                                control.setValue($dash_periode.from);
+                            }
+                            var label = 'Periode s.d '+namaPeriode($dash_periode.from);
+                            control2.setValue('');
+                        break;
+                        case 'range':
+                            
+                            if($dash_periode.from == ""){
+                                if(result.data.periode_max != ""){
+                                    control.setValue(result.data.periode_max);
+                                    $dash_periode.from = result.data.periode_max;
+                                }
+                            }else{
+                                control.setValue($dash_periode.from);
+                            }
+            
+                            if($dash_periode.to == ""){
+                                if(result.data.periode_max != ""){
+                                    control.setValue(result.data.periode_max);
+                                    $dash_periode.to = result.data.periode_max;
+                                }
+                            }else{
+                                control2.setValue($dash_periode.to);
+                            }
+                            var label = 'Periode '+namaPeriode($dash_periode.from)+' s.d '+namaPeriode($dash_periode.to);
+
+                        break;
+                        default:
+                            if($dash_periode.from == ""){
+                                if(result.data.periode_max != ""){
+                                    control.setValue(result.data.periode_max);
+                                    $dash_periode.from = result.data.periode_max;
+                                }
+                            }else{
+                                control.setValue($dash_periode.from);
+                            }
+                            control2.setValue('');
+                        break;
+                    }
                 $('.label-periode-filter').html(label);
                 getTarget($dash_periode);
                 // getFxPosition($dash_periode);
@@ -862,29 +878,15 @@ $('#form-filter').submit(function(e){
     }
     $('.label-periode-filter').html(label);
     getTarget($dash_periode);
-    $('#modalFilter').modal('hide');
-    // $('.app-menu').hide();
-    if ($(".app-menu").hasClass("shown")) {
-        $(".app-menu").removeClass("shown");
-    } else {
-        $(".app-menu").addClass("shown");
-    }
+    $('.c-bottom-sheet').removeClass('active');
 });
 
+$('#bottom-sheet-close').hide();
 $('#btn-reset').click(function(e){
-    e.preventDefault();
-    $('#dash-periode')[0].selectize.setValue('');
-    
-});
-   
-$('#btn-filter').click(function(){
-    $('#modalFilter').modal('show');
-});
-
-$("#btn-close").on("click", function (event) {
-    event.preventDefault();
-    
-    $('#modalFilter').modal('hide');
+e.preventDefault();
+$('#periode_type')[0].selectize.setValue($dash_periode.type);
+$('#periode_from')[0].selectize.setValue($dash_periode.from);
+$('#periode_to')[0].selectize.setValue($dash_periode.to);
 });
 
 $('.or-row').on("click", '#note-or',function(e){
@@ -913,6 +915,7 @@ $('.or-row').on("click", '#note-or',function(e){
     </div>
     </div>
     </form>
+    <div style='height:100px'>&nbsp;</div>
     `;
     $('#content-bottom-sheet').html(html);
     $('#keterangan').val(keterangan);

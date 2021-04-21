@@ -311,9 +311,50 @@
     </div>
 
     <main style='margin-top:0px !important'>
+    <style>
+        #scroll-top
+        {
+            position:fixed;
+            bottom:60px;
+            right:25px;
+            z-index:2000;
+            cursor:pointer;
+            width:40px;
+            height:40px;
+            border-radius:50%;
+            background:#d7d7d7;
+            padding:8px;
+            opacity: 0.5;
+        }
+        #scroll-top:hover 
+        {
+            opacity: 1;
+        }
+        #scroll-bottom
+        {
+            position:fixed;
+            bottom:10px;
+            right:25px;
+            z-index:2000;
+            cursor:pointer;
+            width:40px;
+            height:40px;
+            border-radius:50%;
+            background:#d7d7d7;
+            padding:8px;
+            opacity: 0.5;
+        }
+        #scroll-bottom:hover 
+        {
+            opacity: 1;
+        }
+    </style>
         <div class="container-fluid">
             <div style="height:50px">&nbsp;</div>
             <div class="body-content"></div>
+            <div class="control-scroll">
+            <a id="scroll-bottom" class="text-center" style='display:none'><i class="simple-icon-arrow-down" style="font-size:20px"></i></a><a id="scroll-top"  style='display:none' class="text-center"><i class="simple-icon-arrow-up" style="font-size:20px"></i></a>
+            </div>
         </div>
         <div class="modal fade" id="modal-pesan" tabindex="-1" role="dialog" aria-labelledby="modal-pesantitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -443,6 +484,11 @@
                 width: 14pt;
                 height: 18pt;
             }
+            #btn-filter
+            {
+                border:none !important;
+                border-radius:none !important;
+            }
     </style>
     <div class='navbar_bottom' style=''>
         <a href="#" data-href="dashHome" class='active' style='padding:10px 0px 0px 0px;width: 33%;'>
@@ -451,9 +497,6 @@
         <i class='saicon icon-pesan' style='text-align: center;'></i><p style='text-align: center;font-size: 14px;margin-bottom:0'>Notifikasi</p></a>
         <a href='#' data-href="dashAkun" style='padding:10px 0px 0px 0px;width: 33%;'>
         <i class='saicon icon-user' style='text-align: center;'></i><p style='text-align: center;font-size: 14px;margin-bottom:0'>Akun</p></a>
-    </div>
-    <div class="navbar_filter">
-        <a class="btn btn-outline-dark btn-block" href="#" id="btn-filter" style="position: absolute;right: 15px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-equalizer" style="transform-style: ;"></i> &nbsp;&nbsp; Filter</a>
     </div>
     <div id="country-selector" class="c-bottom-sheet c-bottom-sheet--list">
 			<div class="c-bottom-sheet__scrim"></div>
@@ -1472,6 +1515,36 @@
                 type:'logout'
             });
         }
+
+        $('#scroll-bottom').click(function(){
+            $('html, body').animate({
+                scrollTop: $(document).height()-$(window).height()
+            }, 700);
+        });
+
+        $('#scroll-top').click(function(){
+            $('html, body').animate({
+                scrollTop: 0
+            }, 700);
+        });
+
+        $(window).scroll(function() {
+            // if($(window).scrollTop() + $(window).height() == $(document).height()) {
+            //     alert("bottom!");
+            // }else if($(window).scrollTop() == 0){
+            //     alert("top!");
+            // }
+            if($(window).scrollTop() == 0){
+                $('#scroll-top').hide();
+                $('#scroll-bottom').show();
+            }else if( $(document).height() - ($(window).scrollTop() + $(window).height()) <= 20){
+                $('#scroll-top').show();
+                $('#scroll-bottom').hide();
+            }else if($(window).scrollTop() > $(window).height()){
+                $('#scroll-top').show();
+                $('#scroll-bottom').show();
+            }
+        });
 
     </script>
 </body>

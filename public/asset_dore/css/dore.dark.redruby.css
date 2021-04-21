@@ -7766,7 +7766,7 @@ div.row-notif  a:hover {
 .list-menudash > .list-group-item:focus{
   background:#8f8f8f !important;
 }
-.navbar-bottom, .navbar-bottom a.active{
+.navbar-bottom, .navbar_filter, .navbar-bottom a.active{
   background:#242424;
 }
 .form-control[readonly]{
@@ -7780,4 +7780,7 @@ div.row-notif  a:hover {
 }
 #judul-login{
   color:white !important;
+}
+.navbar_filter{
+  color:#8f8f8f !important
 }

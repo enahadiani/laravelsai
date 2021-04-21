@@ -96,6 +96,7 @@
     <script>
     // var $iconLoad = $('.preloader');
     setHeightForm();
+    $('#content-bottom-sheet').html('');
     $("input.datepicker").datepicker({
         autoclose: true,
         format: 'dd/mm/yyyy',
