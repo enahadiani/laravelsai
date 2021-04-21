@@ -206,7 +206,7 @@
                             </div>
                             <div class="col-sm-6 col-5 text-center">
                                 <img class="" id="logo1" src="" alt="" style="margin: 0 auto;height: 50px">
-                                <img class="mt-3" id="logo2" src="" alt="" style="margin: 0 auto;height: 50px">
+                                <img class="ml-3 mt-3" id="logo2" src="" alt="" style="margin: 0 auto;height: 50px">
                             </div>
                         </div>
                     </div>

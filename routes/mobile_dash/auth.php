@@ -99,6 +99,7 @@ Route::get('/profile', 'DashTelu\AuthController@getProfile');
 Route::post('/update-password', 'DashTelu\AuthController@updatePassword');
 Route::post('/update-foto', 'DashTelu\AuthController@updatePhoto');
 Route::post('/update-background', 'DashTelu\AuthController@updateBackground');
+Route::post('/update-profile', 'DashTelu\AuthMobileController@updateProfile');
 
 Route::get('notif','DashTelu\NotifController@getNotif');
 Route::post('notif-update-status','DashTelu\NotifController@updateStatusRead');
