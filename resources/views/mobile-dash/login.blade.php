@@ -265,7 +265,7 @@
                 </div>
             </div>
         </div>
-        <footer class="page-footer" style="border:none">
+        <!-- <footer class="page-footer" style="border:none">
             <div class="footer-content" style="margin: 0 auto !important;">
                 <div class="container-fluid">
                     <div class="row">
@@ -277,7 +277,7 @@
                     </div>
                 </div>
             </div>
-        </footer>
+        </footer> -->
     </main>
     
     <script>

@@ -401,7 +401,7 @@
                 -webkit-mask-image: url("{{ url('img/mobile-dash/fi-rr-bell.svg') }}");
                 mask-image: url("{{ url('img/mobile-dash/fi-rr-bell.svg') }}");
                 width: 20pt;
-                height: 18pt;
+                height: 22pt;
             }
             .icon-user{
                 background: #505050;
@@ -423,7 +423,7 @@
                 -webkit-mask-image: url("{{ url('img/mobile-dash/fi-rr-bell.svg') }}");
                 mask-image: url("{{ url('img/mobile-dash/fi-rr-bell.svg') }}");
                 width: 20pt;
-                height: 18pt;
+                height: 22pt;
             }
             a.active > .saicon.icon-user{
                 background: #4361EE;
