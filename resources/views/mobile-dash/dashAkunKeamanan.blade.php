@@ -58,7 +58,7 @@
     <div class="col-12">
         <div class="card" style="background:none !important;box-shadow:none !important">
             <div class="card-body data-pribadi">
-                <p class="text-muted text-small mb-1">Username <a class="float-right ubah-data" style="color:#4361EE;cursor:pointer" href="#">Ubah</a></p>
+                <p class="text-muted text-small mb-1">Username </p>
                 <p class="list-item-heading truncate" id="username"> </p>
                 <p class="text-muted text-small mb-1">Password <a class="float-right ubah-data" style="color:#4361EE;cursor:pointer" href="#">Ubah</a></p>
                 <p class="list-item-heading truncate" id="password"></p>
