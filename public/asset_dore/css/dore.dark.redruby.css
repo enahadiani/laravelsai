@@ -7760,7 +7760,7 @@ div.row-notif  a:hover {
   color:#8f8f8f;
   border-radius: 25px !important;
 }
-.dash-contents h6,.dash-contents p,.dash-contents span,.dash-contents label{
+.dash-contents h6,.dash-contents h5,.dash-contents p,.dash-contents span,.dash-contents label,.bg-red h6{
   color:#8f8f8f !important;
 }
 .list-menudash > .list-group-item{
@@ -7774,4 +7774,7 @@ div.row-notif  a:hover {
 }
 .c-bottom-sheet__sheet{
   background:#242424 !important;
+}
+.row-note > div, #collaps-or div{
+  background:#313131!important
 }
