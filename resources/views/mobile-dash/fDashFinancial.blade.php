@@ -132,6 +132,8 @@ $thnLalu = substr($tahunLalu,2,2)
 </div>
 <button id="trigger-bottom-sheet" style="display:none">Bottom ?</button>
 <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
+
+<div style="height:50px">&nbsp;</div>
 <script>
 $('#scroll-top').hide();
 $('#scroll-bottom').hide();
