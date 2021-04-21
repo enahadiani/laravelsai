@@ -92,6 +92,7 @@ Route::get('/growth-tuition','DashTelu\DashboardController@getBCGrowthTuition');
 Route::get('/komponen-investasi','DashTelu\DashboardController@komponenInvestasi');
 Route::get('/rka-real-investasi','DashTelu\DashboardController@rkaVSRealInvestasi');
 Route::get('/penyerapan-investasi','DashTelu\DashboardController@penyerapanInvestasi');
+Route::get('/penyerapan-investasi-tahun','DashTelu\DashboardController@penyerapanInvestasiTahun');
 
 
 Route::get('/profile', 'DashTelu\AuthController@getProfile');

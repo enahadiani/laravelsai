@@ -19,6 +19,7 @@
         <h6 class="mt-3 mb-2 bold text-center">Daftar Dashboard</h6>
         <ul class="list-group list-menudash">
         </ul>
+        <div style='height:100px;'>&nbsp;</div>
     </div>
 </div>
 <script>

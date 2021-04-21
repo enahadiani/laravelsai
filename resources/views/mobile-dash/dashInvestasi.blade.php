@@ -76,14 +76,26 @@ $nik     = Session::get('userLog');
                 </div>
             </div>
         </div>
+        
         <div class="col-md-12 col-sm-12 mb-4">
             <div class="card dash-card">
                 <div class="card-header">
-                    <h6 class="card-title" >Penyerapan Inventaris</h6>
+                    <h6 class="card-title" >Penyerapan Inventaris s.d. bulan berjalan</h6>
                 </div>
-                <!-- <p style='font-size:9px;padding-left:20px'>Klik bar untuk melihat detail</p> -->
+                
                 <div class="card-body pt-0">
                     <div id='serapInvestasi' style='height:350px'></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-sm-12 mb-4">
+            <div class="card dash-card">
+                <div class="card-header">
+                    <h6 class="card-title" >Penyerapan Inventaris Tahun</h6>
+                </div>
+                
+                <div class="card-body pt-0">
+                    <div id='serapInvestasi2' style='height:350px'></div>
                 </div>
             </div>
         </div>
@@ -398,6 +410,7 @@ function getPeriode(){
                 getKomponenInvestasi($dash_periode);
                 getRKARealInvestasi($dash_periode);
                 getSerapInvestasi($dash_periode);
+                getSerapInvestasiTahun($dash_periode);
 
                         
             }
@@ -747,21 +760,6 @@ function getSerapInvestasi(periode=null) {
                         y:-20
                     }
                 },{
-                    name: 'RKA Thn',
-                    color: (localStorage.getItem("dore-theme") == "dark" ? '#2200FF' :  '#003F88'),
-                    marker: {
-                        symbol: 'c-rect',
-                        lineWidth:5,
-                        lineColor: (localStorage.getItem("dore-theme") == "dark" ? '#2200FF' :  '#003F88'),
-                        radius: 50
-                    },
-                    type: 'scatter',
-                    stack: 2,
-                    data:  result.data.rka_thn,
-                    dataLabels:{
-                        x:-50
-                    }
-                },{
                     name: 'RKA SD',
                     color: (localStorage.getItem("dore-theme") == "dark" ? '#00ffe7' :  '#003F88'),
                     marker: {
@@ -777,6 +775,161 @@ function getSerapInvestasi(periode=null) {
                         x:-50
                     }
                 }, {
+                    name: 'Tidak Tercapai',
+                    type: 'column',
+                    color:  (localStorage.getItem("dore-theme") == "dark" ? '#ED4346' :  '#900604'),
+                    stack: 1,
+                    data:  result.data.tdkcapai,
+                    dataLabels:{
+                        x:50,
+                    }
+                }, {
+                    name: 'Actual',
+                    type: 'column',
+                    color: (localStorage.getItem("dore-theme") == "dark" ? '#434343' :  '#CED4DA'),
+                    stack: 1,
+                    data:  result.data.real_sd
+                }]
+            });
+        },
+        error: function(jqXHR, textStatus, errorThrown) {       
+            if(jqXHR.status == 422){
+                var msg = jqXHR.responseText;
+            }else if(jqXHR.status == 500) {
+                var msg = "Internal server error";
+            }else if(jqXHR.status == 401){
+                var msg = "Unauthorized";
+                window.location="{{ url('/mobile-dash/sesi-habis') }}";
+            }else if(jqXHR.status == 405){
+                var msg = "Route not valid. Page not found";
+            }
+            
+        }
+    });
+}
+
+function getSerapInvestasiTahun(periode=null) {
+    $.ajax({
+        type:"GET",
+        url:"{{ url('/mobile-dash/penyerapan-investasi-tahun') }}",
+        dataType:"JSON",
+        data:{'periode[0]' : periode.type,
+            'periode[1]' : periode.from,
+            'periode[2]' : periode.to, mode: $mode},
+        success:function(result){
+
+            Highcharts.SVGRenderer.prototype.symbols['c-rect'] = function (x, y, w, h) {
+                    return ['M', x, y + h / 2, 'L', x + w, y + h / 2];
+                };
+                
+            var chart2= Highcharts.chart('serapInvestasi2', {
+                chart: {
+                    type: 'column'
+                },
+                credits:{
+                    enabled:false
+                },
+                title: {
+                    text: ''
+                },
+                xAxis: {
+                    categories: result.data.ctg,
+                    labels: {
+                        useHTML:true,
+                        formatter: function() {
+                            var tmp = this.value.split("|");
+                            return '<p class="mb-0"><span class="text-center" style="display:inherit">'+tmp[0]+'</span><span class="text-center bold" style="display:inherit">'+sepNum(tmp[1])+'%</span></p>';
+                        },
+                    }
+                },
+                yAxis: {
+                        title:'',
+                    min: 0
+                },
+                tooltip: {
+                    formatter: function () {   
+                        var tmp = this.x.split("|");   
+                        return tmp[0]+'<br><span style="color:' + this.series.color + '">' + this.series.name + '</span>: <b>' + sepNum(this.y);
+                    }
+                    // pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b>',
+                    /* shared: true */
+                },
+                plotOptions: {
+                    column: {
+                        stacking: 'normal',
+                        borderWidth: 0,
+                        pointWidth: 50,
+                        dataLabels: {
+                            // padding:10,
+                            allowOverlap:true,
+                            enabled: true,
+                            crop: false,
+                            overflow: 'justify',
+                            useHTML: true,
+                            formatter: function () {
+                                if(this.y < 0.1){
+                                    return '';
+                                }else{
+                                    return $('<div/>').css({
+                                        'color' : 'white', // work
+                                        'padding': '0 3px',
+                                        'font-size': '10px',
+                                        'backgroundColor' : this.point.color  // just white in my case
+                                    }).text(sepNum(this.point.nlabel))[0].outerHTML;
+                                }
+                                // if(this.name)
+                            }
+                        }
+                    },
+                    scatter: {
+                        dataLabels: {
+                            // padding:10,
+                            allowOverlap:true,
+                            enabled: true,
+                            crop: false,
+                            overflow: 'justify',
+                            useHTML: true,
+                            formatter: function () {
+                                // return '<span style="color:white;background:gray !important;"><b>'+sepNum(this.y)+' M</b></span>';
+                                if(this.y < 0.1){
+                                    return '';
+                                }else{
+                                    return $('<div/>').css({
+                                        'color' : 'white', // work
+                                        'padding': '0 3px',
+                                        'font-size': '10px',
+                                        'backgroundColor' : this.point.color  // just white in my case
+                                    }).text(sepNum(this.point.nlabel))[0].outerHTML;
+                                }
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    name: 'Melampaui',
+                    color: (localStorage.getItem("dore-theme") == "dark" ? '#28DA66' :  '#16ff14'),
+                    type: 'column',
+                    stack: 1,
+                    data: result.data.melampaui,
+                    dataLabels:{
+                        y:-20
+                    }
+                },{
+                    name: 'RKA Thn',
+                    color: (localStorage.getItem("dore-theme") == "dark" ? '#2200FF' :  '#003F88'),
+                    marker: {
+                        symbol: 'c-rect',
+                        lineWidth:5,
+                        lineColor: (localStorage.getItem("dore-theme") == "dark" ? '#2200FF' :  '#003F88'),
+                        radius: 50
+                    },
+                    type: 'scatter',
+                    stack: 2,
+                    data:  result.data.rka_thn,
+                    dataLabels:{
+                        x:-50
+                    }
+                },{
                     name: 'Tidak Tercapai',
                     type: 'column',
                     color:  (localStorage.getItem("dore-theme") == "dark" ? '#ED4346' :  '#900604'),
@@ -835,6 +988,7 @@ $('#form-filter').submit(function(e){
     getKomponenInvestasi($dash_periode);
     getRKARealInvestasi($dash_periode);
     getSerapInvestasi($dash_periode);
+    getSerapInvestasiTahun($dash_periode);
     $('#modalFilter').modal('hide');
     
     // $('.app-menu').hide();
