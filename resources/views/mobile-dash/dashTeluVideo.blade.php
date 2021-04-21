@@ -90,7 +90,6 @@
     <div class="row">
         <div class="col-12">
             <h6>Video</h6>
-            <a class="btn btn-outline-light" href="#" id="btn-filter" style="position: absolute;right: 15px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-equalizer" style="transform-style: ;"></i> &nbsp;&nbsp; Filter</a>
         </div>
     </div>
     <div class="row mt-3" id="list-video">

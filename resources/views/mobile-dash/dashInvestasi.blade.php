@@ -100,77 +100,7 @@ $nik     = Session::get('userLog');
             </div>
         </div>
     </div>
-    <div class="modal fade modal-right" id="modalFilter" tabindex="-1" role="dialog"
-    aria-labelledby="modalFilter" aria-hidden="true">
-        <div class="modal-dialog" role="document" style="max-width: 480px;">
-            <div class="modal-content">
-                <form id="form-filter">
-                    <div class="modal-header pb-0" style="border:none">
-                        <h6 class="modal-title pl-0">Filter</h6>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body" style="border:none">
-                        <div class="form-group row dash-filter">
-                            <p class="dash-kunci" hidden>dash_periode</p> 
-                            <label class="col-md-12">Periode</label>
-                            <div class="col-md-4">
-                                <select class="form-control dash-filter-type" data-width="100%" name="periode[]" id="periode_type">
-                                    <option value='' disabled>Pilih</option>
-                                    <option value='='>=</option>
-                                    <option value='<='><=</option>
-                                    <option value='range'>Range</option>
-                                </select>
-                            </div>
-                            <div class="col-md-8 dash-filter-from">
-                                <select class="form-control" data-width="100%" name="periode[]" id="periode_from">
-                                    <option value='' disabled>Pilih</option>
-                                </select>
-                            </div>
-                            <div class="col-md-4 dash-filter-to">
-                                <select class="form-control" data-width="100%" name="periode[]" id="periode_to">
-                                    <option value='' disabled>Pilih</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer" style="border:none;position:absolute;bottom:0;justify-content:flex-end;width:100%">
-                        <button type="button" class="btn btn-outline-primary" id="btn-reset">Reset</button>
-                        <button type="submit" class="btn btn-primary">Tampilkan</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <!-- <div class="app-menu">
-        <div class="p-4 h-100">
-            <div class="scroll ps">
-                <h6 class="modal-title pl-0" style="position:absolute">Filter</h6>
-                <button type="button" class="close" id="btn-close" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <form id="form-filter" style="margin-top:50px">
-                    <div class="form-group" style="margin-bottom:30px">
-                        <label>Periode</label>
-                        <select class="form-control" data-width="100%" name="periode" id="periode">
-                        <option value='#'>Pilih Periode</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn btn-primary float-right ml-2">Tampilkan</button>
-                    <button type="button" class="btn btn-outline-primary float-right" id="btn-reset">Reset</button>
-                </form>
-                <div class="ps__rail-x" style="left: 0px; bottom: 0px;">
-                    <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;">
-                    </div>
-                </div>
-                <div class="ps__rail-y" style="top: 0px; right: 0px;">
-                    <div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 0px;">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->
+  
 </div>
  {{-- <script type="text/javascript">
     // Load the Visualization API and the corechart package.
@@ -234,6 +164,68 @@ $('html').addClass('dash-contents');
 
 $('.navbar_bottom').hide();
 $('.nama-menu').html($nama_menu);
+var html = `
+                <form id="form-filter">
+                    <div class="modal-header pb-0" style="border:none">
+                        <h6 class="modal-title pl-0">Filter</h6>
+                    </div>
+                    <div class="modal-body" style="border:none">
+                        <div class="form-group row dash-filter">
+                            <p class="dash-kunci" hidden>dash_periode</p> 
+                            <label class="col-md-12">Periode</label>
+                            <div class="col-md-4">
+                                <select class="form-control dash-filter-type" data-width="100%" name="periode[]" id="periode_type">
+                                    <option value='' disabled>Pilih</option>
+                                    <option value='='>=</option>
+                                    <option value='<='><=</option>
+                                    <option value='range'>Range</option>
+                                </select>
+                            </div>
+                            <div class="col-md-8 dash-filter-from">
+                                <select class="form-control" data-width="100%" name="periode[]" id="periode_from">
+                                    <option value='' disabled>Pilih</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4 dash-filter-to">
+                                <select class="form-control" data-width="100%" name="periode[]" id="periode_to">
+                                    <option value='' disabled>Pilih</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row dash-filter">
+                            <p class="dash-kunci" hidden>dash_jenis</p> 
+                            <label class="col-md-12">Jenis</label>
+                            <div class="col-md-4">
+                                <select class="form-control dash-filter-type" data-width="100%" name="jenis[]" id="jenis_type">
+                                    <option value='' disabled>Pilih</option>
+                                    <option value='=' selected>=</option>
+                                </select>
+                            </div>
+                            <div class="col-md-8 dash-filter-from">
+                                <select class="form-control" data-width="100%" name="jenis[]" id="jenis_from">
+                                    <option value='' disabled>Pilih</option>
+                                    <option value='YoY' selected>YoY</option>
+                                    <option value='Current'>Current</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4 dash-filter-to">
+                                <select class="form-control" data-width="100%" name="jenis[]" id="jenis_to">
+                                    <option value='' disabled>Pilih</option>
+                                    <option value='YoY' selected>YoY</option>
+                                    <option value='Current'>Current</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="justify-content:flex-end;width:100%;border:none !important">
+                        <button type="button" class="btn btn-outline-primary" id="btn-reset">Reset</button>
+                        <button type="submit" class="btn btn-primary">Tampilkan</button>
+                    </div>
+                </form>
+    `;
+    
+    $('#content-bottom-sheet').html(html);
+    $('.c-bottom-sheet__sheet').css({ "width":"100%","margin-left": "0%", "margin-right":"0%"});
 if(localStorage.getItem("dore-theme") == "dark"){
     $('#btn-filter').removeClass('btn-outline-light');
     $('#btn-filter').addClass('btn-outline-dark');
@@ -1013,5 +1005,57 @@ $("#btn-close").on("click", function (event) {
     event.preventDefault();
     // $('.app-menu').hide();
 });
+
+
+                      
+$('#form-filter').submit(function(e){
+        e.preventDefault();
+        $dash_periode.type = $('#periode_type')[0].selectize.getValue();
+        $dash_periode.from = $('#periode_from')[0].selectize.getValue();
+        $dash_periode.to = $('#periode_to')[0].selectize.getValue();
+
+        $dash_jenis.type = $('#jenis_type')[0].selectize.getValue();
+        $dash_jenis.from = $('#jenis_from')[0].selectize.getValue();
+        $dash_jenis.to = $('#jenis_to')[0].selectize.getValue();
+        $filter_periode = $dash_periode.from;
+        switch($dash_periode.type){
+            case '=':
+                var label = 'Periode '+namaPeriode($dash_periode.from);    
+            break;
+            case '<=':
+                
+                var label = 'Periode s.d '+namaPeriode($dash_periode.from);
+            break;
+            case 'range':
+                
+                var label = 'Periode '+namaPeriode($dash_periode.from)+' s.d '+namaPeriode($dash_periode.to);
+
+            break;
+        }
+        $('.label-periode-filter').html(label);
+        var tahun = $dash_periode.from.substr(0,4);
+        var tahunLima = parseInt(tahun) - 6;
+        $('.rentang-tahun').text(tahunLima+" - "+tahun);
+        getBCGrowthRKA($dash_periode,$dash_jenis);
+        getBCGrowthTuition($dash_periode,$dash_jenis);
+        getBCRKA($dash_periode,$dash_jenis);
+        getBCRKAPersen($dash_periode,$dash_jenis);
+        getBCTuition($dash_periode,$dash_jenis);
+        getBCTuitionPersen($dash_periode,$dash_jenis);
+        $('.c-bottom-sheet').removeClass('active');
+    });
+
+    $('#bottom-sheet-close').hide();
+    $('#btn-reset').click(function(e){
+        e.preventDefault();
+        $('#periode_type')[0].selectize.setValue($dash_periode.type);
+        $('#periode_from')[0].selectize.setValue($dash_periode.from);
+        $('#periode_to')[0].selectize.setValue($dash_periode.to);
+
+        $('#jenis_type')[0].selectize.setValue($dash_jenis.type);
+        $('#jenis_from')[0].selectize.setValue($dash_jenis.from);
+        $('#jenis_to')[0].selectize.setValue($dash_jenis.to);
+    });
+
     
 </script>

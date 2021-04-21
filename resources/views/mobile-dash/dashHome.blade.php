@@ -66,7 +66,6 @@
 <script>
     
     $('.navbar_bottom').show();
-    $('.navbar_filter').hide();
     $('body').addClass('dash-contents');
     $('html').addClass('dash-contents');
 

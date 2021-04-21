@@ -361,9 +361,7 @@
                     getBCRKA($dash_periode,$dash_jenis);
                     getBCRKAPersen($dash_periode,$dash_jenis);
                     getBCTuition($dash_periode,$dash_jenis);
-                    getBCTuitionPersen($dash_periode,$dash_jenis);
-
-                            
+                    getBCTuitionPersen($dash_periode,$dash_jenis); 
                 }
             },
             error: function(jqXHR, textStatus, errorThrown) {       
@@ -943,7 +941,13 @@
     $('#bottom-sheet-close').hide();
     $('#btn-reset').click(function(e){
         e.preventDefault();
-        $('#periode')[0].selectize.setValue('');
+        $('#periode_type')[0].selectize.setValue($dash_periode.type);
+        $('#periode_from')[0].selectize.setValue($dash_periode.from);
+        $('#periode_to')[0].selectize.setValue($dash_periode.to);
+
+        $('#jenis_type')[0].selectize.setValue($dash_jenis.type);
+        $('#jenis_from')[0].selectize.setValue($dash_jenis.from);
+        $('#jenis_to')[0].selectize.setValue($dash_jenis.to);
     });
 
 </script>
