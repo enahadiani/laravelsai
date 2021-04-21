@@ -38,7 +38,7 @@
 <div class="row mt-3">
     <div class="col-12 px-0" style="height: calc(100vh - 70px) !important;">
         <h6 class="ml-3">Notifikasi</h6>
-        <p class="text-center" style="margin-top: calc(50vh - 20px);">Tidak ada notifikasi</p>
+        <p class="text-center" style="margin-top: calc(50vh - 90px);">Tidak ada notifikasi</p>
     </div>
 </div>
 <button id="trigger-bottom-sheet" style="display:none">Bottom ?</button>
