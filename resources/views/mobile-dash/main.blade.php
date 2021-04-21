@@ -1537,7 +1537,7 @@
             if($(window).scrollTop() == 0){
                 $('#scroll-top').hide();
                 $('#scroll-bottom').show();
-            }else if( $(document).height() - ($(window).scrollTop() + $(window).height()) <= 20){
+            }else if( $(document).height() - ($(window).scrollTop() + $(window).height()) <= 100){
                 $('#scroll-top').show();
                 $('#scroll-bottom').hide();
             }else if($(window).scrollTop() > $(window).height()){
