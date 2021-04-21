@@ -311,9 +311,50 @@
     </div>
 
     <main style='margin-top:0px !important'>
+    <style>
+        #scroll-top
+        {
+            position:fixed;
+            bottom:60px;
+            right:25px;
+            z-index:2000;
+            cursor:pointer;
+            width:40px;
+            height:40px;
+            border-radius:50%;
+            background:#d7d7d7;
+            padding:8px;
+            opacity: 0.5;
+        }
+        #scroll-top:hover 
+        {
+            opacity: 1;
+        }
+        #scroll-bottom
+        {
+            position:fixed;
+            bottom:10px;
+            right:25px;
+            z-index:2000;
+            cursor:pointer;
+            width:40px;
+            height:40px;
+            border-radius:50%;
+            background:#d7d7d7;
+            padding:8px;
+            opacity: 0.5;
+        }
+        #scroll-bottom:hover 
+        {
+            opacity: 1;
+        }
+    </style>
         <div class="container-fluid">
             <div style="height:50px">&nbsp;</div>
             <div class="body-content"></div>
+            <div class="control-scroll">
+            <a id="scroll-bottom" class="text-center" style='display:none'><i class="simple-icon-arrow-down" style="font-size:20px"></i></a><a id="scroll-top"  style='display:none' class="text-center"><i class="simple-icon-arrow-up" style="font-size:20px"></i></a>
+            </div>
         </div>
         <div class="modal fade" id="modal-pesan" tabindex="-1" role="dialog" aria-labelledby="modal-pesantitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -1474,6 +1515,33 @@
                 type:'logout'
             });
         }
+
+        $('#scroll-bottom').click(function(){
+            $('html, body').animate({
+                scrollTop: $(document).height()-$(window).height()
+            }, 700);
+        });
+
+        $('#scroll-top').click(function(){
+            $('html, body').animate({
+                scrollTop: 0
+            }, 700);
+        });
+
+        $(window).scroll(function() {
+            // if($(window).scrollTop() + $(window).height() == $(document).height()) {
+            //     alert("bottom!");
+            // }else if($(window).scrollTop() == 0){
+            //     alert("top!");
+            // }
+            if($(window).scrollTop() == 0){
+                $('#scroll-top').hide();
+                $('#scroll-bottom').show();
+            }else if($(window).scrollTop() + $(window).height() == $(document).height()){
+                $('#scroll-top').show();
+                $('#scroll-bottom').hide();
+            }
+        });
 
     </script>
 </body>

@@ -69,6 +69,9 @@
     $('body').addClass('dash-contents');
     $('html').addClass('dash-contents');
 
+    $('#scroll-top').hide();
+    $('#scroll-bottom').hide();
+
     $('.list-menudash').on('click','.a_link',function(e){
         e.preventDefault();
         var form = $(this).data('href');

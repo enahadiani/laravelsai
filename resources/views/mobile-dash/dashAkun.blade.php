@@ -75,6 +75,9 @@
 <script src="{{ asset('asset_dore/js/croppie.min.js') }}"></script>
 <script>
     
+    $('#scroll-top').hide();
+    $('#scroll-bottom').hide();
+    
     $('.navbar_bottom').show();
     $('.list-group').on('click','.a_link',function(e){
         e.preventDefault();

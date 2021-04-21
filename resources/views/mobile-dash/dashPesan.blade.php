@@ -43,6 +43,10 @@
 </div>
 <button id="trigger-bottom-sheet" style="display:none">Bottom ?</button>
 <script>
+    
+    $('#scroll-top').hide();
+    $('#scroll-bottom').hide();
+
     getJumlahNotRead();
     var bottomSheet = new BottomSheet("country-selector");
     document.getElementById("trigger-bottom-sheet").addEventListener("click", bottomSheet.activate);

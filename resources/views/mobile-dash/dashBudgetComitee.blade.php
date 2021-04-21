@@ -100,6 +100,10 @@
     
 </div>
 <script>
+    
+    $('#scroll-top').hide();
+    $('#scroll-bottom').hide();
+    
     $('.nama-menu').html($nama_menu);
     $('body').addClass('dash-contents');
     $('html').addClass('dash-contents');

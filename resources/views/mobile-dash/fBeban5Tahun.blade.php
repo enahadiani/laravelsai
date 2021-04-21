@@ -170,6 +170,9 @@ $tahun5 = intval($tahun-5);
 </div>
 <script>
 
+$('#scroll-top').hide();
+$('#scroll-bottom').hide();
+
 $('.navbar_bottom').hide();
 $('.nama-menu').html($nama_menu);
 $('body').addClass('dash-contents');
