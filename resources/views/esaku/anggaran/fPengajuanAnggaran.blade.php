@@ -113,7 +113,7 @@
                                 </div>
                                 <div class="form-group col-md-3 col-sm-12">
                                     <label for="bulan">Bulan</label>
-                                    <select class="form-control" name="bulan" id="bulan">
+                                    <select class="form-control" name="bulan_penerima" id="bulan_penerima">
                                         <option value="01" selected>01</option>
                                         <option value="02">02</option>
                                         <option value="03">03</option>
@@ -177,7 +177,7 @@
                                 </thead>
                                 <tbody></tbody>
                             </table>
-                            <a type="button" href="#" data-id="0" title="add-row" id="add-row-pemberi" class="add-row btn btn-light2 btn-block btn-sm"><i class="saicon icon-tambah mr-1"></i>Tambah Baris</a>
+                            <a type="button" href="#" data-id="0" title="add-row" id="add-row-controlling" class="add-row btn btn-light2 btn-block btn-sm"><i class="saicon icon-tambah mr-1"></i>Tambah Baris</a>
                         </div>
                     </div>
                 </div>
@@ -204,6 +204,7 @@
 <script src="{{ asset('helper.js') }}"></script>
 <script type="text/javascript">
     var $tahun = "{{ date('Y') }}"
+    var valid = true
     var $mataAnggaran = []
     var $ppAnggaran = []
     var $drkAnggaran = []
@@ -273,6 +274,31 @@
         }
     });
 
+    function resetForm() {
+        $('#pemberi-grid tbody').empty()
+        $("[id^=label]").each(function(e){
+            $(this).text('');
+        });
+        $("[class^=info-name]").each(function(e){
+            $(this).addClass('hidden');
+        });
+        $("[class^=input-group-text]").each(function(e){
+            $(this).text('');
+        });
+        $("[class^=input-group-prepend]").each(function(e){
+            $(this).addClass('hidden');
+        });
+        $("[class*='inp-label-']").each(function(e){
+            $(this).removeAttr("style");
+        })
+        $("[class^=info-code]").each(function(e){
+            $(this).text('');
+        });
+        $("[class^=simple-icon-close]").each(function(e){
+            $(this).addClass('hidden');
+        });
+    }
+
     function last_add(param,isi){
         var rowIndexes = [];
         dataTable.rows( function ( idx, data, node ) {             
@@ -331,6 +357,7 @@
     // END LIST DATA
 
     $('#saku-datatable').on('click', '#btn-tambah', function() {
+        resetForm()
         $('#row-id').hide();
         $('#method').val('post');
         $('#judul-form').html('Pengajuan RRA Anggaran');
@@ -388,6 +415,37 @@
         $('.info-name_'+kode).width(width).css({'left':pos.left,'height':height});
         $('.info-name_'+kode).closest('div').find('.info-icon-hapus').removeClass('hidden');
     }
+
+    $('#bulan_penerima').on('change', function(){
+        var bulan = $(this).val()
+        var pp = $('#pp_penerima').val()
+        var anggaran = $('#akun_penerima').val()
+        var periode = $tahun.concat(bulan)
+
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('esaku-trans/cek-saldo') }}",
+            dataType: 'json',
+            data: { bulan: bulan, kode_pp: pp, kode_akun: anggaran, periode: periode },
+            async:false,
+            success:function(result){    
+                var saldo = result.daftar
+                $('#saldo').val(parseInt(saldo))
+            },
+            error: function(jqXHR, textStatus, errorThrown) {       
+                if(jqXHR.status == 422){
+                    var msg = jqXHR.responseText;
+                }else if(jqXHR.status == 500) {
+                    var msg = "Internal server error";
+                }else if(jqXHR.status == 401){
+                    var msg = "Unauthorized";
+                    window.location="{{ url('/esaku-auth/sesi-habis') }}";
+                }else if(jqXHR.status == 405){
+                    var msg = "Route not valid. Page not found";
+                }    
+            }
+        });
+    })
 
     $('#form-tambah').on('click', '.search-item2', function() { 
         var id = $(this).closest('div').find('input').attr('name');
@@ -943,38 +1001,7 @@
         setTimeout(() => $('.saldoke'+noidx).focus(), 800)
     });
 
-    $('#bulan').on('change', function(){
-        var bulan = $(this).val()
-        var pp = $('#pp_penerima').val()
-        var anggaran = $('#akun_penerima').val()
-        var periode = $tahun.concat(bulan)
-
-        $.ajax({
-            type: 'GET',
-            url: "{{ url('esaku-trans/cek-saldo') }}",
-            dataType: 'json',
-            data: { bulan: bulan, kode_pp: pp, kode_akun: anggaran, periode: periode },
-            async:false,
-            success:function(result){    
-                var saldo = result.daftar
-                $('#saldo').val(parseInt(saldo))
-            },
-            error: function(jqXHR, textStatus, errorThrown) {       
-                if(jqXHR.status == 422){
-                    var msg = jqXHR.responseText;
-                }else if(jqXHR.status == 500) {
-                    var msg = "Internal server error";
-                }else if(jqXHR.status == 401){
-                    var msg = "Unauthorized";
-                    window.location="{{ url('/esaku-auth/sesi-habis') }}";
-                }else if(jqXHR.status == 405){
-                    var msg = "Route not valid. Page not found";
-                }    
-            }
-        });
-    })
-
-    var $twicePress = 0;
+    var $twicePressPemberi = 0;
     $('#pemberi-grid').on('keydown','.inp-anggaran, .inp-pp, .inp-drk, .inp-saldo, .inp-nilai',function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
         var nxt = ['.inp-anggaran','.inp-pp', '.inp-drk', '.inp-bulan', '.inp-saldo', '.inp-nilai'];
@@ -1030,7 +1057,7 @@
                     $(this).closest('tr').find('.search-drk').hide();
                 break;
                 case 3:
-                    $("#input-grid td").removeClass("px-0 py-0 aktif");
+                    $("#pemberi-grid td").removeClass("px-0 py-0 aktif");
                     $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
                     $(this).closest('tr').find(nxt[idx]).val(isi);
                     $(this).closest('tr').find(nxt2[idx]).text(isi);
@@ -1043,7 +1070,7 @@
                 break;
                 case 4:
                     if(isi != "" && isi != 0){
-                        $("#input-grid td").removeClass("px-0 py-0 aktif");
+                        $("#pemberi-grid td").removeClass("px-0 py-0 aktif");
                         $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
                         
                         $(this).closest('tr').find(nxt[idx]).val(isi);
@@ -1061,10 +1088,10 @@
                 break;
                 case 5:
                     if(isi != "" && isi != 0){
-                        $("#input-grid td").removeClass("px-0 py-0 aktif");
+                        $("#pemberi-grid td").removeClass("px-0 py-0 aktif");
                         $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
                         if(code == 13 || code == 9) {
-                            if($twicePress == 1) {
+                            if($twicePressPemberi == 1) {
                                 $(this).closest('tr').find(nxt[idx]).val(isi);
                                 $(this).closest('tr').find(nxt2[idx]).text(isi);
                                 $(this).closest('tr').find(nxt[idx]).hide();
@@ -1076,8 +1103,8 @@
                                     $('#add-row-pemberi').click();
                                 }
                             }
-                            $twicePress = 1
-                            setTimeout(() => $twicePress = 0, 1000)
+                            $twicePressPemberi = 1
+                            setTimeout(() => $twicePressPemberi = 0, 1000)
                         }
                     }else{
                         alert('Nilai yang dimasukkan tidak valid');
@@ -1093,4 +1120,721 @@
             idx--;
         }
     });
+
+    function hideAllRowControlling() {
+        $('#controlling-grid tbody tr').removeClass('selected-row');
+        $('#controlling-grid tbody td').removeClass('px-0 py-0 aktif');
+        $('#controlling-grid > tbody > tr').each(function(index, row) {
+            if(!$(row).hasClass('selected-row')) {
+                var akun = $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-akun").val();
+                var pp = $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-pp-controlling").val();
+                var drk = $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-drk-controlling").val();
+                var bulan = $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-bulan-controlling").val();
+                var saldoAwal = $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-saldo-awal").val();
+                var nilai = $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-nilai-controlling").val();
+                var saldoAkhir = $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-saldo-akhir").val();
+
+                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-akun").val(akun);
+                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".td-akun").text(akun);
+                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-pp-controlling").val(pp);
+                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".td-pp-controlling").text(pp);
+                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-drk-controlling").val(drk);
+                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".td-drk-controlling").text(drk);
+                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-bulan-controlling").val(bulan);
+                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".td-bulan-controlling").text(bulan);
+                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-saldo-awal").val(saldoAwal);
+                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".td-saldo-awal").text(saldoAwal);
+                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-nilai-controlling").val(nilai);
+                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".td-nilai-controlling").text(nilai);
+                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-saldo-akhir").val(saldoAkhir);
+                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".td-saldo-akhir").text(saldoAkhir);
+
+                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-akun").hide();
+                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".td-akun").show();
+                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".search-akun").hide();
+                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-pp-controlling").hide();
+                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".td-pp-controlling").show();
+                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".search-pp-controlling").hide();
+                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-drk-controlling").hide();
+                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".td-drk-controlling").show();
+                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".search-drk-controlling").hide();
+                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-bulan-controlling").hide();
+                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".td-bulan-controlling").show();
+                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-saldo-awal").hide();
+                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".td-saldo-awal").show();
+                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-nilai-controlling").hide();
+                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".td-nilai-controlling").show();
+                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-saldo-akhir").hide();
+                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".td-saldo-akhir").show();
+            }
+        })
+    }
+
+    function hideUnselectedRowControlling() {
+        $('#controlling-grid > tbody > tr').each(function(index, row) {
+            if(!$(row).hasClass('selected-row')) {
+                var akun = $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-akun").val();
+                var pp = $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-pp-controlling").val();
+                var drk = $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-drk-controlling").val();
+                var bulan = $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-bulan-controlling").val();
+                var saldoAwal = $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-saldo-awal").val();
+                var nilai = $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-nilai-controlling").val();
+                var saldoAkhir = $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-saldo-akhir").val();
+
+                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-akun").val(akun);
+                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".td-akun").text(akun);
+                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-pp-controlling").val(pp);
+                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".td-pp-controlling").text(pp);
+                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-drk-controlling").val(drk);
+                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".td-drk-controlling").text(drk);
+                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-bulan-controlling").val(bulan);
+                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".td-bulan-controlling").text(bulan);
+                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-saldo-awal").val(saldoAwal);
+                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".td-saldo-awal").text(saldoAwal);
+                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-nilai-controlling").val(nilai);
+                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".td-nilai-controlling").text(nilai);
+                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-saldo-akhir").val(saldoAkhir);
+                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".td-saldo-akhir").text(saldoAkhir);
+
+                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-akun").hide();
+                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".td-akun").show();
+                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".search-akun").hide();
+                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-pp-controlling").hide();
+                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".td-pp-controlling").show();
+                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".search-pp-controlling").hide();
+                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-drk-controlling").hide();
+                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".td-drk-controlling").show();
+                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".search-drk-controlling").hide();
+                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-bulan-controlling").hide();
+                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".td-bulan-controlling").show();
+                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-saldo-awal").hide();
+                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".td-saldo-awal").show();
+                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-nilai-controlling").hide();
+                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".td-nilai-controlling").show();
+                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-saldo-akhir").hide();
+                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".td-saldo-akhir").show();
+            }
+        })
+    }
+
+    function hitungTotalRowControlling(){
+        var total_row = $('#controlling-grid tbody tr').length;
+        $('#total-row-controlling').html(total_row+' Baris');
+    }
+
+    function addRowControlling() {
+        var no=$('#controlling-grid .row-controlling:last').index();
+        var no = no + 2
+        var html = "";
+        html += "<tr class='row-controlling'>"
+        html += "<td class='no-controlling text-center hidden'>"+no+"</td>"
+        html += "<td><div>"
+        html += "<span class='td-akun tdakunke"+no+" tooltip-span'></span>"
+        html += "<input autocomplete='off' type='text' name='akun[]' class='inp-akun akunke"+no+" form-control hidden' value='' required='' style='z-index: 1;position: relative;' id='akunkode"+no+"'><a href='#' class='search-item search-akun hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a>"
+        html += "</div></td>"
+        html += "<td><div>"
+        html += "<span class='td-pp-controlling tdppcontrollingke"+no+" tooltip-span'></span>"
+        html += "<input autocomplete='off' type='text' name='pp_controlling[]' class='inp-pp-controlling ppcontrollingke"+no+" form-control hidden' value='' required='' style='z-index: 1;position: relative;' id='ppcontrollingkode"+no+"'><a href='#' class='search-item search-pp-controlling hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a>"
+        html += "</div></td>"
+        html += "<td><div>"
+        html += "<span class='td-drk-controlling tddrkcontrollingke"+no+" tooltip-span'></span>"
+        html += "<input autocomplete='off' type='text' name='drk_controlling[]' class='inp-drk-controlling drkcontrollingke"+no+" form-control hidden' value='' required='' style='z-index: 1;position: relative;' id='drkcontrollingkode"+no+"'><a href='#' class='search-item search-drk-controlling hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a>"
+        html += "</div></td>"
+        html += "<td class='text-center'><div>"
+        html += "<span class='td-bulan-controlling tdbulancontrollingke"+no+" tooltip-span'></span>"
+        html += "<select class='hidden form-control inp-bulan-controlling bulancontrollingke"+no+"' name='bulan_controlling[]'>"
+        html += "<option value='01' selected>01</option><option value='02'>02</option><option value='03'>03</option><option value='04'>04</option><option value='05'>05</option><option value='06'>06</option><option value='07'>07</option><option value='08'>08</option><option value='09'>09</option><option value='10'>10</option><option value='11'>11</option><option value='12'>12</option>"
+        html += "</select>"
+        html += "</div></td>"
+        html += "<td class='text-right'><div>"
+        html += "<span class='td-saldo-awal tdsaldoawalke"+no+"'>0</span>"
+        html += "<input type='text' name='saldo_awal[]' class='inp-saldo-awal form-control saldoawalke"+no+" hidden currency' value='0' required>"
+        html += "</div></td>"
+        html += "<td class='text-right'>"
+        html += "<span class='td-nilai-controlling tdnilaicontrollingke"+no+"'>0</span>"
+        html += "<input type='text' name='nilai_controlling[]' class='inp-nilai-controlling form-control nilaicontrollingke"+no+" hidden currency'  value='0' required>"
+        html += "</td>"
+        html += "<td class='text-right'><div>"
+        html += "<span class='td-saldo-akhir tdsaldoakhirke"+no+"'>0</span>"
+        html += "<input type='text' name='saldo_akhir[]' class='inp-saldo-akhir form-control saldoakhirke"+no+" hidden currency' value='0' required>"
+        html += "</div></td>"
+        html += "<td class='text-center'><a class='hapus-controlling' style='font-size:18px;cursor:pointer;'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
+        html += "</tr>"
+
+        $('#controlling-grid tbody').append(html);
+        
+        $('.currency').inputmask("numeric", {
+            radixPoint: ",",
+            groupSeparator: ".",
+            digits: 2,
+            autoGroup: true,
+            rightAlign: true,
+            oncleared: function () {  }
+        });
+
+        $('.tooltip-span').tooltip({
+            title: function(){
+                return $(this).text();
+            }
+        });
+
+        $('.inp-akun').typeahead({
+            source:$mataAnggaran,
+            displayText:function(item){
+                return item.id+'-'+item.name;
+            },
+            autoSelect:false,
+            changeInputOnSelect:false,
+            changeInputOnMove:false,
+            selectOnBlur:false,
+            afterSelect: function (item) {
+                console.log(item.id);
+            }
+        });
+
+        $('.inp-pp-controlling').typeahead({
+            source:$ppAnggaran,
+            displayText:function(item){
+                return item.id+'-'+item.name;
+            },
+            autoSelect:false,
+            changeInputOnSelect:false,
+            changeInputOnMove:false,
+            selectOnBlur:false,
+            afterSelect: function (item) {
+                console.log(item.id);
+            }
+        });
+
+        $('.inp-drk-controlling').typeahead({
+            source:$ppAnggaran,
+            displayText:function(item){
+                return item.id+'-'+item.name;
+            },
+            autoSelect:false,
+            changeInputOnSelect:false,
+            changeInputOnMove:false,
+            selectOnBlur:false,
+            afterSelect: function (item) {
+                console.log(item.id);
+            }
+        });
+
+        hideUnselectedRowControlling()
+
+        $('#controlling-grid td').removeClass('px-0 py-0 aktif');
+        $('#controlling-grid tbody tr:last').find("td:eq(1)").addClass('px-0 py-0 aktif');
+        $('#controlling-grid tbody tr:last').find(".inp-akun").show();
+        $('#controlling-grid tbody tr:last').find(".search-akun").show();
+        $('#controlling-grid tbody tr:last').find(".td-akun").hide();
+        $('#controlling-grid tbody tr:last').find(".inp-akun").focus();
+
+        hitungTotalRowControlling()
+    }
+
+    $('#form-tambah').on('click', '#add-row-controlling', function(){
+        addRowControlling()
+    });
+
+    $('#controlling-grid').on('click', '.hapus-controlling', function(){
+        valid = true
+        $(this).closest('tr').remove();
+        no=1;
+        $('.row-controlling').each(function(){
+            var nom = $(this).closest('tr').find('.no-controlling');
+            nom.html(no);
+            no++;
+        });
+        hitungTotalRowControlling();
+        $("html, body").animate({ scrollTop: $(document).height() }, 1000);     
+    });
+
+    $('#controlling-grid').on('click', '.search-item', function() {
+        var idx = $(this).closest('tr').find('.no-controlling').text()
+        var param = $(this).closest('div').find('input[type="text"]').attr('name')
+        var target1 = $(this).closest('div').find('input[type="text"]').attr('class')
+        var target2 = $(this).closest('div').find('span').attr('class')
+        var target3 = $(this).closest('td').next('td').find('input[type="text"]').attr('class')
+        var target4 = $(this).closest('td').next('td').find('span').attr('class')
+        var tmp = target1.split(" ");
+        var tmp2 = target2.split(" ")
+        if(typeof target3 !== 'undefined') {
+            var tmp3 = target3.split(" ")
+            target3 = tmp3[1]
+        }
+        if(typeof target4 !== 'undefined') {
+            var tmp4 = target4.split(" ")
+            target4 = tmp4[1]
+        }
+        target1 = tmp[1];
+        target2 = tmp2[1]
+
+        switch(param){
+            case 'akun[]': 
+                var options = { 
+                    id : param,
+                    header : ['Kode', 'Nama'],
+                    url : "{{ url('esaku-trans/mata-anggaran') }}",
+                    columns : [
+                        { data: 'kode_akun' },
+                        { data: 'nama' }
+                    ],
+                    parameter: {
+                        tahun: $tahun
+                    },
+                    judul : "Daftar Akun",
+                    pilih : "jenis",
+                    jTarget1 : "val",
+                    jTarget2 : "val",
+                    target1 : "",
+                    target2 : "",
+                    target3 : "",
+                    target4 : "",
+                    onItemSelected: function(data) {
+                        var string = data.kode_akun+'-'+data.nama
+                        if(string.length > 25) {
+                            string = string.substr(0, 25) + '...'
+                        }
+                        $('.'+target1).val(string)
+                        $('.'+target2).text(string)
+                        $('.'+target1).hide()
+                        $('.search-akun').hide()
+                        $('.'+target2).show()
+                        $('.search-pp-controlling').show()
+                        $('.'+target3).show()
+                        $('.'+target4).hide()
+                    },
+                    width : ["30%","70%"]
+                };
+            break;
+            case 'pp_controlling[]': 
+                var options = { 
+                    id : param,
+                    header : ['Kode', 'Nama'],
+                    url : "{{ url('esaku-trans/pp-anggaran') }}",
+                    columns : [
+                        { data: 'kode_pp' },
+                        { data: 'nama' }
+                    ],
+                    parameter: {
+                        tahun: $tahun
+                    },
+                    judul : "Daftar PP",
+                    pilih : "jenis",
+                    jTarget1 : "val",
+                    jTarget2 : "val",
+                    target1 : "",
+                    target2 : "",
+                    target3 : "",
+                    target4 : "",
+                    onItemSelected: function(data) {
+                        var string = data.kode_pp+'-'+data.nama
+                        if(string.length > 30) {
+                            string = string.substr(0, 30) + '...'
+                        }
+                        $('.'+target1).val(string)
+                        $('.'+target2).text(string)
+                        $('.'+target1).hide()
+                        $('.search-pp-controlling').hide()
+                        $('.'+target2).show()
+                        $('.search-drk-controlling').show()
+                        $('.'+target3).show()
+                        $('.'+target4).hide()
+                    },
+                    width : ["30%","70%"]
+                };
+            break;
+            case 'drk_controlling[]': 
+                var options = { 
+                    id : param,
+                    header : ['Kode', 'Nama'],
+                    url : "{{ url('esaku-trans/pp-anggaran') }}",
+                    columns : [
+                        { data: 'kode_pp' },
+                        { data: 'nama' }
+                    ],
+                    parameter: {
+                        tahun: $tahun
+                    },
+                    judul : "Daftar DRK",
+                    pilih : "jenis",
+                    jTarget1 : "val",
+                    jTarget2 : "val",
+                    target1 : "",
+                    target2 : "",
+                    target3 : "",
+                    target4 : "",
+                    onItemSelected: function(data) {
+                        var string = data.kode_pp+'-'+data.nama
+                        if(string.length > 30) {
+                            string = string.substr(0, 30) + '...'
+                        }
+                        $('.'+target1).val(string)
+                        $('.'+target2).text(string)
+                        $('.'+target1).hide()
+                        $('.'+target2).show()
+                        $('.search-drk-controlling').hide()
+                        $('.tdbulancontrollingke'+idx).hide()
+                        $('.bulancontrollingke'+idx).show()
+                        $('.bulancontrollingke'+idx).focus()
+                    },
+                    width : ["30%","70%"]
+                };
+            break;
+            default:
+            break;
+        }
+
+        showInpFilter(options);
+    })
+
+    $('#controlling-grid tbody').on('click', 'tr', function(){
+        $(this).addClass('selected-row');
+        $('#controlling-grid tbody tr').not(this).removeClass('selected-row');
+        hideUnselectedRowControlling();
+    });
+
+    $('#controlling-grid').on('click', 'td', function(){
+        var idx = $(this).index();
+        if(idx == 8){
+            return false;
+        }else{
+            if($(this).hasClass('px-0 py-0 aktif')){
+                return false;            
+            }else{
+                $('#controlling-grid td').removeClass('px-0 py-0 aktif');
+                $(this).addClass('px-0 py-0 aktif');
+        
+                var akun = $(this).parents("tr").find(".inp-akun").val();
+                var pp = $(this).parents("tr").find(".inp-pp-controlling").val();
+                var drk = $(this).parents("tr").find(".inp-drk-controlling").val();
+                var bulan = $(this).parents("tr").find(".inp-bulan-controlling").val();
+                var nilai = $(this).parents("tr").find(".inp-nilai-controlling").val();
+                var saldoAwal = $(this).parents("tr").find(".inp-saldo-awal").val();
+                var saldoAkhir = $(this).parents("tr").find(".inp-saldo-akhir").val();
+
+                $(this).parents("tr").find(".inp-akun").val(akun);
+                $(this).parents("tr").find(".td-akun").text(akun);
+                if(idx == 1){
+                    $(this).parents("tr").find(".inp-akun").show();
+                    $(this).parents("tr").find(".search-akun").show();
+                    $(this).parents("tr").find(".td-akun").hide();
+                    $(this).parents("tr").find(".inp-akun").focus();
+                }else{
+                    $(this).parents("tr").find(".inp-akun").hide();
+                    $(this).parents("tr").find(".search-akun").hide();
+                    $(this).parents("tr").find(".td-akun").show();   
+                }
+
+                $(this).parents("tr").find(".inp-pp-controlling").val(pp);
+                $(this).parents("tr").find(".td-pp-controlling").text(pp);
+                if(idx == 2){
+                    $(this).parents("tr").find(".inp-pp-controlling").show();
+                    $(this).parents("tr").find(".search-pp-controlling").show();
+                    $(this).parents("tr").find(".td-pp-controlling").hide();
+                    $(this).parents("tr").find(".inp-pp-controlling").focus();
+                }else{
+                    $(this).parents("tr").find(".inp-pp-controlling").hide();
+                    $(this).parents("tr").find(".search-pp-controlling").hide();
+                    $(this).parents("tr").find(".td-pp-controlling").show();
+                }
+
+                $(this).parents("tr").find(".inp-drk-controlling").val(drk);
+                $(this).parents("tr").find(".td-drk-controlling").text(drk);
+                if(idx == 3){
+                    $(this).parents("tr").find(".inp-drk-controlling").show();
+                    $(this).parents("tr").find(".search-drk-controlling").show();
+                    $(this).parents("tr").find(".td-drk-controlling").hide();
+                    $(this).parents("tr").find(".inp-drk-controlling").focus();
+                }else{
+                    $(this).parents("tr").find(".inp-drk-controlling").hide();
+                    $(this).parents("tr").find(".search-drk-controlling").hide();
+                    $(this).parents("tr").find(".td-drk-controlling").show();
+                }
+
+                $(this).parents("tr").find(".inp-bulan-controlling").val(bulan);
+                $(this).parents("tr").find(".td-bulan-controlling").text(bulan);
+                if(idx == 4){
+                    $(this).parents("tr").find(".inp-bulan-controlling").show();
+                    $(this).parents("tr").find(".td-bulan-controlling").hide();
+                }else{
+                    $(this).parents("tr").find(".inp-bulan-controlling").hide();
+                    $(this).parents("tr").find(".td-bulan-controlling").show();
+                }
+
+                $(this).parents("tr").find(".inp-saldo-awal").val(saldoAwal);
+                $(this).parents("tr").find(".td-saldo-awal").text(saldoAwal);
+                if(idx == 5){
+                    $(this).parents("tr").find(".inp-saldo-awal").show();
+                    $(this).parents("tr").find(".td-saldo-awal").hide();
+                    $(this).parents("tr").find(".inp-saldo-awal").focus();
+                }else{
+                    $(this).parents("tr").find(".inp-saldo-awal").hide();
+                    $(this).parents("tr").find(".td-saldo-awal").show();
+                }
+
+                $(this).parents("tr").find(".inp-nilai-controlling").val(nilai);
+                $(this).parents("tr").find(".td-nilai-controlling").text(nilai);
+                if(idx == 6){
+                    $(this).parents("tr").find(".inp-nilai-controlling").show();
+                    $(this).parents("tr").find(".td-nilai-controlling").hide();
+                    $(this).parents("tr").find(".inp-nilai-controlling").focus();
+                }else{
+                    $(this).parents("tr").find(".inp-nilai-controlling").hide();
+                    $(this).parents("tr").find(".td-nilai-controlling").show();
+                }
+
+                $(this).parents("tr").find(".inp-saldo-akhir").val(saldoAkhir);
+                $(this).parents("tr").find(".td-saldo-akhir").text(saldoAkhir);
+                if(idx == 7){
+                    $(this).parents("tr").find(".inp-saldo-akhir").show();
+                    $(this).parents("tr").find(".td-saldo-akhir").hide();
+                    $(this).parents("tr").find(".inp-saldo-akhir").focus();
+                }else{
+                    $(this).parents("tr").find(".inp-saldo-akhir").hide();
+                    $(this).parents("tr").find(".td-saldo-akhir").show();
+                }
+            }
+        }
+    });
+
+    $('#controlling-grid').on('change', '.inp-bulan-controlling', function(e){
+        e.preventDefault();
+        var noidx =  $(this).parents("tr").find(".no-controlling").text();
+        target1 = "saldocontrollingke"+noidx;
+        target2 = "tdsaldocontrollingke"+noidx;
+        var value = $(this).val();
+        $('.tdbulancontrollingke'+noidx).text(value)
+        $('.bulancontrollingke'+noidx).hide()
+        $('.tdbulancontrollingke'+noidx).show()
+        $('.saldoawalke'+noidx).show()
+        $('.tdsaldoawalke'+noidx).hide()
+        setTimeout(() => $('.saldoawalke'+noidx).focus(), 800)
+    });
+
+    var $twicePressControlling = 0;
+    $('#controlling-grid').on('keydown','.inp-akun, .inp-pp-controlling, .inp-drk-controlling, .inp-saldo-awal, .inp-nilai-controlling, .inp-saldo-akhir',function(e){
+        var code = (e.keyCode ? e.keyCode : e.which);
+        var nxt = ['.inp-akun','.inp-pp-controlling', '.inp-drk-controlling', '.inp-bulan-controlling', '.inp-saldo-awal', '.inp-nilai-controlling', '.inp-saldo-akhir'];
+        var nxt2 = ['.td-akun','.td-pp-controlling', '.td-drk-controlling', '.td-bulan-controlling', '.td-saldo-awal', '.td-nilai-controlling', '.td-saldo-akhir'];
+        if (code == 13 || code == 9) {
+            e.preventDefault();
+            var idx = $(this).closest('td').index()-1;
+            var idx_next = idx+1;
+            var kunci = $(this).closest('td').index()+1;
+            var isi = $(this).val();
+            switch (idx) {
+                case 0:
+                    $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
+                    if(isi.length > 25) {
+                        isi = isi.substr(0, 25) + '...'
+                    }
+                    $(this).closest('tr').find(nxt[idx]).val(isi);
+                    $(this).closest('tr').find(nxt2[idx]).text(isi);
+                    $(this).closest('tr').find(nxt[idx]).hide();
+                    $(this).closest('tr').find(nxt2[idx]).show();
+
+                    $(this).closest('tr').find(nxt[idx_next]).show();
+                    $(this).closest('tr').find(nxt2[idx_next]).hide();
+                    $(this).closest('tr').find(nxt[idx_next]).focus();
+                    $(this).closest('tr').find('.search-akun').hide();
+                    $(this).closest('tr').find('.search-pp-controlling').show();
+                break;
+                case 1:
+                    $("#controlling-grid td").removeClass("px-0 py-0 aktif");
+                    $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
+                    $(this).closest('tr').find(nxt[idx]).val(isi);
+                    $(this).closest('tr').find(nxt2[idx]).text(isi);
+                    $(this).closest('tr').find(nxt[idx]).hide();
+                    $(this).closest('tr').find(nxt2[idx]).show();
+
+                    $(this).closest('tr').find(nxt[idx_next]).show();
+                    $(this).closest('tr').find(nxt2[idx_next]).hide();
+                    $(this).closest('tr').find(nxt[idx_next]).focus();
+                    $(this).closest('tr').find('.search-pp-controlling').hide();
+                    $(this).closest('tr').find('.search-drk-controlling').show();
+                break;
+                case 2:
+                    $("#controlling-grid td").removeClass("px-0 py-0 aktif");
+                    $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
+                    $(this).closest('tr').find(nxt[idx]).val(isi);
+                    $(this).closest('tr').find(nxt2[idx]).text(isi);
+                    $(this).closest('tr').find(nxt[idx]).hide();
+                    $(this).closest('tr').find(nxt2[idx]).show();
+
+                    $(this).closest('tr').find(nxt[idx_next]).show();
+                    $(this).closest('tr').find(nxt2[idx_next]).hide();
+                    $(this).closest('tr').find(nxt[idx_next]).focus();
+                    $(this).closest('tr').find('.search-drk-controlling').hide();
+                break;
+                case 3:
+                    $("#controlling-grid td").removeClass("px-0 py-0 aktif");
+                    $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
+                    $(this).closest('tr').find(nxt[idx]).val(isi);
+                    $(this).closest('tr').find(nxt2[idx]).text(isi);
+                    $(this).closest('tr').find(nxt[idx]).hide();
+                    $(this).closest('tr').find(nxt2[idx]).show();
+
+                    $(this).closest('tr').find(nxt[idx_next]).show();
+                    $(this).closest('tr').find(nxt2[idx_next]).hide();
+                    $(this).closest('tr').find(nxt[idx_next]).focus();
+                break;
+                case 4:
+                    if(isi != "" && isi != 0){
+                        $("#controlling-grid td").removeClass("px-0 py-0 aktif");
+                        $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
+                        
+                        $(this).closest('tr').find(nxt[idx]).val(isi);
+                        $(this).closest('tr').find(nxt2[idx]).text(isi);
+                        $(this).closest('tr').find(nxt[idx]).hide();
+                        $(this).closest('tr').find(nxt2[idx]).show();
+
+                        $(this).closest('tr').find(nxt[idx_next]).show();
+                        $(this).closest('tr').find(nxt2[idx_next]).hide();
+                        $(this).closest('tr').find(nxt[idx_next]).focus();
+                    }else{
+                        alert('Saldo Awal yang dimasukkan tidak valid');
+                        return false;
+                    }
+                break;
+                case 5:
+                    if(isi != "" && isi != 0){
+                        $("#controlling-grid td").removeClass("px-0 py-0 aktif");
+                        $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
+                        $(this).closest('tr').find(nxt[idx]).val(isi);
+                        $(this).closest('tr').find(nxt2[idx]).text(isi);
+                        $(this).closest('tr').find(nxt[idx]).hide();
+                        $(this).closest('tr').find(nxt2[idx]).show();
+
+                        $(this).closest('tr').find(nxt[idx_next]).show();
+                        $(this).closest('tr').find(nxt2[idx_next]).hide();
+                        $(this).closest('tr').find(nxt[idx_next]).focus();
+                    }else{
+                        alert('Nilai yang dimasukkan tidak valid');
+                        return false;
+                    }
+                break;
+                case 6:
+                    if(isi != "" && isi != 0){
+                        $("#controlling-grid td").removeClass("px-0 py-0 aktif");
+                        $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
+
+                        if(code == 13 || code == 9) {
+                            if($twicePressControlling == 1) {
+                                $(this).closest('tr').find(nxt[idx]).val(isi);
+                                $(this).closest('tr').find(nxt2[idx]).text(isi);
+                                $(this).closest('tr').find(nxt[idx]).hide();
+                                $(this).closest('tr').find(nxt2[idx]).show();
+                                var cek = $(this).parents('tr').next('tr').find('.td-akun');
+                                if(cek.length > 0){
+                                    cek.click();
+                                }else{
+                                    $('#add-row-controlling').click();
+                                }
+                            }
+                            $twicePressControlling = 1
+                            setTimeout(() => $twicePressControlling = 0, 1000)
+                        }
+                    }else{
+                        alert('Saldo Akhir yang dimasukkan tidak valid');
+                        return false;
+                    }
+                break;
+                default:
+                break;   
+            }
+        }else if(code == 38){
+            e.preventDefault();
+            var idx = nxt.indexOf(e.target.id);
+            idx--;
+        }
+    });
+
+    $('#form-tambah').validate({
+        ignore: [],
+        rules: {},
+        errorElement: "label",
+        submitHandler: function (form, event) {
+            event.preventDefault();
+
+            $("#pemberi-grid tbody tr td:not(:first-child):not(:last-child)").each(function() {
+                if($(this).find('span').text().trim().length == 0) {
+                    console.log($(this).find('span').text().length)
+                    alert('Data pemberi tidak boleh kosong, harap dihapus untuk melanjutkan')
+                    valid = false;
+                    return false;
+                }
+            });
+
+            var parameter = $('#id_edit').val();
+            var id = $('#id').val();
+
+            if(parameter == "edit"){
+                var url = "{{ url('esaku-trans/pengajuan-rra-ubah') }}";
+                var pesan = "updated";
+                var text = "Perubahan data "+id+" telah tersimpan";
+            }else{
+                var url = "{{ url('esaku-trans/pengajuan-rra') }}";
+                var pesan = "saved";
+                var text = "Data tersimpan";
+            }
+
+            var formData = new FormData(form);
+            $('#pemberi-grid tbody tr').each(function(index) {
+                formData.append('no_pemberi[]', $(this).find('.no-pemberi').text())
+            })
+            for(var pair of formData.entries()) {
+                console.log(pair[0]+ ', '+ pair[1]); 
+            }
+            if(valid) {
+                $.ajax({
+                    type: 'POST', 
+                    url: url,
+                    dataType: 'json',
+                    data: formData,
+                    async:false,
+                    contentType: false,
+                    cache: false,
+                    processData: false, 
+                    success:function(result){
+                        if(result.data.success.status){
+                            dataTable.ajax.reload();
+                            $('#row-id').hide();
+                            $('#form-tambah')[0].reset();
+                            $('#form-tambah').validate().resetForm();
+                            $('[id^=label]').html('');
+                            $('#id_edit').val('');
+                            $('#judul-form').html('Pengajuan RRA Anggaran');
+                            $('#method').val('post');
+                            resetForm();
+                            msgDialog({
+                                id:result.data.success.no_bukti,
+                                type:'simpan'
+                            });
+                            last_add("no_pdrk",result.data.success.no_bukti);
+                        }else if(!result.data.success.status && result.data.success.message === "Unauthorized"){
+                            window.location.href = "{{ url('/esaku-auth/sesi-habis') }}";
+                        }else{
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Something went wrong!',
+                                footer: '<a href>'+result.data.success.message+'</a>'
+                            })
+                        }
+                    },
+                    fail: function(xhr, textStatus, errorThrown){
+                        alert('request failed:'+textStatus);
+                    }
+                });
+                $('#btn-simpan').html("Simpan").removeAttr('disabled');
+            }
+        },
+        errorPlacement: function (error, element) {
+            var id = element.attr("id");
+            $("label[for="+id+"]").append("<br/>");
+            $("label[for="+id+"]").append(error);
+        }
+    });
+
 </script>

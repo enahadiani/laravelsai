@@ -262,6 +262,7 @@ Route::get('load-anggaran', 'Esaku\Anggaran\UploadAnggaranController@loadAnggara
 
 ## Pengajua RRA
 Route::get('pengajuan-rra', 'Esaku\Anggaran\PengajuanAnggaranController@index');
+Route::post('pengajuan-rra', 'Esaku\Anggaran\PengajuanAnggaranController@store');
 Route::get('nik-approve', 'Esaku\Anggaran\PengajuanAnggaranController@getNikApprove');
 Route::get('pp-terima', 'Esaku\Anggaran\PengajuanAnggaranController@getPPTerima');
 Route::get('akun-terima', 'Esaku\Anggaran\PengajuanAnggaranController@getAkunTerima');
