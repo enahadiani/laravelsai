@@ -443,6 +443,11 @@
                 width: 14pt;
                 height: 18pt;
             }
+            #btn-filter
+            {
+                border:none !important;
+                border-radius:none !important;
+            }
     </style>
     <div class='navbar_bottom' style=''>
         <a href="#" data-href="dashHome" class='active' style='padding:10px 0px 0px 0px;width: 33%;'>
@@ -453,7 +458,7 @@
         <i class='saicon icon-user' style='text-align: center;'></i><p style='text-align: center;font-size: 14px;margin-bottom:0'>Akun</p></a>
     </div>
     <div class="navbar_filter">
-        <a class="btn btn-outline-dark btn-block" href="#" id="btn-filter" style="position: absolute;right: 15px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-equalizer" style="transform-style: ;"></i> &nbsp;&nbsp; Filter</a>
+        <a class="btn btn-block" href="#" id="btn-filter" style="font-size:16px !important"><i class="simple-icon-equalizer" style="transform-style: ;"></i> &nbsp;&nbsp; Filter</a>
     </div>
     <div id="country-selector" class="c-bottom-sheet c-bottom-sheet--list">
 			<div class="c-bottom-sheet__scrim"></div>
@@ -1400,6 +1405,10 @@
             loadForm("{{ url('mobile-dash/form') }}/blankform");
         }
     });
+
+    var bottomSheetFilter = new BottomSheet("country-selector");
+    document.getElementById("btn-filter").addEventListener("click", bottomSheetFilter.activate);
+    window.bottomSheetFilter = bottomSheetFilter;
 
     var $theme = "dore.dark.redruby.min.css";
     var mode = window.localStorage.getItem('dore-theme');

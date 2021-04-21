@@ -7,7 +7,7 @@
         font-weight:bold;
     }
     .border-rounded-grey{
-        background: #D4D4D4;
+        background: #242424;
         display:inline-flex;
         padding: 8px;
         border-radius: 50%;
