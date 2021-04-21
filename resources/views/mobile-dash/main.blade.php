@@ -415,15 +415,15 @@
                 background: #4361EE;
                 -webkit-mask-image: url("{{ url('img/mobile-dash/fi-rr-home.svg') }}");
                 mask-image: url("{{ url('img/mobile-dash/fi-rr-home.svg') }}");
-                width: 20pt;
-                height: 22pt;
+                width: 18pt;
+                height: 18pt;
             }
             a.active > .saicon.icon-pesan{
                 background: #4361EE;
                 -webkit-mask-image: url("{{ url('img/mobile-dash/fi-rr-bell.svg') }}");
                 mask-image: url("{{ url('img/mobile-dash/fi-rr-bell.svg') }}");
                 width: 20pt;
-                height: 18pt;
+                height: 22pt;
             }
             a.active > .saicon.icon-user{
                 background: #4361EE;
