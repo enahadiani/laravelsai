@@ -6,7 +6,7 @@
 </style>
 <div class="row mb-3">
     <div class="col-8 back-menu px-0" style="cursor:pointer" >
-        <h6 class="bold pl-3" style="font-weight: bold;">
+        <h6 class="bold pl-3" >
             <i class="simple-icon-arrow-left text-left"></i> 
             <span class="nama-menu ml-3" style="font-size: 1.2rem !important;"></span>
         </h6>
