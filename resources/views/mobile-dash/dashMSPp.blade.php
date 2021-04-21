@@ -191,7 +191,7 @@ function singkatNilai(num){
 function getDetailPP(periode=null,kodeNeraca=null,kodeBidang=null,tahun=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/detail-drill-pp') }}",
+        url:"{{ url('/mobile-dash/detail-drill-pp') }}",
         dataType:"JSON",
         data:{ 'form':$form_back,'periode[0]' : periode.type,
             'periode[1]' : periode.from,
@@ -217,7 +217,7 @@ function getDetailPP(periode=null,kodeNeraca=null,kodeBidang=null,tahun=null){
                 var msg = "Internal server error";
             }else if(jqXHR.status == 401){
                 var msg = "Unauthorized";
-                window.location="{{ url('/dash-telu/sesi-habis') }}";
+                window.location="{{ url('/mobile-dash/sesi-habis') }}";
             }else if(jqXHR.status == 405){
                 var msg = "Route not valid. Page not found";
             }
@@ -229,7 +229,7 @@ function getDetailPP(periode=null,kodeNeraca=null,kodeBidang=null,tahun=null){
 function getDataPP(periode=null,kodeNeraca=null,kodeBidang=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/drill-pp') }}",
+        url:"{{ url('/mobile-dash/drill-pp') }}",
         dataType:"JSON",
         data:{ 'form':$form_back,'periode[0]' : periode.type,
             'periode[1]' : periode.from,
@@ -310,7 +310,7 @@ function getDataPP(periode=null,kodeNeraca=null,kodeBidang=null){
                 var msg = "Internal server error";
             }else if(jqXHR.status == 401){
                 var msg = "Unauthorized";
-                window.location="{{ url('/dash-telu/sesi-habis') }}";
+                window.location="{{ url('/mobile-dash/sesi-habis') }}";
             }else if(jqXHR.status == 405){
                 var msg = "Route not valid. Page not found";
             }
@@ -371,7 +371,7 @@ $('.tahunPilih').text('20'+$kd2);
 $('.thnPilih').text($kd2);
 
 $('.detail2-beban').on('click','#btnBack',function(e){
-    var url = "{{ url('/dash-telu/form/dashMSBidang') }}";
+    var url = "{{ url('/mobile-dash/form/dashMSBidang') }}";
     loadForm(url);
 })
 </script>

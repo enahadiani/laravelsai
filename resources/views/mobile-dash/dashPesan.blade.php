@@ -36,24 +36,9 @@
     }
 </style>
 <div class="row mt-3">
-    <div class="col-12 px-0">
-        <h6 class="pl-3">Pesan</h6>
-        <ul class="nav nav-tabs col-12 nav-custom2" role="tablist">
-            <li class="nav-item w-50 text-center"> <a class="nav-link active" data-toggle="tab" data-href="info" href="#inbox" role="tab" aria-selected="true"><span class="hidden-xs-down">Inbox <span class="badge badge-pill badge-info jum-read" style="background: #4361EE;padding: 0.35rem;position: absolute;top: 5px;border-radius: 50%;min-width: 20px;font-size: 9px !important;min-height: 20px;">0</span></span></a> </li>
-            <li class="nav-item w-50 text-center"> <a class="nav-link" data-toggle="tab" data-href="notif" href="#notif" role="tab" aria-selected="true"><span class="hidden-xs-down">Notifikasi</span></a> </li>
-        </ul>
-        <div class="tab-content tabcontent-border col-12 p-0">
-            <div class="tab-pane active" id="inbox" role="tabpanel">
-                <div class="tab-pesan p-3">
-                    
-                </div>
-            </div>
-            <div class="tab-pane" id="notif" role="tabpanel">
-                <div class="tab-notif p-3">
-                    
-                </div>
-            </div>
-        </div>
+    <div class="col-12 px-0" style="height: 100vh !important;">
+        <h6 class="ml-3">Notifikasi</h6>
+        <p class="text-center" style="margin-top: calc(50vh - 20px);">Tidak ada notifikasi</p>
     </div>
 </div>
 <button id="trigger-bottom-sheet" style="display:none">Bottom ?</button>

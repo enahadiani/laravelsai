@@ -285,7 +285,7 @@ var $dash_jenis = {
 function getPeriode(){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/periode') }}",
+        url:"{{ url('/mobile-dash/periode') }}",
         dataType: "JSON",
         success: function(result){
             $('#periode_type').selectize();
@@ -403,7 +403,7 @@ function getPeriode(){
                 var msg = "Internal server error";
             }else if(jqXHR.status == 401){
                 var msg = "Unauthorized";
-                window.location="{{ url('/dash-telu/sesi-habis') }}";
+                window.location="{{ url('/mobile-dash/sesi-habis') }}";
             }else if(jqXHR.status == 405){
                 var msg = "Route not valid. Page not found";
             }
@@ -452,7 +452,7 @@ $('.dash-filter').on('change', '.dash-filter-type', function(){
 function getBCRKA(periode,jenis){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/rka') }}",
+        url:"{{ url('/mobile-dash/rka') }}",
         data:{ 'periode[0]' : periode.type,
             'periode[1]' : periode.from,
             'periode[2]' : periode.to, mode: $mode,
@@ -526,7 +526,7 @@ function getBCRKA(periode,jenis){
                 var msg = "Internal server error";
             }else if(jqXHR.status == 401){
                 var msg = "Unauthorized";
-                window.location="{{ url('/dash-telu/sesi-habis') }}";
+                window.location="{{ url('/mobile-dash/sesi-habis') }}";
             }else if(jqXHR.status == 405){
                 var msg = "Route not valid. Page not found";
             }
@@ -538,7 +538,7 @@ function getBCRKA(periode,jenis){
 function getBCRKAPersen(periode,jenis){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/rka-persen') }}",
+        url:"{{ url('/mobile-dash/rka-persen') }}",
         dataType:"JSON",
         data:{mode: $mode, 'periode[0]' : periode.type,
             'periode[1]' : periode.from,
@@ -608,7 +608,7 @@ function getBCRKAPersen(periode,jenis){
                 var msg = "Internal server error";
             }else if(jqXHR.status == 401){
                 var msg = "Unauthorized";
-                window.location="{{ url('/dash-telu/sesi-habis') }}";
+                window.location="{{ url('/mobile-dash/sesi-habis') }}";
             }else if(jqXHR.status == 405){
                 var msg = "Route not valid. Page not found";
             }
@@ -620,7 +620,7 @@ function getBCRKAPersen(periode,jenis){
 function getBCGrowthRKA(periode,jenis){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/growth-rka') }}",
+        url:"{{ url('/mobile-dash/growth-rka') }}",
         data:{ 'periode[0]' : periode.type,
             'periode[1]' : periode.from,
             'periode[2]' : periode.to, mode: $mode,
@@ -690,7 +690,7 @@ function getBCGrowthRKA(periode,jenis){
                 var msg = "Internal server error";
             }else if(jqXHR.status == 401){
                 var msg = "Unauthorized";
-                window.location="{{ url('/dash-telu/sesi-habis') }}";
+                window.location="{{ url('/mobile-dash/sesi-habis') }}";
             }else if(jqXHR.status == 405){
                 var msg = "Route not valid. Page not found";
             }
@@ -702,7 +702,7 @@ function getBCGrowthRKA(periode,jenis){
 function getBCTuition(periode,jenis){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/tuition') }}",
+        url:"{{ url('/mobile-dash/tuition') }}",
         dataType:"JSON",
         data:{ 'periode[0]' : periode.type,
             'periode[1]' : periode.from,
@@ -765,7 +765,7 @@ function getBCTuition(periode,jenis){
                 var msg = "Internal server error";
             }else if(jqXHR.status == 401){
                 var msg = "Unauthorized";
-                window.location="{{ url('/dash-telu/sesi-habis') }}";
+                window.location="{{ url('/mobile-dash/sesi-habis') }}";
             }else if(jqXHR.status == 405){
                 var msg = "Route not valid. Page not found";
             }
@@ -777,7 +777,7 @@ function getBCTuition(periode,jenis){
 function getBCTuitionPersen(periode,jenis){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/tuition-persen') }}",
+        url:"{{ url('/mobile-dash/tuition-persen') }}",
         dataType:"JSON",
         data:{ 'periode[0]' : periode.type,
             'periode[1]' : periode.from,
@@ -840,7 +840,7 @@ function getBCTuitionPersen(periode,jenis){
                 var msg = "Internal server error";
             }else if(jqXHR.status == 401){
                 var msg = "Unauthorized";
-                window.location="{{ url('/dash-telu/sesi-habis') }}";
+                window.location="{{ url('/mobile-dash/sesi-habis') }}";
             }else if(jqXHR.status == 405){
                 var msg = "Route not valid. Page not found";
             }
@@ -853,7 +853,7 @@ function getBCTuitionPersen(periode,jenis){
 function getBCGrowthTuition(periode,jenis){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/growth-tuition') }}",
+        url:"{{ url('/mobile-dash/growth-tuition') }}",
         dataType:"JSON",
         data:{ 'periode[0]' : periode.type,
             'periode[1]' : periode.from,
@@ -923,7 +923,7 @@ function getBCGrowthTuition(periode,jenis){
                 var msg = "Internal server error";
             }else if(jqXHR.status == 401){
                 var msg = "Unauthorized";
-                window.location="{{ url('/dash-telu/sesi-habis') }}";
+                window.location="{{ url('/mobile-dash/sesi-habis') }}";
             }else if(jqXHR.status == 405){
                 var msg = "Route not valid. Page not found";
             }

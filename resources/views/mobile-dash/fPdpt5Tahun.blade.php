@@ -217,6 +217,8 @@ $tahun5 = intval($tahun-5);
 
 <script src="{{ asset('asset_dore/js/base64.js') }}"></script>
 <script>
+
+$('.nama-menu').html($nama_menu);
 $('body').addClass('dash-contents');
 $('html').addClass('dash-contents');
 if(localStorage.getItem("dore-theme") == "dark"){
@@ -307,7 +309,7 @@ function singkatNilai(num){
 function getPeriode(){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/periode') }}",
+        url:"{{ url('/mobile-dash/periode') }}",
         dataType: "JSON",
         success: function(result){
             $('#periode_type').selectize();
@@ -546,7 +548,7 @@ function drawVisualization() {
 function getPendapatan(periode=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/pend-5tahun') }}",
+        url:"{{ url('/mobile-dash/pend-5tahun') }}",
         data:{'periode[0]' : periode.type,
             'periode[1]' : periode.from,
             'periode[2]' : periode.to, mode: $mode},
@@ -700,7 +702,7 @@ function getPendapatan(periode=null){
 function getPendapatanYoY(periode=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/pend-5tahun-yoy') }}",
+        url:"{{ url('/mobile-dash/pend-5tahun-yoy') }}",
         data:{'periode[0]' : periode.type,
             'periode[1]' : periode.from,
             'periode[2]' : periode.to, mode: $mode},
@@ -932,7 +934,7 @@ function drawVisualizationTF() {
 function getPendapatanTF(periode=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/pend-5tahun-tf') }}",
+        url:"{{ url('/mobile-dash/pend-5tahun-tf') }}",
         data:{'periode[0]' : periode.type,
             'periode[1]' : periode.from,
             'periode[2]' : periode.to, mode: $mode},
@@ -1087,7 +1089,7 @@ function getPendapatanTF(periode=null){
 function getPendapatanTFYoY(periode=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/pend-5tahun-tf-yoy') }}",
+        url:"{{ url('/mobile-dash/pend-5tahun-tf-yoy') }}",
         data:{'periode[0]' : periode.type,
             'periode[1]' : periode.from,
             'periode[2]' : periode.to, mode: $mode},
@@ -1319,7 +1321,7 @@ function drawVisualizationNTF() {
 function getPendapatanNTF(periode=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/pend-5tahun-ntf') }}",
+        url:"{{ url('/mobile-dash/pend-5tahun-ntf') }}",
         data:{'periode[0]' : periode.type,
             'periode[1]' : periode.from,
             'periode[2]' : periode.to, mode: $mode},
@@ -1475,7 +1477,7 @@ function getPendapatanNTF(periode=null){
 function getPendapatanNTFYoY(periode=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/pend-5tahun-ntf-yoy') }}",
+        url:"{{ url('/mobile-dash/pend-5tahun-ntf-yoy') }}",
         data:{'periode[0]' : periode.type,
             'periode[1]' : periode.from,
             'periode[2]' : periode.to, mode: $mode},
@@ -1687,7 +1689,7 @@ function drawVisualizationKomposisi() {
 function getKomposisi(periode=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/pend-5tahun-komposisi') }}",
+        url:"{{ url('/mobile-dash/pend-5tahun-komposisi') }}",
         dataType:"JSON",
         data:{'periode[0]' : periode.type,
             'periode[1]' : periode.from,
@@ -1773,7 +1775,7 @@ function getKomposisi(periode=null){
 function getKomposisiYoY(periode=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/pend-5tahun-komposisi-yoy') }}",
+        url:"{{ url('/mobile-dash/pend-5tahun-komposisi-yoy') }}",
         dataType:"JSON",
         data:{'periode[0]' : periode.type,
             'periode[1]' : periode.from,
@@ -1919,7 +1921,7 @@ function drawVisualizationGrowth() {
 function getPendapatanGrowth(periode=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/pend-5tahun-growth') }}",
+        url:"{{ url('/mobile-dash/pend-5tahun-growth') }}",
         data: {'periode[0]' : periode.type,
             'periode[1]' : periode.from,
             'periode[2]' : periode.to, mode: $mode},
@@ -2030,7 +2032,7 @@ function getPendapatanGrowth(periode=null){
 function getPendapatanGrowthYoY(periode=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/pend-5tahun-growth-yoy') }}",
+        url:"{{ url('/mobile-dash/pend-5tahun-growth-yoy') }}",
         data: {'periode[0]' : periode.type,
             'periode[1]' : periode.from,
             'periode[2]' : periode.to, mode: $mode},

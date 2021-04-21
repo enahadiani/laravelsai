@@ -184,11 +184,16 @@
                             }
                             
                             if($this_lv == 1){
-                                
+                                if($main_menu[$i]['kode_form'] == "DX43"){
+                                    $icon= "<i class='".$main_menu[$i]['icon']." text-blue'></i>";
+                                }else{
+                                    $icon= "<i class='saicon ".$main_menu[$i]['kode_form']."'></i>";
+                                }
                                 $main .=" 
                                 <li class='list-group-item mb-2'>
                                     <a href='#' data-href='".$this_link."' class='a_link'>
-                                        <span class='border-rounded-grey mr-2'><i class='".$main_menu[$i]['icon']." text-blue'></i></span> <span class='d-inline-block nama'>".$main_menu[$i]['nama']."</span>
+                                        <span class='border-rounded-grey mr-2'>".$icon."
+                                        </span> <span class='nama' style='position:absolute;bottom:19px'>".$main_menu[$i]['nama']."</span>
                                     </a>
                                 </li>";
                             }
@@ -436,13 +441,10 @@
             }
         }
 
-        public function updateProfileSiswa(Request $request){
-            $this->validate($request,[
-                'tgl_lahir' => 'date_format:d/m/Y'
-            ]);
+        public function updateProfile(Request $request){
             try {
                 $client = new Client();
-                $response = $client->request('POST',  config('api.url').'mobile-dash/update-profile-siswa',[
+                $response = $client->request('POST',  config('api.url').'ypt-auth/update-profile',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -450,11 +452,6 @@
                     'form_params' => [
                         'nis' => $request->inp_nis,
                         'nama' => $request->inp_nama,
-                        'kode_kelas' => $request->inp_kode_kelas,
-                        'jk' => $request->inp_jk,
-                        'tgl_lahir' => $this->reverseDate($request->inp_tgl_lahir,"/","-"),
-                        'tmp_lahir' => $request->inp_tempat_lahir,
-                        'agama' => $request->inp_agama,
                         'email' => $request->inp_email,
                     ]
                 ]);

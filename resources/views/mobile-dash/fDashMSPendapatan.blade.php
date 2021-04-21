@@ -295,7 +295,7 @@ function singkatNilai(num){
 function getPeriode(){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/periode') }}",
+        url:"{{ url('/mobile-dash/periode') }}",
         dataType: "JSON",
         success: function(result){
             $('#periode_type').selectize();
@@ -378,7 +378,7 @@ function getPeriode(){
                 var msg = "Internal server error";
             }else if(jqXHR.status == 401){
                 var msg = "Unauthorized";
-                window.location="{{ url('/dash-telu/sesi-habis') }}";
+                window.location="{{ url('/mobile-dash/sesi-habis') }}";
             }else if(jqXHR.status == 405){
                 var msg = "Route not valid. Page not found";
             }
@@ -427,7 +427,7 @@ $('.dash-filter').on('change', '.dash-filter-type', function(){
 function getMsPendRKA(periode=null, id){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/ms-pend-capai') }}",
+        url:"{{ url('/mobile-dash/ms-pend-capai') }}",
         data:{'periode[0]' : periode.type,
             'periode[1]' : periode.from,
             'periode[2]' : periode.to, mode: $mode},
@@ -537,7 +537,7 @@ function getMsPendRKA(periode=null, id){
                                     var tmp = e.point.category.split("|");
                                     $nama = tmp[0];
                                     $form_back = "fDashMSPendapatan";
-                                    var url = "{{ url('/dash-telu/form/dashTeluPdptDet') }}";
+                                    var url = "{{ url('/mobile-dash/form/dashTeluPdptDet') }}";
                                     loadForm(url)
                                 }
                             }
@@ -575,7 +575,7 @@ function getMsPendRKA(periode=null, id){
                                     $form_back = "fDashMSPendapatan";
                                     var tmp = e.point.category.split("|");
                                     $nama = tmp[0];
-                                    var url = "{{ url('/dash-telu/form/dashTeluPdptDet') }}";
+                                    var url = "{{ url('/mobile-dash/form/dashTeluPdptDet') }}";
                                     loadForm(url)
                                 }
                             }
@@ -636,7 +636,7 @@ function getMsPendRKA(periode=null, id){
                 var msg = "Internal server error";
             }else if(jqXHR.status == 401){
                 var msg = "Unauthorized";
-                window.location="{{ url('/dash-telu/sesi-habis') }}";
+                window.location="{{ url('/mobile-dash/sesi-habis') }}";
             }else if(jqXHR.status == 405){
                 var msg = "Route not valid. Page not found";
             }
@@ -648,7 +648,7 @@ function getMsPendRKA(periode=null, id){
 function getMsPendKlp(periode=null,id){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/ms-pend-capai-klp') }}",
+        url:"{{ url('/mobile-dash/ms-pend-capai-klp') }}",
         data:{'periode[0]' : periode.type,
             'periode[1]' : periode.from,
             'periode[2]' : periode.to, mode: $mode},
@@ -800,7 +800,7 @@ function getMsPendKlp(periode=null,id){
                 var msg = "Internal server error";
             }else if(jqXHR.status == 401){
                 var msg = "Unauthorized";
-                window.location="{{ url('/dash-telu/sesi-habis') }}";
+                window.location="{{ url('/mobile-dash/sesi-habis') }}";
             }else if(jqXHR.status == 405){
                 var msg = "Route not valid. Page not found";
             }
@@ -859,7 +859,7 @@ $("#btn-close").on("click", function (event) {
 
 $('.ms-pdpt').on('click','#btnBack',function(e){
     e.preventDefault();
-    var url = "{{ url('/dash-telu/form/fDashManagementSystem') }}";
+    var url = "{{ url('/mobile-dash/form/fDashManagementSystem') }}";
     loadForm(url);
 })
 

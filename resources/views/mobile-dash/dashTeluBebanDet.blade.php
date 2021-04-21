@@ -251,7 +251,7 @@ function singkatNilai(num){
 function getDetailBeban(periode=null,kodeNeraca=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/getDetailBeban') }}",
+        url:"{{ url('/mobile-dash/getDetailBeban') }}",
         dataType:"JSON",
         data:{'form':$form_back,'periode[0]' : periode.type,
             'periode[1]' : periode.from,
@@ -278,7 +278,7 @@ function getDetailBeban(periode=null,kodeNeraca=null){
                 var msg = "Internal server error";
             }else if(jqXHR.status == 401){
                 var msg = "Unauthorized";
-                window.location="{{ url('/dash-telu/sesi-habis') }}";
+                window.location="{{ url('/mobile-dash/sesi-habis') }}";
             }else if(jqXHR.status == 405){
                 var msg = "Route not valid. Page not found";
             }
@@ -290,7 +290,7 @@ function getDetailBeban(periode=null,kodeNeraca=null){
 function getDetailBebanNon(periode=null,kodeNeraca=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/getDetailBebanNon') }}",
+        url:"{{ url('/mobile-dash/getDetailBebanNon') }}",
         dataType:"JSON",
         data:{'form':$form_back,'periode[0]' : periode.type,
             'periode[1]' : periode.from,
@@ -317,7 +317,7 @@ function getDetailBebanNon(periode=null,kodeNeraca=null){
                 var msg = "Internal server error";
             }else if(jqXHR.status == 401){
                 var msg = "Unauthorized";
-                window.location="{{ url('/dash-telu/sesi-habis') }}";
+                window.location="{{ url('/mobile-dash/sesi-habis') }}";
             }else if(jqXHR.status == 405){
                 var msg = "Route not valid. Page not found";
             }
@@ -329,7 +329,7 @@ function getDetailBebanNon(periode=null,kodeNeraca=null){
 function getBebanFak(periode=null, kodeNeraca=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/getBebanFak') }}",
+        url:"{{ url('/mobile-dash/getBebanFak') }}",
         data:{'form':$form_back,'periode[0]' : periode.type,
             'periode[1]' : periode.from,
             'periode[2]' : periode.to, mode: $mode,'kode_neraca':kodeNeraca, 'kode_grafik':($kd_grafik != undefined ? $kd_grafik : "")},
@@ -374,7 +374,7 @@ function getBebanFak(periode=null, kodeNeraca=null){
                                 click: function() {  
                                     $kd2 = this.options.tahun;
                                     $kd3 = this.options.kode_bidang;
-                                    var url = "{{ url('/dash-telu/form/dashTeluBebanDet2') }}";
+                                    var url = "{{ url('/mobile-dash/form/dashTeluBebanDet2') }}";
                                     loadForm(url)
                                 }
                             }
@@ -411,7 +411,7 @@ function getBebanFak(periode=null, kodeNeraca=null){
                 var msg = "Internal server error";
             }else if(jqXHR.status == 401){
                 var msg = "Unauthorized";
-                window.location="{{ url('/dash-telu/sesi-habis') }}";
+                window.location="{{ url('/mobile-dash/sesi-habis') }}";
             }else if(jqXHR.status == 405){
                 var msg = "Route not valid. Page not found";
             }
@@ -423,7 +423,7 @@ function getBebanFak(periode=null, kodeNeraca=null){
 function getBebanFakNon(periode=null, kodeNeraca=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/getBebanFakNon') }}",
+        url:"{{ url('/mobile-dash/getBebanFakNon') }}",
         data:{'form':$form_back,'periode[0]' : periode.type,
             'periode[1]' : periode.from,
             'periode[2]' : periode.to, mode: $mode,'kode_neraca':kodeNeraca, 'kode_grafik':($kd_grafik != undefined ? $kd_grafik : "")},
@@ -468,7 +468,7 @@ function getBebanFakNon(periode=null, kodeNeraca=null){
                                 click: function() {  
                                     $kd2 = this.options.tahun;
                                     $kd3 = this.options.kode_bidang;
-                                    var url = "{{ url('/dash-telu/form/dashTeluBebanDet2') }}";
+                                    var url = "{{ url('/mobile-dash/form/dashTeluBebanDet2') }}";
                                     loadForm(url)
                                 }
                             }
@@ -505,7 +505,7 @@ function getBebanFakNon(periode=null, kodeNeraca=null){
                 var msg = "Internal server error";
             }else if(jqXHR.status == 401){
                 var msg = "Unauthorized";
-                window.location="{{ url('/dash-telu/sesi-habis') }}";
+                window.location="{{ url('/mobile-dash/sesi-habis') }}";
             }else if(jqXHR.status == 405){
                 var msg = "Route not valid. Page not found";
             }
@@ -517,7 +517,7 @@ function getBebanFakNon(periode=null, kodeNeraca=null){
 function getPertumbuhanBebanFak(periode=null,kodeNeraca=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/getBebanFak') }}",
+        url:"{{ url('/mobile-dash/getBebanFak') }}",
         dataType:"JSON",
         data:{'form':$form_back,'periode[0]' : periode.type,
             'periode[1]' : periode.from,
@@ -581,7 +581,7 @@ function getPertumbuhanBebanFak(periode=null,kodeNeraca=null){
                 var msg = "Internal server error";
             }else if(jqXHR.status == 401){
                 var msg = "Unauthorized";
-                window.location="{{ url('/dash-telu/sesi-habis') }}";
+                window.location="{{ url('/mobile-dash/sesi-habis') }}";
             }else if(jqXHR.status == 405){
                 var msg = "Route not valid. Page not found";
             }
@@ -593,7 +593,7 @@ function getPertumbuhanBebanFak(periode=null,kodeNeraca=null){
 function getPertumbuhanBebanFakNon(periode=null,kodeNeraca=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/getBebanFakNon') }}",
+        url:"{{ url('/mobile-dash/getBebanFakNon') }}",
         dataType:"JSON",
         data:{'form':$form_back,'periode[0]' : periode.type,
             'periode[1]' : periode.from,
@@ -657,7 +657,7 @@ function getPertumbuhanBebanFakNon(periode=null,kodeNeraca=null){
                 var msg = "Internal server error";
             }else if(jqXHR.status == 401){
                 var msg = "Unauthorized";
-                window.location="{{ url('/dash-telu/sesi-habis') }}";
+                window.location="{{ url('/mobile-dash/sesi-habis') }}";
             }else if(jqXHR.status == 405){
                 var msg = "Route not valid. Page not found";
             }
@@ -722,10 +722,10 @@ $('.thnIni').text($dash_periode.from.substr(0,4));
 $('.detail-beban').on('click','#btnBack',function(e){
     e.preventDefault();
     if($form_back != ""){
-        var url = "{{ url('/dash-telu/form') }}/"+$form_back;
+        var url = "{{ url('/mobile-dash/form') }}/"+$form_back;
     }else{
 
-        var url = "{{ url('/dash-telu/form/dashTeluBeban') }}";
+        var url = "{{ url('/mobile-dash/form/dashTeluBeban') }}";
     }
     loadForm(url);
 });

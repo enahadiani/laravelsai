@@ -248,6 +248,7 @@
 
         <a class="navbar-logo" href="#">
             <span class="logo d-none d-xs-block"></span>
+            <span class="logo2 d-none d-xs-block"></span>
             <span class="logo-mobile d-block d-xs-none"></span>
         </a>
         @php
@@ -1250,6 +1251,7 @@
         $theme = $theme.replace("light", "dark");
         var url_logo = "{{ asset('img/whitelogo Telu.png') }}";
         var url_logo_mob = "{{ asset('img/telu_darkmode_mini.jpeg') }}";
+        var ulr_logo2 = "{{ asset('img/KUG Light.png') }}";
         $('.logo').css({
             'background': "url('"+url_logo+"') no-repeat",
             'background-size': '100px',
@@ -1266,6 +1268,7 @@
         $theme = $theme.replace("dark", "light");
         var url_logo = "{{ asset('img/Tel-U-logo_1.PRIMER-Utama.png') }}";
         var url_logo_mob = "{{ asset('img/logo-telu.png') }}";
+        var ulr_logo2 = "{{ asset('img/KUG Dark.png') }}";
         $('.logo').css({
             'background': "url('"+url_logo+"') no-repeat",
             'background-size': '120px',
@@ -1277,7 +1280,6 @@
             'height': '30px',
         });
     }
-    console.log(url_logo_mob);
  
     </script>
     <script src="{{ asset('asset_dore/js/scripts.js') }}"></script>

@@ -92,12 +92,14 @@ Route::get('/growth-tuition','DashTelu\DashboardController@getBCGrowthTuition');
 Route::get('/komponen-investasi','DashTelu\DashboardController@komponenInvestasi');
 Route::get('/rka-real-investasi','DashTelu\DashboardController@rkaVSRealInvestasi');
 Route::get('/penyerapan-investasi','DashTelu\DashboardController@penyerapanInvestasi');
+Route::get('/penyerapan-investasi-tahun','DashTelu\DashboardController@penyerapanInvestasiTahun');
 
 
 Route::get('/profile', 'DashTelu\AuthController@getProfile');
 Route::post('/update-password', 'DashTelu\AuthController@updatePassword');
 Route::post('/update-foto', 'DashTelu\AuthController@updatePhoto');
 Route::post('/update-background', 'DashTelu\AuthController@updateBackground');
+Route::post('/update-profile', 'DashTelu\AuthMobileController@updateProfile');
 
 Route::get('notif','DashTelu\NotifController@getNotif');
 Route::post('notif-update-status','DashTelu\NotifController@updateStatusRead');
@@ -109,7 +111,7 @@ Route::get('tahun','DashTelu\DashboardController@getTahun');
 
 Route::get('watch/{id}', function ($id) {
     $data['id'] = $id;
-    return view('dash-telu.watch',$data);
+    return view('mobile-dash.watch',$data);
 });
 
 //Management System

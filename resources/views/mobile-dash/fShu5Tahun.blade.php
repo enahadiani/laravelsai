@@ -117,6 +117,8 @@ $tahun5 = intval($tahun-5);
     </div>
 </div>
 <script>
+
+$('.nama-menu').html($nama_menu);
 $('body').addClass('dash-contents');
 $('html').addClass('dash-contents');
 if(localStorage.getItem("dore-theme") == "dark"){
@@ -201,7 +203,7 @@ function singkatNilai(num){
 function getPeriode(){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/periode') }}",
+        url:"{{ url('/mobile-dash/periode') }}",
         dataType: "JSON",
         success: function(result){
             $('#periode_type').selectize();
@@ -430,7 +432,7 @@ function drawVisualizationBeban() {
 function getSHU(periode=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/shu-5tahun') }}",
+        url:"{{ url('/mobile-dash/shu-5tahun') }}",
         data:{'periode[0]' : periode.type,
             'periode[1]' : periode.from,
             'periode[2]' : periode.to, mode: $mode},
@@ -585,7 +587,7 @@ function getSHU(periode=null){
 function getSHUYoY(periode=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/shu-5tahun-yoy') }}",
+        url:"{{ url('/mobile-dash/shu-5tahun-yoy') }}",
         data:{'periode[0]' : periode.type,
             'periode[1]' : periode.from,
             'periode[2]' : periode.to, mode: $mode},

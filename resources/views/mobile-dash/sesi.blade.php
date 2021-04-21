@@ -83,7 +83,7 @@ Session::put('pesan','Kembali');
                             <img src="{{ asset('img/end_session.svg') }}" style="width:200px">
                             <h2 class="mt-3"><b>Sesi kamu sudah berakhir</b></h2>
                             <p class="mt-3" style="font-size:12px">Maaf demi keamanan data kamu jika tidak ada aktivitas selama 1 jam <br> maka sistem akan keluar secara otomatis. Jangan khawatir kamu bisa masuk kembali. </p>
-                            <a type="button" href="{{ url('mobile-tarbak/login') }}" class="btn mt-3" style="border: 1px solid #000;width: 200px;">Masuk</a>
+                            <a type="button" href="{{ url('mobile-dash/login') }}" class="btn mt-3" style="border: 1px solid #000;width: 200px;">Masuk</a>
                         </div>
                     </div>
                 </div>

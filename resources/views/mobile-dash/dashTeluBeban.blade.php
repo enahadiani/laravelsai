@@ -264,7 +264,7 @@ function singkatNilai(num){
 function getPeriode(){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/periode') }}",
+        url:"{{ url('/mobile-dash/periode') }}",
         dataType: "JSON",
         success: function(result){
             $('#periode_type').selectize();
@@ -370,7 +370,7 @@ function getPeriode(){
                 var msg = "Internal server error";
             }else if(jqXHR.status == 401){
                 var msg = "Unauthorized";
-                window.location="{{ url('/dash-telu/sesi-habis') }}";
+                window.location="{{ url('/mobile-dash/sesi-habis') }}";
             }else if(jqXHR.status == 405){
                 var msg = "Route not valid. Page not found";
             }
@@ -417,7 +417,7 @@ $('.dash-filter').on('change', '.dash-filter-type', function(){
 function getPresentaseRkaRealisasi(periode=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/getPresentaseRkaRealisasiBeban') }}",
+        url:"{{ url('/mobile-dash/getPresentaseRkaRealisasiBeban') }}",
         dataType:"JSON",
         data:{'periode[0]' : periode.type,
             'periode[1]' : periode.from,
@@ -475,7 +475,7 @@ function getPresentaseRkaRealisasi(periode=null){
                                     $kd= this.options.key;
                                     $nama = this.options.name;
                                     
-                                    var url = "{{ url('/dash-telu/form/dashTeluBebanDet') }}";
+                                    var url = "{{ url('/mobile-dash/form/dashTeluBebanDet') }}";
                                     loadForm(url)
                                 }
                             }
@@ -551,7 +551,7 @@ function getPresentaseRkaRealisasi(periode=null){
                                     $kd= this.options.key;
                                     $nama = this.options.name;
                                     
-                                    var url = "{{ url('/dash-telu/form/dashTeluBebanDet') }}";
+                                    var url = "{{ url('/mobile-dash/form/dashTeluBebanDet') }}";
                                     loadForm(url)
                                 }
                             }
@@ -580,7 +580,7 @@ function getPresentaseRkaRealisasi(periode=null){
                 $kd = result.data.data_sdm[$(this).index()].key;
                 $nama = result.data.data_sdm[$(this).index()].name;
                 $form_back = "dashTeluBeban"; 
-                var url = "{{ url('/dash-telu/form/dashTeluBebanDet') }}";
+                var url = "{{ url('/mobile-dash/form/dashTeluBebanDet') }}";
                 loadForm(url)
             });
             $('#rkaVSrealNon .highcharts-xaxis-labels text').on('click', function () {
@@ -588,7 +588,7 @@ function getPresentaseRkaRealisasi(periode=null){
                 $kd = result.data.data_non[$(this).index()].key;
                 $form_back = "dashTeluBeban"; 
                 $nama = result.data.data_sdm[$(this).index()].name;
-                var url = "{{ url('/dash-telu/form/dashTeluBebanDet') }}";
+                var url = "{{ url('/mobile-dash/form/dashTeluBebanDet') }}";
                 loadForm(url)
             });
 
@@ -600,7 +600,7 @@ function getPresentaseRkaRealisasi(periode=null){
                 var msg = "Internal server error";
             }else if(jqXHR.status == 401){
                 var msg = "Unauthorized";
-                window.location="{{ url('/dash-telu/sesi-habis') }}";
+                window.location="{{ url('/mobile-dash/sesi-habis') }}";
             }else if(jqXHR.status == 405){
                 var msg = "Route not valid. Page not found";
             }
@@ -612,7 +612,7 @@ function getPresentaseRkaRealisasi(periode=null){
 function getPresentaseRkaRealisasiRp(periode=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/getPresentaseRkaRealisasiBebanRp') }}",
+        url:"{{ url('/mobile-dash/getPresentaseRkaRealisasiBebanRp') }}",
         dataType:"JSON",
         data:{'periode[0]' : periode.type,
             'periode[1]' : periode.from,
@@ -669,7 +669,7 @@ function getPresentaseRkaRealisasiRp(periode=null){
                                     $form_back = "dashTeluBeban";
                                     $kd= this.options.key;
                                     $nama= this.options.name;
-                                    var url = "{{ url('/dash-telu/form/dashTeluBebanDet') }}";
+                                    var url = "{{ url('/mobile-dash/form/dashTeluBebanDet') }}";
                                     loadForm(url)
                                 }
                             }
@@ -698,7 +698,7 @@ function getPresentaseRkaRealisasiRp(periode=null){
                 $kd = result.data.data_sdm[$(this).index()].key;
                 $nama = result.data.data_sdm[$(this).index()].name;
                 $form_back = "dashTeluBeban"; 
-                var url = "{{ url('/dash-telu/form/dashTeluBebanDet') }}";
+                var url = "{{ url('/mobile-dash/form/dashTeluBebanDet') }}";
                 loadForm(url)
             });
 
@@ -754,7 +754,7 @@ function getPresentaseRkaRealisasiRp(periode=null){
                                     $kd= this.options.key;
                                     $nama= this.options.name;
                                     
-                                    var url = "{{ url('/dash-telu/form/dashTeluBebanDet') }}";
+                                    var url = "{{ url('/mobile-dash/form/dashTeluBebanDet') }}";
                                     loadForm(url)
                                 }
                             }
@@ -783,7 +783,7 @@ function getPresentaseRkaRealisasiRp(periode=null){
                 $kd = result.data.data_non[$(this).index()].key;
                 $form_back = "dashTeluBeban"; 
                 $nama = result.data.data_non[$(this).index()].name;
-                var url = "{{ url('/dash-telu/form/dashTeluBebanDet') }}";
+                var url = "{{ url('/mobile-dash/form/dashTeluBebanDet') }}";
                 loadForm(url)
             });
 
@@ -795,7 +795,7 @@ function getPresentaseRkaRealisasiRp(periode=null){
                 var msg = "Internal server error";
             }else if(jqXHR.status == 401){
                 var msg = "Unauthorized";
-                window.location="{{ url('/dash-telu/sesi-habis') }}";
+                window.location="{{ url('/mobile-dash/sesi-habis') }}";
             }else if(jqXHR.status == 405){
                 var msg = "Route not valid. Page not found";
             }
@@ -807,7 +807,7 @@ function getPresentaseRkaRealisasiRp(periode=null){
 function getOprNonOpr(periode=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/getOprNonOprBeban') }}",
+        url:"{{ url('/mobile-dash/getOprNonOprBeban') }}",
         dataType:"JSON",
         data:{'periode[0]' : periode.type,
             'periode[1]' : periode.from,
@@ -823,7 +823,7 @@ function getOprNonOpr(periode=null){
                 var msg = "Internal server error";
             }else if(jqXHR.status == 401){
                 var msg = "Unauthorized";
-                window.location="{{ url('/dash-telu/sesi-habis') }}";
+                window.location="{{ url('/mobile-dash/sesi-habis') }}";
             }else if(jqXHR.status == 405){
                 var msg = "Route not valid. Page not found";
             }
@@ -835,7 +835,7 @@ function getOprNonOpr(periode=null){
 function getKomposisiBeban(periode=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/getKomposisiBeban') }}",
+        url:"{{ url('/mobile-dash/getKomposisiBeban') }}",
         dataType:"JSON",
         data:{'periode[0]' : periode.type,
             'periode[1]' : periode.from,
@@ -917,7 +917,7 @@ function getKomposisiBeban(periode=null){
                 var msg = "Internal server error";
             }else if(jqXHR.status == 401){
                 var msg = "Unauthorized";
-                window.location="{{ url('/dash-telu/sesi-habis') }}";
+                window.location="{{ url('/mobile-dash/sesi-habis') }}";
             }else if(jqXHR.status == 405){
                 var msg = "Route not valid. Page not found";
             }
@@ -929,7 +929,7 @@ function getKomposisiBeban(periode=null){
 function getKomposisiBebanRp(periode=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/getKomposisiBeban') }}",
+        url:"{{ url('/mobile-dash/getKomposisiBeban') }}",
         dataType:"JSON",
         data:{'periode[0]' : periode.type,
             'periode[1]' : periode.from,
@@ -1011,7 +1011,7 @@ function getKomposisiBebanRp(periode=null){
                 var msg = "Internal server error";
             }else if(jqXHR.status == 401){
                 var msg = "Unauthorized";
-                window.location="{{ url('/dash-telu/sesi-habis') }}";
+                window.location="{{ url('/mobile-dash/sesi-habis') }}";
             }else if(jqXHR.status == 405){
                 var msg = "Route not valid. Page not found";
             }

@@ -401,7 +401,7 @@
                 -webkit-mask-image: url("{{ url('img/mobile-dash/fi-rr-bell.svg') }}");
                 mask-image: url("{{ url('img/mobile-dash/fi-rr-bell.svg') }}");
                 width: 20pt;
-                height: 18pt;
+                height: 22pt;
             }
             .icon-user{
                 background: #505050;
@@ -423,7 +423,7 @@
                 -webkit-mask-image: url("{{ url('img/mobile-dash/fi-rr-bell.svg') }}");
                 mask-image: url("{{ url('img/mobile-dash/fi-rr-bell.svg') }}");
                 width: 20pt;
-                height: 18pt;
+                height: 22pt;
             }
             a.active > .saicon.icon-user{
                 background: #4361EE;
@@ -437,7 +437,7 @@
         <a href="#" data-href="dashHome" class='active' style='padding:10px 0px 0px 0px;width: 33%;'>
         <i class='saicon icon-home' style='text-align: center;'></i><p style='text-align: center;font-size: 14px;margin-bottom:0'>Home</p></a>
         <a href='#' data-href="dashPesan" style='padding:10px 0px 0px 0px;width: 33%;'>
-        <i class='saicon icon-pesan' style='text-align: center;'></i><p style='text-align: center;font-size: 14px;margin-bottom:0'>Notifikasi <span class="badge badge-pill badge-info jum-read" style="background: #FF3B30;padding: 0.35rem;position: absolute;top: 2px;border-radius: 50%;min-width: 20px;font-size: 9px !important;min-height: 20px;margin-left: -10px !important;">0</span></p></a>
+        <i class='saicon icon-pesan' style='text-align: center;'></i><p style='text-align: center;font-size: 14px;margin-bottom:0'>Notifikasi</p></a>
         <a href='#' data-href="dashAkun" style='padding:10px 0px 0px 0px;width: 33%;'>
         <i class='saicon icon-user' style='text-align: center;'></i><p style='text-align: center;font-size: 14px;margin-bottom:0'>Akun</p></a>
     </div>
@@ -453,7 +453,7 @@
 					<span></span>
 					<span></span>
 				</div>
-                <div id="content-bottom-sheet" style="max-height:75vh;width:100%"></div>
+                <div id="content-bottom-sheet" style="min-height: 50vh;max-height:90vh;width:100%"></div>
 			</div>
 			<div class="c-bottom-sheet__container">
 
@@ -477,6 +477,11 @@
         headers: {
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         }
+    });
+
+    $('.c-bottom-sheet__close').on('click','#bottom-sheet-close',function(e){
+        e.preventDefault();
+        $('.c-bottom-sheet').removeClass('active');
     });
 
     class TouchDragListener {
@@ -1382,7 +1387,53 @@
         }
     });
 
-    var $theme = "dore.light.blueolympic.min.css";
+    var $theme = "dore.dark.redruby.min.css";
+    var mode = window.localStorage.getItem('dore-theme');
+    if (mode == "dark") {
+        $theme = $theme.replace("light", "dark");
+        var url_logo = "{{ asset('img/whitelogo Telu.png') }}";
+        var url_logo_mob = "{{ asset('img/telu_darkmode_mini.jpeg') }}";
+        $('.logo').css({
+            'background': "url('"+url_logo+"') no-repeat",
+            'background-size': '100px',
+            'height':'35px',
+        });
+        $('.logo-mobile').css({
+            'background': "url('"+url_logo_mob+"') no-repeat",
+            'background-size': '30px',
+            'height': '30px',
+        });
+
+      // localStorage.setItem("dore-theme", mode);
+    } else if (mode == "light") {
+        $theme = $theme.replace("dark", "light");
+        var url_logo = "{{ asset('img/Tel-U-logo_1.PRIMER-Utama.png') }}";
+        var url_logo_mob = "{{ asset('img/logo-telu.png') }}";
+        $('.logo').css({
+            'background': "url('"+url_logo+"') no-repeat",
+            'background-size': '120px',
+            'height':'45px',
+        });
+        $('.logo-mobile').css({
+            'background': "url('"+url_logo_mob+"') no-repeat",
+            'background-size': '30px',
+            'height': '30px',
+        });
+    }else{
+        $theme = $theme.replace("light", "dark");
+        var url_logo = "{{ asset('img/whitelogo Telu.png') }}";
+        var url_logo_mob = "{{ asset('img/telu_darkmode_mini.jpeg') }}";
+        $('.logo').css({
+            'background': "url('"+url_logo+"') no-repeat",
+            'background-size': '100px',
+            'height':'35px',
+        });
+        $('.logo-mobile').css({
+            'background': "url('"+url_logo_mob+"') no-repeat",
+            'background-size': '30px',
+            'height': '30px',
+        });
+    }
  
     </script>
     <script src="{{ asset('asset_dore/js/scripts.js') }}"></script>
