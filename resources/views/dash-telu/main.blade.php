@@ -247,8 +247,14 @@
 
 
         <a class="navbar-logo" href="#">
-            <span class="logo d-none d-xs-block"></span>
-            <span class="logo2 d-none d-xs-block"></span>
+            <div class="row">
+                <div class="col-8">
+                    <span class="logo d-none d-xs-block"></span>
+                </div>
+                <div class="col-4">
+                    <span class="logo2 d-none d-xs-block"></span>
+                </div>
+            </div>
             <span class="logo-mobile d-block d-xs-none"></span>
         </a>
         @php
@@ -1251,10 +1257,15 @@
         $theme = $theme.replace("light", "dark");
         var url_logo = "{{ asset('img/whitelogo Telu.png') }}";
         var url_logo_mob = "{{ asset('img/telu_darkmode_mini.jpeg') }}";
-        var ulr_logo2 = "{{ asset('img/KUG Light.png') }}";
+        var url_logo2 = "{{ asset('img/KUG Light.png') }}";
         $('.logo').css({
             'background': "url('"+url_logo+"') no-repeat",
             'background-size': '100px',
+            'height':'35px',
+        });
+        $('.logo2').css({
+            'background': "url('"+url_logo2+"') no-repeat",
+            'background-size': '25px',
             'height':'35px',
         });
         $('.logo-mobile').css({
@@ -1268,17 +1279,42 @@
         $theme = $theme.replace("dark", "light");
         var url_logo = "{{ asset('img/Tel-U-logo_1.PRIMER-Utama.png') }}";
         var url_logo_mob = "{{ asset('img/logo-telu.png') }}";
-        var ulr_logo2 = "{{ asset('img/KUG Dark.png') }}";
+        var url_logo2 = "{{ asset('img/KUG Dark.png') }}";
         $('.logo').css({
             'background': "url('"+url_logo+"') no-repeat",
             'background-size': '120px',
             'height':'45px',
+        });
+        $('.logo2').css({
+            'background': "url('"+url_logo2+"') no-repeat",
+            'background-size': '25px',
+            'height':'35px',
         });
         $('.logo-mobile').css({
             'background': "url('"+url_logo_mob+"') no-repeat",
             'background-size': '30px',
             'height': '30px',
         });
+    }else{
+        $theme = $theme.replace("dark", "light");
+        var url_logo = "{{ asset('img/Tel-U-logo_1.PRIMER-Utama.png') }}";
+        var url_logo_mob = "{{ asset('img/logo-telu.png') }}";
+        var url_logo2 = "{{ asset('img/KUG Dark.png') }}";
+        $('.logo').css({
+            'background': "url('"+url_logo+"') no-repeat",
+            'background-size': '120px',
+            'height':'45px',
+        });
+        $('.logo2').css({
+            'background': "url('"+url_logo2+"') no-repeat",
+            'background-size': '25px',
+            'height':'25px',
+        });
+        $('.logo-mobile').css({
+            'background': "url('"+url_logo_mob+"') no-repeat",
+            'background-size': '30px',
+            'height': '30px',
+        });   
     }
  
     </script>
