@@ -21,6 +21,104 @@ class PengajuanAnggaranController extends Controller {
         }
     }
 
+    public function joinNum($num){
+        // menggabungkan angka yang di-separate(10.000,75) menjadi 10000.00
+        $num = str_replace(".", "", $num);
+        $num = str_replace(",", ".", $num);
+        return $num;
+    }
+
+    public function convertPeriode($date) {
+        $explode = explode("/", $date);
+
+        return "$explode[2]$explode[1]";
+    }
+
+    public function convertDate($date, $from = '/', $to = '-') {
+        $explode = explode($from, $date);
+        return "$explode[2]"."$to"."$explode[1]"."$to"."$explode[0]";
+    }
+
+    public function getKode($value) {
+        $split = explode("-", $value);
+        return $split[0];
+    }
+
+    public function store(Request $request) {
+        $this->validate($request, [
+            'nik_approve' => 'required',
+            'keterangan' => 'required',
+            'no_dok' => 'required',
+            'saldo' => 'required',
+            'pp_penerima' => 'required',
+            'akun_penerima' => 'required',
+            'bulan_penerima' => 'required',
+            'nilai_penerima' => 'required',
+        ]);
+
+        try {
+            $fields = array();
+            $akun = array();
+            $pp = array();
+            $bulan = array();
+            $saldo = array();
+            $nilai = array();
+
+            for($i=0;$i<count($request->no_pemberi);$i++){ 
+                $akun[] = $this->getKode($request->anggaran[$i]);
+                $pp[] = $this->getKode($request->pp[$i]);
+                $bulan[] = $request->bulan[$i];  
+                $saldo[] = $this->joinNum($request->saldo[$i]);  
+                $nilai[] = $this->joinNum($request->nilai[$i]);  
+            }
+
+            $fields = array(
+                'tanggal' => date('Y-m-d'),
+                'no_dokumen' => $request->no_dok,
+                'nik_app' => $request->nik_approve,
+                'deskripsi' => $request->keterangan,
+                'kode_pp_terima' => $request->pp_penerima,
+                'donor' => $this->joinNum($request->saldo),
+                'kode_akun_terima' => $request->akun_penerima,
+                'kode_pp_aktif' => Session::get('kodePP'),
+                'nilai_terima' => $this->joinNum($request->nilai_penerima),
+                'bulan_terima' => $request->bulan_penerima,
+                'kode_akun' => $akun,
+                'kode_pp' => $pp,
+                'bulan' => $bulan,
+                'saldo' => $saldo,
+                'nilai' => $nilai
+            );
+
+            // echo "<pre>";
+            // var_dump($fields);
+            // echo "</pre>";
+
+            $client = new Client();
+            $response = $client->request('POST',  config('api.url').'esaku-trans/rra-agg',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Content-Type'     => 'application/json'
+                ],
+                'body' => json_encode($fields)
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                    
+                $data = json_decode($response_data,true);
+                return response()->json(['data' => $data], 200);  
+            }
+
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $data['message'] = $res;
+            $data['status'] = false;
+            return response()->json(['data' => $data], 500);
+        }
+    }
+
     public function getSaldoAnggaran(Request $request) {
         $client = new Client();
         $response = $client->request('GET',  config('api.url').'esaku-trans/rra-agg-saldo',[
