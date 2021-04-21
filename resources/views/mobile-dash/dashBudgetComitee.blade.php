@@ -294,7 +294,6 @@
                     
                     switch($dash_periode.type){
                         case '=':
-                            var label = 'Periode '+namaPeriode($dash_periode.from);
                             if($dash_periode.from == ""){
                                 if(result.data.periode_max != ""){
                                     control.setValue(result.data.periode_max);
@@ -304,10 +303,10 @@
                                 control.setValue($dash_periode.from);
                             }
                             control2.setValue('');
+                            var label = 'Periode '+namaPeriode($dash_periode.from);
                         break;
                         case '<=':
                             
-                            var label = 'Periode s.d '+namaPeriode($dash_periode.from);
                             if($dash_periode.from == ""){
                                 if(result.data.periode_max != ""){
                                     control.setValue(result.data.periode_max);
@@ -316,6 +315,7 @@
                             }else{
                                 control.setValue($dash_periode.from);
                             }
+                            var label = 'Periode s.d '+namaPeriode($dash_periode.from);
                             control2.setValue('');
                         break;
                         case 'range':

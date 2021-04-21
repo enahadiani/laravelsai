@@ -369,48 +369,65 @@ function getPeriode(){
                 $('#periode_type')[0].selectize.setValue($dash_periode.type);
 
                 switch($dash_periode.type){
-                    case '=':
-                        var label = namaQuarter($dash_periode.from);
-                        if($dash_periode.from == ""){
-                            if(result.data.periode_max != ""){
-                                control.setValue(result.data.periode_max);
-                                $dash_periode.from = result.data.periode_max;
+                        case '=':
+                            if($dash_periode.from == ""){
+                                if(result.data.periode_max != ""){
+                                    control.setValue(result.data.periode_max);
+                                    $dash_periode.from = result.data.periode_max;
+                                }
+                            }else{
+                                control.setValue($dash_periode.from);
                             }
-                        }else{
-                            control.setValue($dash_periode.from);
-                        }
-                        control2.setValue('');
-                    break;
-                    case '<=':
-                        
-                        var label = 's.d '+namaQuarter($dash_periode.from);
-                    break;
-                    case 'range':
-                        
-                        var label = namaQuarter($dash_periode.from)+' s.d '+namaQuarter($dash_periode.to);
-                        if($dash_periode.from == ""){
-                            if(result.data.periode_max != ""){
-                                control.setValue(result.data.periode_max);
-                                $dash_periode.from = result.data.periode_max;
-                            }
-                        }else{
-                            control.setValue($dash_periode.from);
-                        }
-                        control2.setValue('');
-
-                    break;
-                    default:
-                        if($dash_periode.from == ""){
-                            if(result.data.periode_max != ""){
-                                control.setValue(result.data.periode_max);
-                                $dash_periode.from = result.data.periode_max;
-                            }
-                        }else{
-                            control.setValue($dash_periode.from);
-                        }
-                        control2.setValue('');
+                            control2.setValue('');
+                            var label = 'Periode '+namaPeriode($dash_periode.from);
                         break;
-                }
+                        case '<=':
+                            
+                            if($dash_periode.from == ""){
+                                if(result.data.periode_max != ""){
+                                    control.setValue(result.data.periode_max);
+                                    $dash_periode.from = result.data.periode_max;
+                                }
+                            }else{
+                                control.setValue($dash_periode.from);
+                            }
+                            var label = 'Periode s.d '+namaPeriode($dash_periode.from);
+                            control2.setValue('');
+                        break;
+                        case 'range':
+                            
+                            if($dash_periode.from == ""){
+                                if(result.data.periode_max != ""){
+                                    control.setValue(result.data.periode_max);
+                                    $dash_periode.from = result.data.periode_max;
+                                }
+                            }else{
+                                control.setValue($dash_periode.from);
+                            }
+            
+                            if($dash_periode.to == ""){
+                                if(result.data.periode_max != ""){
+                                    control.setValue(result.data.periode_max);
+                                    $dash_periode.to = result.data.periode_max;
+                                }
+                            }else{
+                                control2.setValue($dash_periode.to);
+                            }
+                            var label = 'Periode '+namaPeriode($dash_periode.from)+' s.d '+namaPeriode($dash_periode.to);
+
+                        break;
+                        default:
+                            if($dash_periode.from == ""){
+                                if(result.data.periode_max != ""){
+                                    control.setValue(result.data.periode_max);
+                                    $dash_periode.from = result.data.periode_max;
+                                }
+                            }else{
+                                control.setValue($dash_periode.from);
+                            }
+                            control2.setValue('');
+                        break;
+                    }
                 $('.label-periode-filter').html(label);
                 getTarget($dash_periode);
                 // getFxPosition($dash_periode);
