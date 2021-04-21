@@ -37,7 +37,7 @@
 </style>
 <div class="row mt-3">
     <div class="col-12 px-0" style="height: 100vh !important;">
-        <h6 class="ml-3 mt-3">Notifikasi</h6>
+        <h6 class="ml-3">Notifikasi</h6>
         <p class="text-center" style="margin-top: calc(50vh - 20px);">Tidak ada notifikasi</p>
     </div>
 </div>

@@ -7,8 +7,9 @@
         font-weight:bold;
     }
     .border-rounded-grey{
-        background: #F6F6F6;
-        padding: 8px 10px;
+        background: #D4D4D4;
+        display:inline-flex;
+        padding: 8px;
         border-radius: 50%;
     }
     .text-blue{
@@ -17,6 +18,41 @@
     
     .list-menudash > .list-group-item:active, .list-group-item:hover {
         background: #242424 !important;
+    }
+
+    .DX41{
+        background: #0058E4 !important;
+        -webkit-mask-image: url("{{ url('img/mobile-dash/DX41.svg') }}");
+        mask-image: url("{{ url('img/mobile-dash/DX41.svg') }}");
+        width: 16px !important;
+        height: 16px !important;
+    }
+    .DX46{
+        background: #0058E4 !important;
+        -webkit-mask-image: url("{{ url('img/mobile-dash/DX46.svg') }}");
+        mask-image: url("{{ url('img/mobile-dash/DX46.svg') }}");
+        width: 20p16px !important;      height: 16px !important;
+    }
+    .DX50{
+        background: #0058E4 !important;
+        -webkit-mask-image: url("{{ url('img/mobile-dash/DX50.svg') }}");
+        mask-image: url("{{ url('img/mobile-dash/DX50.svg') }}");
+        width: 16px !important;
+        height: 16px !important;
+    }
+    .DX48{
+        background: #0058E4 !important;
+        -webkit-mask-image: url("{{ url('img/mobile-dash/DX48.svg') }}");
+        mask-image: url("{{ url('img/mobile-dash/DX48.svg') }}");
+        width: 18px !important;
+        height: 16px !important;
+    }
+    .DX47{
+        background: #0058E4 !important;
+        -webkit-mask-image: url("{{ url('img/mobile-dash/DX47.svg') }}");
+        mask-image: url("{{ url('img/mobile-dash/DX47.svg') }}");
+        width: 16px !important;
+        height: 16px !important;
     }
 </style>
 <div class="row">

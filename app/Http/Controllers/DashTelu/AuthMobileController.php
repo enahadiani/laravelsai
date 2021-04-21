@@ -184,11 +184,16 @@
                             }
                             
                             if($this_lv == 1){
-                                
+                                if($main_menu[$i]['kode_form'] == "DX43"){
+                                    $icon= "<i class='".$main_menu[$i]['icon']." text-blue'></i>";
+                                }else{
+                                    $icon= "<i class='saicon ".$main_menu[$i]['kode_form']."'></i>";
+                                }
                                 $main .=" 
                                 <li class='list-group-item mb-2'>
                                     <a href='#' data-href='".$this_link."' class='a_link'>
-                                        <span class='border-rounded-grey mr-2'><i class='".$main_menu[$i]['icon']." text-blue'></i></span> <span class='d-inline-block nama'>".$main_menu[$i]['nama']."</span>
+                                        <span class='border-rounded-grey mr-2'>".$icon."
+                                        </span> <span class='nama' style='position:absolute;bottom:19px'>".$main_menu[$i]['nama']."</span>
                                     </a>
                                 </li>";
                             }
