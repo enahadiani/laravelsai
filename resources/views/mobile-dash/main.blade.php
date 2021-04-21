@@ -1518,7 +1518,7 @@
 
         $('#scroll-bottom').click(function(){
             $('html, body').animate({
-                scrollTop: $(document).height()-$(window).height()
+                scrollTop: $(document).height()
             }, 700);
         });
 
