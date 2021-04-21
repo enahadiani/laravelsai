@@ -41,32 +41,45 @@
         color: #e9ecef;
     }
 </style>
-<div style="height:50px">&nbsp;</div>
+<style>
+    .back-menu:active,.back-menu:hover{
+        background: #242424 !important;
+    }
+</style>
+<div class="row mb-3">
+    <div class="col-12 back-menu px-0" style="cursor:pointer" >
+        <h6 class="pl-3" >
+            <i class="simple-icon-arrow-left text-left"></i> 
+            <span class="nama-menu ml-3" style="font-size: 1.2rem !important;"></span>
+        </h6>
+    </div>
+</div>
 <div class="row mt-2">
     <div class="col-12">
         <div class="text-center dash-profile">
             <img alt="Profile" src="" id="profile-mobile" class="img-thumbnail border-0 rounded-circle mb-2 list-thumbnail" style="width:80px">
-            <p class="list-item-heading mb-1"><a id="ubah-profile" href="#" style="color:#4361EE;cursor:pointer">Ubah Profile</a></p>
+            <p class="list-item-heading mb-1"><a id="ubah-profile" href="#" style="color:#4361EE;cursor:pointer">Ganti gambar</a></p>
             <input type="file" name="file_foto" class="hidden" id="file-foto" />
         </div>
     </div>
 </div>
 <div class="row mt-2">
     <div class="col-12">
-        <div class="card">
+        <div class="card" style="background:none !important;box-shadow:none !important">
             <div class="card-body data-pribadi">
-                <p><span class="bold">Data Pribadi</span> <a class="float-right" style="color:#4361EE" id="ubah-data" style="cursor:pointer" href="#">Ubah Data</a></p>
-                <p class="text-muted text-small mb-1">NIK</p>
-                <p class="list-item-heading truncate" id="nik"></p>
-                <p class="text-muted text-small mb-1">Nama</p>
-                <p class="list-item-heading truncate" id="nama"></p>
-                <p class="text-muted text-small mb-1">Email</p>
+                <p class="text-muted text-small mb-1">Nama <a class="float-right ubah-data" style="color:#4361EE;cursor:pointer" href="#">Ubah</a></p>
+                <p class="list-item-heading truncate" id="nama"> </p>
+                <p class="text-muted text-small mb-1">No Telepon <a class="float-right ubah-data" style="color:#4361EE;cursor:pointer" href="#">Ubah</a></p>
+                <p class="list-item-heading truncate" id="no_telp"></p>
+                <p class="text-muted text-small mb-1">Email <a class="float-right ubah-data" style="color:#4361EE;cursor:pointer" href="#">Ubah</a></p>
                 <p class="list-item-heading truncate" id="email"></p>
+                <p class="text-muted text-small mb-1">Jabatan <a class="float-right ubah-data" style="color:#4361EE;cursor:pointer" href="#">Ubah</a></p>
+                <p class="list-item-heading truncate" id="jabatan"></p>
             </div>
         </div>
     </div>
 </div>
-<div class="row mt-3">
+<!-- <div class="row mt-3">
     <div class="col-12">
         <div class="card">
             <div class="card-body">
@@ -78,12 +91,12 @@
             </div>
         </div>
     </div>
-</div>
-<div class="row mt-3">
+</div> -->
+<!-- <div class="row mt-3">
     <div class="col-12 text-center">
         <a href="{{ url('mobile-dash/logout') }}" style="color:red">Keluar</a>
     </div>
-</div>
+</div> -->
 <div style='height:100px;'>&nbsp;</div>
 <button id="trigger-bottom-sheet" style="display:none">Bottom ?</button>
 
@@ -92,7 +105,8 @@
     var bottomSheet = new BottomSheet("country-selector");
     document.getElementById("trigger-bottom-sheet").addEventListener("click", bottomSheet.activate);
     window.bottomSheet = bottomSheet;
-
+    $('.nama-menu').html($nama_menu);
+    $('.navbar_bottom').hide();
     $('#content-bottom-sheet').css({"max-height":"95vh","overflow-y":"scroll","overflow-x":"hidden"});
 
     $('.c-bottom-sheet__sheet').css({ "width":"100%","margin-left": "0%", "margin-right":"0%"});
@@ -112,9 +126,6 @@
         }
     }
     
-    var $nik = "";
-    var $nama = "";
-    var $email = "";
     var $image_crop = "";
     function getProfile(){
         $.ajax({
@@ -122,20 +133,19 @@
             url: "{{ url('mobile-dash/profile') }}",
             dataType: 'json',
             success:function(result){  
-                $('#nik').html(result.data[0].nik);
                 $('#nama').html(result.data[0].nama);
+                $('#no_telp').html(result.data[0].no_telp);
+                $('#jabatan').html(result.data[0].jabatan);
                 $('#email').html(result.data[0].email);
-                $nik = result.data[0].nik;
-                $nama = result.data[0].nama;
-                $email = result.data[0].email;
+                
                 if(result.data[0].foto != "-" && result.data[0].foto != ""){
                     var url = "{{ config('api.url') }}ypt-auth/storage2/"+result.data[0].foto;
                 }else{
                     var url = "{{ asset('asset_elite/images/user.png') }}";
                 }
                 $('#profile-mobile').attr('src',url);
-                $('#username').html(result.data[0].nik);
-                $('#password').html(typePass(result.data[0].password));
+                // $('#username').html(result.data[0].nik);
+                // $('#password').html(typePass(result.data[0].password));
                 
             },
             error: function(jqXHR, textStatus, errorThrown) {       
@@ -342,5 +352,10 @@
     $('.dash-profile').on('click','#ubah-profile',function(e){
         e.preventDefault();
         $('#file-foto').click();
+    });
+
+    $('.back-menu').click(function(e){
+        e.preventDefault();
+        loadForm("{{ url('mobile-dash/form') }}/dashAkun");
     });
 </script>

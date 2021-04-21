@@ -32,7 +32,7 @@
     </div>
     <div class="col-12">
         <div class="text-center dash-profile">
-            <img alt="Profile" src="{{ asset('asset_elite/images/user.png') }}" id="profile-mobile" class="img-thumbnail border-0 rounded-circle mb-2 list-thumbnail" style="width:80px">
+            <img alt="Profile" src="{{ config('api.url').'ypt-auth/storage2/'.Session::get('foto') }}" id="profile-mobile" class="img-thumbnail border-0 rounded-circle mb-2 list-thumbnail" style="width:80px">
             <p class="list-item-heading mb-1 text-blue" id="nama">{{ Session::get('namaUser') }}</p>
             <p id="jabatan">{{ Session::get('jabatan') }}</p>
         </div>
@@ -42,22 +42,22 @@
     <div class="col-12">
         <ul class="list-group">
             <li class='list-group-item mb-1 px-2 py-2'>
-                <a href='#' data-href='' class='a_link'>
+                <a href='#' data-href='dashAkunPribadi' class='a_link'>
                     <span style="width: 20px;display: inline-flex;">
                         <i class="sai-icon icon-profile-user"></i>
                     </span> 
-                    <span class='ml-2' style='position:absolute;bottom:10px'>Data Pribadi</span>
+                    <span class='ml-2 nama' style='position:absolute;bottom:10px'>Data Pribadi</span>
                     <span class="float-right">
                         <i class="simple-icon-arrow-right"></i>
                     </span> 
                 </a>
             </li>
             <li class='list-group-item mb-1 px-2 py-2'>
-                <a href='#' data-href='' class='a_link'>
+                <a href='#' data-href='dashAkunKeamanan' class='a_link'>
                     <span style="width: 20px;display: inline-flex;">
                         <i class="sai-icon icon-profile-key"></i>
                     </span> 
-                    <span class='ml-2' style='position:absolute;bottom:10px'>Username dan Password</span>
+                    <span class='ml-2 nama' style='position:absolute;bottom:10px'>Username dan Password</span>
                     <span class="float-right">
                         <i class="simple-icon-arrow-right"></i>
                     </span> 
@@ -74,5 +74,18 @@
 <div style='height:100px;'>&nbsp;</div>
 <script src="{{ asset('asset_dore/js/croppie.min.js') }}"></script>
 <script>
-   
+    
+    $('.navbar_bottom').show();
+    $('.list-group').on('click','.a_link',function(e){
+        e.preventDefault();
+        var form = $(this).data('href');
+        var nama = $(this).closest('li').find('span.nama').html();
+        $nama_menu = nama;
+        var url = "{{ url('mobile-dash/form')}}/"+form;
+        if(form == "" || form == "-"){
+            return false;
+        }else{
+            loadForm(url);
+        }
+    });
 </script>
