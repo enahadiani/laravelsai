@@ -894,6 +894,7 @@ $('.or-row').on("click", '#note-or',function(e){
     </div>
     </div>
     </form>
+    <div style='height:100px'>&nbsp;</div>
     `;
     $('#content-bottom-sheet').html(html);
     $('#keterangan').val(keterangan);

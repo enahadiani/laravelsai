@@ -171,6 +171,7 @@
                         <button type="submit" class="btn btn-primary">Tampilkan</button>
                     </div>
                 </form>
+                <div style='height:100px'>&nbsp;</div>
     `;
     
     $('#content-bottom-sheet').html(html);
