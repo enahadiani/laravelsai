@@ -47,7 +47,7 @@
                             <div class="row">
                                 <div class="col-md-4 col-sm-12"></div>
                                 <div class="col-md-8 col-sm-12">
-                                    <label for="kode_vendor" >Supplier</label>
+                                    <label for="kode_vendor" >Vendor</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
                                             <span class="input-group-text info-code_kode_vendor" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
@@ -59,6 +59,7 @@
                                         <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
                                         <i class="simple-icon-magnifier search-item2" id="search_kode_vendor"></i>
                                     </div>
+                                    <button type="button" id="tambah-vendor" class="button-vendor hidden">Data vendor tidak tersedia, klik untuk menambahkan</button>
                                 </div>
                             </div>
                         </div>
@@ -185,11 +186,123 @@
     var $target3 = "";
     var $no_rab = '';
     var valid = true;
+    var $dataVendor = []
+
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         }
     });
+
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('java-trans/vendor') }}",
+        dataType: 'json',
+        async:false,
+        success:function(result){    
+            var data = result.daftar
+            if(data.length > 0) {
+                for(var i=0;i<data.length;i++) {
+                    var dt = data[i]
+                    $dataVendor.push({ id: dt.kode_vendor, name: dt.nama })
+                }
+                $('#kode_vendor').typeahead({
+                    source:$dataVendor,
+                    displayText:function(item){
+                        return item.id+'-'+item.name;
+                    },
+                    autoSelect:false,
+                    changeInputOnSelect:false,
+                    changeInputOnMove:false,
+                    selectOnBlur:false,
+                    afterSelect: function (item) {
+                        $('.input-group-prepend').show()
+                        $('.info-code_kode_vendor').text(item.id)
+                        $('#kode_vendor').val(item.id)
+                    }
+                });
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {       
+            if(jqXHR.status == 422){
+                var msg = jqXHR.responseText;
+            }else if(jqXHR.status == 500) {
+                var msg = "Internal server error";
+            }else if(jqXHR.status == 401){
+                var msg = "Unauthorized";
+                window.location="{{ url('/esaku-auth/sesi-habis') }}";
+            }else if(jqXHR.status == 405){
+                var msg = "Route not valid. Page not found";
+            }    
+        }
+    });
+
+    function checkVendor(value) {
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('java-master/vendor-check') }}",
+            dataType: 'json',
+            data: { kode: value },
+            async:false,
+            success:function(result){    
+                var status = result.data
+                if(status) {
+                    $('#tambah-vendor').show()
+                } else {
+                    $('#tambah-vendor').hide()
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {       
+                if(jqXHR.status == 422){
+                    var msg = jqXHR.responseText;
+                }else if(jqXHR.status == 500) {
+                    var msg = "Internal server error";
+                }else if(jqXHR.status == 401){
+                    var msg = "Unauthorized";
+                    window.location="{{ url('/esaku-auth/sesi-habis') }}";
+                }else if(jqXHR.status == 405){
+                    var msg = "Route not valid. Page not found";
+                }    
+            }
+        });
+    }
+
+    $('#tambah-vendor').on('click', function(event){
+        event.preventDefault()
+        var nama = $('#kode_vendor').val()
+        $.ajax({
+            type: 'POST',
+            url: "{{ url('java-master/vendor-fast') }}",
+            dataType: 'json',
+            data: { nama: nama },
+            async:false,
+            success:function(result){    
+                var res = result.data
+                if(res.status) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Vendor berhasil disimpan',
+                        text: 'Kode Vendor :'+res.kode,
+                        footer: '<a>'+res.message+'</a>'
+                    })
+                    $('#kode_vendor').val(res.kode)
+                    $('#tambah-vendor').hide()
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {       
+                if(jqXHR.status == 422){
+                    var msg = jqXHR.responseText;
+                }else if(jqXHR.status == 500) {
+                    var msg = "Internal server error";
+                }else if(jqXHR.status == 401){
+                    var msg = "Unauthorized";
+                    window.location="{{ url('/esaku-auth/sesi-habis') }}";
+                }else if(jqXHR.status == 405){
+                    var msg = "Route not valid. Page not found";
+                }    
+            }
+        });
+    })
 
     // Upload grid
     $('#upload').on('click', '.search-item', function() {
@@ -648,14 +761,17 @@
             showInpFilter(settings);
     });
 
-    $('#form-tambah').on('change', '#kode_cust', function(){
-        var par = $(this).val();
-        getCustomer(par);
-    });
+    // $('#form-tambah').on('change', '#kode_cust', function(){
+    //     var par = $(this).val();
+    //     getCustomer(par);
+    // });
 
     $('#form-tambah').on('change', '#kode_vendor', function(){
         var par = $(this).val();
-        getVendor(par);
+        if(par == '') {
+            $('#tambah-vendor').hide()
+        }
+        checkVendor(par)
     });
 
     // END BAGIAN CBBL

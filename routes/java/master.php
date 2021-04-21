@@ -24,6 +24,7 @@ Route::get('vendor', 'Java\VendorController@index');
 Route::get('vendor-show', 'Java\VendorController@getData');
 Route::get('vendor-check', 'Java\VendorController@isUnik');
 Route::post('vendor', 'Java\VendorController@store');
+Route::post('vendor-fast', 'Java\VendorController@saveFast');
 Route::put('vendor-ubah', 'Java\VendorController@update');
 Route::delete('vendor', 'Java\VendorController@delete');
 
