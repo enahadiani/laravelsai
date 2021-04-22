@@ -95,17 +95,17 @@ Route::get('/penyerapan-investasi','DashTelu\DashboardController@penyerapanInves
 Route::get('/penyerapan-investasi-tahun','DashTelu\DashboardController@penyerapanInvestasiTahun');
 
 
-Route::get('/profile', 'DashTelu\AuthController@getProfile');
-Route::post('/update-password', 'DashTelu\AuthController@updatePassword');
-Route::post('/update-foto', 'DashTelu\AuthController@updatePhoto');
-Route::post('/update-background', 'DashTelu\AuthController@updateBackground');
+Route::get('/profile', 'DashTelu\AuthMobileController@getProfile');
+Route::post('/update-password', 'DashTelu\AuthMobileController@updatePassword');
+Route::post('/update-foto', 'DashTelu\AuthMobileController@updatePhoto');
+Route::post('/update-background', 'DashTelu\AuthMobileController@updateBackground');
 Route::post('/update-profile', 'DashTelu\AuthMobileController@updateProfile');
 
 Route::get('notif','DashTelu\NotifController@getNotif');
 Route::post('notif-update-status','DashTelu\NotifController@updateStatusRead');
-Route::post('search-form','DashTelu\AuthController@searchForm');
-Route::get('search-form-list','DashTelu\AuthController@searchFormList');
-Route::get('search-form-list2','DashTelu\AuthController@searchFormList2');
+Route::post('search-form','DashTelu\AuthMobileController@searchForm');
+Route::get('search-form-list','DashTelu\AuthMobileController@searchFormList');
+Route::get('search-form-list2','DashTelu\AuthMobileController@searchFormList2');
 Route::get('periode','DashTelu\DashboardController@getPeriode');
 Route::get('tahun','DashTelu\DashboardController@getTahun');
 
