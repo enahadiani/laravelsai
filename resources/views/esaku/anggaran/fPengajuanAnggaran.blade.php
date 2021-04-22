@@ -647,7 +647,7 @@
         var no=$('#pemberi-grid .row-pemberi:last').index();
         var no = no + 2
         var html = "";
-        html += "<tr class='row-pemberi'>"
+        html += "<tr class='row-pemberi row-pemberi-"+no+"'>"
         html += "<td class='no-pemberi text-center hidden'>"+no+"</td>"
         html += "<td><div>"
         html += "<span class='td-anggaran tdanggaranke"+no+" tooltip-span'></span>"
@@ -779,6 +779,7 @@
         var target4 = $(this).closest('td').next('td').find('span').attr('class')
         var tmp = target1.split(" ");
         var tmp2 = target2.split(" ")
+        console.log(idx)
         if(typeof target3 !== 'undefined') {
             var tmp3 = target3.split(" ")
             target3 = tmp3[1]
@@ -819,9 +820,9 @@
                         $('.'+target1).val(string)
                         $('.'+target2).text(string)
                         $('.'+target1).hide()
-                        $('.search-anggaran').hide()
+                        $('.row-pemberi-'+idx).find('.search-anggaran').hide()
                         $('.'+target2).show()
-                        $('.search-pp').show()
+                        $('.row-pemberi-'+idx).find('.search-pp').show()
                         $('.'+target3).show()
                         $('.'+target4).hide()
                     },
