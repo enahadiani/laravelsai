@@ -78,7 +78,7 @@ class PengajuanAnggaranController extends Controller {
                 'nik_app' => $request->nik_approve,
                 'deskripsi' => $request->keterangan,
                 'kode_pp_terima' => $request->pp_penerima,
-                'donor' => $this->joinNum($request->saldo),
+                'donor' => $this->joinNum($request->donor),
                 'kode_akun_terima' => $request->akun_penerima,
                 'kode_pp_aktif' => Session::get('kodePP'),
                 'nilai_terima' => $this->joinNum($request->nilai_penerima),

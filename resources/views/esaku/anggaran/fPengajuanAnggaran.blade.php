@@ -129,8 +129,8 @@
                                     </select>
                                 </div>
                                 <div class="form-group col-md-3 col-sm-12">
-                                    <label for="saldo">Saldo</label>
-                                    <input class="form-control currency" name="saldo" id="saldo" value="0" readonly>
+                                    <label for="donor">Saldo</label>
+                                    <input class="form-control currency" name="donor" id="donor" value="0" required>
                                 </div>
                                 <div class="form-group col-md-3 col-sm-12">
                                     <label for="nilai_penerima">Nilai Penerima</label>
