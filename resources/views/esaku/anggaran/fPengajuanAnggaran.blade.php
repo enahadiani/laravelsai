@@ -129,8 +129,8 @@
                                     </select>
                                 </div>
                                 <div class="form-group col-md-3 col-sm-12">
-                                    <label for="donor">Saldo</label>
-                                    <input class="form-control currency" name="donor" id="donor" value="0" required>
+                                    <label for="saldo">Saldo</label>
+                                    <input class="form-control currency" name="saldo" id="saldo" value="0" readonly required>
                                 </div>
                                 <div class="form-group col-md-3 col-sm-12">
                                     <label for="nilai_penerima">Nilai Penerima</label>
@@ -208,6 +208,7 @@
     var $mataAnggaran = []
     var $ppAnggaran = []
     var $drkAnggaran = []
+    var $totalPemberi = 0;
 
     $.ajaxSetup({
         headers: {
@@ -273,6 +274,21 @@
             }    
         }
     });
+
+    function format_number(x){
+        var num = parseFloat(x).toFixed(0);
+        num = sepNumX(num);
+        return num;
+    }
+
+    function hitungTotalPemberi() {
+        $totalPemberi = 0;
+        $('#pemberi-grid tbody tr').each(function(index) {
+            var nilai = toNilai($(this).find('.inp-nilai').val())
+            $totalPemberi += nilai
+        })
+        console.log($totalPemberi)
+    }
 
     function resetForm() {
         $('#pemberi-grid tbody').empty()
@@ -729,6 +745,10 @@
         $('#pemberi-grid tbody tr:last').find(".search-anggaran").show();
         $('#pemberi-grid tbody tr:last').find(".td-anggaran").hide();
         $('#pemberi-grid tbody tr:last').find(".inp-anggaran").focus();
+
+        $('.inp-nilai').on('change', function(){
+            hitungTotalPemberi()
+        })
 
         hitungTotalRowPemberi()
     }
@@ -1783,6 +1803,7 @@
             $('#pemberi-grid tbody tr').each(function(index) {
                 formData.append('no_pemberi[]', $(this).find('.no-pemberi').text())
             })
+            formData.append('donor', $totalPemberi)
             for(var pair of formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
