@@ -520,6 +520,7 @@
     $('#saku-datatable').on('click', '#btn-tambah', function(){
         status_paid = false
         isChecked()
+        $('#tambah-vendor').hide()
         $('#upload tbody').empty()
         $previousNilai = 0;
         $previousAnggaran = 0;
