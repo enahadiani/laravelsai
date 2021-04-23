@@ -30,8 +30,17 @@ class VendorController extends Controller
      */
     public function isUnik(Request $request) {
         try {
+            $key = "-";
+            $string = $request->query('kode');
+            $search = $string;
+
+            if(strpos($string, $key) !== false) {
+                $explode = explode("-", $string);
+                $search = $explode[1];
+            }
+
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'java-master/vendor-check?kode='.$request->query('kode'),[
+            $response = $client->request('GET',  config('api.url').'java-master/vendor-check?kode='.$search,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',

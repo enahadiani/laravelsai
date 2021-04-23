@@ -208,7 +208,7 @@
                 }
                 $('#kode_vendor').typeahead({
                     source:$dataVendor,
-                    displayText:function(item){
+                    displayText:function(item) {
                         return item.id+'-'+item.name;
                     },
                     autoSelect:false,
@@ -216,9 +216,18 @@
                     changeInputOnMove:false,
                     selectOnBlur:false,
                     afterSelect: function (item) {
-                        $('.input-group-prepend').show()
-                        $('.info-code_kode_vendor').text(item.id)
                         $('#kode_vendor').val(item.id)
+                        $('#kode_vendor').attr('style','border-left:0;border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important');
+                        $('.info-code_kode_vendor').text(item.id).parent('div').removeClass('hidden');
+                        $('.info-code_kode_vendor').attr('title', item.name);
+                        $('.info-name_kode_vendor').removeClass('hidden');
+                        $('.info-name_kode_vendor').attr('title', item.name);
+                        $('.info-name_kode_vendor span').text(item.name);
+                        var width = $('#kode_vendor').width()-$('#search_kode_vendor').width()-10;
+                        var height =$('#kode_vendor').height();
+                        var pos =$('#kode_vendor').position();
+                        $('.info-name_kode_vendor').width(width).css({'left':pos.left,'height':height});
+                        $('.info-name_kode_vendor').closest('div').find('.info-icon-hapus').removeClass('hidden');
                     }
                 });
             }
@@ -286,6 +295,17 @@
                         footer: '<a>'+res.message+'</a>'
                     })
                     $('#kode_vendor').val(res.kode)
+                    $('#kode_vendor').attr('style','border-left:0;border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important');
+                    $('.info-code_kode_vendor').text(res.kode).parent('div').removeClass('hidden');
+                    $('.info-code_kode_vendor').attr('title', res.nama);
+                    $('.info-name_kode_vendor').removeClass('hidden');
+                    $('.info-name_kode_vendor').attr('title', res.nama);
+                    $('.info-name_kode_vendor span').text(res.nama);
+                    var width = $('#kode_vendor').width()-$('#search_kode_vendor').width()-10;
+                    var height =$('#kode_vendor').height();
+                    var pos =$('#kode_vendor').position();
+                    $('.info-name_kode_vendor').width(width).css({'left':pos.left,'height':height});
+                    $('.info-name_kode_vendor').closest('div').find('.info-icon-hapus').removeClass('hidden');
                     $('#tambah-vendor').hide()
                 }
             },
@@ -500,6 +520,7 @@
     $('#saku-datatable').on('click', '#btn-tambah', function(){
         status_paid = false
         isChecked()
+        $('#tambah-vendor').hide()
         $('#upload tbody').empty()
         $previousNilai = 0;
         $previousAnggaran = 0;
@@ -858,66 +879,66 @@
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
             
-            if(valid) { 
-                $.ajax({
-                    type: 'POST', 
-                    url: url,
-                    dataType: 'json',
-                    data: formData,
-                    async:false,
-                    contentType: false,
-                    cache: false,
-                    processData: false, 
-                    success:function(result){
-                        if(result.data.status){
-                            dataTable.ajax.reload();
-                            $('#upload tbody').empty()
-                            $previousNilai = 0;
-                            $('.no_bukti').hide();
-                            $('#row-id').hide();
-                            $('#form-tambah')[0].reset();
-                            $('#form-tambah').validate().resetForm();
-                            $('[id^=label]').html('');
-                            $('#id_edit').val('');
-                            $('#judul-form').html('Tambah Data Biaya Proyek');
-                            $('#method').val('post');
-                            $('#kode_customer').attr('readonly', false);
-                            msgDialog({
-                                id:result.data.kode,
-                                type:'simpan'
-                            });
-                            last_add("kode_customer",result.data.kode);
-                        }else if(!result.data.status && result.data.message === "Unauthorized"){
+            // if(valid) { 
+            //     $.ajax({
+            //         type: 'POST', 
+            //         url: url,
+            //         dataType: 'json',
+            //         data: formData,
+            //         async:false,
+            //         contentType: false,
+            //         cache: false,
+            //         processData: false, 
+            //         success:function(result){
+            //             if(result.data.status){
+            //                 dataTable.ajax.reload();
+            //                 $('#upload tbody').empty()
+            //                 $previousNilai = 0;
+            //                 $('.no_bukti').hide();
+            //                 $('#row-id').hide();
+            //                 $('#form-tambah')[0].reset();
+            //                 $('#form-tambah').validate().resetForm();
+            //                 $('[id^=label]').html('');
+            //                 $('#id_edit').val('');
+            //                 $('#judul-form').html('Tambah Data Biaya Proyek');
+            //                 $('#method').val('post');
+            //                 $('#kode_customer').attr('readonly', false);
+            //                 msgDialog({
+            //                     id:result.data.kode,
+            //                     type:'simpan'
+            //                 });
+            //                 last_add("kode_customer",result.data.kode);
+            //             }else if(!result.data.status && result.data.message === "Unauthorized"){
                         
-                            window.location.href = "{{ url('/java-auth/sesi-habis') }}";
+            //                 window.location.href = "{{ url('/java-auth/sesi-habis') }}";
                             
-                        }else{
-                            if(result.data.kode == "-" && result.data.jenis != undefined){
-                                msgDialog({
-                                    id: id,
-                                    type: result.data.jenis,
-                                    text:'Kode customer sudah digunakan'
-                                });
-                            }else{
+            //             }else{
+            //                 if(result.data.kode == "-" && result.data.jenis != undefined){
+            //                     msgDialog({
+            //                         id: id,
+            //                         type: result.data.jenis,
+            //                         text:'Kode customer sudah digunakan'
+            //                     });
+            //                 }else{
 
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Oops...',
-                                    text: 'Something went wrong!',
-                                    footer: '<a href>'+result.data.message+'</a>'
-                                })
-                            }
-                        }
-                    },
-                    error: function(xhr, textStatus, errorThrown) {
-                        alert('request failed:'+textStatus);
-                    },
-                    fail: function(xhr, textStatus, errorThrown){
-                        alert('request failed:'+textStatus);
-                    }
-                });
-                $('#btn-simpan').html("Simpan").removeAttr('disabled');
-            }
+            //                     Swal.fire({
+            //                         icon: 'error',
+            //                         title: 'Oops...',
+            //                         text: 'Something went wrong!',
+            //                         footer: '<a href>'+result.data.message+'</a>'
+            //                     })
+            //                 }
+            //             }
+            //         },
+            //         error: function(xhr, textStatus, errorThrown) {
+            //             alert('request failed:'+textStatus);
+            //         },
+            //         fail: function(xhr, textStatus, errorThrown){
+            //             alert('request failed:'+textStatus);
+            //         }
+            //     });
+            //     $('#btn-simpan').html("Simpan").removeAttr('disabled');
+            // }
         },
         errorPlacement: function (error, element) {
             var id = element.attr("id");

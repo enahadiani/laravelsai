@@ -260,7 +260,7 @@ Route::post('import-anggaran-excel', 'Esaku\Anggaran\UploadAnggaranController@im
 Route::post('simpan-anggaran', 'Esaku\Anggaran\UploadAnggaranController@store');
 Route::get('load-anggaran', 'Esaku\Anggaran\UploadAnggaranController@loadAnggaran');
 
-## Pengajua RRA
+## Pengajuan RRA
 Route::get('pengajuan-rra', 'Esaku\Anggaran\PengajuanAnggaranController@index');
 Route::post('pengajuan-rra', 'Esaku\Anggaran\PengajuanAnggaranController@store');
 Route::get('nik-approve', 'Esaku\Anggaran\PengajuanAnggaranController@getNikApprove');
@@ -269,3 +269,6 @@ Route::get('akun-terima', 'Esaku\Anggaran\PengajuanAnggaranController@getAkunTer
 Route::get('mata-anggaran', 'Esaku\Anggaran\PengajuanAnggaranController@getMataAnggaran');
 Route::get('pp-anggaran', 'Esaku\Anggaran\PengajuanAnggaranController@getPPAnggaran');
 Route::get('cek-saldo', 'Esaku\Anggaran\PengajuanAnggaranController@getSaldoAnggaran');
+
+## Approve RRA
+Route::get('rra-anggaran', 'Esaku\Anggaran\ApproveAnggaranController@getRRAAnggaran');

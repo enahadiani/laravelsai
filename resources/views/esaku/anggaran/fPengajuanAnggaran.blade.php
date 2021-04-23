@@ -130,7 +130,7 @@
                                 </div>
                                 <div class="form-group col-md-3 col-sm-12">
                                     <label for="saldo">Saldo</label>
-                                    <input class="form-control currency" name="saldo" id="saldo" value="0" readonly>
+                                    <input class="form-control currency" name="saldo" id="saldo" value="0" readonly required>
                                 </div>
                                 <div class="form-group col-md-3 col-sm-12">
                                     <label for="nilai_penerima">Nilai Penerima</label>
@@ -208,6 +208,7 @@
     var $mataAnggaran = []
     var $ppAnggaran = []
     var $drkAnggaran = []
+    var $totalPemberi = 0;
 
     $.ajaxSetup({
         headers: {
@@ -273,6 +274,21 @@
             }    
         }
     });
+
+    function format_number(x){
+        var num = parseFloat(x).toFixed(0);
+        num = sepNumX(num);
+        return num;
+    }
+
+    function hitungTotalPemberi() {
+        $totalPemberi = 0;
+        $('#pemberi-grid tbody tr').each(function(index) {
+            var nilai = toNilai($(this).find('.inp-nilai').val())
+            $totalPemberi += nilai
+        })
+        console.log($totalPemberi)
+    }
 
     function resetForm() {
         $('#pemberi-grid tbody').empty()
@@ -631,7 +647,7 @@
         var no=$('#pemberi-grid .row-pemberi:last').index();
         var no = no + 2
         var html = "";
-        html += "<tr class='row-pemberi'>"
+        html += "<tr class='row-pemberi row-pemberi-"+no+"'>"
         html += "<td class='no-pemberi text-center hidden'>"+no+"</td>"
         html += "<td><div>"
         html += "<span class='td-anggaran tdanggaranke"+no+" tooltip-span'></span>"
@@ -730,6 +746,10 @@
         $('#pemberi-grid tbody tr:last').find(".td-anggaran").hide();
         $('#pemberi-grid tbody tr:last').find(".inp-anggaran").focus();
 
+        $('.inp-nilai').on('change', function(){
+            hitungTotalPemberi()
+        })
+
         hitungTotalRowPemberi()
     }
 
@@ -759,6 +779,7 @@
         var target4 = $(this).closest('td').next('td').find('span').attr('class')
         var tmp = target1.split(" ");
         var tmp2 = target2.split(" ")
+        console.log(idx)
         if(typeof target3 !== 'undefined') {
             var tmp3 = target3.split(" ")
             target3 = tmp3[1]
@@ -799,9 +820,9 @@
                         $('.'+target1).val(string)
                         $('.'+target2).text(string)
                         $('.'+target1).hide()
-                        $('.search-anggaran').hide()
+                        $('.row-pemberi-'+idx).find('.search-anggaran').hide()
                         $('.'+target2).show()
-                        $('.search-pp').show()
+                        $('.row-pemberi-'+idx).find('.search-pp').show()
                         $('.'+target3).show()
                         $('.'+target4).hide()
                     },
@@ -1783,6 +1804,7 @@
             $('#pemberi-grid tbody tr').each(function(index) {
                 formData.append('no_pemberi[]', $(this).find('.no-pemberi').text())
             })
+            formData.append('donor', $totalPemberi)
             for(var pair of formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
