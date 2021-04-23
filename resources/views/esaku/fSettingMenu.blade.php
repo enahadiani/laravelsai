@@ -245,7 +245,7 @@
         });
     }
 
-    
+    var $error_msg = "";
     function reportError(msg){
 
         $.ajax({
@@ -267,7 +267,7 @@
                         id: '',
                         type: 'warning',
                         title: 'Error',
-                        text: 'Internal Server Error <br> <a href="#" class="btn btn-primary btn-sm" onclick="return reportError('+result.data.message+');"> Laporkan Masalah</a>'
+                        text: '<p>Internal Server Error</p><a href="#" class="btn btn-primary btn-sm mx-auto mb-3" onclick="return reportError();"> Laporkan Masalah</a>'
                     });
                 }
             },
@@ -776,6 +776,7 @@
                     }else if(!result.data.status && result.data.message == 'Unauthorized'){
                         window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
                     }else{
+                        $error_msg = result.data.message;
                         msgDialog({
                             id: '',
                             type: 'sukses',
