@@ -36,6 +36,13 @@ $tahun5 = intval($tahun-5);
     .trace {
         cursor:pointer;
     }
+    
+    .subheader{
+        font-size:0.85rem !important;font-weight:bold;
+    }
+    .subheader-sub{
+        font-size:0.8rem !important;
+    }
     </style>
 
 <div class="container-fluid mt-3">
@@ -52,7 +59,7 @@ $tahun5 = intval($tahun-5);
              <div class="card dash-card">
                 <div class="card-header">
                     <div class="row mx-0">
-                        <h6 class="col-md-6 card-title">SHU <span class="rentang-tahun"></span></h6>
+                        <p class="col-md-6 card-title"><span class="subheader">SHU </span><span class="rentang-tahun subheader-sub"></span></p>
                         <ul role="tablist" style="border: none;" class="nav nav-tabs col-md-6 col-12 px-0 justify-content-end">
                             <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#tab_yoy" role="tab" aria-selected="false"><span class="hidden-xs-down"><b>YoY</b></span></a> </li>
                             <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab_curr" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>Current</b></span></a> </li>

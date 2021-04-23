@@ -75,6 +75,13 @@ $thnLalu = substr($tahunLalu,2,2)
     i.simple-icon-note:hover {
         color:black !important;
     }
+    
+    .subheader{
+        font-size:0.85rem !important;font-weight:bold;
+    }
+    .subheader-sub{
+        font-size:0.8rem !important;
+    }
     </style>
 
 <div class="container-fluid mt-3">
@@ -89,7 +96,7 @@ $thnLalu = substr($tahunLalu,2,2)
     <div class="col-lg-4 col-12 mb-4 col-grid">
             <div class="card card-target ">
                 <div class="card-body or-row">
-                    <h6>Operating Ratio</h6>
+                    <p class="subheader">Operating Ratio</p>
                     <div class="row">
                         <div class="col-md-6 col-6">
                             <p class="mb-0 mt-2">
@@ -523,7 +530,7 @@ function getTarget(periode=null)
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-md-12 col-12">
-                                                <h6>`+line.nama+`</h6>
+                                                <p class='subheader'>`+line.nama+`</p>
                                             </div>
                                             <div class="col-md-6 col-6">
                                                 <h5 class="bold">`+toMilyar(line.realisasi)+`</h5>
