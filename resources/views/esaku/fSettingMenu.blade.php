@@ -246,13 +246,13 @@
     }
 
     var $error_msg = "";
-    function reportError(msg){
+    function reportError(){
 
         $.ajax({
             type: 'POST',
             url: "{{ url('esaku-auth/report-error') }}",
             dataType: 'json',
-            data: { error: msg, kode_form: $form_aktif },
+            data: { error: $error_msg, kode_form: $form_aktif },
             success:function(result){
                 if(result.data.status){
                     msgDialog({
