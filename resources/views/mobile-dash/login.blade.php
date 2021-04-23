@@ -202,7 +202,7 @@
                         <div class="row mt-3" style="width:100%">
                             <div style="padding-left: 30px;" class="col-sm-6 col-6 pr-0 my-auto">
                                 <h6 style="color:white" id="judul-login">Dashboard</h6>
-                                <p style="color:white">Pantau bisnis dalam <br> gengaman tangan.</p>
+                                <!-- <p style="color:white">Pantau bisnis dalam <br> gengaman tangan.</p> -->
                             </div>
                             <div class="col-sm-6 col-5 text-center">
                                 <img class="" id="logo1" src="" alt="" style="margin: 0 auto;height: 50px">
