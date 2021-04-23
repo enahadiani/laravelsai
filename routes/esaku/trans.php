@@ -275,3 +275,5 @@ Route::get('cek-saldo', 'Esaku\Anggaran\PengajuanAnggaranController@getSaldoAngg
 
 ## Approve RRA
 Route::get('rra-anggaran', 'Esaku\Anggaran\ApproveAnggaranController@getRRAAnggaran');
+Route::get('rra-data', 'Esaku\Anggaran\ApproveAnggaranController@getDataRRAAnggaran');
+Route::post('approve-rra', 'Esaku\Anggaran\ApproveAnggaranController@store');
