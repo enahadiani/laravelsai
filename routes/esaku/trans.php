@@ -262,7 +262,10 @@ Route::get('load-anggaran', 'Esaku\Anggaran\UploadAnggaranController@loadAnggara
 
 ## Pengajuan RRA
 Route::get('pengajuan-rra', 'Esaku\Anggaran\PengajuanAnggaranController@index');
+Route::get('pengajuan-rra-detail', 'Esaku\Anggaran\PengajuanAnggaranController@show');
 Route::post('pengajuan-rra', 'Esaku\Anggaran\PengajuanAnggaranController@store');
+Route::delete('pengajuan-rra', 'Esaku\Anggaran\PengajuanAnggaranController@delete');
+Route::put('pengajuan-rra-ubah', 'Esaku\Anggaran\PengajuanAnggaranController@update');
 Route::get('nik-approve', 'Esaku\Anggaran\PengajuanAnggaranController@getNikApprove');
 Route::get('pp-terima', 'Esaku\Anggaran\PengajuanAnggaranController@getPPTerima');
 Route::get('akun-terima', 'Esaku\Anggaran\PengajuanAnggaranController@getAkunTerima');

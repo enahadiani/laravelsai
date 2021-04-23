@@ -21,6 +21,7 @@
     <input class="form-control" type="hidden" id="id_edit" name="id_edit">
     <input type="hidden" id="method" name="_method" value="post">
     <input type="hidden" id="id" name="id">
+    <input type="hidden" id="tanggal" name="tanggal">
     <div class="row" id="saku-form" style="display: none;">
         <div class="col-sm-12">
             <div class="card">
@@ -209,10 +210,97 @@
     var $ppAnggaran = []
     var $drkAnggaran = []
     var $totalPemberi = 0;
+    var $akunPenerima = []
+    var $ppPenerima = []
+    var $nikApprove = []
 
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+        }
+    });
+
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('esaku-trans/nik-approve') }}",
+        dataType: 'json',
+        async:false,
+        success:function(result){    
+            var data = result.daftar
+            if(data.length > 0) {
+                for(var i=0;i<data.length;i++) {
+                    var dt = data[i]
+                    $nikApprove.push({ id: dt.nik, name: dt.nama })
+                }
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {       
+            if(jqXHR.status == 422){
+                var msg = jqXHR.responseText;
+            }else if(jqXHR.status == 500) {
+                var msg = "Internal server error";
+            }else if(jqXHR.status == 401){
+                var msg = "Unauthorized";
+                window.location="{{ url('/esaku-auth/sesi-habis') }}";
+            }else if(jqXHR.status == 405){
+                var msg = "Route not valid. Page not found";
+            }    
+        }
+    });
+
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('esaku-trans/akun-terima') }}",
+        dataType: 'json',
+        async:false,
+        success:function(result){    
+            var data = result.daftar
+            if(data.length > 0) {
+                for(var i=0;i<data.length;i++) {
+                    var dt = data[i]
+                    $akunPenerima.push({ id: dt.kode_akun, name: dt.nama })
+                }
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {       
+            if(jqXHR.status == 422){
+                var msg = jqXHR.responseText;
+            }else if(jqXHR.status == 500) {
+                var msg = "Internal server error";
+            }else if(jqXHR.status == 401){
+                var msg = "Unauthorized";
+                window.location="{{ url('/esaku-auth/sesi-habis') }}";
+            }else if(jqXHR.status == 405){
+                var msg = "Route not valid. Page not found";
+            }    
+        }
+    });
+
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('esaku-trans/pp-terima') }}",
+        dataType: 'json',
+        async:false,
+        success:function(result){    
+            var data = result.daftar
+            if(data.length > 0) {
+                for(var i=0;i<data.length;i++) {
+                    var dt = data[i]
+                    $ppPenerima.push({ id: dt.kode_pp, name: dt.nama })
+                }
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {       
+            if(jqXHR.status == 422){
+                var msg = jqXHR.responseText;
+            }else if(jqXHR.status == 500) {
+                var msg = "Internal server error";
+            }else if(jqXHR.status == 401){
+                var msg = "Unauthorized";
+                window.location="{{ url('/esaku-auth/sesi-habis') }}";
+            }else if(jqXHR.status == 405){
+                var msg = "Route not valid. Page not found";
+            }    
         }
     });
 
@@ -275,6 +363,47 @@
         }
     });
 
+    function filterNikApprove(value) {
+        for(var i=0;i<$nikApprove.length;i++) {
+            var data = $nikApprove[i]
+            if(data.id == value) {
+                console.log(data)
+                showInfoField('nik_approve', data.id, data.name)
+                break;
+            }
+        }
+    }
+
+    function filterPPPenerima(value) {
+        for(var i=0;i<$ppPenerima.length;i++) {
+            var data = $ppPenerima[i]
+            if(data.id == value) {
+                showInfoField('pp_penerima', data.id, data.name)
+                break;
+            }
+        }
+    }
+
+    function filterDrkPenerima(value) {
+        for(var i=0;i<$ppPenerima.length;i++) {
+            var data = $ppPenerima[i]
+            if(data.id == value) {
+                showInfoField('drk_penerima', data.id, data.name)
+                break;
+            }
+        }
+    }
+
+    function filterAkunPenerima(value) {
+        for(var i=0;i<$akunPenerima.length;i++) {
+            var data = $akunPenerima[i]
+            if(data.id == value) {
+                showInfoField('akun_penerima', data.id, data.name)
+                break;
+            }
+        }
+    }
+
     function format_number(x){
         var num = parseFloat(x).toFixed(0);
         num = sepNumX(num);
@@ -287,7 +416,6 @@
             var nilai = toNilai($(this).find('.inp-nilai').val())
             $totalPemberi += nilai
         })
-        console.log($totalPemberi)
     }
 
     function resetForm() {
@@ -382,6 +510,7 @@
         $('#form-tambah')[0].reset();
         $('#form-tambah').validate().resetForm();
         $('#id').val('');
+        $('#id_edit').val('');
         $('#saku-datatable').hide();
         $('#saku-form').show();
         $('.input-group-prepend').addClass('hidden');
@@ -1805,6 +1934,10 @@
                 formData.append('no_pemberi[]', $(this).find('.no-pemberi').text())
             })
             formData.append('donor', $totalPemberi)
+            
+            if(parameter == "edit") {
+                formData.append('no_bukti', id)
+            }
             for(var pair of formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
@@ -1857,6 +1990,209 @@
             $("label[for="+id+"]").append("<br/>");
             $("label[for="+id+"]").append(error);
         }
+    });
+
+    function editData(id){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('esaku-trans/pengajuan-rra-detail') }}",
+            data: { kode: id },
+            dataType: 'json',
+            async:false,
+            success:function(res){
+                var result= res.data.success;
+                if(result.status) {
+                    var tanggal = result.data[0].tanggal.split(' ')
+                    $('#id_edit').val('edit');
+                    $('#method').val('put');
+                    $('#tanggal').val(tanggal[0])
+                    $('#id').val(id)
+                    $('#no_dok').val(result.data[0].no_dokumen);
+                    $('#id').val(id);
+                    $('#keterangan').val(result.data[0].keterangan)
+                    filterNikApprove(result.data[0].nik_app3)
+                    filterPPPenerima(result.detail_penerima[0].kode_pp)
+                    filterDrkPenerima(result.detail_penerima[0].kode_pp)
+                    filterAkunPenerima(result.detail_penerima[0].kode_akun)
+                    $('#bulan_penerima').val(result.detail_penerima[0].bulan)
+                    $('#nilai_penerima').val(parseInt(result.detail_penerima[0].nilai))
+                    if(result.detail_pemberi.length > 0) {
+                        var html = "";
+                        var no = 1;
+                        for(var i=0;i<result.detail_pemberi.length;i++) {
+                            $totalPemberi = 0
+                            var data = result.detail_pemberi[i]
+                            $totalPemberi += parseInt(data.nilai)
+                            var string = data.kode_akun+'-'+data.nama_akun
+                            if(string.length > 30) {
+                                string = string.substr(0, 30) + '...'
+                            }
+                            html += "<tr class='row-pemberi row-pemberi-"+no+"'>"
+                            html += "<td class='no-pemberi text-center hidden'>"+no+"</td>"
+                            html += "<td><div>"
+                            html += "<span class='td-anggaran tdanggaranke"+no+" tooltip-span'>"+string+"</span>"
+                            html += "<input autocomplete='off' type='text' name='anggaran[]' class='inp-anggaran anggaranke"+no+" form-control hidden' value='"+data.kode_akun+"-"+data.nama_akun+"' required='' style='z-index: 1;position: relative;' id='anggarankode"+no+"'><a href='#' class='search-item search-anggaran hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a>"
+                            html += "</div></td>"
+                            html += "<td><div>"
+                            html += "<span class='td-pp tdppke"+no+" tooltip-span'>"+data.kode_pp+"-"+data.nama_pp+"</span>"
+                            html += "<input autocomplete='off' type='text' name='pp[]' class='inp-pp ppke"+no+" form-control hidden' value='"+data.kode_pp+"-"+data.nama_pp+"' required='' style='z-index: 1;position: relative;' id='ppkode"+no+"'><a href='#' class='search-item search-pp hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a>"
+                            html += "</div></td>"
+                            html += "<td><div>"
+                            html += "<span class='td-drk tddrkke"+no+" tooltip-span'>"+data.kode_pp+"-"+data.nama_pp+"</span>"
+                            html += "<input autocomplete='off' type='text' name='drk[]' class='inp-drk drkke"+no+" form-control hidden' value='"+data.kode_pp+"-"+data.nama_pp+"' required='' style='z-index: 1;position: relative;' id='drkkode"+no+"'><a href='#' class='search-item search-drk hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a>"
+                            html += "</div></td>"
+                            html += "<td class='text-center'><div>"
+                            html += "<span class='td-bulan tdbulanke"+no+" tooltip-span'>"+data.bulan+"</span>"
+                            html += "<select class='hidden form-control inp-bulan bulanke"+no+"' name='bulan[]'>"
+                            html += "<option value='01' selected>01</option><option value='02'>02</option><option value='03'>03</option><option value='04'>04</option><option value='05'>05</option><option value='06'>06</option><option value='07'>07</option><option value='08'>08</option><option value='09'>09</option><option value='10'>10</option><option value='11'>11</option><option value='12'>12</option>"
+                            html += "</select>"
+                            html += "</div></td>"
+                            html += "<td class='text-right'><div>"
+                            html += "<span class='td-saldo tdsaldoke"+no+"'>0</span>"
+                            html += "<input type='text' name='saldo[]' class='inp-saldo form-control saldoke"+no+" hidden currency'  value='0' required>"
+                            html += "</div></td>"
+                            html += "<td class='text-right'>"
+                            html += "<span class='td-nilai tdnilaike"+no+"'>"+format_number(data.nilai)+"</span>"
+                            html += "<input type='text' name='nilai[]' class='inp-nilai form-control nilaike"+no+" hidden currency'  value='"+parseInt(data.nilai)+"' required>"
+                            html += "</td>"
+                            html += "<td class='text-center'><a class='hapus-pemberi' style='font-size:18px;cursor:pointer;'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
+                            html += "</tr>"
+                            
+                            no++;
+                        }
+
+                        $('#pemberi-grid tbody').append(html);
+                        
+                        
+                        var no = 1;
+                        for(var i=0;i<result.detail_pemberi.length;i++) {
+                            var data =  result.detail_pemberi[i]
+                            $('.bulanke'+no).val(data.bulan)
+                            no++;
+                        }
+
+                        $('.currency').inputmask("numeric", {
+                            radixPoint: ",",
+                            groupSeparator: ".",
+                            digits: 2,
+                            autoGroup: true,
+                            rightAlign: true,
+                            oncleared: function () {  }
+                        });
+
+                        $('.tooltip-span').tooltip({
+                            title: function(){
+                                return $(this).text();
+                            }
+                        });
+
+                        $('.inp-anggaran').typeahead({
+                            source:$mataAnggaran,
+                            displayText:function(item){
+                                return item.id+'-'+item.name;
+                            },
+                            autoSelect:false,
+                            changeInputOnSelect:false,
+                            changeInputOnMove:false,
+                            selectOnBlur:false,
+                            afterSelect: function (item) {
+                                console.log(item.id);
+                            }
+                        });
+
+                        $('.inp-pp').typeahead({
+                            source:$ppAnggaran,
+                            displayText:function(item){
+                                return item.id+'-'+item.name;
+                            },
+                            autoSelect:false,
+                            changeInputOnSelect:false,
+                            changeInputOnMove:false,
+                            selectOnBlur:false,
+                            afterSelect: function (item) {
+                                console.log(item.id);
+                            }
+                        });
+
+                        $('.inp-drk').typeahead({
+                            source:$ppAnggaran,
+                            displayText:function(item){
+                                return item.id+'-'+item.name;
+                            },
+                            autoSelect:false,
+                            changeInputOnSelect:false,
+                            changeInputOnMove:false,
+                            selectOnBlur:false,
+                            afterSelect: function (item) {
+                                console.log(item.id);
+                            }
+                        });
+
+                        $('.inp-nilai').on('change', function(){
+                            hitungTotalPemberi()
+                        })
+
+                        hitungTotalRowPemberi()
+                    }   
+
+                    $('#saku-datatable').hide();
+                    $('#modal-preview').modal('hide');
+                    $('#saku-form').show();
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                }
+            }
+        });
+    }
+
+    $('#saku-datatable').on('click', '#btn-edit', function(){
+        var id= $(this).closest('tr').find('td').eq(0).html();
+        // $iconLoad.show();
+        $('#form-tambah').validate().resetForm();
+        
+        $('#btn-save').attr('type','button');
+        $('#btn-save').attr('id','btn-update');
+
+        $('#judul-form').html('Pengajuan RRA Anggaran');
+        editData(id);
+    });
+
+    function hapusData(id){
+        console.log(id)
+        $.ajax({
+            type: 'DELETE',
+            url: "{{ url('esaku-trans/pengajuan-rra') }}",
+            data: { kode: id },
+            dataType: 'json',
+            async:false,
+            success:function(result){
+                if(result.data.success.status){
+                    dataTable.ajax.reload();                    
+                    showNotification("top", "center", "success",'Hapus Data','Data Pengajuan RRA ('+id+') berhasil dihapus ');
+                    $('#modal-pesan-id').html('');
+                    $('#table-delete tbody').html('');
+                    $('#modal-pesan').modal('hide');
+                }else if(!result.data.success.status && result.data.success.message == "Unauthorized"){
+                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                }else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href>'+result.data.success.message+'</a>'
+                    });
+                }
+            }
+        });
+    }
+
+    $('#saku-datatable').on('click','#btn-delete',function(e){
+        var kode = $(this).closest('tr').find('td').eq(0).html();
+        msgDialog({
+            id: kode,
+            type:'hapus'
+        });
     });
 
 </script>
