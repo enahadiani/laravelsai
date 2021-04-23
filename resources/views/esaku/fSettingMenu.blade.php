@@ -245,6 +245,39 @@
         });
     }
 
+    var $error_msg = "";
+    function reportError(){
+
+        $.ajax({
+            type: 'POST',
+            url: "{{ url('esaku-auth/report-error') }}",
+            dataType: 'json',
+            data: { error: $error_msg, kode_form: $form_aktif },
+            success:function(result){
+                if(result.data.status){
+                    msgDialog({
+                        id: '',
+                        type: 'sukses',
+                        text: 'Perubahan '+result.data.message
+                    });
+                }else if(!result.data.status && result.data.message == 'Unauthorized'){
+                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                }else{
+                    $error_msg = result.data.message;
+                    msgDialog({
+                        id: '',
+                        type: 'warning',
+                        title: 'Error',
+                        text: '<p>Internal Server Error</p><a href="#" class="btn btn-primary btn-sm mx-auto mb-3" onclick="return reportError();"> Laporkan Masalah</a>'
+                    });
+                }
+            },
+            fail: function(xhr, textStatus, errorThrown){
+                alert('request failed:'+textStatus);
+            }
+        });
+    }
+
 
     $(document).ready(function(){
     
@@ -741,14 +774,15 @@
                             text: 'Perubahan '+result.data.message
                         });
                         init(kode_klp);
-                    } else if(!result.data.status && result.data.message == 'Unauthorized'){
+                    }else if(!result.data.status && result.data.message == 'Unauthorized'){
                         window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
                     }else{
+                        $error_msg = result.data.message;
                         msgDialog({
                             id: '',
                             type: 'sukses',
                             title: 'Error',
-                            text: result.data.message
+                            text: 'Internal Server Error <br> <a href="#" class="btn btn-primary btn-sm mx-auto mb-2" onclick="reportError()"> Kirim Error</a>'
                         });
                     }
                 },
@@ -757,9 +791,7 @@
                 }
             });
         });
-    
 
     });
-
 
 </script>

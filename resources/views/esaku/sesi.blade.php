@@ -69,6 +69,7 @@ Session::put('pesan','Kembali');
     <script src="{{ asset('asset_dore/js/scripts.js') }}"></script>
     <script>
         $('div.theme-colors').hide();
+        window.localStorage.removeItem('esaku-form');
     </script>
 </head>
 

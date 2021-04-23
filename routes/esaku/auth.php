@@ -74,3 +74,6 @@ Route::get('/bottom-sheet', function () {
 Route::get('/bottom-sheet2', function () {
     return view('esaku.modal2');
 });
+
+
+Route::post('report-error','Esaku\AuthController@reportError');
