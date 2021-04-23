@@ -245,6 +245,38 @@
         });
     }
 
+    
+    function reportError(msg){
+
+        $.ajax({
+            type: 'POST',
+            url: "{{ url('esaku-auth/report-error') }}",
+            dataType: 'json',
+            data: { error: msg, kode_form: $form_aktif },
+            success:function(result){
+                if(result.data.status){
+                    msgDialog({
+                        id: '',
+                        type: 'sukses',
+                        text: 'Perubahan '+result.data.message
+                    });
+                }else if(!result.data.status && result.data.message == 'Unauthorized'){
+                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                }else{
+                    msgDialog({
+                        id: '',
+                        type: 'sukses',
+                        title: 'Error',
+                        text: 'Internal Server Error <a href="#" class="btn btn-primary btn-sm" onclick="reportError('+result.data.message+')"> Laporkan Masalah</a>'
+                    });
+                }
+            },
+            fail: function(xhr, textStatus, errorThrown){
+                alert('request failed:'+textStatus);
+            }
+        });
+    }
+
 
     $(document).ready(function(){
     
@@ -741,14 +773,14 @@
                             text: 'Perubahan '+result.data.message
                         });
                         init(kode_klp);
-                    } else if(!result.data.status && result.data.message == 'Unauthorized'){
+                    }else if(!result.data.status && result.data.message == 'Unauthorized'){
                         window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
                     }else{
                         msgDialog({
                             id: '',
                             type: 'sukses',
                             title: 'Error',
-                            text: result.data.message
+                            text: 'Internal Server Error <a href="#" class="btn btn-primary btn-sm" onclick="reportError('+result.data.message+')"> Kirim Error</a>'
                         });
                     }
                 },
@@ -757,9 +789,7 @@
                 }
             });
         });
-    
 
     });
-
 
 </script>

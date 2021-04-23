@@ -552,5 +552,39 @@ class AuthController extends Controller
             return response()->json(['message' => $res, 'status'=>false], 200);
         }
     }
+
+    public function reportError(Request $request){
+        $this->validate($request,[
+            'error' => 'required',
+            'kode_form' => 'required'
+        ]);
+        try {
+            $client = new Client();
+            $response = $client->request('POST',  config('api.url').'esaku-auth/report-error',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'form_params' => [
+                    'error' => $request->error,
+                    'kode_form' => $request->kode_form
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data;
+            }
+            return response()->json(['data' => $data, 'status'=>true], 200); 
+
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res, 'status'=>false], 200);
+        }
+    }
+
     
 }
