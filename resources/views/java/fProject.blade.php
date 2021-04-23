@@ -24,7 +24,7 @@
                                 <div class="row">
                                     <div class="col-md-4 col-sm-12">
                                         <label for="tanggal">Tanggal</label>
-                                        <input class='form-control datepicker' type="text" id="tanggal_mulai" name="tanggal_mulai" value="{{ date('d/m/Y') }}">
+                                        <input class='form-control datepicker' type="text" id="tanggal_mulai" name="tanggal_mulai" autocomplete="off" value="{{ date('d/m/Y') }}">
                                         <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;" class="simple-icon-calendar date-search"></i>
                                     </div>
                                     <div class="col-md-8 col-sm-12">
@@ -33,7 +33,7 @@
                                             <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
                                                 <span class="input-group-text info-code_kode_cust" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
                                             </div>
-                                            <input type="text" class="form-control inp-label-kode_cust" id="kode_cust" name="kode_cust" value="" title="">
+                                            <input type="text" class="form-control inp-label-kode_cust" id="kode_cust" autocomplete="off" name="kode_cust" value="" title="">
                                             <span class="info-name_kode_cust hidden">
                                                 <span></span> 
                                             </span>
@@ -48,7 +48,7 @@
                                     <div class="col-md-6 col-sm-12"></div>
                                     <div class="col-md-6 col-sm-12">
                                         <label for="nilai">Nilai Kontrak</label>
-                                        <input class="form-control currency" type="text" placeholder="Nilai kontrak" id="nilai" name="nilai" value="0">
+                                        <input class="form-control currency" type="text" placeholder="Nilai kontrak" autocomplete="off" id="nilai" name="nilai" value="0">
                                     </div>
                                 </div>
                             </div>
@@ -58,11 +58,11 @@
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12">
                                         <label for="no_proyek">No Proyek</label>
-                                        <input class='form-control' type="text" id="no_proyek" name="no_proyek" required>
+                                        <input class='form-control' type="text" id="no_proyek" name="no_proyek" autocomplete="off" required>
                                     </div>
                                     <div class="col-md-6 col-sm-12">
                                         <label for="no_kontrak">No Kontrak</label>
-                                        <input class='form-control' type="text" id="no_kontrak" name="no_kontrak" required>
+                                        <input class='form-control' type="text" id="no_kontrak" name="no_kontrak" autocomplete="off" required>
                                     </div>
                                 </div>
                             </div>
@@ -83,7 +83,7 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <label for="keterangan">Keterangan</label>
-                                        <textarea class="form-control" rows="4" id="keterangan" name="keterangan" required></textarea>
+                                        <textarea class="form-control" rows="4" id="keterangan" autocomplete="off" name="keterangan" required></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -92,7 +92,7 @@
                                     <div class="col-md-6 col-sm-12"></div>
                                     <div class="col-md-6 col-sm-12">
                                         <label for="tanggal">Tanggal Berakhir Kontrak</label>
-                                        <input class='form-control datepicker' type="text" id="tanggal_selesai" name="tanggal_selesai" value="{{ date('d/m/Y') }}">
+                                        <input class='form-control datepicker' type="text" id="tanggal_selesai" autocomplete="off" name="tanggal_selesai" value="{{ date('d/m/Y') }}">
                                         <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;" class="simple-icon-calendar date-search"></i>
                                         <br/>
                                         <div class="custom-control custom-checkbox" id="project-status">

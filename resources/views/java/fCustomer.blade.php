@@ -36,7 +36,7 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-6 col-sm-12">
                                         <label for="kode_customer">Kode</label>
-                                        <input class="form-control" type="text" id="kode_customer" name="kode_customer" required>
+                                        <input class="form-control" type="text" id="kode_customer" name="kode_customer" autocomplete="off" required>
                                     </div>
                                     <div class="error-side col-md-6 col-sm-12">
                                         <p class="error-text" id="error-customer"></p>
@@ -45,17 +45,17 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-12 col-sm-12">
                                         <label for="nama">Nama</label>
-                                        <input class="form-control" type="text" id="nama" name="nama" required>
+                                        <input class="form-control" type="text" id="nama" name="nama" autocomplete="off" required>
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6 col-sm-12">
                                         <label for="no_telp">No Telepon</label>
-                                        <input class="form-control" type="text" id="no_telp" name="no_telp" required>
+                                        <input class="form-control" type="text" id="no_telp" name="no_telp" autocomplete="off" required>
                                     </div>
                                     <div class="form-group col-md-6 col-sm-12">
                                         <label for="email">Email</label>
-                                        <input class="form-control" type="text" id="email" name="email" required>
+                                        <input class="form-control" type="text" id="email" name="email" autocomplete="off" required>
                                     </div>
                                 </div>
                                 <div class="form-row">
@@ -65,7 +65,7 @@
                                             <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
                                                 <span class="input-group-text info-code_akun_piutang" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
                                             </div>
-                                            <input type="text" class="form-control inp-label-akun_piutang" id="akun_piutang" name="akun_piutang" value="" title="">
+                                            <input type="text" class="form-control inp-label-akun_piutang" id="akun_piutang" autocomplete="off" name="akun_piutang" value="" title="">
                                             <span class="info-name_akun_piutang hidden">
                                                 <span></span> 
                                             </span>
@@ -80,7 +80,7 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-12 col-sm-12">
                                         <label for="alamat">Alamat</label>
-                                        <textarea class="form-control" rows="4" id="alamat" name="alamat"></textarea>
+                                        <textarea class="form-control" rows="4" id="alamat" name="alamat" autocomplete="off"></textarea>
                                     </div>
                                 </div>
                                 <div class="form-row">
@@ -90,26 +90,26 @@
                                     </div>
                                     <div class="form-group col-md-6 col-sm-12">
                                         <label for="provinsi">Provinsi</label>
-                                        <input class="form-control" type="text" id="provinsi-nama" name="provinsi_name">
-                                        <input class="form-control hidden" type="text" id="provinsi" name="provinsi">
+                                        <input class="form-control" type="text" id="provinsi-nama"  name="provinsi_name">
+                                        <input class="form-control hidden" type="text" id="provinsi" autocomplete="off" name="provinsi">
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6 col-sm-12">
                                         <label for="kota">Kota</label>
                                         <input class="form-control" type="text" id="kota-nama" name="kota_name">
-                                        <input class="form-control hidden" type="text" id="kota" name="kota">
+                                        <input class="form-control hidden" type="text" id="kota" autocomplete="off" name="kota">
                                     </div>
                                     <div class="form-group col-md-6 col-sm-12">
                                         <label for="kecamatan">Kecamatan</label>
                                         <input class="form-control" type="text" id="kecamatan-nama" name="kecamatan_name">
-                                        <input class="form-control hidden" type="text" id="kecamatan" name="kecamatan">
+                                        <input class="form-control hidden" type="text" id="kecamatan" autocomplete="off" name="kecamatan">
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6 col-sm-12">
                                         <label for="negara">Negara</label>
-                                        <input class="form-control" type="text" id="negara" name="negara">
+                                        <input class="form-control" type="text" id="negara" autocomplete="off" name="negara">
                                     </div>
                                 </div>
                             </div>
@@ -129,17 +129,17 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-12 col-sm-12">
                                         <label for="pic">Nama Penanggung Jawab (Person in Change)</label>
-                                        <input class="form-control" type="text" id="pic" name="pic">
+                                        <input class="form-control" type="text" id="pic" autocomplete="off" name="pic">
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6 col-sm-12">
                                         <label for="no_pictel">No Telepon</label>
-                                        <input class="form-control" type="text" id="no_telp_pic" name="no_telp_pic">
+                                        <input class="form-control" type="text" id="no_telp_pic" autocomplete="off" name="no_telp_pic">
                                     </div>
                                     <div class="form-group col-md-6 col-sm-12">
                                         <label for="email_pic">Email</label>
-                                        <input class="form-control" type="text" id="email_pic" name="email_pic">
+                                        <input class="form-control" type="text" id="email_pic" autocomplete="off" name="email_pic">
                                     </div>
                                 </div>
                             </div>
@@ -179,21 +179,21 @@
                     <div class="form-row">
                         <div class="form-group col-md-6 col-sm-12">
                             <label for="no_rek">No. Rekening</label>
-                            <input class="form-control" type="text" id="no_rek" name="no_rek" required>
+                            <input class="form-control" type="text" autocomplete="off" id="no_rek" name="no_rek" required>
                         </div>
                         <div class="form-group col-md-6 col-sm-12">
                             <label for="nama_rek">Nama Rekening</label>
-                            <input class="form-control" type="text" id="nama_rek" name="nama_rek" required>
+                            <input class="form-control" type="text" autocomplete="off" id="nama_rek" name="nama_rek" required>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6 col-sm-12">
                             <label for="bank">Bank</label>
-                            <input class="form-control" type="text" id="bank" name="bank" required>
+                            <input class="form-control" type="text" autocomplete="off" id="bank" name="bank" required>
                         </div>
                         <div class="form-group col-md-6 col-sm-12">
                             <label for="cabang">Cabang</label>
-                            <input class="form-control" type="text" id="cabang" name="cabang" required>
+                            <input class="form-control" type="text" autocomplete="off" id="cabang" name="cabang" required>
                         </div>
                     </div>
                 </div>

@@ -25,7 +25,7 @@
                             <div class="row">
                                 <div class="col-md-4 col-sm-12">
                                     <label for="tanggal">Tanggal</label>
-                                    <input class='form-control datepicker' type="text" id="tanggal" name="tanggal" value="{{ date('d/m/Y') }}">
+                                    <input class='form-control datepicker' type="text" id="tanggal" autocomplete="off" name="tanggal" value="{{ date('d/m/Y') }}">
                                     <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;" class="simple-icon-calendar date-search"></i>
                                 </div>
                                 <div class="col-md-8 col-sm-12">
@@ -34,7 +34,7 @@
                                         <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
                                             <span class="input-group-text info-code_kode_cust" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
                                         </div>
-                                        <input type="text" class="form-control inp-label-kode_cust" id="kode_cust" name="kode_cust" value="" title="">
+                                        <input type="text" class="form-control inp-label-kode_cust" autocomplete="off" id="kode_cust" name="kode_cust" value="" title="">
                                         <span class="info-name_kode_cust hidden">
                                             <span></span> 
                                         </span>
@@ -49,7 +49,7 @@
                                 <div class="col-md-4 col-sm-12"></div>
                                 <div class="col-md-8 col-sm-12">
                                     <label for="keterangan">Keterangan</label>
-                                    <textarea class="form-control" rows="4" id="keterangan" name="keterangan" required></textarea>
+                                    <textarea class="form-control" rows="4" id="keterangan" autocomplete="off" name="keterangan" required></textarea>
                                 </div>
                             </div>
                         </div>
@@ -63,7 +63,7 @@
                                         <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
                                             <span class="input-group-text info-code_no_proyek" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
                                         </div>
-                                        <input type="text" class="form-control inp-label-no_proyek" id="no_proyek" name="no_proyek" value="" title="">
+                                        <input type="text" class="form-control inp-label-no_proyek" autocomplete="off" id="no_proyek" name="no_proyek" value="" title="">
                                         <span class="info-name_no_proyek hidden">
                                             <span></span> 
                                         </span>
@@ -78,7 +78,7 @@
                                 <div class="col-md-4 col-sm-12"></div>
                                 <div class="col-md-8 col-sm-12">
                                     <label for="nilai_kontrak">Nilai Kontrak</label>
-                                    <input class="form-control currency" type="text" placeholder="Nilai Kontrak" id="nilai_kontrak" value="0" readonly>
+                                    <input class="form-control currency" type="text" autocomplete="off" placeholder="Nilai Kontrak" id="nilai_kontrak" value="0" readonly>
                                 </div>
                             </div>
                         </div>
@@ -88,7 +88,7 @@
                             <div class="row">
                                 <div class="col-md-4 col-sm-12 no_tagihan">
                                     <label for="no_tagihan">No Tagihan</label>
-                                    <input class='form-control' type="text" id="no_tagihan" name="no_tagihan" readonly>
+                                    <input class='form-control' type="text" autocomplete="off" id="no_tagihan" name="no_tagihan" readonly>
                                 </div>
                             </div>
                         </div>
@@ -122,7 +122,7 @@
                                     </div>
                                     <div class="col-md-1 col-sm-2">
                                         <div class="group-input">
-                                            <input class="form-control currency" type="text" placeholder="Pajak" id="pajak" name="pajak" value="0">
+                                            <input class="form-control currency" autocomplete="off" type="text" placeholder="Pajak" id="pajak" name="pajak" value="0">
                                             <span>%</span>
                                         </div>
                                     </div>
@@ -154,7 +154,7 @@
                                         <span>Uang Muka</span>
                                     </div>
                                     <div class="col-md-2 col-sm-2">
-                                        <input class="form-control currency" type="text" placeholder="Uang Muka" id="uang_muka" name="uang_muka" value="0">
+                                        <input class="form-control currency" autocomplete="off" type="text" placeholder="Uang Muka" id="uang_muka" name="uang_muka" value="0">
                                     </div>
                                     <div class="col-md-1 col-sm-2"></div>
                                 </div>

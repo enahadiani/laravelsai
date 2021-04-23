@@ -24,7 +24,7 @@
                             <div class="row">
                                 <div class="col-md-4 col-sm-12">
                                     <label for="tanggal">Tanggal</label>
-                                    <input class='form-control datepicker' type="text" id="tanggal" name="tanggal" value="{{ date('d/m/Y') }}">
+                                    <input class='form-control datepicker' type="text" id="tanggal" name="tanggal" autocomplete="off" value="{{ date('d/m/Y') }}">
                                     <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;" class="simple-icon-calendar date-search"></i>
                                 </div>
                                 <div class="col-md-8 col-sm-12">
@@ -33,7 +33,7 @@
                                         <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
                                             <span class="input-group-text info-code_kode_cust" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
                                         </div>
-                                        <input type="text" class="form-control inp-label-kode_cust" id="kode_cust" name="kode_cust" value="" title="">
+                                        <input type="text" class="form-control inp-label-kode_cust" id="kode_cust" autocomplete="off" name="kode_cust" value="" title="">
                                         <span class="info-name_kode_cust hidden">
                                             <span></span> 
                                         </span>
@@ -48,7 +48,7 @@
                                 <div class="col-md-4 col-sm-12"></div>
                                 <div class="col-md-8 col-sm-12">
                                     <label for="keterangan">Keterangan</label>
-                                    <textarea class="form-control" rows="4" id="keterangan" name="keterangan" required></textarea>
+                                    <textarea class="form-control" rows="4" id="keterangan" autocomplete="off" name="keterangan" required></textarea>
                                 </div>
                             </div>
                         </div>
@@ -62,7 +62,7 @@
                                         <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
                                             <span class="input-group-text info-code_kode_bank" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
                                         </div>
-                                        <input type="text" class="form-control inp-label-kode_bank" id="kode_bank" name="kode_bank" value="" title="">
+                                        <input type="text" class="form-control inp-label-kode_bank" autocomplete="off" id="kode_bank" name="kode_bank" value="" title="">
                                         <span class="info-name_kode_bank hidden">
                                             <span></span> 
                                         </span>
@@ -85,7 +85,7 @@
                             <div class="row">
                                 <div class="col-md-4 col-sm-12 no_bayar">
                                     <label for="no_bayar">No Bayar</label>
-                                    <input class='form-control' type="text" id="no_bayar" name="no_bayar" readonly>
+                                    <input class='form-control' type="text" id="no_bayar" autocomplete="off" name="no_bayar" readonly>
                                 </div>
                             </div>
                         </div>
@@ -119,7 +119,7 @@
                                         <span>Biaya Lain</span>
                                     </div>
                                     <div class="col-md-2 col-sm-2">
-                                        <input class="form-control currency" type="text" placeholder="Biaya Lain" id="biaya_lain" name="biaya_lain" value="0">
+                                        <input class="form-control currency" type="text" autocomplete="off" placeholder="Biaya Lain" id="biaya_lain" name="biaya_lain" value="0">
                                     </div>
                                     <div class="col-md-1 col-sm-2"></div>
                                 </div>

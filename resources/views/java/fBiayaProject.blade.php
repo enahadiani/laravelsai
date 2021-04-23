@@ -24,7 +24,7 @@
                             <div class="row">
                                 <div class="col-md-4 col-sm-12">
                                     <label for="tanggal">Tanggal</label>
-                                    <input class='form-control datepicker' type="text" id="tanggal" name="tanggal" value="{{ date('d/m/Y') }}">
+                                    <input class='form-control datepicker' type="text" id="tanggal" name="tanggal" value="{{ date('d/m/Y') }}" autocomplete="off">
                                     <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;" class="simple-icon-calendar date-search"></i>
                                 </div>
                                 <div class="col-md-8 col-sm-12">
@@ -33,7 +33,7 @@
                                         <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
                                             <span class="input-group-text info-code_kode_cust" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
                                         </div>
-                                        <input type="text" class="form-control inp-label-kode_cust" id="kode_cust" name="kode_cust" value="" title="">
+                                        <input type="text" class="form-control inp-label-kode_cust" id="kode_cust" name="kode_cust" autocomplete="off" value="" title="">
                                         <span class="info-name_kode_cust hidden">
                                             <span></span> 
                                         </span>
@@ -73,7 +73,7 @@
                                         <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
                                             <span class="input-group-text info-code_no_proyek" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
                                         </div>
-                                        <input type="text" class="form-control inp-label-no_proyek" id="no_proyek" name="no_proyek" value="" title="">
+                                        <input type="text" class="form-control inp-label-no_proyek" id="no_proyek" autocomplete="off" name="no_proyek" value="" title="">
                                         <span class="info-name_no_proyek hidden">
                                             <span></span> 
                                         </span>
@@ -83,7 +83,7 @@
                                 </div>
                                 <div class="col-md-6 col-sm-12">
                                     <label for="no_dokumen">No Dokumen</label>
-                                    <input class="form-control" type="text" placeholder="No Dokumen" id="no_dokumen" name="no_dokumen">
+                                    <input class="form-control" type="text" placeholder="No Dokumen" autocomplete="off" id="no_dokumen" name="no_dokumen">
                                 </div>
                             </div>
                         </div>
@@ -92,7 +92,7 @@
                                 <div class="col-md-4 col-sm-12"></div>
                                 <div class="col-md-8 col-sm-12">
                                     <label for="anggaran">Anggaran tersisa</label>
-                                    <input class="form-control currency" type="text" placeholder="Anggaran tersisa" id="anggaran" name="anggaran" readonly value="0">
+                                    <input class="form-control currency" type="text" placeholder="Anggaran tersisa" autocomplete="off" id="anggaran" name="anggaran" readonly value="0">
                                 </div>
                             </div>
                         </div>
@@ -102,7 +102,7 @@
                             <div class="row">
                                 <div class="col-md-12 col-sm-12">
                                     <label for="keterangan">Keterangan</label>
-                                    <textarea class="form-control" rows="4" id="keterangan" name="keterangan" required></textarea>
+                                    <textarea class="form-control" rows="4" id="keterangan" name="keterangan" autocomplete="off" required></textarea>
                                 </div>
                             </div>
                         </div>
@@ -111,7 +111,7 @@
                                 <div class="col-md-4 col-sm-12"></div>
                                 <div class="col-md-8 col-sm-12">
                                     <label for="nilai">Nilai</label>
-                                    <input class="form-control currency" type="text" placeholder="Nilai" id="nilai" name="nilai" value="0">
+                                    <input class="form-control currency" type="text" placeholder="Nilai" id="nilai" autocomplete="off" name="nilai" value="0">
                                     <br/>
                                     <div class="switch-toggle">
                                         <label class="switch">
@@ -132,7 +132,7 @@
                             <div class="row">
                                 <div class="col-md-8 col-sm-12 no_bukti">
                                     <label for="no_bukti">No Bukti</label>
-                                    <input class="form-control" type="text" placeholder="No Bukti" id="no_bukti" name="no_bukti">
+                                    <input class="form-control" type="text" placeholder="No Bukti" id="no_bukti" autocomplete="off" name="no_bukti">
                                 </div>
                             </div>
                         </div>

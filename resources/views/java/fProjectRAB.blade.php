@@ -29,7 +29,7 @@
                                         <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
                                             <span class="input-group-text info-code_no_proyek" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
                                         </div>
-                                        <input type="text" class="form-control inp-label-no_proyek" id="no_proyek" name="no_proyek" value="" title="">
+                                        <input type="text" class="form-control inp-label-no_proyek" autocomplete="off" id="no_proyek" name="no_proyek" value="" title="">
                                         <span class="info-name_no_proyek hidden">
                                             <span></span> 
                                         </span>
@@ -44,7 +44,7 @@
                                 <div class="col-md-6 col-sm-12"></div>
                                 <div class="col-md-6 col-sm-12">
                                     <label for="nilai_kontrak">Nilai Kontrak</label>
-                                    <input class="form-control currency" type="text" placeholder="Nilai Kontrak" id="nilai_kontrak" name="nilai_kontrak" value="0" readonly>
+                                    <input class="form-control currency" type="text" placeholder="Nilai Kontrak" autocomplete="off" id="nilai_kontrak" name="nilai_kontrak" value="0" readonly>
                                 </div>
                             </div>
                         </div>
@@ -54,7 +54,7 @@
                             <div class="row" id="no-rab">
                                 <div class="col-md-6 col-sm-12">
                                     <label for="no_rab">No Anggaran</label>
-                                    <input class="form-control" type="text" placeholder="No Anggaran" id="no_rab" name="no_rab" readonly>
+                                    <input class="form-control" type="text" placeholder="No Anggaran" autocomplete="off" id="no_rab" name="no_rab" readonly>
                                 </div>
                             </div>
                         </div>
@@ -63,7 +63,7 @@
                                 <div class="col-md-6 col-sm-12"></div>
                                 <div class="col-md-6 col-sm-12">
                                     <label for="nilai_anggaran">Nilai Anggaran</label> --}}
-                                    <input class="form-control currency" type="hidden" placeholder="Nilai Anggaran" id="nilai_anggaran" name="nilai_anggaran" value="0" readonly>
+                                    <input class="form-control currency" type="hidden" autocomplete="off" placeholder="Nilai Anggaran" id="nilai_anggaran" name="nilai_anggaran" value="0" readonly>
                                 {{-- </div>
                             </div>
                         </div> --}}

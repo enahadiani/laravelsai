@@ -29,19 +29,19 @@
                         <div class="form-row">
                             <div class="form-group col-md-6 col-sm-12">
                                 <label for="kode_bank" >Kode</label>
-                                <input class="form-control" type="text" placeholder="Kode Bank" id="kode_bank" name="kode_bank" required>                         
+                                <input class="form-control" type="text" placeholder="Kode Bank" id="kode_bank" name="kode_bank" autocomplete="off" required>                         
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-12 col-sm-12">
                                 <label for="nama" >Nama</label>
-                                <input class="form-control" type="text" placeholder="Nama" id="nama" name="nama" required>                         
+                                <input class="form-control" type="text" placeholder="Nama" id="nama" name="nama" autocomplete="off" required>                         
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-8 col-sm-12">
                                 <label for="no_rek" >No Rek</label>
-                                <input class="form-control" type="text" placeholder="Nomor Rekening" id="no_rek" name="no_rek" required>                         
+                                <input class="form-control" type="text" placeholder="Nomor Rekening" id="no_rek" name="no_rek" autocomplete="off" required>                         
                             </div>
                         </div>
                     </div>
