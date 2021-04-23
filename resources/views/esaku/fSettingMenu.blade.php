@@ -265,9 +265,9 @@
                 }else{
                     msgDialog({
                         id: '',
-                        type: 'sukses',
+                        type: 'warning',
                         title: 'Error',
-                        text: 'Internal Server Error <a href="#" class="btn btn-primary btn-sm" onclick="reportError('+result.data.message+')"> Laporkan Masalah</a>'
+                        text: 'Internal Server Error <br> <a href="#" class="btn btn-primary btn-sm" onclick="return reportError('+result.data.message+');"> Laporkan Masalah</a>'
                     });
                 }
             },
