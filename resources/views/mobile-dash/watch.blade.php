@@ -80,12 +80,19 @@
         height: auto;
         max-width: 100%
     }
+    
+    .subheader{
+        font-size:0.85rem !important;font-weight:bold;
+    }
+    .subheader-sub{
+        font-size:0.8rem !important;
+    }
 
 </style>
 <div class="container-fluid mt-3">
     <div class="row">
         <div class="col-12 video">
-            <h6 id="watch_ket"></h6>
+            <p class="subheader" id="watch_ket"></p>
             <a class='btn btn-outline-light' href='#' id='btnBack' style="position: absolute;right: 25px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-arrow-left"></i> Back</a>
         </div>
     </div>

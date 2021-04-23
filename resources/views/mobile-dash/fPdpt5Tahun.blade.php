@@ -36,6 +36,13 @@ $tahun5 = intval($tahun-5);
     .trace {
         cursor:pointer;
     }
+    
+    .subheader{
+        font-size:0.85rem !important;font-weight:bold;
+    }
+    .subheader-sub{
+        font-size:0.8rem !important;
+    }
     </style>
 
 <div class="container-fluid mt-3">
@@ -52,7 +59,7 @@ $tahun5 = intval($tahun-5);
             <div class="card dash-card">
                 <div class="card-header">
                     <div class="row mx-0">
-                        <h6 class="card-title col-md-6 col-12">Perbandingan Anggaran dan Realisasi <span class="rentang-tahun"></span></h6>
+                        <p class="card-title col-md-6 col-12"><span class="subheader">Perbandingan Anggaran dan Realisasi</span> <span class="rentang-tahun subheader-sub"></span></p>
                         <ul role="tablist" style="border: none;" class="nav nav-tabs col-md-6 col-12 px-0 justify-content-end">
                             <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#tab_yoy" role="tab" aria-selected="false"><span class="hidden-xs-down"><b>YoY</b></span></a> </li>
                             <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab_curr" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>Current</b></span></a> </li>
@@ -77,7 +84,7 @@ $tahun5 = intval($tahun-5);
              <div class="card dash-card">
                 <div class="card-header">
                     <div class="row mx-0">
-                        <h6 class="card-title col-md-6 col-12 ">Pendapatan TF <span class="rentang-tahun"></span></h6>
+                        <p class="card-title col-md-6 col-12 "><span class="subheader">Pendapatan TF</span> <span class="rentang-tahun subheader-sub"></span></p>
                         <ul role="tablist" style="border: none;" class="nav nav-tabs col-md-6 col-12 px-0 justify-content-end">
                             <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#tab2_yoy" role="tab" aria-selected="false"><span class="hidden-xs-down"><b>YoY</b></span></a> </li>
                             <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab2_curr" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>Current</b></span></a> </li>
@@ -100,7 +107,7 @@ $tahun5 = intval($tahun-5);
              <div class="card dash-card">
                 <div class="card-header">
                     <div class="row mx-0">
-                        <h6 class="card-title col-md-6 col-12">Pendapatan NTF <span class="rentang-tahun"></span></h6>
+                        <p class="card-title col-md-6 col-12"><span class="subheader">Pendapatan NTF </span><span class="rentang-tahun subheader-sub"></span></p>
                         <ul role="tablist" style="border: none;" class="nav nav-tabs col-md-6 col-12 px-0 justify-content-end">
                             <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#tab3_yoy" role="tab" aria-selected="false"><span class="hidden-xs-down"><b>YoY</b></span></a> </li>
                             <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab3_curr" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>Current</b></span></a> </li>
@@ -125,7 +132,7 @@ $tahun5 = intval($tahun-5);
              <div class="card dash-card">
                 <div class="card-header">
                     <div class="row mx-0">
-                        <h6 class="card-title col-md-6 col-12">Komposisi TF dan NTF <span class="rentang-tahun"></span></h6>
+                        <p class="card-title col-md-6 col-12"><span class="subheader">Komposisi TF dan NTF </span><span class="rentang-tahun subheader-sub"></span></p>
                         <ul role="tablist" style="border: none;" class="nav nav-tabs col-md-6 col-12 px-0 justify-content-end">
                             <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#tab4_yoy" role="tab" aria-selected="false"><span class="hidden-xs-down"><b>YoY</b></span></a> </li>
                             <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab4_curr" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>Current</b></span></a> </li>
@@ -148,7 +155,7 @@ $tahun5 = intval($tahun-5);
              <div class="card dash-card">
                 <div class="card-header">
                     <div class="row mx-0">
-                        <h6 class="card-title col-md-6 col-12">Realisasi Pencapaian PDPT, PDPT TF dan PDPT NTF <span class="rentang-tahun"></span></h6>
+                        <p class="card-title col-md-6 col-12"><span class="subheader">Realisasi Pencapaian PDPT, PDPT TF dan PDPT NTF </span><span class="rentang-tahun subheader-sub"></span></p>
                         <ul role="tablist" style="border: none;" class="nav nav-tabs col-md-6 col-12 px-0 justify-content-end">
                             <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#tab5_yoy" role="tab" aria-selected="false"><span class="hidden-xs-down"><b>YoY</b></span></a> </li>
                             <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab5_curr" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>Current</b></span></a> </li>

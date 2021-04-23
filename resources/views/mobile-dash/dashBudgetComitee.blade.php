@@ -17,6 +17,12 @@
         background: #fff;
         color: #fff;
     }
+    .subheader{
+        font-size:0.85rem !important;font-weight:bold;
+    }
+    .subheader-sub{
+        font-size:0.8rem !important;
+    }
 </style>
 <div class="container-fluid mt-3">
     @include('mobile-dash.back')
@@ -31,9 +37,9 @@
             <div class="card dash-card">
                 <div class="card-header">
                     <div class="row mx-0">
-                        <h6 class="card-title col-md-8 col-sm-12 px-0">Realisasi Growth PDPT, Beban, SHU, Beban SDM
-                        <br> <span style="font-size:12px">Tahun <span class="rentang-tahun"></span></span>
-                        </h6>
+                        <p class="card-title col-md-8 col-sm-12 px-0"><span class="subheader">Realisasi Growth PDPT, Beban, SHU, Beban SDM</span>
+                        <br> <span class="subheader-sub">Tahun <span class="rentang-tahun"></span></span>
+                        </p>
                         <ul role="tablist" style="border: none;" class="nav nav-tabs col-md-4 col-sm-12 px-0 justify-content-end">
                             <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#tab3-rp" role="tab" aria-selected="false"><span class="hidden-xs-down"><b>Rp</b></span></a> </li>
                             <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab3-persen" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>%</b></span></a> </li>
@@ -60,9 +66,9 @@
             <div class="card dash-card">
                 <div class="card-header">
                     <div class="row mx-0">
-                        <h6 class="card-title col-md-8 col-sm-12 px-0">Realisasi Growth Tuition Fee - NON Tuition Fee
-                        <br> <span style="font-size:12px">Tahun <span class="rentang-tahun"></span></span>
-                        </h6>
+                        <p class="card-title col-md-8 col-sm-12 px-0"><span class="subheader">Realisasi Growth Tuition Fee - NON Tuition Fee</span>
+                        <br> <span class="subheader-sub">Tahun <span class="rentang-tahun"></span></span>
+                        </p>
                         <ul role="tablist" style="border: none;" class="nav nav-tabs col-md-4 col-sm-12 px-0 justify-content-end">
                             <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#tab4-rp" role="tab" aria-selected="false"><span class="hidden-xs-down"><b>Rp</b></span></a> </li>
                             <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab4-persen" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>%</b></span></a> </li>

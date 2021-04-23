@@ -84,12 +84,19 @@
     .overlay{
         opacity: 0 !important;
     }
+    
+    .subheader{
+        font-size:0.85rem !important;font-weight:bold;
+    }
+    .subheader-sub{
+        font-size:0.8rem !important;
+    }
 </style>
 <div class="container-fluid mt-3">
 @include('mobile-dash.back')
     <div class="row">
         <div class="col-12">
-            <h6>Video</h6>
+            <p class="subheader">Video</p>
         </div>
     </div>
     <div class="row mt-3" id="list-video">
