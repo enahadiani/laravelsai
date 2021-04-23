@@ -263,6 +263,7 @@
                 }else if(!result.data.status && result.data.message == 'Unauthorized'){
                     window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
                 }else{
+                    $error_msg = result.data.message;
                     msgDialog({
                         id: '',
                         type: 'warning',
@@ -781,7 +782,7 @@
                             id: '',
                             type: 'sukses',
                             title: 'Error',
-                            text: 'Internal Server Error <a href="#" class="btn btn-primary btn-sm" onclick="reportError('+result.data.message+')"> Kirim Error</a>'
+                            text: 'Internal Server Error <br> <a href="#" class="btn btn-primary btn-sm mx-auto mb-2" onclick="reportError()"> Kirim Error</a>'
                         });
                     }
                 },
