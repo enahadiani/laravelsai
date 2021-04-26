@@ -16,7 +16,7 @@ drawLap($formData);
 function drawRptPage(data,res,from,to) {  
     console.log({data, res})
     var html = ""
-    var no = ""
+    var no = 1
     
     var aggJan = 0
     var aggFeb = 0
