@@ -124,6 +124,7 @@ Route::post('setting-menu', 'Esaku\Setting\SettingMenuController@store');
 Route::post('setting-menu-move', 'Esaku\Setting\SettingMenuController@storeMove');
 Route::put('setting-menu', 'Esaku\Setting\SettingMenuController@update');
 Route::delete('setting-menu', 'Esaku\Setting\SettingMenuController@delete');
+Route::post('setting-menu-csv', 'Esaku\Setting\SettingMenuController@storeCSV');
 
 // Data Masakun //
 Route::get('masakun', 'Esaku\Keuangan\MasakunController@index');

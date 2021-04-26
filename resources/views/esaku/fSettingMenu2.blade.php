@@ -167,6 +167,30 @@
         }
     });
 
+    function download_table_as_csv(table_id, separator = ',') {
+        // Select rows from table_id
+        var rows = document.querySelectorAll('table#' + table_id + ' tr');
+        // Construct csv
+        var csv = [];
+        for (var i = 0; i < rows.length; i++) {
+            var row = [], cols = rows[i].querySelectorAll('td, th');
+            for (var j = 0; j < cols.length; j++) {
+                // Clean innertext to remove multiple spaces and jumpline (break csv)
+                var data = cols[j].innerText.replace(/(\r\n|\n|\r)/gm, '').replace(/(\s\s)/gm, ' ')
+                // Escape double-quote with double-double-quote (see https://stackoverflow.com/questions/17808511/properly-escape-a-double-quote-in-csv)
+                data = data.replace(/"/g, '""');
+                // Push escaped string
+                row.push('"' + data + '"');
+            }
+            csv.push(row.join(separator));
+        }
+        var csv_string = csv.join('\n');
+        // Download it
+        var filename = 'export_' + table_id + '_' + new Date().toLocaleDateString() + '.csv';
+        var link = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv_string);
+        return link;
+    }
+
     function init(kode_klp){
         $.ajax({
             type: 'GET',
@@ -754,12 +778,14 @@
         $('#menu-form').submit(function(e){
         e.preventDefault();
             
-            var formData = new FormData(this);
+            var formData = new FormData();
             var kode_klp = $('#kode_klp')[0].selectize.getValue();
-            
+            var file = download_table_as_csv('sai-treegrid');
+            formData.append('kode_klp',kode_klp);
+            formData.append('file',file,'csv-file.csv');
             $.ajax({
                 type: 'POST',
-                url: "{{ url('esaku-master/setting-menu-move') }}",
+                url: "{{ url('esaku-master/setting-menu-csv') }}",
                 dataType: 'json',
                 data: formData,
                 async:false,
@@ -768,12 +794,12 @@
                 processData: false, 
                 success:function(result){
                     if(result.data.status){
-                        msgDialog({
-                            id: '',
-                            type: 'sukses',
-                            text: 'Perubahan '+result.data.message
-                        });
-                        init(kode_klp);
+                        // msgDialog({
+                        //     id: '',
+                        //     type: 'sukses',
+                        //     text: 'Perubahan '+result.data.message
+                        // });
+                        // init(kode_klp);
                     }else if(!result.data.status && result.data.message == 'Unauthorized'){
                         window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
                     }else{
