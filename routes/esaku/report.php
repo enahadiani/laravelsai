@@ -145,3 +145,6 @@ Route::get('filter-status-anggaran', 'Esaku\Anggaran\FilterLaporanController@get
 Route::get('filter-periodik-anggaran', 'Esaku\Anggaran\FilterLaporanController@getPeriodik');
 Route::get('filter-periode-anggaran', 'Esaku\Anggaran\FilterLaporanController@getPeriode');
 Route::get('filter-rra-anggaran', 'Esaku\Anggaran\FilterLaporanController@getJenisRRA');
+
+## Laporan
+Route::post('lap-anggaran', 'Esaku\Anggaran\LaporanController@getLaporanAnggaran');
