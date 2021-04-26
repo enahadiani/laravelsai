@@ -134,3 +134,14 @@ Route::post('lap-simp-batal','Esaku\Simpanan\Laporan\ReportBatalSimpananControll
 
 // Laporan Rekap Simpanan
 Route::post('lap-simp-rekap','Esaku\Simpanan\Laporan\ReportRekapSimpananController@index');
+
+// Laporan Anggaran
+## Filter
+Route::get('filter-tahun-anggaran', 'Esaku\Anggaran\FilterLaporanController@getTahun');
+Route::get('filter-akun-anggaran', 'Esaku\Anggaran\FilterLaporanController@getAkun');
+Route::get('filter-pp-anggaran', 'Esaku\Anggaran\FilterLaporanController@getPP');
+Route::get('filter-jenis-anggaran', 'Esaku\Anggaran\FilterLaporanController@getJenis');
+Route::get('filter-status-anggaran', 'Esaku\Anggaran\FilterLaporanController@getStatus');
+Route::get('filter-periodik-anggaran', 'Esaku\Anggaran\FilterLaporanController@getPeriodik');
+Route::get('filter-periode-anggaran', 'Esaku\Anggaran\FilterLaporanController@getPeriode');
+Route::get('filter-rra-anggaran', 'Esaku\Anggaran\FilterLaporanController@getJenisRRA');
