@@ -282,7 +282,7 @@
         public function destroy(Request $request) {
             try{
                 $client = new Client();
-                $response = $client->request('DELETE',  config('api.url').'sekolah/penilaian',
+                $response = $client->request('DELETE',  config('api.url').'sekolah/raport-dok-siswa',
                 [
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
@@ -542,11 +542,9 @@
                 $cek = $request->file_dok;
                 $send_data = array();
                 $send_data = array_merge($send_data,$fields);
-                if(!empty($cek)){
-    
-                    if(count($request->file_dok) > 0){
-    
-                        for($i=0;$i<count($request->nis);$i++){
+                for($i=0;$i<count($request->nis);$i++){
+                    if(!empty($cek)){
+                        if(count($request->file_dok) > 0){
                             if(isset($request->file('file_dok')[$i])){
                                 $image_path = $request->file('file_dok')[$i]->getPathname();
                                 $image_mime = $request->file('file_dok')[$i]->getmimeType();
@@ -559,22 +557,122 @@
                                 );
                                 
                             }
-                            $fields_nama_nis[$i] = array(
-                                'name'     => 'nis[]',
-                                'contents' => $request->nis[$i],
-                            );
-                            
-                            $fields_nama_file_seb[$i] = array(
-                                'name'     => 'nama_file_seb[]',
-                                'contents' => $request->nama_file[$i],
-                            );
                         }
-                        $send_data = array_merge($send_data,$fields_foto);
-                        $send_data = array_merge($send_data,$fields_nama_file_seb);
-                        $send_data = array_merge($send_data,$fields_nama_nis);
                     }
-                }
                     
+                    $fields_nama_nis[$i] = array(
+                        'name'     => 'nis[]',
+                        'contents' => $request->nis[$i],
+                    );
+                    
+                    $fields_nama_file_seb[$i] = array(
+                        'name'     => 'nama_file_seb[]',
+                        'contents' => $request->nama_file[$i],
+                    );
+                } 
+
+                $send_data = array_merge($send_data,$fields_nama_nis);
+                $send_data = array_merge($send_data,$fields_nama_file_seb);
+                $send_data = array_merge($send_data,$fields_foto);
+
+                $client = new Client();
+                $response = $client->request('POST',  config('api.url').'sekolah/raport-dok-siswa',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'multipart' => $send_data
+                ]);
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $data = json_decode($response_data,true);
+                    return response()->json(['data' => $data["success"]], 200);  
+                }
+
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                $data['message'] = $res['message'];
+                $data['status'] = false;
+                return response()->json(['data' => $data], 500);
+            }
+
+        }
+
+        public function updateDokumen(Request $request) {
+
+            $this->validate($request, [
+                'no_bukti' => 'required',
+                'kode_ta' => 'required',
+                'kode_kelas' => 'required',
+                'kode_sem' => 'required',
+                'kode_pp' => 'required'
+            ]);
+
+            try {
+                
+                $fields = [
+                    [
+                        'name' => 'kode_pp',
+                        'contents' => $request->kode_pp,
+                    ], 
+                    [
+                        'name' => 'kode_ta',
+                        'contents' => $request->kode_ta,
+                    ], [
+                        'name' => 'kode_sem',
+                        'contents' => $request->kode_sem,
+                    ],
+                    [
+                        'name' => 'kode_kelas',
+                        'contents' => $request->kode_kelas,
+                    ],
+                    [
+                        'name' => 'no_bukti',
+                        'contents' => $request->no_bukti,
+                    ]
+                ];
+    
+                $fields_foto = array();
+                $fields_nama_file_seb = array();
+                $fields_nama_nis = array();
+                $cek = $request->file_dok;
+                $send_data = array();
+                $send_data = array_merge($send_data,$fields);
+                for($i=0;$i<count($request->nis);$i++){
+                    if(!empty($cek)){
+                        if(count($request->file_dok) > 0){
+                            if(isset($request->file('file_dok')[$i])){
+                                $image_path = $request->file('file_dok')[$i]->getPathname();
+                                $image_mime = $request->file('file_dok')[$i]->getmimeType();
+                                $image_org  = $request->file('file_dok')[$i]->getClientOriginalName();
+                                $fields_foto[$i] = array(
+                                    'name'     => 'file['.$i.']',
+                                    'filename' => $image_org,
+                                    'Mime-Type'=> $image_mime,
+                                    'contents' => fopen( $image_path, 'r' ),
+                                );
+                                
+                            }
+                        }
+                    }
+                    
+                    $fields_nama_nis[$i] = array(
+                        'name'     => 'nis[]',
+                        'contents' => $request->nis[$i],
+                    );
+                    
+                    $fields_nama_file_seb[$i] = array(
+                        'name'     => 'nama_file_seb[]',
+                        'contents' => $request->nama_file[$i],
+                    );
+                } 
+                
+                $send_data = array_merge($send_data,$fields_nama_nis);
+                $send_data = array_merge($send_data,$fields_nama_file_seb);
+                $send_data = array_merge($send_data,$fields_foto);
+
                 $client = new Client();
                 $response = $client->request('POST',  config('api.url').'sekolah/raport-dok-siswa',[
                     'headers' => [
@@ -604,7 +702,7 @@
             
             try{
                 $client = new Client();
-                $response = $client->request('DELETE',  config('api.url').'sekolah/raport-dok',
+                $response = $client->request('DELETE',  config('api.url').'sekolah/raport-dok-siswa-nis',
                 [
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
