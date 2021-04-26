@@ -48,3 +48,11 @@ Route::post('penilaian-multiph-dok', 'Sekolah\PenilaianMultiPHController@storeDo
 Route::delete('penilaian-multiph-dok', 'Sekolah\PenilaianMultiPHController@deleteDokumen');
 Route::get('penilaian-multiph-kd', 'Sekolah\PenilaianMultiPHController@getKD');
 Route::get('penilaian-multiph-dok-list', 'Sekolah\PenilaianMultiPHController@listUpload');
+
+// RAPORT UPLOAD
+
+Route::get('raport-dok-list', 'Sekolah\UploadRaportController@index');
+Route::get('raport-dok-siswa', 'Sekolah\UploadRaportController@loadSiswa');
+Route::post('raport-dok-siswa', 'Sekolah\UploadRaportController@storeDokumen');
+Route::post('raport-dok-siswa-edit', 'Sekolah\UploadRaportController@updateDokumen');
+Route::get('raport-dok-siswa-edit', 'Sekolah\UploadRaportController@showDokUpload');

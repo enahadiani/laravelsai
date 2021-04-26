@@ -274,5 +274,59 @@ class SettingMenuController extends Controller
         }
 
     }
+
+    public function storeCSV(Request $request) {
+        $this->validate($request, [
+            'kode_klp' => 'required',
+            'file' => 'required'
+        ]);
+
+        try {
+
+            $send_data = array();
+            $fields = [
+                [
+                    'name' => 'kode_klp',
+                    'contents' => $request->kode_klp,
+                ]
+            ];
+
+            array_merge($send_data,$fields);
+
+            $image_path = $request->file('file_gambar')->getPathname();
+            $image_mime = $request->file('file_gambar')->getmimeType();
+            $image_org  = $request->file('file_gambar')->getClientOriginalName();
+            $fields_file[$i] = array(
+                'name'     => 'file',
+                'filename' => $image_org,
+                'Mime-Type'=> $image_mime,
+                'contents' => fopen($image_path, 'r' ),
+            );
+
+            array_merge($send_data,$fields_file);
+
+            $client = new Client();
+            $response = $client->request('POST',  config('api.url').'tes-csv',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'multipart' => $send_data
+            ]);
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                return response()->json($data, 200);  
+            }
+
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $data['message'] = $res;
+            $data['status'] = false;
+            return response()->json($data, 500);
+        }
+    }
    
 }
