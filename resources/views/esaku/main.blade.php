@@ -912,6 +912,7 @@
                 case 'logout':
                     if (result.value) {
                         window.localStorage.setItem('logged_in', false);
+                        window.localStorage.removeItem('esaku-form');
                         window.location.href = "{{ url('esaku-auth/logout') }}";
                     } else if (result.dismiss === Swal.DismissReason.cancel) {
                         // console.log('cancel');

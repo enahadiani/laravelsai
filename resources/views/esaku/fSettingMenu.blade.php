@@ -258,7 +258,7 @@
                     msgDialog({
                         id: '',
                         type: 'sukses',
-                        text: 'Perubahan '+result.data.message
+                        text: result.data.message
                     });
                 }else if(!result.data.status && result.data.message == 'Unauthorized'){
                     window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
@@ -268,7 +268,7 @@
                         id: '',
                         type: 'warning',
                         title: 'Error',
-                        text: '<p>Internal Server Error</p><a href="#" class="btn btn-primary btn-sm mx-auto mb-3" onclick="return reportError();"> Laporkan Masalah</a>'
+                        text: '<p>Internal Server Error</p>'
                     });
                 }
             },
