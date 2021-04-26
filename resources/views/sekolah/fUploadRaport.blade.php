@@ -544,15 +544,13 @@
      $('#saku-datatable').on('click', '#btn-tambah', function(){
         $('#row-id').hide();
         $('#method').val('post');
-        $('#judul-form').html('Tambah Data Penilaian Siswa');
+        $('#judul-form').html('Upload Raport Siswa');
         $('#btn-update').attr('id','btn-save');
         $('#btn-save').attr('type','submit');
         $('#form-tambah')[0].reset();
         $('#form-tambah').validate().resetForm();
         $('#id').val('');
-        $('#input-nilai tbody').html('');
-        $('#nama_kd').text('');
-        $('#pelaksanaan').text('');
+        $('#input-dok tbody').html('');
         $('#saku-datatable').hide();
         $('#saku-form').show();
         $('.input-group-prepend').addClass('hidden');
