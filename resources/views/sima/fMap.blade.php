@@ -612,9 +612,15 @@
         var daftar_aset_dash_first_page;
         var daftar_aset_dash_filtered;
 
+        function clearAllMarker(map) {
+            for (var i = 0; i < marker_coordinate.length; i++) {
+            marker_coordinate[i].setMap(map);
+            }
+        }
+
         function peta_nasional_filter(regnull, gsd, center_point, zoom_point){
             var filter_data = {'dash_id': regnull, 'dash_fm' : '', 'dash_witel' : ''};
-            loadData('HomePetaNasionalFilterKlikPulau', baseUrl+"/gis/index.php/dbaset/AjaxService/getSummary", filter_data);
+            loadData('HomePetaNasionalFilterKlikPulau',GET,"{{ url('sima-dash/summary') }}", filter_data);
             
             var arr_ck_jenis_aset = [];
             $('.ck_jenis_aset:checked').each(function(){
@@ -1002,6 +1008,781 @@
                                 // data_aset_gedung_global = data.aset_gedung;
                                 peta_nasional(data.gsd);
                             break;
+                            case 'modalPetaInformasiAset':
+                                console.log(data);
+
+                                if (data.lahan_master != null){
+                                    $('#header_modal_informasi_lahan').html('<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>'+
+                                    '<h4 class="modal-title">'+ data.lahan_master[0].NAMA_LAHAN +' <small> #'+ data.lahan_master[0].IDAREAL +' '+ data.lahan_master[0].ALAMAT +' </small></h4>'
+                                    );
+
+                                    $('#thead_modal_informasi_lahan').html(
+                                        '<tr style="background-color: red;color:#ffffff;">'+
+                                            '<th>ID AREAL</th>'+
+                                            '<th>'+ data.lahan_master[0].IDAREAL +'</th>'+
+                                        '</tr>'
+                                    );
+        
+                                    $('#tbody_modal_informasi_lahan').html(
+                                        '<tr>'+
+                                            '<td>Koordinat</td>'+
+                                            '<td>'+ data.lahan_master[0].COOR_Y +', '+ data.lahan_master[0].COOR_X +'</td>'+
+                                        '</tr>'+	
+                                        '<tr>'+
+                                            '<td>Alamat</td>'+
+                                            '<td>'+ data.lahan_master[0].ALAMAT +'</td>'+
+                                        '</tr>'+
+                                        
+                                        '<tr>'+
+                                            '<td>Kelurahan</td>'+
+                                            '<td>'+ data.lahan_master[0].DESA +'</td>'+
+                                        '</tr>'+
+                                        '<tr>'+
+                                            '<td>Kecamatan</td>'+
+                                            '<td>'+ data.lahan_master[0].KECAMATAN +'</td>'+
+                                        '</tr>'+
+                                        
+                                        '<tr>'+
+                                            '<td>Kota</td>'+
+                                            '<td>'+ data.lahan_master[0].KOTA +'</td>'+
+                                        '</tr>'+
+                                        '<tr>'+
+                                            '<td>Provinsi</td>'+
+                                            '<td>'+ data.lahan_master[0].PROPINSI +'</td>'+
+                                        '</tr>'+
+                                        
+                                        '<tr>'+
+                                            '<td>Regional</td>'+
+                                            '<td>'+ data.lahan_master[0].TREG +'</td>'+
+                                        '</tr>'+
+                                        
+                                        '<tr>'+
+                                            '<td>Witel</td>'+
+                                            '<td>'+ data.lahan_master[0].WITEL +'</td>'+
+                                        '</tr>'+
+                                        '<tr>'+
+                                            '<td>Area GSD</td>'+
+                                            '<td>'+ data.lahan_master[0].UNIT_GSD_ID +'</td>'+
+                                        '</tr>'+
+                                        '<tr>'+
+                                            '<td>Unit GSD</td>'+
+                                            '<td>'+ data.lahan_master[0].UNIT_GSD +'</td>'+
+                                        '</tr>'+
+                                        
+                                        '<tr>'+
+                                            '<td>Luas Lahan</td>'+
+                                            '<td>'+ sepNum(data.lahan_master[0].LUAS_LAHAN) +'</td>'+
+                                        '</tr>'+
+                                        
+                                        '<tr>'+
+                                            '<td>Status Kepemilikan</td>'+
+                                            '<td>'+ data.lahan_master[0].NAMA_STATUS_KEPEMILIKAN +'</td>'+
+                                        '</tr>'+
+                                        
+                                        '<tr>'+
+                                            '<td>Luas Terbangun</td>'+
+                                            '<td>'+ DelDecimal(data.lahan_master[0].LAHAN_TERBANGUN) +'</td>'+
+                                        '</tr>'+
+                                        '<tr>'+
+                                            '<td>Jumlah Bangunan</td>'+
+                                            '<td>'+ data.lahan_master[0].JUMLAH_BANGUNAN +'</td>'+
+                                        '</tr>'
+                                    );
+
+                                    if(typeof data.img_lahan === 'undefined' || !data.img_lahan){
+                                        var foto_aset = '/img/gis_img/telkom-gbr-tkd-sedia.png';
+                                    }else{
+                                        var foto_aset = data.img_lahan[0].FILE_PATH;
+                                    }
+
+                                    $('#potensiindikasi').html('');
+                                    $('#potensiindikasi').append(
+                                        "<br><div class='row'>"+
+                                            "<div class='col-md-4'>"+
+                                                '<img class="img-responsive center-block" width = "300px" height = "75px" src='+"{{ url('img') }}"+'/gis/assets'+ foto_aset +'>'+
+                                            '</div>'+
+                                            "<div class='col-md-8'>"+
+                                                '<b>'+ data.lahan_master[0].NAMA_LAHAN +'</b>'+
+                                                '<br>'+ data.lahan_master[0].ALAMAT +
+                                                '<br> Luas Lahan : '+ data.lahan_master[0].LUAS_LAHAN +' m2'+
+                                            '</div>'+
+                                        '</div>'+
+                                        '<br>'+
+                                        "<div class='row'>"+
+                                            "<div class='col-md-12'>"+
+                                                '<!-- small box -->'+
+                                                '<div class="small-box bg-info" style="height: 80px">'+
+                                                    '<div class="inner">'+
+                                                        '<h3>'+
+                                                            '<span style="font-size: 20px" class="pull-right">'+ data.lahan_master[0].KDB_MAKSIMUM +
+                                                            '</span>'+
+                                                        '</h3>'+
+                                                        '<br>'+
+                                                        '<p>'+
+                                                            'KDB'+
+                                                        '</p>'+
+                                                    '</div>'+
+                                                '</div>'+
+                                            '</div>'+
+                                        '</div>'+
+                                        '<div class = "row"> '+   
+                                            '<div class="col-md-12">'+
+                                                '<!-- small box -->'+
+                                                '<div class="small-box bg-light-blue-gradient" style="height: 80px">'+
+                                                    '<div class="inner">'+
+                                                        '<h3>'+
+                                                            '<span style="font-size: 20px" class="pull-right">'+ data.lahan_master[0].KLB_MAKSIMUM + '</span>'+
+                                                        '</h3>'+
+                                                        '<br>'+
+                                                        '<p>'+
+                                                            'KLB'+
+                                                        '</p>'+
+                                                    '</div>'+
+                                                '</div>'+
+                                            '</div>'+
+                                        '</div>'+
+                                        '<div class = "row">'+    
+                                            '<div class="col-md-12">'+
+                                                '<!-- small box -->'+
+                                                '<div class="small-box bg-info" style="height: 80px">'+
+                                                    '<div class="inner">'+
+                                                        '<h3>'+
+                                                            '<span style="font-size: 20px" class="pull-right"> '+ data.lahan_master[0].KETINGGIAN_BANGUNAN_MAKSIMUM +' </span>'+
+                                                        '</h3>'+
+                                                        '<br>'+
+                                                        '<p>'+
+                                                            'Ketinggian'+ 
+                                                        '</p>'+
+                                                    '</div>'+
+                                                '</div>'+
+                                            '</div>'+
+                                        '</div>'+
+                                        '<div class = "row">'+    
+                                            '<div class="col-md-12">'+
+                                                '<!-- small box -->'+
+                                                '<div class="small-box bg-light-blue-gradient" style="height: 80px">'+
+                                                    '<div class="inner">'+
+                                                        '<h3>'+
+                                                            '<span style="font-size: 20px" class="pull-right"> '+ data.lahan_master[0].KDH_MINIMAL +' </span>'+
+                                                        '</h3>'+
+                                                        '<br>'+
+                                                        '<p>'+
+                                                            'KDH Min'+
+                                                        '</p>'+
+                                                    '</div>'+
+                                                '</div>'+
+                                            '</div>'+
+                                        '</div>'+
+                                        '<div class = "row">'+    
+                                            '<div class="col-md-12">'+
+                                                '<!-- small box -->'+
+                                                '<div class="small-box bg-yellow" style="height: 80px">'+
+                                                    '<div class="inner">'+
+                                                        '<h3>'+
+                                                            '<span style="font-size: 20px" class="pull-right">'+ data.lahan_master[0].NAMA_KLASIFIKASI +'</span>'+
+                                                        '</h3>'+
+                                                        '<br>'+
+                                                        '<p>'+
+                                                            'Klasifikasi'+
+                                                        '</p>'+
+                                                    '</div>'+
+                                                '</div>'+
+                                            '</div>'+
+                                        '</div>'+
+                                        '<div class = "row">'+    
+                                            '<div class="col-md-12">'+
+                                                '<!-- small box -->'+
+                                                '<div class="small-box bg-red" style="height: 80px">'+
+                                                    '<div class="inner">'+
+                                                        '<h3>'+
+                                                            '<span style="font-size: 20px" class="pull-right"> '+ data.lahan_master[0].KAWASAN_PERUNTUKAN +' </span>'+
+                                                        '</h3>'+
+                                                        '<br>'+
+                                                        '<p>'+
+                                                            'Peruntukkan'+
+                                                        '</p>'+
+                                                    '</div>'+
+                                                '</div>'+
+                                            '</div>'+
+                                        '</div>'+
+                                        '<div class = "row">'+    
+                                            '<div class="col-md-12">'+
+                                                '<!-- small box -->'+
+                                                '<div class="small-box bg-green" style="height: 80px">'+
+                                                    '<div class="inner">'+
+                                                        '<h3>'+
+                                                            '<span style="font-size: 20px" class="pull-right"> '+ data.lahan_master[0].ZONA +' </span>'+
+                                                        '</h3>'+
+                                                        '<br>'+
+                                                        '<p>'+
+                                                            'Zona'+
+                                                        '</p>'+
+                                                    '</div>'+
+                                                '</div>'+
+                                            '</div>'+
+                                        '</div>'+
+                                        '<div class = "row">'+    
+                                            '<div class="col-md-12">'+
+                                                '<!-- small box -->'+
+                                                '<div class="small-box bg-green" style="height: 80px">'+
+                                                    '<div class="inner">'+
+                                                        '<h3>'+
+                                                            '<span style="font-size: 20px" class="pull-right"> '+ data.lahan_master[0].SUBZONA +' </span>'+
+                                                        '</h3>'+
+                                                        '<br>'+
+                                                        '<p>'+
+                                                            'Subzona'+
+                                                        '</p>'+
+                                                    '</div>'+
+                                                '</div>'+
+                                            '</div>'+
+                                        '</div>'
+                                    );    
+                                }
+
+                                $('#carousel_inner_informasi').html(''); 
+                                $('#carousel_indicators_informasi').html('');
+                                if (data.img_lahan != null){
+                                    for(i=0; i<data.img_lahan.length; i++){
+                                        if(i==0){
+                                            $('#carousel_indicators_informasi').append(
+                                                '<li data-target="#CarouselInformasi" data-slide-to="'+ i +'" class="active"></li>'
+                                            );
+                                        }else{
+                                            $('#carousel_indicators_informasi').append(
+                                                '<li data-target="#CarouselInformasi" data-slide-to="'+ i +'"></li>'
+                                            );
+                                        }
+                                    }
+                                    
+                                    for(i=0; i<data.img_lahan.length; i++){
+                                        if(i==0){
+                                            $('#carousel_inner_informasi').append(
+                                                '<div class="item active" style = "height:401px;margin: 0 auto;">'+
+                                                    '<img class="img-responsive center-block" src='+baseUrl+'/gis/assets'+ data.img_lahan[i].FILE_PATH +'>'+
+                                                '</div>'
+                                            );
+                                        }else{
+                                            $('#carousel_inner_informasi').append(
+                                                '<div class="item" style = "height:401px;margin: 0 auto;">'+
+                                                    '<img class="img-responsive center-block" src='+baseUrl+'/gis/assets'+ data.img_lahan[i].FILE_PATH +'>'+
+                                                '</div>'
+                                            );
+                                        }
+                                    }
+
+                                    $('#carousel_controls_informasi').html(
+                                        '<a class="carousel-control left" href="#CarouselInformasi" data-slide="prev">'+
+                                            '<span class="glyphicon glyphicon-chevron-left"></span>'+
+                                        '</a>'+
+                                        '<a class="carousel-control right" href="#CarouselInformasi" data-slide="next">'+
+                                            '<span class="glyphicon glyphicon-chevron-right"></span>'+
+                                        '</a>'
+                                    );
+                                }else{
+                                    $('#carousel_inner_informasi').append(
+                                        '<div class="item active" style = "height:401px;margin: 0 auto;">'+
+                                            '<img class="img-responsive center-block" src='+baseUrl+'/gis/assets/img/gis_img/telkom-gbr-tkd-sedia.png>'+
+                                        '</div>'
+                                    );
+                                }
+                                
+                                $('#data_table_kepemilikan').html('');
+                                if (data.kepemilikan != null){
+                                    for(i=0; i<data.kepemilikan.length; i++){
+                                        var btn_att_sertipikat = '';
+                                        for(k=0;k<data.att_sertipikat[i].length;k++){
+                                            var file_size = data.att_sertipikat[i][k].FILE_SIZE/1000000;
+                                            btn_att_sertipikat += '<a class = "btn btn-primary pull-right" href=baseUrl+"/gis/assets'+data.att_sertipikat[i][k].FILE_PATH+'" download='+data.att_sertipikat[i][k].NAMA_DOKUMEN+'> <i class="fa fa-download"></i> '+data.att_sertipikat[i][k].NAMA_DOKUMEN+' ('+file_size.toFixed(2)+' MB) </a>';
+                                        }
+                                        $('#data_table_kepemilikan').append(
+                                            '<table class="table table-bordered table-striped">'+
+                                                '<thead>'+
+                                                '<tr style="background-color: red;color:#ffffff;">'+
+                                                    '<th>No. Sertifikat : </th>'+
+                                                    '<th>'+ data.kepemilikan[i].NO_SERTIPIKAT +'</th>'+
+                                                '</tr>'+
+                                                '</thead>'+
+                                                '<tbody>'+
+                                                    '<tr>'+
+                                                        '<td>Atas Nama</td>'+
+                                                        '<td>'+ data.kepemilikan[i].ATAS_NAMA +'</td>'+
+                                                    '</tr>'+
+                                                    '<tr>'+
+                                                        '<td>SK Hak</td>'+
+                                                        '<td>'+ data.kepemilikan[i].SKHAK +'</td>'+
+                                                    '</tr>'+
+                                                    '<tr>'+
+                                                        '<td>Luas (m2)</td>'+
+                                                        '<td>'+ sepNum(data.kepemilikan[i].LUAS) +'</td>'+
+                                                    '</tr>'+
+                                                    '<tr>'+
+                                                        '<td>Kepemilikan</td>'+
+                                                        '<td> </td>'+
+                                                    '</tr>'+
+                                                    '<tr>'+
+                                                        '<td>Jatuh Tempo</td>'+
+                                                        '<td>'+ data.kepemilikan[i].TANGGAL_AKHIR +'</td>'+
+                                                    '</tr>'+
+                                                '</tbody>'+
+                                            '</table>'+
+                                            btn_att_sertipikat
+                                        );
+                                    }
+                                }    
+                                
+                                $('#pbb').html('');
+                                if (data.pbb != null){
+                                    for(i=0; i<data.pbb.length; i++){
+                                        $('#pbb').append(
+                                            '<table class="table table-bordered table-striped">'+
+                                                '<thead>'+
+                                                '<tr style="background-color: red;color:#ffffff;">'+
+                                                    '<th>CFA NDP : </th>'+
+                                                    '<th>'+ data.pbb[i].NOP +'</th>'+
+                                                '</tr>'+
+                                                '</thead>'+
+                                                '<tbody>'+
+                                                    '<tr>'+
+                                                        '<td>Tahun</td>'+
+                                                        '<td>'+ data.pbb[i].TAHUN +'</td>'+
+                                                    '</tr>'+
+                                                    '<tr>'+
+                                                        '<td>Luas Bumi (m2) </td>'+
+                                                        '<td>'+ sepNum(data.pbb[i].LUAS_LAHAN_BUMI) +'</td>'+
+                                                    '</tr>'+
+                                                    '<tr>'+
+                                                        '<td>NJOP Bumi (Rp/m2)</td>'+
+                                                        '<td>'+ sepNum(data.pbb[i].NJOP_BUMI) +'</td>'+
+                                                    '</tr>'+
+                                                    '<tr>'+
+                                                        '<td>Kelas Bumi</td>'+
+                                                        '<td> '+ data.pbb[i].KELAS_BUMI +' </td>'+
+                                                    '</tr>'+
+                                                    '<tr>'+
+                                                        '<td>Total NJOP Bumi (Rp) </td>'+
+                                                        '<td>'+ sepNum(data.pbb[i].TOTAL_NJOP_BUMI) +'</td>'+
+                                                    '</tr>'+
+                                                    '<tr>'+
+                                                        '<td>Total NJOP (Rp) </td>'+
+                                                        '<td>  </td>'+
+                                                    '</tr>'+
+                                                '</tbody>'+
+                                            '</table>'
+                                        );
+                                    }
+                                }    
+
+                                if (data.nilai_aset != null){
+                                    $('#nilai_aset_lahan').html(
+                                        '<table class="table table-bordered table-striped">'+
+                                            '<tr>'+
+                                                '<td>Nilai Akuisisi</td>'+
+                                                '<td>'+ sepNum(data.nilai_aset[0].HARGA_PEROLEHAN) +'</td>'+
+                                            '</tr>'+
+                                            '<tr>'+
+                                                '<td>Nilai KJPP</td>'+
+                                                '<td>'+ sepNum(data.nilai_aset[0].HARGA) +'</td>'+
+                                            '</tr>'+
+                                            '<tr>'+
+                                                '<td>Pelaku KJPP</td>'+
+                                                '<td>'+ data.nilai_aset[0].NAMA +'</td>'+
+                                            '</tr>'+
+                                            '<tr>'+
+                                                '<td>Tanggal KJPP</td>'+
+                                                '<td> '+ data.nilai_aset[0].TANGGAL +' </td>'+
+                                            '</tr>'+
+                                            '<tr>'+
+                                                '<td>Nilai</td>'+
+                                                '<td>'+ sepNum(data.nilai_aset[0].NILAI_BUKU) +'</td>'+
+                                            '</tr>'+
+                                        '</table>'
+                                    );
+                                }
+
+                                $('#NKA').html('');    
+                                if (data.nka != null){                           
+                                    for(i=0; i<data.nka.length; i++){
+                                        $('#NKA').append(
+                                            '<table class="table table-bordered table-striped">'+
+                                                '<thead>'+
+                                                    '<tr style="background-color: red;color:#ffffff;">'+
+                                                        '<th>NKA : </th>'+
+                                                        '<th>'+ data.nka[i].NOMOR_KARTU_ASET +'</th>'+
+                                                    '</tr>'+
+                                                    '<tr style="background-color: red;color:#ffffff;">'+
+                                                        '<th>NAK : </th>'+
+                                                        '<th>'+ data.nka[i].NOMOR_ANAK_KARTU +'</th>'+
+                                                    '</tr>'+
+                                                '</thead>'+
+                                                '<tbody>'+
+                                                    '<tr>'+
+                                                        '<td>Deskripsi</td>'+
+                                                        '<td>'+ data.nka[i].DESKRIPSI +'</td>'+
+                                                    '</tr>'+
+                                                    '<tr>'+
+                                                        '<td>Tanggal</td>'+
+                                                        '<td>'+ data.nka[i].TANGGAL +'</td>'+
+                                                    '</tr>'+
+                                                    '<tr>'+
+                                                        '<td>Harga Perolehan</td>'+
+                                                        '<td>'+ sepNum(data.nka[i].NILAI_HARGA_PEROLEHAN) +'</td>'+
+                                                    '</tr>'+
+                                                    '<tr>'+
+                                                        '<td>Ak. Penyusutan</td>'+
+                                                        '<td> '+ sepNum(data.nka[i].AKUMULASI_PENYUSUTAN) +' </td>'+
+                                                    '</tr>'+
+                                                    '<tr>'+
+                                                        '<td>B. Penyusutan</td>'+
+                                                        '<td>'+ sepNum(data.nka[i].BEBAN_PENYUSUTAN) +'</td>'+
+                                                    '</tr>'+
+                                                '</tbody>'+
+                                            '</table>'
+                                        );
+                                    }
+                                }    
+
+                                $('#informasi_lahan').modal('show');
+                                
+                            break;
+                            case 'modalPetaInformasiAsetBangunan':
+                                console.log(data);
+
+                                if (data.gedung_master != null){
+                                    $('#header_modal_informasi_bangunan').html('<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>'+
+                                    '<h4 class="modal-title">'+ data.gedung_master[0].NAMA_GEDUNG +' <small> #'+ data.gedung_master[0].IDGEDUNG +' '+ data.gedung_master[0].ALAMAT +' </small></h4>'
+                                    );
+
+                                    $('#thead_modal_informasi_bangunan').html(
+                                        '<tr style="background-color: red;color:#ffffff;">'+
+                                            '<th>ID GEDUNG</th>'+
+                                            '<th>'+ data.gedung_master[0].IDGEDUNG +'</th>'+
+                                        '</tr>'
+                                    );
+        
+                                    $('#tbody_modal_informasi_bangunan').html(
+                                        '<tr>'+
+                                            '<td>Koordinat</td>'+
+                                            '<td>'+ data.gedung_master[0].COOR_Y +', '+ data.gedung_master[0].COOR_X +'</td>'+
+                                        '</tr>'+	
+                                        '<tr>'+
+                                            '<td>Alamat</td>'+
+                                            '<td>'+ data.gedung_master[0].ALAMAT +'</td>'+
+                                        '</tr>'+
+                                        
+                                        '<tr>'+
+                                            '<td>Kelurahan</td>'+
+                                            '<td>'+ data.gedung_master[0].DESA +'</td>'+
+                                        '</tr>'+
+                                        '<tr>'+
+                                            '<td>Kecamatan</td>'+
+                                            '<td>'+ data.gedung_master[0].KECAMATAN +'</td>'+
+                                        '</tr>'+
+                                        
+                                        '<tr>'+
+                                            '<td>Kota</td>'+
+                                            '<td>'+ data.gedung_master[0].KOTA +'</td>'+
+                                        '</tr>'+
+                                        '<tr>'+
+                                            '<td>Provinsi</td>'+
+                                            '<td>'+ data.gedung_master[0].PROPINSI +'</td>'+
+                                        '</tr>'+
+                                        
+                                        '<tr>'+
+                                            '<td>Regional</td>'+
+                                            '<td>'+ data.gedung_master[0].TREG +'</td>'+
+                                        '</tr>'+
+                                        
+                                        '<tr>'+
+                                            '<td>Witel</td>'+
+                                            '<td>'+ data.gedung_master[0].WITEL +'</td>'+
+                                        '</tr>'+
+                                        '<tr>'+
+                                            '<td>Area GSD</td>'+
+                                            '<td>'+ data.gedung_master[0].UNIT_GSD_ID +'</td>'+
+                                        '</tr>'+
+                                        '<tr>'+
+                                            '<td>Unit GSD</td>'+
+                                            '<td>'+ data.gedung_master[0].UNIT_GSD +'</td>'+
+                                        '</tr>'+
+                                        '<tr>'+
+                                            '<td>Luas Lahan</td>'+
+                                            '<td>'+ sepNum(data.gedung_master[0].LUAS_BANGUNAN) +'</td>'+
+                                        '</tr>'+
+                                        '<tr>'+
+                                            '<td>Luas Lahan</td>'+
+                                            '<td>'+ sepNum(data.gedung_master[0].LUAS_LAHAN) +'</td>'+
+                                        '</tr>'+
+                                        '<tr>'+
+                                            '<td>Jumlah Lantai</td>'+
+                                            '<td>'+ data.gedung_master[0].JUMLAH_LANTAI +'</td>'+
+                                        '</tr>'
+                                    );
+
+                                    $('#utilisasi').html('');
+                                    $('#utilisasi').append(
+                                        '<h3>Saleable Area : '+ data.gedung_master[0].SALEABLE_AREA +'</h3>'+
+                                        '<h3>Occupancy Rate : '+ data.gedung_master[0].OCCUPACY_RATE +' (%)</h3>'+
+                                        '<table class="table table-bordered table-striped">'+
+                                            '<tr>'+
+                                                '<td>Telkom</td>'+
+                                                '<td>'+ data.gedung_master[0].OCRT_TELKOM*100 +'</td>'+
+                                            '</tr>'+	
+                                            '<tr>'+
+                                                '<td>Telkom Group</td>'+
+                                                '<td>'+ data.gedung_master[0].OCRT_TELKOMGRUP*100 +'</td>'+
+                                            '</tr>'+
+                                            
+                                            '<tr>'+
+                                                '<td>Telkomsel</td>'+
+                                                '<td>'+ data.gedung_master[0].OCRT_TELKOMSEL*100 +'</td>'+
+                                            '</tr>'+
+                                            '<tr>'+
+                                                '<td>Non Telkom Group</td>'+
+                                                '<td>'+ data.gedung_master[0].OCRT_NONTELKOM*100 +'</td>'+
+                                            '</tr>'+
+                                        '</table>'
+                                    );
+
+                                    $('#izin').html('');
+                                    $('#izin').append(
+                                        '<table class="table table-bordered table-striped">'+
+                                            '<tr>'+
+                                                '<td></td>'+
+                                                '<td>Tahun</td>'+
+                                                '<td>Nomor</td>'+
+                                            '</tr>'+
+                                            '<tr>'+
+                                                '<td>Izin Prinsip</td>'+
+                                                '<td>'+ data.gedung_master[0].NO_IJIN_PRINSIP +'</td>'+
+                                                '<td>'+ data.gedung_master[0].TAHUN_IJIN_PRINSIP +'</td>'+
+                                            '</tr>'+	
+                                            '<tr>'+
+                                                '<td>Izin Lokasi</td>'+
+                                                '<td>'+ data.gedung_master[0].NO_IJIN_LOKASI +'</td>'+
+                                                '<td>'+ data.gedung_master[0].TAHUN_IJIN_LOKASI +'</td>'+
+                                            '</tr>'+
+                                            
+                                            '<tr>'+
+                                                '<td>Izin IPPT</td>'+
+                                                '<td>'+ data.gedung_master[0].NO_IJIN_IPPT +'</td>'+
+                                                '<td>'+ data.gedung_master[0].TAHUN_IJIN_IPPT +'</td>'+
+                                            '</tr>'+
+                                            '<tr>'+
+                                                '<td>IMB</td>'+
+                                                '<td>'+ data.gedung_master[0].NO_IMB +'</td>'+
+                                                '<td>'+ data.gedung_master[0].TANGGAL_IMB +'</td>'+
+                                            '</tr>'+
+                                            '<tr>'+
+                                                '<td>SLF</td>'+
+                                                '<td></td>'+
+                                                '<td></td>'+
+                                            '</tr>'+
+                                        '</table>'
+                                    );
+
+                                    if(typeof data.img_gedung === 'undefined' || !data.img_gedung){
+                                        var foto_aset = '/img/gis_img/telkom-gbr-tkd-sedia.png';
+                                    }else{
+                                        var foto_aset = data.img_gedung[0].FILE_PATH;
+                                    }  
+                                }
+
+                                $('#carousel_inner_informasi_gedung').html(''); 
+                                $('#carousel_indicators_informasi_gedung').html('');
+                                if (data.img_gedung != null){
+                                    for(i=0; i<data.img_gedung.length; i++){
+                                        if(i==0){
+                                            $('#carousel_indicators_informasi_gedung').append(
+                                                '<li data-target="#CarouselInformasiGedung" data-slide-to="'+ i +'" class="active"></li>'
+                                            );
+                                        }else{
+                                            $('#carousel_indicators_informasi_gedung').append(
+                                                '<li data-target="#CarouselInformasiGedung" data-slide-to="'+ i +'"></li>'
+                                            );
+                                        }
+                                    }
+                            
+                                    for(i=0; i<data.img_gedung.length; i++){
+                                        if(i==0){
+                                            $('#carousel_inner_informasi_gedung').append(
+                                                '<div class="item active" style = "height:401px;margin: 0 auto;">'+
+                                                    '<img class="img-responsive center-block" src='+baseUrl+'/gis/assets'+ data.img_gedung[i].FILE_PATH +'>'+
+                                                '</div>'
+                                            );
+                                        }else{
+                                            $('#carousel_inner_informasi_gedung').append(
+                                                '<div class="item" style = "height:401px;margin: 0 auto;">'+
+                                                    '<img class="img-responsive center-block" src='+baseUrl+'/gis/assets'+ data.img_gedung[i].FILE_PATH +'>'+
+                                                '</div>'
+                                            );
+                                        }
+                                    }
+
+                                    $('#carousel_controls_informasi_gedung').html(
+                                        '<a class="carousel-control left" href="#CarouselInformasiGedung" data-slide="prev">'+
+                                            '<span class="glyphicon glyphicon-chevron-left"></span>'+
+                                        '</a>'+
+                                        '<a class="carousel-control right" href="#CarouselInformasiGedung" data-slide="next">'+
+                                            '<span class="glyphicon glyphicon-chevron-right"></span>'+
+                                        '</a>'
+                                    );
+                                }else{
+                                    $('#carousel_inner_informasi_gedung').append(
+                                        '<div class="item" style = "height:401px;margin: 0 auto;">'+
+                                            '<img class="img-responsive center-block" src='+baseUrl+'/gis/assets/img/gis_img/telkom-gbr-tkd-sedia.png>'+
+                                        '</div>'
+                                    );
+                                }
+                                
+                                $('#pbb_gedung').html('');
+                                if (data.pbb != null){
+                                    for(i=0; i<data.pbb.length; i++){
+                                        $('#pbb').append(
+                                            '<table class="table table-bordered table-striped">'+
+                                                '<thead>'+
+                                                '<tr style="background-color: red;color:#ffffff;">'+
+                                                    '<th>NOP : </th>'+
+                                                    '<th>'+ data.pbb[i].NOP +'</th>'+
+                                                '</tr>'+
+                                                '</thead>'+
+                                                '<tbody>'+
+                                                    '<tr>'+
+                                                        '<td>Tahun</td>'+
+                                                        '<td>'+ data.pbb[i].TAHUN +'</td>'+
+                                                    '</tr>'+
+                                                    '<tr>'+
+                                                        '<td>Luas Bangunan (m2) </td>'+
+                                                        '<td>'+ sepNum(data.pbb[i].LUAS_BANGUNAN) +'</td>'+
+                                                    '</tr>'+
+                                                    '<tr>'+
+                                                        '<td>NJOP Bangunan (Rp/m2)</td>'+
+                                                        '<td>'+ sepNum(data.pbb[i].NJOP_BANGUNAN) +'</td>'+
+                                                    '</tr>'+
+                                                    '<tr>'+
+                                                        '<td>Kelas Bangunan</td>'+
+                                                        '<td> '+ data.pbb[i].KELAS_BANGUNAN +' </td>'+
+                                                    '</tr>'+
+                                                    '<tr>'+
+                                                        '<td>Total NJOP Bangunan (Rp) </td>'+
+                                                        '<td>'+ sepNum(data.pbb[i].TOTAL_NJOP_BANGUNAN) +'</td>'+
+                                                    '</tr>'+
+                                                    '<tr>'+
+                                                        '<td>Total PBB yang Dibayarkan (Rp) </td>'+
+                                                        '<td>'+ sepNum(data.pbb[i].TOTAL_PBB_DIBAYAR) +'</td>'+
+                                                    '</tr>'+
+                                                '</tbody>'+
+                                            '</table>'
+                                        );
+                                    }
+                                }   
+
+                                $('#NKA_gedung').html('');    
+                                if (data.nka != null){                           
+                                    for(i=0; i<data.nka.length; i++){
+                                        $('#NKA_gedung').append(
+                                            '<table class="table table-bordered table-striped">'+
+                                                '<thead>'+
+                                                    '<tr style="background-color: red;color:#ffffff;">'+
+                                                        '<th>NKA : </th>'+
+                                                        '<th>'+ data.nka[i].NOMOR_KARTU_ASET +'</th>'+
+                                                    '</tr>'+
+                                                    '<tr style="background-color: red;color:#ffffff;">'+
+                                                        '<th>NAK : </th>'+
+                                                        '<th>'+ data.nka[i].NOMOR_ANAK_KARTU +'</th>'+
+                                                    '</tr>'+
+                                                '</thead>'+
+                                                '<tbody>'+
+                                                    '<tr>'+
+                                                        '<td>Deskripsi</td>'+
+                                                        '<td>'+ data.nka[i].DESKRIPSI +'</td>'+
+                                                    '</tr>'+
+                                                    '<tr>'+
+                                                        '<td>Tanggal</td>'+
+                                                        '<td>'+ data.nka[i].TANGGAL +'</td>'+
+                                                    '</tr>'+
+                                                    '<tr>'+
+                                                        '<td>Nilai Harga Perolehan (Rp)</td>'+
+                                                        '<td>'+ sepNum(data.nka[i].NILAI_HARGA_PEROLEHAN) +'</td>'+
+                                                    '</tr>'+
+                                                    '<tr>'+
+                                                        '<td>Akumulasi Penyusutan (Rp)</td>'+
+                                                        '<td> '+ sepNum(data.nka[i].AKUMULASI_PENYUSUTAN) +' </td>'+
+                                                    '</tr>'+
+                                                    '<tr>'+
+                                                        '<td>Beban Penyusutan (Rp)</td>'+
+                                                        '<td>'+ sepNum(data.nka[i].BEBAN_PENYUSUTAN) +'</td>'+
+                                                    '</tr>'+
+                                                '</tbody>'+
+                                            '</table>'
+                                        );
+                                    }
+                                }   
+                                
+                                $('#listrik').html('');
+                                if (data.listrik != null){
+                                    for(i=0; i<data.listrik.length; i++){
+                                        $('#listrik').append(
+                                            '<table class="table table-bordered table-striped">'+
+                                                '<thead>'+
+                                                '<tr style="background-color: red;color:#ffffff;">'+
+                                                    '<th>ID Pelanggan : </th>'+
+                                                    '<th>'+ data.listrik[i].ID_PELANGGAN +'</th>'+
+                                                '</tr>'+
+                                                '</thead>'+
+                                                '<tbody>'+
+                                                    '<tr>'+
+                                                        '<td>Tanggal</td>'+
+                                                        '<td>'+ data.listrik[i].TANGGAL +'</td>'+
+                                                    '</tr>'+
+                                                    '<tr>'+
+                                                        '<td>Jumlah Pemakaian </td>'+
+                                                        '<td>'+ sepNum(data.listrik[i].JUMLAH_PEMAKAIAN) +'</td>'+
+                                                    '</tr>'+
+                                                    '<tr>'+
+                                                        '<td>Biaya Listrik</td>'+
+                                                        '<td>'+ sepNum(data.listrik[i].BIAYA_LISTRIK) +'</td>'+
+                                                    '</tr>'+
+                                                '</tbody>'+
+                                            '</table>'
+                                        );
+                                    }
+                                } 
+                                
+                                $('#air').html('');
+                                if (data.listrik != null){
+                                    for(i=0; i<data.listrik.length; i++){
+                                        $('#air').append(
+                                            '<table class="table table-bordered table-striped">'+
+                                                '<thead>'+
+                                                '<tr style="background-color: red;color:#ffffff;">'+
+                                                    '<th>ID Pelanggan : </th>'+
+                                                    '<th>'+ data.listrik[i].ID_PELANGGAN +'</th>'+
+                                                '</tr>'+
+                                                '</thead>'+
+                                                '<tbody>'+
+                                                    '<tr>'+
+                                                        '<td>Tanggal</td>'+
+                                                        '<td>'+ data.listrik[i].TANGGAL +'</td>'+
+                                                    '</tr>'+
+                                                    '<tr>'+
+                                                        '<td>Jumlah Pemakaian </td>'+
+                                                        '<td>'+ sepNum(data.listrik[i].JUMLAH_PEMAKAIAN) +'</td>'+
+                                                    '</tr>'+
+                                                    '<tr>'+
+                                                        '<td>Biaya Air</td>'+
+                                                        '<td>'+ sepNum(data.listrik[i].BIAYA_AIR) +'</td>'+
+                                                    '</tr>'+
+                                                '</tbody>'+
+                                            '</table>'
+                                        );
+                                    }
+                                } 
+
+                                $('#informasi_gedung').modal('show');
+                                
+                            break;
+                            
                         }
                     }
                 }
@@ -1318,6 +2099,305 @@
             }
         });
 
+        
+        $('#btnDaftarAset').click(function(){
+            if($("#collapseDaftarAset").is(":hidden")){
+                $("#collapseDaftarAset").slideDown("slow");
+                daftarAsetMap(); 
+            }else{
+                $("#collapseDaftarAset").slideUp("slow");
+            }
+        });
+
+        
+        $("#collapseDaftarAset").on('click', '.detailDaftarAset', function () {
+            var id_lahan = $(this).closest('.panel-body').find('.idareal_daftar_aset').text();
+            loadData('modalPetaInformasiAset',"GET","{{ url('sima-dash/detail-lahan') }}", {'id_areal': id_lahan});
+        });
+
+        $("#table_aset_filter").on('click', '.detailDaftarAsetGedung', function (e) {
+            e.preventDefault(); 
+            var id_lahan = $(this).closest('.panel-body').find('.idareal_daftar_aset').text();
+            var data_gedung = _.where(data_aset_gedung_global, {IDAREAL: id_lahan});
+            console.log(data_gedung);
+            if($(this).closest('.panel-body').find('.detailGedungPerLahanMap').is(':empty')) {
+                for(i=0;i<data_gedung.length;i++){
+                    if(typeof data_gedung[i].FILE_PATH === 'undefined' || !data_gedung[i].FILE_PATH){
+                        var path_gedung_image = "/img/gis_img/telkom-gbr-tkd-sedia.png";
+                    }else{
+                        var path_gedung_image = data.data_gedung[i].FILE_PATH;
+                    }
+                    $(this).closest('.panel-body').find('.detailGedungPerLahanMap').append(
+                        '<div class="panel panel-dafault pull-left" style = "width:30vw;">'+
+                            '<div class="panel panel-default">'+
+                                '<div class="panel-body">'+
+                                    '<div class="row" >'+
+                                        "<div class = 'col-md-3'>"+
+                                            '<img class="img-responsive center-block" src='+baseUrl+'/gis/assets/'+ path_gedung_image +'>'+
+                                            '<br><a href="#" style="margin-right: 15px;" class="detailFilterBangunan pull-right">'+
+                                                '<i class="fa fa-info-circle" style="width:15px;"></i>'+
+                                            '</a>'+
+                                        "</div>"+
+                                        '<div class="col-md-9">'+
+                                            '<b>id gedung : #<span class = "idgedung_daftar_aset">'+ data_gedung[i].IDGEDUNG +'</span></b><br>'+
+                                            '<br><b>'+ data_gedung[i].NAMA_GEDUNG +'</b>'+
+                                            '<br>'+ data_gedung[i].ALAMAT +
+                                            '<br> Luas Bangunan : '+ data_gedung[i].LUAS_BANGUNAN +' m2'+
+                                            '<br> Penggunaan : '+ data_gedung[i].OCRT_TELKOM +' %'+
+                                            '<br> Jumlah Lantai : '+ data_gedung[i].JUMLAH_LANTAI +
+                                            '<br> Saleable Area : '+ data_gedung[i].SALEABLE_AREA +' m'+
+                                        '</div>'+
+                                    '</div>'+
+                                '</div>'+
+                            '</div>'+
+                        '</div>'
+                    );
+                }
+            }else{
+                $(this).closest('.panel-body').find('.detailGedungPerLahanMap').html('');
+            }
+        });
+
+        $("#table_aset_filter").on('click', '.detailDaftarAsetLahan', function (e) {
+            e.preventDefault(); 
+            var id_lahan = $(this).closest('.panel-body').find('.idareal_daftar_aset').text();
+            var data_lahan = _.where(data_aset_lahan_global, {IDAREAL: id_lahan});
+            console.log(id_lahan,data_lahan);
+            if($(this).closest('.panel-body').find('.detailLahanPerGedungMap').is(':empty')) {
+                for(i=0;i<data_lahan.length;i++){
+                    if(typeof data_lahan[i].FILE_PATH === 'undefined' || !data_lahan[i].FILE_PATH){
+                        var path_lahan_image = "/img/gis_img/telkom-gbr-tkd-sedia.png";
+                    }else{
+                        var path_lahan_image = data_lahan[i].FILE_PATH;
+                    }
+                    $(this).closest('.panel-body').find('.detailLahanPerGedungMap').append(
+                        '<div class="panel panel-dafault pull-left" style = "width:30vw;">'+
+                            '<div class="panel panel-default">'+
+                                '<div class="panel-body">'+
+                                    "<div class = 'col-md-3'>"+
+                                        '<img class="img-responsive center-block" src='+baseUrl+'/gis/assets/'+ path_lahan_image +'>'+
+                                        '<br><a href="#" style="font-size:10px;margin-right: 15px;" class="detailDaftarAset pull-right">'+
+                                            '<i class="fa fa-info-circle" style="width:15px;"></i>'+
+                                        '</a><br>'+
+                                    "</div>"+
+                                    '<div class="col-md-9" style="font-size: 10px">'+
+                                        '<b>id lahan : #<span class = "idareal_daftar_aset">'+ data_lahan[i].IDAREAL +'</span></b>'+
+                                        '<br><b>'+ data_lahan[i].NAMA_LAHAN +'</b>'+
+                                        '<br>'+ data_lahan[i].ALAMAT +
+                                        '<br> Luas Lahan : '+ data_lahan[i].LUAS_LAHAN +' m2'+
+                                        '<br> Penggunaan : '+ data_lahan[i].OCCUPACY_RATE +' %'+
+                                        '<br> Klasifikasi : '+ data_lahan[i].NAMA_KLASIFIKASI +
+                                    '</div>'+
+                                '</div>'+
+                            '</div>'+
+                        '</div>'
+                    );
+                }
+            }else{
+                $(this).closest('.panel-body').find('.detailLahanPerGedungMap').html('');
+            }
+        });
+
+        $("#collapseDaftarAset").on('click', '.detailDaftarAsetGedung', function () {
+            var id_lahan = $(this).closest('.panel-body').find('.idareal_daftar_aset').text();
+            var data_gedung = _.where(data_aset_gedung_global, {IDAREAL: id_lahan});
+            console.log(data_gedung);
+            if($(this).closest('.panel-body').find('.detailGedungPerLahanMap').is(':empty')) {
+                for(i=0;i<data_gedung.length;i++){
+                    if(typeof data_gedung[i].FILE_PATH === 'undefined' || !data_gedung[i].FILE_PATH){
+                        var path_gedung_image = "/img/gis_img/telkom-gbr-tkd-sedia.png";
+                    }else{
+                        var path_gedung_image = data.data_gedung[i].FILE_PATH;
+                    }
+                    $(this).closest('.panel-body').find('.detailGedungPerLahanMap').append(
+                        '<div class="panel panel-dafault pull-left" style = "width:18vw;">'+
+                            '<div class="panel panel-default">'+
+                                '<div class="panel-body">'+
+                                    '<div class="row" >'+
+                                        "<div class = 'col-md-3'>"+
+                                            '<img class="img-responsive center-block" src='+baseUrl+'/gis/assets/'+ path_gedung_image +'>'+
+                                            '<br><a href="#" style="font-size:10px;margin-right: 15px;" class="detailFilterBangunan pull-right">'+
+                                                '<i class="fa fa-info-circle" style="width:15px;"></i>'+
+                                            '</a>'+
+                                        "</div>"+
+                                        '<div class="col-md-9" style="font-size: 10px">'+
+                                            '<b>id gedung : #<span class = "idgedung_daftar_aset">'+ data_gedung[i].IDGEDUNG +'</span></b><br>'+
+                                            '<br><b>'+ data_gedung[i].NAMA_GEDUNG +'</b>'+
+                                            '<br>'+ data_gedung[i].ALAMAT +
+                                            '<br> Luas Bangunan : '+ data_gedung[i].LUAS_BANGUNAN +' m2'+
+                                            '<br> Penggunaan : '+ data_gedung[i].OCRT_TELKOM +' %'+
+                                            '<br> Jumlah Lantai : '+ data_gedung[i].JUMLAH_LANTAI +
+                                            '<br> Saleable Area : '+ data_gedung[i].SALEABLE_AREA +' m'+
+                                        '</div>'+
+                                    '</div>'+
+                                '</div>'+
+                            '</div>'+
+                        '</div>'
+                    );
+                }
+            }else{
+                $(this).closest('.panel-body').find('.detailGedungPerLahanMap').html('');
+            }
+        });
+
+        $("#collapseDaftarAset").on('click', '.detailDaftarAsetLahan', function () {
+            var id_lahan = $(this).closest('.panel-body').find('.idareal_daftar_aset').text();
+            var data_lahan = _.where(data_aset_lahan_global, {IDAREAL: id_lahan});
+            console.log(id_lahan,data_lahan);
+            if($(this).closest('.panel-body').find('.detailLahanPerGedungMap').is(':empty')) {
+                for(i=0;i<data_lahan.length;i++){
+                    if(typeof data_lahan[i].FILE_PATH === 'undefined' || !data_lahan[i].FILE_PATH){
+                        var path_lahan_image = "/img/gis_img/telkom-gbr-tkd-sedia.png";
+                    }else{
+                        var path_lahan_image = data_lahan[i].FILE_PATH;
+                    }
+                    $(this).closest('.panel-body').find('.detailLahanPerGedungMap').append(
+                        '<div class="panel panel-dafault pull-left" style = "width:18vw;">'+
+                            '<div class="panel panel-default">'+
+                                '<div class="panel-body">'+
+                                    "<div class = 'col-md-3'>"+
+                                        '<img class="img-responsive center-block" src='+baseUrl+'/gis/assets/'+ path_lahan_image +'>'+
+                                        '<br><a href="#" style="font-size:10px;margin-right: 15px;" class="detailDaftarAset pull-right">'+
+                                            '<i class="fa fa-info-circle" style="width:15px;"></i>'+
+                                        '</a><br>'+
+                                    "</div>"+
+                                    '<div class="col-md-9" style="font-size: 10px">'+
+                                        '<b>id lahan : #<span class = "idareal_daftar_aset">'+ data_lahan[i].IDAREAL +'</span></b>'+
+                                        '<br><b>'+ data_lahan[i].NAMA_LAHAN +'</b>'+
+                                        '<br>'+ data_lahan[i].ALAMAT +
+                                        '<br> Luas Lahan : '+ data_lahan[i].LUAS_LAHAN +' m2'+
+                                        '<br> Penggunaan : '+ data_lahan[i].OCCUPACY_RATE +' %'+
+                                        '<br> Klasifikasi : '+ data_lahan[i].NAMA_KLASIFIKASI +
+                                    '</div>'+
+                                '</div>'+
+                            '</div>'+
+                        '</div>'
+                    );
+                }
+            }else{
+                $(this).closest('.panel-body').find('.detailLahanPerGedungMap').html('');
+            }
+        });
+
+        $("#daftar_aset_dash").on('click', '.detailDaftarAset', function () {
+            var id_lahan = $(this).closest('.panel-body').find('.idareal_daftar_aset').text();
+            loadData('modalPetaInformasiAset',"GET","{{ url('sima-dash/detail-lahan') }}", {'id_areal': id_lahan});
+        }); 
+
+        $(".InfoWindowLahan").on('click', function () {
+            var id_lahan = $(this).closest('.panel-body').find('.idareal_daftar_aset').text();
+            loadData('modalPetaInformasiAset',"GET","{{ url('sima-dash/detail-lahan') }}", {'id_areal': id_lahan});
+        });
+
+        $("#box_aset_potensi").on('click', '.detailFilter', function () {
+            var id_lahan = $(this).closest('.panel-body').find('.idareal_daftar_aset').text();
+            loadData('modalPetaInformasiAset',"GET","{{ url('sima-dash/detail-lahan') }}", {'id_areal': id_lahan});
+        });
+
+        $("#box_aset_potensi").on('click', '.detailFilterBangunan', function () {
+            var id_gedung = $(this).closest('.panel-body').find('.idgedung_daftar_aset').text();
+            loadData('modalPetaInformasiAsetBangunan',"GET","{{ url('sima-dash/detail-bangunan') }}", {'id_gedung': id_gedung});
+        });
+
+        $("#box_aset_potensi").on('click', '.detailDaftarAset', function () {
+            var id_lahan = $(this).closest('.panel-body').find('.idareal_daftar_aset').text();
+            loadData('modalPetaInformasiAset',"GET","{{ url('sima-dash/detail-lahan') }}", {'id_areal': id_lahan});
+        });
+
+        $("#collapseDaftarAset").on('click', '.detailFilterBangunan', function () {
+            var id_gedung = $(this).closest('.panel-body').find('.idgedung_daftar_aset').text();
+            loadData('modalPetaInformasiAsetBangunan',"GET","{{ url('sima-dash/detail-bangunan') }}", {'id_gedung': id_gedung});
+        });
+
+        $(".InfoWindowGedung").on('click', function () {
+            alert('iy');
+            // var id_gedung = $(this).find('.idareal_daftar_aset').text();
+            // loadData('modalPetaInformasiAsetBangunan',"GET","{{ url('sima-dash/detail-bangunan') }}", {'id_gedung': id_gedung});
+        });
+
+        $("#box_aset_inv").on('click', '.detailFilter', function () {
+            var id_lahan = $(this).closest('.panel-body').find('.idareal_daftar_aset').text();
+            loadData('modalPetaInformasiAset',"GET","{{ url('sima-dash/detail-lahan') }}", {'id_areal': id_lahan});
+        });
+
+        $("#box_aset_util").on('click', '.detailFilter', function () {
+            var id_lahan = $(this).closest('.panel-body').find('.idareal_daftar_aset').text();
+            loadData('modalPetaInformasiAset',"GET","{{ url('sima-dash/detail-lahan') }}", {'id_areal': id_lahan});
+        });
+
+        $("#daftar_aset_dash").on('click', '.detailDaftarAset', function () {
+            var id_lahan = $(this).closest('.panel-body').find('.idareal_daftar_aset').text();
+            loadData('modalPetaInformasiAset',"GET","{{ url('sima-dash/detail-lahan') }}", {'id_areal': id_lahan});
+        });
+
+        function daftarAsetMap(){
+            var id_reg_global = $('#dash_regional option:selected').val();
+            var witel = $('#dash_witel option:selected').val();
+
+            var arr_ck_milik = [];
+            $('.ck_milik:checked').each(function(){
+                var val = $(this).val();
+                arr_ck_milik.push(val);
+            });
+            var arr_ck_peruntukkan = [];
+            $('.ck_peruntukkan:checked').each(function(){
+                var val = $(this).val();
+                arr_ck_peruntukkan.push(val);
+            });
+            var arr_ck_jenis_aset = [];
+            $('.ck_jenis_aset:checked').each(function(){
+                var val = $(this).val();
+                arr_ck_jenis_aset.push(val);
+            });
+            if ($('input.on_off_slider').is(':checked')) {
+                var filter_luas_lahan = $('#slider_luas_lahan').data('bootstrapSlider').getValue();
+            }else{
+                var filter_luas_lahan = 99999999999999999999999999999999;
+            }
+
+            if(typeof id_reg_global !== 'undefined' || id_reg_global){
+                var filter_data = {'search_key': $('#textboxt_cari_aset').val(), 'dash_id': id_reg_global, 'dash_fm' : id_gsd_global, 'dash_witel' : witel, 'jenis_aset' : arr_ck_jenis_aset, 'luas_lahan' : filter_luas_lahan, 'status_kepemilikan' : arr_ck_milik, 'peruntukkan' : arr_ck_peruntukkan };
+
+                // console.log(filter_data);
+                loadData('GetDaftarAsetMap',"GET","{{ url('sima-dash/daftar-aset') }}", filter_data);
+            }
+        }
+
+        function prosesFilterKananAtas(){
+            if($('#dashboard_page_map').length){
+                if($("#collapseDaftarAset").is(":hidden")){
+                    $("#collapseDaftarAset").slideDown("slow");
+                    daftarAsetMap(); 
+                }else{
+                    daftarAsetMap(); 
+                }
+            }else if($('#dashboard_page_aset_detaillahan').length){
+                dash_detail_lahan(1);
+            }else if($('#dashboard_page_aset_detailbangunan').length){
+                dash_detail_bangunan(1);
+            }
+        }
+
+        $('#dash_map_filter').click(function(){
+            prosesFilterKananAtas();
+        });
+
+        $('.ck_jenis_aset').click(function(){
+            prosesFilterKananAtas();
+        });
+
+        $('.on_off_slider').click(function(){
+            $('.slider_luas_lahan_bangunan').toggle();
+        });
+
+        $('.ck_milik').click(function(){
+            prosesFilterKananAtas();
+        });
+
+        $('.ck_peruntukkan').click(function(){
+            prosesFilterKananAtas();
+        });
+
         $('#slider_POI').bootstrapSlider({
             formatter: function(value) {
                 console.log(value);
@@ -1333,6 +2413,23 @@
             var newVal = $('#slider_POI').data('bootstrapSlider').getValue();
             if(rangeSliderValStart != newVal) {
                 poi_process();
+            }
+        });
+    
+        $('#slider_luas_lahan').bootstrapSlider({
+            formatter: function(value) {
+                return 'Current value: ' + value + ' m2';
+            }
+        });
+
+        $('#slider_luas_lahan').slider().on('slideStart', function(value){
+            rangeSliderValStart = $('#slider_luas_lahan').data('bootstrapSlider').getValue();
+        });
+
+        $('#slider_luas_lahan').slider().on('slideStop', function(value){
+            var newVal = $('#slider_luas_lahan').data('bootstrapSlider').getValue();
+            if(rangeSliderValStart != newVal) {
+                prosesFilterKananAtas();
             }
         });
 
@@ -1402,6 +2499,2097 @@
                 marker_poi.push(marker);     
             }
             console.log(marker_poi);
+        }
+
+        //informasi dengan peta 
+
+        $('#btn_link_peta').click(function(){
+            if($("#map_dashboard").is(":hidden")){
+                $("#map_dashboard").slideDown("slow"); 
+                get_sebaran_aset_lahan();
+            }else{
+                $("#map_dashboard").slideUp("slow");
+            }   
+        });
+
+        //daftar aset
+        $('#btn_daftar_aset_dash').click(function(){
+            if($("#daftar_aset_dash").is(":hidden")){
+                $("#daftar_aset_dash").slideDown("slow"); 
+                // get_sebaran_aset_lahan();
+            }else{
+                $("#daftar_aset_dash").slideUp("slow");
+            }   
+        });
+
+        // detail alert system
+
+        $('#detail_lokasi_aset_Sengketa').click(function(){
+            var reg = $('#dash_regional option:selected').val();
+            var gsd = $('#dash_gsd option:selected').val();
+            var witel = $('#dash_witel option:selected').val();
+            var filter_data = {'dash_id': reg, 'dash_fm' : gsd, 'dash_witel' : witel, 'alert_system' : 'lokasi_aset_sengketa'};
+            loadData('detailAlertSystem','GET',"{{ url('sima-dash/detail-alert-system') }}", filter_data);
+        });
+
+        $('#detail_lokasi_aset_potensi_sengketa').click(function(){
+            var reg = $('#dash_regional option:selected').val();
+            var gsd = $('#dash_gsd option:selected').val();
+            var witel = $('#dash_witel option:selected').val();
+            var filter_data = {'dash_id': reg, 'dash_fm' : gsd, 'dash_witel' : witel, 'alert_system' : 'lokasi_aset_potensi_sengketa'};
+            loadData('detailAlertSystem', 'GET',"{{ url('sima-dash/detail-alert-system') }}", filter_data);
+        });
+
+        $('#detail_sertifikat_jatuh_tempo').click(function(){
+            var reg = $('#dash_regional option:selected').val();
+            var gsd = $('#dash_gsd option:selected').val();
+            var witel = $('#dash_witel option:selected').val();
+            var filter_data = {'dash_id': reg, 'dash_fm' : gsd, 'dash_witel' : witel, 'alert_system' : 'sertifikat_jatuh_tempo'};
+            loadData('detailAlertSystem', 'GET',"{{ url('sima-dash/detail-alert-system') }}",filter_data);
+        });
+
+        $('#detail_perizinan').click(function(){
+            var reg = $('#dash_regional option:selected').val();
+            var gsd = $('#dash_gsd option:selected').val();
+            var witel = $('#dash_witel option:selected').val();
+            var filter_data = {'dash_id': reg, 'dash_fm' : gsd, 'dash_witel' : witel, 'alert_system' : 'perizinan'};
+            loadData('detailAlertSystem', 'GET',"{{ url('sima-dash/detail-alert-system') }}", filter_data);
+        });
+
+        $("#textboxt_cari_aset").keyup(function(e){
+            var value = String.fromCharCode(e.which) || e.key;
+
+            if (e.which == 13) {
+                if($('#dashboard_page_map').length){
+                    if($("#collapseDaftarAset").is(":hidden")){
+                        $("#collapseDaftarAset").slideDown("slow"); 
+                    }
+                    daftarAsetMap();
+                }else if($('#dashboard_page_aset_detaillahan').length){
+                    dash_detail_lahan(1);
+                }else if($('#dashboard_page_aset_detailbangunan').length){
+                    dash_detail_bangunan(1);
+                }else{
+                    var jenis_aset = $('input[name=radio_jenis_aset]:checked').val();
+                    var keyword = $('#textboxt_dash_cari_aset').val();
+                    var reg = $('#dash_regional option:selected').val();
+                    var witel = $('#dash_witel option:selected').val();
+                    if(jenis_aset == 'lahan'){
+                        window.location = baseUrl+"/gis/index.php/dbaset/Index/detailLahanSearch/~"+keyword+"~"+reg+"~"+witel;
+                    }else{
+                        window.location = baseUrl+"/gis/index.php/dbaset/Index/detailBangunanSearch/~"+keyword+"~"+reg+"~"+witel;
+                    }
+                }
+                
+            }
+        });
+
+        $('#btn_peta_search_aset').click(function(){
+            // var item_selected = $('#search_peta_nasional')[0].selectize.getValue();
+            // if(item_selected != ''){
+            $('#collapseDaftarAset').html('');                            
+            var filter_data = {'search_key': $('#textboxt_cari_aset').val()}; //index post : value
+            loadData('PetaSearchLahan', baseUrl+"/gis/index.php/dbaset/AjaxService/searchMap/", filter_data);
+            // }
+        });
+
+        $('#dash_search_in_list').on('click', '#btn_peta_search_in_daftar_aset', function(){
+            search_key = $('#textboxt_cari_aset_in_daftar').val();
+            // console.log(daftar_aset_dash);
+            var search_result = $.grep(daftar_aset_dash, function(v) {
+                var res1 = false;
+                var res2 = false;
+                var res3 = false;
+                var res4 = false;
+                if(typeof v.NAMA_LAHAN != 'undefined'){
+                    var patt = new RegExp(search_key.toLowerCase());
+                    res1 = patt.test(v.NAMA_LAHAN.toLowerCase());
+                }
+
+                if(typeof v.ALAMAT != 'undefined'){
+                    var patt = new RegExp(search_key.toLowerCase());
+                    res2 = patt.test(v.ALAMAT.toLowerCase());
+                }
+
+                if(typeof v.IDAREAL != 'undefined'){
+                    var patt = new RegExp(search_key.toLowerCase());
+                    res3 = patt.test(v.IDAREAL.toLowerCase());
+                }
+
+                if(res1 || res2 || res3){
+                    return v.NAMA_LAHAN;
+                }
+                // return v.NAMA_LAHAN === search_key;
+            });
+            daftar_aset_dash_filtered = search_result;
+            listDaftarAsetDash(daftar_aset_dash_filtered,back = true);   
+        });
+
+        $('#dash_search_in_list').bind('keyup', '#btn_peta_search_in_daftar_aset', function(e) {
+            var value = String.fromCharCode(e.which) || e.key;
+
+            if (e.which == 13) {
+                search_key = $('#textboxt_cari_aset_in_daftar').val();
+
+                var search_result = $.grep(daftar_aset_dash, function(v) {
+                    var res1 = false;
+                    var res2 = false;
+                    var res3 = false;
+                    var res4 = false;
+                    if(typeof v.NAMA_LAHAN != 'object'){
+                        var patt = new RegExp(search_key.toLowerCase());
+                        res1 = patt.test(v.NAMA_LAHAN.toLowerCase());
+                    }
+                    
+                    if(typeof v.ALAMAT != 'object'){
+                        var patt = new RegExp(search_key.toLowerCase());
+                        res2 = patt.test(v.ALAMAT.toLowerCase());
+                    }
+
+                    if(typeof v.IDAREAL != 'object'){
+                        var patt = new RegExp(search_key.toLowerCase());
+                        res3 = patt.test(v.IDAREAL.toLowerCase());
+                    }
+
+                    if(res1 || res2 || res3 || res4){
+                        return v.NAMA_LAHAN;
+                    }
+                    // return v.NAMA_LAHAN === search_key;
+                });
+                daftar_aset_dash_filtered = search_result;
+                listDaftarAsetDash(daftar_aset_dash_filtered,back = true);   
+            }
+        });
+
+        $('#dash_search_in_list').on('click', '#btn_peta_back_search', function(){
+            $('#table_aset_filter').html('');
+            $('#search_key_info').html('');
+            $('#dash_search_in_list').html(
+                '<div class = "col-md-4">'+
+                    '<input id="textboxt_cari_aset_in_daftar" type="text" class="form-control pull-right" placeholder="Search in List...">'+
+                '</div>'+
+                '<div class = "col-md-1">'+
+                    '<a id="btn_peta_search_in_daftar_aset" class="btn btn-success"><i class="fa fa-search"></i></a>'+
+                '</div>'
+            );  
+            data.daftar = daftar_aset_dash;
+            var daftar_marker = new Array();
+            for(i=0; i<5;i++){
+                if(typeof data.daftar[i].id_gedung === 'undefined' || !data.daftar[i].id_gedung){
+                    if(typeof data.daftar[i] != 'undefined'){
+                        if(typeof data.daftar[i].FILE_PATH === 'undefined' || !data.daftar[i].FILE_PATH){
+                            var path_lahan_image = "/img/gis_img/telkom-gbr-tkd-sedia.png";
+                        }else{
+                            var path_lahan_image = data.daftar[i].FILE_PATH;
+                        }
+                        $('#table_aset_filter').append(
+                            '<div class="panel panel-dafault pull-left" style="width:100%">'+
+                                '<div class="panel panel-default">'+
+                                    '<div class="panel-body">'+
+                                        '<div class="row" >'+
+                                            '<div class="col-md-4">'+
+                                                '<img style = "width:193px;height:80px;" class="img-responsive center-block" src='+baseUrl+'/gis/assets/'+ path_lahan_image +'>'+
+                                            '</div>'+
+                                            '<div class="col-md-8">'+
+                                                '<b>#<span class = "idareal_daftar_aset">'+ data.daftar[i].IDAREAL +'</span></b><br>'+
+                                                '<b>'+ data.daftar[i].NAMA_LAHAN +'</b>'+
+                                                '<br>'+ data.daftar[i].ALAMAT +
+                                                '<br>Luas Lahan : '+ sepNum2(data.daftar[i].LUAS_LAHAN) +' m<sup style="font-size: 8px"> 2 </sup> '+
+                                            '</div>'+
+                                        '</div>'+
+                                        '<br>'+    
+                                        '<div class="row">'+
+                                            "<div class='col-md-4'>"+
+                                                '<!-- small box -->'+
+                                                '<div class="small-box bg-green" style="height: 80px">'+
+                                                    '<div class="inner">'+
+                                                        '<h3>'+
+                                                            '<span style="font-size: 20px" class="pull-right"> '+ sepNum2(data.daftar[i].ocrt_telkom)+' <sup style="font-size: 8px"> % </sup> '+
+                                                            '</span>'+
+                                                        '</h3>'+
+                                                        '<br>'+
+                                                        '<p>'+
+                                                            '<rap> Penggunaan </rap>'+
+                                                        '</p>'+
+                                                    '</div>'+
+                                                '</div>'+
+                                            '</div>'+
+                                            "<div class='col-md-4'>"+
+                                                '<!-- small box -->'+
+                                                '<div class="small-box bg-yellow" style="height: 80px">'+
+                                                    '<div class="inner">'+
+                                                        '<h3>'+
+                                                            '<span style="font-size: 20px" class="pull-right">'+ data.daftar[i].NAMA_STATUS_KEPEMILIKAN +'</span>'+
+                                                        '</h3>'+
+                                                        '<br>'+
+                                                        '<p>'+
+                                                            '<rap>Status Kepemilikan</rap>'+
+                                                        '</p>'+
+                                                    '</div>'+
+                                                '</div>'+
+                                            '</div>'+
+                                            "<div class='col-md-4'>"+
+                                                '<!-- small box -->'+
+                                                '<div class="small-box bg-red" style="height: 80px">'+
+                                                    '<div class="inner">'+
+                                                        '<h3>'+
+                                                            '<span style="font-size: 20px" class="pull-right"> '+ data.daftar[i].NAMA_KLASIFIKASI +
+                                                        '</h3>'+
+                                                        '<br>'+
+                                                        '<p>'+
+                                                            '<rap>Klasifikasi Aset</rap>'+
+                                                        '</p>'+
+                                                    '</div>'+
+                                                '</div>'+
+                                            '</div>'+
+                                        '</div>'+
+                                        "<div class='row'>"+
+                                            "<div class = 'col-md-6'>"+
+                                                '<a href="#" style="margin-left: 15px;" class="detailDaftarAsetGedung pull-left">'+
+                                                    '<b>Detail Gedung </b>'+
+                                                    '<i class="fa fa-chevron-down"></i>'+
+                                                '</a>'+
+                                            "</div>"+
+                                            "<div class = 'col-md-6'>"+
+                                                '<a href="#" style="margin-right: 15px;" id = "'+data.daftar[i].IDAREAL+'_'+data.daftar[i].NAMA_LAHAN+'_'+data.daftar[i].COOR_Y+'_'+data.daftar[i].COOR_X+'" class="detailFilter pull-right">'+
+                                                    '<b>Detail Aset</b>'+
+                                                    '<i class="fa fa-chevron-down"></i>'+
+                                                '</a>'+
+                                            "</div>"+
+                                        '</div>'+
+                                        "<div class='row detailGedungPerLahanMap' style='font-size:10px;margin-left: 15px;'>"+
+                                        '</div>'+
+                                    '</div>'+
+                                '</div>'+
+                            '</div>'
+                        );
+                        daftar_marker[i] = data.daftar[i];
+                    }
+                }else{
+                    if(typeof data.daftar != 'undefined' ){
+                        if(typeof data.daftar[i].path_gedung_image === 'undefined' || !data.daftar[i].path_gedung_image){
+                            var path_gedung_image = "/img/gis_img/telkom-gbr-tkd-sedia.png";
+                        }else{
+                            var path_gedung_image = data.daftar[i].FILE_PATH;
+                        }
+                        $('#table_aset_filter').append(
+                            '<div class="panel panel-dafault pull-left" style="width:100%">'+
+                                '<div class="panel panel-default">'+
+                                    '<div class="panel-body">'+
+                                        '<div class="row" >'+
+                                            '<div class="col-md-4">'+
+                                                '<img style = "width:193px;height:80px;" class="img-responsive center-block" src='+baseUrl+'/gis/assets/'+ path_gedung_image +'>'+
+                                            '</div>'+
+                                            '<div class="col-md-8">'+
+                                                '<b>id lahan : #<span class = "idareal_daftar_aset">'+ data.daftar[i].IDAREAL +'</span></b><br>'+
+                                                '<b>id gedung : #<span class = "idgedung_daftar_aset">'+ data.daftar[i].id_gedung +'</span></b><br>'+
+                                                '<b>'+ data.daftar[i].nama_gedung +'</b>'+
+                                                '<br>'+ data.daftar[i].alamat +
+                                                '<br>Luas Bangunan : '+ sepNum2(data.daftar[i].luas_bangunan) +' m<sup style="font-size: 8px"> 2 </sup> '+
+                                            '</div>'+
+                                        '</div>'+
+                                        '<br>'+    
+                                        '<div class="row">'+
+                                            "<div class='col-md-4'>"+
+                                                '<!-- small box -->'+
+                                                '<div class="small-box bg-green" style="height: 80px">'+
+                                                    '<div class="inner">'+
+                                                        '<h3>'+
+                                                            '<span style="font-size: 20px" class="pull-right"> '+ sepNum2(data.daftar[i].ocrt_telkom)+' <sup style="font-size: 8px"> % </sup> '+
+                                                            '</span>'+
+                                                        '</h3>'+
+                                                        '<br>'+
+                                                        '<p>'+
+                                                            '<rap> Penggunaan </rap>'+
+                                                        '</p>'+
+                                                    '</div>'+
+                                                '</div>'+
+                                            '</div>'+
+                                            "<div class='col-md-4'>"+
+                                                '<!-- small box -->'+
+                                                '<div class="small-box bg-yellow" style="height: 80px">'+
+                                                    '<div class="inner">'+
+                                                        '<h3>'+
+                                                            '<span style="font-size: 20px" class="pull-right">'+ data.daftar[i].jml_lantai +' Lt'+
+                                                        '</h3>'+
+                                                        '<br>'+
+                                                        '<p>'+
+                                                            '<rap>Jumlah Lantai</rap>'+
+                                                        '</p>'+
+                                                    '</div>'+
+                                                '</div>'+
+                                            '</div>'+
+                                            "<div class='col-md-4'>"+
+                                                '<!-- small box -->'+
+                                                '<div class="small-box bg-red" style="height: 80px">'+
+                                                    '<div class="inner">'+
+                                                        '<h3>'+
+                                                            '<span style="font-size: 20px" class="pull-right"> '+ data.daftar[i].saleable_area +' m'+
+                                                        '</h3>'+
+                                                        '<br>'+
+                                                        '<p>'+
+                                                            '<rap>Saleable Area</rap>'+
+                                                        '</p>'+
+                                                    '</div>'+
+                                                '</div>'+
+                                            '</div>'+
+                                        '</div>'+
+                                        "<div class='row'>"+
+                                            "<div class = 'col-md-6'>"+
+                                                '<a href="#" style="margin-left: 15px;" class="detailDaftarAsetLahan pull-left">'+
+                                                    '<b>Detail Lahan </b>'+
+                                                    '<i class="fa fa-chevron-down"></i>'+
+                                                '</a>'+
+                                            "</div>"+
+                                            "<div class = 'col-md-6'>"+
+                                                '<a href="#" style="margin-right: 15px;" id = "'+data.daftar[i].IDAREAL+'_'+data.daftar[i].NAMA_LAHAN+'_'+data.daftar[i].COOR_Y+'_'+data.daftar[i].COOR_X+'" class="detailFilterBangunan pull-right">'+
+                                                    '<b>Detail Aset</b>'+
+                                                    '<i class="fa fa-chevron-down"></i>'+
+                                                '</a>'+
+                                            "</div>"+
+                                        '</div>'+
+                                        "<div class='row detailLahanPerGedungMap' style='margin-left: 15px;'>"+
+                                        '</div>'+
+                                    '</div>'+
+                                '</div>'+
+                            '</div>'
+                        );
+                        daftar_marker[i] = data.daftar[i];
+                    }
+                }
+            }
+            var dp = $('#select_show_per_page').val();      
+
+            if(daftar_marker.length == dp){
+                $('#table_aset_filter').append(
+                    'Tampil <span class="table-start-rows">1</span> Sampai <span class="table-end-rows">'+ dp +'</span> Dari <span class="table-total-row">'+(data.daftar.length)+'</span> Data'
+                );
+            }else{
+                $('#table_aset_filter').append(
+                    'Tampil <span class="table-start-rows">1</span> Sampai <span class="table-end-rows">'+ dp +'</span> Dari <span class="table-total-row">'+(daftar_marker.length)+'</span> Data'
+                );
+            }
+            
+            if(data.daftar.length % dp === 0){
+                var jml_page = (data.daftar.length)/dp;
+            }else{
+                var jml_page = parseInt((data.daftar.length)/dp) + 1;
+            }
+            pagination_array_process(1,jml_page,1,2); 
+            
+            map_filter(daftar_marker);
+        });
+
+        function listDaftarAsetDash(data_daftar,back){
+            search_key = $('#textboxt_cari_aset_in_daftar').val();
+            $('#search_key_info').html('');
+            $('#search_key_info').html(
+                '<p>Show result for "'+search_key+'" </p>'
+            );
+            var back_button = '';
+            if(back){
+                $('#dash_search_in_list').html(
+                    '<div class = "col-md-3">'+
+                        '<input id="textboxt_cari_aset_in_daftar" type="text" class="form-control pull-right" placeholder="Search in List...">'+
+                    '</div>'+
+                    '<div class = "col-md-1">'+
+                        '<a id="btn_peta_search_in_daftar_aset" class="btn btn-success"><i class="fa fa-search"></i></a>'+
+                    '</div>'+
+                    '<div class = "col-md-1">'+
+                        '<a id="btn_peta_back_search" class="btn btn-primary"><i class="fa fa-arrow-left"></i></a>'+
+                    '</div>'
+                ); 
+            }else{
+                $('#dash_search_in_list').html(
+                    '<div class = "col-md-4">'+
+                        '<input id="textboxt_cari_aset_in_daftar" type="text" class="form-control pull-right" placeholder="Search in List...">'+
+                    '</div>'+
+                    '<div class = "col-md-1">'+
+                        '<a id="btn_peta_search_in_daftar_aset" class="btn btn-success"><i class="fa fa-search"></i></a>'+
+                    '</div>'
+                ); 
+            }
+            data = Array();
+            data.daftar = data_daftar;  
+
+            var dp = $('#select_show_per_page').val();      
+
+            $('#table_aset_filter').html('');
+            var daftar_marker = new Array();
+            for(i=0; i<dp;i++){
+                console.log(typeof data.daftar[i].id_gedung);
+                if(typeof data.daftar[i].id_gedung === 'undefined' || !data.daftar[i].id_gedung){
+                    if(typeof data.daftar[i] != 'undefined'){
+                        if(typeof data.daftar[i].FILE_PATH === 'undefined' || !data.daftar[i].FILE_PATH){
+                            var path_lahan_image = "/img/gis_img/telkom-gbr-tkd-sedia.png";
+                        }else{
+                            var path_lahan_image = data.daftar[i].FILE_PATH;
+                        }
+                        $('#table_aset_filter').append(
+                            '<div class="panel panel-dafault pull-left" style="width:100%">'+
+                                '<div class="panel panel-default">'+
+                                    '<div class="panel-body">'+
+                                        '<div class="row" >'+
+                                            '<div class="col-md-4">'+
+                                                '<img style = "width:193px;height:80px;" class="img-responsive center-block" src='+baseUrl+'/gis/assets/'+ path_lahan_image +'>'+
+                                            '</div>'+
+                                            '<div class="col-md-8">'+
+                                                '<b>#<span class = "idareal_daftar_aset">'+ data.daftar[i].IDAREAL +'</span></b><br>'+
+                                                '<b>'+ data.daftar[i].NAMA_LAHAN +'</b>'+
+                                                '<br>'+ data.daftar[i].ALAMAT +
+                                                '<br>Luas Lahan : '+ sepNum2(data.daftar[i].LUAS_LAHAN) +' m<sup style="font-size: 8px"> 2 </sup> '+
+                                            '</div>'+
+                                        '</div>'+
+                                        '<br>'+    
+                                        '<div class="row">'+
+                                            "<div class='col-md-4'>"+
+                                                '<!-- small box -->'+
+                                                '<div class="small-box bg-green" style="height: 80px">'+
+                                                    '<div class="inner">'+
+                                                        '<h3>'+
+                                                            '<span style="font-size: 20px" class="pull-right"> '+ sepNum2(data.daftar[i].ocrt_telkom)+' <sup style="font-size: 8px"> % </sup> '+
+                                                            '</span>'+
+                                                        '</h3>'+
+                                                        '<br>'+
+                                                        '<p>'+
+                                                            '<rap> Penggunaan </rap>'+
+                                                        '</p>'+
+                                                    '</div>'+
+                                                '</div>'+
+                                            '</div>'+
+                                            "<div class='col-md-4'>"+
+                                                '<!-- small box -->'+
+                                                '<div class="small-box bg-yellow" style="height: 80px">'+
+                                                    '<div class="inner">'+
+                                                        '<h3>'+
+                                                            '<span style="font-size: 20px" class="pull-right">'+ data.daftar[i].NAMA_STATUS_KEPEMILIKAN +'</span>'+
+                                                        '</h3>'+
+                                                        '<br>'+
+                                                        '<p>'+
+                                                            '<rap>Status Kepemilikan</rap>'+
+                                                        '</p>'+
+                                                    '</div>'+
+                                                '</div>'+
+                                            '</div>'+
+                                            "<div class='col-md-4'>"+
+                                                '<!-- small box -->'+
+                                                '<div class="small-box bg-red" style="height: 80px">'+
+                                                    '<div class="inner">'+
+                                                        '<h3>'+
+                                                            '<span style="font-size: 20px" class="pull-right"> '+ data.daftar[i].NAMA_KLASIFIKASI +
+                                                        '</h3>'+
+                                                        '<br>'+
+                                                        '<p>'+
+                                                            '<rap>Klasifikasi Aset</rap>'+
+                                                        '</p>'+
+                                                    '</div>'+
+                                                '</div>'+
+                                            '</div>'+
+                                        '</div>'+
+                                        "<div class='row'>"+
+                                            "<div class = 'col-md-6'>"+
+                                                '<a href="#" style="margin-left: 15px;" class="detailDaftarAsetGedung pull-left">'+
+                                                    '<b>Detail Gedung </b>'+
+                                                    '<i class="fa fa-chevron-down"></i>'+
+                                                '</a>'+
+                                            "</div>"+
+                                            "<div class = 'col-md-6'>"+
+                                                '<a href="#" style="margin-right: 15px;" id = "'+data.daftar[i].IDAREAL+'_'+data.daftar[i].NAMA_LAHAN+'_'+data.daftar[i].COOR_Y+'_'+data.daftar[i].COOR_X+'" class="detailFilter pull-right">'+
+                                                    '<b>Detail Aset</b>'+
+                                                    '<i class="fa fa-chevron-down"></i>'+
+                                                '</a>'+
+                                            "</div>"+
+                                        '</div>'+
+                                        "<div class='row detailGedungPerLahanMap' style='font-size:10px;margin-left: 15px;'>"+
+                                        '</div>'+
+                                    '</div>'+
+                                '</div>'+
+                            '</div>'
+                        );
+                        daftar_marker[i] = data.daftar[i];
+                    }
+                }else{
+                    if(typeof data.daftar != 'undefined' ){
+                        if(typeof data.daftar[i].path_gedung_image === 'undefined' || !data.daftar[i].path_gedung_image){
+                            var path_gedung_image = "/img/gis_img/telkom-gbr-tkd-sedia.png";
+                        }else{
+                            var path_gedung_image = data.daftar[i].FILE_PATH;
+                        }
+                        $('#table_aset_filter').append(
+                            '<div class="panel panel-dafault pull-left" style="width:100%">'+
+                                '<div class="panel panel-default">'+
+                                    '<div class="panel-body">'+
+                                        '<div class="row" >'+
+                                            '<div class="col-md-4">'+
+                                                '<img style = "width:193px;height:80px;" class="img-responsive center-block" src='+baseUrl+'/gis/assets/'+ path_gedung_image +'>'+
+                                            '</div>'+
+                                            '<div class="col-md-8">'+
+                                                '<b>id lahan : #<span class = "idareal_daftar_aset">'+ data.daftar[i].IDAREAL +'</span></b><br>'+
+                                                '<b>id gedung : #<span class = "idgedung_daftar_aset">'+ data.daftar[i].id_gedung +'</span></b><br>'+
+                                                '<b>'+ data.daftar[i].nama_gedung +'</b>'+
+                                                '<br>'+ data.daftar[i].alamat +
+                                                '<br>Luas Bangunan : '+ sepNum2(data.daftar[i].luas_bangunan) +' m<sup style="font-size: 8px"> 2 </sup> '+
+                                            '</div>'+
+                                        '</div>'+
+                                        '<br>'+    
+                                        '<div class="row">'+
+                                            "<div class='col-md-4'>"+
+                                                '<!-- small box -->'+
+                                                '<div class="small-box bg-green" style="height: 80px">'+
+                                                    '<div class="inner">'+
+                                                        '<h3>'+
+                                                            '<span style="font-size: 20px" class="pull-right"> '+ sepNum2(data.daftar[i].ocrt_telkom)+' <sup style="font-size: 8px"> % </sup> '+
+                                                            '</span>'+
+                                                        '</h3>'+
+                                                        '<br>'+
+                                                        '<p>'+
+                                                            '<rap> Penggunaan </rap>'+
+                                                        '</p>'+
+                                                    '</div>'+
+                                                '</div>'+
+                                            '</div>'+
+                                            "<div class='col-md-4'>"+
+                                                '<!-- small box -->'+
+                                                '<div class="small-box bg-yellow" style="height: 80px">'+
+                                                    '<div class="inner">'+
+                                                        '<h3>'+
+                                                            '<span style="font-size: 20px" class="pull-right">'+ data.daftar[i].jml_lantai +' Lt'+
+                                                        '</h3>'+
+                                                        '<br>'+
+                                                        '<p>'+
+                                                            '<rap>Jumlah Lantai</rap>'+
+                                                        '</p>'+
+                                                    '</div>'+
+                                                '</div>'+
+                                            '</div>'+
+                                            "<div class='col-md-4'>"+
+                                                '<!-- small box -->'+
+                                                '<div class="small-box bg-red" style="height: 80px">'+
+                                                    '<div class="inner">'+
+                                                        '<h3>'+
+                                                            '<span style="font-size: 20px" class="pull-right"> '+ data.daftar[i].saleable_area +' m'+
+                                                        '</h3>'+
+                                                        '<br>'+
+                                                        '<p>'+
+                                                            '<rap>Saleable Area</rap>'+
+                                                        '</p>'+
+                                                    '</div>'+
+                                                '</div>'+
+                                            '</div>'+
+                                        '</div>'+
+                                        "<div class='row'>"+
+                                            "<div class = 'col-md-6'>"+
+                                                '<a href="#" style="margin-left: 15px;" class="detailDaftarAsetLahan pull-left">'+
+                                                    '<b>Detail Lahan </b>'+
+                                                    '<i class="fa fa-chevron-down"></i>'+
+                                                '</a>'+
+                                            "</div>"+
+                                            "<div class = 'col-md-6'>"+
+                                                '<a href="#" style="margin-right: 15px;" id = "'+data.daftar[i].IDAREAL+'_'+data.daftar[i].NAMA_LAHAN+'_'+data.daftar[i].COOR_Y+'_'+data.daftar[i].COOR_X+'" class="detailFilterBangunan pull-right">'+
+                                                    '<b>Detail Aset</b>'+
+                                                    '<i class="fa fa-chevron-down"></i>'+
+                                                '</a>'+
+                                            "</div>"+
+                                        '</div>'+
+                                        "<div class='row detailLahanPerGedungMap' style='margin-left: 15px;'>"+
+                                        '</div>'+
+                                    '</div>'+
+                                '</div>'+
+                            '</div>'
+                        );
+                        daftar_marker[i] = data.daftar[i];
+                    }
+                }
+            }
+
+            map_filter(daftar_marker);
+            
+            var dp = $('#select_show_per_page').val();     
+            
+            if(daftar_marker.length == dp){
+                $('#table_aset_filter').append(
+                    'Tampil <span class="table-start-rows">1</span> Sampai <span class="table-end-rows">'+ dp +'</span> Dari <span class="table-total-row">'+(data_daftar.length)+'</span> Data'
+                );
+            }else{
+                $('#table_aset_filter').append(
+                    'Tampil <span class="table-start-rows">1</span> Sampai <span class="table-end-rows">'+ dp +'</span> Dari <span class="table-total-row">'+(daftar_marker.length)+'</span> Data'
+                );
+            }
+
+            if(data_daftar.length % dp === 0){
+                var jml_page = (data_daftar.length)/dp;
+            }else{
+                var jml_page = parseInt((data_daftar.length)/dp) + 1;
+            }
+            pagination_array_process(1,jml_page,1,2);      
+        }
+
+        $('#collapseDaftarAset').on('click', '#btn_peta_search_in_daftar_aset', function(){
+            search_key = $('#textboxt_cari_aset_in_daftar').val();
+            // console.log(daftar_aset_map);
+            var search_result = $.grep(daftar_aset_map, function(v) {
+                var res1 = false;
+                var res2 = false;
+                var res3 = false;
+                var res4 = false;
+                if(typeof v.NAMA_LAHAN != 'undefined'){
+                    var patt = new RegExp(search_key.toLowerCase());
+                    res1 = patt.test(v.NAMA_LAHAN.toLowerCase());
+                }
+
+                if(typeof v.ALAMAT != 'undefined'){
+                    var patt = new RegExp(search_key.toLowerCase());
+                    res2 = patt.test(v.ALAMAT.toLowerCase());
+                }
+
+                if(typeof v.IDAREAL != 'undefined'){
+                    var patt = new RegExp(search_key.toLowerCase());
+                    res3 = patt.test(v.IDAREAL.toLowerCase());
+                }
+
+                if(res1 || res2 || res3){
+                    return v.NAMA_LAHAN;
+                }
+                // return v.NAMA_LAHAN === search_key;
+            });
+            daftar_aset_map_filtered = search_result;
+            listDaftarAsetMap(daftar_aset_map_filtered,back = true);   
+        });
+
+        $('#collapseDaftarAset').bind('keyup', '#btn_peta_search_in_daftar_aset', function(e) {
+            var value = String.fromCharCode(e.which) || e.key;
+
+            if (e.which == 13) {
+                search_key = $('#textboxt_cari_aset_in_daftar').val();
+
+                var search_result = $.grep(daftar_aset_map, function(v) {
+                    var res1 = false;
+                    var res2 = false;
+                    var res3 = false;
+                    var res4 = false;
+                    if(typeof v.NAMA_LAHAN != 'undefined'){
+                        var patt = new RegExp(search_key.toLowerCase());
+                        res1 = patt.test(v.NAMA_LAHAN.toLowerCase());
+                    }
+
+                    if(typeof v.ALAMAT != 'undefined'){
+                        var patt = new RegExp(search_key.toLowerCase());
+                        res2 = patt.test(v.ALAMAT.toLowerCase());
+                    }
+
+                    if(typeof v.IDAREAL != 'undefined'){
+                        var patt = new RegExp(search_key.toLowerCase());
+                        res3 = patt.test(v.IDAREAL.toLowerCase());
+                    }
+
+                    if(res1 || res2 || res3 || res4){
+                        return v.NAMA_LAHAN;
+                    }
+                    // return v.NAMA_LAHAN === search_key;
+                });
+                daftar_aset_map_filtered = search_result;
+                listDaftarAsetMap(daftar_aset_map_filtered,back = true);   
+            }
+        });
+
+        $('#collapseDaftarAset').on('click', '#btn_peta_back_search', function(){
+            listDaftarAsetMap(daftar_aset_map,back = false);   
+        });
+
+        function listDaftarAsetMap(data_daftar,back){
+            var back_button = '';
+            if(back){
+                back_button =   '<div class="col-md-2">'+
+                                    '<a id="btn_peta_back_search" class="btn btn-primary"><i class="fa fa-arrow-left"></i></a>'+
+                                '</div>';
+            }
+            data = Array();
+            data.daftar = data_daftar;
+            $('#collapseDaftarAset').html(
+                '<div class = "row">'+
+                    '<div class="col-md-8">'+
+                        '<input id="textboxt_cari_aset_in_daftar" type="text" class="form-control" placeholder="Ketik Nama Aset...">'+
+                    '</div>'+
+                    '<div class="col-md-2" style="margin-left: -30px">'+
+                        '<a id="btn_peta_search_in_daftar_aset" class="btn btn-success"><i class="fa fa-search"></i></a>'+
+                    '</div>'+
+                    back_button +
+                '</div>'
+            );             
+            for(i=0; i<data.daftar.length;i++){
+                if(typeof data.daftar[i].id_gedung === 'undefined' || !data.daftar[i].id_gedung){
+                    if(typeof data.daftar[i].FILE_PATH === 'undefined' || !data.daftar[i].FILE_PATH){
+                        var path_lahan_image = "/img/gis_img/telkom-gbr-tkd-sedia.png";
+                    }else{
+                        var path_lahan_image = data.daftar[i].FILE_PATH;
+                    }
+                    $('#collapseDaftarAset').append(
+                        '<div class="panel panel-dafault pull-left" style = "width:22vw;">'+
+                            '<div class="panel panel-default">'+
+                                '<div class="panel-body">'+
+                                    '<div class="row" >'+
+                                        '<div class="col-md-4">'+
+                                            '<img class="img-responsive center-block" src='+baseUrl+'/gis/assets/'+ path_lahan_image +'>'+
+                                        '</div>'+
+                                        '<div class="col-md-8" style="font-size: 10px">'+
+                                            '<b>id lahan : #<span class = "idareal_daftar_aset">'+ data.daftar[i].IDAREAL +'</span></b><br>'+
+                                            '<b>'+ data.daftar[i].NAMA_LAHAN +'</b>'+
+                                            '<br>'+ data.daftar[i].ALAMAT +
+                                            '<br> Luas Lahan : '+ data.daftar[i].LUAS_LAHAN +' m2'+
+                                        '</div>'+
+                                    '</div>'+
+                                    '<br>'+    
+                                    '<div class="row">'+
+                                        "<div class='col-md-4'>"+
+                                            '<!-- small box -->'+
+                                            '<div class="small-box bg-green" style="height: 80px">'+
+                                                '<div class="inner">'+
+                                                    '<h3>'+
+                                                        '<span style="font-size: 15px" class="pull-right">'+ DelDecimal(data.daftar[i].OCCUPACY_RATE*100) +
+                                                            '<sup style="font-size: 10px">%</sup>'+
+                                                        '</span>'+
+                                                    '</h3>'+
+                                                    '<br>'+
+                                                    '<p style="font-size: 10px">'+
+                                                        '<rap>Penggunaan</rap>'+
+                                                    '</p>'+
+                                                '</div>'+
+                                            '</div>'+
+                                        '</div>'+
+                                        "<div class='col-md-4'>"+
+                                            '<!-- small box -->'+
+                                            '<div class="small-box bg-yellow" style="height: 80px">'+
+                                                '<div class="inner">'+
+                                                    '<h3>'+
+                                                        '<span style="font-size: 12px" class="pull-right">'+ data.daftar[i].NAMA_STATUS_KEPEMILIKAN +'</span>'+
+                                                    '</h3>'+
+                                                    '<br>'+
+                                                    '<p style="font-size: 10px">'+
+                                                        '<rap>Status Kepemilikan</rap>'+
+                                                    '</p>'+
+                                                '</div>'+
+                                            '</div>'+
+                                        '</div>'+
+                                        "<div class='col-md-4'>"+
+                                            '<!-- small box -->'+
+                                            '<div class="small-box bg-red" style="height: 80px">'+
+                                                '<div class="inner">'+
+                                                    '<h3>'+
+                                                        '<span style="font-size: 12px" class="pull-right"> '+ data.daftar[i].NAMA_KLASIFIKASI +' </span>'+
+                                                    '</h3>'+
+                                                    '<br>'+
+                                                    '<p style="font-size: 10px">'+
+                                                        '<rap>Klasifikasi Aset</rap>'+
+                                                    '</p>'+
+                                                '</div>'+
+                                            '</div>'+
+                                        '</div>'+
+                                    '</div>'+
+                                    "<div class='row'>"+
+                                        "<div class = 'col-md-6'>"+
+                                            '<a href="#" style="font-size:10px;margin-left: 15px;" class="detailDaftarAsetGedung pull-left">'+
+                                                '<b>Detail Gedung </b>'+
+                                                '<i class="fa fa-chevron-down"></i>'+
+                                            '</a>'+
+                                        "</div>"+
+                                        "<div class = 'col-md-6'>"+
+                                            '<a href="#" style="font-size:10px;margin-right: 15px;" class="detailDaftarAset pull-right">'+
+                                                '<b>Detail Aset </b>'+
+                                                '<i class="fa fa-chevron-down"></i>'+
+                                            '</a>'+
+                                        "</div>"+
+                                    '</div>'+
+                                    "<div class='row detailGedungPerLahanMap' style='font-size:10px;margin-left: 15px;'>"+
+                                    '</div>'+
+                                '</div>'+
+                            '</div>'+
+                        '</div>'
+                    );
+                }else{
+                    if(typeof data.daftar[i].FILE_PATH === 'undefined' || !data.daftar[i].FILE_PATH){
+                        var path_lahan_image = "/img/gis_img/telkom-gbr-tkd-sedia.png";
+                    }else{
+                        var path_lahan_image = data.daftar[i].FILE_PATH;
+                    }
+                    $('#collapseDaftarAset').append(
+                        '<div class="panel panel-dafault pull-left" style = "width:22vw;">'+
+                            '<div class="panel panel-default">'+
+                                '<div class="panel-body">'+
+                                    '<div class="row" >'+
+                                        '<div class="col-md-4">'+
+                                            '<img class="img-responsive center-block" src='+baseUrl+'/gis/assets/'+ path_lahan_image +'>'+
+                                        '</div>'+
+                                        '<div class="col-md-8" style="font-size: 10px">'+
+                                            '<b>id lahan : #<span class = "idareal_daftar_aset">'+ data.daftar[i].IDAREAL +'</span></b><br>'+
+                                            '<b>id gedung : #<span class = "idgedung_daftar_aset">'+ data.daftar[i].id_gedung +'</span></b><br>'+
+                                            '<b>'+ data.daftar[i].nama_gedung +'</b>'+
+                                            '<br>'+ data.daftar[i].alamat +
+                                            '<br> Luas Bangunan : '+ data.daftar[i].luas_bangunan +' m2'+
+                                        '</div>'+
+                                    '</div>'+
+                                    '<br>'+    
+                                    '<div class="row">'+
+                                        "<div class='col-md-4'>"+
+                                            '<!-- small box -->'+
+                                            '<div class="small-box bg-green" style="height: 80px">'+
+                                                '<div class="inner">'+
+                                                    '<h3>'+
+                                                        '<span style="font-size: 15px" class="pull-right">'+ DelDecimal(data.daftar[i].OCCUPACY_RATE*100) +
+                                                            '<sup style="font-size: 10px">%</sup>'+
+                                                        '</span>'+
+                                                    '</h3>'+
+                                                    '<br>'+
+                                                    '<p style="font-size: 10px">'+
+                                                        '<rap>Penggunaan</rap>'+
+                                                    '</p>'+
+                                                '</div>'+
+                                            '</div>'+
+                                        '</div>'+
+                                        "<div class='col-md-4'>"+
+                                            '<!-- small box -->'+
+                                            '<div class="small-box bg-yellow" style="height: 80px">'+
+                                                '<div class="inner">'+
+                                                    '<h3>'+
+                                                        '<span style="font-size: 12px" class="pull-right">'+ DelDecimal(data.daftar[i].NET_INCOME) +' lantai</span>'+
+                                                    '</h3>'+
+                                                    '<br>'+
+                                                    '<p style="font-size: 10px">'+
+                                                        '<rap>Jumlah Lantai</rap>'+
+                                                    '</p>'+
+                                                '</div>'+
+                                            '</div>'+
+                                        '</div>'+
+                                        "<div class='col-md-4'>"+
+                                            '<!-- small box -->'+
+                                            '<div class="small-box bg-red" style="height: 80px">'+
+                                                '<div class="inner">'+
+                                                    '<h3>'+
+                                                        '<span style="font-size: 12px" class="pull-right"> '+ data.daftar[i].saleable_area +' m</span>'+
+                                                    '</h3>'+
+                                                    '<br>'+
+                                                    '<p style="font-size: 10px">'+
+                                                        '<rap>Saleable Area</rap>'+
+                                                    '</p>'+
+                                                '</div>'+
+                                            '</div>'+
+                                        '</div>'+
+                                    '</div>'+
+                                    "<div class='row'>"+
+                                        "<div class = 'col-md-6'>"+
+                                            '<a href="#" style="font-size:10px;margin-left: 15px;" class="detailDaftarAsetLahan pull-left">'+
+                                                '<b>Detail Lahan </b>'+
+                                                '<i class="fa fa-chevron-down"></i>'+
+                                            '</a>'+
+                                        "</div>"+
+                                        "<div class = 'col-md-6'>"+
+                                            '<a href="#" style="font-size:10px;margin-right: 15px;" class="detailFilterBangunan pull-right">'+
+                                                '<b>Detail Aset</b>'+
+                                                '<i class="fa fa-chevron-down"></i>'+
+                                            '</a>'+
+                                        "</div>"+
+                                    '</div>'+
+                                    "<div class='row detailLahanPerGedungMap' style='font-size:10px;margin-left: 15px;'>"+
+                                    '</div>'+
+                                '</div>'+
+                            '</div>'+
+                        '</div>'
+                    );
+                }
+                
+            }
+
+            if($("#collapseDaftarAset").is(":hidden")){
+                $("#collapseDaftarAset").slideDown("slow"); 
+            }
+
+            map_hasil_search(data.daftar);
+        }
+
+        $("#textboxt_dash_cari_aset").keyup(function(e){
+            var value = String.fromCharCode(e.which) || e.key;
+
+            if (e.which == 13) {
+                var jenis_aset = $('input[name=radio_jenis_aset]:checked').val();
+                var keyword = $('#textboxt_dash_cari_aset').val();
+                var reg = $('#dash_regional option:selected').val();
+                var witel = $('#dash_witel option:selected').val();
+                if(jenis_aset == 'lahan'){
+                    window.location = baseUrl+"/gis/index.php/dbaset/Index/detailLahanSearch/~"+keyword+"~"+reg+"~"+witel;
+                }else{
+                    window.location = baseUrl+"/gis/index.php/dbaset/Index/detailBangunanSearch/~"+keyword+"~"+reg+"~"+witel;
+                }
+            }
+        });
+
+        $('#btn_dash_search_aset').click(function(){
+            var jenis_aset = $('input[name=radio_jenis_aset]:checked').val();
+            var keyword = $('#textboxt_dash_cari_aset').val();
+            var reg = $('#dash_regional option:selected').val();
+            var witel = $('#dash_witel option:selected').val();
+            if(jenis_aset == 'lahan'){
+                window.location = baseUrl+"/gis/index.php/dbaset/Index/detailLahanSearch/~"+keyword+"~"+reg+"~"+witel;
+            }else{
+                window.location = baseUrl+"/gis/index.php/dbaset/Index/detailBangunanSearch/~"+keyword+"~"+reg+"~"+witel;
+            }
+            // var reg = $('#dash_regional option:selected').val();
+            // var gsd = $('#dash_gsd option:selected').val();
+            // var witel = $('#dash_witel option:selected').val();
+            // if(reg != null){
+            //     var filter_data = {'dash_id': reg, 'dash_fm' : gsd, 'dash_witel' : witel, 'search_key': $('#textboxt_dash_cari_aset').val()};
+            //     loadData('DashSearchLahan', baseUrl+"/gis/index.php/dbaset/AjaxService/searchMap/", filter_data);
+            // }
+            // var item_selected = $('#search_peta_nasional')[0].selectize.getValue();
+            // if(item_selected != ''){
+        
+            // }
+        });
+
+        $(".dash_search").on("change", function(event){        
+            var dash_jenis_aset = $('#dash_jenis_aset option:selected').val();
+            var dash_dasar = $('#dash_dasar option:selected').val();
+            var dash_option = $('#dash_option').val();
+            if(dash_jenis_aset != '' && dash_dasar != ''){
+                var filter_data = {'dash_jenis_aset': dash_jenis_aset, 'dash_dasar' : dash_dasar, 'dash_option' : dash_option}; //index post : value
+                loadData('DashOptionSearch', baseUrl+"/gis/index.php/dbaset/AjaxService/search_dashboard/", filter_data);
+            }
+        });    
+
+        $('#dash_filter').click(function(){
+            var reg = $('#dash_regional option:selected').val();
+            var gsd = $('#dash_gsd option:selected').val();
+            var witel = $('#dash_witel option:selected').val();
+            if(reg != null){
+                var filter_data = {'dash_id': reg, 'dash_fm' : gsd, 'dash_witel' : witel}; //index post : value
+                if($('#dashboard_page_home').length){ // #dash_page_home = wrapper div id untuk tiap2 halaman
+                    current_page = 'Home';
+                    loadData('Home', baseUrl+"/gis/index.php/dbaset/AjaxService/getSummary/", filter_data);
+                    loadData('Rekapitulasi', baseUrl+"/gis/index.php/dbaset/AjaxService/getRekapitulasi/", filter_data);
+                    loadData('ChartAsetLahan', baseUrl+"/gis/index.php/dbaset/AjaxService/get_aset_lahan_chart/", filter_data);
+                    loadData('ChartAsetGedung', baseUrl+"/gis/index.php/dbaset/AjaxService/get_aset_bangunan_chart/", filter_data);
+                    loadData('ChartPenggunaanBangunan', baseUrl+"/gis/index.php/dbaset/AjaxService/get_occupacy_rate_chart/",filter_data);
+                    loadData('NilaiLaba', baseUrl+"/gis/index.php/dbaset/AjaxService/get_nilai_aset_grafik/", filter_data);
+
+                    if($("#map_dashboard").is(":visible")){
+                        get_sebaran_aset_lahan();
+                    }
+
+                    if($("#detail_lahan").is(":visible")){
+                        loadData('TabelAsetLahan', baseUrl+"/gis/index.php/dbaset/AjaxService/get_aset_lahan/", filter_data);
+                    } 
+                    if($("#detail_gedung").is(":visible")){
+                        loadData('TabelAsetGedung', baseUrl+"/gis/index.php/dbaset/AjaxService/get_aset_bangunan/", filter_data);
+                    }     
+                    if($("#detail_gedung").is(":visible")){
+                        loadData('TabelAsetGedung', baseUrl+"/gis/index.php/dbaset/AjaxService/get_aset_bangunan/", filter_data);
+                    }     
+                    if($("#ocrt_tab").is(":visible")){
+                        loadData('TabelPenggunaanBangunan', baseUrl+"/gis/index.php/dbaset/AjaxService/get_occupacy_rate/", filter_data);
+                    }
+                    if($("#jenis").is(":visible")){
+                        loadData('TabelJenisPenggunaanBangunan', baseUrl+"/gis/index.php/dbaset/AjaxService/get_occupacy_rate_jenis/", filter_data);
+                    } 
+                    if($("#detail_laba").is(":visible")){
+                        loadData('TabelDetailLaba', baseUrl+"/gis/index.php/dbaset/AjaxService/get_detail_laba_bersih/", filter_data);   
+                    }
+                    if($("#rekap_laba").is(":visible")){
+                        loadData('TabelRekapLaba', baseUrl+"/gis/index.php/dbaset/AjaxService/get_laba_bersih/", filter_data);   
+                    }
+                    if($("#nilai_aset").is(":visible")){
+                        loadData('TabelNilaiLaba', baseUrl+"/gis/index.php/dbaset/AjaxService/get_nilai_aset_tab/", filter_data);   
+                    }
+                    if($("#nilai_aset_tab").is(":visible")){  
+                        loadData('TabelNilaiLaba', baseUrl+"/gis/index.php/dbaset/AjaxService/get_nilai_aset_tab/", filter_data);   
+                    }
+                    if($("#aset_sekunder").is(":visible")){
+                        loadData('TabelAsetSekunder', baseUrl+"/gis/index.php/dbaset/AjaxService/get_aset_sekunder/", filter_data);   
+                    }
+                }else if($('#dashboard_page_alert_system').length){
+                    loadData('AlertSystemPermasalahanHukum', baseUrl+"/gis/index.php/dbaset/AjaxService/get_permasalahan_hukum/",filter_data);
+                    loadData('AlertSystemStatMilik', baseUrl+"/gis/index.php/dbaset/AjaxService/get_status_kepemilikan/",filter_data);     
+                    loadData('AlertSystemPerizinan', baseUrl+"/gis/index.php/dbaset/AjaxService/get_perizinan/", filter_data);
+                }else if($('#sebaran_aset_lahan_page').length){
+                    get_sebaran_aset_lahan();
+                }else if($('#dashboard_page_aset_inventory').length){
+                    aset_inv(1);
+                }else if($('#dashboard_page_aset_potensiindikasi').length){
+                    aset_potensi(1);
+                }
+            }else{            
+                alert('Harap pilih data dari dropdown yang disediakan terlebih dahulu');
+            }
+        });
+        
+        function dashRegChange(reg,witel){
+            if(reg != ''){
+                $.ajax({
+                    data: { 'api_key' : localStorage.api_key},
+                    type: 'POST',
+                    url: baseUrl+'/gis/index.php/dbaset/AjaxService/getDataWitelBasedOnReg/'+reg,
+                    dataType: "json",
+                    cache: false,
+                    success: function (data) {
+                        $('#dash_gsd').empty();
+                        $('#dash_witel').empty();
+                        $('#dash_gsd').append($("<option selected='true' disabled='disabled'></option>").attr("value",'').text('Pilih GSD Unit'));
+                        $('#dash_witel').append($("<option selected='true'></option>").attr("value",'').text('Pilih WITEL'));
+                        if(data.auth_status == 1){
+                            // console.log(data);
+                            for(i=0; i<data.witel.length; i++){
+                                if(data.witel[i].ID == witel){
+                                    $('#dash_witel').append("<option value = '"+data.witel[i].ID+"' selected>"+data.witel[i].NAMA+"</option>"); 
+                                }else{
+                                    $('#dash_witel').append($("<option></option>").attr("value",data.witel[i].ID).text(data.witel[i].NAMA)); 
+                                }
+                            }
+                            // $('#content_sub_page').text(current_page);
+                        }else{
+                            // WEB = redirect ke controller login
+                            window.location = baseUrl+"/gis/index.php/dbaset/CUser/fLogin";
+                        }
+                    }
+                });
+            }else{
+                $('#dash_gsd').empty();
+                $('#dash_witel').empty();
+                $('#dash_gsd').append($("<option selected='true' disabled='disabled'></option>").attr("value",'').text('Pilih GSD Unit'));
+                $('#dash_witel').append($("<option selected='true' disabled='disabled'></option>").attr("value",'').text('Pilih WITEL'));
+            }
+        }
+
+        $("#dash_regional").on("change", function(event){
+            var reg = $('#dash_regional option:selected').val();
+            if(reg != ''){
+                $.ajax({
+                    data: { 'api_key' : localStorage.api_key},
+                    type: 'POST',
+                    url: baseUrl+'/gis/index.php/dbaset/AjaxService/getDataWitelBasedOnReg/'+reg,
+                    dataType: "json",
+                    cache: false,
+                    success: function (data) {
+                        $('#dash_gsd').empty();
+                        $('#dash_witel').empty();
+                        $('#dash_gsd').append($("<option selected='true' disabled='disabled'></option>").attr("value",'').text('Pilih GSD Unit'));
+                        $('#dash_witel').append($("<option selected='true'></option>").attr("value",'').text('Pilih WITEL'));
+                        if(data.auth_status == 1){
+                            // console.log(data);
+                            for(i=0; i<data.witel.length; i++){
+                                $('#dash_witel').append($("<option></option>").attr("value",data.witel[i].ID).text(data.witel[i].NAMA)); 
+                            }
+                            // $('#content_sub_page').text(current_page);
+                        }else{
+                            // WEB = redirect ke controller login
+                            window.location = baseUrl+"/gis/index.php/dbaset/CUser/fLogin";
+                        }
+                    }
+                });
+            }else{
+                $('#dash_gsd').empty();
+                $('#dash_witel').empty();
+                $('#dash_gsd').append($("<option selected='true' disabled='disabled'></option>").attr("value",'').text('Pilih GSD Unit'));
+                $('#dash_witel').append($("<option selected='true' disabled='disabled'></option>").attr("value",'').text('Pilih WITEL'));
+            }
+            if($('#dashboard_page_aset_detaillahan').length){
+                dash_detail_lahan(1);
+            }else if($('#dashboard_page_aset_detailbangunan').length){
+                dash_detail_bangunan(1);
+            }
+        });
+
+        $("#dash_gsd").on("change", function(event){
+            var gsd = $('#dash_gsd option:selected').val();
+            $.ajax({
+                data: { 'api_key' : localStorage.api_key},
+                type: 'POST',
+                url: baseUrl+'/gis/index.php/dbaset/AjaxService/getDataWitel/'+gsd,
+                dataType: "json",
+                cache: false,
+                success: function (data) {
+                    $('#dash_witel').empty();
+                    $('#dash_witel').append($("<option selected='true' disabled='disabled'></option>").attr("value",'').text('Pilih WITEL'));
+                    if(data.auth_status == 1){
+                        for(i=0; i<data.witel.length; i++){
+                            $('#dash_witel').append($("<option></option>").attr("value",data.witel[i].ID).text(data.witel[i].NAMA)); 
+                        }
+                        // $('#content_sub_page').text(current_page);
+                    }else{
+                        // WEB = redirect ke controller login
+                        window.location = baseUrl+"/gis/index.php/dbaset/CUser/fLogin";
+                    }
+                }
+            });
+        });
+
+        //peta nasional
+
+        $('#cari_aset_lahan_modal_btn').click(function(){
+            $('#informasi_gsd').modal('hide');
+
+            var reg = $('#id_reg_modal').text();
+            var gsd = $('#id_gsd_modal').text();
+            var witel = $('#dash_witel_peta option:selected').val();
+            var filter_data = {'dash_id': reg, 'dash_fm' : gsd, 'dash_witel' : witel};
+            console.log(filter_data);
+            loadData('GetSebaranAsetLahanDariModalGSD', baseUrl+"/gis/index.php/dbaset/AjaxService/ajax_ambil_sebaran_aset_lahan/", filter_data);
+        });
+
+        function modal_peta_nasional_data_gsd(gsd){
+
+            $('#modal_header_informasi_gsd').html('<h4 class="modal-title">'+ gsd.NAMA_UNIT +' <small> Regional : '+ gsd.TREG_ID +' </small></h4>');
+            $('#modal_thead_informasi_gsd').html(
+                '<tr style="background-color: red;color:#ffffff;">'+
+                    '<th>ID</th>'+
+                    '<th id = "id_gsd_modal">'+ gsd.ID +'</th>'+
+                '</tr>'
+            );
+            var modal_body = '';
+            modal_body += 
+            $('#modal_tbody_informasi_gsd').html(
+                '<tr>'+
+                    '<th>Nama Unit</th>'+
+                    '<th>'+ gsd.NAMA_UNIT +'</th>'+
+                '</tr>'+
+                '<tr>'+
+                    '<th>Regional</th>'+
+                    '<th id = "id_reg_modal">'+ gsd.TREG_ID +'</th>'+
+                '</tr>'+
+                '<tr>'+
+                    '<th>COOR X</th>'+
+                    '<th>'+ gsd.COOR_X +'</th>'+
+                '</tr>'+
+                '<tr>'+
+                    '<th>COOR Y</th>'+
+                    '<th>'+ gsd.COOR_Y +'</th>'+
+                '</tr>'+
+                '<tr>'+
+                    '<th>Kode FM SAP</th>'+
+                    '<th>'+ gsd.KODE_FM_SAP +'</th>'+
+                '</tr>'+
+                '<tr>'+
+                    '<th>Wilayah Telkom</th>'+
+                    '<th><select class="form-control input-sm" id="dash_witel_peta" required = "required">'+
+                            '<option value="" selected="true" disabled="disabled">Pilih WITEL</option>'+
+                        '</select>'+
+                    '</th>'+
+                '</tr>'
+            );
+
+            loadData('dashWitelTelkom', baseUrl+'/gis/index.php/dbaset/AjaxService/getDataWitel/'+ gsd.ID +'');
+            
+            $('#informasi_gsd').modal('show');
+        }
+
+        function InfoWindowLahan(id_lahan){
+            loadData('modalPetaInformasiAset','GET',"{{ url('sima-dash/detail-lahan') }}", {'id_areal': id_lahan});
+        }
+        function InfoWindowGedung(id_lahan){
+            loadData('modalPetaInformasiAsetBangunan',"GET","{{ url('sima-dash/detail-bangunan') }}", {'id_gedung': id_gedung});
+        }
+
+        
+        /* SETTING */
+        function set_ocrt_type(){
+            /* Setting Occupacy Rate Type Radio Button */
+            $('input:radio[name="type"]').change(function(){
+                var value = $('input:radio[name="type"]:checked').val();
+                if(value=='telkom'){
+                    $(".ocrt_telkom").show();
+                    $(".ocrt_telkom_grup").hide();
+                    $(".ocrt_telkomsel").hide();
+                    $(".ocrt_non_telkom").hide();
+                }else if(value=='telkom_group'){
+                    $(".ocrt_telkom").hide();
+                    $(".ocrt_telkom_grup").show();
+                    $(".ocrt_telkomsel").hide();
+                    $(".ocrt_non_telkom").hide();
+                }else if(value=='telkomsel'){
+                    $(".ocrt_telkom").hide();
+                    $(".ocrt_telkom_grup").hide();
+                    $(".ocrt_telkomsel").show();
+                    $(".ocrt_non_telkom").hide();
+                }else if(value=='non_telkom_group'){
+                    $(".ocrt_telkom").hide();
+                    $(".ocrt_telkom_grup").hide();
+                    $(".ocrt_telkomsel").hide();
+                    $(".ocrt_non_telkom").show();
+                }
+            });
+        }
+
+        $('.carousel-control.left').click(function() {
+            $('#myCarousel').carousel('prev');
+        });
+        
+        $('.carousel-control.right').click(function() {
+            $('#myCarousel').carousel('next');
+        });
+
+        $('#btn_map_gsd_unit').click(function(){
+            loadData('PetaGSD', baseUrl+"/gis/index.php/dbaset/AjaxService/getDataGSD/nasional");
+        });
+
+        $('#btn_map_regional').click(function(){
+            loadData('HomePetaNasional','GET',"{{ url('sima-dash/summary') }}");
+        });
+
+        $('#btn_aset_lahan_nasional').click(function(){
+            loadData('HomePetaAsetLahan', baseUrl+"/gis/index.php/dbaset/AjaxService/get_aset_lahan_chart_nasional/");        
+        });
+        
+        $('#btn_aset_gedung_nasional').click(function(){
+            loadData('HomePetaAsetGedung', baseUrl+"/gis/index.php/dbaset/AjaxService/get_aset_bangunan_chart_nasional/");
+        });
+
+        $('#btn_digunakan_nasional').click(function(){
+            loadData('HomePetaPenggunaan', baseUrl+"/gis/index.php/dbaset/AjaxService/get_occupacy_rate_chart_nasional/");
+        });
+
+        $('#btn_laba_bersih_nasional').click(function(){
+            loadData('HomePetaLaba', baseUrl+"/gis/index.php/dbaset/AjaxService/get_nilai_aset_grafik_nasional/");        
+        });
+
+        $('#btn_aset_sekunder_nasional').click(function(){
+            loadData('HomePetaAsetSekunder', baseUrl+"/gis/index.php/dbaset/AjaxService/get_aset_sekunder_chart_nasional/");
+        });
+        
+        function map_hasil_search(lahan){
+            // console.log(lahan);
+            map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 10,
+                center: {lat: parseFloat(lahan[0].COOR_Y), lng: parseFloat(lahan[0].COOR_X) },
+                styles: [
+                    {
+                        featureType: "poi",
+                        stylers: [{ visibility: "off" }] 
+                    }
+                ]
+            });
+            marker_coordinate = [];
+            for(i=0;i<lahan.length;i++){
+                var filter_data = {'id_areal': lahan[i].IDAREAL};
+                var marker = new google.maps.Marker({
+                    position: {lat: parseFloat(lahan[i].COOR_Y), lng: parseFloat(lahan[i].COOR_X) },
+                    icon: "{{ url('img/gis-map/locationIconRed.png') }}",
+                    map: map
+                });
+
+                marker_coordinate.push(marker);                                        
+                var id_lahan = lahan[i].IDAREAL;            
+                (function (marker, filter_data) {
+                    google.maps.event.addListener(marker, "click", function (e) {
+                        loadData('modalPetaInformasiAset','GET',"{{ url('sima-dash/detail-lahan') }}", {'id_areal': id_lahan});
+                        map.setZoom(12);
+                        map.panTo(this.getPosition());
+                    });
+                })(marker, filter_data);
+            }
+        }
+
+        /* Daftar Aset */
+
+        function pagination_array_process(f,e,a,p){
+            // f = first page
+            // e = total page
+            // a = page number
+            // p = previously selected page
+            // dp = data per page
+            // li = list (html element)
+            
+            var li = '<ul class="pagination pull-right">';
+
+            if(a == 'Next'){
+                a = p+1;
+            }else if(a == 'Previous'){
+                a = p-1;         
+            }else{
+                a = parseInt(a);
+            }
+
+            if(e >= 8){
+                if(a <= 4){
+                    if(a==1){
+                        li+=    "<li class='disabled'>"+
+                                    "<a href='#'>Previous</a>"+
+                                "</li>";
+                    }else{
+                        li+=    "<li class='paginate_button '>"+
+                                    "<a href='#'>Previous</a>"+
+                                "</li>";
+                    }
+                    for(i=0;i<5;i++){
+                        if(i+1 == a){
+                            li+=    "<li class='paginate_button active'>"+
+                                        "<a href='#'>"+ (i+1) +"</a>"+
+                                    "</li>";
+                        }else{
+                            li+=    "<li class='paginate_button '>"+
+                                        "<a href='#'>"+ (i+1) +"</a>"+
+                                    "</li>";
+                        }
+                    }
+                    li+=    "<li class='disabled'>"+
+                                "<a href='#'>...</a>"+
+                            "</li>"+
+                            "<li class='paginate_button last_page'>"+
+                                "<a href='#'>"+ e +"</a>"+
+                            "</li>"+
+                            "<li class='paginate_button '>"+
+                                "<a href='#'>Next</a>"+
+                            "</li>";
+                }else if(a >= e-3){
+                    li+=    "<li class='paginate_button '>"+
+                                "<a href='#'>Previous</a>"+
+                            "</li>"+
+                            "<li class='paginate_button '>"+
+                                "<a href='#'>1</a>"+
+                            "</li>"+
+                            "<li class='disabled'>"+
+                                "<a href='#'>...</a>"+
+                            "</li>";
+                    for(i=e-4;i<=e;i++){
+                        if(i == a){
+                            if(i == e){
+                                li+= "<li class='paginate_button active last_page'>"+
+                                        "<a href='#'>"+ i +"</a>"+
+                                    "</li>";
+                            }else{
+                                li+= "<li class='paginate_button active'>"+
+                                        "<a href='#'>"+ i +"</a>"+
+                                    "</li>";
+                            }
+                        }else{
+                            if(i == e){
+                                li+= "<li class='paginate_button last_page'>"+
+                                        "<a href='#'>"+ i +"</a>"+
+                                    "</li>";
+                            }else{
+                                li+= "<li class='paginate_button'>"+
+                                        "<a href='#'>"+ i +"</a>"+
+                                    "</li>";
+                            }
+                        }
+                    }
+                    if(a==e){
+                        li+=    "<li class='disabled'>"+
+                                    "<a href='#'>Next</a>"+
+                                "</li>";
+                    }else{
+                        li+=    "<li class='paginate_button '>"+
+                                    "<a href='#'>Next</a>"+
+                                "</li>";
+                    }
+                }else{
+                    li+=    "<li class='paginate_button '>"+
+                                "<a href='#'>Previous</a>"+
+                            "</li>"+
+                            "<li class='paginate_button '>"+
+                                "<a href='#'>1</a>"+
+                            "</li>"+
+                            "<li class='disabled'>"+
+                                "<a href='#'>...</a>"+
+                            "</li>"+
+                            "<li class='paginate_button '>"+
+                                "<a href='#'>"+ (a-1) +"</a>"+
+                            "</li>"+
+                            "<li class='paginate_button active'>"+
+                                "<a href='#'>"+ a +"</a>"+
+                            "</li>"+
+                            "<li class='paginate_button '>"+
+                                "<a href='#'>"+ (a+1) +"</a>"+
+                            "</li>"+
+                            "<li class='disabled'>"+
+                                "<a href='#'>...</a>"+
+                            "</li>"+
+                            "<li class='paginate_button last_page'>"+
+                                "<a href='#'>"+ e +"</a>"+
+                            "</li>"+
+                            "<li class='paginate_button '>"+
+                                "<a href='#'>Next</a>"+
+                            "</li>";
+                }
+            }else{
+                if(a==1){
+                    li+=    "<li class='disabled'>"+
+                                "<a href='#'>Previous</a>"+
+                            "</li>";
+                }else{
+                    li+=    "<li class='paginate_button '>"+
+                                "<a href='#'>Previous</a>"+
+                            "</li>";
+                }
+                for(i=0;i<e;i++){
+                    if(i+1 == a){
+                        if(i+1 == e){
+                            li+= "<li class='paginate_button active last_page'>"+
+                                    "<a href='#'>"+ (i+1) +"</a>"+
+                                "</li>";
+                        }else{
+                            li+= "<li class='paginate_button active'>"+
+                                    "<a href='#'>"+ (i+1) +"</a>"+
+                                "</li>";
+                        }
+                    }else{
+                        if(i+1 == e){
+                            li+= "<li class='paginate_button last_page'>"+
+                                    "<a href='#'>"+ (i+1) +"</a>"+
+                                "</li>";
+                        }else{
+                            li+= "<li class='paginate_button '>"+
+                                    "<a href='#'>"+ (i+1) +"</a>"+
+                                "</li>";
+                        }
+                    }
+                }
+                if(a==e){
+                    li+=    "<li class='disabled'>"+
+                                "<a href='#'>Next</a>"+
+                            "</li>";
+                }else{
+                    li+=    "<li class='paginate_button '>"+
+                                "<a href='#'>Next</a>"+
+                            "</li>";
+                }
+            }
+
+            li+="</ul>";
+
+            $('#pagination_array').html('');
+            $('#pagination_array').html(li);
+        }
+
+        function pagination_process(f,e,a,p){
+            // f = first page
+            // e = total page
+            // a = page number
+            // p = previously selected page
+            // dp = data per page
+            // li = list (html element)
+            
+            var li = '<ul class="pagination pull-right">';
+
+            if(a == 'Next'){
+                a = p+1;
+            }else if(a == 'Previous'){
+                a = p-1;         
+            }else{
+                a = parseInt(a);
+            }
+
+            if(e >= 8){
+                if(a <= 4){
+                    if(a==1){
+                        li+=    "<li class='disabled'>"+
+                                    "<a href='#'>Previous</a>"+
+                                "</li>";
+                    }else{
+                        li+=    "<li class='paginate_button '>"+
+                                    "<a href='#'>Previous</a>"+
+                                "</li>";
+                    }
+                    for(i=0;i<5;i++){
+                        if(i+1 == a){
+                            li+=    "<li class='paginate_button active'>"+
+                                        "<a href='#'>"+ (i+1) +"</a>"+
+                                    "</li>";
+                        }else{
+                            li+=    "<li class='paginate_button '>"+
+                                        "<a href='#'>"+ (i+1) +"</a>"+
+                                    "</li>";
+                        }
+                    }
+                    li+=    "<li class='disabled'>"+
+                                "<a href='#'>...</a>"+
+                            "</li>"+
+                            "<li class='paginate_button last_page'>"+
+                                "<a href='#'>"+ e +"</a>"+
+                            "</li>"+
+                            "<li class='paginate_button '>"+
+                                "<a href='#'>Next</a>"+
+                            "</li>";
+                }else if(a >= e-3){
+                    li+=    "<li class='paginate_button '>"+
+                                "<a href='#'>Previous</a>"+
+                            "</li>"+
+                            "<li class='paginate_button '>"+
+                                "<a href='#'>1</a>"+
+                            "</li>"+
+                            "<li class='disabled'>"+
+                                "<a href='#'>...</a>"+
+                            "</li>";
+                    for(i=e-4;i<=e;i++){
+                        if(i == a){
+                            if(i == e){
+                                li+= "<li class='paginate_button active last_page'>"+
+                                        "<a href='#'>"+ i +"</a>"+
+                                    "</li>";
+                            }else{
+                                li+= "<li class='paginate_button active'>"+
+                                        "<a href='#'>"+ i +"</a>"+
+                                    "</li>";
+                            }
+                        }else{
+                            if(i == e){
+                                li+= "<li class='paginate_button last_page'>"+
+                                        "<a href='#'>"+ i +"</a>"+
+                                    "</li>";
+                            }else{
+                                li+= "<li class='paginate_button'>"+
+                                        "<a href='#'>"+ i +"</a>"+
+                                    "</li>";
+                            }
+                        }
+                    }
+                    if(a==e){
+                        li+=    "<li class='disabled'>"+
+                                    "<a href='#'>Next</a>"+
+                                "</li>";
+                    }else{
+                        li+=    "<li class='paginate_button '>"+
+                                    "<a href='#'>Next</a>"+
+                                "</li>";
+                    }
+                }else{
+                    li+=    "<li class='paginate_button '>"+
+                                "<a href='#'>Previous</a>"+
+                            "</li>"+
+                            "<li class='paginate_button '>"+
+                                "<a href='#'>1</a>"+
+                            "</li>"+
+                            "<li class='disabled'>"+
+                                "<a href='#'>...</a>"+
+                            "</li>"+
+                            "<li class='paginate_button '>"+
+                                "<a href='#'>"+ (a-1) +"</a>"+
+                            "</li>"+
+                            "<li class='paginate_button active'>"+
+                                "<a href='#'>"+ a +"</a>"+
+                            "</li>"+
+                            "<li class='paginate_button '>"+
+                                "<a href='#'>"+ (a+1) +"</a>"+
+                            "</li>"+
+                            "<li class='disabled'>"+
+                                "<a href='#'>...</a>"+
+                            "</li>"+
+                            "<li class='paginate_button last_page'>"+
+                                "<a href='#'>"+ e +"</a>"+
+                            "</li>"+
+                            "<li class='paginate_button '>"+
+                                "<a href='#'>Next</a>"+
+                            "</li>";
+                }
+            }else{
+                if(a==1){
+                    li+=    "<li class='disabled'>"+
+                                "<a href='#'>Previous</a>"+
+                            "</li>";
+                }else{
+                    li+=    "<li class='paginate_button '>"+
+                                "<a href='#'>Previous</a>"+
+                            "</li>";
+                }
+                for(i=0;i<e;i++){
+                    if(i+1 == a){
+                        if(i+1 == e){
+                            li+= "<li class='paginate_button active last_page'>"+
+                                    "<a href='#'>"+ (i+1) +"</a>"+
+                                "</li>";
+                        }else{
+                            li+= "<li class='paginate_button active'>"+
+                                    "<a href='#'>"+ (i+1) +"</a>"+
+                                "</li>";
+                        }
+                    }else{
+                        if(i+1 == e){
+                            li+= "<li class='paginate_button last_page'>"+
+                                    "<a href='#'>"+ (i+1) +"</a>"+
+                                "</li>";
+                        }else{
+                            li+= "<li class='paginate_button '>"+
+                                    "<a href='#'>"+ (i+1) +"</a>"+
+                                "</li>";
+                        }
+                    }
+                }
+                if(a==e){
+                    li+=    "<li class='disabled'>"+
+                                "<a href='#'>Next</a>"+
+                            "</li>";
+                }else{
+                    li+=    "<li class='paginate_button '>"+
+                                "<a href='#'>Next</a>"+
+                            "</li>";
+                }
+            }
+
+            li+="</ul>";
+
+            $('#pagination').html('');
+            $('#pagination').html(li);
+        }
+
+        $('#pagination_array').on('click', '.paginate_button', function(event){
+            // f = first page
+            // e = total page
+            // a = page number
+            // p = previously selected page
+            // dp = data per page
+            // li = list (html element)
+            event.preventDefault(); 
+            
+            var f = 1;
+            var e = parseInt($('#pagination_array').find('.last_page').text());   
+            var a = $(this).find('a').text();
+            var p = parseInt($('#pagination_array').find('.active').text());  
+            var dp = $('#select_show_per_page').val();      
+
+            if(a == 'Next'){
+                a = p+1;
+            }else if(a == 'Previous'){
+                a = p-1;         
+            }else{
+                a = parseInt(a);
+            }
+
+            var start_data = (a*dp)-dp;
+            var end_data = (a*dp);
+
+            if( $('#search_key_info').is(':empty') ) {
+                daftar_aset = daftar_aset_dash;           
+            }else{
+                daftar_aset = daftar_aset_dash_filtered; 
+            }
+
+            var ctr = 0;
+            var data_aset_filtered = new Array();
+            for(i=start_data; i<end_data;i++){
+                if(typeof daftar_aset[i] != "undefined"){
+                    data_aset_filtered[ctr] = daftar_aset[i];  
+                }
+                ctr++;
+            }
+
+            data = Array();
+            data.daftar = data_aset_filtered;
+
+            $('#table_aset_filter').html('');
+            for(i=0; i<data.daftar.length;i++){
+                if(typeof data.daftar[i].id_gedung === 'undefined' || !data.daftar[i].id_gedung){
+                    if(typeof data.daftar[i] != 'undefined'){
+                        if(typeof data.daftar[i].FILE_PATH === 'undefined' || !data.daftar[i].FILE_PATH){
+                            var path_lahan_image = "/img/gis_img/telkom-gbr-tkd-sedia.png";
+                        }else{
+                            var path_lahan_image = data.daftar[i].FILE_PATH;
+                        }
+                        $('#table_aset_filter').append(
+                            '<div class="panel panel-dafault pull-left" style="width:100%">'+
+                                '<div class="panel panel-default">'+
+                                    '<div class="panel-body">'+
+                                        '<div class="row" >'+
+                                            '<div class="col-md-4">'+
+                                                '<img style = "width:193px;height:80px;" class="img-responsive center-block" src='+baseUrl+'/gis/assets/'+ path_lahan_image +'>'+
+                                            '</div>'+
+                                            '<div class="col-md-8">'+
+                                                '<b>#<span class = "idareal_daftar_aset">'+ data.daftar[i].IDAREAL +'</span></b><br>'+
+                                                '<b>'+ data.daftar[i].NAMA_LAHAN +'</b>'+
+                                                '<br>'+ data.daftar[i].ALAMAT +
+                                                '<br>Luas Lahan : '+ sepNum2(data.daftar[i].LUAS_LAHAN) +' m<sup style="font-size: 8px"> 2 </sup> '+
+                                            '</div>'+
+                                        '</div>'+
+                                        '<br>'+    
+                                        '<div class="row">'+
+                                            "<div class='col-md-4'>"+
+                                                '<!-- small box -->'+
+                                                '<div class="small-box bg-green" style="height: 80px">'+
+                                                    '<div class="inner">'+
+                                                        '<h3>'+
+                                                            '<span style="font-size: 20px" class="pull-right"> '+ sepNum2(data.daftar[i].ocrt_telkom)+' <sup style="font-size: 8px"> % </sup> '+
+                                                            '</span>'+
+                                                        '</h3>'+
+                                                        '<br>'+
+                                                        '<p>'+
+                                                            '<rap> Penggunaan </rap>'+
+                                                        '</p>'+
+                                                    '</div>'+
+                                                '</div>'+
+                                            '</div>'+
+                                            "<div class='col-md-4'>"+
+                                                '<!-- small box -->'+
+                                                '<div class="small-box bg-yellow" style="height: 80px">'+
+                                                    '<div class="inner">'+
+                                                        '<h3>'+
+                                                            '<span style="font-size: 20px" class="pull-right">'+ data.daftar[i].NAMA_STATUS_KEPEMILIKAN +'</span>'+
+                                                        '</h3>'+
+                                                        '<br>'+
+                                                        '<p>'+
+                                                            '<rap>Status Kepemilikan</rap>'+
+                                                        '</p>'+
+                                                    '</div>'+
+                                                '</div>'+
+                                            '</div>'+
+                                            "<div class='col-md-4'>"+
+                                                '<!-- small box -->'+
+                                                '<div class="small-box bg-red" style="height: 80px">'+
+                                                    '<div class="inner">'+
+                                                        '<h3>'+
+                                                            '<span style="font-size: 20px" class="pull-right"> '+ data.daftar[i].NAMA_KLASIFIKASI +
+                                                        '</h3>'+
+                                                        '<br>'+
+                                                        '<p>'+
+                                                            '<rap>Klasifikasi Aset</rap>'+
+                                                        '</p>'+
+                                                    '</div>'+
+                                                '</div>'+
+                                            '</div>'+
+                                        '</div>'+
+                                        "<div class='row'>"+
+                                            "<div class = 'col-md-6'>"+
+                                                '<a href="#" style="margin-left: 15px;" class="detailDaftarAsetGedung pull-left">'+
+                                                    '<b>Detail Gedung </b>'+
+                                                    '<i class="fa fa-chevron-down"></i>'+
+                                                '</a>'+
+                                            "</div>"+
+                                            "<div class = 'col-md-6'>"+
+                                                '<a href="#" style="margin-right: 15px;" id = "'+data.daftar[i].IDAREAL+'_'+data.daftar[i].NAMA_LAHAN+'_'+data.daftar[i].COOR_Y+'_'+data.daftar[i].COOR_X+'" class="detailFilter pull-right">'+
+                                                    '<b>Detail Aset</b>'+
+                                                    '<i class="fa fa-chevron-down"></i>'+
+                                                '</a>'+
+                                            "</div>"+
+                                        '</div>'+
+                                        "<div class='row detailGedungPerLahanMap' style='font-size:10px;margin-left: 15px;'>"+
+                                        '</div>'+
+                                    '</div>'+
+                                '</div>'+
+                            '</div>'
+                        );
+                    }
+                }else{
+                    if(typeof data.daftar != 'undefined' ){
+                        if(typeof data.daftar[i].path_gedung_image === 'undefined' || !data.daftar[i].path_gedung_image){
+                            var path_gedung_image = "/img/gis_img/telkom-gbr-tkd-sedia.png";
+                        }else{
+                            var path_gedung_image = data.daftar[i].FILE_PATH;
+                        }
+                        $('#table_aset_filter').append(
+                            '<div class="panel panel-dafault pull-left" style="width:100%">'+
+                                '<div class="panel panel-default">'+
+                                    '<div class="panel-body">'+
+                                        '<div class="row" >'+
+                                            '<div class="col-md-4">'+
+                                                '<img style = "width:193px;height:80px;" class="img-responsive center-block" src='+baseUrl+'/gis/assets/'+ path_gedung_image +'>'+
+                                            '</div>'+
+                                            '<div class="col-md-8">'+
+                                                '<b>id lahan : #<span class = "idareal_daftar_aset">'+ data.daftar[i].IDAREAL +'</span></b><br>'+
+                                                '<b>id gedung : #<span class = "idgedung_daftar_aset">'+ data.daftar[i].id_gedung +'</span></b><br>'+
+                                                '<b>'+ data.daftar[i].nama_gedung +'</b>'+
+                                                '<br>'+ data.daftar[i].alamat +
+                                                '<br>Luas Bangunan : '+ sepNum2(data.daftar[i].luas_bangunan) +' m<sup style="font-size: 8px"> 2 </sup> '+
+                                            '</div>'+
+                                        '</div>'+
+                                        '<br>'+    
+                                        '<div class="row">'+
+                                            "<div class='col-md-4'>"+
+                                                '<!-- small box -->'+
+                                                '<div class="small-box bg-green" style="height: 80px">'+
+                                                    '<div class="inner">'+
+                                                        '<h3>'+
+                                                            '<span style="font-size: 20px" class="pull-right"> '+ sepNum2(data.daftar[i].ocrt_telkom)+' <sup style="font-size: 8px"> % </sup> '+
+                                                            '</span>'+
+                                                        '</h3>'+
+                                                        '<br>'+
+                                                        '<p>'+
+                                                            '<rap> Penggunaan </rap>'+
+                                                        '</p>'+
+                                                    '</div>'+
+                                                '</div>'+
+                                            '</div>'+
+                                            "<div class='col-md-4'>"+
+                                                '<!-- small box -->'+
+                                                '<div class="small-box bg-yellow" style="height: 80px">'+
+                                                    '<div class="inner">'+
+                                                        '<h3>'+
+                                                            '<span style="font-size: 20px" class="pull-right">'+ data.daftar[i].jml_lantai +' Lt'+
+                                                        '</h3>'+
+                                                        '<br>'+
+                                                        '<p>'+
+                                                            '<rap>Jumlah Lantai</rap>'+
+                                                        '</p>'+
+                                                    '</div>'+
+                                                '</div>'+
+                                            '</div>'+
+                                            "<div class='col-md-4'>"+
+                                                '<!-- small box -->'+
+                                                '<div class="small-box bg-red" style="height: 80px">'+
+                                                    '<div class="inner">'+
+                                                        '<h3>'+
+                                                            '<span style="font-size: 20px" class="pull-right"> '+ data.daftar[i].saleable_area +' m'+
+                                                        '</h3>'+
+                                                        '<br>'+
+                                                        '<p>'+
+                                                            '<rap>Saleable Area</rap>'+
+                                                        '</p>'+
+                                                    '</div>'+
+                                                '</div>'+
+                                            '</div>'+
+                                        '</div>'+
+                                        "<div class='row'>"+
+                                            "<div class = 'col-md-6'>"+
+                                                '<a href="#" style="margin-left: 15px;" class="detailDaftarAsetLahan pull-left">'+
+                                                    '<b>Detail Lahan </b>'+
+                                                    '<i class="fa fa-chevron-down"></i>'+
+                                                '</a>'+
+                                            "</div>"+
+                                            "<div class = 'col-md-6'>"+
+                                                '<a href="#" style="margin-right: 15px;" id = "'+data.daftar[i].IDAREAL+'_'+data.daftar[i].NAMA_LAHAN+'_'+data.daftar[i].COOR_Y+'_'+data.daftar[i].COOR_X+'" class="detailFilterBangunan pull-right">'+
+                                                    '<b>Detail Aset</b>'+
+                                                    '<i class="fa fa-chevron-down"></i>'+
+                                                '</a>'+
+                                            "</div>"+
+                                        '</div>'+
+                                        "<div class='row detailLahanPerGedungMap' style='margin-left: 15px;'>"+
+                                        '</div>'+
+                                    '</div>'+
+                                '</div>'+
+                            '</div>'
+                        );
+                    }
+                }
+            }
+
+            map_filter(data.daftar);
+
+            $('#table_aset_filter').append(
+                'Tampil <span class="table-start-rows">'+ (start_data+1) +'</span> Sampai <span class="table-end-rows">'+ (start_data+data.daftar.length) +'</span> Dari <span class="table-total-row">'+(daftar_aset.length)+'</span> Data'
+            );
+
+            pagination_array_process(f,e,a,p);
+        });
+
+        $('#pagination').on('click', '.paginate_button', function(){
+            // f = first page
+            // e = total page
+            // a = page number
+            // p = previously selected page
+            // dp = data per page
+            // li = list (html element)
+            
+            var f = 1;
+            var e = parseInt($('#pagination').find('.last_page').text());   
+            var a = $(this).find('a').text();
+            var p = parseInt($('#pagination').find('.active').text());  
+
+            pagination_process(f,e,a,p);
+
+            if($('#dashboard_page_aset_inventory').length){
+                aset_inv(a);
+            }else if($('#dashboard_page_aset_utilisasi').length){
+                aset_util(a);
+            }else if($('#dashboard_page_aset_potensiindikasi').length){
+                aset_potensi(a);
+            }else if($('#dashboard_page_aset_detaillahan').length){
+                dash_detail_lahan(a);
+            }else if($('#dashboard_page_aset_detailbangunan').length){
+                dash_detail_bangunan(a);
+            }
+        });
+
+        function get_daftar_aset(){
+            var reg = $('#dash_regional option:selected').val();
+            var gsd = $('#dash_gsd option:selected').val();
+            var witel = $('#dash_witel option:selected').val();
+            var filter_data = {'dash_id': reg, 'dash_fm' : gsd, 'dash_witel' : witel};
+            loadData('GetSebaranAsetLahan', baseUrl+"/gis/index.php/dbaset/AjaxService/ajax_ambil_daftar_aset/", filter_data);
+        }
+
+        /* sebaran aset lahan */
+
+        function get_sebaran_aset_lahan(){
+            var reg = $('#dash_regional option:selected').val();
+            var gsd = $('#dash_gsd option:selected').val();
+            var witel = $('#dash_witel option:selected').val();
+            var filter_data = {'dash_id': reg, 'dash_fm' : gsd, 'dash_witel' : witel};
+            // if(reg != "" && witel != ""){
+                loadData('GetSebaranAsetLahan', baseUrl+"/gis/index.php/dbaset/AjaxService/ajax_ambil_sebaran_aset_lahan/", filter_data);
+            // }else{
+            //     loadData('GetSebaranAsetLahanIDTregNull', baseUrl+"/gis/index.php/dbaset/AjaxService/ajax_ambil_gsd_unit_data/", filter_data);
+            // }
+        }
+        
+        function map_sebaran_aset(data_filter, data_id_areals){
+            map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 7,
+                center: {lat: parseFloat(data_filter[0][1]), lng: parseFloat(data_filter[0][2]) },
+                styles: [
+                    {
+                        featureType: "poi",
+                        stylers: [{ visibility: "off" }] 
+                    }
+                ]
+            });
+            marker_coordinate = [];
+            for(i=0;i<data_filter.length;i++){
+                var filter_data = {'id_areal': data_id_areals[i]};
+                var marker = new google.maps.Marker({
+                    position: {lat: parseFloat(data_filter[i][1]), lng: parseFloat(data_filter[i][2]) },
+                    icon: "{{ url('img/gis-map/locationIconRed.png') }}",
+                    map: map
+                });
+                
+                marker_coordinate.push(marker);                             
+                var id_lahan = data_id_areals[i];
+                (function (marker, filter_data) {
+                    google.maps.event.addListener(marker, "click", function (e) {;
+                        loadData('modalPetaInformasiAset','GET',"{{ url('sima-dash/detail-lahan') }}", {'id_areal': id_lahan});
+                        map.setZoom(12);
+                        map.panTo(this.getPosition());
+                    });
+                })(marker, filter_data);
+            }
+        }
+
+        function map_sebaran_aset_dari_modal_gsd(data_filter, data_id_areals){
+            map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 7,
+                center: {lat: parseFloat(data_filter[0][1]), lng: parseFloat(data_filter[0][2]) },
+                styles: [
+                    {
+                        featureType: "poi",
+                        stylers: [{ visibility: "off" }] 
+                    }
+                ]
+            }); 
+            marker_coordinate = [];
+            for(i=0;i<data_filter.length;i++){
+                var filter_data = {'id_areal': data_id_areals[i]};
+                var marker = new google.maps.Marker({
+                    position: {lat: parseFloat(data_filter[i][1]), lng: parseFloat(data_filter[i][2]) },
+                    icon: "{{ url('img/gis-map/locationIconRed.png') }}",
+                    map: map
+                });
+
+                marker_coordinate.push(marker);                             
+                
+                var content = ' #'+ data_id_areals[i] +' <br/> '+data_filter[i][0]+' ';   
+
+                var infowindow = new google.maps.InfoWindow()
+
+                google.maps.event.addListener(marker,'mouseover', (function(marker,content,infowindow){ 
+                    return function() {
+                        infowindow.setContent(content);
+                        infowindow.open(map,marker);
+                    };
+                })(marker,content,infowindow));
+                
+                google.maps.event.addListener(marker,'mouseout', (function(marker,content,infowindow){ 
+                    return function() {
+                        infowindow.close();
+                    };
+                })(marker,content,infowindow));
+                var id_lahan = filter_data.id_areal;
+                (function (marker, filter_data) {
+                    google.maps.event.addListener(marker, "click", function (e) {
+                        id_lahan = filter_data.id_areal; 
+                        loadData('modalPetaInformasiAset','GET',"{{ url('sima-dash/detail-lahan') }}", {'id_areal': id_lahan});
+                        map.setZoom(12);
+                        map.panTo(this.getPosition());
+                    });
+                })(marker, filter_data);
+            }
+        }
+
+        function map_sebaran_aset_dari_modal_gsd_bangunan(data_filter, data_id_areals, data_id_gedung){
+            map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 7,
+                center: {lat: parseFloat(data_filter[0][1]), lng: parseFloat(data_filter[0][2]) },
+                styles: [
+                    {
+                        featureType: "poi",
+                        stylers: [{ visibility: "off" }] 
+                    }
+                ]
+            }); 
+            marker_coordinate = [];
+            for(i=0;i<data_filter.length;i++){
+                var filter_data = {'id_gedung': data_id_gedung[i]};
+                var marker = new google.maps.Marker({
+                    position: {lat: parseFloat(data_filter[i][1]), lng: parseFloat(data_filter[i][2]) },
+                    icon: "{{ url('img/gis-map/locationIconRed.png') }}",
+                    map: map
+                });
+
+                marker_coordinate.push(marker);                             
+                
+                var content = ' #'+ data_id_gedung[i] +' <br/> '+data_filter[i][0]+' ';   
+
+                var infowindow = new google.maps.InfoWindow()
+
+                google.maps.event.addListener(marker,'mouseover', (function(marker,content,infowindow){ 
+                    return function() {
+                        infowindow.setContent(content);
+                        infowindow.open(map,marker);
+                    };
+                })(marker,content,infowindow));
+                
+                google.maps.event.addListener(marker,'mouseout', (function(marker,content,infowindow){ 
+                    return function() {
+                        infowindow.close();
+                    };
+                })(marker,content,infowindow));
+                var id_gedung = filter_data.id_gedung;
+                (function (marker, filter_data) {
+                    google.maps.event.addListener(marker, "click", function (e) {
+                        id_gedung = filter_data.id_gedung; 
+                        loadData('modalPetaInformasiAsetBangunan',"GET","{{ url('sima-dash/detail-bangunan') }}", {'id_gedung': id_gedung});
+                        map.setZoom(12);
+                        map.panTo(this.getPosition());
+                    });
+                })(marker, filter_data);
+            }
+        }
+
+        function map_sebaran_aset_reg_gsd(data_filter, filter_dashboard){
+            if(filter_dashboard == "nasional"){
+                map = new google.maps.Map(document.getElementById('map'), {
+                    zoom: 4,
+                    center: {lat: -1.154499, lng: parseFloat(116.430086) },
+                    styles: [
+                        {
+                            featureType: "poi",
+                            stylers: [{ visibility: "off" }] 
+                        }
+                    ]
+                });
+            }else{
+                map = new google.maps.Map(document.getElementById('map'), {
+                    zoom: 6,
+                    center: {lat: parseFloat(data_filter[0].COOR_Y), lng: parseFloat(data_filter[0].COOR_X) },
+                    styles: [
+                        {
+                            featureType: "poi",
+                            stylers: [{ visibility: "off" }] 
+                        }
+                    ]
+                });
+            }
+            marker_coordinate = [];
+            // console.log(data_filter);
+            for(i=0;i<data_filter.length;i++){
+                var marker = new google.maps.Marker({
+                    position: {lat: parseFloat(data_filter[i].COOR_Y), lng: parseFloat(data_filter[i].COOR_X) },
+                    icon: "{{ url('img/gis-map/locationIconRed.png') }}",
+                    map: map
+                });
+
+                marker_coordinate.push(marker);                             
+
+                var data_gsd = data_filter[i];
+
+                (function (marker, data_gsd) {
+                    google.maps.event.addListener(marker, "click", function (e) {
+                        modal_peta_nasional_data_gsd(data_gsd);
+                        map.setZoom(12);
+                        map.panTo(this.getPosition());
+                    });
+                })(marker, data_gsd);
+            }
         }
 
     </script>
