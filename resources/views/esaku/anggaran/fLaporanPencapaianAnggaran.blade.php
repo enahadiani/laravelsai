@@ -97,7 +97,6 @@
     $('#periode-from').val(namaPeriode(periode));
     $('#kode_pp-from').val(kode_pp);
     $('#jenis-from').val(jenis);
-    $('#periodik-from').val(periodik);
     $('#realisasi-from').val(realisasi);
 
     $('#btn-filter').click(function(e){
