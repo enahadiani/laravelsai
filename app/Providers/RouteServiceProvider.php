@@ -99,6 +99,8 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapAdmJavaRoutes();
         
         $this->mapMobileDashRoutes();
+        
+        $this->mapSimaRoutes();
     }
 
     /**
@@ -613,6 +615,36 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/mobile_dash/auth.php'));
+    }
+
+    
+    protected function mapSimaRoutes()
+    {
+        Route::prefix('sima-auth')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/sima/auth.php'));
+
+        Route::prefix('sima-dash')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/sima/dash.php'));
+    
+        Route::prefix('sima-master')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/sima/master.php'));
+    
+        Route::prefix('sima-trans')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/sima/trans.php'));
+    
+        Route::prefix('sima-report')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/sima/report.php'));
+   
     }
 
 }
