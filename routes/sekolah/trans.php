@@ -56,3 +56,5 @@ Route::get('raport-dok-siswa', 'Sekolah\UploadRaportController@loadSiswa');
 Route::post('raport-dok-siswa', 'Sekolah\UploadRaportController@storeDokumen');
 Route::post('raport-dok-siswa-edit', 'Sekolah\UploadRaportController@updateDokumen');
 Route::get('raport-dok-siswa-edit', 'Sekolah\UploadRaportController@showDokUpload');
+Route::delete('raport-dok-siswa', 'Sekolah\UploadRaportController@destroy');
+Route::delete('raport-dok-siswa-nis', 'Sekolah\UploadRaportController@deleteDokumen');
