@@ -150,3 +150,4 @@ Route::get('filter-rra-anggaran', 'Esaku\Anggaran\FilterLaporanController@getJen
 Route::post('lap-anggaran', 'Esaku\Anggaran\LaporanController@getLaporanAnggaran');
 Route::post('lap-komparasi-anggaran', 'Esaku\Anggaran\LaporanController@getLaporanKomparasiAnggaran');
 Route::post('lap-pencapaian-anggaran', 'Esaku\Anggaran\LaporanController@getLaporanPencapaianAnggaran');
+Route::post('lap-kartu-anggaran', 'Esaku\Anggaran\LaporanController@getLaporanKartuAnggaran');
