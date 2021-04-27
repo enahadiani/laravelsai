@@ -168,6 +168,29 @@
                                     <option value=''>--- Pilih Pekerjaan ---</option>
                                     </select>
                                 </div>
+                                <label for="ukuran_pakaian" class="col-3 col-form-label">Ukuran Pakaian</label>
+                                <div class="col-3">
+                                    <select class='form-control' id="ukuran_pakaian" name="ukuran_pakaian" required>
+                                    <option value=''>--- Pilih Ukuran ---</option>
+                                    <option value='XS'>XS</option>
+                                    <option value='S'>S</option>
+                                    <option value='M'>M</option>
+                                    <option value='L'>L</option>
+                                    <option value='2L'>2L</option>
+                                    <option value='3L'>3L</option>
+                                    <option value='4L'>4L</option>
+                                    <option value='5L'>5L</option>
+                                    <option value='6L'>6L</option>
+                                    <option value='7L'>7L</option>
+                                    <option value='8L'>8L</option>
+                                    <option value='9L'>9L</option>
+                                    <option value='10'>10</option>
+                                    </select>
+                                </div>
+                                <label for="ket_diskon" class="col-3 col-form-label">Keterangan Diskon</label>
+                                <div class="col-3">
+                                    <input class="form-control" type="text" max-length="100" id="ket_diskon" name="ket_diskon" required >
+                                </div>
                             </div>
                             <div class="form-group row">
                                 <label for="bank" class="col-3 col-form-label">Bank</label>
@@ -404,7 +427,8 @@
         autoclose: true,
     });
     $('#jk').selectize();    
-    $('#status').selectize();    
+    $('#status').selectize();
+    $('#ukuran_pakaian').selectize();    
     $('#sp').selectize();
 
     $('#saku-datatable').on('click', '#btn-jamaah-tambah', function(){
@@ -449,6 +473,7 @@
                     $('#tgl_lahir').val(reverseDateNew(result.data.data[0].tgl_lahir,'-','/'));
                     $('#jk')[0].selectize.setValue(result.data.data[0].jk);
                     $('#status')[0].selectize.setValue(result.data.data[0].status); 
+                    $('#ukuran_pakaian')[0].selectize.setValue(result.data.data[0].ukuran_pakaian); 
                     $('#ibu').val(result.data.data[0].ibu);
                     $('#ayah').val(result.data.data[0].ayah);
                     $('#alamat').val(result.data.data[0].alamat);
@@ -532,6 +557,7 @@
                         $('#tgl_lahir').val(reverseDateNew(result.data.data[0].tgl_lahir,'-','/'));
                         $('#jk')[0].selectize.setValue(result.data.data[0].jk);
                         $('#status')[0].selectize.setValue(result.data.data[0].status); 
+                        $('#ukuran_pakaian')[0].selectize.setValue(result.data.data[0].ukuran_pakaian); 
                         $('#ibu').val(result.data.data[0].ibu);
                         $('#ayah').val(result.data.data[0].ayah);
                         $('#alamat').val(result.data.data[0].alamat);
@@ -863,14 +889,14 @@
         });
     });
 
-    $('#id_peserta,#nama,#tempat,#tgl_lahir,#jk,#status,#pendidikan,#ibu,#alamat,#kode_pos,#telp,#hp,#email,#pekerjaan,#bank,#norek,#cabang,#namarek,#nopass,#issued,#ex_pass,#kantor_mig,#ec_telp,#ec_hp,#sp,#th_haji,#th_umroh,#foto').keydown(function(e){
+    $('#id_peserta,#nama,#tempat,#tgl_lahir,#jk,#status,#pendidikan,#ibu,#alamat,#kode_pos,#telp,#hp,#email,#pekerjaan,#ukuran_pakaian,#bank,#norek,#cabang,#namarek,#nopass,#issued,#ex_pass,#kantor_mig,#ec_telp,#ec_hp,#sp,#th_haji,#th_umroh,#foto').keydown(function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['id_peserta','nama','tempat','tgl_lahir','jk','status','ibu','alamat','kode_pos','telp','hp','email','pekerjaan','bank','norek','cabang','namarek','nopass','issued','ex_pass','kantor_mig','ec_telp','ec_hp','sp','th_haji','th_umroh','foto'];
+        var nxt = ['id_peserta','nama','tempat','tgl_lahir','jk','status','ibu','alamat','kode_pos','telp','hp','email','pekerjaan','ukuran_pekerjaan','bank','norek','cabang','namarek','nopass','issued','ex_pass','kantor_mig','ec_telp','ec_hp','sp','th_haji','th_umroh','foto'];
         if (code == 13 || code == 40) {
             e.preventDefault();
             var idx = nxt.indexOf(e.target.id);
             idx++;
-            if(idx == 4 || idx == 5 || idx == 23){
+            if(idx == 4 || idx == 5 || idx == 13 || idx == 24){
                 $('#'+nxt[idx])[0].selectize.focus();
             }else{
                 

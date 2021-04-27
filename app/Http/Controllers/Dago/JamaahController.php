@@ -83,6 +83,7 @@ class JamaahController extends Controller
             'hp' => 'required',
             'email' => 'required|email',
             'pekerjaan' => 'required',
+            'ukuran_pakaian' => 'required',
             'bank' => 'required',
             'norek' => 'required',
             'cabang' => 'required',
@@ -105,9 +106,9 @@ class JamaahController extends Controller
         try{
             if($request->hasfile('foto'))
             {
-                $name = array('id','no_peserta','id_peserta','nama','tempat','tgl_lahir','jk','status','pendidikan','ibu','ayah','alamat','kode_pos','telp','hp','email','pekerjaan','bank','norek','cabang','namarek','nopass','issued','ex_pass','kantor_mig','ec_telp','ec_hp','sp','th_haji','th_umroh','brkt_dgn','hubungan','foto');
+                $name = array('id','no_peserta','id_peserta','nama','tempat','tgl_lahir','jk','status','pendidikan','ibu','ayah','alamat','kode_pos','telp','hp','email','pekerjaan','ukuran_pakaian','bank','norek','cabang','namarek','nopass','issued','ex_pass','kantor_mig','ec_telp','ec_hp','sp','th_haji','th_umroh','brkt_dgn','hubungan','foto');
             }else{
-                $name = array('id','no_peserta','id_peserta','nama','tempat','tgl_lahir','jk','status','pendidikan','ibu','ayah','alamat','kode_pos','telp','hp','email','pekerjaan','bank','norek','cabang','namarek','nopass','issued','ex_pass','kantor_mig','ec_telp','ec_hp','sp','th_haji','th_umroh','brkt_dgn','hubungan');
+                $name = array('id','no_peserta','id_peserta','nama','tempat','tgl_lahir','jk','status','pendidikan','ibu','ayah','alamat','kode_pos','telp','hp','email','pekerjaan','ukuran_pakaian','bank','norek','cabang','namarek','nopass','issued','ex_pass','kantor_mig','ec_telp','ec_hp','sp','th_haji','th_umroh','brkt_dgn','hubungan');
             }
 
             $req = $request->all();
@@ -277,6 +278,7 @@ class JamaahController extends Controller
             'hp' => 'required',
             'email' => 'required|email',
             'pekerjaan' => 'required',
+            'ukuran_pakaian' => 'required',
             'bank' => 'required',
             'norek' => 'required',
             'cabang' => 'required',
@@ -300,9 +302,9 @@ class JamaahController extends Controller
 
             if($request->hasfile('foto'))
             {
-                $name = array('id','no_peserta','id_peserta','nama','tempat','tgl_lahir','jk','status','pendidikan','ibu','ayah','alamat','kode_pos','telp','hp','email','pekerjaan','bank','norek','cabang','namarek','nopass','issued','ex_pass','kantor_mig','ec_telp','ec_hp','sp','th_haji','th_umroh','brkt_dgn','hubungan','foto');
+                $name = array('id','no_peserta','id_peserta','nama','tempat','tgl_lahir','jk','status','pendidikan','ibu','ayah','alamat','kode_pos','telp','hp','email','pekerjaan','ukuran_pakaian','bank','norek','cabang','namarek','nopass','issued','ex_pass','kantor_mig','ec_telp','ec_hp','sp','th_haji','th_umroh','brkt_dgn','hubungan','foto');
             }else{
-                $name = array('id','no_peserta','id_peserta','nama','tempat','tgl_lahir','jk','status','pendidikan','ibu','ayah','alamat','kode_pos','telp','hp','email','pekerjaan','bank','norek','cabang','namarek','nopass','issued','ex_pass','kantor_mig','ec_telp','ec_hp','sp','th_haji','th_umroh','brkt_dgn','hubungan');
+                $name = array('id','no_peserta','id_peserta','nama','tempat','tgl_lahir','jk','status','pendidikan','ibu','ayah','alamat','kode_pos','telp','hp','email','pekerjaan','ukuran_pakaian','bank','norek','cabang','namarek','nopass','issued','ex_pass','kantor_mig','ec_telp','ec_hp','sp','th_haji','th_umroh','brkt_dgn','hubungan');
             }
 
             $req = $request->all();
