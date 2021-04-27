@@ -14,16 +14,18 @@ function drawLap(formData){
 drawLap($formData);
 
 function drawRptPage(data,res,from,to) { 
-    console.log({data, res})
+    // console.log({data, res})
     var html = ""
-    if(res.res.status) {
-        var result = res.result
+    var totDeb = 0
+    var totKred = 0
+    if(data.length) {
+        var result = data
         
         if(result.length > 0) {
             html += "<div class='sai-rpt-table-export-tbl-anggaran' id='sai-rpt-table-export-tbl-daftar-pnj'>"
             html += "<h6 class='text-center'>Laporan Kartu Anggaran</h6>";
             html += "<hr />"
-            for(var i=0;i<result.length;i++) {
+            for(var i=0;i<data.length;i++) {
                 var kartu = result[i]
                 html += "<div class='row card-anggaran'>"
                 html += "<div class='col-md-6'>"
@@ -95,6 +97,32 @@ function drawRptPage(data,res,from,to) {
                 html += "<td class='isi-laporan' style='text-align: right;'>"+sepNum(kartu.n6)+"</td>"
                 html += "<td class='isi-laporan'>Desember</td>"
                 html += "<td class='isi-laporan' style='text-align: right;'>"+sepNum(kartu.n12)+"</td>"
+                html += "</tr>"
+                html += "</tbody>"
+                html += "</table>"
+                html += "</div>"
+                html += "<div class='col-md-12'>"
+                html += "<table class='table table-bordered'>"
+                html += "<thead>"
+                html += "<tr>"
+                html += "<th class='text-center' style='width: 15%;'>No Bukti</th>"
+                html += "<th class='text-center' style='width: 15%;'>No Dokumen</th>"
+                html += "<th class='text-center' style='width: 15%;'>Tanggal</th>"
+                html += "<th class='text-center' style='width: 30%;'>Keterangan</th>"
+                html += "<th class='text-center' style='width: 10%;'>Debet</th>"
+                html += "<th class='text-center' style='width: 10%;'>Kredit</th>"
+                html += "<th class='text-center' style='width: 10%;'>Balance</th>"
+                html += "</tr>"
+                html += "</thead>"
+                html += "<tbody>"
+                // if(result.detail.length > 0) {
+
+                // }
+                html += "<tr>"
+                html += "<td colspan='4' style='text-align: right;'>Total</td>"
+                html += "<td style='text-align: right;'>"+sepNum(totDeb)+"</td>"
+                html += "<td style='text-align: right;'>"+sepNum(totKred)+"</td>"
+                html += "<td style='text-align: right;'>"+sepNum(kartu.total)+"</td>"
                 html += "</tr>"
                 html += "</tbody>"
                 html += "</table>"
