@@ -147,14 +147,35 @@
                             <div id="data-jamaah" style="display: none">
                                 <div class="form-group row">
                                     <label for="brkt_dgn" class="col-3 col-form-label">Berangkat Dengan</label>
-                                <div class="col-3">
-                                    <input class="form-control" type="text" placeholder="Berangkat Dengan" id="brkt_dgn" name="brkt_dgn">
+                                    <div class="col-3">
+                                        <input class="form-control" type="text" placeholder="Berangkat Dengan" id="brkt_dgn" name="brkt_dgn">
+                                    </div>
+                                    <label for="hubungan" class="col-3 col-form-label">Hubungan</label>
+                                    <div class="col-3">
+                                        <input class="form-control" type="text" placeholder="Hubungan" id="hubungan" name="hubungan">
+                                    </div>
                                 </div>
-                                <label for="hubungan" class="col-3 col-form-label">Hubungan</label>
-                                <div class="col-3">
-                                    <input class="form-control" type="text" placeholder="Hubungan" id="hubungan" name="hubungan">
+                                <div class="form-group row">
+                                    <label for="ukuran_pakaian" class="col-3 col-form-label">Ukuran Pakaian</label>
+                                    <div class="col-3">
+                                        <select class='form-control' id="ukuran_pakaian" name="ukuran_pakaian" required>
+                                        <option value=''>--- Pilih Ukuran ---</option>
+                                        <option value='XS'>XS</option>
+                                        <option value='S'>S</option>
+                                        <option value='M'>M</option>
+                                        <option value='L'>L</option>
+                                        <option value='2L'>2L</option>
+                                        <option value='3L'>3L</option>
+                                        <option value='4L'>4L</option>
+                                        <option value='5L'>5L</option>
+                                        <option value='6L'>6L</option>
+                                        <option value='7L'>7L</option>
+                                        <option value='8L'>8L</option>
+                                        <option value='9L'>9L</option>
+                                        <option value='10'>10</option>
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
                             </div>
                             <div class="form-group row">
                                 <label for="paket" class="col-3 col-form-label">Paket</label>
@@ -262,25 +283,6 @@
                                 </div>
                             </div> --}}
                             <div class="form-group row">
-                                <label for="ukuran_pakaian" class="col-3 col-form-label">Ukuran Pakaian</label>
-                                <div class="col-3">
-                                    <select class='form-control' id="ukuran_pakaian" name="ukuran_pakaian" required>
-                                    <option value=''>--- Pilih Ukuran ---</option>
-                                    <option value='XS'>XS</option>
-                                    <option value='S'>S</option>
-                                    <option value='M'>M</option>
-                                    <option value='L'>L</option>
-                                    <option value='2L'>2L</option>
-                                    <option value='3L'>3L</option>
-                                    <option value='4L'>4L</option>
-                                    <option value='5L'>5L</option>
-                                    <option value='6L'>6L</option>
-                                    <option value='7L'>7L</option>
-                                    <option value='8L'>8L</option>
-                                    <option value='9L'>9L</option>
-                                    <option value='10'>10</option>
-                                    </select>
-                                </div>
                                 <label for="ket_diskon" class="col-3 col-form-label">Keterangan Diskon</label>
                                 <div class="col-3">
                                     <input class="form-control" type="text" max-length="100" id="ket_diskon" name="ket_diskon" required >
@@ -871,9 +873,10 @@
                         console.log(result.data.data[0]);
                          $('#no_peserta').val(result.data.data[0].no_peserta);
                          $('#label_no_peserta').text(result.data.data[0].nama);
-                         $('#data-jamaah').show();
                          $('#brkt_dgn').val(result.data.data[0].brkt_dgn);
                          $('#hubungan').val(result.data.data[0].hubungan);
+                         $('#ukuran_pakaian')[0].selectize.setValue(result.data.data[0].ukuran_pakaian);
+                         $('#data-jamaah').show();
                     }else{
                         alert('No Peserta tidak valid');
                         $('#no_peserta').val('');
@@ -882,6 +885,7 @@
                         $('#data-jamaah').hide();
                         $('#brkt_dgn').val('');
                         $('#hubungan').val('');
+                        $('#ukuran_pakaian')[0].selectize.setValue('');
                     }
                 }
                 else if(result.data.status != "SUCCESS" && result.data.message == 'Unauthorized'){
