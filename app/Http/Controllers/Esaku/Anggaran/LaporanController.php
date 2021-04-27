@@ -14,6 +14,43 @@ class LaporanController extends Controller {
         }
     }
 
+    public function getLaporanPencapaianAnggaran(Request $request) {
+        try{
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'esaku-report/lap-agg-capai',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' => [
+                    'periode' => $request->periode,
+                    'kode_akun' => $request->kode_akun,
+                    'kode_pp' => $request->kode_pp,
+                    'jenis' => $request->jenis,
+                    'realisasi' => $request->realisasi,
+                    'nik_user' => Session::get('nikUser')
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                    
+                $res = json_decode($response_data,true);
+                $data = $res['data'];
+            }
+
+            if(isset($request->back)){
+                $res['back']=true;
+            }
+                
+            return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1, 'sumju'=>$request->sumju, 'res'=>$res], 200); 
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false, 'auth_status'=>2], 200);
+        } 
+    }
+
     public function getLaporanKomparasiAnggaran(Request $request) {
         try{
             $client = new Client();
