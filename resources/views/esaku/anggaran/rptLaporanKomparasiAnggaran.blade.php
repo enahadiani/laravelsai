@@ -13,8 +13,7 @@ function drawLap(formData){
 
 drawLap($formData);
 
-function drawRptPage(data,res,from,to) {  
-    console.log({data, res})
+function drawRptPage(data,res,from,to) {
     var html = ""
     var no = 1
     
