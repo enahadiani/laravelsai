@@ -21,7 +21,7 @@
                                 <h6>Filter</h6>
                                 <div id="inputFilter">
                                     <!-- COMPONENT -->
-                                    <x-inp-filter kode="tahun" nama="Periode" selected="3" :option="array('1','2','3')"/>
+                                    <x-inp-filter kode="tahun" nama="Tahun" selected="3" :option="array('1','2','3')"/>
                                     <x-inp-filter kode="kode_akun" nama="Kode Akun" selected="1" :option="array('1','2','3')"/>
                                     <x-inp-filter kode="kode_pp" nama="Kode PP" selected="3" :option="array('1','2','3')"/>
                                     <x-inp-filter kode="jenis" nama="Jenis Akun" selected="3" :option="array('1','3')"/>
@@ -279,7 +279,6 @@
     });
 
     $('#show').change(function(e){
-        $formData = new FormData();
         $formData = new FormData();
         $formData.append("periode[]",$periode.type);
         $formData.append("periode[]",$periode.from);

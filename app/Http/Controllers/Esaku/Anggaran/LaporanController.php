@@ -14,6 +14,75 @@ class LaporanController extends Controller {
         }
     }
 
+    public function getLaporanLabaRugiUnitAnggaran(Request $request) {
+        try{
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'esaku-report/lap-agg-labarugi-unit',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' => [
+                    'periode' => $request->periode,
+                    'kode_fs' => $request->kode_fs,
+                    'level' => $request->level,
+                    'kode_pp' => $request->kode_pp
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                    
+                $res = json_decode($response_data,true);
+                $data = $res['data'];
+            }
+
+            if(isset($request->back)){
+                $res['back']=true;
+            }
+                
+            return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1, 'sumju'=>$request->sumju, 'res'=>$res], 200); 
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false, 'auth_status'=>2], 200);
+        } 
+    }
+
+    public function getLaporanLabaRugiAnggaran(Request $request) {
+        try{
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'esaku-report/lap-agg-labarugi',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' => [
+                    'periode' => $request->periode,
+                    'kode_fs' => $request->kode_fs,
+                    'level' => $request->level
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                    
+                $res = json_decode($response_data,true);
+                $data = $res;//$res['data'];
+            }
+
+            if(isset($request->back)){
+                $res['back']=true;
+            }
+                
+            return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1, 'sumju'=>$request->sumju, 'res'=>$res], 200); 
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false, 'auth_status'=>2], 200);
+        } 
+    }
+
     public function getLaporanKartuAnggaran(Request $request) {
         try{
             $client = new Client();
