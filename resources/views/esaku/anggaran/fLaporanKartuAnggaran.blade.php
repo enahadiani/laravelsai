@@ -280,7 +280,6 @@
 
     $('#show').change(function(e){
         $formData = new FormData();
-        $formData = new FormData();
         $formData.append("periode[]",$periode.type);
         $formData.append("periode[]",$periode.from);
         $formData.append("periode[]",$periode.to);
