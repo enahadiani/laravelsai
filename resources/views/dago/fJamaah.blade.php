@@ -187,10 +187,10 @@
                                     <option value='10'>10</option>
                                     </select>
                                 </div>
-                                <label for="ket_diskon" class="col-3 col-form-label">Keterangan Diskon</label>
+                                <!-- <label for="ket_diskon" class="col-3 col-form-label">Keterangan Diskon</label>
                                 <div class="col-3">
                                     <input class="form-control" type="text" max-length="100" id="ket_diskon" name="ket_diskon" required >
-                                </div>
+                                </div> -->
                             </div>
                             <div class="form-group row">
                                 <label for="bank" class="col-3 col-form-label">Bank</label>
