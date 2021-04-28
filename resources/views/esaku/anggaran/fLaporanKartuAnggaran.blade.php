@@ -21,7 +21,7 @@
                                 <h6>Filter</h6>
                                 <div id="inputFilter">
                                     <!-- COMPONENT -->
-                                    <x-inp-filter kode="tahun" nama="Periode" selected="3" :option="array('1','2','3')"/>
+                                    <x-inp-filter kode="periode" nama="Periode" selected="3" :option="array('1','2','3')"/>
                                     <x-inp-filter kode="kode_akun" nama="Kode Akun" selected="1" :option="array('1','2','3')"/>
                                     <x-inp-filter kode="kode_pp" nama="Kode PP" selected="3" :option="array('1','2','3')"/>
                                     <x-inp-filter kode="jenis" nama="Jenis Akun" selected="3" :option="array('1','3')"/>
