@@ -67,3 +67,20 @@ body {
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
 }
+.dekstop {
+    display: block;
+}
+.mobile {
+    display: none;
+}
+
+@media only screen and (max-width: 480px) {
+    .logo-mobile {
+        position: absolute;
+        left: 0;
+    }
+    .username-mobile {
+        position: absolute;
+        right: 8px;
+    }
+}

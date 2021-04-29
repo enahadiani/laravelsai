@@ -16,18 +16,23 @@
         <header id="header" data-transparent="true" data-fullwidth="true" class="dark submenu-light">
             <div class="header-inner">
                 <div class="container">
-                    <div id="mainMenu-trigger">
-                        <a class="lines-button x"><span class="lines"></span></a>
-                    </div>
-                    <div id="logo">
+                    <div id="logo" class="dekstop">
                         <span class="logo-default">
-                            <img src="{{ asset('asset_web/img/webtelprop/LogoTelkomProperty.png') }}" alt="logo" height="100" class="mr-2"> <span id="username">Telkom Property Asset</span>
+                            <img src="{{ asset('asset_web/img/webtelprop/LogoTelkomProperty.png') }}" alt="logo" height="100" class="mr-2"> <span id="username dekstop">Telkom Property Asset</span>
                         </span>
+                    </div>
+                    <div class="mobile">
+                        <div class="logo-mobile">
+                            <img src="{{ asset('asset_web/img/webtelprop/LogoTelkomProperty.png') }}" alt="logo" height="100" class="mr-2">
+                        </div>
+                        <div class="username-mobile">
+                            <span class="logo-default" id="username">Telkom Property Asset</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </header>
-        <div class="home-image">
+        <div class="home-image dekstop">
             <div class="shape-1">&nbsp;</div>
             <div class="shape-2">
                 <img class="image-1" src="{{ asset('asset_web/img/webtelprop/building.jpeg') }}" alt="image-1">

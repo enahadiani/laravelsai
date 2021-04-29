@@ -148,3 +148,12 @@ section {
     width: 60% !important;
     border: none !important;
 }
+
+@media only screen and (max-width: 480px) {
+    .dekstop {
+        display: none;
+    }
+    .mobile {
+        display: block;
+    }
+}
