@@ -75,6 +75,7 @@ section {
 }
 .filter-input {
     margin-top: 16px;
+    margin-left: -16px;
     height: 90px;
     width: 500px;
     padding: 16px;
