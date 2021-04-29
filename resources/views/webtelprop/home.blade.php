@@ -87,7 +87,7 @@
                             <div class="row row-flex">
                                 <div class="col-md-8">
                                     <label class="container-checkbox">Whatsapp Aktif
-                                        <input type="checkbox" checked="checked">
+                                        <input type="checkbox" name="active" id="active">
                                         <span class="checkmark"></span>
                                     </label>
                                     {{-- <div class="form-check">
