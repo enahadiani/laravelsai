@@ -101,6 +101,8 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapMobileDashRoutes();
         
         $this->mapSimaRoutes();
+
+        $this->mapWebTelkomPropertyRoutes();
     }
 
     /**
@@ -645,6 +647,14 @@ class RouteServiceProvider extends ServiceProvider
             ->namespace($this->namespace)
             ->group(base_path('routes/sima/report.php'));
    
+    }
+
+    protected function mapWebTelkomPropertyRoutes()
+    {
+        Route::prefix('telkom-property')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/webtelprop/web-routes.php'));
     }
 
 }
