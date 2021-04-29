@@ -1,7 +1,7 @@
-.table-scroll > table thead th {
+/* .table-scroll > table thead th {
     position: sticky;
     top: 0;
-}
+} */
 .table-scroll {
     overflow-y: auto;
     height: 280px;
