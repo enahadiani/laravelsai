@@ -86,10 +86,14 @@
                             </div>
                             <div class="row row-flex">
                                 <div class="col-md-8">
-                                    <div class="form-check">
+                                    <label class="container-checkbox">Whatsapp Aktif
+                                        <input type="checkbox" checked="checked">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    {{-- <div class="form-check">
                                         <input class="form-check-input" id="active" type="checkbox">
                                         <label class="form-check-label" for="active">Whatsapp Aktif</label>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                         </div>
