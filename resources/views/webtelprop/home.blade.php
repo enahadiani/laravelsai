@@ -45,6 +45,9 @@
                     <h1 class="text-medium text-1">The Most</h1>
                     <h1 class="text-medium text-2">Preferred Partner</h1>
                 </div>
+                <div class="mobile gambar-mobile">
+                    <img class="image-mobile" src="{{ asset('asset_web/img/webtelprop/building.jpeg') }}" alt="image-1">
+                </div>
             </div>
             <div class="home-filter container">
                 <span class="label-search">Temukan aset yang kamu inginkan</span>
@@ -95,10 +98,6 @@
                                         <input type="checkbox" name="active" id="active">
                                         <span class="checkmark"></span>
                                     </label>
-                                    {{-- <div class="form-check">
-                                        <input class="form-check-input" id="active" type="checkbox">
-                                        <label class="form-check-label" for="active">Whatsapp Aktif</label>
-                                    </div> --}}
                                 </div>
                             </div>
                         </div>

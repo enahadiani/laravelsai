@@ -156,4 +156,46 @@ section {
     .mobile {
         display: block;
     }
+    .text-1 {
+        margin-bottom: 20px;
+    }
+    .gambar-mobile {
+        position: relative;
+        height: 450px;
+        width: 350px;
+    }
+    .image-mobile {
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        height: 100%;
+        border-radius: 10%;
+        -moz-transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    .home-filter {
+        margin-top: 16px;
+    }
+    .label-search {
+        font-weight: bold;
+    }
+    .filter-input {
+        margin-top: 16px;
+        margin-left: -16px;
+        height: 90px;
+        width: 380px;
+        padding: 16px;
+        display: flex;
+        justify-content: space-around;
+        border-radius: 120px;
+        box-shadow: 0px 4px 10px 1px rgba(255, 182, 193, 1);
+    }
+    html,
+    body {
+        overflow-y: auto !important; /* Hide scrollbars */
+        overflow-x: hidden !important;
+    }
 }
