@@ -18,7 +18,7 @@
                 <div class="container">
                     <div id="logo" class="dekstop">
                         <span class="logo-default">
-                            <img src="{{ asset('asset_web/img/webtelprop/LogoTelkomProperty.png') }}" alt="logo" height="100" class="mr-2"> <span id="username dekstop">Telkom Property Asset</span>
+                            <img src="{{ asset('asset_web/img/webtelprop/LogoTelkomProperty.png') }}" alt="logo" height="100" class="mr-2"> <span id="username">Telkom Property Asset</span>
                         </span>
                     </div>
                     <div class="mobile">
@@ -26,7 +26,7 @@
                             <img src="{{ asset('asset_web/img/webtelprop/LogoTelkomProperty.png') }}" alt="logo" height="100" class="mr-2">
                         </div>
                         <div class="username-mobile">
-                            <span class="logo-default" id="username">Telkom Property Asset</span>
+                            <span class="logo-default" id="username-mobile">Telkom Property Asset</span>
                         </div>
                     </div>
                 </div>
@@ -124,6 +124,7 @@
             event.preventDefault();
             var user = $('#nama').val()
             $('#username').text('Hai '+user)
+            $('#username-mobile').text('Hai '+user)
             $('#modal').modal('hide')
         })
     </script>
