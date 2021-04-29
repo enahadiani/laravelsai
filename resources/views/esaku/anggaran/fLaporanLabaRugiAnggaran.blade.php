@@ -1,4 +1,40 @@
 <link rel="stylesheet" href="{{ asset('report.css') }}" />
+<style>
+    .info-table thead{
+        background:#4286f5;
+        color:white;
+    }
+    .no-border td{
+        border:0 !important;
+    }
+    .bold {
+        font-weight:bold;
+    }        
+    .table-header-prev td{
+        padding: 2px !important;
+    }
+    .table-kop-prev td{
+        padding: 0px !important;
+    }
+    .separator2{
+        height:1rem;
+        background:#f8f8f8;
+        box-shadow: -1px 0px 1px 0px #e1e1e1;
+    }
+    .vtop{
+        vertical-align:top !important;
+    }
+    .lh1{
+        line-height:1;
+    }
+    .bg-primary2{
+        background: #eaf2ff !important;
+    }        
+    .bg-primary0{
+        background: #00358a !important;
+        color:white !important;
+    }
+</style>
 <div class="row" id="saku-filter">
     <div class="col-12">
         <div class="card" >
@@ -23,7 +59,7 @@
                         </div>
                     </div>
                 </div>
-                <x-report-paging :option="array()" default="all" />  
+                <x-report-paging :option="array()" default="All" />  
             </div>                    
         </div>
     </div>
@@ -40,7 +76,7 @@
 <script src="{{ asset('reportFilter.js') }}"></script>
 
 <script type="text/javascript">
-    var periode = "{{ date('Ym') }}"
+    var periode = "202101"
     var level = "1"
 
     $.ajaxSetup({

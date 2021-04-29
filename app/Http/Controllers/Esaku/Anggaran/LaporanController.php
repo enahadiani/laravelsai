@@ -102,7 +102,7 @@ class LaporanController extends Controller {
                 $response_data = $response->getBody()->getContents();
                     
                 $res = json_decode($response_data,true);
-                $data = $res;//$res['data'];
+                $data = $res['data'];
             }
 
             if(isset($request->back)){
