@@ -130,7 +130,7 @@ class VendorController extends Controller
             // 'pic' => 'required',
             // 'no_telp_pic' => 'required',
             // 'email_pic' => 'required',
-            'akun_hutang' => 'required',
+            // 'akun_hutang' => 'required',
         ]);
 
         try {   
@@ -166,7 +166,7 @@ class VendorController extends Controller
                 'pic' => $request->input('pic'),
                 'no_telp_pic' => $request->input('no_telp_pic'),
                 'email_pic' => $request->input('email_pic'),
-                'akun_hutang' => $request->input('akun_hutang'),
+                'akun_hutang' => "-",
                 'no_rek' => $no_rek,
                 'nama_rek' => $nama_rek,
                 'bank' => $bank,
@@ -236,7 +236,7 @@ class VendorController extends Controller
             // 'pic' => 'required',
             // 'no_telp_pic' => 'required',
             // 'email_pic' => 'required',
-            'akun_hutang' => 'required',
+            // 'akun_hutang' => 'required',
         ]);
 
         try {   
@@ -272,7 +272,7 @@ class VendorController extends Controller
                 'pic' => $request->input('pic'),
                 'no_telp_pic' => $request->input('no_telp_pic'),
                 'email_pic' => $request->input('email_pic'),
-                'akun_hutang' => $request->input('akun_hutang'),
+                'akun_hutang' => '-',
                 'no_rek' => $no_rek,
                 'nama_rek' => $nama_rek,
                 'bank' => $bank,

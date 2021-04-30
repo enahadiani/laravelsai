@@ -153,3 +153,4 @@ Route::post('lap-pencapaian-anggaran', 'Esaku\Anggaran\LaporanController@getLapo
 Route::post('lap-kartu-anggaran', 'Esaku\Anggaran\LaporanController@getLaporanKartuAnggaran');
 Route::post('lap-labarugi-anggaran', 'Esaku\Anggaran\LaporanController@getLaporanLabaRugiAnggaran');
 Route::post('lap-labarugiunit-anggaran', 'Esaku\Anggaran\LaporanController@getLaporanLabaRugiUnitAnggaran');
+Route::post('lap-pengajuan-anggaran', 'Esaku\Anggaran\LaporanController@getLaporanPengajuanAnggaran');

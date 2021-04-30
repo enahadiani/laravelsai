@@ -58,7 +58,7 @@
                                         <input class="form-control" type="text" autocomplete="off" id="email" name="email" required>
                                     </div>
                                 </div>
-                                <div class="form-row">
+                                {{-- <div class="form-row">
                                     <div class="form-group col-md-6 col-sm-12">    
                                         <label for="akun_hutang">Akun Relasi</label>
                                         <div class="input-group">
@@ -73,7 +73,7 @@
                                             <i class="simple-icon-magnifier search-item2" id="search_akun_hutang"></i>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
 
                             <div class="tab-pane" id="alamat-pane" role="tabpanel">

@@ -544,6 +544,12 @@
                         var line = data[i]
                         profit = parseInt(line.nilai_proyek) - parseInt(line.beban)
                         percentage = (profit/parseInt(line.nilai_proyek))*100
+                        if(line.tgl_selesai == null) {
+                            line.tgl_selesai = '-'
+                        }
+                        if(!isFinite(percentage)) {
+                            percentage = 0
+                        }
                         html += "<tr>";
                         html += "<td>"+line.nama_cust+"</td>"
                         html += "<td>"+line.no_proyek+"</td>"
