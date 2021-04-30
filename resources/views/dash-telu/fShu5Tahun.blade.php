@@ -54,7 +54,7 @@ $tahun5 = intval($tahun-5);
                         <h6 class="col-md-6 card-title">SHU <span class="rentang-tahun"></span></h6>
                         <ul role="tablist" style="border: none;" class="nav nav-tabs col-md-6 col-12 px-0 justify-content-end">
                             <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#tab_yoy" role="tab" aria-selected="false"><span class="hidden-xs-down"><b>YoY</b></span></a> </li>
-                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab_curr" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>Current</b></span></a> </li>
+                            <!-- <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab_curr" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>Current</b></span></a> </li> -->
                         </ul>
                     </div>
                 </div>
@@ -293,7 +293,7 @@ function getPeriode(){
                 var tahun = $dash_periode.from.substr(0,4);
                 var tahunLima = parseInt(tahun)-5;
                 $('.rentang-tahun').html(tahunLima +' - '+tahun);
-                getSHU($dash_periode);
+                // getSHU($dash_periode);
                 getSHUYoY($dash_periode);
                         
             }
@@ -759,7 +759,7 @@ $('#form-filter').submit(function(e){
     var tahun = $dash_periode.from.substr(0,4);
     var tahunLima = parseInt(tahun)-5;
     $('.rentang-tahun').html(tahunLima +' - '+tahun);
-    getSHU($dash_periode);
+    // getSHU($dash_periode);
     getSHUYoY($dash_periode);
     $('#modalFilter').modal('hide');
     // $('.app-menu').hide();
