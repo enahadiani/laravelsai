@@ -56,7 +56,7 @@ $tahun5 = intval($tahun-5);
                         <h6 class="card-title col-md-6 col-12">Perbandingan Anggaran dan Realisasi <span class="rentang-tahun"></span></h6>
                         <ul role="tablist" style="border: none;" class="nav nav-tabs col-md-6 col-12 px-0 justify-content-end">
                             <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#tab_yoy" role="tab" aria-selected="false"><span class="hidden-xs-down"><b>YoY</b></span></a> </li>
-                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab_curr" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>Current</b></span></a> </li>
+                            <!-- <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab_curr" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>Current</b></span></a> </li> -->
                         </ul>
                     </div>
                 </div>
@@ -81,7 +81,7 @@ $tahun5 = intval($tahun-5);
                         <h6 class="card-title col-md-6 col-12 ">Pendapatan TF <span class="rentang-tahun"></span></h6>
                         <ul role="tablist" style="border: none;" class="nav nav-tabs col-md-6 col-12 px-0 justify-content-end">
                             <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#tab2_yoy" role="tab" aria-selected="false"><span class="hidden-xs-down"><b>YoY</b></span></a> </li>
-                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab2_curr" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>Current</b></span></a> </li>
+                            <!-- <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab2_curr" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>Current</b></span></a> </li> -->
                         </ul>
                     </div>
                 </div>
@@ -104,7 +104,7 @@ $tahun5 = intval($tahun-5);
                         <h6 class="card-title col-md-6 col-12">Pendapatan NTF <span class="rentang-tahun"></span></h6>
                         <ul role="tablist" style="border: none;" class="nav nav-tabs col-md-6 col-12 px-0 justify-content-end">
                             <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#tab3_yoy" role="tab" aria-selected="false"><span class="hidden-xs-down"><b>YoY</b></span></a> </li>
-                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab3_curr" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>Current</b></span></a> </li>
+                            <!-- <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab3_curr" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>Current</b></span></a> </li> -->
                         </ul>
                     </div>
                 </div>
@@ -129,7 +129,7 @@ $tahun5 = intval($tahun-5);
                         <h6 class="card-title col-md-6 col-12">Komposisi TF dan NTF <span class="rentang-tahun"></span></h6>
                         <ul role="tablist" style="border: none;" class="nav nav-tabs col-md-6 col-12 px-0 justify-content-end">
                             <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#tab4_yoy" role="tab" aria-selected="false"><span class="hidden-xs-down"><b>YoY</b></span></a> </li>
-                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab4_curr" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>Current</b></span></a> </li>
+                            <!-- <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab4_curr" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>Current</b></span></a> </li> -->
                         </ul>
                     </div>
                 </div>
@@ -152,7 +152,7 @@ $tahun5 = intval($tahun-5);
                         <h6 class="card-title col-md-6 col-12">Realisasi Pencapaian PDPT, PDPT TF dan PDPT NTF <span class="rentang-tahun"></span></h6>
                         <ul role="tablist" style="border: none;" class="nav nav-tabs col-md-6 col-12 px-0 justify-content-end">
                             <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#tab5_yoy" role="tab" aria-selected="false"><span class="hidden-xs-down"><b>YoY</b></span></a> </li>
-                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab5_curr" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>Current</b></span></a> </li>
+                            <!-- <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab5_curr" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>Current</b></span></a> </li> -->
                         </ul>
                     </div>
                 </div>
@@ -402,15 +402,15 @@ function getPeriode(){
                 var tahunLima = parseInt(tahun)-5;
         
                 $('.rentang-tahun').html(tahunLima +' - '+tahun);
-                getPendapatan($dash_periode);
+                // getPendapatan($dash_periode);
                 getPendapatanYoY($dash_periode);
-                getPendapatanTF($dash_periode);
+                // getPendapatanTF($dash_periode);
                 getPendapatanTFYoY($dash_periode);
-                getPendapatanNTF($dash_periode);
+                // getPendapatanNTF($dash_periode);
                 getPendapatanNTFYoY($dash_periode);
-                getKomposisi($dash_periode);
+                // getKomposisi($dash_periode);
                 getKomposisiYoY($dash_periode);
-                getPendapatanGrowth($dash_periode);
+                // getPendapatanGrowth($dash_periode);
                 getPendapatanGrowthYoY($dash_periode);
             }
         },
@@ -2157,15 +2157,15 @@ $('#form-filter').submit(function(e){
     var tahun = $dash_periode.from.substr(0,4);
     var tahunLima = parseInt(tahun)-5;
     $('.rentang-tahun').html(tahunLima +' - '+tahun);
-    getPendapatan($dash_periode);
+    // getPendapatan($dash_periode);
     getPendapatanYoY($dash_periode);
-    getPendapatanTF($dash_periode);
+    // getPendapatanTF($dash_periode);
     getPendapatanTFYoY($dash_periode);
-    getPendapatanNTF($dash_periode);
+    // getPendapatanNTF($dash_periode);
     getPendapatanNTFYoY($dash_periode);
-    getKomposisi($dash_periode);
+    // getKomposisi($dash_periode);
     getKomposisiYoY($dash_periode);
-    getPendapatanGrowth($dash_periode);
+    // getPendapatanGrowth($dash_periode);
     getPendapatanGrowthYoY($dash_periode);
     $('#modalFilter').modal('hide');
     // $('.app-menu').hide();

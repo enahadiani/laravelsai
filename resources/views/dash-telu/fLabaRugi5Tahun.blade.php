@@ -53,7 +53,7 @@ $thnLalu = substr($tahunLalu,2,2)
                         <h6 class="card-title col-md-6 col-12">&nbsp;</h6>
                         <ul role="tablist" style="border: none;" class="nav nav-tabs col-md-6 col-12 px-0 justify-content-end">
                             <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#tab_yoy" role="tab" aria-selected="false"><span class="hidden-xs-down"><b>YoY</b></span></a> </li>
-                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab_curr" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>Current</b></span></a> </li>
+                            <!-- <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab_curr" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>Current</b></span></a> </li> -->
                         </ul>
                     </div>
                 </div>
@@ -188,14 +188,14 @@ $thnLalu = substr($tahunLalu,2,2)
                                 <select class="form-control" data-width="100%" name="jenis[]" id="jenis_from">
                                     <option value='' disabled>Pilih</option>
                                     <option value='YoY' selected>YoY</option>
-                                    <option value='Current'>Current</option>
+                                    <!-- <option value='Current'>Current</option> -->
                                 </select>
                             </div>
                             <div class="col-md-4 dash-filter-to">
                                 <select class="form-control" data-width="100%" name="jenis[]" id="jenis_to">
                                     <option value='' disabled>Pilih</option>
                                     <option value='YoY' selected>YoY</option>
-                                    <option value='Current'>Current</option>
+                                    <!-- <option value='Current'>Current</option> -->
                                 </select>
                             </div>
                         </div>
@@ -398,7 +398,7 @@ function getPeriode(){
                 }
                 $('.label-periode-filter').html(label);
 
-                getLabaRugi($dash_periode);
+                // getLabaRugi($dash_periode);
                 getLabaRugiYoY($dash_periode);
                 getBCGrowthRKA($dash_periode,$dash_jenis);
                 getBCGrowthTuition($dash_periode,$dash_jenis);
@@ -1369,7 +1369,7 @@ $('#form-filter').submit(function(e){
         break;
     }
     $('.label-periode-filter').html(label);
-    getLabaRugi($dash_periode);
+    // getLabaRugi($dash_periode);
     getLabaRugiYoY($dash_periode);
     getBCGrowthRKA($dash_periode,$dash_jenis);
     getBCGrowthTuition($dash_periode,$dash_jenis);

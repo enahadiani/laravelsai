@@ -54,7 +54,7 @@ $tahun5 = intval($tahun-5);
                         <h6 class="card-title col-md-6 col-12">Beban <span class="rentang-tahun"></span></h6>
                         <ul role="tablist" style="border: none;" class="nav nav-tabs col-md-6 col-12 px-0 justify-content-end">
                             <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#tab_yoy" role="tab" aria-selected="false"><span class="hidden-xs-down"><b>YoY</b></span></a> </li>
-                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab_curr" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>Current</b></span></a> </li>
+                            <!-- <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab_curr" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>Current</b></span></a> </li> -->
                         </ul>
                     </div>
                 </div>
@@ -79,7 +79,7 @@ $tahun5 = intval($tahun-5);
                         <h6 class="card-title col-md-6 col-12">Beban SDM <span class="rentang-tahun"></span></h6>
                         <ul role="tablist" style="border: none;" class="nav nav-tabs col-md-6 col-12 px-0 justify-content-end">
                             <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#tab2_yoy" role="tab" aria-selected="false"><span class="hidden-xs-down"><b>YoY</b></span></a> </li>
-                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab2_curr" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>Current</b></span></a> </li>
+                            <!-- <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab2_curr" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>Current</b></span></a> </li> -->
                         </ul>
                     </div>
                 </div>
@@ -102,7 +102,7 @@ $tahun5 = intval($tahun-5);
                         <h6 class="card-title col-md-6 col-12">Beban Non SDM <span class="rentang-tahun"></span></h6>
                         <ul role="tablist" style="border: none;" class="nav nav-tabs col-md-6 col-12 px-0 justify-content-end">
                             <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#tab3_yoy" role="tab" aria-selected="false"><span class="hidden-xs-down"><b>YoY</b></span></a> </li>
-                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab3_curr" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>Current</b></span></a> </li>
+                            <!-- <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab3_curr" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>Current</b></span></a> </li> -->
                         </ul>
                     </div>
                 </div>
@@ -127,7 +127,7 @@ $tahun5 = intval($tahun-5);
                         <h6 class="card-title col-md-6 col-12">Komposisi SDM dan Beban Lain <span class="rentang-tahun"></span></h6>
                         <ul role="tablist" style="border: none;" class="nav nav-tabs col-md-6 col-12 px-0 justify-content-end">
                             <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#tab4_yoy" role="tab" aria-selected="false"><span class="hidden-xs-down"><b>YoY</b></span></a> </li>
-                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab4_curr" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>Current</b></span></a> </li>
+                            <!-- <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab4_curr" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>Current</b></span></a> </li> -->
                         </ul>
                     </div>
                 </div>
@@ -150,7 +150,7 @@ $tahun5 = intval($tahun-5);
                         <h6 class="card-title col-md-6 col-12">Realisasi Pencapaian PDPT, Beban, SDM dan SHU <span class="rentang-tahun"></span></h6>
                         <ul role="tablist" style="border: none;" class="nav nav-tabs col-md-6 col-12 px-0 justify-content-end">
                             <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#tab5_yoy" role="tab" aria-selected="false"><span class="hidden-xs-down"><b>YoY</b></span></a> </li>
-                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab5_curr" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>Current</b></span></a> </li>
+                            <!-- <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab5_curr" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>Current</b></span></a> </li> -->
                         </ul>
                     </div>
                 </div>
@@ -395,15 +395,15 @@ function getPeriode(){
                 var tahunLima = parseInt(tahun)-5;
         
                 $('.rentang-tahun').html(tahunLima +' - '+tahun);
-                getBeban($dash_periode);
+                // getBeban($dash_periode);
                 getBebanYoY($dash_periode);
-                getBebanSDM($dash_periode);
+                // getBebanSDM($dash_periode);
                 getBebanSDMYoY($dash_periode);
-                getBebanNonSDM($dash_periode);
+                // getBebanNonSDM($dash_periode);
                 getBebanNonSDMYoY($dash_periode);
-                getKomposisi($dash_periode);
+                // getKomposisi($dash_periode);
                 getKomposisiYoY($dash_periode);
-                getBebanGrowth($dash_periode);
+                // getBebanGrowth($dash_periode);
                 getBebanGrowthYoY($dash_periode);
                 
                         
@@ -2073,15 +2073,15 @@ $('#form-filter').submit(function(e){
     var tahun = $dash_periode.from.substr(0,4);
     var tahunLima = parseInt(tahun)-5;
     $('.rentang-tahun').html(tahunLima +' - '+tahun);
-    getBeban($dash_periode);
+    // getBeban($dash_periode);
     getBebanYoY($dash_periode);
-    getBebanSDM($dash_periode);
+    // getBebanSDM($dash_periode);
     getBebanSDMYoY($dash_periode);
-    getBebanNonSDM($dash_periode);
+    // getBebanNonSDM($dash_periode);
     getBebanNonSDMYoY($dash_periode);
-    getKomposisi($dash_periode);
+    // getKomposisi($dash_periode);
     getKomposisiYoY($dash_periode);
-    getBebanGrowth($dash_periode);
+    // getBebanGrowth($dash_periode);
     getBebanGrowthYoY($dash_periode);
 
     $('#modalFilter').modal('hide');
