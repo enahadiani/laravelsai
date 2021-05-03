@@ -1048,7 +1048,7 @@
                     $('#nilai').val(parseInt(result.data[0].nilai));
                     $('#no_dokumen').val(result.data[0].no_dokumen);
                     $('#keterangan').val(result.data[0].keterangan);
-                    if(result.data[0].status === 'UNPAID') {
+                    if(result.data[0].status === 0) {
                         status_paid = false
                         $('#status-paid').prop('checked', false)
                         $('#paid').hide()        
