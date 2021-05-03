@@ -875,9 +875,9 @@
                 })
             }
             if(status_paid) {
-                formData.append('status', 'PAID')
+                formData.append('status', 1)
             } else {
-                formData.append('status', 'UNPAID')
+                formData.append('status', 0)
             }
             formData.append('no_rab', '-')
             
