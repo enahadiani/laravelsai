@@ -334,6 +334,10 @@ class BiayaProyekController extends Controller {
                 }
             }
 
+            // echo "<pre>";
+            // echo var_dump($fields);
+            // echo "</pre>";
+
             $client = new Client();
             $response = $client->request('POST',  config('api.url').'java-trans/biaya-proyek-ubah',[
                 'headers' => [

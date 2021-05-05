@@ -675,20 +675,26 @@
     $('#nilai').on('change', function() {
         var value = toNilai($(this).val());
         var anggaran = toNilai($previousAnggaran);
-        if(anggaran == 0 || anggaran == '') {
-            alert('Anggaran tidak boleh kosong atau 0')
-        } else if(value > anggaran) {
-            alert('Nilai beban tidak boleh melebihi anggaran')
-            $(this).focus()
-        } else {
-            if(value == 0 || value == '') {
-                $previousNilai = 0
-                anggaran = $previousAnggaran
-            }
-            var selisih = (anggaran + $previousNilai) - value
-            $('#anggaran').val(selisih) 
-            
+        if(value == 0 || value == '') {
+            $previousNilai = 0
+            anggaran = $previousAnggaran
         }
+        var selisih = (anggaran + $previousNilai) - value
+        $('#anggaran').val(selisih) 
+        // if(anggaran == 0 || anggaran == '') {
+        //     alert('Anggaran tidak boleh kosong atau 0')
+        // } else if(value > anggaran) {
+        //     alert('Nilai beban tidak boleh melebihi anggaran')
+        //     $(this).focus()
+        // } else {
+        //     if(value == 0 || value == '') {
+        //         $previousNilai = 0
+        //         anggaran = $previousAnggaran
+        //     }
+        //     var selisih = (anggaran + $previousNilai) - value
+        //     $('#anggaran').val(selisih) 
+            
+        // }
     })
 
     function custTarget(target, tr) {
@@ -869,9 +875,9 @@
                 })
             }
             if(status_paid) {
-                formData.append('status', 'PAID')
+                formData.append('status', 1)
             } else {
-                formData.append('status', 'UNPAID')
+                formData.append('status', 0)
             }
             formData.append('no_rab', '-')
             
@@ -879,66 +885,66 @@
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
             
-            // if(valid) { 
-            //     $.ajax({
-            //         type: 'POST', 
-            //         url: url,
-            //         dataType: 'json',
-            //         data: formData,
-            //         async:false,
-            //         contentType: false,
-            //         cache: false,
-            //         processData: false, 
-            //         success:function(result){
-            //             if(result.data.status){
-            //                 dataTable.ajax.reload();
-            //                 $('#upload tbody').empty()
-            //                 $previousNilai = 0;
-            //                 $('.no_bukti').hide();
-            //                 $('#row-id').hide();
-            //                 $('#form-tambah')[0].reset();
-            //                 $('#form-tambah').validate().resetForm();
-            //                 $('[id^=label]').html('');
-            //                 $('#id_edit').val('');
-            //                 $('#judul-form').html('Tambah Data Biaya Proyek');
-            //                 $('#method').val('post');
-            //                 $('#kode_customer').attr('readonly', false);
-            //                 msgDialog({
-            //                     id:result.data.kode,
-            //                     type:'simpan'
-            //                 });
-            //                 last_add("kode_customer",result.data.kode);
-            //             }else if(!result.data.status && result.data.message === "Unauthorized"){
+            if(valid) { 
+                $.ajax({
+                    type: 'POST', 
+                    url: url,
+                    dataType: 'json',
+                    data: formData,
+                    async:false,
+                    contentType: false,
+                    cache: false,
+                    processData: false, 
+                    success:function(result){
+                        if(result.data.status){
+                            dataTable.ajax.reload();
+                            $('#upload tbody').empty()
+                            $previousNilai = 0;
+                            $('.no_bukti').hide();
+                            $('#row-id').hide();
+                            $('#form-tambah')[0].reset();
+                            $('#form-tambah').validate().resetForm();
+                            $('[id^=label]').html('');
+                            $('#id_edit').val('');
+                            $('#judul-form').html('Tambah Data Biaya Proyek');
+                            $('#method').val('post');
+                            $('#kode_customer').attr('readonly', false);
+                            msgDialog({
+                                id:result.data.kode,
+                                type:'simpan'
+                            });
+                            last_add("kode_customer",result.data.kode);
+                        }else if(!result.data.status && result.data.message === "Unauthorized"){
                         
-            //                 window.location.href = "{{ url('/java-auth/sesi-habis') }}";
+                            window.location.href = "{{ url('/java-auth/sesi-habis') }}";
                             
-            //             }else{
-            //                 if(result.data.kode == "-" && result.data.jenis != undefined){
-            //                     msgDialog({
-            //                         id: id,
-            //                         type: result.data.jenis,
-            //                         text:'Kode customer sudah digunakan'
-            //                     });
-            //                 }else{
+                        }else{
+                            if(result.data.kode == "-" && result.data.jenis != undefined){
+                                msgDialog({
+                                    id: id,
+                                    type: result.data.jenis,
+                                    text:'Kode customer sudah digunakan'
+                                });
+                            }else{
 
-            //                     Swal.fire({
-            //                         icon: 'error',
-            //                         title: 'Oops...',
-            //                         text: 'Something went wrong!',
-            //                         footer: '<a href>'+result.data.message+'</a>'
-            //                     })
-            //                 }
-            //             }
-            //         },
-            //         error: function(xhr, textStatus, errorThrown) {
-            //             alert('request failed:'+textStatus);
-            //         },
-            //         fail: function(xhr, textStatus, errorThrown){
-            //             alert('request failed:'+textStatus);
-            //         }
-            //     });
-            //     $('#btn-simpan').html("Simpan").removeAttr('disabled');
-            // }
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Oops...',
+                                    text: 'Something went wrong!',
+                                    footer: '<a href>'+result.data.message+'</a>'
+                                })
+                            }
+                        }
+                    },
+                    error: function(xhr, textStatus, errorThrown) {
+                        alert('request failed:'+textStatus);
+                    },
+                    fail: function(xhr, textStatus, errorThrown){
+                        alert('request failed:'+textStatus);
+                    }
+                });
+                $('#btn-simpan').html("Simpan").removeAttr('disabled');
+            }
         },
         errorPlacement: function (error, element) {
             var id = element.attr("id");
@@ -1042,7 +1048,7 @@
                     $('#nilai').val(parseInt(result.data[0].nilai));
                     $('#no_dokumen').val(result.data[0].no_dokumen);
                     $('#keterangan').val(result.data[0].keterangan);
-                    if(result.data[0].status === 'UNPAID') {
+                    if(result.data[0].status === 0) {
                         status_paid = false
                         $('#status-paid').prop('checked', false)
                         $('#paid').hide()        
