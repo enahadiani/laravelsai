@@ -1,44 +1,8 @@
-<style>
-    .info-table thead{
-        background:#4286f5;
-        color:white;
-    }
-    .no-border td{
-        border:0 !important;
-    }
-    .bold {
-        font-weight:bold;
-    }
-    .table-header-prev td{
-        padding: 2px !important;
-    }
-    .table-kop-prev td{
-        padding: 0px !important;
-    }
-    .separator2{
-        height:1rem;
-        background:#f8f8f8;
-        box-shadow: -1px 0px 1px 0px #e1e1e1;
-    }
-    .vtop{
-        vertical-align:top !important;
-    }
-    .lh1{
-        line-height:1;
-    }
-    .bg-primary2{
-        background: #eaf2ff !important;
-    }        
-    .bg-primary0{
-        background: #00358a !important;
-        color:white !important;
-    }
-</style>
 <link rel="stylesheet" href="{{ asset('report.css') }}" />
 <div class="row" id="saku-filter">
     <div class="col-12">
         <div class="card" >
-            <x-report-header judul="Laporan Laba Rugi Anggaran Unit" padding="px-4 py-4"/>  
+            <x-report-header judul="Laporan Posisi Anggaran" padding="px-4 py-4"/>  
             <div class="separator"></div>
             <div class="row">
                 <div class="col-12 col-sm-12">
@@ -49,9 +13,8 @@
                                 <div id="inputFilter">
                                     <!-- COMPONENT -->
                                     <x-inp-filter kode="periode" nama="Periode" selected="3" :option="array('1','2','3')"/>
-                                    <x-inp-filter kode="kode_fs" nama="Kode FS" selected="1" :option="array('1')"/>
-                                    <x-inp-filter kode="level" nama="Level" selected="3" :option="array('3')"/>
-                                    <x-inp-filter kode="kode_pp" nama="Kode PP" selected="3" :option="array('1','2','3')"/>
+                                    <x-inp-filter kode="status_pdrk" nama="Status" selected="1" :option="array('1', '3')"/>
+                                    <x-inp-filter kode="no_pdrk" nama="No Anggaran" selected="1" :option="array('1')"/>
                                     <!-- END COMPONENT -->
                                 </div>
                                 <button id="btn-tampil" style="float:right;width:110px" class="btn btn-primary ml-2 mb-3" type="submit" >Tampilkan</button>
@@ -65,7 +28,7 @@
         </div>
     </div>
 </div>
-<x-report-result judul="Laporan Laba Rugi Anggaran Unit" padding="px-0 py-4"/>
+<x-report-result judul="Laporan Posisi Anggaran" padding="px-0 py-4"/>
 @include('modal_search')
 @include('modal_email')
     
@@ -77,9 +40,13 @@
 <script src="{{ asset('reportFilter.js') }}"></script>
 
 <script type="text/javascript">
-    var kode_pp = "{{ Session::get('kodePP') }}"
     var periode = "{{ date('Ym') }}"
-    var level = "1"
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="-token"]').attr('content')
+        }
+    });
 
     var $periode = {
         type : "=",
@@ -89,33 +56,23 @@
         toname : "",
     }
 
-    var $kode_fs = {
+    var $status_pdrk = {
         type : "all",
-        from : "FS1",
+        from : "",
         fromname : "",
         to : "",
         toname : "",
     }
 
-    var $level = {
-        type : "=",
-        from : level,
-        fromname : level,
-        to : "",
-        toname : "",
-    }
-
-    var $kode_pp = {
-        type : "=",
-        from : kode_pp,
-        fromname : kode_pp,
+    var $no_pdrk = {
+        type : "all",
+        from : "",
+        fromname : "",
         to : "",
         toname : "",
     }
 
     $('#periode-from').val(namaPeriode(periode));
-    $('#kode_pp-from').val(kode_pp);
-    $('#level-from').val(level);
 
     $('#btn-filter').click(function(e){
         $('#collapseFilter').show();
@@ -150,63 +107,57 @@
     $('.selectize').selectize();
 
     $('#inputFilter').reportFilter({
-        kode : ['periode', 'kode_fs', 'level', 'kode_pp'],
-        nama : ['Periode', 'Kode FS', 'Level', 'Kode PP'],
-        header : [['Kode'], ['Kode', 'Nama'], ['Kode'], ['Kode', 'Nama']],
-        headerpilih : [['Periode', 'Action'], ['Kode FS', 'Nama', 'Action'], ['Kode', 'Action'], ['Kode PP', 'Nama', 'Action']],
+        kode : ['periode', 'status_pdrk', 'no_pdrk'],
+        nama : ['Periode', 'Status', 'No Anggaran'],
+        header : [['Periode'], ['Kode'], ['Kode']],
+        headerpilih : [['Periode', 'Action'], ['Kode', 'Action'], ['Kode', 'Action']],
         columns: [
             [
                 { data: 'periode' }
             ],
-            [],
-            [],
             [
-                { data: 'kode_pp' },
-                { data: 'nama' }
-            ]
+                { data: 'sts_pdrk' }
+            ],
+            []
         ],
-        url :["{{ url('esaku-report/filter-periode-anggaran') }}", "", "", "{{ url('esaku-report/filter-pp-anggaran') }}"],
+        url :["{{ url('esaku-report/filter-periode-anggaran') }}", "{{ url('esaku-report/filter-rra-anggaran') }}", ""],
         parameter:[
-            {},
             {},
             {},
             {}
         ],
-        orderby:[[], [], [], []],
-        width:[['30%'], ['30%','70%'], ['30%'], ['30%','70%']],
-        display:['kode', 'kode', 'kode', 'kode'],
-        pageLength:[10, 10, 10, 10]
+        orderby:[[], [], []],
+        width:[['30%'], ['30%'], ['30%']],
+        display:['kode', 'kode', 'kode'],
+        pageLength:[10, 10, 10]
     });
 
     $('#inputFilter').on('change','input',function(e){
         setTimeout(() => {
             $('#inputFilter').reportFilter({
-                kode : ['periode', 'kode_fs', 'level', 'kode_pp'],
-                nama : ['Periode', 'Kode FS', 'Level', 'Kode PP'],
-                header : [['Kode'], ['Kode', 'Nama'], ['Kode'], ['Kode', 'Nama']],
-                headerpilih : [['Periode', 'Action'], ['Kode FS', 'Nama', 'Action'], ['Kode', 'Action'], ['Kode PP', 'Nama', 'Action']],
+                kode : ['periode', 'status_pdrk', 'no_pdrk'],
+                nama : ['Periode', 'Status', 'No Anggaran'],
+                header : [['Periode'], ['Kode'], ['Kode']],
+                headerpilih : [['Periode', 'Action'], ['Kode', 'Action'], ['Kode', 'Action']],
                 columns: [
                     [
                         { data: 'periode' }
                     ],
-                    [],
-                    [],
                     [
-                        { data: 'kode_pp' },
-                        { data: 'nama' }
-                    ]
+                        { data: 'sts_pdrk' }
+                    ],
+                    []
                 ],
-                url :["{{ url('esaku-report/filter-periode-anggaran') }}", "", "", "{{ url('esaku-report/filter-pp-anggaran') }}"],
+                url :["{{ url('esaku-report/filter-periode-anggaran') }}", "{{ url('esaku-report/filter-rra-anggaran') }}", ""],
                 parameter:[
-                    {},
                     {},
                     {},
                     {}
                 ],
-                orderby:[[], [], [], []],
-                width:[['30%'], ['30%','70%'], ['30%'], ['30%','70%']],
-                display:['kode', 'kode', 'kode', 'kode'],
-                pageLength:[10, 10, 10, 10]
+                orderby:[[], [], []],
+                width:[['30%'], ['30%'], ['30%']],
+                display:['kode', 'kode', 'kode'],
+                pageLength:[10, 10, 10]
             });
         }, 500)
     });
@@ -218,20 +169,17 @@
         $formData.append("periode[]",$periode.type);
         $formData.append("periode[]",$periode.from);
         $formData.append("periode[]",$periode.to);
-        $formData.append("kode_fs[]",$kode_fs.type);
-        $formData.append("kode_fs[]",$kode_fs.from);
-        $formData.append("kode_fs[]",$kode_fs.to);
-        $formData.append("level[]",$level.type);
-        $formData.append("level[]",$level.from);
-        $formData.append("level[]",$level.to);
-        $formData.append("kode_pp[]",$kode_pp.type);
-        $formData.append("kode_pp[]",$kode_pp.from);
-        $formData.append("kode_pp[]",$kode_pp.to);
+        $formData.append("sts_pdrk[]",$status_pdrk.type);
+        $formData.append("sts_pdrk[]",$status_pdrk.from);
+        $formData.append("sts_pdrk[]",$status_pdrk.to);
+        $formData.append("no_pdrk[]",$no_pdrk.type);
+        $formData.append("no_pdrk[]",$no_pdrk.from);
+        $formData.append("no_pdrk[]",$no_pdrk.to);
         for(var pair of $formData.entries()) {
             console.log(pair[0]+ ', '+ pair[1]); 
         }
         $('#saku-report').removeClass('hidden');
-        xurl = "{{ url('esaku-auth/form/anggaran_rptLaporanLabaRugiUnitAnggaran') }}";
+        xurl = "{{ url('esaku-auth/form/anggaran_rptLaporanPosisiAnggaran') }}";
         $('#saku-report #canvasPreview').load(xurl);
     });
 
@@ -240,20 +188,17 @@
         $formData.append("periode[]",$periode.type);
         $formData.append("periode[]",$periode.from);
         $formData.append("periode[]",$periode.to);
-        $formData.append("kode_fs[]",$kode_fs.type);
-        $formData.append("kode_fs[]",$kode_fs.from);
-        $formData.append("kode_fs[]",$kode_fs.to);
-        $formData.append("level[]",$level.type);
-        $formData.append("level[]",$level.from);
-        $formData.append("level[]",$level.to);
-        $formData.append("kode_pp[]",$kode_pp.type);
-        $formData.append("kode_pp[]",$kode_pp.from);
-        $formData.append("kode_pp[]",$kode_pp.to);
+        $formData.append("sts_pdrk[]",$status_pdrk.type);
+        $formData.append("sts_pdrk[]",$status_pdrk.from);
+        $formData.append("sts_pdrk[]",$status_pdrk.to);
+        $formData.append("no_pdrk[]",$no_pdrk.type);
+        $formData.append("no_pdrk[]",$no_pdrk.from);
+        $formData.append("no_pdrk[]",$no_pdrk.to);
         for(var pair of $formData.entries()) {
             console.log(pair[0]+ ', '+ pair[1]); 
         }
         $('#saku-report').removeClass('hidden');
-        xurl = "{{ url('esaku-auth/form/anggaran_rptLaporanLabaRugiUnitAnggaran') }}";
+        xurl = "{{ url('esaku-auth/form/anggaran_rptLaporanPosisiAnggaran') }}";
         $('#saku-report #canvasPreview').load(xurl);
     });
 
@@ -267,9 +212,10 @@
         e.preventDefault();
         $("#saku-report #canvasPreview").table2excel({
             // exclude: ".excludeThisClass",
-            name: "Lap_LabaRugiUnit_Anggaran_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}",
-            filename: "Lap_LabaRugiUnit_Anggaran_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}.xls", // do include extension
+            name: "Lap_Posisi_Anggaran_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}",
+            filename: "Lap_Posisi_Anggaran_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}.xls", // do include extension
             preserveColors: false // set to true if you want background colors and font colors preserved
         });
     });
+
 </script>

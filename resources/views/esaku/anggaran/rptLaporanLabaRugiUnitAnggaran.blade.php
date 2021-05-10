@@ -22,9 +22,8 @@ function fnSpasi(level) {
 }
 
 function drawRptPage(data,res,from,to) { 
-    console.log({data, res})
+    var html = ""
     if(data.length > 0) {
-        var html = ""
         html += "<div class='sai-rpt-table-export-tbl-anggaran'>"
         html += "<h6 class='text-center'>Laporan Laba Rugi Anggaran Unit</h6>"
         html += "<hr />"
@@ -190,10 +189,10 @@ function drawRptPage(data,res,from,to) {
         html += "</tbody>"
         html += "</div>"
         html += "</div>"
-
-        $('#canvasPreview').html(html);
-        $('li.prev a ').html("<i class='simple-icon-arrow-left'></i>");
-        $('li.next a ').html("<i class='simple-icon-arrow-right'></i>");
     }
+
+    $('#canvasPreview').html(html);
+    $('li.prev a ').html("<i class='simple-icon-arrow-left'></i>");
+    $('li.next a ').html("<i class='simple-icon-arrow-right'></i>");
 }
 </script>
