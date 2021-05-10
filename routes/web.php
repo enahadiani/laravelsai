@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     $domain = $_SERVER['SERVER_NAME'];
+    // echo $domain;
     switch ($domain){
         case 'fo.simkug.com' : 
             return redirect('dago-auth/login');
@@ -23,6 +24,7 @@ Route::get('/', function () {
             return redirect('apv/login');
         break;
         case 'javaturbine.co.id' : 
+        case 'www.javaturbine.co.id':
             return redirect('webjava-v2/');
         break;
         case 'trengginasjaya.com' :
