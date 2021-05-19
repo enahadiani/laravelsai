@@ -374,7 +374,7 @@ function getPeriode(){
 
                 switch($dash_periode.type){
                     case '=':
-                        var label = namaQuarter($dash_periode.from);
+                        var label = namaPeriode($dash_periode.from);
                         if($dash_periode.from == ""){
                             if(result.data.periode_max != ""){
                                 control.setValue(result.data.periode_max);
@@ -387,11 +387,11 @@ function getPeriode(){
                     break;
                     case '<=':
                         
-                        var label = 's.d '+namaQuarter($dash_periode.from);
+                        var label = 's.d '+namaPeriode($dash_periode.from);
                     break;
                     case 'range':
                         
-                        var label = namaQuarter($dash_periode.from)+' s.d '+namaQuarter($dash_periode.to);
+                        var label = namaPeriode($dash_periode.from)+' s.d '+namaPeriode($dash_periode.to);
                         if($dash_periode.from == ""){
                             if(result.data.periode_max != ""){
                                 control.setValue(result.data.periode_max);
@@ -829,15 +829,15 @@ $('#form-filter').submit(function(e){
     $filter_periode = $dash_periode.from;
     switch($dash_periode.type){
         case '=':
-            var label = namaQuarter($dash_periode.from);    
+            var label = namaPeriode($dash_periode.from);    
         break;
         case '<=':
             
-            var label = 's.d '+namaQuarter($dash_periode.from);
+            var label = 's.d '+namaPeriode($dash_periode.from);
         break;
         case 'range':
             
-            var label = namaQuarter($dash_periode.from)+' s.d '+namaQuarter($dash_periode.to);
+            var label = namaPeriode($dash_periode.from)+' s.d '+namaPeriode($dash_periode.to);
 
         break;
     }
