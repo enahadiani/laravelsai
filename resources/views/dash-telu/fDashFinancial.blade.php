@@ -542,7 +542,7 @@ function getTarget(periode=null)
                                             </div>
                                             <div class="col-md-7 col-12 col-grid row-note">
                                                 <p class='note-text'>`+line.keterangan+`</p>
-                                                <a class='edit-note' href='#' data-kode_grafik='`+line.kode_grafik+`' data-periode='`+quarter($dash_periode.from)+`' data-nama='`+line.nama+`'>
+                                                <a class='edit-note' href='#' data-kode_grafik='`+line.kode_grafik+`' data-periode='`+$dash_periode.from+`' data-nama='`+line.nama+`'>
                                                     <i class="simple-icon-note text-right" style="font-size: 25px;position: absolute;bottom: 0;right: 20px;color: #f3f3f3;"></i>
                                                 </a>
                                             </div>
@@ -694,7 +694,7 @@ function getTarget(periode=null)
                 
                 $('#note-or').attr('data-kode_grafik',result.data2[0].kode_grafik);
                 $('#note-or').attr('data-nama',result.data2[0].nama);
-                $('#note-or').attr('data-periode',quarter($dash_periode.from));
+                $('#note-or').attr('data-periode',$dash_periode.from);
                 $('#target-or').html(sepNum(result.data2[0].rka_sd));
                 $('#real-or').html(sepNum(result.data2[0].realisasi));
                 $('#ket-or').html(result.data2[0].keterangan);
