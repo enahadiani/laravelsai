@@ -1,4 +1,12 @@
 <link rel="stylesheet" href="{{ asset('report.css') }}" />
+<style>
+    .text-green {
+        color: green;
+    }
+    .text-red {
+        color: red;
+    }
+</style>
 <div class="row" id="saku-filter">
     <div class="col-12">
         <div class="card" >
