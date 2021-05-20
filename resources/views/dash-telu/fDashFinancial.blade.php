@@ -374,7 +374,7 @@ function getPeriode(){
 
                 switch($dash_periode.type){
                     case '=':
-                        var label = namaQuarter($dash_periode.from);
+                        var label = namaPeriode($dash_periode.from);
                         if($dash_periode.from == ""){
                             if(result.data.periode_max != ""){
                                 control.setValue(result.data.periode_max);
@@ -387,11 +387,11 @@ function getPeriode(){
                     break;
                     case '<=':
                         
-                        var label = 's.d '+namaQuarter($dash_periode.from);
+                        var label = 's.d '+namaPeriode($dash_periode.from);
                     break;
                     case 'range':
                         
-                        var label = namaQuarter($dash_periode.from)+' s.d '+namaQuarter($dash_periode.to);
+                        var label = namaPeriode($dash_periode.from)+' s.d '+namaPeriode($dash_periode.to);
                         if($dash_periode.from == ""){
                             if(result.data.periode_max != ""){
                                 control.setValue(result.data.periode_max);
@@ -542,7 +542,7 @@ function getTarget(periode=null)
                                             </div>
                                             <div class="col-md-7 col-12 col-grid row-note">
                                                 <p class='note-text'>`+line.keterangan+`</p>
-                                                <a class='edit-note' href='#' data-kode_grafik='`+line.kode_grafik+`' data-periode='`+quarter($dash_periode.from)+`' data-nama='`+line.nama+`'>
+                                                <a class='edit-note' href='#' data-kode_grafik='`+line.kode_grafik+`' data-periode='`+$dash_periode.from+`' data-nama='`+line.nama+`'>
                                                     <i class="simple-icon-note text-right" style="font-size: 25px;position: absolute;bottom: 0;right: 20px;color: #f3f3f3;"></i>
                                                 </a>
                                             </div>
@@ -694,7 +694,7 @@ function getTarget(periode=null)
                 
                 $('#note-or').attr('data-kode_grafik',result.data2[0].kode_grafik);
                 $('#note-or').attr('data-nama',result.data2[0].nama);
-                $('#note-or').attr('data-periode',quarter($dash_periode.from));
+                $('#note-or').attr('data-periode',$dash_periode.from);
                 $('#target-or').html(sepNum(result.data2[0].rka_sd));
                 $('#real-or').html(sepNum(result.data2[0].realisasi));
                 $('#ket-or').html(result.data2[0].keterangan);
@@ -829,15 +829,15 @@ $('#form-filter').submit(function(e){
     $filter_periode = $dash_periode.from;
     switch($dash_periode.type){
         case '=':
-            var label = namaQuarter($dash_periode.from);    
+            var label = namaPeriode($dash_periode.from);    
         break;
         case '<=':
             
-            var label = 's.d '+namaQuarter($dash_periode.from);
+            var label = 's.d '+namaPeriode($dash_periode.from);
         break;
         case 'range':
             
-            var label = namaQuarter($dash_periode.from)+' s.d '+namaQuarter($dash_periode.to);
+            var label = namaPeriode($dash_periode.from)+' s.d '+namaPeriode($dash_periode.to);
 
         break;
     }
