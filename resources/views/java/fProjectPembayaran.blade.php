@@ -105,6 +105,7 @@
                                         <th style="width:3%">No</th>
                                         <th style="width:15%">No Tagihan</th>
                                         <th style="width:15%">No Dokumen</th>
+                                        <th style="width:15%">Tagihan</th>
                                         <th style="width:15%">Pembayaran</th>
                                         <th style="width:5%"></th>
                                     </tr>
@@ -563,6 +564,7 @@
         input += "<td class='text-center no-grid'>"+no+"<input type='text' name='no[]' class='form-control inp-no noke"+no+" hidden'  value='"+no+"' required></td>";
         input += "<td><span class='td-tagihan tdtagihanke"+no+" tooltip-span'></span><input autocomplete='off' type='text' name='no_tagihan[]' class='form-control inp-tagihan tagihanke"+no+" hidden' value='' required='' style='z-index: 1;position: relative;' id='tagihankode"+no+"'><a href='#' class='search-item search-tagihan hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
         input += "<td><span class='td-dokumen tddokumenke"+no+" tooltip-span'></span><input type='text' name='no_dokumen[]' class='form-control inp-dokumen dokumenke"+no+" hidden'  value='' required></td>";
+        input += "<td class='text-right'><span class='td-nilai_tagihan tdnilai_tagihanke"+no+" tooltip-span'></span><input type='text' name='nilai_tagihan[]' class='form-control inp-nilai_tagihan nilai_tagihanke"+no+" hidden numeric'  value='0'></td>";
         input += "<td class='text-right'><span class='td-nilai_bayar tdnilai_bayarke"+no+" tooltip-span'></span><input type='text' name='nilai_bayar[]' class='form-control inp-nilai_bayar nilai_bayarke"+no+" hidden numeric'  value='0'></td>";
         input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px;cursor:pointer;'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
         input += "</tr>";
@@ -591,6 +593,10 @@
                 return $(this).text();
             }
         });
+
+        $('.nilai_bayarke'+no).blur(function() {
+            $('.tdnilai_bayarke'+no).text($(this).val())
+        })
 
         $('#tagihankode'+no).typeahead({
             source:$dtTagihan,
@@ -848,7 +854,7 @@
         var cust = $('#kode_cust').val()
         switch(par){
             case 'no_tagihan[]': 
-                var par2 = "nilai_bayar[]";
+                var par2 = "nilai_tagihan[]";
                 
             break;
         }
@@ -891,7 +897,7 @@
 
     $('#input-grid').on('click', 'td', function(){
         var idx = $(this).index();
-        if(idx == 0 || idx == 3 || idx == 4){
+        if(idx == 0 || idx == 5){
             return false;
         }else{
             if($(this).hasClass('px-0 py-0 aktif')){
@@ -902,6 +908,8 @@
         
                 var tagihan = $(this).parents("tr").find(".inp-tagihan").val();
                 var dokumen = $(this).parents("tr").find(".inp-dokumen").val();
+                var pembayaran = $(this).parents("tr").find(".inp-nilai_bayar").val();
+                var tagihan = $(this).parents("tr").find(".inp-nilai_tagihan").val();
                 var no = $(this).parents("tr").find(".no-grid").text();
                 $(this).parents("tr").find(".inp-tagihan").val(tagihan);
                 $(this).parents("tr").find(".td-tagihan").text(tagihan);
@@ -926,6 +934,28 @@
                     $(this).parents("tr").find(".inp-dokumen").hide();
                     $(this).parents("tr").find(".td-dokumen").show();
                 }
+
+                $(this).parents("tr").find(".inp-nilai_tagihan").val(tagihan);
+                $(this).parents("tr").find(".td-nilai_tagihan").text(tagihan);
+                if(idx == 3){
+                    $(this).parents("tr").find(".inp-nilai_tagihan").show();
+                    $(this).parents("tr").find(".td-nilai_tagihan").hide();
+                    $(this).parents("tr").find(".inp-nilai_tagihan").focus();
+                }else{
+                    $(this).parents("tr").find(".inp-nilai_tagihan").hide();
+                    $(this).parents("tr").find(".td-nilai_tagihan").show();
+                }
+
+                $(this).parents("tr").find(".inp-nilai_bayar").val(pembayaran);
+                $(this).parents("tr").find(".td-nilai_bayar").text(pembayaran);
+                if(idx == 4){
+                    $(this).parents("tr").find(".inp-nilai_bayar").show();
+                    $(this).parents("tr").find(".td-nilai_bayar").hide();
+                    $(this).parents("tr").find(".inp-nilai_bayar").focus();
+                }else{
+                    $(this).parents("tr").find(".inp-nilai_bayar").hide();
+                    $(this).parents("tr").find(".td-nilai_bayar").show();
+                }
             }
         }
     });
@@ -934,7 +964,7 @@
         e.preventDefault();
         var noidx =  $(this).parents("tr").find(".no-grid").text();
         target1 = "tagihanke"+noidx;
-        target2 = "nilai_bayarke"+noidx;
+        target2 = "nilai_tagihanke"+noidx;
         target3 = "dokumenke"+noidx;
         if($.trim($(this).closest('tr').find('.inp-tagihan').val()).length){
             var kode = $(this).val();
@@ -962,7 +992,7 @@
                         var noidx = $(this).parents("tr").find(".no-grid").text();
                         var value = $(this).val()
                         var target1 = "tagihanke"+noidx;
-                        var target2 = "nilai_bayarke"+noidx;
+                        var target2 = "nilai_tagihanke"+noidx;
                         var target3 = "dokumenke"+noidx;
                         cekTagihan(value,target1,target2,target3,'tab');
                     }else{
@@ -1312,7 +1342,8 @@
                             input += "<td class='text-center no-grid'>"+line.no+"<input type='text' name='no[]' class='form-control inp-no noke"+line.no+" hidden'  value='"+line.no+"' required></td>";
                             input += "<td><span class='td-tagihan tdtagihanke"+line.no+" tooltip-span'>"+line.no_tagihan+"</span><input autocomplete='off' type='text' name='no_tagihan[]' class='form-control inp-tagihan tagihanke"+line.no+" hidden' value='"+line.no_tagihan+"' required='' style='z-index: 1;position: relative;' id='tagihankode"+no+"'><a href='#' class='search-item search-tagihan hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
                             input += "<td><span class='td-dokumen tddokumenke"+line.no+" tooltip-span'>"+line.no_dokumen+"</span><input type='text' name='no_dokumen[]' class='form-control inp-dokumen dokumenke"+line.no+" hidden'  value='"+line.no_dokumen+"' required></td>";
-                            input += "<td class='text-right'><span class='td-nilai_bayar tdnilai_bayarke"+line.no+" tooltip-span'>"+format_number(line.nilai_bayar)+"</span><input type='text' name='nilai_bayar[]' class='form-control inp-nilai_bayar nilai_bayarke"+line.no+" hidden numeric'  value='"+parseFloat(line.nilai_bayar)+"' required></td>";
+                            input += "<td class='text-right'><span class='td-nilai_tagihan tdnilai_tagihanke"+line.no+" tooltip-span'>"+format_number(line.nilai_tagihan)+"</span><input type='text' name='nilai_tagihan[]' class='form-control inp-nilai_tagihan nilai_tagihanke"+line.no+" hidden numeric' value='"+parseFloat(line.nilai_tagihan)+"'></td>";
+                            input += "<td class='text-right'><span class='td-nilai_bayar tdnilai_bayarke"+line.no+" tooltip-span'>"+format_number(line.nilai_bayar)+"</span><input type='text' name='nilai_bayar[]' class='form-control inp-nilai_bayar nilai_bayarke"+line.no+" hidden numeric'  value='"+parseFloat(line.nilai_bayar)+"'></td>";
                             input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px;cursor:pointer;'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
                             input += "</tr>";
         

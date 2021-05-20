@@ -78,7 +78,8 @@ class PembayaranProyekController extends Controller {
             'no' => 'required|array',
             'no_tagihan' => 'required|array',
             'no_dokumen' => 'required|array',
-            'nilai_bayar' => 'required|array'
+            'nilai_bayar' => 'required|array',
+            'nilai_tagihan' => 'required|array'
         ]);
 
         try {
@@ -95,6 +96,7 @@ class PembayaranProyekController extends Controller {
             $no_tagihan = array();
             $no_dokumen = array();
             $nilai_bayar = array();
+            $nilai_tagihan = array();
 
             for($i=0;$i<count($name);$i++) { 
                 if($name[$i] == 'file') {
@@ -150,6 +152,10 @@ class PembayaranProyekController extends Controller {
                     'name'     => 'nilai_bayar[]',
                     'contents' => $this->joinNum($request->nilai_bayar[$i]),
                 );
+                $nilai_tagihan[$i] = array(
+                    'name'     => 'nilai_tagihan[]',
+                    'contents' => $this->joinNum($request->nilai_tagihan[$i]),
+                );
                 // array_push($no, $request->input('no')[$i]);
                 // array_push($no_tagihan, $request->input('no_tagihan')[$i]);
                 // array_push($no_dokumen, $request->input('no_dokumen')[$i]);
@@ -159,6 +165,7 @@ class PembayaranProyekController extends Controller {
             $fields = array_merge($fields,$no_tagihan);
             $fields = array_merge($fields,$no_dokumen);
             $fields = array_merge($fields,$nilai_bayar);
+            $fields = array_merge($fields,$nilai_tagihan);
 
             // $form = array(
             //     'tanggal' => $this->convertDate($request->input('tanggal')),
@@ -173,6 +180,10 @@ class PembayaranProyekController extends Controller {
             //     'no_dokumen' => $no_dokumen,
             //     'nilai_bayar' => $nilai_bayar
             // );
+
+            // echo "<pre>";
+            // var_dump($fields);
+            // echo "</pre>";
 
             $client = new Client();
             $response = $client->request('POST',  config('api.url').'java-trans/bayar-proyek',[
@@ -237,7 +248,8 @@ class PembayaranProyekController extends Controller {
             'no' => 'required|array',
             'no_tagihan' => 'required|array',
             'no_dokumen' => 'required|array',
-            'nilai_bayar' => 'required|array'
+            'nilai_bayar' => 'required|array',
+            'nilai_tagihan' => 'required|array'
         ]);
 
         try {
@@ -254,6 +266,7 @@ class PembayaranProyekController extends Controller {
             $no_tagihan = array();
             $no_dokumen = array();
             $nilai_bayar = array();
+            $nilai_tagihan = array();
 
             for($i=0;$i<count($name);$i++) { 
                 if($name[$i] == 'file') {
@@ -309,6 +322,10 @@ class PembayaranProyekController extends Controller {
                     'name'     => 'nilai_bayar[]',
                     'contents' => $this->joinNum($request->nilai_bayar[$i]),
                 );
+                $nilai_tagihan[$i] = array(
+                    'name'     => 'nilai_tagihan[]',
+                    'contents' => $this->joinNum($request->nilai_tagihan[$i]),
+                );
                 // array_push($no, $request->input('no')[$i]);
                 // array_push($no_tagihan, $request->input('no_tagihan')[$i]);
                 // array_push($no_dokumen, $request->input('no_dokumen')[$i]);
@@ -318,6 +335,7 @@ class PembayaranProyekController extends Controller {
             $fields = array_merge($fields,$no_tagihan);
             $fields = array_merge($fields,$no_dokumen);
             $fields = array_merge($fields,$nilai_bayar);
+            $fields = array_merge($fields,$nilai_tagihan);
 
             $client = new Client();
             $response = $client->request('POST',  config('api.url').'java-trans/bayar-proyek-ubah',[
