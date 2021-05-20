@@ -147,9 +147,9 @@ function drawRptPage(data,res,from,to){
                     var beban = daftar_beban[k]
                     var status = null
                     if(beban.status == 1) {
-                        status = 'PAID'
+                        status = "<span class='text-green'>PAID</span>"
                     } else {
-                        status = 'UNPAID'
+                        status = "<span class='text-red'>UNPAID</span>"
                     }
                     if(proyek.no_proyek == beban.no_proyek) {
                         html += "<tr>";
