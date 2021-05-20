@@ -576,7 +576,7 @@ function getTarget(periode=null)
                                                 <div class="collapse" id="collaps`+line.kode_grafik+`" style="">
                                                     <div class="p-4 border mt-0" style="border-radius:0.25rem;background:#F8F8F8">
                                                         <p class='note-text'>`+line.keterangan+`</p>
-                                                        <a class='edit-note' href='#' data-kode_grafik='`+line.kode_grafik+`' data-periode='`+quarter($dash_periode.from)+`' data-nama='`+line.nama+`'>
+                                                        <a class='edit-note' href='#' data-kode_grafik='`+line.kode_grafik+`' data-periode='`+$dash_periode.from+`' data-nama='`+line.nama+`'>
                                                             <i class="simple-icon-note text-right" style="font-size: 25px;position: absolute;bottom: 30px;right: 20px;color: #f3f3f3;"></i>
                                                         </a>
                                                     </div>
@@ -735,7 +735,7 @@ function getTarget(periode=null)
                 
                 $('#note-or').attr('data-kode_grafik',result.data2[0].kode_grafik);
                 $('#note-or').attr('data-nama',result.data2[0].nama);
-                $('#note-or').attr('data-periode',quarter($dash_periode.from));
+                $('#note-or').attr('data-periode',$dash_periode.from);
                 $('#target-or').html(sepNum(result.data2[0].rka_sd));
                 $('#real-or').html(sepNum(result.data2[0].realisasi));
                 $('#acv-or').html(sepNum(result.data2[0].persen));
@@ -871,15 +871,15 @@ $('#form-filter').submit(function(e){
     $filter_periode = $dash_periode.from;
     switch($dash_periode.type){
         case '=':
-            var label = namaQuarter($dash_periode.from);    
+            var label = namaPeriode($dash_periode.from);    
         break;
         case '<=':
             
-            var label = 's.d '+namaQuarter($dash_periode.from);
+            var label = 's.d '+namaPeriode($dash_periode.from);
         break;
         case 'range':
             
-            var label = namaQuarter($dash_periode.from)+' s.d '+namaQuarter($dash_periode.to);
+            var label = namaPeriode($dash_periode.from)+' s.d '+namaPeriode($dash_periode.to);
 
         break;
     }
