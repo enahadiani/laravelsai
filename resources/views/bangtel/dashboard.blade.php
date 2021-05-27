@@ -1,8 +1,8 @@
 <link rel="stylesheet" href="{{ asset('dash-asset/dash-java/dash-perusahaan-dekstop.css') }}" />
 <div class="row">
     <div class="col-md-6 col-sm-6">
-        <h6 class="text-bold">Project Tahun Ini</h6>
-        <p id="periode-text">Periode Januari 2021</p>
+        <h6 class="text-bold">Project <span id="pp-text" style="font-size:1rem !important"></span></h6>
+        <p id="periode-text">Periode </p>
     </div>
     <div class="col-md-6 col-sm-6">
         <button id="button-filter" class="btn btn-filter">Filter</button>
@@ -286,11 +286,15 @@
             <form id="form-filter">
                 <div class="modal-header pb-0" style="border:none">
                     <h6 class="modal-title pl-0">Filter</h6>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true" style="font-size:30px !important">&times;</span>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="top: 25px !important;right: -10px !important;">
+                        <span aria-hidden="true" style="">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body" style="border:none">
+                    <div class="form-group">
+                        <label for="kode_pp">Lokasi PP</label>
+                        <select name="kode_pp" id="kode_pp" class="form-control"></select>
+                    </div>
                     <div class="form-group">
                         <label for="periode">Periode</label>
                         <select name="periode" id="periode" class="form-control"></select>
@@ -311,9 +315,10 @@
     $('#button-back').hide();
     $('#dekstop-baris-ke-1').show()
     $('#dekstop-baris-ke-2').show()
-    var $initialPeriode = "{{ date('Y')}}-{{ date('m') }}"
-    var $periodeText = ''
-    var $periode = ''
+    var $initialPeriode = "{{ date('Ym') }}";
+    var $initialPP = "00";
+    var $periodeText = '';
+    var $periode = '';
     $('#button-filter').click(function(){
         $('#modalFilter').modal('show');
     })
@@ -328,15 +333,24 @@
         return sepNum(nil) + ' Jt';
     }
 
-    function convertPeriode(periode) {
-        var array = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September',
-        'Oktober', 'November', 'Desember']
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('bangtel-dash/pp') }}",
+        dataType: 'json',
+        async:false,
+        success:function(result){  
+            var select = $("#kode_pp").selectize();
+            select = select[0];
+            var control = select.selectize;
 
-        var split = periode.split('-')
-        var convert = parseInt(split[1])
-
-        return array[convert - 1]+" "+split[0]
-    }
+            $.each(result.data, function(index, item){
+                control.addOption([{text:item.nama, value:item.kode_pp}]);
+            })    
+            control.setValue($initialPP);
+            $('#pp-text').text(result.data[result.data.length - 1].nama);
+            getProjectDashboard($initialPP);
+        }
+    });
 
     $.ajax({
         type: 'GET',
@@ -344,29 +358,30 @@
         dataType: 'json',
         async:false,
         success:function(result){    
-            $.each(result.daftar, function(index, item){
-                $('#periode').append($('<option/>', {
-                    value: item.value,
-                    text: item.text
-                }))
+            var select = $("#periode").selectize();
+            select = select[0];
+            var control = select.selectize;
+
+            $.each(result.data, function(index, item){
+                control.addOption([{text:item.nama, value:item.periode}]);
             })    
-            var filter = result.daftar.filter(function(data){
-                return data.value == $initialPeriode
-            })
+            var filter = result.data.filter(function(data){
+                return data.periode == $initialPeriode
+            });
 
             if(filter.length > 0) {
-                $('#periode').val($initialPeriode)
-                getProjectDashboard($initialPeriode)
-                getProfitDashboard($initialPeriode)
-                getProjectAktif($initialPeriode)
-                $periodeText = convertPeriode($initialPeriode)
+                control.setValue($initialPeriode);
+                // getProjectDashboard($initialPeriode)
+                // getProfitDashboard($initialPeriode)
+                // getProjectAktif($initialPeriode)
+                $periodeText = namaPeriode($initialPeriode)
             } else {
-                $initialPeriode = result.daftar[result.daftar.length-1].value;
-                $periodeText = convertPeriode(result.daftar[result.daftar.length-1].value)
-                $('#periode').val(result.daftar[result.daftar.length-1].value)
-                getProjectDashboard(result.daftar[result.daftar.length-1].value)
-                getProfitDashboard(result.daftar[result.daftar.length-1].value)
-                getProjectAktif(result.daftar[result.daftar.length-1].value)
+                $initialPeriode = result.data[0].periode;
+                $periodeText = namaPeriode(result.data[0].periode)
+                control.setValue(result.data[0].periode)
+                // getProjectDashboard(result.data[0].value)
+                // getProfitDashboard(result.data[0].value)
+                // getProjectAktif(result.data[0].value)
             }
             $('#periode-text').text('Periode '+$periodeText)
         }
@@ -507,18 +522,18 @@
         });
     }
 
-    function getProjectDashboard(periode) {
+    function getProjectDashboard(kode_pp) {
         $.ajax({
             type: 'GET',
-            url: "{{ url('bangtel-dash/project-dashboard') }}",
+            url: "{{ url('bangtel-dash/project-box') }}",
             dataType: 'json',
-            data: { periode: periode },
+            data: { kode_pp: kode_pp },
             async:false,
             success:function(result){    
-                var data = result.data.data[0]
-                $('#project-total').text(format_number(data.jumlah_proyek))
-                $('#project-selesai').text(format_number(data.proyek_selesai))
-                $('#project-berjalan').text(format_number(data.proyek_berjalan))
+                var data = result.data[0]
+                $('#project-total').text(format_number(data.total))
+                $('#project-selesai').text(format_number(data.selesai))
+                $('#project-berjalan').text(format_number(data.berjalan))
             }
         });
     }
@@ -571,17 +586,13 @@
 
     $('#form-filter #btn-tampil').on('click', function(){
         $('#project-active tbody').empty()
-        $periode = $('#periode').val()
-        $periodeText = convertPeriode($periode)
-        getProjectDashboard($periode)
-        getProfitDashboard($periode)
-        getProjectAktif($periode)
-        $('#periode-text').text('Periode '+$periodeText)
+        $kode_pp = $('#kode_pp')[0].selectize.getValue();
+        getProjectDashboard($kode_pp);
         $('#modalFilter').modal('hide');
     })
 
     $('#form-filter #btn-reset').on('click', function(){
-        $('#periode').val($initialPeriode)
-        $periode = $initialPeriode
+        // $('#periode').val($initialPeriode)
+        // $periode = $initialPeriode
     })
 </script>

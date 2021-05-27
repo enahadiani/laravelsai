@@ -3,6 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 
-// Helper
+
+Route::get('periode', 'Bangtel\DashboardController@getPeriode');
+Route::get('pp', 'Bangtel\DashboardController@getPP');
+Route::get('project-box', 'Bangtel\DashboardController@getBoxProject');
+
 
 ?>
