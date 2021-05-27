@@ -103,6 +103,8 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapSimaRoutes();
 
         $this->mapWebTelkomPropertyRoutes();
+
+        $this->mapBangtelRoutes();
     }
 
     /**
@@ -655,6 +657,35 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/webtelprop/web-routes.php'));
+    }
+
+    protected function mapBangtelRoutes()
+    {
+        Route::prefix('bangtel-auth')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/bangtel/auth.php'));
+
+        Route::prefix('bangtel-dash')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/bangtel/dash.php'));
+    
+        Route::prefix('bangtel-master')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/bangtel/master.php'));
+    
+        Route::prefix('bangtel-trans')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/bangtel/trans.php'));
+    
+        Route::prefix('bangtel-report')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/bangtel/report.php'));
+   
     }
 
 }
