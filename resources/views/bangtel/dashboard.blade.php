@@ -350,17 +350,16 @@
 
             $.each(result.data, function(index, item){
                 control.addOption([{text:item.nama, value:item.kode_pp}]);
-                
             });
-            $data_pp = result.data; 
+            $data_pp = result.data;
             control.addOption([{text:"Semua", value:""}]);  
             control.setValue("");
             $('#pp-text').text("Semua");
             getProjectDashboard();
-            getProjectAktif();
-            getProfitDashboard();
-            getBebanDashboard();
             getPendapatanDashboard();
+            getBebanDashboard();
+            getProfitDashboard();
+            getProjectAktif();
         }
     });
 
@@ -541,21 +540,25 @@
             data: { kode_pp: kode_pp },
             async:false,
             success:function(result){  
-                var data = result.data[0]  
-                var profit = parseInt(data.pdpt) - parseInt(data.beban)
-                var persentase = 0;
-                if(profit == 0) {
-                    persentase = 0
-                } else {
-                    persentase = (profit/parseInt(data.pdpt))*100
+                if(result.data.length > 0){
+
+                    var data = result.data[0];  
+                    var profit = parseInt(data.pdpt) - parseInt(data.beban)
+                    var persentase = 0;
+                    if(profit == 0 || profit == null) {
+                        persentase = 0
+                    } else {
+                        persentase = (profit/parseInt(data.pdpt))*100
+                    }
+                    if(profit.toString().length <= 9) {
+                        profit = toJuta(profit)
+                    } else {
+                        profit = toMilyar(profit)
+                    }
+                    $('#profit-percentage').text(sepNumKoma(persentase,2)+'%');
+                    $('#profit-amount').text(profit);
+                    $('#naik').text(sepNumKoma(naik,2));
                 }
-                if(profit.toString().length <= 9) {
-                    profit = toJuta(profit)
-                } else {
-                    profit = toMilyar(profit)
-                }
-                $('#profit-percentage').text(format_number(persentase)+'%')
-                $('#profit-amount').text(profit)
                 // $('#project-berjalan').text(format_number(data.proyek_berjalan))
             }
         });
@@ -693,11 +696,13 @@
     $('#form-filter #btn-tampil').on('click', function(){
         $('#project-active tbody').empty()
         $kode_pp = $('#kode_pp')[0].selectize.getValue();
+        let pptext = $('#kode_pp option:selected').html();
+        $('#pp-text').html(pptext);
         getProjectDashboard($kode_pp);
-        getProjectAktif($kode_pp);
-        getBebanDashboard($kode_pp);
         getPendapatanDashboard($kode_pp);
+        getBebanDashboard($kode_pp);
         getProfitDashboard($kode_pp);
+        getProjectAktif($kode_pp);
         $('#modalFilter').modal('hide');
     })
 
