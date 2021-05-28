@@ -50,7 +50,7 @@
             <div class="card card-dash">
                 <div class="card-pendapatan">
                     <h6 class="pt-4 pl-4 text-white">Pendapatan</h6>
-                    <h4 class="pt-1 pl-4 text-white">2.1 M</h4>
+                    <h4 class="pt-1 pl-4 text-white" id="pdpt_total">0</h4>
                 </div>
                 <div class="keterangan-card">
                     <div class="row keterangan-container">
@@ -61,7 +61,7 @@
                             </div>
                         </div>
                         <div class="col-md-4 col-sm-4 col-lg-4">
-                            <span class="text-bold pr-2">1.9 M</span>
+                            <span class="text-bold pr-2" id="pdpt_terima">0</span>
                         </div>
                     </div>
                 </div>
@@ -74,7 +74,7 @@
                             </div>
                         </div>
                         <div class="col-md-4 col-sm-4 col-lg-4">
-                            <span class="text-bold pr-2">298 jt</span>
+                            <span class="text-bold pr-2" id="pdpt_piutang">0</span>
                         </div>
                     </div>
                 </div>
@@ -84,7 +84,7 @@
             <div class="card card-dash">
                 <div class="card-beban">
                     <h6 class="pt-4 pl-4 text-white">Beban</h6>
-                    <h4 class="pt-1 pl-4 text-white">987 jt</h4>
+                    <h4 class="pt-1 pl-4 text-white" id="beban_total">0</h4>
                 </div>
                 <div class="keterangan-card">
                     <div class="row keterangan-container">
@@ -95,7 +95,7 @@
                             </div>
                         </div>
                         <div class="col-md-4 col-sm-4 col-lg-4">
-                            <span class="text-bold pr-2">728 jt</span>
+                            <span class="text-bold pr-2" id="beban_terbayar">0</span>
                         </div>
                     </div>
                 </div>
@@ -108,7 +108,7 @@
                             </div>
                         </div>
                         <div class="col-md-4 col-sm-4 col-lg-4">
-                            <span class="text-bold pr-2">259 jt</span>
+                            <span class="text-bold pr-2" id="beban_belum_bayar">0</span>
                         </div>
                     </div>
                 </div>
@@ -119,7 +119,7 @@
                 <h6 class="pt-4 pl-4">Profit</h6>
                 <h1 class="pt-1 pl-4 text-bold profit-percentage" id="profit-percentage">0%</h1>
                 <h5 class="pl-4 text-bold profit-amount" id="profit-amount">0 M</h5>
-                <p class="pl-4 text-secondary">Naik 6,2% vs tahun lalu</p>
+                <p class="pl-4 text-secondary">Naik <span id="naik"></span> % vs tahun lalu</p>
             </div>
         </div>
     </div>
@@ -134,25 +134,29 @@
                     <table class="table table-borderless table-striped table-hover mt-1 ml--1" id="project-active">
                         <thead>
                             <tr>
-                                <th>Customer</th>
-                                <th>No Proyek</th>
-                                <th>Kontrak Selesai</th>
-                                <th>Nilai Kontrak</th>
-                                <th>Anggaran</th>
-                                <th>Beban</th>
-                                <th>% Profit</th>
+                                <th width='30'>No</th>
+                                <th width='80'>Kode PP</th>
+                                <th width='150'>Nama PP</th>
+                                <th width='80'>Kode Proyek</th>
+                                <th width='200'>Nama Proyek</th>
+                                <th width='150'>No Kontrak</th>
+                                <th width='100'>Jenis</th>
+                                <th width='60'>Tgl Mulai</th>
+                                <th width='60'>Tgl Selesai</th>
+                                <th width='80'>Progress</th>
+                                <th width='80'>Status</th>
+                                <th width='200'>Customer</th>
+                                <th width='90'>Nilai Kontrak</th>
+                                <th width='90'>Nilai RAB</th>
+                                <th width='90'>Cash Out</th>
+                                <th width='90'>Saldo BDD</th>
+                                <th width='90'>Reklas ke Biaya</th>
+                                <th width='110'>Sisa Saldo BDD</th>
+                                <th width='90'>Saldo RAB</th>
+                                <th width='90'>Pendapatan</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {{-- <tr>
-                                <td>PT. Samudera Aplikasi Indonesia</td>
-                                <td>294/KD/ERIU</td>
-                                <td>11/08/21</td>
-                                <td>13.000.000</td>
-                                <td>12.000.000</td>
-                                <td>10.000.000</td>
-                                <td>23.0%</td>
-                            </tr> --}}
                         </tbody>
                     </table>
                 </div>
@@ -325,7 +329,7 @@
 
     function toMilyar(x) {
         var nil = x / 1000000000;
-        return sepNum(nil) + ' M';
+        return sepNumKoma(nil,2) + ' M';
     }
 
     function toJuta(x) {
@@ -333,6 +337,7 @@
         return sepNum(nil) + ' Jt';
     }
 
+    var $data_pp = {};
     $.ajax({
         type: 'GET',
         url: "{{ url('bangtel-dash/pp') }}",
@@ -345,10 +350,17 @@
 
             $.each(result.data, function(index, item){
                 control.addOption([{text:item.nama, value:item.kode_pp}]);
-            })    
-            control.setValue($initialPP);
-            $('#pp-text').text(result.data[result.data.length - 1].nama);
-            getProjectDashboard($initialPP);
+                
+            });
+            $data_pp = result.data; 
+            control.addOption([{text:"Semua", value:""}]);  
+            control.setValue("");
+            $('#pp-text').text("Semua");
+            getProjectDashboard();
+            getProjectAktif();
+            getProfitDashboard();
+            getBebanDashboard();
+            getPendapatanDashboard();
         }
     });
 
@@ -414,6 +426,33 @@
         $('#dekstop-baris-ke-1').show()
         $('#dekstop-baris-ke-2').show()
     })
+
+    function sepNumKoma(x,digit){
+        if(!isNaN(x)){
+            if (typeof x === undefined || !x || x == 0) { 
+                return 0;
+            }else if(!isFinite(x)){
+                return 0;
+            }else{
+                var x = parseFloat(x).toFixed(digit);
+                // console.log(x);
+                var tmp = x.toString().split('.');
+                // console.dir(tmp);
+                if(tmp[1] != undefined){
+
+                    var y = tmp[1].substr(0,2);
+                    var z = tmp[0]+'.'+y;
+                }else{
+                    var z = tmp[0];
+                }
+                var parts = z.split('.');
+                parts[0] = parts[0].replace(/([0-9])(?=([0-9]{3})+$)/g,'$1.');
+                return parts.join(',');
+            }
+        }else{
+            return 0;
+        }
+    }
 
     function getDetail(proyek, customer, nilai_proyek, tgl_selesai, budget, actual, profit, kode_cust) {
         $('#customer-name').text(customer)
@@ -494,21 +533,21 @@
         });
     }
 
-    function getProfitDashboard(periode) {
+    function getProfitDashboard(kode_pp=null) {
         $.ajax({
             type: 'GET',
-            url: "{{ url('bangtel-dash/profit-dashboard') }}",
+            url: "{{ url('bangtel-dash/profit-box') }}",
             dataType: 'json',
-            data: { periode: periode },
+            data: { kode_pp: kode_pp },
             async:false,
             success:function(result){  
-                var data = result.data.data[0]  
-                var profit = parseInt(data.nilai_proyek) - parseInt(data.nilai_beban)
+                var data = result.data[0]  
+                var profit = parseInt(data.pdpt) - parseInt(data.beban)
                 var persentase = 0;
                 if(profit == 0) {
                     persentase = 0
                 } else {
-                    persentase = (profit/parseInt(data.nilai_proyek))*100
+                    persentase = (profit/parseInt(data.pdpt))*100
                 }
                 if(profit.toString().length <= 9) {
                     profit = toJuta(profit)
@@ -522,61 +561,128 @@
         });
     }
 
-    function getProjectDashboard(kode_pp) {
+    function getProjectDashboard(kode_pp=null) {
         $.ajax({
             type: 'GET',
             url: "{{ url('bangtel-dash/project-box') }}",
             dataType: 'json',
             data: { kode_pp: kode_pp },
             async:false,
-            success:function(result){    
-                var data = result.data[0]
-                $('#project-total').text(format_number(data.total))
-                $('#project-selesai').text(format_number(data.selesai))
-                $('#project-berjalan').text(format_number(data.berjalan))
+            success:function(result){  
+                if(result.data.length > 0){   
+                    var data = result.data[0]
+                    $('#project-total').text(format_number(data.total))
+                    $('#project-selesai').text(format_number(data.selesai))
+                    $('#project-berjalan').text(format_number(data.berjalan))
+                }
             }
         });
     }
 
-    function getProjectAktif(periode) {
+    function getPendapatanDashboard(kode_pp=null) {
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('bangtel-dash/pdpt-box') }}",
+            dataType: 'json',
+            data: { kode_pp: kode_pp },
+            async:false,
+            success:function(result){   
+                if(result.data.length > 0){ 
+                    var data = result.data[0]
+                    $('#pdpt_total').text(toMilyar(data.pdpt))
+                    $('#pdpt_terima').text(toMilyar(data.diterima))
+                    $('#pdpt_piutang').text(toMilyar(data.piutang))
+                }
+            }
+        });
+    }
+
+    function getBebanDashboard(kode_pp=null) {
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('bangtel-dash/beban-box') }}",
+            dataType: 'json',
+            data: { kode_pp: kode_pp },
+            async:false,
+            success:function(result){ 
+                if(result.data.length > 0){
+
+                    var data = result.data[0];
+                    
+                    $('#beban_total').text(toMilyar(data.beban))
+                    $('#beban_terbayar').text(toMilyar(data.terbayar))
+                    $('#beban_belum_bayar').text(toMilyar(data.belum_bayar))
+                }   
+            }
+        });
+    }
+
+    function getProjectAktif(kode_pp=null) {
         $.ajax({
             type: 'GET',
             url: "{{ url('bangtel-dash/project-aktif') }}",
             dataType: 'json',
-            data: { periode: periode },
+            data: { kode_pp: kode_pp },
             async:false,
             success:function(result){    
-                var data = result.data.data
+                var data = result.data;
                 var html = ""
                 if(data.length == 0) {
                     html += "<tr>"
-                    html += "<td colspan='7' style='text-align:center;'>Tidak ada data</td>"
+                    html += "<td colspan='20' style='text-align:center;'>Tidak ada data</td>"
                     html += "</tr>"
                 } else {
+                    var no = 1;
+                    var nilai=0;  var nilai_or=0; var bdd=0; var saldo=0; var piu=0; var sisa=0; var sisa2=0; var reklas=0;
                     for(var i=0;i<data.length;i++) {
-                        var profit = 0
-                        var percentage = 0
-                        var line = data[i]
-                        profit = parseInt(line.nilai_proyek) - parseInt(line.beban)
-                        percentage = (profit/parseInt(line.nilai_proyek))*100
-                        if(line.tgl_selesai == null) {
-                            line.tgl_selesai = '-'
+                        var line = data[i];
+                        nilai+=line.nilai;
+                        nilai_or+=line.nilai_or;
+                        bdd+=line.bdd;
+                        saldo+=line.saldo;
+                        npiu=line.npiu;
+                        if(npiu < 0){
+                            npiu = 0;
                         }
-                        if(!isFinite(percentage)) {
-                            percentage = 0
-                        }
-                        html += "<tr>";
-                        html += "<td>"+line.nama_cust+"</td>"
-                        html += "<td>"+line.no_proyek+"</td>"
-                        html += "<td>"+line.tgl_selesai+"</td>"
-                        html += "<td>"+format_number(line.nilai_proyek)+"</td>"
-                        html += "<td>"+format_number(line.rab)+"</td>"
-                        html += "<td>"+format_number(line.beban)+"</td>"
-                        html += "<td>"+format_number(percentage)+"%</td>"
-                        html += "<td style='display:none'>"+format_number(profit)+"</td>"
-                        html += "<td style='display:none'>"+line.kode_cust+"</td>"
-                        html += "</tr>";
+                        piu+=npiu;
+                        sisa=line.bdd-line.reklas;
+                        sisa2+=sisa;
+                        reklas+=line.reklas;
+                        html+= `<tr>
+                        <td>`+no+`</td>
+                        <td>`+line.kode_pp+`</td>
+                        <td>`+line.nama_pp+`</td>
+                        <td>`+line.kode_proyek+`</td>
+                        <td>`+line.nama+`</td>
+                        <td>`+line.no_pks+`</td>
+                        <td>`+line.nama_jenis+`</td>
+                        <td>`+line.tgl_mulai+`</td>
+                        <td>`+line.tgl_selesai+`</td>
+                        <td>`+format_number(line.progress)+`</td>
+                        <td>`+line.status+`</td>
+                        <td>`+line.nama_cust+`</td>
+                        <td class='text-right'>`+format_number(line.nilai)+`</td>
+                        <td class='text-right'>`+format_number(line.nilai_or)+`</td>
+                        <td class='text-right'>`+format_number(line.bdd)+`</td>
+                        <td class='text-right'>`+format_number(line.bdd)+`</td>
+                        <td class='text-right'>`+format_number(line.reklas)+`</td>
+                        <td class='text-right'>`+format_number(sisa)+`</td>
+                        <td class='text-right'>`+format_number(line.saldo)+`</td>
+                        <td class='text-right'>`+format_number(npiu)+`</td>
+                        </tr>`;
+                        no++;
                     }
+                    html+=`<tr >
+                    <td class='text-center' colspan='12'>Total</td>
+                    <td class='text-right'>`+format_number(nilai)+`</td>
+                    <td class='text-right'>`+format_number(nilai_or)+`</td>
+                    <td class='text-right'>`+format_number(bdd)+`</td>
+                    <td class='text-right'>`+format_number(bdd)+`</td>
+                    <td class='text-right'>`+format_number(reklas)+`</td>
+                    <td class='text-right'>`+format_number(sisa2)+`</td>
+                    <td class='text-right'>`+format_number(saldo)+`</td>
+                    <td class='text-right'>`+format_number(piu)+`</td>
+                    </tr>`;
                 } 
 
                 $('#project-active tbody').append(html)
@@ -588,6 +694,10 @@
         $('#project-active tbody').empty()
         $kode_pp = $('#kode_pp')[0].selectize.getValue();
         getProjectDashboard($kode_pp);
+        getProjectAktif($kode_pp);
+        getBebanDashboard($kode_pp);
+        getPendapatanDashboard($kode_pp);
+        getProfitDashboard($kode_pp);
         $('#modalFilter').modal('hide');
     })
 
