@@ -105,6 +105,8 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapWebTelkomPropertyRoutes();
 
         $this->mapBangtelRoutes();
+        
+        $this->mapSimlogRoutes();
     }
 
     /**
@@ -685,6 +687,35 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/bangtel/report.php'));
+   
+    }
+
+    protected function mapSimlogRoutes()
+    {
+        Route::prefix('simlog-auth')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/simlog/auth.php'));
+
+        Route::prefix('simlog-dash')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/simlog/dash.php'));
+    
+        Route::prefix('simlog-master')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/simlog/master.php'));
+    
+        Route::prefix('simlog-trans')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/simlog/trans.php'));
+    
+        Route::prefix('simlog-report')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/simlog/report.php'));
    
     }
 
