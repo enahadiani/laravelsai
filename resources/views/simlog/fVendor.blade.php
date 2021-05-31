@@ -75,9 +75,9 @@
                             <div class="col-sm-3">
                                 <input readonly type="text" class="form-control" id="pic">
                             </div>
-                            <label for="no_tel_pic" class="col-sm-2 col-form-label">No Tel PIC</label>
+                            <label for="no_pictel" class="col-sm-2 col-form-label">No Tel PIC</label>
                             <div class="col-sm-3">
-                                <input readonly type="text" class="form-control" id="no_tel_pic">
+                                <input readonly type="text" class="form-control" id="no_pictel">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -85,9 +85,9 @@
                             <div class="col-sm-3">
                                 <input readonly type="text" class="form-control" id="bank">
                             </div>
-                            <label for="bank_transfer" class="col-sm-2 col-form-label">Bank Transfer</label>
+                            <label for="bank_trans" class="col-sm-2 col-form-label">Bank Transfer</label>
                             <div class="col-sm-3">
-                                <input readonly type="text" class="form-control" id="bank_transfer">
+                                <input readonly type="text" class="form-control" id="bank_trans">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -115,9 +115,9 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="spesifikasi" class="col-sm-2 col-form-label">Spesifikasi</label>
+                            <label for="spek" class="col-sm-2 col-form-label">Spesifikasi</label>
                             <div class="col-sm-8">
-                                <input readonly type="text" class="form-control" id="spesifikasi">
+                                <input readonly type="text" class="form-control" id="spek">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -125,9 +125,9 @@
                             <div class="col-sm-3">
                                 <input readonly type="text" class="form-control" id="klp_vendor">
                             </div>
-                            <label for="jenis_kapitasi" class="col-sm-2 col-form-label">Jenis Kapitasi</label>
+                            <label for="jenis" class="col-sm-2 col-form-label">Jenis Kapitasi</label>
                             <div class="col-sm-3">
-                                <input readonly type="text" class="form-control" id="jenis_kapitasi">
+                                <input readonly type="text" class="form-control" id="jenis">
                             </div>
                         </div>
                         
@@ -162,6 +162,11 @@
                     $('#no_tel').val(result.data[0].no_tel);
                     $('#no_fax').val(result.data[0].no_fax);
                     $('#bank').val(result.data[0].bank);
+                    $('#bank_trans').val(result.data[0].bank_trans);
+                    $('#spek').val(result.data[0].spek);
+                    $('#jenis').val(result.data[0].jenis);
+                    $('#klp_vendor').val(result.data[0].nama_klp);
+                    $('#penilaian').val(result.data[0].penilaian);
                     $('#cabang').val(result.data[0].cabang);
                     $('#no_rek').val(result.data[0].no_rek);
                     $('#nama_rek').val(result.data[0].nama_rek);  
