@@ -558,6 +558,7 @@
                         var html = "<img style='width:120px' src='"+result.data[0].file_gambar+"'>";
                         $('.preview').html(html);              
                     }    
+                    $('#modal-preview').modal('hide');
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
                 }

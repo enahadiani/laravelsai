@@ -372,7 +372,8 @@
                     $('#kode').val(id);
                     $('#id').val(id);
                     $('#nama').val(result.data[0].nama);
-                    $('#status')[0].selectize.setValue(result.data[0].flag_aktif);    
+                    $('#status')[0].selectize.setValue(result.data[0].flag_aktif);  
+                    $('#modal-preview').modal('hide');  
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
                 }
