@@ -173,6 +173,7 @@ function newForm() {
     $("[class^=simple-icon-close]").each(function (e) {
         $(this).addClass("hidden");
     });
+    $("#id_edit").val("");
     $('input[data-input="cbbl"]').val("");
     $("#btn-update").attr("id", "btn-save");
     $("#btn-save").attr("type", "submit");
@@ -181,4 +182,37 @@ function newForm() {
     $("#id").val("");
     $("#saku-datatable").hide();
     $("#saku-form").show();
+}
+
+function resetForm() {
+    $("#row-id").hide();
+    $("#method").val("post");
+    $("[id^=label]").each(function (e) {
+        $(this).text("");
+    });
+    $("[class^=info-name]").each(function (e) {
+        $(this).addClass("hidden");
+    });
+    $("[class^=input-group-text]").each(function (e) {
+        $(this).text("");
+    });
+    $("[class^=input-group-prepend]").each(function (e) {
+        $(this).addClass("hidden");
+    });
+    $("[class*='inp-label-']").each(function (e) {
+        $(this).removeAttr("style");
+    });
+    $("[class^=info-code]").each(function (e) {
+        $(this).text("");
+    });
+    $("[class^=simple-icon-close]").each(function (e) {
+        $(this).addClass("hidden");
+    });
+    $("#id_edit").val("");
+    $('input[data-input="cbbl"]').val("");
+    $("#btn-update").attr("id", "btn-save");
+    $("#btn-save").attr("type", "submit");
+    $("#form-tambah")[0].reset();
+    $("#form-tambah").validate().resetForm();
+    $("#id").val("");
 }
