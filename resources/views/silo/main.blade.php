@@ -292,7 +292,6 @@
 
         $('.dropdown-periode').html("<span class='periode-label'>Periode</span> <span class='periode-app float-right'>"+namaPeriode2("{{ Session::get('periode') }}</span>"));
         $('.dropdown-lokasi').html("<span class='lokasi-label'>Lokasi</span> <span class='periode-app float-right'>{{ Session::get('lokasi') }}</span>");
-        $('div.theme-colors').hide();
 
         $.ajaxSetup({
             headers: {
@@ -449,38 +448,38 @@
             });
         }
 
-        (function() {
-            $.ajax({
-                type:'GET',
-                url:"{{url('silo-auth/search-form-list2')}}",
-                dataType: 'json',
-                async: false,
-                success: function(result) {
-                    if(result.status) {
-                        for(i=0;i<result.data.length;i++){
-                            $dtForm[i] = {nama:result.data[i].nama};  
-                        }
-                    }else if(!result.status && result.message == "Unauthorized"){
-                        window.location.href = "{{ url('silo-auth/sesi-habis') }}";
-                    } else{
-                        console.log(result.message);
-                    }
-                },
-                error: function(jqXHR, textStatus, errorThrown) {       
-                    if(jqXHR.status == 422){
-                        var msg = jqXHR.responseText;
-                    }else if(jqXHR.status == 500) {
-                        var msg = "Internal server error";
-                    }else if(jqXHR.status == 401){
-                        var msg = "Unauthorized";
-                        window.location="{{ url('/silo-auth/sesi-habis') }}";
-                    }else if(jqXHR.status == 405){
-                        var msg = "Route not valid. Page not found";
-                    }
+        // (function() {
+        //     $.ajax({
+        //         type:'GET',
+        //         url:"{{url('silo-auth/search-form-list2')}}",
+        //         dataType: 'json',
+        //         async: false,
+        //         success: function(result) {
+        //             if(result.status) {
+        //                 for(i=0;i<result.data.length;i++){
+        //                     $dtForm[i] = {nama:result.data[i].nama};  
+        //                 }
+        //             }else if(!result.status && result.message == "Unauthorized"){
+        //                 window.location.href = "{{ url('silo-auth/sesi-habis') }}";
+        //             } else{
+        //                 console.log(result.message);
+        //             }
+        //         },
+        //         error: function(jqXHR, textStatus, errorThrown) {       
+        //             if(jqXHR.status == 422){
+        //                 var msg = jqXHR.responseText;
+        //             }else if(jqXHR.status == 500) {
+        //                 var msg = "Internal server error";
+        //             }else if(jqXHR.status == 401){
+        //                 var msg = "Unauthorized";
+        //                 window.location="{{ url('/silo-auth/sesi-habis') }}";
+        //             }else if(jqXHR.status == 405){
+        //                 var msg = "Route not valid. Page not found";
+        //             }
                     
-                }
-            })
-        })();
+        //         }
+        //     })
+        // })();
 
         (function() {
             $.ajax({
@@ -853,5 +852,9 @@
         }
     </script>
     <script src="{{ asset('asset_dore/js/scripts.js') }}"></script>
+    <script type="text/javascript">
+        $('div.theme-colors').hide();
+        $('a.theme-button').hide();
+    </script>
 </body>
 </html>

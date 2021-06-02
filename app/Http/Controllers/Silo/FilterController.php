@@ -33,7 +33,7 @@ class FilterController extends Controller
     
     }
 
-    function getFilterPP(Request $request){
+    function getFilterPP(){
         try{
             $client = new Client();
             $response = $client->request('GET',  config('api.url').'apv/filter-pp',[
@@ -77,6 +77,60 @@ class FilterController extends Controller
                 
                 $data = json_decode($response_data,true);
                 $data = $data["data"];
+            }
+            return response()->json(['daftar' => $data, 'status'=>true ,'message'=>'success'], 200); 
+            
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+        } 
+        
+    }
+
+    function getFilterDivisi(){
+        try{
+            $client = new Client();
+
+            $response = $client->request('GET',  config('api.url').'apv/divisi_all',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+    
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["success"]["data"];
+            }
+            return response()->json(['daftar' => $data, 'status'=>true ,'message'=>'success'], 200); 
+            
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+        } 
+        
+    }
+
+    function getFilterJabatan(){
+        try{
+            $client = new Client();
+
+            $response = $client->request('GET',  config('api.url').'apv/jabatan',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+    
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["success"]["data"];
             }
             return response()->json(['daftar' => $data, 'status'=>true ,'message'=>'success'], 200); 
             

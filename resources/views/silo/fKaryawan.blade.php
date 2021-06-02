@@ -1,365 +1,134 @@
-{{-- Referensi folder sekolah form fSiswa --}}
-    <!-- STYLE TAMBAHAN -->
-    <style>
-        th,td{
-            padding:8px !important;
-            vertical-align:middle !important;
-        }
-        .search-item2{
-            cursor:pointer;
-        }
+    <link rel="stylesheet" href="{{ asset('master.css') }}" />
+    <link rel="stylesheet" href="{{ asset('form.css') }}" />
+    <link rel="stylesheet" href="{{ asset('master-esaku/form.css') }}" />
 
-        input.error{
-            border:1px solid #dc3545;
-        }
-        label.error{
-            color:#dc3545;
-            margin:0;
-        }
-        #table-data_paginate,#table-search_paginate
-        {
-            margin-top:0 !important;
-        }
-
-        #table-data_paginate ul,#table-search_paginate ul
-        {
-            float:right;
-        }
-
-        .form-body 
-        {
-            position: relative;
-            overflow: auto;
-        }
-
-        #content-delete
-        {
-            position: relative;
-            overflow: auto;
-        }
-        .hidden{
-            display:none;
-        }
-
-        .datetime-reset-button {
-            margin-right: 20px !important;
-            margin-top: 3px !important;
-        }
-        #table-search
-        {
-            border-collapse:collapse !important;
-        }
-
-        #table-search_filter label, #table-search_filter input
-        {
-            width:100%;
-        }
-
-        .dataTables_wrapper .paginate_button.previous {
-        margin-right: 0px; }
-
-        .dataTables_wrapper .paginate_button.next {
-        margin-left: 0px; }
-
-        div.dataTables_wrapper div.dataTables_paginate {
-        margin-top: 25px; }
-
-        div.dataTables_wrapper div.dataTables_paginate ul.pagination {
-        justify-content: center; }
-
-        .dataTables_wrapper .paginate_button.page-item {
-        padding-left: 5px;
-        padding-right: 5px; }
-        .px-0{
-            padding-left: 2px !important;
-            padding-right: 2px !important;
-        }
-
-        #table-data_filter label
-        {
-            width:100%;
-        }
-        #table-data_filter label input
-        {
-            width:inherit;
-        }
-        
-        #searchData
-        {
-            font-size: .75rem;
-            height: 31px;
-        }
-        .dropdown-toggle::after {
-            display:none;
-        }
-        .dropdown-aksi > .dropdown-item{
-            font-size : 0.7rem;
-        }
-
-        .btn-light2{
-            background:#F8F8F8;
-            color:#D4D4D4;
-        }
-
-        .btn-light2:hover{
-            color:#131113;
-        }
-
-        .btn-light2:active{
-            color: #131113;
-            background-color: #d8d8d8;
-        }
-
-        .custom-file-label::after{
-            content:"Cari berkas" !important;
-            border-left:0;
-            color: var(--theme-color-1) !important;
-        }
-        .focus{
-            /* border:none !important; */
-            box-shadow:none !important;
-        }
-        .last-add::before{
-            content: "***";
-            background: var(--theme-color-1);
-            border-radius: 50%;
-            font-size: 3px;
-            position: relative;
-            top: -2px;
-            left: -5px;
-        }
-
-        th{
-            vertical-align:middle !important;
-        }
-        /* #input-param td{
-            padding:0 !important;
-        } */
-        #input-param .selectize-input.focus, #input-param input.form-control, #input-param .custom-file-label
-        {
-            border:1px solid black !important;
-            border-radius:0 !important;
-        }
-
-        #input-param .selectize-input
-        {
-            border-radius:0 !important;
-        } 
-
-        .modal-header .close {
-            padding: 1rem;
-            margin: -1rem 0 -1rem auto;
-        }
-        .check-item{
-            cursor:pointer;
-        }
-        .selected{
-            cursor:pointer;
-            /* background:#4286f5 !important; */
-            /* color:white; */
-        }
-        #input-param td:not(:nth-child(1)):not(:nth-child(9)):hover
-        {
-            /* background: var(--theme-color-6) !important;
-            color:white; */
-            background:#f8f8f8;
-            color:black;
-        }
-        #input-param input:hover,
-        #input-param .selectize-input:hover,
-        {
-            width:inherit;
-        }
-        #input-param ul.typeahead.dropdown-menu
-        {
-            width:max-content !important;
-        }
-        #input-param td
-        {
-            /* overflow:hidden !important; */
-            height:37.2px !important;
-            padding:0px !important;
-        }
-
-        #input-param span
-        {
-            padding:0px 10px !important;
-        }
-
-        /* #input-param input,#input-param .selectize-input
-        {
-            overflow:hidden !important;
-            height:35px !important;
-        } */
-
-        /* #input-param td:nth-child(4)
-        {
-            overflow:unset !important;
-        } */
-    </style>
-    <!-- END STYLE -->
     <!-- LIST DATA -->
-    <div class="row" id="saku-datatable">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-body pb-3" style="padding-top:1rem;min-height:69.2px">
-                    <h5 style="position:absolute;top: 25px;">Data Karyawan</h5>
-                    <button type="button" id="btn-tambah" class="btn btn-primary" style="float:right;" ><i class="fa fa-plus-circle"></i> Tambah</button>
-                </div>
-                <div class="separator mb-2"></div>
-                <div class="row" style="padding-right:1.75rem;padding-left:1.75rem">
-                    <div class="dataTables_length col-sm-12" id="table-data_length"></div>
-                    <div class="d-block d-md-inline-block float-left col-md-6 col-sm-12">
-                        <div class="page-countdata">
-                            <label>Menampilkan 
-                            <select style="border:none" id="page-count">
-                                <option value="10">10 per halaman</option>
-                                <option value="25">25 per halaman</option>
-                                <option value="50">50 per halaman</option>
-                                <option value="100">100 per halaman</option>
-                            </select>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="d-block d-md-inline-block float-right col-md-6 col-sm-12">
-                        <div class="input-group input-group-sm">
-                            <input type="text" class="form-control" placeholder="Search..."
-                                aria-label="Search..." aria-describedby="filter-btn" id="searchData">
-                            <div class="input-group-append" id="filter-btn">
-                                <span class="input-group-text"><span class="badge badge-pill badge-outline-primary mb-0" id="jum-filter" style="font-size: 8px;margin-right: 5px;padding: 0.5em 0.75em;"></span><i class="simple-icon-equalizer mr-1"></i>Filter</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body" style="min-height: 560px !important;padding-top:0;">                    
-                    <div class="table-responsive ">
-                        <table id="table-data" style='width:100%'>                                    
-                            <thead>
-                                <tr>
-                                    <th>NIK</th>
-                                    <th>Nama</th>
-                                    <th>Kode Regional</th>
-                                    <th>Kode Jab</th>
-                                    <th>Email</th>
-                                    <th>No Telp</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <x-list-data judul="Data Karyawan" tambah="true" :thead="array('NIK','Nama','Kode Regional','Kode Jab','Email','No  Telp','Aksi')" :thwidth="array(20,25,20,20,20,20,10)" :thclass="array('','','','','','','text-center')" />
     <!-- END LIST DATA -->
-    <!-- FORM  -->
     <form id="form-tambah" class="tooltip-label-right" novalidate>
+        <input class="form-control" type="hidden" id="id_edit" name="id_edit">
+        <input type="hidden" id="method" name="_method" value="post">
+        <input type="hidden" id="id" name="id">
         <div class="row" id="saku-form" style="display:none;">
-            <div class="col-sm-12" style="height: 90px;">
+            <div class="col-12">
                 <div class="card">
-                    <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;">
-                        <h5 id="judul-form" style="position:absolute;top:25px"></h5>
-                        <button type="submit" class="btn btn-primary ml-2"  style="float:right;" id="btn-save"><i class="fa fa-save"></i> Simpan</button>
-                        <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Keluar</button>
+                    <div class="card-body form-header" style="padding-top:0.5rem;padding-bottom:0.5rem;min-height:48px;">
+                        <h6 id="judul-form" style="position:absolute;top:13px"></h6>
+                        <button type="button" id="btn-kembali" aria-label="Kembali" class="btn btn-back">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
                     <div class="separator mb-2"></div>
-                    <!-- FORM BODY -->
                     <div class="card-body pt-3 form-body">
-                        <div class="form-group row" id="row-id">
-                            <div class="col-9">
-                                <input class="form-control" type="hidden" id="id_edit" name="id_edit">
-                                <input type="hidden" id="method" name="_method" value="post">
-                                <input type="hidden" id="id" name="id">
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="nik">NIK</label>
+                                <input class="form-control" type="text" placeholder="NIK" id="nik" name="nik" autocomplete="off">                        
                             </div>
                         </div>
-                        <div class="form-group row ">
-                            <label for="nis" class="col-md-2 col-sm-12 col-form-label">NIK</label>
-                            <div class="col-md-3 col-sm-12">
-                                <input class="form-control" type="text" placeholder="NIK" id="nik" name="nik">
+                        <div class="form-row">
+                            <div class="form-group col-md-12 col-sm-12">
+                                <label for="nama">Nama</label>
+                                <input class="form-control" type="text" placeholder="Nama" id="nama" name="nama" autocomplete="off">                       
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label for="nama" class="col-md-2 col-sm-12 col-form-label">Nama</label>
-                            <div class="col-md-5 col-sm-12">
-                                <input class="form-control" type="text" placeholder="Nama" id="nama" name="nama">
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="kode_pp">Regional</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                        <span class="input-group-text info-code_kode_pp" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                    </div>
+                                    <input type="text" class="form-control inp-label-kode_pp" autocomplete="off" id="kode_pp" name="kode_pp" value="" title="" data-input="cbbl" readonly>
+                                    <span class="info-name_kode_pp hidden">
+                                        <span></span> 
+                                    </span>
+                                    <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                    <i class="simple-icon-magnifier search-item2" id="search_kode_pp"></i>
+                                </div>                     
+                            </div>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="kode_kota">Kota</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                        <span class="input-group-text info-code_kode_kota" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                    </div>
+                                    <input type="text" class="form-control inp-label-kode_kota" autocomplete="off" id="kode_kota" name="kode_kota" value="" title="" data-input="cbbl" readonly>
+                                    <span class="info-name_kode_kota hidden">
+                                        <span></span> 
+                                    </span>
+                                    <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                    <i class="simple-icon-magnifier search-item2" id="search_kode_kota"></i>
+                                </div>                     
                             </div>
                         </div>
-                        <div class="form-group row ">
-                            <label for="kode_pp" class="col-md-2 col-sm-12 col-form-label">Regional</label>
-                            <div class="col-md-3 col-sm-12" >
-                                 <input class="form-control" type="text"  id="kode_pp" name="kode_pp" data-input="cbbl" required>
-                                 <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;"></i>
-                            </div>                            
-                            <div class="col-md-2 col-sm-12 px-0" >
-                                <input id="label_kode_pp" class="form-control" style="border:none;border-bottom: 1px solid #d7d7d7;" readonly/>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="kode_divisi">Divisi</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                        <span class="input-group-text info-code_kode_divisi" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                    </div>
+                                    <input type="text" class="form-control inp-label-kode_divisi" autocomplete="off" id="kode_divisi" name="kode_divisi" value="" title="" data-input="cbbl" readonly>
+                                    <span class="info-name_kode_divisi hidden">
+                                        <span></span> 
+                                    </span>
+                                    <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                    <i class="simple-icon-magnifier search-item2" id="search_kode_divisi"></i>
+                                </div>                     
+                            </div>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="kode_jab">Jabatan</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                        <span class="input-group-text info-code_kode_jab" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                    </div>
+                                    <input type="text" class="form-control inp-label-kode_jab" autocomplete="off" id="kode_jab" name="kode_jab" value="" title="" data-input="cbbl" readonly>
+                                    <span class="info-name_kode_jab hidden">
+                                        <span></span> 
+                                    </span>
+                                    <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                    <i class="simple-icon-magnifier search-item2" id="search_kode_jab"></i>
+                                </div>                     
                             </div>
                         </div>
-                        <div class="form-group row ">
-                            <label for="kode_kota" class="col-md-2 col-sm-12 col-form-label">Kota</label>
-                            <div class="col-md-3 col-sm-12" >
-                                 <input class="form-control" type="text"  id="kode_kota" name="kode_kota" data-input="cbbl" required>
-                                 <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;"></i>
-                            </div>                            
-                            <div class="col-md-2 col-sm-12 px-0" >
-                                <input id="label_kode_kota" class="form-control" style="border:none;border-bottom: 1px solid #d7d7d7;" readonly/>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="email">Email</label>
+                                <input class="form-control" type="text" placeholder="Email" id="email" name="email" autocomplete="off" required>                       
+                            </div>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="telp">No Telp</label>
+                                <input class="form-control" type="text" placeholder="No Telp" id="telp" name="no_telp" autocomplete="off" required>                    
                             </div>
                         </div>
-                        <div class="form-group row ">
-                            <label for="kode_divisi" class="col-md-2 col-sm-12 col-form-label">Divisi</label>
-                            <div class="col-md-3 col-sm-12" >
-                                 <input class="form-control" type="text"  id="kode_divisi" name="kode_divisi" data-input="cbbl" required>
-                                 <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;"></i>
-                            </div>                            
-                            <div class="col-md-2 col-sm-12 px-0" >
-                                <input id="label_kode_divisi" class="form-control" style="border:none;border-bottom: 1px solid #d7d7d7;" readonly/>
-                            </div>
-                        </div>
-                        <div class="form-group row ">
-                            <label for="kode_jab" class="col-md-2 col-sm-12 col-form-label">Jabatan</label>
-                            <div class="col-md-3 col-sm-12" >
-                                 <input class="form-control" type="text" id="kode_jab" name="kode_jab" data-input="cbbl" required>
-                                 <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;"></i>
-                            </div>                            
-                            <div class="col-md-2 col-sm-12 px-0" >
-                                <input id="label_kode_jab" class="form-control" style="border:none;border-bottom: 1px solid #d7d7d7;" readonly/>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="email" class="col-md-2 col-sm-12 col-form-label">Email</label>
-                            <div class="col-md-5 col-sm-12">
-                                <input class="form-control" type="text" placeholder="Email" id="email" name="email">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="telp" class="col-md-2 col-sm-12 col-form-label">No Telp</label>
-                            <div class="col-md-3 col-sm-12">
-                                <input class="form-control" type="text" placeholder="No Telp" id="telp" name="no_telp">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-2 col-form-label">Foto</label>
-                            <div class="input-group col-10">
+                        <div class="form-row">
+                            <div class="form-group col-md-12 col-sm-12">
+                                <label for="file">Foto</label>
                                 <div class="custom-file">
                                     <input type="file" name="file_gambar" class="custom-file-input" id="file_gambar">
                                     <label class="custom-file-label" for="file_gambar">Choose file</label>
-                                </div>
+                                </div>                 
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <div class="preview col-3"></div>
+                    </div>
+                    <div class="card-form-footer">
+                        <div class="footer-form-container">
+                            <div class="text-right message-action">
+                                <p class="text-success"></p>
+                            </div>
+                            <div class="action-footer">
+                                <button type="submit" id="btn-save" style="margin-top: 10px;" class="btn btn-primary btn-save"><i class="fa fa-save"></i> Simpan</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </form>
-    <!-- END FORM -->
    
     <!-- MODAL SEARCH-->
-    <div class="modal" tabindex="-1" role="dialog" id="modal-search">
+    {{-- <div class="modal" tabindex="-1" role="dialog" id="modal-search">
         <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:600px">
             <div class="modal-content">
                 <div style="display: block;" class="modal-header">
@@ -372,11 +141,11 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     <!-- END MODAL -->
 
     <!-- MODAL PREVIEW -->
-    <div class="modal" tabindex="-1" role="dialog" id="modal-preview">
+    {{-- <div class="modal" tabindex="-1" role="dialog" id="modal-preview">
         <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:800px">
             <div class="modal-content" style="border-radius:0.75em">
                 <div class="modal-header py-0" style="display:block;">
@@ -407,7 +176,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     <!-- END MODAL PREVIEW -->
 
     <!-- MODAL FILTER -->
@@ -441,7 +210,7 @@
 
     
     <!-- MODAL CBBL -->
-    <div class="modal" tabindex="-1" role="dialog" id="modal-search">
+    {{-- <div class="modal" tabindex="-1" role="dialog" id="modal-search">
         <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:600px">
             <div class="modal-content">
                 <div style="display: block;" class="modal-header">
@@ -454,11 +223,17 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     <!-- END MODAL CBBL -->
+    @include('modal_search')
     <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
+    <script src="{{ asset('helper.js') }}"></script>
     <script type="text/javascript">
     // SET UP FORM //
+    $('#saku-form > .col-12').addClass('mx-auto col-lg-6');
+    $('#modal-preview > .modal-dialog').css({ 'max-width':'600px'});
+    setHeightForm();
+
     var $iconLoad = $('.preloader');
     var selectRegional = $('#inp-filter_regional').selectize();
 
@@ -515,7 +290,7 @@
     var psscrollform = new PerfectScrollbar(scrollform);
     // END PLUGIN SCROLL di bagian preview dan form input
     // FUNCTION GET DATA //
-    function getPPFilter() {
+    (function() {
         $.ajax({
             type: 'GET',
             url: "{{ url('apv/unit') }}",
@@ -533,9 +308,9 @@
                 }
             }
         });
-    }
+    })();
 
-    function getPP(kode){
+    function getPP(kode_cbbl, kode) {
         $.ajax({
             type: 'GET',
             url: "{{ url('apv/unit') }}",
@@ -547,12 +322,8 @@
                         var data = result.daftar;
                         var filter = data.filter(data => data.kode_pp == kode);
                         if(filter.length > 0) {
-                            $('#kode_pp').val(filter[0].kode_pp);
-                            $('#label_kode_pp').val(filter[0].nama);
-                        } else {
-                            $('#kode_pp').val('');
-                            $('#label_kode_pp').val('');
-                            $('#kode_pp').focus();
+                            console.log(filter)
+                            showInfoField(kode_cbbl, filter[0].kode_pp, filter[0].nama)
                         }
                     }
                 }
@@ -560,7 +331,7 @@
         });
     }
 
-    function getKota(regional = null, kode){
+    function getKota(regional = null, kode_cbbl, kode){
         $.ajax({
             type: 'GET',
             url: "{{ url('apv/kota') }}",
@@ -569,18 +340,12 @@
             async:false,
             success:function(res){
                 var result= res.data;
-                console.log(result)
                 if(result.status){
                      if(typeof result.data !== 'undefined' && result.data.length>0){
                         var data = result.data;
                         var filter = data.filter(data => data.kode_kota == kode);
                         if(filter.length > 0) {
-                            $('#kode_kota').val(filter[0].kode_kota);
-                            $('#label_kode_kota').val(filter[0].nama);
-                        } else {
-                            $('#kode_kota').val('');
-                            $('#label_kode_kota').val('');
-                            $('#kode_kota').focus();
+                            showInfoField(kode_cbbl, filter[0].kode_kota, filter[0].nama)
                         }
                     }
                 }
@@ -588,7 +353,7 @@
         });
     }
 
-    function getDivisi(kode){
+    function getDivisi(kode_cbbl, kode){
         $.ajax({
             type: 'GET',
             url: "{{ url('apv/divisi') }}",
@@ -601,12 +366,7 @@
                         var data = result.data;
                         var filter = data.filter(data => data.kode_divisi == kode);
                         if(filter.length > 0) {
-                            $('#kode_divisi').val(filter[0].kode_divisi);
-                            $('#label_kode_divisi').val(filter[0].nama);
-                        } else {
-                            $('#kode_divisi').val('');
-                            $('#label_kode_divisi').val('');
-                            $('#kode_divisi').focus();
+                            showInfoField(kode_cbbl, filter[0].kode_divisi, filter[0].nama)
                         }
                     }
                 }
@@ -627,12 +387,7 @@
                         var data = result;
                         var filter = data.filter(data => data.kode_jab == kode);
                         if(filter.length > 0) {
-                            $('#kode_jab').val(filter[0].kode_jab);
-                            $('#label_kode_jab').val(filter[0].nama);
-                        } else {
-                            $('#kode_jab').val('');
-                            $('#label_kode_jab').val('');
-                            $('#kode_jab').focus();
+                            showInfoField(kode_cbbl, filter[0].kode_jab, filter[0].nama)
                         }
                     }
                 }
@@ -640,7 +395,6 @@
         });
     }
 
-    getPPFilter();
     jumFilter();
     // END FUNCTION GET DATA //
     // EVENT CHANGE //
@@ -666,82 +420,37 @@
     });
     // END EVENT CHANGE //
     // LIST DATA
-     var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
-    var dataTable = $('#table-data').DataTable({
-            destroy: true,
-            bLengthChange: false,
-            sDom: 't<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
-            "ordering": true,
-            "order": [[6, "desc"]],
-            'ajax': {
-                'url': "{{url('apv/karyawan')}}",
-                'async':false,
-                'type': 'GET',
-                'dataSrc' : function(json) {
-                    if(json.status){
-                        return json.daftar;   
-                    }else if(!json.status && json.message == "Unauthorized"){
-                        window.location.href = "{{ url('silo-auth/sesi-habis') }}";
-                        return [];
-                    }else{
-                        return [];
+    //LIST DATA
+    var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
+    var dataTable = generateTable(
+        "table-data",
+        "{{ url('apv/karyawan') }}", 
+        [
+            {'targets': 6, data: null, 'defaultContent': action_html,'className': 'text-center' },
+            {
+                "targets": 0,
+                "createdCell": function (td, cellData, rowData, row, col) {
+                    if ( rowData.status == "baru" ) {
+                        $(td).parents('tr').addClass('selected');
+                        $(td).addClass('last-add');
                     }
                 }
-            },
-            'columnDefs': [
-                {
-                    "targets": 0,
-                    "createdCell": function (td, cellData, rowData, row, col) {
-                        if ( rowData.status == "baru" ) {
-                            $(td).parents('tr').addClass('selected');
-                            $(td).addClass('last-add');
-                        }
-                    }
-                },
-                {
-                    'targets': 6, data: null, 'defaultContent': action_html 
-                }
-            ],
-            'columns': [
-                { data: 'nik' },
-                { data: 'nama' },
-                { data: 'kode_pp' },
-                { data: 'kode_jab' },
-                { data: 'no_telp' },
-                { data: 'email' }
-            ],
-            drawCallback: function () {
-                $($(".dataTables_wrapper .pagination li:first-of-type"))
-                    .find("a")
-                    .addClass("prev");
-                $($(".dataTables_wrapper .pagination li:last-of-type"))
-                    .find("a")
-                    .addClass("next");
-
-                $(".dataTables_wrapper .pagination").addClass("pagination-sm");
-            },
-            language: {
-                paginate: {
-                    previous: "<i class='simple-icon-arrow-left'></i>",
-                    next: "<i class='simple-icon-arrow-right'></i>"
-                },
-                search: "_INPUT_",
-                searchPlaceholder: "Search...",
-                // lengthMenu: "Items Per Page _MENU_"
-                "lengthMenu": 'Menampilkan <select>'+
-                '<option value="10">10 per halaman</option>'+
-                '<option value="25">25 per halaman</option>'+
-                '<option value="50">50 per halaman</option>'+
-                '<option value="100">100 per halaman</option>'+
-                '</select>',
-                
-                info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
-                infoEmpty: "Menampilkan 0 sampai 0 dari 0 entri",
-                infoFiltered: "(terfilter dari _MAX_ total entri)"
             }
-        });
+        ],
+        [
+            { data: 'nik' },
+            { data: 'nama' },
+            { data: 'kode_pp' },
+            { data: 'kode_jab' },
+            { data: 'no_telp' },
+            { data: 'email' }
+        ],
+        "{{ url('silo-auth/sesi-habis') }}",
+        [[6 ,"desc"]]
+    );
+
     $.fn.DataTable.ext.pager.numbers_length = 5;
-        
+
     $("#searchData").on("keyup", function (event) {
         dataTable.search($(this).val()).draw();
     });
@@ -754,19 +463,8 @@
 
     // BUTTON TAMBAH
     $('#saku-datatable').on('click', '#btn-tambah', function(){
-        $('#row-id').hide();
-        $('input[data-input="cbbl"]').val('');
-        $('[id^=label]').html('');
-        $('#id_edit').val('');
         $('#judul-form').html('Tambah Data Karyawan');
-        $('#btn-update').attr('id','btn-save');
-        $('#btn-save').attr('type','submit');
-        $('#form-tambah')[0].reset();
-        $('#form-tambah').validate().resetForm();
-        $('#method').val('post');
-        $('#nik').attr('readonly', false);
-        $('#saku-datatable').hide();
-        $('#saku-form').show();
+        newForm()
     });
     // END BUTTON TAMBAH
 
@@ -904,12 +602,7 @@
     // END BUTTON SIMPAN
 
     // BUTTON EDIT TABLE //
-    $('#saku-datatable').on('click', '#btn-edit', function(){
-        var id= $(this).closest('tr').find('td').eq(0).html();
-        $('#form-tambah').validate().resetForm();
-        $('#btn-save').attr('type','button');
-        $('#btn-save').attr('id','btn-update');
-        $('#judul-form').html('Edit Data Karyawan');
+    function editData(id) {
         $.ajax({
             type: 'GET',
             url: "{{ url('apv/karyawan') }}/" + id,
@@ -924,10 +617,10 @@
                     $('#nik').val(id);
                     $('#id').val(id);
                     $('#nama').val(result.data[0].nama);
-                    getPP(result.data[0].kode_pp);
-                    getKota(result.data[0].kode_pp, result.data[0].id_kota);
-                    getDivisi(result.data[0].kode_divisi);
-                    getJabatan(result.data[0].kode_jab)
+                    getPP('kode_pp', result.data[0].kode_pp);
+                    getKota( result.data[0].kode_pp, 'kode_kota', result.data[0].id_kota);
+                    getDivisi('kode_divisi',result.data[0].kode_divisi);
+                    getJabatan('kode_jab', result.data[0].kode_jab)
                     $('#email').val(result.data[0].email);
                     $('#telp').val(result.data[0].no_telp);
                     if(result.data[0].file_gambar !== '-'){
@@ -943,6 +636,14 @@
                 // $iconLoad.hide();
             }
         });
+    }
+    $('#saku-datatable').on('click', '#btn-edit', function(){
+        var id= $(this).closest('tr').find('td').eq(0).html();
+        $('#form-tambah').validate().resetForm();
+        $('#btn-save').attr('type','button');
+        $('#btn-save').attr('id','btn-update');
+        $('#judul-form').html('Edit Data Karyawan');
+        editData(id)
     });
     // END BUTTON TABLE EDIT //
 
@@ -992,40 +693,7 @@
         
         $('#btn-save').attr('type','button');
         $('#btn-save').attr('id','btn-update');
-        $.ajax({
-            type: 'GET',
-            url: "{{ url('apv/karyawan') }}/" + id,
-            dataType: 'json',
-            async:false,
-            success:function(res){
-                var result= res.data;
-                if(result.status){
-                    $('#id_edit').val('edit');
-                    $('#method').val('post');
-                    $('#nik').attr('readonly', true);
-                    $('#nik').val(id);
-                    $('#id').val(id);
-                    $('#nama').val(result.data[0].nama);
-                    getPP(result.data[0].kode_pp);
-                    getKota(result.data[0].kode_pp, result.data[0].id_kota);
-                    getDivisi(result.data[0].kode_divisi);
-                    getJabatan(result.data[0].kode_jab)
-                    $('#email').val(result.data[0].email);
-                    $('#telp').val(result.data[0].no_telp);
-                    if(result.data[0].file_gambar !== '-'){
-                        var html = "<img style='width:120px' src='"+result.data[0].file_gambar+"'>";
-                        $('.preview').html(html);              
-                    }    
-                    $('#saku-datatable').hide();
-                    $('#modal-preview').modal('hide');
-                    $('#saku-form').show();
-                }
-                else if(!result.status && result.message == 'Unauthorized'){
-                    window.location.href = "{{ url('silo-auth/sesi-habis') }}";
-                }
-                // $iconLoad.hide();
-            }
-        });
+        editData(id)
     });
 
     $('.modal-header').on('click','#btn-delete2',function(e){
@@ -1118,204 +786,125 @@
     $('#btn-tampil').click();
     // END FILTER DATA //
 
-    // CBBL
-    function showFilter(param,target1,target2){
-        var par = param;
-        var unit = $('#kode_pp').val();
-        var modul = '';
-        var header = [];
-        $target = target1;
-        $target2 = target2;
-        
-        switch(par){
-            case 'kode_pp': 
-                header = ['Kode', 'Nama'];
-                var toUrl = "{{ url('apv/unit') }}";
-                var columns = [
-                    { data: 'kode_pp' },
-                    { data: 'nama' }
-                ];
-                var judul = "Daftar Regional";
-                var jTarget1 = "val";
-                var jTarget2 = "val";
-                $target = "#"+$target;
-                $target2 = "#"+$target2;
-                $target3 = "";
-            break;
-            case 'kode_kota': 
-            header = ['Kode', 'Nama'];
-            var toUrl = "{{ url('apv/kota') }}";
-                var columns = [
-                    { data: 'kode_kota' },
-                    { data: 'nama' }
-                ];
-                
-                var judul = "Daftar Kota";
-                var jTarget1 = "val";
-                var jTarget2 = "val";
-                $target = "#"+$target;
-                $target2 = "#"+$target2;
-                $target3 = "";
-            break;
-            case 'kode_divisi': 
-                header = ['Kode', 'Nama'];
-                var toUrl = "{{ url('apv/divisi') }}";
-                var columns = [
-                    { data: 'kode_divisi' },
-                    { data: 'nama' }
-                ];
-                var judul = "Daftar Divisi";
-                var jTarget1 = "val";
-                var jTarget2 = "val";
-                $target = "#"+$target;
-                $target2 = "#"+$target2;
-                $target3 = "";
-            break;
-            case 'kode_jab': 
-                header = ['Kode', 'Nama'];
-                var toUrl = "{{ url('apv/jabatan') }}";
-                var columns = [
-                    { data: 'kode_jab' },
-                    { data: 'nama' }
-                ];
-                var judul = "Daftar Jabatan";
-                var jTarget1 = "val";
-                var jTarget2 = "val";
-                $target = "#"+$target;
-                $target2 = "#"+$target2;
-                $target3 = "";
-            break;
-        }
+    // Bagian CBBL
+    var $target = "";
+    var $target2 = "";
+    
+    $('.info-icon-hapus').click(function(){
+        var par = $(this).closest('div').find('input').attr('name');
+        $('#'+par).val('');
+        $('#'+par).attr('readonly',false);
+        $('#'+par).attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important');
+        $('.info-code_'+par).parent('div').addClass('hidden');
+        $('.info-name_'+par).addClass('hidden');
+        $(this).addClass('hidden');
+    });
 
-        var header_html = '';
-        var width = ["30%","70%"];
-        for(i=0; i<header.length; i++){
-            header_html +=  "<th style='width:"+width[i]+"'>"+header[i]+"</th>";
-        }
-
-        var table = "<table class='' width='100%' id='table-search'><thead><tr>"+header_html+"</tr></thead>";
-        table += "<tbody></tbody></table>";
-
-        $('#modal-search .modal-body').html(table);
-        var searchTable = $("#table-search").DataTable({
-            sDom: '<"row view-filter"<"col-sm-12"<f>>>t<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
-            ajax: {
-                "url": toUrl,
-                "data": {'param':par, 'kode_pp': unit},
-                "type": "GET",
-                "async": false,
-                "dataSrc" : function(json) {
-                    console.log(json)
-                    if(json.daftar == undefined) {
-                        return json.data.data
-                    } else {
-                        return json.daftar
-                    }
-                }
-            },
-            columns: columns,
-            drawCallback: function () {
-                $($(".dataTables_wrapper .pagination li:first-of-type"))
-                    .find("a")
-                    .addClass("prev");
-                $($(".dataTables_wrapper .pagination li:last-of-type"))
-                    .find("a")
-                    .addClass("next");
-
-                $(".dataTables_wrapper .pagination").addClass("pagination-sm");
-            },
-            language: {
-                paginate: {
-                    previous: "<i class='simple-icon-arrow-left'></i>",
-                    next: "<i class='simple-icon-arrow-right'></i>"
-                },
-                search: "_INPUT_",
-                searchPlaceholder: "Search...",
-                lengthMenu: "Items Per Page _MENU_",
-                info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
-                infoEmpty: "Menampilkan 0 sampai 0 dari 0 entri",
-                infoFiltered: "(terfilter dari _MAX_ total entri)"
-            },
-        });
-        $('#modal-search .modal-title').html(judul);
-        $('#modal-search').modal('show');
-        searchTable.columns.adjust().draw();
-
-        $('#table-search tbody').on('click', 'tr', function () {
-            if ( $(this).hasClass('selected') ) {
-                $(this).removeClass('selected');
-            }
-            else {
-                searchTable.$('tr.selected').removeClass('selected');
-                $(this).addClass('selected');
-
-                var kode = $(this).closest('tr').find('td:nth-child(1)').text();
-                var nama = $(this).closest('tr').find('td:nth-child(2)').text();
-                if(jTarget1 == "val"){
-                    $($target).val(kode).change();
-                }else{
-                    $($target).text(kode);
-                }
-
-                if(jTarget2 == "val"){
-                    $($target2).val(nama).change();
-                }else{
-                    $($target2).text(nama);
-                }
-
-                if($target3 != ""){
-                    $($target3).text(nama).change();
-                }
-                $('#modal-search').modal('hide');
-            }
-        });
-
-        $(document).keydown(function(e) {
-            if (e.keyCode == 40){ //arrow down
-                var tr = searchTable.$('tr.selected');
-                tr.removeClass('selected');
-                tr.next().addClass('selected');
-                // tr = searchTable.$('tr.selected');
-
-            }
-            if (e.keyCode == 38){ //arrow up
-                
-                var tr = searchTable.$('tr.selected');
-                searchTable.$('tr.selected').removeClass('selected');
-                tr.prev().addClass('selected');
-                // tr = searchTable.$('tr.selected');
-
-            }
-
-            if (e.keyCode == 13){
-                var kode = $('tr.selected').find('td:nth-child(1)').text();
-                var nama = $('tr.selected').find('td:nth-child(2)').text();
-                if(jTarget1 == "val"){
-                    $($target).val(kode);
-                }else{
-                    $($target).text(kode);
-                }
-
-                if(jTarget2 == "val"){
-                    $($target2).val(nama);
-                }else{
-                    $($target2).text(nama);
-                }
-                
-                if($target3 != ""){
-                    $($target3).text(nama);
-                }
-                $('#modal-search').modal('hide');
-            }
-        })
+    function showInfoField(kode,isi_kode,isi_nama) {
+        $('#'+kode).css('color', 'transparent')
+        $('#'+kode).val(isi_kode);
+        $('#'+kode).attr('style','border-left:0;border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important');
+        $('.info-code_'+kode).text(isi_kode).parent('div').removeClass('hidden');
+        $('.info-code_'+kode).attr('title',isi_nama);
+        $('.info-name_'+kode).removeClass('hidden');
+        $('.info-name_'+kode).attr('title',isi_nama);
+        $('.info-name_'+kode).css({ "width": "100%", "left": "30px" });
+        $('.info-name_'+kode+' span').text(isi_nama);
+        $('.info-name_'+kode).closest('div').find('.info-icon-hapus').removeClass('hidden');
     }
 
-    $('#form-tambah').on('click', '.search-item2', function(){ //Bukan CBBL Grid //
-        var par = $(this).closest('div').find('input').attr('name');
-        var par2 = $(this).closest('div').siblings('div').find('input').attr('id');
-        target1 = par;
-        target2 = par2;
-        showFilter(par,target1,target2);
+    $('#form-tambah').on('click', '.search-item2', function(){
+        var id = $(this).closest('div').find('input').attr('name');
+        var regional = $('#kode_pp').val()
+
+        switch(id) {
+            case 'kode_pp': 
+                var settings = {
+                    id : id,
+                    header : ['Kode', 'Nama'],
+                    url : "{{ url('silo-master/filter-pp') }}",
+                    columns : [
+                        { data: 'kode_pp' },
+                        { data: 'nama' }
+                    ],
+                    judul : "Daftar Regional",
+                    pilih : "",
+                    jTarget1 : "text",
+                    jTarget2 : "text",
+                    target1 : ".info-code_"+id,
+                    target2 : ".info-name_"+id,
+                    target3 : "",
+                    target4 : "",
+                    width : ["30%","70%"],
+                    }
+            break;
+            case 'kode_kota': 
+                var settings = {
+                    id : id,
+                    header : ['Kode', 'Nama'],
+                    url : "{{ url('silo-master/filter-kota') }}",
+                    columns : [
+                        { data: 'kode_kota' },
+                        { data: 'nama' }
+                    ],
+                    parameter: {
+                        kode_pp: regional
+                    },
+                    judul : "Daftar Kota",
+                    pilih : "",
+                    jTarget1 : "text",
+                    jTarget2 : "text",
+                    target1 : ".info-code_"+id,
+                    target2 : ".info-name_"+id,
+                    target3 : "",
+                    target4 : "",
+                    width : ["30%","70%"],
+                }
+            break;
+            case 'kode_divisi': 
+                var settings = {
+                    id : id,
+                    header : ['Kode', 'Nama'],
+                    url : "{{ url('silo-master/filter-divisi') }}",
+                    columns : [
+                        { data: 'kode_divisi' },
+                        { data: 'nama' }
+                    ],
+                    judul : "Daftar Divisi",
+                    pilih : "",
+                    jTarget1 : "text",
+                    jTarget2 : "text",
+                    target1 : ".info-code_"+id,
+                    target2 : ".info-name_"+id,
+                    target3 : "",
+                    target4 : "",
+                    width : ["30%","70%"],
+                }
+            break;
+            case 'kode_jab': 
+                var settings = {
+                    id : id,
+                    header : ['Kode', 'Nama'],
+                    url : "{{ url('silo-master/filter-jabatan') }}",
+                    columns : [
+                        { data: 'kode_jab' },
+                        { data: 'nama' }
+                    ],
+                    judul : "Daftar Jabatan",
+                    pilih : "",
+                    jTarget1 : "text",
+                    jTarget2 : "text",
+                    target1 : ".info-code_"+id,
+                    target2 : ".info-name_"+id,
+                    target3 : "",
+                    target4 : "",
+                    width : ["30%","70%"],
+                }
+            break;
+            default:
+            break;
+        }
+            showInpFilter(settings);
     });
     //END SHOW CBBL//
 

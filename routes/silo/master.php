@@ -49,3 +49,8 @@ Route::get('/divisi/{kode_divisi}', 'Apv\DivisiController@show');
 Route::put('/divisi/{kode_divisi}','Apv\DivisiController@update');
 Route::delete('/divisi/{kode_divisi}','Apv\DivisiController@destroy');
 Route::get('/divisi-aju', 'Apv\DivisiController@getDivisiByNIK');
+
+Route::get('filter-pp','Silo\FilterController@getFilterPP');
+Route::get('filter-kota','Silo\FilterController@getFilterKota');
+Route::get('filter-divisi','Silo\FilterController@getFilterDivisi');
+Route::get('filter-jabatan','Silo\FilterController@getFilterJabatan');
