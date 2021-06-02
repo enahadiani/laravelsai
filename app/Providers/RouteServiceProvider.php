@@ -103,6 +103,10 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapSimaRoutes();
 
         $this->mapWebTelkomPropertyRoutes();
+
+        $this->mapBangtelRoutes();
+        
+        $this->mapSimlogRoutes();
     }
 
     /**
@@ -655,6 +659,64 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/webtelprop/web-routes.php'));
+    }
+
+    protected function mapBangtelRoutes()
+    {
+        Route::prefix('bangtel-auth')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/bangtel/auth.php'));
+
+        Route::prefix('bangtel-dash')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/bangtel/dash.php'));
+    
+        Route::prefix('bangtel-master')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/bangtel/master.php'));
+    
+        Route::prefix('bangtel-trans')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/bangtel/trans.php'));
+    
+        Route::prefix('bangtel-report')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/bangtel/report.php'));
+   
+    }
+
+    protected function mapSimlogRoutes()
+    {
+        Route::prefix('simlog-auth')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/simlog/auth.php'));
+
+        Route::prefix('simlog-dash')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/simlog/dash.php'));
+    
+        Route::prefix('simlog-master')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/simlog/master.php'));
+    
+        Route::prefix('simlog-trans')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/simlog/trans.php'));
+    
+        Route::prefix('simlog-report')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/simlog/report.php'));
+   
     }
 
 }
