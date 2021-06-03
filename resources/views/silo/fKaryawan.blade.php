@@ -188,24 +188,6 @@
             element.addClass('close');
         }
     }
-
-    function last_add(param,isi){
-        var rowIndexes = [];
-        dataTable.rows( function ( idx, data, node ) {             
-            if(data[param] === isi){
-                rowIndexes.push(idx);                  
-            }
-            return false;
-        }); 
-        dataTable.row(rowIndexes).select();
-        $('.selected td:eq(0)').addClass('last-add');
-            console.log('last-add');
-            setTimeout(function() {
-                console.log('timeout');
-                $('.selected td:eq(0)').removeClass('last-add');
-                dataTable.row(rowIndexes).deselect();
-        }, 1000 * 60 * 10);
-    }
     
     $('.sidepanel').on('click', '#btnClose', function(e){
         e.preventDefault();
@@ -254,7 +236,6 @@
                         var data = result.daftar;
                         var filter = data.filter(data => data.kode_pp == kode);
                         if(filter.length > 0) {
-                            console.log(filter)
                             showInfoField(kode_cbbl, filter[0].kode_pp, filter[0].nama)
                         }
                     }
@@ -491,7 +472,7 @@
                             id:kode,
                             type:'simpan'
                         });
-                        last_add("nik",kode);
+                        last_add(dataTable,"nik",kode);
                     }else if(!result.data.status && result.data.message === "Unauthorized"){
                     
                         window.location.href = "{{ url('/silo-auth/sesi-habis') }}";
@@ -722,18 +703,18 @@
         $(this).addClass('hidden');
     });
 
-    function showInfoField(kode,isi_kode,isi_nama) {
-        $('#'+kode).css('color', 'transparent')
-        $('#'+kode).val(isi_kode);
-        $('#'+kode).attr('style','border-left:0;border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important');
-        $('.info-code_'+kode).text(isi_kode).parent('div').removeClass('hidden');
-        $('.info-code_'+kode).attr('title',isi_nama);
-        $('.info-name_'+kode).removeClass('hidden');
-        $('.info-name_'+kode).attr('title',isi_nama);
-        $('.info-name_'+kode).css({ "width": "100%", "left": "30px" });
-        $('.info-name_'+kode+' span').text(isi_nama);
-        $('.info-name_'+kode).closest('div').find('.info-icon-hapus').removeClass('hidden');
-    }
+    // function showInfoField(kode,isi_kode,isi_nama) {
+    //     $('#'+kode).css('color', 'transparent')
+    //     $('#'+kode).val(isi_kode);
+    //     $('#'+kode).attr('style','border-left:0;border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important');
+    //     $('.info-code_'+kode).text(isi_kode).parent('div').removeClass('hidden');
+    //     $('.info-code_'+kode).attr('title',isi_nama);
+    //     $('.info-name_'+kode).removeClass('hidden');
+    //     $('.info-name_'+kode).attr('title',isi_nama);
+    //     $('.info-name_'+kode).css({ "width": "100%", "left": "30px" });
+    //     $('.info-name_'+kode+' span').text(isi_nama);
+    //     $('.info-name_'+kode).closest('div').find('.info-icon-hapus').removeClass('hidden');
+    // }
 
     $('#form-tambah').on('click', '.search-item2', function(){
         var id = $(this).closest('div').find('input').attr('name');

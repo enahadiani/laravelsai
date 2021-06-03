@@ -141,24 +141,6 @@
             element.addClass('close');
         }
     }
-
-    function last_add(param,isi){
-        var rowIndexes = [];
-        dataTable.rows( function ( idx, data, node ) {             
-            if(data[param] === isi){
-                rowIndexes.push(idx);                  
-            }
-            return false;
-        }); 
-        dataTable.row(rowIndexes).select();
-        $('.selected td:eq(0)').addClass('last-add');
-            console.log('last-add');
-            setTimeout(function() {
-                console.log('timeout');
-                $('.selected td:eq(0)').removeClass('last-add');
-                dataTable.row(rowIndexes).deselect();
-        }, 1000 * 60 * 10);
-    }
     
     $('.sidepanel').on('click', '#btnClose', function(e){
         e.preventDefault();
@@ -287,7 +269,7 @@
                             id:kode,
                             type:'simpan'
                         });
-                        last_add("nik",kode);
+                        last_add(dataTable,"nik",kode);
                     }else if(!result.data.status && result.data.message === "Unauthorized"){
                     
                         window.location.href = "{{ url('/silo-auth/sesi-habis') }}";

@@ -216,3 +216,49 @@ function resetForm() {
     $("#form-tambah").validate().resetForm();
     $("#id").val("");
 }
+
+function format_number(x) {
+    var num = parseFloat(x).toFixed(0);
+    num = sepNumX(num);
+    return num;
+}
+
+function last_add(table, param, isi) {
+    var rowIndexes = [];
+    table.rows(function (idx, data, node) {
+        if (data[param] === isi) {
+            rowIndexes.push(idx);
+        }
+        return false;
+    });
+    table.row(rowIndexes).select();
+    $(".selected td:eq(0)").addClass("last-add");
+    console.log("last-add");
+    setTimeout(function () {
+        console.log("timeout");
+        $(".selected td:eq(0)").removeClass("last-add");
+        table.row(rowIndexes).deselect();
+    }, 1000 * 60 * 10);
+}
+
+function showInfoField(kode, isi_kode, isi_nama) {
+    $("#" + kode).css("color", "transparent");
+    $("#" + kode).val(isi_kode);
+    $("#" + kode).attr(
+        "style",
+        "border-left:0;border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important"
+    );
+    $(".info-code_" + kode)
+        .text(isi_kode)
+        .parent("div")
+        .removeClass("hidden");
+    $(".info-code_" + kode).attr("title", isi_nama);
+    $(".info-name_" + kode).removeClass("hidden");
+    $(".info-name_" + kode).attr("title", isi_nama);
+    $(".info-name_" + kode).css({ width: "100%", left: "30px" });
+    $(".info-name_" + kode + " span").text(isi_nama);
+    $(".info-name_" + kode)
+        .closest("div")
+        .find(".info-icon-hapus")
+        .removeClass("hidden");
+}
