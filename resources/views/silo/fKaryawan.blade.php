@@ -313,20 +313,20 @@
     // EVENT CHANGE //
     $('#kode_pp').change(function(){
         var value = $(this).val();
-        getPP(value);
+        getPP('kode_pp',value);
     });
     $('#kode_kota').change(function(){
         var regional = $('#regional').val();
         var value = $(this).val();
-        getKota(regional, value);
+        getKota(regional, 'kode_kota', value);
     });
     $('#kode_divisi').change(function(){
         var value = $(this).val();
-        getDivisi(value);
+        getDivisi('kode_divisi',value);
     });
     $('#kode_jab').change(function(){
         var value = $(this).val();
-        getJabatan(value)
+        getJabatan('kode_jab',value)
     });
     $('#inp-filter_regional').change(function(){
         jumFilter();
@@ -702,19 +702,6 @@
         $('.info-name_'+par).addClass('hidden');
         $(this).addClass('hidden');
     });
-
-    // function showInfoField(kode,isi_kode,isi_nama) {
-    //     $('#'+kode).css('color', 'transparent')
-    //     $('#'+kode).val(isi_kode);
-    //     $('#'+kode).attr('style','border-left:0;border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important');
-    //     $('.info-code_'+kode).text(isi_kode).parent('div').removeClass('hidden');
-    //     $('.info-code_'+kode).attr('title',isi_nama);
-    //     $('.info-name_'+kode).removeClass('hidden');
-    //     $('.info-name_'+kode).attr('title',isi_nama);
-    //     $('.info-name_'+kode).css({ "width": "100%", "left": "30px" });
-    //     $('.info-name_'+kode+' span').text(isi_nama);
-    //     $('.info-name_'+kode).closest('div').find('.info-icon-hapus').removeClass('hidden');
-    // }
 
     $('#form-tambah').on('click', '.search-item2', function(){
         var id = $(this).closest('div').find('input').attr('name');

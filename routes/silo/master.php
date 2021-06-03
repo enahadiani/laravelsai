@@ -54,3 +54,6 @@ Route::get('filter-pp','Silo\FilterController@getFilterPP');
 Route::get('filter-kota','Silo\FilterController@getFilterKota');
 Route::get('filter-divisi','Silo\FilterController@getFilterDivisi');
 Route::get('filter-jabatan','Silo\FilterController@getFilterJabatan');
+Route::get('filter-nik','Silo\FilterController@getFilterNik');
+Route::get('filter-klp-menu','Silo\FilterController@getFilterKlpMenu');
+Route::get('filter-form','Silo\FilterController@getFilterForm');
