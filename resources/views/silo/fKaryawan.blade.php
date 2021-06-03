@@ -690,9 +690,6 @@
     // END FILTER DATA //
 
     // Bagian CBBL
-    var $target = "";
-    var $target2 = "";
-    
     $('.info-icon-hapus').click(function(){
         var par = $(this).closest('div').find('input').attr('name');
         $('#'+par).val('');
