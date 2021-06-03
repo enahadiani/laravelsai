@@ -288,7 +288,7 @@
             window.location.href = "{{url('silo-auth/sesi-habis')}}";
         }, 1000 * 60 * parseInt(lifetime));
         
-        var $theme = "dore.light.bluesaku.min.css";
+        var $theme = "dore.light.redruby.min.css";
 
         $('.dropdown-periode').html("<span class='periode-label'>Periode</span> <span class='periode-app float-right'>"+namaPeriode2("{{ Session::get('periode') }}</span>"));
         $('.dropdown-lokasi').html("<span class='lokasi-label'>Lokasi</span> <span class='periode-app float-right'>{{ Session::get('lokasi') }}</span>");
