@@ -62,50 +62,6 @@
                 </div>
             </div>
         </div>
-        {{-- <div class="row" id="saku-form" style="display:none;">
-            <div class="col-sm-12" style="height: 90px;">
-                <div class="card">
-                    <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;">
-                        <h5 id="judul-form" style="position:absolute;top:25px"></h5>
-                        <button type="submit" class="btn btn-primary ml-2"  style="float:right;" id="btn-save"><i class="fa fa-save"></i> Simpan</button>
-                        <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Keluar</button>
-                    </div>
-                    <div class="separator mb-2"></div>
-                    <!-- FORM BODY -->
-                    <div class="card-body pt-3 form-body">
-                        <div class="form-group row" id="row-id">
-                            <div class="col-9">
-                                <input class="form-control" type="hidden" id="id_edit" name="id_edit">
-                                <input type="hidden" id="method" name="_method" value="post">
-                                <input type="hidden" id="id" name="id">
-                            </div>
-                        </div>
-                        <div class="form-group row ">
-                            <label for="kode" class="col-md-2 col-sm-12 col-form-label">Kode Kota</label>
-                            <div class="col-md-3 col-sm-12">
-                                <input class="form-control" type="text" placeholder="Kode Kota" id="kode" name="kode_kota">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="nama" class="col-md-2 col-sm-12 col-form-label">Nama</label>
-                            <div class="col-md-5 col-sm-12">
-                                <input class="form-control" type="text" placeholder="Nama" id="nama" name="nama">
-                            </div>
-                        </div>
-                        <div class="form-group row ">
-                            <label for="kode_pp" class="col-md-2 col-sm-12 col-form-label">Regional</label>
-                            <div class="col-md-2 col-sm-12" >
-                                 <input class="form-control" type="text"  id="kode_pp" name="kode_pp" data-input="cbbl" required>
-                                 <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;"></i>
-                            </div>                            
-                            <div class="col-md-2 col-sm-12 px-0" >
-                                <input id="label_kode_pp" class="form-control" style="border:none;border-bottom: 1px solid #d7d7d7;" readonly/>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> --}}
     </form>
     <!-- END FORM -->
 
@@ -230,7 +186,7 @@
         });
     })();
 
-    function getPP(kode){
+    function getPP(kode_cbbl, kode){
         $.ajax({
             type: 'GET',
             url: "{{ url('apv/unit') }}",
