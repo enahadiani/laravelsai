@@ -668,7 +668,6 @@
         $('#kode').attr('readonly', false);
         addRowDefault();
         newForm();
-        $('#saku-form').show();
     });
     // END BUTTON TAMBAH
 
