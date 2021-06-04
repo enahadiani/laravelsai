@@ -1,6 +1,7 @@
     <link rel="stylesheet" href="{{ asset('trans.css') }}" />
     <link rel="stylesheet" href="{{ asset('trans-esaku/form.css') }}" />
     <link rel="stylesheet" href="{{ asset('asset_silo/css/trans.css') }}" />
+    <link rel="stylesheet" href="{{ asset('asset_silo/css/custom.css') }}" />
     <!-- LIST DATA -->
     <x-list-data judul="Data Pengajuan" tambah="true" :thead="array('No Bukti', 'No Dokumen', 'Regional', 'Nilai Pengadaan', 'Nilai Finish', 'Aksi', 'Waktu', 'Kegiatan', 'Posisi')" :thwidth="array(15,25,20,10,10,25,5,5,5)" :thclass="array('','','','','','text-center','','','')" />
     <!-- END LIST DATA -->
@@ -529,6 +530,19 @@
         // END CBBL FORM
 
         // GRID FORM
+        $('#form-tambah').click(function() {
+            hideAllSelectedRow()
+        })
+
+        function hideAllSelectedRow() {
+            $('table[id^=input]').each(function(index, table) {
+                $(table).find('tr').removeClass('selected-row')
+                $(table).find('td').removeClass('selected-cell')
+                $(table).find('input').hide()
+                $(table).find('a').hide()
+                $(table).find('span').show()
+            })
+        }
             // GRID BARANG
         function hitungTotalRowBarang(){
             var total_row = $('#input-barang tbody tr').length;
@@ -660,6 +674,7 @@
                 </tr>
             `;
             $('#input-barang tbody').append(html)
+            $('#input-barang tbody tr').not(':last').removeClass('selected-row');
             $('.row-grid:last').addClass('selected-row');
             
             $(`#kode-${idBarang}`).typeahead({
@@ -686,27 +701,75 @@
         }
 
         $('#add-barang').click(function() {
-            var empty = false;
-            var kolom = null;
-            var baris = null;
-            var error = '';
-            $('#input-barang tbody > tr').each(function() {
-                $(this).find('td').not(':first, :last').each(function() {
-                    if($(this).text().trim() === '') {
-                        empty = true;
-                        baris = $('#input-barang tbody > tr').index() + 1;
-                        kolom = $('#input-barang thead > tr th').eq($(this).index()).text()
-                        error = `Data pada kolom ${kolom} di baris nomor ${baris} tidak boleh kosong`
-                        return false;
-                    }
+            var row = $('#input-barang tbody > tr').length
+            if(row > 0) {
+                var empty = false;
+                var kolom = null;
+                var baris = null;
+                var error = '';
+                $('#input-barang tbody > tr').each(function() {
+                    $(this).find('td').not(':first, :last').each(function() {
+                        if($(this).text().trim() === '') {
+                            empty = true;
+                            baris = $('#input-barang tbody > tr').index() + 1;
+                            kolom = $('#input-barang thead > tr th').eq($(this).index()).text()
+                            error = `Data pada kolom ${kolom} di baris nomor ${baris} tidak boleh kosong`
+                            return false;
+                        }
+                    })
                 })
-            })
-            if(empty) {
-                alert(error)
+                if(empty) {
+                    alert(error)
+                } else {
+                    addRowBarang()
+                }
             } else {
                 addRowBarang()
             }
         })
+
+        $('#input-barang').on('click', '.hapus-item', function() {
+            $(this).closest('tr').remove();
+            no=1;
+            $('.row-grid').each(function(){
+                var nom = $(this).closest('tr').find('.no-grid');
+                nom.html(no);
+                no++;
+            });
+            hitungTotalRowBarang();
+            $("html, body").animate({ scrollTop: $(document).height() }, 1000);
+        });
+
+        $('#input-barang tbody').on('click', 'tr', function(event) {
+            event.stopPropagation();
+            var tbody = $(this).parent()
+            var table = $(this).parents('table').attr('id')
+            $(this).addClass('selected-row');
+            tbody.children().not(this).removeClass('selected-row');
+            // hideUnselectedRow();
+        });
+
+        $('#input-barang tbody').on('click', 'td', function(event) {
+            event.stopPropagation();
+            var tr = $(this).parent()
+            $(this).addClass('selected-cell');
+            tr.children().not(this).removeClass('selected-cell');
+            hideUnselectedCell(tr);
+        });
+
+        function hideUnselectedCell(tr) {
+            tr.find('td').not(':first, :last').each(function(index, td) {
+                if($(td).hasClass('selected-cell')) {
+                    $(td).children('span').hide()
+                    $(td).children('input').show()
+                    $(td).children('a').show()
+                } else {
+                    $(td).children('input').hide()
+                    $(td).children('a').hide()
+                    $(td).children('span').show()
+                }
+            }) 
+        }
             // END GRID BARANG
         // END GRID FORM
     </script>
