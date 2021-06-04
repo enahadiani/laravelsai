@@ -554,7 +554,7 @@
         });
     })();
 
-    function getPP(kode, kode_cbbl){
+    function getPP(kode_cbbl, kode){
         $.ajax({
             type: 'GET',
             url: "{{ url('apv/unit') }}",
@@ -612,7 +612,7 @@
     // EVENT CHANGE //
     $('#kode_pp').change(function(){
         var value = $(this).val();
-        getPP(value);
+        getPP('kode_pp',value);
     });
     // END EVENT CHANGE //
     // LIST DATA
@@ -815,7 +815,7 @@
                     $('#atas').val(parseFloat(result.data[0].atas));
                     $('#bawah').val(parseFloat(result.data[0].bawah));
                     $('#modul')[0].selectize.setValue(result.data[0].modul);
-                    getPP(result.data[0].kode_pp);
+                    getPP('kode_pp',result.data[0].kode_pp);
                     if(result.data2.length > 0) {
                         var input = "";  
                         var no = 1;
