@@ -315,7 +315,7 @@
             $('#input-approve tbody').empty();
             $('#judul-form').html('Tambah Data Pengajuan');
             $('#kode').attr('readonly', false);
-            // addRowDefault();
+            addRowDefault();
             newForm();
             setRegional('kode_pp', regional)
         });
@@ -428,11 +428,6 @@
             });
         }
 
-        function hitungTotalRowBarang(){
-            var total_row = $('#input-barang tbody tr').length;
-            $('#total-barang').html(total_row+' Baris');
-        }
-
         function hitungTotalRowDokumen(){
             var total_row = $('#input-dokumen tbody tr').length;
             $('#total-dokumen').html(total_row+' Baris');
@@ -532,6 +527,188 @@
             $(this).addClass('hidden');
         });
         // END CBBL FORM
+
+        // GRID FORM
+            // GRID BARANG
+        function hitungTotalRowBarang(){
+            var total_row = $('#input-barang tbody tr').length;
+            $('#total-barang').html(total_row+' Baris');
+        }
+
+        function addRowDefault() {
+            var no= $('#input-barang tbody > tr').length;
+            no = no + 1;
+            var idBarang = 'barang-ke__'+no
+            var idDesk = 'deskripsi-ke__'+no
+            var idHarga = 'harga-ke__'+no
+            var idQty = 'qty-ke__'+no
+            var idSubtotal = 'subtotal-ke__'+no
+            var idPPN = 'ppn-ke__'+no
+            var idTotal = 'total-ke__'+no
+            var html = "";
+            html += `
+                <tr class='row-grid'>
+                    <td class='no-grid text-center'>${no}</td>
+                    <td id='${idBarang}'>
+                        <span id='text-${idBarang}' class='tooltip-span'></span>
+                        <input type='hidden' name='barang_klp[]' id='value-${idBarang}' readonly>
+                        <input autocomplete='off' type='text' name='kelompok[]' class='form-control hidden' value='' style='z-index: 1;position: relative;' id='kode-${idBarang}'>
+                        <a href='#' class='search-item hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a>
+                    </td>
+                    <td id='${idDesk}'>
+                        <span id='text-${idDesk}' class='tooltip-span'></span>
+                        <input autocomplete='off' id='value-${idDesk}' type='text' name='barang[]' class='form-control hidden' value=''>
+                    </td>
+                    <td id='${idHarga}' class='text-right'>
+                        <span id='text-${idHarga}' class='tooltip-span'></span>
+                        <input autocomplete='off' id='value-${idHarga}' type='text' name='harga[]' class='form-control currency hidden' value=''>
+                    </td>
+                    <td id='${idQty}' class='text-right'>
+                        <span id='text-${idQty}' class='tooltip-span'></span>
+                        <input autocomplete='off' id='value-${idQty}' type='text' name='qty[]' class='form-control currency hidden' value=''>
+                    </td>
+                    <td id='${idSubtotal}' class='text-right'>
+                        <span id='text-${idSubtotal}' class='tooltip-span'></span>
+                        <input autocomplete='off' id='value-${idSubtotal}' type='text' name='nilai[]' class='form-control currency hidden' value=''>
+                    </td>
+                    <td id='${idPPN}' class='text-right'>
+                        <span id='text-${idPPN}' class='tooltip-span'></span>
+                        <input autocomplete='off' id='value-${idPPN}' type='text' name='ppn[]' class='form-control currency hidden' value=''>
+                    </td>
+                    <td id='${idTotal}' class='text-right'>
+                        <span id='text-${idTotal}' class='tooltip-span'></span>
+                        <input autocomplete='off' id='value-${idTotal}' type='text' name='grand_total[]' class='form-control currency hidden' value=''>
+                    </td>
+                    <td class='text-center'>
+                        <a class='hapus-item' style='font-size:12px;cursor:pointer;'><i class='simple-icon-trash'></i></a>
+                    </td>
+                </tr>
+            `;
+            $('#input-barang tbody').append(html)
+            $('.row-grid:last').addClass('selected-row');
+            
+            $(`#kode-${idBarang}`).typeahead({
+                source:$dtKlpBarang,
+                displayText:function(item){
+                    return item.id+' - '+item.name;
+                },
+                autoSelect:false,
+                changeInputOnSelect:false,
+                changeInputOnMove:false,
+                selectOnBlur:false,
+                afterSelect: function (item) {
+                    console.log(this.$element.get(0))
+                    console.log(item)
+                }
+            });
+            
+            $('.tooltip-span').tooltip({
+                title: function(){
+                    return $(this).text();
+                }
+            });
+            hitungTotalRowBarang()
+        }
+
+        function addRowBarang() {
+            var no= $('#input-barang tbody > tr').length;
+            no = no + 1;
+            var idBarang = 'barang-ke__'+no
+            var idDesk = 'deskripsi-ke__'+no
+            var idHarga = 'harga-ke__'+no
+            var idQty = 'qty-ke__'+no
+            var idSubtotal = 'subtotal-ke__'+no
+            var idPPN = 'ppn-ke__'+no
+            var idTotal = 'total-ke__'+no
+            var html = "";
+            html += `
+                <tr class='row-grid'>
+                    <td class='no-grid text-center'>${no}</td>
+                    <td id='${idBarang}'>
+                        <span id='text-${idBarang}' class='tooltip-span'></span>
+                        <input type='hidden' name='barang_klp[]' id='value-${idBarang}' readonly>
+                        <input autocomplete='off' type='text' name='kelompok[]' class='form-control hidden' value='' style='z-index: 1;position: relative;' id='kode-${idBarang}'>
+                        <a href='#' class='search-item hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a>
+                    </td>
+                    <td id='${idDesk}'>
+                        <span id='text-${idDesk}' class='tooltip-span'></span>
+                        <input autocomplete='off' id='value-${idDesk}' type='text' name='barang[]' class='form-control hidden' value=''>
+                    </td>
+                    <td id='${idHarga}' class='text-right'>
+                        <span id='text-${idHarga}' class='tooltip-span'></span>
+                        <input autocomplete='off' id='value-${idHarga}' type='text' name='harga[]' class='form-control currency hidden' value=''>
+                    </td>
+                    <td id='${idQty}' class='text-right'>
+                        <span id='text-${idQty}' class='tooltip-span'></span>
+                        <input autocomplete='off' id='value-${idQty}' type='text' name='qty[]' class='form-control currency hidden' value=''>
+                    </td>
+                    <td id='${idSubtotal}' class='text-right'>
+                        <span id='text-${idSubtotal}' class='tooltip-span'></span>
+                        <input autocomplete='off' id='value-${idSubtotal}' type='text' name='nilai[]' class='form-control currency hidden' value=''>
+                    </td>
+                    <td id='${idPPN}' class='text-right'>
+                        <span id='text-${idPPN}' class='tooltip-span'></span>
+                        <input autocomplete='off' id='value-${idPPN}' type='text' name='ppn[]' class='form-control currency hidden' value=''>
+                    </td>
+                    <td id='${idTotal}' class='text-right'>
+                        <span id='text-${idTotal}' class='tooltip-span'></span>
+                        <input autocomplete='off' id='value-${idTotal}' type='text' name='grand_total[]' class='form-control currency hidden' value=''>
+                    </td>
+                    <td class='text-center'>
+                        <a class='hapus-item' style='font-size:12px;cursor:pointer;'><i class='simple-icon-trash'></i></a>
+                    </td>
+                </tr>
+            `;
+            $('#input-barang tbody').append(html)
+            $('.row-grid:last').addClass('selected-row');
+            
+            $(`#kode-${idBarang}`).typeahead({
+                source:$dtKlpBarang,
+                displayText:function(item){
+                    return item.id+' - '+item.name;
+                },
+                autoSelect:false,
+                changeInputOnSelect:false,
+                changeInputOnMove:false,
+                selectOnBlur:false,
+                afterSelect: function (item) {
+                    console.log(this.$element.get(0))
+                    console.log(item)
+                }
+            });
+            
+            $('.tooltip-span').tooltip({
+                title: function(){
+                    return $(this).text();
+                }
+            });
+            hitungTotalRowBarang()
+        }
+
+        $('#add-barang').click(function() {
+            var empty = false;
+            var kolom = null;
+            var baris = null;
+            var error = '';
+            $('#input-barang tbody > tr').each(function() {
+                $(this).find('td').not(':first, :last').each(function() {
+                    if($(this).text().trim() === '') {
+                        empty = true;
+                        baris = $('#input-barang tbody > tr').index() + 1;
+                        kolom = $('#input-barang thead > tr th').eq($(this).index()).text()
+                        error = `Data pada kolom ${kolom} di baris nomor ${baris} tidak boleh kosong`
+                        return false;
+                    }
+                })
+            })
+            if(empty) {
+                alert(error)
+            } else {
+                addRowBarang()
+            }
+        })
+            // END GRID BARANG
+        // END GRID FORM
     </script>
     {{-- <script type="text/javascript">
     // SET UP FORM //
