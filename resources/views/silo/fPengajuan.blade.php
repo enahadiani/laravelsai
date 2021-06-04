@@ -543,6 +543,31 @@
                 $(table).find('span').show()
             })
         }
+
+        function hideUnselectedRow(tbody) {
+            tbody.find('tr').not('.selected-row').each(function(index, tr) {
+                console.log(tr)
+                $(tr).not(':first, :last').each(function(index, tr) {
+                    $(td).children('input').hide()
+                    $(td).children('a').hide()
+                    $(td).children('span').show()
+                })
+            }) 
+        }
+
+        function hideUnselectedCell(tr) {
+            tr.find('td').not(':first, :last').each(function(index, td) {
+                if($(td).hasClass('selected-cell')) {
+                    $(td).children('span').hide()
+                    $(td).children('input').show()
+                    $(td).children('a').show()
+                } else {
+                    $(td).children('input').hide()
+                    $(td).children('a').hide()
+                    $(td).children('span').show()
+                }
+            }) 
+        }
             // GRID BARANG
         function hitungTotalRowBarang(){
             var total_row = $('#input-barang tbody tr').length;
@@ -743,10 +768,9 @@
         $('#input-barang tbody').on('click', 'tr', function(event) {
             event.stopPropagation();
             var tbody = $(this).parent()
-            var table = $(this).parents('table').attr('id')
             $(this).addClass('selected-row');
             tbody.children().not(this).removeClass('selected-row');
-            // hideUnselectedRow();
+            hideUnselectedRow(tbody);
         });
 
         $('#input-barang tbody').on('click', 'td', function(event) {
@@ -756,20 +780,6 @@
             tr.children().not(this).removeClass('selected-cell');
             hideUnselectedCell(tr);
         });
-
-        function hideUnselectedCell(tr) {
-            tr.find('td').not(':first, :last').each(function(index, td) {
-                if($(td).hasClass('selected-cell')) {
-                    $(td).children('span').hide()
-                    $(td).children('input').show()
-                    $(td).children('a').show()
-                } else {
-                    $(td).children('input').hide()
-                    $(td).children('a').hide()
-                    $(td).children('span').show()
-                }
-            }) 
-        }
             // END GRID BARANG
         // END GRID FORM
     </script>
