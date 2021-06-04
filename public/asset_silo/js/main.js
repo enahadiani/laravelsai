@@ -255,7 +255,7 @@ function showInfoField(kode, isi_kode, isi_nama) {
     $(".info-code_" + kode).attr("title", isi_nama);
     $(".info-name_" + kode).removeClass("hidden");
     $(".info-name_" + kode).attr("title", isi_nama);
-    $(".info-name_" + kode).css({ width: "100%", left: "30px" });
+    $(".info-name_" + kode).css({ width: "68%", left: "30px" });
     $(".info-name_" + kode + " span").text(isi_nama);
     $(".info-name_" + kode)
         .closest("div")

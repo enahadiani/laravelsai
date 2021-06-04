@@ -30,3 +30,6 @@
     height: 80% !important;
     padding-bottom: 16px !important;
 }
+#ui-datepicker-div {
+    display: none !important;
+}

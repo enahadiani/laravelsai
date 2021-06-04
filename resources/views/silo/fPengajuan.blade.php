@@ -6,333 +6,199 @@
     <!-- END LIST DATA -->
     <!-- FORM  -->
     <form id="form-tambah" class="tooltip-label-right" novalidate>
+        <input class="form-control" type="hidden" id="id_edit" name="id_edit">
+        <input type="hidden" id="method" name="_method" value="post">
+        <input type="hidden" id="id" name="id">
         <div class="row" id="saku-form" style="display:none;">
-            <div class="col-sm-12" style="height: 90px;">
+            <div class="col-12">
                 <div class="card">
-                    <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;">
-                        <h5 id="judul-form" style="position:absolute;top:25px"></h5>
-                        <button type="submit" class="btn btn-primary ml-2"  style="float:right;" id="btn-save"><i class="fa fa-save"></i> Simpan</button>
-                        <button type="button" class="btn btn-light ml-2 btn-kembali" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Keluar</button>
+                    <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;min-height:62.8px">
+                        <h6 id="judul-form" style="position:absolute;top:25px"></h6>
+                        <button type="button" id="btn-kembali" aria-label="Kembali" class="btn">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
                     <div class="separator mb-2"></div>
-                    <!-- FORM BODY -->
                     <div class="card-body pt-3 form-body">
-                        <div class="form-group row" id="row-id">
-                            <div class="col-9">
-                                <input class="form-control" type="hidden" id="id_edit" name="id_edit">
-                                <input type="hidden" id="method" name="_method" value="post">
-                                <input type="hidden" id="id" name="id">
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <label for="tanggal">Tanggal Pengajuan</label>
+                                        <input class='form-control datepicker' type="text" id="tanggal" name="tanggal" autocomplete="off" value="{{ date('d/m/Y') }}">
+                                        <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;" class="simple-icon-calendar date-search"></i>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <label for="waktu">Tanggal Kebutuhan</label>
+                                        <input class='form-control datepicker' type="text" id="waktu" name="waktu" autocomplete="off" value="{{ date('d/m/Y') }}">
+                                        <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;" class="simple-icon-calendar date-search"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <label for="kode_pp">Regional</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                                <span class="input-group-text info-code_kode_pp" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                            </div>
+                                            <input type="text" class="form-control inp-label-kode_pp" id="kode_pp" autocomplete="off" name="kode_pp" data-input="cbbl" value="" title="" required readonly>
+                                            <span class="info-name_kode_pp hidden">
+                                                <span></span> 
+                                            </span>
+                                            <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                            <i class="simple-icon-magnifier search-item2" id="search_kode_pp"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <label for="kode_kota">Kota</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                                <span class="input-group-text info-code_kode_kota" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                            </div>
+                                            <input type="text" class="form-control inp-label-kode_kota" id="kode_kota" name="kode_kota" autocomplete="off" data-input="cbbl" value="" title="" required readonly>
+                                            <span class="info-name_kode_kota hidden">
+                                                <span></span> 
+                                            </span>
+                                            <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                            <i class="simple-icon-magnifier search-item2" id="search_kode_kota"></i>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group row ">
-                            <label for="tanggal" class="col-md-2 col-sm-2 col-form-label">Tanggal Pengajuan</label>
-                            <div class="col-md-3 col-sm-9">
-                                <input class='form-control datepicker' type="text" id="tanggal" name="tanggal" value="{{date('d/m/Y')}}">
-                                <i style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;" class="simple-icon-calendar date-search"></i>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <label for="dokumen">No Dokumen</label>
+                                        <input class="form-control" type="text" placeholder="No Dokumen" id="dokumen" name="no_dokumen" value="-" readonly autocomplete="off" required >
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <label for="nama">Justifikasi Kebutuhan</label>
+                                        <input class="form-control" type="text" placeholder="Justifikasi Kebutahan" id="kegiatan" name="kegiatan" autocomplete="off" required >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <label for="dasar">Dasar/Latar Belakang</label>
+                                        <input class="form-control" type="text" placeholder="Dasar/Latar Belakang" id="dasar" name="dasar" autocomplete="off" required >
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <label for="pic">PIC</label>
+                                        <input class="form-control" type="text" placeholder="PIC" id="pic" name="pic" autocomplete="off" required >
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group row ">
-                            <label for="waktu" class="col-md-2 col-sm-2 col-form-label">Tanggal Pengajuan</label>
-                            <div class="col-md-3 col-sm-9">
-                                <input class='form-control datepicker' type="text" id="waktu" name="waktu" value="{{date('d/m/Y')}}">
-                                <i style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;" class="simple-icon-calendar date-search"></i>
-                            </div>
-                        </div>
-                        <div class="form-group row ">
-                            <label for="kode_pp" class="col-md-2 col-sm-12 col-form-label">Regional</label>
-                            <div class="col-md-2 col-sm-12" >
-                                 <input class="form-control" type="text"  id="kode_pp" name="kode_pp" data-input="cbbl" required>
-                                 <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;"></i>
-                            </div>                            
-                            <div class="col-md-2 col-sm-12 px-0" >
-                                <input id="label_kode_pp" class="form-control" style="border:none;border-bottom: 1px solid #d7d7d7;" readonly/>
-                            </div>
-                        </div>
-                        <div class="form-group row ">
-                            <label for="kode_kota" class="col-md-2 col-sm-12 col-form-label">Kota</label>
-                            <div class="col-md-2 col-sm-12" >
-                                 <input class="form-control" type="text" id="kode_kota" name="kode_kota" data-input="cbbl" required>
-                                 <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;"></i>
-                            </div>                            
-                            <div class="col-md-2 col-sm-12 px-0" >
-                                <input id="label_kode_kota" class="form-control" style="border:none;border-bottom: 1px solid #d7d7d7;" readonly/>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="dokumen" class="col-md-2 col-sm-12 col-form-label">No Dokumen</label>
-                            <div class="col-md-5 col-sm-12">
-                                <input class="form-control" type="text" placeholder="No Dokumen" id="dokumen" name="no_dokumen" value="-" readonly>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="kegiatan" class="col-md-2 col-sm-12 col-form-label">Justifikasi Kebutuhan</label>
-                            <div class="col-md-10 col-sm-12">
-                                <input class="form-control" type="text" placeholder="Justifikasi Kebutahan" id="kegiatan" name="kegiatan">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="dasar" class="col-md-2 col-sm-12 col-form-label">Dasar/Latar Belakang</label>
-                            <div class="col-md-10 col-sm-12">
-                                <input class="form-control" type="text" placeholder="Dasar/Latar Belakang" id="dasar" name="dasar">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="pic" class="col-md-2 col-sm-12 col-form-label">PIC</label>
-                            <div class="col-md-10 col-sm-12">
-                                <input class="form-control" type="text" placeholder="PIC" id="pic" name="pic">
-                            </div>
-                        </div>
-                        <div class="form-group row ">
-                            <label for="nik_ver" class="col-md-2 col-sm-12 col-form-label">NIK Verifikasi</label>
-                            <div class="col-md-2 col-sm-12" >
-                                 <input class="form-control" type="text" id="nik_ver" name="nik_ver" data-input="cbbl" required>
-                                 <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;"></i>
-                            </div>                            
-                            <div class="col-md-2 col-sm-12 px-0" >
-                                <input id="label_nik_ver" class="form-control" style="border:none;border-bottom: 1px solid #d7d7d7;" readonly/>
-                            </div>
-                        </div>
-                        <div class="form-group row ">
-                            <label for="atas" class="col-md-2 col-sm-12 col-form-label">Total Barang</label>
-                            <div class="col-md-3 col-sm-12">
-                                <input class="form-control currency" type="text" placeholder="Total Barang" id="total" name="total" readonly>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <label for="nik_ver">NIK Verifikasi</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                                <span class="input-group-text info-code_nik_ver" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                            </div>
+                                            <input type="text" class="form-control inp-label-nik_ver" id="nik_ver" name="nik_ver" autocomplete="off" data-input="cbbl" value="" title="" required readonly>
+                                            <span class="info-name_nik_ver hidden">
+                                                <span></span> 
+                                            </span>
+                                            <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                            <i class="simple-icon-magnifier search-item2" id="search_nik_ver"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <label for="total">Total Barang</label>
+                                        <input class="form-control" type="text" placeholder="Total Barang" id="total" name="total" autocomplete="off" required readonly>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <ul class="nav nav-tabs col-12 " role="tablist">
-                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-grid-barang" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Barang</span></a> </li>
-                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-grid-dokumen" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Dokumen</span></a> </li>
-                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-grid-catatan" role="tab" aria-selected="true"><span class="hidden-xs-down">Catatan Approve</span></a> </li>
+                            <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#data-barang" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Barang</span></a></li>
+                            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#data-dokumen" role="tab" aria-selected="false"><span class="hidden-xs-down">Data Dokumen</span></a></li>
+                            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#data-approve" role="tab" aria-selected="false"><span class="hidden-xs-down">Catatan Approve</span></a></li>
                         </ul>
-                         <div class="tab-content tabcontent-border col-12 p-0">
-                            <div class="tab-pane active" id="data-grid-barang" role="tabpanel">
-                                <div class='col-xs-12 nav-control' style="border: 1px solid #ebebeb;padding: 0px 5px;">
-                                    <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row-barang" ></span></a>
+                        <div class="tab-content tabcontent-border col-12 p-0" style="margin-bottom: 2rem;">
+                            <div class="tab-pane active row" id="data-barang" role="tabpanel">
+                                <div class='col-md-12 nav-control' style="padding: 0px 5px;">
+                                    <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-barang" ></span></a>
                                 </div>
-                                <div class='col-xs-12' style='min-height:420px; margin:0px; padding:0px;'>
-                                    <style>
-                                        th{
-                                            vertical-align:middle !important;
-                                        }
-                                        /* #input-grid td{
-                                            padding:0 !important;
-                                        } */
-                                        #input-grid-barang .selectize-input.focus, #input-grid-barang input.form-control, #input-grid-barang .custom-file-label
-                                        {
-                                            border:1px solid black !important;
-                                            border-radius:0 !important;
-                                        }
-
-                                        #input-grid-barang .selectize-input
-                                        {
-                                            border-radius:0 !important;
-                                        } 
-                                        
-                                        .modal-header .close {
-                                            padding: 1rem;
-                                            margin: -1rem 0 -1rem auto;
-                                        }
-                                        .check-item{
-                                            cursor:pointer;
-                                        }
-                                        .selected{
-                                            cursor:pointer;
-                                            /* background:#4286f5 !important; */
-                                            /* color:white; */
-                                        }
-                                        #input-grid-barang td:not(:nth-child(1)):not(:nth-child(9)):hover
-                                        {
-                                            /* background: var(--theme-color-6) !important;
-                                            color:white; */
-                                            background:#f8f8f8;
-                                            color:black;
-                                        }
-                                        #input-grid-barang input:hover,
-                                        #input-grid-barang .selectize-input:hover,
-                                        {
-                                            width:inherit;
-                                        }
-                                        #input-grid-barang ul.typeahead.dropdown-menu
-                                        {
-                                            width:max-content !important;
-                                        }
-                                        #input-grid-barang td
-                                        {
-                                            overflow:hidden !important;
-                                            height:37.2px !important;
-                                            padding:0px !important;
-                                        }
-
-                                        #input-grid-barang span
-                                        {
-                                            padding:0px 10px !important;
-                                        }
-
-                                        #input-grid-barang input,#input-grid-barang .selectize-input
-                                        {
-                                            overflow:hidden !important;
-                                            height:35px !important;
-                                        }
-
-
-                                        #input-grid-barang td:nth-child(4)
-                                        {
-                                            overflow:unset !important;
-                                        }
-                                    </style>
-                                    <table class="table table-bordered table-condensed gridexample" id="input-grid-barang" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
-                                    <thead style="background:#F8F8F8">
-                                        <tr>
-                                            <th style="width:3%">No</th>
-                                            <th style="width:3%"></th>
-                                            <th style="width:7%">Kode</th>
-                                            <th style="width:10%">Nama</th>
-                                            <th style="width:15%">Deskripsi</th>
-                                            <th style="width:12%">Harga</th>
-                                            <th style="width:10%">Qty</th>
-                                            <th style="width:12%">Subtotal</th>
-                                            <th style="width:12%">PPN</th>
-                                            <th style="width:12%">Grand Total</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody></tbody>
+                                <div class="col-md-12">
+                                    <table class="table table-bordered table-condensed gridexample" id="input-barang" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                        <thead style="background:#F8F8F8">
+                                            <tr>
+                                                <th style="width:3%;">No</th>
+                                                <th style="width:25%;">Barang</th>
+                                                <th style="width:30%;">Deskripsi</th>
+                                                <th style="width:15%;">Harga</th>
+                                                <th style="width:10%;">Qty</th>
+                                                <th style="width:15%;">Subtotal</th>
+                                                <th style="width:15%;">PPN</th>
+                                                <th style="width:15%;">Grand Total</th>
+                                                <th style="width:5%;"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
                                     </table>
-                                    <a type="button" href="#" data-id="0" title="add-row-barang" class="add-row-barang btn btn-light2 btn-block btn-sm">Tambah Baris</a>
+                                    <a type="button" id="add-barang" href="#" data-id="0" title="add-row" class="add-row btn btn-light2 btn-block btn-sm"><i class="saicon icon-tambah mr-1"></i>Tambah Baris</a>
                                 </div>
                             </div>
-                            <div class="tab-pane" id="data-grid-dokumen" role="tabpanel">
-                                <div class='col-xs-12 nav-control' style="border: 1px solid #ebebeb;padding: 0px 5px;">
-                                    <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row-dokumen" ></span></a>
+                            <div class="tab-pane row" id="data-dokumen" role="tabpanel">
+                                <div class='col-md-12 nav-control' style="padding: 0px 5px;">
+                                    <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-dokumen" ></span></a>
                                 </div>
-                                <div class='col-xs-12' style='min-height:420px; margin:0px; padding:0px;'>
-                                    <table class="table table-bordered table-condensed gridexample" id="input-grid-dokumen" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
-                                    <thead style="background:#F8F8F8">
-                                        <tr>
-                                            <th style="width:3%">No</th>
-                                            <th style="width:5%"></th>
-                                            <th style="width:15%">Nama Dokumen</th>
-                                            <th style="width:15%">Nama File Upload</th>
-                                            <th style="width:12%">Upload File</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody></tbody>
+                                <div class="col-md-12">
+                                    <table class="table table-bordered table-condensed gridexample" id="input-dokumen" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                        <thead style="background:#F8F8F8">
+                                            <tr>
+                                                <th style="width:3%;">No</th>
+                                                <th style="width:25%;">Nama Dokumen</th>
+                                                <th style="width:20%;">Nama File Upload</th>
+                                                <th style="width:15%;">Upload File</th>
+                                                <th style="width:5%;"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
                                     </table>
-                                    <a type="button" href="#" data-id="0" title="add-row-dokumen" class="add-row-dokumen btn btn-light2 btn-block btn-sm">Tambah Baris</a>
+                                    <a type="button" id="add-dokumen" href="#" data-id="0" title="add-row" class="add-row btn btn-light2 btn-block btn-sm"><i class="saicon icon-tambah mr-1"></i>Tambah Baris</a>
                                 </div>
                             </div>
-                            <div class="tab-pane" id="data-grid-catatan" role="tabpanel">
-                                <div class='col-xs-12 nav-control' style="border: 1px solid #ebebeb;padding: 0px 5px;">
-                                    <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row-catatan" ></span></a>
+                            <div class="tab-pane row" id="data-approve" role="tabpanel">
+                                <div class='col-md-12 nav-control' style="padding: 0px 5px;">
+                                    <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-approve" ></span></a>
                                 </div>
-                                <div class='col-xs-12' style='min-height:420px; margin:0px; padding:0px;'>
-                                    <style>
-                                        th{
-                                            vertical-align:middle !important;
-                                        }
-                                        /* #input-grid td{
-                                            padding:0 !important;
-                                        } */
-                                        #input-grid-catatan .selectize-input.focus, #input-grid-catatan input.form-control, #input-grid-catatan .custom-file-label
-                                        {
-                                            border:1px solid black !important;
-                                            border-radius:0 !important;
-                                        }
-
-                                        #input-grid-catatan .selectize-input
-                                        {
-                                            border-radius:0 !important;
-                                        } 
-                                        
-                                        .modal-header .close {
-                                            padding: 1rem;
-                                            margin: -1rem 0 -1rem auto;
-                                        }
-                                        .check-item{
-                                            cursor:pointer;
-                                        }
-                                        .selected{
-                                            cursor:pointer;
-                                            /* background:#4286f5 !important; */
-                                            /* color:white; */
-                                        }
-                                        #input-grid-catatan td:not(:nth-child(1)):not(:nth-child(9)):hover
-                                        {
-                                            /* background: var(--theme-color-6) !important;
-                                            color:white; */
-                                            background:#f8f8f8;
-                                            color:black;
-                                        }
-                                        #input-grid-catatan input:hover,
-                                        #input-grid-catatan .selectize-input:hover,
-                                        {
-                                            width:inherit;
-                                        }
-                                        #input-grid-catatan ul.typeahead.dropdown-menu
-                                        {
-                                            width:max-content !important;
-                                        }
-                                        #input-grid-catatan td
-                                        {
-                                            overflow:hidden !important;
-                                            height:37.2px !important;
-                                            padding:0px !important;
-                                        }
-
-                                        #input-grid-catatan span
-                                        {
-                                            padding:0px 10px !important;
-                                        }
-
-                                        #input-grid-catatan input,#input-grid-catatan .selectize-input
-                                        {
-                                            overflow:hidden !important;
-                                            height:35px !important;
-                                        }
-
-
-                                        #input-grid-catatan td:nth-child(4)
-                                        {
-                                            overflow:unset !important;
-                                        }
-                                    </style>
-                                    <table class="table table-bordered table-condensed gridexample" id="input-grid-catatan" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
-                                    <thead style="background:#F8F8F8">
-                                        <tr>
-                                            <th style="width:3%">No</th>
-                                            <th style="width:3%"></th>
-                                            <th style="width:14%">NIK</th>
-                                            <th style="width:15%">Nama</th>
-                                            <th style="width:8%">Status</th>
-                                            <th style="width:20%">Keterangan Approval</th>
-                                            <th style="width:10%">No App</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody></tbody>
+                                <div class="col-md-12">
+                                    <table class="table table-bordered table-condensed gridexample" id="input-approve" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                        <thead style="background:#F8F8F8">
+                                            <tr>
+                                                <th style="width:3%;">No</th>
+                                                <th style="width:15%;">NIK</th>
+                                                <th style="width:25%;">Nama</th>
+                                                <th style="width:10%;">Status</th>
+                                                <th style="width:30%;">Keterangan</th>
+                                                <th style="width:5%;"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
                                     </table>
+                                    <a type="button" id="add-approve" href="#" data-id="0" title="add-row" class="add-row btn btn-light2 btn-block btn-sm"><i class="saicon icon-tambah mr-1"></i>Tambah Baris</a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-        <div class="row" id="slide-history" style="display:none;">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-body">
-                        <button type="button" class="btn btn-light ml-2 btn-kembali" id="btn-kembali-history" style="float:right;"><i class="fa fa-undo"></i> Keluar</button>
-                        <div class="profiletimeline mt-5">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row" id="slide-print" style="display:none;">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-body">
-                        <button type="button" class="btn btn-light ml-2 btn-kembali" id="btn-kembali-print" style="float:right;"><i class="fa fa-undo"></i> Keluar</button>
-                        <button type="button" id="btn-aju-print" class="btn btn-primary" style="float:right;" ><i class="fa fa-print"></i> Print</button>
-                        <div id="print-area" class="mt-5" width='100%' style='border:none;min-height:480px'>
+                    <div class="card-form-footer-full">
+                        <div class="footer-form-container-full">
+                            <div class="text-right message-action">
+                                <p class="text-success"></p>
+                            </div>
+                            <div class="action-footer">
+                                <button type="submit" style="margin-top: 10px;" class="btn btn-primary btn-save"><i class="fa fa-save"></i> Simpan</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -379,6 +245,13 @@
     <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
     <script src="{{ asset('helper.js') }}"></script>
     <script type="text/javascript">
+        // SET UP VIEW
+        var scroll = document.querySelector('#content-preview');
+        new PerfectScrollbar(scroll);
+
+        var scrollform = document.querySelector('.form-body');
+        new PerfectScrollbar(scrollform);
+        // END SET UP VIEW
         // LIST DATA
         var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Print'  id='btn-print'><i class='simple-icon-printer' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='History'  id='btn-history'><i class='simple-icon-reload' style='font-size:18px'></i></a>";
         var dataTable = generateTable(
@@ -430,7 +303,235 @@
             var selText = $(this).val();
             dataTable.page.len(parseInt(selText)).draw();
         });
+
+        $('[data-toggle="popover"]').popover({ trigger: "focus" });
         // END LIST DATA
+
+        // BTN TAMBAH
+        $('#saku-datatable').on('click', '#btn-tambah', function(){
+            var regional = "{{ Session::get('kodePP') }}";
+            $('#input-barang tbody').empty();
+            $('#input-dokumen tbody').empty();
+            $('#input-approve tbody').empty();
+            $('#judul-form').html('Tambah Data Pengajuan');
+            $('#kode').attr('readonly', false);
+            // addRowDefault();
+            newForm();
+            setRegional('kode_pp', regional)
+        });
+        //  END BTN TAMBAH
+
+        // BTN KEMBALI
+        $('#saku-form').on('click', '#btn-kembali', function(){
+            var kode = null;
+            msgDialog({
+                id:kode,
+                type:'keluar'
+            });
+        }); 
+        // END BTN KEMBALI
+        
+        // OPTIONAL CONFIG
+        var selectRegional = $('#inp-filter_regional').selectize();
+        var selectBukti = $('#inp-filter_bukti').selectize();
+        var $dtKlpBarang = [];
+
+        $('input.datepicker').click(function() {
+            $('div.datepicker').css({ 'top': '230px' })
+        })
+
+        $("input.datepicker").bootstrapDP({
+            autoclose: true,
+            format: "dd/mm/yyyy",
+            templates: {
+                leftArrow: '<i class="simple-icon-arrow-left"></i>',
+                rightArrow: '<i class="simple-icon-arrow-right"></i>',
+            },
+        });
+
+        (function() {
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('/apv/barang-klp') }}",
+                dataType: 'json',
+                async:false,
+                success:function(res){
+                    var result = res.data;    
+                    if(result.status) {
+                        for(i=0;i<result.data.length;i++){
+                            $dtKlpBarang[i] = {id:result.data[i].kode_barang,name:result.data[i].nama};  
+                        }
+                    }else if(!result.status && result.message == "Unauthorized"){
+                        window.location.href = "{{ url('silo-auth/sesi-habis') }}";
+                    } else{
+                        alert(result.message);
+                    }
+                }
+            });
+        })();
+
+        (function() {
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('apv/unit') }}",
+                dataType: 'json',
+                async:false,
+                success:function(result){
+                    if(result.status){
+                        var select = selectRegional[0];
+                        var control = select.selectize;
+                        if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                            for(i=0;i<result.daftar.length;i++){
+                                control.addOption([{text:result.daftar[i].kode_pp + ' - ' + result.daftar[i].nama, value:result.daftar[i].nama}]);
+                            }
+                        }
+                    }
+                }
+            });
+        })();
+
+        (function() {
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('apv/juskeb') }}",
+                dataType: 'json',
+                async:false,
+                success:function(result) {
+                    if(result.status){
+                        var select = selectBukti[0];
+                        var control = select.selectize;
+                        if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                            for(i=0;i<result.daftar.length;i++){
+                                control.addOption([{text:result.daftar[i].no_bukti + ' - ' + result.daftar[i].no_bukti, value:result.daftar[i].no_bukti}]);
+                            }
+                        }
+                    }
+                }
+            });
+        })();
+
+        function setRegional(kode_cbbl, value){
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('apv/unit') }}/" + value,
+                dataType: 'json',
+                async:false,
+                success:function(res) {
+                    var result = res.data;
+                    if(result.status){
+                        if(typeof result.data !== 'undefined' && result.data.length > 0){
+                            var data = result.data;
+                            showInfoField(kode_cbbl, data[0].kode_pp, data[0].nama)
+                        }
+                    }
+                }
+            });
+        }
+
+        function hitungTotalRowBarang(){
+            var total_row = $('#input-barang tbody tr').length;
+            $('#total-barang').html(total_row+' Baris');
+        }
+
+        function hitungTotalRowDokumen(){
+            var total_row = $('#input-dokumen tbody tr').length;
+            $('#total-dokumen').html(total_row+' Baris');
+        }
+
+        function hitungTotalRowCatatan(){
+            var total_row = $('#input-approve tbody tr').length;
+            $('#total-approve').html(total_row+' Baris');
+        }
+        // END OPTIONAL CONFIG
+
+        // CBBL FORM
+        $('#form-tambah').on('click', '.search-item2', function(){
+            var id = $(this).closest('div').find('input').attr('name');
+            var regional = "{{ Session::get('kodePP') }}"
+
+            switch(id) {
+                case 'kode_pp': 
+                    var settings = {
+                        id : id,
+                        header : ['Kode', 'Nama'],
+                        url : "{{ url('silo-master/filter-pp') }}",
+                        columns : [
+                            { data: 'kode_pp' },
+                            { data: 'nama' }
+                        ],
+                        judul : "Daftar Regional",
+                        pilih : "",
+                        jTarget1 : "text",
+                        jTarget2 : "text",
+                        target1 : ".info-code_"+id,
+                        target2 : ".info-name_"+id,
+                        target3 : "",
+                        target4 : "",
+                        width : ["30%","70%"],
+                    }
+                break;
+                case 'kode_kota': 
+                    var settings = {
+                        id : id,
+                        header : ['Kode', 'Nama'],
+                        url : "{{ url('silo-master/filter-kota') }}",
+                        columns : [
+                            { data: 'kode_kota' },
+                            { data: 'nama' }
+                        ],
+                        parameter: {
+                            kode_pp: regional
+                        },
+                        judul : "Daftar Kota",
+                        pilih : "",
+                        jTarget1 : "text",
+                        jTarget2 : "text",
+                        target1 : ".info-code_"+id,
+                        target2 : ".info-name_"+id,
+                        target3 : "",
+                        target4 : "",
+                        width : ["30%","70%"],
+                    }
+                break;
+                case 'nik_ver': 
+                    var settings = {
+                        id : id,
+                        header : ['Kode', 'Nama'],
+                        url : "{{ url('silo-trans/filter-nik') }}",
+                        columns : [
+                            { data: 'nik' },
+                            { data: 'nama' }
+                        ],
+                        parameter: {
+                            kode_pp: regional
+                        },
+                        judul : "Daftar NIK",
+                        pilih : "",
+                        jTarget1 : "text",
+                        jTarget2 : "text",
+                        target1 : ".info-code_"+id,
+                        target2 : ".info-name_"+id,
+                        target3 : "",
+                        target4 : "",
+                        width : ["30%","70%"],
+                    }
+                break;
+                default:
+                break;
+            }
+                showInpFilter(settings);
+        });
+
+        $('.info-icon-hapus').click(function(){
+            var par = $(this).closest('div').find('input').attr('name');
+            $('#'+par).val('');
+            $('#'+par).attr('readonly',false);
+            $('#'+par).attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important');
+            $('.info-code_'+par).parent('div').addClass('hidden');
+            $('.info-name_'+par).addClass('hidden');
+            $(this).addClass('hidden');
+        });
+        // END CBBL FORM
     </script>
     {{-- <script type="text/javascript">
     // SET UP FORM //
