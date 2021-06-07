@@ -65,6 +65,14 @@ Route::get('search-form-list2','DashTelu\AuthController@searchFormList2');
 Route::get('periode','DashTelu\DashboardController@getPeriode');
 Route::get('tahun','DashTelu\DashboardController@getTahun');
 
+Route::get('berita-list','DashTelu\DashboardController@getBeritaList');
+Route::get('berita-detail/{id}','DashTelu\DashboardController@getBeritaDetail');
+
+
+Route::get('watch-video/{id}', function ($id) {
+    $data['id'] = $id;
+    return view('dash-telu.dashVideoDetail',$data);
+});
 
 Route::get('watch/{id}', function ($id) {
     $data['id'] = $id;

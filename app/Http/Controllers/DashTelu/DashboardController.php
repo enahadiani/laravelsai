@@ -2540,5 +2540,45 @@
             }
         }
 
+        public function getBeritaList(Request $request) {
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'ypt-dash/berita-list'
+            ,[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' => $request->all()
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+            
+                $data = json_decode($response_data,true);
+            }
+            return response()->json($data, 200);
+        }
+
+        public function getBeritaDetail($id) {
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'ypt-dash/berita-list'
+            ,[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' => [
+                    'no_konten' => $id
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+            
+                $data = json_decode($response_data,true);
+            }
+            return view('dash-telu.dashKontenDetail',$data);
+        }
+
     }
 ?>

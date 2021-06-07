@@ -75,7 +75,7 @@ function getBeritaList(kode=null){
                             <div class="card flex-row listing-card-container p-2 card-berita">
                                 <div class="w-40 position-relative">
                                     <a href="#">
-                                        <img class="card-img-left" src="`+url+`ypt-auth/storage/`+line.file_gambar+`" alt="Card image cap" style='border-radius:0'>
+                                        <img class="card-img-left" src="`+url+`ypt-auth/storage2/`+line.file_gambar+`" alt="Card image cap" style='border-radius:0'>
                                         <!--<span class="badge badge-pill badge-theme-1 position-absolute badge-top-left">NEW</span>-->
                                     </a>
                                 </div>

@@ -27,8 +27,8 @@
         <div class="col-12 col-md-12 col-xl-8 col-left">
             <div class="card mb-4">
                 <div class="lightbox">
-                    <a href="{{ $url.'ypt-auth/storage/'.$data[0]['file_gambar'] }}" class="detail-a-img">
-                        <img alt="detail" src="{{ $url.'ypt-auth/storage/'.$data[0]['file_gambar'] }}" class="responsive border-0 card-img-top mb-3 detail-img" />
+                    <a href="{{ $url.'ypt-auth/storage2/'.$data[0]['file_gambar'] }}" class="detail-a-img">
+                        <img alt="detail" src="{{ $url.'ypt-auth/storage2/'.$data[0]['file_gambar'] }}" class="responsive border-0 card-img-top mb-3 detail-img" />
                     </a>
                 </div>
                 <div class="card-body detail-body">
@@ -45,7 +45,7 @@
                     <div class="list-dok">
                         @for($i=0; $i < count($data2); $i++)
                         @if($data2[$i]['kode_jenis'] == "DK02")
-                        <div class="d-flex flex-row align-items-center mb-3 row-dok" href='#' data-href="{{ url('telu-dash/watch-video').'/'.$data2[$i]['no_bukti'] }}" data-jenis="{{ $data2[$i]['kode_jenis'] }}" data-watch_id="{{ $url }}ypt-auth/storage/{{ $data2[$i]['file_dok'] }}" data-watch_ket="{{ $data2[$i]['nama'] }}" data-watch_tipe="2" data-watch_no="{{ $data2[$i]['no_bukti'] }}">
+                        <div class="d-flex flex-row align-items-center mb-3 row-dok" href='#' data-href="{{ url('telu-dash/watch-video').'/'.$data2[$i]['no_bukti'] }}" data-jenis="{{ $data2[$i]['kode_jenis'] }}" data-watch_id="{{ $url }}ypt-auth/storage2/{{ $data2[$i]['file_dok'] }}" data-watch_ket="{{ $data2[$i]['nama'] }}" data-watch_tipe="2" data-watch_no="{{ $data2[$i]['no_bukti'] }}">
                             <a class="d-block position-relative" style="height:40px;width:40px">
                                 <i class="simple-icon-social-youtube large-icon initial-height"></i>
                             </a>
@@ -56,7 +56,7 @@
                             </div>
                         </div>
                         @else
-                        <div class="d-flex flex-row align-items-center mb-3 row-dok" href='#' data-href="{{ $url }}ypt-auth/storage/{{ $data2[$i]['file_dok'] }}" data-jenis="{{ $data2[$i]['kode_jenis'] }}">
+                        <div class="d-flex flex-row align-items-center mb-3 row-dok" href='#' data-href="{{ $url }}ypt-auth/storage2/{{ $data2[$i]['file_dok'] }}" data-jenis="{{ $data2[$i]['kode_jenis'] }}">
                             <a class="d-block position-relative" style="height:40px;width:40px">
                                 <i class="simple-icon-doc large-icon initial-height"></i>
                             </a>

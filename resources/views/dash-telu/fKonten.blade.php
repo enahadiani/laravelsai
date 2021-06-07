@@ -566,7 +566,7 @@
                     $('#flag_aktif')[0].selectize.setValue(result.data[0].flag_aktif);
                     
                     var url = ("{{ config('api.url') }}" == "http://localhost:8080/api/" ? "https://api.simkug.com/api/" : "{{ config('api.url') }}" );
-                    var html = "<img style='width:120px' style='margin:0 auto' src='"+url+'dash-telu/storage/'+result.data[0].file_gambar+"'>";
+                    var html = "<img style='width:120px' style='margin:0 auto' src='"+url+'dash-telu/storage2/'+result.data[0].file_gambar+"'>";
                     $('.preview').html(html);
 
                     $('#input-dok tbody').html(''); 
@@ -580,7 +580,7 @@
                             input += `<td ><input type='text' name='nama_dok[]' class='form-control inp-dok' value='`+line.nama+`' required><input type='hidden' name='no_urut[]' class='form-control inp-no_urut' value='`+line.no_urut+`' required></td>`;
                             input += `<td><select name='kode_jenis[]' class='form-control inp-kode_jenis kdjeniske`+no+`' value='' required></select></td>`;
                             input += `<td class='action_dok'><input type='text' name='nama_file[]' class='form-control inp-nama' value='`+line.file_dok+`' required readonly></td>`;
-                            input += `<td class='text-center action_dok1' ><a title='Hapus' class='badge badge-danger hapus-dok2' style='color:white'><i class='simple-icon-trash fa-1'></i></a>&nbsp;<a title='Download' class='badge badge-info download-dok' style='color:white' href="`+url+`dash-telu/storage/`+line.file_dok+`" target='_blank'><i class='simple-icon-cloud-download fa-1'></i></a></td>`;
+                            input += `<td class='text-center action_dok1' ><a title='Hapus' class='badge badge-danger hapus-dok2' style='color:white'><i class='simple-icon-trash fa-1'></i></a>&nbsp;<a title='Download' class='badge badge-info download-dok' style='color:white' href="`+url+`dash-telu/storage2/`+line.file_dok+`" target='_blank'><i class='simple-icon-cloud-download fa-1'></i></a></td>`;
                             input += `</tr>`;
                             no++;
                         }
