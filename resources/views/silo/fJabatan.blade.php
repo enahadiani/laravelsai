@@ -339,7 +339,7 @@
         $('#form-tambah').validate().resetForm();
         $('#btn-save').attr('type','button');
         $('#btn-save').attr('id','btn-update');
-        $('#judul-form').html('Edit Data Karyawan');
+        $('#judul-form').html('Edit Data Jabatan');
         $.ajax({
             type: 'GET',
             url: "{{ url('apv/jabatan') }}/" + id,
