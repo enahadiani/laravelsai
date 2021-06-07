@@ -663,7 +663,7 @@
                     <td id='${idBarang}'>
                         <span id='text-${idBarang}' class='tooltip-span'></span>
                         <input type='hidden' name='barang_klp[]' id='value-${idBarang}' readonly>
-                        <input autocomplete='off' type='text' name='kelompok[]' class='form-control hidden' value='' style='z-index: 1;position: relative;' id='kode-${idBarang}'>
+                        <input autocomplete='off' type='text' name='kelompok[]' class='form-control hidden' value='' style='z-index: 1;position: relative;' id='kode-${idBarang}' readonly>
                         <a href='#' class='search-item hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a>
                     </td>
                     <td id='${idDesk}'>
@@ -743,7 +743,7 @@
                     <td id='${idBarang}'>
                         <span id='text-${idBarang}' class='tooltip-span'></span>
                         <input type='hidden' name='barang_klp[]' id='value-${idBarang}' readonly>
-                        <input autocomplete='off' type='text' name='kelompok[]' class='form-control hidden' value='' style='z-index: 1;position: relative;' id='kode-${idBarang}'>
+                        <input autocomplete='off' type='text' name='kelompok[]' class='form-control hidden' value='' style='z-index: 1;position: relative;' id='kode-${idBarang}' readonly>
                         <a href='#' class='search-item hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a>
                     </td>
                     <td id='${idDesk}'>

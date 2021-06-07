@@ -1,7 +1,7 @@
 .card-form-footer-full {
     padding: 16px 8px 16px 16px;
     position: fixed;
-    bottom: 1rem;
+    bottom: 8px;
     /* left: 32.8%; */
     z-index: 4;
     display: flex;
