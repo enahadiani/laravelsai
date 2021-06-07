@@ -600,7 +600,7 @@
         // END CBBL FORM
 
         // GRID FORM
-        $('#form-tambah').click(function() {
+        $(document).on('click', function() {
             hideAllSelectedRow()
             grandTotalBarang()
         })
@@ -879,7 +879,7 @@
         }
 
         $('#add-barang').click(function() {
-            var row = $('#input-barang tbody > tr').length
+            var row = $('#input-barang tbody tr').length
             if(row > 0) {
                 var empty = false;
                 var kolom = null;
@@ -918,20 +918,16 @@
             $("html, body").animate({ scrollTop: $(document).height() }, 1000);
         });
 
-        $('#input-barang tbody').on('click', 'tr', function(event) {
-            event.stopPropagation();
-            var tbody = $(this).parent()
-            $(this).addClass('selected-row');
-            tbody.children().not(this).removeClass('selected-row');
-            hideUnselectedRow(tbody);
-        });
-
         $('#input-barang tbody').on('click', 'td', function(event) {
             event.stopPropagation();
             var tr = $(this).parent()
+            var tbody = $(tr).parent()
+            $(tr).addClass('selected-row')
             $(this).addClass('selected-cell');
             tr.children().not(this).removeClass('selected-cell');
+            tbody.children().not($(tr)).removeClass('selected-row')
             hideUnselectedCell(tr);
+            hideUnselectedRow(tbody)
         });
 
         $('#input-barang tbody').on('keydown', 'input', function(event) {
@@ -1052,20 +1048,16 @@
             }
         })
 
-        $('#input-dokumen tbody').on('click', 'tr', function(event) {
-            event.stopPropagation();
-            var tbody = $(this).parent()
-            $(this).addClass('selected-row');
-            tbody.children().not(this).removeClass('selected-row');
-            hideUnselectedRow(tbody);
-        });
-
         $('#input-dokumen tbody').on('click', 'td', function(event) {
             event.stopPropagation();
-            var tr = $(this).parent()
+             var tr = $(this).parent()
+            var tbody = $(tr).parent()
+            $(tr).addClass('selected-row')
             $(this).addClass('selected-cell');
             tr.children().not(this).removeClass('selected-cell');
+            tbody.children().not($(tr)).removeClass('selected-row')
             hideUnselectedCell(tr);
+            hideUnselectedRow(tbody)
         });
             //END GRID DOKUMEN
 
