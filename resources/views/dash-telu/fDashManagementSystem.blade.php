@@ -210,8 +210,12 @@ function sepNum(x){
             // console.log(x);
             var tmp = x.toString().split('.');
             // console.dir(tmp);
-            var y = tmp[1].substr(0,2);
-            var z = tmp[0]+'.'+y;
+            if(tmp[1] != undefined){
+                var y = tmp[1].substr(0,2);
+                var z = tmp[0]+'.'+y;
+            }else{
+                var z = tmp[0];
+            }
             var parts = z.split('.');
             parts[0] = parts[0].replace(/([0-9])(?=([0-9]{3})+$)/g,'$1.');
             return parts.join(',');

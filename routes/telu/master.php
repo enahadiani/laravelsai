@@ -60,3 +60,18 @@ Route::post('video', 'DashTelu\VideoController@store');
 Route::put('video/{id}', 'DashTelu\VideoController@update');
 Route::delete('video/{id}', 'DashTelu\VideoController@delete');
 
+
+// KONTEN
+Route::get('konten','DashTelu\KontenController@index');
+Route::get('konten-edit','DashTelu\KontenController@index');
+Route::post('konten','DashTelu\KontenController@store');
+Route::post('konten-edit','DashTelu\KontenController@update');
+Route::delete('konten','DashTelu\KontenController@destroy');
+
+Route::get('dok-jenis','DashTelu\KontenController@getJenis');
+Route::post('konten-dok-tmp','DashTelu\KontenController@storeDokTmp');
+Route::delete('konten-dok','DashTelu\KontenController@destroyDok');
+Route::delete('konten-dok-tmp','DashTelu\KontenController@destroyDokTmp');
+
+Route::get('kategori-konten','DashTelu\KontenController@getKategori');
+
