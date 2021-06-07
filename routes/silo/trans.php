@@ -62,3 +62,4 @@ Route::get('notif','Apv\NotifController@getNotif');
 Route::post('notif-update-status','Apv\NotifController@updateStatusRead');
 
 Route::get('filter-nik','Silo\FilterController@getFilterNIKVerifikasi');
+Route::get('filter-klp','Silo\FilterController@getFilterKlpBarang');

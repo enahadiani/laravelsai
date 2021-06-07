@@ -1,7 +1,6 @@
     <link rel="stylesheet" href="{{ asset('trans.css') }}" />
     <link rel="stylesheet" href="{{ asset('trans-esaku/form.css') }}" />
     <link rel="stylesheet" href="{{ asset('asset_silo/css/trans.css') }}" />
-    <link rel="stylesheet" href="{{ asset('asset_silo/css/custom.css') }}" />
     <!-- LIST DATA -->
     <x-list-data judul="Data Pengajuan" tambah="true" :thead="array('No Bukti', 'No Dokumen', 'Regional', 'Nilai Pengadaan', 'Nilai Finish', 'Aksi', 'Waktu', 'Kegiatan', 'Posisi')" :thwidth="array(15,25,20,10,10,25,5,5,5)" :thclass="array('','','','','','text-center','','','')" />
     <!-- END LIST DATA -->
@@ -130,7 +129,7 @@
                                     <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-barang" ></span></a>
                                 </div>
                                 <div class="col-md-12">
-                                    <table class="table table-bordered table-condensed gridexample" id="input-barang" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                    <table class="table table-bordered table-condensed gridexample input-grid" id="input-barang" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
                                         <thead style="background:#F8F8F8">
                                             <tr>
                                                 <th style="width:3%;">No</th>
@@ -154,7 +153,7 @@
                                     <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-dokumen" ></span></a>
                                 </div>
                                 <div class="col-md-12">
-                                    <table class="table table-bordered table-condensed gridexample" id="input-dokumen" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                    <table class="table table-bordered table-condensed gridexample input-grid" id="input-dokumen" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
                                         <thead style="background:#F8F8F8">
                                             <tr>
                                                 <th style="width:3%;">No</th>
@@ -174,7 +173,7 @@
                                     <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-approve" ></span></a>
                                 </div>
                                 <div class="col-md-12">
-                                    <table class="table table-bordered table-condensed gridexample" id="input-approve" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                    <table class="table table-bordered table-condensed gridexample input-grid" id="input-approve" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
                                         <thead style="background:#F8F8F8">
                                             <tr>
                                                 <th style="width:3%;">No</th>
@@ -353,14 +352,14 @@
         (function() {
             $.ajax({
                 type: 'GET',
-                url: "{{ url('/apv/barang-klp') }}",
+                url: "{{ url('silo-trans/filter-klp') }}",
                 dataType: 'json',
                 async:false,
-                success:function(res){
-                    var result = res.data;    
+                success:function(res) {
+                    var result = res;    
                     if(result.status) {
-                        for(i=0;i<result.data.length;i++){
-                            $dtKlpBarang[i] = {id:result.data[i].kode_barang,name:result.data[i].nama};  
+                        for(i=0;i<result.daftar.length;i++){
+                            $dtKlpBarang[i] = {id:result.daftar[i].kode_barang,name:result.daftar[i].nama};  
                         }
                     }else if(!result.status && result.message == "Unauthorized"){
                         window.location.href = "{{ url('silo-auth/sesi-habis') }}";
@@ -536,39 +535,112 @@
 
         function hideAllSelectedRow() {
             $('table[id^=input]').each(function(index, table) {
+                $(table).children('tbody').each(function(index, tbody) {
+                    $(tbody).children('tr').each(function(index, tr) {
+                        $(tr).children('td').not(':first, :last').each(function(index, td) {
+                            var value = $(td).children('input').not("input[type='hidden']").val()
+                            $(td).children('input').not("input[type='hidden']").val(value)
+                            $(td).children('span').text(value)
+                            $(td).children('input').hide()
+                            $(td).children('a').not('.hapus-item').hide()
+                            $(td).children('span').show()
+                        })
+                    })
+                })
                 $(table).find('tr').removeClass('selected-row')
                 $(table).find('td').removeClass('selected-cell')
                 $(table).find('input').hide()
-                $(table).find('a').hide()
+                $(table).find('a').not('.hapus-item').hide()
                 $(table).find('span').show()
             })
         }
 
         function hideUnselectedRow(tbody) {
             tbody.find('tr').not('.selected-row').each(function(index, tr) {
-                console.log(tr)
-                $(tr).not(':first, :last').each(function(index, tr) {
+                $(tr).find('td').not(':first, :last').each(function(index, td) {
+                    var value = $(td).children('input').not("input[type='hidden']").val()
+                    $(td).children('input').not("input[type='hidden']").val(value)
+                    $(td).children('span').text(value)
                     $(td).children('input').hide()
-                    $(td).children('a').hide()
+                    $(td).children('a').not('.hapus-item').hide()
                     $(td).children('span').show()
                 })
             }) 
         }
 
         function hideUnselectedCell(tr) {
-            tr.find('td').not(':first, :last').each(function(index, td) {
+            tr.find('td').not(':first, :last, .readonly').each(function(index, td) {
+                var value = $(td).children('input').not("input[type='hidden']").val()
+                $(td).children('input').not("input[type='hidden']").val(value)
+                $(td).children('span').text(value)
                 if($(td).hasClass('selected-cell')) {
                     $(td).children('span').hide()
                     $(td).children('input').show()
-                    $(td).children('a').show()
+                    $(td).children('a').not('.hapus-item').show()
+                    setTimeout(function() {
+                        $(td).children('input').focus()
+                    }, 500)
                 } else {
                     $(td).children('input').hide()
-                    $(td).children('a').hide()
+                    $(td).children('a').not('.hapus-item').hide()
                     $(td).children('span').show()
                 }
             }) 
         }
+
+        function nextSelectedCell(tr, td, index) {
+            var value = $(td).children('input').val()
+            $(td).children('input').not("input[type='hidden']").val(value)
+            $(td).children('span').text(value)
+            $(td).children('span').show()
+            $(td).children('input').hide()
+            $(td).children('a').not('.hapus-item').hide()
+
+            var nextindex = index + 1; 
+            var tdnext = $(tr).find('td').eq(nextindex)
+            var cekReadonly = $(tdnext).hasClass('readonly')
+            if(cekReadonly) {
+                nextindex = nextindex + 1
+                tdnext = $(tr).find('td').eq(nextindex)
+            }
+            var cekCbbl = $(tdnext).has('a').length
+            if(cekCbbl > 0) {
+                $(tdnext).children('a').show()
+            }
+
+            $(tdnext).children('span').hide()
+            $(tdnext).children('input').show()
+            setTimeout(function() {
+                $(tdnext).children('input').focus()
+            }, 500)
+        }
+
+        function custTarget(target, tr) {
+            var trTable = $('#'+target).closest('tr')
+            var tdindex = $('#'+target).index()
+            var totaltd = $(tr).children('td').not(':first, :last').length - 1
+
+            var key = target.split('__');
+            var kode = tr.find('td:nth-child(1)').text();
+            var nama = tr.find('td:nth-child(2)').text();
+            
+            if(key[0] === 'barang-ke') {
+                $('#'+target).find('#value-'+target).val(kode)
+                $('#'+target).find('#kode-'+target).val(nama)
+                $('#'+target).find('#text-'+target).text(nama)
+                $('#'+target).find('#kode-'+target).hide()
+                $('#'+target).find('.search-item').hide()
+                $('#'+target).find('#text-'+target).show(kode)
+            }
+
+            nextSelectedCell(trTable, target, tdindex)
+        }
             // GRID BARANG
+        function generateAfterSelect(id, kode, nama) {
+            console.log({ id, kode, nama })
+            $('#'+id).find('#value-'+id).val(kode)
+            $('#'+id).find('#text-'+id).text(nama)
+        }
         function hitungTotalRowBarang(){
             var total_row = $('#input-barang tbody tr').length;
             $('#total-barang').html(total_row+' Baris');
@@ -599,24 +671,24 @@
                         <input autocomplete='off' id='value-${idDesk}' type='text' name='barang[]' class='form-control hidden' value=''>
                     </td>
                     <td id='${idHarga}' class='text-right'>
-                        <span id='text-${idHarga}' class='tooltip-span'></span>
-                        <input autocomplete='off' id='value-${idHarga}' type='text' name='harga[]' class='form-control currency hidden' value=''>
+                        <span id='text-${idHarga}' class='tooltip-span'>0</span>
+                        <input autocomplete='off' id='value-${idHarga}' type='text' name='harga[]' class='form-control currency hidden inp-harga' value='0'>
                     </td>
                     <td id='${idQty}' class='text-right'>
-                        <span id='text-${idQty}' class='tooltip-span'></span>
-                        <input autocomplete='off' id='value-${idQty}' type='text' name='qty[]' class='form-control currency hidden' value=''>
+                        <span id='text-${idQty}' class='tooltip-span'>0</span>
+                        <input autocomplete='off' id='value-${idQty}' type='text' name='qty[]' class='form-control currency hidden inp-qty' value='0'>
                     </td>
-                    <td id='${idSubtotal}' class='text-right'>
-                        <span id='text-${idSubtotal}' class='tooltip-span'></span>
-                        <input autocomplete='off' id='value-${idSubtotal}' type='text' name='nilai[]' class='form-control currency hidden' value=''>
+                    <td id='${idSubtotal}' class='text-right readonly'>
+                        <span id='text-${idSubtotal}' class='tooltip-span text-sub'>0</span>
+                        <input autocomplete='off' id='value-${idSubtotal}' type='text' name='nilai[]' class='form-control currency hidden inp-sub' value='0'>
                     </td>
                     <td id='${idPPN}' class='text-right'>
-                        <span id='text-${idPPN}' class='tooltip-span'></span>
-                        <input autocomplete='off' id='value-${idPPN}' type='text' name='ppn[]' class='form-control currency hidden' value=''>
+                        <span id='text-${idPPN}' class='tooltip-span'>0</span>
+                        <input autocomplete='off' id='value-${idPPN}' type='text' name='ppn[]' class='form-control currency hidden inp-ppn' value='0'>
                     </td>
-                    <td id='${idTotal}' class='text-right'>
-                        <span id='text-${idTotal}' class='tooltip-span'></span>
-                        <input autocomplete='off' id='value-${idTotal}' type='text' name='grand_total[]' class='form-control currency hidden' value=''>
+                    <td id='${idTotal}' class='text-right readonly'>
+                        <span id='text-${idTotal}' class='tooltip-span text-grand'>0</span>
+                        <input autocomplete='off' id='value-${idTotal}' type='text' name='grand_total[]' class='form-control currency hidden inp-grand' value='0'>
                     </td>
                     <td class='text-center'>
                         <a class='hapus-item' style='font-size:12px;cursor:pointer;'><i class='simple-icon-trash'></i></a>
@@ -625,22 +697,27 @@
             `;
             $('#input-barang tbody').append(html)
             $('.row-grid:last').addClass('selected-row');
-            
-            $(`#kode-${idBarang}`).typeahead({
-                source:$dtKlpBarang,
-                displayText:function(item){
-                    return item.id+' - '+item.name;
-                },
-                autoSelect:false,
-                changeInputOnSelect:false,
-                changeInputOnMove:false,
-                selectOnBlur:false,
-                afterSelect: function (item) {
-                    console.log(this.$element.get(0))
-                    console.log(item)
-                }
+
+            // $(`#kode-${idBarang}`).typeahead({
+            //     source:$dtKlpBarang,
+            //     displayText:function(item){
+            //         return item.id+'-'+item.name;
+            //     },
+            //     autoSelect:false,
+            //     changeInputOnSelect:false,
+            //     changeInputOnMove:false,
+            //     selectOnBlur:false
+            // });
+           
+            $('.currency').inputmask("numeric", {
+                radixPoint: ",",
+                groupSeparator: ".",
+                digits: 2,
+                autoGroup: true,
+                rightAlign: true,
+                oncleared: function () { return false; }
             });
-            
+
             $('.tooltip-span').tooltip({
                 title: function(){
                     return $(this).text();
@@ -674,24 +751,24 @@
                         <input autocomplete='off' id='value-${idDesk}' type='text' name='barang[]' class='form-control hidden' value=''>
                     </td>
                     <td id='${idHarga}' class='text-right'>
-                        <span id='text-${idHarga}' class='tooltip-span'></span>
-                        <input autocomplete='off' id='value-${idHarga}' type='text' name='harga[]' class='form-control currency hidden' value=''>
+                        <span id='text-${idHarga}' class='tooltip-span'>0</span>
+                        <input autocomplete='off' id='value-${idHarga}' type='text' name='harga[]' class='form-control currency hidden inp-harga' value='0'>
                     </td>
                     <td id='${idQty}' class='text-right'>
-                        <span id='text-${idQty}' class='tooltip-span'></span>
-                        <input autocomplete='off' id='value-${idQty}' type='text' name='qty[]' class='form-control currency hidden' value=''>
+                        <span id='text-${idQty}' class='tooltip-span'>0</span>
+                        <input autocomplete='off' id='value-${idQty}' type='text' name='qty[]' class='form-control currency hidden inp-qty' value='0'>
                     </td>
-                    <td id='${idSubtotal}' class='text-right'>
-                        <span id='text-${idSubtotal}' class='tooltip-span'></span>
-                        <input autocomplete='off' id='value-${idSubtotal}' type='text' name='nilai[]' class='form-control currency hidden' value=''>
+                    <td id='${idSubtotal}' class='text-right readonly'>
+                        <span id='text-${idSubtotal}' class='tooltip-span text-sub'>0</span>
+                        <input autocomplete='off' id='value-${idSubtotal}' type='text' name='nilai[]' class='form-control currency hidden inp-sub' value='0'>
                     </td>
                     <td id='${idPPN}' class='text-right'>
-                        <span id='text-${idPPN}' class='tooltip-span'></span>
-                        <input autocomplete='off' id='value-${idPPN}' type='text' name='ppn[]' class='form-control currency hidden' value=''>
+                        <span id='text-${idPPN}' class='tooltip-span'>0</span>
+                        <input autocomplete='off' id='value-${idPPN}' type='text' name='ppn[]' class='form-control currency hidden inp-ppn' value='0'>
                     </td>
-                    <td id='${idTotal}' class='text-right'>
-                        <span id='text-${idTotal}' class='tooltip-span'></span>
-                        <input autocomplete='off' id='value-${idTotal}' type='text' name='grand_total[]' class='form-control currency hidden' value=''>
+                    <td id='${idTotal}' class='text-right readonly'>
+                        <span id='text-${idTotal}' class='tooltip-span text-grand'>0</span>
+                        <input autocomplete='off' id='value-${idTotal}' type='text' name='grand_total[]' class='form-control currency hidden inp-grand' value='0'>
                     </td>
                     <td class='text-center'>
                         <a class='hapus-item' style='font-size:12px;cursor:pointer;'><i class='simple-icon-trash'></i></a>
@@ -702,19 +779,28 @@
             $('#input-barang tbody tr').not(':last').removeClass('selected-row');
             $('.row-grid:last').addClass('selected-row');
             
-            $(`#kode-${idBarang}`).typeahead({
-                source:$dtKlpBarang,
-                displayText:function(item){
-                    return item.id+' - '+item.name;
-                },
-                autoSelect:false,
-                changeInputOnSelect:false,
-                changeInputOnMove:false,
-                selectOnBlur:false,
-                afterSelect: function (item) {
-                    console.log(this.$element.get(0))
-                    console.log(item)
-                }
+            // $(`#kode-${idBarang}`).typeahead({
+            //     source:$dtKlpBarang,
+            //     displayText:function(item){
+            //         return item.id+'-'+item.name;
+            //     },
+            //     autoSelect:false,
+            //     changeInputOnSelect:false,
+            //     changeInputOnMove:false,
+            //     selectOnBlur:false,
+            //     afterSelect: function (item) {
+            //         console.log(this.$element.get(0))
+            //         console.log(item)
+            //     }
+            // });
+
+            $('.currency').inputmask("numeric", {
+                radixPoint: ",",
+                groupSeparator: ".",
+                digits: 2,
+                autoGroup: true,
+                rightAlign: true,
+                oncleared: function () { return false; }
             });
             
             $('.tooltip-span').tooltip({
@@ -732,11 +818,11 @@
                 var kolom = null;
                 var baris = null;
                 var error = '';
-                $('#input-barang tbody > tr').each(function() {
+                $('#input-barang tbody tr').each(function() {
+                    baris = $(this).index() + 1
                     $(this).find('td').not(':first, :last').each(function() {
                         if($(this).text().trim() === '') {
                             empty = true;
-                            baris = $('#input-barang tbody > tr').index() + 1;
                             kolom = $('#input-barang thead > tr th').eq($(this).index()).text()
                             error = `Data pada kolom ${kolom} di baris nomor ${baris} tidak boleh kosong`
                             return false;
@@ -753,7 +839,7 @@
             }
         })
 
-        $('#input-barang').on('click', '.hapus-item', function() {
+        $('#input-barang tbody').on('click', '.hapus-item', function() {
             $(this).closest('tr').remove();
             no=1;
             $('.row-grid').each(function(){
@@ -780,7 +866,72 @@
             tr.children().not(this).removeClass('selected-cell');
             hideUnselectedCell(tr);
         });
+
+        $('#input-barang tbody').on('keydown', 'input', function(event) {
+            event.stopPropagation();
+            var tr = $(this).closest('tr')
+            var td = $(this).parent()
+            var tdindex = $(this).parent().index()
+            var code = event.keyCode
+            var totaltd = $(tr).children('td').not(':first, :last').length - 1
+            if(code === 9) {
+                $(td).removeClass('selected-cell')
+                if(tdindex === totaltd) {
+                    $('#add-barang').click()
+                } else {
+                    nextSelectedCell(tr, td, tdindex)
+                }
+            } 
+        });
+            
+        $('#input-barang tbody').on('change blur', '.currency', function() {
+            var td = $(this).parent('td');
+            var tr = $(td).parent('tr')
+            var hrg = $(tr).children('td').find('.inp-harga').val()
+            var qty = $(tr).children('td').find('.inp-qty').val()
+            var ppn = $(tr).children('td').find('.inp-ppn').val()
+            var sub = toNilai(hrg) * toNilai(qty)
+            var nppn = toNilai(ppn)/100
+            var grand = sub + (nppn * sub)
+            $(tr).children('td').find('.inp-sub').val(sub)
+            $(tr).children('td').find('.text-sub').text(format_number(sub))
+            $(tr).children('td').find('.inp-grand').val(grand)
+            $(tr).children('td').find('.text-grand').text(format_number(grand))
+        })
             // END GRID BARANG
+        $('.input-grid tbody').on('click', '.search-item', function() {
+            var id = $(this).parent('td').attr('id')
+            var parameter = $(this).parent('td').find('#kode-'+id).attr('name');
+            var input = $(this).parent('td').find('#value-'+id).attr('id')
+            var text = $(this).parent('td').find('#text-'+id).attr('id')
+
+            switch(parameter) {
+                case 'kelompok[]':
+                    var options = { 
+                        id : parameter,
+                        header : ['Kode', 'Nama'],
+                        url : "{{ url('silo-trans/filter-klp') }}",
+                        columns : [
+                            { data: 'kode_barang' },
+                            { data: 'nama' }
+                        ],
+                        judul : "Daftar Kelompok Barang",
+                        pilih : "akun",
+                        jTarget1 : "val",
+                        jTarget2 : "val",
+                        target1 : id,
+                        target2 : "#"+text,
+                        target3 : "",
+                        target4 : "custom",
+                        width : ["30%","70%"]
+                    };
+                    break;
+                default:
+                    break;
+
+            }
+            showInpFilter(options);
+        })
         // END GRID FORM
     </script>
     {{-- <script type="text/javascript">
