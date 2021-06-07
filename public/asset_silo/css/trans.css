@@ -1,0 +1,42 @@
+.card-form-footer-full {
+    padding: 16px 8px 16px 16px;
+    position: fixed;
+    bottom: 8px;
+    /* left: 32.8%; */
+    z-index: 4;
+    display: flex;
+    justify-content: flex-start;
+    height: 3.75rem;
+    width: 1196px; /*87.5%;*/
+    background-color: #ffffff;
+    border-bottom-right-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+    box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.04), 0 1px 6px rgba(0, 0, 0, 0.04);
+}
+.footer-form-container-full {
+    width: 100%;
+    padding-right: 48px;
+    display: flex;
+    justify-content: flex-end;
+}
+.card {
+    height: 85vh;
+    max-width: 100%;
+    min-width: 100%;
+    max-height: 100%;
+    min-height: 100%;
+}
+.card .card-body.form-body {
+    height: 80% !important;
+    padding-bottom: 16px !important;
+    margin-bottom: 56px;
+}
+#ui-datepicker-div {
+    display: none !important;
+}
+.table tbody .row-grid td.selected-cell {
+    padding: 0 !important;
+}
+.table tbody .row-grid td.selected-cell .form-control {
+    padding: 0 !important;
+}

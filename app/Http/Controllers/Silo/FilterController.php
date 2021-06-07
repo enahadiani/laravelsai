@@ -33,7 +33,144 @@ class FilterController extends Controller
     
     }
 
-    function getFilterPP(Request $request){
+    function getFilterForm(){
+        try{
+            $client = new Client();
+
+            $response = $client->request('GET',  config('api.url').'apv/form',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+    
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["success"]["data"];
+            }
+            return response()->json(['daftar' => $data, 'status'=>true ,'message'=>'success'], 200); 
+            
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+        } 
+        
+    }
+
+    function getFilterKlpMenu(){
+        try{
+            $client = new Client();
+
+            $response = $client->request('GET',  config('api.url').'apv/menu',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+    
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["success"]["data"];
+            }
+            return response()->json(['daftar' => $data, 'status'=>true ,'message'=>'success'], 200); 
+            
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+        } 
+        
+    }
+
+    public function getFilterNIKVerifikasi(Request $request) {
+        try{
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'apv/nik_verifikasi',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' =>[
+                    'kode_pp' => $request->kode_pp
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["success"]['data'];
+            }
+            return response()->json(['daftar' => $data], 200); 
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $data['message'] = $res['message'];
+            $data['status'] = false;
+            return response()->json(['data' => $data], 200);
+        }
+    }
+
+    function getFilterKlpBarang(){
+        try{
+            $client = new Client();
+
+            $response = $client->request('GET',  config('api.url').'apv/barang-klp',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+    
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["success"]["data"];
+            }
+            return response()->json(['daftar' => $data, 'status'=>true ,'message'=>'success'], 200); 
+            
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+        } 
+        
+    }
+
+    function getFilterNik(){
+        try{
+            $client = new Client();
+
+            $response = $client->request('GET',  config('api.url').'apv/karyawan',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+    
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["success"]["data"];
+            }
+            return response()->json(['daftar' => $data, 'status'=>true ,'message'=>'success'], 200); 
+            
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+        } 
+        
+    }
+
+    function getFilterPP(){
         try{
             $client = new Client();
             $response = $client->request('GET',  config('api.url').'apv/filter-pp',[
@@ -77,6 +214,60 @@ class FilterController extends Controller
                 
                 $data = json_decode($response_data,true);
                 $data = $data["data"];
+            }
+            return response()->json(['daftar' => $data, 'status'=>true ,'message'=>'success'], 200); 
+            
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+        } 
+        
+    }
+
+    function getFilterDivisi(){
+        try{
+            $client = new Client();
+
+            $response = $client->request('GET',  config('api.url').'apv/divisi_all',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+    
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["success"]["data"];
+            }
+            return response()->json(['daftar' => $data, 'status'=>true ,'message'=>'success'], 200); 
+            
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+        } 
+        
+    }
+
+    function getFilterJabatan(){
+        try{
+            $client = new Client();
+
+            $response = $client->request('GET',  config('api.url').'apv/jabatan',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+    
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["success"]["data"];
             }
             return response()->json(['daftar' => $data, 'status'=>true ,'message'=>'success'], 200); 
             

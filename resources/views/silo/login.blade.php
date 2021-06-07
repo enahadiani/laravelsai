@@ -3,66 +3,18 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>SAKU - Admin Dashboard</title>
+    <title>SILO</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
+    <link rel="icon" type="image/png" href="{{ asset('asset_elite/images/saku.png') }}" sizes="32x32">
     <link rel="stylesheet" href="{{ asset('asset_dore/font/iconsmind-s/css/iconsminds.css') }}" />
     <link rel="stylesheet" href="{{ asset('asset_dore/font/simple-line-icons/css/simple-line-icons.css') }}" />
 
     <link rel="stylesheet" href="{{ asset('asset_dore/css/vendor/bootstrap.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('asset_dore/css/vendor/bootstrap.rtl.only.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('asset_dore/css/vendor/bootstrap-float-label.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('asset_dore/css/main.css') }}" />        
-    <!-- <link rel="stylesheet" href="{{ asset('asset_dore/css/loading.css') }}" /> -->
-    <style>
-        @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
-        body {
-            font-family: 'Roboto', sans-serif !important;
-        }
-        h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, p,li,ul,a,input,select{
-            font-family: 'Roboto', sans-serif !important;
-        }
-        .logo-single{
-            background:url("{{ asset('asset_elite/images/sai_icon/esaku-landscape.png') }}") no-repeat;
-            background-size: 150px;
-            background-position-y: center;
-            width:160px;
-            height:45px;
-            margin-bottom:30px;
-        }
-        .form-side{
-            margin: 0 auto;
-        }
-        input{
-            border-radius: 10px !important;
-        }
-        /* button{
-            border-radius: 15px !important;
-        } */
-        .footer-content{
-            width:60%;
-            padding: 0 150px
-        }
-        @media (max-width: 991px) {
-            .footer-content{
-                width:100%;
-                padding: 0;
-            }
-        }
-        #span-password
-        {
-           position: absolute;
-           cursor: text;
-           font-size: 90%;
-           opacity: 1;top: -0.4em;left: 0.75rem;z-index: 3;line-height: 1;padding: 0 1px
-        }
-        
-        #btn-eye
-        {
-            top: 0px;right: 10px;left: unset;width: 40px;height: 40px;background: url("{{ asset('img/hide.svg') }}") no-repeat;background-blend-mode: lighten;background-size: 22px;background-position-x: center;background-position-y: center;opacity: 0.5;cursor: pointer;
-        }
-        
-    </style>
+    <link rel="stylesheet" href="{{ asset('asset_dore/css/main.css') }}" />   
+    <link rel="stylesheet" href="{{ asset('asset_silo/css/login.css') }}" />           
 
     <script src="{{ asset('asset_dore/js/vendor/jquery-3.3.1.min.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/bootstrap.bundle.min.js') }}"></script>
@@ -76,20 +28,7 @@
     <script>
         $('div.theme-colors').hide();
     </script>
-    <!-- <script src="{{ asset('asset_dore/js/loading.js') }}"></script> -->
 </head>
-<!-- <div class="percentage" id="precent">0%</div>
-<div class="loader">
-    <div class="trackbar">
-        <div class="loadbar"  style="width:0%"></div>
-    </div>
-    <div class="glow"  style="width:0%"></div>
-</div> -->
-<!-- <div class="preloader-wrap">
-    <div class="progress" id="load-page">
-        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%" id="load-page-bar"></div>
-    </div>
-</div> -->
 <body class="background show-spinner" style="border-radius:0 !important">
     <div class=""></div>
     <main>
@@ -98,37 +37,46 @@
                 <div class="col-12 col-md-10 mx-auto my-auto">
                     <div class="card auth-card" style="box-shadow:none">
                         <div class="form-side">
-                            <a href="#">
-                                <span class="logo-single"></span>
-                            </a>
-                            <h6 class="mb-0">Masuk</h6>
-                            <h6 class="mb-4">Selamat Datang
-                            @if(Session::has('pesan'))
-                            Kembali
-                            @endif
-                            </h6>
+                            <div class="logo-container">
+                                <img alt="logo" class="logo" src="{{ asset('asset_silo/images/logo.jpeg') }}">
+                            </div>
                             <form method="POST" action="{{ url('silo-auth/login') }}" id="form-login">
                                 @csrf
                                 @if(Session::has('alert'))
-                                <div class="alert alert-danger rounded" role="alert">
+                                <div class="alert alert-danger rounded" role="alert" style="border-radius: 0.5rem !important;">
                                     {{ Session::get('alert') }}
                                 </div>
                                 @endif
-                                <label class="form-group has-float-label mb-4">
-                                    <input class="form-control" name="nik" id="username" required/>
-                                    <span>NIK</span>
-                                </label>
-                                <label class="form-group has-float-label mb-4">
-                                    <input class="form-control" type="password" name="password" placeholder="" id="password" required>
-                                    <span id="span-password">Password</span>
-                                    <span id="btn-eye"><i class="icon-eye"></i></span>
-                                </label>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <a href="#">Lupa password?</a>
-                                    <button class="btn btn-primary btn-lg" type="submit">Masuk</button>
+                                <div class="form-row mt-2">
+                                    <div class="form-group col-md-12 col-sm-12">
+                                        <div class="row">
+                                            <div class="col-md-12 col-sm-12">
+                                                <label for="username">Username</label>
+                                                <input class="form-control" type="text" id="username" name="nik" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-12 col-sm-12">
+                                        <div class="row">
+                                            <div class="col-md-12 col-sm-12">
+                                                <label for="password">Password</label>
+                                                <input class="form-control" type="password" name="password" placeholder="" id="password" required>
+                                                <!-- <span id="btn-eye"><i class="icon-eye"></i></span> -->
+                                                <span id="btn-lihat">Lihat</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <label style='cursor:pointer'>Lupa password?</label>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center mt-4">
+                                    <button class="btn btn-primary btn-block" type="submit">Masuk</button>
                                 </div>
                             </form>
-                            <button class="btn btn-block mt-5" style="background: #C9C9C929;">Daftar</button>
+                            <!-- <button class="btn btn-block mt-5" style="background: #C9C9C929;">Daftar</button> -->
                         </div>
                     </div>
                 </div>
@@ -140,10 +88,7 @@
                     <div class="row">
                         <div class="col-12 col-md-10 mx-auto my-auto">
                             <div class="row" style="margin:0 auto;">
-                                <div class="col-4 col-sm-4"><span style="font-size: 9px;">Bantuan</span></div>
-                                <div class="col-4 col-sm-4 text-center"><span style="font-size: 9px;">Kebijakan Privasi</span>
-                                </div>
-                                <div class="col-4 col-sm-4 text-right"><span style="font-size: 9px;">Tentang Kami</span></div>
+                                <div class="col-12 col-sm-12 text-center"><span style="font-size: 9px !important;">&copy;2020 PT Samudra Aplikasi Indonesia</span></div>
                             </div>
                         </div>                
                     </div>
@@ -152,7 +97,6 @@
         </footer>
     </main>
     <script>
-      
         function showNotification(placementFrom, placementAlign, type,title,message) {
             $.notify(
                 {
@@ -241,6 +185,17 @@
                     document.getElementById("btn-eye").style.backgroundImage = "url( {{ asset('img/hide.svg') }} )";
                 }
             });
+
+            $('#btn-lihat').click(function(){
+                var x = document.getElementById("password");
+                if (x.type === "password") {
+                    x.type = "text";
+                    $("#btn-lihat").html("Sembunyikan");
+                } else {
+                    x.type = "password";
+                    $("#btn-lihat").html("Lihat");
+                }
+            });
         });
     </script>
     @if (Session::has('status'))
@@ -249,7 +204,6 @@
         </script>
         
     @endif
-    
 </body>
 
 </html>
