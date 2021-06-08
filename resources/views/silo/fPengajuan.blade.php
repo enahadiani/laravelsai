@@ -1068,7 +1068,7 @@
             var html = "";
             html += `
                 <tr class='row-grid'>
-                    <td class='no-grid text-center'>${no}</td>
+                    <td class='no-grid text-center'>${no}<input type='hidden' value='PO' name='jenis_dok[]'></td>
                     <td id='${idDokumen}'>
                         <span id='text-${idDokumen}' class='tooltip-span'></span>
                         <input autocomplete='off' id='value-${idDokumen}' type='text' name='nama_file[]' class='form-control hidden' value=''>
@@ -1247,7 +1247,7 @@
             var html = "";
             html += `
                 <tr class='row-grid'>
-                    <td class='no-grid text-center'>${no}</td>
+                    <td class='no-grid text-center'>${no}<input type='hidden' value='PBD' name='jenis_dok[]'></td>
                     <td id='${idDokumen}'>
                         <span id='text-${idDokumen}' class='tooltip-span'></span>
                         <input autocomplete='off' id='value-${idDokumen}' type='text' name='nama_file[]' class='form-control hidden' value=''>
@@ -1713,7 +1713,7 @@
                                 var idUpload = 'uploadpo-ke__'+no
                                 html += `
                                     <tr class='row-grid'>
-                                        <td class='no-grid text-center'>${no}</td>
+                                        <td class='no-grid text-center'>${no}<input type='hidden' value='PO' name='jenis_dok[]'></td>
                                         <td id='${idDokumen}'>
                                             <span id='text-${idDokumen}' class='tooltip-span'>${data.nama}</span>
                                             <input autocomplete='off' id='value-${idDokumen}' type='text' name='nama_file[]' class='form-control hidden' value='${data.nama}'>
@@ -1752,7 +1752,7 @@
                                 var idUpload = 'uploadcp-ke__'+no
                                 html += `
                                     <tr class='row-grid'>
-                                        <td class='no-grid text-center'>${no}</td>
+                                        <td class='no-grid text-center'>${no}<input type='hidden' value='PBD' name='jenis_dok[]'></td>
                                         <td id='${idDokumen}'>
                                             <span id='text-${idDokumen}' class='tooltip-span'>${data.nama}</span>
                                             <input autocomplete='off' id='value-${idDokumen}' type='text' name='nama_file[]' class='form-control hidden' value='${data.nama}'>
