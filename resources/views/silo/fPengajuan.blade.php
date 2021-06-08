@@ -107,8 +107,8 @@
                                             <span class="info-name_nik_ver hidden">
                                                 <span></span> 
                                             </span>
-                                            <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                            <i class="simple-icon-magnifier search-item2" id="search_nik_ver"></i>
+                                            {{-- <i class="simple-icon-close float-right info-icon-hapus hidden"></i> --}}
+                                            {{-- <i class="simple-icon-magnifier search-item2" id="search_nik_ver"></i> --}}
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-sm-12">
@@ -351,6 +351,7 @@
             addRowDefault();
             newForm();
             setRegional('kode_pp', regional)
+            setNik(regional, 'nik_ver', null, 'add')
         });
         //  END BTN TAMBAH
 
@@ -483,7 +484,7 @@
             });
         }
 
-        function setNik(regional = null, kode_cbbl, kode){
+        function setNik(regional = null, kode_cbbl, kode, mode=null){
             $.ajax({
                 type: 'GET',
                 url: "{{ url('apv/nik_verifikasi') }}",
@@ -493,14 +494,35 @@
                 success:function(res){
                     var result = res.data;
                     if(result.status){
-                        if(typeof result.data !== 'undefined' && result.data.length>0){
-                            var data = result.data;
-                            var filter = data.filter(data => data.nik == kode);
-                            if(filter.length > 0) {
-                                showInfoField(kode_cbbl, filter[0].nik, filter[0].nama)
+                        if(typeof result.data !== 'undefined' && result.data.length>0) {
+                            if(mode === 'add') {
+                                var data = result.data;
+                                var filter = data.filter(data => data.nik == result.nik_ver);
+                                if(filter.length > 0) {
+                                    showInfoField(kode_cbbl, filter[0].nik, filter[0].nama)
+                                }
+                            } else {
+                                var data = result.data;
+                                var filter = data.filter(data => data.nik == kode);
+                                if(filter.length > 0) {
+                                    showInfoField(kode_cbbl, filter[0].nik, filter[0].nama)
+                                }
                             }
                         }
                     }
+                }
+            });
+        }
+
+        function generateDok(tanggal,kode_pp,kode_kota){
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('apv/generate-dok') }}",
+                dataType: 'json',
+                data:{'tanggal':tanggal,'kode_pp':kode_pp,'kode_kota':kode_kota},
+                async:false,
+                success:function(res){
+                    $('#dokumen').val(res.no_dokumen);
                 }
             });
         }
@@ -553,7 +575,7 @@
                     var settings = {
                         id : id,
                         header : ['Kode', 'Nama'],
-                        url : "{{ url('silo-master/filter-pp') }}",
+                        url : "{{ url('silo-master/filter-pp-one') }}/"+regional,
                         columns : [
                             { data: 'kode_pp' },
                             { data: 'nama' }
@@ -588,7 +610,7 @@
                         target1 : ".info-code_"+id,
                         target2 : ".info-name_"+id,
                         target3 : "",
-                        target4 : "",
+                        target4 : "custom",
                         width : ["30%","70%"],
                     }
                 break;
@@ -714,31 +736,41 @@
             }
 
             $(tdnext).children('span').hide()
-            $(tdnext).children('input').show()
+            $(tdnext).children('input').not("input[type='hidden']").show()
             setTimeout(function() {
-                $(tdnext).children('input').focus()
+                $(tdnext).children('input').not("input[type='hidden']").focus()
             }, 500)
         }
 
         function custTarget(target, tr) {
-            var trTable = $('#'+target).closest('tr')
-            var tdindex = $('#'+target).index()
-            var totaltd = $(tr).children('td').not(':first, :last').length - 1
+            if($(target).hasClass('input-group-text')) {
+                var key = target.split('-')
+                if(key[1] === 'code_kode_kota') {
+                    var tanggal = $('#tanggal').val()
+                    var kode_pp = $('#kode_pp').val()
+                    var kode_kota = $('#kode_kota').val()
+                    generateDok(tanggal, kode_pp, kode_kota)
+                }
+            } else {
+                var trTable = $('#'+target).closest('tr')
+                var tdindex = $('#'+target).index()
+                var totaltd = $(tr).children('td').not(':first, :last').length - 1
+                var key = target.split('__');
+                var kode = tr.find('td:nth-child(1)').text();
+                var nama = tr.find('td:nth-child(2)').text();
+                if(key[0] === 'barang-ke') {
+                    $('#'+target).find('#value-'+target).val(kode)
+                    $('#'+target).find('#kode-'+target).val(nama)
+                    $('#'+target).find('#text-'+target).text(nama)
+                    $('#'+target).find('#kode-'+target).hide()
+                    $('#'+target).find('.search-item').hide()
+                    $('#'+target).find('#text-'+target).show(kode)
+                } 
 
-            var key = target.split('__');
-            var kode = tr.find('td:nth-child(1)').text();
-            var nama = tr.find('td:nth-child(2)').text();
-            
-            if(key[0] === 'barang-ke') {
-                $('#'+target).find('#value-'+target).val(kode)
-                $('#'+target).find('#kode-'+target).val(nama)
-                $('#'+target).find('#text-'+target).text(nama)
-                $('#'+target).find('#kode-'+target).hide()
-                $('#'+target).find('.search-item').hide()
-                $('#'+target).find('#text-'+target).show(kode)
+                setTimeout(function() {
+                    nextSelectedCell(trTable, target, tdindex)   
+                }, 400)
             }
-
-            nextSelectedCell(trTable, target, tdindex)
         }
             // GRID BARANG
         function hitungTotalRowBarang(){
