@@ -13,6 +13,14 @@ class LaporanController extends Controller {
 
     public function getSaldoProyek(Request $request) {
         try{
+            if($request->status[1] === 'UNPAID') {
+                $status = array($request->status[0], 0, $request->status[2]);
+            } elseif($request->status[1] === 'PAID') {
+                $status = array($request->status[0], 1, $request->status[2]);
+            } else {
+                $status = $request->status;
+            }
+
             $client = new Client();
             $response = $client->request('GET',  config('api.url').'java-report/lap-saldo-proyek',[
                 'headers' => [
@@ -21,7 +29,8 @@ class LaporanController extends Controller {
                 ],
                 'query' => [
                     'no_proyek' => $request->no_proyek,
-                    'kode_cust' => $request->kode_cust
+                    'kode_cust' => $request->kode_cust,
+                    'status' => $status
                 ]
             ]);
 

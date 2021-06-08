@@ -1,4 +1,12 @@
 <link rel="stylesheet" href="{{ asset('report.css') }}" />
+<style>
+    .text-green {
+        color: green;
+    }
+    .text-red {
+        color: red;
+    }
+</style>
 <div class="row" id="saku-filter">
     <div class="col-12">
         <div class="card" >
@@ -14,6 +22,7 @@
                                     <!-- COMPONENT -->
                                     <x-inp-filter kode="no_proyek" nama="No Proyek" selected="1" :option="array('1','2','3','i')"/>
                                     <x-inp-filter kode="kode_cust" nama="Vendor" selected="1" :option="array('1','2','3','i')"/>
+                                    <x-inp-filter kode="status" nama="Status" selected="1" :option="array('1','3')"/>
                                     <!-- END COMPONENT -->
                                 </div>
                                 <button id="btn-tampil" style="float:right;width:110px" class="btn btn-primary ml-2 mb-3" type="submit" >Tampilkan</button>
@@ -52,6 +61,14 @@
     }
 
     var $kode_cust = {
+        type : "all",
+        from : "",
+        fromname : "",
+        to : "",
+        toname : "",
+    }
+
+    var $status = {
         type : "all",
         from : "",
         fromname : "",
@@ -118,35 +135,38 @@
     $('.selectize').selectize();
 
     $('#inputFilter').reportFilter({
-        kode : ['no_proyek'],
-        nama : ['No Proyek'],
-            header : [['No Proyek', 'Keterangan']],
-            headerpilih : [['No Proyek', 'Keterangan','Action']],
-            columns: [
-                [
-                    { data: 'no_proyek' },
-                    { data: 'keterangan' }
-                ]
+        kode : ['no_proyek', 'kode_cust', 'status'],
+        nama : ['No Proyek', 'Kode Vendor', 'Status'],
+        header : [['No Proyek', 'Keterangan'], ['Kode Vendor', 'Nama'], ['Kode', 'Nama']],
+        headerpilih : [['No Proyek', 'Keterangan','Action'], ['Kode Vendor', 'Nama','Action'], ['Kode Vendor', 'Nama','Action']],
+        columns: [
+            [
+                { data: 'no_proyek' },
+                { data: 'keterangan' }
             ],
-            url :["{{ url('java-report/filter-kartu-tagihan') }}"],
-            parameter:[
-                {
-                    kode: $kode_cust.from
-                },
-                {}
+            [
+                { data: 'kode_cust' },
+                { data: 'nama' }
             ],
-            orderby:[[]],
-            width:[['30%','70%']],
-            display:['kode'],
-            pageLength:[10]
+            [
+                { data: 'kode' },
+                { data: 'nama' }
+            ]
+        ],
+            url :["{{ url('java-report/filter-kartu-tagihan') }}", "{{ url('java-trans/customer') }}", "{{ url('java-report/filter-status') }}"],
+            parameter:[{},{}, {}],
+            orderby:[[],[], []],
+            width:[['30%','70%'],['30%','70%'],['30%','70%']],
+            display:['kode', 'kode','kode'],
+            pageLength:[10, 10, 10]
     });
     $('#inputFilter').on('change','input',function(e){
         setTimeout(() => {
             $('#inputFilter').reportFilter({
-            kode : ['no_proyek', 'kode_cust'],
-            nama : ['No Proyek', 'Kode Vendor'],
-                header : [['No Proyek', 'Keterangan'], ['Kode Vendor', 'Nama']],
-                headerpilih : [['No Proyek', 'Keterangan','Action'], ['Kode Vendor', 'Nama','Action']],
+                kode : ['no_proyek', 'kode_cust', 'status'],
+                nama : ['No Proyek', 'Kode Vendor', 'Status'],
+                header : [['No Proyek', 'Keterangan'], ['Kode Vendor', 'Nama'], ['Kode', 'Nama']],
+                headerpilih : [['No Proyek', 'Keterangan','Action'], ['Kode Vendor', 'Nama','Action'], ['Kode Vendor', 'Nama','Action']],
                 columns: [
                     [
                         { data: 'no_proyek' },
@@ -155,14 +175,18 @@
                     [
                         { data: 'kode_cust' },
                         { data: 'nama' }
+                    ],
+                    [
+                        { data: 'kode' },
+                        { data: 'nama' }
                     ]
                 ],
-                url :["{{ url('java-report/filter-kartu-tagihan') }}", "{{ url('java-trans/customer') }}"],
-                parameter:[],
-                orderby:[[],[]],
-                width:[['30%','70%'],['30%','70%']],
-                display:['kode', 'kode'],
-                pageLength:[10, 10]
+                url :["{{ url('java-report/filter-kartu-tagihan') }}", "{{ url('java-trans/customer') }}", "{{ url('java-report/filter-status') }}"],
+                parameter:[{},{}, {}],
+                orderby:[[],[], []],
+                width:[['30%','70%'],['30%','70%'],['30%','70%']],
+                display:['kode', 'kode','kode'],
+                pageLength:[10, 10, 10]
             });
         }, 500)
     });
@@ -177,6 +201,9 @@
         $formData.append("kode_cust[]",$kode_cust.type);
         $formData.append("kode_cust[]",$kode_cust.from);
         $formData.append("kode_cust[]",$kode_cust.to);
+        $formData.append("status[]",$status.type);
+        $formData.append("status[]",$status.from);
+        $formData.append("status[]",$status.to);
         for(var pair of $formData.entries()) {
             console.log(pair[0]+ ', '+ pair[1]); 
         }
@@ -193,6 +220,9 @@
         $formData.append("kode_cust[]",$kode_cust.type);
         $formData.append("kode_cust[]",$kode_cust.from);
         $formData.append("kode_cust[]",$kode_cust.to);
+        $formData.append("status[]",$status.type);
+        $formData.append("status[]",$status.from);
+        $formData.append("status[]",$status.to);
         for(var pair of $formData.entries()) {
             console.log(pair[0]+ ', '+ pair[1]); 
         }
@@ -205,16 +235,21 @@
         e.preventDefault();
         var no_proyek = $(this).data('no_proyek');
         var kode_cust = $kode_cust.from;
+        var status = $status.from;
         var back = true;
             
         $formData.delete('no_proyek[]');
         $formData.delete('kode_cust[]');
+        $formData.delete('status[]');
         $formData.append('no_proyek[]', "=");
         $formData.append('no_proyek[]', no_proyek);
         $formData.append('kode_akun[]', "");
         $formData.append('kode_cust[]', "=");
         $formData.append('kode_cust[]', kode_cust);
         $formData.append('kode_cust[]', "");
+        $formData.append('status[]', "=");
+        $formData.append('status[]', status);
+        $formData.append('status[]', "");
 
         $formData.delete('back');
         $formData.append('back', back);
@@ -235,6 +270,10 @@
             $formData.append("kode_cust[]",$kode_cust.type);
             $formData.append("kode_cust[]",$kode_cust.from);
             $formData.append("kode_cust[]",$kode_cust.to);
+            $formData.delete('status[]');
+            $formData.append("status[]",$status.type);
+            $formData.append("status[]",$status.from);
+            $formData.append("status[]",$status.to);
 
             var aktif = $('.breadcrumb-item.active').attr('aria-current');
             var tmp = $('.breadcrumb-item.active').attr('aria-param').split("|");
