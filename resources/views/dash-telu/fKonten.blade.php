@@ -129,7 +129,7 @@
                                                     <th width='5%'>No</th>
                                                     <th width='35%'>Nama File</th>
                                                     <th width='20%'>Jenis Dok</th>
-                                                    <th width='25%'>Upload File</th>
+                                                    <th width='25%' class='label-upload'>Upload File</th>
                                                     <th width='10%'>Action</th>
                                                 </tr>
                                             </thead>
@@ -575,13 +575,24 @@
                         var input='';
                         for(var i=0;i < result.data2.length;i++){
                             var line = result.data2[i];
-                            input += `<tr class='row-dok'>`;
-                            input += `<td class='no-dok'>`+no+`</td>`;
-                            input += `<td ><input type='text' name='nama_dok[]' class='form-control inp-dok' value='`+line.nama+`' required><input type='hidden' name='no_urut[]' class='form-control inp-no_urut' value='`+line.no_urut+`' required></td>`;
-                            input += `<td><select name='kode_jenis[]' class='form-control inp-kode_jenis kdjeniske`+no+`' value='' required></select></td>`;
-                            input += `<td class='action_dok'><input type='text' name='nama_file[]' class='form-control inp-nama' value='`+line.file_dok+`' required readonly></td>`;
-                            input += `<td class='text-center action_dok1' ><a title='Hapus' class='badge badge-danger hapus-dok2' style='color:white'><i class='simple-icon-trash fa-1'></i></a>&nbsp;<a title='Download' class='badge badge-info download-dok' style='color:white' href="`+url+`ypt-auth/storage2/`+line.file_dok+`" target='_blank'><i class='simple-icon-cloud-download fa-1'></i></a></td>`;
-                            input += `</tr>`;
+                            if(line.kode_jenis == "DK03"){
+                                input += `<tr class='row-dok'>`;
+                                input += `<td class='no-dok'>`+no+`<input type='hidden' name='no_urut[]' class='form-control inp-no_urut' value='`+no+`' required></td>`;
+                                input += `<td ><input type='text' name='nama_dok[]' class='form-control inp-dok' value='`+line.nama+`' required></td>`;
+                                input += `<td><select name='kode_jenis[]' class='form-control inp-kode_jenis kdjeniske`+no+`' value='' required></select></td>`;
+                                input += `<td class='action_dok'><input type='text' name='nama_file[]' class='form-control inp-nama' value='`+line.file_dok+`' required></td>`;
+                                input += `<td class='text-center action_dok1' ><a title='Hapus' class='badge badge-danger hapus-dok2' style='color:white'><i class='simple-icon-trash fa-1'></i></a></td>`;
+                                input += `</tr>`;
+                            }else{
+
+                                input += `<tr class='row-dok'>`;
+                                input += `<td class='no-dok'>`+no+`<input type='hidden' name='no_urut[]' class='form-control inp-no_urut' value='`+line.no_urut+`' required></td>`;
+                                input += `<td ><input type='text' name='nama_dok[]' class='form-control inp-dok' value='`+line.nama+`' required><input type='hidden' name='nama_file[]' class='form-control inp-nama' value='`+line.file_dok+`' required></td>`;
+                                input += `<td><select name='kode_jenis[]' class='form-control inp-kode_jenis kdjeniske`+no+`' value='' required></select></td>`;
+                                input += `<td class='action_dok'><input type='text' name='nama_file[]' class='form-control inp-nama' value='`+line.file_dok+`' required readonly></td>`;
+                                input += `<td class='text-center action_dok1' ><a title='Hapus' class='badge badge-danger hapus-dok2' style='color:white'><i class='simple-icon-trash fa-1'></i></a>&nbsp;<a title='Download' class='badge badge-info download-dok' style='color:white' href="`+url+`ypt-auth/storage2/`+line.file_dok+`" target='_blank'><i class='simple-icon-cloud-download fa-1'></i></a></td>`;
+                                input += `</tr>`;
+                            }
                             no++;
                         }
                         
@@ -727,7 +738,7 @@
         no=no+2;
         var input='';
         input = `<tr class='row-dok'>`;
-        input += `<td class='no-dok'>`+no+`</td>`;
+        input += `<td class='no-dok'>`+no+`<input type='hidden' name='no_urut[]' class='form-control inp-no_urut' value='`+no+`' required></td>`;
         input += `<td ><input type='text' name='nama_dok[]' class='form-control inp-dok' value='' required></td>`;
         input += `<td><select name='kode_jenis[]' class='form-control inp-kode_jenis kdjeniske`+no+`' value='' required></select></td>`;
         input += `<td class='action_dok'>`+
@@ -752,10 +763,18 @@
 
     $('#input-dok').on('change', '.inp-kode_jenis', function(){
         var tmp = $(this).val();
-        console.log($(this).closest('tr').find('.inp-file_dok').attr('accept'));
+        var action_dok = $(this).closest('tr').find('.action_dok');
         if(tmp == 'DK02'){
-            $(this).closest('tr').find('.inp-file_dok').attr('accept','video/mp4,video/x-m4v,video/*');
-        }else{
+            $('.label-upload').html('Upload File');
+            action_dok.html("<input type='file' class='inp-file_dok' name='file_dok[]' accept='video/mp4,video/x-m4v,video/*' >");
+        }
+        else if(tmp == 'DK03'){
+            $('.label-upload').html('Link Share');
+            action_dok.html("<input type='text' name='nama_file[]' class='form-control inp-nama' value='' required >");
+        }
+        else{
+            $('.label-upload').html('Upload File');
+            action_dok.html("<input type='file' class='inp-file_dok' name='file_dok[]' accept='' >");
             $(this).closest('tr').find('.inp-file_dok').attr('accept','');
         }
     });
@@ -792,7 +811,6 @@
             return false;
         }
     });
-
     
     $('#input-dok').on('change', '.inp-file_dok', function(){
         if($(this).val() != ""){

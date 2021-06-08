@@ -151,6 +151,47 @@ class KontenController extends Controller
             );
             $fields = array_merge($fields,$fields_data);
 
+            $no_urut = array();
+            $kode_jenis = array();
+            $nama_file = array();
+            $nama_dok = array();
+            $sts = false;
+            for($i=0;$i<count($request->kode_jenis);$i++) {
+                if($request->kode_jenis[$i] == 'DK03') {
+                    $sts = true;
+                    $kode_jenis[] = array(
+                        'name'     => 'kode_jenis[]',
+                        'contents' => $request->kode_jenis[$i],
+                    );
+
+                    $nama_file[] = array(
+                        'name'     => 'nama_file[]',
+                        'contents' => $request->nama_file[$i],
+                    );
+                    
+                    $no_urut[] = array(
+                        'name'     => 'no_urut[]',
+                        'contents' => ($i+1),
+                    );
+
+                    $nama_dok[] = array(
+                        'name'     => 'nama_dok[]',
+                        'contents' => $request->nama_dok[$i],
+                    );
+                    
+                }
+                
+            }
+            $success['kode_jenis'] = $kode_jenis;
+            $success['no_urut'] = $no_urut;
+            $success['nama_file'] = $nama_file;
+            $success['nama_dok'] = $nama_dok;
+            if($sts){
+                $fields = array_merge($fields,$no_urut);
+                $fields = array_merge($fields,$kode_jenis);
+                $fields = array_merge($fields,$nama_file);
+                $fields = array_merge($fields,$nama_dok);
+            }
             $client = new Client();
             $response = $client->request('POST',  config('api.url').'ypt-master/konten',[
                 'headers' => [
@@ -163,7 +204,7 @@ class KontenController extends Controller
                 $response_data = $response->getBody()->getContents();
                 
                 $data = json_decode($response_data,true);
-                return response()->json(['data' => $data], 200);  
+                return response()->json(['data' => $data, 'sukses' => $success], 200);  
             }
 
         } catch (BadResponseException $ex) {
@@ -235,6 +276,47 @@ class KontenController extends Controller
                 'contents' => Session::get('nikUser'),
             );
             $fields = array_merge($fields,$fields_data);
+
+            $no_urut = array();
+            $kode_jenis = array();
+            $nama_file = array();
+            $nama_dok = array();
+            $sts = false;
+            for($i=0;$i<count($request->kode_jenis);$i++) {
+                if($request->kode_jenis[$i] == 'DK03') {
+                    $sts = true;
+                    $kode_jenis[] = array(
+                        'name'     => 'kode_jenis[]',
+                        'contents' => $request->kode_jenis[$i],
+                    );
+                    $nama_file[] = array(
+                        'name'     => 'nama_file[]',
+                        'contents' => $request->nama_file[$i],
+                    );
+
+                    $no_urut[] = array(
+                        'name'     => 'no_urut[]',
+                        'contents' => ($i+1),
+                    );
+
+                    $nama_dok[] = array(
+                        'name'     => 'nama_dok[]',
+                        'contents' => $request->nama_dok[$i],
+                    );
+                    
+                }
+                
+            }
+            $success['kode_jenis'] = $kode_jenis;
+            $success['no_urut'] = $no_urut;
+            $success['nama_file'] = $nama_file;
+            $success['nama_dok'] = $nama_dok;
+            if($sts){
+                $fields = array_merge($fields,$no_urut);
+                $fields = array_merge($fields,$kode_jenis);
+                $fields = array_merge($fields,$nama_file);
+                $fields = array_merge($fields,$nama_dok);
+            }
 
             $client = new Client();
             $response = $client->request('POST',  config('api.url').'ypt-master/konten-edit',[
