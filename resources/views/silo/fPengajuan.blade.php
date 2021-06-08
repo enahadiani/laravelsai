@@ -130,7 +130,7 @@
                                     <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-barang" ></span></a>
                                 </div>
                                 <div class="col-md-12">
-                                    <table class="table table-bordered table-condensed gridexample input-grid" id="input-barang" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                    <table class="table table-bordered table-condensed gridexample input-grid" id="input-barang" data-table="Tab data barang" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
                                         <thead style="background:#F8F8F8">
                                             <tr>
                                                 <th style="width:3%;">No</th>
@@ -154,7 +154,7 @@
                                     <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-dokumen-po"></span></a>
                                 </div>
                                 <div class="col-md-12">
-                                    <table class="table table-bordered table-condensed gridexample input-grid" id="input-dokumen-po" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                    <table class="table table-bordered table-condensed gridexample input-grid" id="input-dokumen-po" data-table="Tab data dokumen PO" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
                                         <thead style="background:#F8F8F8">
                                             <tr>
                                                 <th style="width:3%;">No</th>
@@ -174,7 +174,7 @@
                                     <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-dokumen-compare" ></span></a>
                                 </div>
                                 <div class="col-md-12">
-                                    <table class="table table-bordered table-condensed gridexample input-grid" id="input-dokumen-compare" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                    <table class="table table-bordered table-condensed gridexample input-grid" id="input-dokumen-compare" data-table="Tab data dokumen pembanding" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
                                         <thead style="background:#F8F8F8">
                                             <tr>
                                                 <th style="width:3%;">No</th>
@@ -194,7 +194,7 @@
                                     <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-approve" ></span></a>
                                 </div>
                                 <div class="col-md-12">
-                                    <table class="table table-bordered table-condensed gridexample input-grid" id="input-approve" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                    <table class="table table-bordered table-condensed gridexample input-grid" id="input-approve" data-table="Tabel catatan approve" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
                                         <thead style="background:#F8F8F8">
                                             <tr>
                                                 <th style="width:3%;">No</th>
@@ -370,9 +370,9 @@
             $('#judul-form').html('Tambah Data Pengajuan');
             $('#kode').attr('readonly', false);
             addRowBarangDefault();
-            addRowDokumenCompareDefault()
-            for(var i=0;i<3;i++) {
-                addRowDokumenPODefault()
+            addRowDokumenPODefault()
+            for(var i=0;i<3;i++) {                
+                addRowDokumenCompareDefault()
             }
             newForm();
             setRegional('kode_pp', regional)
@@ -696,7 +696,7 @@
                             $(td).children('span').text(value)
                             $(td).children('input').not("input[type='hidden'], input[type='file']").hide()
                             $(td).children('a').not('.hapus-item').hide()
-                            $(td).children('span').show()
+                            $(td).children('span').not('.not-show').show()
                         })
                     })
                 })
@@ -704,7 +704,7 @@
                 $(table).find('td').removeClass('selected-cell')
                 $(table).find('input').not("input[type='hidden'], input[type='file']").hide()
                 $(table).find('a').not('.hapus-item').hide()
-                $(table).find('span').show()
+                $(table).find('span').not('.not-show').show()
             })
         }
 
@@ -716,7 +716,7 @@
                     $(td).children('span').text(value)
                     $(td).children('input').not("input[type='hidden'], input[type='file']").hide()
                     $(td).children('a').not('.hapus-item').hide()
-                    $(td).children('span').show()
+                    $(td).children('span').not('.not-show').show()
                 })
             }) 
         }
@@ -736,7 +736,7 @@
                 } else {
                     $(td).children('input').not("input[type='hidden'], input[type='file']").hide()
                     $(td).children('a').not('.hapus-item').hide()
-                    $(td).children('span').show()
+                    $(td).children('span').not('.not-show').show()
                 }
             }) 
         }
@@ -745,7 +745,7 @@
             var value = $(td).children('input').val()
             $(td).children('input').not("input[type='hidden']").val(value)
             $(td).children('span').text(value)
-            $(td).children('span').show()
+            $(td).children('span').not('.not-show').show()
             $(td).children('input').hide()
             $(td).children('a').not('.hapus-item').hide()
 
@@ -1078,6 +1078,7 @@
                         <input autocomplete='off' id='value-${idFile}' type='text' name='nama_dok[]' class='form-control hidden' value='-' readonly>
                     </td>
                     <td id='${idUpload}'>
+                        <span class='hidden not-show' id='text-${idUpload}'></span>
                         <input id='value-${idUpload}' type='file' name='file_dok[]'>
                     </td>
                     <td class='text-center'>
@@ -1114,6 +1115,7 @@
                         <input autocomplete='off' id='value-${idFile}' type='text' name='nama_dok[]' class='form-control hidden' value='-' readonly>
                     </td>
                     <td id='${idUpload}'>
+                        <span class='hidden not-show' id='text-${idUpload}'></span>
                         <input id='value-${idUpload}' type='file' name='file_dok[]'>
                     </td>
                     <td class='text-center'>
@@ -1154,8 +1156,7 @@
                 var error = '';
                 $('#input-dokumen-po tbody tr').each(function() {
                     baris = $(this).index() + 1
-                    $(this).find('td').not(':first, :last, :eq(3)').each(function() {
-                        console.log($(this))
+                    $(this).find('td').not(':first, :last, :eq(2)').each(function() {
                         if($(this).text().trim() === '') {
                             empty = true;
                             kolom = $('#input-dokumen-po thead > tr th').eq($(this).index()).text()
@@ -1185,6 +1186,13 @@
             hideUnselectedCell(tr);
             hideUnselectedRow(tbody)
         });
+
+        $('#input-dokumen-po tbody').on('change', 'input[type="file"]', function() {
+            var td = $(this).parent()
+            var id = $(td).attr('id')
+            var file = $(this).val().replace(/C:\\fakepath\\/i, '')
+            $(td).children('#text-'+id).text(file)
+        })
             //END GRID DOKUMEN PO
 
         // GRID DOKUMEN COMPARE
@@ -1212,6 +1220,7 @@
                         <input autocomplete='off' id='value-${idFile}' type='text' name='nama_dok[]' class='form-control hidden' value='-' readonly>
                     </td>
                     <td id='${idUpload}'>
+                        <span class='hidden not-show' id='text-${idUpload}'></span>
                         <input id='value-${idUpload}' type='file' name='file_dok[]'>
                     </td>
                     <td class='text-center'>
@@ -1248,6 +1257,7 @@
                         <input autocomplete='off' id='value-${idFile}' type='text' name='nama_dok[]' class='form-control hidden' value='-' readonly>
                     </td>
                     <td id='${idUpload}'>
+                        <span class='hidden not-show' id='text-${idUpload}'></span>
                         <input id='value-${idUpload}' type='file' name='file_dok[]'>
                     </td>
                     <td class='text-center'>
@@ -1288,8 +1298,7 @@
                 var error = '';
                 $('#input-dokumen-compare tbody tr').each(function() {
                     baris = $(this).index() + 1
-                    $(this).find('td').not(':first, :last, :eq(3)').each(function() {
-                        console.log($(this))
+                    $(this).find('td').not(':first, :last, :eq(2)').each(function() {
                         if($(this).text().trim() === '') {
                             empty = true;
                             kolom = $('#input-dokumen-compare thead > tr th').eq($(this).index()).text()
@@ -1319,6 +1328,13 @@
             hideUnselectedCell(tr);
             hideUnselectedRow(tbody)
         });
+
+        $('#input-dokumen-compare tbody').on('change', 'input[type="file"]', function() {
+            var td = $(this).parent()
+            var id = $(td).attr('id')
+            var file = $(this).val().replace(/C:\\fakepath\\/i, '')
+            $(td).children('#text-'+id).text(file)
+        })
             //END GRID DOKUMEN COMPARE
 
         $('.input-grid tbody').on('click', '.search-item', function() {
@@ -1355,6 +1371,104 @@
             showInpFilter(options);
         })
         // END GRID FORM
+
+        // VALIDATION GRID //
+        function checkTableBarang() {
+            var nama = $('#input-barang').attr('data-table')
+            var table = $('#input-barang tbody').children('tr')
+            var kolom = ''
+            var error = ''
+            var baris = null
+            var empty = false
+            if(table.length === 0) {
+                valid = false
+                alert('Harap mengisi data barang minimal 1 data')
+            } else {
+                $('#input-barang tbody').children('tr').each(function() {
+                    baris = $(this).index() + 1
+                    $(this).children('td').not(':first, :last').each(function() {
+                        if($(this).text().trim() === '') {
+                            empty = true
+                            kolom = $('#input-barang thead > tr th').eq($(this).index()).text()
+                            error = `Data pada kolom ${kolom} di baris nomor ${baris} tidak boleh kosong di ${nama}`
+                            return false;
+                        }
+                    })
+                })
+
+                if(empty) {
+                    alert(error)
+                    valid = false
+                } else {
+                    valid = true
+                }
+            }
+        }
+
+        function checkTableDokumenPO() {
+            var nama = $('#input-dokumen-po').attr('data-table')
+            var table = $('#input-dokumen-po tbody').children('tr')
+            var kolom = ''
+            var error = ''
+            var baris = null
+            var empty = false
+            if(table.length === 0) {
+                valid = false
+                alert('Harap upload dokumen PO minimal 1 dokumen')
+            } else {
+                $('#input-dokumen-po tbody').children('tr').each(function() {
+                    baris = $(this).index() + 1
+                    $(this).children('td').not(':first, :last, :eq(2)').each(function() {
+                        if($(this).text().trim() === '') {
+                            empty = true
+                            kolom = $('#input-dokumen-po thead > tr th').eq($(this).index()).text()
+                            error = `Data pada kolom ${kolom} di baris nomor ${baris} tidak boleh kosong  di ${nama}`
+                            return false;
+                        } 
+                    })
+                })
+
+                if(empty) {
+                    alert(error)
+                    valid = false
+                } else {
+                    valid = true
+                }
+            }
+        }
+
+        function checkTableDokumenCompare() {
+            var nama = $('#input-dokumen-compare').attr('data-table')
+            var table = $('#input-dokumen-compare tbody').children('tr')
+            var kolom = ''
+            var error = ''
+            var baris = null
+            var empty = false
+            if(table.length < 3) {
+                valid = false
+                alert('Harap upload dokumen pembanding minimal 3 dokumen')
+            } else {
+                $('#input-dokumen-compare tbody').children('tr').each(function() {
+                    baris = $(this).index() + 1
+                    $(this).children('td').not(':first, :last, :eq(2)').each(function() {
+                        if($(this).text().trim() === '') {
+                            empty = true
+                            kolom = $('#input-dokumen-compare thead > tr th').eq($(this).index()).text()
+                            error = `Data pada kolom ${kolom} di baris nomor ${baris} tidak boleh kosong di ${nama}`
+                            return false;
+                        } 
+                    })
+                })
+
+                if(empty) {
+                    alert(error)
+                    valid = false
+                } else {
+                    valid = true
+                }
+            }
+        }
+        // END VALIDATION GRID //
 
         // SIMPAN
         $('#form-tambah').validate({
@@ -1393,7 +1507,8 @@
                 },
             },
             errorElement: "label",
-            submitHandler: function (form) {
+            submitHandler: function (form, event) {
+                event.preventDefault()
                 var parameter = $('#id_edit').val();
                 var id = $('#kode').val();
                 if(parameter == "edit"){
@@ -1411,22 +1526,9 @@
                     console.log(pair[0]+ ', '+ pair[1]); 
                 }
 
-                var dokumenPO = $('#input-dokumen-po tbody').children('tr');
-                var dokumenCP = $('#input-dokumen-compare tbody').children('tr');
-                
-                if(dokumenPO.length === 0) {
-                    valid = false
-                    alert('Harap upload dokumen PO minimal 1 dokumen')
-                } else {
-                    
-                }
-
-                if(dokumenCP.length === 0) {
-                    valid = false
-                    alert('Harap upload dokumen pembanding minimal 3 dokumen')
-                } else {
-
-                }
+                checkTableBarang()
+                checkTableDokumenPO()
+                checkTableDokumenCompare()
 
                 if(valid) {
                     $.ajax({
@@ -1449,9 +1551,9 @@
                                 $('#judul-form').html('Tambah Data Pengajuan');
                                 $('#kode').attr('readonly', false);
                                 addRowBarangDefault();
-                                addRowDokumenCompareDefault()
-                                for(var i=0;i<3;i++) {
-                                    addRowDokumenPODefault()
+                                addRowDokumenPODefault()
+                                for(var i=0;i<3;i++) {                
+                                    addRowDokumenCompareDefault()
                                 }
                                 resetForm();
                                 printPreview(kode, 'form');
@@ -1606,6 +1708,9 @@
                             var no = 1;
                             for(var i=0;i<result.data_dokumen.length;i++) { 
                                 var data = result.data_dokumen[i];
+                                var idDokumen = 'dokumenpo-ke__'+no
+                                var idFile = 'filepo-ke__'+no
+                                var idUpload = 'uploadpo-ke__'+no
                                 html += `
                                     <tr class='row-grid'>
                                         <td class='no-grid text-center'>${no}</td>
@@ -1618,6 +1723,7 @@
                                             <input autocomplete='off' id='value-${idFile}' type='text' name='nama_dok[]' class='form-control hidden' value='${data.file_dok}' readonly>
                                         </td>
                                         <td id='${idUpload}'>
+                                            <span class='hidden not-show' id='text-${idUpload}'>${data.file_dok}</span>
                                             <input id='value-${idUpload}' type='file' name='file_dok[]'>
                                         </td>
                                         <td class='text-center'>
@@ -1625,14 +1731,54 @@
                                         </td>
                                     </tr>
                                 `;
+                                no++;
                             }
-                            $('#input-dokumen tbody').append(html)
+                            $('#input-dokumen-po tbody').append(html)
                             $('.tooltip-span').tooltip({
                                 title: function(){
                                     return $(this).text();
                                 }
                             });
-                            hitungTotalRowDokumen()
+                            hitungTotalRowDokumenPO()
+                        }
+
+                        if(result.data_dokumen2.length > 0) { 
+                            var html = "";
+                            var no = 1;
+                            for(var i=0;i<result.data_dokumen2.length;i++) { 
+                                var data = result.data_dokumen2[i];
+                                var idDokumen = 'dokumencp-ke__'+no
+                                var idFile = 'filecp-ke__'+no
+                                var idUpload = 'uploadcp-ke__'+no
+                                html += `
+                                    <tr class='row-grid'>
+                                        <td class='no-grid text-center'>${no}</td>
+                                        <td id='${idDokumen}'>
+                                            <span id='text-${idDokumen}' class='tooltip-span'>${data.nama}</span>
+                                            <input autocomplete='off' id='value-${idDokumen}' type='text' name='nama_file[]' class='form-control hidden' value='${data.nama}'>
+                                        </td>
+                                        <td id='${idFile}' class='readonly'>
+                                            <span id='text-${idFile}' class='tooltip-span'>${data.file_dok}</span>
+                                            <input autocomplete='off' id='value-${idFile}' type='text' name='nama_dok[]' class='form-control hidden' value='${data.file_dok}' readonly>
+                                        </td>
+                                        <td id='${idUpload}'>
+                                            <span class='hidden not-show' id='text-${idUpload}'>${data.file_dok}</span>
+                                            <input id='value-${idUpload}' type='file' name='file_dok[]'>
+                                        </td>
+                                        <td class='text-center'>
+                                            <a class='hapus-item' style='font-size:12px;cursor:pointer;'><i class='simple-icon-trash'></i></a>
+                                        </td>
+                                    </tr>
+                                `;
+                                no++;
+                            }
+                            $('#input-dokumen-compare tbody').append(html)
+                            $('.tooltip-span').tooltip({
+                                title: function(){
+                                    return $(this).text();
+                                }
+                            });
+                            hitungTotalRowDokumenCompare()
                         }
 
                         $('#saku-datatable').hide();
