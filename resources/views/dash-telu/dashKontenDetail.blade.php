@@ -55,6 +55,17 @@
                                 </a>
                             </div>
                         </div>
+                        @elseif($data2[$i]['kode_jenis'] == "DK03")
+                        <div class="d-flex flex-row align-items-center mb-3 row-dok" href='#' data-href="{{ url('telu-dash/watch-video').'/'.$data2[$i]['no_bukti'] }}" data-jenis="{{ $data2[$i]['kode_jenis'] }}" data-watch_id="{{ $data2[$i]['file_dok'] }}" data-watch_ket="{{ $data2[$i]['nama'] }}" data-watch_tipe="3" data-watch_no="{{ $data2[$i]['no_bukti'] }}">
+                            <a class="d-block position-relative" style="height:40px;width:40px">
+                                <i class="simple-icon-social-youtube large-icon initial-height"></i>
+                            </a>
+                            <div class="pl-3 pt-2 pr-2 pb-2">
+                                <a href="#">
+                                <p class="list-item-heading mb-1">{{ $data2[$i]['nama'] }}</p>
+                                </a>
+                            </div>
+                        </div>
                         @else
                         <div class="d-flex flex-row align-items-center mb-3 row-dok" href='#' data-href="{{ $url }}ypt-auth/storage2/{{ $data2[$i]['file_dok'] }}" data-jenis="{{ $data2[$i]['kode_jenis'] }}">
                             <a class="d-block position-relative" style="height:40px;width:40px">
@@ -87,6 +98,14 @@
         var jenis = $(this).data('jenis');
         if(jenis == 'DK02'){
             $watch_id = $(this).data('watch_id');
+            $watch_ket = $(this).data('watch_ket');
+            $watch_tipe = $(this).data('watch_tipe');
+            $watch_no = $(this).data('watch_no');
+            loadForm(form);
+        }else if(jenis == 'DK03'){
+            
+            var tmp = $(this).data('watch_id').split("https://youtu.be/");
+            $watch_id = tmp[1];
             $watch_ket = $(this).data('watch_ket');
             $watch_tipe = $(this).data('watch_tipe');
             $watch_no = $(this).data('watch_no');
