@@ -40,6 +40,20 @@ class HelperController extends Controller {
         return $newArray;
     }
 
+    public function getStatus() {
+        $data = array(
+            array(
+                'kode' => 'UNPAID',
+                'nama' => 'UNPAID'
+            ),
+            array(
+                'kode' => 'PAID',
+                'nama' => 'PAID'
+            )
+        );
+        return response()->json(['daftar' => $data, 'status' => true], 200);
+    }
+
     public function deleteFile(Request $request) {
         try{
             $client = new Client();
