@@ -207,6 +207,39 @@
     </form>
     <!-- END FORM -->
 
+    {{-- PRINT PREVIEW --}}
+    <div id="saku-print" class="row" style="display: none;">
+        <div class="col-12">
+            <div class="card" style="height: 100%;">
+                <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;min-height:62.8px">
+                    <button type="button" class="btn btn-secondary ml-2" id="btn-back" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
+                    <button type="button" class="btn btn-info ml-2" id="btn-cetak" style="float:right;"><i class="fa fa-print"></i> Print</button>
+                </div>
+                <div class="separator mb-2"></div>
+                <div class="card-body" id="print-content">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- END PRINT PREVIEW --}}
+
+    {{-- HISTORY PREVIEW --}}
+    <div class="row" id="saku-history" style="display: none;">
+        <div class="col-12">
+            <div class="card" style="height: 100%;">
+                <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;min-height:62.8px">
+                    <button type="button" class="btn btn-secondary ml-2" id="btn-aback" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
+                </div>
+                <div class="separator mb-2"></div>
+                <div class="card-body profiletimeline" id="history-content">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- END HISTORY PREVIEW --}}
+
     <!-- MODAL FILTER -->
     <div class="modal fade modal-right" id="modalFilter" tabindex="-1" role="dialog"
     aria-labelledby="modalFilter" aria-hidden="true">
@@ -1171,7 +1204,7 @@
                             $('#kode').attr('readonly', false);
                             addRowDefault();
                             resetForm();
-                            // printAju(kode);
+                            printPreview(kode, 'form');
                             last_add("no_bukti", kode);
                         }else if(!result.data.status && result.data.message === "Unauthorized"){
                             window.location.href = "{{ url('/silo-auth/sesi-habis') }}";
@@ -1208,141 +1241,6 @@
         // END SIMPAN
 
         // EDIT DATA
-        // $.ajax({
-        //     type: 'GET',
-        //     url: "{{ url('apv/juskeb') }}/" + id,
-        //     dataType: 'json',
-        //     async:false,
-        //     success:function(res){
-        //         console.log(res);
-        //         var result= res.data;
-        //         if(result.status){
-        //             $('#id_edit').val('edit');
-        //             $('#method').val('post');
-        //             $('#id').val(id);
-        //             $('#tanggal').val(reverseDateNew(result.data[0].tanggal,'-','/'));
-        //             $('#waktu').val(reverseDateNew(result.data[0].waktu,'-','/'));
-        //             getPP(result.data[0].kode_pp);
-        //             getKota(result.data[0].kode_kota, result.data[0].kode_pp);
-        //             getNIK(result.data[0].nik_ver);
-        //             $('#no_dokumen').val(result.data[0].no_dokumen);
-        //             $('#kegiatan').val(result.data[0].kegiatan);
-        //             $('#dasar').val(result.data[0].dasar);
-        //             $('#pic').val(result.data[0].pemakai);
-        //             $('#total').val(parseFloat(result.data[0].nilai));
-        //             if(result.data_detail.length > 0) {
-        //                 var input = "";  
-        //                 var no = 1;
-        //                 for(var i=0;i<result.data_detail.length;i++) {
-        //                     var data = result.data_detail[i];
-        //                     var barang = getOneKlpBarang(result.data_detail[0].barang_klp); 
-        //                     input += "<tr class='row-grid'>";
-        //                     input += "<td class='no-grid text-center'><span class='no-grid'>"+no+"</span></td>";
-        //                     input += "<td class='text-center'><a class=' hapus-item' style='font-size:12px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
-        //                     input += "<td><span class='td-kode tdbarangke"+no+" tooltip-span'>"+data.barang_klp+"</span><input autocomplete='off' type='text' name='barang_klp[]' class='form-control inp-kode barangke"+no+" hidden' value='"+data.barang_klp+"' required='' style='z-index: 1;position: relative;'  id='barangkode"+no+"'><a href='#' class='search-item search-barang hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
-        //                     input += "<td><span class='td-nama tdnmbarangke"+no+" tooltip-span'>"+barang.name+"</span><input autocomplete='off' type='text' name='barang_nama[]' class='form-control inp-nama nmbarangke"+no+" hidden'  value='"+barang.name+"' readonly></td>";
-        //                     input += "<td><span class='td-desk tddeskke"+no+" tooltip-span'>"+data.barang+"</span><input autocomplete='off' type='text' name='barang[]' class='form-control inp-desk deskke"+no+" hidden'  value='"+data.barang+"' required></td>";
-        //                     input += "<td class='text-right'><span class='td-harga tdhrgke"+no+" tooltip-span'>"+toRp(parseFloat(data.harga))+"</span><input autocomplete='off' type='text' name='harga[]' class='form-control inp-harga hargake"+no+" hidden'  value='"+toRp(parseFloat(data.harga))+"' required></td>";
-        //                     input += "<td class='text-right'><span class='td-qty tdqtyke"+no+" tooltip-span'>"+toRp(parseFloat(data.jumlah))+"</span><input autocomplete='off' type='text' name='qty[]' class='form-control inp-qty qtyke"+no+" hidden'  value='"+toRp(parseFloat(data.jumlah))+"' required></td>";
-        //                     input += "<td class='text-right'><span class='td-nilai tdnilaike"+no+" tooltip-span'>"+toRp(parseFloat(data.nilai))+"</span><input autocomplete='off' type='text' name='nilai[]' class='form-control inp-nilai nilaike"+no+" hidden'  value='"+toRp(parseFloat(data.nilai))+"' required readonly></td>";
-        //                     input += "<td class='text-right'><span class='td-ppn tdppnke"+no+" tooltip-span'>"+toRp(parseFloat(data.ppn))+"</span><input autocomplete='off' type='text' name='ppn[]' class='form-control inp-ppn ppnke"+no+" hidden'  value='"+toRp(parseFloat(data.ppn))+"' required></td>";
-        //                     input += "<td class='text-right'><span class='td-grand tdgrandke"+no+" tooltip-span'>"+toRp(parseFloat(data.grand_total))+"</span><input autocomplete='off' type='text' name='grand_total[]' class='form-control inp-grand grandke"+no+" hidden'  value='"+toRp(parseFloat(data.grand_total))+"' required readonly></td>";
-        //                     input += "</tr>";
-
-        //                     no++;   
-        //                 }
-        //                 $('#input-grid-barang tbody').html(input);
-        //                 $('.tooltip-span').tooltip({
-        //                     title: function(){
-        //                         return $(this).text();
-        //                     }
-        //                 });
-        //                 var no = 1;
-        //                 for(var i=0;i<result.data_detail.length;i++) {
-        //                      $('#barangkode'+no).typeahead({
-        //                         source:$dtKlpBarang,
-        //                         displayText:function(item){
-        //                             return item.id+' - '+item.name;
-        //                         },
-        //                         autoSelect:false,
-        //                         changeInputOnSelect:false,
-        //                         changeInputOnMove:false,
-        //                         selectOnBlur:false,
-        //                         afterSelect: function (item) {
-        //                             console.log(item.id);
-        //                         }
-        //                     });
-        //                     $('.hargake'+no).inputmask("numeric", {
-        //                         radixPoint: ",",
-        //                         groupSeparator: ".",
-        //                         digits: 2,
-        //                         autoGroup: true,
-        //                         rightAlign: true,
-        //                         oncleared: function () { self.Value(''); }
-        //                     });
-        //                     $('.qtyke'+no).inputmask("numeric", {
-        //                         radixPoint: ",",
-        //                         groupSeparator: ".",
-        //                         digits: 2,
-        //                         autoGroup: true,
-        //                         rightAlign: true,
-        //                         oncleared: function () { self.Value(''); }
-        //                     });
-        //                     $('.nilaike'+no).inputmask("numeric", {
-        //                         radixPoint: ",",
-        //                         groupSeparator: ".",
-        //                         digits: 2,
-        //                         autoGroup: true,
-        //                         rightAlign: true,
-        //                         oncleared: function () { self.Value(''); }
-        //                     });
-        //                     $('.ppnke'+no).inputmask("numeric", {
-        //                         radixPoint: ",",
-        //                         groupSeparator: ".",
-        //                         digits: 2,
-        //                         autoGroup: true,
-        //                         rightAlign: true,
-        //                         oncleared: function () { self.Value(''); }
-        //                     });
-        //                     $('.grandke'+no).inputmask("numeric", {
-        //                         radixPoint: ",",
-        //                         groupSeparator: ".",
-        //                         digits: 2,
-        //                         autoGroup: true,
-        //                         rightAlign: true,
-        //                         oncleared: function () { self.Value(''); }
-        //                     });
-        //                     no++;
-        //                 }
-        //                 if(result.data_dokumen.length > 0) {
-        //                     var input = "";  
-        //                     var no = 1;
-        //                     for(var i=0;i<result.data_dokumen.length;i++) { 
-        //                         var data = result.data_dokumen[i];
-        //                         input += "<tr class='row-upload'>";
-        //                         input += "<td class='no-upload text-center'>"+no+"</td>";
-        //                         input += "<td class='text-center'><a class='hapus-item' title='Hapus' style='cursor:pointer; font-size=18px;'><i class='simple-icon-trash'></i></a>&nbsp;&nbsp;<a class='download-item' title='Download' style='cursor:pointer; font-size:18px;' href='http://api.simkug.com/api/apv/storage/"+data.file_dok+"' target='_blank'><i class='iconsminds-data-download'></i></a></td>";
-        //                         input += "<td><input type='text' name='nama_file[]' value='"+data.nama+"' class='form-control inp-file_dok'></td>";
-        //                         input += "<td><span>"+data.file_dok+"</span><input type='hidden' name='nama_dok[]' value='"+data.file_dok+"' class='inp-file_dok' readonly></td>";
-        //                         input += "<td><input type='file' name='file_dok[]' class='inp-file_dok'></td>";
-        //                         input += "</tr>";
-
-        //                         no++;
-        //                     }
-        //                     $('#input-grid-dokumen tbody').html(input);
-        //                 }
-        //             }
-        //             hitungTotalRowBarang();
-        //             hitungTotalRowDokumen();
-        //             $('#saku-datatable').hide();
-        //             $('#saku-form').show();
-        //         }
-        //         else if(!result.status && result.message == 'Unauthorized'){
-        //             window.location.href = "{{ url('silo-auth/sesi-habis') }}";
-        //         }
-        //         // $iconLoad.hide();
-        //     }
-        // });
         function editData(id) {
             $('#form-tambah').validate().resetForm();
             $('#input-barang tbody').empty();
@@ -1539,6 +1437,270 @@
             });
         });
         // END HAPUS
+
+        // PRINT PREVIEW
+        var backTo = null;
+        function printPreview(id, from) {
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('apv/juskeb_preview') }}/" + id,
+                dataType: 'json',
+                async:false,
+                success:function(res){ 
+                    backTo = from
+                    var result = res.data
+                    if(typeof result.data !== 'undefined' && result.data.length > 0) {
+                        var html = "";
+                        var no = 1;
+                        var total = 0
+                        var data = result.data[0]
+                        html += `
+                            <div class='row'>
+                                <div class='col-12 text-center' style='border-bottom:3px solid black;'>
+                                    <h3>JUSTIFIKASI KEBUTUHAN</h3>
+                                    <h3 id='kegiatan'>${data.kegiatan}</h3>
+                                </div>    
+                                <div class='col-12 my-3 text-center'>
+                                    <h6 id='tanggal-print'>Tanggal : ${data.tanggal.substr(8, 2)} ${getNamaBulan(data.tanggal.substr(5, 2))} ${data.tanggal.substr(0, 4)}</h6>     
+                                </div>
+                                <div class='col-12'>
+                                    <table class='table table-condensed table-bordered'>
+                                        <tbody>
+                                            <tr>
+                                                <td style='width: 5%;'>1</td>
+                                                <td style='width: 25%;'>UNIT KERJA</td>
+                                                <td>${data.nama_pp}</td>
+                                            </tr>
+                                            <tr>
+                                                <td style='width: 5%;'>2</td>
+                                                <td style='width: 25%;'>NAMA KOTA</td>
+                                                <td>${data.nama_kota}</td>
+                                            </tr>    
+                                            <tr>
+                                                <td style='width: 5%;'>3</td>
+                                                <td style='width: 25%;'>NAMA KEGIATAN</td>
+                                                <td>${data.kegiatan}</td>
+                                            </tr>    
+                                            <tr>
+                                                <td style='width: 5%;'>4</td>
+                                                <td style='width: 25%;'>PIC</td>
+                                                <td>${data.pic}</td>
+                                            </tr>    
+                                            <tr>
+                                                <td style='width: 5%;'>5</td>
+                                                <td style='width: 25%;'>SAAT PENGGUNAAN</td>
+                                                <td>${data.waktu.substr(8, 2)} ${getNamaBulan(data.waktu.substr(5, 2))} ${data.waktu.substr(0, 4)}</td>
+                                            </tr>    
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class='col-12'>
+                                    <h6 style='font-weight: bold; font-size: 13px;'># <u>LATAR BELAKANG</u></h6>
+                                    <p>${data.dasar}</p>    
+                                </div>
+                                <div class='col-12'>
+                                    <h6 style='font-weight: bold; font-size: 13px;'># <u>KEBUTUHAN</u></h6>  
+                                    <table class='table table-bordered table-condensed'>
+                                        <thead>
+                                            <tr>
+                                                <th class='text-center' style='width: 5%;'>No</th>    
+                                                <th class='text-center' style='width: 15%;'>Kelompok Barang</th>    
+                                                <th class='text-center' style='width: 30%;'>Deskripsi</th>    
+                                                <th class='text-center' style='width: 10%;'>Harga</th>    
+                                                <th class='text-center' style='width: 5%;'>Qty</th>    
+                                                <th class='text-center' style='width: 10%;'>Jumlah Harga</th>    
+                                                <th class='text-center' style='width: 5%;'>PPN</th>    
+                                                <th class='text-center' style='width: 10%;'>Grand Total</th>    
+                                            </tr>    
+                                        </thead>
+                                        <tbody>`
+                                        for(var i =0;i<result.data_detail.length;i++) {
+                                            var detail = result.data_detail[i]
+                                            var grand = detail.grand_total
+                                            total = total + parseFloat(grand)
+                                            html += `
+                                            <tr>
+                                                <td>${no}</td>
+                                                <td>${detail.nama_klp}</td>
+                                                <td>${detail.barang}</td>
+                                                <td class='text-right'>${format_number(detail.harga)}</td>
+                                                <td class='text-right'>${format_number(detail.jumlah)}</td>
+                                                <td class='text-right'>${format_number(detail.nilai)}</td>
+                                                <td class='text-right'>${format_number(detail.ppn)}%</td>
+                                                <td class='text-right'>${format_number(detail.grand_total)}</td>
+                                            </tr>
+                                            `;
+                                            no++;
+                                        }
+                                        html += `
+                                            <tr>
+                                                <td colspan='7'>Total</td>
+                                                <td class='text-right'>${format_number(total)}</td>
+                                            </tr>    
+                                        </tbody>    
+                                    </table>
+                                </div>
+                                <div class='col-12'>
+                                    <h6 style='font-weight: bold; font-size: 13px;'># <u>ESTIMASI BIAYA</u></h6>  
+                                    <p>
+                                        Estimasi Biaya yang dibutuhkan untuk pengadaan tersebut adalah sebesar 
+                                        <span style='text-transform: capitalize;'>Rp. ${format_number(data.nilai)} (${terbilang(data.nilai)}) Rupiah</span>
+                                    </p>
+                                </div>
+                                <div class='col-12'>
+                                    <h6 style='font-weight: bold; font-size: 13px;'># <u>PENUTUP</u></h6>
+                                    <table class='table table-condensed table-bordered'>
+                                        <thead>
+                                            <th class='text-center' style='width: 10%;'></th>    
+                                            <th class='text-center' style='width: 25%;'>NAMA/NIK</th>    
+                                            <th class='text-center' style='width: 15%;'>JABATAN</th>    
+                                            <th class='text-center' style='width: 10%;'>TANGGAL</th>    
+                                            <th class='text-center' style='width: 15%;'>NO. APPROVAL</th>    
+                                            <th class='text-center' style='width: 10%;'>STATUS</th>    
+                                            <th class='text-center' style='width: 15%;'>TTD</th>        
+                                        </thead>
+                                        <tbody>`
+                                            for(var i=0;i<result.data_dokumen.length;i++) {
+                                                var dokumen = result.data_dokumen[i]
+                                                html += `
+                                                <tr>
+                                                    <td>${dokumen.ket}</td>
+                                                    <td>${dokumen.nama_kar}</td>
+                                                    <td>${dokumen.nama_jab}</td>
+                                                    <td>${dokumen.tanggal}</td>
+                                                    <td>${dokumen.no_app}</td>
+                                                    <td>${dokumen.status}</td>
+                                                    <td>&nbsp;</td>
+                                                </tr>`
+                                            }
+                                    html += `</tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        `;
+                        
+                        $('#print-content').html(html)
+                        $('#saku-form').hide()
+                        $('#saku-datatable').hide()
+                        $('#saku-print').show()
+                    }
+                }
+            });
+        }
+
+        $('#saku-datatable').on('click','#btn-print',function(e) {
+            var id = $(this).closest('tr').find('td').eq(0).html();
+            printPreview(id, 'table');
+        });
+
+        $('#saku-print #btn-back').click(function() {
+            $('#saku-print').hide()
+            if(backTo === 'table') {
+                $('#saku-datatable').show()
+                $('#saku-form').hide()
+            } else {
+                $('#saku-form').show()
+                $('#saku-datatable').hide()
+            }
+        });
+
+        $('#saku-print #btn-cetak').click(function() {
+            $('#print-content').printThis({
+                importCSS: true,            // import parent page css
+                importStyle: true,         // import style tags
+                printContainer: true,       // print outer container/$.selector
+            });
+        });
+        // END PRINT PREVIEW
+
+        // HISTORY
+        function historyPreview(id) {
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('apv/juskeb_history') }}/"+id,
+                dataType: 'json',
+                async:false,
+                success:function(res) {
+                    var result = res.data
+                    if(typeof result.data !== 'undefined' && result.data.length > 0) { 
+                        var html = "";
+                        var color = "";
+                        for(var i=0;i<result.data.length;i++) {
+                            var data = result.data.data[i]
+                            if(data.color === 'green') {
+                                color = '#00c292'
+                            } else {
+                                color = '#03a9f3'
+                            }
+
+                            html += `
+                                 <div class='sl-item'>
+                                    <div class='sl-left' style='margin-left: -65px;'>
+                                        <div style='padding: 10px; border: 1px solid ${color}; border-radius: 50%; background: ${color}; color: #ffffff; width: 50px; text-align: center;'>
+                                            <i style='font-size: 25px;' class='fa fa-clipboard-check'></i>
+                                        </div>
+                                    </div>    
+                                    <div class='sl-right'>
+                                        <div>
+                                            <a href='javascript:void(0)' class='link'>
+                                                ${data.nama} <span class='sl-date'>${data.tanggal} (${data.status})</span>
+                                            </a>
+                                        </div>
+                                        <div class='row mt-3 mb-2'>
+                                            <div class='col-6'>No Bukti :</div>    
+                                            <div class='col-6'>${data.no_bukti}</div>    
+                                            <div class='col-6'>Catatan :</div>    
+                                            <div class='col-6'>${data.keterangan}</div>    
+                                        </div>    
+                                    </div>
+                                </div>
+                                <hr />
+                            `
+                        }
+                    } else if(!result.status && result.message == "Unauthorized"){
+                        Swal.fire({
+                            title: 'Session telah habis',
+                            text: 'harap login terlebih dahulu!',
+                            icon: 'error'
+                        }).then(function() {
+                            window.location.href = "{{ url('silo-auth/logout') }}";
+                        })
+                    } else {
+                        html += `
+                            <div class='sl-item'>
+                                <div class='sl-left'>
+                                    <div style='padding: 10px;border: 1px solid #959595;border-radius: 50%;background: #959595;color: #ffffff;width: 50px;text-align: center;'>
+                                        <i style='font-size: 25px;' class='fa fa-envelope'></i> 
+                                    </div>
+                                </div> 
+                                <div class="sl-right">
+                                    Belum ada proses approval.
+                                    <br>
+                                    <br>
+                                <div>   
+                            </div>
+                        `
+                    }
+                        
+                    $('#history-content').html(html)
+                    $('#saku-datatable').hide()
+                    $('#saku-form').hide()
+                    $('#saku-history').show()
+                }
+            });
+        }
+
+        $('#saku-datatable').on('click','#btn-history',function(e) {
+            var id = $(this).closest('tr').find('td').eq(0).html();
+            historyPreview(id);
+        });
+
+        $('#saku-history #btn-aback').click(function() {
+            $('#saku-history').hide()
+            $('#saku-datatable').show()
+            $('#saku-form').hide()
+        });
+        // END HISTORY
     </script>
     {{-- <script type="text/javascript">
     // SET UP FORM //
