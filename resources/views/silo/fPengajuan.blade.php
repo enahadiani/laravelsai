@@ -120,7 +120,8 @@
                         </div>
                         <ul class="nav nav-tabs col-12 " role="tablist">
                             <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#data-barang" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Barang</span></a></li>
-                            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#data-dokumen" role="tab" aria-selected="false"><span class="hidden-xs-down">Data Dokumen</span></a></li>
+                            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#data-dokumen-po" role="tab" aria-selected="false"><span class="hidden-xs-down">Data PO</span></a></li>
+                            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#data-dokumen-compare" role="tab" aria-selected="false"><span class="hidden-xs-down">Data Dokumen Pembanding</span></a></li>
                             <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#data-approve" role="tab" aria-selected="false"><span class="hidden-xs-down">Catatan Approve</span></a></li>
                         </ul>
                         <div class="tab-content tabcontent-border col-12 p-0" style="margin-bottom: 2rem;">
@@ -148,12 +149,12 @@
                                     <a type="button" id="add-barang" href="#" data-id="0" title="add-row" class="add-row btn btn-light2 btn-block btn-sm"><i class="saicon icon-tambah mr-1"></i>Tambah Baris</a>
                                 </div>
                             </div>
-                            <div class="tab-pane row" id="data-dokumen" role="tabpanel">
+                            <div class="tab-pane row" id="data-dokumen-po" role="tabpanel">
                                 <div class='col-md-12 nav-control' style="padding: 0px 5px;">
-                                    <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-dokumen" ></span></a>
+                                    <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-dokumen-po"></span></a>
                                 </div>
                                 <div class="col-md-12">
-                                    <table class="table table-bordered table-condensed gridexample input-grid" id="input-dokumen" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                    <table class="table table-bordered table-condensed gridexample input-grid" id="input-dokumen-po" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
                                         <thead style="background:#F8F8F8">
                                             <tr>
                                                 <th style="width:3%;">No</th>
@@ -165,7 +166,27 @@
                                         </thead>
                                         <tbody></tbody>
                                     </table>
-                                    <a type="button" id="add-dokumen" href="#" data-id="0" title="add-row" class="add-row btn btn-light2 btn-block btn-sm"><i class="saicon icon-tambah mr-1"></i>Tambah Baris</a>
+                                    <a type="button" id="add-dokumen-po" href="#" data-id="0" title="add-row" class="add-row btn btn-light2 btn-block btn-sm"><i class="saicon icon-tambah mr-1"></i>Tambah Baris</a>
+                                </div>
+                            </div>
+                            <div class="tab-pane row" id="data-dokumen-compare" role="tabpanel">
+                                <div class='col-md-12 nav-control' style="padding: 0px 5px;">
+                                    <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-dokumen-compare" ></span></a>
+                                </div>
+                                <div class="col-md-12">
+                                    <table class="table table-bordered table-condensed gridexample input-grid" id="input-dokumen-compare" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                        <thead style="background:#F8F8F8">
+                                            <tr>
+                                                <th style="width:3%;">No</th>
+                                                <th style="width:25%;">Nama Dokumen</th>
+                                                <th style="width:20%;">Nama File Upload</th>
+                                                <th style="width:15%;">Upload File</th>
+                                                <th style="width:5%;"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                    <a type="button" id="add-dokumen-compare" href="#" data-id="0" title="add-row" class="add-row btn btn-light2 btn-block btn-sm"><i class="saicon icon-tambah mr-1"></i>Tambah Baris</a>
                                 </div>
                             </div>
                             <div class="tab-pane row" id="data-approve" role="tabpanel">
@@ -348,7 +369,11 @@
             $('#input-approve tbody').empty();
             $('#judul-form').html('Tambah Data Pengajuan');
             $('#kode').attr('readonly', false);
-            addRowDefault();
+            addRowBarangDefault();
+            addRowDokumenCompareDefault()
+            for(var i=0;i<3;i++) {
+                addRowDokumenPODefault()
+            }
             newForm();
             setRegional('kode_pp', regional)
             setNik(regional, 'nik_ver', null, 'add')
@@ -369,6 +394,7 @@
         var selectRegional = $('#inp-filter_regional').selectize();
         var selectBukti = $('#inp-filter_bukti').selectize();
         var $dtKlpBarang = [];
+        var valid = true;
 
         $('input.datepicker').click(function() {
             $('div.datepicker').css({ 'top': '230px' })
@@ -778,7 +804,7 @@
             $('#total-barang').html(total_row+' Baris');
         }
 
-        function addRowDefault() {
+        function addRowBarangDefault() {
             var no= $('#input-barang tbody > tr').length;
             no = no + 1;
             var idBarang = 'barang-ke__'+no
@@ -828,7 +854,6 @@
                 </tr>
             `;
             $('#input-barang tbody').append(html)
-            $('.row-grid:last').addClass('selected-row');
 
             // $(`#kode-${idBarang}`).typeahead({
             //     source:$dtKlpBarang,
@@ -974,7 +999,7 @@
         $('#input-barang tbody').on('click', '.hapus-item', function() {
             $(this).closest('tr').remove();
             no=1;
-            $('.row-grid').each(function(){
+            $('#input-barang tbody').children('.row-grid').each(function(){
                 var nom = $(this).closest('tr').find('.no-grid');
                 nom.html(no);
                 no++;
@@ -1028,18 +1053,18 @@
         })
             // END GRID BARANG
             
-            // GRID DOKUMEN
-        function hitungTotalRowDokumen(){
-            var total_row = $('#input-dokumen tbody tr').length;
-            $('#total-dokumen').html(total_row+' Baris');
+            // GRID DOKUMEN PO
+        function hitungTotalRowDokumenPO(){
+            var total_row = $('#input-dokumen-po tbody tr').length;
+            $('#total-dokumen-po').html(total_row+' Baris');
         }
 
-        function addRowDokumen() {
-            var no= $('#input-dokumen tbody > tr').length;
+        function addRowDokumenPODefault() {
+            var no= $('#input-dokumen-po tbody > tr').length;
             no = no + 1;
-            var idDokumen = 'dokumen-ke__'+no
-            var idFile = 'file-ke__'+no
-            var idUpload = 'upload-ke__'+no
+            var idDokumen = 'dokumenpo-ke__'+no
+            var idFile = 'filepo-ke__'+no
+            var idUpload = 'uploadpo-ke__'+no
             var html = "";
             html += `
                 <tr class='row-grid'>
@@ -1060,8 +1085,44 @@
                     </td>
                 </tr>
             `;
-            $('#input-dokumen tbody').append(html)
-            $('#input-dokumen tbody tr').not(':last').removeClass('selected-row');
+            $('#input-dokumen-po tbody').append(html)
+            
+            $('.tooltip-span').tooltip({
+                title: function(){
+                    return $(this).text();
+                }
+            });
+            hitungTotalRowDokumenPO()
+        }
+
+        function addRowDokumenPO() {
+            var no= $('#input-dokumen-po tbody > tr').length;
+            no = no + 1;
+            var idDokumen = 'dokumenpo-ke__'+no
+            var idFile = 'filepo-ke__'+no
+            var idUpload = 'uploadpo-ke__'+no
+            var html = "";
+            html += `
+                <tr class='row-grid'>
+                    <td class='no-grid text-center'>${no}<input type='hidden' value='PO' name='jenis_dok[]'></td>
+                    <td id='${idDokumen}'>
+                        <span id='text-${idDokumen}' class='tooltip-span'></span>
+                        <input autocomplete='off' id='value-${idDokumen}' type='text' name='nama_file[]' class='form-control hidden' value=''>
+                    </td>
+                    <td id='${idFile}' class='readonly'>
+                        <span id='text-${idFile}' class='tooltip-span'>-</span>
+                        <input autocomplete='off' id='value-${idFile}' type='text' name='nama_dok[]' class='form-control hidden' value='-' readonly>
+                    </td>
+                    <td id='${idUpload}'>
+                        <input id='value-${idUpload}' type='file' name='file_dok[]'>
+                    </td>
+                    <td class='text-center'>
+                        <a class='hapus-item' style='font-size:12px;cursor:pointer;'><i class='simple-icon-trash'></i></a>
+                    </td>
+                </tr>
+            `;
+            $('#input-dokumen-po tbody').append(html)
+            $('#input-dokumen-po tbody tr').not(':last').removeClass('selected-row');
             $('.row-grid:last').addClass('selected-row');
             
             $('.tooltip-span').tooltip({
@@ -1069,35 +1130,35 @@
                     return $(this).text();
                 }
             });
-            hitungTotalRowDokumen()
+            hitungTotalRowDokumenPO()
         }
 
-        $('#input-dokumen tbody').on('click', '.hapus-item', function() {
+        $('#input-dokumen-po tbody').on('click', '.hapus-item', function() {
             $(this).closest('tr').remove();
             no=1;
-            $('.row-grid').each(function(){
+            $('#input-dokumen-po tbody').children('.row-grid').each(function(){
                 var nom = $(this).closest('tr').find('.no-grid');
                 nom.html(no);
                 no++;
             });
-            hitungTotalRowDokumen();
+            hitungTotalRowDokumenPO();
             $("html, body").animate({ scrollTop: $(document).height() }, 1000);
         });
 
-        $('#add-dokumen').click(function() {
-            var row = $('#input-dokumen tbody > tr').length
+        $('#add-dokumen-po').click(function() {
+            var row = $('#input-dokumen-po tbody > tr').length
             if(row > 0) {
                 var empty = false;
                 var kolom = null;
                 var baris = null;
                 var error = '';
-                $('#input-dokumen tbody tr').each(function() {
+                $('#input-dokumen-po tbody tr').each(function() {
                     baris = $(this).index() + 1
                     $(this).find('td').not(':first, :last, :eq(3)').each(function() {
                         console.log($(this))
                         if($(this).text().trim() === '') {
                             empty = true;
-                            kolom = $('#input-dokumen thead > tr th').eq($(this).index()).text()
+                            kolom = $('#input-dokumen-po thead > tr th').eq($(this).index()).text()
                             error = `Data pada kolom ${kolom} di baris nomor ${baris} tidak boleh kosong`
                             return false;
                         }
@@ -1106,14 +1167,14 @@
                 if(empty) {
                     alert(error)
                 } else {
-                    addRowDokumen()
+                    addRowDokumenPO()
                 }
             } else {
-                addRowDokumen()
+                addRowDokumenPO()
             }
         })
 
-        $('#input-dokumen tbody').on('click', 'td', function(event) {
+        $('#input-dokumen-po tbody').on('click', 'td', function(event) {
             event.stopPropagation();
              var tr = $(this).parent()
             var tbody = $(tr).parent()
@@ -1124,7 +1185,141 @@
             hideUnselectedCell(tr);
             hideUnselectedRow(tbody)
         });
-            //END GRID DOKUMEN
+            //END GRID DOKUMEN PO
+
+        // GRID DOKUMEN COMPARE
+        function hitungTotalRowDokumenCompare(){
+            var total_row = $('#input-dokumen-compare tbody tr').length;
+            $('#total-dokumen-compare').html(total_row+' Baris');
+        }
+
+        function addRowDokumenCompareDefault() {
+            var no= $('#input-dokumen-compare tbody > tr').length;
+            no = no + 1;
+            var idDokumen = 'dokumencp-ke__'+no
+            var idFile = 'filecp-ke__'+no
+            var idUpload = 'uploadcp-ke__'+no
+            var html = "";
+            html += `
+                <tr class='row-grid'>
+                    <td class='no-grid text-center'>${no}<input type='hidden' value='PBD' name='jenis_dok[]'></td>
+                    <td id='${idDokumen}'>
+                        <span id='text-${idDokumen}' class='tooltip-span'></span>
+                        <input autocomplete='off' id='value-${idDokumen}' type='text' name='nama_file[]' class='form-control hidden' value=''>
+                    </td>
+                    <td id='${idFile}' class='readonly'>
+                        <span id='text-${idFile}' class='tooltip-span'>-</span>
+                        <input autocomplete='off' id='value-${idFile}' type='text' name='nama_dok[]' class='form-control hidden' value='-' readonly>
+                    </td>
+                    <td id='${idUpload}'>
+                        <input id='value-${idUpload}' type='file' name='file_dok[]'>
+                    </td>
+                    <td class='text-center'>
+                        <a class='hapus-item' style='font-size:12px;cursor:pointer;'><i class='simple-icon-trash'></i></a>
+                    </td>
+                </tr>
+            `;
+            $('#input-dokumen-compare tbody').append(html)
+            
+            $('.tooltip-span').tooltip({
+                title: function(){
+                    return $(this).text();
+                }
+            });
+            hitungTotalRowDokumenPO()
+        }
+
+        function addRowDokumenCompare() {
+            var no= $('#input-dokumen-compare tbody > tr').length;
+            no = no + 1;
+            var idDokumen = 'dokumencp-ke__'+no
+            var idFile = 'filecp-ke__'+no
+            var idUpload = 'uploadcp-ke__'+no
+            var html = "";
+            html += `
+                <tr class='row-grid'>
+                    <td class='no-grid text-center'>${no}</td>
+                    <td id='${idDokumen}'>
+                        <span id='text-${idDokumen}' class='tooltip-span'></span>
+                        <input autocomplete='off' id='value-${idDokumen}' type='text' name='nama_file[]' class='form-control hidden' value=''>
+                    </td>
+                    <td id='${idFile}' class='readonly'>
+                        <span id='text-${idFile}' class='tooltip-span'>-</span>
+                        <input autocomplete='off' id='value-${idFile}' type='text' name='nama_dok[]' class='form-control hidden' value='-' readonly>
+                    </td>
+                    <td id='${idUpload}'>
+                        <input id='value-${idUpload}' type='file' name='file_dok[]'>
+                    </td>
+                    <td class='text-center'>
+                        <a class='hapus-item' style='font-size:12px;cursor:pointer;'><i class='simple-icon-trash'></i></a>
+                    </td>
+                </tr>
+            `;
+            $('#input-dokumen-compare tbody').append(html)
+            $('#input-dokumen-compare tbody tr').not(':last').removeClass('selected-row');
+            $('.row-grid:last').addClass('selected-row');
+            
+            $('.tooltip-span').tooltip({
+                title: function(){
+                    return $(this).text();
+                }
+            });
+            hitungTotalRowDokumenCompare()
+        }
+
+        $('#input-dokumen-compare tbody').on('click', '.hapus-item', function() {
+            $(this).closest('tr').remove();
+            no=1;
+            $('#input-dokumen-compare tbody').children('.row-grid').each(function(){
+                var nom = $(this).closest('tr').find('.no-grid');
+                nom.html(no);
+                no++;
+            });
+            hitungTotalRowDokumenCompare();
+            $("html, body").animate({ scrollTop: $(document).height() }, 1000);
+        });
+
+        $('#add-dokumen-compare').click(function() {
+            var row = $('#input-dokumen-compare tbody > tr').length
+            if(row > 0) {
+                var empty = false;
+                var kolom = null;
+                var baris = null;
+                var error = '';
+                $('#input-dokumen-compare tbody tr').each(function() {
+                    baris = $(this).index() + 1
+                    $(this).find('td').not(':first, :last, :eq(3)').each(function() {
+                        console.log($(this))
+                        if($(this).text().trim() === '') {
+                            empty = true;
+                            kolom = $('#input-dokumen-compare thead > tr th').eq($(this).index()).text()
+                            error = `Data pada kolom ${kolom} di baris nomor ${baris} tidak boleh kosong`
+                            return false;
+                        }
+                    })
+                })
+                if(empty) {
+                    alert(error)
+                } else {
+                    addRowDokumenCompare()
+                }
+            } else {
+                addRowDokumenCompare()
+            }
+        })
+
+        $('#input-dokumen-compare tbody').on('click', 'td', function(event) {
+            event.stopPropagation();
+             var tr = $(this).parent()
+            var tbody = $(tr).parent()
+            $(tr).addClass('selected-row')
+            $(this).addClass('selected-cell');
+            tr.children().not(this).removeClass('selected-cell');
+            tbody.children().not($(tr)).removeClass('selected-row')
+            hideUnselectedCell(tr);
+            hideUnselectedRow(tbody)
+        });
+            //END GRID DOKUMEN COMPARE
 
         $('.input-grid tbody').on('click', '.search-item', function() {
             var id = $(this).parent('td').attr('id')
@@ -1215,54 +1410,78 @@
                 for(var pair of formData.entries()) {
                     console.log(pair[0]+ ', '+ pair[1]); 
                 }
-                
-                $.ajax({
-                    type: 'POST', 
-                    url: url,
-                    dataType: 'json',
-                    data: formData,
-                    async:false,
-                    contentType: false,
-                    cache: false,
-                    processData: false, 
-                    success:function(result){
-                        if(result.data.status){
-                            var kode = result.data.no_aju;
-                            $('#input-grid-barang tbody').empty();
-                            $('#input-grid-dokumen tbody').empty();
-                            $('#input-grid-catatan tbody').empty();
-                            dataTable.ajax.reload();
-                            $('#judul-form').html('Tambah Data Pengajuan');
-                            $('#kode').attr('readonly', false);
-                            addRowDefault();
-                            resetForm();
-                            printPreview(kode, 'form');
-                            last_add("no_bukti", kode);
-                        }else if(!result.data.status && result.data.message === "Unauthorized"){
-                            window.location.href = "{{ url('/silo-auth/sesi-habis') }}";
-                        }else{
-                            if(result.data.kode == "-" && result.data.jenis != undefined){
-                                msgDialog({
-                                    id: id,
-                                    type: result.data.jenis,
-                                    text:'NIK sudah digunakan'
-                                });
-                            }else{
 
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Oops...',
-                                    text: 'Something went wrong!',
-                                    footer: '<a href>'+result.data.message+'</a>'
-                                })
+                var dokumenPO = $('#input-dokumen-po tbody').children('tr');
+                var dokumenCP = $('#input-dokumen-compare tbody').children('tr');
+                
+                if(dokumenPO.length === 0) {
+                    valid = false
+                    alert('Harap upload dokumen PO minimal 1 dokumen')
+                } else {
+                    
+                }
+
+                if(dokumenCP.length === 0) {
+                    valid = false
+                    alert('Harap upload dokumen pembanding minimal 3 dokumen')
+                } else {
+
+                }
+
+                if(valid) {
+                    $.ajax({
+                        type: 'POST', 
+                        url: url,
+                        dataType: 'json',
+                        data: formData,
+                        async:false,
+                        contentType: false,
+                        cache: false,
+                        processData: false, 
+                        success:function(result){
+                            if(result.data.status){
+                                var kode = result.data.no_aju;
+                                $('#input-grid-barang tbody').empty();
+                                $('#input-grid-dokumen-po tbody').empty();
+                                $('#input-grid-dokumen-compare tbody').empty();
+                                $('#input-grid-catatan tbody').empty();
+                                dataTable.ajax.reload();
+                                $('#judul-form').html('Tambah Data Pengajuan');
+                                $('#kode').attr('readonly', false);
+                                addRowBarangDefault();
+                                addRowDokumenCompareDefault()
+                                for(var i=0;i<3;i++) {
+                                    addRowDokumenPODefault()
+                                }
+                                resetForm();
+                                printPreview(kode, 'form');
+                                last_add("no_bukti", kode);
+                            }else if(!result.data.status && result.data.message === "Unauthorized"){
+                                window.location.href = "{{ url('/silo-auth/sesi-habis') }}";
+                            }else{
+                                if(result.data.kode == "-" && result.data.jenis != undefined){
+                                    msgDialog({
+                                        id: id,
+                                        type: result.data.jenis,
+                                        text:'NIK sudah digunakan'
+                                    });
+                                }else{
+
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Oops...',
+                                        text: 'Something went wrong!',
+                                        footer: '<a href>'+result.data.message+'</a>'
+                                    })
+                                }
                             }
+                        },
+                        fail: function(xhr, textStatus, errorThrown){
+                            alert('request failed:'+textStatus);
                         }
-                    },
-                    fail: function(xhr, textStatus, errorThrown){
-                        alert('request failed:'+textStatus);
-                    }
-                });
-                $('#btn-simpan').html("Simpan").removeAttr('disabled');
+                    });
+                    $('#btn-simpan').html("Simpan").removeAttr('disabled');
+                }
             },
             errorPlacement: function (error, element) {
                 var id = element.attr("id");
@@ -1276,7 +1495,8 @@
         function editData(id) {
             $('#form-tambah').validate().resetForm();
             $('#input-barang tbody').empty();
-            $('#input-dokumen tbody').empty();
+            $('#input-dokumen-po tbody').empty();
+            $('#input-dokumen-compare tbody').empty();
             $('#input-approve tbody').empty();
             $('#btn-save').attr('type','button');
             $('#btn-save').attr('id','btn-update');
