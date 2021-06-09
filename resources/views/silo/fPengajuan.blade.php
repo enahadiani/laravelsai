@@ -1621,7 +1621,7 @@
                         $('#id').val(id);
                         $('#tanggal').val(result.data[0].tanggal);
                         $('#waktu').val(result.data[0].waktu);
-                        $('#no_dokumen').val(result.data[0].no_dokumen);
+                        $('#dokumen').val(result.data[0].no_dokumen);
                         $('#kegiatan').val(result.data[0].kegiatan);
                         $('#dasar').val(result.data[0].dasar);
                         $('#pic').val(result.data[0].pemakai);
