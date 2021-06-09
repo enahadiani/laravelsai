@@ -365,7 +365,8 @@
         $('#saku-datatable').on('click', '#btn-tambah', function(){
             var regional = "{{ Session::get('kodePP') }}";
             $('#input-barang tbody').empty();
-            $('#input-dokumen tbody').empty();
+            $('#input-dokumen-po tbody').empty();
+            $('#input-dokumen-compare tbody').empty();
             $('#input-approve tbody').empty();
             $('#judul-form').html('Tambah Data Pengajuan');
             $('#kode').attr('readonly', false);
@@ -1401,6 +1402,7 @@
                     valid = false
                 } else {
                     valid = true
+                    checkTableDokumenPO()
                 }
             }
         }
@@ -1433,6 +1435,7 @@
                     valid = false
                 } else {
                     valid = true
+                    checkTableDokumenCompare()
                 }
             }
         }
@@ -1525,10 +1528,8 @@
                 for(var pair of formData.entries()) {
                     console.log(pair[0]+ ', '+ pair[1]); 
                 }
-
+                
                 checkTableBarang()
-                checkTableDokumenPO()
-                checkTableDokumenCompare()
 
                 if(valid) {
                     $.ajax({
@@ -1543,10 +1544,10 @@
                         success:function(result){
                             if(result.data.status){
                                 var kode = result.data.no_aju;
-                                $('#input-grid-barang tbody').empty();
-                                $('#input-grid-dokumen-po tbody').empty();
-                                $('#input-grid-dokumen-compare tbody').empty();
-                                $('#input-grid-catatan tbody').empty();
+                                $('#input-barang tbody').empty();
+                                $('#input-dokumen-po tbody').empty();
+                                $('#input-dokumen-compare tbody').empty();
+                                $('#input-approve tbody').empty();
                                 dataTable.ajax.reload();
                                 $('#judul-form').html('Tambah Data Pengajuan');
                                 $('#kode').attr('readonly', false);
