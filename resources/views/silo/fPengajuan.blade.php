@@ -1515,7 +1515,7 @@
             submitHandler: function (form, event) {
                 event.preventDefault()
                 var parameter = $('#id_edit').val();
-                var id = $('#kode').val();
+                var id = $('#id').val();
                 if(parameter == "edit"){
                     var url = "{{ url('apv/juskeb') }}/"+id;
                     var pesan = "updated";
