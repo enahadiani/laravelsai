@@ -25,13 +25,13 @@
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12">
                                         <label for="tanggal">Tanggal Pengajuan</label>
-                                        <input class='form-control datepicker' type="text" id="tanggal" name="tanggal" autocomplete="off" value="{{ date('d/m/Y') }}">
-                                        <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;" class="simple-icon-calendar date-search"></i>
+                                        <input class='form-control' type="date" id="tanggal" name="tanggal" autocomplete="off" value="{{ date('Y-m-d') }}">
+                                        {{-- <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;" class="simple-icon-calendar date-search"></i> --}}
                                     </div>
                                     <div class="col-md-6 col-sm-12">
                                         <label for="waktu">Tanggal Kebutuhan</label>
-                                        <input class='form-control datepicker' type="text" id="waktu" name="waktu" autocomplete="off" value="{{ date('d/m/Y') }}">
-                                        <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;" class="simple-icon-calendar date-search"></i>
+                                        <input class='form-control' type="date" id="waktu" name="waktu" autocomplete="off" value="{{ date('Y-m-d') }}">
+                                        {{-- <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;" class="simple-icon-calendar date-search"></i> --}}
                                     </div>
                                 </div>
                             </div>
@@ -397,18 +397,20 @@
         var $dtKlpBarang = [];
         var valid = true;
 
-        $('input.datepicker').click(function() {
-            $('div.datepicker').css({ 'top': '230px' })
-        })
+        // $('input.datepicker').click(function() {
+        //     $('div.datepicker').css({ 'top': '230px' })
+        // })
 
-        $("input.datepicker").bootstrapDP({
-            autoclose: true,
-            format: "dd/mm/yyyy",
-            templates: {
-                leftArrow: '<i class="simple-icon-arrow-left"></i>',
-                rightArrow: '<i class="simple-icon-arrow-right"></i>',
-            },
-        });
+        // $("input.datepicker").bootstrapDP({
+        //     autoclose: true,
+        //     format: "dd/mm/yyyy",
+        //     templates: {
+        //         leftArrow: '<i class="simple-icon-arrow-left"></i>',
+        //         rightArrow: '<i class="simple-icon-arrow-right"></i>',
+        //     },
+        // }).on('changeDate', function(event) {
+        //     console.log(event)
+        // });
 
         (function() {
             $.ajax({
@@ -1532,57 +1534,57 @@
                 checkTableBarang()
 
                 if(valid) {
-                    $.ajax({
-                        type: 'POST', 
-                        url: url,
-                        dataType: 'json',
-                        data: formData,
-                        async:false,
-                        contentType: false,
-                        cache: false,
-                        processData: false, 
-                        success:function(result){
-                            if(result.data.status){
-                                var kode = result.data.no_aju;
-                                $('#input-barang tbody').empty();
-                                $('#input-dokumen-po tbody').empty();
-                                $('#input-dokumen-compare tbody').empty();
-                                $('#input-approve tbody').empty();
-                                dataTable.ajax.reload();
-                                $('#judul-form').html('Tambah Data Pengajuan');
-                                $('#kode').attr('readonly', false);
-                                addRowBarangDefault();
-                                addRowDokumenPODefault()
-                                for(var i=0;i<3;i++) {                
-                                    addRowDokumenCompareDefault()
-                                }
-                                resetForm();
-                                printPreview(kode, 'form');
-                                last_add("no_bukti", kode);
-                            }else if(!result.data.status && result.data.message === "Unauthorized"){
-                                window.location.href = "{{ url('/silo-auth/sesi-habis') }}";
-                            }else{
-                                if(result.data.kode == "-" && result.data.jenis != undefined){
-                                    msgDialog({
-                                        id: id,
-                                        type: result.data.jenis,
-                                        text:'NIK sudah digunakan'
-                                    });
-                                }else{
+                    // $.ajax({
+                    //     type: 'POST', 
+                    //     url: url,
+                    //     dataType: 'json',
+                    //     data: formData,
+                    //     async:false,
+                    //     contentType: false,
+                    //     cache: false,
+                    //     processData: false, 
+                    //     success:function(result){
+                    //         if(result.data.status){
+                    //             var kode = result.data.no_aju;
+                    //             $('#input-barang tbody').empty();
+                    //             $('#input-dokumen-po tbody').empty();
+                    //             $('#input-dokumen-compare tbody').empty();
+                    //             $('#input-approve tbody').empty();
+                    //             dataTable.ajax.reload();
+                    //             $('#judul-form').html('Tambah Data Pengajuan');
+                    //             $('#kode').attr('readonly', false);
+                    //             addRowBarangDefault();
+                    //             addRowDokumenPODefault()
+                    //             for(var i=0;i<3;i++) {                
+                    //                 addRowDokumenCompareDefault()
+                    //             }
+                    //             resetForm();
+                    //             printPreview(kode, 'form');
+                    //             last_add("no_bukti", kode);
+                    //         }else if(!result.data.status && result.data.message === "Unauthorized"){
+                    //             window.location.href = "{{ url('/silo-auth/sesi-habis') }}";
+                    //         }else{
+                    //             if(result.data.kode == "-" && result.data.jenis != undefined){
+                    //                 msgDialog({
+                    //                     id: id,
+                    //                     type: result.data.jenis,
+                    //                     text:'NIK sudah digunakan'
+                    //                 });
+                    //             }else{
 
-                                    Swal.fire({
-                                        icon: 'error',
-                                        title: 'Oops...',
-                                        text: 'Something went wrong!',
-                                        footer: '<a href>'+result.data.message+'</a>'
-                                    })
-                                }
-                            }
-                        },
-                        fail: function(xhr, textStatus, errorThrown){
-                            alert('request failed:'+textStatus);
-                        }
-                    });
+                    //                 Swal.fire({
+                    //                     icon: 'error',
+                    //                     title: 'Oops...',
+                    //                     text: 'Something went wrong!',
+                    //                     footer: '<a href>'+result.data.message+'</a>'
+                    //                 })
+                    //             }
+                    //         }
+                    //     },
+                    //     fail: function(xhr, textStatus, errorThrown){
+                    //         alert('request failed:'+textStatus);
+                    //     }
+                    // });
                     $('#btn-simpan').html("Simpan").removeAttr('disabled');
                 }
             },
@@ -1617,8 +1619,8 @@
                         $('#kode').attr('readonly', true);
                         $('#kode').val(id);
                         $('#id').val(id);
-                        $('#tanggal').val(reverseDateNew(result.data[0].tanggal,'-','/'));
-                        $('#waktu').val(reverseDateNew(result.data[0].waktu,'-','/'));
+                        $('#tanggal').val(result.data[0].tanggal);
+                        $('#waktu').val(result.data[0].waktu);
                         $('#no_dokumen').val(result.data[0].no_dokumen);
                         $('#kegiatan').val(result.data[0].kegiatan);
                         $('#dasar').val(result.data[0].dasar);
