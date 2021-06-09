@@ -1534,57 +1534,57 @@
                 checkTableBarang()
 
                 if(valid) {
-                    // $.ajax({
-                    //     type: 'POST', 
-                    //     url: url,
-                    //     dataType: 'json',
-                    //     data: formData,
-                    //     async:false,
-                    //     contentType: false,
-                    //     cache: false,
-                    //     processData: false, 
-                    //     success:function(result){
-                    //         if(result.data.status){
-                    //             var kode = result.data.no_aju;
-                    //             $('#input-barang tbody').empty();
-                    //             $('#input-dokumen-po tbody').empty();
-                    //             $('#input-dokumen-compare tbody').empty();
-                    //             $('#input-approve tbody').empty();
-                    //             dataTable.ajax.reload();
-                    //             $('#judul-form').html('Tambah Data Pengajuan');
-                    //             $('#kode').attr('readonly', false);
-                    //             addRowBarangDefault();
-                    //             addRowDokumenPODefault()
-                    //             for(var i=0;i<3;i++) {                
-                    //                 addRowDokumenCompareDefault()
-                    //             }
-                    //             resetForm();
-                    //             printPreview(kode, 'form');
-                    //             last_add("no_bukti", kode);
-                    //         }else if(!result.data.status && result.data.message === "Unauthorized"){
-                    //             window.location.href = "{{ url('/silo-auth/sesi-habis') }}";
-                    //         }else{
-                    //             if(result.data.kode == "-" && result.data.jenis != undefined){
-                    //                 msgDialog({
-                    //                     id: id,
-                    //                     type: result.data.jenis,
-                    //                     text:'NIK sudah digunakan'
-                    //                 });
-                    //             }else{
+                    $.ajax({
+                        type: 'POST', 
+                        url: url,
+                        dataType: 'json',
+                        data: formData,
+                        async:false,
+                        contentType: false,
+                        cache: false,
+                        processData: false, 
+                        success:function(result){
+                            if(result.data.status){
+                                var kode = result.data.no_aju;
+                                $('#input-barang tbody').empty();
+                                $('#input-dokumen-po tbody').empty();
+                                $('#input-dokumen-compare tbody').empty();
+                                $('#input-approve tbody').empty();
+                                dataTable.ajax.reload();
+                                $('#judul-form').html('Tambah Data Pengajuan');
+                                $('#kode').attr('readonly', false);
+                                addRowBarangDefault();
+                                addRowDokumenPODefault()
+                                for(var i=0;i<3;i++) {                
+                                    addRowDokumenCompareDefault()
+                                }
+                                resetForm();
+                                printPreview(kode, 'form');
+                                last_add("no_bukti", kode);
+                            }else if(!result.data.status && result.data.message === "Unauthorized"){
+                                window.location.href = "{{ url('/silo-auth/sesi-habis') }}";
+                            }else{
+                                if(result.data.kode == "-" && result.data.jenis != undefined){
+                                    msgDialog({
+                                        id: id,
+                                        type: result.data.jenis,
+                                        text:'NIK sudah digunakan'
+                                    });
+                                }else{
 
-                    //                 Swal.fire({
-                    //                     icon: 'error',
-                    //                     title: 'Oops...',
-                    //                     text: 'Something went wrong!',
-                    //                     footer: '<a href>'+result.data.message+'</a>'
-                    //                 })
-                    //             }
-                    //         }
-                    //     },
-                    //     fail: function(xhr, textStatus, errorThrown){
-                    //         alert('request failed:'+textStatus);
-                    //     }
-                    // });
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Oops...',
+                                        text: 'Something went wrong!',
+                                        footer: '<a href>'+result.data.message+'</a>'
+                                    })
+                                }
+                            }
+                        },
+                        fail: function(xhr, textStatus, errorThrown){
+                            alert('request failed:'+textStatus);
+                        }
+                    });
                     $('#btn-simpan').html("Simpan").removeAttr('disabled');
                 }
             },
