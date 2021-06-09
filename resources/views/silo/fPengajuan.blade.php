@@ -1561,6 +1561,11 @@
                                 resetForm();
                                 printPreview(kode, 'form');
                                 last_add("no_bukti", kode);
+                                Swal.fire(
+                                    'Great Job!',
+                                    'Your data has been '+pesan+' '+result.data.message,
+                                    'success'
+                                )
                             }else if(!result.data.status && result.data.message === "Unauthorized"){
                                 window.location.href = "{{ url('/silo-auth/sesi-habis') }}";
                             }else{
