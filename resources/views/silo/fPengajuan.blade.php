@@ -1615,7 +1615,7 @@
                     var result= res.data
                     if(result.status){
                         $('#id_edit').val('edit');
-                        $('#method').val('put');
+                        $('#method').val('post');
                         $('#kode').attr('readonly', true);
                         $('#kode').val(id);
                         $('#id').val(id);
