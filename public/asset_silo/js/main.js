@@ -242,11 +242,10 @@ function last_add(table, param, isi) {
 }
 
 function showInfoField(kode, isi_kode, isi_nama) {
-    $("#" + kode).css("color", "transparent");
     $("#" + kode).val(isi_kode);
     $("#" + kode).attr(
         "style",
-        "border-left:0;border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important"
+        "border-left:0;border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important;color: #ffffff !important;"
     );
     $(".info-code_" + kode)
         .text(isi_kode)
