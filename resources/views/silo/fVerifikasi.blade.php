@@ -26,7 +26,7 @@
                             <div class="form-group col-md-6 col-sm-12">
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12">
-                                        <label for="tanggal">Tanggal Pengajuan</label>
+                                        <label for="tanggal">Tanggal Verifikasi</label>
                                         <input class='form-control' type="date" id="tanggal" name="tanggal" autocomplete="off" value="{{ date('Y-m-d') }}">
                                     </div>
                                     <div class="col-md-6 col-sm-12">
@@ -224,6 +224,23 @@
         </div>
     </form>
     <!-- END FORM -->
+
+    {{-- PRINT PREVIEW --}}
+    <div id="saku-print" class="row" style="display: none;">
+        <div class="col-12">
+            <div class="card" style="height: 100%;">
+                <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;min-height:62.8px">
+                    <button type="button" class="btn btn-secondary ml-2" id="btn-back" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
+                    <button type="button" class="btn btn-info ml-2" id="btn-cetak" style="float:right;"><i class="fa fa-print"></i> Print</button>
+                </div>
+                <div class="separator mb-2"></div>
+                <div class="card-body" id="print-content">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- END PRINT PREVIEW --}}
 
     <!-- MODAL FILTER -->
     <div class="modal fade modal-right" id="modalFilter" tabindex="-1" role="dialog"
@@ -1147,7 +1164,7 @@
                         processData: false, 
                         success:function(result){
                             if(result.data.status){
-                                var kode = result.data.no_aju;
+                                var kode = result.data.no_bukti;
                                 $('#input-barang tbody').empty();
                                 $('#input-dokumen-po tbody').empty();
                                 $('#input-dokumen-compare tbody').empty();
@@ -1159,8 +1176,7 @@
                                     'Your data has been '+pesan+' '+result.data.message,
                                     'success'
                                 )
-                                $('#saku-form').hide()
-                                $('#saku-datatable').show()
+                                printPreview(kode)
                             }else if(!result.data.status && result.data.message === "Unauthorized"){
                                 window.location.href = "{{ url('/silo-auth/sesi-habis') }}";
                             }else{
@@ -1418,4 +1434,99 @@
             editData(id)
         });
         // END EDIT DATA
+        // PRINT PREVIEW
+        function printPreview(id) {
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('apv/verifikasi_preview') }}/" + id,
+                dataType: 'json',
+                async:false,
+                success:function(res) {
+                    var result = res.data
+                    if(typeof result.data !== 'undefined' && result.data.length > 0) {
+                        var html = "";
+                        var no = 1;
+                        var total = 0
+                        var data = result.data[0]
+                        html += `
+                            <div class='row'>
+                                <div class='col-12 text-center' style='margin-bottom:20px;'>
+                                    <h3>TANDA TERIMA</h3>
+                                </div>    
+                                <div class='col-12'>
+                                    <table class='table table-borderless table-condensed'>
+                                        <tbody>
+                                            <tr>
+                                                <td style='width: 25%;'>No Bukti</td>
+                                                <td style='width: 75%;'>: ${data.no_bukti}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>No Justifikasi Kebutuhan</td>
+                                                <td>: ${data.no_juskeb}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Tanggal</td>
+                                                <td>: ${data.tanggal}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>PP</td>
+                                                <td>: ${data.kode_pp} - ${data.nama_pp}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Keterangan</td>
+                                                <td>: ${data.kegiatan}</td>
+                                            </tr>
+                                            <tr style='line-height: 40px;'>
+                                                <td>Nilai</td>
+                                                <td>: Rp. ${format_number(data.nilai)}</td>
+                                            </tr>    
+                                            <tr>
+                                                <td colspan='2'>Bandung, ${data.tgl.substr(0, 2)} ${getNamaBulan(data.tgl.substr(3, 2))} ${data.tgl.substr(6, 4)}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Dibuat Oleh:</td>
+                                                <td>&nbsp;&nbsp;</td>    
+                                            </tr>
+                                            <tr style='line-height: 80px;'>
+                                                <td>Yang Menerima</td>
+                                                <td class='text-center'>Yang Menyetujui</td>    
+                                            </tr>
+                                            <tr>
+                                                <td>&nbsp;&nbsp;</td>
+                                                <td class='text-center'>${data.nik_user}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>    
+                                </div>
+                            </div>
+                        `;
+                        
+                        $('#print-content').html(html)
+                        $('#saku-form').hide()
+                        $('#saku-datatable').hide()
+                        $('#saku-print').show()
+                    }
+                }
+            });
+        }
+
+        $('#saku-datatable').on('click','#btn-print',function(e) {
+            var id = $(this).closest('tr').find('td').eq(0).html();
+            printPreview(id, 'table');
+        });
+
+        $('#saku-print #btn-back').click(function() {
+            $('#saku-print').hide()
+            $('#saku-datatable').show()
+            $('#saku-form').hide()
+        });
+
+        $('#saku-print #btn-cetak').click(function() {
+            $('#print-content').printThis({
+                importCSS: true,            // import parent page css
+                importStyle: true,         // import style tags
+                printContainer: true,       // print outer container/$.selector
+            });
+        });
+        // END PRINT PREVIEW
     </script>
