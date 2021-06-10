@@ -2,7 +2,7 @@
     <link rel="stylesheet" href="{{ asset('trans-esaku/form.css') }}" />
     <link rel="stylesheet" href="{{ asset('asset_silo/css/trans.css') }}" />
     <!-- LIST DATA -->
-    <x-list-data judul="Data Pengajuan" tambah="true" :thead="array('No Bukti', 'No Dokumen', 'Regional', 'Nilai Pengadaan', 'Nilai Finish', 'Aksi', 'Waktu', 'Kegiatan', 'Posisi')" :thwidth="array(15,25,20,10,10,25,5,5,5)" :thclass="array('','','','','','text-center','','','')" />
+    <x-list-data judul="Data Justifikasi Pengajuan" tambah="true" :thead="array('No Bukti', 'No Dokumen', 'Regional', 'Nilai Pengadaan', 'Nilai Finish', 'Aksi', 'Waktu', 'Kegiatan', 'Posisi')" :thwidth="array(15,25,20,10,10,25,5,5,5)" :thclass="array('','','','','','text-center','','','')" />
     <!-- END LIST DATA -->
     <!-- FORM  -->
     <form id="form-tambah" class="tooltip-label-right" novalidate>
