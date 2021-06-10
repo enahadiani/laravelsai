@@ -375,7 +375,7 @@
             $('#input-dokumen-po tbody').empty();
             $('#input-dokumen-compare tbody').empty();
             $('#input-approve tbody').empty();
-            $('#judul-form').html('Tambah Data Pengajuan');
+            $('#judul-form').html('Tambah Data Justifikasi Pengajuan');
             $('#kode').attr('readonly', false);
             addRowBarangDefault();
             addRowDokumenPODefault()
@@ -1567,7 +1567,7 @@
                                 $('#input-dokumen-compare tbody').empty();
                                 $('#input-approve tbody').empty();
                                 dataTable.ajax.reload();
-                                $('#judul-form').html('Tambah Data Pengajuan');
+                                $('#judul-form').html('Tambah Data Justifikasi Pengajuan');
                                 $('#kode').attr('readonly', false);
                                 addRowBarangDefault();
                                 addRowDokumenPODefault()
@@ -1833,7 +1833,7 @@
                 success:function(result){
                     if(result.data.status){
                         dataTable.ajax.reload();                    
-                        showNotification("top", "center", "success",'Hapus Data','Data Pengajuan ('+id+') berhasil dihapus ');
+                        showNotification("top", "center", "success",'Hapus Data','Data Justifikasi Pengajuan ('+id+') berhasil dihapus ');
                         $('#modal-pesan-id').html('');
                         $('#table-delete tbody').html('');
                         $('#modal-pesan').modal('hide');
