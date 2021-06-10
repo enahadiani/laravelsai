@@ -361,6 +361,19 @@
             }
         });
 
+        $('.main-menu').on('click','.a_link',function(e){
+            e.preventDefault();
+            var form = $(this).data('href');
+            var url = "{{ url('silo-auth/form')}}/"+form;
+            if(form == "" || form == "-"){
+                // alert('Form dilock!');
+                return false;
+            }else{
+                loadForm(url);
+                
+            }
+        });
+
         $('#notificationButton').hover(function() {
             if($('#btn-admin').attr("aria-expanded") == "true"){
                 $('#btn-admin').dropdown('toggle');
