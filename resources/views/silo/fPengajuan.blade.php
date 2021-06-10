@@ -76,7 +76,7 @@
                                         <input class="form-control" type="text" placeholder="No Dokumen" id="dokumen" name="no_dokumen" value="-" readonly autocomplete="off" required >
                                     </div>
                                     <div class="col-md-6 col-sm-12">
-                                        <label for="nama">Justifikasi Kebutuhan</label>
+                                        <label for="kegiatan">Justifikasi Kebutuhan</label>
                                         <input class="form-control" type="text" placeholder="Justifikasi Kebutahan" id="kegiatan" name="kegiatan" autocomplete="off" required >
                                     </div>
                                 </div>
