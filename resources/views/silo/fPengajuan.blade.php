@@ -340,7 +340,7 @@
                 { data: 'nilai' },
                 { data: 'nilai_finish' },
                 { data: 'progress', render: function(data) {
-                    if(data !== 'A') {
+                    if(data !== 'A' || data !== 'F') {
                         return actionHtmlNoED
                     } else {
                         return actionHtmlWithED
