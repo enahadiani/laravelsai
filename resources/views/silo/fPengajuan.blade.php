@@ -1397,6 +1397,9 @@
                             return false;
                         }
                     })
+                    if(empty) {
+                        return false
+                    }
                 })
 
                 if(empty) {
@@ -1430,6 +1433,9 @@
                             return false;
                         } 
                     })
+                    if(empty) {
+                        return false
+                    }
                 })
 
                 if(empty) {
@@ -1463,6 +1469,9 @@
                             return false;
                         } 
                     })
+                    if(empty) {
+                        return false
+                    }
                 })
 
                 if(empty) {
