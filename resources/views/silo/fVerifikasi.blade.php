@@ -1193,7 +1193,7 @@
             $('#input-dokumen-po tbody').empty();
             $('#input-dokumen-compare tbody').empty();
             $('#input-approve tbody').empty();
-            $('#judul-form').html('Verikasi Pengajuan');
+            $('#judul-form').html('Verikasi Justifikasi Kebutuhan');
             $.ajax({
                 type: 'GET',
                 url: "{{ url('apv/verifikasi') }}/" + id,
