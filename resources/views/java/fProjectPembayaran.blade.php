@@ -709,6 +709,10 @@
         }
     });
 
+    $('#input-grid tbody').on('blur', '.inp-nilai_bayar', function() {
+        hitungTotal()
+    })
+
     $('#input-grid tbody').on('click', 'tr', function(){
         $(this).addClass('selected-row');
         $('#input-grid tbody tr').not(this).removeClass('selected-row');
@@ -976,7 +980,7 @@
     });
 
     var $twicePress = 0;
-    $('#input-grid').on('keydown','.inp-tagihan, .inp-dokumen',function(e){
+    $('#input-grid').on('keydown','.inp-tagihan, .inp-dokumen, .inp-nilai_bayar',function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
         var nxt = ['.inp-tagihan', '.inp-dokumen'];
         var nxt2 = ['.td-tagihan', '.td-dokumen'];
