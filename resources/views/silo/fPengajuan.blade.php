@@ -307,7 +307,8 @@
         new PerfectScrollbar(scrollform);
         // END SET UP VIEW
         // LIST DATA
-        var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Print'  id='btn-print'><i class='simple-icon-printer' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='History'  id='btn-history'><i class='simple-icon-reload' style='font-size:18px'></i></a>";
+        var actionHtmlWithED = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Print'  id='btn-print'><i class='simple-icon-printer' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='History'  id='btn-history'><i class='simple-icon-reload' style='font-size:18px'></i></a>";
+        var actionHtmlNoED = "<a href='#' title='Print'  id='btn-print'><i class='simple-icon-printer' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='History'  id='btn-history'><i class='simple-icon-reload' style='font-size:18px'></i></a>";
         var dataTable = generateTable(
             "table-data",
             "{{ url('apv/juskeb') }}", 
@@ -330,7 +331,7 @@
                     "targets": [6,7,8],
                     "visible": false
                 },
-                {'targets': 5, data: null, 'defaultContent': action_html,'className': 'text-center' }
+                {'targets': 5 ,'className': 'text-center' }
             ],
             [
                 { data: 'no_bukti' },
@@ -338,7 +339,13 @@
                 { data: 'nama_pp' },
                 { data: 'nilai' },
                 { data: 'nilai_finish' },
-                { data: null },
+                { data: 'progress', render: function(data) {
+                    if(data !== 'A') {
+                        return actionHtmlNoED
+                    } else {
+                        return actionHtmlWithED
+                    }
+                } },
                 { data: 'waktu' },
                 { data: 'kegiatan' },
                 { data: 'posisi' },
