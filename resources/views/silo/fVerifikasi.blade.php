@@ -1415,6 +1415,13 @@
                                 `;
                                 no++;
                             }
+                            $('#input-approve tbody').append(html)
+                            $('.tooltip-span').tooltip({
+                                title: function(){
+                                    return $(this).text();
+                                }
+                            });
+                            hitungTotalRowApprove()
                         }
 
                         $('#saku-datatable').hide();
