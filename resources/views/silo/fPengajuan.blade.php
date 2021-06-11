@@ -1626,7 +1626,7 @@
             $('#input-approve tbody').empty();
             $('#btn-save').attr('type','button');
             $('#btn-save').attr('id','btn-update');
-            $('#judul-form').html('Edit Data Pengajuan');
+            $('#judul-form').html('Edit Data Justifikasi Pengajuan');
             $.ajax({
                 type: 'GET',
                 url: "{{ url('apv/juskeb') }}/" + id,
