@@ -340,11 +340,12 @@
                 { data: 'nilai' },
                 { data: 'nilai_finish' },
                 { data: 'progress', render: function(data) {
-                    if(data !== 'A' || data !== 'F') {
-                        return actionHtmlNoED
-                    } else {
+                    if(data == 'A') {
+                        return actionHtmlWithED
+                    } else if(data == 'F') {
                         return actionHtmlWithED
                     }
+                    return actionHtmlNoED
                 } },
                 { data: 'waktu' },
                 { data: 'kegiatan' },

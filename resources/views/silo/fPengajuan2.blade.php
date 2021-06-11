@@ -296,11 +296,12 @@
                 { data: 'posisi' },
                 { data: 'nilai' },
                 { data: 'progress', render: function(data) {
-                    if(data != 'A' || data != 'F') {
-                        return actionHtmlNoED
-                    } else if(data == 'A' || data == 'F') {
+                    if(data == 'A') {
+                        return actionHtmlWithED
+                    } else if(data == 'F') {
                         return actionHtmlWithED
                     }
+                    return actionHtmlNoED
                 } },
             ],
             "{{ url('silo-auth/sesi-habis') }}",
