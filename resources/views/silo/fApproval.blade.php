@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="{{ asset('asset_silo/css/trans.css') }}" />
 
 <!-- LIST DATA -->
-<x-list-data judul="Data Approval" tambah="" :thead="array('No Bukti', 'No Dokumen', 'Regional', 'Waktu', 'Kegiatan', 'Dasar', 'Nilai', 'Aksi')" :thwidth="array(15,25,20,10,30,25,15,10)" :thclass="array('','','','','','','','text-center')" />
+<x-list-data judul="Data Approval Justifikasi Kebutuhan" tambah="" :thead="array('No Bukti', 'No Dokumen', 'Regional', 'Waktu', 'Kegiatan', 'Dasar', 'Nilai', 'Aksi')" :thwidth="array(15,25,20,10,30,25,15,10)" :thclass="array('','','','','','','','text-center')" />
 <!-- END LIST DATA -->
 
 <!-- FORM  -->
