@@ -41,11 +41,11 @@ Route::get('juspo_aju','Apv\JuspoController@getPengajuan');
 Route::get('juspo/{no_bukti}','Apv\JuspoController@show');
 Route::get('juspo_aju/{no_bukti}','Apv\JuspoController@getDetailJuskeb');
 Route::post('juspo','Apv\JuspoController@store');
-Route::post('juspo/{no_bukti}','Apv\JuspoController@update');
+Route::post('juspo/{no_bukti}','Silo\JuspoController@update');
 Route::delete('juspo/{no_bukti}','Apv\JuspoController@destroy');
 Route::get('juspo_history/{no_bukti}','Apv\JuspoController@getHistory');
 Route::get('juspo_preview/{no_bukti}/{no_juskeb}','Apv\JuspoController@getPreview');
-Route::get('generate-dok-juspo','Apv\JuspoController@generateDok');
+Route::get('generate-dok-juspo','Silo\JuspoController@generateDok');
 
 Route::get('juspo_app','Apv\JuspoApprovalController@index');
 Route::get('juspo_app_aju','Apv\JuspoApprovalController@getPengajuan');

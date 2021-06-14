@@ -271,7 +271,7 @@ class JuspoController extends Controller
             $fields = [
                 [
                     'name' => 'tanggal',
-                    'contents' => $this->reverseDate($request->tanggal,"/","-"),
+                    'contents' => $request->tanggal,
                 ],
                 [
                     'name' => 'tgl_aju',
@@ -295,7 +295,7 @@ class JuspoController extends Controller
                 ],
                 [
                     'name' => 'waktu',
-                    'contents' => $this->reverseDate($request->waktu,"/","-"),
+                    'contents' => $request->waktu,
                 ],
                 [
                     'name' => 'kegiatan',
@@ -533,7 +533,7 @@ class JuspoController extends Controller
                     'Accept'     => 'application/json',
                 ],
                 'query' =>[
-                    'tanggal' => $this->reverseDate($request->tanggal,"/","-"),
+                    'tanggal' => $request->tanggal,
                     'kode_pp' => $request->kode_pp,
                     'kode_kota' => $request->kode_kota
                 ]
@@ -625,7 +625,7 @@ class JuspoController extends Controller
             $fields = [
                 [
                     'name' => 'tanggal',
-                    'contents' => $this->reverseDate($request->tanggal,"/","-"),
+                    'contents' => $request->tanggal,
                 ],
                 [
                     'name' => 'tgl_aju',
@@ -649,7 +649,7 @@ class JuspoController extends Controller
                 ],
                 [
                     'name' => 'waktu',
-                    'contents' => $this->reverseDate($request->waktu,"/","-"),
+                    'contents' => $request->waktu,
                 ],
                 [
                     'name' => 'kegiatan',
