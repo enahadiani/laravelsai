@@ -545,7 +545,7 @@
         $('#input-dokumen-po tbody').empty();
         $('#input-dokumen-compare tbody').empty();
         $('#input-approve tbody').empty();
-        $('#judul-form').html('Form Approval');
+        $('#judul-form').html('Form Approval Justifikasi Kebutuhan');
         $.ajax({ 
             type: 'GET',
             url: "{{ url('apv/juskeb_app') }}/" + id,
