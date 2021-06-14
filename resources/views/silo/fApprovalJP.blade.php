@@ -1228,7 +1228,7 @@
 
     $('#saku-datatable').on('click','#btn-print',function(e) {
         var id = $(this).closest('tr').find('td').eq(0).html();
-        printPreview(id, 'table');
+        printPreview(id, 'default');
     });
 
     $('#saku-print #btn-back').click(function() {

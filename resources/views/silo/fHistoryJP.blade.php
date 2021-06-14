@@ -1,313 +1,260 @@
-<style>
-.form-group{
-    margin-bottom:15px !important;
-}
-.hidden{
-    display:none;
-}
+<!-- LIST DATA -->
+<x-list-data judul="Data Histori Approval Pengajuan Justifikasi Pengadaan" tambah="" :thead="array('No Aju', 'No Urut', 'ID Approval', 'Keterangan', 'Tanggal', 'Aksi')" :thwidth="array(15,10,15,20,20,10)" :thclass="array('','','','','','text-center')" />
+<!-- END LIST DATA -->
 
-@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
-#print-area
-{
-    font-family: 'Roboto', sans-serif !important;
-}
-
-#print-area h3, #print-area h6
-{
-    font-family: 'Roboto', sans-serif !important;
-}
-
-.datepicker{
-    padding: inherit !important;
-}
-
-@media print{
-    #print-area
-    {
-        background: white;color: black !important;
-        padding:0 50px;
-    }
-}
-</style>
-    <div class="container-fluid mt-3">
-        <div class="row" id="saku-datatable">
-            <div class="col-12">
-                <div class="card" style="min-height:560px">
-                    <div class="card-body">
-                        <style>
-                        th,td{
-                            padding:8px !important;
-                            vertical-align:middle !important;
-                        }
-                        </style>
-                        <h4 class="card-title">Data Approval 
-                        </h4>
-                        <hr>
-                        <div class="table-responsive ">
-                            <table id="table-app" class="table table-bordered table-striped" style='width:100%'>
-                            <thead>
-                                <tr>
-                                <th>No Aju</th>
-                                <th>No Urut</th>
-                                <th>Id Approval</th>
-                                <th>Keterangan</th>
-                                <th>Tanggal</th>
-                                <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
+{{-- DETAIL TABLE --}}
+<div class="saku-detail" class="row" style="display: none;">
+    <div class="col-12">
+        <div class="card" style="height: 100%;">
+            <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;min-height:62.8px">
+                <button type="button" class="btn btn-secondary ml-2" id="btn-back-detail" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
+            </div>
+            <div class="separator mb-2"></div>
+            <div class="card-body" id="detail-content">
+                <table class='table table-bordered table-striped' style='width:100%' id="table-dokumen">
+                    <thead>
+                        <tr>
+                            <td style='width:10%;'>No</td>
+                            <td style='width:20%;'>No Bukti</td>
+                            <td style='width:50%;'>Nama</td>
+                            <td style='width:10%;'>Jenis</td>
+                            <td style='width:10%'>Action</td>
+                        </tr>
+                    </thead>
+                    <tbody>
                             
-                            </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
+                    </tbody>
+                </table>
             </div>
         </div>
-        <div class="row" id="slide-print" style="display:none;">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-body">
-                        <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
-                        <button type="button" class="btn btn-info ml-2" id="btn-aju-print" style="float:right;"><i class="fa fa-print"></i> Print</button>
-                        <div id="print-area" class="mt-5" width='100%' style='border:none;min-height:480px'>
-                        </div>
-                    </div>
-                </div>
+    </div>
+</div>
+{{-- END DETAIL TABLE --}}
+
+{{-- PRINT PREVIEW --}}
+<div id="saku-print" class="row" style="display: none;">
+    <div class="col-12">
+        <div class="card" style="height: 100%;">
+            <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;min-height:62.8px">
+                <button type="button" class="btn btn-secondary ml-2" id="btn-back" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
+                <button type="button" class="btn btn-info ml-2" id="btn-cetak" style="float:right;"><i class="fa fa-print"></i> Print</button>
+            </div>
+            <div class="separator mb-2"></div>
+            <div class="card-body" id="print-content">
+
             </div>
         </div>
-    </div>     
-    <script>
-    setHeightForm();
-    function sepNum(x){
-        var num = parseFloat(x).toFixed(0);
-        var parts = num.toString().split(".");
-        var len = num.toString().length;
-        // parts[1] = parts[1]/(Math.pow(10, len));
-        parts[0] = parts[0].replace(/(.)(?=(.{3})+$)/g,"$1.");
-        return parts.join(",");
-    }
+    </div>
+</div>
+{{-- END PRINT PREVIEW --}}
 
-    function toRp(num){
-        if(num < 0){
-            return "("+sepNum(num * -1)+")";
-        }else{
-            return sepNum(num);
-        }
-    }
+@include('modal_search')
+<script src="{{ asset('helper.js') }}"></script>
+<script type="text/javascript">
+    // SET UP VIEW
+    var scroll = document.querySelector('#content-preview');
+    new PerfectScrollbar(scroll);
+    // END SET UP VIEW
 
-    function toNilai(str_num){
-        var parts = str_num.split('.');
-        number = parts.join('');
-        number = number.replace('Rp', '');
-        // number = number.replace(',', '.');
-        return +number;
-    }
-
-    
-    var action_html = "<a href='#' title='Preview' class='badge badge-info' id='btn-print'><i class='fas fa-print'></i></a>";
-    
-    var dataTable2 = $('#table-app').DataTable({
-        // 'processing': true,
-        // 'serverSide': true,
-        'ajax': {
-            'url': "{{ url('apv/juspo_app') }}",
-            'async':false,
-            'type': 'GET',
-            'dataSrc' : function(json) {
-                if(json.status){
-                    return json.daftar;   
-                }else{
-                    Swal.fire({
-                        title: 'Session telah habis',
-                        text: 'harap login terlebih dahulu!',
-                        icon: 'error'
-                    }).then(function() {
-                        window.location.href = "{{ url('apv/logout') }}";
-                    })
-                    return [];
-                } 
-            }
-        },
-        'columnDefs': [
-            {'targets': 5, data: null, 'defaultContent': action_html }
+    // LIST DATA
+    var action_html = "<a href='#' title='Detail Dokumen' id='btn-detail'><i class='simple-icon-cloud-download'></i></a>&nbsp;&nbsp;<a href='#' title='Cetak' id='btn-print'><i class='simple-icon-printer' style='font-size:18px'></i></a>";
+    var dataTable = generateTable(
+        "table-data",
+        "{{ url('apv/juskeb_app') }}", 
+        [
+            {
+                "targets": 0,
+                "createdCell": function (td, cellData, rowData, row, col) {
+                    if ( rowData.status == "baru" ) {
+                        $(td).parents('tr').addClass('selected');
+                        $(td).addClass('last-add');
+                    }
+                }
+            },
+            {'targets': 5, data: null, 'defaultContent': action_html,'className': 'text-center' }
         ],
-        'columns': [
+        [
             { data: 'no_bukti' },
             { data: 'no_urut' },
             { data: 'id' },
             { data: 'keterangan' },
             { data: 'tanggal' }
-        ]
+        ],
+        "{{ url('silo-auth/sesi-habis') }}",
+        [[5 ,"desc"]]
+    );
+
+    $.fn.DataTable.ext.pager.numbers_length = 5;
+
+    $("#searchData").on("keyup", function (event) {
+        dataTable.search($(this).val()).draw();
     });
 
-    function getNamaBulan(no_bulan){
-        switch (no_bulan){
-            case 1 : case '1' : case '01': bulan = "Januari"; break;
-            case 2 : case '2' : case '02': bulan = "Februari"; break;
-            case 3 : case '3' : case '03': bulan = "Maret"; break;
-            case 4 : case '4' : case '04': bulan = "April"; break;
-            case 5 : case '5' : case '05': bulan = "Mei"; break;
-            case 6 : case '6' : case '06': bulan = "Juni"; break;
-            case 7 : case '7' : case '07': bulan = "Juli"; break;
-            case 8 : case '8' : case '08': bulan = "Agustus"; break;
-            case 9 : case '9' : case '09': bulan = "September"; break;
-            case 10 : case '10' : case '10': bulan = "Oktober"; break;
-            case 11 : case '11' : case '11': bulan = "November"; break;
-            case 12 : case '12' : case '12': bulan = "Desember"; break;
-            default: bulan = null;
-        }
+    $("#page-count").on("change", function (event) {
+        var selText = $(this).val();
+        dataTable.page.len(parseInt(selText)).draw();
+    });
 
-        return bulan;
-    }
+    $('[data-toggle="popover"]').popover({ trigger: "focus" });
+    // END LIST DATA
 
-    function printLap(id,kd){
+    // OTHER LIST DATA
+    var otherDatatable = $('#table-dokumen').DataTable({
+        data: [],
+        columnDefs: [
+            {   
+                "targets": 4,
+                "data": null,
+                "render": function ( data, type, row, meta ) {
+                    return `<a href='${row.url}' title='Download Dokumen' target='_blank'><i class='simple-icon-cloud-download'></i></a>`;
+                }
+            }
+        ],
+        columns: [
+            { data: 'no' },
+            { data: 'no_bukti' },
+            { data: 'nama' },
+            { data: 'jenis' }
+        ]
+    })
+
+    $('#saku-detail #btn-back-detail').on('click', function(){
+        $('#saku-detail').hide();
+        $('#saku-datatable').show();
+    });
+    // END OTHER LIST DATA
+
+    // OPTIONAL CONFIG
+    $('#saku-datatable').on('click', '#btn-detail', function(e){
+        e.preventDefault();
+        var id= $(this).closest('tr').find('td').eq(0).html();
         $.ajax({
             type: 'GET',
-            url: "{{ url('apv/juspo_app_preview') }}/"+id+"/"+kd,
+            url: "apv/juskeb-dok",
+            dataType: 'json',
+            data: {no_bukti : id},
+            async:false,
+            success:function(result){   
+                otherDatatable.clear().draw();
+                if(result.status){
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                        otherDatatable.rows.add(result.daftar).draw(false);
+                    }
+                    $('#saku-datatable').hide();
+                    $('#saku-detail').show();
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    Swal.fire({
+                        title: 'Session telah habis',
+                        text: 'harap login terlebih dahulu!',
+                        icon: 'error'
+                    }).then(function() {
+                        window.location.href = "{{ url('silo-auth/logout') }}";
+                    })
+                }
+            }
+        });
+    });
+    // END OPTIONAL CONFIG
+
+    // PRINT PREVIEW
+    function printPreview(id, juskeb) {
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('apv/juspo_app_preview') }}/" + id + "/" + juskeb,
             dataType: 'json',
             async:false,
-            success:function(res){ 
-                var result = res.data;
-                if(result.status){
-                    if(typeof result.data !== 'undefined' && result.data.length>0){
-                       
-                        
-                        var html=`<div class="row">
-                                <div class="col-12" style='text-align:center;margin-bottom:20px'>
+            success:function(res) {
+                var result = res.data
+                if(typeof result.data !== 'undefined' && result.data.length > 0) {
+                    var html = "";
+                    var no = 1;
+                    var total = 0
+                    var data = result.data[0]
+                    html += `
+                            <div class='row'>
+                                <div class='col-12 text-center' style='margin-bottom:20px;'>
                                     <h3>TANDA TERIMA</h3>
-                                </div>
-                                <div class="col-12">
-                                    <table class="table no-border" width="100%" id='table-m'>
+                                </div>    
+                                <div class='col-12'>
+                                    <table class='table table-borderless table-condensed'>
                                         <tbody>
                                             <tr>
-                                                <td width="25">Id Approval</td>
-                                                <td width="75%" >: `+result.data[0].id+`</td>
+                                                <td style='width: 25%;'>ID Approval</td>
+                                                <td style='width: 75%;'>: ${data.id}</td>
                                             </tr>
                                             <tr>
                                                 <td>No Justifikasi Kebutuhan</td>
-                                                <td>: `+result.data[0].no_bukti+`</td>
+                                                <td>: ${data.no_bukti}</td>
                                             </tr>
                                             <tr>
                                                 <td>Tanggal</td>
-                                                <td>: `+result.data[0].tanggal+`</td>
+                                                <td>: ${data.tanggal}</td>
                                             </tr>
                                             <tr>
                                                 <td>PP</td>
-                                                <td>: `+result.data[0].kode_pp+` - `+result.data[0].nama_pp+`</td>
+                                                <td>: ${data.kode_pp} - ${data.nama_pp}</td>
                                             </tr>
                                             <tr>
                                                 <td>Keterangan</td>
-                                                <td>: `+result.data[0].kegiatan+`</td>
+                                                <td>: ${data.kegiatan}</td>
                                             </tr>
                                             <tr>
                                                 <td>Nilai</td>
-                                                <td>: `+sepNumX(parseFloat(result.data[0].nilai))+`</td>
+                                                <td>: Rp. ${format_number(data.nilai)}</td>
                                             </tr>
-                                            <tr>
+                                            <tr style='line-height: 40px;'>
                                                 <td>Status</td>
-                                                <td>: `+result.data[0].status+`</td>
+                                                <td>: ${data.status}</td>
+                                            </tr>    
+                                            <tr>
+                                                <td colspan='2'>Bandung, ${data.tgl.substr(0, 2)} ${getNamaBulan(data.tgl.substr(3, 2))} ${data.tgl.substr(6, 4)}</td>
                                             </tr>
                                             <tr>
-                                                <td height='20px'>&nbsp;</td>
-                                                <td>&nbsp;</td>
+                                                <td>Dibuat Oleh:</td>
+                                                <td>&nbsp;&nbsp;</td>    
                                             </tr>
-                                            <tr>
-                                                <td colspan='2'>Bandung, `+result.data[0].tgl.substr(0,2)+' '+getNamaBulan(result.data[0].tgl.substr(3,2))+' '+result.data[0].tgl.substr(6,4)+`</td>
-                                            </tr>
-                                            <tr>
-                                                <td>DIbuat Oleh:</td>
-                                                <td>&nbsp;</td>
-                                            </tr>
-                                            <tr>
+                                            <tr style='line-height: 80px;'>
                                                 <td>Yang Menerima</td>
-                                                <td class='text-center'>Yang Menyetujui</td>
+                                                <td class='text-center'>Yang Menyetujui</td>    
                                             </tr>
                                             <tr>
-                                                <td height='80px'>&nbsp;</td>
-                                                <td>&nbsp;</td>
-                                            </tr>
-                                            <tr>
-                                                <td></td>
-                                                <td class='text-center'>`+result.data[0].nik+`</td>
+                                                <td>&nbsp;&nbsp;</td>
+                                                <td class='text-center'>${data.nik}</td>
                                             </tr>
                                         </tbody>
-                                    </table>
+                                    </table>    
                                 </div>
-                            </div>`;
-                            $('#print-area').html(html);
-                            $('#slide-print').show();
-                            $('#saku-datatable').hide();
-                    }
+                            </div>
+                        `;
+                        
+                    $('#print-content').html(html)
+                    $('#saku-form').hide()
+                    $('#saku-datatable').hide()
+                    $('#saku-print').show()
                 }
             }
         });
     }
 
-
-
-    $('#slide-print').on('click', '#btn-kembali', function(){
-        $('#saku-datatable').show();
-        $('#slide-print').hide();
-    });
-
-    $('#saku-datatable').on('click','#btn-print',function(e){
+    $('#saku-datatable').on('click','#btn-print',function(e) {
         var id = $(this).closest('tr').find('td').eq(0).html();
-        var kd = $(this).closest('tr').find('td').eq(2).html();
-        
-        printLap(id,kd);
+        var juskeb = $(this).closest('tr').find('td').eq(2).html();
+        printPreview(id, juskeb);
     });
 
-    $('#slide-print').on('click','#btn-aju-print',function(e){
-        e.preventDefault();
-        // var w=window.open();
-        // var html =`<html><head>
-        //         <meta charset="utf-8">
-        //         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        //         <meta name="viewport" content="width=device-width, initial-scale=1">
-        //         <meta name="description" content="">
-        //         <meta name="author" content="">
-        //         <title>SAKU | Sistem Akuntansi Keuangan Digital</title>
-        //         <link href="{{ asset('asset_elite/dist/css/style.min.css') }}" rel="stylesheet">
-        //         <!-- Dashboard 1 Page CSS -->
-        //         <link href="{{ asset('asset_elite/dist/css/pages/dashboard1.css') }}" rel="stylesheet">
-        //         <link rel="stylesheet" type="text/css" href="{{ asset('asset_elite/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.css') }}">
-        //         <!-- SAI CSS -->
-        //         <link href="{{ asset('asset_elite/dist/css/sai.css" rel="stylesheet">
-                
-        //     </head>
-        //     <!--
-        //     <body class="skin-default fixed-layout" >-->
-        //         <div id="main-wrapper" style='color:black'>
-        //             <div class="page-wrapper" style='min-height: 674px;margin: 0;padding: 10px;background: white;color: black !important;'>
-        //                 <section class="content" id='ajax-content-section' style='color:black !important'>
-        //                     <div class="container-fluid mt-3">
-        //                         <div class="row" id="slide-print">
-        //                             <div class="col-md-12">
-        //                                 <div class="card">
-        //                                     <div class="card-body">`+$('#print-area').html()+`
-        //                                     </div>
-        //                                 </div>
-        //                             </div>
-        //                         </div>
-        //                     </div>
-        //                 </section>
-        //             </div>
-        //         </div>
-        //     <!--</body></html>-->
-        //     `;
-        //     w.document.write(html);
-        //     setTimeout(function(){
-        //         w.print();
-        //         w.close();
-        //     }, 1500);
+    $('#saku-print #btn-back').click(function() {
+        $('#saku-print').hide()
+        $('#saku-datatable').show()
+        $('#saku-form').hide()
+    });
 
-        $('#print-area').printThis({
+    $('#saku-print #btn-cetak').click(function() {
+        $('#print-content').printThis({
             importCSS: true,            // import parent page css
             importStyle: true,         // import style tags
             printContainer: true,       // print outer container/$.selector
         });
     });
-
-
-    </script>
+    // END PRINT PREVIEW
+</script>
