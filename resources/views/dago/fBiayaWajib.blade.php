@@ -350,6 +350,7 @@
             var nama = $(this).closest('tr').find('td:nth-child(2)').text();
             if(jTarget1 == "val"){
                 $($target).attr('value',kode);
+                $($target).val(kode);
             }else{
                 $($target).text(kode);
             }
@@ -398,6 +399,7 @@
                 $(this).addClass('selected');
             }
         });
+
 
         $(document).keydown(function(e) {
             if (e.keyCode == 40){ //arrow down
