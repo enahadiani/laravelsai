@@ -32,7 +32,7 @@ class LaporanController extends Controller
     public function getPosisi(Request $request){
         try{
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'apv/lap-posisi',[
+            $response = $client->request('GET',  config('api.url').'apv/lap-posisi-new',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',

@@ -1,6 +1,6 @@
 <script type="text/javascript">
     function drawLap(formData){
-        saiPostLoad('apv/lap-posisi', null, formData, null, function(res){
+        saiPostLoad('silo-report/lap-posisi', null, formData, null, function(res){
             if(res.result.length > 0){
                 $('#pagination').html('');
                 var show = $('#show').val();
