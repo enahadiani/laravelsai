@@ -1229,9 +1229,75 @@
                 valid = false
             } else {
                 valid = true
+                checkTableDokumenPO()
             }
         }
     }
+
+    function checkTableDokumenPO() {
+            var nama = $('#input-dokumen-po').attr('data-table')
+            var table = $('#input-dokumen-po tbody').children('tr')
+            var kolom = ''
+            var error = ''
+            var baris = null
+            var empty = false
+            if(table.length > 0) {
+                $('#input-dokumen-po tbody').children('tr').each(function() {
+                    baris = $(this).index() + 1
+                    $(this).children('td').not(':first, :last, :eq(2)').each(function() {
+                        if($(this).text().trim() === '') {
+                            empty = true
+                            kolom = $('#input-dokumen-po thead > tr th').eq($(this).index()).text()
+                            error = `Data pada kolom ${kolom} di baris nomor ${baris} tidak boleh kosong  di ${nama}`
+                            return false;
+                        } 
+                    })
+                    if(empty) {
+                        return false
+                    }
+                })
+
+                if(empty) {
+                    alert(error)
+                    valid = false
+                } else {
+                    valid = true
+                    checkTableDokumenCompare()
+                }
+            }
+        }
+
+        function checkTableDokumenCompare() {
+            var nama = $('#input-dokumen-compare').attr('data-table')
+            var table = $('#input-dokumen-compare tbody').children('tr')
+            var kolom = ''
+            var error = ''
+            var baris = null
+            var empty = false
+            if(table.length > 0) {
+                $('#input-dokumen-compare tbody').children('tr').each(function() {
+                    baris = $(this).index() + 1
+                    $(this).children('td').not(':first, :last, :eq(2)').each(function() {
+                        if($(this).text().trim() === '') {
+                            empty = true
+                            kolom = $('#input-dokumen-compare thead > tr th').eq($(this).index()).text()
+                            error = `Data pada kolom ${kolom} di baris nomor ${baris} tidak boleh kosong di ${nama}`
+                            return false;
+                        } 
+                    })
+                    if(empty) {
+                        return false
+                    }
+                })
+
+                if(empty) {
+                    alert(error)
+                    valid = false
+                } else {
+                    valid = true
+                }
+            }
+        }
     // END VALIDATION GRID
 
     // EDIT DATA
