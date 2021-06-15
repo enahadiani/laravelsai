@@ -1,447 +1,285 @@
+<link rel="stylesheet" href="{{ asset('report.css') }}" />
 
-    <style>
-        .sidepanel  {
-            width: 0px;
-            position: fixed;
-            z-index: 1;
-            height: 570px;
-            right: 0;
-            background-color:white;
-            overflow-x: hidden;
-            transition: 0.5s;
-            padding: 10px;
-            margin-top: 60px;
-            border:1px solid #e9e9e9;
-        }
-        
-        .close{
-            width:0px;
-            right: -30px;
-        }
-        .open{
-            width:300px;
-        }
-        #subFixbar
-        {
-            width: calc(100% - 280px);
-        }
-        .mini-sidebar #subFixbar
-        {
-            width: calc(100% - 100px);
-        }
-    </style>
-    <div class="row" style="">
-        <div style="z-index: 1;position: fixed;right: auto;left: auto;margin-right: 15px;margin-left: 25px;margin-top:15px" class="col-sm-12" id="subFixbar">
-            <div class="card " id="sai-rpt-filter-box;" style="padding:10px;">
-                <div class="card-body" style="padding: 0px;">
-                    <h4 class="card-title pl-1" style="font-size:16px"><i class='fas fa-file'></i> Laporan Posisi</h4>
-                    <hr>
-                    <form id="formFilter">
-                        <div class="row" style="margin-left: -5px;">
-                            <div class="col-sm-3">
-                                <div class="form-group" style='margin-bottom:0'>
-                                    <select name="no_bukti" id="no_bukti" class="form-control">
-                                    <option value="">Pilih No Bukti</option>
-                                    </select>
+<div class="row" id="saku-filter">
+    <div class="col-12">
+        <div class="card" >
+            <x-report-header judul="Laporan Saldo Proyek" padding="px-4 py-4"/>  
+            <div class="separator"></div>
+            <div class="row">
+                <div class="col-12 col-sm-12">
+                    <div class="collapse show" id="collapseFilter">
+                        <div class="px-4 pb-4 pt-2">
+                            <form id="form-filter">
+                                <h6>Filter</h6>
+                                <div id="inputFilter">
+                                    <!-- COMPONENT -->
+                                    <x-inp-filter kode="kode_pp" nama="Regional" selected="3" :option="array('1','3')"/>
+                                    <x-inp-filter kode="kode_kota" nama="Kota" selected="1" :option="array('1','3','i')"/>
+                                    <x-inp-filter kode="no_bukti" nama="No Bukti" selected="1" :option="array('1','3')"/>
+                                    <x-inp-filter kode="no_dokumen" nama="No Dokumen" selected="1" :option="array('1','3')"/>
+                                    <!-- END COMPONENT -->
                                 </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <button type="submit" class="btn btn-primary" style="margin-left: 6px;margin-top: 0" id="btnPreview"><i class="far fa-list-alt"></i> Preview</button>
-                                <button type="button" id='btn-lanjut' class="btn btn-secondary" style="margin-left: 6px;margin-top: 0"><i class="fa fa-filter"></i> Filter</button>
-<!--                                 
-                            </div>
-                            <div class='col-sm-3'> -->
-                                <div id="pager" style='padding-top: 0px;position: absolute;top: 0;right: 0;'>
-                                    <ul id="pagination" class="pagination pagination-sm2"></ul>
-                                </div>
-                            </div>
-                            <div class='col-sm-1' style='padding-top: 0'>
-                                <select name="show" id="show" class="form-control" style=''>
-                                    <option value="10">10</option>
-                                    <option value="25">25</option>
-                                    <option value="50">50</option>
-                                    <option value="100">100</option>
-                                    <option value="All">All</option>
-                                </select>
-                            </div>
-                            <div class='col-sm-2'>
-                                <button type="button" class="btn btn-info float-right" style="margin-left: 6px;margin-top: 0" id="sai-rpt-print"><i class="fa fa-print"></i></button>
-                                <button type="button" class="btn btn-success float-right" style="margin-left: 6px;margin-top: 0" id="btnExport"><i class="fa fa-file-excel"></i></button>
-                                <button type="button" class="btn btn-primary float-right" style="margin-left: 6px;margin-top: 0" id="btnEmail" alt="Email"><i class="fa far fa-envelope"></i></button>
-                                
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div id='mySidepanel' class='sidepanel close'>
-        <h3 style='margin-bottom:20px;position: absolute;'>Filter Laporan</h3>
-        <a href='#' id='btn-close'><i class="float-right ti-close" style="margin-top: 10px;margin-right: 10px;"></i></a>
-        <form id="formFilter2" style='margin-top:50px'>
-        <div class="row" style="margin-left: -5px;">
-            <div class="col-sm-12">
-                <div class="form-group" style='margin-bottom:0'>
-                    <label for="kode_pp-selectized">Regional</label>
-                    <select name="kode_pp" id="kode_pp" class="form-control">
-                    <option value="">Pilih Regional</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-        <div class="row" style="margin-left: -5px;">
-            <div class="col-sm-12">
-                <div class="form-group" style='margin-bottom:0'>
-                    <label for="kode_kota-selectized">Kota</label>
-                    <select name="kode_kota" id="kode_kota" class="form-control">
-                    <option value="">Pilih Kota</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-        <div class="row" style="margin-left: -5px;">
-            <div class="col-sm-12">
-                <div class="form-group" style='margin-bottom:0'>
-                    <label for="no_bukti-selectized">No Bukti</label>
-                    <select name="no_bukti" id="no_bukti2" class="form-control">
-                    <option value="">Pilih No Bukti</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-        <div class="row" style="margin-left: -5px;">
-            <div class="col-sm-12">
-                <div class="form-group" style='margin-bottom:0'>
-                    <label for="no_dokumen-selectized">No Dokumen</label>
-                    <select name="no_dokumen" id="no_dokumen" class="form-control">
-                    <option value="">Pilih No Dokumen</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-12">
-                <button type="submit" class="btn btn-primary" style="margin-left: 6px;margin-top: 28px;"><i class="fa fa-search" id="btnPreview2"></i> Preview</button>
-            </div>
-        </div>
-        </form>
-    </div>
-    <div class="container-fluid" style="margin-top:155px">
-        <div class="row" >
-            <div class="col-sm-12">
-                <div class="card " id="sai-rpt-filter-box;">
-                    <div class='card-body' style='padding: 10px;'>
-                        <div id="loading-bar" style="display:none"><button type="button" disabled="" class="btn btn-info">
-                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                        Loading...
-                        </button></div>
-                    </div>
-                    <div class="card-body table-responsive" id="content-lap" style='height:380px'>
-                        
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div id="modalEmail" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <form id='formEmail'>
-                    <div class='modal-header'>
-                        <h5 class='modal-title'>Kirim Email</h5>
-                        <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
-                        </button>
-                    </div>
-                    <div class='modal-body'>
-                        <div class='form-group row'>
-                            <label for="modal-email" class="col-3 col-form-label">Email</label>
-                            <div class="col-9">
-                                <input type='text' class='form-control' maxlength='100' name='email' id='modal-email' required>
-                            </div>
-                        </div>
-                        <div class='form-group row'>
-                            <label for="modal-nama" class="col-3 col-form-label">Nama</label>
-                            <div class="col-9">
-                                <input type='text' class='form-control' maxlength='100' name='nama' id='modal-nama' required >
-                            </div>
+                                <button id="btn-tampil" style="float:right;width:110px" class="btn btn-primary ml-2 mb-3" type="submit" >Tampilkan</button>
+                                <button type="button" id="btn-tutup" class="btn btn-light mb-3" style="float:right;width:110px" type="button" >Tutup</button>
+                            </form>
                         </div>
                     </div>
-                    <div class='modal-footer'>
-                        <button type="button" disabled="" style="display:none" id='loading-bar2' class="btn btn-info">
-                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                        Loading...
-                        </button>
-                        <button type='submit' id='email-submit' class='btn btn-primary'>Kirim</button> 
-                        <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>
-                    </div>
                 </div>
-            </div>
-        <!-- /.modal-content -->
+                <x-report-paging :option="array()" default="10" />  
+            </div>                    
         </div>
-    <!-- /.modal-dialog -->
     </div>
+</div>
+<x-report-result judul="Laporan Posisi" padding="px-0 py-4"/>
+@include('modal_search')
+@include('modal_email')
+    
+ @php
+    date_default_timezone_set("Asia/Bangkok");
+@endphp
+<script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
+<script src="{{ asset('reportFilter.js') }}"></script>
+
 <script type="text/javascript">
-    var $loadBar = $('#loading-bar');
-    var $loadBar2 = $('#loading-bar2');
-    setHeightReport();
-    function openNav() {
-        var element = $('#mySidepanel');
-        
-        var x = $('#mySidepanel').attr('class');
-        var y = x.split(' ');
-        if(y[1] == 'close'){
-            element.removeClass('close');
-            element.addClass('open');
-        }else{
-            element.removeClass('open');
-            element.addClass('close');
+    var _pp = "{{ Session::get('kodePP') }}";
+    var _namaPP = ''
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="-token"]').attr('content')
         }
-    }
-
-    $('.card-body').on('click', '#btn-lanjut', function(e){
-        e.preventDefault();
-        openNav();
     });
 
-    
-
-    $('.sidepanel').on('click', '#btn-close', function(e){
-        e.preventDefault();
-        openNav();
-    });  
-
-    $('#show').selectize();
-    function getPP(){
+    (function() {
         $.ajax({
             type: 'GET',
             url: "{{ url('apv/filter-pp') }}",
             dataType: 'json',
             async:false,
             success:function(result){    
-                var select = $('#kode_pp').selectize();
-                select = select[0];
-                var control = select.selectize;
-                control.clearOptions();
                 if(result.status){
                     if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-
-                        for(i=0;i<result.daftar.length;i++){
-                            control.addOption([{text:result.daftar[i].kode_pp+' - '+result.daftar[i].nama, value:result.daftar[i].kode_pp}]);
+                        var data = result.daftar
+                        var filter = data.filter(data => data.kode_pp == _pp)
+                        if(filter.length > 0) {
+                            _namaPP = filter[0].nama
                         }
                     }
                 }
             }
         });
+    })();
+
+    var $regional = {
+        type : "=",
+        from : _pp,
+        fromname : _namaPP,
+        to : "",
+        toname : "",
     }
 
-    function getKota(kode_pp=null){
-        $.ajax({
-            type: 'GET',
-            url: "{{ url('apv/filter-kota') }}",
-            dataType: 'json',
-            async:false,
-            data: {'kode_pp':kode_pp},
-            success:function(result){    
-                var select = $('#kode_kota').selectize();
-                select = select[0];
-                var control = select.selectize;
-                control.clearOptions();
-                if(result.status){
-                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                        for(i=0;i<result.daftar.length;i++){
-                            control.addOption([{text:result.daftar[i].kode_kota + ' - ' + result.daftar[i].nama, value:result.daftar[i].kode_kota}]);
-                        }
-                    }
-                }
-            }
-        });
+    var $kota = {
+        type : "all",
+        from : "",
+        fromname : "",
+        to : "",
+        toname : "",
     }
 
-    function getNoBukti(kode_pp=null,kode_kota=null){
-        $.ajax({
-            type: 'GET',
-            url: "{{ url('apv/filter-nobukti') }}",
-            dataType: 'json',
-            async:false,
-            data: {'kode_pp':kode_pp,'kode_kota':kode_kota},
-            success:function(result){    
-                var select = $('#no_bukti').selectize();
-                select = select[0];
-                var control = select.selectize;
-                control.clearOptions();
-
-                var select2 = $('#no_bukti2').selectize();
-                select2 = select2[0];
-                var control2 = select2.selectize;
-                control2.clearOptions();
-                if(result.status){
-                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                        for(i=0;i<result.daftar.length;i++){
-                            control.addOption([{text:result.daftar[i].no_bukti+'-'+result.daftar[i].kegiatan, value:result.daftar[i].no_bukti}]);
-                            control2.addOption([{text:result.daftar[i].no_bukti+'-'+result.daftar[i].kegiatan, value:result.daftar[i].no_bukti}]);
-                        }
-                    }
-                }
-            }
-        });
+    var $no_bukti = {
+        type : "all",
+        from : "",
+        fromname : "",
+        to : "",
+        toname : "",
     }
 
-    function getNoDokumen(kode_pp=null,kode_kota=null,no_bukti=null){
-        $.ajax({
-            type: 'GET',
-            url: "{{ url('apv/filter-nodokumen') }}",
-            dataType: 'json',
-            async:false,
-            data: {'kode_pp':kode_pp,'kode_kota':kode_kota,'no_bukti':no_bukti},
-            success:function(result){    
-                var select = $('#no_dokumen').selectize();
-                select = select[0];
-                var control = select.selectize;
-                control.clearOptions();
-                if(result.status){
-                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                        for(i=0;i<result.daftar.length;i++){
-                            control.addOption([{text:result.daftar[i].no_dokumen, value:result.daftar[i].no_dokumen}]);
-                        }
-                    }
-                }
-            }
-        });
+    var $no_dokumen = {
+        type : "all",
+        from : "",
+        fromname : "",
+        to : "",
+        toname : "",
     }
 
-    $('#kode_pp').selectize({
-        selectOnTab: true,
-        onChange: function (){
-            var kode_pp = $('#kode_pp')[0].selectize.getValue();
-            var kode_kota = $('#kode_kota')[0].selectize.getValue();
-            var no_bukti = $('#no_bukti2')[0].selectize.getValue();
-            var no_dokumen = $('#no_dokumen')[0].selectize.getValue();
-            getKota(kode_pp);
-            getNoBukti(kode_pp,kode_kota);
-            getNoDokumen(kode_pp,kode_kota,no_bukti);
+    $('#btn-filter').click(function(e){
+        $('#collapseFilter').show();
+        $('#collapsePaging').hide();
+        if($(this).hasClass("btn-primary")){
+            $(this).removeClass("btn-primary");
+            $(this).addClass("btn-light");
         }
-    });
-
-    $('#kode_kota').selectize({
-        selectOnTab: true,
-        onChange: function (){
-            var kode_pp = $('#kode_pp')[0].selectize.getValue();
-            var kode_kota = $('#kode_kota')[0].selectize.getValue();
-            var no_bukti = $('#no_bukti2')[0].selectize.getValue();
-            var no_dokumen = $('#no_dokumen')[0].selectize.getValue();
-            getNoBukti(kode_pp,kode_kota);
-            getNoDokumen(kode_pp,kode_kota,no_bukti);
-        }
-    });
-
-    $('#no_bukti').selectize({
-        selectOnTab: true,
-        onChange: function (){
-            var kode_pp = $('#kode_pp')[0].selectize.getValue();
-            var kode_kota = $('#kode_kota')[0].selectize.getValue();
-            var no_bukti = $('#no_bukti2')[0].selectize.getValue();
-            var no_dokumen = $('#no_dokumen')[0].selectize.getValue();
-            getNoDokumen(kode_pp,kode_kota,no_bukti);
-        }
-    });
-
-    getPP();
-    getKota();
-    getNoBukti();
-    getNoDokumen();
-    
-    function sepNum(x){
-        if (typeof x === 'undefined' || !x) { 
-            return 0;
-        }else{
-            if(x < 0){
-                var x = parseFloat(x).toFixed(0);
-            }
             
-            var parts = x.toString().split(",");
-            parts[0] = parts[0].replace(/([0-9])(?=([0-9]{3})+$)/g,"$1.");
-            return parts.join(".");
-        }
-    }
+        $('#btn-filter').addClass("hidden");
+        $('#btn-export').addClass("hidden");
+    });
+        
+    $('#btn-tutup').click(function(e){
+        $('#collapseFilter').hide();
+        $('#collapsePaging').show();
+        $('#btn-filter').addClass("btn-primary");
+        $('#btn-filter').removeClass("btn-light");
+        $('#btn-filter').removeClass("hidden");
+        $('#btn-export').removeClass("hidden");
+    });
 
-    function sepNumPas(x){
-        var num = parseInt(x);
-        var parts = num.toString().split('.');
-        var len = num.toString().length;
-        // parts[1] = parts[1]/(Math.pow(10, len));
-        parts[0] = parts[0].replace(/(.)(?=(.{3})+$)/g,'$1.');
-        return parts.join(',');
-    }
+    $('#btn-tampil').click(function(e){
+        $('#collapseFilter').hide();
+        $('#collapsePaging').show();
+        $('#btn-filter').addClass("btn-primary");
+        $('#btn-filter').removeClass("btn-light");
+        $('#btn-filter').removeClass("hidden");
+        $('#btn-export').removeClass("hidden");
+    });
+
+    $('.selectize').selectize();
+
+    $('#inputFilter').reportFilter({
+        kode : ['kode_pp', 'kode_kota', 'no_bukti', 'no_dokumen'],
+        nama : ['Regional', 'Kota', 'No Bukti', 'No Dokumen'],
+        header : [['Kode', 'Nama'], ['Kode', 'Nama'], ['Kode', 'Nama'], ['Kode', 'Nama']],
+        headerpilih : [['Kode Regional', 'Nama','Action'], ['Kode Vendor', 'Nama','Action'], ['No Bukti', 'Kegiatan','Action'], ['No Dokumen','Action']],
+        columns: [
+            [
+                { data: 'kode_pp' },
+                { data: 'nama' }
+            ],
+            [
+                { data: 'kode_kota' },
+                { data: 'nama' }
+            ],
+            [
+                { data: 'no_bukti' },
+                { data: 'kegiatan' }
+            ],
+            [
+                { data: 'no_dokumen' }
+            ]
+        ],
+        url :["{{ url('apv/filter-pp') }}", "{{ url('apv/filter-kota') }}", "{{ url('apv/filter-nobukti') }}", "{{ url('apv/filter-nodokumen') }}"],
+        parameter:[{}, {
+            'kode_pp': $regional.from
+        }, {
+            'kode_pp': $regional.from,
+            'kode_kota': $kota.type
+        }, {
+            'kode_pp': $regional.from,
+            'kode_kota': $kota.from,
+            'no_bukti': $no_bukti.from
+        }],
+        orderby:[[], [], [], []],
+        width:[['30%','70%'], ['30%','70%'], ['30%','70%'], ['30%','70%']],
+        display:['kode', 'kode', 'kode', 'kode'],
+        pageLength:[10, 10, 10, 10]
+    });
+
+    $('#inputFilter').on('change','input',function(e){
+        setTimeout(() => {
+           $('#inputFilter').reportFilter({
+                kode : ['kode_pp', 'kode_kota', 'no_bukti', 'no_dokumen'],
+                nama : ['Regional', 'Kota', 'No Bukti', 'No Dokumen'],
+                header : [['Kode', 'Nama'], ['Kode', 'Nama'], ['Kode', 'Nama'], ['Kode', 'Nama']],
+                headerpilih : [['Kode Regional', 'Nama','Action'], ['Kode Vendor', 'Nama','Action'], ['No Bukti', 'Kegiatan','Action'], ['No Dokumen','Action']],
+                columns: [
+                    [
+                        { data: 'kode_pp' },
+                        { data: 'nama' }
+                    ],
+                    [
+                        { data: 'kode_kota' },
+                        { data: 'nama' }
+                    ],
+                    [
+                        { data: 'no_bukti' },
+                        { data: 'kegiatan' }
+                    ],
+                    [
+                        { data: 'no_dokumen' }
+                    ]
+                ],
+                url :["{{ url('apv/filter-pp') }}", "{{ url('apv/filter-kota') }}", "{{ url('apv/filter-nobukti') }}", "{{ url('apv/filter-nodokumen') }}"],
+                parameter:[{}, {
+                    'kode_pp': $regional.from
+                }, {
+                    'kode_pp': $regional.from,
+                    'kode_kota': $kota.type
+                }, {
+                    'kode_pp': $regional.from,
+                    'kode_kota': $kota.from,
+                    'no_bukti': $no_bukti.from
+                }],
+                orderby:[[], [], [], []],
+                width:[['30%','70%'], ['30%','70%'], ['30%','70%'], ['30%','70%']],
+                display:['kode', 'kode', 'kode', 'kode'],
+                pageLength:[10, 10, 10, 10]
+            }); 
+        }, 500)
+    });
 
     var $formData = "";
-    $('.card-body').on('submit', '#formFilter', function(e){
+    $('#form-filter').submit(function(e){
         e.preventDefault();
-        $formData = new FormData(this);
-        xurl = "{{ url('/apv/form')}}/rptPosisi";
-        $('#content-lap').load(xurl);
-        // drawLapReg(formData);
+        $formData = new FormData();
+        $formData.append("kode_pp[]",$regional.type);
+        $formData.append("kode_pp[]",$regional.from);
+        $formData.append("kode_pp[]",$regional.to);
+        $formData.append("kode_kota[]",$kota.type);
+        $formData.append("kode_kota[]",$kota.from);
+        $formData.append("kode_kota[]",$kota.to);
+        $formData.append("no_bukti[]",$no_bukti.type);
+        $formData.append("no_bukti[]",$no_bukti.from);
+        $formData.append("no_bukti[]",$no_bukti.to);
+        $formData.append("no_dokumen[]",$no_dokumen.type);
+        $formData.append("no_dokumen[]",$no_dokumen.from);
+        $formData.append("no_dokumen[]",$no_dokumen.to);
+        for(var pair of $formData.entries()) {
+            console.log(pair[0]+ ', '+ pair[1]); 
+        }
+        $('#saku-report').removeClass('hidden');
+        xurl = "{{ url('silo-auth/form/rptPosisi') }}";
+        $('#saku-report #canvasPreview').load(xurl);
     });
 
-    $('.sidepanel').on('submit', '#formFilter2', function(e){
-        e.preventDefault();
-        $formData = new FormData(this);
-        xurl = "{{ url('/apv/form')}}/rptPosisi";
-        $('#content-lap').load(xurl);
-        // drawLapReg(formData);
+    $('#show').change(function(e){
+        $formData = new FormData();
+        $formData.append("kode_pp[]",$regional.type);
+        $formData.append("kode_pp[]",$regional.from);
+        $formData.append("kode_pp[]",$regional.to);
+        $formData.append("kode_kota[]",$kota.type);
+        $formData.append("kode_kota[]",$kota.from);
+        $formData.append("kode_kota[]",$kota.to);
+        $formData.append("no_bukti[]",$no_bukti.type);
+        $formData.append("no_bukti[]",$no_bukti.from);
+        $formData.append("no_bukti[]",$no_bukti.to);
+        $formData.append("no_dokumen[]",$no_dokumen.type);
+        $formData.append("no_dokumen[]",$no_dokumen.from);
+        $formData.append("no_dokumen[]",$no_dokumen.to);
+        for(var pair of $formData.entries()) {
+            console.log(pair[0]+ ', '+ pair[1]); 
+        }
+        $('#saku-report').removeClass('hidden');
+        xurl = "{{ url('silo-auth/form/rptPosisi') }}";
+        $('#saku-report #canvasPreview').load(xurl);
     });
 
     $('#sai-rpt-print').click(function(){
-        $('#canvasPreview').printThis();
+        $('#saku-report #canvasPreview').printThis({
+            removeInline: true
+        });
     });
 
-    $("#btnExport").click(function(e) {
+    $('#sai-rpt-print-prev').click(function(){
+        var newWindow = window.open();
+        var html = `<head>`+$('head').html()+`</head><style>`+$('style').html()+`</style><body style='background:white;'><div align="center">`+$('#canvasPreview').html()+`</div></body>`;
+        newWindow.document.write(html);
+    });
+
+    $("#sai-rpt-excel").click(function(e) {
         e.preventDefault();
-        $("#canvasPreview").table2excel({
+        $("#saku-report #canvasPreview").table2excel({
             // exclude: ".excludeThisClass",
-            name: "LapPosisi",
-            filename: "LapPosisi.xls", // do include extension
+            name: "Lap_Posisi_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}",
+            filename: "Lap_Posisi_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}.xls", // do include extension
             preserveColors: false // set to true if you want background colors and font colors preserved
         });
     });
-    
-    $("#btnEmail").click(function(e) {
-        e.preventDefault();
-        $('#formEmail')[0].reset();
-        $('#modalEmail').modal('show');
-    });
-
-    $('#modalEmail').on('submit','#formEmail',function(e){
-        e.preventDefault();
-        var formData = new FormData(this);
-        for(var pair of formData.entries()) {
-            console.log(pair[0]+ ', '+ pair[1]); 
-        }
-        var html= $('#canvasPreview').html();
-        formData.append('html', html);
-        $loadBar2.show();
-        $.ajax({
-            type: 'POST',
-            url: "{{ url('dago-report/email-formreg') }}",
-            dataType: 'json',
-            data: formData,
-            async:false,
-            contentType: false,
-            cache: false,
-            processData: false, 
-            success:function(result){
-                alert(result.message);
-                if(result.status){
-                    $('#modalEmail').modal('hide');
-                }
-                $loadBar2.hide();
-            },
-            fail: function(xhr, textStatus, errorThrown){
-                alert('request failed:'+textStatus);
-            }
-        });
-        
-    });
-    
 </script>
-   
