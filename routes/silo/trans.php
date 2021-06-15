@@ -63,3 +63,5 @@ Route::post('notif-update-status','Apv\NotifController@updateStatusRead');
 
 Route::get('filter-nik','Silo\FilterController@getFilterNIKVerifikasi');
 Route::get('filter-klp','Silo\FilterController@getFilterKlpBarang');
+
+Route::post('save-temp', 'Silo\JuspoController@saveFileTemp');

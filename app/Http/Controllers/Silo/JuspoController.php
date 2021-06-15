@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Session;
 use GuzzleHttp\Exception\BadResponseException;
 
@@ -21,6 +22,14 @@ class JuspoController extends Controller
         if(!Session::get('login')){
             return redirect('saku/login')->with('alert','Session telah habis !');
         }
+    }
+
+    public function saveFileTemp(Request $request) {
+        $name = $request->file('file')->getClientOriginalName();
+        Storage::delete('public/temp/'.$name);
+        Storage::put('public/temp/'.$name, file_get_contents($request->file('file')));
+
+        return $name;
     }
 
     public function reverseDate($ymd_or_dmy_date, $org_sep='-', $new_sep='-'){
@@ -783,6 +792,7 @@ class JuspoController extends Controller
             ]);
             
             if ($response->getStatusCode() == 200) { // 200 OK
+                Storage::deleteDirectory('public/temp');
                 $response_data = $response->getBody()->getContents();
                 
                 $data = json_decode($response_data,true);

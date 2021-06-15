@@ -27,7 +27,7 @@
                         <div class="form-group col-md-6 col-sm-12">
                             <div class="row">
                                 <div class="col-md-6 col-sm-12">
-                                    <label for="tanggal">Tanggal Pengajuan</label>
+                                    <label for="tanggal">Tanggal Justifikasi Kebutuhan</label>
                                     <input class='form-control' type="date" id="tanggal" name="tanggal" autocomplete="off" value="{{ date('Y-m-d') }}">
                                     {{-- <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;" class="simple-icon-calendar date-search"></i> --}}
                                 </div>
@@ -786,7 +786,7 @@
                         <input autocomplete='off' id='value-${idTotal}' type='text' name='grand_total[]' class='form-control currency hidden inp-grand' value='0'>
                     </td>
                     <td class='text-center'>
-                        <a class='hapus-item' style='font-size:12px;cursor:pointer;'><i class='simple-icon-trash'></i></a>
+                        <a class='hapus-item' title='Hapus Barang' style='font-size:12px;cursor:pointer;'><i class='simple-icon-trash'></i></a>
                     </td>
                 </tr>
             `;
@@ -940,7 +940,8 @@
                         <input id='value-${idUpload}' type='file' name='file_dok[]'>
                     </td>
                     <td class='text-center'>
-                        <a class='hapus-item' style='font-size:12px;cursor:pointer;'><i class='simple-icon-trash'></i></a>
+                        <a class='hapus-item' title='Hapus Dokumen' style='font-size:12px;cursor:pointer;'><i class='simple-icon-trash'></i></a>
+                        <a class='download-item' title='Lihat Dokumen' style='font-size:12px;cursor:pointer; display: none;' target='_blank'><i class='simple-icon-cloud-download'></i></a>
                     </td>
                 </tr>
             `;
@@ -998,7 +999,7 @@
 
         $('#input-dokumen-po tbody').on('click', 'td', function(event) {
             event.stopPropagation();
-             var tr = $(this).parent()
+            var tr = $(this).parent()
             var tbody = $(tr).parent()
             $(tr).addClass('selected-row')
             $(this).addClass('selected-cell');
@@ -1013,6 +1014,24 @@
             var id = $(td).attr('id')
             var file = $(this).val().replace(/C:\\fakepath\\/i, '')
             $(td).children('#text-'+id).text(file)
+            var formData = new FormData()
+            formData.append('file', $(this)[0].files[0])
+            $.ajax({
+                type: 'POST',
+                url: "{{ url('silo-trans/save-temp') }}",
+                data : formData,
+                processData: false,
+                contentType: false,
+                success : function(data) {
+                    console.log(td)
+                    var tr = $(td).parent();
+                    var tdAction = tr.children('td').last()
+                    var download = tdAction.children('a.download-item')
+                    download.attr('href', `{{ asset("storage/temp") }}/${data}`)
+                    download.show()
+                    
+                }
+            })
         })
         // END GRID DOKUMEN PO
 
@@ -1045,7 +1064,8 @@
                         <input id='value-${idUpload}' type='file' name='file_dok[]'>
                     </td>
                     <td class='text-center'>
-                        <a class='hapus-item' style='font-size:12px;cursor:pointer;'><i class='simple-icon-trash'></i></a>
+                        <a class='hapus-item' title='Hapus Dokumen' style='font-size:12px;cursor:pointer;'><i class='simple-icon-trash'></i></a>
+                        <a class='download-item' title='Lihat Dokumen' style='font-size:12px;cursor:pointer; display: none;' target='_blank'><i class='simple-icon-cloud-download'></i></a>
                     </td>
                 </tr>
             `;
@@ -1118,6 +1138,24 @@
             var id = $(td).attr('id')
             var file = $(this).val().replace(/C:\\fakepath\\/i, '')
             $(td).children('#text-'+id).text(file)
+            var formData = new FormData()
+            formData.append('file', $(this)[0].files[0])
+            $.ajax({
+                type: 'POST',
+                url: "{{ url('silo-trans/save-temp') }}",
+                data : formData,
+                processData: false,
+                contentType: false,
+                success : function(data) {
+                    console.log(td)
+                    var tr = $(td).parent();
+                    var tdAction = tr.children('td').last()
+                    var download = tdAction.children('a.download-item')
+                    download.attr('href', `{{ asset("storage/temp") }}/${data}`)
+                    download.show()
+                    
+                }
+            })
         })
         // END GRID DOKUMEN COMPARE
         // GRID APPROVE
@@ -1220,7 +1258,6 @@
                     $('#kode').val(id);
                     $('#id').val(id);
                     $('#no_juskeb').val(id);
-                    $('#tanggal').val(result.data[0].tanggal);
                     $('#waktu').val(result.data[0].waktu);
                     $('#kegiatan').val(result.data[0].kegiatan);
                     $('#dasar').val(result.data[0].dasar);
@@ -1279,7 +1316,7 @@
                                         <input autocomplete='off' id='value-${idTotal}' type='text' name='grand_total[]' class='form-control currency hidden inp-grand' value='${parseFloat(data.grand_total)}'>
                                     </td>
                                     <td class='text-center'>
-                                        <a class='hapus-item' style='font-size:12px;cursor:pointer;'><i class='simple-icon-trash'></i></a>
+                                        <a class='hapus-item' title='Hapus Barang' style='font-size:12px;cursor:pointer;'><i class='simple-icon-trash'></i></a>
                                     </td>
                                 </tr>
                             `;
@@ -1330,7 +1367,7 @@
                                         <input id='value-${idUpload}' type='file' name='file_dok[]'>
                                     </td>
                                     <td class='text-center'>
-                                        <a class='hapus-item' style='font-size:12px;cursor:pointer;'><i class='simple-icon-trash'></i></a>
+                                        <a class='hapus-item' title='Hapus Dokumen' style='font-size:12px;cursor:pointer;'><i class='simple-icon-trash'></i></a>
                                     </td>
                                 </tr>
                             `;
@@ -1369,7 +1406,7 @@
                                         <input id='value-${idUpload}' type='file' name='file_dok[]'>
                                     </td>
                                     <td class='text-center'>
-                                        <a class='hapus-item' style='font-size:12px;cursor:pointer;'><i class='simple-icon-trash'></i></a>
+                                        <a class='hapus-item' title='Hapus Dokumen' style='font-size:12px;cursor:pointer;'><i class='simple-icon-trash'></i></a>
                                     </td>
                                 </tr>
                             `;
