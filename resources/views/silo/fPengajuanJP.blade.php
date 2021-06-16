@@ -1027,7 +1027,7 @@
                     var tr = $(td).parent();
                     var tdAction = tr.children('td').last()
                     var download = tdAction.children('a.download-item')
-                    download.attr('href', `{{ asset("storage/temp") }}/${data}`)
+                    download.attr('href', `https://app.simkug.com/silo-auth/storage/${data}`)
                     download.show()
                     
                 }
@@ -1151,7 +1151,7 @@
                     var tr = $(td).parent();
                     var tdAction = tr.children('td').last()
                     var download = tdAction.children('a.download-item')
-                    download.attr('href', `{{ asset("storage/temp") }}/${data}`)
+                    download.attr('href', `https://app.simkug.com/silo-auth/storage/${data}`)
                     download.show()
                     
                 }
