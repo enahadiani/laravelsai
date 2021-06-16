@@ -147,13 +147,14 @@ input {
 }
 .logo-container {
     display: flex;
-    width: 350px;
     flex-direction: row;
     justify-content: center;
     width: 299px;
+    margin-bottom: 30px;
 }
-.logo-container > .logo {
-    height: 100px;
+.logo-container > ._logo {
+    height: 45px;
+    width: 160px;
 }
 @media (max-width: 991px) {
     .auth-card .image-side {
