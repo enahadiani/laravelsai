@@ -23,7 +23,7 @@ Route::get('juskeb_preview2/{no_bukti}','Apv\JuskebController@getPreview2');
 
 Route::get('verifikasi','Apv\VerifikasiController@index');
 Route::get('verifikasi/{no_bukti}','Apv\VerifikasiController@show');
-Route::post('verifikasi','Apv\VerifikasiController@store');
+Route::post('verifikasi','Silo\VerifikasiController@store');
 Route::get('verifikasi_status','Apv\VerifikasiController@getStatus');
 Route::get('verifikasi_history','Apv\VerifikasiController@getHistory');
 Route::get('verifikasi_preview/{no_bukti}','Apv\VerifikasiController@getPreview');

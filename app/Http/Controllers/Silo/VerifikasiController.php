@@ -23,6 +23,11 @@ class VerifikasiController extends Controller
         }
     }
 
+    public function reverseDate($ymd_or_dmy_date, $org_sep='-', $new_sep='-'){
+        $arr = explode($org_sep, $ymd_or_dmy_date);
+        return $arr[2].$new_sep.$arr[1].$new_sep.$arr[0];
+    }
+
     
     function sendNotif($title,$content,$token_player){ 	
 
@@ -249,7 +254,7 @@ class VerifikasiController extends Controller
             $fields = [
                 [
                     'name' => 'tanggal',
-                    'contents' => $request->tanggal,
+                    'contents' => $this->reverseDate($request->tanggal,"/","-"),
                 ],
                 [
                     'name' => 'no_aju',

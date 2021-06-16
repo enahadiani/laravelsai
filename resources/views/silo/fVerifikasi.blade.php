@@ -27,7 +27,8 @@
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12">
                                         <label for="tanggal">Tanggal Verifikasi</label>
-                                        <input class='form-control' type="date" id="tanggal" name="tanggal" autocomplete="off" value="{{ date('Y-m-d') }}">
+                                        <span class="span-tanggal" id="span-tanggal"></span>
+                                        <input class='form-control datepicker' id="tanggal" name="tanggal" autocomplete="off" value="{{ date('d/m/Y') }}">
                                     </div>
                                     <div class="col-md-6 col-sm-12">
                                         <label for="status">Status</label>
@@ -287,6 +288,12 @@
 
         var scrollform = document.querySelector('.form-body');
         new PerfectScrollbar(scrollform);
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            }
+        });
         // END SET UP VIEW
         // LIST DATA
         var action_html = "<a href='#' title='Verifikasi' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a>";
@@ -475,6 +482,17 @@
             })
             $('#total').val(total)
         }
+
+        $('#tanggal').bootstrapDP({
+            autoclose: true,
+            format: 'dd/mm/yyyy',
+            container: '#span-tanggal',
+            templates: {
+                leftArrow: '<i class="simple-icon-arrow-left"></i>',
+                rightArrow: '<i class="simple-icon-arrow-right"></i>'
+            },
+            orientation: 'bottom left'
+        })
         // END OPTIONAL CONFIG
 
         // GRID FORM
@@ -1141,7 +1159,7 @@
                 event.preventDefault()
                 var parameter = $('#id_edit').val();
                 var id = $('#id').val();
-                var url = "{{ url('apv/verifikasi') }}";
+                var url = "{{ url('silo-trans/verifikasi') }}";
                 var pesan = "saved";
                 var text = "Data tersimpan dengan kode";
 
@@ -1224,7 +1242,7 @@
                         $('#dokumen').val(result.data[0].no_dokumen);
                         $('#kode_divisi').val(result.data[0].kode_divisi);
                         $('#kode_pp2').val(result.data[0].kode_pp);
-                        $('#waktu').val(result.data[0].waktu);
+                        $('#waktu').val(reverseDateNew(result.data[0].waktu, '-', '/'));
                         $('#kegiatan').val(result.data[0].kegiatan);
                         $('#dasar').val(result.data[0].dasar);
                         $('#total').val(parseFloat(result.data[0].nilai));
