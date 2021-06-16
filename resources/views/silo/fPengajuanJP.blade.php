@@ -1023,7 +1023,6 @@
                 processData: false,
                 contentType: false,
                 success : function(data) {
-                    console.log(td)
                     var tr = $(td).parent();
                     var tdAction = tr.children('td').last()
                     var download = tdAction.children('a.download-item')
@@ -1147,7 +1146,6 @@
                 processData: false,
                 contentType: false,
                 success : function(data) {
-                    console.log(td)
                     var tr = $(td).parent();
                     var tdAction = tr.children('td').last()
                     var download = tdAction.children('a.download-item')
