@@ -25,13 +25,15 @@
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12">
                                         <label for="tanggal">Tanggal Pengajuan</label>
-                                        <input class='form-control' type="date" id="tanggal" name="tanggal" autocomplete="off" value="{{ date('Y-m-d') }}">
-                                        {{-- <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;" class="simple-icon-calendar date-search"></i> --}}
+                                        <span class="span-tanggal" id="tanggal-aju"></span>
+                                        <input class='form-control datepicker' id="tanggal" name="tanggal" autocomplete="off" value="{{ date('d/m/Y') }}">
+                                        <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;" class="simple-icon-calendar date-search"></i>
                                     </div>
                                     <div class="col-md-6 col-sm-12">
                                         <label for="waktu">Tanggal Kebutuhan</label>
-                                        <input class='form-control' type="date" id="waktu" name="waktu" autocomplete="off" value="{{ date('Y-m-d') }}">
-                                        {{-- <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;" class="simple-icon-calendar date-search"></i> --}}
+                                        <span class="span-tanggal" id="tanggal-butuh"></span>
+                                        <input class='form-control datepicker' id="waktu" name="waktu" autocomplete="off" value="{{ date('d/m/Y') }}">
+                                        <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;" class="simple-icon-calendar date-search"></i>
                                     </div>
                                 </div>
                             </div>
@@ -376,7 +378,7 @@
             $('#input-dokumen-po tbody').empty();
             $('#input-dokumen-compare tbody').empty();
             $('#input-approve tbody').empty();
-            $('#judul-form').html('Tambah Data Justifikasi Pengajuan');
+            $('#judul-form').html('Tambah Data Justifikasi Kebutuhan');
             $('#kode').attr('readonly', false);
             addRowBarangDefault();
             addRowDokumenPODefault()
@@ -404,21 +406,6 @@
         var selectBukti = $('#inp-filter_bukti').selectize();
         var $dtKlpBarang = [];
         var valid = true;
-
-        // $('input.datepicker').click(function() {
-        //     $('div.datepicker').css({ 'top': '230px' })
-        // })
-
-        // $("input.datepicker").bootstrapDP({
-        //     autoclose: true,
-        //     format: "dd/mm/yyyy",
-        //     templates: {
-        //         leftArrow: '<i class="simple-icon-arrow-left"></i>',
-        //         rightArrow: '<i class="simple-icon-arrow-right"></i>',
-        //     },
-        // }).on('changeDate', function(event) {
-        //     console.log(event)
-        // });
 
         (function() {
             $.ajax({
@@ -554,7 +541,7 @@
         function generateDok(tanggal,kode_pp,kode_kota){
             $.ajax({
                 type: 'GET',
-                url: "{{ url('apv/generate-dok') }}",
+                url: "{{ url('silo-trans/generate-dok') }}",
                 dataType: 'json',
                 data:{'tanggal':tanggal,'kode_pp':kode_pp,'kode_kota':kode_kota},
                 async:false,
@@ -600,6 +587,28 @@
             })
             $('#total').val(total)
         }
+
+        $('#tanggal').bootstrapDP({
+            autoclose: true,
+            format: 'dd/mm/yyyy',
+            container: '#tanggal-aju',
+            templates: {
+                leftArrow: '<i class="simple-icon-arrow-left"></i>',
+                rightArrow: '<i class="simple-icon-arrow-right"></i>'
+            },
+            orientation: 'bottom left'
+        })
+
+        $('#waktu').bootstrapDP({
+            autoclose: true,
+            format: 'dd/mm/yyyy',
+            container: '#tanggal-butuh',
+            templates: {
+                leftArrow: '<i class="simple-icon-arrow-left"></i>',
+                rightArrow: '<i class="simple-icon-arrow-right"></i>'
+            },
+            orientation: 'bottom left'
+        })
         // END OPTIONAL CONFIG
 
         // CBBL FORM
@@ -1534,11 +1543,11 @@
                 var parameter = $('#id_edit').val();
                 var id = $('#id').val();
                 if(parameter == "edit"){
-                    var url = "{{ url('apv/juskeb') }}/"+id;
+                    var url = "{{ url('silo-trans/juskeb') }}/"+id;
                     var pesan = "updated";
                     var text = "Perubahan data "+id+" telah tersimpan";
                 }else{
-                    var url = "{{ url('apv/juskeb') }}";
+                    var url = "{{ url('silo-trans/juskeb') }}";
                     var pesan = "saved";
                     var text = "Data tersimpan dengan kode "+id;
                 }
@@ -1641,8 +1650,8 @@
                         $('#kode').attr('readonly', true);
                         $('#kode').val(id);
                         $('#id').val(id);
-                        $('#tanggal').val(result.data[0].tanggal);
-                        $('#waktu').val(result.data[0].waktu);
+                        $('#tanggal').val(reverseDateNew(result.data[0].tanggal, '-', '/'));
+                        $('#waktu').val(reverseDateNew(result.data[0].waktu, '-', '/'));
                         $('#dokumen').val(result.data[0].no_dokumen);
                         $('#kegiatan').val(result.data[0].kegiatan);
                         $('#dasar').val(result.data[0].dasar);
