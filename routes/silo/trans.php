@@ -31,7 +31,7 @@ Route::get('verifikasi_preview/{no_bukti}','Apv\VerifikasiController@getPreview'
 Route::get('juskeb_app','Apv\JuskebApprovalController@index');
 Route::get('juskeb_aju','Apv\JuskebApprovalController@getPengajuan');
 Route::get('juskeb_app/{no_bukti}','Apv\JuskebApprovalController@show');
-Route::post('juskeb_app','Apv\JuskebApprovalController@store');
+Route::post('juskeb_app','Silo\JuskebApprovalController@store');
 Route::get('juskeb_app_status','Apv\JuskebApprovalController@getStatus');
 Route::get('juskeb_app_preview/{no_bukti}/{id}','Apv\JuskebApprovalController@getPreview');
 

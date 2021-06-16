@@ -23,6 +23,11 @@ class JuskebApprovalController extends Controller
         }
     }
 
+    public function reverseDate($ymd_or_dmy_date, $org_sep='-', $new_sep='-'){
+        $arr = explode($org_sep, $ymd_or_dmy_date);
+        return $arr[2].$new_sep.$arr[1].$new_sep.$arr[0];
+    }
+
     function sendNotif($title,$content,$token_player){ 	
 
         try {
@@ -163,7 +168,7 @@ class JuskebApprovalController extends Controller
                 ],
                 'form_params' => [
                     'kode_lokasi' => Session::get('lokasi'),
-                    'tanggal' => $request->tanggal,
+                    'tanggal' => $this->reverseDate($request->tanggal,"/","-"),
                     'no_aju' => $request->no_aju,
                     'status' => $request->status,
                     'keterangan' => $request->keterangan,

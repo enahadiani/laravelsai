@@ -27,7 +27,9 @@
                             <div class="row">
                                 <div class="col-md-6 col-sm-12">
                                     <label for="tanggal">Tanggal Approval</label>
-                                    <input class='form-control' type="date" id="tanggal" name="tanggal" autocomplete="off" value="{{ date('Y-m-d') }}">
+                                    <span class="span-tanggal" id="span-tanggal"></span>
+                                    <input class='form-control datepicker' id="tanggal" name="tanggal" autocomplete="off" value="{{ date('d/m/Y') }}">
+                                    <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;" class="simple-icon-calendar date-search"></i>
                                 </div>
                                 <div class="col-md-6 col-sm-12">
                                     <label for="status">Status</label>
@@ -411,6 +413,17 @@
         var filter = $dtKlpBarang.filter(data => data.id === kode)
         return filter[0]
     }
+
+    $('#tanggal').bootstrapDP({
+        autoclose: true,
+        format: 'dd/mm/yyyy',
+        container: '#span-tanggal',
+        templates: {
+            leftArrow: '<i class="simple-icon-arrow-left"></i>',
+            rightArrow: '<i class="simple-icon-arrow-right"></i>'
+        },
+        orientation: 'bottom left'
+    })
     // END OPTIONAL CONFIG
 
     // GRID FORM 
@@ -480,7 +493,7 @@
             event.preventDefault()
             var parameter = $('#id_edit').val();
             var id = $('#id').val();
-            var url = "{{ url('apv/juskeb_app') }}";
+            var url = "{{ url('silo-trans/juskeb_app') }}";
             var pesan = "saved";
             var text = "Data tersimpan dengan kode";
 
@@ -560,7 +573,7 @@
                     $('#no_aju').val(result.data[0].no_bukti);
                     $('#dokumen').val(result.data[0].no_dokumen);
                     $('#kode_divisi').val(result.data[0].kode_divisi);
-                    $('#waktu').val(result.data[0].waktu);
+                    $('#waktu').val(reverseDateNew(result.data[0].waktu));
                     $('#kegiatan').val(result.data[0].kegiatan);
                     $('#dasar').val(result.data[0].dasar);
                     $('#total').val(parseFloat(result.data[0].nilai));
