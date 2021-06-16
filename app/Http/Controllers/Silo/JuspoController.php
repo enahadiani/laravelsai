@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Session;
 use GuzzleHttp\Exception\BadResponseException;
 
@@ -792,7 +793,9 @@ class JuspoController extends Controller
             ]);
             
             if ($response->getStatusCode() == 200) { // 200 OK
-                Storage::deleteDirectory('public/temp');
+                $file = new Filesystem;
+                $file->cleanDirectory('storage/app/temp');
+                
                 $response_data = $response->getBody()->getContents();
                 
                 $data = json_decode($response_data,true);
