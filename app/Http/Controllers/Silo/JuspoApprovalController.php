@@ -23,6 +23,11 @@ class JuspoApprovalController extends Controller
         }
     }
 
+    public function reverseDate($ymd_or_dmy_date, $org_sep='-', $new_sep='-'){
+        $arr = explode($org_sep, $ymd_or_dmy_date);
+        return $arr[2].$new_sep.$arr[1].$new_sep.$arr[0];
+    }
+
     function sendNotif($title,$content,$token_player){ 	
 
         try {
@@ -178,8 +183,7 @@ class JuspoApprovalController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         $this->validate($request, [
             'tanggal' => 'required',
             'no_aju' => 'required',
@@ -190,20 +194,91 @@ class JuspoApprovalController extends Controller
             
         try{
            
+            $fields = [
+                [
+                    'name' => 'tanggal',
+                    'contents' => $this->reverseDate($request->tanggal,"/","-"),
+                ],
+                [
+                    'name' => 'no_aju',
+                    'contents' => $request->no_aju,
+                ],
+                [
+                    'name' => 'status',
+                    'contents' => $request->status,
+                ],
+                [
+                    'name' => 'keterangan',
+                    'contents' => $request->keterangan,
+                ],
+                [
+                    'name' => 'no_urut',
+                    'contents' => $request->nu,
+                ],
+                [
+                    'name' => 'kode_lokasi',
+                    'contents' => Session::get('lokasi'),
+                ]
+            ];
+
+            $send_data = $fields;
+
+            $fields_foto = array();
+            $fields_nama_file = array();
+            $fields_nama_file_seb = array();
+            $fields_jenis_dok = array();
+            $fields_nik_input = array();
+            $cek = $request->file_dok;
+            if(!empty($cek)){
+
+                if(count($request->file_dok) > 0){
+
+                    for($i=0;$i<count($request->nama_dok);$i++){
+                        if(isset($request->file('file_dok')[$i])){
+                            $image_path = $request->file('file_dok')[$i]->getPathname();
+                            $image_mime = $request->file('file_dok')[$i]->getmimeType();
+                            $image_org  = $request->file('file_dok')[$i]->getClientOriginalName();
+                            $fields_foto[$i] = array(
+                                'name'     => 'file['.$i.']',
+                                'filename' => $image_org,
+                                'Mime-Type'=> $image_mime,
+                                'contents' => fopen( $image_path, 'r' ),
+                            );
+                        }
+                        $nama_file = $request->nama_dok[$i];
+                        $fields_nama_file[$i] = array(
+                            'name'     => 'nama_file[]',
+                            'contents' => $nama_file,
+                        );
+
+                        $fields_nama_file_seb[$i] = array(
+                            'name'     => 'nama_file_seb[]',
+                            'contents' => $request->nama_file[$i],
+                        );
+                        $fields_jenis_dok[$i] = array(
+                            'name'     => 'jenis_dok[]',
+                            'contents' => $request->jenis_dok[$i],
+                        );
+                        $fields_nik_input[$i] = array(
+                            'name'     => 'nik_input[]',
+                            'contents' => $request->nik_input[$i],
+                        );
+                    }
+                    $send_data = array_merge($send_data,$fields_foto);
+                    $send_data = array_merge($send_data,$fields_nama_file);
+                    $send_data = array_merge($send_data,$fields_nama_file_seb);
+                    $send_data = array_merge($send_data,$fields_jenis_dok);
+                    $send_data = array_merge($send_data,$fields_nik_input);
+                }
+            }
+
             $client = new Client();
             $response = $client->request('POST',  config('api.url').'apv/juspo_app',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
                 ],
-                'form_params' => [
-                    'kode_lokasi' => Session::get('lokasi'),
-                    'tanggal' => $request->tanggal,
-                    'no_aju' => $request->no_aju,
-                    'status' => $request->status,
-                    'keterangan' => $request->keterangan,
-                    'no_urut' => $request->nu
-                ]
+                'multipart' => $send_data
             ]);
             
             if ($response->getStatusCode() == 200) { // 200 OK
@@ -261,7 +336,7 @@ class JuspoApprovalController extends Controller
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(),true);
-            $data['message'] = $res['message'];
+            $data['message'] = $res;
             $data['status'] = false;
             return response()->json(['data' => $data], 200);
         }

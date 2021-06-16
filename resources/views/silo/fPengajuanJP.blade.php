@@ -28,7 +28,7 @@
                             <div class="row">
                                 <div class="col-md-6 col-sm-12">
                                     <label for="tanggal">Tanggal Justifikasi Kebutuhan</label>
-                                    <span class="span-tanggal" id="tanggal-JK"></span>
+                                    <span class="span-tanggal" id="span-tanggal"></span>
                                     <input class='form-control datepicker' id="tanggal" name="tanggal" autocomplete="off" value="{{ date('d/m/Y') }}">
                                     <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;" class="simple-icon-calendar date-search"></i>
                                 </div>
@@ -553,7 +553,7 @@
     $('#tanggal').bootstrapDP({
         autoclose: true,
         format: 'dd/mm/yyyy',
-        container: '#tanggal-JK',
+        container: '#span-tanggal',
         templates: {
             leftArrow: '<i class="simple-icon-arrow-left"></i>',
             rightArrow: '<i class="simple-icon-arrow-right"></i>'

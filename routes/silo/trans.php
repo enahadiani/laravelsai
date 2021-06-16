@@ -50,7 +50,7 @@ Route::get('generate-dok-juspo','Silo\JuspoController@generateDok');
 Route::get('juspo_app','Apv\JuspoApprovalController@index');
 Route::get('juspo_app_aju','Apv\JuspoApprovalController@getPengajuan');
 Route::get('juspo_app/{no_bukti}','Apv\JuspoApprovalController@show');
-Route::post('juspo_app','Apv\JuspoApprovalController@store');
+Route::post('juspo_app','Silo\JuspoApprovalController@store');
 Route::get('juspo_app_status','Apv\JuspoApprovalController@getStatus');
 Route::get('juspo_app_preview/{no_bukti}/{id}','Apv\JuspoApprovalController@getPreview');
 
