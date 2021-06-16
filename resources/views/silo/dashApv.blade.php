@@ -145,7 +145,7 @@
                             </tr>
                         `    
                     }
-                    $('#table-data').append(html)
+                    $('#table-data tbody').append(html)
                 }
             }
         });
@@ -156,11 +156,16 @@
             type: "GET",
             url: "{{ url('apv/dash_posisi') }}",
             dataType: 'json',
-            async:false,
+            async:true,
             data: { param: kode },
+            beforeSend: function() {
+                $('#table-data tbody').empty()
+                $('#table-data tbody').append('<tr><td colspan="8" style="text-align: center;">Memuat data...</td></tr>')
+            },
             success: function(res) { 
                 var result = res.data
                 if(result.status) {
+                    $('#table-data tbody').empty()
                     var html = "";
                     var background1 = '';
                     var background2 = '';
@@ -208,7 +213,7 @@
                             </tr>
                         `    
                     }
-                    $('#table-data').append(html)
+                    $('#table-data tbody').append(html)
                 }
             }
         });
