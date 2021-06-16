@@ -363,6 +363,7 @@ class JuskebController extends Controller
 
             $fields_foto = array();
             $fields_nama_file = array();
+            $fields_jenis_dok = array();
             
             $cek = $request->file_dok;
             if(!empty($cek)){
@@ -384,12 +385,16 @@ class JuskebController extends Controller
                             'name'     => 'nama_file[]',
                             'contents' => $nama_file,
                         );
+                        $fields_jenis_dok[$i] = array(
+                            'name'     => 'jenis_dok[]',
+                            'contents' => $request->jenis_dok[$i],
+                        );
                     }
                     $send_data = array_merge($send_data,$fields_foto);
                     $send_data = array_merge($send_data,$fields_nama_file);
+                    $send_data = array_merge($send_data,$fields_jenis_dok);
                 }
             }
-                
             $client = new Client();
             $response = $client->request('POST',  config('api.url').'apv/juskeb',[
                 'headers' => [
@@ -425,9 +430,9 @@ class JuskebController extends Controller
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(),true);
-            $data['message'] = $res['message'];
-            $data['status'] = false;
-            return response()->json(['data' => $data], 200);
+            // $data['message'] = $res['message'];
+            // $data['status'] = false;
+            return response()->json(['data' => $res], 200);
         }
     }
 
@@ -635,6 +640,7 @@ class JuskebController extends Controller
             $fields_foto = array();
             $fields_nama_file = array();
             $fields_nama_file_seb = array();
+            $fields_jenis_dok = array();
             $cek = $request->file_dok;
             if(!empty($cek)){
 
@@ -657,15 +663,20 @@ class JuskebController extends Controller
                             'name'     => 'nama_file[]',
                             'contents' => $nama_file,
                         );
-
+                        $fields_jenis_dok[$i] = array(
+                            'name'     => 'jenis_dok[]',
+                            'contents' => $request->jenis_dok[$i],
+                        );
                         $fields_nama_file_seb[$i] = array(
                             'name'     => 'nama_file_seb[]',
                             'contents' => $request->nama_file[$i],
                         );
+
                     }
                     $send_data = array_merge($send_data,$fields_foto);
                     $send_data = array_merge($send_data,$fields_nama_file);
                     $send_data = array_merge($send_data,$fields_nama_file_seb);
+                    $send_data = array_merge($send_data,$fields_jenis_dok);
                 }
             }
                 
