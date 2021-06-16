@@ -288,12 +288,6 @@
 
         var scrollform = document.querySelector('.form-body');
         new PerfectScrollbar(scrollform);
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-            }
-        });
         // END SET UP VIEW
         // LIST DATA
         var action_html = "<a href='#' title='Verifikasi' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a>";
