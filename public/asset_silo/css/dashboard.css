@@ -1,0 +1,66 @@
+.btn-refresh {
+    border: 1px solid #d5d5d5;
+    border-radius: 20px !important;
+    background-color: #ffffff;
+}
+.row-card {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 24px;
+}
+
+.card {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 16px;
+    background-color: #ffffff;
+    margin-top: 8px;
+}
+.card .card-content {
+    height: 130px;
+    width: 175px;
+    border-radius: 15px;
+    text-align: center;
+    padding-top: 16px;
+    cursor: pointer;
+}
+.card .card-one {
+    background-color: #03a9f3;
+}
+
+.card .card-two {
+    background-color: #00c292;
+}
+
+.card .card-three {
+    background-color: #4286f5;
+}
+
+.card .card-four {
+    background-color: #fec107;
+}
+
+.card .card-five {
+    background-color: #e46a76;
+}
+
+.card .card-content h3,
+.card .card-content h6 {
+    color: #ffffff !important;
+}
+
+.table-scroll {
+    overflow-y: auto;
+    height: 310px;
+}
+
+.box-label {
+    border-radius: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 25px;
+    height: 19px;
+    text-align: center;
+    color: #ffffff;
+}
