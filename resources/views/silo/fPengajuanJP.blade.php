@@ -28,8 +28,9 @@
                             <div class="row">
                                 <div class="col-md-6 col-sm-12">
                                     <label for="tanggal">Tanggal Justifikasi Kebutuhan</label>
-                                    <input class='form-control' type="date" id="tanggal" name="tanggal" autocomplete="off" value="{{ date('Y-m-d') }}">
-                                    {{-- <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;" class="simple-icon-calendar date-search"></i> --}}
+                                    <span class="span-tanggal" id="tanggal-JK"></span>
+                                    <input class='form-control datepicker' id="tanggal" name="tanggal" autocomplete="off" value="{{ date('d/m/Y') }}">
+                                    <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;" class="simple-icon-calendar date-search"></i>
                                 </div>
                                 <div class="col-md-6 col-sm-12">
                                     <label for="status">Status</label>
@@ -548,6 +549,17 @@
             }
         });
     }
+
+    $('#tanggal').bootstrapDP({
+        autoclose: true,
+        format: 'dd/mm/yyyy',
+        container: '#tanggal-JK',
+        templates: {
+            leftArrow: '<i class="simple-icon-arrow-left"></i>',
+            rightArrow: '<i class="simple-icon-arrow-right"></i>'
+        },
+        orientation: 'bottom left'
+    })
     // END OPTIONAL CONFIG
 
     // CBBL FORM
@@ -1322,7 +1334,7 @@
                     $('#kode').val(id);
                     $('#id').val(id);
                     $('#no_juskeb').val(id);
-                    $('#waktu').val(result.data[0].waktu);
+                    $('#waktu').val(reverseDateNew(result.data[0].waktu, '-', '/'));
                     $('#kegiatan').val(result.data[0].kegiatan);
                     $('#dasar').val(result.data[0].dasar);
                     $('#pic').val(result.data[0].pic ? result.data[0].pic : '-');

@@ -52,3 +52,8 @@
 #saku-datatable .card {
     height: 100%;
 }
+
+.span-tanggal .datepicker-dropdown {
+    left: 20px !important;
+    top: 40px !important;
+}
