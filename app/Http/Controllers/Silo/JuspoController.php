@@ -26,8 +26,8 @@ class JuspoController extends Controller
 
     public function saveFileTemp(Request $request) {
         $name = $request->file('file')->getClientOriginalName();
-        Storage::delete('public/temp/'.$name);
-        Storage::put('public/temp/'.$name, file_get_contents($request->file('file')));
+        Storage::disk('public')->delete('temp/'.$name);
+        Storage::disk('public')->put('temp/'.$name, file_get_contents($request->file('file')));
 
         return $name;
     }

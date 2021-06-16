@@ -35,3 +35,10 @@ Route::post('notif-update-status','Silo\NotifController@updateStatusRead');
 Route::post('search-form','Silo\AuthController@searchForm');
 Route::get('search-form-list','Silo\AuthController@searchFormList');
 Route::get('search-form-list2','Silo\AuthController@searchFormList2');
+
+$router->get('storage/{filename}', function ($filename) {
+    if (!Storage::disk('public')->exists('temp/'.$filename)) {
+        abort(404);
+    }
+    return Storage::disk('public')->response('temp/'.$filename); 
+});
