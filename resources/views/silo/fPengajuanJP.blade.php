@@ -1623,7 +1623,7 @@
                             $('#judul-form').html('Edit Data Justifikasi Pengadaan');
                             $('#kode').attr('readonly', false);
                             resetForm();
-                            printPreview(kode, result.data.no_juskeb);
+                            printPreview(result.data.no_juskeb, kode);
                             last_add("no_bukti", kode);
                             Swal.fire(
                                 'Great Job!',
