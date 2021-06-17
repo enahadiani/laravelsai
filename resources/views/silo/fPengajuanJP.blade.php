@@ -1322,7 +1322,7 @@
         $('#judul-form').html('Edit Data Justifikasi Pengadaan');
         $.ajax({
             type: 'GET',
-            url: "{{ url('apv/juspo') }}/" + id,
+            url: "{{ url('apv/juspo_aju') }}/" + id,
             dataType: 'json',
             async:false,
             success:function(res){
@@ -1620,7 +1620,7 @@
                             $('#input-dokumen-compare tbody').empty();
                             $('#input-approve tbody').empty();
                             dataTable.ajax.reload();
-                            $('#judul-form').html('Tambah Edit Justifikasi Pengadaan');
+                            $('#judul-form').html('Edit Data Justifikasi Pengadaan');
                             $('#kode').attr('readonly', false);
                             resetForm();
                             printPreview(kode, result.data.no_juskeb);

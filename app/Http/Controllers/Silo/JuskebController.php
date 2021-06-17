@@ -380,7 +380,7 @@ class JuskebController extends Controller
                             'Mime-Type'=> $image_mime,
                             'contents' => fopen( $image_path, 'r' ),
                         );
-                        $nama_file = $request->nama_dok[$i];
+                        $nama_file = $request->nama_file[$i];
                         $fields_nama_file[$i] = array(
                             'name'     => 'nama_file[]',
                             'contents' => $nama_file,

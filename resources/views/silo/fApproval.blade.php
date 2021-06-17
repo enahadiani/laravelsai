@@ -573,7 +573,7 @@
                     $('#no_aju').val(result.data[0].no_bukti);
                     $('#dokumen').val(result.data[0].no_dokumen);
                     $('#kode_divisi').val(result.data[0].kode_divisi);
-                    $('#waktu').val(reverseDateNew(result.data[0].waktu), '-', '/');
+                    $('#waktu').val(reverseDateNew(result.data[0].waktu, '-', '/'));
                     $('#kegiatan').val(result.data[0].kegiatan);
                     $('#dasar').val(result.data[0].dasar);
                     $('#total').val(parseFloat(result.data[0].nilai));
