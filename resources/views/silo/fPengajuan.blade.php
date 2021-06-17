@@ -1762,6 +1762,7 @@
                                         </td>
                                         <td class='text-center'>
                                             <a class='hapus-item' style='font-size:12px;cursor:pointer;'><i class='simple-icon-trash'></i></a>
+                                            <a class='download-item' style='font-size:12px;cursor:pointer;' href='http://api.simkug.com/api/apv/storage/${data.file_dok}' target='_blank'><i class='simple-icon-cloud-download'></i></a>
                                         </td>
                                     </tr>
                                 `;
@@ -1801,6 +1802,7 @@
                                         </td>
                                         <td class='text-center'>
                                             <a class='hapus-item' style='font-size:12px;cursor:pointer;'><i class='simple-icon-trash'></i></a>
+                                            <a class='download-item' style='font-size:12px;cursor:pointer;' href='http://api.simkug.com/api/apv/storage/${data.file_dok}' target='_blank'><i class='simple-icon-cloud-download'></i></a>
                                         </td>
                                     </tr>
                                 `;
