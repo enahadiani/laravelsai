@@ -324,8 +324,8 @@
     new PerfectScrollbar(scrollform);
     // END SET UP VIEW
     // LIST DATA
-    var actionHtmlWithE = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a>";
-    var actionHtmlNoE = "<a href='#' title='Print'  id='btn-print'><i class='simple-icon-printer' style='font-size:18px'></i></a>";
+    var actionHtmlOnlyP = "<a href='#' title='Print'  id='btn-print'><i class='simple-icon-printer' style='font-size:18px'></i></a>";
+    var actionHtmlOnlyE = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a>";
     var dataTable = generateTable(
         "table-data",
         "{{ url('apv/juspo_aju') }}", 
@@ -360,9 +360,9 @@
             { data: 'status' },
             { data: 'status', render: function(data) {
                 if(data == '-') {
-                    return actionHtmlWithE
-                } 
-                return actionHtmlNoE
+                    return actionHtmlOnlyE
+                }
+                return actionHtmlOnlyP
             } },
             { data: 'id' }
         ],
@@ -1322,7 +1322,7 @@
         $('#judul-form').html('Edit Data Justifikasi Pengadaan');
         $.ajax({
             type: 'GET',
-            url: "{{ url('apv/juspo_aju') }}/" + id,
+            url: "{{ url('apv/juspo') }}/" + id,
             dataType: 'json',
             async:false,
             success:function(res){
