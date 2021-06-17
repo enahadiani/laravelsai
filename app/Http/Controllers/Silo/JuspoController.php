@@ -281,7 +281,7 @@ class JuspoController extends Controller
             $fields = [
                 [
                     'name' => 'tanggal',
-                    'contents' => $request->tanggal,
+                    'contents' => $this->reverseDate($request->tanggal,"/","-")
                 ],
                 [
                     'name' => 'tgl_aju',
@@ -305,7 +305,7 @@ class JuspoController extends Controller
                 ],
                 [
                     'name' => 'waktu',
-                    'contents' => $request->waktu,
+                    'contents' => $this->reverseDate($request->waktu,"/","-"),
                 ],
                 [
                     'name' => 'kegiatan',

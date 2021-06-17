@@ -40,7 +40,7 @@ Route::get('juspo','Apv\JuspoController@index');
 Route::get('juspo_aju','Apv\JuspoController@getPengajuan');
 Route::get('juspo/{no_bukti}','Apv\JuspoController@show');
 Route::get('juspo_aju/{no_bukti}','Apv\JuspoController@getDetailJuskeb');
-Route::post('juspo','Apv\JuspoController@store');
+Route::post('juspo','Silo\JuspoController@store');
 Route::post('juspo/{no_bukti}','Silo\JuspoController@update');
 Route::delete('juspo/{no_bukti}','Apv\JuspoController@destroy');
 Route::get('juspo_history/{no_bukti}','Apv\JuspoController@getHistory');

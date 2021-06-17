@@ -1591,7 +1591,7 @@
             event.preventDefault()
             var parameter = $('#id_edit').val();
             var id = $('#id').val();
-            var url = "{{ url('silo-trans/juspo') }}/"+id;
+            var url = "{{ url('silo-trans/juspo') }}";
             var pesan = "updated";
             var text = "Perubahan data "+id+" telah tersimpan";
 
