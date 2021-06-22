@@ -358,8 +358,8 @@
             { data: 'kegiatan' },
             { data: 'nilai' },
             { data: 'status' },
-            { data: 'status', render: function(data) {
-                if(data == '-') {
+            { data: 'progress', render: function(data) {
+                if(data == 'A') {
                     return actionHtmlOnlyE
                 }
                 return actionHtmlOnlyP
