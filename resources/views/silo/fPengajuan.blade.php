@@ -767,7 +767,7 @@
             $(td).children('span').not('.not-show').text(value)
             $(td).children('span').not('.not-show').show()
             $(td).children('input').hide()
-            $(td).children('a').not('.hapus-item').hide()
+            $(td).children('a').not('.hapus-item, .download-item').hide()
 
             var nextindex = index + 1; 
             var tdnext = $(tr).find('td').eq(nextindex)
