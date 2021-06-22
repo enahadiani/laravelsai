@@ -1,0 +1,99 @@
+.card {
+    position: relative;
+    width: 100%;
+    padding: 16px 16px 18px 36px;
+    background-color: #ffffff;
+}
+.with-padding {
+    padding: 16px 16px 0 36px;
+}
+.with-padding-no-top {
+    padding: 0 16px 0 36px;
+}
+.with-h {
+    height: 200px;
+}
+.card.p-0 {
+    padding: 0;
+}
+.card.h-full {
+    height: 453.5px !important;
+}
+.card .body-card {
+    position: relative;
+    height: 81%;
+    width: 100%;
+}
+.card .body-card .avatar {
+    height: 40px;
+    border-radius: 100%;
+}
+.card .body-card .key-card {
+    color: #ff0000 !important;
+    font-size: 15px !important;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+.card .body-card .value-card {
+    color: #000000 !important;
+    font-size: 13px !important;
+    margin-bottom: 8px;
+}
+.card .body-card .content-card {
+    background-color: #d1d5db;
+    width: 100%;
+    padding: 18px;
+    font-size: 14px;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border-top-right-radius: 15px;
+    color: #000000;
+}
+.card .body-card .avatar img {
+    border-radius: 100%;
+    height: 100%;
+}
+#monitoring.body-card .row {
+    margin-bottom: 24px;
+    position: relative;
+}
+
+.card .body-card .line-v {
+    width: 100%;
+    padding: 0;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    border-top: 1px solid #f3f4f6;
+}
+
+.card .footer-card {
+    text-align: center;
+    position: absolute;
+    padding-top: 8px;
+    bottom: 0;
+    left: 0;
+    height: 40px;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    width: 100%;
+    background-color: #f3f4f6;
+    box-shadow: 0 -0.5px 5px #d1d5db;
+}
+.card .footer-card .load-all {
+    color: #000000 !important;
+    font-size: 15px !important;
+    font-weight: bold;
+}
+
+.card h5 {
+    font-size: 20px !important;
+    margin-bottom: 24px;
+}
+
+.sub-card-value {
+    padding-top: 12px;
+    font-size: 24px !important;
+    font-weight: bold;
+    color: #1d4ed8;
+}
