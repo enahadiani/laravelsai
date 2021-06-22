@@ -85,15 +85,50 @@
     font-size: 15px !important;
     font-weight: bold;
 }
-
 .card h5 {
     font-size: 20px !important;
     margin-bottom: 24px;
 }
-
 .sub-card-value {
     padding-top: 12px;
     font-size: 24px !important;
     font-weight: bold;
     color: #1d4ed8;
+}
+.select-custom {
+    font-size: 15px !important;
+    border-radius: 10px;
+}
+.field-custom {
+    font-size: 15px !important;
+    border-radius: 10px;
+    padding-left: 40px;
+}
+.search-data {
+    position: relative;
+    width: 100%;
+}
+.search-data .append-icon {
+    position: absolute;
+    bottom: 12px;
+    left: 12px;
+}
+.search-data .append-icon i {
+    font-size: 20px;
+    color: #d1d5db;
+}
+#table-data tbody td.status {
+    color: #1d4ed8;
+    font-weight: bold;
+}
+
+#table-data thead tr th,
+#table-data tbody tr td {
+    font-size: 14px !important;
+}
+
+.table-scroll {
+    position: relative;
+    overflow: hidden;
+    height: 250px;
 }
