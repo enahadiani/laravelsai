@@ -715,7 +715,7 @@
                             $(td).children('input').not("input[type='hidden'], input[type='file']").val(value)
                             $(td).children('span').text(value)
                             $(td).children('input').not("input[type='hidden'], input[type='file']").hide()
-                            $(td).children('a').not('.hapus-item').hide()
+                            $(td).children('a').not('.hapus-item, .download-item').hide()
                             $(td).children('span').not('.not-show').show()
                         })
                     })
@@ -723,7 +723,7 @@
                 $(table).find('tr').removeClass('selected-row')
                 $(table).find('td').removeClass('selected-cell')
                 $(table).find('input').not("input[type='hidden'], input[type='file']").hide()
-                $(table).find('a').not('.hapus-item').hide()
+                $(table).find('a').not('.hapus-item, .download-item').hide()
                 $(table).find('span').not('.not-show').show()
             })
         }
@@ -735,7 +735,7 @@
                     $(td).children('input').not("input[type='hidden'], input[type='file']").val(value)
                     $(td).children('span').text(value)
                     $(td).children('input').not("input[type='hidden'], input[type='file']").hide()
-                    $(td).children('a').not('.hapus-item').hide()
+                    $(td).children('a').not('.hapus-item, .download-item').hide()
                     $(td).children('span').not('.not-show').show()
                 })
             }) 
@@ -749,13 +749,13 @@
                 if($(td).hasClass('selected-cell')) {
                     $(td).children('span').hide()
                     $(td).children('input').not("input[type='hidden'], input[type='file']").show()
-                    $(td).children('a').not('.hapus-item').show()
+                    $(td).children('a').not('.hapus-item, .download-item').show()
                     setTimeout(function() {
                         $(td).children('input').not("input[type='hidden'], input[type='file']").focus()
                     }, 500)
                 } else {
                     $(td).children('input').not("input[type='hidden'], input[type='file']").hide()
-                    $(td).children('a').not('.hapus-item').hide()
+                    $(td).children('a').not('.hapus-item, .download-item').hide()
                     $(td).children('span').not('.not-show').show()
                 }
             }) 
@@ -874,17 +874,6 @@
                 </tr>
             `;
             $('#input-barang tbody').append(html)
-
-            // $(`#kode-${idBarang}`).typeahead({
-            //     source:$dtKlpBarang,
-            //     displayText:function(item){
-            //         return item.id+'-'+item.name;
-            //     },
-            //     autoSelect:false,
-            //     changeInputOnSelect:false,
-            //     changeInputOnMove:false,
-            //     selectOnBlur:false
-            // });
            
             $('.currency').inputmask("numeric", {
                 radixPoint: ",",
@@ -955,21 +944,6 @@
             $('#input-barang tbody').append(html)
             $('#input-barang tbody tr').not(':last').removeClass('selected-row');
             $('.row-grid:last').addClass('selected-row');
-            
-            // $(`#kode-${idBarang}`).typeahead({
-            //     source:$dtKlpBarang,
-            //     displayText:function(item){
-            //         return item.id+'-'+item.name;
-            //     },
-            //     autoSelect:false,
-            //     changeInputOnSelect:false,
-            //     changeInputOnMove:false,
-            //     selectOnBlur:false,
-            //     afterSelect: function (item) {
-            //         console.log(this.$element.get(0))
-            //         console.log(item)
-            //     }
-            // });
 
             $('.currency').inputmask("numeric", {
                 radixPoint: ",",
@@ -2033,6 +2007,8 @@
                 $('#saku-datatable').show()
                 $('#saku-form').hide()
             } else {
+                setRegional('kode_pp', regional)
+                setNik(regional, 'nik_ver', null, 'add')
                 $('#saku-form').show()
                 $('#saku-datatable').hide()
             }
