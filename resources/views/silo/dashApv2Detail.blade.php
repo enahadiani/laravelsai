@@ -23,15 +23,876 @@
                             <div class="info-tabs" id="count-ac">1</div>
                         </li>
                     </ul>
-                    <div class="tab-content mt-3 with-padding-left with-padding-right">
+                    <div class="tab-content mt-4 content-height" id="tab-content">
                         <div class="tab-pane show active" id="jk-tab" role="tabpanel" aria-labelledby="jk-tab">
-                            ini tab justifikasi kebutuhan
+                            <div class="data-tabs">
+                                <div class="data-tabs-content with-padding-left with-padding-right">
+                                    <h6>324-90121-91211</h6>
+                                    <div class="tabs-row">
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">Tanggal Transaksi</span>
+                                            <span id="tgl-transaksi" class="content-label"> : 23 Juni 2021</span>
+                                        </div>
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">Total</span>
+                                            <span id="tgl-transaksi" class="content-label"> : Rp. 1.000.000.000</span>
+                                        </div>
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">PP</span>
+                                            <span id="tgl-transaksi" class="content-label"> : Keuangan</span>
+                                        </div>
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">Kota</span>
+                                            <span id="tgl-transaksi" class="content-label"> : Padang</span>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-12">
+                                            <table class="table table-bordered">
+                                                <tbody>
+                                                    <tr>
+                                                        <td style="width: 50%;">
+                                                            <p class="label-table">Justifikasi Kebutuhan</p>
+                                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>
+                                                        </td>
+                                                        <td style="width: 50%;">
+                                                            <p class="label-table">Dasar</p>
+                                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="with-height" colspan="2">
+                                                            <p class="label-table">Catatan :</p>
+                                                            <p>&nbsp;</p>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr />
+                            </div>
+                            <div class="data-tabs">
+                                <div class="data-tabs-content with-padding-left with-padding-right">
+                                    <h6>324-90121-91211</h6>
+                                    <div class="tabs-row">
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">Tanggal Transaksi</span>
+                                            <span id="tgl-transaksi" class="content-label"> : 23 Juni 2021</span>
+                                        </div>
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">Total</span>
+                                            <span id="tgl-transaksi" class="content-label"> : Rp. 1.000.000.000</span>
+                                        </div>
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">PP</span>
+                                            <span id="tgl-transaksi" class="content-label"> : Keuangan</span>
+                                        </div>
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">Kota</span>
+                                            <span id="tgl-transaksi" class="content-label"> : Padang</span>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-12">
+                                            <table class="table table-bordered">
+                                                <tbody>
+                                                    <tr>
+                                                        <td style="width: 50%;">
+                                                            <p class="label-table">Justifikasi Kebutuhan</p>
+                                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>
+                                                        </td>
+                                                        <td style="width: 50%;">
+                                                            <p class="label-table">Dasar</p>
+                                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="with-height" colspan="2">
+                                                            <p class="label-table">Catatan :</p>
+                                                            <p>&nbsp;</p>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr />
+                            </div>
+                            <div class="data-tabs">
+                                <div class="data-tabs-content with-padding-left with-padding-right">
+                                    <h6>324-90121-91211</h6>
+                                    <div class="tabs-row">
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">Tanggal Transaksi</span>
+                                            <span id="tgl-transaksi" class="content-label"> : 23 Juni 2021</span>
+                                        </div>
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">Total</span>
+                                            <span id="tgl-transaksi" class="content-label"> : Rp. 1.000.000.000</span>
+                                        </div>
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">PP</span>
+                                            <span id="tgl-transaksi" class="content-label"> : Keuangan</span>
+                                        </div>
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">Kota</span>
+                                            <span id="tgl-transaksi" class="content-label"> : Padang</span>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-12">
+                                            <table class="table table-bordered">
+                                                <tbody>
+                                                    <tr>
+                                                        <td style="width: 50%;">
+                                                            <p class="label-table">Justifikasi Kebutuhan</p>
+                                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>
+                                                        </td>
+                                                        <td style="width: 50%;">
+                                                            <p class="label-table">Dasar</p>
+                                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="with-height" colspan="2">
+                                                            <p class="label-table">Catatan :</p>
+                                                            <p>&nbsp;</p>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr />
+                            </div>
+                            <div class="data-tabs">
+                                <div class="data-tabs-content with-padding-left with-padding-right">
+                                    <h6>324-90121-91211</h6>
+                                    <div class="tabs-row">
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">Tanggal Transaksi</span>
+                                            <span id="tgl-transaksi" class="content-label"> : 23 Juni 2021</span>
+                                        </div>
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">Total</span>
+                                            <span id="tgl-transaksi" class="content-label"> : Rp. 1.000.000.000</span>
+                                        </div>
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">PP</span>
+                                            <span id="tgl-transaksi" class="content-label"> : Keuangan</span>
+                                        </div>
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">Kota</span>
+                                            <span id="tgl-transaksi" class="content-label"> : Padang</span>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-12">
+                                            <table class="table table-bordered">
+                                                <tbody>
+                                                    <tr>
+                                                        <td style="width: 50%;">
+                                                            <p class="label-table">Justifikasi Kebutuhan</p>
+                                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>
+                                                        </td>
+                                                        <td style="width: 50%;">
+                                                            <p class="label-table">Dasar</p>
+                                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="with-height" colspan="2">
+                                                            <p class="label-table">Catatan :</p>
+                                                            <p>&nbsp;</p>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr />
+                            </div>
+                            <div class="data-tabs">
+                                <div class="data-tabs-content with-padding-left with-padding-right">
+                                    <h6>324-90121-91211</h6>
+                                    <div class="tabs-row">
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">Tanggal Transaksi</span>
+                                            <span id="tgl-transaksi" class="content-label"> : 23 Juni 2021</span>
+                                        </div>
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">Total</span>
+                                            <span id="tgl-transaksi" class="content-label"> : Rp. 1.000.000.000</span>
+                                        </div>
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">PP</span>
+                                            <span id="tgl-transaksi" class="content-label"> : Keuangan</span>
+                                        </div>
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">Kota</span>
+                                            <span id="tgl-transaksi" class="content-label"> : Padang</span>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-12">
+                                            <table class="table table-bordered">
+                                                <tbody>
+                                                    <tr>
+                                                        <td style="width: 50%;">
+                                                            <p class="label-table">Justifikasi Kebutuhan</p>
+                                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>
+                                                        </td>
+                                                        <td style="width: 50%;">
+                                                            <p class="label-table">Dasar</p>
+                                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="with-height" colspan="2">
+                                                            <p class="label-table">Catatan :</p>
+                                                            <p>&nbsp;</p>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr />
+                            </div>
+                            <div class="data-tabs">
+                                <div class="data-tabs-content with-padding-left with-padding-right">
+                                    <h6>324-90121-91211</h6>
+                                    <div class="tabs-row">
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">Tanggal Transaksi</span>
+                                            <span id="tgl-transaksi" class="content-label"> : 23 Juni 2021</span>
+                                        </div>
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">Total</span>
+                                            <span id="tgl-transaksi" class="content-label"> : Rp. 1.000.000.000</span>
+                                        </div>
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">PP</span>
+                                            <span id="tgl-transaksi" class="content-label"> : Keuangan</span>
+                                        </div>
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">Kota</span>
+                                            <span id="tgl-transaksi" class="content-label"> : Padang</span>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-12">
+                                            <table class="table table-bordered">
+                                                <tbody>
+                                                    <tr>
+                                                        <td style="width: 50%;">
+                                                            <p class="label-table">Justifikasi Kebutuhan</p>
+                                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>
+                                                        </td>
+                                                        <td style="width: 50%;">
+                                                            <p class="label-table">Dasar</p>
+                                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="with-height" colspan="2">
+                                                            <p class="label-table">Catatan :</p>
+                                                            <p>&nbsp;</p>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr />
+                            </div>
                         </div>
                         <div class="tab-pane" id="vr-tab" role="tabpanel" aria-labelledby="vr-tab">
-                            ini tab verifikasi
+                            <div class="data-tabs">
+                                <div class="data-tabs-content with-padding-left with-padding-right">
+                                    <h6>324-90121-91211</h6>
+                                    <div class="tabs-row">
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">Tanggal Transaksi</span>
+                                            <span id="tgl-transaksi" class="content-label"> : 23 Juni 2021</span>
+                                        </div>
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">Total</span>
+                                            <span id="tgl-transaksi" class="content-label"> : Rp. 1.000.000.000</span>
+                                        </div>
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">PP</span>
+                                            <span id="tgl-transaksi" class="content-label"> : Keuangan</span>
+                                        </div>
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">Kota</span>
+                                            <span id="tgl-transaksi" class="content-label"> : Padang</span>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-12">
+                                            <table class="table table-bordered">
+                                                <tbody>
+                                                    <tr>
+                                                        <td style="width: 50%;">
+                                                            <p class="label-table">Justifikasi Kebutuhan</p>
+                                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>
+                                                        </td>
+                                                        <td style="width: 50%;">
+                                                            <p class="label-table">Dasar</p>
+                                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="with-height" colspan="2">
+                                                            <p class="label-table">Catatan :</p>
+                                                            <p>&nbsp;</p>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr />
+                            </div>
+                            <div class="data-tabs">
+                                <div class="data-tabs-content with-padding-left with-padding-right">
+                                    <h6>324-90121-91211</h6>
+                                    <div class="tabs-row">
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">Tanggal Transaksi</span>
+                                            <span id="tgl-transaksi" class="content-label"> : 23 Juni 2021</span>
+                                        </div>
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">Total</span>
+                                            <span id="tgl-transaksi" class="content-label"> : Rp. 1.000.000.000</span>
+                                        </div>
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">PP</span>
+                                            <span id="tgl-transaksi" class="content-label"> : Keuangan</span>
+                                        </div>
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">Kota</span>
+                                            <span id="tgl-transaksi" class="content-label"> : Padang</span>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-12">
+                                            <table class="table table-bordered">
+                                                <tbody>
+                                                    <tr>
+                                                        <td style="width: 50%;">
+                                                            <p class="label-table">Justifikasi Kebutuhan</p>
+                                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>
+                                                        </td>
+                                                        <td style="width: 50%;">
+                                                            <p class="label-table">Dasar</p>
+                                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="with-height" colspan="2">
+                                                            <p class="label-table">Catatan :</p>
+                                                            <p>&nbsp;</p>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr />
+                            </div>
+                            <div class="data-tabs">
+                                <div class="data-tabs-content with-padding-left with-padding-right">
+                                    <h6>324-90121-91211</h6>
+                                    <div class="tabs-row">
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">Tanggal Transaksi</span>
+                                            <span id="tgl-transaksi" class="content-label"> : 23 Juni 2021</span>
+                                        </div>
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">Total</span>
+                                            <span id="tgl-transaksi" class="content-label"> : Rp. 1.000.000.000</span>
+                                        </div>
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">PP</span>
+                                            <span id="tgl-transaksi" class="content-label"> : Keuangan</span>
+                                        </div>
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">Kota</span>
+                                            <span id="tgl-transaksi" class="content-label"> : Padang</span>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-12">
+                                            <table class="table table-bordered">
+                                                <tbody>
+                                                    <tr>
+                                                        <td style="width: 50%;">
+                                                            <p class="label-table">Justifikasi Kebutuhan</p>
+                                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>
+                                                        </td>
+                                                        <td style="width: 50%;">
+                                                            <p class="label-table">Dasar</p>
+                                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="with-height" colspan="2">
+                                                            <p class="label-table">Catatan :</p>
+                                                            <p>&nbsp;</p>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr />
+                            </div>
+                            <div class="data-tabs">
+                                <div class="data-tabs-content with-padding-left with-padding-right">
+                                    <h6>324-90121-91211</h6>
+                                    <div class="tabs-row">
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">Tanggal Transaksi</span>
+                                            <span id="tgl-transaksi" class="content-label"> : 23 Juni 2021</span>
+                                        </div>
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">Total</span>
+                                            <span id="tgl-transaksi" class="content-label"> : Rp. 1.000.000.000</span>
+                                        </div>
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">PP</span>
+                                            <span id="tgl-transaksi" class="content-label"> : Keuangan</span>
+                                        </div>
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">Kota</span>
+                                            <span id="tgl-transaksi" class="content-label"> : Padang</span>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-12">
+                                            <table class="table table-bordered">
+                                                <tbody>
+                                                    <tr>
+                                                        <td style="width: 50%;">
+                                                            <p class="label-table">Justifikasi Kebutuhan</p>
+                                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>
+                                                        </td>
+                                                        <td style="width: 50%;">
+                                                            <p class="label-table">Dasar</p>
+                                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="with-height" colspan="2">
+                                                            <p class="label-table">Catatan :</p>
+                                                            <p>&nbsp;</p>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr />
+                            </div>
+                            <div class="data-tabs">
+                                <div class="data-tabs-content with-padding-left with-padding-right">
+                                    <h6>324-90121-91211</h6>
+                                    <div class="tabs-row">
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">Tanggal Transaksi</span>
+                                            <span id="tgl-transaksi" class="content-label"> : 23 Juni 2021</span>
+                                        </div>
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">Total</span>
+                                            <span id="tgl-transaksi" class="content-label"> : Rp. 1.000.000.000</span>
+                                        </div>
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">PP</span>
+                                            <span id="tgl-transaksi" class="content-label"> : Keuangan</span>
+                                        </div>
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">Kota</span>
+                                            <span id="tgl-transaksi" class="content-label"> : Padang</span>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-12">
+                                            <table class="table table-bordered">
+                                                <tbody>
+                                                    <tr>
+                                                        <td style="width: 50%;">
+                                                            <p class="label-table">Justifikasi Kebutuhan</p>
+                                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>
+                                                        </td>
+                                                        <td style="width: 50%;">
+                                                            <p class="label-table">Dasar</p>
+                                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="with-height" colspan="2">
+                                                            <p class="label-table">Catatan :</p>
+                                                            <p>&nbsp;</p>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr />
+                            </div>
+                            <div class="data-tabs">
+                                <div class="data-tabs-content with-padding-left with-padding-right">
+                                    <h6>324-90121-91211</h6>
+                                    <div class="tabs-row">
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">Tanggal Transaksi</span>
+                                            <span id="tgl-transaksi" class="content-label"> : 23 Juni 2021</span>
+                                        </div>
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">Total</span>
+                                            <span id="tgl-transaksi" class="content-label"> : Rp. 1.000.000.000</span>
+                                        </div>
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">PP</span>
+                                            <span id="tgl-transaksi" class="content-label"> : Keuangan</span>
+                                        </div>
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">Kota</span>
+                                            <span id="tgl-transaksi" class="content-label"> : Padang</span>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-12">
+                                            <table class="table table-bordered">
+                                                <tbody>
+                                                    <tr>
+                                                        <td style="width: 50%;">
+                                                            <p class="label-table">Justifikasi Kebutuhan</p>
+                                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>
+                                                        </td>
+                                                        <td style="width: 50%;">
+                                                            <p class="label-table">Dasar</p>
+                                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="with-height" colspan="2">
+                                                            <p class="label-table">Catatan :</p>
+                                                            <p>&nbsp;</p>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr />
+                            </div>
                         </div>
                         <div class="tab-pane" id="ac-tab" role="tabpanel" aria-labelledby="ac-tab">
-                            ini tab approval cabang
+                            <div class="data-tabs">
+                                <div class="data-tabs-content with-padding-left with-padding-right">
+                                    <h6>324-90121-91211</h6>
+                                    <div class="tabs-row">
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">Tanggal Transaksi</span>
+                                            <span id="tgl-transaksi" class="content-label"> : 23 Juni 2021</span>
+                                        </div>
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">Total</span>
+                                            <span id="tgl-transaksi" class="content-label"> : Rp. 1.000.000.000</span>
+                                        </div>
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">PP</span>
+                                            <span id="tgl-transaksi" class="content-label"> : Keuangan</span>
+                                        </div>
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">Kota</span>
+                                            <span id="tgl-transaksi" class="content-label"> : Padang</span>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-12">
+                                            <table class="table table-bordered">
+                                                <tbody>
+                                                    <tr>
+                                                        <td style="width: 50%;">
+                                                            <p class="label-table">Justifikasi Kebutuhan</p>
+                                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>
+                                                        </td>
+                                                        <td style="width: 50%;">
+                                                            <p class="label-table">Dasar</p>
+                                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="with-height" colspan="2">
+                                                            <p class="label-table">Catatan :</p>
+                                                            <p>&nbsp;</p>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr />
+                            </div>
+                            <div class="data-tabs">
+                                <div class="data-tabs-content with-padding-left with-padding-right">
+                                    <h6>324-90121-91211</h6>
+                                    <div class="tabs-row">
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">Tanggal Transaksi</span>
+                                            <span id="tgl-transaksi" class="content-label"> : 23 Juni 2021</span>
+                                        </div>
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">Total</span>
+                                            <span id="tgl-transaksi" class="content-label"> : Rp. 1.000.000.000</span>
+                                        </div>
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">PP</span>
+                                            <span id="tgl-transaksi" class="content-label"> : Keuangan</span>
+                                        </div>
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">Kota</span>
+                                            <span id="tgl-transaksi" class="content-label"> : Padang</span>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-12">
+                                            <table class="table table-bordered">
+                                                <tbody>
+                                                    <tr>
+                                                        <td style="width: 50%;">
+                                                            <p class="label-table">Justifikasi Kebutuhan</p>
+                                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>
+                                                        </td>
+                                                        <td style="width: 50%;">
+                                                            <p class="label-table">Dasar</p>
+                                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="with-height" colspan="2">
+                                                            <p class="label-table">Catatan :</p>
+                                                            <p>&nbsp;</p>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr />
+                            </div>
+                            <div class="data-tabs">
+                                <div class="data-tabs-content with-padding-left with-padding-right">
+                                    <h6>324-90121-91211</h6>
+                                    <div class="tabs-row">
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">Tanggal Transaksi</span>
+                                            <span id="tgl-transaksi" class="content-label"> : 23 Juni 2021</span>
+                                        </div>
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">Total</span>
+                                            <span id="tgl-transaksi" class="content-label"> : Rp. 1.000.000.000</span>
+                                        </div>
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">PP</span>
+                                            <span id="tgl-transaksi" class="content-label"> : Keuangan</span>
+                                        </div>
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">Kota</span>
+                                            <span id="tgl-transaksi" class="content-label"> : Padang</span>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-12">
+                                            <table class="table table-bordered">
+                                                <tbody>
+                                                    <tr>
+                                                        <td style="width: 50%;">
+                                                            <p class="label-table">Justifikasi Kebutuhan</p>
+                                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>
+                                                        </td>
+                                                        <td style="width: 50%;">
+                                                            <p class="label-table">Dasar</p>
+                                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="with-height" colspan="2">
+                                                            <p class="label-table">Catatan :</p>
+                                                            <p>&nbsp;</p>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr />
+                            </div>
+                            <div class="data-tabs">
+                                <div class="data-tabs-content with-padding-left with-padding-right">
+                                    <h6>324-90121-91211</h6>
+                                    <div class="tabs-row">
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">Tanggal Transaksi</span>
+                                            <span id="tgl-transaksi" class="content-label"> : 23 Juni 2021</span>
+                                        </div>
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">Total</span>
+                                            <span id="tgl-transaksi" class="content-label"> : Rp. 1.000.000.000</span>
+                                        </div>
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">PP</span>
+                                            <span id="tgl-transaksi" class="content-label"> : Keuangan</span>
+                                        </div>
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">Kota</span>
+                                            <span id="tgl-transaksi" class="content-label"> : Padang</span>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-12">
+                                            <table class="table table-bordered">
+                                                <tbody>
+                                                    <tr>
+                                                        <td style="width: 50%;">
+                                                            <p class="label-table">Justifikasi Kebutuhan</p>
+                                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>
+                                                        </td>
+                                                        <td style="width: 50%;">
+                                                            <p class="label-table">Dasar</p>
+                                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="with-height" colspan="2">
+                                                            <p class="label-table">Catatan :</p>
+                                                            <p>&nbsp;</p>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr />
+                            </div>
+                            <div class="data-tabs">
+                                <div class="data-tabs-content with-padding-left with-padding-right">
+                                    <h6>324-90121-91211</h6>
+                                    <div class="tabs-row">
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">Tanggal Transaksi</span>
+                                            <span id="tgl-transaksi" class="content-label"> : 23 Juni 2021</span>
+                                        </div>
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">Total</span>
+                                            <span id="tgl-transaksi" class="content-label"> : Rp. 1.000.000.000</span>
+                                        </div>
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">PP</span>
+                                            <span id="tgl-transaksi" class="content-label"> : Keuangan</span>
+                                        </div>
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">Kota</span>
+                                            <span id="tgl-transaksi" class="content-label"> : Padang</span>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-12">
+                                            <table class="table table-bordered">
+                                                <tbody>
+                                                    <tr>
+                                                        <td style="width: 50%;">
+                                                            <p class="label-table">Justifikasi Kebutuhan</p>
+                                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>
+                                                        </td>
+                                                        <td style="width: 50%;">
+                                                            <p class="label-table">Dasar</p>
+                                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="with-height" colspan="2">
+                                                            <p class="label-table">Catatan :</p>
+                                                            <p>&nbsp;</p>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr />
+                            </div>
+                            <div class="data-tabs">
+                                <div class="data-tabs-content with-padding-left with-padding-right">
+                                    <h6>324-90121-91211</h6>
+                                    <div class="tabs-row">
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">Tanggal Transaksi</span>
+                                            <span id="tgl-transaksi" class="content-label"> : 23 Juni 2021</span>
+                                        </div>
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">Total</span>
+                                            <span id="tgl-transaksi" class="content-label"> : Rp. 1.000.000.000</span>
+                                        </div>
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">PP</span>
+                                            <span id="tgl-transaksi" class="content-label"> : Keuangan</span>
+                                        </div>
+                                        <div class="col-tabs information-envidence">
+                                            <span class="label-tabs">Kota</span>
+                                            <span id="tgl-transaksi" class="content-label"> : Padang</span>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-12">
+                                            <table class="table table-bordered">
+                                                <tbody>
+                                                    <tr>
+                                                        <td style="width: 50%;">
+                                                            <p class="label-table">Justifikasi Kebutuhan</p>
+                                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>
+                                                        </td>
+                                                        <td style="width: 50%;">
+                                                            <p class="label-table">Dasar</p>
+                                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="with-height" colspan="2">
+                                                            <p class="label-table">Catatan :</p>
+                                                            <p>&nbsp;</p>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr />
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -41,6 +902,11 @@
 </div>
 
 <script type="text/javascript">
+    var scrollTabContent = document.querySelector('#tab-content');
+    new PerfectScrollbar(scrollTabContent, {
+        suppressScrollX: true
+    });
+
     $('#btn-back').click(function() {
         $.ajax({
             type: 'GET',

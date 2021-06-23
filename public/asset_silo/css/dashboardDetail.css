@@ -43,12 +43,10 @@
 .nav-custom .nav-item a.active {
     color: #ff0000 !important;
 }
-
 .nav-tabs.separator-tabs .nav-item.show .nav-link::before,
 .nav-tabs.separator-tabs .nav-link.active::before {
     background: #ff0000 !important;
 }
-
 .nav-custom .nav-item .info-tabs {
     position: absolute;
     top: 8px;
@@ -63,8 +61,57 @@
     background-color: #e5e7eb;
     border-radius: 50%;
 }
-
 .nav-custom .nav-item .nav-link.active + .info-tabs {
     background-color: #ff0000;
     color: #ffffff;
+}
+.tab-content.content-height {
+    position: relative;
+    height: 415px;
+}
+.data-tabs .data-tabs-content h6 {
+    font-size: 24px !important;
+    color: #000000 !important;
+    font-weight: 700 !important;
+}
+.data-tabs .data-tabs-content .tabs-row {
+    display: flex;
+    flex-direction: row;
+}
+.data-tabs .data-tabs-content .tabs-row .col-tabs {
+    padding-right: 16px;
+}
+.data-tabs .data-tabs-content .tabs-row .label-tabs,
+.data-tabs .data-tabs-content .tabs-row .content-label {
+    font-size: 14px !important;
+    color: #000000 !important;
+    margin-right: 4px;
+}
+.data-tabs .data-tabs-content .tabs-row .content-label {
+    font-weight: 600 !important;
+}
+.data-tabs
+    .data-tabs-content
+    .tabs-row
+    .information-envidence:not(:last-child)::after {
+    content: "";
+    border-left: 1.5px solid #d1d5db;
+    margin-left: 8px;
+    margin-right: 8px;
+    height: 18px;
+    position: absolute;
+}
+.data-tabs .data-tabs-content .table.table-bordered th,
+.data-tabs .data-tabs-content .table.table-bordered td {
+    border-color: #000000 !important;
+}
+.data-tabs .data-tabs-content .table tbody .with-height {
+    height: 80px;
+}
+.data-tabs .data-tabs-content .table td {
+    font-size: 14px !important;
+    color: #000000;
+}
+.data-tabs .data-tabs-content .table .label-table {
+    font-weight: 600 !important;
 }
