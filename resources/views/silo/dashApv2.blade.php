@@ -7,15 +7,15 @@
                 <div class="card">
                     <h5>Posisi Kebutuhan</h5>
                     <div class="row">
-                        <div class="col-md-4 col-sm-12">
+                        <div class="col-md-4 col-sm-12 effect-hover" data-key="JK">
                             <h6 class="sub-card-title">Justifikasi Kebutuhan</h6>
                             <p class="sub-card-value">12</p>
                         </div>
-                        <div class="col-md-4 col-sm-12">
+                        <div class="col-md-4 col-sm-12 effect-hover" data-key="VR">
                             <h6 class="sub-card-title">Verifikasi</h6>
                             <p class="sub-card-value">4</p>
                         </div>
-                        <div class="col-md-4 col-sm-12">
+                        <div class="col-md-4 col-sm-12 effect-hover" data-key="APC">
                             <h6 class="sub-card-title">Approval Cabang</h6>
                             <p class="sub-card-value">1</p>
                         </div>
@@ -26,26 +26,26 @@
                 <div class="card">
                     <h5>Posisi Pengadaan</h5>
                     <div class="row">
-                        <div class="col-md-4 col-sm-12">
+                        <div class="col-md-4 col-sm-12 effect-hover" data-key="JP">
                             <h6 class="sub-card-title">Justifikasi Pengadaan</h6>
                             <p class="sub-card-value">7</p>
                         </div>
-                        <div class="col-md-4 col-sm-12">
+                        <div class="col-md-4 col-sm-12 effect-hover" data-key="APV1">
                             <h6 class="sub-card-title">Approval 1</h6>
                             <p class="sub-card-value">2</p>
                         </div>
-                        <div class="col-md-4 col-sm-12">
+                        <div class="col-md-4 col-sm-12 effect-hover" data-key="APV2">
                             <h6 class="sub-card-title">Approval 2</h6>
                             <p class="sub-card-value">1</p>
                         </div>
                         <div class="col-12">
                             <hr />
                         </div>
-                        <div class="col-md-4 col-sm-12">
+                        <div class="col-md-4 col-sm-12 effect-hover" data-key="APV3">
                             <h6 class="sub-card-title">Approval 3</h6>
                             <p class="sub-card-value">19</p>
                         </div>
-                        <div class="col-md-4 col-sm-12">
+                        <div class="col-md-4 col-sm-12 effect-hover" data-key="APV4">
                             <h6 class="sub-card-title">Approval 4</h6>
                             <p class="sub-card-value">2</p>
                         </div>
@@ -243,4 +243,36 @@
     new PerfectScrollbar(scrollTable, {
         suppressScrollX: true
     });
+
+    $('.effect-hover').click(function() {
+        var key = $(this).data('key')
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('silo-auth/cek_session') }}",
+            dataType: 'json',
+            async:false,
+            success:function(result) {    
+                if(!result.status){
+                    window.location.href = "{{ url('silo-auth/sesi-habis') }}";
+                }else{   
+                    $('.body-content').load("{{ url('silo-dash/detail') }}");
+                }
+            },
+            fail: function(xhr, textStatus, errorThrown){
+                alert('request failed:'+textStatus);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {       
+                if(jqXHR.status == 422){
+                    var msg = jqXHR.responseText;
+                }else if(jqXHR.status == 500) {
+                    var msg = "Internal server error";
+                }else if(jqXHR.status == 401){
+                    var msg = "Unauthorized";
+                    window.location="{{ url('/silo-auth/sesi-habis') }}";
+                }else if(jqXHR.status == 405){
+                    var msg = "Route not valid. Page not found";
+                }        
+            }
+        });
+    })
 </script>

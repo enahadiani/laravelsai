@@ -23,6 +23,11 @@ class DashboardController extends Controller
         }
     }
 
+    public function loadDashboardDetail(Request $request) {
+
+        return view('silo.dashApv2Detail');
+    }
+
     /**
      * Show the form for creating a new resource.
      *
