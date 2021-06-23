@@ -244,6 +244,82 @@
         suppressScrollX: true
     });
 
+    $('#table-data tbody').on('click', 'tr', function() {
+        var html = ""
+        var bottomSheet = new BottomSheet("bottomsheet-container");
+        event.preventDefault()
+        bottomSheet.activate()
+        html += `<div class='header-bottomsheet'>
+            <p>No Bukti</p>
+            <h6>2351-9892-9182</h6>
+        </div>
+        <div class='row mt-4'>
+            <div class='col-12'>
+                <ul class='nav nav-tabs separator-tabs nav-custom' role='tablist'>
+                    <li class='nav-item with-padding-px mr-4'>
+                        <a class='nav-link active' id='detail' href='#detail-tab' data-toggle='tab' role='tab' aria-controls='detail-tab' aria-selected='true'>Detail</a>
+                    </li>
+                    <li class='nav-item mr-4'>
+                        <a class='nav-link' id='riwayat' href='#riwayat-tab' data-toggle='tab' role='tab' aria-controls='vr-tab' aria-selected='false'>Riwayat Posisi</a>
+                    </li>
+                </ul>
+                <div class='tab-content mt-4 content-height' id='tab-content'>
+                    <div class='tab-pane show active with-padding-px' id='detail-tab' role='tabpanel' aria-labelledby='detail-tab'>
+                        <table class='table table-bordered' id='table-detail'>
+                            <tbody>
+                                <tr>
+                                    <td style='width: 50%;'>
+                                        <p>Tanggal Transaksi</p>
+                                        <p class='label-table'>23 Juni 2021</p>
+                                    </td>
+                                    <td style='width: 50%;'>
+                                        <p>PP</p>
+                                        <p class='label-table'>Keuangan</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style='width: 50%;'>
+                                        <p>Nilai</p>
+                                        <p class='label-table'>Rp. 1.000.000.000</p>
+                                    </td>
+                                    <td style='width: 50%;'>
+                                        <p>Kota</p>
+                                        <p class='label-table'>Bandung</p>
+                                    </td>
+                                </tr>
+                            </tbody>    
+                        </table>
+                        <div class='row mt-5'>
+                            <div class='col-12'>
+                                <h5>Justifikasi Kebutuhan</h5>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>    
+                            </div>    
+                        </div>
+                        <div class='row mt-5 mb-1'>
+                            <div class='col-12'>
+                                <h5>Dasar</h5>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>    
+                            </div>    
+                        </div>
+                    </div>
+                    <div class='tab-pane with-padding-px' id='riwayat-tab' role='tabpanel' aria-labelledby='riwayat-tab'></div>
+                </div>    
+            </div>
+        </div>`
+        addContentBottomSheet(html)
+    })
+
+    function addContentBottomSheet(html) {
+        $('.c-bottom-sheet__sheet').css({ 'min-height': '650px' })
+        $('#content-bottom-sheet').empty()
+        $('#content-bottom-sheet').append(html)
+
+        var scrollTabContent = document.querySelector('#tab-content');
+        new PerfectScrollbar(scrollTabContent, {
+            suppressScrollX: true
+        });
+    }
+
     $('.effect-hover').click(function() {
         var key = $(this).data('key')
         $.ajax({

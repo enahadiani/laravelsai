@@ -129,9 +129,50 @@
 #table-data tbody tr td {
     font-size: 14px !important;
 }
-
 .table-scroll {
     position: relative;
     overflow: hidden;
     height: 250px;
+}
+.with-padding-px {
+    padding-left: 36px;
+    padding-right: 16px;
+}
+.header-bottomsheet {
+    padding: 8px 16px 0 36px;
+}
+.header-bottomsheet p {
+    margin-bottom: 4px;
+}
+.header-bottomsheet h6 {
+    font-size: 24px !important;
+    color: #ff0000 !important;
+    font-weight: 700 !important;
+}
+.nav-custom .nav-item a {
+    font-size: 15px !important;
+    color: #000000 !important;
+}
+.nav-custom .nav-item a.active {
+    color: #ff0000 !important;
+}
+.nav-tabs.separator-tabs .nav-item.show .nav-link::before,
+.nav-tabs.separator-tabs .nav-link.active::before {
+    background: #ff0000 !important;
+}
+#table-detail.table tbody tr td p {
+    font-size: 14px !important;
+    color: #000000 !important;
+}
+#table-detail.table tbody tr .label-table {
+    font-weight: 600 !important;
+}
+.tab-content h5 {
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    color: #000000 !important;
+}
+.tab-content.content-height {
+    position: relative;
+    height: 382px;
 }

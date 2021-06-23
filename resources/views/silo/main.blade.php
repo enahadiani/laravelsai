@@ -223,7 +223,7 @@
         </div>
     </main>
     
-    <div id="country-selector" class="c-bottom-sheet c-bottom-sheet--list">
+    <div id="bottomsheet-container" class="c-bottom-sheet c-bottom-sheet--list">
 		<div class="c-bottom-sheet__scrim"></div>
 		<div class="c-bottom-sheet__sheet">
             <div class="c-bottom-sheet__close">
