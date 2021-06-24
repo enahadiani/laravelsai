@@ -15,4 +15,4 @@ use Illuminate\Support\Facades\Session;
 */
 Route::get('/detail', 'Silo\DashboardController@loadDashboardDetail');
 
-Route::get('/dash-approval', 'Silo\DashboardController@getDataDashboardApproval');
+Route::get('dash-approval', 'Silo\DashboardController@getDataDashboardApproval');
