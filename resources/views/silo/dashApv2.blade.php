@@ -9,15 +9,15 @@
                     <div class="row">
                         <div class="col-md-4 col-sm-12 effect-hover" data-key="JK">
                             <h6 class="sub-card-title">Justifikasi Kebutuhan</h6>
-                            <p class="sub-card-value">12</p>
+                            <p class="sub-card-value" id="value-jk">0</p>
                         </div>
                         <div class="col-md-4 col-sm-12 effect-hover" data-key="VR">
                             <h6 class="sub-card-title">Verifikasi</h6>
-                            <p class="sub-card-value">4</p>
+                            <p class="sub-card-value" id="value-vr">0</p>
                         </div>
                         <div class="col-md-4 col-sm-12 effect-hover" data-key="APC">
                             <h6 class="sub-card-title">Approval Cabang</h6>
-                            <p class="sub-card-value">1</p>
+                            <p class="sub-card-value" id="value-apc">0</p>
                         </div>
                     </div>
                 </div>
@@ -28,26 +28,26 @@
                     <div class="row">
                         <div class="col-md-4 col-sm-12 effect-hover" data-key="JP">
                             <h6 class="sub-card-title">Justifikasi Pengadaan</h6>
-                            <p class="sub-card-value">7</p>
+                            <p class="sub-card-value" id="value-jp">0</p>
                         </div>
                         <div class="col-md-4 col-sm-12 effect-hover" data-key="APV1">
                             <h6 class="sub-card-title">Approval 1</h6>
-                            <p class="sub-card-value">2</p>
+                            <p class="sub-card-value" id="value-apv1">0</p>
                         </div>
                         <div class="col-md-4 col-sm-12 effect-hover" data-key="APV2">
                             <h6 class="sub-card-title">Approval 2</h6>
-                            <p class="sub-card-value">1</p>
+                            <p class="sub-card-value" id="value-apv2">0</p>
                         </div>
                         <div class="col-12">
                             <hr />
                         </div>
                         <div class="col-md-4 col-sm-12 effect-hover" data-key="APV3">
                             <h6 class="sub-card-title">Approval 3</h6>
-                            <p class="sub-card-value">19</p>
+                            <p class="sub-card-value" id="value-apv-3">0</p>
                         </div>
                         <div class="col-md-4 col-sm-12 effect-hover" data-key="APV4">
                             <h6 class="sub-card-title">Approval 4</h6>
-                            <p class="sub-card-value">2</p>
+                            <p class="sub-card-value" id="value-apv4">0</p>
                         </div>
                     </div>
                 </div>
@@ -243,6 +243,28 @@
     new PerfectScrollbar(scrollTable, {
         suppressScrollX: true
     });
+
+    (function() {
+        $.ajax({
+            type: "GET",
+            url: "{{ url('apv/dash_databox') }}",
+            dataType: 'json',
+            async:false,
+            success: function(res) { 
+                var result = res.data
+                if(result.status) {
+                    console.log(result.data)
+                    $('#value-jk').text(sepNum(result.data.juskeb))
+                    $('#value-vr').text(sepNum(result.data.ver))
+                    $('#value-apc').text(sepNum(result.data.appjuskeb))
+                    $('#value-jp').text(sepNum(result.data.juspeng))
+                    // $('#value-apv1').text(sepNum(result.data.juspeng))
+                    // $('#text-JP').text(sepNum(result.data.juspeng));
+                    // $('#text-AJP').text(sepNum(result.data.appjuspeng));
+                }
+            }
+        });
+    })();
 
     $('#table-data tbody').on('click', 'tr', function() {
         var html = ""

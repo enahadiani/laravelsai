@@ -34,11 +34,11 @@ class DashboardController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function getDataBox()
+    public function getDataDashboardApproval()
     {
         try{
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'apv/dash_databox',[
+            $response = $client->request('GET',  config('api.url').'apv/dash-approval',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
