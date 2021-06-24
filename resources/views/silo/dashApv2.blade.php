@@ -256,10 +256,10 @@
         <div class='row mt-4'>
             <div class='col-12'>
                 <ul class='nav nav-tabs separator-tabs nav-custom' role='tablist'>
-                    <li class='nav-item with-padding-px mr-4'>
+                    <li class='nav-item with-padding-pl'>
                         <a class='nav-link active' id='detail' href='#detail-tab' data-toggle='tab' role='tab' aria-controls='detail-tab' aria-selected='true'>Detail</a>
                     </li>
-                    <li class='nav-item mr-4'>
+                    <li class='nav-item'>
                         <a class='nav-link' id='riwayat' href='#riwayat-tab' data-toggle='tab' role='tab' aria-controls='vr-tab' aria-selected='false'>Riwayat Posisi</a>
                     </li>
                 </ul>
@@ -302,7 +302,82 @@
                             </div>    
                         </div>
                     </div>
-                    <div class='tab-pane with-padding-px' id='riwayat-tab' role='tabpanel' aria-labelledby='riwayat-tab'></div>
+                    <div class='tab-pane with-padding-px' id='riwayat-tab' role='tabpanel' aria-labelledby='riwayat-tab'>
+                        <ul class='timeline'>
+                            <li>
+                                <p class='date-timeline'>23 Juni 2021</p>
+                                <div class='information-timeline'>
+                                    <div class='apv-timeline'>
+                                        <span>Approval 1</span>    
+                                    </div>
+                                    <div class='invoice-timeline'>
+                                        <span>No Bukti : </span> <span>APV-202106-0001</span>        
+                                    </div>    
+                                </div>
+                                <div class='note-timeline'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+                            </li>
+                            <li>
+                                <p class='date-timeline'>23 Juni 2021</p>
+                                <div class='information-timeline'>
+                                    <div class='apv-timeline'>
+                                        <span>Approval 1</span>    
+                                    </div>
+                                    <div class='invoice-timeline'>
+                                        <span>No Bukti : </span> <span>APV-202106-0001</span>        
+                                    </div>    
+                                </div>
+                                <div class='note-timeline'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+                            </li>
+                            <li>
+                                <p class='date-timeline'>23 Juni 2021</p>
+                                <div class='information-timeline'>
+                                    <div class='apv-timeline'>
+                                        <span>Approval 1</span>    
+                                    </div>
+                                    <div class='invoice-timeline'>
+                                        <span>No Bukti : </span> <span>APV-202106-0001</span>        
+                                    </div>    
+                                </div>
+                                <div class='note-timeline'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+                            </li>
+                            <li>
+                                <p class='date-timeline'>23 Juni 2021</p>
+                                <div class='information-timeline'>
+                                    <div class='apv-timeline'>
+                                        <span>Approval 1</span>    
+                                    </div>
+                                    <div class='invoice-timeline'>
+                                        <span>No Bukti : </span> <span>APV-202106-0001</span>        
+                                    </div>    
+                                </div>
+                                <div class='note-timeline'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+                            </li>
+                            <li>
+                                <p class='date-timeline'>23 Juni 2021</p>
+                                <div class='information-timeline'>
+                                    <div class='apv-timeline'>
+                                        <span>Approval 1</span>    
+                                    </div>
+                                    <div class='invoice-timeline'>
+                                        <span>No Bukti : </span> <span>APV-202106-0001</span>        
+                                    </div>    
+                                </div>
+                                <div class='note-timeline'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+                            </li>
+                            <li>
+                                <p class='date-timeline'>23 Juni 2021</p>
+                                <div class='information-timeline'>
+                                    <div class='apv-timeline'>
+                                        <span>Approval 1</span>    
+                                    </div>
+                                    <div class='invoice-timeline'>
+                                        <span>No Bukti : </span> <span>APV-202106-0001</span>        
+                                    </div>    
+                                </div>
+                                <div class='note-timeline'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+                            </li>
+                        </ul>    
+                    </div>
                 </div>    
             </div>
         </div>`
