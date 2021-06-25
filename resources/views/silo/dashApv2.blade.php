@@ -154,76 +154,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>22/06/2021</td>
-                                    <td>APV-2021060001</td>
-                                    <td>Catatan justifikasi kebutuhan dummy</td>
-                                    <td class="status">Approve 1</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>22/06/2021</td>
-                                    <td>APV-2021060001</td>
-                                    <td>Catatan justifikasi kebutuhan dummy</td>
-                                    <td class="status">Approve 1</td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>22/06/2021</td>
-                                    <td>APV-2021060001</td>
-                                    <td>Catatan justifikasi kebutuhan dummy</td>
-                                    <td class="status">Approve 1</td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td>22/06/2021</td>
-                                    <td>APV-2021060001</td>
-                                    <td>Catatan justifikasi kebutuhan dummy</td>
-                                    <td class="status">Approve 1</td>
-                                </tr>
-                                <tr>
-                                    <td>5</td>
-                                    <td>22/06/2021</td>
-                                    <td>APV-2021060001</td>
-                                    <td>Catatan justifikasi kebutuhan dummy</td>
-                                    <td class="status">Approve 1</td>
-                                </tr>
-                                <tr>
-                                    <td>6</td>
-                                    <td>22/06/2021</td>
-                                    <td>APV-2021060001</td>
-                                    <td>Catatan justifikasi kebutuhan dummy</td>
-                                    <td class="status">Approve 1</td>
-                                </tr>
-                                <tr>
-                                    <td>7</td>
-                                    <td>22/06/2021</td>
-                                    <td>APV-2021060001</td>
-                                    <td>Catatan justifikasi kebutuhan dummy</td>
-                                    <td class="status">Approve 1</td>
-                                </tr>
-                                <tr>
-                                    <td>8</td>
-                                    <td>22/06/2021</td>
-                                    <td>APV-2021060001</td>
-                                    <td>Catatan justifikasi kebutuhan dummy</td>
-                                    <td class="status">Approve 1</td>
-                                </tr>
-                                <tr>
-                                    <td>9</td>
-                                    <td>22/06/2021</td>
-                                    <td>APV-2021060001</td>
-                                    <td>Catatan justifikasi kebutuhan dummy</td>
-                                    <td class="status">Approve 1</td>
-                                </tr>
-                                <tr>
-                                    <td>10</td>
-                                    <td>22/06/2021</td>
-                                    <td>APV-2021060001</td>
-                                    <td>Catatan justifikasi kebutuhan dummy</td>
-                                    <td class="status">Approve 1</td>
-                                </tr>
+
                             </tbody>
                         </table>
                     </div>
@@ -253,7 +184,6 @@
             success: function(res) { 
                 var result = res.data
                 if(result.status) {
-                    console.log(result.data)
                     $('#value-jk').text(sepNum(result.data.juskeb))
                     $('#value-vr').text(sepNum(result.data.ver))
                     $('#value-apc').text(sepNum(result.data.appjuskeb))
@@ -261,6 +191,36 @@
                     // $('#value-apv1').text(sepNum(result.data.juspeng))
                     // $('#text-JP').text(sepNum(result.data.juspeng));
                     // $('#text-AJP').text(sepNum(result.data.appjuspeng));
+                }
+            }
+        });
+    })();
+
+    (function() {
+        $.ajax({
+            type: "GET",
+            url: "{{ url('apv/dash_posisi') }}",
+            dataType: 'json',
+            async:false,
+            success: function(res) { 
+                var result = res.data
+                if(result.status) {
+                    var html = "";
+                    var no = 1;
+                    for(var i=0;i<result.data.length;i++) {
+                        var data = result.data[i]
+                        html += `
+                        <tr>
+                            <td>${no}</td>
+                            <td>${data.waktu}</td>
+                            <td>${data.no_bukti}</td>
+                            <td>${data.kegiatan}</td>
+                            <td class="status">${data.posisi}</td>
+                        </tr>
+                        `
+                        no++;
+                    }
+                    $('#table-data tbody').append(html)
                 }
             }
         });
