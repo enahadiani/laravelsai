@@ -33,20 +33,35 @@
         return bulan;
     }
 
-    function sepNum2(x){
-        if (typeof x === 'undefined' || !x) { 
-            return 0;
+    function sepNum2(x,koma = 2){
+        if(!isNaN(x)){
+            if (typeof x === undefined || !x || x == 0) { 
+                return 0;
+            }else if(!isFinite(x)){
+                return 0;
+            }else{
+                var x = parseFloat(x).toFixed(koma);
+                var parts = x.toString().split('.');
+                parts[0] = parts[0].replace(/([0-9])(?=([0-9]{3})+$)/g,'$1.');
+                return parts.join(',');
+            }
         }else{
-            var x = parseFloat(x).toFixed(2);
-            var parts = x.toString().split('.');
-            parts[0] = parts[0].replace(/([0-9])(?=([0-9]{3})+$)/g,'$1.');
-            return parts.join(',');
+            return 0;
         }
     }
 
     function format_number2(x){
         var num = parseFloat(x).toFixed(2);
-        num = sepNum2(num);
+        var parts = x.toString().split('.');
+        if(parts[1] != undefined){
+            if(parts[1] != 0 && parts[2] != 0){
+                num = sepNum2(num,2);
+            }else{
+                num = sepNum2(num,0);
+            }
+        }else{
+            num = sepNum2(num,0);
+        }
         return num;
     }
 
