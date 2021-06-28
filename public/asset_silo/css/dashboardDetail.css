@@ -1,0 +1,117 @@
+.card {
+    position: relative;
+    width: 100%;
+    padding: 16px 16px 18px 36px;
+    background-color: #ffffff;
+}
+.with-padding-left {
+    padding-left: 36px;
+}
+.with-padding-right {
+    padding-right: 16px;
+}
+.with-margin-right {
+    margin-right: 16px;
+}
+.no-padding-px {
+    padding-left: 0;
+    padding-right: 0;
+}
+.card h5 {
+    display: inline-block;
+    font-size: 20px !important;
+    margin-bottom: 24px;
+}
+
+.card .button-back {
+    background-color: #e5e7eb;
+    border-radius: 25px !important;
+    padding-bottom: 4px !important;
+    padding-top: 4px !important;
+}
+
+.card .float-right {
+    float: right;
+}
+.nav-custom .nav-item {
+    position: relative;
+}
+.nav-custom .nav-item a {
+    font-size: 15px !important;
+    color: #000000 !important;
+}
+.nav-custom .nav-item a.active {
+    color: #ff0000 !important;
+}
+.nav-tabs.separator-tabs .nav-item.show .nav-link::before,
+.nav-tabs.separator-tabs .nav-link.active::before {
+    background: #ff0000 !important;
+}
+.nav-custom .nav-item .info-tabs {
+    position: absolute;
+    top: 5px;
+    font-size: 13px;
+    padding-top: 2.5px;
+    padding-bottom: 2.5px;
+    right: -6px;
+    height: 25px;
+    width: 26;
+    text-align: center;
+    font-weight: bold;
+    background-color: #e5e7eb;
+    border-radius: 50%;
+}
+.nav-custom .nav-item .nav-link.active + .info-tabs {
+    background-color: #ff0000;
+    color: #ffffff;
+}
+.tab-content.content-height {
+    position: relative;
+    height: 415px;
+}
+.data-tabs .data-tabs-content h6 {
+    font-size: 24px !important;
+    color: #000000 !important;
+    font-weight: 700 !important;
+}
+.data-tabs .data-tabs-content .tabs-row {
+    display: flex;
+    flex-direction: row;
+}
+.data-tabs .data-tabs-content .tabs-row .col-tabs {
+    padding-right: 16px;
+}
+.data-tabs .data-tabs-content .tabs-row .label-tabs,
+.data-tabs .data-tabs-content .tabs-row .content-label {
+    font-size: 14px !important;
+    color: #000000 !important;
+    margin-right: 4px;
+}
+.data-tabs .data-tabs-content .tabs-row .content-label {
+    font-weight: 600 !important;
+}
+.data-tabs
+    .data-tabs-content
+    .tabs-row
+    .information-envidence:not(:last-child)::after {
+    content: "";
+    border-left: 1.5px solid #d1d5db;
+    margin-left: 8px;
+    margin-right: 8px;
+    height: 18px;
+    position: absolute;
+}
+.data-tabs .data-tabs-content .table.table-bordered th,
+.data-tabs .data-tabs-content .table.table-bordered td {
+    border-color: #000000 !important;
+}
+.data-tabs .data-tabs-content .table tbody .with-height {
+    height: 80px;
+}
+.data-tabs .data-tabs-content .table td {
+    font-size: 14px !important;
+    color: #000000;
+}
+.data-tabs .data-tabs-content .table .label-table {
+    font-weight: 600 !important;
+}

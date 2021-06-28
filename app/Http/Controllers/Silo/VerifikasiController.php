@@ -359,6 +359,7 @@ class VerifikasiController extends Controller
 
             $fields_foto = array();
             $fields_nama_file = array();
+            $fields_nama_file_seb = array();
             $cek = $request->file_dok;
             if(!empty($cek)){
 
@@ -378,6 +379,10 @@ class VerifikasiController extends Controller
                         $fields_nama_file[$i] = array(
                             'name'     => 'nama_file[]',
                             'contents' => $nama_file,
+                        );
+                        $fields_nama_file_seb[$i] = array(
+                            'name'     => 'nama_file_seb[]',
+                            'contents' => $request->nama_file[$i],
                         );
                     }
                     $send_data = array_merge($send_data,$fields_foto);

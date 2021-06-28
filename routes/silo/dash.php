@@ -13,3 +13,6 @@ use Illuminate\Support\Facades\Session;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/detail', 'Silo\DashboardController@loadDashboardDetail');
+
+Route::get('dash-approval', 'Silo\DashboardController@getDataDashboardApproval');

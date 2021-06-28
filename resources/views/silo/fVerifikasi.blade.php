@@ -502,7 +502,7 @@
                         $(tr).children('td').not(':first, :last').each(function(index, td) {
                             var value = $(td).children('input').not("input[type='hidden'], input[type='file']").val()
                             $(td).children('input').not("input[type='hidden'], input[type='file']").val(value)
-                            $(td).children('span').text(value)
+                            $(td).children('span').not('.not-show').text(value)
                             $(td).children('input').not("input[type='hidden'], input[type='file']").hide()
                             $(td).children('a').not('.hapus-item, .download-item').hide()
                             $(td).children('span').not('.not-show').show()
@@ -522,7 +522,7 @@
                 $(tr).find('td').not(':first, :last').each(function(index, td) {
                     var value = $(td).children('input').not("input[type='hidden']").val()
                     $(td).children('input').not("input[type='hidden'], input[type='file']").val(value)
-                    $(td).children('span').text(value)
+                    $(td).children('span').not('.not-show').text(value)
                     $(td).children('input').not("input[type='hidden'], input[type='file']").hide()
                     $(td).children('a').not('.hapus-item, .download-item').hide()
                     $(td).children('span').not('.not-show').show()
@@ -534,7 +534,7 @@
             tr.find('td').not(':first, :last, .readonly').each(function(index, td) {
                 var value = $(td).children('input').not("input[type='hidden'], input[type='file']").val()
                 $(td).children('input').not("input[type='hidden'], input[type='file']").val(value)
-                $(td).children('span').text(value)
+                $(td).children('span').not('.not-show').text(value)
                 if($(td).hasClass('selected-cell')) {
                     $(td).children('span').hide()
                     $(td).children('input').not("input[type='hidden'], input[type='file']").show()
@@ -553,7 +553,7 @@
         function nextSelectedCell(tr, td, index) {
             var value = $(td).children('input').val()
             $(td).children('input').not("input[type='hidden']").val(value)
-            $(td).children('span').text(value)
+            $(td).children('span').not('.not-show').text(value)
             $(td).children('span').not('.not-show').show()
             $(td).children('input').hide()
             $(td).children('a').not('.hapus-item, .download-item').hide()

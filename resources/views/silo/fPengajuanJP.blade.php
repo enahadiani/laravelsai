@@ -324,8 +324,8 @@
     new PerfectScrollbar(scrollform);
     // END SET UP VIEW
     // LIST DATA
-    var actionHtmlWithE = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a>";
-    var actionHtmlNoE = "<a href='#' title='Print'  id='btn-print'><i class='simple-icon-printer' style='font-size:18px'></i></a>";
+    var actionHtmlOnlyP = "<a href='#' title='Print'  id='btn-print'><i class='simple-icon-printer' style='font-size:18px'></i></a>";
+    var actionHtmlOnlyE = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a>";
     var dataTable = generateTable(
         "table-data",
         "{{ url('apv/juspo_aju') }}", 
@@ -358,11 +358,11 @@
             { data: 'kegiatan' },
             { data: 'nilai' },
             { data: 'status' },
-            { data: 'status', render: function(data) {
-                if(data == '-') {
-                    return actionHtmlWithE
-                } 
-                return actionHtmlNoE
+            { data: 'progress', render: function(data) {
+                if(data == 'A') {
+                    return actionHtmlOnlyE
+                }
+                return actionHtmlOnlyP
             } },
             { data: 'id' }
         ],
@@ -642,7 +642,7 @@
                     $(tr).children('td').not(':first, :last').each(function(index, td) {
                         var value = $(td).children('input').not("input[type='hidden'], input[type='file']").val()
                         $(td).children('input').not("input[type='hidden'], input[type='file']").val(value)
-                        $(td).children('span').text(value)
+                        $(td).children('span').not('.not-show').text(value)
                         $(td).children('input').not("input[type='hidden'], input[type='file']").hide()
                         $(td).children('a').not('.hapus-item, .download-item').hide()
                         $(td).children('span').not('.not-show').show()
@@ -662,7 +662,7 @@
             $(tr).find('td').not(':first, :last').each(function(index, td) {
                 var value = $(td).children('input').not("input[type='hidden']").val()
                 $(td).children('input').not("input[type='hidden'], input[type='file']").val(value)
-                $(td).children('span').text(value)
+                $(td).children('span').not('.not-show').text(value)
                 $(td).children('input').not("input[type='hidden'], input[type='file']").hide()
                 $(td).children('a').not('.hapus-item, .download-item').hide()
                 $(td).children('span').not('.not-show').show()
@@ -674,7 +674,7 @@
         tr.find('td').not(':first, :last, .readonly').each(function(index, td) {
             var value = $(td).children('input').not("input[type='hidden'], input[type='file']").val()
             $(td).children('input').not("input[type='hidden'], input[type='file']").val(value)
-            $(td).children('span').text(value)
+            $(td).children('span').not('.not-show').text(value)
             if($(td).hasClass('selected-cell')) {
                 $(td).children('span').hide()
                 $(td).children('input').not("input[type='hidden'], input[type='file']").show()
@@ -693,10 +693,10 @@
     function nextSelectedCell(tr, td, index) {
         var value = $(td).children('input').val()
         $(td).children('input').not("input[type='hidden']").val(value)
-        $(td).children('span').text(value)
+        $(td).children('span').not('.not-show').text(value)
         $(td).children('span').not('.not-show').show()
         $(td).children('input').hide()
-        $(td).children('a').not('.hapus-item').hide()
+        $(td).children('a').not('.hapus-item, .download-item').hide()
 
         var nextindex = index + 1; 
         var tdnext = $(tr).find('td').eq(nextindex)
@@ -1591,7 +1591,7 @@
             event.preventDefault()
             var parameter = $('#id_edit').val();
             var id = $('#id').val();
-            var url = "{{ url('silo-trans/juspo') }}/"+id;
+            var url = "{{ url('silo-trans/juspo') }}";
             var pesan = "updated";
             var text = "Perubahan data "+id+" telah tersimpan";
 
@@ -1620,10 +1620,10 @@
                             $('#input-dokumen-compare tbody').empty();
                             $('#input-approve tbody').empty();
                             dataTable.ajax.reload();
-                            $('#judul-form').html('Tambah Edit Justifikasi Pengadaan');
+                            $('#judul-form').html('Edit Data Justifikasi Pengadaan');
                             $('#kode').attr('readonly', false);
                             resetForm();
-                            printPreview(kode, result.data.no_juskeb);
+                            printPreview(result.data.no_juskeb, kode);
                             last_add("no_bukti", kode);
                             Swal.fire(
                                 'Great Job!',
