@@ -579,6 +579,21 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/siaga/dash.php'));
+
+        Route::prefix('siaga-master')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/siaga/master.php'));
+
+        Route::prefix('siaga-trans')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/siaga/trans.php'));
+        
+        Route::prefix('siaga-report')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/siaga/report.php'));
     
    
     }
