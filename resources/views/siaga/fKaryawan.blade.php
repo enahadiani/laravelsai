@@ -660,7 +660,7 @@
                 var settings = {
                     id : id,
                     header : ['Kode', 'Nama'],
-                    url : "{{ url('silo-master/filter-pp') }}",
+                    url : "{{ url('siaga-master/filter-pp') }}",
                     columns : [
                         { data: 'kode_pp' },
                         { data: 'nama' }
@@ -680,7 +680,7 @@
                 var settings = {
                     id : id,
                     header : ['Kode', 'Nama'],
-                    url : "{{ url('silo-master/filter-jabatan') }}",
+                    url : "{{ url('siaga-master/filter-jabatan') }}",
                     columns : [
                         { data: 'kode_jab' },
                         { data: 'nama' }
@@ -699,7 +699,7 @@
             default:
             break;
         }
-            showInpFilter(settings);
+        showInpFilter(settings);
     });
     //END SHOW CBBL//
 
