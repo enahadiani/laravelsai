@@ -303,7 +303,7 @@
     <script src="{{ asset('asset_elite/sai.js') }}"></script>
     <script src="{{ asset('asset_elite/inputmask.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/bootstrap-tagsinput.min.js') }}"></script>
-    <script src="{{ asset('asset_silo/js/main.js') }}"></script>
+    <script src="{{ asset('asset_dore/main.js') }}"></script>
     
     <!-- <script src="{{ asset('asset_dore/js/materialize-modal/component.js') }}"></script>
     <script src="{{ asset('asset_dore/js/materialize-modal/cash.js') }}"></script>
