@@ -511,6 +511,51 @@ class RegistrasiController extends Controller
         }
     }
 
+    public function getJadwal2(Request $request)
+    {
+        $this->validate($request, [
+            'no_paket' => 'required'
+        ]);
+        try {
+            $client = new Client();
+            if(isset($request->no_jadwal)){
+               
+                $response = $client->request('GET', config('api.url').'dago-trans/jadwal-detail2?no_paket='.$request->no_paket.'&no_jadwal='.$request->no_jadwal,[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => [
+                        'no_paket' => $request->no_paket,
+                        'no_jadwal' => $request->no_jadwal
+                    ]
+                ]);
+            }else{
+                $response = $client->request('GET', config('api.url').'dago-trans/jadwal-detail2?no_paket='.$request->no_paket,[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => [
+                        'no_paket' => $request->no_paket
+                        ]
+                ]);
+            } 
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["data"];
+            }
+            return response()->json(['daftar' => $data, 'status'=>true], 200); 
+                    
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res, 'status'=>false], 200);
+        }
+    }
+
     public function getPaket($no_paket)
     {
         try {

@@ -467,7 +467,7 @@
     function getJadwal(paket,jadwal){
         $.ajax({
             type: 'GET',
-            url: "{{ url('dago-trans/jadwal-detail') }}",
+            url: "{{ url('dago-trans/jadwal-detail2') }}",
             dataType: 'json',
             data:{'no_paket':paket,'no_jadwal':jadwal},
             async:false,
@@ -592,7 +592,7 @@
             break;
             case 'jadwal': 
                 header = ['No Jadwal', 'Tgl Berangkat'];
-                var toUrl = "{{ url('dago-trans/jadwal-detail') }}";
+                var toUrl = "{{ url('dago-trans/jadwal-detail2') }}";
                 var columns = [
                     { data: 'no_jadwal' },
                     { data: 'tgl_berangkat' }
