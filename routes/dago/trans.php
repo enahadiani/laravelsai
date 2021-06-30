@@ -29,6 +29,7 @@ Route::get('registrasi-detail','Dago\RegistrasiController@show');
 Route::put('registrasi','Dago\RegistrasiController@update');
 Route::delete('registrasi','Dago\RegistrasiController@destroy');
 Route::get('jadwal-detail','Dago\RegistrasiController@getJadwal');
+Route::get('jadwal-detail2','Dago\RegistrasiController@getJadwal2');
 Route::get('biaya-tambahan','Dago\RegistrasiController@getBiayaTambahan');
 Route::get('biaya-dokumen','Dago\RegistrasiController@getBiayaDokumen');
 Route::get('pp','Dago\RegistrasiController@getPP');
