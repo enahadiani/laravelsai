@@ -70,8 +70,8 @@
             }
             var html=`<div class="row px-4">
                 <div class="col-12" style='border-bottom:3px solid black;text-align:center'>
-                    <h5 class='mb-0'>JUSTIFIKASI</h5>
-                    <h5>KEBUTUHAN BARANG ATAU JASA</h5>
+                    <h6 class='mb-0'>JUSTIFIKASI</h6>
+                    <h6>KEBUTUHAN BARANG ATAU JASA</h6>
                 </div>
                 <div class="col-12 my-2" style='text-align:center'>
                     <h6>Nomor : `+result.data[0].no_pb+`</h6>
@@ -113,7 +113,7 @@
                     </table>
                 </div>
                 <div class="col-12">
-                    <h6 style='font-weight:bold'># <u>KEBUTUHAN</u></h6>
+                    <p style='font-weight:bold'># <u>KEBUTUHAN</u></p>
                 </div>
                 <div class="col-12">
                     <table class="table table-condensed table-bordered" width="100%" id="table-d">
@@ -132,27 +132,27 @@
                     </table>
                 </div>
                 <div class="col-12">
-                    <h6 style='font-weight:bold'># <u>LATAR BELAKANG</u></h6>
+                    <p style='font-weight:bold'># <u>LATAR BELAKANG</u></p>
                     <p>`+result.data[0].latar+`</p>
                 </div>
                 <div class="col-12">
-                    <h6 style='font-weight:bold'># <u>ASPEK STRATEGIS</u></h6>
+                    <p style='font-weight:bold'># <u>ASPEK STRATEGIS</u></p>
                     <p>`+result.data[0].strategis+`</p>
                 </div>
                 <div class="col-12">
-                    <h6 style='font-weight:bold'># <u>ASPEK BISNIS</u></h6>
+                    <p style='font-weight:bold'># <u>ASPEK BISNIS</u></p>
                     <p>`+result.data[0].bisnis+`</p>
                 </div>
                 <div class="col-12">
-                    <h6 style='font-weight:bold'># <u>SPESIFIKASI TEKNIS</u></h6>
+                    <p style='font-weight:bold'># <u>SPESIFIKASI TEKNIS</u></p>
                     <p>`+result.data[0].teknis+`</p>
                 </div>
                 <div class="col-12">
-                    <h6 style='font-weight:bold'># <u>ASPEK LAIN</u></h6>
+                    <p style='font-weight:bold'># <u>ASPEK LAIN</u></p>
                     <p>`+result.data[0].lain+`</p>
                 </div>
                     <div class="col-12">
-                        <h6 style='font-weight:bold'># <u>LAMPIRAN</u></h6>
+                        <p style='font-weight:bold'># <u>LAMPIRAN</u></p>
                     </div>
                     <div class="col-12">
                     <table class="table table-condensed table-bordered" width="100%" id="table-penutup">
