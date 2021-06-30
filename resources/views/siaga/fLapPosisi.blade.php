@@ -84,9 +84,13 @@
         var $aktif = "";
         
         $.fn.DataTable.ext.pager.numbers_length = 5;
+        var param_trace = {
+            no_bukti : ''
+        };
 
         // $('#show').selectize();
-
+        $('.navigation-lap').removeClass('px-0');
+        $('.navigation-lap').addClass('px-3');
         $('#periode-from').val(namaPeriode("{{ Session::get('periode') }}"));
 
         $('#btn-filter').click(function(e){
@@ -192,6 +196,104 @@
             xurl = "{{ url('siaga-auth/form/rptPosisi') }}";
             $('#saku-report #canvasPreview').load(xurl);
         });
+
+        // TRACE
+        $('#saku-report #canvasPreview').on('click', '.btn-history', function(e){
+            e.preventDefault();
+            var no_bukti = $(this).data('no_bukti');
+            param_trace.no_bukti = no_bukti;
+            var back = true;
+            
+            $formData.delete('no_bukti[]');
+            $formData.append('no_bukti[]', "=");
+            $formData.append('no_bukti[]', no_bukti);
+            $formData.append('no_bukti[]', "");
+
+            $formData.delete('back');
+            $formData.append('back', back);
+            $('.breadcrumb').html('');
+            $('.breadcrumb').append(`
+                <li class="breadcrumb-item">
+                    <a href="#" class="klik-report" data-href="posisi">Posisi</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="histori">Histori App</li>
+            `);
+            xurl ="siaga-auth/form/rptHistoryApp";
+            $('#saku-report #canvasPreview').load(xurl);
+            // drawLapReg(formData);
+        });
+
+        $('#saku-report #canvasPreview').on('click', '.btn-print', function(e){
+            e.preventDefault();
+            var no_bukti = $(this).data('no_bukti');
+            param_trace.no_bukti = no_bukti;
+            var back = true;
+            
+            $formData.delete('no_bukti[]');
+            $formData.append('no_bukti[]', "=");
+            $formData.append('no_bukti[]', no_bukti);
+            $formData.append('no_bukti[]', "");
+
+            $formData.delete('back');
+            $formData.append('back', back);
+            $('.breadcrumb').html('');
+            $('.breadcrumb').append(`
+                <li class="breadcrumb-item">
+                    <a href="#" class="klik-report" data-href="posisi">Posisi</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="form">Form Justifikasi</li>
+            `);
+            xurl ="siaga-auth/form/rptAjuForm";
+            $('#saku-report #canvasPreview').load(xurl);
+            // drawLapReg(formData);
+        });
+
+        $('.navigation-lap').on('click', '#btn-back', function(e){
+            e.preventDefault();
+            $formData.delete('periode[]');
+            $formData.append("periode[]",$periode.type);
+            $formData.append("periode[]",$periode.from);
+            $formData.append("periode[]",$periode.to);
+
+            var aktif = $('.breadcrumb-item.active').attr('aria-current');
+
+            if(aktif == "histori" || aktif == "form"){
+                xurl = "siaga-auth/form/rptPosisi";
+                $formData.delete('back');
+                $formData.delete('no_bukti[]');
+                $formData.append('no_bukti[]', $no_bukti.type);
+                $formData.append('no_bukti[]', $no_bukti.from);
+                $formData.append('no_bukti[]', $no_bukti.to);
+                $('.breadcrumb').html('');
+                $('.breadcrumb').append(`
+                    <li class="breadcrumb-item active" aria-current="posisi">Posisi</li>
+                `);
+                $('.navigation-lap').addClass('hidden');
+            }
+            $('#saku-report #canvasPreview').load(xurl);
+            // drawLapReg(formData);
+        });
+
+        $('.breadcrumb').on('click', '.klik-report', function(e){
+            e.preventDefault();
+            var tujuan = $(this).data('href');
+            $formData.delete('periode[]');
+            $formData.append("periode[]",$periode.type);
+            $formData.append("periode[]",$periode.from);
+            $formData.append("periode[]",$periode.to);
+            if(tujuan == "posisi"){
+                $formData.delete('back');
+                xurl = "siaga-auth/form/rptPosisi";
+                $('.breadcrumb').html('');
+                $('.breadcrumb').append(`
+                    <li class="breadcrumb-item active" aria-current="posisi" >Posisi</li>
+                `);
+                $('.navigation-lap').addClass('hidden');
+            }
+            $('#saku-report #canvasPreview').load(xurl);
+            
+        });
+        // END TRACE
 
         $('#sai-rpt-print').click(function(){
             $('#saku-report #canvasPreview').printThis({
