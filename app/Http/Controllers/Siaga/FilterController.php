@@ -155,13 +155,14 @@ class FilterController extends Controller
         return response()->json(['daftar' => $data['data'], 'status' => true], 200);
     }
 
-    public function getFilterNoBukti() {
+    public function getFilterNoBukti(Request $request) {
         $client = new Client();
         $response = $client->request('GET',  config('api.url').'siaga-report/filter-nobukti',[
-        'headers' => [
-            'Authorization' => 'Bearer '.Session::get('token'),
-            'Accept'     => 'application/json',
-        ]
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ],
+            'query' => $request->all()
         ]);
 
         if ($response->getStatusCode() == 200) { // 200 OK
@@ -170,7 +171,7 @@ class FilterController extends Controller
             $data = json_decode($response_data,true);
             $data = $data;
         }
-        return response()->json(['daftar' => $data['data'], 'status' => true], 200);
+        return response()->json(['daftar' => $data['data'],'res' => $data, 'status' => true], 200);
     }
 
 

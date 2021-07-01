@@ -125,37 +125,180 @@
 
         $('.selectize').selectize();
 
-        generateRptFilter('#inputFilter',{
-            kode : ['periode','kode_pp','no_bukti'],
-            nama : ['Periode','Kode PP','No Bukti'],
-            header : [['Periode', 'Nama'],['Kode','Nama'],['No Bukti','Keterangan']],
-            headerpilih : [['Periode', 'Nama','Action'],['Kode','Nama','Action'],['No Bukti','Keterangan','Action']],
-            columns: [
-                [
-                    { data: 'periode' },
-                    { data: 'nama' }
-                ],[
-                    { data: 'kode_pp' },
-                    { data: 'nama' }
-                ],[
-                    { data: 'no_bukti' },
-                    { data: 'keterangan' }
-                ]
-            ],
-            url :["{{ url('siaga-report/filter-periode') }}","{{ url('siaga-report/filter-pp') }}","{{ url('siaga-report/filter-bukti') }}"],
-            parameter:[{},{},{
-                'periode[0]':$periode.type,
-                'periode[1]':$periode.from,
-                'periode[2]':$periode.to,
-                'kode_pp[0]':$kode_pp.type,
-                'kode_pp[1]':$kode_pp.from,
-                'kode_pp[2]':$kode_pp.to
-            }],
-            orderby:[[[0,"desc"]],[],[[0,"asc"]]],
-            width:[['30%','70%'],['30%','70%'],['30%','70%']],
-            display:['name','kode','kode'],
-            pageLength:[12,10,10]
+        $('#inputFilter').on('change', '.sai-rpt-filter-type', function(e){
+            e.preventDefault();
+            var settings = {
+                kode : ['periode','kode_pp','no_bukti'],
+                nama : ['Periode','Kode PP','No Bukti'],
+                header : [['Periode', 'Nama'],['Kode','Nama'],['No Bukti','Keterangan']],
+                headerpilih : [['Periode', 'Nama','Action'],['Kode','Nama','Action'],['No Bukti','Keterangan','Action']],
+                columns: [
+                    [
+                        { data: 'periode' },
+                        { data: 'nama' }
+                    ],[
+                        { data: 'kode_pp' },
+                        { data: 'nama' }
+                    ],[
+                        { data: 'no_bukti' },
+                        { data: 'keterangan' }
+                    ]
+                ],
+                url :["{{ url('siaga-report/filter-periode') }}","{{ url('siaga-report/filter-pp') }}","{{ url('siaga-report/filter-bukti') }}"],
+                parameter:[{},{},{
+                    'periode[0]':$periode.type,
+                    'periode[1]':$periode.from,
+                    'periode[2]':$periode.to,
+                    'kode_pp[0]':$kode_pp.type,
+                    'kode_pp[1]':$kode_pp.from,
+                    'kode_pp[2]':$kode_pp.to
+                }],
+                orderby:[[[0,"desc"]],[],[[0,"asc"]]],
+                width:[['30%','70%'],['30%','70%'],['30%','70%']],
+                display:['name','kode','kode'],
+                pageLength:[12,10,10]
+            }
+            var type = $(this).val();
+            
+            var kunci = $(this).closest('div.sai-rpt-filter-entry-row').find('.kunci').text();
+            var field = eval('$'+kunci);
+            var idx = settings.kode.indexOf(kunci);
+            
+            var target1 = $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input');
+            var tmp = $(this).closest('div.sai-rpt-filter-entry-row').find('div > div > input').last().attr('class');
+            var tmp = tmp.split(" ");
+            datepicker = tmp.includes("datepicker");
+            switch(type){
+                case "all":
+                    
+                    $aktif = '';
+                    $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').removeClass('col-md-3');
+                    $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').addClass('col-md-8');
+                    $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input').val('Menampilkan semua '+pilih);
+                    $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-to').addClass('hidden');
+                    $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-sampai').addClass('hidden');
+                    $(this).closest('div.sai-rpt-filter-entry-row').find('.input-group-text').removeClass('search-item');
+                    $(this).closest('div.sai-rpt-filter-entry-row').find('.input-group-text').text('');
+                    
+                    field.type = "all";
+                    field.from = "";
+                    field.to = "";
+                    field.fromname = "";
+                    field.toname = "";
+                    
+                break;
+                case "=": 
+                case "<=":
+                    
+                    $aktif = "";
+                    if(datepicker){
+                        showRptDatePickerBSheet(settings,idx,target1,type,kunci);
+                    }else{
+                        showRptFilterBSheet(settings,idx,target1);
+                    }
+                    $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').removeClass('col-md-3');
+                    $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').addClass('col-md-8');
+                    $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input').val(field.fromname);
+                    $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-to').addClass('hidden');
+                    $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-sampai').addClass('hidden');
+                    $(this).closest('div.sai-rpt-filter-entry-row').find('.input-group-text').addClass('search-item');
+                    $(this).closest('div.sai-rpt-filter-entry-row').find('.input-group-text').text('ubah');
+                    field.type = type;
+                    field.from = field.from;
+                    field.to = "";
+                    field.fromname = field.fromname;
+                    field.toname = "";
+                break;
+                case "range":
+                    
+                    $aktif = $(this);
+                    if(datepicker){
+                        showRptDatePickerBSheet(settings,idx,target1,type,kunci,$aktif);
+                    }else{
+                        showRptFilterBSheet(settings,idx,target1,"range",$aktif);
+                    }
+                    
+                break;
+                case "in":
+                    
+                    $aktif = '';
+                    
+                    if(datepicker){
+                        showRptDatePickerBSheet(settings,idx,target1,type,kunci);
+                    }else{
+                        showRptFilterBSheet(settings,idx,target1,"in");
+                    }
+                    $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').removeClass('col-md-3');
+                    $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').addClass('col-md-8');
+                    $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input').val('');
+                    $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-to').addClass('hidden');
+                    $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-sampai').addClass('hidden');
+                    $(this).closest('div.sai-rpt-filter-entry-row').find('.input-group-text').addClass('search-item');
+                    $(this).closest('div.sai-rpt-filter-entry-row').find('.input-group-text').text('ubah');
+                    
+                    field.type = "in";
+                    field.from = "";
+                    field.to = "";
+                    field.fromname = "";
+                    field.toname = "";
+                    
+                break;
+            }
+        
         });
+
+        $('#inputFilter').on('click', '.search-item', function(e){
+            e.preventDefault();
+            var settings = {
+                kode : ['periode','kode_pp','no_bukti'],
+                nama : ['Periode','Kode PP','No Bukti'],
+                header : [['Periode', 'Nama'],['Kode','Nama'],['No Bukti','Keterangan']],
+                headerpilih : [['Periode', 'Nama','Action'],['Kode','Nama','Action'],['No Bukti','Keterangan','Action']],
+                columns: [
+                    [
+                        { data: 'periode' },
+                        { data: 'nama' }
+                    ],[
+                        { data: 'kode_pp' },
+                        { data: 'nama' }
+                    ],[
+                        { data: 'no_bukti' },
+                        { data: 'keterangan' }
+                    ]
+                ],
+                url :["{{ url('siaga-report/filter-periode') }}","{{ url('siaga-report/filter-pp') }}","{{ url('siaga-report/filter-bukti') }}"],
+                parameter:[{},{},{
+                    'periode[0]':$periode.type,
+                    'periode[1]':$periode.from,
+                    'periode[2]':$periode.to,
+                    'kode_pp[0]':$kode_pp.type,
+                    'kode_pp[1]':$kode_pp.from,
+                    'kode_pp[2]':$kode_pp.to
+                }],
+                orderby:[[[0,"desc"]],[],[[0,"asc"]]],
+                width:[['30%','70%'],['30%','70%'],['30%','70%']],
+                display:['name','kode','kode'],
+                pageLength:[12,10,10]
+            }
+            var kunci = $(this).closest('div.sai-rpt-filter-entry-row').find('.kunci').text();
+            var idx = settings.kode.indexOf(kunci);
+            var target1 = $(this).closest('.input-group').find('input');
+            
+            var type = $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-type')[0].selectize.getValue();
+            var tmp = $(this).closest('div.sai-rpt-filter-entry-row').find('div > div > input').last().attr('class');
+            var datepicker = tmp.split(" ");
+            if(datepicker.includes("datepicker")){
+                showRptDatePickerBSheet(settings,idx,target1,type,kunci);
+            }else{
+
+                if(type == "in"){
+                    showRptFilterBSheet(settings,idx,target1,type);
+                }else{
+                    showRptFilterBSheet(settings,idx,target1);
+                }
+            }
+
+        });    
 
         var $formData = "";
         $('#form-filter').submit(function(e){
