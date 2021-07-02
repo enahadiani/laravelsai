@@ -417,7 +417,7 @@
 
     $('h6').on('click','#riwayat-pbyr',function(e){
         e.preventDefault();
-        var xurl = "{{url('ts-auth/form')}}/fListMidBayar";
+        var xurl = "{{url('ts-auth/form')}}/fListMandiriBill";
         $('#content-dash').load(xurl);
     });
 
