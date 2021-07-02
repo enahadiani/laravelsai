@@ -20,7 +20,9 @@ class BayarMandiriController extends Controller
 
     public function __construct(Request $request)
     {
-        // 
+        if(!Session::get('login')){
+            return redirect('ts-auth/login')->with('alert','Session telah habis !');
+        }
     }
 
     public function index()
@@ -43,7 +45,7 @@ class BayarMandiriController extends Controller
                 for($i=0;$i<count($data);$i++){
                     if ($data[$i]['status'] == 'WAITING'){
 
-                        $data[$i]['action'] = '<button class="btn btn-success btn-sm complete-pay" data-snap ="'.$data[$i]['snap_token'].'" >Complete Payment</button>';
+                        $data[$i]['action'] = '<button class="btn btn-success btn-sm complete-pay">Complete Payment</button>';
                     }else{
                         $data[$i]['action'] = '';
                     }
@@ -147,20 +149,20 @@ class BayarMandiriController extends Controller
         try{
             $client = new Client();
             
-            $response = $client->request('GET',  'https://mandirigw.ypt.or.id/bills/va/'.$request->va.'?bill_code='.$request->bill_code,[
-                'headers' => [
-                    'app_code' => config('api.ypt_app_code'),
-                    'app_key'  => config('api.ypt_app_key'),
-                ],
-                'query' => $request->all()
-            ]);
+            // $response = $client->request('GET',  'https://mandirigw.ypt.or.id/bills/va/'.$request->va.'?bill_code='.$request->bill_code,[
+            //     'headers' => [
+            //         'app_code' => config('api.ypt_app_code'),
+            //         'app_key'  => config('api.ypt_app_key'),
+            //     ],
+            //     'query' => $request->all()
+            // ]);
             
             $data = [];
-            if ($response->getStatusCode() == 200) { // 200 OK
-                $response_data = $response->getBody()->getContents();
+            // if ($response->getStatusCode() == 200) { // 200 OK
+            //     $response_data = $response->getBody()->getContents();
                 
-                $data = json_decode($response_data,true);
-            }
+            //     $data = json_decode($response_data,true);
+            // }
             return response()->json($data, 200);
         } catch (BadResponseException $ex) {
 

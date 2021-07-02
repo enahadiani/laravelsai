@@ -148,8 +148,6 @@
         var va = $(this).closest('tr').find('td:eq(4)').html();
         $.get("{{ url('ts-trans/fetch-mandiri-bill') }}",
         {
-            _method: 'GET',
-            _token: '{{ csrf_token() }}',
             bill_code: bill_code,
             va: va,
         },
