@@ -112,7 +112,7 @@
 
     var dataTable = generateTable(
         "table-data",
-        "{{ url('ts-dash/sis-mid-bayar') }}", 
+        "{{ url('ts-trans/sis-mandiri-bill') }}", 
         [
             {   'targets': 1, 
                 'className': 'text-right',

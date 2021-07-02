@@ -25,5 +25,6 @@ Route::post('notif-umum-ubah', 'Ts\NotifUmumController@update');
 Route::delete('notif-umum', 'Ts\NotifUmumController@destroy');
 Route::delete('notif-umum-dok', 'Ts\NotifUmumController@deleteDokumen');
 
+Route::get('sis-mandiri-bill', 'Ts\BayarMandiriController@index');
 Route::post('create-mandiri-bill', 'Ts\BayarMandiriController@store');
 Route::get('fetch-mandiri-bill', 'Ts\BayarMandiriController@show');

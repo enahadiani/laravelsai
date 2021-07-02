@@ -23,6 +23,41 @@ class BayarMandiriController extends Controller
         // 
     }
 
+    public function index()
+    {
+        try{
+
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'ts/list-mandiri-bill',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+    
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["success"]["data"];
+                for($i=0;$i<count($data);$i++){
+                    if ($data[$i]['status'] == 'WAITING'){
+
+                        $data[$i]['action'] = '<button class="btn btn-success btn-sm complete-pay" data-snap ="'.$data[$i]['snap_token'].'" >Complete Payment</button>';
+                    }else{
+                        $data[$i]['action'] = '';
+                    }
+                }
+            }
+            return response()->json(['daftar' => $data, 'status'=>true,'message'=>'success'], 200); 
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+        } 
+    }
+
+
     public function store(Request $request)
     {
         
