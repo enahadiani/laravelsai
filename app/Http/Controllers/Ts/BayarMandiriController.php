@@ -149,20 +149,20 @@ class BayarMandiriController extends Controller
         try{
             $client = new Client();
             
-            // $response = $client->request('GET',  'https://mandirigw.ypt.or.id/bills/va/'.$request->va.'?bill_code='.$request->bill_code,[
-            //     'headers' => [
-            //         'app_code' => config('api.ypt_app_code'),
-            //         'app_key'  => config('api.ypt_app_key'),
-            //     ],
-            //     'query' => $request->all()
-            // ]);
+            $response = $client->request('GET',  'https://mandirigw.ypt.or.id/bills/va/'.$request->va.'?bill_code='.$request->bill_code,[
+                'headers' => [
+                    'app_code' => config('api.ypt_app_code'),
+                    'app_key'  => config('api.ypt_app_key'),
+                ],
+                'query' => $request->all()
+            ]);
             
             $data = [];
-            // if ($response->getStatusCode() == 200) { // 200 OK
-            //     $response_data = $response->getBody()->getContents();
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
                 
-            //     $data = json_decode($response_data,true);
-            // }
+                $data = json_decode($response_data,true);
+            }
             return response()->json($data, 200);
         } catch (BadResponseException $ex) {
 
