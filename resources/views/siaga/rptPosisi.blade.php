@@ -72,7 +72,7 @@
                             <td  class='isi_laporan'>`+line2.nama_pp+`</td>
                             <td  class='isi_laporan'>`+sepNum(parseFloat(line2.nilai))+`</td>
                             <td  class='isi_laporan'>`+line2.posisi+`</td>
-                            <td  class='isi_laporan text-center'><a href='#' class='btn-print'><i class='simple-icon-printer' style='font-size:18px !important'></i></a>&nbsp;&nbsp;<a href='#' class='btn-history'><i class='iconsminds-clock-back' style='font-size:18px !important'></i></a></td>
+                            <td  class='isi_laporan text-center'><a href='#' class='btn-print report-link' data-no_bukti='`+line2.no_pb+`'><i class='simple-icon-printer' style='font-size:18px !important'></i></a>&nbsp;&nbsp;<a href='#' class='btn-history report-link' data-no_bukti='`+line2.no_pb+`' ><i class='iconsminds-clock-back' style='font-size:18px !important'></i></a></td>
                             </tr>`;	
                             first = true;
                             no++;

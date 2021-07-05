@@ -231,7 +231,7 @@
 
     $('.col-grid').on('click','#sis-mid-bayar',function(e){
         e.preventDefault();
-        var xurl = "{{url('ts-auth/form')}}/fSisMidBayar";
+        var xurl = "{{url('ts-auth/form')}}/fSisMandiriBayar";
         $('#content-dash').load(xurl);
     });
 

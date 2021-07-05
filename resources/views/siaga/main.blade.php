@@ -1089,8 +1089,8 @@
         });
     }
     
-    var channel = pusher.subscribe('saitoko-channel-'+userNIK);
-    channel.bind('saitoko-event', function(data) {
+    var channel = pusher.subscribe('saisiaga-channel-'+userNIK);
+    channel.bind('saisiaga-event', function(data) {
         getNotif();
         showNotification("top", "left", "primary",data.title,data.message);
     });

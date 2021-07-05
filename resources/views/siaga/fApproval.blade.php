@@ -680,7 +680,7 @@
                                         <span id='text-${idFile}' class='tooltip-span'>${data.no_gambar}</span>
                                     </td>
                                     <td class='text-center'>
-                                        <a class='download-item' style='font-size:12px;cursor:pointer;' href="{{ config('api.url') }}siaga-auth/storage/${data.no_gambar}" target='_blank'><i class='simple-icon-cloud-download'></i></a>
+                                        <a class='download-item' style='font-size:12px;cursor:pointer;' href="https://devsiaga.simkug.com/server/media/${data.no_gambar}" target='_blank'><i class='simple-icon-cloud-download'></i></a>
                                     </td>
                                 </tr>
                             `;
