@@ -314,7 +314,7 @@
     var action_html = "<a href='#' title='Approve' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a>";
     var dataTable = generateTable(
         "table-data",
-        "{{ url('apv/juskeb_aju') }}", 
+        "{{ url('apv/juspo_app_aju') }}", 
         [
             {
                 "targets": 0,
