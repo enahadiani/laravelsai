@@ -99,3 +99,9 @@ Route::get('provinsi/{id}', 'Rtrw\ProvinsiController@getData');
 Route::post('provinsi', 'Rtrw\ProvinsiController@store');
 Route::put('provinsi/{id}', 'Rtrw\ProvinsiController@update');
 Route::delete('provinsi/{id}', 'Rtrw\ProvinsiController@delete');
+// Data Kota //
+Route::get('kota', 'Rtrw\KotaController@index');
+Route::get('kota/{id}', 'Rtrw\KotaController@getData');
+Route::post('kota', 'Rtrw\KotaController@store');
+Route::put('kota/{id}', 'Rtrw\KotaController@update');
+Route::delete('kota/{id}', 'Rtrw\KotaController@delete');
