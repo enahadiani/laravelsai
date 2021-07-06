@@ -18,7 +18,7 @@ Route::get('/form/{id}', function ($id) {
     if(!Session::has('isLoggedIn')){
         return redirect('rtrw-auth/login')->with('alert','Session telah habis !');
     }else{
-        return view('rtrw.'.$id);
+        return view('rtrw-baru.'.$id);
     }
 });
 

@@ -91,3 +91,11 @@ Route::get('lokasi-detail/{kode}','Rtrw\LokasiController@show');
 Route::post('lokasi','Rtrw\LokasiController@store');
 Route::put('lokasi-ubah/{kode}','Rtrw\LokasiController@update');
 Route::delete('lokasi/{kode}','Rtrw\LokasiController@destroy');
+
+
+// Data Provinsi //
+Route::get('provinsi', 'Rtrw\ProvinsiController@index');
+Route::get('provinsi/{id}', 'Rtrw\ProvinsiController@getData');
+Route::post('provinsi', 'Rtrw\ProvinsiController@store');
+Route::put('provinsi/{id}', 'Rtrw\ProvinsiController@update');
+Route::delete('provinsi/{id}', 'Rtrw\ProvinsiController@delete');
