@@ -105,3 +105,15 @@ Route::get('kota/{id}', 'Rtrw\KotaController@getData');
 Route::post('kota', 'Rtrw\KotaController@store');
 Route::put('kota/{id}', 'Rtrw\KotaController@update');
 Route::delete('kota/{id}', 'Rtrw\KotaController@delete');
+// Data Camat //
+Route::get('camat', 'Rtrw\CamatController@index');
+Route::get('camat/{id}', 'Rtrw\CamatController@getData');
+Route::post('camat', 'Rtrw\CamatController@store');
+Route::put('camat/{id}', 'Rtrw\CamatController@update');
+Route::delete('camat/{id}', 'Rtrw\CamatController@delete');
+// Data Desa //
+Route::get('desa', 'Rtrw\DesaController@index');
+Route::get('desa/{id}', 'Rtrw\DesaController@getData');
+Route::post('desa', 'Rtrw\DesaController@store');
+Route::put('desa/{id}', 'Rtrw\DesaController@update');
+Route::delete('desa/{id}', 'Rtrw\DesaController@delete');
