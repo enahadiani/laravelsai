@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="{{ asset('asset_silo/css/trans.css') }}" />
 
 <!-- LIST DATA -->
-<x-list-data judul="Data Justifikasi Pengadaan" tambah="" :thead="array('No Juskeb', 'No Dokumen', 'Regional', 'Waktu', 'Kegiatan', 'Nilai', 'Status', 'Aksi', 'ID')" :thwidth="array(10,20,15,10,25,10,20,10,5)" :thclass="array('','','','','','','','text-center','')" />
+<x-list-data judul="Data Justifikasi Pengadaan" tambah="" :thead="array('No Juspo', 'No Juskeb', 'No Dokumen', 'Regional', 'Waktu', 'Kegiatan', 'Nilai', 'Status', 'Aksi', 'ID')" :thwidth="array(10,10,20,15,10,25,10,20,10,5)" :thclass="array('','','','','','','','','text-center','')" />
 <!-- END LIST DATA -->
 
 <!-- FORM  -->
@@ -340,17 +340,18 @@
                 }
             },
             {   
-                'targets': [5], 
+                'targets': [6], 
                 'className': 'text-right',
                 'render': $.fn.dataTable.render.number( '.', ',', 0, '' )  
             },
             {   
-                'targets': [8], 
+                'targets': [9], 
                 'visible': false
             },
-            {'targets': 6 ,'className': 'text-center' }
+            {'targets': 7 ,'className': 'text-center' }
         ],
         [
+            { data: 'no_juspo' },
             { data: 'no_bukti' },
             { data: 'no_dokumen' },
             { data: 'nama_pp' },

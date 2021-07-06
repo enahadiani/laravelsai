@@ -60,7 +60,7 @@
     var action_html = "<a href='#' title='Detail Dokumen' id='btn-detail'><i class='simple-icon-cloud-download'></i></a>&nbsp;&nbsp;<a href='#' title='Cetak' id='btn-print'><i class='simple-icon-printer' style='font-size:18px'></i></a>";
     var dataTable = generateTable(
         "table-data",
-        "{{ url('apv/juskeb_app') }}", 
+        "{{ url('apv/juspo_app') }}", 
         [
             {
                 "targets": 0,
