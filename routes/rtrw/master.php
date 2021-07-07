@@ -124,3 +124,10 @@ Route::get('rw/{id}', 'Rtrw\RwController@getData');
 Route::post('rw', 'Rtrw\RwController@store');
 Route::post('rw-ubah', 'Rtrw\RwController@update');
 Route::delete('rw/{id}', 'Rtrw\RwController@delete');
+
+// Data RT //
+Route::get('rt', 'Rtrw\RtController@index');
+Route::get('rt/{id}', 'Rtrw\RtController@getData');
+Route::post('rt', 'Rtrw\RtController@store');
+Route::post('rt-ubah', 'Rtrw\RtController@update');
+Route::delete('rt/{id}', 'Rtrw\RtController@delete');

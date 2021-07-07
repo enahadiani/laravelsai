@@ -677,7 +677,7 @@
                                 icon: 'error',
                                 title: 'Oops...',
                                 text: 'Something went wrong!',
-                                footer: '<a href>'+JSON.stringfy(result.data.message)+'</a>'
+                                footer: '<a href>'+JSON.stringify(result.data.message)+'</a>'
                             })
                         }
                     }
@@ -789,7 +789,7 @@
         $('#btn-save').attr('type','button');
         $('#btn-save').attr('id','btn-update');
 
-        $('#judul-form').html('Edit Data Desa');
+        $('#judul-form').html('Edit Data RW');
         editData(id);
     });
 
@@ -865,7 +865,7 @@
             
             $('.preview-header').on('click', '#btn-edit2', function(){
                 var id= $('#preview-id').text();
-                $('#judul-form').html('Edit Data Desa');
+                $('#judul-form').html('Edit Data RW');
                 $('#form-tambah')[0].reset();
                 $('#form-tambah').validate().resetForm();
                 

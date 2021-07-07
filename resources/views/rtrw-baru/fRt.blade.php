@@ -23,7 +23,7 @@
     
     </style>
     <!-- LIST DATA -->
-    <x-list-data judul="Data Rw" tambah="true" :thead="array('Kode RT','Nama','Kode RW','Aksi')" :thwidth="array(20,50,20,10)" :thclass="array('','','','text-center')" />
+    <x-list-data judul="Data RT" tambah="true" :thead="array('Kode RT','Nama','Kode RW','Aksi')" :thwidth="array(20,50,20,10)" :thclass="array('','','','text-center')" />
     <!-- END LIST DATA -->
 
     <form id="form-tambah" class="tooltip-label-right" novalidate>
@@ -48,14 +48,14 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6 col-sm-12">
-                                <label for="kode_lokasi" >Kode RW</label>
-                                <input class="form-control" type="text" placeholder="Kode Lokasi" id="kode_lokasi" name="kode_lokasi" required>                         
+                                <label for="kode_rw" >Kode RW</label>
+                                <input class="form-control" type="text" placeholder="Kode RW" id="kode_rw" name="kode_rw" required readonly>                         
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6 col-sm-12">
-                                <label for="kode_rw" >Kode RT</label>
-                                <input class="form-control" type="text" placeholder="Kode RW" id="kode_rw" name="kode_rw" required>                         
+                                <label for="kode_rt" >Kode RT</label>
+                                <input class="form-control" type="text" placeholder="Kode RT" id="kode_rt" name="kode_rt" required>                         
                             </div>
                         </div>
                         <div class="form-row">
@@ -166,9 +166,9 @@
             {'targets': 3, data: null, 'defaultContent': action_html,'className': 'text-center' },
         ],
         [
-            { data: 'kode_rw' },
+            { data: 'kode_rt' },
             { data: 'nama' },
-            { data: 'kode_rt' }
+            { data: 'kode_rw' },
         ],
         "{{ url('rtrw-auth/sesi-habis') }}",
         [[0 ,"desc"]]
@@ -223,7 +223,8 @@
         $('#form-tambah')[0].reset();
         $('#form-tambah').validate().resetForm();
         $('#method').val('post');
-        $('#kode_lokasi').attr('readonly', false);
+        $('#kode_rw').val("{{ Session::get('lokasi').' - '.Session::get('rw') }}");
+        $('#kode_rt').attr('readonly', false);
         $('#saku-datatable').hide();
         $('#saku-form').show();
         $('.input-group-prepend').addClass('hidden');
@@ -331,7 +332,7 @@
                                 icon: 'error',
                                 title: 'Oops...',
                                 text: 'Something went wrong!',
-                                footer: '<a href>'+JSON.stringfy(result.data.message)+'</a>'
+                                footer: '<a href>'+JSON.stringify(result.data.message)+'</a>'
                             })
                         }
                     }
@@ -406,11 +407,11 @@
                 if(result.status){
                     $('#id_edit').val('edit');
                     $('#method').val('post');
-                    $('#kode_rw').attr('readonly', true);
-                    $('#kode_rw').val(id);
+                    $('#kode_rt').attr('readonly', true);
+                    $('#kode_rt').val(id);
                     $('#id').val(id);
                     $('#nama').val(result.data[0].nama);
-                    $('#kode_rt').val(result.data[0].kode_rt); 
+                    $('#kode_rw').val(result.data[0].kode_rw); 
                     var html = "<img style='width:120px' style='margin:0 auto' src='"+result.data[0].logo+"'>";
                     $('.preview').html(html);          
                     $('#saku-datatable').hide();
@@ -435,7 +436,7 @@
         $('#btn-save').attr('type','button');
         $('#btn-save').attr('id','btn-update');
 
-        $('#judul-form').html('Edit Data Desa');
+        $('#judul-form').html('Edit Data RT');
         editData(id);
     });
 
@@ -467,7 +468,7 @@
                 <table class="table table-prev mt-2" width="100%" style="padding-bottom:200px">
                     <tr>
                     <td style='border:none'>Kode RW</td>
-                    <td style='border:none'>`+id+`</td>
+                    <td style='border:none'>`+data.kode_rw+`</td>
                     </tr>
                     <tr>
                     <td>Kode RT</td>
@@ -496,7 +497,7 @@
             
             $('.preview-header').on('click', '#btn-edit2', function(){
                 var id= $('#preview-id').text();
-                $('#judul-form').html('Edit Data Desa');
+                $('#judul-form').html('Edit Data RT');
                 $('#form-tambah')[0].reset();
                 $('#form-tambah').validate().resetForm();
                 
