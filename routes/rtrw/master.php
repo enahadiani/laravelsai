@@ -117,3 +117,10 @@ Route::get('desa/{id}', 'Rtrw\DesaController@getData');
 Route::post('desa', 'Rtrw\DesaController@store');
 Route::put('desa/{id}', 'Rtrw\DesaController@update');
 Route::delete('desa/{id}', 'Rtrw\DesaController@delete');
+
+// Data RW //
+Route::get('rw', 'Rtrw\RwController@index');
+Route::get('rw/{id}', 'Rtrw\RwController@getData');
+Route::post('rw', 'Rtrw\RwController@store');
+Route::post('rw-ubah', 'Rtrw\RwController@update');
+Route::delete('rw/{id}', 'Rtrw\RwController@delete');
