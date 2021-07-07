@@ -131,3 +131,8 @@ Route::get('rt/{id}', 'Rtrw\RtController@getData');
 Route::post('rt', 'Rtrw\RtController@store');
 Route::post('rt-ubah', 'Rtrw\RtController@update');
 Route::delete('rt/{id}', 'Rtrw\RtController@delete');
+
+//Master Warga Detail
+Route::get('mawar','Rtrw\WargaDetailController@index');
+Route::get('mawar-detail/{no_rumah}','Rtrw\WargaDetailController@show');
+Route::put('mawar','Rtrw\WargaDetailController@store');
