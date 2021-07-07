@@ -66,6 +66,7 @@ class RumahController extends Controller
         $this->validate($request, [
             'kode_rumah' => 'required',
             'rt' => 'required',
+            'tipe' => 'required',
             'rw' => 'required',
             'blok' => 'required',
             'status_huni' => 'required'
@@ -78,13 +79,7 @@ class RumahController extends Controller
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
                 ],
-                'form_params' => [
-                    'kode_rumah' => $request->kode_rumah,
-                    'rt' => $request->rt,
-                    'rw' => $request->rw,
-                    'blok' => $request->blok,
-                    'status_huni' => $request->status_huni
-                ]
+                'form_params' => $request->all()
             ]);
             if ($response->getStatusCode() == 200) { // 200 OK
                 $response_data = $response->getBody()->getContents();
@@ -136,6 +131,7 @@ class RumahController extends Controller
             'rt' => 'required',
             'rw' => 'required',
             'blok' => 'required',
+            'tipe' => 'required',
             'status_huni' => 'required'
         ]);
 
@@ -146,13 +142,7 @@ class RumahController extends Controller
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
                 ],
-                'form_params' => [
-                    'kode_rumah' => $kode_rumah,
-                    'rt' => $request->rt,
-                    'rw' => $request->rw,
-                    'blok' => $request->blok,
-                    'status_huni' => $request->status_huni
-                ]
+                'form_params' => $request->all()
             ]);
             if ($response->getStatusCode() == 200) { // 200 OK
                 $response_data = $response->getBody()->getContents();

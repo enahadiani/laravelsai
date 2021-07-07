@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
 /*
@@ -49,6 +50,10 @@ Route::post('/finish', 'Ts\DashSiswaController@notificationHandler');
 Route::get('/finish', 'Ts\DashSiswaController@notificationHandler');
 Route::post('/finish-trans', 'Ts\DashSiswaController@notificationHandler2');
 Route::get('/finish-trans', 'Ts\DashSiswaController@notificationHandler2');
+
+Route::get('/callback', function (Request $request) {
+    return $request->all();
+});
 
 
 
