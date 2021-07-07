@@ -445,4 +445,22 @@
             $('#trigger-bottom-sheet').trigger("click");
         }
     });
+
+    $('#kode_prop,#nama').keydown(function(e){
+        var code = (e.keyCode ? e.keyCode : e.which);
+        var nxt = ['kode_prop','nama'];
+        if (code == 13 || code == 40) {
+            e.preventDefault();
+            var idx = nxt.indexOf(e.target.id);
+            idx++;
+            $('#'+nxt[idx]).focus();
+        }else if(code == 38){
+            e.preventDefault();
+            var idx = nxt.indexOf(e.target.id);
+            idx--;
+            if(idx != -1){ 
+                $('#'+nxt[idx]).focus();
+            }
+        }
+    });
     </script>

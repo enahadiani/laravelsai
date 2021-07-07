@@ -29,14 +29,15 @@ class KotaController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function index(){
+    public function index(Request $request){
         try {
             $client = new Client();
             $response = $client->request('GET',  config('api.url').'rtrw/kota',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
-                ]
+                ],
+                'query' => $request->all()
             ]);
 
             if ($response->getStatusCode() == 200) { // 200 OK
@@ -91,7 +92,7 @@ class KotaController extends Controller
         }
     }
 
-    public function getData($id) {
+    public function getData(Request $request,$id) {
         try{
             $client = new Client();
             $response = $client->request('GET',  config('api.url').'rtrw/kota?kode_kota='.$id,
@@ -99,7 +100,8 @@ class KotaController extends Controller
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
-                ]
+                ],
+                'query' => $request->all()
             ]);
     
             if ($response->getStatusCode() == 200) { // 200 OK

@@ -255,6 +255,16 @@
     // END LIST DATA
 
     // CBBL
+
+    function deleteInfoField(par){
+        $('#'+par).val('');
+        $('#'+par).attr('readonly',false);
+        $('#'+par).attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important');
+        $('.info-code_'+par).parent('div').addClass('hidden');
+        $('.info-name_'+par).addClass('hidden');
+        $('#'+par).closest('div').find('.info-icon-hapus').addClass('hidden');
+    }
+
     $('.info-icon-hapus').click(function(){
         var par = $(this).closest('div').find('input').attr('name');
         $('#'+par).val('');
@@ -271,8 +281,10 @@
         $('.info-code_'+kode).text(isi_kode).parent('div').removeClass('hidden');
         $('.info-code_'+kode).attr('title',isi_nama);
         $('.info-name_'+kode).removeClass('hidden');
+        console.log('.info-name_'+kode+' span');
+        console.log(isi_nama);
         $('.info-name_'+kode).attr('title',isi_nama);
-        $('.info-name_'+kode+' span').text(isi_nama);
+        $('.info-name_'+kode+' span').html(isi_nama);
         var width = $('#'+kode).width()-$('#search_'+kode).width()-10;
         var height =$('#'+kode).height();
         var pos =$('#'+kode).position();
@@ -287,7 +299,8 @@
             dataType: 'json',
             data:{kode_kota:kode},
             async:false,
-            success:function(result){    
+            success:function(result){ 
+                deleteInfoField('kode_desa');   
                 if(result.status){
                     if(typeof result.data !== 'undefined' && result.data.length>0){
                         showInfoField('kode_camat',result.data[0].kode_camat,result.data[0].nama);
@@ -300,6 +313,11 @@
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
                     window.location.href = "{{ url('rtrw-auth/sesi-habis') }}";
+                }else{
+                    $('#kode_camat').attr('readonly',false);
+                    $('#kode_camat').css('border-left','1px solid #d7d7d7');
+                    $('#kode_camat').val('');
+                    $('#kode_camat').focus();
                 }
             }
         });
@@ -312,7 +330,10 @@
             dataType: 'json',
             data:{kode_prop:kode},
             async:false,
-            success:function(result){    
+            success:function(result){  
+                
+                deleteInfoField('kode_camat');
+                deleteInfoField('kode_desa');  
                 if(result.status){
                     if(typeof result.data !== 'undefined' && result.data.length>0){
                         showInfoField('kode_kota',result.data[0].kode_kota,result.data[0].nama);
@@ -325,6 +346,11 @@
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
                     window.location.href = "{{ url('rtrw-auth/sesi-habis') }}";
+                }else{
+                    $('#kode_kota').attr('readonly',false);
+                    $('#kode_kota').css('border-left','1px solid #d7d7d7');
+                    $('#kode_kota').val('');
+                    $('#kode_kota').focus();
                 }
             }
         });
@@ -337,6 +363,9 @@
             dataType: 'json',
             async:false,
             success:function(result){    
+                deleteInfoField('kode_kota');
+                deleteInfoField('kode_camat');
+                deleteInfoField('kode_desa');
                 if(result.status){
                     if(typeof result.data !== 'undefined' && result.data.length>0){
                         showInfoField('kode_prop',result.data[0].kode_prop,result.data[0].nama);
@@ -349,6 +378,11 @@
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
                     window.location.href = "{{ url('rtrw-auth/sesi-habis') }}";
+                }else{
+                    $('#kode_prop').attr('readonly',false);
+                    $('#kode_prop').css('border-left','1px solid #d7d7d7');
+                    $('#kode_prop').val('');
+                    $('#kode_prop').focus();
                 }
             }
         });
@@ -374,6 +408,11 @@
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
                     window.location.href = "{{ url('rtrw-auth/sesi-habis') }}";
+                }else{
+                    $('#kode_desa').attr('readonly',false);
+                    $('#kode_desa').css('border-left','1px solid #d7d7d7');
+                    $('#kode_desa').val('');
+                    $('#kode_desa').focus();
                 }
             }
         });
@@ -402,7 +441,11 @@
                     target3 : "",
                     target4 : "",
                     width : ["30%","70%"],
-                    parameter:{kode_kota:$('#kode_kota').val()}
+                    parameter:{kode_kota:$('#kode_kota').val()},
+                    onItemSelected: function(data){
+                        showInfoField("kode_camat",data.kode_camat,data.nama);
+                        deleteInfoField("kode_desa");
+                    }
                 };
                 break;
             case 'kode_kota':
@@ -423,7 +466,12 @@
                     target3 : "",
                     target4 : "",
                     width : ["30%","70%"],
-                    parameter:{kode_prop:$('#kode_prop').val()}
+                    parameter:{kode_prop:$('#kode_prop').val()},
+                    onItemSelected: function(data){
+                        showInfoField("kode_kota",data.kode_kota,data.nama);
+                        deleteInfoField("kode_camat");
+                        deleteInfoField("kode_desa");
+                    }
                 };
                 break;
             case 'kode_desa':
@@ -464,16 +512,47 @@
                     target2 : ".info-name_"+id,
                     target3 : "",
                     target4 : "",
-                    width : ["30%","70%"]
+                    width : ["30%","70%"],
+                    onItemSelected: function(data){
+                        console.log(data.nama_prop);
+                        showInfoField("kode_prop",data.kode_prop,data.nama);
+                        deleteInfoField("kode_kota");
+                        deleteInfoField("kode_camat");
+                        deleteInfoField("kode_desa");
+                    }
                 };
                 break;
         }
         showInpFilterBSheet(options);
     });
 
-    $('#form-tambah').on('change', '#kode_camat', function(){
+    
+    $('#form-tambah').on('change', '#kode_prop', function(e){
+        e.preventDefault();
         var par = $(this).val();
-        getCamat(par);
+        getProvinsi(par);
+    });
+
+    
+    $('#form-tambah').on('change', '#kode_kota', function(e){
+        e.preventDefault();
+        var par = $(this).val();
+        var prop = $('#kode_prop').val();
+        getKota(par,prop);
+    });
+
+    $('#form-tambah').on('change', '#kode_camat', function(){
+        e.preventDefault();
+        var par = $(this).val();
+        var kota = $('#kode_kota').val();
+        getCamat(par,kota);
+    });
+
+    $('#form-tambah').on('change', '#kode_desa', function(){
+        e.preventDefault();
+        var par = $(this).val();
+        var camat = $('#kode_camat').val();
+        getDesa(par,camat);
     });
     // END CBBL
 
@@ -745,7 +824,7 @@
                     <td style='border:none'>`+id+`</td>
                     </tr>
                     <tr>
-                    <td>Nama Desa</td>
+                    <td>Nama</td>
                     <td>`+data.nama+`</td>
                     </tr>
                     <tr>
@@ -811,6 +890,24 @@
             });
             
             $('#trigger-bottom-sheet').trigger("click");
+        }
+    });
+
+    $('#kode_lokasi,#nama,#kode_rw,#kode_prop,#kode_kota,#kode_camat,#kode_desa').keydown(function(e){
+        var code = (e.keyCode ? e.keyCode : e.which);
+        var nxt = ['kode_lokasi','nama','kode_rw','kode_prop','kode_kota','kode_camat','kode_desa'];
+        if (code == 13 || code == 40) {
+            e.preventDefault();
+            var idx = nxt.indexOf(e.target.id);
+            idx++;
+            $('#'+nxt[idx]).focus();
+        }else if(code == 38){
+            e.preventDefault();
+            var idx = nxt.indexOf(e.target.id);
+            idx--;
+            if(idx != -1){ 
+                $('#'+nxt[idx]).focus();
+            }
         }
     });
     </script>

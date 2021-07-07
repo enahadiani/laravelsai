@@ -203,6 +203,11 @@
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
                     window.location.href = "{{ url('rtrw-auth/sesi-habis') }}";
+                }else{
+                    $('#kode_kota').attr('readonly',false);
+                    $('#kode_kota').css('border-left','1px solid #d7d7d7');
+                    $('#kode_kota').val('');
+                    $('#kode_kota').focus();
                 }
             }
         });
@@ -545,6 +550,24 @@
             });
             
             $('#trigger-bottom-sheet').trigger("click");
+        }
+    });
+
+    $('#kode_camat,#nama,#kode_kota').keydown(function(e){
+        var code = (e.keyCode ? e.keyCode : e.which);
+        var nxt = ['kode_camat','nama','kode_kota'];
+        if (code == 13 || code == 40) {
+            e.preventDefault();
+            var idx = nxt.indexOf(e.target.id);
+            idx++;
+            $('#'+nxt[idx]).focus();
+        }else if(code == 38){
+            e.preventDefault();
+            var idx = nxt.indexOf(e.target.id);
+            idx--;
+            if(idx != -1){ 
+                $('#'+nxt[idx]).focus();
+            }
         }
     });
     </script>

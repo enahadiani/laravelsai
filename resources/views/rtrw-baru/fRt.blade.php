@@ -23,7 +23,7 @@
     
     </style>
     <!-- LIST DATA -->
-    <x-list-data judul="Data Kota" tambah="true" :thead="array('Kode Kota','Nama','Kode Provinsi','Aksi')" :thwidth="array(20,50,20,10)" :thclass="array('','','','text-center')" />
+    <x-list-data judul="Data Rw" tambah="true" :thead="array('Kode RT','Nama','Kode RW','Aksi')" :thwidth="array(20,50,20,10)" :thclass="array('','','','text-center')" />
     <!-- END LIST DATA -->
 
     <form id="form-tambah" class="tooltip-label-right" novalidate>
@@ -48,8 +48,14 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6 col-sm-12">
-                                <label for="kode_kota" >Kode Kota</label>
-                                <input class="form-control" type="text" placeholder="Kode Kota" id="kode_kota" name="kode_kota" required>                         
+                                <label for="kode_lokasi" >Kode RW</label>
+                                <input class="form-control" type="text" placeholder="Kode Lokasi" id="kode_lokasi" name="kode_lokasi" required>                         
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="kode_rw" >Kode RT</label>
+                                <input class="form-control" type="text" placeholder="Kode RW" id="kode_rw" name="kode_rw" required>                         
                             </div>
                         </div>
                         <div class="form-row">
@@ -59,20 +65,23 @@
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group col-md-6 col-sm-12">
-                                <label for="kode_prop">Provinsi</label>
+                            <div class="form-group col-md-12 col-sm-12">
+                                <label>Logo</label>
                                 <div class="input-group">
-                                    <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
-                                    <span class="input-group-text info-code_kode_prop" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                    <div class="custom-file">
+                                        <input type="file" name="file_gambar" class="custom-file-input" id="file_gambar" accept="image/*" onchange="readURL(this)">
+                                        <label class="custom-file-label" style="border-radius: 0.5rem;" for="file_gambar">Choose file</label>
                                     </div>
-                                    <input type="text" class="form-control inp-label-kode_prop" id="kode_prop" name="kode_prop" value="" title="">
-                                    <span class="info-name_kode_prop hidden">
-                                    <span></span> 
-                                    </span>
-                                    <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                    <i class="simple-icon-magnifier search-item2" id="search_kode_prop"></i>
-                                </div>                        
-                                
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="row mb-2 text-center">
+                                    <div style="" class="col-12">
+                                        <div class="preview text-center" style="height:120px;width:120px;margin: 0 auto;border: 1px solid #d7d7d7;border-radius: 0.5rem;">Preview</div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -111,6 +120,25 @@
         }
     });
 
+    $('.custom-file-input').on('change',function(){
+        //get the file name
+        var fileName = $(this).val();
+        //replace the "Choose a file" label
+        $(this).next('.custom-file-label').html(fileName);
+    });
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                var html = `<img id="img-preview" width="120px" src="`+e.target.result+`" alt="Preview" style='margin:0 auto'>`;
+                $('.preview').html(html);
+            };
+            
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
     function last_add(param,isi){
         var rowIndexes = [];
         dataTable.rows( function ( idx, data, node ) {             
@@ -133,14 +161,14 @@
     var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
     var dataTable = generateTable(
         "table-data",
-        "{{ url('rtrw-master/kota') }}", 
+        "{{ url('rtrw-master/rt') }}", 
         [
             {'targets': 3, data: null, 'defaultContent': action_html,'className': 'text-center' },
         ],
         [
-            { data: 'kode_kota' },
+            { data: 'kode_rw' },
             { data: 'nama' },
-            { data: 'kode_prop' }
+            { data: 'kode_rt' }
         ],
         "{{ url('rtrw-auth/sesi-habis') }}",
         [[0 ,"desc"]]
@@ -183,76 +211,19 @@
         $('.info-name_'+kode).width(width).css({'left':pos.left,'height':height});
         $('.info-name_'+kode).closest('div').find('.info-icon-hapus').removeClass('hidden');
     }
-
-    function getProvinsi(id=null){
-        $.ajax({
-            type: 'GET',
-            url: "{{ url('rtrw-master/provinsi') }}/"+id,
-            dataType: 'json',
-            async:false,
-            success:function(result){    
-                if(result.status){
-                    if(typeof result.data !== 'undefined' && result.data.length>0){
-                        showInfoField('kode_prop',result.data[0].kode_prop,result.data[0].nama);
-                    }else{
-                        $('#kode_prop').attr('readonly',false);
-                        $('#kode_prop').css('border-left','1px solid #d7d7d7');
-                        $('#kode_prop').val('');
-                        $('#kode_prop').focus();
-                    }
-                }
-                else if(!result.status && result.message == 'Unauthorized'){
-                    window.location.href = "{{ url('rtrw-auth/sesi-habis') }}";
-                }else{
-                    $('#kode_prop').attr('readonly',false);
-                    $('#kode_prop').css('border-left','1px solid #d7d7d7');
-                    $('#kode_prop').val('');
-                    $('#kode_prop').focus();
-                }
-            }
-        });
-    }
-
-    $('#form-tambah').on('click', '.search-item2', function(e){
-        e.preventDefault();
-        var id = $(this).closest('div').find('input').attr('name');
-        showInpFilterBSheet({
-            id : id,
-            header : ['Kode', 'Nama'],
-            url : "{{ url('rtrw-master/provinsi') }}",
-            columns : [
-                { data: 'kode_prop' },
-                { data: 'nama' }
-            ],
-            judul : "Daftar Provinsi",
-            pilih : "provinsi",
-            jTarget1 : "text",
-            jTarget2 : "text",
-            target1 : ".info-code_"+id,
-            target2 : ".info-name_"+id,
-            target3 : "",
-            target4 : "",
-            width : ["30%","70%"],
-        });
-    });
-
-    $('#form-tambah').on('change', '#kode_prop', function(){
-        var par = $(this).val();
-        getProvinsi(par);
-    });
     // END CBBL
 
     // BUTTON TAMBAH
     $('#saku-datatable').on('click', '#btn-tambah', function(){
         $('#row-id').hide();
         $('#id_edit').val('');
-        $('#judul-form').html('Tambah Data Kota');
+        $('#judul-form').html('Tambah Data RT');
         $('#btn-update').attr('id','btn-save');
         $('#btn-save').attr('type','submit');
         $('#form-tambah')[0].reset();
         $('#form-tambah').validate().resetForm();
         $('#method').val('post');
-        $('#kode_kota').attr('readonly', false);
+        $('#kode_lokasi').attr('readonly', false);
         $('#saku-datatable').hide();
         $('#saku-form').show();
         $('.input-group-prepend').addClass('hidden');
@@ -274,7 +245,7 @@
     });
 
     $('#saku-form').on('click', '#btn-update', function(){
-        var kode = $('#kode_kota').val();
+        var kode = $('#kode_lokasi').val();
         msgDialog({
             id:kode,
             type:'edit'
@@ -286,30 +257,28 @@
         ignore: [],
         rules: 
         {
-            kode_kota:{
-                required: true,
-                maxlength:10   
+            kode_rw:{
+                required: true   
             },
             nama:{
                 required: true,
-                maxlength:50   
+                maxlength:100   
             },
-            kode_prop:{
-                required: true, 
-                maxlength:50  
+            kode_rt:{
+                required: true 
             }
         },
         errorElement: "label",
         submitHandler: function (form, event) {
             event.preventDefault();
             var parameter = $('#id_edit').val();
-            var id = $('#kode_kota').val();
+            var id = $('#kode_lokasi').val();
             if(parameter == "edit"){
-                var url = "{{ url('rtrw-master/kota') }}/"+id;
+                var url = "{{ url('rtrw-master/rt-ubah') }}";
                 var pesan = "updated";
                 var text = "Perubahan data "+id+" telah tersimpan";
             }else{
-                var url = "{{ url('rtrw-master/kota') }}";
+                var url = "{{ url('rtrw-master/rt') }}";
                 var pesan = "saved";
                 var text = "Data tersimpan dengan kode "+id;
             }
@@ -336,24 +305,25 @@
                         $('#form-tambah').validate().resetForm();
                         $('[id^=label]').html('');
                         $('#id_edit').val('');
-                        $('#judul-form').html('Tambah Data Kota');
+                        $('#judul-form').html('Tambah Data Lokasi');
                         $('#method').val('post');
-                        $('#kode_kota').attr('readonly', false);
+                        $('#kode_lokasi').attr('readonly', false);
                         msgDialog({
-                            id:result.data.kode,
-                            type:'simpan'
+                            id:id,
+                            type:'simpan',
+                            text:result.data.message
                         });
-                        last_add("kode_kota",result.data.kode);
+                        last_add("kode_lokasi",result.data.kode);
                     }else if(!result.data.status && result.data.message === "Unauthorized"){
                     
                         window.location.href = "{{ url('/rtrw-auth/sesi-habis') }}";
                         
                     }else{
-                        if(result.data.kode == "-" && result.data.jekode_kota != undefined){
+                        if(result.data.kode == "-" && result.data.jenis != undefined){
                             msgDialog({
                                 id: id,
-                                type: result.data.jekode_kota,
-                                text:'Kode Kota sudah digunakan'
+                                type: result.data.kode_lokasi,
+                                text:'Kode Lokasi sudah digunakan'
                             });
                         }else{
 
@@ -361,7 +331,7 @@
                                 icon: 'error',
                                 title: 'Oops...',
                                 text: 'Something went wrong!',
-                                footer: '<a href>'+result.data.message+'</a>'
+                                footer: '<a href>'+JSON.stringfy(result.data.message)+'</a>'
                             })
                         }
                     }
@@ -390,16 +360,15 @@
 
     // BUTTON HAPUS DATA
     function hapusData(id){
-        console.log(id)
         $.ajax({
             type: 'DELETE',
-            url: "{{ url('rtrw-master/kota') }}/"+id,
+            url: "{{ url('rtrw-master/rt') }}/"+id,
             dataType: 'json',
             async:false,
             success:function(result){
                 if(result.data.status){
                     dataTable.ajax.reload();                    
-                    showNotification("top", "center", "success",'Hapus Data','Data Kota ('+id+') berhasil dihapus ');
+                    showNotification("top", "center", "success",'Hapus Data','Data RT ('+id+') berhasil dihapus ');
                     $('#modal-pesan-id').html('');
                     $('#table-delete tbody').html('');
                     $('#modal-pesan').modal('hide');
@@ -429,22 +398,24 @@
     function editData(id){
         $.ajax({
             type: 'GET',
-            url: "{{ url('rtrw-master/kota') }}/"+id,
+            url: "{{ url('rtrw-master/rt') }}/"+id,
             dataType: 'json',
             async:false,
-            success:function(result){
+            success:function(res){
+                var result = res.data;
                 if(result.status){
                     $('#id_edit').val('edit');
-                    $('#method').val('put');
-                    $('#kode_kota').attr('readonly', true);
-                    $('#kode_kota').val(id);
+                    $('#method').val('post');
+                    $('#kode_rw').attr('readonly', true);
+                    $('#kode_rw').val(id);
                     $('#id').val(id);
                     $('#nama').val(result.data[0].nama);
-                    $('#kode_prop').val(result.data[0].kode_prop);          
+                    $('#kode_rt').val(result.data[0].kode_rt); 
+                    var html = "<img style='width:120px' style='margin:0 auto' src='"+result.data[0].logo+"'>";
+                    $('.preview').html(html);          
                     $('#saku-datatable').hide();
                     $('#modal-preview').modal('hide');
                     $('#saku-form').show();
-                    showInfoField('kode_prop',result.data[0].kode_prop,result.data[0].nama_prop);
                     setHeightForm();
                     setWidthFooterCardBody();
                 }
@@ -464,7 +435,7 @@
         $('#btn-save').attr('type','button');
         $('#btn-save').attr('id','btn-update');
 
-        $('#judul-form').html('Edit Data Kota');
+        $('#judul-form').html('Edit Data Desa');
         editData(id);
     });
 
@@ -495,16 +466,16 @@
             <div class='preview-body' style='padding: 0 1.75rem;height: calc(75vh - 56px) position:sticky;min-height:300px'>
                 <table class="table table-prev mt-2" width="100%" style="padding-bottom:200px">
                     <tr>
-                    <td style='border:none'>Kode Kota</td>
+                    <td style='border:none'>Kode RW</td>
                     <td style='border:none'>`+id+`</td>
                     </tr>
                     <tr>
-                    <td>Nama Kota</td>
-                    <td>`+data.nama+`</td>
+                    <td>Kode RT</td>
+                    <td>`+data.kode_rt+`</td>
                     </tr>
                     <tr>
-                    <td>Provinsi</td>
-                    <td>`+data.kode_prop+` - `+data.nama_prop+`</td>
+                    <td>Nama RT</td>
+                    <td>`+data.nama+`</td>
                     </tr>
                 </table>
             </div>`;
@@ -525,7 +496,7 @@
             
             $('.preview-header').on('click', '#btn-edit2', function(){
                 var id= $('#preview-id').text();
-                $('#judul-form').html('Edit Data Kota');
+                $('#judul-form').html('Edit Data Desa');
                 $('#form-tambah')[0].reset();
                 $('#form-tambah').validate().resetForm();
                 
@@ -550,24 +521,6 @@
             });
             
             $('#trigger-bottom-sheet').trigger("click");
-        }
-    });
-
-    $('#kode_kota,#nama,#kode_prop').keydown(function(e){
-        var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['kode_kota','nama','kode_prop'];
-        if (code == 13 || code == 40) {
-            e.preventDefault();
-            var idx = nxt.indexOf(e.target.id);
-            idx++;
-            $('#'+nxt[idx]).focus();
-        }else if(code == 38){
-            e.preventDefault();
-            var idx = nxt.indexOf(e.target.id);
-            idx--;
-            if(idx != -1){ 
-                $('#'+nxt[idx]).focus();
-            }
         }
     });
     </script>

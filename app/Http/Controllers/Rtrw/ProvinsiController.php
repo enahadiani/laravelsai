@@ -29,14 +29,15 @@ class ProvinsiController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function index(){
+    public function index(Request $request){
         try {
             $client = new Client();
             $response = $client->request('GET',  config('api.url').'rtrw/provinsi',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
-                ]
+                ],
+                'query' => $request->all()
             ]);
 
             if ($response->getStatusCode() == 200) { // 200 OK
