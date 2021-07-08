@@ -23,7 +23,7 @@
     
     </style>
     <!-- LIST DATA -->
-    <x-list-data judul="Data Rw" tambah="" :thead="array('Kode Lokasi','Nama','Kode RW','Aksi')" :thwidth="array(20,50,20,10)" :thclass="array('','','','text-center')" />
+    <x-list-data judul="Data Rw" tambah="true" :thead="array('Kode Lokasi','Nama','Kode RW','Aksi')" :thwidth="array(20,50,20,10)" :thclass="array('','','','text-center')" />
     <!-- END LIST DATA -->
 
     <form id="form-tambah" class="tooltip-label-right" novalidate>
