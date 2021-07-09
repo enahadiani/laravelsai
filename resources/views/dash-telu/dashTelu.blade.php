@@ -420,13 +420,13 @@ function getPencapaianYoY(periode=null)
             var line = result.data.data[i];
                 if(line.kode_neraca == 'OR')
                 {
-                    html+=`<tr>
-                    <td style='font-weight:bold'>`+nama[i]+`%</td>
-                    <td class='text-right'>`+sepNum(line.n1)+`%</td>
-                    <td class='text-right'>`+sepNum(line.n2)+`%</td>
-                    <td class='text-right'>`+sepNum(line.n3)+`%</td>
-                    <td class='text-right' style='color: #4CD964;font-weight:bold'></td>
-                    </tr>`;    
+                    // html+=`<tr>
+                    // <td style='font-weight:bold'>`+nama[i]+`%</td>
+                    // <td class='text-right'>`+sepNum(line.n1)+`%</td>
+                    // <td class='text-right'>`+sepNum(line.n2)+`%</td>
+                    // <td class='text-right'>`+sepNum(line.n3)+`%</td>
+                    // <td class='text-right' style='color: #4CD964;font-weight:bold'></td>
+                    // </tr>`;    
                 }
                 else{
                     html+=`<tr>
@@ -439,6 +439,16 @@ function getPencapaianYoY(periode=null)
                                 
                 }
             }
+            var n1 = (parseFloat(result.data.data[1].n1)/parseFloat(result.data.data[0].n1))*100;
+            var n2 = (parseFloat(result.data.data[1].n2)/parseFloat(result.data.data[0].n2))*100;
+            var n3 = (parseFloat(result.data.data[1].n3)/parseFloat(result.data.data[0].n3))*100;
+            html+=`<tr>
+                    <td style='font-weight:bold'>OR</td>
+                    <td class='text-right'>`+sepNum(n1)+`%</td>
+                    <td class='text-right'>`+sepNum(n2)+`%</td>
+                    <td class='text-right'>`+sepNum(n3)+`%</td>
+                    <td class='text-right' style='color: #4CD964;font-weight:bold'></td>
+                    </tr>`; 
             $('#pencapaian tbody').html(html);
         },
         error: function(jqXHR, textStatus, errorThrown) {       
