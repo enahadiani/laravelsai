@@ -69,7 +69,13 @@ class RumahController extends Controller
             'tipe' => 'required',
             'rw' => 'required',
             'blok' => 'required',
-            'status_huni' => 'required'
+            'status_huni' => 'required',
+            'status_edit' => 'required',
+            'alamat' => 'required',
+            'no_tel' => 'required',
+            'emerg_call' => 'required',
+            'pbb' => 'required',
+            'pln' => 'required',
         ]);
 
         try {
@@ -132,7 +138,13 @@ class RumahController extends Controller
             'rw' => 'required',
             'blok' => 'required',
             'tipe' => 'required',
-            'status_huni' => 'required'
+            'status_huni' => 'required',
+            'status_edit' => 'required',
+            'alamat' => 'required',
+            'no_tel' => 'required',
+            'emerg_call' => 'required',
+            'pbb' => 'required',
+            'pln' => 'required',
         ]);
 
         try {

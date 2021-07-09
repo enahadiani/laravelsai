@@ -20,6 +20,12 @@
             margin-top: 10px;
             margin-right: 25px;
         }
+
+        #tgl_masuk-dp .datepicker-dropdown
+        {
+            left: 20px !important;
+            top: 190px !important;
+        }
     
     </style>
     <!-- LIST DATA -->
@@ -36,77 +42,120 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="separator mb-2"></div>
                     <!-- FORM BODY -->
-                    <div class="card-body pt-3 form-body">
-                        <div class="form-group row " id="row-id">
-                            <div class="col-9">
-                                <input class="form-control" type="hidden" id="id_edit" name="id_edit">
-                                <input type="hidden" id="method" name="_method" value="post">
-                                <input type="hidden" id="id" name="id">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6 col-sm-12">
-                                <label for="rw" >RW</label>
-                                <input class="form-control" type="text" placeholder="Kode RW" id="rw" name="rw" required readonly>                         
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6 col-sm-12">
-                                <label for="rt">RT</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
-                                    <span class="input-group-text info-code_rt" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                    <div class="card-body pt-0 form-body">
+                        <ul class="nav nav-tabs col-12 " role="tablist">
+                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#rumah" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Rumah</span></a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#pemilik" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Pemilik</span></a> </li>
+                        </ul>
+                        <div class="tab-content tab-form-content col-12 pt-3 px-0">
+                            <div class="tab-pane active" id="rumah" role="tabpanel">
+                                <div class="form-group row " id="row-id">
+                                    <div class="col-9">
+                                        <input class="form-control" type="hidden" id="id_edit" name="id_edit">
+                                        <input type="hidden" id="method" name="_method" value="post">
+                                        <input type="hidden" id="id" name="id">
                                     </div>
-                                    <input type="text" class="form-control inp-label-rt" id="rt" name="rt" value="" title="">
-                                    <span class="info-name_rt hidden">
-                                    <span></span> 
-                                    </span>
-                                    <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                    <i class="simple-icon-magnifier search-item2" id="search_rt"></i>
-                                </div>                        
-                                
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6 col-sm-12">
-                                <label for="blok">Blok</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
-                                    <span class="input-group-text info-code_blok" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <label for="rw" >RW</label>
+                                        <input class="form-control" type="text" placeholder="Kode RW" id="rw" name="rw" required readonly>                         
                                     </div>
-                                    <input type="text" class="form-control inp-label-blok" id="blok" name="blok" value="" title="">
-                                    <span class="info-name_blok hidden">
-                                    <span></span> 
-                                    </span>
-                                    <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                    <i class="simple-icon-magnifier search-item2" id="search_blok"></i>
-                                </div>  
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6 col-sm-12">
-                                <label for="kode_rumah" >Kode Rumah</label>
-                                <input class="form-control" type="text" placeholder="Kode Rumah" id="kode_rumah" name="kode_rumah" required>                         
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-12 col-sm-12">
-                                <label for="tipe" >Tipe</label>
-                                <input class="form-control" type="text" placeholder="Tipe Rumah" id="tipe" name="tipe" required>                         
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6 col-sm-12">
-                                <div class="row">
-                                    <div class="col-md-6 col-sm-12">
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <label for="rt" >RT</label>
+                                        <input class="form-control" type="text" placeholder="Kode RW" id="rt" name="rt" required readonly>                         
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <label for="blok">Blok</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                            <span class="input-group-text info-code_blok" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                            </div>
+                                            <input type="text" class="form-control inp-label-blok" id="blok" name="blok" value="" title="">
+                                            <span class="info-name_blok hidden">
+                                            <span></span> 
+                                            </span>
+                                            <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                            <i class="simple-icon-magnifier search-item2" id="search_blok"></i>
+                                        </div>  
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <label for="kode_rumah" >Kode Rumah</label>
+                                        <input class="form-control" type="text" placeholder="Kode Rumah" id="kode_rumah" name="kode_rumah" required>                         
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-12 col-sm-12">
+                                        <label for="alamat" >Alamat</label>
+                                        <input class="form-control" type="text" placeholder="Kode Rumah" id="alamat" name="alamat" required>                         
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <label for="tipe" >Tipe</label>
+                                        <input class="form-control" type="text" placeholder="Tipe Rumah" id="tipe" name="tipe" required>                         
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-12">
                                         <label for="status_huni">Status Huni</label>
                                         <select class='form-control' id="status_huni" name="status_huni">
                                         <option value='' disabled selected>--- Pilih Status ---</option>
                                         <option value='PEMILIK'>PEMILIK</option>
                                         <option value='PENGONTRAK'>PENGONTRAK</option>
                                         </select>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <label for="no_tel" >No Telpon</label>
+                                        <input class="form-control" type="text" placeholder="No Telpon" id="no_tel" name="no_tel" required>                         
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <label for="emerg_call" >No Emergency Call</label>
+                                        <input class="form-control" type="text" placeholder="No Telp Emergency" id="emerg_call" name="emerg_call" required>                         
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <label for="pbb" >No PBB</label>
+                                        <input class="form-control" type="text" placeholder="No Telpon" id="pbb" name="pbb" required>                         
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <label for="pln" >No Meteran Listrik</label>
+                                        <input class="form-control" type="text" placeholder="No Meteran Listrik" id="pln" name="pln" required>                         
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="pemilik" role="tabpanel">
+                                <div class="form-row">
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <label for="tgl_masuk" >Tgl Masuk</label>
+                                        <span id="tgl_masuk-dp"></span>
+                                        <input class="form-control" type="text" placeholder="dd/mm/yyyy" id="tgl_masuk" name="tgl_masuk" readonly>                         
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <input type="hidden" value=0  name="status_edit" id="status_edit" class="form-control">
+                                        <button id="edit_milik" class="btn btn-primary btn-sm float-right"><i class="simple-icon-pencil"></i> Ubah Data</button>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-12 col-sm-12">
+                                        <label for="nama_pemilik" >Nama Pemilik</label>
+                                        <input class="form-control" type="text" placeholder="Nama Pemilik" id="nama_pemilik" name="nama_pemilik" readonly>                         
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-12 col-sm-12">
+                                        <label for="alamat_pemilik" >Alamat</label>
+                                        <input class="form-control" type="text" placeholder="Alamat" id="alamat_pemilik" name="alamat_pemilik" readonly>                         
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <label for="no_tel_milik" >No Telpon</label>
+                                        <input class="form-control" type="text" placeholder="No Telpon" id="no_tel_milik" name="no_tel_milik" readonly>                         
                                     </div>
                                 </div>
                             </div>
@@ -145,6 +194,17 @@
         headers: {
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         }
+    });
+
+    $("#tgl_masuk").bootstrapDP({
+        autoclose: true,
+        format: 'dd/mm/yyyy',
+        container:'span#tgl_masuk-dp',
+        templates: {
+            leftArrow: '<i class="simple-icon-arrow-left"></i>',
+            rightArrow: '<i class="simple-icon-arrow-right"></i>'
+        },
+        orientation: 'bottom left'
     });
 
     $('#status_huni').selectize();
@@ -355,6 +415,13 @@
         $('#method').val('post');
         $('#kode_rumah').attr('readonly', false);
         $('#rw').val("{{ Session::get('lokasi') }}");
+        $('#rt').val("{{ Session::get('kodePP') }}");
+        $('#status_edit').val(0);
+        $('#edit_milik').html('<i class="simple-icon-pencil"></i> Ubah Data');
+        $('#tgl_masuk').prop('readonly',true);
+        $('#nama_pemilik').prop('readonly',true);
+        $('#alamat_pemilik').attr('readonly',true);
+        $('#no_tel_milik').attr('readonly',true);
         $('#saku-datatable').hide();
         $('#saku-form').show();
         $('.input-group-prepend').addClass('hidden');
@@ -555,7 +622,23 @@
                     $('#tipe').val(result.data[0].tipe);
                     $('#status_huni')[0].selectize.setValue(result.data[0].status_huni);
                     $('#rt').val(result.data[0].rt);    
-                    $('#blok').val(result.data[0].blok);          
+                    $('#blok').val(result.data[0].blok); 
+                    $('#alamat').val(result.data[0].alamat);
+                    $('#no_tel').val(result.data[0].no_tel);  
+                    $('#emerg_call').val(result.data[0].emerg_call);  
+                    $('#pbb').val(result.data[0].pbb); 
+                    $('#pln').val(result.data[0].pln); 
+                    
+                    $('#status_edit').val(0);
+                    $('#edit_milik').html('<i class="simple-icon-pencil"></i> Ubah Data');
+                    $('#tgl_masuk').prop('readonly',true);
+                    $('#nama_pemilik').prop('readonly',true);
+                    $('#alamat_pemilik').attr('readonly',true);
+                    $('#no_tel_milik').attr('readonly',true);
+                    $('#tgl_masuk').val(result.data[0].tgl_masuk);    
+                    $('#alamat_pemilik').val(result.data[0].alamat_pemilik);   
+                    $('#nama_pemilik').val(result.data[0].nama_pemilik);   
+                    $('#no_tel_milik').val(result.data[0].no_tel_milik);            
                     $('#saku-datatable').hide();
                     $('#modal-preview').modal('hide');
                     $('#saku-form').show();
@@ -698,4 +781,24 @@
             }
         }
     });
+
+    $('#edit_milik').click(function(e){
+        e.preventDefault();
+        var status = $('#status_edit').val();
+        if(status == 1){
+            $('#status_edit').val(0);
+            $('#edit_milik').html('<i class="simple-icon-pencil"></i> Ubah Data');
+            $('#tgl_masuk').prop('readonly',true);
+            $('#nama_pemilik').prop('readonly',true);
+            $('#alamat_pemilik').attr('readonly',true);
+            $('#no_tel_milik').attr('readonly',true);
+        }else{
+            $('#status_edit').val(1);
+            $('#edit_milik').html('Reset Data');
+            $('#tgl_masuk').prop('readonly',false);
+            $('#nama_pemilik').prop('readonly',false);
+            $('#alamat_pemilik').attr('readonly',false);
+            $('#no_tel_milik').attr('readonly',false);
+        }
+    })
     </script>
