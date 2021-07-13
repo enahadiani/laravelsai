@@ -136,3 +136,12 @@ Route::delete('rt/{id}', 'Rtrw\RtController@delete');
 Route::get('mawar','Rtrw\WargaDetailController@index');
 Route::get('mawar-detail/{no_rumah}','Rtrw\WargaDetailController@show');
 Route::put('mawar','Rtrw\WargaDetailController@store');
+
+
+//Master Warga
+Route::get('warga-masuk','Rtrw\WargaMasukController@index');
+Route::get('generate-idwarga','Rtrw\WargaMasukController@generateIDWarga');
+Route::get('warga-masuk-detail/{no_bukti}','Rtrw\WargaMasukController@show');
+Route::post('warga-masuk','Rtrw\WargaMasukController@store');
+Route::post('warga-masuk/{no_bukti}','Rtrw\WargaMasukController@update');
+Route::delete('warga-masuk/{no_bukti}','Rtrw\WargaMasukController@destroy');
