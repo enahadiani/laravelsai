@@ -230,22 +230,12 @@
                                     <div class="form-group col-md-6 col-sm-12">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label for="goldar" >Golongan Darah</label>
-                                                <select  name='goldar' id='goldar' class='form-control selectize' required>
-                                                <option value='' disabled selected>--- Pilih ---</option>
-                                                <option value='A'>A</option>
-                                                <option value='B'>B</option>
-                                                <option value='AB'>AB</option>
-                                                <option value='O'>O</option>
-                                                </select>
+                                                <label for="pendidikan" >Pendidikan</label>
+                                                <input class="form-control" type="text" placeholder="Pendidikan Terakhir" id="pendidikan" name="pendidikan" required>          
                                             </div>
                                             <div class="col-md-6">
-                                                <label for="sts_domisili" >Status Domisili</label>
-                                                <select name="sts_domisili" class="form-control selectize" id="sts_domisili">
-                                                    <option value='' disabled selected>--- Pilih ---</option>
-                                                    <option value="DOMISILI">DOMISILI</option>
-                                                    <option value="BELUM DOMISILI">BELUM DOMISILI</option>
-                                                </select>
+                                                <label for="pekerjaan" >Pekerjaan</label>
+                                                <input type="text" class="form-control" id="pekerjaan" name="pekerjaan" placeholder="Pekerjaan" required>
                                             </div>
                                         </div>
                                     </div>
@@ -267,12 +257,22 @@
                                     <div class="form-group col-md-6 col-sm-12">
                                         <div class="row mb-3">
                                             <div class="col-md-6">
-                                                <label for="pendidikan" >Pendidikan</label>
-                                                <input class="form-control" type="text" placeholder="Pendidikan Terakhir" id="pendidikan" name="pendidikan" required>          
+                                                <label for="goldar" >Golongan Darah</label>
+                                                <select  name='goldar' id='goldar' class='form-control selectize' required>
+                                                <option value='' disabled selected>--- Pilih ---</option>
+                                                <option value='A'>A</option>
+                                                <option value='B'>B</option>
+                                                <option value='AB'>AB</option>
+                                                <option value='O'>O</option>
+                                                </select>
                                             </div>
                                             <div class="col-md-6">
-                                                <label for="pekerjaan" >Pekerjaan</label>
-                                                <input type="text" class="form-control" id="pekerjaan" name="pekerjaan" placeholder="Pekerjaan" required>
+                                                <label for="sts_domisili" >Status Domisili</label>
+                                                <select name="sts_domisili" class="form-control selectize" id="sts_domisili">
+                                                    <option value='' disabled selected>--- Pilih ---</option>
+                                                    <option value="DOMISILI">DOMISILI</option>
+                                                    <option value="BELUM DOMISILI">BELUM DOMISILI</option>
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -294,6 +294,7 @@
                                                 <input class="form-control" type="text" placeholder="No Handphone" id="no_hp" name="no_hp" required>          
                                             </div>
                                         </div>
+                                        
                                     </div>
                                     <div class="form-group col-md-6 col-sm-12">
                                         <div class="row mb-2 text-center">
