@@ -80,26 +80,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group col-md-6 col-sm-12">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label for="sts_nikah" >Status Nikah</label>
-                                        <select name="sts_nikah" class="form-control selectize" id="sts_nikah">
-                                            <option value='' disabled selected>--- Pilih ---</option>
-                                            <option value="KAWIN">KAWIN</option>
-                                            <option value="BELUM KAWIN">BELUM KAWIN</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="sts_domisili" >Status Domisili</label>
-                                        <select name="sts_domisili" class="form-control selectize" id="sts_domisili">
-                                            <option value='' disabled selected>--- Pilih ---</option>
-                                            <option value="DOMISILI">DOMISILI</option>
-                                            <option value="BELUM DOMISILI">BELUM DOMISILI</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
+                           
                         </div>
 
                         <div class="form-row">
@@ -135,27 +116,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group col-md-6 col-sm-12">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label for="sts_hub" >Hubungan</label>
-                                        <select name="sts_hub" class="form-control selectize" id="sts_hub">
-                                            <option value='' disabled selected>--- Pilih ---</option>
-                                                <option value='KEPALA KEL.'>KEPALA KEL.</option>
-                                                <option value='ISTRI'>ISTRI</option>
-                                                <option value='ANAK'>ANAK</option>
-                                                <option value='ORANGTUA'>ORANGTUA</option>
-                                                <option value='ART'>ART</option>
-                                                <option value='REKAN'>REKAN</option>
-                                                <option value='FAMILI LAIN'>FAMILI LAIN</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="no_hp" >No HP</label>
-                                        <input class="form-control" type="text" placeholder="No Handphone" id="no_hp" name="no_hp" required>          
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6 col-sm-12">
@@ -175,133 +135,195 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group col-md-6 col-sm-12">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label for="emerg_call">No Emergency</label>
-                                        <input class="form-control" type="text" placeholder="No Handphone Emergency" id="emerg_call" name="emerg_call" required>          
+                        </div>
+                        <ul class="nav nav-tabs col-12 " role="tablist">
+                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#pribadi" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Pribadi</span></a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#pelengkap" role="tab" aria-selected="true"><span class="hidden-xs-down">Pelengkap</span></a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#emergency" role="tab" aria-selected="true"><span class="hidden-xs-down">Emergency</span></a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#pegawai" role="tab" aria-selected="true"><span class="hidden-xs-down">Daftar Pegawai</span></a> </li>
+                        </ul>
+                        <div class="tab-content tab-form-content col-12 pt-3 px-0">
+                            <div class="tab-pane active" id="pribadi" role="tabpanel">
+                                <div class="form-row">
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label for="id_warga" >ID Warga</label>
+                                                <input class="form-control" type="text" placeholder="ID Warga" id="id_warga" name="id_warga" readonly="true" required>
+                                                <i class="simple-icon-refresh" id="generate_kode"></i>          
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="nik" >NIK</label>
+                                                <input class="form-control" type="text" placeholder="NIK" id="nik" name="nik" required>          
+                                            </div>
+                                        </div>               
                                     </div>
-                                    <div class="col-md-6">
-                                        <label for="ket_emergency" >Hubungan Keluarga Emergency</label>
-                                        <input class="form-control" type="text" placeholder="Keterangan Emergency" id="ket_emergency" name="ket_emergency" required>   
+                                   
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row mb-3">
+                                            <div class="col-md-12">
+                                                <label for="nama" >Nama</label>
+                                                <input class="form-control" type="text" placeholder="Nama" id="nama" name="nama" required>          
+                                            </div>
+                                        </div> 
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label for="alias" >Alias</label>
+                                                <input class="form-control" type="text" placeholder="Alias" id="alias" name="alias" required>          
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="jk" >Jenis Kelamin</label>
+                                                <select name="jk" class="form-control selectize" id="jk">
+                                                    <option value='' disabled selected>--- Pilih ---</option>
+                                                    <option value="P">P</option>
+                                                    <option value="L">L</option>
+                                                </select>
+                                            </div>
+                                        </div>                       
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label for="tempat_lahir" >Tempat Lahir</label>
+                                                <input class="form-control" type="text" placeholder="Tempat Lahir" id="tempat_lahir" name="tempat_lahir" required>          
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="tgl_lahir" >Tgl Lahir</label>
+                                                <span id="tgl_lahir-dp"></span>
+                                                <input type="text" class="form-control datepicker" placeholder="dd/mm/yyyy" id="tgl_lahir" name="tgl_lahir" required>
+                                            </div>
+                                        </div>                       
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label for="agama" >Agama</label>
+                                                <select  name='agama' class='form-control selectize' id="agama" required>
+                                                    <option value='' disabled selected>--- Pilih ---</option>
+                                                    <option value='ISLAM'>ISLAM</option>
+                                                    <option value='BUDHA'>BUDHA</option>
+                                                    <option value='KRISTEN'>KRISTEN</option>
+                                                    <option value='HINDU'>HINDU</option>
+                                                    <option value='PROTESTAN'>PROTESTAN</option>
+                                                    <option value='LAINNYA'>LAINNYA</option>
+                                                </select>   
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="sts_nikah" >Status Nikah</label>
+                                                <select name="sts_nikah" class="form-control selectize" id="sts_nikah">
+                                                    <option value='' disabled selected>--- Pilih ---</option>
+                                                    <option value="KAWIN">KAWIN</option>
+                                                    <option value="BELUM KAWIN">BELUM KAWIN</option>
+                                                </select>
+                                            </div>
+                                            
+                                        </div>                       
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6 col-sm-12">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label for="id_warga" >ID Warga</label>
-                                        <input class="form-control" type="text" placeholder="ID Warga" id="id_warga" name="id_warga" readonly="true" required>
-                                        <i class="simple-icon-refresh" id="generate_kode"></i>          
+                            <div class="tab-pane" id="pelengkap" role="tabpanel">
+                                <div class="form-row">
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label for="goldar" >Golongan Darah</label>
+                                                <select  name='goldar' id='goldar' class='form-control selectize' required>
+                                                <option value='' disabled selected>--- Pilih ---</option>
+                                                <option value='A'>A</option>
+                                                <option value='B'>B</option>
+                                                <option value='AB'>AB</option>
+                                                <option value='O'>O</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="sts_domisili" >Status Domisili</label>
+                                                <select name="sts_domisili" class="form-control selectize" id="sts_domisili">
+                                                    <option value='' disabled selected>--- Pilih ---</option>
+                                                    <option value="DOMISILI">DOMISILI</option>
+                                                    <option value="BELUM DOMISILI">BELUM DOMISILI</option>
+                                                </select>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <label for="nik" >NIK</label>
-                                        <input class="form-control" type="text" placeholder="NIK" id="nik" name="nik" required>          
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <label>Foto</label>
+                                                <div class="input-group">
+                                                    <div class="custom-file">
+                                                        <input type="file" name="file_gambar" class="custom-file-input" id="file_gambar" accept="image/*" onchange="readURL(this)">
+                                                        <label class="custom-file-label" style="border-radius: 0.5rem;" for="file_gambar">Choose file</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>               
-                            </div>
-                            <div class="form-group col-md-6 col-sm-12">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <label>Foto</label>
-                                        <div class="input-group">
-                                            <div class="custom-file">
-                                                <input type="file" name="file_gambar" class="custom-file-input" id="file_gambar" accept="image/*" onchange="readURL(this)">
-                                                <label class="custom-file-label" style="border-radius: 0.5rem;" for="file_gambar">Choose file</label>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <label for="pendidikan" >Pendidikan</label>
+                                                <input class="form-control" type="text" placeholder="Pendidikan Terakhir" id="pendidikan" name="pendidikan" required>          
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="pekerjaan" >Pekerjaan</label>
+                                                <input type="text" class="form-control" id="pekerjaan" name="pekerjaan" placeholder="Pekerjaan" required>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label for="sts_hub" >Hubungan</label>
+                                                <select name="sts_hub" class="form-control selectize" id="sts_hub">
+                                                    <option value='' disabled selected>--- Pilih ---</option>
+                                                        <option value='KEPALA KEL.'>KEPALA KEL.</option>
+                                                        <option value='ISTRI'>ISTRI</option>
+                                                        <option value='ANAK'>ANAK</option>
+                                                        <option value='ORANGTUA'>ORANGTUA</option>
+                                                        <option value='ART'>ART</option>
+                                                        <option value='REKAN'>REKAN</option>
+                                                        <option value='FAMILI LAIN'>FAMILI LAIN</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="no_hp" >No HP</label>
+                                                <input class="form-control" type="text" placeholder="No Handphone" id="no_hp" name="no_hp" required>          
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row mb-2 text-center">
+                                            <div style="" class="col-12">
+                                                <div class="preview text-center" style="height:120px;width:120px;margin: 0 auto;border: 1px solid #d7d7d7;border-radius: 0.5rem;">Preview</div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6 col-sm-12">
-                                <div class="row mb-2">
-                                    <div class="col-md-12">
-                                        <label for="nama" >Nama</label>
-                                        <input class="form-control" type="text" placeholder="Nama" id="nama" name="nama" required>          
-                                    </div>
-                                </div> 
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label for="alias" >Alias</label>
-                                        <input class="form-control" type="text" placeholder="Alias" id="alias" name="alias" required>          
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="jk" >Jenis Kelamin</label>
-                                        <select name="jk" class="form-control selectize" id="jk">
-                                            <option value='' disabled selected>--- Pilih ---</option>
-                                            <option value="P">P</option>
-                                            <option value="L">L</option>
-                                        </select>
-                                    </div>
-                                </div>                       
-                            </div>
-                            <div class="form-group col-md-6 col-sm-12">
-                                <div class="row mb-2 text-center">
-                                    <div style="" class="col-12">
-                                        <div class="preview text-center" style="height:120px;width:120px;margin: 0 auto;border: 1px solid #d7d7d7;border-radius: 0.5rem;">Preview</div>
+                            <div class="tab-pane" id="emergency" role="tabpanel">
+                                <div class="form-row">
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label for="emerg_call">No Emergency</label>
+                                                <input class="form-control" type="text" placeholder="No Handphone Emergency" id="emerg_call" name="emerg_call" required>          
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="ket_emergency" >Hubungan Keluarga Emergency</label>
+                                                <input class="form-control" type="text" placeholder="Keterangan Emergency" id="ket_emergency" name="ket_emergency" required>   
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6 col-sm-12">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label for="tempat_lahir" >Tempat Lahir</label>
-                                        <input class="form-control" type="text" placeholder="Tempat Lahir" id="tempat_lahir" name="tempat_lahir" required>          
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="tgl_lahir" >Tgl Lahir</label>
-                                        <span id="tgl_lahir-dp"></span>
-                                        <input type="text" class="form-control datepicker" placeholder="dd/mm/yyyy" id="tgl_lahir" name="tgl_lahir" required>
-                                    </div>
-                                </div>                       
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6 col-sm-12">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label for="agama" >Agama</label>
-                                        <select  name='agama' class='form-control selectize' id="agama" required>
-                                            <option value='' disabled selected>--- Pilih ---</option>
-                                            <option value='ISLAM'>ISLAM</option>
-                                            <option value='BUDHA'>BUDHA</option>
-                                            <option value='KRISTEN'>KRISTEN</option>
-                                            <option value='HINDU'>HINDU</option>
-                                            <option value='PROTESTAN'>PROTESTAN</option>
-                                            <option value='LAINNYA'>LAINNYA</option>
-                                        </select>   
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="goldar" >Golongan Darah</label>
-                                        <select  name='goldar' id='goldar' class='form-control selectize' required>
-                                            <option value='' disabled selected>--- Pilih ---</option>
-                                            <option value='A'>A</option>
-                                            <option value='B'>B</option>
-                                            <option value='AB'>AB</option>
-                                            <option value='O'>O</option>
-                                        </select>
-                                    </div>
-                                </div>                       
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6 col-sm-12">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label for="pendidikan" >Pendidikan</label>
-                                        <input class="form-control" type="text" placeholder="Pendidikan Terakhir" id="pendidikan" name="pendidikan" required>          
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="pekerjaan" >Pekerjaan</label>
-                                        <input type="text" class="form-control" id="pekerjaan" name="pekerjaan" placeholder="Pekerjaan" required>
-                                    </div>
-                                </div>                       
+                            <div class="tab-pane" id="pegawai" role="tabpanel">
+                                
                             </div>
                         </div>
                     </div>
@@ -480,6 +502,8 @@
         $('#method').val('post');
         $('#kode_rw').val("{{ Session::get('lokasi') }}");
         $('#kode_rt').val("{{ Session::get('kodePP') }}");
+        $('#tgl_masuk').val("{{ date('d/m/Y') }}");
+        generateIDWarga("{{ date('d/m/Y') }}");
         $('#saku-datatable').hide();
         $('#saku-form').show();
         $('.input-group-prepend').addClass('hidden');
