@@ -158,16 +158,17 @@
                                             </div>
                                         </div>               
                                     </div>
-                                   
-                                </div>
-                                <div class="form-row">
                                     <div class="form-group col-md-6 col-sm-12">
-                                        <div class="row mb-3">
+                                        <div class="row">
                                             <div class="col-md-12">
                                                 <label for="nama" >Nama</label>
                                                 <input class="form-control" type="text" placeholder="Nama" id="nama" name="nama" required>          
                                             </div>
-                                        </div> 
+                                        </div>            
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6 col-sm-12">
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <label for="alias" >Alias</label>
@@ -181,11 +182,9 @@
                                                     <option value="L">L</option>
                                                 </select>
                                             </div>
-                                        </div>                       
+                                        </div> 
                                     </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-6 col-sm-12">
+                                    <div class="form-group col-md-6 col-sm-12">           
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <label for="tempat_lahir" >Tempat Lahir</label>
@@ -222,7 +221,6 @@
                                                     <option value="BELUM KAWIN">BELUM KAWIN</option>
                                                 </select>
                                             </div>
-                                            
                                         </div>                       
                                     </div>
                                 </div>
@@ -323,7 +321,7 @@
                                 </div>
                             </div>
                             <div class="tab-pane" id="pegawai" role="tabpanel">
-                                
+
                             </div>
                         </div>
                     </div>
