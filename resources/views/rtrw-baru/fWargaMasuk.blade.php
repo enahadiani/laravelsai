@@ -135,7 +135,16 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="form-group col-md-6 col-sm-12" id="div_asal">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="alamat_asal">Alamat Asal</label>
+                                        <input type="text" class="form-control" placeholder="Alamat Asal" id="alamat_asal" name="alamat_asal" value="-" required>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+
                         <ul class="nav nav-tabs col-12 " role="tablist">
                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#pegawai" role="tab" aria-selected="true"><span class="hidden-xs-down">Daftar Penghuni</span></a> </li>
                         </ul>
@@ -228,6 +237,20 @@
         var fileName = $(this).val();
         //replace the "Choose a file" label
         $(this).next('.custom-file-label').html(fileName);
+    });
+
+    $('#form-tambah').on('change', '#sts_masuk', function(e){
+        e.preventDefault();
+        console.log('change');
+        var sts = $('#sts_masuk')[0].selectize.getValue();
+        if(sts == "DATANG"){
+            $('#alamat_asal').val('');
+            $('#div_asal').show();
+        }else{
+            $('#alamat_asal').val('-');
+            $('#div_asal').hide();
+
+        }
     });
 
     function readURL(input) {
@@ -406,6 +429,7 @@
         $('#kode_rw').val("{{ Session::get('lokasi') }}");
         $('#kode_rt').val("{{ Session::get('kodePP') }}");
         $('#tgl_masuk').val("{{ date('d/m/Y') }}");
+        $('#div_asal').hide();
         $('#saku-datatable').hide();
         $('#saku-form').show();
         detailList.clear().draw();
@@ -697,7 +721,8 @@
         $('#kode_rt').val(data.rt); 
         $('#no_rumah').val(data.kode_rumah); 
         $('#kode_blok').val(data.blok);
-        $('#sts_masuk')[0].selectize.setValue("DATANG");
+        $('#sts_masuk')[0].selectize.setValue('');
+        $('#div_asal').hide();
         $('#tgl_masuk').val('');
         $('#saku-datatable').hide();
         $('#modal-preview').modal('hide');
@@ -934,14 +959,14 @@
     });
 
     // ENTER FIELD FORM
-    $('#kode_rw,#kode_rt,#kode_blok,#no_rumah,#tgl_masuk,#sts_masuk,#id_warga,#nik,#nama,#alias,#jk,#tempat_lahir,#tgl_lahir,#agama,#goldar,#pendidikan,#pekerjaan,#sts_nikah,#sts_domisili,#sts_hub,#no_hp,#emerg_call,#ket_emergency,#foto').keydown(function(e){
+    $('#kode_rw,#kode_rt,#kode_blok,#no_rumah,#tgl_masuk,#sts_masuk,#alamat_asal').keydown(function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['kode_rw','kode_rt','kode_blok','no_rumah','tgl_masuk','sts_masuk','id_warga','nik','nama','alias','jk','tempat_lahir','tgl_lahir','agama','goldar','pendidikan','pekerjaan','sts_nikah','sts_domisili','sts_hub','no_hp','emerg_call','ket_emergency','foto'];
+        var nxt = ['kode_rw','kode_rt','kode_blok','no_rumah','tgl_masuk','sts_masuk','alamat_asal'];
         if (code == 13 || code == 40) {
             e.preventDefault();
             var idx = nxt.indexOf(e.target.id);
             idx++;
-            if(idx == 6 || idx == 11 || idx == 14 || idx == 15 || idx== 18 || idx == 19 || idx == 20){
+            if(idx == 6){
                 $('#'+nxt[idx])[0].selectize.focus();
             }else{
 
@@ -983,12 +1008,14 @@
         });
     }
 
-    $('#input-grid').on('click', '.hapus-item', function(){
+    $('#input-grid').on('click', '.hapus-item', function(e){
+        e.preventDefault();
         var id = $(this).closest('tr').find('td').eq(2).html();
         hapusRow(id);
     });
 
-    $('#input-grid').on('click', '.edit-item', function(){
+    $('#input-grid').on('click', '.edit-item', function(e){
+        e.preventDefault();
         var index = $(this).closest('tr').index();
         var data = detailList.rows().data();
         addRow("edit", data[index]);
@@ -1224,8 +1251,9 @@
                 $('#tempat_lahir').val(data.tempat_lahir);
                 $('#tgl_lahir').val(data.tgl_lahir);
                 $('#kode_blok').val(data.kode_blok);
-                $('#sts_masuk')[0].selectize.setValue(data.sts_masuk);
-                $('#tgl_masuk').val(data.tgl_masuk);
+                // $('#sts_masuk')[0].selectize.setValue(data.sts_masuk);
+                // $('#alamat_asal').val(data.alamat_asal);
+                // $('#tgl_masuk').val(data.tgl_masuk);
                 $('#agama')[0].selectize.setValue(data.agama);
                 $('#jk')[0].selectize.setValue(data.jk);
                 $('#pendidikan').val(data.pendidikan); 
@@ -1241,6 +1269,29 @@
                 var html = "<img style='width:120px' style='margin:0 auto' src='"+url+"/"+data.foto+"'>";
                 $('.preview').html(html);   
             }
+
+            $('#id_warga,#nik,#nama,#alias,#jk,#tempat_lahir,#tgl_lahir,#agama,#goldar,#pendidikan,#pekerjaan,#sts_nikah,#sts_domisili,#sts_hub,#no_hp,#emerg_call,#ket_emergency,#foto').keydown(function(e){
+                var code = (e.keyCode ? e.keyCode : e.which);
+                var nxt = ['id_warga','nik','nama','alias','jk','tempat_lahir','tgl_lahir','agama','goldar','pendidikan','pekerjaan','sts_nikah','sts_domisili','sts_hub','no_hp','emerg_call','ket_emergency','foto'];
+                if (code == 13 || code == 40) {
+                    e.preventDefault();
+                    var idx = nxt.indexOf(e.target.id);
+                    idx++;
+                    if(idx == 5 || idx == 9 || idx == 12 || idx== 13 || idx == 14){
+                        $('#'+nxt[idx])[0].selectize.focus();
+                    }else{
+                        
+                        $('#'+nxt[idx]).focus();
+                    }
+                }else if(code == 38){
+                    e.preventDefault();
+                    var idx = nxt.indexOf(e.target.id);
+                    idx--;
+                    if(idx != -1){ 
+                        $('#'+nxt[idx]).focus();
+                    }
+                }
+            });
             
             $('#form-detail').on('click', '#generate_kode', function(e){
                 e.preventDefault();
@@ -1343,6 +1394,7 @@
                     formData.append('kode_blok',$('#kode_blok').val());
                     formData.append('no_rumah',$('#no_rumah').val());
                     formData.append('kode_rt',$('#kode_rt').val());
+                    formData.append('alamat_asal',$('#alamat_asal').val());
 
                     for(var pair of formData.entries()) {
                         console.log(pair[0]+ ', '+ pair[1]); 

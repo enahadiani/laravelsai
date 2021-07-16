@@ -128,14 +128,15 @@ class WargaMasukController extends Controller
             'tgl_masuk' => 'required',
             'sts_masuk' => 'required',
             'kode_rt' => 'required',
+            'alamat_asal' => 'required',
             'file_gambar' => 'file|image|mimes:jpeg,png,jpg|max:2048'
         ]);
 
         try { 
             if($request->hasfile('file_gambar')) {
-                $name = array('kode_blok','id_warga','no_rumah','nama','alias','nik','jk','tempat_lahir','tgl_lahir','agama','goldar','pendidikan','pekerjaan','sts_nikah','sts_domisili','sts_hub','no_hp','emerg_call','ket_emergency','tgl_masuk','sts_masuk','kode_rt','file_gambar');
+                $name = array('kode_blok','id_warga','no_rumah','nama','alias','nik','jk','tempat_lahir','tgl_lahir','agama','goldar','pendidikan','pekerjaan','sts_nikah','sts_domisili','sts_hub','no_hp','emerg_call','ket_emergency','tgl_masuk','sts_masuk','kode_rt','alamat_asal','file_gambar');
             } else {
-                $name = array('kode_blok','id_warga','no_rumah','nama','alias','nik','jk','tempat_lahir','tgl_lahir','agama','goldar','pendidikan','pekerjaan','sts_nikah','sts_domisili','sts_hub','no_hp','emerg_call','ket_emergency','tgl_masuk','sts_masuk','kode_rt');
+                $name = array('kode_blok','id_warga','no_rumah','nama','alias','nik','jk','tempat_lahir','tgl_lahir','agama','goldar','pendidikan','pekerjaan','sts_nikah','sts_domisili','sts_hub','no_hp','emerg_call','ket_emergency','tgl_masuk','sts_masuk','kode_rt','alamat_asal');
             }
             $req = $request->all();
             $fields = array();
@@ -245,14 +246,15 @@ class WargaMasukController extends Controller
             'tgl_masuk' => 'required',
             'sts_masuk' => 'required',
             'kode_rt' => 'required',
+            'alamat_asal' => 'required',
             'file_gambar' => 'file|image|mimes:jpeg,png,jpg|max:2048'
         ]);
 
         try { 
             if($request->hasfile('file_gambar')) {
-                $name = array('kode_blok','id_warga','no_rumah','nama','alias','nik','jk','tempat_lahir','tgl_lahir','agama','goldar','pendidikan','pekerjaan','sts_nikah','sts_domisili','sts_hub','no_hp','emerg_call','ket_emergency','tgl_masuk','sts_masuk','kode_rt','file_gambar');
+                $name = array('kode_blok','id_warga','no_rumah','nama','alias','nik','jk','tempat_lahir','tgl_lahir','agama','goldar','pendidikan','pekerjaan','sts_nikah','sts_domisili','sts_hub','no_hp','emerg_call','ket_emergency','tgl_masuk','sts_masuk','kode_rt','alamat_asal','file_gambar');
             } else {
-                $name = array('kode_blok','id_warga','no_rumah','nama','alias','nik','jk','tempat_lahir','tgl_lahir','agama','goldar','pendidikan','pekerjaan','sts_nikah','sts_domisili','sts_hub','no_hp','emerg_call','ket_emergency','tgl_masuk','sts_masuk','kode_rt');
+                $name = array('kode_blok','id_warga','no_rumah','nama','alias','nik','jk','tempat_lahir','tgl_lahir','agama','goldar','pendidikan','pekerjaan','sts_nikah','sts_domisili','sts_hub','no_hp','emerg_call','ket_emergency','tgl_masuk','sts_masuk','kode_rt','alamat_asal');
             }
             $req = $request->all();
             $fields = array();

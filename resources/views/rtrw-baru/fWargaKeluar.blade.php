@@ -117,8 +117,8 @@
                             <div class="form-group col-md-6 col-sm-12">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <label for="sts_masuk">Status Keluar</label>
-                                        <select class='form-control selectize' id="sts_masuk" name="sts_masuk">
+                                        <label for="sts_keluar">Status Keluar</label>
+                                        <select class='form-control selectize' id="sts_keluar" name="sts_keluar">
                                         <option value='' disabled selected>--- Pilih Status ---</option>
                                         <option value='PINDAH'>PINDAH</option>
                                         <option value='MENINGGAL'>MENINGGAL</option>
@@ -275,7 +275,7 @@
         "table-data",
         "{{ url('rtrw-master/warga-keluar') }}", 
         [
-            {'targets': 6, data: null, 'defaultContent': action_html,'className': 'text-center' },
+            {'targets': 7, data: null, 'defaultContent': action_html,'className': 'text-center' },
         ],
         [
             { data: 'no_bukti_keluar' },
@@ -576,11 +576,15 @@
                     $('#tgl_keluar').val(result.data[0].tgl_keluar);
                     $('#jk')[0].selectize.setValue(result.data[0].jk);
                     $('#keterangan').val(result.data[0].ket_keluar); 
-                    $('#dok_keluar').val(result.data[0].dok_keluar); 
+                    $('#kode_rw').val(result.data[0].kode_rw);
+                    $('#kode_rt').val(result.data[0].kode_rt);
                     
                     $('#saku-datatable').hide();
                     $('#modal-preview').modal('hide');
                     $('#saku-form').show();
+                    
+                    showInfoField('id_warga',result.data[0].id_warga,result.data[0].nama);
+                    $('#dok_keluar').val(result.data[0].dok_keluar); 
                     setHeightForm();
                     setWidthFooterCardBody();
                 }
@@ -605,7 +609,7 @@
     });
 
     $('#table-data tbody').on('click','td',function(e){
-        if($(this).index() != 6){
+        if($(this).index() != 7){
 
             var id = $(this).closest('tr').find('td').eq(0).html();
             var data = dataTable.row(this).data();
@@ -648,7 +652,15 @@
                     </tr>
                     <tr>
                     <td>Status Keluar</td>
-                    <td>`+data.sts_masuk+`</td>
+                    <td>`+data.sts_keluar+`</td>
+                    </tr>
+                    <tr>
+                    <td>No Dokumen</td>
+                    <td>`+data.dok_keluar+`</td>
+                    </tr>
+                    <tr>
+                    <td>Keterangan</td>
+                    <td>`+data.ket_keluar+`</td>
                     </tr>
                 </table>
             </div>`;
@@ -782,9 +794,11 @@
         generateIDWarga(tgl);
     });
 
-    $('#form-tambah').on('change', '#status_keluar', function(e){
+    $('#form-tambah').on('change', '#sts_keluar', function(e){
         e.preventDefault();
-        var sts = $('#sts_keluar')[0].selectize.setValue();
+        var sts = $('#sts_keluar')[0].selectize.getValue();
+        console.log(sts);
+        console.log($('#div_dok_keluar'));
         if(sts == "MENINGGAL"){
             $('#dok_keluar').val('');
             $('#div_dok_keluar').show();

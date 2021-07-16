@@ -115,7 +115,7 @@ class WargaKeluarController extends Controller
     public function show($id) {
         try{
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'rtrw/warga-keluar-detail?id_warga='.$id,
+            $response = $client->request('GET',  config('api.url').'rtrw/warga-keluar-detail?no_bukti_keluar='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
