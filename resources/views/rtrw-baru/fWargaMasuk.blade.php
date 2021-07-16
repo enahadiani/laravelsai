@@ -137,7 +137,7 @@
                             </div>
                         </div>
                         <ul class="nav nav-tabs col-12 " role="tablist">
-                           <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#pegawai" role="tab" aria-selected="true"><span class="hidden-xs-down">Daftar Pegawai</span></a> </li>
+                           <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#pegawai" role="tab" aria-selected="true"><span class="hidden-xs-down">Daftar Penghuni</span></a> </li>
                         </ul>
                         <div class="tab-content tab-form-content col-12 pt-3 px-0">
                             <div class="tab-pane active" id="pegawai" role="tabpanel">
