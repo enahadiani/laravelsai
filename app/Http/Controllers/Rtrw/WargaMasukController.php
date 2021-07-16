@@ -54,6 +54,31 @@ class WargaMasukController extends Controller
         }
     }
 
+    public function showDetList(Request $request){
+        try {
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'rtrw/warga-masuk-detail-list',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' => $request->all()
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+            }
+            return response()->json($data, 200); 
+
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res, 'status'=>false], 200);
+        }
+    }
+
     public function generateIDWarga(Request $request){
         try {
             $client = new Client();
@@ -116,15 +141,15 @@ class WargaMasukController extends Controller
             $data = array();
             for($i=0;$i<count($name);$i++) {
                 if($name[$i] == 'file_gambar') {
-                    // $image_path = $request->file('file_gambar')->getPathname();
-                    // $image_mime = $request->file('file_gambar')->getmimeType();
-                    // $image_org  = $request->file('file_gambar')->getClientOriginalName();
-                    // $fields_data[$i] = array(
-                    //     'name'     => $name[$i],
-                    //     'filename' => $image_org,
-                    //     'Mime-Type'=> $image_mime,
-                    //     'contents' => fopen($image_path, 'r' ),
-                    // );
+                    $image_path = $request->file('file_gambar')->getPathname();
+                    $image_mime = $request->file('file_gambar')->getmimeType();
+                    $image_org  = $request->file('file_gambar')->getClientOriginalName();
+                    $fields_data[$i] = array(
+                        'name'     => $name[$i],
+                        'filename' => $image_org,
+                        'Mime-Type'=> $image_mime,
+                        'contents' => fopen($image_path, 'r' ),
+                    );
                 } else if($name[$i] == 'status') {
                     $fields_data[$i] = array(
                         'name' => $name[$i],
@@ -286,6 +311,34 @@ class WargaMasukController extends Controller
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
                 ]
+            ]);
+    
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+            }
+            return response()->json(['data' => $data], 200); 
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $data['message'] = $res['message'];
+            $data['status'] = false;
+            return response()->json(['data' => $data], 200);
+        }
+
+    }
+
+    public function updateStatus(Request $request) {
+        try{
+            $client = new Client();
+            $response = $client->request('POST',  config('api.url').'rtrw/warga-masuk-ubahstatus',
+            [
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'form_params' => $request->all()
             ]);
     
             if ($response->getStatusCode() == 200) { // 200 OK

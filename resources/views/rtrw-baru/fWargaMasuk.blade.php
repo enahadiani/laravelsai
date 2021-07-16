@@ -38,13 +38,13 @@
 
         #tgl_lahir-dp .datepicker-dropdown
         {
-            left: 20px !important;
+            left: 10px !important;
             top: 190px !important;
         }
     
     </style>
     <!-- LIST DATA -->
-    <x-list-data judul="Data Warga Masuk" tambah="true" :thead="array('ID Warga','Blok','No Rumah','Nama','Tgl Masuk','Sts Masuk','Aksi')" :thwidth="array(20,10,10,30,10,10,10)" :thclass="array('','','','','','','text-center')" />
+    <x-list-data judul="Data Warga Masuk" tambah="true" :thead="array('Kode Rumah','Tipe','Blok','RT','RW','Status Huni','Aksi')" :thwidth="array(20,10,15,15,15,15,10)" :thclass="array('','','','','','','text-center')" />
     <!-- END LIST DATA -->
 
     <form id="form-tambah" class="tooltip-label-right" novalidate>
@@ -137,192 +137,42 @@
                             </div>
                         </div>
                         <ul class="nav nav-tabs col-12 " role="tablist">
-                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#pribadi" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Pribadi</span></a> </li>
-                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#pelengkap" role="tab" aria-selected="true"><span class="hidden-xs-down">Pelengkap</span></a> </li>
-                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#emergency" role="tab" aria-selected="true"><span class="hidden-xs-down">Emergency</span></a> </li>
-                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#pegawai" role="tab" aria-selected="true"><span class="hidden-xs-down">Daftar Pegawai</span></a> </li>
+                           <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#pegawai" role="tab" aria-selected="true"><span class="hidden-xs-down">Daftar Pegawai</span></a> </li>
                         </ul>
                         <div class="tab-content tab-form-content col-12 pt-3 px-0">
-                            <div class="tab-pane active" id="pribadi" role="tabpanel">
-                                <div class="form-row">
-                                    <div class="form-group col-md-6 col-sm-12">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label for="id_warga" >ID Warga</label>
-                                                <input class="form-control" type="text" placeholder="ID Warga" id="id_warga" name="id_warga" readonly="true" required>
-                                                <i class="simple-icon-refresh" id="generate_kode"></i>          
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label for="nik" >NIK</label>
-                                                <input class="form-control" type="text" placeholder="NIK" id="nik" name="nik" required>          
-                                            </div>
-                                        </div>               
-                                    </div>
-                                    <div class="form-group col-md-6 col-sm-12">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <label for="nama" >Nama</label>
-                                                <input class="form-control" type="text" placeholder="Nama" id="nama" name="nama" required>          
-                                            </div>
-                                        </div>            
-                                    </div>
+                            <div class="tab-pane active" id="pegawai" role="tabpanel">
+                                <div class="mb-3" >
+                                     <table class="table table-bordered table-condensed gridexample display nowrap" id="input-grid" style='width:2140px !important'>
+                                        <thead style="background:#F8F8F8">
+                                            <tr>
+                                                <th style="width:10px">No</th>
+                                                <th style="width:20px">Action</th>
+                                                <th style="width:100px">ID Warga</th>
+                                                <th style="width:100px">NIK</th>
+                                                <th style="width:200px">Nama</th>
+                                                <th style="width:100px">Alias</th>
+                                                <th style="width:100px">Jenis Kelamin</th>
+                                                <th style="width:100px">Tempat Lahir</th>
+                                                <th style="width:100px">Tgl Lahir</th>
+                                                <th style="width:100px">Agama</th>
+                                                <th style="width:100px">Status Nikah</th>
+                                                <th style="width:100px">Gol. Darah</th>
+                                                <th style="width:100px">Status Domisili</th>
+                                                <th style="width:100px">Pendidikan</th>
+                                                <th style="width:100px">Pekerjaan</th>
+                                                <th style="width:150px">Hubungan</th>
+                                                <th style="width:100px">No HP</th>
+                                                <th style="width:100px">No Emergency</th>
+                                                <th style="width:150px">Hubungan Emerg.</th>
+                                                <th style="width:100px">Foto</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                    
                                 </div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-6 col-sm-12">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label for="alias" >Alias</label>
-                                                <input class="form-control" type="text" placeholder="Alias" id="alias" name="alias" required>          
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label for="jk" >Jenis Kelamin</label>
-                                                <select name="jk" class="form-control selectize" id="jk">
-                                                    <option value='' disabled selected>--- Pilih ---</option>
-                                                    <option value="P">P</option>
-                                                    <option value="L">L</option>
-                                                </select>
-                                            </div>
-                                        </div> 
-                                    </div>
-                                    <div class="form-group col-md-6 col-sm-12">           
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label for="tempat_lahir" >Tempat Lahir</label>
-                                                <input class="form-control" type="text" placeholder="Tempat Lahir" id="tempat_lahir" name="tempat_lahir" required>          
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label for="tgl_lahir" >Tgl Lahir</label>
-                                                <span id="tgl_lahir-dp"></span>
-                                                <input type="text" class="form-control datepicker" placeholder="dd/mm/yyyy" id="tgl_lahir" name="tgl_lahir" required>
-                                            </div>
-                                        </div>                       
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-6 col-sm-12">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label for="agama" >Agama</label>
-                                                <select  name='agama' class='form-control selectize' id="agama" required>
-                                                    <option value='' disabled selected>--- Pilih ---</option>
-                                                    <option value='ISLAM'>ISLAM</option>
-                                                    <option value='BUDHA'>BUDHA</option>
-                                                    <option value='KRISTEN'>KRISTEN</option>
-                                                    <option value='HINDU'>HINDU</option>
-                                                    <option value='PROTESTAN'>PROTESTAN</option>
-                                                    <option value='LAINNYA'>LAINNYA</option>
-                                                </select>   
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label for="sts_nikah" >Status Nikah</label>
-                                                <select name="sts_nikah" class="form-control selectize" id="sts_nikah">
-                                                    <option value='' disabled selected>--- Pilih ---</option>
-                                                    <option value="KAWIN">KAWIN</option>
-                                                    <option value="BELUM KAWIN">BELUM KAWIN</option>
-                                                </select>
-                                            </div>
-                                        </div>                       
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="tab-pane" id="pelengkap" role="tabpanel">
-                                <div class="form-row">
-                                    <div class="form-group col-md-6 col-sm-12">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label for="pendidikan" >Pendidikan</label>
-                                                <input class="form-control" type="text" placeholder="Pendidikan Terakhir" id="pendidikan" name="pendidikan" required>          
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label for="pekerjaan" >Pekerjaan</label>
-                                                <input type="text" class="form-control" id="pekerjaan" name="pekerjaan" placeholder="Pekerjaan" required>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group col-md-6 col-sm-12">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <label>Foto</label>
-                                                <div class="input-group">
-                                                    <div class="custom-file">
-                                                        <input type="file" name="file_gambar" class="custom-file-input" id="file_gambar" accept="image/*" onchange="readURL(this)">
-                                                        <label class="custom-file-label" style="border-radius: 0.5rem;" for="file_gambar">Choose file</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-6 col-sm-12">
-                                        <div class="row mb-3">
-                                            <div class="col-md-6">
-                                                <label for="goldar" >Golongan Darah</label>
-                                                <select  name='goldar' id='goldar' class='form-control selectize' required>
-                                                <option value='' disabled selected>--- Pilih ---</option>
-                                                <option value='A'>A</option>
-                                                <option value='B'>B</option>
-                                                <option value='AB'>AB</option>
-                                                <option value='O'>O</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label for="sts_domisili" >Status Domisili</label>
-                                                <select name="sts_domisili" class="form-control selectize" id="sts_domisili">
-                                                    <option value='' disabled selected>--- Pilih ---</option>
-                                                    <option value="DOMISILI">DOMISILI</option>
-                                                    <option value="BELUM DOMISILI">BELUM DOMISILI</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label for="sts_hub" >Hubungan</label>
-                                                <select name="sts_hub" class="form-control selectize" id="sts_hub">
-                                                    <option value='' disabled selected>--- Pilih ---</option>
-                                                        <option value='KEPALA KEL.'>KEPALA KEL.</option>
-                                                        <option value='ISTRI'>ISTRI</option>
-                                                        <option value='ANAK'>ANAK</option>
-                                                        <option value='ORANGTUA'>ORANGTUA</option>
-                                                        <option value='ART'>ART</option>
-                                                        <option value='REKAN'>REKAN</option>
-                                                        <option value='FAMILI LAIN'>FAMILI LAIN</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label for="no_hp" >No HP</label>
-                                                <input class="form-control" type="text" placeholder="No Handphone" id="no_hp" name="no_hp" required>          
-                                            </div>
-                                        </div>
-                                        
-                                    </div>
-                                    <div class="form-group col-md-6 col-sm-12">
-                                        <div class="row mb-2 text-center">
-                                            <div style="" class="col-12">
-                                                <div class="preview text-center" style="height:120px;width:120px;margin: 0 auto;border: 1px solid #d7d7d7;border-radius: 0.5rem;">Preview</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="tab-pane" id="emergency" role="tabpanel">
-                                <div class="form-row">
-                                    <div class="form-group col-md-6 col-sm-12">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label for="emerg_call">No Emergency</label>
-                                                <input class="form-control" type="text" placeholder="No Handphone Emergency" id="emerg_call" name="emerg_call" required>          
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label for="ket_emergency" >Hubungan Keluarga Emergency</label>
-                                                <input class="form-control" type="text" placeholder="Keterangan Emergency" id="ket_emergency" name="ket_emergency" required>   
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="tab-pane" id="pegawai" role="tabpanel">
-
+                                <a type="button" href="#" data-id="0" title="add-row" class="add-row btn btn-light2 btn-block btn-sm"><i class="saicon icon-tambah mr-1"></i>Tambah Warga</a>
                             </div>
                         </div>
                     </div>
@@ -373,17 +223,6 @@
         orientation: 'bottom left'
     });
 
-    $("#tgl_lahir").bootstrapDP({
-        autoclose: true,
-        format: 'dd/mm/yyyy',
-        container:'span#tgl_lahir-dp',
-        templates: {
-            leftArrow: '<i class="simple-icon-arrow-left"></i>',
-            rightArrow: '<i class="simple-icon-arrow-right"></i>'
-        },
-        orientation: 'bottom left'
-    });
-
     $('.custom-file-input').on('change',function(){
         //get the file name
         var fileName = $(this).val();
@@ -422,20 +261,20 @@
     }
 
     //LIST DATA
-    var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
+    var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a>";
     var dataTable = generateTable(
         "table-data",
-        "{{ url('rtrw-master/warga-masuk') }}", 
+        "{{ url('rtrw-master/rumah') }}", 
         [
             {'targets': 6, data: null, 'defaultContent': action_html,'className': 'text-center' },
         ],
         [
-            { data: 'no_bukti' },
-            { data: 'kode_blok' },
-            { data: 'no_rumah' },
-            { data: 'nama' },
-            { data: 'tgl_masuk' },
-            { data: 'sts_masuk' },
+            { data: 'kode_rumah' },
+            { data: 'tipe' },
+            { data: 'blok' },
+            { data: 'rt' },
+            { data: 'rw' },
+            { data: 'status_huni' }
         ],
         "{{ url('rtrw-auth/sesi-habis') }}",
         [[0 ,"desc"]]
@@ -452,6 +291,71 @@
         dataTable.page.len(parseInt(selText)).draw();
     });
     // END LIST DATA
+
+    // LIST DETAIL
+    var detailList = $("#input-grid").DataTable({
+        destroy: true,
+        // scrollY: 250,
+        scrollX: true,
+        paging:false,
+        data: [],
+        columns:[
+            { data: 'no_urut' },
+            { data:  null },
+            { data: 'id_warga' },
+            { data: 'nik' },
+            { data: 'nama' },
+            { data: 'alias' },
+            { data: 'jk' },
+            { data: 'tempat_lahir' },
+            { data: 'tgl_lahir' },
+            { data: 'agama' },
+            { data: 'sts_nikah' },
+            { data: 'goldar' },
+            { data: 'sts_domisili' },
+            { data: 'pendidikan' },
+            { data: 'pekerjaan' },
+            { data: 'sts_hub' },
+            { data: 'no_hp' },
+            { data: 'emerg_call' },
+            { data: 'ket_emergency' },
+            { data: 'foto' }
+        ],
+        columnDefs: [
+            {
+                "targets": 1,
+                "data": null,
+                "render": function ( data, type, row, meta ) {
+                    return "<a class='edit-item' href='#' style='font-size:18px' title='Edit Data' data-id_warga='"+row.id_warga+"'><i class='simple-icon-pencil'></i></a>&nbsp;<a class=' hapus-item' href='#' title='Hapus Data' style='font-size:18px' data-id_warga='"+row.id_warga+"'><i class='simple-icon-trash'></i></a>";
+                }
+            }, 
+            {
+                "targets": 19,
+                "data": null,
+                "render": function ( data, type, row, meta ) {
+                    if(row.foto != "" && row.foto != "-" && row.foto != null){
+                        var url = ("{{ config('api.url') }}" == "http://localhost:8080/api/" ? "https://devapi.simkug.com/api/rtrw/storage" : "{{ config('api.url') }}rtrw/storage");
+                        return "<a class='download-item' target='_blank' style='font-size:18px' href='"+url+"/"+row.foto+"' title='Download/View Foto'><i class='simple-icon-cloud-download'></i></a>";
+                    }else{
+                        return "-";
+                    }
+                }
+            }, 
+        ],
+        order: [[ 0, 'asc' ]],
+        sDom: 't<"row view-pager pl-2 mt-3">',
+        drawCallback: function () {
+            $($(".dataTables_wrapper .pagination li:first-of-type"))
+                .find("a")
+                .addClass("prev");
+            $($(".dataTables_wrapper .pagination li:last-of-type"))
+                .find("a")
+                .addClass("next");
+
+            $(".dataTables_wrapper .pagination").addClass("pagination-sm");
+        }
+    });
+    // END LIST
 
     // CBBL
     $('.info-icon-hapus').click(function(){
@@ -502,9 +406,9 @@
         $('#kode_rw').val("{{ Session::get('lokasi') }}");
         $('#kode_rt').val("{{ Session::get('kodePP') }}");
         $('#tgl_masuk').val("{{ date('d/m/Y') }}");
-        generateIDWarga("{{ date('d/m/Y') }}");
         $('#saku-datatable').hide();
         $('#saku-form').show();
+        detailList.clear().draw();
         $('.input-group-prepend').addClass('hidden');
         $('span[class^=info-name]').addClass('hidden');
         $('.info-icon-hapus').addClass('hidden');
@@ -539,83 +443,7 @@
             { 
                 required:true 
             },
-            id_warga: 
-            { 
-                required:true 
-            },
             no_rumah: 
-            { 
-                required:true 
-            },
-            nama: 
-            { 
-                required:true 
-            },
-            alias: 
-            { 
-                required:true 
-            },
-            nik: 
-            { 
-                required:true 
-            },
-            jk: 
-            { 
-                required:true 
-            },
-            tempat_lahir: 
-            { 
-                required:true 
-            },
-            tgl_lahir: 
-            { 
-                required:true 
-            },
-            agama: 
-            { 
-                required:true 
-            },
-            goldar: 
-            { 
-                required:true 
-            },
-            pendidikan: 
-            { 
-                required:true 
-            },
-            pekerjaan: 
-            { 
-                required:true 
-            },
-            sts_nikah: 
-            { 
-                required:true 
-            },
-            sts_hub: 
-            { 
-                required:true 
-            },
-            sts_domisili: 
-            { 
-                required:true 
-            },
-            no_hp: 
-            { 
-                required:true 
-            },
-            no_telp_emergency: 
-            { 
-                required:true 
-            },
-            ket_emergency: 
-            { 
-                required:true 
-            },
-            tgl_masuk: 
-            { 
-                required:true 
-            },
-            sts_masuk: 
             { 
                 required:true 
             },
@@ -628,13 +456,13 @@
         submitHandler: function (form, event) {
             event.preventDefault();
             var parameter = $('#id_edit').val();
-            var id = $('#id_warga').val();
+            var id = $('#no_rumah').val();
             if(parameter == "edit"){
-                var url = "{{ url('rtrw-master/warga-masuk') }}/"+id;
+                var url = "{{ url('rtrw-master/warga-masuk-ubahstatus') }}";
                 var pesan = "updated";
                 var text = "Perubahan data "+id+" telah tersimpan";
             }else{
-                var url = "{{ url('rtrw-master/warga-masuk') }}";
+                var url = "{{ url('rtrw-master/warga-masuk-ubahstatus') }}";
                 var pesan = "saved";
                 var text = "Data tersimpan dengan kode "+id;
             }
@@ -656,20 +484,23 @@
                 success:function(result){
                     if(result.data.status){
                         dataTable.ajax.reload();
+                        detailList.clear().draw();
                         $('#row-id').hide();
                         $('#form-tambah')[0].reset();
                         $('#form-tambah').validate().resetForm();
                         $('[id^=label]').html('');
                         $('#id_edit').val('');
-                        $('#judul-form').html('Tambah Data Lokasi');
+                        $('.input-group-prepend').addClass('hidden');
+                        $('span[class^=info-name]').addClass('hidden');
+                        $('.info-icon-hapus').addClass('hidden');
+                        $('[class*=inp-label-]').attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important;border-left:1px solid #d7d7d7 !important');
+                        $('#judul-form').html('Tambah Data Warga Masuk');
                         $('#method').val('post');
-                        $('#kode_lokasi').attr('readonly', false);
                         msgDialog({
                             id:id,
                             type:'simpan',
                             text:result.data.message
                         });
-                        last_add("kode_lokasi",result.data.kode);
                     }else if(!result.data.status && result.data.message === "Unauthorized"){
                     
                         window.location.href = "{{ url('/rtrw-auth/sesi-habis') }}";
@@ -825,6 +656,31 @@
         });
     }
 
+    function showDetList(no_rumah,kode_blok){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('rtrw-master/warga-masuk-detail-list') }}",
+            dataType: 'json',
+            async:false,
+            data:{no_rumah: no_rumah, kode_blok:kode_blok},
+            success:function(result){   
+                detailList.clear().draw();
+                if(result.status){
+                    if(typeof result.data !== 'undefined' && result.data.length>0){
+                        detailList.rows.add(result.data).draw(false);
+                    }
+                    $('.dataTables_scrollBody td').css({'padding-top':'4px', 'padding-bottom':'4px'});
+                    detailList.columns.adjust().draw();
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    window.location.href = "{{ url('rtrw-auth/sesi-habis') }}";
+                }else{
+                    alert('Generate ID Error');
+                }
+            }
+        });
+    }
+
     $('#saku-datatable').on('click','#btn-delete',function(e){
         var kode = $(this).closest('tr').find('td').eq(0).html();
         msgDialog({
@@ -834,59 +690,32 @@
     });
 
     // BUTTON EDIT
-    function editData(id){
-        $.ajax({
-            type: 'GET',
-            url: "{{ url('rtrw-master/warga-masuk-detail') }}/"+id,
-            dataType: 'json',
-            async:false,
-            success:function(res){
-                var result = res.data;
-                if(result.status){
-                    $('#id_edit').val('edit');
-                    $('#method').val('post');
-                    $('#id_warga').val(id);
-                    $('#id').val(id);
-                    $('#nama').val(result.data[0].nama);
-                    $('#kode_rw').val(result.data[0].kode_rw);
-                    $('#kode_rt').val(result.data[0].kode_rt); 
-                    $('#no_rumah').val(result.data[0].no_rumah); 
-                    $('#nik').val(result.data[0].nik);
-                    $('#alias').val(result.data[0].alias);
-                    $('#tempat_lahir').val(result.data[0].tempat_lahir);
-                    $('#tgl_lahir').val(result.data[0].tgl_lahir);
-                    $('#kode_blok').val(result.data[0].kode_blok);
-                    $('#sts_masuk')[0].selectize.setValue(result.data[0].sts_masuk);
-                    $('#tgl_masuk').val(result.data[0].tgl_masuk);
-                    $('#agama')[0].selectize.setValue(result.data[0].agama);
-                    $('#jk')[0].selectize.setValue(result.data[0].jk);
-                    $('#pendidikan').val(result.data[0].pendidikan); 
-                    $('#pekerjaan').val(result.data[0].pekerjaan); 
-                    $('#no_hp').val(result.data[0].no_hp); 
-                    $('#emerg_call').val(result.data[0].emerg_call); 
-                    $('#ket_emergency').val(result.data[0].ket_emergency); 
-                    $('#sts_nikah')[0].selectize.setValue(result.data[0].sts_nikah);
-                    $('#sts_hub')[0].selectize.setValue(result.data[0].sts_hub);
-                    $('#sts_domisili')[0].selectize.setValue(result.data[0].sts_domisili);
-                    $('#goldar')[0].selectize.setValue(result.data[0].goldar);
-                    var html = "<img style='width:120px' style='margin:0 auto' src='"+result.data[0].foto+"'>";
-                    $('.preview').html(html);          
-                    $('#saku-datatable').hide();
-                    $('#modal-preview').modal('hide');
-                    $('#saku-form').show();
-                    setHeightForm();
-                    setWidthFooterCardBody();
-                }
-                else if(!result.status && result.message == 'Unauthorized'){
-                    window.location.href = "{{ url('rtrw-auth/sesi-habis') }}";
-                }
-                // $iconLoad.hide();
-            }
-        });
+    function editData(id,data){
+        $('#id_edit').val('edit');
+        $('#method').val('post');
+        $('#kode_rw').val(data.rw);
+        $('#kode_rt').val(data.rt); 
+        $('#no_rumah').val(data.kode_rumah); 
+        $('#kode_blok').val(data.blok);
+        $('#sts_masuk')[0].selectize.setValue("DATANG");
+        $('#tgl_masuk').val('');
+        $('#saku-datatable').hide();
+        $('#modal-preview').modal('hide');
+        $('#saku-form').show();
+        showDetList(data.kode_rumah,data.blok);
+        setHeightForm();
+        setWidthFooterCardBody();
     }
 
     $('#saku-datatable').on('click', '#btn-edit', function(){
         var id= $(this).closest('tr').find('td').eq(0).html();
+        var index= $(this).closest('tr').index();
+        var data = {
+            rt: $(this).closest('tr').find('td').eq(3).html(),
+            rw: $(this).closest('tr').find('td').eq(4).html(),
+            kode_rumah: $(this).closest('tr').find('td').eq(0).html(),
+            blok:  $(this).closest('tr').find('td').eq(2).html()
+        };
         // $iconLoad.show();
         $('#form-tambah').validate().resetForm();
         
@@ -894,14 +723,20 @@
         $('#btn-save').attr('id','btn-update');
 
         $('#judul-form').html('Edit Data Warga Masuk');
-        editData(id);
+        editData(id,data);
     });
 
     $('#table-data tbody').on('click','td',function(e){
         if($(this).index() != 6){
 
             var id = $(this).closest('tr').find('td').eq(0).html();
-            var data = dataTable.row(this).data();
+            var index= $(this).closest('tr').index();
+            var data = {
+                rt: $(this).closest('tr').find('td').eq(3).html(),
+                rw: $(this).closest('tr').find('td').eq(4).html(),
+                kode_rumah: $(this).closest('tr').find('td').eq(0).html(),
+                blok:  $(this).closest('tr').find('td').eq(2).html()
+            };
             var html = `<div class="preview-header" style="display:block;height:39px;padding: 0 1.75rem" >
                 <h6 style="position: absolute;" id="preview-judul">Preview Data</h6>
                     <span id="preview-nama" style="display:none"></span><span id="preview-id" style="display:none">`+id+`</span> 
@@ -969,7 +804,7 @@
                 $('#btn-save').attr('type','button');
                 $('#btn-save').attr('id','btn-update');
                 $('.c-bottom-sheet').removeClass('active');
-                editData(id);
+                editData(id,data);
             });
             
             $('.preview-header').on('click','#btn-cetak',function(e){
@@ -1047,6 +882,7 @@
                     onItemSelected: function(data){
                         showInfoField("kode_blok",data.blok,"");
                         deleteInfoField("no_rumah");
+                        detailList.clear().draw();
                     }
                 };
                 break;
@@ -1071,6 +907,10 @@
                     parameter:{blok:$('#kode_blok').val()},
                     onItemSelected: function(data){
                         showInfoField("no_rumah",data.kode_rumah,data.nama_pemilik);
+                        var kode_blok=$('#kode_blok').val();
+                        if(kode_blok != "" || kode_blok != "-"){
+                            showDetList(data.kode_rumah,kode_blok);
+                        }
                     }
                 };
                 break;
@@ -1091,17 +931,6 @@
         var par = $(this).val();
         var blok = $('#kode_blok').val();
         getRumah(par,blok);
-    });
-
-    $('#form-tambah').on('click', '#generate_kode', function(e){
-        e.preventDefault();
-        var tgl = $('#tgl_masuk').val();
-        generateIDWarga(tgl);
-    });
-
-    $('#tgl_masuk').on('changeDate', function() {
-        var tgl = $('#tgl_masuk').bootstrapDP('getFormattedDate');
-        generateIDWarga(tgl);
     });
 
     // ENTER FIELD FORM
@@ -1128,5 +957,480 @@
         }
     });
     // END ENTER FIELD FORM
+
+    function hapusRow(id){
+        $.ajax({
+            type: 'DELETE',
+            url: "{{ url('rtrw-master/warga-masuk') }}/"+id,
+            dataType: 'json',
+            async:false,
+            success:function(result){
+                if(result.data.status){
+                    showDetList($('#no_rumah').val(),$('#kode_blok').val());                 
+                    showNotification("top", "center", "success",'Hapus Data','Data Warga Masuk ('+id+') berhasil dihapus ');
+                    $('#table-delete tbody').html('');
+                }else if(!result.data.status && result.data.message == "Unauthorized"){
+                    window.location.href = "{{ url('rtrw-auth/sesi-habis') }}";
+                }else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href>'+result.data.message+'</a>'
+                    });
+                }
+            }
+        });
+    }
+
+    $('#input-grid').on('click', '.hapus-item', function(){
+        var id = $(this).closest('tr').find('td').eq(2).html();
+        hapusRow(id);
+    });
+
+    $('#input-grid').on('click', '.edit-item', function(){
+        var index = $(this).closest('tr').index();
+        var data = detailList.rows().data();
+        addRow("edit", data[index]);
+    });
+
+    function addRow(kode, data){
+        var html = `<div class="detail-header" style="display:block;height:39px;padding: 0 1.75rem" >
+                <h6 style="position: absolute;" id="detail-judul">Detail Data Warga</h6>
+                    <span id="detail-nama" style="display:none"></span><span id="detail-id" style="display:none">`+id+`</span> 
+            </div>
+            <div class='separator'></div>
+            <div class='detail-body' style='padding: 0 1.75rem;height: calc(80vh - 56px);position:sticky;min-height:300px'>
+            <form id='form-detail' class="tooltip-label-right" novalidate>
+                <input class="form-control" type="hidden" id="id_detail" name="id_detail" readonly="true" >
+                <input type="hidden" id="method2" name="_method" value="post">
+                <ul class="nav nav-tabs col-12 " role="tablist">
+                    <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#pribadi" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Pribadi</span></a> </li>
+                    <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#pelengkap" role="tab" aria-selected="true"><span class="hidden-xs-down">Pelengkap</span></a> </li>
+                    <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#emergency" role="tab" aria-selected="true"><span class="hidden-xs-down">Emergency</span></a> </li>
+                </ul>
+                <div class="tab-content tab-form-content col-12 pt-3 px-0">
+                    <div class="tab-pane active" id="pribadi" role="tabpanel">
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="id_warga" >ID Warga</label>
+                                        <input class="form-control" type="text" placeholder="ID Warga" id="id_warga" name="id_warga" readonly="true" required>
+                                        <i class="simple-icon-refresh" id="generate_kode"></i>          
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="nik" >NIK</label>
+                                        <input class="form-control" type="text" placeholder="NIK" id="nik" name="nik" required>          
+                                    </div>
+                                </div>               
+                            </div>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label for="nama" >Nama</label>
+                                        <input class="form-control" type="text" placeholder="Nama" id="nama" name="nama" required>          
+                                    </div>
+                                </div>            
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="alias" >Alias</label>
+                                        <input class="form-control" type="text" placeholder="Alias" id="alias" name="alias" required>          
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="jk" >Jenis Kelamin</label>
+                                        <select name="jk" class="form-control selectize2" id="jk">
+                                            <option value='' disabled selected>--- Pilih ---</option>
+                                            <option value="P">P</option>
+                                            <option value="L">L</option>
+                                        </select>
+                                    </div>
+                                </div> 
+                            </div>
+                            <div class="form-group col-md-6 col-sm-12">           
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="tempat_lahir" >Tempat Lahir</label>
+                                        <input class="form-control" type="text" placeholder="Tempat Lahir" id="tempat_lahir" name="tempat_lahir" required>          
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="tgl_lahir" >Tgl Lahir</label>
+                                        <span id="tgl_lahir-dp"></span>
+                                        <input type="text" class="form-control datepicker" placeholder="dd/mm/yyyy" id="tgl_lahir" name="tgl_lahir" required>
+                                    </div>
+                                </div>                       
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="agama" >Agama</label>
+                                        <select  name='agama' class='form-control selectize2' id="agama" required>
+                                            <option value='' disabled selected>--- Pilih ---</option>
+                                            <option value='ISLAM'>ISLAM</option>
+                                            <option value='BUDHA'>BUDHA</option>
+                                            <option value='KRISTEN'>KRISTEN</option>
+                                            <option value='HINDU'>HINDU</option>
+                                            <option value='PROTESTAN'>PROTESTAN</option>
+                                            <option value='LAINNYA'>LAINNYA</option>
+                                        </select>   
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="sts_nikah" >Status Nikah</label>
+                                        <select name="sts_nikah" class="form-control selectize2" id="sts_nikah">
+                                            <option value='' disabled selected>--- Pilih ---</option>
+                                            <option value="KAWIN">KAWIN</option>
+                                            <option value="BELUM KAWIN">BELUM KAWIN</option>
+                                        </select>
+                                    </div>
+                                </div>                       
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="pelengkap" role="tabpanel">
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="pendidikan" >Pendidikan</label>
+                                        <input class="form-control" type="text" placeholder="Pendidikan Terakhir" id="pendidikan" name="pendidikan" required>          
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="pekerjaan" >Pekerjaan</label>
+                                        <input type="text" class="form-control" id="pekerjaan" name="pekerjaan" placeholder="Pekerjaan" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label>Foto</label>
+                                        <div class="input-group">
+                                            <div class="custom-file">
+                                                <input type="file" name="file_gambar" class="custom-file-input" id="file_gambar" accept="image/*" onchange="readURL(this)">
+                                                <label class="custom-file-label" style="border-radius: 0.5rem;" for="file_gambar">Choose file</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <label for="goldar" >Golongan Darah</label>
+                                        <select  name='goldar' id='goldar' class='form-control selectize2' required>
+                                        <option value='' disabled selected>--- Pilih ---</option>
+                                        <option value='A'>A</option>
+                                        <option value='B'>B</option>
+                                        <option value='AB'>AB</option>
+                                        <option value='O'>O</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="sts_domisili" >Status Domisili</label>
+                                        <select name="sts_domisili" class="form-control selectize2" id="sts_domisili">
+                                            <option value='' disabled selected>--- Pilih ---</option>
+                                            <option value="DOMISILI">DOMISILI</option>
+                                            <option value="BELUM DOMISILI">BELUM DOMISILI</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="sts_hub" >Hubungan</label>
+                                        <select name="sts_hub" class="form-control selectize2" id="sts_hub">
+                                            <option value='' disabled selected>--- Pilih ---</option>
+                                                <option value='KEPALA KEL.'>KEPALA KEL.</option>
+                                                <option value='ISTRI'>ISTRI</option>
+                                                <option value='ANAK'>ANAK</option>
+                                                <option value='ORANGTUA'>ORANGTUA</option>
+                                                <option value='ART'>ART</option>
+                                                <option value='REKAN'>REKAN</option>
+                                                <option value='FAMILI LAIN'>FAMILI LAIN</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="no_hp" >No HP</label>
+                                        <input class="form-control" type="text" placeholder="No Handphone" id="no_hp" name="no_hp" required>          
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="row mb-2 text-center">
+                                    <div style="" class="col-12">
+                                        <div class="preview text-center" style="height:120px;width:120px;margin: 0 auto;border: 1px solid #d7d7d7;border-radius: 0.5rem;">Preview</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="emergency" role="tabpanel">
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="emerg_call">No Emergency</label>
+                                        <input class="form-control" type="text" placeholder="No Handphone Emergency" id="emerg_call" name="emerg_call" required>          
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="ket_emergency" >Hubungan Keluarga Emergency</label>
+                                        <input class="form-control" type="text" placeholder="Keterangan Emergency" id="ket_emergency" name="ket_emergency" required>   
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class='row' style='position: absolute;bottom: 20px;right: 40px;'>
+                    <div class='col-12 text-right'>
+                        <button id='btn-detail' class='btn btn-sm btn-primary' type='submit'>Simpan</button>
+                    </div>
+                </div>
+            </form>
+            </div>`;
+            $('#content-bottom-sheet').html(html);
+            
+            var tgl = $('#tgl_masuk').val();
+            generateIDWarga(tgl);
+            $('.selectize2').selectize();
+            var scroll = document.querySelector('.detail-body');
+            var psscroll = new PerfectScrollbar(scroll);
+
+            $("#tgl_lahir").bootstrapDP({
+                autoclose: true,
+                format: 'dd/mm/yyyy',
+                container:'span#tgl_lahir-dp',
+                templates: {
+                    leftArrow: '<i class="simple-icon-arrow-left"></i>',
+                    rightArrow: '<i class="simple-icon-arrow-right"></i>'
+                },
+                orientation: 'bottom left'
+            });
+
+            if(kode == "edit"){
+                $('#id_detail').val('edit');
+                $('#id_warga').val(data.id_warga);
+                $('#nama').val(data.nama);
+                $('#nik').val(data.nik);
+                $('#alias').val(data.alias);
+                $('#tempat_lahir').val(data.tempat_lahir);
+                $('#tgl_lahir').val(data.tgl_lahir);
+                $('#kode_blok').val(data.kode_blok);
+                $('#sts_masuk')[0].selectize.setValue(data.sts_masuk);
+                $('#tgl_masuk').val(data.tgl_masuk);
+                $('#agama')[0].selectize.setValue(data.agama);
+                $('#jk')[0].selectize.setValue(data.jk);
+                $('#pendidikan').val(data.pendidikan); 
+                $('#pekerjaan').val(data.pekerjaan); 
+                $('#no_hp').val(data.no_hp); 
+                $('#emerg_call').val(data.emerg_call); 
+                $('#ket_emergency').val(data.ket_emergency); 
+                $('#sts_nikah')[0].selectize.setValue(data.sts_nikah);
+                $('#sts_hub')[0].selectize.setValue(data.sts_hub);
+                $('#sts_domisili')[0].selectize.setValue(data.sts_domisili);
+                $('#goldar')[0].selectize.setValue(data.goldar);
+                var url = ("{{ config('api.url') }}" == "http://localhost:8080/api/" ? "https://devapi.simkug.com/api/rtrw/storage" : "{{ config('api.url') }}rtrw/storage");
+                var html = "<img style='width:120px' style='margin:0 auto' src='"+url+"/"+data.foto+"'>";
+                $('.preview').html(html);   
+            }
+            
+            $('#form-detail').on('click', '#generate_kode', function(e){
+                e.preventDefault();
+                var tgl = $('#tgl_masuk').val();
+                generateIDWarga(tgl);
+            });
+
+            //BUTTON SIMPAN /SUBMIT
+            $('#form-detail').validate({
+                ignore: [],
+                rules: 
+                {
+                    id_warga: 
+                    { 
+                        required:true 
+                    },
+                    nama: 
+                    { 
+                        required:true 
+                    },
+                    alias: 
+                    { 
+                        required:true 
+                    },
+                    nik: 
+                    { 
+                        required:true 
+                    },
+                    jk: 
+                    { 
+                        required:true 
+                    },
+                    tempat_lahir: 
+                    { 
+                        required:true 
+                    },
+                    tgl_lahir: 
+                    { 
+                        required:true 
+                    },
+                    agama: 
+                    { 
+                        required:true 
+                    },
+                    goldar: 
+                    { 
+                        required:true 
+                    },
+                    pendidikan: 
+                    { 
+                        required:true 
+                    },
+                    pekerjaan: 
+                    { 
+                        required:true 
+                    },
+                    sts_nikah: 
+                    { 
+                        required:true 
+                    },
+                    sts_hub: 
+                    { 
+                        required:true 
+                    },
+                    sts_domisili: 
+                    { 
+                        required:true 
+                    },
+                    no_hp: 
+                    { 
+                        required:true 
+                    },
+                    no_telp_emergency: 
+                    { 
+                        required:true 
+                    },
+                    ket_emergency: 
+                    { 
+                        required:true 
+                    }
+                },
+                errorElement: "label",
+                submitHandler: function (form, event) {
+                    event.preventDefault();
+                    var parameter = $('#id_detail').val();
+                    var id = $('#id_warga').val();
+                    if(parameter == "edit"){
+                        var url = "{{ url('rtrw-master/warga-masuk') }}/"+id;
+                        var pesan = "updated";
+                        var text = "Perubahan data "+id+" telah tersimpan";
+                    }else{
+                        var url = "{{ url('rtrw-master/warga-masuk') }}";
+                        var pesan = "saved";
+                        var text = "Data tersimpan dengan kode "+id;
+                    }
+
+                    var formData = new FormData(form);
+                    formData.append('sts_masuk',$('#sts_masuk')[0].selectize.getValue());
+                    formData.append('tgl_masuk',$('#tgl_masuk').val());
+                    formData.append('kode_blok',$('#kode_blok').val());
+                    formData.append('no_rumah',$('#no_rumah').val());
+                    formData.append('kode_rt',$('#kode_rt').val());
+
+                    for(var pair of formData.entries()) {
+                        console.log(pair[0]+ ', '+ pair[1]); 
+                    }
+                
+                    $.ajax({
+                        type: 'POST', 
+                        url: url,
+                        dataType: 'json',
+                        data: formData,
+                        async:false,
+                        contentType: false,
+                        cache: false,
+                        processData: false, 
+                        success:function(result){
+                            if(result.data.status){
+                                $('#form-detail')[0].reset();
+                                $('#form-detail').validate().resetForm();
+                                msgDialog({
+                                    id:id,
+                                    type:'warning',
+                                    title:'Tersimpan',
+                                    text:result.data.message
+                                });
+                                last_add("id_warga",result.data.kode);
+                                showDetList($('#no_rumah').val(),$('#kode_blok').val());
+                                $('.c-bottom-sheet').removeClass('active');
+                            }else if(!result.data.status && result.data.message === "Unauthorized"){
+                            
+                                window.location.href = "{{ url('/rtrw-auth/sesi-habis') }}";
+                                
+                            }else{
+                                if(result.data.kode == "-" && result.data.jenis != undefined){
+                                    msgDialog({
+                                        id: id,
+                                        type: result.data.no_bukti,
+                                        text:'ID Warga sudah digunakan'
+                                    });
+                                }else{
+
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Oops...',
+                                        text: 'Something went wrong!',
+                                        footer: '<a href>'+JSON.stringify(result.data.message)+'</a>'
+                                    })
+                                }
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            var error = JSON.parse(xhr.responseText);
+                            var detail = Object.values(error.errors)
+                            Swal.fire({
+                                type: 'error',
+                                title: error.message,
+                                text: detail[0]
+                            })
+                        },
+                        fail: function(xhr, textStatus, errorThrown){
+                            alert('request failed:'+textStatus);
+                        }
+                    });
+                },
+                errorPlacement: function (error, element) {
+                    var id = element.attr("id");
+                    $("label[for="+id+"]").append("<br/>");
+                    $("label[for="+id+"]").append(error);
+                }
+            });
+            
+            $('.c-bottom-sheet__sheet').css({ "width":"70%","margin-left": "15%", "margin-right":"15%"});
+            $('#trigger-bottom-sheet').trigger("click");
+        
+    }
+
+    $('#form-tambah').on('click', '.add-row', function(){
+        var kode_blok = $('#kode_blok').val();
+        var no_rumah = $('#no_rumah').val();
+        if(kode_blok == "" || no_rumah == ""){
+            msgDialog({
+                id:'-',
+                type:'warning',
+                title:'Peringatan',
+                text: 'Blok dan No Rumah wajib diisi terlebih dahulu'
+            });
+        }else{
+            addRow();
+        }
+    });
 
     </script>
