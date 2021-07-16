@@ -29,14 +29,15 @@ class WargaMasukController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function index(){
+    public function index(Request $request){
         try {
             $client = new Client();
             $response = $client->request('GET',  config('api.url').'rtrw/warga-masuk',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
-                ]
+                ],
+                'query' => $request->all()
             ]);
 
             if ($response->getStatusCode() == 200) { // 200 OK
@@ -190,7 +191,7 @@ class WargaMasukController extends Controller
         }
     }
 
-    public function show($id) {
+    public function show(Request $request,$id) {
         try{
             $client = new Client();
             $response = $client->request('GET',  config('api.url').'rtrw/warga-masuk-detail?id_warga='.$id,
@@ -198,6 +199,10 @@ class WargaMasukController extends Controller
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
+                ],
+                'query' => [
+                    'id_warga' => $id,
+                    'kode_pp' => $request->kode_pp
                 ]
             ]);
     

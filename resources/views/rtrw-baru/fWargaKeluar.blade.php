@@ -36,12 +36,6 @@
             top: 190px !important;
         }
 
-        #tgl_lahir-dp .datepicker-dropdown
-        {
-            left: 20px !important;
-            top: 190px !important;
-        }
-
         .selectize-control .selectize-input.disabled {
             opacity: 1;
             background-color: #e9ecef;
@@ -49,7 +43,7 @@
     
     </style>
     <!-- LIST DATA -->
-    <x-list-data judul="Data Warga Keluar" tambah="true" :thead="array('ID Warga','Blok','No Rumah','Nama','Tgl Keluar','Sts Keluar','Aksi')" :thwidth="array(20,10,10,30,10,10,10)" :thclass="array('','','','','','','text-center')" />
+    <x-list-data judul="Data Warga Keluar" tambah="true" :thead="array('ID Keluar','ID Warga','Blok','No Rumah','Nama','Tgl Keluar','Sts Keluar','Aksi')" :thwidth="array(10,10,10,10,30,10,10,10)" :thclass="array('','','','','','','','text-center')" />
     <!-- END LIST DATA -->
 
     <form id="form-tambah" class="tooltip-label-right" novalidate>
@@ -130,6 +124,10 @@
                                         <option value='MENINGGAL'>MENINGGAL</option>
                                         </select>
                                     </div>
+                                    <div class="col-md-6" id="div_dok_keluar">
+                                        <label for="dok_keluar" >No Dokumen</label>
+                                        <input class="form-control" type="text" placeholder="No Dokumen" id="dok_keluar" name="dok_keluar" value="-" required>          
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -142,7 +140,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <label for="no_rumah" >No Rumah</label>
-                                        <input class="form-control" type="text" placeholder="Blok" id="no_rumah" name="no_rumah" readonly>  
+                                        <input class="form-control" type="text" placeholder="No Rumah" id="no_rumah" name="no_rumah" readonly>  
                                     </div>
                                 </div>                       
                             </div>
@@ -221,22 +219,12 @@
     });
 
     $('.selectize').selectize();
+    $('#div_dok_keluar').hide();
 
     $("#tgl_keluar").bootstrapDP({
         autoclose: true,
         format: 'dd/mm/yyyy',
         container:'span#tgl_keluar-dp',
-        templates: {
-            leftArrow: '<i class="simple-icon-arrow-left"></i>',
-            rightArrow: '<i class="simple-icon-arrow-right"></i>'
-        },
-        orientation: 'bottom left'
-    });
-
-    $("#tgl_lahir").bootstrapDP({
-        autoclose: true,
-        format: 'dd/mm/yyyy',
-        container:'span#tgl_lahir-dp',
         templates: {
             leftArrow: '<i class="simple-icon-arrow-left"></i>',
             rightArrow: '<i class="simple-icon-arrow-right"></i>'
@@ -282,20 +270,21 @@
     }
 
     //LIST DATA
-    var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
+    var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a>";
     var dataTable = generateTable(
         "table-data",
-        "{{ url('rtrw-master/warga-masuk') }}", 
+        "{{ url('rtrw-master/warga-keluar') }}", 
         [
             {'targets': 6, data: null, 'defaultContent': action_html,'className': 'text-center' },
         ],
         [
+            { data: 'no_bukti_keluar' },
             { data: 'no_bukti' },
             { data: 'kode_blok' },
             { data: 'no_rumah' },
             { data: 'nama' },
-            { data: 'tgl_masuk' },
-            { data: 'sts_masuk' },
+            { data: 'tgl_keluar' },
+            { data: 'sts_keluar' },
         ],
         "{{ url('rtrw-auth/sesi-habis') }}",
         [[0 ,"desc"]]
@@ -361,6 +350,9 @@
         $('#method').val('post');
         $('#kode_rw').val("{{ Session::get('lokasi') }}");
         $('#kode_rt').val("{{ Session::get('kodePP') }}");
+        $('#tgl_keluar').val("{{ date('d/m/Y') }}");
+        generateIDWarga("{{ date('d/m/Y') }}");
+        $('#div_dok_keluar').hide();
         $('#saku-datatable').hide();
         $('#saku-form').show();
         $('.input-group-prepend').addClass('hidden');
@@ -393,79 +385,11 @@
         ignore: [],
         rules: 
         {
-            kode_blok: 
-            { 
-                required:true 
-            },
             id_warga: 
             { 
                 required:true 
             },
-            no_rumah: 
-            { 
-                required:true 
-            },
-            nama: 
-            { 
-                required:true 
-            },
-            alias: 
-            { 
-                required:true 
-            },
-            nik: 
-            { 
-                required:true 
-            },
-            jk: 
-            { 
-                required:true 
-            },
-            tempat_lahir: 
-            { 
-                required:true 
-            },
-            tgl_lahir: 
-            { 
-                required:true 
-            },
-            agama: 
-            { 
-                required:true 
-            },
-            goldar: 
-            { 
-                required:true 
-            },
-            pendidikan: 
-            { 
-                required:true 
-            },
-            pekerjaan: 
-            { 
-                required:true 
-            },
-            sts_nikah: 
-            { 
-                required:true 
-            },
-            sts_hub: 
-            { 
-                required:true 
-            },
-            sts_domisili: 
-            { 
-                required:true 
-            },
-            no_hp: 
-            { 
-                required:true 
-            },
-            no_telp_emergency: 
-            { 
-                required:true 
-            },
-            ket_emergency: 
+            no_bukti_keluar: 
             { 
                 required:true 
             },
@@ -473,11 +397,7 @@
             { 
                 required:true 
             },
-            sts_masuk: 
-            { 
-                required:true 
-            },
-            kode_rt: 
+            sts_keluar: 
             { 
                 required:true 
             }
@@ -488,11 +408,11 @@
             var parameter = $('#id_edit').val();
             var id = $('#id_warga').val();
             if(parameter == "edit"){
-                var url = "{{ url('rtrw-master/warga-masuk') }}/"+id;
+                var url = "{{ url('rtrw-master/warga-keluar') }}/"+id;
                 var pesan = "updated";
                 var text = "Perubahan data "+id+" telah tersimpan";
             }else{
-                var url = "{{ url('rtrw-master/warga-masuk') }}";
+                var url = "{{ url('rtrw-master/warga-keluar') }}";
                 var pesan = "saved";
                 var text = "Data tersimpan dengan kode "+id;
             }
@@ -519,7 +439,7 @@
                         $('#form-tambah').validate().resetForm();
                         $('[id^=label]').html('');
                         $('#id_edit').val('');
-                        $('#judul-form').html('Tambah Data Lokasi');
+                        $('#judul-form').html('Tambah Data Warga Keluar');
                         $('#method').val('post');
                         $('#kode_lokasi').attr('readonly', false);
                         msgDialog({
@@ -572,34 +492,6 @@
         }
     });
 
-    // BUTTON HAPUS DATA
-    function hapusData(id){
-        $.ajax({
-            type: 'DELETE',
-            url: "{{ url('rtrw-master/warga-masuk') }}/"+id,
-            dataType: 'json',
-            async:false,
-            success:function(result){
-                if(result.data.status){
-                    dataTable.ajax.reload();                    
-                    showNotification("top", "center", "success",'Hapus Data','Data Warga Keluar ('+id+') berhasil dihapus ');
-                    $('#modal-pesan-id').html('');
-                    $('#table-delete tbody').html('');
-                    $('#modal-pesan').modal('hide');
-                }else if(!result.data.status && result.data.message == "Unauthorized"){
-                    window.location.href = "{{ url('rtrw-auth/sesi-habis') }}";
-                }else{
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Something went wrong!',
-                        footer: '<a href>'+result.data.message+'</a>'
-                    });
-                }
-            }
-        });
-    }
-
     function getRumah(id=null,blok=null){
         $.ajax({
             type: 'GET',
@@ -631,48 +523,17 @@
     }
 
     
-    function getBlok(id=null,rt=null){
-        $.ajax({
-            type: 'GET',
-            url: "{{ url('rtrw-master/blok') }}/"+id,
-            dataType: 'json',
-            async:false,
-            data:{kode_pp: rt},
-            success:function(result){   
-                if(result.status){
-                    if(typeof result.data !== 'undefined' && result.data.length>0){
-                        showInfoField('kode_blok',result.data[0].blok,"");
-                    }else{
-                        $('#kode_blok').attr('readonly',false);
-                        $('#kode_blok').css('border-left','1px solid #d7d7d7');
-                        $('#kode_blok').val('');
-                        $('#kode_blok').focus();
-                    }
-                }
-                else if(!result.status && result.message == 'Unauthorized'){
-                    window.location.href = "{{ url('rtrw-auth/sesi-habis') }}";
-                }else{
-                    $('#kode_blok').attr('readonly',false);
-                    $('#kode_blok').css('border-left','1px solid #d7d7d7');
-                    $('#kode_blok').val('');
-                    $('#kode_blok').focus();
-                }
-            }
-        });
-    }
-
-    
     function generateIDWarga(tgl_keluar){
         $.ajax({
             type: 'GET',
-            url: "{{ url('rtrw-master/generate-idwarga') }}",
+            url: "{{ url('rtrw-master/generate-idwarga-keluar') }}",
             dataType: 'json',
             async:false,
             data:{tgl_keluar: tgl_keluar},
             success:function(result){   
-                $('#id_warga').val('');
+                $('#no_bukti_keluar').val('');
                 if(result.status){
-                    $('#id_warga').val(result.no_bukti);
+                    $('#no_bukti_keluar').val(result.no_bukti);
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
                     window.location.href = "{{ url('rtrw-auth/sesi-habis') }}";
@@ -695,7 +556,7 @@
     function editData(id){
         $.ajax({
             type: 'GET',
-            url: "{{ url('rtrw-master/warga-masuk-detail') }}/"+id,
+            url: "{{ url('rtrw-master/warga-keluar-detail') }}/"+id,
             dataType: 'json',
             async:false,
             success:function(res){
@@ -703,32 +564,20 @@
                 if(result.status){
                     $('#id_edit').val('edit');
                     $('#method').val('post');
-                    $('#id_warga').val(id);
+                    $('#no_bukti_keluar').val(id);
                     $('#id').val(id);
-                    $('#nama').val(result.data[0].nama);
-                    $('#kode_rw').val(result.data[0].kode_rw);
-                    $('#kode_rt').val(result.data[0].kode_rt); 
+                    $('#id_warga').val(result.data[0].id_warga);
                     $('#no_rumah').val(result.data[0].no_rumah); 
-                    $('#nik').val(result.data[0].nik);
                     $('#alias').val(result.data[0].alias);
                     $('#tempat_lahir').val(result.data[0].tempat_lahir);
                     $('#tgl_lahir').val(result.data[0].tgl_lahir);
                     $('#kode_blok').val(result.data[0].kode_blok);
-                    $('#sts_masuk')[0].selectize.setValue(result.data[0].sts_masuk);
+                    $('#sts_keluar')[0].selectize.setValue(result.data[0].sts_keluar);
                     $('#tgl_keluar').val(result.data[0].tgl_keluar);
-                    $('#agama')[0].selectize.setValue(result.data[0].agama);
                     $('#jk')[0].selectize.setValue(result.data[0].jk);
-                    $('#pendidikan').val(result.data[0].pendidikan); 
-                    $('#pekerjaan').val(result.data[0].pekerjaan); 
-                    $('#no_hp').val(result.data[0].no_hp); 
-                    $('#emerg_call').val(result.data[0].emerg_call); 
-                    $('#ket_emergency').val(result.data[0].ket_emergency); 
-                    $('#sts_nikah')[0].selectize.setValue(result.data[0].sts_nikah);
-                    $('#sts_hub')[0].selectize.setValue(result.data[0].sts_hub);
-                    $('#sts_domisili')[0].selectize.setValue(result.data[0].sts_domisili);
-                    $('#goldar')[0].selectize.setValue(result.data[0].goldar);
-                    var html = "<img style='width:120px' style='margin:0 auto' src='"+result.data[0].foto+"'>";
-                    $('.preview').html(html);          
+                    $('#keterangan').val(result.data[0].ket_keluar); 
+                    $('#dok_keluar').val(result.data[0].dok_keluar); 
+                    
                     $('#saku-datatable').hide();
                     $('#modal-preview').modal('hide');
                     $('#saku-form').show();
@@ -848,31 +697,32 @@
         }
     });
 
-    function getBlok(id=null){
+    function getWarga(id=null,kode_pp=null){
         $.ajax({
             type: 'GET',
-            url: "{{ url('rtrw-master/blok') }}/"+id,
+            url: "{{ url('rtrw-master/warga-masuk-detail') }}/"+id,
             dataType: 'json',
+            data:{kode_pp:kode_pp},
             async:false,
             success:function(result){    
-                deleteInfoField('no_rumah');
+                deleteInfoField('id_warga');
                 if(result.status){
                     if(typeof result.data !== 'undefined' && result.data.length>0){
-                        showInfoField('kode_blok',result.data[0].blok,"");
+                        showInfoField('id_warga',result.data[0].id_warga,result.data[0].nama);
                     }else{
-                        $('#kode_blok').attr('readonly',false);
-                        $('#kode_blok').css('border-left','1px solid #d7d7d7');
-                        $('#kode_blok').val('');
-                        $('#kode_blok').focus();
+                        $('#id_warga').attr('readonly',false);
+                        $('#id_warga').css('border-left','1px solid #d7d7d7');
+                        $('#id_warga').val('');
+                        $('#id_warga').focus();
                     }
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
                     window.location.href = "{{ url('rtrw-auth/sesi-habis') }}";
                 }else{
-                    $('#kode_blok').attr('readonly',false);
-                    $('#kode_blok').css('border-left','1px solid #d7d7d7');
-                    $('#kode_blok').val('');
-                    $('#kode_blok').focus();
+                    $('#id_warga').attr('readonly',false);
+                    $('#id_warga').css('border-left','1px solid #d7d7d7');
+                    $('#id_warga').val('');
+                    $('#id_warga').focus();
                 }
             }
         });
@@ -884,41 +734,17 @@
         var id = $(this).closest('div').find('input').attr('name');
         var options = {};
         switch(id){
-            case 'kode_blok':
+            case 'id_warga':
                 options = {
                     id : id,
-                    header : ['Kode'],
-                    url : "{{ url('rtrw-master/blok') }}",
+                    header : ['ID Warga', 'Nama'],
+                    url : "{{ url('rtrw-master/warga-masuk') }}",
                     columns : [
-                        { data: 'blok' }
+                        { data: 'no_bukti' },
+                        { data: 'nama' },
                     ],
-                    judul : "Daftar Blok",
-                    pilih : "blok",
-                    jTarget1 : "text",
-                    jTarget2 : "text",
-                    target1 : ".info-code_"+id,
-                    target2 : ".info-name_"+id,
-                    target3 : "",
-                    target4 : "",
-                    width : ["100%"],
-                    parameter:{kode_pp:$('#kode_pp').val()},
-                    onItemSelected: function(data){
-                        showInfoField("kode_blok",data.blok,"");
-                        deleteInfoField("no_rumah");
-                    }
-                };
-                break;
-            case 'no_rumah':
-                options = {
-                    id : id,
-                    header : ['Kode', 'Nama'],
-                    url : "{{ url('rtrw-master/rumah') }}",
-                    columns : [
-                        { data: 'kode_rumah' },
-                        { data: 'nama_pemilik' }
-                    ],
-                    judul : "Daftar Rumah",
-                    pilih : "rumah",
+                    judul : "Daftar Warga",
+                    pilih : "warga",
                     jTarget1 : "text",
                     jTarget2 : "text",
                     target1 : ".info-code_"+id,
@@ -926,9 +752,15 @@
                     target3 : "",
                     target4 : "",
                     width : ["30%","70%"],
-                    parameter:{blok:$('#kode_blok').val()},
+                    parameter:{kode_pp:$('#kode_rt').val()},
                     onItemSelected: function(data){
-                        showInfoField("no_rumah",data.kode_rumah,data.nama_pemilik);
+                        showInfoField("id_warga",data.no_bukti,data.nama);
+                        $('#kode_blok').val(data.kode_blok);
+                        $('#no_rumah').val(data.no_rumah);
+                        $('#jk')[0].selectize.setValue(data.jk);
+                        $('#alias').val(data.alias);
+                        $('#tempat_lahir').val(data.tempat_lahir);
+                        $('#tgl_lahir').val(data.tgl_lahir);
                     }
                 };
                 break;
@@ -937,18 +769,11 @@
     });
 
     
-    $('#form-tambah').on('change', '#kode_blok', function(e){
+    $('#form-tambah').on('change', '#id_warga', function(e){
         e.preventDefault();
         var par = $(this).val();
         var kode_rt = $('#kode_rt').val();
-        getBlok(par,kode_rt);
-    });
-
-    $('#form-tambah').on('change', '#no_rumah', function(e){
-        e.preventDefault();
-        var par = $(this).val();
-        var blok = $('#kode_blok').val();
-        getRumah(par,blok);
+        getWarga(par,kode_rt);
     });
 
     $('#form-tambah').on('click', '#generate_kode', function(e){
@@ -957,20 +782,33 @@
         generateIDWarga(tgl);
     });
 
+    $('#form-tambah').on('change', '#status_keluar', function(e){
+        e.preventDefault();
+        var sts = $('#sts_keluar')[0].selectize.setValue();
+        if(sts == "MENINGGAL"){
+            $('#dok_keluar').val('');
+            $('#div_dok_keluar').show();
+        }else{
+            $('#dok_keluar').val('-');
+            $('#div_dok_keluar').hide();
+
+        }
+    });
+
     $('#tgl_keluar').on('changeDate', function() {
         var tgl = $('#tgl_keluar').bootstrapDP('getFormattedDate');
         generateIDWarga(tgl);
     });
 
     // ENTER FIELD FORM
-    $('#kode_rw,#kode_rt,#kode_blok,#no_rumah,#tgl_keluar,#sts_masuk,#id_warga,#nik,#nama,#alias,#jk,#tempat_lahir,#tgl_lahir,#agama,#goldar,#pendidikan,#pekerjaan,#sts_nikah,#sts_domisili,#sts_hub,#no_hp,#emerg_call,#ket_emergency,#foto').keydown(function(e){
+    $('#kode_rw,#kode_rt,#tgl_keluar,#no_bukti,#id_warga,#sts_keluar,#keterangan').keydown(function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['kode_rw','kode_rt','kode_blok','no_rumah','tgl_keluar','sts_masuk','id_warga','nik','nama','alias','jk','tempat_lahir','tgl_lahir','agama','goldar','pendidikan','pekerjaan','sts_nikah','sts_domisili','sts_hub','no_hp','emerg_call','ket_emergency','foto'];
+        var nxt = ['kode_rw','kode_rt','tgl_keluar','no_bukti','id_warga','sts_keluar','keterangan'];
         if (code == 13 || code == 40) {
             e.preventDefault();
             var idx = nxt.indexOf(e.target.id);
             idx++;
-            if(idx == 6 || idx == 11 || idx == 14 || idx == 15 || idx== 18 || idx == 19 || idx == 20){
+            if(idx == 6 ){
                 $('#'+nxt[idx])[0].selectize.focus();
             }else{
 

@@ -147,3 +147,8 @@ Route::post('warga-masuk','Rtrw\WargaMasukController@store');
 Route::post('warga-masuk/{no_bukti}','Rtrw\WargaMasukController@update');
 Route::post('warga-masuk-ubahstatus','Rtrw\WargaMasukController@updateStatus');
 Route::delete('warga-masuk/{no_bukti}','Rtrw\WargaMasukController@destroy');
+Route::get('warga-keluar','Rtrw\WargaKeluarController@index');
+Route::get('generate-idwarga-keluar','Rtrw\WargaKeluarController@generateIDWarga');
+Route::get('warga-keluar-detail/{no_bukti}','Rtrw\WargaKeluarController@show');
+Route::post('warga-keluar','Rtrw\WargaKeluarController@store');
+Route::post('warga-keluar/{no_bukti}','Rtrw\WargaKeluarController@update');
