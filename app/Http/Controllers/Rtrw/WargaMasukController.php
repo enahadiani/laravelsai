@@ -167,6 +167,40 @@ class WargaMasukController extends Controller
             }
             
             $fields = array_merge($fields,$fields_data);
+
+            $ktp = $request->ktp;
+            $fields_ktp = array();
+            if(!empty($ktp)){
+                if($request->hasfile('ktp')){
+                    $image_path = $request->file('ktp')->getPathname();
+                    $image_mime = $request->file('ktp')->getmimeType();
+                    $image_org  = $request->file('ktp')->getClientOriginalName();
+                    $fields_ktp[] = array(
+                        'name'     => 'ktp',
+                        'filename' => $image_org,
+                        'Mime-Type'=> $image_mime,
+                        'contents' => fopen( $image_path, 'r' ),
+                    );
+                    $fields = array_merge($fields,$fields_ktp);
+                }
+            }
+
+            $kk = $request->kk;
+            $fields_kk = array();
+            if(!empty($kk)){
+                if($request->hasfile('kk')){
+                    $image_path = $request->file('kk')->getPathname();
+                    $image_mime = $request->file('kk')->getmimeType();
+                    $image_org  = $request->file('kk')->getClientOriginalName();
+                    $fields_kk[] = array(
+                        'name'     => 'kk',
+                        'filename' => $image_org,
+                        'Mime-Type'=> $image_mime,
+                        'contents' => fopen( $image_path, 'r' ),
+                    );
+                    $fields = array_merge($fields,$fields_kk);
+                }
+            }
             
             $client = new Client();
             $response = $client->request('POST',  config('api.url').'rtrw/warga-masuk',[
@@ -283,29 +317,65 @@ class WargaMasukController extends Controller
                 }
                 $data[$i] = $name[$i];
             }
-                $fields = array_merge($fields,$fields_data);
+            
+            $fields = array_merge($fields,$fields_data);
 
-                $client = new Client();
-                $response = $client->request('POST',  config('api.url').'rtrw/warga-masuk-ubah',[
-                    'headers' => [
-                        'Authorization' => 'Bearer '.Session::get('token'),
-                        'Accept'     => 'application/json',
-                    ],
-                    'multipart' => $fields
-                ]);
-                if ($response->getStatusCode() == 200) { // 200 OK
-                    $response_data = $response->getBody()->getContents();
-                    
-                    $data = json_decode($response_data,true);
-                    return response()->json(['data' => $data], 200);  
+            $ktp = $request->ktp;
+            $fields_ktp = array();
+            if(!empty($ktp)){
+                if($request->hasfile('ktp')){
+                    $image_path = $request->file('ktp')->getPathname();
+                    $image_mime = $request->file('ktp')->getmimeType();
+                    $image_org  = $request->file('ktp')->getClientOriginalName();
+                    $fields_ktp[] = array(
+                        'name'     => 'ktp',
+                        'filename' => $image_org,
+                        'Mime-Type'=> $image_mime,
+                        'contents' => fopen( $image_path, 'r' ),
+                    );
+                    $fields = array_merge($fields,$fields_ktp);
                 }
+            }
+
+            $kk = $request->kk;
+            $fields_kk = array();
+            if(!empty($kk)){
+                if($request->hasfile('kk')){
+                    $image_path = $request->file('kk')->getPathname();
+                    $image_mime = $request->file('kk')->getmimeType();
+                    $image_org  = $request->file('kk')->getClientOriginalName();
+                    $fields_kk[] = array(
+                        'name'     => 'kk',
+                        'filename' => $image_org,
+                        'Mime-Type'=> $image_mime,
+                        'contents' => fopen( $image_path, 'r' ),
+                    );
+                    $fields = array_merge($fields,$fields_kk);
+                }
+            }
+
+            $client = new Client();
+            $response = $client->request('POST',  config('api.url').'rtrw/warga-masuk-ubah',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'multipart' => $fields
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                return response()->json(['data' => $data], 200);  
+            }
 
         } catch (BadResponseException $ex) {
-                $response = $ex->getResponse();
-                $res = json_decode($response->getBody(),true);
-                $data['message'] = $res;
-                $data['status'] = false;
-                return response()->json(['data' => $data], 500);
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $data['message'] = $res;
+            $data['status'] = false;
+            return response()->json(['data' => $data], 500);
         }
     }
 

@@ -41,6 +41,15 @@
             left: 10px !important;
             top: 190px !important;
         }
+
+        .icon-tambah{
+            background: #505050;
+            /* mask: url("{{ url('img/add.svg') }}"); */
+            -webkit-mask-image: url("{{ url('img/add.svg') }}");
+            mask-image: url("{{ url('img/add.svg') }}");
+            width: 12px;
+            height: 12px;
+        }
     
     </style>
     <!-- LIST DATA -->
@@ -151,7 +160,7 @@
                         <div class="tab-content tab-form-content col-12 pt-3 px-0">
                             <div class="tab-pane active" id="pegawai" role="tabpanel">
                                 <div class="mb-3" >
-                                     <table class="table table-bordered table-condensed gridexample display nowrap" id="input-grid" style='width:2140px !important'>
+                                     <table class="table table-bordered table-condensed gridexample display nowrap" id="input-grid" style='width:2490px !important'>
                                         <thead style="background:#F8F8F8">
                                             <tr>
                                                 <th style="width:10px">No</th>
@@ -173,7 +182,9 @@
                                                 <th style="width:100px">No HP</th>
                                                 <th style="width:100px">No Emergency</th>
                                                 <th style="width:150px">Hubungan Emerg.</th>
-                                                <th style="width:100px">Foto</th>
+                                                <th style="width:150px">Foto</th>
+                                                <th style="width:150px">KTP</th>
+                                                <th style="width:150px">KK</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -230,13 +241,6 @@
             rightArrow: '<i class="simple-icon-arrow-right"></i>'
         },
         orientation: 'bottom left'
-    });
-
-    $('.custom-file-input').on('change',function(){
-        //get the file name
-        var fileName = $(this).val();
-        //replace the "Choose a file" label
-        $(this).next('.custom-file-label').html(fileName);
     });
 
     $('#form-tambah').on('change', '#sts_masuk', function(e){
@@ -342,7 +346,9 @@
             { data: 'no_hp' },
             { data: 'emerg_call' },
             { data: 'ket_emergency' },
-            { data: 'foto' }
+            { data: 'foto' },
+            { data: 'ktp' },
+            { data: 'kk' }
         ],
         columnDefs: [
             {
@@ -359,6 +365,30 @@
                     if(row.foto != "" && row.foto != "-" && row.foto != null){
                         var url = ("{{ config('api.url') }}" == "http://localhost:8080/api/" ? "https://devapi.simkug.com/api/rtrw/storage" : "{{ config('api.url') }}rtrw/storage");
                         return "<a class='download-item' target='_blank' style='font-size:18px' href='"+url+"/"+row.foto+"' title='Download/View Foto'><i class='simple-icon-cloud-download'></i></a>";
+                    }else{
+                        return "-";
+                    }
+                }
+            }, 
+            {
+                "targets": 20,
+                "data": null,
+                "render": function ( data, type, row, meta ) {
+                    if(row.ktp != "" && row.ktp != "-" && row.ktp != null){
+                        var url = ("{{ config('api.url') }}" == "http://localhost:8080/api/" ? "https://devapi.simkug.com/api/rtrw/storage" : "{{ config('api.url') }}rtrw/storage");
+                        return "<a class='download-item' target='_blank' style='font-size:18px' href='"+url+"/"+row.ktp+"' title='Download/View KTP'><i class='simple-icon-cloud-download'></i></a>";
+                    }else{
+                        return "-";
+                    }
+                }
+            }, 
+            {
+                "targets": 21,
+                "data": null,
+                "render": function ( data, type, row, meta ) {
+                    if(row.kk != "" && row.kk != "-" && row.kk != null){
+                        var url = ("{{ config('api.url') }}" == "http://localhost:8080/api/" ? "https://devapi.simkug.com/api/rtrw/storage" : "{{ config('api.url') }}rtrw/storage");
+                        return "<a class='download-item' target='_blank' style='font-size:18px' href='"+url+"/"+row.kk+"' title='Download/View KK'><i class='simple-icon-cloud-download'></i></a>";
                     }else{
                         return "-";
                     }
@@ -1188,12 +1218,37 @@
                                         <input class="form-control" type="text" placeholder="No Handphone" id="no_hp" name="no_hp" required>          
                                     </div>
                                 </div>
-                                
                             </div>
                             <div class="form-group col-md-6 col-sm-12">
                                 <div class="row mb-2 text-center">
                                     <div style="" class="col-12">
                                         <div class="preview text-center" style="height:120px;width:120px;margin: 0 auto;border: 1px solid #d7d7d7;border-radius: 0.5rem;">Preview</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label>KTP</label>
+                                        <div class="input-group">
+                                            <div class="custom-file">
+                                                <input type="file" name="ktp" class="custom-file-input" id="ktp">
+                                                <label class="custom-file-label" style="border-radius: 0.5rem;" for="ktp">Choose file</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-12" id="div_kk">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label>KK</label>
+                                        <div class="input-group">
+                                            <div class="custom-file">
+                                                <input type="file" name="kk" class="custom-file-input" id="kk">
+                                                <label class="custom-file-label" style="border-radius: 0.5rem;" for="kk">Choose file</label>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -1225,6 +1280,7 @@
             </div>`;
             $('#content-bottom-sheet').html(html);
             
+            $('#div_kk').hide();
             var tgl = $('#tgl_masuk').val();
             generateIDWarga(tgl);
             $('.selectize2').selectize();
@@ -1263,8 +1319,22 @@
                 $('#ket_emergency').val(data.ket_emergency); 
                 $('#sts_nikah')[0].selectize.setValue(data.sts_nikah);
                 $('#sts_hub')[0].selectize.setValue(data.sts_hub);
+                if(data.sts_hub == "KEPALA KEL."){
+                    $('#div_kk').show();
+                }else{
+                    $('#div_kk').hide();
+                }
                 $('#sts_domisili')[0].selectize.setValue(data.sts_domisili);
                 $('#goldar')[0].selectize.setValue(data.goldar);
+                if(data.foto != "" && data.foto != "-" && data.foto != null){
+                    $('#file_gambar').next('.custom-file-label').html(data.foto);
+                }
+                if(data.ktp != "" && data.ktp != "-" && data.ktp != null){
+                    $('#ktp').next('.custom-file-label').html(data.ktp);
+                }
+                if(data.kk != "" && data.kk != "-" && data.kk != null){
+                    $('#kk').next('.custom-file-label').html(data.kk);
+                }
                 var url = ("{{ config('api.url') }}" == "http://localhost:8080/api/" ? "https://devapi.simkug.com/api/rtrw/storage" : "{{ config('api.url') }}rtrw/storage");
                 var html = "<img style='width:120px' style='margin:0 auto' src='"+url+"/"+data.foto+"'>";
                 $('.preview').html(html);   
@@ -1292,11 +1362,30 @@
                     }
                 }
             });
+
+            $('.custom-file-input').on('change',function(){
+                //get the file name
+                var fileName = $(this).val();
+                //replace the "Choose a file" label
+                $(this).next('.custom-file-label').html(fileName);
+            });
             
             $('#form-detail').on('click', '#generate_kode', function(e){
                 e.preventDefault();
                 var tgl = $('#tgl_masuk').val();
                 generateIDWarga(tgl);
+            });
+
+            $('#form-detail').on('change', '#sts_hub', function(e){
+                e.preventDefault();
+                var sts = $('#sts_hub')[0].selectize.getValue();
+                if(sts == "KEPALA KEL."){
+                    $('#div_kk').show();
+                }else{
+                    $('#div_kk').hide();
+                    $('#kk').val('');
+                    $('#kk').trigger('change');
+                }
             });
 
             //BUTTON SIMPAN /SUBMIT
@@ -1439,18 +1528,19 @@
                                         icon: 'error',
                                         title: 'Oops...',
                                         text: 'Something went wrong!',
-                                        footer: '<a href>'+JSON.stringify(result.data.message)+'</a>'
+                                        footer: JSON.stringify(result.data.message)
                                     })
                                 }
                             }
                         },
                         error: function(xhr, status, error) {
-                            var error = JSON.parse(xhr.responseText);
-                            var detail = Object.values(error.errors)
+                            var res = JSON.parse(xhr.responseText);
+                            // // var detail = Object.values(error.errors)
                             Swal.fire({
-                                type: 'error',
-                                title: error.message,
-                                text: detail[0]
+                                icon: 'error',
+                                title: res,
+                                text: 'Something went wrong!',
+                                footer: JSON.stringify(error)
                             })
                         },
                         fail: function(xhr, textStatus, errorThrown){
