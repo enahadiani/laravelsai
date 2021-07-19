@@ -159,3 +159,11 @@ Route::get('pejabat/{id}', 'Rtrw\PejabatController@getData');
 Route::post('pejabat', 'Rtrw\PejabatController@store');
 Route::post('pejabat-ubah', 'Rtrw\PejabatController@update');
 Route::delete('pejabat/{id}', 'Rtrw\PejabatController@delete');
+
+// Surat Pengantar //
+Route::get('surat-pengantar', 'Rtrw\SuratPengantarController@index');
+Route::get('surat-pengantar-detail/{id}', 'Rtrw\SuratPengantarController@show');
+Route::get('generate-nosurat', 'Rtrw\SuratPengantarController@generateNBukti');
+Route::post('surat-pengantar', 'Rtrw\SuratPengantarController@store');
+Route::post('surat-pengantar/{id}', 'Rtrw\SuratPengantarController@update');
+Route::delete('surat-pengantar/{id}', 'Rtrw\SuratPengantarController@destroy');
