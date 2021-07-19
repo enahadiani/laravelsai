@@ -152,3 +152,10 @@ Route::get('generate-idwarga-keluar','Rtrw\WargaKeluarController@generateIDWarga
 Route::get('warga-keluar-detail/{no_bukti}','Rtrw\WargaKeluarController@show');
 Route::post('warga-keluar','Rtrw\WargaKeluarController@store');
 Route::post('warga-keluar/{no_bukti}','Rtrw\WargaKeluarController@update');
+
+// Data RW //
+Route::get('pejabat', 'Rtrw\PejabatController@index');
+Route::get('pejabat/{id}', 'Rtrw\PejabatController@getData');
+Route::post('pejabat', 'Rtrw\PejabatController@store');
+Route::post('pejabat-ubah', 'Rtrw\PejabatController@update');
+Route::delete('pejabat/{id}', 'Rtrw\PejabatController@delete');
