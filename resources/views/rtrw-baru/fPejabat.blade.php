@@ -207,7 +207,6 @@
     function readURL(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
-            console.log('change');
             reader.onload = function (e) {
                 var html = `<img id="img-preview" width="120px" src="`+e.target.result+`" alt="Preview" style='margin:0 auto'>`;
                 $('.preview').html(html);
@@ -220,7 +219,6 @@
     function readURL2(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
-            console.log('change');
             reader.onload = function (e) {
                 var html = `<img id="img-preview2" width="120px" src="`+e.target.result+`" alt="Preview" style='margin:0 auto'>`;
                 $('.preview2').html(html);
@@ -240,9 +238,7 @@
         }); 
         dataTable.row(rowIndexes).select();
         $('.selected td:eq(0)').addClass('last-add');
-        console.log('last-add');
         setTimeout(function() {
-            console.log('timeout');
             $('.selected td:eq(0)').removeClass('last-add');
             dataTable.row(rowIndexes).deselect();
         }, 1000 * 60 * 10);
@@ -305,8 +301,6 @@
         $('.info-code_'+kode).text(isi_kode).parent('div').removeClass('hidden');
         $('.info-code_'+kode).attr('title',isi_nama);
         $('.info-name_'+kode).removeClass('hidden');
-        console.log('.info-name_'+kode+' span');
-        console.log(isi_nama);
         $('.info-name_'+kode).attr('title',isi_nama);
         $('.info-name_'+kode+' span').html(isi_nama);
         var width = $('#'+kode).width()-$('#search_'+kode).width()-10;
@@ -401,6 +395,10 @@
         $('#kode_pp').attr('readonly', false);
         $('#kode_lokasi').val("{{ Session::get('lokasi') }}");
         $('#kode_pp').val("{{ Session::get('kodePP') }}");
+        $('.preview').html('');
+        $('.preview2').html('');
+        $('#cap_rt').next('.custom-file-label').html('Choose File');
+        $('#ttd_rt').next('.custom-file-label').html('Choose File');
         $('#saku-datatable').hide();
         $('#saku-form').show();
         $('.input-group-prepend').addClass('hidden');
@@ -601,9 +599,16 @@
                     $('#tgl_sk').val(result.data[0].tgl_sk); 
                     $('#no_sk').val(result.data[0].no_sk); 
                     $('#flag_aktif')[0].selectize.setValue(result.data[0].flag_aktif); 
-                    var html = "<img style='width:120px' style='margin:0 auto' src='"+result.data[0].cap_rt+"'>";
+                    if(result.data[0].cap_rt != "" && result.data[0].cap_rt != "-" && result.data[0].cap_rt != null){
+                        $('#cap_rt').next('.custom-file-label').html(result.data[0].cap_rt);
+                    }
+                    if(result.data[0].ttd_rt != "" && result.data[0].ttd_rt != "-" && result.data[0].ttd_rt != null){
+                        $('#ttd_rt').next('.custom-file-label').html(result.data[0].ttd_rt);
+                    }
+                    var url = ("{{ config('api.url') }}" == "http://localhost:8080/api/" ? "https://devapi.simkug.com/api/rtrw/storage" : "{{ config('api.url') }}rtrw/storage");
+                    var html = "<img style='width:120px' style='margin:0 auto' src='"+url+"/"+result.data[0].cap_rt+"'>";
                     $('.preview').html(html);   
-                    var html = "<img style='width:120px' style='margin:0 auto' src='"+result.data[0].ttd_rt+"'>";
+                    var html = "<img style='width:120px' style='margin:0 auto' src='"+url+"/"+result.data[0].ttd_rt+"'>";
                     $('.preview2').html(html);          
                     $('#saku-datatable').hide();
                     $('#modal-preview').modal('hide');
@@ -691,8 +696,8 @@
                     <td>`+data.cap_rt+`</td>
                     </tr>
                     <tr>
-                    <td>Cap RW</td>
-                    <td>`+data.cap_rt+`</td>
+                    <td>TTD RT</td>
+                    <td>`+data.ttd_rt+`</td>
                     </tr>
                 </table>
             </div>`;
@@ -727,7 +732,6 @@
                 e.stopPropagation();
                 $('.dropdown-ke1').addClass('hidden');
                 $('.dropdown-ke2').removeClass('hidden');
-                console.log('ok');
             });
             
             $('.preview-header').on('click','#btn-cetak2',function(e){
