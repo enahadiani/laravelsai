@@ -1279,8 +1279,6 @@
             </form>
             </div>`;
             $('#content-bottom-sheet').html(html);
-            
-            $('#div_kk').hide();
             var tgl = $('#tgl_masuk').val();
             generateIDWarga(tgl);
             $('.selectize2').selectize();
@@ -1319,11 +1317,6 @@
                 $('#ket_emergency').val(data.ket_emergency); 
                 $('#sts_nikah')[0].selectize.setValue(data.sts_nikah);
                 $('#sts_hub')[0].selectize.setValue(data.sts_hub);
-                if(data.sts_hub == "KEPALA KEL."){
-                    $('#div_kk').show();
-                }else{
-                    $('#div_kk').hide();
-                }
                 $('#sts_domisili')[0].selectize.setValue(data.sts_domisili);
                 $('#goldar')[0].selectize.setValue(data.goldar);
                 if(data.foto != "" && data.foto != "-" && data.foto != null){
@@ -1374,18 +1367,6 @@
                 e.preventDefault();
                 var tgl = $('#tgl_masuk').val();
                 generateIDWarga(tgl);
-            });
-
-            $('#form-detail').on('change', '#sts_hub', function(e){
-                e.preventDefault();
-                var sts = $('#sts_hub')[0].selectize.getValue();
-                if(sts == "KEPALA KEL."){
-                    $('#div_kk').show();
-                }else{
-                    $('#div_kk').hide();
-                    $('#kk').val('');
-                    $('#kk').trigger('change');
-                }
             });
 
             //BUTTON SIMPAN /SUBMIT
