@@ -85,6 +85,10 @@ function namaPeriode(periode){
         case 10 : case '10' : case '10': bulan = "Oktober"; break;
         case 11 : case '11' : case '11': bulan = "November"; break;
         case 12 : case '12' : case '12': bulan = "Desember"; break;
+        case 13 : case '13' : case '13': bulan = "Desember 2"; break;
+        case 14 : case '14' : case '14': bulan = "Desember 3"; break;
+        case 15 : case '15' : case '15': bulan = "Desember 4"; break;
+        case 16 : case '16' : case '16': bulan = "Desember 5"; break;
         default: bulan = null;
     }
 
