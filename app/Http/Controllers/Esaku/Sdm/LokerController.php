@@ -32,7 +32,7 @@ class LokerController extends Controller
     public function index(){
         try {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'sdm/loker',[
+            $response = $client->request('GET',  config('api.url').'esaku-master/sdm-lokers',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -56,54 +56,51 @@ class LokerController extends Controller
 
     public function store(Request $request) {
         $this->validate($request, [
-            'kode_gudang' => 'required',
+            'kode_loker' => 'required',
             'nama' => 'required',
-            'alamat' => 'required',
-            'telp' => 'required',
-            'pic' => 'required',
-            'kode_pp' => 'required',
+            'status' => 'required'
         ]);
 
         try {   
-                $client = new Client();
-                $response = $client->request('POST',  config('api.url').'esaku-master/gudang',[
-                    'headers' => [
-                        'Authorization' => 'Bearer '.Session::get('token'),
-                        'Accept'     => 'application/json',
-                    ],
-                    'form_params' => [
-                        'kode_gudang' => $request->kode_gudang,
-                        'nama' => $request->nama,
-                        'alamat' => $request->alamat,
-                        'telp' => $request->telp,
-                        'pic' => $request->pic,
-                        'kode_pp' => $request->kode_pp,
-                    ]
-                ]);
-                if ($response->getStatusCode() == 200) { // 200 OK
-                    $response_data = $response->getBody()->getContents();
+            $client = new Client();
+            $response = $client->request('POST',  config('api.url').'esaku-master/sdm-loker',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'form_params' => [
+                    'kode_loker' => $request->input('kode_loker'),
+                    'nama' => $request->input('nama'),
+                    'status' => $request->input('status')
+                ]
+            ]);
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
                     
-                    $data = json_decode($response_data,true);
-                    return response()->json(['data' => $data], 200);  
-                }
+                $data = json_decode($response_data,true);
+                return response()->json(['data' => $data], 200);  
+            }
 
         } catch (BadResponseException $ex) {
-                $response = $ex->getResponse();
-                $res = json_decode($response->getBody(),true);
-                $data['message'] = $res;
-                $data['status'] = false;
-                return response()->json(['data' => $data], 500);
-            }
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $data['message'] = $res;
+            $data['status'] = false;
+            return response()->json(['data' => $data], 500);
+        }
     }
 
-    public function getData($id) {
+    public function show(Request $request) {
         try{
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'esaku-master/gudang?kode_gudang='.$id,
+            $response = $client->request('GET',  config('api.url').'esaku-master/sdm-loker',
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
+                ], 
+                'query' => [
+                    'kode_loker' => $request->query('kode')
                 ]
             ]);
     
@@ -122,56 +119,53 @@ class LokerController extends Controller
         }
     }
 
-    public function update(Request $request, $id) {
+    public function update(Request $request) {
         $this->validate($request, [
-            'kode_gudang' => 'required',
+            'kode_loker' => 'required',
             'nama' => 'required',
-            'alamat' => 'required',
-            'telp' => 'required',
-            'pic' => 'required',
-            'kode_pp' => 'required',
+            'status' => 'required'
         ]);
 
-        try {
-                $client = new Client();
-                $response = $client->request('PUT',  config('api.url').'esaku-master/gudang?kode_gudang='.$id,[
-                    'headers' => [
-                        'Authorization' => 'Bearer '.Session::get('token'),
-                        'Accept'     => 'application/json',
-                    ],
-                    'form_params' => [
-                        'kode_gudang' => $request->kode_vendor,
-                        'nama' => $request->nama,
-                        'alamat' => $request->alamat,
-                        'telp' => $request->telp,
-                        'pic' => $request->pic,
-                        'kode_pp' => $request->kode_pp,
-                    ]
-                ]);
-                if ($response->getStatusCode() == 200) { // 200 OK
-                    $response_data = $response->getBody()->getContents();
+        try {   
+            $client = new Client();
+            $response = $client->request('POST',  config('api.url').'esaku-master/sdm-loker-update',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'form_params' => [
+                    'kode_loker' => $request->input('kode_loker'),
+                    'nama' => $request->input('nama'),
+                    'status' => $request->input('status')
+                ]
+            ]);
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
                     
-                    $data = json_decode($response_data,true);
-                    return response()->json(['data' => $data], 200);  
-                }
+                $data = json_decode($response_data,true);
+                return response()->json(['data' => $data], 200);  
+            }
 
         } catch (BadResponseException $ex) {
-                $response = $ex->getResponse();
-                $res = json_decode($response->getBody(),true);
-                $data['message'] = $res['message'];
-                $data['status'] = false;
-                return response()->json(['data' => $data], 500);
-            }
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $data['message'] = $res;
+            $data['status'] = false;
+            return response()->json(['data' => $data], 500);
+        }
     }
 
-    public function delete($id) {
+    public function delete(Request $request) {
         try{
             $client = new Client();
-            $response = $client->request('DELETE',  config('api.url').'esaku-master/gudang?kode_gudang='.$id,
+            $response = $client->request('DELETE',  config('api.url').'esaku-master/sdm-loker',
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
+                ],
+                'query' => [
+                    'kode_loker' => $request->input('kode')
                 ]
             ]);
     
@@ -184,11 +178,11 @@ class LokerController extends Controller
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(),true);
-            $data['message'] = $res['message'];
-            $data['status'] = false;
-            return response()->json(['data' => $data], 200);
+            return $res;
+            // $data['message'] = $res['message'];
+            // $data['status'] = false;
+            // return response()->json(['data' => $data], 200);
         }
-
     }
    
 }

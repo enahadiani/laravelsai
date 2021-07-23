@@ -261,8 +261,8 @@ Route::delete('kartu-simpanan/{id}','Esaku\Simpanan\Master\KartuSimpananControll
 // SDM
 
 // Data Loker //
-Route::get('sdm-loker', 'Esaku\Sdm\LokerController@index');
-Route::get('sdm-loker/{id}', 'Esaku\Sdm\LokerController@getData');
+Route::get('sdm-lokers', 'Esaku\Sdm\LokerController@index');
+Route::get('sdm-loker', 'Esaku\Sdm\LokerController@show');
 Route::post('sdm-loker', 'Esaku\Sdm\LokerController@store');
-Route::put('sdm-loker/{id}', 'Esaku\Sdm\LokerController@update');
-Route::delete('sdm-loker/{id}', 'Esaku\Sdm\LokerController@delete');
+Route::post('sdm-loker-update', 'Esaku\Sdm\LokerController@update');
+Route::delete('sdm-loker', 'Esaku\Sdm\LokerController@delete');
