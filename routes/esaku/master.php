@@ -325,5 +325,10 @@ Route::post('sdm-agama-update', 'Esaku\Sdm\AgamaSDMController@update');
 Route::delete('sdm-agama', 'Esaku\Sdm\AgamaSDMController@delete');
 
 // Data Jurusan Karyawam //
+Route::get('sdm-jurusans', 'Esaku\Sdm\JurusanSDMController@index');
+Route::get('sdm-jurusan', 'Esaku\Sdm\JurusanSDMController@show');
+Route::post('sdm-jurusan', 'Esaku\Sdm\JurusanSDMController@store');
+Route::post('sdm-jurusan-update', 'Esaku\Sdm\JurusanSDMController@update');
+Route::delete('sdm-jurusan', 'Esaku\Sdm\JurusanSDMController@delete');
 
 // Data Strata Karyawam //
