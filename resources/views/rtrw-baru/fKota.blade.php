@@ -189,6 +189,7 @@
             type: 'GET',
             url: "{{ url('rtrw-master/provinsi') }}/"+id,
             dataType: 'json',
+            data:{kode_prop:id},
             async:false,
             success:function(result){    
                 if(result.status){
@@ -431,6 +432,7 @@
             type: 'GET',
             url: "{{ url('rtrw-master/kota') }}/"+id,
             dataType: 'json',
+            data:{kode_kota:id},
             async:false,
             success:function(result){
                 if(result.status){

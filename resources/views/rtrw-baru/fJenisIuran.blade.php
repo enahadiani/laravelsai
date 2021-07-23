@@ -20,10 +20,22 @@
             margin-top: 10px;
             margin-right: 25px;
         }
+
+        #tgl_mulai-dp .datepicker-dropdown
+        {
+            left: 20px !important;
+            top: 190px !important;
+        }
+
+        #tgl_selesai-dp .datepicker-dropdown
+        {
+            left: 20px !important;
+            top: 190px !important;
+        }
     
     </style>
     <!-- LIST DATA -->
-    <x-list-data judul="Data Provinsi" tambah="true" :thead="array('Kode Provinsi','Nama','Aksi')" :thwidth="array(20,70,10)" :thclass="array('','','text-center')" />
+    <x-list-data judul="Data Jenis Iuran" tambah="true" :thead="array('Kode Jenis','Nama','Jenis','Aksi')" :thwidth="array(20,50,20,10)" :thclass="array('','','','text-center')" />
     <!-- END LIST DATA -->
 
     <form id="form-tambah" class="tooltip-label-right" novalidate>
@@ -48,8 +60,8 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6 col-sm-12">
-                                <label for="kode_prop" >Kode Provinsi</label>
-                                <input class="form-control" type="text" placeholder="Kode Provinsi" id="kode_prop" name="kode_prop" required>                         
+                                <label for="kode_jenis" >Kode Jenis</label>
+                                <input class="form-control" type="text" placeholder="Kode Jenis" id="kode_jenis" name="kode_jenis" required>                         
                             </div>
                         </div>
                         <div class="form-row">
@@ -58,6 +70,37 @@
                                 <input class="form-control" type="text" placeholder="Nama" id="nama" name="nama" required>                         
                             </div>
                         </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="jenis">Jenis</label>
+                                <select class='form-control selectize' id="jenis" name="jenis">
+                                <option value='' disabled selected>--- Pilih Jenis ---</option>
+                                <option value='REGULER'>REGULER</option>
+                                <option value='INSIDENTIL'>INSIDENTIL</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="status">Status</label>
+                                <select class='form-control selectize' id="status" name="status">
+                                <option value='' disabled selected>--- Pilih Status ---</option>
+                                <option value='PDPT'>PDPT</option>
+                                <option value='TITIPAN'>TITIPAN</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="tgl_mulai">Tgl Mulai</label>
+                                <span id="tgl_mulai-dp"></span>
+                                <input type="text" class="form-control datepicker" id="tgl_mulai" name="tgl_mulai" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="tgl_selesai">Tgl Selesai</label>
+                                <span id="tgl_selesai-dp"></span>
+                                <input type="text" class="form-control datepicker" id="tgl_selesai" name="tgl_selesai" required>
+                            </div>
+                        </div>
+
                     </div>
                     <div class="card-body-footer row mx-auto" style="padding: 0 25px;">
                         <div style="vertical-align: middle;" class="col-md-10 text-right p-0">
@@ -94,6 +137,28 @@
         }
     });
 
+    $("#tgl_mulai").bootstrapDP({
+        autoclose: true,
+        format: 'dd/mm/yyyy',
+        container:'span#tgl_mulai-dp',
+        templates: {
+            leftArrow: '<i class="simple-icon-arrow-left"></i>',
+            rightArrow: '<i class="simple-icon-arrow-right"></i>'
+        },
+        orientation: 'bottom left'
+    });
+
+    $("#tgl_selesai").bootstrapDP({
+        autoclose: true,
+        format: 'dd/mm/yyyy',
+        container:'span#tgl_selesai-dp',
+        templates: {
+            leftArrow: '<i class="simple-icon-arrow-left"></i>',
+            rightArrow: '<i class="simple-icon-arrow-right"></i>'
+        },
+        orientation: 'bottom left'
+    });
+
     function last_add(param,isi){
         var rowIndexes = [];
         dataTable.rows( function ( idx, data, node ) {             
@@ -116,14 +181,14 @@
     var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
     var dataTable = generateTable(
         "table-data",
-        "{{ url('rtrw-master/provinsi') }}", 
+        "{{ url('rtrw-master/jenis-iuran') }}", 
         [
-            {'targets': 2, data: null, 'defaultContent': action_html,'className': 'text-center' },
-           
+            {'targets': 3, data: null, 'defaultContent': action_html,'className': 'text-center' },
         ],
         [
-            { data: 'kode_prop' },
+            { data: 'kode_jenis' },
             { data: 'nama' },
+            { data: 'jenis' }
         ],
         "{{ url('rtrw-auth/sesi-habis') }}",
         [[0 ,"desc"]]
@@ -141,17 +206,47 @@
     });
     // END LIST DATA
 
+    // CBBL
+    $('.info-icon-hapus').click(function(){
+        var par = $(this).closest('div').find('input').attr('name');
+        $('#'+par).val('');
+        $('#'+par).attr('readonly',false);
+        $('#'+par).attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important');
+        $('.info-code_'+par).parent('div').addClass('hidden');
+        $('.info-name_'+par).addClass('hidden');
+        $(this).addClass('hidden');
+    });
+
+    function showInfoField(kode,isi_kode,isi_nama){
+        $('#'+kode).val(isi_kode);
+        $('#'+kode).attr('style','border-left:0;border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important');
+        $('.info-code_'+kode).text(isi_kode).parent('div').removeClass('hidden');
+        $('.info-code_'+kode).attr('title',isi_nama);
+        $('.info-name_'+kode).removeClass('hidden');
+        $('.info-name_'+kode).attr('title',isi_nama);
+        $('.info-name_'+kode+' span').text(isi_nama);
+        var width = $('#'+kode).width()-$('#search_'+kode).width()-10;
+        var height =$('#'+kode).height();
+        var pos =$('#'+kode).position();
+        $('.info-name_'+kode).width(width).css({'left':pos.left,'height':height});
+        $('.info-name_'+kode).closest('div').find('.info-icon-hapus').removeClass('hidden');
+    }
+
+    $(".selectize").selectize();
+
+    // END CBBL
+
     // BUTTON TAMBAH
     $('#saku-datatable').on('click', '#btn-tambah', function(){
         $('#row-id').hide();
         $('#id_edit').val('');
-        $('#judul-form').html('Tambah Data Provinsi');
+        $('#judul-form').html('Tambah Data Jenis Iuran');
         $('#btn-update').attr('id','btn-save');
         $('#btn-save').attr('type','submit');
         $('#form-tambah')[0].reset();
         $('#form-tambah').validate().resetForm();
         $('#method').val('post');
-        $('#kode_prop').attr('readonly', false);
+        $('#kode_jenis').attr('readonly', false);
         $('#saku-datatable').hide();
         $('#saku-form').show();
         $('.input-group-prepend').addClass('hidden');
@@ -173,7 +268,7 @@
     });
 
     $('#saku-form').on('click', '#btn-update', function(){
-        var kode = $('#kode_prop').val();
+        var kode = $('#kode_jenis').val();
         msgDialog({
             id:kode,
             type:'edit'
@@ -185,7 +280,7 @@
         ignore: [],
         rules: 
         {
-            kode_prop:{
+            kode_jenis:{
                 required: true,
                 maxlength:10   
             },
@@ -193,22 +288,30 @@
                 required: true,
                 maxlength:50   
             },
-            kode_prov:{
-                required: true, 
-                maxlength:50  
+            jenis:{
+                required: true
+            },
+            status:{
+                required: true
+            },
+            tgl_mulai:{
+                required: true
+            },
+            tgl_selesai:{
+                required: true
             }
         },
         errorElement: "label",
         submitHandler: function (form, event) {
             event.preventDefault();
             var parameter = $('#id_edit').val();
-            var id = $('#kode_prop').val();
+            var id = $('#kode_jenis').val();
             if(parameter == "edit"){
-                var url = "{{ url('rtrw-master/provinsi') }}/"+id;
+                var url = "{{ url('rtrw-master/jenis-iuran') }}/"+id;
                 var pesan = "updated";
                 var text = "Perubahan data "+id+" telah tersimpan";
             }else{
-                var url = "{{ url('rtrw-master/provinsi') }}";
+                var url = "{{ url('rtrw-master/jenis-iuran') }}";
                 var pesan = "saved";
                 var text = "Data tersimpan dengan kode "+id;
             }
@@ -235,24 +338,24 @@
                         $('#form-tambah').validate().resetForm();
                         $('[id^=label]').html('');
                         $('#id_edit').val('');
-                        $('#judul-form').html('Tambah Data Provinsi');
+                        $('#judul-form').html('Tambah Data Jenis Iuran');
                         $('#method').val('post');
-                        $('#kode_prop').attr('readonly', false);
+                        $('#kode_jenis').attr('readonly', false);
                         msgDialog({
                             id:result.data.kode,
                             type:'simpan'
                         });
-                        last_add("kode_prop",result.data.kode);
+                        last_add("kode_jenis",result.data.kode);
                     }else if(!result.data.status && result.data.message === "Unauthorized"){
                     
                         window.location.href = "{{ url('/rtrw-auth/sesi-habis') }}";
                         
                     }else{
-                        if(result.data.kode == "-" && result.data.jekode_prop != undefined){
+                        if(result.data.kode == "-" && result.data.kode_jenis != undefined){
                             msgDialog({
                                 id: id,
-                                type: result.data.jekode_prop,
-                                text:'Kode Provinsi sudah digunakan'
+                                type: result.data.kode_jenis,
+                                text:'Kode Jenis sudah digunakan'
                             });
                         }else{
 
@@ -260,7 +363,7 @@
                                 icon: 'error',
                                 title: 'Oops...',
                                 text: 'Something went wrong!',
-                                footer: '<a href>'+JSON.stringify(result.data.message)+'</a>'
+                                footer: '<a href>'+result.data.message+'</a>'
                             })
                         }
                     }
@@ -289,15 +392,16 @@
 
     // BUTTON HAPUS DATA
     function hapusData(id){
+        console.log(id)
         $.ajax({
             type: 'DELETE',
-            url: "{{ url('rtrw-master/provinsi') }}/"+id,
+            url: "{{ url('rtrw-master/jenis-iuran') }}/"+id,
             dataType: 'json',
             async:false,
             success:function(result){
                 if(result.data.status){
                     dataTable.ajax.reload();                    
-                    showNotification("top", "center", "success",'Hapus Data','Data Provinsi ('+id+') berhasil dihapus ');
+                    showNotification("top", "center", "success",'Hapus Data','Data Jenis Iuran ('+id+') berhasil dihapus ');
                     $('#modal-pesan-id').html('');
                     $('#table-delete tbody').html('');
                     $('#modal-pesan').modal('hide');
@@ -327,19 +431,22 @@
     function editData(id){
         $.ajax({
             type: 'GET',
-            url: "{{ url('rtrw-master/provinsi') }}/"+id,
+            url: "{{ url('rtrw-master/jenis-iuran') }}/"+id,
             dataType: 'json',
-            data:{kode_prop:id},
+            data:{kode_jenis:id},
             async:false,
             success:function(result){
                 if(result.status){
                     $('#id_edit').val('edit');
                     $('#method').val('put');
-                    $('#kode_prop').attr('readonly', true);
-                    $('#kode_prop').val(id);
+                    $('#kode_jenis').attr('readonly', true);
+                    $('#kode_jenis').val(id);
                     $('#id').val(id);
                     $('#nama').val(result.data[0].nama);
-                    $('#kode_prov').val(result.data[0].kode_prov);          
+                    $('#jenis')[0].selectize.setValue(result.data[0].jenis); 
+                    $('#status')[0].selectize.setValue(result.data[0].status); 
+                    $('#tgl_mulai').val(result.data[0].tgl_mulai);
+                    $('#tgl_selesai').val(result.data[0].tgl_selesai);         
                     $('#saku-datatable').hide();
                     $('#modal-preview').modal('hide');
                     $('#saku-form').show();
@@ -362,12 +469,12 @@
         $('#btn-save').attr('type','button');
         $('#btn-save').attr('id','btn-update');
 
-        $('#judul-form').html('Edit Data Provinsi');
+        $('#judul-form').html('Edit Data Jenis Iuran');
         editData(id);
     });
 
     $('#table-data tbody').on('click','td',function(e){
-        if($(this).index() != 2){
+        if($(this).index() != 3){
 
             var id = $(this).closest('tr').find('td').eq(0).html();
             var data = dataTable.row(this).data();
@@ -393,12 +500,28 @@
             <div class='preview-body' style='padding: 0 1.75rem;height: calc(75vh - 56px) position:sticky;min-height:300px'>
                 <table class="table table-prev mt-2" width="100%" style="padding-bottom:200px">
                     <tr>
-                    <td style='border:none'>Kode Provinsi</td>
+                    <td style='border:none'>Kode Jenis</td>
                     <td style='border:none'>`+id+`</td>
                     </tr>
                     <tr>
-                    <td>Nama Provinsi</td>
+                    <td>Nama Jenis</td>
                     <td>`+data.nama+`</td>
+                    </tr>
+                    <tr>
+                    <td>Jenis</td>
+                    <td>`+data.jenis+`</td>
+                    </tr>
+                    <tr>
+                    <td>Status</td>
+                    <td>`+data.status+`</td>
+                    </tr>
+                    <tr>
+                    <td>Tgl Mulai</td>
+                    <td>`+data.tgl_mulai+`</td>
+                    </tr>
+                    <tr>
+                    <td>Tgl Selesai</td>
+                    <td>`+data.tgl_selesai+`</td>
                     </tr>
                 </table>
             </div>`;
@@ -419,7 +542,7 @@
             
             $('.preview-header').on('click', '#btn-edit2', function(){
                 var id= $('#preview-id').text();
-                $('#judul-form').html('Edit Data Provinsi');
+                $('#judul-form').html('Edit Data Jenis Iuran');
                 $('#form-tambah')[0].reset();
                 $('#form-tambah').validate().resetForm();
                 
@@ -447,9 +570,9 @@
         }
     });
 
-    $('#kode_prop,#nama').keydown(function(e){
+    $('#kode_jenis,#nama,#jenis,#status,#tgl_mulai,#tgl_selesai').keydown(function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['kode_prop','nama'];
+        var nxt = ['kode_jenis','nama','jenis','status','tgl_mulai','tgl_selesai'];
         if (code == 13 || code == 40) {
             e.preventDefault();
             var idx = nxt.indexOf(e.target.id);

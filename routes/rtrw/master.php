@@ -118,6 +118,14 @@ Route::post('desa', 'Rtrw\DesaController@store');
 Route::put('desa/{id}', 'Rtrw\DesaController@update');
 Route::delete('desa/{id}', 'Rtrw\DesaController@delete');
 
+
+// Data Jenis Iuran //
+Route::get('jenis-iuran', 'Rtrw\JenisIuranController@index');
+Route::get('jenis-iuran/{id}', 'Rtrw\JenisIuranController@getData');
+Route::post('jenis-iuran', 'Rtrw\JenisIuranController@store');
+Route::put('jenis-iuran/{id}', 'Rtrw\JenisIuranController@update');
+Route::delete('jenis-iuran/{id}', 'Rtrw\JenisIuranController@delete');
+
 // Data RW //
 Route::get('rw', 'Rtrw\RwController@index');
 Route::get('rw/{id}', 'Rtrw\RwController@getData');

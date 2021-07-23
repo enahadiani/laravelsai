@@ -189,6 +189,7 @@
             type: 'GET',
             url: "{{ url('rtrw-master/camat') }}/"+id,
             dataType: 'json',
+            data:{kode_camat:id},
             async:false,
             success:function(result){    
                 if(result.status){
@@ -431,6 +432,7 @@
             type: 'GET',
             url: "{{ url('rtrw-master/desa') }}/"+id,
             dataType: 'json',
+            data:{kode_desa:id},
             async:false,
             success:function(result){
                 if(result.status){
