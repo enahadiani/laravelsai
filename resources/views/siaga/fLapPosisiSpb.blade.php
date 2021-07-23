@@ -357,7 +357,7 @@
                 <li class="breadcrumb-item">
                     <a href="#" class="klik-report" data-href="posisi">Posisi</a>
                 </li>
-                <li class="breadcrumb-item active" aria-current="form">Form Justifikasi</li>
+                <li class="breadcrumb-item active" aria-current="form">Form SPB</li>
             `);
             xurl ="siaga-auth/form/rptAjuFormSpb";
             $('#saku-report #canvasPreview').load(xurl);
