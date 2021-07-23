@@ -9,7 +9,7 @@ use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Session;
 use GuzzleHttp\Exception\BadResponseException;
 
-class LokerController extends Controller
+class JabatanSDMController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -32,7 +32,7 @@ class LokerController extends Controller
     public function index(){
         try {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'esaku-master/sdm-lokers',[
+            $response = $client->request('GET',  config('api.url').'esaku-master/sdm-jabatans',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -56,20 +56,20 @@ class LokerController extends Controller
 
     public function store(Request $request) {
         $this->validate($request, [
-            'kode_loker' => 'required',
+            'kode_jab' => 'required',
             'nama' => 'required',
             'status' => 'required'
         ]);
 
         try {   
             $client = new Client();
-            $response = $client->request('POST',  config('api.url').'esaku-master/sdm-loker',[
+            $response = $client->request('POST',  config('api.url').'esaku-master/sdm-jabatan',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
                 ],
                 'form_params' => [
-                    'kode_loker' => $request->input('kode_loker'),
+                    'kode_jab' => $request->input('kode_jab'),
                     'nama' => $request->input('nama'),
                     'status' => $request->input('status')
                 ]
@@ -93,14 +93,14 @@ class LokerController extends Controller
     public function show(Request $request) {
         try{
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'esaku-master/sdm-loker',
+            $response = $client->request('GET',  config('api.url').'esaku-master/sdm-jabatan',
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
                 ], 
                 'query' => [
-                    'kode_loker' => $request->query('kode')
+                    'kode_jab' => $request->query('kode')
                 ]
             ]);
     
@@ -121,20 +121,20 @@ class LokerController extends Controller
 
     public function update(Request $request) {
         $this->validate($request, [
-            'kode_loker' => 'required',
+            'kode_jab' => 'required',
             'nama' => 'required',
             'status' => 'required'
         ]);
 
         try {   
             $client = new Client();
-            $response = $client->request('POST',  config('api.url').'esaku-master/sdm-loker-update',[
+            $response = $client->request('POST',  config('api.url').'esaku-master/sdm-jabatan-update',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
                 ],
                 'form_params' => [
-                    'kode_loker' => $request->input('kode_loker'),
+                    'kode_jab' => $request->input('kode_jab'),
                     'nama' => $request->input('nama'),
                     'status' => $request->input('status')
                 ]
@@ -158,14 +158,14 @@ class LokerController extends Controller
     public function delete(Request $request) {
         try{
             $client = new Client();
-            $response = $client->request('DELETE',  config('api.url').'esaku-master/sdm-loker',
+            $response = $client->request('DELETE',  config('api.url').'esaku-master/sdm-jabatan',
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
                 ],
                 'query' => [
-                    'kode_loker' => $request->input('kode')
+                    'kode_jab' => $request->input('kode')
                 ]
             ]);
     

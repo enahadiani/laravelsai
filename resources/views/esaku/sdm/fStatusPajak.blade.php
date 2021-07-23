@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="{{ asset('form.css') }}" />
 
 {{-- SAKU TABLE --}}
-<x-list-data judul="Data Lokasi Kerja" tambah="true" :thead="array('Kode','Nama','Status','Aksi')" :thwidth="array(20,25,25,10)" :thclass="array('','','','text-center')" />
+<x-list-data judul="Data Status Pajak" tambah="true" :thead="array('Kode','Nama','Nilai','Aksi')" :thwidth="array(20,25,25,10)" :thclass="array('','','','text-center')" />
 {{-- END SAKU TABLE --}}
 
 {{-- SAKU FORM --}}
@@ -23,23 +23,30 @@
                 <div class="card-body pt-0 form-body" id="form-body">
                     <div class="form-row">
                         <div class="form-group col-md-6 col-sm-12">
-                            <label for="kode_loker">Kode Lokasi Kerja</label>
-                            <input class="form-control" type="text" placeholder="Kode Lokasi Kerja" id="kode_loker" name="kode_loker" autocomplete="off" required>
+                            <label for="kode_pajak">Kode Pajak</label>
+                            <input class="form-control" type="text" placeholder="Kode Pajak" id="kode_pajak" name="kode_pajak" autocomplete="off" required>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-12 col-sm-12">
                             <label for="nama">Nama</label>
-                            <input class="form-control" type="text" placeholder="Nama Lokasi Kerja" id="nama" name="nama" autocomplete="off" required>
+                            <input class="form-control" type="text" placeholder="Nama Golongan" id="nama" name="nama" autocomplete="off" required>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6 col-sm-12">
-                            <label for="status">Status</label>
-                            <select id="status" name="status" class="form-control">
-                                <option value="0">Tidak Aktif</option>
-                                <option value="1" selected>Aktif</option>
-                            </select>
+                            <label for="nilai">Nilai</label>
+                            <input class="form-control currency" type="text" placeholder="Nilai" id="nilai" name="nilai" autocomplete="off" value="0" required>
+                        </div>
+                        <div class="form-group col-md-6 col-sm-12">
+                            <label for="biaya_jab">Biaya Jabatan</label>
+                            <input class="form-control currency" type="text" placeholder="Biaya Jabatan" id="biaya_jab" name="biaya_jab" autocomplete="off" value="0" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6 col-sm-12">
+                            <label for="jab_max">Jabatan Maksimal</label>
+                            <input class="form-control currency" type="text" placeholder="Jabatan Maksimal" id="jab_max" name="jab_max" autocomplete="off" value="0" required>
                         </div>
                     </div>
                 </div>
@@ -76,15 +83,29 @@
 
     var scrollForm = document.querySelector('#form-body');
     new PerfectScrollbar(scrollForm);
+
+    $('.currency').inputmask("numeric", {
+        radixPoint: ",",
+        groupSeparator: ".",
+        digits: 2,
+        autoGroup: true,
+        rightAlign: true,
+        oncleared: function () { return;  }
+    });
 // END CONFIG FORM
 
 // SAKU TABLE
     var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
     var dataTable = generateTable(
         "table-data",
-        "{{ url('esaku-master/sdm-lokers') }}", 
+        "{{ url('esaku-master/sdm-pajaks') }}", 
         [
             {'targets': 3, data: null, 'defaultContent': action_html,'className': 'text-center' },
+            {   
+                'targets': [2], 
+                'className': 'text-right',
+                'render': $.fn.dataTable.render.number( '.', ',', 0, '' )  
+            },
             {
                 "targets": 0,
                 "createdCell": function (td, cellData, rowData, row, col) {
@@ -96,14 +117,9 @@
             }
         ],
         [
-            { data: 'kode_loker' },
+            { data: 'kode_pajak' },
             { data: 'nama' },
-            { data: 'flag_aktif', render: function(data) {
-                if(data === "0") {
-                    return "Tidak Aktif"
-                }
-                return "Aktif"
-            } }
+            { data: 'nilai' }
         ],
         "{{ url('esaku-auth/sesi-habis') }}",
         [[3 ,"desc"]]
@@ -123,8 +139,8 @@
 
 // TRIGGER FORM
     $('#saku-datatable').on('click', '#btn-tambah', function() {
-        $('#judul-form').html('Tambah Data Lokasi Kerja');
-        $('#kode_loker').attr('readonly', false);
+        $('#judul-form').html('Tambah Data Status Pajak');
+        $('#kode_pajak').attr('readonly', false);
         newForm();
     });
 
@@ -147,11 +163,11 @@
             var parameter = $('#id_edit').val();
             var id = $('#id').val();
             if(parameter == "true"){
-                var url = "{{ url('esaku-master/sdm-loker-update') }}";
+                var url = "{{ url('esaku-master/sdm-pajak-update') }}";
                 var pesan = "updated";
                 var text = "Perubahan data "+id+" telah tersimpan";
             } else {
-                var url = "{{ url('esaku-master/sdm-loker') }}";
+                var url = "{{ url('esaku-master/sdm-pajak') }}";
                 var pesan = "saved";
                 var text = "Data tersimpan dengan kode "+id;
             }
@@ -174,14 +190,14 @@
                     if(result.data.status){
                         var kode = result.data.kode;
                         dataTable.ajax.reload();
-                        $('#judul-form').html('Tambah Data Lokasi Kerja');
-                        $('#kode_loker').attr('readonly', false);
+                        $('#judul-form').html('Tambah Data Status Pajak');
+                        $('#kode_pajak').attr('readonly', false);
                         resetForm();
                         msgDialog({
                             id: kode,
                             type: 'simpan'
                         });
-                        last_add(dataTable,"kode_loker", kode);
+                        last_add(dataTable,"kode_pajak", kode);
                         $('#id_edit').val('false')
                     } else if(!result.data.status && result.data.message === "Unauthorized"){
                         window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
@@ -210,7 +226,7 @@
 
 // EDIT FORM TRIGGER
     $('#saku-form').on('click', '#btn-update', function(){
-        var kode = $('#kode_loker').val();
+        var kode = $('#kode_pajak').val();
         msgDialog({
             id:kode,
             type:'edit'
@@ -219,7 +235,7 @@
 
     $('#saku-datatable').on('click', '#btn-edit', function(){
         var id= $(this).closest('tr').find('td').eq(0).html();
-        $('#kode_loker').attr('readonly', true);
+        $('#kode_pajak').attr('readonly', true);
         editData(id)
     });
 
@@ -227,11 +243,11 @@
         $('#form-tambah').validate().resetForm();
         $('#btn-save').attr('type','button');
         $('#btn-save').attr('id','btn-update');
-        $('#judul-form').html('Edit Data Lokasi Kerja');
+        $('#judul-form').html('Edit Data Status Pajak');
 
         $.ajax({
             type: 'GET',
-            url: "{{ url('esaku-master/sdm-loker') }}",
+            url: "{{ url('esaku-master/sdm-pajak') }}",
             data: { kode: id },
             dataType: 'json',
             async:false,
@@ -240,9 +256,11 @@
                 if(res.data.status) {
                     $('#id_edit').val('true')
                     $('#id').val(id)
-                    $('#kode_loker').val(id)
+                    $('#kode_pajak').val(id)
                     $('#nama').val(data.nama)
-                    $('#status').val(data.flag_aktif)
+                    $('#nilai').val(parseFloat(data.nilai))
+                    $('#biaya_jab').val(parseFloat(data.biaya_jab))
+                    $('#jab_max').val(parseFloat(data.jab_max))
                     
                     $('#saku-datatable').hide();
                     $('#modal-preview').modal('hide');
@@ -265,14 +283,14 @@
     function hapusData(id) {
         $.ajax({
             type: 'DELETE',
-            url: "{{ url('esaku-master/sdm-loker') }}",
+            url: "{{ url('esaku-master/sdm-pajak') }}",
             data: { kode: id },
             dataType: 'json',
             async:false,
             success:function(result){
                 if(result.data.status){
                     dataTable.ajax.reload();                    
-                    showNotification("top", "center", "success",'Hapus Data','Data Lokasi Kerja ('+id+') berhasil dihapus ');
+                    showNotification("top", "center", "success",'Hapus Data','Data Status Pajak ('+id+') berhasil dihapus ');
                     $('#modal-pesan-id').html('');
                     $('#table-delete tbody').html('');
                     $('#modal-pesan').modal('hide');

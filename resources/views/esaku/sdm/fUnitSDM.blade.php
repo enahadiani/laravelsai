@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="{{ asset('form.css') }}" />
 
 {{-- SAKU TABLE --}}
-<x-list-data judul="Data Lokasi Kerja" tambah="true" :thead="array('Kode','Nama','Status','Aksi')" :thwidth="array(20,25,25,10)" :thclass="array('','','','text-center')" />
+<x-list-data judul="Data Status Karyawan" tambah="true" :thead="array('Kode','Nama','Status','Aksi')" :thwidth="array(20,25,25,10)" :thclass="array('','','','text-center')" />
 {{-- END SAKU TABLE --}}
 
 {{-- SAKU FORM --}}
@@ -23,14 +23,14 @@
                 <div class="card-body pt-0 form-body" id="form-body">
                     <div class="form-row">
                         <div class="form-group col-md-6 col-sm-12">
-                            <label for="kode_loker">Kode Lokasi Kerja</label>
-                            <input class="form-control" type="text" placeholder="Kode Lokasi Kerja" id="kode_loker" name="kode_loker" autocomplete="off" required>
+                            <label for="kode_unit">Kode Unit</label>
+                            <input class="form-control" type="text" placeholder="Kode Unit" id="kode_unit" name="kode_unit" autocomplete="off" required>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-12 col-sm-12">
                             <label for="nama">Nama</label>
-                            <input class="form-control" type="text" placeholder="Nama Lokasi Kerja" id="nama" name="nama" autocomplete="off" required>
+                            <input class="form-control" type="text" placeholder="Nama Unit" id="nama" name="nama" autocomplete="off" required>
                         </div>
                     </div>
                     <div class="form-row">
@@ -40,6 +40,20 @@
                                 <option value="0">Tidak Aktif</option>
                                 <option value="1" selected>Aktif</option>
                             </select>
+                        </div>
+                        <div class="form-group col-md-6 col-sm-12">
+                            <label for="kode_pp">PP</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                    <span class="input-group-text info-code_kode_pp" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                </div>
+                                <input type="text" class="form-control inp-label-kode_pp" id="kode_pp" name="kode_pp" autocomplete="off" data-input="cbbl" value="" title="" required readonly>
+                                <span class="info-name_kode_pp hidden">
+                                    <span></span> 
+                                </span>
+                                <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                <i class="simple-icon-magnifier search-item2" id="search_kode_pp"></i>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -58,6 +72,7 @@
     </div>
 </form>
 {{-- END SAKU FORM --}}
+<button id="trigger-bottom-sheet" style="display:none">&nbsp;</button>
 
 <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
 <script src="{{ asset('helper.js') }}"></script>
@@ -76,13 +91,17 @@
 
     var scrollForm = document.querySelector('#form-body');
     new PerfectScrollbar(scrollForm);
+
+    var bottomSheet = new BottomSheet("country-selector");
+    document.getElementById("trigger-bottom-sheet").addEventListener("click", bottomSheet.activate);
+    window.bottomSheet = bottomSheet;
 // END CONFIG FORM
 
 // SAKU TABLE
     var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
     var dataTable = generateTable(
         "table-data",
-        "{{ url('esaku-master/sdm-lokers') }}", 
+        "{{ url('esaku-master/sdm-units') }}", 
         [
             {'targets': 3, data: null, 'defaultContent': action_html,'className': 'text-center' },
             {
@@ -96,7 +115,7 @@
             }
         ],
         [
-            { data: 'kode_loker' },
+            { data: 'kode_unit' },
             { data: 'nama' },
             { data: 'flag_aktif', render: function(data) {
                 if(data === "0") {
@@ -123,8 +142,8 @@
 
 // TRIGGER FORM
     $('#saku-datatable').on('click', '#btn-tambah', function() {
-        $('#judul-form').html('Tambah Data Lokasi Kerja');
-        $('#kode_loker').attr('readonly', false);
+        $('#judul-form').html('Tambah Data Unit');
+        $('#kode_unit').attr('readonly', false);
         newForm();
     });
 
@@ -147,11 +166,11 @@
             var parameter = $('#id_edit').val();
             var id = $('#id').val();
             if(parameter == "true"){
-                var url = "{{ url('esaku-master/sdm-loker-update') }}";
+                var url = "{{ url('esaku-master/sdm-unit-update') }}";
                 var pesan = "updated";
                 var text = "Perubahan data "+id+" telah tersimpan";
             } else {
-                var url = "{{ url('esaku-master/sdm-loker') }}";
+                var url = "{{ url('esaku-master/sdm-unit') }}";
                 var pesan = "saved";
                 var text = "Data tersimpan dengan kode "+id;
             }
@@ -174,14 +193,14 @@
                     if(result.data.status){
                         var kode = result.data.kode;
                         dataTable.ajax.reload();
-                        $('#judul-form').html('Tambah Data Lokasi Kerja');
-                        $('#kode_loker').attr('readonly', false);
+                        $('#judul-form').html('Tambah Data Unit');
+                        $('#kode_unit').attr('readonly', false);
                         resetForm();
                         msgDialog({
                             id: kode,
                             type: 'simpan'
                         });
-                        last_add(dataTable,"kode_loker", kode);
+                        last_add(dataTable,"kode_unit", kode);
                         $('#id_edit').val('false')
                     } else if(!result.data.status && result.data.message === "Unauthorized"){
                         window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
@@ -210,7 +229,7 @@
 
 // EDIT FORM TRIGGER
     $('#saku-form').on('click', '#btn-update', function(){
-        var kode = $('#kode_loker').val();
+        var kode = $('#kode_unit').val();
         msgDialog({
             id:kode,
             type:'edit'
@@ -219,7 +238,7 @@
 
     $('#saku-datatable').on('click', '#btn-edit', function(){
         var id= $(this).closest('tr').find('td').eq(0).html();
-        $('#kode_loker').attr('readonly', true);
+        $('#kode_unit').attr('readonly', true);
         editData(id)
     });
 
@@ -227,11 +246,11 @@
         $('#form-tambah').validate().resetForm();
         $('#btn-save').attr('type','button');
         $('#btn-save').attr('id','btn-update');
-        $('#judul-form').html('Edit Data Lokasi Kerja');
+        $('#judul-form').html('Edit Data Unit');
 
         $.ajax({
             type: 'GET',
-            url: "{{ url('esaku-master/sdm-loker') }}",
+            url: "{{ url('esaku-master/sdm-unit') }}",
             data: { kode: id },
             dataType: 'json',
             async:false,
@@ -240,9 +259,11 @@
                 if(res.data.status) {
                     $('#id_edit').val('true')
                     $('#id').val(id)
-                    $('#kode_loker').val(id)
+                    $('#kode_unit').val(id)
                     $('#nama').val(data.nama)
                     $('#status').val(data.flag_aktif)
+
+                    showInfoField('kode_pp', data.kode_pp, data.nama_pp)
                     
                     $('#saku-datatable').hide();
                     $('#modal-preview').modal('hide');
@@ -265,14 +286,14 @@
     function hapusData(id) {
         $.ajax({
             type: 'DELETE',
-            url: "{{ url('esaku-master/sdm-loker') }}",
+            url: "{{ url('esaku-master/sdm-unit') }}",
             data: { kode: id },
             dataType: 'json',
             async:false,
             success:function(result){
                 if(result.data.status){
                     dataTable.ajax.reload();                    
-                    showNotification("top", "center", "success",'Hapus Data','Data Lokasi Kerja ('+id+') berhasil dihapus ');
+                    showNotification("top", "center", "success",'Hapus Data','Data Status Karyawan ('+id+') berhasil dihapus ');
                     $('#modal-pesan-id').html('');
                     $('#table-delete tbody').html('');
                     $('#modal-pesan').modal('hide');
@@ -290,4 +311,45 @@
         });
     }
 // END DELETE DATA TRIGGER
+
+// CBBL FORM
+$('#form-tambah').on('click', '.search-item2', function(e) {
+    var id = $(this).closest('div').find('input').attr('name');  
+    var options = {}
+    switch(id) {
+        case 'kode_pp':
+            options = {
+                id : id,
+                header : ['Kode', 'Nama'],
+                url : "{{ url('esaku-master/sdm-pp') }}",
+                columns : [
+                    { data: 'kode_pp' },
+                    { data: 'nama' }
+                ],
+                judul : "Daftar PP",
+                pilih : "PP",
+                jTarget1 : "text",
+                jTarget2 : "text",
+                target1 : ".info-code_"+id,
+                target2 : ".info-name_"+id,
+                target3 : "",
+                target4 : "",
+                width : ["30%","70%"],
+            }
+        break;
+    }
+    showInpFilterBSheet(options);
+})
+
+$('.info-icon-hapus').click(function(){
+    var par = $(this).closest('div').find('input').attr('name');
+    $('#'+par).val('');
+    $('#'+par).attr('readonly',false);
+    $('#'+par).attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important');
+    $('.info-code_'+par).parent('div').addClass('hidden');
+    $('.info-name_'+par).addClass('hidden');
+    $(this).addClass('hidden');
+    $('#'+par).trigger('change');
+});
+// END CBBL FORM
 </script>

@@ -9,7 +9,7 @@ use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Session;
 use GuzzleHttp\Exception\BadResponseException;
 
-class LokerController extends Controller
+class StatusPajakController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,6 +23,13 @@ class LokerController extends Controller
         }
     }
 
+    public function joinNum($num){
+        // menggabungkan angka yang di-separate(10.000,75) menjadi 10000.00
+        $num = str_replace(".", "", $num);
+        $num = str_replace(",", ".", $num);
+        return $num;
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -32,7 +39,7 @@ class LokerController extends Controller
     public function index(){
         try {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'esaku-master/sdm-lokers',[
+            $response = $client->request('GET',  config('api.url').'esaku-master/sdm-pajaks',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -56,22 +63,26 @@ class LokerController extends Controller
 
     public function store(Request $request) {
         $this->validate($request, [
-            'kode_loker' => 'required',
+            'kode_pajak' => 'required',
             'nama' => 'required',
-            'status' => 'required'
+            'nilai' => 'required',
+            'biaya_jab' => 'required',
+            'jab_max' => 'required',
         ]);
 
         try {   
             $client = new Client();
-            $response = $client->request('POST',  config('api.url').'esaku-master/sdm-loker',[
+            $response = $client->request('POST',  config('api.url').'esaku-master/sdm-pajak',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
                 ],
                 'form_params' => [
-                    'kode_loker' => $request->input('kode_loker'),
+                    'kode_pajak' => $request->input('kode_pajak'),
                     'nama' => $request->input('nama'),
-                    'status' => $request->input('status')
+                    'nilai' => $this->joinNum($request->input('nilai')),
+                    'biaya_jab' => $this->joinNum($request->input('biaya_jab')),
+                    'jab_max' => $this->joinNum($request->input('jab_max')),
                 ]
             ]);
             if ($response->getStatusCode() == 200) { // 200 OK
@@ -93,14 +104,14 @@ class LokerController extends Controller
     public function show(Request $request) {
         try{
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'esaku-master/sdm-loker',
+            $response = $client->request('GET',  config('api.url').'esaku-master/sdm-pajak',
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
                 ], 
                 'query' => [
-                    'kode_loker' => $request->query('kode')
+                    'kode_pajak' => $request->query('kode')
                 ]
             ]);
     
@@ -121,22 +132,26 @@ class LokerController extends Controller
 
     public function update(Request $request) {
         $this->validate($request, [
-            'kode_loker' => 'required',
+            'kode_pajak' => 'required',
             'nama' => 'required',
-            'status' => 'required'
+            'nilai' => 'required',
+            'biaya_jab' => 'required',
+            'jab_max' => 'required',
         ]);
 
         try {   
             $client = new Client();
-            $response = $client->request('POST',  config('api.url').'esaku-master/sdm-loker-update',[
+            $response = $client->request('POST',  config('api.url').'esaku-master/sdm-pajak-update',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
                 ],
                 'form_params' => [
-                    'kode_loker' => $request->input('kode_loker'),
+                    'kode_pajak' => $request->input('kode_pajak'),
                     'nama' => $request->input('nama'),
-                    'status' => $request->input('status')
+                    'nilai' => $this->joinNum($request->input('nilai')),
+                    'biaya_jab' => $this->joinNum($request->input('biaya_jab')),
+                    'jab_max' => $this->joinNum($request->input('jab_max')),
                 ]
             ]);
             if ($response->getStatusCode() == 200) { // 200 OK
@@ -158,14 +173,14 @@ class LokerController extends Controller
     public function delete(Request $request) {
         try{
             $client = new Client();
-            $response = $client->request('DELETE',  config('api.url').'esaku-master/sdm-loker',
+            $response = $client->request('DELETE',  config('api.url').'esaku-master/sdm-pajak',
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
                 ],
                 'query' => [
-                    'kode_loker' => $request->input('kode')
+                    'kode_pajak' => $request->input('kode')
                 ]
             ]);
     

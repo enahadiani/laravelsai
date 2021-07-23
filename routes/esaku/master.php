@@ -261,8 +261,79 @@ Route::delete('kartu-simpanan/{id}','Esaku\Simpanan\Master\KartuSimpananControll
 // SDM
 
 // Data Loker //
-Route::get('sdm-loker', 'Esaku\Sdm\LokerController@index');
-Route::get('sdm-loker/{id}', 'Esaku\Sdm\LokerController@getData');
+Route::get('sdm-lokers', 'Esaku\Sdm\LokerController@index');
+Route::get('sdm-loker', 'Esaku\Sdm\LokerController@show');
 Route::post('sdm-loker', 'Esaku\Sdm\LokerController@store');
-Route::put('sdm-loker/{id}', 'Esaku\Sdm\LokerController@update');
-Route::delete('sdm-loker/{id}', 'Esaku\Sdm\LokerController@delete');
+Route::post('sdm-loker-update', 'Esaku\Sdm\LokerController@update');
+Route::delete('sdm-loker', 'Esaku\Sdm\LokerController@delete');
+
+// Data Status Karyawan //
+Route::get('sdm-statuss', 'Esaku\Sdm\StatusKaryawanController@index');
+Route::get('sdm-status', 'Esaku\Sdm\StatusKaryawanController@show');
+Route::post('sdm-status', 'Esaku\Sdm\StatusKaryawanController@store');
+Route::post('sdm-status-update', 'Esaku\Sdm\StatusKaryawanController@update');
+Route::delete('sdm-status', 'Esaku\Sdm\StatusKaryawanController@delete');
+
+// Data Jabatan Karyawan //
+Route::get('sdm-jabatans', 'Esaku\Sdm\JabatanSDMController@index');
+Route::get('sdm-jabatan', 'Esaku\Sdm\JabatanSDMController@show');
+Route::post('sdm-jabatan', 'Esaku\Sdm\JabatanSDMController@store');
+Route::post('sdm-jabatan-update', 'Esaku\Sdm\JabatanSDMController@update');
+Route::delete('sdm-jabatan', 'Esaku\Sdm\JabatanSDMController@delete');
+
+// Data Golongan Karyawan //
+Route::get('sdm-golongans', 'Esaku\Sdm\GolonganSDMController@index');
+Route::get('sdm-golongan', 'Esaku\Sdm\GolonganSDMController@show');
+Route::post('sdm-golongan', 'Esaku\Sdm\GolonganSDMController@store');
+Route::post('sdm-golongan-update', 'Esaku\Sdm\GolonganSDMController@update');
+Route::delete('sdm-golongan', 'Esaku\Sdm\GolonganSDMController@delete');
+
+// Data Status Pajak Karyawan //
+Route::get('sdm-pajaks', 'Esaku\Sdm\StatusPajakController@index');
+Route::get('sdm-pajak', 'Esaku\Sdm\StatusPajakController@show');
+Route::post('sdm-pajak', 'Esaku\Sdm\StatusPajakController@store');
+Route::post('sdm-pajak-update', 'Esaku\Sdm\StatusPajakController@update');
+Route::delete('sdm-pajak', 'Esaku\Sdm\StatusPajakController@delete');
+
+// Data Unit Karyawan //
+Route::get('sdm-units', 'Esaku\Sdm\UnitSDMController@index');
+Route::get('sdm-unit', 'Esaku\Sdm\UnitSDMController@show');
+Route::get('sdm-pp', 'Esaku\Sdm\UnitSDMController@getPP');
+Route::post('sdm-unit', 'Esaku\Sdm\UnitSDMController@store');
+Route::post('sdm-unit-update', 'Esaku\Sdm\UnitSDMController@update');
+Route::delete('sdm-unit', 'Esaku\Sdm\UnitSDMController@delete');
+
+// Data Profesi Karyawan //
+Route::get('sdm-profesis', 'Esaku\Sdm\ProfesiSDMController@index');
+Route::get('sdm-profesi', 'Esaku\Sdm\ProfesiSDMController@show');
+Route::post('sdm-profesi', 'Esaku\Sdm\ProfesiSDMController@store');
+Route::post('sdm-profesi-update', 'Esaku\Sdm\ProfesiSDMController@update');
+Route::delete('sdm-profesi', 'Esaku\Sdm\ProfesiSDMController@delete');
+
+// Data Profesi Karyawan //
+Route::get('sdm-profesis', 'Esaku\Sdm\ProfesiSDMController@index');
+Route::get('sdm-profesi', 'Esaku\Sdm\ProfesiSDMController@show');
+Route::post('sdm-profesi', 'Esaku\Sdm\ProfesiSDMController@store');
+Route::post('sdm-profesi-update', 'Esaku\Sdm\ProfesiSDMController@update');
+Route::delete('sdm-profesi', 'Esaku\Sdm\ProfesiSDMController@delete');
+
+// Data Agama Karyawan //
+Route::get('sdm-agamas', 'Esaku\Sdm\AgamaSDMController@index');
+Route::get('sdm-agama', 'Esaku\Sdm\AgamaSDMController@show');
+Route::post('sdm-agama', 'Esaku\Sdm\AgamaSDMController@store');
+Route::post('sdm-agama-update', 'Esaku\Sdm\AgamaSDMController@update');
+Route::delete('sdm-agama', 'Esaku\Sdm\AgamaSDMController@delete');
+
+// Data Jurusan Karyawam //
+Route::get('sdm-jurusans', 'Esaku\Sdm\JurusanSDMController@index');
+Route::get('sdm-jurusan', 'Esaku\Sdm\JurusanSDMController@show');
+Route::post('sdm-jurusan', 'Esaku\Sdm\JurusanSDMController@store');
+Route::post('sdm-jurusan-update', 'Esaku\Sdm\JurusanSDMController@update');
+Route::delete('sdm-jurusan', 'Esaku\Sdm\JurusanSDMController@delete');
+
+// Data Strata Karyawam //
+Route::get('sdm-stratas', 'Esaku\Sdm\StrataSDMController@index');
+Route::get('sdm-strata', 'Esaku\Sdm\StrataSDMController@show');
+Route::post('sdm-strata', 'Esaku\Sdm\StrataSDMController@store');
+Route::post('sdm-strata-update', 'Esaku\Sdm\StrataSDMController@update');
+Route::delete('sdm-strata', 'Esaku\Sdm\StrataSDMController@delete');
