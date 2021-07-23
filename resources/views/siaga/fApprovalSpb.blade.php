@@ -126,7 +126,7 @@
 
     </style>
 <!-- LIST DATA -->
-<x-list-data judul="Data Approval" tambah="" :thead="array('No Bukti', 'No Dokumen', 'PP', 'Tanggal', 'Keterangan', 'Aksi')" :thwidth="array(10,10,10,15,45,10)" :thclass="array('','','','','','text-center')" />
+<x-list-data judul="Data Approval SPB" tambah="" :thead="array('No Bukti', 'Tanggal','Keterangan','Nilai','Aksi')" :thwidth="array(10,10,40,20,10)" :thclass="array('','','','','text-center')" />
 <!-- END LIST DATA -->
 
 <!-- FORM  -->
@@ -172,15 +172,14 @@
                                     <input class="form-control" type="text" placeholder="No Pengajuan" id="no_aju" name="no_aju" autocomplete="off" required readonly>
                                 </div>
                                 <div class="col-md-6 col-sm-12">
-                                    <label for="dokumen">No Dokumen</label>
-                                    <input class="form-control" type="text" placeholder="No Dokumen" id="dokumen" name="no_dokumen" readonly autocomplete="off" required >
+                                    <label for="nama">Atensi</label>
+                                    <input class="form-control" type="text" placeholder="Atensi" id="nama" name="nama" readonly autocomplete="off" required >
                                 </div>
                             </div>
                         </div>
                         
                     </div>
                     <div class="form-row">
-                       
                         <div class="form-group col-md-6 col-sm-12">
                             <div class="row">
                                 <div class="col-md-12 col-sm-12">
@@ -198,29 +197,17 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-6 col-sm-12">
-                                    <label for="kode_pp">PP</label>
-                                    <div class="input-group readonly">
-                                        <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
-                                            <span class="input-group-text info-code_kode_pp" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
-                                        </div>
-                                        <input type="text" class="form-control input-label-kode_pp" id="kode_pp" name="kode_pp" value="" title="">
-                                        <span class="info-name_kode_pp hidden">
-                                            <span></span> 
-                                        </span>
-                                        <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                        <i class="simple-icon-magnifier search-item2" id="search_kode_pp"></i>
-                                    </div>
+                                    <label for="nilai">Total</label>
+                                    <input class="form-control currency" type="text" placeholder="" id="nilai" name="nilai" readonly required >
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="form-row">
-                        
-                       
                     </div>
                     <ul class="nav nav-tabs col-12 " role="tablist">
-                        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#data-barang" role="tab" aria-selected="true"><span class="hidden-xs-down">Data RKM</span></a></li>
-                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#data-dokumen-po" role="tab" aria-selected="false"><span class="hidden-xs-down">Data Dokumen</span></a></li>
+                        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#data-barang" role="tab" aria-selected="true"><span class="hidden-xs-down">Detail SPB</span></a></li>
+                        <!-- <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#data-dokumen-po" role="tab" aria-selected="false"><span class="hidden-xs-down">Data Dokumen</span></a></li> -->
                         <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#data-approve" role="tab" aria-selected="false"><span class="hidden-xs-down">Catatan Approve</span></a></li>
                     </ul>
                     <div class="tab-content tabcontent-border col-12 p-0" style="margin-bottom: 2rem;">
@@ -229,19 +216,26 @@
                                 <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-barang" ></span></a>
                             </div>
                             <div class="col-md-12">
-                                <table class="table table-bordered table-condensed gridexample input-grid" id="input-barang" data-table="Tab data barang" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
-                                    <thead style="background:#F8F8F8">
-                                        <tr>
-                                            <th style="width:5%;">No</th>
-                                            <th style="width:40%;">Nama Barang</th>
-                                            <th style="width:10%;">Satuan</th>
-                                            <th style="width:10%;">Jumlah</th>
-                                            <th style="width:20%;">Harga</th>
-                                            <th style="width:25%;">Total</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody></tbody>
-                                </table>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-condensed gridexample input-grid" id="input-barang" data-table="Tab data detail" style="width:1230px;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                        <thead style="background:#F8F8F8">
+                                            <tr>
+                                                <th style="width:20px;">No</th>
+                                                <th style="width:150px;">No Beban</th>
+                                                <th style="width:100px;">Tanggal</th>
+                                                <th style="width:60px">Modul</th>
+                                                <th style="width:200px;">PP</th>
+                                                <th style="width:200px;">Keterangan</th>
+                                                <th style="width:100px;">Nilai</th>
+                                                <th style="width:150px;">Catatan</th>
+                                                <th style="width:100px;">No Aju</th>
+                                                <th style="width:100px;">Tgl Ver</th>
+                                                <th style="width:50px;">Curr</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                         <div class="tab-pane row" id="data-dokumen-po" role="tabpanel">
@@ -418,7 +412,7 @@
     var action_html = "<a href='#' title='Approve' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a>";
     var dataTable = generateTable(
         "table-data",
-        "{{ url('siaga-trans/app-aju') }}", 
+        "{{ url('siaga-trans/app-spb-aju') }}", 
         [
             {
                 "targets": 0,
@@ -429,14 +423,18 @@
                     }
                 }
             },
-            {'targets': 5, data: null, 'defaultContent': action_html,'className': 'text-center' }
+            {   
+                'targets': [3],
+                'className': 'text-right',
+                'render': $.fn.dataTable.render.number( '.', ',', 0, '' )
+            }, 
+            {'targets': 4, data: null, 'defaultContent': action_html,'className': 'text-center' }
         ],
         [
             { data: 'no_bukti' },
-            { data: 'no_dokumen' },
-            { data: 'nama_pp' },
             { data: 'tanggal' },
-            { data: 'keterangan' }
+            { data: 'keterangan' },
+            { data: 'nilai' }
         ],
         "{{ url('siaga-auth/sesi-habis') }}",
         [[0 ,"asc"]]
@@ -455,6 +453,16 @@
 
     $('[data-toggle="popover"]').popover({ trigger: "focus" });
     // END LIST DATA
+
+    
+    $('.currency').inputmask("numeric", {
+        radixPoint: ",",
+        groupSeparator: ".",
+        digits: 0,
+        autoGroup: true,
+        rightAlign: true,
+        oncleared: function () { self.Value(''); }
+    });
 
     // BTN KEMBALI
     $('#saku-form').on('click', '#btn-kembali', function(){
@@ -495,19 +503,16 @@
             tanggal: {
                 required: true,   
             },
-            waktu: {
-                required: true,   
-            },
             status: {
                 required: true,   
             },
             no_aju: {
                 required: true,   
             },
-            kode_pp: {
+            nilai: {
                 required: true,   
             },
-            no_dokumen:{
+            nama:{
                 required: true,   
             },
             keterangan:{
@@ -519,7 +524,7 @@
             event.preventDefault()
             var parameter = $('#id_edit').val();
             var id = $('#id').val();
-            var url = "{{ url('siaga-trans/app') }}";
+            var url = "{{ url('siaga-trans/app-spb') }}";
             var pesan = "saved";
             var text = "Data tersimpan dengan kode";
 
@@ -542,7 +547,6 @@
                         var kode = result.data.no_aju;
                         $('#input-barang tbody').empty();
                         $('#input-dokumen-po tbody').empty();
-                        $('#input-dokumen-compare tbody').empty();
                         $('#input-approve tbody').empty();
                         dataTable.ajax.reload();
                         resetForm();
@@ -598,10 +602,10 @@
         $('#input-barang tbody').empty();
         $('#input-dokumen-po tbody').empty();
         $('#input-approve tbody').empty();
-        $('#judul-form').html('Form Approval');
+        $('#judul-form').html('Form Approval SPB');
         $.ajax({ 
             type: 'GET',
-            url: "{{ url('siaga-trans/app-detail') }}",
+            url: "{{ url('siaga-trans/app-spb-detail') }}",
             dataType: 'json',
             data:{no_aju: id},
             async:false,
@@ -611,8 +615,8 @@
                     $('#id').val(id);
                     $('#nu').val(result.data[0].no_urut);
                     $('#no_aju').val(result.data[0].no_bukti);
-                    $('#dokumen').val(result.data[0].no_dokumen);
-                    $('#kode_pp').val(result.data[0].kode_pp);
+                    $('#nilai').val(result.data[0].nilai);
+                    $('#nama').val(result.data[0].nama);
                     $('#deskripsi').val(result.data[0].keterangan);
 
                     if(result.data_detail.length > 0) { 
@@ -621,31 +625,49 @@
 
                         for(var i=0;i<result.data_detail.length;i++) { 
                             var data = result.data_detail[i];
-                            var idnama = 'nama-ke__'+no
-                            var idsatuan = 'satuan-ke__'+no
-                            var idjumlah = 'jumlah-ke__'+no
-                            var idharga = 'harga-ke__'+no
-                            var idnu = 'nu-ke__'+no
-                            var idtotal = 'total-ke__'+no
-                            var total = parseFloat(data.jumlah)*parseFloat(data.harga);
+                            var idno_beban = 'no_beban-ke__'+no
+                            var idtanggal = 'tanggal-ke__'+no
+                            var idmodul = 'modul-ke__'+no
+                            var idpp = 'pp-ke__'+no
+                            var idketerangan = 'keterangan-ke__'+no
+                            var idnilai = 'nilai-ke__'+no
+                            var idcatatan = 'catatan-ke__'+no
+                            var idno_aju = 'no_aju-ke__'+no
+                            var idtgl_ver = 'tgl_ver-ke__'+no
+                            var idkode_curr = 'kode_curr-ke__'+no
 
                             html += `
                                 <tr class='row-grid'>
                                     <td class='no-grid text-center'>${no}</td>
-                                    <td id='${idnama}'>
-                                        <span id='text-${idnama}' class='tooltip-span'>${data.nama_brg}</span>
+                                    <td id='${idno_beban}'>
+                                        <span id='text-${idno_beban}' class='tooltip-span'>${data.no_beban}</span>
                                     </td>
-                                    <td id='${idsatuan}'>
-                                        <span id='text-${idsatuan}' class='tooltip-span'>${data.satuan}</span>
+                                    <td id='${idtanggal}'>
+                                        <span id='text-${idtanggal}' class='tooltip-span'>${data.tanggal}</span>
                                     </td>
-                                    <td class='text-right' id='${idjumlah}'>
-                                        <span id='text-${idjumlah}' class='tooltip-span'>${sepNum(data.jumlah)}</span>
+                                    <td id='${idmodul}'>
+                                        <span id='text-${idmodul}' class='tooltip-span'>${data.modul}</span>
                                     </td>
-                                    <td class='text-right' id='${idharga}'>
-                                        <span id='text-${idharga}' class='tooltip-span'>${sepNum(data.harga)}</span>
+                                    <td id='${idpp}'>
+                                        <span id='text-${idpp}' class='tooltip-span'>${data.pp}</span>
                                     </td>
-                                    <td class='text-right' id='${idtotal}'>
-                                        <span id='text-${idtotal}' class='tooltip-span'>${sepNum(total)}</span>
+                                    <td id='${idketerangan}'>
+                                        <span id='text-${idketerangan}' class='tooltip-span'>${data.keterangan}</span>
+                                    </td>
+                                    <td class='text-right' id='${idnilai}'>
+                                        <span id='text-${idnilai}' class='tooltip-span'>${sepNum(data.nilai)}</span>
+                                    </td>
+                                    <td id='${idcatatan}'>
+                                        <span id='text-${idcatatan}' class='tooltip-span'>${data.catatan}</span>
+                                    </td>
+                                    <td id='${idno_aju}'>
+                                        <span id='text-${idno_aju}' class='tooltip-span'>${data.no_aju}</span>
+                                    </td>
+                                    <td id='${idtgl_ver}'>
+                                        <span id='text-${idtgl_ver}' class='tooltip-span'>${data.tgl_ver}</span>
+                                    </td>
+                                    <td id='${idkode_curr}'>
+                                        <span id='text-${idkode_curr}' class='tooltip-span'>${data.kode_curr}</span>
                                     </td>
                                 </tr>
                             `;
@@ -662,38 +684,38 @@
                         hitungTotalRowBarang()
                     }
 
-                    if(result.data_dokumen.length > 0) { 
-                        var html = "";
-                        var no = 1;
-                        for(var i=0;i<result.data_dokumen.length;i++) { 
-                            var data = result.data_dokumen[i];
-                            var idDokumen = 'dokumenpo-ke__'+no
-                            var idFile = 'filepo-ke__'+no
-                            var idUpload = 'uploadpo-ke__'+no
-                            html += `
-                                <tr class='row-grid'>
-                                    <td class='no-grid text-center'>${no}</td>
-                                    <td id='${idDokumen}'>
-                                        <span id='text-${idDokumen}' class='tooltip-span'>${data.kode_jenis}</span>
-                                    </td>
-                                    <td id='${idFile}' class='readonly'>
-                                        <span id='text-${idFile}' class='tooltip-span'>${data.no_gambar}</span>
-                                    </td>
-                                    <td class='text-center'>
-                                        <a class='download-item' style='font-size:12px;cursor:pointer;' href="https://devsiaga.simkug.com/server/media/${data.no_gambar}" target='_blank'><i class='simple-icon-cloud-download'></i></a>
-                                    </td>
-                                </tr>
-                            `;
-                            no++;
-                        }
-                        $('#input-dokumen-po tbody').append(html)
-                        $('.tooltip-span').tooltip({
-                            title: function(){
-                                return $(this).text();
-                            }
-                        });
-                        hitungTotalRowDokumenPO()
-                    }
+                    // if(result.data_dokumen.length > 0) { 
+                    //     var html = "";
+                    //     var no = 1;
+                    //     for(var i=0;i<result.data_dokumen.length;i++) { 
+                    //         var data = result.data_dokumen[i];
+                    //         var idDokumen = 'dokumenpo-ke__'+no
+                    //         var idFile = 'filepo-ke__'+no
+                    //         var idUpload = 'uploadpo-ke__'+no
+                    //         html += `
+                    //             <tr class='row-grid'>
+                    //                 <td class='no-grid text-center'>${no}</td>
+                    //                 <td id='${idDokumen}'>
+                    //                     <span id='text-${idDokumen}' class='tooltip-span'>${data.kode_jenis}</span>
+                    //                 </td>
+                    //                 <td id='${idFile}' class='readonly'>
+                    //                     <span id='text-${idFile}' class='tooltip-span'>${data.no_gambar}</span>
+                    //                 </td>
+                    //                 <td class='text-center'>
+                    //                     <a class='download-item' style='font-size:12px;cursor:pointer;' href="https://devsiaga.simkug.com/server/media/${data.no_gambar}" target='_blank'><i class='simple-icon-cloud-download'></i></a>
+                    //                 </td>
+                    //             </tr>
+                    //         `;
+                    //         no++;
+                    //     }
+                    //     $('#input-dokumen-po tbody').append(html)
+                    //     $('.tooltip-span').tooltip({
+                    //         title: function(){
+                    //             return $(this).text();
+                    //         }
+                    //     });
+                    //     hitungTotalRowDokumenPO()
+                    // }
 
                     if(result.data_histori.length > 0) { 
                         var html = "";
@@ -736,7 +758,6 @@
                     $('#modal-preview').modal('hide');
                     $('#saku-form').show();
                     setWidthFooterCardBody();
-                    showInfoField("kode_pp",result.data[0].kode_pp,result.data[0].nama_pp);
                 } else if(!result.status && result.message === "Unauthorized"){
                     window.location.href = "{{ url('/siaga-auth/sesi-habis') }}";
                 }else{
@@ -760,7 +781,7 @@
     function printPreview(id, jenis) {
         $.ajax({
             type: 'GET',
-            url: "{{ url('siaga-trans/app-preview') }}",
+            url: "{{ url('siaga-trans/app-spb-preview') }}",
             dataType: 'json',
             data:{id: id, jenis: jenis},
             async:false,
@@ -778,12 +799,12 @@
                                 <div class='col-12'>
                                     <table class='table table-borderless table-condensed'>
                                         <tbody>
-                                            <tr>
+                                        <tr>
                                                 <td style='width: 25%;'>ID Approval</td>
                                                 <td style='width: 75%;'>: ${data.id}</td>
                                             </tr>
                                             <tr>
-                                                <td>No Justifikasi Kebutuhan</td>
+                                                <td>No SPB</td>
                                                 <td>: ${data.no_bukti}</td>
                                             </tr>
                                             <tr>
@@ -791,12 +812,16 @@
                                                 <td>: ${data.tanggal}</td>
                                             </tr>
                                             <tr>
-                                                <td>PP</td>
-                                                <td>: ${data.kode_pp} - ${data.nama_pp}</td>
+                                                <td>Atensi</td>
+                                                <td>: ${data.nama}</td>
                                             </tr>
                                             <tr>
                                                 <td>Keterangan</td>
                                                 <td>: ${data.keterangan}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Nilai</td>
+                                                <td>: ${sepNum(data.nilai)}</td>
                                             </tr>
                                             <tr style='line-height: 40px;'>
                                                 <td>Status</td>
