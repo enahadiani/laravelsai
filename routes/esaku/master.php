@@ -273,3 +273,10 @@ Route::get('sdm-status', 'Esaku\Sdm\StatusKaryawanController@show');
 Route::post('sdm-status', 'Esaku\Sdm\StatusKaryawanController@store');
 Route::post('sdm-status-update', 'Esaku\Sdm\StatusKaryawanController@update');
 Route::delete('sdm-status', 'Esaku\Sdm\StatusKaryawanController@delete');
+
+// Data Status Karyawan //
+Route::get('sdm-jabatans', 'Esaku\Sdm\JabatanSDMController@index');
+Route::get('sdm-jabatan', 'Esaku\Sdm\JabatanSDMController@show');
+Route::post('sdm-jabatan', 'Esaku\Sdm\JabatanSDMController@store');
+Route::post('sdm-jabatan-update', 'Esaku\Sdm\JabatanSDMController@update');
+Route::delete('sdm-jabatan', 'Esaku\Sdm\JabatanSDMController@delete');
