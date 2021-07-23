@@ -266,3 +266,10 @@ Route::get('sdm-loker', 'Esaku\Sdm\LokerController@show');
 Route::post('sdm-loker', 'Esaku\Sdm\LokerController@store');
 Route::post('sdm-loker-update', 'Esaku\Sdm\LokerController@update');
 Route::delete('sdm-loker', 'Esaku\Sdm\LokerController@delete');
+
+// Data Status Karyawan //
+Route::get('sdm-statuss', 'Esaku\Sdm\StatusKaryawanController@index');
+Route::get('sdm-status', 'Esaku\Sdm\StatusKaryawanController@show');
+Route::post('sdm-status', 'Esaku\Sdm\StatusKaryawanController@store');
+Route::post('sdm-status-update', 'Esaku\Sdm\StatusKaryawanController@update');
+Route::delete('sdm-status', 'Esaku\Sdm\StatusKaryawanController@delete');
