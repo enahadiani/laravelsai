@@ -302,3 +302,10 @@ Route::get('sdm-pp', 'Esaku\Sdm\UnitSDMController@getPP');
 Route::post('sdm-unit', 'Esaku\Sdm\UnitSDMController@store');
 Route::post('sdm-unit-update', 'Esaku\Sdm\UnitSDMController@update');
 Route::delete('sdm-unit', 'Esaku\Sdm\UnitSDMController@delete');
+
+// Data Profesi Karyawan //
+Route::get('sdm-profesis', 'Esaku\Sdm\ProfesiSDMController@index');
+Route::get('sdm-profesi', 'Esaku\Sdm\ProfesiSDMController@show');
+Route::post('sdm-profesi', 'Esaku\Sdm\ProfesiSDMController@store');
+Route::post('sdm-profesi-update', 'Esaku\Sdm\ProfesiSDMController@update');
+Route::delete('sdm-profesi', 'Esaku\Sdm\ProfesiSDMController@delete');
