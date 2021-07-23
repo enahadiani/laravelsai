@@ -174,5 +174,24 @@ class FilterController extends Controller
         return response()->json(['daftar' => $data['data'],'res' => $data, 'status' => true], 200);
     }
 
+    public function getFilterNoBuktiSPB(Request $request) {
+        $client = new Client();
+        $response = $client->request('GET',  config('api.url').'siaga-report/filter-nobukti-spb',[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ],
+            'query' => $request->all()
+        ]);
+
+        if ($response->getStatusCode() == 200) { // 200 OK
+            $response_data = $response->getBody()->getContents();
+        
+            $data = json_decode($response_data,true);
+            $data = $data;
+        }
+        return response()->json(['daftar' => $data['data'],'res' => $data, 'status' => true], 200);
+    }
+
 
 }
