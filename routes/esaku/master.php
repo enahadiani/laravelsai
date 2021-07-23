@@ -274,9 +274,16 @@ Route::post('sdm-status', 'Esaku\Sdm\StatusKaryawanController@store');
 Route::post('sdm-status-update', 'Esaku\Sdm\StatusKaryawanController@update');
 Route::delete('sdm-status', 'Esaku\Sdm\StatusKaryawanController@delete');
 
-// Data Status Karyawan //
+// Data Jabatan Karyawan //
 Route::get('sdm-jabatans', 'Esaku\Sdm\JabatanSDMController@index');
 Route::get('sdm-jabatan', 'Esaku\Sdm\JabatanSDMController@show');
 Route::post('sdm-jabatan', 'Esaku\Sdm\JabatanSDMController@store');
 Route::post('sdm-jabatan-update', 'Esaku\Sdm\JabatanSDMController@update');
 Route::delete('sdm-jabatan', 'Esaku\Sdm\JabatanSDMController@delete');
+
+// Data Golongan Karyawan //
+Route::get('sdm-golongans', 'Esaku\Sdm\GolonganSDMController@index');
+Route::get('sdm-golongan', 'Esaku\Sdm\GolonganSDMController@show');
+Route::post('sdm-golongan', 'Esaku\Sdm\GolonganSDMController@store');
+Route::post('sdm-golongan-update', 'Esaku\Sdm\GolonganSDMController@update');
+Route::delete('sdm-golongan', 'Esaku\Sdm\GolonganSDMController@delete');
