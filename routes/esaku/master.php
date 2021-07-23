@@ -294,3 +294,11 @@ Route::get('sdm-pajak', 'Esaku\Sdm\StatusPajakController@show');
 Route::post('sdm-pajak', 'Esaku\Sdm\StatusPajakController@store');
 Route::post('sdm-pajak-update', 'Esaku\Sdm\StatusPajakController@update');
 Route::delete('sdm-pajak', 'Esaku\Sdm\StatusPajakController@delete');
+
+// Data Unit Karyawan //
+Route::get('sdm-units', 'Esaku\Sdm\UnitSDMController@index');
+Route::get('sdm-unit', 'Esaku\Sdm\UnitSDMController@show');
+Route::get('sdm-pp', 'Esaku\Sdm\UnitSDMController@getPP');
+Route::post('sdm-unit', 'Esaku\Sdm\UnitSDMController@store');
+Route::post('sdm-unit-update', 'Esaku\Sdm\UnitSDMController@update');
+Route::delete('sdm-unit', 'Esaku\Sdm\UnitSDMController@delete');
