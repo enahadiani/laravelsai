@@ -309,3 +309,21 @@ Route::get('sdm-profesi', 'Esaku\Sdm\ProfesiSDMController@show');
 Route::post('sdm-profesi', 'Esaku\Sdm\ProfesiSDMController@store');
 Route::post('sdm-profesi-update', 'Esaku\Sdm\ProfesiSDMController@update');
 Route::delete('sdm-profesi', 'Esaku\Sdm\ProfesiSDMController@delete');
+
+// Data Profesi Karyawan //
+Route::get('sdm-profesis', 'Esaku\Sdm\ProfesiSDMController@index');
+Route::get('sdm-profesi', 'Esaku\Sdm\ProfesiSDMController@show');
+Route::post('sdm-profesi', 'Esaku\Sdm\ProfesiSDMController@store');
+Route::post('sdm-profesi-update', 'Esaku\Sdm\ProfesiSDMController@update');
+Route::delete('sdm-profesi', 'Esaku\Sdm\ProfesiSDMController@delete');
+
+// Data Agama Karyawan //
+Route::get('sdm-agamas', 'Esaku\Sdm\AgamaSDMController@index');
+Route::get('sdm-agama', 'Esaku\Sdm\AgamaSDMController@show');
+Route::post('sdm-agama', 'Esaku\Sdm\AgamaSDMController@store');
+Route::post('sdm-agama-update', 'Esaku\Sdm\AgamaSDMController@update');
+Route::delete('sdm-agama', 'Esaku\Sdm\AgamaSDMController@delete');
+
+// Data Jurusan Karyawam //
+
+// Data Strata Karyawam //
