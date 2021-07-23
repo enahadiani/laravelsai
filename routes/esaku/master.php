@@ -332,3 +332,8 @@ Route::post('sdm-jurusan-update', 'Esaku\Sdm\JurusanSDMController@update');
 Route::delete('sdm-jurusan', 'Esaku\Sdm\JurusanSDMController@delete');
 
 // Data Strata Karyawam //
+Route::get('sdm-stratas', 'Esaku\Sdm\StrataSDMController@index');
+Route::get('sdm-strata', 'Esaku\Sdm\StrataSDMController@show');
+Route::post('sdm-strata', 'Esaku\Sdm\StrataSDMController@store');
+Route::post('sdm-strata-update', 'Esaku\Sdm\StrataSDMController@update');
+Route::delete('sdm-strata', 'Esaku\Sdm\StrataSDMController@delete');
