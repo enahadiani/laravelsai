@@ -287,3 +287,10 @@ Route::get('sdm-golongan', 'Esaku\Sdm\GolonganSDMController@show');
 Route::post('sdm-golongan', 'Esaku\Sdm\GolonganSDMController@store');
 Route::post('sdm-golongan-update', 'Esaku\Sdm\GolonganSDMController@update');
 Route::delete('sdm-golongan', 'Esaku\Sdm\GolonganSDMController@delete');
+
+// Data Status Pajak Karyawan //
+Route::get('sdm-pajaks', 'Esaku\Sdm\StatusPajakController@index');
+Route::get('sdm-pajak', 'Esaku\Sdm\StatusPajakController@show');
+Route::post('sdm-pajak', 'Esaku\Sdm\StatusPajakController@store');
+Route::post('sdm-pajak-update', 'Esaku\Sdm\StatusPajakController@update');
+Route::delete('sdm-pajak', 'Esaku\Sdm\StatusPajakController@delete');
