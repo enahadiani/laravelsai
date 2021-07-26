@@ -70,13 +70,13 @@ class ReferensiTransController extends Controller
                 
                 $data = json_decode($response_data,true);
             }
-            return response()->json(['data' => $data], 200); 
+            return response()->json($data, 200); 
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(),true);
             $data['message'] = $res['message'];
             $data['status'] = false;
-            return response()->json(['data' => $data], 200);
+            return response()->json($data, 200);
         }
     }
 

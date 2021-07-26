@@ -21,16 +21,14 @@
             margin-right: 25px;
         }
 
-        #tgl_mulai-dp .datepicker-dropdown
+        #generate_kode
         {
-            left: 20px !important;
-            top: 190px !important;
-        }
-
-        #tgl_selesai-dp .datepicker-dropdown
-        {
-            left: 20px !important;
-            top: 190px !important;
+            position: absolute;
+            top: 30px;
+            right: 25px;
+            z-index: 2;
+            font-size: 18px;
+            cursor: pointer;
         }
     
     </style>
@@ -59,48 +57,72 @@
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group col-md-6 col-sm-12">
-                                <label for="kode_jenis" >Kode Jenis</label>
-                                <input class="form-control" type="text" placeholder="Kode Jenis" id="kode_jenis" name="kode_jenis" required>                         
+                            <div class="form-group col-md-6">
+                                <label for="jenis">Jenis</label>
+                                <select class='form-control selectize' id="jenis" name="jenis">
+                                <option value=''>--- Pilih Jenis ---</option>
+                                <option value='PENGELUARAN'>PENGELUARAN</option>
+                                <option value='PEMASUKAN'>PEMASUKAN</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="kode_ref" >Kode Ref</label>
+                                <input class="form-control" type="text" placeholder="Kode Ref" id="kode_ref" name="kode_ref" readonly="true" required>
+                                <i class="simple-icon-refresh" id="generate_kode"></i>          
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-12 col-sm-12">
-                                <label for="nama" >Nama</label>
+                                <label for="nama" >Deskripsi</label>
                                 <input class="form-control" type="text" placeholder="Nama" id="nama" name="nama" required>                         
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="jenis">Jenis</label>
-                                <select class='form-control selectize' id="jenis" name="jenis">
-                                <option value='' disabled selected>--- Pilih Jenis ---</option>
-                                <option value='REGULER'>REGULER</option>
-                                <option value='INSIDENTIL'>INSIDENTIL</option>
-                                </select>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="akun_debet" >Akun Debet</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                    <span class="input-group-text info-code_akun_debet" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                    </div>
+                                    <input type="text" class="form-control inp-label-akun_debet" id="akun_debet" name="akun_debet" value="" title="">
+                                    <span class="info-name_akun_debet hidden">
+                                    <span></span> 
+                                    </span>
+                                    <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                    <i class="simple-icon-magnifier search-item2" id="search_akun_debet"></i>
+                                </div>
                             </div>
-                            <div class="form-group col-md-6">
-                                <label for="status">Status</label>
-                                <select class='form-control selectize' id="status" name="status">
-                                <option value='' disabled selected>--- Pilih Status ---</option>
-                                <option value='PDPT'>PDPT</option>
-                                <option value='TITIPAN'>TITIPAN</option>
-                                </select>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="akun_kredit" >Akun Kredit</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                    <span class="input-group-text info-code_akun_kredit" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                    </div>
+                                    <input type="text" class="form-control inp-label-akun_kredit" id="akun_kredit" name="akun_kredit" value="" title="">
+                                    <span class="info-name_akun_kredit hidden">
+                                    <span></span> 
+                                    </span>
+                                    <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                    <i class="simple-icon-magnifier search-item2" id="search_akun_kredit"></i>
+                                </div>
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="tgl_mulai">Tgl Mulai</label>
-                                <span id="tgl_mulai-dp"></span>
-                                <input type="text" class="form-control datepicker" id="tgl_mulai" name="tgl_mulai" required>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="tgl_selesai">Tgl Selesai</label>
-                                <span id="tgl_selesai-dp"></span>
-                                <input type="text" class="form-control datepicker" id="tgl_selesai" name="tgl_selesai" required>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="kode_pp" >PP</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                    <span class="input-group-text info-code_kode_pp" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                    </div>
+                                    <input type="text" class="form-control inp-label-kode_pp" id="kode_pp" name="kode_pp" value="" title="">
+                                    <span class="info-name_kode_pp hidden">
+                                    <span></span> 
+                                    </span>
+                                    <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                    <i class="simple-icon-magnifier search-item2" id="search_kode_pp"></i>
+                                </div>
                             </div>
                         </div>
-
                     </div>
                     <div class="card-body-footer row mx-auto" style="padding: 0 25px;">
                         <div style="vertical-align: middle;" class="col-md-10 text-right p-0">
@@ -137,28 +159,6 @@
         }
     });
 
-    $("#tgl_mulai").bootstrapDP({
-        autoclose: true,
-        format: 'dd/mm/yyyy',
-        container:'span#tgl_mulai-dp',
-        templates: {
-            leftArrow: '<i class="simple-icon-arrow-left"></i>',
-            rightArrow: '<i class="simple-icon-arrow-right"></i>'
-        },
-        orientation: 'bottom left'
-    });
-
-    $("#tgl_selesai").bootstrapDP({
-        autoclose: true,
-        format: 'dd/mm/yyyy',
-        container:'span#tgl_selesai-dp',
-        templates: {
-            leftArrow: '<i class="simple-icon-arrow-left"></i>',
-            rightArrow: '<i class="simple-icon-arrow-right"></i>'
-        },
-        orientation: 'bottom left'
-    });
-
     function last_add(param,isi){
         var rowIndexes = [];
         dataTable.rows( function ( idx, data, node ) {             
@@ -181,14 +181,17 @@
     var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
     var dataTable = generateTable(
         "table-data",
-        "{{ url('rtrw-master/jenis-iuran') }}", 
+        "{{ url('rtrw-master/reftrans') }}", 
         [
-            {'targets': 3, data: null, 'defaultContent': action_html,'className': 'text-center' },
+            {'targets': 6, data: null, 'defaultContent': action_html,'className': 'text-center' },
         ],
         [
-            { data: 'kode_jenis' },
+            { data: 'kode_ref' },
             { data: 'nama' },
-            { data: 'jenis' }
+            { data: 'akun_debet' },
+            { data: 'akun_kredit' },
+            { data: 'jenis' },
+            { data: 'pp' },
         ],
         "{{ url('rtrw-auth/sesi-habis') }}",
         [[0 ,"desc"]]
@@ -217,6 +220,15 @@
         $(this).addClass('hidden');
     });
 
+    function deleteInfoField(par){
+        $('#'+par).val('');
+        $('#'+par).attr('readonly',false);
+        $('#'+par).attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important');
+        $('.info-code_'+par).parent('div').addClass('hidden');
+        $('.info-name_'+par).addClass('hidden');
+        $('#'+par).closest('div').find('.info-icon-hapus').addClass('hidden');
+    }
+
     function showInfoField(kode,isi_kode,isi_nama){
         $('#'+kode).val(isi_kode);
         $('#'+kode).attr('style','border-left:0;border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important');
@@ -233,6 +245,187 @@
     }
 
     $(".selectize").selectize();
+
+    function generateKdRef(jenis){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('rtrw-master/reftrans-kode') }}/"+jenis,
+            dataType: 'json',
+            async:false,
+            success:function(result){    
+                if(result.daftar.status){
+                    $('#kode_ref').val(result.daftar.kode);
+                }
+            },error:function(error) {
+                alert('Terjadi kesalahan')
+            }
+        });
+    }
+
+    function getAkunDebet(id=null){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('rtrw-master/masakun') }}",
+            dataType: 'json',
+            data:{kode_akun: id},
+            async:false,
+            success:function(result){    
+                deleteInfoField('akun_debet');
+                if(result.status){
+                    if(typeof result.data !== 'undefined' && result.data.length>0){
+                        showInfoField('akun_debet',result.data[0].kode_akun,result.data[0].nama);
+                    }else{
+                        deleteInfoField('akun_debet');
+                    }
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    window.location.href = "{{ url('rtrw-auth/sesi-habis') }}";
+                }else{
+                    deleteInfoField('akun_debet');
+                }
+            }
+        });
+    }
+
+    function getAkunKredit(id=null){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('rtrw-master/masakun') }}",
+            dataType: 'json',
+            data:{kode_akun: id},
+            async:false,
+            success:function(result){    
+                deleteInfoField('akun_kredit');
+                if(result.status){
+                    if(typeof result.data !== 'undefined' && result.data.length>0){
+                        showInfoField('akun_kredit',result.data[0].kode_akun,result.data[0].nama);
+                    }else{
+                        deleteInfoField('akun_kredit');
+                    }
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    window.location.href = "{{ url('rtrw-auth/sesi-habis') }}";
+                }else{
+                    deleteInfoField('akun_kredit');
+                }
+            }
+        });
+    }
+
+    function getPP(id=null){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('rtrw-master/relakun-pp') }}",
+            dataType: 'json',
+            data:{kode_pp: id},
+            async:false,
+            success:function(result){    
+                deleteInfoField('kode_pp');
+                if(result.status){
+                    if(typeof result.data !== 'undefined' && result.data.length>0){
+                        showInfoField('kode_pp',result.data[0].kode_pp,result.data[0].nama);
+                    }else{
+                        deleteInfoField('kode_pp');
+                    }
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    window.location.href = "{{ url('rtrw-auth/sesi-habis') }}";
+                }else{
+                    deleteInfoField('kode_pp');
+                }
+            }
+        });
+    }
+
+    $('#form-tambah').on('change', '#akun_debet', function(){
+        var par = $(this).val();
+        getAkunDebet(par);
+    });
+
+    $('#form-tambah').on('change', '#akun_kredit', function(){
+        var par = $(this).val();
+        getAkunKredit(par);
+    });
+
+    $('#form-tambah').on('change', '#kode_pp', function(){
+        var par = $(this).val();
+        getPP(par);
+    });
+
+    $('#form-tambah').on('click', '.search-item2', function(e){
+        e.preventDefault();
+        var id = $(this).closest('div').find('input').attr('name');
+        var options = {};
+        switch(id){
+            case 'akun_debet':
+                options = {
+                    id : id,
+                    header : ['Kode Akun', 'Nama'],
+                    url : "{{ url('rtrw-master/masakun') }}",
+                    columns : [
+                        { data: 'kode_akun' },
+                        { data: 'nama' },
+                    ],
+                    judul : "Daftar Akun",
+                    pilih : "akun",
+                    jTarget1 : "text",
+                    jTarget2 : "text",
+                    target1 : ".info-code_"+id,
+                    target2 : ".info-name_"+id,
+                    target3 : "",
+                    target4 : "",
+                    width : ["30%","70%"]
+                };
+                break;
+            case 'akun_kredit':
+                options = {
+                    id : id,
+                    header : ['Kode Akun', 'Nama'],
+                    url : "{{ url('rtrw-master/masakun') }}",
+                    columns : [
+                        { data: 'kode_akun' },
+                        { data: 'nama' },
+                    ],
+                    judul : "Daftar Akun",
+                    pilih : "akun",
+                    jTarget1 : "text",
+                    jTarget2 : "text",
+                    target1 : ".info-code_"+id,
+                    target2 : ".info-name_"+id,
+                    target3 : "",
+                    target4 : "",
+                    width : ["30%","70%"]
+                };
+                break;
+            case 'kode_pp':
+                options = {
+                    id : id,
+                    header : ['Kode PP', 'Nama'],
+                    url : "{{ url('rtrw-master/relakun-pp') }}",
+                    columns : [
+                        { data: 'kode_pp' },
+                        { data: 'nama' },
+                    ],
+                    judul : "Daftar PP",
+                    pilih : "pp",
+                    jTarget1 : "text",
+                    jTarget2 : "text",
+                    target1 : ".info-code_"+id,
+                    target2 : ".info-name_"+id,
+                    target3 : "",
+                    target4 : "",
+                    width : ["30%","70%"]
+                };
+                break;
+        }
+        showInpFilterBSheet(options);
+    });
+
+    $('#form-tambah').on('click', '#generate_kode', function(e){
+        e.preventDefault();
+        var jenis = $('#jenis')[0].selectize.getValue();
+        generateKdRef(jenis);
+    });
 
     // END CBBL
 
@@ -280,24 +473,23 @@
         ignore: [],
         rules: 
         {
-            kode_jenis:{
-                required: true,
-                maxlength:10   
+            jenis:{
+                required: true,   
             },
-            nama:{
+            kode_ref:{
                 required: true,
                 maxlength:50   
             },
-            jenis:{
+            nama:{
                 required: true
             },
-            status:{
+            akun_debet:{
                 required: true
             },
-            tgl_mulai:{
+            akun_kredit:{
                 required: true
             },
-            tgl_selesai:{
+            kode_pp:{
                 required: true
             }
         },
@@ -305,13 +497,13 @@
         submitHandler: function (form, event) {
             event.preventDefault();
             var parameter = $('#id_edit').val();
-            var id = $('#kode_jenis').val();
+            var id = $('#kode_ref').val();
             if(parameter == "edit"){
-                var url = "{{ url('rtrw-master/jenis-iuran') }}/"+id;
+                var url = "{{ url('rtrw-master/reftrans') }}/"+id;
                 var pesan = "updated";
                 var text = "Perubahan data "+id+" telah tersimpan";
             }else{
-                var url = "{{ url('rtrw-master/jenis-iuran') }}";
+                var url = "{{ url('rtrw-master/reftrans') }}";
                 var pesan = "saved";
                 var text = "Data tersimpan dengan kode "+id;
             }
@@ -340,22 +532,22 @@
                         $('#id_edit').val('');
                         $('#judul-form').html('Tambah Data Referensi Transaksi');
                         $('#method').val('post');
-                        $('#kode_jenis').attr('readonly', false);
+                        $('#kode_ref').attr('readonly', false);
                         msgDialog({
                             id:result.data.kode,
                             type:'simpan'
                         });
-                        last_add("kode_jenis",result.data.kode);
+                        last_add("kode_ref",result.data.kode);
                     }else if(!result.data.status && result.data.message === "Unauthorized"){
                     
                         window.location.href = "{{ url('/rtrw-auth/sesi-habis') }}";
                         
                     }else{
-                        if(result.data.kode == "-" && result.data.kode_jenis != undefined){
+                        if(result.data.kode == "-" && result.data.kode_ref != undefined){
                             msgDialog({
                                 id: id,
-                                type: result.data.kode_jenis,
-                                text:'Kode Jenis sudah digunakan'
+                                type: result.data.kode_ref,
+                                text:'Kode Ref sudah digunakan'
                             });
                         }else{
 
@@ -395,7 +587,7 @@
         console.log(id)
         $.ajax({
             type: 'DELETE',
-            url: "{{ url('rtrw-master/jenis-iuran') }}/"+id,
+            url: "{{ url('rtrw-master/reftrans') }}/"+id,
             dataType: 'json',
             async:false,
             success:function(result){
@@ -431,7 +623,7 @@
     function editData(id){
         $.ajax({
             type: 'GET',
-            url: "{{ url('rtrw-master/jenis-iuran') }}/"+id,
+            url: "{{ url('rtrw-master/reftrans-detail') }}/"+id,
             dataType: 'json',
             data:{kode_jenis:id},
             async:false,
@@ -439,17 +631,19 @@
                 if(result.status){
                     $('#id_edit').val('edit');
                     $('#method').val('put');
-                    $('#kode_jenis').attr('readonly', true);
-                    $('#kode_jenis').val(id);
+                    $('#kode_ref').val(id);
                     $('#id').val(id);
                     $('#nama').val(result.data[0].nama);
                     $('#jenis')[0].selectize.setValue(result.data[0].jenis); 
-                    $('#status')[0].selectize.setValue(result.data[0].status); 
-                    $('#tgl_mulai').val(result.data[0].tgl_mulai);
-                    $('#tgl_selesai').val(result.data[0].tgl_selesai);         
+                    $('#akun_debet').val(result.data[0].akun_debet);
+                    $('#akun_kredit').val(result.data[0].akun_kredit);  
+                    $('#kode_pp').val(result.data[0].kode_pp);         
                     $('#saku-datatable').hide();
                     $('#modal-preview').modal('hide');
                     $('#saku-form').show();
+                    showInfoField('akun_debet',result.data[0].akun_debet,result.data[0].nama_debet);
+                    showInfoField('akun_kredit',result.data[0].akun_kredit,result.data[0].nama_kredit);
+                    showInfoField('kode_pp',result.data[0].kode_pp,result.data[0].nama_pp);
                     setHeightForm();
                     setWidthFooterCardBody();
                 }
@@ -474,7 +668,7 @@
     });
 
     $('#table-data tbody').on('click','td',function(e){
-        if($(this).index() != 3){
+        if($(this).index() != 6){
 
             var id = $(this).closest('tr').find('td').eq(0).html();
             var data = dataTable.row(this).data();
@@ -500,11 +694,11 @@
             <div class='preview-body' style='padding: 0 1.75rem;height: calc(75vh - 56px) position:sticky;min-height:300px'>
                 <table class="table table-prev mt-2" width="100%" style="padding-bottom:200px">
                     <tr>
-                    <td style='border:none'>Kode Jenis</td>
+                    <td style='border:none'>Kode Ref</td>
                     <td style='border:none'>`+id+`</td>
                     </tr>
                     <tr>
-                    <td>Nama Jenis</td>
+                    <td>Nama</td>
                     <td>`+data.nama+`</td>
                     </tr>
                     <tr>
@@ -512,16 +706,16 @@
                     <td>`+data.jenis+`</td>
                     </tr>
                     <tr>
-                    <td>Status</td>
-                    <td>`+data.status+`</td>
+                    <td>Akun Debet</td>
+                    <td>`+data.akun_debet+`</td>
                     </tr>
                     <tr>
-                    <td>Tgl Mulai</td>
-                    <td>`+data.tgl_mulai+`</td>
+                    <td>Akun Kredit</td>
+                    <td>`+data.akun_kredit+`</td>
                     </tr>
                     <tr>
-                    <td>Tgl Selesai</td>
-                    <td>`+data.tgl_selesai+`</td>
+                    <td>PP</td>
+                    <td>`+data.kode_pp+`</td>
                     </tr>
                 </table>
             </div>`;
@@ -570,9 +764,9 @@
         }
     });
 
-    $('#kode_jenis,#nama,#jenis,#status,#tgl_mulai,#tgl_selesai').keydown(function(e){
+    $('#jenis,#kode_ref,#nama,#akun_debet,#akun_kredit,#kode_pp').keydown(function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['kode_jenis','nama','jenis','status','tgl_mulai','tgl_selesai'];
+        var nxt = ['jenis','kode_ref','nama','akun_debet','akun_kredit','kode_pp'];
         if (code == 13 || code == 40) {
             e.preventDefault();
             var idx = nxt.indexOf(e.target.id);
