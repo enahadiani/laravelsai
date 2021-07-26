@@ -207,7 +207,7 @@
                 text: JSON.stringify(data)
             });
 
-            if(data.success != undefined){
+            if(data.status){
                 dataTable.ajax.reload();
             }
         });
