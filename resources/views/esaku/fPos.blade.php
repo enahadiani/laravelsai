@@ -197,46 +197,47 @@
 <div class="modal" id="modal-bayar2" tabindex="-1" role="dialog" aria-modal="true">
     <div role="document" style="" class="modal-dialog modal-sm modal-dialog-centered">
         <div class="modal-content" style="border-radius: 15px !important;">
-            <div class="modal-header " style="display:block">
+            <div class="modal-header " style="display:block;height:80px !important">
                 <div class="row text-center" style="">
                     <div class="col-md-12">
-                        <h5 class="">Kembalian</h5>
-                        <h5 id="modal-no_jual" hidden></h5>
-                        <h4 class="text-info" id="modal-kembalian"></h4>
+                        <h6 class="mt-2">Kembalian</h6>
+                        <h6 id="modal-no_jual" hidden></h6>
+                        <h5 class="text-info" id="modal-kembalian"></h5>
                     </div>
                 </div>
             </div>
-            <div class="modal-body mt-3">
+            <div class="modal-body">
                 <div class="row mb-2" style="">
                     <div class="col-6" style="">
-                    Total 
+                        Total 
                     </div>
                     <div class="col-6 text-right" id="modal-totrans">
                     </div>
                 </div>
                 <div class="row mb-2">
-                <div class="col-6">
-                    Diskon 
+                    <div class="col-6">
+                        Diskon 
                     </div>
                     <div class="col-6 text-right" id="modal-diskon">
                     </div>
                 </div>
-                <div class="col-6">
-                    PPN 
+                <div class="row mb-2">
+                    <div class="col-6">
+                        PPN 
                     </div>
                     <div class="col-6 text-right" id="modal-ppn">
                     </div>
                 </div>
                 <div class="row mb-2">
                     <div class="col-6">
-                    Pembulatan 
+                        Pembulatan 
                     </div>
                     <div class="col-6 text-right">
                     </div>
                 </div>
                 <div class="row mb-2">
                     <div class="col-6">
-                    Total Bayar
+                        Total Bayar
                     </div>
                     <div class="col-6 text-right" id="modal-tostlhdisk">
                     </div>
