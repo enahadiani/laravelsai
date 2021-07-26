@@ -395,7 +395,7 @@
                     <div class='separator'></div>
                     <p>Batas waktu maksimal pembayaran sampai `+data.bill.bill_expired+`</p>
                     <div class='separator'></div>
-                    <h6>APP CODE : `+data.bill.app_code+`</h6>
+                    <h6>BILL CODE : `+data.bill.bill_code+`</h6>
                     <h6>BILL CUST ID : `+data.bill.bill_cust_id+`</h6>
                 `;
                 msgDialog({

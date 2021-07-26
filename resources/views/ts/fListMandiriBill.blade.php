@@ -101,7 +101,7 @@
             margin-right: 25px;
         }
     </style>
-    <x-list-data judul="Riwayat Pembayaran" tambah="" :thead="array('No Bukti','Nilai','Status','Bill Code','Bill Cust ID','Pay')" :thwidth="array(15,20,10,15,30,10)" :thclass="array('','','','','','text-center')" />
+    <x-list-data judul="Riwayat Pembayaran" tambah="" :thead="array('No Bukti','Nilai','Status','Bill Code','Bill Cust ID','Pay','Cancel')" :thwidth="array(15,20,10,15,20,10,10)" :thclass="array('','','','','','text-center','text-center')" />
    
     <script src="{{ asset('helper.js') }}"></script>
     <script> 
@@ -109,6 +109,12 @@
     $('html').addClass('dash-contents');
     $('#beranda').show();
     setHeightForm();
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+        }
+    });
 
     var dataTable = generateTable(
         "table-data",
@@ -125,7 +131,8 @@
             { data: 'status' },
             { data: 'bill_code' },
             { data: 'bill_cust_id' },
-            { data: 'action' }
+            { data: 'action' },
+            { data: 'action2' }
         ],
         "{{ url('ts-auth/sesi-habis') }}",
         []
@@ -162,7 +169,7 @@
                     <div class='separator'></div>
                     <p>Batas waktu maksimal pembayaran sampai `+data.bill.bill_expired+`</p>
                     <div class='separator'></div>
-                    <h6>APP CODE : `+data.bill.app_code+`</h6>
+                    <h6>BILL CODE : `+data.bill.bill_code+`</h6>
                     <h6>BILL CUST ID : `+data.bill.bill_cust_id+`</h6>
                 `;
                 msgDialog({
@@ -178,6 +185,29 @@
                     title:'Error',
                     text: JSON.stringify(data)
                 });
+            }
+        });
+    });
+
+    $('#table-data').on('click','.cancel-pay',function(e){
+        e.preventDefault();
+        var bill_code = $(this).closest('tr').find('td:eq(3)').html();
+        var va = $(this).closest('tr').find('td:eq(4)').html();
+        $.post("{{ url('ts-trans/cancel-mandiri-bill') }}",
+        {
+            bill_code: bill_code,
+            bill_cust_id: va,
+            _method:'PUT'
+        },
+        function (data, status) {
+            msgDialog({
+                id:'-',
+                type:'warning',
+                title:'Cancel',
+                text: JSON.stringify(data)
+            });
+            if(data.success != undefined){
+                dataTable.ajax.reload();
             }
         });
     });

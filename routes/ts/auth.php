@@ -51,9 +51,7 @@ Route::get('/finish', 'Ts\DashSiswaController@notificationHandler');
 Route::post('/finish-trans', 'Ts\DashSiswaController@notificationHandler2');
 Route::get('/finish-trans', 'Ts\DashSiswaController@notificationHandler2');
 
-Route::get('/callback', function (Request $request) {
-    return $request->all();
-});
+Route::get('/callback', 'Ts\BayarMandiriController@updateStatus');
 
 
 
