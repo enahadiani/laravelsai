@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Esaku\Aktap;
+namespace App\Http\Controllers\Esaku\Inventori;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
