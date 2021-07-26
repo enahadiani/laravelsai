@@ -87,10 +87,12 @@ class PenjualanController extends Controller
             'total_trans' => 'required',
             'total_disk' => 'required',
             'total_bayar' => 'required',
+            'total_ppn' => 'required',
             'kode_barang' => 'required|array',
             'qty_barang' => 'required|array',
             'harga_barang' => 'required|array',
             'disc_barang' => 'required|array',
+            'ppn_barang' => 'required|array',
             'sub_barang' => 'required|array'
         ]);
         $data_harga = array();
@@ -106,17 +108,24 @@ class PenjualanController extends Controller
             $data_sub[] = intval(str_replace('.','', $request->sub_barang[$i]));
         }
 
+        $data_ppn = array();
+        for($i=0;$i<count($request->ppn_barang);$i++){
+            $data_ppn[] = intval(str_replace('.','', $request->ppn_barang[$i]));
+        }
+
         $fields = array (
             'kode_pp' => Session::get('kodePP'),
             'no_open' => $request->no_open,
             'total_trans' => intval(str_replace('.','', $request->total_trans)),
             'diskon' => intval(str_replace('.','', $request->total_disk)),
+            'total_ppn' => intval(str_replace('.','', $request->total_ppn)),
             'total_bayar' => intval(str_replace('.','', $request->total_bayar)),
             'kode_barang' => $request->kode_barang,
             'qty_barang' => $request->qty_barang,
             'harga_barang' => $data_harga,
             'diskon_barang' => $data_diskon,
-            'sub_barang'=> $data_sub
+            'sub_barang'=> $data_sub,
+            'ppn_barang'=> $data_ppn
         );
 
             $client = new Client();

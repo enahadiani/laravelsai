@@ -53,10 +53,10 @@
                             <div class="col-12">
                                 <table class="table" style="margin-bottom: 5px">
                                     <tr>
-                                        <th style='padding: 3px;width:25%' colspan='2'>
+                                        <th style='padding: 3px;width:20%' colspan='2'>
                                             <input type='text' class='form-control' placeholder="Barcode [F1]" id="kd-barang2" >
                                         </th>
-                                        <th style='padding: 3px;width:25%' colspan='2'>
+                                        <th style='padding: 3px;width:20%' colspan='2'>
                                             <select class='form-control' id="kd-barang">
                                                 <option value=''>--- Pilih Barang [CTRL+C] ---</option>
                                             </select>
@@ -64,6 +64,10 @@
                                         <th style='padding: 3px;width:5%'>Disc.</th>
                                         <th style='padding: 3px;width:20%'>
                                             <input type='text' placeholder='Total Disc.' value="0" name="total_disk" class='form-control currency' id='todisk' required >
+                                        </th>
+                                        <th style='padding: 3px;width:5%'>PPN</th>
+                                        <th style='padding: 3px;width:15%'>
+                                            <input type='text' placeholder='Total PPN' value="0" name="total_ppn" class='form-control currency' id='toppn' required readonly >
                                         </th>
                                         <th style='padding: 3px;width:5%'>Total</th>
                                         <th style='padding: 3px;width:20%'>
@@ -79,6 +83,7 @@
                                             <th>Qty</th>
                                             <th>Subtotal</th>
                                             <th>Disc</th>
+                                            <th style="display:none">PPN</th>
                                         </tr>
                                     </table>
                                 </div>
@@ -197,11 +202,11 @@
                     <div class="col-md-12">
                         <h5 class="">Kembalian</h5>
                         <h5 id="modal-no_jual" hidden></h5>
-                        <h1 class="text-info" id="modal-kembalian"></h1>
+                        <h4 class="text-info" id="modal-kembalian"></h4>
                     </div>
                 </div>
             </div>
-            <div class="modal-body">
+            <div class="modal-body mt-3">
                 <div class="row mb-2" style="">
                     <div class="col-6" style="">
                     Total 
@@ -214,6 +219,12 @@
                     Diskon 
                     </div>
                     <div class="col-6 text-right" id="modal-diskon">
+                    </div>
+                </div>
+                <div class="col-6">
+                    PPN 
+                    </div>
+                    <div class="col-6 text-right" id="modal-ppn">
                     </div>
                 </div>
                 <div class="row mb-2">
@@ -410,7 +421,8 @@
             $('#todisk').val(0);
         }
         var total_brg = 0;
-        var diskon =  0;
+        var diskon =  toNilai($('#todisk').val());
+        var ppn =0;
         $('.row-barang').each(function(){
             var qtyb = $(this).closest('tr').find('.inp-qtyb').val();
             var hrgb = $(this).closest('tr').find('.inp-hrgb').val();
@@ -419,14 +431,16 @@
             // var subb = (+qtyb * toNilai(hrgb)) - disc;
             diskon += +toNilai(disc);
             var subb = (+qtyb * toNilai(hrgb));
+            ppn+= (subb*10)/100;
             $(this).closest('tr').find('.inp-subb').val(toRp(subb));
             total_brg += +subb;
         });
         $('#totrans').val(toRp(total_brg));
         $('#todisk').val(toRp(diskon));
+        $('#toppn').val(toRp(ppn));
 
         var total_disk= toNilai($('#todisk').val());
-        var total_stlh = +total_brg - +total_disk;
+        var total_stlh = +total_brg+ppn - total_disk;
         
         $('#tostlh').val(toRp(total_stlh));
         var total_bayar = toNilai($('#tobyr').val());
@@ -567,12 +581,14 @@
                 var qty_temp = $(this).closest('tr').find('.inp-qtyb').val();
                 var hrg_temp = $(this).closest('tr').find('.inp-hrgb').val();
                 var disc_temp = $(this).closest('tr').find('.inp-disc').val();
+                var ppn =0;
                 if(kd_temp == kd){
                     qty+=+(toNilai(qty_temp));
                     // hrg+=+(toNilai(hrg_temp));
                     disc+=+(toNilai(disc_temp));
                     //todis+=+(hrg*toNilai(disc_temp))/100;
                     sub=(hrg*qty)-disc;
+                    ppn = (sub*10)/100;
                     $(this).closest('tr').remove();
                 }
             });
@@ -583,6 +599,7 @@
             input += "<td width='15%' style='text-align:right'><input type='text' name='qty_barang[]' class='change-validation inp-qtyb form-control'  value='"+qty+"' readonly required></td>";
             input += "<td width='15%' style='text-align:right'><input type='text' name='sub_barang[]' class='change-validation inp-subb form-control'  value='"+toRp(sub)+"' readonly required></td>";
             input += "<td width='10%' style='text-align:right'><input type='text' name='disc_barang[]' class='change-validation inp-disc form-control'  value='"+disc+"' readonly required></td>";
+            input += "<td width='10%' style='text-align:right;display:none'><input type='text' name='ppn_barang[]' class='change-validation inp-ppnb form-control'  value='"+toRp(ppn)+"' readonly required></td>";
             input += "<td width='10%' class='text-center'></a><a href='#' class='btn btn-sm ubah-barang' style='font-size:18px !important;padding:0'><i class='simple-icon-pencil'></i></a>&nbsp;<a href='#' class='btn btn-sm hapus-item' style='font-size:18px !important;margin-left:10px;padding:0'><i class='simple-icon-trash'></i></td>";
             input += "</tr>";
             
@@ -618,18 +635,21 @@
             var hrgSelected = hrgSelect;
             var discSelected = discSelect;
             var subSelected = (+qtySelected * +hrgSelected);
+            var ppnSelected = (subSelected*10)/100;
 
             $('.row-barang').each(function(){
                 var kd_barang = $(this).closest('tr').find('.inp-kdb').val();
                 var qty_barang = $(this).closest('tr').find('.inp-qtyb').val();
                 var hrg_barang = $(this).closest('tr').find('.inp-hrgb').val();
                 var disc_barang = $(this).closest('tr').find('.inp-disc').val();
+                var ppnSelected =0;
                 if(kd_barang == barangSelected){
                     qtySelected+=+(toNilai(qty_barang));
                     // hrg+=+(toNilai(hrg_temp));
                     discSelected+=+(toNilai(disc_barang));
                     //todis+=+(hrg*toNilai(disc_temp))/100;
                     subSelected=(hrgSelected*qtySelected);
+                    ppnSelected=(subSelected*10)/100;
                     $(this).closest('tr').remove();
                 }
             });
@@ -644,6 +664,7 @@
                     qtySelected = result.data.jumlah;
                     discSelected = result.data.diskon;
                     subSelected = (hrgSelected*qtySelected);
+                    ppnSelected = (subSelected*10)/100;
 
                     input = "<tr class='row-barang'>";
                     input += "<td width='30%'>"+namaSelected+"<input type='hidden' name='kode_barang[]' class='change-validation inp-kdb form-control' value='"+barangSelected+"' readonly required></td>";
@@ -651,6 +672,7 @@
                     input += "<td width='15%' style='text-align:right'><input type='text' name='qty_barang[]' class='change-validation inp-qtyb form-control'  value='"+qtySelected+"' readonly required></td>";
                     input += "<td width='15%' style='text-align:right'><input type='text' name='sub_barang[]' class='change-validation inp-subb form-control'  value='"+toRp(subSelected)+"' readonly required></td>";
                     input += "<td width='10%' style='text-align:right'><input type='text' name='disc_barang[]' class='change-validation inp-disc form-control'  value='"+toRp(discSelected)+"' readonly required></td>";
+                    input += "<td width='10%' style='text-align:right;display:none'><input type='text' name='ppn_barang[]' class='change-validation inp-ppnb form-control'  value='"+toRp(ppnSelected)+"' readonly required></td>";
                     input += "<td width='10%' class='text-center'></a><a href='#' class='btn btn-sm ubah-barang' style='font-size:18px !important;padding:0'><i class='simple-icon-pencil'></i></a>&nbsp;<a href='#' class='btn btn-sm hapus-item' style='font-size:18px !important;margin-left:10px;padding:0'><i class='simple-icon-trash'></i></td>";
                     input += "</tr>";
                     
@@ -664,6 +686,11 @@
         }
 
     }
+
+    $('#todisk').change(function(e){
+        e.preventDefault();
+        hitungTotal();
+    })
 
     $('#edit-submit').click(function(e){
         e.preventDefault();
@@ -685,6 +712,7 @@
                     qty=result.data.jumlah;
                     disc=result.data.diskon;
                     sub = (hrg*qty);
+                    ppn = (sub*10)/100;
 
                     input = "<tr class='row-barang'>";
                     input += "<td width='30%'>"+nama+"<input type='hidden' name='kode_barang[]' class='change-validation inp-kdb form-control' value='"+kd+"' readonly required></td>";
@@ -692,6 +720,7 @@
                     input += "<td width='15%' style='text-align:right'><input type='text' name='qty_barang[]' class='change-validation inp-qtyb form-control'  value='"+qty+"' readonly required></td>";
                     input += "<td width='15%' style='text-align:right'><input type='text' name='sub_barang[]' class='change-validation inp-subb form-control'  value='"+toRp(sub)+"' readonly required></td>";
                     input += "<td width='10%' style='text-align:right'><input type='text' name='disc_barang[]' class='change-validation inp-disc form-control'  value='"+toRp(disc)+"' readonly required></td>";
+                    input += "<td width='10%' style='text-align:right;display:none'><input type='text' name='ppn_barang[]' class='change-validation inp-ppnb form-control'  value='"+toRp(ppn)+"' readonly required></td>";
                     input += "<td width='10%'></a><a class='btn btn-primary btn-sm ubah-barang' style='font-size:18px !important'><i class='fas fa-pencil-alt fa-1'></i></a>&nbsp;<a class='btn btn-danger btn-sm hapus-item' style='font-size:18px !important'><i class='fa fa-times fa-1'></i></td>";
                     input += "</tr>";
                     
@@ -830,6 +859,7 @@
         var todisk=toNilai($('#todisk').val());
         var tostlh=toNilai($('#tostlh').val());
         var tobyr=toNilai($('#tobyr').val());
+        var ppn=toNilai($('#toppn').val());
         var kembalian=tobyr-tostlh;
             if(totrans <= 0){
                 msgDialog({
@@ -883,6 +913,7 @@
                             $('#modal-tostlhdisk').text(sepNum(tostlh));
                             $('#modal-tobyr').text(sepNum(tobyr));
                             $('#modal-kembalian').text(sepNum(kembalian));
+                            $('#modal-ppn').text(sepNum(ppn));
                             $('#modal-no_jual').text(result.data.no_jual);
                             $('#modal-bayar2').modal('show');
                         } else if(!result.data.status && result.data.message === "Unauthorized"){
