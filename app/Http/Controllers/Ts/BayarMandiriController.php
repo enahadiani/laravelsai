@@ -277,14 +277,7 @@ class BayarMandiriController extends Controller
     }
 
     public function updateStatus(Request $request)
-    {
-        
-        $request->validate([
-            'bill_code' => 'required',
-            'bill_cust_id' => 'required',
-            'bill_status' => 'required',
-        ]);
-            
+    {       
         try{
             Log::info('CALLBACK MANDIRI TS :');
             Log::info($request->all());

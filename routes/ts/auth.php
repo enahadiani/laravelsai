@@ -50,8 +50,8 @@ Route::post('/finish', 'Ts\DashSiswaController@notificationHandler');
 Route::get('/finish', 'Ts\DashSiswaController@notificationHandler');
 Route::post('/finish-trans', 'Ts\DashSiswaController@notificationHandler2');
 Route::get('/finish-trans', 'Ts\DashSiswaController@notificationHandler2');
-
 Route::get('/callback', 'Ts\BayarMandiriController@updateStatus');
+
 
 
 
