@@ -124,7 +124,7 @@
                         <div class="form-row">
                             <div class="form-group col-md-6 col-sm-12">
                                 <label for="hna">Harga Jual</label>
-                                <input class="form-control currency nominal"  value="0" type="text" id="hna" name="hna" required>
+                                <input class="form-control currency"  value="0" type="text" id="hna" name="hna" required>
                             </div>
                             <div class="form-group col-md-6 col-sm-12">
                                 <label for="flag_aktif">Status Aktif</label>
@@ -868,6 +868,15 @@
             $('#modal-preview-id').text(id);
             $('#modal-preview').modal('show');
         }
+    });
+    
+    $('.currency').inputmask("numeric", {
+        radixPoint: ",",
+        groupSeparator: ".",
+        digits: 2,
+        autoGroup: true,
+        rightAlign: true,
+        oncleared: function () { self.Value(''); }
     });
 
     $('.modal-header').on('click','#btn-delete2',function(e){
