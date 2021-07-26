@@ -297,12 +297,7 @@ class BayarMandiriController extends Controller
                     $response_data = $response->getBody()->getContents();
                     $res = json_decode($response_data,true);
                 }
-                
-                if ($response->getStatusCode() == 200) { // 200 OK
-                    $response_data = $response->getBody()->getContents();
-                    $res = json_decode($response_data,true);
-                }
-            return response()->json($data, 200);
+                return response()->json($res, 200);
         } catch (BadResponseException $ex) {
 
             $response = $ex->getResponse();
