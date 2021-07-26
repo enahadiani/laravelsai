@@ -149,45 +149,70 @@
         dataTable.page.len(parseInt(selText)).draw();
     });
     
+    // $('#table-data').on('click','.complete-pay',function(e){
+    //     e.preventDefault();
+    //     var bill_code = $(this).closest('tr').find('td:eq(3)').html();
+    //     var va = $(this).closest('tr').find('td:eq(4)').html();
+    //     $.get("{{ url('ts-trans/fetch-mandiri-bill') }}",
+    //     {
+    //         bill_code: bill_code,
+    //         va: va,
+    //     },
+    //     function (data, status) {
+    //         if(data.success){
+
+    //             var tmp = data.bill.bill_name.split("\\");
+    //             var html = `
+    //                 <h6>TOTAL : `+data.bill.bill_currency+` `+data.bill.bill_amount+`</h6>
+    //                 <div class='separator'></div>
+    //                 <p>NO BILL :`+tmp[3]+`</p>
+    //                 <div class='separator'></div>
+    //                 <p>Batas waktu maksimal pembayaran sampai `+data.bill.bill_expired+`</p>
+    //                 <div class='separator'></div>
+    //                 <h6>BILL CODE : `+data.bill.bill_code+`</h6>
+    //                 <h6>BILL CUST ID : `+data.bill.bill_cust_id+`</h6>
+    //             `;
+    //             msgDialog({
+    //                 id:'-',
+    //                 type:'warning',
+    //                 title:'Pembayaran',
+    //                 text: html
+    //             });
+    //         }else{
+    //             msgDialog({
+    //                 id:'-',
+    //                 type:'warning',
+    //                 title:'Error',
+    //                 text: JSON.stringify(data)
+    //             });
+    //         }
+    //     });
+    // });
+
     $('#table-data').on('click','.complete-pay',function(e){
         e.preventDefault();
         var bill_code = $(this).closest('tr').find('td:eq(3)').html();
         var va = $(this).closest('tr').find('td:eq(4)').html();
-        $.get("{{ url('ts-trans/fetch-mandiri-bill') }}",
+        $.get("{{ url('ts-auth/callback') }}",
         {
             bill_code: bill_code,
-            va: va,
+            bill_cust_id: va,
+            bill_status: 'SUCCESS',
         },
         function (data, status) {
-            if(data.success){
+            msgDialog({
+                id:'-',
+                type:'warning',
+                title:'Pembayaran',
+                text: JSON.stringify(data)
+            });
 
-                var tmp = data.bill.bill_name.split("\\");
-                var html = `
-                    <h6>TOTAL : `+data.bill.bill_currency+` `+data.bill.bill_amount+`</h6>
-                    <div class='separator'></div>
-                    <p>NO BILL :`+tmp[3]+`</p>
-                    <div class='separator'></div>
-                    <p>Batas waktu maksimal pembayaran sampai `+data.bill.bill_expired+`</p>
-                    <div class='separator'></div>
-                    <h6>BILL CODE : `+data.bill.bill_code+`</h6>
-                    <h6>BILL CUST ID : `+data.bill.bill_cust_id+`</h6>
-                `;
-                msgDialog({
-                    id:'-',
-                    type:'warning',
-                    title:'Pembayaran',
-                    text: html
-                });
-            }else{
-                msgDialog({
-                    id:'-',
-                    type:'warning',
-                    title:'Error',
-                    text: JSON.stringify(data)
-                });
+            if(data.success != undefined){
+                dataTable.ajax.reload();
             }
         });
     });
+
 
     $('#table-data').on('click','.cancel-pay',function(e){
         e.preventDefault();
