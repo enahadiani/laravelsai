@@ -137,23 +137,26 @@ class BayarMandiriController extends Controller
                 Log::info('MANDIRI BILL:'.print_r($data,true));
                 $res = [];
                 $log = print_r($data, true); 
-                $request->request->add(['log' => $log]);
-                $request->request->add(['status' => $data['bill']['bill_status']]);
-                $request->request->add(['bill_short_name' => $data['bill']['bill_short_name']]);
-                $request->request->add(['bill_cust_id' => $data['bill']['bill_cust_id']]);
-                $response = $client->request('POST',  config('api.url').'ts/create-mandiri-bill',[
-                    'headers' => [
-                        'Authorization' => 'Bearer '.Session::get('token'),
-                        'Accept'     => 'application/json',
-                    ],
-                    'form_params' => $request->all()
-                ]);
-               
-                if ($response->getStatusCode() == 200) { // 200 OK
-                    $response_data = $response->getBody()->getContents();
-                    $res = json_decode($response_data,true);
+                if($data['success']){
+
+                    $request->request->add(['log' => $log]);
+                    $request->request->add(['status' => $data['bill']['bill_status']]);
+                    $request->request->add(['bill_short_name' => $data['bill']['bill_short_name']]);
+                    $request->request->add(['bill_cust_id' => $data['bill']['bill_cust_id']]);
+                    $response = $client->request('POST',  config('api.url').'ts/create-mandiri-bill',[
+                        'headers' => [
+                            'Authorization' => 'Bearer '.Session::get('token'),
+                            'Accept'     => 'application/json',
+                        ],
+                        'form_params' => $request->all()
+                    ]);
+                   
+                    if ($response->getStatusCode() == 200) { // 200 OK
+                        $response_data = $response->getBody()->getContents();
+                        $res = json_decode($response_data,true);
+                    }
+                    Log::info('MANDIRI BILL STORE DB RESPONSE:'.print_r($res,true));
                 }
-                Log::info('MANDIRI BILL STORE DB RESPONSE:'.print_r($res,true));
             }else{
                 $data['message'] = "Create Bill Mandiri gagal. Masih ada bill mandiri yang belum dibayarkan. Cancel bill pada riwayat pembayaran untuk membatalkan bill sebelumnya";
             }
