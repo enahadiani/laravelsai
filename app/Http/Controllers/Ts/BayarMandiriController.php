@@ -156,6 +156,23 @@ class BayarMandiriController extends Controller
                         $res = json_decode($response_data,true);
                     }
                     Log::info('MANDIRI BILL STORE DB RESPONSE:'.print_r($res,true));
+                }else{
+                    $response = $client->request('DELETE',  config('api.url').'ts/delete-mandiri-bill',[
+                        'headers' => [
+                            'Authorization' => 'Bearer '.Session::get('token'),
+                            'Accept'     => 'application/json',
+                        ],
+                        'form_params' => [
+                            'bill_cust_id' => $request->id_bank,
+                            'bill_short_name' => $cek['no_bukti']
+                        ]
+                    ]);
+                   
+                    if ($response->getStatusCode() == 200) { // 200 OK
+                        $response_data = $response->getBody()->getContents();
+                        $res = json_decode($response_data,true);
+                    }
+                    Log::info('MANDIRI BILL STORE DB RESPONSE:'.print_r($res,true));
                 }
             }else{
                 $data['message'] = "Create Bill Mandiri gagal. Masih ada bill mandiri yang belum dibayarkan. Cancel bill pada riwayat pembayaran untuk membatalkan bill sebelumnya";
