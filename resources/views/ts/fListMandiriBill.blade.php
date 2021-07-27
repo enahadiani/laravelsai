@@ -101,7 +101,7 @@
             margin-right: 25px;
         }
     </style>
-    <x-list-data judul="Riwayat Pembayaran" tambah="" :thead="array('No Bukti','Nilai','Status','Bill Code','Bill Cust ID','Pay','Cancel')" :thwidth="array(15,20,10,15,20,10,10)" :thclass="array('','','','','','text-center','text-center')" />
+    <x-list-data judul="Riwayat Pembayaran" tambah="" :thead="array('No Bukti','Nilai','Status','Bill Cust ID','Pay','Cancel')" :thwidth="array(15,20,10,20,10,10)" :thclass="array('','','','','text-center','text-center')" />
    
     <script src="{{ asset('helper.js') }}"></script>
     <script> 
@@ -129,7 +129,6 @@
             { data: 'no_bukti' },
             { data: 'nilai' },
             { data: 'status' },
-            { data: 'bill_code' },
             { data: 'bill_cust_id' },
             { data: 'action' },
             { data: 'action2' }
@@ -191,11 +190,11 @@
 
     $('#table-data').on('click','.complete-pay',function(e){
         e.preventDefault();
-        var bill_code = $(this).closest('tr').find('td:eq(3)').html();
-        var va = $(this).closest('tr').find('td:eq(4)').html();
+        var bill_short_name = $(this).closest('tr').find('td:eq(0)').html();
+        var va = $(this).closest('tr').find('td:eq(3)').html();
         $.get("{{ url('ts-auth/callback') }}",
         {
-            bill_code: bill_code,
+            bill_short_name: bill_short_name,
             bill_cust_id: va,
             bill_status: 'SUCCESS',
         },
@@ -216,11 +215,11 @@
 
     $('#table-data').on('click','.cancel-pay',function(e){
         e.preventDefault();
-        var bill_code = $(this).closest('tr').find('td:eq(3)').html();
-        var va = $(this).closest('tr').find('td:eq(4)').html();
+        var bill_short_name = $(this).closest('tr').find('td:eq(0)').html();
+        var va = $(this).closest('tr').find('td:eq(3)').html();
         $.post("{{ url('ts-trans/cancel-mandiri-bill') }}",
         {
-            bill_code: bill_code,
+            bill_short_name: bill_short_name,
             bill_cust_id: va,
             _method:'PUT'
         },

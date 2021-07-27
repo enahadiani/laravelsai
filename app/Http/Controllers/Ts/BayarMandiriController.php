@@ -81,13 +81,10 @@ class BayarMandiriController extends Controller
                 $response_data = $response->getBody()->getContents();
                 $data = json_decode($response_data,true);
             }
-            if($data['status']){
-                return false;
-            }else{
-                return true;
-            }
+            return $data;
+            
         } catch (BadResponseException $ex) {
-            return true;
+            return $ex;
         } 
     }
 
@@ -110,7 +107,7 @@ class BayarMandiriController extends Controller
         try{
 
             $cek = $this->cekAdaBill($request->id_bank);
-            if($cek){
+            if($cek['status']){
 
                 $client = new Client();
                 
@@ -122,9 +119,8 @@ class BayarMandiriController extends Controller
                     'form_params' => [
                         'bill_cust_id' => $request->id_bank,
                         'bill_cust_info' => '{"NIS": '.$request->nis.', "nama": '.$request->nama.', "jurusan": '.$request->nama_jurusan.',"kode_pp":'.$request->kode_pp.'}',
-                        'bill_code' => $request->kode_param,
                         'bill_name' => $request->kode_param.'\\'.$request->nilai.'\\'.$request->periode_bill.'\\'.$request->no_bill,
-                        'bill_short_name' => $request->nilai.'\\'.$request->no_bill,
+                        'bill_short_name' => $cek['no_bukti'],
                         'bill_amount' => $request->nilai,
                         'bill_currency' => 'IDR',
                         'bill_open_date' => '2021-05-22 15:00:00',
@@ -143,7 +139,7 @@ class BayarMandiriController extends Controller
                 $log = print_r($data, true); 
                 $request->request->add(['log' => $log]);
                 $request->request->add(['status' => $data['bill']['bill_status']]);
-                $request->request->add(['bill_code' => $data['bill']['bill_code']]);
+                $request->request->add(['bill_short_name' => $data['bill']['bill_short_name']]);
                 $request->request->add(['bill_cust_id' => $data['bill']['bill_cust_id']]);
                 $response = $client->request('POST',  config('api.url').'ts/create-mandiri-bill',[
                     'headers' => [
@@ -161,11 +157,6 @@ class BayarMandiriController extends Controller
             }else{
                 $data['message'] = "Create Bill Mandiri gagal. Masih ada bill mandiri yang belum dibayarkan. Cancel bill pada riwayat pembayaran untuk membatalkan bill sebelumnya";
             }
-            // if(isset($data['success'])){
-            //     if($data['success']){
-
-            //     }
-            // }
             
             return response()->json($data, 200);
         } catch (BadResponseException $ex) {
@@ -181,14 +172,14 @@ class BayarMandiriController extends Controller
     public function show(Request $request)
     {
         $request->validate([
-            'bill_code' => 'required',
+            'bill_short_name' => 'required',
             'va' => 'required'
         ]);
             
         try{
             $client = new Client();
             
-            $response = $client->request('GET', 'https://mandirigw.ypt.or.id/bills/va/'.$request->va.'?bill_code='.$request->bill_code,[
+            $response = $client->request('GET', 'https://mandirigw.ypt.or.id/bills/va/'.$request->va.'?bill_short_name='.$request->bill_short_name,[
                 'headers' => [
                     'app_code' => config('api.ypt_app_code'),
                     'app_key'  => config('api.ypt_app_key'),
@@ -215,7 +206,7 @@ class BayarMandiriController extends Controller
     {
         
         $request->validate([
-            'bill_code' => 'required',
+            'bill_short_name' => 'required',
             'bill_cust_id' => 'required',
         ]);
             
@@ -229,7 +220,7 @@ class BayarMandiriController extends Controller
                 ],
                 'form_params' => [
                     'bill_cust_id' => $request->bill_cust_id,
-                    'bill_code' => $request->bill_code,
+                    'bill_short_name' => $request->bill_short_name,
                 ]
             ]);
             
@@ -250,7 +241,7 @@ class BayarMandiriController extends Controller
                     ],
                     'form_params' => [
                         'bill_cust_id' => $request->bill_cust_id,
-                        'bill_code' => $request->bill_code,
+                        'bill_short_name' => $request->bill_short_name,
                     ]
                 ]);
                
@@ -288,7 +279,7 @@ class BayarMandiriController extends Controller
                 ],
                 'form_params' => [
                     'bill_cust_id' => $request->bill_cust_id,
-                    'bill_code' => $request->bill_code,
+                    'bill_short_name' => $request->bill_short_name,
                     'bill_status' => $request->bill_status,
                     ]
                 ]);
