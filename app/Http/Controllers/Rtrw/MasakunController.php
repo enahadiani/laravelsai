@@ -70,13 +70,13 @@ class MasakunController extends Controller
                 
                 $data = json_decode($response_data,true);
             }
-            return response()->json(['data' => $data], 200); 
+            return response()->json($data, 200); 
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(),true);
             $data['message'] = $res['message'];
             $data['status'] = false;
-            return response()->json(['data' => $data], 200);
+            return response()->json($data, 200);
         }
     }
 
@@ -84,7 +84,7 @@ class MasakunController extends Controller
         $this->validate($request, [
             'kode_akun' => 'required',
             'nama' => 'required',
-            'curr' => 'required',
+            'kode_curr' => 'required',
             'modul' => 'required',
             'jenis' => 'required',
             'block' => 'required',
@@ -103,7 +103,7 @@ class MasakunController extends Controller
                         'nama' => $request->nama,
                         'modul' => $request->modul,
                         'jenis' => $request->jenis,
-                        'kode_curr' => $request->curr,
+                        'kode_curr' => $request->kode_curr,
                         'block' => $request->block,
                         'status_gar' => $request->gar,
                         'normal' => $request->normal,
@@ -129,7 +129,7 @@ class MasakunController extends Controller
         $this->validate($request, [
             'kode_akun' => 'required',
             'nama' => 'required',
-            'curr' => 'required',
+            'kode_curr' => 'required',
             'modul' => 'required',
             'jenis' => 'required',
             'block' => 'required',
@@ -147,7 +147,7 @@ class MasakunController extends Controller
                         'nama' => $request->nama,
                         'modul' => $request->modul,
                         'jenis' => $request->jenis,
-                        'kode_curr' => $request->curr,
+                        'kode_curr' => $request->kode_curr,
                         'block' => $request->block,
                         'status_gar' => $request->gar,
                         'normal' => $request->normal,
