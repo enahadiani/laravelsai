@@ -173,6 +173,10 @@
                             <div class="form-group col-md-6 col-sm-12">
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12">
+                                        <label for="total_ppn">Total PPN</label>
+                                        <input class='form-control currency' type="text" id="total_ppn" name="total_ppn" readonly>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
                                         <label for="total">Total</label>
                                         <input class='form-control currency' type="text" id="total" name="total" readonly>
                                     </div>
@@ -544,6 +548,7 @@
                     $('#saldo_awal').val(parseFloat(result.data.data[0].saldo_awal));
                     $('#total_pnj').val(parseFloat(result.data.data[0].total_pnj));
                     $('#total_disk').val(parseFloat(result.data.data[0].total_disk));
+                    $('#total_ppn').val(parseFloat(result.data.data[0].total_ppn));
                     $('#total').val(total);
                     $('#tgl_open').val(tgl)
                     $('#saku-datatable').hide();
