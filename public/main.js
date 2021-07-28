@@ -173,7 +173,7 @@ function newForm() {
     $("[class^=simple-icon-close]").each(function (e) {
         $(this).addClass("hidden");
     });
-    $("#id_edit").val("");
+    $("#id_edit").val("false");
     $('input[data-input="cbbl"]').val("");
     $("#btn-update").attr("id", "btn-save");
     $("#btn-save").attr("type", "submit");
@@ -208,7 +208,7 @@ function resetForm() {
     $("[class^=simple-icon-close]").each(function (e) {
         $(this).addClass("hidden");
     });
-    $("#id_edit").val("");
+    $("#id_edit").val("false");
     $('input[data-input="cbbl"]').val("");
     $("#btn-update").attr("id", "btn-save");
     $("#btn-save").attr("type", "submit");
