@@ -277,3 +277,10 @@ Route::get('cek-saldo', 'Esaku\Anggaran\PengajuanAnggaranController@getSaldoAngg
 Route::get('rra-anggaran', 'Esaku\Anggaran\ApproveAnggaranController@getRRAAnggaran');
 Route::get('rra-data', 'Esaku\Anggaran\ApproveAnggaranController@getDataRRAAnggaran');
 Route::post('approve-rra', 'Esaku\Anggaran\ApproveAnggaranController@store');
+
+## SDM Kepegawaian
+Route::get('sdm-karyawans', 'Esaku\Sdm\KepegawaianController@index');
+Route::get('sdm-karyawan', 'Esaku\Sdm\KepegawaianController@show');
+Route::post('sdm-karyawan', 'Esaku\Sdm\KepegawaianController@store');
+Route::post('sdm-karyawan-update', 'Esaku\Sdm\KepegawaianController@update');
+Route::delete('sdm-karyawan', 'Esaku\Sdm\KepegawaianController@delete');
