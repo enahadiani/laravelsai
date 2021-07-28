@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="{{ asset('css_optional/trans.css') }}" />
 
 {{-- LIST DATA --}}
-<x-list-data judul="Data Kedinasan" tambah="true" :thead="array('No SK','Nama SK','Aksi','NU')" :thwidth="array(30,30,10,10)" :thclass="array('','','text-center','')" />
+<x-list-data judul="Data Sanksi" tambah="true" :thead="array('Nama','Tanggal','Jenis','Aksi','NU')" :thwidth="array(20,15,15,10,10)" :thclass="array('','','','text-center','')" />
 {{-- END LIST DATA --}}
 
 {{-- FORM --}}
@@ -31,28 +31,20 @@
                                 <div class="form-group col-md-6 col-sm-12">
                                     <div class="row">
                                         <div class="col-md-12 col-sm-12">
-                                            <label for="no_sk">Nomor SK</label>
-                                            <input class="form-control" type="text" placeholder="Nomor SK" id="no_sk" name="no_sk" autocomplete="off" required>
+                                            <label for="nama">Nama Sanksi</label>
+                                            <input class="form-control" type="text" placeholder="Nama Sanksi" id="nama" name="nama" autocomplete="off" required>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group col-md-6 col-sm-12">
-                                    <div class="row">
-                                        <div class="col-md-12 col-sm-12">
-                                            <label for="nama">Nama</label>
-                                            <input class="form-control" type="text" placeholder="Nama" id="nama" name="nama" autocomplete="off" required>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-row">
                                 <div class="form-group col-md-6 col-sm-12">
                                     <div class="row">
                                         <div class="col-md-6 col-sm-12">
-                                            <label for="tgl_sk">Tanggal SK</label>
-                                            <span class="span-tanggal" id="tanggal-sk"></span>
-                                            <input class='form-control datepicker' id="tgl_sk" name="tgl_sk" autocomplete="off" value="{{ date('d/m/Y') }}">
-                                            <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;" class="simple-icon-calendar date-search"></i>
+                                            <label for="tanggal">Tanggal Sanksi</label>
+                                            <input class="form-control" type="text" placeholder="Tanggal Sanksi" id="tanggal" name="tanggal" autocomplete="off" required>
+                                        </div>
+                                        <div class="col-md-6 col-sm-12">
+                                            <label for="jenis">Jenis Sanksi</label>
+                                            <input class="form-control" type="text" placeholder="Jenis Sanksi" id="jenis" name="jenis" autocomplete="off" required>
                                         </div>
                                     </div>
                                 </div>
@@ -96,10 +88,10 @@ new PerfectScrollbar(scrollForm);
 // END SET UP FORM
 
 // OPTIONAL CONFIG
-$('#tgl_sk').bootstrapDP({
+$('#tanggal').bootstrapDP({
     autoclose: true,
     format: 'dd/mm/yyyy',
-    container: '#tanggal-sk',
+    container: '#tanggal',
     templates: {
         leftArrow: '<i class="simple-icon-arrow-left"></i>',
         rightArrow: '<i class="simple-icon-arrow-right"></i>'
@@ -111,7 +103,7 @@ $('#tgl_sk').bootstrapDP({
 // BTN TAMBAH
 $('#saku-datatable').on('click', '#btn-tambah', function() {
     $('#nu').val('');
-    $('#judul-form').html('Tambah Data SK');
+    $('#judul-form').html('Tambah Data Sanksi');
     newForm();
 });
 //  END BTN TAMBAH
@@ -130,7 +122,7 @@ var actionHtmlDefault = "<a href='#' title='Edit' id='btn-edit'><i class='simple
 var dataTable = 
 generateTable(
     "table-data",
-    "{{ url('esaku-trans/sdm-dinass') }}", 
+    "{{ url('esaku-trans/sdm-sanksis') }}", 
     [
         {
             "targets": 0,
@@ -141,12 +133,13 @@ generateTable(
                 }
             }
         },
-        {'targets': 2 ,'className': 'text-center', 'defaultContent': actionHtmlDefault,'className': 'text-center' },
-        {'targets': 3, 'className': 'hidden' }
+        {'targets': 3 ,'className': 'text-center', 'defaultContent': actionHtmlDefault,'className': 'text-center' },
+        {'targets': 4, 'className': 'hidden' }
     ],
     [
-        { data: 'no_sk' },
         { data: 'nama' },
+        { data: 'tanggal' },
+        { data: 'jenis' },
         { data: null },
         { data: 'nu' },
     ],
@@ -178,11 +171,11 @@ $('#form-tambah').validate({
         var parameter = $('#id_edit').val();
         var id = $('#id').val();
         if(parameter == "true"){
-            var url = "{{ url('esaku-trans/sdm-dinas-update') }}";
+            var url = "{{ url('esaku-trans/sdm-sanksi-update') }}";
             var pesan = "updated";
             var text = "Perubahan data "+id+" telah tersimpan";
         } else {
-            var url = "{{ url('esaku-trans/sdm-dinas') }}";
+            var url = "{{ url('esaku-trans/sdm-sanksi') }}";
             var pesan = "saved";
             var text = "Data tersimpan dengan kode "+id;
         }
@@ -205,14 +198,14 @@ $('#form-tambah').validate({
                 if(result.data.status){
                     var kode = result.data.kode;
                     dataTable.ajax.reload();
-                    $('#judul-form').html('Tambah Data Dinas');
+                    $('#judul-form').html('Tambah Data Sanksi');
                     $('#nu').val('');
                     resetForm();
                     msgDialog({
                         id: kode,
                         type: 'simpan'
                     });
-                    last_add(dataTable,"no_sk", kode);
+                    last_add(dataTable,"nu", kode);
                     $('#id_edit').val('false')
                 } else if(!result.data.status && result.data.message === "Unauthorized"){
                     window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
@@ -249,7 +242,7 @@ $('#saku-form').on('click', '#btn-update', function(){
 });
 
 $('#saku-datatable').on('click', '#btn-edit', function(){
-    var id= $(this).closest('tr').find('td').eq(3).html();
+    var id= $(this).closest('tr').find('td').eq(4).html();
     editData(id)
 });
 
@@ -257,11 +250,11 @@ function editData(id) {
     $('#form-tambah').validate().resetForm();
     $('#btn-save').attr('type','button');
     $('#btn-save').attr('id','btn-update');
-    $('#judul-form').html('Edit Data SK');
+    $('#judul-form').html('Edit Data Sanksi');
 
     $.ajax({
         type: 'GET',
-        url: "{{ url('esaku-trans/sdm-dinas') }}",
+        url: "{{ url('esaku-trans/sdm-sanksi') }}",
         data: { kode: id },
         dataType: 'json',
         async:false,
@@ -272,9 +265,9 @@ function editData(id) {
                 $('#id').val(id)
                 $('#nu').val(id)
                 $('#nama').val(data.nama)
-                $('#no_sk').val(data.no_sk)
+                $('#jenis').val(data.jenis)
 
-                $('#tgl_sk').val(reverseDate2(data.tgl_sk,'-','/'))
+                $('#tanggal').val(reverseDate2(data.tanggal,'-','/'))
 
                 $('#saku-datatable').hide();
                 $('#modal-preview').modal('hide');
@@ -287,7 +280,7 @@ function editData(id) {
 
 // HAPUS DATA
 $('#saku-datatable').on('click','#btn-delete',function(e){
-    var kode = $(this).closest('tr').find('td').eq(3).html();
+    var kode = $(this).closest('tr').find('td').eq(4).html();
     msgDialog({
         id: kode,
         type:'hapus'
@@ -297,14 +290,14 @@ $('#saku-datatable').on('click','#btn-delete',function(e){
 function hapusData(id){
     $.ajax({
         type: 'DELETE',
-        url: "{{ url('esaku-trans/sdm-dinas') }}",
+        url: "{{ url('esaku-trans/sdm-sanksi') }}",
         data: { kode: id },
         dataType: 'json',
         async:false,
         success:function(result){
             if(result.data.status){
                 dataTable.ajax.reload();                    
-                showNotification("top", "center", "success",'Hapus Data','Data SK ('+id+') berhasil dihapus ');
+                showNotification("top", "center", "success",'Hapus Data','Data Sanksi ('+id+') berhasil dihapus ');
                 $('#modal-pesan-id').html('');
                 $('#table-delete tbody').html('');
                 $('#modal-pesan').modal('hide');

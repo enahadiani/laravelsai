@@ -319,3 +319,10 @@ Route::get('sdm-penghargaan', 'Esaku\Sdm\PenghargaanController@show');
 Route::post('sdm-penghargaan', 'Esaku\Sdm\PenghargaanController@store');
 Route::post('sdm-penghargaan-update', 'Esaku\Sdm\PenghargaanController@update');
 Route::delete('sdm-penghargaan', 'Esaku\Sdm\PenghargaanController@delete');
+
+## SDM penghargaan
+Route::get('sdm-sanksis', 'Esaku\Sdm\SanksiController@index');
+Route::get('sdm-sanksi', 'Esaku\Sdm\SanksiController@show');
+Route::post('sdm-sanksi', 'Esaku\Sdm\SanksiController@store');
+Route::post('sdm-sanksi-update', 'Esaku\Sdm\SanksiController@update');
+Route::delete('sdm-sanksi', 'Esaku\Sdm\SanksiController@delete');
