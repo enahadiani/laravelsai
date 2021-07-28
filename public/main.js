@@ -180,6 +180,7 @@ function newForm() {
     $("#form-tambah")[0].reset();
     $("#form-tambah").validate().resetForm();
     $("#id").val("");
+    $("#file").next(".custom-file-label").html("");
     $("#saku-datatable").hide();
     $("#saku-form").show();
 }
@@ -213,6 +214,7 @@ function resetForm() {
     $("#btn-update").attr("id", "btn-save");
     $("#btn-save").attr("type", "submit");
     $("#form-tambah")[0].reset();
+    $("#file").next(".custom-file-label").html("");
     $("#form-tambah").validate().resetForm();
     $("#id").val("");
 }
