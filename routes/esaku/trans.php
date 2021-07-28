@@ -291,3 +291,10 @@ Route::get('sdm-keluarga', 'Esaku\Sdm\KeluargaController@show');
 Route::post('sdm-keluarga', 'Esaku\Sdm\KeluargaController@store');
 Route::post('sdm-keluarga-update', 'Esaku\Sdm\KeluargaController@update');
 Route::delete('sdm-keluarga', 'Esaku\Sdm\KeluargaController@delete');
+
+## SDM kedinasan
+Route::get('sdm-dinass', 'Esaku\Sdm\DinasController@index');
+Route::get('sdm-dinas', 'Esaku\Sdm\DinasController@show');
+Route::post('sdm-dinas', 'Esaku\Sdm\DinasController@store');
+Route::post('sdm-dinas-update', 'Esaku\Sdm\DinasController@update');
+Route::delete('sdm-dinas', 'Esaku\Sdm\DinasController@delete');

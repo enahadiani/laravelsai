@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="{{ asset('css_optional/trans.css') }}" />
 
 {{-- LIST DATA --}}
-<x-list-data judul="Data Keluarga" tambah="true" :thead="array('Nama','Status Keluarga','Jenis Kelamin','Aksi','NU')" :thwidth="array(10,20,30,10,10)" :thclass="array('','','','text-center','')" />
+<x-list-data judul="Data Kedinasan" tambah="true" :thead="array('No SK','Nama SK','Aksi','NU')" :thwidth="array(30,30,10,10)" :thclass="array('','','text-center','')" />
 {{-- END LIST DATA --}}
 
 {{-- FORM --}}
@@ -24,11 +24,18 @@
                 <div class="card-body pt-0 form-body" id="form-body">
                     <ul class="nav nav-tabs nav-tabs-custom col-12 " role="tablist">
                         <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-umum" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Umum</span></a> </li>
-                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-foto" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Foto</span></a> </li>
                     </ul>
                     <div class="tab-content tabcontent-border col-12 p-0 mt-3">
                         <div class="tab-pane active" id="data-umum" role="tabpanel">
                             <div class="form-row">
+                                <div class="form-group col-md-6 col-sm-12">
+                                    <div class="row">
+                                        <div class="col-md-12 col-sm-12">
+                                            <label for="no_sk">Nomor SK</label>
+                                            <input class="form-control" type="text" placeholder="Nomor SK" id="no_sk" name="no_sk" autocomplete="off" required>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="form-group col-md-6 col-sm-12">
                                     <div class="row">
                                         <div class="col-md-12 col-sm-12">
@@ -37,73 +44,15 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group col-md-6 col-sm-12">
-                                    <div class="row">
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="status_keluarga">Status Keluarga</label>
-                                            <select class="form-control selectize" name="status_keluarga" id="status_keluarga">
-                                                <option value="S" selected>Suami</option>
-                                                <option value="I">Istri</option>
-                                                <option value="A">Anak</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="jk">Jenis Kelamin</label>
-                                            <select class="form-control selectize" name="jk" id="jk">
-                                                <option value="L" selected>Laki-laki</option>
-                                                <option value="P">Perempuan</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6 col-sm-12">
                                     <div class="row">
                                         <div class="col-md-6 col-sm-12">
-                                            <label for="tempat">Tempat Lahir</label>
-                                            <input class="form-control" type="text" placeholder="Tempat Lahir" id="tempat" name="tempat" autocomplete="off" required>
-                                        </div>
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="tgl_lahir">Tanggal Lahir</label>
-                                            <span class="span-tanggal" id="tanggal-lahir"></span>
-                                            <input class='form-control datepicker' id="tgl_lahir" name="tgl_lahir" autocomplete="off" value="{{ date('d/m/Y') }}">
+                                            <label for="tgl_sk">Tanggal SK</label>
+                                            <span class="span-tanggal" id="tanggal-sk"></span>
+                                            <input class='form-control datepicker' id="tgl_sk" name="tgl_sk" autocomplete="off" value="{{ date('d/m/Y') }}">
                                             <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;" class="simple-icon-calendar date-search"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-6 col-sm-12">
-                                    <div class="row">
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="tanggungan">Status Tanggungan</label>
-                                            <select class="form-control selectize" name="tanggungan" id="tanggungan">
-                                                <option value="Y" selected>Iya</option>
-                                                <option value="T">Tidak</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane" id="data-foto" role="tabpanel">
-                            <div class="form-row">
-                                <div class="form-group col-md-6 col-sm-12">
-                                    <div class="row">
-                                        <div class="col-md-12 col-sm-12">
-                                            <label for="file">Foto</label>
-                                            <div class="input-group">
-                                                <div class="custom-file">
-                                                    <input type="file" name="file" class="custom-file-input" id="file" accept="image/*">
-                                                    <label class="custom-file-label" style="border-radius: 0.5rem;cursor:pointer;" for="file">Choose file</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-6 col-sm-12">
-                                    <div class="row">
-                                        <div class="col-md-12 col-sm-12">
-                                            <img alt="preview" id="preview" height="380" width="550">
                                         </div>
                                     </div>
                                 </div>
@@ -149,40 +98,22 @@ new PerfectScrollbar(scrollForm);
 // OPTIONAL CONFIG
 $('.selectize').selectize();
 
-$('#tgl_lahir').bootstrapDP({
+$('#tgl_sk').bootstrapDP({
     autoclose: true,
     format: 'dd/mm/yyyy',
-    container: '#tanggal-lahir',
+    container: '#tanggal-sk',
     templates: {
         leftArrow: '<i class="simple-icon-arrow-left"></i>',
         rightArrow: '<i class="simple-icon-arrow-right"></i>'
     },
     orientation: 'bottom left'
 })
-
-function showPreview(image) {
-    if(image.files && image.files[0]) {
-        var reader = new FileReader()
-        reader.onload = function(event) {
-            $('#preview').attr('src', event.target.result)
-            $('#preview').show()
-        }
-        reader.readAsDataURL(image.files[0])
-    }
-}
-
-$('#file').change(function() {
-    var fileName = $(this).val();
-    $(this).next('.custom-file-label').html(fileName);
-    showPreview(this);
-})
 // END OPTIONAL CONFIG
 
 // BTN TAMBAH
 $('#saku-datatable').on('click', '#btn-tambah', function() {
-    $('#preview').hide();
     $('#nu').val('');
-    $('#judul-form').html('Tambah Data Keluarga');
+    $('#judul-form').html('Tambah Data SK');
     newForm();
 });
 //  END BTN TAMBAH
@@ -201,7 +132,7 @@ var actionHtmlDefault = "<a href='#' title='Edit' id='btn-edit'><i class='simple
 var dataTable = 
 generateTable(
     "table-data",
-    "{{ url('esaku-trans/sdm-keluargas') }}", 
+    "{{ url('esaku-trans/sdm-dinass') }}", 
     [
         {
             "targets": 0,
@@ -212,13 +143,12 @@ generateTable(
                 }
             }
         },
-        {'targets': 3 ,'className': 'text-center', 'defaultContent': actionHtmlDefault,'className': 'text-center' },
-        {'targets': 4, 'className': 'hidden' }
+        {'targets': 2 ,'className': 'text-center', 'defaultContent': actionHtmlDefault,'className': 'text-center' },
+        {'targets': 3, 'className': 'hidden' }
     ],
     [
+        { data: 'no_sk' },
         { data: 'nama' },
-        { data: 'jenis' },
-        { data: 'jenis_kelamin' },
         { data: null },
         { data: 'nu' },
     ],
@@ -250,11 +180,11 @@ $('#form-tambah').validate({
         var parameter = $('#id_edit').val();
         var id = $('#id').val();
         if(parameter == "true"){
-            var url = "{{ url('esaku-trans/sdm-keluarga-update') }}";
+            var url = "{{ url('esaku-trans/sdm-dinas-update') }}";
             var pesan = "updated";
             var text = "Perubahan data "+id+" telah tersimpan";
         } else {
-            var url = "{{ url('esaku-trans/sdm-keluarga') }}";
+            var url = "{{ url('esaku-trans/sdm-dinas') }}";
             var pesan = "saved";
             var text = "Data tersimpan dengan kode "+id;
         }
@@ -277,17 +207,14 @@ $('#form-tambah').validate({
                 if(result.data.status){
                     var kode = result.data.kode;
                     dataTable.ajax.reload();
-                    $('#preview').hide()
-                    $('#file').val('')
-                    $('#file').next('.custom-file-label').html('');
-                    $('#judul-form').html('Tambah Data Keluarga');
+                    $('#judul-form').html('Tambah Data Dinas');
                     $('#nu').val('');
                     resetForm();
                     msgDialog({
                         id: kode,
                         type: 'simpan'
                     });
-                    last_add(dataTable,"nama", kode);
+                    last_add(dataTable,"no_sk", kode);
                     $('#id_edit').val('false')
                 } else if(!result.data.status && result.data.message === "Unauthorized"){
                     window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
@@ -324,7 +251,7 @@ $('#saku-form').on('click', '#btn-update', function(){
 });
 
 $('#saku-datatable').on('click', '#btn-edit', function(){
-    var id= $(this).closest('tr').find('td').eq(4).html();
+    var id= $(this).closest('tr').find('td').eq(3).html();
     editData(id)
 });
 
@@ -332,11 +259,11 @@ function editData(id) {
     $('#form-tambah').validate().resetForm();
     $('#btn-save').attr('type','button');
     $('#btn-save').attr('id','btn-update');
-    $('#judul-form').html('Edit Data Keluarga');
+    $('#judul-form').html('Edit Data SK');
 
     $.ajax({
         type: 'GET',
-        url: "{{ url('esaku-trans/sdm-keluarga') }}",
+        url: "{{ url('esaku-trans/sdm-dinas') }}",
         data: { kode: id },
         dataType: 'json',
         async:false,
@@ -347,19 +274,9 @@ function editData(id) {
                 $('#id').val(id)
                 $('#nu').val(id)
                 $('#nama').val(data.nama)
-                $('#tempat').val(data.tempat)
+                $('#no_sk').val(data.no_sk)
 
-                $('#tgl_lahir').val(reverseDate2(data.tgl_lahir,'-','/'))
-
-                $('#status_keluarga')[0].selectize.setValue(data.jenis)  
-                $('#jk')[0].selectize.setValue(data.jk)
-                $('#tanggungan')[0].selectize.setValue(data.status_kes)
-
-                if(data.foto !== null || data.foto !== '-') {
-                    var url = "{{ config('api.url').'sdm/storage' }}/"+data.foto;
-                    $('#preview').attr('src', url);
-                    $('#preview').show()
-                }
+                $('#tgl_sk').val(reverseDate2(data.tgl_sk,'-','/'))
 
                 $('#saku-datatable').hide();
                 $('#modal-preview').modal('hide');
@@ -372,7 +289,7 @@ function editData(id) {
 
 // HAPUS DATA
 $('#saku-datatable').on('click','#btn-delete',function(e){
-    var kode = $(this).closest('tr').find('td').eq(4).html();
+    var kode = $(this).closest('tr').find('td').eq(3).html();
     msgDialog({
         id: kode,
         type:'hapus'
@@ -382,14 +299,14 @@ $('#saku-datatable').on('click','#btn-delete',function(e){
 function hapusData(id){
     $.ajax({
         type: 'DELETE',
-        url: "{{ url('esaku-trans/sdm-keluarga') }}",
+        url: "{{ url('esaku-trans/sdm-dinas') }}",
         data: { kode: id },
         dataType: 'json',
         async:false,
         success:function(result){
             if(result.data.status){
                 dataTable.ajax.reload();                    
-                showNotification("top", "center", "success",'Hapus Data','Data Keluarga ('+id+') berhasil dihapus ');
+                showNotification("top", "center", "success",'Hapus Data','Data SK ('+id+') berhasil dihapus ');
                 $('#modal-pesan-id').html('');
                 $('#table-delete tbody').html('');
                 $('#modal-pesan').modal('hide');
