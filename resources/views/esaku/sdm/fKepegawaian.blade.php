@@ -545,6 +545,12 @@
 
 <script type="text/javascript">
 // SET UP FORM
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+    }
+});
+
 var scroll = document.querySelector('#content-preview');
 new PerfectScrollbar(scroll);
 
@@ -961,7 +967,7 @@ $('#form-tambah').validate({
                     dataTable.ajax.reload();
                     $('#preview').hide()
                     $('#file').val('')
-                    $(this).next('.custom-file-label').html('');
+                    $('#file').next('.custom-file-label').html('');
                     $('#judul-form').html('Tambah Data Karyawan');
                     $('#nik').attr('readonly', false);
                     resetForm();
@@ -972,7 +978,7 @@ $('#form-tambah').validate({
                     last_add(dataTable,"nik", kode);
                     $('#id_edit').val('false')
                 } else if(!result.data.status && result.data.message === "Unauthorized"){
-                    window.location.href = "{{ url('simadmin/sesi-habis') }}";
+                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
                 } else {
                     Swal.fire({
                         icon: 'error',
@@ -1080,7 +1086,7 @@ function editData(id) {
                 showInfoField('kode_strata', data.kode_strata, data.nama_strata)
                 showInfoField('kode_pajak', data.kode_pajak, data.nama_pajak)
 
-                if(data.foto !== null || data.foto !== '') {
+                if(data.foto !== null || data.foto !== '-') {
                     var url = "{{ config('api.url').'sdm/storage' }}/"+data.foto;
                     $('#preview').attr('src', url);
                     $('#preview').show()
