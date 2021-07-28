@@ -538,7 +538,7 @@
                 if(result.data.status) {
                     var split = result.data.data[0].tgl.split('-');
                     var tgl = split[2]+"/"+split[1]+"/"+split[0];
-                    var total = parseFloat(result.data.data[0].saldo_awal) + parseFloat(result.data.data[0].total_pnj);
+                    var total = (parseFloat(result.data.data[0].saldo_awal) + parseFloat(result.data.data[0].total_pnj) + parseFloat(result.data.data[0].total_ppn)) - parseFloat(result.data.data[0].total_disk);
                     tableDetail.clear().draw();
                     tableDetail.rows.add(result.data.data_detail).draw(false);
                     $('#id_edit').val('');
