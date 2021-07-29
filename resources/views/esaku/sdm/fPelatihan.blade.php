@@ -91,14 +91,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="card-form-footer-full">
-                    <div class="footer-form-container-full">
-                        <div class="text-right message-action">
-                            <p class="text-success"></p>
-                        </div>
-                        <div class="action-footer">
-                            <button type="submit" id="btn-save" style="margin-top: 10px;" class="btn btn-primary btn-save"><i class="fa fa-save"></i> Simpan</button>
-                        </div>
+                <div class="card-body-footer row" style="padding: 0 25px;">
+                    <div style="vertical-align: middle;" class="col-md-10 text-right p-0">
+                        <p class="text-success" id="balance-label" style="margin-top: 20px;"></p>
+                    </div>
+                    <div style="text-align: right;" class="col-md-2 p-0 ">
+                        <button type="submit" style="margin-top: 10px;" id="btn-save" class="btn btn-primary"><i class="fa fa-save"></i> Simpan</button>
                     </div>
                 </div>
             </div>
@@ -353,6 +351,8 @@ function editData(id) {
                 $('#saku-datatable').hide();
                 $('#modal-preview').modal('hide');
                 $('#saku-form').show();
+                setHeightForm();
+                setWidthFooterCardBody();
             } 
         }
     })

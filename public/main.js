@@ -173,16 +173,17 @@ function newForm() {
     $("[class^=simple-icon-close]").each(function (e) {
         $(this).addClass("hidden");
     });
-    $("#id_edit").val("false");
+    $("#id_edit").val("");
     $('input[data-input="cbbl"]').val("");
     $("#btn-update").attr("id", "btn-save");
     $("#btn-save").attr("type", "submit");
     $("#form-tambah")[0].reset();
     $("#form-tambah").validate().resetForm();
     $("#id").val("");
-    $("#file").next(".custom-file-label").html("");
     $("#saku-datatable").hide();
     $("#saku-form").show();
+    setHeightForm();
+    setWidthFooterCardBody();
 }
 
 function resetForm() {
@@ -209,12 +210,11 @@ function resetForm() {
     $("[class^=simple-icon-close]").each(function (e) {
         $(this).addClass("hidden");
     });
-    $("#id_edit").val("false");
+    $("#id_edit").val("");
     $('input[data-input="cbbl"]').val("");
     $("#btn-update").attr("id", "btn-save");
     $("#btn-save").attr("type", "submit");
     $("#form-tambah")[0].reset();
-    $("#file").next(".custom-file-label").html("");
     $("#form-tambah").validate().resetForm();
     $("#id").val("");
 }
