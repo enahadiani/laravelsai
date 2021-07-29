@@ -159,3 +159,4 @@ Route::post('lap-posisi-anggaran', 'Esaku\Anggaran\LaporanController@getLaporanP
 
 ## Laporan SDM
 Route::post('sdm-lap-karyawan', 'Esaku\Sdm\LaporanController@getDataKaryawan');
+Route::post('sdm-lap-karyawanCv', 'Esaku\Sdm\LaporanController@getDataKaryawanCv');

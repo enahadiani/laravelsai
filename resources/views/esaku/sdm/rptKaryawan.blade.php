@@ -17,7 +17,7 @@ function drawRptPage(data,res,from,to) {
     var html = "";
     var no = 1;
     if(data.length > 0) {
-        html = `<div id='sai-rpt-table-export'>
+        html += `<div id="sai-rpt-table-export">
             <h6 class="text-center">Lapoan Data Karyawan</h6>
             <hr />
             <div class='ml-2 mr-2' style='overflow-x: scroll;'>
