@@ -128,12 +128,13 @@ class SanksiController extends Controller
         $this->validate($request, [
             'nama' => 'required',
             'tanggal' => 'required',
-            'jenis' => 'required'
+            'jenis' => 'required',
+            'nu' => 'required'
         ]);
 
         try {   
             $client = new Client();
-            $response = $client->request('POST',  config('api.url').'esaku-trans/sdm-dinas-update',[
+            $response = $client->request('POST',  config('api.url').'esaku-trans/sdm-sanksi-update',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -141,7 +142,8 @@ class SanksiController extends Controller
                 'form_params' => [
                     'nama' => $request->input('nama'),
                     'tanggal' => $this->convertDate($request->input('tanggal')),
-                    'jenis' => $request->input('jenis')
+                    'jenis' => $request->input('jenis'),
+                    'nu' => $request->input('nu')
                 ]
             ]);
             if ($response->getStatusCode() == 200) { // 200 OK
