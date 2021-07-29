@@ -74,7 +74,7 @@ class SanksiController extends Controller
                     'Accept'     => 'application/json',
                 ],
                 'form_params' => [
-                    'nama' => $request->input('no_sk'),
+                    'nama' => $request->input('nama'),
                     'tanggal' => $this->convertDate($request->input('tanggal')),
                     'jenis' => $request->input('jenis')
                 ]
@@ -139,7 +139,7 @@ class SanksiController extends Controller
                     'Accept'     => 'application/json',
                 ],
                 'form_params' => [
-                    'nama' => $request->input('no_sk'),
+                    'nama' => $request->input('nama'),
                     'tanggal' => $this->convertDate($request->input('tanggal')),
                     'jenis' => $request->input('jenis')
                 ]

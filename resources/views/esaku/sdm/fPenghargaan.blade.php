@@ -302,6 +302,7 @@ function editData(id) {
         dataType: 'json',
         async:false,
         success:function(res) {
+            console.log(res)
             var data = res.data.data[0]
             if(res.data.status) {
                 $('#id_edit').val('true')
@@ -309,8 +310,7 @@ function editData(id) {
                 $('#nu').val(id)
                 $('#nama').val(data.nama)
 
-                $('#tanggal').val(reverseDate2(data.tanggal,'-','/'))
-                $('#tgl_selesai').val(reverseDate2(data.tgl_selesai,'-','/'))
+                $('#tanggal').val(data.tanggal,'-','/')
 
                 if(data.setifikat !== null || data.setifikat !== '-') {
                     var url = "{{ config('api.url').'sdm/storage' }}/"+data.foto;

@@ -272,7 +272,7 @@ function editData(id) {
                 $('#nama').val(data.nama)
                 $('#no_sk').val(data.no_sk)
 
-                $('#tgl_sk').val(reverseDate2(data.tgl_sk,'-','/'))
+                $('#tgl_sk').val(data.tgl_sk)
 
                 $('#saku-datatable').hide();
                 $('#modal-preview').modal('hide');

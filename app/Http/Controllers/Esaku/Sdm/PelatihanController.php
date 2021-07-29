@@ -102,7 +102,7 @@ class PelatihanController extends Controller
 
             // var_dump($fields);
             $client = new Client();
-            $response = $client->request('POST',  config('api.url').'esaku-trans/sdm-pelatihans',[
+            $response = $client->request('POST',  config('api.url').'esaku-trans/sdm-pelatihan',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',

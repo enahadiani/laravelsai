@@ -339,8 +339,8 @@ function editData(id) {
                 $('#nama').val(data.nama)
                 $('#panitia').val(data.panitia)
 
-                $('#tgl_mulai').val(reverseDate2(data.tgl_mulai,'-','/'))
-                $('#tgl_selesai').val(reverseDate2(data.tgl_selesai,'-','/'))
+                $('#tgl_mulai').val(data.tgl_mulai)
+                $('#tgl_selesai').val(data.tgl_selesai)
 
                 if(data.setifikat !== null || data.setifikat !== '-') {
                     var url = "{{ config('api.url').'sdm/storage' }}/"+data.foto;

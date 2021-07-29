@@ -40,7 +40,9 @@
                                     <div class="row">
                                         <div class="col-md-6 col-sm-12">
                                             <label for="tanggal">Tanggal Sanksi</label>
-                                            <input class="form-control" type="text" placeholder="Tanggal Sanksi" id="tanggal" name="tanggal" autocomplete="off" required>
+                                            <span class="span-tanggal" id="tanggal-sanksi"></span>
+                                            <input class='form-control datepicker' id="tanggal" name="tanggal" autocomplete="off" value="{{ date('d/m/Y') }}">
+                                            <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;" class="simple-icon-calendar date-search"></i>
                                         </div>
                                         <div class="col-md-6 col-sm-12">
                                             <label for="jenis">Jenis Sanksi</label>
@@ -89,7 +91,7 @@ new PerfectScrollbar(scrollForm);
 $('#tanggal').bootstrapDP({
     autoclose: true,
     format: 'dd/mm/yyyy',
-    container: '#tanggal',
+    container: '#tanggal-sanksi',
     templates: {
         leftArrow: '<i class="simple-icon-arrow-left"></i>',
         rightArrow: '<i class="simple-icon-arrow-right"></i>'
@@ -265,7 +267,7 @@ function editData(id) {
                 $('#nama').val(data.nama)
                 $('#jenis').val(data.jenis)
 
-                $('#tanggal').val(reverseDate2(data.tanggal,'-','/'))
+                $('#tanggal').val(data.tanggal)
 
                 $('#saku-datatable').hide();
                 $('#modal-preview').modal('hide');
