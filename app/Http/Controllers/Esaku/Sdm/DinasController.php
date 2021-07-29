@@ -128,7 +128,8 @@ class DinasController extends Controller
         $this->validate($request, [
             'no_sk' => 'required',
             'nama' => 'required',
-            'tgl_sk' => 'required'
+            'tgl_sk' => 'required',
+            'nu' => 'required'
         ]);
 
         try {   
@@ -141,6 +142,7 @@ class DinasController extends Controller
                 'form_params' => [
                     'no_sk' => $request->input('no_sk'),
                     'nama' => $request->input('nama'),
+                    'nu' => $request->input('nu'),
                     'tgl_sk' => $this->convertDate($request->input('tgl_sk'))
                 ]
             ]);
