@@ -292,6 +292,12 @@ Route::post('sdm-keluarga', 'Esaku\Sdm\KeluargaController@store');
 Route::post('sdm-keluarga-update', 'Esaku\Sdm\KeluargaController@update');
 Route::delete('sdm-keluarga', 'Esaku\Sdm\KeluargaController@delete');
 
+Route::get('sdm-adm-keluargas', 'Esaku\Sdm\KeluargaAdmController@index');
+Route::get('sdm-adm-keluarga', 'Esaku\Sdm\KeluargaAdmController@show');
+Route::post('sdm-adm-keluarga', 'Esaku\Sdm\KeluargaAdmController@store');
+Route::post('sdm-adm-keluarga-update', 'Esaku\Sdm\KeluargaAdmController@update');
+Route::delete('sdm-adm-keluarga', 'Esaku\Sdm\KeluargaAdmController@delete');
+
 ## SDM kedinasan
 Route::get('sdm-dinass', 'Esaku\Sdm\DinasController@index');
 Route::get('sdm-dinas', 'Esaku\Sdm\DinasController@show');
@@ -320,7 +326,7 @@ Route::post('sdm-penghargaan', 'Esaku\Sdm\PenghargaanController@store');
 Route::post('sdm-penghargaan-update', 'Esaku\Sdm\PenghargaanController@update');
 Route::delete('sdm-penghargaan', 'Esaku\Sdm\PenghargaanController@delete');
 
-## SDM penghargaan
+## SDM sanksi
 Route::get('sdm-sanksis', 'Esaku\Sdm\SanksiController@index');
 Route::get('sdm-sanksi', 'Esaku\Sdm\SanksiController@show');
 Route::post('sdm-sanksi', 'Esaku\Sdm\SanksiController@store');
