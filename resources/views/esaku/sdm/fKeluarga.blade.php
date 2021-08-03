@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="{{ asset('css_optional/trans.css') }}" />
 
 {{-- LIST DATA --}}
-<x-list-data judul="Data Keluarga" tambah="true" :thead="array('NIK','Nama','Jumlah Keluarga','Aksi')" :thwidth="array(10,30,10,10)" :thclass="array('','','','text-center')" />
+<x-list-data judul="Data Keluarga" tambah="" :thead="array('NIK','Nama','Jumlah Keluarga','Aksi')" :thwidth="array(10,30,10,10)" :thclass="array('','','','text-center')" />
 {{-- END LIST DATA --}}
 
 {{-- FORM --}}
@@ -140,7 +140,7 @@ $('#saku-form').on('click', '#btn-kembali', function(){
 });
 
 // SAKU TABLE
-var actionHtmlDefault = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
+var actionHtmlDefault = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a>";
 var dataTable = 
 generateTable(
     "table-data",
@@ -160,7 +160,7 @@ generateTable(
     [
         { data: 'nik' },
         { data: 'nama' },
-        { data: 'jumlah' }
+        { data: 'jum' }
     ],
     "{{ url('esaku-auth/sesi-habis') }}",
     [[0 ,"desc"]]

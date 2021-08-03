@@ -136,7 +136,7 @@ $('#saku-form').on('click', '#btn-kembali', function(){
 });
 
 // SAKU TABLE
-var actionHtmlDefault = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
+var actionHtmlDefault = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a>";
 var dataTable = 
 generateTable(
     "table-data",
@@ -156,7 +156,7 @@ generateTable(
     [
         { data: 'nik' },
         { data: 'nama' },
-        { data: 'jumlah' }
+        { data: 'jum' }
     ],
     "{{ url('esaku-auth/sesi-habis') }}",
     [[0 ,"desc"]]
