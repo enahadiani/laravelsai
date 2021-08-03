@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="{{ asset('css_optional/trans.css') }}" />
 
 {{-- LIST DATA --}}
-<x-list-data judul="Data Kedinasan" tambah="true" :thead="array('NIK','Nama','Jumlah Dinas','Aksi')" :thwidth="array(10,30,10,10)" :thclass="array('','','','text-center')" />
+<x-list-data judul="Data Kedinasan" tambah="" :thead="array('NIK','Nama','Jumlah Dinas','Aksi')" :thwidth="array(10,30,10,10)" :thclass="array('','','','text-center')" />
 {{-- END LIST DATA --}}
 
 {{-- FORM --}}

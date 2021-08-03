@@ -9,7 +9,7 @@ use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Session;
 use GuzzleHttp\Exception\BadResponseException;
 
-class KeluargaAdmController extends Controller
+class PelatihanAdmController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -37,7 +37,7 @@ class KeluargaAdmController extends Controller
     public function index(){
         try {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'esaku-trans/sdm-adm-keluargas',[
+            $response = $client->request('GET',  config('api.url').'esaku-trans/sdm-adm-pelatihans',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -63,21 +63,17 @@ class KeluargaAdmController extends Controller
         $this->validate($request, [
             'kode_nik' => 'required',
             'nama' => 'required|array',
-            'status' => 'required|array',
-            'jk' => 'required|array',
-            'tempat' => 'required|array',
-            'tgl_lahir' => 'required|array',
-            'tanggungan' => 'required|array',
+            'panitia' => 'required|array',
+            'tgl_mulai' => 'required|array',
+            'tgl_selesai' => 'required|array'
         ]);
 
         try {   
             $array_nomor = array();
             $array_nama = array();
-            $array_status = array();
-            $array_kelamin = array();
-            $array_tanggungan = array();
-            $array_tempat_lahir = array();
-            $array_tanggal = array();
+            $array_panitia = array();
+            $array_tgl_mulai = array();
+            $array_tgl_selesai = array();
             $array_fileName = array();
 
             $fields = array(
@@ -97,25 +93,17 @@ class KeluargaAdmController extends Controller
                         "name" => "nama[]",
                         "contents" => $request->nama[$i]
                     );
-                    $data_status = array(
-                        "name" => "jenis[]",
-                        "contents" => $request->status[$i]
+                    $data_panitia = array(
+                        "name" => "panitia[]",
+                        "contents" => $request->panitia[$i]
                     );
-                    $data_kelamin = array(
-                        "name" => "jk[]",
-                        "contents" => $request->jk[$i]
+                    $data_tgl_mulai = array(
+                        "name" => "tgl_mulai[]",
+                        "contents" => $request->tgl_mulai[$i]
                     );
-                    $data_tanggungan = array(
-                        "name" => "status_kes[]",
-                        "contents" => $request->tanggungan[$i]
-                    );
-                    $data_tempat_lahir = array(
-                        "name" => "tempat[]",
-                        "contents" => $request->tempat[$i]
-                    );
-                    $data_tgl_lahir = array(
-                        "name" => "tgl_lahir[]",
-                        "contents" => $request->tgl_lahir[$i]
+                    $data_tgl_selesai = array(
+                        "name" => "tgl_selesai[]",
+                        "contents" => $request->tgl_selesai[$i]
                     );
                     $data_fileName = array(
                         "name" => "fileName[]",
@@ -124,11 +112,9 @@ class KeluargaAdmController extends Controller
 
                     array_push($array_nomor, $data_nomor);
                     array_push($array_nama, $data_nama);
-                    array_push($array_status, $data_status);
-                    array_push($array_kelamin, $data_kelamin);
-                    array_push($array_tanggungan, $data_tanggungan);
-                    array_push($array_tempat_lahir, $data_tempat_lahir);
-                    array_push($array_tanggal, $data_tgl_lahir);
+                    array_push($array_panitia, $data_panitia);
+                    array_push($array_tgl_mulai, $data_tgl_mulai);
+                    array_push($array_tgl_selesai, $data_tgl_selesai);
                     array_push($array_fileName, $data_fileName);
                 }
 
@@ -136,11 +122,9 @@ class KeluargaAdmController extends Controller
                     $fields,
                     $array_nomor, 
                     $array_nama, 
-                    $array_status, 
-                    $array_kelamin, 
-                    $array_tanggungan, 
-                    $array_tempat_lahir, 
-                    $array_tanggal, 
+                    $array_panitia, 
+                    $array_tgl_mulai, 
+                    $array_tgl_selesai,
                     $array_fileName
                 );
             }
@@ -168,7 +152,7 @@ class KeluargaAdmController extends Controller
             }
 
             $client = new Client();
-            $response = $client->request('POST',  config('api.url').'esaku-trans/sdm-adm-keluarga',[
+            $response = $client->request('POST',  config('api.url').'esaku-trans/sdm-adm-pelatihan',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -194,7 +178,7 @@ class KeluargaAdmController extends Controller
     public function show(Request $request) {
         try{
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'esaku-trans/sdm-adm-keluarga',
+            $response = $client->request('GET',  config('api.url').'esaku-trans/sdm-adm-pelatihan',
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -224,21 +208,17 @@ class KeluargaAdmController extends Controller
         $this->validate($request, [
             'kode_nik' => 'required',
             'nama' => 'required|array',
-            'status' => 'required|array',
-            'jk' => 'required|array',
-            'tempat' => 'required|array',
-            'tgl_lahir' => 'required|array',
-            'tanggungan' => 'required|array',
+            'panitia' => 'required|array',
+            'tgl_mulai' => 'required|array',
+            'tgl_selesai' => 'required|array'
         ]);
 
         try {   
             $array_nomor = array();
             $array_nama = array();
-            $array_status = array();
-            $array_kelamin = array();
-            $array_tanggungan = array();
-            $array_tempat_lahir = array();
-            $array_tanggal = array();
+            $array_panitia = array();
+            $array_tgl_mulai = array();
+            $array_tgl_selesai = array();
             $array_fileName = array();
             $array_filePrevName = array();
             $array_isUpload = array();
@@ -260,25 +240,17 @@ class KeluargaAdmController extends Controller
                         "name" => "nama[]",
                         "contents" => $request->nama[$i]
                     );
-                    $data_status = array(
-                        "name" => "jenis[]",
-                        "contents" => $request->status[$i]
+                    $data_panitia = array(
+                        "name" => "panitia[]",
+                        "contents" => $request->panitia[$i]
                     );
-                    $data_kelamin = array(
-                        "name" => "jk[]",
-                        "contents" => $request->jk[$i]
+                    $data_tgl_mulai = array(
+                        "name" => "tgl_mulai[]",
+                        "contents" => $request->tgl_mulai[$i]
                     );
-                    $data_tanggungan = array(
-                        "name" => "status_kes[]",
-                        "contents" => $request->tanggungan[$i]
-                    );
-                    $data_tempat_lahir = array(
-                        "name" => "tempat[]",
-                        "contents" => $request->tempat[$i]
-                    );
-                    $data_tgl_lahir = array(
-                        "name" => "tgl_lahir[]",
-                        "contents" => $request->tgl_lahir[$i]
+                    $data_tgl_selesai = array(
+                        "name" => "tgl_selesai[]",
+                        "contents" => $request->tgl_selesai[$i]
                     );
                     $data_fileName = array(
                         "name" => "fileName[]",
@@ -295,11 +267,9 @@ class KeluargaAdmController extends Controller
 
                     array_push($array_nomor, $data_nomor);
                     array_push($array_nama, $data_nama);
-                    array_push($array_status, $data_status);
-                    array_push($array_kelamin, $data_kelamin);
-                    array_push($array_tanggungan, $data_tanggungan);
-                    array_push($array_tempat_lahir, $data_tempat_lahir);
-                    array_push($array_tanggal, $data_tgl_lahir);
+                    array_push($array_panitia, $data_panitia);
+                    array_push($array_tgl_mulai, $data_tgl_mulai);
+                    array_push($array_tgl_selesai, $data_tgl_selesai);
                     array_push($array_fileName, $data_fileName);
                     array_push($array_filePrevName, $data_filePrevName);
                     array_push($array_isUpload, $data_isUpload);
@@ -309,11 +279,9 @@ class KeluargaAdmController extends Controller
                     $fields,
                     $array_nomor, 
                     $array_nama, 
-                    $array_status, 
-                    $array_kelamin, 
-                    $array_tanggungan, 
-                    $array_tempat_lahir, 
-                    $array_tanggal, 
+                    $array_panitia, 
+                    $array_tgl_mulai, 
+                    $array_tgl_selesai, 
                     $array_fileName,
                     $array_filePrevName,
                     $array_isUpload
@@ -343,7 +311,7 @@ class KeluargaAdmController extends Controller
             }
 
             $client = new Client();
-            $response = $client->request('POST',  config('api.url').'esaku-trans/sdm-adm-keluarga-update',[
+            $response = $client->request('POST',  config('api.url').'esaku-trans/sdm-adm-pelatihan-update',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -369,7 +337,7 @@ class KeluargaAdmController extends Controller
     public function delete(Request $request) {
         try{
             $client = new Client();
-            $response = $client->request('DELETE',  config('api.url').'esaku-trans/sdm-adm-keluarga',
+            $response = $client->request('DELETE',  config('api.url').'esaku-trans/sdm-adm-pelatihan',
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
