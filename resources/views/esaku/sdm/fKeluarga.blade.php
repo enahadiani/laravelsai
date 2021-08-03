@@ -308,6 +308,11 @@ function nextSelectedCell(tr, td, index) {
     }, 500)
 }
 // GRID KELUARGA
+function hitungTotalRowKeluarga(){
+    var total_row = $('#input-keluarga tbody tr').length;
+    $('#total-keluarga').html(total_row+' Baris');
+}
+
 function addRowKeluargaDefault() { 
     $('#input-keluarga tbody').empty()
     var no= $('#input-keluarga tbody > tr').length;
@@ -318,7 +323,6 @@ function addRowKeluargaDefault() {
     var idTanggungan = 'tanggungan-ke__'+no
     var idTempatLahir = 'tempat-ke__'+no
     var idTanggalLahir = 'lahir-ke__'+no
-    var kalendarLahir = 'kalendar-ke'+no
     var idFile = 'file-ke__'+no
     var html = null;
 
@@ -417,6 +421,8 @@ function addRowKeluargaDefault() {
         }
         $(`#valueInput-${idTanggungan}`).val(isi)
     })
+
+    hitungTotalRowKeluarga()
 }
 
 function addRowKeluarga() { 
@@ -428,7 +434,6 @@ function addRowKeluarga() {
     var idTanggungan = 'tanggungan-ke__'+no
     var idTempatLahir = 'tempat-ke__'+no
     var idTanggalLahir = 'lahir-ke__'+no
-    var kalendarLahir = 'kalendar-ke'+no
     var idFile = 'file-ke__'+no
     var html = null;
 
@@ -529,6 +534,8 @@ function addRowKeluarga() {
         }
         $(`#valueInput-${idTanggungan}`).val(isi)
     })
+
+    hitungTotalRowKeluarga()
 }
 
 $('#input-keluarga tbody').on('click', '.hapus-item', function() {
@@ -540,6 +547,7 @@ $('#input-keluarga tbody').on('click', '.hapus-item', function() {
         no++;
     });
     $("html, body").animate({ scrollTop: $(document).height() }, 1000);
+    hitungTotalRowKeluarga()
 });
 
 $('#add-keluarga').click(function() {
@@ -751,7 +759,6 @@ function editData(id) {
             var data = res.data
             if(data.status) {
                 $('#input-keluarga tbody').empty()
-                console.log(data)
                 var formField = data.data[0]
                 var gridField = data.detail
                 valid = true
@@ -775,7 +782,6 @@ function editData(id) {
                         var idTanggungan = 'tanggungan-ke__'+no
                         var idTempatLahir = 'tempat-ke__'+no
                         var idTanggalLahir = 'lahir-ke__'+no
-                        var kalendarLahir = 'kalendar-ke'+no
                         var idFile = 'file-ke__'+no
                         var tgl_lahir = row.tgl_lahir.split(" ")
 
@@ -912,6 +918,7 @@ function editData(id) {
                 $('#saku-form').show();
                 setHeightForm();
                 setWidthFooterCardBody();
+                hitungTotalRowKeluarga()
             } 
         }
     })

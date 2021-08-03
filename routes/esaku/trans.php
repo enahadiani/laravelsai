@@ -305,6 +305,12 @@ Route::post('sdm-dinas', 'Esaku\Sdm\DinasController@store');
 Route::post('sdm-dinas-update', 'Esaku\Sdm\DinasController@update');
 Route::delete('sdm-dinas', 'Esaku\Sdm\DinasController@delete');
 
+Route::get('sdm-adm-dinass', 'Esaku\Sdm\DinasAdmController@index');
+Route::get('sdm-adm-dinas', 'Esaku\Sdm\DinasAdmController@show');
+Route::post('sdm-adm-dinas', 'Esaku\Sdm\DinasAdmController@store');
+Route::post('sdm-adm-dinas-update', 'Esaku\Sdm\DinasAdmController@update');
+Route::delete('sdm-adm-dinas', 'Esaku\Sdm\DinasAdmController@delete');
+
 ## SDM pendidikan
 Route::get('sdm-pendidikans', 'Esaku\Sdm\PendidikanController@index');
 Route::get('sdm-pendidikan', 'Esaku\Sdm\PendidikanController@show');
