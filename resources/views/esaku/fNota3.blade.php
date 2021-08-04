@@ -62,14 +62,6 @@
           <td align='right' class='size_isi' id='tostlh'>{{ number_format($total_stlh,0,",",".") }}</td>
         </tr>
         <tr>
-          <td class='size_isi'>Total PPN</td>
-          <td align='right' class='size_isi' id='toppn'>{{ number_format($total_ppn,0,",",".") }}</td>
-        </tr>
-        <tr>
-          <td class='size_isi'>Total Set. PPN</td>
-          <td align='right' class='size_isi' id='tostlh_ppn'>{{ number_format($total_stlh_ppn,0,",",".") }}</td>
-        </tr>
-        <tr>
           <td class='size_isi'>Total Bayar</td>
           <td align='right' class='size_isi' id='tobyr'>{{ number_format($total_byr,0,",",".") }}</td>
         </tr>
