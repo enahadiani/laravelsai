@@ -350,3 +350,9 @@ Route::get('sdm-sanksi', 'Esaku\Sdm\SanksiController@show');
 Route::post('sdm-sanksi', 'Esaku\Sdm\SanksiController@store');
 Route::post('sdm-sanksi-update', 'Esaku\Sdm\SanksiController@update');
 Route::delete('sdm-sanksi', 'Esaku\Sdm\SanksiController@delete');
+
+Route::get('sdm-adm-sanksis', 'Esaku\Sdm\SanksiAdmController@index');
+Route::get('sdm-adm-sanksi', 'Esaku\Sdm\SanksiAdmController@show');
+Route::post('sdm-adm-sanksi', 'Esaku\Sdm\SanksiAdmController@store');
+Route::post('sdm-adm-sanksi-update', 'Esaku\Sdm\SanksiAdmController@update');
+Route::delete('sdm-adm-sanksi', 'Esaku\Sdm\SanksiAdmController@delete');

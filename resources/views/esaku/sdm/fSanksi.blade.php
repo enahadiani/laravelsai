@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="{{ asset('css_optional/trans.css') }}" />
 
 {{-- LIST DATA --}}
-<x-list-data judul="Data Sanksi" tambah="true" :thead="array('Nama','Tanggal','Jenis','Aksi','NU')" :thwidth="array(20,15,15,10,10)" :thclass="array('','','','text-center','')" />
+<x-list-data judul="Data Kedinasan" tambah="" :thead="array('NIK','Nama','Jumlah Dinas','Aksi')" :thwidth="array(10,30,10,10)" :thclass="array('','','','text-center')" />
 {{-- END LIST DATA --}}
 
 {{-- FORM --}}
@@ -11,7 +11,6 @@
     <input class="form-control" type="hidden" id="id_edit" name="id_edit">
     <input type="hidden" id="method" name="_method" value="post">
     <input type="hidden" id="id" name="id">
-    <input type="hidden" id="nu" name="nu">
     <div class="row" id="saku-form" style="display:none;">
         <div class="col-12">
             <div class="card">
@@ -30,24 +29,45 @@
                             <div class="form-row">
                                 <div class="form-group col-md-6 col-sm-12">
                                     <div class="row">
-                                        <div class="col-md-12 col-sm-12">
-                                            <label for="nama">Nama Sanksi</label>
-                                            <input class="form-control" type="text" placeholder="Nama Sanksi" id="nama" name="nama" autocomplete="off" required>
+                                        <div class="col-md-6 col-sm-12">
+                                            <label for="kode_nik">NIK</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                                    <span class="input-group-text info-code_kode_nik" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                                </div>
+                                                <input type="text" class="form-control inp-label-kode_nik" id="kode_nik" name="kode_nik" autocomplete="off" data-input="cbbl" value="" title="" required readonly>
+                                                <span class="info-name_kode_nik hidden">
+                                                    <span></span> 
+                                                </span>
+                                                <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                                <i class="simple-icon-magnifier search-item2" id="search_kode_nik"></i>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group col-md-6 col-sm-12">
-                                    <div class="row">
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="tanggal">Tanggal Sanksi</label>
-                                            <span class="span-tanggal" id="tanggal-sanksi"></span>
-                                            <input class='form-control datepicker' id="tanggal" name="tanggal" autocomplete="off" value="{{ date('d/m/Y') }}">
-                                            <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;" class="simple-icon-calendar date-search"></i>
-                                        </div>
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="jenis">Jenis Sanksi</label>
-                                            <input class="form-control" type="text" placeholder="Jenis Sanksi" id="jenis" name="jenis" autocomplete="off" required>
-                                        </div>
+                            </div>    
+                            <ul class="nav nav-tabs col-12 " role="tablist">
+                                <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#data-sanksi" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Sanksi</span></a></li>
+                            </ul>
+                            <div class="tab-content tabcontent-border col-12 p-0" style="margin-bottom: 2rem;">
+                                <div class="tab-pane active row tab-scroll" id="data-sanksi" role="tabpanel">
+                                    <div class='col-md-12 nav-control' style="padding: 0px 5px;">
+                                        <a style="font-size:18px;float: right;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-sanksi" ></span></a>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <table class="table table-bordered table-condensed gridexample input-grid" id="input-sanksi" data-table="Tab data sanksi" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                            <thead style="background:#F8F8F8">
+                                                <tr>
+                                                    <th style="width:3%;">No</th>
+                                                    <th>Keterangan</th>
+                                                    <th style="width:20%;">Jenis</th>
+                                                    <th style="width:10%;">Tanggal</th>
+                                                    <th style="width:5%;"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+                                        <a type="button" id="add-sanksi" href="#" data-id="0" title="add-row" class="add-row btn btn-light2 btn-block btn-sm"><i class="saicon icon-tambah mr-1"></i>Tambah Baris</a>
                                     </div>
                                 </div>
                             </div>
@@ -67,6 +87,7 @@
     </div>
 </form>
 {{-- END FORM --}}
+<button id="trigger-bottom-sheet" style="display:none">&nbsp;</button>
 
 <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
 <script src="{{ asset('helper.js') }}"></script>
@@ -74,6 +95,7 @@
 
 <script type="text/javascript">
 // SET UP FORM
+var valid = true;
 $.ajaxSetup({
     headers: {
         'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
@@ -85,26 +107,22 @@ new PerfectScrollbar(scroll);
 
 var scrollForm = document.querySelector('#form-body');
 new PerfectScrollbar(scrollForm);
+
+var bottomSheet = new BottomSheet("country-selector");
+document.getElementById("trigger-bottom-sheet").addEventListener("click", bottomSheet.activate);
+window.bottomSheet = bottomSheet;
 // END SET UP FORM
 
 // OPTIONAL CONFIG
-$('#tanggal').bootstrapDP({
-    autoclose: true,
-    format: 'dd/mm/yyyy',
-    container: '#tanggal-sanksi',
-    templates: {
-        leftArrow: '<i class="simple-icon-arrow-left"></i>',
-        rightArrow: '<i class="simple-icon-arrow-right"></i>'
-    },
-    orientation: 'bottom left'
-})
+
 // END OPTIONAL CONFIG
 
 // BTN TAMBAH
-$('#saku-datatable').on('click', '#btn-tambah', function() {
-    $('#nu').val('');
+$('#saku-datatable').on('click', '#btn-tambah', function() {;
     $('#judul-form').html('Tambah Data Sanksi');
     newForm();
+    addRowKedinasanDefault()
+    valid = true
 });
 //  END BTN TAMBAH
 
@@ -118,11 +136,11 @@ $('#saku-form').on('click', '#btn-kembali', function(){
 });
 
 // SAKU TABLE
-var actionHtmlDefault = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
+var actionHtmlDefault = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a>";
 var dataTable = 
 generateTable(
     "table-data",
-    "{{ url('esaku-trans/sdm-sanksis') }}", 
+    "{{ url('esaku-trans/sdm-adm-sanksis') }}", 
     [
         {
             "targets": 0,
@@ -134,14 +152,11 @@ generateTable(
             }
         },
         {'targets': 3 ,'className': 'text-center', 'defaultContent': actionHtmlDefault,'className': 'text-center' },
-        {'targets': 4, 'className': 'hidden' }
     ],
     [
+        { data: 'nik' },
         { data: 'nama' },
-        { data: 'tanggal' },
-        { data: 'jenis' },
-        { data: null },
-        { data: 'nu' },
+        { data: 'jum' }
     ],
     "{{ url('esaku-auth/sesi-habis') }}",
     [[0 ,"desc"]]
@@ -161,6 +176,324 @@ $("#page-count").on("change", function (event) {
 $('[data-toggle="popover"]').popover({ trigger: "focus" });
 // END SAKU TABLE
 
+// CBBL SAKU FORM
+$('#form-tambah').on('click', '.search-item2', function(e) {
+    var id = $(this).closest('div').find('input').attr('name');  
+    var options = {}
+    switch(id) {
+        case 'kode_nik':
+            options = {
+                id : id,
+                header : ['Kode', 'Nama'],
+                url : "{{ url('esaku-trans/sdm-karyawans') }}",
+                columns : [
+                    { data: 'nik' },
+                    { data: 'nama' }
+                ],
+                judul : "Daftar NIK",
+                pilih : "NIK",
+                jTarget1 : "text",
+                jTarget2 : "text",
+                target1 : ".info-code_"+id,
+                target2 : ".info-name_"+id,
+                target3 : "",
+                target4 : "",
+                width : ["30%","70%"],
+            }
+        break;
+    }
+    showInpFilterBSheet(options);
+})
+
+$('.info-icon-hapus').click(function(){
+    var par = $(this).closest('div').find('input').attr('name');
+    $('#'+par).val('');
+    $('#'+par).attr('readonly',false);
+    $('#'+par).attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important');
+    $('.info-code_'+par).parent('div').addClass('hidden');
+    $('.info-name_'+par).addClass('hidden');
+    $(this).addClass('hidden');
+    $('#'+par).trigger('change');
+});
+// END CBBL SAKU FORM
+
+// GRID FORM
+$(document).on('click', function() {
+    hideAllSelectedRow()
+})
+
+function hideAllSelectedRow() {
+    $('table[id^=input]').each(function(index, table) {
+        $(table).children('tbody').each(function(index, tbody) {
+            $(tbody).children('tr').each(function(index, tr) {
+                $(tr).children('td').not(':first, :last').each(function(index, td) {
+                    var value = $(td).children('.input-value').val()
+                    $(td).children('.input-value').val(value)
+                    $(td).children('span').not('.not-show').text(value)
+                    $(td).children('.input-value').hide()
+                    $(td).children('a').not('.hapus-item, .download-item').hide()
+                    $(td).children('span').not('.not-show').show()
+                })
+            })
+        })
+        $(table).find('tr').removeClass('selected-row')
+        $(table).find('td').removeClass('selected-cell')
+        $(table).find('.input-value').hide()
+        $(table).find('a').not('.hapus-item, .download-item').hide()
+        $(table).find('span').not('.not-show').show()
+    })
+}
+
+function hideUnselectedRow(tbody) {
+    tbody.find('tr').not('.selected-row').each(function(index, tr) {
+        $(tr).find('td').not(':first, :last').each(function(index, td) {
+            var value = $(td).children('.input-value').val()
+            $(td).children('.input-value').val(value)
+            $(td).children('span').not('.not-show').text(value)
+            $(td).children('.input-value').hide()
+            $(td).children('a').not('.hapus-item, .download-item').hide()
+            $(td).children('span').not('.not-show').show()
+        })
+    }) 
+}
+
+function hideUnselectedCell(tr) {
+    tr.find('td').not(':first, :last, .readonly').each(function(index, td) {
+        var value = $(td).children('.input-value').val()
+        $(td).children('.input-value').val(value)
+        $(td).children('span').not('.not-show').text(value)
+        if($(td).hasClass('selected-cell')) {
+            $(td).children('span').hide()
+            $(td).children('.input-value').show()
+            $(td).children('a').not('.hapus-item, .download-item').show()
+                setTimeout(function() {
+                $(td).children('.input-value').focus()
+            }, 500)
+        } else {
+            $(td).children('.input-value').hide()
+            $(td).children('a').not('.hapus-item, .download-item').hide()
+            $(td).children('span').not('.not-show').show()
+        }
+    }) 
+}
+
+function nextSelectedCell(tr, td, index) {
+    var value = $(td).children('.input-value').val()
+    $(td).children('.input-value').val(value)
+    $(td).children('span').not('.not-show').text(value)
+    $(td).children('span').not('.not-show').show()
+    $(td).children('.input-value').hide()
+    $(td).children('a').not('.hapus-item, .download-item').hide()
+
+    var nextindex = index + 1; 
+    var tdnext = $(tr).find('td').eq(nextindex)
+    var cekReadonly = $(tdnext).hasClass('readonly')
+    if(cekReadonly) {
+        nextindex = nextindex + 1
+        tdnext = $(tr).find('td').eq(nextindex)
+    }
+    var cekCbbl = $(tdnext).has('a').length
+    if(cekCbbl > 0) {
+        $(tdnext).children('a').show()
+    }
+
+    $(tdnext).children('span').hide()
+    $(tdnext).children('.input-value').show()
+    setTimeout(function() {
+        $(tdnext).children('.input-value').focus()
+    }, 500)
+}
+// GRID KEDINASAN
+function hitungTotalRowSanksi(){
+    var total_row = $('#input-sanksi tbody tr').length;
+    $('#total-sanksi').html(total_row+' Baris');
+}
+
+function addRowSanksiDefault() { 
+    $('#input-sanksi tbody').empty()
+    var no= $('#input-sanksi tbody > tr').length;
+    no = no + 1;
+    var idNama = 'nama-ke__'+no
+    var idTanggal = 'tanggal-ke__'+no
+    var idJenis = 'jenis-ke__'+no
+    var html = null;
+
+    html = `<tr class="row-grid">
+        <td class="no-grid text-center">${no}<input type="hidden" name="nomor[]" value="${no}"></td>
+        <td id="${idNama}">
+            <span id="text-${idNama}" class="tooltip-span"></span>
+            <input autocomplete="off" type="text" id="value-${idNama}" name="nama[]" class="form-control input-value hidden" value="" >
+        </td>
+        <td id="${idJenis}">
+            <span id="text-${idJenis}" class="tooltip-span"></span>
+            <input autocomplete="off" type="text" id="value-${idJenis}" name="jenis[]" class="form-control input-value hidden" value="" >
+        </td>
+        <td id="${idTanggal}">
+            <span id="text-${idTanggal}" class="tooltip-span"></span>
+            <input class="form-control input-value hidden" type="date" id="value-${idTanggal}" name="tanggal[]" autocomplete="off" value="{{ date('Y-m-d') }}">
+        </td>
+        <td class='text-center'>
+            <a class='hapus-item' title='Hapus Barang' style='font-size:12px;cursor:pointer;'><i class='simple-icon-trash'></i></a>
+        </td>
+    </tr>`;
+
+    $('#input-sanksi tbody').append(html)
+
+    $('.tooltip-span').tooltip({
+        title: function(){
+            return $(this).text();
+        }
+    });
+    hitungTotalRowSanksi()
+}
+
+function addRowSanksi() { 
+    var no= $('#input-sanksi tbody > tr').length;
+    no = no + 1;
+    var idNama = 'nama-ke__'+no
+    var idTanggal = 'tanggal-ke__'+no
+    var idJenis = 'jenis-ke__'+no
+    var html = null;
+
+    html = `<tr class="row-grid">
+        <td class="no-grid text-center">${no}<input type="hidden" name="nomor[]" value="${no}"></td>
+        <td id="${idNama}">
+            <span id="text-${idNama}" class="tooltip-span"></span>
+            <input autocomplete="off" type="text" id="value-${idNama}" name="nama[]" class="form-control input-value hidden" value="" >
+        </td>
+        <td id="${idJenis}">
+            <span id="text-${idJenis}" class="tooltip-span"></span>
+            <input autocomplete="off" type="text" id="value-${idJenis}" name="jenis[]" class="form-control input-value hidden" value="" >
+        </td>
+        <td id="${idTanggal}">
+            <span id="text-${idTanggal}" class="tooltip-span"></span>
+            <input class="form-control input-value hidden" type="date" id="value-${idTanggal}" name="tanggal[]" autocomplete="off" value="{{ date('Y-m-d') }}">
+        </td>
+        <td class='text-center'>
+            <a class='hapus-item' title='Hapus Barang' style='font-size:12px;cursor:pointer;'><i class='simple-icon-trash'></i></a>
+        </td>
+    </tr>`;
+
+    $('#input-sanksi tbody').append(html)
+    $('#input-sanksi tbody tr').not(':last').removeClass('selected-row');
+    $('.row-grid:last').addClass('selected-row');
+
+    $('.tooltip-span').tooltip({
+        title: function(){
+            return $(this).text();
+        }
+    });
+    hitungTotalRowSanksi()
+}
+
+$('#input-sanksi tbody').on('click', '.hapus-item', function() {
+    $(this).closest('tr').remove();
+    no=1;
+    $('#input-sanksi tbody').children('.row-grid').each(function(){
+        var nom = $(this).closest('tr').find('.no-grid');
+        nom.html(no);
+        no++;
+    });
+    $("html, body").animate({ scrollTop: $(document).height() }, 1000);
+    hitungTotalRowSanksi()
+});
+
+$('#add-sanksi').click(function() {
+    var row = $('#input-sanksi tbody tr').length
+    if(row > 0) {
+        var empty = false;
+        var kolom = null;
+        var baris = null;
+        var error = '';
+        $('#input-sanksi tbody tr').each(function() {
+            baris = $(this).index() + 1
+            $(this).find('td').not(':first, :last').each(function() {
+                if($(this).text().trim() === '') {
+                    empty = true;
+                    kolom = $('#input-sanksi thead > tr th').eq($(this).index()).text()
+                    error = `Data pada kolom ${kolom} di baris nomor ${baris} tidak boleh kosong`
+                    return false;
+                }
+            })
+        })
+        if(empty) {
+            alert(error)
+        } else {
+            addRowSanksi()
+        }
+    } else {
+        addRowSanksi()
+    }
+})
+
+$('#input-sanksi tbody').on('click', 'td', function(event) {
+    event.stopPropagation();
+    var tr = $(this).parent()
+    var tbody = $(tr).parent()
+    $(tr).addClass('selected-row')
+    $(this).addClass('selected-cell');
+    tr.children().not(this).removeClass('selected-cell');
+    tbody.children().not($(tr)).removeClass('selected-row')
+    hideUnselectedCell(tr);
+    hideUnselectedRow(tbody)
+});
+
+$('#input-sanksi tbody').on('keydown', 'input', function(event) {
+    event.stopPropagation();
+    var tr = $(this).closest('tr')
+    var td = $(this).parent()
+    var tdindex = $(this).parent().index()
+    var code = event.keyCode
+    var totaltd = $(tr).children('td').not(':first, :last').length - 1
+    if(code === 9) {
+        $(td).removeClass('selected-cell')
+        if(tdindex === totaltd) {
+            $('#add-kedinasan').click()
+        } else {
+            nextSelectedCell(tr, td, tdindex)
+        }
+    } 
+});
+// END GRID KEDINASAN
+
+// VALIDATION GRID //
+function checkTableSanksi() {
+    var nama = $('#input-sanksi').attr('data-table')
+    var table = $('#input-sanksi tbody').children('tr')
+    var kolom = ''
+    var error = ''
+    var baris = null
+    var empty = false
+    if(table.length === 0) {
+        valid = false
+        alert('Harap mengisi data keluarga minimal 1 data')
+    } else {
+        $('#input-sanksi tbody').children('tr').each(function() {
+            baris = $(this).index() + 1
+            $(this).children('td').not(':first, :last').each(function() {
+                if($(this).text().trim() === '') {
+                    empty = true
+                    kolom = $('#input-sanksi thead > tr th').eq($(this).index()).text()
+                    error = `Data pada kolom ${kolom} di baris nomor ${baris} tidak boleh kosong di ${nama}`
+                    return false;
+                }
+            })
+            if(empty) {
+                return false
+            }
+        })
+
+        if(empty) {
+            alert(error)
+            valid = false
+        } else {
+            valid = true
+        }
+    }
+}
+// END VALIDATION GRID //
+// END GRID FORM
+
 // SAVE TRIGGER
 $('#form-tambah').validate({
     ignore: [],
@@ -171,11 +504,11 @@ $('#form-tambah').validate({
         var parameter = $('#id_edit').val();
         var id = $('#id').val();
         if(parameter == "true"){
-            var url = "{{ url('esaku-trans/sdm-sanksi-update') }}";
+            var url = "{{ url('esaku-trans/sdm-adm-sanksi-update') }}";
             var pesan = "updated";
             var text = "Perubahan data "+id+" telah tersimpan";
         } else {
-            var url = "{{ url('esaku-trans/sdm-sanksi') }}";
+            var url = "{{ url('esaku-trans/sdm-adm-sanksi') }}";
             var pesan = "saved";
             var text = "Data tersimpan dengan kode "+id;
         }
@@ -184,44 +517,48 @@ $('#form-tambah').validate({
         for(var pair of formData.entries()) {
             console.log(pair[0]+ ', '+ pair[1]); 
         }
+        
+        checkTableSanksi()
 
-        $.ajax({
-            type: 'POST', 
-            url: url,
-            dataType: 'json',
-            data: formData,
-            async:false,
-            contentType: false,
-            cache: false,
-            processData: false, 
-            success:function(result){
-                if(result.data.status){
-                    var kode = result.data.kode;
-                    dataTable.ajax.reload();
-                    $('#judul-form').html('Tambah Data Sanksi');
-                    $('#nu').val('');
-                    resetForm();
-                    msgDialog({
-                        id: kode,
-                        type: 'simpan'
-                    });
-                    last_add(dataTable,"nu", kode);
-                    $('#id_edit').val('false')
-                } else if(!result.data.status && result.data.message === "Unauthorized"){
-                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
-                } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Something went wrong!',
-                        footer: '<a href>'+result.data.message+'</a>'
-                    })
+        if(valid) {
+            $.ajax({
+                type: 'POST', 
+                url: url,
+                dataType: 'json',
+                data: formData,
+                async:false,
+                contentType: false,
+                cache: false,
+                processData: false, 
+                success:function(result){
+                    if(result.data.status){
+                        var kode = result.data.kode;
+                        dataTable.ajax.reload();
+                        $('#input-sanksi tbody').empty()
+                        $('#judul-form').html('Tambah Data Sanksi');
+                        resetForm();
+                        msgDialog({
+                            id: kode,
+                            type: 'simpan'
+                        });
+                        last_add(dataTable,"nama", kode);
+                        $('#id_edit').val('false')
+                    } else if(!result.data.status && result.data.message === "Unauthorized"){
+                        window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Something went wrong!',
+                            footer: '<a href>'+result.data.message+'</a>'
+                        })
+                    }
+                },
+                fail: function(xhr, textStatus, errorThrown){
+                    alert('request failed:'+textStatus);
                 }
-            },
-            fail: function(xhr, textStatus, errorThrown){
-                alert('request failed:'+textStatus);
-            }
-        });
+            });
+        }
         $('#btn-simpan').html("Simpan").removeAttr('disabled');
     },
     errorPlacement: function (error, element) {
@@ -242,7 +579,7 @@ $('#saku-form').on('click', '#btn-update', function(){
 });
 
 $('#saku-datatable').on('click', '#btn-edit', function(){
-    var id= $(this).closest('tr').find('td').eq(4).html();
+    var id= $(this).closest('tr').find('td').eq(0).html();
     editData(id)
 });
 
@@ -254,26 +591,68 @@ function editData(id) {
 
     $.ajax({
         type: 'GET',
-        url: "{{ url('esaku-trans/sdm-sanksi') }}",
+        url: "{{ url('esaku-trans/sdm-adm-sanksi') }}",
         data: { kode: id },
         dataType: 'json',
         async:false,
         success:function(res) {
-            var data = res.data.data[0]
-            if(res.data.status) {
+            var data = res.data
+            if(data.status) {
+                $('#input-sanksi tbody').empty()
+                var formField = data.data[0]
+                var gridField = data.detail
+                valid = true
                 $('#id_edit').val('true')
                 $('#id').val(id)
-                $('#nu').val(id)
-                $('#nama').val(data.nama)
-                $('#jenis').val(data.jenis)
 
-                $('#tanggal').val(data.tanggal)
+                showInfoField('kode_nik', formField.nik, formField.nama)
+
+                if(gridField.length > 0) {
+                    var html = null;
+                    var no = 1;
+
+                    for(var i=0; i<gridField.length;i++) {
+                        var row = gridField[i]
+                        var idNama = 'nama-ke__'+no
+                        var idTanggal = 'tanggal-ke__'+no
+                        var idJenis = 'jenis-ke__'+no
+                        var tgl = row.tanggal.split(" ")
+
+                        html = `<tr class="row-grid">
+                            <td class="no-grid text-center">${no}<input type="hidden" name="nomor[]" value="${no}"></td>
+                            <td id="${idNama}">
+                                <span id="text-${idNama}" class="tooltip-span">${row.nama}</span>
+                                <input autocomplete="off" type="text" id="value-${idNama}" name="nama[]" class="form-control input-value hidden" value="${row.nama}" >
+                            </td>
+                            <td id="${idJenis}">
+                                <span id="text-${idJenis}" class="tooltip-span">${row.jenis}</span>
+                                <input autocomplete="off" type="text" id="value-${idJenis}" name="jenis[]" class="form-control input-value hidden" value="${row.jenis}" >
+                            </td>
+                            <td id="${idTanggal}">
+                                <span id="text-${idTanggal}" class="tooltip-span">${tgl[0]}</span>
+                                <input class="form-control input-value hidden" type="date" id="value-${idTanggal}" name="tanggal[]" autocomplete="off" value="${tgl[0]}">
+                            </td>
+                            <td class='text-center'>
+                                <a class='hapus-item' title='Hapus Barang' style='font-size:12px;cursor:pointer;'><i class='simple-icon-trash'></i></a>
+                            </td>
+                        </tr>`;
+                    
+                        no++;
+                        $('#input-sanksi tbody').append(html)
+                        $('.tooltip-span').tooltip({
+                            title: function(){
+                                return $(this).text();
+                            }
+                        });
+                    }
+                }   
 
                 $('#saku-datatable').hide();
                 $('#modal-preview').modal('hide');
                 $('#saku-form').show();
                 setHeightForm();
                 setWidthFooterCardBody();
+                hitungTotalRowSanksi()
             } 
         }
     })
@@ -282,7 +661,7 @@ function editData(id) {
 
 // HAPUS DATA
 $('#saku-datatable').on('click','#btn-delete',function(e){
-    var kode = $(this).closest('tr').find('td').eq(4).html();
+    var kode = $(this).closest('tr').find('td').eq(0).html();
     msgDialog({
         id: kode,
         type:'hapus'
@@ -292,7 +671,7 @@ $('#saku-datatable').on('click','#btn-delete',function(e){
 function hapusData(id){
     $.ajax({
         type: 'DELETE',
-        url: "{{ url('esaku-trans/sdm-sanksi') }}",
+        url: "{{ url('esaku-trans/sdm-adm-sanksi') }}",
         data: { kode: id },
         dataType: 'json',
         async:false,

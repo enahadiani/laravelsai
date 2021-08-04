@@ -470,7 +470,7 @@ function checkTableKedinasan() {
     } else {
         $('#input-kedinasan tbody').children('tr').each(function() {
             baris = $(this).index() + 1
-            $(this).children('td').not(':first, :last, :eq(7)').each(function() {
+            $(this).children('td').not(':first, :last').each(function() {
                 if($(this).text().trim() === '') {
                     empty = true
                     kolom = $('#input-kedinasan thead > tr th').eq($(this).index()).text()
