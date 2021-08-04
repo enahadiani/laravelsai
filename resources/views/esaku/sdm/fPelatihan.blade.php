@@ -305,7 +305,7 @@ function nextSelectedCell(tr, td, index) {
         $(tdnext).children('.input-value').focus()
     }, 500)
 }
-// GRID KELUARGA
+// GRID PELATIHAN
 function hitungTotalRowPelatihan(){
     var total_row = $('#input-pelatihan tbody tr').length;
     $('#total-pelatihan').html(total_row+' Baris');
@@ -482,7 +482,7 @@ $('#input-pelatihan tbody').on('keydown', 'input', function(event) {
     if(code === 9) {
         $(td).removeClass('selected-cell')
         if(tdindex === totaltd) {
-            $('#add-keluarga').click()
+            $('#add-pelatihan').click()
         } else {
             nextSelectedCell(tr, td, tdindex)
         }
@@ -496,7 +496,7 @@ $('#input-pelatihan tbody').on('change', 'input[type="file"]', function() {
     $(td).children('#fileName-'+id).val(file)
     $(td).children('#checkUpload-'+id).val("true")
 })
-// END GRID KELUARGA
+// END GRID PELATIHAN
 
 // VALIDATION GRID //
 function checkTablePelatihan() {
@@ -508,7 +508,7 @@ function checkTablePelatihan() {
     var empty = false
     if(table.length === 0) {
         valid = false
-        alert('Harap mengisi data keluarga minimal 1 data')
+        alert('Harap mengisi data pelatihan minimal 1 data')
     } else {
         $('#input-pelatihan tbody').children('tr').each(function() {
             baris = $(this).index() + 1

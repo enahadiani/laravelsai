@@ -472,7 +472,7 @@ function checkTableKedinasan() {
     var empty = false
     if(table.length === 0) {
         valid = false
-        alert('Harap mengisi data keluarga minimal 1 data')
+        alert('Harap mengisi data kedinasan minimal 1 data')
     } else {
         $('#input-kedinasan tbody').children('tr').each(function() {
             baris = $(this).index() + 1

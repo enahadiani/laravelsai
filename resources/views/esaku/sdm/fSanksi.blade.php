@@ -472,7 +472,7 @@ function checkTableSanksi() {
     var empty = false
     if(table.length === 0) {
         valid = false
-        alert('Harap mengisi data keluarga minimal 1 data')
+        alert('Harap mengisi data sanksi minimal 1 data')
     } else {
         $('#input-sanksi tbody').children('tr').each(function() {
             baris = $(this).index() + 1
