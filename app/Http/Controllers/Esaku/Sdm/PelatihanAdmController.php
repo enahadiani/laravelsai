@@ -133,18 +133,20 @@ class PelatihanAdmController extends Controller
                 if(count($request->file('file')) > 0) {
                     $array_file = array();
                     for($i=0; $i<count($request->file('file')); $i++) {
-                        $image_path = $request->file('file')[$i]->getPathname();
-                        $image_mime = $request->file('file')[$i]->getmimeType();
-                        $image_org  = $request->file('file')[$i]->getClientOriginalName();
+                        if(isset($request->file('file')[$i])) { 
+                            $image_path = $request->file('file')[$i]->getPathname();
+                            $image_mime = $request->file('file')[$i]->getmimeType();
+                            $image_org  = $request->file('file')[$i]->getClientOriginalName();
 
-                        $data_file = array(
-                            'name'     => 'file[]',
-                            'filename' => $image_org,
-                            'Mime-Type'=> $image_mime,
-                            'contents' => fopen( $image_path, 'r' )
-                        );
+                            $data_file = array(
+                                'name'     => 'file[]',
+                                'filename' => $image_org,
+                                'Mime-Type'=> $image_mime,
+                                'contents' => fopen( $image_path, 'r' )
+                            );
 
-                        array_push($array_file, $data_file);
+                            array_push($array_file, $data_file);
+                        }
                     }
 
                     $fields = array_merge($fields, $array_file);
@@ -287,23 +289,24 @@ class PelatihanAdmController extends Controller
                     $array_isUpload
                 );
             }
-
             if(!empty($request->file('file'))) {
                 if(count($request->file('file')) > 0) {
                     $array_file = array();
                     for($i=0; $i<count($request->file('file')); $i++) {
-                        $image_path = $request->file('file')[$i]->getPathname();
-                        $image_mime = $request->file('file')[$i]->getmimeType();
-                        $image_org  = $request->file('file')[$i]->getClientOriginalName();
+                        if(isset($request->file('file')[$i])) { 
+                            $image_path = $request->file('file')[$i]->getPathname();
+                            $image_mime = $request->file('file')[$i]->getmimeType();
+                            $image_org  = $request->file('file')[$i]->getClientOriginalName();
 
-                        $data_file = array(
-                            'name'     => 'file[]',
-                            'filename' => $image_org,
-                            'Mime-Type'=> $image_mime,
-                            'contents' => fopen( $image_path, 'r' )
-                        );
+                            $data_file = array(
+                                'name'     => 'file[]',
+                                'filename' => $image_org,
+                                'Mime-Type'=> $image_mime,
+                                'contents' => fopen( $image_path, 'r' )
+                            );
 
-                        array_push($array_file, $data_file);
+                            array_push($array_file, $data_file);
+                        }
                     }
 
                     $fields = array_merge($fields, $array_file);
