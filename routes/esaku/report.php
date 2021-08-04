@@ -156,3 +156,7 @@ Route::post('lap-labarugiunit-anggaran', 'Esaku\Anggaran\LaporanController@getLa
 Route::post('lap-pengajuan-anggaran', 'Esaku\Anggaran\LaporanController@getLaporanPengajuanAnggaran');
 Route::post('lap-approval-anggaran', 'Esaku\Anggaran\LaporanController@getLaporanApprovalAnggaran');
 Route::post('lap-posisi-anggaran', 'Esaku\Anggaran\LaporanController@getLaporanPosisiAnggaran');
+
+## Laporan SDM
+Route::post('sdm-lap-karyawan', 'Esaku\Sdm\LaporanController@getDataKaryawan');
+Route::post('sdm-lap-karyawanCv', 'Esaku\Sdm\LaporanController@getDataKaryawanCv');

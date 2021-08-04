@@ -182,6 +182,8 @@ function newForm() {
     $("#id").val("");
     $("#saku-datatable").hide();
     $("#saku-form").show();
+    setHeightForm();
+    setWidthFooterCardBody();
 }
 
 function resetForm() {

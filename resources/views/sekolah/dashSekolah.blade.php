@@ -10,12 +10,29 @@
         border-color: white !important;
         box-shadow: 2px 1px 2px 1px #e8e8e8 !important;
     }
+    .filter-btn {
+        width: 370px;
+        border: 1px solid black;
+        font-size: 1rem;
+        text-align: left;
+    }
+    @media only screen and (max-width: 1280px) {
+        .filter-btn {
+            width: 340px;
+        }
+    }
+
+    @media only screen and (min-width: 1440px) {
+        .filter-btn {
+            width: 390px;
+        }
+    }
 </style>
 <div class="row">
     <div class="col-12">
         {{-- <h2 style="position:absolute"><span id="judul-matpel" class="mr-2"></span><span id="judul-kelas"></span></h2> --}}
         <h5 style="position:absolute" class="text-primary">Perkembangan Siswa</h5>
-        <a class="btn btn-outline-light float-right bg-primary text-white mb-2" href="#" id="filter-btn" style="width:392px;border:1px solid black;font-size:1rem;text-align:left;"></a>
+        <a class="btn btn-outline-light float-right bg-primary text-white mb-2 filter-btn" href="#" id="filter-btn"></a>
         <!-- <div class="separator mb-5"></div> -->
     </div>
 </div>

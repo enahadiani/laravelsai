@@ -277,3 +277,76 @@ Route::get('cek-saldo', 'Esaku\Anggaran\PengajuanAnggaranController@getSaldoAngg
 Route::get('rra-anggaran', 'Esaku\Anggaran\ApproveAnggaranController@getRRAAnggaran');
 Route::get('rra-data', 'Esaku\Anggaran\ApproveAnggaranController@getDataRRAAnggaran');
 Route::post('approve-rra', 'Esaku\Anggaran\ApproveAnggaranController@store');
+
+## SDM Kepegawaian
+Route::get('sdm-karyawans', 'Esaku\Sdm\KepegawaianController@index');
+Route::get('sdm-karyawan', 'Esaku\Sdm\KepegawaianController@show');
+Route::post('sdm-karyawan', 'Esaku\Sdm\KepegawaianController@store');
+Route::post('sdm-karyawan-update', 'Esaku\Sdm\KepegawaianController@update');
+Route::delete('sdm-karyawan', 'Esaku\Sdm\KepegawaianController@delete');
+
+## SDM keluarga
+Route::get('sdm-keluargas', 'Esaku\Sdm\KeluargaController@index');
+Route::get('sdm-keluarga', 'Esaku\Sdm\KeluargaController@show');
+Route::post('sdm-keluarga', 'Esaku\Sdm\KeluargaController@store');
+Route::post('sdm-keluarga-update', 'Esaku\Sdm\KeluargaController@update');
+Route::delete('sdm-keluarga', 'Esaku\Sdm\KeluargaController@delete');
+
+Route::get('sdm-adm-keluargas', 'Esaku\Sdm\KeluargaAdmController@index');
+Route::get('sdm-adm-keluarga', 'Esaku\Sdm\KeluargaAdmController@show');
+Route::post('sdm-adm-keluarga', 'Esaku\Sdm\KeluargaAdmController@store');
+Route::post('sdm-adm-keluarga-update', 'Esaku\Sdm\KeluargaAdmController@update');
+Route::delete('sdm-adm-keluarga', 'Esaku\Sdm\KeluargaAdmController@delete');
+
+## SDM kedinasan
+Route::get('sdm-dinass', 'Esaku\Sdm\DinasController@index');
+Route::get('sdm-dinas', 'Esaku\Sdm\DinasController@show');
+Route::post('sdm-dinas', 'Esaku\Sdm\DinasController@store');
+Route::post('sdm-dinas-update', 'Esaku\Sdm\DinasController@update');
+Route::delete('sdm-dinas', 'Esaku\Sdm\DinasController@delete');
+
+Route::get('sdm-adm-dinass', 'Esaku\Sdm\DinasAdmController@index');
+Route::get('sdm-adm-dinas', 'Esaku\Sdm\DinasAdmController@show');
+Route::post('sdm-adm-dinas', 'Esaku\Sdm\DinasAdmController@store');
+Route::post('sdm-adm-dinas-update', 'Esaku\Sdm\DinasAdmController@update');
+Route::delete('sdm-adm-dinas', 'Esaku\Sdm\DinasAdmController@delete');
+
+## SDM pendidikan
+Route::get('sdm-pendidikans', 'Esaku\Sdm\PendidikanController@index');
+Route::get('sdm-pendidikan', 'Esaku\Sdm\PendidikanController@show');
+Route::post('sdm-pendidikan', 'Esaku\Sdm\PendidikanController@store');
+Route::post('sdm-pendidikan-update', 'Esaku\Sdm\PendidikanController@update');
+Route::delete('sdm-pendidikan', 'Esaku\Sdm\PendidikanController@delete');
+
+## SDM pelatihan
+Route::get('sdm-pelatihans', 'Esaku\Sdm\PelatihanController@index');
+Route::get('sdm-pelatihan', 'Esaku\Sdm\PelatihanController@show');
+Route::post('sdm-pelatihan', 'Esaku\Sdm\PelatihanController@store');
+Route::post('sdm-pelatihan-update', 'Esaku\Sdm\PelatihanController@update');
+Route::delete('sdm-pelatihan', 'Esaku\Sdm\PelatihanController@delete');
+
+Route::get('sdm-adm-pelatihans', 'Esaku\Sdm\PelatihanAdmController@index');
+Route::get('sdm-adm-pelatihan', 'Esaku\Sdm\PelatihanAdmController@show');
+Route::post('sdm-adm-pelatihan', 'Esaku\Sdm\PelatihanAdmController@store');
+Route::post('sdm-adm-pelatihan-update', 'Esaku\Sdm\PelatihanAdmController@update');
+Route::delete('sdm-adm-pelatihan', 'Esaku\Sdm\PelatihanAdmController@delete');
+
+## SDM penghargaan
+Route::get('sdm-penghargaans', 'Esaku\Sdm\PenghargaanController@index');
+Route::get('sdm-penghargaan', 'Esaku\Sdm\PenghargaanController@show');
+Route::post('sdm-penghargaan', 'Esaku\Sdm\PenghargaanController@store');
+Route::post('sdm-penghargaan-update', 'Esaku\Sdm\PenghargaanController@update');
+Route::delete('sdm-penghargaan', 'Esaku\Sdm\PenghargaanController@delete');
+
+Route::get('sdm-adm-penghargaans', 'Esaku\Sdm\PenghargaanAdmController@index');
+Route::get('sdm-adm-penghargaan', 'Esaku\Sdm\PenghargaanAdmController@show');
+Route::post('sdm-adm-penghargaan', 'Esaku\Sdm\PenghargaanAdmController@store');
+Route::post('sdm-adm-penghargaan-update', 'Esaku\Sdm\PenghargaanAdmController@update');
+Route::delete('sdm-adm-penghargaan', 'Esaku\Sdm\PenghargaanAdmController@delete');
+
+## SDM sanksi
+Route::get('sdm-sanksis', 'Esaku\Sdm\SanksiController@index');
+Route::get('sdm-sanksi', 'Esaku\Sdm\SanksiController@show');
+Route::post('sdm-sanksi', 'Esaku\Sdm\SanksiController@store');
+Route::post('sdm-sanksi-update', 'Esaku\Sdm\SanksiController@update');
+Route::delete('sdm-sanksi', 'Esaku\Sdm\SanksiController@delete');
