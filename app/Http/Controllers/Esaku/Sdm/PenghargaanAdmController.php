@@ -229,7 +229,7 @@ class PenghargaanAdmController extends Controller
                         "contents" => $request->fileName[$i]
                     );
                     $data_filePrevName = array(
-                        "name" => "fileName[]",
+                        "name" => "filePrevName[]",
                         "contents" => $request->filePrevName[$i]
                     );
                     $data_isUpload = array(

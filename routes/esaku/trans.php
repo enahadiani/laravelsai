@@ -318,6 +318,12 @@ Route::post('sdm-pendidikan', 'Esaku\Sdm\PendidikanController@store');
 Route::post('sdm-pendidikan-update', 'Esaku\Sdm\PendidikanController@update');
 Route::delete('sdm-pendidikan', 'Esaku\Sdm\PendidikanController@delete');
 
+Route::get('sdm-adm-pendidikans', 'Esaku\Sdm\PendidikanAdmController@index');
+Route::get('sdm-adm-pendidikan', 'Esaku\Sdm\PendidikanAdmController@show');
+Route::post('sdm-adm-pendidikan', 'Esaku\Sdm\PendidikanAdmController@store');
+Route::post('sdm-adm-pendidikan-update', 'Esaku\Sdm\PendidikanAdmController@update');
+Route::delete('sdm-adm-pendidikan', 'Esaku\Sdm\PendidikanAdmController@delete');
+
 ## SDM pelatihan
 Route::get('sdm-pelatihans', 'Esaku\Sdm\PelatihanController@index');
 Route::get('sdm-pelatihan', 'Esaku\Sdm\PelatihanController@show');

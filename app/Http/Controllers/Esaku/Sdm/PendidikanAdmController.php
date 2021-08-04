@@ -9,7 +9,7 @@ use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Session;
 use GuzzleHttp\Exception\BadResponseException;
 
-class PelatihanAdmController extends Controller
+class PendidikanAdmController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -37,7 +37,7 @@ class PelatihanAdmController extends Controller
     public function index(){
         try {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'esaku-trans/sdm-adm-pelatihans',[
+            $response = $client->request('GET',  config('api.url').'esaku-trans/sdm-adm-pendidikans',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -63,17 +63,17 @@ class PelatihanAdmController extends Controller
         $this->validate($request, [
             'kode_nik' => 'required',
             'nama' => 'required|array',
-            'panitia' => 'required|array',
-            'tgl_mulai' => 'required|array',
-            'tgl_selesai' => 'required|array'
+            'tahun' => 'required|array',
+            'kode_jurusan' => 'required|array',
+            'kode_strata' => 'required|array'
         ]);
 
         try {   
             $array_nomor = array();
             $array_nama = array();
-            $array_panitia = array();
-            $array_tgl_mulai = array();
-            $array_tgl_selesai = array();
+            $array_tahun = array();
+            $array_jurusan = array();
+            $array_strata = array();
             $array_fileName = array();
 
             $fields = array(
@@ -93,17 +93,17 @@ class PelatihanAdmController extends Controller
                         "name" => "nama[]",
                         "contents" => $request->nama[$i]
                     );
-                    $data_panitia = array(
-                        "name" => "panitia[]",
-                        "contents" => $request->panitia[$i]
+                    $data_tahun = array(
+                        "name" => "tahun[]",
+                        "contents" => $request->tahun[$i]
                     );
-                    $data_tgl_mulai = array(
-                        "name" => "tgl_mulai[]",
-                        "contents" => $request->tgl_mulai[$i]
+                    $data_jurusan = array(
+                        "name" => "kode_jurusan[]",
+                        "contents" => $request->kode_jurusan[$i]
                     );
-                    $data_tgl_selesai = array(
-                        "name" => "tgl_selesai[]",
-                        "contents" => $request->tgl_selesai[$i]
+                    $data_strata = array(
+                        "name" => "kode_strata[]",
+                        "contents" => $request->kode_strata[$i]
                     );
                     $data_fileName = array(
                         "name" => "fileName[]",
@@ -112,9 +112,9 @@ class PelatihanAdmController extends Controller
 
                     array_push($array_nomor, $data_nomor);
                     array_push($array_nama, $data_nama);
-                    array_push($array_panitia, $data_panitia);
-                    array_push($array_tgl_mulai, $data_tgl_mulai);
-                    array_push($array_tgl_selesai, $data_tgl_selesai);
+                    array_push($array_tahun, $data_tahun);
+                    array_push($array_jurusan, $data_jurusan);
+                    array_push($array_strata, $data_strata);
                     array_push($array_fileName, $data_fileName);
                 }
 
@@ -122,9 +122,9 @@ class PelatihanAdmController extends Controller
                     $fields,
                     $array_nomor, 
                     $array_nama, 
-                    $array_panitia, 
-                    $array_tgl_mulai, 
-                    $array_tgl_selesai,
+                    $array_tahun, 
+                    $array_jurusan, 
+                    $array_strata,
                     $array_fileName
                 );
             }
@@ -152,7 +152,7 @@ class PelatihanAdmController extends Controller
             }
 
             $client = new Client();
-            $response = $client->request('POST',  config('api.url').'esaku-trans/sdm-adm-pelatihan',[
+            $response = $client->request('POST',  config('api.url').'esaku-trans/sdm-adm-pendidikan',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -178,7 +178,7 @@ class PelatihanAdmController extends Controller
     public function show(Request $request) {
         try{
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'esaku-trans/sdm-adm-pelatihan',
+            $response = $client->request('GET',  config('api.url').'esaku-trans/sdm-adm-pendidikan',
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -208,17 +208,17 @@ class PelatihanAdmController extends Controller
         $this->validate($request, [
             'kode_nik' => 'required',
             'nama' => 'required|array',
-            'panitia' => 'required|array',
-            'tgl_mulai' => 'required|array',
-            'tgl_selesai' => 'required|array'
+            'tahun' => 'required|array',
+            'kode_jurusan' => 'required|array',
+            'kode_strata' => 'required|array'
         ]);
 
         try {   
             $array_nomor = array();
             $array_nama = array();
-            $array_panitia = array();
-            $array_tgl_mulai = array();
-            $array_tgl_selesai = array();
+            $array_tahun = array();
+            $array_jurusan = array();
+            $array_strata = array();
             $array_fileName = array();
             $array_filePrevName = array();
             $array_isUpload = array();
@@ -240,17 +240,17 @@ class PelatihanAdmController extends Controller
                         "name" => "nama[]",
                         "contents" => $request->nama[$i]
                     );
-                    $data_panitia = array(
-                        "name" => "panitia[]",
-                        "contents" => $request->panitia[$i]
+                    $data_tahun = array(
+                        "name" => "tahun[]",
+                        "contents" => $request->tahun[$i]
                     );
-                    $data_tgl_mulai = array(
-                        "name" => "tgl_mulai[]",
-                        "contents" => $request->tgl_mulai[$i]
+                    $data_jurusan = array(
+                        "name" => "kode_jurusan[]",
+                        "contents" => $request->kode_jurusan[$i]
                     );
-                    $data_tgl_selesai = array(
-                        "name" => "tgl_selesai[]",
-                        "contents" => $request->tgl_selesai[$i]
+                    $data_strata = array(
+                        "name" => "kode_strata[]",
+                        "contents" => $request->kode_strata[$i]
                     );
                     $data_fileName = array(
                         "name" => "fileName[]",
@@ -267,9 +267,9 @@ class PelatihanAdmController extends Controller
 
                     array_push($array_nomor, $data_nomor);
                     array_push($array_nama, $data_nama);
-                    array_push($array_panitia, $data_panitia);
-                    array_push($array_tgl_mulai, $data_tgl_mulai);
-                    array_push($array_tgl_selesai, $data_tgl_selesai);
+                    array_push($array_tahun, $data_tahun);
+                    array_push($array_jurusan, $data_jurusan);
+                    array_push($array_strata, $data_strata);
                     array_push($array_fileName, $data_fileName);
                     array_push($array_filePrevName, $data_filePrevName);
                     array_push($array_isUpload, $data_isUpload);
@@ -279,9 +279,9 @@ class PelatihanAdmController extends Controller
                     $fields,
                     $array_nomor, 
                     $array_nama, 
-                    $array_panitia, 
-                    $array_tgl_mulai, 
-                    $array_tgl_selesai, 
+                    $array_tahun, 
+                    $array_jurusan, 
+                    $array_strata, 
                     $array_fileName,
                     $array_filePrevName,
                     $array_isUpload
@@ -311,7 +311,7 @@ class PelatihanAdmController extends Controller
             }
 
             $client = new Client();
-            $response = $client->request('POST',  config('api.url').'esaku-trans/sdm-adm-pelatihan-update',[
+            $response = $client->request('POST',  config('api.url').'esaku-trans/sdm-adm-pendidikan-update',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -337,7 +337,7 @@ class PelatihanAdmController extends Controller
     public function delete(Request $request) {
         try{
             $client = new Client();
-            $response = $client->request('DELETE',  config('api.url').'esaku-trans/sdm-adm-pelatihan',
+            $response = $client->request('DELETE',  config('api.url').'esaku-trans/sdm-adm-pendidikan',
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
