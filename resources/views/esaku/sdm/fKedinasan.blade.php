@@ -52,7 +52,7 @@
                             <div class="tab-content tabcontent-border col-12 p-0" style="margin-bottom: 2rem;">
                                 <div class="tab-pane active row tab-scroll" id="data-kedinasan" role="tabpanel">
                                     <div class='col-md-12 nav-control' style="padding: 0px 5px;">
-                                        <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-kedinasan" ></span></a>
+                                        <a style="font-size:18px;float: right;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-kedinasan" ></span></a>
                                     </div>
                                     <div class="col-md-12">
                                         <table class="table table-bordered table-condensed gridexample input-grid" id="input-kedinasan" data-table="Tab data kedinasan" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
@@ -304,6 +304,11 @@ function nextSelectedCell(tr, td, index) {
     }, 500)
 }
 // GRID KEDINASAN
+function hitungTotalRowKedinasan(){
+    var total_row = $('#input-kedinasan tbody tr').length;
+    $('#total-kedinasan').html(total_row+' Baris');
+}
+
 function addRowKedinasanDefault() { 
     $('#input-kedinasan tbody').empty()
     var no= $('#input-kedinasan tbody > tr').length;
@@ -339,6 +344,7 @@ function addRowKedinasanDefault() {
             return $(this).text();
         }
     });
+    hitungTotalRowKedinasan()
 }
 
 function addRowKedinasan() { 
@@ -377,6 +383,7 @@ function addRowKedinasan() {
             return $(this).text();
         }
     });
+    hitungTotalRowKedinasan()
 }
 
 $('#input-kedinasan tbody').on('click', '.hapus-item', function() {
@@ -388,6 +395,7 @@ $('#input-kedinasan tbody').on('click', '.hapus-item', function() {
         no++;
     });
     $("html, body").animate({ scrollTop: $(document).height() }, 1000);
+    hitungTotalRowKedinasan()
 });
 
 $('#add-kedinasan').click(function() {
@@ -644,6 +652,7 @@ function editData(id) {
                 $('#saku-form').show();
                 setHeightForm();
                 setWidthFooterCardBody();
+                hitungTotalRowKedinasan()
             } 
         }
     })

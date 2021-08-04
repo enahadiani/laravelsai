@@ -423,7 +423,7 @@ $('#input-pelatihan tbody').on('click', '.hapus-item', function() {
         no++;
     });
     $("html, body").animate({ scrollTop: $(document).height() }, 1000);
-    hitungTotalRowKeluarga()
+    hitungTotalRowPelatihan()
 });
 
 $('#add-pelatihan').click(function() {
@@ -733,7 +733,7 @@ function hapusData(id){
         success:function(result){
             if(result.data.status){
                 dataTable.ajax.reload();                    
-                showNotification("top", "center", "success",'Hapus Data','Data Keluarga ('+id+') berhasil dihapus ');
+                showNotification("top", "center", "success",'Hapus Data','Data Penghargaan ('+id+') berhasil dihapus ');
                 $('#modal-pesan-id').html('');
                 $('#table-delete tbody').html('');
                 $('#modal-pesan').modal('hide');

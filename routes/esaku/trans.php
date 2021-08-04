@@ -338,6 +338,12 @@ Route::post('sdm-penghargaan', 'Esaku\Sdm\PenghargaanController@store');
 Route::post('sdm-penghargaan-update', 'Esaku\Sdm\PenghargaanController@update');
 Route::delete('sdm-penghargaan', 'Esaku\Sdm\PenghargaanController@delete');
 
+Route::get('sdm-adm-penghargaans', 'Esaku\Sdm\PenghargaanAdmController@index');
+Route::get('sdm-adm-penghargaan', 'Esaku\Sdm\PenghargaanAdmController@show');
+Route::post('sdm-adm-penghargaan', 'Esaku\Sdm\PenghargaanAdmController@store');
+Route::post('sdm-adm-penghargaan-update', 'Esaku\Sdm\PenghargaanAdmController@update');
+Route::delete('sdm-adm-penghargaan', 'Esaku\Sdm\PenghargaanAdmController@delete');
+
 ## SDM sanksi
 Route::get('sdm-sanksis', 'Esaku\Sdm\SanksiController@index');
 Route::get('sdm-sanksi', 'Esaku\Sdm\SanksiController@show');

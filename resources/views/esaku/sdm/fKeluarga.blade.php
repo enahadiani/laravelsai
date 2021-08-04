@@ -52,7 +52,7 @@
                             <div class="tab-content tabcontent-border col-12 p-0" style="margin-bottom: 2rem;">
                                 <div class="tab-pane active row tab-scroll" id="data-keluarga" role="tabpanel">
                                     <div class='col-md-12 nav-control' style="padding: 0px 5px;">
-                                        <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-keluarga" ></span></a>
+                                        <a style="font-size:18px;float: right;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-keluarga" ></span></a>
                                     </div>
                                     <div class="col-md-12">
                                         <table class="table table-bordered table-condensed gridexample input-grid" id="input-keluarga" data-table="Tab data keluarga" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
