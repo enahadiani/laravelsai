@@ -172,10 +172,10 @@
                             </div>
                             <div class="form-group col-md-6 col-sm-12">
                                 <div class="row">
-                                    <div class="col-md-6 col-sm-12">
+                                    <!-- <div class="col-md-6 col-sm-12">
                                         <label for="total_ppn">Total PPN</label>
                                         <input class='form-control currency' type="text" id="total_ppn" name="total_ppn" readonly>
-                                    </div>
+                                    </div> -->
                                     <div class="col-md-6 col-sm-12">
                                         <label for="total">Total</label>
                                         <input class='form-control currency' type="text" id="total" name="total" readonly>
@@ -538,7 +538,7 @@
                 if(result.data.status) {
                     var split = result.data.data[0].tgl.split('-');
                     var tgl = split[2]+"/"+split[1]+"/"+split[0];
-                    var total = (parseFloat(result.data.data[0].saldo_awal) + parseFloat(result.data.data[0].total_pnj) + parseFloat(result.data.data[0].total_ppn)) - parseFloat(result.data.data[0].total_disk);
+                    var total = (parseFloat(result.data.data[0].saldo_awal) + parseFloat(result.data.data[0].total_pnj) ) - parseFloat(result.data.data[0].total_disk);
                     tableDetail.clear().draw();
                     tableDetail.rows.add(result.data.data_detail).draw(false);
                     $('#id_edit').val('');
@@ -548,7 +548,7 @@
                     $('#saldo_awal').val(parseFloat(result.data.data[0].saldo_awal));
                     $('#total_pnj').val(parseFloat(result.data.data[0].total_pnj));
                     $('#total_disk').val(parseFloat(result.data.data[0].total_disk));
-                    $('#total_ppn').val(parseFloat(result.data.data[0].total_ppn));
+                    // $('#total_ppn').val(parseFloat(result.data.data[0].total_ppn));
                     $('#total').val(total);
                     $('#tgl_open').val(tgl)
                     $('#saku-datatable').hide();
