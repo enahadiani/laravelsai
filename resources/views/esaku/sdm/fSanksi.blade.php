@@ -333,7 +333,7 @@ function addRowSanksiDefault() {
             <input class="form-control input-value hidden" type="date" id="value-${idTanggal}" name="tanggal[]" autocomplete="off" value="{{ date('Y-m-d') }}">
         </td>
         <td class='text-center'>
-            <a class='hapus-item' title='Hapus Barang' style='font-size:12px;cursor:pointer;'><i class='simple-icon-trash'></i></a>
+            <a class='hapus-item' title='Hapus Item' style='font-size:12px;cursor:pointer;'><i class='simple-icon-trash'></i></a>
         </td>
     </tr>`;
 
@@ -370,7 +370,7 @@ function addRowSanksi() {
             <input class="form-control input-value hidden" type="date" id="value-${idTanggal}" name="tanggal[]" autocomplete="off" value="{{ date('Y-m-d') }}">
         </td>
         <td class='text-center'>
-            <a class='hapus-item' title='Hapus Barang' style='font-size:12px;cursor:pointer;'><i class='simple-icon-trash'></i></a>
+            <a class='hapus-item' title='Hapus Item' style='font-size:12px;cursor:pointer;'><i class='simple-icon-trash'></i></a>
         </td>
     </tr>`;
 
@@ -633,7 +633,7 @@ function editData(id) {
                                 <input class="form-control input-value hidden" type="date" id="value-${idTanggal}" name="tanggal[]" autocomplete="off" value="${tgl[0]}">
                             </td>
                             <td class='text-center'>
-                                <a class='hapus-item' title='Hapus Barang' style='font-size:12px;cursor:pointer;'><i class='simple-icon-trash'></i></a>
+                                <a class='hapus-item' title='Hapus Item' style='font-size:12px;cursor:pointer;'><i class='simple-icon-trash'></i></a>
                             </td>
                         </tr>`;
                     

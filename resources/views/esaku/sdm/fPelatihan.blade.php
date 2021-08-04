@@ -347,7 +347,7 @@ function addRowPelatihanDefault() {
             <input type="hidden" name="isUpload[]" id="checkUpload-${idFile}" value="false">
         </td>
         <td class='text-center'>
-            <a class='hapus-item' title='Hapus Barang' style='font-size:12px;cursor:pointer;'><i class='simple-icon-trash'></i></a>
+            <a class='hapus-item' title='Hapus Item' style='font-size:12px;cursor:pointer;'><i class='simple-icon-trash'></i></a>
         </td>
     </tr>`;
 
@@ -397,7 +397,7 @@ function addRowPelatihan() {
             <input type="hidden" name="isUpload[]" id="checkUpload-${idFile}" value="false">
         </td>
         <td class='text-center'>
-            <a class='hapus-item' title='Hapus Barang' style='font-size:12px;cursor:pointer;'><i class='simple-icon-trash'></i></a>
+            <a class='hapus-item' title='Hapus Item' style='font-size:12px;cursor:pointer;'><i class='simple-icon-trash'></i></a>
         </td>
     </tr>`;
 
@@ -682,7 +682,7 @@ function editData(id) {
                                 <input type="hidden" name="isUpload[]" id="checkUpload-${idFile}" value="false">
                             </td>
                             <td class='text-center'>
-                                <a class='hapus-item' title='Hapus Barang' style='font-size:12px;cursor:pointer;'><i class='simple-icon-trash'></i></a>`
+                                <a class='hapus-item' title='Hapus Item' style='font-size:12px;cursor:pointer;'><i class='simple-icon-trash'></i></a>`
                                 if(row.setifikat !== "-") {
                                     html += `<a class="download-item" href="{{ config('api.url').'sdm/storage'}}/${row.setifikat}" 
                                     title="Lihat Foto" style="font-size:12px;cursor:pointer;" target="_blank">

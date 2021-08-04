@@ -333,7 +333,7 @@ function addRowKedinasanDefault() {
             <input autocomplete="off" type="text" id="value-${idKeterangan}" name="keterangan[]" class="form-control input-value hidden" value="" >
         </td>
         <td class='text-center'>
-            <a class='hapus-item' title='Hapus Barang' style='font-size:12px;cursor:pointer;'><i class='simple-icon-trash'></i></a>
+            <a class='hapus-item' title='Hapus Item' style='font-size:12px;cursor:pointer;'><i class='simple-icon-trash'></i></a>
         </td>
     </tr>`;
 
@@ -370,7 +370,7 @@ function addRowKedinasan() {
             <input autocomplete="off" type="text" id="value-${idKeterangan}" name="keterangan[]" class="form-control input-value hidden" value="" >
         </td>
         <td class='text-center'>
-            <a class='hapus-item' title='Hapus Barang' style='font-size:12px;cursor:pointer;'><i class='simple-icon-trash'></i></a>
+            <a class='hapus-item' title='Hapus Item' style='font-size:12px;cursor:pointer;'><i class='simple-icon-trash'></i></a>
         </td>
     </tr>`;
 
@@ -633,7 +633,7 @@ function editData(id) {
                                 <input autocomplete="off" type="text" id="value-${idKeterangan}" name="keterangan[]" class="form-control input-value hidden" value="${row.nama}" >
                             </td>
                             <td class='text-center'>
-                                <a class='hapus-item' title='Hapus Barang' style='font-size:12px;cursor:pointer;'><i class='simple-icon-trash'></i></a>
+                                <a class='hapus-item' title='Hapus Item' style='font-size:12px;cursor:pointer;'><i class='simple-icon-trash'></i></a>
                             </td>
                         </tr>`;
                     
