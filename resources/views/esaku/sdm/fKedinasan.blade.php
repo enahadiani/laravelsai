@@ -319,7 +319,10 @@ function addRowKedinasanDefault() {
     var html = null;
 
     html = `<tr class="row-grid">
-        <td class="no-grid text-center">${no}<input type="hidden" name="nomor[]" value="${no}"></td>
+        <td class="text-center">
+            <span class="no-grid ">${no}</span>
+            <input type="hidden" name="nomor[]" value="${no}">
+        </td>
         <td id="${idNoSK}">
             <span id="text-${idNoSK}" class="tooltip-span"></span>
             <input autocomplete="off" type="text" id="value-${idNoSK}" name="no_sk[]" class="form-control input-value hidden" value="" >
@@ -356,7 +359,10 @@ function addRowKedinasan() {
     var html = null;
 
     html = `<tr class="row-grid">
-        <td class="no-grid text-center">${no}<input type="hidden" name="nomor[]" value="${no}"></td>
+        <td class="text-center">
+            <span class="no-grid ">${no}</span>
+            <input type="hidden" name="nomor[]" value="${no}">
+        </td>
         <td id="${idNoSK}">
             <span id="text-${idNoSK}" class="tooltip-span"></span>
             <input autocomplete="off" type="text" id="value-${idNoSK}" name="no_sk[]" class="form-control input-value hidden" value="" >
@@ -619,7 +625,10 @@ function editData(id) {
                         var tgl_sk = row.tgl_sk.split(" ")
 
                         html = `<tr class="row-grid">
-                            <td class="no-grid text-center">${no}<input type="hidden" name="nomor[]" value="${no}"></td>
+                            <td class="text-center">
+                                <span class="no-grid ">${no}</span>
+                                <input type="hidden" name="nomor[]" value="${no}">
+                            </td>
                             <td id="${idNoSK}">
                                 <span id="text-${idNoSK}" class="tooltip-span">${row.no_sk}</span>
                                 <input autocomplete="off" type="text" id="value-${idNoSK}" name="no_sk[]" class="form-control input-value hidden" value="${row.no_sk}" >

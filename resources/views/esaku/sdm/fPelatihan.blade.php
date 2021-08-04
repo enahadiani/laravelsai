@@ -323,7 +323,10 @@ function addRowPelatihanDefault() {
     var html = null;
 
     html = `<tr class="row-grid">
-        <td class="no-grid text-center">${no}<input type="hidden" name="nomor[]" value="${no}"></td>
+        <td class="text-center">
+            <span class="no-grid ">${no}</span>
+            <input type="hidden" name="nomor[]" value="${no}">
+        </td>
         <td id="${idNama}">
             <span id="text-${idNama}" class="tooltip-span"></span>
             <input autocomplete="off" type="text" id="value-${idNama}" name="nama[]" class="form-control input-value hidden" value="" >
@@ -373,7 +376,10 @@ function addRowPelatihan() {
     var html = null;
 
     html = `<tr class="row-grid">
-        <td class="no-grid text-center">${no}<input type="hidden" name="nomor[]" value="${no}"></td>
+        <td class="text-center">
+            <span class="no-grid ">${no}</span>
+            <input type="hidden" name="nomor[]" value="${no}">
+        </td>
         <td id="${idNama}">
             <span id="text-${idNama}" class="tooltip-span"></span>
             <input autocomplete="off" type="text" id="value-${idNama}" name="nama[]" class="form-control input-value hidden" value="" >
@@ -658,7 +664,10 @@ function editData(id) {
                         var tgl_selesai = row.tgl_selesai.split(" ")
 
                         html = `<tr class="row-grid">
-                            <td class="no-grid text-center">${no}<input type="hidden" name="nomor[]" value="${no}"></td>
+                            <td class="text-center">
+                                <span class="no-grid ">${no}</span>
+                                <input type="hidden" name="nomor[]" value="${no}">
+                            </td>
                             <td id="${idNama}">
                                 <span id="text-${idNama}" class="tooltip-span">${row.nama}</span>
                                 <input autocomplete="off" type="text" id="value-${idNama}" name="nama[]" class="form-control input-value hidden" value="${row.nama}">

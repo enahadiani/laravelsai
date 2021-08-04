@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="{{ asset('css_optional/trans.css') }}" />
 
 {{-- LIST DATA --}}
-<x-list-data judul="Data Kedinasan" tambah="" :thead="array('NIK','Nama','Jumlah Dinas','Aksi')" :thwidth="array(10,30,10,10)" :thclass="array('','','','text-center')" />
+<x-list-data judul="Data Sanksi" tambah="" :thead="array('NIK','Nama','Jumlah Sanksi','Aksi')" :thwidth="array(10,30,10,10)" :thclass="array('','','','text-center')" />
 {{-- END LIST DATA --}}
 
 {{-- FORM --}}
@@ -121,7 +121,7 @@ window.bottomSheet = bottomSheet;
 $('#saku-datatable').on('click', '#btn-tambah', function() {;
     $('#judul-form').html('Tambah Data Sanksi');
     newForm();
-    addRowKedinasanDefault()
+    addRowSanksiDefault()
     valid = true
 });
 //  END BTN TAMBAH
@@ -303,7 +303,7 @@ function nextSelectedCell(tr, td, index) {
         $(tdnext).children('.input-value').focus()
     }, 500)
 }
-// GRID KEDINASAN
+// GRID Sanksi
 function hitungTotalRowSanksi(){
     var total_row = $('#input-sanksi tbody tr').length;
     $('#total-sanksi').html(total_row+' Baris');
@@ -319,7 +319,10 @@ function addRowSanksiDefault() {
     var html = null;
 
     html = `<tr class="row-grid">
-        <td class="no-grid text-center">${no}<input type="hidden" name="nomor[]" value="${no}"></td>
+        <td class="text-center">
+            <span class="no-grid ">${no}</span>
+            <input type="hidden" name="nomor[]" value="${no}">
+        </td>
         <td id="${idNama}">
             <span id="text-${idNama}" class="tooltip-span"></span>
             <input autocomplete="off" type="text" id="value-${idNama}" name="nama[]" class="form-control input-value hidden" value="" >
@@ -356,7 +359,10 @@ function addRowSanksi() {
     var html = null;
 
     html = `<tr class="row-grid">
-        <td class="no-grid text-center">${no}<input type="hidden" name="nomor[]" value="${no}"></td>
+        <td class="text-center">
+            <span class="no-grid ">${no}</span>
+            <input type="hidden" name="nomor[]" value="${no}">
+        </td>
         <td id="${idNama}">
             <span id="text-${idNama}" class="tooltip-span"></span>
             <input autocomplete="off" type="text" id="value-${idNama}" name="nama[]" class="form-control input-value hidden" value="" >
@@ -448,13 +454,13 @@ $('#input-sanksi tbody').on('keydown', 'input', function(event) {
     if(code === 9) {
         $(td).removeClass('selected-cell')
         if(tdindex === totaltd) {
-            $('#add-kedinasan').click()
+            $('#add-sanksi').click()
         } else {
             nextSelectedCell(tr, td, tdindex)
         }
     } 
 });
-// END GRID KEDINASAN
+// END GRID Sanksi
 
 // VALIDATION GRID //
 function checkTableSanksi() {
@@ -619,7 +625,10 @@ function editData(id) {
                         var tgl = row.tanggal.split(" ")
 
                         html = `<tr class="row-grid">
-                            <td class="no-grid text-center">${no}<input type="hidden" name="nomor[]" value="${no}"></td>
+                            <td class="text-center">
+                                <span class="no-grid ">${no}</span>
+                                <input type="hidden" name="nomor[]" value="${no}">
+                            </td>
                             <td id="${idNama}">
                                 <span id="text-${idNama}" class="tooltip-span">${row.nama}</span>
                                 <input autocomplete="off" type="text" id="value-${idNama}" name="nama[]" class="form-control input-value hidden" value="${row.nama}" >
