@@ -102,9 +102,9 @@ function drawRptPage(data,res,from,to){
                                             <td class="text-center isi-laporan">${detail.no_jual}</td>    
                                             <td class="text-center isi-laporan">${detail.periode}</td>    
                                             <td class="text-center isi-laporan">${detail.tanggal}</td>    
-                                            <td class="text-left isi-laporan">${sepNum(detail.diskon)}</td>    
-                                            <td class="text-left isi-laporan">${sepNum(detail.nilai)}</td>    
-                                            <td class="text-center isi-laporan">${detail.keterangan}</td>    
+                                            <td class="text-right isi-laporan">${sepNum(detail.diskon)}</td>    
+                                            <td class="text-right isi-laporan">${sepNum(detail.nilai)}</td>    
+                                            <td class="text-left isi-laporan">${detail.keterangan}</td>    
                                         </tr>`
                                         no++;
                                     }
