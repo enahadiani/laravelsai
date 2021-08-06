@@ -72,9 +72,23 @@
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group col-md-6 col-sm-12">
+                            <!-- <div class="form-group col-md-6 col-sm-12">
                                <label for="keterangan">Keterangan</label>
                                 <input class="form-control" type="text" id="keterangan" name="keterangan" required>
+                            </div> -->
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="kode_gudang">Gudang</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                        <span class="input-group-text info-code_kode_gudang" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                    </div>
+                                    <input type="text" class="form-control inp-label-kode_gudang" id="kode_gudang" name="kode_gudang" value="" title="">
+                                    <span class="info-name_kode_gudang hidden">
+                                        <span></span> 
+                                    </span>
+                                    <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                    <i class="simple-icon-magnifier search-item2" id="search_kode_gudang"></i>
+                                </div>
                             </div>
                             <div class="form-group col-md-6 col-sm-12">
                                 <label for="hrg_satuan">Harga Satuan</label>
@@ -341,6 +355,31 @@
             });
         }
 
+        function getGudang(id=null){
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('esaku-master/gudang') }}",
+                dataType: 'json',
+                data:{'kode_gudang':id},
+                async:false,
+                success:function(result){    
+                    if(result.status){
+                        if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                            showInfoField('kode_gudang',result.daftar[0].kode_gudang,result.daftar[0].nama);
+                        }else{
+                            $('#kode_gudang').attr('readonly',false);
+                            $('#kode_gudang').css('border-left','1px solid #d7d7d7');
+                            $('#kode_gudang').val('');
+                            $('#kode_gudang').focus();
+                        }
+                    }
+                    else if(!result.status && result.message == 'Unauthorized'){
+                        window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                    }
+                }
+            });
+        }
+
         $('[data-toggle="tooltip"]').tooltip(); 
         $('.selectize').selectize();
 
@@ -384,7 +423,7 @@
                 { data: 'kode_barang' },
                 { data: 'nama' },
                 { data: 'satuan' },
-                { data: 'keterangan' },
+                { data: 'kode_gudang' },
                 { data: 'hna' },
                 { data: 'tgl_input' },
             ],
@@ -444,9 +483,9 @@
         // END BUTTON KEMBALI
 
          // HANDLER untuk enter dan tab
-        $('#kode_barang,#barcode,#nama,#satuan,#kode_klp,#keterangan,#hrg_satuan,#ppn,#profit,#hna,#ss,#sm1,#sm2,#mm1,#mm2,#fm1,#fm2,#file_gambar').keydown(function(e){
+        $('#kode_barang,#barcode,#nama,#satuan,#kode_klp,#kode_gudang,#hrg_satuan,#ppn,#profit,#hna,#ss,#sm1,#sm2,#mm1,#mm2,#fm1,#fm2,#file_gambar').keydown(function(e){
             var code = (e.keyCode ? e.keyCode : e.which);
-            var nxt = ['kode_barang','barcode','nama','satuan','kode_klp','keterangan','hrg_satuan','ppn','profit','hna','ss','sm1','sm2','mm1','mm2','fm1','fm2','file_gambar'];
+            var nxt = ['kode_barang','barcode','nama','satuan','kode_klp','kode_gudang','hrg_satuan','ppn','profit','hna','ss','sm1','sm2','mm1','mm2','fm1','fm2','file_gambar'];
             if (code == 13 || code == 40) {
                 e.preventDefault();
                 var idx = nxt.indexOf(e.target.id);
@@ -512,6 +551,26 @@
                     width : ["30%","70%"],
                 });
             break;
+            case 'kode_gudang':
+                showInpFilter({
+                    id : id,
+                    header : ['Kode', 'Nama'],
+                    url : "{{ url('esaku-master/gudang') }}",
+                    columns : [
+                        { data: 'kode_gudang' },
+                        { data: 'nama' }
+                    ],
+                    judul : "Daftar Gudang",
+                    pilih : "gudang",
+                    jTarget1 : "text",
+                    jTarget2 : "text",
+                    target1 : ".info-code_"+id,
+                    target2 : ".info-name_"+id,
+                    target3 : "",
+                    target4 : "",
+                    width : ["30%","70%"],
+                });
+            break;
         }
     });
 
@@ -523,6 +582,11 @@
     $('#form-tambah').on('change', '#satuan', function(){
         var par = $(this).val();
         getSatuan(par);
+    });
+
+    $('#form-tambah').on('change', '#kode_gudang', function(){
+        var par = $(this).val();
+        getGudang(par);
     });
 
     $('#btn-simpan').click(function(e){
@@ -553,6 +617,10 @@
                 required: true
             },
             hrg_satuan:
+            {
+                required: true
+            },
+            kode_gudang:
             {
                 required: true
             },
@@ -748,7 +816,8 @@
                     $('#fm1').val(parseFloat(result.data[0].fm1));
                     $('#fm2').val(parseFloat(result.data[0].fm2));
                     $('#kode_klp').val(result.data[0].kode_klp);
-                    $('#keterangan').val(result.data[0].keterangan);
+                    $('#kode_gudang').val(result.data[0].kode_gudang);
+                    // $('#keterangan').val(result.data[0].keterangan);
                     $('#flag_aktif')[0].selectize.setValue(result.data[0].flag_aktif);
                     $('#barcode').val(result.data[0].barcode);
                     $('#saku-datatable').hide();
@@ -758,6 +827,7 @@
                     $('.preview').html(html);
                     showInfoField('kode_klp',result.data[0].kode_klp,result.data[0].nama_klp);
                     showInfoField('satuan',result.data[0].satuan,result.data[0].nama_satuan);
+                    showInfoField('kode_gudang',result.data[0].kode_gudang,result.data[0].nama_gudang);
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
                     window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
@@ -798,8 +868,8 @@
                 <td>`+data.barcode+`</td>
             </tr>
             <tr>
-                <td>Keterangan</td>
-                <td>`+data.keterangan+`</td>
+                <td>Gudang</td>
+                <td>`+data.kode_gudang+`</td>
             </tr>
             <tr>
                 <td>Satuan</td>
