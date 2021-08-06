@@ -20,7 +20,6 @@ function drawRptPage(data,res,from,to){
     var x=1;
     if(data.length > 0) {
         var no_id = 1;
-        var _total = [];
         html = `<div id="sai-rpt-table-export-tbl-daftar-pnj">`;
         for(var i=0;i<data.length;i++) {
             var row = data[i];
@@ -28,6 +27,7 @@ function drawRptPage(data,res,from,to){
             var total = 0;
             var subTot = 0;
             var no = 1;
+            var totalPenj = parseFloat(row.saldo_awal) + parseFloat(row.total_pnj);
 
             html += `<div class="card card-body" style="margin-bottom: 32px;">
                 <div class="row">
@@ -66,7 +66,7 @@ function drawRptPage(data,res,from,to){
                                     </tr>    
                                     <tr>
                                         <td style="width: 201px;">Total</td>
-                                        <td>: <span id="total-ke-${no_id}"></span></td>
+                                        <td>: ${sepNum(totalPenj)}</td>
                                     </tr>
                                     <tr>
                                         <td style="width: 201px;">Kasir</td>
@@ -93,9 +93,9 @@ function drawRptPage(data,res,from,to){
                                 for(var j=0;j<res.res.data_detail.length;j++) {
                                     var detail = res.res.data_detail[j]
                                     if(row.no_bukti_close == detail.no_bukti) {
-                                        diskon +=+ parseFloat(detail.diskon);
-                                        total +=+ parseFloat(detail.nilai);
-                                        subTot +=+ parseFloat(detail.nilai) + parseFloat(detail.diskon);
+                                        diskon = parseFloat(detail.diskon) + diskon;
+                                        total = parseFloat(detail.nilai) + total;
+                                        subTot = parseFloat(detail.nilai) - parseFloat(detail.diskon);
                                         html += `<tr>
                                             <td class="text-center isi-laporan">${no}</td>    
                                             <td class="text-center isi-laporan">${detail.no_bukti}</td>    
@@ -109,8 +109,17 @@ function drawRptPage(data,res,from,to){
                                         no++;
                                     }
                                 }
-                        _total.push(total);
-                        html += `</tbody>    
+                        html += `</tbody>
+                            <tr>
+                                <td style="border-bottom: solid 0.5px black;" class="text-right" colspan="5">Diskon</td>
+                                <td style="border-bottom: solid 0.5px black;">:</td>    
+                                <td style="border-bottom: solid 0.5px black;" class="text-right isi-laporan"><b>${sepNum(diskon)}</b></td>    
+                            </tr>
+                            <tr>
+                                <td class="text-right" colspan="5">Total</td>    
+                                <td>:</td>
+                                <td class="text-right isi-laporan"><b>${sepNum(total)}</b></td>    
+                            </tr>
                             </table>    
                         </div>    
                     </div> 
@@ -125,11 +134,5 @@ function drawRptPage(data,res,from,to){
     $('#canvasPreview').html(html);
     $('li.prev a ').html("<i class='simple-icon-arrow-left'></i>");
     $('li.next a ').html("<i class='simple-icon-arrow-right'></i>");
-
-    var _id = 1;
-    for(var x=0;x<_total.length;x++) {
-        $(`#total-ke-${_id}`).text(sepNum(_total[x]))
-        _id++;
-    }
 }
 </script>
