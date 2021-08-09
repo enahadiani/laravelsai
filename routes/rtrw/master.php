@@ -9,6 +9,9 @@ Route::get('jenis-iuran','Rtrw\HelperController@getJenisIuran');
 Route::get('masakun-curr','Rtrw\HelperController@getCurr');
 Route::get('masakun-modul','Rtrw\HelperController@getModul');
 Route::get('reftrans-kode/{jenis}','Rtrw\HelperController@getRef');
+Route::get('reftrans-kas-masuk','Rtrw\HelperController@getRefKasMasuk');
+Route::get('reftrans-kas-keluar','Rtrw\HelperController@getRefKasKeluar');
+Route::get('reftrans-pindah-buku','Rtrw\HelperController@getRefPindahBuku');
 
 //Master Satpam
 Route::get('satpam','Rtrw\SatpamController@index');
@@ -175,3 +178,25 @@ Route::get('generate-nosurat', 'Rtrw\SuratPengantarController@generateNBukti');
 Route::post('surat-pengantar', 'Rtrw\SuratPengantarController@store');
 Route::post('surat-pengantar/{id}', 'Rtrw\SuratPengantarController@update');
 Route::delete('surat-pengantar/{id}', 'Rtrw\SuratPengantarController@destroy');
+
+
+// Kas Masuk Routes //
+Route::get('kas-masuk', 'Rtrw\KasMasukController@index');
+Route::get('kas-masuk/{no_bukti}', 'Rtrw\KasMasukController@show');
+Route::post('kas-masuk', 'Rtrw\KasMasukController@store');
+Route::put('kas-masuk/{no_bukti}', 'Rtrw\KasMasukController@update');
+Route::delete('kas-masuk/{no_bukti}', 'Rtrw\KasMasukController@destroy');
+
+// Kas Kelyuar Routes //
+Route::get('kas-keluar', 'Rtrw\KasKeluarController@index');
+Route::get('kas-keluar/{no_bukti}', 'Rtrw\KasKeluarController@show');
+Route::post('kas-keluar', 'Rtrw\KasKeluarController@store');
+Route::put('kas-keluar/{no_bukti}', 'Rtrw\KasKeluarController@update');
+Route::delete('kas-keluar/{no_bukti}', 'Rtrw\KasKeluarController@destroy');
+
+// Pindah buku Routes //
+Route::get('pindah-buku', 'Rtrw\PindahBukuController@index');
+Route::get('pindah-buku/{no_bukti}', 'Rtrw\PindahBukuController@show');
+Route::post('pindah-buku', 'Rtrw\PindahBukuController@store');
+Route::put('pindah-buku/{no_bukti}', 'Rtrw\PindahBukuController@update');
+Route::delete('pindah-buku/{no_bukti}', 'Rtrw\PindahBukuController@destroy');
