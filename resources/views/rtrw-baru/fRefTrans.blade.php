@@ -63,6 +63,7 @@
                                 <option value=''>--- Pilih Jenis ---</option>
                                 <option value='PENGELUARAN'>PENGELUARAN</option>
                                 <option value='PEMASUKAN'>PEMASUKAN</option>
+                                <option value='PINDAH BUKU'>PINDAH BUKU</option>
                                 </select>
                             </div>
                             <div class="form-group col-md-6">
