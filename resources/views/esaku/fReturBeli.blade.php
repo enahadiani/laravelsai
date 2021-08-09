@@ -210,6 +210,46 @@
     </div>
 </form>
 <!-- END FORM INPUT  -->
+<div id="laporan-retur" class='card' style="display: none;">
+    <div class="card-body form-header">
+        <button type="button" class="btn btn-primary float-right" id="back-to-form">Kembali</button>
+    </div>
+    <div class="separator mb-2"></div>
+    <div class="card-body pt-3 form-body">
+        <h3>
+            <b>No Retur</b>
+            <span class="pull-right" id="no-bukti-retur"></span>
+        </h3>
+        <div class="separator mb-2"></div>
+        <div class="row">
+            <div class="col-12">
+                <div class="pull-left">
+                    <p class="text-muted m-l-5" id="tanggal-retur"></p>
+                    <p class="text-muted m-l-5" id="keterangan-retur"></p>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="table-responsive mt-40" style="clear: both;">
+                    <table class="table table-hover" id="data-retur">
+                        <thead>
+                            <tr>
+                                <th class="text-center">No</th>
+                                <th>Kode Barang</th>
+                                <th>Nama Barang</th>
+                                <th>Satuan</th>
+                                <th class="text-right">Harga</th>
+                                <th class="text-right">Qty Beli</th>
+                                <th class="text-right">Qty Retur</th>
+                                <th class="text-right">Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script src="{{url('asset_elite/inputmask.js')}}"></script>
 <script src="{{url('asset_elite/jquery.scannerdetection.js')}}"></script>
@@ -637,8 +677,8 @@
             }
         },
         errorElement: "label",
-        submitHandler: function (form) {
-
+        submitHandler: function (form, event) {
+            event.preventDefault()
             var formData = new FormData(form);
             var isAda = false;
             $('.row-barang').each(function(){
@@ -653,7 +693,6 @@
                 for(var pair of formData.entries()) {
                     console.log(pair[0]+ ', '+ pair[1]); 
                 }
-                
                 $.ajax({
                     type: 'POST',
                     url: "{{url('toko-trans/retur-beli')}}",
@@ -669,10 +708,10 @@
                                 type:'sukses',
                                 text: result.data.message
                             });
+                            var no_bukti = result.data.no_bukti
                             dataTable.ajax.reload();
                             dataTable2.ajax.reload();
-                            $('#saku-datatable').show();
-                            $('#saku-form').hide();
+                            generateReport(no_bukti)
                         } else if(!result.data.status && result.data.message === "Unauthorized"){
                             window.location.href = "{{ url('/esaku-auth/sesi-habis') }}";
                         }else{
@@ -757,5 +796,84 @@
         $('#web_form_edit_periode').val(periode);
     });
 
-       
+    function generateReport(no_bukti) {
+        var form = new FormData();
+        form.append('periode[]', '=')
+        form.append('periode[]', "{{ date('Ym') }}")
+        form.append('periode[]', '')
+        form.append('nik_kasir[]', '=')
+        form.append('nik_kasir[]', "{{ Session::get('userLog') }}")
+        form.append('nik_kasir[]', '')
+        form.append('no_bukti[]', '=')
+        form.append('no_bukti[]', no_bukti)
+        form.append('no_bukti[]', '')
+        
+        $.ajax({
+            type: 'POST',
+            url: "{{url('esaku-report/lap-retur-beli')}}",
+            dataType: 'json',
+            data: form,
+            contentType: false,
+            cache: false,
+            processData: false, 
+            success: function(result) {
+                if(result.res.status) {
+                    $('#saku-form').hide()
+                    $('#saku-datatable').hide()
+                    $('#laporan-retur').show()
+                    $('#data-retur tbody').empty()
+                    var data = result.res.data[0]
+                    var detail = result.res.data_detail
+                    var html = null
+                                        
+                    $('#no-bukti-retur').text(data.no_bukti)
+                    $('#tanggal-retur').text(data.tanggal)
+                    $('#keterangan-retur').text(data.keterangan)
+
+                    if(detail.length > 0) {
+                        var no = 1;
+                        var subTot = 0;
+                        var diskon = 0;
+                        var total = 0;
+                        for(var i=0;i<detail.length;i++) {
+                            var row = detail[i]
+                            subTot += +parseFloat(row.total)+parseFloat(row.diskon);
+                            total += +parseFloat(row.total);
+                            diskon+= +parseFloat(row.diskon);
+                            html += `<tr>
+                                <td style="text-align: center;">${no}</td>    
+                                <td style="text-align: left;">${row.kode_barang}</td>    
+                                <td style="text-align: left;">${row.nama_brg}</td>    
+                                <td style="text-align: left;">${row.satuan}</td>    
+                                <td style="text-align: right;">${sepNum(row.harga)}</td>    
+                                <td style="text-align: right;">${sepNum(row.stok)}</td>    
+                                <td style="text-align: right;">${sepNum(row.jumlah)}</td>    
+                                <td style="text-align: right;">${sepNum(row.total)}</td>    
+                            </tr>`
+                            no++;
+                        }
+                        html += `<tr>
+                            <td colspan="7" style="text-align: right;">Subtotal - amout :</td>
+                            <td id="subtotal" style="text-align: right">${sepNum(subTot)}</td>    
+                        </tr>
+                        <tr>
+                            <td colspan="7" style="text-align: right;">Discount :</td>
+                            <td id="subtotal" style="text-align: right;">${sepNum(diskon)}</td>    
+                        </tr>
+                        <tr>
+                            <td colspan="7" style="text-align: right; font-size: 39.056px !important; font-weight: bold;">Total :</td>
+                            <td id="subtotal" style="text-align: right; font-size: 39.056px !important; font-weight: bold;">${sepNum(total)}</td>    
+                        </tr>`
+
+                        $('#data-retur tbody').append(html)
+                    }
+                }            
+            }
+        });
+    }
+
+    $('#back-to-form').click(function() {
+        $('#laporan-retur').hide()
+        $('#saku-datatable').show()
+    })
 </script>
