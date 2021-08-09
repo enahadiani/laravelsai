@@ -200,3 +200,14 @@ Route::get('pindah-buku/{no_bukti}', 'Rtrw\PindahBukuController@show');
 Route::post('pindah-buku', 'Rtrw\PindahBukuController@store');
 Route::put('pindah-buku/{no_bukti}', 'Rtrw\PindahBukuController@update');
 Route::delete('pindah-buku/{no_bukti}', 'Rtrw\PindahBukuController@destroy');
+
+//Format Laporan
+Route::get('format-laporan','Rtrw\FormatLaporanController@show');
+Route::post('format-laporan','Rtrw\FormatLaporanController@store');
+Route::put('format-laporan','Rtrw\FormatLaporanController@update');
+Route::delete('format-laporan','Rtrw\FormatLaporanController@destroy');
+Route::get('format-laporan-versi','Rtrw\FormatLaporanController@getVersi');
+Route::get('format-laporan-tipe','Rtrw\FormatLaporanController@getTipe');
+Route::get('format-laporan-relakun','Rtrw\FormatLaporanController@getRelakun');
+Route::post('format-laporan-relasi','Rtrw\FormatLaporanController@simpanRelasi');
+Route::post('format-laporan-move','Rtrw\FormatLaporanController@simpanMove');
