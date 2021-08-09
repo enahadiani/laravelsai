@@ -352,24 +352,91 @@
         });
     }
 
-    function getBarang(param,id){
+    function getBarang(param,id,isEdit=false){
         $.ajax({
             type: 'GET',
             url: "{{url('toko-trans/retur-beli-barang')}}/"+id,
             dataType: 'json',
             async:false,
-            success:function(result){
-                console.log(result)    
+            success:function(result){    
                 if(result.status){
                     var res = result.daftar;
-                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                        var select = $('.'+param).selectize();
-                        console.log('.'+param);
-                        select = select[0];
-                        var control = select.selectize;
-                        for(i=0;i<result.daftar.length;i++){
-                            control.addOption([{text:res[i].kode_barang + ' - ' + res[i].nama, value:res[i].kode_barang}]);
-                            $dtBrg[res[i].kode_barang] = {harga:res[i].harga,jumlah:res[i].saldo,kode_akun:res[i].akun_pers};
+                    if(isEdit) {
+                        var html = null;
+                        var no = 1;
+                        for(i=0;i<result.daftar.length;i++) {
+                            var detail = res[i]
+                            html = `<tr class="row-barang">
+                                <td class="no-barang">${no}</td>
+                                <td><select name="kode_barang[]" class="form-control inp-kode ke${no}" value=""></select></td>
+                                <td><input type="text" class="form-control inp-harga" name="harga[]" value="${parseFloat(detail.harga)}" readonly></td>
+                                <td>
+                                    <input type="text" class="form-control inp-qtybeli" name="qty_beli[]" value="${parseFloat(detail.saldo)}" readonly>
+                                    <input type="hidden" class="form-control inp-akun" name="kode_akun[]" value="${detail.akun_pers}" readonly >
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control inp-qtyretur" name="qty_retur[]" value="0">
+                                    <input type="text" class="form-control inp-satuanretur hidden" name="satuan[]" value="-">
+                                </td>
+                                <td><input type="text" class="form-control inp-subb" name="subtotal[]" value="0"></td>
+                                <td><a class="hapus-item"><i class="simple-icon-trash" style="font-size:18px;"></i></td>
+                            </tr>`;
+
+                            $('#input-grid tbody').append(html);
+                            
+                            no++;
+
+                            $('.inp-kode').change(function(e){
+                                var x= $(this).val();
+                                $(this).closest('tr').find('.inp-harga').val(setHarga(x));
+                                $(this).closest('tr').find('.inp-qtybeli').val(setJumlah(x));
+                                $(this).closest('tr').find('.inp-akun').val(setAkun(x));
+                                hitungTotal();
+                            });
+                            $('.inp-qtyretur,.inp-subb,.inp-harga,.inp-qtybeli').inputmask("numeric", {
+                                radixPoint: ",",
+                                groupSeparator: ".",
+                                digits: 2,
+                                autoGroup: true,
+                                rightAlign: true,
+                                oncleared: function () { self.Value(''); }
+                            });
+                        }
+
+                        var option = [];
+                        for(var i=0;i<result.daftar.length;i++) {
+                            var detail = res[i];
+                            option.push({text:detail.kode_barang + ' - ' + detail.nama, value:detail.kode_barang})
+                            $dtBrg[detail.kode_barang] = {harga:detail.harga,jumlah:detail.saldo,kode_akun:detail.akun_pers};
+                        }
+                        console.log(option)
+                        var num = 1
+                        for(var i=0;i<result.daftar.length;i++) { 
+                            var select = $('.ke'+num).selectize();
+                            var control = select[0].selectize;
+                            control.addOption(option);
+                            num++
+                        }
+
+                        var n = 1
+                        for(var i=0;i<result.daftar.length;i++) {
+                            var detail = res[i];
+                            var select = $('.ke'+n);
+                            var control = select[0].selectize;
+                            control.setValue(detail.kode_barang)
+                            n++;
+                        }
+                        $('.gridexample').formNavigation();
+                    } else {
+                        if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                            var select = $('.'+param).selectize();
+                            console.log('.'+param);
+                            select = select[0];
+                            var control = select.selectize;
+                            for(i=0;i<result.daftar.length;i++){
+                                control.addOption([{text:res[i].kode_barang + ' - ' + res[i].nama, value:res[i].kode_barang}]);
+                                $dtBrg[res[i].kode_barang] = {harga:res[i].harga,jumlah:res[i].saldo,kode_akun:res[i].akun_pers};
+                            }
                         }
                     }
                 }
@@ -482,6 +549,7 @@
                 $('#id').val(kode);
                 var res = result.data.data;
                 if(result.data.status){
+                    $('#input-grid tbody').empty()
                     $('#web_form_edit_no_beli').val(res[0].no_bukti);
                     $('#web_form_edit_kode_vendor').val(res[0].vendor);
                     $('#web_form_edit_akun_hutang').val(res[0].akun_hutang);
@@ -489,37 +557,37 @@
                     $('#web_form_edit_totret').val(toRp2(res[0].total_return)); 
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
-                    
-                    no=1;
-                    var input = "";
-                    input += "<tr class='row-barang'>";
-                    input += "<td class='no-barang'>"+no+"</td>";
-                    input += "<td ><select name='kode_barang[]' class='form-control inp-kode ke"+no+"' value='' required></select></td>";
-                    input += "<td ><input type='text' class='form-control inp-harga' name='harga[]' readonly ></td>";
-                    input += "<td ><input type='text' class='form-control inp-qtybeli' name='qty_beli[]' readonly ><input type='hidden' class='form-control inp-akun' name='kode_akun[]' readonly ></td>";
-                    input += "<td ><input type='text' class='form-control inp-qtyretur' name='qty_retur[]'  ><input type='text' class='form-control inp-satuanretur hidden' name='satuan[]' value='-'></td>";
-                    input += "<td ><input type='text' class='form-control inp-subb' name='subtotal[]'  ></td>";
-                    input += "<td><a class='hapus-item'><i class='simple-icon-trash' style='font-size:18px'></i></td>";
-                    input += "</tr>";
-                    $('#input-grid tbody').html(input);
-                    getBarang('ke'+no,res[0].no_bukti);
-                    $('#input-grid tbody tr:last').find('.inp-kode')[0].selectize.focus();
-                    $('.inp-kode').change(function(e){
-                        var x= $(this).val();
-                        $(this).closest('tr').find('.inp-harga').val(setHarga(x));
-                        $(this).closest('tr').find('.inp-qtybeli').val(setJumlah(x));
-                        $(this).closest('tr').find('.inp-akun').val(setAkun(x));
-                        hitungTotal();
-                    });
-                    $('.inp-qtyretur,.inp-subb,.inp-harga,.inp-qtybeli').inputmask("numeric", {
-                        radixPoint: ",",
-                        groupSeparator: ".",
-                        digits: 2,
-                        autoGroup: true,
-                        rightAlign: true,
-                        oncleared: function () { self.Value(''); }
-                    });
-                    $('.gridexample').formNavigation();
+                    getBarang('ke1',res[0].no_bukti,true);
+                    // no=1;
+                    // var input = "";
+                    // input += "<tr class='row-barang'>";
+                    // input += "<td class='no-barang'>"+no+"</td>";
+                    // input += "<td ><select name='kode_barang[]' class='form-control inp-kode ke"+no+"' value='' required></select></td>";
+                    // input += "<td ><input type='text' class='form-control inp-harga' name='harga[]' readonly ></td>";
+                    // input += "<td ><input type='text' class='form-control inp-qtybeli' name='qty_beli[]' readonly ><input type='hidden' class='form-control inp-akun' name='kode_akun[]' readonly ></td>";
+                    // input += "<td ><input type='text' class='form-control inp-qtyretur' name='qty_retur[]'  ><input type='text' class='form-control inp-satuanretur hidden' name='satuan[]' value='-'></td>";
+                    // input += "<td ><input type='text' class='form-control inp-subb' name='subtotal[]'  ></td>";
+                    // input += "<td><a class='hapus-item'><i class='simple-icon-trash' style='font-size:18px'></i></td>";
+                    // input += "</tr>";
+                    // $('#input-grid tbody').html(input);
+                    // getBarang('ke'+no,res[0].no_bukti);
+                    // $('#input-grid tbody tr:last').find('.inp-kode')[0].selectize.focus();
+                    // $('.inp-kode').change(function(e){
+                    //     var x= $(this).val();
+                    //     $(this).closest('tr').find('.inp-harga').val(setHarga(x));
+                    //     $(this).closest('tr').find('.inp-qtybeli').val(setJumlah(x));
+                    //     $(this).closest('tr').find('.inp-akun').val(setAkun(x));
+                    //     hitungTotal();
+                    // });
+                    // $('.inp-qtyretur,.inp-subb,.inp-harga,.inp-qtybeli').inputmask("numeric", {
+                    //     radixPoint: ",",
+                    //     groupSeparator: ".",
+                    //     digits: 2,
+                    //     autoGroup: true,
+                    //     rightAlign: true,
+                    //     oncleared: function () { self.Value(''); }
+                    // });
+                    // $('.gridexample').formNavigation();
                     
                 }
             },

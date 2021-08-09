@@ -37,7 +37,10 @@ function drawRptPage(data,res,from,to){
         html += "<td class='text-center;' width='10%'>Kode Barang</td>"
         html += "<td class='text-center;' width='30%'>Nama Barang</td>"
         html += "<td class='text-center;' width='5%'>Satuan Barang</td>"
-        html += "<td class='text-center;' width='10%'>Harga Barang</td>"
+        html += "<td class='text-center;' width='10%'>Harga Satuan</td>"
+        html += "<td class='text-center;' width='10%'>PPN</td>"
+        html += "<td class='text-center;' width='10%'>Profit</td>"
+        html += "<td class='text-center;' width='10%'>Harga Jual</td>"
         html += "<td class='text-center;' width='10%'>Kelompok Barang</td>"
         html += "<td class='text-center;' width='15%'>Barcode</td>"
         html += "</tr>";
@@ -48,6 +51,9 @@ function drawRptPage(data,res,from,to){
             html += "<td valign='middle' class='isi_laporan' align='center'>"+value.kode_barang+"</td>";
             html += "<td valign='middle' class='isi_laporan' align='left'>"+value.nama+"</td>";
             html += "<td valign='middle' class='isi_laporan' align='center'>"+value.satuan+"</td>";
+            html += "<td valign='middle' class='isi_laporan' align='right'>"+sepNum(value.hrg_satuan)+"</td>";
+            html += "<td valign='middle' class='isi_laporan' align='right'>"+sepNum(value.ppn)+"</td>";
+            html += "<td valign='middle' class='isi_laporan' align='right'>"+sepNum(value.profit)+"</td>";
             html += "<td valign='middle' class='isi_laporan' align='right'>"+sepNum(value.harga)+"</td>";
             html += "<td valign='middle' class='isi_laporan' align='left'>"+value.kode_klp+"</td>";
             html += "<td valign='middle' class='isi_laporan' align='left'>"+value.barcode+"</td>";
