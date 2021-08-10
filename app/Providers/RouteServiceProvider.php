@@ -311,6 +311,18 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/rtrw/master.php'));
+        Route::prefix('rtrw-trans')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/rtrw/trans.php'));
+        Route::prefix('rtrw-report')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/rtrw/report.php'));
+        Route::prefix('rtrw-dash')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/rtrw/dash.php'));
     }
 
     protected function mapSaiRoutes()
