@@ -923,7 +923,7 @@
                                 msgDialog({
                                     id: id,
                                     type: result.data.jenis,
-                                    text:'Kode customer sudah digunakan'
+                                    text:'No Dokumen sudah digunakan'
                                 });
                             }else{
 
