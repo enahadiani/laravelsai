@@ -37,6 +37,19 @@ function DelDecimal(x){
     return Math.round(x);
 }
 
+function number_format(number){
+    number = parseFloat(number);
+    formatter = new Intl.NumberFormat(['ban', 'id']);
+    return formatter.format(number);
+}
+
+function reverse_format(str_num){
+    var parts = str_num.split(',');
+    number = parts.join('');
+    number = number.replace('Rp', '');
+    return +number;
+}
+
 // function sepNumX(x){
 //     if (typeof x === 'undefined' || !x) { 
 //         return 0;
