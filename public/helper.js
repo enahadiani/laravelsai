@@ -1562,6 +1562,8 @@ function onCloseBSheet(aktif,field,display){
 }
 
 function generateRptFilter(id,settings){
+    $(id).unbind('change');
+    $(id).unbind('click');
     $(id).on('change', '.sai-rpt-filter-type', function(){
         var type = $(this).val();
         

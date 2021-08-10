@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="{{ asset('report.css') }}" />
+    <link rel="stylesheet" href="{{ asset('report.css') }}" />
     <div class="row" id="saku-filter">
         <div class="col-12">
             <div class="card" >
@@ -30,24 +30,23 @@
         </div>
     </div>
     <x-report-result judul="Jurnal" padding="py-4 px-0"/>
-
-    @include('modal_search')
-    @include('modal_email')
-    
-    @php
-        date_default_timezone_set("Asia/Bangkok");
-    @endphp
+    <button id="trigger-bottom-sheet" style="display:none">Bottom ?</button>
     <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
-    <script src="{{ asset('reportFilter.js') }}"></script>
+    <script src="{{ asset('helper.js?version=_').time() }}"></script>
+    <script src="{{ asset('asset_dore/js/jquery-ui.min.js') }}"></script>
+    <script src="{{ asset('asset_elite/js/jquery.treegrid.js') }}"></script>
     <script>
+        
+        var bottomSheet = new BottomSheet("country-selector");
+        document.getElementById("trigger-bottom-sheet").addEventListener("click", bottomSheet.activate);
+        window.bottomSheet = bottomSheet;
+
         $.ajaxSetup({
             headers: {
-                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                'X-CSRF-TOKEN': $('meta[name="-token"]').attr('content')
             }
         });
-
-        // FUNCTION TAMBAHAN
-
+       
         var $periode = {
             type : "=",
             from : "{{ Session::get('periode') }}",
@@ -73,10 +72,20 @@
 
         var $aktif = "";
         
+        function fnSpasi(level)
+        {
+            var tmp="";
+            for (var iS=1; iS<=level; iS++)
+            {
+                tmp=tmp+"&nbsp;&nbsp;&nbsp;&nbsp;";
+            }
+            return tmp;
+        }
+
+        var $aktif = "";
+        
         $.fn.DataTable.ext.pager.numbers_length = 5;
-
-        // $('#show').selectize();
-
+        
         $('#periode-from').val(namaPeriode("{{ Session::get('periode') }}"));
 
         $('#btn-filter').click(function(e){
@@ -110,8 +119,8 @@
         });
 
         $('.selectize').selectize();
-        
-        $('#inputFilter').reportFilter({
+
+        generateRptFilter('#inputFilter',{
             kode : ['periode','modul','no_bukti'],
             nama : ['Periode','Modul','No Bukti'],
             header : [['Periode', 'Nama'],['Kode'],['No Bukti','Keterangan']],
@@ -146,8 +155,8 @@
             setTimeout(() => {
                 var periode = $periode;
                 var modul = $modul;
-                $('#inputFilter').reportFilter({
-                     kode : ['periode','modul','no_bukti'],
+                generateRptFilter('#inputFilter',{
+                    kode : ['periode','modul','no_bukti'],
                     nama : ['Periode','Modul','No Bukti'],
                     header : [['Periode', 'Nama'],['Kode'],['No Bukti','Keterangan']],
                     headerpilih : [['Periode', 'Nama','Action'],['Kode','Action'],['No Bukti','Keterangan','Action']],
@@ -175,7 +184,6 @@
                     width:[['30%','70%'],['30%','70%'],['30%','70%']],
                     display:['name','kode','kode'],
                     pageLength:[12,10,10]
-                    
                 });
             }, 500);
         });
@@ -183,6 +191,7 @@
         var $formData = "";
         $('#form-filter').submit(function(e){
             e.preventDefault();
+            
             $formData = new FormData();
             $formData.append("periode[]",$periode.type);
             $formData.append("periode[]",$periode.from);
@@ -198,7 +207,10 @@
             }
             $('#saku-report').removeClass('hidden');
             xurl = "{{ url('rtrw-auth/form/rptBuktiTrans') }}";
+            
             $('#saku-report #canvasPreview').load(xurl);
+            $('#scroll-bottom').show();
+
         });
 
         $('#show').change(function(e){
@@ -217,6 +229,7 @@
             }
             xurl = "{{ url('rtrw-auth/form/rptBuktiTrans') }}";
             $('#saku-report #canvasPreview').load(xurl);
+            $('#scroll-bottom').show();
         });
 
         $('#sai-rpt-print').click(function(){
@@ -235,17 +248,10 @@
             e.preventDefault();
             $("#saku-report #canvasPreview").table2excel({
                 // exclude: ".excludeThisClass",
-                name: "BuktiTransaksi_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}",
-                filename: "BuktiTransaksi_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}.xls", // do include extension
+                name: "BuktiTrans_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}",
+                filename: "BuktiTrans_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}.xls", // do include extension
                 preserveColors: false // set to true if you want background colors and font colors preserved
             });
-        });
-
-        
-        $("#sai-rpt-email").click(function(e) {
-            e.preventDefault();
-            $('#formEmail')[0].reset();
-            $('#modalEmail').modal('show');
         });
 
         $("#sai-rpt-pdf").click(function(e) {
@@ -254,42 +260,71 @@
             window.open(link, '_blank'); 
         });
 
-        $('#modalEmail').on('submit','#formEmail',function(e){
+        $("#sai-rpt-email").click(function(e) {
             e.preventDefault();
-            var formData = new FormData(this);
-            $formData.append("periode[]",$periode.type);
-            $formData.append("periode[]",$periode.from);
-            $formData.append("periode[]",$periode.to);
-            $formData.append("modul[]",$modul.type);
-            $formData.append("modul[]",$modul.from);
-            $formData.append("modul[]",$modul.to);
-            $formData.append("no_bukti[]",$no_bukti.type);
-            $formData.append("no_bukti[]",$no_bukti.from);
-            $formData.append("no_bukti[]",$no_bukti.to);
-            for(var pair of formData.entries()) {
-                console.log(pair[0]+ ', '+ pair[1]); 
-            }
-            $.ajax({
-                type: 'POST',
-                url: "{{ url('rtrw-report/send-laporan') }}",
-                dataType: 'json',
-                data: formData,
-                async:false,
-                contentType: false,
-                cache: false,
-                processData: false, 
-                success:function(result){
-                    alert(result.message);
-                    if(result.status){
-                        $('#modalEmail').modal('hide');
-                    }
-                    // $loadBar2.hide();
-                },
-                fail: function(xhr, textStatus, errorThrown){
-                    alert('request failed:'+textStatus);
-                }
-            });
-            
-        });
+            var html =`<div id='modalEmail'>
+                <form id='formEmail'>
+                    <div style="display: block;" class="modal-header">
+                        <h6 class="modal-title my-2" style="position: absolute;height:49px">Kirim Email</h6>
+                    </div>
+                    <div class='modal-body'>
+                        <div class='form-group row'>
+                            <label for="modal-email" class="col-3 col-form-label">Email</label>
+                            <div class="col-9">
+                                <input type='text' class='form-control' maxlength='100' name='email' id='modal-email' required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='modal-footer'>
+                        <button type="button" disabled="" style="display:none" id='loading-bar2' class="btn btn-info">
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        Loading...
+                        </button>
+                        <button type='submit' id='email-submit' class='btn btn-primary'>Kirim</button> 
+                        <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>
+                    </div>
+                </form>
+                </div>`;
+                $('#content-bottom-sheet').html(html);
+                $('.c-bottom-sheet__sheet').css({ "width":"50%","margin-left": "25%", "margin-right":"25%"});
+                
+                $('#trigger-bottom-sheet').trigger("click");
 
+                $('#modalEmail').on('submit','#formEmail',function(e){
+                    e.preventDefault();
+                    var formData = new FormData(this);
+                    var html = `<head>`+$('head').html()+`</head><style>`+$('style').html()+`</style>
+                    <body style='background:white;'>
+                        <div>
+                            <div class="card" id="print-area">
+                                `+$('#canvasPreview').html()+`
+                            </div>
+                        </div>
+                    </body>`;
+                    formData.append("html",html);
+                    formData.append("text","Berikut ini kami lampiran Bukti Transaksi:");
+                    formData.append("subject","Laporan Bukti Transaksi ");
+                    $.ajax({
+                        type: 'POST',
+                        url: "{{ url('rtrw-report/send-email-report') }}",
+                        dataType: 'json',
+                        data: formData,
+                        async:false,
+                        contentType: false,
+                        cache: false,
+                        processData: false, 
+                        success:function(result){
+                            alert(result.data.message);
+                            if(result.data.id != undefined){
+                                $('.c-bottom-sheet').removeClass('active');
+                            }
+                        },
+                        fail: function(xhr, textStatus, errorThrown){
+                            alert('request failed:'+textStatus);
+                        }
+                    });
+                    
+                });
+                
+        });
     </script>
