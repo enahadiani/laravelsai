@@ -15,3 +15,5 @@ Route::post('lap-kartu-iuran', 'Rtrw\LaporanController@getKartuIuran');
 Route::get('lap-bukti-trans-pdf', 'Rtrw\LaporanController@getBuktiTransPDF');
 Route::get('lap-saldo-pdf', 'Rtrw\LaporanController@getSaldorPDF');
 Route::get('lap-kartu-iuran-pdf', 'Rtrw\LaporanController@getKartuIuranPDF');
+
+Route::post('send-email-report', 'Rtrw\LaporanController@sendEmail');

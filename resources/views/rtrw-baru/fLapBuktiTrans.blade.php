@@ -267,7 +267,7 @@
                     <div style="display: block;" class="modal-header">
                         <h6 class="modal-title my-2" style="position: absolute;height:49px">Kirim Email</h6>
                     </div>
-                    <div class='modal-body'>
+                    <div class='modal-body' style='min-width:50vh'>
                         <div class='form-group row'>
                             <label for="modal-email" class="col-3 col-form-label">Email</label>
                             <div class="col-9">
