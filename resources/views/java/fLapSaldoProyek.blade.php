@@ -22,7 +22,7 @@
                                     <!-- COMPONENT -->
                                     <x-inp-filter kode="no_proyek" nama="No Proyek" selected="1" :option="array('1','2','3','i')"/>
                                     <x-inp-filter kode="kode_cust" nama="Vendor" selected="1" :option="array('1','2','3','i')"/>
-                                    <x-inp-filter kode="status" nama="Status" selected="1" :option="array('1','3')"/>
+                                    {{-- <x-inp-filter kode="status" nama="Status" selected="1" :option="array('1','3')"/> --}}
                                     <!-- END COMPONENT -->
                                 </div>
                                 <button id="btn-tampil" style="float:right;width:110px" class="btn btn-primary ml-2 mb-3" type="submit" >Tampilkan</button>
