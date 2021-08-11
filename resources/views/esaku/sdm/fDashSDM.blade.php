@@ -366,6 +366,14 @@ function generateChartPendidikan(data) {
                 series: {
                     label: {
                         connectorAllowed: false
+                    },
+                    point: {
+                        events: {
+                            click: function() {
+                                var filter = { pendidikan: this.category }
+                                generateTabelKaryawan(filter)
+                            }
+                        }
                     }
                 }
             },
@@ -416,6 +424,14 @@ function generateChartLoker(data) {
                 series: {
                     label: {
                         connectorAllowed: false
+                    },
+                    point: {
+                        events: {
+                            click: function() {
+                                var filter = { kode_loker: this.category }
+                                generateTabelKaryawan(filter)
+                            }
+                        }
                     }
                 }
             },
