@@ -108,3 +108,24 @@
 .text-center {
     text-align: center;
 }
+.box-cv {
+    border: 0.8px solid #d1d5db;
+    padding: 4px;
+}
+.box-cv .text-note {
+    font-size: 18px;
+    font-weight: 700;
+    padding-left: 8px;
+}
+.box-cv .box-empty-image {
+    border: 1px solid #d1d5db;
+    height: 180px;
+    width: 160px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.box-cv .box-empty-image .text-image {
+    text-align: center;
+    font-size: 14px;
+}
