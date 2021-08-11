@@ -94,3 +94,17 @@
 .card-dash .legend-text {
     font-size: 0.7rem !important;
 }
+.card-header .text-medium {
+    font-size: 18px !important;
+}
+.card-header .pull-right {
+    float: right;
+}
+#box-pegawai,
+#jumlah-pria,
+#jumlah-wanita {
+    cursor: pointer;
+}
+.text-center {
+    text-align: center;
+}
