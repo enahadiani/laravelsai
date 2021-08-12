@@ -88,7 +88,106 @@
             $tmp = json_decode(json_encode($tmp),true);
             $data = $tmp['original'];
             $periode = $this->getNamaBulan(substr($request->periode[1],4,2)).' '.substr($request->periode[1],0,4);
-            $pdf = PDF::loadview('esaku.rptBuktiTransPDF',['data'=>$data["result"],'periode'=>$periode,'lokasi'=>$data['lokasi'],'detail_jurnal'=>$data["detail_jurnal"]]);
+            $pdf = PDF::loadview('rtrw-baru.rptBuktiTransPDF',['data'=>$data["result"],'periode'=>$periode,'lokasi'=>$data['lokasi'],'detail_jurnal'=>$data["detail_jurnal"]]);
+            return $pdf->download('laporan-bukti-trans');   
+        }
+
+        function getSaldoAkun(Request $request){
+            try{
+    
+                $client = new Client();
+                $response = $client->request('GET',  config('api.url').'rtrw/lap-saldo-akun',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => [
+                        'kode_pp' => $request->kode_pp,
+                        'periode' => $request->periode,
+                        'kode_akun' => $request->kode_akun,
+                        'nik_user' => Session::get('nikUser')
+                    ]
+                ]);
+        
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $res = json_decode($response_data,true);
+                    $result = $res["data"];
+                    $lokasi = $res["lokasi"];
+                    
+                }
+                if(isset($request->back)){
+                    $back = true;
+                }else{
+                    $back = false;
+                }
+                return response()->json(['result' => $result, 'status'=>true, 'auth_status'=>1,'lokasi'=>$lokasi,'back'=>$back,'res'=>$res], 200); 
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                return response()->json(['message' => $res, 'status'=>false, 'auth_status'=>2], 200);
+            } 
+        }
+
+        function getSaldoAkunPDF(Request $request)
+        {
+            set_time_limit(300);
+            $tmp = app('App\Http\Controllers\Rtrw\LaporanController')->getSaldoAkun($request);
+            $tmp = json_decode(json_encode($tmp),true);
+            $data = $tmp['original'];
+            $periode = $this->getNamaBulan(substr($request->periode[1],4,2)).' '.substr($request->periode[1],0,4);
+            $pdf = PDF::loadview('rtrw-baru.rptSaldoAkunPDF',['data'=>$data["result"],'periode'=>$periode,'lokasi'=>$data['lokasi']]);
+            return $pdf->download('laporan-bukti-trans');   
+        }
+
+        function getKartuIuran(Request $request){
+            try{
+    
+                $client = new Client();
+                $response = $client->request('GET',  config('api.url').'rtrw/lap-kartu-iuran',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => [
+                        'periode' => $request->periode,
+                        'rt' => $request->rt,
+                        'kode_rumah' => $request->kode_rumah,
+                        'kode_jenis' => $request->kode_jenis,
+                        'nik_user' => Session::get('nikUser')
+                    ]
+                ]);
+        
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $res = json_decode($response_data,true);
+                    $result = $res["data"];
+                    $lokasi = $res["lokasi"];
+                    
+                }
+                if(isset($request->back)){
+                    $back = true;
+                }else{
+                    $back = false;
+                }
+                return response()->json(['result' => $result, 'status'=>true, 'auth_status'=>1,'lokasi'=>$lokasi,'back'=>$back], 200); 
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                return response()->json(['message' => $res, 'status'=>false, 'auth_status'=>2], 200);
+            } 
+        }
+
+        function getKartuIuranPDF(Request $request)
+        {
+            set_time_limit(300);
+            $tmp = app('App\Http\Controllers\Rtrw\LaporanController')->getKartuIuran($request);
+            $tmp = json_decode(json_encode($tmp),true);
+            $data = $tmp['original'];
+            $periode = $this->getNamaBulan(substr($request->periode[1],4,2)).' '.substr($request->periode[1],0,4);
+            $pdf = PDF::loadview('rtrw-baru.rptKartuIuranPDF',['data'=>$data["result"],'periode'=>$periode,'lokasi'=>$data['lokasi']]);
             return $pdf->download('laporan-bukti-trans');   
         }
 
