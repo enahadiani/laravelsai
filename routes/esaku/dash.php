@@ -14,3 +14,4 @@ use Illuminate\Support\Facades\Session;
 |
 */
 Route::get('sdm-dash', 'Esaku\Sdm\DashboardController@getDataDashboard');
+Route::get('sdm-karyawan', 'Esaku\Sdm\DashboardController@getDataKaryawan');
