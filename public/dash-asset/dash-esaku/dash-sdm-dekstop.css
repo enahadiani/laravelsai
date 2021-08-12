@@ -25,7 +25,7 @@
 .card-dash .card-title-2 {
     font-size: 14px !important;
     color: #000000;
-    padding: 8px 0 4px 4px;
+    padding: 16px 0 4px 4px;
     margin-bottom: 0;
 }
 .card-dash .glyph-icon {
@@ -128,4 +128,8 @@
 .box-cv .box-empty-image .text-image {
     text-align: center;
     font-size: 14px;
+}
+.table th,
+.table td {
+    padding: 8px !important;
 }

@@ -164,11 +164,10 @@
             <div class="col-12">
                 <div class="card card-dash">
                     <div class="card-header row">
-                        <div class="col-9">
+                        <div class="col-12">
+                            <button class="btn btn-primary" id="to-main-dash">Back</button>
+                            <br/>
                             <h6 class="card-title-2 text-bold text-medium">Data Pegawai</h6>
-                        </div>
-                        <div class="col-3">
-                            <button class="btn btn-primary pull-right" id="to-main-dash">Back</button>
                         </div>
                     </div>
                     <hr/>
@@ -221,11 +220,10 @@
             <div class="col-12">
                 <div class="card card-dash">
                     <div class="card-header row">
-                        <div class="col-9">
+                        <div class="col-12">
+                            <button class="btn btn-primary" id="to-detail-1">Back</button>
+                            <br/>
                             <h6 class="card-title-2 text-bold text-medium">CV Pegawai</h6>
-                        </div>
-                        <div class="col-3">
-                            <button class="btn btn-primary pull-right" id="to-detail-1">Back</button>
                         </div>
                     </div>
                     <div class="card-body box-cv" id="data-cv"></div>
