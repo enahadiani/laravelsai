@@ -95,83 +95,111 @@ class SyncController extends Controller
         
     // }
 
+    // public function syncMaster(Request $request)
+    // {
+        
+    //     try{
+    //         $vendor = "";
+    //         $barang = "";
+    //         $bonus = "";
+    //         $satuan = "";
+    //         $gudang = "";
+    //         $klp = "";
+    //         $histori = "";
+
+    //         $clientlog = new Client();
+    //         $responselog = $clientlog->request('POST',  config('api.url').'gl/login',[
+    //             'form_params' => [
+    //                 'nik' => 'kasir',
+    //                 'password' => 'saisai'
+    //             ]
+    //         ]);
+    //         if ($responselog->getStatusCode() == 200) { // 200 OK
+    //             $responselog_data = $responselog->getBody()->getContents();
+    //             $dt = json_decode($responselog_data,true);
+    //             if($dt["message"] == "success"){
+    //                 $token = $dt["token"];
+    //             }else{
+    //                 $token = "-";
+    //             }
+    //         }else{
+    //             $token = "-";
+    //         }
+
+    //         $client = new Client();
+    //         $response = $client->request('GET',  config('api.url').'esaku-trans/load-sync-master',[
+    //             'headers' => [
+    //                 'Authorization' => 'Bearer '.$token,
+    //                 'Accept'     => 'application/json',
+    //             ]
+    //         ]);
+
+    //         if ($response->getStatusCode() == 200) { // 200 OK
+    //             $response_data = $response->getBody()->getContents();
+                
+    //             $res = json_decode($response_data,true);
+    //             if($res["status"]){
+    //                 $vendor = $res["vendor"];
+    //                 $barang = $res["barang"];
+    //                 $bonus = $res["bonus"];
+    //                 $satuan = $res["satuan"];
+    //                 $gudang = $res["gudang"];
+    //                 $klp = $res["klp"];
+    //                 $histori = $res["histori"];
+    //             }
+    //         }
+
+    //         $fields = array(
+    //             'vendor' => $vendor,
+    //             'barang' => $barang,
+    //             'bonus' => $bonus,
+    //             'satuan' => $satuan,
+    //             'gudang' => $gudang,
+    //             'klp' => $klp,
+    //             'histori' => $histori,
+    //         );
+
+    //         $client2 = new Client();
+    //         $response2 = $client2->request('POST',  config('api.url').'esaku-trans/sync-master',[
+    //             'headers' => [
+    //                 'Authorization' => 'Bearer '.Session::get('token'),
+    //             ],
+    //             'form_params' => $fields
+    //         ]);
+            
+    //         if ($response2->getStatusCode() == 200) { // 200 OK
+    //             $response_data2 = $response2->getBody()->getContents();
+                
+    //             $data2 = json_decode($response_data2,true);
+    //             return response()->json(["data" =>$data2], 200);  
+    //         }
+    //     } catch (BadResponseException $ex) {
+    //         $response = $ex->getResponse();
+    //         $res = json_decode($response->getBody(),true);
+    //         $result['message'] = $res["message"];
+    //         $result['status']=false;
+    //         return response()->json(["data" => $result], 200);
+    //     } 
+        
+    // }
+
+
     public function syncMaster(Request $request)
     {
-        
         try{
-            $vendor = "";
-            $barang = "";
-            $bonus = "";
-            $satuan = "";
-            $gudang = "";
-            $klp = "";
-            $histori = "";
-
-            $clientlog = new Client();
-            $responselog = $clientlog->request('POST',  config('api.url').'gl/login',[
-                'form_params' => [
-                    'nik' => 'kasir',
-                    'password' => 'saisai'
-                ]
-            ]);
-            if ($responselog->getStatusCode() == 200) { // 200 OK
-                $responselog_data = $responselog->getBody()->getContents();
-                $dt = json_decode($responselog_data,true);
-                if($dt["message"] == "success"){
-                    $token = $dt["token"];
-                }else{
-                    $token = "-";
-                }
-            }else{
-                $token = "-";
-            }
 
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'esaku-trans/load-sync-master',[
+            $response = $client->request('POST',  config('api.url').'esaku-trans/sync-master',[
                 'headers' => [
-                    'Authorization' => 'Bearer '.$token,
-                    'Accept'     => 'application/json',
+                    'Authorization' => 'Bearer '.Session::get('token'),
                 ]
             ]);
-
+            
             if ($response->getStatusCode() == 200) { // 200 OK
                 $response_data = $response->getBody()->getContents();
                 
-                $res = json_decode($response_data,true);
-                if($res["status"]){
-                    $vendor = $res["vendor"];
-                    $barang = $res["barang"];
-                    $bonus = $res["bonus"];
-                    $satuan = $res["satuan"];
-                    $gudang = $res["gudang"];
-                    $klp = $res["klp"];
-                    $histori = $res["histori"];
-                }
-            }
-
-            $fields = array(
-                'vendor' => $vendor,
-                'barang' => $barang,
-                'bonus' => $bonus,
-                'satuan' => $satuan,
-                'gudang' => $gudang,
-                'klp' => $klp,
-                'histori' => $histori,
-            );
-
-            $client2 = new Client();
-            $response2 = $client2->request('POST',  config('api.url').'esaku-trans/sync-master',[
-                'headers' => [
-                    'Authorization' => 'Bearer '.Session::get('token'),
-                ],
-                'form_params' => $fields
-            ]);
-            
-            if ($response2->getStatusCode() == 200) { // 200 OK
-                $response_data2 = $response2->getBody()->getContents();
-                
-                $data2 = json_decode($response_data2,true);
-                return response()->json(["data" =>$data2], 200);  
+                $data = json_decode($response_data,true);
+                return response()->json(["data" =>$data], 200);  
             }
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
