@@ -264,87 +264,114 @@ class SyncController extends Controller
     }
 
 
+    // public function syncPnj(Request $request)
+    // {
+        
+    //     try{
+    //         $transm = "";
+    //         $transj = "";
+    //         $brgjual = "";
+    //         $brgtrans = "";
+    //         $histori = "";
+    //         $client = new Client();
+    //         $response = $client->request('GET',  config('api.url').'esaku-trans/load-sync-pnj',[
+    //             'headers' => [
+    //                 'Authorization' => 'Bearer '.Session::get('token'),
+    //                 'Accept'     => 'application/json',
+    //             ]
+    //         ]);
+
+    //         if ($response->getStatusCode() == 200) { // 200 OK
+    //             $response_data = $response->getBody()->getContents();
+                
+    //             $res = json_decode($response_data,true);
+    //             if($res["status"]){
+    //                 $transm = $res["transm"];
+    //                 $transj = $res["transj"];
+    //                 $brgjual = $res["brgjual"];
+    //                 $brgtrans = $res["brgtrans"];
+    //                 $histori = $res["histori"];
+    //             }
+    //         }
+
+    //         if($transm == "" && $transj == "" && $brgjual == "" && $brgtrans == ""){
+    //             $data = array(
+    //                 "status" => false,
+    //                 "message" => "Data sudah Sinkron!"
+    //             );
+    //             return response()->json(["data" =>$data], 200);  
+    //         }else{
+    //             $fields = array(
+    //                 'transm' => $transm,
+    //                 'transj' => $transj,
+    //                 'brgjual' => $brgjual,
+    //                 'brgtrans' => $brgtrans,
+    //                 'histori' => $histori,
+    //             );
+    
+    //             $clientlog = new Client();
+    //             $responselog = $clientlog->request('POST',  config('api.url').'gl/login',[
+    //                 'form_params' => [
+    //                     'nik' => 'kasir',
+    //                     'password' => 'saisai'
+    //                 ]
+    //             ]);
+    //             if ($responselog->getStatusCode() == 200) { // 200 OK
+    //                 $responselog_data = $responselog->getBody()->getContents();
+    //                 $dt = json_decode($responselog_data,true);
+    //                 if($dt["message"] == "success"){
+    //                     $token = $dt["token"];
+    //                 }else{
+    //                     $token = "-";
+    //                 }
+    //             }else{
+    //                 $token = "-";
+    //             }
+    
+    //             $client2 = new Client();
+    //             $response2 = $client2->request('POST',  config('api.url').'esaku-trans/sync-pnj',[
+    //                 'headers' => [
+    //                     'Authorization' => 'Bearer '.$token,
+    //                 ],
+    //                 'form_params' => $fields
+    //             ]);
+                
+    //             if ($response2->getStatusCode() == 200) { // 200 OK
+    //                 $response_data2 = $response2->getBody()->getContents();
+                    
+    //                 $data2 = json_decode($response_data2,true);
+    //                 return response()->json(["data" =>$data2], 200);  
+    //             }
+
+    //         }
+
+    //     } catch (BadResponseException $ex) {
+    //         $response = $ex->getResponse();
+    //         $res = json_decode($response->getBody(),true);
+    //         $result['message'] = $res["message"];
+    //         $result['status']=false;
+    //         return response()->json(["data" => $result], 200);
+    //     } 
+        
+    // }
+
     public function syncPnj(Request $request)
     {
-        
         try{
-            $transm = "";
-            $transj = "";
-            $brgjual = "";
-            $brgtrans = "";
-            $histori = "";
+
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'esaku-trans/load-sync-pnj',[
+            $response = $client->request('POST',  config('api.url').'esaku-trans/sync-pnj',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
-                    'Accept'     => 'application/json',
                 ]
             ]);
-
+            
             if ($response->getStatusCode() == 200) { // 200 OK
                 $response_data = $response->getBody()->getContents();
                 
-                $res = json_decode($response_data,true);
-                if($res["status"]){
-                    $transm = $res["transm"];
-                    $transj = $res["transj"];
-                    $brgjual = $res["brgjual"];
-                    $brgtrans = $res["brgtrans"];
-                    $histori = $res["histori"];
-                }
-            }
-
-            if($transm == "" && $transj == "" && $brgjual == "" && $brgtrans == ""){
-                $data = array(
-                    "status" => false,
-                    "message" => "Data sudah Sinkron!"
-                );
+                $data = json_decode($response_data,true);
                 return response()->json(["data" =>$data], 200);  
-            }else{
-                $fields = array(
-                    'transm' => $transm,
-                    'transj' => $transj,
-                    'brgjual' => $brgjual,
-                    'brgtrans' => $brgtrans,
-                    'histori' => $histori,
-                );
-    
-                $clientlog = new Client();
-                $responselog = $clientlog->request('POST',  config('api.url').'gl/login',[
-                    'form_params' => [
-                        'nik' => 'kasir',
-                        'password' => 'saisai'
-                    ]
-                ]);
-                if ($responselog->getStatusCode() == 200) { // 200 OK
-                    $responselog_data = $responselog->getBody()->getContents();
-                    $dt = json_decode($responselog_data,true);
-                    if($dt["message"] == "success"){
-                        $token = $dt["token"];
-                    }else{
-                        $token = "-";
-                    }
-                }else{
-                    $token = "-";
-                }
-    
-                $client2 = new Client();
-                $response2 = $client2->request('POST',  config('api.url').'esaku-trans/sync-pnj',[
-                    'headers' => [
-                        'Authorization' => 'Bearer '.$token,
-                    ],
-                    'form_params' => $fields
-                ]);
-                
-                if ($response2->getStatusCode() == 200) { // 200 OK
-                    $response_data2 = $response2->getBody()->getContents();
-                    
-                    $data2 = json_decode($response_data2,true);
-                    return response()->json(["data" =>$data2], 200);  
-                }
-
             }
-
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(),true);
@@ -408,87 +435,114 @@ class SyncController extends Controller
     }
 
 
+    // public function syncPmb(Request $request)
+    // {
+        
+    //     try{
+    //         $transm = "";
+    //         $transj = "";
+    //         $brgbeli = "";
+    //         $brgtrans = "";
+    //         $histori = "";
+    //         $client = new Client();
+    //         $response = $client->request('GET',  config('api.url').'esaku-trans/load-sync-pmb',[
+    //             'headers' => [
+    //                 'Authorization' => 'Bearer '.Session::get('token'),
+    //                 'Accept'     => 'application/json',
+    //             ]
+    //         ]);
+
+    //         if ($response->getStatusCode() == 200) { // 200 OK
+    //             $response_data = $response->getBody()->getContents();
+                
+    //             $res = json_decode($response_data,true);
+    //             if($res["status"]){
+    //                 $transm = $res["transm"];
+    //                 $transj = $res["transj"];
+    //                 $brgbeli = $res["brgbeli"];
+    //                 $brgtrans = $res["brgtrans"];
+    //                 $histori = $res["histori"];
+    //             }
+    //         }
+
+    //         if($transm == "" && $transj == "" && $brgbeli == "" && $brgtrans == ""){
+    //             $data = array(
+    //                 "status" => false,
+    //                 "message" => "Data sudah Sinkron!"
+    //             );
+    //             return response()->json(["data" =>$data], 200);  
+    //         }else{
+    //             $fields = array(
+    //                 'transm' => $transm,
+    //                 'transj' => $transj,
+    //                 'brgbeli' => $brgbeli,
+    //                 'brgtrans' => $brgtrans,
+    //                 'histori' => $histori,
+    //             );
+    
+    //             $clientlog = new Client();
+    //             $responselog = $clientlog->request('POST',  config('api.url').'gl/login',[
+    //                 'form_params' => [
+    //                     'nik' => 'kasir',
+    //                     'password' => 'saisai'
+    //                 ]
+    //             ]);
+    //             if ($responselog->getStatusCode() == 200) { // 200 OK
+    //                 $responselog_data = $responselog->getBody()->getContents();
+    //                 $dt = json_decode($responselog_data,true);
+    //                 if($dt["message"] == "success"){
+    //                     $token = $dt["token"];
+    //                 }else{
+    //                     $token = "-";
+    //                 }
+    //             }else{
+    //                 $token = "-";
+    //             }
+    
+    //             $client2 = new Client();
+    //             $response2 = $client2->request('POST',  config('api.url').'esaku-trans/sync-pmb',[
+    //                 'headers' => [
+    //                     'Authorization' => 'Bearer '.$token,
+    //                 ],
+    //                 'form_params' => $fields
+    //             ]);
+                
+    //             if ($response2->getStatusCode() == 200) { // 200 OK
+    //                 $response_data2 = $response2->getBody()->getContents();
+                    
+    //                 $data2 = json_decode($response_data2,true);
+    //                 return response()->json(["data" =>$data2], 200);  
+    //             }
+
+    //         }
+
+    //     } catch (BadResponseException $ex) {
+    //         $response = $ex->getResponse();
+    //         $res = json_decode($response->getBody(),true);
+    //         $result['message'] = $res["message"];
+    //         $result['status']=false;
+    //         return response()->json(["data" => $result], 200);
+    //     } 
+        
+    // }
+
     public function syncPmb(Request $request)
     {
-        
         try{
-            $transm = "";
-            $transj = "";
-            $brgbeli = "";
-            $brgtrans = "";
-            $histori = "";
+
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'esaku-trans/load-sync-pmb',[
+            $response = $client->request('POST',  config('api.url').'esaku-trans/sync-pmb',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
-                    'Accept'     => 'application/json',
                 ]
             ]);
-
+            
             if ($response->getStatusCode() == 200) { // 200 OK
                 $response_data = $response->getBody()->getContents();
                 
-                $res = json_decode($response_data,true);
-                if($res["status"]){
-                    $transm = $res["transm"];
-                    $transj = $res["transj"];
-                    $brgbeli = $res["brgbeli"];
-                    $brgtrans = $res["brgtrans"];
-                    $histori = $res["histori"];
-                }
-            }
-
-            if($transm == "" && $transj == "" && $brgbeli == "" && $brgtrans == ""){
-                $data = array(
-                    "status" => false,
-                    "message" => "Data sudah Sinkron!"
-                );
+                $data = json_decode($response_data,true);
                 return response()->json(["data" =>$data], 200);  
-            }else{
-                $fields = array(
-                    'transm' => $transm,
-                    'transj' => $transj,
-                    'brgbeli' => $brgbeli,
-                    'brgtrans' => $brgtrans,
-                    'histori' => $histori,
-                );
-    
-                $clientlog = new Client();
-                $responselog = $clientlog->request('POST',  config('api.url').'gl/login',[
-                    'form_params' => [
-                        'nik' => 'kasir',
-                        'password' => 'saisai'
-                    ]
-                ]);
-                if ($responselog->getStatusCode() == 200) { // 200 OK
-                    $responselog_data = $responselog->getBody()->getContents();
-                    $dt = json_decode($responselog_data,true);
-                    if($dt["message"] == "success"){
-                        $token = $dt["token"];
-                    }else{
-                        $token = "-";
-                    }
-                }else{
-                    $token = "-";
-                }
-    
-                $client2 = new Client();
-                $response2 = $client2->request('POST',  config('api.url').'esaku-trans/sync-pmb',[
-                    'headers' => [
-                        'Authorization' => 'Bearer '.$token,
-                    ],
-                    'form_params' => $fields
-                ]);
-                
-                if ($response2->getStatusCode() == 200) { // 200 OK
-                    $response_data2 = $response2->getBody()->getContents();
-                    
-                    $data2 = json_decode($response_data2,true);
-                    return response()->json(["data" =>$data2], 200);  
-                }
-
             }
-
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(),true);
@@ -551,88 +605,115 @@ class SyncController extends Controller
     }
 
 
+    // public function syncReturBeli(Request $request)
+    // {
+        
+    //     try{
+    //         $transm = "";
+    //         $transj = "";
+    //         $brgbeli = "";
+    //         $brgtrans = "";
+    //         $histori = "";
+    //         $client = new Client();
+    //         $response = $client->request('GET',  config('api.url').'esaku-trans/load-sync-retur-beli',[
+    //             'headers' => [
+    //                 'Authorization' => 'Bearer '.Session::get('token'),
+    //                 'Accept'     => 'application/json',
+    //             ]
+    //         ]);
+
+    //         if ($response->getStatusCode() == 200) { // 200 OK
+    //             $response_data = $response->getBody()->getContents();
+                
+    //             $res = json_decode($response_data,true);
+    //             if($res["status"]){
+    //                 $transm = $res["transm"];
+    //                 $transj = $res["transj"];
+    //                 $brgbeli = $res["brgbeli"];
+    //                 $brgtrans = $res["brgtrans"];
+    //                 $histori = $res["histori"];
+    //             }
+    //         }
+
+    //         if($transm == "" && $transj == "" && $brgbeli == "" && $brgtrans == ""){
+    //             $data = array(
+    //                 "status" => false,
+    //                 "message" => "Data sudah Sinkron!"
+    //             );
+    //             return response()->json(["data" =>$data], 200);  
+    //         }else{
+    //             $fields = array(
+    //                 'transm' => $transm,
+    //                 'transj' => $transj,
+    //                 'brgbeli' => $brgbeli,
+    //                 'brgtrans' => $brgtrans,
+    //                 'histori' => $histori,
+    //             );
+    
+    //             $clientlog = new Client();
+    //             $responselog = $clientlog->request('POST',  config('api.url').'gl/login',[
+    //                 'form_params' => [
+    //                     'nik' => 'kasir',
+    //                     'password' => 'saisai'
+    //                 ]
+    //             ]);
+    //             if ($responselog->getStatusCode() == 200) { // 200 OK
+    //                 $responselog_data = $responselog->getBody()->getContents();
+    //                 $dt = json_decode($responselog_data,true);
+    //                 if($dt["message"] == "success"){
+    //                     $token = $dt["token"];
+    //                 }else{
+    //                     $token = "-";
+    //                 }
+    //             }else{
+    //                 $token = "-";
+    //             }
+    
+    //             $client2 = new Client();
+    //             $response2 = $client2->request('POST',  config('api.url').'esaku-trans/sync-pmb',[
+    //                 'headers' => [
+    //                     'Authorization' => 'Bearer '.$token,
+    //                 ],
+    //                 'form_params' => $fields
+    //             ]);
+                
+    //             if ($response2->getStatusCode() == 200) { // 200 OK
+    //                 $response_data2 = $response2->getBody()->getContents();
+                    
+    //                 $data2 = json_decode($response_data2,true);
+    //                 return response()->json(["data" =>$data2], 200);  
+    //             }
+
+    //         }
+            
+
+    //     } catch (BadResponseException $ex) {
+    //         $response = $ex->getResponse();
+    //         $res = json_decode($response->getBody(),true);
+    //         $result['message'] = $res["message"];
+    //         $result['status']=false;
+    //         return response()->json(["data" => $result], 200);
+    //     } 
+        
+    // }
+
     public function syncReturBeli(Request $request)
     {
-        
         try{
-            $transm = "";
-            $transj = "";
-            $brgbeli = "";
-            $brgtrans = "";
-            $histori = "";
+
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'esaku-trans/load-sync-retur-beli',[
+            $response = $client->request('POST',  config('api.url').'esaku-trans/sync-retur-beli',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
-                    'Accept'     => 'application/json',
                 ]
             ]);
-
+            
             if ($response->getStatusCode() == 200) { // 200 OK
                 $response_data = $response->getBody()->getContents();
                 
-                $res = json_decode($response_data,true);
-                if($res["status"]){
-                    $transm = $res["transm"];
-                    $transj = $res["transj"];
-                    $brgbeli = $res["brgbeli"];
-                    $brgtrans = $res["brgtrans"];
-                    $histori = $res["histori"];
-                }
-            }
-
-            if($transm == "" && $transj == "" && $brgbeli == "" && $brgtrans == ""){
-                $data = array(
-                    "status" => false,
-                    "message" => "Data sudah Sinkron!"
-                );
+                $data = json_decode($response_data,true);
                 return response()->json(["data" =>$data], 200);  
-            }else{
-                $fields = array(
-                    'transm' => $transm,
-                    'transj' => $transj,
-                    'brgbeli' => $brgbeli,
-                    'brgtrans' => $brgtrans,
-                    'histori' => $histori,
-                );
-    
-                $clientlog = new Client();
-                $responselog = $clientlog->request('POST',  config('api.url').'gl/login',[
-                    'form_params' => [
-                        'nik' => 'kasir',
-                        'password' => 'saisai'
-                    ]
-                ]);
-                if ($responselog->getStatusCode() == 200) { // 200 OK
-                    $responselog_data = $responselog->getBody()->getContents();
-                    $dt = json_decode($responselog_data,true);
-                    if($dt["message"] == "success"){
-                        $token = $dt["token"];
-                    }else{
-                        $token = "-";
-                    }
-                }else{
-                    $token = "-";
-                }
-    
-                $client2 = new Client();
-                $response2 = $client2->request('POST',  config('api.url').'esaku-trans/sync-pmb',[
-                    'headers' => [
-                        'Authorization' => 'Bearer '.$token,
-                    ],
-                    'form_params' => $fields
-                ]);
-                
-                if ($response2->getStatusCode() == 200) { // 200 OK
-                    $response_data2 = $response2->getBody()->getContents();
-                    
-                    $data2 = json_decode($response_data2,true);
-                    return response()->json(["data" =>$data2], 200);  
-                }
-
             }
-            
-
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(),true);
