@@ -42,6 +42,46 @@
             return date("d", strtotime('-1 second', strtotime('+1 month',strtotime($month . '/01/' . $year. ' 00:00:00'))));
         }
 
+        public function getSaldoStok(Request $request) {
+           try{
+                $client = new Client();
+                $response = $client->request('GET',  config('api.url').'esaku-report/lap-saldo-stok',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => [
+                        'periode' => $request->periode,
+                        'kode_gudang' => $request->kode_gudang,
+                        'kode_klp' => $request->kode_klp,
+                        'kode_barangp' => $request->kode_barang
+                    ]
+                ]);
+
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $res = json_decode($response_data,true);
+                    $data = $res["data"];
+                }
+                if($request->periode != ""){
+                    $periode = $request->periode;
+                }else{
+                    $periode = "Semua Periode";
+                }
+
+                if(isset($request->back)){
+                    $res['back']=true;
+                }
+                
+                return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'periode'=>$periode,'sumju'=>$request->sumju,'res'=>$res], 200); 
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                return response()->json(['message' => $res["message"], 'status'=>false, 'auth_status'=>2], 200);
+            } 
+        }
+
         public function getKartuStok(Request $request) {
            try{
                 $client = new Client();
