@@ -43,8 +43,12 @@
         @for($i=0; $i< count($data) ;$i++)
             @php $sub=($data[$i]['harga']*$data[$i]['jumlah'])-$data[$i]['diskon']; @endphp
             <tr>
-            <td width='85%' class='size_isi'>{{ $data[$i]['nama'] }}  X {{ number_format($data[$i]['jumlah'],0,",",".") }}</td>
-            <td width='15%' align='right' class='size_isi'>{{ number_format($data[$i]['total'],0,",",".") }}</td>
+            <td width='100%' class='size_isi' colspan="3">{{ $data[$i]['nama'] }}</td>
+            </tr>
+            <tr>
+            <td width='30%' class='size_isi'>{{ number_format($data[$i]['jumlah'],0,",",".") }}x </td>
+            <td width='30%' class='size_isi'>{{ number_format($data[$i]['harga'],0,",",".") }}</td>
+            <td width='40%' align='right' class='size_isi'>{{ number_format($data[$i]['total'],0,",",".") }}</td>
             </tr>
         @endfor
       </table>
