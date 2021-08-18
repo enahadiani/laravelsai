@@ -29,9 +29,9 @@
                 <div class="card">
                     <div class="card-body form-header" style="padding-top:0.5rem;padding-bottom:0.5rem;min-height:48px;">
                         <h6 id="judul-form" style="position:absolute;top:13px">Generate Iuran</h6>
-                        <button type="button" id="btn-kembali" aria-label="Kembali" class="btn btn-back">
+                        <!-- <button type="button" id="btn-kembali" aria-label="Kembali" class="btn btn-back">
                             <span aria-hidden="true">&times;</span>
-                        </button>
+                        </button> -->
                     </div>
                     <div class="separator mb-2"></div>
                     <!-- FORM BODY -->
@@ -86,9 +86,9 @@
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group col-md-12 col-sm-12">
+                            <div class="form-group col-md-6 col-sm-12">
                                 <label for="tahun" >Tahun</label>
-                                <input class="form-control datepicker" type="text" placeholder="YYYY" id="tahun" name="tahun" required>                         
+                                <input class="form-control datepicker" type="text" placeholder="YYYY" id="tahun" name="tahun" required value="{{ date('Y') }}">                         
                             </div>
                         </div>
                         <div class="form-row">
@@ -136,6 +136,31 @@
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         }
     });
+
+    function listMonth() {
+        var month = [
+                {value:'01',text:'Januari'},
+                {value:'02',text:'Februari'},
+                {value:'03',text:'Maret'},
+                {value:'04',text:'April'},
+                {value:'05',text:'Mei'},
+                {value:'06',text:'Juni'},
+                {value:'07',text:'Juli'},
+                {value:'08',text:'Agustus'},
+                {value:'09',text:'September'},
+                {value:'10',text:'Oktober'},
+                {value:'11',text:'November'},
+                {value:'12',text:'Desember'}
+            ];
+
+        for(var i=0;i<month.length;i++) {
+            $('#bulan_awal, #bulan_akhir').append(`<option value='${month[i].value}'>${month[i].text}</option>`)
+        }
+        $('#bulan_akhir').val('12');
+        $('.selectize').selectize();
+    }
+
+    listMonth();
 
     function last_add(param,isi){
         var rowIndexes = [];
@@ -210,31 +235,61 @@
         $('.info-name_'+kode).closest('div').find('.info-icon-hapus').removeClass('hidden');
     }
 
-    function getCamat(id=null){
+    function getJenis(id=null){
         $.ajax({
             type: 'GET',
-            url: "{{ url('rtrw-master/camat') }}/"+id,
+            url: "{{ url('rtrw-master/jenis-iuran') }}/"+id,
             dataType: 'json',
-            data:{kode_camat:id},
+            data:{kode_jenis:id},
             async:false,
             success:function(result){    
                 if(result.status){
                     if(typeof result.data !== 'undefined' && result.data.length>0){
-                        showInfoField('kode_camat',result.data[0].kode_camat,result.data[0].nama);
+                        showInfoField('kode_jenis',result.data[0].kode_jenis,result.data[0].nama);
                     }else{
-                        $('#kode_camat').attr('readonly',false);
-                        $('#kode_camat').css('border-left','1px solid #d7d7d7');
-                        $('#kode_camat').val('');
-                        $('#kode_camat').focus();
+                        $('#kode_jenis').attr('readonly',false);
+                        $('#kode_jenis').css('border-left','1px solid #d7d7d7');
+                        $('#kode_jenis').val('');
+                        $('#kode_jenis').focus();
                     }
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
                     window.location.href = "{{ url('rtrw-auth/sesi-habis') }}";
                 }else{
-                    $('#kode_camat').attr('readonly',false);
-                    $('#kode_camat').css('border-left','1px solid #d7d7d7');
-                    $('#kode_camat').val('');
-                    $('#kode_camat').focus();
+                    $('#kode_jenis').attr('readonly',false);
+                    $('#kode_jenis').css('border-left','1px solid #d7d7d7');
+                    $('#kode_jenis').val('');
+                    $('#kode_jenis').focus();
+                }
+            }
+        });
+    }
+
+    function getPP(id=null){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('rtrw-master/rt') }}/"+id,
+            dataType: 'json',
+            data:{kode_pp:id},
+            async:false,
+            success:function(result){    
+                if(result.status){
+                    if(typeof result.data !== 'undefined' && result.data.length>0){
+                        showInfoField('kode_pp',result.data[0].kode_rt,result.data[0].nama);
+                    }else{
+                        $('#kode_pp').attr('readonly',false);
+                        $('#kode_pp').css('border-left','1px solid #d7d7d7');
+                        $('#kode_pp').val('');
+                        $('#kode_pp').focus();
+                    }
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    window.location.href = "{{ url('rtrw-auth/sesi-habis') }}";
+                }else{
+                    $('#kode_pp').attr('readonly',false);
+                    $('#kode_pp').css('border-left','1px solid #d7d7d7');
+                    $('#kode_pp').val('');
+                    $('#kode_pp').focus();
                 }
             }
         });
@@ -243,70 +298,62 @@
     $('#form-tambah').on('click', '.search-item2', function(e){
         e.preventDefault();
         var id = $(this).closest('div').find('input').attr('name');
-        showInpFilterBSheet({
-            id : id,
-            header : ['Kode', 'Nama'],
-            url : "{{ url('rtrw-master/camat') }}",
-            columns : [
-                { data: 'kode_camat' },
-                { data: 'nama' }
-            ],
-            judul : "Daftar Kecamatan",
-            pilih : "kecamatan",
-            jTarget1 : "text",
-            jTarget2 : "text",
-            target1 : ".info-code_"+id,
-            target2 : ".info-name_"+id,
-            target3 : "",
-            target4 : "",
-            width : ["30%","70%"],
-        });
+        switch(id){
+            case 'kode_jenis':
+                var options = {
+                    id : id,
+                    header : ['Kode', 'Nama'],
+                    url : "{{ url('rtrw-master/jenis-iuran') }}",
+                    columns : [
+                        { data: 'kode_jenis' },
+                        { data: 'nama' }
+                    ],
+                    judul : "Daftar Jenis Iuran",
+                    pilih : "jenis",
+                    jTarget1 : "text",
+                    jTarget2 : "text",
+                    target1 : ".info-code_"+id,
+                    target2 : ".info-name_"+id,
+                    target3 : "",
+                    target4 : "",
+                    width : ["30%","70%"],
+                }
+                break;
+            case 'kode_pp':
+                var options = {
+                    id : id,
+                    header : ['Kode', 'Nama'],
+                    url : "{{ url('rtrw-master/rt') }}",
+                    columns : [
+                        { data: 'kode_rt' },
+                        { data: 'nama' }
+                    ],
+                    judul : "Daftar PP/RT",
+                    pilih : "pp",
+                    jTarget1 : "text",
+                    jTarget2 : "text",
+                    target1 : ".info-code_"+id,
+                    target2 : ".info-name_"+id,
+                    target3 : "",
+                    target4 : "",
+                    width : ["30%","70%"],
+                }
+                break;
+
+        }
+        showInpFilterBSheet(options);
     });
 
-    $('#form-tambah').on('change', '#kode_camat', function(){
+    $('#form-tambah').on('change', '#kode_jenis', function(){
         var par = $(this).val();
-        getCamat(par);
+        getJenis(par);
+    });
+
+    $('#form-tambah').on('change', '#kode_pp', function(){
+        var par = $(this).val();
+        getPP(par);
     });
     // END CBBL
-
-    // BUTTON TAMBAH
-    $('#saku-datatable').on('click', '#btn-tambah', function(){
-        $('#row-id').hide();
-        $('#id_edit').val('');
-        $('#judul-form').html('Tambah Data Desa');
-        $('#btn-update').attr('id','btn-save');
-        $('#btn-save').attr('type','submit');
-        $('#form-tambah')[0].reset();
-        $('#form-tambah').validate().resetForm();
-        $('#method').val('post');
-        $('#kode_desa').attr('readonly', false);
-        $('#saku-datatable').hide();
-        $('#saku-form').show();
-        $('.input-group-prepend').addClass('hidden');
-        $('span[class^=info-name]').addClass('hidden');
-        $('.info-icon-hapus').addClass('hidden');
-        $('[class*=inp-label-]').attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important;border-left:1px solid #d7d7d7 !important');
-        setHeightForm();
-        setWidthFooterCardBody();
-    });
-    // END BUTTON TAMBAH
-
-    // BUTTON KEMBALI
-    $('#saku-form').on('click', '#btn-kembali', function(){
-        var kode = null;
-        msgDialog({
-            id:kode,
-            type:'keluar'
-        });
-    });
-
-    $('#saku-form').on('click', '#btn-update', function(){
-        var kode = $('#kode_desa').val();
-        msgDialog({
-            id:kode,
-            type:'edit'
-        });
-    });
 
     //BUTTON SIMPAN /SUBMIT
     $('#form-tambah').validate({
@@ -330,17 +377,9 @@
         submitHandler: function (form, event) {
             event.preventDefault();
             var parameter = $('#id_edit').val();
-            var id = $('#kode_desa').val();
-            if(parameter == "edit"){
-                var url = "{{ url('rtrw-master/desa') }}/"+id;
-                var pesan = "updated";
-                var text = "Perubahan data "+id+" telah tersimpan";
-            }else{
-                var url = "{{ url('rtrw-master/desa') }}";
-                var pesan = "saved";
-                var text = "Data tersimpan dengan kode "+id;
-            }
-
+            var url = "{{ url('rtrw-master/generate-iuran') }}";
+            var pesan = "saved";
+            
             var formData = new FormData(form);
             for(var pair of formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
@@ -363,14 +402,12 @@
                         $('#form-tambah').validate().resetForm();
                         $('[id^=label]').html('');
                         $('#id_edit').val('');
-                        $('#judul-form').html('Tambah Data Desa');
+                        $('#judul-form').html('Generate Iuran');
                         $('#method').val('post');
-                        $('#kode_desa').attr('readonly', false);
                         msgDialog({
                             id:result.data.kode,
                             type:'simpan'
                         });
-                        last_add("kode_desa",result.data.kode);
                     }else if(!result.data.status && result.data.message === "Unauthorized"){
                     
                         window.location.href = "{{ url('/rtrw-auth/sesi-habis') }}";
@@ -415,175 +452,9 @@
         }
     });
 
-    // BUTTON HAPUS DATA
-    function hapusData(id){
-        console.log(id)
-        $.ajax({
-            type: 'DELETE',
-            url: "{{ url('rtrw-master/desa') }}/"+id,
-            dataType: 'json',
-            async:false,
-            success:function(result){
-                if(result.data.status){
-                    dataTable.ajax.reload();                    
-                    showNotification("top", "center", "success",'Hapus Data','Data Desa ('+id+') berhasil dihapus ');
-                    $('#modal-pesan-id').html('');
-                    $('#table-delete tbody').html('');
-                    $('#modal-pesan').modal('hide');
-                }else if(!result.data.status && result.data.message == "Unauthorized"){
-                    window.location.href = "{{ url('rtrw-auth/sesi-habis') }}";
-                }else{
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Something went wrong!',
-                        footer: '<a href>'+result.data.message+'</a>'
-                    });
-                }
-            }
-        });
-    }
-
-    $('#saku-datatable').on('click','#btn-delete',function(e){
-        var kode = $(this).closest('tr').find('td').eq(0).html();
-        msgDialog({
-            id: kode,
-            type:'hapus'
-        });
-    });
-
-    // BUTTON EDIT
-    function editData(id){
-        $.ajax({
-            type: 'GET',
-            url: "{{ url('rtrw-master/desa') }}/"+id,
-            dataType: 'json',
-            data:{kode_desa:id},
-            async:false,
-            success:function(result){
-                if(result.status){
-                    $('#id_edit').val('edit');
-                    $('#method').val('put');
-                    $('#kode_desa').attr('readonly', true);
-                    $('#kode_desa').val(id);
-                    $('#id').val(id);
-                    $('#nama').val(result.data[0].nama);
-                    $('#kode_camat').val(result.data[0].kode_camat);          
-                    $('#saku-datatable').hide();
-                    $('#modal-preview').modal('hide');
-                    $('#saku-form').show();
-                    showInfoField('kode_camat',result.data[0].kode_camat,result.data[0].nama_camat);
-                    setHeightForm();
-                    setWidthFooterCardBody();
-                }
-                else if(!result.status && result.message == 'Unauthorized'){
-                    window.location.href = "{{ url('rtrw-auth/sesi-habis') }}";
-                }
-                // $iconLoad.hide();
-            }
-        });
-    }
-
-    $('#saku-datatable').on('click', '#btn-edit', function(){
-        var id= $(this).closest('tr').find('td').eq(0).html();
-        // $iconLoad.show();
-        $('#form-tambah').validate().resetForm();
-        
-        $('#btn-save').attr('type','button');
-        $('#btn-save').attr('id','btn-update');
-
-        $('#judul-form').html('Edit Data Desa');
-        editData(id);
-    });
-
-    $('#table-data tbody').on('click','td',function(e){
-        if($(this).index() != 3){
-
-            var id = $(this).closest('tr').find('td').eq(0).html();
-            var data = dataTable.row(this).data();
-            var html = `<div class="preview-header" style="display:block;height:39px;padding: 0 1.75rem" >
-                <h6 style="position: absolute;" id="preview-judul">Preview Data</h6>
-                    <span id="preview-nama" style="display:none"></span><span id="preview-id" style="display:none">`+id+`</span> 
-                    <div class="dropdown d-inline-block float-right">
-                    <button type="button" id="dropdownAksi" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding: 0.2rem 1rem;border-radius: 1rem !important;" class="btn dropdown-toggle btn-light">
-                        <span class="my-0">Aksi <i style="font-size: 10px;" class="simple-icon-arrow-down ml-3"></i></span>
-                    </button>
-                    <div class="dropdown-menu dropdown-aksi" aria-labelledby="dropdownAksi" x-placement="bottom-start" style="position: absolute; will-change: transform; top: -10px; left: 0px; transform: translate3d(0px, 37px, 0px);">
-                        <a class="dropdown-item dropdown-ke1" href="#" id="btn-delete2"><i class="simple-icon-trash mr-1"></i> Hapus</a>
-                        <a class="dropdown-item dropdown-ke1" href="#" id="btn-edit2"><i class="simple-icon-pencil mr-1"></i> Edit</a>
-                        <a class="dropdown-item dropdown-ke1" href="#" id="btn-cetak"><i class="simple-icon-printer mr-1"></i> Cetak</a>
-                        <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-cetak2" style="border-bottom: 1px solid #d7d7d7;"><i class="simple-icon-arrow-left mr-1"></i> Cetak</a>
-                        <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-excel"> Excel</a>
-                        <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-pdf"> PDF</a>
-                        <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-print"> Print</a>
-                    </div>
-                </div>
-            </div>
-            <div class='separator'></div>
-            <div class='preview-body' style='padding: 0 1.75rem;height: calc(75vh - 56px) position:sticky;min-height:300px'>
-                <table class="table table-prev mt-2" width="100%" style="padding-bottom:200px">
-                    <tr>
-                    <td style='border:none'>Kode Desa</td>
-                    <td style='border:none'>`+id+`</td>
-                    </tr>
-                    <tr>
-                    <td>Nama Desa</td>
-                    <td>`+data.nama+`</td>
-                    </tr>
-                    <tr>
-                    <td>Kecamatan</td>
-                    <td>`+data.kode_camat+` - `+data.nama_camat+`</td>
-                    </tr>
-                </table>
-            </div>`;
-            $('#content-bottom-sheet').html(html);
-            var scroll = document.querySelector('.preview-body');
-            var psscroll = new PerfectScrollbar(scroll);
-            
-            $('.c-bottom-sheet__sheet').css({ "width":"70%","margin-left": "15%", "margin-right":"15%"});
-            
-            $('.preview-header').on('click','#btn-delete2',function(e){
-                var id = $('#preview-id').text();
-                $('.c-bottom-sheet').removeClass('active');
-                msgDialog({
-                    id:id,
-                    type:'hapus'
-                });
-            });
-            
-            $('.preview-header').on('click', '#btn-edit2', function(){
-                var id= $('#preview-id').text();
-                $('#judul-form').html('Edit Data Desa');
-                $('#form-tambah')[0].reset();
-                $('#form-tambah').validate().resetForm();
-                
-                $('#btn-save').attr('type','button');
-                $('#btn-save').attr('id','btn-update');
-                $('.c-bottom-sheet').removeClass('active');
-                editData(id);
-            });
-            
-            $('.preview-header').on('click','#btn-cetak',function(e){
-                e.stopPropagation();
-                $('.dropdown-ke1').addClass('hidden');
-                $('.dropdown-ke2').removeClass('hidden');
-                console.log('ok');
-            });
-            
-            $('.preview-header').on('click','#btn-cetak2',function(e){
-                // $('#dropdownAksi').dropdown('toggle');
-                e.stopPropagation();
-                $('.dropdown-ke1').removeClass('hidden');
-                $('.dropdown-ke2').addClass('hidden');
-            });
-            
-            $('#trigger-bottom-sheet').trigger("click");
-        }
-    });
-
-    $('#kode_desa,#nama,#kode_camat').keydown(function(e){
+    $('#kode_jenis,#kode_pp,#bulan_awal,#bulan_akhir,#tahun,#iuran_rt,#iuran_rw').keydown(function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['kode_desa','nama','kode_camat'];
+        var nxt = ['kode_jenis','kode_pp','bulan_awal','bulan_akhir','tahun','iuran_rt','iuran_rw'];
         if (code == 13 || code == 40) {
             e.preventDefault();
             var idx = nxt.indexOf(e.target.id);
