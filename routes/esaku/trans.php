@@ -372,9 +372,9 @@ Route::delete('sdm-adm-sanksi', 'Esaku\Sdm\SanksiAdmController@delete');
 Route::get('/tes-print', function () {
     try {
         // $ip = ''; // IP Komputer kita atau printer lain yang masih satu jaringan
-        // $printer = ''; // Nama Printer yang di sharing
+        $printer = "POS-58"; // Nama Printer yang di sharing
         // $connector = new WindowsPrintConnector("smb://" . $ip . "/" . $printer);
-        $connector = new WindowsPrintConnector("POS-58");
+        $connector = new WindowsPrintConnector($printer);
         // $printer = new Printer($connector);
         // $connector = new NetworkPrintConnector("10.54.92.58", 9100);
         // $printer = new Printer($connector);
