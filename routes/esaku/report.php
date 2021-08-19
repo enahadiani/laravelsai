@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Session;
 Route::get('filter-periode', 'Esaku\HelperController@getPeriodePnj');
 Route::get('filter-nik', 'Esaku\HelperController@getNikPnj');
 Route::get('filter-tanggal', 'Esaku\HelperController@getTanggalPnj');
-Route::get('filter-bukti', 'Esaku\HelperController@getBuktiPnj');
+Route::get('filter-bukti-pnj', 'Esaku\HelperController@getBuktiPnj');
 Route::get('filter-periode-pmb', 'Esaku\HelperController@getPeriodePmb');
 Route::get('filter-nik-pmb', 'Esaku\HelperController@getNikPmb');
 Route::get('filter-bukti-pmb', 'Esaku\HelperController@getBuktiPmb');

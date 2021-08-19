@@ -480,12 +480,15 @@
             return response()->json(['daftar' => $data['data'], 'status' => true], 200);
         }
 
-        public function getBuktiPnj() {
+        public function getBuktiPnj(Request $request) {
             $client = new Client();
             $response = $client->request('GET',  config('api.url').'esaku-report/filter-bukti',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
+            ],
+            'query' => [
+                'periode' => $request->query('periode')
             ]
             ]);
 
@@ -516,12 +519,15 @@
             return response()->json(['daftar' => $data['data'], 'status' => true], 200);
         }
 
-        public function getTanggalPnj() {
+        public function getTanggalPnj(Request $request) {
             $client = new Client();
             $response = $client->request('GET',  config('api.url').'esaku-report/filter-tanggal',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
+            ],
+            'query' => [
+                'periode' => $request->query('periode')
             ]
             ]);
 

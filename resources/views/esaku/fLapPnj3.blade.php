@@ -133,8 +133,12 @@
                 { data: 'keterangan' }
             ]
         ],
-        url :["{{ url('esaku-report/filter-periode') }}","{{ url('esaku-report/filter-tanggal') }}","{{ url('esaku-report/filter-nik') }}","{{ url('esaku-report/filter-bukti') }}"],
-        parameter:[{},{},{},{}],
+        url :["{{ url('esaku-report/filter-periode') }}","{{ url('esaku-report/filter-tanggal') }}","{{ url('esaku-report/filter-nik') }}","{{ url('esaku-report/filter-bukti-pnj') }}"],
+        parameter:[{},{
+            'periode': $periode.from
+        },{},{
+            'periode': $periode.from
+        }],
         orderby:[[[0,"desc"]],[[0,"desc"]],[[0,"desc"]],[[0,"asc"]]],
         width:[['30%','70%'],['30%','70%'],['30%','70%'],['30%','70%'],['30%','70%']],
         display:['kode','kode','kode','kode'],
@@ -162,8 +166,12 @@
                         { data: 'keterangan' }
                     ]
                 ],
-                url :["{{ url('esaku-report/filter-periode') }}","{{ url('esaku-report/filter-tanggal') }}","{{ url('esaku-report/filter-nik') }}","{{ url('esaku-report/filter-bukti') }}"],
-                parameter:[{},{},{},{}],
+                url :["{{ url('esaku-report/filter-periode') }}","{{ url('esaku-report/filter-tanggal') }}","{{ url('esaku-report/filter-nik') }}","{{ url('esaku-report/filter-bukti-pnj') }}"],
+                parameter:[{},{
+                    'periode': $periode.from
+                },{},{
+                    'periode': $periode.from
+                }],
                 orderby:[[[0,"desc"]],[[0,"desc"]],[[0,"desc"]],[[0,"asc"]]],
                 width:[['30%','70%'],['30%','70%'],['30%','70%'],['30%','70%'],['30%','70%']],
                 display:['kode','kode','kode','kode'],
