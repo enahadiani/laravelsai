@@ -3,10 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 // use Mike42\Escpos\Printer; 
-// use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 use Mike42\Escpos\Printer;
 use Mike42\Escpos\EscposImage;
-use Mike42\Escpos\PrintConnectors\NetworkPrintConnector;
+use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
+// use Mike42\Escpos\PrintConnectors\NetworkPrintConnector;
 // use Mike42\Escpos\PrintConnectors\FilePrintConnector;
 
 // Mutasi Routes //
@@ -374,8 +374,9 @@ Route::get('/tes-print', function () {
         // $ip = ''; // IP Komputer kita atau printer lain yang masih satu jaringan
         // $printer = ''; // Nama Printer yang di sharing
         // $connector = new WindowsPrintConnector("smb://" . $ip . "/" . $printer);
+        $connector = new WindowsPrintConnector("POS-58");
         // $printer = new Printer($connector);
-        $connector = new NetworkPrintConnector("10.54.92.58", 9100);
+        // $connector = new NetworkPrintConnector("10.54.92.58", 9100);
         // $printer = new Printer($connector);
         // $printer -> text("Email : tes@gmail.com\n");
         // $printer -> text("Username: tesprinter\n");
