@@ -488,7 +488,8 @@
                 'Accept'     => 'application/json',
             ],
             'query' => [
-                'periode' => $request->query('periode')
+                'periode' => $request->query('periode'),
+                'nik_kasir'=> $request->query('kasir')
             ]
             ]);
 

@@ -137,7 +137,9 @@
         parameter:[{},{
             'periode': $periode.from
         },{},{
-            'periode': $periode.from
+
+            'periode': $periode.from,
+            'kasir': $kasir.from
         }],
         orderby:[[[0,"desc"]],[[0,"desc"]],[[0,"desc"]],[[0,"asc"]]],
         width:[['30%','70%'],['30%','70%'],['30%','70%'],['30%','70%'],['30%','70%']],
@@ -170,7 +172,8 @@
                 parameter:[{},{
                     'periode': $periode.from
                 },{},{
-                    'periode': $periode.from
+                    'periode': $periode.from,
+                    'kasir': $kasir.from
                 }],
                 orderby:[[[0,"desc"]],[[0,"desc"]],[[0,"desc"]],[[0,"asc"]]],
                 width:[['30%','70%'],['30%','70%'],['30%','70%'],['30%','70%'],['30%','70%']],
