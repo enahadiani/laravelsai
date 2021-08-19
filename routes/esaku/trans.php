@@ -2,11 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
-// use Mike42\Escpos\Printer; 
-// use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
-use Mike42\Escpos\PrintConnectors\NetworkPrintConnector;
-use Mike42\Escpos\Printer;
-// use Mike42\Escpos\EscposImage;
+// // use Mike42\Escpos\Printer; 
+// // use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
+// use Mike42\Escpos\PrintConnectors\NetworkPrintConnector;
+// use Mike42\Escpos\Printer;
+// // use Mike42\Escpos\EscposImage;
 
 // Mutasi Routes //
 Route::get('generate-mutasi', 'Esaku\Inventori\MutasiController@generateKode');
