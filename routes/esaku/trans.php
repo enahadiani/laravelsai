@@ -453,7 +453,7 @@ Route::get('/tes-print', function () {
 
         $response = ['success'=>'true','message'=>'Berhasil!'];
     } catch (Exception $e) {
-        $response = ['success'=>'false','message'=>$e];
+        $response = ['success'=>'false','message'=>$e->getMessage()];
     }
     return response()->json($response);
 });
