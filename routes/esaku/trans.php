@@ -384,7 +384,7 @@ Route::get('/tes-print', function () {
         /* Information for the receipt */
         /* Start the printer */
         // dump($logo);
-        $logo = EscposImage::load("img/escpos-php.png", false);
+        // $logo = EscposImage::load("img/escpos-php.png", false);
         $printer = new Printer($connector);
         $items = array(
             new item("Example item #1", "4.00"),
@@ -404,7 +404,7 @@ Route::get('/tes-print', function () {
 
         /* Print top logo */
         $printer -> setJustification(Printer::JUSTIFY_CENTER);
-        $printer -> graphics($logo);
+        // $printer -> graphics($logo);
 
         /* Name of shop */
         $printer -> selectPrintMode(Printer::MODE_DOUBLE_WIDTH);
