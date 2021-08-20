@@ -197,10 +197,9 @@
         $formData.append("tanggal[]",$tanggal.to);
         $formData.append("nik_kasir[]",$kasir.type);
         $formData.append("nik_kasir[]",$kasir.from);
-        $formData.append("nik_kasir[]",$kasir.to);
-        $formData.append("tanggal[]",$tanggal.type);
-        $formData.append("tanggal[]",$tanggal.from);
-        $formData.append("tanggal[]",$tanggal.to);
+        $formData.append("no_bukti[]",$no_bukti.type);
+        $formData.append("no_bukti[]",$no_bukti.from);
+        $formData.append("no_bukti[]",$no_bukti.to);
         for(var pair of $formData.entries()) {
             console.log(pair[0]+ ', '+ pair[1]); 
         }
