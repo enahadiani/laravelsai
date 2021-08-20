@@ -139,6 +139,7 @@
         },{},{
 
             'periode': $periode.from,
+            'tanggal': $tanggal.from,
             'kasir': $kasir.from
         }],
         orderby:[[[0,"desc"]],[[0,"desc"]],[[0,"desc"]],[[0,"asc"]]],
@@ -173,6 +174,7 @@
                     'periode': $periode.from
                 },{},{
                     'periode': $periode.from,
+                    'tanggal': $tanggal.from,
                     'kasir': $kasir.from
                 }],
                 orderby:[[[0,"desc"]],[[0,"desc"]],[[0,"desc"]],[[0,"asc"]]],

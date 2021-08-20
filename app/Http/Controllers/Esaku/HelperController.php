@@ -489,6 +489,7 @@
             ],
             'query' => [
                 'periode' => $request->query('periode'),
+                'tanggal' => $request->query('tanggal'),
                 'nik_kasir'=> $request->query('kasir')
             ]
             ]);
