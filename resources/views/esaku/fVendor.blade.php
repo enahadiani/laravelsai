@@ -396,24 +396,38 @@
     })
 
     var typingTime;
-    var doneTyping = 5000; // 5 detik
+    var doneTyping = 1000; // 1 detik
     var $vendor = $('#kode_vendor');
 
     $vendor.on('keyup', function(){
         clearTimeout(typingTime);
-        typingTime = setTimeout(cekVendor($(this).val()), doneTyping);
+        typingTime = setTimeout(cekVendor.bind(undefined,$(this).val()), doneTyping);
     })
 
-    $vendor.on('keydown', function(){
-        clearTimeout(typingTime);
-    })
+    // $vendor.on('keydown', function(){
+    //     clearTimeout(typingTime);
+    //     typingTime = setTimeout(cekVendor($(this).val()), doneTyping);
+    // })
 
     function cekVendor(value) {
-        if(value !== "VS58" && value !== "") {
-            $('#error-vendor').show();
-        } else {
-            $('#error-vendor').hide();
-        }
+        // if(value !== "VS58" && value !== "") {
+        //     $('#error-vendor').show();
+        // } else {
+        //     $('#error-vendor').hide();
+        // }
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('esaku-master/vendor') }}/" + value,
+            dataType: 'json',
+            async:false,
+            success:function(res){
+                if(res.data.status && res.data.data != undefined){
+                    $('#error-vendor').show();
+                }else{
+                    $('#error-vendor').hide();
+                }
+            }
+        });
     }
 
 
