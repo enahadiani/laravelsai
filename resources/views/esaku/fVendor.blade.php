@@ -19,14 +19,14 @@
                     <!-- FORM BODY -->
                     <div class="card-body pt-3 form-body">
                         <ul class="nav nav-tabs col-12 " role="tablist">
-                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#umum" role="tab" aria-selected="true"><span class="hidden-xs-down">Umum</span></a> </li>
-                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#alamat" role="tab" aria-selected="true"><span class="hidden-xs-down">Alamat</span></a> </li>
-                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#bank" role="tab" aria-selected="true"><span class="hidden-xs-down">Bank</span></a> </li>
-                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#pic" role="tab" aria-selected="true"><span class="hidden-xs-down">PIC</span></a> </li>
-                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#akuntansi" role="tab" aria-selected="true"><span class="hidden-xs-down">Akuntansi</span></a> </li>
+                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#tab_umum" role="tab" aria-selected="true"><span class="hidden-xs-down">Umum</span></a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab_alamat" role="tab" aria-selected="true"><span class="hidden-xs-down">Alamat</span></a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab_bank" role="tab" aria-selected="true"><span class="hidden-xs-down">Bank</span></a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab_pic" role="tab" aria-selected="true"><span class="hidden-xs-down">PIC</span></a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab_akuntansi" role="tab" aria-selected="true"><span class="hidden-xs-down">Akuntansi</span></a> </li>
                         </ul>
                         <div class="tab-content tab-form-content col-12 p-0">
-                            <div class="tab-pane active" id="umum" role="tabpanel">
+                            <div class="tab-pane active" id="tab_umum" role="tabpanel">
                                 <div class="form-row">
                                     <div class="col-12">
                                         <input class="form-control" type="hidden" id="id_edit" name="id_edit">
@@ -59,9 +59,20 @@
                                         <input class="form-control" type="text" id="email" name="email" required>
                                     </div>
                                 </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <label for="npwp">NPWP</label>
+                                        <input class="form-control" type="text" id="npwp" name="npwp" required>
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <label for="no_fax">No Fax</label>
+                                        <input class="form-control" type="text" id="no_fax" name="no_fax" required>
+                                    </div>
+                                </div>
+                               
                             </div>
 
-                            <div class="tab-pane" id="alamat" role="tabpanel">
+                            <div class="tab-pane" id="tab_alamat" role="tabpanel">
                                 <div class="form-row">
                                     <div class="form-group col-md-12 col-sm-12">
                                         <label for="alamat">Alamat</label>
@@ -69,6 +80,12 @@
                                     </div>
                                 </div>
                                 <div class="form-row">
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <label for="alamat2">Alamat NPWP</label>
+                                        <input class="form-control" type="text" id="alamat2" name="alamat2" required>
+                                    </div>
+                                </div>
+                                <!-- <div class="form-row">
                                     <div class="form-group col-md-6 col-sm-12">
                                         <label for="kode_pos">Kode POS</label>
                                         <input class="form-control" type="text" id="kode_pos" name="kode_pos" required>
@@ -87,10 +104,10 @@
                                         <label for="negara">Negara</label>
                                         <input class="form-control" type="text" id="negara" name="negara" required>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                             
-                            <div class="tab-pane" id="bank" role="tabpanel">
+                            <div class="tab-pane" id="tab_bank" role="tabpanel">
                                 <table id="table-bank">
                                     <thead>
                                         <th>Nama Rekening</th>
@@ -101,7 +118,7 @@
                                 </table>
                             </div>
                             
-                            <div class="tab-pane" id="pic" role="tabpanel">
+                            <div class="tab-pane" id="tab_pic" role="tabpanel">
                                 <div class="form-row">
                                     <div class="form-group col-md-12 col-sm-12">
                                         <label for="pic">Nama Penangugung Jawab (Person in Change)</label>
@@ -113,14 +130,10 @@
                                         <label for="no_pictel">No Telepon</label>
                                         <input class="form-control" type="text" id="no_pictel" name="no_pictel" required>
                                     </div>
-                                    <div class="form-group col-md-6 col-sm-12">
-                                        <label for="email_pic">Email</label>
-                                        <input class="form-control" type="text" id="email_pic" name="email_pic" required>
-                                    </div>
                                 </div>
                             </div>
                             
-                            <div class="tab-pane" id="akuntansi" role="tabpanel">
+                            <div class="tab-pane" id="tab_akuntansi" role="tabpanel">
                                 <div class="form-row">
                                     <div class="form-group col-md-6 col-sm-12">    
                                         <label for="akun_hutang">Akun Hutang</label>
@@ -695,47 +708,25 @@
                 required: true,
                 maxlength:50  
             },
+            npwp:{
+                required: true,
+                maxlength:50  
+            },
+            no_fax:{
+                required: true,
+                maxlength:50  
+            },
             alamat:
-            {
-                required: true,
-                maxlength:300
-            },
-            npwp:
-            {
-                required: true,
-                maxlength:50
-            },
-            pic:
-            {
-                required: true,
-                maxlength:50
-            },
-            alamat2:
             {
                 required: true,
                 maxlength:200
             },
-            bank:
+            alamat_npwp:
             {
                 required: true,
-                maxlength:50
-            }, 
-            cabang:
-            {
-                required: true,
-                maxlength:50
-            }, 
-            no_rek:
-            {
-                required: true,
-                maxlength:50
-            }, 
-            nama_rek:
-            {
-                required: true,
-                maxlength:50
+                maxlength:200
             },
-            no_fax:
+            pic:
             {
                 required: true,
                 maxlength:50
@@ -767,21 +758,28 @@
                 var text = "Data tersimpan dengan kode "+id;
             }
 
+            var bank = tableBank.data();
             var formData = new FormData(form);
+            for(var i=0;i<bank.length;i++) {
+                formData.append('no_rek[]', bank[i].no_rek)
+                formData.append('nama_rek[]', bank[i].nama_rek)
+                formData.append('bank[]', bank[i].bank)
+                formData.append('cabang[]', bank[i].cabang)
+            }
             for(var pair of formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
 
             if(parameter == 'edit') {
-                if(telp_pic == telpPicNow || telp == telpNow) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Gagal update data',
-                        text: 'No telp atau No telp PIC mohon untuk diubah',
-                        footer: ''
-                    })
-                    return;
-                }
+                // if(telp_pic == telpPicNow || telp == telpNow) {
+                //     Swal.fire({
+                //         icon: 'error',
+                //         title: 'Gagal update data',
+                //         text: 'No telp atau No telp PIC mohon untuk diubah',
+                //         footer: ''
+                //     })
+                //     return;
+                // }
             }
             
             $.ajax({
@@ -902,21 +900,33 @@
                     $('#id').val(id);
                     $('#nama').val(result.data[0].nama);
                     $('#alamat').val(result.data[0].alamat);
-                    $('#alamat2').val(result.data[0].alamat2);
                     $('#email').val(result.data[0].email);
-                    $('#npwp').val(result.data[0].npwp);
                     $('#pic').val(result.data[0].pic);
                     $('#no_pictel').val(result.data[0].no_pictel);
                     $('#no_tel').val(result.data[0].no_tel);
                     $('#no_fax').val(result.data[0].no_fax);
-                    $('#bank').val(result.data[0].bank);
-                    $('#cabang').val(result.data[0].cabang);
-                    $('#no_rek').val(result.data[0].no_rek);
-                    $('#nama_rek').val(result.data[0].nama_rek);           
+                    $('#npwp').val(result.data[0].npwp);  
+                    $('#alamat2').val(result.data[0].alamat2);
                     $('#saku-datatable').hide();
                     $('#modal-preview').modal('hide');
                     $('#saku-form').show();
                     showInfoField('akun_hutang',result.data[0].akun_hutang,result.data[0].nama_akun);
+                    
+                    tableBank.clear().draw();
+                    if(result.bank.length > 0) {
+                        dataBank = [];
+                        for(var i=0;i<result.bank.length;i++) {
+                            dataBank.push({
+                                no_rek: result.bank[i].no_rek,
+                                nama_rek: result.bank[i].nama_rekening,
+                                bank: result.bank[i].bank,
+                                cabang: result.bank[i].cabang,
+                            })    
+                        }
+                        tableBank.rows.add(dataBank).draw();
+                        count = tableBank.data().count();
+                        $('div.jumlah-data').html("Menampilkan "+count+" per halaman");
+                    }
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
                     window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
@@ -939,9 +949,9 @@
     // END BUTTON EDIT
     
     // HANDLER untuk enter dan tab
-    $('#kode_vendor,#nama,#no_tel,#no_fax,#email,#npwp,#pic,#no_pictel,#bank,#cabang,#no_rek,#nama_rek,#alamat,#alamat2,#akun_hutang').keydown(function(e){
+    $('#kode_vendor,#nama,#no_tel,#email,#no_fax,#npwp,#alamat,#alamat2,#pic,#no_pictel,#akun_hutang').keydown(function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['kode_vendor','nama','no_tel','no_fax','email','npwp','pic','no_pictel','bank','cabang','no_rek','nama_rek','alamat','alamat2','akun_hutang'];
+        var nxt = ['kode_vendor','nama','no_tel','email','no_fax','npwp','alamat','alamat2','pic','no_pictel','akun_hutang'];
         if (code == 13 || code == 40) {
             e.preventDefault();
             var idx = nxt.indexOf(e.target.id);
@@ -1020,8 +1030,35 @@
                 <td>Akun Hutang</td>
                 <td>`+data.akun_hutang+`</td>
             </tr>
+            <tr>
+                <td colspan='2'>
+                    <table class='table table-bordered' id='table-bank-detail'>
+                        <thead>
+                        <tr>
+                        <th>No. Rekening</th>    
+                        <th>Nama</th>    
+                        <th>Bank</th>    
+                        <th>Cabang</th>    
+                        </tr>    
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </td>
+            </tr>
             `;
             $('#table-preview tbody').html(html);
+            var html2;
+            if(res.data.bank.length > 0) {
+                for(var i=0;i<res.data.bank.length;i++) {
+                    html2 += `<tr>
+                    <td>`+res.data.bank[i].no_rek+`</td>
+                    <td>`+res.data.bank[i].nama_rekening+`</td>
+                    <td>`+res.data.bank[i].bank+`</td>
+                    <td>`+res.data.bank[i].cabang+`</td>
+                    </tr>` 
+                }
+            }
+            $('#table-bank-detail tbody').html(html2);
             
             $('#modal-preview-judul').css({'margin-top':'10px','padding':'0px !important'}).html('Preview Data Vendor').removeClass('py-2');
             $('#modal-preview-id').text(id);
