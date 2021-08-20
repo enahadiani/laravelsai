@@ -665,6 +665,7 @@
         $('span[class^=info-name]').addClass('hidden');
         $('.info-icon-hapus').addClass('hidden');
         $('[class*=inp-label-]').attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important;border-left:1px solid #d7d7d7 !important');
+        tableBank.clear().draw();
     });
     // END BUTTON TAMBAH
     
@@ -802,6 +803,7 @@
                         $('#judul-form').html('Tambah Data Vendor');
                         $('#method').val('post');
                         $('#kode_vendor').attr('readonly', false);
+                        tableBank.clear().draw();
                         msgDialog({
                             id:result.data.kode,
                             type:'simpan'
