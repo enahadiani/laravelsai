@@ -92,7 +92,7 @@ class PenjualanController extends Controller
             'qty_barang' => 'required|array',
             'harga_barang' => 'required|array',
             'disc_barang' => 'required|array',
-            // 'ppn_barang' => 'required|array',
+            'ppn_barang' => 'required|array',
             'sub_barang' => 'required|array'
         ]);
         $data_harga = array();
@@ -108,10 +108,10 @@ class PenjualanController extends Controller
             $data_sub[] = intval(str_replace('.','', $request->sub_barang[$i]));
         }
 
-        // $data_ppn = array();
-        // for($i=0;$i<count($request->ppn_barang);$i++){
-        //     $data_ppn[] = intval(str_replace('.','', $request->ppn_barang[$i]));
-        // }
+        $data_ppn = array();
+        for($i=0;$i<count($request->ppn_barang);$i++){
+            $data_ppn[] = intval(str_replace('.','', $request->ppn_barang[$i]));
+        }
 
         $fields = array (
             'kode_pp' => Session::get('kodePP'),
@@ -125,7 +125,7 @@ class PenjualanController extends Controller
             'harga_barang' => $data_harga,
             'diskon_barang' => $data_diskon,
             'sub_barang'=> $data_sub,
-            // 'ppn_barang'=> $data_ppn
+            'ppn_barang'=> $data_ppn
         );
 
             $client = new Client();

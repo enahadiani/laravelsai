@@ -83,7 +83,7 @@
                                             <th>Qty</th>
                                             <th>Subtotal</th>
                                             <th>Disc</th>
-                                            <!-- <th style="display:none">PPN</th> -->
+                                            <th style="display:none">PPN</th>
                                         </tr>
                                     </table>
                                 </div>
@@ -179,7 +179,8 @@
                         <div class='form-group row'>
                             <label for="judul" class="col-3 col-form-label">Qty</label>
                             <div class="col-9">
-                                <input type='text' class='form-control currency ' maxlength='100' id='modal-edit-qty'>
+                                <input type='text' class='form-control currency' maxlength='100' id='modal-edit-qty'>
+                                <input type='hidden' class='form-control currency' id='modal-edit-ppn'>
                             </div>
                         </div>
                     </div>
@@ -356,8 +357,8 @@
                     for(i=0;i<result.daftar.length;i++){
                         control.addOption([{text:result.daftar[i].kode_barang + ' - ' + result.daftar[i].nama, value:result.daftar[i].kode_barang}]);
                         control2.addOption([{kd_barang:result.daftar[i].kode_barang, nama:result.daftar[i].nama,barcode:result.daftar[i].barcode}]);
-                        $dtBrg[result.daftar[i].kode_barang] = {harga:result.daftar[i].hna};  
-                        $dtBrg2[result.daftar[i].barcode] = {harga:result.daftar[i].hna,nama:result.daftar[i].nama,kd_barang:result.daftar[i].kode_barang};
+                        $dtBrg[result.daftar[i].kode_barang] = {harga:result.daftar[i].hna,ppn:result.daftar[i].ppn};  
+                        $dtBrg2[result.daftar[i].barcode] = {harga:result.daftar[i].hna,nama:result.daftar[i].nama,kd_barang:result.daftar[i].kode_barang,ppn:result.daftar[i].ppn};
                     }
 
                 }else if(!result.data.status && result.data.message == "Unauthorized"){
@@ -492,6 +493,14 @@
         }
     };
 
+    function setPPN(id){
+        if (id != ""){
+            return $dtBrg[id].ppn;  
+        }else{
+            return 0;
+        }
+    };
+
     function toNilai(str_num){
         var parts = str_num.split('.');
         number = parts.join('');
@@ -502,23 +511,55 @@
 
     function setHarga3(id){ 
         if (id != ""){
-            return $dtBrg2[id].harga;  
+            if($dtBrg2[id] == undefined){
+                // alert('Kode Barcode tidak ditemukan. Pastikan kode barcode telah terdaftar di database!');
+                // $('#barcode').val('');
+                return false;
+            }else{
+                return $dtBrg2[id].harga;  
+            } 
         }else{
             return "";
         }
     };
 
+    function setPPN2(id){ 
+        if (id != ""){
+            if($dtBrg2[id] == undefined){
+                // alert('Kode Barcode tidak ditemukan. Pastikan kode barcode telah terdaftar di database!');
+                // $('#barcode').val('');
+                return "";
+            }else{
+                return $dtBrg2[id].ppn;  
+            } 
+        }else{
+            return 0;
+        }
+    };
+
     function getKode(id){ 
         if (id != ""){
-            return $dtBrg2[id].kd_barang;  
+            if($dtBrg2[id] == undefined){
+                // alert('Kode Barcode tidak ditemukan. Pastikan kode barcode telah terdaftar di database!');
+                // $('#barcode').val('');
+                return "";
+            }else{
+                return $dtBrg2[id].kd_barang;  
+            }
         }else{
             return "";
         }
     };
 
     function setNama(id){
-        if (id != ""){
-            return $dtBrg2[id].nama;  
+        if (id != ""){  
+            if($dtBrg2[id] == undefined){
+                // alert('Kode Barcode tidak ditemukan. Pastikan kode barcode telah terdaftar di database!');
+                // $('#barcode').val('');
+                return "";
+            }else{
+                return $dtBrg2[id].nama;  
+            }
         }else{
             return "";
         }
@@ -536,13 +577,15 @@
         var kd = $("#input-grid2 tr:eq("+rowindex+")").find('.inp-kdb').val();
         var qty = $("#input-grid2 tr:eq("+rowindex+")").find('.inp-qtyb').val();
         var harga = toNilai($("#input-grid2 tr:eq("+rowindex+")").find('.inp-hrgb').val());    
-        var disc = $("#input-grid2 tr:eq("+rowindex+")").find('.inp-disc').val();
+        var disc = $("#input-grid2 tr:eq("+rowindex+")").find('.inp-disc').val(); 
+        var ppn = $("#input-grid2 tr:eq("+rowindex+")").find('.inp-ppn').val();
 
         $('#modal-edit-kode')[0].selectize.setValue(kd);
         $('#modal-edit-kode').val(kd);
         $('#modal-edit-qty').val(qty);
         $('#modal-edit-harga').val(harga);
         $('#modal-edit-disc').val(disc);
+        $('#modal-edit-ppn').val(ppn);
         
         $('#modal-edit').modal('show');
         var selectKode = $('#modal-edit-kode').data('selectize');
@@ -557,7 +600,8 @@
         var disc1 = 0;
         var hrg1 = setHarga3(kd1);
         var kd=getKode(kd1);
-        var nama = kd+"-"+setNama(kd1);
+        var nama = setNama(kd1);
+        var ppn1 = setPPN2(kd1);
         // || +qty1 <= 0 || +hrg1 <= 0
         if(kd1 == '' || +hrg1 <= 0){
             msgDialog({
@@ -575,6 +619,7 @@
             // var todis= (hrg * disc) / 100
             var sub = (+qty * +hrg) - disc;
             // var sub = +qty * +hrg;
+            var ppn = ppn1;
             
             // cek barang sama
             $('.row-barang').each(function(){
@@ -582,14 +627,13 @@
                 var qty_temp = $(this).closest('tr').find('.inp-qtyb').val();
                 var hrg_temp = $(this).closest('tr').find('.inp-hrgb').val();
                 var disc_temp = $(this).closest('tr').find('.inp-disc').val();
-                // var ppn =0;
+                var ppn_temp = $(this).closest('tr').find('.inp-ppn').val();
                 if(kd_temp == kd){
                     qty+=+(toNilai(qty_temp));
                     // hrg+=+(toNilai(hrg_temp));
                     disc+=+(toNilai(disc_temp));
                     //todis+=+(hrg*toNilai(disc_temp))/100;
                     sub=(hrg*qty)-disc;
-                    // ppn = (sub*10)/100;
                     $(this).closest('tr').remove();
                 }
             });
@@ -600,7 +644,7 @@
             input += "<td width='15%' style='text-align:right'><input type='text' name='qty_barang[]' class='change-validation inp-qtyb form-control'  value='"+qty+"' readonly required></td>";
             input += "<td width='15%' style='text-align:right'><input type='text' name='sub_barang[]' class='change-validation inp-subb form-control'  value='"+toRp(sub)+"' readonly required></td>";
             input += "<td width='10%' style='text-align:right'><input type='text' name='disc_barang[]' class='change-validation inp-disc form-control'  value='"+disc+"' readonly required></td>";
-            // input += "<td width='10%' style='text-align:right;display:none'><input type='text' name='ppn_barang[]' class='change-validation inp-ppnb form-control'  value='"+toRp(ppn)+"' readonly required></td>";
+            input += "<td width='10%' style='text-align:right;display:none'><input type='text' name='ppn_barang[]' class='change-validation inp-ppn form-control'  value='"+toRp(ppn)+"' readonly required></td>";
             input += "<td width='10%' class='text-center'></a><a href='#' class='btn btn-sm ubah-barang' style='font-size:18px !important;padding:0'><i class='simple-icon-pencil'></i></a>&nbsp;<a href='#' class='btn btn-sm hapus-item' style='font-size:18px !important;margin-left:10px;padding:0'><i class='simple-icon-trash'></i></td>";
             input += "</tr>";
             
@@ -621,6 +665,7 @@
         var qtySelect = 1;
         var discSelect = 0;
         var hrgSelect = setHarga2(barangSelect);
+        var ppnSelect = setPPN(barangSelect);
 
         if(barangSelect === '' || +barangSelect <= 0) {
             // alert('Masukkan data barang yang valid');
@@ -636,6 +681,7 @@
             var hrgSelected = hrgSelect;
             var discSelected = discSelect;
             var subSelected = (+qtySelected * +hrgSelected);
+            var ppnSelected = ppnSelect;
             // var ppnSelected = (subSelected*10)/100;
 
             $('.row-barang').each(function(){
@@ -643,14 +689,13 @@
                 var qty_barang = $(this).closest('tr').find('.inp-qtyb').val();
                 var hrg_barang = $(this).closest('tr').find('.inp-hrgb').val();
                 var disc_barang = $(this).closest('tr').find('.inp-disc').val();
-                // var ppnSelected =0;
+                var ppnSelected = $(this).closest('tr').find('.inp-ppn').val();
                 if(kd_barang == barangSelected){
                     qtySelected+=+(toNilai(qty_barang));
                     // hrg+=+(toNilai(hrg_temp));
                     discSelected+=+(toNilai(disc_barang));
                     //todis+=+(hrg*toNilai(disc_temp))/100;
                     subSelected=(hrgSelected*qtySelected);
-                    // ppnSelected=(subSelected*10)/100;
                     $(this).closest('tr').remove();
                 }
             });
@@ -665,7 +710,6 @@
                     qtySelected = result.data.jumlah;
                     discSelected = result.data.diskon;
                     subSelected = (hrgSelected*qtySelected);
-                    // ppnSelected = (subSelected*10)/100;
 
                     input = "<tr class='row-barang'>";
                     input += "<td width='30%'>"+namaSelected+"<input type='hidden' name='kode_barang[]' class='change-validation inp-kdb form-control' value='"+barangSelected+"' readonly required></td>";
@@ -673,7 +717,7 @@
                     input += "<td width='15%' style='text-align:right'><input type='text' name='qty_barang[]' class='change-validation inp-qtyb form-control'  value='"+qtySelected+"' readonly required></td>";
                     input += "<td width='15%' style='text-align:right'><input type='text' name='sub_barang[]' class='change-validation inp-subb form-control'  value='"+toRp(subSelected)+"' readonly required></td>";
                     input += "<td width='10%' style='text-align:right'><input type='text' name='disc_barang[]' class='change-validation inp-disc form-control'  value='"+toRp(discSelected)+"' readonly required></td>";
-                    // input += "<td width='10%' style='text-align:right;display:none'><input type='text' name='ppn_barang[]' class='change-validation inp-ppnb form-control'  value='"+toRp(ppnSelected)+"' readonly required></td>";
+                    input += "<td width='10%' style='text-align:right;display:none'><input type='text' name='ppn_barang[]' class='change-validation inp-ppn form-control'  value='"+toRp(ppnSelected)+"' readonly required></td>";
                     input += "<td width='10%' class='text-center'></a><a href='#' class='btn btn-sm ubah-barang' style='font-size:18px !important;padding:0'><i class='simple-icon-pencil'></i></a>&nbsp;<a href='#' class='btn btn-sm hapus-item' style='font-size:18px !important;margin-left:10px;padding:0'><i class='simple-icon-trash'></i></td>";
                     input += "</tr>";
                     
@@ -697,6 +741,7 @@
         e.preventDefault();
         
         var hrg = toNilai($('#modal-edit-harga').val());
+        var ppn = toNilai($('#modal-edit-ppn').val());
         var qty = toNilai($('#modal-edit-qty').val());
         var disc = toNilai($('#modal-edit-disc').val());
         var kd = $('#modal-edit-kode option:selected').val();
@@ -713,7 +758,6 @@
                     qty=result.data.jumlah;
                     disc=result.data.diskon;
                     sub = (hrg*qty);
-                    // ppn = (sub*10)/100;
 
                     input = "<tr class='row-barang'>";
                     input += "<td width='30%'>"+nama+"<input type='hidden' name='kode_barang[]' class='change-validation inp-kdb form-control' value='"+kd+"' readonly required></td>";
@@ -721,7 +765,7 @@
                     input += "<td width='15%' style='text-align:right'><input type='text' name='qty_barang[]' class='change-validation inp-qtyb form-control'  value='"+qty+"' readonly required></td>";
                     input += "<td width='15%' style='text-align:right'><input type='text' name='sub_barang[]' class='change-validation inp-subb form-control'  value='"+toRp(sub)+"' readonly required></td>";
                     input += "<td width='10%' style='text-align:right'><input type='text' name='disc_barang[]' class='change-validation inp-disc form-control'  value='"+toRp(disc)+"' readonly required></td>";
-                    // input += "<td width='10%' style='text-align:right;display:none'><input type='text' name='ppn_barang[]' class='change-validation inp-ppnb form-control'  value='"+toRp(ppn)+"' readonly required></td>";
+                    input += "<td width='10%' style='text-align:right;display:none'><input type='text' name='ppn_barang[]' class='change-validation inp-ppn form-control'  value='"+toRp(ppn)+"' readonly required></td>";
                     input += "<td width='10%'></a><a class='btn btn-primary btn-sm ubah-barang' style='font-size:18px !important'><i class='fas fa-pencil-alt fa-1'></i></a>&nbsp;<a class='btn btn-danger btn-sm hapus-item' style='font-size:18px !important'><i class='fa fa-times fa-1'></i></td>";
                     input += "</tr>";
                     
