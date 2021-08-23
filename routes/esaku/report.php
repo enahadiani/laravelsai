@@ -12,6 +12,7 @@ Route::get('filter-periode-pmb', 'Esaku\HelperController@getPeriodePmb');
 Route::get('filter-nik-pmb', 'Esaku\HelperController@getNikPmb');
 Route::get('filter-bukti-pmb', 'Esaku\HelperController@getBuktiPmb');
 Route::get('filter-periode-close', 'Esaku\HelperController@getPeriodeClose');
+Route::get('filter-tanggal-close', 'Esaku\HelperController@getTanggalClose');
 Route::get('filter-nik-close', 'Esaku\HelperController@getNikClose');
 Route::get('filter-bukti-close', 'Esaku\HelperController@getBuktiClose');
 Route::get('filter-barang', 'Esaku\HelperController@getBarang');

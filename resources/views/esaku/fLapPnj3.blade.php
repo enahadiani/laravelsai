@@ -137,7 +137,6 @@
         parameter:[{},{
             'periode': $periode.from
         },{},{
-
             'periode': $periode.from,
             'tanggal': $tanggal.from,
             'kasir': $kasir.from

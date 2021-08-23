@@ -372,12 +372,17 @@
             return response()->json(['daftar' => $data['data'], 'status' => true], 200);
         }
 
-        public function getBuktiClose() {
+        public function getBuktiClose(Request $request) {
             $client = new Client();
             $response = $client->request('GET',  config('api.url').'esaku-report/filter-bukti-close',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
+            ],
+            'query' => [
+                'periode' => $request->query('periode'),
+                'tanggal' => $request->query('tanggal'),
+                'nik_kasir' => $request->query('kasir'),
             ]
             ]);
 
@@ -396,7 +401,7 @@
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
-            ]
+            ],
             ]);
 
             if ($response->getStatusCode() == 200) { // 200 OK
@@ -414,6 +419,27 @@
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
+            ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+            
+                $data = json_decode($response_data,true);
+                $data = $data;
+            }
+            return response()->json(['daftar' => $data['data'], 'status' => true], 200);
+        }
+
+        public function getTanggalClose(Request $request) {
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'esaku-report/filter-tanggal-close',[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ],
+            'query' => [
+                'periode' => $request->query('periode')
             ]
             ]);
 
