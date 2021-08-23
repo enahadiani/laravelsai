@@ -65,8 +65,8 @@ function drawRptPage(data,res,from,to){
                     diskon+=+value2.diskon;
                     jumlah+=+value2.jumlah;
                     bonus+=+value2.bonus;
-                    total+=+value2.total;
-                    subTot+= +parseFloat(value2.total)+parseFloat(value2.diskon);
+                    total+=+value2.total_ex;
+                    subTot+= +parseFloat(value2.total_ex);
                     html += "<tr>"
                     html += "<td align='center' class='isi_laporan'>"+no+"</td>";
                     html += "<td  class='isi_laporan'>"+value2.kode_barang+"</td>";
