@@ -109,7 +109,7 @@
                 if(result.status) {
                     
                     for(i=0;i<result.daftar.length;i++){  
-                        control.addOption([{text:result.daftar[i].nik+'-'+result.daftar[i].nama, value:result.daftar[i].nik}]);
+                        control.addOption([{text:result.daftar[i].nik+'|'+result.daftar[i].nama, value:result.daftar[i].nik}]);
                     }
 
                     if("{{ Session::get('userLog') }}" != ""){
@@ -495,7 +495,7 @@
         e.preventDefault();
         $.fn.dataTable.ext.search.push(
             function( settings, data, dataIndex ) {
-                var tmp = $('#inp-filter_nik').val().split("-");
+                var tmp = $('#inp-filter_nik').val().split("|");
                 var nik = tmp[0];
                 var col_nik = data[1];
                 if(nik != "" ){
