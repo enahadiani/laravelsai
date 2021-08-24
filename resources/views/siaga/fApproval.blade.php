@@ -551,6 +551,12 @@
                             'Your data has been '+pesan+' '+result.data.message,
                             'success'
                         )
+                        if(result.data.no_pooling != undefined){
+                            kirimWAEmail(result.data.no_pooling);
+                        }
+                        if(result.data.no_pooling2 != undefined){
+                            kirimWAEmail(result.data.no_pooling2);
+                        }
                         printPreview(kode, 'default')
                     }else if(!result.data.status && result.data.message === "Unauthorized"){
                         window.location.href = "{{ url('/siaga-auth/sesi-habis') }}";
@@ -851,4 +857,18 @@
         });
     });
     // END PRINT PREVIEW
+
+    function kirimWAEmail(id){
+        
+        $.ajax({
+            type: 'POST',
+            url: "{{ url('siaga-trans/send-email') }}",
+            dataType: 'json',
+            data:{'no_pooling': id},
+            async:false,
+            success:function(res){
+                console.log(res);
+            }
+        });
+    }
 </script>

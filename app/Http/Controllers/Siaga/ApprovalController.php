@@ -310,4 +310,36 @@ class ApprovalController extends Controller
         }
     }
 
+    public function sendEmail(Request $request)
+    {
+        $this->validate($request, [
+            'no_pooling' => 'required'
+        ]);
+        try{
+    
+            $client = new Client();
+            $response = $client->request('POST',  config('api.url').'siaga-trans/send-email',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'form_params' => [
+                    'no_pooling' => $request->no_pooling
+                ]
+            ]);  
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                return response()->json(["data" =>$data], 200);  
+            }
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $result['message'] = $res;
+            $result['status']=false;
+            return response()->json(["data" => $result], 200);
+        } 
+        
+    }
 }
