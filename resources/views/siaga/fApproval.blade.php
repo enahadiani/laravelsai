@@ -274,8 +274,9 @@
                                             <th style="width:3%;">No</th>
                                             <th style="width:15%;">NIK</th>
                                             <th style="width:25%;">Nama</th>
+                                            <th style="width:10%;">Tanggal</th>
                                             <th style="width:10%;">Status</th>
-                                            <th style="width:30%;">Keterangan</th>
+                                            <th style="width:32%;">Keterangan</th>
                                             <th style="width:5%;"></th>
                                         </tr>
                                     </thead>
@@ -718,6 +719,7 @@
                             var data = result.data_histori[i];
                             var idNik = 'nik-ke__'+no
                             var idNama = 'nama-ke__'+no
+                            var idTgl = 'tgl-ke__'+no
                             var idStatus = 'status-ke__'+no
                             var idKeterangan = 'keterangan-ke__'+no
                             html += `
@@ -728,6 +730,9 @@
                                     </td>
                                     <td id='${idNama}' class='readonly'>
                                         <span id='text-${idNama}' class='tooltip-span'>${data.nama}</span>
+                                    </td>
+                                    <td id='${idTgl}' class='readonly'>
+                                        <span id='text-${idTgl}' class='tooltip-span'>${data.tgl}</span>
                                     </td>
                                     <td id='${idStatus}' class='readonly'>
                                         <span id='text-${idStatus}' class='tooltip-span'>${data.status}</span>

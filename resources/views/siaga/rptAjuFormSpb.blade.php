@@ -288,6 +288,46 @@
                 <td height='60' valign='top'>&nbsp;&nbsp; &nbsp;Catatan Perpajakan :  &nbsp;`+line.cat_pajak+`</td>
                 <td valign='top'>&nbsp;&nbsp;&nbsp;&nbsp;Catatan Perbendaharaan :  &nbsp;`+line.cat_bdh+`</td>
             </tr>
+            <tr>
+                <td colspan="2">
+                    <div class="col-12">
+                        <p style='font-weight:bold'># <u>LAMPIRAN</u></p>
+                    </div>
+                    <div class="col-12">
+                    <table id="table-penutup" style="border: 1px solid black;border-collapse: collapse;margin-bottom: 20px;" class="" width="100%" border="1">
+                    <thead class="text-center">
+                    <tr>
+                    <td width="10%"></td>
+                    <td width="25">NAMA/NIK</td>
+                    <td width="15%">JABATAN</td>
+                    <td width="10%">TANGGAL</td>
+                    <td width="15%">NO APPROVAL</td>
+                    <td width="10%">STATUS</td>
+                    <td width="15%">TTD</td>
+                    </tr>
+                    </thead>
+                    <tbody>`;
+                    var det2 =``;
+                    var no=1;var det2='';
+                    var result = res.res;
+                    for(var i=0;i<result.histori.length;i++){
+                        det2 +=`<tr>
+                        <td>`+result.histori[i].ket+`</td>
+                        <td>`+result.histori[i].nama_kar+`/`+result.histori[i].nik+`</td>
+                        <td>`+result.histori[i].nama_jab+`</td>
+                        <td>`+result.histori[i].tanggal+`</td>
+                        <td>`+result.histori[i].no_app+`</td>
+                        <td>`+result.histori[i].status+`</td>
+                        <td>&nbsp;</td>
+                        </tr>`;
+                        no++;
+                    }
+                    html+=det2+`
+                    </tbody>
+                    </table>
+                    </div>
+                </td>
+            </tr>
             </table>
             <br><DIV style='page-break-after:always'></DIV>
             `;
