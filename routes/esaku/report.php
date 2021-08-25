@@ -37,6 +37,7 @@ Route::get('filter-jeniscoa', 'Esaku\HelperController@getFilterJenisCOA');
 Route::get('filter-pp', 'Esaku\HelperController@getFilterPP');
 Route::get('filter-periode-kb', 'Esaku\HelperController@getFilterPeriodeKB');
 Route::get('filter-bukti-jurnal-kb', 'Esaku\HelperController@getFilterBuktiJurnalKB');
+Route::get('filter-mode-print', 'Esaku\HelperController@getFilterModePrint');
 
 //AKTAP//
 Route::get('filter-periode-perolehan', 'Esaku\Aktap\FilterAktapController@getPeriodePerolehan');
@@ -84,6 +85,7 @@ Route::post('lap-labarugi-unit', 'Esaku\Inventori\LaporanController@getLabaRugiU
 Route::post('lap-labarugi-unit-dc', 'Esaku\Inventori\LaporanController@getLabaRugiUnitDC');
 
 Route::get('lap-nota-jual-print', 'Esaku\Inventori\LaporanController@printNotaJual');
+Route::get('lap-nota-jual-print-baru', 'Esaku\Inventori\LaporanController@printNotaJualBaru');
 
 Route::get('lap-jurnal-pdf', 'Esaku\Inventori\LaporanController@getBuktiJurnalPDF');
 Route::get('lap-bukubesar-pdf', 'Esaku\Inventori\LaporanController@getBukuBesarPDF');

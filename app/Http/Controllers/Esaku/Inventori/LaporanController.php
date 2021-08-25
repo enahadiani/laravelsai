@@ -8,6 +8,9 @@
     use Illuminate\Support\Facades\Session;
     use GuzzleHttp\Exception\BadResponseException;
     use PDF;
+    
+    use Mike42\Escpos\Printer;
+    use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 
     class LaporanController extends Controller {
 
@@ -17,6 +20,46 @@
             return redirect('esaku-auth/login');
             }
         }
+
+        function buatBaris3Kolom($kolom1, $kolom2, $kolom3) {
+            // Mengatur lebar setiap kolom (dalam satuan karakter)
+            $lebar_kolom_1 = 12;
+            $lebar_kolom_2 = 8;
+            $lebar_kolom_3 = 8;
+        
+            // Melakukan wordwrap(), jadi jika karakter teks melebihi lebar kolom, ditambahkan \n 
+            $kolom1 = wordwrap($kolom1, $lebar_kolom_1, "\n", true);
+            $kolom2 = wordwrap($kolom2, $lebar_kolom_2, "\n", true);
+            $kolom3 = wordwrap($kolom3, $lebar_kolom_3, "\n", true);
+        
+            // Merubah hasil wordwrap menjadi array, kolom yang memiliki 2 index array berarti memiliki 2 baris (kena wordwrap)
+            $kolom1Array = explode("\n", $kolom1);
+            $kolom2Array = explode("\n", $kolom2);
+            $kolom3Array = explode("\n", $kolom3);
+        
+            // Mengambil jumlah baris terbanyak dari kolom-kolom untuk dijadikan titik akhir perulangan
+            $jmlBarisTerbanyak = max(count($kolom1Array), count($kolom2Array), count($kolom3Array));
+        
+            // Mendeklarasikan variabel untuk menampung kolom yang sudah di edit
+            $hasilBaris = array();
+        
+            // Melakukan perulangan setiap baris (yang dibentuk wordwrap), untuk menggabungkan setiap kolom menjadi 1 baris 
+            for ($i = 0; $i < $jmlBarisTerbanyak; $i++) {
+        
+                // memberikan spasi di setiap cell berdasarkan lebar kolom yang ditentukan, 
+                $hasilKolom1 = str_pad((isset($kolom1Array[$i]) ? $kolom1Array[$i] : ""), $lebar_kolom_1, " ");
+                $hasilKolom2 = str_pad((isset($kolom2Array[$i]) ? $kolom2Array[$i] : ""), $lebar_kolom_2, " ");
+        
+                // memberikan rata kanan pada kolom 3 dan 4 karena akan kita gunakan untuk harga dan total harga
+                $hasilKolom3 = str_pad((isset($kolom3Array[$i]) ? $kolom3Array[$i] : ""), $lebar_kolom_3, " ", STR_PAD_LEFT);
+        
+                // Menggabungkan kolom tersebut menjadi 1 baris dan ditampung ke variabel hasil (ada 1 spasi disetiap kolom)
+                $hasilBaris[] = $hasilKolom1 . " " . $hasilKolom2 . " " . $hasilKolom3;
+            }
+        
+            // Hasil yang berupa array, disatukan kembali menjadi string dan tambahkan \n disetiap barisnya.
+            return implode($hasilBaris, "\n") . "\n";
+        } 
 
         function getNamaBulan($no_bulan){
             switch ($no_bulan){
@@ -1630,6 +1673,116 @@
                 $res = json_decode($response->getBody(),true);
                 return dump($res);
             }
+        }
+
+        public function printNotaJualBaru(Request $request) {
+            try {
+                $client = new Client();
+                $response = $client->request('GET',  config('api.url').'esaku-report/lap-nota-jual',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => $request->all()
+                ]);
+    
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $data = json_decode($response_data,true);
+                    if(isset($data['data']) && count($data['data']) > 0){
+
+                        try {
+                            // $ip = ''; // IP Komputer kita atau printer lain yang masih satu jaringan
+                            $printer = "POS58"; // Nama Printer yang di sharing
+                            // $connector = new WindowsPrintConnector("smb://" . $ip . "/" . $printer);
+                            $connector = new WindowsPrintConnector($printer);
+                            // $connector = new NetworkPrintConnector("10.79.241.85", 9100);
+                            /* Start the printer */
+                            $printer = new Printer($connector);
+                            foreach($data['data'] as $row){
+                                
+                                $printer -> feed(1);
+                                $printer -> setJustification(Printer::JUSTIFY_CENTER);
+                                /* Name of shop */
+                                $printer -> selectPrintMode(Printer::MODE_DOUBLE_WIDTH);
+                                $printer -> text("TJ Mart.\n");
+                                $printer -> selectPrintMode();
+                                $printer -> text("Jl. Sumur Bandung No. 12\n");
+                                $printer -> feed(1);
+                                $printer -> text("--------------------------------");
+                        
+                                $printer -> setJustification(Printer::JUSTIFY_LEFT);
+                                /* Title of receipt */
+                                $printer -> setEmphasis(true);
+                                
+                                $printer -> text("No Bukti: ".$row['no_jual']."\n");
+                                $printer -> text("Kasir: ".$row['nik_user']."\n");
+                                $printer -> text($row['tanggal']."\n");
+                                $printer -> text("--------------------------------");
+                                $printer -> setEmphasis(false);
+                        
+                                /* Items */
+                                $printer -> setEmphasis(true);
+                                foreach ($row['detail'] as $item) {
+                                    $printer->text($item['nama']."\n");
+                                    $printer->text(buatBaris3Kolom(number_format($item['jumlah'],0,",",".")."x", number_format($item['harga'],0,",","."), number_format($item['total'],0,",",".")));
+                                }
+                                $printer -> setEmphasis(true);
+                                $printer -> text("--------------------------------");
+                                
+                                $total_trans=$row['nilai'];
+                                $total_disk=$row['diskon'];
+                                $total_stlh=$row['nilai']-$row['diskon'];
+                                $total_byr=$row['tobyr'];
+                                $kembalian=$row['tobyr']-($total_stlh);
+        
+                                $printer->text(buatBaris3Kolom("Total Transaksi", "", number_format($total_trans,0,",",".")));
+                                $printer -> setEmphasis(false);
+                                $printer->text(buatBaris3Kolom("Total Diskon", "", number_format($total_disk,0,",",".")));
+                                $printer->text(buatBaris3Kolom("Total Set. Disk.", "", number_format($total_stlh,0,",",".")));
+                                $printer->text(buatBaris3Kolom("Total Bayar", "", number_format($total_byr,0,",",".")));
+                                $printer->text(buatBaris3Kolom("Kembalian", "", number_format($kembalian,0,",",".")));
+                                $printer -> text("--------------------------------");
+                                $printer -> feed();
+                        
+                                /* Tax and total */
+                                // $printer -> text($tax);
+                                
+                                $printer -> setJustification(Printer::JUSTIFY_CENTER);
+                                $printer -> selectPrintMode();
+                        
+                                /* Footer */
+                                $printer -> feed(1);
+                                $printer -> text("Terima Kasih \n telah berbelanja \n di TJMart\n");
+                                $printer -> feed(2);
+                        
+                            }
+                            /* Cut the receipt and open the cash drawer */
+                            $printer -> cut();
+                            $printer -> pulse();
+                    
+                            $printer -> close();
+                    
+                    
+                            $response = ['success'=>true,'message'=>'Berhasil!'];
+                        } catch (Exception $e) {
+                            $response = ['success'=>false,'message'=>$e->getMessage()];
+                        }
+                    }else{
+                        $response = ['success'=>false,'message'=>'Error Api 2'];
+                    }
+                }else{
+                    $response = ['success'=>false,'message'=>'Error Api'];
+                }
+    
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                $response = ['success'=>false,'message'=>$res];
+            }
+
+            return response()->json($response, 200);
         }
 
     }

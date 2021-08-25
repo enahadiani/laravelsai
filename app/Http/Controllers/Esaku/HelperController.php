@@ -979,6 +979,18 @@
             return response()->json(['daftar' => $data, 'status' => true], 200);
         }
 
+        public function getFilterModePrint() {
+            $data = array(
+                0 => array(
+                    'nama' => 'lama'
+                ),
+                1 => array(
+                    'nama' => 'baru'
+                )
+                );
+            return response()->json(['daftar' => $data, 'status' => true], 200);
+        }
+
 
     }
 ?>

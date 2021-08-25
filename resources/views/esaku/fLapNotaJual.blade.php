@@ -16,6 +16,7 @@
                                         <!-- <x-inp-filter kode="tanggal" nama="Tanggal" selected="1" :option="array('1','3','i')"/>
                                         <x-inp-filter kode="kasir" nama="Kasir" selected="1" :option="array('1','3')"/> -->
                                         <x-inp-filter kode="no_bukti" nama="No Bukti" selected="1" :option="array('1','2','3','i')"/>
+                                        <x-inp-filter kode="mode" nama="Mode Print" selected="3" :option="array('3')"/>
                                         <!-- END COMPONENT -->
                                     </div>
                                     <button id="btn-tampil" style="float:right;width:110px" class="btn btn-primary ml-2 mb-3" type="submit" >Tampilkan</button>
@@ -55,6 +56,15 @@
             to : "",
             toname : "",
         }
+
+    var $mode = {
+        type : "=",
+        from : "lama",
+        fromname : "lama",
+        to : "",
+        toname : "",
+    }
+
     var $tanggal = {
             type : "all",
             from : "",
@@ -81,6 +91,7 @@
     $.fn.DataTable.ext.pager.numbers_length = 5;
 
     $('#periode-from').val(namaPeriode("{{ date('Ym') }}"));
+    $('#mode-from').val("lama");
 
     $('#btn-filter').click(function(e){
         $('#collapseFilter').show();
@@ -114,10 +125,10 @@
 
     $('.selectize').selectize();
     $('#inputFilter').reportFilter({
-        kode : ['periode','no_bukti'],
-        nama : ['Periode','No Bukti'],
-        header : [['Periode'],['No Bukti','Keterangan']],
-        headerpilih : [['Periode','Action'],['No Bukti','Keterangan','Action']],
+        kode : ['periode','no_bukti','mode'],
+        nama : ['Periode','No Bukti','Mode'],
+        header : [['Periode'],['No Bukti','Keterangan'],['Nama']],
+        headerpilih : [['Periode','Action'],['No Bukti','Keterangan','Action'],['Nama','Action'],],
         columns: [
             [
                 { data: 'periode' },
@@ -125,9 +136,12 @@
             [
                 { data: 'no_jual' },
                 { data: 'keterangan' }
-            ]
+            ],
+            [
+                { data: 'nama' },
+            ],
         ],
-        url :["{{ url('esaku-report/filter-periode') }}","{{ url('esaku-report/filter-bukti-pnj') }}"],
+        url :["{{ url('esaku-report/filter-periode') }}","{{ url('esaku-report/filter-bukti-pnj') }}","{{ url('esaku-report/filter-mode-print') }}"],
         parameter:[{},{
             'periode': $periode.from
         },{},{
@@ -135,18 +149,18 @@
             'tanggal': $tanggal.from,
             'kasir': $kasir.from
         }],
-        orderby:[[[0,"desc"]],[[0,"asc"]]],
-        width:[['30%','70%'],['30%','70%']],
-        display:['nama','kode'],
-        pageLength:[12,10]
+        orderby:[[[0,"desc"]],[[0,"asc"]],[[0,"asc"]]],
+        width:[['30%','70%'],['30%','70%'],['30%','70%']],
+        display:['kode','kode','kode'],
+        pageLength:[12,10,10]
     })
     $('#inputFilter').on('change','input',function(e){
         setTimeout(() => {
             $('#inputFilter').reportFilter({
-                kode : ['periode','no_bukti'],
-                nama : ['Periode','No Bukti'],
-                header : [['Periode'],['No Bukti','Keterangan']],
-                headerpilih : [['Periode','Action'],['No Bukti','Keterangan','Action']],
+                kode : ['periode','no_bukti','mode'],
+                nama : ['Periode','No Bukti','Mode'],
+                header : [['Periode'],['No Bukti','Keterangan'],['Nama']],
+                headerpilih : [['Periode','Action'],['No Bukti','Keterangan','Action'],['Nama','Action'],],
                 columns: [
                     [
                         { data: 'periode' },
@@ -154,9 +168,12 @@
                     [
                         { data: 'no_jual' },
                         { data: 'keterangan' }
-                    ]
+                    ],
+                    [
+                        { data: 'nama' },
+                    ],
                 ],
-                url :["{{ url('esaku-report/filter-periode') }}","{{ url('esaku-report/filter-bukti-pnj') }}"],
+                url :["{{ url('esaku-report/filter-periode') }}","{{ url('esaku-report/filter-bukti-pnj') }}","{{ url('esaku-report/filter-mode-print') }}"],
                 parameter:[{},{
                     'periode': $periode.from
                 },{},{
@@ -164,10 +181,10 @@
                     'tanggal': $tanggal.from,
                     'kasir': $kasir.from
                 }],
-                orderby:[[[0,"desc"]],[[0,"asc"]]],
-                width:[['30%','70%'],['30%','70%']],
-                display:['nama','kode'],
-                pageLength:[12,10]
+                orderby:[[[0,"desc"]],[[0,"asc"]],[[0,"asc"]]],
+                width:[['30%','70%'],['30%','70%'],['30%','70%']],
+                display:['kode','kode','kode'],
+                pageLength:[12,10,10]
             })
         }, 500)
     });
@@ -247,7 +264,11 @@
         // $('#saku-report #canvasPreview').printThis({
         //     removeInline: true
         // });
-        printPage("{{ url('esaku-report/lap-nota-jual-print') }}/?periode[]="+$periode.type+"&periode[]="+$periode.from+"&periode[]="+$periode.to+"&no_bukti[]="+$no_bukti.type+"&no_bukti[]="+$no_bukti.from+"&no_bukti[]="+$no_bukti.to);
+        if($mode.from == "lama"){
+            printPage("{{ url('esaku-report/lap-nota-jual-print') }}/?periode[]="+$periode.type+"&periode[]="+$periode.from+"&periode[]="+$periode.to+"&no_bukti[]="+$no_bukti.type+"&no_bukti[]="+$no_bukti.from+"&no_bukti[]="+$no_bukti.to);
+        }else{
+            window.open("{{ url('esaku-report/lap-nota-jual-print-baru') }}/?periode[]="+$periode.type+"&periode[]="+$periode.from+"&periode[]="+$periode.to+"&no_bukti[]="+$no_bukti.type+"&no_bukti[]="+$no_bukti.from+"&no_bukti[]="+$no_bukti.to);
+        }
     });
 
     $('#sai-rpt-print-prev').click(function(){
