@@ -53,6 +53,7 @@ Route::post('lap-aktap-tahun', 'Esaku\Aktap\LaporanController@getSaldoAktapTahun
 Route::post('kartu-aktap', 'Esaku\Aktap\LaporanController@getKartuAktap');
 Route::post('saldo-aktap', 'Esaku\Aktap\LaporanController@getSaldoAktap');
 
+Route::post('lap-penjualan-harian-v2', 'Esaku\Inventori\LaporanController@getPenjualanHarianV2');
 Route::post('lap-penjualan-harian', 'Esaku\Inventori\LaporanController@getPenjualanHarian');
 Route::post('lap-penjualan', 'Esaku\Inventori\LaporanController@getPenjualan');
 Route::post('lap-nota-jual', 'Esaku\Inventori\LaporanController@getNotaJual');
