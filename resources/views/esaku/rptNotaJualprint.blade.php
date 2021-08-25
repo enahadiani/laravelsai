@@ -24,12 +24,15 @@
         </style>
     </head>
     <body onload="window.print()">
+    @if(isset($data))
+    @for($a=0; $a < count($data); $a++)
+    @php  $line2 = $data[$a];  @endphp
     <table width='100%' border='0' cellspacing='0' cellpadding='0'>
         <tr>
           <td colspan='2' align='center' class='size_judul'>TJ Mart</td>
         </tr>
         <tr>
-          <td colspan='2' align='center' class='size_judul'>Jl.Sumur Bandung No. 12 </td>
+          <td colspan='2' align='center' class='size_judul'>Jl.Sumur Bandung No. 12</td>
         </tr>
         <tr>
           <td>&nbsp;</td>
@@ -37,17 +40,27 @@
         </tr>
     </table>
     <table width='100%' border='0' cellspacing='0' cellpadding='0' id='table-det' style='padding-bottom:20px'>
-        @for($i=0; $i< count($data) ;$i++)
-            @php $sub=($data[$i]['harga']*$data[$i]['jumlah'])-$data[$i]['diskon']; @endphp
+        @for($i=0; $i< count($data[$a]['detail']) ;$i++)
+            @php
+                $line = $data[$a]['detail'][$i];
+                $sub=($line['harga']*$line['jumlah'])-$line['diskon']; 
+            @endphp
             <tr>
-            <td width='100%' class='size_isi' colspan="3">{{ $data[$i]['nama'] }}</td>
+            <td width='100%' class='size_isi' colspan="3">{{ $line['nama'] }}</td>
             </tr>
             <tr>
-            <td width='30%' class='size_isi'>{{ number_format($data[$i]['jumlah'],0,",",".") }}x </td>
-            <td width='30%' class='size_isi'>{{ number_format($data[$i]['harga'],0,",",".") }}</td>
-            <td width='40%' align='right' class='size_isi'>{{ number_format($data[$i]['total'],0,",",".") }}</td>
+            <td width='30%' class='size_isi'>{{ number_format($line['jumlah'],0,",",".") }}x </td>
+            <td width='30%' class='size_isi'>{{ number_format($line['harga'],0,",",".") }}</td>
+            <td width='40%' align='right' class='size_isi'>{{ number_format($line['total'],0,",",".") }}</td>
             </tr>
         @endfor
+        @php 
+            $total_trans=$line2['nilai'];
+            $total_disk=$line2['diskon'];
+            $total_stlh=$line2['nilai']-$line2['diskon'];
+            $total_byr=$line2['tobyr'];
+            $kembalian=$line2['tobyr']-($total_stlh);
+        @endphp
       </table>
       <table width='100%' border='0' cellspacing='0' cellpadding='0'>
         <tr>
@@ -76,13 +89,13 @@
         </tr>
         <tr>
         <tr>
-          <td class='size_isi' colspan='2' id='no_bukti'>{{ $no_jual }}</td>
+          <td class='size_isi' colspan='2' id='no_bukti'>{{ $line2['no_jual'] }}</td>
         </tr>
         <tr>
-          <td class='size_isi' colspan='2' id='tgl'>{{ $tgl }}</td>
+          <td class='size_isi' colspan='2' id='tgl'>{{ $line2['tanggal'] }}</td>
         </tr>
         <tr>
-          <td class='size_isi'>Kasir:<span id='nik'>{{ $nik }}</span></td>
+          <td class='size_isi'>Kasir:<span id='nik'>{{ $line2['nik_user'] }}</span></td>
           <td class='size_isi'></td>
         </tr>
         <tr>
@@ -93,6 +106,9 @@
           <td colspan='2' align='center' class='size_judul'>Terima Kasih </td>
         </tr>
       </table>
+      <div style="height:50px;border-bottom:1px dashed black;">&nbsp;</div>
+      @endfor
+      @endif
       {{-- <a href='#' id='nonPrint' class='btn btn-secondary' style='margin-top:20px'><i class='fa fa-arrow-left'></i> Back </a> --}}
     </body>
 </html>                

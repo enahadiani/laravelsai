@@ -55,6 +55,7 @@ Route::post('saldo-aktap', 'Esaku\Aktap\LaporanController@getSaldoAktap');
 
 Route::post('lap-penjualan-harian', 'Esaku\Inventori\LaporanController@getPenjualanHarian');
 Route::post('lap-penjualan', 'Esaku\Inventori\LaporanController@getPenjualan');
+Route::post('lap-nota-jual', 'Esaku\Inventori\LaporanController@getNotaJual');
 Route::post('lap-retur-beli', 'Esaku\Inventori\LaporanController@getReturBeli');
 Route::post('lap-pembelian', 'Esaku\Inventori\LaporanController@getPembelian');
 Route::post('lap-closing', 'Esaku\Inventori\LaporanController@getClosing');
@@ -80,6 +81,8 @@ Route::post('lap-coa', 'Esaku\Inventori\LaporanController@getCOA');
 Route::post('lap-coa-struktur', 'Esaku\Inventori\LaporanController@getCOAStruktur');
 Route::post('lap-labarugi-unit', 'Esaku\Inventori\LaporanController@getLabaRugiUnit');
 Route::post('lap-labarugi-unit-dc', 'Esaku\Inventori\LaporanController@getLabaRugiUnitDC');
+
+Route::get('lap-nota-jual-print', 'Esaku\Inventori\LaporanController@printNotaJual');
 
 Route::get('lap-jurnal-pdf', 'Esaku\Inventori\LaporanController@getBuktiJurnalPDF');
 Route::get('lap-bukubesar-pdf', 'Esaku\Inventori\LaporanController@getBukuBesarPDF');
