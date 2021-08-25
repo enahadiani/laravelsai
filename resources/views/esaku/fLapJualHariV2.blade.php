@@ -204,7 +204,7 @@
             console.log(pair[0]+ ', '+ pair[1]); 
         }
         $('#saku-report').removeClass('hidden');
-        xurl = "{{ url('esaku-auth/form/rptPnjHariv2') }}";
+        xurl = "{{ url('esaku-auth/form/rptPnjHariV2') }}";
         $('#saku-report #canvasPreview').load(xurl);
     });
 
@@ -226,7 +226,7 @@
             console.log(pair[0]+ ', '+ pair[1]); 
         }
         $('#saku-report').removeClass('hidden');
-        xurl = "{{ url('esaku-auth/form/rptPnjHariv2') }}";
+        xurl = "{{ url('esaku-auth/form/rptPnjHariV2') }}";
         $('#saku-report #canvasPreview').load(xurl);
     });
 
