@@ -125,6 +125,13 @@ Route::get('/jurnal-periode', 'Esaku\Keuangan\JurnalController@getPeriodeJurnal'
 Route::post('/import-excel', 'Esaku\Keuangan\JurnalController@importExcel');
 Route::get('jurnal-tmp', 'Esaku\Keuangan\JurnalController@getJurnalTmp');
 
+Route::get('/inv-hitung-hpp', 'Esaku\Keuangan\HPPController@index');
+Route::get('/inv-hitung-hpp-load', 'Esaku\Keuangan\HPPController@loadData');
+Route::post('/inv-hitung-hpp', 'Esaku\Keuangan\HPPController@store');
+Route::get('/inv-hitung-hpp/{id}', 'Esaku\Keuangan\HPPController@show');
+Route::post('/inv-hitung-hpp/{id}','Esaku\Keuangan\HPPController@update');
+Route::delete('/inv-hitung-hpp/{id}','Esaku\Keuangan\HPPController@destroy');
+
 
 Route::get('kas-bank', 'Esaku\KasBank\KasBankController@index');
 Route::post('kas-bank', 'Esaku\KasBank\KasBankController@store');

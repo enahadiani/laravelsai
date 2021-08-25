@@ -153,11 +153,12 @@
                                     <input class='form-control datepicker' type="text" id="tanggal" name="tanggal" value="{{ date('d/m/Y') }}">
                                 </div>
                                 <div class="col-md-4 col-sm-12">
-                                    <label for="status">Status</label>
+                                    <input type="hidden" name="status" class="form-control" value="2" id="status">
+                                    <!-- <label for="status">Status</label>
                                     <select class='form-control selectize' id="status" name="status">
                                         <option value="2" selected>Approved</option>
                                         <option value="3">Return</option>
-                                    </select>
+                                    </select> -->
                                 </div>
                                 <div class="col-md-2 col-sm-12">
                                     <label for="nu">No Urut</label>
@@ -282,7 +283,8 @@
                             <p class="text-success" id="balance-label" style="margin-top: 20px;"></p>
                         </div>
                         <div style="text-align: right;" class="col-md-2 p-0 ">
-                            <button type="submit" style="margin-top: 10px;" id="btn-save" class="btn btn-primary"><i class="fa fa-save"></i> Simpan</button>
+                            <button type="submit" style="margin-top: 10px;" id="btn-return" class="btn btn-warning"><i class=""></i> Return</button>
+                            <button type="submit" style="margin-top: 10px;" id="btn-app" class="btn btn-success"><i class=""></i> Approve</button>
                         </div>
                     </div>
                 </div>
@@ -356,6 +358,14 @@
     var scrollform = document.querySelector('.form-body');
     new PerfectScrollbar(scrollform);
     $('.selectize').selectize();
+
+    $('#saku-form').on('click', '#btn-app', function(){
+        $('#status').val(2);
+    });
+    
+    $('#saku-form').on('click', '#btn-return', function(){
+        $('#status').val(3);
+    });
 
     // function cekAksesForm(){
     //     // $('#grid-load').show();
