@@ -202,8 +202,8 @@
                                         <button class="btn btn-primary btn-sm float-right" type="button" id="btn-load">Load Data</button>
                                     </div>
                                     <div class="col-md-6 col-sm-12">
-                                        <label for="total" >Total</label>
-                                        <input class="form-control currency" type="text" placeholder="Total Kredit" readonly id="total" name="total" value="0">
+                                        <label for="total" >Total HPP</label>
+                                        <input class="form-control currency" type="text" placeholder="Total HPP" readonly id="total" name="total" value="0">
                                     </div>
                                 </div>
                             </div>
@@ -625,7 +625,7 @@
         
         $.ajax({
             type: 'GET',
-            url: "{{ url('/esaku-trans/jurnal') }}/"+id,
+            url: "{{ url('/esaku-trans/inv-hitung-hpp') }}/"+id,
             dataType: 'json',
             async:false,
             success:function(res){
@@ -635,133 +635,22 @@
                     $('#method').val('post');
                     $('#no_bukti').val(id);
                     $('#no_bukti').attr('readonly', true);
-                    $('#tanggal').val(reverseDate2(result.jurnal[0].tanggal,'-','/'));
-                    $('#deskripsi').val(result.jurnal[0].deskripsi);
-                    $('#nik_periksa').val(result.jurnal[0].nik_periksa);
-                    $('#no_dokumen').val(result.jurnal[0].no_dokumen);
-                    $('#total_debet').val(result.jurnal[0].nilai1);
-                    $('#total_kredit').val(result.jurnal[0].nilai1);
-                    // $('#jenis').val(result.jurnal[0].jenis);
-                    if(result.detail.length > 0){
-                        var input = '';
-                        var no=1;
-                        for(var i=0;i<result.detail.length;i++){
-                            var line =result.detail[i];
-                            input += "<tr class='row-jurnal'>";
-                            input += "<td class='no-jurnal text-center'>"+no+"</td>";
-                            input += "<td ><span class='td-kode tdakunke"+no+" tooltip-span'>"+line.kode_akun+"</span><input type='text' id='akunkode"+no+"' name='kode_akun[]' class='form-control inp-kode akunke"+no+" hidden' value='"+line.kode_akun+"' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-akun hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
-                            input += "<td ><span class='td-nama tdnmakunke"+no+" tooltip-span'>"+line.nama_akun+"</span><input type='text' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+" hidden'  value='"+line.nama_akun+"' readonly></td>";
-                            input += "<td ><span class='td-dc tddcke"+no+" tooltip-span'>"+line.dc+"</span><select hidden name='dc[]' class='form-control inp-dc dcke"+no+"' value='"+line.dc+"' required><option value='D'>D</option><option value='C'>C</option></select></td>";
-                            input += "<td ><span class='td-ket tdketke"+no+" tooltip-span'>"+line.keterangan+"</span><input type='text' name='keterangan[]' class='form-control inp-ket ketke"+no+" hidden'  value='"+line.keterangan+"' required></td>";
-                            input += "<td class='text-right'><span class='td-nilai tdnilke"+no+" tooltip-span'>"+format_number(line.nilai)+"</span><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='"+parseInt(line.nilai)+"' required></td>";
-                            input += "<td ><span class='td-pp tdppke"+no+" tooltip-span'>"+line.kode_pp+"</span><input type='text' id='ppkode"+no+"' name='kode_pp[]' class='form-control inp-pp ppke"+no+" hidden' value='"+line.kode_pp+"' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-pp hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
-                            input += "<td ><span class='td-nama_pp tdnmppke"+no+" tooltip-span'>"+line.nama_pp+"</span><input type='text' name='nama_pp[]' class='form-control inp-nama_pp nmppke"+no+" hidden'  value='"+line.nama_pp+"' readonly></td>";
-                            input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
-                            input += "</tr>";
-        
-                            no++;
-                        }
-                        $('#input-grid tbody').html(input);
-                        $('.tooltip-span').tooltip({
-                            title: function(){
-                                return $(this).text();
-                            }
-                        })
-                        no= 1;
-                        for(var i=0;i<result.detail.length;i++){
-                            var line =result.detail[i];
-                            $('.dcke'+no).selectize({
-                                selectOnTab:true,
-                                onChange: function(value) {
-                                    $('.tddcke'+no).text(value);
-                                    hitungTotal();
-                                }
-                            });
-                            $('#akunkode'+no).typeahead({
-                                source:$dtkode_akun,
-                                displayText:function(item){
-                                    return item.id+' - '+item.name;
-                                },
-                                autoSelect:false,
-                                changeInputOnSelect:false,
-                                changeInputOnMove:false,
-                                selectOnBlur:false,
-                                afterSelect: function (item) {
-                                    console.log(item.id);
-                                }
-                            });
-
-                            $('#ppkode'+no).typeahead({
-                                source:$dtkode_pp,
-                                displayText:function(item){
-                                    return item.id+' - '+item.name;
-                                },
-                                autoSelect:false,
-                                changeInputOnSelect:false,
-                                changeInputOnMove:false,
-                                selectOnBlur:false,
-                                afterSelect: function (item) {
-                                    console.log(item.id);
-                                }
-                            });
-                            $('.dcke'+no)[0].selectize.setValue(line.dc);
-                            $('.selectize-control.dcke'+no).addClass('hidden');
-                            $('.nilke'+no).inputmask("numeric", {
-                                radixPoint: ",",
-                                groupSeparator: ".",
-                                digits: 2,
-                                autoGroup: true,
-                                rightAlign: true,
-                                oncleared: function () { self.Value(''); }
-                            });
-                            no++;
-                        }
-                        
+                    $('#tanggal').val(reverseDate2(result.data[0].tanggal,'-','/'));
+                    $('#deskripsi').val(result.data[0].deskripsi);
+                    $('#no_dokumen').val(result.data[0].no_dokumen);
+                    $('#total').val(result.data[0].nilai1);
+                    tableGrid.clear().draw();
+                    tableError.clear().draw();
+                    if(typeof result.detail !== 'undefined' && result.detail.length>0){
+                        tableGrid.rows.add(result.detail).draw(false);
                     }
-
-                    var input2 = "";
-                    if(result.dokumen.length > 0){
-                        var no=1;
-                        for(var i=0;i<result.dokumen.length;i++){
-                            var line =result.dokumen[i];
-                            input2 += "<tr class='row-dok'>";
-                            input2 += "<td class='no-dok text-center'>"+no+"</td>";
-                            input2 += "<td class='px-0 py-0'><div class='inp-div-jenis'><input type='text' name='jenis[]' class='form-control inp-jenis jeniske"+no+" ' value='"+line.jenis+"' required='' style='z-index: 1;' id='jeniskode"+no+"'><a href='#' class='search-item search-jenis'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></div></td>";
-                            input2 += "<td class='px-0 py-0'><input type='text' name='nama_dok[]' class='form-control inp-nama_dok nama_dokke"+no+"' value='"+line.nama+"' readonly></td>";
-                            var dok = "{{ config('api.url').'toko-auth/storage' }}/"+line.fileaddres;
-                            input2 += "<td><span class='td-nama_file tdnmfileke"+no+" tooltip-span'>"+line.fileaddres+"</span><input type='text' name='nama_file[]' class='form-control inp-nama_file nmfileke"+no+" hidden'  value='"+line.fileaddres+"' readonly></td>";
-                            if(line.fileaddres == "-" || line.fileaddres == ""){
-                                input2+=`
-                                <td>
-                                    <input type='file' name='file_dok[]' class='inp-file_dok'>
-                                    <input type='hidden' name='no_urut[]' class='form-control inp-no_urut' value='`+no+`'>
-                                </td>`;
-                            }else{
-                                input2+=`
-                                <td>
-                                    <input type='file' name='file_dok[]'>
-                                    <input type='hidden' name='no_urut[]' class='form-control inp-no_urut' value='`+no+`'>
-                                </td>`;
-                            }
-                            input2+=`
-                                <td class='text-center action-dok'>`;
-                                if(line.fileaddres != "-"){
-                                   var link =`<a class='download-dok' href='`+dok+`'target='_blank' title='Download'><i style='font-size:18px' class='simple-icon-cloud-download'></i></a>&nbsp;&nbsp;&nbsp;<a class='hapus-dok' href='#' title='Hapus Dokumen'><i class='simple-icon-trash' style='font-size:18px' ></i></a>`;
-                                }else{
-                                    var link =``;
-                                }
-                            input2+=link+"</td></tr>";
-                            no++;
-                        }
-                    }
-                    $('#form-tambah #input-dok tbody').html(input2);
-                    hitungTotal();
+                    tableGrid.columns.adjust().draw();
+                    tableError.columns.adjust().draw();
                     hitungTotalRow();
-                    hitungTotalRowUpload("form-tambah");
+                    hitungTotalRowError();
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
                     $('#kode_form').val($form_aktif);
-                    showInfoField("nik_periksa",result.jurnal[0].nik_periksa,result.jurnal[0].nama_periksa);
                     setWidthFooterCardBody();
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
@@ -772,7 +661,7 @@
     }
 
     $('#saku-datatable').on('click', '#btn-edit', function(){
-        var id= $(this).closest('tr').find('td').eq(1).html();
+        var id= $(this).closest('tr').find('td').eq(0).html();
         $('#btn-save').attr('type','button');
         $('#btn-save').attr('id','btn-update');
         $('#judul-form').html('Edit Perhitung dan Jurnal HPP');
@@ -815,7 +704,7 @@
     }
 
     $('#saku-datatable').on('click','#btn-delete',function(e){
-        var id = $(this).closest('tr').find('td').eq(1).html();
+        var id = $(this).closest('tr').find('td').eq(0).html();
         msgDialog({
             id: id,
             type:'hapus'
@@ -873,9 +762,9 @@
 
     // PREVIEW DATA
     $('#table-data tbody').on('click','td',function(e){
-        if($(this).index() != 5){
+        if($(this).index() != 4){
 
-            var id = $(this).closest('tr').find('td').eq(1).html();
+            var id = $(this).closest('tr').find('td').eq(0).html();
             var data = dataTable.row(this).data();
             var posted = data.posted;
             $.ajax({
@@ -910,7 +799,7 @@
                             <div style='border-bottom: double #d7d7d7;padding:0 1.5rem'>
                                 <table class="borderless mb-2" width="100%" >
                                     <tr>
-                                        <td width="25%" style="vertical-align:top !important"><h6 class="text-primary bold">JURNAL VOUCHER</h6></td>
+                                        <td width="25%" style="vertical-align:top !important"><h6 class="text-primary bold">DETAIL HPP</h6></td>
                                         <td width="75%" style="vertical-align:top !important;text-align:right"><h6 class="mb-2 bold">`+result.lokasi[0].nama+`</h6><p style="line-height:1">`+result.lokasi[0].alamat+`<br>`+result.lokasi[0].kota+` `+result.lokasi[0].kodepos+` </p><p class="mt-2">`+result.lokasi[0].email+` | `+result.lokasi[0].no_telp+`</p></td>
                                     </tr>
                                 </table>
@@ -920,80 +809,63 @@
                                     <tr>
                                         <td width="14%">Tanggal</td>
                                         <td width="1%">:</td>
-                                        <td width="20%">`+result.jurnal[0].tanggal+`</td>
+                                        <td width="20%">`+result.data[0].tanggal+`</td>
                                         <td width="30%" rowspan="3"></td>
                                         <td width="10%" rowspan="3" style="vertical-align:top !important">Deskripsi</td>
                                         <td width="1%" rowspan="3" style="vertical-align:top !important">:</td>
-                                        <td width="24%" rowspan="3" style="vertical-align:top !important">`+result.jurnal[0].deskripsi+`</td>
+                                        <td width="24%" rowspan="3" style="vertical-align:top !important">`+result.data[0].deskripsi+`</td>
                                     </tr>
                                     <tr>
                                         <td width="14%">No Transaksi</td>
                                         <td width="1%">:</td>
-                                        <td width="20%">`+result.jurnal[0].no_bukti+`</td>
+                                        <td width="20%">`+result.data[0].no_bukti+`</td>
                                     </tr>
                                     <tr>
                                         <td width="14%">No Dokumen</td>
                                         <td width="1%">:</td>
-                                        <td width="20%">`+result.jurnal[0].no_dokumen+`</td>
+                                        <td width="20%">`+result.data[0].no_dokumen+`</td>
                                     </tr>
                                 </table>
                             </div>
                             <div style="padding:0 1.9rem">
                                 <table class="table table-striped table-body-prev mt-2" width="100%">
                                 <tr style="background: var(--theme-color-1) !important;color:white !important">
-                                        <th style="width:15%">Kode Akun</th>
-                                        <th style="width:20%">Nama Akun</th>
-                                        <th style="width:15">Nama PP</th>
-                                        <th style="width:30%">Keterangan</th>
-                                        <th style="width:10%">Debet</th>
-                                        <th style="width:10%">Kredit</th>
+                                        <th style="width:10%">Kode Barang</th>
+                                        <th style="width:30%">Nama Barang</th>
+                                        <th style="width:10">Kode PP</th>
+                                        <th style="width:10%">Satuan</th>
+                                        <th style="width:10%">Jumlah</th>
+                                        <th style="width:15%">Harga Avg</th>
+                                        <th style="width:15%">HPP</th>
                                 </tr>`;
                                     var det = '';
                                     var total_debet = 0; var total_kredit =0;
                                     if(result.detail.length > 0){
-                                        var no=1;
+                                        var no=1; tojum=0; to_hpp=0;
                                         for(var i=0;i<result.detail.length;i++){
-                                            var line =result.detail[i];
-                                            if(line.dc == "D"){
-                                                total_debet+=parseFloat(line.nilai);
-                                            }else{
-                                                
-                                                total_kredit+=parseFloat(line.nilai);
-                                            }
+                                            var line = result.detail[i];
+                                            tojum+=+line.jumlah;
+                                            to_hpp+=+line.hpp;
                                             det += "<tr>";
-                                            det += "<td >"+line.kode_akun+"</td>";
-                                            det += "<td >"+line.nama_akun+"</td>";
-                                            det += "<td >"+line.nama_pp+"</td>";
-                                            det += "<td >"+line.keterangan+"</td>";
-                                            det += "<td class='text-right'>"+(line.dc == "D" ? format_number(line.nilai) : 0)+"</td>";
-                                            det += "<td class='text-right'>"+(line.dc == "C" ? format_number(line.nilai) : 0)+"</td>";
+                                            det += "<td >"+line.kode_barang+"</td>";
+                                            det += "<td >"+line.nama+"</td>";
+                                            det += "<td >"+line.kode_pp+"</td>";
+                                            det += "<td >"+line.sat_kecil+"</td>";
+                                            det += "<td class='text-right'>"+format_number(line.jumlah)+"</td>";
+                                            det += "<td class='text-right'>"+format_number(line.h_avg)+"</td>";
+                                            det += "<td class='text-right'>"+format_number(line.hpp)+"</td>";
                                             det += "</tr>";
                                             no++;
                                         }
                                     }
                                     det+=`<tr style="background: var(--theme-color-1) !important;color:white !important">
                                         <th colspan="4"></th>
-                                        <th style="width:10%">`+format_number(total_debet)+`</th>
-                                        <th style="width:10%">`+format_number(total_kredit)+`</th>
+                                        <th class='text-right' style="width:10%">`+format_number(tojum)+`</th>
+                                        <th class='text-right' style="width:10%"></th>
+                                        <th class='text-right' style="width:10%">`+format_number(to_hpp)+`</th>
                                 </tr>`;
                                 
                                 html+=det+`
-                                </table>
-                                <table class="table-borderless mt-2" width="100%">
-                                    <tr>
-                                        <td width="25%">&nbsp;</td>
-                                        <td width="25%">&nbsp;</td>
-                                        <td width="10%">&nbsp;</td>
-                                        <td width="20%" class="text-center">Dibuat Oleh</td>
-                                        <td width="20%" class="text-center">Diperiksa Oleh</td>
-                                    </tr>
-                                    <tr>
-                                        <td width="25%">&nbsp;</td>
-                                        <td width="25%">&nbsp;</td>
-                                        <td width="10%">&nbsp;</td>
-                                        <td width="20%" style="height:100px"></td>
-                                        <td width="20%" style="height:100px"></td>
-                                    </tr>
                                 </table>
                             </div>
                         </div>`;
@@ -1072,8 +944,8 @@
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
             var total = $('#total').val();
-            var jumdet = $('#input-grid tr').length;
-            var jumerror = $('#input-error tr').length;
+            var jumdet = tableGrid.data().length;
+            var jumerror = tableError.data().length;
 
             var param = $('#id').val();
             var id = $('#no_bukti').val();
@@ -1135,7 +1007,7 @@
                                 id: '-',
                                 type: 'warning',
                                 title: 'Gagal',
-                                text: result.data.message
+                                text: JSON.stringify(result.data.message)
                             });
                         }
                         $iconLoad.hide();
