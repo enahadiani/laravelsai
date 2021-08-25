@@ -42,7 +42,13 @@ function drawRptPage(data,res,from,to){
                 </table>
                 <div class="table-responsive m-t-40">
                     <table class="table table-hover">
-                        <thead>
+                        <thead>   
+                            <tr>
+                                <td colspan="10" class="text-center"><b>Laporan Penjualan Per Tanggal</b></td>    
+                            </tr>
+                            <tr>
+                                <td colspan="10" class="text-center"><b>Tanggal: ${row.tanggal}</b></td>    
+                            </tr>
                             <tr>
                                 <th style="width: 5%;" class="text-center">No</th>    
                                 <th style="width: 15%;" class="text-center">No Bukti</th>    
