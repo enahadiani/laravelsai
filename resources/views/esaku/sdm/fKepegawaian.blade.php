@@ -36,11 +36,11 @@
                                     <div class="row">
                                         <div class="col-md-3 col-sm-12">
                                             <label for="nik">NIK</label>
-                                            <input class="form-control" type="text" placeholder="NIK" id="nik" name="nik" autocomplete="off" required>
+                                            <input class="form-control" type="text" placeholder="NIK" id="nik" name="nik" autocomplete="off" >
                                         </div>
                                         <div class="col-md-9 col-sm-12">
                                             <label for="nama">Nama</label>
-                                            <input class="form-control" type="text" placeholder="Nama" id="nama" name="nama" autocomplete="off" required>
+                                            <input class="form-control" type="text" placeholder="Nama" id="nama" name="nama" autocomplete="off" >
                                         </div>
                                     </div>
                                 </div>
@@ -50,11 +50,11 @@
                                     <div class="row">
                                         <div class="col-md-6 col-sm-12">
                                             <label for="gelar_depan">Gelar Depan</label>
-                                            <input class="form-control" type="text" placeholder="Gelar Depan" id="gelar_depan" name="gelar_depan" autocomplete="off" required>
+                                            <input class="form-control" type="text" placeholder="Gelar Depan" id="gelar_depan" name="gelar_depan" autocomplete="off" >
                                         </div>
                                         <div class="col-md-6 col-sm-12">
                                             <label for="gelar_belakang">Gelar Belakang</label>
-                                            <input class="form-control" type="text" placeholder="Gelar Belakang" id="gelar_belakang" name="gelar_belakang" autocomplete="off" required>
+                                            <input class="form-control" type="text" placeholder="Gelar Belakang" id="gelar_belakang" name="gelar_belakang" autocomplete="off" >
                                         </div>
                                     </div>
                                 </div>
@@ -66,7 +66,7 @@
                                                 <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
                                                     <span class="input-group-text info-code_kode_sdm" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
                                                 </div>
-                                                <input type="text" class="form-control inp-label-kode_sdm" id="kode_sdm" name="kode_sdm" autocomplete="off" data-input="cbbl" value="" title="" required readonly>
+                                                <input type="text" class="form-control inp-label-kode_sdm" id="kode_sdm" name="kode_sdm" autocomplete="off" data-input="cbbl" value="" title=""  readonly>
                                                 <span class="info-name_kode_sdm hidden">
                                                     <span></span> 
                                                 </span>
@@ -80,7 +80,7 @@
                                                 <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
                                                     <span class="input-group-text info-code_kode_gol" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
                                                 </div>
-                                                <input type="text" class="form-control inp-label-kode_gol" id="kode_gol" name="kode_gol" autocomplete="off" data-input="cbbl" value="" title="" required readonly>
+                                                <input type="text" class="form-control inp-label-kode_gol" id="kode_gol" name="kode_gol" autocomplete="off" data-input="cbbl" value="" title=""  readonly>
                                                 <span class="info-name_kode_gol hidden">
                                                     <span></span> 
                                                 </span>
@@ -100,7 +100,7 @@
                                                 <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
                                                     <span class="input-group-text info-code_kode_jab" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
                                                 </div>
-                                                <input type="text" class="form-control inp-label-kode_jab" id="kode_jab" name="kode_jab" autocomplete="off" data-input="cbbl" value="" title="" required readonly>
+                                                <input type="text" class="form-control inp-label-kode_jab" id="kode_jab" name="kode_jab" autocomplete="off" data-input="cbbl" value="" title=""  readonly>
                                                 <span class="info-name_kode_jab hidden">
                                                     <span></span> 
                                                 </span>
@@ -129,7 +129,7 @@
                                                 <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
                                                     <span class="input-group-text info-code_kode_unit" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
                                                 </div>
-                                                <input type="text" class="form-control inp-label-kode_unit" id="kode_unit" name="kode_unit" autocomplete="off" data-input="cbbl" value="" title="" required readonly>
+                                                <input type="text" class="form-control inp-label-kode_unit" id="kode_unit" name="kode_unit" autocomplete="off" data-input="cbbl" value="" title=""  readonly>
                                                 <span class="info-name_kode_unit hidden">
                                                     <span></span> 
                                                 </span>
@@ -143,7 +143,7 @@
                                                 <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
                                                     <span class="input-group-text info-code_kode_pp" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
                                                 </div>
-                                                <input type="text" class="form-control inp-label-kode_pp" id="kode_pp" name="kode_pp" autocomplete="off" data-input="cbbl" value="" title="" required readonly>
+                                                <input type="text" class="form-control inp-label-kode_pp" id="kode_pp" name="kode_pp" autocomplete="off" data-input="cbbl" value="" title=""  readonly>
                                                 <span class="info-name_kode_pp hidden">
                                                     <span></span> 
                                                 </span>
@@ -161,7 +161,7 @@
                                                 <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
                                                     <span class="input-group-text info-code_kode_loker" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
                                                 </div>
-                                                <input type="text" class="form-control inp-label-kode_loker" id="kode_loker" name="kode_loker" autocomplete="off" data-input="cbbl" value="" title="" required readonly>
+                                                <input type="text" class="form-control inp-label-kode_loker" id="kode_loker" name="kode_loker" autocomplete="off" data-input="cbbl" value="" title=""  readonly>
                                                 <span class="info-name_kode_loker hidden">
                                                     <span></span> 
                                                 </span>
@@ -183,12 +183,20 @@
                                 <div class="form-group col-md-6 col-sm-12">
                                     <div class="row">
                                         <div class="col-md-6 col-sm-12">
-                                            <label for="bpjs">Status BPJS</label>
+                                            <label for="bpjs">Status BPJS Ketenagakerjaan</label>
                                             <select class="form-control selectize" name="bpjs" id="bpjs">
-                                                <option value="1" selected>Ya</option>
-                                                <option value="0">Tidak</option>
+                                                <option value="1">Ya</option>
+                                                <option value="0" selected>Tidak</option>
                                             </select>
                                         </div>
+                                        <div class="col-md-6 col-sm-12">
+                                            <label for="no_bpjs_kerja">Nomor BPJS Ketenagakerjaan</label>
+                                            <input class="form-control" type="text" placeholder="Nomor BPJS Ketenagakerjaan" id="no_bpjs_kerja" name="no_bpjs_kerja" autocomplete="off" value="-" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6 col-sm-12">
+                                    <div class="row">
                                         <div class="col-md-6 col-sm-12">
                                             <label for="jp">Status JP</label>
                                             <select class="form-control selectize" name="jp" id="jp">
@@ -196,19 +204,11 @@
                                                 <option value="0">Tidak</option>
                                             </select>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-6 col-sm-12">
-                                    <div class="row">
                                         <div class="col-md-6 col-sm-12">
                                             <label for="tgl_masuk">Tanggal Masuk</label>
                                             <span class="span-tanggal" id="tanggal-masuk"></span>
                                             <input class='form-control datepicker' id="tgl_masuk" name="tgl_masuk" autocomplete="off" value="{{ date('d/m/Y') }}">
                                             <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;" class="simple-icon-calendar date-search"></i>
-                                        </div>
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="mk_gol">Masa Kerja Golongan</label>
-                                            <input class="form-control currency" type="text" placeholder="Masa Kerja Golongan" id="mk_gol" name="mk_gol" autocomplete="off" required>
                                         </div>
                                     </div>
                                 </div>
@@ -216,9 +216,14 @@
                             <div class="form-row">
                                 <div class="form-group col-md-6 col-sm-12">
                                     <div class="row">
-                                        <div class="col-md-12 col-sm-12">
+                                        <div class="col-md-6 col-sm-12">
+                                            <label for="mk_gol">Masa Kerja Golongan</label>
+                                            <input class="form-control currency" type="text" placeholder="Masa Kerja Golongan" id="mk_gol" name="mk_gol" autocomplete="off" >
+                                            <span class="satuan">Bulan</span>
+                                        </div>
+                                        <div class="col-md-6 col-sm-12">
                                             <label for="no_sk">Nomor SK Tetap</label>
-                                            <input class="form-control" type="text" placeholder="Nomor SK Tetap" id="no_sk" name="no_sk" autocomplete="off" required>
+                                            <input class="form-control" type="text" placeholder="Nomor SK Tetap" id="no_sk" name="no_sk" autocomplete="off" >
                                         </div>
                                     </div>
                                 </div>
@@ -232,7 +237,8 @@
                                         </div>
                                         <div class="col-md-6 col-sm-12">
                                             <label for="mk_gol">Masa Kerja YTB</label>
-                                            <input class="form-control currency" type="text" placeholder="Masa Kerja YTB" id="mk_ytb" name="mk_ytb" autocomplete="off" required>
+                                            <input class="form-control currency" type="text" placeholder="Masa Kerja YTB" id="mk_ytb" name="mk_ytb" autocomplete="off" >
+                                            <span class="satuan">Bulan</span>
                                         </div>
                                     </div>
                                 </div>
@@ -240,19 +246,165 @@
                             <div class="form-row">
                                 <div class="form-group col-md-6 col-sm-12">
                                     <div class="row">
-                                        <div class="col-md-12 col-sm-12">
+                                        <div class="col-md-6 col-sm-12">
                                             <label for="no_kontrak">Nomor SK Kontrak</label>
-                                            <input class="form-control" type="text" placeholder="Nomor SK Kontrak" id="no_kontrak" name="no_kontrak" autocomplete="off" required>
+                                            <input class="form-control" type="text" placeholder="Nomor SK Kontrak" id="no_kontrak" name="no_kontrak" autocomplete="off" >
+                                        </div>
+                                        <div class="col-md-6 col-sm-12">
+                                            <label for="tgl_kontrak">Tanggal SK Kontrak</label>
+                                            <span class="span-tanggal" id="tanggal-kontrak"></span>
+                                            <input class='form-control datepicker' id="tgl_kontrak" name="tgl_kontrak" autocomplete="off" value="{{ date('d/m/Y') }}">
+                                            <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;" class="simple-icon-calendar date-search"></i>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6 col-sm-12">
                                     <div class="row">
                                         <div class="col-md-6 col-sm-12">
-                                            <label for="tgl_kontrak">Tanggal SK Kontrak</label>
-                                            <span class="span-tanggal" id="tanggal-kontrak"></span>
-                                            <input class='form-control datepicker' id="tgl_kontrak" name="tgl_kontrak" autocomplete="off" value="{{ date('d/m/Y') }}">
+                                            <label for="tgl_kontrak_akhir">Tanggal Kontrak Akhir</label>
+                                            <span class="span-tanggal" id="tanggal-kontrak_akhir"></span>
+                                            <input class='form-control datepicker' id="tgl_kontrak_akhir" name="tgl_kontrak_akhir" autocomplete="off" value="{{ date('d/m/Y') }}">
                                             <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;" class="simple-icon-calendar date-search"></i>
+                                        </div>
+                                        <div class="col-md-6 col-sm-12">
+                                            <label for="gaji_pokok">Gaji Pokok</label>
+                                            <input class="form-control currency money" type="text" placeholder="Gaji Pokok" id="gaji_pokok" name="gaji_pokok" autocomplete="off" value="0">
+                                            <span class="satuan-uang">Rp</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6 col-sm-12">
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-12">
+                                            <label for="tunj_jabatan">Tunjangan Jabatan</label>
+                                            <input class="form-control currency money" type="text" placeholder="Tunjangan Jabatan" id="tunj_jabatan" name="tunj_jabatan" autocomplete="off" value="0">
+                                            <span class="satuan-uang">Rp</span>
+                                        </div>
+                                        <div class="col-md-6 col-sm-12">
+                                            <label for="tunj_penampilan">Tunjangan Penampilan</label>
+                                            <input class="form-control currency money" type="text" placeholder="Tunjangan Penampilan" id="tunj_penampilan" name="tunj_penampilan" autocomplete="off" value="0">
+                                            <span class="satuan-uang">Rp</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6 col-sm-12">
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-12">
+                                            <label for="tunj_gondola">Tunjangan Gondola</label>
+                                            <input class="form-control currency money" type="text" placeholder="Tunjangan Gondola" id="tunj_gondola" name="tunj_gondola" autocomplete="off" value="0">
+                                            <span class="satuan-uang">Rp</span>
+                                        </div>
+                                        <div class="col-md-6 col-sm-12">
+                                            <label for="tunj_taman">Tunjangan Taman</label>
+                                            <input class="form-control currency money" type="text" placeholder="Tunjangan Taman" id="tunj_taman" name="tunj_taman" autocomplete="off" value="0">
+                                            <span class="satuan-uang">Rp</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6 col-sm-12">
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-12">
+                                            <label for="tunj_kompetensi">Tunjangan Kompetensi</label>
+                                            <input class="form-control currency money" type="text" placeholder="Tunjangan Kompetensi" id="tunj_kompetensi" name="tunj_kompetensi" autocomplete="off" value="0">
+                                            <span class="satuan-uang">Rp</span>
+                                        </div>
+                                        <div class="col-md-6 col-sm-12">
+                                            <label for="tunj_skill">Tunjangan Skill</label>
+                                            <input class="form-control currency money" type="text" placeholder="Tunjangan Skill" id="tunj_skill" name="tunj_skill" autocomplete="off" value="0">
+                                            <span class="satuan-uang">Rp</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6 col-sm-12">
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-12">
+                                            <label for="tunj_patroli">Tunjangan Patroli</label>
+                                            <input class="form-control currency money" type="text" placeholder="Tunjangan Patroli" id="tunj_patroli" name="tunj_patroli" autocomplete="off" value="0">
+                                            <span class="satuan-uang">Rp</span>
+                                        </div>
+                                        <div class="col-md-6 col-sm-12">
+                                            <label for="tunj_lembur">Tunjangan Lembur</label>
+                                            <input class="form-control currency money" type="text" placeholder="Tunjangan Lembur" id="tunj_lembur" name="tunj_lembur" autocomplete="off" value="0">
+                                            <span class="satuan-uang">Rp</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6 col-sm-12">
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-12">
+                                            <label for="tunj_masakerja">Tunjangan Masa Kerja</label>
+                                            <input class="form-control currency money" type="text" placeholder="Tunjangan Masa Kerja" id="tunj_masakerja" name="tunj_masakerja" autocomplete="off" value="0">
+                                            <span class="satuan-uang">Rp</span>
+                                        </div>
+                                        <div class="col-md-6 col-sm-12">
+                                            <label for="atasan_langsung">Atasan Langsung</label>
+                                            <input class="form-control" type="text" placeholder="Atasan Langsung" id="atasan_langsung" name="atasan_langsung" autocomplete="off" >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6 col-sm-12">
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-12">
+                                            <label for="atasan_t_langsung">Atasan Tidak Langsung</label>
+                                            <input class="form-control" type="text" placeholder="Atasan Tidak Langsung" id="atasan_t_langsung" name="atasan_t_langsung" autocomplete="off" >
+                                        </div>
+                                        <div class="col-md-6 col-sm-12">
+                                            <label for="no_kta">No KTA</label>
+                                            <input class="form-control" type="text" placeholder="No KTA" id="no_kta" name="no_kta" autocomplete="off" >
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6 col-sm-12">
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-12">
+                                            <label for="no_reg_kta">No Registrasi KTA</label>
+                                            <input class="form-control" type="text" placeholder="No Registrasi KTA" id="no_reg_kta" name="no_reg_kta" autocomplete="off" >
+                                        </div>
+                                        <div class="col-md-6 col-sm-12">
+                                            <label for="tgl_berlaku_kta">Tanggal Berlaku KTA</label>
+                                            <span class="span-tanggal" id="tanggal-berlaku_kta"></span>
+                                            <input class='form-control datepicker' id="tgl_berlaku_kta" name="tgl_berlaku_kta" autocomplete="off" value="{{ date('d/m/Y') }}">
+                                            <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;" class="simple-icon-calendar date-search"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6 col-sm-12">
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-12">
+                                            <label for="tgl_kadaluarsa_kta">Tanggal Kadaluarsa KTA</label>
+                                            <span class="span-tanggal" id="tanggal-kadaluarsa_kta"></span>
+                                            <input class='form-control datepicker' id="tgl_kadaluarsa_kta" name="tgl_kadaluarsa_kta" autocomplete="off" value="{{ date('d/m/Y') }}">
+                                            <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;" class="simple-icon-calendar date-search"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6 col-sm-12">
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-12">
+                                            <label for="client">Client</label>
+                                            <input class="form-control" type="text" placeholder="Client" id="client" name="client" autocomplete="off" >
+                                        </div>
+                                        <div class="col-md-6 col-sm-12">
+                                            <label for="fungsi">Fungsi</label>
+                                            <input class="form-control" type="text" placeholder="Fungsi" id="fungsi" name="fungsi" autocomplete="off" >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6 col-sm-12">
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-12">
+                                            <label for="skill">Skill</label>
+                                            <input class="form-control" type="text" placeholder="Skill" id="skill" name="skill" autocomplete="off" >
                                         </div>
                                     </div>
                                 </div>
@@ -275,7 +427,7 @@
                                                 <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
                                                     <span class="input-group-text info-code_kode_agama" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
                                                 </div>
-                                                <input type="text" class="form-control inp-label-kode_agama" id="kode_agama" name="kode_agama" autocomplete="off" data-input="cbbl" value="" title="" required readonly>
+                                                <input type="text" class="form-control inp-label-kode_agama" id="kode_agama" name="kode_agama" autocomplete="off" data-input="cbbl" value="" title=""  readonly>
                                                 <span class="info-name_kode_agama hidden">
                                                     <span></span> 
                                                 </span>
@@ -289,11 +441,37 @@
                                     <div class="row">
                                         <div class="col-md-6 col-sm-12">
                                             <label for="no_telp">Nomor Telepon</label>
-                                            <input class="form-control" type="text" placeholder="Nomor Telepon" id="no_telp" name="no_telp" autocomplete="off" required>
+                                            <input class="form-control" type="text" placeholder="Nomor Telepon" id="no_telp" name="no_telp" autocomplete="off" >
                                         </div>
                                         <div class="col-md-6 col-sm-12">
                                             <label for="no_hp">Nomor HP</label>
-                                            <input class="form-control" type="text" placeholder="Nomor HP" id="no_hp" name="no_hp" autocomplete="off" required>
+                                            <input class="form-control" type="text" placeholder="Nomor HP" id="no_hp" name="no_hp" autocomplete="off" >
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6 col-sm-12">
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-12">
+                                            <label for="provinsi">Provinsi</label>
+                                            <input class="form-control" type="text" placeholder="Provinsi" id="provinsi" name="provinsi" autocomplete="off" >
+                                        </div>
+                                        <div class="col-md-6 col-sm-12">
+                                            <label for="kota">Kota</label>
+                                            <input class="form-control" type="text" placeholder="Kota" id="kota" name="kota" autocomplete="off" >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6 col-sm-12">
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-12">
+                                            <label for="kelurahan">Kelurahan</label>
+                                            <input class="form-control" type="text" placeholder="Kelurahan" id="kelurahan" name="kelurahan" autocomplete="off" >
+                                        </div>
+                                        <div class="col-md-6 col-sm-12">
+                                            <label for="kecamatan">Kecamatan</label>
+                                            <input class="form-control" type="text" placeholder="Kecamatan" id="kecamatan" name="kecamatan" autocomplete="off" >
                                         </div>
                                     </div>
                                 </div>
@@ -303,45 +481,19 @@
                                     <div class="row">
                                         <div class="col-md-6 col-sm-12">
                                             <label for="email">Email</label>
-                                            <input class="form-control" type="email" placeholder="Email" id="email" name="email" autocomplete="off" required>
+                                            <input class="form-control" type="email" placeholder="Email" id="email" name="email" autocomplete="off" >
                                         </div>
                                         <div class="col-md-6 col-sm-12">
-                                            <label for="kota">Kota</label>
-                                            <input class="form-control" type="text" placeholder="Kota" id="kota" name="kota" autocomplete="off" required>
+                                            <label for="kode_pos">Kode Pos</label>
+                                            <input class="form-control" type="text" placeholder="Kode Pos" id="kode_pos" name="kode_pos" autocomplete="off" >
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group col-md-6 col-sm-12">
-                                    <div class="row">
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="kelurahan">Kelurahan</label>
-                                            <input class="form-control" type="text" placeholder="Kelurahan" id="kelurahan" name="kelurahan" autocomplete="off" required>
-                                        </div>
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="kecamatan">Kecamatan</label>
-                                            <input class="form-control" type="text" placeholder="Kecamatan" id="kecamatan" name="kecamatan" autocomplete="off" required>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-row">
                                 <div class="form-group col-md-6 col-sm-12">
                                     <div class="row">
                                         <div class="col-md-12 col-sm-12">
                                             <label for="alamat">Alamat</label>
-                                            <input class="form-control" type="text" placeholder="Alamat" id="alamat" name="alamat" autocomplete="off" required>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-6 col-sm-12">
-                                    <div class="row">
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="kode_pos">Kode Pos</label>
-                                            <input class="form-control" type="text" placeholder="Kode Pos" id="kode_pos" name="kode_pos" autocomplete="off" required>
-                                        </div>
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="no_ktp">Nomor KTP</label>
-                                            <input class="form-control" type="text" placeholder="Nomor KTP" id="no_ktp" name="no_ktp" autocomplete="off" required>
+                                            <input class="form-control" type="text" placeholder="Alamat" id="alamat" name="alamat" autocomplete="off" >
                                         </div>
                                     </div>
                                 </div>
@@ -350,24 +502,28 @@
                                 <div class="form-group col-md-6 col-sm-12">
                                     <div class="row">
                                         <div class="col-md-6 col-sm-12">
-                                            <label for="npwp">Nomor NPWP</label>
-                                            <input class="form-control" type="text" placeholder="Nomor NPWP" id="npwp" name="npwp" autocomplete="off" required>
+                                            <label for="no_ktp">Nomor KTP</label>
+                                            <input class="form-control" type="text" placeholder="Nomor KTP" id="no_ktp" name="no_ktp" autocomplete="off" >
                                         </div>
                                         <div class="col-md-6 col-sm-12">
-                                            <label for="no_bpjs">Nomor BPJS</label>
-                                            <input class="form-control" type="text" placeholder="Nomor BPJS" id="no_bpjs" name="no_bpjs" autocomplete="off" required>
+                                            <label for="npwp">Nomor NPWP</label>
+                                            <input class="form-control" type="text" placeholder="Nomor NPWP" id="npwp" name="npwp" autocomplete="off" >
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6 col-sm-12">
                                     <div class="row">
+                                        <div class="col-md-6 col-sm-12">
+                                            <label for="no_bpjs">Nomor BPJS Kesehatan</label>
+                                            <input class="form-control" type="text" placeholder="Nomor BPJS Kesehatan" id="no_bpjs" name="no_bpjs" autocomplete="off" >
+                                        </div>
                                         <div class="col-md-6 col-sm-12">
                                             <label for="kode_profesi">Profesi</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
                                                     <span class="input-group-text info-code_kode_profesi" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
                                                 </div>
-                                                <input type="text" class="form-control inp-label-kode_profesi" id="kode_profesi" name="kode_profesi" autocomplete="off" data-input="cbbl" value="" title="" required readonly>
+                                                <input type="text" class="form-control inp-label-kode_profesi" id="kode_profesi" name="kode_profesi" autocomplete="off" data-input="cbbl" value="" title=""  readonly>
                                                 <span class="info-name_kode_profesi hidden">
                                                     <span></span> 
                                                 </span>
@@ -375,20 +531,6 @@
                                                 <i class="simple-icon-magnifier search-item2" id="search_kode_profesi"></i>
                                             </div>
                                         </div>
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="kode_strata">Strata</label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
-                                                    <span class="input-group-text info-code_kode_strata" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
-                                                </div>
-                                                <input type="text" class="form-control inp-label-kode_strata" id="kode_strata" name="kode_strata" autocomplete="off" data-input="cbbl" value="" title="" required readonly>
-                                                <span class="info-name_kode_strata hidden">
-                                                    <span></span> 
-                                                </span>
-                                                <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                                <i class="simple-icon-magnifier search-item2" id="search_kode_strata"></i>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -396,18 +538,46 @@
                                 <div class="form-group col-md-6 col-sm-12">
                                     <div class="row">
                                         <div class="col-md-6 col-sm-12">
+                                            <label for="kode_strata">Strata</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                                    <span class="input-group-text info-code_kode_strata" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                                </div>
+                                                <input type="text" class="form-control inp-label-kode_strata" id="kode_strata" name="kode_strata" autocomplete="off" data-input="cbbl" value="" title=""  readonly>
+                                                <span class="info-name_kode_strata hidden">
+                                                    <span></span> 
+                                                </span>
+                                                <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                                <i class="simple-icon-magnifier search-item2" id="search_kode_strata"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-12">
                                             <label for="kode_pajak">Status Pajak</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
                                                     <span class="input-group-text info-code_kode_pajak" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
                                                 </div>
-                                                <input type="text" class="form-control inp-label-kode_pajak" id="kode_pajak" name="kode_pajak" autocomplete="off" data-input="cbbl" value="" title="" required readonly>
+                                                <input type="text" class="form-control inp-label-kode_pajak" id="kode_pajak" name="kode_pajak" autocomplete="off" data-input="cbbl" value="" title=""  readonly>
                                                 <span class="info-name_kode_pajak hidden">
                                                     <span></span> 
                                                 </span>
                                                 <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
                                                 <i class="simple-icon-magnifier search-item2" id="search_kode_pajak"></i>
                                             </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6 col-sm-12">
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-12">
+                                            <label for="t_badan">Tinggi Badan</label>
+                                            <input class="form-control currency" type="text" placeholder="Tinggi Badan" id="t_badan" name="t_badan" autocomplete="off" >
+                                            <span class="satuan">Cm</span>
+                                        </div>
+                                        <div class="col-md-6 col-sm-12">
+                                            <label for="b_badan">Berat Badan</label>
+                                            <input class="form-control currency" type="text" placeholder="Berat Badan" id="b_badan" name="b_badan" autocomplete="off" >
+                                            <span class="satuan">Kg</span>
                                         </div>
                                     </div>
                                 </div>
@@ -419,7 +589,7 @@
                                     <div class="row">
                                         <div class="col-md-6 col-sm-12">
                                             <label for="tempat">Tempat Lahir</label>
-                                            <input class="form-control" type="text" placeholder="Tempat Lahir" id="tempat" name="tempat" autocomplete="off" required>
+                                            <input class="form-control" type="text" placeholder="Tempat Lahir" id="tempat" name="tempat" autocomplete="off" >
                                         </div>
                                         <div class="col-md-6 col-sm-12">
                                             <label for="tgl_lahir">Tanggal Lahir</label>
@@ -433,7 +603,7 @@
                                     <div class="row">
                                         <div class="col-md-6 col-sm-12">
                                             <label for="no_kk">Nomor KK</label>
-                                            <input class="form-control" type="text" placeholder="Nomor KK" id="no_kk" name="no_kk" autocomplete="off" required>
+                                            <input class="form-control" type="text" placeholder="Nomor KK" id="no_kk" name="no_kk" autocomplete="off" >
                                         </div>
                                         <div class="col-md-6 col-sm-12">
                                             <label for="status_nikah">Status Nikah</label>
@@ -456,7 +626,7 @@
                                         </div>
                                         <div class="col-md-6 col-sm-12">
                                             <label for="gol_darah">Golongan Darah</label>
-                                            <input class="form-control" type="text" placeholder="Golongan Darah" id="gol_darah" name="gol_darah" autocomplete="off" required>
+                                            <input class="form-control" type="text" placeholder="Golongan Darah" id="gol_darah" name="gol_darah" autocomplete="off" >
                                         </div>
                                     </div>
                                 </div>
@@ -464,11 +634,11 @@
                                     <div class="row">
                                         <div class="col-md-6 col-sm-12"> 
                                             <label for="ibu_kandung">Ibu Kandung</label>
-                                            <input class="form-control" type="text" placeholder="Ibu Kandung" id="ibu_kandung" name="ibu_kandung" autocomplete="off" required>
+                                            <input class="form-control" type="text" placeholder="Ibu Kandung" id="ibu_kandung" name="ibu_kandung" autocomplete="off" >
                                         </div>
                                         <div class="col-md-6 col-sm-12">
                                             <label for="bank">Bank</label>
-                                            <input class="form-control" type="text" placeholder="Bank" id="bank" name="bank" autocomplete="off" required>
+                                            <input class="form-control" type="text" placeholder="Bank" id="bank" name="bank" autocomplete="off" >
                                         </div>
                                     </div>
                                 </div>
@@ -478,11 +648,11 @@
                                     <div class="row">
                                         <div class="col-md-6 col-sm-12"> 
                                             <label for="cabang">Cabang</label>
-                                            <input class="form-control" type="text" placeholder="Cabang" id="cabang" name="cabang" autocomplete="off" required>
+                                            <input class="form-control" type="text" placeholder="Cabang" id="cabang" name="cabang" autocomplete="off" >
                                         </div>
                                         <div class="col-md-6 col-sm-12">
                                             <label for="no_rek">Nomor Rekening</label>
-                                            <input class="form-control" type="text" placeholder="Nomor Rekening" id="no_rek" name="no_rek" autocomplete="off" required>
+                                            <input class="form-control" type="text" placeholder="Nomor Rekening" id="no_rek" name="no_rek" autocomplete="off" >
                                         </div>
                                     </div>
                                 </div>
@@ -490,7 +660,7 @@
                                     <div class="row">
                                         <div class="col-md-12 col-sm-12"> 
                                             <label for="nama_rek">Nama Rekening</label>
-                                            <input class="form-control" type="text" placeholder="Nama Rekening" id="nama_rek" name="nama_rek" autocomplete="off" required>
+                                            <input class="form-control" type="text" placeholder="Nama Rekening" id="nama_rek" name="nama_rek" autocomplete="off" >
                                         </div>
                                     </div>
                                 </div>
@@ -605,6 +775,39 @@ $('#tgl_kontrak').bootstrapDP({
     orientation: 'bottom left'
 })
 
+$('#tgl_kontrak_akhir').bootstrapDP({
+    autoclose: true,
+    format: 'dd/mm/yyyy',
+    container: '#tanggal-kontrak_akhir',
+    templates: {
+        leftArrow: '<i class="simple-icon-arrow-left"></i>',
+        rightArrow: '<i class="simple-icon-arrow-right"></i>'
+    },
+    orientation: 'bottom left'
+})
+
+$('#tgl_berlaku_kta').bootstrapDP({
+    autoclose: true,
+    format: 'dd/mm/yyyy',
+    container: '#tanggal-berlaku_kta',
+    templates: {
+        leftArrow: '<i class="simple-icon-arrow-left"></i>',
+        rightArrow: '<i class="simple-icon-arrow-right"></i>'
+    },
+    orientation: 'bottom left'
+})
+
+$('#tgl_kadaluarsa_kta').bootstrapDP({
+    autoclose: true,
+    format: 'dd/mm/yyyy',
+    container: '#tanggal-kadaluarsa_kta',
+    templates: {
+        leftArrow: '<i class="simple-icon-arrow-left"></i>',
+        rightArrow: '<i class="simple-icon-arrow-right"></i>'
+    },
+    orientation: 'bottom left'
+})
+
 $('#tgl_lahir').bootstrapDP({
     autoclose: true,
     format: 'dd/mm/yyyy',
@@ -625,6 +828,16 @@ $('#tgl_nikah').bootstrapDP({
         rightArrow: '<i class="simple-icon-arrow-right"></i>'
     },
     orientation: 'bottom left'
+})
+
+$('#bpjs').change(function(){
+    if($(this).val() == "0") {
+        $('#no_bpjs_kerja').val('-')
+        $('#no_bpjs_kerja').attr('readonly', true)
+    } else {
+        $('#no_bpjs_kerja').attr('readonly', false)
+    }
+    
 })
 
 function showPreview(image) {
@@ -986,6 +1199,25 @@ $('#form-tambah').validate({
                     })
                 }
             },
+            error: function(xhr, status, error) {
+                var error = JSON.parse(xhr.responseText);
+                var detail = Object.values(error.errors);
+                if(xhr.status == 422){
+                    var keys = Object.keys(error.errors);
+                    var tab =  $('#'+keys[0]).parents('.tab-pane').attr('id');
+                    $('a[href="#'+tab+'"]').click();
+                    $('#'+keys[0]).addClass('error');
+                    $('#'+keys[0]).parent('.input-group').addClass('input-group-error');
+                    $("label[for="+keys[0]+"]").append("<br/>");
+                    $("label[for="+keys[0]+"]").append('<label id="'+keys[0]+'-error" class="error" for="'+keys[0]+'">'+detail[0]+'</label>');
+                    $('#'+keys[0]).focus();
+                }
+                Swal.fire({
+                    type: 'error',
+                     title: error.message,
+                    text: detail[0]
+                })
+            },
             fail: function(xhr, textStatus, errorThrown){
                 alert('request failed:'+textStatus);
             }
@@ -1015,7 +1247,7 @@ $('#saku-datatable').on('click', '#btn-edit', function(){
     editData(id)
 });
 
-function editData(id) { 
+function editData(id, view = false) { 
     $('#form-tambah').validate().resetForm();
     $('#btn-save').attr('type','button');
     $('#btn-save').attr('id','btn-update');
@@ -1033,45 +1265,68 @@ function editData(id) {
                 $('#id_edit').val('true')
                 $('#id').val(id)
                 $('#prevFoto').val(data.foto)
-                $('#nik').val(id)
-                $('#nama').val(data.nama)
-                $('#gelar_depan').val(data.gelar_depan)
-                $('#gelar_belakang').val(data.gelar_belakang)
-                $('#no_sk').val(data.no_sk)
-                $('#no_kontrak').val(data.no_kontrak)
-                $('#no_telp').val(data.no_telp)
-                $('#no_hp').val(data.no_hp)
-                $('#email').val(data.email)
-                $('#kota').val(data.kota)
-                $('#kelurahan').val(data.kelurahan)
-                $('#kecamatan').val(data.kecamatan)
-                $('#alamat').val(data.alamat)
-                $('#kode_pos').val(data.kode_pos)
-                $('#no_ktp').val(data.no_ktp)
-                $('#npwp').val(data.npwp)
-                $('#no_bpjs').val(data.no_bpjs)
-                $('#tempat').val(data.tempat)
-                $('#no_kk').val(data.no_kk)
-                $('#gol_darah').val(data.gol_darah)
-                $('#ibu_kandung').val(data.ibu_kandung)
-                $('#bank').val(data.bank)
-                $('#cabang').val(data.cabang)
-                $('#no_rek').val(data.no_rek)
-                $('#nama_rek').val(data.nama_rek)
+                isiEdit(id,"text",'#nik',view);
+                isiEdit(data.nama,"text",'#nama',view);
+                isiEdit(data.gelar_depan,"text",'#gelar_depan',view);
+                isiEdit(data.gelar_belakang,"text",'#gelar_belakang',view);
+                isiEdit(data.no_sk,"text",'#no_sk',view);
+                isiEdit(data.no_kontrak,"text",'#no_kontrak',view);
+                isiEdit(data.no_telp,"text",'#no_telp',view);
+                isiEdit(data.no_hp,"text",'#no_hp',view);
+                isiEdit(data.email,"text",'#email',view);
+                isiEdit(data.provinsi,"text",'#provinsi',view);
+                isiEdit(data.kota,"text",'#kota',view);
+                isiEdit(data.kelurahan,"text",'#kelurahan',view);
+                isiEdit(data.kecamatan,"text",'#kecamatan',view);
+                isiEdit(data.alamat,"text",'#alamat',view);
+                isiEdit(data.kode_pos,"text",'#kode_pos',view);
+                isiEdit(data.no_ktp,"text",'#no_ktp',view);
+                isiEdit(data.npwp,"text",'#npwp',view);
+                isiEdit(data.no_bpjs,"text",'#no_bpjs',view);
+                isiEdit(data.tempat,"text",'#tempat',view);
+                isiEdit(data.no_kk,"text",'#no_kk',view);
+                isiEdit(data.gol_darah,"text",'#gol_darah',view);
+                isiEdit(data.ibu_kandung,"text",'#ibu_kandung',view);
+                isiEdit(data.bank,"text",'#bank',view);
+                isiEdit(data.cabang,"text",'#cabang',view);
+                isiEdit(data.no_rek,"text",'#no_rek',view);
+                isiEdit(data.nama_rek,"text",'#nama_rek',view);
+                isiEdit(data.no_bpjs_kerja,"text",'#no_bpjs_kerja',view);
+                isiEdit(data.atasan_langsung,"text",'#atasan_langsung',view);
+                isiEdit(data.atasan_t_langsung,"text",'#atasan_t_langsung',view);
+                isiEdit(data.no_kta,"text",'#no_kta',view);
+                isiEdit(data.no_reg_kta,"text",'#no_reg_kta',view);
+                isiEdit(data.client,"text",'#client',view);
+                isiEdit(data.fungsi,"text",'#fungsi',view);
+                isiEdit(data.skill,"text",'#skill',view);
+                
+                isiEdit(data.mk_gol,"number",'#mk_gol',view);
+                isiEdit(data.mk_ytb,"number",'#mk_ytb',view);
+                isiEdit(data.t_badan,"number",'#t_badan',view);
+                isiEdit(data.b_badan,"number",'#b_badan',view);
+                isiEdit(data.gaji_pokok,"number",'#gaji_pokok',view);
+                isiEdit(data.tunj_jabatan,"number",'#tunj_jabatan',view);
+                isiEdit(data.tunj_penampilan,"number",'#tunj_penampilan',view);
+                isiEdit(data.tunj_gondola,"number",'#tunj_gondola',view);
+                isiEdit(data.tunj_taman,"number",'#tunj_taman',view);
+                isiEdit(data.tunj_kompetensi,"number",'#tunj_kompetensi',view);
+                isiEdit(data.tunj_skill,"number",'#tunj_skill',view);
+                isiEdit(data.tunj_patroli,"number",'#tunj_patroli',view);
+                isiEdit(data.tunj_lembur,"number",'#tunj_lembur',view);
+                isiEdit(data.tunj_masakerja,"number",'#tunj_masakerja',view);
+                
+                isiEdit(reverseDate2(data.tgl_masuk,'-','/'),"date",'#tgl_masuk',view);
+                isiEdit(reverseDate2(data.tgl_sk,'-','/'),"date",'#tgl_sk',view);
+                isiEdit(reverseDate2(data.tgl_kontrak,'-','/'),"date",'#tgl_kontrak',view);
+                isiEdit(reverseDate2(data.tgl_nikah,'-','/'),"date",'#tgl_nikah',view);
+                isiEdit(reverseDate2(data.tgl_berlaku_kta,'-','/'),"date",'#tgl_berlaku_kta',view);
+                isiEdit(reverseDate2(data.tgl_kadaluarsa_kta,'-','/'),"date",'#tgl_kadaluarsa_kta',view);
 
-                $('#mk_gol').val(parseFloat(data.mk_gol))
-                $('#mk_ytb').val(parseFloat(data.mk_ytb))
-
-                $('#tgl_masuk').val(reverseDate2(data.tgl_masuk,'-','/'))
-                $('#tgl_sk').val(reverseDate2(data.tgl_sk,'-','/'))
-                $('#tgl_kontrak').val(reverseDate2(data.tgl_kontrak,'-','/'))
-                $('#tgl_nikah').val(reverseDate2(data.tgl_nikah,'-','/'))
-
-                $('#ijht')[0].selectize.setValue(data.ijht)  
-                $('#bpjs')[0].selectize.setValue(data.bpjs)
-                $('#jp')[0].selectize.setValue(data.jp)
-                $('#jk')[0].selectize.setValue(data.jk)
-                $('#status_nikah')[0].selectize.setValue(data.status_nikah)
+                isiEdit(data.ijht,"select",'#ijht',view);
+                isiEdit(data.bpjs,"select",'#bpjs',view);
+                isiEdit(data.jp,"select",'#jp',view);
+                isiEdit(data.jk,"select",'#jk',view);
+                isiEdit(data.status_nikah,"select",'#status_nikah',view);
                 
                 showInfoField('kode_sdm', data.kode_sdm, data.nama_sdm)
                 showInfoField('kode_gol', data.kode_gol, data.nama_golongan)

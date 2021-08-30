@@ -176,3 +176,22 @@
 #input-dokumen .autocomplete-container ul li p {
     padding-left: 8px;
 }
+.satuan {
+    position: absolute;
+    top: 31px;
+    right: 20px;
+    color: grey;
+}
+.satuan-uang {
+    position: absolute;
+    top: 31px;
+    left: 25px;
+    color: grey;
+}
+.form-control.currency {
+    padding-right: 40px;
+}
+
+.form-control.currency.money {
+    padding-right: 0;
+}
