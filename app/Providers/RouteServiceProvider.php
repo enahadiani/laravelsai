@@ -51,43 +51,43 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapTeluRoutes();
 
         $this->mapTarbakRoutes();
-        
+
         $this->mapApvRoutes();
-        
+
         $this->mapMidtransRoutes();
-        
+
         $this->mapDagoRoutes();
-        
+
         $this->mapTokoRoutes();
 
         $this->mapRtrwRoutes();
 
         $this->mapSaiRoutes();
-        
+
         $this->mapDashTeluRoutes();
-        
+
         $this->mapEsakuRoutes();
 
         $this->mapWebjavaRoutes();
 
         $this->mapWebginasRoutes();
-        
+
         $this->mapWisataRoutes();
 
         $this->mapYakesRoutes();
 
         $this->mapSekolahRoutes();
-        
+
         $this->mapAdmGinasRoutes();
 
         $this->mapSiloRoutes();
-        
+
         $this->mapTsRoutes();
-        
+
         $this->mapSiagaRoutes();
 
         $this->mapWebesakuRoutes();
-        
+
         $this->mapWebJavav2Routes();
 
         $this->mapJavaRoutes();
@@ -97,16 +97,18 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapMobileTarbakRoutes();
 
         $this->mapAdmJavaRoutes();
-        
+
         $this->mapMobileDashRoutes();
-        
+
         $this->mapSimaRoutes();
 
         $this->mapWebTelkomPropertyRoutes();
 
         $this->mapBangtelRoutes();
-        
+
         $this->mapSimlogRoutes();
+
+        $this->mapBdhRoutes();
     }
 
     /**
@@ -161,17 +163,17 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/java/dash.php'));
-    
+
         Route::prefix('java-master')
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/java/master.php'));
-    
+
         Route::prefix('java-trans')
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/java/trans.php'));
-    
+
         Route::prefix('java-report')
             ->middleware('web')
             ->namespace($this->namespace)
@@ -216,7 +218,6 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/telu/dash.php'));
-        
     }
 
     protected function mapTarbakRoutes()
@@ -254,22 +255,21 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/dago/dash.php'));
-    
+
         Route::prefix('dago-master')
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/dago/master.php'));
-    
+
         Route::prefix('dago-trans')
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/dago/trans.php'));
-    
+
         Route::prefix('dago-report')
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/dago/report.php'));
-   
     }
 
     protected function mapTokoRoutes()
@@ -283,22 +283,21 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/toko/dash.php'));
-    
+
         Route::prefix('toko-master')
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/toko/master.php'));
-    
+
         Route::prefix('toko-trans')
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/toko/trans.php'));
-    
+
         Route::prefix('toko-report')
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/toko/report.php'));
-   
     }
 
     protected function mapRtrwRoutes()
@@ -336,22 +335,21 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/sai/dash.php'));
-    
+
         Route::prefix('sai-master')
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/sai/master.php'));
-    
+
         Route::prefix('sai-trans')
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/sai/trans.php'));
-    
+
         Route::prefix('sai-report')
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/sai/report.php'));
-   
     }
 
     protected function mapEsakuRoutes()
@@ -365,22 +363,21 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/esaku/dash.php'));
-    
+
         Route::prefix('esaku-master')
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/esaku/master.php'));
-    
+
         Route::prefix('esaku-trans')
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/esaku/trans.php'));
-    
+
         Route::prefix('esaku-report')
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/esaku/report.php'));
-   
     }
 
     protected function mapWebjavaRoutes()
@@ -389,7 +386,6 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/webjava/web.php'));
-   
     }
 
     protected function mapWebginasRoutes()
@@ -398,12 +394,11 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/webginas/web.php'));
-        
+
         Route::prefix('webginas2')
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/webginas/web2.php'));
-   
     }
 
     protected function mapWisataRoutes()
@@ -417,22 +412,21 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/wisata/dash.php'));
-    
+
         Route::prefix('wisata-master')
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/wisata/master.php'));
-    
+
         Route::prefix('wisata-trans')
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/wisata/trans.php'));
-    
+
         Route::prefix('wisata-report')
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/wisata/report.php'));
-   
     }
 
     protected function mapYakesRoutes()
@@ -446,22 +440,21 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/yakes/dash.php'));
-    
+
         Route::prefix('yakes-master')
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/yakes/master.php'));
-    
+
         Route::prefix('yakes-trans')
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/yakes/trans.php'));
-    
+
         Route::prefix('yakes-report')
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/yakes/report.php'));
-   
     }
 
     protected function mapSekolahRoutes()
@@ -475,22 +468,21 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/sekolah/dash.php'));
-    
+
         Route::prefix('sekolah-master')
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/sekolah/master.php'));
-    
+
         Route::prefix('sekolah-trans')
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/sekolah/trans.php'));
-    
+
         Route::prefix('sekolah-report')
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/sekolah/report.php'));
-   
     }
 
     protected function mapTsRoutes()
@@ -504,22 +496,21 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/ts/dash.php'));
-    
+
         Route::prefix('ts-master')
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/ts/master.php'));
-    
+
         Route::prefix('ts-trans')
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/ts/trans.php'));
-    
+
         Route::prefix('ts-report')
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/ts/report.php'));
-   
     }
 
     protected function mapAdmGinasRoutes()
@@ -533,22 +524,21 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/admginas/dash.php'));
-    
+
         Route::prefix('admginas-master')
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/admginas/master.php'));
-    
+
         Route::prefix('admginas-trans')
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/admginas/trans.php'));
-    
+
         Route::prefix('admginas-report')
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/admginas/report.php'));
-   
     }
 
     protected function mapSiloRoutes()
@@ -562,22 +552,21 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/silo/dash.php'));
-    
+
         Route::prefix('silo-master')
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/silo/master.php'));
-    
+
         Route::prefix('silo-trans')
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/silo/trans.php'));
-    
+
         Route::prefix('silo-report')
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/silo/report.php'));
-   
     }
 
     protected function mapSiagaRoutes()
@@ -601,13 +590,11 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/siaga/trans.php'));
-        
+
         Route::prefix('siaga-report')
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/siaga/report.php'));
-    
-   
     }
 
     protected function mapWebesakuRoutes()
@@ -650,7 +637,7 @@ class RouteServiceProvider extends ServiceProvider
             ->group(base_path('routes/mobile_dash/auth.php'));
     }
 
-    
+
     protected function mapSimaRoutes()
     {
         Route::prefix('sima-auth')
@@ -662,22 +649,21 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/sima/dash.php'));
-    
+
         Route::prefix('sima-master')
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/sima/master.php'));
-    
+
         Route::prefix('sima-trans')
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/sima/trans.php'));
-    
+
         Route::prefix('sima-report')
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/sima/report.php'));
-   
     }
 
     protected function mapWebTelkomPropertyRoutes()
@@ -699,22 +685,21 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/bangtel/dash.php'));
-    
+
         Route::prefix('bangtel-master')
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/bangtel/master.php'));
-    
+
         Route::prefix('bangtel-trans')
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/bangtel/trans.php'));
-    
+
         Route::prefix('bangtel-report')
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/bangtel/report.php'));
-   
     }
 
     protected function mapSimlogRoutes()
@@ -728,22 +713,44 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/simlog/dash.php'));
-    
+
         Route::prefix('simlog-master')
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/simlog/master.php'));
-    
+
         Route::prefix('simlog-trans')
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/simlog/trans.php'));
-    
+
         Route::prefix('simlog-report')
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/simlog/report.php'));
-   
     }
 
+    protected function mapBdhRoutes()
+    {
+        Route::prefix('bdh-auth')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/bdh/auth.php'));
+        Route::prefix('bdh-dash')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/bdh/dash.php'));
+        Route::prefix('bdh-master')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/bdh/master.php'));
+        Route::prefix('bdh-trans')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/bdh/trans.php'));
+        Route::prefix('bdh-report')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/bdh/report.php'));
+    }
 }
