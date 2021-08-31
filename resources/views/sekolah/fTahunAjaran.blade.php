@@ -379,7 +379,7 @@
                         </div>
                         <div class="form-group row">
                             <label>Status</label>
-                            <select class="form-control selectize" data-width="100%" name="inp-filter_status" id="inp-filter_status">
+                            <select class="form-control selectize" data-width="100%" name="inp-filter_status" id="inp-filter_status" value="">
                                 <option value='' disabled>Pilih Status</option>
                                 <option value='AKTIF' selected>AKTIF</option>
                                 <option value='NONAKTIF'>NONAKTIF</option>
@@ -406,6 +406,7 @@
     });
     
     $('.selectize').selectize();
+    $('#inp-filter_status')[0].selectize.setValue('');
 
     function openFilter() {
         var element = $('#mySidepanel');
