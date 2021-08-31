@@ -22,6 +22,10 @@ Route::get('/form/{id}', function ($id) {
     }
 });
 
+Route::get('/sesi-habis', function () {
+    return view('bdh.sesi');
+});
+
 Route::get('/cek_session', 'Bdh\AuthController@cek_session');
 Route::get('/', 'Bdh\AuthController@index');
 Route::get('/dash', 'Bdh\AuthController@index');
