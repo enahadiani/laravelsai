@@ -64,6 +64,7 @@ class PelatihanAdmController extends Controller
             'kode_nik' => 'required',
             'nama' => 'required|array',
             'panitia' => 'required|array',
+            'no_ijazah' => 'required|array',
             'tgl_mulai' => 'required|array',
             'tgl_selesai' => 'required|array'
         ]);
@@ -72,6 +73,7 @@ class PelatihanAdmController extends Controller
             $array_nomor = array();
             $array_nama = array();
             $array_panitia = array();
+            $array_no_ijazah = array();
             $array_tgl_mulai = array();
             $array_tgl_selesai = array();
             $array_fileName = array();
@@ -97,6 +99,10 @@ class PelatihanAdmController extends Controller
                         "name" => "panitia[]",
                         "contents" => $request->panitia[$i]
                     );
+                    $data_no_ijazah = array(
+                        "name" => "no_ijazah[]",
+                        "contents" => $request->no_ijazah[$i]
+                    );
                     $data_tgl_mulai = array(
                         "name" => "tgl_mulai[]",
                         "contents" => $request->tgl_mulai[$i]
@@ -113,6 +119,7 @@ class PelatihanAdmController extends Controller
                     array_push($array_nomor, $data_nomor);
                     array_push($array_nama, $data_nama);
                     array_push($array_panitia, $data_panitia);
+                    array_push($array_no_ijazah, $data_no_ijazah);
                     array_push($array_tgl_mulai, $data_tgl_mulai);
                     array_push($array_tgl_selesai, $data_tgl_selesai);
                     array_push($array_fileName, $data_fileName);
@@ -123,6 +130,7 @@ class PelatihanAdmController extends Controller
                     $array_nomor, 
                     $array_nama, 
                     $array_panitia, 
+                    $array_no_ijazah,
                     $array_tgl_mulai, 
                     $array_tgl_selesai,
                     $array_fileName
@@ -211,6 +219,7 @@ class PelatihanAdmController extends Controller
             'kode_nik' => 'required',
             'nama' => 'required|array',
             'panitia' => 'required|array',
+            'no_ijazah' => 'required|array',
             'tgl_mulai' => 'required|array',
             'tgl_selesai' => 'required|array'
         ]);
@@ -219,6 +228,7 @@ class PelatihanAdmController extends Controller
             $array_nomor = array();
             $array_nama = array();
             $array_panitia = array();
+            $array_no_ijazah = array();
             $array_tgl_mulai = array();
             $array_tgl_selesai = array();
             $array_fileName = array();
@@ -246,6 +256,10 @@ class PelatihanAdmController extends Controller
                         "name" => "panitia[]",
                         "contents" => $request->panitia[$i]
                     );
+                    $data_no_ijazah = array(
+                        "name" => "no_ijazah[]",
+                        "contents" => $request->no_ijazah[$i]
+                    );
                     $data_tgl_mulai = array(
                         "name" => "tgl_mulai[]",
                         "contents" => $request->tgl_mulai[$i]
@@ -270,6 +284,7 @@ class PelatihanAdmController extends Controller
                     array_push($array_nomor, $data_nomor);
                     array_push($array_nama, $data_nama);
                     array_push($array_panitia, $data_panitia);
+                    array_push($array_no_ijazah, $data_no_ijazah);
                     array_push($array_tgl_mulai, $data_tgl_mulai);
                     array_push($array_tgl_selesai, $data_tgl_selesai);
                     array_push($array_fileName, $data_fileName);
@@ -282,6 +297,7 @@ class PelatihanAdmController extends Controller
                     $array_nomor, 
                     $array_nama, 
                     $array_panitia, 
+                    $array_no_ijazah,
                     $array_tgl_mulai, 
                     $array_tgl_selesai, 
                     $array_fileName,

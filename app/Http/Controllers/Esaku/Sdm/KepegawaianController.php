@@ -119,6 +119,30 @@ class KepegawaianController extends Controller
             'cabang' => 'required',
             'no_rek' => 'required',
             'nama_rek' => 'required',
+            'no_bpjs_kerja' => 'required',
+            'tgl_kontrak_akhir' => 'required',
+            'gaji_pokok' => 'required',
+            'tunj_jabatan' => 'required',
+            'tunj_penampilan' => 'required',
+            'tunj_gondola' => 'required',
+            'tunj_taman' => 'required',
+            'tunj_kompetensi' => 'required',
+            'tunj_skill' => 'required',
+            'tunj_patroli' => 'required',
+            'tunj_lembur' => 'required',
+            'tunj_masakerja' => 'required',
+            'atasan_langsung' => 'required',
+            'atasan_t_langsung' => 'required',
+            'no_kta' => 'required',
+            'no_reg_kta' => 'required',
+            'tgl_berlaku_kta' => 'required',
+            'tgl_kadaluarsa_kta' => 'required',
+            'client' => 'required',
+            'fungsi' => 'required',
+            'skill' => 'required',
+            'provinsi' => 'required',
+            't_badan' => 'required',
+            'b_badan' => 'required'
         ]);
 
         try {   
@@ -169,7 +193,7 @@ class KepegawaianController extends Controller
                 ),
                 array(
                     "name" => "grade", 
-                    "contents" => "-"
+                    "contents" => $request->input('kode_strata')
                 ),array(
                     "name" => "kota", 
                     "contents" => $request->input('kota')
@@ -208,7 +232,7 @@ class KepegawaianController extends Controller
                 ),
                 array(
                     "name" => "nip", 
-                    "contents" => "-"
+                    "contents" => $request->input('nik')
                 ),
                 array(
                     "name" => "kode_unit", 
@@ -320,11 +344,107 @@ class KepegawaianController extends Controller
                 ),
                 array(
                     "name" => "mk_gol", 
-                    "contents" => $request->input('mk_gol')
+                    "contents" => $this->joinNum($request->input('mk_gol'))
                 ),
                 array(
                     "name" => "mk_ytb", 
-                    "contents" => $request->input('mk_ytb')
+                    "contents" => $this->joinNum($request->input('mk_ytb'))
+                ),
+                array(
+                    "name" => "t_badan", 
+                    "contents" => $this->joinNum($request->input('t_badan'))
+                ),
+                array(
+                    "name" => "b_badan", 
+                    "contents" => $this->joinNum($request->input('b_badan'))
+                ),
+                array(
+                    "name" => "provinsi", 
+                    "contents" => $request->input('provinsi')
+                ),
+                array(
+                    "name" => "client", 
+                    "contents" => $request->input('client')
+                ),
+                array(
+                    "name" => "fungsi", 
+                    "contents" => $request->input('fungsi')
+                ),
+                array(
+                    "name" => "skill", 
+                    "contents" => $request->input('skill')
+                ),
+                array(
+                    "name" => "tgl_kontrak_akhir", 
+                    "contents" => $this->convertDate($request->input('tgl_kontrak_akhir'))
+                ),
+                array(
+                    "name" => "gaji_pokok", 
+                    "contents" => $this->joinNum($request->input('gaji_pokok'))
+                ),
+                array(
+                    "name" => "tunj_jabatan", 
+                    "contents" => $this->joinNum($request->input('tunj_jabatan'))
+                ),
+                array(
+                    "name" => "tunj_penampilan", 
+                    "contents" => $this->joinNum($request->input('tunj_penampilan'))
+                ),
+                array(
+                    "name" => "tunj_gondola", 
+                    "contents" => $this->joinNum($request->input('tunj_gondola'))
+                ),
+                array(
+                    "name" => "tunj_taman", 
+                    "contents" => $this->joinNum($request->input('tunj_taman'))
+                ),
+                array(
+                    "name" => "tunj_kompetensi", 
+                    "contents" => $this->joinNum($request->input('tunj_kompetensi'))
+                ),
+                array(
+                    "name" => "tunj_skill", 
+                    "contents" => $this->joinNum($request->input('tunj_skill'))
+                ),
+                array(
+                    "name" => "tunj_patroli", 
+                    "contents" => $this->joinNum($request->input('tunj_patroli'))
+                ),
+                array(
+                    "name" => "tunj_lembur", 
+                    "contents" => $this->joinNum($request->input('tunj_lembur'))
+                ),
+                array(
+                    "name" => "tunj_masakerja", 
+                    "contents" => $this->joinNum($request->input('tunj_masakerja'))
+                ),
+                array(
+                    "name" => "no_bpjs_kerja", 
+                    "contents" => $request->input('no_bpjs_kerja')
+                ),
+                array(
+                    "name" => "atasan_langsung", 
+                    "contents" => $request->input('atasan_langsung')
+                ),
+                array(
+                    "name" => "atasan_t_langsung", 
+                    "contents" => $request->input('atasan_t_langsung')
+                ),
+                array(
+                    "name" => "no_kta", 
+                    "contents" => $request->input('no_kta')
+                ),
+                array(
+                    "name" => "no_reg_kta", 
+                    "contents" => $request->input('no_reg_kta')
+                ),
+                array(
+                    "name" => "tgl_berlaku_kta", 
+                    "contents" => $this->convertDate($request->input('tgl_berlaku_kta'))
+                ),
+                array(
+                    "name" => "tgl_kadaluarsa_kta", 
+                    "contents" => $this->convertDate($request->input('tgl_kadaluarsa_kta'))
                 ),
             );
 
@@ -443,6 +563,30 @@ class KepegawaianController extends Controller
             'cabang' => 'required',
             'no_rek' => 'required',
             'nama_rek' => 'required',
+            'no_bpjs_kerja' => 'required',
+            'tgl_kontrak_akhir' => 'required',
+            'gaji_pokok' => 'required',
+            'tunj_jabatan' => 'required',
+            'tunj_penampilan' => 'required',
+            'tunj_gondola' => 'required',
+            'tunj_taman' => 'required',
+            'tunj_kompetensi' => 'required',
+            'tunj_skill' => 'required',
+            'tunj_patroli' => 'required',
+            'tunj_lembur' => 'required',
+            'tunj_masakerja' => 'required',
+            'atasan_langsung' => 'required',
+            'atasan_t_langsung' => 'required',
+            'no_kta' => 'required',
+            'no_reg_kta' => 'required',
+            'tgl_berlaku_kta' => 'required',
+            'tgl_kadaluarsa_kta' => 'required',
+            'client' => 'required',
+            'fungsi' => 'required',
+            'skill' => 'required',
+            'provinsi' => 'required',
+            't_badan' => 'required',
+            'b_badan' => 'required'
         ]);
 
         try {   
@@ -493,7 +637,7 @@ class KepegawaianController extends Controller
                 ),
                 array(
                     "name" => "grade", 
-                    "contents" => "-"
+                    "contents" => $request->input('kode_strata')
                 ),array(
                     "name" => "kota", 
                     "contents" => $request->input('kota')
@@ -532,7 +676,7 @@ class KepegawaianController extends Controller
                 ),
                 array(
                     "name" => "nip", 
-                    "contents" => "-"
+                    "contents" => $request->input('nik')
                 ),
                 array(
                     "name" => "kode_unit", 
@@ -644,11 +788,107 @@ class KepegawaianController extends Controller
                 ),
                 array(
                     "name" => "mk_gol", 
-                    "contents" => $request->input('mk_gol')
+                    "contents" => $this->joinNum($request->input('mk_gol'))
                 ),
                 array(
                     "name" => "mk_ytb", 
-                    "contents" => $request->input('mk_ytb')
+                    "contents" => $this->joinNum($request->input('mk_ytb'))
+                ),
+                array(
+                    "name" => "t_badan", 
+                    "contents" => $this->joinNum($request->input('t_badan'))
+                ),
+                array(
+                    "name" => "b_badan", 
+                    "contents" => $this->joinNum($request->input('b_badan'))
+                ),
+                array(
+                    "name" => "provinsi", 
+                    "contents" => $request->input('provinsi')
+                ),
+                array(
+                    "name" => "client", 
+                    "contents" => $request->input('client')
+                ),
+                array(
+                    "name" => "fungsi", 
+                    "contents" => $request->input('fungsi')
+                ),
+                array(
+                    "name" => "skill", 
+                    "contents" => $request->input('skill')
+                ),
+                array(
+                    "name" => "tgl_kontrak_akhir", 
+                    "contents" => $this->convertDate($request->input('tgl_kontrak_akhir'))
+                ),
+                array(
+                    "name" => "gaji_pokok", 
+                    "contents" => $this->joinNum($request->input('gaji_pokok'))
+                ),
+                array(
+                    "name" => "tunj_jabatan", 
+                    "contents" => $this->joinNum($request->input('tunj_jabatan'))
+                ),
+                array(
+                    "name" => "tunj_penampilan", 
+                    "contents" => $this->joinNum($request->input('tunj_penampilan'))
+                ),
+                array(
+                    "name" => "tunj_gondola", 
+                    "contents" => $this->joinNum($request->input('tunj_gondola'))
+                ),
+                array(
+                    "name" => "tunj_taman", 
+                    "contents" => $this->joinNum($request->input('tunj_taman'))
+                ),
+                array(
+                    "name" => "tunj_kompetensi", 
+                    "contents" => $this->joinNum($request->input('tunj_kompetensi'))
+                ),
+                array(
+                    "name" => "tunj_skill", 
+                    "contents" => $this->joinNum($request->input('tunj_skill'))
+                ),
+                array(
+                    "name" => "tunj_patroli", 
+                    "contents" => $this->joinNum($request->input('tunj_patroli'))
+                ),
+                array(
+                    "name" => "tunj_lembur", 
+                    "contents" => $this->joinNum($request->input('tunj_lembur'))
+                ),
+                array(
+                    "name" => "tunj_masakerja", 
+                    "contents" => $this->joinNum($request->input('tunj_masakerja'))
+                ),
+                array(
+                    "name" => "no_bpjs_kerja", 
+                    "contents" => $request->input('no_bpjs_kerja')
+                ),
+                array(
+                    "name" => "atasan_langsung", 
+                    "contents" => $request->input('atasan_langsung')
+                ),
+                array(
+                    "name" => "atasan_t_langsung", 
+                    "contents" => $request->input('atasan_t_langsung')
+                ),
+                array(
+                    "name" => "no_kta", 
+                    "contents" => $request->input('no_kta')
+                ),
+                array(
+                    "name" => "no_reg_kta", 
+                    "contents" => $request->input('no_reg_kta')
+                ),
+                array(
+                    "name" => "tgl_berlaku_kta", 
+                    "contents" => $this->convertDate($request->input('tgl_berlaku_kta'))
+                ),
+                array(
+                    "name" => "tgl_kadaluarsa_kta", 
+                    "contents" => $this->convertDate($request->input('tgl_kadaluarsa_kta'))
                 ),
                 array(
                     "name" => "prevFoto", 

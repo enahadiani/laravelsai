@@ -61,8 +61,9 @@
                                                     <th style="width:3%;">No</th>
                                                     <th style="width:18%;">Nama</th>
                                                     <th style="width:18%;">Penyelenggara</th>
-                                                    <th style="width:8%;">Tanggal Mulai</th>
-                                                    <th style="width:8%;">Tanggal Selesai</th>
+                                                    <th style="width:8%;">Tgl Mulai</th>
+                                                    <th style="width:8%;">Tgl Selesai</th>
+                                                    <th style="width:15%;">No Ijazah</th>
                                                     <th style="width:20%;">Sertifikat</th>
                                                     <th style="width:5%;"></th>
                                                 </tr>
@@ -317,6 +318,7 @@ function addRowPelatihanDefault() {
     no = no + 1;
     var idNama = 'nama-ke__'+no
     var idPenyelanggara = 'penyelenggara-ke__'+no
+    var idIjazah = 'ijazah-ke__'+no
     var idTanggalMulai = 'tgl-mulai-ke__'+no
     var idTanggalSelesai = 'tgl-selesai-ke__'+no
     var idFile = 'file-ke__'+no
@@ -342,6 +344,10 @@ function addRowPelatihanDefault() {
         <td id="${idTanggalSelesai}">
             <span id="text-${idTanggalSelesai}" class="tooltip-span"></span>
             <input class="form-control input-value hidden" type="date" id="value-${idTanggalSelesai}" name="tgl_selesai[]" autocomplete="off" value="{{ date('Y-m-d') }}">
+        </td>
+        <td id="${idIjazah}">
+            <span id="text-${idIjazah}" class="tooltip-span"></span>
+            <input autocomplete="off" type="text" id="value-${idIjazah}" name="no_ijazah[]" class="form-control input-value hidden" value="" >
         </td>
         <td id="${idFile}" style="word-wrap: break-word">
             <input id='value-${idFile}' type='file' name='file[]'>
@@ -370,6 +376,7 @@ function addRowPelatihan() {
     no = no + 1;
     var idNama = 'nama-ke__'+no
     var idPenyelanggara = 'penyelenggara-ke__'+no
+    var idIjazah = 'ijazah-ke__'+no
     var idTanggalMulai = 'tgl-mulai-ke__'+no
     var idTanggalSelesai = 'tgl-selesai-ke__'+no
     var idFile = 'file-ke__'+no
@@ -395,6 +402,10 @@ function addRowPelatihan() {
         <td id="${idTanggalSelesai}">
             <span id="text-${idTanggalSelesai}" class="tooltip-span"></span>
             <input class="form-control input-value hidden" type="date" id="value-${idTanggalSelesai}" name="tgl_selesai[]" autocomplete="off" value="{{ date('Y-m-d') }}">
+        </td>
+        <td id="${idIjazah}">
+            <span id="text-${idIjazah}" class="tooltip-span"></span>
+            <input autocomplete="off" type="text" id="value-${idIjazah}" name="no_ijazah[]" class="form-control input-value hidden" value="" >
         </td>
         <td id="${idFile}" style="word-wrap: break-word">
             <input id='value-${idFile}' type='file' name='file[]'>
@@ -512,7 +523,7 @@ function checkTablePelatihan() {
     } else {
         $('#input-pelatihan tbody').children('tr').each(function() {
             baris = $(this).index() + 1
-            $(this).children('td').not(':first, :last, :eq(5)').each(function() {
+            $(this).children('td').not(':first, :last, :eq(6)').each(function() {
                 if($(this).text().trim() === '') {
                     empty = true
                     kolom = $('#input-pelatihan thead > tr th').eq($(this).index()).text()
@@ -657,11 +668,16 @@ function editData(id) {
                         var row = gridField[i]
                         var idNama = 'nama-ke__'+no
                         var idPenyelanggara = 'penyelenggara-ke__'+no
+                        var idIjazah = 'ijazah-ke__'+no
                         var idTanggalMulai = 'tgl-mulai-ke__'+no
                         var idTanggalSelesai = 'tgl-selesai-ke__'+no
                         var idFile = 'file-ke__'+no
                         var tgl_mulai = row.tgl_mulai.split(" ")
                         var tgl_selesai = row.tgl_selesai.split(" ")
+
+                        if(row.no_ijazah == null) {
+                            row.no_ijazah = ""
+                        }
 
                         html = `<tr class="row-grid">
                             <td class="text-center">
@@ -683,6 +699,10 @@ function editData(id) {
                             <td id="${idTanggalSelesai}">
                                 <span id="text-${idTanggalSelesai}" class="tooltip-span">${tgl_selesai[0]}</span>
                                 <input class="form-control input-value hidden" type="date" id="value-${idTanggalSelesai}" name="tgl_selesai[]" autocomplete="off" value="${tgl_selesai[0]}">
+                            </td>
+                            <td id="${idIjazah}">
+                                <span id="text-${idIjazah}" class="tooltip-span"></span>
+                                <input autocomplete="off" type="text" id="value-${idIjazah}" name="no_ijazah[]" class="form-control input-value hidden" value="${row.no_ijazah}" >
                             </td>
                             <td id="${idFile}" style="word-wrap: break-word">
                                 <input id='value-${idFile}' type='file' name='file[]'>
