@@ -406,6 +406,7 @@
     });
     
     $('.selectize').selectize();
+    $('#inp-filter_status')[0].selectize.setValue('');
 
     function openFilter() {
         var element = $('#mySidepanel');
