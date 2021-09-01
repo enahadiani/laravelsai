@@ -245,7 +245,7 @@
                                     <input class="form-control" type="hidden" placeholder="No Bukti" id="kode_form" name="kode_form" readonly>
                                 </div>
                                 <div class="col-md-6 col-sm-12">
-                                    <label for="nik_periksa" >Tanggal</label>
+                                    <label for="nik_periksa" >Due Date</label>
                                     <input class='form-control datepicker' type="text" id="duedate" name="duedate" value="{{ date('d/m/Y') }}">
                                     <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;" class="simple-icon-calendar date-search"></i>
                                 </div>
@@ -288,7 +288,13 @@
 
                         <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-jurnal" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Jurnal</span></a> </li>
 
+                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-otorisasi" role="tab" aria-selected="true"><span class="hidden-xs-down">Otorisasi</span></a> </li>
+
+                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-catatan" role="tab" aria-selected="true"><span class="hidden-xs-down">Catatan Verifkator</span></a> </li>
+
                         <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-dok" role="tab" aria-selected="true"><span class="hidden-xs-down">Berkas Bukti</span></a> </li>
+
+                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-budget" role="tab" aria-selected="true"><span class="hidden-xs-down">Budget</span></a> </li>
 
                     </ul>
                     {{-- end tab title --}}
@@ -358,6 +364,70 @@
                         </div>
                         {{-- end data jurnal tab --}}
 
+                        {{-- begin otorisasi tab --}}
+                        <div class="tab-pane" id="data-otorisasi" role="tabpanel">
+                            <div class='col-md-12 mt-3' style='min-height:420px; margin:0px; padding:0px;'>
+                                <div class="col-md-6 col-sm-12 mt-2">
+                                    <label for="nik_periksa" >Dibuat Oleh</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                            <span class="input-group-text info-code_nik_periksa" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                        </div>
+                                        <input type="text" class="form-control inp-label-nik_periksa" id="nik_periksa" name="nik_periksa" value="" title="">
+                                        <span class="info-name_nik_periksa hidden">
+                                            <span></span>
+                                        </span>
+                                        <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                        <i class="simple-icon-magnifier search-item2" id="search_nik_periksa"></i>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 col-sm-12 mt-2">
+                                    <label for="nik_periksa" >Nik Mengetahui</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                            <span class="input-group-text info-code_nik_periksa" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                        </div>
+                                        <input type="text" class="form-control inp-label-nik_periksa" id="nik_periksa" name="nik_periksa" value="" title="">
+                                        <span class="info-name_nik_periksa hidden">
+                                            <span></span>
+                                        </span>
+                                        <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                        <i class="simple-icon-magnifier search-item2" id="search_nik_periksa"></i>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 col-sm-12 mt-2">
+                                    <label for="nik_periksa" >Nik Verifikator</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                            <span class="input-group-text info-code_nik_periksa" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                        </div>
+                                        <input type="text" class="form-control inp-label-nik_periksa" id="nik_periksa" name="nik_periksa" value="" title="">
+                                        <span class="info-name_nik_periksa hidden">
+                                            <span></span>
+                                        </span>
+                                        <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                        <i class="simple-icon-magnifier search-item2" id="search_nik_periksa"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{-- end otorisasi tab --}}
+
+                         {{-- begin catatan verifikator tab --}}
+                         <div class="tab-pane" id="data-catatan" role="tabpanel">
+                            <div class='col-md-12 mt-3' style='min-height:420px; margin:0px; padding:0px;'>
+                                <div class="col-md-10 mt-3">
+                                    {{-- <textarea class="form-control" rows="4" id="deskripsi" name="deskripsi" readonly>
+                                        Catatan tidak ditemukan
+                                    </textarea> --}}
+                                    <p>Catatan tidak ditemukan</p>
+                                </div>
+                            </div>
+                        </div>
+                         {{-- end catatan verifikator tab --}}
+
                         {{-- begin data dok tab  --}}
                         <div class="tab-pane" id="data-dok" role="tabpanel">
                             <div class='col-md-12 nav-control' style="padding: 0px 5px;">
@@ -383,6 +453,30 @@
                             </div>
                         </div>
                         {{-- end data dok tab --}}
+
+                        {{-- begin budget tab --}}
+                        <div class="tab-pane" id="data-budget" role="tabpanel">
+                            <div class='col-md-12 mt-3' style='min-height:420px; margin:0px; padding:0px;'>
+                                <button type="button" class="btn btn-sm btn-primary mt-2 mb-2">Cek Budget</button>
+                                <table class="table table-bordered table-condensed gridexample"  style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                    <thead style="background:#F8F8F8">
+                                        <th style="width: 3%">No</th>
+                                        <th>Kode Akun</th>
+                                        <th>Kode PP</th>
+                                        <th>Kode DRK</th>
+                                        <th>Saldo Awal</th>
+                                        <th>Nilai</th>
+                                        <th>Saldo Akhir</th>
+                                    </thead>
+
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                        {{-- end budget tab --}}
 
                     </div>
                     <div class="card-body-footer row" style="width: 900px;padding: 0 25px;">
@@ -2190,7 +2284,7 @@ $('.currency').inputmask("numeric", {
     oncleared: function () { self.Value(''); }
 });
 
-// hapus item atensi
+// hapus item
 $('#input-atensi').on('click','.hapus-atensi', function(){
     $(this).closest('tr').remove();
     no=1;
