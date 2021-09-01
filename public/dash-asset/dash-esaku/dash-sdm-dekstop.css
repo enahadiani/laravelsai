@@ -133,3 +133,14 @@
 .table td {
     padding: 8px !important;
 }
+.image-icon {
+    position: absolute;
+    left: 25px;
+    top: 15px;
+}
+
+.image-icon-small {
+    position: absolute;
+    left: 22px;
+    top: 8px;
+}

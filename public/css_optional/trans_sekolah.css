@@ -1,0 +1,47 @@
+.card-body-footer {
+    background: white;
+    position: fixed;
+    bottom: 15px;
+    right: 0;
+    margin-right: 30px;
+    z-index: 3;
+    height: 60px;
+    border-top: ;
+    border-bottom-right-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+    box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.04), 0 1px 6px rgba(0, 0, 0, 0.04);
+}
+
+.card-body-footer > button {
+    float: right;
+    margin-top: 10px;
+    margin-right: 0;
+}
+
+.card-form-footer-full {
+    padding: 16px 8px 16px 16px;
+    position: fixed;
+    bottom: 8px;
+    /* left: 32.8%; */
+    z-index: 4;
+    display: flex;
+    justify-content: flex-start;
+    height: 3.75rem;
+    max-width: inherit;
+    /* width: 90.5%; */
+    background-color: #ffffff;
+    border-bottom-right-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+    box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.04), 0 1px 6px rgba(0, 0, 0, 0.04);
+}
+.footer-form-container-full {
+    width: 100%;
+    padding-right: 34px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.span-tanggal .datepicker-dropdown {
+    left: 20px !important;
+    top: 120px !important;
+}

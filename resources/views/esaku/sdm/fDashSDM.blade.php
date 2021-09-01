@@ -7,7 +7,7 @@
                 <div class="card card-dash" id="box-pegawai">
                     <div class="row">
                         <div class="col-4">
-                            <span class="glyph-icon iconsminds-gey"></span>
+                            <img alt="pegawai" class="image-icon" src="{{ url('/asset_sdm/img/team.png') }}">
                         </div>
                         <div class="col-8">
                             <h6 class="card-titles">Pegawai</h6>
@@ -20,7 +20,7 @@
                 <div class="card card-dash">
                     <div class="row">
                         <div class="col-4">
-                            <span class="glyph-icon iconsminds-heart"></span>
+                            <img alt="heart" class="image-icon" src="{{ url('/asset_sdm/img/heartbeat.png') }}">
                         </div>
                         <div class="col-8">
                             <h6 class="card-titles">BPJS Kesehatan</h6>
@@ -33,7 +33,7 @@
                 <div class="card card-dash">
                     <div class="row">
                         <div class="col-4">
-                            <span class="glyph-icon iconsminds-gear"></span>
+                            <img alt="helmet" class="image-icon" src="{{ url('/asset_sdm/img/helmet.png') }}">
                         </div>
                         <div class="col-8">
                             <h6 class="card-titles">BPJS Ketenagakerjaan</h6>
@@ -46,7 +46,7 @@
                 <div class="card card-dash">
                     <div class="row">
                         <div class="col-4">
-                            <span class="glyph-icon iconsminds-office"></span>
+                            <img alt="client" class="image-icon" src="{{ url('/asset_sdm/img/corporation.png') }}">
                         </div>
                         <div class="col-8">
                             <h6 class="card-titles">Klien</h6>
@@ -69,7 +69,7 @@
                                 <div class="col-6">
                                     <div class="row">
                                         <div class="col-3">
-                                            <div class="glyph-icon medium p-l-4 m-t-10 simple-icon-symbol-male"></div>
+                                            <img alt="male" class="image-icon-small" src="{{ url('/asset_sdm/img/Pria.svg') }}">
                                         </div>
                                         <div class="col-9">
                                             <p class="card-subtitle">Pria</p>
@@ -80,7 +80,7 @@
                                 <div class="col-6">
                                     <div class="row">
                                         <div class="col-3">
-                                            <div class="glyph-icon medium m-t-10 simple-icon-symbol-female"></div>
+                                            <img alt="female" class="image-icon-small" src="{{ url('/asset_sdm/img/Wanita.svg') }}">
                                         </div>
                                         <div class="col-9">
                                             <p class="card-subtitle">Wanita</p>
