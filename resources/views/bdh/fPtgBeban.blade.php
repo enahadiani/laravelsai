@@ -368,47 +368,47 @@
                         <div class="tab-pane" id="data-otorisasi" role="tabpanel">
                             <div class='col-md-12 mt-3' style='min-height:420px; margin:0px; padding:0px;'>
                                 <div class="col-md-6 col-sm-12 mt-2">
-                                    <label for="nik_periksa" >Dibuat Oleh</label>
+                                    <label for="nik_buat" >Dibuat Oleh</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
-                                            <span class="input-group-text info-code_nik_periksa" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                            <span class="input-group-text info-code_nik_buat" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
                                         </div>
-                                        <input type="text" class="form-control inp-label-nik_periksa" id="nik_periksa" name="nik_periksa" value="" title="">
-                                        <span class="info-name_nik_periksa hidden">
+                                        <input type="text" class="form-control inp-label-nik_buat" id="nik_buat" name="nik_buat" value="" title="">
+                                        <span class="info-name_nik_buat hidden">
                                             <span></span>
                                         </span>
                                         <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                        <i class="simple-icon-magnifier search-item2" id="search_nik_periksa"></i>
+                                        <i class="simple-icon-magnifier search-item2" id="search_nik_buat"></i>
                                     </div>
                                 </div>
 
                                 <div class="col-md-6 col-sm-12 mt-2">
-                                    <label for="nik_periksa" >Nik Mengetahui</label>
+                                    <label for="nik_tahu" >Nik Mengetahui</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
-                                            <span class="input-group-text info-code_nik_periksa" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                            <span class="input-group-text info-code_nik_tahu" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
                                         </div>
-                                        <input type="text" class="form-control inp-label-nik_periksa" id="nik_periksa" name="nik_periksa" value="" title="">
-                                        <span class="info-name_nik_periksa hidden">
+                                        <input type="text" class="form-control inp-label-nik_tahu" id="nik_tahu" name="nik_tahu" value="" title="">
+                                        <span class="info-name_nik_tahu hidden">
                                             <span></span>
                                         </span>
                                         <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                        <i class="simple-icon-magnifier search-item2" id="search_nik_periksa"></i>
+                                        <i class="simple-icon-magnifier search-item2" id="search_nik_tahu"></i>
                                     </div>
                                 </div>
 
                                 <div class="col-md-6 col-sm-12 mt-2">
-                                    <label for="nik_periksa" >Nik Verifikator</label>
+                                    <label for="nik_ver" >Nik Verifikator</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
-                                            <span class="input-group-text info-code_nik_periksa" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                            <span class="input-group-text info-code_nik_ver" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
                                         </div>
-                                        <input type="text" class="form-control inp-label-nik_periksa" id="nik_periksa" name="nik_periksa" value="" title="">
-                                        <span class="info-name_nik_periksa hidden">
+                                        <input type="text" class="form-control inp-label-nik_ver" id="nik_ver" name="nik_ver" value="" title="">
+                                        <span class="info-name_nik_ver hidden">
                                             <span></span>
                                         </span>
                                         <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                        <i class="simple-icon-magnifier search-item2" id="search_nik_periksa"></i>
+                                        <i class="simple-icon-magnifier search-item2" id="search_nik_ver"></i>
                                     </div>
                                 </div>
                             </div>
@@ -696,8 +696,7 @@ var psscrollform = new PerfectScrollbar(scrollform);
 var scrollformupl = document.querySelector('.form-upload');
 var psscrollformupl = new PerfectScrollbar(scrollformupl);
 
-var scrollformupl = document.querySelector('.preview-body');
-var psscrollformupl = new PerfectScrollbar(scrollformupl);
+
 
 
 $('.selectize').selectize();
@@ -1522,15 +1521,25 @@ $('#tanggal,#no_dokumen,#deskripsi,#nik_periksa,#total_debet,#total_kredit').key
 
 $('#form-tambah').on('click', '.search-item2', function(){
     var id = $(this).closest('div').find('input').attr('name');
+    if(id == 'nik_buat'){
+        var judul = "Daftar Karyawan (Dibuat Oleh)"
+        var url =  "{{ url('bdh-trans/nik-buat') }}"
+    }else if(id == 'nik_tahu'){
+        var judul = "Daftar Karyawan (Diketahui Oleh)"
+        var url =  "{{ url('bdh-trans/nik-tahu') }}"
+    }else if(id == 'nik_ver'){
+        var judul = "Daftar Karyawan (Verifikator)"
+        var url =  "{{ url('bdh-trans/nik-ver') }}"
+    }
     var options = {
         id : id,
         header : ['NIK', 'Nama'],
-        url : "{{ url('esaku-trans/nikperiksa') }}",
+        url : url,
         columns : [
             { data: 'nik' },
             { data: 'nama' }
         ],
-        judul : "Daftar Karyawan",
+        judul : judul,
         pilih : "nik",
         jTarget1 : "text",
         jTarget2 : "text",
@@ -1784,6 +1793,10 @@ $('#form-tambah #input-dok').on('click', '.search-item', function(){
                 width : ["30%","70%"]
             };
         break;
+        case 'nik_tahu':
+            var option = {
+                id : par
+            }
     }
     showInpFilterBSheet(options);
 

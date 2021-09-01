@@ -16,3 +16,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/ptg-beban', 'Bdh\PtgBebanController@index');
 Route::get('ptg-beban/{id}', 'Bdh\PtgBebanController@show');
+
+// option
+Route::get('nik-buat', 'Bdh\PtgBebanController@getNikBuat');
+Route::get('nik-tahu', 'Bdh\PtgBebanController@getNikTahu');
+Route::get('nik-ver', 'Bdh\PtgBebanController@getNikVer');
