@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="{{ asset('trans.css') }}" />
 <!-- LIST DATA -->
-<x-list-data judul="Data Jurnal" tambah="true" :thead="array('No Bukti','Tanggal','No Dokumen','Deskripsi','Nilai','Progress','Aksi')" :thwidth="array(15,15,15,20,15,10,10)" :thclass="array('','','','','','','text-center')" />
+<x-list-data judul="Data Pertanggungan Beban" tambah="true" :thead="array('No Bukti','Tanggal','No Dokumen','Deskripsi','Nilai','Progress','Aksi')" :thwidth="array(15,15,15,20,15,10,10)" :thclass="array('','','','','','','text-center')" />
 <!-- END LIST DATA -->
 <style>
     div.inp-div-jenis > input{
@@ -135,130 +135,7 @@
         }
     }
 
-    /* .bottom-sheet{
-        max-height: 100% !important;
-    }
-
-    .bottom-sheet .modal.content{
-        width: 60%;
-        margin: 0px auto
-    } */
-
-</style>
-<!-- FORM INPUT -->
-<form id="form-tambah" class="tooltip-label-right" novalidate>
-    <div class="row" id="saku-form" style="display:none;">
-        <div class="col-sm-12">
-            <div class="card">
-                <div class="card-body form-header" style="padding-top:0.5rem;padding-bottom:0.5rem;min-height:48px">
-                    <h6 id="judul-form" style="position:absolute;top:13px"></h6>
-                    <button type="button" id="btn-kembali" aria-label="Kembali" class="btn btn-back">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="separator mb-2"></div>
-                <div class="card-body pt-3 form-body">
-                    <input type="hidden" id="method" name="_method" value="post">
-                    <div class="form-group row" id="row-id">
-                        <div class="col-9">
-                            <input class="form-control" type="text" id="id" name="id" readonly hidden>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-6 col-sm-12">
-                            <div class="row">
-                                <div class="col-md-4 col-sm-12">
-                                    <label for="tanggal">Tanggal</label>
-                                    <input class='form-control datepicker' type="text" id="tanggal" name="tanggal" value="{{ date('d/m/Y') }}">
-                                    <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;" class="simple-icon-calendar date-search"></i>
-                                </div>
-                                <div class="col-md-6 col-sm-12">
-                                    <label for="no_dokumen">Dokumen</label>
-                                    <input class='form-control' type="text" id="no_dokumen" name="no_dokumen" required>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group col-md-6 col-sm-12">
-                            <div class="row">
-                                <div class="col-md-6 col-sm-12">
-                                    <!-- <label for="jenis" >Jenis</label>
-                                    <select class='form-control selectize' id="jenis" name="jenis">
-                                    <option value=''>--- Pilih Jenis ---</option>
-                                    <option value='MI' selected>MI</option>
-                                    </select> -->
-                                    <input class="form-control" type="hidden" placeholder="No Bukti" id="no_bukti" name="no_bukti" readonly>
-                                    <input class="form-control" type="hidden" placeholder="No Bukti" id="kode_form" name="kode_form" readonly>
-                                </div>
-                                <div class="col-md-6 col-sm-12">
-                                    <label for="nik_periksa" >NIK Periksa</label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
-                                            <span class="input-group-text info-code_nik_periksa" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
-                                        </div>
-                                        <input type="text" class="form-control inp-label-nik_periksa" id="nik_periksa" name="nik_periksa" value="" title="">
-                                        <span class="info-name_nik_periksa hidden">
-                                            <span></span>
-                                        </span>
-                                        <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                        <i class="simple-icon-magnifier search-item2" id="search_nik_periksa"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-6 col-sm-12">
-                            <div class="row">
-                                <div class="col-md-10">
-                                    <label for="deskripsi">Deskripsi</label>
-                                    <textarea class="form-control" rows="4" id="deskripsi" name="deskripsi" required></textarea>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group col-md-6 col-sm-12">
-                            <div class="row mb-1">
-                                <div class="col-md-6 col-sm-12">
-                                </div>
-                                <div class="col-md-6 col-sm-12">
-                                    <label for="total_debet" >Total Debet</label>
-                                    <input class="form-control currency" type="text" placeholder="Total Debet" readonly id="total_debet" name="total_debet" value="0">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6 col-sm-12">
-                                </div>
-                                <div class="col-md-6 col-sm-12">
-                                    <label for="total_kredit" >Total Kredit</label>
-                                    <input class="form-control currency" type="text" placeholder="Total Kredit" readonly id="total_kredit" name="total_kredit" value="0">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <ul class="nav nav-tabs col-12 " role="tablist">
-                        <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-jurnal" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Jurnal</span></a> </li>
-                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-dok" role="tab" aria-selected="true"><span class="hidden-xs-down">Berkas Bukti</span></a> </li>
-                    </ul>
-                    <div class="tab-content tabcontent-border col-12 p-0">
-                        <div class="tab-pane active" id="data-jurnal" role="tabpanel">
-
-                            <div class='col-md-12 nav-control' style="padding: 0px 5px;">
-                                <a type="button" href="#" id="copy-row" data-toggle="tooltip" title="Copy Row" style='font-size:18px'><i class='iconsminds-duplicate-layer' ></i> <span style="font-size:12.8px">Copy Row</span></a>
-                                <span class="pemisah mx-2" style="border:1px solid #d7d7d7;font-size:20px"></span>
-
-                                <div class="dropdown d-inline-block mx-0">
-                                    <a class="btn dropdown-toggle mb-1 px-0" href="#" role="button" id="dropdown-import" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style='font-size:18px'>
-                                    <i class='simple-icon-doc' ></i> <span style="font-size:12.8px">Upload Jurnal <i class='simple-icon-arrow-down' style="font-size:10px"></i></span>
-                                    </a>
-                                    <div class="dropdown-menu" aria-labelledby="dropdown-import" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 45px, 0px); top: 0px; left: 0px; will-change: transform;">
-                                        <a class="dropdown-item" href="{{ config('api.url').'toko-auth/storage/template_upload_jurnal_esaku.xlsx' }}" target='_blank' id="download-template" >Download Template</a>
-                                        <a class="dropdown-item" href="#" id="import-excel" >Upload</a>
-                                    </div>
-                                </div>
-                                <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row" ></span></a>
-                            </div>
-                            <div class='col-md-12' style='min-height:420px; margin:0px; padding:0px;'>
-                                <style>
-                                    th{
+    th{
                                         vertical-align:middle !important;
                                     }
                                     /* #input-grid td{
@@ -326,7 +203,139 @@
                                     {
                                         overflow:unset !important;
                                     }
-                                </style>
+
+</style>
+<!-- FORM INPUT -->
+<form id="form-tambah" class="tooltip-label-right" novalidate>
+    <div class="row" id="saku-form" style="display:none;">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-body form-header" style="padding-top:0.5rem;padding-bottom:0.5rem;min-height:48px">
+                    <h6 id="judul-form" style="position:absolute;top:13px"></h6>
+                    <button type="button" id="btn-kembali" aria-label="Kembali" class="btn btn-back">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="separator mb-2"></div>
+                <div class="card-body pt-3 form-body">
+                    <input type="hidden" id="method" name="_method" value="post">
+                    <div class="form-group row" id="row-id">
+                        <div class="col-9">
+                            <input class="form-control" type="text" id="id" name="id" readonly hidden>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6 col-sm-12">
+                            <div class="row">
+                                <div class="col-md-4 col-sm-12">
+                                    <label for="tanggal">Tanggal</label>
+                                    <input class='form-control datepicker' type="text" id="tanggal" name="tanggal" value="{{ date('d/m/Y') }}">
+                                    <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;" class="simple-icon-calendar date-search"></i>
+                                </div>
+                                <div class="col-md-6 col-sm-12">
+                                    <label for="no_dokumen">Nomor Dokumen</label>
+                                    <input class='form-control' type="text" id="no_dokumen" name="no_dokumen" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6 col-sm-12">
+                            <div class="row">
+                                <div class="col-md-6 col-sm-12">
+                                    <input class="form-control" type="hidden" placeholder="No Bukti" id="no_bukti" name="no_bukti" readonly>
+                                    <input class="form-control" type="hidden" placeholder="No Bukti" id="kode_form" name="kode_form" readonly>
+                                </div>
+                                <div class="col-md-6 col-sm-12">
+                                    <label for="nik_periksa" >Tanggal</label>
+                                    <input class='form-control datepicker' type="text" id="duedate" name="duedate" value="{{ date('d/m/Y') }}">
+                                    <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;" class="simple-icon-calendar date-search"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6 col-sm-12">
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <label for="deskripsi">Deskripsi</label>
+                                    <textarea class="form-control" rows="4" id="deskripsi" name="deskripsi" required></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6 col-sm-12">
+                            <div class="row mb-1">
+                                <div class="col-md-6 col-sm-12">
+                                </div>
+                                <div class="col-md-6 col-sm-12">
+                                    <label for="total_debet" >Total Jurnal</label>
+                                    <input class="form-control currency" type="text" placeholder="Total Debet" readonly id="total_debet" name="total_debet" value="0">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 col-sm-12">
+                                </div>
+                                <div class="col-md-6 col-sm-12">
+                                    <label for="total_kredit" >Total Net Rekening</label>
+                                    <input class="form-control currency" type="text" placeholder="Total Kredit" readonly id="total_kredit" name="total_kredit" value="0">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- tab title --}}
+                    <ul class="nav nav-tabs col-12 " role="tablist">
+
+                        <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-atensi" role="tab" aria-selected="true"><span class="hidden-xs-down">Atensi Pembayaran</span></a> </li>
+
+                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-jurnal" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Jurnal</span></a> </li>
+
+                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-dok" role="tab" aria-selected="true"><span class="hidden-xs-down">Berkas Bukti</span></a> </li>
+
+                    </ul>
+                    {{-- end tab title --}}
+
+                    <div class="tab-content tabcontent-border col-12 p-0">
+
+                        {{-- begin data atensi tab --}}
+                        <div class="tab-pane active" id="data-atensi" role="tabpanel">
+
+                            <div class='col-md-12 nav-control' style="padding: 0px 5px;">
+                                <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row-atensi" ></span></a>
+                            </div>
+
+                            <div class='col-md-12' style='min-height:420px; margin:0px; padding:0px;'>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-condensed gridexample" id="input-atensi" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                        <thead style="background:#F8F8F8">
+                                            <tr>
+                                                <th style="width:3%">No</th>
+                                                <th style="width:15%">Atensi</th>
+                                                <th style="width:15%">Bank Cabang</th>
+                                                <th style="width:15%">Nama Rekening</th>
+                                                <th style="width:15%">No Rekening</th>
+                                                <th style="width:15%">Bruto</th>
+                                                <th style="width:15">Potongan</th>
+                                                <th style="width:15">Netto</th>
+                                                <th style="width:5%"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <a type="button" href="#" data-id="0" title="add-row-atensi" class="add-row-atensi btn btn-light2 btn-block btn-sm"><i class="saicon icon-tambah mr-1"></i>Tambah Baris</a>
+                            </div>
+                        </div>
+                        {{-- end data atensi tab --}}
+
+                        {{-- begin data jurnal tab --}}
+                        <div class="tab-pane" id="data-jurnal" role="tabpanel">
+
+                            <div class='col-md-12 nav-control' style="padding: 0px 5px;">
+                                <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row" ></span></a>
+                            </div>
+
+                            <div class='col-md-12' style='min-height:420px; margin:0px; padding:0px;'>
+
                                 <table class="table table-bordered table-condensed gridexample" id="input-grid" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
                                 <thead style="background:#F8F8F8">
                                     <tr>
@@ -347,6 +356,9 @@
                                 <a type="button" href="#" data-id="0" title="add-row" class="add-row btn btn-light2 btn-block btn-sm"><i class="saicon icon-tambah mr-1"></i>Tambah Baris</a>
                             </div>
                         </div>
+                        {{-- end data jurnal tab --}}
+
+                        {{-- begin data dok tab  --}}
                         <div class="tab-pane" id="data-dok" role="tabpanel">
                             <div class='col-md-12 nav-control' style="padding: 0px 5px;">
                                 <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row_dok" ></span></a>
@@ -370,6 +382,8 @@
                                 <i class="saicon icon-tambah mr-1"></i>Tambah Baris</a>
                             </div>
                         </div>
+                        {{-- end data dok tab --}}
+
                     </div>
                     <div class="card-body-footer row" style="width: 900px;padding: 0 25px;">
                         <div style="vertical-align: middle;" class="col-md-10 text-right p-0">
@@ -1059,7 +1073,7 @@ $('#saku-datatable').on('click','#btn-delete',function(e){
 $('#saku-datatable').on('click', '#btn-tambah', function(){
     $('#row-id').hide();
     $('#method').val('post');
-    $('#judul-form').html('Tambah Data Jurnal');
+    $('#judul-form').html('Tambah Data Pertanggungan Beban');
     $('#btn-update').attr('id','btn-save');
     $('#btn-save').attr('type','submit');
     $('#form-tambah')[0].reset();
@@ -1440,8 +1454,68 @@ $('#form-tambah').on('change', '#nik_periksa', function(){
     getNIKPeriksa(par);
 });
 
+// kalkulasi nilai netto
+$('#form-tambah').on('change', '.form-calc', function(){
+    var parent = $(this).closest("tr");
+
+    var bruto = parent.find('.inp-bruto').val();
+    var potongan = parent.find('.inp-potongan').val();
+    var numberBruto = Number(bruto.replace(/[^0-9,-]+/g,""));
+    var numberPotongan = Number(potongan.replace(/[^0-9,-]+/g,""));
+    var netto = numberBruto - numberPotongan;
+    console.log(numberBruto);
+    console.log(netto);
+    parent.find('.inp-netto').val(format_number(netto));
+});
 
 // GRID JURNAL
+function addRowAtensi(){
+    var no=$('#form-tambah #input-atensi .row-atensi:last').index();
+    no=no+2;
+    console.log(no);
+    var input = "";
+    input += "<tr class='row-atensi'>";
+    input += "<td class='no-atensi text-center'>"+no+"</td>";
+    input += "<td class='px-0 py-0'><input type='text' name='atensi' class='form-control inp-atensi atensike"+no+"'></td>";
+    input += "<td class='px-0 py-0'><input type='text' name='bank_cabang[]' class='form-control inp-bank_cabang bank_cabangke"+no+"' value=''></td>";
+    input += "<td class='px-0 py-0'><input type='text' name='nama_rekening[]' class='form-control inp-nama_rekening nama_rekeningke"+no+"' value=''></td>";
+    input += "<td class='px-0 py-0'><input type='text' name='no_rekening[]' class='form-control inp-no_rekening no_rekeningke"+no+"' value=''></td>";
+    input += "<td class='px-0 py-0'><input type='text' name='bruto[]' class='form-control currency form-calc inp-bruto brutoke"+no+"' value='0'></td>";
+    input += "<td class='px-0 py-0'><input type='text' name='potongan[]' class='form-control currency inp-potongan form-calc potonganke"+no+"' value='0'></td>";
+    input += "<td class='px-0 py-0'><input type='text' name='netto[]' class='form-control currency inp-netto form-line nettoke"+no+"' readonly value='0'></td>";
+
+    input+=`
+    <td class='text-center action-atensi'><a class='hapus-atensi'><i class='simple-icon-trash' style='font-size:18px'></i></a></td></tr>`;
+    console.log(form);
+    $('#form-tambah #input-atensi tbody').append(input);
+
+    $('.brutoke'+no).inputmask("numeric", {
+        radixPoint: ",",
+        groupSeparator: ".",
+        digits: 2,
+        autoGroup: true,
+        rightAlign: true,
+        oncleared: function () { self.Value(''); }
+    });
+    $('.potonganke'+no).inputmask("numeric", {
+        radixPoint: ",",
+        groupSeparator: ".",
+        digits: 2,
+        autoGroup: true,
+        rightAlign: true,
+        oncleared: function () { self.Value(''); }
+    });
+    $('.nettoke'+no).inputmask("numeric", {
+        radixPoint: ",",
+        groupSeparator: ".",
+        digits: 2,
+        autoGroup: true,
+        rightAlign: true,
+        oncleared: function () { self.Value(''); }
+    });
+    hitungTotalRowUpload(form);
+}
+
 function addRow(param){
     if(param == "copy"){
         var kode_akun = $('#input-grid tbody tr.selected-row').find(".inp-kode").val();
@@ -1865,6 +1939,10 @@ $('#input-grid').on('keydown','.inp-kode, .inp-nama, .inp-dc, .inp-ket, .inp-nil
     }
 });
 
+$('#form-tambah').on('click','.add-row-atensi', function(){
+    addRowAtensi();
+});
+
 $('#form-tambah').on('click', '.add-row', function(){
     addRow("add");
 });
@@ -2110,6 +2188,20 @@ $('.currency').inputmask("numeric", {
     autoGroup: true,
     rightAlign: true,
     oncleared: function () { self.Value(''); }
+});
+
+// hapus item atensi
+$('#input-atensi').on('click','.hapus-atensi', function(){
+    $(this).closest('tr').remove();
+    no=1;
+    $('.row-atensi').each(function(){
+        var nom = $(this).closest('tr').find('.no-atensi');
+        nom.html(no);
+        no++;
+    });
+    hitungTotal();
+    hitungTotalRow();
+    $("html, body").animate({ scrollTop: $(document).height() }, 1000);
 });
 
 $('#input-grid').on('click', '.hapus-item', function(){
