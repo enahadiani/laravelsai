@@ -325,6 +325,15 @@ function showInfoField(kode, isi_kode, isi_nama) {
         .removeClass("hidden");
 }
 
+function reverseDate(date_str, separator, newseparator) {
+    if (typeof separator === "undefined") {
+        separator = "-";
+    }
+    var str = date_str.split(separator);
+
+    return str[2] + newseparator + str[1] + newseparator + str[0];
+}
+
 function reverseDateNew(date_str, separator, newseparator) {
     if (typeof separator === "undefined") {
         separator = "-";

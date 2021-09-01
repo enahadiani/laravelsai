@@ -132,3 +132,7 @@ Route::delete('kelas-khusus', 'Sekolah\KelasKhususController@destroy');
 
 Route::get('absen-kelas', 'Sekolah\AbsenKelasController@show');
 Route::post('absen-kelas', 'Sekolah\AbsenKelasController@store');
+
+Route::post('siswa-simpan', 'Sekolah\SiswaInputController@store');
+Route::post('siswa-update', 'Sekolah\SiswaInputController@update');
+Route::get('siswa-edit', 'Sekolah\SiswaInputController@show');
