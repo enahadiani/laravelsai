@@ -362,7 +362,7 @@ class PtgBebanController extends Controller
     {
         try {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url') . 'esaku-trans/jurnal-detail', [
+            $response = $client->request('GET',  config('api.url') . 'bdh-trans/ptg-beban-detail', [
                 'headers' => [
                     'Authorization' => 'Bearer ' . Session::get('token'),
                     'Accept'     => 'application/json',
@@ -377,7 +377,7 @@ class PtgBebanController extends Controller
                 $response_data = $response->getBody()->getContents();
 
                 $data = json_decode($response_data, true);
-                $data = $data["success"];
+                $data = $data;
             }
             return response()->json(['data' => $data], 200);
         } catch (BadResponseException $ex) {

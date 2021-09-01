@@ -15,3 +15,4 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/ptg-beban', 'Bdh\PtgBebanController@index');
+Route::get('ptg-beban/{id}', 'Bdh\PtgBebanController@show');
