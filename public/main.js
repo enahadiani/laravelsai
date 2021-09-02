@@ -234,7 +234,7 @@ function newForm() {
     $("[class^=simple-icon-close]").each(function (e) {
         $(this).addClass("hidden");
     });
-    $("#id_edit").val("");
+    $("#id_edit").val("false");
     $('input[data-input="cbbl"]').val("");
     $("#btn-update").attr("id", "btn-save");
     $("#btn-save").attr("type", "submit");
@@ -323,6 +323,15 @@ function showInfoField(kode, isi_kode, isi_nama) {
         .closest("div")
         .find(".info-icon-hapus")
         .removeClass("hidden");
+}
+
+function reverseDate(date_str, separator, newseparator) {
+    if (typeof separator === "undefined") {
+        separator = "-";
+    }
+    var str = date_str.split(separator);
+
+    return str[2] + newseparator + str[1] + newseparator + str[0];
 }
 
 function reverseDateNew(date_str, separator, newseparator) {
