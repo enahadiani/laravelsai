@@ -100,7 +100,7 @@ class PtgBebanController extends Controller
         try {
 
             $client = new Client();
-            $response = $client->request('GET',  config('api.url') . 'esaku-trans/akun', [
+            $response = $client->request('GET',  config('api.url') . 'bdh-trans/ptg-beban-akun', [
                 'headers' => [
                     'Authorization' => 'Bearer ' . Session::get('token'),
                     'Accept'     => 'application/json',
@@ -111,7 +111,7 @@ class PtgBebanController extends Controller
                 $response_data = $response->getBody()->getContents();
 
                 $data = json_decode($response_data, true);
-                $data = $data["success"]["data"];
+                $data = $data["data"];
             }
             return response()->json(['daftar' => $data, 'status' => true, 'message' => 'success'], 200);
         } catch (BadResponseException $ex) {
@@ -196,31 +196,9 @@ class PtgBebanController extends Controller
         }
     }
 
-    public function getNIKPeriksa()
-    {
-        try {
 
-            $client = new Client();
-            $response = $client->request('GET',  config('api.url') . 'esaku-trans/nikperiksa', [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . Session::get('token'),
-                    'Accept'     => 'application/json',
-                ]
-            ]);
 
-            if ($response->getStatusCode() == 200) { // 200 OK
-                $response_data = $response->getBody()->getContents();
 
-                $data = json_decode($response_data, true);
-                $data = $data["success"]["data"];
-            }
-            return response()->json(['daftar' => $data, 'status' => true, 'message' => 'success'], 200);
-        } catch (BadResponseException $ex) {
-            $response = $ex->getResponse();
-            $res = json_decode($response->getBody(), true);
-            return response()->json(['message' => $res, 'status' => false], 200);
-        }
-    }
 
     /**
      * Store a newly created resource in storage.

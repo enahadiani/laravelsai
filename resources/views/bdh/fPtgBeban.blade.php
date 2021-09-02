@@ -1793,10 +1793,6 @@ $('#form-tambah #input-dok').on('click', '.search-item', function(){
                 width : ["30%","70%"]
             };
         break;
-        case 'nik_tahu':
-            var option = {
-                id : par
-            }
     }
     showInpFilterBSheet(options);
 
@@ -1866,7 +1862,7 @@ $('#input-grid').on('click', '.search-item', function(){
             var options = {
                 id : par,
                 header : ['Kode', 'Nama'],
-                url : "{{ url('esaku-master/masakun') }}",
+                url : "{{ url('bdh-trans/akun') }}",
                 columns : [
                     { data: 'kode_akun' },
                     { data: 'nama' }
