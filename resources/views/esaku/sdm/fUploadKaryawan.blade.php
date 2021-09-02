@@ -113,6 +113,10 @@
 
 <script type="text/javascript">
 // SET UP
+setHeightForm()
+setTimeout(() => {
+    $(".card-body-footer").css("width", $(".container-fluid").width() + "px");
+}, 1000)
 $('#process-upload').addClass('disabled');
 $('#process-upload').prop('disabled', true);
 
