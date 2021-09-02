@@ -878,7 +878,7 @@ $('#saku-form').on('click', '#btn-kembali', function(){
 // END BTN KEMBALI
 
 // SAKU TABLE
-var actionHtmlDefault = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
+var actionHtmlDefault = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a>";
 var dataTable = 
 generateTable(
     "table-data",
@@ -1315,12 +1315,12 @@ function editData(id, view = false) {
                 isiEdit(data.tunj_lembur,"number",'#tunj_lembur',view);
                 isiEdit(data.tunj_masakerja,"number",'#tunj_masakerja',view);
                 
-                isiEdit(reverseDate2(data.tgl_masuk,'-','/'),"date",'#tgl_masuk',view);
-                isiEdit(reverseDate2(data.tgl_sk,'-','/'),"date",'#tgl_sk',view);
-                isiEdit(reverseDate2(data.tgl_kontrak,'-','/'),"date",'#tgl_kontrak',view);
-                isiEdit(reverseDate2(data.tgl_nikah,'-','/'),"date",'#tgl_nikah',view);
-                isiEdit(reverseDate2(data.tgl_berlaku_kta,'-','/'),"date",'#tgl_berlaku_kta',view);
-                isiEdit(reverseDate2(data.tgl_kadaluarsa_kta,'-','/'),"date",'#tgl_kadaluarsa_kta',view);
+                isiEdit(reverseDate(data.tgl_masuk,'-','/'),"date",'#tgl_masuk',view);
+                isiEdit(reverseDate(data.tgl_sk,'-','/'),"date",'#tgl_sk',view);
+                isiEdit(reverseDate(data.tgl_kontrak,'-','/'),"date",'#tgl_kontrak',view);
+                isiEdit(reverseDate(data.tgl_nikah,'-','/'),"date",'#tgl_nikah',view);
+                isiEdit(reverseDate(data.tgl_berlaku_kta,'-','/'),"date",'#tgl_berlaku_kta',view);
+                isiEdit(reverseDate(data.tgl_kadaluarsa_kta,'-','/'),"date",'#tgl_kadaluarsa_kta',view);
 
                 isiEdit(data.ijht,"select",'#ijht',view);
                 isiEdit(data.bpjs,"select",'#bpjs',view);

@@ -325,13 +325,21 @@ function showInfoField(kode, isi_kode, isi_nama) {
         .removeClass("hidden");
 }
 
-function reverseDate(date_str, separator, newseparator) {
-    if (typeof separator === "undefined") {
-        separator = "-";
-    }
-    var str = date_str.split(separator);
+function reverseDate(date_str, separator = "-", newseparator = "/") {
+    if (date_str == null || date_str == "") {
+        var date = new Date();
+        var month = "" + (date.getMonth() + 1);
+        var day = "" + date.getDate();
+        var year = date.getFullYear();
 
-    return str[2] + newseparator + str[1] + newseparator + str[0];
+        if (month.length < 2) month = "0" + month;
+        if (day.length < 2) day = "0" + day;
+        return `${day}${newseparator}${month}${newseparator}${year}`;
+    } else {
+        var str = date_str.split(separator);
+
+        return str[2] + newseparator + str[1] + newseparator + str[0];
+    }
 }
 
 function reverseDateNew(date_str, separator, newseparator) {
