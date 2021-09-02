@@ -195,3 +195,10 @@
 .form-control.currency.money {
     padding-right: 0;
 }
+.nav-control {
+    height: 35px;
+}
+.dropdown-container {
+    position: absolute;
+    left: 0;
+}

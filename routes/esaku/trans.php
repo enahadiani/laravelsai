@@ -298,6 +298,10 @@ Route::post('sdm-karyawan', 'Esaku\Sdm\KepegawaianController@store');
 Route::post('sdm-karyawan-update', 'Esaku\Sdm\KepegawaianController@update');
 Route::delete('sdm-karyawan', 'Esaku\Sdm\KepegawaianController@delete');
 
+Route::post('sdm-karyawan-simpan', 'Esaku\Sdm\UploadKaryawanController@store');
+Route::post('sdm-karyawan-upload', 'Esaku\Sdm\UploadKaryawanController@uploadXLS');
+Route::get('sdm-karyawan-load', 'Esaku\Sdm\UploadKaryawanController@loadDataTmp');
+
 ## SDM keluarga
 Route::get('sdm-keluargas', 'Esaku\Sdm\KeluargaController@index');
 Route::get('sdm-keluarga', 'Esaku\Sdm\KeluargaController@show');
