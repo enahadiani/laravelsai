@@ -50,7 +50,7 @@
                         </div>
                         <div class="col-8">
                             <h6 class="card-titles">Klien</h6>
-                            <h3 class="card-text blue-text text-bold" id="jumlah-bpjs-klien">0</h3>
+                            <h3 class="card-text blue-text text-bold" id="jumlah-client">0</h3>
                         </div>
                     </div>
                 </div>
@@ -280,7 +280,8 @@ $.ajax({
                 jumlah_kesehatan: format_number(data.jumlah_kesehatan[0].jumlah),
                 jumlah_kerja: format_number(data.jumlah_kerja[0].jumlah),
                 jumlah_pria: format_number(data.jumlah_pria[0].jumlah),
-                jumlah_wanita: format_number(data.jumlah_wanita[0].jumlah)
+                jumlah_wanita: format_number(data.jumlah_wanita[0].jumlah),
+                jumlah_client: format_number(data.jumlah_client)
             }
 
             generateDataBox(dataBox)
@@ -657,6 +658,7 @@ function generateDataBox(data) {
     $('#jumlah-bpjs-ker').text(data.jumlah_kerja)
     $('#jumlah-pria').text(data.jumlah_pria)
     $('#jumlah-wanita').text(data.jumlah_wanita)
+    $('#jumlah-client').text(data.jumlah_client)
 }
 
 function generateChartPendidikan(data) {
