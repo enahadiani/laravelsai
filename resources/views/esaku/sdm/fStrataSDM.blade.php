@@ -124,7 +124,7 @@
 // TRIGGER FORM
     $('#saku-datatable').on('click', '#btn-tambah', function() {
         $('#judul-form').html('Tambah Data Strata');
-        $('#kode_jur').attr('readonly', false);
+        $('#kode_strata').attr('readonly', false);
         newForm();
     });
 
