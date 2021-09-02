@@ -600,6 +600,7 @@ function generateTabelKaryawan(filter=null) {
         sDom: 't<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
         'ajax': {
             'url': "{{ url('esaku-dash/sdm-karyawan') }}",
+            'cache': false,
             'async':false,
             'type': 'GET',
             'data': filter,
