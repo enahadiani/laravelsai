@@ -455,7 +455,7 @@ function generateDataUmur() {
                     }
                 },
                 tooltip: {
-                    enabled: false
+                    enabled: true
                 },
                 plotOptions: {
                     series: {
