@@ -144,8 +144,8 @@
             </div>
             <div class="col-md-6 col-lg-6 col-sm-6 col-xl-6">
                 <div class="card card-dash">
-                    <h6 class="card-title-2 text-bold">Lokasi Pegawai Kerja</h6>
-                    <div id="lokasi-chart"></div>
+                    <h6 class="card-title-2 text-bold">Jabatan Pegawai</h6>
+                    <div id="jabatan-column-chart"></div>
                 </div>
             </div>
             <div class="col-md-3 col-sm-3 col-lg-3 col-xl-3">
@@ -319,7 +319,7 @@
     </section>
 </section>
 
-<section id="detail-4">
+<section id="detail-4" style="display: none;">
     <section id="dektop-6" class="dekstop-6 pb-1 m-b-25">
         <div class="row">
             <div class="col-12">
@@ -415,11 +415,70 @@ $.ajax({
 
             generateDataBox(dataBox)
             generateChartPendidikan(data.tingkat_pendidikan)
-            generateChartLoker(data.lokasi_kerja)
+            // generateChartLoker(data.lokasi_kerja)
             generateChartJabatan(data.jabatan)
+            generateChartJabatanColumn(data.jabatan)
         }
     }
 });
+
+function generateChartJabatanColumn(data) {
+    if(data.length > 0) {
+        var categories = [];
+        var chartData = [];
+
+        for(var i=0;i<data.length;i++) {
+            var dt = data[i];
+            categories.push(dt.nama_jabatan)
+            chartData.push(parseFloat(dt.jumlah))
+        }
+
+        Highcharts.chart('jabatan-column-chart', {
+            chart: { 
+                type: 'column',
+                height: 238 
+            },
+            title: { text: '' },
+            subtitle: { text: '' },
+            exporting:{ enabled: false },
+            legend:{ enabled:false },
+            credits: { enabled: false },
+            xAxis: {
+                categories: categories,
+                crosshair: true
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: ''
+                }
+            },
+            tooltip: {
+                enabled: true,
+            },
+            plotOptions: {
+                series: {
+                    label: {
+                        connectorAllowed: false
+                    },
+                    point: {
+                        events: {
+                            click: function() {
+                                var filter = { kode_loker: this.category }
+                                generateTabelKaryawan(filter)
+                            }
+                        }
+                    }
+                }
+            },
+            series: [{
+                name: 'Jumlah',
+                data: chartData,
+                color: '#f87171'
+            }]
+        });
+    }
+}
 
 function generateKomposisiClient() {
     $.ajax({
@@ -1025,63 +1084,63 @@ function generateChartPendidikan(data) {
     }
 }
 
-function generateChartLoker(data) {
-    if(data.length > 0) {
-        var categories = [];
-        var chartData = [];
+// function generateChartLoker(data) {
+    // if(data.length > 0) {
+    //     var categories = [];
+    //     var chartData = [];
 
-        for(var i=0;i<data.length;i++) {
-            var dt = data[i];
-            categories.push(dt.kode_loker)
-            chartData.push(parseFloat(dt.jumlah))
-        }
+    //     for(var i=0;i<data.length;i++) {
+    //         var dt = data[i];
+    //         categories.push(dt.kode_loker)
+    //         chartData.push(parseFloat(dt.jumlah))
+    //     }
 
-        Highcharts.chart('lokasi-chart', {
-            chart: { 
-                type: 'column',
-                height: 238 
-            },
-            title: { text: '' },
-            subtitle: { text: '' },
-            exporting:{ enabled: false },
-            legend:{ enabled:false },
-            credits: { enabled: false },
-            xAxis: {
-                categories: categories,
-                crosshair: true
-            },
-            yAxis: {
-                min: 0,
-                title: {
-                    text: ''
-                }
-            },
-            tooltip: {
-                enabled: true,
-            },
-            plotOptions: {
-                series: {
-                    label: {
-                        connectorAllowed: false
-                    },
-                    point: {
-                        events: {
-                            click: function() {
-                                var filter = { kode_loker: this.category }
-                                generateTabelKaryawan(filter)
-                            }
-                        }
-                    }
-                }
-            },
-            series: [{
-                name: 'Jumlah',
-                data: chartData,
-                color: '#f87171'
-            }]
-        });
-    }
-}
+    //     Highcharts.chart('lokasi-chart', {
+    //         chart: { 
+    //             type: 'column',
+    //             height: 238 
+    //         },
+    //         title: { text: '' },
+    //         subtitle: { text: '' },
+    //         exporting:{ enabled: false },
+    //         legend:{ enabled:false },
+    //         credits: { enabled: false },
+    //         xAxis: {
+    //             categories: categories,
+    //             crosshair: true
+    //         },
+    //         yAxis: {
+    //             min: 0,
+    //             title: {
+    //                 text: ''
+    //             }
+    //         },
+    //         tooltip: {
+    //             enabled: true,
+    //         },
+    //         plotOptions: {
+    //             series: {
+    //                 label: {
+    //                     connectorAllowed: false
+    //                 },
+    //                 point: {
+    //                     events: {
+    //                         click: function() {
+    //                             var filter = { kode_loker: this.category }
+    //                             generateTabelKaryawan(filter)
+    //                         }
+    //                     }
+    //                 }
+    //             }
+    //         },
+    //         series: [{
+    //             name: 'Jumlah',
+    //             data: chartData,
+    //             color: '#f87171'
+    //         }]
+    //     });
+    // }
+// }
 
 function generateChartJabatan(data) {
     if(data.length > 0) {
