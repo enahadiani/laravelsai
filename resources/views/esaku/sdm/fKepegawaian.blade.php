@@ -1330,7 +1330,7 @@ function editData(id, view = false) {
                 
                 showInfoField('kode_sdm', data.kode_sdm, data.nama_sdm)
                 showInfoField('kode_gol', data.kode_gol, data.nama_golongan)
-                showInfoField('kode_jab', data.kode_jab, data.nama_jabatan)
+                showInfoField('kode_jab', data.jabatan, data.nama_jabatan)
                 showInfoField('kode_unit', data.kode_unit, data.nama_unit)
                 showInfoField('kode_pp', data.kode_pp, data.nama_pp)
                 showInfoField('kode_loker', data.kode_loker, data.nama_loker)
