@@ -165,8 +165,7 @@
                 <div class="card card-dash">
                     <div class="card-header row">
                         <div class="col-12">
-                            <button class="btn btn-primary" id="to-main-dash">Back</button>
-                            <br/>
+                            <div class="glyph-icon iconsminds-left" id="to-main-dash"></div>
                             <h6 class="card-title-2 text-bold text-medium">Data Pegawai</h6>
                         </div>
                     </div>
@@ -200,7 +199,7 @@
                                             <th class="text-center">Nama</th>
                                             <th class="text-center">Jabatan</th>
                                             <th class="text-center">No Telp</th>
-                                            <th class="text-center">Email</th>
+                                            <th class="text-center">Client</th>
                                         </tr>
                                     </thead>
                                     <tbody></tbody>
@@ -221,8 +220,7 @@
                 <div class="card card-dash">
                     <div class="card-header row">
                         <div class="col-12">
-                            <button class="btn btn-primary" id="to-detail-1">Back</button>
-                            <br/>
+                            <div class="glyph-icon iconsminds-left" id="to-detail-1"></div>
                             <h6 class="card-title-2 text-bold text-medium">CV Pegawai</h6>
                         </div>
                     </div>
@@ -232,10 +230,31 @@
         </div>
     </section>
 </section>
+
+<section id="detail-3">
+    <section id="dektop-5" class="dekstop-5 pb-1 m-b-25">
+        <div class="row">
+            <div class="col-12">
+                <div class="card card-dash">
+                    <div class="card-header row">
+                        <div class="col-12">
+                            <div class="glyph-icon iconsminds-left" id="to-main-dash"></div>
+                        </div>
+                    </div>
+                    <div class="card-body row">
+                        <div class="col-6">Tes 1</div>
+                        <div class="col-6">Tes 2</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
 {{-- END DEKSTOP --}}
 
 <script src="{{ asset('helper.js') }}"></script>
 <script type="text/javascript">
+// $('#main-dash').hide();
 var dataTable = null;
 $('#jumlah-pria').click(function() {
     var filter = { jk: $(this).data('filter') }
@@ -613,7 +632,7 @@ function generateTabelKaryawan(filter=null) {
             { data: 'nama_pegawai' },
             { data: 'nama_jabatan' },
             { data: 'no_telp' },
-            { data: 'email' }
+            { data: 'client' }
         ],
         drawCallback: function () {
             $($(".dataTables_wrapper .pagination li:first-of-type"))
