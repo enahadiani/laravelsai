@@ -239,6 +239,7 @@
                     <div class="card-header row">
                         <div class="col-12">
                             <div class="glyph-icon iconsminds-left" id="to-main-dash-from-bpjs"></div>
+                            <h6 class="card-title-2 text-bold text-medium detail-card" id="header-bpjs"></h6>
                         </div>
                     </div>
                     <div class="card-body row">
@@ -529,6 +530,7 @@ function generateKomposisiClient() {
                             format: '{point.percentage:.1f} %'
                         },
                         size: 250,
+                        showInLegend: true
                     }
                 },
                 series: [{
@@ -555,6 +557,7 @@ function generateDetailBPJSKerja() {
             if(data.status) {
                 $('#table-bpjs tbody').empty()
                 $('#table-non-bpjs tbody').empty()
+                $('#header-bpjs').text('Data BPJS Tenaga Kerja')
                 $('#jenis-bpjs').text('BPJS Kesehatan')
                 $('#jumlah-bpjs').text(data.jumlah_terdaftar)
                 $('#persentase-bpjs').text(data.percentage_terdaftar + "%")
@@ -611,6 +614,7 @@ function generateDetailBPJSKesehatan() {
             if(data.status) {
                 $('#table-bpjs tbody').empty()
                 $('#table-non-bpjs tbody').empty()
+                $('#header-bpjs').text('Data BPJS Kesehatan')
                 $('#jenis-bpjs').text('BPJS Kesehatan')
                 $('#jumlah-bpjs').text(data.jumlah_terdaftar)
                 $('#persentase-bpjs').text(data.percentage_terdaftar + "%")
