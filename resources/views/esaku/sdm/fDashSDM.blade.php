@@ -43,7 +43,7 @@
                 </div>
             </div>
             <div class="col-md-3 col-sm-3 col-lg-3 col-xl-3">
-                <div class="card card-dash">
+                <div class="card card-dash" id="box-client">
                     <div class="row">
                         <div class="col-4">
                             <img alt="client" class="image-icon" src="{{ url('/asset_sdm/img/corporation.png') }}">
@@ -231,7 +231,7 @@
     </section>
 </section>
 
-<section id="detail-3">
+<section id="detail-3" style="display: none;">
     <section id="dektop-5" class="dekstop-5 pb-1 m-b-25">
         <div class="row">
             <div class="col-12">
@@ -318,6 +318,26 @@
         </div>
     </section>
 </section>
+
+<section id="detail-4">
+    <section id="dektop-6" class="dekstop-6 pb-1 m-b-25">
+        <div class="row">
+            <div class="col-12">
+                <div class="card card-dash">
+                    <div class="card-header row">
+                        <div class="col-12 header-content">
+                            <div class="glyph-icon iconsminds-left" id="to-main-dash-from-client"></div>
+                            <h6 class="card-title-2 text-bold text-medium detail-card">Komposisi Klien</h6>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div id="komposisi-client-chart"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
 {{-- END DEKSTOP --}}
 
 <script src="{{ asset('helper.js') }}"></script>
@@ -348,6 +368,11 @@ $('#to-main-dash-from-bpjs').click(function() {
     $('#main-dash').show();
 })
 
+$('#to-main-dash-from-client').click(function() {
+    $('#detail-4').hide();
+    $('#main-dash').show();
+})
+
 $('#to-detail-1').click(function() {
     $('#detail-2').hide();
     $('#detail-1').show();
@@ -365,6 +390,10 @@ $('#box-bpjs-sehat').click(function() {
 
 $('#box-bpjs-kerja').click(function() {
     generateDetailBPJSKerja()
+})
+
+$('#box-client').click(function() {
+    generateKomposisiClient()
 })
 
 $.ajax({
@@ -392,6 +421,70 @@ $.ajax({
     }
 });
 
+function generateKomposisiClient() {
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('esaku-dash/sdm-client') }}",
+        dataType: 'json',
+        async:false,
+        success:function(result){    
+            var data = result.data
+            var categories = data.categories
+            var komposisi = data.komposisi
+            var chart = [];
+
+            if(categories.length > 0) {
+                for(var i=0;i<categories.length;i++) {
+                    chart.push({ name: categories[i], y:komposisi[i] })
+                    i++;
+                }
+            }
+
+            Highcharts.chart('komposisi-client-chart', {
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie',
+                    // height: 239
+                },
+                title: { text: '' },
+                subtitle: { text: '' },
+                exporting:{ enabled: false },
+                legend:{ enabled: true },
+                credits: { enabled: false },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                accessibility: {
+                    point: {
+                        valueSuffix: '%'
+                    }
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            format: '{point.percentage:.1f} %'
+                        },
+                        size: 250,
+                    }
+                },
+                series: [{
+                    name: 'Jumlah',
+                    colorByPoint: true,
+                    data: chart
+                }]
+            });
+
+            $('#main-dash').hide();
+            $('#detail-4').show();
+        }
+    });   
+}
+
 function generateDetailBPJSKerja() {
     $.ajax({
         type: 'GET',
@@ -400,7 +493,6 @@ function generateDetailBPJSKerja() {
         async:false,
         success:function(result){    
             var data = result.data
-            console.log(data)
             if(data.status) {
                 $('#table-bpjs tbody').empty()
                 $('#table-non-bpjs tbody').empty()
@@ -457,7 +549,6 @@ function generateDetailBPJSKesehatan() {
         async:false,
         success:function(result){    
             var data = result.data
-            console.log(data)
             if(data.status) {
                 $('#table-bpjs tbody').empty()
                 $('#table-non-bpjs tbody').empty()
