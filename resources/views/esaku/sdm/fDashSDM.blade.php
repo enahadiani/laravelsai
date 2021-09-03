@@ -17,7 +17,7 @@
                 </div>
             </div>
             <div class="col-md-3 col-sm-3 col-lg-3 col-xl-3">
-                <div class="card card-dash">
+                <div class="card card-dash" id="box-bpjs-sehat">
                     <div class="row">
                         <div class="col-4">
                             <img alt="heart" class="image-icon" src="{{ url('/asset_sdm/img/heartbeat.png') }}">
@@ -30,7 +30,7 @@
                 </div>
             </div>
             <div class="col-md-3 col-sm-3 col-lg-3 col-xl-3">
-                <div class="card card-dash">
+                <div class="card card-dash" id="box-bpjs-kerja">
                     <div class="row">
                         <div class="col-4">
                             <img alt="helmet" class="image-icon" src="{{ url('/asset_sdm/img/helmet.png') }}">
@@ -242,8 +242,76 @@
                         </div>
                     </div>
                     <div class="card-body row">
-                        <div class="col-6">Tes 1</div>
-                        <div class="col-6">Tes 2</div>
+                        <div class="col-6">
+                            <div class="card card-dash-2 bg-blue">
+                                <div class="card-content">
+                                    <p id="label-card-bpjs" class="label-card">Jumlah BPJS</p>
+                                    <div class="row">
+                                        <div class="col-10 count-card" id="jumlah-bpjs">
+                                            0
+                                        </div>
+                                        <div class="col-2">
+                                            <p class="percentage-card" id="persentase-bpjs">0%</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card card-dash-2 no-p">
+                                <div class="card-header bg-blue">
+                                    <p id="label-table-bpjs" class="label-table-bpjs">
+                                        Data BPJS <span id="jenis-bpjs"></span>
+                                    </p>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-detail" id="table-detail-bpjs">
+                                        <table id="table-bpjs" class="table table-hover table-borderless">
+                                            <thead>
+                                                <th>No</th>
+                                                <th>NIK</th>
+                                                <th>Nama</th>
+                                                <th>ID BPJS</th>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                           <div class="card card-dash-2 bg-red">
+                                <div class="card-content">
+                                    <p id="label-card-bpjs" class="label-card">Jumlah Non BPJS</p>
+                                    <div class="row">
+                                        <div class="col-10 count-card" id="jumlah-non-bpjs">
+                                            0
+                                        </div>
+                                        <div class="col-2">
+                                            <p class="percentage-card" id="persentase-non-bpjs">0%</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card card-dash-2 no-p">
+                                <div class="card-header bg-red">
+                                    <p id="label-table-bpjs" class="label-table-bpjs">
+                                        Data Non BPJS
+                                    </p>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-detail" id="table-detail-non-bpjs">
+                                        <table id="table-non-bpjs" class="table table-hover table-borderless">
+                                            <thead>
+                                                <th>No</th>
+                                                <th>NIK</th>
+                                                <th>Nama</th>
+                                                <th>ID BPJS</th>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -254,8 +322,8 @@
 
 <script src="{{ asset('helper.js') }}"></script>
 <script type="text/javascript">
-// $('#main-dash').hide();
 var dataTable = null;
+
 $('#jumlah-pria').click(function() {
     var filter = { jk: $(this).data('filter') }
     generateTabelKaryawan(filter)
@@ -291,6 +359,14 @@ $('#datatable-karyawan tbody').on('click', 'td', function() {
     generateCVKaryawan(filter)    
 })
 
+$('#box-bpjs-sehat').click(function() {
+    generateDetailBPJSKesehatan()
+})
+
+$('#box-bpjs-kerja').click(function() {
+    generateDetailBPJSKerja()
+})
+
 $.ajax({
     type: 'GET',
     url: "{{ url('esaku-dash/sdm-dash') }}",
@@ -315,6 +391,120 @@ $.ajax({
         }
     }
 });
+
+function generateDetailBPJSKerja() {
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('esaku-dash/sdm-bpjs-kerja') }}",
+        dataType: 'json',
+        async:false,
+        success:function(result){    
+            var data = result.data
+            console.log(data)
+            if(data.status) {
+                $('#table-bpjs tbody').empty()
+                $('#table-non-bpjs tbody').empty()
+                $('#jenis-bpjs').text('BPJS Kesehatan')
+                $('#jumlah-bpjs').text(data.jumlah_terdaftar)
+                $('#persentase-bpjs').text(data.percentage_terdaftar + "%")
+                $('#jumlah-non-bpjs').text(data.jumlah_non_terdaftar)
+                $('#persentase-non-bpjs').text(data.percentage_non_terdaftar + "%")
+
+                if(data.data_terdaftar.length > 0) {
+                    var no = 1;
+                    var html = null
+                    for(var i=0;i<data.data_terdaftar.length;i++) {
+                        var row = data.data_terdaftar[i]
+                        html += `<tr>
+                            <td>${no}</td>    
+                            <td>${row.nik}</td>    
+                            <td>${row.nama}</td>    
+                            <td>${row.no_bpjs}</td>    
+                        </tr>`
+                        no++;
+                    }
+                    $('#table-bpjs tbody').append(html)
+                }
+
+                 if(data.data_non_terdaftar.length > 0) {
+                    var no = 1;
+                    var html = null
+                    for(var i=0;i<data.data_non_terdaftar.length;i++) {
+                        var row = data.data_non_terdaftar[i]
+                        html += `<tr>
+                            <td>${no}</td>    
+                            <td>${row.nik}</td>    
+                            <td>${row.nama}</td>    
+                            <td>${row.no_bpjs}</td>    
+                        </tr>`
+                        no++;
+                    }
+                    $('#table-non-bpjs tbody').append(html)
+                }
+
+                $('#main-dash').hide();
+                $('#detail-3').show();
+            }
+        }
+    });
+}
+
+function generateDetailBPJSKesehatan() {
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('esaku-dash/sdm-bpjs-sehat') }}",
+        dataType: 'json',
+        async:false,
+        success:function(result){    
+            var data = result.data
+            console.log(data)
+            if(data.status) {
+                $('#table-bpjs tbody').empty()
+                $('#table-non-bpjs tbody').empty()
+                $('#jenis-bpjs').text('BPJS Kesehatan')
+                $('#jumlah-bpjs').text(data.jumlah_terdaftar)
+                $('#persentase-bpjs').text(data.percentage_terdaftar + "%")
+                $('#jumlah-non-bpjs').text(data.jumlah_non_terdaftar)
+                $('#persentase-non-bpjs').text(data.percentage_non_terdaftar + "%")
+
+                if(data.data_terdaftar.length > 0) {
+                    var no = 1;
+                    var html = null
+                    for(var i=0;i<data.data_terdaftar.length;i++) {
+                        var row = data.data_terdaftar[i]
+                        html += `<tr>
+                            <td>${no}</td>    
+                            <td>${row.nik}</td>    
+                            <td>${row.nama}</td>    
+                            <td>${row.no_bpjs}</td>    
+                        </tr>`
+                        no++;
+                    }
+                    $('#table-bpjs tbody').append(html)
+                }
+
+                 if(data.data_non_terdaftar.length > 0) {
+                    var no = 1;
+                    var html = null
+                    for(var i=0;i<data.data_non_terdaftar.length;i++) {
+                        var row = data.data_non_terdaftar[i]
+                        html += `<tr>
+                            <td>${no}</td>    
+                            <td>${row.nik}</td>    
+                            <td>${row.nama}</td>    
+                            <td>${row.no_bpjs}</td>    
+                        </tr>`
+                        no++;
+                    }
+                    $('#table-non-bpjs tbody').append(html)
+                }
+
+                $('#main-dash').hide();
+                $('#detail-3').show();
+            }
+        }
+    });
+}
 
 function generateCVKaryawan(filter=null) {
     $.ajax({
