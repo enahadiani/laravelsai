@@ -164,9 +164,9 @@
             <div class="col-12">
                 <div class="card card-dash">
                     <div class="card-header row">
-                        <div class="col-12">
+                        <div class="col-12 header-content">
                             <div class="glyph-icon iconsminds-left" id="to-main-dash"></div>
-                            <h6 class="card-title-2 text-bold text-medium">Data Pegawai</h6>
+                            <h6 class="card-title-2 text-bold text-medium detail-card">Data Pegawai</h6>
                         </div>
                     </div>
                     <hr/>
@@ -238,7 +238,7 @@
                 <div class="card card-dash">
                     <div class="card-header row">
                         <div class="col-12">
-                            <div class="glyph-icon iconsminds-left" id="to-main-dash"></div>
+                            <div class="glyph-icon iconsminds-left" id="to-main-dash-from-bpjs"></div>
                         </div>
                     </div>
                     <div class="card-body row">
@@ -272,6 +272,11 @@ $('#box-pegawai').click(function() {
 
 $('#to-main-dash').click(function() {
     $('#detail-1').hide();
+    $('#main-dash').show();
+})
+
+$('#to-main-dash-from-bpjs').click(function() {
+    $('#detail-3').hide();
     $('#main-dash').show();
 })
 
