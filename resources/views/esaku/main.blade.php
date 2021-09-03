@@ -987,6 +987,7 @@
         var form ="{{ Session::get('dash') }}";
     }
 
+    // lokasi 05
     if("{{ Session::get('lokasi')}}" == '05') {
         var form ="sdm_fDashSDM";
     }
