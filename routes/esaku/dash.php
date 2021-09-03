@@ -18,3 +18,5 @@ Route::get('sdm-karyawan', 'Esaku\Sdm\DashboardController@getDataKaryawan');
 Route::get('sdm-client', 'Esaku\Sdm\DashboardController@getDataClient');
 Route::get('sdm-bpjs-sehat', 'Esaku\Sdm\DashboardController@getDataBPJSKesehatan');
 Route::get('sdm-bpjs-kerja', 'Esaku\Sdm\DashboardController@getDataBPJSTenagaKerja');
+Route::get('sdm-gaji', 'Esaku\Sdm\DashboardController@getDataGaji');
+Route::get('sdm-umur', 'Esaku\Sdm\DashboardController@getDataUmur');

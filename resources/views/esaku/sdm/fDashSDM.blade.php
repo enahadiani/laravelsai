@@ -109,7 +109,7 @@
             </div>
             <div class="col-md-3 col-sm-3 col-lg-3 col-xl-3">
                 <div class="card card-dash">
-                    <h6 class="card-title-2 text-bold">Kelompok Umur</h6>
+                    <h6 class="card-title-2 text-bold">Kelompok Umur (Tahun)</h6>
                     <div id="umur-chart"></div>
                 </div>
             </div>
@@ -150,7 +150,7 @@
             </div>
             <div class="col-md-3 col-sm-3 col-lg-3 col-xl-3">
                 <div class="card card-dash">
-                    <h6 class="card-title-2 text-bold">Rentang Gaji</h6>
+                    <h6 class="card-title-2 text-bold">Rentang Gaji (Juta)</h6>
                     <div id="gaji-chart"></div>
                 </div>
             </div>
@@ -419,9 +419,108 @@ $.ajax({
             // generateChartLoker(data.lokasi_kerja)
             generateChartJabatan(data.jabatan)
             generateChartJabatanColumn(data.jabatan)
+            generateDataGaji()
+            generateDataUmur()
         }
     }
 });
+
+function generateDataUmur() {
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('esaku-dash/sdm-umur') }}",
+        dataType: 'json',
+        async:false,
+        success:function(result){    
+            var data = result.data;
+            
+            Highcharts.chart('umur-chart', {
+                chart: { 
+                    type: 'column',
+                    height: 160 
+                },
+                title: { text: '' },
+                subtitle: { text: '' },
+                exporting:{ enabled: false },
+                legend:{ enabled:false },
+                credits: { enabled: false },
+                xAxis: {
+                    categories: data.categories,
+                    crosshair: true
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: ''
+                    }
+                },
+                tooltip: {
+                    enabled: false
+                },
+                plotOptions: {
+                    series: {
+                        label: {
+                            connectorAllowed: false
+                        }
+                    }
+                },
+                series: [{
+                    name: 'Jumlah',
+                    data: data.value,
+                    color: '#ffb703'
+                }]
+            });
+        }
+    });
+}
+
+function generateDataGaji() {
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('esaku-dash/sdm-gaji') }}",
+        dataType: 'json',
+        async:false,
+        success:function(result){    
+            var data = result.data;
+            Highcharts.chart('gaji-chart', {
+                chart: { 
+                    type: 'column',
+                    height: 238 
+                },
+                title: { text: '' },
+                subtitle: { text: '' },
+                exporting:{ enabled: false },
+                legend:{ enabled:false },
+                credits: { enabled: false },
+                xAxis: {
+                    categories: data.categories,
+                    crosshair: true
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: ''
+                    }
+                },
+                tooltip: {
+                    enabled: true
+                },
+                plotOptions: {
+                    series: {
+                        label: {
+                            connectorAllowed: false
+                        }
+                    }
+                },
+                series: [{
+                    name: 'Jumlah',
+                    data: data.value,
+                    color: '#1e3a8a'
+                }]
+            });
+        }
+    });
+}
 
 function generateChartJabatanColumn(data) {
     if(data.length > 0) {
@@ -1206,91 +1305,4 @@ function generateChartJabatan(data) {
         });
     }
 }
-
-Highcharts.chart('gaji-chart', {
-    chart: { 
-        type: 'column',
-        height: 238 
-    },
-    title: { text: '' },
-    subtitle: { text: '' },
-    exporting:{ enabled: false },
-    legend:{ enabled:false },
-    credits: { enabled: false },
-    xAxis: {
-        categories: [
-            "1.0-2.0",
-            "2.1-3.0",
-            "3.1-4.0",
-            "4.1-5.0",
-            "5.0+",
-        ],
-        crosshair: true
-    },
-    yAxis: {
-        min: 0,
-        title: {
-            text: ''
-        }
-    },
-    tooltip: {
-        enabled: false
-    },
-    plotOptions: {
-        series: {
-            label: {
-                connectorAllowed: false
-            }
-        }
-    },
-    series: [{
-        name: 'Jumlah',
-        data: [10, 15, 20, 25, 30],
-        color: '#1e3a8a'
-    }]
-});
-
-Highcharts.chart('umur-chart', {
-    chart: { 
-        type: 'column',
-        height: 160 
-    },
-    title: { text: '' },
-    subtitle: { text: '' },
-    exporting:{ enabled: false },
-    legend:{ enabled:false },
-    credits: { enabled: false },
-    xAxis: {
-        categories: [
-            "17-21",
-            "22-27",
-            "28-32",
-            "34-39",
-            "40-45",
-            "45+"
-        ],
-        crosshair: true
-    },
-    yAxis: {
-        min: 0,
-        title: {
-            text: ''
-        }
-    },
-    tooltip: {
-        enabled: false
-    },
-    plotOptions: {
-        series: {
-            label: {
-                connectorAllowed: false
-            }
-        }
-    },
-    series: [{
-        name: 'Jumlah',
-        data: [10, 15, 20, 25, 30, 40],
-        color: '#ffb703'
-    }]
-});
 </script>
