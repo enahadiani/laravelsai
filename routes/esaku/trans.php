@@ -298,6 +298,12 @@ Route::post('sdm-karyawan', 'Esaku\Sdm\KepegawaianController@store');
 Route::post('sdm-karyawan-update', 'Esaku\Sdm\KepegawaianController@update');
 Route::delete('sdm-karyawan', 'Esaku\Sdm\KepegawaianController@delete');
 
+Route::get('v2/sdm-karyawans', 'Esaku\Sdm\KepegawaianV2Controller@index');
+Route::get('v2/sdm-karyawan', 'Esaku\Sdm\KepegawaianV2Controller@show');
+Route::post('v2/sdm-karyawan', 'Esaku\Sdm\KepegawaianV2Controller@store');
+Route::post('v2/sdm-karyawan-update', 'Esaku\Sdm\KepegawaianV2Controller@update');
+Route::delete('v2/sdm-karyawan', 'Esaku\Sdm\KepegawaianV2Controller@delete');
+
 Route::post('sdm-karyawan-simpan', 'Esaku\Sdm\UploadKaryawanController@store');
 Route::post('sdm-karyawan-upload', 'Esaku\Sdm\UploadKaryawanController@uploadXLS');
 Route::get('sdm-karyawan-load', 'Esaku\Sdm\UploadKaryawanController@loadDataTmp');

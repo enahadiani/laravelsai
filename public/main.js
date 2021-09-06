@@ -1,4 +1,4 @@
-function isiEdit(value, tipe, kode, view) {
+function isiEdit(value, tipe, kode, view, defaultVal = "0") {
     var hasil = "";
     switch (tipe) {
         case "number":
@@ -31,7 +31,7 @@ function isiEdit(value, tipe, kode, view) {
         case "select":
             hasil =
                 value == "" || value == null || value == undefined
-                    ? "-"
+                    ? defaultVal
                     : value;
             $(kode)[0].selectize.setValue(hasil);
             if (view) {
