@@ -94,8 +94,11 @@
                     <ul class="nav nav-tabs col-12 " role="tablist">
                         <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-bmhd" role="tab" aria-selected="true"><span class="hidden-xs-down">Data BMHD</span></a> </li>
                         <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-atensi" role="tab" aria-selected="true"><span class="hidden-xs-down">Atensi Pembayaran</span></a> </li>
-                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-pemberi" role="tab" aria-selected="true"><span class="hidden-xs-down">Pemberi</span></a> </li>
-                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-controlling" role="tab" aria-selected="true"><span class="hidden-xs-down">Controlling</span></a> </li>
+                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-jurnal" role="tab" aria-selected="true"><span class="hidden-xs-down">Jurnal ++</span></a> </li>
+                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-otorisasi" role="tab" aria-selected="true"><span class="hidden-xs-down">Otorisasi</span></a> </li>
+                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-catatan" role="tab" aria-selected="true"><span class="hidden-xs-down">Catatan Verifikator</span></a> </li>
+                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-dok" role="tab" aria-selected="true"><span class="hidden-xs-down">File Dok</span></a> </li>
+                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-budget" role="tab" aria-selected="true"><span class="hidden-xs-down">Budget</span></a> </li>
                     </ul>
                     <div class="tab-content tabcontent-border col-12 p-0" style="margin-bottom: 2.5rem;">
                         <div class="tab-pane active" id="data-bmhd" role="tabpanel">
@@ -152,26 +155,149 @@
                             </div>
                             <a type="button" href="#" data-id="0" title="add-row-atensi" id="add-row-atensi" class="add-row-atensi btn btn-light2 btn-block btn-sm"><i class="saicon icon-tambah mr-1"></i>Tambah Baris</a>
                         </div>
-                        <div class="tab-pane" id="data-pemberi" role="tabpanel">
+                        {{-- begin data jurnal tab --}}
+                        <div class="tab-pane" id="data-jurnal" role="tabpanel">
+
                             <div class='col-md-12 nav-control' style="padding: 0px 5px;">
-                                <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row-pemberi" ></span></a>
+                                <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row" ></span></a>
                             </div>
-                            <table class="table table-bordered table-condensed gridexample" id="pemberi-grid" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+
+                            <div class='col-md-12' style='min-height:420px; margin:0px; padding:0px;'>
+
+                                <table class="table table-bordered table-condensed gridexample" id="input-grid" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
                                 <thead style="background:#F8F8F8">
                                     <tr>
-                                        <th style="width:30%">Mata Anggaran</th>
-                                        <th style="width:30%">PP</th>
-                                        <th style="width:30%">DRK</th>
-                                        <th style="width:10%">Bulan</th>
-                                        <th style="width:15%">Saldo</th>
+                                        <th style="width:3%">No</th>
+                                        <th style="width:13%">Kode Akun</th>
+                                        <th style="width:15%">Nama Akun</th>
+                                        <th style="width:5%">DC</th>
+                                        <th style="width:20%">Keterangan</th>
                                         <th style="width:15%">Nilai</th>
+                                        <th style="width:7">Kode PP</th>
+                                        <th style="width:17">Nama PP</th>
                                         <th style="width:5%"></th>
                                     </tr>
                                 </thead>
-                                <tbody></tbody>
-                            </table>
-                            <a type="button" href="#" data-id="0" title="add-row" id="add-row-pemberi" class="add-row btn btn-light2 btn-block btn-sm"><i class="saicon icon-tambah mr-1"></i>Tambah Baris</a>
+                                <tbody>
+                                </tbody>
+                                </table>
+                                <a type="button" href="#" data-id="0" title="add-row" class="add-row btn btn-light2 btn-block btn-sm"><i class="saicon icon-tambah mr-1"></i>Tambah Baris</a>
+                            </div>
                         </div>
+                        {{-- end data jurnal tab --}}
+                                                {{-- begin otorisasi tab --}}
+                                                <div class="tab-pane" id="data-otorisasi" role="tabpanel">
+                                                    <div class='col-md-12 mt-3' style='min-height:420px; margin:0px; padding:0px;'>
+                                                        <div class="col-md-6 col-sm-12 mt-2">
+                                                            <label for="nik_buat" >Dibuat Oleh</label>
+                                                            <div class="input-group">
+                                                                <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                                                    <span class="input-group-text info-code_nik_buat" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                                                </div>
+                                                                <input type="text" class="form-control inp-label-nik_buat" id="nik_buat" name="nik_buat" value="" title="">
+                                                                <span class="info-name_nik_buat hidden">
+                                                                    <span></span>
+                                                                </span>
+                                                                <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                                                <i class="simple-icon-magnifier search-item2" id="search_nik_buat"></i>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-6 col-sm-12 mt-2">
+                                                            <label for="nik_tahu" >Nik Mengetahui</label>
+                                                            <div class="input-group">
+                                                                <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                                                    <span class="input-group-text info-code_nik_tahu" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                                                </div>
+                                                                <input type="text" class="form-control inp-label-nik_tahu" id="nik_tahu" name="nik_tahu" value="" title="">
+                                                                <span class="info-name_nik_tahu hidden">
+                                                                    <span></span>
+                                                                </span>
+                                                                <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                                                <i class="simple-icon-magnifier search-item2" id="search_nik_tahu"></i>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-6 col-sm-12 mt-2">
+                                                            <label for="nik_ver" >Nik Verifikator</label>
+                                                            <div class="input-group">
+                                                                <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                                                    <span class="input-group-text info-code_nik_ver" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                                                </div>
+                                                                <input type="text" class="form-control inp-label-nik_ver" id="nik_ver" name="nik_ver" value="" title="">
+                                                                <span class="info-name_nik_ver hidden">
+                                                                    <span></span>
+                                                                </span>
+                                                                <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                                                <i class="simple-icon-magnifier search-item2" id="search_nik_ver"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                {{-- end otorisasi tab --}}
+
+                                                 {{-- begin catatan verifikator tab --}}
+                                                 <div class="tab-pane" id="data-catatan" role="tabpanel">
+                                                    <div class='col-md-12 mt-3' style='min-height:420px; margin:0px; padding:0px;'>
+                                                        <div class="col-md-10 mt-3">
+                                                            {{-- <textarea class="form-control" rows="4" id="deskripsi" name="deskripsi" readonly>
+                                                                Catatan tidak ditemukan
+                                                            </textarea> --}}
+                                                            <p>Catatan tidak ditemukan</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                 {{-- end catatan verifikator tab --}}
+
+                                                {{-- begin data dok tab  --}}
+                                                <div class="tab-pane" id="data-dok" role="tabpanel">
+                                                    <div class='col-md-12 nav-control' style="padding: 0px 5px;">
+                                                        <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row_dok" ></span></a>
+                                                    </div>
+                                                    <div class='col-md-12' style='min-height:420px; margin:0px; padding:0px;'>
+                                                        <table class="table table-bordered table-condensed gridexample" id="input-dok" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                                            <thead style="background:#F8F8F8">
+                                                                <tr>
+                                                                    <th style="width:3%">No</th>
+                                                                    <th style="width:10%">Jenis</th>
+                                                                    <th style="width:27%">Nama</th>
+                                                                    <th style="width:20%">Path File</th>
+                                                                    <th width="20%">Upload File</th>
+                                                                    <th width="10%">Aksi</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            </tbody>
+                                                        </table>
+                                                        <a type="button" href="#" data-id="0" title="add-row-dok" class="add-row-dok btn btn-light2 btn-block btn-sm">
+                                                        <i class="saicon icon-tambah mr-1"></i>Tambah Baris</a>
+                                                    </div>
+                                                </div>
+                                                {{-- end data dok tab --}}
+                        {{-- begin budget tab --}}
+                                                <div class="tab-pane" id="data-budget" role="tabpanel">
+                                                    <div class='col-md-12 mt-3' style='min-height:420px; margin:0px; padding:0px;'>
+                                                        <button type="button" class="btn btn-sm btn-primary mt-2 mb-2">Cek Budget</button>
+                                                        <table class="table table-bordered table-condensed gridexample"  style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                                            <thead style="background:#F8F8F8">
+                                                                <th style="width: 3%">No</th>
+                                                                <th>Kode Akun</th>
+                                                                <th>Kode PP</th>
+                                                                <th>Kode DRK</th>
+                                                                <th>Saldo Awal</th>
+                                                                <th>Nilai</th>
+                                                                <th>Saldo Akhir</th>
+                                                            </thead>
+
+                                                            <tbody>
+
+                                                            </tbody>
+                                                        </table>
+
+                                                    </div>
+                                                </div>
+                                                {{-- end budget tab --}}
+
                         <div class="tab-pane" id="data-controlling" role="tabpanel">
                             <div class='col-md-12 nav-control' style="padding: 0px 5px;">
                                 <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row-controlling" ></span></a>
@@ -198,7 +324,7 @@
                 <div class="card-form-footer-full">
                     <div class="footer-form-container-full">
                         <div class="bottom-sheet-action">
-                            <button type="button" id="btn-sheet" class="btn btn-sheet">Catatan Approval</button>
+                            {{-- <button type="button" id="btn-sheet" class="btn btn-sheet">Catatan Approval</button> --}}
                         </div>
                         {{-- <div class="text-right message-action">
                             <p class="text-success"></p>
@@ -761,16 +887,41 @@
             if(!$(row).hasClass('selected-row')) {
                 var atensi = $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-atensi").val();
                 var cabang_bank = $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-cabang_bank").val();
+                var nama_rek = $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-nama_rek").val();
+                var no_rek = $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-no_rek").val();
+                var bruto = $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-bruto").val();
+                var potongan = $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-potongan").val();
+                var netto = $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-netto").val();
 
                 $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-atensi").val(atensi);
                 $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".td-atensi").text(atensi);
                 $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-cabang_bank").val(cabang_bank)
                 $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".td-cabang_bank").text(cabang_bank);
+                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-nama_rek").val(nama_rek)
+                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".td-nama_rek").text(nama_rek);
+                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-no_rek").val(no_rek)
+                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".td-no_rek").text(no_rek);
+                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-bruto").val(bruto)
+                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".td-bruto").text(bruto);
+                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-potongan").val(potongan)
+                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".td-potongan").text(potongan);
+                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-netto").val(netto)
+                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".td-netto").text(netto);
 
                 $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-atensi").hide();
                 $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".td-atensi").show();
                 $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-cabang_bank").hide();
                 $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".td-cabang_bank").show();
+                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-nama_rek").hide();
+                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".td-nama_rek").show();
+                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-no_rek").hide();
+                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".td-no_rek").show();
+                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-bruto").hide();
+                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".td-bruto").show();
+                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-potongan").hide();
+                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".td-potongan").show();
+                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-netto").hide();
+                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".td-netto").show();
             }
         })
     }
@@ -779,14 +930,39 @@
         var no=$('#atensi-grid .row-atensi:last').index();
         var no = no + 2
         var html = "";
+
         html += "<tr class='row-atensi row-atensi-"+no+"'>"
+
         html += "<td><span class='td-atensi tdatensike"+no+"'>0</span>"
         html += "<input type='text' name='atensi[]' class='inp-atensi form-control atensike"+no+" hidden'  value='' required>"
         html += "</td>"
+
         html += "<td><span class='td-cabang_bank tdcabang_bankke"+no+"'>0</span>"
         html += "<input type='text' name='cabang_bank[]' class='inp-cabang_bank form-control cabang_bankke"+no+" hidden'  value='' required>"
         html += "</td>"
+
+        html += "<td><span class='td-nama_rek tdnama_rekke"+no+"'>0</span>"
+        html += "<input type='text' name='nama_rek[]' class='inp-nama_rek form-control nama_rekke"+no+" hidden'  value='' required>"
+        html += "</td>"
+
+        html += "<td><span class='td-no_rek tdno_rekke"+no+"'>0</span>"
+        html += "<input type='text' name='no_rek[]' class='inp-no_rek form-control no_rekke"+no+" hidden'  value='' required>"
+        html += "</td>"
+
+        html += "<td><span class='td-bruto tdbrutoke"+no+"'>0</span>"
+        html += "<input type='text' name='bruto[]' class='inp-bruto form-control brutoke"+no+" currency hidden'  value='0' required>"
+        html += "</td>"
+
+        html += "<td><span class='td-potongan tdpotonganke"+no+"'>0</span>"
+        html += "<input type='text' name='potongan[]' class='inp-potongan form-control potonganke"+no+" currency hidden'  value='0' required>"
+        html += "</td>"
+
+        html += "<td><span class='td-netto tdnettoke"+no+"'>0</span>"
+        html += "<input type='text' name='netto[]' class='inp-netto form-control nettoke"+no+" currency hidden'  value='0' readonly required>"
+        html += "</td>"
+
         html += "<td class='text-center'><a class='hapus-atensi' style='font-size:18px;cursor:pointer;'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
+
         html += "</tr>"
 
         $('#atensi-grid tbody').append(html);
@@ -882,6 +1058,11 @@
 
                 var atensi = $(this).parents("tr").find(".inp-atensi").val();
                 var cabang_bank = $(this).parents("tr").find(".inp-cabang_bank").val();
+                var nama_rek = $(this).parents("tr").find(".inp-nama_rek").val();
+                var no_rek = $(this).parents("tr").find(".inp-no_rek").val();
+                var bruto = $(this).parents("tr").find(".inp-bruto").val();
+                var potongan = $(this).parents("tr").find(".inp-potongan").val();
+                var netto = $(this).parents("tr").find(".inp-netto").val();
 
 
                 $(this).parents("tr").find(".inp-atensi").val(atensi);
@@ -897,15 +1078,70 @@
                     $(this).parents("tr").find(".td-atensi").show();
                 }
 
-                $(this).parents("tr").find(".inp-cabang_bank").val(atensi);
-                $(this).parents("tr").find(".td-cabang_bank").text(atensi);
+                $(this).parents("tr").find(".inp-cabang_bank").val(cabang_bank);
+                $(this).parents("tr").find(".td-cabang_bank").text(cabang_bank);
                 if(idx == 1){
                     $(this).parents("tr").find(".inp-cabang_bank").show();
                     $(this).parents("tr").find(".td-cabang_bank").hide();
                     $(this).parents("tr").find(".inp-cabang_bank").focus();
                 }else{
                     $(this).parents("tr").find(".inp-cabang_bank").hide();
-                    $(this).parents("tr").find(".td-").show();
+                    $(this).parents("tr").find(".td-cabang_bank").show();
+                }
+
+                $(this).parents("tr").find(".inp-nama_rek").val(nama_rek);
+                $(this).parents("tr").find(".td-nama_rek").text(nama_rek);
+                if(idx == 2){
+                    $(this).parents("tr").find(".inp-nama_rek").show();
+                    $(this).parents("tr").find(".td-nama_rek").hide();
+                    $(this).parents("tr").find(".inp-nama_rek").focus();
+                }else{
+                    $(this).parents("tr").find(".inp-nama_rek").hide();
+                    $(this).parents("tr").find(".td-nama_rek").show();
+                }
+
+                $(this).parents("tr").find(".inp-no_rek").val(no_rek);
+                $(this).parents("tr").find(".td-no_rek").text(no_rek);
+                if(idx == 3){
+                    $(this).parents("tr").find(".inp-no_rek").show();
+                    $(this).parents("tr").find(".td-no_rek").hide();
+                    $(this).parents("tr").find(".inp-no_rek").focus();
+                }else{
+                    $(this).parents("tr").find(".inp-no_rek").hide();
+                    $(this).parents("tr").find(".td-no_rek").show();
+                }
+
+                $(this).parents("tr").find(".inp-bruto").val(bruto);
+                $(this).parents("tr").find(".td-bruto").text(bruto);
+                if(idx == 4){
+                    $(this).parents("tr").find(".inp-bruto").show();
+                    $(this).parents("tr").find(".td-bruto").hide();
+                    $(this).parents("tr").find(".inp-bruto").focus();
+                }else{
+                    $(this).parents("tr").find(".inp-bruto").hide();
+                    $(this).parents("tr").find(".td-bruto").show();
+                }
+
+                $(this).parents("tr").find(".inp-potongan").val(potongan);
+                $(this).parents("tr").find(".td-potongan").text(potongan);
+                if(idx == 5){
+                    $(this).parents("tr").find(".inp-potongan").show();
+                    $(this).parents("tr").find(".td-potongan").hide();
+                    $(this).parents("tr").find(".inp-potongan").focus();
+                }else{
+                    $(this).parents("tr").find(".inp-potongan").hide();
+                    $(this).parents("tr").find(".td-potongan").show();
+                }
+
+                $(this).parents("tr").find(".inp-netto").val(netto);
+                $(this).parents("tr").find(".td-netto").text(netto);
+                if(idx == 6){
+                    $(this).parents("tr").find(".inp-netto").show();
+                    $(this).parents("tr").find(".td-netto").hide();
+                    $(this).parents("tr").find(".inp-netto").focus();
+                }else{
+                    $(this).parents("tr").find(".inp-netto").hide();
+                    $(this).parents("tr").find(".td-netto").show();
                 }
             }
         }
@@ -1031,8 +1267,6 @@
         }
     });
 
-
-
     $('#form-tambah').on('click','#add-row-atensi', function(){
         addRowAtensi()
     });
@@ -1050,7 +1284,9 @@
         $("html, body").animate({ scrollTop: $(document).height() }, 1000);
     });
 
-    function hideAllRowPemberi() {
+
+
+    function hideAllRowJurnal() {
         $('#pemberi-grid tbody tr').removeClass('selected-row');
         $('#pemberi-grid tbody td').removeClass('px-0 py-0 aktif');
         $('#pemberi-grid > tbody > tr').each(function(index, row) {
@@ -1094,7 +1330,7 @@
         })
     }
 
-    function hideUnselectedRowPemberi() {
+    function hideUnselectedRowJurnal() {
         $('#pemberi-grid > tbody > tr').each(function(index, row) {
             if(!$(row).hasClass('selected-row')) {
                 var anggaran = $('#pemberi-grid > tbody > tr:eq('+index+') > td').find(".inp-anggaran").val();
@@ -1136,12 +1372,12 @@
         })
     }
 
-    function hitungTotalRowPemberi(){
+    function hitungTotalRowJurnal(){
         var total_row = $('#pemberi-grid tbody tr').length;
         $('#total-row-pemberi').html(total_row+' Baris');
     }
 
-    function addRowPemberi() {
+    function addRowJurnal() {
         var no=$('#pemberi-grid .row-pemberi:last').index();
         var no = no + 2
         var html = "";
@@ -1251,11 +1487,11 @@
         hitungTotalRowPemberi()
     }
 
-    $('#form-tambah').on('click', '#add-row-pemberi', function(){
+    $('#form-tambah').on('click', '#add-row-jurnal', function(){
         addRowPemberi()
     });
 
-    $('#pemberi-grid').on('click', '.hapus-pemberi', function(){
+    $('#jurnal-grid').on('click', '.hapus-jurnal', function(){
         valid = true
         $(this).closest('tr').remove();
         no=1;
@@ -1268,7 +1504,7 @@
         $("html, body").animate({ scrollTop: $(document).height() }, 1000);
     });
 
-    $('#pemberi-grid').on('click', '.search-item', function() {
+    $('#jurnal-grid').on('click', '.search-item', function() {
         var idx = $(this).closest('tr').find('.no-pemberi').text()
         var param = $(this).closest('div').find('input[type="text"]').attr('name')
         var target1 = $(this).closest('div').find('input[type="text"]').attr('class')
@@ -1408,13 +1644,13 @@
         showInpFilter(options);
     })
 
-    $('#pemberi-grid tbody').on('click', 'tr', function(){
+    $('#jurnal-grid tbody').on('click', 'tr', function(){
         $(this).addClass('selected-row');
         $('#pemberi-grid tbody tr').not(this).removeClass('selected-row');
         hideUnselectedRowPemberi();
     });
 
-    $('#pemberi-grid').on('click', 'td', function(){
+    $('#jrunal-grid').on('click', 'td', function(){
         var idx = $(this).index();
         if(idx == 7){
             return false;
@@ -1506,7 +1742,7 @@
         }
     });
 
-    $('#pemberi-grid').on('change', '.inp-bulan', function(e){
+    $('#jurnal-grid').on('change', '.inp-bulan', function(e){
         e.preventDefault();
         var noidx =  $(this).parents("tr").find(".no-pemberi").text();
         target1 = "saldoke"+noidx;
@@ -1521,7 +1757,7 @@
     });
 
     var $twicePressPemberi = 0;
-    $('#pemberi-grid').on('keydown','.inp-anggaran, .inp-pp, .inp-drk, .inp-saldo, .inp-nilai',function(e){
+    $('#jurnal-grid').on('keydown','.inp-anggaran, .inp-pp, .inp-drk, .inp-saldo, .inp-nilai',function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
         var nxt = ['.inp-anggaran','.inp-pp', '.inp-drk', '.inp-bulan', '.inp-saldo', '.inp-nilai'];
         var nxt2 = ['.td-anggaran','.td-pp', '.td-drk', '.td-bulan', '.td-saldo', '.td-nilai'];
