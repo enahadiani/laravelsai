@@ -320,7 +320,7 @@
 
                         <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-jurnal" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Jurnal</span></a> </li>
 
-                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-otorisasi" role="tab" aria-selected="true"><span class="hidden-xs-down">Otorisasi</span></a> </li>
+
 
                         <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-catatan" role="tab" aria-selected="true"><span class="hidden-xs-down">Catatan Verifkator</span></a> </li>
 
@@ -328,7 +328,7 @@
 
                         <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-budget" role="tab" aria-selected="true"><span class="hidden-xs-down">Budget</span></a> </li>
 
-                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-budget" role="tab" aria-selected="true"><span class="hidden-xs-down">Checklist Dokumen</span></a> </li>
+                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-budget" role="tab" aria-selected="true"><span class="hidden-xs-down">Item Pajak</span></a> </li>
 
                     </ul>
                     {{-- end tab title --}}

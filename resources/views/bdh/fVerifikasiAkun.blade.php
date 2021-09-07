@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="{{ asset('trans.css') }}" />
 <!-- LIST DATA -->
-<x-list-data judul="Data Verifkasi Dokumen" tambah="true" :thead="array('Modul','No Bukti','Status','Tanggal','Due Date','PP','No Dokumen','Aksi')" :thwidth="array(15,15,15,15,20,15,10,10)" :thclass="array('','','','','','','','text-center')" />
+<x-list-data judul="Data Verifkasi Akun" tambah="true" :thead="array('Modul','No Bukti','Status','Tanggal','Due Date','PP','No Dokumen','Aksi')" :thwidth="array(15,15,15,15,20,15,10,10)" :thclass="array('','','','','','','','text-center')" />
 <!-- END LIST DATA -->
 <style>
     div.inp-div-jenis > input{
@@ -320,15 +320,13 @@
 
                         <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-jurnal" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Jurnal</span></a> </li>
 
-
-
                         <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-catatan" role="tab" aria-selected="true"><span class="hidden-xs-down">Catatan Verifkator</span></a> </li>
 
                         <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-dok" role="tab" aria-selected="true"><span class="hidden-xs-down">Berkas Bukti</span></a> </li>
 
                         <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-budget" role="tab" aria-selected="true"><span class="hidden-xs-down">Budget</span></a> </li>
 
-                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-budget" role="tab" aria-selected="true"><span class="hidden-xs-down">Checklist Dokumen</span></a> </li>
+
 
                     </ul>
                     {{-- end tab title --}}
@@ -1109,7 +1107,7 @@ $('#saku-datatable').on('click','#btn-delete',function(e){
 $('#saku-datatable').on('click', '#btn-tambah', function(){
     $('#row-id').hide();
     $('#method').val('post');
-    $('#judul-form').html('Form Verifikasi Dokumen');
+    $('#judul-form').html('Form Verifikasi Akun');
     $('#btn-update').attr('id','btn-save');
     $('#btn-save').attr('type','submit');
     $('#form-tambah')[0].reset();
