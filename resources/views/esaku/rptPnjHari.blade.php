@@ -60,7 +60,7 @@ function drawRptPage(data,res,from,to){
             html += "<tbody>";
             for (var j=0;j<res.res.data_detail.length;j++) {
                 var value2 = res.res.data_detail[j];
-                if(value.tanggal == value2.tanggal){
+                if(value.tanggal == value2.tanggal && value.nik_kasir == value2.nik_user){
                     harga+=+value2.harga;
                     diskon+=+value2.diskon;
                     jumlah+=+value2.jumlah;
