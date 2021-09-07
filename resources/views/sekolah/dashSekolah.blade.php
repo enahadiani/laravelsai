@@ -132,12 +132,12 @@
                                 <option value='#'>Pilih Matpel</option>
                             </select>
                         </div>
-                        <!-- <div class="form-group row">
-                            <label>Status</label>
-                            <select class="form-control" data-width="100%" name="inp-filter_status" id="inp-filter_status">
-                                <option value='#'>Pilih Status</option>
+                        <div class="form-group row">
+                            <label>Tahun Ajaran</label>
+                            <select class="form-control" data-width="100%" name="inp-filter_kode_ta" id="inp-filter_kode_ta">
+                                <option value='#'>Pilih Tahun Ajaran</option>
                             </select>
-                        </div> -->
+                        </div>
                     </div>
                     <div class="modal-footer" style="border:none">
                         <button type="button" class="btn btn-outline-primary" id="btn-reset">Reset</button>
@@ -207,6 +207,47 @@ function sepNumPas(x){
 }
 
 setHeightDash();
+
+function getFilterTA(kode_pp) {
+    $.ajax({
+        type:'GET',
+        url:"{{ url('sekolah-dash/filter-tahunajar') }}",
+        dataType: 'json',
+        data:{kode_pp:kode_pp},
+        async: false,
+        success: function(result) {
+            var select = $('#inp-filter_kode_ta').selectize();
+            select = select[0];
+            var control = select.selectize;
+            control.clearOptions();
+            if(result.status) {
+                for(var i=0;i<result.daftar.length;i++){ 
+                    control.addOption([{text:result.daftar[i].kode_ta+'-'+result.daftar[i].nama, value:result.daftar[i].kode_ta}]);
+                }
+                for(var i=0;i<result.daftar.length;i++) {
+                    var value = result.daftar[i]
+                    if(value.flag_aktif == '1') {
+                        control.setValue(value.kode_ta);
+                        break;
+                    }
+                }
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {       
+            if(jqXHR.status == 422){
+                var msg = jqXHR.responseText;
+            }else if(jqXHR.status == 500) {
+                var msg = "Internal server error";
+            }else if(jqXHR.status == 401){
+                var msg = "Unauthorized";
+                window.location="{{ url('/sekolah-auth/sesi-habis') }}";
+            }else if(jqXHR.status == 405){
+                var msg = "Route not valid. Page not found";
+            }
+            
+        }
+    });
+}
 
 function getFilterPP() {
     $.ajax({
@@ -332,12 +373,14 @@ getFilterPP();
 if("{{ Session::get('kodePP') }}" != ""){
     getFilterKelas("{{ Session::get('kodePP') }}");
     getFilterMatpel("{{ Session::get('kodePP') }}");
+    getFilterTA("{{ Session::get('kodePP') }}");
 }
 
 $('#form-filter').on('change','#inp-filter_kode_pp',function(e){
     var kode_pp = $(this).val();
     getFilterKelas(kode_pp);
     getFilterMatpel(kode_pp);
+    getFilterTA(kode_pp);
 });
 
 $('#form-filter').on('change','#inp-filter_kode_kelas',function(e){
@@ -346,12 +389,12 @@ $('#form-filter').on('change','#inp-filter_kode_kelas',function(e){
     getFilterMatpel(kode_pp,kode_kelas);
 });
 
-function getNilaiRatarata(kode_pp=null,kode_kelas,kode_matpel){
+function getNilaiRatarata(kode_pp=null,kode_kelas,kode_matpel,kode_ta){
     $.ajax({
         type:"GET",
         url:"{{ url('sekolah-dash/rata2-nilai-dashboard') }}",
         dataType:"JSON",
-        data:{kode_pp:kode_pp,kode_kelas:kode_kelas,kode_matpel:kode_matpel},
+        data:{kode_pp:kode_pp,kode_kelas:kode_kelas,kode_matpel:kode_matpel,kode_ta:kode_ta},
         success:function(result){
             Highcharts.chart('chart-nilai', {
                 title: {
@@ -573,18 +616,20 @@ $('#modalFilter').on('submit','#form-filter',function(e){
     var kode_pp = $('#inp-filter_kode_pp')[0].selectize.getValue();
     var kode_kelas = $('#inp-filter_kode_kelas')[0].selectize.getValue();
     var kode_matpel = $('#inp-filter_kode_matpel')[0].selectize.getValue();
+    var kode_ta = $('#inp-filter_kode_ta')[0].selectize.getValue();
     var nama_kelas = $('#inp-filter_kode_kelas option:selected').text().split("-");
     var nama_matpel = $('#inp-filter_kode_matpel option:selected').text().split("-");
+    var nama_ta = $('#inp-filter_kode_ta option:selected').text().split("-");
     nama_kelas = nama_kelas[0];
     nama_matpel = nama_matpel[1];
-    var nama_matpel = $('#inp-filter_kode_matpel option:selected').text().split("-");
-    nama_matpel = nama_matpel[1];
+    nama_ta = nama_ta[0];
     $('#filter-btn').html(`${nama_matpel} ${nama_kelas} ${icon}`);
     $('#judul-kelas').html(nama_kelas);
     $('#judul-matpel').html(nama_matpel);
+    $('#tahun_ajaran').html(nama_ta)
 
     getHistoryPesan(kode_pp,kode_kelas,kode_matpel);
-    getNilaiRatarata(kode_pp,kode_kelas,kode_matpel);
+    getNilaiRatarata(kode_pp,kode_kelas,kode_matpel,kode_ta);
     getDataBox(kode_pp,kode_kelas,kode_matpel);
     getDibawahKKM(kode_pp,kode_kelas,kode_matpel);
     getTahunAjaran(kode_pp)
@@ -627,18 +672,20 @@ $('#btn-tampil').click(function(e){
     var kode_pp = $('#inp-filter_kode_pp')[0].selectize.getValue();
     var kode_kelas = $('#inp-filter_kode_kelas')[0].selectize.getValue();
     var kode_matpel = $('#inp-filter_kode_matpel')[0].selectize.getValue();
+    var kode_ta = $('#inp-filter_kode_ta')[0].selectize.getValue();
     var nama_kelas = $('#inp-filter_kode_kelas option:selected').text().split("-");
     var nama_matpel = $('#inp-filter_kode_matpel option:selected').text().split("-");
+    var nama_ta = $('#inp-filter_kode_ta option:selected').text().split("-");
     nama_kelas = nama_kelas[0];
     nama_matpel = nama_matpel[1];
-    var nama_matpel = $('#inp-filter_kode_matpel option:selected').text().split("-");
-    nama_matpel = nama_matpel[1];
+    nama_ta = nama_ta[0];
     $('#filter-btn').html(`${nama_matpel} ${nama_kelas} ${icon}`);
     $('#judul-kelas').html(nama_kelas);
     $('#judul-matpel').html(nama_matpel);
+    $('#tahun_ajaran').html(nama_ta)
 
     getHistoryPesan(kode_pp,kode_kelas,kode_matpel);
-    getNilaiRatarata(kode_pp,kode_kelas,kode_matpel);
+    getNilaiRatarata(kode_pp,kode_kelas,kode_matpel,kode_ta);
     getDataBox(kode_pp,kode_kelas,kode_matpel);
     getDibawahKKM(kode_pp,kode_kelas,kode_matpel);
     getTahunAjaran(kode_pp)

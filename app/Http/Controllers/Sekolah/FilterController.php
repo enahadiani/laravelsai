@@ -15,6 +15,27 @@
             }
         }
 
+        public function getFilterTahunAjaran(Request $request) {
+            $client = new Client();
+
+            $response = $client->request('GET',  config('api.url').'sekolah/filter-tahunajar',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' => [
+                    'kode_pp' => $request->kode_pp
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+            
+                $data = json_decode($response_data,true);
+            }
+            return response()->json(['daftar' => $data['data'], 'status' => true], 200);
+        }
+
         public function getFilterPP(Request $request) {
             $client = new Client();
 
