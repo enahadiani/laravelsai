@@ -652,6 +652,7 @@ $('#content-pesan').on('click',' #content-pesan-detail > #isi-pesan', function()
 $('#btn-reset').click(function(e){
     e.preventDefault();
     $('#inp-filter_kode_pp')[0].selectize.setValue('');
+    $('#inp-filter_kode_ta')[0].selectize.setValue('');
     $('#inp-filter_status')[0].selectize.setValue('');
     jumFilter();
 });
