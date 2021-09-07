@@ -39,52 +39,53 @@
                                     <thead>
                                         <th>No</th>
                                         <th>NIK</th>
+                                        <th>No KTP</th>
                                         <th>Nama</th>
-                                        <th>Status Nikah</th>
-                                        <th>Tempat</th>
-                                        <th>Tanggal Lahir</th>
-                                        <th>Gender</th>
-                                        <th>Tinggi Badan (cm)</th>
-                                        <th>Berat Badan (kg)</th>
-                                        <th>Golongan Darah</th>
+                                        <th>Jenis Kelamin</th>
                                         <th>Agama</th>
+                                        <th>No Telp</th>
+                                        <th>No HP</th>
+                                        <th>Tempat Lahir</th>
+                                        <th>Tgl Lahir</th>
                                         <th>Alamat</th>
                                         <th>Provinsi</th>
                                         <th>Kota</th>
-                                        <th>Kelurahan</th>
                                         <th>Kecamatan</th>
+                                        <th>Kelurahan</th>
                                         <th>Kode POS</th>
-                                        <th>No KTP</th>
-                                        <th>No HP</th>
-                                        <th>Email</th>
-                                        <th>Strata</th>
-                                        <th>Client</th>
+                                        <th>Tinggi Badan (cm)</th>
+                                        <th>Berat Badan (kg)</th>
+                                        <th>Golongan Darah</th>
+                                        <th>No KK</th>
+                                        <th>Status Nikah</th>
+                                        <th>Tgl Nikah</th>
+                                        <th>Golongan</th>
+                                        <th>Status SDM</th>
+                                        <th>Unit</th>
+                                        <th>Lokasi Kerja</th>
+                                        <th>Tgl Masuk</th>
+                                        <th>No NPWP</th>
+                                        <th>No BPJS Kesehatan</th>
+                                        <th>No BPJS Ketenagakerjaan</th>
+                                        <th>Profesi</th>
+                                        <th>Bank</th>
+                                        <th>Cabang</th>
+                                        <th>No Rekk</th>
+                                        <th>Nama Rek</th>
+                                        <th>Nama Client</th>
+                                        <th>Fungsi</th>
+                                        <th>Skill</th>
+                                        <th>No Kontrak</th>
+                                        <th>Tgl Awal Kontrak</th>
+                                        <th>Tgl Akhir Kontrak</th>
                                         <th>Area</th>
-                                        <th>Kota Area</th>
+                                        <th>Kota</th>
                                         <th>FM</th>
                                         <th>BM</th>
                                         <th>Lokasi Kerja</th>
                                         <th>Jabatan</th>
-                                        <th>Skill</th>
-                                        <th>Fungsi</th>
-                                        <th>No Kontrak</th>
-                                        <th>Tgl Kontrak</th>
-                                        <th>Tgl Akhir Kontrak</th>
-                                        <th>Bank</th>
-                                        <th>No Rek</th>
-                                        <th>Nama Rek</th>
-                                        <th>Gaji Pokok</th>
-                                        <th>Tunj. Jabatan</th>
-                                        <th>Tunj. Penampilan</th>
-                                        <th>Tunj. Gondola</th>
-                                        <th>Tunj. Taman</th>
-                                        <th>Tunj. Kompetensi</th>
-                                        <th>Tunj. Skill</th>
-                                        <th>Tunj. Patroli</th>
-                                        <th>Tunj. Lembur</th>
-                                        <th>Tunj. Masa Kerja</th>
-                                        <th>No. BPJS</th>
-                                        <th>No. BPJS Ten.Kerja</th>
+                                        <th>Atasan Langsung</th>
+                                        <th>Atasan Tidak Langsung</th>
                                     </thead>
                                     <tbody></tbody>
                                 </table>
@@ -141,52 +142,53 @@ var dataTable = generateTableWithoutAjax(
     [
         { data : 'nu'},
         { data : 'nik'},
+        { data : 'no_ktp'},
         { data : 'nama'},
-        { data : 'status_nikah'},
+        { data : 'jk'},
+        { data : 'kode_agama'},
+        { data : 'no_telp'},
+        { data : 'no_hp'},
         { data : 'tempat'},
         { data : 'tgl_lahir'},
-        { data : 'jk'},
-        { data : 't_badan'},
-        { data : 'b_badan'},
-        { data : 'gol_darah'},
-        { data : 'kode_agama'},
         { data : 'alamat'},
         { data : 'provinsi'},
         { data : 'kota'},
-        { data : 'kelurahan'},
         { data : 'kecamatan'},
+        { data : 'kelurahan'},
         { data : 'kode_pos'},
-        { data : 'no_ktp'},
-        { data : 'no_telp'},
-        { data : 'email'},
-        { data : 'kode_strata'},
+        { data : 't_badan'},
+        { data : 'b_badan'},
+        { data : 'gol_darah'},
+        { data : 'no_kk'},
+        { data : 'status_nikah'},
+        { data : 'tgl_nikah'},
+        { data : 'kode_gol'},
+        { data : 'kode_sdm'},
+        { data : 'kode_unit'},
+        { data : 'kode_loker'},
+        { data : 'tgl_masuk'},
+        { data : 'npwp'},
+        { data : 'no_bpjs'},
+        { data : 'no_bpjs_kerja'},
+        { data : 'kode_profesi'},
+        { data : 'bank'},
+        { data : 'cabang'},
+        { data : 'no_rek'},
+        { data : 'nama_rek'},
         { data : 'client'},
+        { data : 'fungsi'},
+        { data : 'skill'},
+        { data : 'no_kontrak'},
+        { data : 'tgl_kontrak'},
+        { data : 'tgl_kontrak_akhir'},
         { data : 'area'},
         { data : 'kota_area'},
         { data : 'fm'},
         { data : 'bm'},
-        { data : 'loker'},
-        { data : 'jabatan'},
-        { data : 'skill'},
-        { data : 'fungsi'},
-        { data : 'no_kontrak'},
-        { data : 'tgl_kontrak'},
-        { data : 'tgl_kontrak_akhir'},
-        { data : 'bank'},
-        { data : 'no_rek'},
-        { data : 'nama_rek'},
-        { data : 'gaji_pokok'},
-        { data : 'tunj_jabatan'},
-        { data : 'tunj_penampilan'},
-        { data : 'tunj_gondola'},
-        { data : 'tunj_taman'},
-        { data : 'tunj_kompetensi'},
-        { data : 'tunj_skill'},
-        { data : 'tunj_patroli'},
-        { data : 'tunj_lembur'},
-        { data : 'tunj_masakerja'},
-        { data : 'no_bpjs'},
-        { data : 'no_bpjs_kerja'}
+        { data : 'loker_client'},
+        { data : 'jabatan_client'},
+        { data : 'atasan_langsung'},
+        { data : 'atasan_t_langsung'}
     ],
     []
 );
