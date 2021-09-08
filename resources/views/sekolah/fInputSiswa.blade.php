@@ -484,7 +484,7 @@ $('#form-tambah').validate({
                     last_add(dataTable,"nis", kode);
                     $('#id_edit').val('false')
                 } else if(!result.data.status && result.data.message === "Unauthorized"){
-                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                    window.location.href = "{{ url('sekolah-auth/sesi-habis') }}";
                 } else {
                     Swal.fire({
                         icon: 'error',

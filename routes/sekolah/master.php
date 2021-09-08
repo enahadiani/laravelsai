@@ -136,3 +136,7 @@ Route::post('absen-kelas', 'Sekolah\AbsenKelasController@store');
 Route::post('siswa-simpan', 'Sekolah\SiswaInputController@store');
 Route::post('siswa-update', 'Sekolah\SiswaInputController@update');
 Route::get('siswa-edit', 'Sekolah\SiswaInputController@show');
+
+Route::post('siswa-upload-simpan', 'Sekolah\UploadSiswaController@store');
+Route::post('siswa-upload', 'Sekolah\UploadSiswaController@uploadXLS');
+Route::get('siswa-upload-load', 'Sekolah\UploadSiswaController@loadDataTmp');
