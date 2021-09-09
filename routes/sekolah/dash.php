@@ -18,6 +18,7 @@ Route::get('pesan-history', 'Sekolah\PesanController@historyPesan');
 Route::get('rata2-nilai-dashboard', 'Sekolah\DashboardController@rata2Nilai');
 Route::get('dibawah-nilai-kkm', 'Sekolah\DashboardController@dibawahKKM');
 Route::get('data-box', 'Sekolah\PesanController@getDataBox');
+Route::get('filter-tahunajar', 'Sekolah\FilterController@getFilterTahunAjaran');
 
 Route::get('kartu-piutang', 'Sekolah\DashSiswaController@getKartuPiutang');
 Route::get('kartu-pdd', 'Sekolah\DashSiswaController@getKartuPDD');

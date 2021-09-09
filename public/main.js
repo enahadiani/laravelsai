@@ -1,4 +1,4 @@
-function isiEdit(value, tipe, kode, view) {
+function isiEdit(value, tipe, kode, view, defaultVal = "0") {
     var hasil = "";
     switch (tipe) {
         case "number":
@@ -31,7 +31,7 @@ function isiEdit(value, tipe, kode, view) {
         case "select":
             hasil =
                 value == "" || value == null || value == undefined
-                    ? "-"
+                    ? defaultVal
                     : value;
             $(kode)[0].selectize.setValue(hasil);
             if (view) {
@@ -234,7 +234,7 @@ function newForm() {
     $("[class^=simple-icon-close]").each(function (e) {
         $(this).addClass("hidden");
     });
-    $("#id_edit").val("");
+    $("#id_edit").val("false");
     $('input[data-input="cbbl"]').val("");
     $("#btn-update").attr("id", "btn-save");
     $("#btn-save").attr("type", "submit");
@@ -323,6 +323,23 @@ function showInfoField(kode, isi_kode, isi_nama) {
         .closest("div")
         .find(".info-icon-hapus")
         .removeClass("hidden");
+}
+
+function reverseDate(date_str, separator = "-", newseparator = "/") {
+    if (date_str == null || date_str == "") {
+        var date = new Date();
+        var month = "" + (date.getMonth() + 1);
+        var day = "" + date.getDate();
+        var year = date.getFullYear();
+
+        if (month.length < 2) month = "0" + month;
+        if (day.length < 2) day = "0" + day;
+        return `${day}${newseparator}${month}${newseparator}${year}`;
+    } else {
+        var str = date_str.split(separator);
+
+        return str[2] + newseparator + str[1] + newseparator + str[0];
+    }
 }
 
 function reverseDateNew(date_str, separator, newseparator) {

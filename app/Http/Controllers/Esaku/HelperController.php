@@ -570,7 +570,7 @@
 
         public function getPeriodePnj() {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'esaku-report/filter-periode',[
+            $response = $client->request('GET',  config('api.url').'esaku-report/filter-periode-pnj',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',

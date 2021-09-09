@@ -572,6 +572,12 @@
                                 <option value='NONAKTIF'>NONAKTIF</option>
                             </select>
                         </div>
+                        <div class="form-group row">
+                            <label>Tahun Ajaran</label>
+                            <select class="form-control" data-width="100%" name="inp-filter_kode_ta" id="inp-filter_kode_ta">
+                                <option value='' disabled>Pilih Tahun Ajaran</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="modal-footer" style="border:none">
                         <button type="button" class="btn btn-outline-primary" id="btn-reset">Reset</button>
@@ -661,6 +667,47 @@
 
     var $dtPP = new Array();
 
+    function getFilterTA(kode_pp) {
+        $.ajax({
+            type:'GET',
+            url:"{{ url('sekolah-dash/filter-tahunajar') }}",
+            dataType: 'json',
+            data:{kode_pp:kode_pp},
+            async: false,
+            success: function(result) {
+                var select = $('#inp-filter_kode_ta').selectize();
+                select = select[0];
+                var control = select.selectize;
+                control.clearOptions();
+                if(result.status) {
+                    for(var i=0;i<result.daftar.length;i++){ 
+                        control.addOption([{text:result.daftar[i].kode_ta+'-'+result.daftar[i].nama, value:result.daftar[i].kode_ta}]);
+                    }
+                    for(var i=0;i<result.daftar.length;i++) {
+                        var value = result.daftar[i]
+                        if(value.flag_aktif == '1') {
+                            control.setValue(value.kode_ta);
+                            break;
+                        }
+                    }
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {       
+                if(jqXHR.status == 422){
+                    var msg = jqXHR.responseText;
+                }else if(jqXHR.status == 500) {
+                    var msg = "Internal server error";
+                }else if(jqXHR.status == 401){
+                    var msg = "Unauthorized";
+                    window.location="{{ url('/sekolah-auth/sesi-habis') }}";
+                }else if(jqXHR.status == 405){
+                    var msg = "Route not valid. Page not found";
+                }
+                
+            }
+        });
+    }
+
     function getTAPp() {
         $.ajax({
             type:'GET',
@@ -708,8 +755,14 @@
     }
 
     getTAPp();
+    getFilterTA("{{ Session::get('kodePP') }}")
     jumFilter();
     $('[id^=label]').attr('readonly',true);
+
+    $('#form-filter').on('change','#inp-filter_kode_pp',function(e){
+        var kode_pp = $(this).val();
+        getFilterTA(kode_pp);
+    });
 
     // LIST DATA
     var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
@@ -1997,22 +2050,30 @@
             function( settings, data, dataIndex ) {
                 var kode_pp = $('#inp-filter_kode_pp').val();
                 var status = $('#inp-filter_status').val();
+                var kode_ta  = $('#inp-filter_kode_ta').val();
                 var col_kode_pp = data[2];
                 var col_status = data[3];
-                if(kode_pp != "" && status != ""){
-                    if(kode_pp == col_kode_pp && status == col_status){
+                var col_kode_ta = data[4];
+                if(kode_pp != "" && status != "" && kode_ta != ""){
+                    if(kode_pp == col_kode_pp && status == col_status && kode_ta == col_kode_ta){
                         return true;
                     }else{
                         return false;
                     }
-                }else if(kode_pp !="" && status == "") {
+                }else if(kode_pp !="" && status == "" && kode_ta == "") {
                     if(kode_pp == col_kode_pp){
                         return true;
                     }else{
                         return false;
                     }
-                }else if(kode_pp == "" && status != ""){
+                }else if(kode_pp == "" && status != "" && kode_ta == ""){
                     if(status == col_status){
+                        return true;
+                    }else{
+                        return false;
+                    }
+                }else if(kode_pp == "" && status == "" && kode_ta != ""){
+                    if(kode_ta == col_kode_ta){
                         return true;
                     }else{
                         return false;
@@ -2034,6 +2095,7 @@
     $('#btn-reset').click(function(e){
         e.preventDefault();
         $('#inp-filter_kode_pp')[0].selectize.setValue('');
+        $('#inp-filter_kode_ta')[0].selectize.setValue('');
         $('#inp-filter_status')[0].selectize.setValue('');
         jumFilter()
         

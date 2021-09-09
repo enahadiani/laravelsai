@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="{{ asset('form.css') }}" />
 
 {{-- SAKU TABLE --}}
-<x-list-data judul="Data Status Karyawan" tambah="true" :thead="array('Kode','Nama','Status','Aksi')" :thwidth="array(20,25,25,10)" :thclass="array('','','','text-center')" />
+<x-list-data judul="Data Unit" tambah="true" :thead="array('Kode','Nama','Status','Aksi')" :thwidth="array(20,25,25,10)" :thclass="array('','','','text-center')" />
 {{-- END SAKU TABLE --}}
 
 {{-- SAKU FORM --}}

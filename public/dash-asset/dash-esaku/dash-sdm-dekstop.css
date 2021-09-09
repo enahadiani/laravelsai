@@ -28,9 +28,6 @@
     padding: 16px 0 4px 4px;
     margin-bottom: 0;
 }
-.card-dash .glyph-icon {
-    font-size: 60px !important;
-}
 .card-dash .glyph-icon.medium {
     font-size: 20px !important;
 }
@@ -101,7 +98,10 @@
     float: right;
 }
 #box-pegawai,
+#box-bpjs-sehat,
+#box-bpjs-kerja,
 #jumlah-pria,
+#box-client,
 #jumlah-wanita {
     cursor: pointer;
 }
@@ -132,4 +132,104 @@
 .table th,
 .table td {
     padding: 8px !important;
+}
+.image-icon {
+    position: absolute;
+    left: 25px;
+    top: 15px;
+}
+
+.image-icon-small {
+    position: absolute;
+    left: 22px;
+    top: 8px;
+}
+
+.glyph-icon.iconsminds-left {
+    font-size: 20px;
+    cursor: pointer;
+    display: inline;
+}
+.card-title-2.detail-card {
+    display: inline;
+}
+
+.header-content {
+    padding: 16px 0 0 0;
+}
+
+.card.card-dash-2 {
+    min-height: 90px;
+    box-shadow: none;
+    border-radius: 10px;
+    padding: 8px 0 0 16px;
+    color: #ffffff;
+    margin-bottom: 24px;
+}
+.card.card-dash-2 .label-card {
+    color: #ffffff;
+    margin-bottom: 0;
+}
+.bg-blue {
+    background-color: #1e3a8a;
+}
+.bg-red {
+    background-color: #dc2626;
+}
+.card.card-dash-2 .count-card {
+    font-size: 28px;
+}
+.card.card-dash-2 .percentage-card {
+    vertical-align: bottom;
+    color: #ffffff;
+    margin-top: 16px;
+}
+.card.card-dash-2 .card-header {
+    padding: 6px 0 8px 16px;
+}
+.card.card-dash-2 .card-header .label-table-bpjs {
+    margin-bottom: 0;
+    color: #ffffff;
+}
+.card.card-dash-2 .card-body {
+    position: relative;
+    background-color: #ffffff;
+    border-left: 1px solid #d1d5db;
+    border-right: 1px solid #d1d5db;
+    border-bottom: 1px solid #d1d5db;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    padding: 0;
+    padding-left: 8px;
+    min-height: 380px;
+}
+.card.card-dash-2 .card-body .table-detail {
+    overflow-y: auto;
+    height: 370px;
+}
+.no-p {
+    padding: 0 !important;
+}
+
+#table-detail-bpjs::-webkit-scrollbar,
+#table-detail-non-bpjs::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+#table-detail-bpjs::-webkit-scrollbar-track,
+#table-detail-non-bpjs::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+#table-detail-bpjs::-webkit-scrollbar-thumb,
+#table-detail-non-bpjs::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+/* Handle on hover */
+#table-detail-bpjs::-webkit-scrollbar-thumb:hover,
+#table-detail-non-bpjs::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }

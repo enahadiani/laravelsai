@@ -7,7 +7,7 @@
                 <div class="card card-dash" id="box-pegawai">
                     <div class="row">
                         <div class="col-4">
-                            <span class="glyph-icon iconsminds-gey"></span>
+                            <img alt="pegawai" class="image-icon" src="{{ url('/asset_sdm/img/team.png') }}">
                         </div>
                         <div class="col-8">
                             <h6 class="card-titles">Pegawai</h6>
@@ -17,10 +17,10 @@
                 </div>
             </div>
             <div class="col-md-3 col-sm-3 col-lg-3 col-xl-3">
-                <div class="card card-dash">
+                <div class="card card-dash" id="box-bpjs-sehat">
                     <div class="row">
                         <div class="col-4">
-                            <span class="glyph-icon iconsminds-heart"></span>
+                            <img alt="heart" class="image-icon" src="{{ url('/asset_sdm/img/heartbeat.png') }}">
                         </div>
                         <div class="col-8">
                             <h6 class="card-titles">BPJS Kesehatan</h6>
@@ -30,10 +30,10 @@
                 </div>
             </div>
             <div class="col-md-3 col-sm-3 col-lg-3 col-xl-3">
-                <div class="card card-dash">
+                <div class="card card-dash" id="box-bpjs-kerja">
                     <div class="row">
                         <div class="col-4">
-                            <span class="glyph-icon iconsminds-gear"></span>
+                            <img alt="helmet" class="image-icon" src="{{ url('/asset_sdm/img/helmet.png') }}">
                         </div>
                         <div class="col-8">
                             <h6 class="card-titles">BPJS Ketenagakerjaan</h6>
@@ -43,14 +43,14 @@
                 </div>
             </div>
             <div class="col-md-3 col-sm-3 col-lg-3 col-xl-3">
-                <div class="card card-dash">
+                <div class="card card-dash" id="box-client">
                     <div class="row">
                         <div class="col-4">
-                            <span class="glyph-icon iconsminds-office"></span>
+                            <img alt="client" class="image-icon" src="{{ url('/asset_sdm/img/corporation.png') }}">
                         </div>
                         <div class="col-8">
                             <h6 class="card-titles">Klien</h6>
-                            <h3 class="card-text blue-text text-bold" id="jumlah-bpjs-klien">0</h3>
+                            <h3 class="card-text blue-text text-bold" id="jumlah-client">0</h3>
                         </div>
                     </div>
                 </div>
@@ -69,7 +69,7 @@
                                 <div class="col-6">
                                     <div class="row">
                                         <div class="col-3">
-                                            <div class="glyph-icon medium p-l-4 m-t-10 simple-icon-symbol-male"></div>
+                                            <img alt="male" class="image-icon-small" src="{{ url('/asset_sdm/img/Pria.svg') }}">
                                         </div>
                                         <div class="col-9">
                                             <p class="card-subtitle">Pria</p>
@@ -80,7 +80,7 @@
                                 <div class="col-6">
                                     <div class="row">
                                         <div class="col-3">
-                                            <div class="glyph-icon medium m-t-10 simple-icon-symbol-female"></div>
+                                            <img alt="female" class="image-icon-small" src="{{ url('/asset_sdm/img/Wanita.svg') }}">
                                         </div>
                                         <div class="col-9">
                                             <p class="card-subtitle">Wanita</p>
@@ -109,7 +109,7 @@
             </div>
             <div class="col-md-3 col-sm-3 col-lg-3 col-xl-3">
                 <div class="card card-dash">
-                    <h6 class="card-title-2 text-bold">Kelompok Umur</h6>
+                    <h6 class="card-title-2 text-bold">Kelompok Umur (Tahun)</h6>
                     <div id="umur-chart"></div>
                 </div>
             </div>
@@ -144,13 +144,13 @@
             </div>
             <div class="col-md-6 col-lg-6 col-sm-6 col-xl-6">
                 <div class="card card-dash">
-                    <h6 class="card-title-2 text-bold">Lokasi Pegawai Kerja</h6>
-                    <div id="lokasi-chart"></div>
+                    <h6 class="card-title-2 text-bold">Jabatan Pegawai</h6>
+                    <div id="jabatan-column-chart"></div>
                 </div>
             </div>
             <div class="col-md-3 col-sm-3 col-lg-3 col-xl-3">
                 <div class="card card-dash">
-                    <h6 class="card-title-2 text-bold">Rentang Gaji</h6>
+                    <h6 class="card-title-2 text-bold">Rentang Gaji (Juta)</h6>
                     <div id="gaji-chart"></div>
                 </div>
             </div>
@@ -164,10 +164,9 @@
             <div class="col-12">
                 <div class="card card-dash">
                     <div class="card-header row">
-                        <div class="col-12">
-                            <button class="btn btn-primary" id="to-main-dash">Back</button>
-                            <br/>
-                            <h6 class="card-title-2 text-bold text-medium">Data Pegawai</h6>
+                        <div class="col-12 header-content">
+                            <div class="glyph-icon iconsminds-left" id="to-main-dash"></div>
+                            <h6 class="card-title-2 text-bold text-medium detail-card">Data Pegawai</h6>
                         </div>
                     </div>
                     <hr/>
@@ -200,7 +199,7 @@
                                             <th class="text-center">Nama</th>
                                             <th class="text-center">Jabatan</th>
                                             <th class="text-center">No Telp</th>
-                                            <th class="text-center">Email</th>
+                                            <th class="text-center">Client</th>
                                         </tr>
                                     </thead>
                                     <tbody></tbody>
@@ -221,12 +220,120 @@
                 <div class="card card-dash">
                     <div class="card-header row">
                         <div class="col-12">
-                            <button class="btn btn-primary" id="to-detail-1">Back</button>
-                            <br/>
+                            <div class="glyph-icon iconsminds-left" id="to-detail-1"></div>
                             <h6 class="card-title-2 text-bold text-medium">CV Pegawai</h6>
                         </div>
                     </div>
                     <div class="card-body box-cv" id="data-cv"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
+
+<section id="detail-3" style="display: none;">
+    <section id="dektop-5" class="dekstop-5 pb-1 m-b-25">
+        <div class="row">
+            <div class="col-12">
+                <div class="card card-dash">
+                    <div class="card-header row">
+                        <div class="col-12">
+                            <div class="glyph-icon iconsminds-left" id="to-main-dash-from-bpjs"></div>
+                            <h6 class="card-title-2 text-bold text-medium detail-card" id="header-bpjs"></h6>
+                        </div>
+                    </div>
+                    <div class="card-body row">
+                        <div class="col-6">
+                            <div class="card card-dash-2 bg-blue">
+                                <div class="card-content">
+                                    <p id="label-card-bpjs" class="label-card">Jumlah BPJS</p>
+                                    <div class="row">
+                                        <div class="col-10 count-card" id="jumlah-bpjs">
+                                            0
+                                        </div>
+                                        <div class="col-2">
+                                            <p class="percentage-card" id="persentase-bpjs">0%</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card card-dash-2 no-p">
+                                <div class="card-header bg-blue">
+                                    <p id="label-table-bpjs" class="label-table-bpjs">
+                                        Data BPJS <span id="jenis-bpjs"></span>
+                                    </p>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-detail" id="table-detail-bpjs">
+                                        <table id="table-bpjs" class="table table-hover table-borderless">
+                                            <thead>
+                                                <th>No</th>
+                                                <th>NIK</th>
+                                                <th>Nama</th>
+                                                <th>ID BPJS</th>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                           <div class="card card-dash-2 bg-red">
+                                <div class="card-content">
+                                    <p id="label-card-bpjs" class="label-card">Jumlah Non BPJS</p>
+                                    <div class="row">
+                                        <div class="col-10 count-card" id="jumlah-non-bpjs">
+                                            0
+                                        </div>
+                                        <div class="col-2">
+                                            <p class="percentage-card" id="persentase-non-bpjs">0%</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card card-dash-2 no-p">
+                                <div class="card-header bg-red">
+                                    <p id="label-table-bpjs" class="label-table-bpjs">
+                                        Data Non BPJS
+                                    </p>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-detail" id="table-detail-non-bpjs">
+                                        <table id="table-non-bpjs" class="table table-hover table-borderless">
+                                            <thead>
+                                                <th>No</th>
+                                                <th>NIK</th>
+                                                <th>Nama</th>
+                                                <th>ID BPJS</th>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
+
+<section id="detail-4" style="display: none;">
+    <section id="dektop-6" class="dekstop-6 pb-1 m-b-25">
+        <div class="row">
+            <div class="col-12">
+                <div class="card card-dash">
+                    <div class="card-header row">
+                        <div class="col-12 header-content">
+                            <div class="glyph-icon iconsminds-left" id="to-main-dash-from-client"></div>
+                            <h6 class="card-title-2 text-bold text-medium detail-card">Komposisi Klien</h6>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div id="komposisi-client-chart"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -237,6 +344,7 @@
 <script src="{{ asset('helper.js') }}"></script>
 <script type="text/javascript">
 var dataTable = null;
+
 $('#jumlah-pria').click(function() {
     var filter = { jk: $(this).data('filter') }
     generateTabelKaryawan(filter)
@@ -256,6 +364,16 @@ $('#to-main-dash').click(function() {
     $('#main-dash').show();
 })
 
+$('#to-main-dash-from-bpjs').click(function() {
+    $('#detail-3').hide();
+    $('#main-dash').show();
+})
+
+$('#to-main-dash-from-client').click(function() {
+    $('#detail-4').hide();
+    $('#main-dash').show();
+})
+
 $('#to-detail-1').click(function() {
     $('#detail-2').hide();
     $('#detail-1').show();
@@ -265,6 +383,18 @@ $('#datatable-karyawan tbody').on('click', 'td', function() {
     var data = dataTable.row($(this).parents('tr')).data()
     var filter = { 'nik[0]': '=', 'nik[1]': data.nik, 'nik[2]':'' }
     generateCVKaryawan(filter)    
+})
+
+$('#box-bpjs-sehat').click(function() {
+    generateDetailBPJSKesehatan()
+})
+
+$('#box-bpjs-kerja').click(function() {
+    generateDetailBPJSKerja()
+})
+
+$('#box-client').click(function() {
+    generateKomposisiClient()
 })
 
 $.ajax({
@@ -280,16 +410,354 @@ $.ajax({
                 jumlah_kesehatan: format_number(data.jumlah_kesehatan[0].jumlah),
                 jumlah_kerja: format_number(data.jumlah_kerja[0].jumlah),
                 jumlah_pria: format_number(data.jumlah_pria[0].jumlah),
-                jumlah_wanita: format_number(data.jumlah_wanita[0].jumlah)
+                jumlah_wanita: format_number(data.jumlah_wanita[0].jumlah),
+                jumlah_client: format_number(data.jumlah_client)
             }
 
             generateDataBox(dataBox)
             generateChartPendidikan(data.tingkat_pendidikan)
-            generateChartLoker(data.lokasi_kerja)
+            // generateChartLoker(data.lokasi_kerja)
             generateChartJabatan(data.jabatan)
+            generateChartJabatanColumn(data.jabatan)
+            generateDataGaji()
+            generateDataUmur()
         }
     }
 });
+
+function generateDataUmur() {
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('esaku-dash/sdm-umur') }}",
+        dataType: 'json',
+        async:false,
+        success:function(result){    
+            var data = result.data;
+            
+            Highcharts.chart('umur-chart', {
+                chart: { 
+                    type: 'column',
+                    height: 160 
+                },
+                title: { text: '' },
+                subtitle: { text: '' },
+                exporting:{ enabled: false },
+                legend:{ enabled:false },
+                credits: { enabled: false },
+                xAxis: {
+                    categories: data.categories,
+                    crosshair: true
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: ''
+                    }
+                },
+                tooltip: {
+                    enabled: true
+                },
+                plotOptions: {
+                    series: {
+                        label: {
+                            connectorAllowed: false
+                        }
+                    }
+                },
+                series: [{
+                    name: 'Jumlah',
+                    data: data.value,
+                    color: '#ffb703'
+                }]
+            });
+        }
+    });
+}
+
+function generateDataGaji() {
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('esaku-dash/sdm-gaji') }}",
+        dataType: 'json',
+        async:false,
+        success:function(result){    
+            var data = result.data;
+            Highcharts.chart('gaji-chart', {
+                chart: { 
+                    type: 'column',
+                    height: 238 
+                },
+                title: { text: '' },
+                subtitle: { text: '' },
+                exporting:{ enabled: false },
+                legend:{ enabled:false },
+                credits: { enabled: false },
+                xAxis: {
+                    categories: data.categories,
+                    crosshair: true
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: ''
+                    }
+                },
+                tooltip: {
+                    enabled: true
+                },
+                plotOptions: {
+                    series: {
+                        label: {
+                            connectorAllowed: false
+                        }
+                    }
+                },
+                series: [{
+                    name: 'Jumlah',
+                    data: data.value,
+                    color: '#1e3a8a'
+                }]
+            });
+        }
+    });
+}
+
+function generateChartJabatanColumn(data) {
+    if(data.length > 0) {
+        var categories = [];
+        var chartData = [];
+
+        for(var i=0;i<data.length;i++) {
+            var dt = data[i];
+            categories.push(dt.nama_jabatan)
+            chartData.push(parseFloat(dt.jumlah))
+        }
+
+        Highcharts.chart('jabatan-column-chart', {
+            chart: { 
+                type: 'column',
+                height: 238 
+            },
+            title: { text: '' },
+            subtitle: { text: '' },
+            exporting:{ enabled: false },
+            legend:{ enabled:false },
+            credits: { enabled: false },
+            xAxis: {
+                categories: categories,
+                crosshair: true
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: ''
+                }
+            },
+            tooltip: {
+                enabled: true,
+            },
+            plotOptions: {
+                series: {
+                    label: {
+                        connectorAllowed: false
+                    },
+                    point: {
+                        events: {
+                            click: function() {
+                                var filter = { kode_loker: this.category }
+                                generateTabelKaryawan(filter)
+                            }
+                        }
+                    }
+                }
+            },
+            series: [{
+                name: 'Jumlah',
+                data: chartData,
+                color: '#f87171'
+            }]
+        });
+    }
+}
+
+function generateKomposisiClient() {
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('esaku-dash/sdm-client') }}",
+        dataType: 'json',
+        async:false,
+        success:function(result){    
+            var data = result.data
+            var categories = data.categories
+            var komposisi = data.komposisi
+            var chart = [];
+
+            if(categories.length > 0) {
+                for(var i=0;i<categories.length;i++) {
+                    chart.push({ name: categories[i], y:komposisi[i] })
+                    i++;
+                }
+            }
+
+            Highcharts.chart('komposisi-client-chart', {
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie',
+                    // height: 239
+                },
+                title: { text: '' },
+                subtitle: { text: '' },
+                exporting:{ enabled: false },
+                legend:{ enabled: true },
+                credits: { enabled: false },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                accessibility: {
+                    point: {
+                        valueSuffix: '%'
+                    }
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            format: '{point.percentage:.1f} %'
+                        },
+                        size: 250,
+                        showInLegend: true
+                    }
+                },
+                series: [{
+                    name: 'Jumlah',
+                    colorByPoint: true,
+                    data: chart
+                }]
+            });
+
+            $('#main-dash').hide();
+            $('#detail-4').show();
+        }
+    });   
+}
+
+function generateDetailBPJSKerja() {
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('esaku-dash/sdm-bpjs-kerja') }}",
+        dataType: 'json',
+        async:false,
+        success:function(result){    
+            var data = result.data
+            if(data.status) {
+                $('#table-bpjs tbody').empty()
+                $('#table-non-bpjs tbody').empty()
+                $('#header-bpjs').text('Data BPJS Tenaga Kerja')
+                $('#jenis-bpjs').text('BPJS Kesehatan')
+                $('#jumlah-bpjs').text(data.jumlah_terdaftar)
+                $('#persentase-bpjs').text(data.percentage_terdaftar + "%")
+                $('#jumlah-non-bpjs').text(data.jumlah_non_terdaftar)
+                $('#persentase-non-bpjs').text(data.percentage_non_terdaftar + "%")
+
+                if(data.data_terdaftar.length > 0) {
+                    var no = 1;
+                    var html = null
+                    for(var i=0;i<data.data_terdaftar.length;i++) {
+                        var row = data.data_terdaftar[i]
+                        html += `<tr>
+                            <td>${no}</td>    
+                            <td>${row.nik}</td>    
+                            <td>${row.nama}</td>    
+                            <td>${row.no_bpjs}</td>    
+                        </tr>`
+                        no++;
+                    }
+                    $('#table-bpjs tbody').append(html)
+                }
+
+                 if(data.data_non_terdaftar.length > 0) {
+                    var no = 1;
+                    var html = null
+                    for(var i=0;i<data.data_non_terdaftar.length;i++) {
+                        var row = data.data_non_terdaftar[i]
+                        html += `<tr>
+                            <td>${no}</td>    
+                            <td>${row.nik}</td>    
+                            <td>${row.nama}</td>    
+                            <td>${row.no_bpjs}</td>    
+                        </tr>`
+                        no++;
+                    }
+                    $('#table-non-bpjs tbody').append(html)
+                }
+
+                $('#main-dash').hide();
+                $('#detail-3').show();
+            }
+        }
+    });
+}
+
+function generateDetailBPJSKesehatan() {
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('esaku-dash/sdm-bpjs-sehat') }}",
+        dataType: 'json',
+        async:false,
+        success:function(result){    
+            var data = result.data
+            if(data.status) {
+                $('#table-bpjs tbody').empty()
+                $('#table-non-bpjs tbody').empty()
+                $('#header-bpjs').text('Data BPJS Kesehatan')
+                $('#jenis-bpjs').text('BPJS Kesehatan')
+                $('#jumlah-bpjs').text(data.jumlah_terdaftar)
+                $('#persentase-bpjs').text(data.percentage_terdaftar + "%")
+                $('#jumlah-non-bpjs').text(data.jumlah_non_terdaftar)
+                $('#persentase-non-bpjs').text(data.percentage_non_terdaftar + "%")
+
+                if(data.data_terdaftar.length > 0) {
+                    var no = 1;
+                    var html = null
+                    for(var i=0;i<data.data_terdaftar.length;i++) {
+                        var row = data.data_terdaftar[i]
+                        html += `<tr>
+                            <td>${no}</td>    
+                            <td>${row.nik}</td>    
+                            <td>${row.nama}</td>    
+                            <td>${row.no_bpjs}</td>    
+                        </tr>`
+                        no++;
+                    }
+                    $('#table-bpjs tbody').append(html)
+                }
+
+                 if(data.data_non_terdaftar.length > 0) {
+                    var no = 1;
+                    var html = null
+                    for(var i=0;i<data.data_non_terdaftar.length;i++) {
+                        var row = data.data_non_terdaftar[i]
+                        html += `<tr>
+                            <td>${no}</td>    
+                            <td>${row.nik}</td>    
+                            <td>${row.nama}</td>    
+                            <td>${row.no_bpjs}</td>    
+                        </tr>`
+                        no++;
+                    }
+                    $('#table-non-bpjs tbody').append(html)
+                }
+
+                $('#main-dash').hide();
+                $('#detail-3').show();
+            }
+        }
+    });
+}
 
 function generateCVKaryawan(filter=null) {
     $.ajax({
@@ -599,6 +1067,7 @@ function generateTabelKaryawan(filter=null) {
         sDom: 't<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
         'ajax': {
             'url': "{{ url('esaku-dash/sdm-karyawan') }}",
+            'cache': false,
             'async':false,
             'type': 'GET',
             'data': filter,
@@ -611,7 +1080,7 @@ function generateTabelKaryawan(filter=null) {
             { data: 'nama_pegawai' },
             { data: 'nama_jabatan' },
             { data: 'no_telp' },
-            { data: 'email' }
+            { data: 'client' }
         ],
         drawCallback: function () {
             $($(".dataTables_wrapper .pagination li:first-of-type"))
@@ -657,6 +1126,7 @@ function generateDataBox(data) {
     $('#jumlah-bpjs-ker').text(data.jumlah_kerja)
     $('#jumlah-pria').text(data.jumlah_pria)
     $('#jumlah-wanita').text(data.jumlah_wanita)
+    $('#jumlah-client').text(data.jumlah_client)
 }
 
 function generateChartPendidikan(data) {
@@ -717,63 +1187,63 @@ function generateChartPendidikan(data) {
     }
 }
 
-function generateChartLoker(data) {
-    if(data.length > 0) {
-        var categories = [];
-        var chartData = [];
+// function generateChartLoker(data) {
+    // if(data.length > 0) {
+    //     var categories = [];
+    //     var chartData = [];
 
-        for(var i=0;i<data.length;i++) {
-            var dt = data[i];
-            categories.push(dt.kode_loker)
-            chartData.push(parseFloat(dt.jumlah))
-        }
+    //     for(var i=0;i<data.length;i++) {
+    //         var dt = data[i];
+    //         categories.push(dt.kode_loker)
+    //         chartData.push(parseFloat(dt.jumlah))
+    //     }
 
-        Highcharts.chart('lokasi-chart', {
-            chart: { 
-                type: 'column',
-                height: 238 
-            },
-            title: { text: '' },
-            subtitle: { text: '' },
-            exporting:{ enabled: false },
-            legend:{ enabled:false },
-            credits: { enabled: false },
-            xAxis: {
-                categories: categories,
-                crosshair: true
-            },
-            yAxis: {
-                min: 0,
-                title: {
-                    text: ''
-                }
-            },
-            tooltip: {
-                enabled: true,
-            },
-            plotOptions: {
-                series: {
-                    label: {
-                        connectorAllowed: false
-                    },
-                    point: {
-                        events: {
-                            click: function() {
-                                var filter = { kode_loker: this.category }
-                                generateTabelKaryawan(filter)
-                            }
-                        }
-                    }
-                }
-            },
-            series: [{
-                name: 'Jumlah',
-                data: chartData,
-                color: '#f87171'
-            }]
-        });
-    }
-}
+    //     Highcharts.chart('lokasi-chart', {
+    //         chart: { 
+    //             type: 'column',
+    //             height: 238 
+    //         },
+    //         title: { text: '' },
+    //         subtitle: { text: '' },
+    //         exporting:{ enabled: false },
+    //         legend:{ enabled:false },
+    //         credits: { enabled: false },
+    //         xAxis: {
+    //             categories: categories,
+    //             crosshair: true
+    //         },
+    //         yAxis: {
+    //             min: 0,
+    //             title: {
+    //                 text: ''
+    //             }
+    //         },
+    //         tooltip: {
+    //             enabled: true,
+    //         },
+    //         plotOptions: {
+    //             series: {
+    //                 label: {
+    //                     connectorAllowed: false
+    //                 },
+    //                 point: {
+    //                     events: {
+    //                         click: function() {
+    //                             var filter = { kode_loker: this.category }
+    //                             generateTabelKaryawan(filter)
+    //                         }
+    //                     }
+    //                 }
+    //             }
+    //         },
+    //         series: [{
+    //             name: 'Jumlah',
+    //             data: chartData,
+    //             color: '#f87171'
+    //         }]
+    //     });
+    // }
+// }
 
 function generateChartJabatan(data) {
     if(data.length > 0) {
@@ -835,91 +1305,4 @@ function generateChartJabatan(data) {
         });
     }
 }
-
-Highcharts.chart('gaji-chart', {
-    chart: { 
-        type: 'column',
-        height: 238 
-    },
-    title: { text: '' },
-    subtitle: { text: '' },
-    exporting:{ enabled: false },
-    legend:{ enabled:false },
-    credits: { enabled: false },
-    xAxis: {
-        categories: [
-            "1.0-2.0",
-            "2.1-3.0",
-            "3.1-4.0",
-            "4.1-5.0",
-            "5.0+",
-        ],
-        crosshair: true
-    },
-    yAxis: {
-        min: 0,
-        title: {
-            text: ''
-        }
-    },
-    tooltip: {
-        enabled: false
-    },
-    plotOptions: {
-        series: {
-            label: {
-                connectorAllowed: false
-            }
-        }
-    },
-    series: [{
-        name: 'Jumlah',
-        data: [10, 15, 20, 25, 30],
-        color: '#1e3a8a'
-    }]
-});
-
-Highcharts.chart('umur-chart', {
-    chart: { 
-        type: 'column',
-        height: 160 
-    },
-    title: { text: '' },
-    subtitle: { text: '' },
-    exporting:{ enabled: false },
-    legend:{ enabled:false },
-    credits: { enabled: false },
-    xAxis: {
-        categories: [
-            "17-21",
-            "22-27",
-            "28-32",
-            "34-39",
-            "40-45",
-            "45+"
-        ],
-        crosshair: true
-    },
-    yAxis: {
-        min: 0,
-        title: {
-            text: ''
-        }
-    },
-    tooltip: {
-        enabled: false
-    },
-    plotOptions: {
-        series: {
-            label: {
-                connectorAllowed: false
-            }
-        }
-    },
-    series: [{
-        name: 'Jumlah',
-        data: [10, 15, 20, 25, 30, 40],
-        color: '#ffb703'
-    }]
-});
 </script>
