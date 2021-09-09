@@ -124,6 +124,10 @@ class CloseKasirController extends Controller
                 'kode_pp'=>Session::get('kodePP'),
                 'tanggal'=>date('Y-m-d')
                 );
+
+                if(isset($request->no_beli)){
+                    $fields = array_merge($fields,array('no_beli' => $request->no_beli));
+                }
                 
                 $client = new Client();
                 $response = $client->request('POST',  config('api.url').'esaku-trans/close-kasir',[
