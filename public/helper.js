@@ -1560,11 +1560,11 @@ function onCloseBSheet(aktif,field,display){
         aktif.closest('div.sai-rpt-filter-entry-row').find('.input-group-text').text('ubah');
     }
 }
-
 function generateRptFilter(id,settings){
-    $(id).unbind('change');
-    $(id).unbind('click');
-    $(id).on('change', '.sai-rpt-filter-type', function(){
+    
+    $(id+' .sai-rpt-filter-type').unbind('change');
+    $(id+' .search-item').unbind('click');
+    $(id+' .sai-rpt-filter-type ').bind('change', function(){
         var type = $(this).val();
         
         var kunci = $(this).closest('div.sai-rpt-filter-entry-row').find('.kunci').text();
@@ -1581,7 +1581,9 @@ function generateRptFilter(id,settings){
                 $aktif = '';
                 $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').removeClass('col-md-3');
                 $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').addClass('col-md-8');
+                pilih = $('label[for="'+kunci+'"]').html();
                 $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input').val('Menampilkan semua '+pilih);
+                $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input').trigger('change');
                 $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-to').addClass('hidden');
                 $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-sampai').addClass('hidden');
                 $(this).closest('div.sai-rpt-filter-entry-row').find('.input-group-text').removeClass('search-item');
@@ -1654,7 +1656,7 @@ function generateRptFilter(id,settings){
        
     });
 
-    $(id).on('click', '.search-item', function(){
+    $(id+' .search-item').bind('click', function(){
         
         var kunci = $(this).closest('div.sai-rpt-filter-entry-row').find('.kunci').text();
         var idx = settings.kode.indexOf(kunci);
@@ -1676,4 +1678,88 @@ function generateRptFilter(id,settings){
 
     });    
 
+}
+
+
+function getKodeTW($bulan){
+    switch($bulan){
+        case '01':
+        case '02':
+        case '03':
+            return "TW-I";
+        break;
+        case '04':
+        case '05':
+        case '06':
+            return "TW-II";
+        break;
+        case '07':
+        case '08':
+        case '09':
+            return "TW-III";
+        break;
+        case '10':
+        case '11':
+        case '12':
+            return "TW-IV";
+        break;
+    }
+}
+
+function getNamaTW($bulan){
+    switch($bulan){
+        case '01':
+        case '02':
+        case '03':
+        case 'TW-I':
+            return "Triwulan I";
+        break;
+        case '04':
+        case '05':
+        case '06':
+        case 'TW-II':
+            return "Triwulan II";
+        break;
+        case '07':
+        case '08':
+        case '09':
+        case 'TW-III':
+            return "Triwulan III";
+        break;
+        case '10':
+        case '11':
+        case '12':
+        case 'TW-IV':
+            return "Triwulan IV";
+        break;
+    }
+}
+
+function getArrTW($bulan){
+    switch($bulan){
+        case '01':
+        case '02':
+        case '03':
+        case 'TW-I':
+            return ["Januari","Februari","Maret"];
+        break;
+        case '04':
+        case '05':
+        case '06':
+        case 'TW-II':
+            return ["April","Mei","Juni"];
+        break;
+        case '07':
+        case '08':
+        case '09':
+        case 'TW-III':
+            return ["Juli","Agustus","September"];
+        break;
+        case '10':
+        case '11':
+        case '12':
+        case 'TW-IV':
+            return ["Oktober","November","Desember"];
+        break;
+    }
 }

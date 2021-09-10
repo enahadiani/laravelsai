@@ -112,6 +112,44 @@
             return response()->json(['daftar' => $data['data'], 'status' => true], 200);
         }
 
+        public function getFilterNoSurat(Request $request) {
+            $client = new Client();
+
+            $response = $client->request('GET',  config('api.url').'rtrw/filter-nosurat',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' => $request->all()
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+            
+                $data = json_decode($response_data,true);
+            }
+            return response()->json(['daftar' => $data['data'], 'status' => true], 200);
+        }
+
+        public function getFilterTglSurat(Request $request) {
+            $client = new Client();
+
+            $response = $client->request('GET',  config('api.url').'rtrw/filter-tglsurat',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' => $request->all()
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+            
+                $data = json_decode($response_data,true);
+            }
+            return response()->json(['daftar' => $data['data'], 'status' => true], 200);
+        }
+
 
     }
 ?>

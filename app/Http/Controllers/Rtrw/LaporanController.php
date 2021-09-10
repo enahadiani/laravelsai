@@ -226,6 +226,50 @@
                 // var_dump($response);
             } 
         }
+
+        function getSuratAntar(Request $request){
+            try{
+    
+                $client = new Client();
+                $response = $client->request('GET',  config('api.url').'rtrw/lap-surat-antar',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => $request->all()
+                ]);
+        
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $res = json_decode($response_data,true);
+                    $result = $res["data"];
+                    $lokasi = $res["lokasi"];
+                    
+                }
+                if(isset($request->back)){
+                    $back = true;
+                }else{
+                    $back = false;
+                }
+                return response()->json(['result' => $result, 'status'=>true, 'auth_status'=>1,'lokasi'=>$lokasi,'back'=>$back,'res'=>$res], 200); 
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                return response()->json(['message' => $res, 'status'=>false, 'auth_status'=>2], 200);
+            } 
+        }
+
+        function getSuratAntarPDF(Request $request)
+        {
+            set_time_limit(300);
+            $tmp = app('App\Http\Controllers\Rtrw\LaporanController')->getSuratAntar($request);
+            $tmp = json_decode(json_encode($tmp),true);
+            $data = $tmp['original'];
+            $pdf = PDF::loadview('rtrw-baru.rptSuratAntarPDF',['data'=>$data["result"],'lokasi'=>$data['lokasi']]);
+            return $pdf->download('laporan-surat-pengantar');   
+        }
+
     
 
 
