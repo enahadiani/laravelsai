@@ -266,7 +266,8 @@
             $tmp = app('App\Http\Controllers\Rtrw\LaporanController')->getSuratAntar($request);
             $tmp = json_decode(json_encode($tmp),true);
             $data = $tmp['original'];
-            $pdf = PDF::loadview('rtrw-baru.rptSuratAntarPDF',['data'=>$data["result"],'lokasi'=>$data['lokasi']]);
+            // return view('rtrw-baru.rptSuratAntarPDF',['data'=>$data["result"],'lokasi'=>$data['lokasi']]);
+            $pdf = PDF::loadview('rtrw-baru.rptSuratAntarPDF',['data'=>$data["result"],'lokasi'=>$data['lokasi']])->setPaper('A4', 'portait');
             return $pdf->download('laporan-surat-pengantar');   
         }
 

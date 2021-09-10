@@ -62,7 +62,7 @@
                     <tr>
                         <td style='width:30px'></td>
                         <td colspan='2' style='width:130px'>
-                            <img src='' alt='LOGO' style='width:130px'>
+                            <img src='https://api.simkug.com/api/rtrw/storage/`+res.lokasi[0].logo+`' alt='LOGO' style='width:130px'>
                         </td>
                         <td colspan='6' style='width:470px'>
                             <h6>RUKUN TETANGGA `+line.kode_pp+`/`+line.kode_lokasi+`</h6>
@@ -76,7 +76,7 @@
                     </tr>
                     <tr>
                         <td style='width:30px'></td>
-                        <td colspan='8' class='text-center p-0'><h6 style='font-size:16px !important'><u>SURAT PENGANTAR</u></h6></td>
+                        <td colspan='8' class='text-center p-0'><h6 style='font-size:16px !important;text-decoration: underline;'>SURAT PENGANTAR</h6></td>
                     </tr>
                     <tr>
                         <td style='width:30px'></td>

@@ -252,7 +252,9 @@
 
     $('#sai-rpt-print').click(function(){
         $('#saku-report #canvasPreview').printThis({
-            removeInline: true
+            removeInline: false,
+            importCSS: true,            // import parent page css
+            importStyle: true,
         });
     });
 
