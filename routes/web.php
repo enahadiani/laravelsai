@@ -32,6 +32,14 @@ Route::get('/', function () {
             // echo $domain;
             return redirect('webginas2/');
         break;
+        case 'tjmart.trengginasjaya.com' : 
+            // echo $domain;
+            return redirect('esaku-auth/login');
+        break;
+        case 'sdm.trengginasjaya.com' : 
+            // echo $domain;
+            return redirect('esaku-auth/login');
+        break;
         case 'ts.simkug.com' :
             case 'www.ts.simkug.com' : 
                 // echo $domain;
