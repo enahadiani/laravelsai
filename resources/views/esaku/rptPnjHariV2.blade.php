@@ -67,7 +67,7 @@ function drawRptPage(data,res,from,to){
                         <tbody>`
                             for(var j=0;j<dataRes.data_detail.length;j++) {
                                 var row2 = dataRes.data_detail[j];
-                                if(row.tanggal === row2.tanggal && row.nik_kasir == row2.nik_user) {
+                                if(row.tanggal === row2.tanggal && row.nik_kasir == row2.nik_user && row.no_close == row2.no_bukti) {
                                     total +=+ parseFloat(row2.total_ex);
                                     
                                     html += `<tr>
