@@ -44,14 +44,16 @@ function drawRptPage(data,res,from,to){
                     <table class="table table-hover">
                         <thead>   
                             <tr>
-                                <td colspan="10" class="text-center"><b>Laporan Penjualan Per Tanggal</b></td>    
+                                <td colspan="9" class="text-center"><b>Laporan Penjualan Per Tanggal</b></td>    
                             </tr>
                             <tr>
-                                <td colspan="10" class="text-center"><b>Tanggal: ${row.tanggal}</b></td>    
+                                <td colspan="9" class="text-center"><b>No Closing: ${row.no_close}</b></td>    
                             </tr>
                             <tr>
-                                <th style="width: 5%;" class="text-center">No</th>    
-                                <th style="width: 15%;" class="text-center">No Bukti</th>    
+                                <td colspan="9" class="text-center"><b>Tanggal: ${row.tanggal}</b></td>    
+                            </tr>
+                            <tr>
+                                <th style="width: 5%;" class="text-center">No</th>       
                                 <th style="width: 15%;" class="text-center">Kode Barang</th>    
                                 <th style="width: 25%;" class="text-center">Nama Barang</th>    
                                 <th style="width: 10%;" class="text-center">Satuan</th>    
@@ -65,12 +67,11 @@ function drawRptPage(data,res,from,to){
                         <tbody>`
                             for(var j=0;j<dataRes.data_detail.length;j++) {
                                 var row2 = dataRes.data_detail[j];
-                                if(row.tanggal === row2.tanggal) {
+                                if(row.tanggal === row2.tanggal && row.nik_kasir == row2.nik_user && row.no_close == row2.no_bukti) {
                                     total +=+ parseFloat(row2.total_ex);
                                     
                                     html += `<tr>
-                                        <td>${no}</td>    
-                                        <td>${row2.no_bukti}</td>    
+                                        <td>${no}</td>        
                                         <td>${row2.kode_barang}</td>    
                                         <td>${row2.nama_brg}</td>    
                                         <td>${row2.satuan}</td>    
@@ -85,11 +86,11 @@ function drawRptPage(data,res,from,to){
                             }
                             
                 html += `<tr>
-                        <td colspan="9" style="text-align: right;">Total</td>
+                        <td colspan="8" style="text-align: right;">Total</td>
                         <td style="text-align: right;">${sepNum(total)}</td>
                     </tr>
                 </tbody>    
-                    </table>>   
+                    </table> 
                 </div>
             </div>`
         }
