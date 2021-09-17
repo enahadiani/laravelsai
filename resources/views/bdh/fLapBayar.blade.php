@@ -1,8 +1,21 @@
 <link rel="stylesheet" href="{{ asset('report.css') }}" />
+<style>
+    .div-table {
+        float: right;
+    }
+    .table-check {
+        width: 600px;
+        border-collapse: collapse;
+    }
+    .table-check tbody tr td {
+        border: 1px #000000 solid;
+    }
+
+</style>
 <div class="row" id="saku-filter">
     <div class="col-12">
         <div class="card" >
-            <x-report-header judul="Laporan SPB" padding="px-4 py-4"/>  
+            <x-report-header judul="Laporan Pembayaran" padding="px-4 py-4"/>  
             <div class="separator"></div>
             <div class="row">
                 <div class="col-12 col-sm-12">
@@ -27,7 +40,7 @@
         </div>
     </div>
 </div>
-<x-report-result judul="Laporan SPB" padding="px-0 py-4"/>
+<x-report-result judul="Laporan Pembayaran" padding="px-0 py-4"/>
 @include('modal_search')
 @include('modal_email')
     
@@ -114,13 +127,13 @@ $('#inputFilter').reportFilter({
             { data: 'periode' },
         ],
         [
-            { data: 'no_spb' },
+            { data: 'no_kas' },
             { data: 'keterangan' }
         ]
     ],
     url :[
-        "{{ url('bdh-report/filter-periodespb') }}",
-        "{{ url('bdh-report/filter-nospb') }}"
+        "{{ url('bdh-report/filter-periode') }}",
+        "{{ url('bdh-report/filter-nobayar') }}"
     ],
     parameter:[
         {},
@@ -166,13 +179,13 @@ $('#inputFilter').on('change','input',function(e){
                 { data: 'periode' },
             ],
             [
-                { data: 'no_spb' },
+                { data: 'no_kas' },
                 { data: 'keterangan' }
             ]
         ],
         url :[
-            "{{ url('bdh-report/filter-periodespb') }}",
-            "{{ url('bdh-report/filter-nospb') }}"
+            "{{ url('bdh-report/filter-periode') }}",
+            "{{ url('bdh-report/filter-nobayar') }}"
         ],
         parameter:[
             {},
@@ -216,7 +229,7 @@ $('#form-filter').submit(function(e){
         console.log(pair[0]+ ', '+ pair[1]); 
     }
     $('#saku-report').removeClass('hidden');
-    xurl = "{{ url('bdh-auth/form/rptSpb') }}";
+    xurl = "{{ url('bdh-auth/form/rptBayar') }}";
     $('#saku-report #canvasPreview').load(xurl);
 });
 
@@ -233,7 +246,7 @@ $('#show').change(function(e){
         console.log(pair[0]+ ', '+ pair[1]); 
     }
     $('#saku-report').removeClass('hidden');
-    xurl = "{{ url('bdh-auth/form/rptSpb') }}";
+    xurl = "{{ url('bdh-auth/form/rptBayar') }}";
     $('#saku-report #canvasPreview').load(xurl);
 });
 
