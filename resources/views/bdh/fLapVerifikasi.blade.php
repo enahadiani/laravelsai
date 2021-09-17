@@ -12,7 +12,7 @@
                                 <h6>Filter</h6>
                                 <div id="inputFilter">
                                     <!-- COMPONENT -->
-                                    <x-inp-filter kode="periode" nama="Periode" selected="3" :option="array('1','2','3','i')"/>
+                                    <x-inp-filter kode="periode" nama="Periode" selected="3" :option="array('3')"/>
                                     <x-inp-filter kode="no_bukti" nama="No Bukti" selected="1" :option="array('1','2','3','i')"/>
                                     <!-- END COMPONENT -->
                                 </div>
@@ -125,9 +125,9 @@ $('#inputFilter').reportFilter({
     parameter:[
         {},
         {
-            'periode[]': $periode.type,
-            'periode[]': $periode.from,
-            'periode[]': $periode.to,
+            'periode[0]': $periode.type,
+            'periode[1]': $periode.from,
+            'periode[2]': $periode.to,
         }
     ],
     orderby:[
@@ -177,9 +177,9 @@ $('#inputFilter').on('change','input',function(e){
         parameter:[
             {},
             {
-                'periode[]': $periode.type,
-                'periode[]': $periode.from,
-                'periode[]': $periode.to,
+                'periode[0]': $periode.type,
+                'periode[1]': $periode.from,
+                'periode[2]': $periode.to,
             }
         ],
         orderby:[

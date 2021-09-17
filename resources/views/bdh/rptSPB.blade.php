@@ -15,7 +15,6 @@ drawLap($formData);
 
 function drawRptPage(data,res,from,to) {
     var html = "";
-    console.log(data);
     if(data.length > 0) {
         var resData = res.res
         for(var i=0;i<data.length;i++) { 
