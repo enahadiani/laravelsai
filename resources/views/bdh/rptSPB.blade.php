@@ -110,7 +110,7 @@ function drawRptPage(data,res,from,to) {
                     <table class="table table-borderless">
                         <tbody>
                             <tr>
-                                <td colspan="3" style="text-align: right;">${row.kota}, ${splitTanggal[2]} ${getNamaBulan(splitTanggal[2])} ${splitTanggal[0]}</td>
+                                <td colspan="3" style="text-align: right;">${row.kota}, ${splitTanggal[2]} ${getNamaBulan(splitTanggal[1])} ${splitTanggal[0]}</td>
                             </tr>
                             <tr>
                                 <td colspan="3">&nbsp;</td>
