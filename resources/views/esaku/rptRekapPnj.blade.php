@@ -15,12 +15,11 @@ drawLap($formData);
 
 function drawRptPage(data,res,from,to) { 
     var dataRes = res.res;
-
     if(data.length) {
         var html = "";
         for(var i=0;i<data.length;i++) {
             var row = data[i];
-            var split = row.tanggal.split('-');
+            var month = $periode.from.slice(-2);
             var no = 1;
             var totalTot = 0;
             var totalPPN = 0;
@@ -51,7 +50,7 @@ function drawRptPage(data,res,from,to) {
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <td colspan="12" class="text-center"><b>Laporan Penjualan Bulan ${getNamaBulan(split[1])}</b></td>    
+                            <td colspan="12" class="text-center"><b>Laporan Penjualan Bulan ${getNamaBulan(month)}</b></td>    
                         </tr>   
                         <tr>
                             <th style="width: 8px;" class="text-center">No</th>       
@@ -71,7 +70,7 @@ function drawRptPage(data,res,from,to) {
                     <tbody>`
                     for(var j=0;j<dataRes.data_detail.length;j++) {
                         var row2 = dataRes.data_detail[j];
-                        if(row.tanggal === row2.tgl && row.nik_user == row2.kasir) {
+                        if(row.nik_user == row2.kasir) {
                             totalTot +=+ parseFloat(row2.total)
                             totalPPN +=+ parseFloat(row2.ppn);
                             totalBersih +=+ parseFloat(row2.bersih);
