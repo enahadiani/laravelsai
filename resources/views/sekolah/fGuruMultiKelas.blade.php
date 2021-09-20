@@ -2170,45 +2170,6 @@
     // FILTER
     $('#modalFilter').on('submit','#form-filter',function(e){
         e.preventDefault();
-        // $.fn.dataTable.ext.search.push(
-        //     function( settings, data, dataIndex ) {
-        //         var kode_pp = $('#inp-filter_kode_pp').val();
-        //         var status = $('#inp-filter_status').val();
-        //         var kode_ta  = $('#inp-filter_kode_ta').val();
-        //         var col_kode_pp = data[2];
-        //         var col_status = data[5];
-        //         var col_kode_ta = data[6];
-        //         if(kode_pp != "" && status != "" && kode_ta != ""){
-        //             if(kode_pp == col_kode_pp && status == col_status && kode_ta == col_kode_ta){
-        //                 return true;
-        //             }else{
-        //                 return false;
-        //             }
-        //         }else if(kode_pp !="" && status == "" && kode_ta == "") {
-        //             if(kode_pp == col_kode_pp){
-        //                 return true;
-        //             }else{
-        //                 return false;
-        //             }
-        //         }else if(kode_pp == "" && status != "" && kode_ta == ""){
-        //             if(status == col_status){
-        //                 return true;
-        //             }else{
-        //                 return false;
-        //             }
-        //         }else if(kode_pp == "" && status == "" && kode_ta != ""){
-        //             if(kode_ta == col_kode_ta){
-        //                 return true;
-        //             }else{
-        //                 return false;
-        //             }
-        //         }else{
-        //             return true;
-        //         }
-        //     }
-        // );
-        // dataTable.draw();
-        // $.fn.dataTable.ext.search.pop();
         dataTable.ajax.reload(null, false)
         $('#modalFilter').modal('hide');
     });
