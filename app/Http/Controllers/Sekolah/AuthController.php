@@ -165,7 +165,7 @@
                     $response_data = $response->getBody()->getContents();
                     
                     $data = json_decode($response_data,true);
-                    $main_menu = $data['success']['data'];
+                    $main_menu = $data['data'];
                         $main = "<div class='scroll'>
                         <ul class='list-unstyled'>";
                         $submenu = "<div class='scroll'>";
