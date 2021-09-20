@@ -72,7 +72,7 @@ function drawRptPage(data,res,from,to) {
                                     </tr>
                                     <tr>
                                         <td colspan="2">
-                                            Surabaya, ${splitTanggal[2]} ${getNamaBulan(splitTanggal[2])} ${splitTanggal[0]}    
+                                            Surabaya, ${splitTanggal[2]} ${getNamaBulan(splitTanggal[1])} ${splitTanggal[0]}    
                                         </td>
                                     </tr>
                                     <tr style="height: 4px;">

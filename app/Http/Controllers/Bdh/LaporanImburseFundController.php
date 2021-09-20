@@ -9,17 +9,51 @@ use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Session;
 use GuzzleHttp\Exception\BadResponseException;
 
-class LaporanController extends Controller {
+class LaporanImburseFundController extends Controller {
     public function __contruct() {
         if (!Session::get('login')) {
             return redirect('bdh-auth/login');
         }
     }
 
-    public function dataJurFinalTanggungPanjar(Request $r) {
+    public function dataKartuIf(Request $r) {
         try {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'bdh-report/lap-jurfinalpertanggungpanjar',[
+            $response = $client->request('GET',  config('api.url').'bdh-report/lap-kartuif',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' => [
+                    'periode' => $r->input('periode'),
+                    'no_bukti' => $r->input('no_bukti'),
+                    'nik' => $r->input('nik')
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $res = json_decode($response_data,true);
+                $data = $res["data"];
+            }
+            if(isset($r->back)){
+                $res['back']=true;
+            }
+                
+            return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'sumju'=>$r->sumju,'res'=>$res], 200); 
+
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+        }
+    }
+
+    public function dataPosisiImburseIf(Request $r) {
+        try {
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'bdh-report/lap-posisiimburseif',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -49,10 +83,10 @@ class LaporanController extends Controller {
         }
     }
 
-    public function dataTransBank(Request $r) {
+    public function dataImburseIf(Request $r) {
         try {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'bdh-report/lap-transbank',[
+            $response = $client->request('GET',  config('api.url').'bdh-report/lap-imburseif',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -82,76 +116,10 @@ class LaporanController extends Controller {
         }
     }
 
-    public function dataPembayaran(Request $r) {
+    public function dataBukaIf(Request $r) {
         try {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'bdh-report/lap-bayar',[
-                'headers' => [
-                    'Authorization' => 'Bearer '.Session::get('token'),
-                    'Accept'     => 'application/json',
-                ],
-                'query' => [
-                    'periode' => $r->input('periode'),
-                    'no_bukti' => $r->input('no_bukti')
-                ]
-            ]);
-
-            if ($response->getStatusCode() == 200) { // 200 OK
-                $response_data = $response->getBody()->getContents();
-                
-                $res = json_decode($response_data,true);
-                $data = $res["data"];
-            }
-            if(isset($r->back)){
-                $res['back']=true;
-            }
-                
-            return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'sumju'=>$r->sumju,'res'=>$res], 200); 
-
-        } catch (BadResponseException $ex) {
-            $response = $ex->getResponse();
-            $res = json_decode($response->getBody(),true);
-            return response()->json(['message' => $res["message"], 'status'=>false], 200);
-        }
-    }
-
-    public function dataSPB(Request $r) {
-        try {
-            $client = new Client();
-            $response = $client->request('GET',  config('api.url').'bdh-report/lap-spb',[
-                'headers' => [
-                    'Authorization' => 'Bearer '.Session::get('token'),
-                    'Accept'     => 'application/json',
-                ],
-                'query' => [
-                    'periode' => $r->input('periode'),
-                    'no_bukti' => $r->input('no_bukti')
-                ]
-            ]);
-
-            if ($response->getStatusCode() == 200) { // 200 OK
-                $response_data = $response->getBody()->getContents();
-                
-                $res = json_decode($response_data,true);
-                $data = $res["data"];
-            }
-            if(isset($r->back)){
-                $res['back']=true;
-            }
-                
-            return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'sumju'=>$r->sumju,'res'=>$res], 200); 
-
-        } catch (BadResponseException $ex) {
-            $response = $ex->getResponse();
-            $res = json_decode($response->getBody(),true);
-            return response()->json(['message' => $res["message"], 'status'=>false], 200);
-        }
-    }
-
-    public function dataVerifikasi(Request $r) {
-        try {
-            $client = new Client();
-            $response = $client->request('GET',  config('api.url').'bdh-report/lap-verifikasi',[
+            $response = $client->request('GET',  config('api.url').'bdh-report/lap-bukaif',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',

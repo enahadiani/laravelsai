@@ -1,8 +1,25 @@
 <link rel="stylesheet" href="{{ asset('report.css') }}" />
+<style>
+    .div-table {
+        float: right;
+    }
+    .table-bukti {
+        width: 150px;
+        border-collapse: collapse;
+    }
+    .table-check {
+        width: 400px;
+        border-collapse: collapse;
+    }
+    .table-check tbody tr td,
+    .table-bukti tbody tr td {
+        border: 1px #000000 solid;
+    }
+</style>
 <div class="row" id="saku-filter">
     <div class="col-12">
         <div class="card" >
-            <x-report-header judul="Laporan Verifikasi" padding="px-4 py-4"/>  
+            <x-report-header judul="Laporan Jurnal Finalisasi Pertanggungan Panjar" padding="px-4 py-4"/>  
             <div class="separator"></div>
             <div class="row">
                 <div class="col-12 col-sm-12">
@@ -22,12 +39,12 @@
                         </div>
                     </div>
                 </div>
-                <x-report-paging :option="array()" default="10" />
+                <x-report-paging :option="array(1)" default="1" />
             </div>                    
         </div>
     </div>
 </div>
-<x-report-result judul="Laporan Verifikasi" padding="px-0 py-4"/>
+<x-report-result judul="Laporan Jurnal Finalisasi Pertanggungan Panjar" padding="px-0 py-4"/>
 @include('modal_search')
 @include('modal_email')
     
@@ -114,13 +131,13 @@ $('#inputFilter').reportFilter({
             { data: 'periode' },
         ],
         [
-            { data: 'no_ver' },
+            { data: 'no_spb' },
             { data: 'keterangan' }
         ]
     ],
     url :[
-        "{{ url('bdh-report/filter-periodever') }}",
-        "{{ url('bdh-report/filter-nover') }}"
+        "{{ url('bdh-report/filter-periode') }}",
+        "{{ url('bdh-report/filter-nojurfinalpertanggungpanjar') }}"
     ],
     parameter:[
         {},
@@ -166,13 +183,13 @@ $('#inputFilter').on('change','input',function(e){
                 { data: 'periode' },
             ],
             [
-                { data: 'no_ver' },
+                { data: 'no_spb' },
                 { data: 'keterangan' }
             ]
         ],
         url :[
-            "{{ url('bdh-report/filter-periodever') }}",
-            "{{ url('bdh-report/filter-nover') }}"
+            "{{ url('bdh-report/filter-periodespb') }}",
+            "{{ url('bdh-report/filter-nospb') }}"
         ],
         parameter:[
             {},
@@ -216,7 +233,7 @@ $('#form-filter').submit(function(e){
         console.log(pair[0]+ ', '+ pair[1]); 
     }
     $('#saku-report').removeClass('hidden');
-    xurl = "{{ url('bdh-auth/form/rptVer') }}";
+    xurl = "{{ url('bdh-auth/form/rptJurFinalPanjar') }}";
     $('#saku-report #canvasPreview').load(xurl);
 });
 
@@ -233,7 +250,7 @@ $('#show').change(function(e){
         console.log(pair[0]+ ', '+ pair[1]); 
     }
     $('#saku-report').removeClass('hidden');
-    xurl = "{{ url('bdh-auth/form/rptVer') }}";
+    xurl = "{{ url('bdh-auth/form/rptJurFinalPanjar') }}";
     $('#saku-report #canvasPreview').load(xurl);
 });
 

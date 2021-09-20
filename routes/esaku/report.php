@@ -83,6 +83,7 @@ Route::post('lap-coa', 'Esaku\Inventori\LaporanController@getCOA');
 Route::post('lap-coa-struktur', 'Esaku\Inventori\LaporanController@getCOAStruktur');
 Route::post('lap-labarugi-unit', 'Esaku\Inventori\LaporanController@getLabaRugiUnit');
 Route::post('lap-labarugi-unit-dc', 'Esaku\Inventori\LaporanController@getLabaRugiUnitDC');
+Route::post('lap-rekap-jual', 'Esaku\Inventori\LaporanController@getRekapJual');
 
 Route::get('lap-nota-jual-print', 'Esaku\Inventori\LaporanController@printNotaJual');
 Route::get('lap-nota-jual-print-baru', 'Esaku\Inventori\LaporanController@printNotaJualBaru');
