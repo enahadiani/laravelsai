@@ -218,10 +218,10 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="table-responsive">
-                                    <table class="table table-bordered table-condensed gridexample input-grid" id="input-barang" data-table="Tab data detail" style="width:1230px;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                    <table class="table table-bordered table-condensed gridexample input-grid" id="input-barang" data-table="Tab data detail" style="width:1250px;table-layout:fixed;">
                                         <thead style="background:#F8F8F8">
                                             <tr>
-                                                <th style="width:20px;">No</th>
+                                                <th style="width:40px;">No</th>
                                                 <th style="width:150px;">No Beban</th>
                                                 <th style="width:100px;">Tanggal</th>
                                                 <th style="width:60px">Modul</th>
@@ -262,7 +262,7 @@
                                 <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-approve" ></span></a>
                             </div>
                             <div class="col-md-12">
-                                <table class="table table-bordered table-condensed gridexample input-grid" id="input-approve" data-table="Tabel catatan approve" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                <table class="table table-bordered table-condensed gridexample input-grid" id="input-approve" data-table="Tabel catatan approve" style="width:100%;table-layout:fixed;">
                                     <thead style="background:#F8F8F8">
                                         <tr>
                                             <th style="width:3%;">No</th>
