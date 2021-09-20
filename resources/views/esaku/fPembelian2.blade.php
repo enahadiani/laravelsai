@@ -4,7 +4,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body form-pos-body">
-                    <form class="form" id="web-form-pos" method="POST">
+                    <form class="form form-beli-ket" id="web-form-pos" method="POST">
                         <div class="row">
                             <div class="col-4">
                                 <div class="row">
@@ -74,6 +74,12 @@
                                     </table>
                                 </div>
                                 <div class="col-12 mt-2 float-right">
+                                    <div class="form-group row">
+                                         <label for="judul" class="col-2 col-form-label" >Keterangan</label>
+                                         <div class="col-10">
+                                            <input type="text" name="keterangan" class='form-control' id='keterangan' required >
+                                         </div>
+                                    </div>
                                     <div class="form-group row">
                                          <label for="judul" class="col-1 col-form-label" >Disc</label>
                                          <div class="col-2">
@@ -283,9 +289,8 @@
     var $dtBrg2 = new Array();
     $('#kd-barang2').focus();
     $('#area_print').hide();
-    
-    setHeightFormPOS();
 
+    setHeightFormPOS();
     document.onkeyup = function(e) {
         if (e.ctrlKey && e.which == 66) {
             $('#kd-barang2').focus();

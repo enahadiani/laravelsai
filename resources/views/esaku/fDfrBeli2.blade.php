@@ -8,7 +8,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body form-pos-body">
-                        <form class="form" id="web_form_edit" method="POST">
+                        <form class="form form-beli-ket" id="web_form_edit" method="POST">
                             <div class="row">
                                 <div class="col-4">
                                     <div class="row">
@@ -29,14 +29,14 @@
                                 </div>
                                 <div class="col-3 text-right">
                                     <h6>Nilai Transaksi</h6>
-                                    <div class="row float-right">
+                                    <!-- <div class="row float-right">
                                         <a class='btn btn-light float-right btn-form-exit mr-2 web_form_back'><i class='simple-icon-arrow-left mr-2'></i> Back</a>
                                         <div class="text-left" id="edit-qty" style="width: 90px;height:42px;padding: 5px;border: 1px solid #d0cfcf;background: white;border-radius: 5px;vertical-align: middle;margin-right:5px">
                                             <img style="width:30px;height:30px;position:absolute" src="{{ url('asset_elite/img/edit.png') }}">
                                             <p style="line-height:1.5;font-size: 10px !important;padding-left: 35px;margin-bottom: 0 !important;text-align:center">Edit Qty</p>
                                             <p style="line-height:1.5;font-size: 9px !important;padding-left: 35px;text-align:center">F7</p>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                                 <div class="col-5">
                                     <h3><input type="text" style="font-size: 60px !important;height:unset !important"  name="total_stlh" min="1" class="form-control currency" id="tostlh" required readonly></h3>
@@ -88,14 +88,20 @@
                                     </div>
                                     <div class="col-12 mt-2 float-right">
                                         <div class="form-group row">
+                                            <label for="judul" class="col-2 col-form-label" >Keterangan</label>
+                                            <div class="col-10">
+                                                <input type="text" name="keterangan" class='form-control' id='keterangan' required readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
                                             <label for="judul" class="col-1 col-form-label" >Disc</label>
                                             <div class="col-2">
-                                                <input type="text" name="total_disk" min="1" class='form-control currency' id='todisk' required value="0">
+                                                <input type="text" name="total_disk" min="1" class='form-control currency' id='todisk' required value="0" readonly>
                                             </div>
                                             <label for="judul" class="col-1 col-form-label" >PPN</label>
                                             <div class="col-3">
-                                                <div class="input-group mb-3">
-                                                    <input type="text" name="total_ppn" min="1" class='form-control currency' id='toppn' required value="0" style="border-bottom-right-radius: 0 !important;border-top-right-radius: 0 !important;">
+                                                <div class="input-group mb-3 readonly">
+                                                    <input type="text" name="total_ppn" min="1" class='form-control currency' id='toppn' required value="0" style="border-bottom-right-radius: 0 !important;border-top-right-radius: 0 !important;" readonly>
                                                     <div class="input-group-append">
                                                         <button class="btn btn-info" id="getPPN" type="button" style="border-bottom-left-radius: 0 !important;border-top-left-radius: 0 !important;padding: 0.1rem 0.85rem;"><i class="simple-icon-refresh" style="font-size:18px !important"></i></button>
                                                     </div>
@@ -103,10 +109,10 @@
                                             </div>
                                             <label for="judul" class="col-2 col-form-label" >No Faktur</label>
                                             <div class="col-2">
-                                                <input type="text" name="no_faktur" class='form-control ' id='no_faktur' required>
+                                                <input type="text" name="no_faktur" class='form-control ' id='no_faktur' required readonly>
                                             </div>
                                             <div class="col-1">
-                                                <button class="btn btn-info" type="submit" id="btnBayar">Simpan</button>
+                                                <button class="btn btn-info btn-form-exit web_form_back" type="button" >Back</button>
                                             </div>
                                         </div>
                                     </div>
@@ -431,6 +437,7 @@
                             
                         }
                     }
+                    control.lock();
                 }
             });
         }
@@ -520,7 +527,7 @@
 
         // LIST DATA
 
-        var action_html = "<a href='#' title='Edit' class='web_datatable_edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp; <a href='#' title='Hapus' class='' id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
+        var action_html = "<a href='#' title='Edit' class='web_datatable_edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;";
 
         var dataTable = generateTable(
             "table-data",
@@ -585,6 +592,7 @@
                         $no_bukti = res.data[0].no_bukti;
                         $('#iniNoBukti').html(res.data[0].no_bukti+"<input type='hidden' value='"+res.data[0].no_bukti+"' name='no_beli' class='form-control' maxlength='200' readonly id='web_form_edit_no_beli'>");
                         $('#iniNIK').html(res.data[0].nik_user+"<input type='hidden' value='"+res.data[0].nik_user+"' name='nik_kasir' class='form-control' maxlength='200' readonly id='web_form_edit_nik'>");
+                        $('#keterangan').val(res.data[0].keterangan);
                         $('#totrans').val(toRp(res.data[0].total));    
                         $('#todisk').val(toRp(res.data[0].diskon));    
                         $('#toppn').val(toRp(res.data[0].ppn));    
@@ -600,13 +608,13 @@
                                 input += "<td>"+line.nama+"<input type='hidden' name='kode_barang[]' class='change-validation inp-kdb form-control' value='"+line.kode_barang+"' readonly required></td>";
                                 input += "<td style='text-align:right'><input type='text' name='saldo[]' class='change-validation inp-saldo form-control'  value='"+parseFloat(line.stok)+"' readonly required></td>";
                                 input += "<td style='text-align:right'><input type='text' name='harga_seb[]' class='change-validation inp-hrgseb form-control'  value='"+parseFloat(line.hrg_seb)+"' readonly required></td>";
-                                input += "<td style='text-align:right'><input type='text' name='harga_jual[]' class='change-validation inp-hrgjual form-control'  value='"+parseFloat(line.harga_jual)+"' required></td>";
+                                input += "<td style='text-align:right'><input type='text' name='harga_jual[]' class='change-validation inp-hrgjual form-control'  value='"+parseFloat(line.harga_jual)+"' readonly required></td>";
                                 input += "<td style='text-align:right'><input type='text' name='harga_barang[]' class='change-validation inp-hrgb form-control'  value='"+parseFloat(line.harga)+"' readonly required></td>";
                                 input += "<td style='text-align:right'><input type='text' name='satuan_barang[]' class='change-validation inp-satuanb form-control'  value='"+line.satuan+"' readonly required><input type='hidden' name='kode_akun[]' class='change-validation inp-satuanb'  value='"+setAkun(line.kode_barang)+"' readonly></td>";
-                                input += "<td style='text-align:right'><input type='text' name='qty_barang[]' class='change-validation inp-qtyb form-control currency'  value='"+parseFloat(line.jumlah)+"' required></td>";
+                                input += "<td style='text-align:right'><input type='text' name='qty_barang[]' class='change-validation inp-qtyb form-control currency'  value='"+parseFloat(line.jumlah)+"' readonly required></td>";
                                 input += "<td style='text-align:right'><input type='text' name='disc_barang[]' class='change-validation inp-disc form-control '  value='"+parseFloat(line.diskon)+"' readonly required></td>";
-                                input += "<td style='text-align:right'><input type='text' name='sub_barang[]' class='change-validation inp-subb form-control currency2'  value='"+parseFloat(line.subtotal)+"' required></td>";
-                                input += "<td class='text-center'></a><a class='btn btn-sm ubah-barang' style='padding:0;font-size:18px !important'><i class='simple-icon-pencil'></i></a>&nbsp;<a class='btn btn-sm hapus-item ml-2' style='padding:0;font-size:18px !important'><i class='simple-icon-trash'></i></td>";
+                                input += "<td style='text-align:right'><input type='text' name='sub_barang[]' class='change-validation inp-subb form-control currency2'  value='"+parseFloat(line.subtotal)+"' readonly required></td>";
+                                input += "<td class='text-center'></td>";
                                 input += "</tr>";
                                 no++;
                             }

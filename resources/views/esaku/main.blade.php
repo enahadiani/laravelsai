@@ -1438,12 +1438,16 @@
     function setHeightFormPOS(){
         var header = 70;
         var content = window.innerHeight;
-        var height = content-header-40;
+        var height = content-header-50;
     
         if($('.form-pos-body').length > 0){
             $('.form-pos-body').css('height',height);
         }
         if($('.grid-table').length > 0){
+            
+            if($('.form-beli-ket').length > 0){
+                height -= 55;
+            }
             $('.grid-table').css('height',height-236);
         }
     }
