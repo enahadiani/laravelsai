@@ -16,7 +16,6 @@ drawLap($formData);
 function drawRptPage(data,res,from,to) {
     var html = "";
     if(data.length > 0) {
-        console.log(data)
         var resData = res.res
         var no = 1;
         for(var i=0;i<data.length;i++) {
@@ -60,23 +59,97 @@ function drawRptPage(data,res,from,to) {
                     </table>
                     <table class="table table-bordered">
                         <thead>
-                            <th style="width: 80px; text-align: center;">TANGGAL</th>
+                            <th style="width: 80px; text-align: center;">Kode Akun</th>
                             <th style="width: 160px; text-align: center;">Nama Akun</th>
-                            <th style="width: 250px; text-align: center;">URAIAN</th>
-                            <th style="width: 100px; text-align: center;">BRUTO</th>
-                            <th style="width: 100px; text-align: center;">PAJAK</th>
-                            <th style="width: 100px; text-align: center;">NETTO</th>
+                            <th style="width: 80px; text-align: center;">Kode PP</th>
+                            <th style="width: 160px; text-align: center;">Nama PP</th>
+                            <th style="width: 80px; text-align: center;">Kode DRK</th>
+                            <th style="width: 160px; text-align: center;">Nama DRK</th>
+                            <th style="width: 80px; text-align: center;">Nilai</th>
                         </thead>
                         <tbody>`
-                        for(var j=0;resData.res.data_detail.length;j++) {
-                            var row2 = res.data_detail[j];
+                        for(var j=0;j<resData.data_detail.length;j++) {
+                            var row2 = resData.data_detail[j];
+                            console.log(row2)
                             if(row.no_pb == row2.no_pb) {
-                                totalBruto +=+ parseFloat(row2.nilai)
-                                totalPajak +=+ parseFloat(row2.pajak)
-                                totalNetto +=+ parseFloat(row2.netto)
+                                html += `<tr>
+                                    <td>${row2.kode_akun}</td>
+                                    <td>${row2.nama_akun}</td>
+                                    <td>${row2.kode_pp}</td>
+                                    <td>${row2.nama_pp}</td>
+                                    <td>${row2.kode_drk}</td>
+                                    <td>${row2.nama_drk ? row2.nama_drk : '-'}</td>
+                                    <td style="text-align: right;">${sepNum(row2.nilai)}</td>
+                                </tr>`;
                             }
                         }
                 html += `</tbody>
+                    </table>
+                    <table class="table table-bordered">
+                        <thead>
+                            <th style="width: 200px; text-align: center;">Nama Rekening</th>
+                            <th style="width: 150px; text-align: center;">No Rekening</th>
+                            <th style="width: 150px; text-align: center;">Bank</th>
+                            <th style="width: 90px; text-align: center;">Bruto</th>
+                            <th style="width: 90px; text-align: center;">Pajak</th>
+                            <th style="width: 160px; text-align: center;">Netto</th>
+                        </thead>
+                        <tbody>`
+                        for(var k=0;k<resData.data_sub_detail.length;k++) {
+                            var row3 = resData.data_sub_detail[k];
+                            totalBruto +=+ parseFloat(row3.nilai)
+                            totalPajak +=+ parseFloat(row3.pajak)
+                            totalNetto +=+ parseFloat(row3.netto)
+                            
+                            if(row.no_pb == row3.no_bukti) {
+                                html += `<tr>
+                                    <td>${row3.no_rek}</td>
+                                    <td>${row3.nama_rek}</td>
+                                    <td>${row3.bank}</td>
+                                    <td style="text-align: right;">${sepNum(row3.nilai)}</td>
+                                    <td style="text-align: right;">${sepNum(row3.pajak)}</td>
+                                    <td style="text-align: right;">${sepNum(row3.netto)}</td>
+                                </tr>`
+                            }
+                        }
+                html += `<tr>
+                            <td colspan="3" style="text-align: right;">Total</td>
+                            <td style="text-align: right;">${sepNum(totalBruto)}</td>
+                            <td style="text-align: right;">${sepNum(totalPajak)}</td>
+                            <td style="text-align: right;">${sepNum(totalNetto)}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-borderless">
+                        <tbody>
+                            <tr>
+                                <td colspan="4" style="text-align: right;">${row.kota}, ${splitTanggal[2]} ${getNamaBulan(splitTanggal[1])} ${splitTanggal[0]}</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;">Mengetahui/Menyetujui :</td>
+                                <td style="text-align: center;">Fiat Bayar</td>
+                                <td style="text-align: center;">Verifikasi</td>
+                                <td style="text-align: center;">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;">Ka .PP</td>
+                                <td colspan="2" style="text-align: center;">&nbsp;</td>
+                                <td style="text-align: center;">Dibuat Oleh,</td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" style="height: 60px;">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;"><u>${row.nama_app}</u></td>
+                                <td colspan="2" style="text-align: center;">&nbsp;</td>
+                                <td style="text-align: center;"><u>${row.nama_user}</u></td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;">NIP : ${row.nik_app}</td>
+                                <td colspan="2" style="text-align: center;">&nbsp;</td>
+                                <td style="text-align: center;">NIP : ${row.nik_user}</td>
+                            </tr>
+                        </tbody>
                     </table>
                 </div>
             </div>`
