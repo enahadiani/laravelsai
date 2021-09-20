@@ -67,6 +67,16 @@ function drawRptPage(data,res,from,to) {
                             <th style="width: 100px; text-align: center;">PAJAK</th>
                             <th style="width: 100px; text-align: center;">NETTO</th>
                         </thead>
+                        <tbody>`
+                        for(var j=0;resData.res.data_detail.length;j++) {
+                            var row2 = res.data_detail[j];
+                            if(row.no_pb == row2.no_pb) {
+                                totalBruto +=+ parseFloat(row2.nilai)
+                                totalPajak +=+ parseFloat(row2.pajak)
+                                totalNetto +=+ parseFloat(row2.netto)
+                            }
+                        }
+                html += `</tbody>
                     </table>
                 </div>
             </div>`
