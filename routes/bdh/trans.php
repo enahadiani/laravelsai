@@ -22,3 +22,5 @@ Route::get('nik-buat', 'Bdh\PtgBebanController@getNikBuat');
 Route::get('nik-tahu', 'Bdh\PtgBebanController@getNikTahu');
 Route::get('nik-ver', 'Bdh\PtgBebanController@getNikVer');
 Route::get('akun', 'Bdh\PtgBebanController@getAkun');
+Route::get('pp', 'Bdh\PtgBebanController@getPP');
+Route::get('drk', 'Bdh\PtgBebanController@getDrk');
