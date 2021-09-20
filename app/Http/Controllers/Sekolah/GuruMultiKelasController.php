@@ -21,6 +21,8 @@
             try{
                 // if(isset($request->kode_pp) && $request->kode_pp != ""){
                     $kode_pp = $request->kode_pp;
+                    $kode_ta = $request->kode_ta;
+                    $flag_aktif = $request->flag_aktif;
                 // }else{
                 //     $kode_pp = Session::get('kodePP');
                 // }
@@ -31,7 +33,9 @@
                         'Accept'     => 'application/json',
                     ],
                     'query' => [
-                        'kode_pp' => $kode_pp
+                        'kode_pp' => $kode_pp,
+                        'kode_ta' => $kode_ta,
+                        'flag_aktif' => $flag_aktif,
                     ]
                 ]);
 
