@@ -580,8 +580,8 @@
                             <label>Status</label>
                             <select class="form-control selectize" data-width="100%" name="inp-filter_status" id="inp-filter_status">
                                 <option value='' disabled>Pilih Status</option>
-                                <option value='AKTIF' selected>AKTIF</option>
-                                <option value='NONAKTIF'>NONAKTIF</option>
+                                <option value='1' selected>AKTIF</option>
+                                <option value='0'>NONAKTIF</option>
                             </select>
                         </div>
                         <div class="form-group row">
@@ -604,6 +604,12 @@
     var $iconLoad = $('.preloader');
     var $target = "";
     var $target2 = "";
+    var $kode_pp_def = "{{ Session::get('kodePP') }}";
+    var $kode_ta_def = "";
+    var $kode_flag_aktif_def = 1;
+    var $kode_pp = "{{ Session::get('kodePP') }}";
+    var $kode_ta = "";
+    var $flag_aktif = 1;
 
     $.ajaxSetup({
         headers: {
@@ -686,6 +692,8 @@
                         var value = result.daftar[i]
                         if(value.flag_aktif == '1') {
                             control.setValue(value.kode_ta);
+                            $kode_ta = value.kode_ta;
+                            $kode_ta_def = value.kode_ta;
                             break;
                         }
                     }
@@ -758,8 +766,16 @@
     jumFilter();
 
     $('#form-filter').on('change','#inp-filter_kode_pp',function(e){
-        var kode_pp = $(this).val();
-        getFilterTA(kode_pp);
+        $kode_pp = $(this).val();
+        getFilterTA($kode_pp);
+    });
+
+    $('#form-filter').on('change','#inp-filter_kode_ta',function(e){
+        $kode_ta = $(this).val();
+    });
+
+    $('#form-filter').on('change','#inp-filter_status',function(e){
+        $flag_aktif = $(this).val();
     });
 
     // LIST DATA
@@ -770,10 +786,22 @@
         sDom: 't<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
         "ordering": true,
         "order": [[7, "desc"]],
+        "cache": false,
         'ajax': {
             'url': "{{url('sekolah-master/guru-multi-kelas')}}",
             'async':false,
             'type': 'GET',
+            'data': {
+                'kode_pp': function() {
+                    return $kode_pp
+                },
+                'kode_ta': function() {
+                    return $kode_ta
+                },
+                'flag_aktif': function() {
+                    return $flag_aktif
+                }
+            },
             'dataSrc' : function(json) {
                 if(json.status){
                     return json.daftar;   
@@ -2142,45 +2170,7 @@
     // FILTER
     $('#modalFilter').on('submit','#form-filter',function(e){
         e.preventDefault();
-        $.fn.dataTable.ext.search.push(
-            function( settings, data, dataIndex ) {
-                var kode_pp = $('#inp-filter_kode_pp').val();
-                var status = $('#inp-filter_status').val();
-                var kode_ta  = $('#inp-filter_kode_ta').val();
-                var col_kode_pp = data[2];
-                var col_status = data[5];
-                var col_kode_ta = data[6];
-                if(kode_pp != "" && status != "" && kode_ta != ""){
-                    if(kode_pp == col_kode_pp && status == col_status && kode_ta == col_kode_ta){
-                        return true;
-                    }else{
-                        return false;
-                    }
-                }else if(kode_pp !="" && status == "" && kode_ta == "") {
-                    if(kode_pp == col_kode_pp){
-                        return true;
-                    }else{
-                        return false;
-                    }
-                }else if(kode_pp == "" && status != "" && kode_ta == ""){
-                    if(status == col_status){
-                        return true;
-                    }else{
-                        return false;
-                    }
-                }else if(kode_pp == "" && status == "" && kode_ta != ""){
-                    if(kode_ta == col_kode_ta){
-                        return true;
-                    }else{
-                        return false;
-                    }
-                }else{
-                    return true;
-                }
-            }
-        );
-        dataTable.draw();
-        $.fn.dataTable.ext.search.pop();
+        dataTable.ajax.reload(null, false)
         $('#modalFilter').modal('hide');
     });
 
@@ -2190,11 +2180,10 @@
 
     $('#btn-reset').click(function(e){
         e.preventDefault();
-        $('#inp-filter_kode_pp')[0].selectize.setValue('');
-        $('#inp-filter_kode_ta')[0].selectize.setValue('');
-        $('#inp-filter_status')[0].selectize.setValue('');
+        $('#inp-filter_kode_pp')[0].selectize.setValue($kode_pp_def);
+        $('#inp-filter_kode_ta')[0].selectize.setValue($kode_ta_def);
+        $('#inp-filter_status')[0].selectize.setValue($kode_flag_aktif_def);
         jumFilter()
-        
     });
     
     $('#filter-btn').click(function(){
@@ -2205,6 +2194,5 @@
         event.preventDefault();
         $('#modalFilter').modal('hide');
     });
-    $('#btn-tampil').click();
 
     </script>
