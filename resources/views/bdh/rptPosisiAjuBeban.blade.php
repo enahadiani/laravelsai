@@ -16,7 +16,6 @@ drawLap($formData);
 function drawRptPage(data,res,from,to) {
     var html = "";
     if(data.length > 0) {
-        console.log(data)
         var split = data[0].tgl.split('/');
         var no = 1;
         var total = 0;
