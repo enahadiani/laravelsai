@@ -193,13 +193,13 @@
                                         <th width='10%'>Qty Beli</th>
                                         <th width='10%'>Qty Retur</th>
                                         <th width='30%'>Subtotal</th>
-                                        <th></th>
+                                        <th>Status Return</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                     </tbody>
                                     </table>
-                                    <a type="button" href="#" data-id="0" id="add-row" title="add-row" class="btn btn-light2 btn-block btn-sm">Tambah Baris</a>
+                                    <!-- <a type="button" href="#" data-id="0" id="add-row" title="add-row" class="btn btn-light2 btn-block btn-sm">Tambah Baris</a> -->
                                 </div>
                             </div>
                         </div>
@@ -415,11 +415,11 @@
                                     <input type="hidden" class="form-control inp-akun" name="kode_akun[]" value="${detail.akun_pers}" readonly >
                                 </td>
                                 <td>
-                                    <input type="text" class="form-control inp-qtyretur" name="qty_retur[]" value="0">
+                                    <input type="text" class="form-control inp-qtyretur" name="qty_retur[]" value="0" readonly>
                                     <input type="text" class="form-control inp-satuanretur hidden" name="satuan[]" value="-">
                                 </td>
-                                <td><input type="text" class="form-control inp-subb" name="subtotal[]" value="0"></td>
-                                <td><a class="hapus-item"><i class="simple-icon-trash" style="font-size:18px;"></i></td>
+                                <td><input type="text" class="form-control inp-subb" name="subtotal[]" value="0" readonly></td>
+                                <td><select name="status_return[]" class="form-control inp-status stske${no}" value=""><option value="Tidak">Tidak</option><option value="Ya">Ya</option></select></td>
                             </tr>`;
 
                             $('#input-grid tbody').append(html);
@@ -433,6 +433,20 @@
                                 $(this).closest('tr').find('.inp-akun').val(setAkun(x));
                                 hitungTotal();
                             });
+
+                            $('.inp-status').change(function(e){
+                                var status= $(this).val();
+                                console.log(status+'change');
+                                if(status == "Ya"){
+                                    var qty = toNilai($(this).closest('tr').find('.inp-qtybeli').val());
+                                    console.log(qty);
+                                    $(this).closest('tr').find('.inp-qtyretur').val(qty).trigger('change');
+                                }else{
+                                    $(this).closest('tr').find('.inp-qtyretur').val(0).trigger('change');
+                                }
+                                hitungTotal();
+                            });
+
                             $('.inp-qtyretur,.inp-subb,.inp-harga,.inp-qtybeli').inputmask("numeric", {
                                 radixPoint: ",",
                                 groupSeparator: ".",
@@ -449,9 +463,9 @@
                             option.push({text:detail.kode_barang + ' - ' + detail.nama, value:detail.kode_barang})
                             $dtBrg[detail.kode_barang] = {harga:detail.harga,jumlah:detail.saldo,kode_akun:detail.akun_pers};
                         }
-                        console.log(option)
                         var num = 1
                         for(var i=0;i<result.daftar.length;i++) { 
+                            $('.stske'+num).selectize();
                             var select = $('.ke'+num).selectize();
                             var control = select[0].selectize;
                             control.addOption(option);
@@ -463,7 +477,8 @@
                             var detail = res[i];
                             var select = $('.ke'+n);
                             var control = select[0].selectize;
-                            control.setValue(detail.kode_barang)
+                            control.setValue(detail.kode_barang);
+                            control.lock();
                             n++;
                         }
                         $('.gridexample').formNavigation();
@@ -875,5 +890,13 @@
     $('#back-to-form').click(function() {
         $('#laporan-retur').hide()
         $('#saku-datatable').show()
+    })
+
+    $('a[href="#data-new"]').on('shown.bs.tab', function (e) {
+        dataTable.columns.adjust().draw();
+    })
+
+    $('a[href="#data-finish"]').on('shown.bs.tab', function (e) {
+        dataTable2.columns.adjust().draw();
     })
 </script>
