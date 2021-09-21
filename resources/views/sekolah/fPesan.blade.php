@@ -405,7 +405,7 @@
 
     <!-- FORM INPUT -->
     <form id="form-tambah" class="tooltip-label-right" novalidate>
-        <input type="hidden" name="kode_ta" id="kode_ta">
+        <input type="hidden" name="kode_ta" id="kode_ta" value="-">
         <div class="row" id="saku-form" style="display:none;">
             <div class="col-sm-12">
                 <div class="card">
