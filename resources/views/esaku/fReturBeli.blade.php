@@ -184,15 +184,20 @@
                         <div class="tab-pane active" id="data-pnj" role="tabpanel">
                             <div class="row">
                                 <div class="col-md-12">
+                                    <style>
+                                        .selectize-input.full.locked{
+                                            background: #e9ecef !important;
+                                        }
+                                    </style>
                                     <table class="table table-striped table-bordered table-condensed gridexample" style='width: 100%;' id="input-grid">
                                     <thead>
                                         <tr>
                                         <th width='5%'>No</th>
-                                        <th width='20%'>Kode Barang</th>
+                                        <th width='30%'>Kode Barang</th>
                                         <th width='15%'>Harga Beli</th>
                                         <th width='10%'>Qty Beli</th>
                                         <th width='10%'>Qty Retur</th>
-                                        <th width='30%'>Subtotal</th>
+                                        <th width='20%'>Subtotal</th>
                                         <th>Status Return</th>
                                         </tr>
                                     </thead>
