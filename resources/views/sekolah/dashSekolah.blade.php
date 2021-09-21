@@ -485,12 +485,12 @@ function getNilaiRatarata(kode_pp=null,kode_kelas,kode_matpel,kode_ta){
     })
 }
 
-function getHistoryPesan(kode_pp,kode_kelas,kode_matpel){
+function getHistoryPesan(kode_pp,kode_kelas,kode_matpel,kode_ta){
     $.ajax({
         type:"GET",
         url:"{{ url('sekolah-dash/pesan-history') }}",
         dataType:"JSON",
-        data:{kode_pp:kode_pp,kode_kelas:kode_kelas,kode_matpel:kode_matpel},
+        data:{kode_pp:kode_pp,kode_kelas:kode_kelas,kode_matpel:kode_matpel,kode_ta:kode_ta},
         success:function(res){
             var result = res.data;
             var html = '';
@@ -514,6 +514,10 @@ function getHistoryPesan(kode_pp,kode_kelas,kode_matpel){
                         </div>`;
                     }
                 }
+            }  else {
+                html += `<div style="text-align: center;">
+                    <p class="text-muted mb-0" style="text-align: center;" >Tidak Ada Pesan</p>
+                </div>`
             }
             $('#content-pesan-detail').html(html);
         }
@@ -649,7 +653,7 @@ $('#modalFilter').on('submit','#form-filter',function(e){
     $('#judul-matpel').html(nama_matpel);
     $('#tahun_ajaran').html(nama_ta)
 
-    getHistoryPesan(kode_pp,kode_kelas,kode_matpel);
+    getHistoryPesan(kode_pp,kode_kelas,kode_matpel,kode_ta);
     getNilaiRatarata(kode_pp,kode_kelas,kode_matpel,kode_ta);
     getDataBox(kode_pp,kode_kelas,kode_matpel);
     getDibawahKKM(kode_pp,kode_kelas,kode_matpel);
@@ -706,7 +710,7 @@ $('#btn-tampil').click(function(e){
     $('#judul-matpel').html(nama_matpel);
     $('#tahun_ajaran').html(nama_ta)
 
-    getHistoryPesan(kode_pp,kode_kelas,kode_matpel);
+    getHistoryPesan(kode_pp,kode_kelas,kode_matpel,kode_ta);
     getNilaiRatarata(kode_pp,kode_kelas,kode_matpel,kode_ta);
     getDataBox(kode_pp,kode_kelas,kode_matpel);
     getDibawahKKM(kode_pp,kode_kelas,kode_matpel);
