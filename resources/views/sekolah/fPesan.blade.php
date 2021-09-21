@@ -1304,6 +1304,7 @@
         $('#form-tambah')[0].reset();
         $('#form-tambah').validate().resetForm();
         $('#id').val('');
+        $('#kode_ta').val('-');
         $('#jenis')[0].selectize.setValue('');
         // $('#tipe')[0].selectize.setValue('');
         $('#pesan').text('');
