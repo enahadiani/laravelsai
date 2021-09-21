@@ -1,6 +1,6 @@
 <script type="text/javascript">
 function drawLap(formData){
-    saiPostLoad('bdh-report/lap-posisipertanggungpb', null, formData, null, function(res){
+    saiPostLoad('bdh-report/lap-posisiajupanjar', null, formData, null, function(res){
         if(res.result.length > 0){
             $('#pagination').html('');
             var show = $('#show').val();

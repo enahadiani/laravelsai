@@ -27,6 +27,9 @@
             width: 390px;
         }
     }
+    .modal .close {
+        margin-right: 28px;
+    }
 </style>
 <div class="row">
     <div class="col-12">
@@ -154,15 +157,11 @@
             <div class="modal-content">
                <div class="modal-header" style="text-align: center;padding:3px !important;display:inline;">
                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="display:inline;"><span aria-hidden="true">×</span></button>
-                    <h5 style="margin-top:10px;">Nama Pesan</h5>
+                    <h5 style="margin-top:10px;" id="judul-pesan"></h5>
                 </div>
                 <div class="modal-body">
-                    <div class="card bg-primary p-2 float-right mb-3" style="min-height: 90px; max-height:auto;width:100%;">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-                        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris 
-                        nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate 
-                        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, 
-                        sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    <div id="pesan-content" class="card bg-primary p-2 float-right mb-3" style="min-height: 90px; max-height:auto;width:100%;">
+                        
                     </div>
                     <div style="position:relative;margin-bottom:0;margin-left:135px;margin-top:auto;">
                         <button id="modal-tambah-pesan" class="btn btn-outline-light text-primary" style="font-weight: bold;border-radius:50px !important; box-shadow:  10px 10px 45px -13px rgba(0,0,0,0.75); !important;" type="button">Tambah Pesan</button>
@@ -485,12 +484,12 @@ function getNilaiRatarata(kode_pp=null,kode_kelas,kode_matpel,kode_ta){
     })
 }
 
-function getHistoryPesan(kode_pp,kode_kelas,kode_matpel){
+function getHistoryPesan(kode_pp,kode_kelas,kode_matpel,kode_ta){
     $.ajax({
         type:"GET",
         url:"{{ url('sekolah-dash/pesan-history') }}",
         dataType:"JSON",
-        data:{kode_pp:kode_pp,kode_kelas:kode_kelas,kode_matpel:kode_matpel},
+        data:{kode_pp:kode_pp,kode_kelas:kode_kelas,kode_matpel:kode_matpel,kode_ta:kode_ta},
         success:function(res){
             var result = res.data;
             var html = '';
@@ -498,7 +497,7 @@ function getHistoryPesan(kode_pp,kode_kelas,kode_matpel){
                 if(result.data.length > 0){
                     for(var i=0; i < result.data.length; i++){
                         var line = result.data[i];
-                        html +=`<div id="isi-pesan" class="d-flex flex-row mb-3 border-bottom justify-content-between">
+                        html +=`<div id="isi-pesan" class="d-flex flex-row mb-3 border-bottom justify-content-between" data-judul="${line.judul}" data-pesan="${line.pesan}">
                             <a href="#">
                             <img src="{{ asset('asset_elite/images/user.png') }}" alt="`+line.nama+`" class="img-thumbnail border-0 rounded-circle list-thumbnail align-self-center xsmall">
                             </a>
@@ -514,6 +513,10 @@ function getHistoryPesan(kode_pp,kode_kelas,kode_matpel){
                         </div>`;
                     }
                 }
+            }  else {
+                html += `<div style="text-align: center;">
+                    <p class="text-muted mb-0" style="text-align: center;" >Tidak Ada Pesan</p>
+                </div>`
             }
             $('#content-pesan-detail').html(html);
         }
@@ -649,7 +652,7 @@ $('#modalFilter').on('submit','#form-filter',function(e){
     $('#judul-matpel').html(nama_matpel);
     $('#tahun_ajaran').html(nama_ta)
 
-    getHistoryPesan(kode_pp,kode_kelas,kode_matpel);
+    getHistoryPesan(kode_pp,kode_kelas,kode_matpel,kode_ta);
     getNilaiRatarata(kode_pp,kode_kelas,kode_matpel,kode_ta);
     getDataBox(kode_pp,kode_kelas,kode_matpel);
     getDibawahKKM(kode_pp,kode_kelas,kode_matpel);
@@ -667,6 +670,10 @@ $('#modalPesan').on('click','#modal-tambah-pesan',function(){
 })
 
 $('#content-pesan').on('click',' #content-pesan-detail > #isi-pesan', function() {
+    var judul = $(this).data('judul');
+    var pesan = $(this).data('pesan');
+    $('#modalPesan #judul-pesan').text(judul)
+    $('#modalPesan #pesan-content').text(pesan)
     $('#modalPesan').modal('show');
 })
 
@@ -706,7 +713,7 @@ $('#btn-tampil').click(function(e){
     $('#judul-matpel').html(nama_matpel);
     $('#tahun_ajaran').html(nama_ta)
 
-    getHistoryPesan(kode_pp,kode_kelas,kode_matpel);
+    getHistoryPesan(kode_pp,kode_kelas,kode_matpel,kode_ta);
     getNilaiRatarata(kode_pp,kode_kelas,kode_matpel,kode_ta);
     getDataBox(kode_pp,kode_kelas,kode_matpel);
     getDibawahKKM(kode_pp,kode_kelas,kode_matpel);
