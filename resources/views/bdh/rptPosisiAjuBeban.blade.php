@@ -83,7 +83,7 @@ function drawRptPage(data,res,from,to) {
             html += `<tr>
                         <td colspan="7" style="text-align: right;">Total</td>
                         <td style="text-align: right;">${sepNum(total)}</td>
-                        <td colspan="8" style="text-align: right;">Total</td>
+                        <td colspan="8" style="text-align: right;">&nbsp;</td>
                     </tr>
                     </tbody>
                 </table>
