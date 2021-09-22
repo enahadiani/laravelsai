@@ -67,14 +67,24 @@
                                     <label for="total_spb" >Total SPB</label>
                                     <input class="form-control currency" type="text" placeholder="Total SPB" readonly id="totalSpb" name="total_spb" value="0">
                                 </div>
+                                {{-- test only --}}
+                                {{-- <div class="col-md-6 col-sm-12">
+                                    <label for="total_prog" >Total prog</label>
+                                    <input class="form-control currency" type="text" placeholder="Total SPB" readonly id="totalProg" name="total_prog" value="0">
+                                </div> --}}
                             </div>
                         </div>
                     </div>
 
                     <ul class="nav nav tabs col-12" role="tablist">
                         <li class="nav-item">
-                            <a href="" class="nav-link active" data-toggle="tab" href="#data-pb" role="tab" aria-selected="true">
+                            <a class="nav-link active" data-toggle="tab" href="#data-pb" role="tab" aria-selected="true">
                                 <span>Daftar PB</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#data-rekening" role="tab" aria-selected="true">
+                                <span>Daftar Transfer</span>
                             </a>
                         </li>
                     </ul>
@@ -96,6 +106,32 @@
                                             <th style="width:15%">Deskripsi</th>
                                             <th style="width:15%">Nilai PB</th>
                                             <th style="width:5%" class="text-center">Rekening</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane" id="data-rekening" role="tabpanel">
+                            <div class="table-responsive">
+                                <div class='col-md-12 nav-control' style="padding: 0px 5px;">
+                                    <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row-rekening"></span></a>
+                                </div>
+
+                                <table class="table table-bordered table-condensed gridexample" id="rekening-grid" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                    <thead style="background:#F8F8F8">
+                                        <tr>
+                                            <th style="width:3%" class="text-center">No</th>
+                                            <th style="width:15%" class="text-center">Bank</th>
+                                            <th style="width:15%">Cabang</th>
+                                            <th style="width:15%">No Rekening</th>
+                                            <th style="width:15%">Nama Rekening</th>
+                                            <th style="width:15%">Bruto</th>
+                                            <th style="width:15%">Potongan</th>
+                                            <th style="width:15%">Netto</th>
+                                            <th style="width:5%" class="text-center">jenis</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -206,13 +242,20 @@
     // HITUNG TOTAL SPB (status)
     function hitungTotalSpb(){
         var totalSpb = 0;
+        var totalProg  = 0;
         $('#pb-grid tbody tr').each(function(index) {
             var nilai = toNilai($(this).find('.inp-nilai').val())
-            totalSpb += nilai;
+            var status = $(this).find('.inp-status').val();
 
+            if(status == "SPB"){
+                totalSpb += nilai;
+            }else{
+                totalProg += nilai ;
+            }
         });
 
         $('#totalSpb').val(totalSpb);
+        // $('#totalProg').val(totalProg);
     }
 
     // HITUNG TOTAL ROW SPB
