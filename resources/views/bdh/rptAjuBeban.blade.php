@@ -70,7 +70,6 @@ function drawRptPage(data,res,from,to) {
                         <tbody>`
                         for(var j=0;j<resData.data_detail.length;j++) {
                             var row2 = resData.data_detail[j];
-                            console.log(row2)
                             if(row.no_pb == row2.no_pb) {
                                 html += `<tr>
                                     <td>${row2.kode_akun}</td>
