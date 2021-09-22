@@ -36,15 +36,29 @@
                     <div class="form-row">
                         <div class="form-group col-md-6 col-sm-12">
                             <div class="row">
-                                <div class="col-md-4 col-sm-12">
-                                    <label for="tanggal">Tanggal</label>
-                                    <input class='form-control datepicker' type="text" id="tanggal" name="tanggal" value="{{ date('d/m/Y') }}">
-                                    <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;" class="simple-icon-calendar date-search"></i>
+                                <div class="col-md-4 col-sm-12 my-2">
+                                    <label for="no_bukti">No Bukti</label>
+                                    <input type="text" name="no_bukti" id="no_bukti" class="form-control inp-no_bukti" value="-" readonly>
+                                    <a href="#" class="generate-bukti" id="generate-bukti"><i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;" class="simple-icon-sync"></i></a>
+
                                 </div>
-                                <div class="col-md-6 col-sm-12">
+                                <div class="col-md-6 col-sm-12 my-2">
                                     <label for="no_dokumen">Nomor Dokumen</label>
                                     <input class='form-control' type="text" id="no_dokumen" name="no_dokumen" required>
                                 </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 col-sm-12 my-12">
+                                    <label for="tanggal">Tanggal</label>
+                                    <input class='form-control inp-tanggal datepicker' type="text" id="tanggal" name="tanggal" value="{{ date('d/m/Y') }}">
+                                    <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;" class="simple-icon-calendar date-search"></i>
+                                </div>
+                                <div class="col-md-6 col-sm-12">
+                                    <label for="nik_periksa" >Due Date</label>
+                                    <input class='form-control datepicker' type="text" id="duedate" name="duedate" value="{{ date('d/m/Y') }}">
+                                    <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;" class="simple-icon-calendar date-search"></i>
+                                </div>
+
                             </div>
                         </div>
                         <div class="form-group col-md-6 col-sm-12">
@@ -53,11 +67,7 @@
                                     <input class="form-control" type="hidden" placeholder="No Bukti" id="no_bukti" name="no_bukti" readonly>
                                     <input class="form-control" type="hidden" placeholder="No Bukti" id="kode_form" name="kode_form" readonly>
                                 </div>
-                                <div class="col-md-6 col-sm-12">
-                                    <label for="nik_periksa" >Due Date</label>
-                                    <input class='form-control datepicker' type="text" id="duedate" name="duedate" value="{{ date('d/m/Y') }}">
-                                    <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;" class="simple-icon-calendar date-search"></i>
-                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -247,8 +257,9 @@
                                             {{-- begin budget tab --}}
                                                 <div class="tab-pane" id="data-budget" role="tabpanel">
                                                     <div class='col-md-12 mt-3' style='min-height:420px; margin:0px; padding:0px;'>
-                                                        <button type="button" class="btn btn-sm btn-primary mt-2 mb-2">Cek Budget</button>
-                                                        <table class="table table-bordered table-condensed gridexample"  style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                                        <button type="button" id="cek-budget" class="btn btn-sm btn-primary mt-2 mb-2 cek-budget">Cek Budget</button>
+
+                                                        <table id="budget-grid" class="budget-grid table table-bordered table-condensed gridexample"  style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
                                                             <thead style="background:#F8F8F8">
                                                                 <th style="width: 3%">No</th>
                                                                 <th>Kode Akun</th>
@@ -333,148 +344,116 @@
         }
     });
 
-    // $.ajax({
-    //     type: 'GET',
-    //     url: "{{ url('esaku-trans/nik-approve') }}",
-    //     dataType: 'json',
-    //     async:false,
-    //     success:function(result){
-    //         var data = result.daftar
-    //         if(data.length > 0) {
-    //             for(var i=0;i<data.length;i++) {
-    //                 var dt = data[i]
-    //                 $nikApprove.push({ id: dt.nik, name: dt.nama })
-    //             }
-    //         }
-    //     },
-    //     error: function(jqXHR, textStatus, errorThrown) {
-    //         if(jqXHR.status == 422){
-    //             var msg = jqXHR.responseText;
-    //         }else if(jqXHR.status == 500) {
-    //             var msg = "Internal server error";
-    //         }else if(jqXHR.status == 401){
-    //             var msg = "Unauthorized";
-    //             window.location="{{ url('/esaku-auth/sesi-habis') }}";
-    //         }else if(jqXHR.status == 405){
-    //             var msg = "Route not valid. Page not found";
-    //         }
-    //     }
-    // });
+    function reverseDate2(date_str, separator, newseparator){
+        if(typeof separator === 'undefined'){separator = '-'}
+        if(typeof newseparator === 'undefined'){newseparator = '-'}
+        date_str = date_str.split(' ');
+        var str = date_str[0].split(separator);
 
-    // $.ajax({
-    //     type: 'GET',
-    //     url: "{{ url('esaku-trans/akun-terima') }}",
-    //     dataType: 'json',
-    //     async:false,
-    //     success:function(result){
-    //         var data = result.daftar
-    //         if(data.length > 0) {
-    //             for(var i=0;i<data.length;i++) {
-    //                 var dt = data[i]
-    //                 $akunPenerima.push({ id: dt.kode_akun, name: dt.nama })
-    //             }
-    //         }
-    //     },
-    //     error: function(jqXHR, textStatus, errorThrown) {
-    //         if(jqXHR.status == 422){
-    //             var msg = jqXHR.responseText;
-    //         }else if(jqXHR.status == 500) {
-    //             var msg = "Internal server error";
-    //         }else if(jqXHR.status == 401){
-    //             var msg = "Unauthorized";
-    //             window.location="{{ url('/esaku-auth/sesi-habis') }}";
-    //         }else if(jqXHR.status == 405){
-    //             var msg = "Route not valid. Page not found";
-    //         }
-    //     }
-    // });
+        return str[2]+newseparator+str[1]+newseparator+str[0];
+    }
 
-    // $.ajax({
-    //     type: 'GET',
-    //     url: "{{ url('esaku-trans/pp-terima') }}",
-    //     dataType: 'json',
-    //     async:false,
-    //     success:function(result){
-    //         var data = result.daftar
-    //         if(data.length > 0) {
-    //             for(var i=0;i<data.length;i++) {
-    //                 var dt = data[i]
-    //                 $ppPenerima.push({ id: dt.kode_pp, name: dt.nama })
-    //             }
-    //         }
-    //     },
-    //     error: function(jqXHR, textStatus, errorThrown) {
-    //         if(jqXHR.status == 422){
-    //             var msg = jqXHR.responseText;
-    //         }else if(jqXHR.status == 500) {
-    //             var msg = "Internal server error";
-    //         }else if(jqXHR.status == 401){
-    //             var msg = "Unauthorized";
-    //             window.location="{{ url('/esaku-auth/sesi-habis') }}";
-    //         }else if(jqXHR.status == 405){
-    //             var msg = "Route not valid. Page not found";
-    //         }
-    //     }
-    // });
+    function generateBukti(){
+        var date = $('#form-tambah').find('.inp-tanggal').val();
+        var date2 = reverseDate2(date,'/','-');
+        // console.log(date2);
+        var url = "{{url('bdh-trans/generate-bukti')}}";
 
-    // $.ajax({
-    //     type: 'GET',
-    //     url: "{{ url('esaku-trans/mata-anggaran') }}",
-    //     dataType: 'json',
-    //     data: { tahun: $tahun },
-    //     async:false,
-    //     success:function(result){
-    //         var data = result.daftar
-    //         if(data.length > 0) {
-    //             for(var i=0;i<data.length;i++) {
-    //                 var dt = data[i]
-    //                 $mataAnggaran.push({ id: dt.kode_akun, name: dt.nama })
-    //             }
-    //         }
-    //     },
-    //     error: function(jqXHR, textStatus, errorThrown) {
-    //         if(jqXHR.status == 422){
-    //             var msg = jqXHR.responseText;
-    //         }else if(jqXHR.status == 500) {
-    //             var msg = "Internal server error";
-    //         }else if(jqXHR.status == 401){
-    //             var msg = "Unauthorized";
-    //             window.location="{{ url('/esaku-auth/sesi-habis') }}";
-    //         }else if(jqXHR.status == 405){
-    //             var msg = "Route not valid. Page not found";
-    //         }
-    //     }
-    // });
+        $.ajax({
+            type: 'GET',
+            url : url,
+            data: {
+                tanggal : date2
+            },
+            dataType: 'JSON',
+            async: false,
+            success: function(result){
+                $('#form-tambah').find('.inp-no_bukti').val(result.data);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                if(jqXHR.status == 422){
+                    var msg = jqXHR.responseText;
+                }else if(jqXHR.status == 500) {
+                    var msg = "Internal server error";
+                }else if(jqXHR.status == 401){
+                    var msg = "Unauthorized";
+                    window.location="{{ url('/bdh-auth/sesi-habis') }}";
+                }else if(jqXHR.status == 405){
+                    var msg = "Route not valid. Page not found";
+                }
+            }
+        });
 
-    // $.ajax({
-    //     type: 'GET',
-    //     url: "{{ url('esaku-trans/pp-anggaran') }}",
-    //     dataType: 'json',
-    //     data: { tahun: $tahun },
-    //     async:false,
-    //     success:function(result){
-    //         var data = result.daftar
-    //         if(data.length > 0) {
-    //             for(var i=0;i<data.length;i++) {
-    //                 var dt = data[i]
-    //                 $ppAnggaran.push({ id: dt.kode_pp, name: dt.nama })
-    //                 $drkAnggaran.push({ id: dt.kode_pp, name: dt.nama })
-    //             }
-    //         }
-    //     },
-    //     error: function(jqXHR, textStatus, errorThrown) {
-    //         if(jqXHR.status == 422){
-    //             var msg = jqXHR.responseText;
-    //         }else if(jqXHR.status == 500) {
-    //             var msg = "Internal server error";
-    //         }else if(jqXHR.status == 401){
-    //             var msg = "Unauthorized";
-    //             window.location="{{ url('/esaku-auth/sesi-habis') }}";
-    //         }else if(jqXHR.status == 405){
-    //             var msg = "Route not valid. Page not found";
-    //         }
-    //     }
-    // });
+    }
+
+    $('#form-tambah').on('change','.inp-tanggal', function(e){
+        generateBukti();
+    });
+
+
+    function cekBudget(){
+        var url = '{{url("bdh-trans/load-budget")}}';
+        var kode_akun_agg = $('#jurnal-grid').find('.inp-kode_akun').val();
+        var kode_pp_agg = $('#jurnal-grid').find('.inp-pp').val();
+        var kode_drk_agg = $('#jurnal-grid').find('.inp-drk').val();
+        var nilai = $('#jurnal-grid').find('.inp-nilai').val();
+        var tanggal = $('#form-tambah').find('.inp-tanggal').val();
+        var revers = reverseDate2(tanggal,'/','');
+        var periode = revers.substring(0, 6);
+
+        var no_bukti = $('#form-tambah').find('.inp-no_bukti').val();
+        var nilai_agg = toNilai(nilai);
+        $.ajax({
+            type: 'GET',
+            url : url,
+            data: {
+                kode_akun_agg : kode_akun_agg,
+                kode_pp_agg: kode_pp_agg,
+                kode_drk_agg: kode_drk_agg,
+                nilai_agg: nilai_agg,
+                periode: periode,
+                no_bukti: no_bukti
+            },
+            dataType: 'JSON',
+            async: false,
+            success: function(result){
+                var data = result.daftar;
+                var no=1;
+                var html = '';
+                html += `<tr>
+                    <td>`+ no++ +`</td>
+                    <td>`+data.kode_akun_agg+`</td>
+                    <td>`+data.kode_pp_agg+`</td>
+                    <td>`+data.kode_drk_agg+`</td>
+                    <td>`+data.so_awal_agg+`</td>
+                    <td>`+data.nilai_agg+`</td>
+                    <td>`+data.so_akhir_agg+`</td>
+                </tr>`
+
+                $('#budget-grid >tbody').html(html);
+               console.log(result);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                if(jqXHR.status == 422){
+                    var msg = jqXHR.responseText;
+                }else if(jqXHR.status == 500) {
+                    var msg = "Internal server error";
+                }else if(jqXHR.status == 401){
+                    var msg = "Unauthorized";
+                    window.location="{{ url('/bdh-auth/sesi-habis') }}";
+                }else if(jqXHR.status == 405){
+                    var msg = "Route not valid. Page not found";
+                }
+            }
+        });
+
+    }
+
+    $('#data-budget').on('click','.cek-budget', function(e){
+        cekBudget();
+    });
+
+
 
     function filterNikApprove(value) {
         for(var i=0;i<$nikApprove.length;i++) {
@@ -649,6 +628,7 @@
         $('.info-icon-hapus').addClass('hidden');
         $('[class*=inp-label-]').val('')
         $('[class*=inp-label-]').attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important;border-left:1px solid #d7d7d7 !important');
+        generateBukti();
     });
 
     $('#saku-form').on('click', '#btn-kembali', function(){
@@ -1535,43 +1515,52 @@
             case 'drk[]':
                 var kode_akun = $('#jurnal-grid').find('.inp-kode_akun').val();
                 var kode_pp = $('#jurnal-grid').find('.inp-pp').val();
-                var options = {
-                    id : param,
-                    header : ['Kode', 'Nama'],
-                    url : "{{ url('bdh-trans/drk') }}",
-                    columns : [
-                        { data: 'kode_pp' },
-                        { data: 'nama' }
-                    ],
-                    parameter: {
-                        periode: $periode,
-                        kode_akun: kode_akun,
-                        kode_pp: kode_pp
-                    },
-                    judul : "Daftar DRK",
-                    pilih : "jenis",
-                    jTarget1 : "val",
-                    jTarget2 : "val",
-                    target1 : "",
-                    target2 : "",
-                    target3 : "",
-                    target4 : "",
-                    onItemSelected: function(data) {
-                        var string = data.kode_pp+'-'+data.nama
-                        if(string.length > 30) {
-                            string = string.substr(0, 30) + '...'
-                        }
-                        $('.'+target1).val(string)
-                        $('.'+target2).text(string)
-                        $('.'+target1).hide()
-                        $('.'+target2).show()
-                        $('.search-drk').hide()
-                        $('.tdbulanke'+idx).hide()
-                        $('.bulanke'+idx).show()
-                        $('.bulanke'+idx).focus()
-                    },
-                    width : ["30%","70%"]
-                };
+                var tanggal = $('#form-tambah').find('.inp-tanggal').val();
+                var revers = reverseDate2(tanggal,'/','');
+                var periode = revers.substring(0, 6);
+                console.log(periode)
+                if(kode_akun == '' || kode_pp == ''){
+                    alert('Kode Akun dan Kode PP ridak boleh kosong !');
+                }else{
+                    var options = {
+                        id : param,
+                        header : ['Kode', 'Nama'],
+                        url : "{{ url('bdh-trans/drk') }}",
+                        columns : [
+                            { data: 'kode_drk' },
+                            { data: 'nama' }
+                        ],
+                        parameter: {
+                            periode: periode,
+                            kode_akun: kode_akun,
+                            kode_pp: kode_pp
+                        },
+                        judul : "Daftar DRK",
+                        pilih : "jenis",
+                        jTarget1 : "val",
+                        jTarget2 : "val",
+                        target1 : "",
+                        target2 : "",
+                        target3 : "",
+                        target4 : "",
+                        onItemSelected: function(data) {
+                            var string = data.kode_drk
+                            if(string.length > 30) {
+                                string = string.substr(0, 30) + '...'
+                            }
+                            $('.'+target1).val(string)
+                            $('.'+target2).text(string)
+                            $('.'+target1).hide()
+                            $('.'+target2).show()
+                            $('.search-drk').hide()
+                            $('.tdbulanke'+idx).hide()
+                            $('.bulanke'+idx).show()
+                            $('.bulanke'+idx).focus()
+                        },
+                        width : ["30%","70%"]
+                    };
+                }
+
             break;
             default:
             break;

@@ -250,6 +250,68 @@ class PtgBebanController extends Controller
         }
     }
 
+    public function GenerateBukti(Request $request)
+    {
+        try {
+
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url') . 'bdh-trans/ptg-beban-nobukti', [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' => [
+                    'tanggal'   => $request->input('tanggal')
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+
+                $data = json_decode($response_data, true);
+                $data = $data["no_bukti"];
+            }
+            return response()->json(['data' => $data, 'status' => true, 'message' => 'success'], 200);
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(), true);
+            return response()->json(['message' => $res, 'status' => false], 200);
+        }
+    }
+
+    public function cekBudget(Request $request)
+    {
+        try {
+
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url') . 'bdh-trans/ptg-beban-budget', [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' => [
+                    'kode_akun_agg[]' => $request->input('kode_akun_agg'),
+                    'kode_pp_agg[]'  => $request->input('kode_pp_agg'),
+                    'kode_drk_agg[]'  => $request->input('kode_drk_agg'),
+                    'nilai_agg[]' => $request->input('nilai_agg'),
+                    'periode'   => $request->input('periode'),
+                    'no_bukti'  => $request->input('no_bukti')
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+
+                $data = json_decode($response_data, true);
+                $data = $data["data"];
+            }
+            return response()->json(['daftar' => $data, 'status' => true, 'message' => 'success'], 200);
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(), true);
+            return response()->json(['message' => $res, 'status' => false], 200);
+        }
+    }
 
 
 

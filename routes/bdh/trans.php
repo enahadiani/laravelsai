@@ -19,6 +19,8 @@ Route::get('ptg-beban/{id}', 'Bdh\PtgBebanController@show');
 Route::post('ptg-beban', 'Bdh\PtgBebanController@store');
 Route::post('ptg-beban-ubah', 'Bdh\PtgBebanController@update');
 // option
+Route::get('generate-bukti', 'Bdh\PtgBebanController@GenerateBukti');
+Route::get('load-budget', 'Bdh\PtgBebanController@cekBudget');
 Route::get('nik-buat', 'Bdh\PtgBebanController@getNikBuat');
 Route::get('nik-tahu', 'Bdh\PtgBebanController@getNikTahu');
 Route::get('nik-ver', 'Bdh\PtgBebanController@getNikVer');
