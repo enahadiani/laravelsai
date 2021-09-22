@@ -28,9 +28,12 @@ Route::get('akun', 'Bdh\PtgBebanController@getAkun');
 Route::get('pp', 'Bdh\PtgBebanController@getPP');
 Route::get('drk', 'Bdh\PtgBebanController@getDrk');
 Route::get('dok-jenis', 'Bdh\PtgBebanController@getJenis');
+Route::get('spb-nik-bdh', 'Bdh\SpbController@getNikBdh');
+Route::get('spb-nik-fiat', 'Bdh\SpbController@getNikFiat');
 
 
 
 // SPB
 Route::get('/spb', 'Bdh\SpbController@index');
 Route::get('/spb-pb-list', 'Bdh\SpbController@getPb');
+Route::get('/spb-rek-transfer', 'Bdh\SpbController@getTransfer');

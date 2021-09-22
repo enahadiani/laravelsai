@@ -87,6 +87,16 @@
                                 <span>Daftar Transfer</span>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#data-otorisasi" role="tab" aria-selected="true">
+                                <span>Otorisasi</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#tambah-pb" role="tab" aria-selected="true">
+                                <span>Tambah PB</span>
+                            </a>
+                        </li>
                     </ul>
 
                     <div class="tab-content tabcontent-border col-12 p-0" style="margin-bottom:2.5rem">
@@ -131,7 +141,7 @@
                                             <th style="width:15%">Bruto</th>
                                             <th style="width:15%">Potongan</th>
                                             <th style="width:15%">Netto</th>
-                                            <th style="width:5%" class="text-center">jenis</th>
+                                            <th style="width:15%" class="text-center">Jenis</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -139,15 +149,95 @@
                                 </table>
                             </div>
                         </div>
+
+                        <div class="tab-pane" id="data-otorisasi" role="tabpanel">
+                            <div class='col-md-12 nav-control' style="padding: 0px 5px;">
+
+                            </div>
+                            <div class='col-md-12 mt-3' style='min-height:420px; margin:0px; padding:0px;'>
+
+                                <div class="col-md-6 col-sm-12 mt-2">
+                                    <label for="nik_bdh" >Nik Bendahara</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                            <span class="input-group-text info-code_nik_bdh" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                        </div>
+                                        <input type="text" class="form-control inp-label-nik_bdh" id="nik_bdh" name="nik_bdh" value="" title="">
+                                        <span class="info-name_nik_bdh hidden">
+                                            <span></span>
+                                        </span>
+                                        <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                        <i class="simple-icon-magnifier search-item2" id="search_nik_bdh"></i>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 col-sm-12 mt-2">
+                                    <label for="nik_fiatur" >Nik Fiatur</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                            <span class="input-group-text info-code_nik_fiatur" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                        </div>
+                                        <input type="text" class="form-control inp-label-nik_fiatur" id="nik_fiatur" name="nik_fiatur" value="" title="">
+                                        <span class="info-name_nik_fiatur hidden">
+                                            <span></span>
+                                        </span>
+                                        <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                        <i class="simple-icon-magnifier search-item2" id="search_nik_fiatur"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane" id="tambah-pb" role="tabpanel">
+                            <div class='col-md-12 nav-control' style="padding: 0px 5px;">
+
+                            </div>
+                            <div class='col-md-12 mt-3' style='min-height:420px; margin:0px; padding:0px;'>
+
+                                <div class="col-md-6 col-sm-12 mt-2">
+                                    <label for="no_pb_tambah" >No PB Tambah</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                            <span class="input-group-text info-code_no_pb_tambah" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                        </div>
+                                        <input type="text" class="form-control inp-label-no_pb_tambah" id="no_pb_tambah" name="no_pb_tambah" value="" title="">
+                                        <span class="info-name_no_pb_tambah hidden">
+                                            <span></span>
+                                        </span>
+                                        <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                        <i class="simple-icon-magnifier search-item2" id="search_no_pb_tambah"></i>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 col-sm-12 mt-3">
+                                    <button type="button" class="btn btn-sm btn-primary" id="#tambah-pb">Tambah</button>
+                                </div>
+
+                            </div>
+                        </div>
                     </div>
 
+                </div>
+                <div class="card-form-footer-full">
+                    <div class="footer-form-container-full">
+                        <div class="bottom-sheet-action">
+                            {{-- <button type="button" id="btn-sheet" class="btn btn-sheet">Catatan Approval</button> --}}
+                        </div>
+                        {{-- <div class="text-right message-action">
+                            <p class="text-success"></p>
+                        </div> --}}
+                        <div class="action-footer">
+                            <button type="submit" style="margin-top: 10px;" class="btn btn-primary btn-save"><i class="fa fa-save"></i> Simpan</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </form>
 {{-- end form data --}}
-
+<button id="trigger-bottom-sheet" style="display:none">Bottom ?</button>
+@include('modal_search')
 <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
 <script src="{{ asset('helper.js') }}"></script>
 <script>
@@ -405,10 +495,67 @@
             }
         }
     });
-
-
-
     // END LOAD DAFTAR PB
+
+    // LOAD REKENING
+    function loadRekening(id){
+        var url = '{{url("bdh-trans/spb-rek-transfer")}}';
+        $.ajax({
+            type: 'GET',
+            url: url,
+            data: {
+                no_pb : id
+            },
+            dataType:'JSON',
+            async: false,
+            success: function(result){
+                var data = result.daftar;
+                if(data.length > 0){
+                    var html = "";
+                    no =1;
+                    for (let i = 0; i < data.length; i++) {
+                        html += `<tr>
+                            <td>`+no+`</td>
+                            <td>`+data[i].bank+`</td>
+                            <td>`+data[i].nama+`</td>
+                            <td>`+data[i].no_rek+`</td>
+                            <td>`+data[i].nama_rek+`</td>
+                            <td class="text-right" >`+format_number(data[i].bruto)+`</td>
+                            <td class="text-right">`+format_number(data[i].pajak)+`</td>
+                            <td class="text-right">`+format_number(data[i].nilai)+`</td>
+                            <td>`+data[i].jenis+`</td>
+                        </tr>`;
+                        no++;
+                    }
+                }else{
+                    msgDialog({
+                        id: '-',
+                        type: 'warning',
+                        title: 'Error',
+                        text: "Data dengan No Pb "+id+" Tidak ditemukan"
+                    });
+                }
+                $(".tab-pane").removeClass("active");
+                $(".nav-link").removeClass("active");
+                $("#data-rekening").addClass("active");
+                $('a[href="#data-rekening"]').tab('show')
+                $('#rekening-grid >tbody').html(html);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                if(jqXHR.status == 422){
+                    var msg = jqXHR.responseText;
+                }else if(jqXHR.status == 500) {
+                    var msg = "Internal server error";
+                }else if(jqXHR.status == 401){
+                    var msg = "Unauthorized";
+                    window.location="{{ url('/bdh-auth/sesi-habis') }}";
+                }else if(jqXHR.status == 405){
+                    var msg = "Route not valid. Page not found";
+                }
+            }
+        });
+    }
+    // END LOAD REKENING
 
     // Event Button Tambah Data
     $('#saku-datatable').on('click', '#btn-tambah', function() {
@@ -433,6 +580,7 @@
         getDaftarPb();
     });
 
+    // Event Button Kembali (Cancel)
     $('#saku-form').on('click', '#btn-kembali', function(){
         var kode = null;
         msgDialog({
@@ -440,4 +588,93 @@
             type:'keluar'
         });
     });
+
+    // event klik rekeing pada tabel daftar pb
+    $('#pb-grid').on('click','.aksi-rekening', function(){
+        var parent = $(this).closest("tr");
+        var id = parent.find('.td-pb').html();
+        var status = parent.find('.td-status').html();
+        if(status == 'SPB'){
+            loadRekening(id);
+        }else{
+            msgDialog({
+                id: '-',
+                type: 'warning',
+                title: 'Error',
+                text: "Hanya PB  Berstatus SPB yang dapat diload!"
+            });
+        }
+
+    });
+
+
+    // CBBL Form
+    $('#form-tambah').on('click', '.search-item2', function() {
+        var id = $(this).closest('div').find('input').attr('name');
+        switch(id) {
+            case 'nik_bdh':
+                var settings = {
+                    id : id,
+                    header : ['NIK', 'Nama'],
+                    url : "{{ url('bdh-trans/spb-nik-bdh') }}",
+                    columns : [
+                        { data: 'nik' },
+                        { data: 'nama' }
+                    ],
+                    judul : "Daftar NIK Bendahara",
+                    pilih : "",
+                    jTarget1 : "text",
+                    jTarget2 : "text",
+                    target1 : ".info-code_"+id,
+                    target2 : ".info-name_"+id,
+                    target3 : "",
+                    target4 : "",
+                    width : ["30%","70%"],
+                }
+            break;
+            case 'nik_fiatur':
+                var settings = {
+                    id : id,
+                    header : ['Kode', 'Nama'],
+                    url : "{{ url('bdh-trans/spb-nik-fiat') }}",
+                    columns : [
+                        { data: 'nik' },
+                        { data: 'nama' }
+                    ],
+                    judul : "Daftar NIK Fiatur",
+                    pilih : "",
+                    jTarget1 : "text",
+                    jTarget2 : "text",
+                    target1 : ".info-code_"+id,
+                    target2 : ".info-name_"+id,
+                    target3 : "",
+                    target4 : "",
+                    width : ["30%","70%"],
+                }
+            break;
+            case 'no_pb_tambah':
+                var settings = {
+                    id : id,
+                    header : ['Kode', 'Nama'],
+                    url : "{{ url('bdh-trans/spb-pb-list') }}",
+                    columns : [
+                        { data: 'no_pb' },
+                        { data: 'keterangan' }
+                    ],
+                    judul : "Daftar PB Tambah",
+                    pilih : "",
+                    jTarget1 : "text",
+                    jTarget2 : "text",
+                    target1 : ".info-code_"+id,
+                    target2 : ".info-name_"+id,
+                    target3 : "",
+                    target4 : "",
+                    width : ["30%","70%"],
+                }
+            break;
+            default:
+            break;
+        }
+        showInpFilter(settings);
+    })
 </script>
