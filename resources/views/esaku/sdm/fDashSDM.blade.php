@@ -198,7 +198,7 @@
                                             <th class="text-center">NIK</th>
                                             <th class="text-center">Nama</th>
                                             <th class="text-center">Jabatan</th>
-                                            <th class="text-center">No Telp</th>
+                                            <th class="text-center">Lokasi Kerja</th>
                                             <th class="text-center">Client</th>
                                         </tr>
                                     </thead>
@@ -246,7 +246,7 @@
                         <div class="col-6">
                             <div class="card card-dash-2 bg-blue">
                                 <div class="card-content">
-                                    <p id="label-card-bpjs" class="label-card">Jumlah BPJS</p>
+                                    <p id="label-card-bpjs" class="label-card">Jumlah <span class="ket-bpjs"></span></p>
                                     <div class="row">
                                         <div class="col-10 count-card" id="jumlah-bpjs">
                                             0
@@ -260,7 +260,7 @@
                             <div class="card card-dash-2 no-p">
                                 <div class="card-header bg-blue">
                                     <p id="label-table-bpjs" class="label-table-bpjs">
-                                        Data BPJS <span id="jenis-bpjs"></span>
+                                        Data <span class="ket-bpjs"></span>
                                     </p>
                                 </div>
                                 <div class="card-body">
@@ -281,7 +281,7 @@
                         <div class="col-6">
                            <div class="card card-dash-2 bg-red">
                                 <div class="card-content">
-                                    <p id="label-card-bpjs" class="label-card">Jumlah Non BPJS</p>
+                                    <p id="label-card-bpjs" class="label-card">Jumlah <span class="ketnon-bpjs"></span></p>
                                     <div class="row">
                                         <div class="col-10 count-card" id="jumlah-non-bpjs">
                                             0
@@ -295,7 +295,7 @@
                             <div class="card card-dash-2 no-p">
                                 <div class="card-header bg-red">
                                     <p id="label-table-bpjs" class="label-table-bpjs">
-                                        Data Non BPJS
+                                        Data <span class="ketnon-bpjs"></span>
                                     </p>
                                 </div>
                                 <div class="card-body">
@@ -657,11 +657,12 @@ function generateDetailBPJSKerja() {
                 $('#table-bpjs tbody').empty()
                 $('#table-non-bpjs tbody').empty()
                 $('#header-bpjs').text('Data BPJS Tenaga Kerja')
-                $('#jenis-bpjs').text('BPJS Kesehatan')
                 $('#jumlah-bpjs').text(data.jumlah_terdaftar)
                 $('#persentase-bpjs').text(data.percentage_terdaftar + "%")
                 $('#jumlah-non-bpjs').text(data.jumlah_non_terdaftar)
                 $('#persentase-non-bpjs').text(data.percentage_non_terdaftar + "%")
+                $('.ket-bpjs').text('BPJS Ketenagakerjaan Aktif')
+                $('.ketnon-bpjs').text('BPJS Ketenagakerjaan Aktif Nonaktif')
 
                 if(data.data_terdaftar.length > 0) {
                     var no = 1;
@@ -714,11 +715,12 @@ function generateDetailBPJSKesehatan() {
                 $('#table-bpjs tbody').empty()
                 $('#table-non-bpjs tbody').empty()
                 $('#header-bpjs').text('Data BPJS Kesehatan')
-                $('#jenis-bpjs').text('BPJS Kesehatan')
                 $('#jumlah-bpjs').text(data.jumlah_terdaftar)
                 $('#persentase-bpjs').text(data.percentage_terdaftar + "%")
                 $('#jumlah-non-bpjs').text(data.jumlah_non_terdaftar)
                 $('#persentase-non-bpjs').text(data.percentage_non_terdaftar + "%")
+                $('.ket-bpjs').text('BPJS PPU (Peserta Penerima Upah)')
+                $('.ketnon-bpjs').text('Non PPU (Peserta Penerima Upah)')
 
                 if(data.data_terdaftar.length > 0) {
                     var no = 1;
@@ -1079,7 +1081,7 @@ function generateTabelKaryawan(filter=null) {
             { data: 'nik' },
             { data: 'nama_pegawai' },
             { data: 'nama_jabatan' },
-            { data: 'no_telp' },
+            { data: 'nama_loker' },
             { data: 'client' }
         ],
         drawCallback: function () {
