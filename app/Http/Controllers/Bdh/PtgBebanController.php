@@ -94,7 +94,7 @@ class PtgBebanController extends Controller
             return response()->json(['message' => $res["message"], 'status' => false], 200);
         }
     }
-    public function getDrk()
+    public function getDrk(Request $request)
     {
         try {
             $client = new Client();
@@ -103,6 +103,11 @@ class PtgBebanController extends Controller
                     'Authorization' => 'Bearer ' . Session::get('token'),
                     'Accept'     => 'application/json',
                 ],
+                'query' => [
+                    'periode'    => $request->input('periode'),
+                    'kode_akun'  => $request->input('kode_akun'),
+                    'kode_pp'    => $request->input('kode_pp')
+                ]
             ]);
 
             if ($response->getStatusCode() == 200) { // 200 OK
@@ -200,6 +205,31 @@ class PtgBebanController extends Controller
 
             $client = new Client();
             $response = $client->request('GET',  config('api.url') . 'bdh-trans/nik-ver', [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+
+                $data = json_decode($response_data, true);
+                $data = $data["data"];
+            }
+            return response()->json(['daftar' => $data, 'status' => true, 'message' => 'success'], 200);
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(), true);
+            return response()->json(['message' => $res, 'status' => false], 200);
+        }
+    }
+    public function getJenis()
+    {
+        try {
+
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url') . 'bdh-trans/ptg-beban-jenis-dok', [
                 'headers' => [
                     'Authorization' => 'Bearer ' . Session::get('token'),
                     'Accept'     => 'application/json',

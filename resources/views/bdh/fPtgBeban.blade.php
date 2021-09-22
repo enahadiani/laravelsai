@@ -104,6 +104,9 @@
 
                         <div class="tab-pane active" id="data-atensi" role="tabpanel">
                             <div class="table-responsive">
+                                <div class='col-md-12 nav-control' style="padding: 0px 5px;">
+                                    <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row-atensi" ></span></a>
+                                </div>
                                 <table class="table table-bordered table-condensed gridexample" id="atensi-grid" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
                                     <thead style="background:#F8F8F8">
                                         <tr>
@@ -313,6 +316,7 @@
 <script type="text/javascript">
 
     var $tahun = "{{ date('Y') }}"
+    var $periode = "{{ date('Ym') }}"
     var valid = true
     var $kode_akun = []
     var $pp = []
@@ -782,31 +786,49 @@
                     width : ["30%","70%"],
                 }
             break;
-            case 'akun_penerima':
-                var settings = {
-                    id : id,
-                    header : ['Kode', 'Nama'],
-                    url : "{{ url('esaku-trans/akun-terima') }}",
-                    columns : [
-                        { data: 'kode_akun' },
-                        { data: 'nama' }
-                    ],
-                    judul : "Daftar Akun Penerima",
-                    pilih : "",
-                    jTarget1 : "text",
-                    jTarget2 : "text",
-                    target1 : ".info-code_"+id,
-                    target2 : ".info-name_"+id,
-                    target3 : "",
-                    target4 : "",
-                    width : ["30%","70%"],
-                }
-            break;
             default:
             break;
         }
         showInpFilter(settings);
     })
+
+    $('#form-tambah #input-dok').on('click', '.search-item', function(){
+        var par = $(this).closest('td').find('input').attr('name');
+
+        var tmp = $(this).closest('tr').find('input[name="'+par+'"]').attr('class');
+        var tmp2 = tmp.split(" ");
+        target1 = tmp2[2];
+
+        var tmp = $(this).closest('tr').find('input[name="nama_dok[]"]').attr('class');
+        var tmp2 = tmp.split(" ");
+        target2 = tmp2[2];
+        console.log(par,target1,target2)
+
+        switch(par){
+            case 'jenis[]':
+                var options = {
+                    id : par,
+                    header : ['Kode', 'Nama'],
+                    url : "{{ url('bdh-trans/dok-jenis') }}",
+                    columns : [
+                        { data: 'kode_jenis' },
+                        { data: 'nama' }
+                    ],
+                    judul : "Daftar Jenis Dokumen",
+                    pilih : "jenis",
+                    jTarget1 : "val",
+                    jTarget2 : "val",
+                    target1 : "."+target1,
+                    target2 : "."+target2,
+                    target3 : "",
+                    target4 : "",
+                    width : ["30%","70%"]
+                };
+            break;
+        }
+        showInpFilter(options);
+
+    });
 
     function hideAllRowAtensi() {
         $('#atensi-grid tbody tr').removeClass('selected-row');
@@ -855,7 +877,7 @@
 
     function hitungTotalRowAtensi(){
         var total_row = $('#atensi-grid tbody tr').length;
-        $('#atensi-row-pemberi').html(total_row+' Baris');
+        $('#total-row-atensi').html(total_row+' Baris');
     }
 
     function hideUnselectedRowAtensi() {
@@ -902,6 +924,8 @@
         })
     }
 
+
+
     function addRowAtensi() {
         var no=$('#atensi-grid .row-atensi:last').index();
         var no = no + 2
@@ -909,27 +933,27 @@
 
         html += "<tr class='row-atensi row-atensi-"+no+"'>"
 
-        html += "<td><span class='td-atensi tdatensike"+no+"'>0</span>"
+        html += "<td><span class='td-atensi tdatensike"+no+"'></span>"
         html += "<input type='text' name='atensi[]' class='inp-atensi form-control atensike"+no+" hidden'  value='' required>"
         html += "</td>"
 
-        html += "<td><span class='td-cabang_bank tdcabang_bankke"+no+"'>0</span>"
+        html += "<td><span class='td-cabang_bank tdcabang_bankke"+no+"'></span>"
         html += "<input type='text' name='cabang_bank[]' class='inp-cabang_bank form-control cabang_bankke"+no+" hidden'  value='' required>"
         html += "</td>"
 
-        html += "<td><span class='td-nama_rek tdnama_rekke"+no+"'>0</span>"
+        html += "<td><span class='td-nama_rek tdnama_rekke"+no+"'></span>"
         html += "<input type='text' name='nama_rek[]' class='inp-nama_rek form-control nama_rekke"+no+" hidden'  value='' required>"
         html += "</td>"
 
-        html += "<td><span class='td-no_rek tdno_rekke"+no+"'>0</span>"
+        html += "<td><span class='td-no_rek tdno_rekke"+no+"'></span>"
         html += "<input type='text' name='no_rek[]' class='inp-no_rek form-control no_rekke"+no+" hidden'  value='' required>"
         html += "</td>"
 
-        html += "<td><span class='td-bruto tdbrutoke"+no+"'>0</span>"
+        html += "<td class='form-calc'><span class='td-bruto tdbrutoke"+no+"'>0</span>"
         html += "<input type='text' name='bruto[]' class='inp-bruto form-control brutoke"+no+" currency hidden'  value='0' required>"
         html += "</td>"
 
-        html += "<td><span class='td-potongan tdpotonganke"+no+"'>0</span>"
+        html += "<td class='form-calc'><span class='td-potongan tdpotonganke"+no+"'>0</span>"
         html += "<input type='text' name='potongan[]' class='inp-potongan form-control potonganke"+no+" currency hidden'  value='0' required>"
         html += "</td>"
 
@@ -958,47 +982,8 @@
             }
         });
 
-        $('.inp-anggaran').typeahead({
-            source:$mataAnggaran,
-            displayText:function(item){
-                return item.id+'-'+item.name;
-            },
-            autoSelect:false,
-            changeInputOnSelect:false,
-            changeInputOnMove:false,
-            selectOnBlur:false,
-            afterSelect: function (item) {
-                console.log(item.id);
-            }
-        });
 
-        $('.inp-pp').typeahead({
-            source:$ppAnggaran,
-            displayText:function(item){
-                return item.id+'-'+item.name;
-            },
-            autoSelect:false,
-            changeInputOnSelect:false,
-            changeInputOnMove:false,
-            selectOnBlur:false,
-            afterSelect: function (item) {
-                console.log(item.id);
-            }
-        });
 
-        $('.inp-drk').typeahead({
-            source:$ppAnggaran,
-            displayText:function(item){
-                return item.id+'-'+item.name;
-            },
-            autoSelect:false,
-            changeInputOnSelect:false,
-            changeInputOnMove:false,
-            selectOnBlur:false,
-            afterSelect: function (item) {
-                console.log(item.id);
-            }
-        });
 
         hideUnselectedRowAtensi()
 
@@ -1256,8 +1241,22 @@
             nom.html(no);
             no++;
         });
-        hitungTotalRowPemberi();
+        hitungTotalRowAtensi();
         $("html, body").animate({ scrollTop: $(document).height() }, 1000);
+    });
+
+    // kalkulasi nilai netto
+    $('#form-tambah').on('change', '.form-calc', function(){
+        var parent = $(this).closest("tr");
+
+        var bruto = parent.find('.inp-bruto').val();
+        var potongan = parent.find('.inp-potongan').val();
+        var numberBruto = Number(bruto.replace(/[^0-9,-]+/g,""));
+        var numberPotongan = Number(potongan.replace(/[^0-9,-]+/g,""));
+        var netto = numberBruto - numberPotongan;
+        console.log(numberBruto);
+        console.log(netto);
+        parent.find('.inp-netto').val(format_number(netto));
     });
 
     // end grid atensi
@@ -1300,6 +1299,7 @@
             }
         });
     }
+
     function hitungTotalRowJurnal(){
         var total_row = $('#jurnal-grid tbody tr').length;
         $('#total-row').html(total_row+' Baris');
@@ -1468,7 +1468,7 @@
                         { data: 'nama' }
                     ],
                     parameter: {
-                        tahun: $tahun
+                        tahun: $tahun,
                     },
                     judul : "Daftar Akun",
                     pilih : "jenis",
@@ -1479,7 +1479,7 @@
                     target3 : "",
                     target4 : "",
                     onItemSelected: function(data) {
-                        var string = data.kode_akun+'-'+data.nama
+                        var string = data.kode_akun
                         if(string.length > 30) {
                             string = string.substr(0, 30) + '...'
                         }
@@ -1516,7 +1516,7 @@
                     target3 : "",
                     target4 : "",
                     onItemSelected: function(data) {
-                        var string = data.kode_pp+'-'+data.nama
+                        var string = data.kode_pp
                         if(string.length > 30) {
                             string = string.substr(0, 30) + '...'
                         }
@@ -1533,6 +1533,8 @@
                 };
             break;
             case 'drk[]':
+                var kode_akun = $('#jurnal-grid').find('.inp-kode_akun').val();
+                var kode_pp = $('#jurnal-grid').find('.inp-pp').val();
                 var options = {
                     id : param,
                     header : ['Kode', 'Nama'],
@@ -1542,7 +1544,9 @@
                         { data: 'nama' }
                     ],
                     parameter: {
-                        tahun: $tahun
+                        periode: $periode,
+                        kode_akun: kode_akun,
+                        kode_pp: kode_pp
                     },
                     judul : "Daftar DRK",
                     pilih : "jenis",
@@ -1576,115 +1580,7 @@
         showInpFilter(options);
     })
 
-    function addRowJurnalEx() {
-        var no=$('#pemberi-grid .row-pemberi:last').index();
-        var no = no + 2
-        var html = "";
-        html += "<tr class='row-pemberi row-pemberi-"+no+"'>"
-        html += "<td class='no-pemberi text-center hidden'>"+no+"</td>"
-        html += "<td><div>"
-        html += "<span class='td-anggaran tdanggaranke"+no+" tooltip-span'></span>"
-        html += "<input autocomplete='off' type='text' name='anggaran[]' class='inp-anggaran anggaranke"+no+" form-control hidden' value='' required='' style='z-index: 1;position: relative;' id='anggarankode"+no+"'><a href='#' class='search-item search-anggaran hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a>"
-        html += "</div></td>"
-        html += "<td><div>"
-        html += "<span class='td-pp tdppke"+no+" tooltip-span'></span>"
-        html += "<input autocomplete='off' type='text' name='pp[]' class='inp-pp ppke"+no+" form-control hidden' value='' required='' style='z-index: 1;position: relative;' id='ppkode"+no+"'><a href='#' class='search-item search-pp hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a>"
-        html += "</div></td>"
-        html += "<td><div>"
-        html += "<span class='td-drk tddrkke"+no+" tooltip-span'></span>"
-        html += "<input autocomplete='off' type='text' name='drk[]' class='inp-drk drkke"+no+" form-control hidden' value='' required='' style='z-index: 1;position: relative;' id='drkkode"+no+"'><a href='#' class='search-item search-drk hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a>"
-        html += "</div></td>"
-        html += "<td class='text-center'><div>"
-        html += "<span class='td-bulan tdbulanke"+no+" tooltip-span'></span>"
-        html += "<select class='hidden form-control inp-bulan bulanke"+no+"' name='bulan[]'>"
-        html += "<option value='01' selected>01</option><option value='02'>02</option><option value='03'>03</option><option value='04'>04</option><option value='05'>05</option><option value='06'>06</option><option value='07'>07</option><option value='08'>08</option><option value='09'>09</option><option value='10'>10</option><option value='11'>11</option><option value='12'>12</option>"
-        html += "</select>"
-        html += "</div></td>"
-        html += "<td class='text-right'><div>"
-        html += "<span class='td-saldo tdsaldoke"+no+"'>0</span>"
-        html += "<input type='text' name='saldo[]' class='inp-saldo form-control saldoke"+no+" hidden currency'  value='0' required>"
-        html += "</div></td>"
-        html += "<td class='text-right'>"
-        html += "<span class='td-nilai tdnilaike"+no+"'>0</span>"
-        html += "<input type='text' name='nilai[]' class='inp-nilai form-control nilaike"+no+" hidden currency'  value='0' required>"
-        html += "</td>"
-        html += "<td class='text-center'><a class='hapus-pemberi' style='font-size:18px;cursor:pointer;'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
-        html += "</tr>"
 
-        $('#pemberi-grid tbody').append(html);
-
-        $('.currency').inputmask("numeric", {
-            radixPoint: ",",
-            groupSeparator: ".",
-            digits: 2,
-            autoGroup: true,
-            rightAlign: true,
-            oncleared: function () {  }
-        });
-
-        $('.tooltip-span').tooltip({
-            title: function(){
-                return $(this).text();
-            }
-        });
-
-        $('.inp-anggaran').typeahead({
-            source:$mataAnggaran,
-            displayText:function(item){
-                return item.id+'-'+item.name;
-            },
-            autoSelect:false,
-            changeInputOnSelect:false,
-            changeInputOnMove:false,
-            selectOnBlur:false,
-            afterSelect: function (item) {
-                console.log(item.id);
-            }
-        });
-
-        $('.inp-pp').typeahead({
-            source:$ppAnggaran,
-            displayText:function(item){
-                return item.id+'-'+item.name;
-            },
-            autoSelect:false,
-            changeInputOnSelect:false,
-            changeInputOnMove:false,
-            selectOnBlur:false,
-            afterSelect: function (item) {
-                console.log(item.id);
-            }
-        });
-
-        $('.inp-drk').typeahead({
-            source:$ppAnggaran,
-            displayText:function(item){
-                return item.id+'-'+item.name;
-            },
-            autoSelect:false,
-            changeInputOnSelect:false,
-            changeInputOnMove:false,
-            selectOnBlur:false,
-            afterSelect: function (item) {
-                console.log(item.id);
-            }
-        });
-
-        hideUnselectedRowPemberi()
-
-        $('#pemberi-grid td').removeClass('px-0 py-0 aktif');
-        $('#pemberi-grid tbody tr:last').find("td:eq(1)").addClass('px-0 py-0 aktif');
-        $('#pemberi-grid tbody tr:last').find(".inp-anggaran").show();
-        $('#pemberi-grid tbody tr:last').find(".search-anggaran").show();
-        $('#pemberi-grid tbody tr:last').find(".td-anggaran").hide();
-        $('#pemberi-grid tbody tr:last').find(".inp-anggaran").focus();
-
-        $('.inp-nilai').on('change', function(){
-            hitungTotalPemberi()
-        })
-
-        hitungTotalRowPemberi()
-    }
 
     $('#jurnal-grid tbody').on('click', 'tr', function(){
         $(this).addClass('selected-row');
@@ -1922,6 +1818,48 @@
             var idx = nxt.indexOf(e.target.id);
             idx--;
         }
+    });
+
+    function hitungTotalRowUpload(form){
+        var total_row = $('#'+form+' #input-dok tbody tr').length;
+        $('#total-row_dok').html(total_row+' Baris');
+    }
+
+    function addRowDok(form){
+        var no=$('#'+form+' #input-dok .row-dok:last').index();
+        no=no+2;
+        console.log(no);
+        var input = "";
+        input += "<tr class='row-dok'>";
+        input += "<td class='no-dok text-center'>"+no+"</td>";
+        input += "<td class='px-0 py-0'><div class='inp-div-jenis'><input type='text' name='jenis[]' class='form-control inp-jenis jeniske"+no+" ' value='' required='' style='z-index: 1;' id='jeniskode"+no+"'><a href='#' class='search-item search-jenis'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></div></td>";
+        input += "<td class='px-0 py-0'><input type='text' name='nama_dok[]' class='form-control inp-nama_dok nama_dokke"+no+"' value='' readonly></td>";
+        input += "<td><span class='td-nama_file tdnmfileke"+no+" tooltip-span'>-</span><input type='text' name='nama_file[]' class='form-control inp-nama_file nmfileke"+no+" hidden'  value='-' readonly></td>";
+        input+=`
+        <td>
+        <input type='file' name='file_dok[]'>
+        <input type='hidden' name='no_urut[]' class='form-control inp-no_urut' value='`+no+`'>
+        </td>`;
+        input+=`
+        <td class='text-center action-dok'><a class='hapus-dok2'><i class='simple-icon-trash' style='font-size:18px'></i></a></td></tr>`;
+        console.log(form);
+        $('#'+form+' #input-dok tbody').append(input);
+        hitungTotalRowUpload(form);
+    }
+    $('#form-tambah').on('click', '.add-row-dok', function(){
+        addRowDok("form-tambah");
+    });
+    $('#form-tambah').on('click', '.hapus-dok2', function(){
+        valid = true
+        $(this).closest('tr').remove();
+        no=1;
+        $('.row-dok').each(function(){
+            var nom = $(this).closest('tr').find('.no-dok');
+            nom.html(no);
+            no++;
+        });
+        hitungTotalRowJurnal();
+        $("html, body").animate({ scrollTop: $(document).height() }, 1000);
     });
 
 
@@ -2574,11 +2512,11 @@
             var id = $('#id').val();
 
             if(parameter == "edit"){
-                var url = "{{ url('esaku-trans/pengajuan-rra-ubah') }}";
+                var url = "{{ url('esaku-trans/ptg-beban-ubah') }}";
                 var pesan = "updated";
                 var text = "Perubahan data "+id+" telah tersimpan";
             }else{
-                var url = "{{ url('esaku-trans/pengajuan-rra') }}";
+                var url = "{{ url('bdh-trans/ptg-beban') }}";
                 var pesan = "saved";
                 var text = "Data tersimpan";
             }
