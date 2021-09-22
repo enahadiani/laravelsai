@@ -2,7 +2,7 @@
 <div class="row" id="saku-filter">
     <div class="col-12">
         <div class="card" >
-            <x-report-header judul="Laporan Posisi Penanggung Panjar" padding="px-4 py-4"/>  
+            <x-report-header judul="Laporan Saldo Panjar" padding="px-4 py-4"/>  
             <div class="separator"></div>
             <div class="row">
                 <div class="col-12 col-sm-12">
@@ -27,7 +27,7 @@
         </div>
     </div>
 </div>
-<x-report-result judul="Laporan Posisi Penanggung Panjar" padding="px-0 py-4"/>
+<x-report-result judul="Laporan Saldo Panjar" padding="px-0 py-4"/>
 @include('modal_search')
 @include('modal_email')
     
@@ -119,8 +119,8 @@ $('#inputFilter').reportFilter({
         ]
     ],
     url :[
-        "{{ url('bdh-report/filter-periodepb') }}",
-        "{{ url('bdh-report/filter-nopb') }}"
+        "{{ url('bdh-report/filter-periodepanjar') }}",
+        "{{ url('bdh-report/filter-nopanjar') }}"
     ],
     parameter:[
         {},
@@ -171,8 +171,8 @@ $('#inputFilter').on('change','input',function(e){
             ]
         ],
         url :[
-            "{{ url('bdh-report/filter-periodepb') }}",
-            "{{ url('bdh-report/filter-nopb') }}"
+            "{{ url('bdh-report/filter-periodepanjar') }}",
+            "{{ url('bdh-report/filter-nopanjar') }}"
         ],
         parameter:[
             {},
@@ -216,7 +216,7 @@ $('#form-filter').submit(function(e){
         console.log(pair[0]+ ', '+ pair[1]); 
     }
     $('#saku-report').removeClass('hidden');
-    xurl = "{{ url('bdh-auth/form/rptPosisiTanggungPanjar') }}";
+    xurl = "{{ url('bdh-auth/form/rptSaldoPanjar') }}";
     $('#saku-report #canvasPreview').load(xurl);
 });
 
@@ -233,7 +233,7 @@ $('#show').change(function(e){
         console.log(pair[0]+ ', '+ pair[1]); 
     }
     $('#saku-report').removeClass('hidden');
-    xurl = "{{ url('bdh-auth/form/rptPosisiTanggungPanjar') }}";
+    xurl = "{{ url('bdh-auth/form/rptSaldoPanjar') }}";
     $('#saku-report #canvasPreview').load(xurl);
 });
 
