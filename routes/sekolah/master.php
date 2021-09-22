@@ -140,3 +140,46 @@ Route::get('siswa-edit', 'Sekolah\SiswaInputController@show');
 Route::post('siswa-upload-simpan', 'Sekolah\UploadSiswaController@store');
 Route::post('siswa-upload', 'Sekolah\UploadSiswaController@uploadXLS');
 Route::get('siswa-upload-load', 'Sekolah\UploadSiswaController@loadDataTmp');
+
+// Data Unit //
+Route::get('unit', 'Sekolah\UnitController@index');
+Route::get('unit/{id}', 'Sekolah\UnitController@getData');
+Route::post('unit', 'Sekolah\UnitController@store');
+Route::put('unit/{id}', 'Sekolah\UnitController@update');
+Route::delete('unit/{id}', 'Sekolah\UnitController@delete');
+
+// Data Klp Menu //
+Route::get('menu-klp', 'Sekolah\KelompokMenuController@index');
+Route::get('menu-klp/{id}', 'Sekolah\KelompokMenuController@getData');
+Route::post('menu-klp', 'Sekolah\KelompokMenuController@store');
+Route::put('menu-klp/{id}', 'Sekolah\KelompokMenuController@update');
+Route::delete('menu-klp/{id}', 'Sekolah\KelompokMenuController@delete');
+
+// Data Karyawan //
+Route::get('karyawan', 'Sekolah\KaryawanController@index');
+Route::get('karyawan/{id}', 'Sekolah\KaryawanController@getData');
+Route::post('karyawan', 'Sekolah\KaryawanController@store');
+Route::post('karyawan-ubah/{id}', 'Sekolah\KaryawanController@update');
+Route::delete('karyawan/{id}', 'Sekolah\KaryawanController@delete');
+
+// Data Akses //
+Route::get('akses-user', 'Sekolah\AksesUserController@index');
+Route::get('akses-user/{id}', 'Sekolah\AksesUserController@getData');
+Route::post('akses-user', 'Sekolah\AksesUserController@store');
+Route::put('akses-user/{id}', 'Sekolah\AksesUserController@update');
+Route::delete('akses-user/{id}', 'Sekolah\AksesUserController@delete');
+
+// Data Form //
+Route::get('form', 'Sekolah\FormController@index');
+Route::get('form/{id}', 'Sekolah\FormController@getData');
+Route::post('form', 'Sekolah\FormController@store');
+Route::put('form/{id}', 'Sekolah\FormController@update');
+Route::delete('form/{id}', 'Sekolah\FormController@delete');
+
+// Setting Menu Form //
+Route::get('setting-menu', 'Sekolah\SettingMenuController@show');
+Route::post('setting-menu', 'Sekolah\SettingMenuController@store');
+Route::post('setting-menu-move', 'Sekolah\SettingMenuController@storeMove');
+Route::put('setting-menu', 'Sekolah\SettingMenuController@update');
+Route::delete('setting-menu', 'Sekolah\SettingMenuController@delete');
+Route::post('setting-menu-csv', 'Sekolah\SettingMenuController@storeCSV');

@@ -92,7 +92,7 @@ function drawRptPage(data,res,from,to) {
                                         <th style="width: 60px; text-align: center;">Akun</th>
                                         <th style="width: 200px; text-align: center;">Nama Akun</th>
                                         <th style="width: 80px; text-align: center;">No Dokumen</th>
-                                        <th style="width: 250px; text-align: center;">PP</th>
+                                        <th style="width: 250px; text-align: center;">Keterangan</th>
                                         <th style="width: 40px; text-align: center;">PP</th>
                                         <th style="width: 60px; text-align: center;">DRK</th>
                                         <th style="width: 150px; text-align: center;">Nama DRK</th>

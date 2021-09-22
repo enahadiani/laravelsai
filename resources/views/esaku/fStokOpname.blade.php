@@ -318,6 +318,7 @@
                         table.clear().draw();
                         table.rows.add(result.data).draw(false);
                         table2.clear().draw();
+                        $('a[href="#sistem"]').click();
                         Swal.fire(
                             'Great Job!',
                             'Rekon data '+result.message,
@@ -588,6 +589,7 @@
                     if(typeof result.data !== 'undefined' && result.data.length>0){
                         table2.clear().draw();
                         table2.rows.add(result.data).draw(false);
+                        $('a[href="#fisik"]').click()
                     }
                     Swal.fire(
                         'Great Job!',

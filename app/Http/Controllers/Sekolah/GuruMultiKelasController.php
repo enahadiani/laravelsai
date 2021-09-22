@@ -21,6 +21,8 @@
             try{
                 // if(isset($request->kode_pp) && $request->kode_pp != ""){
                     $kode_pp = $request->kode_pp;
+                    $kode_ta = $request->kode_ta;
+                    $flag_aktif = $request->flag_aktif;
                 // }else{
                 //     $kode_pp = Session::get('kodePP');
                 // }
@@ -31,7 +33,9 @@
                         'Accept'     => 'application/json',
                     ],
                     'query' => [
-                        'kode_pp' => $kode_pp
+                        'kode_pp' => $kode_pp,
+                        'kode_ta' => $kode_ta,
+                        'flag_aktif' => $flag_aktif,
                     ]
                 ]);
 
@@ -225,7 +229,8 @@
                     'query' => [
                         'kode_pp' => $kode_pp,
                         'kode_kelas' => $request->kode_kelas,
-                        'kode_matpel' => $request->kode_matpel
+                        'kode_matpel' => $request->kode_matpel,
+                        'kode_ta' => $request->kode_ta
                     ]
                 ]);
 

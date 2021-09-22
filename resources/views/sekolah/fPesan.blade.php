@@ -405,6 +405,7 @@
 
     <!-- FORM INPUT -->
     <form id="form-tambah" class="tooltip-label-right" novalidate>
+        <input type="hidden" name="kode_ta" id="kode_ta" value="-">
         <div class="row" id="saku-form" style="display:none;">
             <div class="col-sm-12">
                 <div class="card">
@@ -1303,6 +1304,7 @@
         $('#form-tambah')[0].reset();
         $('#form-tambah').validate().resetForm();
         $('#id').val('');
+        $('#kode_ta').val('-');
         $('#jenis')[0].selectize.setValue('');
         // $('#tipe')[0].selectize.setValue('');
         $('#pesan').text('');
@@ -1436,6 +1438,7 @@
                     $('#kontak').val(result.data[0].kontak);
                     $('#judul').val(result.data[0].judul);
                     $('#deskripsi').text(result.data[0].pesan);
+                    $('#kode_ta').text(result.data[0].kode_ta);
                 
                     if(result.data_dok.length > 0){
                         var input = '';

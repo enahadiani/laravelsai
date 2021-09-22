@@ -904,7 +904,7 @@
     // CBBL
     function showFilter(param,target1=null,target2=null){
         var par = param;
-
+        var kode_ta = $('#kode_ta').val()
         var modul = '';
         var header = [];
         $target = target1;
@@ -950,7 +950,7 @@
                 $target2 = ".info-name_"+par;
                 $target3 = "#flag_kelas";
                 $target4 = "";
-                parameter = {kode_pp:$('#kode_pp').val()};
+                parameter = {kode_pp:$('#kode_pp').val(),kode_ta: kode_ta};
                 var width = ["30%","55%","15%"];
             break;
             case 'kode_matpel': 
@@ -973,7 +973,7 @@
                 $target2 = ".info-name_"+par;
                 $target3 = "";
                 $target4 = "";
-                parameter = {kode_pp:$('#kode_pp').val(),kode_kelas:$('#kode_kelas').val(),flag_kelas:$('#flag_kelas').val()};
+                parameter = {kode_pp:$('#kode_pp').val(),kode_kelas:$('#kode_kelas').val(),flag_kelas:$('#flag_kelas').val(),kode_ta: kode_ta};
                 var width = ["30%","70%"];
             break;
             case 'kode_kd': 
@@ -993,7 +993,7 @@
                 $target2 = "#nama_kd";
                 $target3 = "";
                 $target4 = "";
-                parameter = {kode_pp:$('#kode_pp').val(),kode_matpel:$('#kode_matpel').val(),kode_kelas:$('#kode_kelas').val(),kode_sem:$('#kode_sem').val()};
+                parameter = {kode_pp:$('#kode_pp').val(),kode_matpel:$('#kode_matpel').val(),kode_kelas:$('#kode_kelas').val(),kode_sem:$('#kode_sem').val(),kode_ta: kode_ta};
                 if(parameter.kode_pp == "" || parameter.kode_matpel == ""  || parameter.kode_kelas == "" || parameter.kode_sem == ""){
                     return false;
                     // break;

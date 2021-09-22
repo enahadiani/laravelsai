@@ -27,6 +27,9 @@
             width: 390px;
         }
     }
+    .modal .close {
+        margin-right: 28px;
+    }
 </style>
 <div class="row">
     <div class="col-12">
@@ -121,6 +124,12 @@
                             </select>
                         </div>
                         <div class="form-group row">
+                            <label>Tahun Ajaran</label>
+                            <select class="form-control" data-width="100%" name="inp-filter_kode_ta" id="inp-filter_kode_ta">
+                                <option value='#'>Pilih Tahun Ajaran</option>
+                            </select>
+                        </div>
+                        <div class="form-group row">
                             <label>Kode Kelas</label>
                             <select class="form-control" data-width="100%" name="inp-filter_kode_kelas" id="inp-filter_kode_kelas">
                                 <option value='#'>Pilih Kelas</option>
@@ -130,12 +139,6 @@
                             <label>Mata Pelajaran</label>
                             <select class="form-control" data-width="100%" name="inp-filter_kode_matpel" id="inp-filter_kode_matpel">
                                 <option value='#'>Pilih Matpel</option>
-                            </select>
-                        </div>
-                        <div class="form-group row">
-                            <label>Tahun Ajaran</label>
-                            <select class="form-control" data-width="100%" name="inp-filter_kode_ta" id="inp-filter_kode_ta">
-                                <option value='#'>Pilih Tahun Ajaran</option>
                             </select>
                         </div>
                     </div>
@@ -154,15 +157,11 @@
             <div class="modal-content">
                <div class="modal-header" style="text-align: center;padding:3px !important;display:inline;">
                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="display:inline;"><span aria-hidden="true">×</span></button>
-                    <h5 style="margin-top:10px;">Nama Pesan</h5>
+                    <h5 style="margin-top:10px;" id="judul-pesan"></h5>
                 </div>
                 <div class="modal-body">
-                    <div class="card bg-primary p-2 float-right mb-3" style="min-height: 90px; max-height:auto;width:100%;">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-                        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris 
-                        nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate 
-                        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, 
-                        sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    <div id="pesan-content" class="card bg-primary p-2 float-right mb-3" style="min-height: 90px; max-height:auto;width:100%;">
+                        
                     </div>
                     <div style="position:relative;margin-bottom:0;margin-left:135px;margin-top:auto;">
                         <button id="modal-tambah-pesan" class="btn btn-outline-light text-primary" style="font-weight: bold;border-radius:50px !important; box-shadow:  10px 10px 45px -13px rgba(0,0,0,0.75); !important;" type="button">Tambah Pesan</button>
@@ -176,6 +175,9 @@
 
 // var psdet = document.querySelector('#content-pesan-detail');
 // var pspsdet = new PerfectScrollbar(psdet);
+var selectTa = $('#inp-filter_kode_ta').selectize();
+var selectKelas =  $('#inp-filter_kode_kelas').selectize();
+var selectMatpel =  $('#inp-filter_kode_matpel').selectize();
 function sepNum(x){
     if(!isNaN(x)){
         if (typeof x === undefined || !x || x == 0) { 
@@ -208,7 +210,7 @@ function sepNumPas(x){
 
 setHeightDash();
 
-function getFilterTA(kode_pp) {
+function getFilterTA(select,kode_pp) {
     $.ajax({
         type:'GET',
         url:"{{ url('sekolah-dash/filter-tahunajar') }}",
@@ -216,7 +218,7 @@ function getFilterTA(kode_pp) {
         data:{kode_pp:kode_pp},
         async: false,
         success: function(result) {
-            var select = $('#inp-filter_kode_ta').selectize();
+            // var select = $('#inp-filter_kode_ta').selectize();
             select = select[0];
             var control = select.selectize;
             control.clearOptions();
@@ -228,6 +230,7 @@ function getFilterTA(kode_pp) {
                     var value = result.daftar[i]
                     if(value.flag_aktif == '1') {
                         control.setValue(value.kode_ta);
+                        getFilterKelas(selectKelas,kode_pp,value.kode_ta)
                         break;
                     }
                 }
@@ -290,16 +293,20 @@ function getFilterPP() {
     });
 }
 
-function getFilterKelas(kode_pp) {
+function getFilterKelas(select,kode_pp,kode_ta) {
     $.ajax({
         type:'GET',
-        url:"{{ url('sekolah-report/filter-kelas') }}",
+        url:"{{ url('sekolah-dash/filter-kelas') }}",
         dataType: 'json',
-        data:{kode_pp:kode_pp},
+        data: { 
+            kode_pp:kode_pp, 
+            nik_guru: "{{ Session::get('userLog') }}",
+            kode_ta: kode_ta
+        },
         async: false,
         success: function(result) {
             
-            var select = $('#inp-filter_kode_kelas').selectize();
+            // var select = $('#inp-filter_kode_kelas').selectize();
             select = select[0];
             var control = select.selectize;
             control.clearOptions();
@@ -310,6 +317,7 @@ function getFilterKelas(kode_pp) {
                 }
 
                 control.setValue(result.daftar[0].kode_kelas);
+                getFilterMatpel(selectMatpel,kode_pp, result.daftar[0].kode_kelas, kode_ta)
                 
             }
         },
@@ -329,16 +337,21 @@ function getFilterKelas(kode_pp) {
     });
 }
 
-function getFilterMatpel(kode_pp,kode_kelas=null) {
+function getFilterMatpel(select,kode_pp,kode_kelas,kode_ta) {
     $.ajax({
         type:'GET',
-        url:"{{ url('sekolah-report/filter-matpel') }}",
+        url:"{{ url('sekolah-dash/filter-matpel') }}",
         dataType: 'json',
-        data:{kode_pp:kode_pp,kode_kelas:kode_kelas},
+        data:{ 
+            kode_pp: kode_pp,
+            kode_kelas: kode_kelas,
+            nik_guru: "{{ Session::get('userLog') }}",
+            kode_ta: kode_ta
+        },
         async: false,
         success: function(result) {
             
-            var select = $('#inp-filter_kode_matpel').selectize();
+            // var select = $('#inp-filter_kode_matpel').selectize();
             select = select[0];
             var control = select.selectize;
             control.clearOptions();
@@ -349,7 +362,7 @@ function getFilterMatpel(kode_pp,kode_kelas=null) {
                 }
 
                 
-                control.setValue('MTK');
+                control.setValue(result.daftar[0].kode_matpel);
                 
             }
         },
@@ -371,22 +384,29 @@ function getFilterMatpel(kode_pp,kode_kelas=null) {
 
 getFilterPP();
 if("{{ Session::get('kodePP') }}" != ""){
-    getFilterKelas("{{ Session::get('kodePP') }}");
-    getFilterMatpel("{{ Session::get('kodePP') }}");
-    getFilterTA("{{ Session::get('kodePP') }}");
+    // getFilterKelas("{{ Session::get('kodePP') }}");
+    // getFilterMatpel("{{ Session::get('kodePP') }}");
+    getFilterTA(selectTa,"{{ Session::get('kodePP') }}");
 }
 
 $('#form-filter').on('change','#inp-filter_kode_pp',function(e){
     var kode_pp = $(this).val();
-    getFilterKelas(kode_pp);
-    getFilterMatpel(kode_pp);
-    getFilterTA(kode_pp);
+    getFilterKelas(selectKelas,kode_pp);
+    getFilterMatpel(selectMatpel,kode_pp);
+    getFilterTA(selectTa,kode_pp);
+});
+
+$('#form-filter').on('change','#inp-filter_kode_ta',function(e){
+    var kode_pp = $('#inp-filter_kode_pp')[0].selectize.getValue();
+    var kode_ta = $(this).val();
+    getFilterKelas(selectKelas,kode_pp, kode_ta);
 });
 
 $('#form-filter').on('change','#inp-filter_kode_kelas',function(e){
     var kode_pp = $('#inp-filter_kode_pp')[0].selectize.getValue();
-    var kode_kelas = $('#inp-filter_kode_kelas')[0].selectize.getValue();
-    getFilterMatpel(kode_pp,kode_kelas);
+    var kode_kelas = $(this).val();
+    var kode_ta = $('#inp-filter_kode_ta')[0].selectize.getValue();
+    getFilterMatpel(selectMatpel,kode_pp,kode_kelas,kode_ta);
 });
 
 function getNilaiRatarata(kode_pp=null,kode_kelas,kode_matpel,kode_ta){
@@ -464,12 +484,12 @@ function getNilaiRatarata(kode_pp=null,kode_kelas,kode_matpel,kode_ta){
     })
 }
 
-function getHistoryPesan(kode_pp,kode_kelas,kode_matpel){
+function getHistoryPesan(kode_pp,kode_kelas,kode_matpel,kode_ta){
     $.ajax({
         type:"GET",
         url:"{{ url('sekolah-dash/pesan-history') }}",
         dataType:"JSON",
-        data:{kode_pp:kode_pp,kode_kelas:kode_kelas,kode_matpel:kode_matpel},
+        data:{kode_pp:kode_pp,kode_kelas:kode_kelas,kode_matpel:kode_matpel,kode_ta:kode_ta},
         success:function(res){
             var result = res.data;
             var html = '';
@@ -477,7 +497,7 @@ function getHistoryPesan(kode_pp,kode_kelas,kode_matpel){
                 if(result.data.length > 0){
                     for(var i=0; i < result.data.length; i++){
                         var line = result.data[i];
-                        html +=`<div id="isi-pesan" class="d-flex flex-row mb-3 border-bottom justify-content-between">
+                        html +=`<div id="isi-pesan" class="d-flex flex-row mb-3 border-bottom justify-content-between" data-judul="${line.judul}" data-pesan="${line.pesan}">
                             <a href="#">
                             <img src="{{ asset('asset_elite/images/user.png') }}" alt="`+line.nama+`" class="img-thumbnail border-0 rounded-circle list-thumbnail align-self-center xsmall">
                             </a>
@@ -493,6 +513,10 @@ function getHistoryPesan(kode_pp,kode_kelas,kode_matpel){
                         </div>`;
                     }
                 }
+            }  else {
+                html += `<div style="text-align: center;">
+                    <p class="text-muted mb-0" style="text-align: center;" >Tidak Ada Pesan</p>
+                </div>`
             }
             $('#content-pesan-detail').html(html);
         }
@@ -628,7 +652,7 @@ $('#modalFilter').on('submit','#form-filter',function(e){
     $('#judul-matpel').html(nama_matpel);
     $('#tahun_ajaran').html(nama_ta)
 
-    getHistoryPesan(kode_pp,kode_kelas,kode_matpel);
+    getHistoryPesan(kode_pp,kode_kelas,kode_matpel,kode_ta);
     getNilaiRatarata(kode_pp,kode_kelas,kode_matpel,kode_ta);
     getDataBox(kode_pp,kode_kelas,kode_matpel);
     getDibawahKKM(kode_pp,kode_kelas,kode_matpel);
@@ -646,6 +670,10 @@ $('#modalPesan').on('click','#modal-tambah-pesan',function(){
 })
 
 $('#content-pesan').on('click',' #content-pesan-detail > #isi-pesan', function() {
+    var judul = $(this).data('judul');
+    var pesan = $(this).data('pesan');
+    $('#modalPesan #judul-pesan').text(judul)
+    $('#modalPesan #pesan-content').text(pesan)
     $('#modalPesan').modal('show');
 })
 
@@ -685,7 +713,7 @@ $('#btn-tampil').click(function(e){
     $('#judul-matpel').html(nama_matpel);
     $('#tahun_ajaran').html(nama_ta)
 
-    getHistoryPesan(kode_pp,kode_kelas,kode_matpel);
+    getHistoryPesan(kode_pp,kode_kelas,kode_matpel,kode_ta);
     getNilaiRatarata(kode_pp,kode_kelas,kode_matpel,kode_ta);
     getDataBox(kode_pp,kode_kelas,kode_matpel);
     getDibawahKKM(kode_pp,kode_kelas,kode_matpel);

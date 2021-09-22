@@ -384,7 +384,8 @@
                         'kode_matpel' => $request->kode_matpel,
                         'kode_kelas' => $request->kode_kelas,
                         'kode_kd' => $request->kode_kd,
-                        'kode_sem' => $request->kode_sem
+                        'kode_sem' => $request->kode_sem,
+                        'kode_ta' => $request->kode_ta
                     ]
                 ]);
         
@@ -610,7 +611,8 @@
                     'query' => [
                         'kode_pp' => $kode_pp,
                         'kode_kelas' => $request->kode_kelas,
-                        'kode_matpel' => $request->kode_matpel
+                        'kode_matpel' => $request->kode_matpel,
+                        'kode_ta' => $request->kode_ta
                     ]
                 ]);
     
@@ -643,7 +645,8 @@
                         'kode_pp' => $kode_pp,
                         'kode_kelas' => $request->kode_kelas,
                         'kode_matpel' => $request->kode_matpel,
-                        'flag_kelas' => $request->flag_kelas
+                        'flag_kelas' => $request->flag_kelas,
+                        'kode_ta' => $request->kode_ta
                     ]
                 ]);
     
