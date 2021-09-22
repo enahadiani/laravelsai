@@ -28,8 +28,6 @@ Route::get('akun', 'Bdh\PtgBebanController@getAkun');
 Route::get('pp', 'Bdh\PtgBebanController@getPP');
 Route::get('drk', 'Bdh\PtgBebanController@getDrk');
 Route::get('dok-jenis', 'Bdh\PtgBebanController@getJenis');
-Route::get('spb-nik-bdh', 'Bdh\SpbController@getNikBdh');
-Route::get('spb-nik-fiat', 'Bdh\SpbController@getNikFiat');
 
 
 
@@ -37,3 +35,11 @@ Route::get('spb-nik-fiat', 'Bdh\SpbController@getNikFiat');
 Route::get('/spb', 'Bdh\SpbController@index');
 Route::get('/spb-pb-list', 'Bdh\SpbController@getPb');
 Route::get('/spb-rek-transfer', 'Bdh\SpbController@getTransfer');
+Route::post('/spb', 'Bdh\SpbController@store');
+
+
+Route::get('spb-nobukti', 'Bdh\SpbController@GenerateBukti');
+Route::get('spb-nik-bdh', 'Bdh\SpbController@getNikBdh');
+Route::get('spb-nik-fiat', 'Bdh\SpbController@getNikFiat');
+Route::get('spb-tambah-pb', 'Bdh\SpbController@getPbTambah');
+Route::get('spb-store-pb', 'Bdh\SpbController@postPbTambah');
