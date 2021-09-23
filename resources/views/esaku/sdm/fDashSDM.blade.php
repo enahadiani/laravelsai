@@ -197,6 +197,7 @@
                                         <tr>
                                             <th class="text-center">NIK</th>
                                             <th class="text-center">Nama</th>
+                                            <th class="text-center">No BPJS Ketenagakerjaan</th>
                                             <th class="text-center">Jabatan</th>
                                             <th class="text-center">Lokasi Kerja</th>
                                             <th class="text-center">Client</th>
@@ -1080,6 +1081,7 @@ function generateTabelKaryawan(filter=null) {
         'columns': [
             { data: 'nik' },
             { data: 'nama_pegawai' },
+            { data: 'no_bpjs_kerja' },
             { data: 'nama_jabatan' },
             { data: 'nama_loker' },
             { data: 'client' }
