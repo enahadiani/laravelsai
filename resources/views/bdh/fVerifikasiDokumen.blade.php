@@ -11,6 +11,96 @@
         margin-bottom:0;
         margin-top:5px;
     }
+    .vertical-timeline {
+    width: 100%;
+    position: relative;
+    padding: 1.5rem 0 1rem
+}
+
+.vertical-timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 67px;
+    height: 100%;
+    width: 4px;
+    background: #e9ecef;
+    border-radius: .25rem
+}
+
+.vertical-timeline-element {
+    position: relative;
+    margin: 0 0 1rem
+}
+
+.vertical-timeline--animate .vertical-timeline-element-icon.bounce-in {
+    visibility: visible;
+    animation: cd-bounce-1 .8s
+}
+
+.vertical-timeline-element-icon {
+    position: absolute;
+    top: 0;
+    left: 60px
+}
+
+.vertical-timeline-element-icon .badge-dot-xl {
+    box-shadow: 0 0 0 5px #fff
+}
+
+.badge-dot-xl {
+    width: 18px;
+    height: 18px;
+    position: relative
+}
+
+.badge:empty {
+    display: none
+}
+
+.badge-dot-xl::before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    border-radius: .25rem;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin: -5px 0 0 -5px;
+    background: #fff
+}
+
+.vertical-timeline-element-content {
+    position: relative;
+    margin-left: 90px;
+    font-size: .8rem
+}
+
+.vertical-timeline-element-content .timeline-title {
+    font-size: .8rem;
+    text-transform: uppercase;
+    margin: 0 0 .5rem;
+    padding: 2px 0 0;
+    font-weight: bold
+}
+
+.vertical-timeline-element-content .vertical-timeline-element-date {
+    display: block;
+    position: absolute;
+    left: -90px;
+    top: 0;
+    padding-right: 10px;
+    text-align: right;
+    color: #adb5bd;
+    font-size: .7619rem;
+    white-space: nowrap
+}
+
+.vertical-timeline-element-content:after {
+    content: "";
+    display: table;
+    clear: both
+}
 </style>
 
 <!-- LIST DATA -->
@@ -143,6 +233,16 @@
                                 <span>Data Rekening</span>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#data-jurnal" role="tab" aria-selected="true">
+                                <span>Data Jurnal</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#data-catatan" role="tab" aria-selected="true">
+                                <span>Catatan Verfikator</span>
+                            </a>
+                        </li>
                     </ul>
 
                     <div class="tab-content tabcontent-border col-12 p-0" style="margin-bottom:2.5rem">
@@ -169,6 +269,36 @@
                                     </tbody>
                                 </table>
                             </div>
+                        </div>
+                        <div class="tab-pane" id="data-jurnal" role="tabpanel">
+                            <div class="table-responsive">
+                                 <div class='col-md-12 nav-control' style="padding: 0px 5px;">
+                                     <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row-jurnal"></span></a>
+                                 </div>
+                                 <table class="table table-bordered table-condensed gridexample" id="jurnal-grid" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                     <thead style="background:#F8F8F8">
+                                         <tr>
+                                             <th style="width:3%">No</th>
+                                             <th style="width:13%">Kode Akun</th>
+                                             <th style="width:15%">Nama Akun</th>
+                                             <th style="width:5%">DC</th>
+                                             <th style="width:20%">Keterangan</th>
+                                             <th class='text-right' style="width:15%">Nilai</th>
+                                             <th style="width:13%">Kode PP</th>
+                                             <th style="width:15%">Nama PP</th>
+                                             <th style="width:13%">Kode DRK</th>
+                                             <th style="width:17%">Nama DRK</th>
+                                         </tr>
+                                     </thead>
+                                     <tbody>
+                                     </tbody>
+                                 </table>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="data-catatan" role="tabpanel">
+
+
+
                         </div>
                     </div>
 
@@ -519,7 +649,9 @@
             success: function(result){
                 var data = result.daftar;
 
-                var data_rek = data.detail_rek
+                var data_rek = data.detail_rek;
+                var data_jurnal = data.detail_jurnal;
+                var data_catatan = data.detail_catatan;
                 var data_m = data.data;
                 if(result.status){
                     $('#form-tambah #no_bukti').val(data_m[0].no_bukti);
@@ -530,6 +662,8 @@
                     $('#form-tambah #deskripsi_m').val(data_m[0].keterangan);
                     $('#form-tambah #pembuat_m').val(data_m[0].pembuat);
                     var html = "";
+                    var html_jurnal = "";
+                    var html_catatan = "";
                     no =1;
                     for (let i = 0; i < data_rek.length; i++) {
                         html += `<tr>
@@ -544,6 +678,51 @@
                         </tr>`;
                         no++;
                     }
+                    no_jurnal = 1;
+                    for (let x = 0; x < data_jurnal.length; x++) {
+                       html_jurnal += `<tr>
+                            <td>`+no_jurnal+`</td>
+                            <td>`+data_jurnal[x].kode_akun+`</td>
+                            <td>`+data_jurnal[x].nama_akun+`</td>
+                            <td>`+data_jurnal[x].dc+`</td>
+                            <td>`+data_jurnal[x].keterangan+`</td>
+                            <td class='text-right' >`+format_number(data_jurnal[x].nilai)+`</td>
+                            <td>`+data_jurnal[x].kode_pp+`</td>
+                            <td>`+data_jurnal[x].nama_pp+`</td>
+                            <td>`+data_jurnal[x].kode_drk+`</td>
+                            <td>`+data_jurnal[x].nama_drk+`</td>
+
+                        </tr>`;
+                        no_jurnal ++;
+                    }
+
+                    for (let y = 0; y < data_catatan.length; y++) {
+                        html_catatan += `<div class="row d-flex  mt-70 mb-70">
+                                <div class="col-md-10">
+                                    <div class="main-card mb-3 card">
+                                        <div class="card-body">
+                                            <h6 class="card-title text-danger">`+data_catatan[y].tgl+`</h6>
+                                            <div class="vertical-timeline vertical-timeline--animate vertical-timeline--one-column">
+                                                <div class="vertical-timeline-item vertical-timeline-element">
+                                                    <div> <span class="vertical-timeline-element-icon bounce-in"> <i class="badge badge-dot badge-dot-xl badge-success"></i> </span>`;
+                                                        var detail_ctt = data_catatan[y].detail;
+                                                        for (let q = 0; q < detail_ctt.length; q++) {
+                                                            html_catatan += `<div class="vertical-timeline-element-content bounce-in">
+                                                                <h6 class="timeline-title">`+detail_ctt[q].no_ver+' - ['+detail_ctt[q].nik_user+']'+`</h6>
+                                                                <p>`+detail_ctt[q].catatan+`</p> <span class="vertical-timeline-element-date">`+detail_ctt[q].jam+`</span>
+                                                            </div>`;
+                                                        }
+                                                    html_catatan += `</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>`;
+
+
+                    }
+
                 }else{
                     msgDialog({
                         id: '-',
@@ -557,7 +736,10 @@
                 $("#data-rekening").addClass("active");
                 $('a[href="#data-rekening"]').tab('show')
 
+                //Append Data
                 $('#rekening-grid >tbody').html(html);
+                $('#jurnal-grid >tbody').html(html_jurnal);
+                $('#data-catatan').html(html_catatan);
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 if(jqXHR.status == 422){
