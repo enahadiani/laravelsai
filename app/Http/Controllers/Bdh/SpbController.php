@@ -256,7 +256,6 @@ class SpbController extends Controller
         $this->validate($request, [
             'no_dokumen' => 'required',
             'tanggal' => 'required',
-            'kode_form' => 'required',
             'deskripsi' => 'required',
             'total_spb' => 'required',
             'nik_bdh' => 'required',
