@@ -74,7 +74,7 @@ class PtgBebanController extends Controller
     {
         try {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url') . 'esaku-trans/pp-list', [
+            $response = $client->request('GET',  config('api.url') . 'bdh-trans/ptg-beban-pp', [
                 'headers' => [
                     'Authorization' => 'Bearer ' . Session::get('token'),
                     'Accept'     => 'application/json',
@@ -85,7 +85,36 @@ class PtgBebanController extends Controller
                 $response_data = $response->getBody()->getContents();
 
                 $data = json_decode($response_data, true);
-                $data = $data["success"]["data"];
+                $data = $data["data"];
+            }
+            return response()->json(['daftar' => $data, 'status' => true, 'message' => 'success'], 200);
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(), true);
+            return response()->json(['message' => $res["message"], 'status' => false], 200);
+        }
+    }
+    public function getDrk(Request $request)
+    {
+        try {
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url') . 'bdh-trans/ptg-beban-drk', [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' => [
+                    'periode'    => $request->input('periode'),
+                    'kode_akun'  => $request->input('kode_akun'),
+                    'kode_pp'    => $request->input('kode_pp')
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+
+                $data = json_decode($response_data, true);
+                $data = $data["data"];
             }
             return response()->json(['daftar' => $data, 'status' => true, 'message' => 'success'], 200);
         } catch (BadResponseException $ex) {
@@ -195,7 +224,94 @@ class PtgBebanController extends Controller
             return response()->json(['message' => $res, 'status' => false], 200);
         }
     }
+    public function getJenis()
+    {
+        try {
 
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url') . 'bdh-trans/ptg-beban-jenis-dok', [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+
+                $data = json_decode($response_data, true);
+                $data = $data["data"];
+            }
+            return response()->json(['daftar' => $data, 'status' => true, 'message' => 'success'], 200);
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(), true);
+            return response()->json(['message' => $res, 'status' => false], 200);
+        }
+    }
+
+    public function GenerateBukti(Request $request)
+    {
+        try {
+
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url') . 'bdh-trans/ptg-beban-nobukti', [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' => [
+                    'tanggal'   => $request->input('tanggal')
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+
+                $data = json_decode($response_data, true);
+                $data = $data["no_bukti"];
+            }
+            return response()->json(['data' => $data, 'status' => true, 'message' => 'success'], 200);
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(), true);
+            return response()->json(['message' => $res, 'status' => false], 200);
+        }
+    }
+
+    public function cekBudget(Request $request)
+    {
+        try {
+
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url') . 'bdh-trans/ptg-beban-budget', [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' => [
+                    'kode_akun_agg[]' => $request->input('kode_akun_agg'),
+                    'kode_pp_agg[]'  => $request->input('kode_pp_agg'),
+                    'kode_drk_agg[]'  => $request->input('kode_drk_agg'),
+                    'nilai_agg[]' => $request->input('nilai_agg'),
+                    'periode'   => $request->input('periode'),
+                    'no_bukti'  => $request->input('no_bukti')
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+
+                $data = json_decode($response_data, true);
+                $data = $data["data"];
+            }
+            return response()->json(['daftar' => $data, 'status' => true, 'message' => 'success'], 200);
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(), true);
+            return response()->json(['message' => $res, 'status' => false], 200);
+        }
+    }
 
 
 
@@ -223,52 +339,98 @@ class PtgBebanController extends Controller
             'kode_pp' => 'required|array'
         ]);
         try {
+            $send_data = array();
 
             $fields = [
                 [
-                    'name' => 'no_dokumen',
-                    'contents' => $request->no_dokumen,
-                ],
-                [
                     'name' => 'tanggal',
                     'contents' => $this->reverseDate($request->tanggal, '/', '-'),
+                ],
+                [
+                    'name' => 'due_date',
+                    'contents' => $this->reverseDate($request->duedate, '/', '-'),
+                ],
+                [
+                    'name' => 'no_dokumen',
+                    'contents' => $request->no_dokumen,
                 ],
                 [
                     'name' => 'deskripsi',
                     'contents' => $request->deskripsi,
                 ],
                 [
-                    'name' => 'kode_form',
-                    'contents' => $request->kode_form,
+                    'name' => 'nik_buat',
+                    'contents' => $request->nik_buat,
                 ],
                 [
-                    'name' => 'total_debet',
-                    'contents' => $this->joinNum($request->total_debet),
+                    'name' => 'nik_tahu',
+                    'contents' => $request->nik_tahu,
                 ],
                 [
-                    'name' => 'total_kredit',
-                    'contents' => $this->joinNum($request->total_kredit),
+                    'name' => 'nik_ver',
+                    'contents' => $request->nik_ver,
                 ],
-                [
-                    'name' => 'nik_periksa',
-                    'contents' => $request->nik_periksa,
-                ],
-                [
-                    'name' => 'no_telp_app',
-                    'contents' => Session::get('no_hp'),
-                ],
-                [
-                    'name' => 'email_app',
-                    'contents' => Session::get('email'),
-                ]
             ];
+
+            $fields_atensi = array();
+            $fields_bank = array();
+            $fields_nama_rek = array();
+            $fields_no_rek = array();
+            $fields_bruto = array();
+            $fields_potongan = array();
+            $fields_netto = array();
+
+            if (count($request->atensi) > 0) {
+                for ($y = 0; $y < count($request->atensi); $y++) {
+                    $fields_atensi[$y] = array(
+                        'name'      => 'atensi[]',
+                        'contents'  => $request->atensi[$y]
+                    );
+                    $fields_bank[$y] = array(
+                        'name'      => 'bank[]',
+                        'contents'  => $request->bank_cabang[$y]
+                    );
+                    $fields_nama_rek[$y] = array(
+                        'name'      => 'nama_rek[]',
+                        'contents'  => $request->nama_rekening[$y]
+                    );
+                    $fields_no_rek[$y] = array(
+                        'name'      => 'no_rek[]',
+                        'contents'  => $request->no_rekening[$y]
+                    );
+                    $fields_bruto[$y] = array(
+                        'name'      => 'bruto[]',
+                        'contents'  => $request->bruto[$y]
+                    );
+                    $fields_potongan[$y] = array(
+                        'name'      => 'potongan[]',
+                        'contents'  => $request->potongan[$y]
+                    );
+                    $fields_netto[$y] = array(
+                        'name'      => 'netto[]',
+                        'contents'  => $request->netto[$y]
+                    );
+
+                    $send_data = array_merge($fields, $fields_atensi);
+                    $send_data = array_merge($send_data, $fields_bank);
+                    $send_data = array_merge($send_data, $fields_nama_rek);
+                    $send_data = array_merge($send_data, $fields_no_rek);
+                    $send_data = array_merge($send_data, $fields_bruto);
+                    $send_data = array_merge($send_data, $fields_potongan);
+                    $send_data = array_merge($send_data, $fields_netto);
+                }
+            } else {
+                $send_data = $fields;
+            }
+
 
             $fields_kode_akun = array();
             $fields_dc = array();
             $fields_keterangan = array();
             $fields_nilai = array();
             $fields_kode_pp = array();
-            $send_data = array();
+            $fields_kode_drk = array();
+
             if (count($request->kode_akun) > 0) {
 
                 for ($i = 0; $i < count($request->kode_akun); $i++) {
@@ -292,12 +454,17 @@ class PtgBebanController extends Controller
                         'name'     => 'kode_pp[]',
                         'contents' => $request->kode_pp[$i],
                     );
+                    $fields_kode_drk[$i] = array(
+                        'name'     => 'kode_drk[]',
+                        'contents' => $request->kode_drk[$i],
+                    );
                 }
-                $send_data = array_merge($fields, $fields_kode_akun);
+                $send_data = array_merge($send_data, $fields_kode_akun);
                 $send_data = array_merge($send_data, $fields_dc);
                 $send_data = array_merge($send_data, $fields_nilai);
                 $send_data = array_merge($send_data, $fields_keterangan);
                 $send_data = array_merge($send_data, $fields_kode_pp);
+                $send_data = array_merge($send_data, $fields_kode_drk);
             } else {
                 $send_data = $fields;
             }
@@ -308,6 +475,7 @@ class PtgBebanController extends Controller
             $fields_nama_dok = array();
             $fields_no_urut = array();
             $cek = $request->file_dok;
+
             if (!empty($cek)) {
 
                 if (count($request->file_dok) > 0) {
@@ -325,7 +493,7 @@ class PtgBebanController extends Controller
                             );
                         }
                         $fields_jenis[$i] = array(
-                            'name'     => 'jenis[]',
+                            'name'     => 'kode_jenis[]',
                             'contents' => $request->jenis[$i],
                         );
                         $fields_nama_dok[$i] = array(
@@ -350,7 +518,7 @@ class PtgBebanController extends Controller
             }
 
             $client = new Client();
-            $response = $client->request('POST',  config('api.url') . 'esaku-trans/jurnal', [
+            $response = $client->request('POST',  config('api.url') . 'bdh-trans/ptg-beban', [
                 'headers' => [
                     'Authorization' => 'Bearer ' . Session::get('token'),
                     'Accept'     => 'application/json',
