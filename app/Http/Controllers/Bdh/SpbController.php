@@ -347,4 +347,30 @@ class SpbController extends Controller
             return response()->json(["data" => $result], 200);
         }
     }
+    public function destroy(Request $request)
+    {
+        try {
+            $client = new Client();
+            $response = $client->request('DELETE',  config('api.url') . 'bdh-trans/spb', [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' => [
+                    'no_bukti' => $request->input('no_bukti')
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+
+                $data = json_decode($response_data, true);
+            }
+            return response()->json(['data' => $data, 'status' => true, 'message' => 'success'], 200);
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(), true);
+            return response()->json(['message' => $res["message"], 'status' => false], 200);
+        }
+    }
 }

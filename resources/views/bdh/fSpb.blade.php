@@ -35,7 +35,7 @@
                 <div class="separator mb-2"></div>
                 <div class="card-body pt-3 form-body">
                     <div class="form-row">
-                        <div class="form-group col-md-6 col-sm-12">
+                        <div class="form-group col-md-12 col-sm-12">
                            <div class="row">
                                <div class="col-md-4 col-sm-12">
                                    <label for="no_bukti">No Bukti</label>
@@ -46,7 +46,7 @@
                                     <input class='form-control inp-tanggal datepicker' type="text" id="tanggal" name="tanggal" value="{{ date('d/m/Y') }}">
                                     <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;" class="simple-icon-calendar date-search"></i>
                                 </div>
-                                <div class="col-md-6 col-sm-12 my-2">
+                                <div class="col-md-4 col-sm-12">
                                     <label for="no_dokumen">Nomor Dokumen</label>
                                     <input class='form-control' type="text" id="no_dokumen" name="no_dokumen" required>
                                 </div>
@@ -57,7 +57,7 @@
                     <div class="form-row">
                         <div class="form-group col-md-6 col-sm-12">
                             <div class="row">
-                                <div class="col-md-10">
+                                <div class="col-md-12">
                                     <label for="deskripsi">Deskripsi</label>
                                     <textarea class="form-control" rows="4" id="deskripsi" name="deskripsi" required></textarea>
                                 </div>
@@ -902,6 +902,52 @@
             $("label[for="+id+"]").append(error);
         }
     });
+
+    // Hapus Data
+    function hapusData(id){
+        $.ajax({
+            type: 'DELETE',
+            url: "{{ url('bdh-trans/spb') }}",
+            data: {
+                no_bukti : id
+            },
+            dataType: 'json',
+            async:false,
+            success:function(result){
+                var data = result.data;
+                if(data.status){
+                    dataTable.ajax.reload();
+                    showNotification("top", "center", "success",'Hapus Data','Data SPB ('+id+') berhasil dihapus ');
+                    // $('#modal-preview-id').html('');
+                    $('#table-delete tbody').html('');
+                    if(typeof M == 'undefined'){
+                        $('#modal-delete').modal('hide');
+                    }else{
+                        $('#modal-delete').bootstrapMD('hide');
+                    }
+                }else if(!data.status && data.message == "Unauthorized"){
+                    window.location.href = "{{ url('bdh-auth/sesi-habis') }}";
+                }else{
+                    msgDialog({
+                        id: '-',
+                        type: 'warning',
+                        title: 'Error',
+                        text: data.message
+                    });
+                }
+            }
+        });
+    }
+    $('#saku-datatable').on('click', '#btn-delete', function(e){
+        var id = $(this).closest('tr').find('td').eq(0).html();
+        console.log(id);
+        msgDialog({
+            id: id,
+            type:'hapus'
+        });
+    });
+
+
 
 
 

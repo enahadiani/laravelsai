@@ -36,6 +36,7 @@ Route::get('/spb', 'Bdh\SpbController@index');
 Route::get('/spb-pb-list', 'Bdh\SpbController@getPb');
 Route::get('/spb-rek-transfer', 'Bdh\SpbController@getTransfer');
 Route::post('/spb', 'Bdh\SpbController@store');
+Route::delete('/spb', 'Bdh\SpbController@destroy');
 
 
 Route::get('spb-nobukti', 'Bdh\SpbController@GenerateBukti');
