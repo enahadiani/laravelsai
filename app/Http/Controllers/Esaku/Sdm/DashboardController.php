@@ -55,7 +55,7 @@ class DashboardController extends Controller
     public function getDataKaryawanDetail(Request $request) {
         try {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'esaku-dash/sdm-karyawan',[
+            $response = $client->request('GET',  config('api.url').'esaku-dash/sdm-karyawan-detail',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
