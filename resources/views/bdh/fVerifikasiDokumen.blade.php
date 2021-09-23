@@ -126,8 +126,8 @@
                                     <input type="text" name="due_date" id="due_date" class="form-control" readonly>
                                 </div>
                                 <div class="col-md-4 col-sm-12">
-                                    <label for="deksripsi_m">Deskripsi</label>
-                                    <input type="text" name="deksripsi_m" id="deksripsi_m" class="form-control" readonly>
+                                    <label for="deskripsi_m">Deskripsi</label>
+                                    <input type="text" name="deskripsi_m" id="deskripsi_m" class="form-control" readonly>
                                 </div>
                                 <div class="col-md-4 col-sm-12">
                                     <label for="pembuat_m" >Pembuat</label>
@@ -141,22 +141,6 @@
                         <li class="nav-item">
                             <a class="nav-link active" data-toggle="tab" href="#data-rekening" role="tab" aria-selected="true">
                                 <span>Data Rekening</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#data-pb" role="tab" aria-selected="true">
-                                <span>Daftar PB</span>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#data-otorisasi" role="tab" aria-selected="true">
-                                <span>Otorisasi</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#tambah-pb" role="tab" aria-selected="true">
-                                <span>Tambah PB</span>
                             </a>
                         </li>
                     </ul>
@@ -184,97 +168,6 @@
                                     <tbody>
                                     </tbody>
                                 </table>
-                            </div>
-                        </div>
-
-                        <div class="tab-pane" id="data-pb" role="tabpanel">
-                            <div class="table-responsive">
-                                <div class='col-md-12 nav-control' style="padding: 0px 5px;">
-                                    <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row-pb"></span></a>
-                                </div>
-
-                                <table class="table table-bordered table-condensed gridexample" id="pb-grid" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
-                                    <thead style="background:#F8F8F8">
-                                        <tr>
-                                            <th style="width:3%" class="text-center">No</th>
-                                            <th style="width:15%" class="text-center">Status</th>
-                                            <th style="width:15%">No PB</th>
-                                            <th style="width:15%">Tanggal</th>
-                                            <th style="width:15%">Deskripsi</th>
-                                            <th style="width:15%">Nilai PB</th>
-                                            <th style="width:5%" class="text-center">Rekening</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-
-                        <div class="tab-pane" id="data-otorisasi" role="tabpanel">
-                            <div class='col-md-12 nav-control' style="padding: 0px 5px;">
-
-                            </div>
-                            <div class='col-md-12 mt-3' style='min-height:420px; margin:0px; padding:0px;'>
-
-                                <div class="col-md-6 col-sm-12 mt-2">
-                                    <label for="nik_bdh" >Nik Bendahara</label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
-                                            <span class="input-group-text info-code_nik_bdh" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
-                                        </div>
-                                        <input type="text" class="form-control inp-label-nik_bdh" id="nik_bdh" name="nik_bdh" value="" title="">
-                                        <span class="info-name_nik_bdh hidden">
-                                            <span></span>
-                                        </span>
-                                        <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                        <i class="simple-icon-magnifier search-item2" id="search_nik_bdh"></i>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6 col-sm-12 mt-2">
-                                    <label for="nik_fiatur" >Nik Fiatur</label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
-                                            <span class="input-group-text info-code_nik_fiatur" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
-                                        </div>
-                                        <input type="text" class="form-control inp-label-nik_fiatur" id="nik_fiatur" name="nik_fiatur" value="" title="">
-                                        <span class="info-name_nik_fiatur hidden">
-                                            <span></span>
-                                        </span>
-                                        <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                        <i class="simple-icon-magnifier search-item2" id="search_nik_fiatur"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="tab-pane" id="tambah-pb" role="tabpanel">
-                            <div class='col-md-12 nav-control' style="padding: 0px 5px;">
-
-                            </div>
-                            <div class='col-md-12 mt-3' style='min-height:420px; margin:0px; padding:0px;'>
-
-                                <div class="col-md-6 col-sm-12 mt-2">
-                                    <label for="no_pb_tambah" >No PB Tambah</label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
-                                            <span class="input-group-text info-code_no_pb_tambah" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
-                                        </div>
-                                        <input type="text" class="form-control inp-label-no_pb_tambah" id="no_pb_tambah" name="no_pb_tambah" value="" title="">
-                                        <span class="info-name_no_pb_tambah hidden">
-                                            <span></span>
-                                        </span>
-                                        <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                        <i class="simple-icon-magnifier search-item2" id="search_no_pb_tambah"></i>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6 col-sm-12 mt-3">
-                                    <button type="button" class="btn btn-sm btn-primary" id="#tambah-pb">Tambah</button>
-                                </div>
-
                             </div>
                         </div>
                     </div>
@@ -627,8 +520,15 @@
                 var data = result.daftar;
 
                 var data_rek = data.detail_rek
-                console.log(result);
+                var data_m = data.data;
                 if(result.status){
+                    $('#form-tambah #no_bukti').val(data_m[0].no_bukti);
+                    $('#form-tambah #no_dokumen').val(data_m[0].no_dokumen);
+                    $('#form-tambah #tgl_bukti').val(data_m[0].tgl);
+                    $('#form-tambah #pp_unit').val(data_m[0].pp);
+                    $('#form-tambah #due_date').val(data_m[0].tgl2);
+                    $('#form-tambah #deskripsi_m').val(data_m[0].keterangan);
+                    $('#form-tambah #pembuat_m').val(data_m[0].pembuat);
                     var html = "";
                     no =1;
                     for (let i = 0; i < data_rek.length; i++) {
