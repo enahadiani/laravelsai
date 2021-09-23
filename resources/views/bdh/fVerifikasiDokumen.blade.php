@@ -243,6 +243,16 @@
                                 <span>Catatan Verfikator</span>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#data-dok" role="tab" aria-selected="true">
+                                <span>File Dokumen</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#data-agg" role="tab" aria-selected="true">
+                                <span>Budget</span>
+                            </a>
+                        </li>
                     </ul>
 
                     <div class="tab-content tabcontent-border col-12 p-0" style="margin-bottom:2.5rem">
@@ -296,9 +306,50 @@
                             </div>
                         </div>
                         <div class="tab-pane" id="data-catatan" role="tabpanel">
+                        </div>
+                        <div class="tab-pane" id="data-dok" role="tabpanel">
+                            <div class="table-responsive">
+                                <div class='col-md-12 nav-control' style="padding: 0px 5px;">
+                                    <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row-dok"></span></a>
+                                </div>
 
+                                <table class="table table-bordered table-condensed gridexample" id="dok-grid" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                    <thead style="background:#F8F8F8">
+                                        <tr>
+                                            <th style="width:3%" class="text-center">No</th>
+                                            <th style="width:15%" class="text-center">Kode Jenis</th>
+                                            <th style="width:15%">Nama Jenis</th>
+                                            <th style="width:25%">Path File</th>
+                                            <th style="width:5%">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="data-agg" role="tabpanel">
+                            <div class="table-responsive">
+                                <div class='col-md-12 nav-control' style="padding: 0px 5px;">
+                                    <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row-agg"></span></a>
+                                </div>
 
-
+                                <table class="table table-bordered table-condensed gridexample" id="agg-grid" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                    <thead style="background:#F8F8F8">
+                                        <tr>
+                                            <th style="width:3%" class="text-center">No</th>
+                                            <th style="width:15%" class="text-center">Kode Akun</th>
+                                            <th style="width:15%">Kode PP</th>
+                                            <th style="width:25%">Kode DRK</th>
+                                            <th style="width:15%" class='text-right'>Saldo Awal</th>
+                                            <th style="width:15%" class='text-right'>Nilai</th>
+                                            <th style="width:15%" class='text-right'>Saldo Akhir</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
 
@@ -652,6 +703,8 @@
                 var data_rek = data.detail_rek;
                 var data_jurnal = data.detail_jurnal;
                 var data_catatan = data.detail_catatan;
+                var data_dok = data.detail_dok;
+                var data_agg = data.detail_gar;
                 var data_m = data.data;
                 if(result.status){
                     $('#form-tambah #no_bukti').val(data_m[0].no_bukti);
@@ -664,6 +717,9 @@
                     var html = "";
                     var html_jurnal = "";
                     var html_catatan = "";
+                    var html_dok = "";
+                    var html_agg = "";
+                    var html_dok_check="";
                     no =1;
                     for (let i = 0; i < data_rek.length; i++) {
                         html += `<tr>
@@ -723,6 +779,18 @@
 
                     }
 
+                    var no_agg = 1;
+                    for (let q = 0; q < data_agg.length; q++) {
+                        html_agg +=`<tr>
+                            <td>`+no_agg+`</td>
+                            <td>`+data_agg[q].kode_akun+`</td>
+                            <td>`+data_agg[q].kode_pp+`</td>
+                            <td>`+data_agg[q].kode_drk+`</td>
+                            <td class='text-right'>`+format_number(data_agg[q].saldo)+`</td>
+                            <td class='text-right'>`+format_number(data_agg[q].nilai)+`</td>
+                            <td class='text-right'>`+format_number(data_agg[q].sakhir)+`</td>
+                        </tr>`;
+                    }
                 }else{
                     msgDialog({
                         id: '-',
@@ -740,6 +808,8 @@
                 $('#rekening-grid >tbody').html(html);
                 $('#jurnal-grid >tbody').html(html_jurnal);
                 $('#data-catatan').html(html_catatan);
+                $('#dok-grid >tbody').html(html_dok);
+                $('#agg-grid >tbody').html(html_agg);
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 if(jqXHR.status == 422){
