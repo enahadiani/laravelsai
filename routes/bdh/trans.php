@@ -13,12 +13,12 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+// Pertanggungan Beban
 Route::get('/ptg-beban', 'Bdh\PtgBebanController@index');
 Route::get('ptg-beban/{id}', 'Bdh\PtgBebanController@show');
 Route::post('ptg-beban', 'Bdh\PtgBebanController@store');
 Route::post('ptg-beban-ubah', 'Bdh\PtgBebanController@update');
-// option
+
 Route::get('generate-bukti', 'Bdh\PtgBebanController@GenerateBukti');
 Route::get('load-budget', 'Bdh\PtgBebanController@cekBudget');
 Route::get('nik-buat', 'Bdh\PtgBebanController@getNikBuat');
@@ -50,7 +50,12 @@ Route::get('spb-store-pb', 'Bdh\SpbController@postPbTambah');
 Route::get('/bayar-spb', 'Bdh\PemSpbController@index');
 Route::get('/bayar-spb-list', 'Bdh\PemSpbController@getPb');
 Route::get('/bayar-spb-rek-transfer', 'Bdh\PemSpbController@getTransfer');
-Route::get('bayar-spb-nobukti', 'Bdh\PemSpbController@GenerateBukti');
-Route::get('bayar-spb-akun', 'Bdh\PemSpbController@getAkun');
-Route::get('bayar-spb-pp', 'Bdh\PemSpbController@getPP');
-Route::get('bayar-spb-akun-kasbank', 'Bdh\PemSpbController@getKasBank');
+Route::get('/bayar-spb-nobukti', 'Bdh\PemSpbController@GenerateBukti');
+Route::get('/bayar-spb-akun', 'Bdh\PemSpbController@getAkun');
+Route::get('/bayar-spb-pp', 'Bdh\PemSpbController@getPP');
+Route::get('/bayar-spb-akun-kasbank', 'Bdh\PemSpbController@getKasBank');
+
+// Verifikasi Dokumen
+Route::get('/ver-dok-nobukti', 'Bdh\VerDokController@generateKode');
+Route::get('/ver-dok-pb', 'Bdh\VerDokController@getPb');
+Route::get('/ver-dok-detail', 'Bdh\VerDokController@LoadData');
