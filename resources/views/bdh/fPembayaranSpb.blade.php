@@ -35,18 +35,35 @@
                 <div class="separator mb-2"></div>
                 <div class="card-body pt-3 form-body">
                     <div class="form-row">
-                        <div class="form-group col-md-12 col-sm-12">
+                        <div class="form-group col-md-6 col-sm-12">
                            <div class="row">
-                               <div class="col-md-4 col-sm-12">
+                               <div class="col-md-6 col-sm-12">
                                    <label for="no_bukti">No Bukti</label>
                                    <input type="text" name="no_bukti" id="no_bukti" class="form-control inp-no_bukti" value="-" readonly>
                                </div>
-                               <div class="col-md-4 col-sm-12">
+                               <div class="col-md-6 col-sm-12">
                                     <label for="tanggal">Tanggal</label>
                                     <input class='form-control inp-tanggal datepicker' type="text" id="tanggal" name="tanggal" value="{{ date('d/m/Y') }}">
                                     <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;" class="simple-icon-calendar date-search"></i>
                                 </div>
-                                <div class="col-md-4 col-sm-12">
+
+                           </div>
+                           <div class="row">
+                                <div class="col-md-6 col-sm-12">
+                                    <label for="kas_bank" >Akun Kas Bank</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                            <span class="input-group-text info-code_kas_bank" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                        </div>
+                                        <input type="text" class="form-control inp-label-kas_bank" id="kas_bank" name="kas_bank" value="" title="">
+                                        <span class="info-name_kas_bank hidden">
+                                            <span></span>
+                                        </span>
+                                        <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                        <i class="simple-icon-magnifier search-item2" id="search_nik_periksa"></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-12">
                                     <label for="no_dokumen">Nomor Dokumen</label>
                                     <input class='form-control' type="text" id="no_dokumen" name="no_dokumen" required>
                                 </div>
@@ -57,7 +74,7 @@
                     <div class="form-row">
                         <div class="form-group col-md-6 col-sm-12">
                             <div class="row">
-                                <div class="col-md-10">
+                                <div class="col-md-12">
                                     <label for="deskripsi">Deskripsi</label>
                                     <textarea class="form-control" rows="4" id="deskripsi" name="deskripsi" required></textarea>
                                 </div>
@@ -625,56 +642,16 @@
     $('#form-tambah').on('click', '.search-item2', function() {
         var id = $(this).closest('div').find('input').attr('name');
         switch(id) {
-            case 'nik_bdh':
-                var settings = {
-                    id : id,
-                    header : ['NIK', 'Nama'],
-                    url : "{{ url('bdh-trans/spb-nik-bdh') }}",
-                    columns : [
-                        { data: 'nik' },
-                        { data: 'nama' }
-                    ],
-                    judul : "Daftar NIK Bendahara",
-                    pilih : "",
-                    jTarget1 : "text",
-                    jTarget2 : "text",
-                    target1 : ".info-code_"+id,
-                    target2 : ".info-name_"+id,
-                    target3 : "",
-                    target4 : "",
-                    width : ["30%","70%"],
-                }
-            break;
-            case 'nik_fiatur':
+            case 'kas_bank':
                 var settings = {
                     id : id,
                     header : ['Kode', 'Nama'],
-                    url : "{{ url('bdh-trans/spb-nik-fiat') }}",
+                    url : "{{ url('bdh-trans/bayar-spb-akun-kasbank') }}",
                     columns : [
-                        { data: 'nik' },
+                        { data: 'kode_akun' },
                         { data: 'nama' }
                     ],
-                    judul : "Daftar NIK Fiatur",
-                    pilih : "",
-                    jTarget1 : "text",
-                    jTarget2 : "text",
-                    target1 : ".info-code_"+id,
-                    target2 : ".info-name_"+id,
-                    target3 : "",
-                    target4 : "",
-                    width : ["30%","70%"],
-                }
-            break;
-            case 'no_pb_tambah':
-                var settings = {
-                    id : id,
-                    header : ['Kode', 'Nama'],
-                    url : "{{ url('bdh-trans/spb-tambah-pb') }}",
-                    columns : [
-                        { data: 'no_pb' },
-                        { data: 'keterangan' }
-                    ],
-                    judul : "Daftar PB Tambah",
+                    judul : "Daftar Akun Kas Bank",
                     pilih : "",
                     jTarget1 : "text",
                     jTarget2 : "text",
@@ -1197,7 +1174,7 @@
         }
     });
 
-      // END BUTTON UPDATE
+
 
     // PREVIEW DATA
     $('#table-data tbody').on('click','td',function(e){
