@@ -28,6 +28,57 @@ class DashboardController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+     public function getDataListClient(Request $request) {
+        try {
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'esaku-dash/sdm-list-client',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+            }
+            return response()->json(['data' => $data, 'status'=>true], 200);
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+        }
+    }
+
+    public function getDataKaryawanDetail(Request $request) {
+        try {
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'esaku-dash/sdm-karyawan',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' => [
+                    'nik' => $request->query('nik')
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+            }
+            return response()->json(['data' => $data, 'status'=>true], 200); 
+
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+        }
+    }
+
     public function getDataUmur(Request $request) {
         try {
             $client = new Client();
@@ -150,6 +201,8 @@ class DashboardController extends Controller
                 $filter = array('jk' => $request->query('jk'));
             } elseif($request->query('kode_loker') !== null) {
                 $filter = array('kode_loker' => $request->query('kode_loker'));
+            } elseif($request->query('kode_jab') !== null) {
+                $filter = array('kode_jab' => $request->query('kode_jab'));
             } else {
                 $filter = array('pendidikan' => $request->query('pendidikan'));
             }
