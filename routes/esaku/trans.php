@@ -100,6 +100,7 @@ Route::delete('pindah-buku/{no_bukti}', 'Esaku\KasBank\PindahBukuController@dest
 
 // Daftar Penjualan //
 Route::get('daftar-penjualan', 'Esaku\Inventori\DaftarPenjualanController@index');
+Route::get('daftar-penjualandetail', 'Esaku\Inventori\DaftarPenjualanController@show');
 
 //Penjualan OL //
 Route::get('penjualan-langsung-bonus/{kd_barang}/{tanggal}/{jumlah}/{harga}', 'Esaku\Inventori\PenjualanLangsungController@cekBonus');
