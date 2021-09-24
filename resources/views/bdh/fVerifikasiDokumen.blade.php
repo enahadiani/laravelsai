@@ -569,122 +569,33 @@
         $('#total-row-pb').html(total_row+' Baris');
     }
 
-    // LOAD DAFTAR FORM
-    function getDaftarPb(){
-        var url = "{{url('bdh-trans/spb-pb-list')}}";
-        $.ajax({
-            type: 'GET',
-            url: url,
-            dataType: 'JSON',
-            async: false,
-            success: function(result){
-                var data = result.daftar;
-                if(data.length > 0){
-                    var html = "";
-                    var no = 1;
-                    for (let i = 0; i < data.length; i++) {
-                        html += "<tr class='row-pb row-pb-"+no+"'>"
-                        html += "<td class='no-pb text-center'>"+no+"</td>";
-                        html += "</div></td>";
-                        html += "<td class='text-center'><div>";
-                        html += "<span class='td-status tdstatuske"+no+" tooltip-span'>"+data[i].status+"</span>";
-                        html += "<select class='form-control hidden inp-status statuske"+no+"' name='status[]'>";
-                        html += "<option value='INPROG'>INPROG</option> <option value='SPB'>SPB</option>";
-                        html += "</select>";
-                        html += "</div></td>";
-                        html += "<td><div>";
-                        html += "<span class='td-pb tdpbke"+no+"'>"+data[i].no_pb+"</span>";
-                        html += "<input type='text' name='pb[]' class='inp-pb form-control pbke"+no+" hidden'  value='"+data[i].no_pb+"' readonly required>";
-                        html += "</div></td>";
-                        html += "</div></td>";
-                        html += "<td><div>";
-                        html += "<span class='td-tgl tdtglke"+no+"'>"+data[i].tgl+"</span>";
-                        html += "<input type='text' name='tgl[]' class='inp-tgl form-control tglke"+no+" hidden'  value='"+data[i].tgl+"' readonly required>";
-                        html += "</div></td>";
-                        html += "<td><div>";
-                        html += "<span class='td-keterangan tdketeranganke"+no+"'>"+data[i].keterangan+"</span>";
-                        html += "<input type='text' name='keterangan[]' class='inp-keterangan form-control keteranganke"+no+" hidden'  value='"+data[i].keterangan+"' readonly required>";
-                        html += "</div></td>";
-                        html += "<td class='text-right'>"
-                        html += "<span class='td-nilai tdnilaike"+no+"'>"+format_number(data[i].nilai)+"</span>"
-                        html += "<input type='text' name='nilai[]' class='inp-nilai form-control nilaike"+no+" hidden currency'  value='"+parseInt(data[i].nilai)+"' required>"
-                        html += "</td>"
-                        html += "<td class='text-center'><a class='aksi-rekening text-warning' style='font-size:18px;cursor:pointer;'>Rekening</td>";
-                        html += "</tr>";
-                        no++;
-                    }
-
-                    $('#pb-grid >tbody').html(html);
-
-                    var no = 1;
-                    for(var i=0;i<data.length;i++) {
-                        $('.statuske'+no).val(data[i].status)
-                        no++;
-                    }
-
-                    $('.currency').inputmask("numeric", {
-                        radixPoint: ",",
-                        groupSeparator: ".",
-                        digits: 2,
-                        autoGroup: true,
-                        rightAlign: true,
-                        oncleared: function () {  }
-                    });
-
-                    $('.tooltip-span').tooltip({
-                        title: function(){
-                            return $(this).text();
-                        }
-                    });
-
-                    $('.inp-status').on('change', function(){
-                        hitungTotalSpb();
-                    });
-
-                    hitungTotalRowSpb();
-                    $('#saku-datatable').hide();
-                    $('#modal-preview').modal('hide');
-                    $('#saku-form').show();
-
-                }else{
-                    alert('Daftar PB Gagal di Load, silahkan coba lagi !');
-                }
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                if(jqXHR.status == 422){
-                    var msg = jqXHR.responseText;
-                }else if(jqXHR.status == 500) {
-                    var msg = "Internal server error";
-                }else if(jqXHR.status == 401){
-                    var msg = "Unauthorized";
-                    window.location="{{ url('/bdh-auth/sesi-habis') }}";
-                }else if(jqXHR.status == 405){
-                    var msg = "Route not valid. Page not found";
-                }
-            }
-        });
-    }
+    // Checklist DOK GRID
     function hideUnselectedRowPb(){
-        $('#pb-grid > tbody >tr').each(function(index,row){
+        $('#dok-check-grid > tbody >tr').each(function(index,row){
             if(!$(row).hasClass('selected-row')) {
-                var status = $('#pb-grid > tbody > tr:eq('+index+') > td').find(".inp-status").val();
+                var status = $('#dok-check-grid > tbody > tr:eq('+index+') > td').find(".inp-status").val();
+                var catatan_dok = $('#dok-check-grid > tbody > tr:eq('+index+') > td').find(".inp-catatan_dok").val();
 
-                $('#pb-grid > tbody > tr:eq('+index+') > td').find(".inp-status").val(status);
-                $('#pb-grid > tbody > tr:eq('+index+') > td').find(".td-status").text(status);
+                $('#dok-check-grid > tbody > tr:eq('+index+') > td').find(".inp-status").val(status);
+                $('#dok-check-grid > tbody > tr:eq('+index+') > td').find(".td-status").text(status);
+                $('#dok-check-grid > tbody > tr:eq('+index+') > td').find(".inp-catatan_dok").val(catatan_dok);
+                $('#dok-check-grid > tbody > tr:eq('+index+') > td').find(".td-catatan_dok").text(catatan_dok);
 
-                $('#pb-grid > tbody > tr:eq('+index+') > td').find(".inp-status").hide();
-                $('#pb-grid > tbody > tr:eq('+index+') > td').find(".td-status").show();
+                $('#dok-check-grid > tbody > tr:eq('+index+') > td').find(".inp-status").hide();
+                $('#dok-check-grid > tbody > tr:eq('+index+') > td').find(".td-status").show();
+                $('#dok-check-grid > tbody > tr:eq('+index+') > td').find(".inp-catatan_dok").hide();
+                $('#dok-check-grid > tbody > tr:eq('+index+') > td').find(".td-catatan_dok").show();
             }
         });
     }
 
-    $('#pb-grid tbody').on('click', 'tr', function(){
+    $('#dok-check-grid tbody').on('click', 'tr', function(){
         $(this).addClass('selected-row');
-        $('#pb-grid tbody tr').not(this).removeClass('selected-row');
+        $('#dok-check-grid tbody tr').not(this).removeClass('selected-row');
         hideUnselectedRowPb();
     });
 
-    $('#pb-grid tbody').on('click', 'td', function(){
+    $('#dok-check-grid tbody').on('click', 'td', function(){
         var idx = $(this).index();
         if(idx == 7){
             return false;
@@ -692,10 +603,11 @@
             if($(this).hasClass('px-0 py-0 aktif')){
                 return false;
             }else{
-                $('#pb-grid td').removeClass('px-0 py-0 aktif');
+                $('#dok-check-grid td').removeClass('px-0 py-0 aktif');
                 $(this).addClass('px-0 py-0 aktif');
 
                 var status = $(this).parents("tr").find(".inp-status").val();
+                var catatan_dok = $(this).parents("tr").find(".inp-catatan_dok").val();
 
                 $(this).parents("tr").find(".inp-status").val(status);
                 $(this).parents("tr").find(".td-status").text(status);
@@ -707,10 +619,21 @@
                     $(this).parents("tr").find(".inp-status").hide();
                     $(this).parents("tr").find(".td-status").show();
                 }
+
+                $(this).parents("tr").find(".inp-catatan_dok").val(catatan_dok);
+                $(this).parents("tr").find(".td-catatan_dok").text(catatan_dok);
+                if(idx == 2){
+                    $(this).parents("tr").find(".inp-catatan_dok").show();
+                    $(this).parents("tr").find(".td-catatan_dok").hide();
+                    $(this).parents("tr").find(".inp-catatan_dok").focus();
+                }else{
+                    $(this).parents("tr").find(".inp-catatan_dok").hide();
+                    $(this).parents("tr").find(".td-catatan_dok").show();
+                }
             }
         }
     });
-    // END LOAD DAFTAR PB
+    // END CHECKLIST DOK GRID
 
     // LOAD DATA
     function loadData(id){
@@ -806,6 +729,21 @@
 
                     }
 
+                    var no_dok = 1;
+                    for (let r = 0; r < data_dok.length; r++) {
+                       html_dok += `<tr>
+                            <td>`+no_dok+`</td>
+                            <td>`+data_dok[r].kode_jenis+`</td>
+                            <td>`+data_dok[r].nama+`</td>
+                            <td>`+data_dok[r].no_gambar+`</td>
+                            <td class='text-center'>
+                                <a href="{{url('api/bdh-auth/storage')}}/`+data_dok[r].no_gambar+`" target='_blank' class="text-primary"><i class='simple-icon-cloud-download'></i></a>
+                            </td>
+
+                       </tr>`;
+                       no_dok++;
+                    }
+
                     var no_agg = 1;
                     for (let q = 0; q < data_agg.length; q++) {
                         html_agg +=`<tr>
@@ -823,6 +761,7 @@
                         html_dok_check += "<tr class='row-dok_check row-dok_check-"+no_check+"'>"
                         html_dok_check += "<td class='no-dok_check text-center'>"+no_check+"</td>";
                         html_dok_check += "</div></td>";
+
                         html_dok_check += "<td class='text-center'><div>";
                         html_dok_check += "<span class='td-status tdstatuske"+no_check+" tooltip-span'>"+data_dok_check[s].status+"</span>";
                         html_dok_check += "<select class='form-control hidden inp-status statuske"+no_check+"' name='status[]'>";
@@ -831,18 +770,18 @@
                         html_dok_check += "</div></td>";
 
                         html_dok_check += "<td><div>";
-                        html_dok_check += "<span class='td-dok_check tddok_checkke"+no_check+"'>"+data_dok_check[s].kode_dokk+"</span>";
-                        html_dok_check += "<input type='text' name='dok_check[]' class='inp-dok_check form-control dok_checkke"+no_check+" hidden'  value='"+data_dok_check[s].kode_dok+"' readonly required>";
+                        html_dok_check += "<span class='td-catatan_dok tdcatatan_dokke"+no_check+"'>"+data_dok_check[s].catatan+"</span>";
+                        html_dok_check += "<input type='text' name='catatan_dok[]' class='inp-catatan_dok form-control catatan_dokke"+no_check+" hidden'  value='"+data_dok_check[s].catatan+"'  required>";
                         html_dok_check += "</div></td>";
 
                         html_dok_check += "<td><div>";
-                        html_dok_check += "<span class='td-dok_check tddok_checkke"+no_check+"'>"+data_dok_check[s].kode_dok+"</span>";
-                        html_dok_check += "<input type='text' name='dok_check[]' class='inp-dok_check form-control dok_checkke"+no_check+" hidden'  value='"+data_dok_check[s].kode_dok+"' readonly required>";
+                        html_dok_check += "<span class='td-kode_dok_check tdkode_dok_checkke"+no_check+"'>"+data_dok_check[s].kode_dok+"</span>";
+                        html_dok_check += "<input type='text' name='kode_dok_check[]' class='inp-kode_dok_check form-control kode_dok_checkke"+no_check+" hidden'  value='"+data_dok_check[s].kode_dok+"' readonly required>";
                         html_dok_check += "</div></td>";
 
                         html_dok_check += "<td><div>";
-                        html_dok_check += "<span class='td-dok_check tddok_checkke"+no_check+"'>"+data_dok_check[s].nama+"</span>";
-                        html_dok_check += "<input type='text' name='dok_check[]' class='inp-dok_check form-control dok_checkke"+no_check+" hidden'  value='"+data_dok_check[s].nama+"' readonly required>";
+                        html_dok_check += "<span class='td-nama_dok_check tdnama_dok_checkke"+no_check+"'>"+data_dok_check[s].nama+"</span>";
+                        html_dok_check += "<input type='text' name='nama_dok_check[]' class='inp-nama_dok_check form-control nama_dok_checkke"+no_check+" hidden'  value='"+data_dok_check[s].nama+"' readonly required>";
                         html_dok_check += "</div></td>";
 
                         html_dok_check += "</tr>";
@@ -923,23 +862,7 @@
         });
     });
 
-    // event klik rekeing pada tabel daftar pb
-    $('#pb-grid').on('click','.aksi-rekening', function(){
-        var parent = $(this).closest("tr");
-        var id = parent.find('.td-pb').html();
-        var status = parent.find('.td-status').html();
-        if(status == 'SPB'){
-            loadRekening(id);
-        }else{
-            msgDialog({
-                id: '-',
-                type: 'warning',
-                title: 'Error',
-                text: "Hanya PB  Berstatus SPB yang dapat diload!"
-            });
-        }
 
-    });
 
 
     // CBBL Form
