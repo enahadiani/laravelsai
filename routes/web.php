@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Laravel\Socialite\Facades\Socialite;
 
 /*
 |--------------------------------------------------------------------------
@@ -82,3 +83,7 @@ Route::get('/socialite/callback/{provider}', 'SocialController@callback');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/info-user',function(){
+    $getInfo = Socialite::driver('google')->user();
+    dump($getInfo);
+});
