@@ -98,6 +98,9 @@ Route::post('pindah-buku', 'Esaku\KasBank\PindahBukuController@store');
 Route::put('pindah-buku/{no_bukti}', 'Esaku\KasBank\PindahBukuController@update');
 Route::delete('pindah-buku/{no_bukti}', 'Esaku\KasBank\PindahBukuController@destroy');
 
+// Daftar Penjualan //
+Route::get('daftar-penjualan', 'Esaku\Inventori\DaftarPenjualanController@index');
+
 //Penjualan OL //
 Route::get('penjualan-langsung-bonus/{kd_barang}/{tanggal}/{jumlah}/{harga}', 'Esaku\Inventori\PenjualanLangsungController@cekBonus');
 Route::post('penjualan-langsung', 'Esaku\Inventori\PenjualanLangsungController@store');
