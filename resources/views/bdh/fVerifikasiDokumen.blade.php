@@ -172,7 +172,7 @@
                         <div class="form-group col-md-6 col-sm-12">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <label for="deskripsi">Deskripsi</label>
+                                    <label for="deskripsi">Catatan</label>
                                     <textarea class="form-control" rows="4" id="deskripsi" name="deskripsi" required></textarea>
                                 </div>
                             </div>
@@ -251,6 +251,11 @@
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="tab" href="#data-agg" role="tab" aria-selected="true">
                                 <span>Budget</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#data-dok-check" role="tab" aria-selected="true">
+                                <span>Checklist Dokumen</span>
                             </a>
                         </li>
                     </ul>
@@ -344,6 +349,27 @@
                                             <th style="width:15%" class='text-right'>Saldo Awal</th>
                                             <th style="width:15%" class='text-right'>Nilai</th>
                                             <th style="width:15%" class='text-right'>Saldo Akhir</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="data-dok-check" role="tabpanel">
+                            <div class="table-responsive">
+                                <div class='col-md-12 nav-control' style="padding: 0px 5px;">
+                                    <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row-dok-check"></span></a>
+                                </div>
+
+                                <table class="table table-bordered table-condensed gridexample" id="dok-check-grid" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                    <thead style="background:#F8F8F8">
+                                        <tr>
+                                            <th style="width:3%" class="text-center">No</th>
+                                            <th style="width:10%" class="text-center">Status</th>
+                                            <th style="width:25%">Catatan</th>
+                                            <th style="width:15%">Kode Dokumen</th>
+                                            <th style="width:25%">Deskripsi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -686,7 +712,7 @@
     });
     // END LOAD DAFTAR PB
 
-    // LOAD REKENING
+    // LOAD DATA
     function loadData(id){
         var url = '{{url("bdh-trans/ver-dok-detail")}}';
         $.ajax({
@@ -705,6 +731,7 @@
                 var data_catatan = data.detail_catatan;
                 var data_dok = data.detail_dok;
                 var data_agg = data.detail_gar;
+                var data_dok_check = data.detail_dok_check;
                 var data_m = data.data;
                 if(result.status){
                     $('#form-tambah #no_bukti').val(data_m[0].no_bukti);
@@ -714,6 +741,7 @@
                     $('#form-tambah #due_date').val(data_m[0].tgl2);
                     $('#form-tambah #deskripsi_m').val(data_m[0].keterangan);
                     $('#form-tambah #pembuat_m').val(data_m[0].pembuat);
+                    $("textarea#deskripsi").val(data.memo);
                     var html = "";
                     var html_jurnal = "";
                     var html_catatan = "";
@@ -747,7 +775,6 @@
                             <td>`+data_jurnal[x].nama_pp+`</td>
                             <td>`+data_jurnal[x].kode_drk+`</td>
                             <td>`+data_jurnal[x].nama_drk+`</td>
-
                         </tr>`;
                         no_jurnal ++;
                     }
@@ -791,12 +818,42 @@
                             <td class='text-right'>`+format_number(data_agg[q].sakhir)+`</td>
                         </tr>`;
                     }
+                    var no_check = 1;
+                    for (let s = 0; s < data_dok_check.length; s++) {
+                        html_dok_check += "<tr class='row-dok_check row-dok_check-"+no_check+"'>"
+                        html_dok_check += "<td class='no-dok_check text-center'>"+no_check+"</td>";
+                        html_dok_check += "</div></td>";
+                        html_dok_check += "<td class='text-center'><div>";
+                        html_dok_check += "<span class='td-status tdstatuske"+no_check+" tooltip-span'>"+data_dok_check[s].status+"</span>";
+                        html_dok_check += "<select class='form-control hidden inp-status statuske"+no_check+"' name='status[]'>";
+                        html_dok_check += "<option value='UNCHECK'>UNCHECK</option> <option value='CHECK'>CHECK</option>";
+                        html_dok_check += "</select>";
+                        html_dok_check += "</div></td>";
+
+                        html_dok_check += "<td><div>";
+                        html_dok_check += "<span class='td-dok_check tddok_checkke"+no_check+"'>"+data_dok_check[s].kode_dokk+"</span>";
+                        html_dok_check += "<input type='text' name='dok_check[]' class='inp-dok_check form-control dok_checkke"+no_check+" hidden'  value='"+data_dok_check[s].kode_dok+"' readonly required>";
+                        html_dok_check += "</div></td>";
+
+                        html_dok_check += "<td><div>";
+                        html_dok_check += "<span class='td-dok_check tddok_checkke"+no_check+"'>"+data_dok_check[s].kode_dok+"</span>";
+                        html_dok_check += "<input type='text' name='dok_check[]' class='inp-dok_check form-control dok_checkke"+no_check+" hidden'  value='"+data_dok_check[s].kode_dok+"' readonly required>";
+                        html_dok_check += "</div></td>";
+
+                        html_dok_check += "<td><div>";
+                        html_dok_check += "<span class='td-dok_check tddok_checkke"+no_check+"'>"+data_dok_check[s].nama+"</span>";
+                        html_dok_check += "<input type='text' name='dok_check[]' class='inp-dok_check form-control dok_checkke"+no_check+" hidden'  value='"+data_dok_check[s].nama+"' readonly required>";
+                        html_dok_check += "</div></td>";
+
+                        html_dok_check += "</tr>";
+                        no_check++;
+                    }
                 }else{
                     msgDialog({
                         id: '-',
                         type: 'warning',
                         title: 'Error',
-                        text: "Data dengan No Pb "+id+" Tidak ditemukan"
+                        text: "Data dengan No dok_check "+id+" Tidak ditemukan"
                     });
                 }
                 $(".tab-pane").removeClass("active");
@@ -810,6 +867,7 @@
                 $('#data-catatan').html(html_catatan);
                 $('#dok-grid >tbody').html(html_dok);
                 $('#agg-grid >tbody').html(html_agg);
+                $('#dok-check-grid >tbody').html(html_dok_check);
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 if(jqXHR.status == 422){
@@ -825,7 +883,7 @@
             }
         });
     }
-    // END LOAD REKENING
+    // END LOAD DATA
 
     // Event Button Tambah Data
     $('#saku-datatable').on('click', '#btn-tambah', function() {
