@@ -197,8 +197,9 @@
                                         <tr>
                                             <th class="text-center">NIK</th>
                                             <th class="text-center">Nama</th>
+                                            <th class="text-center">No BPJS Ketenagakerjaan</th>
                                             <th class="text-center">Jabatan</th>
-                                            <th class="text-center">No Telp</th>
+                                            <th class="text-center">Lokasi Kerja</th>
                                             <th class="text-center">Client</th>
                                         </tr>
                                     </thead>
@@ -221,10 +222,10 @@
                     <div class="card-header row">
                         <div class="col-12">
                             <div class="glyph-icon iconsminds-left" id="to-detail-1"></div>
-                            <h6 class="card-title-2 text-bold text-medium">CV Pegawai</h6>
+                            <h6 class="card-title-2 text-bold text-medium">Profile Lengkap Pegawai</h6>
                         </div>
                     </div>
-                    <div class="card-body box-cv" id="data-cv"></div>
+                    <div class="card-body box-cv" id="data-detail-karyawan"></div>
                 </div>
             </div>
         </div>
@@ -246,7 +247,7 @@
                         <div class="col-6">
                             <div class="card card-dash-2 bg-blue">
                                 <div class="card-content">
-                                    <p id="label-card-bpjs" class="label-card">Jumlah BPJS</p>
+                                    <p id="label-card-bpjs" class="label-card">Jumlah <span class="ket-bpjs"></span></p>
                                     <div class="row">
                                         <div class="col-10 count-card" id="jumlah-bpjs">
                                             0
@@ -260,7 +261,7 @@
                             <div class="card card-dash-2 no-p">
                                 <div class="card-header bg-blue">
                                     <p id="label-table-bpjs" class="label-table-bpjs">
-                                        Data BPJS <span id="jenis-bpjs"></span>
+                                        Data <span class="ket-bpjs"></span>
                                     </p>
                                 </div>
                                 <div class="card-body">
@@ -281,7 +282,7 @@
                         <div class="col-6">
                            <div class="card card-dash-2 bg-red">
                                 <div class="card-content">
-                                    <p id="label-card-bpjs" class="label-card">Jumlah Non BPJS</p>
+                                    <p id="label-card-bpjs" class="label-card">Jumlah <span class="ketnon-bpjs"></span></p>
                                     <div class="row">
                                         <div class="col-10 count-card" id="jumlah-non-bpjs">
                                             0
@@ -295,7 +296,7 @@
                             <div class="card card-dash-2 no-p">
                                 <div class="card-header bg-red">
                                     <p id="label-table-bpjs" class="label-table-bpjs">
-                                        Data Non BPJS
+                                        Data <span class="ketnon-bpjs"></span>
                                     </p>
                                 </div>
                                 <div class="card-body">
@@ -333,6 +334,18 @@
                     </div>
                     <div class="card-body">
                         <div id="komposisi-client-chart"></div>
+                        <div class="table-list-client" id="table-list-client">
+                            <table id="table-data-client" class="table table-hover table-borderless">
+                                <thead>
+                                    <th>No</th>
+                                    <th>Client</th>
+                                    <th>Pengeloaan</th>
+                                    <th>Alamat</th>
+                                    <th>Jumlah</th>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -381,8 +394,7 @@ $('#to-detail-1').click(function() {
 
 $('#datatable-karyawan tbody').on('click', 'td', function() {
     var data = dataTable.row($(this).parents('tr')).data()
-    var filter = { 'nik[0]': '=', 'nik[1]': data.nik, 'nik[2]':'' }
-    generateCVKaryawan(filter)    
+    generateDetailKaryawan(data.nik)    
 })
 
 $('#box-bpjs-sehat').click(function() {
@@ -394,6 +406,7 @@ $('#box-bpjs-kerja').click(function() {
 })
 
 $('#box-client').click(function() {
+    generateListKomposisiClient()
     generateKomposisiClient()
 })
 
@@ -424,6 +437,37 @@ $.ajax({
         }
     }
 });
+
+function generateListKomposisiClient() { 
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('esaku-dash/sdm-list-client') }}",
+        dataType: 'json',
+        async:false,
+        success:function(result){    
+            var response = result.data
+            if(response.status) {
+                $('#table-data-client tbody').empty()
+                if(response.data.length > 0) {
+                    var no = 1;
+                    var html = null
+                    for(var i=0;i<response.data.length;i++) {
+                        var row = response.data[i]
+                        html += `<tr>
+                            <td>${no}</td>    
+                            <td>${row.client}</td>    
+                            <td>${row.fungsi}</td>    
+                            <td>${row.alamat}</td>    
+                            <td style="text-align: right;">${sepNum(row.jumlah)}</td>    
+                        </tr>`
+                        no++;
+                    }
+                    $('#table-data-client tbody').append(html)
+                }
+            }
+        }
+    });
+}
 
 function generateDataUmur() {
     $.ajax({
@@ -530,7 +574,7 @@ function generateChartJabatanColumn(data) {
         for(var i=0;i<data.length;i++) {
             var dt = data[i];
             categories.push(dt.nama_jabatan)
-            chartData.push(parseFloat(dt.jumlah))
+            chartData.push([dt.nama_jabatan, parseFloat(dt.jumlah), dt.kode_jab])
         }
 
         Highcharts.chart('jabatan-column-chart', {
@@ -564,7 +608,7 @@ function generateChartJabatanColumn(data) {
                     point: {
                         events: {
                             click: function() {
-                                var filter = { kode_loker: this.category }
+                                var filter = { kode_jab: this.kode }
                                 generateTabelKaryawan(filter)
                             }
                         }
@@ -573,6 +617,7 @@ function generateChartJabatanColumn(data) {
             },
             series: [{
                 name: 'Jumlah',
+                keys: ['name', 'y', 'kode'],
                 data: chartData,
                 color: '#f87171'
             }]
@@ -595,7 +640,6 @@ function generateKomposisiClient() {
             if(categories.length > 0) {
                 for(var i=0;i<categories.length;i++) {
                     chart.push({ name: categories[i], y:komposisi[i] })
-                    i++;
                 }
             }
 
@@ -657,11 +701,12 @@ function generateDetailBPJSKerja() {
                 $('#table-bpjs tbody').empty()
                 $('#table-non-bpjs tbody').empty()
                 $('#header-bpjs').text('Data BPJS Tenaga Kerja')
-                $('#jenis-bpjs').text('BPJS Kesehatan')
                 $('#jumlah-bpjs').text(data.jumlah_terdaftar)
                 $('#persentase-bpjs').text(data.percentage_terdaftar + "%")
                 $('#jumlah-non-bpjs').text(data.jumlah_non_terdaftar)
                 $('#persentase-non-bpjs').text(data.percentage_non_terdaftar + "%")
+                $('.ket-bpjs').text('BPJS Ketenagakerjaan Aktif')
+                $('.ketnon-bpjs').text('BPJS Ketenagakerjaan Aktif Nonaktif')
 
                 if(data.data_terdaftar.length > 0) {
                     var no = 1;
@@ -714,11 +759,12 @@ function generateDetailBPJSKesehatan() {
                 $('#table-bpjs tbody').empty()
                 $('#table-non-bpjs tbody').empty()
                 $('#header-bpjs').text('Data BPJS Kesehatan')
-                $('#jenis-bpjs').text('BPJS Kesehatan')
                 $('#jumlah-bpjs').text(data.jumlah_terdaftar)
                 $('#persentase-bpjs').text(data.percentage_terdaftar + "%")
                 $('#jumlah-non-bpjs').text(data.jumlah_non_terdaftar)
                 $('#persentase-non-bpjs').text(data.percentage_non_terdaftar + "%")
+                $('.ket-bpjs').text('BPJS PPU (Peserta Penerima Upah)')
+                $('.ketnon-bpjs').text('Non PPU (Peserta Penerima Upah)')
 
                 if(data.data_terdaftar.length > 0) {
                     var no = 1;
@@ -759,26 +805,25 @@ function generateDetailBPJSKesehatan() {
     });
 }
 
-function generateCVKaryawan(filter=null) {
+function generateDetailKaryawan(nik) {
     $.ajax({
-        type: 'POST',
-        url: "{{ url('esaku-report/sdm-lap-karyawanCv') }}",
-        data: filter,
+        type: 'GET',
+        url: "{{ url('esaku-dash/sdm-karyawan-detail') }}",
+        data: {nik: nik},
         dataType: 'json',
         async:false,
         success:function(result){
             if(result.status) {
-                var data = result.res.data;
-                var dt_keluarga = result.res.data_keluarga;
-                var dt_dinas = result.res.data_dinas;
-                var dt_latihan = result.res.data_pelatihan;
-                var dt_pendidikan = result.res.data_pendidikan;
-                var dt_penghargaan = result.res.data_penghargaan;
-                var dt_sanksi = result.res.data_sanksi;
+                var data = result.data.data;
                 var html = null;
-                console.log(result)
+
+                if(data[0].no_kontrak == '-') {
+                    data[0].tgl_kontrak = '-' 
+                    data[0].tgl_kontrak_akhir = '-' 
+                }
+
                 html = `
-                    <h6 class="text-center">Curiculum Vitae Karyawan</h6>
+                    <h6 class="text-center">Profile Lengkap Karyawan</h6>
                     <div class="row">
                         <div class="col-9">
                             <table class="table table-borderless">
@@ -804,31 +849,39 @@ function generateCVKaryawan(filter=null) {
                                         <td>: ${data[0].tempat}, ${data[0].tgl_lahir}</td>    
                                     </tr>
                                     <tr>
-                                        <td style="width: 201px;">Status Pajak</td>      
-                                        <td>: ${data[0].kode_pajak}</td>    
-                                    </tr>
-                                    <tr>
                                         <td style="width: 201px;">No. NPWP</td>      
                                         <td>: ${data[0].npwp}</td>    
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 201px;">Provinsi</td>      
+                                        <td>: ${data[0].provinsi}</td>    
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 201px;">Kota/kabupaten</td>      
+                                        <td>: ${data[0].kota}</td>    
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 201px;">Kecamatan</td>      
+                                        <td>: ${data[0].kecamatan}</td>    
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 201px;">Kelurahan</td>      
+                                        <td>: ${data[0].kelurahan}</td>    
                                     </tr>
                                     <tr>
                                         <td style="width: 201px;">Alamat</td>      
                                         <td>: ${data[0].alamat}</td>    
                                     </tr>
                                     <tr>
-                                        <td style="width: 201px;">Kota</td>      
-                                        <td>: ${data[0].kota}</td>    
-                                    </tr>
-                                    <tr>
-                                        <td style="width: 201px;">Kode Pos</td>      
+                                        <td style="width: 201px;">Kode POS</td>      
                                         <td>: ${data[0].kode_pos}</td>    
                                     </tr>
                                     <tr>
-                                        <td style="width: 201px;">No. Telp</td>      
+                                        <td style="width: 201px;">Nomor Telepon</td>      
                                         <td>: ${data[0].no_telp}</td>    
                                     </tr>
                                     <tr>
-                                        <td style="width: 201px;">No. HP</td>      
+                                        <td style="width: 201px;">Nomor Handphone</td>      
                                         <td>: ${data[0].no_hp}</td>    
                                     </tr>
                                     <tr>
@@ -836,15 +889,19 @@ function generateCVKaryawan(filter=null) {
                                         <td>: ${data[0].email}</td>    
                                     </tr>
                                     <tr>
+                                        <td style="width: 201px;">Nomor NPWP</td>      
+                                        <td>: ${data[0].npwp}</td>    
+                                    </tr>
+                                    <tr>
                                         <td style="width: 201px;">Bank</td>      
                                         <td>: ${data[0].bank}</td>    
-                                    </tr>   
+                                    </tr>
                                     <tr>
                                         <td style="width: 201px;">Cabang</td>      
                                         <td>: ${data[0].cabang}</td>    
                                     </tr>
                                     <tr>
-                                        <td style="width: 201px;">No. Rekening</td>      
+                                        <td style="width: 201px;">Nomor Rekening</td>      
                                         <td>: ${data[0].no_rek}</td>    
                                     </tr>
                                     <tr>
@@ -852,195 +909,85 @@ function generateCVKaryawan(filter=null) {
                                         <td>: ${data[0].nama_rek}</td>    
                                     </tr>
                                     <tr>
-                                        <td style="width: 201px;">No. SK</td>      
-                                        <td>: ${data[0].no_sk}</td>    
+                                        <td style="width: 201px;">No Kontrak</td>      
+                                        <td>: ${data[0].no_kontrak}</td>    
                                     </tr>
                                     <tr>
-                                        <td style="width: 201px;">Tanggal SK</td>      
-                                        <td>: ${data[0].tgl_sk}</td>    
+                                        <td style="width: 201px;">Tanggal Mulai Kontrak</td>      
+                                        <td>: ${data[0].tgl_kontrak}</td>    
                                     </tr>
                                     <tr>
-                                        <td style="width: 201px;">Status Nikah</td>      
+                                        <td style="width: 201px;">Tanggal Berakhir Kontrak</td>      
+                                        <td>: ${data[0].tgl_kontrak_akhir}</td>    
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 201px;">Status Menikah</td>      
                                         <td>: ${data[0].status_nikah}</td>    
-                                    </tr>
-                                    <tr>
-                                        <td style="width: 201px;">Tanggal Nikah</td>      
-                                        <td>: ${data[0].tgl_nikah}</td>    
                                     </tr>
                                     <tr>
                                         <td style="width: 201px;">Golongan Darah</td>      
                                         <td>: ${data[0].gol_darah}</td>    
                                     </tr>
                                     <tr>
-                                        <td style="width: 201px;">Ibu Kandung</td>      
-                                        <td>: ${data[0].ibu_kandung}</td>    
+                                        <td style="width: 201px;">Skill</td>  
+                                        <td>: ${data[0].skill}</td>
                                     </tr>
                                     <tr>
-                                        <td style="width: 201px;">Nomor KK</td>      
-                                        <td>: ${data[0].no_kk}</td>    
+                                        <td style="width: 201px;">Fungsi</td>  
+                                        <td>: ${data[0].fungsi}</td>
                                     </tr>
                                     <tr>
-                                        <td style="width: 201px;">Kelurahan</td>      
-                                        <td>: ${data[0].kelurahan}</td>    
+                                        <td style="width: 201px;">Nomor BPJS Kesehatan</td>  
+                                        <td>: ${data[0].no_bpjs}</td>
                                     </tr>
                                     <tr>
-                                        <td style="width: 201px;">Kecamatan</td>      
-                                        <td>: ${data[0].kecamatan}</td>    
+                                        <td style="width: 201px;">Nomor BPJS Ketenagakerjaan</td>  
+                                        <td>: ${data[0].no_bpjs_kerja}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 201px;">Atasan Langsung</td>  
+                                        <td>: ${data[0].atasan_langsung}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 201px;">Atasan Tidak Langsung</td>  
+                                        <td>: ${data[0].atasan_t_langsung}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 201px;">Nama Unit</td>  
+                                        <td>: ${data[0].nama_unit}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 201px;">Nama Profesi</td>  
+                                        <td>: ${data[0].nama_profesi}</td>
                                     </tr>
                                 </tbody>       
                             </table>    
                             <br />
-                            <h6 class="text-note">DATA KELUARGA</h6>
-                            <table class="table table-bordered">
-                                <thead>
+                            <h6 class="text-note">CLIENT</h6>
+                            <table class="table table-borderless">
+                                <tbody>
                                     <tr>
-                                        <th class="text-center" style="width: 30px;">Nama</th>    
-                                        <th class="text-center" style="width: 15px;">Status</th>
-                                        <th class="text-center" style="width: 20px;">Jenis Kelamin</th>    
-                                        <th class="text-center" style="width: 20px;">Tanggungan</th>    
-                                        <th class="text-center" style="width: 25px;">Tempat Lahir</th>
-                                        <th class="text-center" style="width: 25px;">Tanggal Lahir</th>    
-                                    </tr>    
-                                </thead>
-                                <tbody>`
-                                if(dt_keluarga[0].length > 0) {
-                                    for(var j=0;j<dt_keluarga[0].length;j++) {
-                                        var keluarga = dt_keluarga[0][j];
-                                        html += `
-                                            <tr>
-                                                <td>${keluarga.nama}</td>
-                                                <td>${keluarga.jenis}</td>
-                                                <td>${keluarga.jk}</td>
-                                                <td>${keluarga.status_kes}</td>
-                                                <td>${keluarga.tempat}</td>
-                                                <td>${keluarga.tgl_lahir}</td>
-                                            </tr>`;
-                                    }
-                                }
-                        html += `</tbody>
-                        </table>
-                        <br />
-                        <h6 class="text-note">DATA KEDINASAN</h6>
-                        <table class="table table-bordered">
-                                <thead>
+                                        <td style="width: 201px;">Nama Client</td>  
+                                        <td>: ${data[0].client}</td>
+                                    </tr>
                                     <tr>
-                                        <th class="text-center" style="width: 40px;">No. SK</th>    
-                                        <th class="text-center" style="width: 15px;">Tanggal</th>
-                                        <th class="text-center">Keterangan</th>       
-                                    </tr>    
-                                </thead>
-                                <tbody>`
-                                if(dt_dinas[0].length > 0) {
-                                    for(var k=0;k<dt_dinas[0].length;k++) {
-                                        var dinas = dt_dinas[0][k];
-                                        html += `
-                                            <tr>
-                                                <td>${dinas.no_sk}</td>
-                                                <td>${dinas.tgl_sk}</td>
-                                                <td>${dinas.nama}</td>
-                                            </tr>`;
-                                    }
-                                }
-                        html += `</tbody>
-                        </table>
-                        <br/>
-                        <h6 class="text-note">DATA PENDIDIKAN</h6>
-                        <table class="table table-bordered">
-                                <thead>
+                                        <td style="width: 201px;">Area</td>  
+                                        <td>: ${data[0].area}</td>
+                                    </tr>
                                     <tr>
-                                        <th class="text-center" style="width: 30px;">Nama</th>    
-                                        <th class="text-center" style="width: 10px;">Tahun</th>
-                                        <th class="text-center" style="width: 25px;">Strata</th>       
-                                        <th class="text-center" style="width: 40px;">Jurusan</th>       
-                                    </tr>    
-                                </thead>
-                                <tbody>`
-                                if(dt_pendidikan[0].length > 0) {
-                                    for(var l=0;l<dt_pendidikan[0].length;l++) {
-                                        var pendidikan = dt_pendidikan[0][l];
-                                        html += `
-                                            <tr>
-                                                <td>${pendidikan.nama}</td>
-                                                <td>${pendidikan.tahun}</td>
-                                                <td>${pendidikan.nama_strata}</td>
-                                                <td>${pendidikan.nama_jurusan}</td>
-                                            </tr>`;
-                                    }
-                                }
-                        html += `</tbody>
-                        </table>
-                        <br/>
-                        <h6 class="text-note">DATA PELATIHAN</h6>
-                        <table class="table table-bordered">
-                                <thead>
+                                        <td style="width: 201px;">Kota</td>  
+                                        <td>: ${data[0].kota_area}</td>
+                                    </tr>
                                     <tr>
-                                        <th class="text-center" style="width: 30px;">Nama</th>    
-                                        <th class="text-center" style="width: 50px;">Penyelenggara</th>
-                                        <th class="text-center" style="width: 30px;">Tanggal Mulai</th>       
-                                        <th class="text-center" style="width: 30px;">Tanggal Selesai</th>       
-                                    </tr>    
-                                </thead>
-                                <tbody>`
-                                if(dt_latihan[0].length > 0) {
-                                    for(var m=0;m<dt_latihan[0].length;m++) {
-                                        var pelatihan = dt_latihan[0][m];
-                                        html += `
-                                            <tr>
-                                                <td>${pelatihan.nama}</td>
-                                                <td>${pelatihan.panitia}</td>
-                                                <td>${pelatihan.tgl_mulai}</td>
-                                                <td>${pelatihan.tgl_selesai}</td>
-                                            </tr>`;
-                                    }
-                                }
-                        html += `</tbody>
-                        </table>
-                        <br/>
-                        <h6 class="text-note">DATA PENGHARGAAN</h6>
-                            <table class="table table-bordered">
-                                <thead>
+                                        <td style="width: 201px;">FM</td>  
+                                        <td>: ${data[0].fm}</td>
+                                    </tr>
                                     <tr>
-                                        <th class="text-center">Nama</th>    
-                                        <th class="text-center" style="width: 25px;">Tanggal</th>       
-                                    </tr>    
-                                </thead>
-                                <tbody>`
-                                if(dt_penghargaan[0].length > 0) {
-                                    for(var n=0;n<dt_penghargaan[0].length;n++) {
-                                        var penghargaan = dt_penghargaan[0][n];
-                                        html += `
-                                            <tr>
-                                                <td>${penghargaan.nama}</td>
-                                                <td>${penghargaan.tanggal}</td>
-                                            </tr>`;
-                                    }
-                                }
-                        html += `</tbody>
-                        </table>
-                        <br/>
-                        <h6 class="text-note">DATA SANKSI</h6>
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th class="text-center">Nama</th>    
-                                        <th class="text-center" style="width: 25px;">Tanggal</th>       
-                                        <th class="text-center" style="width: 30px;">Jenis Sanksi</th>       
-                                    </tr>    
-                                </thead>
-                                <tbody>`
-                                if(dt_sanksi[0].length > 0) {
-                                    for(var o=0;o<dt_sanksi[0].length;o++) {
-                                        var sanksi = dt_sanksi[0][o];
-                                        html += `
-                                            <tr>
-                                                <td>${sanksi.nama}</td>
-                                                <td>${sanksi.tanggal}</td>
-                                                <td>${sanksi.jenis}</td>
-                                            </tr>`;
-                                    }
-                                }
-                        html += `</tbody>
-                        </table>
+                                        <td style="width: 201px;">BM</td>  
+                                        <td>: ${data[0].bm}</td>
+                                    </tr>
+                                </tbody>       
+                            </table>    
                         </div>    
                         <div class="col-3">
                             <div class="box-empty-image">
@@ -1052,7 +999,7 @@ function generateCVKaryawan(filter=null) {
                     </div>
                 `;
 
-                $('#data-cv').html(html);
+                $('#data-detail-karyawan').html(html);
                 $('#detail-1').hide();
                 $('#detail-2').show();
             }    
@@ -1078,8 +1025,9 @@ function generateTabelKaryawan(filter=null) {
         'columns': [
             { data: 'nik' },
             { data: 'nama_pegawai' },
+            { data: 'no_bpjs_kerja' },
             { data: 'nama_jabatan' },
-            { data: 'no_telp' },
+            { data: 'nama_loker' },
             { data: 'client' }
         ],
         drawCallback: function () {

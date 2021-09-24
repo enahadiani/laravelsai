@@ -207,6 +207,11 @@
     overflow-y: auto;
     height: 370px;
 }
+.card.card-dash .card-body .table-list-client {
+    margin-top: 18px;
+    overflow-y: auto;
+    height: 400px;
+}
 .no-p {
     padding: 0 !important;
 }
@@ -218,18 +223,21 @@
 
 /* Track */
 #table-detail-bpjs::-webkit-scrollbar-track,
-#table-detail-non-bpjs::-webkit-scrollbar-track {
+#table-detail-non-bpjs::-webkit-scrollbar-track,
+#table-list-client::-webkit-scrollbar-track {
     background: #f1f1f1;
 }
 
 /* Handle */
 #table-detail-bpjs::-webkit-scrollbar-thumb,
-#table-detail-non-bpjs::-webkit-scrollbar-thumb {
+#table-detail-non-bpjs::-webkit-scrollbar-thumb,
+#table-list-client::-webkit-scrollbar-thumb {
     background: #888;
 }
 
 /* Handle on hover */
 #table-detail-bpjs::-webkit-scrollbar-thumb:hover,
-#table-detail-non-bpjs::-webkit-scrollbar-thumb:hover {
+#table-detail-non-bpjs::-webkit-scrollbar-thumb:hover,
+#table-list-client::-webkit-scrollbar-thumb:hover {
     background: #555;
 }

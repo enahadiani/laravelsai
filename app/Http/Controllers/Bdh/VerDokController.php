@@ -9,7 +9,7 @@ use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Session;
 use GuzzleHttp\Exception\BadResponseException;
 
-class SpbController extends Controller
+class VerDokController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -49,7 +49,7 @@ class SpbController extends Controller
     {
         try {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url') . 'bdh-trans/spb', [
+            $response = $client->request('GET',  config('api.url') . 'bdh-trans/ver-dok', [
                 'headers' => [
                     'Authorization' => 'Bearer ' . Session::get('token'),
                     'Accept'     => 'application/json',
@@ -70,12 +70,11 @@ class SpbController extends Controller
         }
     }
 
-    public function GenerateBukti(Request $request)
+    public function generateKode(Request $request)
     {
         try {
-
             $client = new Client();
-            $response = $client->request('GET',  config('api.url') . 'bdh-trans/spb-nobukti', [
+            $response = $client->request('GET',  config('api.url') . 'bdh-trans/ver-dok-nobukti', [
                 'headers' => [
                     'Authorization' => 'Bearer ' . Session::get('token'),
                     'Accept'     => 'application/json',
@@ -103,7 +102,7 @@ class SpbController extends Controller
     {
         try {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url') . 'bdh-trans/spb-pb-list', [
+            $response = $client->request('GET',  config('api.url') . 'bdh-trans/ver-dok', [
                 'headers' => [
                     'Authorization' => 'Bearer ' . Session::get('token'),
                     'Accept'     => 'application/json',
@@ -196,11 +195,11 @@ class SpbController extends Controller
         }
     }
 
-    public function getTransfer(Request $request)
+    public function LoadData(Request $request)
     {
         try {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url') . 'bdh-trans/spb-rek-transfer', [
+            $response = $client->request('GET',  config('api.url') . 'bdh-trans/ver-dok-detail', [
                 'headers' => [
                     'Authorization' => 'Bearer ' . Session::get('token'),
                     'Accept'     => 'application/json',
@@ -214,7 +213,6 @@ class SpbController extends Controller
                 $response_data = $response->getBody()->getContents();
 
                 $data = json_decode($response_data, true);
-                $data = $data["data"];
             }
             return response()->json(['daftar' => $data, 'status' => true, 'message' => 'success'], 200);
         } catch (BadResponseException $ex) {

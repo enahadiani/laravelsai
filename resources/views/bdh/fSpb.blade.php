@@ -35,7 +35,7 @@
                 <div class="separator mb-2"></div>
                 <div class="card-body pt-3 form-body">
                     <div class="form-row">
-                        <div class="form-group col-md-6 col-sm-12">
+                        <div class="form-group col-md-12 col-sm-12">
                            <div class="row">
                                <div class="col-md-4 col-sm-12">
                                    <label for="no_bukti">No Bukti</label>
@@ -46,7 +46,7 @@
                                     <input class='form-control inp-tanggal datepicker' type="text" id="tanggal" name="tanggal" value="{{ date('d/m/Y') }}">
                                     <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;" class="simple-icon-calendar date-search"></i>
                                 </div>
-                                <div class="col-md-6 col-sm-12 my-2">
+                                <div class="col-md-4 col-sm-12">
                                     <label for="no_dokumen">Nomor Dokumen</label>
                                     <input class='form-control' type="text" id="no_dokumen" name="no_dokumen" required>
                                 </div>
@@ -57,7 +57,7 @@
                     <div class="form-row">
                         <div class="form-group col-md-6 col-sm-12">
                             <div class="row">
-                                <div class="col-md-10">
+                                <div class="col-md-12">
                                     <label for="deskripsi">Deskripsi</label>
                                     <textarea class="form-control" rows="4" id="deskripsi" name="deskripsi" required></textarea>
                                 </div>
@@ -431,21 +431,21 @@
                         html += "<td class='text-center'><div>";
                         html += "<span class='td-status tdstatuske"+no+" tooltip-span'>"+data[i].status+"</span>";
                         html += "<select class='form-control hidden inp-status statuske"+no+"' name='status[]'>";
-                        html += "<option value='INPROG'>INPROG</option><option value='SPB'>SPB</option>";
+                        html += "<option value='INPROG'>INPROG</option> <option value='SPB'>SPB</option>";
                         html += "</select>";
                         html += "</div></td>";
                         html += "<td><div>";
                         html += "<span class='td-pb tdpbke"+no+"'>"+data[i].no_pb+"</span>";
-                        html += "<input type='text' name='pb[]' class='inp-pb form-control pbke"+no+" hidden currency'  value='"+data[i].no_pb+"' readonly required>";
+                        html += "<input type='text' name='pb[]' class='inp-pb form-control pbke"+no+" hidden'  value='"+data[i].no_pb+"' readonly required>";
                         html += "</div></td>";
                         html += "</div></td>";
                         html += "<td><div>";
                         html += "<span class='td-tgl tdtglke"+no+"'>"+data[i].tgl+"</span>";
-                        html += "<input type='text' name='tgl[]' class='inp-tgl form-control tglke"+no+" hidden currency'  value='"+data[i].tgl+"' readonly required>";
+                        html += "<input type='text' name='tgl[]' class='inp-tgl form-control tglke"+no+" hidden'  value='"+data[i].tgl+"' readonly required>";
                         html += "</div></td>";
                         html += "<td><div>";
                         html += "<span class='td-keterangan tdketeranganke"+no+"'>"+data[i].keterangan+"</span>";
-                        html += "<input type='text' name='keterangan[]' class='inp-keterangan form-control keteranganke"+no+" hidden currency'  value='"+data[i].keterangan+"' readonly required>";
+                        html += "<input type='text' name='keterangan[]' class='inp-keterangan form-control keteranganke"+no+" hidden'  value='"+data[i].keterangan+"' readonly required>";
                         html += "</div></td>";
                         html += "<td class='text-right'>"
                         html += "<span class='td-nilai tdnilaike"+no+"'>"+format_number(data[i].nilai)+"</span>"
@@ -837,9 +837,9 @@
             }
 
             var formData = new FormData(form);
-            $('#pemberi-grid tbody tr').each(function(index) {
-                formData.append('no_pemberi[]', $(this).find('.no-pemberi').text())
-            })
+            // $('#pb-grid tbody tr').each(function(index) {
+            //     formData.append('no_bukti[]', $(this).find('.inp-no_bukti').text())
+            // })
 
 
             if(parameter == "edit") {
@@ -860,7 +860,10 @@
                     cache: false,
                     processData: false,
                     success:function(result){
-                        if(result.data.success.status){
+
+                        var data = result.data;
+                        console.log(data);
+                        if(data.status){
                             dataTable.ajax.reload();
                             $('#row-id').hide();
                             $('#form-tambah')[0].reset();
@@ -871,18 +874,18 @@
                             $('#method').val('post');
                             resetForm();
                             msgDialog({
-                                id:result.data.no_bukti,
+                                id:data.no_bukti,
                                 type:'simpan'
                             });
-                            last_add("no_pdrk",result.data.no_bukti);
-                        }else if(!result.data.status && result.data.message === "Unauthorized"){
+                            last_add("no_bukti",data.no_bukti);
+                        }else if(!data.status && data.message === "Unauthorized"){
                             window.location.href = "{{ url('/bdh-auth/sesi-habis') }}";
                         }else{
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Oops...',
                                 text: 'Something went wrong!',
-                                footer: '<a href>'+result.data.message+'</a>'
+                                footer: '<a href>'+data.message+'</a>'
                             })
                         }
                     },
@@ -900,7 +903,53 @@
         }
     });
 
-      // END BUTTON UPDATE
+    // Hapus Data
+    function hapusData(id){
+        $.ajax({
+            type: 'DELETE',
+            url: "{{ url('bdh-trans/spb') }}",
+            data: {
+                no_bukti : id
+            },
+            dataType: 'json',
+            async:false,
+            success:function(result){
+                var data = result.data;
+                if(data.status){
+                    dataTable.ajax.reload();
+                    showNotification("top", "center", "success",'Hapus Data','Data SPB ('+id+') berhasil dihapus ');
+                    // $('#modal-preview-id').html('');
+                    $('#table-delete tbody').html('');
+                    if(typeof M == 'undefined'){
+                        $('#modal-delete').modal('hide');
+                    }else{
+                        $('#modal-delete').bootstrapMD('hide');
+                    }
+                }else if(!data.status && data.message == "Unauthorized"){
+                    window.location.href = "{{ url('bdh-auth/sesi-habis') }}";
+                }else{
+                    msgDialog({
+                        id: '-',
+                        type: 'warning',
+                        title: 'Error',
+                        text: data.message
+                    });
+                }
+            }
+        });
+    }
+    $('#saku-datatable').on('click', '#btn-delete', function(e){
+        var id = $(this).closest('tr').find('td').eq(0).html();
+        console.log(id);
+        msgDialog({
+            id: id,
+            type:'hapus'
+        });
+    });
+
+
+
+
 
     // PREVIEW DATA
     $('#table-data tbody').on('click','td',function(e){
