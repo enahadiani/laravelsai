@@ -56,6 +56,7 @@ Route::get('/bayar-spb-pp', 'Bdh\PemSpbController@getPP');
 Route::get('/bayar-spb-akun-kasbank', 'Bdh\PemSpbController@getKasBank');
 
 // Verifikasi Dokumen
+Route::get('/ver-dok', 'Bdh\VerDokController@index');
 Route::get('/ver-dok-nobukti', 'Bdh\VerDokController@generateKode');
 Route::get('/ver-dok-pb', 'Bdh\VerDokController@getPb');
 Route::get('/ver-dok-detail', 'Bdh\VerDokController@LoadData');

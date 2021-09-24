@@ -49,7 +49,7 @@ class VerDokController extends Controller
     {
         try {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url') . 'bdh-trans/spb', [
+            $response = $client->request('GET',  config('api.url') . 'bdh-trans/ver-dok', [
                 'headers' => [
                     'Authorization' => 'Bearer ' . Session::get('token'),
                     'Accept'     => 'application/json',

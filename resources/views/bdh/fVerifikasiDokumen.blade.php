@@ -508,7 +508,7 @@
     var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
     var dataTable = generateTable(
         "table-data",
-        "{{ url('bdh-trans/spb') }}",
+        "{{ url('bdh-trans/ver-dok') }}",
         [
             {'targets': 4, data: null, 'defaultContent': action_html,'className': 'text-center' },
             {
@@ -523,8 +523,8 @@
 
         ],
         [
-            { data: 'no_spb' },
-            { data: 'tgl' },
+            { data: 'modul' },
+            { data: 'no_bukti' },
             { data: 'keterangan' },
             {data: 'nilai',className: 'text-right' ,render: $.fn.dataTable.render.number('.', ',', 2, '')},
         ],
