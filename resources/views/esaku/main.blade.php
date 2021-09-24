@@ -505,6 +505,17 @@
 			</div>
 		</div>
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+    <script type="text/javascript">
+        // if("{{ Session::get('lokasi')}}" == "05") {
+        //     $('.logo').css('background', 'url("{{ asset("asset_sdm/img/logo.png") }}") no-repeat')
+        //     $('.logo').css('height', '45px')
+        // }
+
+        if("{{ $_SERVER['SERVER_NAME'] }}" == 'sdm.trengginasjaya.com') {
+            $('.logo').css('background', 'url("{{ asset("asset_sdm/img/logo.png") }}") no-repeat')
+            $('.logo').css('height', '45px')
+        }
+    </script>
     <script>
     if (!$.fn.bootstrapDP && $.fn.datepicker && $.fn.datepicker.noConflict) {
         var datepicker = $.fn.datepicker.noConflict();
