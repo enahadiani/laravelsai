@@ -22,3 +22,7 @@ Route::get('sdm-bpjs-sehat', 'Esaku\Sdm\DashboardController@getDataBPJSKesehatan
 Route::get('sdm-bpjs-kerja', 'Esaku\Sdm\DashboardController@getDataBPJSTenagaKerja');
 Route::get('sdm-gaji', 'Esaku\Sdm\DashboardController@getDataGaji');
 Route::get('sdm-umur', 'Esaku\Sdm\DashboardController@getDataUmur');
+Route::get('sdm-searchbpjs-sehat', 'Esaku\Sdm\DashboardController@getListBPJSKesehatanTerdaftar');
+Route::get('sdm-searchnonbpjs-sehat', 'Esaku\Sdm\DashboardController@getListBPJSKesehatanNonTerdaftar');
+Route::get('sdm-searchbpjs-kerja', 'Esaku\Sdm\DashboardController@getListBPJSKetenagaanTerdaftar');
+Route::get('sdm-searchnonbpjs-kerja', 'Esaku\Sdm\DashboardController@getListBPJSKetenagaanNonTerdaftar');

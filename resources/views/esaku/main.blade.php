@@ -511,6 +511,16 @@
         $.fn.bootstrapDP = datepicker;
     }
 
+    // if("{{ Session::get('lokasi')}}" == "05") {
+    //     $('.logo').css('background', 'url("{{ asset("asset_sdm/img/logo.png") }}") no-repeat')
+    //     $('.logo').css('height', '45px')
+    // }
+
+    if($_SERVER['SERVER_NAME'] == 'sdm.trengginasjaya.com') {
+        $('.logo').css('background', 'url("{{ asset("asset_sdm/img/logo.png") }}") no-repeat')
+        $('.logo').css('height', '45px')
+    }
+
     class TouchDragListener {
         constructor({el, touchStartCallback, touchEndCallback, touchMoveCallback, showLog}) {
             this.el = el;

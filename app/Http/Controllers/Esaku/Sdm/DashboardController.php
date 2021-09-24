@@ -29,7 +29,111 @@ class DashboardController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-     public function getDataListClient(Request $request) {
+    public function getListBPJSKetenagaanNonTerdaftar(Request $request) {
+        try {
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'esaku-dash/sdm-searchnonbpjs-kerja',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ], 
+                'query' => [
+                    'bpjs' => $request->query('bpjs')
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+            }
+            return response()->json(['data' => $data, 'status'=>true], 200);
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+        }
+    }
+
+    public function getListBPJSKetenagaanTerdaftar(Request $request) {
+        try {
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'esaku-dash/sdm-searchbpjs-kerja',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ], 
+                'query' => [
+                    'bpjs' => $request->query('bpjs')
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+            }
+            return response()->json(['data' => $data, 'status'=>true], 200);
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+        }
+    }
+
+    public function getListBPJSKesehatanNonTerdaftar(Request $request) {
+        try {
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'esaku-dash/sdm-searchnonbpjs-sehat',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ], 
+                'query' => [
+                    'bpjs' => $request->query('bpjs')
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+            }
+            return response()->json(['data' => $data, 'status'=>true], 200);
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+        }
+    }
+
+    public function getListBPJSKesehatanTerdaftar(Request $request) {
+        try {
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'esaku-dash/sdm-searchbpjs-sehat',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ], 
+                'query' => [
+                    'bpjs' => $request->query('bpjs')
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+            }
+            return response()->json(['data' => $data, 'status'=>true], 200);
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+        }
+    }
+
+    public function getDataListClient(Request $request) {
         try {
             $client = new Client();
             $response = $client->request('GET',  config('api.url').'esaku-dash/sdm-list-client',[
