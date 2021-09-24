@@ -27,7 +27,7 @@
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-body form-header" style="padding-top:0.5rem;padding-bottom:0.5rem;min-height:48px;" >
-                    <h6 id="judul-form" style="position:absolute;top:25px">Serah Terima Dokumen Offline</h6>
+                    <h6 id="judul-form" style="position:absolute;top:25px">Serah Terima Dokumen Online</h6>
                 </div>
                 <div class="separator mb-2"></div>
                 <div class="card-body pt-3 form-body">
@@ -116,6 +116,11 @@
                                 <span>Data Jurnal</span>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#data-dok" role="tab" aria-selected="true">
+                                <span>File Dokumen</span>
+                            </a>
+                        </li>
                     </ul>
 
                     <div class="tab-content tabcontent-border col-12 p-0" style="margin-bottom:2.5rem">
@@ -166,6 +171,27 @@
                                      <tbody>
                                      </tbody>
                                  </table>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="data-dok" role="tabpanel">
+                            <div class="table-responsive">
+                                <div class='col-md-12 nav-control' style="padding: 0px 5px;">
+                                    <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row-dok"></span></a>
+                                </div>
+
+                                <table class="table table-bordered table-condensed gridexample" id="dok-grid" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                    <thead style="background:#F8F8F8">
+                                        <tr>
+                                            <th style="width:3%" class="text-center">No</th>
+                                            <th style="width:15%" class="text-center">Kode Jenis</th>
+                                            <th style="width:15%">Nama Jenis</th>
+                                            <th style="width:25%">Path File</th>
+                                            <th style="width:5%">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
