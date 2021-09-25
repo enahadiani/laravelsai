@@ -784,12 +784,13 @@
 
             var id = $(this).closest('tr').find('td').eq(0).html();
             var index= $(this).closest('tr').index();
-            var data = {
-                rt: $(this).closest('tr').find('td').eq(3).html(),
-                rw: $(this).closest('tr').find('td').eq(4).html(),
-                kode_rumah: $(this).closest('tr').find('td').eq(0).html(),
-                blok:  $(this).closest('tr').find('td').eq(2).html()
-            };
+            // var data = {
+            //     rt: $(this).closest('tr').find('td').eq(3).html(),
+            //     rw: $(this).closest('tr').find('td').eq(4).html(),
+            //     kode_rumah: $(this).closest('tr').find('td').eq(0).html(),
+            //     blok:  $(this).closest('tr').find('td').eq(2).html()
+            // };
+            var data = dataTable.row(this).data();
             var html = `<div class="preview-header" style="display:block;height:39px;padding: 0 1.75rem" >
                 <h6 style="position: absolute;" id="preview-judul">Preview Data</h6>
                     <span id="preview-nama" style="display:none"></span><span id="preview-id" style="display:none">`+id+`</span> 
@@ -812,24 +813,28 @@
             <div class='preview-body' style='padding: 0 1.75rem;height: calc(75vh - 56px) position:sticky;min-height:300px'>
                 <table class="table table-prev mt-2" width="100%" style="padding-bottom:200px">
                     <tr>
-                    <td style='border:none'>ID Warga</td>
-                    <td style='border:none'>`+data.no_bukti+`</td>
+                    <td style='border:none'>Kode Rumah</td>
+                    <td style='border:none'>`+data.kode_rumah+`</td>
+                    </tr>
+                    <tr>
+                    <td>Tipe</td>
+                    <td>`+data.tipe+`</td>
                     </tr>
                     <tr>
                     <td>Blok</td>
-                    <td>`+data.kode_blok+`</td>
+                    <td>`+data.blok+`</td>
                     </tr>
                     <tr>
-                    <td>Nama</td>
-                    <td>`+data.nama+`</td>
+                    <td>RT</td>
+                    <td>`+data.rt+`</td>
                     </tr>
                     <tr>
-                    <td>Tgl Masuk</td>
-                    <td>`+data.tgl_masuk+`</td>
+                    <td>RW</td>
+                    <td>`+data.rw+`</td>
                     </tr>
                     <tr>
-                    <td>Status Masuk</td>
-                    <td>`+data.sts_masuk+`</td>
+                    <td>Status Huni</td>
+                    <td>`+data.status_huni+`</td>
                     </tr>
                 </table>
             </div>`;
