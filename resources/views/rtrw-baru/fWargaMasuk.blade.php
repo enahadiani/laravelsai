@@ -728,8 +728,6 @@
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
                     window.location.href = "{{ url('rtrw-auth/sesi-habis') }}";
-                }else{
-                    alert('Generate ID Error');
                 }
             }
         });
@@ -1280,6 +1278,15 @@
             </div>`;
             $('#content-bottom-sheet').html(html);
             var tgl = $('#tgl_masuk').val();
+            if(tgl == ""){
+                msgDialog({
+                    id:id,
+                    type:'warning',
+                    title:'Peringatan',
+                    text:'Tgl Masuk wajib diisi terlebih dahulu'
+                });
+                return false;
+            }
             generateIDWarga(tgl);
             $('.selectize2').selectize();
             var scroll = document.querySelector('.detail-body');
