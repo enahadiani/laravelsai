@@ -225,8 +225,19 @@
             </div>
         </footer>
     </main>
-    <script>
-      
+    <script type="text/javascript">
+        // $('.logo-single').css('background', 'url("{{ asset("asset_sdm/img/logo.png") }}") no-repeat')
+        // $('.logo-single').css('height', '80px')
+        // $('.logo-single').css('width', '160px')
+        // $('.logo-single').css('background-size', '60px')
+        // $('.logo-single').css('margin-left', '90px')
+        
+        if("{{ $_SERVER['SERVER_NAME']}}" == 'sdm.trengginasjaya.com') {
+            $('.logo-single').css('background', 'url("{{ asset("asset_sdm/img/logo.png") }}") no-repeat')
+            $('.logo-single').css('height', '80px')
+            $('.logo-single').css('background-size', '60px')
+            $('.logo-single').css('margin-left', '90px')
+        }
         function showNotification(placementFrom, placementAlign, type,title,message) {
             $.notify(
                 {

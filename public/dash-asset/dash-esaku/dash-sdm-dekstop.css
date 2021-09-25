@@ -241,3 +241,27 @@
 #table-list-client::-webkit-scrollbar-thumb:hover {
     background: #555;
 }
+
+.search-box .input-group-append {
+    margin-right: 8px;
+    outline: none;
+    box-shadow: none;
+}
+.search-box .form-control {
+    border-right: none !important;
+}
+
+.icon-input {
+    background-color: #ffffff;
+    border-top: 1px solid #d7d7d7;
+    padding: 8px 20px;
+    border-right: none;
+    border-bottom-right-radius: 1.6px;
+    border-top-right-radius: 1.6px;
+    outline: none;
+    box-shadow: none;
+}
+
+.icon-input .simple-icon-magnifier {
+    color: #000000;
+}

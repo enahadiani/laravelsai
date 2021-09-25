@@ -29,6 +29,33 @@ class DaftarPenjualanController extends Controller
      * @return \Illuminate\Http\Response
      */
 
+    public function show(Request $r){
+        try {
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'esaku-trans/daftar-penjualandetail',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' => [
+                    'no_bukti' => $r->query('no_bukti')
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+            }
+            return response()->json(['data' => $data, 'status'=>true], 200); 
+
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+        }
+    }
+
     public function index(){
         try {
             $client = new Client();

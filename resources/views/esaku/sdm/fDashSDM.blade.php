@@ -260,9 +260,23 @@
                             </div>
                             <div class="card card-dash-2 no-p">
                                 <div class="card-header bg-blue">
-                                    <p id="label-table-bpjs" class="label-table-bpjs">
-                                        Data <span class="ket-bpjs"></span>
-                                    </p>
+                                    <div class="row">
+                                        <div class="col-md-6 col-lg-6 col-xl-6">
+                                            <p id="label-table-bpjs" class="label-table-bpjs">
+                                                Data <span class="ket-bpjs"></span>
+                                            </p>
+                                        </div>
+                                        <div class="col-md-6 col-lg-6 col-xl-6">
+                                            <div class="search-box input-group">
+                                                <input type="text" id="no-bpjs" class="form-control" autocomplete="off" placeholder="Nomor BPJS PPU">
+                                                <div class="input-group-append">
+                                                    <div class="icon-input">
+                                                        <i class="simple-icon-magnifier"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>    
+                                    </div>
                                 </div>
                                 <div class="card-body">
                                     <div class="table-detail" id="table-detail-bpjs">
@@ -295,9 +309,23 @@
                             </div>
                             <div class="card card-dash-2 no-p">
                                 <div class="card-header bg-red">
-                                    <p id="label-table-bpjs" class="label-table-bpjs">
-                                        Data <span class="ketnon-bpjs"></span>
-                                    </p>
+                                    <div class="row">
+                                        <div class="col-md-6 col-lg-6 col-xl-6">
+                                            <p id="label-table-bpjs" class="label-table-bpjs">
+                                                Data  <span class="ketnon-bpjs"></span>
+                                            </p>
+                                        </div>
+                                        <div class="col-md-6 col-lg-6 col-xl-6">
+                                            <div class="search-box input-group">
+                                                <input type="text" id="no-non-bpjs" class="form-control" autocomplete="off" placeholder="Nomor BPJS Non PPU">
+                                                <div class="input-group-append">
+                                                    <div class="icon-input">
+                                                        <i class="simple-icon-magnifier"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> 
+                                    </div>
                                 </div>
                                 <div class="card-body">
                                     <div class="table-detail" id="table-detail-non-bpjs">
@@ -357,6 +385,8 @@
 <script src="{{ asset('helper.js') }}"></script>
 <script type="text/javascript">
 var dataTable = null;
+var $bpjs = 0;
+var $http = null;
 
 $('#jumlah-pria').click(function() {
     var filter = { jk: $(this).data('filter') }
@@ -398,16 +428,142 @@ $('#datatable-karyawan tbody').on('click', 'td', function() {
 })
 
 $('#box-bpjs-sehat').click(function() {
+    $bpjs = 0;
+    $('#no-bpjs').attr('placeholder', 'Nomor BPJS PPU')
+    $('#no-non-bpjs').attr('placeholder', 'Nomor BPJS Non PPU')
     generateDetailBPJSKesehatan()
 })
 
 $('#box-bpjs-kerja').click(function() {
+    $bpjs = 1;
+    $('#no-bpjs').attr('placeholder', 'Nomor BPJS Ketenagaan Aktif')
+    $('#no-non-bpjs').attr('placeholder', 'Nomor BPJS Ketenagaan Nonaktif')
     generateDetailBPJSKerja()
 })
 
 $('#box-client').click(function() {
     generateListKomposisiClient()
     generateKomposisiClient()
+})
+
+$('#no-bpjs').on('input', function() {
+    if($http) {
+        console.log('dibatalkan requeest')
+        $http.abort()
+    }
+
+    var html = '';
+    var url = null;
+    if($bpjs == 0) {
+        url = "{{ url('esaku-dash/sdm-searchbpjs-sehat') }}";
+    } else {
+        url = "{{ url('esaku-dash/sdm-searchbpjs-kerja') }}";
+    }
+
+    $http = $.ajax({
+            type: 'GET',
+            url: url,
+            data: { bpjs: $(this).val() },
+            dataType: 'json',
+            async:true,
+            beforeSend: function() {
+                $('#table-bpjs tbody').empty()
+                html = `<tr>
+                    <td colspan="4" style="text-align: center;">Memuat data...</td>    
+                </tr>`
+                $('#table-bpjs tbody').append(html)
+                html = '';
+            },
+            success:function(result) {
+                $('#table-bpjs tbody').empty()
+                var data = result.data;
+                if(data.status) {
+                    if(data.data.length > 0) {
+                        var no = 1;
+                        for(var i=0;i<data.data.length;i++) {
+                            var row = data.data[i];
+                            html += `<tr>
+                                    <td>${no}</td>    
+                                    <td>${row.nik}</td>    
+                                    <td>${row.nama}</td>    
+                                    <td>${row.no_bpjs}</td>    
+                                </tr>`
+                            no++;
+                        }
+                    } else {
+                        html += `<tr>
+                        <td colspan="4" style="text-align: center;">Data tidak ditemukan</td>    
+                        </tr>`
+                    }
+                } else {
+                    html += `<tr>
+                    <td colspan="4" style="text-align: center;">Data tidak ditemukan</td>    
+                    </tr>`
+                }
+                
+                $('#table-bpjs tbody').append(html)
+            },
+        });
+})
+
+$('#no-non-bpjs').on('input', function() {
+    if($http) {
+        console.log('dibatalkan requeest')
+        $http.abort()
+    }
+
+    var html = '';
+    var url = null;
+    if($bpjs == 0) {
+        url = "{{ url('esaku-dash/sdm-searchnonbpjs-sehat') }}";
+    } else {
+        url = "{{ url('esaku-dash/sdm-searchnonbpjs-kerja') }}";
+    }
+
+    $http = $.ajax({
+            type: 'GET',
+            url: url,
+            data: { bpjs: $(this).val() },
+            dataType: 'json',
+            async:true,
+            beforeSend: function() {
+                $('#table-bpjs tbody').empty()
+                html = `<tr>
+                    <td colspan="4" style="text-align: center;">Memuat data...</td>    
+                </tr>`
+                $('#table-bpjs tbody').append(html)
+                html = '';
+            },
+            success:function(result) {
+                $('#table-bpjs tbody').empty()
+                var data = result.data;
+                if(data.status) {
+                    if(data.data.length > 0) {
+                        var no = 1;
+                        for(var i=0;i<data.data.length;i++) {
+                            var row = data.data[i];
+                            html += `<tr>
+                                    <td>${no}</td>    
+                                    <td>${row.nik}</td>    
+                                    <td>${row.nama}</td>    
+                                    <td>${row.no_bpjs}</td>    
+                                </tr>`
+                            no++;
+                        }
+                    } else {
+                        html += `<tr>
+                        <td colspan="4" style="text-align: center;">Data tidak ditemukan</td>    
+                        </tr>`
+                    }
+                } else {
+                    html += `<tr>
+                    <td colspan="4" style="text-align: center;">Data tidak ditemukan</td>    
+                    </tr>`
+                }
+                
+                $('#table-bpjs tbody').append(html)
+            },
+        });
 })
 
 $.ajax({
@@ -706,7 +862,7 @@ function generateDetailBPJSKerja() {
                 $('#jumlah-non-bpjs').text(data.jumlah_non_terdaftar)
                 $('#persentase-non-bpjs').text(data.percentage_non_terdaftar + "%")
                 $('.ket-bpjs').text('BPJS Ketenagakerjaan Aktif')
-                $('.ketnon-bpjs').text('BPJS Ketenagakerjaan Aktif Nonaktif')
+                $('.ketnon-bpjs').text('BPJS Ketenagakerjaan Nonaktif')
 
                 if(data.data_terdaftar.length > 0) {
                     var no = 1;
