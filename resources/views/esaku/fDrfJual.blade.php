@@ -15,6 +15,11 @@
 {
     cursor:pointer;
 }
+.web_form_back {
+    position: absolute;
+    left: 0;
+    bottom: 16px;
+}
 </style>
 <div class="container-fluid mt-3" id="saku-form" style="display: none;">
     <div class="row">
@@ -93,6 +98,7 @@
                                         <tbody></tbody>
                                     </table>
                                 </div>
+                                <button class="btn btn-danger web_form_back" type="button">Back</button>
                                 <div class="col-6 mt-2 float-right">
                                     <div class="form-group row">
                                          <label for="judul" class="col-4 col-form-label" style="font-size:16px">Pembayaran</label>
@@ -101,7 +107,7 @@
                                              <input type="hidden" style="" name="kembalian" min="1" class="form-control currency" id="kembalian" required readonly>
                                          </div>
                                          <div class="col-2">
-                                            <button class="btn btn-info web_form_back" type="button">Back</button>
+                                             <button class="btn btn-info" type="submit" id="btnBayar">Bayar</button>
                                          </div>
                                     </div>
                                 </div>
@@ -115,8 +121,9 @@
 </div>
 {{-- END FORM POS --}}
 
+<div id="area_print"></div>
+
 {{-- EDIT MODAL --}}
-<!-- FORM EDIT MODAL -->
 <div class='modal' id='modal-edit' tabindex='-1' role='dialog'>
     <div class='modal-dialog' role='document'>
             <div class='modal-content'>
@@ -166,6 +173,107 @@
 </div>
 {{-- END EDIT MODAL --}}
 
+{{-- MODAL BAYAR --}}
+<div class='modal' id='modal-bayar' tabindex='-1' role='dialog'>
+    <div class='modal-dialog modal-sm' role='document'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+                <h5 class='modal-title'>Pilih Nominal</h5>
+                <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+                </button>
+            </div>
+            <div class='modal-body'>
+                <div class='row mb-2' style="text-align: center;">
+                <a class="btn btn-lg btn-secondary" id="nom0" style="width: 126px;">Uang Pas</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="btn btn-lg btn-secondary" id='nom1' style="width: 126px;">1.000</a></div>
+                <div class='row mb-2'><a class="btn btn-lg btn-secondary" id='nom2' style="width: 126px;">2.000</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="btn btn-lg btn-secondary" id='nom3' style="width: 126px;">5.000</a></div>
+                <div class='row mb-2'><a class="btn btn-lg btn-secondary" id='nom4' style="width: 126px;">10.000</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="btn btn-lg btn-secondary" id='nom5' style="width: 126px;">20.000</a></div>
+                <div class='row mb-2'><a class="btn btn-lg btn-secondary" id='nom6' style="width: 126px;">50.000</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="btn btn-lg btn-secondary" id='nom7' style="width: 126px;">100.000</a></div>
+                <div class='form-group row'>
+                    <label for="judul" class="col-3 col-form-label">Nominal Bayar</label>
+                    <div class="col-9">
+                    <input type='text' class='form-control currency' maxlength='100' id='inp-byr' readonly>
+                    </div>
+                </div>
+                <div class='form-group row'>
+                    <div class="col-9">
+                    <input type='hidden' class='form-control' id='param' readonly>
+                    </div>
+                </div>
+            </div>
+            <div class='modal-footer'>
+            <button type='button' id='btn-ok' class='btn btn-success'>OK</button>
+            <button type='button' id='btn-clear' class='btn btn-default'>C</button>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- END MODAL BAYAR --}}
+
+{{-- MODAL BAYAR 2 --}}
+<div class="modal" id="modal-bayar2" tabindex="-1" role="dialog" aria-modal="true">
+    <div role="document" style="" class="modal-dialog modal-sm modal-dialog-centered">
+        <div class="modal-content" style="border-radius: 15px !important;">
+            <div class="modal-header " style="display:block;height:80px !important">
+                <div class="row text-center" style="">
+                    <div class="col-md-12">
+                        <h6 class="mt-2">Kembalian</h6>
+                        <h6 id="modal-no_jual" hidden></h6>
+                        <h5 class="text-info" id="modal-kembalian"></h5>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="row mb-2" style="">
+                    <div class="col-6" style="">
+                        Total 
+                    </div>
+                    <div class="col-6 text-right" id="modal-totrans">
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-6">
+                        Diskon 
+                    </div>
+                    <div class="col-6 text-right" id="modal-diskon">
+                    </div>
+                </div>
+                <!-- <div class="row mb-2">
+                    <div class="col-6">
+                        PPN 
+                    </div>
+                    <div class="col-6 text-right" id="modal-ppn">
+                    </div>
+                </div> -->
+                <div class="row mb-2">
+                    <div class="col-6">
+                        Pembulatan 
+                    </div>
+                    <div class="col-6 text-right">
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-6">
+                        Total Bayar
+                    </div>
+                    <div class="col-6 text-right" id="modal-tostlhdisk">
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-6">
+                    Pembayaran
+                    </div>
+                    <div class="col-6 text-right" id="modal-tobyr">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="padding: 0;">
+            <button id="cetakBtn" type="button" class="btn btn-info btn-block" style="border-bottom-left-radius: 15px;border-bottom-right-radius: 15px;">Cetak</button>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- END MODAL BAYAR 2 --}}
+
 
 <script src="{{url('asset_elite/inputmask.js')}}"></script>
 <script src="{{ asset('helper.js') }}"></script>
@@ -177,6 +285,7 @@
 var $dtBrg = [];
 var $dtBrg2 = [];
 var count= 0;
+var $no_open = "";
 
 $('#kd-barang2').focus();
 
@@ -474,22 +583,25 @@ function addBarangBarcode() {
         html += `<tr class="row-barang">
             <td style="width: 30%;">
                 ${nama}
-                <input type="hidden" class="form-control inp-kdb" value="${kd}" disabled>
+                <input type="hidden" name="kode_barang[]" class="form-control inp-kdb" value="${kd}" disabled>
             </td>    
             <td style="width: 20%;">
-                <input type="text" class="form-control currencies inp-hrgb" value="${toRp(hrg)}" style="text-align: right;" disabled>
+                <input type="text" name="harga_barang[]" class="form-control currencies inp-hrgb" value="${toRp(hrg)}" style="text-align: right;" disabled>
             </td>    
             <td style="width: 15%;">
-                <input type="text" class="form-control currencies inp-qtyb" value="${parseFloat(qty)}" style="text-align: right;">    
+                <input type="text" name="qty_barang[]" class="form-control currencies inp-qtyb" value="${parseFloat(qty)}" style="text-align: right;">    
             </td>    
             <td style="width: 15%;">
-                <input type="text" class="form-control currencies inp-subb" value="${toRp(sub)}" style="text-align: right;" disabled>    
+                <input type="text" name="sub_barang[]" class="form-control currencies inp-subb" value="${toRp(sub)}" style="text-align: right;" disabled>    
             </td>    
-            <td style="width: 15%;">
-                <input type="text" class="form-control currencies inp-disc" value="${toRp(disc)}" style="text-align: right;" disabled>    
-                <input type="hidden" class="form-control currencies inp-ppn" value="${parseFloat(ppn)}" disabled>    
+            <td style="width: 10%;">
+                <input type="text" name="disc_barang[]" class="form-control currencies inp-disc" value="${toRp(disc)}" style="text-align: right;" disabled>    
+                <input type="hidden" name="ppn_barang[]" class="form-control currencies inp-ppn" value="${parseFloat(ppn)}" disabled>    
             </td>    
-            <td>&nbsp;</td>    
+            <td style="width: 10%;">
+                <a href="#" class="btn btn-sm ubah-barang" style="font-size:18px !important;padding:0"><i class="simple-icon-pencil"></i></a>&nbsp;
+                <a href="#" class="btn btn-sm hapus-item" style="font-size:18px !important;margin-left:10px;padding:0"><i class="simple-icon-trash"></i></a>
+            </td>    
         </tr>`;
             
         $("#input-grid2").append(html);
@@ -555,22 +667,25 @@ function addBarangSelect() {
                 html += `<tr class="row-barang">
                     <td style="width: 30%;">
                         ${namaSelected}
-                        <input type="hidden" class="form-control inp-kdb" value="${barangSelected}" disabled>
+                        <input type="hidden" name="kode_barang[]" class="form-control inp-kdb" value="${barangSelected}" disabled>
                     </td>    
                     <td style="width: 20%;">
-                        <input type="text" class="form-control currencies inp-hrgb" value="${toRp(hrgSelected)}" style="text-align: right;" disabled>
+                        <input type="text" name="harga_barang[]" class="form-control currencies inp-hrgb" value="${toRp(hrgSelected)}" style="text-align: right;" disabled>
                     </td>    
                     <td style="width: 15%;">
-                        <input type="text" class="form-control currencies inp-qtyb" value="${parseFloat(qtySelected)}" style="text-align: right;">    
+                        <input type="text" name="qty_barang[]" class="form-control currencies inp-qtyb" value="${parseFloat(qtySelected)}" style="text-align: right;">    
                     </td>    
                     <td style="width: 15%;">
-                        <input type="text" class="form-control currencies inp-subb" value="${toRp(subSelected)}" style="text-align: right;" disabled>    
+                        <input type="text" name="sub_barang[]" class="form-control currencies inp-subb" value="${toRp(subSelected)}" style="text-align: right;" disabled>    
                     </td>    
-                    <td style="width: 15%;">
-                        <input type="text" class="form-control currencies inp-disc" value="${toRp(discSelected)}" style="text-align: right;" disabled>    
-                        <input type="hidden" class="form-control currencies inp-ppn" value="${parseFloat(ppnSelected)}" disabled>    
+                    <td style="width: 10%;">
+                        <input type="text" name="disc_barang[]" class="form-control currencies inp-disc" value="${toRp(discSelected)}" style="text-align: right;" disabled>    
+                        <input type="hidden" name="ppn_barang[]" class="form-control currencies inp-ppn" value="${parseFloat(ppnSelected)}" disabled>    
                     </td>    
-                    <td>&nbsp;</td>    
+                    <td style="width: 10%;">
+                        <a href="#" class="btn btn-sm ubah-barang" style="font-size:18px !important;padding:0"><i class="simple-icon-pencil"></i></a>&nbsp;
+                        <a href="#" class="btn btn-sm hapus-item" style="font-size:18px !important;margin-left:10px;padding:0"><i class="simple-icon-trash"></i></a>
+                    </td>    
                 </tr>`;
                         
                 $("#input-grid2").append(html);
@@ -582,6 +697,78 @@ function addBarangSelect() {
         });
     }
 }
+
+function hapusBarang(rowindex){
+    $("#input-grid2 tr:eq("+rowindex+")").remove();
+    hitungTotal();
+}
+
+function ubahBarang(rowindex){
+    $('.row-barang').removeClass('set-selected');
+    $("#input-grid2 tbody tr:eq("+rowindex+")").addClass('set-selected');
+
+    var kd = $("#input-grid2 tbody tr:eq("+rowindex+")").find('.inp-kdb').val();
+    var qty = $("#input-grid2 tbody tr:eq("+rowindex+")").find('.inp-qtyb').val();
+    var harga = $("#input-grid2 tbody tr:eq("+rowindex+")").find('.inp-hrgb').val();    
+    var disc = $("#input-grid2 tbody tr:eq("+rowindex+")").find('.inp-disc').val(); 
+    var ppn = $("#input-grid2 tbody tr:eq("+rowindex+")").find('.inp-ppn').val();
+
+    $('#modal-edit-kode')[0].selectize.setValue(kd);
+    $('#modal-edit-kode').val(kd);
+    $('#modal-edit-qty').val(qty);
+    $('#modal-edit-harga').val(harga);
+    $('#modal-edit-disc').val(disc);
+    $('#modal-edit-ppn').val(ppn);
+        
+    $('#modal-edit').modal('show');
+    var selectKode = $('#modal-edit-kode').data('selectize');
+    selectKode.disable();
+    $('.gridexample').formNavigation();
+}
+
+function closePrint() {
+    document.body.removeChild(this.__container__);
+}
+
+function setPrint() {
+    this.contentWindow.__container__ = this;
+    this.contentWindow.onbeforeunload = closePrint;
+    this.contentWindow.onafterprint = closePrint;
+    this.contentWindow.focus();
+    this.contentWindow.print();
+}
+
+function printPage(sURL) {
+    var oHiddFrame = document.createElement("iframe");
+    oHiddFrame.onload = setPrint;
+    oHiddFrame.style.position = "fixed";
+    oHiddFrame.style.right = "0";
+    oHiddFrame.style.bottom = "0";
+    oHiddFrame.style.width = "0";
+    oHiddFrame.style.height = "0";
+    oHiddFrame.style.border = "0";
+    oHiddFrame.src = sURL;
+    document.body.appendChild(oHiddFrame);
+}
+
+function resetForm() {
+    $('#kd-barang2').val('');
+    $('#todisk').val(0);
+    $('#totrans').val(0);
+    $('#input-grid2 tbody').empty();
+    $('#tobyr').val(0);
+    $('#tostlh').val(0);
+    $('#kembalian').val(0);
+    $('#inp-byr').val(0);
+    $('#param').val('');
+}
+
+$('#cetakBtn').click(function(){
+    var no_jual = $('#modal-no_jual').text();
+    printPage("{{ url('esaku-trans/nota') }}/?no_jual="+no_jual);
+    resetForm();
+    $('#modal-bayar2').modal('hide');
+}); 
 
 $('#todisk').change(function(e){
     e.preventDefault();
@@ -612,12 +799,63 @@ $('#input-grid2').on('keydown', '.inp-qtyb', function(e){
     }
 });
 
+$('#web-form-pos').on('click', '#edit-qty', function(e){
+    $('.inp-qtyb').prop('readonly', false);
+    $('.inp-qtyb').first().focus();
+    $('.inp-qtyb').first().select(); 
+});
+
 $('#web-form-pos').on('click', '#pbyr', function(e){
     $('#tobyr').focus(); 
 });
 
 $('#tobyr').change(function(){
     hitungKembali();
+});
+
+$('#btn-ok').click(function(){
+    var tot = toNilai($('#inp-byr').val());
+    $('#tobyr').val(toRp(tot));
+    hitungTotal();
+    $('#modal-bayar').modal('hide');
+    $('#inp-byr').val(0);
+    $('#param').val('');
+});
+
+$('#kembalian').keydown(function(e){
+    var value = String.fromCharCode(e.which) || e.key;
+        
+    if (e.key == 'ArrowUp') {
+        e.preventDefault();
+        $('#tobyr').focus();
+    }
+});
+
+$('#btn-byr').click(function(){
+    $('#modal-bayar').modal('show');
+});
+
+$("#input-grid2").on("dblclick", '.row-barang',function(){
+    var index = $(this).closest('tr').index();
+    ubahBarang(index);
+});
+
+$("#input-grid2").on("click", '.ubah-barang', function(){
+    var index = $(this).closest('tr').index();
+    ubahBarang(index);
+});
+    
+$("#input-grid2").on("click", '.hapus-item', function(){
+    var index = $(this).closest('tr').index();
+    hapusBarang(index);
+});
+
+$(document).on("keypress", '#modal-bayar2', function (e) {
+    var code = e.keyCode || e.which;
+    if (code == 13) {
+        e.preventDefault();
+        $('#cetakBtn').click();
+    }
 });
 
 $(document).on("keypress", 'form', function (e) {
@@ -710,6 +948,7 @@ function editData(no_bukti) {
             var res = result.data;
             var row = res.data[0]
             if(res.status) {
+                $no_open = row.no_open
                 $('#no_open').text(row.no_open)
                 $('#tostlh').val(parseFloat(row.total_trans))
                 $('#todisk').val(parseFloat(row.diskon))
@@ -723,22 +962,25 @@ function editData(no_bukti) {
                         html += `<tr class="row-barang">
                             <td style="width: 30%;">
                                 ${row2.nama_brg}
-                                <input type="hidden" class="form-control inp-kdb" value="${row2.kode_barang}" disabled>
+                                <input type="hidden" name="kode_barang[]" class="form-control inp-kdb" value="${row2.kode_barang}" disabled>
                             </td>    
                             <td style="width: 20%;">
-                                <input type="text" class="form-control currencies inp-hrgb" value="${parseFloat(row2.harga)}" disabled>
+                                <input type="text" name="harga_barang[]" class="form-control currencies inp-hrgb" value="${parseFloat(row2.harga)}" disabled>
                             </td>    
                             <td style="width: 15%;">
-                                <input type="text" class="form-control currencies inp-qtyb" value="${parseFloat(row2.jumlah)}">    
+                                <input type="text" name="qty_barang[]" class="form-control currencies inp-qtyb" value="${parseFloat(row2.jumlah)}">    
                             </td>    
                             <td style="width: 15%;">
-                                <input type="text" class="form-control currencies inp-subb" value="${parseFloat(row2.subtotal)}" disabled>    
+                                <input type="text" name="sub_barang[]" class="form-control currencies inp-subb" value="${parseFloat(row2.subtotal)}" disabled>    
                             </td>    
-                            <td style="width: 15%;">
-                                <input type="text" class="form-control currencies inp-disc" value="${parseFloat(row2.diskon)}" disabled>    
-                                <input type="hidden" class="form-control currencies inp-ppn" value="${parseFloat(row2.ppn)}" disabled>    
+                            <td style="width: 10%;">
+                                <input type="text" name="disc_barang[]" class="form-control currencies inp-disc" value="${parseFloat(row2.diskon)}" disabled>    
+                                <input type="hidden" name="ppn_barang[]" class="form-control currencies inp-ppn" value="${parseFloat(row2.ppn)}" disabled>    
                             </td>    
-                            <td>&nbsp;</td>    
+                            <td style="width: 10%;">
+                                <a href="#" class="btn btn-sm ubah-barang" style="font-size:18px !important;padding:0"><i class="simple-icon-pencil"></i></a>&nbsp;
+                                <a href="#" class="btn btn-sm hapus-item" style="font-size:18px !important;margin-left:10px;padding:0"><i class="simple-icon-trash"></i></a>
+                            </td>    
                         </tr>`
                     }
                     $("#input-grid2").append(html);
@@ -769,4 +1011,140 @@ function editData(no_bukti) {
     });
 }
 // EDIT DATA
+
+// EDIT MODAL
+$('#edit-submit').click(function(e){
+    e.preventDefault();
+    
+    var html = '';
+    var hrg = toNilai($('#modal-edit-harga').val());
+    var ppn = toNilai($('#modal-edit-ppn').val());
+    var qty = toNilai($('#modal-edit-qty').val());
+    var disc = toNilai($('#modal-edit-disc').val());
+    var kd = $('#modal-edit-kode option:selected').val();
+    var nama = $('#modal-edit-kode option:selected').text();
+    var split = nama.split('-')
+    var sub = (+qty * +hrg);
+    var tgl = "{{date('Y-m-d')}}";
+
+    $.ajax({
+        type:'GET',
+        url:"{{url('esaku-trans/penjualan-bonus')}}/"+kd+"/"+tgl+"/"+qty+"/"+hrg,
+        dataType: 'json',
+        async:false,
+        success: function(result) {
+            qty=result.data.jumlah;
+            disc=result.data.diskon;
+            sub = (hrg*qty);
+
+            html += `<tr class="row-barang">
+                <td style="width: 30%;">
+                    ${split[1]}
+                    <input type="hidden" name="kode_barang[]" class="form-control inp-kdb" value="${kd}" disabled>
+                </td>    
+                <td style="width: 20%;">
+                    <input type="text" name="harga_barang[]" class="form-control currencies inp-hrgb" value="${toRp(hrg)}" style="text-align: right;" disabled>
+                </td>    
+                <td style="width: 15%;">
+                    <input type="text" name="qty_barang[]" class="form-control currencies inp-qtyb" value="${parseFloat(qty)}" style="text-align: right;">    
+                </td>    
+                <td style="width: 15%;">
+                    <input type="text" name="sub_barang[]" class="form-control currencies inp-subb" value="${toRp(sub)}" style="text-align: right;" disabled>    
+                </td>    
+                <td style="width: 10%;">
+                    <input type="text" name="disc_barang[]" class="form-control currencies inp-disc" value="${toRp(disc)}" style="text-align: right;" disabled>    
+                    <input type="hidden" name="ppn_barang[]" class="form-control currencies inp-ppn" value="${parseFloat(ppn)}" disabled>    
+                </td>    
+                <td style="width: 10%;">
+                    <a href="#" class="btn btn-sm ubah-barang" style="font-size:18px !important;padding:0"><i class="simple-icon-pencil"></i></a>&nbsp;
+                    <a href="#" class="btn btn-sm hapus-item" style="font-size:18px !important;margin-left:10px;padding:0"><i class="simple-icon-trash"></i></a>
+                </td>    
+            </tr>`;
+                    
+            $('.set-selected').closest('tr').remove();
+            $("#input-grid2").append(html);
+            hitungTotal();    
+            $('.gridexample').formNavigation();
+            $('#modal-edit').modal('hide');
+        }
+    });
+});
+// END EDIT MODAL
+
+// SAVE FORM
+$('#web-form-pos').submit(function(e){
+    e.preventDefault();
+    var totrans=toNilai($('#totrans').val());
+    var todisk=toNilai($('#todisk').val());
+    var tostlh=toNilai($('#tostlh').val());
+    var tobyr=toNilai($('#tobyr').val());
+    var kembalian=tobyr-tostlh;
+    
+    if(totrans <= 0){
+        msgDialog({
+            id: '',
+            type:'sukses',
+            title: 'Error',
+            text:'Total Transaksi tidak valid. Total Transaksi tidak boleh kurang dari atau sama dengan 0'
+        });
+    } else if(tobyr <= 0) {
+        msgDialog({
+            id: '',
+            type:'sukses',
+            title: 'Error',
+            text:'Total Bayar tidak valid. Total Bayar tidak boleh kurang dari atau sama dengan 0'
+        });
+    } else if(kembalian < 0) {
+        msgDialog({
+            id: '',
+            type:'sukses',
+            title: 'Error',
+            text:'Total Bayar kurang dari Total Transaksi'
+        });
+    } else if($no_open == "" || $no_open == "-") {
+        msgDialog({
+            id: '',
+            type:'warning',
+            text:'Anda belum melakukan open kasir'
+        });
+    } else {
+        var formData = new FormData(this);
+        formData.append('no_open', $no_open);
+        for(var pair of formData.entries()) {
+            console.log(pair[0]+ ', '+ pair[1]); 
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: "{{url('esaku-trans/penjualan')}}",
+            dataType: 'json',
+            data: formData,
+            async:false,
+            contentType: false,
+            cache: false,
+            processData: false,
+            success: function(result) {
+                if(result.data.status){
+                    $('#modal-totrans').text(sepNum(totrans));
+                    $('#modal-diskon').text(sepNum(todisk)); 
+                    $('#modal-tostlhdisk').text(sepNum(tostlh));
+                    $('#modal-tobyr').text(sepNum(tobyr));
+                    $('#modal-kembalian').text(sepNum(kembalian));
+                    $('#modal-no_jual').text(result.data.no_jual);
+                    $('#modal-bayar2').modal('show');
+                } else if(!result.data.status && result.data.message === "Unauthorized") {
+                    window.location.href = "{{ url('/esaku-auth/sesi-habis') }}";
+                } else {
+                    msgDialog({
+                        id: '',
+                        type:'sukses',
+                        title: 'Error',
+                        text: result.data.message
+                    });
+                }
+            }
+        });
+    }
+});
+// END SAVE FORM
 </script>
