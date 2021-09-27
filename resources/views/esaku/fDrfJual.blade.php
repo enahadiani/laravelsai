@@ -97,7 +97,7 @@
                                     <div class="form-group row">
                                          <label for="judul" class="col-4 col-form-label" style="font-size:16px">Pembayaran</label>
                                          <div class="col-6">
-                                             <input type="text" name="total_bayar" min="1" class="form-control currency" id="tobyr" required value="0" disabled>
+                                             <input type="text" name="total_bayar" min="1" class="form-control currency" id="tobyr" required value="0">
                                              <input type="hidden" style="" name="kembalian" min="1" class="form-control currency" id="kembalian" required readonly>
                                          </div>
                                          <div class="col-2">
