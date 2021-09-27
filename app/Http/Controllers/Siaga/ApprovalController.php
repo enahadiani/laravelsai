@@ -69,7 +69,7 @@ class ApprovalController extends Controller
         try {
             
             $fields = array(
-                'no_pesan' => array($no_pesan),
+                'no_pesan' => $no_pesan,
             );
             
             $client = new Client();

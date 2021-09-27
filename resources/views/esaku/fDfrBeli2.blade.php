@@ -715,8 +715,8 @@
             var total = totrans - todisk;
             var ppn = (total * 10)/100;
             $("#toppn").val(toRp(ppn));
-            var total2 = total+ppn;
-            $("#tostlh").val(toRp(total2));
+            // var total2 = total+ppn;
+            // $("#tostlh").val(toRp(total2));
             
         }
         
@@ -752,8 +752,9 @@
             
             var total_disk= toNilai($('#todisk').val());
             var total_stlh = +total_brg - +total_disk;
-            var total_ppn = toNilai($('#toppn').val());
-            var total = total_stlh + total_ppn; 
+            // var total_ppn = toNilai($('#toppn').val());
+            // var total = total_stlh + total_ppn; 
+            var total = total_stlh;
             $('#tostlh').val(toRp(total));
             
         }
