@@ -40,14 +40,14 @@ return [
         'is3ds'         => env('MIDTRANS_IS_3DS', true),                
     ],
     'github' => [
-        'client_id' => '372e99918bc8eb7fac71',
-        'client_secret' => '98ced344ed28619fd43f06a6c83e518e44b5c8c4',
-        'redirect' => 'https://app.simkug.com/socialite/callback/github',
+        'client_id' => env('SOCIALITE_GITHUB_CLIENT_ID'),
+        'client_secret' => env('SOCIALITE_GITHUB_CLIENT_SECRET'),
+        'redirect' => env('SOCIALITE_REDIRECT').'/socialite/callback/github',
     ], 
     'google' => [
-        'client_id' => '161169806009-3vk23oo4kmbs6l1s6s07is0sq5p97gk3.apps.googleusercontent.com',
-        'client_secret' => 'RwCwhc8clECmDX41JEgqZMXd',
-        'redirect' => 'https://app.simkug.com/socialite/callback/google',
+        'client_id' => env('SOCIALITE_GOOGLE_CLIENT_ID'),
+        'client_secret' => env('SOCIALITE_GOOGLE_CLIENT_SERVER'),
+        'redirect' => env('SOCIALITE_REDIRECT').'/socialite/callback/google',
     ], 
 
 ];
