@@ -149,6 +149,77 @@ class PenjualanController extends Controller
         }
     }
 
+    public function update(Request $request) {
+        try {
+        $this->validate($request, [
+            'no_open' => 'required',
+            'no_jual' => 'required',
+            'total_trans' => 'required',
+            'total_disk' => 'required',
+            'total_bayar' => 'required',
+            // 'total_ppn' => 'required',
+            'kode_barang' => 'required|array',
+            'qty_barang' => 'required|array',
+            'harga_barang' => 'required|array',
+            'disc_barang' => 'required|array',
+            'ppn_barang' => 'required|array',
+            'sub_barang' => 'required|array'
+        ]);
+        $data_harga = array();
+        for($i=0;$i<count($request->harga_barang);$i++){
+            $data_harga[] = intval(str_replace('.','', $request->harga_barang[$i]));
+        }
+        $data_diskon = array();
+        for($i=0;$i<count($request->disc_barang);$i++){
+            $data_diskon[] = intval(str_replace('.','', $request->disc_barang[$i]));
+        }
+        $data_sub = array();
+        for($i=0;$i<count($request->sub_barang);$i++){
+            $data_sub[] = intval(str_replace('.','', $request->sub_barang[$i]));
+        }
+
+        $data_ppn = array();
+        for($i=0;$i<count($request->ppn_barang);$i++){
+            $data_ppn[] = intval(str_replace('.','', $request->ppn_barang[$i]));
+        }
+
+        $fields = array (
+            'kode_pp' => Session::get('kodePP'),
+            'no_open' => $request->no_open,
+            'no_jual' => $request->no_jual,
+            'total_trans' => intval(str_replace('.','', $request->total_trans)),
+            'diskon' => intval(str_replace('.','', $request->total_disk)),
+            // 'total_ppn' => intval(str_replace('.','', $request->total_ppn)),
+            'total_bayar' => intval(str_replace('.','', $request->total_bayar)),
+            'kode_barang' => $request->kode_barang,
+            'qty_barang' => $request->qty_barang,
+            'harga_barang' => $data_harga,
+            'diskon_barang' => $data_diskon,
+            'sub_barang'=> $data_sub,
+            'ppn_barang'=> $data_ppn
+        );
+
+            $client = new Client();
+            $response = $client->request('POST',  config('api.url').'esaku-trans/penjualan-ubah',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Content-Type'     => 'application/json'
+                ],
+                'body' => json_encode($fields)
+            ]);
+            if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $data = json_decode($response_data,true);
+                    return response()->json(['data' => $data], 200);  
+            }
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res, 'status'=>false], 200);
+        }
+    }
+
     public function printNota(Request $request) {
         try {
             $client = new Client();

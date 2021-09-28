@@ -34,6 +34,7 @@ Route::post('aktap', 'Esaku\Aktap\TransAktivaTetapController@store');
 Route::get('penjualan-open', 'Esaku\Inventori\PenjualanController@getNoOpen');
 Route::get('penjualan-bonus/{kd_barang}/{tanggal}/{jumlah}/{harga}', 'Esaku\Inventori\PenjualanController@cekBonus');
 Route::post('penjualan', 'Esaku\Inventori\PenjualanController@store');
+Route::post('penjualan-ubah', 'Esaku\Inventori\PenjualanController@update');
 Route::get('nota', 'Esaku\Inventori\PenjualanController@printNota');
 
 //Open Kasir //

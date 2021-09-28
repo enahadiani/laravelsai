@@ -60,6 +60,7 @@
                             </div>
                             <div class="col-5">
                                 <h3><input type="text" style="font-size: 60px !important;height:unset !important;"  name="total_stlh" min="1" class="form-control currency" id="tostlh" required readonly></h3>
+                                <input type="hidden" id="no_jual" name="no_jual" class="form-control" required readonly>
                             </div>
                             <div class="col-12">
                                 <table class="table" style="margin-bottom: 5px">
@@ -948,7 +949,9 @@ function editData(no_bukti) {
             var res = result.data;
             var row = res.data[0]
             if(res.status) {
-                $no_open = row.no_open
+                $no_open = row.no_open;
+                $('#no_bukti').text(row.no_jual);
+                $('#no_jual').val(row.no_jual);
                 $('#no_open').text(row.no_open)
                 $('#tostlh').val(parseFloat(row.total_trans))
                 $('#todisk').val(parseFloat(row.diskon))
@@ -1116,7 +1119,7 @@ $('#web-form-pos').submit(function(e){
 
         $.ajax({
             type: 'POST',
-            url: "{{url('esaku-trans/penjualan')}}",
+            url: "{{url('esaku-trans/penjualan-ubah')}}",
             dataType: 'json',
             data: formData,
             async:false,
