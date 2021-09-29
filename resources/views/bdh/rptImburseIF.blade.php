@@ -1,6 +1,6 @@
 <script type="text/javascript">
 function drawLap(formData){
-    saiPostLoad('bdh-report/lap-tanggungpanjar', null, formData, null, function(res){
+    saiPostLoad('bdh-report/lap-imburseif', null, formData, null, function(res){
         if(res.result.length > 0){
             $('#pagination').html('');
             var show = $('#show').val();
@@ -15,6 +15,8 @@ drawLap($formData);
 
 function drawRptPage(data,res,from,to) {
     var html = "";
+    console.log(data)
+    console.log(res)
     if(data.length > 0) {
         var resData = res.res
         for(var i=0;i<data.length;i++) {
@@ -30,7 +32,7 @@ function drawRptPage(data,res,from,to) {
 
             html += `<div class="class="sai-rpt-table-export row">
                 <div class="col-12">
-                    <h6 class="text-center">FORMULIR PERTANGGUNGAN PANJAR</h6>
+                    <h6 class="text-center">FORMULIR REIMBURSE IMPREST FUND</h6>
                     <div class="barcode-session">
                         <svg id="barcode-${no}"></svg>
                     </div>
@@ -57,22 +59,11 @@ function drawRptPage(data,res,from,to) {
                                 <td>: ${resData.bilangan_angka[i]}</td>
                             </tr>
                             <tr>
+                                <td style="width: 240px;">Status</td>
+                                <td>: ${row.status}</td>
+                            </tr>
+                            <tr>
                                 <td colspan="2">&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td colspan="2">Rekap Panjar :</td>
-                            </tr>
-                            <tr>
-                                <td style="width: 240px;">Jumlah Panjar (+)</td>
-                                <td>: ${sepNum(row.nilai_pj)}</td>
-                            </tr>
-                            <tr>
-                                <td style="width: 240px;">Jumlah Realisasi (-)</td>
-                                <td>: ${sepNum(row.nilai)}</td>
-                            </tr>
-                            <tr>
-                                <td style="width: 240px;">Sisa Panjar (-/+)</td>
-                                <td>: ${sepNum(row.sisa)}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -126,7 +117,7 @@ function drawRptPage(data,res,from,to) {
                             totalPajak +=+ parseFloat(row3.pajak)
                             totalNetto +=+ parseFloat(row3.netto)
                             
-                            if(row.no_pb == row3.no_ptg) {
+                            if(row.no_pb == row3.no_hutang) {
                                 html += `<tr>
                                     <td>${no}</td>
                                     <td>${row3.kode_akun}</td>
@@ -143,7 +134,7 @@ function drawRptPage(data,res,from,to) {
                     <table class="table table-borderless">
                         <tbody>
                             <tr>
-                                <td style="width: 540px;">PERTANGGUNGAN :</td>
+                                <td style="width: 540px;">REALISASI :</td>
                                 <td>TERBILANG :</td>
                             </tr>
                         </tbody>
@@ -158,9 +149,9 @@ function drawRptPage(data,res,from,to) {
                                     <th style="width: 90px; text-align: center;">JUMLAH (RP)</th>
                                 </thead>
                                 <tbody>`
-                                   for(var l=0;l<resData.data_lain.length;l++) {
-                                       var row4 = resData.data_lain[l];
-                                       if(row.no_pb == row4.no_ptg) {
+                                   for(var l=0;l<resData.data_real.length;l++) {
+                                       var row4 = resData.data_real[l];
+                                       if(row.no_pb == row4.no_hutang) {
                                            html += `<tr>
                                                 <td>${no2}</td>
                                                 <td>${row4.kode_akun}</td>
@@ -171,7 +162,7 @@ function drawRptPage(data,res,from,to) {
                                        }
                                    } 
                         html += `<tr>
-                                    <td colspan="3" style="text-align: right;">TOTAL PERTANGGUNGAN</td>
+                                    <td colspan="3" style="text-align: right;">TOTAL REALISASI</td>
                                     <td style="text-align: right;">${sepNum(row.nilai)}</td>
                                 </tr>
                                 </tbody>
@@ -184,7 +175,7 @@ function drawRptPage(data,res,from,to) {
                     <table class="table table-borderless">
                         <tbody>
                             <tr>
-                                <td colspan="4" style="text-align: right;">${row.kota}, ${splitTanggal[2]} ${getNamaBulan(splitTanggal[1])} ${splitTanggal[0]}</td>
+                                <td colspan="4" style="text-align: right;">Bandung, ${splitTanggal[2]} ${getNamaBulan(splitTanggal[1])} ${splitTanggal[0]}</td>
                             </tr>
                             <tr>
                                 <td style="text-align: center;">Mengetahui/Menyetujui :</td>
@@ -209,6 +200,20 @@ function drawRptPage(data,res,from,to) {
                                 <td style="text-align: center;">NIP : ${row.nik_app}</td>
                                 <td colspan="2" style="text-align: center;">&nbsp;</td>
                                 <td style="text-align: center;">NIP : ${row.nik_user}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-borderless">
+                        <tbody>
+                            <tr>
+                                <td style="text-align: center;">MODUL : KUG=06 </td>
+                                <td style="text-align: center;">YAYASAN PENDIDIKAN TELKOM</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;">Lembar 1. Bendaharawan</td>
+                                <td style="text-align: center;">Lembar 2. Akuntansi</td>
+                                <td style="text-align: center;">Lembar 3. Pemegang Panjar</td>
                             </tr>
                         </tbody>
                     </table>

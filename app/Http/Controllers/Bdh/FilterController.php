@@ -16,6 +16,34 @@ class FilterController extends Controller {
         }
     }
 
+    public function dataPP(Request $r) {
+        try {
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'bdh-report/filter-pp',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' => [
+                    'periode' => $r->query('periode')
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["data"];
+            }
+            return response()->json(['daftar' => $data, 'status'=>true], 200); 
+
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+        }
+    }
+
     public function dataNik() {
         try {
             $client = new Client();
