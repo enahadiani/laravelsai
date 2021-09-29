@@ -1,17 +1,4 @@
 <link rel="stylesheet" href="{{ asset('report.css') }}" />
-<style>
-    .div-table {
-        float: right;
-    }
-    .table-check {
-        width: 600px;
-        border-collapse: collapse;
-    }
-    .table-check tbody tr td {
-        border: 1px #000000 solid;
-    }
-
-</style>
 <div class="row" id="saku-filter">
     <div class="col-12">
         <div class="card" >
