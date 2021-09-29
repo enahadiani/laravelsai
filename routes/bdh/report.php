@@ -33,9 +33,9 @@ Route::post('lap-tanggungpanjar', 'Bdh\LaporanPanjarController@dataTanggungPanja
 Route::post('lap-posisitanggungpanjar', 'Bdh\LaporanPanjarController@dataPosisiTanggungPanjar');
 Route::post('lap-saldopanjar', 'Bdh\LaporanPanjarController@dataSaldoPanjar');
 
-Route::post('lap-bukaif', 'Bdh\LaporanController@dataBukaIf');
-Route::post('lap-imburseif', 'Bdh\LaporanController@dataImburseIf');
-Route::post('lap-posisiimburseif', 'Bdh\LaporanController@dataPosisiImburseIf');
-Route::post('lap-kartuif', 'Bdh\LaporanController@dataKartuIf');
+Route::post('lap-bukaif', 'Bdh\LaporanImburseFundController@dataBukaIf');
+Route::post('lap-imburseif', 'Bdh\LaporanImburseFundController@dataImburseIf');
+Route::post('lap-posisiimburseif', 'Bdh\LaporanImburseFundController@dataPosisiImburseIf');
+Route::post('lap-kartuif', 'Bdh\LaporanImburseFundController@dataKartuIf');
 
 ?>

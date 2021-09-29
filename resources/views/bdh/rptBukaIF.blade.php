@@ -1,6 +1,6 @@
 <script type="text/javascript">
 function drawLap(formData){
-    saiPostLoad('bdh-report/lap-cairpanjar', null, formData, null, function(res){
+    saiPostLoad('bdh-report/lap-bukaif', null, formData, null, function(res){
         if(res.result.length > 0){
             $('#pagination').html('');
             var show = $('#show').val();
@@ -15,9 +15,11 @@ drawLap($formData);
 
 function drawRptPage(data,res,from,to) {
     var html = "";
+    console.log(data)
+    console.log(res)
     if(data.length > 0) {
         var resData = res.res;
-        for(var i=0;i<data.length;i++) {
+        for(var i=0;i<data.length;i++) { 
             var no = 1;
             var judul = null;
             var format = null;
@@ -45,7 +47,7 @@ function drawRptPage(data,res,from,to) {
                             <tbody>
                                 <tr>
                                     <td style="width: 200px;">Sudah Terima Dari</td>  
-                                    <td>: Telkom University</td>
+                                    <td>: IT Telkom Surabaya</td>
                                 </tr>
                                 <tr>
                                     <td style="width: 200px;">Jumlah Tunai / Cek</td>  
