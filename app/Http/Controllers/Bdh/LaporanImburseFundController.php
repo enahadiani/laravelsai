@@ -25,7 +25,8 @@ class LaporanImburseFundController extends Controller {
                     'Accept'     => 'application/json',
                 ],
                 'query' => [
-                    'periode' => $r->input('periode'),
+                    'tahun' => $r->input('tahun'),
+                    'kode_pp' => $r->input('kode_pp'),
                     'no_bukti' => $r->input('no_bukti'),
                     'nik' => $r->input('nik')
                 ]
@@ -60,6 +61,7 @@ class LaporanImburseFundController extends Controller {
                 ],
                 'query' => [
                     'periode' => $r->input('periode'),
+                    'kode_pp' => $r->input('kode_pp'),
                     'no_bukti' => $r->input('no_bukti')
                 ]
             ]);
