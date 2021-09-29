@@ -27,7 +27,6 @@ class LaporanImburseFundController extends Controller {
                 'query' => [
                     'tahun' => $r->input('tahun'),
                     'kode_pp' => $r->input('kode_pp'),
-                    'no_bukti' => $r->input('no_bukti'),
                     'nik' => $r->input('nik')
                 ]
             ]);

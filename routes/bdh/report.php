@@ -11,6 +11,7 @@ Route::get('filter-periode', 'Bdh\FilterController@dataPeriode');
 Route::get('filter-nik', 'Bdh\FilterController@dataNik');
 Route::get('filter-pp', 'Bdh\FilterController@dataPP');
 Route::get('filter-tahunif', 'Bdh\FilterController@dataTahunIF');
+Route::get('filter-ppif', 'Bdh\FilterController@dataPPIF');
 
 Route::get('filter-nover', 'Bdh\FilterController@dataBuktiVer');
 Route::get('filter-nospb', 'Bdh\FilterController@dataBuktiSPB');
