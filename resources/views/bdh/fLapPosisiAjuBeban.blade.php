@@ -3,6 +3,16 @@
     .barcode-session {
         float: right;
     }
+    .div-table {
+        float: right;
+    }
+    .table-check {
+        width: 600px;
+        border-collapse: collapse;
+    }
+    .table-check tbody tr td {
+        border: 1px #000000 solid;
+    }
 </style>
 <div class="row" id="saku-filter">
     <div class="col-12">
@@ -280,11 +290,10 @@ $("#sai-rpt-pdf").click(function(e) {
 });
 
 // LINK TO OTHER REPORT
-$('#saku-report #canvasPreview').on('click', '.link1', function(e){
+$('#saku-report #canvasPreview').on('click', '.linkpb', function(e){
     e.preventDefault();
     var no_bukti = $(this).data('no_bukti');
     var periode = $periode.from;
-    var back = true;
             
     $formData.delete('periode[]');
     $formData.delete('no_bukti[]');
@@ -297,7 +306,7 @@ $('#saku-report #canvasPreview').on('click', '.link1', function(e){
     $formData.append("no_bukti[]","");
 
     $formData.delete('back');
-    $formData.append('back', back);
+    $formData.append('back', true);
     
     $('.breadcrumb').html('');
     $('.breadcrumb').append(`
@@ -307,6 +316,115 @@ $('#saku-report #canvasPreview').on('click', '.link1', function(e){
         <li class="breadcrumb-item active" aria-current="lap-aju-beban" aria-param="`+no_bukti+`">Laporan Pengajuan Beban</li>
     `);
     xurl ="bdh-auth/form/rptAjuBeban";
+    $('#saku-report #canvasPreview').load(xurl);
+});
+
+$('#saku-report #canvasPreview').on('click', '.linkdok', function(e){
+    e.preventDefault();
+    var no_bukti = $(this).data('no_bukti');
+            
+    $formData.delete('periode[]');
+    $formData.delete('no_bukti[]');
+    
+    $formData.append("no_bukti[]","=");
+    $formData.append("no_bukti[]",no_bukti);
+    $formData.append("no_bukti[]","");
+
+    $formData.delete('back');
+    $formData.append('back', true);
+    
+    $('.breadcrumb').html('');
+    $('.breadcrumb').append(`
+        <li class="breadcrumb-item">
+            <a href="#" class="klik-report" data-href="lap-posaju-beban" aria-param="">Laporan Posisi Pengajuan Beban</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="daftar-dokumen" aria-param="`+no_bukti+`">Daftar Dokumen</li>
+    `);
+    xurl ="bdh-auth/form/rptDetailDok";
+    $('#saku-report #canvasPreview').load(xurl);
+});
+
+$('#saku-report #canvasPreview').on('click', '.linkver', function(e){
+    e.preventDefault();
+    var no_bukti = $(this).data('no_bukti');
+            
+    $formData.delete('periode[]');
+    $formData.delete('no_bukti[]');
+    
+    $formData.append("periode[]","=");
+    $formData.append("periode[]",$periode.from);
+    $formData.append("periode[]","");
+    $formData.append("no_bukti[]","=");
+    $formData.append("no_bukti[]",no_bukti);
+    $formData.append("no_bukti[]","");
+
+    $formData.delete('back');
+    $formData.append('back', true);
+    
+    $('.breadcrumb').html('');
+    $('.breadcrumb').append(`
+        <li class="breadcrumb-item">
+            <a href="#" class="klik-report" data-href="lap-posaju-beban" aria-param="">Laporan Posisi Pengajuan Beban</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="lap-ver" aria-param="`+no_bukti+`">Laporan Verifikasi</li>
+    `);
+    xurl ="bdh-auth/form/rptVer";
+    $('#saku-report #canvasPreview').load(xurl);
+});
+
+$('#saku-report #canvasPreview').on('click', '.linkspb', function(e){
+    e.preventDefault();
+    var no_bukti = $(this).data('no_bukti');
+            
+    $formData.delete('periode[]');
+    $formData.delete('no_bukti[]');
+    
+    $formData.append("periode[]","=");
+    $formData.append("periode[]",$periode.from);
+    $formData.append("periode[]","");
+    $formData.append("no_bukti[]","=");
+    $formData.append("no_bukti[]",no_bukti);
+    $formData.append("no_bukti[]","");
+
+    $formData.delete('back');
+    $formData.append('back', true);
+    
+    $('.breadcrumb').html('');
+    $('.breadcrumb').append(`
+        <li class="breadcrumb-item">
+            <a href="#" class="klik-report" data-href="lap-posaju-beban" aria-param="">Laporan Posisi Pengajuan Beban</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="lap-spb" aria-param="`+no_bukti+`">Laporan SPB</li>
+    `);
+    xurl ="bdh-auth/form/rptSPB";
+    $('#saku-report #canvasPreview').load(xurl);
+});
+
+$('#saku-report #canvasPreview').on('click', '.linkbyr', function(e){
+    e.preventDefault();
+    var no_bukti = $(this).data('no_bukti');
+            
+    $formData.delete('periode[]');
+    $formData.delete('no_bukti[]');
+    
+    $formData.append("periode[]","=");
+    $formData.append("periode[]",$periode.from);
+    $formData.append("periode[]","");
+    $formData.append("no_bukti[]","=");
+    $formData.append("no_bukti[]",no_bukti);
+    $formData.append("no_bukti[]","");
+
+    $formData.delete('back');
+    $formData.append('back', true);
+    
+    $('.breadcrumb').html('');
+    $('.breadcrumb').append(`
+        <li class="breadcrumb-item">
+            <a href="#" class="klik-report" data-href="lap-posaju-beban" aria-param="">Laporan Posisi Pengajuan Beban</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="lap-ver" aria-param="`+no_bukti+`">Laporan Pembayaran</li>
+    `);
+    xurl ="bdh-auth/form/rptBayar";
     $('#saku-report #canvasPreview').load(xurl);
 });
 
