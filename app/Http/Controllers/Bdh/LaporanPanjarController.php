@@ -26,6 +26,7 @@ class LaporanPanjarController extends Controller {
                 ],
                 'query' => [
                     'periode' => $r->input('periode'),
+                    'kode_pp' => $r->input('kode_pp'),
                     'no_bukti' => $r->input('no_bukti')
                 ]
             ]);
@@ -59,6 +60,7 @@ class LaporanPanjarController extends Controller {
                 ],
                 'query' => [
                     'periode' => $r->input('periode'),
+                    'kode_pp' => $r->input('kode_pp'),
                     'no_bukti' => $r->input('no_bukti')
                 ]
             ]);
@@ -92,6 +94,7 @@ class LaporanPanjarController extends Controller {
                 ],
                 'query' => [
                     'periode' => $r->input('periode'),
+                    'kode_pp' => $r->input('kode_pp'),
                     'no_bukti' => $r->input('no_bukti')
                 ]
             ]);
@@ -125,6 +128,7 @@ class LaporanPanjarController extends Controller {
                 ],
                 'query' => [
                     'periode' => $r->input('periode'),
+                    'kode_pp' => $r->input('kode_pp'),
                     'no_bukti' => $r->input('no_bukti')
                 ]
             ]);

@@ -13,6 +13,7 @@
                                 <div id="inputFilter">
                                     <!-- COMPONENT -->
                                     <x-inp-filter kode="periode" nama="Periode" selected="3" :option="array('3')"/>
+                                    <x-inp-filter kode="kode_pp" nama="Kode PP" selected="3" :option="array('3')"/>
                                     <x-inp-filter kode="no_bukti" nama="No Bukti" selected="1" :option="array('1','2','3','i')"/>
                                     <!-- END COMPONENT -->
                                 </div>
@@ -52,6 +53,13 @@ var $no_bukti = {
     to : "",
     toname : "",
 }
+var $kode_pp = {
+    type : "=",
+    from : "3130000",
+    fromname : "3130000",
+    to : "",
+    toname : "",
+}
 var $periode = {
     type : "=",
     from : "{{ date('Ym') }}",
@@ -65,6 +73,7 @@ var $aktif = "";
 $.fn.DataTable.ext.pager.numbers_length = 5;
 
 $('#periode-from').val(namaPeriode("{{ date('Ym') }}"));
+$('#kode_pp-from').val("3130000");
 
 $('#btn-filter').click(function(e){
     $('#collapseFilter').show();
@@ -99,19 +108,25 @@ $('#btn-tampil').click(function(e){
 $('.selectize').selectize();
 
 $('#inputFilter').reportFilter({
-    kode : ['periode','no_bukti'],
-    nama : ['Periode','No Bukti'],
+    kode : ['periode','kode_pp','no_bukti'],
+    nama : ['Periode','kode_pp','No Bukti'],
     header : [
         ['Periode'],
+        ['Kode', 'Nama'],
         ['No Bukti','Keterangan']
     ],
     headerpilih : [
         ['Periode','Action'],
+        ['Kode','Nama','Action'],
         ['No Bukti','Keterangan','Action']
     ],
     columns: [
         [
             { data: 'periode' },
+        ],
+        [
+            { data: 'kode_pp' },
+            { data: 'nama' },
         ],
         [
             { data: 'no_pb' },
@@ -120,10 +135,14 @@ $('#inputFilter').reportFilter({
     ],
     url :[
         "{{ url('bdh-report/filter-periodepb') }}",
+        "{{ url('bdh-report/filter-pp') }}",
         "{{ url('bdh-report/filter-nopb') }}"
     ],
     parameter:[
         {},
+        {
+            'periode': $periode.from
+        },
         {
             'periode[0]': $periode.type,
             'periode[1]': $periode.from,
@@ -132,17 +151,21 @@ $('#inputFilter').reportFilter({
     ],
     orderby:[
         [[0,"desc"]],
+        [[0,"desc"]],
         [[0,"desc"]]
     ],
     width:[
+        ['30%','70%'],
         ['30%','70%'],
         ['30%','70%']
     ],
     display:[
         'kode',
+        'kode',
         'kode'
     ],
     pageLength:[
+        10,
         10,
         10
     ]
@@ -151,19 +174,25 @@ $('#inputFilter').reportFilter({
 $('#inputFilter').on('change','input',function(e){
     setTimeout(() => {
     $('#inputFilter').reportFilter({
-        kode : ['periode','no_bukti'],
-        nama : ['Periode','No Bukti'],
+        kode : ['periode','kode_pp','no_bukti'],
+        nama : ['Periode','kode_pp','No Bukti'],
         header : [
             ['Periode'],
+            ['Kode', 'Nama'],
             ['No Bukti','Keterangan']
         ],
         headerpilih : [
             ['Periode','Action'],
+            ['Kode','Nama','Action'],
             ['No Bukti','Keterangan','Action']
         ],
         columns: [
             [
                 { data: 'periode' },
+            ],
+            [
+                { data: 'kode_pp' },
+                { data: 'nama' },
             ],
             [
                 { data: 'no_pb' },
@@ -172,10 +201,14 @@ $('#inputFilter').on('change','input',function(e){
         ],
         url :[
             "{{ url('bdh-report/filter-periodepb') }}",
+            "{{ url('bdh-report/filter-pp') }}",
             "{{ url('bdh-report/filter-nopb') }}"
         ],
         parameter:[
             {},
+            {
+                'periode': $periode.from
+            },
             {
                 'periode[0]': $periode.type,
                 'periode[1]': $periode.from,
@@ -184,17 +217,21 @@ $('#inputFilter').on('change','input',function(e){
         ],
         orderby:[
             [[0,"desc"]],
+            [[0,"desc"]],
             [[0,"desc"]]
         ],
         width:[
+            ['30%','70%'],
             ['30%','70%'],
             ['30%','70%']
         ],
         display:[
             'kode',
+            'kode',
             'kode'
         ],
         pageLength:[
+            10,
             10,
             10
         ]
@@ -209,6 +246,9 @@ $('#form-filter').submit(function(e){
     $formData.append("periode[]",$periode.type);
     $formData.append("periode[]",$periode.from);
     $formData.append("periode[]",$periode.to);
+    $formData.append("kode_pp[]",$kode_pp.type);
+    $formData.append("kode_pp[]",$kode_pp.from);
+    $formData.append("kode_pp[]",$kode_pp.to);
     $formData.append("no_bukti[]",$no_bukti.type);
     $formData.append("no_bukti[]",$no_bukti.from);
     $formData.append("no_bukti[]",$no_bukti.to);
@@ -226,6 +266,9 @@ $('#show').change(function(e){
     $formData.append("periode[]",$periode.type);
     $formData.append("periode[]",$periode.from);
     $formData.append("periode[]",$periode.to);
+    $formData.append("kode_pp[]",$kode_pp.type);
+    $formData.append("kode_pp[]",$kode_pp.from);
+    $formData.append("kode_pp[]",$kode_pp.to);
     $formData.append("no_bukti[]",$no_bukti.type);
     $formData.append("no_bukti[]",$no_bukti.from);
     $formData.append("no_bukti[]",$no_bukti.to);
