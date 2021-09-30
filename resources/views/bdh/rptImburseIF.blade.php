@@ -19,6 +19,12 @@ function drawRptPage(data,res,from,to) {
     console.log(res)
     if(data.length > 0) {
         var resData = res.res
+        if(resData.back){
+            $('.navigation-lap').removeClass('hidden');
+        }else{
+            $('.navigation-lap').addClass('hidden');
+        }
+        
         for(var i=0;i<data.length;i++) {
             var no = 1;
             var no2 = 1;
