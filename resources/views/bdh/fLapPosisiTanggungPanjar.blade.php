@@ -1,4 +1,20 @@
 <link rel="stylesheet" href="{{ asset('report.css') }}" />
+<style>
+    .barcode-session {
+        float: right;
+    }
+    .div-table {
+        float: right;
+    }
+    .table-check {
+        width: 600px;
+        border-collapse: collapse;
+    }
+    .table-check tbody tr td {
+        border: 1px #000000 solid;
+    }
+</style>
+
 <div class="row" id="saku-filter">
     <div class="col-12">
         <div class="card" >
@@ -315,4 +331,124 @@ $("#sai-rpt-pdf").click(function(e) {
     // var link = "{{ url('esaku-report/lap-jurnal-pdf') }}?periode[]="+$periode.type+"&periode[]="+$periode.from+"&periode[]="+$periode.to+"&modul[]="+$modul.type+"&modul[]="+$modul.from+"&modul[]="+$modul.to+"&no_bukti[]="+$no_bukti.type+"&no_bukti[]="+$no_bukti.from+"&no_bukti[]="+$no_bukti.to+"&sum_ju[]="+$sum_ju.type+"&sum_ju[]="+$sum_ju.from+"&sum_ju[]="+$sum_ju.to;
     // window.open(link, '_blank'); 
 });
+
+// LINK TO OTHER REPORT
+$('#saku-report #canvasPreview').on('click', '.linkpb', function(e){
+    e.preventDefault();
+    var no_bukti = $(this).data('no_bukti');
+    var periode = $periode.from;
+    var pp = $kode_pp.from;
+            
+    $formData.delete('periode[]');
+    $formData.delete('kode_pp[]');
+    $formData.delete('no_bukti[]');
+    
+    $formData.append("periode[]","=");
+    $formData.append("periode[]",periode);
+    $formData.append("periode[]","");
+    $formData.append("kode_pp[]","=");
+    $formData.append("kode_pp[]",pp);
+    $formData.append("kode_pp[]","");
+    $formData.append("no_bukti[]","=");
+    $formData.append("no_bukti[]",no_bukti);
+    $formData.append("no_bukti[]","");
+
+    $formData.delete('back');
+    $formData.append('back', true);
+    
+    $('.breadcrumb').html('');
+    $('.breadcrumb').append(`
+        <li class="breadcrumb-item">
+            <a href="#" class="klik-report" data-href="lap-posaju-beban" aria-param="">Laporan Posisi Penanggung Panjar</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="lap-aju-beban" aria-param="`+no_bukti+`">Laporan Pengajuan Panjar</li>
+    `);
+    xurl ="bdh-auth/form/rptTanggungPanjar";
+    $('#saku-report #canvasPreview').load(xurl);
+});
+
+$('#saku-report #canvasPreview').on('click', '.linkver', function(e){
+    e.preventDefault();
+    var no_bukti = $(this).data('no_bukti');
+            
+    $formData.delete('periode[]');
+    $formData.delete('no_bukti[]');
+    
+    $formData.append("periode[]","=");
+    $formData.append("periode[]",$periode.from);
+    $formData.append("periode[]","");
+    $formData.append("no_bukti[]","=");
+    $formData.append("no_bukti[]",no_bukti);
+    $formData.append("no_bukti[]","");
+
+    $formData.delete('back');
+    $formData.append('back', true);
+    
+    $('.breadcrumb').html('');
+    $('.breadcrumb').append(`
+        <li class="breadcrumb-item">
+            <a href="#" class="klik-report" data-href="lap-posaju-beban" aria-param="">Laporan Posisi Penanggung Panjar</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="lap-ver" aria-param="`+no_bukti+`">Laporan Verifikasi</li>
+    `);
+    xurl ="bdh-auth/form/rptVer";
+    $('#saku-report #canvasPreview').load(xurl);
+});
+
+$('#saku-report #canvasPreview').on('click', '.linkbyr', function(e){
+    e.preventDefault();
+    var no_bukti = $(this).data('no_bukti');
+            
+    $formData.delete('periode[]');
+    $formData.delete('no_bukti[]');
+    
+    $formData.append("periode[]","=");
+    $formData.append("periode[]",$periode.from);
+    $formData.append("periode[]","");
+    $formData.append("no_bukti[]","=");
+    $formData.append("no_bukti[]",no_bukti);
+    $formData.append("no_bukti[]","");
+
+    $formData.delete('back');
+    $formData.append('back', true);
+    
+    $('.breadcrumb').html('');
+    $('.breadcrumb').append(`
+        <li class="breadcrumb-item">
+            <a href="#" class="klik-report" data-href="lap-posaju-beban" aria-param="">Laporan Posisi Penanggung Panjar</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="lap-ver" aria-param="`+no_bukti+`">Laporan Pembayaran</li>
+    `);
+    xurl ="bdh-auth/form/rptBayar";
+    $('#saku-report #canvasPreview').load(xurl);
+});
+
+$('.navigation-lap').on('click', '#btn-back', function(e){
+    e.preventDefault();
+
+    $formData.delete('periode[]');
+    $formData.delete('kode_pp[]');
+    $formData.delete('no_bukti[]');
+    
+    $formData.append("periode[]",$periode.type);
+    $formData.append("periode[]",$periode.from);
+    $formData.append("periode[]",$periode.to);
+    $formData.append("kode_pp[]",$kode_pp.type);
+    $formData.append("kode_pp[]",$kode_pp.from);
+    $formData.append("kode_pp[]",$kode_pp.to);
+    $formData.append("no_bukti[]",$no_bukti.type);
+    $formData.append("no_bukti[]",$no_bukti.from);
+    $formData.append("no_bukti[]",$no_bukti.to);
+
+    $formData.delete('back');
+    $formData.append('back', false);
+
+    var aktif = $('.breadcrumb-item.active').attr('aria-current');
+    var tmp = $('.breadcrumb-item.active').attr('aria-param').split("|");
+    var param = tmp[0];
+
+    xurl = "bdh-auth/form/rptPosisiTanggungPanjar";
+    $('#saku-report #canvasPreview').load(xurl);
+});
+// END LINK TO OTHER REPORT
 </script>
