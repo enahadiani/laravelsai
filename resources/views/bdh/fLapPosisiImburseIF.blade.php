@@ -113,7 +113,7 @@ $('#inputFilter').reportFilter({
     nama : ['Periode','Kode PP','No Bukti'],
     header : [
         ['Periode'],
-        ['Kode', 'Nam'],
+        ['Kode', 'Nama'],
         ['No Bukti','Keterangan']
     ],
     headerpilih : [
@@ -179,7 +179,7 @@ $('#inputFilter').on('change','input',function(e){
         nama : ['Periode','Kode PP','No Bukti'],
         header : [
             ['Periode'],
-            ['Kode', 'Nam'],
+            ['Kode', 'Nama'],
             ['No Bukti','Keterangan']
         ],
         headerpilih : [
