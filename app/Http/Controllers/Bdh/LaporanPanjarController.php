@@ -38,7 +38,13 @@ class LaporanPanjarController extends Controller {
                 $data = $res["data"];
             }
             if(isset($r->back)){
-                $res['back']=true;
+                $back = false;
+                if($r->back == "true") {
+                    $back = true;
+                } else {
+                    $back = false;
+                }
+                $res['back']= $back;
             }
                 
             return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'sumju'=>$r->sumju,'res'=>$res], 200); 
@@ -72,7 +78,13 @@ class LaporanPanjarController extends Controller {
                 $data = $res["data"];
             }
             if(isset($r->back)){
-                $res['back']=true;
+                $back = false;
+                if($r->back == "true") {
+                    $back = true;
+                } else {
+                    $back = false;
+                }
+                $res['back']= $back;
             }
                 
             return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'sumju'=>$r->sumju,'res'=>$res], 200); 
@@ -106,7 +118,13 @@ class LaporanPanjarController extends Controller {
                 $data = $res["data"];
             }
             if(isset($r->back)){
-                $res['back']=true;
+                $back = false;
+                if($r->back == "true") {
+                    $back = true;
+                } else {
+                    $back = false;
+                }
+                $res['back']= $back;
             }
                 
             return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'sumju'=>$r->sumju,'res'=>$res], 200); 
@@ -140,7 +158,13 @@ class LaporanPanjarController extends Controller {
                 $data = $res["data"];
             }
             if(isset($r->back)){
-                $res['back']=true;
+                $back = false;
+                if($r->back == "true") {
+                    $back = true;
+                } else {
+                    $back = false;
+                }
+                $res['back']= $back;
             }
                 
             return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'sumju'=>$r->sumju,'res'=>$res], 200); 
@@ -173,7 +197,13 @@ class LaporanPanjarController extends Controller {
                 $data = $res["data"];
             }
             if(isset($r->back)){
-                $res['back']=true;
+                $back = false;
+                if($r->back == "true") {
+                    $back = true;
+                } else {
+                    $back = false;
+                }
+                $res['back']= $back;
             }
                 
             return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'sumju'=>$r->sumju,'res'=>$res], 200); 
@@ -207,7 +237,13 @@ class LaporanPanjarController extends Controller {
                 $data = $res["data"];
             }
             if(isset($r->back)){
-                $res['back']=true;
+                $back = false;
+                if($r->back == "true") {
+                    $back = true;
+                } else {
+                    $back = false;
+                }
+                $res['back']= $back;
             }
                 
             return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'sumju'=>$r->sumju,'res'=>$res], 200); 
