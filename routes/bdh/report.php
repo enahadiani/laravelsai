@@ -41,4 +41,6 @@ Route::post('lap-imburseif', 'Bdh\LaporanImburseFundController@dataImburseIf');
 Route::post('lap-posisiimburseif', 'Bdh\LaporanImburseFundController@dataPosisiImburseIf');
 Route::post('lap-kartuif', 'Bdh\LaporanImburseFundController@dataKartuIf');
 
+Route::post('lap-dokpbh', 'Bdh\LaporanDetailController@dataDokumenPBH');
+
 ?>
