@@ -1,4 +1,9 @@
 <link rel="stylesheet" href="{{ asset('report.css') }}" />
+<style>
+    .barcode-session {
+        float: right;
+    }
+</style>
 <div class="row" id="saku-filter">
     <div class="col-12">
         <div class="card" >
@@ -273,4 +278,59 @@ $("#sai-rpt-pdf").click(function(e) {
     // var link = "{{ url('esaku-report/lap-jurnal-pdf') }}?periode[]="+$periode.type+"&periode[]="+$periode.from+"&periode[]="+$periode.to+"&modul[]="+$modul.type+"&modul[]="+$modul.from+"&modul[]="+$modul.to+"&no_bukti[]="+$no_bukti.type+"&no_bukti[]="+$no_bukti.from+"&no_bukti[]="+$no_bukti.to+"&sum_ju[]="+$sum_ju.type+"&sum_ju[]="+$sum_ju.from+"&sum_ju[]="+$sum_ju.to;
     // window.open(link, '_blank'); 
 });
+
+// LINK TO OTHER REPORT
+$('#saku-report #canvasPreview').on('click', '.link1', function(e){
+    e.preventDefault();
+    var no_bukti = $(this).data('no_bukti');
+    var periode = $periode.from;
+    var back = true;
+            
+    $formData.delete('periode[]');
+    $formData.delete('no_bukti[]');
+    
+    $formData.append("periode[]","=");
+    $formData.append("periode[]",periode);
+    $formData.append("periode[]","");
+    $formData.append("no_bukti[]","=");
+    $formData.append("no_bukti[]",no_bukti);
+    $formData.append("no_bukti[]","");
+
+    $formData.delete('back');
+    $formData.append('back', back);
+    
+    $('.breadcrumb').html('');
+    $('.breadcrumb').append(`
+        <li class="breadcrumb-item">
+            <a href="#" class="klik-report" data-href="lap-posaju-beban" aria-param="">Laporan Posisi Pengajuan Beban</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="lap-aju-beban" aria-param="`+no_bukti+`">Laporan Pengajuan Beban</li>
+    `);
+    xurl ="bdh-auth/form/rptAjuBeban";
+    $('#saku-report #canvasPreview').load(xurl);
+});
+
+$('.navigation-lap').on('click', '#btn-back', function(e){
+    e.preventDefault();
+    $formData.delete('periode[]');
+    $formData.delete('no_bukti[]');
+    
+    $formData.append("periode[]",$periode.type);
+    $formData.append("periode[]",$periode.from);
+    $formData.append("periode[]",$periode.to);
+    $formData.append("no_bukti[]",$no_bukti.type);
+    $formData.append("no_bukti[]",$no_bukti.from);
+    $formData.append("no_bukti[]",$no_bukti.to);
+
+    $formData.delete('back');
+    $formData.append('back', false);
+
+    var aktif = $('.breadcrumb-item.active').attr('aria-current');
+    var tmp = $('.breadcrumb-item.active').attr('aria-param').split("|");
+    var param = tmp[0];
+
+    xurl = "bdh-auth/form/rptPosisiAjuBeban";
+    $('#saku-report #canvasPreview').load(xurl);
+});
+// END LINK TO OTHER REPORT
 </script>
