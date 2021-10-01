@@ -60,6 +60,7 @@
                             </div>
                             <div class="col-5">
                                 <h3><input type="text" style="font-size: 60px !important;height:unset !important;"  name="total_stlh" min="1" class="form-control currency" id="tostlh" required readonly></h3>
+                                <input type="hidden" id="no_jual" name="no_jual" class="form-control" required readonly>
                             </div>
                             <div class="col-12">
                                 <table class="table" style="margin-bottom: 5px">
@@ -74,7 +75,7 @@
                                         </th>
                                         <th style='padding: 3px;width:5%'>Disc.</th>
                                         <th style='padding: 3px;width:20%'>
-                                            <input type='text' placeholder='Total Disc.' value="0" name="total_disk" class='form-control currency' id='todisk' required disabled>
+                                            <input type='text' placeholder='Total Disc.' value="0" name="total_disk" class='form-control currency' id='todisk' required readonly>
                                         </th>
 
                                         <th style='padding: 3px;width:5%'>Total</th>
@@ -583,20 +584,20 @@ function addBarangBarcode() {
         html += `<tr class="row-barang">
             <td style="width: 30%;">
                 ${nama}
-                <input type="hidden" name="kode_barang[]" class="form-control inp-kdb" value="${kd}" disabled>
+                <input type="hidden" name="kode_barang[]" class="form-control inp-kdb" value="${kd}" readonly>
             </td>    
             <td style="width: 20%;">
-                <input type="text" name="harga_barang[]" class="form-control currencies inp-hrgb" value="${toRp(hrg)}" style="text-align: right;" disabled>
+                <input type="text" name="harga_barang[]" class="form-control currencies inp-hrgb" value="${toRp(hrg)}" style="text-align: right;" readonly>
             </td>    
             <td style="width: 15%;">
                 <input type="text" name="qty_barang[]" class="form-control currencies inp-qtyb" value="${parseFloat(qty)}" style="text-align: right;">    
             </td>    
             <td style="width: 15%;">
-                <input type="text" name="sub_barang[]" class="form-control currencies inp-subb" value="${toRp(sub)}" style="text-align: right;" disabled>    
+                <input type="text" name="sub_barang[]" class="form-control currencies inp-subb" value="${toRp(sub)}" style="text-align: right;" readonly>    
             </td>    
             <td style="width: 10%;">
-                <input type="text" name="disc_barang[]" class="form-control currencies inp-disc" value="${toRp(disc)}" style="text-align: right;" disabled>    
-                <input type="hidden" name="ppn_barang[]" class="form-control currencies inp-ppn" value="${parseFloat(ppn)}" disabled>    
+                <input type="text" name="disc_barang[]" class="form-control currencies inp-disc" value="${toRp(disc)}" style="text-align: right;" readonly>    
+                <input type="hidden" name="ppn_barang[]" class="form-control currencies inp-ppn" value="${parseFloat(ppn)}" readonly>    
             </td>    
             <td style="width: 10%;">
                 <a href="#" class="btn btn-sm ubah-barang" style="font-size:18px !important;padding:0"><i class="simple-icon-pencil"></i></a>&nbsp;
@@ -667,20 +668,20 @@ function addBarangSelect() {
                 html += `<tr class="row-barang">
                     <td style="width: 30%;">
                         ${namaSelected}
-                        <input type="hidden" name="kode_barang[]" class="form-control inp-kdb" value="${barangSelected}" disabled>
+                        <input type="hidden" name="kode_barang[]" class="form-control inp-kdb" value="${barangSelected}" readonly>
                     </td>    
                     <td style="width: 20%;">
-                        <input type="text" name="harga_barang[]" class="form-control currencies inp-hrgb" value="${toRp(hrgSelected)}" style="text-align: right;" disabled>
+                        <input type="text" name="harga_barang[]" class="form-control currencies inp-hrgb" value="${toRp(hrgSelected)}" style="text-align: right;" readonly>
                     </td>    
                     <td style="width: 15%;">
                         <input type="text" name="qty_barang[]" class="form-control currencies inp-qtyb" value="${parseFloat(qtySelected)}" style="text-align: right;">    
                     </td>    
                     <td style="width: 15%;">
-                        <input type="text" name="sub_barang[]" class="form-control currencies inp-subb" value="${toRp(subSelected)}" style="text-align: right;" disabled>    
+                        <input type="text" name="sub_barang[]" class="form-control currencies inp-subb" value="${toRp(subSelected)}" style="text-align: right;" readonly>    
                     </td>    
                     <td style="width: 10%;">
-                        <input type="text" name="disc_barang[]" class="form-control currencies inp-disc" value="${toRp(discSelected)}" style="text-align: right;" disabled>    
-                        <input type="hidden" name="ppn_barang[]" class="form-control currencies inp-ppn" value="${parseFloat(ppnSelected)}" disabled>    
+                        <input type="text" name="disc_barang[]" class="form-control currencies inp-disc" value="${toRp(discSelected)}" style="text-align: right;" readonly>    
+                        <input type="hidden" name="ppn_barang[]" class="form-control currencies inp-ppn" value="${parseFloat(ppnSelected)}" readonly>    
                     </td>    
                     <td style="width: 10%;">
                         <a href="#" class="btn btn-sm ubah-barang" style="font-size:18px !important;padding:0"><i class="simple-icon-pencil"></i></a>&nbsp;
@@ -948,7 +949,9 @@ function editData(no_bukti) {
             var res = result.data;
             var row = res.data[0]
             if(res.status) {
-                $no_open = row.no_open
+                $no_open = row.no_open;
+                $('#no_bukti').text(row.no_jual);
+                $('#no_jual').val(row.no_jual);
                 $('#no_open').text(row.no_open)
                 $('#tostlh').val(parseFloat(row.total_trans))
                 $('#todisk').val(parseFloat(row.diskon))
@@ -962,20 +965,20 @@ function editData(no_bukti) {
                         html += `<tr class="row-barang">
                             <td style="width: 30%;">
                                 ${row2.nama_brg}
-                                <input type="hidden" name="kode_barang[]" class="form-control inp-kdb" value="${row2.kode_barang}" disabled>
+                                <input type="hidden" name="kode_barang[]" class="form-control inp-kdb" value="${row2.kode_barang}" readonly>
                             </td>    
                             <td style="width: 20%;">
-                                <input type="text" name="harga_barang[]" class="form-control currencies inp-hrgb" value="${parseFloat(row2.harga)}" disabled>
+                                <input type="text" name="harga_barang[]" class="form-control currencies inp-hrgb" value="${parseFloat(row2.harga)}" readonly>
                             </td>    
                             <td style="width: 15%;">
                                 <input type="text" name="qty_barang[]" class="form-control currencies inp-qtyb" value="${parseFloat(row2.jumlah)}">    
                             </td>    
                             <td style="width: 15%;">
-                                <input type="text" name="sub_barang[]" class="form-control currencies inp-subb" value="${parseFloat(row2.subtotal)}" disabled>    
+                                <input type="text" name="sub_barang[]" class="form-control currencies inp-subb" value="${parseFloat(row2.subtotal)}" readonly>    
                             </td>    
                             <td style="width: 10%;">
-                                <input type="text" name="disc_barang[]" class="form-control currencies inp-disc" value="${parseFloat(row2.diskon)}" disabled>    
-                                <input type="hidden" name="ppn_barang[]" class="form-control currencies inp-ppn" value="${parseFloat(row2.ppn)}" disabled>    
+                                <input type="text" name="disc_barang[]" class="form-control currencies inp-disc" value="${parseFloat(row2.diskon)}" readonly>    
+                                <input type="hidden" name="ppn_barang[]" class="form-control currencies inp-ppn" value="${parseFloat(row2.ppn)}" readonly>    
                             </td>    
                             <td style="width: 10%;">
                                 <a href="#" class="btn btn-sm ubah-barang" style="font-size:18px !important;padding:0"><i class="simple-icon-pencil"></i></a>&nbsp;
@@ -1040,20 +1043,20 @@ $('#edit-submit').click(function(e){
             html += `<tr class="row-barang">
                 <td style="width: 30%;">
                     ${split[1]}
-                    <input type="hidden" name="kode_barang[]" class="form-control inp-kdb" value="${kd}" disabled>
+                    <input type="hidden" name="kode_barang[]" class="form-control inp-kdb" value="${kd}" readonly>
                 </td>    
                 <td style="width: 20%;">
-                    <input type="text" name="harga_barang[]" class="form-control currencies inp-hrgb" value="${toRp(hrg)}" style="text-align: right;" disabled>
+                    <input type="text" name="harga_barang[]" class="form-control currencies inp-hrgb" value="${toRp(hrg)}" style="text-align: right;" readonly>
                 </td>    
                 <td style="width: 15%;">
                     <input type="text" name="qty_barang[]" class="form-control currencies inp-qtyb" value="${parseFloat(qty)}" style="text-align: right;">    
                 </td>    
                 <td style="width: 15%;">
-                    <input type="text" name="sub_barang[]" class="form-control currencies inp-subb" value="${toRp(sub)}" style="text-align: right;" disabled>    
+                    <input type="text" name="sub_barang[]" class="form-control currencies inp-subb" value="${toRp(sub)}" style="text-align: right;" readonly>    
                 </td>    
                 <td style="width: 10%;">
-                    <input type="text" name="disc_barang[]" class="form-control currencies inp-disc" value="${toRp(disc)}" style="text-align: right;" disabled>    
-                    <input type="hidden" name="ppn_barang[]" class="form-control currencies inp-ppn" value="${parseFloat(ppn)}" disabled>    
+                    <input type="text" name="disc_barang[]" class="form-control currencies inp-disc" value="${toRp(disc)}" style="text-align: right;" readonly>    
+                    <input type="hidden" name="ppn_barang[]" class="form-control currencies inp-ppn" value="${parseFloat(ppn)}" readonly>    
                 </td>    
                 <td style="width: 10%;">
                     <a href="#" class="btn btn-sm ubah-barang" style="font-size:18px !important;padding:0"><i class="simple-icon-pencil"></i></a>&nbsp;
@@ -1116,7 +1119,7 @@ $('#web-form-pos').submit(function(e){
 
         $.ajax({
             type: 'POST',
-            url: "{{url('esaku-trans/penjualan')}}",
+            url: "{{url('esaku-trans/penjualan-ubah')}}",
             dataType: 'json',
             data: formData,
             async:false,

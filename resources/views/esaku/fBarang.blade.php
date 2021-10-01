@@ -808,7 +808,7 @@
                     $('#hna').val(parseFloat(result.data[0].hna));
                     $('#ppn').val(parseFloat(result.data[0].ppn));
                     $('#profit').val(parseFloat(result.data[0].profit));
-                    $('#hrg_satuan').val(parseFloat(result.data[0].hrg_satuan));
+                    $('#hrg_satuan').val(parseFloat(result.data[0].hrg_satuan)).trigger('change');
                     $('#ss').val(parseFloat(result.data[0].ss));
                     $('#sm1').val(parseFloat(result.data[0].sm1));
                     $('#sm2').val(parseFloat(result.data[0].sm2));

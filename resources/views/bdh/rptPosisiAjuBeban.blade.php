@@ -16,6 +16,13 @@ drawLap($formData);
 function drawRptPage(data,res,from,to) {
     var html = "";
     if(data.length > 0) {
+        var resData = res.res
+        if(resData.back){
+            $('.navigation-lap').removeClass('hidden');
+        }else{
+            $('.navigation-lap').addClass('hidden');
+        }
+
         var split = data[0].tgl.split('/');
         var no = 1;
         var total = 0;
@@ -56,26 +63,26 @@ function drawRptPage(data,res,from,to) {
 
                         html += `<tr>
                             <td style="text-align: center;">${no}</td>
-                            <td style="text-align: left;">${row.no_pb}</td>
+                            <td class="report-link linkpb" data-no_bukti="${row.no_pb}" style="text-align: left;">${row.no_pb}</td>
                             <td style="text-align: center;">${row.tgl}</td>
                             <td style="text-align: center;">${row.kode_pp}</td>
                             <td style="text-align: left;">${row.nama_pp}</td>
                             <td style="text-align: left;">${row.keterangan}</td>
-                            <td style="text-align: center;">${sepNum(row.jum_dok)}</td>
+                            <td class="report-link linkdok" data-no_bukti="${row.no_pb}" style="text-align: center;">${sepNum(row.jum_dok)}</td>
                             <td style="text-align: right;">${sepNum(row.nilai)}</td>
                             <td style="text-align: left;">${row.progress}</td>
-                            <td style="text-align: left;">${row.no_fisik}</td>
+                            <td class="report-link linkver" data-no_bukti="${row.no_fisik}" style="text-align: left;">${row.no_fisik}</td>
                             <td style="text-align: center;">${row.tgl_fisik}</td>
-                            <td style="text-align: left;">${row.no_verdok}</td>
+                            <td class="report-link linkver" data-no_bukti="${row.no_verdok}" style="text-align: left;">${row.no_verdok}</td>
                             <td style="text-align: center;">${row.tgl_verdok}</td>
-                            <td style="text-align: left;">${row.no_pajak}</td>
+                            <td class="report-link linkver" data-no_bukti="${row.no_pajak}" style="text-align: left;">${row.no_pajak}</td>
                             <td style="text-align: center;">${row.tgl_pajak}</td>
-                            <td style="text-align: left;">${row.no_ver}</td>
+                            <td class="report-link linkver" data-no_bukti="${row.no_ver}" style="text-align: left;">${row.no_ver}</td>
                             <td style="text-align: center;">${row.tgl_ver}</td>
-                            <td style="text-align: left;">${row.no_spb}</td>
+                            <td class="report-link linkspb" data-no_bukti="${row.no_spb}" style="text-align: left;">${row.no_spb}</td>
                             <td style="text-align: center;">${row.tgl_spb}</td>
                             <td style="text-align: left;">${row.no_dpc}</td>
-                            <td style="text-align: left;">${row.no_kas}</td>
+                            <td class="report-link linkbyr" data-no_bukti="${row.no_kas}" style="text-align: left;">${row.no_kas}</td>
                             <td style="text-align: center;">${row.tgl_kas ? row.tgl_kas : '-'}</td>
                         </tr>`
                         no++;

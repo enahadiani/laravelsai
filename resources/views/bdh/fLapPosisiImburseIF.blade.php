@@ -14,10 +14,11 @@
         border: 1px #000000 solid;
     }
 </style>
+
 <div class="row" id="saku-filter">
     <div class="col-12">
         <div class="card" >
-            <x-report-header judul="Laporan Posisi Pengajuan Beban" padding="px-4 py-4"/>  
+            <x-report-header judul="Laporan Posisi Reimburse IF" padding="px-4 py-4"/>  
             <div class="separator"></div>
             <div class="row">
                 <div class="col-12 col-sm-12">
@@ -43,7 +44,7 @@
         </div>
     </div>
 </div>
-<x-report-result judul="Laporan Posisi Pengajuan Beban" padding="px-0 py-4"/>
+<x-report-result judul="Laporan Posisi Reimburse IF" padding="px-0 py-4"/>
 @include('modal_search')
 @include('modal_email')
     
@@ -125,7 +126,7 @@ $('.selectize').selectize();
 
 $('#inputFilter').reportFilter({
     kode : ['periode','kode_pp','no_bukti'],
-    nama : ['Periode','kode_pp','No Bukti'],
+    nama : ['Periode','Kode PP','No Bukti'],
     header : [
         ['Periode'],
         ['Kode', 'Nama'],
@@ -191,7 +192,7 @@ $('#inputFilter').on('change','input',function(e){
     setTimeout(() => {
     $('#inputFilter').reportFilter({
         kode : ['periode','kode_pp','no_bukti'],
-        nama : ['Periode','kode_pp','No Bukti'],
+        nama : ['Periode','Kode PP','No Bukti'],
         header : [
             ['Periode'],
             ['Kode', 'Nama'],
@@ -272,7 +273,7 @@ $('#form-filter').submit(function(e){
         console.log(pair[0]+ ', '+ pair[1]); 
     }
     $('#saku-report').removeClass('hidden');
-    xurl = "{{ url('bdh-auth/form/rptPosisiAjuBeban') }}";
+    xurl = "{{ url('bdh-auth/form/rptPosisiReimburseIF') }}";
     $('#saku-report #canvasPreview').load(xurl);
 });
 
@@ -292,7 +293,7 @@ $('#show').change(function(e){
         console.log(pair[0]+ ', '+ pair[1]); 
     }
     $('#saku-report').removeClass('hidden');
-    xurl = "{{ url('bdh-auth/form/rptPosisiAjuBeban') }}";
+    xurl = "{{ url('bdh-auth/form/rptPosisiReimburseIF') }}";
     $('#saku-report #canvasPreview').load(xurl);
 });
 
@@ -337,13 +338,18 @@ $('#saku-report #canvasPreview').on('click', '.linkpb', function(e){
     e.preventDefault();
     var no_bukti = $(this).data('no_bukti');
     var periode = $periode.from;
+    var pp = $kode_pp.from;
             
     $formData.delete('periode[]');
+    $formData.delete('kode_pp[]');
     $formData.delete('no_bukti[]');
     
     $formData.append("periode[]","=");
     $formData.append("periode[]",periode);
     $formData.append("periode[]","");
+    $formData.append("kode_pp[]","=");
+    $formData.append("kode_pp[]",pp);
+    $formData.append("kode_pp[]","");
     $formData.append("no_bukti[]","=");
     $formData.append("no_bukti[]",no_bukti);
     $formData.append("no_bukti[]","");
@@ -354,11 +360,11 @@ $('#saku-report #canvasPreview').on('click', '.linkpb', function(e){
     $('.breadcrumb').html('');
     $('.breadcrumb').append(`
         <li class="breadcrumb-item">
-            <a href="#" class="klik-report" data-href="lap-posaju-beban" aria-param="">Laporan Posisi Pengajuan Beban</a>
+            <a href="#" class="klik-report" data-href="lap-posaju-beban" aria-param="">Laporan Posisi Pengajuan Panjar</a>
         </li>
-        <li class="breadcrumb-item active" aria-current="lap-aju-beban" aria-param="`+no_bukti+`">Laporan Pengajuan Beban</li>
+        <li class="breadcrumb-item active" aria-current="lap-aju-beban" aria-param="`+no_bukti+`">Laporan Pengajuan Panjar</li>
     `);
-    xurl ="bdh-auth/form/rptAjuBeban";
+    xurl ="bdh-auth/form/rptImburseIF";
     $('#saku-report #canvasPreview').load(xurl);
 });
 
@@ -379,7 +385,7 @@ $('#saku-report #canvasPreview').on('click', '.linkdok', function(e){
     $('.breadcrumb').html('');
     $('.breadcrumb').append(`
         <li class="breadcrumb-item">
-            <a href="#" class="klik-report" data-href="lap-posaju-beban" aria-param="">Laporan Posisi Pengajuan Beban</a>
+            <a href="#" class="klik-report" data-href="lap-posaju-beban" aria-param="">Laporan Posisi Pengajuan Panjar</a>
         </li>
         <li class="breadcrumb-item active" aria-current="daftar-dokumen" aria-param="`+no_bukti+`">Daftar Dokumen</li>
     `);
@@ -407,7 +413,7 @@ $('#saku-report #canvasPreview').on('click', '.linkver', function(e){
     $('.breadcrumb').html('');
     $('.breadcrumb').append(`
         <li class="breadcrumb-item">
-            <a href="#" class="klik-report" data-href="lap-posaju-beban" aria-param="">Laporan Posisi Pengajuan Beban</a>
+            <a href="#" class="klik-report" data-href="lap-posaju-beban" aria-param="">Laporan Posisi Pengajuan Panjar</a>
         </li>
         <li class="breadcrumb-item active" aria-current="lap-ver" aria-param="`+no_bukti+`">Laporan Verifikasi</li>
     `);
@@ -435,7 +441,7 @@ $('#saku-report #canvasPreview').on('click', '.linkspb', function(e){
     $('.breadcrumb').html('');
     $('.breadcrumb').append(`
         <li class="breadcrumb-item">
-            <a href="#" class="klik-report" data-href="lap-posaju-beban" aria-param="">Laporan Posisi Pengajuan Beban</a>
+            <a href="#" class="klik-report" data-href="lap-posaju-beban" aria-param="">Laporan Posisi Pengajuan Panjar</a>
         </li>
         <li class="breadcrumb-item active" aria-current="lap-spb" aria-param="`+no_bukti+`">Laporan SPB</li>
     `);
@@ -463,7 +469,7 @@ $('#saku-report #canvasPreview').on('click', '.linkbyr', function(e){
     $('.breadcrumb').html('');
     $('.breadcrumb').append(`
         <li class="breadcrumb-item">
-            <a href="#" class="klik-report" data-href="lap-posaju-beban" aria-param="">Laporan Posisi Pengajuan Beban</a>
+            <a href="#" class="klik-report" data-href="lap-posaju-beban" aria-param="">Laporan Posisi Pengajuan Panjar</a>
         </li>
         <li class="breadcrumb-item active" aria-current="lap-ver" aria-param="`+no_bukti+`">Laporan Pembayaran</li>
     `);
@@ -495,7 +501,7 @@ $('.navigation-lap').on('click', '#btn-back', function(e){
     var tmp = $('.breadcrumb-item.active').attr('aria-param').split("|");
     var param = tmp[0];
 
-    xurl = "bdh-auth/form/rptPosisiAjuBeban";
+    xurl = "bdh-auth/form/rptPosisiReimburseIF";
     $('#saku-report #canvasPreview').load(xurl);
 });
 // END LINK TO OTHER REPORT
