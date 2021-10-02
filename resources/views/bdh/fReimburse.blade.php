@@ -427,7 +427,7 @@
         resetForm()
         $('#row-id').hide();
         $('#method').val('post');
-        $('#judul-form').html('Tambah Data SPB');
+        $('#judul-form').html('Tambah Reimburse / Penutupan I/F');
         $('#btn-update').attr('id','btn-save');
         $('#btn-save').attr('type','submit');
         $('#form-tambah')[0].reset();
