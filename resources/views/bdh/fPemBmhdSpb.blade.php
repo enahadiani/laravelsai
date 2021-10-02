@@ -263,7 +263,7 @@
         resetForm()
         $('#row-id').hide();
         $('#method').val('post');
-        $('#judul-form').html('Tambah Jurnal BYMHD');
+        $('#judul-form').html('Tambah Pem-BMHD-an SPB');
         $('#btn-update').attr('id','btn-save');
         $('#btn-save').attr('type','submit');
         $('#form-tambah')[0].reset();
