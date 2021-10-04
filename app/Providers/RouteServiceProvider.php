@@ -109,6 +109,8 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapSimlogRoutes();
 
         $this->mapBdhRoutes();
+
+        $this->mapDashYptRoutes();
     }
 
     /**
@@ -752,5 +754,33 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/bdh/report.php'));
+    }
+
+    protected function mapDashYptRoutes()
+    {
+        Route::prefix('dash-ypt')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/dash-ypt/auth.php'));
+
+        Route::prefix('dash-ypt-dash')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/dash-ypt/dash.php'));
+
+        Route::prefix('dash-ypt-master')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/dash-ypt/master.php'));
+
+        Route::prefix('dash-ypt-trans')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/dash-ypt/trans.php'));
+
+        Route::prefix('dash-ypt-report')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/dash-ypt/report.php'));
     }
 }
