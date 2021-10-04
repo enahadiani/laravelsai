@@ -18,6 +18,7 @@ class JenisDokumenController extends Controller
      */
     public $link = 'https://api.simkug.com/api/esaku-trans/';
 
+
     public function __contruct()
     {
         if (!Session::get('login')) {
@@ -69,19 +70,17 @@ class JenisDokumenController extends Controller
             return response()->json(['message' => $res["message"], 'status' => false], 200);
         }
     }
-
-    public function GenerateBukti(Request $request)
+    public function show($id)
     {
         try {
-
             $client = new Client();
-            $response = $client->request('GET',  config('api.url') . 'bdh-trans/spb-nobukti', [
+            $response = $client->request('GET',  config('api.url') . 'bdh-master/dok-jenis', [
                 'headers' => [
                     'Authorization' => 'Bearer ' . Session::get('token'),
                     'Accept'     => 'application/json',
                 ],
                 'query' => [
-                    'tanggal'   => $request->input('tanggal')
+                    'kode_jenis'    => $id
                 ]
             ]);
 
@@ -89,248 +88,36 @@ class JenisDokumenController extends Controller
                 $response_data = $response->getBody()->getContents();
 
                 $data = json_decode($response_data, true);
-                $data = $data["no_bukti"];
+                $data = $data["data"];
             }
             return response()->json(['data' => $data, 'status' => true, 'message' => 'success'], 200);
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(), true);
-            return response()->json(['message' => $res, 'status' => false], 200);
-        }
-    }
-
-    public function getPb()
-    {
-        try {
-            $client = new Client();
-            $response = $client->request('GET',  config('api.url') . 'bdh-trans/spb-pb-list', [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . Session::get('token'),
-                    'Accept'     => 'application/json',
-                ]
-            ]);
-
-            if ($response->getStatusCode() == 200) { // 200 OK
-                $response_data = $response->getBody()->getContents();
-
-                $data = json_decode($response_data, true);
-                $data = $data["data"];
-            }
-            return response()->json(['daftar' => $data, 'status' => true, 'message' => 'success'], 200);
-        } catch (BadResponseException $ex) {
-            $response = $ex->getResponse();
-            $res = json_decode($response->getBody(), true);
-            return response()->json(['message' => $res["message"], 'status' => false], 200);
-        }
-    }
-    public function getPbTambah()
-    {
-        try {
-            $client = new Client();
-            $response = $client->request('GET',  config('api.url') . 'bdh-trans/spb-tambah-pb', [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . Session::get('token'),
-                    'Accept'     => 'application/json',
-                ]
-            ]);
-
-            if ($response->getStatusCode() == 200) { // 200 OK
-                $response_data = $response->getBody()->getContents();
-
-                $data = json_decode($response_data, true);
-                $data = $data["data"];
-            }
-            return response()->json(['daftar' => $data, 'status' => true, 'message' => 'success'], 200);
-        } catch (BadResponseException $ex) {
-            $response = $ex->getResponse();
-            $res = json_decode($response->getBody(), true);
-            return response()->json(['message' => $res["message"], 'status' => false], 200);
-        }
-    }
-    public function getNikFiat()
-    {
-        try {
-            $client = new Client();
-            $response = $client->request('GET',  config('api.url') . 'bdh-trans/spb-nik-fiat', [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . Session::get('token'),
-                    'Accept'     => 'application/json',
-                ],
-            ]);
-
-            if ($response->getStatusCode() == 200) { // 200 OK
-                $response_data = $response->getBody()->getContents();
-
-                $data = json_decode($response_data, true);
-                $data = $data["data"];
-            }
-            return response()->json(['daftar' => $data, 'status' => true, 'message' => 'success'], 200);
-        } catch (BadResponseException $ex) {
-            $response = $ex->getResponse();
-            $res = json_decode($response->getBody(), true);
-            return response()->json(['message' => $res["message"], 'status' => false], 200);
-        }
-    }
-    public function getNikBdh()
-    {
-        try {
-            $client = new Client();
-            $response = $client->request('GET',  config('api.url') . 'bdh-trans/spb-nik-bdh', [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . Session::get('token'),
-                    'Accept'     => 'application/json',
-                ],
-            ]);
-
-            if ($response->getStatusCode() == 200) { // 200 OK
-                $response_data = $response->getBody()->getContents();
-
-                $data = json_decode($response_data, true);
-                $data = $data["data"];
-            }
-            return response()->json(['daftar' => $data, 'status' => true, 'message' => 'success'], 200);
-        } catch (BadResponseException $ex) {
-            $response = $ex->getResponse();
-            $res = json_decode($response->getBody(), true);
             return response()->json(['message' => $res["message"], 'status' => false], 200);
         }
     }
 
-    public function getTransfer(Request $request)
-    {
-        try {
-            $client = new Client();
-            $response = $client->request('GET',  config('api.url') . 'bdh-trans/spb-rek-transfer', [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . Session::get('token'),
-                    'Accept'     => 'application/json',
-                ],
-                'query' => [
-                    'no_pb'     => $request->input('no_pb')
-                ]
-            ]);
 
-            if ($response->getStatusCode() == 200) { // 200 OK
-                $response_data = $response->getBody()->getContents();
-
-                $data = json_decode($response_data, true);
-                $data = $data["data"];
-            }
-            return response()->json(['daftar' => $data, 'status' => true, 'message' => 'success'], 200);
-        } catch (BadResponseException $ex) {
-            $response = $ex->getResponse();
-            $res = json_decode($response->getBody(), true);
-            return response()->json(['message' => $res["message"], 'status' => false], 200);
-        }
-    }
-
-    public function postPbTambah(Request $request)
-    {
-        try {
-            $client = new Client();
-            $response = $client->request('GET',  config('api.url') . 'bdh-trans/spb-pb-list', [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . Session::get('token'),
-                    'Accept'     => 'application/json',
-                ],
-                'query' => [
-                    'no_pb' => $request->input('no_pb')
-                ]
-            ]);
-
-            if ($response->getStatusCode() == 200) { // 200 OK
-                $response_data = $response->getBody()->getContents();
-
-                $data = json_decode($response_data, true);
-                $data = $data["data"];
-            }
-            return response()->json(['daftar' => $data, 'status' => true, 'message' => 'success'], 200);
-        } catch (BadResponseException $ex) {
-            $response = $ex->getResponse();
-            $res = json_decode($response->getBody(), true);
-            return response()->json(['message' => $res["message"], 'status' => false], 200);
-        }
-    }
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'no_dokumen' => 'required',
-            'tanggal' => 'required',
-            'deskripsi' => 'required',
-            'total_spb' => 'required',
-            'nik_bdh' => 'required',
-            'nik_fiatur' => 'required',
-            'status' => 'required|array',
-            'pb' => 'required|array',
-            'nilai' => 'required|array',
-        ]);
         try {
-            $send_data = array();
-
-            $fields = [
-                [
-                    'name' => 'tanggal',
-                    'contents' => $this->reverseDate($request->tanggal, '/', '-'),
-                ],
-                [
-                    'name' => 'no_dokumen',
-                    'contents' => $request->no_dokumen,
-                ],
-                [
-                    'name' => 'deskripsi',
-                    'contents' => $request->deskripsi,
-                ],
-                [
-                    'name' => 'nik_bdh',
-                    'contents' => $request->nik_bdh,
-                ],
-                [
-                    'name' => 'nik_fiat',
-                    'contents' => $request->nik_fiatur,
-                ],
-                [
-                    'name' => 'total',
-                    'contents' => $request->total_spb,
-                ],
-            ];
-
-            $fields_status = array();
-            $fields_no_pb = array();
-            $fields_nilai_pb = array();
-
-
-            if (count($request->status) > 0) {
-                for ($y = 0; $y < count($request->status); $y++) {
-                    $fields_status[$y] = array(
-                        'name'      => 'status[]',
-                        'contents'  => $request->status[$y]
-                    );
-                    $fields_no_pb[$y] = array(
-                        'name'      => 'no_pb[]',
-                        'contents'  => $request->pb[$y]
-                    );
-                    $fields_nilai_pb[$y] = array(
-                        'name'      => 'nilai_pb[]',
-                        'contents'  => $request->nilai[$y]
-                    );
-
-                    $send_data = array_merge($fields, $fields_status);
-                    $send_data = array_merge($send_data, $fields_no_pb);
-                    $send_data = array_merge($send_data, $fields_nilai_pb);
-                }
-            } else {
-                $send_data = $fields;
-            }
-
-
-
+            $this->validate($request, [
+                'kode' => 'required',
+                'nama' => 'required',
+            ]);
             $client = new Client();
-            $response = $client->request('POST',  config('api.url') . 'bdh-trans/spb', [
+            $response = $client->request('POST',  config('api.url') . 'bdh-master/dok-jenis', [
                 'headers' => [
                     'Authorization' => 'Bearer ' . Session::get('token'),
-                    'Accept'     => 'application/json',
+                    'Accept'        => 'application/json',
                 ],
-                'multipart' => $send_data
+                'form_params' => [
+                    'kode_jenis'    => $request->kode,
+                    'nama'          => $request->nama,
+                    'idx'           => $request->idx
+                ]
+
             ]);
 
             if ($response->getStatusCode() == 200) { // 200 OK
@@ -342,7 +129,42 @@ class JenisDokumenController extends Controller
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(), true);
-            $result['message'] = $res["message"];
+            $result['message'] = $res;
+            $result['status'] = false;
+            return response()->json(["data" => $result], 200);
+        }
+    }
+    public function update(Request $request)
+    {
+        try {
+            $this->validate($request, [
+                'kode' => 'required',
+                'nama' => 'required',
+            ]);
+            $client = new Client();
+            $response = $client->request('PUT',  config('api.url') . 'bdh-master/dok-jenis', [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . Session::get('token'),
+                    'Accept'        => 'application/json',
+                ],
+                'form_params' => [
+                    'kode_jenis'    => $request->kode,
+                    'nama'          => $request->nama,
+                    'idx'           => $request->idx
+                ]
+
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+
+                $data = json_decode($response_data, true);
+                return response()->json(["data" => $data], 200);
+            }
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(), true);
+            $result['message'] = $res;
             $result['status'] = false;
             return response()->json(["data" => $result], 200);
         }
@@ -351,13 +173,13 @@ class JenisDokumenController extends Controller
     {
         try {
             $client = new Client();
-            $response = $client->request('DELETE',  config('api.url') . 'bdh-trans/spb', [
+            $response = $client->request('DELETE',  config('api.url') . 'bdh-master/dok-jenis', [
                 'headers' => [
                     'Authorization' => 'Bearer ' . Session::get('token'),
                     'Accept'     => 'application/json',
                 ],
                 'query' => [
-                    'no_bukti' => $request->input('no_bukti')
+                    'kode_jenis' => $request->input('kode_jenis')
                 ]
             ]);
 
