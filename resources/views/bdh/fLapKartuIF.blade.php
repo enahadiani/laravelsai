@@ -2,7 +2,7 @@
 <div class="row" id="saku-filter">
     <div class="col-12">
         <div class="card" >
-            <x-report-header judul="Laporan Saldo Panjar" padding="px-4 py-4"/>  
+            <x-report-header judul="Laporan Kartu IF" padding="px-4 py-4"/>  
             <div class="separator"></div>
             <div class="row">
                 <div class="col-12 col-sm-12">
@@ -12,9 +12,9 @@
                                 <h6>Filter</h6>
                                 <div id="inputFilter">
                                     <!-- COMPONENT -->
-                                    <x-inp-filter kode="periode" nama="Periode" selected="3" :option="array('3')"/>
+                                    <x-inp-filter kode="tahun" nama="Tahun" selected="3" :option="array('3')"/>
                                     <x-inp-filter kode="kode_pp" nama="Kode PP" selected="3" :option="array('3')"/>
-                                    <x-inp-filter kode="no_bukti" nama="No Bukti" selected="1" :option="array('1','2','3','i')"/>
+                                    <x-inp-filter kode="nik" nama="NIK" selected="1" :option="array('1','3')"/>
                                     <!-- END COMPONENT -->
                                 </div>
                                 <button id="btn-tampil" style="float:right;width:110px" class="btn btn-primary ml-2 mb-3" type="submit" >Tampilkan</button>
@@ -23,12 +23,12 @@
                         </div>
                     </div>
                 </div>
-                <x-report-paging :option="array()" default="All" />
+                <x-report-paging :option="array(1)" default="1" />
             </div>                    
         </div>
     </div>
 </div>
-<x-report-result judul="Laporan Saldo Panjar" padding="px-0 py-4"/>
+<x-report-result judul="Laporan Kartu IF" padding="px-0 py-4"/>
 @include('modal_search')
 @include('modal_email')
     
@@ -46,7 +46,7 @@ $.ajaxSetup({
     }
 });
 
-var $no_bukti = {
+var $nik = {
     type : "all",
     from : "",
     fromname : "",
@@ -60,10 +60,10 @@ var $kode_pp = {
     to : "",
     toname : "",
 }
-var $periode = {
+var $tahun = {
     type : "=",
-    from : "{{ date('Ym') }}",
-    fromname : namaPeriode("{{ date('Ym') }}"),
+    from : "{{ date('Y') }}",
+    fromname : "{{ date('Y') }}",
     to : "",
     toname : "",
 }
@@ -72,7 +72,7 @@ var $aktif = "";
 
 $.fn.DataTable.ext.pager.numbers_length = 5;
 
-$('#periode-from').val(namaPeriode("{{ date('Ym') }}"));
+$('#tahun-from').val("{{ date('Y') }}");
 $('#kode_pp-from').val("3130000");
 
 $('#btn-filter').click(function(e){
@@ -108,46 +108,40 @@ $('#btn-tampil').click(function(e){
 $('.selectize').selectize();
 
 $('#inputFilter').reportFilter({
-    kode : ['periode','kode_pp','no_bukti'],
-    nama : ['Periode','kode_pp','No Bukti'],
+    kode : ['tahun','kode_pp','nik'],
+    nama : ['Periode','No Bukti', 'NIK'],
     header : [
-        ['Periode'],
-        ['Kode', 'Nama'],
-        ['No Bukti','Keterangan']
+        ['Tahun'],
+        ['Kode','Nama'],
+        ['NIK','Nama']
     ],
     headerpilih : [
-        ['Periode','Action'],
+        ['Tahun','Action'],
         ['Kode','Nama','Action'],
-        ['No Bukti','Keterangan','Action']
+        ['NIK','Nama','Action']
     ],
     columns: [
         [
-            { data: 'periode' },
+            { data: 'tahun' },
         ],
         [
             { data: 'kode_pp' },
-            { data: 'nama' },
+            { data: 'nama' }
         ],
         [
-            { data: 'no_pb' },
-            { data: 'keterangan' }
+            { data: 'nik' },
+            { data: 'nama' }
         ]
     ],
     url :[
-        "{{ url('bdh-report/filter-periodepanjar') }}",
-        "{{ url('bdh-report/filter-pp') }}",
-        "{{ url('bdh-report/filter-nopanjar') }}"
+        "{{ url('bdh-report/filter-tahunif') }}",
+        "{{ url('bdh-report/filter-ppif') }}",
+        "{{ url('bdh-report/filter-nik') }}"
     ],
     parameter:[
         {},
-        {
-            'periode': $periode.from
-        },
-        {
-            'periode[0]': $periode.type,
-            'periode[1]': $periode.from,
-            'periode[2]': $periode.to,
-        }
+        {},
+        {}
     ],
     orderby:[
         [[0,"desc"]],
@@ -174,46 +168,40 @@ $('#inputFilter').reportFilter({
 $('#inputFilter').on('change','input',function(e){
     setTimeout(() => {
     $('#inputFilter').reportFilter({
-        kode : ['periode','kode_pp','no_bukti'],
-        nama : ['Periode','kode_pp','No Bukti'],
+        kode : ['tahun','kode_pp','nik'],
+        nama : ['Periode','No Bukti', 'NIK'],
         header : [
-            ['Periode'],
-            ['Kode', 'Nama'],
-            ['No Bukti','Keterangan']
+            ['Tahun'],
+            ['Kode','Nama'],
+            ['NIK','Nama']
         ],
         headerpilih : [
-            ['Periode','Action'],
+            ['Tahun','Action'],
             ['Kode','Nama','Action'],
-            ['No Bukti','Keterangan','Action']
+            ['NIK','Nama','Action']
         ],
         columns: [
             [
-                { data: 'periode' },
+                { data: 'tahun' },
             ],
             [
                 { data: 'kode_pp' },
-                { data: 'nama' },
+                { data: 'nama' }
             ],
             [
-                { data: 'no_pb' },
-                { data: 'keterangan' }
+                { data: 'nik' },
+                { data: 'nama' }
             ]
         ],
         url :[
-            "{{ url('bdh-report/filter-periodepanjar') }}",
-            "{{ url('bdh-report/filter-pp') }}",
-            "{{ url('bdh-report/filter-nopanjar') }}"
+            "{{ url('bdh-report/filter-tahunif') }}",
+            "{{ url('bdh-report/filter-ppif') }}",
+            "{{ url('bdh-report/filter-nik') }}"
         ],
         parameter:[
             {},
-            {
-                'periode': $periode.from
-            },
-            {
-                'periode[0]': $periode.type,
-                'periode[1]': $periode.from,
-                'periode[2]': $periode.to,
-            }
+            {},
+            {}
         ],
         orderby:[
             [[0,"desc"]],
@@ -243,40 +231,40 @@ var $formData = "";
 $('#form-filter').submit(function(e){
     e.preventDefault();
     $formData = new FormData();
-    $formData.append("periode[]",$periode.type);
-    $formData.append("periode[]",$periode.from);
-    $formData.append("periode[]",$periode.to);
+    $formData.append("tahun[]",$tahun.type);
+    $formData.append("tahun[]",$tahun.from);
+    $formData.append("tahun[]",$tahun.to);
     $formData.append("kode_pp[]",$kode_pp.type);
     $formData.append("kode_pp[]",$kode_pp.from);
     $formData.append("kode_pp[]",$kode_pp.to);
-    $formData.append("no_bukti[]",$no_bukti.type);
-    $formData.append("no_bukti[]",$no_bukti.from);
-    $formData.append("no_bukti[]",$no_bukti.to);
+    $formData.append("nik[]",$nik.type);
+    $formData.append("nik[]",$nik.from);
+    $formData.append("nik[]",$nik.to);
     for(var pair of $formData.entries()) {
         console.log(pair[0]+ ', '+ pair[1]); 
     }
     $('#saku-report').removeClass('hidden');
-    xurl = "{{ url('bdh-auth/form/rptSaldoPanjar') }}";
+    xurl = "{{ url('bdh-auth/form/rptKartuIF') }}";
     $('#saku-report #canvasPreview').load(xurl);
 });
 
 $('#show').change(function(e){
     e.preventDefault();
     $formData = new FormData();
-    $formData.append("periode[]",$periode.type);
-    $formData.append("periode[]",$periode.from);
-    $formData.append("periode[]",$periode.to);
+    $formData.append("tahun[]",$tahun.type);
+    $formData.append("tahun[]",$tahun.from);
+    $formData.append("tahun[]",$tahun.to);
     $formData.append("kode_pp[]",$kode_pp.type);
     $formData.append("kode_pp[]",$kode_pp.from);
     $formData.append("kode_pp[]",$kode_pp.to);
-    $formData.append("no_bukti[]",$no_bukti.type);
-    $formData.append("no_bukti[]",$no_bukti.from);
-    $formData.append("no_bukti[]",$no_bukti.to);
+    $formData.append("nik[]",$nik.type);
+    $formData.append("nik[]",$nik.from);
+    $formData.append("nik[]",$nik.to);
     for(var pair of $formData.entries()) {
         console.log(pair[0]+ ', '+ pair[1]); 
     }
     $('#saku-report').removeClass('hidden');
-    xurl = "{{ url('bdh-auth/form/rptSaldoPanjar') }}";
+    xurl = "{{ url('bdh-auth/form/rptKartuIF') }}";
     $('#saku-report #canvasPreview').load(xurl);
 });
 

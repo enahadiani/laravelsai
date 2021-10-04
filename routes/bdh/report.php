@@ -9,6 +9,9 @@ Route::get('filter-periodepb', 'Bdh\FilterController@periodePB');
 Route::get('filter-periodepanjar', 'Bdh\FilterController@periodePanjar');
 Route::get('filter-periode', 'Bdh\FilterController@dataPeriode');
 Route::get('filter-nik', 'Bdh\FilterController@dataNik');
+Route::get('filter-pp', 'Bdh\FilterController@dataPP');
+Route::get('filter-tahunif', 'Bdh\FilterController@dataTahunIF');
+Route::get('filter-ppif', 'Bdh\FilterController@dataPPIF');
 
 Route::get('filter-nover', 'Bdh\FilterController@dataBuktiVer');
 Route::get('filter-nospb', 'Bdh\FilterController@dataBuktiSPB');
@@ -33,9 +36,11 @@ Route::post('lap-tanggungpanjar', 'Bdh\LaporanPanjarController@dataTanggungPanja
 Route::post('lap-posisitanggungpanjar', 'Bdh\LaporanPanjarController@dataPosisiTanggungPanjar');
 Route::post('lap-saldopanjar', 'Bdh\LaporanPanjarController@dataSaldoPanjar');
 
-Route::post('lap-bukaif', 'Bdh\LaporanController@dataBukaIf');
-Route::post('lap-imburseif', 'Bdh\LaporanController@dataImburseIf');
-Route::post('lap-posisiimburseif', 'Bdh\LaporanController@dataPosisiImburseIf');
-Route::post('lap-kartuif', 'Bdh\LaporanController@dataKartuIf');
+Route::post('lap-bukaif', 'Bdh\LaporanImburseFundController@dataBukaIf');
+Route::post('lap-imburseif', 'Bdh\LaporanImburseFundController@dataImburseIf');
+Route::post('lap-posisiimburseif', 'Bdh\LaporanImburseFundController@dataPosisiImburseIf');
+Route::post('lap-kartuif', 'Bdh\LaporanImburseFundController@dataKartuIf');
+
+Route::post('lap-dokpbh', 'Bdh\LaporanDetailController@dataDokumenPBH');
 
 ?>

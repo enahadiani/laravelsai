@@ -25,8 +25,8 @@ class LaporanImburseFundController extends Controller {
                     'Accept'     => 'application/json',
                 ],
                 'query' => [
-                    'periode' => $r->input('periode'),
-                    'no_bukti' => $r->input('no_bukti'),
+                    'tahun' => $r->input('tahun'),
+                    'kode_pp' => $r->input('kode_pp'),
                     'nik' => $r->input('nik')
                 ]
             ]);
@@ -38,7 +38,13 @@ class LaporanImburseFundController extends Controller {
                 $data = $res["data"];
             }
             if(isset($r->back)){
-                $res['back']=true;
+                $back = false;
+                if($r->back == "true") {
+                    $back = true;
+                } else {
+                    $back = false;
+                }
+                $res['back']= $back;
             }
                 
             return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'sumju'=>$r->sumju,'res'=>$res], 200); 
@@ -60,6 +66,7 @@ class LaporanImburseFundController extends Controller {
                 ],
                 'query' => [
                     'periode' => $r->input('periode'),
+                    'kode_pp' => $r->input('kode_pp'),
                     'no_bukti' => $r->input('no_bukti')
                 ]
             ]);
@@ -71,7 +78,13 @@ class LaporanImburseFundController extends Controller {
                 $data = $res["data"];
             }
             if(isset($r->back)){
-                $res['back']=true;
+                $back = false;
+                if($r->back == "true") {
+                    $back = true;
+                } else {
+                    $back = false;
+                }
+                $res['back']= $back;
             }
                 
             return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'sumju'=>$r->sumju,'res'=>$res], 200); 
@@ -93,6 +106,7 @@ class LaporanImburseFundController extends Controller {
                 ],
                 'query' => [
                     'periode' => $r->input('periode'),
+                    'kode_pp' => $r->input('kode_pp'),
                     'no_bukti' => $r->input('no_bukti')
                 ]
             ]);
@@ -104,7 +118,13 @@ class LaporanImburseFundController extends Controller {
                 $data = $res["data"];
             }
             if(isset($r->back)){
-                $res['back']=true;
+                $back = false;
+                if($r->back == "true") {
+                    $back = true;
+                } else {
+                    $back = false;
+                }
+                $res['back']= $back;
             }
                 
             return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'sumju'=>$r->sumju,'res'=>$res], 200); 
@@ -137,7 +157,13 @@ class LaporanImburseFundController extends Controller {
                 $data = $res["data"];
             }
             if(isset($r->back)){
-                $res['back']=true;
+                $back = false;
+                if($r->back == "true") {
+                    $back = true;
+                } else {
+                    $back = false;
+                }
+                $res['back']= $back;
             }
                 
             return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'sumju'=>$r->sumju,'res'=>$res], 200); 

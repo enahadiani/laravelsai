@@ -216,7 +216,7 @@ $('#form-filter').submit(function(e){
         console.log(pair[0]+ ', '+ pair[1]); 
     }
     $('#saku-report').removeClass('hidden');
-    xurl = "{{ url('bdh-auth/form/rptSpb') }}";
+    xurl = "{{ url('bdh-auth/form/rptSPB') }}";
     $('#saku-report #canvasPreview').load(xurl);
 });
 
@@ -233,7 +233,7 @@ $('#show').change(function(e){
         console.log(pair[0]+ ', '+ pair[1]); 
     }
     $('#saku-report').removeClass('hidden');
-    xurl = "{{ url('bdh-auth/form/rptSpb') }}";
+    xurl = "{{ url('bdh-auth/form/rptSPB') }}";
     $('#saku-report #canvasPreview').load(xurl);
 });
 

@@ -1,6 +1,6 @@
 <script type="text/javascript">
 function drawLap(formData){
-    saiPostLoad('bdh-report/lap-posisiajupanjar', null, formData, null, function(res){
+    saiPostLoad('bdh-report/lap-posisiimburseif', null, formData, null, function(res){
         if(res.result.length > 0){
             $('#pagination').html('');
             var show = $('#show').val();
@@ -28,7 +28,7 @@ function drawRptPage(data,res,from,to) {
         var total = 0;
 
         html += `<div class="sai-rpt-table-export"">
-            <h6 class="text-center">Posisi Permintaan Bayar</h6>  
+            <h6 class="text-center">POSISI IMPREST FUND</h6>  
             <h6 class="text-center">Periode ${getNamaBulan(split[1])} ${split[2]}</h6>
             <div style="margin-right: 8px;margin-left: 8px;overflow-x: scroll;">
                 <table class="table table-bordered" style="width: 1600px;">

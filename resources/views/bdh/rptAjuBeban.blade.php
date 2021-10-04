@@ -17,6 +17,13 @@ function drawRptPage(data,res,from,to) {
     var html = "";
     if(data.length > 0) {
         var resData = res.res
+        
+        if(resData.back){
+            $('.navigation-lap').removeClass('hidden');
+        }else{
+            $('.navigation-lap').addClass('hidden');
+        }
+        
         var no = 1;
         for(var i=0;i<data.length;i++) {
             var row = data[i];
