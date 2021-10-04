@@ -228,18 +228,12 @@
     <script>
          if (mode == "dark") {
             console.log('mode')
-            var url_logo = "{{ asset('img/whitelogo Telu.png') }}";
-            var url_logo2 = "{{ asset('img/KUG Light.png') }}";
+            var url_logo = "{{ asset('img/ypt.jpeg') }}";
+            var url_logo2 = "{{ asset('img/ypt.jpeg') }}";
             $('.logo-single').css({
                 'background': "url('"+url_logo+"') no-repeat",
                 'background-size': '130px',
                 'height':'45px'
-            });
-            $('.logo-single2').css({
-                'background': "url('"+url_logo2+"') no-repeat",
-                'background-size': 'contain',
-                'width':'50px',
-                'height':'50px'
             });
 
             $('.auth-card').css('background','#1b1919');
@@ -247,20 +241,14 @@
         // localStorage.setItem("dore-theme", mode);
         } else if (mode == "light") {
             
-            var url_logo = "{{ asset('img/Tel-U-logo_1.PRIMER-Utama.png') }}";
-            var url_logo2 = "{{ asset('img/KUG Dark.png') }}";
+            var url_logo = "{{ asset('img/ypt.jpeg') }}";
+            var url_logo2 = "{{ asset('img/ypt.jpeg') }}";
             $('.logo-single').css({
                 'background': "url('"+url_logo+"') no-repeat",
                 'background-size': '150px',
                 'background-position-y': 'center',
                 'width':'160px',
                 'height':'45px'
-            });
-            $('.logo-single2').css({
-                'background': "url('"+url_logo2+"') no-repeat",  
-                'background-size': 'contain',
-                'width':'50px',
-                'height':'50px'
             });
         }
         function showNotification(placementFrom, placementAlign, type,title,message) {
