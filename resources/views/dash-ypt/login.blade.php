@@ -233,7 +233,7 @@
             $('.logo-single').css({
                 'background': "url('"+url_logo+"') no-repeat",
                 'background-size': '130px',
-                'height':'45px'
+                'height':'80px'
             });
 
             $('.auth-card').css('background','#1b1919');
@@ -248,7 +248,7 @@
                 'background-size': '150px',
                 'background-position-y': 'center',
                 'width':'160px',
-                'height':'45px'
+                'height':'80px'
             });
         }
         function showNotification(placementFrom, placementAlign, type,title,message) {
