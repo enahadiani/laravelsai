@@ -58,4 +58,10 @@
 .card.card-dash .header-card {
     font-size: 20px !important;
 }
+.card.card-dash .main-nominal {
+    margin-top: 4px;
+    font-size: 32px !important;
+    color: #b91c1c;
+    font-weight: bold;
+}
 /* END CARD */

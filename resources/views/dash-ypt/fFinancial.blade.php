@@ -38,21 +38,45 @@
                     <div class="col-12">
                         <div class="card card-dash">
                             <span class="header-card">Pendapatan</span>
+                            <div class="row">
+                                <div class="col-12">
+                                    <p id="pendapatan-value" class="main-nominal">945,6 M</p>
+                                </div>
+                                <div class="col-12"></div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-12 mt-16">
                         <div class="card card-dash">
                             <span class="header-card">Beban</span>
+                            <div class="row">
+                                <div class="col-12">
+                                    <p id="pendapatan-value" class="main-nominal">868,2 M</p>
+                                </div>
+                                <div class="col-12"></div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-12 mt-16">
                         <div class="card card-dash">
                             <span class="header-card">SHU</span>
+                            <div class="row">
+                                <div class="col-12">
+                                    <p id="pendapatan-value" class="main-nominal">77,4 M</p>
+                                </div>
+                                <div class="col-12"></div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-12 mt-16">
                         <div class="card card-dash">
                             <span class="header-card">OR</span>
+                            <div class="row">
+                                <div class="col-12">
+                                    <p id="pendapatan-value" class="main-nominal">91,8%</p>
+                                </div>
+                                <div class="col-12"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
