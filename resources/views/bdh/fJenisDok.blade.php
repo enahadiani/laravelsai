@@ -159,10 +159,9 @@
     } */
 
 </style>
+
 <!-- LIST DATA -->
-<x-list-data judul="Data Jenis Dokumen" tambah="true"
-    :thead="array('Kode','Nama','Index','Aksi')"
-    :thwidth="array(10,25,10,10)" :thclass="array('','','','text-center')" />
+<x-list-data judul="Data Jenis Dokumen" tambah="true" :thead="array('Kode','Nama','Index','Kode Lokasi','Aksi')" :thwidth="array(10,25,10,10,10)" :thclass="array('','','','','text-center')" />
 <!-- END LIST DATA -->
 
 <!-- FORM INPUT -->
@@ -245,6 +244,64 @@
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         }
     });
+
+    function last_add(param,isi){
+        var rowIndexes = [];
+        dataTable.rows( function ( idx, data, node ) {
+            if(data[param] === isi){
+                rowIndexes.push(idx);
+            }
+            return false;
+        });
+        dataTable.row(rowIndexes).select();
+        $('.selected td:eq(0)').addClass('last-add');
+        console.log('last-add');
+        setTimeout(function() {
+            console.log('timeout');
+            $('.selected td:eq(0)').removeClass('last-add');
+            dataTable.row(rowIndexes).deselect();
+        }, 1000 * 60 * 10);
+    }
+
+   // LIST DATA
+   var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
+    var dataTable = generateTable(
+        "table-data",
+        "{{ url('bdh-master/jenis-dok') }}",
+        [
+            {'targets': 4, data: null, 'defaultContent': action_html,'className': 'text-center' },
+            {
+                "targets": 0,
+                "createdCell": function (td, cellData, rowData, row, col) {
+                    if ( rowData.status == "baru" ) {
+                        $(td).parents('tr').addClass('selected');
+                        $(td).addClass('last-add');
+                    }
+                }
+            }
+
+        ],
+        [
+            { data: 'kode_jenis' },
+            { data: 'nama' },
+            { data: 'idx' },
+            {data: 'kode_lokasi'},
+        ],
+        "{{ url('bdh-auth/sesi-habis') }}",
+        [[4 ,"desc"]]
+    );
+
+    $.fn.DataTable.ext.pager.numbers_length = 5;
+
+    $("#searchData").on("keyup", function (event) {
+        dataTable.search($(this).val()).draw();
+    });
+
+    $("#page-count").on("change", function (event) {
+        var selText = $(this).val();
+        dataTable.page.len(parseInt(selText)).draw();
+    });
+    // END LIST DATA
 
     // BUTTON TAMBAH
     $('#saku-datatable').on('click', '#btn-tambah', function() {
