@@ -1,6 +1,12 @@
 /* GLOBAL */
+.pb-24 {
+    padding-bottom: 24px;
+}
 .pl-0 {
     padding-left: 0;
+}
+.pr-0 {
+    padding-right: 0;
 }
 .px- {
     padding-left: 0;
@@ -11,6 +17,20 @@
 }
 .mt-16 {
     margin-top: 16px;
+}
+.green-text {
+    color: #059669;
+    font-weight: 700;
+}
+.red-text {
+    color: #dc2626;
+    font-weight: 700;
+}
+.text-center {
+    text-align: center;
+}
+.h-292 {
+    height: 292px;
 }
 /* END GLOBAL */
 
@@ -37,7 +57,7 @@
     margin-top: 6px;
 }
 .header .select-custom .glyph-icon.iconsminds-arrow-down.select {
-    font-size: 25px;
+    font-size: 24px;
     margin-top: 4px;
 }
 .header .select-custom .glyph-icon.iconsminds-arrow-down.select::before {
@@ -53,7 +73,7 @@
 
 /* CARD */
 .card.card-dash {
-    padding: 8px 2px 6px 8px;
+    padding: 8px 8px 6px 12px;
 }
 .card.card-dash .header-card {
     font-size: 20px !important;
@@ -65,3 +85,27 @@
     font-weight: bold;
 }
 /* END CARD */
+
+/* TABLE */
+.table.table-no-padding tbody tr td {
+    padding: 0 12px;
+}
+.table.table-no-padding tbody tr td.pl-0 {
+    padding-left: 0;
+}
+.table.table-th-red thead tr th {
+    background-color: #b91c1c;
+    color: #ffffff;
+    border: none !important;
+}
+.table.table-th-red tbody tr .td-red {
+    background-color: #ff0000;
+}
+/* END TABLE */
+
+/* HIGHCHART */
+.highcharts-scatter-series .highcharts-point {
+    stroke-width: 5;
+    stroke: #fbbf24;
+}
+/* END HIGHCHART */

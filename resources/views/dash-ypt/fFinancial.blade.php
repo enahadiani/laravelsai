@@ -30,7 +30,7 @@
     </div>
 </section>
 
-<section id="main-dash" class="mt-24">
+<section id="main-dash" class="mt-24 pb-24">
     <div id="dekstop-1" class="desktop-1 col-dekstop">
         <div class="row">
             <div class="col-3">
@@ -42,7 +42,22 @@
                                 <div class="col-12">
                                     <p id="pendapatan-value" class="main-nominal">945,6 M</p>
                                 </div>
-                                <div class="col-12"></div>
+                                <div class="col-12">
+                                    <table class="table table-borderless table-no-padding">
+                                        <tbody>
+                                            <tr>
+                                                <td class="pl-0">RKA</td>
+                                                <td>998,2 M</td>
+                                                <td id="pdpt-rka-percentage" class="green-text">94,7%</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="pl-0">YoY</td>
+                                                <td>997,2 M</td>
+                                                <td id="pdpt-yoy-percentage" class="red-text">-5,5%</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -51,20 +66,75 @@
                             <span class="header-card">Beban</span>
                             <div class="row">
                                 <div class="col-12">
-                                    <p id="pendapatan-value" class="main-nominal">868,2 M</p>
+                                    <p id="beban-value" class="main-nominal">868,2 M</p>
                                 </div>
-                                <div class="col-12"></div>
+                                <div class="col-12">
+                                    <table class="table table-borderless table-no-padding">
+                                        <tbody>
+                                            <tr>
+                                                <td class="pl-0">RKA</td>
+                                                <td>867 M</td>
+                                                <td id="beban-rka-percentage" class="red-text">100,1%</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="pl-0">YoY</td>
+                                                <td>851,3 M</td>
+                                                <td id="beban-yoy-percentage" class="red-text">-1,9%</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 mt-16">
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="card card-dash">
+                    <span class="header-card">Laba Rugi Lembaga</span>
+                    <div id="lr-chart"></div>
+                </div>
+            </div>
+            <div class="col-3 px-0">
+                <div class="card card-dash h-292">
+                    <span class="header-card">Catatan</span>
+                    <div id="catatan-text">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in mollis lorem. 
+                        Sed cursus luctus pharetra. Suspendisse potenti. Praesent nisi neque, 
+                        aliquam non justo nec, iaculis mollis tellus. Praesent ornare ex vel aliquet luctus. 
+                        Morbi venenatis metus vel lacus bibendum, non fringilla urna auctor.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="dekstop-2" class="desktop-2 col-dekstop mt-16">
+        <div class="row">
+            <div class="col-3">
+                <div class="row">
+                    <div class="col-12">
                         <div class="card card-dash">
                             <span class="header-card">SHU</span>
                             <div class="row">
                                 <div class="col-12">
-                                    <p id="pendapatan-value" class="main-nominal">77,4 M</p>
+                                    <p id="shu-value" class="main-nominal">77,4 M</p>
                                 </div>
-                                <div class="col-12"></div>
+                                <div class="col-12">
+                                    <table class="table table-borderless table-no-padding">
+                                        <tbody>
+                                            <tr>
+                                                <td class="pl-0">RKA</td>
+                                                <td>131,2 M</td>
+                                                <td id="shu-rka-percentage" class="green-text">59,0%</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="pl-0">YoY</td>
+                                                <td>146,4 M</td>
+                                                <td id="shu-yoy-percentage" class="red-text">-89,1%</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -73,40 +143,121 @@
                             <span class="header-card">OR</span>
                             <div class="row">
                                 <div class="col-12">
-                                    <p id="pendapatan-value" class="main-nominal">91,8%</p>
+                                    <p id="or-value" class="main-nominal">91,8%</p>
                                 </div>
-                                <div class="col-12"></div>
+                                <div class="col-12">
+                                    <table class="table table-borderless table-no-padding">
+                                        <tbody>
+                                            <tr>
+                                                <td class="pl-0">RKA</td>
+                                                <td>86,9%</td>
+                                                <td id="or-rka-percentage" class="red-text">4,9%</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="pl-0">YoY</td>
+                                                <td>85,3%</td>
+                                                <td id="or-yoy-percentage" class="red-text">-6,5%</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-9">
-                <div class="row">
-                    <div class="col-8">
-                        <div class="card card-dash">
-                            <span class="header-card">Laba Rugi Lembaga</span>
-                        </div>
-                    </div>
-                    <div class="col-4 px-0">
-                         <div class="card card-dash">
-                            <span class="header-card">Catatan</span>
-                            <div id="catatan-text">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in mollis lorem. 
-                                Sed cursus luctus pharetra. Suspendisse potenti. Praesent nisi neque, 
-                                aliquam non justo nec, iaculis mollis tellus. Praesent ornare ex vel aliquet luctus. 
-                                Morbi venenatis metus vel lacus bibendum, non fringilla urna auctor. 
-                                Nullam eu nibh congue, commodo elit a, convallis erat. Integer scelerisque luctus ex nec 
-                                luctus. Proin congue turpis a odio lobortis varius. Duis semper, 
-                                odio in porttitor placerat, dui elit laoreet elit, ut tincidunt leo velit quis leo.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 mt-16">
-                        <div class="card card-dash">
-                            <span class="header-card">Performasi Lembaga</span>
-                        </div>
-                    </div>
+            <div class="col-9 pr-0">
+                <div class="card card-dash">
+                    <span class="header-card">Performasi Lembaga</span>
+                    <table id="table-lembaga" class="table table-bordered table-th-red">
+                        <thead>
+                            <tr>
+                                <th rowspan="2">&nbsp;</th>
+                                <th colspan="2" class="text-center">Pendapatan</th>
+                                <th colspan="2" class="text-center">Beban</th>
+                                <th colspan="2" class="text-center">SHU</th>
+                                <th colspan="2" class="text-center">OR</th>
+                            </tr>
+                            <tr>
+                                <th class="text-center">Ach.</th>
+                                <th class="text-center">YoY Growth</th>
+                                <th class="text-center">Ach.</th>
+                                <th class="text-center">YoY Growth</th>
+                                <th class="text-center">Ach.</th>
+                                <th class="text-center">YoY Growth</th>
+                                <th class="text-center">Ach.</th>
+                                <th class="text-center">YoY Growth</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Telkom School</td>
+                                <td>90%</td>
+                                <td>90%</td>
+                                <td>90%</td>
+                                <td>90%</td>
+                                <td>90%</td>
+                                <td>90%</td>
+                                <td>90%</td>
+                                <td class="td-red">90%</td>
+                            </tr>
+                            <tr>
+                                <td>ITTP</td>
+                                <td>90%</td>
+                                <td class="td-red">90%</td>
+                                <td>90%</td>
+                                <td>90%</td>
+                                <td class="td-red">90%</td>
+                                <td>90%</td>
+                                <td>90%</td>
+                                <td>90%</td>
+                            </tr>
+                            <tr>
+                                <td>ITTS</td>
+                                <td>90%</td>
+                                <td>90%</td>
+                                <td>90%</td>
+                                <td>90%</td>
+                                <td>90%</td>
+                                <td class="td-red">90%</td>
+                                <td>90%</td>
+                                <td>90%</td>
+                            </tr>
+                            <tr>
+                                <td>AKATEL</td>
+                                <td>90%</td>
+                                <td>90%</td>
+                                <td class="td-red">90%</td>
+                                <td>90%</td>
+                                <td>90%</td>
+                                <td>90%</td>
+                                <td>90%</td>
+                                <td>90%</td>
+                            </tr>
+                            <tr>
+                                <td>TelU</td>
+                                <td>90%</td>
+                                <td>90%</td>
+                                <td>90%</td>
+                                <td>90%</td>
+                                <td>90%</td>
+                                <td>90%</td>
+                                <td>90%</td>
+                                <td>90%</td>
+                            </tr>
+                            <tr>
+                                <td>Lakhar</td>
+                                <td>90%</td>
+                                <td>90%</td>
+                                <td>90%</td>
+                                <td>90%</td>
+                                <td>90%</td>
+                                <td>90%</td>
+                                <td>90%</td>
+                                <td>90%</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -117,5 +268,63 @@
 <script type="text/javascript">
 $('#back').click(function() {
     $('#app-container').removeClass('main-hidden sub-hidden');
+})
+
+// Highcharts.SVGRenderer.prototype.symbols['c-rect'] = function (x, y, w, h) {
+//     return ['M', x, y + h / 2, 'L', x + w, y + h / 2];
+// };
+
+var renderSVG = Highcharts.SVGRenderer.prototype.symbols['c-rect'] = function (x, y, w, h) {
+    return ['M', x, y + h / 2, 'L', x + w, y + h / 2];
+};
+
+Highcharts.chart('lr-chart', {
+    chart: {
+        height: 250
+    },
+    credits:{
+        enabled:false
+    },
+    title: {
+        text: ''
+    },
+    xAxis: {
+        categories: ['TS', 'ITTP', 'ITTS', 'AKATEL', 'TelU', 'Lakhar'], 
+    },
+    yAxis: {
+        title: '',
+        min: 0
+    },
+    tooltip: {
+        formatter: function () {   
+            var tmp = this.x.split("|");   
+            return tmp[0]+'<br><span style="color:' + this.series.color + '">' + this.series.name + '</span>: <b>' + sepNum(this.y);
+        }
+    },
+    series: [
+        {
+            name: 'Pendapatan',
+            color: '#b91c1c',
+            type: 'column',
+            data: [60, 30, 20, 15, 80, 50]
+        },
+        {
+            name: 'Beban',
+            color: '#064E3B',
+            type: 'column',
+            data: [50, 20, 10, 10, 70, 40]
+        },
+        {
+            name: 'SHU',
+            color: '#FBBF24',
+            marker: {
+                symbol: 'c-rect',
+                lineColor: '#FBBF24',
+                radius: 30,
+            },
+            type: 'scatter',
+            data: [30, 10, 5, 5, 50, 20],
+        }
+    ]
 })
 </script>
