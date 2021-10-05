@@ -23,6 +23,7 @@
     <input type="hidden" id="method" name="_method" value="post">
     <input type="hidden" id="id" name="id">
     <input type="hidden" id="tanggal" name="tanggal">
+    <input class="form-control" type="hidden" placeholder="No Bukti" id="kode_form" name="kode_form" readonly>
     <div class="row" id="saku-form" style="display: none">
         <div class="col-sm-12">
             <div class="card">
@@ -260,7 +261,8 @@
     }
 
     function resetForm() {
-        $('#pemberi-grid tbody').empty()
+        // $('#permintaan-grid >tbody').empty()
+        // $('#input-dok tbody').empty()
         $("[id^=label]").each(function(e){
             $(this).text('');
         });
@@ -388,6 +390,18 @@
         })
     }
 
+    function hitungTotal(){
+
+        var total = 0;
+
+        $('.row-permintaan').each(function(){
+            var nilai = $(this).closest('tr').find('.inp-nilai').val();
+            total += +toNilai(nilai);
+        });
+        $('#total_droping').val(total);
+
+    }
+
     function addRowPermintaan(){
         var kode_akun = "";
         var nama_akun = "";
@@ -424,7 +438,15 @@
                 return $(this).text();
             }
         });
+        hitungTotal();
         hitungTotalRowPermintaan();
+        $('.nilaike'+no).selectize({
+            selectOnTab:true,
+            onChange: function(value) {
+                $('.tdnilaike'+no).text(value);
+                hitungTotal();
+            }
+        });
     }
 
     function custTarget(target,tr){
@@ -588,7 +610,7 @@
         $('.info-icon-hapus').addClass('hidden');
         $('[class*=inp-label-]').val('')
         $('[class*=inp-label-]').attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important;border-left:1px solid #d7d7d7 !important');
-
+        generateBukti();
     });
 
     // Event Button Kembali (Cancel)
@@ -678,5 +700,171 @@
         showInpFilterBSheet(options);
 
     });
+
+    $('#form-tambah #input-dok').on('click', '.search-item', function(){
+        var par = $(this).closest('td').find('input').attr('name');
+
+        var tmp = $(this).closest('tr').find('input[name="'+par+'"]').attr('class');
+        var tmp2 = tmp.split(" ");
+        target1 = tmp2[2];
+
+        var tmp = $(this).closest('tr').find('input[name="nama_dok[]"]').attr('class');
+        var tmp2 = tmp.split(" ");
+        target2 = tmp2[2];
+        console.log(par,target1,target2)
+
+        switch(par){
+            case 'jenis[]':
+                var options = {
+                    id : par,
+                    header : ['Kode', 'Nama'],
+                    url : "{{ url('bdh-trans/dok-jenis') }}",
+                    columns : [
+                        { data: 'kode_jenis' },
+                        { data: 'nama' }
+                    ],
+                    judul : "Daftar Jenis Dokumen",
+                    pilih : "jenis",
+                    jTarget1 : "val",
+                    jTarget2 : "val",
+                    target1 : "."+target1,
+                    target2 : "."+target2,
+                    target3 : "",
+                    target4 : "",
+                    width : ["30%","70%"]
+                };
+            break;
+        }
+        showInpFilter(options);
+
+    });
     // EMD CBBL
+
+     // GENERATE NO BUKTI
+     function generateBukti(){
+        var date = $('#form-tambah').find('.inp-tanggal').val();
+        var date2 = reverseDate2(date,'/','-');
+        // console.log(date2);
+        var url = "{{url('bdh-trans/droping-aju-nobukti')}}";
+
+        $.ajax({
+            type: 'GET',
+            url : url,
+            data: {
+                tanggal : date2
+            },
+            dataType: 'JSON',
+            async: false,
+            success: function(result){
+                $('#form-tambah').find('.inp-no_bukti').val(result.data);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                if(jqXHR.status == 422){
+                    var msg = jqXHR.responseText;
+                }else if(jqXHR.status == 500) {
+                    var msg = "Internal server error";
+                }else if(jqXHR.status == 401){
+                    var msg = "Unauthorized";
+                    window.location="{{ url('/bdh-auth/sesi-habis') }}";
+                }else if(jqXHR.status == 405){
+                    var msg = "Route not valid. Page not found";
+                }
+            }
+        });
+
+    }
+    $('#form-tambah').on('change','.inp-tanggal', function(e){
+        generateBukti();
+    });
+
+    $('#form-tambah').validate({
+        ignore: [],
+        rules: {},
+        errorElement: "label",
+        submitHandler: function (form, event) {
+            event.preventDefault();
+            $("#pemberi-grid tbody tr td:not(:first-child):not(:last-child)").each(function() {
+                if($(this).find('span').text().trim().length == 0) {
+                    console.log($(this).find('span').text().length)
+                    alert('Data pemberi tidak boleh kosong, harap dihapus untuk melanjutkan')
+                    valid = false;
+                    return false;
+                }
+            });
+
+            var parameter = $('#id_edit').val();
+            var id = $('#id').val();
+
+            if(parameter == "edit"){
+                var url = "{{ url('esaku-trans/droping-aju') }}";
+                var pesan = "updated";
+                var text = "Perubahan data "+id+" telah tersimpan";
+            }else{
+                var url = "{{ url('bdh-trans/droping-aju') }}";
+                var pesan = "saved";
+                var text = "Data tersimpan";
+            }
+
+            var formData = new FormData(form);
+            // $('#pemberi-grid tbody tr').each(function(index) {
+            //     formData.append('no_pemberi[]', $(this).find('.no-pemberi').text())
+            // })
+            formData.append('donor', $totalPemberi)
+
+            if(parameter == "edit") {
+                formData.append('no_bukti', id)
+            }
+            for(var pair of formData.entries()) {
+                console.log(pair[0]+ ', '+ pair[1]);
+            }
+            if(valid) {
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    dataType: 'json',
+                    data: formData,
+                    async:false,
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    success:function(result){
+                        if(result.data.status){
+                            dataTable.ajax.reload();
+                            $('#row-id').hide();
+                            $('#form-tambah')[0].reset();
+                            $('#form-tambah').validate().resetForm();
+                            $('[id^=label]').html('');
+                            $('#id_edit').val('');
+                            $('#judul-form').html('Pengajuan RRA Anggaran');
+                            $('#method').val('post');
+                            resetForm();
+                            msgDialog({
+                                id:result.data.no_bukti,
+                                type:'simpan'
+                            });
+                            last_add("no_pdrk",result.data.no_bukti);
+                        }else if(!result.data.status && result.data.message === "Unauthorized"){
+                            window.location.href = "{{ url('/esaku-auth/sesi-habis') }}";
+                        }else{
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Something went wrong!',
+                                footer: '<a href>'+result.data.message+'</a>'
+                            })
+                        }
+                    },
+                    fail: function(xhr, textStatus, errorThrown){
+                        alert('request failed:'+textStatus);
+                    }
+                });
+                $('#btn-simpan').html("Simpan").removeAttr('disabled');
+            }
+        },
+        errorPlacement: function (error, element) {
+            var id = element.attr("id");
+            $("label[for="+id+"]").append("<br/>");
+            $("label[for="+id+"]").append(error);
+        }
+    });
 </script>

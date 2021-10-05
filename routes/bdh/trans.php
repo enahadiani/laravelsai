@@ -17,6 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/droping-aju', 'Bdh\PengajuanDropingController@index');
 Route::get('/droping-aju-pp', 'Bdh\PengajuanDropingController@getPP');
 Route::get('/droping-aju-akun', 'Bdh\PengajuanDropingController@getAkun');
+Route::get('/droping-aju-nobukti', 'Bdh\PengajuanDropingController@GenerateBukti');
+Route::post('/droping-aju', 'Bdh\PengajuanDropingController@store');
+
 
 
 
