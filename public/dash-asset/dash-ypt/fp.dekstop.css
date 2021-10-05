@@ -121,3 +121,9 @@
     stroke: #fbbf24;
 }
 /* END HIGHCHART */
+
+/* BOX */
+#pdpt-box {
+    cursor: pointer;
+}
+/* END BOX */

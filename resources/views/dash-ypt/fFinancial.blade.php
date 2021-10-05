@@ -10,7 +10,7 @@
                     <div id="back" class="glyph-icon iconsminds-left header"></div>
                 </div>
                 <div class="col-11 pl-0">
-                    <h2 class="title-dash">Financial Performance YPT</h2>
+                    <h2 class="title-dash" id="title-dash">Financial Performance YPT</h2>
                 </div>
             </div>
         </div>
@@ -36,7 +36,7 @@
             <div class="col-3">
                 <div class="row">
                     <div class="col-12">
-                        <div class="card card-dash">
+                        <div class="card card-dash" id="pdpt-box">
                             <span class="header-card">Pendapatan</span>
                             <div class="row">
                                 <div class="col-12">
@@ -287,6 +287,16 @@
 $('#back').click(function() {
     $('#app-container').removeClass('main-hidden sub-hidden');
 })
+
+$('#pdpt-box').click(function() {
+    $('#title-dash').text('Pendapatan')
+    $('#back').attr('id', 'back-to-main')
+});
+
+$('#header').on('click', '#back-to-main', function() {
+    $('#title-dash').text('Financial Performance YPT')
+    $(this).attr('id', 'back')
+});
 
 $('#table-lembaga tbody tr').on('click', 'td:first-child', function() {
     var table = $(this).parents('table').attr('id')
