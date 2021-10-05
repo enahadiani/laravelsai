@@ -55,7 +55,7 @@
                                         <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
                                             <span class="input-group-text info-code_pp" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
                                         </div>
-                                        <input type="text" class="form-control inp-label-pp" id="pp" name="pp" value="" title="">
+                                        <input type="text" class="form-control inp-label-pp" id="pp" name="pp" value="" title="" readonly required>
                                         <span class="info-name_pp hidden">
                                             <span></span>
                                         </span>
@@ -309,6 +309,47 @@
         $('.info-name_'+kode).closest('div').find('.info-icon-hapus').removeClass('hidden');
     }
 
+
+    // LIST DATA
+    var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
+    var dataTable = generateTable(
+        "table-data",
+        "{{ url('bdh-trans/droping-aju') }}",
+        [
+            {'targets': 4, data: null, 'defaultContent': action_html,'className': 'text-center' },
+            {
+                "targets": 0,
+                "createdCell": function (td, cellData, rowData, row, col) {
+                    if ( rowData.status == "baru" ) {
+                        $(td).parents('tr').addClass('selected');
+                        $(td).addClass('last-add');
+                    }
+                }
+            }
+
+        ],
+        [
+            { data: 'no_minta' },
+            { data: 'tgl' },
+            { data: 'keterangan' },
+            {data: 'nilai',className: 'text-right' ,render: $.fn.dataTable.render.number('.', ',', 2, '')},
+        ],
+        "{{ url('bdh-auth/sesi-habis') }}",
+        [[4 ,"desc"]]
+    );
+
+    $.fn.DataTable.ext.pager.numbers_length = 5;
+
+    $("#searchData").on("keyup", function (event) {
+        dataTable.search($(this).val()).draw();
+    });
+
+    $("#page-count").on("change", function (event) {
+        var selText = $(this).val();
+        dataTable.page.len(parseInt(selText)).draw();
+    });
+    // END LIST DATA
+
     // Permintaan Grid
     function hitungTotalRowPermintaan(){
         var total_row = $('#permintaan-grid tbody tr').length;
@@ -558,4 +599,84 @@
             type:'keluar'
         });
     });
+
+     // CBBL Form
+     $('#form-tambah').on('click', '.search-item2', function() {
+        var id = $(this).closest('div').find('input').attr('name');
+        switch(id) {
+            case 'pp':
+                var settings = {
+                    id : id,
+                    header : ['Kode', 'Nama'],
+                    url : "{{ url('bdh-trans/droping-aju-pp') }}",
+                    columns : [
+                        { data: 'kode_pp' },
+                        { data: 'nama' }
+                    ],
+                    judul : "Daftar PP",
+                    pilih : "",
+                    jTarget1 : "text",
+                    jTarget2 : "text",
+                    target1 : ".info-code_"+id,
+                    target2 : ".info-name_"+id,
+                    target3 : "",
+                    target4 : "",
+                    width : ["30%","70%"],
+                }
+            break;
+
+            default:
+            break;
+        }
+        showInpFilter(settings);
+    })
+
+
+    $('#permintaan-grid').on('click', '.search-item', function(){
+        var par = $(this).closest('td').find('input').attr('name');
+
+        switch(par){
+            case 'kode_akun[]':
+                var par2 = "nama_akun[]";
+
+            break;
+            case 'kode_pp[]':
+                var par2 = "nama_pp[]";
+            break;
+        }
+
+        var tmp = $(this).closest('tr').find('input[name="'+par+'"]').attr('class');
+        var tmp2 = tmp.split(" ");
+        target1 = tmp2[2];
+
+        tmp = $(this).closest('tr').find('input[name="'+par2+'"]').attr('class');
+        tmp2 = tmp.split(" ");
+        target2 = tmp2[2];
+
+        switch(par){
+            case 'kode_akun[]':
+                var options = {
+                    id : par,
+                    header : ['Kode', 'Nama'],
+                    url : "{{ url('bdh-trans/droping-aju-akun') }}",
+                    columns : [
+                        { data: 'kode_akun' },
+                        { data: 'nama' }
+                    ],
+                    judul : "Daftar Akun",
+                    pilih : "akun",
+                    jTarget1 : "val",
+                    jTarget2 : "val",
+                    target1 : "."+target1,
+                    target2 : "."+target2,
+                    target3 : ".td"+target2,
+                    target4 : ".td-dc",
+                    width : ["30%","70%"]
+                };
+            break;
+        }
+        showInpFilterBSheet(options);
+
+    });
+    // EMD CBBL
 </script>
