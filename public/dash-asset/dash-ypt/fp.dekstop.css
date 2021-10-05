@@ -1,4 +1,7 @@
 /* GLOBAL */
+.hidden {
+    display: none;
+}
 .pb-24 {
     padding-bottom: 24px;
 }

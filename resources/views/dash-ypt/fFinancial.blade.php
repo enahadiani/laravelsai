@@ -192,6 +192,7 @@
                         <tbody>
                             <tr>
                                 <td>
+                                    <p class="kode hidden">TS</p>
                                     <div class="glyph-icon simple-icon-check check-row" style="display: none"></div>
                                     Telkom School
                                 </td>
@@ -206,6 +207,7 @@
                             </tr>
                             <tr>
                                 <td>
+                                    <p class="kode hidden">ITTP</p>
                                     <div class="glyph-icon simple-icon-check check-row" style="display: none"></div>
                                     ITTP
                                 </td>
@@ -220,6 +222,7 @@
                             </tr>
                             <tr>
                                 <td>
+                                    <p class="kode hidden">ITTS</p>
                                     <div class="glyph-icon simple-icon-check check-row" style="display: none"></div>
                                     ITTS
                                 </td>
@@ -234,6 +237,7 @@
                             </tr>
                             <tr>
                                 <td>
+                                    <p class="kode hidden">AKATEL</p>
                                     <div class="glyph-icon simple-icon-check check-row" style="display: none"></div>
                                     AKATEL
                                 </td>
@@ -248,6 +252,7 @@
                             </tr>
                             <tr>
                                 <td>
+                                    <p class="kode hidden">TELU</p>
                                     <div class="glyph-icon simple-icon-check check-row" style="display: none"></div>
                                     TelU
                                 </td>
@@ -262,6 +267,7 @@
                             </tr>
                             <tr>
                                 <td>
+                                    <p class="kode hidden">LAKHAR</p>
                                     <div class="glyph-icon simple-icon-check check-row" style="display: none"></div>
                                     Lakhar
                                 </td>
@@ -336,7 +342,8 @@ $('#header').on('click', '#back-to-main', function() {
 $('#table-lembaga tbody tr').on('click', 'td:first-child', function() {
     var table = $(this).parents('table').attr('id')
     var tr = $(this).parent()
-    var td = $(this).children()
+    var icon = $(this).children('.check-row')
+    var kode = $(this).children('.kode').text()
     var check = $(tr).attr('class')
     
     if(check == 'selected-row') {
@@ -348,7 +355,7 @@ $('#table-lembaga tbody tr').on('click', 'td:first-child', function() {
 
     setTimeout(function() {
         $(tr).addClass('selected-row')
-        $(td).show()
+        $(icon).show()
     }, 200)
 })
 
