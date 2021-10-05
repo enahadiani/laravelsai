@@ -101,6 +101,18 @@
 .table.table-th-red tbody tr .td-red {
     background-color: #ff0000;
 }
+#table-lembaga.table tbody tr td:first-child {
+    cursor: pointer;
+}
+.table tbody tr td .check-row {
+    display: inline;
+    margin-right: 4px;
+}
+.table tbody tr td .check-row::before {
+    background-color: #b91c1c;
+    color: #ffffff;
+    border-radius: 50%;
+}
 /* END TABLE */
 
 /* HIGHCHART */

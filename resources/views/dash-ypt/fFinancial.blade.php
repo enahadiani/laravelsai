@@ -191,7 +191,10 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td>Telkom School</td>
+                                <td>
+                                    <div class="glyph-icon simple-icon-check check-row" style="display: none"></div>
+                                    Telkom School
+                                </td>
                                 <td>90%</td>
                                 <td>90%</td>
                                 <td>90%</td>
@@ -202,7 +205,10 @@
                                 <td class="td-red">90%</td>
                             </tr>
                             <tr>
-                                <td>ITTP</td>
+                                <td>
+                                    <div class="glyph-icon simple-icon-check check-row" style="display: none"></div>
+                                    ITTP
+                                </td>
                                 <td>90%</td>
                                 <td class="td-red">90%</td>
                                 <td>90%</td>
@@ -213,7 +219,10 @@
                                 <td>90%</td>
                             </tr>
                             <tr>
-                                <td>ITTS</td>
+                                <td>
+                                    <div class="glyph-icon simple-icon-check check-row" style="display: none"></div>
+                                    ITTS
+                                </td>
                                 <td>90%</td>
                                 <td>90%</td>
                                 <td>90%</td>
@@ -224,7 +233,10 @@
                                 <td>90%</td>
                             </tr>
                             <tr>
-                                <td>AKATEL</td>
+                                <td>
+                                    <div class="glyph-icon simple-icon-check check-row" style="display: none"></div>
+                                    AKATEL
+                                </td>
                                 <td>90%</td>
                                 <td>90%</td>
                                 <td class="td-red">90%</td>
@@ -235,7 +247,10 @@
                                 <td>90%</td>
                             </tr>
                             <tr>
-                                <td>TelU</td>
+                                <td>
+                                    <div class="glyph-icon simple-icon-check check-row" style="display: none"></div>
+                                    TelU
+                                </td>
                                 <td>90%</td>
                                 <td>90%</td>
                                 <td>90%</td>
@@ -246,7 +261,10 @@
                                 <td>90%</td>
                             </tr>
                             <tr>
-                                <td>Lakhar</td>
+                                <td>
+                                    <div class="glyph-icon simple-icon-check check-row" style="display: none"></div>
+                                    Lakhar
+                                </td>
                                 <td>90%</td>
                                 <td>90%</td>
                                 <td>90%</td>
@@ -270,9 +288,31 @@ $('#back').click(function() {
     $('#app-container').removeClass('main-hidden sub-hidden');
 })
 
-// Highcharts.SVGRenderer.prototype.symbols['c-rect'] = function (x, y, w, h) {
-//     return ['M', x, y + h / 2, 'L', x + w, y + h / 2];
-// };
+$('#table-lembaga tbody tr').on('click', 'td:first-child', function() {
+    var table = $(this).parents('table').attr('id')
+    var tr = $(this).parent()
+    var td = $(this).children()
+    var check = $(tr).attr('class')
+    
+    if(check == 'selected-row') {
+        return;
+    }
+
+    $(`#${table} tbody tr`).removeClass('selected-row')
+    $(`#${table} tbody tr td .check-row`).hide()
+
+    setTimeout(function() {
+        $(tr).addClass('selected-row')
+        $(td).show()
+    }, 200)
+})
+
+$('#table-lembaga tbody').on('click', 'tr.selected-row', function() {
+    var table = $(this).parents('table').attr('id')
+    
+    $(`#${table} tbody tr`).removeClass('selected-row')
+    $(`#${table} tbody tr td .check-row`).hide()
+})
 
 var renderSVG = Highcharts.SVGRenderer.prototype.symbols['c-rect'] = function (x, y, w, h) {
     return ['M', x, y + h / 2, 'L', x + w, y + h / 2];
