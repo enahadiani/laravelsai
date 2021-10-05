@@ -309,6 +309,7 @@
             <div class="col-7">
                 <div class="card card-dash">
                     <span class="header-card">Kelompok Pendapatan YoY</span>
+                    <div id="yoy-chart"></div>
                 </div>
             </div>
             <div class="col-5 pr-0">
@@ -322,7 +323,6 @@
 </section>
 {{-- END DESKTOP --}}
 
-<script src="https://code.highcharts.com/modules/variable-pie.js"></script>
 <script type="text/javascript">
 $('#back').click(function() {
     $('#app-container').removeClass('main-hidden sub-hidden');
@@ -490,6 +490,54 @@ Highcharts.chart('lembaga-chart', {
             },
         ]
     }]
+});
+
+Highcharts.chart('yoy-chart', {
+    chart: {
+        height: 400,
+        width: 600
+    },
+    title: { text: '' },
+    subtitle: { text: '' },
+    exporting:{ enabled: false },
+    legend:{ 
+        enabled: true,
+        layout: 'vertical',
+        align: 'right',
+        verticalAlign: 'middle' 
+    },
+    credits: { enabled: false },
+    xAxis: {
+        categories: ['2016', '2017', '2018', '2019', '2020', '2021']
+    },
+    plotOptions: {
+        series: {
+            label: {
+                connectorAllowed: false
+            },
+            marker:{
+                enabled:false
+            },
+            pointStart: 2016
+        }
+    },
+    series: [
+        {
+            name: 'Pendapatan A',
+            data: [2000, 3500, 2500, 5000, 3500],
+            color: '#1D4ED8'
+        },
+        {
+            name: 'Pendapatan B',
+            data: [3000, 3000, 3000, 3500, 2500],
+            color: '#EC4899'
+        },
+        {
+            name: 'Pendapatan C',
+            data: [1000, 1500, 2000, 2500, 1500],
+            color: '#FBBF24'
+        }
+    ],
 });
 
 // Highcharts.chart('akun-chart', {
