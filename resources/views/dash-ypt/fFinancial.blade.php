@@ -281,6 +281,37 @@
         </div>
     </div>
 </section>
+
+<section id="detail-dash-1" class="mt-24 pb-24" style="display: none;">
+    <div id="dekstop-3" class="desktop-3 col-dekstop">
+        <div class="row">
+            <div class="col-8">
+                <div class="card card-dash">
+                    <span class="header-card">Performasi Lembaga</span>
+                </div>
+            </div>
+            <div class="col-4 pr-0">
+                <div class="card card-dash">
+                    <span class="header-card">Pendapatan Per Lembaga</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="dekstop-4" class="desktop-4 col-dekstop mt-16">
+        <div class="row">
+            <div class="col-8">
+                <div class="card card-dash">
+                    <span class="header-card">Kelompok Pendapatan YoY</span>
+                </div>
+            </div>
+            <div class="col-4 pr-0">
+                <div class="card card-dash">
+                    <span class="header-card">Pendapatan Per Akun</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 {{-- END DESKTOP --}}
 
 <script type="text/javascript">
@@ -291,11 +322,15 @@ $('#back').click(function() {
 $('#pdpt-box').click(function() {
     $('#title-dash').text('Pendapatan')
     $('#back').attr('id', 'back-to-main')
+    $('#main-dash').hide()
+    $('#detail-dash-1').show()
 });
 
 $('#header').on('click', '#back-to-main', function() {
     $('#title-dash').text('Financial Performance YPT')
     $(this).attr('id', 'back')
+    $('#detail-dash-1').hide()
+    $('#main-dash').show()
 });
 
 $('#table-lembaga tbody tr').on('click', 'td:first-child', function() {
