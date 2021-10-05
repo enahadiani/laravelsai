@@ -291,28 +291,30 @@
 <section id="detail-dash-1" class="mt-24 pb-24" style="display: none;">
     <div id="dekstop-3" class="desktop-3 col-dekstop">
         <div class="row">
-            <div class="col-8">
+            <div class="col-7">
                 <div class="card card-dash">
                     <span class="header-card">Performasi Lembaga</span>
                 </div>
             </div>
-            <div class="col-4 pr-0">
+            <div class="col-5 pr-0">
                 <div class="card card-dash">
                     <span class="header-card">Pendapatan Per Lembaga</span>
+                    <div id="lembaga-chart"></div>
                 </div>
             </div>
         </div>
     </div>
     <div id="dekstop-4" class="desktop-4 col-dekstop mt-16">
         <div class="row">
-            <div class="col-8">
+            <div class="col-7">
                 <div class="card card-dash">
                     <span class="header-card">Kelompok Pendapatan YoY</span>
                 </div>
             </div>
-            <div class="col-4 pr-0">
+            <div class="col-5 pr-0">
                 <div class="card card-dash">
                     <span class="header-card">Pendapatan Per Akun</span>
+                    <div id="akun-chart"></div>
                 </div>
             </div>
         </div>
@@ -320,6 +322,7 @@
 </section>
 {{-- END DESKTOP --}}
 
+<script src="https://code.highcharts.com/modules/variable-pie.js"></script>
 <script type="text/javascript">
 $('#back').click(function() {
     $('#app-container').removeClass('main-hidden sub-hidden');
@@ -419,4 +422,153 @@ Highcharts.chart('lr-chart', {
         }
     ]
 })
+
+Highcharts.chart('lembaga-chart', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie',
+        height: 360,
+        width: 470
+    },
+    title: { text: '' },
+    subtitle: { text: '' },
+    exporting:{ enabled: false },
+    legend:{ enabled: false },
+    credits: { enabled: false },
+    tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+    },
+    accessibility: {
+        point: {
+            valueSuffix: '%'
+        }
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            center: ['50%', '50%'],
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                format: '{point.name} : {point.percentage:.1f} %'
+            },
+            size: '65%',
+            showInLegend: true
+        }
+    },
+    series: [{
+        name: 'Jumlah',
+        colorByPoint: true,
+        data: [
+            {
+                name: 'TS',
+                y: 26.9,
+                sliced: true,
+                selected: true
+            },
+            {
+                name: 'ITTS',
+                y: 6.4
+            },
+            {
+                name: 'ITTP',
+                y: 9.0
+            },
+            {
+                name: 'AKATEL',
+                y: 4.5
+            },
+            {
+                name: 'TelU',
+                y: 43.6
+            },
+            {
+                name: 'Lakhar',
+                y: 9.6
+            },
+        ]
+    }]
+});
+
+// Highcharts.chart('akun-chart', {
+//     chart: {
+//         plotBackgroundColor: null,
+//         plotBorderWidth: null,
+//         plotShadow: false,
+//         type: 'variablepie',
+//         height: 360,
+//         width: 470
+//     },
+//     title: { text: '' },
+//     subtitle: { text: '' },
+//     exporting:{ enabled: false },
+//     legend:{ enabled: false },
+//     credits: { enabled: false },
+//     tooltip: {
+//         pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+//     },
+//     accessibility: {
+//         point: {
+//             valueSuffix: '%'
+//         }
+//     },
+//     plotOptions: {
+//         pie: {
+//             allowPointSelect: true,
+//             center: ['50%', '50%'],
+//             cursor: 'pointer',
+//             dataLabels: {
+//                 enabled: true,
+//                 format: '{point.name} : {point.percentage:.1f} %'
+//             },
+//             // size: '65%',
+//             showInLegend: true
+//         }
+//     },
+//     series: [{
+//         minPointSize: 10,
+//         innerSize: '20%',
+//         name: 'Jumlah',
+//         colorByPoint: true,
+//         data: [
+//             {
+//                 name: 'Pendapatan A',
+//                 y: 505370,
+//                 z: 92.9
+//             }, 
+//             {
+//                 name: 'Pendapatan B',
+//                 y: 551500,
+//                 z: 118.7
+//             }, 
+//             {
+//                 name: 'Pendapatan C',
+//                 y: 312685,
+//                 z: 124.6
+//             }, 
+//             {
+//                 name: 'Pendapatan D',
+//                 y: 78867,
+//                 z: 137.5
+//             }, 
+//             {
+//                 name: 'Pendapatan E',
+//                 y: 301340,
+//                 z: 201.8
+//             }, 
+//             {
+//                 name: 'Pendapatan F',
+//                 y: 41277,
+//                 z: 214.5
+//             }, 
+//             {
+//                 name: 'Lainnya',
+//                 y: 357022,
+//                 z: 235.6
+//             }
+//         ]
+//     }]
+// });
 </script>
