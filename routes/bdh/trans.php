@@ -13,6 +13,14 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+// Pengajuan Droping
+Route::get('/droping-aju', 'Bdh\PengajuanDropingController@index');
+Route::get('/droping-aju-pp', 'Bdh\PengajuanDropingController@getPP');
+Route::get('/droping-aju-akun', 'Bdh\PengajuanDropingController@getAkun');
+
+
+
+
 // Pertanggungan Beban
 Route::get('/ptg-beban', 'Bdh\PtgBebanController@index');
 Route::get('ptg-beban/{id}', 'Bdh\PtgBebanController@show');
