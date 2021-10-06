@@ -180,6 +180,7 @@
     <!-- <script src="{{ asset('asset_elite/highcharts2.js') }}"></script>
     <script src="{{ asset('asset_elite/highcharts-more.js') }}"></script> -->
     <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/variable-pie.js"></script>
     <script src="https://code.highcharts.com/highcharts-more.js"></script>
     <script src="https://code.highcharts.com/modules/full-screen.js"></script>
     <script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
