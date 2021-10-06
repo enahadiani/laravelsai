@@ -185,6 +185,7 @@
     <script src="https://code.highcharts.com/modules/full-screen.js"></script>
     <script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
     <!-- <script src="https://code.highcharts.com/modules/exporting.js"></script> -->
+    <script src="{{ asset('dash-asset/dash-ypt/circle/circle-progress.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/typeahead.bundle.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/moment.min.js') }}"></script>

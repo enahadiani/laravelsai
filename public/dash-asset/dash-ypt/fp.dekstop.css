@@ -1,6 +1,12 @@
 /* GLOBAL */
+.cursor-pointer {
+    cursor: pointer;
+}
 .hidden {
     display: none;
+}
+.bold-700 {
+    font-weight: 700;
 }
 .pb-24 {
     padding-bottom: 24px;
@@ -8,18 +14,46 @@
 .pl-0 {
     padding-left: 0;
 }
+.pl-8 {
+    padding-left: 8px;
+}
 .pr-0 {
     padding-right: 0;
 }
-.px- {
+.pt-8 {
+    padding-top: 8px;
+}
+.pt-16 {
+    padding-top: 16px;
+}
+.px-0 {
     padding-left: 0;
     padding-right: 0;
+}
+.mb-0 {
+    margin-bottom: 0;
+}
+.mt-4 {
+    margin-top: 4px !important;
+}
+.mt-6 {
+    margin-top: 6px;
+}
+.mt-8 {
+    margin-top: 8px;
+}
+.mt-20 {
+    margin-top: 20px;
 }
 .mt-24 {
     margin-top: 24px;
 }
 .mt-16 {
     margin-top: 16px;
+}
+.my-0 {
+    margin-top: 0;
+    margin-bottom: 0;
 }
 .green-text {
     color: #059669;
@@ -32,44 +66,60 @@
 .text-center {
     text-align: center;
 }
+.h-20 {
+    height: 20px;
+}
 .h-292 {
     height: 292px;
+}
+.w-10 {
+    width: 10px;
+}
+.w-25 {
+    width: 25px;
+}
+.bg-red {
+    background-color: #830000 !important;
 }
 /* END GLOBAL */
 
 /* HEADER */
 .header .glyph-icon.iconsminds-left.header {
-    font-size: 30px;
+    font-size: 28px;
     cursor: pointer;
+    margin-top: 4px;
 }
 .header .glyph-icon.iconsminds-left.header::before {
     font-weight: 700;
 }
 .header .title-dash {
     margin-bottom: 0;
-    font-size: 30px !important;
+    margin-top: 12px;
+    font-size: 22px !important;
+}
+.header .message-div .icon-message {
+    float: right;
+    margin-top: 8px;
+    margin-right: 4px;
 }
 .header .select-custom {
     border: 1px solid #9ca3af;
-    height: 45px;
+    height: 42px;
+    width: 260px;
+    float: right;
+    margin-right: 8px;
     border-radius: 10px;
 }
-
-.header .select-custom .glyph-icon.simple-icon-calendar.select {
-    font-size: 30px;
+.header .select-custom .icon-calendar {
     margin-top: 6px;
 }
-.header .select-custom .glyph-icon.iconsminds-arrow-down.select {
-    font-size: 24px;
-    margin-top: 4px;
-}
-.header .select-custom .glyph-icon.iconsminds-arrow-down.select::before {
-    font-weight: 700;
-    margin-left: 0 !important;
+.header .select-custom .icon-drop-arrow {
+    margin-top: 16px;
 }
 .header .select-custom .select-text {
-    font-size: 18px !important;
-    margin-top: 12px;
+    font-size: 16px !important;
+    margin-top: 10px;
+    margin-bottom: 0 !important;
     font-weight: 300;
 }
 /* END HEADER */
@@ -78,14 +128,39 @@
 .card.card-dash {
     padding: 8px 8px 6px 12px;
 }
+.card.card-dash.cursor-pointer {
+    cursor: pointer;
+}
+.card.card-dash .header-div .icon-arrows {
+    float: right;
+    margin-top: 4px;
+    margin-right: 4px;
+}
 .card.card-dash .header-card {
-    font-size: 20px !important;
+    font-size: 16px !important;
+    margin-bottom: 0;
 }
 .card.card-dash .main-nominal {
-    margin-top: 4px;
+    margin-top: 12px;
     font-size: 32px !important;
-    color: #b91c1c;
+    color: #830000;
     font-weight: bold;
+}
+.card.card-dash .circle-bar {
+    position: relative;
+    text-align: center;
+    vertical-align: top;
+}
+.card.card-dash .circle-bar .value-circle {
+    position: absolute;
+    top: 20px;
+    left: 10px;
+    width: 100%;
+    text-align: center;
+}
+.card.card-dash .circle-bar .value-circle .text-circle {
+    font-size: 14px !important;
+    line-height: 20px;
 }
 /* END CARD */
 
@@ -97,12 +172,16 @@
     padding-left: 0;
 }
 .table.table-th-red thead tr th {
-    background-color: #b91c1c;
+    background-color: #830000;
     color: #ffffff;
     border: none !important;
 }
 .table.table-th-red tbody tr .td-red {
     background-color: #ff0000;
+}
+.table.table-th-red thead tr th,
+.table.table-th-red tbody tr td {
+    padding: 0.3px 8px;
 }
 #table-lembaga.table tbody tr td:first-child {
     cursor: pointer;
@@ -112,9 +191,16 @@
     margin-right: 4px;
 }
 .table tbody tr td .check-row::before {
-    background-color: #b91c1c;
+    background-color: #830000;
     color: #ffffff;
     border-radius: 50%;
+}
+.table .glyph-icon.icon-card {
+    display: inline;
+}
+.table.table-py-0 tbody tr td {
+    padding-top: 12px;
+    padding-bottom: 11px;
 }
 /* END TABLE */
 
