@@ -40,6 +40,9 @@ Route::get('pp', 'Bdh\PtgBebanController@getPP');
 Route::get('drk', 'Bdh\PtgBebanController@getDrk');
 Route::get('dok-jenis', 'Bdh\PtgBebanController@getJenis');
 
+// Serah Terima Dokumen Online
+Route::get('/serah-dok-pb', 'Bdh\SerahTerimaDokOnController@index');
+Route::get('/serah-dok-detail', 'Bdh\SerahTerimaDokOnController@show');
 
 
 // SPB

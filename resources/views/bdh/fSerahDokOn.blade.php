@@ -50,7 +50,7 @@
                                 </div>
                                 <div class="col-md-4 col-sm-12 mb-2">
                                     <button type="button" class="btn btn-info mt-4 btn-proses">
-                                        <i class="iconsminds-arrow-refresh"></i>
+                                        <i class="iconsminds-arrow-refresh"></i> Proses
                                     </button>
                                 </div>
                             </div>
@@ -214,3 +214,137 @@
 @include('modal_search')
 <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
 <script src="{{ asset('helper.js') }}"></script>
+<script>
+     var bottomSheet = new BottomSheet("country-selector");
+    document.getElementById("trigger-bottom-sheet").addEventListener("click", bottomSheet.activate);
+    window.bottomSheet = bottomSheet;
+    var valid = true;
+
+   $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+        }
+    });
+
+    $("input.datepicker").bootstrapDP({
+        autoclose: true,
+        format: 'dd/mm/yyyy',
+        templates: {
+            leftArrow: '<i class="simple-icon-arrow-left"></i>',
+            rightArrow: '<i class="simple-icon-arrow-right"></i>'
+        }
+    });
+
+    function last_add(param,isi){
+        var rowIndexes = [];
+        dataTable.rows( function ( idx, data, node ) {
+            if(data[param] === isi){
+                rowIndexes.push(idx);
+            }
+            return false;
+        });
+        dataTable.row(rowIndexes).select();
+        $('.selected td:eq(0)').addClass('last-add');
+        console.log('last-add');
+        setTimeout(function() {
+            console.log('timeout');
+            $('.selected td:eq(0)').removeClass('last-add');
+            dataTable.row(rowIndexes).deselect();
+        }, 1000 * 60 * 10);
+    }
+
+    function reverseDate2(date_str, separator, newseparator){
+        if(typeof separator === 'undefined'){separator = '-'}
+        if(typeof newseparator === 'undefined'){newseparator = '-'}
+        date_str = date_str.split(' ');
+        var str = date_str[0].split(separator);
+
+        return str[2]+newseparator+str[1]+newseparator+str[0];
+    }
+
+    function format_number(x){
+        var num = parseFloat(x).toFixed(0);
+        num = sepNumX(num);
+        return num;
+    }
+
+    function resetForm() {
+        $('#pemberi-grid tbody').empty()
+        $("[id^=label]").each(function(e){
+            $(this).text('');
+        });
+        $("[class^=info-name]").each(function(e){
+            $(this).addClass('hidden');
+        });
+        $("[class^=input-group-text]").each(function(e){
+            $(this).text('');
+        });
+        $("[class^=input-group-prepend]").each(function(e){
+            $(this).addClass('hidden');
+        });
+        $("[class*='inp-label-']").each(function(e){
+            $(this).removeAttr("style");
+        })
+        $("[class^=info-code]").each(function(e){
+            $(this).text('');
+        });
+        $("[class^=simple-icon-close]").each(function(e){
+            $(this).addClass('hidden');
+        });
+    }
+
+    $('.info-icon-hapus').click(function(){
+        var par = $(this).closest('div').find('input').attr('name');
+        $('#'+par).val('');
+        $('#'+par).attr('readonly',false);
+        $('#'+par).attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important');
+        $('.info-code_'+par).parent('div').addClass('hidden');
+        $('.info-name_'+par).addClass('hidden');
+        $(this).addClass('hidden');
+    });
+
+    function showInfoField(kode,isi_kode,isi_nama){
+        $('#'+kode).val(isi_kode);
+        $('#'+kode).attr('style','border-left:0;border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important');
+        $('.info-code_'+kode).text(isi_kode).parent('div').removeClass('hidden');
+        $('.info-code_'+kode).attr('title',isi_nama);
+        $('.info-name_'+kode).removeClass('hidden');
+        $('.info-name_'+kode).attr('title',isi_nama);
+        $('.info-name_'+kode+' span').text(isi_nama);
+        var width = $('#'+kode).width()-$('#search_'+kode).width()-10;
+        var height =$('#'+kode).height();
+        var pos =$('#'+kode).position();
+        $('.info-name_'+kode).width(width).css({'left':pos.left,'height':height});
+        $('.info-name_'+kode).closest('div').find('.info-icon-hapus').removeClass('hidden');
+    }
+// CBBL Form
+$('#form-tambah').on('click', '.search-item2', function() {
+        var id = $(this).closest('div').find('input').attr('name');
+        switch(id) {
+            case 'no_bukti':
+                var settings = {
+                    id : id,
+                    header : ['Kode', 'Nama'],
+                    url : "{{ url('bdh-trans/serah-dok-pb') }}",
+                    columns : [
+                        { data: 'no_pb' },
+                        { data: 'keterangan' }
+                    ],
+                    judul : "Daftar No Bukti",
+                    pilih : "",
+                    jTarget1 : "text",
+                    jTarget2 : "text",
+                    target1 : ".info-code_"+id,
+                    target2 : ".info-name_"+id,
+                    target3 : "",
+                    target4 : "",
+                    width : ["30%","70%"],
+                }
+            break;
+            default:
+            break;
+        }
+        showInpFilter(settings);
+    })
+    // EMD CBBL
+</script>
