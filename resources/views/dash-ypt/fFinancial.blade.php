@@ -436,7 +436,15 @@
 {{-- END DESKTOP --}}
 
 <script type="text/javascript">
-$("body").css("overflow", "hidden");
+$(window).on('resize', function(){
+    var win = $(this); //this = window
+    if (win.height() >= 800) { 
+        $("body").css("overflow", "hidden");
+    }
+    if (win.width() < 800) { 
+        $("body").css("overflow", "scroll");
+    }
+});
 
 $('#pdpt-box').click(function() {
     $('#title-dash').text('Pendapatan')
