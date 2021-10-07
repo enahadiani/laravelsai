@@ -46,7 +46,7 @@
 {{-- ROW 1 --}}
     <div id="dekstop-1" class="row dekstop">
         <div class="col-3 pl-12 pr-0">
-            <div class="card card-dash cursor-pointer pr-0" id="pdpt-box">
+            <div class="card card-dash cursor-pointer" id="pdpt-box">
                 <div class="row">
                     <div class="col-4 pt-16">
                         <div id="circle-pdpt" class="circle-bar">
