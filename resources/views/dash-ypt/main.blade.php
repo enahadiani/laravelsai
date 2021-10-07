@@ -184,6 +184,7 @@
     <script src="https://code.highcharts.com/highcharts-more.js"></script>
     <script src="https://code.highcharts.com/modules/full-screen.js"></script>
     <script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <!-- <script src="https://code.highcharts.com/modules/exporting.js"></script> -->
     <script src="{{ asset('dash-asset/dash-ypt/circle/circle-progress.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/typeahead.bundle.js') }}"></script>
@@ -1122,6 +1123,20 @@
         var form = $(this).data('href');
         $('.sub-menu li').removeClass('active');
         $(this).closest('li').addClass('active');
+        var url = "{{ url('dash-ypt/form')}}/"+form;
+        console.log(url);
+        if(form == "" || form == "-"){
+            // alert('Form dilock!');
+            return false;
+        }else{
+            loadForm(url);
+            
+        }
+    });
+
+    $('.main-menu').on('click','.a_link',function(e){
+        e.preventDefault();
+        var form = $(this).data('href');
         var url = "{{ url('dash-ypt/form')}}/"+form;
         console.log(url);
         if(form == "" || form == "-"){

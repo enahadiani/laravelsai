@@ -5,12 +5,12 @@
 {{-- HEADER --}}
 <section id="header" class="header">
     <div class="row">
-        <div class="col-8">
+        <div class="col-8 pl-12">
             <div class="row">
                 <div id="back-div" class="col-1 hidden">
                     <div id="back" class="glyph-icon iconsminds-left header"></div>
                 </div>
-                <div id="dash-title-div" class="col-11 pl-8">
+                <div id="dash-title-div" class="col-11">
                     <h2 class="title-dash" id="title-dash">Financial Performance YPT</h2>
                 </div>
             </div>
@@ -40,12 +40,12 @@
 
 {{-- END HEADER --}}
 
-{{-- CONTENT --}}
+{{-- CONTENT MAIN --}}
 <section id="main-dash" class="mt-20 pb-24">
     
 {{-- ROW 1 --}}
     <div id="dekstop-1" class="row dekstop">
-        <div class="col-3 pl-8">
+        <div class="col-3 pl-12 pr-0">
             <div class="card card-dash cursor-pointer" id="pdpt-box">
                 <div class="row">
                     <div class="col-4 pt-16">
@@ -78,7 +78,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-3">
+        <div class="col-3 pl-1 pr-0">
             <div class="card card-dash cursor-pointer" id="beban-box">
                 <div class="row">
                     <div class="col-4 pt-16">
@@ -111,7 +111,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-3">
+        <div class="col-3 pl-1 pr-0">
             <div class="card card-dash cursor-pointer" id="shu-box">
                 <div class="row">
                     <div class="col-4 pt-16">
@@ -144,7 +144,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-3 pr-0">
+        <div class="col-3 pl-1 pr-0">
             <div class="card card-dash cursor-pointer" id="or-box">
                 <div class="row">
                     <div class="col-4 pt-16">
@@ -182,46 +182,46 @@
 
 {{-- ROW 2 --}}
     <div id="dekstop-2" class="row dekstop mt-4">
-          <div class="col-3 pl-8">
+          <div class="col-3 pl-12 pr-0">
             <div class="card card-dash">
                 <div class="row header-div">
                     <div class="col-9">
                         <h4 class="header-card">Pendapatan Lembaga</h4>
                     </div>
-                    <div class="col-3">
+                    {{-- <div class="col-3">
                         <img alt="arrows-icon" class="icon-arrows cursor-pointer" src="{{ asset('dash-asset/dash-ypt/icon/arrows.svg') }}">
-                    </div>
+                    </div> --}}
                 </div>
-                <div id="pdpt-chart"></div>
+                <div id="pdpt-chart" class="dash-chart"></div>
             </div>
           </div>
-          <div class="col-3">
+          <div class="col-3 pl-1 pr-0">
                 <div class="card card-dash">
                     <div class="row header-div">
                         <div class="col-9">
                             <h4 class="header-card">Beban Lembaga</h4>
                         </div>
-                        <div class="col-3">
+                        {{-- <div class="col-3">
                             <img alt="arrows-icon" class="icon-arrows cursor-pointer" src="{{ asset('dash-asset/dash-ypt/icon/arrows.svg') }}">
-                        </div>
+                        </div> --}}
                     </div>
-                    <div id="beban-chart" class="mt-8"></div>
+                    <div id="beban-chart"></div>
                 </div>
           </div>
-          <div class="col-3">
+          <div class="col-3 pl-1 pr-0">
                 <div class="card card-dash">
                     <div class="row header-div">
                         <div class="col-9">
                             <h4 class="header-card">SHU Lembaga</h4>
                         </div>
-                        <div class="col-3">
+                        {{-- <div class="col-3">
                             <img alt="arrows-icon" class="icon-arrows cursor-pointer" src="{{ asset('dash-asset/dash-ypt/icon/arrows.svg') }}">
-                        </div>
+                        </div> --}}
                     </div>
-                    <div id="shu-chart" class="mt-8"></div>
+                    <div id="shu-chart"></div>
                 </div>
           </div>
-          <div class="col-3 pr-0">
+          <div class="col-3 pl-1 pr-0">
                 <div class="card card-dash">
                     <div class="row header-div">
                         <div class="col-9">
@@ -289,21 +289,21 @@
 {{-- END ROW 2 --}}
 
 {{-- ROW 3 --}}
-    <div id="dekstop-2" class="row dekstop mt-4">
-        <div class="col-6 pl-8">
+    <div id="dekstop-3" class="row dekstop mt-4">
+        <div class="col-6 pl-12 pr-0">
             <div class="card card-dash">
                 <div class="row header-div">
                     <div class="col-9">
                         <h4 class="header-card">Laba Rugi Lembaga</h4>
                     </div>
-                    <div class="col-3">
+                    {{-- <div class="col-3">
                         <img alt="arrows-icon" class="icon-arrows cursor-pointer" src="{{ asset('dash-asset/dash-ypt/icon/arrows.svg') }}">
-                    </div>
+                    </div> --}}
                 </div>
-                <div id="lr-chart" class="mt-8"></div>
+                <div id="lr-chart"></div>
             </div>
         </div>
-        <div class="col-6 pr-0">
+        <div class="col-6 pl-1 pr-0">
             <div class="card card-dash">
                 <div class="row header-div">
                     <div class="col-9">
@@ -431,17 +431,72 @@
     </div>
 {{-- END ROW 3 --}}
 </section>
-{{-- END CONTENT --}}
+{{-- END CONTENT MAIN --}}
+
+{{-- CONTENT DETAIL --}}
+<section id="detail-dash" class="mt-20 pb-24" style="display: none">
+    {{-- ROW 4 --}}
+    <div id="dekstop-4" class="row dekstop">
+        <div class="col-7 pl-12 pr-0">
+            <div class="card card-dash">
+                <div class="row header-div">
+                    <div class="col-9">
+                        <h4 class="header-card">Performansi Lembaga</h4>
+                    </div>
+                </div>
+                <div id="perfomansi-chart" class="mt-8"></div>
+            </div>
+        </div>
+        <div class="col-5 pl-1 pr-0">
+            <div class="card card-dash">
+                <div class="row header-div">
+                    <div class="col-9">
+                        <h4 class="header-card"><span class="title-chart"></span> Per Lembaga</h4>
+                    </div>
+                </div>
+                <div id="lembaga-chart" class="mt-8"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="dekstop-5" class="row dekstop mt-4">
+        <div class="col-7 pl-12 pr-0">
+            <div class="card card-dash">
+                <div class="row header-div">
+                    <div class="col-9">
+                        <h4 class="header-card">Kelompok <span class="title-chart"></span> YoY</h4>
+                    </div>
+                </div>
+                <div id="yoy-chart" class="mt-8"></div>
+            </div>
+        </div>
+        <div class="col-5 pl-1 pr-0">
+            <div class="card card-dash">
+                <div class="row header-div">
+                    <div class="col-9">
+                        <h4 class="header-card"><span class="title-chart"></span> Per Akun</h4>
+                    </div>
+                </div>
+                <div id="akun-chart" class="mt-8"></div>
+            </div>
+        </div>
+    </div>
+    {{-- END ROW 4 --}}
+</section>
+{{-- END CONTENT DETAIL --}}
 
 {{-- END DESKTOP --}}
 
 <script type="text/javascript">
 $(window).on('resize', function(){
     var win = $(this); //this = window
-    if (win.height() >= 800) { 
+    if (win.height() == 800) { 
         $("body").css("overflow", "hidden");
     }
-    if (win.width() < 800) { 
+    if (win.height() > 800) { 
+        $("body").css("overflow", "scroll");
+    }
+    if (win.height() < 800) { 
         $("body").css("overflow", "scroll");
     }
 });
@@ -451,8 +506,9 @@ $('#pdpt-box').click(function() {
     $('#back-div').removeClass('hidden')
     $('#dash-title-div').removeClass('pl-8')
     $('#dash-title-div').addClass('pl-0')
-    // $('#main-dash').hide()
-    // $('#detail-dash-1').show()
+    $('.title-chart').text('Pendapatan')
+    $('#main-dash').hide()
+    $('#detail-dash').show()
 });
 
 $('#beban-box').click(function() {
@@ -460,8 +516,9 @@ $('#beban-box').click(function() {
     $('#back-div').removeClass('hidden')
     $('#dash-title-div').removeClass('pl-8')
     $('#dash-title-div').addClass('pl-0')
-    // $('#main-dash').hide()
-    // $('#detail-dash-1').show()
+    $('.title-chart').text('Beban')
+    $('#main-dash').hide()
+    $('#detail-dash').show()
 });
 
 $('#shu-box').click(function() {
@@ -469,8 +526,9 @@ $('#shu-box').click(function() {
     $('#back-div').removeClass('hidden')
     $('#dash-title-div').removeClass('pl-8')
     $('#dash-title-div').addClass('pl-0')
-    // $('#main-dash').hide()
-    // $('#detail-dash-1').show()
+    $('.title-chart').text('Sisa Hasil Usaha')
+    $('#main-dash').hide()
+    $('#detail-dash').show()
 });
 
 $('#or-box').click(function() {
@@ -478,8 +536,9 @@ $('#or-box').click(function() {
     $('#back-div').removeClass('hidden')
     $('#dash-title-div').removeClass('pl-8')
     $('#dash-title-div').addClass('pl-0')
-    // $('#main-dash').hide()
-    // $('#detail-dash-1').show()
+    $('.title-chart').text('Operating Ratio')
+    $('#main-dash').hide()
+    $('#detail-dash').show()
 });
 
 $('#back').click(function() {
@@ -487,8 +546,8 @@ $('#back').click(function() {
     $('#back-div').addClass('hidden')
     $('#dash-title-div').removeClass('pl-0')
     $('#dash-title-div').addClass('pl-8')
-    // $('#detail-dash-1').hide()
-    // $('#main-dash').show()
+    $('#detail-dash').hide()
+    $('#main-dash').show()
 });
 
 $('#circle-pdpt').circleProgress({
@@ -577,18 +636,343 @@ $('#table-lembaga tbody').on('click', 'tr.selected-row', function() {
     $(`#${table} tbody tr`).removeClass('selected-row')
     $(`#${table} tbody tr td .check-row`).hide()
 })
+
+Highcharts.chart('akun-chart', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'variablepie',
+        height: 275,
+        width: 470
+    },
+    title: { text: '' },
+    subtitle: { text: '' },
+    exporting:{ 
+        enabled: false
+        // buttons: {
+        //     contextButton: {
+        //         align: 'right',
+        //         x: -20,
+        //         y: -10,
+        //         verticalAlign: 'top'
+        //     }
+        // }
+    },
+    legend:{ enabled: false },
+    credits: { enabled: false },
+    tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+    },
+    accessibility: {
+        point: {
+            valueSuffix: '%'
+        }
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            center: ['50%', '50%'],
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                format: '{point.name} : {point.percentage:.1f} %'
+            },
+            // size: '65%',
+            showInLegend: true
+        }
+    },
+    series: [{
+        minPointSize: 60,
+        innerSize: '20%',
+        name: 'Jumlah',
+        colorByPoint: true,
+        data: [
+            {
+                name: 'Pendapatan A',
+                y: 505370,
+                z: 92.9
+            }, 
+            {
+                name: 'Pendapatan B',
+                y: 551500,
+                z: 118.7
+            }, 
+            {
+                name: 'Pendapatan C',
+                y: 312685,
+                z: 124.6
+            }, 
+            {
+                name: 'Pendapatan D',
+                y: 78867,
+                z: 137.5
+            }, 
+            {
+                name: 'Pendapatan E',
+                y: 301340,
+                z: 201.8
+            }, 
+            {
+                name: 'Pendapatan F',
+                y: 41277,
+                z: 214.5
+            }, 
+            {
+                name: 'Lainnya',
+                y: 357022,
+                z: 235.6
+            }
+        ]
+    }]
+});
+
+Highcharts.chart('yoy-chart', {
+    chart: {
+        height: 275,
+        width: 600
+    },
+    title: { text: '' },
+    subtitle: { text: '' },
+    exporting:{ 
+        enabled: false
+        // buttons: {
+        //     contextButton: {
+        //         align: 'right',
+        //         x: 0,
+        //         y: -10,
+        //         verticalAlign: 'top'
+        //     }
+        // }
+    },
+    legend:{ 
+        enabled: true,
+        layout: 'vertical',
+        align: 'right',
+        verticalAlign: 'middle' 
+    },
+    credits: { enabled: false },
+    xAxis: {
+        categories: ['2016', '2017', '2018', '2019', '2020', '2021']
+    },
+    yAxis: {
+         title: {
+            text: 'Nilai'
+        }
+    },
+    plotOptions: {
+        series: {
+            label: {
+                connectorAllowed: false
+            },
+            marker:{
+                enabled:false
+            },
+            pointStart: 2016
+        }
+    },
+    series: [
+        {
+            name: 'Pendapatan A',
+            data: [2000, 3500, 2500, 5000, 3500],
+            color: '#1D4ED8'
+        },
+        {
+            name: 'Pendapatan B',
+            data: [3000, 3000, 3000, 3500, 2500],
+            color: '#EC4899'
+        },
+        {
+            name: 'Pendapatan C',
+            data: [1000, 1500, 2000, 2500, 1500],
+            color: '#FBBF24'
+        }
+    ],
+});
+
+Highcharts.chart('lembaga-chart', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie',
+        height: 275,
+        width: 470
+    },
+    title: { text: '' },
+    subtitle: { text: '' },
+    exporting:{ 
+        enabled: false
+        // buttons: {
+        //     contextButton: {
+        //         align: 'right',
+        //         x: -20,
+        //         y: -10,
+        //         verticalAlign: 'top'
+        //     }
+        // }
+    },
+    legend:{ enabled: false },
+    credits: { enabled: false },
+    tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+    },
+    accessibility: {
+        point: {
+            valueSuffix: '%'
+        }
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            center: ['50%', '50%'],
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                format: '{point.name} : {point.percentage:.1f} %'
+            },
+            size: '65%',
+            showInLegend: true
+        }
+    },
+    series: [{
+        name: 'Jumlah',
+        colorByPoint: true,
+        data: [
+            {
+                name: 'TS',
+                y: 26.9,
+                sliced: true,
+                selected: true
+            },
+            {
+                name: 'ITTS',
+                y: 6.4
+            },
+            {
+                name: 'ITTP',
+                y: 9.0
+            },
+            {
+                name: 'AKATEL',
+                y: 4.5
+            },
+            {
+                name: 'TelU',
+                y: 43.6
+            },
+            {
+                name: 'Lakhar',
+                y: 9.6
+            },
+        ]
+    }]
+});
+
+Highcharts.chart('perfomansi-chart', {
+    chart: {
+        type: 'column',
+        height: 275,
+        width: 600
+    },
+    title: { text: '' },
+    subtitle: { text: '' },
+    exporting:{ 
+        enabled: false
+        // buttons: {
+        //     contextButton: {
+        //         align: 'right',
+        //         x: 0,
+        //         y: -10,
+        //         verticalAlign: 'top'
+        //     }
+        // }
+    },
+    legend:{  enabled: false },
+    credits: { enabled: false },
+    xAxis: {
+        categories: ['TS', 'ITTS', 'ITTP', 'AKATEL', 'TELU', 'LAKHAR']
+    },
+    yAxis: {
+         title: {
+            text: 'Presentase'
+        }
+    },
+    plotOptions: {
+        column: {
+            grouping: true,
+            stacking: 'normal',
+            dataLabels: {
+                enabled: true,
+                overflow: 'justify',
+                useHTML: true,
+                formatter: function () {
+                    var visible = "block"
+                    var color = '#000000'
+                    if(this.point.color == '#CED4DA') {
+                        visible = 'none'
+                    } else {
+                        visible = 'block'
+                    }
+
+                    if(this.point.color == '#434348') {
+                        color = '#ffffff'
+                    } else {
+                        color = '#000000'
+                    }
+
+                    if(this.y < 0.1){
+                        return '';
+                    } else {
+                        return $('<div/>').css({
+                            'display': visible,
+                            'color' : color,
+                            'padding': '0 3px',
+                            'font-size': '10px',
+                            'backgroundColor' : this.point.color  // just white in my case
+                        }).text(sepNum(this.y)+'%')[0].outerHTML;
+                    }
+                }
+            }
+        }
+    },
+    series: [
+        {
+            name: 'Presentase',
+            data: [2, 2, 2, 2, 1, 3],
+            color: '#CED4DA',
+            stake: 'n1'
+        },
+        {
+            name: 'Presentase',
+            colorByPoint: true,
+            data: [8, 8, 8, 8, 9, 7],
+            stake: 'n1'
+        },
+    ],
+});
+
 Highcharts.chart('shu-chart', {
     chart: {
         plotBackgroundColor: null,
         plotBorderWidth: null,
         plotShadow: false,
         type: 'pie',
-        height: 250,
+        height: 258,
         width: 280
     },
     title: { text: '' },
     subtitle: { text: '' },
-    exporting:{ enabled: false },
+    exporting:{ 
+        buttons: {
+            contextButton: {
+                align: 'right',
+                x: -20,
+                y: -10,
+                verticalAlign: 'top'
+            }
+        }
+    },
     legend:{ enabled: false },
     credits: { enabled: false },
     tooltip: {
@@ -610,6 +994,13 @@ Highcharts.chart('shu-chart', {
             },
             size: '50%',
             showInLegend: true
+        },
+        series: {
+            dataLabels: {
+                style: {
+                    fontSize: '9px'
+                }
+            }
         }
     },
     series: [{
@@ -650,12 +1041,21 @@ Highcharts.chart('beban-chart', {
         plotBorderWidth: null,
         plotShadow: false,
         type: 'pie',
-        height: 250,
+        height: 258,
         width: 280
     },
     title: { text: '' },
     subtitle: { text: '' },
-    exporting:{ enabled: false },
+    exporting:{ 
+        buttons: {
+            contextButton: {
+                align: 'right',
+                x: -20,
+                y: -10,
+                verticalAlign: 'top'
+            }
+        }
+    },
     legend:{ enabled: false },
     credits: { enabled: false },
     tooltip: {
@@ -677,6 +1077,13 @@ Highcharts.chart('beban-chart', {
             },
             size: '50%',
             showInLegend: true
+        },
+        series: {
+            dataLabels: {
+                style: {
+                    fontSize: '9px'
+                }
+            }
         }
     },
     series: [{
@@ -717,12 +1124,21 @@ Highcharts.chart('pdpt-chart', {
         plotBorderWidth: null,
         plotShadow: false,
         type: 'pie',
-        height: 250,
+        height: 258,
         width: 280
     },
     title: { text: '' },
     subtitle: { text: '' },
-    exporting:{ enabled: false },
+    exporting:{ 
+        buttons: {
+            contextButton: {
+                align: 'right',
+                x: -20,
+                y: -10,
+                verticalAlign: 'top'
+            }
+        }
+    },
     legend:{ enabled: false },
     credits: { enabled: false },
     tooltip: {
@@ -744,6 +1160,13 @@ Highcharts.chart('pdpt-chart', {
             },
             size: '50%',
             showInLegend: true
+        },
+        series: {
+            dataLabels: {
+                style: {
+                    fontSize: '9px'
+                }
+            }
         }
     },
     series: [{
@@ -784,10 +1207,20 @@ Highcharts.SVGRenderer.prototype.symbols['c-rect'] = function (x, y, w, h) {
 
 Highcharts.chart('lr-chart', {
     chart: {
-        height: 180
+        height: 190
     },
     credits:{
         enabled:false
+    },
+    exporting:{ 
+        buttons: {
+            contextButton: {
+                align: 'right',
+                x: 0,
+                y: -10,
+                verticalAlign: 'top'
+            }
+        }
     },
     title: {
         text: ''
