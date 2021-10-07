@@ -14,11 +14,23 @@
 .pl-0 {
     padding-left: 0;
 }
+.pl-1 {
+    padding-left: 1px;
+}
+.pl-2 {
+    padding-left: 2px;
+}
 .pl-8 {
     padding-left: 8px;
 }
+.pl-12 {
+    padding-left: 12px;
+}
 .pr-0 {
     padding-right: 0;
+}
+.pr-12 {
+    padding-right: 12px;
 }
 .pt-8 {
     padding-top: 8px;
@@ -107,7 +119,7 @@
     height: 42px;
     width: 260px;
     float: right;
-    margin-right: 8px;
+    margin-right: 4px;
     border-radius: 10px;
 }
 .header .select-custom .icon-calendar {
@@ -185,7 +197,7 @@
 }
 .table.table-th-red thead tr th,
 .table.table-th-red tbody tr td {
-    padding: 0.3px 8px;
+    padding: 0.4px 8px;
 }
 #table-lembaga.table tbody tr td:first-child {
     cursor: pointer;
