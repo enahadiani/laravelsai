@@ -184,13 +184,24 @@
     <div id="dekstop-2" class="row dekstop mt-4">
           <div class="col-3 pl-12 pr-0">
             <div class="card card-dash">
-                <div class="row header-div">
+                <div class="row header-div" id="card-pdpt">
                     <div class="col-9">
                         <h4 class="header-card">Pendapatan Lembaga</h4>
                     </div>
-                    {{-- <div class="col-3">
-                        <img alt="arrows-icon" class="icon-arrows cursor-pointer" src="{{ asset('dash-asset/dash-ypt/icon/arrows.svg') }}">
-                    </div> --}}
+                    <div class="col-3">
+                        <div class="glyph-icon simple-icon-menu icon-menu"></div>
+                    </div>
+                    <div class="menu-chart-custom hidden" id="export-pdpt">
+                        <ul>
+                            <li class="menu-chart-item fullscreen">View in full screen</li>
+                            <li class="menu-chart-item print">Print chart</li>
+                            <hr>
+                            <li class="menu-chart-item print png">Download PNG image</li>
+                            <li class="menu-chart-item print jpg">Download JPEG image</li>
+                            <li class="menu-chart-item print pdf">Download PDF document</li>
+                            <li class="menu-chart-item print svg">Download SVG vector image</li>
+                        </ul>
+                    </div>
                 </div>
                 <div id="pdpt-chart" class="dash-chart"></div>
             </div>
@@ -500,6 +511,15 @@ $(window).on('resize', function(){
         $("body").css("overflow", "scroll");
     }
 });
+
+$(window).click(function() {
+    $('.menu-chart-custom').addClass('hidden');
+})
+$('.icon-menu').click(function(event) {
+    event.stopPropagation()
+    var parentID = $(this).parents('.header-div').attr('id')
+    $('#'+parentID).find('.menu-chart-custom').removeClass('hidden')
+})
 
 $('#pdpt-box').click(function() {
     $('#title-dash').text('Pendapatan')
@@ -1118,7 +1138,7 @@ Highcharts.chart('beban-chart', {
     }]
 });
 
-Highcharts.chart('pdpt-chart', {
+var pdptChart = Highcharts.chart('pdpt-chart', {
     chart: {
         plotBackgroundColor: null,
         plotBorderWidth: null,
@@ -1130,14 +1150,15 @@ Highcharts.chart('pdpt-chart', {
     title: { text: '' },
     subtitle: { text: '' },
     exporting:{ 
-        buttons: {
-            contextButton: {
-                align: 'right',
-                x: -20,
-                y: -10,
-                verticalAlign: 'top'
-            }
-        }
+        enabled: false,
+        // buttons: {
+        //     contextButton: {
+        //         align: 'right',
+        //         x: -20,
+        //         y: -10,
+        //         verticalAlign: 'top'
+        //     }
+        // }
     },
     legend:{ enabled: false },
     credits: { enabled: false },
@@ -1200,6 +1221,53 @@ Highcharts.chart('pdpt-chart', {
         ]
     }]
 });
+
+$('#export-pdpt.menu-chart-custom ul li').click(function(event) {
+    event.stopPropagation()
+    var jenis = $(this).text()
+    
+    if(jenis == 'View in full screen') {
+         pdptChart.fullscreen.toggle();
+    } else if(jenis == 'Print chart') {
+        pdptChart.print()
+    } else if(jenis == 'Download PNG image') {
+        pdptChart.exportChart({
+            type: 'image/png',
+            filename: 'chart-png'
+        }, {
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download JPEG image') {
+        pdptChart.exportChart({
+            type: 'image/jpeg',
+            filename: 'chart-jpg'
+        }, {
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download PDF document') {
+        pdptChart.exportChart({
+            type: 'application/pdf',
+            filename: 'chart-pdf'
+        }, {
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download SVG vector image') {
+        pdptChart.exportChart({
+            type: 'image/svg+xml',
+            filename: 'chart-svg'
+        }, {
+            subtitle: {
+            text: ''
+            }
+        });
+    }
+})
 
 Highcharts.SVGRenderer.prototype.symbols['c-rect'] = function (x, y, w, h) {
     return ['M', x, y + h / 2, 'L', x + w, y + h / 2];

@@ -146,10 +146,14 @@
 .card.card-dash.cursor-pointer {
     cursor: pointer;
 }
-.card.card-dash .header-div .icon-arrows {
+.card.card-dash .header-div .icon-menu {
     float: right;
     margin-top: 4px;
-    margin-right: 4px;
+    margin-right: 8px;
+    cursor: pointer;
+}
+.card.card-dash .header-div .icon-menu::before {
+    font-weight: bold;
 }
 .card.card-dash .header-card {
     font-size: 16px !important;
@@ -223,10 +227,40 @@
 }
 /* END TABLE */
 
+/* MENU CHART CUSTOM */
+.menu-chart-custom {
+    height: 224px;
+    width: 200px;
+    background-color: #ffffff;
+    border: 1px solid rgb(153, 153, 153);
+    border-radius: 4px;
+    position: absolute;
+    z-index: 10;
+    top: 28px;
+    right: 20px;
+}
+.menu-chart-custom ul {
+    list-style: none;
+    margin: 0;
+    padding: 5px 0;
+}
+.menu-chart-custom ul li {
+    cursor: pointer;
+    padding: 4px 16px;
+}
+.menu-chart-custom ul li:hover {
+    background-color: rgb(51, 92, 173);
+    color: #ffffff;
+}
+/* END MENU CHART CUSTOM */
+
 /* HIGHCHART */
 .highcharts-scatter-series .highcharts-point {
     stroke-width: 5;
     stroke: #fbbf24;
+}
+.highcharts-contextbutton {
+    background-color: red;
 }
 /* END HIGHCHART */
 
