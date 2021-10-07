@@ -300,7 +300,7 @@
                         <img alt="arrows-icon" class="icon-arrows cursor-pointer" src="{{ asset('dash-asset/dash-ypt/icon/arrows.svg') }}">
                     </div> --}}
                 </div>
-                <div id="lr-chart" class="h-190"></div>
+                <div id="lr-chart"></div>
             </div>
         </div>
         <div class="col-6 pl-1 pr-0">
@@ -1199,9 +1199,9 @@ Highcharts.SVGRenderer.prototype.symbols['c-rect'] = function (x, y, w, h) {
 };
 
 Highcharts.chart('lr-chart', {
-    // chart: {
-    //     height: 190
-    // },
+    chart: {
+        height: 190
+    },
     credits:{
         enabled:false
     },
