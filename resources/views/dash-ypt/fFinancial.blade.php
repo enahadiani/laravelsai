@@ -490,8 +490,11 @@
 <script type="text/javascript">
 $(window).on('resize', function(){
     var win = $(this); //this = window
-    if (win.height() >= 800) { 
+    if (win.height() == 800) { 
         $("body").css("overflow", "hidden");
+    }
+    if (win.height() > 800) { 
+        $("body").css("overflow", "scroll");
     }
     if (win.height() < 800) { 
         $("body").css("overflow", "scroll");
