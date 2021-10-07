@@ -17,6 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/droping-aju', 'Bdh\PengajuanDropingController@index');
 Route::get('/droping-aju-pp', 'Bdh\PengajuanDropingController@getPP');
 Route::get('/droping-aju-akun', 'Bdh\PengajuanDropingController@getAkun');
+Route::get('/droping-aju-nobukti', 'Bdh\PengajuanDropingController@GenerateBukti');
+Route::post('/droping-aju', 'Bdh\PengajuanDropingController@store');
+
 
 
 
@@ -37,6 +40,9 @@ Route::get('pp', 'Bdh\PtgBebanController@getPP');
 Route::get('drk', 'Bdh\PtgBebanController@getDrk');
 Route::get('dok-jenis', 'Bdh\PtgBebanController@getJenis');
 
+// Serah Terima Dokumen Online
+Route::get('/serah-dok-pb', 'Bdh\SerahTerimaDokOnController@index');
+Route::get('/serah-dok-detail', 'Bdh\SerahTerimaDokOnController@show');
 
 
 // SPB

@@ -9,7 +9,7 @@ use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Session;
 use GuzzleHttp\Exception\BadResponseException;
 
-class PengajuanDropingController extends Controller
+class SerahTerimaDokOnController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -50,7 +50,7 @@ class PengajuanDropingController extends Controller
     {
         try {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url') . 'bdh-trans/droping-aju', [
+            $response = $client->request('GET',  config('api.url') . 'bdh-trans/serah-dok-pb', [
                 'headers' => [
                     'Authorization' => 'Bearer ' . Session::get('token'),
                     'Accept'     => 'application/json',
@@ -68,83 +68,6 @@ class PengajuanDropingController extends Controller
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(), true);
             return response()->json(['message' => $res["message"], 'status' => false], 200);
-        }
-    }
-    public function getPP()
-    {
-        try {
-            $client = new Client();
-            $response = $client->request('GET',  config('api.url') . 'bdh-trans/droping-aju-pp', [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . Session::get('token'),
-                    'Accept'     => 'application/json',
-                ]
-            ]);
-
-            if ($response->getStatusCode() == 200) { // 200 OK
-                $response_data = $response->getBody()->getContents();
-
-                $data = json_decode($response_data, true);
-                $data = $data["data"];
-            }
-            return response()->json(['daftar' => $data, 'status' => true, 'message' => 'success'], 200);
-        } catch (BadResponseException $ex) {
-            $response = $ex->getResponse();
-            $res = json_decode($response->getBody(), true);
-            return response()->json(['message' => $res["message"], 'status' => false], 200);
-        }
-    }
-    public function getAkun()
-    {
-        try {
-            $client = new Client();
-            $response = $client->request('GET',  config('api.url') . 'bdh-trans/droping-aju-akun', [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . Session::get('token'),
-                    'Accept'     => 'application/json',
-                ]
-            ]);
-
-            if ($response->getStatusCode() == 200) { // 200 OK
-                $response_data = $response->getBody()->getContents();
-
-                $data = json_decode($response_data, true);
-                $data = $data["data"];
-            }
-            return response()->json(['daftar' => $data, 'status' => true, 'message' => 'success'], 200);
-        } catch (BadResponseException $ex) {
-            $response = $ex->getResponse();
-            $res = json_decode($response->getBody(), true);
-            return response()->json(['message' => $res["message"], 'status' => false], 200);
-        }
-    }
-
-    public function GenerateBukti(Request $request)
-    {
-        try {
-
-            $client = new Client();
-            $response = $client->request('GET',  config('api.url') . 'bdh-trans/droping-aju-nobukti', [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . Session::get('token'),
-                    'Accept'     => 'application/json',
-                ],
-                'query' => [
-                    'tanggal'   => $request->input('tanggal')
-                ]
-            ]);
-
-            if ($response->getStatusCode() == 200) { // 200 OK
-                $response_data = $response->getBody()->getContents();
-
-                $data = json_decode($response_data, true);
-                $data = $data["no_bukti"];
-            }
-            return response()->json(['data' => $data, 'status' => true, 'message' => 'success'], 200);
-        } catch (BadResponseException $ex) {
-            $response = $ex->getResponse();
-            $res = json_decode($response->getBody(), true);
-            return response()->json(['message' => $res, 'status' => false], 200);
         }
     }
 
@@ -152,13 +75,13 @@ class PengajuanDropingController extends Controller
     {
         try {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url') . 'bdh-master/dok-jenis', [
+            $response = $client->request('GET',  config('api.url') . 'bdh-master/serah-dok-detail', [
                 'headers' => [
                     'Authorization' => 'Bearer ' . Session::get('token'),
                     'Accept'     => 'application/json',
                 ],
                 'query' => [
-                    'kode_jenis'    => $id
+                    'no_pb'    => $id
                 ]
             ]);
 
