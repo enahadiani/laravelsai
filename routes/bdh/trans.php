@@ -20,9 +20,13 @@ Route::get('/droping-aju-akun', 'Bdh\PengajuanDropingController@getAkun');
 Route::get('/droping-aju-nobukti', 'Bdh\PengajuanDropingController@GenerateBukti');
 Route::post('/droping-aju', 'Bdh\PengajuanDropingController@store');
 
-
-
-
+// Penerimaan Droping
+Route::get('/droping-terima', 'Bdh\PenerimaanDropingController@index');
+Route::get('/droping-terima-nobukti', 'Bdh\PenerimaanDropingController@GenerateBukti');
+Route::get('/droping-terima-akun', 'Bdh\PenerimaanDropingController@getakun');
+Route::get('/droping-terima-niktahu', 'Bdh\PenerimaanDropingController@getNik');
+Route::get('/droping-terima-load', 'Bdh\PenerimaanDropingController@loadData');
+Route::post('/droping-terima', 'Bdh\PenerimaanDropingController@store');
 
 // Pertanggungan Beban
 Route::get('/ptg-beban', 'Bdh\PtgBebanController@index');
