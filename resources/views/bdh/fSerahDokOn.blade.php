@@ -55,19 +55,19 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-4 col-sm-12">
+                                <div class="col-md-4 col-sm-12 mt-2">
                                     <label for="nominal">Nominal</label>
                                     <input type="text" name="nominal" id="nominal" class="form-control inp-nominal currency" value="0" readonly>
                                 </div>
-                                <div class="col-md-4 col-sm-12">
+                                <div class="col-md-4 col-sm-12 mt-2">
                                     <label for="modul">Modul</label>
                                     <input type="text" name="modul" id="modul" class="form-control inp-modul" value="" readonly>
                                 </div>
-                                <div class="col-md-4 col-sm-12">
+                                <div class="col-md-4 col-sm-12 mt-2">
                                     <label for="tgl_aju">Tanggal Pengajuan</label>
                                     <input type="text" name="tgl_aju" id="tgl_aju" class="form-control inp-tgl_aju" value="" readonly>
                                 </div>
-                                <div class="col-md-4 col-sm-12">
+                                <div class="col-md-4 col-sm-12 mt-2">
                                     <label for="nik_penerima" >Penerima</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
@@ -81,7 +81,7 @@
                                         <i class="simple-icon-magnifier search-item2" id="search_nik_penerima"></i>
                                     </div>
                                 </div>
-                                <div class="col-md-4 col-sm-12">
+                                <div class="col-md-4 col-sm-12 mt-2">
                                     <label for="diserahkan_oleh">Diserahkan Oleh</label>
                                     <input type="text" name="diserahkan_oleh" id="diserahkan_oleh" class="form-control inp-diserahkan_oleh" value="">
                                 </div>
@@ -341,10 +341,126 @@ $('#form-tambah').on('click', '.search-item2', function() {
                     width : ["30%","70%"],
                 }
             break;
+            case 'nik_penerima':
+                var settings = {
+                    id : id,
+                    header : ['Kode', 'Nama'],
+                    url : "{{ url('bdh-trans/serah-dok-nik') }}",
+                    columns : [
+                        { data: 'nik' },
+                        { data: 'nama' }
+                    ],
+                    judul : "Daftar NIK Penerima",
+                    pilih : "",
+                    jTarget1 : "text",
+                    jTarget2 : "text",
+                    target1 : ".info-code_"+id,
+                    target2 : ".info-name_"+id,
+                    target3 : "",
+                    target4 : "",
+                    width : ["30%","70%"],
+                }
+            break;
             default:
             break;
         }
         showInpFilter(settings);
     })
     // EMD CBBL
+
+    $('#form-tambah').on('click','.btn-proses', function(e){
+        e.preventDefault();
+        var id = $('#form-tambah').find('#no_bukti').val();
+        loadData(id);
+        console.log('load-data');
+    });
+
+   // LOAD DATA
+   function loadData(id){
+        var url = '{{url("bdh-trans/serah-dok-detail")}}';
+        $.ajax({
+            type: 'GET',
+            url: url,
+            data: {
+                no_pb : id
+            },
+            dataType:'JSON',
+            async: false,
+            success: function(result){
+                var data = result.data;
+                var data_m = data.data;
+                var data_rek = data.detail_rek;
+                var data_jurnal = data.detail_jurnal;
+                if(result.status){
+                    $('#form-tambah #modul').val(data_m[0].modul);
+                    $('#form-tambah #nominal').val(format_number(data_m[0].nilai));
+                    $('#form-tambah #tgl_aju').val(data_m[0].tgl);
+                    $('textarea#deskripsi').val(data_m[0].keterangan);
+                    var html_rek = '';
+                    var no_rek = 1;
+                    for (let i = 0; i < data_rek.length; i++) {
+                        var netto =data_rek[i].bruto - data_rek[i].pajak;
+                        html_rek += `<tr>
+                                <td>`+no_rek+`</td>
+                                <td>`+data_rek[i].bank+`</td>
+                                <td>`+data_rek[i].nama+`</td>
+                                <td>`+data_rek[i].no_rek+`</td>
+                                <td>`+data_rek[i].nama_rek+`</td>
+                                <td class='text-right'>`+format_number(data_rek[i].bruto)+`</td>
+                                <td class='text-right'>`+format_number(data_rek[i].pajak)+`</td>
+                                <td class='text-right'>`+format_number(netto)+`</td>
+                            </tr>`;
+                            no_rek ++;
+                    }
+                    var html_jurnal = '';
+                    var no_jurnal = 1;
+                    for (let y = 0; y < data_jurnal.length; y++) {
+                        html_jurnal = `<tr>
+                                <td>`+no_jurnal+`</td>
+                                <td>`+data_jurnal[y].kode_akun+`</td>
+                                <td>`+data_jurnal[y].nama_akun+`</td>
+                                <td>`+data_jurnal[y].dc+`</td>
+                                <td>`+data_jurnal[y].keterangan+`</td>
+                                <td class='text-right'>`+format_number(data_jurnal[y].nilai)+`</td>
+                                <td>`+data_jurnal[y].kode_pp+`</td>
+                                <td>`+data_jurnal[y].nama_pp+`</td>
+                                <td>`+data_jurnal[y].kode_drk+`</td>
+                                <td>`+data_jurnal[y].nama_drk+`</td>
+                            </tr>`;
+                            no_jurnal ++;
+                    }
+
+                }else{
+                    msgDialog({
+                        id: '-',
+                        type: 'warning',
+                        title: 'Error',
+                        text: "Data dengan No dok_check "+id+" Tidak ditemukan"
+                    });
+                }
+                $(".tab-pane").removeClass("active");
+                $(".nav-link").removeClass("active");
+                $("#data-rekening").addClass("active");
+                $('a[href="#data-rekening"]').tab('show')
+
+                //Append Data
+                $('#rekening-grid >tbody').html(html_rek);
+                $('#jurnal-grid >tbody').html(html_jurnal);
+
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                if(jqXHR.status == 422){
+                    var msg = jqXHR.responseText;
+                }else if(jqXHR.status == 500) {
+                    var msg = "Internal server error";
+                }else if(jqXHR.status == 401){
+                    var msg = "Unauthorized";
+                    window.location="{{ url('/bdh-auth/sesi-habis') }}";
+                }else if(jqXHR.status == 405){
+                    var msg = "Route not valid. Page not found";
+                }
+            }
+        });
+    }
+    // END LOAD DATA
 </script>

@@ -20,9 +20,16 @@ Route::get('/droping-aju-akun', 'Bdh\PengajuanDropingController@getAkun');
 Route::get('/droping-aju-nobukti', 'Bdh\PengajuanDropingController@GenerateBukti');
 Route::post('/droping-aju', 'Bdh\PengajuanDropingController@store');
 
-
-
-
+// Penerimaan Droping
+Route::get('/droping-terima', 'Bdh\PenerimaanDropingController@index');
+Route::get('/droping-terima-nobukti', 'Bdh\PenerimaanDropingController@GenerateBukti');
+Route::get('/droping-terima-akun', 'Bdh\PenerimaanDropingController@getakun');
+Route::get('/droping-terima-niktahu', 'Bdh\PenerimaanDropingController@getNik');
+Route::get('/droping-terima-load', 'Bdh\PenerimaanDropingController@loadData');
+Route::get('/droping-terima-detail', 'Bdh\PenerimaanDropingController@show');
+Route::post('/droping-terima', 'Bdh\PenerimaanDropingController@store');
+Route::post('/droping-terima-ubah', 'Bdh\PenerimaanDropingController@update');
+Route::delete('/droping-terima', 'Bdh\PenerimaanDropingController@destroy');
 
 // Pertanggungan Beban
 Route::get('/ptg-beban', 'Bdh\PtgBebanController@index');
@@ -42,6 +49,7 @@ Route::get('dok-jenis', 'Bdh\PtgBebanController@getJenis');
 
 // Serah Terima Dokumen Online
 Route::get('/serah-dok-pb', 'Bdh\SerahTerimaDokOnController@index');
+Route::get('/serah-dok-nik', 'Bdh\SerahTerimaDokOnController@getPenerima');
 Route::get('/serah-dok-detail', 'Bdh\SerahTerimaDokOnController@show');
 
 
