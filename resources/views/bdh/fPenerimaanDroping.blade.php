@@ -320,6 +320,7 @@
         load_data();
     });
 
+
     // Event Button Kembali (Cancel)
     $('#saku-form').on('click', '#btn-kembali', function(){
         var kode = null;
@@ -736,7 +737,7 @@
     function hapusData(id){
         $.ajax({
             type: 'DELETE',
-            url: "{{ url('bdh-trans/spb') }}",
+            url: "{{ url('bdh-trans/droping-terima') }}",
             data: {
                 no_bukti : id
             },
@@ -746,7 +747,7 @@
                 var data = result.data;
                 if(data.status){
                     dataTable.ajax.reload();
-                    showNotification("top", "center", "success",'Hapus Data','Data SPB ('+id+') berhasil dihapus ');
+                    showNotification("top", "center", "success",'Hapus Data','Data Penerimaan Droping ('+id+') berhasil dihapus ');
                     // $('#modal-preview-id').html('');
                     $('#table-delete tbody').html('');
                     if(typeof M == 'undefined'){

@@ -311,7 +311,7 @@ class PenerimaanDropingController extends Controller
     {
         try {
             $client = new Client();
-            $response = $client->request('DELETE',  config('api.url') . 'bdh-trans/spb', [
+            $response = $client->request('DELETE',  config('api.url') . 'bdh-trans/droping-terima', [
                 'headers' => [
                     'Authorization' => 'Bearer ' . Session::get('token'),
                     'Accept'     => 'application/json',
