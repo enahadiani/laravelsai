@@ -26,6 +26,7 @@ Route::get('/droping-terima-nobukti', 'Bdh\PenerimaanDropingController@GenerateB
 Route::get('/droping-terima-akun', 'Bdh\PenerimaanDropingController@getakun');
 Route::get('/droping-terima-niktahu', 'Bdh\PenerimaanDropingController@getNik');
 Route::get('/droping-terima-load', 'Bdh\PenerimaanDropingController@loadData');
+Route::get('/droping-terima-detail', 'Bdh\PenerimaanDropingController@show');
 Route::post('/droping-terima', 'Bdh\PenerimaanDropingController@store');
 Route::delete('/droping-terima', 'Bdh\PenerimaanDropingController@destroy');
 
