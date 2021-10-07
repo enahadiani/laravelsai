@@ -1131,6 +1131,20 @@
         }
     });
 
+    $('.main-menu').on('click','.a_link',function(e){
+        e.preventDefault();
+        var form = $(this).data('href');
+        var url = "{{ url('dash-ypt/form')}}/"+form;
+        console.log(url);
+        if(form == "" || form == "-"){
+            // alert('Form dilock!');
+            return false;
+        }else{
+            loadForm(url);
+            
+        }
+    });
+
     $('.main-menu li').click(function(){
         console.log('click-menu');
         $('.main-menu li').removeClass('active');
