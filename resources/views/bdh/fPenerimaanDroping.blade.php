@@ -970,4 +970,139 @@
     });
 
     // END PREVIEW
+
+    $('#saku-datatable').on('click', '#btn-edit', function(e){
+        var id = $(this).closest('tr').find('td').eq(0).html();
+        console.log("Edit Data"+id);
+        editData(id);
+    });
+
+    function editData(id){
+        $.ajax({
+                type: 'GET',
+                url: "{{ url('/bdh-trans/droping-terima-detail') }}",
+                data: {
+                    no_bukti : id
+                },
+                dataType: 'json',
+                async:false,
+                success:function(res){
+                    var result= res.daftar;
+                    var data_m = result.data;
+                    var data_d = result.detail_terima;
+                    if(res.status){
+                        var line1 = data_m[0];
+                        $('#id_edit').val('edit');
+                        $('#id').val(id);
+                        $('#method').val('post');
+                        $('#no_bukti').val(id);
+                        $('#no_bukti').attr('readonly', true);
+                        $('#no_dokumen').val(line1.no_dokumen);
+                        $('#form-tambah').find('.inp-tanggal').val(reverseDate2(line1.tanggal,'-','/'));
+                        $('#jenis').val(line1.jenis);
+                        $('#nik_tahu').val(line1.nik_app);
+                        $('#kas_bank').val(line1.akun_kb);
+                        $('#deskripsi').val(line1.keterangan);
+                        if(data_d.length > 0){
+                            var html = "";
+                            var no = 1;
+                            for (let i = 0; i < data_d.length; i++) {
+                                html += "<tr class='row-pengiriman row-pengiriman-"+no+"'>"
+                                html += "<td class='no-pengiriman text-center'>"+no+"</td>";
+                                html += "</div></td>";
+                                html += "<td><div>";
+                                html += "<span class='td-status tdstatuske"+no+" tooltip-span'>"+data_d[i].status+"</span>"; //status value
+                                html += "<select class='form-control hidden inp-status statuske"+no+"' name='status[]'>";
+                                html += "<option value='INPROG'>INPROG</option> <option value='APP'>APP</option>";
+                                html += "</select>";
+                                html += "</div></td>";
+
+                                html += "<td><div>";
+                                html += "<span class='td-no_kas_kirim tdno_kas_kirimke"+no+"'>"+data_d[i].no_kas+"</span>";
+                                html += "<input type='text' name='no_kas_kirim[]' class='inp-no_kas_kirim form-control no_kas_kirimke"+no+" hidden'  value='"+data_d[i].no_kas+"' readonly required>";
+                                html += "</div></td>";
+
+                                html += "<td><div>";
+                                html += "<span class='td-no_dok tdno_dokke"+no+"'>"+data_d[i].no_dokumen+"</span>";
+                                html += "<input type='text' name='no_dok[]' class='inp-no_dok form-control no_dokke"+no+" hidden'  value='"+data_d[i].no_dok+"' readonly required>";
+                                html += "</div></td>";
+
+                                html += "<td><div>";
+                                html += "<span class='td-kode_lokasi tdkode_lokasike"+no+"'>"+data_d[i].kode_lokasi+"</span>";
+                                html += "<input type='text' name='kode_lokasi[]' class='inp-kode_lokasi form-control kode_lokasike"+no+" hidden'  value='"+data_d[i].kode_lokasi+"' readonly required>";
+                                html += "</div></td>";
+
+                                html += "<td><div>";
+                                html += "<span class='td-akun_tak tdakun_takke"+no+"'>"+data_d[i].akun_tak+"</span>";
+                                html += "<input type='text' name='akun_tak[]' class='inp-akun_tak form-control akun_takke"+no+" hidden'  value='"+data_d[i].akun_tak+"' readonly required>";
+                                html += "</div></td>";
+
+                                html += "<td><div>";
+                                html += "<span class='td-keterangan tdketeranganke"+no+"'>"+data_d[i].keterangan+"</span>";
+                                html += "<input type='text' name='keterangan[]' class='inp-keterangan form-control keteranganke"+no+" hidden'  value='"+data_d[i].keterangan+"' readonly required>";
+                                html += "</div></td>";
+
+                                html += "<td class='text-right'><div>"
+                                html += "<span class='td-nilai tdnilaike"+no+"'>"+format_number(data_d[i].nilai)+"</span>"
+                                html += "<input type='text' name='nilai[]' class='inp-nilai form-control nilaike"+no+" hidden currency'  value='"+parseInt(data_d[i].nilai)+"' required>"
+                                html += "</td></div>"
+
+                                html += "<td><div>";
+                                html += "<span class='td-tgl_d tdtgl_dke"+no+"'>"+data_d[i].tanggal+"</span>";
+                                html += "<input type='text' name='tgl_d[]' class='inp-tgl_d form-control tgl_dke"+no+" hidden'  value='"+data_d[i].tgl_d+"' readonly required>";
+                                html += "</div></td>";
+
+                                html += "<td><div>";
+                                html += "<span class='td-nu tdnuke"+no+"'>"+data_d[i].nu+"</span>";
+                                html += "<input type='text' name='nu[]' class='inp-nu form-control nuke"+no+" hidden'  value='"+data_d[i].nu+"' readonly required>";
+                                html += "</div></td>";
+
+                                html += "</tr>";
+                                no++;
+                            }
+
+                        $('#pengiriman-grid >tbody').html(html);
+
+                        var no = 1;
+                        for(var i=0;i<data_d.length;i++) {
+                            $('.statuske'+no).val(data_d[i].status)
+                            no++;
+                        }
+
+                        $('.currency').inputmask("numeric", {
+                            radixPoint: ",",
+                            groupSeparator: ".",
+                            digits: 2,
+                            autoGroup: true,
+                            rightAlign: true,
+                            oncleared: function () {  }
+                        });
+
+                        $('.tooltip-span').tooltip({
+                            title: function(){
+                                return $(this).text();
+                            }
+                        });
+
+                        $('.inp-status').on('change', function(){
+                            hitungTotalPenerimaan();
+                        });
+
+                        $('#saku-datatable').hide();
+                        $('#modal-preview').modal('hide');
+                        $('#saku-form').show();
+
+                        }else{
+                            alert('Daftar Pengiriman Gagal di Load, silahkan coba lagi !');
+                        }
+                        $('#saku-datatable').hide();
+                        $('#saku-form').show();
+                        showInfoField("nik_tahu",line1.nik_app,line1.nama_app);
+                        showInfoField("kas_bank",line1.akun_kb,line1.nama_akun);
+                        hitungTotalPenerimaan();
+                        $('#form-tambah .btn-proses').hide();
+                    }
+                }
+            });
+    }
 </script>

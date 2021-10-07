@@ -28,6 +28,7 @@ Route::get('/droping-terima-niktahu', 'Bdh\PenerimaanDropingController@getNik');
 Route::get('/droping-terima-load', 'Bdh\PenerimaanDropingController@loadData');
 Route::get('/droping-terima-detail', 'Bdh\PenerimaanDropingController@show');
 Route::post('/droping-terima', 'Bdh\PenerimaanDropingController@store');
+Route::post('/droping-terima-ubah', 'Bdh\PenerimaanDropingController@update');
 Route::delete('/droping-terima', 'Bdh\PenerimaanDropingController@destroy');
 
 // Pertanggungan Beban

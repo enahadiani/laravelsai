@@ -333,6 +333,141 @@ class PenerimaanDropingController extends Controller
             return response()->json(["data" => $result], 200);
         }
     }
+    public function update(Request $request)
+    {
+        $this->validate($request, [
+            'no_dokumen' => 'required',
+            'kas_bank' => 'required',
+            'jenis' => 'required',
+            'nik_tahu' => 'required',
+            'tanggal' => 'required',
+            'deskripsi' => 'required',
+            'total_penerimaan' => 'required',
+            'status' => 'required|array',
+            'no_kas_kirim' => 'required|array',
+            'no_dok' => 'required|array',
+            'kode_lokasi' => 'required|array',
+            'akun_tak' => 'required|array',
+            'keterangan' => 'required|array',
+            'nu'        => 'required|array',
+            'nilai' => 'required|array',
+        ]);
+        try {
+            $send_data = array();
+
+            $fields = [
+                [
+                    'name'      => 'no_bukti',
+                    'contents'  => $request->id
+                ],
+                [
+                    'name' => 'tanggal',
+                    'contents' => $this->reverseDate($request->tanggal, '/', '-'),
+                ],
+                [
+                    'name' => 'jenis',
+                    'contents' => $request->jenis,
+                ],
+                [
+                    'name' => 'no_dokumen',
+                    'contents' => $request->no_dokumen,
+                ],
+                [
+                    'name' => 'deskripsi',
+                    'contents' => $request->deskripsi,
+                ],
+                [
+                    'name' => 'akun_kas',
+                    'contents' => $request->kas_bank,
+                ],
+                [
+                    'name' => 'nik_tahu',
+                    'contents' => $request->nik_tahu,
+                ],
+                [
+                    'name' => 'total',
+                    'contents' => intval(preg_replace("/[^0-9]/", "", $request->total_penerimaan)),
+                ],
+            ];
+
+            $fields_status = array();
+            $fields_no_kas_kirim = array();
+            $fields_lokasi_kirim = array();
+            $fields_akun_tak = array();
+            $fields_keterangan = array();
+            $fields_nilai = array();
+            $fields_id = array();
+
+            if (count($request->status) > 0) {
+                for ($y = 0; $y < count($request->status); $y++) {
+                    if ($request->status[$y] == 'APP') {
+                        $fields_status[$y] = array(
+                            'name'      => 'status[]',
+                            'contents'  => $request->status[$y]
+                        );
+                        $fields_no_kas_kirim[$y] = array(
+                            'name'      => 'no_kas_kirim[]',
+                            'contents'  => $request->no_kas_kirim[$y]
+                        );
+                        $fields_lokasi_kirim[$y] = array(
+                            'name'      => 'lokasi_kirim[]',
+                            'contents'  => $request->kode_lokasi[$y]
+                        );
+                        $fields_akun_tak[$y] = array(
+                            'name'      => 'akun_tak[]',
+                            'contents'  => $request->akun_tak[$y]
+                        );
+                        $fields_keterangan[$y] = array(
+                            'name'      => 'keterangan[]',
+                            'contents'  => $request->keterangan[$y]
+                        );
+                        $fields_nilai[$y] = array(
+                            'name'      => 'nilai[]',
+                            'contents'  => intval(preg_replace("/[^0-9]/", "", $request->nilai)[$y])
+                        );
+                        $fields_id[$y] = array(
+                            'name'      => 'id[]',
+                            'contents'  => $request->nu[$y]
+                        );
+                    }
+
+                    $send_data = array_merge($fields, $fields_status);
+                    $send_data = array_merge($send_data, $fields_no_kas_kirim);
+                    $send_data = array_merge($send_data, $fields_lokasi_kirim);
+                    $send_data = array_merge($send_data, $fields_akun_tak);
+                    $send_data = array_merge($send_data, $fields_keterangan);
+                    $send_data = array_merge($send_data, $fields_nilai);
+                    $send_data = array_merge($send_data, $fields_id);
+                }
+            } else {
+                $send_data = $fields;
+            }
+
+
+
+            $client = new Client();
+            $response = $client->request('POST',  config('api.url') . 'bdh-trans/droping-terima-ubah', [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'multipart' => $send_data
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+
+                $data = json_decode($response_data, true);
+                return response()->json(["data" => $data], 200);
+            }
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(), true);
+            $result['message'] = $res;
+            $result['status'] = false;
+            return response()->json(["data" => $result], 200);
+        }
+    }
     public function destroy(Request $request)
     {
         try {
