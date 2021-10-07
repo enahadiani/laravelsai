@@ -42,6 +42,7 @@ Route::get('dok-jenis', 'Bdh\PtgBebanController@getJenis');
 
 // Serah Terima Dokumen Online
 Route::get('/serah-dok-pb', 'Bdh\SerahTerimaDokOnController@index');
+Route::get('/serah-dok-nik', 'Bdh\SerahTerimaDokOnController@getPenerima');
 Route::get('/serah-dok-detail', 'Bdh\SerahTerimaDokOnController@show');
 
 
