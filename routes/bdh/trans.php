@@ -51,6 +51,7 @@ Route::get('dok-jenis', 'Bdh\PtgBebanController@getJenis');
 Route::get('/serah-dok-pb', 'Bdh\SerahTerimaDokOnController@index');
 Route::get('/serah-dok-nik', 'Bdh\SerahTerimaDokOnController@getPenerima');
 Route::get('/serah-dok-detail', 'Bdh\SerahTerimaDokOnController@show');
+Route::post('/serah-dok', 'Bdh\SerahTerimaDokOnController@store');
 
 
 // SPB

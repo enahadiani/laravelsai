@@ -126,67 +126,45 @@ class SerahTerimaDokOnController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'no_dokumen' => 'required',
-            'tanggal' => 'required',
-            'deskripsi' => 'required',
-            'kode_akun' => 'required|array',
-            'kegiatan' => 'required|array',
-            'nilai' => 'required|array',
-            'pp' => 'required'
+            'no_bukti'          => 'required',
+
+            'catatan'           => 'required',
+            'modul'             => 'required',
+            'nik_penerima'      => 'required',
+            'diserahkan_oleh'   => 'required',
         ]);
         try {
             $send_data = array();
 
             $fields = [
                 [
-                    'name' => 'tanggal',
-                    'contents' => $this->reverseDate($request->tanggal, '/', '-'),
-                ],
-                [
-                    'name' => 'no_dokumen',
-                    'contents' => $request->no_dokumen,
+                    'name' => 'no_pb',
+                    'contents' => $request->no_bukti,
                 ],
                 [
                     'name' => 'kode_pp',
                     'contents' => $request->pp,
                 ],
                 [
-                    'name' => 'deskripsi',
-                    'contents' => $request->deskripsi,
+                    'name' => 'catatan',
+                    'contents' => $request->catatan,
                 ],
                 [
-                    'name' => 'total',
-                    'contents' => $request->total_droping,
+                    'name' => 'modul',
+                    'contents' => $request->catatan,
+                ],
+                [
+                    'name' => 'nik_terima',
+                    'contents' => $request->nik_penerima,
+                ],
+                [
+                    'name' => 'nama_serah',
+                    'contents' => $request->diserahkan_oleh,
                 ]
+
             ];
 
 
-            $fields_kode_akun = array();
-            $fields_kegiatan = array();
-            $fields_nilai = array();
-
-            if (count($request->kode_akun) > 0) {
-
-                for ($i = 0; $i < count($request->kode_akun); $i++) {
-                    $fields_kode_akun[$i] = array(
-                        'name'     => 'kode_akun[]',
-                        'contents' => $request->kode_akun[$i],
-                    );
-                    $fields_kegiatan[$i] = array(
-                        'name'     => 'kegiatan[]',
-                        'contents' => $request->kegiatan[$i],
-                    );
-                    $fields_nilai[$i] = array(
-                        'name'     => 'nilai[]',
-                        'contents' => intval(preg_replace("/[^0-9]/", "", $request->nilai)[$i]),
-                    );
-                }
-                $send_data = array_merge($fields, $fields_kode_akun);
-                $send_data = array_merge($send_data, $fields_kegiatan);
-                $send_data = array_merge($send_data, $fields_nilai);
-            } else {
-                $send_data = $fields;
-            }
 
             $fields_foto = array();
             $fields_nama_file_seb = array();
@@ -228,16 +206,18 @@ class SerahTerimaDokOnController extends Controller
                             'contents' => $request->nama_file[$i],
                         );
                     }
-                    $send_data = array_merge($send_data, $fields_foto);
+                    $send_data = array_merge($fields, $fields_foto);
                     $send_data = array_merge($send_data, $fields_nama_file_seb);
                     $send_data = array_merge($send_data, $fields_jenis);
                     $send_data = array_merge($send_data, $fields_no_urut);
                     $send_data = array_merge($send_data, $fields_nama_dok);
                 }
+            } else {
+                $send_data = $fields;
             }
 
             $client = new Client();
-            $response = $client->request('POST',  config('api.url') . 'bdh-trans/droping-aju', [
+            $response = $client->request('POST',  config('api.url') . 'bdh-trans/serah-dok', [
                 'headers' => [
                     'Authorization' => 'Bearer ' . Session::get('token'),
                     'Accept'     => 'application/json',

@@ -179,19 +179,22 @@
                                     <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row-dok"></span></a>
                                 </div>
 
-                                <table class="table table-bordered table-condensed gridexample" id="dok-grid" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                <table class="table table-bordered table-condensed gridexample" id="input-dok" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
                                     <thead style="background:#F8F8F8">
                                         <tr>
-                                            <th style="width:3%" class="text-center">No</th>
-                                            <th style="width:15%" class="text-center">Kode Jenis</th>
-                                            <th style="width:15%">Nama Jenis</th>
-                                            <th style="width:25%">Path File</th>
-                                            <th style="width:5%">Aksi</th>
+                                            <th style="width:3%">No</th>
+                                            <th style="width:10%">Jenis</th>
+                                            <th style="width:27%">Nama</th>
+                                            <th style="width:20%">Path File</th>
+                                            <th width="20%">Upload File</th>
+                                            <th width="10%">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                     </tbody>
                                 </table>
+                                <a type="button" href="#" data-id="0" title="add-row-dok" class="add-row-dok btn btn-light2 btn-block btn-sm">
+                                Tambah Baris</a>
                             </div>
                         </div>
                     </div>
@@ -317,8 +320,8 @@
         $('.info-name_'+kode).width(width).css({'left':pos.left,'height':height});
         $('.info-name_'+kode).closest('div').find('.info-icon-hapus').removeClass('hidden');
     }
-// CBBL Form
-$('#form-tambah').on('click', '.search-item2', function() {
+    // CBBL Form
+    $('#form-tambah').on('click', '.search-item2', function() {
         var id = $(this).closest('div').find('input').attr('name');
         switch(id) {
             case 'no_bukti':
@@ -376,7 +379,8 @@ $('#form-tambah').on('click', '.search-item2', function() {
     });
 
    // LOAD DATA
-   function loadData(id){
+   function loadData(id)
+   {
         var url = '{{url("bdh-trans/serah-dok-detail")}}';
         $.ajax({
             type: 'GET',
@@ -391,6 +395,7 @@ $('#form-tambah').on('click', '.search-item2', function() {
                 var data_m = data.data;
                 var data_rek = data.detail_rek;
                 var data_jurnal = data.detail_jurnal;
+                var data_dok = data.detail_dok;
                 if(result.status){
                     $('#form-tambah #modul').val(data_m[0].modul);
                     $('#form-tambah #nominal').val(format_number(data_m[0].nilai));
@@ -430,6 +435,40 @@ $('#form-tambah').on('click', '.search-item2', function() {
                             no_jurnal ++;
                     }
 
+                    var html_dok = '';
+                    var no = 1;
+                    for (let z = 0; z < data_dok.length; z++) {
+                        html_dok += "<tr class='row-dok'>";
+                        html_dok += "<td class='no-dok text-center'>"+no+"</td>";
+                        html_dok += "<td class='px-0 py-0'><div class='inp-div-jenis'><input type='text' name='jenis[]' class='form-control inp-jenis jeniske"+no+" ' value='"+data_dok[z].kode_jenis+"' required='' style='z-index: 1;' id='jeniskode"+no+"'><a href='#' class='search-item search-jenis'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></div></td>";
+                        html_dok += "<td class='px-0 py-0'><input type='text' name='nama_dok[]' class='form-control inp-nama_dok nama_dokke"+no+"' value='"+data_dok[z].nama+"' readonly></td>";
+
+                        var dok = "{{ config('api.url').'bdh-auth/storage' }}/"+data_dok[z].no_gambar;
+                        html_dok += "<td><span class='td-nama_file tdnmfileke"+no+" tooltip-span'>"+data_dok[z].no_gambar+"</span><input type='text' name='nama_file[]' class='form-control inp-nama_file nmfileke"+no+" hidden'  value='"+data_dok[z].no_gambar+"' readonly></td>";
+                        if(data_dok[z].no_gambar == "-" || data_dok[z].no_gambar == ""){
+                                html_dok+=`
+                                <td>
+                                    <input type='file' name='file_dok[]' class='inp-file_dok'>
+                                    <input type='hidden' name='no_urut[]' class='form-control inp-no_urut' value='`+no+`'>
+                                </td>`;
+                            }else{
+                                html_dok+=`
+                                <td>
+                                    <input type='file' name='file_dok[]'>
+                                    <input type='hidden' name='no_urut[]' class='form-control inp-no_urut' value='`+no+`'>
+                                </td>`;
+                            }
+                            html_dok+=`
+                                <td class='text-center action-dok'>`;
+                                if(data_dok[z].no_gambar!= "-"){
+                                   var link =`<a class='download-dok' href='`+dok+`'target='_blank' title='Download'><i style='font-size:18px' class='simple-icon-cloud-download'></i></a>`;
+                                }else{
+                                    var link =``;
+                                }
+                            html_dok+=link+"</td></tr>";
+                    }
+
+
                 }else{
                     msgDialog({
                         id: '-',
@@ -446,6 +485,8 @@ $('#form-tambah').on('click', '.search-item2', function() {
                 //Append Data
                 $('#rekening-grid >tbody').html(html_rek);
                 $('#jurnal-grid >tbody').html(html_jurnal);
+                $('#input-dok >tbody').html(html_dok);
+                hitungTotalRowUpload(form);
 
             },
             error: function(jqXHR, textStatus, errorThrown) {
@@ -463,4 +504,138 @@ $('#form-tambah').on('click', '.search-item2', function() {
         });
     }
     // END LOAD DATA
+
+
+     // GRID DOK
+     function hitungTotalRowUpload(form){
+        var total_row = $('#'+form+' #input-dok tbody tr').length;
+        $('#total-row_dok').html(total_row+' Baris');
+    }
+    function addRowDok(form){
+        var no=$('#'+form+' #input-dok .row-dok:last').index();
+        no=no+2;
+        console.log(no);
+        var input = "";
+        input += "<tr class='row-dok'>";
+        input += "<td class='no-dok text-center'>"+no+"</td>";
+        input += "<td class='px-0 py-0'><div class='inp-div-jenis'><input type='text' name='jenis[]' class='form-control inp-jenis jeniske"+no+" ' value='' required='' style='z-index: 1;' id='jeniskode"+no+"'><a href='#' class='search-item search-jenis'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></div></td>";
+        input += "<td class='px-0 py-0'><input type='text' name='nama_dok[]' class='form-control inp-nama_dok nama_dokke"+no+"' value='' readonly></td>";
+        input += "<td><span class='td-nama_file tdnmfileke"+no+" tooltip-span'>-</span><input type='text' name='nama_file[]' class='form-control inp-nama_file nmfileke"+no+" hidden'  value='-' readonly></td>";
+        input+=`
+        <td>
+        <input type='file' name='file_dok[]'>
+        <input type='hidden' name='no_urut[]' class='form-control inp-no_urut' value='`+no+`'>
+        </td>`;
+        input+=`
+        <td class='text-center action-dok'><a class='hapus-dok2'><i class='simple-icon-trash' style='font-size:18px'></i></a></td></tr>`;
+        $('#'+form+' #input-dok tbody').append(input);
+        hitungTotalRowUpload(form);
+    }
+    $('#form-tambah').on('click', '.add-row-dok', function(){
+        addRowDok("form-tambah");
+    });
+    $('#form-tambah').on('click', '.hapus-dok2', function(){
+        valid = true
+        $(this).closest('tr').remove();
+        no=1;
+        $('.row-dok').each(function(){
+            var nom = $(this).closest('tr').find('.no-dok');
+            nom.html(no);
+            no++;
+        });
+        hitungTotalRowUpload("form-tambah");
+        $("html, body").animate({ scrollTop: $(document).height() }, 1000);
+    });
+    // END GRID DOK
+
+    $('#form-tambah').validate({
+        errorElement: "label",
+        submitHandler: function (form, event) {
+            event.preventDefault();
+            // $("#rekening-grid tbody tr td:not(:first-child):not(:last-child)").each(function() {
+            //     if($(this).find('span').text().trim().length == 0) {
+            //         console.log($(this).find('span').text().length)
+            //         alert('Data rekening tidak boleh kosong')
+            //         valid = false;
+            //         return false;
+            //     }
+            // });
+
+            var parameter = $('#id_edit').val();
+            var id = $('#id').val();
+
+            if(parameter == "edit"){
+                var url = "{{ url('esaku-trans/droping-aju') }}";
+                var pesan = "updated";
+                var text = "Perubahan data "+id+" telah tersimpan";
+            }else{
+                var url = "{{ url('bdh-trans/serah-dok') }}";
+                var pesan = "saved";
+                var text = "Data tersimpan";
+            }
+
+            var formData = new FormData(form);
+            // $('#pemberi-grid tbody tr').each(function(index) {
+            //     formData.append('no_pemberi[]', $(this).find('.no-pemberi').text())
+            // })
+            // formData.append('donor', $totalPemberi)
+
+            if(parameter == "edit") {
+                formData.append('no_bukti', id)
+            }
+            for(var pair of formData.entries()) {
+                console.log(pair[0]+ ', '+ pair[1]);
+            }
+            if(valid) {
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    dataType: 'json',
+                    data: formData,
+                    async:false,
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    success:function(result){
+                        if(result.data.status){
+                            dataTable.ajax.reload();
+                            $('#row-id').hide();
+                            $('#form-tambah')[0].reset();
+                            $('#form-tambah').validate().resetForm();
+                            $('[id^=label]').html('');
+                            $('#id_edit').val('');
+                            $('#judul-form').html('Serah Terima Dokumen Online');
+                            $('#method').val('post');
+                            resetForm();
+                            msgDialog({
+                                id:result.data.no_bukti,
+                                type:'simpan'
+                            });
+                            last_add("no_pdrk",result.data.no_bukti);
+                        }else if(!result.data.status && result.data.message === "Unauthorized"){
+                            window.location.href = "{{ url('/esaku-auth/sesi-habis') }}";
+                        }else{
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Something went wrong!',
+                                footer: '<a href>'+result.data.message+'</a>'
+                            })
+                        }
+                    },
+                    fail: function(xhr, textStatus, errorThrown){
+                        alert('request failed:'+textStatus);
+                    }
+                });
+                $('#btn-simpan').html("Simpan").removeAttr('disabled');
+            }
+        },
+        errorPlacement: function (error, element) {
+            var id = element.attr("id");
+            $("label[for="+id+"]").append("<br/>");
+            $("label[for="+id+"]").append(error);
+        }
+    });
+
+
 </script>
