@@ -649,14 +649,15 @@ Highcharts.chart('akun-chart', {
     title: { text: '' },
     subtitle: { text: '' },
     exporting:{ 
-        buttons: {
-            contextButton: {
-                align: 'right',
-                x: -20,
-                y: -10,
-                verticalAlign: 'top'
-            }
-        }
+        enabled: false
+        // buttons: {
+        //     contextButton: {
+        //         align: 'right',
+        //         x: -20,
+        //         y: -10,
+        //         verticalAlign: 'top'
+        //     }
+        // }
     },
     legend:{ enabled: false },
     credits: { enabled: false },
@@ -734,14 +735,15 @@ Highcharts.chart('yoy-chart', {
     title: { text: '' },
     subtitle: { text: '' },
     exporting:{ 
-        buttons: {
-            contextButton: {
-                align: 'right',
-                x: 0,
-                y: -10,
-                verticalAlign: 'top'
-            }
-        }
+        enabled: false
+        // buttons: {
+        //     contextButton: {
+        //         align: 'right',
+        //         x: 0,
+        //         y: -10,
+        //         verticalAlign: 'top'
+        //     }
+        // }
     },
     legend:{ 
         enabled: true,
@@ -800,14 +802,15 @@ Highcharts.chart('lembaga-chart', {
     title: { text: '' },
     subtitle: { text: '' },
     exporting:{ 
-        buttons: {
-            contextButton: {
-                align: 'right',
-                x: -20,
-                y: -10,
-                verticalAlign: 'top'
-            }
-        }
+        enabled: false
+        // buttons: {
+        //     contextButton: {
+        //         align: 'right',
+        //         x: -20,
+        //         y: -10,
+        //         verticalAlign: 'top'
+        //     }
+        // }
     },
     legend:{ enabled: false },
     credits: { enabled: false },
@@ -875,14 +878,15 @@ Highcharts.chart('perfomansi-chart', {
     title: { text: '' },
     subtitle: { text: '' },
     exporting:{ 
-        buttons: {
-            contextButton: {
-                align: 'right',
-                x: 0,
-                y: -10,
-                verticalAlign: 'top'
-            }
-        }
+        enabled: false
+        // buttons: {
+        //     contextButton: {
+        //         align: 'right',
+        //         x: 0,
+        //         y: -10,
+        //         verticalAlign: 'top'
+        //     }
+        // }
     },
     legend:{  enabled: false },
     credits: { enabled: false },
