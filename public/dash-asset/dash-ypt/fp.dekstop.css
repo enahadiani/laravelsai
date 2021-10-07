@@ -140,6 +140,10 @@
     font-size: 16px !important;
     margin-bottom: 0;
 }
+.card.card-dash .header-card span {
+    font-size: 16px !important;
+    margin-bottom: 0;
+}
 .card.card-dash .main-nominal {
     margin-top: 12px;
     font-size: 32px !important;
