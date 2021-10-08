@@ -548,6 +548,39 @@ $(window).on('resize', function(){
 $(window).click(function() {
     $('.menu-chart-custom').addClass('hidden');
 })
+
+
+document.addEventListener('fullscreenchange', (event) => {
+  if (document.fullscreenElement) {
+    console.log(`Element: ${document.fullscreenElement.id} entered full-screen mode.`);
+  } else {
+    pdptChart.update({
+        title: {
+            text: ''
+        }
+    })
+
+    bebanChart.update({
+        title: {
+            text: ''
+        }
+    })
+
+    shuChart.update({
+        title: {
+            text: ''
+        }
+    })
+
+    lrChart.update({
+        title: {
+            text: ''
+        }
+    })
+    console.log('Leaving full-screen mode.');
+  }
+});
+
 $('.icon-menu').click(function(event) {
     event.stopPropagation()
     var parentID = $(this).parents('.header-div').attr('id')
@@ -1094,7 +1127,12 @@ $('#export-shu.menu-chart-custom ul li').click(function(event) {
     var jenis = $(this).text()
     
     if(jenis == 'View in full screen') {
-         shuChart.fullscreen.toggle();
+        shuChart.update({
+            title: {
+                text: 'Sisa Hasil Usaha Lembaga'
+            }
+        })
+        shuChart.fullscreen.toggle();
     } else if(jenis == 'Print chart') {
         shuChart.print()
     } else if(jenis == 'Download PNG image') {
@@ -1102,6 +1140,9 @@ $('#export-shu.menu-chart-custom ul li').click(function(event) {
             type: 'image/png',
             filename: 'chart-png'
         }, {
+            title: {
+                text: 'Sisa Hasil Usaha Lembaga'
+            },
             subtitle: {
                 text: ''
             }
@@ -1111,6 +1152,9 @@ $('#export-shu.menu-chart-custom ul li').click(function(event) {
             type: 'image/jpeg',
             filename: 'chart-jpg'
         }, {
+            title: {
+                text: 'Sisa Hasil Usaha Lembaga'
+            },
             subtitle: {
                 text: ''
             }
@@ -1120,6 +1164,9 @@ $('#export-shu.menu-chart-custom ul li').click(function(event) {
             type: 'application/pdf',
             filename: 'chart-pdf'
         }, {
+            title: {
+                text: 'Sisa Hasil Usaha Lembaga'
+            },
             subtitle: {
                 text: ''
             }
@@ -1129,8 +1176,11 @@ $('#export-shu.menu-chart-custom ul li').click(function(event) {
             type: 'image/svg+xml',
             filename: 'chart-svg'
         }, {
+            title: {
+                text: 'Sisa Hasil Usaha Lembaga'
+            },
             subtitle: {
-            text: ''
+                text: ''
             }
         });
     }
@@ -1225,7 +1275,12 @@ $('#export-beban.menu-chart-custom ul li').click(function(event) {
     var jenis = $(this).text()
     
     if(jenis == 'View in full screen') {
-         bebanChart.fullscreen.toggle();
+        bebanChart.update({
+            title: {
+                text: 'Beban Lembaga'
+            }
+        })
+        bebanChart.fullscreen.toggle();
     } else if(jenis == 'Print chart') {
         bebanChart.print()
     } else if(jenis == 'Download PNG image') {
@@ -1233,6 +1288,9 @@ $('#export-beban.menu-chart-custom ul li').click(function(event) {
             type: 'image/png',
             filename: 'chart-png'
         }, {
+            title: {
+                text: 'Beban Lembaga'
+            },
             subtitle: {
                 text: ''
             }
@@ -1242,6 +1300,9 @@ $('#export-beban.menu-chart-custom ul li').click(function(event) {
             type: 'image/jpeg',
             filename: 'chart-jpg'
         }, {
+            title: {
+                text: 'Beban Lembaga'
+            },
             subtitle: {
                 text: ''
             }
@@ -1251,6 +1312,9 @@ $('#export-beban.menu-chart-custom ul li').click(function(event) {
             type: 'application/pdf',
             filename: 'chart-pdf'
         }, {
+            title: {
+                text: 'Beban Lembaga'
+            },
             subtitle: {
                 text: ''
             }
@@ -1260,8 +1324,11 @@ $('#export-beban.menu-chart-custom ul li').click(function(event) {
             type: 'image/svg+xml',
             filename: 'chart-svg'
         }, {
+            title: {
+                text: 'Beban Lembaga'
+            },
             subtitle: {
-            text: ''
+                text: ''
             }
         });
     }
@@ -1356,7 +1423,12 @@ $('#export-pdpt.menu-chart-custom ul li').click(function(event) {
     var jenis = $(this).text()
     
     if(jenis == 'View in full screen') {
-         pdptChart.fullscreen.toggle();
+        pdptChart.update({
+            title: {
+                text: 'Pendapatan Lembaga'
+            }
+        })
+        pdptChart.fullscreen.toggle();
     } else if(jenis == 'Print chart') {
         pdptChart.print()
     } else if(jenis == 'Download PNG image') {
@@ -1364,6 +1436,9 @@ $('#export-pdpt.menu-chart-custom ul li').click(function(event) {
             type: 'image/png',
             filename: 'chart-png'
         }, {
+            title: {
+                text: 'Pendapatan Lembaga'
+            },
             subtitle: {
                 text: ''
             }
@@ -1373,6 +1448,9 @@ $('#export-pdpt.menu-chart-custom ul li').click(function(event) {
             type: 'image/jpeg',
             filename: 'chart-jpg'
         }, {
+            title: {
+                text: 'Pendapatan Lembaga'
+            },
             subtitle: {
                 text: ''
             }
@@ -1382,6 +1460,9 @@ $('#export-pdpt.menu-chart-custom ul li').click(function(event) {
             type: 'application/pdf',
             filename: 'chart-pdf'
         }, {
+            title: {
+                text: 'Pendapatan Lembaga'
+            },
             subtitle: {
                 text: ''
             }
@@ -1391,6 +1472,9 @@ $('#export-pdpt.menu-chart-custom ul li').click(function(event) {
             type: 'image/svg+xml',
             filename: 'chart-svg'
         }, {
+            title: {
+                text: 'Pendapatan Lembaga'
+            },
             subtitle: {
             text: ''
             }
@@ -1468,6 +1552,11 @@ $('#export-lr.menu-chart-custom ul li').click(function(event) {
     var jenis = $(this).text()
     
     if(jenis == 'View in full screen') {
+        lrChart.update({
+            title: {
+                text: 'Sisa Hasil Usaha Lembaga'
+            }
+        })
          lrChart.fullscreen.toggle();
     } else if(jenis == 'Print chart') {
         lrChart.print()
@@ -1476,6 +1565,9 @@ $('#export-lr.menu-chart-custom ul li').click(function(event) {
             type: 'image/png',
             filename: 'chart-png'
         }, {
+            title: {
+                text: 'Laba Rugi Lembaga'
+            },
             subtitle: {
                 text: ''
             }
@@ -1485,6 +1577,9 @@ $('#export-lr.menu-chart-custom ul li').click(function(event) {
             type: 'image/jpeg',
             filename: 'chart-jpg'
         }, {
+            title: {
+                text: 'Laba Rugi Lembaga'
+            },
             subtitle: {
                 text: ''
             }
@@ -1494,6 +1589,9 @@ $('#export-lr.menu-chart-custom ul li').click(function(event) {
             type: 'application/pdf',
             filename: 'chart-pdf'
         }, {
+            title: {
+                text: 'Laba Rugi Lembaga'
+            },
             subtitle: {
                 text: ''
             }
@@ -1503,8 +1601,11 @@ $('#export-lr.menu-chart-custom ul li').click(function(event) {
             type: 'image/svg+xml',
             filename: 'chart-svg'
         }, {
+            title: {
+                text: 'Laba Rugi Lembaga'
+            },
             subtitle: {
-            text: ''
+                text: ''
             }
         });
     }
