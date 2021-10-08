@@ -146,6 +146,11 @@
 .card.card-dash.cursor-pointer {
     cursor: pointer;
 }
+.card.card-dash .header-div .icon-arrows {
+    float: right;
+    margin-top: 4px;
+    margin-right: 4px;
+}
 .card.card-dash .header-div .icon-menu {
     float: right;
     margin-top: 4px;

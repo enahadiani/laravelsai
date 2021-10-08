@@ -208,26 +208,48 @@
           </div>
           <div class="col-3 pl-1 pr-0">
                 <div class="card card-dash">
-                    <div class="row header-div">
+                    <div class="row header-div" id="card-beban">
                         <div class="col-9">
                             <h4 class="header-card">Beban Lembaga</h4>
                         </div>
-                        {{-- <div class="col-3">
-                            <img alt="arrows-icon" class="icon-arrows cursor-pointer" src="{{ asset('dash-asset/dash-ypt/icon/arrows.svg') }}">
-                        </div> --}}
+                        <div class="col-3">
+                            <div class="glyph-icon simple-icon-menu icon-menu"></div>
+                        </div>
+                        <div class="menu-chart-custom hidden" id="export-beban">
+                            <ul>
+                                <li class="menu-chart-item fullscreen">View in full screen</li>
+                                <li class="menu-chart-item print">Print chart</li>
+                                <hr>
+                                <li class="menu-chart-item print png">Download PNG image</li>
+                                <li class="menu-chart-item print jpg">Download JPEG image</li>
+                                <li class="menu-chart-item print pdf">Download PDF document</li>
+                                <li class="menu-chart-item print svg">Download SVG vector image</li>
+                            </ul>
+                        </div>
                     </div>
                     <div id="beban-chart"></div>
                 </div>
           </div>
           <div class="col-3 pl-1 pr-0">
                 <div class="card card-dash">
-                    <div class="row header-div">
+                    <div class="row header-div" id="card-shu">
                         <div class="col-9">
                             <h4 class="header-card">SHU Lembaga</h4>
                         </div>
-                        {{-- <div class="col-3">
-                            <img alt="arrows-icon" class="icon-arrows cursor-pointer" src="{{ asset('dash-asset/dash-ypt/icon/arrows.svg') }}">
-                        </div> --}}
+                        <div class="col-3">
+                            <div class="glyph-icon simple-icon-menu icon-menu"></div>
+                        </div>
+                        <div class="menu-chart-custom hidden" id="export-shu">
+                            <ul>
+                                <li class="menu-chart-item fullscreen">View in full screen</li>
+                                <li class="menu-chart-item print">Print chart</li>
+                                <hr>
+                                <li class="menu-chart-item print png">Download PNG image</li>
+                                <li class="menu-chart-item print jpg">Download JPEG image</li>
+                                <li class="menu-chart-item print pdf">Download PDF document</li>
+                                <li class="menu-chart-item print svg">Download SVG vector image</li>
+                            </ul>
+                        </div>
                     </div>
                     <div id="shu-chart"></div>
                 </div>
@@ -303,13 +325,24 @@
     <div id="dekstop-3" class="row dekstop mt-4">
         <div class="col-6 pl-12 pr-0">
             <div class="card card-dash">
-                <div class="row header-div">
+                <div class="row header-div" id="card-lr">
                     <div class="col-9">
                         <h4 class="header-card">Laba Rugi Lembaga</h4>
                     </div>
-                    {{-- <div class="col-3">
-                        <img alt="arrows-icon" class="icon-arrows cursor-pointer" src="{{ asset('dash-asset/dash-ypt/icon/arrows.svg') }}">
-                    </div> --}}
+                    <div class="col-3">
+                        <div class="glyph-icon simple-icon-menu icon-menu"></div>
+                    </div>
+                    <div class="menu-chart-custom hidden" id="export-lr">
+                        <ul>
+                            <li class="menu-chart-item fullscreen">View in full screen</li>
+                            <li class="menu-chart-item print">Print chart</li>
+                            <hr>
+                            <li class="menu-chart-item print png">Download PNG image</li>
+                            <li class="menu-chart-item print jpg">Download JPEG image</li>
+                            <li class="menu-chart-item print pdf">Download PDF document</li>
+                            <li class="menu-chart-item print svg">Download SVG vector image</li>
+                        </ul>
+                    </div>
                 </div>
                 <div id="lr-chart"></div>
             </div>
@@ -972,7 +1005,7 @@ Highcharts.chart('perfomansi-chart', {
     ],
 });
 
-Highcharts.chart('shu-chart', {
+var shuChart = Highcharts.chart('shu-chart', {
     chart: {
         plotBackgroundColor: null,
         plotBorderWidth: null,
@@ -984,14 +1017,15 @@ Highcharts.chart('shu-chart', {
     title: { text: '' },
     subtitle: { text: '' },
     exporting:{ 
-        buttons: {
-            contextButton: {
-                align: 'right',
-                x: -20,
-                y: -10,
-                verticalAlign: 'top'
-            }
-        }
+        enabled: false,
+        // buttons: {
+        //     contextButton: {
+        //         align: 'right',
+        //         x: -20,
+        //         y: -10,
+        //         verticalAlign: 'top'
+        //     }
+        // }
     },
     legend:{ enabled: false },
     credits: { enabled: false },
@@ -1055,7 +1089,54 @@ Highcharts.chart('shu-chart', {
     }]
 });
 
-Highcharts.chart('beban-chart', {
+$('#export-shu.menu-chart-custom ul li').click(function(event) {
+    event.stopPropagation()
+    var jenis = $(this).text()
+    
+    if(jenis == 'View in full screen') {
+         shuChart.fullscreen.toggle();
+    } else if(jenis == 'Print chart') {
+        shuChart.print()
+    } else if(jenis == 'Download PNG image') {
+        shuChart.exportChart({
+            type: 'image/png',
+            filename: 'chart-png'
+        }, {
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download JPEG image') {
+        shuChart.exportChart({
+            type: 'image/jpeg',
+            filename: 'chart-jpg'
+        }, {
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download PDF document') {
+        shuChart.exportChart({
+            type: 'application/pdf',
+            filename: 'chart-pdf'
+        }, {
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download SVG vector image') {
+        shuChart.exportChart({
+            type: 'image/svg+xml',
+            filename: 'chart-svg'
+        }, {
+            subtitle: {
+            text: ''
+            }
+        });
+    }
+})
+
+var bebanChart = Highcharts.chart('beban-chart', {
     chart: {
         plotBackgroundColor: null,
         plotBorderWidth: null,
@@ -1067,14 +1148,15 @@ Highcharts.chart('beban-chart', {
     title: { text: '' },
     subtitle: { text: '' },
     exporting:{ 
-        buttons: {
-            contextButton: {
-                align: 'right',
-                x: -20,
-                y: -10,
-                verticalAlign: 'top'
-            }
-        }
+        enabled: false,
+        // buttons: {
+        //     contextButton: {
+        //         align: 'right',
+        //         x: -20,
+        //         y: -10,
+        //         verticalAlign: 'top'
+        //     }
+        // }
     },
     legend:{ enabled: false },
     credits: { enabled: false },
@@ -1137,6 +1219,53 @@ Highcharts.chart('beban-chart', {
         ]
     }]
 });
+
+$('#export-beban.menu-chart-custom ul li').click(function(event) {
+    event.stopPropagation()
+    var jenis = $(this).text()
+    
+    if(jenis == 'View in full screen') {
+         bebanChart.fullscreen.toggle();
+    } else if(jenis == 'Print chart') {
+        bebanChart.print()
+    } else if(jenis == 'Download PNG image') {
+        bebanChart.exportChart({
+            type: 'image/png',
+            filename: 'chart-png'
+        }, {
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download JPEG image') {
+        bebanChart.exportChart({
+            type: 'image/jpeg',
+            filename: 'chart-jpg'
+        }, {
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download PDF document') {
+        bebanChart.exportChart({
+            type: 'application/pdf',
+            filename: 'chart-pdf'
+        }, {
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download SVG vector image') {
+        bebanChart.exportChart({
+            type: 'image/svg+xml',
+            filename: 'chart-svg'
+        }, {
+            subtitle: {
+            text: ''
+            }
+        });
+    }
+})
 
 var pdptChart = Highcharts.chart('pdpt-chart', {
     chart: {
@@ -1273,7 +1402,7 @@ Highcharts.SVGRenderer.prototype.symbols['c-rect'] = function (x, y, w, h) {
     return ['M', x, y + h / 2, 'L', x + w, y + h / 2];
 };
 
-Highcharts.chart('lr-chart', {
+var lrChart = Highcharts.chart('lr-chart', {
     chart: {
         height: 190
     },
@@ -1281,14 +1410,15 @@ Highcharts.chart('lr-chart', {
         enabled:false
     },
     exporting:{ 
-        buttons: {
-            contextButton: {
-                align: 'right',
-                x: 0,
-                y: -10,
-                verticalAlign: 'top'
-            }
-        }
+        enabled: false,
+        // buttons: {
+        //     contextButton: {
+        //         align: 'right',
+        //         x: 0,
+        //         y: -10,
+        //         verticalAlign: 'top'
+        //     }
+        // }
     },
     title: {
         text: ''
@@ -1331,5 +1461,52 @@ Highcharts.chart('lr-chart', {
             data: [30, 10, 5, 5, 50, 20],
         }
     ]
+})
+
+$('#export-lr.menu-chart-custom ul li').click(function(event) {
+    event.stopPropagation()
+    var jenis = $(this).text()
+    
+    if(jenis == 'View in full screen') {
+         lrChart.fullscreen.toggle();
+    } else if(jenis == 'Print chart') {
+        lrChart.print()
+    } else if(jenis == 'Download PNG image') {
+        lrChart.exportChart({
+            type: 'image/png',
+            filename: 'chart-png'
+        }, {
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download JPEG image') {
+        lrChart.exportChart({
+            type: 'image/jpeg',
+            filename: 'chart-jpg'
+        }, {
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download PDF document') {
+        lrChart.exportChart({
+            type: 'application/pdf',
+            filename: 'chart-pdf'
+        }, {
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download SVG vector image') {
+        lrChart.exportChart({
+            type: 'image/svg+xml',
+            filename: 'chart-svg'
+        }, {
+            subtitle: {
+            text: ''
+            }
+        });
+    }
 })
 </script>
