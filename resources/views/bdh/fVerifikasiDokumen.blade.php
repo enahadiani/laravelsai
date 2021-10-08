@@ -104,7 +104,7 @@
 </style>
 
 <!-- LIST DATA -->
-<x-list-data judul="Daftar Bukti" tambah="true" :thead="array('Modul','No Bukti','Deskripsi','Status','Aksi')" :thwidth="array(15,20,25,35,10)" :thclass="array('','','','','text-center')" />
+<x-list-data judul="Daftar Bukti" tambah="true" :thead="array('Modul','No Bukti','Deskripsi','Nilai','Status','Aksi')" :thwidth="array(15,20,35,15,10,10)" :thclass="array('','','','','','text-center')" />
 <!-- END LIST DATA -->
 
 {{-- form data --}}
@@ -145,11 +145,12 @@
                                     <button type="button" class="btn btn-primary mt-4 btn-proses">Proses</button>
                                 </div>
                             </div>
-                            <div class="separator mb-2"></div>
+
                            <div class="row">
                                <div class="col-md-4 col-sm-12">
                                    <label for="no_verifikasi">No Verifikasi</label>
                                    <input type="text" name="no_verifikasi" id="no_verifikasi" class="form-control inp-no_verifikasi" value="-" readonly>
+                                   <input type="hidden" class="form-control inp-modul" name="modul" id="modul" readonly required>
                                </div>
                                <div class="col-md-4 col-sm-12">
 
@@ -454,7 +455,12 @@
     }
 
     function resetForm() {
-        $('#pemberi-grid tbody').empty()
+        $('#rekening-grid tbody').empty();
+        $('#jurnal-grid tbody').empty();
+        $('#data-catatan').html('');
+        $('#dok-grid-grid tbody').empty();
+        $('#agg-grid tbody').empty();
+        $('#dok-check-grid tbody').empty();
         $("[id^=label]").each(function(e){
             $(this).text('');
         });
@@ -510,7 +516,7 @@
         "table-data",
         "{{ url('bdh-trans/ver-dok') }}",
         [
-            {'targets': 4, data: null, 'defaultContent': action_html,'className': 'text-center' },
+            {'targets': 5, data: null, 'defaultContent': action_html,'className': 'text-center' },
             {
                 "targets": 0,
                 "createdCell": function (td, cellData, rowData, row, col) {
@@ -527,12 +533,14 @@
             { data: 'no_bukti' },
             { data: 'keterangan' },
             {data: 'nilai',className: 'text-right' ,render: $.fn.dataTable.render.number('.', ',', 2, '')},
+            { data: 'status' },
+
         ],
         "{{ url('bdh-auth/sesi-habis') }}",
         [[4 ,"desc"]]
     );
 
-    $.fn.DataTable.ext.pager.numbers_length = 5;
+    $.fn.DataTable.ext.pager.numbers_length = 6;
 
     $("#searchData").on("keyup", function (event) {
         dataTable.search($(this).val()).draw();
@@ -656,6 +664,8 @@
                 var data_agg = data.detail_gar;
                 var data_dok_check = data.detail_dok_check;
                 var data_m = data.data;
+
+                console.log(data_dok)
                 if(result.status){
                     $('#form-tambah #no_bukti').val(data_m[0].no_bukti);
                     $('#form-tambah #no_dokumen').val(data_m[0].no_dokumen);
@@ -665,6 +675,7 @@
                     $('#form-tambah #deskripsi_m').val(data_m[0].keterangan);
                     $('#form-tambah #pembuat_m').val(data_m[0].pembuat);
                     $("textarea#deskripsi").val(data.memo);
+                    $("#form-tambah #modul").val(data_m[0].modul);
                     var html = "";
                     var html_jurnal = "";
                     var html_catatan = "";
@@ -731,13 +742,15 @@
 
                     var no_dok = 1;
                     for (let r = 0; r < data_dok.length; r++) {
+                        var dok = "{{ config('api.url').'bdh-auth/storage' }}/"+data_dok[r].no_gambar;
                        html_dok += `<tr>
                             <td>`+no_dok+`</td>
                             <td>`+data_dok[r].kode_jenis+`</td>
                             <td>`+data_dok[r].nama+`</td>
                             <td>`+data_dok[r].no_gambar+`</td>
+
                             <td class='text-center'>
-                                <a href="{{url('api/bdh-auth/storage')}}/`+data_dok[r].no_gambar+`" target='_blank' class="text-primary"><i class='simple-icon-cloud-download'></i></a>
+                                <a href="`+dok+`" target='_blank' class="text-primary"><i class='simple-icon-cloud-download'></i></a>
                             </td>
 
                        </tr>`;
@@ -764,7 +777,7 @@
 
                         html_dok_check += "<td class='text-center'><div>";
                         html_dok_check += "<span class='td-status tdstatuske"+no_check+" tooltip-span'>"+data_dok_check[s].status+"</span>";
-                        html_dok_check += "<select class='form-control hidden inp-status statuske"+no_check+"' name='status[]'>";
+                        html_dok_check += "<select class='form-control hidden inp-status statuske"+no_check+"' name='status_dok[]'>";
                         html_dok_check += "<option value='UNCHECK'>UNCHECK</option> <option value='CHECK'>CHECK</option>";
                         html_dok_check += "</select>";
                         html_dok_check += "</div></td>";
@@ -987,11 +1000,11 @@
             var id = $('#id').val();
 
             if(parameter == "edit"){
-                var url = "{{ url('bdh-trans/spb-ubah') }}";
+                var url = "{{ url('bdh-trans/ver-dok-ubah') }}";
                 var pesan = "updated";
                 var text = "Perubahan data "+id+" telah tersimpan";
             }else{
-                var url = "{{ url('bdh-trans/spb') }}";
+                var url = "{{ url('bdh-trans/ver-dok') }}";
                 var pesan = "saved";
                 var text = "Data tersimpan";
             }

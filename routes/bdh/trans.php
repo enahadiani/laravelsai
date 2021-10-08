@@ -83,3 +83,4 @@ Route::get('/ver-dok', 'Bdh\VerDokController@index');
 Route::get('/ver-dok-nobukti', 'Bdh\VerDokController@generateKode');
 Route::get('/ver-dok-pb', 'Bdh\VerDokController@getPb');
 Route::get('/ver-dok-detail', 'Bdh\VerDokController@LoadData');
+Route::post('/ver-dok', 'Bdh\VerDokController@store');

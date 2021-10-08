@@ -252,15 +252,13 @@ class VerDokController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'no_dokumen' => 'required',
-            'tanggal' => 'required',
-            'deskripsi' => 'required',
-            'total_spb' => 'required',
-            'nik_bdh' => 'required',
-            'nik_fiatur' => 'required',
-            'status' => 'required|array',
-            'pb' => 'required|array',
-            'nilai' => 'required|array',
+            'no_pb_aju'         => 'required',
+            'tanggal'           => 'required',
+            'status'            => 'required',
+            'deskripsi'         => 'required',
+            'status_dok'        => 'required|array',
+            'kode_dok_check'    => 'required|array',
+            'catatan_dok'       => 'required|array',
         ]);
         try {
             $send_data = array();
@@ -271,50 +269,46 @@ class VerDokController extends Controller
                     'contents' => $this->reverseDate($request->tanggal, '/', '-'),
                 ],
                 [
-                    'name' => 'no_dokumen',
-                    'contents' => $request->no_dokumen,
+                    'name' => 'no_pb',
+                    'contents' => $request->no_pb_aju,
                 ],
                 [
-                    'name' => 'deskripsi',
+                    'name' => 'modul',
+                    'contents' => $request->modul,
+                ],
+                [
+                    'name' => 'memo',
                     'contents' => $request->deskripsi,
                 ],
                 [
-                    'name' => 'nik_bdh',
-                    'contents' => $request->nik_bdh,
-                ],
-                [
-                    'name' => 'nik_fiat',
-                    'contents' => $request->nik_fiatur,
-                ],
-                [
-                    'name' => 'total',
-                    'contents' => $request->total_spb,
-                ],
+                    'name' => 'status',
+                    'contents' => $request->status,
+                ]
             ];
 
             $fields_status = array();
-            $fields_no_pb = array();
-            $fields_nilai_pb = array();
+            $fields_kode_dok = array();
+            $fields_catatan_dok = array();
 
 
-            if (count($request->status) > 0) {
-                for ($y = 0; $y < count($request->status); $y++) {
+            if (count($request->status_dok) > 0) {
+                for ($y = 0; $y < count($request->status_dok); $y++) {
                     $fields_status[$y] = array(
-                        'name'      => 'status[]',
-                        'contents'  => $request->status[$y]
+                        'name'      => 'status_dok[]',
+                        'contents'  => $request->status_dok[$y]
                     );
-                    $fields_no_pb[$y] = array(
-                        'name'      => 'no_pb[]',
-                        'contents'  => $request->pb[$y]
+                    $fields_kode_dok[$y] = array(
+                        'name'      => 'kode_dok[]',
+                        'contents'  => $request->kode_dok_check[$y]
                     );
-                    $fields_nilai_pb[$y] = array(
-                        'name'      => 'nilai_pb[]',
-                        'contents'  => $request->nilai[$y]
+                    $fields_catatan_dok[$y] = array(
+                        'name'      => 'catatan_dok[]',
+                        'contents'  => $request->catatan_dok[$y]
                     );
 
                     $send_data = array_merge($fields, $fields_status);
-                    $send_data = array_merge($send_data, $fields_no_pb);
-                    $send_data = array_merge($send_data, $fields_nilai_pb);
+                    $send_data = array_merge($send_data, $fields_kode_dok);
+                    $send_data = array_merge($send_data, $fields_catatan_dok);
                 }
             } else {
                 $send_data = $fields;
@@ -323,7 +317,7 @@ class VerDokController extends Controller
 
 
             $client = new Client();
-            $response = $client->request('POST',  config('api.url') . 'bdh-trans/spb', [
+            $response = $client->request('POST',  config('api.url') . 'bdh-trans/ver-dok', [
                 'headers' => [
                     'Authorization' => 'Bearer ' . Session::get('token'),
                     'Accept'     => 'application/json',
@@ -340,7 +334,7 @@ class VerDokController extends Controller
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(), true);
-            $result['message'] = $res["message"];
+            $result['message'] = $res;
             $result['status'] = false;
             return response()->json(["data" => $result], 200);
         }
