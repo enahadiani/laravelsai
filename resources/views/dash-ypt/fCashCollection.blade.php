@@ -204,6 +204,21 @@
                         <h4 class="header-card">CCR Lembaga</h4>
                     </div>
                 </div>
+                <div id="ccr-lembaga" class="mt-4"></div>
+                <table class="table table-borderless table-px-0 table-ml-24">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="circle-legend bg-green"></div>
+                            </td>
+                            <td>CCR > 50%</td>
+                            <td>
+                                <div class="circle-legend bg-red-100"></div>
+                            </td>
+                            <td>CCR < 50%</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
         <div class="col-3 pl-1 pr-0">
@@ -265,6 +280,78 @@ $('.checkbox-input').change(function() {
 
     $('#title-dash').text('CCR '+ judul)
 })
+
+Highcharts.chart('ccr-lembaga', {
+    chart: {
+        type: 'bubble',
+        plotBorderWidth: 1,
+        width: 255,
+        height: 420
+    },
+    legend: {
+        enabled: false
+    },
+    credits: { enabled: false },
+    exporting: {
+        enabled: false
+    },
+    title: {
+        text: ''
+    },
+    subtitle: {
+        text: ''
+    },
+    accessibility: {
+        point: {
+            valueDescriptionFormat: '{index}. {point.name}, fat: {point.x}g, sugar: {point.y}g, obesity: {point.z}%.'
+        }
+    },
+    yAxis: {
+        startOnTick: false,
+        endOnTick: false,
+        title: {
+            text: ''
+        },
+        maxPadding: 0.1,
+    },
+    tooltip: {
+        pointFormat: '{point.name}: <b>{point.x}%</b>'
+    },
+    plotOptions: {
+        series: {
+            dataLabels: {
+                enabled: true,
+                format: '{point.name}'
+            }
+        }
+    },
+    series: [{
+        name: 'CCR',
+        data: [
+            { x:55, y: 55, name: 'TK'},
+            { x:60, y: 60, name: 'SD'},
+            { x:70, y: 70, name: 'AKATEL'},
+            { x:80, y: 80, name: 'ITTP'},
+            { x:40, y: 40, name: ''},
+            { x:30, y: 30, name: ''},
+            { x:30, y: 30, name: ''},
+            { x:20, y: 20, name: ''},
+        ]
+    }]
+
+}, function() {
+    var series = this.series
+    for(var i=0;i<series.length;i++) {
+        var point = series[i].data
+        for(var j=0;j<point.length;j++) {
+            if(point[j].category > 50) {
+                point[j].graphic.element.style.fill = '#EE0000'
+            } else {
+                point[j].graphic.element.style.fill = '#008034'
+            }
+        }
+    }
+});
 
 var colors = ['#EEBE00', '#830000'];
 Highcharts.chart('komposisi-piutang', {

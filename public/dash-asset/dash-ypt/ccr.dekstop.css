@@ -105,6 +105,12 @@
 .bg-red {
     background-color: #830000 !important;
 }
+.bg-red-100 {
+    background-color: #ee0000 !important;
+}
+.bg-green {
+    background-color: #00bb4d !important;
+}
 /* END GLOBAL */
 
 /* HEADER */
@@ -177,8 +183,14 @@
 /* END CARD */
 
 /* TABLE */
+.table.table-ml-24 {
+    margin-left: 24px;
+}
 .table.table-py-0 tbody tr td {
     padding: 0 12px;
+}
+.table.table-px-0 tbody tr td {
+    padding: 0;
 }
 .table.table-py-2 tbody tr td {
     padding: 2px 12px;
@@ -252,3 +264,12 @@ input[type="checkbox"]:checked ~ .container-checkbox-filter-text {
     transform: rotate(45deg);
 }
 /* END CHECKBOX */
+
+/* LEGEND */
+.circle-legend {
+    margin-top: 4px;
+    height: 12px;
+    width: 12px;
+    border-radius: 100%;
+}
+/* END LEGEND */
