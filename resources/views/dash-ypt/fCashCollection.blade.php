@@ -283,8 +283,7 @@ $('.checkbox-input').change(function() {
 
 Highcharts.chart('ccr-lembaga', {
     chart: {
-        type: 'bubble',
-        plotBorderWidth: 1,
+        type: 'packedbubble',
         width: 255,
         height: 420
     },
@@ -318,24 +317,42 @@ Highcharts.chart('ccr-lembaga', {
         pointFormat: '{point.name}: <b>{point.x}%</b>'
     },
     plotOptions: {
-        series: {
+         packedbubble: {
+            minSize: '30%',
+            maxSize: '120%',
+            zMin: 0,
+            zMax: 1000,
+            layoutAlgorithm: {
+                splitSeries: false,
+                gravitationalConstant: 0.02
+            },
             dataLabels: {
                 enabled: true,
-                format: '{point.name}'
+                format: '{point.name}',
+                filter: {
+                    property: 'y',
+                    operator: '>',
+                    value: 50
+                },
+                style: {
+                    color: 'white',
+                    textOutline: 'none',
+                    fontWeight: 'normal'
+                }
             }
         }
     },
     series: [{
         name: 'CCR',
         data: [
-            { x:55, y: 55, name: 'TK'},
-            { x:60, y: 60, name: 'SD'},
-            { x:70, y: 70, name: 'AKATEL'},
-            { x:80, y: 80, name: 'ITTP'},
-            { x:40, y: 40, name: ''},
-            { x:30, y: 30, name: ''},
-            { x:30, y: 30, name: ''},
-            { x:20, y: 20, name: ''},
+            { value:55, name: 'TK'},
+            { value:60, name: 'SD'},
+            { value:70, name: 'AKATEL'},
+            { value:80, name: 'ITTP'},
+            { value:40, name: 'X'},
+            { value:30, name: 'X'},
+            { value:30, name: 'X'},
+            { value:20, name: 'X'},
         ]
     }]
 
@@ -344,7 +361,7 @@ Highcharts.chart('ccr-lembaga', {
     for(var i=0;i<series.length;i++) {
         var point = series[i].data
         for(var j=0;j<point.length;j++) {
-            if(point[j].category > 50) {
+            if(point[j].options.value > 50) {
                 point[j].graphic.element.style.fill = '#EE0000'
             } else {
                 point[j].graphic.element.style.fill = '#008034'
