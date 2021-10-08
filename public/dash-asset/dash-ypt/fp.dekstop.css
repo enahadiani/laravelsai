@@ -193,6 +193,8 @@
 /* END CARD */
 
 /* TABLE */
+.table.table-no-padding thead tr th,
+.table.table-no-padding tbody tr th,
 .table.table-no-padding tbody tr td {
     padding: 0 12px;
 }
@@ -230,11 +232,14 @@
     padding-top: 12px;
     padding-bottom: 11px;
 }
+.highcharts-data-table table caption {
+    display: none;
+}
 /* END TABLE */
 
 /* MENU CHART CUSTOM */
 .menu-chart-custom {
-    height: 224px;
+    heigh   t: 260px;
     width: 200px;
     background-color: #ffffff;
     border: 1px solid rgb(153, 153, 153);

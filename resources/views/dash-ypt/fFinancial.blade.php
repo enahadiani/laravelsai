@@ -183,7 +183,7 @@
 {{-- ROW 2 --}}
     <div id="dekstop-2" class="row dekstop mt-4">
           <div class="col-3 pl-12 pr-0">
-            <div class="card card-dash">
+            <div class="card card-dash" id="dash-pdpt">
                 <div class="row header-div" id="card-pdpt">
                     <div class="col-9">
                         <h4 class="header-card">Pendapatan Lembaga</h4>
@@ -200,6 +200,7 @@
                             <li class="menu-chart-item print jpg">Download JPEG image</li>
                             <li class="menu-chart-item print pdf">Download PDF document</li>
                             <li class="menu-chart-item print svg">Download SVG vector image</li>
+                            <li class="menu-chart-item print svg">View table data</li>
                         </ul>
                     </div>
                 </div>
@@ -207,7 +208,7 @@
             </div>
           </div>
           <div class="col-3 pl-1 pr-0">
-                <div class="card card-dash">
+                <div class="card card-dash" id="dash-beban">
                     <div class="row header-div" id="card-beban">
                         <div class="col-9">
                             <h4 class="header-card">Beban Lembaga</h4>
@@ -224,6 +225,7 @@
                                 <li class="menu-chart-item print jpg">Download JPEG image</li>
                                 <li class="menu-chart-item print pdf">Download PDF document</li>
                                 <li class="menu-chart-item print svg">Download SVG vector image</li>
+                                <li class="menu-chart-item print svg">View table data</li>
                             </ul>
                         </div>
                     </div>
@@ -231,7 +233,7 @@
                 </div>
           </div>
           <div class="col-3 pl-1 pr-0">
-                <div class="card card-dash">
+                <div class="card card-dash" id="dash-shu">
                     <div class="row header-div" id="card-shu">
                         <div class="col-9">
                             <h4 class="header-card">SHU Lembaga</h4>
@@ -248,6 +250,7 @@
                                 <li class="menu-chart-item print jpg">Download JPEG image</li>
                                 <li class="menu-chart-item print pdf">Download PDF document</li>
                                 <li class="menu-chart-item print svg">Download SVG vector image</li>
+                                <li class="menu-chart-item print svg">View table data</li>
                             </ul>
                         </div>
                     </div>
@@ -324,7 +327,7 @@
 {{-- ROW 3 --}}
     <div id="dekstop-3" class="row dekstop mt-4">
         <div class="col-6 pl-12 pr-0">
-            <div class="card card-dash">
+            <div class="card card-dash" id="dash-lr">
                 <div class="row header-div" id="card-lr">
                     <div class="col-9">
                         <h4 class="header-card">Laba Rugi Lembaga</h4>
@@ -341,6 +344,7 @@
                             <li class="menu-chart-item print jpg">Download JPEG image</li>
                             <li class="menu-chart-item print pdf">Download PDF document</li>
                             <li class="menu-chart-item print svg">Download SVG vector image</li>
+                            <li class="menu-chart-item print svg">View table data</li>
                         </ul>
                     </div>
                 </div>
@@ -547,6 +551,15 @@ $(window).on('resize', function(){
 
 $(window).click(function() {
     $('.menu-chart-custom').addClass('hidden');
+    if($(window).height() == 800) {
+        $("body").css("overflow", "hidden");
+    }
+    if($(window).height() > 800) {
+        $("body").css("overflow", "scroll");
+    }
+    if($(window).height() < 800) {
+        $("body").css("overflow", "scroll");
+    }
 })
 
 
@@ -585,6 +598,12 @@ $('.icon-menu').click(function(event) {
     event.stopPropagation()
     var parentID = $(this).parents('.header-div').attr('id')
     $('#'+parentID).find('.menu-chart-custom').removeClass('hidden')
+
+    if(parentID == 'card-lr') {
+        $("body").css("overflow", "scroll");
+    } else {
+        $("body").css("overflow", "hidden");
+    }
 })
 
 $('#pdpt-box').click(function() {
@@ -1124,12 +1143,16 @@ var shuChart = Highcharts.chart('shu-chart', {
 
 $('#export-shu.menu-chart-custom ul li').click(function(event) {
     event.stopPropagation()
+    var idParent = $(this).parent('#dash-shu').attr('id')
     var jenis = $(this).text()
     
     if(jenis == 'View in full screen') {
         shuChart.update({
             title: {
-                text: 'Sisa Hasil Usaha Lembaga'
+                text: 'Sisa Hasil Usaha Lembaga',
+                floating: true,
+                x: 40,
+                y: 90
             }
         })
         shuChart.fullscreen.toggle();
@@ -1183,6 +1206,18 @@ $('#export-shu.menu-chart-custom ul li').click(function(event) {
                 text: ''
             }
         });
+    } else if(jenis == 'View table data') {
+        $(this).text('Hide table data')
+        shuChart.viewData()
+        var cek = $('#'+idParent+'.highcharts-data-table table').hasClass('table table-bordered table-no-padding')
+        if(!cek) {
+            $('.highcharts-data-table table').addClass('table table-bordered table-no-padding')
+        }
+        $("body").css("overflow", "scroll");
+    } else if(jenis == 'Hide table data') {
+        $(this).text('View table data')
+        $('.highcharts-data-table').hide()
+        $("body").css("overflow", "hidden");
     }
 })
 
@@ -1272,12 +1307,16 @@ var bebanChart = Highcharts.chart('beban-chart', {
 
 $('#export-beban.menu-chart-custom ul li').click(function(event) {
     event.stopPropagation()
+    var idParent = $(this).parent('#dash-beban').attr('id')
     var jenis = $(this).text()
     
     if(jenis == 'View in full screen') {
         bebanChart.update({
             title: {
-                text: 'Beban Lembaga'
+                text: 'Beban Lembaga',
+                floating: true,
+                x: 40,
+                y: 90
             }
         })
         bebanChart.fullscreen.toggle();
@@ -1331,6 +1370,18 @@ $('#export-beban.menu-chart-custom ul li').click(function(event) {
                 text: ''
             }
         });
+    } else if(jenis == 'View table data') {
+        $(this).text('Hide table data')
+        bebanChart.viewData()
+        var cek = $('#'+idParent+'.highcharts-data-table table').hasClass('table table-bordered table-no-padding')
+        if(!cek) {
+            $('.highcharts-data-table table').addClass('table table-bordered table-no-padding')
+        }
+        $("body").css("overflow", "scroll");
+    } else if(jenis == 'Hide table data') {
+        $(this).text('View table data')
+        $('.highcharts-data-table').hide()
+        $("body").css("overflow", "hidden");
     }
 })
 
@@ -1420,12 +1471,16 @@ var pdptChart = Highcharts.chart('pdpt-chart', {
 
 $('#export-pdpt.menu-chart-custom ul li').click(function(event) {
     event.stopPropagation()
+    var idParent = $(this).parent('#dash-pdpt').attr('id')
     var jenis = $(this).text()
     
     if(jenis == 'View in full screen') {
         pdptChart.update({
             title: {
-                text: 'Pendapatan Lembaga'
+                text: 'Pendapatan Lembaga',
+                floating: true,
+                x: 40,
+                y: 90
             }
         })
         pdptChart.fullscreen.toggle();
@@ -1479,6 +1534,18 @@ $('#export-pdpt.menu-chart-custom ul li').click(function(event) {
             text: ''
             }
         });
+    } else if(jenis == 'View table data') {
+        $(this).text('Hide table data')
+        pdptChart.viewData()
+        var cek = $('#'+idParent+'.highcharts-data-table table').hasClass('table table-bordered table-no-padding')
+        if(!cek) {
+            $('.highcharts-data-table table').addClass('table table-bordered table-no-padding')
+        }
+        $("body").css("overflow", "scroll");
+    } else if(jenis == 'Hide table data') {
+        $(this).text('View table data')
+        $('.highcharts-data-table').hide()
+        $("body").css("overflow", "hidden");
     }
 })
 
@@ -1549,12 +1616,15 @@ var lrChart = Highcharts.chart('lr-chart', {
 
 $('#export-lr.menu-chart-custom ul li').click(function(event) {
     event.stopPropagation()
+    var idParent = $(this).parent('#dash-lr').attr('id')
     var jenis = $(this).text()
-    
     if(jenis == 'View in full screen') {
         lrChart.update({
             title: {
-                text: 'Sisa Hasil Usaha Lembaga'
+                text: 'Sisa Hasil Usaha Lembaga',
+                floating: true,
+                x: 40,
+                y: 90
             }
         })
          lrChart.fullscreen.toggle();
@@ -1608,6 +1678,18 @@ $('#export-lr.menu-chart-custom ul li').click(function(event) {
                 text: ''
             }
         });
+    } else if(jenis == 'View table data') {
+        $(this).text('Hide table data')
+        lrChart.viewData()
+        var cek = $('#'+idParent+'.highcharts-data-table table').hasClass('table table-bordered table-no-padding')
+        if(!cek) {
+            $('.highcharts-data-table table').addClass('table table-bordered table-no-padding')
+        }
+        $("body").css("overflow", "scroll");
+    } else if(jenis == 'Hide table data') {
+        $(this).text('View table data')
+        $('.highcharts-data-table').hide()
+        $("body").css("overflow", "hidden");
     }
 })
 </script>
