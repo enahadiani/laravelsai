@@ -165,7 +165,26 @@
                     <div class="col-9">
                         <h4 class="header-card">Trend Cash Flow</h4>
                     </div>
+                    <div class="col-3">
+                        <div class="row">
+                            <div class="col-6 pr-0">
+                                <label class="label-checkbox float-right">
+                                    <input type="radio" checked="checked" name="trend">
+                                    <span class="text">Bulanan</span>
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <div class="col-5">
+                                <label class="label-checkbox float-right">
+                                    <input type="radio" name="trend">
+                                    <span class="text">Harian</span>
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                <div id="trend-chart"></div>
             </div>
         </div>
     </div>
@@ -174,3 +193,88 @@
 {{-- END CONTENT MAIN --}}
 
 {{-- END DEKSTOP --}}
+
+<script type="text/javascript">
+$(window).on('resize', function(){
+    var win = $(this); //this = window
+    if (win.height() == 800) { 
+        $("body").css("overflow", "hidden");
+    }
+    if (win.height() > 800) { 
+        $("body").css("overflow", "scroll");
+    }
+    if (win.height() < 800) { 
+        $("body").css("overflow", "scroll");
+    }
+});
+
+Highcharts.chart('trend-chart', {
+    chart: {
+        height: 450,
+        // width: 600
+    },
+    title: { text: '' },
+    subtitle: { text: '' },
+    exporting:{ 
+        enabled: false
+    },
+    legend:{ 
+        enabled: true,
+        // layout: 'vertical',
+        // align: 'right',
+        verticalAlign: 'bottom' 
+    },
+    credits: { enabled: false },
+    xAxis: {
+        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agt', 'Sep', 'Okt', 'Nov', 'Des']
+    },
+    yAxis: {
+         title: {
+            text: 'Nilai'
+        }
+    },
+    plotOptions: {
+        series: {
+            label: {
+                connectorAllowed: false
+            },
+            marker:{
+                enabled:false
+            },
+            pointStart: 2016
+        }
+    },
+    series: [
+        {
+            name: 'Cash In',
+            data: [5000, 4000, 2000, 3000, 2500, 2800, 6000, 2000, 2000, 1500, 2000, 2500],
+            color: '#8085E9'
+        },
+        {
+            name: 'Cash Out',
+            data: [4000, 3000, 18000, 2000, 2000, 2500, 5000, 2500, 1500, 2000, 2500, 2000],
+            color: '#90ED7D'
+        },
+        {
+            name: 'Saldo',
+            data: [1000, 1000, 1500, 1000, 1000, 1500, 1000, 1000, 2000, 3000, 2000, 2000],
+            color: '#F7A35C'
+        },
+        {
+            name: 'YoY Cash In',
+            data: [1500, 1500, 1500, 1200, 1800, 1400, 1500, 1900, 1700, 2200, 2500, 2800],
+            color: '#7CB5EC'
+        },
+        {
+            name: 'YoY Cash Out',
+            data: [1200, 1300, 1300, 1400, 1400, 1600, 1800, 2000, 1200, 2000, 2000, 2500],
+            color: '#7CB5EC'
+        },
+        {
+            name: 'YoY Saldo',
+            data: [1000, 1000, 1000, 1200, 1500, 1100, 1200, 2500, 1800, 2500, 2200, 2700],
+            color: '#434348'
+        }
+    ],
+});
+</script>
