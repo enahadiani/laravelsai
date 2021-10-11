@@ -160,27 +160,42 @@
     {{-- ROW 2 --}}
     <div id="dekstop-2" class="row dekstop mt-4">
         <div class="col-12 pl-12 pr-0">
-            <div class="card card-dash">
-                <div class="row header-div">
-                    <div class="col-9">
+            <div class="card card-dash" id="dash-trend">
+                <div class="row header-div" id="card-trend">
+                    <div class="col-8">
                         <h4 class="header-card">Trend Cash Flow</h4>
                     </div>
-                    <div class="col-3">
-                        <div class="row">
-                            <div class="col-6 pr-0">
+                    <div class="col-4">
+                        <div class="row justify-content-end">
+                            <div class="col-4 pr-0">
                                 <label class="label-checkbox float-right">
                                     <input type="radio" checked="checked" name="trend">
                                     <span class="text">Bulanan</span>
                                     <span class="checkmark"></span>
                                 </label>
                             </div>
-                            <div class="col-5">
+                            <div class="col-3 pr-0">
                                 <label class="label-checkbox float-right">
                                     <input type="radio" name="trend">
                                     <span class="text">Harian</span>
                                     <span class="checkmark"></span>
                                 </label>
                             </div>
+                            <div class="col-2">
+                                <div class="glyph-icon simple-icon-menu icon-menu"></div>
+                            </div>
+                        </div>
+                        <div class="menu-chart-custom hidden" id="export-trend">
+                            <ul>
+                                <li class="menu-chart-item fullscreen">View in full screen</li>
+                                <li class="menu-chart-item print">Print chart</li>
+                                <hr>
+                                <li class="menu-chart-item print png">Download PNG image</li>
+                                <li class="menu-chart-item print jpg">Download JPEG image</li>
+                                <li class="menu-chart-item print pdf">Download PDF document</li>
+                                <li class="menu-chart-item print svg">Download SVG vector image</li>
+                                <li class="menu-chart-item print svg">View table data</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -208,7 +223,45 @@ $(window).on('resize', function(){
     }
 });
 
-Highcharts.chart('trend-chart', {
+$(window).click(function() {
+    $('.menu-chart-custom').addClass('hidden');
+    if($(window).height() == 800) {
+        $("body").css("overflow", "hidden");
+    }
+    if($(window).height() > 800) {
+        $("body").css("overflow", "scroll");
+    }
+    if($(window).height() < 800) {
+        $("body").css("overflow", "scroll");
+    }
+})
+
+document.addEventListener('fullscreenchange', (event) => {
+  if (document.fullscreenElement) {
+    console.log(`Element: ${document.fullscreenElement.id} entered full-screen mode.`);
+  } else {
+    trendChart.update({
+        title: {
+            text: ''
+        }
+    })
+
+    console.log('Leaving full-screen mode.');
+  }
+});
+
+$('.icon-menu').click(function(event) {
+    event.stopPropagation()
+    var parentID = $(this).parents('.header-div').attr('id')
+    $('#'+parentID).find('.menu-chart-custom').removeClass('hidden')
+
+    if(parentID == 'card-piutang' || parentID == 'card-soakhir') {
+        $("body").css("overflow", "scroll");
+    } else {
+        $("body").css("overflow", "hidden");
+    }
+})
+var trendChart = Highcharts.chart('trend-chart', {
     chart: {
         height: 450,
         // width: 600
@@ -277,4 +330,84 @@ Highcharts.chart('trend-chart', {
         }
     ],
 });
+
+$('#export-trend.menu-chart-custom ul li').click(function(event) {
+    event.stopPropagation()
+    var idParent = $(this).parent('#dash-trend').attr('id')
+    var jenis = $(this).text()
+    
+    if(jenis == 'View in full screen') {
+        trendChart.update({
+            title: {
+                text: `Trend Cash Flow`,
+                floating: true,
+                x: 40,
+                y: 20
+            }
+        })
+        trendChart.fullscreen.toggle();
+    } else if(jenis == 'Print chart') {
+        trendChart.print()
+    } else if(jenis == 'Download PNG image') {
+        trendChart.exportChart({
+            type: 'image/png',
+            filename: 'chart-png'
+        }, {
+            title: {
+                text: `Trend Cash Flow`,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download JPEG image') {
+        trendChart.exportChart({
+            type: 'image/jpeg',
+            filename: 'chart-jpg'
+        }, {
+            title: {
+                text: `Trend Cash Flow`,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download PDF document') {
+        trendChart.exportChart({
+            type: 'application/pdf',
+            filename: 'chart-pdf'
+        }, {
+            title: {
+                text: `Trend Cash Flow`,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download SVG vector image') {
+        trendChart.exportChart({
+            type: 'image/svg+xml',
+            filename: 'chart-svg'
+        }, {
+            title: {
+                text: `Trend Cash Flow`,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'View table data') {
+        $(this).text('Hide table data')
+        trendChart.viewData()
+        var cek = $('#'+idParent+'.highcharts-data-table table').hasClass('table table-bordered table-no-padding')
+        if(!cek) {
+            $('.highcharts-data-table table').addClass('table table-bordered table-no-padding')
+        }
+        $("body").css("overflow", "scroll");
+    } else if(jenis == 'Hide table data') {
+        $(this).text('View table data')
+        $('.highcharts-data-table').hide()
+        $("body").css("overflow", "hidden");
+    }
+})
 </script>

@@ -183,6 +183,15 @@
     color: #830000;
     font-weight: bold;
 }
+.card.card-dash .header-div .icon-menu {
+    float: right;
+    margin-top: 6px;
+    margin-right: 8px;
+    cursor: pointer;
+}
+.card.card-dash .header-div .icon-menu::before {
+    font-weight: bold;
+}
 /* END CARD */
 
 /* TABLE */
@@ -204,6 +213,14 @@
 }
 .table .glyph-icon.icon-card {
     display: inline;
+}
+.table.table-no-padding thead tr th,
+.table.table-no-padding tbody tr th,
+.table.table-no-padding tbody tr td {
+    padding: 0 12px;
+}
+.highcharts-data-table table caption {
+    display: none;
 }
 /* END TABLE */
 
@@ -258,3 +275,31 @@ input:checked ~ .text {
     display: block;
 }
 /* END CUSTOM CHECKBOX */
+
+
+/* MENU CHART CUSTOM */
+.menu-chart-custom {
+    heigh   t: 260px;
+    width: 200px;
+    background-color: #ffffff;
+    border: 1px solid rgb(153, 153, 153);
+    border-radius: 4px;
+    position: absolute;
+    z-index: 10;
+    top: 28px;
+    right: 20px;
+}
+.menu-chart-custom ul {
+    list-style: none;
+    margin: 0;
+    padding: 5px 0;
+}
+.menu-chart-custom ul li {
+    cursor: pointer;
+    padding: 4px 16px;
+}
+.menu-chart-custom ul li:hover {
+    background-color: rgb(51, 92, 173);
+    color: #ffffff;
+}
+/* END MENU CHART CUSTOM */
