@@ -486,20 +486,50 @@
     {{-- ROW 4 --}}
     <div id="dekstop-4" class="row dekstop">
         <div class="col-7 pl-12 pr-0">
-            <div class="card card-dash">
-                <div class="row header-div">
+            <div class="card card-dash" id="dash-perform">
+                <div class="row header-div" id="card-perform">
                     <div class="col-9">
                         <h4 class="header-card">Performansi Lembaga</h4>
+                    </div>
+                    <div class="col-3">
+                        <div class="glyph-icon simple-icon-menu icon-menu"></div>
+                    </div>
+                    <div class="menu-chart-custom hidden" id="export-perform">
+                        <ul>
+                            <li class="menu-chart-item fullscreen">View in full screen</li>
+                            <li class="menu-chart-item print">Print chart</li>
+                            <hr>
+                            <li class="menu-chart-item print png">Download PNG image</li>
+                            <li class="menu-chart-item print jpg">Download JPEG image</li>
+                            <li class="menu-chart-item print pdf">Download PDF document</li>
+                            <li class="menu-chart-item print svg">Download SVG vector image</li>
+                            <li class="menu-chart-item print svg">View table data</li>
+                        </ul>
                     </div>
                 </div>
                 <div id="perfomansi-chart" class="mt-8"></div>
             </div>
         </div>
         <div class="col-5 pl-1 pr-0">
-            <div class="card card-dash">
-                <div class="row header-div">
+            <div class="card card-dash" id="dash-lembaga">
+                <div class="row header-div" id="card-lembaga">
                     <div class="col-9">
                         <h4 class="header-card"><span class="title-chart"></span> Per Lembaga</h4>
+                    </div>
+                    <div class="col-3">
+                        <div class="glyph-icon simple-icon-menu icon-menu"></div>
+                    </div>
+                    <div class="menu-chart-custom hidden" id="export-lembaga">
+                        <ul>
+                            <li class="menu-chart-item fullscreen">View in full screen</li>
+                            <li class="menu-chart-item print">Print chart</li>
+                            <hr>
+                            <li class="menu-chart-item print png">Download PNG image</li>
+                            <li class="menu-chart-item print jpg">Download JPEG image</li>
+                            <li class="menu-chart-item print pdf">Download PDF document</li>
+                            <li class="menu-chart-item print svg">Download SVG vector image</li>
+                            <li class="menu-chart-item print svg">View table data</li>
+                        </ul>
                     </div>
                 </div>
                 <div id="lembaga-chart" class="mt-8"></div>
@@ -509,20 +539,50 @@
 
     <div id="dekstop-5" class="row dekstop mt-4">
         <div class="col-7 pl-12 pr-0">
-            <div class="card card-dash">
-                <div class="row header-div">
+            <div class="card card-dash" id="dash-yoy">
+                <div class="row header-div" id="card-yoy">
                     <div class="col-9">
                         <h4 class="header-card">Kelompok <span class="title-chart"></span> YoY</h4>
+                    </div>
+                    <div class="col-3">
+                        <div class="glyph-icon simple-icon-menu icon-menu"></div>
+                    </div>
+                    <div class="menu-chart-custom hidden" id="export-yoy">
+                        <ul>
+                            <li class="menu-chart-item fullscreen">View in full screen</li>
+                            <li class="menu-chart-item print">Print chart</li>
+                            <hr>
+                            <li class="menu-chart-item print png">Download PNG image</li>
+                            <li class="menu-chart-item print jpg">Download JPEG image</li>
+                            <li class="menu-chart-item print pdf">Download PDF document</li>
+                            <li class="menu-chart-item print svg">Download SVG vector image</li>
+                            <li class="menu-chart-item print svg">View table data</li>
+                        </ul>
                     </div>
                 </div>
                 <div id="yoy-chart" class="mt-8"></div>
             </div>
         </div>
         <div class="col-5 pl-1 pr-0">
-            <div class="card card-dash">
-                <div class="row header-div">
+            <div class="card card-dash" id="dash-akun">
+                <div class="row header-div" id="card-akun">
                     <div class="col-9">
                         <h4 class="header-card"><span class="title-chart"></span> Per Akun</h4>
+                    </div>
+                    <div class="col-3">
+                        <div class="glyph-icon simple-icon-menu icon-menu"></div>
+                    </div>
+                    <div class="menu-chart-custom hidden" id="export-akun">
+                        <ul>
+                            <li class="menu-chart-item fullscreen">View in full screen</li>
+                            <li class="menu-chart-item print">Print chart</li>
+                            <hr>
+                            <li class="menu-chart-item print png">Download PNG image</li>
+                            <li class="menu-chart-item print jpg">Download JPEG image</li>
+                            <li class="menu-chart-item print pdf">Download PDF document</li>
+                            <li class="menu-chart-item print svg">Download SVG vector image</li>
+                            <li class="menu-chart-item print svg">View table data</li>
+                        </ul>
                     </div>
                 </div>
                 <div id="akun-chart" class="mt-8"></div>
@@ -536,6 +596,7 @@
 {{-- END DESKTOP --}}
 
 <script type="text/javascript">
+var $judulChart = null; 
 $(window).on('resize', function(){
     var win = $(this); //this = window
     if (win.height() == 800) { 
@@ -590,6 +651,30 @@ document.addEventListener('fullscreenchange', (event) => {
             text: ''
         }
     })
+
+    performChart.update({
+        title: {
+            text: ''
+        }
+    })
+
+    lembagaChart.update({
+        title: {
+            text: ''
+        }
+    })
+
+    yoyChart.update({
+        title: {
+            text: ''
+        }
+    })
+
+    akunChart.update({
+        title: {
+            text: ''
+        }
+    })
     console.log('Leaving full-screen mode.');
   }
 });
@@ -607,6 +692,7 @@ $('.icon-menu').click(function(event) {
 })
 
 $('#pdpt-box').click(function() {
+    $judulChart = "Pendapatan"
     $('#title-dash').text('Pendapatan')
     $('#back-div').removeClass('hidden')
     $('#dash-title-div').removeClass('pl-8')
@@ -617,6 +703,7 @@ $('#pdpt-box').click(function() {
 });
 
 $('#beban-box').click(function() {
+    $judulChart = "Beban"
     $('#title-dash').text('Beban')
     $('#back-div').removeClass('hidden')
     $('#dash-title-div').removeClass('pl-8')
@@ -627,6 +714,7 @@ $('#beban-box').click(function() {
 });
 
 $('#shu-box').click(function() {
+    $judulChart = "Sisa Hasil Usaha"
     $('#title-dash').text('Sisa Hasil Usaha')
     $('#back-div').removeClass('hidden')
     $('#dash-title-div').removeClass('pl-8')
@@ -637,6 +725,7 @@ $('#shu-box').click(function() {
 });
 
 $('#or-box').click(function() {
+    $judulChart = "Operating Ratio"
     $('#title-dash').text('Operating Ratio')
     $('#back-div').removeClass('hidden')
     $('#dash-title-div').removeClass('pl-8')
@@ -742,7 +831,7 @@ $('#table-lembaga tbody').on('click', 'tr.selected-row', function() {
     $(`#${table} tbody tr td .check-row`).hide()
 })
 
-Highcharts.chart('akun-chart', {
+var akunChart = Highcharts.chart('akun-chart', {
     chart: {
         plotBackgroundColor: null,
         plotBorderWidth: null,
@@ -832,7 +921,87 @@ Highcharts.chart('akun-chart', {
     }]
 });
 
-Highcharts.chart('yoy-chart', {
+$('#export-akun.menu-chart-custom ul li').click(function(event) {
+    event.stopPropagation()
+    var idParent = $(this).parent('#dash-akun').attr('id')
+    var jenis = $(this).text()
+    
+    if(jenis == 'View in full screen') {
+        akunChart.update({
+            title: {
+                text: `${$judulChart} Per Akun`,
+                floating: true,
+                x: 40,
+                y: 90
+            }
+        })
+        akunChart.fullscreen.toggle();
+    } else if(jenis == 'Print chart') {
+        akunChart.print()
+    } else if(jenis == 'Download PNG image') {
+        akunChart.exportChart({
+            type: 'image/png',
+            filename: 'chart-png'
+        }, {
+            title: {
+                text: `${$judulChart} Per Akun`,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download JPEG image') {
+        akunChart.exportChart({
+            type: 'image/jpeg',
+            filename: 'chart-jpg'
+        }, {
+            title: {
+                text: `${$judulChart} Per Akun`,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download PDF document') {
+        akunChart.exportChart({
+            type: 'application/pdf',
+            filename: 'chart-pdf'
+        }, {
+            title: {
+                text: `${$judulChart} Per Akun`,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download SVG vector image') {
+        akunChart.exportChart({
+            type: 'image/svg+xml',
+            filename: 'chart-svg'
+        }, {
+            title: {
+                text: `${$judulChart} Per Akun`,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'View table data') {
+        $(this).text('Hide table data')
+        akunChart.viewData()
+        var cek = $('#'+idParent+'.highcharts-data-table table').hasClass('table table-bordered table-no-padding')
+        if(!cek) {
+            $('.highcharts-data-table table').addClass('table table-bordered table-no-padding')
+        }
+        $("body").css("overflow", "scroll");
+    } else if(jenis == 'Hide table data') {
+        $(this).text('View table data')
+        $('.highcharts-data-table').hide()
+        $("body").css("overflow", "hidden");
+    }
+})
+
+var yoyChart = Highcharts.chart('yoy-chart', {
     chart: {
         height: 275,
         width: 600
@@ -895,7 +1064,87 @@ Highcharts.chart('yoy-chart', {
     ],
 });
 
-Highcharts.chart('lembaga-chart', {
+$('#export-yoy.menu-chart-custom ul li').click(function(event) {
+    event.stopPropagation()
+    var idParent = $(this).parent('#dash-yoy').attr('id')
+    var jenis = $(this).text()
+    
+    if(jenis == 'View in full screen') {
+        yoyChart.update({
+            title: {
+                text: `Kelompok ${$judulChart} YoY`,
+                floating: true,
+                x: 40,
+                y: 90
+            }
+        })
+        yoyChart.fullscreen.toggle();
+    } else if(jenis == 'Print chart') {
+        yoyChart.print()
+    } else if(jenis == 'Download PNG image') {
+        yoyChart.exportChart({
+            type: 'image/png',
+            filename: 'chart-png'
+        }, {
+            title: {
+                text: `Kelompok ${$judulChart} YoY`,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download JPEG image') {
+        yoyChart.exportChart({
+            type: 'image/jpeg',
+            filename: 'chart-jpg'
+        }, {
+            title: {
+                text: `Kelompok ${$judulChart} YoY`,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download PDF document') {
+        yoyChart.exportChart({
+            type: 'application/pdf',
+            filename: 'chart-pdf'
+        }, {
+            title: {
+                text: `Kelompok ${$judulChart} YoY`,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download SVG vector image') {
+        yoyChart.exportChart({
+            type: 'image/svg+xml',
+            filename: 'chart-svg'
+        }, {
+            title: {
+                text: `Kelompok ${$judulChart} YoY`,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'View table data') {
+        $(this).text('Hide table data')
+        yoyChart.viewData()
+        var cek = $('#'+idParent+'.highcharts-data-table table').hasClass('table table-bordered table-no-padding')
+        if(!cek) {
+            $('.highcharts-data-table table').addClass('table table-bordered table-no-padding')
+        }
+        $("body").css("overflow", "scroll");
+    } else if(jenis == 'Hide table data') {
+        $(this).text('View table data')
+        $('.highcharts-data-table').hide()
+        $("body").css("overflow", "hidden");
+    }
+})
+
+var lembagaChart = Highcharts.chart('lembaga-chart', {
     chart: {
         plotBackgroundColor: null,
         plotBorderWidth: null,
@@ -974,7 +1223,87 @@ Highcharts.chart('lembaga-chart', {
     }]
 });
 
-Highcharts.chart('perfomansi-chart', {
+$('#export-lembaga.menu-chart-custom ul li').click(function(event) {
+    event.stopPropagation()
+    var idParent = $(this).parent('#dash-lembaga').attr('id')
+    var jenis = $(this).text()
+    
+    if(jenis == 'View in full screen') {
+        lembagaChart.update({
+            title: {
+                text: `${$judulChart} Per Lembaga`,
+                floating: true,
+                x: 40,
+                y: 90
+            }
+        })
+        lembagaChart.fullscreen.toggle();
+    } else if(jenis == 'Print chart') {
+        lembagaChart.print()
+    } else if(jenis == 'Download PNG image') {
+        lembagaChart.exportChart({
+            type: 'image/png',
+            filename: 'chart-png'
+        }, {
+            title: {
+                text: `${$judulChart} Per Lembaga`,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download JPEG image') {
+        lembagaChart.exportChart({
+            type: 'image/jpeg',
+            filename: 'chart-jpg'
+        }, {
+            title: {
+                text: `${$judulChart} Per Lembaga`,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download PDF document') {
+        lembagaChart.exportChart({
+            type: 'application/pdf',
+            filename: 'chart-pdf'
+        }, {
+            title: {
+                text: `${$judulChart} Per Lembaga`,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download SVG vector image') {
+        lembagaChart.exportChart({
+            type: 'image/svg+xml',
+            filename: 'chart-svg'
+        }, {
+            title: {
+                text: `${$judulChart} Per Lembaga`,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'View table data') {
+        $(this).text('Hide table data')
+        lembagaChart.viewData()
+        var cek = $('#'+idParent+'.highcharts-data-table table').hasClass('table table-bordered table-no-padding')
+        if(!cek) {
+            $('.highcharts-data-table table').addClass('table table-bordered table-no-padding')
+        }
+        $("body").css("overflow", "scroll");
+    } else if(jenis == 'Hide table data') {
+        $(this).text('View table data')
+        $('.highcharts-data-table').hide()
+        $("body").css("overflow", "hidden");
+    }
+})
+
+var performChart = Highcharts.chart('perfomansi-chart', {
     chart: {
         type: 'column',
         height: 275,
@@ -1056,6 +1385,86 @@ Highcharts.chart('perfomansi-chart', {
         },
     ],
 });
+
+$('#export-perform.menu-chart-custom ul li').click(function(event) {
+    event.stopPropagation()
+    var idParent = $(this).parent('#dash-perform').attr('id')
+    var jenis = $(this).text()
+    
+    if(jenis == 'View in full screen') {
+        performChart.update({
+            title: {
+                text: 'Performansi Lembaga',
+                floating: true,
+                x: 40,
+                y: 20
+            }
+        })
+        performChart.fullscreen.toggle();
+    } else if(jenis == 'Print chart') {
+        performChart.print()
+    } else if(jenis == 'Download PNG image') {
+        performChart.exportChart({
+            type: 'image/png',
+            filename: 'chart-png'
+        }, {
+            title: {
+                text: 'Performansi Lembaga'
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download JPEG image') {
+        performChart.exportChart({
+            type: 'image/jpeg',
+            filename: 'chart-jpg'
+        }, {
+            title: {
+                text: 'Performansi Lembaga'
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download PDF document') {
+        performChart.exportChart({
+            type: 'application/pdf',
+            filename: 'chart-pdf'
+        }, {
+            title: {
+                text: 'Performansi Lembaga'
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download SVG vector image') {
+        performChart.exportChart({
+            type: 'image/svg+xml',
+            filename: 'chart-svg'
+        }, {
+            title: {
+                text: 'Performansi Lembaga'
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'View table data') {
+        $(this).text('Hide table data')
+        performChart.viewData()
+        var cek = $('#'+idParent+'.highcharts-data-table table').hasClass('table table-bordered table-no-padding')
+        if(!cek) {
+            $('.highcharts-data-table table').addClass('table table-bordered table-no-padding')
+        }
+        $("body").css("overflow", "scroll");
+    } else if(jenis == 'Hide table data') {
+        $(this).text('View table data')
+        $('.highcharts-data-table').hide()
+        $("body").css("overflow", "hidden");
+    }
+})
 
 var shuChart = Highcharts.chart('shu-chart', {
     chart: {
