@@ -930,9 +930,9 @@ $('#export-akun.menu-chart-custom ul li').click(function(event) {
         akunChart.update({
             title: {
                 text: `${$judulChart} Per Akun`,
-                floating: true,
+                // floating: true,
                 x: 40,
-                y: 90
+                y: 20
             }
         })
         akunChart.fullscreen.toggle();
@@ -1075,7 +1075,7 @@ $('#export-yoy.menu-chart-custom ul li').click(function(event) {
                 text: `Kelompok ${$judulChart} YoY`,
                 floating: true,
                 x: 40,
-                y: 90
+                y: 20
             }
         })
         yoyChart.fullscreen.toggle();
