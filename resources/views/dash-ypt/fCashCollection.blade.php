@@ -166,30 +166,75 @@
         <div class="col-6 pl-12 pr-0">
             <div class="row">
                 <div class="col-12">
-                    <div class="card card-dash">
-                        <div class="row header-div">
+                    <div class="card card-dash" id="dash-trend">
+                        <div class="row header-div" id="card-trend">
                             <div class="col-9">
                                 <h4 class="header-card">Trend CCR</h4>
+                            </div>
+                            <div class="col-3">
+                                <div class="glyph-icon simple-icon-menu icon-menu"></div>
+                            </div>
+                            <div class="menu-chart-custom hidden" id="export-trend">
+                                <ul>
+                                    <li class="menu-chart-item fullscreen">View in full screen</li>
+                                    <li class="menu-chart-item print">Print chart</li>
+                                    <hr>
+                                    <li class="menu-chart-item print png">Download PNG image</li>
+                                    <li class="menu-chart-item print jpg">Download JPEG image</li>
+                                    <li class="menu-chart-item print pdf">Download PDF document</li>
+                                    <li class="menu-chart-item print svg">Download SVG vector image</li>
+                                    <li class="menu-chart-item print svg">View table data</li>
+                                </ul>
                             </div>
                         </div>
                         <div id="trend-ccr"></div>
                     </div>
                 </div>
                 <div class="col-6 pr-0 mt-4">
-                    <div class="card card-dash">
-                        <div class="row header-div">
+                    <div class="card card-dash" id="dash-piutang">
+                        <div class="row header-div" id="card-piutang">
                             <div class="col-9 pr-0">
                                 <h4 class="header-card">Komposisi Piutang</h4>
+                            </div>
+                            <div class="col-3">
+                                <div class="glyph-icon simple-icon-menu icon-menu"></div>
+                            </div>
+                            <div class="menu-chart-custom hidden" id="export-piutang">
+                                <ul>
+                                    <li class="menu-chart-item fullscreen">View in full screen</li>
+                                    <li class="menu-chart-item print">Print chart</li>
+                                    <hr>
+                                    <li class="menu-chart-item print png">Download PNG image</li>
+                                    <li class="menu-chart-item print jpg">Download JPEG image</li>
+                                    <li class="menu-chart-item print pdf">Download PDF document</li>
+                                    <li class="menu-chart-item print svg">Download SVG vector image</li>
+                                    <li class="menu-chart-item print svg">View table data</li>
+                                </ul>
                             </div>
                         </div>
                         <div id="komposisi-piutang"></div>
                     </div>
                 </div>
                 <div class="col-6 pl-1 mt-4">
-                    <div class="card card-dash">
-                        <div class="row header-div">
+                    <div class="card card-dash" id="dash-soakhir">
+                        <div class="row header-div" id="card-soakhir">
                             <div class="col-9">
                                 <h4 class="header-card">Saldo Akhir Piutang</h4>
+                            </div>
+                            <div class="col-3">
+                                <div class="glyph-icon simple-icon-menu icon-menu"></div>
+                            </div>
+                            <div class="menu-chart-custom hidden" id="export-soakhir">
+                                <ul>
+                                    <li class="menu-chart-item fullscreen">View in full screen</li>
+                                    <li class="menu-chart-item print">Print chart</li>
+                                    <hr>
+                                    <li class="menu-chart-item print png">Download PNG image</li>
+                                    <li class="menu-chart-item print jpg">Download JPEG image</li>
+                                    <li class="menu-chart-item print pdf">Download PDF document</li>
+                                    <li class="menu-chart-item print svg">Download SVG vector image</li>
+                                    <li class="menu-chart-item print svg">View table data</li>
+                                </ul>
                             </div>
                         </div>
                         <div id="saldo-akhir" class="mt-4"></div>
@@ -198,10 +243,25 @@
             </div>
         </div>
         <div class="col-3 pl-1 pr-0">
-            <div class="card card-dash">
-                <div class="row header-div">
+            <div class="card card-dash" id="dash-lembaga">
+                <div class="row header-div" id="card-lembaga">
                     <div class="col-9">
                         <h4 class="header-card">CCR Lembaga</h4>
+                    </div>
+                    <div class="col-3">
+                        <div class="glyph-icon simple-icon-menu icon-menu"></div>
+                    </div>
+                    <div class="menu-chart-custom hidden" id="export-lembaga">
+                        <ul>
+                            <li class="menu-chart-item fullscreen">View in full screen</li>
+                            <li class="menu-chart-item print">Print chart</li>
+                            <hr>
+                            <li class="menu-chart-item print png">Download PNG image</li>
+                            <li class="menu-chart-item print jpg">Download JPEG image</li>
+                            <li class="menu-chart-item print pdf">Download PDF document</li>
+                            <li class="menu-chart-item print svg">Download SVG vector image</li>
+                            <li class="menu-chart-item print svg">View table data</li>
+                        </ul>
                     </div>
                 </div>
                 <div id="ccr-lembaga" class="mt-4"></div>
@@ -269,6 +329,90 @@ $(window).on('resize', function(){
     }
 });
 
+$(window).click(function() {
+    $('.menu-chart-custom').addClass('hidden');
+    if($(window).height() == 800) {
+        $("body").css("overflow", "hidden");
+    }
+    if($(window).height() > 800) {
+        $("body").css("overflow", "scroll");
+    }
+    if($(window).height() < 800) {
+        $("body").css("overflow", "scroll");
+    }
+})
+
+document.addEventListener('fullscreenchange', (event) => {
+  if (document.fullscreenElement) {
+    console.log(`Element: ${document.fullscreenElement.id} entered full-screen mode.`);
+  } else {
+    trendChart.update({
+        title: {
+            text: ''
+        }
+    })
+
+    piutangChart.update({
+        title: {
+            text: ''
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                center: ['35%', '50%'],
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    distance: -30,
+                    useHTML: true,
+                    align: 'left',
+                    formatter: function () { 
+                        var color = '#000000'
+                        if(this.point.color == '#830000') {
+                            color = '#ffffff'
+                        } else {
+                            color = '#000000'
+                        }
+                        return $('<div/>').css({
+                            'color': color,
+                            'font-size': '9px',
+                            'backgroundColor' : this.point.color
+                        }).text(this.y + '%')[0].outerHTML
+                    }
+                },
+                size: '120%',
+                showInLegend: true
+        }   ,
+        },
+    })
+
+    soakhirChart.update({
+        title: {
+            text: ''
+        }
+    })
+
+    lembagaChart.update({
+        title: {
+            text: ''
+        }
+    })
+    console.log('Leaving full-screen mode.');
+  }
+});
+
+$('.icon-menu').click(function(event) {
+    event.stopPropagation()
+    var parentID = $(this).parents('.header-div').attr('id')
+    $('#'+parentID).find('.menu-chart-custom').removeClass('hidden')
+
+    if(parentID == 'card-piutang' || parentID == 'card-soakhir') {
+        $("body").css("overflow", "scroll");
+    } else {
+        $("body").css("overflow", "hidden");
+    }
+})
+
 $('.checkbox-input').change(function() {
     var count = $('input.checkbox-input:checked').length;
     var parent = $('input.checkbox-input:checked').parent();
@@ -281,7 +425,7 @@ $('.checkbox-input').change(function() {
     $('#title-dash').text('CCR '+ judul)
 })
 
-Highcharts.chart('ccr-lembaga', {
+var lembagaChart = Highcharts.chart('ccr-lembaga', {
     chart: {
         type: 'packedbubble',
         width: 255,
@@ -370,8 +514,88 @@ Highcharts.chart('ccr-lembaga', {
     }
 });
 
+$('#export-lembaga.menu-chart-custom ul li').click(function(event) {
+    event.stopPropagation()
+    var idParent = $(this).parent('#dash-lembaga').attr('id')
+    var jenis = $(this).text()
+    
+    if(jenis == 'View in full screen') {
+        lembagaChart.update({
+            title: {
+                text: `CCR Lembaga`,
+                floating: true,
+                x: 40,
+                y: 20
+            }
+        })
+        yoyChart.fullscreen.toggle();
+    } else if(jenis == 'Print chart') {
+        lembagaChart.print()
+    } else if(jenis == 'Download PNG image') {
+        lembagaChart.exportChart({
+            type: 'image/png',
+            filename: 'chart-png'
+        }, {
+            title: {
+                text: `CCR Lembaga`,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download JPEG image') {
+        lembagaChart.exportChart({
+            type: 'image/jpeg',
+            filename: 'chart-jpg'
+        }, {
+            title: {
+                text: `CCR Lembaga`,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download PDF document') {
+        lembagaChart.exportChart({
+            type: 'application/pdf',
+            filename: 'chart-pdf'
+        }, {
+            title: {
+                text: `CCR Lembaga`,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download SVG vector image') {
+        lembagaChart.exportChart({
+            type: 'image/svg+xml',
+            filename: 'chart-svg'
+        }, {
+            title: {
+                text: `CCR Lembaga`,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'View table data') {
+        $(this).text('Hide table data')
+        lembagaChart.viewData()
+        var cek = $('#'+idParent+'.highcharts-data-table table').hasClass('table table-bordered table-no-padding')
+        if(!cek) {
+            $('.highcharts-data-table table').addClass('table table-bordered table-no-padding')
+        }
+        $("body").css("overflow", "scroll");
+    } else if(jenis == 'Hide table data') {
+        $(this).text('View table data')
+        $('.highcharts-data-table').hide()
+        $("body").css("overflow", "hidden");
+    }
+})
+
 var colors = ['#EEBE00', '#830000'];
-Highcharts.chart('komposisi-piutang', {
+var piutangChart = Highcharts.chart('komposisi-piutang', {
     chart: {
         plotBackgroundColor: null,
         plotBorderWidth: null,
@@ -457,7 +681,139 @@ function() {
     }
 });
 
-Highcharts.chart('saldo-akhir', {
+$('#export-piutang.menu-chart-custom ul li').click(function(event) {
+    event.stopPropagation()
+    var idParent = $(this).parent('#dash-piutang').attr('id')
+    var jenis = $(this).text()
+    
+    if(jenis == 'View in full screen') {
+        piutangChart.update({
+            title: {
+                text: `Komposisi Piutang`,
+                floating: true,
+                x: 40,
+                y: 20
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    center: ['50%', '50%'],
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        distance: -30,
+                        useHTML: true,
+                        align: 'left',
+                        formatter: function () { 
+                            var color = '#000000'
+                            if(this.point.color == '#830000') {
+                                color = '#ffffff'
+                            } else {
+                                color = '#000000'
+                            }
+                            return $('<div/>').css({
+                                'color': color,
+                                'font-size': '16px',
+                                'backgroundColor' : this.point.color
+                            }).text(this.y + '%')[0].outerHTML
+                        }
+                    },
+                    size: '80%',
+                    showInLegend: true
+                },
+            },
+        })
+        piutangChart.fullscreen.toggle();
+    } else if(jenis == 'Print chart') {
+        piutangChart.print()
+    } else if(jenis == 'Download PNG image') {
+        piutangChart.exportChart({
+            type: 'image/png',
+            filename: 'chart-png'
+        }, {
+            title: {
+                text: `Komposisi Piutang`,
+            },
+            subtitle: {
+                text: ''
+            },
+            plotOptions: {
+                pie: {
+                    size: '100%',
+                    showInLegend: true
+                },
+            },
+        });
+    } else if(jenis == 'Download JPEG image') {
+        piutangChart.exportChart({
+            type: 'image/jpeg',
+            filename: 'chart-jpg'
+        }, {
+            title: {
+                text: `Komposisi Piutang`,
+            },
+            subtitle: {
+                text: ''
+            },
+            plotOptions: {
+                pie: {
+                    size: '100%',
+                    showInLegend: true
+                },
+            },
+        });
+    } else if(jenis == 'Download PDF document') {
+        piutangChart.exportChart({
+            type: 'application/pdf',
+            filename: 'chart-pdf'
+        }, {
+            title: {
+                text: `Komposisi Piutang`,
+            },
+            subtitle: {
+                text: ''
+            },
+            plotOptions: {
+                pie: {
+                    size: '100%',
+                    showInLegend: true
+                },
+            },
+        });
+    } else if(jenis == 'Download SVG vector image') {
+        piutangChart.exportChart({
+            type: 'image/svg+xml',
+            filename: 'chart-svg'
+        }, {
+            title: {
+                text: `Komposisi Piutang`,
+            },
+            subtitle: {
+                text: ''
+            },
+            plotOptions: {
+                pie: {
+                    size: '100%',
+                    showInLegend: true
+                },
+            },
+        });
+    } else if(jenis == 'View table data') {
+        $(this).text('Hide table data')
+        piutangChart.viewData()
+        var cek = $('#'+idParent+'.highcharts-data-table table').hasClass('table table-bordered table-no-padding')
+        if(!cek) {
+            $('.highcharts-data-table table').addClass('table table-bordered table-no-padding')
+        }
+        $("body").css("overflow", "scroll");
+    } else if(jenis == 'Hide table data') {
+        $(this).text('View table data')
+        $('.highcharts-data-table').hide()
+        $("body").css("overflow", "hidden");
+    }
+})
+
+var soakhirChart = Highcharts.chart('saldo-akhir', {
     chart: {
         type: 'column',
         height: 188,
@@ -497,7 +853,87 @@ Highcharts.chart('saldo-akhir', {
     ],
 });
 
-Highcharts.chart('trend-ccr', {
+$('#export-soakhir.menu-chart-custom ul li').click(function(event) {
+    event.stopPropagation()
+    var idParent = $(this).parent('#dash-soakhir').attr('id')
+    var jenis = $(this).text()
+    
+    if(jenis == 'View in full screen') {
+        soakhirChart.update({
+            title: {
+                text: `Saldo Akhir Piutang`,
+                floating: true,
+                x: 40,
+                y: 20
+            }
+        })
+        soakhirChart.fullscreen.toggle();
+    } else if(jenis == 'Print chart') {
+        soakhirChart.print()
+    } else if(jenis == 'Download PNG image') {
+        soakhirChart.exportChart({
+            type: 'image/png',
+            filename: 'chart-png'
+        }, {
+            title: {
+                text: `Saldo Akhir Piutang`,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download JPEG image') {
+        soakhirChart.exportChart({
+            type: 'image/jpeg',
+            filename: 'chart-jpg'
+        }, {
+            title: {
+                text: `Saldo Akhir Piutang`,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download PDF document') {
+        soakhirChart.exportChart({
+            type: 'application/pdf',
+            filename: 'chart-pdf'
+        }, {
+            title: {
+                text: `Saldo Akhir Piutang`,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download SVG vector image') {
+        soakhirChart.exportChart({
+            type: 'image/svg+xml',
+            filename: 'chart-svg'
+        }, {
+            title: {
+                text: `Saldo Akhir Piutang`,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'View table data') {
+        $(this).text('Hide table data')
+        soakhirChart.viewData()
+        var cek = $('#'+idParent+'.highcharts-data-table table').hasClass('table table-bordered table-no-padding')
+        if(!cek) {
+            $('.highcharts-data-table table').addClass('table table-bordered table-no-padding')
+        }
+        $("body").css("overflow", "scroll");
+    } else if(jenis == 'Hide table data') {
+        $(this).text('View table data')
+        $('.highcharts-data-table').hide()
+        $("body").css("overflow", "hidden");
+    }
+})
+
+var trendChart = Highcharts.chart('trend-ccr', {
     chart: {
         type: 'spline',
         height: 230,
@@ -538,4 +974,84 @@ Highcharts.chart('trend-ccr', {
         },
     ],
 });
+
+$('#export-trend.menu-chart-custom ul li').click(function(event) {
+    event.stopPropagation()
+    var idParent = $(this).parent('#dash-trend').attr('id')
+    var jenis = $(this).text()
+    
+    if(jenis == 'View in full screen') {
+        trendChart.update({
+            title: {
+                text: `Trend CCR`,
+                floating: true,
+                x: 40,
+                y: 20
+            }
+        })
+        trendChart.fullscreen.toggle();
+    } else if(jenis == 'Print chart') {
+        trendChart.print()
+    } else if(jenis == 'Download PNG image') {
+        trendChart.exportChart({
+            type: 'image/png',
+            filename: 'chart-png'
+        }, {
+            title: {
+                text: `Trend CCR`,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download JPEG image') {
+        trendChart.exportChart({
+            type: 'image/jpeg',
+            filename: 'chart-jpg'
+        }, {
+            title: {
+                text: `Trend CCR`,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download PDF document') {
+        trendChart.exportChart({
+            type: 'application/pdf',
+            filename: 'chart-pdf'
+        }, {
+            title: {
+                text: `Trend CCR`,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download SVG vector image') {
+        trendChart.exportChart({
+            type: 'image/svg+xml',
+            filename: 'chart-svg'
+        }, {
+            title: {
+                text: `Trend CCR`,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'View table data') {
+        $(this).text('Hide table data')
+        trendChart.viewData()
+        var cek = $('#'+idParent+'.highcharts-data-table table').hasClass('table table-bordered table-no-padding')
+        if(!cek) {
+            $('.highcharts-data-table table').addClass('table table-bordered table-no-padding')
+        }
+        $("body").css("overflow", "scroll");
+    } else if(jenis == 'Hide table data') {
+        $(this).text('View table data')
+        $('.highcharts-data-table').hide()
+        $("body").css("overflow", "hidden");
+    }
+})
 </script>
