@@ -8,6 +8,9 @@
 .bold-700 {
     font-weight: 700;
 }
+.pb-2 {
+    padding-bottom: 2px;
+}
 .pb-24 {
     padding-bottom: 24px;
 }
@@ -29,8 +32,14 @@
 .pr-0 {
     padding-right: 0;
 }
+.pr-8 {
+    padding-right: 8px;
+}
 .pr-12 {
     padding-right: 12px;
+}
+.pt-2 {
+    padding-top: 2px;
 }
 .pt-8 {
     padding-top: 8px;
@@ -38,9 +47,16 @@
 .pt-16 {
     padding-top: 16px;
 }
+.py-3 {
+    padding-bottom: 3px !important;
+    padding-top: 3px !important;
+}
 .px-0 {
     padding-left: 0;
     padding-right: 0;
+}
+.ml-8 {
+    margin-left: 8px !important;
 }
 .mb-0 {
     margin-bottom: 0;
@@ -62,6 +78,13 @@
 }
 .mt-16 {
     margin-top: 16px;
+}
+.-mt-5 {
+    margin-top: -5px;
+}
+.mx-2 {
+    margin-left: 2px;
+    margin-right: 2px;
 }
 .my-0 {
     margin-top: 0;
@@ -191,7 +214,7 @@
     line-height: 20px;
 }
 @media only screen and (min-width: 1366px) {
-  .card.card-dash .circle-bar .value-circle .text-circle {
+    .card.card-dash .circle-bar .value-circle .text-circle {
         font-size: 14px !important;
         margin-right: 8px;
     }
@@ -245,7 +268,7 @@
 
 /* MENU CHART CUSTOM */
 .menu-chart-custom {
-    heigh   t: 260px;
+    height: 260px;
     width: 200px;
     background-color: #ffffff;
     border: 1px solid rgb(153, 153, 153);
@@ -280,8 +303,45 @@
 }
 /* END HIGHCHART */
 
-/* BOX */
-#pdpt-box {
-    cursor: pointer;
+/* FILTER BOX */
+.header .filter-box {
+    position: absolute;
+    background-color: #ffffff;
+    z-index: 10;
+    top: 48px;
+    right: 16px;
+    height: 220px;
+    width: 380px;
+    border-radius: 15px;
+    box-shadow: 0 1px 15px rgb(0 0 0 / 4%), 0 1px 6px rgb(0 0 0 / 4%);
 }
-/* END BOX */
+.header .filter-box .icon-filter {
+    margin-top: 8px;
+}
+.header .filter-box .icon-filter::before {
+    font-weight: bold;
+}
+.header .filter-box .list-filter-1 ul {
+    list-style: none;
+    margin: 0;
+    padding: 5px 0;
+}
+.header .filter-box .list-filter-1 ul li {
+    cursor: pointer;
+    padding: 2px 8px;
+}
+.header .filter-box .list-filter-1 ul li:hover {
+    background-color: #f3f4f6;
+}
+.header .filter-box .list-filter-1 ul li.selected {
+    background-color: #830000;
+    color: #ffffff;
+}
+.header .filter-box .list-filter-2 div:not(.selected) {
+    background-color: #f3f4f6;
+}
+.header .filter-box .list-filter-2 .selected {
+    background-color: #830000;
+    color: #ffffff;
+}
+/* END FILTER BOX */

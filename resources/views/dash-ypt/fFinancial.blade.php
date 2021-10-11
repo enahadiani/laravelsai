@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="{{ asset('dash-asset/dash-ypt/fp.dekstop.css') }}" />
+<link rel="stylesheet" href="{{ asset('dash-asset/dash-ypt/fp.dekstop.css?version=_').time() }}" />
 
 {{-- DESKTOP --}}
 
@@ -21,7 +21,7 @@
                     <img alt="message-icon" class="icon-message" src="{{ asset('dash-asset/dash-ypt/icon/message.svg') }}">
                 </div>
                 <div class="col-9">
-                    <div class="select-custom row">
+                    <div class="select-custom row cursor-pointer" id="custom-row">
                         <div class="col-2">
                             <img alt="message-icon" class="icon-calendar" src="{{ asset('dash-asset/dash-ypt/icon/calendar.svg') }}">
                         </div>
@@ -30,6 +30,47 @@
                         </div>
                         <div class="col-2">
                             <img alt="calendar-icon" class="icon-drop-arrow" src="{{ asset('dash-asset/dash-ypt/icon/drop-arrow.svg') }}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="filter-box" class="filter-box hidden">
+            <div class="row justify-content-end">
+                <div class="col-7 pt-8 pr-0">
+                    <div class="row">
+                        <div class="col-4 pr-0">
+                            <div class="glyph-icon simple-icon-arrow-left filter-icon cursor-pointer"></div>
+                        </div>
+                        <div class="col-4 -mt-5 pl-0 pr-0" id="year-filter">2021</div>
+                        <div class="col-4 pl-0">
+                            <div class="glyph-icon simple-icon-arrow-right filter-icon cursor-pointer"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-5 list-filter-1" id="list-filter-1">
+                    <ul>
+                        <li class="selected">Triwulan</li>
+                        <li>Semester</li>
+                        <li>Periode</li>
+                    </ul>
+                </div>
+                <div class="col-7 mt-4">
+                    <div class="row list-filter-2" id="list-filter-2">
+                        <div class="col-5 py-3 selected cursor-pointer">
+                            Triwulan 1
+                        </div>
+                        <div class="col-5 ml-8 py-3 cursor-pointer">
+                            Triwulan 2
+                        </div>
+                        <div class="w-100 d-none d-md-block"></div>
+                        <div class="col-5 mt-8 py-3 cursor-pointer">
+                            Triwulan 3
+                        </div>
+                        <div class="col-5 mt-8 ml-8 py-3 cursor-pointer">
+                            Triwulan 4
                         </div>
                     </div>
                 </div>
@@ -596,6 +637,8 @@
 {{-- END DESKTOP --}}
 
 <script type="text/javascript">
+var $filter1 = "Triwulan"
+var $filter2 = "Triwulan 1"
 var $judulChart = null; 
 $(window).on('resize', function(){
     var win = $(this); //this = window
@@ -611,6 +654,7 @@ $(window).on('resize', function(){
 });
 
 $(window).click(function() {
+    $('#filter-box').addClass('hidden')
     $('.menu-chart-custom').addClass('hidden');
     if($(window).height() == 800) {
         $("body").css("overflow", "hidden");
@@ -678,6 +722,25 @@ document.addEventListener('fullscreenchange', (event) => {
     console.log('Leaving full-screen mode.');
   }
 });
+
+$('#custom-row').click(function(event) {
+    event.stopPropagation();
+    $('#filter-box').removeClass('hidden')
+})
+
+$('#list-filter-1 ul li').click(function() {
+    var filter = $(this).text()
+    $filter1 = filter
+    $('#list-filter-1 ul li').not(this).removeClass('selected')
+    $(this).addClass('selected')
+})
+
+$('#list-filter-2 div').click(function() {
+    var filter = $(this).text()
+    $filter2 = filter
+    $('#list-filter-2 div').not(this).removeClass('selected')
+    $(this).addClass('selected')
+})
 
 $('.icon-menu').click(function(event) {
     event.stopPropagation()
@@ -1010,14 +1073,6 @@ var yoyChart = Highcharts.chart('yoy-chart', {
     subtitle: { text: '' },
     exporting:{ 
         enabled: false
-        // buttons: {
-        //     contextButton: {
-        //         align: 'right',
-        //         x: 0,
-        //         y: -10,
-        //         verticalAlign: 'top'
-        //     }
-        // }
     },
     legend:{ 
         enabled: true,
@@ -1157,14 +1212,6 @@ var lembagaChart = Highcharts.chart('lembaga-chart', {
     subtitle: { text: '' },
     exporting:{ 
         enabled: false
-        // buttons: {
-        //     contextButton: {
-        //         align: 'right',
-        //         x: -20,
-        //         y: -10,
-        //         verticalAlign: 'top'
-        //     }
-        // }
     },
     legend:{ enabled: false },
     credits: { enabled: false },
@@ -1313,14 +1360,6 @@ var performChart = Highcharts.chart('perfomansi-chart', {
     subtitle: { text: '' },
     exporting:{ 
         enabled: false
-        // buttons: {
-        //     contextButton: {
-        //         align: 'right',
-        //         x: 0,
-        //         y: -10,
-        //         verticalAlign: 'top'
-        //     }
-        // }
     },
     legend:{  enabled: false },
     credits: { enabled: false },
@@ -1479,14 +1518,6 @@ var shuChart = Highcharts.chart('shu-chart', {
     subtitle: { text: '' },
     exporting:{ 
         enabled: false,
-        // buttons: {
-        //     contextButton: {
-        //         align: 'right',
-        //         x: -20,
-        //         y: -10,
-        //         verticalAlign: 'top'
-        //     }
-        // }
     },
     legend:{ enabled: false },
     credits: { enabled: false },
@@ -1643,14 +1674,6 @@ var bebanChart = Highcharts.chart('beban-chart', {
     subtitle: { text: '' },
     exporting:{ 
         enabled: false,
-        // buttons: {
-        //     contextButton: {
-        //         align: 'right',
-        //         x: -20,
-        //         y: -10,
-        //         verticalAlign: 'top'
-        //     }
-        // }
     },
     legend:{ enabled: false },
     credits: { enabled: false },
@@ -1807,14 +1830,6 @@ var pdptChart = Highcharts.chart('pdpt-chart', {
     subtitle: { text: '' },
     exporting:{ 
         enabled: false,
-        // buttons: {
-        //     contextButton: {
-        //         align: 'right',
-        //         x: -20,
-        //         y: -10,
-        //         verticalAlign: 'top'
-        //     }
-        // }
     },
     legend:{ enabled: false },
     credits: { enabled: false },
@@ -1971,14 +1986,6 @@ var lrChart = Highcharts.chart('lr-chart', {
     },
     exporting:{ 
         enabled: false,
-        // buttons: {
-        //     contextButton: {
-        //         align: 'right',
-        //         x: 0,
-        //         y: -10,
-        //         verticalAlign: 'top'
-        //     }
-        // }
     },
     title: {
         text: ''
