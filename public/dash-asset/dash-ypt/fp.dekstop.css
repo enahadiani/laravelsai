@@ -190,6 +190,12 @@
     font-size: 14px !important;
     line-height: 20px;
 }
+@media only screen and (min-width: 1366px) {
+  .card.card-dash .circle-bar .value-circle .text-circle {
+        font-size: 14px !important;
+        margin-right: 8px;
+    }
+}
 /* END CARD */
 
 /* TABLE */
