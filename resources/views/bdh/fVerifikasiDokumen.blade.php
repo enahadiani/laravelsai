@@ -875,9 +875,6 @@
         });
     });
 
-
-
-
     // CBBL Form
     $('#form-tambah').on('click', '.search-item2', function() {
         var id = $(this).closest('div').find('input').attr('name');
@@ -1119,10 +1116,6 @@
             type:'hapus'
         });
     });
-
-
-
-
 
     // PREVIEW DATA
     $('#table-data tbody').on('click','td',function(e){

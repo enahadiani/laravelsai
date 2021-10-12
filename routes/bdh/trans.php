@@ -53,6 +53,20 @@ Route::get('/serah-dok-nik', 'Bdh\SerahTerimaDokOnController@getPenerima');
 Route::get('/serah-dok-detail', 'Bdh\SerahTerimaDokOnController@show');
 Route::post('/serah-dok', 'Bdh\SerahTerimaDokOnController@store');
 
+// Approval Droping Dana
+Route::get('/droping-app', 'Bdh\AppDropingController@index');
+Route::get('/droping-app-aju', 'Bdh\AppDropingController@getFilter');
+Route::get('/droping-app/{id}', 'Bdh\AppDropingController@getDroping');
+Route::get('/droping-app-detail', 'Bdh\AppDropingController@show');
+
+
+
+// Verifikasi Dokumen
+Route::get('/ver-dok', 'Bdh\VerDokController@index');
+Route::get('/ver-dok-nobukti', 'Bdh\VerDokController@generateKode');
+Route::get('/ver-dok-pb', 'Bdh\VerDokController@getPb');
+Route::get('/ver-dok-detail', 'Bdh\VerDokController@LoadData');
+Route::post('/ver-dok', 'Bdh\VerDokController@store');
 
 // SPB
 Route::get('/spb', 'Bdh\SpbController@index');
@@ -77,10 +91,3 @@ Route::get('/bayar-spb-nobukti', 'Bdh\PemSpbController@GenerateBukti');
 Route::get('/bayar-spb-akun', 'Bdh\PemSpbController@getAkun');
 Route::get('/bayar-spb-pp', 'Bdh\PemSpbController@getPP');
 Route::get('/bayar-spb-akun-kasbank', 'Bdh\PemSpbController@getKasBank');
-
-// Verifikasi Dokumen
-Route::get('/ver-dok', 'Bdh\VerDokController@index');
-Route::get('/ver-dok-nobukti', 'Bdh\VerDokController@generateKode');
-Route::get('/ver-dok-pb', 'Bdh\VerDokController@getPb');
-Route::get('/ver-dok-detail', 'Bdh\VerDokController@LoadData');
-Route::post('/ver-dok', 'Bdh\VerDokController@store');

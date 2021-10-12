@@ -915,6 +915,7 @@
                     if (result.value) {
                         $('#saku-datatable').show();
                         $('#saku-form').hide();
+                        $('#form-filter').show();
                         if($('#saku-form-upload').length > 0){
                             $('#saku-form-upload').hide();
                         }
@@ -1324,7 +1325,7 @@
             return false;
         }else{
             loadForm(url);
-            
+
         }
     });
 
