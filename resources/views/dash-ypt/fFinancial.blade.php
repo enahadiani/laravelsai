@@ -26,7 +26,7 @@
                             <img alt="message-icon" class="icon-calendar" src="{{ asset('dash-asset/dash-ypt/icon/calendar.svg') }}">
                         </div>
                         <div class="col-8">
-                            <p id="select-text" class="select-text">TRIWULAN I || 2021</p>
+                            <p id="select-text-fp" class="select-text">TRIWULAN I || 2021</p>
                         </div>
                         <div class="col-2">
                             <img alt="calendar-icon" class="icon-drop-arrow" src="{{ asset('dash-asset/dash-ypt/icon/drop-arrow.svg') }}">
@@ -639,7 +639,7 @@
 <script type="text/javascript">
 var $tahun = parseInt($('#year-filter').text())
 var $filter1 = "Triwulan"
-var $filter2 = "Triwulan 1"
+var $filter2 = "Triwulan I"
 var $judulChart = null; 
 $(window).on('resize', function(){
     var win = $(this); //this = window
@@ -667,7 +667,7 @@ $(window).click(function() {
         $("body").css("overflow", "scroll");
     }
 
-    $('#select-text').text(`${$filter2.toUpperCase()} || ${$tahun}`)
+    $('#select-text-fp').text(`${$filter2.toUpperCase()} || ${$tahun}`)
 })
 
 
