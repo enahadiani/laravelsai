@@ -55,9 +55,10 @@
                         <li class="selected">Triwulan</li>
                         <li>Semester</li>
                         <li>Periode</li>
+                        <li>Year to Date</li>
                     </ul>
                 </div>
-                <div class="col-7 mt-4">
+                <div class="col-7 mt-4 mb-6">
                     <div class="row list-filter-2" id="list-filter-2">
                         <div class="col-5 py-3 selected cursor-pointer">
                             Triwulan I
@@ -664,11 +665,13 @@
 
 {{-- END DESKTOP --}}
 
+<script src="{{ asset('main.js') }}"></script>
 <script src="{{ asset('dash-asset/dash-ypt/dragging.js') }}"></script>
 <script type="text/javascript">
 var $tahun = parseInt($('#year-filter').text())
-var $filter1 = "Triwulan"
-var $filter2 = "Triwulan I"
+var $filter1 = "Triwulan";
+var $filter2 = "Triwulan I";
+var $month = "{{ date('m') }}";
 var $judulChart = null;
 
 // DRAGGING
@@ -707,6 +710,10 @@ $(window).click(function() {
     }
     if($(window).height() < 800) {
         $("body").css("overflow", "scroll");
+    }
+
+    if($filter2.length == 2) {
+        $filter2 = getNamaBulan($filter2)
     }
 
     $('#select-text-fp').text(`${$filter2.toUpperCase()} || ${$tahun}`)
@@ -818,13 +825,70 @@ $('#list-filter-1 ul li').click(function(event) {
                 Semester II
             </div>
         `;
+    } else if($filter1 == 'Periode') {
+        html += `
+            <div class="col-5 py-3 cursor-pointer list" data-bulan="01">
+                Januari
+            </div>
+            <div class="col-5 ml-8 py-3 cursor-pointer list" data-bulan="02">
+                Februari
+            </div>
+            <div class="w-100 d-none d-md-block"></div>
+            <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="03">
+                Maret
+            </div>
+            <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="04">
+                April
+            </div>
+            <div class="w-100 d-none d-md-block"></div>
+            <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="05">
+                Mei
+            </div>
+            <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="06">
+                Juni
+            </div>
+            <div class="w-100 d-none d-md-block"></div>
+            <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="07">
+                Juli
+            </div>
+            <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="08">
+                Agustus
+            </div>
+            <div class="w-100 d-none d-md-block"></div>
+            <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="09">
+                September
+            </div>
+            <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="10">
+                Oktober
+            </div>
+            <div class="w-100 d-none d-md-block"></div>
+            <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="11">
+                November
+            </div>
+            <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="12">
+                Desember
+            </div>
+        `;
     }
     $('#list-filter-2').append(html)
+
+    if($filter1 == 'Periode') {
+        $('#list-filter-2').find('.list').each(function() {
+            if($(this).data('bulan').toString() == $month) {
+                $(this).addClass('selected')
+                $month = $(this).data('bulan').toString();
+                return false;
+            }
+        })
+    }
 })
 
 $('#list-filter-2').on('click', 'div', function(event) {
     event.stopPropagation();
     var filter = $(this).text()
+    if($(this).data('bulan')) {
+        filter = $(this).data('bulan') 
+    }
     $filter2 = filter
     $('#list-filter-2 div').not(this).removeClass('selected')
     $(this).addClass('selected')
