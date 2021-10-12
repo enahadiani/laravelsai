@@ -573,16 +573,16 @@
     $('#form-tambah').on('click', '.search-item2', function() {
         var id = $(this).closest('div').find('input').attr('name');
         switch(id) {
-            case 'no_pb_aju':
+            case 'akun_mutasi':
                 var settings = {
                     id : id,
                     header : ['Kode', 'Nama'],
-                    url : "{{ url('bdh-trans/ver-dok-pb') }}",
+                    url : "{{ url('bdh-trans/droping-app-akun-mutasi') }}",
                     columns : [
-                        { data: 'no_bukti' },
-                        { data: 'keterangan' }
+                        { data: 'kode_akun' },
+                        { data: 'nama' }
                     ],
-                    judul : "Daftar PB Aju",
+                    judul : "Daftar Akun Mutasi",
                     pilih : "",
                     jTarget1 : "text",
                     jTarget2 : "text",
@@ -932,19 +932,19 @@
             var id = $('#id').val();
 
             if(parameter == "edit"){
-                var url = "{{ url('bdh-trans/spb-ubah') }}";
+                var url = "{{ url('bdh-trans/droping-app-ubah') }}";
                 var pesan = "updated";
                 var text = "Perubahan data "+id+" telah tersimpan";
             }else{
-                var url = "{{ url('bdh-trans/spb') }}";
+                var url = "{{ url('bdh-trans/droping-app') }}";
                 var pesan = "saved";
                 var text = "Data tersimpan";
             }
 
             var formData = new FormData(form);
-            $('#pemberi-grid tbody tr').each(function(index) {
-                formData.append('no_pemberi[]', $(this).find('.no-pemberi').text())
-            })
+            // $('#pemberi-grid tbody tr').each(function(index) {
+            //     formData.append('no_pemberi[]', $(this).find('.no-pemberi').text())
+            // })
 
 
             if(parameter == "edit") {
@@ -955,47 +955,47 @@
                 console.log(pair[0]+ ', '+ pair[1]);
             }
 
-                $.ajax({
-                    type: 'POST',
-                    url: url,
-                    dataType: 'json',
-                    data: formData,
-                    async:false,
-                    contentType: false,
-                    cache: false,
-                    processData: false,
-                    success:function(result){
-                        if(result.data.success.status){
-                            dataTable.ajax.reload();
-                            $('#row-id').hide();
-                            $('#form-tambah')[0].reset();
-                            $('#form-tambah').validate().resetForm();
-                            $('[id^=label]').html('');
-                            $('#id_edit').val('');
-                            $('#judul-form').html('SPB');
-                            $('#method').val('post');
-                            resetForm();
-                            msgDialog({
-                                id:result.data.no_bukti,
-                                type:'simpan'
-                            });
-                            last_add("no_pdrk",result.data.no_bukti);
-                        }else if(!result.data.status && result.data.message === "Unauthorized"){
-                            window.location.href = "{{ url('/bdh-auth/sesi-habis') }}";
-                        }else{
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Oops...',
-                                text: 'Something went wrong!',
-                                footer: '<a href>'+result.data.message+'</a>'
-                            })
-                        }
-                    },
-                    fail: function(xhr, textStatus, errorThrown){
-                        alert('request failed:'+textStatus);
+            $.ajax({
+                type: 'POST',
+                url: url,
+                dataType: 'json',
+                data: formData,
+                async:false,
+                contentType: false,
+                cache: false,
+                processData: false,
+                success:function(result){
+                    if(result.data.success.status){
+                        dataTable.ajax.reload();
+                        $('#row-id').hide();
+                        $('#form-tambah')[0].reset();
+                        $('#form-tambah').validate().resetForm();
+                        $('[id^=label]').html('');
+                        $('#id_edit').val('');
+                        $('#judul-form').html('SPB');
+                        $('#method').val('post');
+                        resetForm();
+                        msgDialog({
+                            id:result.data.no_bukti,
+                            type:'simpan'
+                        });
+                        last_add("no_pdrk",result.data.no_bukti);
+                    }else if(!result.data.status && result.data.message === "Unauthorized"){
+                        window.location.href = "{{ url('/bdh-auth/sesi-habis') }}";
+                    }else{
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Something went wrong!',
+                            footer: '<a href>'+result.data.message+'</a>'
+                        });
                     }
-                });
-                $('#btn-simpan').html("Simpan").removeAttr('disabled');
+                },
+                fail: function(xhr, textStatus, errorThrown){
+                     alert('request failed:'+textStatus);
+                }
+            });
+            $('#btn-simpan').html("Simpan").removeAttr('disabled');
 
         },
         errorPlacement: function (error, element) {

@@ -56,8 +56,10 @@ Route::post('/serah-dok', 'Bdh\SerahTerimaDokOnController@store');
 // Approval Droping Dana
 Route::get('/droping-app', 'Bdh\AppDropingController@index');
 Route::get('/droping-app-aju', 'Bdh\AppDropingController@getFilter');
+Route::get('/droping-app-akun-mutasi', 'Bdh\AppDropingController@getAkun');
 Route::get('/droping-app/{id}', 'Bdh\AppDropingController@getDroping');
 Route::get('/droping-app-detail', 'Bdh\AppDropingController@show');
+Route::post('/droping-app', 'Bdh\AppDropingController@store');
 
 
 
