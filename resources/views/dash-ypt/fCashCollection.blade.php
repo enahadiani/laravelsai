@@ -390,6 +390,16 @@ var $month = "{{ date('m') }}";
 
 $('#select-text-ccr').text(`${$filter2.toUpperCase()} ${$tahun}`)
 
+if($filter1 == 'Periode') {
+    $('#list-filter-2').find('.list').each(function() {
+        if($(this).data('bulan').toString() == $month) {
+            $(this).addClass('selected')
+            $month = $(this).data('bulan').toString();
+            return false;
+        }
+    })
+}
+
 $(window).on('resize', function(){
     var win = $(this); //this = window
     if (win.height() == 800) { 

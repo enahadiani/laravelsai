@@ -45,8 +45,18 @@
     padding-left: 0;
     padding-right: 0;
 }
+.py-3 {
+    padding-bottom: 3px !important;
+    padding-top: 3px !important;
+}
 .mb-0 {
     margin-bottom: 0;
+}
+.mb-6 {
+    margin-bottom: 6px !important;
+}
+.ml-8 {
+    margin-left: 8px !important;
 }
 .mt-4 {
     margin-top: 4px !important;
@@ -303,3 +313,46 @@ input:checked ~ .text {
     color: #ffffff;
 }
 /* END MENU CHART CUSTOM */
+
+/* FILTER BOX */
+.header .filter-box {
+    position: absolute;
+    background-color: #ffffff;
+    z-index: 10;
+    top: 48px;
+    right: 16px;
+    min-height: 220px;
+    width: 380px;
+    border-radius: 15px;
+    box-shadow: 0 1px 15px rgb(0 0 0 / 4%), 0 1px 6px rgb(0 0 0 / 4%);
+}
+.header .filter-box .icon-filter {
+    margin-top: 8px;
+}
+.header .filter-box .icon-filter::before {
+    font-weight: bold;
+}
+.header .filter-box .list-filter-1 ul {
+    list-style: none;
+    margin: 0;
+    padding: 5px 0;
+}
+.header .filter-box .list-filter-1 ul li {
+    cursor: pointer;
+    padding: 2px 8px;
+}
+.header .filter-box .list-filter-1 ul li:hover {
+    background-color: #f3f4f6;
+}
+.header .filter-box .list-filter-1 ul li.selected {
+    background-color: #830000;
+    color: #ffffff;
+}
+.header .filter-box .list-filter-2 div:not(.selected) {
+    background-color: #f3f4f6;
+}
+.header .filter-box .list-filter-2 .selected {
+    background-color: #830000;
+    color: #ffffff;
+}
+/* END FILTER BOX */
