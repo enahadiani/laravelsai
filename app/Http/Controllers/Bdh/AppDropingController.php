@@ -178,68 +178,94 @@ class AppDropingController extends Controller
             'tanggal'           => 'required',
             'status'            => 'required',
             'deskripsi'         => 'required',
-            'status_dok'        => 'required|array',
-            'kode_dok_check'    => 'required|array',
-            'catatan_dok'       => 'required|array',
+            'no_bukti'          => 'required',
+            'kode_pp'           => 'required',
+            'lokasi'            => 'required',
+            'modul'             => 'required',
+            'total_approve'     => 'required',
+            'akun_mutasi'       => 'required',
+            'bank'              => 'required',
+            'no_rek'            => 'required',
+            'no_rek'            => 'required',
+            'nama_rek'          => 'required',
+            'nilai_usul'        => 'required|array',
+            'nilai_app'         => 'required|array',
+            'nu'                => 'required|array',
         ]);
         try {
             $send_data = array();
 
             $fields = [
                 [
-                    'name' => 'tanggal',
-                    'contents' => $this->reverseDate($request->tanggal, '/', '-'),
+                    'name'      => 'tanggal',
+                    'contents'  => $this->reverseDate($request->tanggal, '/', '-'),
                 ],
                 [
-                    'name' => 'no_pb',
-                    'contents' => $request->no_pb_aju,
+                    'name'      => 'status',
+                    'contents'  => $request->status
                 ],
                 [
-                    'name' => 'modul',
-                    'contents' => $request->modul,
+                    'name'      => 'catatan',
+                    'contents'  => $request->deskripsi
                 ],
                 [
-                    'name' => 'memo',
-                    'contents' => $request->deskripsi,
+                    'name'      => 'no_aju',
+                    'contents'  => $request->no_bukti
                 ],
                 [
-                    'name' => 'status',
-                    'contents' => $request->status,
+                    'name'      => 'kode_pp_bukti',
+                    'contents'  => $request->kode_pp
+                ],
+                [
+                    'name'      => 'lokasi_asal',
+                    'contents'  => $request->lokasi
+                ],
+                [
+                    'name'      => 'modul',
+                    'contents'  => $request->modul,
+                ],
+                [
+                    'name'      => 'total_approve',
+                    'contents'  => intval(preg_replace("/[^0-9]/", "", $request->total_approve))
+                ],
+                [
+                    'name'      => 'akun_mutasi',
+                    'contents'  => $request->akun_mutasi,
+                ],
+                [
+                    'name'      => 'bank',
+                    'contents'  => $request->bank,
+                ],
+                [
+                    'name'      => 'no_rek',
+                    'contents'  => $request->no_rek,
+                ],
+                [
+                    'name'      => 'nama_rek',
+                    'contents'  => $request->nama_rek,
                 ]
             ];
+            $fields_nilai_app = array();
+            $fields_id = array();
 
-            $fields_status = array();
-            $fields_kode_dok = array();
-            $fields_catatan_dok = array();
-
-
-            if (count($request->status_dok) > 0) {
-                for ($y = 0; $y < count($request->status_dok); $y++) {
-                    $fields_status[$y] = array(
-                        'name'      => 'status_dok[]',
-                        'contents'  => $request->status_dok[$y]
+            if (count($request->kode_akun) > 0) {
+                for ($y = 0; $y < count($request->kode_akun); $y++) {
+                    $fields_nilai_app[$y] = array(
+                        'name'      => 'nilai_app[]',
+                        'contents'  => $request->nilai_app[$y]
                     );
-                    $fields_kode_dok[$y] = array(
-                        'name'      => 'kode_dok[]',
-                        'contents'  => $request->kode_dok_check[$y]
+                    $fields_id[$y] = array(
+                        'name'      => 'id[]',
+                        'contents'  => $request->nu[$y]
                     );
-                    $fields_catatan_dok[$y] = array(
-                        'name'      => 'catatan_dok[]',
-                        'contents'  => $request->catatan_dok[$y]
-                    );
-
-                    $send_data = array_merge($fields, $fields_status);
-                    $send_data = array_merge($send_data, $fields_kode_dok);
-                    $send_data = array_merge($send_data, $fields_catatan_dok);
+                    $send_data = array_merge($fields, $fields_nilai_app);
+                    $send_data = array_merge($send_data, $fields_id);
                 }
             } else {
                 $send_data = $fields;
             }
-
-
-
             $client = new Client();
-            $response = $client->request('POST',  config('api.url') . 'bdh-trans/ver-dok', [
+            $response = $client->request('POST',  config('api.url') . 'bdh-trans/droping-app', [
                 'headers' => [
                     'Authorization' => 'Bearer ' . Session::get('token'),
                     'Accept'     => 'application/json',

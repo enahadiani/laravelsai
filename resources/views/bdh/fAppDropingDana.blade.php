@@ -224,6 +224,8 @@
                                 <div class="col-md-12 col-sm-12">
                                     <label for="pp_unit">PP / Unit</label>
                                     <input type="text" name="pp_unit" id="pp_unit" class="form-control" readonly>
+                                    <input type="hidden" class="form-control inp-kode_pp" id="kode_pp" value="" name="kode_pp">
+                                    <input type="hidden" class="form-control inp-lokasi" name="lokasi" id="lokasi" value="">
                                 </div>
                                 <div class="col-md-12 col-sm-12">
                                     <label for="deskripsi_m">Deskripsi</label>
@@ -705,6 +707,8 @@
                 $('#form-tambah #pembuat_m').val(data_m[0].pembuat);
                 $("textarea#deskripsi").val(data.memo);
                 $("#form-tambah #modul").val(data_m[0].modul);
+                $("#form-tambah #kode_pp").val(data_m[0].kode_pp);
+                $("#form-tambah #lokasi").val(data_m[0].kode_lokasi);
                 for (let i = 0; i < data_jurnal.length; i++) {
                     var no=$('#jurnal-grid .row-jurnal:last').index();
                     no=no+2;
@@ -965,7 +969,7 @@
                 cache: false,
                 processData: false,
                 success:function(result){
-                    if(result.data.success.status){
+                    if(result.data.status){
                         dataTable.ajax.reload();
                         $('#row-id').hide();
                         $('#form-tambah')[0].reset();
