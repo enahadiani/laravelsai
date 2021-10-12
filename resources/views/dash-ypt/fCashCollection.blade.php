@@ -21,7 +21,7 @@
                     <img alt="message-icon" class="icon-message" src="{{ asset('dash-asset/dash-ypt/icon/message.svg') }}">
                 </div> --}}
                 <div class="col-12">
-                    <div class="select-custom row">
+                    <div class="select-custom row cursor-pointer" id="custom-row">
                         <div class="col-2">
                             <img alt="message-icon" class="icon-calendar" src="{{ asset('dash-asset/dash-ypt/icon/calendar.svg') }}">
                         </div>
@@ -30,6 +30,73 @@
                         </div>
                         <div class="col-2">
                             <img alt="calendar-icon" class="icon-drop-arrow" src="{{ asset('dash-asset/dash-ypt/icon/drop-arrow.svg') }}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="filter-box" class="filter-box hidden">
+            <div class="row justify-content-end">
+                <div class="col-7 pt-8 pr-0">
+                    <div class="row">
+                        <div class="col-4 pr-0">
+                            <div id="kurang-tahun" class="glyph-icon simple-icon-arrow-left filter-icon cursor-pointer"></div>
+                        </div>
+                        <div class="col-4 -mt-5 pl-0 pr-0" id="year-filter">{{ date('Y') }}</div>
+                        <div class="col-4 pl-0">
+                            <div id="tambah-tahun" class="glyph-icon simple-icon-arrow-right filter-icon cursor-pointer"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-5 list-filter-1" id="list-filter-1">
+                    <ul>
+                        <li class="selected">Periode</li>
+                    </ul>
+                </div>
+                <div class="col-7 mt-4 mb-6">
+                    <div class="row list-filter-2" id="list-filter-2">
+                        <div class="col-5 py-3 cursor-pointer list" data-bulan="01">
+                            Januari
+                        </div>
+                        <div class="col-5 ml-8 py-3 cursor-pointer list" data-bulan="02">
+                            Februari
+                        </div>
+                        <div class="w-100 d-none d-md-block"></div>
+                        <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="03">
+                            Maret
+                        </div>
+                        <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="04">
+                            April
+                        </div>
+                        <div class="w-100 d-none d-md-block"></div>
+                        <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="05">
+                            Mei
+                        </div>
+                        <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="06">
+                            Juni
+                        </div>
+                        <div class="w-100 d-none d-md-block"></div>
+                        <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="07">
+                            Juli
+                        </div>
+                        <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="08">
+                            Agustus
+                        </div>
+                        <div class="w-100 d-none d-md-block"></div>
+                        <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="09">
+                            September
+                        </div>
+                        <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="10">
+                            Oktober
+                        </div>
+                        <div class="w-100 d-none d-md-block"></div>
+                        <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="11">
+                            November
+                        </div>
+                        <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="12">
+                            Desember
                         </div>
                     </div>
                 </div>
@@ -316,6 +383,13 @@
 {{-- END DEKSTOP --}}
 
 <script type="text/javascript">
+var $tahun = parseInt($('#year-filter').text())
+var $filter1 = "Periode";
+var $filter2 = getNamaBulan("{{ date('m') }}");
+var $month = "{{ date('m') }}";
+
+$('#select-text-ccr').text(`${$filter2.toUpperCase()} ${$tahun}`)
+
 $(window).on('resize', function(){
     var win = $(this); //this = window
     if (win.height() == 800) { 
@@ -330,6 +404,7 @@ $(window).on('resize', function(){
 });
 
 $(window).click(function() {
+    $('#filter-box').addClass('hidden')
     $('.menu-chart-custom').addClass('hidden');
     if($(window).height() == 800) {
         $("body").css("overflow", "hidden");
@@ -340,6 +415,8 @@ $(window).click(function() {
     if($(window).height() < 800) {
         $("body").css("overflow", "scroll");
     }
+
+    $('#select-text-ccr').text(`${$filter2.toUpperCase()} ${$tahun}`)
 })
 
 document.addEventListener('fullscreenchange', (event) => {
@@ -400,6 +477,36 @@ document.addEventListener('fullscreenchange', (event) => {
     console.log('Leaving full-screen mode.');
   }
 });
+
+$('#kurang-tahun').click(function(event) {
+    event.stopPropagation();
+    $tahun = $tahun - 1;
+    $('#year-filter').text($tahun);
+})
+
+$('#tambah-tahun').click(function(event) {
+    event.stopPropagation();
+    $tahun = $tahun + 1;
+    $('#year-filter').text($tahun);
+})
+
+$('#custom-row').click(function(event) {
+    event.stopPropagation();
+    $('#filter-box').removeClass('hidden')
+})
+
+$('#list-filter-2').on('click', 'div', function(event) {
+    event.stopPropagation();
+    filter = $(this).data('bulan') 
+    
+    $filter2 = filter
+    $('#list-filter-2 div').not(this).removeClass('selected')
+    $(this).addClass('selected')
+
+    $filter2 = getNamaBulan($filter2)
+
+    $('#select-text-ccr').text(`${$filter2.toUpperCase()} ${$tahun}`)
+})
 
 $('.icon-menu').click(function(event) {
     event.stopPropagation()
