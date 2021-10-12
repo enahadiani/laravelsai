@@ -59,7 +59,9 @@ Route::get('/droping-app-aju', 'Bdh\AppDropingController@getFilter');
 Route::get('/droping-app-akun-mutasi', 'Bdh\AppDropingController@getAkun');
 Route::get('/droping-app/{id}', 'Bdh\AppDropingController@getDroping');
 Route::get('/droping-app-detail', 'Bdh\AppDropingController@show');
+Route::get('/droping-app-detail-edit', 'Bdh\AppDropingController@show2');
 Route::post('/droping-app', 'Bdh\AppDropingController@store');
+Route::post('/droping-app-ubah', 'Bdh\AppDropingController@update');
 
 
 

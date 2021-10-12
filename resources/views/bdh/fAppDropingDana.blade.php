@@ -150,7 +150,7 @@
     <input class="form-control" type="hidden" id="id_edit" name="id_edit">
     <input type="hidden" id="method" name="_method" value="post">
     <input type="hidden" id="id" name="id">
-    <input type="hidden" id="tanggal" name="tanggal">
+    {{-- <input type="hidden" id="tanggal" name="tanggal"> --}}
     <div class="row" id="saku-form" style="display: none">
         <div class="col-sm-12">
             <div class="card">
@@ -166,7 +166,6 @@
                         <div class="form-group col-md-12 col-sm-12">
                            <div class="row">
                                <div class="col-md-4 col-sm-12">
-
                                     <label for="tanggal">Tanggal</label>
                                     <input class='form-control inp-tanggal datepicker' type="text" id="tanggal" name="tanggal" value="{{ date('d/m/Y') }}" required>
                                     <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;" class="simple-icon-calendar date-search"></i>
@@ -769,6 +768,109 @@
         $('#saku-form').show();
     });
 
+    // event btn edit 2
+    $('#saku-datatable').on('click', '#btn-edit2', function(e){
+        var id = $(this).closest('tr').find('td').eq(1).html();
+        var id2 = $(this).closest('tr').find('td').eq(2).html();
+        console.log('btn-edit '+id+' and '+id2);
+        $('#jurnal-grid tbody').empty();
+        $('#dok-grid tbody').empty();
+        $.ajax({
+            type: 'GET',
+            url : '{{url("bdh-trans/droping-app-detail-edit")}}',
+            data: {
+                no_aju : id,
+                no_app : id2
+            },
+            dataType: 'JSON',
+            success: function(res){
+                var data = res.daftar;
+                var data_m = data.data;
+                var data_jurnal = data.data_detail;
+                var data_dok = data.data_dok;
+                var data_rek = data.data_rek;
+                // $('#form-tambah #status').val(data_m[0].status);
+                $('#id_edit').val('edit');
+                $('#id').val(id);
+                $('#method').val('post');
+                $('#form-tambah #status').val(data_m[0].status);
+                $('textarea#deskripsi').val(data_m[0].keterangan);
+                $('#form-tambah #no_bukti').val(data_m[0].no_bukti);
+                $('#form-tambah #no_dokumen').val(data_m[0].no_dokumen);
+                $('#form-tambah #tgl_bukti').val(data_m[0].tgl);
+                $('#form-tambah #pp_unit').val(data_m[0].pp);
+                $('#form-tambah #due_date').val(data_m[0].tgl2);
+                $('#form-tambah #deskripsi_m').val(data_m[0].keterangan);
+                $('#form-tambah #pembuat_m').val(data_m[0].pembuat);
+                $("textarea#deskripsi").val(data.memo);
+                $("#form-tambah #modul").val(data_m[0].modul);
+                $("#form-tambah #kode_pp").val(data_m[0].kode_pp);
+                $("#form-tambah #lokasi").val(data_m[0].kode_lokasi);
+
+                $('#form-tambah #bank').val(data_rek[0].bank);
+                $('#form-tambah #no_rek').val(data_rek[0].no_rek);
+                $('#form-tambah #nama_rek').val(data_rek[0].nama_rek);
+                // showInfoField("akun_mutasi",data_rek[0].akun_kb,line1.nama_akun);
+                for (let i = 0; i < data_jurnal.length; i++) {
+                    var no=$('#jurnal-grid .row-jurnal:last').index();
+                    no=no+2;
+                    var input = "";
+                    input += "<tr class='row-jurnal'>";
+                    input += "<td class='no-jurnal text-center'>"+no+"</td>";
+                    input += "<td><span class='td-kode_akun tdnmakunke"+no+" tooltip-span'>"+data_jurnal[i].kode_akun+"</span><input type='text' name='kode_akun[]' class='form-control inp-kode_akun nmakunke"+no+" hidden'  value='"+data_jurnal[i].kode_akun+"' readonly></td>";
+                    input += "<td><span class='td-nama tdnmakunke"+no+" tooltip-span'>"+data_jurnal[i].nama+"</span><input type='text' name='nama[]' class='form-control inp-nama nmakunke"+no+" hidden'  value='"+data_jurnal[i].nama+"' readonly></td>";
+                    input += "<td><span class='td-ket tdketke"+no+" tooltip-span'>"+data_jurnal[i].keterangan+"</span><input type='text' name='keterangan[]' class='form-control inp-ket ketke"+no+" hidden'  value='"+data_jurnal[i].keterangan+"' required></td>";
+                    input += "<td class='text-right'><span class='td-nilai_usul tdnilusulke"+no+" tooltip-span'>"+format_number(data_jurnal[i].nilai_usul)+"</span><input type='text' name='nilai_usul[]' class='form-control inp-nilai_usul nilke"+no+" hidden'  value='"+format_number(data_jurnal[i].nilai_usul)+"' required></td>";
+                    input += "<td class='text-right'><span class='td-nilai_app tdnilappke"+no+" tooltip-span'>"+format_number(data_jurnal[i].nilai_app)+"</span><input type='text' name='nilai_app[]' class='form-control inp-nilai_app nilappke"+no+" hidden'  value='"+format_number(data_jurnal[i].nilai_app)+"' required></td>";
+                    input += "<td><span class='td-nu tdnunke"+no+" tooltip-span'>"+data_jurnal[i].nu+"</span><input type='text' name='nu[]' class='form-control inp-nu nunke"+no+" hidden'  value='"+data_jurnal[i].nu+"' readonly></td>";
+
+                    input += "</tr>";
+                }
+                $('#jurnal-grid tbody').append(input);
+                hideUnselectedRowJurnal();
+                $('.tooltip-span').tooltip({
+                    title: function(){
+                        return $(this).text();
+                    }
+                });
+                $('.nilappke'+no).inputmask("numeric", {
+                    radixPoint: ",",
+                    groupSeparator: ".",
+                    digits: 2,
+                    autoGroup: true,
+                    rightAlign: true,
+                    oncleared: function () { self.Value(''); }
+                });
+                hitungTotalRowJurnal();
+                hitungTotal();
+                // jurnal grid edit
+
+                var no_dok = 1;
+                var html_dok = '';
+                for (let r = 0; r < data_dok.length; r++) {
+                    var dok = "{{ config('api.url').'bdh-auth/storage' }}/"+data_dok[r].no_gambar;
+                    html_dok += `<tr>
+                        <td>`+no_dok+`</td>
+                        <td>`+data_dok[r].kode_jenis+`</td>
+                        <td>`+data_dok[r].nama+`</td>
+                        <td>`+data_dok[r].no_gambar+`</td>
+
+                        <td class='text-center'>
+                            <a href="`+dok+`" target='_blank' class="text-primary"><i class='simple-icon-cloud-download'></i></a>
+                        </td>
+                    </tr>`;
+                    no_dok++;
+                }
+                $('#dok-grid >tbody').html(html_dok);
+
+            }
+        });
+
+        $('#saku-datatable').hide();
+        $('#form-filter').hide();
+        $('#saku-form').show();
+    });
+
     $('#jurnal-grid').on('change', '.inp-nilai_app', function(e){
         console.log("HItung Total After Change");
         hitungTotal();
@@ -938,9 +1040,11 @@
             if(parameter == "edit"){
                 var url = "{{ url('bdh-trans/droping-app-ubah') }}";
                 var pesan = "updated";
+                var method = 'POST';
                 var text = "Perubahan data "+id+" telah tersimpan";
             }else{
                 var url = "{{ url('bdh-trans/droping-app') }}";
+                var method = 'POST';
                 var pesan = "saved";
                 var text = "Data tersimpan";
             }
@@ -951,9 +1055,9 @@
             // })
 
 
-            if(parameter == "edit") {
-                formData.append('no_bukti', id)
-            }
+            // if(parameter == "edit") {
+            //     formData.append('no_bukti', id)
+            // }
 
             for(var pair of formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]);
