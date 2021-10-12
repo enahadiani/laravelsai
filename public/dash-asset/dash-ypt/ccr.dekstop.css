@@ -38,12 +38,22 @@
 .pt-16 {
     padding-top: 16px;
 }
+.py-3 {
+    padding-bottom: 3px !important;
+    padding-top: 3px !important;
+}
 .px-0 {
     padding-left: 0;
     padding-right: 0;
 }
 .mb-0 {
     margin-bottom: 0;
+}
+.mb-6 {
+    margin-bottom: 6px !important;
+}
+.ml-8 {
+    margin-left: 8px !important;
 }
 .mt-4 {
     margin-top: 4px !important;
@@ -105,6 +115,12 @@
 .bg-red {
     background-color: #830000 !important;
 }
+.bg-red-100 {
+    background-color: #ee0000 !important;
+}
+.bg-green {
+    background-color: #00bb4d !important;
+}
 /* END GLOBAL */
 
 /* HEADER */
@@ -141,7 +157,7 @@
     margin-top: 16px;
 }
 .header .select-custom .select-text {
-    font-size: 16px !important;
+    font-size: 14px !important;
     margin-top: 10px;
     margin-bottom: 0 !important;
     font-weight: 300;
@@ -160,6 +176,15 @@
     margin-top: 4px;
     margin-right: 4px;
 }
+.card.card-dash .header-div .icon-menu {
+    float: right;
+    margin-top: 4px;
+    margin-right: 8px;
+    cursor: pointer;
+}
+.card.card-dash .header-div .icon-menu::before {
+    font-weight: bold;
+}
 .card.card-dash .header-card {
     font-size: 16px !important;
     margin-bottom: 0;
@@ -177,11 +202,25 @@
 /* END CARD */
 
 /* TABLE */
+.table.table-ml-24 {
+    margin-left: 24px;
+}
 .table.table-py-0 tbody tr td {
     padding: 0 12px;
 }
+.table.table-px-0 tbody tr td {
+    padding: 0;
+}
 .table.table-py-2 tbody tr td {
     padding: 2px 12px;
+}
+.table.table-no-padding thead tr th,
+.table.table-no-padding tbody tr th,
+.table.table-no-padding tbody tr td {
+    padding: 0 12px;
+}
+.highcharts-data-table table caption {
+    display: none;
 }
 /* END TABLE */
 
@@ -252,3 +291,82 @@ input[type="checkbox"]:checked ~ .container-checkbox-filter-text {
     transform: rotate(45deg);
 }
 /* END CHECKBOX */
+
+/* LEGEND */
+.circle-legend {
+    margin-top: 4px;
+    height: 12px;
+    width: 12px;
+    border-radius: 100%;
+}
+/* END LEGEND */
+
+/* MENU CHART CUSTOM */
+.menu-chart-custom {
+    heigh   t: 260px;
+    width: 200px;
+    background-color: #ffffff;
+    border: 1px solid rgb(153, 153, 153);
+    border-radius: 4px;
+    position: absolute;
+    z-index: 10;
+    top: 28px;
+    right: 20px;
+}
+.menu-chart-custom ul {
+    list-style: none;
+    margin: 0;
+    padding: 5px 0;
+}
+.menu-chart-custom ul li {
+    cursor: pointer;
+    padding: 4px 16px;
+}
+.menu-chart-custom ul li:hover {
+    background-color: rgb(51, 92, 173);
+    color: #ffffff;
+}
+/* END MENU CHART CUSTOM */
+
+/* FILTER BOX */
+.header .filter-box {
+    position: absolute;
+    background-color: #ffffff;
+    z-index: 10;
+    top: 48px;
+    right: 16px;
+    min-height: 220px;
+    width: 380px;
+    border-radius: 15px;
+    box-shadow: 0 1px 15px rgb(0 0 0 / 4%), 0 1px 6px rgb(0 0 0 / 4%);
+}
+.header .filter-box .icon-filter {
+    margin-top: 8px;
+}
+.header .filter-box .icon-filter::before {
+    font-weight: bold;
+}
+.header .filter-box .list-filter-1 ul {
+    list-style: none;
+    margin: 0;
+    padding: 5px 0;
+}
+.header .filter-box .list-filter-1 ul li {
+    cursor: pointer;
+    padding: 2px 8px;
+}
+.header .filter-box .list-filter-1 ul li:hover {
+    background-color: #f3f4f6;
+}
+.header .filter-box .list-filter-1 ul li.selected {
+    background-color: #830000;
+    color: #ffffff;
+}
+.header .filter-box .list-filter-2 div:not(.selected) {
+    background-color: #f3f4f6;
+}
+.header .filter-box .list-filter-2 .selected {
+    background-color: #830000;
+    color: #ffffff;
+}
+/* END FILTER BOX */

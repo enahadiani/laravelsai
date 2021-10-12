@@ -17,19 +17,86 @@
         </div>
         <div class="col-4 pr-0">
             <div class="row">
-                <div class="col-3 pr-0 message-div">
+                {{-- <div class="col-3 pr-0 message-div">
                     <img alt="message-icon" class="icon-message" src="{{ asset('dash-asset/dash-ypt/icon/message.svg') }}">
-                </div>
-                <div class="col-9">
-                    <div class="select-custom row">
+                </div> --}}
+                <div class="col-12">
+                    <div class="select-custom row cursor-pointer" id="custom-row">
                         <div class="col-2">
                             <img alt="message-icon" class="icon-calendar" src="{{ asset('dash-asset/dash-ypt/icon/calendar.svg') }}">
                         </div>
                         <div class="col-8">
-                            <p id="select-text" class="select-text">September 2021</p>
+                            <p id="select-text-ccr" class="select-text">September 2021</p>
                         </div>
                         <div class="col-2">
                             <img alt="calendar-icon" class="icon-drop-arrow" src="{{ asset('dash-asset/dash-ypt/icon/drop-arrow.svg') }}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="filter-box" class="filter-box hidden">
+            <div class="row justify-content-end">
+                <div class="col-7 pt-8 pr-0">
+                    <div class="row">
+                        <div class="col-4 pr-0">
+                            <div id="kurang-tahun" class="glyph-icon simple-icon-arrow-left filter-icon cursor-pointer"></div>
+                        </div>
+                        <div class="col-4 -mt-5 pl-0 pr-0" id="year-filter">{{ date('Y') }}</div>
+                        <div class="col-4 pl-0">
+                            <div id="tambah-tahun" class="glyph-icon simple-icon-arrow-right filter-icon cursor-pointer"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-5 list-filter-1" id="list-filter-1">
+                    <ul>
+                        <li class="selected">Periode</li>
+                    </ul>
+                </div>
+                <div class="col-7 mt-4 mb-6">
+                    <div class="row list-filter-2" id="list-filter-2">
+                        <div class="col-5 py-3 cursor-pointer list" data-bulan="01">
+                            Januari
+                        </div>
+                        <div class="col-5 ml-8 py-3 cursor-pointer list" data-bulan="02">
+                            Februari
+                        </div>
+                        <div class="w-100 d-none d-md-block"></div>
+                        <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="03">
+                            Maret
+                        </div>
+                        <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="04">
+                            April
+                        </div>
+                        <div class="w-100 d-none d-md-block"></div>
+                        <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="05">
+                            Mei
+                        </div>
+                        <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="06">
+                            Juni
+                        </div>
+                        <div class="w-100 d-none d-md-block"></div>
+                        <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="07">
+                            Juli
+                        </div>
+                        <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="08">
+                            Agustus
+                        </div>
+                        <div class="w-100 d-none d-md-block"></div>
+                        <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="09">
+                            September
+                        </div>
+                        <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="10">
+                            Oktober
+                        </div>
+                        <div class="w-100 d-none d-md-block"></div>
+                        <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="11">
+                            November
+                        </div>
+                        <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="12">
+                            Desember
                         </div>
                     </div>
                 </div>
@@ -166,30 +233,75 @@
         <div class="col-6 pl-12 pr-0">
             <div class="row">
                 <div class="col-12">
-                    <div class="card card-dash">
-                        <div class="row header-div">
+                    <div class="card card-dash" id="dash-trend">
+                        <div class="row header-div" id="card-trend">
                             <div class="col-9">
                                 <h4 class="header-card">Trend CCR</h4>
+                            </div>
+                            <div class="col-3">
+                                <div class="glyph-icon simple-icon-menu icon-menu"></div>
+                            </div>
+                            <div class="menu-chart-custom hidden" id="export-trend">
+                                <ul>
+                                    <li class="menu-chart-item fullscreen">View in full screen</li>
+                                    <li class="menu-chart-item print">Print chart</li>
+                                    <hr>
+                                    <li class="menu-chart-item print png">Download PNG image</li>
+                                    <li class="menu-chart-item print jpg">Download JPEG image</li>
+                                    <li class="menu-chart-item print pdf">Download PDF document</li>
+                                    <li class="menu-chart-item print svg">Download SVG vector image</li>
+                                    <li class="menu-chart-item print svg">View table data</li>
+                                </ul>
                             </div>
                         </div>
                         <div id="trend-ccr"></div>
                     </div>
                 </div>
                 <div class="col-6 pr-0 mt-4">
-                    <div class="card card-dash">
-                        <div class="row header-div">
+                    <div class="card card-dash" id="dash-piutang">
+                        <div class="row header-div" id="card-piutang">
                             <div class="col-9 pr-0">
                                 <h4 class="header-card">Komposisi Piutang</h4>
+                            </div>
+                            <div class="col-3">
+                                <div class="glyph-icon simple-icon-menu icon-menu"></div>
+                            </div>
+                            <div class="menu-chart-custom hidden" id="export-piutang">
+                                <ul>
+                                    <li class="menu-chart-item fullscreen">View in full screen</li>
+                                    <li class="menu-chart-item print">Print chart</li>
+                                    <hr>
+                                    <li class="menu-chart-item print png">Download PNG image</li>
+                                    <li class="menu-chart-item print jpg">Download JPEG image</li>
+                                    <li class="menu-chart-item print pdf">Download PDF document</li>
+                                    <li class="menu-chart-item print svg">Download SVG vector image</li>
+                                    <li class="menu-chart-item print svg">View table data</li>
+                                </ul>
                             </div>
                         </div>
                         <div id="komposisi-piutang"></div>
                     </div>
                 </div>
                 <div class="col-6 pl-1 mt-4">
-                    <div class="card card-dash">
-                        <div class="row header-div">
+                    <div class="card card-dash" id="dash-soakhir">
+                        <div class="row header-div" id="card-soakhir">
                             <div class="col-9">
                                 <h4 class="header-card">Saldo Akhir Piutang</h4>
+                            </div>
+                            <div class="col-3">
+                                <div class="glyph-icon simple-icon-menu icon-menu"></div>
+                            </div>
+                            <div class="menu-chart-custom hidden" id="export-soakhir">
+                                <ul>
+                                    <li class="menu-chart-item fullscreen">View in full screen</li>
+                                    <li class="menu-chart-item print">Print chart</li>
+                                    <hr>
+                                    <li class="menu-chart-item print png">Download PNG image</li>
+                                    <li class="menu-chart-item print jpg">Download JPEG image</li>
+                                    <li class="menu-chart-item print pdf">Download PDF document</li>
+                                    <li class="menu-chart-item print svg">Download SVG vector image</li>
+                                    <li class="menu-chart-item print svg">View table data</li>
+                                </ul>
                             </div>
                         </div>
                         <div id="saldo-akhir" class="mt-4"></div>
@@ -198,12 +310,42 @@
             </div>
         </div>
         <div class="col-3 pl-1 pr-0">
-            <div class="card card-dash">
-                <div class="row header-div">
+            <div class="card card-dash" id="dash-lembaga">
+                <div class="row header-div" id="card-lembaga">
                     <div class="col-9">
                         <h4 class="header-card">CCR Lembaga</h4>
                     </div>
+                    <div class="col-3">
+                        <div class="glyph-icon simple-icon-menu icon-menu"></div>
+                    </div>
+                    <div class="menu-chart-custom hidden" id="export-lembaga">
+                        <ul>
+                            <li class="menu-chart-item fullscreen">View in full screen</li>
+                            <li class="menu-chart-item print">Print chart</li>
+                            <hr>
+                            <li class="menu-chart-item print png">Download PNG image</li>
+                            <li class="menu-chart-item print jpg">Download JPEG image</li>
+                            <li class="menu-chart-item print pdf">Download PDF document</li>
+                            <li class="menu-chart-item print svg">Download SVG vector image</li>
+                            <li class="menu-chart-item print svg">View table data</li>
+                        </ul>
+                    </div>
                 </div>
+                <div id="ccr-lembaga" class="mt-4"></div>
+                <table class="table table-borderless table-px-0 table-ml-24">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="circle-legend bg-green"></div>
+                            </td>
+                            <td>CCR > 50%</td>
+                            <td>
+                                <div class="circle-legend bg-red-100"></div>
+                            </td>
+                            <td>CCR < 50%</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
         <div class="col-3 pl-1 pr-0">
@@ -241,6 +383,23 @@
 {{-- END DEKSTOP --}}
 
 <script type="text/javascript">
+var $tahun = parseInt($('#year-filter').text())
+var $filter1 = "Periode";
+var $filter2 = getNamaBulan("{{ date('m') }}");
+var $month = "{{ date('m') }}";
+
+$('#select-text-ccr').text(`${$filter2.toUpperCase()} ${$tahun}`)
+
+if($filter1 == 'Periode') {
+    $('#list-filter-2').find('.list').each(function() {
+        if($(this).data('bulan').toString() == $month) {
+            $(this).addClass('selected')
+            $month = $(this).data('bulan').toString();
+            return false;
+        }
+    })
+}
+
 $(window).on('resize', function(){
     var win = $(this); //this = window
     if (win.height() == 800) { 
@@ -254,6 +413,123 @@ $(window).on('resize', function(){
     }
 });
 
+$(window).click(function() {
+    $('#filter-box').addClass('hidden')
+    $('.menu-chart-custom').addClass('hidden');
+    if($(window).height() == 800) {
+        $("body").css("overflow", "hidden");
+    }
+    if($(window).height() > 800) {
+        $("body").css("overflow", "scroll");
+    }
+    if($(window).height() < 800) {
+        $("body").css("overflow", "scroll");
+    }
+
+    $('#select-text-ccr').text(`${$filter2.toUpperCase()} ${$tahun}`)
+})
+
+document.addEventListener('fullscreenchange', (event) => {
+  if (document.fullscreenElement) {
+    console.log(`Element: ${document.fullscreenElement.id} entered full-screen mode.`);
+  } else {
+    trendChart.update({
+        title: {
+            text: ''
+        }
+    })
+
+    piutangChart.update({
+        title: {
+            text: ''
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                center: ['35%', '50%'],
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    distance: -30,
+                    useHTML: true,
+                    align: 'left',
+                    formatter: function () { 
+                        var color = '#000000'
+                        if(this.point.color == '#830000') {
+                            color = '#ffffff'
+                        } else {
+                            color = '#000000'
+                        }
+                        return $('<div/>').css({
+                            'color': color,
+                            'font-size': '9px',
+                            'backgroundColor' : this.point.color
+                        }).text(this.y + '%')[0].outerHTML
+                    }
+                },
+                size: '120%',
+                showInLegend: true
+        }   ,
+        },
+    })
+
+    soakhirChart.update({
+        title: {
+            text: ''
+        }
+    })
+
+    lembagaChart.update({
+        title: {
+            text: ''
+        }
+    })
+    console.log('Leaving full-screen mode.');
+  }
+});
+
+$('#kurang-tahun').click(function(event) {
+    event.stopPropagation();
+    $tahun = $tahun - 1;
+    $('#year-filter').text($tahun);
+})
+
+$('#tambah-tahun').click(function(event) {
+    event.stopPropagation();
+    $tahun = $tahun + 1;
+    $('#year-filter').text($tahun);
+})
+
+$('#custom-row').click(function(event) {
+    event.stopPropagation();
+    $('#filter-box').removeClass('hidden')
+})
+
+$('#list-filter-2').on('click', 'div', function(event) {
+    event.stopPropagation();
+    filter = $(this).data('bulan') 
+    
+    $filter2 = filter
+    $('#list-filter-2 div').not(this).removeClass('selected')
+    $(this).addClass('selected')
+
+    $filter2 = getNamaBulan($filter2)
+
+    $('#select-text-ccr').text(`${$filter2.toUpperCase()} ${$tahun}`)
+})
+
+$('.icon-menu').click(function(event) {
+    event.stopPropagation()
+    var parentID = $(this).parents('.header-div').attr('id')
+    $('#'+parentID).find('.menu-chart-custom').removeClass('hidden')
+
+    if(parentID == 'card-piutang' || parentID == 'card-soakhir') {
+        $("body").css("overflow", "scroll");
+    } else {
+        $("body").css("overflow", "hidden");
+    }
+})
+
 $('.checkbox-input').change(function() {
     var count = $('input.checkbox-input:checked').length;
     var parent = $('input.checkbox-input:checked').parent();
@@ -266,8 +542,177 @@ $('.checkbox-input').change(function() {
     $('#title-dash').text('CCR '+ judul)
 })
 
+var lembagaChart = Highcharts.chart('ccr-lembaga', {
+    chart: {
+        type: 'packedbubble',
+        width: 255,
+        height: 420
+    },
+    legend: {
+        enabled: false
+    },
+    credits: { enabled: false },
+    exporting: {
+        enabled: false
+    },
+    title: {
+        text: ''
+    },
+    subtitle: {
+        text: ''
+    },
+    accessibility: {
+        point: {
+            valueDescriptionFormat: '{index}. {point.name}, fat: {point.x}g, sugar: {point.y}g, obesity: {point.z}%.'
+        }
+    },
+    yAxis: {
+        startOnTick: false,
+        endOnTick: false,
+        title: {
+            text: ''
+        },
+        maxPadding: 0.1,
+    },
+    tooltip: {
+        pointFormat: '{point.name}: <b>{point.x}%</b>'
+    },
+    plotOptions: {
+         packedbubble: {
+            minSize: '30%',
+            maxSize: '120%',
+            zMin: 0,
+            zMax: 1000,
+            layoutAlgorithm: {
+                splitSeries: false,
+                gravitationalConstant: 0.02
+            },
+            dataLabels: {
+                enabled: true,
+                format: '{point.name}',
+                filter: {
+                    property: 'y',
+                    operator: '>',
+                    value: 50
+                },
+                style: {
+                    color: 'white',
+                    textOutline: 'none',
+                    fontWeight: 'normal'
+                }
+            }
+        }
+    },
+    series: [{
+        name: 'CCR',
+        data: [
+            { value:55, name: 'TK'},
+            { value:60, name: 'SD'},
+            { value:70, name: 'AKATEL'},
+            { value:80, name: 'ITTP'},
+            { value:40, name: 'X'},
+            { value:30, name: 'X'},
+            { value:30, name: 'X'},
+            { value:20, name: 'X'},
+        ]
+    }]
+
+}, function() {
+    var series = this.series
+    for(var i=0;i<series.length;i++) {
+        var point = series[i].data
+        for(var j=0;j<point.length;j++) {
+            if(point[j].options.value > 50) {
+                point[j].graphic.element.style.fill = '#EE0000'
+            } else {
+                point[j].graphic.element.style.fill = '#008034'
+            }
+        }
+    }
+});
+
+$('#export-lembaga.menu-chart-custom ul li').click(function(event) {
+    event.stopPropagation()
+    var idParent = $(this).parent('#dash-lembaga').attr('id')
+    var jenis = $(this).text()
+    
+    if(jenis == 'View in full screen') {
+        lembagaChart.update({
+            title: {
+                text: `CCR Lembaga`,
+                floating: true,
+                x: 40,
+                y: 20
+            }
+        })
+        yoyChart.fullscreen.toggle();
+    } else if(jenis == 'Print chart') {
+        lembagaChart.print()
+    } else if(jenis == 'Download PNG image') {
+        lembagaChart.exportChart({
+            type: 'image/png',
+            filename: 'chart-png'
+        }, {
+            title: {
+                text: `CCR Lembaga`,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download JPEG image') {
+        lembagaChart.exportChart({
+            type: 'image/jpeg',
+            filename: 'chart-jpg'
+        }, {
+            title: {
+                text: `CCR Lembaga`,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download PDF document') {
+        lembagaChart.exportChart({
+            type: 'application/pdf',
+            filename: 'chart-pdf'
+        }, {
+            title: {
+                text: `CCR Lembaga`,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download SVG vector image') {
+        lembagaChart.exportChart({
+            type: 'image/svg+xml',
+            filename: 'chart-svg'
+        }, {
+            title: {
+                text: `CCR Lembaga`,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'View table data') {
+        $(this).text('Hide table data')
+        lembagaChart.viewData()
+        var cek = $('#'+idParent+'.highcharts-data-table table').hasClass('table table-bordered table-no-padding')
+        if(!cek) {
+            $('.highcharts-data-table table').addClass('table table-bordered table-no-padding')
+        }
+        $("body").css("overflow", "scroll");
+    } else if(jenis == 'Hide table data') {
+        $(this).text('View table data')
+        $('.highcharts-data-table').hide()
+        $("body").css("overflow", "hidden");
+    }
+})
+
 var colors = ['#EEBE00', '#830000'];
-Highcharts.chart('komposisi-piutang', {
+var piutangChart = Highcharts.chart('komposisi-piutang', {
     chart: {
         plotBackgroundColor: null,
         plotBorderWidth: null,
@@ -353,7 +798,139 @@ function() {
     }
 });
 
-Highcharts.chart('saldo-akhir', {
+$('#export-piutang.menu-chart-custom ul li').click(function(event) {
+    event.stopPropagation()
+    var idParent = $(this).parent('#dash-piutang').attr('id')
+    var jenis = $(this).text()
+    
+    if(jenis == 'View in full screen') {
+        piutangChart.update({
+            title: {
+                text: `Komposisi Piutang`,
+                floating: true,
+                x: 40,
+                y: 20
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    center: ['50%', '50%'],
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        distance: -30,
+                        useHTML: true,
+                        align: 'left',
+                        formatter: function () { 
+                            var color = '#000000'
+                            if(this.point.color == '#830000') {
+                                color = '#ffffff'
+                            } else {
+                                color = '#000000'
+                            }
+                            return $('<div/>').css({
+                                'color': color,
+                                'font-size': '16px',
+                                'backgroundColor' : this.point.color
+                            }).text(this.y + '%')[0].outerHTML
+                        }
+                    },
+                    size: '80%',
+                    showInLegend: true
+                },
+            },
+        })
+        piutangChart.fullscreen.toggle();
+    } else if(jenis == 'Print chart') {
+        piutangChart.print()
+    } else if(jenis == 'Download PNG image') {
+        piutangChart.exportChart({
+            type: 'image/png',
+            filename: 'chart-png'
+        }, {
+            title: {
+                text: `Komposisi Piutang`,
+            },
+            subtitle: {
+                text: ''
+            },
+            plotOptions: {
+                pie: {
+                    size: '100%',
+                    showInLegend: true
+                },
+            },
+        });
+    } else if(jenis == 'Download JPEG image') {
+        piutangChart.exportChart({
+            type: 'image/jpeg',
+            filename: 'chart-jpg'
+        }, {
+            title: {
+                text: `Komposisi Piutang`,
+            },
+            subtitle: {
+                text: ''
+            },
+            plotOptions: {
+                pie: {
+                    size: '100%',
+                    showInLegend: true
+                },
+            },
+        });
+    } else if(jenis == 'Download PDF document') {
+        piutangChart.exportChart({
+            type: 'application/pdf',
+            filename: 'chart-pdf'
+        }, {
+            title: {
+                text: `Komposisi Piutang`,
+            },
+            subtitle: {
+                text: ''
+            },
+            plotOptions: {
+                pie: {
+                    size: '100%',
+                    showInLegend: true
+                },
+            },
+        });
+    } else if(jenis == 'Download SVG vector image') {
+        piutangChart.exportChart({
+            type: 'image/svg+xml',
+            filename: 'chart-svg'
+        }, {
+            title: {
+                text: `Komposisi Piutang`,
+            },
+            subtitle: {
+                text: ''
+            },
+            plotOptions: {
+                pie: {
+                    size: '100%',
+                    showInLegend: true
+                },
+            },
+        });
+    } else if(jenis == 'View table data') {
+        $(this).text('Hide table data')
+        piutangChart.viewData()
+        var cek = $('#'+idParent+'.highcharts-data-table table').hasClass('table table-bordered table-no-padding')
+        if(!cek) {
+            $('.highcharts-data-table table').addClass('table table-bordered table-no-padding')
+        }
+        $("body").css("overflow", "scroll");
+    } else if(jenis == 'Hide table data') {
+        $(this).text('View table data')
+        $('.highcharts-data-table').hide()
+        $("body").css("overflow", "hidden");
+    }
+})
+
+var soakhirChart = Highcharts.chart('saldo-akhir', {
     chart: {
         type: 'column',
         height: 188,
@@ -393,7 +970,87 @@ Highcharts.chart('saldo-akhir', {
     ],
 });
 
-Highcharts.chart('trend-ccr', {
+$('#export-soakhir.menu-chart-custom ul li').click(function(event) {
+    event.stopPropagation()
+    var idParent = $(this).parent('#dash-soakhir').attr('id')
+    var jenis = $(this).text()
+    
+    if(jenis == 'View in full screen') {
+        soakhirChart.update({
+            title: {
+                text: `Saldo Akhir Piutang`,
+                floating: true,
+                x: 40,
+                y: 20
+            }
+        })
+        soakhirChart.fullscreen.toggle();
+    } else if(jenis == 'Print chart') {
+        soakhirChart.print()
+    } else if(jenis == 'Download PNG image') {
+        soakhirChart.exportChart({
+            type: 'image/png',
+            filename: 'chart-png'
+        }, {
+            title: {
+                text: `Saldo Akhir Piutang`,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download JPEG image') {
+        soakhirChart.exportChart({
+            type: 'image/jpeg',
+            filename: 'chart-jpg'
+        }, {
+            title: {
+                text: `Saldo Akhir Piutang`,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download PDF document') {
+        soakhirChart.exportChart({
+            type: 'application/pdf',
+            filename: 'chart-pdf'
+        }, {
+            title: {
+                text: `Saldo Akhir Piutang`,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download SVG vector image') {
+        soakhirChart.exportChart({
+            type: 'image/svg+xml',
+            filename: 'chart-svg'
+        }, {
+            title: {
+                text: `Saldo Akhir Piutang`,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'View table data') {
+        $(this).text('Hide table data')
+        soakhirChart.viewData()
+        var cek = $('#'+idParent+'.highcharts-data-table table').hasClass('table table-bordered table-no-padding')
+        if(!cek) {
+            $('.highcharts-data-table table').addClass('table table-bordered table-no-padding')
+        }
+        $("body").css("overflow", "scroll");
+    } else if(jenis == 'Hide table data') {
+        $(this).text('View table data')
+        $('.highcharts-data-table').hide()
+        $("body").css("overflow", "hidden");
+    }
+})
+
+var trendChart = Highcharts.chart('trend-ccr', {
     chart: {
         type: 'spline',
         height: 230,
@@ -434,4 +1091,84 @@ Highcharts.chart('trend-ccr', {
         },
     ],
 });
+
+$('#export-trend.menu-chart-custom ul li').click(function(event) {
+    event.stopPropagation()
+    var idParent = $(this).parent('#dash-trend').attr('id')
+    var jenis = $(this).text()
+    
+    if(jenis == 'View in full screen') {
+        trendChart.update({
+            title: {
+                text: `Trend CCR`,
+                floating: true,
+                x: 40,
+                y: 20
+            }
+        })
+        trendChart.fullscreen.toggle();
+    } else if(jenis == 'Print chart') {
+        trendChart.print()
+    } else if(jenis == 'Download PNG image') {
+        trendChart.exportChart({
+            type: 'image/png',
+            filename: 'chart-png'
+        }, {
+            title: {
+                text: `Trend CCR`,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download JPEG image') {
+        trendChart.exportChart({
+            type: 'image/jpeg',
+            filename: 'chart-jpg'
+        }, {
+            title: {
+                text: `Trend CCR`,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download PDF document') {
+        trendChart.exportChart({
+            type: 'application/pdf',
+            filename: 'chart-pdf'
+        }, {
+            title: {
+                text: `Trend CCR`,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download SVG vector image') {
+        trendChart.exportChart({
+            type: 'image/svg+xml',
+            filename: 'chart-svg'
+        }, {
+            title: {
+                text: `Trend CCR`,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'View table data') {
+        $(this).text('Hide table data')
+        trendChart.viewData()
+        var cek = $('#'+idParent+'.highcharts-data-table table').hasClass('table table-bordered table-no-padding')
+        if(!cek) {
+            $('.highcharts-data-table table').addClass('table table-bordered table-no-padding')
+        }
+        $("body").css("overflow", "scroll");
+    } else if(jenis == 'Hide table data') {
+        $(this).text('View table data')
+        $('.highcharts-data-table').hide()
+        $("body").css("overflow", "hidden");
+    }
+})
 </script>
