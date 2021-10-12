@@ -40,11 +40,11 @@
                 <div class="col-7 pt-8 pr-0">
                     <div class="row">
                         <div class="col-4 pr-0">
-                            <div class="glyph-icon simple-icon-arrow-left filter-icon cursor-pointer"></div>
+                            <div id="kurang-tahun" class="glyph-icon simple-icon-arrow-left filter-icon cursor-pointer"></div>
                         </div>
-                        <div class="col-4 -mt-5 pl-0 pr-0" id="year-filter">2021</div>
+                        <div class="col-4 -mt-5 pl-0 pr-0" id="year-filter">{{ date('Y') }}</div>
                         <div class="col-4 pl-0">
-                            <div class="glyph-icon simple-icon-arrow-right filter-icon cursor-pointer"></div>
+                            <div id="tambah-tahun" class="glyph-icon simple-icon-arrow-right filter-icon cursor-pointer"></div>
                         </div>
                     </div>
                 </div>
@@ -60,17 +60,17 @@
                 <div class="col-7 mt-4">
                     <div class="row list-filter-2" id="list-filter-2">
                         <div class="col-5 py-3 selected cursor-pointer">
-                            Triwulan 1
+                            Triwulan I
                         </div>
                         <div class="col-5 ml-8 py-3 cursor-pointer">
-                            Triwulan 2
+                            Triwulan II
                         </div>
                         <div class="w-100 d-none d-md-block"></div>
                         <div class="col-5 mt-8 py-3 cursor-pointer">
-                            Triwulan 3
+                            Triwulan III
                         </div>
                         <div class="col-5 mt-8 ml-8 py-3 cursor-pointer">
-                            Triwulan 4
+                            Triwulan IV
                         </div>
                     </div>
                 </div>
@@ -637,6 +637,7 @@
 {{-- END DESKTOP --}}
 
 <script type="text/javascript">
+var $tahun = parseInt($('#year-filter').text())
 var $filter1 = "Triwulan"
 var $filter2 = "Triwulan 1"
 var $judulChart = null; 
@@ -665,6 +666,8 @@ $(window).click(function() {
     if($(window).height() < 800) {
         $("body").css("overflow", "scroll");
     }
+
+    $('#select-text').text(`${$filter2.toUpperCase()} || ${$tahun}`)
 })
 
 
@@ -723,19 +726,62 @@ document.addEventListener('fullscreenchange', (event) => {
   }
 });
 
+$('#kurang-tahun').click(function(event) {
+    event.stopPropagation();
+    $tahun = $tahun - 1;
+    $('#year-filter').text($tahun);
+})
+
+$('#tambah-tahun').click(function(event) {
+    event.stopPropagation();
+    $tahun = $tahun + 1;
+    $('#year-filter').text($tahun);
+})
+
 $('#custom-row').click(function(event) {
     event.stopPropagation();
     $('#filter-box').removeClass('hidden')
 })
 
-$('#list-filter-1 ul li').click(function() {
+$('#list-filter-1 ul li').click(function(event) {
+    event.stopPropagation();
+    var html = '';
     var filter = $(this).text()
     $filter1 = filter
     $('#list-filter-1 ul li').not(this).removeClass('selected')
     $(this).addClass('selected')
+    $('#list-filter-2').empty()
+    if($filter1 == 'Triwulan') {
+        html += `
+            <div class="col-5 py-3 selected cursor-pointer">
+                Triwulan I
+            </div>
+            <div class="col-5 ml-8 py-3 cursor-pointer">
+                Triwulan II
+            </div>
+            <div class="w-100 d-none d-md-block"></div>
+            <div class="col-5 mt-8 py-3 cursor-pointer">
+                Triwulan III
+            </div>
+            <div class="col-5 mt-8 ml-8 py-3 cursor-pointer">
+                Triwulan IV
+            </div>
+        `;
+    } else if($filter1 == 'Semester') {
+        html += `
+            <div class="col-5 py-3 selected cursor-pointer">
+                Semester I
+            </div>
+            <div class="col-5 ml-8 py-3 cursor-pointer">
+                Semester II
+            </div>
+        `;
+    }
+    $('#list-filter-2').append(html)
 })
 
-$('#list-filter-2 div').click(function() {
+$('#list-filter-2').on('click', 'div', function(event) {
+    event.stopPropagation();
     var filter = $(this).text()
     $filter2 = filter
     $('#list-filter-2 div').not(this).removeClass('selected')
