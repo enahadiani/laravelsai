@@ -18,7 +18,7 @@
         <div class="col-4 pr-0">
             <div class="row">
                 <div class="col-3 pr-0 message-div">
-                    <img alt="message-icon" class="icon-message" src="{{ asset('dash-asset/dash-ypt/icon/message.svg') }}">
+                    <img id="icon-message" alt="message-icon" class="icon-message cursor-pointer" src="{{ asset('dash-asset/dash-ypt/icon/message.svg') }}">
                 </div>
                 <div class="col-9">
                     <div class="select-custom row cursor-pointer" id="custom-row">
@@ -634,13 +634,55 @@
 </section>
 {{-- END CONTENT DETAIL --}}
 
+{{-- WINDOW DRAGABLE --}}
+<div class="window-drag hidden" id="window-drag">
+    <div class="header-window" id="window-dragheader">
+        <div class="row">
+            <div class="col-9 py-4">
+                <h4 class="window-title">Pesan</h4>
+            </div>
+            <div class="col-3">
+                <button type="button" class="btn-close-window float-right" id="close-window">&times;</button>
+            </div>
+        </div>  
+    </div>
+    <div class="body-window">
+        <div class="row">
+            <div class="col-12">
+                <div id="message-window" class="p-4">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore 
+                    et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut 
+                    aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse 
+                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, 
+                    sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- END WINDOW DRAGABLE --}}
+
 {{-- END DESKTOP --}}
 
+<script src="{{ asset('dash-asset/dash-ypt/dragging.js') }}"></script>
 <script type="text/javascript">
 var $tahun = parseInt($('#year-filter').text())
 var $filter1 = "Triwulan"
 var $filter2 = "Triwulan I"
-var $judulChart = null; 
+var $judulChart = null;
+
+// DRAGGING
+dragElement($('#window-drag')[0]);
+
+$('#icon-message').click(function() {
+    $('#window-drag').removeClass('hidden')
+})
+
+$('#close-window').click(function() {
+    $('#window-drag').addClass('hidden')
+})
+// END DRAGGING
+
 $(window).on('resize', function(){
     var win = $(this); //this = window
     if (win.height() == 800) { 

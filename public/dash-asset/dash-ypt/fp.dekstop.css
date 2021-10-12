@@ -8,6 +8,12 @@
 .bold-700 {
     font-weight: 700;
 }
+.p-4 {
+    padding-top: 4px !important;
+    padding-bottom: 4px !important;
+    padding-right: 4px !important;
+    padding-left: 4px !important;
+}
 .pb-2 {
     padding-bottom: 2px;
 }
@@ -50,6 +56,10 @@
 .py-3 {
     padding-bottom: 3px !important;
     padding-top: 3px !important;
+}
+.py-4 {
+    padding-bottom: 4px !important;
+    padding-top: 4px !important;
 }
 .px-0 {
     padding-left: 0;
@@ -345,3 +355,33 @@
     color: #ffffff;
 }
 /* END FILTER BOX */
+
+/* WINDOW */
+.window-drag {
+    position: absolute;
+    top: 48px;
+    right: 300px;
+    z-index: 9;
+    background-color: #ffffff;
+    width: 350px;
+    height: 250px;
+    border: 1px solid black;
+}
+.window-drag .header-window {
+    padding: 4px 8px;
+    z-index: 10;
+    background-color: #830000;
+}
+.window-drag .header-window .window-title {
+    color: #ffffff;
+    font-size: 14px !important;
+    margin-bottom: 0;
+}
+.window-drag .header-window .btn-close-window {
+    border: none;
+    background-color: transparent;
+    box-shadow: none;
+    color: #ffffff;
+    font-size: 18px !important;
+}
+/* END WINDOW */
