@@ -62,6 +62,7 @@ Route::get('/droping-app-detail', 'Bdh\AppDropingController@show');
 Route::get('/droping-app-detail-edit', 'Bdh\AppDropingController@show2');
 Route::post('/droping-app', 'Bdh\AppDropingController@store');
 Route::post('/droping-app-ubah', 'Bdh\AppDropingController@update');
+Route::delete('/droping-app', 'Bdh\AppDropingController@destroy');
 
 
 

@@ -486,7 +486,7 @@
     }
 
        // LIST DATA
-       var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete2'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
+       var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a>";
         var dataTable = generateTable(
             "table-data",
             "{{ url('bdh-trans/droping-app') }}",
@@ -647,7 +647,7 @@
     // END BTN PROSES FILTER
 
     function load_filter(id){
-        var action_html = "<a href='#' title='Edit' id='btn-edit2'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete2'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
+        var action_html = "<a href='#' title='Edit' id='btn-edit2'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
         generateTable(
             "table-data",
             "{{ url('bdh-trans/droping-app')}}/"+id,
@@ -1111,6 +1111,58 @@
             $("label[for="+id+"]").append("<br/>");
             $("label[for="+id+"]").append(error);
         }
+    });
+     // Hapus Data
+     function hapusData(id){
+        $.ajax({
+            type: 'DELETE',
+            url: "{{ url('bdh-trans/droping-app') }}",
+            data: {
+                no_aju : id.id,
+                modul : id.modul,
+                no_app : id.no_app
+            },
+            dataType: 'json',
+            async:false,
+            success:function(result){
+                var data = result;
+                if(data.status){
+                    dataTable.ajax.reload();
+                    resetForm();
+                    showNotification("top", "center", "success",'Hapus Data','Data Approval Droping ('+id+') berhasil dihapus ');
+                    // $('#modal-preview-id').html('');
+                    $('#table-delete tbody').html('');
+                    if(typeof M == 'undefined'){
+                        $('#modal-delete').modal('hide');
+                    }else{
+                        $('#modal-delete').bootstrapMD('hide');
+                    }
+                }else if(!data.status && data.message == "Unauthorized"){
+                    window.location.href = "{{ url('bdh-auth/sesi-habis') }}";
+                }else{
+                    msgDialog({
+                        id: '-',
+                        type: 'warning',
+                        title: 'Error',
+                        text: data.message
+                    });
+                }
+            }
+        });
+    }
+    $('#saku-datatable').on('click', '#btn-delete', function(e){
+        var id = $(this).closest('tr').find('td').eq(1).html();
+        var modul = $(this).closest('tr').find('td').eq(0).html();
+        var no_app = $(this).closest('tr').find('td').eq(2).html();
+        console.log(id);
+        msgDialog({
+            id: {
+                id: id,
+                modul:modul,
+                no_app: no_app
+            },
+            type:'hapus'
+        });
     });
 
 

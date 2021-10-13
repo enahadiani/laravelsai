@@ -390,16 +390,17 @@ class AppDropingController extends Controller
     {
         try {
             $client = new Client();
-            $response = $client->request('DELETE',  config('api.url') . 'bdh-trans/spb', [
+            $response = $client->request('DELETE',  config('api.url') . 'bdh-trans/droping-app', [
                 'headers' => [
                     'Authorization' => 'Bearer ' . Session::get('token'),
                     'Accept'     => 'application/json',
                 ],
                 'query' => [
-                    'no_bukti' => $request->input('no_bukti')
+                    'no_aju'    => $request->input('no_aju'),
+                    'no_app'    => $request->input('no_app'),
+                    'modul'     => $request->input('modul')
                 ]
             ]);
-
             if ($response->getStatusCode() == 200) { // 200 OK
                 $response_data = $response->getBody()->getContents();
 
@@ -409,7 +410,7 @@ class AppDropingController extends Controller
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(), true);
-            return response()->json(['message' => $res["message"], 'status' => false], 200);
+            return response()->json(['message' => $res, 'status' => false], 200);
         }
     }
 }
