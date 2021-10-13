@@ -337,85 +337,40 @@ class AppDropingController extends Controller
         ]);
         try {
             $send_data = array();
-
             $fields = [
-                [
-                    'name'      => 'tanggal',
-                    'contents'  => $this->reverseDate($request->tanggal, '/', '-'),
-                ],
-                [
-                    'name'      => 'status',
-                    'contents'  => $request->status
-                ],
-                [
-                    'name'      => 'catatan',
-                    'contents'  => $request->deskripsi
-                ],
-                [
-                    'name'      => 'no_aju',
-                    'contents'  => $request->no_bukti
-                ],
-                [
-                    'name'      => 'kode_pp_bukti',
-                    'contents'  => $request->kode_pp
-                ],
-                [
-                    'name'      => 'lokasi_asal',
-                    'contents'  => $request->lokasi
-                ],
-                [
-                    'name'      => 'modul',
-                    'contents'  => $request->modul,
-                ],
-                [
-                    'name'      => 'total_approve',
-                    'contents'  => intval(preg_replace("/[^0-9]/", "", $request->total_approve))
-                ],
-                [
-                    'name'      => 'akun_mutasi',
-                    'contents'  => $request->akun_mutasi,
-                ],
-                [
-                    'name'      => 'bank',
-                    'contents'  => $request->bank,
-                ],
-                [
-                    'name'      => 'no_rek',
-                    'contents'  => $request->no_rek,
-                ],
-                [
-                    'name'      => 'nama_rek',
-                    'contents'  => $request->nama_rek,
-                ]
+                'tanggal'  => $this->reverseDate($request->tanggal, '/', '-'),
+                'status'  => $request->status,
+                'catatan'  => $request->deskripsi,
+                'no_aju'  => $request->no_bukti,
+                'kode_pp_bukti'  => $request->kode_pp,
+                'lokasi_asal'  => $request->lokasi,
+                'modul'  => $request->modul,
+                'total_approve'  => intval(preg_replace("/[^0-9]/", "", $request->total_approve)),
+                'akun_mutasi'  => $request->akun_mutasi,
+                'bank'  => $request->bank,
+                'no_rek'  => $request->no_rek,
+                'nama_rek'  => $request->nama_rek,
             ];
             $fields_nilai_app = array();
-            $fields_id = array();
-
             if (count($request->kode_akun) > 0) {
                 for ($y = 0; $y < count($request->kode_akun); $y++) {
-                    $fields_nilai_app[$y] = array(
-                        'name'      => 'nilai_app[]',
-                        'contents'  => $request->nilai_app[$y]
-                    );
-                    $fields_id[$y] = array(
-                        'name'      => 'id[]',
-                        'contents'  => $request->nu[$y]
+                    $fields_nilai_app = array(
+                        'nilai_app[]'  => intval(preg_replace("/[^0-9]/", "", $request->nilai_app[$y])),
+                        'id[]'  => $request->nu[$y]
                     );
                     $send_data = array_merge($fields, $fields_nilai_app);
-                    $send_data = array_merge($send_data, $fields_id);
                 }
             } else {
                 $send_data = $fields;
             }
             $client = new Client();
-            $response = $client->request('GET',  config('api.url') . 'bdh-trans/droping-app', [
+            $response = $client->request('POST',  config('api.url') . 'bdh-trans/droping-app', [
                 'headers' => [
                     'Authorization' => 'Bearer ' . Session::get('token'),
                     'Accept'     => 'application/json',
                 ],
                 'query' => $send_data
             ]);
-
             if ($response->getStatusCode() == 200) { // 200 OK
                 $response_data = $response->getBody()->getContents();
 
@@ -423,6 +378,7 @@ class AppDropingController extends Controller
                 return response()->json(["data" => $data], 200);
             }
         } catch (BadResponseException $ex) {
+            dd($send_data);
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(), true);
             $result['message'] = $res;
