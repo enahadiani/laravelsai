@@ -81,7 +81,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group col-md-6 col-sm-12">
+                    <div class="form-group col-md-6 col-sm-12">
                             <div class="row mb-1">
                                 <div class="col-md-6 col-sm-12">
                                 </div>
@@ -591,7 +591,7 @@
             { data: 'tgl' },
             { data: 'no_dokumen' },
             { data: 'keterangan' },
-            {data: 'nilai'},
+            {data: 'nilai',className: 'text-right' ,render: $.fn.dataTable.render.number('.', ',', 2, '')},
             {data: 'status'}
         ],
         "{{ url('bdh-auth/sesi-habis') }}",
@@ -810,51 +810,7 @@
 
     });
 
-    function hideAllRowAtensi() {
-        $('#atensi-grid tbody tr').removeClass('selected-row');
-        $('#atensi-grid tbody td').removeClass('px-0 py-0 aktif');
-        $('#atensi-grid > tbody > tr').each(function(index, row) {
-            if(!$(row).hasClass('selected-row')) {
-                var anggaran = $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-anggaran").val();
-                var pp = $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-pp").val();
-                var drk = $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-drk").val();
-                var bulan = $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-bulan").val();
-                var saldo = $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-saldo").val();
-                var nilai = $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-nilai").val();
-
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-anggaran").val(anggaran);
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".td-anggaran").text(anggaran);
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-pp").val(pp);
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".td-pp").text(pp);
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-drk").val(drk);
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".td-drk").text(drk);
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-bulan").val(bulan);
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".td-bulan").text(bulan);
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-saldo").val(saldo);
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".td-saldo").text(saldo);
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-nilai").val(nilai);
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".td-nilai").text(nilai);
-
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-anggaran").hide();
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".td-anggaran").show();
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".search-anggaran").hide();
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-pp").hide();
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".td-pp").show();
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".search-pp").hide();
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-drk").hide();
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".td-drk").show();
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".search-drk").hide();
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-bulan").hide();
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".td-bulan").show();
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-saldo").hide();
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".td-saldo").show();
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-nilai").hide();
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".td-nilai").show();
-            }
-        })
-    }
-
-
+    // GRID ATENSI
     function hitungTotalRowAtensi(){
         var total_row = $('#atensi-grid tbody tr').length;
         $('#total-row-atensi').html(total_row+' Baris');
@@ -903,8 +859,6 @@
             }
         })
     }
-
-
 
     function addRowAtensi() {
         var no=$('#atensi-grid .row-atensi:last').index();
@@ -1238,8 +1192,9 @@
         console.log(netto);
         parent.find('.inp-netto').val(format_number(netto));
     });
+    // END ATENSI GRID
 
-    // end grid atensi
+    // GRID JURNAL
 
     function hideUnselectedRowJurnal(){
         $('jurnal-grid > tbody > tr').each(function(index, row){
@@ -1323,29 +1278,14 @@
         html += "<input autocomplete='off' type='text' name='drk[]' class='inp-drk drkke"+no+" form-control hidden' value='' required='' style='z-index: 1;position: relative;' id='drkkode"+no+"'><a href='#' class='search-item search-drk hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a>"
         html += "</div></td>"
 
-
-
-
-
         html += "<td class='text-center'><a class='hapus-jurnal' style='font-size:18px;cursor:pointer;'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
         html += "</tr>"
         $('#jurnal-grid tbody').append(html);
-
-        hideUnselectedRowJurnal()
-
-        $('#jurnal-grid td').removeClass('px-0 py-0 aktif');
-        $('#jurnal-grid tbody tr:last').find("td:eq(1)").addClass('px-0 py-0 aktif');
-        $('#jurnal-grid tbody tr:last').find(".inp-kode_akun").show();
-        $('#jurnal-grid tbody tr:last').find(".search-kode_akun").show();
-        $('#jurnal-grid tbody tr:last').find(".td-kode_akun").hide();
-        $('#jurnal-grid tbody tr:last').find(".inp-kode_akun").focus();
-
         $('.tooltip-span').tooltip({
             title: function(){
                 return $(this).text();
             }
         });
-
         $('.currency').inputmask("numeric", {
             radixPoint: ",",
             groupSeparator: ".",
@@ -1397,6 +1337,7 @@
         $('.inp-nilai').on('change', function(){
             hitungTotalJurnal()
         })
+        hideUnselectedRowJurnal()
         hitungTotalRowJurnal()
 
     }
@@ -1569,8 +1510,6 @@
         showInpFilter(options);
     })
 
-
-
     $('#jurnal-grid tbody').on('click', 'tr', function(){
         $(this).addClass('selected-row');
         $('#jurnal-grid tbody tr').not(this).removeClass('selected-row');
@@ -1689,125 +1628,8 @@
         setTimeout(() => $('.saldoke'+noidx).focus(), 800)
     });
 
-    var $twicePressPemberi = 0;
-    $('#jurnal-grid').on('keydown','.inp-anggaran, .inp-pp, .inp-drk, .inp-saldo, .inp-nilai',function(e){
-        var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['.inp-anggaran','.inp-pp', '.inp-drk', '.inp-bulan', '.inp-saldo', '.inp-nilai'];
-        var nxt2 = ['.td-anggaran','.td-pp', '.td-drk', '.td-bulan', '.td-saldo', '.td-nilai'];
-        if (code == 13 || code == 9) {
-            e.preventDefault();
-            var idx = $(this).closest('td').index()-1;
-            var idx_next = idx+1;
-            var kunci = $(this).closest('td').index()+1;
-            var isi = $(this).val();
-            switch (idx) {
-                case 0:
-                    $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
-                    if(isi.length > 30) {
-                        isi = isi.substr(0, 30) + '...'
-                    }
-                    $(this).closest('tr').find(nxt[idx]).val(isi);
-                    $(this).closest('tr').find(nxt2[idx]).text(isi);
-                    $(this).closest('tr').find(nxt[idx]).hide();
-                    $(this).closest('tr').find(nxt2[idx]).show();
 
-                    $(this).closest('tr').find(nxt[idx_next]).show();
-                    $(this).closest('tr').find(nxt2[idx_next]).hide();
-                    $(this).closest('tr').find(nxt[idx_next]).focus();
-                    $(this).closest('tr').find('.search-anggaran').hide();
-                    $(this).closest('tr').find('.search-pp').show();
-                break;
-                case 1:
-                    $("#pemberi-grid td").removeClass("px-0 py-0 aktif");
-                    $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
-                    $(this).closest('tr').find(nxt[idx]).val(isi);
-                    $(this).closest('tr').find(nxt2[idx]).text(isi);
-                    $(this).closest('tr').find(nxt[idx]).hide();
-                    $(this).closest('tr').find(nxt2[idx]).show();
 
-                    $(this).closest('tr').find(nxt[idx_next]).show();
-                    $(this).closest('tr').find(nxt2[idx_next]).hide();
-                    $(this).closest('tr').find(nxt[idx_next]).focus();
-                    $(this).closest('tr').find('.search-pp').hide();
-                    $(this).closest('tr').find('.search-drk').show();
-                break;
-                case 2:
-                    $("#pemberi-grid td").removeClass("px-0 py-0 aktif");
-                    $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
-                    $(this).closest('tr').find(nxt[idx]).val(isi);
-                    $(this).closest('tr').find(nxt2[idx]).text(isi);
-                    $(this).closest('tr').find(nxt[idx]).hide();
-                    $(this).closest('tr').find(nxt2[idx]).show();
-
-                    $(this).closest('tr').find(nxt[idx_next]).show();
-                    $(this).closest('tr').find(nxt2[idx_next]).hide();
-                    $(this).closest('tr').find(nxt[idx_next]).focus();
-                    $(this).closest('tr').find('.search-drk').hide();
-                break;
-                case 3:
-                    $("#pemberi-grid td").removeClass("px-0 py-0 aktif");
-                    $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
-                    $(this).closest('tr').find(nxt[idx]).val(isi);
-                    $(this).closest('tr').find(nxt2[idx]).text(isi);
-                    $(this).closest('tr').find(nxt[idx]).hide();
-                    $(this).closest('tr').find(nxt2[idx]).show();
-
-                    $(this).closest('tr').find(nxt[idx_next]).show();
-                    $(this).closest('tr').find(nxt2[idx_next]).hide();
-                    $(this).closest('tr').find(nxt[idx_next]).focus();
-                break;
-                case 4:
-                    if(isi != "" && isi != 0){
-                        $("#pemberi-grid td").removeClass("px-0 py-0 aktif");
-                        $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
-
-                        $(this).closest('tr').find(nxt[idx]).val(isi);
-                        $(this).closest('tr').find(nxt2[idx]).text(isi);
-                        $(this).closest('tr').find(nxt[idx]).hide();
-                        $(this).closest('tr').find(nxt2[idx]).show();
-
-                        $(this).closest('tr').find(nxt[idx_next]).show();
-                        $(this).closest('tr').find(nxt2[idx_next]).hide();
-                        $(this).closest('tr').find(nxt[idx_next]).focus();
-                    }else{
-                        alert('Saldo yang dimasukkan tidak valid');
-                        return false;
-                    }
-                break;
-                case 5:
-                    if(isi != "" && isi != 0){
-                        $("#pemberi-grid td").removeClass("px-0 py-0 aktif");
-                        $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
-                        if(code == 13 || code == 9) {
-                            if($twicePressPemberi == 1) {
-                                $(this).closest('tr').find(nxt[idx]).val(isi);
-                                $(this).closest('tr').find(nxt2[idx]).text(isi);
-                                $(this).closest('tr').find(nxt[idx]).hide();
-                                $(this).closest('tr').find(nxt2[idx]).show();
-                                var cek = $(this).parents('tr').next('tr').find('.td-anggaran');
-                                if(cek.length > 0){
-                                    cek.click();
-                                }else{
-                                    $('#add-row-pemberi').click();
-                                }
-                            }
-                            $twicePressPemberi = 1
-                            setTimeout(() => $twicePressPemberi = 0, 1000)
-                        }
-                    }else{
-                        alert('Nilai yang dimasukkan tidak valid');
-                        return false;
-                    }
-                break;
-                default:
-                break;
-            }
-        }else if(code == 38){
-            e.preventDefault();
-            var idx = nxt.indexOf(e.target.id);
-            idx--;
-        }
-    });
 
     function hitungTotalRowUpload(form){
         var total_row = $('#'+form+' #input-dok tbody tr').length;

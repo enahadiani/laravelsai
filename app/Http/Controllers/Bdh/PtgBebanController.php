@@ -327,16 +327,14 @@ class PtgBebanController extends Controller
         $this->validate($request, [
             'no_dokumen' => 'required',
             'tanggal' => 'required',
-            'kode_form' => 'required',
+
             'deskripsi' => 'required',
-            'total_debet' => 'required',
-            'total_kredit' => 'required',
-            'nik_periksa' => 'required',
+
             'kode_akun' => 'required|array',
             'keterangan' => 'required|array',
             'dc' => 'required|array',
             'nilai' => 'required|array',
-            'kode_pp' => 'required|array'
+
         ]);
         try {
             $send_data = array();
