@@ -90,7 +90,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#data-permintaan" role="tab" aria-selected="true">
+                            <a class="nav-link" data-toggle="tab" href="#data-rekening" role="tab" aria-selected="true">
                                 <span>Rekening Tujuan</span>
                             </a>
                         </li>
@@ -152,13 +152,13 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane" id="data-permintaan" role="tabpanel">
+                        <div class="tab-pane" id="data-rekening" role="tabpanel">
                             <div class="table-responsive">
                                 <div class='col-md-12 nav-control' style="padding: 0px 5px;">
-                                    <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row-permintaan"></span></a>
+                                    <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row-rekening"></span></a>
                                 </div>
 
-                                <table class="table table-bordered table-condensed gridexample" id="permintaan-grid" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                <table class="table table-bordered table-condensed gridexample" id="rekening-grid" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
                                     <thead style="background:#F8F8F8">
                                         <tr>
                                             <th style="width:3%" class="text-center">No</th>
@@ -174,7 +174,7 @@
                                     <tbody>
                                     </tbody>
                                 </table>
-                                <a type="button" href="#" data-id="0" title="add-row" class="add-row-permintaan btn btn-light2 btn-block btn-sm">Tambah Baris</a>
+                                <a type="button" href="#" data-id="0" title="add-row" class="add-row-rekening btn btn-light2 btn-block btn-sm">Tambah Baris</a>
                             </div>
                         </div>
 
@@ -393,65 +393,81 @@
     });
     // END LIST DATA
 
-    // Permintaan Grid
-    function hitungTotalRowPermintaan(){
-        var total_row = $('#permintaan-grid tbody tr').length;
-        $('#total-row-permintaan').html(total_row+' Baris');
+    // Rekening Grid
+    function hitungTotalRowRekening(){
+        var total_row = $('#rekening-grid tbody tr').length;
+        $('#total-row-rekening').html(total_row+' Baris');
     }
 
-    function hideUnselectedRowJurnal() {
-        $('#permintaan-grid > tbody > tr').each(function(index, row) {
+    function hideUnselectedRowRekening() {
+        $('#rekening-grid > tbody > tr').each(function(index, row) {
             if(!$(row).hasClass('selected-row')) {
-                var kode_akun = $('#permintaan-grid > tbody > tr:eq('+index+') > td').find(".inp-kode").val();
-                var nama_akun = $('#permintaan-grid > tbody > tr:eq('+index+') > td').find(".inp-nama").val();
-                var kegiatan = $('#permintaan-grid > tbody > tr:eq('+index+') > td').find(".inp-kegiatan").val();
-                var nilai = $('#permintaan-grid > tbody > tr:eq('+index+') > td').find(".inp-nilai").val();
+                var kode_akun = $('#rekening-grid > tbody > tr:eq('+index+') > td').find(".inp-kode").val();
+                var nama_akun = $('#rekening-grid > tbody > tr:eq('+index+') > td').find(".inp-nama").val();
+                var bank_d = $('#rekening-grid > tbody > tr:eq('+index+') > td').find(".inp-bank_d").val();
+                var no_rek = $('#rekening-grid > tbody > tr:eq('+index+') > td').find(".inp-no_rek").val();
+                var nama_rek = $('#rekening-grid > tbody > tr:eq('+index+') > td').find(".inp-nama_rek").val();
+                var nilai = $('#rekening-grid > tbody > tr:eq('+index+') > td').find(".inp-nilai").val();
 
 
-                $('#permintaan-grid > tbody > tr:eq('+index+') > td').find(".inp-kode").val(kode_akun);
-                $('#permintaan-grid > tbody > tr:eq('+index+') > td').find(".td-kode").text(kode_akun);
-                $('#permintaan-grid > tbody > tr:eq('+index+') > td').find(".inp-nama").val(nama_akun);
-                $('#permintaan-grid > tbody > tr:eq('+index+') > td').find(".td-nama").text(nama_akun);
-                $('#permintaan-grid > tbody > tr:eq('+index+') > td').find(".inp-kegiatan").val(kegiatan);
-                $('#permintaan-grid > tbody > tr:eq('+index+') > td').find(".td-kegiatan").text(kegiatan);
-                $('#permintaan-grid > tbody > tr:eq('+index+') > td').find(".inp-nilai").val(nilai);
-                $('#permintaan-grid > tbody > tr:eq('+index+') > td').find(".td-nilai").text(nilai);
+                $('#rekening-grid > tbody > tr:eq('+index+') > td').find(".inp-kode").val(kode_akun);
+                $('#rekening-grid > tbody > tr:eq('+index+') > td').find(".td-kode").text(kode_akun);
+                $('#rekening-grid > tbody > tr:eq('+index+') > td').find(".inp-nama").val(nama_akun);
+                $('#rekening-grid > tbody > tr:eq('+index+') > td').find(".td-nama").text(nama_akun);
+                $('#rekening-grid > tbody > tr:eq('+index+') > td').find(".inp-bank_d").val(bank_d);
+                $('#rekening-grid > tbody > tr:eq('+index+') > td').find(".td-bank_d").text(bank_d);
+                $('#rekening-grid > tbody > tr:eq('+index+') > td').find(".inp-no_rek").val(no_rek);
+                $('#rekening-grid > tbody > tr:eq('+index+') > td').find(".td-no_rek").text(no_rek);
+                $('#rekening-grid > tbody > tr:eq('+index+') > td').find(".inp-nama_rek").val(nama_rek);
+                $('#rekening-grid > tbody > tr:eq('+index+') > td').find(".td-nama_rek").text(nama_rek);
+                $('#rekening-grid > tbody > tr:eq('+index+') > td').find(".inp-nilai").val(nilai);
+                $('#rekening-grid > tbody > tr:eq('+index+') > td').find(".td-nilai").text(nilai);
 
 
-                $('#permintaan-grid > tbody > tr:eq('+index+') > td').find(".inp-kode").hide();
-                $('#permintaan-grid > tbody > tr:eq('+index+') > td').find(".td-kode").show();
-                $('#permintaan-grid > tbody > tr:eq('+index+') > td').find(".search-akun").hide();
-                $('#permintaan-grid > tbody > tr:eq('+index+') > td').find(".inp-nama").hide();
-                $('#permintaan-grid > tbody > tr:eq('+index+') > td').find(".td-nama").show();
-                $('#permintaan-grid > tbody > tr:eq('+index+') > td').find(".inp-kegiatan").hide();
-                $('#permintaan-grid > tbody > tr:eq('+index+') > td').find(".td-kegiatan").show();
-                $('#permintaan-grid > tbody > tr:eq('+index+') > td').find(".inp-nilai").hide();
-                $('#permintaan-grid > tbody > tr:eq('+index+') > td').find(".td-nilai").show();
+                $('#rekening-grid > tbody > tr:eq('+index+') > td').find(".inp-kode").hide();
+                $('#rekening-grid > tbody > tr:eq('+index+') > td').find(".td-kode").show();
+                $('#rekening-grid > tbody > tr:eq('+index+') > td').find(".search-akun").hide();
+                $('#rekening-grid > tbody > tr:eq('+index+') > td').find(".inp-nama").hide();
+                $('#rekening-grid > tbody > tr:eq('+index+') > td').find(".td-nama").show();
+                $('#rekening-grid > tbody > tr:eq('+index+') > td').find(".inp-bank_d").hide();
+                $('#rekening-grid > tbody > tr:eq('+index+') > td').find(".td-bank_d").show();
+                $('#rekening-grid > tbody > tr:eq('+index+') > td').find(".inp-no_rek").hide();
+                $('#rekening-grid > tbody > tr:eq('+index+') > td').find(".td-no_rek").show();
+                $('#rekening-grid > tbody > tr:eq('+index+') > td').find(".inp-nama_rek").hide();
+                $('#rekening-grid > tbody > tr:eq('+index+') > td').find(".td-nama_rek").show();
+                $('#rekening-grid > tbody > tr:eq('+index+') > td').find(".inp-nilai").hide();
+                $('#rekening-grid > tbody > tr:eq('+index+') > td').find(".td-nilai").show();
             }
         })
     }
 
-    function addRowPermintaan(){
+    function addRowRekening(){
         var kode_akun = "";
         var nama_akun = "";
-        var kegiatan = "";
+        var nama_rek = "";
+        var bank_d = "";
         var nilai = "";
-        var no=$('#permintaan-grid .row-permintaan:last').index();
+        var no_rek = "";
+        var no=$('#rekening-grid .row-rekening:last').index();
         no=no+2;
         var input = "";
-        input += "<tr class='row-permintaan'>";
-        input += "<td class='no-permintaan text-center'>"+no+"</td>";
+        input += "<tr class='row-rekening'>";
+        input += "<td class='no-rekening text-center'>"+no+"</td>";
         input += "<td><span class='td-kode tdakunke"+no+" tooltip-span'>"+kode_akun+"</span><input type='text' name='kode_akun[]' class='form-control inp-kode akunke"+no+" hidden' value='"+kode_akun+"' required='' style='z-index: 1;position: relative;' id='akunkode"+no+"'><a href='#' class='search-item search-akun hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
 
         input += "<td><span class='td-nama tdnmakunke"+no+" tooltip-span'>"+nama_akun+"</span><input type='text' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+" hidden'  value='"+nama_akun+"' readonly></td>";
 
-        input += "<td><span class='td-kegiatan tdkegiatanke"+no+" tooltip-span'>"+kegiatan+"</span><input type='text' name='kegiatan[]' class='form-control inp-kegiatan kegiatanke"+no+" hidden'  value='"+kegiatan+"' required></td>";
+        input += "<td><span class='td-bank_d tdbank_dke"+no+" tooltip-span'>"+bank_d+"</span><input type='text' name='bank_d[]' class='form-control inp-bank_d bank_dke"+no+" hidden'  value='"+bank_d+"' required></td>";
+
+        input += "<td><span class='td-no_rek tdno_rekke"+no+" tooltip-span'>"+no_rek+"</span><input type='text' name='no_rek[]' class='form-control inp-no_rek no_rekke"+no+" hidden'  value='"+no_rek+"' required></td>";
+
+        input += "<td><span class='td-nama_rek tdnama_rekke"+no+" tooltip-span'>"+nama_rek+"</span><input type='text' name='nama_rek[]' class='form-control inp-nama_rek nama_rekke"+no+" hidden'  value='"+nama_rek+"' required></td>";
 
         input += "<td class='text-right'><span class='td-nilai tdnilke"+no+" tooltip-span'>"+nilai+"</span><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='"+nilai+"' required></td>";
 
         input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
         input += "</tr>";
-        $('#permintaan-grid tbody').append(input);
+        $('#rekening-grid tbody').append(input);
 
         $('.nilke'+no).inputmask("numeric", {
             radixPoint: ",",
@@ -461,13 +477,13 @@
             rightAlign: true,
             oncleared: function () { self.Value(''); }
         });
-        hideUnselectedRowJurnal();
+        hideUnselectedRowRekening();
         $('.tooltip-span').tooltip({
             title: function(){
                 return $(this).text();
             }
         });
-        hitungTotalRowPermintaan();
+        hitungTotalRowRekening();
     }
 
     function custTarget(target,tr){
@@ -481,27 +497,27 @@
         setTimeout(function() {  $(target).parents("tr").find(".inp-nama_pp").focus(); }, 100);
     }
 
-    $('#form-tambah').on('click', '.add-row-permintaan', function(){
-        addRowPermintaan();
+    $('#form-tambah').on('click', '.add-row-rekening', function(){
+        addRowRekening();
     });
-    $('#permintaan-grid').on('click', '.hapus-item', function(){
+    $('#rekening-grid').on('click', '.hapus-item', function(){
         $(this).closest('tr').remove();
         no=1;
-        $('.row-permintaan').each(function(){
-            var nom = $(this).closest('tr').find('.no-permintaan');
+        $('.row-rekening').each(function(){
+            var nom = $(this).closest('tr').find('.no-rekening');
             nom.html(no);
             no++;
         });
-        hitungTotalRowPermintaan();
+        hitungTotalRowRekening();
         $("html, body").animate({ scrollTop: $(document).height() }, 1000);
     });
-    $('#permintaan-grid tbody').on('click', 'tr', function(){
+    $('#rekening-grid tbody').on('click', 'tr', function(){
         $(this).addClass('selected-row');
-        $('#permintaan-grid tbody tr').not(this).removeClass('selected-row');
-        hideUnselectedRowJurnal();
+        $('#rekening-grid tbody tr').not(this).removeClass('selected-row');
+        hideUnselectedRowRekening();
     });
 
-    $('#permintaan-grid').on('click', 'td', function(){
+    $('#rekening-grid').on('click', 'td', function(){
         var idx = $(this).index();
         if(idx == 0){
             return false;
@@ -509,13 +525,15 @@
             if($(this).hasClass('px-0 py-0 aktif')){
                 return false;
             }else{
-                $('#permintaan-grid td').removeClass('px-0 py-0 aktif');
+                $('#rekening-grid td').removeClass('px-0 py-0 aktif');
                 $(this).addClass('px-0 py-0 aktif');
                 var kode_akun = $(this).parents("tr").find(".inp-kode").val();
                 var nama_akun = $(this).parents("tr").find(".inp-nama").val();
-                var kegiatan = $(this).parents("tr").find(".inp-kegiatan").val();
+                var bank_d = $(this).parents("tr").find(".inp-bank_d").val();
+                var no_rek = $(this).parents("tr").find(".inp-no_rek").val();
+                var nama_rek = $(this).parents("tr").find(".inp-nama_rek").val();
                 var nilai = $(this).parents("tr").find(".inp-nilai").val();
-                var no = $(this).parents("tr").find(".no-permintaan").text();
+                var no = $(this).parents("tr").find(".no-rekening").text();
                 $(this).parents("tr").find(".inp-kode").val(kode_akun);
                 $(this).parents("tr").find(".td-kode").text(kode_akun);
                 if(idx == 1){
@@ -543,20 +561,40 @@
                 }
 
 
-                $(this).parents("tr").find(".inp-kegiatan").val(kegiatan);
-                $(this).parents("tr").find(".td-kegiatan").text(kegiatan);
+                $(this).parents("tr").find(".inp-bank_d").val(bank_d);
+                $(this).parents("tr").find(".td-bank_d").text(bank_d);
                 if(idx == 3){
-                    $(this).parents("tr").find(".inp-kegiatan").show();
-                    $(this).parents("tr").find(".td-kegiatan").hide();
-                    $(this).parents("tr").find(".inp-kegiatan").focus();
+                    $(this).parents("tr").find(".inp-bank_d").show();
+                    $(this).parents("tr").find(".td-bank_d").hide();
+                    $(this).parents("tr").find(".inp-bank_d").focus();
                 }else{
-                    $(this).parents("tr").find(".inp-kegiatan").hide();
-                    $(this).parents("tr").find(".td-kegiatan").show();
+                    $(this).parents("tr").find(".inp-bank_d").hide();
+                    $(this).parents("tr").find(".td-bank_d").show();
+                }
+                $(this).parents("tr").find(".inp-no_rek").val(no_rek);
+                $(this).parents("tr").find(".td-no_rek").text(no_rek);
+                if(idx == 4){
+                    $(this).parents("tr").find(".inp-no_rek").show();
+                    $(this).parents("tr").find(".td-no_rek").hide();
+                    $(this).parents("tr").find(".inp-no_rek").focus();
+                }else{
+                    $(this).parents("tr").find(".inp-no_rek").hide();
+                    $(this).parents("tr").find(".td-no_rek").show();
+                }
+                $(this).parents("tr").find(".inp-nama_rek").val(nama_rek);
+                $(this).parents("tr").find(".td-nama_rek").text(nama_rek);
+                if(idx == 5){
+                    $(this).parents("tr").find(".inp-nama_rek").show();
+                    $(this).parents("tr").find(".td-nama_rek").hide();
+                    $(this).parents("tr").find(".inp-nama_rek").focus();
+                }else{
+                    $(this).parents("tr").find(".inp-nama_rek").hide();
+                    $(this).parents("tr").find(".td-nama_rek").show();
                 }
 
                 $(this).parents("tr").find(".inp-nilai").val(nilai);
                 $(this).parents("tr").find(".td-nilai").text(nilai);
-                if(idx == 4){
+                if(idx == 6){
                     $(this).parents("tr").find(".inp-nilai").show();
                     $(this).parents("tr").find(".td-nilai").hide();
                     $(this).parents("tr").find(".inp-nilai").focus();
@@ -567,7 +605,7 @@
             }
         }
     });
-    // END GRID PERMINTAAN
+    // END GRID REKENING
 
     // GRID DOK
     function hitungTotalRowUpload(form){
