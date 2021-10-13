@@ -1,7 +1,4 @@
 <link rel="stylesheet" href="{{ asset('trans.css') }}" />
-<!-- LIST DATA -->
-<x-list-data judul="Data Verifkasi Pajak" tambah="true" :thead="array('Modul','No Bukti','Status','Tanggal','Due Date','PP','No Dokumen','Aksi')" :thwidth="array(15,15,15,15,20,15,10,10)" :thclass="array('','','','','','','','text-center')" />
-<!-- END LIST DATA -->
 <style>
     div.inp-div-jenis > input{
         border-radius:0 !important;
@@ -205,6 +202,9 @@
                                     }
 
 </style>
+<!-- LIST DATA -->
+<x-list-data judul="Data Verifkasi Pajak" tambah="true" :thead="array('Modul','No Bukti','Status','Tanggal','Due Date','PP','No Dokumen','Aksi')" :thwidth="array(15,15,15,15,20,15,10,10)" :thclass="array('','','','','','','','text-center')" />
+<!-- END LIST DATA -->
 <!-- FORM INPUT -->
 <form id="form-tambah" class="tooltip-label-right" novalidate>
     <div class="row" id="saku-form" style="display:none;">
@@ -650,9 +650,6 @@ var psscrollform = new PerfectScrollbar(scrollform);
 
 // var scrollformupl = document.querySelector('.form-upload');
 // var psscrollformupl = new PerfectScrollbar(scrollformupl);
-
-
-
 
 $('.selectize').selectize();
 

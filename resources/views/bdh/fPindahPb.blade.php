@@ -14,7 +14,7 @@
 </style>
 
 <!-- LIST DATA -->
-<x-list-data judul="Data PB Pindah Buku" tambah="true" :thead="array('No Bukti','Tanggal','Deskripsi','Nilai','Progress','Aksi')" :thwidth="array(15,20,25,15,10,10)" :thclass="array('','','','','','s','text-center')" />
+<x-list-data judul="Data PB Pindah Buku" tambah="true" :thead="array('No Bukti','Tanggal','Deskripsi','Nilai','Progress','Aksi')" :thwidth="array(15,20,25,15,10,10)" :thclass="array('','','','','','text-center')" />
 <!-- END LIST DATA -->
 
 {{-- form data --}}
@@ -35,37 +35,34 @@
                 <div class="separator mb-2"></div>
                 <div class="card-body pt-3 form-body">
                     <div class="form-row">
-                        <div class="form-group col-md-12 col-sm-12">
+                        <div class="form-group col-md-6 col-sm-12">
                            <div class="row">
-                               <div class="col-md-4 col-sm-12">
+                               <div class="col-md-12 col-sm-12 mt-2">
                                    <label for="no_bukti">No Bukti</label>
                                    <input type="text" name="no_bukti" id="no_bukti" class="form-control inp-no_bukti" value="-" readonly>
                                </div>
-                               <div class="col-md-4 col-sm-12">
+                               <div class="col-md-6 col-sm-12 mt-2">
                                     <label for="tanggal">Tanggal</label>
                                     <input class='form-control inp-tanggal datepicker' type="text" id="tanggal" name="tanggal" value="{{ date('d/m/Y') }}">
                                     <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;" class="simple-icon-calendar date-search"></i>
                                 </div>
 
-                               <div class="col-md-4 col-sm-12">
+                               <div class="col-md-6 col-sm-12 mt-2">
                                     <label for="due_date">Due Date</label>
                                     <input class='form-control inp-due_date datepicker' type="text" id="due_date" name="due_date" value="{{ date('d/m/Y') }}">
                                     <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;" class="simple-icon-calendar date-search"></i>
                                 </div>
-
+                                <div class="col-md-12 col-sm-12 mt-2">
+                                    <label for="no_dokumen">Nomor Dokumen</label>
+                                    <input class='form-control' type="text" id="no_dokumen" name="no_dokumen" required>
+                                </div>
                            </div>
-
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group col-md-6 col-sm-12">
-                            <div class="row">
-                                <div class="col-md-12 col-sm-12">
-                                    <label for="no_dokumen">Nomor Dokumen</label>
-                                    <input class='form-control' type="text" id="no_dokumen" name="no_dokumen" required>
-                                </div>
-                            </div>
+
                             <div class="row">
 
                                 <div class="col-md-12">
@@ -94,12 +91,17 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="tab" href="#data-permintaan" role="tab" aria-selected="true">
-                                <span>Detail Permintaan</span>
+                                <span>Rekening Tujuan</span>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="tab" href="#data-budget" role="tab" aria-selected="true">
-                                <span>Budget Droping</span>
+                                <span>Otorisasi</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#data-catatan" role="tab" aria-selected="true">
+                                <span>Catatan Verifikator</span>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -350,6 +352,47 @@
         $('.info-name_'+kode).closest('div').find('.info-icon-hapus').removeClass('hidden');
     }
 
+    // LIST DATA
+    var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
+    var dataTable = generateTable(
+        "table-data",
+        "{{ url('bdh-trans/pindah-buku') }}",
+        [
+            {'targets': 5, data: null, 'defaultContent': action_html,'className': 'text-center' },
+            {
+                "targets": 0,
+                "createdCell": function (td, cellData, rowData, row, col) {
+                    if ( rowData.status == "baru" ) {
+                        $(td).parents('tr').addClass('selected');
+                        $(td).addClass('last-add');
+                    }
+                }
+            }
+
+        ],
+        [
+            { data: 'no_pb' },
+            { data: 'tgl' },
+            { data: 'keterangan' },
+            {data: 'nilai',className: 'text-right' ,render: $.fn.dataTable.render.number('.', ',', 2, '')},
+            {data: 'status'}
+        ],
+        "{{ url('bdh-auth/sesi-habis') }}",
+        [[4 ,"desc"]]
+    );
+
+    $.fn.DataTable.ext.pager.numbers_length = 5;
+
+    $("#searchData").on("keyup", function (event) {
+        dataTable.search($(this).val()).draw();
+    });
+
+    $("#page-count").on("change", function (event) {
+        var selText = $(this).val();
+        dataTable.page.len(parseInt(selText)).draw();
+    });
+    // END LIST DATA
+
     // Permintaan Grid
     function hitungTotalRowPermintaan(){
         var total_row = $('#permintaan-grid tbody tr').length;
@@ -588,7 +631,7 @@
         $('.info-icon-hapus').addClass('hidden');
         $('[class*=inp-label-]').val('')
         $('[class*=inp-label-]').attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important;border-left:1px solid #d7d7d7 !important');
-
+        generateBukti();
     });
 
     // Event Button Kembali (Cancel)
@@ -599,4 +642,47 @@
             type:'keluar'
         });
     });
+
+    // GENERATE NO BUKTI
+    function generateBukti(){
+        var date = $('#form-tambah').find('.inp-tanggal').val();
+        var date2 = reverseDate2(date,'/','-');
+        // console.log(date2);
+        var url = "{{url('bdh-trans/pindah-buku-nobukti')}}";
+
+        $.ajax({
+            type: 'GET',
+            url : url,
+            data: {
+                tanggal : date2
+            },
+            dataType: 'JSON',
+            async: false,
+            success: function(result){
+                $('#form-tambah').find('.inp-no_bukti').val(result.data);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                if(jqXHR.status == 422){
+                    var msg = jqXHR.responseText;
+                }else if(jqXHR.status == 500) {
+                    var msg = "Internal server error";
+                }else if(jqXHR.status == 401){
+                    var msg = "Unauthorized";
+                    window.location="{{ url('/bdh-auth/sesi-habis') }}";
+                }else if(jqXHR.status == 405){
+                    var msg = "Route not valid. Page not found";
+                }
+            }
+        });
+
+    }
+
+    // event change tanggal
+    $('#form-tambah').on('change', '.inp-tanggal', function(e){
+        var type_of_form = $('#form-tambah #id_edit').val();
+        if(type_of_form == '' ){
+            generateBukti();
+        }
+    });
+    // end event change tanggal
 </script>

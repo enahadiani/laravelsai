@@ -31,6 +31,11 @@ Route::post('/droping-terima', 'Bdh\PenerimaanDropingController@store');
 Route::post('/droping-terima-ubah', 'Bdh\PenerimaanDropingController@update');
 Route::delete('/droping-terima', 'Bdh\PenerimaanDropingController@destroy');
 
+// PB Pindah Buku
+Route::get('/pindah-buku', 'Bdh\PindahPbController@index');
+Route::get('/pindah-buku-nobukti', 'Bdh\PindahPbController@generateBukti');
+
+
 // Pertanggungan Beban
 Route::get('/ptg-beban', 'Bdh\PtgBebanController@index');
 Route::get('ptg-beban/{id}', 'Bdh\PtgBebanController@show');
@@ -64,8 +69,6 @@ Route::post('/droping-app', 'Bdh\AppDropingController@store');
 Route::post('/droping-app-ubah', 'Bdh\AppDropingController@update');
 Route::delete('/droping-app', 'Bdh\AppDropingController@destroy');
 
-
-
 // Verifikasi Dokumen
 Route::get('/ver-dok', 'Bdh\VerDokController@index');
 Route::get('/ver-dok-nobukti', 'Bdh\VerDokController@generateKode');
@@ -79,8 +82,6 @@ Route::get('/spb-pb-list', 'Bdh\SpbController@getPb');
 Route::get('/spb-rek-transfer', 'Bdh\SpbController@getTransfer');
 Route::post('/spb', 'Bdh\SpbController@store');
 Route::delete('/spb', 'Bdh\SpbController@destroy');
-
-
 Route::get('spb-nobukti', 'Bdh\SpbController@GenerateBukti');
 Route::get('spb-nik-bdh', 'Bdh\SpbController@getNikBdh');
 Route::get('spb-nik-fiat', 'Bdh\SpbController@getNikFiat');
