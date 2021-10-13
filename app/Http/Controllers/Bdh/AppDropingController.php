@@ -280,7 +280,7 @@ class AppDropingController extends Controller
                 for ($y = 0; $y < count($request->kode_akun); $y++) {
                     $fields_nilai_app[$y] = array(
                         'name'      => 'nilai_app[]',
-                        'contents'  => $request->nilai_app[$y]
+                        'contents'  => intval(preg_replace("/[^0-9]/", "", $request->nilai_app[$y]))
                     );
                     $fields_id[$y] = array(
                         'name'      => 'id[]',

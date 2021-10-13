@@ -130,6 +130,7 @@
                         </div>
                         <div class="col-md-6 col-sm-12 mb-2">
                             <button type="button" class="btn btn-primary mt-4 btn-proses">Proses</button>
+                            <button type="button" class="btn btn-red mt-4 btn-reset">Reset</button>
                         </div>
                     </div>
                 </div>
@@ -1163,6 +1164,17 @@
             },
             type:'hapus'
         });
+    });
+
+    $('#form-filter').on('click', '.btn-reset', function(e){
+        dataTable.ajax.reload();
+        var par = $('.simple-icon-close').closest('div').find('input').attr('name');
+        $('#'+par).val('');
+        $('#'+par).attr('readonly',false);
+        $('#'+par).attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important');
+        $('.info-code_'+par).parent('div').addClass('hidden');
+        $('.info-name_'+par).addClass('hidden');
+        // $(this).addClass('hidden');
     });
 
 
