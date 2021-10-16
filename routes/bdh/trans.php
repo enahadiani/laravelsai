@@ -34,6 +34,7 @@ Route::delete('/droping-terima', 'Bdh\PenerimaanDropingController@destroy');
 // PB Pindah Buku
 Route::get('/pindah-buku', 'Bdh\PindahPbController@index');
 Route::get('/pindah-buku-nobukti', 'Bdh\PindahPbController@generateBukti');
+Route::get('/pindah-buku-rekening-sumber', 'Bdh\PindahPbController@getRekSumber');
 
 
 // Pertanggungan Beban

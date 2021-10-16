@@ -95,7 +95,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#data-budget" role="tab" aria-selected="true">
+                            <a class="nav-link" data-toggle="tab" href="#data-otorisasi" role="tab" aria-selected="true">
                                 <span>Otorisasi</span>
                             </a>
                         </li>
@@ -118,11 +118,11 @@
                             <div class="form-row mt-4">
                                 <div class="form-group col-md-6 col-sm-12">
                                     <div class="row">
-                                        <div class="col-md-12 col-sm-12">
+                                        <div class="col-md-12 col-sm-12 mt-2">
                                             <label for="atensi">Atensi</label>
                                             <input type="text" name="atensi" id="atensi" class="form-control inp-atensi">
                                         </div>
-                                        <div class="col-md-12 col-sm-12">
+                                        <div class="col-md-12 col-sm-12 mt-2">
                                             <label for="rek_sumber" >Rekening Sumber</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
@@ -136,17 +136,17 @@
                                                 <i class="simple-icon-magnifier search-item2" id="search_rek_sumber"></i>
                                             </div>
                                         </div>
-                                        <div class="col-md-12 col-sm-12">
-                                            <label for="bank">Bank</label>
-                                            <input type="text" name="bank" id="bank" class="form-control inp-bank">
+                                        <div class="col-md-12 col-sm-12 mt-2">
+                                            <label for="bank_m">Bank</label>
+                                            <input type="text" name="bank" id="bank_m" class="form-control inp-bank_m">
                                         </div>
-                                        <div class="col-md-12 col-sm-12">
-                                            <label for="no_rek">No Rekening</label>
-                                            <input type="text" name="no_rek" id="no_rek" class="form-control inp-no_rek">
+                                        <div class="col-md-12 col-sm-12 mt-2">
+                                            <label for="no_rek_m">No Rekening</label>
+                                            <input type="text" name="no_rek_m" id="no_rek_m" class="form-control inp-no_rek_m">
                                         </div>
-                                        <div class="col-md-12 col-sm-12">
-                                            <label for="nama_rek">Nama Rekening</label>
-                                            <input type="text" name="nama_rek" id="nama_rek" class="form-control inp-nama_rek">
+                                        <div class="col-md-12 col-sm-12 mt-2">
+                                            <label for="nama_rek_m">Nama Rekening</label>
+                                            <input type="text" name="nama_rek_m" id="nama_rek_m" class="form-control inp-nama_rek_m">
                                         </div>
                                     </div>
                                 </div>
@@ -178,29 +178,74 @@
                             </div>
                         </div>
 
-                        <div class="tab-pane" id="data-budget" role="tabpanel">
+                        <div class="tab-pane" id="data-otorisasi" role="tabpanel">
                             <div class='col-md-12 nav-control' style="padding: 0px 5px;">
-
                             </div>
                             <div class='col-md-12 mt-3' style='min-height:420px; margin:0px; padding:0px;'>
+                                <div class="form-row mt-4">
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <div class="col-md-12 col-sm-12 mt-2">
+                                                <label for="nik_buat" >Dibuat Oleh</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                                        <span class="input-group-text info-code_nik_buat" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                                    </div>
+                                                    <input type="text" class="form-control inp-label-nik_buat" id="nik_buat" name="nik_buat" value="" title="">
+                                                    <span class="info-name_nik_buat hidden">
+                                                        <span></span>
+                                                    </span>
+                                                    <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                                    <i class="simple-icon-magnifier search-item2" id="search_nik_buat"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 col-sm-12 mt-2">
+                                                <label for="nik_tahu" >Nik Mengetahui</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                                        <span class="input-group-text info-code_nik_tahu" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                                    </div>
+                                                    <input type="text" class="form-control inp-label-nik_tahu" id="nik_tahu" name="nik_tahu" value="" title="">
+                                                    <span class="info-name_nik_tahu hidden">
+                                                        <span></span>
+                                                    </span>
+                                                    <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                                    <i class="simple-icon-magnifier search-item2" id="search_nik_tahu"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 col-sm-12 mt-2">
+                                                <label for="nik_ver" >Nik Verifikator</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                                        <span class="input-group-text info-code_nik_ver" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                                    </div>
+                                                    <input type="text" class="form-control inp-label-nik_ver" id="nik_ver" name="nik_ver" value="" title="">
+                                                    <span class="info-name_nik_ver hidden">
+                                                        <span></span>
+                                                    </span>
+                                                    <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                                    <i class="simple-icon-magnifier search-item2" id="search_nik_ver"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-                                <button type="button" id="cek-budget" class="btn btn-sm btn-primary mt-2 mb-2 cek-budget">Cek Budget</button>
-
-                                <table id="budget-grid" class="budget-grid table table-bordered table-condensed gridexample"  style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
-                                    <thead style="background:#F8F8F8">
-                                        <th style="width: 3%">No</th>
-                                        <th>Kode Akun</th>
-                                        <th>Nama Akun</th>
-                                        <th>Saldo Awal</th>
-                                        <th>Nilai</th>
-                                        <th>Saldo Akhir</th>
-                                    </thead>
-
-                                    <tbody>
-
-                                    </tbody>
-                                </table>
-
+                        <div class="tab-pane" id="data-catatan" role="tabpanel">
+                            <div class='col-md-12 nav-control' style="padding: 0px 5px;">
+                            </div>
+                            <div class='col-md-12 mt-3' style='min-height:420px; margin:0px; padding:0px;'>
+                                <div class="form-row mt-4">
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <div class="col-md-12 col-sm-12 mt-2">
+                                                <textarea name="ctt" id="ctt" class="form-control" cols="30" rows="4" readonly>Catatan tidak ditemukan</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -723,4 +768,36 @@
         }
     });
     // end event change tanggal
+
+    // CBBL FORM
+    $('#form-tambah').on('click', '.search-item2', function() {
+        var id = $(this).closest('div').find('input').attr('name');
+        switch(id) {
+            case 'rek_sumber':
+                var settings = {
+                    id : id,
+                    header : ['Kode', 'Nama'],
+                    url : "{{ url('bdh-trans/pindah-buku-rekening-sumber') }}",
+                    columns : [
+                        { data: 'kode_akun' },
+                        { data: 'nama' }
+                    ],
+                    judul : "Daftar PP",
+                    pilih : "",
+                    jTarget1 : "text",
+                    jTarget2 : "text",
+                    target1 : ".info-code_"+id,
+                    target2 : ".info-name_"+id,
+                    target3 : ".inp-bank_m",
+                    target4 : ".inp-bank_m",
+                    width : ["30%","70%"],
+                }
+            break;
+
+            default:
+            break;
+        }
+        showInpFilter(settings);
+    });
+    // EMD CBBL
 </script>

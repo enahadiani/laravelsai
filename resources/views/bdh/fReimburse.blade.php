@@ -452,7 +452,7 @@
     });
 
         // Jurnal  Grid
-        function hitungTotalRowJurnal(){
+    function hitungTotalRowJurnal(){
         var total_row = $('#jurnal-grid tbody tr').length;
         $('#total-row-jurnal').html(total_row+' Baris');
     }
