@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="{{ asset('dash-asset/dash-ypt/cf.dekstop.css') }}" />
+<link rel="stylesheet" href="{{ asset('dash-asset/dash-ypt/cf.dekstop.css?version=_').time() }}" />
 
 {{-- DEKSTOP --}}
 

@@ -33,6 +33,9 @@
     
     <link rel="stylesheet" href="{{ asset('asset_dore/bottom-sheet/style.css') }}" /> 
     <style>
+        html, body {
+            background-color: #ffffff;
+        }
          .menu .main-menu ul li i{
             font-size: 25px;
             line-height: 35px;
