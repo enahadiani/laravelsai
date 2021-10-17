@@ -283,20 +283,36 @@ class PtgBebanController extends Controller
     {
         try {
 
+
+            // $fields = [
+            //     'periode'   => $request->input('periode'),
+            //     'no_bukti'  => $request->input('no_bukti')
+            // ];
+            // $merge_query_agg = array();
+            // for ($i=0; $i < count($request->input('kode_akun_agg')) ; $i++) {
+            //     $fields['kode_akun_agg[]'][] = $request->input('kode_akun_agg')[$i];
+            //     $fields['kode_pp_agg[]'][] = $request->input('kode_pp_agg')[$i];
+            //     $fields['kode_drk_agg[]'][] = $request->input('kode_drk_agg')[$i];
+            //     $fields['nilai_agg[]'][] = intval(preg_replace("/[^0-9]/", "", $request->input('nilai_agg')[$i]));
+            //    array_push($fields, [
+            //         'kode_akun_agg[]'  => $request->input('kode_akun_agg')[$i],
+            //         'kode_pp_agg[]'  => $request->input('kode_pp_agg')[$i],
+            //         'kode_drk_agg[]'  => $request->input('kode_drk_agg')[$i],
+            //         'nilai_agg[]' => intval(preg_replace("/[^0-9]/", "", $request->input('nilai_agg')[$i])),
+            //     ]
+
+            //    );
+
+            // }
+            // dd($request->all());
+
             $client = new Client();
             $response = $client->request('GET',  config('api.url') . 'bdh-trans/ptg-beban-budget', [
                 'headers' => [
                     'Authorization' => 'Bearer ' . Session::get('token'),
                     'Accept'     => 'application/json',
                 ],
-                'query' => [
-                    'kode_akun_agg[]' => $request->input('kode_akun_agg'),
-                    'kode_pp_agg[]'  => $request->input('kode_pp_agg'),
-                    'kode_drk_agg[]'  => $request->input('kode_drk_agg'),
-                    'nilai_agg[]' => $request->input('nilai_agg'),
-                    'periode'   => $request->input('periode'),
-                    'no_bukti'  => $request->input('no_bukti')
-                ]
+                'query' => $request->all()
             ]);
 
             if ($response->getStatusCode() == 200) { // 200 OK
@@ -313,9 +329,6 @@ class PtgBebanController extends Controller
         }
     }
 
-
-
-
     /**
      * Store a newly created resource in storage.
      *
@@ -327,14 +340,11 @@ class PtgBebanController extends Controller
         $this->validate($request, [
             'no_dokumen' => 'required',
             'tanggal' => 'required',
-
             'deskripsi' => 'required',
-
             'kode_akun' => 'required|array',
             'keterangan' => 'required|array',
             'dc' => 'required|array',
             'nilai' => 'required|array',
-
         ]);
         try {
             $send_data = array();
@@ -386,27 +396,27 @@ class PtgBebanController extends Controller
                     );
                     $fields_bank[$y] = array(
                         'name'      => 'bank[]',
-                        'contents'  => $request->bank_cabang[$y]
+                        'contents'  => $request->cabang_bank[$y]
                     );
                     $fields_nama_rek[$y] = array(
                         'name'      => 'nama_rek[]',
-                        'contents'  => $request->nama_rekening[$y]
+                        'contents'  => $request->nama_rek[$y]
                     );
                     $fields_no_rek[$y] = array(
                         'name'      => 'no_rek[]',
-                        'contents'  => $request->no_rekening[$y]
+                        'contents'  => $request->no_rek[$y]
                     );
                     $fields_bruto[$y] = array(
                         'name'      => 'bruto[]',
-                        'contents'  => $request->bruto[$y]
+                        'contents'  => intval(preg_replace("/[^0-9]/", "", $request->bruto)[$y])
                     );
                     $fields_potongan[$y] = array(
                         'name'      => 'potongan[]',
-                        'contents'  => $request->potongan[$y]
+                        'contents'  => intval(preg_replace("/[^0-9]/", "", $request->potongan)[$y])
                     );
                     $fields_netto[$y] = array(
                         'name'      => 'netto[]',
-                        'contents'  => $request->netto[$y]
+                        'contents'  => intval(preg_replace("/[^0-9]/", "", $request->netto)[$y])
                     );
 
                     $send_data = array_merge($fields, $fields_atensi);
@@ -442,7 +452,7 @@ class PtgBebanController extends Controller
                     );
                     $fields_nilai[$i] = array(
                         'name'     => 'nilai[]',
-                        'contents' => $request->nilai[$i],
+                        'contents' => intval(preg_replace("/[^0-9]/", "", $request->nilai)[$i]),
                     );
                     $fields_keterangan[$i] = array(
                         'name'     => 'keterangan[]',
@@ -515,6 +525,49 @@ class PtgBebanController extends Controller
                 }
             }
 
+            $fields_kode_akun_agg = array();
+            $fields_kode_pp_agg = array();
+            $fields_kode_drk_agg = array();
+            $fields_nilai_agg = array();
+            $fields_saldo_awal_agg = array();
+            $fields_saldo_akhir = array();
+            if(count($request->kode_akun_agg) > 0){
+                for ($b=0; $b < count($request->kode_akun_agg) ; $b++) {
+                    $fields_kode_akun_agg[$b] = array(
+                        'name'     => 'kode_akun_agg[]',
+                        'contents' => $request->kode_akun_agg[$b],
+                    );
+                    $fields_kode_pp_agg[$b] = array(
+                        'name'     => 'kode_pp_agg[]',
+                        'contents' => $request->kode_pp_agg[$b],
+                    );
+                    $fields_kode_drk_agg[$b] = array(
+                        'name'     => 'kode_drk_agg[]',
+                        'contents' => $request->kode_drk_agg[$b],
+                    );
+                    $fields_nilai_agg[$b] = array(
+                        'name'     => 'nilai_agg[]',
+                        'contents' => $request->nilai_agg[$b],
+                    );
+                    $fields_saldo_awal_agg[$b] = array(
+                        'name'     => 'saldo_awal_agg[]',
+                        'contents' => $request->saldo_awal_agg[$b],
+                    );
+                    $fields_saldo_akhir_agg[$b] = array(
+                        'name'     => 'saldo_akhir_agg[]',
+                        'contents' => $request->saldo_akhir_agg[$b],
+                    );
+                    $send_data = array_merge($send_data, $fields_kode_akun_agg);
+                    $send_data = array_merge($send_data, $fields_kode_pp_agg);
+                    $send_data = array_merge($send_data, $fields_kode_drk_agg);
+                    $send_data = array_merge($send_data, $fields_nilai_agg);
+                    $send_data = array_merge($send_data, $fields_saldo_awal_agg);
+                    $send_data = array_merge($send_data, $fields_saldo_akhir_agg);
+                }
+            }else{
+                $send_data = $fields;
+            }
+            // dd($send_data);
             $client = new Client();
             $response = $client->request('POST',  config('api.url') . 'bdh-trans/ptg-beban', [
                 'headers' => [
@@ -528,12 +581,12 @@ class PtgBebanController extends Controller
                 $response_data = $response->getBody()->getContents();
 
                 $data = json_decode($response_data, true);
-                return response()->json(["data" => $data["success"]], 200);
+                return response()->json(["data" => $data], 200);
             }
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(), true);
-            $result['message'] = $res["message"];
+            $result['message'] = $res;
             $result['status'] = false;
             return response()->json(["data" => $result], 200);
         }
@@ -811,7 +864,7 @@ class PtgBebanController extends Controller
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(), true);
-            $result['message'] = $res["message"];
+            $result['message'] = $res;
             $result['status'] = false;
             return response()->json(["data" => $result], 200);
         }

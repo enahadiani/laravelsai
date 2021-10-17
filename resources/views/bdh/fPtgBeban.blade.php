@@ -102,16 +102,16 @@
                                 <div class="col-md-6 col-sm-12">
                                     <label for="total_debet">Total Jurnal</label>
                                     <input class="form-control currency" type="text" placeholder="Total Jurnal" readonly
-                                        id="totalJurnal" name="total_jurnal" value="0">
+                                        id="total_jurnal" name="total_jurnal" value="0">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6 col-sm-12">
                                 </div>
                                 <div class="col-md-6 col-sm-12">
-                                    <label for="total_kredit">Total Net Rekening</label>
+                                    <label for="total_net_rek">Total Net Rekening</label>
                                     <input class="form-control currency" type="text" placeholder="Total Kredit" readonly
-                                        id="total_kredit" name="total_kredit" value="0">
+                                        id="total_net_rek" name="total_net_rek" value="0">
                                 </div>
                             </div>
                         </div>
@@ -420,19 +420,25 @@
         generateBukti();
     });
 
-
     function cekBudget() {
         var url = '{{ url("bdh-trans/load-budget") }}';
-        var kode_akun_agg = $('#jurnal-grid').find('.inp-kode_akun').val();
-        var kode_pp_agg = $('#jurnal-grid').find('.inp-pp').val();
-        var kode_drk_agg = $('#jurnal-grid').find('.inp-drk').val();
-        var nilai = $('#jurnal-grid').find('.inp-nilai').val();
+
         var tanggal = $('#form-tambah').find('.inp-tanggal').val();
         var revers = reverseDate2(tanggal, '/', '');
         var periode = revers.substring(0, 6);
-
         var no_bukti = $('#form-tambah').find('.inp-no_bukti').val();
-        var nilai_agg = toNilai(nilai);
+
+        var kode_akun_agg = [];
+        var kode_pp_agg = [];
+        var kode_drk_agg = [];
+        var nilai_agg = [];
+
+        $('#jurnal-grid tbody tr').each(function (index) {
+            kode_akun_agg.push($(this).find('.inp-kode').val());
+            kode_pp_agg.push($(this).find('.inp-pp').val());
+            kode_drk_agg.push($(this).find('.inp-drk').val());
+            nilai_agg.push(toNilai($(this).find('.inp-nilai').val()));
+        });
         $.ajax({
             type: 'GET',
             url: url,
@@ -450,16 +456,28 @@
                 var data = result.daftar;
                 var no = 1;
                 var html = '';
-                html += `<tr>
+                for (let i = 0; i < data.length; i++) {
+                    html += `<tr>
                     <td>` + no++ + `</td>
-                    <td>` + data.kode_akun_agg + `</td>
-                    <td>` + data.kode_pp_agg + `</td>
-                    <td>` + data.kode_drk_agg + `</td>
-                    <td>` + data.so_awal_agg + `</td>
-                    <td>` + data.nilai_agg + `</td>
-                    <td>` + data.so_akhir_agg + `</td>
+                    <td>` + data[i].kode_akun_agg +
+                        `<input type='hidden' name='kode_akun_agg[]' class='inp-kode_akun_agg' id ='kode_akun_agg' value='` +
+                        data[i].kode_akun_agg + `'></td>
+                    <td>` + data[i].kode_pp_agg +
+                        `<input type='hidden' name='kode_pp_agg[]' class='inp-kode_pp_agg' value='` + data[
+                            0].kode_pp_agg + `'></td>
+                    <td>` + data[i].kode_drk_agg +
+                        `<input type='hidden' class='inp-kode_drk_agg' name='kode_drk_agg[]' id='kode_drk_agg' value='` +
+                        data[i].kode_drk_agg + `'></td>
+                    <td>` + data[i].so_awal_agg +
+                        `<input type='hidden' name='saldo_awal_agg[]' id='saldo_awal_agg' class='inp-saldo_awal_agg' value='` +
+                        data[i].so_awal_agg + `'></td>
+                    <td>` + data[i].nilai_agg +
+                        `<input type='hidden' class='inp-nilai_agg' name='nilai_agg[]' value='` + data[i]
+                        .nilai_agg + `'></td>
+                    <td>` + data[i].so_akhir_agg + `<input type='hidden' name='saldo_akhir_agg[]' value='` + data[i]
+                        .so_akhir_agg + `'></td>
                 </tr>`
-
+                }
                 $('#budget-grid >tbody').html(html);
                 console.log(result);
             },
@@ -960,6 +978,8 @@
             oncleared: function () {}
         });
 
+
+
         $('.tooltip-span').tooltip({
             title: function () {
                 return $(this).text();
@@ -977,8 +997,8 @@
         $('#atensi-grid tbody tr:last').find(".td-atensi").hide();
         $('#atensi-grid tbody tr:last').find(".inp-atensi").focus();
 
-        $('.inp-nilai').on('change', function () {
-            hitungTotalAtensi()
+        $('.inp-bruto').on('change', function () {
+            hitungTotalNetRekening();
         })
 
         hitungTotalRowAtensi()
@@ -1244,12 +1264,47 @@
         console.log(netto);
         parent.find('.inp-netto').val(format_number(netto));
     });
+
+    $('#atensi-grid').on('change', '.inp-bruto', function () {
+        hitungTotalNetRekening();
+        console.log('kalkulasi1')
+    });
+    $('#atensi-grid').on('change', '.inp-potongan', function () {
+        hitungTotalNetRekening();
+        console.log('kalkulasi2')
+    });
+
+    function hitungTotalNetRekening() {
+        var total_net_rek = 0;
+        $('#atensi-grid tbody tr').each(function () {
+            var nilai1 = $(this).closest('tr').find('.inp-bruto').val();
+            var nilai2 = $(this).closest('tr').find('.inp-potongan').val();
+            var nilai = toNilai(nilai1) - toNilai(nilai2);
+            total_net_rek += +nilai;
+        });
+        console.log('TOTAL NET ' + total_net_rek)
+
+        $('#total_net_rek').val(total_net_rek);
+    }
     // END ATENSI GRID
 
     // Jurnal  Grid
     function hitungTotalRowJurnal() {
         var total_row = $('#jurnal-grid tbody tr').length;
         $('#total-row-jurnal').html(total_row + ' Baris');
+    }
+    $('#jurnal-grid').on('change', '.inp-nilai', function () {
+        hitungTotalJurnal();
+    });
+
+    function hitungTotalJurnal() {
+        var total_jurnal = 0;
+        $('#jurnal-grid tbody tr').each(function (index) {
+            var nilai = toNilai($(this).find('.inp-nilai').val())
+            total_jurnal += +nilai;
+        });
+
+        $('#total_jurnal').val(total_jurnal);
     }
 
     function hideUnselectedRowJurnal() {
@@ -1671,33 +1726,40 @@
                 var tanggal = $('#form-tambah').find('.inp-tanggal').val();
                 var revers = reverseDate2(tanggal, '/', '');
                 var periode = revers.substring(0, 6);
-                var options = {
-                    id: par,
-                    header: ['Kode', 'Nama'],
-                    url: "{{ url('bdh-trans/drk') }}",
-                    columns: [{
-                            data: 'kode_drk'
+
+                if (kode_pp == '' || kode_akun == '') {
+                    alert('Harap memilih Kode Akun dan Kode PP')
+                    return false
+                } else {
+                    var options = {
+                        id: par,
+                        header: ['Kode', 'Nama'],
+                        url: "{{ url('bdh-trans/drk') }}",
+                        columns: [{
+                                data: 'kode_drk'
+                            },
+                            {
+                                data: 'nama'
+                            }
+                        ],
+                        parameter: {
+                            periode: periode,
+                            kode_akun: kode_akun,
+                            kode_pp: kode_pp
                         },
-                        {
-                            data: 'nama'
-                        }
-                    ],
-                    parameter: {
-                        periode: periode,
-                        kode_akun: kode_akun,
-                        kode_pp: kode_pp
-                    },
-                    judul: "Daftar DRK",
-                    pilih: "pp",
-                    jTarget1: "val",
-                    jTarget2: "val",
-                    target1: "." + target1,
-                    target2: "." + target2,
-                    target3: ".td" + target2,
-                    target4: "custom",
-                    width: ["30%", "70%"]
-                };
-                break;
+                        judul: "Daftar DRK",
+                        pilih: "pp",
+                        jTarget1: "val",
+                        jTarget2: "val",
+                        target1: "." + target1,
+                        target2: "." + target2,
+                        target3: ".td" + target2,
+                        target4: "custom",
+                        width: ["30%", "70%"]
+                    };
+                    break;
+                }
+
         }
         showInpFilterBSheet(options);
 
@@ -1783,14 +1845,14 @@
         submitHandler: function (form, event) {
             event.preventDefault();
 
-            $("#pemberi-grid tbody tr td:not(:first-child):not(:last-child)").each(function () {
-                if ($(this).find('span').text().trim().length == 0) {
-                    console.log($(this).find('span').text().length)
-                    alert('Data pemberi tidak boleh kosong, harap dihapus untuk melanjutkan')
-                    valid = false;
-                    return false;
-                }
-            });
+            // $("#pemberi-grid tbody tr td:not(:first-child):not(:last-child)").each(function () {
+            //     if ($(this).find('span').text().trim().length == 0) {
+            //         console.log($(this).find('span').text().length)
+            //         alert('Data pemberi tidak boleh kosong, harap dihapus untuk melanjutkan')
+            //         valid = false;
+            //         return false;
+            //     }
+            // });
 
             var parameter = $('#id_edit').val();
             var id = $('#id').val();
@@ -1828,7 +1890,7 @@
                     cache: false,
                     processData: false,
                     success: function (result) {
-                        if (result.data.success.status) {
+                        if (result.data.status) {
                             dataTable.ajax.reload();
                             $('#row-id').hide();
                             $('#form-tambah')[0].reset();
@@ -1839,11 +1901,11 @@
                             $('#method').val('post');
                             resetForm();
                             msgDialog({
-                                id: result.data.success.no_bukti,
+                                id: result.data.no_bukti,
                                 type: 'simpan'
                             });
-                            last_add("no_pdrk", result.data.success.no_bukti);
-                        } else if (!result.data.success.status && result.data.success
+                            last_add("no_pdrk", result.data.no_bukti);
+                        } else if (!result.data.status && result.data
                             .message === "Unauthorized") {
                             window.location.href =
                                 "{{ url('/esaku-auth/sesi-habis') }}";
@@ -1852,7 +1914,7 @@
                                 icon: 'error',
                                 title: 'Oops...',
                                 text: 'Something went wrong!',
-                                footer: '<a href>' + result.data.success.message +
+                                footer: '<a href>' + result.data.message +
                                     '</a>'
                             })
                         }
