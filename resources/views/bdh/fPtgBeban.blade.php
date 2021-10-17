@@ -568,7 +568,9 @@
     }
 
     function resetForm() {
-        $('#pemberi-grid tbody').empty()
+        $('#atensi-grid tbody').empty()
+        $('#jurnal-grid tbody').empty()
+        $('#budget-grid tbody').empty()
         $("[id^=label]").each(function (e) {
             $(this).text('');
         });
@@ -1246,6 +1248,7 @@
             no++;
         });
         hitungTotalRowAtensi();
+        hitungTotalNetRekening();
         $("html, body").animate({
             scrollTop: $(document).height()
         }, 1000);
@@ -1473,6 +1476,7 @@
             no++;
         });
         hitungTotalRowJurnal();
+        hitungTotalJurnal();
         $("html, body").animate({
             scrollTop: $(document).height()
         }, 1000);
