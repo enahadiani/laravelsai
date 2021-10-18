@@ -290,7 +290,7 @@ class SpbController extends Controller
                 ],
                 [
                     'name' => 'total',
-                    'contents' => $request->total_spb,
+                    'contents' => intval(preg_replace("/[^0-9]/", "", $request->total_spb)),
                 ],
             ];
 
@@ -301,22 +301,25 @@ class SpbController extends Controller
 
             if (count($request->status) > 0) {
                 for ($y = 0; $y < count($request->status); $y++) {
-                    $fields_status[$y] = array(
-                        'name'      => 'status[]',
-                        'contents'  => $request->status[$y]
-                    );
-                    $fields_no_pb[$y] = array(
-                        'name'      => 'no_pb[]',
-                        'contents'  => $request->pb[$y]
-                    );
-                    $fields_nilai_pb[$y] = array(
-                        'name'      => 'nilai_pb[]',
-                        'contents'  => $request->nilai[$y]
-                    );
+                    if($request->status[$y] == 'SPB'){
+                        $fields_status[$y] = array(
+                            'name'      => 'status[]',
+                            'contents'  => $request->status[$y]
+                        );
+                        $fields_no_pb[$y] = array(
+                            'name'      => 'no_pb[]',
+                            'contents'  => $request->pb[$y]
+                        );
+                        $fields_nilai_pb[$y] = array(
+                            'name'      => 'nilai_pb[]',
+                            'contents'  => intval(preg_replace("/[^0-9]/", "", $request->nilai)[$y])
+                        );
 
-                    $send_data = array_merge($fields, $fields_status);
-                    $send_data = array_merge($send_data, $fields_no_pb);
-                    $send_data = array_merge($send_data, $fields_nilai_pb);
+                        $send_data = array_merge($fields, $fields_status);
+                        $send_data = array_merge($send_data, $fields_no_pb);
+                        $send_data = array_merge($send_data, $fields_nilai_pb);
+                    }
+
                 }
             } else {
                 $send_data = $fields;
