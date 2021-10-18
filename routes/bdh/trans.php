@@ -98,3 +98,4 @@ Route::get('/bayar-spb-nobukti', 'Bdh\PemSpbController@GenerateBukti');
 Route::get('/bayar-spb-akun', 'Bdh\PemSpbController@getAkun');
 Route::get('/bayar-spb-pp', 'Bdh\PemSpbController@getPP');
 Route::get('/bayar-spb-akun-kasbank', 'Bdh\PemSpbController@getKasBank');
+Route::post('/bayar-spb', 'Bdh\PemSpbController@store');
