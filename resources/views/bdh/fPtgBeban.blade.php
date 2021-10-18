@@ -2122,28 +2122,29 @@
         console.log(id)
         $.ajax({
             type: 'DELETE',
-            url: "{{ url('esaku-trans/pengajuan-rra') }}",
+            url: "{{ url('bdh-trans/ptg-beban') }}",
             data: {
                 kode: id
             },
             dataType: 'json',
             async: false,
             success: function (result) {
-                if (result.data.success.status) {
+                if (result.data.status) {
                     dataTable.ajax.reload();
-                    showNotification("top", "center", "success", 'Hapus Data', 'Data Pengajuan RRA (' + id +
+                    showNotification("top", "center", "success", 'Hapus Data',
+                        'Data Pertanggungan Beban (' + id +
                         ') berhasil dihapus ');
                     $('#modal-pesan-id').html('');
                     $('#table-delete tbody').html('');
                     $('#modal-pesan').modal('hide');
-                } else if (!result.data.success.status && result.data.success.message == "Unauthorized") {
+                } else if (!result.data.status && result.data.message == "Unauthorized") {
                     window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
                 } else {
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
                         text: 'Something went wrong!',
-                        footer: '<a href>' + result.data.success.message + '</a>'
+                        footer: '<a href>' + result.data.message + '</a>'
                     });
                 }
             }

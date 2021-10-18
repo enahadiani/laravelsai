@@ -42,6 +42,7 @@ Route::get('/ptg-beban', 'Bdh\PtgBebanController@index');
 Route::get('ptg-beban/{id}', 'Bdh\PtgBebanController@show');
 Route::post('ptg-beban', 'Bdh\PtgBebanController@store');
 Route::post('ptg-beban-ubah', 'Bdh\PtgBebanController@update');
+Route::delete('ptg-beban', 'Bdh\PtgBebanController@destroy');
 
 Route::get('generate-bukti', 'Bdh\PtgBebanController@GenerateBukti');
 Route::get('load-budget', 'Bdh\PtgBebanController@cekBudget');

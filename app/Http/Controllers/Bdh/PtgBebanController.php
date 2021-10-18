@@ -876,18 +876,18 @@ class PtgBebanController extends Controller
     //  * @param  int  $id
     //  * @return \Illuminate\Http\Response
     //  */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
         try {
 
             $client = new Client();
-            $response = $client->request('DELETE',  config('api.url') . 'esaku-trans/jurnal', [
+            $response = $client->request('DELETE',  config('api.url') . 'bdh-trans/ptg-beban', [
                 'headers' => [
                     'Authorization' => 'Bearer ' . Session::get('token'),
                     'Accept'     => 'application/json',
                 ],
                 'query' => [
-                    'no_bukti' => $id
+                    'no_bukti' => $request->input('kode')
                 ]
             ]);
 
@@ -895,7 +895,7 @@ class PtgBebanController extends Controller
                 $response_data = $response->getBody()->getContents();
 
                 $data = json_decode($response_data, true);
-                $data = $data["success"];
+                $data = $data;
             }
             return response()->json(['data' => $data], 200);
         } catch (BadResponseException $ex) {
