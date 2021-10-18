@@ -825,7 +825,7 @@
             default:
                 break;
         }
-        showInpFilter(settings);
+        showInpFilterBSheet(settings);
     })
 
     $('#form-tambah #input-dok').on('click', '.search-item', function () {
@@ -865,7 +865,7 @@
                 };
                 break;
         }
-        showInpFilter(options);
+        showInpFilterBSheet(options);
 
     });
 
@@ -1448,20 +1448,7 @@
         hitungTotalRowJurnal();
     }
 
-    function custTarget(target, tr) {
-        $(target).parents("tr").find(".inp-pp").val(tr.find('td:nth-child(1)').text());
-        $(target).parents("tr").find(".td-pp").text(tr.find('td:nth-child(1)').text());
-        $(target).parents("tr").find(".inp-pp").hide();
-        $(target).parents("tr").find(".td-pp").show();
-        $(target).parents("tr").find(".search-pp").hide();
-        $(target).parents("tr").find(".inp-nama_pp").show();
-        $(target).parents("tr").find(".td-nama_pp").hide();
-        // $($target).parents("tr").find(".inp-nama_pp").attr('readonly',false);
 
-        setTimeout(function () {
-            $(target).parents("tr").find(".inp-nama_pp").focus();
-        }, 100);
-    }
 
     $('#form-tambah').on('click', '.add-row-jurnal', function () {
         addRowJurnal();
@@ -1652,6 +1639,7 @@
             }
         }
     });
+    // jurnal cbbl
     $('#jurnal-grid').on('click', '.search-item', function () {
         var par = $(this).closest('td').find('input').attr('name');
 
@@ -1675,7 +1663,8 @@
         tmp = $(this).closest('tr').find('input[name="' + par2 + '"]').attr('class');
         tmp2 = tmp.split(" ");
         target2 = tmp2[2];
-
+        console.log(target1)
+        console.log(target2)
         switch (par) {
             case 'kode_akun[]':
                 var options = {
@@ -1719,7 +1708,7 @@
                     target1: "." + target1,
                     target2: "." + target2,
                     target3: ".td" + target2,
-                    target4: "custom",
+                    target4: "",
                     width: ["30%", "70%"]
                 };
                 break;
@@ -1752,13 +1741,13 @@
                             kode_pp: kode_pp
                         },
                         judul: "Daftar DRK",
-                        pilih: "pp",
+                        pilih: "drk",
                         jTarget1: "val",
                         jTarget2: "val",
                         target1: "." + target1,
                         target2: "." + target2,
                         target3: ".td" + target2,
-                        target4: "custom",
+                        target4: "",
                         width: ["30%", "70%"]
                     };
                     break;

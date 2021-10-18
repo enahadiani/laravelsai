@@ -530,7 +530,7 @@ class PtgBebanController extends Controller
             $fields_kode_drk_agg = array();
             $fields_nilai_agg = array();
             $fields_saldo_awal_agg = array();
-            $fields_saldo_akhir = array();
+            $fields_saldo_akhir_agg = array();
             if(count($request->kode_akun_agg) > 0){
                 for ($b=0; $b < count($request->kode_akun_agg) ; $b++) {
                     $fields_kode_akun_agg[$b] = array(
