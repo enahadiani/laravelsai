@@ -341,25 +341,14 @@
         </div>
     </div>
 </form>
+
 <button id="trigger-bottom-sheet" style="display:none">Bottom ?</button>
 @include('modal_search')
 
 <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}">
 </script>
 <script src="{{ asset('helper.js') }}"></script>
-<script type="text/javascript">
-    var $tahun = "{{ date('Y') }}"
-    var $periode = "{{ date('Ym') }}"
-    var valid = true
-    var $kode_akun = []
-    var $pp = []
-    var $drk = []
-    var $totalPemberi = 0;
-    var $totalJurnal = 0;
-    var $akunPenerima = []
-    var $ppPenerima = []
-    var $nikApprove = []
-
+<script>
     var bottomSheet = new BottomSheet("country-selector");
     document.getElementById("trigger-bottom-sheet").addEventListener("click", bottomSheet.activate);
     window.bottomSheet = bottomSheet;
@@ -501,49 +490,6 @@
         cekBudget();
     });
 
-
-
-    function filterNikApprove(value) {
-        for (var i = 0; i < $nikApprove.length; i++) {
-            var data = $nikApprove[i]
-            if (data.id == value) {
-                console.log(data)
-                showInfoField('nik_approve', data.id, data.name)
-                break;
-            }
-        }
-    }
-
-    function filterPPPenerima(value) {
-        for (var i = 0; i < $ppPenerima.length; i++) {
-            var data = $ppPenerima[i]
-            if (data.id == value) {
-                showInfoField('pp_penerima', data.id, data.name)
-                break;
-            }
-        }
-    }
-
-    function filterDrkPenerima(value) {
-        for (var i = 0; i < $ppPenerima.length; i++) {
-            var data = $ppPenerima[i]
-            if (data.id == value) {
-                showInfoField('drk_penerima', data.id, data.name)
-                break;
-            }
-        }
-    }
-
-    function filterAkunPenerima(value) {
-        for (var i = 0; i < $akunPenerima.length; i++) {
-            var data = $akunPenerima[i]
-            if (data.id == value) {
-                showInfoField('akun_penerima', data.id, data.name)
-                break;
-            }
-        }
-    }
-
     function format_number(x) {
         var num = parseFloat(x).toFixed(0);
         num = sepNumX(num);
@@ -557,14 +503,6 @@
             totalJurnal += nilai
         })
         $('#totalJurnal').val(totalJurnal);
-    }
-
-    function hitungTotalPemberi() {
-        $totalPemberi = 0;
-        $('#pemberi-grid tbody tr').each(function (index) {
-            var nilai = toNilai($(this).find('.inp-nilai').val())
-            $totalPemberi += nilai
-        })
     }
 
     function resetForm() {
@@ -1114,126 +1052,6 @@
         }
     });
 
-    var $twicePressAtensi = 0;
-    $('#atensi-grid').on('keydown', '.inp-atensi', function (e) {
-        var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['.inp-atensi'];
-        var nxt2 = ['.td-atensi'];
-        if (code == 13 || code == 9) {
-            e.preventDefault();
-            var idx = $(this).closest('td').index() - 1;
-            var idx_next = idx + 1;
-            var kunci = $(this).closest('td').index() + 1;
-            var isi = $(this).val();
-            switch (idx) {
-                case 0:
-                    $(this).parents("tr").find("td:eq(" + kunci + ")").addClass("px-0 py-0 aktif");
-                    if (isi.length > 30) {
-                        isi = isi.substr(0, 30) + '...'
-                    }
-                    $(this).closest('tr').find(nxt[idx]).val(isi);
-                    $(this).closest('tr').find(nxt2[idx]).text(isi);
-                    $(this).closest('tr').find(nxt[idx]).hide();
-                    $(this).closest('tr').find(nxt2[idx]).show();
-
-                    $(this).closest('tr').find(nxt[idx_next]).show();
-                    $(this).closest('tr').find(nxt2[idx_next]).hide();
-                    $(this).closest('tr').find(nxt[idx_next]).focus();
-                    $(this).closest('tr').find('.search-anggaran').hide();
-                    $(this).closest('tr').find('.search-pp').show();
-                    break;
-                case 1:
-                    $("#atensi-grid td").removeClass("px-0 py-0 aktif");
-                    $(this).parents("tr").find("td:eq(" + kunci + ")").addClass("px-0 py-0 aktif");
-                    $(this).closest('tr').find(nxt[idx]).val(isi);
-                    $(this).closest('tr').find(nxt2[idx]).text(isi);
-                    $(this).closest('tr').find(nxt[idx]).hide();
-                    $(this).closest('tr').find(nxt2[idx]).show();
-
-                    $(this).closest('tr').find(nxt[idx_next]).show();
-                    $(this).closest('tr').find(nxt2[idx_next]).hide();
-                    $(this).closest('tr').find(nxt[idx_next]).focus();
-                    $(this).closest('tr').find('.search-pp').hide();
-                    $(this).closest('tr').find('.search-drk').show();
-                    break;
-                case 2:
-                    $("#atensi-grid td").removeClass("px-0 py-0 aktif");
-                    $(this).parents("tr").find("td:eq(" + kunci + ")").addClass("px-0 py-0 aktif");
-                    $(this).closest('tr').find(nxt[idx]).val(isi);
-                    $(this).closest('tr').find(nxt2[idx]).text(isi);
-                    $(this).closest('tr').find(nxt[idx]).hide();
-                    $(this).closest('tr').find(nxt2[idx]).show();
-
-                    $(this).closest('tr').find(nxt[idx_next]).show();
-                    $(this).closest('tr').find(nxt2[idx_next]).hide();
-                    $(this).closest('tr').find(nxt[idx_next]).focus();
-                    $(this).closest('tr').find('.search-drk').hide();
-                    break;
-                case 3:
-                    $("#atensi-grid td").removeClass("px-0 py-0 aktif");
-                    $(this).parents("tr").find("td:eq(" + kunci + ")").addClass("px-0 py-0 aktif");
-                    $(this).closest('tr').find(nxt[idx]).val(isi);
-                    $(this).closest('tr').find(nxt2[idx]).text(isi);
-                    $(this).closest('tr').find(nxt[idx]).hide();
-                    $(this).closest('tr').find(nxt2[idx]).show();
-
-                    $(this).closest('tr').find(nxt[idx_next]).show();
-                    $(this).closest('tr').find(nxt2[idx_next]).hide();
-                    $(this).closest('tr').find(nxt[idx_next]).focus();
-                    break;
-                case 4:
-                    if (isi != "" && isi != 0) {
-                        $("#atensi-grid td").removeClass("px-0 py-0 aktif");
-                        $(this).parents("tr").find("td:eq(" + kunci + ")").addClass("px-0 py-0 aktif");
-
-                        $(this).closest('tr').find(nxt[idx]).val(isi);
-                        $(this).closest('tr').find(nxt2[idx]).text(isi);
-                        $(this).closest('tr').find(nxt[idx]).hide();
-                        $(this).closest('tr').find(nxt2[idx]).show();
-
-                        $(this).closest('tr').find(nxt[idx_next]).show();
-                        $(this).closest('tr').find(nxt2[idx_next]).hide();
-                        $(this).closest('tr').find(nxt[idx_next]).focus();
-                    } else {
-                        alert('Saldo yang dimasukkan tidak valid');
-                        return false;
-                    }
-                    break;
-                case 5:
-                    if (isi != "" && isi != 0) {
-                        $("#atensi-grid td").removeClass("px-0 py-0 aktif");
-                        $(this).parents("tr").find("td:eq(" + kunci + ")").addClass("px-0 py-0 aktif");
-                        if (code == 13 || code == 9) {
-                            if ($twicePressPemberi == 1) {
-                                $(this).closest('tr').find(nxt[idx]).val(isi);
-                                $(this).closest('tr').find(nxt2[idx]).text(isi);
-                                $(this).closest('tr').find(nxt[idx]).hide();
-                                $(this).closest('tr').find(nxt2[idx]).show();
-                                var cek = $(this).parents('tr').next('tr').find('.td-atensi');
-                                if (cek.length > 0) {
-                                    cek.click();
-                                } else {
-                                    $('#add-row-atensi').click();
-                                }
-                            }
-                            $twicePressPemberi = 1
-                            setTimeout(() => $twicePressPemberi = 0, 1000)
-                        }
-                    } else {
-                        alert('Nilai yang dimasukkan tidak valid');
-                        return false;
-                    }
-                    break;
-                default:
-                    break;
-            }
-        } else if (code == 38) {
-            e.preventDefault();
-            var idx = nxt.indexOf(e.target.id);
-            idx--;
-        }
-    });
-
     $('#form-tambah').on('click', '#add-row-atensi', function () {
         addRowAtensi()
     });
@@ -1759,24 +1577,6 @@
     });
     // END Jurnal Grid
 
-    function hitungTotalSpb() {
-        var totalSpb = 0;
-        var totalProg = 0;
-        $('#pb-grid tbody tr').each(function (index) {
-            var nilai = toNilai($(this).find('.inp-nilai').val())
-            var status = $(this).find('.inp-status').val();
-
-            if (status == "SPB") {
-                totalSpb += nilai;
-            } else {
-                totalProg += nilai;
-            }
-        });
-
-        $('#totalSpb').val(totalSpb);
-        // $('#totalProg').val(totalProg);
-    }
-
 
     function hitungTotalRowUpload(form) {
         var total_row = $('#' + form + ' #input-dok tbody tr').length;
@@ -1861,10 +1661,6 @@
             }
 
             var formData = new FormData(form);
-            $('#pemberi-grid tbody tr').each(function (index) {
-                formData.append('no_pemberi[]', $(this).find('.no-pemberi').text())
-            })
-            formData.append('donor', $totalPemberi)
 
             if (parameter == "edit") {
                 formData.append('no_bukti', id)
@@ -1897,7 +1693,7 @@
                                 id: result.data.no_bukti,
                                 type: 'simpan'
                             });
-                            last_add("no_pdrk", result.data.no_bukti);
+                            last_add("no_pb", result.data.no_bukti);
                         } else if (!result.data.status && result.data
                             .message === "Unauthorized") {
                             window.location.href =
@@ -2158,5 +1954,185 @@
             type: 'hapus'
         });
     });
+
+    // PREVIEW DATA
+    $('#table-data tbody').on('click', 'td', function (e) {
+
+        if ($(this).index() != 6) {
+            var id = $(this).closest('tr').find('td').eq(0).html();
+            console.log('click td ' + id)
+            var data = dataTable.row(this).data();
+            var posted = data.posted;
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('/bdh-trans/ptg-beban') }}/" + id,
+                dataType: 'json',
+                async: false,
+                success: function (res) {
+                    // console.log(res)
+                    var result = res.daftar;
+                    var data_m = result.data;
+                    var data_rek = result.detail_rek;
+                    if (result.status) {
+                        console.log('OK')
+                        var html =
+                            `<div class="preview-header" style="display:block;height:39px;padding: 0 1.75rem" >
+                        <h6 style="position: absolute;" id="preview-judul">Preview Data</h6>
+                        <span id="preview-nama" style="display:none"></span><span id="preview-id" style="display:none">` +
+                            id + `</span>
+                    <div class="dropdown d-inline-block float-right">
+                        <button type="button" id="dropdownAksi" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding: 0.2rem 1rem;border-radius: 1rem !important;" class="btn dropdown-toggle btn-light">
+                        <span class="my-0">Aksi <i style="font-size: 10px;" class="simple-icon-arrow-down ml-3"></i></span>
+                        </button>
+                        <div class="dropdown-menu dropdown-aksi" aria-labelledby="dropdownAksi" x-placement="bottom-start" style="position: absolute; will-change: transform; top: -10px; left: 0px; transform: translate3d(0px, 37px, 0px);">
+                            <a class="dropdown-item dropdown-ke1" href="#" id="btn-delete2"><i class="simple-icon-trash mr-1"></i> Hapus</a>
+                            <a class="dropdown-item dropdown-ke1" href="#" id="btn-edit2"><i class="simple-icon-pencil mr-1"></i> Edit</a>
+                            <a class="dropdown-item dropdown-ke1" href="#" id="btn-cetak"><i class="simple-icon-printer mr-1"></i> Cetak</a>
+                            <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-cetak2" style="border-bottom: 1px solid #d7d7d7;"><i class="simple-icon-arrow-left mr-1"></i> Cetak</a>
+                            <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-excel"> Excel</a>
+                            <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-pdf"> PDF</a>
+                            <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-print"> Print</a>
+                        </div>
+                    </div>
+                </div>
+                <div class='separator'></div>
+                <div class='preview-body' style='padding: 0 1.75rem;height: calc(75vh - 56px) ;position:sticky'>
+                    <div style='border-bottom: double #d7d7d7;padding:0 1.5rem'>
+
+                    </div>
+                    <div style="padding:0 1.5rem">
+                        <table class="borderless table-header-prev mt-2" width="100%">
+                            <tr>
+                                <td width="14%">Tanggal</td>
+                                <td width="1%">:</td>
+                                <td width="20%">` + data_m[0].tanggal + `</td>
+                                <td width="30%" rowspan="3"></td>
+                                <td width="10%" rowspan="3" style="vertical-align:top !important">Deskripsi</td>
+                                <td width="1%" rowspan="3" style="vertical-align:top !important">:</td>
+                                <td width="24%" rowspan="3" style="vertical-align:top !important">` + data_m[0]
+                            .keterangan + `</td>
+                            </tr>
+                            <tr>
+                                <td width="14%">No Transaksi</td>
+                                <td width="1%">:</td>
+                                <td width="20%">` + id + `</td>
+                            </tr>
+                            <tr>
+                                <td width="14%">No Dokumen</td>
+                                <td width="1%">:</td>
+                                <td width="20%">` + data_m[0].no_dokumen + `</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div style="padding:0 1.9rem">
+                        <table class="table table-striped table-body-prev mt-2" width="100%">
+                        <tr style="background: var(--theme-color-1) !important;color:white !important">
+                            <th style="width: 3%">No</th>
+                            <th width="10%">Status</th>
+                            <th width="10%">No Bukti</th>
+                            <th width="10%">No Dokumen</th>
+                            <th>Lokasi Kirim</th>
+                            <th>Akun TAK</th>
+                            <th width="35%">Keterangan</th>
+                            <th>Nilai</th>
+                            <th>Tgl Kirim</th>
+                            <th>ID</th>
+                        </tr>`;
+                        var det = '';
+                        var total = 0;
+
+                        det += `<tr style="background: var(--theme-color-1) !important;color:white !important">
+                                <th colspan="7">Total</th>
+                                <th class='text-right' style="width:10%">` + format_number(total) + `</th>
+                                <th></th>
+                                <th></th>
+                        </tr>`;
+
+                        html += det + `
+                        </table>
+                        <table class="table-borderless mt-2" width="100%">
+                            <tr>
+                                <td width="25%">&nbsp;</td>
+                                <td width="25%">&nbsp;</td>
+                                <td width="10%">&nbsp;</td>
+                                <td width="20%" class="text-center">Dibuat Oleh</td>
+                                <td width="20%" class="text-center">Diperiksa Oleh</td>
+                            </tr>
+                            <tr>
+                                <td width="25%">&nbsp;</td>
+                                <td width="25%">&nbsp;</td>
+                                <td width="10%">&nbsp;</td>
+                                <td width="20%" style="height:100px"></td>
+                                <td width="20%" style="height:100px"></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>`;
+                        $('#content-bottom-sheet').html(html);
+
+                        var scroll = document.querySelector('.preview-body');
+                        var psscroll = new PerfectScrollbar(scroll);
+
+
+                        $('.c-bottom-sheet__sheet').css({
+                            "width": "70%",
+                            "margin-left": "15%",
+                            "margin-right": "15%"
+                        });
+
+                        $('.preview-header').on('click', '#btn-delete2', function (e) {
+                            var id = $('#preview-id').text();
+                            $('.c-bottom-sheet').removeClass('active');
+                            msgDialog({
+                                id: id,
+                                type: 'hapus'
+                            });
+                        });
+
+                        $('.preview-header').on('click', '#btn-edit2', function () {
+                            var id = $('#preview-id').text();
+                            $('#judul-form').html('Edit Data Jurnal');
+                            $('#form-tambah')[0].reset();
+                            $('#form-tambah').validate().resetForm();
+
+                            $('#btn-save').attr('type', 'button');
+                            $('#btn-save').attr('id', 'btn-update');
+                            $('.c-bottom-sheet').removeClass('active');
+                            editData(id);
+                        });
+
+                        $('.preview-header').on('click', '#btn-cetak', function (e) {
+                            e.stopPropagation();
+                            $('.dropdown-ke1').addClass('hidden');
+                            $('.dropdown-ke2').removeClass('hidden');
+                            console.log('ok');
+                        });
+
+                        $('.preview-header').on('click', '#btn-cetak2', function (e) {
+                            // $('#dropdownAksi').dropdown('toggle');
+                            e.stopPropagation();
+                            $('.dropdown-ke1').removeClass('hidden');
+                            $('.dropdown-ke2').addClass('hidden');
+                        });
+
+                        if (posted == "Close") {
+                            console.log(posted);
+                            $('.preview-header #btn-delete2').css('display', 'none');
+                            $('.preview-header #btn-edit2').css('display', 'none');
+                        } else {
+                            $('.preview-header #btn-delete2').css('display', 'inline-block');
+                            $('.preview-header #btn-edit2').css('display', 'inline-block');
+                        }
+                        $('#trigger-bottom-sheet').trigger("click");
+                    } else if (!result.status && result.message == 'Unauthorized') {
+                        window.location.href =
+                            "{{ url('esaku-auth/sesi-habis') }}";
+                    }
+                }
+            });
+
+        }
+    });
+    // END PREVIEW
 
 </script>

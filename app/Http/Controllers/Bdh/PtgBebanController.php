@@ -651,7 +651,7 @@ class PtgBebanController extends Controller
                 $data = json_decode($response_data, true);
                 $data = $data;
             }
-            return response()->json(['data' => $data], 200);
+            return response()->json(['daftar' => $data], 200);
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(), true);
@@ -907,104 +907,4 @@ class PtgBebanController extends Controller
         }
     }
 
-
-    public function getNIKPeriksaByNIK($nik)
-    {
-        try {
-            $client = new Client();
-            $response = $client->request('GET',  config('api.url') . 'esaku-trans/nikperiksa/' . $nik, [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . Session::get('token'),
-                    'Accept'     => 'application/json',
-                ]
-            ]);
-
-            if ($response->getStatusCode() == 200) { // 200 OK
-                $response_data = $response->getBody()->getContents();
-
-                $data = json_decode($response_data, true);
-                $data = $data["success"]["data"];
-            }
-            return response()->json(['daftar' => $data, 'status' => true, 'message' => 'success'], 200);
-        } catch (BadResponseException $ex) {
-            $response = $ex->getResponse();
-            $res = json_decode($response->getBody(), true);
-            return response()->json(['message' => $res["message"], 'status' => false], 200);
-        }
-    }
-
-    public function importExcel(Request $request)
-    {
-        $this->validate($request, [
-            'file' => 'required'
-        ]);
-
-        try {
-
-            $image_path = $request->file('file')->getPathname();
-            $image_mime = $request->file('file')->getmimeType();
-            $image_org  = $request->file('file')->getClientOriginalName();
-            $fields[0] = array(
-                'name'     => 'file',
-                'filename' => $image_org,
-                'Mime-Type' => $image_mime,
-                'contents' => fopen($image_path, 'r'),
-            );
-            $fields[1] = array(
-                'name'     => 'nik_user',
-                'contents' => Session::get('nikUser')
-            );
-
-            $client = new Client();
-            $response = $client->request('POST',  config('api.url') . 'esaku-trans/import-excel', [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . Session::get('token'),
-                    'Accept'     => 'application/json',
-                ],
-                'multipart' => $fields
-            ]);
-            if ($response->getStatusCode() == 200) { // 200 OK
-                $response_data = $response->getBody()->getContents();
-
-                $data = json_decode($response_data, true);
-                return response()->json(['data' => $data], 200);
-            }
-        } catch (BadResponseException $ex) {
-            $response = $ex->getResponse();
-            $res = json_decode($response->getBody(), true);
-            $result['message'] = $res;
-            $result['status'] = false;
-            return response()->json(["data" => $result], 200);
-        }
-    }
-
-    public function getJurnalTmp()
-    {
-        try {
-            $client = new Client();
-            $response = $client->request('GET',  config('api.url') . 'esaku-trans/jurnal-tmp', [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . Session::get('token'),
-                    'Accept'     => 'application/json',
-                ],
-                'query' => [
-                    'nik_user' => Session::get('nikUser')
-                ]
-            ]);
-
-            if ($response->getStatusCode() == 200) { // 200 OK
-                $response_data = $response->getBody()->getContents();
-
-                $data = json_decode($response_data, true);
-                $data = $data["success"];
-            }
-            return response()->json(['data' => $data], 200);
-        } catch (BadResponseException $ex) {
-            $response = $ex->getResponse();
-            $res = json_decode($response->getBody(), true);
-            $result['message'] = $res["message"];
-            $result['status'] = false;
-            return response()->json(["data" => $result], 200);
-        }
-    }
 }
