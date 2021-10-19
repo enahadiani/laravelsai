@@ -147,8 +147,8 @@
 
 
 <!-- LIST DATA -->
-<x-list-data judul="Daftar Bukti" tambah=""
-    :thead="array('Modul','No Bukti','No App','Deskripsi','Nilai','Status','Aksi')"
+<x-list-data judul="Daftar Bukti (Verifikasi Pajak)" tambah=""
+    :thead="array('Modul','No Bukti','No Verifikasi','Deskripsi','Nilai','Status','Aksi')"
     :thwidth="array(15,15,15,35,15,15,10)" :thclass="array('','','','','','text-center','text-center')" />
 <!-- END LIST DATA -->
 
@@ -723,7 +723,7 @@
             default:
                 break;
         }
-        showInpFilter(settings);
+        showInpFilterBSheet(settings);
     })
     // EMD CBBL FILTER
 
@@ -800,6 +800,7 @@
         console.log('btn-edit ' + id);
         $('#jurnal-grid tbody').empty();
         $('#dok-grid tbody').empty();
+        $('#judul-form').html('Form Verifikasi Pajak');
         $.ajax({
             type: 'GET',
             url: '{{ url("bdh-trans/ver-pajak-detail") }}',
