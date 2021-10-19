@@ -78,6 +78,15 @@ Route::get('/ver-dok-pb', 'Bdh\VerDokController@getPb');
 Route::get('/ver-dok-detail', 'Bdh\VerDokController@LoadData');
 Route::post('/ver-dok', 'Bdh\VerDokController@store');
 
+// verifikasi pajak
+Route::get('/ver-pajak','Bdh\VerPajakController@index');
+Route::get('/ver-pajak-detail','Bdh\VerPajakController@show');
+Route::get('/ver-pajak-akun','Bdh\VerPajakController@getAkun');
+Route::get('/ver-pajak-pp','Bdh\VerPajakController@getPP');
+Route::get('/ver-pajak-drk','Bdh\VerPajakController@getDrk');
+Route::get('/ver-pajak-jenis-dok','Bdh\VerPajakController@getJenisDok');
+Route::post('/ver-pajak','Bdh\VerPajakController@store');
+
 // SPB
 Route::get('/spb', 'Bdh\SpbController@index');
 Route::get('/spb-pb-list', 'Bdh\SpbController@getPb');
