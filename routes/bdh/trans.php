@@ -87,6 +87,12 @@ Route::get('/ver-pajak-drk','Bdh\VerPajakController@getDrk');
 Route::get('/ver-pajak-jenis-dok','Bdh\VerPajakController@getJenisDok');
 Route::post('/ver-pajak','Bdh\VerPajakController@store');
 
+// verifikasi akun
+Route::get('/ver-akun','Bdh\VerAkunController@index');
+Route::get('/ver-akun-detail','Bdh\VerAkunController@show');
+Route::get('/ver-akun-budget','Bdh\VerAkunController@cekBudget');
+Route::post('/ver-akun','Bdh\VerAkunController@store');
+
 // SPB
 Route::get('/spb', 'Bdh\SpbController@index');
 Route::get('/spb-pb-list', 'Bdh\SpbController@getPb');
