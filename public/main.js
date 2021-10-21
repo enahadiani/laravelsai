@@ -503,3 +503,13 @@ function clearInputFilter(par) {
         .addClass("hidden");
     $("#" + par).trigger("change");
 }
+
+function toMilyar(x) {
+    var nil = x / 1000000000;
+    return sepNum(nil) + " M";
+}
+
+function toJuta(x) {
+    var nil = x / 1000000;
+    return sepNum(nil) + " Jt";
+}
