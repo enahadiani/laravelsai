@@ -307,56 +307,7 @@
                         </div>
                     </div>
                     <table class="table table-borderless table-py-0 mb-0" id="table-or">
-                        <tbody>
-                            <tr>
-                                <td class="w-25">TS</td>
-                                <td>
-                                    <div class="progress h-20">
-                                        <div class="progress-bar bg-red" role="progressbar" style="width: 91.2%" aria-valuenow="91.2" aria-valuemin="0" aria-valuemax="100">92.2%</div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="w-25">ITTS</td>
-                                <td>
-                                    <div class="progress h-20">
-                                        <div class="progress-bar bg-red" role="progressbar" style="width: 89.1%" aria-valuenow="89.1" aria-valuemin="0" aria-valuemax="100">89.1%</div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="w-25">ITTP</td>
-                                <td>
-                                    <div class="progress h-20">
-                                        <div class="progress-bar bg-red" role="progressbar" style="width: 88.7%" aria-valuenow="88.7" aria-valuemin="0" aria-valuemax="100">88.7%</div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="w-25">AKATEL</td>
-                                <td>
-                                    <div class="progress h-20">
-                                        <div class="progress-bar bg-red" role="progressbar" style="width: 91.0%" aria-valuenow="91.0" aria-valuemin="0" aria-valuemax="100">91%</div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="w-25">TelU</td>
-                                <td>
-                                    <div class="progress h-20">
-                                        <div class="progress-bar bg-red" role="progressbar" style="width: 91.6%" aria-valuenow="91.6" aria-valuemin="0" aria-valuemax="100">91.6%</div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="w-25">Lakhar</td>
-                                <td>
-                                    <div class="progress h-20">
-                                        <div class="progress-bar bg-red" role="progressbar" style="width: 93.4%" aria-valuenow="93.4" aria-valuemin="0" aria-valuemax="100">93.4%</div>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
+                        <tbody></tbody>
                     </table>
                 </div>
           </div>
@@ -420,98 +371,7 @@
                             <th class="text-center">YoY</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <p class="kode hidden">TS</p>
-                                <div class="glyph-icon simple-icon-check check-row" style="display: none"></div>
-                                TS
-                            </td>
-                            <td>90%</td>
-                            <td>90%</td>
-                            <td>90%</td>
-                            <td>90%</td>
-                            <td>90%</td>
-                            <td>90%</td>
-                            <td>90%</td>
-                            <td class="td-red">90%</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <p class="kode hidden">ITTP</p>
-                                <div class="glyph-icon simple-icon-check check-row" style="display: none"></div>
-                                ITTP
-                            </td>
-                            <td>90%</td>
-                            <td class="td-red">90%</td>
-                            <td>90%</td>
-                            <td>90%</td>
-                            <td class="td-red">90%</td>
-                            <td>90%</td>
-                            <td>90%</td>
-                            <td>90%</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <p class="kode hidden">ITTS</p>
-                                <div class="glyph-icon simple-icon-check check-row" style="display: none"></div>
-                                ITTS
-                            </td>
-                            <td>90%</td>
-                            <td>90%</td>
-                            <td>90%</td>
-                            <td>90%</td>
-                            <td>90%</td>
-                            <td class="td-red">90%</td>
-                            <td>90%</td>
-                            <td>90%</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <p class="kode hidden">AKATEL</p>
-                                <div class="glyph-icon simple-icon-check check-row" style="display: none"></div>
-                                AKATEL
-                            </td>
-                            <td>90%</td>
-                            <td>90%</td>
-                            <td class="td-red">90%</td>
-                            <td>90%</td>
-                            <td>90%</td>
-                            <td>90%</td>
-                            <td>90%</td>
-                            <td>90%</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <p class="kode hidden">TELU</p>
-                                <div class="glyph-icon simple-icon-check check-row" style="display: none"></div>
-                                TelU
-                            </td>
-                            <td>90%</td>
-                            <td>90%</td>
-                            <td>90%</td>
-                            <td>90%</td>
-                            <td>90%</td>
-                            <td>90%</td>
-                            <td>90%</td>
-                            <td>90%</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <p class="kode hidden">LAKHAR</p>
-                                <div class="glyph-icon simple-icon-check check-row" style="display: none"></div>
-                                Lakhar
-                            </td>
-                            <td>90%</td>
-                            <td>90%</td>
-                            <td>90%</td>
-                            <td>90%</td>
-                            <td>90%</td>
-                            <td>90%</td>
-                            <td>90%</td>
-                            <td>90%</td>
-                        </tr>
-                    </tbody>
+                    <tbody></tbody>
                 </table>
             </div>
         </div>
@@ -674,8 +534,14 @@ var $filter1_kode = "TRW";
 var $filter2_kode = "TRW1";
 var pdptChart = null;
 var bebanChart = null;
+var shuChart = null;
+var lrChart = null;
 
 // RUN IF PAGE IS FIRST RENDER
+Highcharts.SVGRenderer.prototype.symbols['c-rect'] = function (x, y, w, h) {
+    return ['M', x, y + h / 2, 'L', x + w, y + h / 2];
+};
+// BOX
 (function(){
     $.ajax({
         type: 'GET',
@@ -864,7 +730,8 @@ var bebanChart = null;
         }
     });
 })();
-
+// END BOX
+// PENDAPATAN
 (function(){
     $.ajax({
         type: 'GET',
@@ -931,7 +798,8 @@ var bebanChart = null;
         }
     });
 })();
-
+// END PENDAPATAN
+// BEBAN
 (function(){
     $.ajax({
         type: 'GET',
@@ -998,6 +866,262 @@ var bebanChart = null;
         }
     });
 })();
+// END BEBAN
+// SHU
+(function(){
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('dash-ypt-dash/data-fp-shu') }}",
+        data: {
+            "periode[0]": "=", 
+            "periode[1]": $filter2_kode,
+            "tahun": $tahun,
+            "jenis": $filter1_kode
+        },
+        dataType: 'json',
+        async: false,
+        success:function(result) {
+            shuChart = Highcharts.chart('shu-chart', {
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie',
+                    height: 258,
+                    width: 280
+                },
+                title: { text: '' },
+                subtitle: { text: '' },
+                exporting:{ 
+                    enabled: false,
+                },
+                legend:{ enabled: false },
+                credits: { enabled: false },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                accessibility: {
+                    point: {
+                        valueSuffix: '%'
+                    }
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        center: ['40%', '50%'],
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            format: '{point.name} : {point.percentage:.1f} %'
+                        },
+                        size: '50%',
+                        showInLegend: true
+                    },
+                    series: {
+                        dataLabels: {
+                            style: {
+                                fontSize: '9px'
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    name: 'Jumlah',
+                    colorByPoint: true,
+                    data: result.data
+                }]
+            });
+        }
+    });
+})();
+// END SHU
+// OR
+(function(){
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('dash-ypt-dash/data-fp-or') }}",
+        data: {
+            "periode[0]": "=", 
+            "periode[1]": $filter2_kode,
+            "tahun": $tahun,
+            "jenis": $filter1_kode
+        },
+        dataType: 'json',
+        async: false,
+        success:function(result) {
+            var html = "";
+            var data = result.data;
+            if(data.length > 0) {
+               $('#table-or tbody').empty()
+               var colorText = '#ffffff';
+               for(var i=0;i<data.length;i++) {
+                   var row = data[i];
+                   if(row.y < 10) {
+                        colorText = '#000000';
+                   } else {
+                        colorText = '#ffffff';
+                   }
+                   html += `<tr>
+                        <td class="w-25">${row.name}</td>
+                        <td>
+                            <div class="progress h-20">
+                                <div class="progress-bar bg-red" role="progressbar" style="width: ${row.y}%; color: ${colorText}" aria-valuenow="${row.y}" aria-valuemin="0" aria-valuemax="100">${row.y}%</div>
+                            </div>
+                        </td>
+                    </tr>`;
+               }
+               $('#table-or tbody').append(html)
+            }
+        }
+    });
+})();
+// END OR
+// LABA RUGI
+(function(){
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('dash-ypt-dash/data-fp-lr') }}",
+        data: {
+            "periode[0]": "=", 
+            "periode[1]": $filter2_kode,
+            "tahun": $tahun,
+            "jenis": $filter1_kode
+        },
+        dataType: 'json',
+        async: false,
+        success:function(result) {
+            var data = result.data;
+            lrChart = Highcharts.chart('lr-chart', {
+                chart: {
+                    height: 190
+                },
+                credits:{
+                    enabled:false
+                },
+                exporting:{ 
+                    enabled: false,
+                },
+                title: {
+                    text: ''
+                },
+                xAxis: {
+                    categories: data.kategori, 
+                },
+                yAxis: {
+                    title: '',
+                    min: 0
+                },
+                tooltip: {
+                    formatter: function () {   
+                        var tmp = this.x.split("|");   
+                        return tmp[0]+'<br><span style="color:' + this.series.color + '">' + this.series.name + '</span>: <b>' + sepNum(this.y);
+                    }
+                },
+                series: [
+                    {
+                        name: 'Pendapatan',
+                        color: '#b91c1c',
+                        type: 'column',
+                        data: data.data_pdpt
+                    },
+                    {
+                        name: 'Beban',
+                        color: '#064E3B',
+                        type: 'column',
+                        data: data.data_beban
+                    },
+                    {
+                        name: 'SHU',
+                        color: '#FBBF24',
+                        marker: {
+                            symbol: 'c-rect',
+                            lineColor: '#FBBF24',
+                            radius: 30,
+                        },
+                        type: 'scatter',
+                        data: data.data_shu
+                    }
+                ]
+            })
+        }
+    });
+})();
+// END LABA RUGI
+// PERFORMANSI LEMBAGA
+(function(){
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('dash-ypt-dash/data-fp-pl') }}",
+        data: {
+            "periode[0]": "=", 
+            "periode[1]": $filter2_kode,
+            "tahun": $tahun,
+            "jenis": $filter1_kode
+        },
+        dataType: 'json',
+        async: false,
+        success:function(result) {
+            var data = result.data;
+            if(data.length > 0) {
+                $('#table-lembaga tbody').empty()
+                var html = "";
+                for(var i=0;i<data.length;i++) {
+                    var row = data[i];
+                    var classTd1 = "";
+                    var classTd2 = "";
+                    var classTd3 = "";
+                    var classTd4 = "";
+                    var classTd5 = "";
+                    var classTd6 = "";
+                    var classTd7 = "";
+                    var classTd8 = "";
+                    if(row.pdpt_ach < 0) {
+                        classTd1 = "td-red"
+                    }
+                    if(row.pdpt_yoy < 0) {
+                        classTd2 = "td-red"
+                    }
+                    if(row.beban_ach < 0) {
+                        classTd3 = "td-red"
+                    }
+                    if(row.beban_yoy < 0) {
+                        classTd4 = "td-red"
+                    }
+                    if(row.shu_ach < 0) {
+                        classTd5 = "td-red"
+                    }
+                    if(row.shu_yoy < 0) {
+                        classTd6 = "td-red"
+                    }
+                    if(row.or_ach < 0) {
+                        classTd7 = "td-red"
+                    }
+                    if(row.or_yoy < 0) {
+                        classTd8 = "td-red"
+                    }
+
+                    html += `<tr>
+                        <td>
+                            <p class="kode hidden">${row.kode_lokasi}</p>
+                            <div class="glyph-icon simple-icon-check check-row" style="display: none"></div>
+                            ${row.nama}
+                        </td>
+                        <td class="${classTd1}">${row.pdpt_ach}%</td>
+                        <td class="${classTd2}">${row.pdpt_yoy}%</td>
+                        <td class="${classTd3}">${row.beban_ach}%</td>
+                        <td class="${classTd4}">${row.beban_yoy}%</td>
+                        <td class="${classTd5}">${row.shu_ach}%</td>
+                        <td class="${classTd6}">${row.shu_yoy}%</td>
+                        <td class="${classTd7}">${row.or_ach}%</td>
+                        <td class="${classTd8}">${row.or_yoy}%</td>
+                    </tr>`;
+                }
+                $('#table-lembaga tbody').append(html)
+            }
+        }
+    });
+})();
+// END PERFORMANSI LEMBAGA
 // END RUN IF PAGE IS FIRST RENDER
 
 // DRAGGING
@@ -1925,82 +2049,88 @@ $('#export-perform.menu-chart-custom ul li').click(function(event) {
     }
 })
 
-var shuChart = Highcharts.chart('shu-chart', {
-    chart: {
-        plotBackgroundColor: null,
-        plotBorderWidth: null,
-        plotShadow: false,
-        type: 'pie',
-        height: 258,
-        width: 280
-    },
-    title: { text: '' },
-    subtitle: { text: '' },
-    exporting:{ 
-        enabled: false,
-    },
-    legend:{ enabled: false },
-    credits: { enabled: false },
-    tooltip: {
-        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-    },
-    accessibility: {
-        point: {
-            valueSuffix: '%'
-        }
-    },
-    plotOptions: {
-        pie: {
-            allowPointSelect: true,
-            center: ['40%', '50%'],
-            cursor: 'pointer',
-            dataLabels: {
-                enabled: true,
-                format: '{point.name} : {point.percentage:.1f} %'
-            },
-            size: '50%',
-            showInLegend: true
-        },
-        series: {
-            dataLabels: {
-                style: {
-                    fontSize: '9px'
-                }
+// CUSTOM EXPORT HIGHCHART
+// LABA RUGI
+$('#export-lr.menu-chart-custom ul li').click(function(event) {
+    event.stopPropagation()
+    var idParent = $(this).parent('#dash-lr').attr('id')
+    var jenis = $(this).text()
+    if(jenis == 'View in full screen') {
+        lrChart.update({
+            title: {
+                text: 'Laba Rugi Lembaga',
+                floating: true,
+                x: 40,
+                y: 90
             }
+        })
+         lrChart.fullscreen.toggle();
+    } else if(jenis == 'Print chart') {
+        lrChart.print()
+    } else if(jenis == 'Download PNG image') {
+        lrChart.exportChart({
+            type: 'image/png',
+            filename: 'chart-png'
+        }, {
+            title: {
+                text: 'Laba Rugi Lembaga'
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download JPEG image') {
+        lrChart.exportChart({
+            type: 'image/jpeg',
+            filename: 'chart-jpg'
+        }, {
+            title: {
+                text: 'Laba Rugi Lembaga'
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download PDF document') {
+        lrChart.exportChart({
+            type: 'application/pdf',
+            filename: 'chart-pdf'
+        }, {
+            title: {
+                text: 'Laba Rugi Lembaga'
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download SVG vector image') {
+        lrChart.exportChart({
+            type: 'image/svg+xml',
+            filename: 'chart-svg'
+        }, {
+            title: {
+                text: 'Laba Rugi Lembaga'
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'View table data') {
+        $(this).text('Hide table data')
+        lrChart.viewData()
+        var cek = $('#'+idParent+'.highcharts-data-table table').hasClass('table table-bordered table-no-padding')
+        if(!cek) {
+            $('.highcharts-data-table table').addClass('table table-bordered table-no-padding')
         }
-    },
-    series: [{
-        name: 'Jumlah',
-        colorByPoint: true,
-        data: [
-            {
-                name: 'TS',
-                y: 26.9,
-            },
-            {
-                name: 'ITTS',
-                y: 6.4
-            },
-            {
-                name: 'ITTP',
-                y: 9.0
-            },
-            {
-                name: 'AKATEL',
-                y: 4.5
-            },
-            {
-                name: 'TelU',
-                y: 43.6
-            },
-            {
-                name: 'Lakhar',
-                y: 9.6
-            },
-        ]
-    }]
-});
-
+        $("body").css("overflow", "scroll");
+    } else if(jenis == 'Hide table data') {
+        $(this).text('View table data')
+        $('.highcharts-data-table').hide()
+        $("body").css("overflow", "hidden");
+    }
+})
+// END LABA RUGI
+// SHU
 $('#export-shu.menu-chart-custom ul li').click(function(event) {
     event.stopPropagation()
     var idParent = $(this).parent('#dash-shu').attr('id')
@@ -2080,144 +2210,7 @@ $('#export-shu.menu-chart-custom ul li').click(function(event) {
         $("body").css("overflow", "hidden");
     }
 })
-
-Highcharts.SVGRenderer.prototype.symbols['c-rect'] = function (x, y, w, h) {
-    return ['M', x, y + h / 2, 'L', x + w, y + h / 2];
-};
-
-var lrChart = Highcharts.chart('lr-chart', {
-    chart: {
-        height: 190
-    },
-    credits:{
-        enabled:false
-    },
-    exporting:{ 
-        enabled: false,
-    },
-    title: {
-        text: ''
-    },
-    xAxis: {
-        categories: ['TS', 'ITTP', 'ITTS', 'AKATEL', 'TelU', 'Lakhar'], 
-    },
-    yAxis: {
-        title: '',
-        min: 0
-    },
-    tooltip: {
-        formatter: function () {   
-            var tmp = this.x.split("|");   
-            return tmp[0]+'<br><span style="color:' + this.series.color + '">' + this.series.name + '</span>: <b>' + sepNum(this.y);
-        }
-    },
-    series: [
-        {
-            name: 'Pendapatan',
-            color: '#b91c1c',
-            type: 'column',
-            data: [60, 30, 20, 15, 80, 50]
-        },
-        {
-            name: 'Beban',
-            color: '#064E3B',
-            type: 'column',
-            data: [50, 20, 10, 10, 70, 40]
-        },
-        {
-            name: 'SHU',
-            color: '#FBBF24',
-            marker: {
-                symbol: 'c-rect',
-                lineColor: '#FBBF24',
-                radius: 30,
-            },
-            type: 'scatter',
-            data: [30, 10, 5, 5, 50, 20],
-        }
-    ]
-})
-
-$('#export-lr.menu-chart-custom ul li').click(function(event) {
-    event.stopPropagation()
-    var idParent = $(this).parent('#dash-lr').attr('id')
-    var jenis = $(this).text()
-    if(jenis == 'View in full screen') {
-        lrChart.update({
-            title: {
-                text: 'Sisa Hasil Usaha Lembaga',
-                floating: true,
-                x: 40,
-                y: 90
-            }
-        })
-         lrChart.fullscreen.toggle();
-    } else if(jenis == 'Print chart') {
-        lrChart.print()
-    } else if(jenis == 'Download PNG image') {
-        lrChart.exportChart({
-            type: 'image/png',
-            filename: 'chart-png'
-        }, {
-            title: {
-                text: 'Laba Rugi Lembaga'
-            },
-            subtitle: {
-                text: ''
-            }
-        });
-    } else if(jenis == 'Download JPEG image') {
-        lrChart.exportChart({
-            type: 'image/jpeg',
-            filename: 'chart-jpg'
-        }, {
-            title: {
-                text: 'Laba Rugi Lembaga'
-            },
-            subtitle: {
-                text: ''
-            }
-        });
-    } else if(jenis == 'Download PDF document') {
-        lrChart.exportChart({
-            type: 'application/pdf',
-            filename: 'chart-pdf'
-        }, {
-            title: {
-                text: 'Laba Rugi Lembaga'
-            },
-            subtitle: {
-                text: ''
-            }
-        });
-    } else if(jenis == 'Download SVG vector image') {
-        lrChart.exportChart({
-            type: 'image/svg+xml',
-            filename: 'chart-svg'
-        }, {
-            title: {
-                text: 'Laba Rugi Lembaga'
-            },
-            subtitle: {
-                text: ''
-            }
-        });
-    } else if(jenis == 'View table data') {
-        $(this).text('Hide table data')
-        lrChart.viewData()
-        var cek = $('#'+idParent+'.highcharts-data-table table').hasClass('table table-bordered table-no-padding')
-        if(!cek) {
-            $('.highcharts-data-table table').addClass('table table-bordered table-no-padding')
-        }
-        $("body").css("overflow", "scroll");
-    } else if(jenis == 'Hide table data') {
-        $(this).text('View table data')
-        $('.highcharts-data-table').hide()
-        $("body").css("overflow", "hidden");
-    }
-})
-
-// CUSTOM EXPORT HIGHCHART
+// END SHU
 // PENDAPATAN
 $('#export-pdpt.menu-chart-custom ul li').click(function(event) {
     event.stopPropagation()
