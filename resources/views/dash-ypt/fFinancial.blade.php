@@ -672,6 +672,8 @@ var $month = "{{ date('m') }}";
 var $judulChart = null;
 var $filter1_kode = "TRW";
 var $filter2_kode = "TRW1";
+var pdptChart = null;
+var bebanChart = null;
 
 // RUN IF PAGE IS FIRST RENDER
 (function(){
@@ -859,6 +861,140 @@ var $filter2_kode = "TRW1";
             $('#or-yoy').text(`${or.n5}%`)
             $('#or-yoy-percentage').append(`${or.yoy}% ${iconOr}`)
             // END OR
+        }
+    });
+})();
+
+(function(){
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('dash-ypt-dash/data-fp-pdpt') }}",
+        data: {
+            "periode[0]": "=", 
+            "periode[1]": $filter2_kode,
+            "tahun": $tahun,
+            "jenis": $filter1_kode
+        },
+        dataType: 'json',
+        async: false,
+        success:function(result) {
+            pdptChart = Highcharts.chart('pdpt-chart', {
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie',
+                    height: 258,
+                    width: 280
+                },
+                title: { text: '' },
+                subtitle: { text: '' },
+                exporting:{ 
+                    enabled: false,
+                },
+                legend:{ enabled: false },
+                credits: { enabled: false },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                accessibility: {
+                    point: {
+                        valueSuffix: '%'
+                    }
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        center: ['40%', '50%'],
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            format: '{point.name} : {point.percentage:.1f} %'
+                        },
+                        size: '50%',
+                        showInLegend: true
+                    },
+                    series: {
+                        dataLabels: {
+                            style: {
+                                fontSize: '9px'
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    name: 'Jumlah',
+                    colorByPoint: true,
+                    data: result.data
+                }]
+            });
+        }
+    });
+})();
+
+(function(){
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('dash-ypt-dash/data-fp-beban') }}",
+        data: {
+            "periode[0]": "=", 
+            "periode[1]": $filter2_kode,
+            "tahun": $tahun,
+            "jenis": $filter1_kode
+        },
+        dataType: 'json',
+        async: false,
+        success:function(result) {
+            bebanChart = Highcharts.chart('beban-chart', {
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie',
+                    height: 258,
+                    width: 280
+                },
+                title: { text: '' },
+                subtitle: { text: '' },
+                exporting:{ 
+                    enabled: false,
+                },
+                legend:{ enabled: false },
+                credits: { enabled: false },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                accessibility: {
+                    point: {
+                        valueSuffix: '%'
+                    }
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        center: ['40%', '50%'],
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            format: '{point.name} : {point.percentage:.1f} %'
+                        },
+                        size: '50%',
+                        showInLegend: true
+                    },
+                    series: {
+                        dataLabels: {
+                            style: {
+                                fontSize: '9px'
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    name: 'Jumlah',
+                    colorByPoint: true,
+                    data: result.data
+                }]
+            });
         }
     });
 })();
@@ -1945,318 +2081,6 @@ $('#export-shu.menu-chart-custom ul li').click(function(event) {
     }
 })
 
-var bebanChart = Highcharts.chart('beban-chart', {
-    chart: {
-        plotBackgroundColor: null,
-        plotBorderWidth: null,
-        plotShadow: false,
-        type: 'pie',
-        height: 258,
-        width: 280
-    },
-    title: { text: '' },
-    subtitle: { text: '' },
-    exporting:{ 
-        enabled: false,
-    },
-    legend:{ enabled: false },
-    credits: { enabled: false },
-    tooltip: {
-        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-    },
-    accessibility: {
-        point: {
-            valueSuffix: '%'
-        }
-    },
-    plotOptions: {
-        pie: {
-            allowPointSelect: true,
-            center: ['40%', '50%'],
-            cursor: 'pointer',
-            dataLabels: {
-                enabled: true,
-                format: '{point.name} : {point.percentage:.1f} %'
-            },
-            size: '50%',
-            showInLegend: true
-        },
-        series: {
-            dataLabels: {
-                style: {
-                    fontSize: '9px'
-                }
-            }
-        }
-    },
-    series: [{
-        name: 'Jumlah',
-        colorByPoint: true,
-        data: [
-            {
-                name: 'TS',
-                y: 26.9,
-            },
-            {
-                name: 'ITTS',
-                y: 6.4
-            },
-            {
-                name: 'ITTP',
-                y: 9.0
-            },
-            {
-                name: 'AKATEL',
-                y: 4.5
-            },
-            {
-                name: 'TelU',
-                y: 43.6
-            },
-            {
-                name: 'Lakhar',
-                y: 9.6
-            },
-        ]
-    }]
-});
-
-$('#export-beban.menu-chart-custom ul li').click(function(event) {
-    event.stopPropagation()
-    var idParent = $(this).parent('#dash-beban').attr('id')
-    var jenis = $(this).text()
-    
-    if(jenis == 'View in full screen') {
-        bebanChart.update({
-            title: {
-                text: 'Beban Lembaga',
-                floating: true,
-                x: 40,
-                y: 90
-            }
-        })
-        bebanChart.fullscreen.toggle();
-    } else if(jenis == 'Print chart') {
-        bebanChart.print()
-    } else if(jenis == 'Download PNG image') {
-        bebanChart.exportChart({
-            type: 'image/png',
-            filename: 'chart-png'
-        }, {
-            title: {
-                text: 'Beban Lembaga'
-            },
-            subtitle: {
-                text: ''
-            }
-        });
-    } else if(jenis == 'Download JPEG image') {
-        bebanChart.exportChart({
-            type: 'image/jpeg',
-            filename: 'chart-jpg'
-        }, {
-            title: {
-                text: 'Beban Lembaga'
-            },
-            subtitle: {
-                text: ''
-            }
-        });
-    } else if(jenis == 'Download PDF document') {
-        bebanChart.exportChart({
-            type: 'application/pdf',
-            filename: 'chart-pdf'
-        }, {
-            title: {
-                text: 'Beban Lembaga'
-            },
-            subtitle: {
-                text: ''
-            }
-        });
-    } else if(jenis == 'Download SVG vector image') {
-        bebanChart.exportChart({
-            type: 'image/svg+xml',
-            filename: 'chart-svg'
-        }, {
-            title: {
-                text: 'Beban Lembaga'
-            },
-            subtitle: {
-                text: ''
-            }
-        });
-    } else if(jenis == 'View table data') {
-        $(this).text('Hide table data')
-        bebanChart.viewData()
-        var cek = $('#'+idParent+'.highcharts-data-table table').hasClass('table table-bordered table-no-padding')
-        if(!cek) {
-            $('.highcharts-data-table table').addClass('table table-bordered table-no-padding')
-        }
-        $("body").css("overflow", "scroll");
-    } else if(jenis == 'Hide table data') {
-        $(this).text('View table data')
-        $('.highcharts-data-table').hide()
-        $("body").css("overflow", "hidden");
-    }
-})
-
-var pdptChart = Highcharts.chart('pdpt-chart', {
-    chart: {
-        plotBackgroundColor: null,
-        plotBorderWidth: null,
-        plotShadow: false,
-        type: 'pie',
-        height: 258,
-        width: 280
-    },
-    title: { text: '' },
-    subtitle: { text: '' },
-    exporting:{ 
-        enabled: false,
-    },
-    legend:{ enabled: false },
-    credits: { enabled: false },
-    tooltip: {
-        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-    },
-    accessibility: {
-        point: {
-            valueSuffix: '%'
-        }
-    },
-    plotOptions: {
-        pie: {
-            allowPointSelect: true,
-            center: ['40%', '50%'],
-            cursor: 'pointer',
-            dataLabels: {
-                enabled: true,
-                format: '{point.name} : {point.percentage:.1f} %'
-            },
-            size: '50%',
-            showInLegend: true
-        },
-        series: {
-            dataLabels: {
-                style: {
-                    fontSize: '9px'
-                }
-            }
-        }
-    },
-    series: [{
-        name: 'Jumlah',
-        colorByPoint: true,
-        data: [
-            {
-                name: 'TS',
-                y: 26.9,
-            },
-            {
-                name: 'ITTS',
-                y: 6.4
-            },
-            {
-                name: 'ITTP',
-                y: 9.0
-            },
-            {
-                name: 'AKATEL',
-                y: 4.5
-            },
-            {
-                name: 'TelU',
-                y: 43.6
-            },
-            {
-                name: 'Lakhar',
-                y: 9.6
-            },
-        ]
-    }]
-});
-
-$('#export-pdpt.menu-chart-custom ul li').click(function(event) {
-    event.stopPropagation()
-    var idParent = $(this).parent('#dash-pdpt').attr('id')
-    var jenis = $(this).text()
-    
-    if(jenis == 'View in full screen') {
-        pdptChart.update({
-            title: {
-                text: 'Pendapatan Lembaga',
-                floating: true,
-                x: 40,
-                y: 90
-            }
-        })
-        pdptChart.fullscreen.toggle();
-    } else if(jenis == 'Print chart') {
-        pdptChart.print()
-    } else if(jenis == 'Download PNG image') {
-        pdptChart.exportChart({
-            type: 'image/png',
-            filename: 'chart-png'
-        }, {
-            title: {
-                text: 'Pendapatan Lembaga'
-            },
-            subtitle: {
-                text: ''
-            }
-        });
-    } else if(jenis == 'Download JPEG image') {
-        pdptChart.exportChart({
-            type: 'image/jpeg',
-            filename: 'chart-jpg'
-        }, {
-            title: {
-                text: 'Pendapatan Lembaga'
-            },
-            subtitle: {
-                text: ''
-            }
-        });
-    } else if(jenis == 'Download PDF document') {
-        pdptChart.exportChart({
-            type: 'application/pdf',
-            filename: 'chart-pdf'
-        }, {
-            title: {
-                text: 'Pendapatan Lembaga'
-            },
-            subtitle: {
-                text: ''
-            }
-        });
-    } else if(jenis == 'Download SVG vector image') {
-        pdptChart.exportChart({
-            type: 'image/svg+xml',
-            filename: 'chart-svg'
-        }, {
-            title: {
-                text: 'Pendapatan Lembaga'
-            },
-            subtitle: {
-            text: ''
-            }
-        });
-    } else if(jenis == 'View table data') {
-        $(this).text('Hide table data')
-        pdptChart.viewData()
-        var cek = $('#'+idParent+'.highcharts-data-table table').hasClass('table table-bordered table-no-padding')
-        if(!cek) {
-            $('.highcharts-data-table table').addClass('table table-bordered table-no-padding')
-        }
-        $("body").css("overflow", "scroll");
-    } else if(jenis == 'Hide table data') {
-        $(this).text('View table data')
-        $('.highcharts-data-table').hide()
-        $("body").css("overflow", "hidden");
-    }
-})
-
 Highcharts.SVGRenderer.prototype.symbols['c-rect'] = function (x, y, w, h) {
     return ['M', x, y + h / 2, 'L', x + w, y + h / 2];
 };
@@ -2392,4 +2216,170 @@ $('#export-lr.menu-chart-custom ul li').click(function(event) {
         $("body").css("overflow", "hidden");
     }
 })
+
+// CUSTOM EXPORT HIGHCHART
+// PENDAPATAN
+$('#export-pdpt.menu-chart-custom ul li').click(function(event) {
+    event.stopPropagation()
+    var idParent = $(this).parent('#dash-pdpt').attr('id')
+    var jenis = $(this).text()
+    
+    if(jenis == 'View in full screen') {
+        pdptChart.update({
+            title: {
+                text: 'Pendapatan Lembaga',
+                floating: true,
+                x: 40,
+                y: 90
+            }
+        })
+        pdptChart.fullscreen.toggle();
+    } else if(jenis == 'Print chart') {
+        pdptChart.print()
+    } else if(jenis == 'Download PNG image') {
+        pdptChart.exportChart({
+            type: 'image/png',
+            filename: 'chart-png'
+        }, {
+            title: {
+                text: 'Pendapatan Lembaga'
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download JPEG image') {
+        pdptChart.exportChart({
+            type: 'image/jpeg',
+            filename: 'chart-jpg'
+        }, {
+            title: {
+                text: 'Pendapatan Lembaga'
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download PDF document') {
+        pdptChart.exportChart({
+            type: 'application/pdf',
+            filename: 'chart-pdf'
+        }, {
+            title: {
+                text: 'Pendapatan Lembaga'
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download SVG vector image') {
+        pdptChart.exportChart({
+            type: 'image/svg+xml',
+            filename: 'chart-svg'
+        }, {
+            title: {
+                text: 'Pendapatan Lembaga'
+            },
+            subtitle: {
+            text: ''
+            }
+        });
+    } else if(jenis == 'View table data') {
+        $(this).text('Hide table data')
+        pdptChart.viewData()
+        var cek = $('#'+idParent+'.highcharts-data-table table').hasClass('table table-bordered table-no-padding')
+        if(!cek) {
+            $('.highcharts-data-table table').addClass('table table-bordered table-no-padding')
+        }
+        $("body").css("overflow", "scroll");
+    } else if(jenis == 'Hide table data') {
+        $(this).text('View table data')
+        $('.highcharts-data-table').hide()
+        $("body").css("overflow", "hidden");
+    }
+})
+
+// END PENDAPATAN
+// BEBAN
+$('#export-beban.menu-chart-custom ul li').click(function(event) {
+    event.stopPropagation()
+    var idParent = $(this).parent('#dash-beban').attr('id')
+    var jenis = $(this).text()
+    
+    if(jenis == 'View in full screen') {
+        bebanChart.update({
+            title: {
+                text: 'Beban Lembaga',
+                floating: true,
+                x: 40,
+                y: 90
+            }
+        })
+        bebanChart.fullscreen.toggle();
+    } else if(jenis == 'Print chart') {
+        bebanChart.print()
+    } else if(jenis == 'Download PNG image') {
+        bebanChart.exportChart({
+            type: 'image/png',
+            filename: 'chart-png'
+        }, {
+            title: {
+                text: 'Beban Lembaga'
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download JPEG image') {
+        bebanChart.exportChart({
+            type: 'image/jpeg',
+            filename: 'chart-jpg'
+        }, {
+            title: {
+                text: 'Beban Lembaga'
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download PDF document') {
+        bebanChart.exportChart({
+            type: 'application/pdf',
+            filename: 'chart-pdf'
+        }, {
+            title: {
+                text: 'Beban Lembaga'
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download SVG vector image') {
+        bebanChart.exportChart({
+            type: 'image/svg+xml',
+            filename: 'chart-svg'
+        }, {
+            title: {
+                text: 'Beban Lembaga'
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'View table data') {
+        $(this).text('Hide table data')
+        bebanChart.viewData()
+        var cek = $('#'+idParent+'.highcharts-data-table table').hasClass('table table-bordered table-no-padding')
+        if(!cek) {
+            $('.highcharts-data-table table').addClass('table table-bordered table-no-padding')
+        }
+        $("body").css("overflow", "scroll");
+    } else if(jenis == 'Hide table data') {
+        $(this).text('View table data')
+        $('.highcharts-data-table').hide()
+        $("body").css("overflow", "hidden");
+    }
+})
+// END BEBAN
+// END CUSTOM EXPORT HIGHCHART
 </script>
