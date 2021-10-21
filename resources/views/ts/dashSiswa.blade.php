@@ -265,39 +265,39 @@
                         var color ="";
                         var icon="";
                         var ket ="";
-                        if(result.data3.length > 0){
-                            for(var i=0; i < result.data3.length;i++){
-                                var line3 = result.data3[i];
-                                if (line3.modul == "BILL"){
-                                    color="#AF1F22";
-                                    nilai=sepNumPas(line3.tagihan);
-                                    icon="iconsminds-down";
-                                    ket="Tagihan";
-                                }else{
-                                    color="#00A105";
-                                    nilai=sepNumPas(line3.bayar);
-                                    icon="iconsminds-up";
-                                    if(line3.modul == "PDD"){
-                                        ket="Auto Bayar";
-                                    }else{
-                                        ket="Pembayaran";
-                                    }
-                                }
-                                html +=`
-                                <table class="table table-borderless table-riwayat-trans" style="width:100%">
-                                    <tr class="bold">
-                                        <td style="width:25%;padding-right:10px" rowspan="2"><button class="btn btn-grey p-2"><i class="`+icon+`" style="font-size:18px;color:`+color+`"></i></button></td>
-                                        <td style="width:40%" >`+ket+`</td>
-                                        <td style="width:35%;color:`+color+`" class="text-right" >`+nilai+`</td>
-                                    </tr>
-                                    <tr>
-                                        <td style="width:75%;color:#B8B8B8" colspan="2">`+line3.no_bukti+` * `+line3.tgl+`</td>
-                                    </tr>
-                                </table>
-                                `;
-                            }
-                        }
-                        $('.riwayat-trans').html(html);
+                        // if(result.data3.length > 0){
+                        //     for(var i=0; i < result.data3.length;i++){
+                        //         var line3 = result.data3[i];
+                        //         if (line3.modul == "BILL"){
+                        //             color="#AF1F22";
+                        //             nilai=sepNumPas(line3.tagihan);
+                        //             icon="iconsminds-down";
+                        //             ket="Tagihan";
+                        //         }else{
+                        //             color="#00A105";
+                        //             nilai=sepNumPas(line3.bayar);
+                        //             icon="iconsminds-up";
+                        //             if(line3.modul == "PDD"){
+                        //                 ket="Auto Bayar";
+                        //             }else{
+                        //                 ket="Pembayaran";
+                        //             }
+                        //         }
+                        //         html +=`
+                        //         <table class="table table-borderless table-riwayat-trans" style="width:100%">
+                        //             <tr class="bold">
+                        //                 <td style="width:25%;padding-right:10px" rowspan="2"><button class="btn btn-grey p-2"><i class="`+icon+`" style="font-size:18px;color:`+color+`"></i></button></td>
+                        //                 <td style="width:40%" >`+ket+`</td>
+                        //                 <td style="width:35%;color:`+color+`" class="text-right" >`+nilai+`</td>
+                        //             </tr>
+                        //             <tr>
+                        //                 <td style="width:75%;color:#B8B8B8" colspan="2">`+line3.no_bukti+` * `+line3.tgl+`</td>
+                        //             </tr>
+                        //         </table>
+                        //         `;
+                        //     }
+                        // }
+                        // $('.riwayat-trans').html(html);
 
                         var html = "";
                         var color ="";
@@ -353,7 +353,74 @@
         });
     }
 
+    function getRiwayatTrans(){
+        $.ajax({
+            type: "GET",
+            url: "{{ url('ts-dash/riwayat-trans') }}",
+            dataType: 'json',
+            data: {},
+            success:function(result){    
+                if(result.status){
+                    if(result.data.length > 0){
+                        var html = "";
+                        var color ="";
+                        var icon="";
+                        var ket ="";
+                        for(var i=0; i < result.data.length;i++){
+                            var line3 = result.data[i];
+                            if (line3.modul == "BILL"){
+                                color="#AF1F22";
+                                nilai=sepNumPas(line3.total);
+                                icon="iconsminds-down";
+                                ket="Tagihan";
+                            }else{
+                                color="#00A105";
+                                nilai=sepNumPas(line3.total);
+                                icon="iconsminds-up";
+                                if(line3.modul == "PDD"){
+                                    ket="Auto Bayar";
+                                }else{
+                                    ket="Pembayaran";
+                                }
+                            }
+                            html +=`
+                            <table class="table table-borderless table-riwayat-trans" style="width:100%">
+                            <tr class="bold">
+                            <td style="width:25%;padding-right:10px" rowspan="2"><button class="btn btn-grey p-2"><i class="`+icon+`" style="font-size:18px;color:`+color+`"></i></button></td>
+                            <td style="width:40%" >`+ket+`</td>
+                            <td style="width:35%;color:`+color+`" class="text-right" >`+nilai+`</td>
+                            </tr>
+                            <tr>
+                            <td style="width:75%;color:#B8B8B8" colspan="2">`+line3.no_bukti+` * `+line3.tgl+` * `+line3.status+`</td>
+                            </tr>
+                            </table>
+                            `;
+                        }
+
+                        $('.riwayat-trans').html(html);
+                        
+                    }
+                    
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {       
+                if(jqXHR.status == 422){
+                    var msg = jqXHR.responseText;
+                }else if(jqXHR.status == 500) {
+                    var msg = "Internal server error";
+                }else if(jqXHR.status == 401){
+                    var msg = "Unauthorized";
+                    window.location="{{ url('/ts-auth/sesi-habis') }}";
+                }else if(jqXHR.status == 405){
+                    var msg = "Route not valid. Page not found";
+                }
+                
+            }
+        });
+    }
+
     getProfile();
+    getRiwayatTrans();
 
     $('.card-top-buttons').on('click','#btn-editprofile',function(e){
         e.preventDefault();

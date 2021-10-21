@@ -618,6 +618,13 @@
             $(this).closest('tr').find('.inp-hrgb').val(toRp(hrg));
             sts_harga = 1;
         });
+
+        var ppn = toNilai($('#toppn').val())*(100/110);
+        var disc = toNilai($('#todisk').val())*(100/110);
+
+        $('#toppn').val(ppn);
+        $('#todisk').val(todisc);
+        hitungTotal();
     }
 
     $('#gen-harga').click(function(e){
