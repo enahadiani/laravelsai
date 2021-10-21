@@ -43,7 +43,10 @@ class DashboardFPController extends Controller
                 } elseif($r->query('periode')[1] == "SMT2") {
                     $req['periode'][1] = $tahun."12";
                 }
+            } else {
+                $req['periode'][1] = $tahun.$req['periode'][1];
             }
+            
             $client = new Client();
             $response = $client->request('GET',  config('api.url').'dash-ypt-dash/data-fp-box',[
                 'headers' => [
@@ -90,7 +93,10 @@ class DashboardFPController extends Controller
                 } elseif($r->query('periode')[1] == "SMT2") {
                     $req['periode'][1] = $tahun."12";
                 }
+            } else {
+                $req['periode'][1] = $tahun.$req['periode'][1];
             }
+
             $client = new Client();
             $response = $client->request('GET',  config('api.url').'dash-ypt-dash/data-fp-pdpt',[
                 'headers' => [
@@ -137,7 +143,10 @@ class DashboardFPController extends Controller
                 } elseif($r->query('periode')[1] == "SMT2") {
                     $req['periode'][1] = $tahun."12";
                 }
+            } else {
+                $req['periode'][1] = $tahun.$req['periode'][1];
             }
+
             $client = new Client();
             $response = $client->request('GET',  config('api.url').'dash-ypt-dash/data-fp-beban',[
                 'headers' => [
@@ -184,7 +193,10 @@ class DashboardFPController extends Controller
                 } elseif($r->query('periode')[1] == "SMT2") {
                     $req['periode'][1] = $tahun."12";
                 }
+            } else {
+                $req['periode'][1] = $tahun.$req['periode'][1];
             }
+
             $client = new Client();
             $response = $client->request('GET',  config('api.url').'dash-ypt-dash/data-fp-shu',[
                 'headers' => [
@@ -231,7 +243,10 @@ class DashboardFPController extends Controller
                 } elseif($r->query('periode')[1] == "SMT2") {
                     $req['periode'][1] = $tahun."12";
                 }
+            } else {
+                $req['periode'][1] = $tahun.$req['periode'][1];
             }
+
             $client = new Client();
             $response = $client->request('GET',  config('api.url').'dash-ypt-dash/data-fp-or',[
                 'headers' => [
@@ -278,7 +293,10 @@ class DashboardFPController extends Controller
                 } elseif($r->query('periode')[1] == "SMT2") {
                     $req['periode'][1] = $tahun."12";
                 }
+            } else {
+                $req['periode'][1] = $tahun.$req['periode'][1];
             }
+
             $client = new Client();
             $response = $client->request('GET',  config('api.url').'dash-ypt-dash/data-fp-lr',[
                 'headers' => [
@@ -325,7 +343,10 @@ class DashboardFPController extends Controller
                 } elseif($r->query('periode')[1] == "SMT2") {
                     $req['periode'][1] = $tahun."12";
                 }
+            } else {
+                $req['periode'][1] = $tahun.$req['periode'][1];
             }
+
             $client = new Client();
             $response = $client->request('GET',  config('api.url').'dash-ypt-dash/data-fp-pl',[
                 'headers' => [

@@ -35,7 +35,7 @@
                 </div>
             </div>
         </div>
-        <div id="filter-box" class="filter-box hidden">
+        <div id="filter-box" class="filter-box avoid-run hidden">
             <div class="row justify-content-end">
                 <div class="col-7 pt-8 pr-0">
                     <div class="row">
@@ -536,6 +536,747 @@ var pdptChart = null;
 var bebanChart = null;
 var shuChart = null;
 var lrChart = null;
+
+// WINDOW EVENT
+$(window).on('resize', function(){
+    var win = $(this); //this = window
+    if (win.height() == 800) { 
+        $("body").css("overflow", "hidden");
+    }
+    if (win.height() > 800) { 
+        $("body").css("overflow", "scroll");
+    }
+    if (win.height() < 800) { 
+        $("body").css("overflow", "scroll");
+    }
+});
+
+$(window).click(function() {
+    setTimeout(function() {
+        $('#filter-box').addClass('avoid-run')
+    }, 1000)
+
+    if(!$('#filter-box').hasClass('avoid-run')) {
+        updateAllChart()
+    }
+
+    $('#filter-box').addClass('hidden')
+    $('.menu-chart-custom').addClass('hidden');
+    if($(window).height() == 800) {
+        $("body").css("overflow", "hidden");
+    }
+    if($(window).height() > 800) {
+        $("body").css("overflow", "scroll");
+    }
+    if($(window).height() < 800) {
+        $("body").css("overflow", "scroll");
+    }
+
+    if($filter2.length == 2) {
+        $filter2 = getNamaBulan($filter2)
+    }
+
+    $('#select-text-fp').text(`${$filter2.toUpperCase()} || ${$tahun}`)
+})
+// END WINDOW EVENT
+
+// FILTER EVENT
+// KURANG TAHUN FILTER
+$('#kurang-tahun').click(function(event) {
+    event.stopPropagation();
+    $tahun = $tahun - 1;
+    $('#year-filter').text($tahun);
+})
+
+// TAMBAH TAHUN FILTER
+$('#tambah-tahun').click(function(event) {
+    event.stopPropagation();
+    $tahun = $tahun + 1;
+    $('#year-filter').text($tahun);
+})
+
+// MENAMPILKAN FILTER
+$('#custom-row').click(function(event) {
+    event.stopPropagation();
+    $('#filter-box').removeClass('hidden avoid-run')
+})
+
+// MENTRIGGER FILTER 1
+$('#list-filter-1 ul li').click(function(event) {
+    event.stopPropagation();
+    var html = '';
+    var filter = $(this).text()
+    $filter1 = filter
+    $filter1_kode = $(this).data('filter1')
+    $('#list-filter-1 ul li').not(this).removeClass('selected')
+    $(this).addClass('selected')
+    $('#list-filter-2').empty()
+    if($filter1 == 'Triwulan') {
+        html += `
+            <div class="col-5 py-3 selected cursor-pointer" data-filter2="TRW1">
+                Triwulan I
+            </div>
+            <div class="col-5 ml-8 py-3 cursor-pointer" data-filter2="TRW2">
+                Triwulan II
+            </div>
+            <div class="w-100 d-none d-md-block"></div>
+            <div class="col-5 mt-8 py-3 cursor-pointer" data-filter2="TRW3">
+                Triwulan III
+            </div>
+            <div class="col-5 mt-8 ml-8 py-3 cursor-pointer" data-filter2="TRW4">
+                Triwulan IV
+            </div>
+        `;
+    } else if($filter1 == 'Semester') {
+        html += `
+            <div class="col-5 py-3 selected cursor-pointer" data-filter2="SMT1">
+                Semester I
+            </div>
+            <div class="col-5 ml-8 py-3 cursor-pointer" data-filter2="SMT2">
+                Semester II
+            </div>
+        `;
+    } else if($filter1 == 'Periode') {
+        html += `
+            <div class="col-5 py-3 cursor-pointer list" data-bulan="01" data-filter2="01">
+                Januari
+            </div>
+            <div class="col-5 ml-8 py-3 cursor-pointer list" data-bulan="02" data-filter2="02">
+                Februari
+            </div>
+            <div class="w-100 d-none d-md-block"></div>
+            <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="03" data-filter2="03">
+                Maret
+            </div>
+            <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="04" data-filter2="04">
+                April
+            </div>
+            <div class="w-100 d-none d-md-block"></div>
+            <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="05" data-filter2="05">
+                Mei
+            </div>
+            <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="06" data-filter2="06">
+                Juni
+            </div>
+            <div class="w-100 d-none d-md-block"></div>
+            <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="07" data-filter2="07">
+                Juli
+            </div>
+            <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="08" data-filter2="08">
+                Agustus
+            </div>
+            <div class="w-100 d-none d-md-block"></div>
+            <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="09" data-filter2="09">
+                September
+            </div>
+            <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="10" data-filter2="10">
+                Oktober
+            </div>
+            <div class="w-100 d-none d-md-block"></div>
+            <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="11" data-filter2="11">
+                November
+            </div>
+            <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="12" data-filter2="12">
+                Desember
+            </div>
+        `;
+    }
+    $('#list-filter-2').append(html)
+
+    if($filter1 == 'Periode') {
+        $('#list-filter-2').find('.list').each(function() {
+            if($(this).data('bulan').toString() == $month) {
+                $(this).addClass('selected')
+                $month = $(this).data('bulan').toString();
+                return false;
+            }
+        })
+    }
+})
+
+// MENTRIGGER FILTER 2
+$('#list-filter-2').on('click', 'div', function(event) {
+    event.stopPropagation();
+    var filter = $(this).text()
+    if($(this).data('bulan')) {
+        filter = $(this).data('bulan') 
+    }
+    $filter2 = filter
+    $filter2_kode = $(this).data('filter2')
+    $('#list-filter-2 div').not(this).removeClass('selected')
+    $(this).addClass('selected')
+})
+// END FILTER EVENT
+// MENAMPILKAN LIST CUSTOM EXPORT HIGHCHART
+$('.icon-menu').click(function(event) {
+    event.stopPropagation()
+    var parentID = $(this).parents('.header-div').attr('id')
+    $('#'+parentID).find('.menu-chart-custom').removeClass('hidden')
+
+    if(parentID == 'card-lr') {
+        $("body").css("overflow", "scroll");
+    } else {
+        $("body").css("overflow", "hidden");
+    }
+})
+// END MENAMPILKAN LIST CUSTOM EXPORT HIGHCHART
+
+// BOX EVENT
+// PENDAPATAN
+$('#pdpt-box').click(function() {
+    $judulChart = "Pendapatan"
+    $('#title-dash').text('Pendapatan')
+    $('#back-div').removeClass('hidden')
+    $('#dash-title-div').removeClass('pl-8')
+    $('#dash-title-div').addClass('pl-0')
+    $('.title-chart').text('Pendapatan')
+    $('#main-dash').hide()
+    $('#detail-dash').show()
+});
+// END PENDAPATAN
+// BEBAN
+$('#beban-box').click(function() {
+    $judulChart = "Beban"
+    $('#title-dash').text('Beban')
+    $('#back-div').removeClass('hidden')
+    $('#dash-title-div').removeClass('pl-8')
+    $('#dash-title-div').addClass('pl-0')
+    $('.title-chart').text('Beban')
+    $('#main-dash').hide()
+    $('#detail-dash').show()
+});
+// END BEBAN
+// SHU
+$('#shu-box').click(function() {
+    $judulChart = "Sisa Hasil Usaha"
+    $('#title-dash').text('Sisa Hasil Usaha')
+    $('#back-div').removeClass('hidden')
+    $('#dash-title-div').removeClass('pl-8')
+    $('#dash-title-div').addClass('pl-0')
+    $('.title-chart').text('Sisa Hasil Usaha')
+    $('#main-dash').hide()
+    $('#detail-dash').show()
+});
+// END SHU
+// OR
+$('#or-box').click(function() {
+    $judulChart = "Operating Ratio"
+    $('#title-dash').text('Operating Ratio')
+    $('#back-div').removeClass('hidden')
+    $('#dash-title-div').removeClass('pl-8')
+    $('#dash-title-div').addClass('pl-0')
+    $('.title-chart').text('Operating Ratio')
+    $('#main-dash').hide()
+    $('#detail-dash').show()
+});
+// END OR
+// KEMBALI
+$('#back').click(function() {
+    $('#title-dash').text('Financial Performance YPT')
+    $('#back-div').addClass('hidden')
+    $('#dash-title-div').removeClass('pl-0')
+    $('#dash-title-div').addClass('pl-8')
+    $('#detail-dash').hide()
+    $('#main-dash').show()
+});
+// END KEMBALI
+// END BOX EVENT
+
+// TABLE LEMBAGA EVET
+$('#table-lembaga tbody tr').on('click', 'td:first-child', function() {
+    var table = $(this).parents('table').attr('id')
+    var tr = $(this).parent()
+    var icon = $(this).children('.check-row')
+    var kode = $(this).children('.kode').text()
+    var check = $(tr).attr('class')
+    
+    if(check == 'selected-row') {
+        return;
+    }
+
+    $(`#${table} tbody tr`).removeClass('selected-row')
+    $(`#${table} tbody tr td .check-row`).hide()
+
+    setTimeout(function() {
+        $(tr).addClass('selected-row')
+        $(icon).show()
+    }, 200)
+})
+
+$('#table-lembaga tbody').on('click', 'tr.selected-row', function() {
+    var table = $(this).parents('table').attr('id')
+    
+    $(`#${table} tbody tr`).removeClass('selected-row')
+    $(`#${table} tbody tr td .check-row`).hide()
+})
+// END TABLE LEMBAGA EVENT
+// FULLSCREEN HIGHCHART
+document.addEventListener('fullscreenchange', (event) => {
+  if (document.fullscreenElement) {
+    console.log(`Element: ${document.fullscreenElement.id} entered full-screen mode.`);
+  } else {
+    pdptChart.update({
+        title: {
+            text: ''
+        }
+    })
+
+    bebanChart.update({
+        title: {
+            text: ''
+        }
+    })
+
+    shuChart.update({
+        title: {
+            text: ''
+        }
+    })
+
+    lrChart.update({
+        title: {
+            text: ''
+        }
+    })
+
+    performChart.update({
+        title: {
+            text: ''
+        }
+    })
+
+    lembagaChart.update({
+        title: {
+            text: ''
+        }
+    })
+
+    yoyChart.update({
+        title: {
+            text: ''
+        }
+    })
+
+    akunChart.update({
+        title: {
+            text: ''
+        }
+    })
+    console.log('Leaving full-screen mode.');
+  }
+});
+// END FULLSCREEN HIGHCHART
+
+// DRAGGING
+dragElement($('#window-drag')[0]);
+
+$('#icon-message').click(function() {
+    $('#window-drag').removeClass('hidden')
+});
+
+$('#close-window').click(function() {
+    $('#window-drag').addClass('hidden')
+});
+// END DRAGGING
+
+// UPDATE CHART WITH FILTER
+function updateAllChart() {
+    updateBox()
+    updateChart()
+}
+
+function updateChart() {
+    // PENDAPATAN
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('dash-ypt-dash/data-fp-pdpt') }}",
+        data: {
+            "periode[0]": "=", 
+            "periode[1]": $filter2_kode,
+            "tahun": $tahun,
+            "jenis": $filter1_kode
+        },
+        dataType: 'json',
+        async: true,
+        success:function(result) {
+            pdptChart.series[0].update({
+                data: result.data
+            }, true) // true untuk redraw
+        }
+    });
+    // END PENDAPATAN
+    // BEBAN
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('dash-ypt-dash/data-fp-beban') }}",
+        data: {
+            "periode[0]": "=", 
+            "periode[1]": $filter2_kode,
+            "tahun": $tahun,
+            "jenis": $filter1_kode
+        },
+        dataType: 'json',
+        async: true,
+        success:function(result) {
+            bebanChart.series[0].update({
+                data: result.data
+            }, true) // true untuk redraw
+        }
+    });
+    // END BEBAN
+    // SHU
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('dash-ypt-dash/data-fp-shu') }}",
+        data: {
+            "periode[0]": "=", 
+            "periode[1]": $filter2_kode,
+            "tahun": $tahun,
+            "jenis": $filter1_kode
+        },
+        dataType: 'json',
+        async: true,
+        success:function(result) {
+            shuChart.series[0].update({
+                data: result.data
+            }, true) // true untuk redraw
+        }
+    });
+    // END SHU
+    // OR
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('dash-ypt-dash/data-fp-or') }}",
+        data: {
+            "periode[0]": "=", 
+            "periode[1]": $filter2_kode,
+            "tahun": $tahun,
+            "jenis": $filter1_kode
+        },
+        dataType: 'json',
+        async: true,
+        success:function(result) {
+            var html = "";
+            var data = result.data;
+            if(data.length > 0) {
+               $('#table-or tbody').empty()
+               var colorText = '#ffffff';
+               for(var i=0;i<data.length;i++) {
+                   var row = data[i];
+                   if(row.y < 5) {
+                        colorText = '#000000';
+                   } else {
+                        colorText = '#ffffff';
+                   }
+                   html += `<tr>
+                        <td class="w-25">${row.name}</td>
+                        <td>
+                            <div class="progress h-20">
+                                <div class="progress-bar bg-red" role="progressbar" style="width: ${row.y}%; color: ${colorText}" aria-valuenow="${row.y}" aria-valuemin="0" aria-valuemax="100">${row.y}%</div>
+                            </div>
+                        </td>
+                    </tr>`;
+               }
+               $('#table-or tbody').append(html)
+            }
+        }
+    });
+    // END OR
+    // LR
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('dash-ypt-dash/data-fp-lr') }}",
+        data: {
+            "periode[0]": "=", 
+            "periode[1]": $filter2_kode,
+            "tahun": $tahun,
+            "jenis": $filter1_kode
+        },
+        dataType: 'json',
+        async: true,
+        success:function(result) {
+            var data = result.data;
+            lrChart.series[0].update({
+                data: data.data_pdpt
+            }, false) // true untuk redraw
+
+            lrChart.series[1].update({
+                data: data.data_beban
+            }, false) // true untuk redraw
+
+            lrChart.series[2].update({
+                data: data.data_shu
+            }, false) // true untuk redraw
+
+            // re render chart
+            lrChart.redraw()
+        }
+    });
+    // END LR
+    // PL TABLE
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('dash-ypt-dash/data-fp-pl') }}",
+        data: {
+            "periode[0]": "=", 
+            "periode[1]": $filter2_kode,
+            "tahun": $tahun,
+            "jenis": $filter1_kode
+        },
+        dataType: 'json',
+        async: true,
+        success:function(result) {
+            var data = result.data;
+            if(data.length > 0) {
+                $('#table-lembaga tbody').empty()
+                var html = "";
+                for(var i=0;i<data.length;i++) {
+                    var row = data[i];
+                    var classTd1 = "";
+                    var classTd2 = "";
+                    var classTd3 = "";
+                    var classTd4 = "";
+                    var classTd5 = "";
+                    var classTd6 = "";
+                    var classTd7 = "";
+                    var classTd8 = "";
+                    if(row.pdpt_ach < 0) {
+                        classTd1 = "td-red"
+                    }
+                    if(row.pdpt_yoy < 0) {
+                        classTd2 = "td-red"
+                    }
+                    if(row.beban_ach < 0) {
+                        classTd3 = "td-red"
+                    }
+                    if(row.beban_yoy < 0) {
+                        classTd4 = "td-red"
+                    }
+                    if(row.shu_ach < 0) {
+                        classTd5 = "td-red"
+                    }
+                    if(row.shu_yoy < 0) {
+                        classTd6 = "td-red"
+                    }
+                    if(row.or_ach < 0) {
+                        classTd7 = "td-red"
+                    }
+                    if(row.or_yoy < 0) {
+                        classTd8 = "td-red"
+                    }
+
+                    html += `<tr>
+                        <td>
+                            <p class="kode hidden">${row.kode_lokasi}</p>
+                            <div class="glyph-icon simple-icon-check check-row" style="display: none"></div>
+                            ${row.nama}
+                        </td>
+                        <td class="${classTd1}">${row.pdpt_ach}%</td>
+                        <td class="${classTd2}">${row.pdpt_yoy}%</td>
+                        <td class="${classTd3}">${row.beban_ach}%</td>
+                        <td class="${classTd4}">${row.beban_yoy}%</td>
+                        <td class="${classTd5}">${row.shu_ach}%</td>
+                        <td class="${classTd6}">${row.shu_yoy}%</td>
+                        <td class="${classTd7}">${row.or_ach}%</td>
+                        <td class="${classTd8}">${row.or_yoy}%</td>
+                    </tr>`;
+                }
+                $('#table-lembaga tbody').append(html)
+            }
+        }
+    });
+    // END PL TABLE
+}
+
+function updateBox() {
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('dash-ypt-dash/data-fp-box') }}",
+        data: {
+            "periode[0]": "=", 
+            "periode[1]": $filter2_kode,
+            "tahun": $tahun,
+            "jenis": $filter1_kode
+        },
+        dataType: 'json',
+        async: true,
+        success:function(result) {    
+            // PENDAPATAN
+            $('#pdpt-yoy-percentage').empty()
+            var iconPdpt = '';
+            var nilaiPdpt = 0;
+            var nilaiYoyPdpt = 0;
+            var pdpt = result.data.data_pdpt;
+            if(pdpt.n4.toString().length <= 9) {
+                nilaiPdpt = toJuta(pdpt.n4)
+            } else {
+                nilaiPdpt = toMilyar(pdpt.n4)
+            }
+
+            if(pdpt.n5.toString().length <= 9) {
+                nilaiYoyPdpt = toJuta(pdpt.n5)
+            } else {
+                nilaiYoyPdpt = toMilyar(pdpt.n5)
+            }
+
+            if(pdpt.yoy < 0) {
+                $('#pdpt-yoy-percentage').removeClass('green-text').addClass('red-text')
+                iconPdpt = '<div class="glyph-icon iconsminds-down icon-card red-text bold-700"></div>'
+            } else {
+                $('#pdpt-yoy-percentage').removeClass('red-text').addClass('green-text')
+                iconPdpt = '<div class="glyph-icon iconsminds-up icon-card green-text bold-700"></div>'
+            }
+
+            $('#circle-pdpt').circleProgress({
+                value: pdpt.ach/100,
+                size: 80,
+                reverse: false,
+                thickness: 8,
+                fill: {
+                    color: ["#FFBA33"]
+                }
+            });
+
+            $('#circle-pdpt').find('strong').html(`
+                <p class="my-0 text-circle">Ach.</p>
+                <p class="my-0 text-circle">${pdpt.ach}%</p>
+            `)
+
+            $('#pendapatan-value').text(nilaiPdpt)
+            $('#pendapatan-yoy').text(nilaiYoyPdpt)
+            $('#pdpt-yoy-percentage').append(`${pdpt.yoy}% ${iconPdpt}`)
+            // END PENDAPATAN
+
+            // BEBAN
+            $('#beban-yoy-percentage').empty()
+            var iconBeban = '';
+            var nilaiBeban = 0;
+            var nilaiYoyBeban = 0;
+            var beban = result.data.data_beban;
+            if(beban.n4.toString().length <= 9) {
+                nilaiBeban = toJuta(beban.n4)
+            } else {
+                nilaiBeban = toMilyar(beban.n4)
+            }
+
+            if(beban.n5.toString().length <= 9) {
+                nilaiYoyBeban = toJuta(beban.n5)
+            } else {
+                nilaiYoyBeban = toMilyar(beban.n5)
+            }
+
+            if(beban.yoy < 0) {
+                $('#beban-yoy-percentage').removeClass('green-text').addClass('red-text')
+                iconBeban = '<div class="glyph-icon iconsminds-down icon-card red-text bold-700"></div>'
+            } else {
+                $('#beban-yoy-percentage').removeClass('red-text').addClass('green-text')
+                iconBeban = '<div class="glyph-icon iconsminds-up icon-card green-text bold-700"></div>'
+            }
+
+            $('#circle-beban').circleProgress({
+                value: beban.ach/100,
+                size: 80,
+                reverse: false,
+                thickness: 8,
+                fill: {
+                    color: ["#EE0000"]
+                }
+            });
+
+            $('#circle-beban').find('strong').html(`
+                <p class="my-0 text-circle">Ach.</p>
+                <p class="my-0 text-circle">${beban.ach}%</p>
+            `)
+
+            $('#beban-value').text(nilaiBeban)
+            $('#beban-yoy').text(nilaiYoyBeban)
+            $('#beban-yoy-percentage').append(`${beban.yoy}% ${iconBeban}`)
+            // END BEBAN
+
+            // SHU
+            $('#shu-yoy-percentage').empty()
+            var iconShu = '';
+            var nilaiShu = 0;
+            var nilaiYoyShu = 0;
+            var shu = result.data.data_shu;
+            if(shu.n4.toString().length <= 9) {
+                nilaiShu = toJuta(shu.n4)
+            } else {
+                nilaiShu = toMilyar(shu.n4)
+            }
+
+            if(shu.n5.toString().length <= 9) {
+                nilaiYoyShu = toJuta(shu.n5)
+            } else {
+                nilaiYoyShu = toMilyar(shu.n5)
+            }
+
+            if(shu.yoy < 0) {
+                $('#shu-yoy-percentage').removeClass('green-text').addClass('red-text')
+                iconShu = '<div class="glyph-icon iconsminds-down icon-card red-text bold-700"></div>'
+            } else {
+                $('#shu-yoy-percentage').removeClass('red-text').addClass('green-text')
+                iconShu = '<div class="glyph-icon iconsminds-up icon-card green-text bold-700"></div>'
+            }
+
+            $('#circle-shu').circleProgress({
+                value: shu.ach/100,
+                size: 80,
+                reverse: false,
+                thickness: 8,
+                fill: {
+                    color: ["#EE0000"]
+                }
+            });
+
+            $('#circle-shu').find('strong').html(`
+                <p class="my-0 text-circle">Ach.</p>
+                <p class="my-0 text-circle">${shu.ach}%</p>
+            `)
+
+            $('#shu-value').text(nilaiShu)
+            $('#shu-yoy').text(nilaiYoyShu)
+            $('#shu-yoy-percentage').append(`${shu.yoy}% ${iconShu}`)
+            // END SHU
+
+            // OR
+            $('#or-yoy-percentage').empty()
+            var iconOr = '';
+            var nilaiOr = 0;
+            var nilaiYoyOr = 0;
+            var or = result.data.data_or;
+
+            if(or.yoy < 0) {
+                $('#or-yoy-percentage').removeClass('green-text').addClass('red-text')
+                iconOr = '<div class="glyph-icon iconsminds-down icon-card red-text bold-700"></div>'
+            } else {
+                $('#or-yoy-percentage').removeClass('red-text').addClass('green-text')
+                iconOr = '<div class="glyph-icon iconsminds-up icon-card green-text bold-700"></div>'
+            }
+
+            $('#circle-or').circleProgress({
+                value: or.ach/100,
+                size: 80,
+                reverse: false,
+                thickness: 8,
+                fill: {
+                    color: ["#EE0000"]
+                }
+            });
+
+            $('#circle-or').find('strong').html(`
+                <p class="my-0 text-circle">Ach.</p>
+                <p class="my-0 text-circle">${or.ach}%</p>
+            `)
+
+            $('#or-value').text(or.n4)
+            $('#or-yoy').text(`${or.n5}%`)
+            $('#or-yoy-percentage').append(`${or.yoy}% ${iconOr}`)
+            // END OR
+        }
+    });
+}
+// END UPDATE CHART WITH FILTER
 
 // RUN IF PAGE IS FIRST RENDER
 Highcharts.SVGRenderer.prototype.symbols['c-rect'] = function (x, y, w, h) {
@@ -1123,320 +1864,6 @@ Highcharts.SVGRenderer.prototype.symbols['c-rect'] = function (x, y, w, h) {
 })();
 // END PERFORMANSI LEMBAGA
 // END RUN IF PAGE IS FIRST RENDER
-
-// DRAGGING
-dragElement($('#window-drag')[0]);
-
-$('#icon-message').click(function() {
-    $('#window-drag').removeClass('hidden')
-});
-
-$('#close-window').click(function() {
-    $('#window-drag').addClass('hidden')
-});
-// END DRAGGING
-
-$(window).on('resize', function(){
-    var win = $(this); //this = window
-    if (win.height() == 800) { 
-        $("body").css("overflow", "hidden");
-    }
-    if (win.height() > 800) { 
-        $("body").css("overflow", "scroll");
-    }
-    if (win.height() < 800) { 
-        $("body").css("overflow", "scroll");
-    }
-});
-
-$(window).click(function() {
-    $('#filter-box').addClass('hidden')
-    $('.menu-chart-custom').addClass('hidden');
-    if($(window).height() == 800) {
-        $("body").css("overflow", "hidden");
-    }
-    if($(window).height() > 800) {
-        $("body").css("overflow", "scroll");
-    }
-    if($(window).height() < 800) {
-        $("body").css("overflow", "scroll");
-    }
-
-    if($filter2.length == 2) {
-        $filter2 = getNamaBulan($filter2)
-    }
-
-    $('#select-text-fp').text(`${$filter2.toUpperCase()} || ${$tahun}`)
-})
-
-
-document.addEventListener('fullscreenchange', (event) => {
-  if (document.fullscreenElement) {
-    console.log(`Element: ${document.fullscreenElement.id} entered full-screen mode.`);
-  } else {
-    pdptChart.update({
-        title: {
-            text: ''
-        }
-    })
-
-    bebanChart.update({
-        title: {
-            text: ''
-        }
-    })
-
-    shuChart.update({
-        title: {
-            text: ''
-        }
-    })
-
-    lrChart.update({
-        title: {
-            text: ''
-        }
-    })
-
-    performChart.update({
-        title: {
-            text: ''
-        }
-    })
-
-    lembagaChart.update({
-        title: {
-            text: ''
-        }
-    })
-
-    yoyChart.update({
-        title: {
-            text: ''
-        }
-    })
-
-    akunChart.update({
-        title: {
-            text: ''
-        }
-    })
-    console.log('Leaving full-screen mode.');
-  }
-});
-
-$('#kurang-tahun').click(function(event) {
-    event.stopPropagation();
-    $tahun = $tahun - 1;
-    $('#year-filter').text($tahun);
-})
-
-$('#tambah-tahun').click(function(event) {
-    event.stopPropagation();
-    $tahun = $tahun + 1;
-    $('#year-filter').text($tahun);
-})
-
-$('#custom-row').click(function(event) {
-    event.stopPropagation();
-    $('#filter-box').removeClass('hidden')
-})
-
-$('#list-filter-1 ul li').click(function(event) {
-    event.stopPropagation();
-    var html = '';
-    var filter = $(this).text()
-    $filter1 = filter
-    $filter1_kode = $(this).data('filter1')
-    $('#list-filter-1 ul li').not(this).removeClass('selected')
-    $(this).addClass('selected')
-    $('#list-filter-2').empty()
-    if($filter1 == 'Triwulan') {
-        html += `
-            <div class="col-5 py-3 selected cursor-pointer" data-filter2="TRW1">
-                Triwulan I
-            </div>
-            <div class="col-5 ml-8 py-3 cursor-pointer" data-filter2="TRW2">
-                Triwulan II
-            </div>
-            <div class="w-100 d-none d-md-block"></div>
-            <div class="col-5 mt-8 py-3 cursor-pointer" data-filter2="TRW3">
-                Triwulan III
-            </div>
-            <div class="col-5 mt-8 ml-8 py-3 cursor-pointer" data-filter2="TRW4">
-                Triwulan IV
-            </div>
-        `;
-    } else if($filter1 == 'Semester') {
-        html += `
-            <div class="col-5 py-3 selected cursor-pointer" data-filter2="SMT1">
-                Semester I
-            </div>
-            <div class="col-5 ml-8 py-3 cursor-pointer" data-filter2="SMT2">
-                Semester II
-            </div>
-        `;
-    } else if($filter1 == 'Periode') {
-        html += `
-            <div class="col-5 py-3 cursor-pointer list" data-bulan="01" data-filter2="01">
-                Januari
-            </div>
-            <div class="col-5 ml-8 py-3 cursor-pointer list" data-bulan="02" data-filter2="02">
-                Februari
-            </div>
-            <div class="w-100 d-none d-md-block"></div>
-            <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="03" data-filter2="03">
-                Maret
-            </div>
-            <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="04" data-filter2="04">
-                April
-            </div>
-            <div class="w-100 d-none d-md-block"></div>
-            <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="05" data-filter2="05">
-                Mei
-            </div>
-            <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="06" data-filter2="06">
-                Juni
-            </div>
-            <div class="w-100 d-none d-md-block"></div>
-            <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="07" data-filter2="07">
-                Juli
-            </div>
-            <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="08" data-filter2="08">
-                Agustus
-            </div>
-            <div class="w-100 d-none d-md-block"></div>
-            <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="09" data-filter2="09">
-                September
-            </div>
-            <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="10" data-filter2="10">
-                Oktober
-            </div>
-            <div class="w-100 d-none d-md-block"></div>
-            <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="11" data-filter2="11">
-                November
-            </div>
-            <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="12" data-filter2="12">
-                Desember
-            </div>
-        `;
-    }
-    $('#list-filter-2').append(html)
-
-    if($filter1 == 'Periode') {
-        $('#list-filter-2').find('.list').each(function() {
-            if($(this).data('bulan').toString() == $month) {
-                $(this).addClass('selected')
-                $month = $(this).data('bulan').toString();
-                return false;
-            }
-        })
-    }
-})
-
-$('#list-filter-2').on('click', 'div', function(event) {
-    event.stopPropagation();
-    var filter = $(this).text()
-    if($(this).data('bulan')) {
-        filter = $(this).data('bulan') 
-    }
-    $filter2 = filter
-    $filter2_kode = $(this).data('filter2')
-    $('#list-filter-2 div').not(this).removeClass('selected')
-    $(this).addClass('selected')
-})
-
-$('.icon-menu').click(function(event) {
-    event.stopPropagation()
-    var parentID = $(this).parents('.header-div').attr('id')
-    $('#'+parentID).find('.menu-chart-custom').removeClass('hidden')
-
-    if(parentID == 'card-lr') {
-        $("body").css("overflow", "scroll");
-    } else {
-        $("body").css("overflow", "hidden");
-    }
-})
-
-$('#pdpt-box').click(function() {
-    $judulChart = "Pendapatan"
-    $('#title-dash').text('Pendapatan')
-    $('#back-div').removeClass('hidden')
-    $('#dash-title-div').removeClass('pl-8')
-    $('#dash-title-div').addClass('pl-0')
-    $('.title-chart').text('Pendapatan')
-    $('#main-dash').hide()
-    $('#detail-dash').show()
-});
-
-$('#beban-box').click(function() {
-    $judulChart = "Beban"
-    $('#title-dash').text('Beban')
-    $('#back-div').removeClass('hidden')
-    $('#dash-title-div').removeClass('pl-8')
-    $('#dash-title-div').addClass('pl-0')
-    $('.title-chart').text('Beban')
-    $('#main-dash').hide()
-    $('#detail-dash').show()
-});
-
-$('#shu-box').click(function() {
-    $judulChart = "Sisa Hasil Usaha"
-    $('#title-dash').text('Sisa Hasil Usaha')
-    $('#back-div').removeClass('hidden')
-    $('#dash-title-div').removeClass('pl-8')
-    $('#dash-title-div').addClass('pl-0')
-    $('.title-chart').text('Sisa Hasil Usaha')
-    $('#main-dash').hide()
-    $('#detail-dash').show()
-});
-
-$('#or-box').click(function() {
-    $judulChart = "Operating Ratio"
-    $('#title-dash').text('Operating Ratio')
-    $('#back-div').removeClass('hidden')
-    $('#dash-title-div').removeClass('pl-8')
-    $('#dash-title-div').addClass('pl-0')
-    $('.title-chart').text('Operating Ratio')
-    $('#main-dash').hide()
-    $('#detail-dash').show()
-});
-
-$('#back').click(function() {
-    $('#title-dash').text('Financial Performance YPT')
-    $('#back-div').addClass('hidden')
-    $('#dash-title-div').removeClass('pl-0')
-    $('#dash-title-div').addClass('pl-8')
-    $('#detail-dash').hide()
-    $('#main-dash').show()
-});
-
-$('#table-lembaga tbody tr').on('click', 'td:first-child', function() {
-    var table = $(this).parents('table').attr('id')
-    var tr = $(this).parent()
-    var icon = $(this).children('.check-row')
-    var kode = $(this).children('.kode').text()
-    var check = $(tr).attr('class')
-    
-    if(check == 'selected-row') {
-        return;
-    }
-
-    $(`#${table} tbody tr`).removeClass('selected-row')
-    $(`#${table} tbody tr td .check-row`).hide()
-
-    setTimeout(function() {
-        $(tr).addClass('selected-row')
-        $(icon).show()
-    }, 200)
-})
-
-$('#table-lembaga tbody').on('click', 'tr.selected-row', function() {
-    var table = $(this).parents('table').attr('id')
-    
-    $(`#${table} tbody tr`).removeClass('selected-row')
-    $(`#${table} tbody tr td .check-row`).hide()
-})
 
 var akunChart = Highcharts.chart('akun-chart', {
     chart: {
