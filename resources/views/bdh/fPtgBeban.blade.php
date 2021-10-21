@@ -4,17 +4,21 @@
 
 <style>
     .form-header {
-        padding-top:1rem;
-        padding-bottom:1rem;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
     }
+
     .judul-form {
-        margin-bottom:0;
-        margin-top:5px;
+        margin-bottom: 0;
+        margin-top: 5px;
     }
+
 </style>
 
 <!-- LIST DATA -->
-<x-list-data judul="Data Pertanggungan Beban" tambah="true" :thead="array('No Bukti','Tanggal','No Dokumen','Deskripsi','Nilai','Progress','Aksi')" :thwidth="array(15,15,20,25,10,35,10)" :thclass="array('','','','','','','text-center')" />
+<x-list-data judul="Data Pertanggungan Beban" tambah="true"
+    :thead="array('No Bukti','Tanggal','No Dokumen','Deskripsi','Nilai','Progress','Aksi')"
+    :thwidth="array(15,15,20,25,10,35,10)" :thclass="array('','','','','','','text-center')" />
 <!-- END LIST DATA -->
 
 <form id="form-tambah" class="tooltip-label-right" novalidate>
@@ -38,8 +42,11 @@
                             <div class="row">
                                 <div class="col-md-4 col-sm-12 my-2">
                                     <label for="no_bukti">No Bukti</label>
-                                    <input type="text" name="no_bukti" id="no_bukti" class="form-control inp-no_bukti" value="-" readonly>
-                                    <a href="#" class="generate-bukti" id="generate-bukti"><i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;" class="simple-icon-sync"></i></a>
+                                    <input type="text" name="no_bukti" id="no_bukti" class="form-control inp-no_bukti"
+                                        value="-" readonly>
+                                    <a href="#" class="generate-bukti" id="generate-bukti"><i
+                                            style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;"
+                                            class="simple-icon-sync"></i></a>
 
                                 </div>
                                 <div class="col-md-6 col-sm-12 my-2">
@@ -50,13 +57,17 @@
                             <div class="row">
                                 <div class="col-md-4 col-sm-12 my-12">
                                     <label for="tanggal">Tanggal</label>
-                                    <input class='form-control inp-tanggal datepicker' type="text" id="tanggal" name="tanggal" value="{{ date('d/m/Y') }}">
-                                    <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;" class="simple-icon-calendar date-search"></i>
+                                    <input class='form-control inp-tanggal datepicker' type="text" id="tanggal"
+                                        name="tanggal" value="{{ date('d/m/Y') }}">
+                                    <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;"
+                                        class="simple-icon-calendar date-search"></i>
                                 </div>
                                 <div class="col-md-6 col-sm-12">
-                                    <label for="nik_periksa" >Due Date</label>
-                                    <input class='form-control datepicker' type="text" id="duedate" name="duedate" value="{{ date('d/m/Y') }}">
-                                    <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;" class="simple-icon-calendar date-search"></i>
+                                    <label for="nik_periksa">Due Date</label>
+                                    <input class='form-control datepicker' type="text" id="duedate" name="duedate"
+                                        value="{{ date('d/m/Y') }}">
+                                    <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;"
+                                        class="simple-icon-calendar date-search"></i>
                                 </div>
 
                             </div>
@@ -64,8 +75,10 @@
                         <div class="form-group col-md-6 col-sm-12">
                             <div class="row">
                                 <div class="col-md-6 col-sm-12">
-                                    <input class="form-control" type="hidden" placeholder="No Bukti" id="no_bukti" name="no_bukti" readonly>
-                                    <input class="form-control" type="hidden" placeholder="No Bukti" id="kode_form" name="kode_form" readonly>
+                                    <input class="form-control" type="hidden" placeholder="No Bukti" id="no_bukti"
+                                        name="no_bukti" readonly>
+                                    <input class="form-control" type="hidden" placeholder="No Bukti" id="kode_form"
+                                        name="kode_form" readonly>
                                 </div>
 
                             </div>
@@ -77,7 +90,8 @@
                             <div class="row">
                                 <div class="col-md-10">
                                     <label for="deskripsi">Deskripsi</label>
-                                    <textarea class="form-control" rows="4" id="deskripsi" name="deskripsi" required></textarea>
+                                    <textarea class="form-control" rows="4" id="deskripsi" name="deskripsi"
+                                        required></textarea>
                                 </div>
                             </div>
                         </div>
@@ -86,16 +100,18 @@
                                 <div class="col-md-6 col-sm-12">
                                 </div>
                                 <div class="col-md-6 col-sm-12">
-                                    <label for="total_debet" >Total Jurnal</label>
-                                    <input class="form-control currency" type="text" placeholder="Total Jurnal" readonly id="totalJurnal" name="total_jurnal" value="0">
+                                    <label for="total_debet">Total Jurnal</label>
+                                    <input class="form-control currency" type="text" placeholder="Total Jurnal" readonly
+                                        id="total_jurnal" name="total_jurnal" value="0">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6 col-sm-12">
                                 </div>
                                 <div class="col-md-6 col-sm-12">
-                                    <label for="total_kredit" >Total Net Rekening</label>
-                                    <input class="form-control currency" type="text" placeholder="Total Kredit" readonly id="total_kredit" name="total_kredit" value="0">
+                                    <label for="total_net_rek">Total Net Rekening</label>
+                                    <input class="form-control currency" type="text" placeholder="Total Kredit" readonly
+                                        id="total_net_rek" name="total_net_rek" value="0">
                                 </div>
                             </div>
                         </div>
@@ -103,21 +119,32 @@
 
                     <ul class="nav nav-tabs col-12 " role="tablist">
 
-                        <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-atensi" role="tab" aria-selected="true"><span class="hidden-xs-down">Atensi Pembayaran</span></a> </li>
-                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-jurnal" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Jurnal</span></a> </li>
-                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-otorisasi" role="tab" aria-selected="true"><span class="hidden-xs-down">Otorisasi</span></a> </li>
-                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-catatan" role="tab" aria-selected="true"><span class="hidden-xs-down">Catatan Verifikator</span></a> </li>
-                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-dok" role="tab" aria-selected="true"><span class="hidden-xs-down">Berkas</span></a> </li>
-                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-budget" role="tab" aria-selected="true"><span class="hidden-xs-down">Budget</span></a> </li>
+                        <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-atensi"
+                                role="tab" aria-selected="true"><span class="hidden-xs-down">Atensi
+                                    Pembayaran</span></a> </li>
+                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-jurnal" role="tab"
+                                aria-selected="true"><span class="hidden-xs-down">Data Jurnal</span></a> </li>
+                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-otorisasi" role="tab"
+                                aria-selected="true"><span class="hidden-xs-down">Otorisasi</span></a> </li>
+                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-catatan" role="tab"
+                                aria-selected="true"><span class="hidden-xs-down">Catatan Verifikator</span></a> </li>
+                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-dok" role="tab"
+                                aria-selected="true"><span class="hidden-xs-down">Berkas</span></a> </li>
+                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-budget" role="tab"
+                                aria-selected="true"><span class="hidden-xs-down">Budget</span></a> </li>
                     </ul>
                     <div class="tab-content tabcontent-border col-12 p-0" style="margin-bottom: 2.5rem;">
 
                         <div class="tab-pane active" id="data-atensi" role="tabpanel">
                             <div class="table-responsive">
                                 <div class='col-md-12 nav-control' style="padding: 0px 5px;">
-                                    <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row-atensi" ></span></a>
+                                    <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;"
+                                        class=""><span
+                                            style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;"
+                                            id="total-row-atensi"></span></a>
                                 </div>
-                                <table class="table table-bordered table-condensed gridexample" id="atensi-grid" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                <table class="table table-bordered table-condensed gridexample" id="atensi-grid"
+                                    style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
                                     <thead style="background:#F8F8F8">
                                         <tr>
                                             <th style="width:15%">Atensi</th>
@@ -134,184 +161,179 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <a type="button" href="#" data-id="0" title="add-row-atensi" id="add-row-atensi" class="add-row-atensi btn btn-light2 btn-block btn-sm"><i class="saicon icon-tambah mr-1"></i>Tambah Baris</a>
+                            <a type="button" href="#" data-id="0" title="add-row-atensi" id="add-row-atensi"
+                                class="add-row-atensi btn btn-light2 btn-block btn-sm"><i
+                                    class="saicon icon-tambah mr-1"></i>Tambah Baris</a>
                         </div>
                         {{-- begin data jurnal tab --}}
                         <div class="tab-pane" id="data-jurnal" role="tabpanel">
 
                             <div class='col-md-12 nav-control' style="padding: 0px 5px;">
-                                <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row" ></span></a>
+                                <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span
+                                        style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;"
+                                        id="total-row"></span></a>
                             </div>
 
                             <div class='col-md-12' style='min-height:420px; margin:0px; padding:0px;'>
-
-                                <table class="table table-bordered table-condensed gridexample" id="jurnal-grid" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
-                                <thead style="background:#F8F8F8">
-                                    <tr>
-                                        <th style="width:3%">No</th>
-                                        <th style="width:13%">Kode Akun</th>
-                                        <th style="width:5%">DC</th>
-                                        <th style="width:20%">Keterangan</th>
-                                        <th style="width:15%">Nilai</th>
-                                        <th style="width:15%">Kode PP</th>
-                                        <th style="width:7">Kode DRK</th>
-                                        <th style="width:5%"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
+                                <table class="table table-bordered table-condensed gridexample" id="jurnal-grid"
+                                    style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                    <thead style="background:#F8F8F8">
+                                        <tr>
+                                            <th style="width:3%">No</th>
+                                            <th style="width:13%">Kode Akun</th>
+                                            <th style="width:15%">Nama Akun</th>
+                                            <th style="width:5%">DC</th>
+                                            <th style="width:20%">Keterangan</th>
+                                            <th style="width:15%">Nilai</th>
+                                            <th style="width:7%">Kode PP</th>
+                                            <th style="width:17%">Nama PP</th>
+                                            <th style="width:7%">Kode DRK</th>
+                                            <th style="width:17%">Nama DRK</th>
+                                            <th style="width:5%"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
                                 </table>
-                                <a type="button" href="#" data-id="0" title="add-row" id="add-row-jurnal" class="add-row btn btn-light2 btn-block btn-sm"><i class="saicon icon-tambah mr-1"></i>Tambah Baris</a>
+                                <a type="button" href="#" data-id="0" title="add-row"
+                                    class="add-row-jurnal btn btn-light2 btn-block btn-sm">Tambah Baris</a>
                             </div>
                         </div>
                         {{-- end data jurnal tab --}}
                         {{-- begin otorisasi tab --}}
-                                                <div class="tab-pane" id="data-otorisasi" role="tabpanel">
-                                                    <div class='col-md-12 mt-3' style='min-height:420px; margin:0px; padding:0px;'>
-                                                        <div class="col-md-6 col-sm-12 mt-2">
-                                                            <label for="nik_buat" >Dibuat Oleh</label>
-                                                            <div class="input-group">
-                                                                <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
-                                                                    <span class="input-group-text info-code_nik_buat" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
-                                                                </div>
-                                                                <input type="text" class="form-control inp-label-nik_buat" id="nik_buat" name="nik_buat" value="" title="">
-                                                                <span class="info-name_nik_buat hidden">
-                                                                    <span></span>
-                                                                </span>
-                                                                <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                                                <i class="simple-icon-magnifier search-item2" id="search_nik_buat"></i>
-                                                            </div>
-                                                        </div>
+                        <div class="tab-pane" id="data-otorisasi" role="tabpanel">
+                            <div class='col-md-12 mt-3' style='min-height:420px; margin:0px; padding:0px;'>
+                                <div class="col-md-6 col-sm-12 mt-2">
+                                    <label for="nik_buat">Dibuat Oleh</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                            <span class="input-group-text info-code_nik_buat" readonly="readonly"
+                                                title="" data-toggle="tooltip" data-placement="top"></span>
+                                        </div>
+                                        <input type="text" class="form-control inp-label-nik_buat" id="nik_buat"
+                                            name="nik_buat" value="" title="">
+                                        <span class="info-name_nik_buat hidden">
+                                            <span></span>
+                                        </span>
+                                        <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                        <i class="simple-icon-magnifier search-item2" id="search_nik_buat"></i>
+                                    </div>
+                                </div>
 
-                                                        <div class="col-md-6 col-sm-12 mt-2">
-                                                            <label for="nik_tahu" >Nik Mengetahui</label>
-                                                            <div class="input-group">
-                                                                <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
-                                                                    <span class="input-group-text info-code_nik_tahu" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
-                                                                </div>
-                                                                <input type="text" class="form-control inp-label-nik_tahu" id="nik_tahu" name="nik_tahu" value="" title="">
-                                                                <span class="info-name_nik_tahu hidden">
-                                                                    <span></span>
-                                                                </span>
-                                                                <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                                                <i class="simple-icon-magnifier search-item2" id="search_nik_tahu"></i>
-                                                            </div>
-                                                        </div>
+                                <div class="col-md-6 col-sm-12 mt-2">
+                                    <label for="nik_tahu">Nik Mengetahui</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                            <span class="input-group-text info-code_nik_tahu" readonly="readonly"
+                                                title="" data-toggle="tooltip" data-placement="top"></span>
+                                        </div>
+                                        <input type="text" class="form-control inp-label-nik_tahu" id="nik_tahu"
+                                            name="nik_tahu" value="" title="">
+                                        <span class="info-name_nik_tahu hidden">
+                                            <span></span>
+                                        </span>
+                                        <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                        <i class="simple-icon-magnifier search-item2" id="search_nik_tahu"></i>
+                                    </div>
+                                </div>
 
-                                                        <div class="col-md-6 col-sm-12 mt-2">
-                                                            <label for="nik_ver" >Nik Verifikator</label>
-                                                            <div class="input-group">
-                                                                <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
-                                                                    <span class="input-group-text info-code_nik_ver" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
-                                                                </div>
-                                                                <input type="text" class="form-control inp-label-nik_ver" id="nik_ver" name="nik_ver" value="" title="">
-                                                                <span class="info-name_nik_ver hidden">
-                                                                    <span></span>
-                                                                </span>
-                                                                <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                                                <i class="simple-icon-magnifier search-item2" id="search_nik_ver"></i>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                {{-- end otorisasi tab --}}
-
-                                                 {{-- begin catatan verifikator tab --}}
-                                                 <div class="tab-pane" id="data-catatan" role="tabpanel">
-                                                    <div class='col-md-12 mt-3' style='min-height:420px; margin:0px; padding:0px;'>
-                                                        <div class="col-md-10 mt-3">
-                                                            {{-- <textarea class="form-control" rows="4" id="deskripsi" name="deskripsi" readonly>
-                                                                Catatan tidak ditemukan
-                                                            </textarea> --}}
-                                                            <p>Catatan tidak ditemukan</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                 {{-- end catatan verifikator tab --}}
-
-                                                {{-- begin data dok tab  --}}
-                                                <div class="tab-pane" id="data-dok" role="tabpanel">
-                                                    <div class='col-md-12 nav-control' style="padding: 0px 5px;">
-                                                        <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row_dok" ></span></a>
-                                                    </div>
-                                                    <div class='col-md-12' style='min-height:420px; margin:0px; padding:0px;'>
-                                                        <table class="table table-bordered table-condensed gridexample" id="input-dok" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
-                                                            <thead style="background:#F8F8F8">
-                                                                <tr>
-                                                                    <th style="width:3%">No</th>
-                                                                    <th style="width:10%">Jenis</th>
-                                                                    <th style="width:27%">Nama</th>
-                                                                    <th style="width:20%">Path File</th>
-                                                                    <th width="20%">Upload File</th>
-                                                                    <th width="10%">Aksi</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                            </tbody>
-                                                        </table>
-                                                        <a type="button" href="#" data-id="0" title="add-row-dok" class="add-row-dok btn btn-light2 btn-block btn-sm">
-                                                        <i class="saicon icon-tambah mr-1"></i>Tambah Baris</a>
-                                                    </div>
-                                                </div>
-                                                {{-- end data dok tab --}}
-                                            {{-- begin budget tab --}}
-                                                <div class="tab-pane" id="data-budget" role="tabpanel">
-                                                    <div class='col-md-12 mt-3' style='min-height:420px; margin:0px; padding:0px;'>
-                                                        <button type="button" id="cek-budget" class="btn btn-sm btn-primary mt-2 mb-2 cek-budget">Cek Budget</button>
-
-                                                        <table id="budget-grid" class="budget-grid table table-bordered table-condensed gridexample"  style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
-                                                            <thead style="background:#F8F8F8">
-                                                                <th style="width: 3%">No</th>
-                                                                <th>Kode Akun</th>
-                                                                <th>Kode PP</th>
-                                                                <th>Kode DRK</th>
-                                                                <th>Saldo Awal</th>
-                                                                <th>Nilai</th>
-                                                                <th>Saldo Akhir</th>
-                                                            </thead>
-
-                                                            <tbody>
-
-                                                            </tbody>
-                                                        </table>
-
-                                                    </div>
-                                                </div>
-                                                {{-- end budget tab --}}
-
-                        {{-- <div class="tab-pane" id="data-controlling" role="tabpanel">
-                            <div class='col-md-12 nav-control' style="padding: 0px 5px;">
-                                <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row-controlling" ></span></a>
+                                <div class="col-md-6 col-sm-12 mt-2">
+                                    <label for="nik_ver">Nik Verifikator</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                            <span class="input-group-text info-code_nik_ver" readonly="readonly"
+                                                title="" data-toggle="tooltip" data-placement="top"></span>
+                                        </div>
+                                        <input type="text" class="form-control inp-label-nik_ver" id="nik_ver"
+                                            name="nik_ver" value="" title="">
+                                        <span class="info-name_nik_ver hidden">
+                                            <span></span>
+                                        </span>
+                                        <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                        <i class="simple-icon-magnifier search-item2" id="search_nik_ver"></i>
+                                    </div>
+                                </div>
                             </div>
-                            <table class="table table-bordered table-condensed gridexample" id="controlling-grid" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
-                                <thead style="background:#F8F8F8">
-                                    <tr>
-                                        <th style="width:30%">Akun</th>
-                                        <th style="width:30%">PP</th>
-                                        <th style="width:30%">DRK</th>
-                                        <th style="width:10%">Bulan</th>
-                                        <th style="width:15%">Saldo Awal</th>
-                                        <th style="width:15%">Nilai</th>
-                                        <th style="width:15%">Saldo Akhir</th>
-                                        <th style="width:5%"></th>
-                                    </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
-                            <a type="button" href="#" data-id="0" title="add-row" id="add-row-controlling" class="add-row btn btn-light2 btn-block btn-sm"><i class="saicon icon-tambah mr-1"></i>Tambah Baris</a>
-                        </div> --}}
+                        </div>
+                        {{-- end otorisasi tab --}}
+
+                        {{-- begin catatan verifikator tab --}}
+                        <div class="tab-pane" id="data-catatan" role="tabpanel">
+                            <div class='col-md-12 mt-3' style='min-height:420px; margin:0px; padding:0px;'>
+                                <div class="col-md-10 mt-3">
+                                    <p>Catatan tidak ditemukan</p>
+                                </div>
+                            </div>
+                        </div>
+                        {{-- end catatan verifikator tab --}}
+
+                        {{-- begin data dok tab --}}
+                        <div class="tab-pane" id="data-dok" role="tabpanel">
+                            <div class='col-md-12 nav-control' style="padding: 0px 5px;">
+                                <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span
+                                        style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;"
+                                        id="total-row_dok"></span></a>
+                            </div>
+                            <div class='col-md-12' style='min-height:420px; margin:0px; padding:0px;'>
+                                <table class="table table-bordered table-condensed gridexample" id="input-dok"
+                                    style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                    <thead style="background:#F8F8F8">
+                                        <tr>
+                                            <th style="width:3%">No</th>
+                                            <th style="width:10%">Jenis</th>
+                                            <th style="width:27%">Nama</th>
+                                            <th style="width:20%">Path File</th>
+                                            <th width="20%">Upload File</th>
+                                            <th width="10%">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                                <a type="button" href="#" data-id="0" title="add-row-dok"
+                                    class="add-row-dok btn btn-light2 btn-block btn-sm">
+                                    <i class="saicon icon-tambah mr-1"></i>Tambah Baris</a>
+                            </div>
+                        </div>
+                        {{-- end data dok tab --}}
+                        {{-- begin budget tab --}}
+                        <div class="tab-pane" id="data-budget" role="tabpanel">
+                            <div class='col-md-12 mt-3' style='min-height:420px; margin:0px; padding:0px;'>
+                                <button type="button" id="cek-budget"
+                                    class="btn btn-sm btn-primary mt-2 mb-2 cek-budget">Cek Budget</button>
+
+                                <table id="budget-grid"
+                                    class="budget-grid table table-bordered table-condensed gridexample"
+                                    style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                    <thead style="background:#F8F8F8">
+                                        <th style="width: 3%">No</th>
+                                        <th>Kode Akun</th>
+                                        <th>Kode PP</th>
+                                        <th>Kode DRK</th>
+                                        <th>Saldo Awal</th>
+                                        <th>Nilai</th>
+                                        <th>Saldo Akhir</th>
+                                    </thead>
+
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                        {{-- end budget tab --}}
+
+
                     </div>
                 </div>
                 <div class="card-form-footer-full">
                     <div class="footer-form-container-full">
                         <div class="bottom-sheet-action">
-                            {{-- <button type="button" id="btn-sheet" class="btn btn-sheet">Catatan Approval</button> --}}
                         </div>
-                        {{-- <div class="text-right message-action">
-                            <p class="text-success"></p>
-                        </div> --}}
                         <div class="action-footer">
-                            <button type="submit" style="margin-top: 10px;" class="btn btn-primary btn-save"><i class="fa fa-save"></i> Simpan</button>
+                            <button type="submit" style="margin-top: 10px;" class="btn btn-primary btn-save"><i
+                                    class="fa fa-save"></i> Simpan</button>
                         </div>
                     </div>
                 </div>
@@ -319,66 +341,63 @@
         </div>
     </div>
 </form>
+
 <button id="trigger-bottom-sheet" style="display:none">Bottom ?</button>
 @include('modal_search')
 
-<script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
+<script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}">
+</script>
 <script src="{{ asset('helper.js') }}"></script>
-<script type="text/javascript">
-
-    var $tahun = "{{ date('Y') }}"
-    var $periode = "{{ date('Ym') }}"
-    var valid = true
-    var $kode_akun = []
-    var $pp = []
-    var $drk = []
-    var $totalPemberi = 0;
-    var $totalJurnal = 0;
-    var $akunPenerima = []
-    var $ppPenerima = []
-    var $nikApprove = []
-
+<script>
+    var bottomSheet = new BottomSheet("country-selector");
+    document.getElementById("trigger-bottom-sheet").addEventListener("click", bottomSheet.activate);
+    window.bottomSheet = bottomSheet;
+    var valid = true;
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         }
     });
 
-    function reverseDate2(date_str, separator, newseparator){
-        if(typeof separator === 'undefined'){separator = '-'}
-        if(typeof newseparator === 'undefined'){newseparator = '-'}
+    function reverseDate2(date_str, separator, newseparator) {
+        if (typeof separator === 'undefined') {
+            separator = '-'
+        }
+        if (typeof newseparator === 'undefined') {
+            newseparator = '-'
+        }
         date_str = date_str.split(' ');
         var str = date_str[0].split(separator);
 
-        return str[2]+newseparator+str[1]+newseparator+str[0];
+        return str[2] + newseparator + str[1] + newseparator + str[0];
     }
 
-    function generateBukti(){
+    function generateBukti() {
         var date = $('#form-tambah').find('.inp-tanggal').val();
-        var date2 = reverseDate2(date,'/','-');
+        var date2 = reverseDate2(date, '/', '-');
         // console.log(date2);
-        var url = "{{url('bdh-trans/generate-bukti')}}";
+        var url = "{{ url('bdh-trans/generate-bukti') }}";
 
         $.ajax({
             type: 'GET',
-            url : url,
+            url: url,
             data: {
-                tanggal : date2
+                tanggal: date2
             },
             dataType: 'JSON',
             async: false,
-            success: function(result){
+            success: function (result) {
                 $('#form-tambah').find('.inp-no_bukti').val(result.data);
             },
-            error: function(jqXHR, textStatus, errorThrown) {
-                if(jqXHR.status == 422){
+            error: function (jqXHR, textStatus, errorThrown) {
+                if (jqXHR.status == 422) {
                     var msg = jqXHR.responseText;
-                }else if(jqXHR.status == 500) {
+                } else if (jqXHR.status == 500) {
                     var msg = "Internal server error";
-                }else if(jqXHR.status == 401){
+                } else if (jqXHR.status == 401) {
                     var msg = "Unauthorized";
-                    window.location="{{ url('/bdh-auth/sesi-habis') }}";
-                }else if(jqXHR.status == 405){
+                    window.location = "{{ url('/bdh-auth/sesi-habis') }}";
+                } else if (jqXHR.status == 405) {
                     var msg = "Route not valid. Page not found";
                 }
             }
@@ -386,28 +405,34 @@
 
     }
 
-    $('#form-tambah').on('change','.inp-tanggal', function(e){
+    $('#form-tambah').on('change', '.inp-tanggal', function (e) {
         generateBukti();
     });
 
+    function cekBudget() {
+        var url = '{{ url("bdh-trans/load-budget") }}';
 
-    function cekBudget(){
-        var url = '{{url("bdh-trans/load-budget")}}';
-        var kode_akun_agg = $('#jurnal-grid').find('.inp-kode_akun').val();
-        var kode_pp_agg = $('#jurnal-grid').find('.inp-pp').val();
-        var kode_drk_agg = $('#jurnal-grid').find('.inp-drk').val();
-        var nilai = $('#jurnal-grid').find('.inp-nilai').val();
         var tanggal = $('#form-tambah').find('.inp-tanggal').val();
-        var revers = reverseDate2(tanggal,'/','');
+        var revers = reverseDate2(tanggal, '/', '');
         var periode = revers.substring(0, 6);
-
         var no_bukti = $('#form-tambah').find('.inp-no_bukti').val();
-        var nilai_agg = toNilai(nilai);
+
+        var kode_akun_agg = [];
+        var kode_pp_agg = [];
+        var kode_drk_agg = [];
+        var nilai_agg = [];
+
+        $('#jurnal-grid tbody tr').each(function (index) {
+            kode_akun_agg.push($(this).find('.inp-kode').val());
+            kode_pp_agg.push($(this).find('.inp-pp').val());
+            kode_drk_agg.push($(this).find('.inp-drk').val());
+            nilai_agg.push(toNilai($(this).find('.inp-nilai').val()));
+        });
         $.ajax({
             type: 'GET',
-            url : url,
+            url: url,
             data: {
-                kode_akun_agg : kode_akun_agg,
+                kode_akun_agg: kode_akun_agg,
                 kode_pp_agg: kode_pp_agg,
                 kode_drk_agg: kode_drk_agg,
                 nilai_agg: nilai_agg,
@@ -416,32 +441,44 @@
             },
             dataType: 'JSON',
             async: false,
-            success: function(result){
+            success: function (result) {
                 var data = result.daftar;
-                var no=1;
+                var no = 1;
                 var html = '';
-                html += `<tr>
-                    <td>`+ no++ +`</td>
-                    <td>`+data.kode_akun_agg+`</td>
-                    <td>`+data.kode_pp_agg+`</td>
-                    <td>`+data.kode_drk_agg+`</td>
-                    <td>`+data.so_awal_agg+`</td>
-                    <td>`+data.nilai_agg+`</td>
-                    <td>`+data.so_akhir_agg+`</td>
+                for (let i = 0; i < data.length; i++) {
+                    html += `<tr>
+                    <td>` + no++ + `</td>
+                    <td>` + data[i].kode_akun_agg +
+                        `<input type='hidden' name='kode_akun_agg[]' class='inp-kode_akun_agg' id ='kode_akun_agg' value='` +
+                        data[i].kode_akun_agg + `'></td>
+                    <td>` + data[i].kode_pp_agg +
+                        `<input type='hidden' name='kode_pp_agg[]' class='inp-kode_pp_agg' value='` + data[
+                            0].kode_pp_agg + `'></td>
+                    <td>` + data[i].kode_drk_agg +
+                        `<input type='hidden' class='inp-kode_drk_agg' name='kode_drk_agg[]' id='kode_drk_agg' value='` +
+                        data[i].kode_drk_agg + `'></td>
+                    <td>` + data[i].so_awal_agg +
+                        `<input type='hidden' name='saldo_awal_agg[]' id='saldo_awal_agg' class='inp-saldo_awal_agg' value='` +
+                        data[i].so_awal_agg + `'></td>
+                    <td>` + data[i].nilai_agg +
+                        `<input type='hidden' class='inp-nilai_agg' name='nilai_agg[]' value='` + data[i]
+                        .nilai_agg + `'></td>
+                    <td>` + data[i].so_akhir_agg + `<input type='hidden' name='saldo_akhir_agg[]' value='` + data[i]
+                        .so_akhir_agg + `'></td>
                 </tr>`
-
+                }
                 $('#budget-grid >tbody').html(html);
-               console.log(result);
+                console.log(result);
             },
-            error: function(jqXHR, textStatus, errorThrown) {
-                if(jqXHR.status == 422){
+            error: function (jqXHR, textStatus, errorThrown) {
+                if (jqXHR.status == 422) {
                     var msg = jqXHR.responseText;
-                }else if(jqXHR.status == 500) {
+                } else if (jqXHR.status == 500) {
                     var msg = "Internal server error";
-                }else if(jqXHR.status == 401){
+                } else if (jqXHR.status == 401) {
                     var msg = "Unauthorized";
-                    window.location="{{ url('/bdh-auth/sesi-habis') }}";
-                }else if(jqXHR.status == 405){
+                    window.location = "{{ url('/bdh-auth/sesi-habis') }}";
+                } else if (jqXHR.status == 405) {
                     var msg = "Route not valid. Page not found";
                 }
             }
@@ -449,96 +486,48 @@
 
     }
 
-    $('#data-budget').on('click','.cek-budget', function(e){
+    $('#data-budget').on('click', '.cek-budget', function (e) {
         cekBudget();
     });
 
-
-
-    function filterNikApprove(value) {
-        for(var i=0;i<$nikApprove.length;i++) {
-            var data = $nikApprove[i]
-            if(data.id == value) {
-                console.log(data)
-                showInfoField('nik_approve', data.id, data.name)
-                break;
-            }
-        }
-    }
-
-    function filterPPPenerima(value) {
-        for(var i=0;i<$ppPenerima.length;i++) {
-            var data = $ppPenerima[i]
-            if(data.id == value) {
-                showInfoField('pp_penerima', data.id, data.name)
-                break;
-            }
-        }
-    }
-
-    function filterDrkPenerima(value) {
-        for(var i=0;i<$ppPenerima.length;i++) {
-            var data = $ppPenerima[i]
-            if(data.id == value) {
-                showInfoField('drk_penerima', data.id, data.name)
-                break;
-            }
-        }
-    }
-
-    function filterAkunPenerima(value) {
-        for(var i=0;i<$akunPenerima.length;i++) {
-            var data = $akunPenerima[i]
-            if(data.id == value) {
-                showInfoField('akun_penerima', data.id, data.name)
-                break;
-            }
-        }
-    }
-
-    function format_number(x){
+    function format_number(x) {
         var num = parseFloat(x).toFixed(0);
         num = sepNumX(num);
         return num;
     }
+
     function hitungTotalJurnal() {
         var totalJurnal = 0;
-        $('#jurnal-grid tbody tr').each(function(index) {
+        $('#jurnal-grid tbody tr').each(function (index) {
             var nilai = toNilai($(this).find('.inp-nilai').val())
             totalJurnal += nilai
         })
         $('#totalJurnal').val(totalJurnal);
     }
 
-    function hitungTotalPemberi() {
-        $totalPemberi = 0;
-        $('#pemberi-grid tbody tr').each(function(index) {
-            var nilai = toNilai($(this).find('.inp-nilai').val())
-            $totalPemberi += nilai
-        })
-    }
-
     function resetForm() {
-        $('#pemberi-grid tbody').empty()
-        $("[id^=label]").each(function(e){
+        $('#atensi-grid tbody').empty()
+        $('#jurnal-grid tbody').empty()
+        $('#budget-grid tbody').empty()
+        $("[id^=label]").each(function (e) {
             $(this).text('');
         });
-        $("[class^=info-name]").each(function(e){
+        $("[class^=info-name]").each(function (e) {
             $(this).addClass('hidden');
         });
-        $("[class^=input-group-text]").each(function(e){
+        $("[class^=input-group-text]").each(function (e) {
             $(this).text('');
         });
-        $("[class^=input-group-prepend]").each(function(e){
+        $("[class^=input-group-prepend]").each(function (e) {
             $(this).addClass('hidden');
         });
-        $("[class*='inp-label-']").each(function(e){
+        $("[class*='inp-label-']").each(function (e) {
             $(this).removeAttr("style");
         })
-        $("[class^=info-code]").each(function(e){
+        $("[class^=info-code]").each(function (e) {
             $(this).text('');
         });
-        $("[class^=simple-icon-close]").each(function(e){
+        $("[class^=simple-icon-close]").each(function (e) {
             $(this).addClass('hidden');
         });
     }
@@ -551,10 +540,10 @@
         }
     });
 
-    function last_add(param,isi){
+    function last_add(param, isi) {
         var rowIndexes = [];
-        dataTable.rows( function ( idx, data, node ) {
-            if(data[param] === isi){
+        dataTable.rows(function (idx, data, node) {
+            if (data[param] === isi) {
                 rowIndexes.push(idx);
             }
             return false;
@@ -562,7 +551,7 @@
         dataTable.row(rowIndexes).select();
         $('.selected td:eq(0)').addClass('last-add');
         console.log('last-add');
-        setTimeout(function() {
+        setTimeout(function () {
             console.log('timeout');
             $('.selected td:eq(0)').removeClass('last-add');
             dataTable.row(rowIndexes).deselect();
@@ -570,32 +559,52 @@
     }
 
     //LIST DATA
-    var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
+    var action_html =
+        "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
     var dataTable = generateTable(
         "table-data",
         "{{ url('bdh-trans/ptg-beban') }}",
-        [
-            {'targets': 6, data: null, 'defaultContent': action_html,'className': 'text-center' },
+        [{
+                'targets': 6,
+                data: null,
+                'defaultContent': action_html,
+                'className': 'text-center'
+            },
             {
                 "targets": 0,
                 "createdCell": function (td, cellData, rowData, row, col) {
-                    if ( rowData.status == "baru" ) {
+                    if (rowData.status == "baru") {
                         $(td).parents('tr').addClass('selected');
                         $(td).addClass('last-add');
                     }
                 }
             }
         ],
-        [
-            { data: 'no_pb' },
-            { data: 'tgl' },
-            { data: 'no_dokumen' },
-            { data: 'keterangan' },
-            {data: 'nilai'},
-            {data: 'status'}
+        [{
+                data: 'no_pb'
+            },
+            {
+                data: 'tgl'
+            },
+            {
+                data: 'no_dokumen'
+            },
+            {
+                data: 'keterangan'
+            },
+            {
+                data: 'nilai',
+                className: 'text-right',
+                render: $.fn.dataTable.render.number('.', ',', 2, '')
+            },
+            {
+                data: 'status'
+            }
         ],
         "{{ url('bdh-auth/sesi-habis') }}",
-        [[4 ,"desc"]]
+        [
+            [4, "desc"]
+        ]
     );
 
     $.fn.DataTable.ext.pager.numbers_length = 5;
@@ -610,13 +619,13 @@
     });
     // END LIST DATA
 
-    $('#saku-datatable').on('click', '#btn-tambah', function() {
+    $('#saku-datatable').on('click', '#btn-tambah', function () {
         resetForm()
         $('#row-id').hide();
         $('#method').val('post');
         $('#judul-form').html('Tambah Data Pertanggungan Beban');
-        $('#btn-update').attr('id','btn-save');
-        $('#btn-save').attr('type','submit');
+        $('#btn-update').attr('id', 'btn-save');
+        $('#btn-save').attr('type', 'submit');
         $('#form-tambah')[0].reset();
         $('#form-tambah').validate().resetForm();
         $('#id').val('');
@@ -627,15 +636,17 @@
         $('span[class^=info-name]').addClass('hidden');
         $('.info-icon-hapus').addClass('hidden');
         $('[class*=inp-label-]').val('')
-        $('[class*=inp-label-]').attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important;border-left:1px solid #d7d7d7 !important');
+        $('[class*=inp-label-]').attr('style',
+            'border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important;border-left:1px solid #d7d7d7 !important'
+        );
         generateBukti();
     });
 
-    $('#saku-form').on('click', '#btn-kembali', function(){
+    $('#saku-form').on('click', '#btn-kembali', function () {
         var kode = null;
         msgDialog({
-            id:kode,
-            type:'keluar'
+            id: kode,
+            type: 'keluar'
         });
     });
 
@@ -647,301 +658,252 @@
         rightAlign: true
     });
 
-    $('.info-icon-hapus').click(function(){
+    $('.info-icon-hapus').click(function () {
         var par = $(this).closest('div').find('input').attr('name');
-        $('#'+par).val('');
-        $('#'+par).attr('readonly',false);
-        $('#'+par).attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important');
-        $('.info-code_'+par).parent('div').addClass('hidden');
-        $('.info-name_'+par).addClass('hidden');
+        $('#' + par).val('');
+        $('#' + par).attr('readonly', false);
+        $('#' + par).attr('style',
+            'border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important');
+        $('.info-code_' + par).parent('div').addClass('hidden');
+        $('.info-name_' + par).addClass('hidden');
         $(this).addClass('hidden');
     });
 
-    function showInfoField(kode,isi_kode,isi_nama){
-        $('#'+kode).val(isi_kode);
-        $('#'+kode).attr('style','border-left:0;border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important');
-        $('.info-code_'+kode).text(isi_kode).parent('div').removeClass('hidden');
-        $('.info-code_'+kode).attr('title',isi_nama);
-        $('.info-name_'+kode).removeClass('hidden');
-        $('.info-name_'+kode).attr('title',isi_nama);
-        $('.info-name_'+kode+' span').text(isi_nama);
-        var width = $('#'+kode).width()-$('#search_'+kode).width()-10;
-        var height =$('#'+kode).height();
-        var pos =$('#'+kode).position();
-        $('.info-name_'+kode).width(width).css({'left':pos.left,'height':height});
-        $('.info-name_'+kode).closest('div').find('.info-icon-hapus').removeClass('hidden');
+    function showInfoField(kode, isi_kode, isi_nama) {
+        $('#' + kode).val(isi_kode);
+        $('#' + kode).attr('style',
+            'border-left:0;border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important');
+        $('.info-code_' + kode).text(isi_kode).parent('div').removeClass('hidden');
+        $('.info-code_' + kode).attr('title', isi_nama);
+        $('.info-name_' + kode).removeClass('hidden');
+        $('.info-name_' + kode).attr('title', isi_nama);
+        $('.info-name_' + kode + ' span').text(isi_nama);
+        var width = $('#' + kode).width() - $('#search_' + kode).width() - 10;
+        var height = $('#' + kode).height();
+        var pos = $('#' + kode).position();
+        $('.info-name_' + kode).width(width).css({
+            'left': pos.left,
+            'height': height
+        });
+        $('.info-name_' + kode).closest('div').find('.info-icon-hapus').removeClass('hidden');
     }
 
-    $('#bulan_penerima').on('change', function(){
-        var bulan = $(this).val()
-        var pp = $('#pp_penerima').val()
-        var anggaran = $('#akun_penerima').val()
-        var periode = $tahun.concat(bulan)
-
-        $.ajax({
-            type: 'GET',
-            url: "{{ url('esaku-trans/cek-saldo') }}",
-            dataType: 'json',
-            data: { bulan: bulan, kode_pp: pp, kode_akun: anggaran, periode: periode },
-            async:false,
-            success:function(result){
-                var saldo = result.daftar
-                $('#saldo').val(parseInt(saldo))
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                if(jqXHR.status == 422){
-                    var msg = jqXHR.responseText;
-                }else if(jqXHR.status == 500) {
-                    var msg = "Internal server error";
-                }else if(jqXHR.status == 401){
-                    var msg = "Unauthorized";
-                    window.location="{{ url('/esaku-auth/sesi-habis') }}";
-                }else if(jqXHR.status == 405){
-                    var msg = "Route not valid. Page not found";
-                }
-            }
-        });
-    })
-
-    $('#form-tambah').on('click', '.search-item2', function() {
+    $('#form-tambah').on('click', '.search-item2', function () {
         var id = $(this).closest('div').find('input').attr('name');
-        switch(id) {
+        switch (id) {
             case 'nik_buat':
                 var settings = {
-                    id : id,
-                    header : ['NIK', 'Nama'],
-                    url : "{{ url('bdh-trans/nik-buat') }}",
-                    columns : [
-                        { data: 'nik' },
-                        { data: 'nama' }
+                    id: id,
+                    header: ['NIK', 'Nama'],
+                    url: "{{ url('bdh-trans/nik-buat') }}",
+                    columns: [{
+                            data: 'nik'
+                        },
+                        {
+                            data: 'nama'
+                        }
                     ],
-                    judul : "Daftar NIK Buat",
-                    pilih : "",
-                    jTarget1 : "text",
-                    jTarget2 : "text",
-                    target1 : ".info-code_"+id,
-                    target2 : ".info-name_"+id,
-                    target3 : "",
-                    target4 : "",
-                    width : ["30%","70%"],
+                    judul: "Daftar NIK Buat",
+                    pilih: "",
+                    jTarget1: "text",
+                    jTarget2: "text",
+                    target1: ".info-code_" + id,
+                    target2: ".info-name_" + id,
+                    target3: "",
+                    target4: "",
+                    width: ["30%", "70%"],
                 }
-            break;
+                break;
             case 'nik_tahu':
                 var settings = {
-                    id : id,
-                    header : ['Kode', 'Nama'],
-                    url : "{{ url('bdh-trans/nik-tahu') }}",
-                    columns : [
-                        { data: 'nik' },
-                        { data: 'nama' }
+                    id: id,
+                    header: ['Kode', 'Nama'],
+                    url: "{{ url('bdh-trans/nik-tahu') }}",
+                    columns: [{
+                            data: 'nik'
+                        },
+                        {
+                            data: 'nama'
+                        }
                     ],
-                    judul : "Daftar NIK Mengetahui",
-                    pilih : "",
-                    jTarget1 : "text",
-                    jTarget2 : "text",
-                    target1 : ".info-code_"+id,
-                    target2 : ".info-name_"+id,
-                    target3 : "",
-                    target4 : "",
-                    width : ["30%","70%"],
+                    judul: "Daftar NIK Mengetahui",
+                    pilih: "",
+                    jTarget1: "text",
+                    jTarget2: "text",
+                    target1: ".info-code_" + id,
+                    target2: ".info-name_" + id,
+                    target3: "",
+                    target4: "",
+                    width: ["30%", "70%"],
                 }
-            break;
+                break;
             case 'nik_ver':
                 var settings = {
-                    id : id,
-                    header : ['Kode', 'Nama'],
-                    url : "{{ url('bdh-trans/nik-ver') }}",
-                    columns : [
-                        { data: 'nik' },
-                        { data: 'nama' }
+                    id: id,
+                    header: ['Kode', 'Nama'],
+                    url: "{{ url('bdh-trans/nik-ver') }}",
+                    columns: [{
+                            data: 'nik'
+                        },
+                        {
+                            data: 'nama'
+                        }
                     ],
-                    judul : "Daftar NIK Verifikator",
-                    pilih : "",
-                    jTarget1 : "text",
-                    jTarget2 : "text",
-                    target1 : ".info-code_"+id,
-                    target2 : ".info-name_"+id,
-                    target3 : "",
-                    target4 : "",
-                    width : ["30%","70%"],
+                    judul: "Daftar NIK Verifikator",
+                    pilih: "",
+                    jTarget1: "text",
+                    jTarget2: "text",
+                    target1: ".info-code_" + id,
+                    target2: ".info-name_" + id,
+                    target3: "",
+                    target4: "",
+                    width: ["30%", "70%"],
                 }
-            break;
+                break;
             default:
-            break;
+                break;
         }
-        showInpFilter(settings);
+        showInpFilterBSheet(settings);
     })
 
-    $('#form-tambah #input-dok').on('click', '.search-item', function(){
+    $('#form-tambah #input-dok').on('click', '.search-item', function () {
         var par = $(this).closest('td').find('input').attr('name');
 
-        var tmp = $(this).closest('tr').find('input[name="'+par+'"]').attr('class');
+        var tmp = $(this).closest('tr').find('input[name="' + par + '"]').attr('class');
         var tmp2 = tmp.split(" ");
         target1 = tmp2[2];
 
         var tmp = $(this).closest('tr').find('input[name="nama_dok[]"]').attr('class');
         var tmp2 = tmp.split(" ");
         target2 = tmp2[2];
-        console.log(par,target1,target2)
+        console.log(par, target1, target2)
 
-        switch(par){
+        switch (par) {
             case 'jenis[]':
                 var options = {
-                    id : par,
-                    header : ['Kode', 'Nama'],
-                    url : "{{ url('bdh-trans/dok-jenis') }}",
-                    columns : [
-                        { data: 'kode_jenis' },
-                        { data: 'nama' }
+                    id: par,
+                    header: ['Kode', 'Nama'],
+                    url: "{{ url('bdh-trans/dok-jenis') }}",
+                    columns: [{
+                            data: 'kode_jenis'
+                        },
+                        {
+                            data: 'nama'
+                        }
                     ],
-                    judul : "Daftar Jenis Dokumen",
-                    pilih : "jenis",
-                    jTarget1 : "val",
-                    jTarget2 : "val",
-                    target1 : "."+target1,
-                    target2 : "."+target2,
-                    target3 : "",
-                    target4 : "",
-                    width : ["30%","70%"]
+                    judul: "Daftar Jenis Dokumen",
+                    pilih: "jenis",
+                    jTarget1: "val",
+                    jTarget2: "val",
+                    target1: "." + target1,
+                    target2: "." + target2,
+                    target3: "",
+                    target4: "",
+                    width: ["30%", "70%"]
                 };
-            break;
+                break;
         }
-        showInpFilter(options);
+        showInpFilterBSheet(options);
 
     });
 
-    function hideAllRowAtensi() {
-        $('#atensi-grid tbody tr').removeClass('selected-row');
-        $('#atensi-grid tbody td').removeClass('px-0 py-0 aktif');
-        $('#atensi-grid > tbody > tr').each(function(index, row) {
-            if(!$(row).hasClass('selected-row')) {
-                var anggaran = $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-anggaran").val();
-                var pp = $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-pp").val();
-                var drk = $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-drk").val();
-                var bulan = $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-bulan").val();
-                var saldo = $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-saldo").val();
-                var nilai = $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-nilai").val();
-
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-anggaran").val(anggaran);
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".td-anggaran").text(anggaran);
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-pp").val(pp);
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".td-pp").text(pp);
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-drk").val(drk);
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".td-drk").text(drk);
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-bulan").val(bulan);
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".td-bulan").text(bulan);
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-saldo").val(saldo);
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".td-saldo").text(saldo);
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-nilai").val(nilai);
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".td-nilai").text(nilai);
-
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-anggaran").hide();
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".td-anggaran").show();
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".search-anggaran").hide();
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-pp").hide();
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".td-pp").show();
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".search-pp").hide();
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-drk").hide();
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".td-drk").show();
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".search-drk").hide();
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-bulan").hide();
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".td-bulan").show();
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-saldo").hide();
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".td-saldo").show();
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-nilai").hide();
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".td-nilai").show();
-            }
-        })
-    }
-
-
-    function hitungTotalRowAtensi(){
+    // GRID ATENSI
+    function hitungTotalRowAtensi() {
         var total_row = $('#atensi-grid tbody tr').length;
-        $('#total-row-atensi').html(total_row+' Baris');
+        $('#total-row-atensi').html(total_row + ' Baris');
     }
 
     function hideUnselectedRowAtensi() {
-        $('#atensi-grid > tbody > tr').each(function(index, row) {
-            if(!$(row).hasClass('selected-row')) {
-                var atensi = $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-atensi").val();
-                var cabang_bank = $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-cabang_bank").val();
-                var nama_rek = $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-nama_rek").val();
-                var no_rek = $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-no_rek").val();
-                var bruto = $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-bruto").val();
-                var potongan = $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-potongan").val();
-                var netto = $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-netto").val();
+        $('#atensi-grid > tbody > tr').each(function (index, row) {
+            if (!$(row).hasClass('selected-row')) {
+                var atensi = $('#atensi-grid > tbody > tr:eq(' + index + ') > td').find(".inp-atensi").val();
+                var cabang_bank = $('#atensi-grid > tbody > tr:eq(' + index + ') > td').find(".inp-cabang_bank")
+                    .val();
+                var nama_rek = $('#atensi-grid > tbody > tr:eq(' + index + ') > td').find(".inp-nama_rek")
+                    .val();
+                var no_rek = $('#atensi-grid > tbody > tr:eq(' + index + ') > td').find(".inp-no_rek").val();
+                var bruto = $('#atensi-grid > tbody > tr:eq(' + index + ') > td').find(".inp-bruto").val();
+                var potongan = $('#atensi-grid > tbody > tr:eq(' + index + ') > td').find(".inp-potongan")
+                    .val();
+                var netto = $('#atensi-grid > tbody > tr:eq(' + index + ') > td').find(".inp-netto").val();
 
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-atensi").val(atensi);
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".td-atensi").text(atensi);
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-cabang_bank").val(cabang_bank)
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".td-cabang_bank").text(cabang_bank);
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-nama_rek").val(nama_rek)
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".td-nama_rek").text(nama_rek);
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-no_rek").val(no_rek)
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".td-no_rek").text(no_rek);
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-bruto").val(bruto)
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".td-bruto").text(bruto);
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-potongan").val(potongan)
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".td-potongan").text(potongan);
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-netto").val(netto)
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".td-netto").text(netto);
+                $('#atensi-grid > tbody > tr:eq(' + index + ') > td').find(".inp-atensi").val(atensi);
+                $('#atensi-grid > tbody > tr:eq(' + index + ') > td').find(".td-atensi").text(atensi);
+                $('#atensi-grid > tbody > tr:eq(' + index + ') > td').find(".inp-cabang_bank").val(cabang_bank)
+                $('#atensi-grid > tbody > tr:eq(' + index + ') > td').find(".td-cabang_bank").text(cabang_bank);
+                $('#atensi-grid > tbody > tr:eq(' + index + ') > td').find(".inp-nama_rek").val(nama_rek)
+                $('#atensi-grid > tbody > tr:eq(' + index + ') > td').find(".td-nama_rek").text(nama_rek);
+                $('#atensi-grid > tbody > tr:eq(' + index + ') > td').find(".inp-no_rek").val(no_rek)
+                $('#atensi-grid > tbody > tr:eq(' + index + ') > td').find(".td-no_rek").text(no_rek);
+                $('#atensi-grid > tbody > tr:eq(' + index + ') > td').find(".inp-bruto").val(bruto)
+                $('#atensi-grid > tbody > tr:eq(' + index + ') > td').find(".td-bruto").text(bruto);
+                $('#atensi-grid > tbody > tr:eq(' + index + ') > td').find(".inp-potongan").val(potongan)
+                $('#atensi-grid > tbody > tr:eq(' + index + ') > td').find(".td-potongan").text(potongan);
+                $('#atensi-grid > tbody > tr:eq(' + index + ') > td').find(".inp-netto").val(netto)
+                $('#atensi-grid > tbody > tr:eq(' + index + ') > td').find(".td-netto").text(netto);
 
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-atensi").hide();
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".td-atensi").show();
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-cabang_bank").hide();
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".td-cabang_bank").show();
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-nama_rek").hide();
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".td-nama_rek").show();
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-no_rek").hide();
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".td-no_rek").show();
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-bruto").hide();
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".td-bruto").show();
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-potongan").hide();
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".td-potongan").show();
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".inp-netto").hide();
-                $('#atensi-grid > tbody > tr:eq('+index+') > td').find(".td-netto").show();
+                $('#atensi-grid > tbody > tr:eq(' + index + ') > td').find(".inp-atensi").hide();
+                $('#atensi-grid > tbody > tr:eq(' + index + ') > td').find(".td-atensi").show();
+                $('#atensi-grid > tbody > tr:eq(' + index + ') > td').find(".inp-cabang_bank").hide();
+                $('#atensi-grid > tbody > tr:eq(' + index + ') > td').find(".td-cabang_bank").show();
+                $('#atensi-grid > tbody > tr:eq(' + index + ') > td').find(".inp-nama_rek").hide();
+                $('#atensi-grid > tbody > tr:eq(' + index + ') > td').find(".td-nama_rek").show();
+                $('#atensi-grid > tbody > tr:eq(' + index + ') > td').find(".inp-no_rek").hide();
+                $('#atensi-grid > tbody > tr:eq(' + index + ') > td').find(".td-no_rek").show();
+                $('#atensi-grid > tbody > tr:eq(' + index + ') > td').find(".inp-bruto").hide();
+                $('#atensi-grid > tbody > tr:eq(' + index + ') > td').find(".td-bruto").show();
+                $('#atensi-grid > tbody > tr:eq(' + index + ') > td').find(".inp-potongan").hide();
+                $('#atensi-grid > tbody > tr:eq(' + index + ') > td').find(".td-potongan").show();
+                $('#atensi-grid > tbody > tr:eq(' + index + ') > td').find(".inp-netto").hide();
+                $('#atensi-grid > tbody > tr:eq(' + index + ') > td').find(".td-netto").show();
             }
         })
     }
 
-
-
     function addRowAtensi() {
-        var no=$('#atensi-grid .row-atensi:last').index();
+        var no = $('#atensi-grid .row-atensi:last').index();
         var no = no + 2
         var html = "";
 
-        html += "<tr class='row-atensi row-atensi-"+no+"'>"
+        html += "<tr class='row-atensi row-atensi-" + no + "'>"
 
-        html += "<td><span class='td-atensi tdatensike"+no+"'></span>"
-        html += "<input type='text' name='atensi[]' class='inp-atensi form-control atensike"+no+" hidden'  value='' required>"
+        html += "<td><span class='td-atensi tdatensike" + no + "'></span>"
+        html += "<input type='text' name='atensi[]' class='inp-atensi form-control atensike" + no +
+            " hidden'  value='' required>"
         html += "</td>"
 
-        html += "<td><span class='td-cabang_bank tdcabang_bankke"+no+"'></span>"
-        html += "<input type='text' name='cabang_bank[]' class='inp-cabang_bank form-control cabang_bankke"+no+" hidden'  value='' required>"
+        html += "<td><span class='td-cabang_bank tdcabang_bankke" + no + "'></span>"
+        html += "<input type='text' name='cabang_bank[]' class='inp-cabang_bank form-control cabang_bankke" + no +
+            " hidden'  value='' required>"
         html += "</td>"
 
-        html += "<td><span class='td-nama_rek tdnama_rekke"+no+"'></span>"
-        html += "<input type='text' name='nama_rek[]' class='inp-nama_rek form-control nama_rekke"+no+" hidden'  value='' required>"
+        html += "<td><span class='td-nama_rek tdnama_rekke" + no + "'></span>"
+        html += "<input type='text' name='nama_rek[]' class='inp-nama_rek form-control nama_rekke" + no +
+            " hidden'  value='' required>"
         html += "</td>"
 
-        html += "<td><span class='td-no_rek tdno_rekke"+no+"'></span>"
-        html += "<input type='text' name='no_rek[]' class='inp-no_rek form-control no_rekke"+no+" hidden'  value='' required>"
+        html += "<td><span class='td-no_rek tdno_rekke" + no + "'></span>"
+        html += "<input type='text' name='no_rek[]' class='inp-no_rek form-control no_rekke" + no +
+            " hidden'  value='' required>"
         html += "</td>"
 
-        html += "<td class='form-calc'><span class='td-bruto tdbrutoke"+no+"'>0</span>"
-        html += "<input type='text' name='bruto[]' class='inp-bruto form-control brutoke"+no+" currency hidden'  value='0' required>"
+        html += "<td class='form-calc'><span class='td-bruto tdbrutoke" + no + "'>0</span>"
+        html += "<input type='text' name='bruto[]' class='inp-bruto form-control brutoke" + no +
+            " currency hidden'  value='0' required>"
         html += "</td>"
 
-        html += "<td class='form-calc'><span class='td-potongan tdpotonganke"+no+"'>0</span>"
-        html += "<input type='text' name='potongan[]' class='inp-potongan form-control potonganke"+no+" currency hidden'  value='0' required>"
+        html += "<td class='form-calc'><span class='td-potongan tdpotonganke" + no + "'>0</span>"
+        html += "<input type='text' name='potongan[]' class='inp-potongan form-control potonganke" + no +
+            " currency hidden'  value='0' required>"
         html += "</td>"
 
-        html += "<td><span class='td-netto tdnettoke"+no+"'>0</span>"
-        html += "<input type='text' name='netto[]' class='inp-netto form-control nettoke"+no+" currency hidden'  value='0' readonly required>"
+        html += "<td><span class='td-netto tdnettoke" + no + "'>0</span>"
+        html += "<input type='text' name='netto[]' class='inp-netto form-control nettoke" + no +
+            " currency hidden'  value='0' readonly required>"
         html += "</td>"
 
-        html += "<td class='text-center'><a class='hapus-atensi' style='font-size:18px;cursor:pointer;'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
+        html +=
+            "<td class='text-center'><a class='hapus-atensi' style='font-size:18px;cursor:pointer;'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
 
         html += "</tr>"
 
@@ -953,11 +915,13 @@
             digits: 2,
             autoGroup: true,
             rightAlign: true,
-            oncleared: function () {  }
+            oncleared: function () {}
         });
 
+
+
         $('.tooltip-span').tooltip({
-            title: function(){
+            title: function () {
                 return $(this).text();
             }
         });
@@ -973,27 +937,27 @@
         $('#atensi-grid tbody tr:last').find(".td-atensi").hide();
         $('#atensi-grid tbody tr:last').find(".inp-atensi").focus();
 
-        $('.inp-nilai').on('change', function(){
-            hitungTotalAtensi()
+        $('.inp-bruto').on('change', function () {
+            hitungTotalNetRekening();
         })
 
         hitungTotalRowAtensi()
     }
 
-    $('#atensi-grid tbody').on('click', 'tr', function(){
+    $('#atensi-grid tbody').on('click', 'tr', function () {
         $(this).addClass('selected-row');
         $('#atensi-grid tbody tr').not(this).removeClass('selected-row');
         hideUnselectedRowAtensi();
     });
 
-    $('#atensi-grid').on('click', 'td', function(){
+    $('#atensi-grid').on('click', 'td', function () {
         var idx = $(this).index();
-        if(idx == 7){
+        if (idx == 7) {
             return false;
-        }else{
-            if($(this).hasClass('px-0 py-0 aktif')){
+        } else {
+            if ($(this).hasClass('px-0 py-0 aktif')) {
                 return false;
-            }else{
+            } else {
                 $('#atensi-grid td').removeClass('px-0 py-0 aktif');
                 $(this).addClass('px-0 py-0 aktif');
 
@@ -1008,12 +972,12 @@
 
                 $(this).parents("tr").find(".inp-atensi").val(atensi);
                 $(this).parents("tr").find(".td-atensi").text(atensi);
-                if(idx == 0){
+                if (idx == 0) {
                     $(this).parents("tr").find(".inp-atensi").show();
                     $(this).parents("tr").find(".search-atensi").show();
                     $(this).parents("tr").find(".td-atensi").hide();
                     $(this).parents("tr").find(".inp-atensi").focus();
-                }else{
+                } else {
                     $(this).parents("tr").find(".inp-atensi").hide();
                     $(this).parents("tr").find(".search-atensi").hide();
                     $(this).parents("tr").find(".td-atensi").show();
@@ -1021,66 +985,66 @@
 
                 $(this).parents("tr").find(".inp-cabang_bank").val(cabang_bank);
                 $(this).parents("tr").find(".td-cabang_bank").text(cabang_bank);
-                if(idx == 1){
+                if (idx == 1) {
                     $(this).parents("tr").find(".inp-cabang_bank").show();
                     $(this).parents("tr").find(".td-cabang_bank").hide();
                     $(this).parents("tr").find(".inp-cabang_bank").focus();
-                }else{
+                } else {
                     $(this).parents("tr").find(".inp-cabang_bank").hide();
                     $(this).parents("tr").find(".td-cabang_bank").show();
                 }
 
                 $(this).parents("tr").find(".inp-nama_rek").val(nama_rek);
                 $(this).parents("tr").find(".td-nama_rek").text(nama_rek);
-                if(idx == 2){
+                if (idx == 2) {
                     $(this).parents("tr").find(".inp-nama_rek").show();
                     $(this).parents("tr").find(".td-nama_rek").hide();
                     $(this).parents("tr").find(".inp-nama_rek").focus();
-                }else{
+                } else {
                     $(this).parents("tr").find(".inp-nama_rek").hide();
                     $(this).parents("tr").find(".td-nama_rek").show();
                 }
 
                 $(this).parents("tr").find(".inp-no_rek").val(no_rek);
                 $(this).parents("tr").find(".td-no_rek").text(no_rek);
-                if(idx == 3){
+                if (idx == 3) {
                     $(this).parents("tr").find(".inp-no_rek").show();
                     $(this).parents("tr").find(".td-no_rek").hide();
                     $(this).parents("tr").find(".inp-no_rek").focus();
-                }else{
+                } else {
                     $(this).parents("tr").find(".inp-no_rek").hide();
                     $(this).parents("tr").find(".td-no_rek").show();
                 }
 
                 $(this).parents("tr").find(".inp-bruto").val(bruto);
                 $(this).parents("tr").find(".td-bruto").text(bruto);
-                if(idx == 4){
+                if (idx == 4) {
                     $(this).parents("tr").find(".inp-bruto").show();
                     $(this).parents("tr").find(".td-bruto").hide();
                     $(this).parents("tr").find(".inp-bruto").focus();
-                }else{
+                } else {
                     $(this).parents("tr").find(".inp-bruto").hide();
                     $(this).parents("tr").find(".td-bruto").show();
                 }
 
                 $(this).parents("tr").find(".inp-potongan").val(potongan);
                 $(this).parents("tr").find(".td-potongan").text(potongan);
-                if(idx == 5){
+                if (idx == 5) {
                     $(this).parents("tr").find(".inp-potongan").show();
                     $(this).parents("tr").find(".td-potongan").hide();
                     $(this).parents("tr").find(".inp-potongan").focus();
-                }else{
+                } else {
                     $(this).parents("tr").find(".inp-potongan").hide();
                     $(this).parents("tr").find(".td-potongan").show();
                 }
 
                 $(this).parents("tr").find(".inp-netto").val(netto);
                 $(this).parents("tr").find(".td-netto").text(netto);
-                if(idx == 6){
+                if (idx == 6) {
                     $(this).parents("tr").find(".inp-netto").show();
                     $(this).parents("tr").find(".td-netto").hide();
                     $(this).parents("tr").find(".inp-netto").focus();
-                }else{
+                } else {
                     $(this).parents("tr").find(".inp-netto").hide();
                     $(this).parents("tr").find(".td-netto").show();
                 }
@@ -1088,1398 +1052,584 @@
         }
     });
 
-    var $twicePressAtensi = 0;
-    $('#atensi-grid').on('keydown','.inp-atensi',function(e){
-        var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['.inp-atensi'];
-        var nxt2 = ['.td-atensi'];
-        if (code == 13 || code == 9) {
-            e.preventDefault();
-            var idx = $(this).closest('td').index()-1;
-            var idx_next = idx+1;
-            var kunci = $(this).closest('td').index()+1;
-            var isi = $(this).val();
-            switch (idx) {
-                case 0:
-                    $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
-                    if(isi.length > 30) {
-                        isi = isi.substr(0, 30) + '...'
-                    }
-                    $(this).closest('tr').find(nxt[idx]).val(isi);
-                    $(this).closest('tr').find(nxt2[idx]).text(isi);
-                    $(this).closest('tr').find(nxt[idx]).hide();
-                    $(this).closest('tr').find(nxt2[idx]).show();
-
-                    $(this).closest('tr').find(nxt[idx_next]).show();
-                    $(this).closest('tr').find(nxt2[idx_next]).hide();
-                    $(this).closest('tr').find(nxt[idx_next]).focus();
-                    $(this).closest('tr').find('.search-anggaran').hide();
-                    $(this).closest('tr').find('.search-pp').show();
-                break;
-                case 1:
-                    $("#atensi-grid td").removeClass("px-0 py-0 aktif");
-                    $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
-                    $(this).closest('tr').find(nxt[idx]).val(isi);
-                    $(this).closest('tr').find(nxt2[idx]).text(isi);
-                    $(this).closest('tr').find(nxt[idx]).hide();
-                    $(this).closest('tr').find(nxt2[idx]).show();
-
-                    $(this).closest('tr').find(nxt[idx_next]).show();
-                    $(this).closest('tr').find(nxt2[idx_next]).hide();
-                    $(this).closest('tr').find(nxt[idx_next]).focus();
-                    $(this).closest('tr').find('.search-pp').hide();
-                    $(this).closest('tr').find('.search-drk').show();
-                break;
-                case 2:
-                    $("#atensi-grid td").removeClass("px-0 py-0 aktif");
-                    $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
-                    $(this).closest('tr').find(nxt[idx]).val(isi);
-                    $(this).closest('tr').find(nxt2[idx]).text(isi);
-                    $(this).closest('tr').find(nxt[idx]).hide();
-                    $(this).closest('tr').find(nxt2[idx]).show();
-
-                    $(this).closest('tr').find(nxt[idx_next]).show();
-                    $(this).closest('tr').find(nxt2[idx_next]).hide();
-                    $(this).closest('tr').find(nxt[idx_next]).focus();
-                    $(this).closest('tr').find('.search-drk').hide();
-                break;
-                case 3:
-                    $("#atensi-grid td").removeClass("px-0 py-0 aktif");
-                    $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
-                    $(this).closest('tr').find(nxt[idx]).val(isi);
-                    $(this).closest('tr').find(nxt2[idx]).text(isi);
-                    $(this).closest('tr').find(nxt[idx]).hide();
-                    $(this).closest('tr').find(nxt2[idx]).show();
-
-                    $(this).closest('tr').find(nxt[idx_next]).show();
-                    $(this).closest('tr').find(nxt2[idx_next]).hide();
-                    $(this).closest('tr').find(nxt[idx_next]).focus();
-                break;
-                case 4:
-                    if(isi != "" && isi != 0){
-                        $("#atensi-grid td").removeClass("px-0 py-0 aktif");
-                        $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
-
-                        $(this).closest('tr').find(nxt[idx]).val(isi);
-                        $(this).closest('tr').find(nxt2[idx]).text(isi);
-                        $(this).closest('tr').find(nxt[idx]).hide();
-                        $(this).closest('tr').find(nxt2[idx]).show();
-
-                        $(this).closest('tr').find(nxt[idx_next]).show();
-                        $(this).closest('tr').find(nxt2[idx_next]).hide();
-                        $(this).closest('tr').find(nxt[idx_next]).focus();
-                    }else{
-                        alert('Saldo yang dimasukkan tidak valid');
-                        return false;
-                    }
-                break;
-                case 5:
-                    if(isi != "" && isi != 0){
-                        $("#atensi-grid td").removeClass("px-0 py-0 aktif");
-                        $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
-                        if(code == 13 || code == 9) {
-                            if($twicePressPemberi == 1) {
-                                $(this).closest('tr').find(nxt[idx]).val(isi);
-                                $(this).closest('tr').find(nxt2[idx]).text(isi);
-                                $(this).closest('tr').find(nxt[idx]).hide();
-                                $(this).closest('tr').find(nxt2[idx]).show();
-                                var cek = $(this).parents('tr').next('tr').find('.td-atensi');
-                                if(cek.length > 0){
-                                    cek.click();
-                                }else{
-                                    $('#add-row-atensi').click();
-                                }
-                            }
-                            $twicePressPemberi = 1
-                            setTimeout(() => $twicePressPemberi = 0, 1000)
-                        }
-                    }else{
-                        alert('Nilai yang dimasukkan tidak valid');
-                        return false;
-                    }
-                break;
-                default:
-                break;
-            }
-        }else if(code == 38){
-            e.preventDefault();
-            var idx = nxt.indexOf(e.target.id);
-            idx--;
-        }
-    });
-
-    $('#form-tambah').on('click','#add-row-atensi', function(){
+    $('#form-tambah').on('click', '#add-row-atensi', function () {
         addRowAtensi()
     });
 
-    $('#atensi-grid').on('click', '.hapus-atensi', function(){
+    $('#atensi-grid').on('click', '.hapus-atensi', function () {
         valid = true
         $(this).closest('tr').remove();
-        no=1;
-        $('.row-atensi').each(function(){
+        no = 1;
+        $('.row-atensi').each(function () {
             var nom = $(this).closest('tr').find('.no-atensi');
             nom.html(no);
             no++;
         });
         hitungTotalRowAtensi();
-        $("html, body").animate({ scrollTop: $(document).height() }, 1000);
+        hitungTotalNetRekening();
+        $("html, body").animate({
+            scrollTop: $(document).height()
+        }, 1000);
     });
 
     // kalkulasi nilai netto
-    $('#form-tambah').on('change', '.form-calc', function(){
+    $('#form-tambah').on('change', '.form-calc', function () {
         var parent = $(this).closest("tr");
 
         var bruto = parent.find('.inp-bruto').val();
         var potongan = parent.find('.inp-potongan').val();
-        var numberBruto = Number(bruto.replace(/[^0-9,-]+/g,""));
-        var numberPotongan = Number(potongan.replace(/[^0-9,-]+/g,""));
+        var numberBruto = Number(bruto.replace(/[^0-9,-]+/g, ""));
+        var numberPotongan = Number(potongan.replace(/[^0-9,-]+/g, ""));
         var netto = numberBruto - numberPotongan;
         console.log(numberBruto);
         console.log(netto);
         parent.find('.inp-netto').val(format_number(netto));
     });
 
-    // end grid atensi
+    $('#atensi-grid').on('change', '.inp-bruto', function () {
+        hitungTotalNetRekening();
+        console.log('kalkulasi1')
+    });
+    $('#atensi-grid').on('change', '.inp-potongan', function () {
+        hitungTotalNetRekening();
+        console.log('kalkulasi2')
+    });
 
-    function hideUnselectedRowJurnal(){
-        $('jurnal-grid > tbody > tr').each(function(index, row){
-            if(!$(row).hasClass('selected-row')){
-                var kode_akun = $('#jurnal-grid > tbody > tr:eq('+index+') > td').find(".inp-kode_akun").val();
-                var dc = $('#jurnal-grid > tbody > tr:eq('+index+') > td').find(".inp-kode_akun").val();
-                var keterangan = $('#jurnal-grid > tbody > tr:eq('+index+') > td').find(".inp-keterangan").val();
-                var nilai = $('#jurnal-grid > tbody > tr:eq('+index+') > td').find(".inp-nilai").val();
-                var pp = $('#jurnal-grid > tbody > tr:eq('+index+') > td').find(".inp-pp").val();
-                var drk = $('#jurnal-grid > tbody > tr:eq('+index+') > td').find(".inp-drk").val();
-
-                $('#jurnal-grid > tbody > tr:eq('+index+') > td').find(".inp-kode_akun").val(kode_akun);
-                $('#jurnal-grid > tbody > tr:eq('+index+') > td').find(".td-kode_akun").text(kode_akun);
-                $('#jurnal-grid > tbody > tr:eq('+index+') > td').find(".inp-dc").val(dc);
-                $('#jurnal-grid > tbody > tr:eq('+index+') > td').find(".td-dc").text(dc);
-                $('#jurnal-grid > tbody > tr:eq('+index+') > td').find(".inp-keterangan").val(keterangan);
-                $('#jurnal-grid > tbody > tr:eq('+index+') > td').find(".td-keterangan").text(keterangan);
-                $('#jurnal-grid > tbody > tr:eq('+index+') > td').find(".inp-nilai").val(nilai);
-                $('#jurnal-grid > tbody > tr:eq('+index+') > td').find(".td-nilai").text(nilai);
-                $('#jurnal-grid > tbody > tr:eq('+index+') > td').find(".inp-pp").val(pp);
-                $('#jurnal-grid > tbody > tr:eq('+index+') > td').find(".td-pp").text(pp);
-                $('#jurnal-grid > tbody > tr:eq('+index+') > td').find(".inp-drk").val(drk);
-                $('#jurnal-grid > tbody > tr:eq('+index+') > td').find(".td-drk").text(drk);
-
-                $('#jurnal-grid > tbody > tr:eq('+index+') > td').find(".inp-kode_akun").hide();
-                $('#jurnal-grid > tbody > tr:eq('+index+') > td').find(".td-kode_akun").show();
-                $('#jurnal-grid > tbody > tr:eq('+index+') > td').find(".inp-dc").hide();
-                $('#jurnal-grid > tbody > tr:eq('+index+') > td').find(".td-dc").show();
-                $('#jurnal-grid > tbody > tr:eq('+index+') > td').find(".inp-keterangan").hide();
-                $('#jurnal-grid > tbody > tr:eq('+index+') > td').find(".td-keterangan").show();
-                $('#jurnal-grid > tbody > tr:eq('+index+') > td').find(".inp-nilai").hide();
-                $('#jurnal-grid > tbody > tr:eq('+index+') > td').find(".td-nilai").show();
-                $('#jurnal-grid > tbody > tr:eq('+index+') > td').find(".inp-pp").hide();
-                $('#jurnal-grid > tbody > tr:eq('+index+') > td').find(".td-pp").show();
-                $('#jurnal-grid > tbody > tr:eq('+index+') > td').find(".inp-drk").hide();
-                $('#jurnal-grid > tbody > tr:eq('+index+') > td').find(".td-drk").show();
-            }
+    function hitungTotalNetRekening() {
+        var total_net_rek = 0;
+        $('#atensi-grid tbody tr').each(function () {
+            var nilai1 = $(this).closest('tr').find('.inp-bruto').val();
+            var nilai2 = $(this).closest('tr').find('.inp-potongan').val();
+            var nilai = toNilai(nilai1) - toNilai(nilai2);
+            total_net_rek += +nilai;
         });
-    }
+        console.log('TOTAL NET ' + total_net_rek)
 
-    function hitungTotalRowJurnal(){
+        $('#total_net_rek').val(total_net_rek);
+    }
+    // END ATENSI GRID
+
+    // Jurnal  Grid
+    function hitungTotalRowJurnal() {
         var total_row = $('#jurnal-grid tbody tr').length;
-        $('#total-row').html(total_row+' Baris');
+        $('#total-row-jurnal').html(total_row + ' Baris');
     }
+    $('#jurnal-grid').on('change', '.inp-nilai', function () {
+        hitungTotalJurnal();
+    });
 
-    function addRowJurnal(){
-        var no=$('#jurnal-grid .row-jurnal:last').index();
-        var no = no + 2
-        var html = "";
-        html += "<tr class='row-jurnal row-jurnal-"+no+"'>"
-        html += "<td class='no-jurnal text-center'>"+no+"</td>"
-        html += "<td><div>"
-        html += "<span class='td-kode_akun tdkode_akunke"+no+" tooltip-span'></span>"
-        html += "<input autocomplete='off' type='text' name='kode_akun[]' class='inp-kode_akun kode_akunke"+no+" form-control hidden' value='' required='' style='z-index: 1;position: relative;' id='kode_akunkode"+no+"'><a href='#' class='search-item search-kode_akun hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a>"
-        html += "</div></td>"
-        html += "<td class='text-center'><div>"
-        html += "<span class='td-dc tddcke"+no+" tooltip-span'></span>"
-        html += "<select class='hidden form-control inp-dc dcke"+no+"' name='dc[]'>"
-        html += "<option value='D' selected>D</option><option value='C'>C</option>"
-        html += "</select>"
-        html += "</div></td>"
-
-        html += "<td><div>"
-        html += "<span class='td-keterangan tdketeranganke"+no+"'></span>"
-        html += "<input type='text' name='keterangan[]' class='inp-keterangan form-control keteranganke"+no+"'  value='' required>"
-        html += "</div></td>"
-
-        html += "<td class='text-right'>"
-        html += "<span class='td-nilai tdnilaike"+no+"'>0</span>"
-        html += "<input type='text' name='nilai[]' class='inp-nilai form-control nilaike"+no+" hidden currency'  value='0' required>"
-        html += "</td>"
-
-
-        html += "<td><div>"
-        html += "<span class='td-pp tdppke"+no+" tooltip-span'></span>"
-        html += "<input autocomplete='off' type='text' name='pp[]' class='inp-pp ppke"+no+" form-control hidden' value='' required='' style='z-index: 1;position: relative;' id='ppkode"+no+"'><a href='#' class='search-item search-pp hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a>"
-        html += "</div></td>"
-
-        html += "<td><div>"
-        html += "<span class='td-drk tddrkke"+no+" tooltip-span'></span>"
-        html += "<input autocomplete='off' type='text' name='drk[]' class='inp-drk drkke"+no+" form-control hidden' value='' required='' style='z-index: 1;position: relative;' id='drkkode"+no+"'><a href='#' class='search-item search-drk hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a>"
-        html += "</div></td>"
-
-
-
-
-
-        html += "<td class='text-center'><a class='hapus-jurnal' style='font-size:18px;cursor:pointer;'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
-        html += "</tr>"
-        $('#jurnal-grid tbody').append(html);
-
-        hideUnselectedRowJurnal()
-
-        $('#jurnal-grid td').removeClass('px-0 py-0 aktif');
-        $('#jurnal-grid tbody tr:last').find("td:eq(1)").addClass('px-0 py-0 aktif');
-        $('#jurnal-grid tbody tr:last').find(".inp-kode_akun").show();
-        $('#jurnal-grid tbody tr:last').find(".search-kode_akun").show();
-        $('#jurnal-grid tbody tr:last').find(".td-kode_akun").hide();
-        $('#jurnal-grid tbody tr:last').find(".inp-kode_akun").focus();
-
-        $('.tooltip-span').tooltip({
-            title: function(){
-                return $(this).text();
-            }
+    function hitungTotalJurnal() {
+        var total_jurnal = 0;
+        $('#jurnal-grid tbody tr').each(function (index) {
+            var nilai = toNilai($(this).find('.inp-nilai').val())
+            total_jurnal += +nilai;
         });
 
-        $('.currency').inputmask("numeric", {
+        $('#total_jurnal').val(total_jurnal);
+    }
+
+    function hideUnselectedRowJurnal() {
+        $('#jurnal-grid > tbody > tr').each(function (index, row) {
+            if (!$(row).hasClass('selected-row')) {
+                var kode_akun = $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".inp-kode").val();
+                var nama_akun = $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".inp-nama").val();
+                var dc = $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".td-dc").text();
+                var keterangan = $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".inp-ket").val();
+                var nilai = $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".inp-nilai").val();
+                var kode_pp = $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".inp-pp").val();
+                var nama_pp = $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".inp-nama_pp").val();
+                var kode_drk = $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".inp-drk").val();
+                var nama_drk = $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".inp-nama_drk")
+                    .val();
+
+                $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".inp-kode").val(kode_akun);
+                $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".td-kode").text(kode_akun);
+                $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".inp-nama").val(nama_akun);
+                $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".td-nama").text(nama_akun);
+                $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".inp-dc")[0].selectize.setValue(dc);
+                $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".td-dc").text(dc);
+                $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".inp-ket").val(keterangan);
+                $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".td-ket").text(keterangan);
+                $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".inp-nilai").val(nilai);
+                $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".td-nilai").text(nilai);
+                $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".inp-pp").val(kode_pp);
+                $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".td-pp").text(kode_pp);
+                $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".inp-nama_pp").val(nama_pp);
+                $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".td-nama_pp").text(nama_pp);
+                $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".inp-drk").val(kode_drk);
+                $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".td-drk").text(kode_drk);
+                $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".inp-nama_drk").val(nama_drk);
+                $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".td-nama_drk").text(nama_drk);
+
+                $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".inp-kode").hide();
+                $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".td-kode").show();
+                $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".search-akun").hide();
+                $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".inp-nama").hide();
+                $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".td-nama").show();
+                $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".selectize-control").hide();
+                $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".td-dc").show();
+                $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".inp-ket").hide();
+                $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".td-ket").show();
+                $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".inp-nilai").hide();
+                $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".td-nilai").show();
+                $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".inp-pp").hide();
+                $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".td-pp").show();
+                $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".search-pp").hide();
+                $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".inp-nama_pp").hide();
+                $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".td-nama_pp").show();
+                $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".inp-drk").hide();
+                $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".td-drk").show();
+                $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".search-drk").hide();
+                $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".inp-nama_drk").hide();
+                $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".td-nama_drk").show();
+            }
+        })
+    }
+
+    function addRowJurnal() {
+        var kode_akun = "";
+        var nama_akun = "";
+        var dc = "";
+        var keterangan = "";
+        var nilai = "";
+        var kode_pp = "";
+        var nama_pp = "";
+        var kode_drk = "";
+        var nama_drk = "";
+
+        var no = $('#jurnal-grid .row-jurnal:last').index();
+        no = no + 2;
+        var input = "";
+        input += "<tr class='row-jurnal'>";
+        input += "<td class='no-jurnal text-center'>" + no + "</td>";
+        input += "<td><span class='td-kode tdakunke" + no + " tooltip-span'>" + kode_akun +
+            "</span><input type='text' name='kode_akun[]' id='kode_akun' class='form-control inp-kode akunke" + no +
+            " hidden' value='" + kode_akun + "' required='' style='z-index: 1;position: relative;' id='akunkode" + no +
+            "'><a href='#' class='search-item search-akun hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+        input += "<td><span class='td-nama tdnmakunke" + no + " tooltip-span'>" + nama_akun +
+            "</span><input type='text' name='nama_akun[]' class='form-control inp-nama nmakunke" + no +
+            " hidden'  value='" + nama_akun + "' readonly></td>";
+        input += "<td><span class='td-dc tddcke" + no + " tooltip-span'>" + dc +
+            "</span><select hidden name='dc[]' class='form-control inp-dc dcke" + no +
+            "' value='' required><option value='D'>D</option><option value='C'>C</option></select></td>";
+        input += "<td><span class='td-ket tdketke" + no + " tooltip-span'>" + keterangan +
+            "</span><input type='text' name='keterangan[]' class='form-control inp-ket ketke" + no +
+            " hidden'  value='" + keterangan + "' required></td>";
+        input += "<td class='text-right'><span class='td-nilai tdnilke" + no + " tooltip-span'>" + nilai +
+            "</span><input type='text' name='nilai[]' class='form-control inp-nilai nilke" + no + " hidden'  value='" +
+            nilai + "' required></td>";
+        input += "<td><span class='td-pp tdppke" + no + " tooltip-span'>" + kode_pp +
+            "</span><input type='text' id='ppkode" + no + "' name='kode_pp[]' class='form-control inp-pp ppke" + no +
+            " hidden' value='" + kode_pp +
+            "' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-pp hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+        input += "<td><span class='td-nama_pp tdnmppke" + no + " tooltip-span'>" + nama_pp +
+            "</span><input type='text' name='nama_pp[]' class='form-control inp-nama_pp nmppke" + no +
+            " hidden'  value='" + nama_pp + "' readonly ></td>";
+
+        input += "<td><span class='td-drk tddrkke" + no + " tooltip-span'>" + kode_drk +
+            "</span><input type='text' id='drkkode" + no + "' name='kode_drk[]' class='form-control inp-drk drkke" +
+            no + " hidden' value='" + kode_drk +
+            "' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-drk hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+        input += "<td><span class='td-nama_drk tdnmdrkke" + no + " tooltip-span'>" + nama_drk +
+            "</span><input type='text' name='nama_drk[]' class='form-control inp-nama_drk nmdrkke" + no +
+            " hidden'  value='" + nama_drk + "' readonly ></td>";
+
+        input +=
+            "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
+        input += "</tr>";
+        $('#jurnal-grid tbody').append(input);
+        $('.dcke' + no).selectize({
+            selectOnTab: true,
+            onChange: function (value) {
+                $('.tddcke' + no).text(value);
+
+            }
+        });
+        $('.dcke' + no)[0].selectize.setValue(dc);
+        $('.selectize-control.dcke' + no).addClass('hidden');
+        $('.nilke' + no).inputmask("numeric", {
             radixPoint: ",",
             groupSeparator: ".",
             digits: 2,
             autoGroup: true,
             rightAlign: true,
-            oncleared: function () {  }
-        });
-        $('.inp-kode_akun').typeahead({
-            source:$kode_akun,
-            displayText:function(item){
-                return item.id+'-'+item.name;
-            },
-            autoSelect:false,
-            changeInputOnSelect:false,
-            changeInputOnMove:false,
-            selectOnBlur:false,
-            afterSelect: function (item) {
-                console.log(item.id);
+            oncleared: function () {
+                self.Value('');
             }
         });
-        $('.inp-pp').typeahead({
-            source:$pp,
-            displayText:function(item){
-                return item.id+'-'+item.name;
-            },
-            autoSelect:false,
-            changeInputOnSelect:false,
-            changeInputOnMove:false,
-            selectOnBlur:false,
-            afterSelect: function (item) {
-                console.log(item.id);
+        hideUnselectedRowJurnal();
+        $('.tooltip-span').tooltip({
+            title: function () {
+                return $(this).text();
             }
         });
-
-        $('.inp-drk').typeahead({
-            source:$drk,
-            displayText:function(item){
-                return item.id+'-'+item.name;
-            },
-            autoSelect:false,
-            changeInputOnSelect:false,
-            changeInputOnMove:false,
-            selectOnBlur:false,
-            afterSelect: function (item) {
-                console.log(item.id);
-            }
-        });
-        $('.inp-nilai').on('change', function(){
-            hitungTotalJurnal()
-        })
-        hitungTotalRowJurnal()
-
+        hitungTotalRowJurnal();
     }
-    $('#form-tambah').on('click', '#add-row-jurnal', function(){
-        addRowJurnal()
+
+
+
+    $('#form-tambah').on('click', '.add-row-jurnal', function () {
+        addRowJurnal();
     });
-    $('#jurnal-grid').on('click', '.hapus-jurnal', function(){
-        valid = true
+
+    $('#jurnal-grid').on('click', '.hapus-item', function () {
         $(this).closest('tr').remove();
-        no=1;
-        $('.row-jurnal').each(function(){
+        no = 1;
+        $('.row-jurnal').each(function () {
             var nom = $(this).closest('tr').find('.no-jurnal');
             nom.html(no);
             no++;
         });
         hitungTotalRowJurnal();
-        $("html, body").animate({ scrollTop: $(document).height() }, 1000);
+        hitungTotalJurnal();
+        $("html, body").animate({
+            scrollTop: $(document).height()
+        }, 1000);
     });
-    // cbbl jurnal grid
-    $('#jurnal-grid').on('click', '.search-item', function() {
-        var idx = $(this).closest('tr').find('.no-pemberi').text()
-        var param = $(this).closest('div').find('input[type="text"]').attr('name')
-        var target1 = $(this).closest('div').find('input[type="text"]').attr('class')
-        var target2 = $(this).closest('div').find('span').attr('class')
-        var target3 = $(this).closest('td').next('td').find('input[type="text"]').attr('class')
-        var target4 = $(this).closest('td').next('td').find('span').attr('class')
-        var tmp = target1.split(" ");
-        var tmp2 = target2.split(" ")
-        console.log(idx)
-        if(typeof target3 !== 'undefined') {
-            var tmp3 = target3.split(" ")
-            target3 = tmp3[1]
-        }
-        if(typeof target4 !== 'undefined') {
-            var tmp4 = target4.split(" ")
-            target4 = tmp4[1]
-        }
-        target1 = tmp[1];
-        target2 = tmp2[1]
 
-        switch(param){
+
+
+    $('#jurnal-grid tbody').on('click', 'tr', function () {
+        $(this).addClass('selected-row');
+        $('#jurnal-grid tbody tr').not(this).removeClass('selected-row');
+        hideUnselectedRowJurnal();
+    });
+
+    $('#jurnal-grid').on('click', 'td', function () {
+        var idx = $(this).index();
+        if (idx == 0) {
+            return false;
+        } else {
+            if ($(this).hasClass('px-0 py-0 aktif')) {
+                return false;
+            } else {
+                $('#jurnal-grid td').removeClass('px-0 py-0 aktif');
+                $(this).addClass('px-0 py-0 aktif');
+
+                var kode_akun = $(this).parents("tr").find(".inp-kode").val();
+                var nama_akun = $(this).parents("tr").find(".inp-nama").val();
+                var dc = $(this).parents("tr").find(".td-dc").text();
+                var keterangan = $(this).parents("tr").find(".inp-ket").val();
+                var nilai = $(this).parents("tr").find(".inp-nilai").val();
+                var kode_pp = $(this).parents("tr").find(".inp-pp").val();
+                var nama_pp = $(this).parents("tr").find(".inp-nama_pp").val();
+                var kode_drk = $(this).parents("tr").find(".inp-drk").val();
+                var nama_drk = $(this).parents("tr").find(".inp-nama_drk").val();
+                var no = $(this).parents("tr").find(".no-jurnal").text();
+                $(this).parents("tr").find(".inp-kode").val(kode_akun);
+                $(this).parents("tr").find(".td-kode").text(kode_akun);
+                if (idx == 1) {
+                    $(this).parents("tr").find(".inp-kode").show();
+                    $(this).parents("tr").find(".td-kode").hide();
+                    $(this).parents("tr").find(".search-akun").show();
+                    $(this).parents("tr").find(".inp-kode").focus();
+                } else {
+                    $(this).parents("tr").find(".inp-kode").hide();
+                    $(this).parents("tr").find(".td-kode").show();
+                    $(this).parents("tr").find(".search-akun").hide();
+
+                }
+
+                $(this).parents("tr").find(".inp-nama").val(nama_akun);
+                $(this).parents("tr").find(".td-nama").text(nama_akun);
+                if (idx == 2) {
+                    $(this).parents("tr").find(".inp-nama").show();
+                    $(this).parents("tr").find(".td-nama").hide();
+                    $(this).parents("tr").find(".inp-nama").focus();
+                } else {
+
+                    $(this).parents("tr").find(".inp-nama").hide();
+                    $(this).parents("tr").find(".td-nama").show();
+                }
+
+
+                $(this).parents("tr").find(".inp-dc")[0].selectize.setValue(dc);
+                $(this).parents("tr").find(".td-dc").text(dc);
+                if (idx == 3) {
+                    $('.dcke' + no)[0].selectize.setValue(dc);
+                    var dcx = $('.tddcke' + no).text();
+                    if (dcx == "") {
+                        $('.tddcke' + no).text('D');
+                    }
+
+                    $(this).parents("tr").find(".selectize-control").show();
+                    $(this).parents("tr").find(".td-dc").hide();
+                    $(this).parents("tr").find(".inp-dc")[0].selectize.focus();
+
+                } else {
+
+                    $(this).parents("tr").find(".selectize-control").hide();
+                    $(this).parents("tr").find(".td-dc").show();
+                }
+
+                var idx_tr = $(this).closest('tr').index();
+                if (keterangan == "" && idx == 4) {
+                    if (idx_tr == 0) {
+                        var deskripsi = $('#deskripsi').val();
+                    } else {
+                        var deskripsi = $("#jurnal-grid tbody tr:eq(" + (idx_tr - 1) + ")").find('.inp-ket')
+                            .val();
+                    }
+                    $(this).parents("tr").find(".inp-ket").val(deskripsi);
+                    $(this).parents("tr").find(".td-ket").text(deskripsi);
+                } else {
+
+                    $(this).parents("tr").find(".inp-ket").val(keterangan);
+                    $(this).parents("tr").find(".td-ket").text(keterangan);
+                }
+                if (idx == 4) {
+                    $(this).parents("tr").find(".inp-ket").show();
+                    $(this).parents("tr").find(".td-ket").hide();
+                    $(this).parents("tr").find(".inp-ket").focus();
+                } else {
+                    $(this).parents("tr").find(".inp-ket").hide();
+                    $(this).parents("tr").find(".td-ket").show();
+                }
+
+                if (nilai == "" && idx == 5) {
+                    $(this).parents("tr").find(".inp-nilai").val(nilai);
+                    $(this).parents("tr").find(".td-nilai").text(nilai);
+                } else {
+                    $(this).parents("tr").find(".inp-nilai").val(nilai);
+                    $(this).parents("tr").find(".td-nilai").text(nilai);
+                }
+
+                if (idx == 5) {
+                    $(this).parents("tr").find(".inp-nilai").show();
+                    $(this).parents("tr").find(".td-nilai").hide();
+                    $(this).parents("tr").find(".inp-nilai").focus();
+                } else {
+                    $(this).parents("tr").find(".inp-nilai").hide();
+                    $(this).parents("tr").find(".td-nilai").show();
+                }
+
+                $(this).parents("tr").find(".inp-pp").val(kode_pp);
+                $(this).parents("tr").find(".td-pp").text(kode_pp);
+                if (idx == 6) {
+                    $(this).parents("tr").find(".inp-pp").show();
+                    $(this).parents("tr").find(".td-pp").hide();
+                    $(this).parents("tr").find(".search-pp").show();
+                    $(this).parents("tr").find(".inp-pp").focus();
+                } else {
+
+                    $(this).parents("tr").find(".inp-pp").hide();
+                    $(this).parents("tr").find(".td-pp").show();
+                    $(this).parents("tr").find(".search-pp").hide();
+                }
+
+
+                $(this).parents("tr").find(".inp-nama_pp").val(nama_pp);
+                $(this).parents("tr").find(".td-nama_pp").text(nama_pp);
+                if (idx == 7) {
+
+                    $(this).parents("tr").find(".inp-nama_pp").show();
+                    $(this).parents("tr").find(".td-nama_pp").hide();
+                    $(this).parents("tr").find(".inp-nama_pp").focus();
+                } else {
+
+                    $(this).parents("tr").find(".inp-nama_pp").hide();
+                    $(this).parents("tr").find(".td-nama_pp").show();
+                }
+                $(this).parents("tr").find(".inp-drk").val(kode_drk);
+                $(this).parents("tr").find(".td-drk").text(kode_drk);
+                if (idx == 8) {
+                    $(this).parents("tr").find(".inp-drk").show();
+                    $(this).parents("tr").find(".td-drk").hide();
+                    $(this).parents("tr").find(".search-drk").show();
+                    $(this).parents("tr").find(".inp-drk").focus();
+                } else {
+
+                    $(this).parents("tr").find(".inp-drk").hide();
+                    $(this).parents("tr").find(".td-drk").show();
+                    $(this).parents("tr").find(".search-drk").hide();
+                }
+                $(this).parents("tr").find(".inp-nama_drk").val(nama_drk);
+                $(this).parents("tr").find(".td-nama_drk").text(nama_drk);
+                if (idx == 9) {
+                    $(this).parents("tr").find(".inp-nama_drk").show();
+                    $(this).parents("tr").find(".td-nama_drk").hide();
+                    $(this).parents("tr").find(".inp-nama_drk").focus();
+                } else {
+
+                    $(this).parents("tr").find(".inp-nama_drk").hide();
+                    $(this).parents("tr").find(".td-nama_drk").show();
+                }
+            }
+        }
+    });
+    // jurnal cbbl
+    $('#jurnal-grid').on('click', '.search-item', function () {
+        var par = $(this).closest('td').find('input').attr('name');
+
+        switch (par) {
+            case 'kode_akun[]':
+                var par2 = "nama_akun[]";
+
+                break;
+            case 'kode_pp[]':
+                var par2 = "nama_pp[]";
+                break;
+            case 'kode_drk[]':
+                var par2 = "nama_drk[]";
+                break;
+        }
+
+        var tmp = $(this).closest('tr').find('input[name="' + par + '"]').attr('class');
+        var tmp2 = tmp.split(" ");
+        target1 = tmp2[2];
+
+        tmp = $(this).closest('tr').find('input[name="' + par2 + '"]').attr('class');
+        tmp2 = tmp.split(" ");
+        target2 = tmp2[2];
+        console.log(target1)
+        console.log(target2)
+        switch (par) {
             case 'kode_akun[]':
                 var options = {
-                    id : param,
-                    header : ['Kode', 'Nama'],
-                    url : "{{ url('bdh-trans/akun') }}",
-                    columns : [
-                        { data: 'kode_akun' },
-                        { data: 'nama' }
-                    ],
-                    parameter: {
-                        tahun: $tahun,
-                    },
-                    judul : "Daftar Akun",
-                    pilih : "jenis",
-                    jTarget1 : "val",
-                    jTarget2 : "val",
-                    target1 : "",
-                    target2 : "",
-                    target3 : "",
-                    target4 : "",
-                    onItemSelected: function(data) {
-                        var string = data.kode_akun
-                        if(string.length > 30) {
-                            string = string.substr(0, 30) + '...'
+                    id: par,
+                    header: ['Kode', 'Nama'],
+                    url: "{{ url('bdh-trans/akun') }}",
+                    columns: [{
+                            data: 'kode_akun'
+                        },
+                        {
+                            data: 'nama'
                         }
-                        $('.'+target1).val(string)
-                        $('.'+target2).text(string)
-                        $('.'+target1).hide()
-                        $('.row-jurnal-'+idx).find('.search-kode_akun').hide()
-                        $('.'+target2).show()
-                        $('.row-jurnal-'+idx).find('.search-kode_akun').show()
-                        $('.'+target3).show()
-                        $('.'+target4).hide()
-                    },
-                    width : ["30%","70%"]
+                    ],
+                    judul: "Daftar Akun",
+                    pilih: "akun",
+                    jTarget1: "val",
+                    jTarget2: "val",
+                    target1: "." + target1,
+                    target2: "." + target2,
+                    target3: ".td" + target2,
+                    target4: ".td-dc",
+                    width: ["30%", "70%"]
                 };
-            break;
-            case 'pp[]':
+                break;
+            case 'kode_pp[]':
                 var options = {
-                    id : param,
-                    header : ['Kode', 'Nama'],
-                    url : "{{ url('bdh-trans/pp') }}",
-                    columns : [
-                        { data: 'kode_pp' },
-                        { data: 'nama' }
-                    ],
-                    parameter: {
-                        tahun: $tahun
-                    },
-                    judul : "Daftar PP",
-                    pilih : "jenis",
-                    jTarget1 : "val",
-                    jTarget2 : "val",
-                    target1 : "",
-                    target2 : "",
-                    target3 : "",
-                    target4 : "",
-                    onItemSelected: function(data) {
-                        var string = data.kode_pp
-                        if(string.length > 30) {
-                            string = string.substr(0, 30) + '...'
+                    id: par,
+                    header: ['Kode', 'Nama'],
+                    url: "{{ url('bdh-trans/pp') }}",
+                    columns: [{
+                            data: 'kode_pp'
+                        },
+                        {
+                            data: 'nama'
                         }
-                        $('.'+target1).val(string)
-                        $('.'+target2).text(string)
-                        $('.'+target1).hide()
-                        $('.search-pp').hide()
-                        $('.'+target2).show()
-                        $('.search-drk').show()
-                        $('.'+target3).show()
-                        $('.'+target4).hide()
-                    },
-                    width : ["30%","70%"]
+                    ],
+                    judul: "Daftar PP",
+                    pilih: "pp",
+                    jTarget1: "val",
+                    jTarget2: "val",
+                    target1: "." + target1,
+                    target2: "." + target2,
+                    target3: ".td" + target2,
+                    target4: "",
+                    width: ["30%", "70%"]
                 };
-            break;
-            case 'drk[]':
-                var kode_akun = $('#jurnal-grid').find('.inp-kode_akun').val();
-                var kode_pp = $('#jurnal-grid').find('.inp-pp').val();
+                break;
+            case 'kode_drk[]':
+                var parent = $(this).closest("tr");
+                var kode_akun = parent.find('.inp-kode').val()
+                var kode_pp = parent.find('.inp-pp').val()
                 var tanggal = $('#form-tambah').find('.inp-tanggal').val();
-                var revers = reverseDate2(tanggal,'/','');
+                var revers = reverseDate2(tanggal, '/', '');
                 var periode = revers.substring(0, 6);
-                console.log(periode)
-                if(kode_akun == '' || kode_pp == ''){
-                    alert('Kode Akun dan Kode PP ridak boleh kosong !');
-                }else{
+
+                if (kode_pp == '' || kode_akun == '') {
+                    alert('Harap memilih Kode Akun dan Kode PP')
+                    return false
+                } else {
                     var options = {
-                        id : param,
-                        header : ['Kode', 'Nama'],
-                        url : "{{ url('bdh-trans/drk') }}",
-                        columns : [
-                            { data: 'kode_drk' },
-                            { data: 'nama' }
+                        id: par,
+                        header: ['Kode', 'Nama'],
+                        url: "{{ url('bdh-trans/drk') }}",
+                        columns: [{
+                                data: 'kode_drk'
+                            },
+                            {
+                                data: 'nama'
+                            }
                         ],
                         parameter: {
                             periode: periode,
                             kode_akun: kode_akun,
                             kode_pp: kode_pp
                         },
-                        judul : "Daftar DRK",
-                        pilih : "jenis",
-                        jTarget1 : "val",
-                        jTarget2 : "val",
-                        target1 : "",
-                        target2 : "",
-                        target3 : "",
-                        target4 : "",
-                        onItemSelected: function(data) {
-                            var string = data.kode_drk
-                            if(string.length > 30) {
-                                string = string.substr(0, 30) + '...'
-                            }
-                            $('.'+target1).val(string)
-                            $('.'+target2).text(string)
-                            $('.'+target1).hide()
-                            $('.'+target2).show()
-                            $('.search-drk').hide()
-                            $('.tdbulanke'+idx).hide()
-                            $('.bulanke'+idx).show()
-                            $('.bulanke'+idx).focus()
-                        },
-                        width : ["30%","70%"]
+                        judul: "Daftar DRK",
+                        pilih: "drk",
+                        jTarget1: "val",
+                        jTarget2: "val",
+                        target1: "." + target1,
+                        target2: "." + target2,
+                        target3: ".td" + target2,
+                        target4: "",
+                        width: ["30%", "70%"]
                     };
+                    break;
                 }
 
-            break;
-            default:
-            break;
         }
+        showInpFilterBSheet(options);
 
-        showInpFilter(options);
-    })
-
-
-
-    $('#jurnal-grid tbody').on('click', 'tr', function(){
-        $(this).addClass('selected-row');
-        $('#jurnal-grid tbody tr').not(this).removeClass('selected-row');
-        hideUnselectedRowJurnal();
     });
-
-    $('#jurnal-grid').on('click', 'td', function(){
-        var idx = $(this).index();
-        if(idx == 7){
-            return false;
-        }else{
-            if($(this).hasClass('px-0 py-0 aktif')){
-                return false;
-            }else{
-                $('#jurnal-grid td').removeClass('px-0 py-0 aktif');
-                $(this).addClass('px-0 py-0 aktif');
-
-                var kode_akun = $(this).parents("tr").find(".inp-kode_akun").val();
-                var dc = $(this).parents("tr").find(".inp-dc").val();
-                var keterangan = $(this).parents("tr").find(".inp-keterangan").val();
-                var nilai = $(this).parents("tr").find(".inp-nilai").val();
-                var pp = $(this).parents("tr").find(".inp-pp").val();
-                var drk = $(this).parents("tr").find(".inp-drk").val();
-
-                $(this).parents("tr").find(".inp-kode_akun").val(kode_akun);
-                $(this).parents("tr").find(".td-kode_akun").text(kode_akun);
-                if(idx == 1){
-                    $(this).parents("tr").find(".inp-kode_akun").show();
-                    $(this).parents("tr").find(".search-kode_akun").show();
-                    $(this).parents("tr").find(".td-kode_akun").hide();
-                    $(this).parents("tr").find(".inp-kode_akun").focus();
-                }else{
-                    $(this).parents("tr").find(".inp-kode_akun").hide();
-                    $(this).parents("tr").find(".search-kode_akun").hide();
-                    $(this).parents("tr").find(".td-kode_akun").show();
-                }
-
-                $(this).parents("tr").find(".inp-dc").val(dc);
-                $(this).parents("tr").find(".td-dc").text(dc);
-                if(idx == 2){
-                    $(this).parents("tr").find(".inp-dc").show();
-                    $(this).parents("tr").find(".td-dc").hide();
-                    $(this).parents("tr").find(".inp-dc").focus();
-                }else{
-                    $(this).parents("tr").find(".inp-dc").hide();
-                    $(this).parents("tr").find(".td-dc").show();
-                }
-
-                $(this).parents("tr").find(".inp-keterangan").val(keterangan);
-                $(this).parents("tr").find(".td-keterangan").text(keterangan);
-                if(idx == 3){
-                    $(this).parents("tr").find(".inp-keterangan").show();
-                    $(this).parents("tr").find(".td-keterangan").hide();
-                    $(this).parents("tr").find(".inp-keterangan").focus();
-                }else{
-                    $(this).parents("tr").find(".inp-keterangan").hide();
-                    $(this).parents("tr").find(".td-keterangan").show();
-                }
-
-                $(this).parents("tr").find(".inp-nilai").val(nilai);
-                $(this).parents("tr").find(".td-nilai").text(nilai);
-                if(idx == 4){
-                    $(this).parents("tr").find(".inp-nilai").show();
-                    $(this).parents("tr").find(".td-nilai").hide();
-                    $(this).parents("tr").find(".inp-nilai").focus();
-                }else{
-                    $(this).parents("tr").find(".inp-nilai").hide();
-                    $(this).parents("tr").find(".td-nilai").show();
-                }
-                $(this).parents("tr").find(".inp-pp").val(pp);
-                $(this).parents("tr").find(".td-pp").text(pp);
-                if(idx == 5){
-                    $(this).parents("tr").find(".inp-pp").show();
-                    $(this).parents("tr").find(".search-pp").show();
-                    $(this).parents("tr").find(".td-pp").hide();
-                    $(this).parents("tr").find(".inp-pp").focus();
-                }else{
-                    $(this).parents("tr").find(".inp-pp").hide();
-                    $(this).parents("tr").find(".search-pp").hide();
-                    $(this).parents("tr").find(".td-pp").show();
-                }
-
-                $(this).parents("tr").find(".inp-drk").val(drk);
-                $(this).parents("tr").find(".td-drk").text(drk);
-                if(idx == 6){
-                    $(this).parents("tr").find(".inp-drk").show();
-                    $(this).parents("tr").find(".search-drk").show();
-                    $(this).parents("tr").find(".td-drk").hide();
-                    $(this).parents("tr").find(".inp-drk").focus();
-                }else{
-                    $(this).parents("tr").find(".inp-drk").hide();
-                    $(this).parents("tr").find(".search-drk").hide();
-                    $(this).parents("tr").find(".td-drk").show();
-                }
+    // END Jurnal Grid
 
 
-
-
-
-
-            }
-        }
-    });
-
-    $('#jurnal-grid').on('change', '.inp-bulan', function(e){
-        e.preventDefault();
-        var noidx =  $(this).parents("tr").find(".no-pemberi").text();
-        target1 = "saldoke"+noidx;
-        target2 = "tdsaldoke"+noidx;
-        var value = $(this).val();
-        $('.tdbulanke'+noidx).text(value)
-        $('.bulanke'+noidx).hide()
-        $('.tdbulanke'+noidx).show()
-        $('.saldoke'+noidx).show()
-        $('.tdsaldoke'+noidx).hide()
-        setTimeout(() => $('.saldoke'+noidx).focus(), 800)
-    });
-
-    var $twicePressPemberi = 0;
-    $('#jurnal-grid').on('keydown','.inp-anggaran, .inp-pp, .inp-drk, .inp-saldo, .inp-nilai',function(e){
-        var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['.inp-anggaran','.inp-pp', '.inp-drk', '.inp-bulan', '.inp-saldo', '.inp-nilai'];
-        var nxt2 = ['.td-anggaran','.td-pp', '.td-drk', '.td-bulan', '.td-saldo', '.td-nilai'];
-        if (code == 13 || code == 9) {
-            e.preventDefault();
-            var idx = $(this).closest('td').index()-1;
-            var idx_next = idx+1;
-            var kunci = $(this).closest('td').index()+1;
-            var isi = $(this).val();
-            switch (idx) {
-                case 0:
-                    $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
-                    if(isi.length > 30) {
-                        isi = isi.substr(0, 30) + '...'
-                    }
-                    $(this).closest('tr').find(nxt[idx]).val(isi);
-                    $(this).closest('tr').find(nxt2[idx]).text(isi);
-                    $(this).closest('tr').find(nxt[idx]).hide();
-                    $(this).closest('tr').find(nxt2[idx]).show();
-
-                    $(this).closest('tr').find(nxt[idx_next]).show();
-                    $(this).closest('tr').find(nxt2[idx_next]).hide();
-                    $(this).closest('tr').find(nxt[idx_next]).focus();
-                    $(this).closest('tr').find('.search-anggaran').hide();
-                    $(this).closest('tr').find('.search-pp').show();
-                break;
-                case 1:
-                    $("#pemberi-grid td").removeClass("px-0 py-0 aktif");
-                    $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
-                    $(this).closest('tr').find(nxt[idx]).val(isi);
-                    $(this).closest('tr').find(nxt2[idx]).text(isi);
-                    $(this).closest('tr').find(nxt[idx]).hide();
-                    $(this).closest('tr').find(nxt2[idx]).show();
-
-                    $(this).closest('tr').find(nxt[idx_next]).show();
-                    $(this).closest('tr').find(nxt2[idx_next]).hide();
-                    $(this).closest('tr').find(nxt[idx_next]).focus();
-                    $(this).closest('tr').find('.search-pp').hide();
-                    $(this).closest('tr').find('.search-drk').show();
-                break;
-                case 2:
-                    $("#pemberi-grid td").removeClass("px-0 py-0 aktif");
-                    $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
-                    $(this).closest('tr').find(nxt[idx]).val(isi);
-                    $(this).closest('tr').find(nxt2[idx]).text(isi);
-                    $(this).closest('tr').find(nxt[idx]).hide();
-                    $(this).closest('tr').find(nxt2[idx]).show();
-
-                    $(this).closest('tr').find(nxt[idx_next]).show();
-                    $(this).closest('tr').find(nxt2[idx_next]).hide();
-                    $(this).closest('tr').find(nxt[idx_next]).focus();
-                    $(this).closest('tr').find('.search-drk').hide();
-                break;
-                case 3:
-                    $("#pemberi-grid td").removeClass("px-0 py-0 aktif");
-                    $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
-                    $(this).closest('tr').find(nxt[idx]).val(isi);
-                    $(this).closest('tr').find(nxt2[idx]).text(isi);
-                    $(this).closest('tr').find(nxt[idx]).hide();
-                    $(this).closest('tr').find(nxt2[idx]).show();
-
-                    $(this).closest('tr').find(nxt[idx_next]).show();
-                    $(this).closest('tr').find(nxt2[idx_next]).hide();
-                    $(this).closest('tr').find(nxt[idx_next]).focus();
-                break;
-                case 4:
-                    if(isi != "" && isi != 0){
-                        $("#pemberi-grid td").removeClass("px-0 py-0 aktif");
-                        $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
-
-                        $(this).closest('tr').find(nxt[idx]).val(isi);
-                        $(this).closest('tr').find(nxt2[idx]).text(isi);
-                        $(this).closest('tr').find(nxt[idx]).hide();
-                        $(this).closest('tr').find(nxt2[idx]).show();
-
-                        $(this).closest('tr').find(nxt[idx_next]).show();
-                        $(this).closest('tr').find(nxt2[idx_next]).hide();
-                        $(this).closest('tr').find(nxt[idx_next]).focus();
-                    }else{
-                        alert('Saldo yang dimasukkan tidak valid');
-                        return false;
-                    }
-                break;
-                case 5:
-                    if(isi != "" && isi != 0){
-                        $("#pemberi-grid td").removeClass("px-0 py-0 aktif");
-                        $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
-                        if(code == 13 || code == 9) {
-                            if($twicePressPemberi == 1) {
-                                $(this).closest('tr').find(nxt[idx]).val(isi);
-                                $(this).closest('tr').find(nxt2[idx]).text(isi);
-                                $(this).closest('tr').find(nxt[idx]).hide();
-                                $(this).closest('tr').find(nxt2[idx]).show();
-                                var cek = $(this).parents('tr').next('tr').find('.td-anggaran');
-                                if(cek.length > 0){
-                                    cek.click();
-                                }else{
-                                    $('#add-row-pemberi').click();
-                                }
-                            }
-                            $twicePressPemberi = 1
-                            setTimeout(() => $twicePressPemberi = 0, 1000)
-                        }
-                    }else{
-                        alert('Nilai yang dimasukkan tidak valid');
-                        return false;
-                    }
-                break;
-                default:
-                break;
-            }
-        }else if(code == 38){
-            e.preventDefault();
-            var idx = nxt.indexOf(e.target.id);
-            idx--;
-        }
-    });
-
-    function hitungTotalRowUpload(form){
-        var total_row = $('#'+form+' #input-dok tbody tr').length;
-        $('#total-row_dok').html(total_row+' Baris');
+    function hitungTotalRowUpload(form) {
+        var total_row = $('#' + form + ' #input-dok tbody tr').length;
+        $('#total-row_dok').html(total_row + ' Baris');
     }
 
-    function addRowDok(form){
-        var no=$('#'+form+' #input-dok .row-dok:last').index();
-        no=no+2;
+    function addRowDok(form) {
+        var no = $('#' + form + ' #input-dok .row-dok:last').index();
+        no = no + 2;
         console.log(no);
         var input = "";
         input += "<tr class='row-dok'>";
-        input += "<td class='no-dok text-center'>"+no+"</td>";
-        input += "<td class='px-0 py-0'><div class='inp-div-jenis'><input type='text' name='jenis[]' class='form-control inp-jenis jeniske"+no+" ' value='' required='' style='z-index: 1;' id='jeniskode"+no+"'><a href='#' class='search-item search-jenis'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></div></td>";
-        input += "<td class='px-0 py-0'><input type='text' name='nama_dok[]' class='form-control inp-nama_dok nama_dokke"+no+"' value='' readonly></td>";
-        input += "<td><span class='td-nama_file tdnmfileke"+no+" tooltip-span'>-</span><input type='text' name='nama_file[]' class='form-control inp-nama_file nmfileke"+no+" hidden'  value='-' readonly></td>";
-        input+=`
+        input += "<td class='no-dok text-center'>" + no + "</td>";
+        input +=
+            "<td class='px-0 py-0'><div class='inp-div-jenis'><input type='text' name='jenis[]' class='form-control inp-jenis jeniske" +
+            no + " ' value='' required='' style='z-index: 1;' id='jeniskode" + no +
+            "'><a href='#' class='search-item search-jenis'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></div></td>";
+        input +=
+            "<td class='px-0 py-0'><input type='text' name='nama_dok[]' class='form-control inp-nama_dok nama_dokke" +
+            no + "' value='' readonly></td>";
+        input += "<td><span class='td-nama_file tdnmfileke" + no +
+            " tooltip-span'>-</span><input type='text' name='nama_file[]' class='form-control inp-nama_file nmfileke" +
+            no + " hidden'  value='-' readonly></td>";
+        input += `
         <td>
         <input type='file' name='file_dok[]'>
-        <input type='hidden' name='no_urut[]' class='form-control inp-no_urut' value='`+no+`'>
+        <input type='hidden' name='no_urut[]' class='form-control inp-no_urut' value='` + no + `'>
         </td>`;
-        input+=`
+        input +=
+            `
         <td class='text-center action-dok'><a class='hapus-dok2'><i class='simple-icon-trash' style='font-size:18px'></i></a></td></tr>`;
         console.log(form);
-        $('#'+form+' #input-dok tbody').append(input);
+        $('#' + form + ' #input-dok tbody').append(input);
         hitungTotalRowUpload(form);
     }
-    $('#form-tambah').on('click', '.add-row-dok', function(){
+    $('#form-tambah').on('click', '.add-row-dok', function () {
         addRowDok("form-tambah");
     });
-    $('#form-tambah').on('click', '.hapus-dok2', function(){
+    $('#form-tambah').on('click', '.hapus-dok2', function () {
         valid = true
         $(this).closest('tr').remove();
-        no=1;
-        $('.row-dok').each(function(){
+        no = 1;
+        $('.row-dok').each(function () {
             var nom = $(this).closest('tr').find('.no-dok');
             nom.html(no);
             no++;
         });
         hitungTotalRowJurnal();
-        $("html, body").animate({ scrollTop: $(document).height() }, 1000);
+        $("html, body").animate({
+            scrollTop: $(document).height()
+        }, 1000);
     });
 
-
-    function hideAllRowControlling() {
-        $('#controlling-grid tbody tr').removeClass('selected-row');
-        $('#controlling-grid tbody td').removeClass('px-0 py-0 aktif');
-        $('#controlling-grid > tbody > tr').each(function(index, row) {
-            if(!$(row).hasClass('selected-row')) {
-                var akun = $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-akun").val();
-                var pp = $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-pp-controlling").val();
-                var drk = $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-drk-controlling").val();
-                var bulan = $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-bulan-controlling").val();
-                var saldoAwal = $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-saldo-awal").val();
-                var nilai = $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-nilai-controlling").val();
-                var saldoAkhir = $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-saldo-akhir").val();
-
-                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-akun").val(akun);
-                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".td-akun").text(akun);
-                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-pp-controlling").val(pp);
-                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".td-pp-controlling").text(pp);
-                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-drk-controlling").val(drk);
-                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".td-drk-controlling").text(drk);
-                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-bulan-controlling").val(bulan);
-                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".td-bulan-controlling").text(bulan);
-                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-saldo-awal").val(saldoAwal);
-                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".td-saldo-awal").text(saldoAwal);
-                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-nilai-controlling").val(nilai);
-                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".td-nilai-controlling").text(nilai);
-                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-saldo-akhir").val(saldoAkhir);
-                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".td-saldo-akhir").text(saldoAkhir);
-
-                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-akun").hide();
-                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".td-akun").show();
-                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".search-akun").hide();
-                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-pp-controlling").hide();
-                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".td-pp-controlling").show();
-                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".search-pp-controlling").hide();
-                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-drk-controlling").hide();
-                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".td-drk-controlling").show();
-                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".search-drk-controlling").hide();
-                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-bulan-controlling").hide();
-                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".td-bulan-controlling").show();
-                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-saldo-awal").hide();
-                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".td-saldo-awal").show();
-                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-nilai-controlling").hide();
-                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".td-nilai-controlling").show();
-                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-saldo-akhir").hide();
-                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".td-saldo-akhir").show();
-            }
-        })
-    }
-
-    function hideUnselectedRowControlling() {
-        $('#controlling-grid > tbody > tr').each(function(index, row) {
-            if(!$(row).hasClass('selected-row')) {
-                var akun = $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-akun").val();
-                var pp = $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-pp-controlling").val();
-                var drk = $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-drk-controlling").val();
-                var bulan = $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-bulan-controlling").val();
-                var saldoAwal = $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-saldo-awal").val();
-                var nilai = $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-nilai-controlling").val();
-                var saldoAkhir = $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-saldo-akhir").val();
-
-                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-akun").val(akun);
-                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".td-akun").text(akun);
-                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-pp-controlling").val(pp);
-                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".td-pp-controlling").text(pp);
-                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-drk-controlling").val(drk);
-                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".td-drk-controlling").text(drk);
-                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-bulan-controlling").val(bulan);
-                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".td-bulan-controlling").text(bulan);
-                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-saldo-awal").val(saldoAwal);
-                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".td-saldo-awal").text(saldoAwal);
-                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-nilai-controlling").val(nilai);
-                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".td-nilai-controlling").text(nilai);
-                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-saldo-akhir").val(saldoAkhir);
-                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".td-saldo-akhir").text(saldoAkhir);
-
-                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-akun").hide();
-                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".td-akun").show();
-                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".search-akun").hide();
-                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-pp-controlling").hide();
-                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".td-pp-controlling").show();
-                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".search-pp-controlling").hide();
-                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-drk-controlling").hide();
-                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".td-drk-controlling").show();
-                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".search-drk-controlling").hide();
-                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-bulan-controlling").hide();
-                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".td-bulan-controlling").show();
-                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-saldo-awal").hide();
-                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".td-saldo-awal").show();
-                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-nilai-controlling").hide();
-                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".td-nilai-controlling").show();
-                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".inp-saldo-akhir").hide();
-                $('#controlling-grid > tbody > tr:eq('+index+') > td').find(".td-saldo-akhir").show();
-            }
-        })
-    }
-
-    function hitungTotalRowControlling(){
-        var total_row = $('#controlling-grid tbody tr').length;
-        $('#total-row-controlling').html(total_row+' Baris');
-    }
-
-    function addRowControlling() {
-        var no=$('#controlling-grid .row-controlling:last').index();
-        var no = no + 2
-        var html = "";
-        html += "<tr class='row-controlling'>"
-        html += "<td class='no-controlling text-center hidden'>"+no+"</td>"
-        html += "<td><div>"
-        html += "<span class='td-akun tdakunke"+no+" tooltip-span'></span>"
-        html += "<input autocomplete='off' type='text' name='akun[]' class='inp-akun akunke"+no+" form-control hidden' value='' required='' style='z-index: 1;position: relative;' id='akunkode"+no+"'><a href='#' class='search-item search-akun hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a>"
-        html += "</div></td>"
-        html += "<td><div>"
-        html += "<span class='td-pp-controlling tdppcontrollingke"+no+" tooltip-span'></span>"
-        html += "<input autocomplete='off' type='text' name='pp_controlling[]' class='inp-pp-controlling ppcontrollingke"+no+" form-control hidden' value='' required='' style='z-index: 1;position: relative;' id='ppcontrollingkode"+no+"'><a href='#' class='search-item search-pp-controlling hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a>"
-        html += "</div></td>"
-        html += "<td><div>"
-        html += "<span class='td-drk-controlling tddrkcontrollingke"+no+" tooltip-span'></span>"
-        html += "<input autocomplete='off' type='text' name='drk_controlling[]' class='inp-drk-controlling drkcontrollingke"+no+" form-control hidden' value='' required='' style='z-index: 1;position: relative;' id='drkcontrollingkode"+no+"'><a href='#' class='search-item search-drk-controlling hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a>"
-        html += "</div></td>"
-        html += "<td class='text-center'><div>"
-        html += "<span class='td-bulan-controlling tdbulancontrollingke"+no+" tooltip-span'></span>"
-        html += "<select class='hidden form-control inp-bulan-controlling bulancontrollingke"+no+"' name='bulan_controlling[]'>"
-        html += "<option value='01' selected>01</option><option value='02'>02</option><option value='03'>03</option><option value='04'>04</option><option value='05'>05</option><option value='06'>06</option><option value='07'>07</option><option value='08'>08</option><option value='09'>09</option><option value='10'>10</option><option value='11'>11</option><option value='12'>12</option>"
-        html += "</select>"
-        html += "</div></td>"
-        html += "<td class='text-right'><div>"
-        html += "<span class='td-saldo-awal tdsaldoawalke"+no+"'>0</span>"
-        html += "<input type='text' name='saldo_awal[]' class='inp-saldo-awal form-control saldoawalke"+no+" hidden currency' value='0' required>"
-        html += "</div></td>"
-        html += "<td class='text-right'>"
-        html += "<span class='td-nilai-controlling tdnilaicontrollingke"+no+"'>0</span>"
-        html += "<input type='text' name='nilai_controlling[]' class='inp-nilai-controlling form-control nilaicontrollingke"+no+" hidden currency'  value='0' required>"
-        html += "</td>"
-        html += "<td class='text-right'><div>"
-        html += "<span class='td-saldo-akhir tdsaldoakhirke"+no+"'>0</span>"
-        html += "<input type='text' name='saldo_akhir[]' class='inp-saldo-akhir form-control saldoakhirke"+no+" hidden currency' value='0' required>"
-        html += "</div></td>"
-        html += "<td class='text-center'><a class='hapus-controlling' style='font-size:18px;cursor:pointer;'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
-        html += "</tr>"
-
-        $('#controlling-grid tbody').append(html);
-
-        $('.currency').inputmask("numeric", {
-            radixPoint: ",",
-            groupSeparator: ".",
-            digits: 2,
-            autoGroup: true,
-            rightAlign: true,
-            oncleared: function () {  }
-        });
-
-        $('.tooltip-span').tooltip({
-            title: function(){
-                return $(this).text();
-            }
-        });
-
-        $('.inp-akun').typeahead({
-            source:$mataAnggaran,
-            displayText:function(item){
-                return item.id+'-'+item.name;
-            },
-            autoSelect:false,
-            changeInputOnSelect:false,
-            changeInputOnMove:false,
-            selectOnBlur:false,
-            afterSelect: function (item) {
-                console.log(item.id);
-            }
-        });
-
-        $('.inp-pp-controlling').typeahead({
-            source:$ppAnggaran,
-            displayText:function(item){
-                return item.id+'-'+item.name;
-            },
-            autoSelect:false,
-            changeInputOnSelect:false,
-            changeInputOnMove:false,
-            selectOnBlur:false,
-            afterSelect: function (item) {
-                console.log(item.id);
-            }
-        });
-
-        $('.inp-drk-controlling').typeahead({
-            source:$ppAnggaran,
-            displayText:function(item){
-                return item.id+'-'+item.name;
-            },
-            autoSelect:false,
-            changeInputOnSelect:false,
-            changeInputOnMove:false,
-            selectOnBlur:false,
-            afterSelect: function (item) {
-                console.log(item.id);
-            }
-        });
-
-        hideUnselectedRowControlling()
-
-        $('#controlling-grid td').removeClass('px-0 py-0 aktif');
-        $('#controlling-grid tbody tr:last').find("td:eq(1)").addClass('px-0 py-0 aktif');
-        $('#controlling-grid tbody tr:last').find(".inp-akun").show();
-        $('#controlling-grid tbody tr:last').find(".search-akun").show();
-        $('#controlling-grid tbody tr:last').find(".td-akun").hide();
-        $('#controlling-grid tbody tr:last').find(".inp-akun").focus();
-
-        hitungTotalRowControlling()
-    }
-
-    $('#form-tambah').on('click', '#add-row-controlling', function(){
-        addRowControlling()
-    });
-
-    $('#controlling-grid').on('click', '.hapus-controlling', function(){
-        valid = true
-        $(this).closest('tr').remove();
-        no=1;
-        $('.row-controlling').each(function(){
-            var nom = $(this).closest('tr').find('.no-controlling');
-            nom.html(no);
-            no++;
-        });
-        hitungTotalRowControlling();
-        $("html, body").animate({ scrollTop: $(document).height() }, 1000);
-    });
-
-    $('#controlling-grid').on('click', '.search-item', function() {
-        var idx = $(this).closest('tr').find('.no-controlling').text()
-        var param = $(this).closest('div').find('input[type="text"]').attr('name')
-        var target1 = $(this).closest('div').find('input[type="text"]').attr('class')
-        var target2 = $(this).closest('div').find('span').attr('class')
-        var target3 = $(this).closest('td').next('td').find('input[type="text"]').attr('class')
-        var target4 = $(this).closest('td').next('td').find('span').attr('class')
-        var tmp = target1.split(" ");
-        var tmp2 = target2.split(" ")
-        if(typeof target3 !== 'undefined') {
-            var tmp3 = target3.split(" ")
-            target3 = tmp3[1]
-        }
-        if(typeof target4 !== 'undefined') {
-            var tmp4 = target4.split(" ")
-            target4 = tmp4[1]
-        }
-        target1 = tmp[1];
-        target2 = tmp2[1]
-
-        switch(param){
-            case 'akun[]':
-                var options = {
-                    id : param,
-                    header : ['Kode', 'Nama'],
-                    url : "{{ url('esaku-trans/mata-anggaran') }}",
-                    columns : [
-                        { data: 'kode_akun' },
-                        { data: 'nama' }
-                    ],
-                    parameter: {
-                        tahun: $tahun
-                    },
-                    judul : "Daftar Akun",
-                    pilih : "jenis",
-                    jTarget1 : "val",
-                    jTarget2 : "val",
-                    target1 : "",
-                    target2 : "",
-                    target3 : "",
-                    target4 : "",
-                    onItemSelected: function(data) {
-                        var string = data.kode_akun+'-'+data.nama
-                        if(string.length > 25) {
-                            string = string.substr(0, 25) + '...'
-                        }
-                        $('.'+target1).val(string)
-                        $('.'+target2).text(string)
-                        $('.'+target1).hide()
-                        $('.search-akun').hide()
-                        $('.'+target2).show()
-                        $('.search-pp-controlling').show()
-                        $('.'+target3).show()
-                        $('.'+target4).hide()
-                    },
-                    width : ["30%","70%"]
-                };
-            break;
-            case 'pp_controlling[]':
-                var options = {
-                    id : param,
-                    header : ['Kode', 'Nama'],
-                    url : "{{ url('esaku-trans/pp-anggaran') }}",
-                    columns : [
-                        { data: 'kode_pp' },
-                        { data: 'nama' }
-                    ],
-                    parameter: {
-                        tahun: $tahun
-                    },
-                    judul : "Daftar PP",
-                    pilih : "jenis",
-                    jTarget1 : "val",
-                    jTarget2 : "val",
-                    target1 : "",
-                    target2 : "",
-                    target3 : "",
-                    target4 : "",
-                    onItemSelected: function(data) {
-                        var string = data.kode_pp+'-'+data.nama
-                        if(string.length > 30) {
-                            string = string.substr(0, 30) + '...'
-                        }
-                        $('.'+target1).val(string)
-                        $('.'+target2).text(string)
-                        $('.'+target1).hide()
-                        $('.search-pp-controlling').hide()
-                        $('.'+target2).show()
-                        $('.search-drk-controlling').show()
-                        $('.'+target3).show()
-                        $('.'+target4).hide()
-                    },
-                    width : ["30%","70%"]
-                };
-            break;
-            case 'drk_controlling[]':
-                var options = {
-                    id : param,
-                    header : ['Kode', 'Nama'],
-                    url : "{{ url('esaku-trans/pp-anggaran') }}",
-                    columns : [
-                        { data: 'kode_pp' },
-                        { data: 'nama' }
-                    ],
-                    parameter: {
-                        tahun: $tahun
-                    },
-                    judul : "Daftar DRK",
-                    pilih : "jenis",
-                    jTarget1 : "val",
-                    jTarget2 : "val",
-                    target1 : "",
-                    target2 : "",
-                    target3 : "",
-                    target4 : "",
-                    onItemSelected: function(data) {
-                        var string = data.kode_pp+'-'+data.nama
-                        if(string.length > 30) {
-                            string = string.substr(0, 30) + '...'
-                        }
-                        $('.'+target1).val(string)
-                        $('.'+target2).text(string)
-                        $('.'+target1).hide()
-                        $('.'+target2).show()
-                        $('.search-drk-controlling').hide()
-                        $('.tdbulancontrollingke'+idx).hide()
-                        $('.bulancontrollingke'+idx).show()
-                        $('.bulancontrollingke'+idx).focus()
-                    },
-                    width : ["30%","70%"]
-                };
-            break;
-            default:
-            break;
-        }
-
-        showInpFilter(options);
-    })
-
-    $('#controlling-grid tbody').on('click', 'tr', function(){
-        $(this).addClass('selected-row');
-        $('#controlling-grid tbody tr').not(this).removeClass('selected-row');
-        hideUnselectedRowControlling();
-    });
-
-    $('#controlling-grid').on('click', 'td', function(){
-        var idx = $(this).index();
-        if(idx == 8){
-            return false;
-        }else{
-            if($(this).hasClass('px-0 py-0 aktif')){
-                return false;
-            }else{
-                $('#controlling-grid td').removeClass('px-0 py-0 aktif');
-                $(this).addClass('px-0 py-0 aktif');
-
-                var akun = $(this).parents("tr").find(".inp-akun").val();
-                var pp = $(this).parents("tr").find(".inp-pp-controlling").val();
-                var drk = $(this).parents("tr").find(".inp-drk-controlling").val();
-                var bulan = $(this).parents("tr").find(".inp-bulan-controlling").val();
-                var nilai = $(this).parents("tr").find(".inp-nilai-controlling").val();
-                var saldoAwal = $(this).parents("tr").find(".inp-saldo-awal").val();
-                var saldoAkhir = $(this).parents("tr").find(".inp-saldo-akhir").val();
-
-                $(this).parents("tr").find(".inp-akun").val(akun);
-                $(this).parents("tr").find(".td-akun").text(akun);
-                if(idx == 1){
-                    $(this).parents("tr").find(".inp-akun").show();
-                    $(this).parents("tr").find(".search-akun").show();
-                    $(this).parents("tr").find(".td-akun").hide();
-                    $(this).parents("tr").find(".inp-akun").focus();
-                }else{
-                    $(this).parents("tr").find(".inp-akun").hide();
-                    $(this).parents("tr").find(".search-akun").hide();
-                    $(this).parents("tr").find(".td-akun").show();
-                }
-
-                $(this).parents("tr").find(".inp-pp-controlling").val(pp);
-                $(this).parents("tr").find(".td-pp-controlling").text(pp);
-                if(idx == 2){
-                    $(this).parents("tr").find(".inp-pp-controlling").show();
-                    $(this).parents("tr").find(".search-pp-controlling").show();
-                    $(this).parents("tr").find(".td-pp-controlling").hide();
-                    $(this).parents("tr").find(".inp-pp-controlling").focus();
-                }else{
-                    $(this).parents("tr").find(".inp-pp-controlling").hide();
-                    $(this).parents("tr").find(".search-pp-controlling").hide();
-                    $(this).parents("tr").find(".td-pp-controlling").show();
-                }
-
-                $(this).parents("tr").find(".inp-drk-controlling").val(drk);
-                $(this).parents("tr").find(".td-drk-controlling").text(drk);
-                if(idx == 3){
-                    $(this).parents("tr").find(".inp-drk-controlling").show();
-                    $(this).parents("tr").find(".search-drk-controlling").show();
-                    $(this).parents("tr").find(".td-drk-controlling").hide();
-                    $(this).parents("tr").find(".inp-drk-controlling").focus();
-                }else{
-                    $(this).parents("tr").find(".inp-drk-controlling").hide();
-                    $(this).parents("tr").find(".search-drk-controlling").hide();
-                    $(this).parents("tr").find(".td-drk-controlling").show();
-                }
-
-                $(this).parents("tr").find(".inp-bulan-controlling").val(bulan);
-                $(this).parents("tr").find(".td-bulan-controlling").text(bulan);
-                if(idx == 4){
-                    $(this).parents("tr").find(".inp-bulan-controlling").show();
-                    $(this).parents("tr").find(".td-bulan-controlling").hide();
-                }else{
-                    $(this).parents("tr").find(".inp-bulan-controlling").hide();
-                    $(this).parents("tr").find(".td-bulan-controlling").show();
-                }
-
-                $(this).parents("tr").find(".inp-saldo-awal").val(saldoAwal);
-                $(this).parents("tr").find(".td-saldo-awal").text(saldoAwal);
-                if(idx == 5){
-                    $(this).parents("tr").find(".inp-saldo-awal").show();
-                    $(this).parents("tr").find(".td-saldo-awal").hide();
-                    $(this).parents("tr").find(".inp-saldo-awal").focus();
-                }else{
-                    $(this).parents("tr").find(".inp-saldo-awal").hide();
-                    $(this).parents("tr").find(".td-saldo-awal").show();
-                }
-
-                $(this).parents("tr").find(".inp-nilai-controlling").val(nilai);
-                $(this).parents("tr").find(".td-nilai-controlling").text(nilai);
-                if(idx == 6){
-                    $(this).parents("tr").find(".inp-nilai-controlling").show();
-                    $(this).parents("tr").find(".td-nilai-controlling").hide();
-                    $(this).parents("tr").find(".inp-nilai-controlling").focus();
-                }else{
-                    $(this).parents("tr").find(".inp-nilai-controlling").hide();
-                    $(this).parents("tr").find(".td-nilai-controlling").show();
-                }
-
-                $(this).parents("tr").find(".inp-saldo-akhir").val(saldoAkhir);
-                $(this).parents("tr").find(".td-saldo-akhir").text(saldoAkhir);
-                if(idx == 7){
-                    $(this).parents("tr").find(".inp-saldo-akhir").show();
-                    $(this).parents("tr").find(".td-saldo-akhir").hide();
-                    $(this).parents("tr").find(".inp-saldo-akhir").focus();
-                }else{
-                    $(this).parents("tr").find(".inp-saldo-akhir").hide();
-                    $(this).parents("tr").find(".td-saldo-akhir").show();
-                }
-            }
-        }
-    });
-
-    $('#controlling-grid').on('change', '.inp-bulan-controlling', function(e){
-        e.preventDefault();
-        var noidx =  $(this).parents("tr").find(".no-controlling").text();
-        target1 = "saldocontrollingke"+noidx;
-        target2 = "tdsaldocontrollingke"+noidx;
-        var value = $(this).val();
-        $('.tdbulancontrollingke'+noidx).text(value)
-        $('.bulancontrollingke'+noidx).hide()
-        $('.tdbulancontrollingke'+noidx).show()
-        $('.saldoawalke'+noidx).show()
-        $('.tdsaldoawalke'+noidx).hide()
-        setTimeout(() => $('.saldoawalke'+noidx).focus(), 800)
-    });
-
-    var $twicePressControlling = 0;
-    $('#controlling-grid').on('keydown','.inp-akun, .inp-pp-controlling, .inp-drk-controlling, .inp-saldo-awal, .inp-nilai-controlling, .inp-saldo-akhir',function(e){
-        var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['.inp-akun','.inp-pp-controlling', '.inp-drk-controlling', '.inp-bulan-controlling', '.inp-saldo-awal', '.inp-nilai-controlling', '.inp-saldo-akhir'];
-        var nxt2 = ['.td-akun','.td-pp-controlling', '.td-drk-controlling', '.td-bulan-controlling', '.td-saldo-awal', '.td-nilai-controlling', '.td-saldo-akhir'];
-        if (code == 13 || code == 9) {
-            e.preventDefault();
-            var idx = $(this).closest('td').index()-1;
-            var idx_next = idx+1;
-            var kunci = $(this).closest('td').index()+1;
-            var isi = $(this).val();
-            switch (idx) {
-                case 0:
-                    $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
-                    if(isi.length > 25) {
-                        isi = isi.substr(0, 25) + '...'
-                    }
-                    $(this).closest('tr').find(nxt[idx]).val(isi);
-                    $(this).closest('tr').find(nxt2[idx]).text(isi);
-                    $(this).closest('tr').find(nxt[idx]).hide();
-                    $(this).closest('tr').find(nxt2[idx]).show();
-
-                    $(this).closest('tr').find(nxt[idx_next]).show();
-                    $(this).closest('tr').find(nxt2[idx_next]).hide();
-                    $(this).closest('tr').find(nxt[idx_next]).focus();
-                    $(this).closest('tr').find('.search-akun').hide();
-                    $(this).closest('tr').find('.search-pp-controlling').show();
-                break;
-                case 1:
-                    $("#controlling-grid td").removeClass("px-0 py-0 aktif");
-                    $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
-                    $(this).closest('tr').find(nxt[idx]).val(isi);
-                    $(this).closest('tr').find(nxt2[idx]).text(isi);
-                    $(this).closest('tr').find(nxt[idx]).hide();
-                    $(this).closest('tr').find(nxt2[idx]).show();
-
-                    $(this).closest('tr').find(nxt[idx_next]).show();
-                    $(this).closest('tr').find(nxt2[idx_next]).hide();
-                    $(this).closest('tr').find(nxt[idx_next]).focus();
-                    $(this).closest('tr').find('.search-pp-controlling').hide();
-                    $(this).closest('tr').find('.search-drk-controlling').show();
-                break;
-                case 2:
-                    $("#controlling-grid td").removeClass("px-0 py-0 aktif");
-                    $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
-                    $(this).closest('tr').find(nxt[idx]).val(isi);
-                    $(this).closest('tr').find(nxt2[idx]).text(isi);
-                    $(this).closest('tr').find(nxt[idx]).hide();
-                    $(this).closest('tr').find(nxt2[idx]).show();
-
-                    $(this).closest('tr').find(nxt[idx_next]).show();
-                    $(this).closest('tr').find(nxt2[idx_next]).hide();
-                    $(this).closest('tr').find(nxt[idx_next]).focus();
-                    $(this).closest('tr').find('.search-drk-controlling').hide();
-                break;
-                case 3:
-                    $("#controlling-grid td").removeClass("px-0 py-0 aktif");
-                    $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
-                    $(this).closest('tr').find(nxt[idx]).val(isi);
-                    $(this).closest('tr').find(nxt2[idx]).text(isi);
-                    $(this).closest('tr').find(nxt[idx]).hide();
-                    $(this).closest('tr').find(nxt2[idx]).show();
-
-                    $(this).closest('tr').find(nxt[idx_next]).show();
-                    $(this).closest('tr').find(nxt2[idx_next]).hide();
-                    $(this).closest('tr').find(nxt[idx_next]).focus();
-                break;
-                case 4:
-                    if(isi != "" && isi != 0){
-                        $("#controlling-grid td").removeClass("px-0 py-0 aktif");
-                        $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
-
-                        $(this).closest('tr').find(nxt[idx]).val(isi);
-                        $(this).closest('tr').find(nxt2[idx]).text(isi);
-                        $(this).closest('tr').find(nxt[idx]).hide();
-                        $(this).closest('tr').find(nxt2[idx]).show();
-
-                        $(this).closest('tr').find(nxt[idx_next]).show();
-                        $(this).closest('tr').find(nxt2[idx_next]).hide();
-                        $(this).closest('tr').find(nxt[idx_next]).focus();
-                    }else{
-                        alert('Saldo Awal yang dimasukkan tidak valid');
-                        return false;
-                    }
-                break;
-                case 5:
-                    if(isi != "" && isi != 0){
-                        $("#controlling-grid td").removeClass("px-0 py-0 aktif");
-                        $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
-                        $(this).closest('tr').find(nxt[idx]).val(isi);
-                        $(this).closest('tr').find(nxt2[idx]).text(isi);
-                        $(this).closest('tr').find(nxt[idx]).hide();
-                        $(this).closest('tr').find(nxt2[idx]).show();
-
-                        $(this).closest('tr').find(nxt[idx_next]).show();
-                        $(this).closest('tr').find(nxt2[idx_next]).hide();
-                        $(this).closest('tr').find(nxt[idx_next]).focus();
-                    }else{
-                        alert('Nilai yang dimasukkan tidak valid');
-                        return false;
-                    }
-                break;
-                case 6:
-                    if(isi != "" && isi != 0){
-                        $("#controlling-grid td").removeClass("px-0 py-0 aktif");
-                        $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
-
-                        if(code == 13 || code == 9) {
-                            if($twicePressControlling == 1) {
-                                $(this).closest('tr').find(nxt[idx]).val(isi);
-                                $(this).closest('tr').find(nxt2[idx]).text(isi);
-                                $(this).closest('tr').find(nxt[idx]).hide();
-                                $(this).closest('tr').find(nxt2[idx]).show();
-                                var cek = $(this).parents('tr').next('tr').find('.td-akun');
-                                if(cek.length > 0){
-                                    cek.click();
-                                }else{
-                                    $('#add-row-controlling').click();
-                                }
-                            }
-                            $twicePressControlling = 1
-                            setTimeout(() => $twicePressControlling = 0, 1000)
-                        }
-                    }else{
-                        alert('Saldo Akhir yang dimasukkan tidak valid');
-                        return false;
-                    }
-                break;
-                default:
-                break;
-            }
-        }else if(code == 38){
-            e.preventDefault();
-            var idx = nxt.indexOf(e.target.id);
-            idx--;
-        }
-    });
 
     $('#form-tambah').validate({
         ignore: [],
@@ -2488,52 +1638,48 @@
         submitHandler: function (form, event) {
             event.preventDefault();
 
-            $("#pemberi-grid tbody tr td:not(:first-child):not(:last-child)").each(function() {
-                if($(this).find('span').text().trim().length == 0) {
-                    console.log($(this).find('span').text().length)
-                    alert('Data pemberi tidak boleh kosong, harap dihapus untuk melanjutkan')
-                    valid = false;
-                    return false;
-                }
-            });
+            // $("#pemberi-grid tbody tr td:not(:first-child):not(:last-child)").each(function () {
+            //     if ($(this).find('span').text().trim().length == 0) {
+            //         console.log($(this).find('span').text().length)
+            //         alert('Data pemberi tidak boleh kosong, harap dihapus untuk melanjutkan')
+            //         valid = false;
+            //         return false;
+            //     }
+            // });
 
             var parameter = $('#id_edit').val();
             var id = $('#id').val();
 
-            if(parameter == "edit"){
+            if (parameter == "edit") {
                 var url = "{{ url('esaku-trans/ptg-beban-ubah') }}";
                 var pesan = "updated";
-                var text = "Perubahan data "+id+" telah tersimpan";
-            }else{
+                var text = "Perubahan data " + id + " telah tersimpan";
+            } else {
                 var url = "{{ url('bdh-trans/ptg-beban') }}";
                 var pesan = "saved";
                 var text = "Data tersimpan";
             }
 
             var formData = new FormData(form);
-            $('#pemberi-grid tbody tr').each(function(index) {
-                formData.append('no_pemberi[]', $(this).find('.no-pemberi').text())
-            })
-            formData.append('donor', $totalPemberi)
 
-            if(parameter == "edit") {
+            if (parameter == "edit") {
                 formData.append('no_bukti', id)
             }
-            for(var pair of formData.entries()) {
-                console.log(pair[0]+ ', '+ pair[1]);
+            for (var pair of formData.entries()) {
+                console.log(pair[0] + ', ' + pair[1]);
             }
-            if(valid) {
+            if (valid) {
                 $.ajax({
                     type: 'POST',
                     url: url,
                     dataType: 'json',
                     data: formData,
-                    async:false,
+                    async: false,
                     contentType: false,
                     cache: false,
                     processData: false,
-                    success:function(result){
-                        if(result.data.success.status){
+                    success: function (result) {
+                        if (result.data.status) {
                             dataTable.ajax.reload();
                             $('#row-id').hide();
                             $('#form-tambah')[0].reset();
@@ -2544,23 +1690,26 @@
                             $('#method').val('post');
                             resetForm();
                             msgDialog({
-                                id:result.data.success.no_bukti,
-                                type:'simpan'
+                                id: result.data.no_bukti,
+                                type: 'simpan'
                             });
-                            last_add("no_pdrk",result.data.success.no_bukti);
-                        }else if(!result.data.success.status && result.data.success.message === "Unauthorized"){
-                            window.location.href = "{{ url('/esaku-auth/sesi-habis') }}";
-                        }else{
+                            last_add("no_pb", result.data.no_bukti);
+                        } else if (!result.data.status && result.data
+                            .message === "Unauthorized") {
+                            window.location.href =
+                                "{{ url('/esaku-auth/sesi-habis') }}";
+                        } else {
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Oops...',
                                 text: 'Something went wrong!',
-                                footer: '<a href>'+result.data.success.message+'</a>'
+                                footer: '<a href>' + result.data.message +
+                                    '</a>'
                             })
                         }
                     },
-                    fail: function(xhr, textStatus, errorThrown){
-                        alert('request failed:'+textStatus);
+                    fail: function (xhr, textStatus, errorThrown) {
+                        alert('request failed:' + textStatus);
                     }
                 });
                 $('#btn-simpan').html("Simpan").removeAttr('disabled');
@@ -2568,21 +1717,23 @@
         },
         errorPlacement: function (error, element) {
             var id = element.attr("id");
-            $("label[for="+id+"]").append("<br/>");
-            $("label[for="+id+"]").append(error);
+            $("label[for=" + id + "]").append("<br/>");
+            $("label[for=" + id + "]").append(error);
         }
     });
 
-    function editData(id){
+    function editData(id) {
         $.ajax({
             type: 'GET',
             url: "{{ url('esaku-trans/pengajuan-rra-detail') }}",
-            data: { kode: id },
+            data: {
+                kode: id
+            },
             dataType: 'json',
-            async:false,
-            success:function(res){
-                var result= res.data.success;
-                if(result.status) {
+            async: false,
+            success: function (res) {
+                var result = res.data.success;
+                if (result.status) {
                     var tanggal = result.data[0].tanggal.split(' ')
                     $('#id_edit').val('edit');
                     $('#method').val('put');
@@ -2597,46 +1748,71 @@
                     filterAkunPenerima(result.detail_penerima[0].kode_akun)
                     $('#bulan_penerima').val(result.detail_penerima[0].bulan)
                     $('#nilai_penerima').val(parseInt(result.detail_penerima[0].nilai))
-                    if(result.detail_pemberi.length > 0) {
+                    if (result.detail_pemberi.length > 0) {
                         var html = "";
                         var no = 1;
-                        for(var i=0;i<result.detail_pemberi.length;i++) {
+                        for (var i = 0; i < result.detail_pemberi.length; i++) {
                             $totalPemberi = 0
                             var data = result.detail_pemberi[i]
                             $totalPemberi += parseInt(data.nilai)
-                            var string = data.kode_akun+'-'+data.nama_akun
-                            if(string.length > 30) {
+                            var string = data.kode_akun + '-' + data.nama_akun
+                            if (string.length > 30) {
                                 string = string.substr(0, 30) + '...'
                             }
-                            html += "<tr class='row-pemberi row-pemberi-"+no+"'>"
-                            html += "<td class='no-pemberi text-center hidden'>"+no+"</td>"
+                            html += "<tr class='row-pemberi row-pemberi-" + no + "'>"
+                            html += "<td class='no-pemberi text-center hidden'>" + no + "</td>"
                             html += "<td><div>"
-                            html += "<span class='td-anggaran tdanggaranke"+no+" tooltip-span'>"+string+"</span>"
-                            html += "<input autocomplete='off' type='text' name='anggaran[]' class='inp-anggaran anggaranke"+no+" form-control hidden' value='"+data.kode_akun+"-"+data.nama_akun+"' required='' style='z-index: 1;position: relative;' id='anggarankode"+no+"'><a href='#' class='search-item search-anggaran hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a>"
+                            html += "<span class='td-anggaran tdanggaranke" + no + " tooltip-span'>" +
+                                string + "</span>"
+                            html +=
+                                "<input autocomplete='off' type='text' name='anggaran[]' class='inp-anggaran anggaranke" +
+                                no + " form-control hidden' value='" + data.kode_akun + "-" + data
+                                .nama_akun +
+                                "' required='' style='z-index: 1;position: relative;' id='anggarankode" +
+                                no +
+                                "'><a href='#' class='search-item search-anggaran hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a>"
                             html += "</div></td>"
                             html += "<td><div>"
-                            html += "<span class='td-pp tdppke"+no+" tooltip-span'>"+data.kode_pp+"-"+data.nama_pp+"</span>"
-                            html += "<input autocomplete='off' type='text' name='pp[]' class='inp-pp ppke"+no+" form-control hidden' value='"+data.kode_pp+"-"+data.nama_pp+"' required='' style='z-index: 1;position: relative;' id='ppkode"+no+"'><a href='#' class='search-item search-pp hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a>"
+                            html += "<span class='td-pp tdppke" + no + " tooltip-span'>" + data.kode_pp +
+                                "-" + data.nama_pp + "</span>"
+                            html += "<input autocomplete='off' type='text' name='pp[]' class='inp-pp ppke" +
+                                no + " form-control hidden' value='" + data.kode_pp + "-" + data.nama_pp +
+                                "' required='' style='z-index: 1;position: relative;' id='ppkode" + no +
+                                "'><a href='#' class='search-item search-pp hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a>"
                             html += "</div></td>"
                             html += "<td><div>"
-                            html += "<span class='td-drk tddrkke"+no+" tooltip-span'>"+data.kode_pp+"-"+data.nama_pp+"</span>"
-                            html += "<input autocomplete='off' type='text' name='drk[]' class='inp-drk drkke"+no+" form-control hidden' value='"+data.kode_pp+"-"+data.nama_pp+"' required='' style='z-index: 1;position: relative;' id='drkkode"+no+"'><a href='#' class='search-item search-drk hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a>"
+                            html += "<span class='td-drk tddrkke" + no + " tooltip-span'>" + data.kode_pp +
+                                "-" + data.nama_pp + "</span>"
+                            html +=
+                                "<input autocomplete='off' type='text' name='drk[]' class='inp-drk drkke" +
+                                no + " form-control hidden' value='" + data.kode_pp + "-" + data.nama_pp +
+                                "' required='' style='z-index: 1;position: relative;' id='drkkode" + no +
+                                "'><a href='#' class='search-item search-drk hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a>"
                             html += "</div></td>"
                             html += "<td class='text-center'><div>"
-                            html += "<span class='td-bulan tdbulanke"+no+" tooltip-span'>"+data.bulan+"</span>"
-                            html += "<select class='hidden form-control inp-bulan bulanke"+no+"' name='bulan[]'>"
-                            html += "<option value='01' selected>01</option><option value='02'>02</option><option value='03'>03</option><option value='04'>04</option><option value='05'>05</option><option value='06'>06</option><option value='07'>07</option><option value='08'>08</option><option value='09'>09</option><option value='10'>10</option><option value='11'>11</option><option value='12'>12</option>"
+                            html += "<span class='td-bulan tdbulanke" + no + " tooltip-span'>" + data
+                                .bulan + "</span>"
+                            html += "<select class='hidden form-control inp-bulan bulanke" + no +
+                                "' name='bulan[]'>"
+                            html +=
+                                "<option value='01' selected>01</option><option value='02'>02</option><option value='03'>03</option><option value='04'>04</option><option value='05'>05</option><option value='06'>06</option><option value='07'>07</option><option value='08'>08</option><option value='09'>09</option><option value='10'>10</option><option value='11'>11</option><option value='12'>12</option>"
                             html += "</select>"
                             html += "</div></td>"
                             html += "<td class='text-right'><div>"
-                            html += "<span class='td-saldo tdsaldoke"+no+"'>0</span>"
-                            html += "<input type='text' name='saldo[]' class='inp-saldo form-control saldoke"+no+" hidden currency'  value='0' required>"
+                            html += "<span class='td-saldo tdsaldoke" + no + "'>0</span>"
+                            html +=
+                                "<input type='text' name='saldo[]' class='inp-saldo form-control saldoke" +
+                                no + " hidden currency'  value='0' required>"
                             html += "</div></td>"
                             html += "<td class='text-right'>"
-                            html += "<span class='td-nilai tdnilaike"+no+"'>"+format_number(data.nilai)+"</span>"
-                            html += "<input type='text' name='nilai[]' class='inp-nilai form-control nilaike"+no+" hidden currency'  value='"+parseInt(data.nilai)+"' required>"
+                            html += "<span class='td-nilai tdnilaike" + no + "'>" + format_number(data
+                                .nilai) + "</span>"
+                            html +=
+                                "<input type='text' name='nilai[]' class='inp-nilai form-control nilaike" +
+                                no + " hidden currency'  value='" + parseInt(data.nilai) + "' required>"
                             html += "</td>"
-                            html += "<td class='text-center'><a class='hapus-pemberi' style='font-size:18px;cursor:pointer;'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
+                            html +=
+                                "<td class='text-center'><a class='hapus-pemberi' style='font-size:18px;cursor:pointer;'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
                             html += "</tr>"
 
                             no++;
@@ -2646,9 +1822,9 @@
 
 
                         var no = 1;
-                        for(var i=0;i<result.detail_pemberi.length;i++) {
-                            var data =  result.detail_pemberi[i]
-                            $('.bulanke'+no).val(data.bulan)
+                        for (var i = 0; i < result.detail_pemberi.length; i++) {
+                            var data = result.detail_pemberi[i]
+                            $('.bulanke' + no).val(data.bulan)
                             no++;
                         }
 
@@ -2658,58 +1834,58 @@
                             digits: 2,
                             autoGroup: true,
                             rightAlign: true,
-                            oncleared: function () {  }
+                            oncleared: function () {}
                         });
 
                         $('.tooltip-span').tooltip({
-                            title: function(){
+                            title: function () {
                                 return $(this).text();
                             }
                         });
 
                         $('.inp-anggaran').typeahead({
-                            source:$mataAnggaran,
-                            displayText:function(item){
-                                return item.id+'-'+item.name;
+                            source: $mataAnggaran,
+                            displayText: function (item) {
+                                return item.id + '-' + item.name;
                             },
-                            autoSelect:false,
-                            changeInputOnSelect:false,
-                            changeInputOnMove:false,
-                            selectOnBlur:false,
+                            autoSelect: false,
+                            changeInputOnSelect: false,
+                            changeInputOnMove: false,
+                            selectOnBlur: false,
                             afterSelect: function (item) {
                                 console.log(item.id);
                             }
                         });
 
                         $('.inp-pp').typeahead({
-                            source:$ppAnggaran,
-                            displayText:function(item){
-                                return item.id+'-'+item.name;
+                            source: $ppAnggaran,
+                            displayText: function (item) {
+                                return item.id + '-' + item.name;
                             },
-                            autoSelect:false,
-                            changeInputOnSelect:false,
-                            changeInputOnMove:false,
-                            selectOnBlur:false,
+                            autoSelect: false,
+                            changeInputOnSelect: false,
+                            changeInputOnMove: false,
+                            selectOnBlur: false,
                             afterSelect: function (item) {
                                 console.log(item.id);
                             }
                         });
 
                         $('.inp-drk').typeahead({
-                            source:$ppAnggaran,
-                            displayText:function(item){
-                                return item.id+'-'+item.name;
+                            source: $ppAnggaran,
+                            displayText: function (item) {
+                                return item.id + '-' + item.name;
                             },
-                            autoSelect:false,
-                            changeInputOnSelect:false,
-                            changeInputOnMove:false,
-                            selectOnBlur:false,
+                            autoSelect: false,
+                            changeInputOnSelect: false,
+                            changeInputOnMove: false,
+                            selectOnBlur: false,
                             afterSelect: function (item) {
                                 console.log(item.id);
                             }
                         });
 
-                        $('.inp-nilai').on('change', function(){
+                        $('.inp-nilai').on('change', function () {
                             hitungTotalPemberi()
                         })
 
@@ -2719,61 +1895,244 @@
                     $('#saku-datatable').hide();
                     $('#modal-preview').modal('hide');
                     $('#saku-form').show();
-                }
-                else if(!result.status && result.message == 'Unauthorized'){
+                } else if (!result.status && result.message == 'Unauthorized') {
                     window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
                 }
             }
         });
     }
 
-    $('#saku-datatable').on('click', '#btn-edit', function(){
-        var id= $(this).closest('tr').find('td').eq(0).html();
+    $('#saku-datatable').on('click', '#btn-edit', function () {
+        var id = $(this).closest('tr').find('td').eq(0).html();
         // $iconLoad.show();
         $('#form-tambah').validate().resetForm();
 
-        $('#btn-save').attr('type','button');
-        $('#btn-save').attr('id','btn-update');
+        $('#btn-save').attr('type', 'button');
+        $('#btn-save').attr('id', 'btn-update');
 
         $('#judul-form').html('Pengajuan RRA Anggaran');
         editData(id);
     });
 
-    function hapusData(id){
+    function hapusData(id) {
         console.log(id)
         $.ajax({
             type: 'DELETE',
-            url: "{{ url('esaku-trans/pengajuan-rra') }}",
-            data: { kode: id },
+            url: "{{ url('bdh-trans/ptg-beban') }}",
+            data: {
+                kode: id
+            },
             dataType: 'json',
-            async:false,
-            success:function(result){
-                if(result.data.success.status){
+            async: false,
+            success: function (result) {
+                if (result.data.status) {
                     dataTable.ajax.reload();
-                    showNotification("top", "center", "success",'Hapus Data','Data Pengajuan RRA ('+id+') berhasil dihapus ');
+                    showNotification("top", "center", "success", 'Hapus Data',
+                        'Data Pertanggungan Beban (' + id +
+                        ') berhasil dihapus ');
                     $('#modal-pesan-id').html('');
                     $('#table-delete tbody').html('');
                     $('#modal-pesan').modal('hide');
-                }else if(!result.data.success.status && result.data.success.message == "Unauthorized"){
+                } else if (!result.data.status && result.data.message == "Unauthorized") {
                     window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
-                }else{
+                } else {
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
                         text: 'Something went wrong!',
-                        footer: '<a href>'+result.data.success.message+'</a>'
+                        footer: '<a href>' + result.data.message + '</a>'
                     });
                 }
             }
         });
     }
 
-    $('#saku-datatable').on('click','#btn-delete',function(e){
+    $('#saku-datatable').on('click', '#btn-delete', function (e) {
         var kode = $(this).closest('tr').find('td').eq(0).html();
         msgDialog({
             id: kode,
-            type:'hapus'
+            type: 'hapus'
         });
     });
+
+    // PREVIEW DATA
+    $('#table-data tbody').on('click', 'td', function (e) {
+
+        if ($(this).index() != 6) {
+            var id = $(this).closest('tr').find('td').eq(0).html();
+            console.log('click td ' + id)
+            var data = dataTable.row(this).data();
+            var posted = data.posted;
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('/bdh-trans/ptg-beban') }}/" + id,
+                dataType: 'json',
+                async: false,
+                success: function (res) {
+                    // console.log(res)
+                    var result = res.daftar;
+                    var data_m = result.data;
+                    var data_rek = result.detail_rek;
+                    if (result.status) {
+                        console.log('OK')
+                        var html =
+                            `<div class="preview-header" style="display:block;height:39px;padding: 0 1.75rem" >
+                        <h6 style="position: absolute;" id="preview-judul">Preview Data</h6>
+                        <span id="preview-nama" style="display:none"></span><span id="preview-id" style="display:none">` +
+                            id + `</span>
+                    <div class="dropdown d-inline-block float-right">
+                        <button type="button" id="dropdownAksi" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding: 0.2rem 1rem;border-radius: 1rem !important;" class="btn dropdown-toggle btn-light">
+                        <span class="my-0">Aksi <i style="font-size: 10px;" class="simple-icon-arrow-down ml-3"></i></span>
+                        </button>
+                        <div class="dropdown-menu dropdown-aksi" aria-labelledby="dropdownAksi" x-placement="bottom-start" style="position: absolute; will-change: transform; top: -10px; left: 0px; transform: translate3d(0px, 37px, 0px);">
+                            <a class="dropdown-item dropdown-ke1" href="#" id="btn-delete2"><i class="simple-icon-trash mr-1"></i> Hapus</a>
+                            <a class="dropdown-item dropdown-ke1" href="#" id="btn-edit2"><i class="simple-icon-pencil mr-1"></i> Edit</a>
+                            <a class="dropdown-item dropdown-ke1" href="#" id="btn-cetak"><i class="simple-icon-printer mr-1"></i> Cetak</a>
+                            <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-cetak2" style="border-bottom: 1px solid #d7d7d7;"><i class="simple-icon-arrow-left mr-1"></i> Cetak</a>
+                            <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-excel"> Excel</a>
+                            <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-pdf"> PDF</a>
+                            <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-print"> Print</a>
+                        </div>
+                    </div>
+                </div>
+                <div class='separator'></div>
+                <div class='preview-body' style='padding: 0 1.75rem;height: calc(75vh - 56px) ;position:sticky'>
+                    <div style='border-bottom: double #d7d7d7;padding:0 1.5rem'>
+
+                    </div>
+                    <div style="padding:0 1.5rem">
+                        <table class="borderless table-header-prev mt-2" width="100%">
+                            <tr>
+                                <td width="14%">Tanggal</td>
+                                <td width="1%">:</td>
+                                <td width="20%">` + data_m[0].tanggal + `</td>
+                                <td width="30%" rowspan="3"></td>
+                                <td width="10%" rowspan="3" style="vertical-align:top !important">Deskripsi</td>
+                                <td width="1%" rowspan="3" style="vertical-align:top !important">:</td>
+                                <td width="24%" rowspan="3" style="vertical-align:top !important">` + data_m[0]
+                            .keterangan + `</td>
+                            </tr>
+                            <tr>
+                                <td width="14%">No Transaksi</td>
+                                <td width="1%">:</td>
+                                <td width="20%">` + id + `</td>
+                            </tr>
+                            <tr>
+                                <td width="14%">No Dokumen</td>
+                                <td width="1%">:</td>
+                                <td width="20%">` + data_m[0].no_dokumen + `</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div style="padding:0 1.9rem">
+                        <table class="table table-striped table-body-prev mt-2" width="100%">
+                        <tr style="background: var(--theme-color-1) !important;color:white !important">
+                            <th style="width: 3%">No</th>
+                            <th width="10%">Status</th>
+                            <th width="10%">No Bukti</th>
+                            <th width="10%">No Dokumen</th>
+                            <th>Lokasi Kirim</th>
+                            <th>Akun TAK</th>
+                            <th width="35%">Keterangan</th>
+                            <th>Nilai</th>
+                            <th>Tgl Kirim</th>
+                            <th>ID</th>
+                        </tr>`;
+                        var det = '';
+                        var total = 0;
+
+                        det += `<tr style="background: var(--theme-color-1) !important;color:white !important">
+                                <th colspan="7">Total</th>
+                                <th class='text-right' style="width:10%">` + format_number(total) + `</th>
+                                <th></th>
+                                <th></th>
+                        </tr>`;
+
+                        html += det + `
+                        </table>
+                        <table class="table-borderless mt-2" width="100%">
+                            <tr>
+                                <td width="25%">&nbsp;</td>
+                                <td width="25%">&nbsp;</td>
+                                <td width="10%">&nbsp;</td>
+                                <td width="20%" class="text-center">Dibuat Oleh</td>
+                                <td width="20%" class="text-center">Diperiksa Oleh</td>
+                            </tr>
+                            <tr>
+                                <td width="25%">&nbsp;</td>
+                                <td width="25%">&nbsp;</td>
+                                <td width="10%">&nbsp;</td>
+                                <td width="20%" style="height:100px"></td>
+                                <td width="20%" style="height:100px"></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>`;
+                        $('#content-bottom-sheet').html(html);
+
+                        var scroll = document.querySelector('.preview-body');
+                        var psscroll = new PerfectScrollbar(scroll);
+
+
+                        $('.c-bottom-sheet__sheet').css({
+                            "width": "70%",
+                            "margin-left": "15%",
+                            "margin-right": "15%"
+                        });
+
+                        $('.preview-header').on('click', '#btn-delete2', function (e) {
+                            var id = $('#preview-id').text();
+                            $('.c-bottom-sheet').removeClass('active');
+                            msgDialog({
+                                id: id,
+                                type: 'hapus'
+                            });
+                        });
+
+                        $('.preview-header').on('click', '#btn-edit2', function () {
+                            var id = $('#preview-id').text();
+                            $('#judul-form').html('Edit Data Jurnal');
+                            $('#form-tambah')[0].reset();
+                            $('#form-tambah').validate().resetForm();
+
+                            $('#btn-save').attr('type', 'button');
+                            $('#btn-save').attr('id', 'btn-update');
+                            $('.c-bottom-sheet').removeClass('active');
+                            editData(id);
+                        });
+
+                        $('.preview-header').on('click', '#btn-cetak', function (e) {
+                            e.stopPropagation();
+                            $('.dropdown-ke1').addClass('hidden');
+                            $('.dropdown-ke2').removeClass('hidden');
+                            console.log('ok');
+                        });
+
+                        $('.preview-header').on('click', '#btn-cetak2', function (e) {
+                            // $('#dropdownAksi').dropdown('toggle');
+                            e.stopPropagation();
+                            $('.dropdown-ke1').removeClass('hidden');
+                            $('.dropdown-ke2').addClass('hidden');
+                        });
+
+                        if (posted == "Close") {
+                            console.log(posted);
+                            $('.preview-header #btn-delete2').css('display', 'none');
+                            $('.preview-header #btn-edit2').css('display', 'none');
+                        } else {
+                            $('.preview-header #btn-delete2').css('display', 'inline-block');
+                            $('.preview-header #btn-edit2').css('display', 'inline-block');
+                        }
+                        $('#trigger-bottom-sheet').trigger("click");
+                    } else if (!result.status && result.message == 'Unauthorized') {
+                        window.location.href =
+                            "{{ url('esaku-auth/sesi-habis') }}";
+                    }
+                }
+            });
+
+        }
+    });
+    // END PREVIEW
 
 </script>

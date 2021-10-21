@@ -328,11 +328,9 @@ class PemSpbController extends Controller
         $this->validate($request, [
             'no_dokumen' => 'required',
             'tanggal' => 'required',
-            'kode_form' => 'required',
             'deskripsi' => 'required',
             'total_spb' => 'required',
-            'nik_bdh' => 'required',
-            'nik_fiatur' => 'required',
+            'kas_bank' => 'required',
             'status' => 'required|array',
             'pb' => 'required|array',
             'nilai' => 'required|array',
@@ -354,16 +352,12 @@ class PemSpbController extends Controller
                     'contents' => $request->deskripsi,
                 ],
                 [
-                    'name' => 'nik_bdh',
-                    'contents' => $request->nik_bdh,
+                    'name' => 'akun_kasbank',
+                    'contents' => $request->kas_bank,
                 ],
                 [
-                    'name' => 'nik_fiat',
-                    'contents' => $request->nik_fiatur,
-                ],
-                [
-                    'name' => 'total',
-                    'contents' => $request->total_spb,
+                    'name' => 'nilai_kasbank',
+                    'contents' => intval(preg_replace("/[^0-9]/", "", $request->total_spb)),
                 ],
             ];
 
@@ -374,23 +368,67 @@ class PemSpbController extends Controller
 
             if (count($request->status) > 0) {
                 for ($y = 0; $y < count($request->status); $y++) {
-                    $fields_status[$y] = array(
-                        'name'      => 'status[]',
-                        'contents'  => $request->status[$y]
+                    if($request->status[$y] == "BAYAR"){
+                        $fields_status[$y] = array(
+                            'name'      => 'status[]',
+                            'contents'  => $request->status[$y]
+                        );
+                        $fields_no_pb[$y] = array(
+                            'name'      => 'no_spb[]',
+                            'contents'  => $request->pb[$y]
+                        );
+                        $fields_nilai_pb[$y] = array(
+                            'name'      => 'nilai_pb[]',
+                            'contents'  => intval(preg_replace("/[^0-9]/", "", $request->nilai)[$y])
+                        );
+
+                        $send_data = array_merge($fields, $fields_status);
+                        $send_data = array_merge($send_data, $fields_no_pb);
+                        $send_data = array_merge($send_data, $fields_nilai_pb);
+                    }
+
+                }
+            } else {
+                $send_data = $fields;
+            }
+
+            $fields_kode_akun = array();
+            $fields_dc = array();
+            $fields_keterangan = array();
+            $fields_nilai = array();
+            $fields_kode_pp = array();
+
+
+            if (count($request->kode_akun) > 0) {
+
+                for ($i = 0; $i < count($request->kode_akun); $i++) {
+                    $fields_kode_akun[$i] = array(
+                        'name'     => 'kode_akun[]',
+                        'contents' => $request->kode_akun[$i],
                     );
-                    $fields_no_pb[$y] = array(
-                        'name'      => 'no_pb[]',
-                        'contents'  => $request->pb[$y]
+                    $fields_dc[$i] = array(
+                        'name'     => 'dc[]',
+                        'contents' => $request->dc[$i],
                     );
-                    $fields_nilai_pb[$y] = array(
-                        'name'      => 'nilai_pb[]',
-                        'contents'  => $request->nilai[$y]
+                    $fields_nilai[$i] = array(
+                        'name'     => 'nilai[]',
+                        'contents' => intval(preg_replace("/[^0-9]/", "", $request->nilai)[$i]),
+                    );
+                    $fields_keterangan[$i] = array(
+                        'name'     => 'keterangan[]',
+                        'contents' => $request->keterangan[$i],
+                    );
+                    $fields_kode_pp[$i] = array(
+                        'name'     => 'kode_pp[]',
+                        'contents' => $request->kode_pp[$i],
                     );
 
-                    $send_data = array_merge($fields, $fields_status);
-                    $send_data = array_merge($send_data, $fields_no_pb);
-                    $send_data = array_merge($send_data, $fields_nilai_pb);
                 }
+                $send_data = array_merge($send_data, $fields_kode_akun);
+                $send_data = array_merge($send_data, $fields_dc);
+                $send_data = array_merge($send_data, $fields_nilai);
+                $send_data = array_merge($send_data, $fields_keterangan);
+                $send_data = array_merge($send_data, $fields_kode_pp);
             } else {
                 $send_data = $fields;
             }
@@ -398,7 +436,7 @@ class PemSpbController extends Controller
 
 
             $client = new Client();
-            $response = $client->request('POST',  config('api.url') . 'bdh-trans/spb', [
+            $response = $client->request('POST',  config('api.url') . 'bdh-trans/bayar-spb', [
                 'headers' => [
                     'Authorization' => 'Bearer ' . Session::get('token'),
                     'Accept'     => 'application/json',
@@ -415,7 +453,7 @@ class PemSpbController extends Controller
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(), true);
-            $result['message'] = $res["message"];
+            $result['message'] = $res;
             $result['status'] = false;
             return response()->json(["data" => $result], 200);
         }

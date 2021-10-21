@@ -9,7 +9,7 @@ use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Session;
 use GuzzleHttp\Exception\BadResponseException;
 
-class SpbController extends Controller
+class PenerimaanDropingController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -49,7 +49,7 @@ class SpbController extends Controller
     {
         try {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url') . 'bdh-trans/spb', [
+            $response = $client->request('GET',  config('api.url') . 'bdh-trans/droping-terima', [
                 'headers' => [
                     'Authorization' => 'Bearer ' . Session::get('token'),
                     'Accept'     => 'application/json',
@@ -75,13 +75,14 @@ class SpbController extends Controller
         try {
 
             $client = new Client();
-            $response = $client->request('GET',  config('api.url') . 'bdh-trans/spb-nobukti', [
+            $response = $client->request('GET',  config('api.url') . 'bdh-trans/droping-terima-nobukti', [
                 'headers' => [
                     'Authorization' => 'Bearer ' . Session::get('token'),
                     'Accept'     => 'application/json',
                 ],
                 'query' => [
-                    'tanggal'   => $request->input('tanggal')
+                    'tanggal'   => $request->input('tanggal'),
+                    'jenis'     => $request->input('jenis'),
                 ]
             ]);
 
@@ -99,11 +100,11 @@ class SpbController extends Controller
         }
     }
 
-    public function getPb()
+    public function getAkun()
     {
         try {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url') . 'bdh-trans/spb-pb-list', [
+            $response = $client->request('GET',  config('api.url') . 'bdh-trans/droping-terima-akun', [
                 'headers' => [
                     'Authorization' => 'Bearer ' . Session::get('token'),
                     'Accept'     => 'application/json',
@@ -123,90 +124,17 @@ class SpbController extends Controller
             return response()->json(['message' => $res["message"], 'status' => false], 200);
         }
     }
-    public function getPbTambah()
+    public function loadData(Request $request)
     {
         try {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url') . 'bdh-trans/spb-tambah-pb', [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . Session::get('token'),
-                    'Accept'     => 'application/json',
-                ]
-            ]);
-
-            if ($response->getStatusCode() == 200) { // 200 OK
-                $response_data = $response->getBody()->getContents();
-
-                $data = json_decode($response_data, true);
-                $data = $data["data"];
-            }
-            return response()->json(['daftar' => $data, 'status' => true, 'message' => 'success'], 200);
-        } catch (BadResponseException $ex) {
-            $response = $ex->getResponse();
-            $res = json_decode($response->getBody(), true);
-            return response()->json(['message' => $res["message"], 'status' => false], 200);
-        }
-    }
-    public function getNikFiat()
-    {
-        try {
-            $client = new Client();
-            $response = $client->request('GET',  config('api.url') . 'bdh-trans/spb-nik-fiat', [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . Session::get('token'),
-                    'Accept'     => 'application/json',
-                ],
-            ]);
-
-            if ($response->getStatusCode() == 200) { // 200 OK
-                $response_data = $response->getBody()->getContents();
-
-                $data = json_decode($response_data, true);
-                $data = $data["data"];
-            }
-            return response()->json(['daftar' => $data, 'status' => true, 'message' => 'success'], 200);
-        } catch (BadResponseException $ex) {
-            $response = $ex->getResponse();
-            $res = json_decode($response->getBody(), true);
-            return response()->json(['message' => $res["message"], 'status' => false], 200);
-        }
-    }
-    public function getNikBdh()
-    {
-        try {
-            $client = new Client();
-            $response = $client->request('GET',  config('api.url') . 'bdh-trans/spb-nik-bdh', [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . Session::get('token'),
-                    'Accept'     => 'application/json',
-                ],
-            ]);
-
-            if ($response->getStatusCode() == 200) { // 200 OK
-                $response_data = $response->getBody()->getContents();
-
-                $data = json_decode($response_data, true);
-                $data = $data["data"];
-            }
-            return response()->json(['daftar' => $data, 'status' => true, 'message' => 'success'], 200);
-        } catch (BadResponseException $ex) {
-            $response = $ex->getResponse();
-            $res = json_decode($response->getBody(), true);
-            return response()->json(['message' => $res["message"], 'status' => false], 200);
-        }
-    }
-
-    public function getTransfer(Request $request)
-    {
-        try {
-            $client = new Client();
-            $response = $client->request('GET',  config('api.url') . 'bdh-trans/spb-rek-transfer', [
+            $response = $client->request('GET',  config('api.url') . 'bdh-trans/droping-terima-load', [
                 'headers' => [
                     'Authorization' => 'Bearer ' . Session::get('token'),
                     'Accept'     => 'application/json',
                 ],
                 'query' => [
-                    'no_pb'     => $request->input('no_pb')
+                    'tanggal'       => $request->input('tanggal')
                 ]
             ]);
 
@@ -223,18 +151,41 @@ class SpbController extends Controller
             return response()->json(['message' => $res["message"], 'status' => false], 200);
         }
     }
-
-    public function postPbTambah(Request $request)
+    public function getNik()
     {
         try {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url') . 'bdh-trans/spb-pb-list', [
+            $response = $client->request('GET',  config('api.url') . 'bdh-trans/droping-terima-niktahu', [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+
+                $data = json_decode($response_data, true);
+                $data = $data["data"];
+            }
+            return response()->json(['daftar' => $data, 'status' => true, 'message' => 'success'], 200);
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(), true);
+            return response()->json(['message' => $res["message"], 'status' => false], 200);
+        }
+    }
+    public function show(Request $request)
+    {
+        try {
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url') . 'bdh-trans/droping-terima-detail', [
                 'headers' => [
                     'Authorization' => 'Bearer ' . Session::get('token'),
                     'Accept'     => 'application/json',
                 ],
                 'query' => [
-                    'no_pb' => $request->input('no_pb')
+                    'no_bukti'  => $request->input('no_bukti')
                 ]
             ]);
 
@@ -242,7 +193,6 @@ class SpbController extends Controller
                 $response_data = $response->getBody()->getContents();
 
                 $data = json_decode($response_data, true);
-                $data = $data["data"];
             }
             return response()->json(['daftar' => $data, 'status' => true, 'message' => 'success'], 200);
         } catch (BadResponseException $ex) {
@@ -251,17 +201,24 @@ class SpbController extends Controller
             return response()->json(['message' => $res["message"], 'status' => false], 200);
         }
     }
+
     public function store(Request $request)
     {
         $this->validate($request, [
             'no_dokumen' => 'required',
+            'kas_bank' => 'required',
+            'jenis' => 'required',
+            'nik_tahu' => 'required',
             'tanggal' => 'required',
             'deskripsi' => 'required',
-            'total_spb' => 'required',
-            'nik_bdh' => 'required',
-            'nik_fiatur' => 'required',
+            'total_penerimaan' => 'required',
             'status' => 'required|array',
-            'pb' => 'required|array',
+            'no_kas_kirim' => 'required|array',
+            'no_dok' => 'required|array',
+            'kode_lokasi' => 'required|array',
+            'akun_tak' => 'required|array',
+            'keterangan' => 'required|array',
+            'nu'        => 'required|array',
             'nilai' => 'required|array',
         ]);
         try {
@@ -273,6 +230,10 @@ class SpbController extends Controller
                     'contents' => $this->reverseDate($request->tanggal, '/', '-'),
                 ],
                 [
+                    'name' => 'jenis',
+                    'contents' => $request->jenis,
+                ],
+                [
                     'name' => 'no_dokumen',
                     'contents' => $request->no_dokumen,
                 ],
@@ -281,45 +242,67 @@ class SpbController extends Controller
                     'contents' => $request->deskripsi,
                 ],
                 [
-                    'name' => 'nik_bdh',
-                    'contents' => $request->nik_bdh,
+                    'name' => 'akun_kas',
+                    'contents' => $request->kas_bank,
                 ],
                 [
-                    'name' => 'nik_fiat',
-                    'contents' => $request->nik_fiatur,
+                    'name' => 'nik_tahu',
+                    'contents' => $request->nik_tahu,
                 ],
                 [
                     'name' => 'total',
-                    'contents' => intval(preg_replace("/[^0-9]/", "", $request->total_spb)),
+                    'contents' => intval(preg_replace("/[^0-9]/", "", $request->total_penerimaan)),
                 ],
             ];
 
             $fields_status = array();
-            $fields_no_pb = array();
-            $fields_nilai_pb = array();
-
+            $fields_no_kas_kirim = array();
+            $fields_lokasi_kirim = array();
+            $fields_akun_tak = array();
+            $fields_keterangan = array();
+            $fields_nilai = array();
+            $fields_id = array();
 
             if (count($request->status) > 0) {
                 for ($y = 0; $y < count($request->status); $y++) {
-                    if($request->status[$y] == 'SPB'){
+                    if ($request->status[$y] == 'APP') {
                         $fields_status[$y] = array(
                             'name'      => 'status[]',
                             'contents'  => $request->status[$y]
                         );
-                        $fields_no_pb[$y] = array(
-                            'name'      => 'no_pb[]',
-                            'contents'  => $request->pb[$y]
+                        $fields_no_kas_kirim[$y] = array(
+                            'name'      => 'no_kas_kirim[]',
+                            'contents'  => $request->no_kas_kirim[$y]
                         );
-                        $fields_nilai_pb[$y] = array(
-                            'name'      => 'nilai_pb[]',
+                        $fields_lokasi_kirim[$y] = array(
+                            'name'      => 'lokasi_kirim[]',
+                            'contents'  => $request->kode_lokasi[$y]
+                        );
+                        $fields_akun_tak[$y] = array(
+                            'name'      => 'akun_tak[]',
+                            'contents'  => $request->akun_tak[$y]
+                        );
+                        $fields_keterangan[$y] = array(
+                            'name'      => 'keterangan[]',
+                            'contents'  => $request->keterangan[$y]
+                        );
+                        $fields_nilai[$y] = array(
+                            'name'      => 'nilai[]',
                             'contents'  => intval(preg_replace("/[^0-9]/", "", $request->nilai)[$y])
                         );
-
-                        $send_data = array_merge($fields, $fields_status);
-                        $send_data = array_merge($send_data, $fields_no_pb);
-                        $send_data = array_merge($send_data, $fields_nilai_pb);
+                        $fields_id[$y] = array(
+                            'name'      => 'id[]',
+                            'contents'  => $request->nu[$y]
+                        );
                     }
 
+                    $send_data = array_merge($fields, $fields_status);
+                    $send_data = array_merge($send_data, $fields_no_kas_kirim);
+                    $send_data = array_merge($send_data, $fields_lokasi_kirim);
+                    $send_data = array_merge($send_data, $fields_akun_tak);
+                    $send_data = array_merge($send_data, $fields_keterangan);
+                    $send_data = array_merge($send_data, $fields_nilai);
+                    $send_data = array_merge($send_data, $fields_id);
                 }
             } else {
                 $send_data = $fields;
@@ -328,7 +311,7 @@ class SpbController extends Controller
 
 
             $client = new Client();
-            $response = $client->request('POST',  config('api.url') . 'bdh-trans/spb', [
+            $response = $client->request('POST',  config('api.url') . 'bdh-trans/droping-terima', [
                 'headers' => [
                     'Authorization' => 'Bearer ' . Session::get('token'),
                     'Accept'     => 'application/json',
@@ -345,7 +328,142 @@ class SpbController extends Controller
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(), true);
-            $result['message'] = $res["message"];
+            $result['message'] = $res;
+            $result['status'] = false;
+            return response()->json(["data" => $result], 200);
+        }
+    }
+    public function update(Request $request)
+    {
+        $this->validate($request, [
+            'no_dokumen' => 'required',
+            'kas_bank' => 'required',
+            'jenis' => 'required',
+            'nik_tahu' => 'required',
+            'tanggal' => 'required',
+            'deskripsi' => 'required',
+            'total_penerimaan' => 'required',
+            'status' => 'required|array',
+            'no_kas_kirim' => 'required|array',
+            'no_dok' => 'required|array',
+            'kode_lokasi' => 'required|array',
+            'akun_tak' => 'required|array',
+            'keterangan' => 'required|array',
+            'nu'        => 'required|array',
+            'nilai' => 'required|array',
+        ]);
+        try {
+            $send_data = array();
+
+            $fields = [
+                [
+                    'name'      => 'no_bukti',
+                    'contents'  => $request->id
+                ],
+                [
+                    'name' => 'tanggal',
+                    'contents' => $this->reverseDate($request->tanggal, '/', '-'),
+                ],
+                [
+                    'name' => 'jenis',
+                    'contents' => $request->jenis,
+                ],
+                [
+                    'name' => 'no_dokumen',
+                    'contents' => $request->no_dokumen,
+                ],
+                [
+                    'name' => 'deskripsi',
+                    'contents' => $request->deskripsi,
+                ],
+                [
+                    'name' => 'akun_kas',
+                    'contents' => $request->kas_bank,
+                ],
+                [
+                    'name' => 'nik_tahu',
+                    'contents' => $request->nik_tahu,
+                ],
+                [
+                    'name' => 'total',
+                    'contents' => intval(preg_replace("/[^0-9]/", "", $request->total_penerimaan)),
+                ],
+            ];
+
+            $fields_status = array();
+            $fields_no_kas_kirim = array();
+            $fields_lokasi_kirim = array();
+            $fields_akun_tak = array();
+            $fields_keterangan = array();
+            $fields_nilai = array();
+            $fields_id = array();
+
+            if (count($request->status) > 0) {
+                for ($y = 0; $y < count($request->status); $y++) {
+                    if ($request->status[$y] == 'APP') {
+                        $fields_status[$y] = array(
+                            'name'      => 'status[]',
+                            'contents'  => $request->status[$y]
+                        );
+                        $fields_no_kas_kirim[$y] = array(
+                            'name'      => 'no_kas_kirim[]',
+                            'contents'  => $request->no_kas_kirim[$y]
+                        );
+                        $fields_lokasi_kirim[$y] = array(
+                            'name'      => 'lokasi_kirim[]',
+                            'contents'  => $request->kode_lokasi[$y]
+                        );
+                        $fields_akun_tak[$y] = array(
+                            'name'      => 'akun_tak[]',
+                            'contents'  => $request->akun_tak[$y]
+                        );
+                        $fields_keterangan[$y] = array(
+                            'name'      => 'keterangan[]',
+                            'contents'  => $request->keterangan[$y]
+                        );
+                        $fields_nilai[$y] = array(
+                            'name'      => 'nilai[]',
+                            'contents'  => intval(preg_replace("/[^0-9]/", "", $request->nilai)[$y])
+                        );
+                        $fields_id[$y] = array(
+                            'name'      => 'id[]',
+                            'contents'  => $request->nu[$y]
+                        );
+                    }
+
+                    $send_data = array_merge($fields, $fields_status);
+                    $send_data = array_merge($send_data, $fields_no_kas_kirim);
+                    $send_data = array_merge($send_data, $fields_lokasi_kirim);
+                    $send_data = array_merge($send_data, $fields_akun_tak);
+                    $send_data = array_merge($send_data, $fields_keterangan);
+                    $send_data = array_merge($send_data, $fields_nilai);
+                    $send_data = array_merge($send_data, $fields_id);
+                }
+            } else {
+                $send_data = $fields;
+            }
+
+
+
+            $client = new Client();
+            $response = $client->request('POST',  config('api.url') . 'bdh-trans/droping-terima-ubah', [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'multipart' => $send_data
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+
+                $data = json_decode($response_data, true);
+                return response()->json(["data" => $data], 200);
+            }
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(), true);
+            $result['message'] = $res;
             $result['status'] = false;
             return response()->json(["data" => $result], 200);
         }
@@ -354,7 +472,7 @@ class SpbController extends Controller
     {
         try {
             $client = new Client();
-            $response = $client->request('DELETE',  config('api.url') . 'bdh-trans/spb', [
+            $response = $client->request('DELETE',  config('api.url') . 'bdh-trans/droping-terima', [
                 'headers' => [
                     'Authorization' => 'Bearer ' . Session::get('token'),
                     'Accept'     => 'application/json',

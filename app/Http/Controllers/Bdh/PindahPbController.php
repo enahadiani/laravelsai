@@ -9,7 +9,7 @@ use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Session;
 use GuzzleHttp\Exception\BadResponseException;
 
-class SerahTerimaDokOnController extends Controller
+class PindahPbController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -50,7 +50,7 @@ class SerahTerimaDokOnController extends Controller
     {
         try {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url') . 'bdh-trans/serah-dok-pb', [
+            $response = $client->request('GET',  config('api.url') . 'bdh-trans/pindah-buku', [
                 'headers' => [
                     'Authorization' => 'Bearer ' . Session::get('token'),
                     'Accept'     => 'application/json',
@@ -70,11 +70,35 @@ class SerahTerimaDokOnController extends Controller
             return response()->json(['message' => $res["message"], 'status' => false], 200);
         }
     }
-    public function getPenerima()
+    public function getRekSumber()
     {
         try {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url') . 'bdh-trans/serah-dok-nik', [
+            $response = $client->request('GET',  config('api.url') . 'bdh-trans/pindah-buku-rekening-sumber', [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+
+                $data = json_decode($response_data, true);
+                $data = $data["data"];
+            }
+            return response()->json(['daftar' => $data, 'status' => true, 'message' => 'success'], 200);
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(), true);
+            return response()->json(['message' => $res["message"], 'status' => false], 200);
+        }
+    }
+    public function getAkun()
+    {
+        try {
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url') . 'bdh-trans/droping-aju-akun', [
                 'headers' => [
                     'Authorization' => 'Bearer ' . Session::get('token'),
                     'Accept'     => 'application/json',
@@ -95,17 +119,18 @@ class SerahTerimaDokOnController extends Controller
         }
     }
 
-    public function show(Request $request)
+    public function generateBukti(Request $request)
     {
         try {
+
             $client = new Client();
-            $response = $client->request('GET',  config('api.url') . 'bdh-trans/serah-dok-detail', [
+            $response = $client->request('GET',  config('api.url') . 'bdh-trans/pindah-buku-nobukti', [
                 'headers' => [
                     'Authorization' => 'Bearer ' . Session::get('token'),
                     'Accept'     => 'application/json',
                 ],
                 'query' => [
-                    'no_pb'    => $request->input('no_pb')
+                    'tanggal'   => $request->input('tanggal')
                 ]
             ]);
 
@@ -113,6 +138,35 @@ class SerahTerimaDokOnController extends Controller
                 $response_data = $response->getBody()->getContents();
 
                 $data = json_decode($response_data, true);
+                $data = $data["no_bukti"];
+            }
+            return response()->json(['data' => $data, 'status' => true, 'message' => 'success'], 200);
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(), true);
+            return response()->json(['message' => $res, 'status' => false], 200);
+        }
+    }
+
+    public function show($id)
+    {
+        try {
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url') . 'bdh-master/dok-jenis', [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' => [
+                    'kode_jenis'    => $id
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+
+                $data = json_decode($response_data, true);
+                $data = $data["data"];
             }
             return response()->json(['data' => $data, 'status' => true, 'message' => 'success'], 200);
         } catch (BadResponseException $ex) {
@@ -126,45 +180,67 @@ class SerahTerimaDokOnController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'no_bukti'          => 'required',
-
-            'catatan'           => 'required',
-            'modul'             => 'required',
-            'nik_penerima'      => 'required',
-            'diserahkan_oleh'   => 'required',
+            'no_dokumen' => 'required',
+            'tanggal' => 'required',
+            'deskripsi' => 'required',
+            'kode_akun' => 'required|array',
+            'kegiatan' => 'required|array',
+            'nilai' => 'required|array',
+            'pp' => 'required'
         ]);
         try {
             $send_data = array();
 
             $fields = [
                 [
-                    'name' => 'no_pb',
-                    'contents' => $request->no_bukti,
+                    'name' => 'tanggal',
+                    'contents' => $this->reverseDate($request->tanggal, '/', '-'),
+                ],
+                [
+                    'name' => 'no_dokumen',
+                    'contents' => $request->no_dokumen,
                 ],
                 [
                     'name' => 'kode_pp',
                     'contents' => $request->pp,
                 ],
                 [
-                    'name' => 'catatan',
-                    'contents' => $request->catatan,
+                    'name' => 'deskripsi',
+                    'contents' => $request->deskripsi,
                 ],
                 [
-                    'name' => 'modul',
-                    'contents' => $request->catatan,
-                ],
-                [
-                    'name' => 'nik_terima',
-                    'contents' => $request->nik_penerima,
-                ],
-                [
-                    'name' => 'nama_serah',
-                    'contents' => $request->diserahkan_oleh,
+                    'name' => 'total',
+                    'contents' => $request->total_droping,
                 ]
-
             ];
 
 
+            $fields_kode_akun = array();
+            $fields_kegiatan = array();
+            $fields_nilai = array();
+
+            if (count($request->kode_akun) > 0) {
+
+                for ($i = 0; $i < count($request->kode_akun); $i++) {
+                    $fields_kode_akun[$i] = array(
+                        'name'     => 'kode_akun[]',
+                        'contents' => $request->kode_akun[$i],
+                    );
+                    $fields_kegiatan[$i] = array(
+                        'name'     => 'kegiatan[]',
+                        'contents' => $request->kegiatan[$i],
+                    );
+                    $fields_nilai[$i] = array(
+                        'name'     => 'nilai[]',
+                        'contents' => intval(preg_replace("/[^0-9]/", "", $request->nilai)[$i]),
+                    );
+                }
+                $send_data = array_merge($fields, $fields_kode_akun);
+                $send_data = array_merge($send_data, $fields_kegiatan);
+                $send_data = array_merge($send_data, $fields_nilai);
+            } else {
+                $send_data = $fields;
+            }
 
             $fields_foto = array();
             $fields_nama_file_seb = array();
@@ -206,18 +282,16 @@ class SerahTerimaDokOnController extends Controller
                             'contents' => $request->nama_file[$i],
                         );
                     }
-                    $send_data = array_merge($fields, $fields_foto);
+                    $send_data = array_merge($send_data, $fields_foto);
                     $send_data = array_merge($send_data, $fields_nama_file_seb);
                     $send_data = array_merge($send_data, $fields_jenis);
                     $send_data = array_merge($send_data, $fields_no_urut);
                     $send_data = array_merge($send_data, $fields_nama_dok);
                 }
-            } else {
-                $send_data = $fields;
             }
 
             $client = new Client();
-            $response = $client->request('POST',  config('api.url') . 'bdh-trans/serah-dok', [
+            $response = $client->request('POST',  config('api.url') . 'bdh-trans/droping-aju', [
                 'headers' => [
                     'Authorization' => 'Bearer ' . Session::get('token'),
                     'Accept'     => 'application/json',

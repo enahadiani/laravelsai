@@ -33,6 +33,9 @@
     
     <link rel="stylesheet" href="{{ asset('asset_dore/bottom-sheet/style.css') }}" /> 
     <style>
+        html, body {
+            background-color: #ffffff;
+        }
          .menu .main-menu ul li i{
             font-size: 25px;
             line-height: 35px;
@@ -185,6 +188,7 @@
     <script src="https://code.highcharts.com/modules/full-screen.js"></script>
     <script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <!-- <script src="https://code.highcharts.com/modules/exporting.js"></script> -->
     <script src="{{ asset('dash-asset/dash-ypt/circle/circle-progress.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/typeahead.bundle.js') }}"></script>
