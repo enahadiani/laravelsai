@@ -1750,7 +1750,12 @@ Highcharts.SVGRenderer.prototype.symbols['c-rect'] = function (x, y, w, h) {
                 },
                 yAxis: {
                     title: '',
-                    min: 0
+                    min: 0,
+                    labels: {
+                        formatter: function() {
+                            return singkatNilai(this.value);
+                        }
+                    }
                 },
                 tooltip: {
                     formatter: function () {   
