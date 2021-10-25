@@ -623,7 +623,7 @@
         var disc = toNilai($('#todisk').val())*(100/110);
 
         $('#toppn').val(ppn);
-        $('#todisk').val(todisc);
+        $('#todisk').val(disc);
         hitungTotal();
     }
 
