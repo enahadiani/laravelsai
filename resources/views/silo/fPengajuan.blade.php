@@ -351,19 +351,9 @@
 <script src="{{ asset('helper.js') }}"></script>
 <script type="text/javascript">
     // SET UP VIEW
-    // var scroll = document.querySelector('#content-preview');
-    // new PerfectScrollbar(scroll);
-
     var scrollform = document.querySelector('.form-body');
     new PerfectScrollbar(scrollform);
     // END SET UP VIEW
-
-    // BTN TAMBAH
-
-    // $('#saku-datatable').on('click', '#btn-tambah', function () {
-
-    // });
-    //  END BTN TAMBAH
 
     // BTN KEMBALI
     $('#saku-form').on('click', '#btn-kembali', function () {
@@ -396,6 +386,9 @@
     var selectBukti = $('#inp-filter_bukti').selectize();
     var $dtKlpBarang = [];
     var valid = true;
+
+
+
 
     (function () {
         $.ajax({
@@ -2164,22 +2157,29 @@
         $('#saku-form').hide()
     });
     // END HISTORY
+    (function(){
+        if($edit == 1 && $id_edit != ""){
+            $('#btn-save').attr('type','button');
+            $('#btn-save').attr('id','btn-update');
+            $('#judul-form').html('Edit Data Pengajuan');
+            editData($id_edit);
+        }else{
+            var regional = "{{ Session::get('kodePP') }}";
+            $('#input-barang tbody').empty();
+            $('#input-dokumen-po tbody').empty();
+            $('#input-dokumen-compare tbody').empty();
+            $('#input-approve tbody').empty();
+            $('#judul-form').html('Tambah Data Justifikasi Kebutuhan');
+            $('#kode').attr('readonly', false);
+            addRowBarangDefault();
+            addRowDokumenPODefault()
+            for (var i = 0; i < 3; i++) {
+                addRowDokumenCompareDefault()
+            }
+            newForm();
+            setRegional('kode_pp', regional)
+            setNik(regional, 'nik_ver', null, 'add')
+        }
+    })();
 
-    // SETUP FORM (setelah load function atas)
-    var regional = "{{ Session::get('kodePP') }}";
-    $('#input-barang tbody').empty();
-    $('#input-dokumen-po tbody').empty();
-    $('#input-dokumen-compare tbody').empty();
-    $('#input-approve tbody').empty();
-    $('#judul-form').html('Tambah Data Justifikasi Kebutuhan');
-    $('#kode').attr('readonly', false);
-    addRowBarangDefault();
-    addRowDokumenPODefault()
-    for (var i = 0; i < 3; i++) {
-         addRowDokumenCompareDefault()
-    }
-    newForm();
-    setRegional('kode_pp', regional)
-    setNik(regional, 'nik_ver', null, 'add')
-    // END SETUP FORM
 </script>
