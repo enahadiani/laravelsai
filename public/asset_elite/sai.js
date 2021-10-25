@@ -37,10 +37,12 @@ function DelDecimal(x){
     return Math.round(x);
 }
 
-function number_format(number){
+function number_format(number,decimal=0){
     number = parseFloat(number);
     formatter = new Intl.NumberFormat(['ban', 'id']);
-    return formatter.format(number);
+    return formatter.format(number,{
+        maximumFractionDigits: decimal 
+    });
 }
 
 function reverse_format(str_num){
@@ -258,6 +260,13 @@ function toNilai(str_num){
     number = parts.join('');
     number = number.replace('Rp', '');
     number = number.replace(',', '.');
+    return +number;
+}
+
+function removeFormat(str_num){
+    var number = str_num.toString().replace('.', '');
+    number = number.replace(',', '.');
+    console.log(+number);
     return +number;
 }
 

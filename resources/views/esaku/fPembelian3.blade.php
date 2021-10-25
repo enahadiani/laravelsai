@@ -521,14 +521,6 @@
         }
     }
 
-    function toNilai(str_num){
-        var parts = str_num.split('.');
-        number = parts.join('');
-        number = number.replace('Rp', '');
-        // number = number.replace(',', '.');
-        return +number;
-    }
-
     function setHarga2(id){
         if (id != ""){
             return $dtBrg[id].harga;  
@@ -613,14 +605,14 @@
     var sts_harga = 0;
     function genHarga(){
         $('.row-barang').each(function(){
-            var hrgb = toNilai($(this).closest('tr').find('.inp-hrgb').val());
+            var hrgb = removeFormat($(this).closest('tr').find('.inp-hrgb').val());
             var hrg = hrgb * (100/110);
             $(this).closest('tr').find('.inp-hrgb').val(toRp(hrg));
             sts_harga = 1;
         });
 
-        var ppnx = toNilai($('#toppn').val())*(100/110);
-        var discx = toNilai($('#todisk').val())*(100/110);
+        var ppnx = removeFormat($('#toppn').val())*(100/110);
+        var discx = removeFormat($('#todisk').val())*(100/110);
 
         $('#toppn').val(ppnx);
         $('#todisk').val(discx);
@@ -633,8 +625,8 @@
     });
 
     function getPPN(){
-        var todisk = toNilai($('#todisk').val());
-        var totrans = toNilai($('#totrans').val());
+        var todisk = removeFormat($('#todisk').val());
+        var totrans = removeFormat($('#totrans').val());
         var total = totrans - todisk;
         var ppn = (total * 10)/100;
         $("#toppn").val(toRp(ppn));
@@ -643,8 +635,8 @@
     }
 
     function hitungDisc(){
-        var total_trans = toNilai($('#totrans').val());
-        var total_disk= toNilai($('#todisk').val());
+        var total_trans = removeFormat($('#totrans').val());
+        var total_disk= removeFormat($('#todisk').val());
         var total_stlh = +total_trans - +total_disk;
         $('#tostlh').val(toRp(total_stlh));   
     }
@@ -661,25 +653,27 @@
             var hrgb = $(this).closest('tr').find('.inp-hrgb').val();
             var disc = $(this).closest('tr').find('.inp-disc').val();
             
-            var subb = $(this).closest('tr').find('.inp-subb').val();
+            var subb = removeFormat($(this).closest('tr').find('.inp-subb').val());
 
             if(sts_harga == 0){
-                var hrg = toNilai(subb)/toNilai(qtyb);
-                $(this).closest('tr').find('.inp-hrgb').val(toRp(hrg));
+                var hrg = subb/removeFormat(qtyb);
+                $(this).closest('tr').find('.inp-hrgb').val(number_format(hrg));
             }else{
-                var hrg = (toNilai(subb)/toNilai(qtyb))*(100/110);
-                $(this).closest('tr').find('.inp-hrgb').val(toRp(hrg));
+                var hrg = (removeFormat($(this).closest('tr').find('.inp-subb').val())/removeFormat(qtyb))*(100/110);
+                $(this).closest('tr').find('.inp-hrgb').val(number_format(hrg));
+                // var subb = hrg * removeFormat(qtyb);
+                // $(this).closest('tr').find('.inp-subb').val(number_format(subb));
             }
-            total_brg += +toNilai(subb);
+            total_brg += +subb;
         });
-        $('#totrans').val(toRp(total_brg));
+        $('#totrans').val(number_format(total_brg));
 
-        var total_disk= toNilai($('#todisk').val());
+        var total_disk= removeFormat($('#todisk').val());
         var total_stlh = +total_brg - +total_disk;
-        // var total_ppn = toNilai($('#toppn').val());
+        // var total_ppn = removeFormat($('#toppn').val());
         // var total = total_stlh + total_ppn; 
         var total = total_stlh;
-        $('#tostlh').val(toRp(total));   
+        $('#tostlh').val(number_format(total));   
     }
 
     var count= 0;
@@ -732,10 +726,10 @@
 
         var kd = $("#input-grid2 tr:eq("+rowindex+")").find('.inp-kdb').val();
         var qty = $("#input-grid2 tr:eq("+rowindex+")").find('.inp-qtyb').val();
-        var harga = toNilai($("#input-grid2 tr:eq("+rowindex+")").find('.inp-hrgb').val());  
-        var harga_seb = toNilai($("#input-grid2 tr:eq("+rowindex+")").find('.inp-hrgseb').val()); 
-        var harga_jual = toNilai($("#input-grid2 tr:eq("+rowindex+")").find('.inp-hrgjual').val());  
-        var saldo = toNilai($("#input-grid2 tr:eq("+rowindex+")").find('.inp-saldo').val());    
+        var harga = removeFormat($("#input-grid2 tr:eq("+rowindex+")").find('.inp-hrgb').val());  
+        var harga_seb = removeFormat($("#input-grid2 tr:eq("+rowindex+")").find('.inp-hrgseb').val()); 
+        var harga_jual = removeFormat($("#input-grid2 tr:eq("+rowindex+")").find('.inp-hrgjual').val());  
+        var saldo = removeFormat($("#input-grid2 tr:eq("+rowindex+")").find('.inp-saldo').val());    
         var disc = $("#input-grid2 tr:eq("+rowindex+")").find('.inp-disc').val();
         var sub = $("#input-grid2 tr:eq("+rowindex+")").find('.inp-subb').val();
         
@@ -789,9 +783,9 @@
                 
                 var subb_temp = $(this).closest('tr').find('.inp-subb').val();
                 if(kd_temp == kd){
-                    qty+=+(toNilai(qty_temp));
-                    disc+=+(toNilai(disc_temp));
-                    sub+=+(toNilai(subb_temp));
+                    qty+=+(removeFormat(qty_temp));
+                    disc+=+(removeFormat(disc_temp));
+                    sub+=+(removeFormat(subb_temp));
                     $(this).closest('tr').remove();
                 }
             });
@@ -870,11 +864,11 @@
                 var disc_temp = $(this).closest('tr').find('.inp-disc').val();
                 var subb_temp = $(this).closest('tr').find('.inp-subb').val();
                 if(kd_temp == kd){
-                    qty+=+(toNilai(qty_temp));
-                    // hrg+=+(toNilai(hrg_temp));
-                    disc+=+(toNilai(disc_temp));
-                    sub+=+(toNilai(subb_temp));
-                    //todis+=+(hrg*toNilai(disc_temp))/100;
+                    qty+=+(removeFormat(qty_temp));
+                    // hrg+=+(removeFormat(hrg_temp));
+                    disc+=+(removeFormat(disc_temp));
+                    sub+=+(removeFormat(subb_temp));
+                    //todis+=+(hrg*removeFormat(disc_temp))/100;
                     // sub=(hrg*qty)-disc;
                     $(this).closest('tr').remove();
                 }
@@ -922,10 +916,10 @@
 
         var kd = $("#input-grid2 tr:eq("+rowindex+")").find('.inp-kdb').val();
         var qty = $("#input-grid2 tr:eq("+rowindex+")").find('.inp-qtyb').val();
-        var harga = toNilai($("#input-grid2 tr:eq("+rowindex+")").find('.inp-hrgb').val());  
-        var harga_seb = toNilai($("#input-grid2 tr:eq("+rowindex+")").find('.inp-hrgseb').val()); 
-        var harga_jual = toNilai($("#input-grid2 tr:eq("+rowindex+")").find('.inp-hrgjual').val());  
-        var saldo = toNilai($("#input-grid2 tr:eq("+rowindex+")").find('.inp-saldo').val());    
+        var harga = removeFormat($("#input-grid2 tr:eq("+rowindex+")").find('.inp-hrgb').val());  
+        var harga_seb = removeFormat($("#input-grid2 tr:eq("+rowindex+")").find('.inp-hrgseb').val()); 
+        var harga_jual = removeFormat($("#input-grid2 tr:eq("+rowindex+")").find('.inp-hrgjual').val());  
+        var saldo = removeFormat($("#input-grid2 tr:eq("+rowindex+")").find('.inp-saldo').val());    
         var disc = $("#input-grid2 tr:eq("+rowindex+")").find('.inp-disc').val();
         var sub = $("#input-grid2 tr:eq("+rowindex+")").find('.inp-subb').val();
 
@@ -984,15 +978,15 @@
     $('#edit-submit').click(function(e){
         e.preventDefault();
         
-        var hrg = toNilai($('#modal-edit-harga').val());
-        var hrg_seb = toNilai($('#modal-edit-harga_seb').val());
-        var hrg_jual = toNilai($('#modal-edit-hrgjual').val());
-        var saldo = toNilai($('#modal-edit-saldo').val());
-        var qty = toNilai($('#modal-edit-qty').val());
-        var disc = toNilai($('#modal-edit-disc').val());
+        var hrg = removeFormat($('#modal-edit-harga').val());
+        var hrg_seb = removeFormat($('#modal-edit-harga_seb').val());
+        var hrg_jual = removeFormat($('#modal-edit-hrgjual').val());
+        var saldo = removeFormat($('#modal-edit-saldo').val());
+        var qty = removeFormat($('#modal-edit-qty').val());
+        var disc = removeFormat($('#modal-edit-disc').val());
         var kd = $('#modal-edit-kode option:selected').val();
         var nama = $('#modal-edit-kode option:selected').text();
-        var sub =  toNilai($('#modal-edit-subb').val());
+        var sub =  removeFormat($('#modal-edit-subb').val());
         var hrg= sub/qty;
 
         var no = $(".set-selected").closest('tr').find('.no-barang').text();
@@ -1031,10 +1025,10 @@
         e.preventDefault()
         hitungTotal();
         var barang = $('#input-grid2 tr').length;
-        var totrans=toNilai($('#totrans').val());
-        var todisk=toNilai($('#todisk').val());
-        var tostlh=toNilai($('#tostlh').val());
-        var toppn=toNilai($('#toppn').val());
+        var totrans=removeFormat($('#totrans').val());
+        var todisk=removeFormat($('#todisk').val());
+        var tostlh=removeFormat($('#tostlh').val());
+        var toppn=removeFormat($('#toppn').val());
         if(totrans <= 0){
             msgDialog({
                 id: '',
