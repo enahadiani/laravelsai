@@ -619,11 +619,11 @@
             sts_harga = 1;
         });
 
-        var ppn = toNilai($('#toppn').val())*(100/110);
-        var disc = toNilai($('#todisk').val())*(100/110);
+        var ppnx = toNilai($('#toppn').val())*(100/110);
+        var discx = toNilai($('#todisk').val())*(100/110);
 
-        $('#toppn').val(ppn);
-        $('#todisk').val(disc);
+        $('#toppn').val(ppnx);
+        $('#todisk').val(discx);
         hitungTotal();
     }
 
