@@ -382,45 +382,43 @@
     });
     // END LIST DATA
 
-    // HAPUS DATA
-    function hapusData(id){
+     // HAPUS DATA
+     function hapusData(id) {
         $.ajax({
             type: 'DELETE',
-            url: "{{ url('rkap-trans/aju') }}/"+id,
+            url: "{{ url('apv/juskeb') }}/" + id,
             dataType: 'json',
-            async:false,
-            success:function(result){
-                if(result.data.status){
+            async: false,
+            success: function (result) {
+                if (result.data.status) {
                     dataTable.ajax.reload();
-                    showNotification("top", "center", "success",'Hapus Data','Data Pengajuan ('+id+') berhasil dihapus ');
-                    // $('#modal-preview-id').html('');
+                    showNotification("top", "center", "success", 'Hapus Data',
+                        'Data Justifikasi Pengajuan (' + id + ') berhasil dihapus ');
+                    $('#modal-pesan-id').html('');
                     $('#table-delete tbody').html('');
-                    if(typeof M == 'undefined'){
-                        $('#modal-delete').modal('hide');
-                    }else{
-                        $('#modal-delete').bootstrapMD('hide');
-                    }
-                }else if(!result.data.status && result.data.message == "Unauthorized"){
-                    window.location.href = "{{ url('rkap-auth/sesi-habis') }}";
-                }else{
-                    msgDialog({
-                        id: '-',
-                        type: 'warning',
-                        title: 'Error',
-                        text: result.data.message
+                    $('#modal-pesan').modal('hide');
+                } else if (!result.data.status && result.data.message == "Unauthorized") {
+                    window.location.href = "{{ url('yakes-auth/sesi-habis') }}";
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href>' + result.data.message + '</a>'
                     });
                 }
             }
         });
     }
 
-    $('#saku-datatable').on('click','#btn-delete',function(e){
-        var id = $(this).closest('tr').find('td').eq(0).html();
+    $('#saku-datatable').on('click', '#btn-delete', function (e) {
+        var kode = $(this).closest('tr').find('td').eq(0).html();
         msgDialog({
-            id: id,
-            type:'hapus'
+            id: kode,
+            type: 'hapus'
         });
     });
+    // END HAPUS
 
     $('#saku-datatable').on('click', '#btn-edit', function(){
         $id_edit= $(this).closest('tr').find('td').eq(0).html();
