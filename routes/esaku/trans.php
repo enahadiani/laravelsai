@@ -59,6 +59,16 @@ Route::get('pembelian-detail', 'Esaku\Inventori\PembelianController@show');
 Route::get('pembelian-nota', 'Esaku\Inventori\PembelianController@printNota');
 Route::get('pembelian-data-nota', 'Esaku\Inventori\PembelianController@getDataNota');
 
+// Pembelian 3 Routes //
+Route::get('pembelian3', 'Esaku\Inventori\Pembelian3Controller@index');
+Route::get('pembelian3-barang', 'Esaku\Inventori\Pembelian3Controller@getBarang');
+Route::post('pembelian3', 'Esaku\Inventori\Pembelian3Controller@store');
+Route::put('pembelian3-update', 'Esaku\Inventori\Pembelian3Controller@update');
+Route::delete('pembelian3/{no_bukti1}/{no_bukti2}/{no_bukti3}', 'Esaku\Inventori\Pembelian3Controller@delete');
+Route::get('pembelian3-detail', 'Esaku\Inventori\Pembelian3Controller@show');
+Route::get('pembelian3-nota', 'Esaku\Inventori\Pembelian3Controller@printNota');
+Route::get('pembelian3-data-nota', 'Esaku\Inventori\Pembelian3Controller@getDataNota');
+
 // Retur Pembelian //
 Route::post('retur-beli', 'Esaku\Inventori\ReturBeliController@store');
 Route::delete('retur-beli', 'Esaku\Inventori\ReturBeliController@delete');

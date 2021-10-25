@@ -27,6 +27,7 @@ Route::get('kartu-pdd-pdf', 'Ts\DashSiswaController@getKartuPDDPDF');
 Route::get('dash-siswa-profile', 'Ts\DashSiswaController@getProfile');
 Route::get('raport-pdf', 'Ts\DashSiswaController@getRaportPDF');
 Route::get('skl-pdf', 'Ts\DashSiswaController@getSklPDF');
+Route::get('riwayat-trans', 'Ts\DashSiswaController@getRiwayatTrans');
 
 Route::post('sis-mid-bayar', 'Ts\DashSiswaController@store');
 
