@@ -373,6 +373,8 @@
                     $('a[data-href="fSiloDash"]').addClass('active');
                     var url = "{{ url('silo-auth/form')}}/fSiloDash";
                     $('#trans-body').load(url);
+                    $id_edit= '';
+                    $edit = 0;
                 } else if (result.dismiss === Swal.DismissReason.cancel) {
                     // console.log('cancel');
                 }
