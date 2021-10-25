@@ -57,7 +57,7 @@
         .popover{
             top: -80px !important;
         }
-    
+
         .btn-back
         {
             line-height:1.5;padding: 0;background: none;appearance: unset;opacity: unset;right: -40px;position: relative;
@@ -66,7 +66,7 @@
             float: right;
             margin-top: -30px;
         }
-        .btn-back > span 
+        .btn-back > span
         {
             border-radius: 50%;padding: 0 0.45rem 0.1rem 0.45rem;font-size: 1.2rem !important;font-weight: lighter;box-shadow:0px 1px 5px 1px #80808054;
             color:white;
@@ -97,7 +97,7 @@
             margin-top: 10px;
             margin-right: 25px;
         }
-    
+
         .bold{
             font-weight:bold;
         }
@@ -119,7 +119,7 @@
             overflow: hidden;
         }
 
-        #modal-preview #content-preview 
+        #modal-preview #content-preview
         {
             height: calc(100vh - 105px) !important;
         }
@@ -127,25 +127,25 @@
         .animate-bottom {
             animation: animatebottom 0.5s;
         }
-        
+
         @keyframes animatebottom {
             from {
                 bottom: -400px;
                 opacity: 0.8;
             }
-            
+
             to {
                 bottom: 0;
                 opacity: 1;
             }
         }
-        
+
         /* .bottom-sheet{
             max-height: 100% !important;
         }
-        
+
         .bottom-sheet .modal.content{
-            width: 60%; 
+            width: 60%;
             margin: 0px auto
         } */
 
@@ -155,7 +155,6 @@
             top: 190px !important;
         }
     </style>
-    
     <!-- FORM INPUT -->
     <div id='grid-load'><img src='{{ asset("img/loadgif.gif") }}' style='width:25px;height:25px'></div>
     <form id="form-tambah" class="tooltip-label-right" novalidate>
@@ -207,10 +206,9 @@
                                 <div class='col-md-12 nav-control' style="padding: 0px 5px;">
                                     <a type="button" href="#" id="copy-row" data-toggle="tooltip" title="Copy Row" style='font-size:18px'><i class='iconsminds-duplicate-layer' ></i> <span style="font-size:12.8px">Copy Row</span></a>
                                     <span class="pemisah mx-2" style="border:1px solid #d7d7d7;font-size:20px"></span>
-                                    
                                     <div class="dropdown d-inline-block mx-0">
                                         <a class="btn dropdown-toggle mb-1 px-0" href="#" role="button" id="dropdown-import" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style='font-size:18px'>
-                                        <i class='simple-icon-doc' ></i> <span style="font-size:12.8px">Upload <i class='simple-icon-arrow-down' style="font-size:10px"></i></span> 
+                                        <i class='simple-icon-doc' ></i> <span style="font-size:12.8px">Upload <i class='simple-icon-arrow-down' style="font-size:10px"></i></span>
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="dropdown-import" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 45px, 0px); top: 0px; left: 0px; will-change: transform;">
                                             <a class="dropdown-item" href="#" target='_blank' id="download-template" >Download Template</a>
@@ -236,8 +234,8 @@
                                         #input-grid .selectize-input
                                         {
                                             border-radius:0 !important;
-                                        } 
-                                        
+                                        }
+
                                         .modal-header .close {
                                             padding: 1rem;
                                             margin: -1rem 0 -1rem auto;
@@ -322,7 +320,7 @@
                                         <tbody>
                                         </tbody>
                                     </table>
-                                    <a type="button" href="#" data-id="0" title="add-row-dok" class="add-row-dok btn btn-light2 btn-block btn-sm"> 
+                                    <a type="button" href="#" data-id="0" title="add-row-dok" class="add-row-dok btn btn-light2 btn-block btn-sm">
                                     <i class="saicon icon-tambah mr-1"></i>Tambah Baris</a>
                                 </div>
                             </div>
@@ -457,7 +455,7 @@
                         $('#judul-form').html('Edit Data Pengajuan');
                         editData($id_edit);
                     }else{
-                        
+
                         $('#btn-update').attr('id','btn-save');
                         $('#btn-save').attr('type','submit');
                         $('#id').val('');
@@ -474,10 +472,10 @@
     }
 
     cekAksesForm();
-    
+
     setHeightForm();
     setWidthFooterCardBody();
-    
+
     var bottomSheet = new BottomSheet("country-selector");
     document.getElementById("trigger-bottom-sheet").addEventListener("click", bottomSheet.activate);
     window.bottomSheet = bottomSheet;
@@ -485,7 +483,7 @@
     $('#process-upload').addClass('disabled');
     $('#process-upload').prop('disabled', true);
     $('#kode_form').val($form_aktif);
-    
+
     var $iconLoad = $('.preloader');
     var $target = "";
     var $target2 = "";
@@ -541,7 +539,7 @@
         var total_row = $('#'+form+' #input-dok tbody tr').length;
         $('#total-row_dok').html(total_row+' Baris');
     }
-    
+
     $('.info-icon-hapus').click(function(){
         var par = $(this).closest('div').find('input').attr('name');
         $('#'+par).val('');
@@ -576,10 +574,10 @@
 
     var scrollformupl = document.querySelector('.form-upload');
     var psscrollformupl = new PerfectScrollbar(scrollformupl);
-    
-    
+
+
     $('.selectize').selectize();
-    
+
     $("#tanggal").bootstrapDP({
         autoclose: true,
         format: 'dd/mm/yyyy',
@@ -636,7 +634,7 @@
                             $('.'+target2).val('');
                             $('.td'+target2).text('');
                             $('.'+target1).focus();
-                            alert('Kode DAM tidak valid');   
+                            alert('Kode DAM tidak valid');
                         }
                     }
                 }
@@ -654,7 +652,7 @@
                         $('.'+target2).val('');
                         $('.td'+target2).text('');
                         $('.'+target1).focus();
-                        alert('Kode DAM tidak valid');   
+                        alert('Kode DAM tidak valid');
                     }
                 }
             }
@@ -677,7 +675,7 @@
     $('#saku-form').on('click', '#btn-save', function(){
         $('#flag_draft').val(0);
     });
-    
+
     $('#saku-form').on('click', '#btn-draft', function(){
         $('#flag_draft').val(1);
     });
@@ -711,13 +709,13 @@
     // SIMPAN DATA
     $('#form-tambah').validate({
         ignore: [],
-        rules: 
+        rules:
         {
             deskripsi:{
-                required: true 
+                required: true
             },
             komentar:{
-                required: true 
+                required: true
             }
         },
         errorElement: "label",
@@ -725,7 +723,7 @@
 
             var formData = new FormData(form);
             for(var pair of formData.entries()) {
-                console.log(pair[0]+ ', '+ pair[1]); 
+                console.log(pair[0]+ ', '+ pair[1]);
             }
             var jumdet = $('#input-grid tr').length;
 
@@ -750,7 +748,7 @@
                     async:false,
                     contentType: false,
                     cache: false,
-                    processData: false, 
+                    processData: false,
                     success:function(result){
                         if(result.data.status){
                             dataTable.ajax.reload();
@@ -835,7 +833,7 @@
             e.preventDefault();
             var idx = nxt.indexOf(e.target.id);
             idx--;
-            if(idx != -1){ 
+            if(idx != -1){
                 $('#'+nxt[idx]).focus();
             }
         }
@@ -866,7 +864,7 @@
             $('.row-grid:last').addClass('selected-row');
             $('#input-grid tbody tr').not('.row-grid:last').removeClass('selected-row');
         }
-        
+
         hideUnselectedRow();
         if(param == "add"){
             $('#input-grid td').removeClass('px-0 py-0 aktif');
@@ -907,14 +905,14 @@
     $('#input-grid').on('click', '.search-item', function(){
         var par = $(this).closest('td').find('input').attr('name');
         var no =  $(this).parents("tr").find(".no-rkm").text();
-        
+
         var tmp = $(this).closest('tr').find('input[name="'+par+'"]').attr('class');
         var tmp2 = tmp.split(" ");
         target1 = tmp2[2];
-        
+
         switch(par){
-            case 'dam[]': 
-                var options = { 
+            case 'dam[]':
+                var options = {
                     id : par,
                     header : ['Kode', 'Nama'],
                     url : "{{ url('rkap-trans/aju-dam') }}",
@@ -947,7 +945,7 @@
         showInpFilterBSheet(options);
 
     });
-    
+
     $('#input-grid').on('keydown','.inp-nama, .inp-dam',function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
         var nxt = ['.inp-nama','.inp-dam'];
@@ -977,11 +975,11 @@
                     var target1 = "damke"+noidx;
                     var target2 = "namake"+noidx;
                     var target3 = "";
-                    getDAM(kode,target1,target2,target3,'tab');                    
+                    getDAM(kode,target1,target2,target3,'tab');
                     break;
                 default:
                     break;
-                    
+
             }
         }else if(code == 38){
             e.preventDefault();
@@ -1006,13 +1004,13 @@
 
                 $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nama").val(nama_rkm);
                 $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-nama").text(nama_rkm);
-                
+
                 $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-dam").val(dam);
                 $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-dam").text(dam);
 
                 $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nama").hide();
                 $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-nama").show();
-                
+
                 $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-dam").hide();
                 $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-dam").show();
                 $('#input-grid > tbody > tr:eq('+index+') > td').find(".search-dam").hide();
@@ -1062,15 +1060,15 @@
             return false;
         }else{
             if($(this).hasClass('px-0 py-0 aktif')){
-                return false;            
+                return false;
             }else{
                 $('#input-grid td').removeClass('px-0 py-0 aktif');
                 $(this).addClass('px-0 py-0 aktif');
-        
+
                 var nama_rkm = $(this).parents("tr").find(".inp-nama").val();
                 var dam = $(this).parents("tr").find(".inp-dam").val();
                 var no = $(this).parents("tr").find(".no-rkm").text();
-                
+
                 $(this).parents("tr").find(".inp-nama").val(nama_rkm);
                 $(this).parents("tr").find(".td-nama").text(nama_rkm);
 
@@ -1081,7 +1079,7 @@
                 }else{
                     $(this).parents("tr").find(".inp-nama").hide();
                     $(this).parents("tr").find(".td-nama").show();
-                    
+
                 }
 
                 $(this).parents("tr").find(".inp-dam").val(dam);
@@ -1096,7 +1094,7 @@
                     $(this).parents("tr").find(".inp-dam").hide();
                     $(this).parents("tr").find(".td-dam").show();
                     $(this).parents("tr").find(".search-dam").hide();
-                    
+
                 }
             }
         }
@@ -1129,7 +1127,7 @@
         $('.custom-file-input').val('');
         $('.custom-file-label').text('File upload');
         $('.pesan-upload .pesan-upload-judul').html('');
-        $('.pesan-upload .pesan-upload-isi').html('')        
+        $('.pesan-upload .pesan-upload-isi').html('')
         $('.pesan-upload').hide();
         if(typeof M == 'undefined'){
             $('#modal-import').modal('show');
@@ -1150,7 +1148,7 @@
 
             var formData = new FormData(form);
             for(var pair of formData.entries()) {
-                console.log(pair[0]+ ', '+ pair[1]); 
+                console.log(pair[0]+ ', '+ pair[1]);
             }
             $('.pesan-upload').show();
             $('.pesan-upload-judul').html('Proses upload...');
@@ -1193,7 +1191,7 @@
                 // async:false,
                 contentType: false,
                 cache: false,
-                processData: false, 
+                processData: false,
                 success:function(result){
                     if(result.data.status){
                         if(result.data.validate){
@@ -1229,7 +1227,7 @@
                         });
                         $('.pesan-upload-judul').html('Gagal upload!');
                     }
-                    
+
                 },
                 fail: function(xhr, textStatus, errorThrown){
                     alert('request failed:'+textStatus);
@@ -1246,7 +1244,7 @@
         }
     });
 
-    
+
     $('.custom-file-input').change(function(){
         var fileName = $(this).val();
         console.log(fileName);
@@ -1282,7 +1280,7 @@
                                 return $(this).text();
                             }
                         })
-                        
+
                     }
                     hitungTotalRow();
                     if(typeof M == 'undefined'){
@@ -1301,7 +1299,7 @@
     });
 
     function hapusDok(param){
-        var no_bukti = param.no_bukti; 
+        var no_bukti = param.no_bukti;
         var nama_file= param.nama_file;
         var td_nama_file= param.td_nama_file;
         var action_dok= param.action_dok;
@@ -1323,7 +1321,7 @@
                         no++;
                     });
                     hitungTotalRowUpload(param.form);
-                    $("html, body").animate({ scrollTop: $(document).height() }, 1000);     
+                    $("html, body").animate({ scrollTop: $(document).height() }, 1000);
                     msgDialog({
                         id:result.data.no_bukti,
                         type:'sukses',
@@ -1356,7 +1354,7 @@
             param: {'no_bukti':no_bukti,'nama_file':nama_file,'td_nama_file':td_nama_file,'action_dok':action_dok, 'no_urut':no_urut,'ini':ini,'form':'form-tambah'},
             type:'hapusDok'
         });
-       
+
     });
 
     $('#form-tambah > #input-dok').on('click', '.hapus-dok2', function(){
@@ -1368,11 +1366,11 @@
             no++;
         });
         hitungTotalRowUpload('form-tambah');
-        $("html, body").animate({ scrollTop: $(document).height() }, 1000);     
+        $("html, body").animate({ scrollTop: $(document).height() }, 1000);
     });
 
     function kirimWAEmail(id){
-        
+
         $.ajax({
             type: 'POST',
             url: "{{ url('rkap-trans/aju-notifikasi') }}",
@@ -1387,7 +1385,7 @@
 
     // BUTTON EDIT
     function editData(id){
-        
+
         $.ajax({
             type: 'GET',
             url: "{{ url('/rkap-trans/aju') }}/"+id,
@@ -1421,7 +1419,7 @@
                                 return $(this).text();
                             }
                         });
-                        
+
                     }
 
                     var input2 = "";
@@ -1477,5 +1475,5 @@
     // END BUTTON EDIT
 
 
-    
+
     </script>
