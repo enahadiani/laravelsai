@@ -26,7 +26,7 @@
                             <img alt="message-icon" class="icon-calendar" src="{{ asset('dash-asset/dash-ypt/icon/calendar.svg') }}">
                         </div>
                         <div class="col-8">
-                            <p id="select-text-fp" class="select-text">TRIWULAN I || 2021</p>
+                            <p id="select-text-fp" class="select-text">TRIWULAN I || {{ date('Y') }}</p>
                         </div>
                         <div class="col-2">
                             <img alt="calendar-icon" class="icon-drop-arrow" src="{{ asset('dash-asset/dash-ypt/icon/drop-arrow.svg') }}">
@@ -35,7 +35,7 @@
                 </div>
             </div>
         </div>
-        <div id="filter-box" class="filter-box hidden">
+        <div id="filter-box" class="filter-box avoid-run hidden">
             <div class="row justify-content-end">
                 <div class="col-7 pt-8 pr-0">
                     <div class="row">
@@ -52,25 +52,25 @@
             <div class="row">
                 <div class="col-5 list-filter-1" id="list-filter-1">
                     <ul>
-                        <li class="selected">Triwulan</li>
-                        <li>Semester</li>
-                        <li>Periode</li>
+                        <li class="selected" data-filter1="TRW">Triwulan</li>
+                        <li data-filter1="SMT">Semester</li>
+                        <li data-filter1="PRD">Periode</li>
                         <li>Year to Date</li>
                     </ul>
                 </div>
                 <div class="col-7 mt-4 mb-6">
                     <div class="row list-filter-2" id="list-filter-2">
-                        <div class="col-5 py-3 selected cursor-pointer">
+                        <div class="col-5 py-3 selected cursor-pointer" data-filter2="TRW1">
                             Triwulan I
                         </div>
-                        <div class="col-5 ml-8 py-3 cursor-pointer">
+                        <div class="col-5 ml-8 py-3 cursor-pointer" data-filter2="TRW2">
                             Triwulan II
                         </div>
                         <div class="w-100 d-none d-md-block"></div>
-                        <div class="col-5 mt-8 py-3 cursor-pointer">
+                        <div class="col-5 mt-8 py-3 cursor-pointer" data-filter2="TRW3">
                             Triwulan III
                         </div>
-                        <div class="col-5 mt-8 ml-8 py-3 cursor-pointer">
+                        <div class="col-5 mt-8 ml-8 py-3 cursor-pointer" data-filter2="TRW4">
                             Triwulan IV
                         </div>
                     </div>
@@ -99,16 +99,16 @@
                         <h4 class="header-card">Pendapatan</h4>
                         <div class="row">
                             <div class="col-12">
-                                <p id="pendapatan-value" class="main-nominal">945,6 M</p>
+                                <p id="pendapatan-value" class="main-nominal">0</p>
                             </div>
                             <div class="col-12">
                                 <table class="table table-borderless table-no-padding">
                                     <tbody>
                                         <tr>
                                             <td class="pl-0 w-10">YoY</td>
-                                            <td class="px-0">997,7 M</td>
-                                            <td id="pdpt-yoy-percentage" class="red-text pr-0">
-                                                -5,5%
+                                            <td id="pendapatan-yoy" class="px-0">0</td>
+                                            <td id="pdpt-yoy-percentage" class="pr-0">
+                                                0
                                                 <div class="glyph-icon iconsminds-down icon-card red-text bold-700"></div>
                                             </td>
                                         </tr>
@@ -132,17 +132,16 @@
                         <h4 class="header-card">Beban</h4>
                         <div class="row">
                             <div class="col-12">
-                                <p id="beban-value" class="main-nominal">868,2 M</p>
+                                <p id="beban-value" class="main-nominal">0</p>
                             </div>
                             <div class="col-12">
                                 <table class="table table-borderless table-no-padding">
                                     <tbody>
                                         <tr>
                                             <td class="pl-0 w-10">YoY</td>
-                                            <td class="px-0">867,0 M</td>
-                                            <td id="beban-yoy-percentage" class="green-text pr-0">
-                                                -1,9%
-                                                <div class="glyph-icon iconsminds-down icon-card green-text bold-700"></div>
+                                            <td id="beban-yoy" class="px-0">0</td>
+                                            <td id="beban-yoy-percentage" class="pr-0">
+                                                0
                                             </td>
                                         </tr>
                                     </tbody>
@@ -165,17 +164,16 @@
                         <h4 class="header-card">Sisa Hasil Usaha</h4>
                         <div class="row">
                             <div class="col-12">
-                                <p id="shu-value" class="main-nominal">77,4 M</p>
+                                <p id="shu-value" class="main-nominal">0</p>
                             </div>
                             <div class="col-12">
                                 <table class="table table-borderless table-no-padding">
                                     <tbody>
                                         <tr>
                                             <td class="pl-0 w-10">YoY</td>
-                                            <td class="px-0">997,7 M</td>
-                                            <td id="shu-yoy-percentage" class="red-text pr-0">
-                                                -5,5%
-                                                <div class="glyph-icon iconsminds-down icon-card red-text bold-700"></div>
+                                            <td id="shu-yoy" class="px-0">0</td>
+                                            <td id="shu-yoy-percentage" class="pr-0">
+                                                0
                                             </td>
                                         </tr>
                                     </tbody>
@@ -198,17 +196,16 @@
                         <h4 class="header-card">Operating Ratio</h4>
                         <div class="row">
                             <div class="col-12">
-                                <p id="shu-value" class="main-nominal">91,8 %</p>
+                                <p id="or-value" class="main-nominal">0</p>
                             </div>
                             <div class="col-12">
                                 <table class="table table-borderless table-no-padding">
                                     <tbody>
                                         <tr>
                                             <td class="pl-0 w-10">YoY</td>
-                                            <td class="px-0">85,3 %</td>
-                                            <td id="or-yoy-percentage" class="green-text pr-0">
-                                                6,5%
-                                                <div class="glyph-icon iconsminds-up icon-card green-text bold-700"></div>
+                                            <td id="or-yoy" class="px-0">0</td>
+                                            <td id="or-yoy-percentage" class="pr-0">
+                                                0
                                             </td>
                                         </tr>
                                     </tbody>
@@ -310,56 +307,7 @@
                         </div>
                     </div>
                     <table class="table table-borderless table-py-0 mb-0" id="table-or">
-                        <tbody>
-                            <tr>
-                                <td class="w-25">TS</td>
-                                <td>
-                                    <div class="progress h-20">
-                                        <div class="progress-bar bg-red" role="progressbar" style="width: 91.2%" aria-valuenow="91.2" aria-valuemin="0" aria-valuemax="100">92.2%</div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="w-25">ITTS</td>
-                                <td>
-                                    <div class="progress h-20">
-                                        <div class="progress-bar bg-red" role="progressbar" style="width: 89.1%" aria-valuenow="89.1" aria-valuemin="0" aria-valuemax="100">89.1%</div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="w-25">ITTP</td>
-                                <td>
-                                    <div class="progress h-20">
-                                        <div class="progress-bar bg-red" role="progressbar" style="width: 88.7%" aria-valuenow="88.7" aria-valuemin="0" aria-valuemax="100">88.7%</div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="w-25">AKATEL</td>
-                                <td>
-                                    <div class="progress h-20">
-                                        <div class="progress-bar bg-red" role="progressbar" style="width: 91.0%" aria-valuenow="91.0" aria-valuemin="0" aria-valuemax="100">91%</div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="w-25">TelU</td>
-                                <td>
-                                    <div class="progress h-20">
-                                        <div class="progress-bar bg-red" role="progressbar" style="width: 91.6%" aria-valuenow="91.6" aria-valuemin="0" aria-valuemax="100">91.6%</div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="w-25">Lakhar</td>
-                                <td>
-                                    <div class="progress h-20">
-                                        <div class="progress-bar bg-red" role="progressbar" style="width: 93.4%" aria-valuenow="93.4" aria-valuemin="0" aria-valuemax="100">93.4%</div>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
+                        <tbody></tbody>
                     </table>
                 </div>
           </div>
@@ -423,98 +371,7 @@
                             <th class="text-center">YoY</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <p class="kode hidden">TS</p>
-                                <div class="glyph-icon simple-icon-check check-row" style="display: none"></div>
-                                TS
-                            </td>
-                            <td>90%</td>
-                            <td>90%</td>
-                            <td>90%</td>
-                            <td>90%</td>
-                            <td>90%</td>
-                            <td>90%</td>
-                            <td>90%</td>
-                            <td class="td-red">90%</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <p class="kode hidden">ITTP</p>
-                                <div class="glyph-icon simple-icon-check check-row" style="display: none"></div>
-                                ITTP
-                            </td>
-                            <td>90%</td>
-                            <td class="td-red">90%</td>
-                            <td>90%</td>
-                            <td>90%</td>
-                            <td class="td-red">90%</td>
-                            <td>90%</td>
-                            <td>90%</td>
-                            <td>90%</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <p class="kode hidden">ITTS</p>
-                                <div class="glyph-icon simple-icon-check check-row" style="display: none"></div>
-                                ITTS
-                            </td>
-                            <td>90%</td>
-                            <td>90%</td>
-                            <td>90%</td>
-                            <td>90%</td>
-                            <td>90%</td>
-                            <td class="td-red">90%</td>
-                            <td>90%</td>
-                            <td>90%</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <p class="kode hidden">AKATEL</p>
-                                <div class="glyph-icon simple-icon-check check-row" style="display: none"></div>
-                                AKATEL
-                            </td>
-                            <td>90%</td>
-                            <td>90%</td>
-                            <td class="td-red">90%</td>
-                            <td>90%</td>
-                            <td>90%</td>
-                            <td>90%</td>
-                            <td>90%</td>
-                            <td>90%</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <p class="kode hidden">TELU</p>
-                                <div class="glyph-icon simple-icon-check check-row" style="display: none"></div>
-                                TelU
-                            </td>
-                            <td>90%</td>
-                            <td>90%</td>
-                            <td>90%</td>
-                            <td>90%</td>
-                            <td>90%</td>
-                            <td>90%</td>
-                            <td>90%</td>
-                            <td>90%</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <p class="kode hidden">LAKHAR</p>
-                                <div class="glyph-icon simple-icon-check check-row" style="display: none"></div>
-                                Lakhar
-                            </td>
-                            <td>90%</td>
-                            <td>90%</td>
-                            <td>90%</td>
-                            <td>90%</td>
-                            <td>90%</td>
-                            <td>90%</td>
-                            <td>90%</td>
-                            <td>90%</td>
-                        </tr>
-                    </tbody>
+                    <tbody></tbody>
                 </table>
             </div>
         </div>
@@ -673,19 +530,14 @@ var $filter1 = "Triwulan";
 var $filter2 = "Triwulan I";
 var $month = "{{ date('m') }}";
 var $judulChart = null;
+var $filter1_kode = "TRW";
+var $filter2_kode = "TRW1";
+var pdptChart = null;
+var bebanChart = null;
+var shuChart = null;
+var lrChart = null;
 
-// DRAGGING
-dragElement($('#window-drag')[0]);
-
-$('#icon-message').click(function() {
-    $('#window-drag').removeClass('hidden')
-})
-
-$('#close-window').click(function() {
-    $('#window-drag').addClass('hidden')
-})
-// END DRAGGING
-
+// WINDOW EVENT
 $(window).on('resize', function(){
     var win = $(this); //this = window
     if (win.height() == 800) { 
@@ -700,6 +552,14 @@ $(window).on('resize', function(){
 });
 
 $(window).click(function() {
+    setTimeout(function() {
+        $('#filter-box').addClass('avoid-run')
+    }, 1000)
+
+    if(!$('#filter-box').hasClass('avoid-run')) {
+        updateAllChart()
+    }
+
     $('#filter-box').addClass('hidden')
     $('.menu-chart-custom').addClass('hidden');
     if($(window).height() == 800) {
@@ -718,8 +578,239 @@ $(window).click(function() {
 
     $('#select-text-fp').text(`${$filter2.toUpperCase()} || ${$tahun}`)
 })
+// END WINDOW EVENT
 
+// FILTER EVENT
+// KURANG TAHUN FILTER
+$('#kurang-tahun').click(function(event) {
+    event.stopPropagation();
+    $tahun = $tahun - 1;
+    $('#year-filter').text($tahun);
+})
 
+// TAMBAH TAHUN FILTER
+$('#tambah-tahun').click(function(event) {
+    event.stopPropagation();
+    $tahun = $tahun + 1;
+    $('#year-filter').text($tahun);
+})
+
+// MENAMPILKAN FILTER
+$('#custom-row').click(function(event) {
+    event.stopPropagation();
+    $('#filter-box').removeClass('hidden avoid-run')
+})
+
+// MENTRIGGER FILTER 1
+$('#list-filter-1 ul li').click(function(event) {
+    event.stopPropagation();
+    var html = '';
+    var filter = $(this).text()
+    $filter1 = filter
+    $filter1_kode = $(this).data('filter1')
+    $('#list-filter-1 ul li').not(this).removeClass('selected')
+    $(this).addClass('selected')
+    $('#list-filter-2').empty()
+    if($filter1 == 'Triwulan') {
+        html += `
+            <div class="col-5 py-3 selected cursor-pointer" data-filter2="TRW1">
+                Triwulan I
+            </div>
+            <div class="col-5 ml-8 py-3 cursor-pointer" data-filter2="TRW2">
+                Triwulan II
+            </div>
+            <div class="w-100 d-none d-md-block"></div>
+            <div class="col-5 mt-8 py-3 cursor-pointer" data-filter2="TRW3">
+                Triwulan III
+            </div>
+            <div class="col-5 mt-8 ml-8 py-3 cursor-pointer" data-filter2="TRW4">
+                Triwulan IV
+            </div>
+        `;
+    } else if($filter1 == 'Semester') {
+        html += `
+            <div class="col-5 py-3 selected cursor-pointer" data-filter2="SMT1">
+                Semester I
+            </div>
+            <div class="col-5 ml-8 py-3 cursor-pointer" data-filter2="SMT2">
+                Semester II
+            </div>
+        `;
+    } else if($filter1 == 'Periode') {
+        html += `
+            <div class="col-5 py-3 cursor-pointer list" data-bulan="01" data-filter2="01">
+                Januari
+            </div>
+            <div class="col-5 ml-8 py-3 cursor-pointer list" data-bulan="02" data-filter2="02">
+                Februari
+            </div>
+            <div class="w-100 d-none d-md-block"></div>
+            <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="03" data-filter2="03">
+                Maret
+            </div>
+            <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="04" data-filter2="04">
+                April
+            </div>
+            <div class="w-100 d-none d-md-block"></div>
+            <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="05" data-filter2="05">
+                Mei
+            </div>
+            <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="06" data-filter2="06">
+                Juni
+            </div>
+            <div class="w-100 d-none d-md-block"></div>
+            <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="07" data-filter2="07">
+                Juli
+            </div>
+            <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="08" data-filter2="08">
+                Agustus
+            </div>
+            <div class="w-100 d-none d-md-block"></div>
+            <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="09" data-filter2="09">
+                September
+            </div>
+            <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="10" data-filter2="10">
+                Oktober
+            </div>
+            <div class="w-100 d-none d-md-block"></div>
+            <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="11" data-filter2="11">
+                November
+            </div>
+            <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="12" data-filter2="12">
+                Desember
+            </div>
+        `;
+    }
+    $('#list-filter-2').append(html)
+
+    if($filter1 == 'Periode') {
+        $('#list-filter-2').find('.list').each(function() {
+            if($(this).data('bulan').toString() == $month) {
+                $(this).addClass('selected')
+                $month = $(this).data('bulan').toString();
+                return false;
+            }
+        })
+    }
+})
+
+// MENTRIGGER FILTER 2
+$('#list-filter-2').on('click', 'div', function(event) {
+    event.stopPropagation();
+    var filter = $(this).text()
+    if($(this).data('bulan')) {
+        filter = $(this).data('bulan') 
+    }
+    $filter2 = filter
+    $filter2_kode = $(this).data('filter2')
+    $('#list-filter-2 div').not(this).removeClass('selected')
+    $(this).addClass('selected')
+})
+// END FILTER EVENT
+// MENAMPILKAN LIST CUSTOM EXPORT HIGHCHART
+$('.icon-menu').click(function(event) {
+    event.stopPropagation()
+    var parentID = $(this).parents('.header-div').attr('id')
+    $('#'+parentID).find('.menu-chart-custom').removeClass('hidden')
+
+    if(parentID == 'card-lr') {
+        $("body").css("overflow", "scroll");
+    } else {
+        $("body").css("overflow", "hidden");
+    }
+})
+// END MENAMPILKAN LIST CUSTOM EXPORT HIGHCHART
+
+// BOX EVENT
+// PENDAPATAN
+$('#pdpt-box').click(function() {
+    $judulChart = "Pendapatan"
+    $('#title-dash').text('Pendapatan')
+    $('#back-div').removeClass('hidden')
+    $('#dash-title-div').removeClass('pl-8')
+    $('#dash-title-div').addClass('pl-0')
+    $('.title-chart').text('Pendapatan')
+    $('#main-dash').hide()
+    $('#detail-dash').show()
+});
+// END PENDAPATAN
+// BEBAN
+$('#beban-box').click(function() {
+    $judulChart = "Beban"
+    $('#title-dash').text('Beban')
+    $('#back-div').removeClass('hidden')
+    $('#dash-title-div').removeClass('pl-8')
+    $('#dash-title-div').addClass('pl-0')
+    $('.title-chart').text('Beban')
+    $('#main-dash').hide()
+    $('#detail-dash').show()
+});
+// END BEBAN
+// SHU
+$('#shu-box').click(function() {
+    $judulChart = "Sisa Hasil Usaha"
+    $('#title-dash').text('Sisa Hasil Usaha')
+    $('#back-div').removeClass('hidden')
+    $('#dash-title-div').removeClass('pl-8')
+    $('#dash-title-div').addClass('pl-0')
+    $('.title-chart').text('Sisa Hasil Usaha')
+    $('#main-dash').hide()
+    $('#detail-dash').show()
+});
+// END SHU
+// OR
+$('#or-box').click(function() {
+    $judulChart = "Operating Ratio"
+    $('#title-dash').text('Operating Ratio')
+    $('#back-div').removeClass('hidden')
+    $('#dash-title-div').removeClass('pl-8')
+    $('#dash-title-div').addClass('pl-0')
+    $('.title-chart').text('Operating Ratio')
+    $('#main-dash').hide()
+    $('#detail-dash').show()
+});
+// END OR
+// KEMBALI
+$('#back').click(function() {
+    $('#title-dash').text('Financial Performance YPT')
+    $('#back-div').addClass('hidden')
+    $('#dash-title-div').removeClass('pl-0')
+    $('#dash-title-div').addClass('pl-8')
+    $('#detail-dash').hide()
+    $('#main-dash').show()
+});
+// END KEMBALI
+// END BOX EVENT
+
+// TABLE LEMBAGA EVET
+$('#table-lembaga tbody tr').on('click', 'td:first-child', function() {
+    var table = $(this).parents('table').attr('id')
+    var tr = $(this).parent()
+    var icon = $(this).children('.check-row')
+    var kode = $(this).children('.kode').text()
+    var check = $(tr).attr('class')
+    
+    if(check == 'selected-row') {
+        return;
+    }
+
+    $(`#${table} tbody tr`).removeClass('selected-row')
+    $(`#${table} tbody tr td .check-row`).hide()
+
+    setTimeout(function() {
+        $(tr).addClass('selected-row')
+        $(icon).show()
+    }, 200)
+})
+
+$('#table-lembaga tbody').on('click', 'tr.selected-row', function() {
+    var table = $(this).parents('table').attr('id')
+    
+    $(`#${table} tbody tr`).removeClass('selected-row')
+    $(`#${table} tbody tr td .check-row`).hide()
+})
+// END TABLE LEMBAGA EVENT
+// FULLSCREEN HIGHCHART
 document.addEventListener('fullscreenchange', (event) => {
   if (document.fullscreenElement) {
     console.log(`Element: ${document.fullscreenElement.id} entered full-screen mode.`);
@@ -774,277 +865,1010 @@ document.addEventListener('fullscreenchange', (event) => {
     console.log('Leaving full-screen mode.');
   }
 });
+// END FULLSCREEN HIGHCHART
 
-$('#kurang-tahun').click(function(event) {
-    event.stopPropagation();
-    $tahun = $tahun - 1;
-    $('#year-filter').text($tahun);
-})
+// DRAGGING
+dragElement($('#window-drag')[0]);
 
-$('#tambah-tahun').click(function(event) {
-    event.stopPropagation();
-    $tahun = $tahun + 1;
-    $('#year-filter').text($tahun);
-})
+$('#icon-message').click(function() {
+    $('#window-drag').removeClass('hidden')
+});
 
-$('#custom-row').click(function(event) {
-    event.stopPropagation();
-    $('#filter-box').removeClass('hidden')
-})
+$('#close-window').click(function() {
+    $('#window-drag').addClass('hidden')
+});
+// END DRAGGING
 
-$('#list-filter-1 ul li').click(function(event) {
-    event.stopPropagation();
-    var html = '';
-    var filter = $(this).text()
-    $filter1 = filter
-    $('#list-filter-1 ul li').not(this).removeClass('selected')
-    $(this).addClass('selected')
-    $('#list-filter-2').empty()
-    if($filter1 == 'Triwulan') {
-        html += `
-            <div class="col-5 py-3 selected cursor-pointer">
-                Triwulan I
-            </div>
-            <div class="col-5 ml-8 py-3 cursor-pointer">
-                Triwulan II
-            </div>
-            <div class="w-100 d-none d-md-block"></div>
-            <div class="col-5 mt-8 py-3 cursor-pointer">
-                Triwulan III
-            </div>
-            <div class="col-5 mt-8 ml-8 py-3 cursor-pointer">
-                Triwulan IV
-            </div>
-        `;
-    } else if($filter1 == 'Semester') {
-        html += `
-            <div class="col-5 py-3 selected cursor-pointer">
-                Semester I
-            </div>
-            <div class="col-5 ml-8 py-3 cursor-pointer">
-                Semester II
-            </div>
-        `;
-    } else if($filter1 == 'Periode') {
-        html += `
-            <div class="col-5 py-3 cursor-pointer list" data-bulan="01">
-                Januari
-            </div>
-            <div class="col-5 ml-8 py-3 cursor-pointer list" data-bulan="02">
-                Februari
-            </div>
-            <div class="w-100 d-none d-md-block"></div>
-            <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="03">
-                Maret
-            </div>
-            <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="04">
-                April
-            </div>
-            <div class="w-100 d-none d-md-block"></div>
-            <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="05">
-                Mei
-            </div>
-            <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="06">
-                Juni
-            </div>
-            <div class="w-100 d-none d-md-block"></div>
-            <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="07">
-                Juli
-            </div>
-            <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="08">
-                Agustus
-            </div>
-            <div class="w-100 d-none d-md-block"></div>
-            <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="09">
-                September
-            </div>
-            <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="10">
-                Oktober
-            </div>
-            <div class="w-100 d-none d-md-block"></div>
-            <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="11">
-                November
-            </div>
-            <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="12">
-                Desember
-            </div>
-        `;
-    }
-    $('#list-filter-2').append(html)
+// UPDATE CHART WITH FILTER
+function updateAllChart() {
+    updateBox()
+    updateChart()
+}
 
-    if($filter1 == 'Periode') {
-        $('#list-filter-2').find('.list').each(function() {
-            if($(this).data('bulan').toString() == $month) {
-                $(this).addClass('selected')
-                $month = $(this).data('bulan').toString();
-                return false;
+function updateChart() {
+    // PENDAPATAN
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('dash-ypt-dash/data-fp-pdpt') }}",
+        data: {
+            "periode[0]": "=", 
+            "periode[1]": $filter2_kode,
+            "tahun": $tahun,
+            "jenis": $filter1_kode
+        },
+        dataType: 'json',
+        async: true,
+        success:function(result) {
+            pdptChart.series[0].update({
+                data: result.data
+            }, true) // true untuk redraw
+        }
+    });
+    // END PENDAPATAN
+    // BEBAN
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('dash-ypt-dash/data-fp-beban') }}",
+        data: {
+            "periode[0]": "=", 
+            "periode[1]": $filter2_kode,
+            "tahun": $tahun,
+            "jenis": $filter1_kode
+        },
+        dataType: 'json',
+        async: true,
+        success:function(result) {
+            bebanChart.series[0].update({
+                data: result.data
+            }, true) // true untuk redraw
+        }
+    });
+    // END BEBAN
+    // SHU
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('dash-ypt-dash/data-fp-shu') }}",
+        data: {
+            "periode[0]": "=", 
+            "periode[1]": $filter2_kode,
+            "tahun": $tahun,
+            "jenis": $filter1_kode
+        },
+        dataType: 'json',
+        async: true,
+        success:function(result) {
+            shuChart.series[0].update({
+                data: result.data
+            }, true) // true untuk redraw
+        }
+    });
+    // END SHU
+    // OR
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('dash-ypt-dash/data-fp-or') }}",
+        data: {
+            "periode[0]": "=", 
+            "periode[1]": $filter2_kode,
+            "tahun": $tahun,
+            "jenis": $filter1_kode
+        },
+        dataType: 'json',
+        async: true,
+        success:function(result) {
+            var html = "";
+            var data = result.data;
+            if(data.length > 0) {
+               $('#table-or tbody').empty()
+               var colorText = '#ffffff';
+               for(var i=0;i<data.length;i++) {
+                   var row = data[i];
+                   if(row.y < 5) {
+                        colorText = '#000000';
+                   } else {
+                        colorText = '#ffffff';
+                   }
+                   html += `<tr>
+                        <td class="w-25">${row.name}</td>
+                        <td>
+                            <div class="progress h-20">
+                                <div class="progress-bar bg-red" role="progressbar" style="width: ${row.y}%; color: ${colorText}" aria-valuenow="${row.y}" aria-valuemin="0" aria-valuemax="100">${row.y}%</div>
+                            </div>
+                        </td>
+                    </tr>`;
+               }
+               $('#table-or tbody').append(html)
             }
-        })
-    }
-})
+        }
+    });
+    // END OR
+    // LR
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('dash-ypt-dash/data-fp-lr') }}",
+        data: {
+            "periode[0]": "=", 
+            "periode[1]": $filter2_kode,
+            "tahun": $tahun,
+            "jenis": $filter1_kode
+        },
+        dataType: 'json',
+        async: true,
+        success:function(result) {
+            var data = result.data;
+            lrChart.series[0].update({
+                data: data.data_pdpt
+            }, false) // true untuk redraw
 
-$('#list-filter-2').on('click', 'div', function(event) {
-    event.stopPropagation();
-    var filter = $(this).text()
-    if($(this).data('bulan')) {
-        filter = $(this).data('bulan') 
-    }
-    $filter2 = filter
-    $('#list-filter-2 div').not(this).removeClass('selected')
-    $(this).addClass('selected')
-})
+            lrChart.series[1].update({
+                data: data.data_beban
+            }, false) // true untuk redraw
 
-$('.icon-menu').click(function(event) {
-    event.stopPropagation()
-    var parentID = $(this).parents('.header-div').attr('id')
-    $('#'+parentID).find('.menu-chart-custom').removeClass('hidden')
+            lrChart.series[2].update({
+                data: data.data_shu
+            }, false) // true untuk redraw
 
-    if(parentID == 'card-lr') {
-        $("body").css("overflow", "scroll");
-    } else {
-        $("body").css("overflow", "hidden");
-    }
-})
+            // re render chart
+            lrChart.redraw()
+        }
+    });
+    // END LR
+    // PL TABLE
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('dash-ypt-dash/data-fp-pl') }}",
+        data: {
+            "periode[0]": "=", 
+            "periode[1]": $filter2_kode,
+            "tahun": $tahun,
+            "jenis": $filter1_kode
+        },
+        dataType: 'json',
+        async: true,
+        success:function(result) {
+            var data = result.data;
+            if(data.length > 0) {
+                $('#table-lembaga tbody').empty()
+                var html = "";
+                for(var i=0;i<data.length;i++) {
+                    var row = data[i];
+                    var classTd1 = "";
+                    var classTd2 = "";
+                    var classTd3 = "";
+                    var classTd4 = "";
+                    var classTd5 = "";
+                    var classTd6 = "";
+                    var classTd7 = "";
+                    var classTd8 = "";
+                    if(row.pdpt_ach < 0) {
+                        classTd1 = "td-red"
+                    }
+                    if(row.pdpt_yoy < 0) {
+                        classTd2 = "td-red"
+                    }
+                    if(row.beban_ach < 0) {
+                        classTd3 = "td-red"
+                    }
+                    if(row.beban_yoy < 0) {
+                        classTd4 = "td-red"
+                    }
+                    if(row.shu_ach < 0) {
+                        classTd5 = "td-red"
+                    }
+                    if(row.shu_yoy < 0) {
+                        classTd6 = "td-red"
+                    }
+                    if(row.or_ach < 0) {
+                        classTd7 = "td-red"
+                    }
+                    if(row.or_yoy < 0) {
+                        classTd8 = "td-red"
+                    }
 
-$('#pdpt-box').click(function() {
-    $judulChart = "Pendapatan"
-    $('#title-dash').text('Pendapatan')
-    $('#back-div').removeClass('hidden')
-    $('#dash-title-div').removeClass('pl-8')
-    $('#dash-title-div').addClass('pl-0')
-    $('.title-chart').text('Pendapatan')
-    $('#main-dash').hide()
-    $('#detail-dash').show()
-});
+                    html += `<tr>
+                        <td>
+                            <p class="kode hidden">${row.kode_lokasi}</p>
+                            <div class="glyph-icon simple-icon-check check-row" style="display: none"></div>
+                            ${row.nama}
+                        </td>
+                        <td class="${classTd1}">${row.pdpt_ach}%</td>
+                        <td class="${classTd2}">${row.pdpt_yoy}%</td>
+                        <td class="${classTd3}">${row.beban_ach}%</td>
+                        <td class="${classTd4}">${row.beban_yoy}%</td>
+                        <td class="${classTd5}">${row.shu_ach}%</td>
+                        <td class="${classTd6}">${row.shu_yoy}%</td>
+                        <td class="${classTd7}">${row.or_ach}%</td>
+                        <td class="${classTd8}">${row.or_yoy}%</td>
+                    </tr>`;
+                }
+                $('#table-lembaga tbody').append(html)
+            }
+        }
+    });
+    // END PL TABLE
+}
 
-$('#beban-box').click(function() {
-    $judulChart = "Beban"
-    $('#title-dash').text('Beban')
-    $('#back-div').removeClass('hidden')
-    $('#dash-title-div').removeClass('pl-8')
-    $('#dash-title-div').addClass('pl-0')
-    $('.title-chart').text('Beban')
-    $('#main-dash').hide()
-    $('#detail-dash').show()
-});
+function updateBox() {
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('dash-ypt-dash/data-fp-box') }}",
+        data: {
+            "periode[0]": "=", 
+            "periode[1]": $filter2_kode,
+            "tahun": $tahun,
+            "jenis": $filter1_kode
+        },
+        dataType: 'json',
+        async: true,
+        success:function(result) {    
+            // PENDAPATAN
+            $('#pdpt-yoy-percentage').empty()
+            var iconPdpt = '';
+            var nilaiPdpt = 0;
+            var nilaiYoyPdpt = 0;
+            var pdpt = result.data.data_pdpt;
+            if(pdpt.n4.toString().length <= 9) {
+                nilaiPdpt = toJuta(pdpt.n4)
+            } else {
+                nilaiPdpt = toMilyar(pdpt.n4)
+            }
 
-$('#shu-box').click(function() {
-    $judulChart = "Sisa Hasil Usaha"
-    $('#title-dash').text('Sisa Hasil Usaha')
-    $('#back-div').removeClass('hidden')
-    $('#dash-title-div').removeClass('pl-8')
-    $('#dash-title-div').addClass('pl-0')
-    $('.title-chart').text('Sisa Hasil Usaha')
-    $('#main-dash').hide()
-    $('#detail-dash').show()
-});
+            if(pdpt.n5.toString().length <= 9) {
+                nilaiYoyPdpt = toJuta(pdpt.n5)
+            } else {
+                nilaiYoyPdpt = toMilyar(pdpt.n5)
+            }
 
-$('#or-box').click(function() {
-    $judulChart = "Operating Ratio"
-    $('#title-dash').text('Operating Ratio')
-    $('#back-div').removeClass('hidden')
-    $('#dash-title-div').removeClass('pl-8')
-    $('#dash-title-div').addClass('pl-0')
-    $('.title-chart').text('Operating Ratio')
-    $('#main-dash').hide()
-    $('#detail-dash').show()
-});
+            if(pdpt.yoy < 0) {
+                $('#pdpt-yoy-percentage').removeClass('green-text').addClass('red-text')
+                iconPdpt = '<div class="glyph-icon iconsminds-down icon-card red-text bold-700"></div>'
+            } else {
+                $('#pdpt-yoy-percentage').removeClass('red-text').addClass('green-text')
+                iconPdpt = '<div class="glyph-icon iconsminds-up icon-card green-text bold-700"></div>'
+            }
 
-$('#back').click(function() {
-    $('#title-dash').text('Financial Performance YPT')
-    $('#back-div').addClass('hidden')
-    $('#dash-title-div').removeClass('pl-0')
-    $('#dash-title-div').addClass('pl-8')
-    $('#detail-dash').hide()
-    $('#main-dash').show()
-});
+            $('#circle-pdpt').circleProgress({
+                value: pdpt.ach/100,
+                size: 80,
+                reverse: false,
+                thickness: 8,
+                fill: {
+                    color: ["#FFBA33"]
+                }
+            });
 
-$('#circle-pdpt').circleProgress({
-    value: 0.80,
-    size: 80,
-    reverse: false,
-    thickness: 8,
-    fill: {
-      color: ["#FFBA33"]
-    }
-});
+            $('#circle-pdpt').find('strong').html(`
+                <p class="my-0 text-circle">Ach.</p>
+                <p class="my-0 text-circle">${pdpt.ach}%</p>
+            `)
 
-$('#circle-pdpt').find('strong').html(`
-    <p class="my-0 text-circle">Ach.</p>
-    <p class="my-0 text-circle">80%</p>
-`)
+            $('#pendapatan-value').text(nilaiPdpt)
+            $('#pendapatan-yoy').text(nilaiYoyPdpt)
+            $('#pdpt-yoy-percentage').append(`${pdpt.yoy}% ${iconPdpt}`)
+            // END PENDAPATAN
 
-$('#circle-beban').circleProgress({
-    value: 1,
-    size: 80,
-    reverse: false,
-    thickness: 8,
-    fill: {
-      color: ["#EE0000"]
-    }
-});
+            // BEBAN
+            $('#beban-yoy-percentage').empty()
+            var iconBeban = '';
+            var nilaiBeban = 0;
+            var nilaiYoyBeban = 0;
+            var beban = result.data.data_beban;
+            if(beban.n4.toString().length <= 9) {
+                nilaiBeban = toJuta(beban.n4)
+            } else {
+                nilaiBeban = toMilyar(beban.n4)
+            }
 
-$('#circle-beban').find('strong').html(`
-    <p class="my-0 text-circle">Ach.</p>
-    <p class="my-0 text-circle">100,1%</p>
-`)
+            if(beban.n5.toString().length <= 9) {
+                nilaiYoyBeban = toJuta(beban.n5)
+            } else {
+                nilaiYoyBeban = toMilyar(beban.n5)
+            }
 
-$('#circle-shu').circleProgress({
-    value: 0.59,
-    size: 80,
-    reverse: false,
-    thickness: 8,
-    fill: {
-      color: ["#EE0000"]
-    }
-});
+            if(beban.yoy < 0) {
+                $('#beban-yoy-percentage').removeClass('green-text').addClass('red-text')
+                iconBeban = '<div class="glyph-icon iconsminds-down icon-card red-text bold-700"></div>'
+            } else {
+                $('#beban-yoy-percentage').removeClass('red-text').addClass('green-text')
+                iconBeban = '<div class="glyph-icon iconsminds-up icon-card green-text bold-700"></div>'
+            }
 
-$('#circle-shu').find('strong').html(`
-    <p class="my-0 text-circle">Ach.</p>
-    <p class="my-0 text-circle">59,4%</p>
-`)
+            $('#circle-beban').circleProgress({
+                value: beban.ach/100,
+                size: 80,
+                reverse: false,
+                thickness: 8,
+                fill: {
+                    color: ["#EE0000"]
+                }
+            });
 
-$('#circle-or').circleProgress({
-    value: 0.9,
-    size: 80,
-    reverse: false,
-    thickness: 8,
-    fill: {
-      color: ["#EE0000"]
-    }
-});
+            $('#circle-beban').find('strong').html(`
+                <p class="my-0 text-circle">Ach.</p>
+                <p class="my-0 text-circle">${beban.ach}%</p>
+            `)
 
-$('#circle-or').find('strong').html(`
-    <p class="my-0 text-circle">Ach.</p>
-    <p class="my-0 text-circle">91,8%</p>
-`)
+            $('#beban-value').text(nilaiBeban)
+            $('#beban-yoy').text(nilaiYoyBeban)
+            $('#beban-yoy-percentage').append(`${beban.yoy}% ${iconBeban}`)
+            // END BEBAN
 
-$('#table-lembaga tbody tr').on('click', 'td:first-child', function() {
-    var table = $(this).parents('table').attr('id')
-    var tr = $(this).parent()
-    var icon = $(this).children('.check-row')
-    var kode = $(this).children('.kode').text()
-    var check = $(tr).attr('class')
-    
-    if(check == 'selected-row') {
-        return;
-    }
+            // SHU
+            $('#shu-yoy-percentage').empty()
+            var iconShu = '';
+            var nilaiShu = 0;
+            var nilaiYoyShu = 0;
+            var shu = result.data.data_shu;
+            if(shu.n4.toString().length <= 9) {
+                nilaiShu = toJuta(shu.n4)
+            } else {
+                nilaiShu = toMilyar(shu.n4)
+            }
 
-    $(`#${table} tbody tr`).removeClass('selected-row')
-    $(`#${table} tbody tr td .check-row`).hide()
+            if(shu.n5.toString().length <= 9) {
+                nilaiYoyShu = toJuta(shu.n5)
+            } else {
+                nilaiYoyShu = toMilyar(shu.n5)
+            }
 
-    setTimeout(function() {
-        $(tr).addClass('selected-row')
-        $(icon).show()
-    }, 200)
-})
+            if(shu.yoy < 0) {
+                $('#shu-yoy-percentage').removeClass('green-text').addClass('red-text')
+                iconShu = '<div class="glyph-icon iconsminds-down icon-card red-text bold-700"></div>'
+            } else {
+                $('#shu-yoy-percentage').removeClass('red-text').addClass('green-text')
+                iconShu = '<div class="glyph-icon iconsminds-up icon-card green-text bold-700"></div>'
+            }
 
-$('#table-lembaga tbody').on('click', 'tr.selected-row', function() {
-    var table = $(this).parents('table').attr('id')
-    
-    $(`#${table} tbody tr`).removeClass('selected-row')
-    $(`#${table} tbody tr td .check-row`).hide()
-})
+            $('#circle-shu').circleProgress({
+                value: shu.ach/100,
+                size: 80,
+                reverse: false,
+                thickness: 8,
+                fill: {
+                    color: ["#EE0000"]
+                }
+            });
+
+            $('#circle-shu').find('strong').html(`
+                <p class="my-0 text-circle">Ach.</p>
+                <p class="my-0 text-circle">${shu.ach}%</p>
+            `)
+
+            $('#shu-value').text(nilaiShu)
+            $('#shu-yoy').text(nilaiYoyShu)
+            $('#shu-yoy-percentage').append(`${shu.yoy}% ${iconShu}`)
+            // END SHU
+
+            // OR
+            $('#or-yoy-percentage').empty()
+            var iconOr = '';
+            var nilaiOr = 0;
+            var nilaiYoyOr = 0;
+            var or = result.data.data_or;
+
+            if(or.yoy < 0) {
+                $('#or-yoy-percentage').removeClass('green-text').addClass('red-text')
+                iconOr = '<div class="glyph-icon iconsminds-down icon-card red-text bold-700"></div>'
+            } else {
+                $('#or-yoy-percentage').removeClass('red-text').addClass('green-text')
+                iconOr = '<div class="glyph-icon iconsminds-up icon-card green-text bold-700"></div>'
+            }
+
+            $('#circle-or').circleProgress({
+                value: or.ach/100,
+                size: 80,
+                reverse: false,
+                thickness: 8,
+                fill: {
+                    color: ["#EE0000"]
+                }
+            });
+
+            $('#circle-or').find('strong').html(`
+                <p class="my-0 text-circle">Ach.</p>
+                <p class="my-0 text-circle">${or.ach}%</p>
+            `)
+
+            $('#or-value').text(or.n4)
+            $('#or-yoy').text(`${or.n5}%`)
+            $('#or-yoy-percentage').append(`${or.yoy}% ${iconOr}`)
+            // END OR
+        }
+    });
+}
+// END UPDATE CHART WITH FILTER
+
+// RUN IF PAGE IS FIRST RENDER
+Highcharts.SVGRenderer.prototype.symbols['c-rect'] = function (x, y, w, h) {
+    return ['M', x, y + h / 2, 'L', x + w, y + h / 2];
+};
+// BOX
+(function(){
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('dash-ypt-dash/data-fp-box') }}",
+        data: {
+            "periode[0]": "=", 
+            "periode[1]": $filter2_kode,
+            "tahun": $tahun,
+            "jenis": $filter1_kode
+        },
+        dataType: 'json',
+        async: false,
+        success:function(result) {    
+            // PENDAPATAN
+            $('#pdpt-yoy-percentage').empty()
+            var iconPdpt = '';
+            var nilaiPdpt = 0;
+            var nilaiYoyPdpt = 0;
+            var pdpt = result.data.data_pdpt;
+            if(pdpt.n4.toString().length <= 9) {
+                nilaiPdpt = toJuta(pdpt.n4)
+            } else {
+                nilaiPdpt = toMilyar(pdpt.n4)
+            }
+
+            if(pdpt.n5.toString().length <= 9) {
+                nilaiYoyPdpt = toJuta(pdpt.n5)
+            } else {
+                nilaiYoyPdpt = toMilyar(pdpt.n5)
+            }
+
+            if(pdpt.yoy < 0) {
+                $('#pdpt-yoy-percentage').removeClass('green-text').addClass('red-text')
+                iconPdpt = '<div class="glyph-icon iconsminds-down icon-card red-text bold-700"></div>'
+            } else {
+                $('#pdpt-yoy-percentage').removeClass('red-text').addClass('green-text')
+                iconPdpt = '<div class="glyph-icon iconsminds-up icon-card green-text bold-700"></div>'
+            }
+
+            $('#circle-pdpt').circleProgress({
+                value: pdpt.ach/100,
+                size: 80,
+                reverse: false,
+                thickness: 8,
+                fill: {
+                    color: ["#FFBA33"]
+                }
+            });
+
+            $('#circle-pdpt').find('strong').html(`
+                <p class="my-0 text-circle">Ach.</p>
+                <p class="my-0 text-circle">${pdpt.ach}%</p>
+            `)
+
+            $('#pendapatan-value').text(nilaiPdpt)
+            $('#pendapatan-yoy').text(nilaiYoyPdpt)
+            $('#pdpt-yoy-percentage').append(`${pdpt.yoy}% ${iconPdpt}`)
+            // END PENDAPATAN
+
+            // BEBAN
+            $('#beban-yoy-percentage').empty()
+            var iconBeban = '';
+            var nilaiBeban = 0;
+            var nilaiYoyBeban = 0;
+            var beban = result.data.data_beban;
+            if(beban.n4.toString().length <= 9) {
+                nilaiBeban = toJuta(beban.n4)
+            } else {
+                nilaiBeban = toMilyar(beban.n4)
+            }
+
+            if(beban.n5.toString().length <= 9) {
+                nilaiYoyBeban = toJuta(beban.n5)
+            } else {
+                nilaiYoyBeban = toMilyar(beban.n5)
+            }
+
+            if(beban.yoy < 0) {
+                $('#beban-yoy-percentage').removeClass('green-text').addClass('red-text')
+                iconBeban = '<div class="glyph-icon iconsminds-down icon-card red-text bold-700"></div>'
+            } else {
+                $('#beban-yoy-percentage').removeClass('red-text').addClass('green-text')
+                iconBeban = '<div class="glyph-icon iconsminds-up icon-card green-text bold-700"></div>'
+            }
+
+            $('#circle-beban').circleProgress({
+                value: beban.ach/100,
+                size: 80,
+                reverse: false,
+                thickness: 8,
+                fill: {
+                    color: ["#EE0000"]
+                }
+            });
+
+            $('#circle-beban').find('strong').html(`
+                <p class="my-0 text-circle">Ach.</p>
+                <p class="my-0 text-circle">${beban.ach}%</p>
+            `)
+
+            $('#beban-value').text(nilaiBeban)
+            $('#beban-yoy').text(nilaiYoyBeban)
+            $('#beban-yoy-percentage').append(`${beban.yoy}% ${iconBeban}`)
+            // END BEBAN
+
+            // SHU
+            $('#shu-yoy-percentage').empty()
+            var iconShu = '';
+            var nilaiShu = 0;
+            var nilaiYoyShu = 0;
+            var shu = result.data.data_shu;
+            if(shu.n4.toString().length <= 9) {
+                nilaiShu = toJuta(shu.n4)
+            } else {
+                nilaiShu = toMilyar(shu.n4)
+            }
+
+            if(shu.n5.toString().length <= 9) {
+                nilaiYoyShu = toJuta(shu.n5)
+            } else {
+                nilaiYoyShu = toMilyar(shu.n5)
+            }
+
+            if(shu.yoy < 0) {
+                $('#shu-yoy-percentage').removeClass('green-text').addClass('red-text')
+                iconShu = '<div class="glyph-icon iconsminds-down icon-card red-text bold-700"></div>'
+            } else {
+                $('#shu-yoy-percentage').removeClass('red-text').addClass('green-text')
+                iconShu = '<div class="glyph-icon iconsminds-up icon-card green-text bold-700"></div>'
+            }
+
+            $('#circle-shu').circleProgress({
+                value: shu.ach/100,
+                size: 80,
+                reverse: false,
+                thickness: 8,
+                fill: {
+                    color: ["#EE0000"]
+                }
+            });
+
+            $('#circle-shu').find('strong').html(`
+                <p class="my-0 text-circle">Ach.</p>
+                <p class="my-0 text-circle">${shu.ach}%</p>
+            `)
+
+            $('#shu-value').text(nilaiShu)
+            $('#shu-yoy').text(nilaiYoyShu)
+            $('#shu-yoy-percentage').append(`${shu.yoy}% ${iconShu}`)
+            // END SHU
+
+            // OR
+            $('#or-yoy-percentage').empty()
+            var iconOr = '';
+            var nilaiOr = 0;
+            var nilaiYoyOr = 0;
+            var or = result.data.data_or;
+
+            if(or.yoy < 0) {
+                $('#or-yoy-percentage').removeClass('green-text').addClass('red-text')
+                iconOr = '<div class="glyph-icon iconsminds-down icon-card red-text bold-700"></div>'
+            } else {
+                $('#or-yoy-percentage').removeClass('red-text').addClass('green-text')
+                iconOr = '<div class="glyph-icon iconsminds-up icon-card green-text bold-700"></div>'
+            }
+
+            $('#circle-or').circleProgress({
+                value: or.ach/100,
+                size: 80,
+                reverse: false,
+                thickness: 8,
+                fill: {
+                    color: ["#EE0000"]
+                }
+            });
+
+            $('#circle-or').find('strong').html(`
+                <p class="my-0 text-circle">Ach.</p>
+                <p class="my-0 text-circle">${or.ach}%</p>
+            `)
+
+            $('#or-value').text(or.n4)
+            $('#or-yoy').text(`${or.n5}%`)
+            $('#or-yoy-percentage').append(`${or.yoy}% ${iconOr}`)
+            // END OR
+        }
+    });
+})();
+// END BOX
+// PENDAPATAN
+(function(){
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('dash-ypt-dash/data-fp-pdpt') }}",
+        data: {
+            "periode[0]": "=", 
+            "periode[1]": $filter2_kode,
+            "tahun": $tahun,
+            "jenis": $filter1_kode
+        },
+        dataType: 'json',
+        async: false,
+        success:function(result) {
+            pdptChart = Highcharts.chart('pdpt-chart', {
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie',
+                    height: 258,
+                    width: 280
+                },
+                title: { text: '' },
+                subtitle: { text: '' },
+                exporting:{ 
+                    enabled: false,
+                },
+                legend:{ enabled: false },
+                credits: { enabled: false },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                accessibility: {
+                    point: {
+                        valueSuffix: '%'
+                    }
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        center: ['40%', '50%'],
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            format: '{point.name} : {point.percentage:.1f} %'
+                        },
+                        size: '50%',
+                        showInLegend: true
+                    },
+                    series: {
+                        dataLabels: {
+                            style: {
+                                fontSize: '9px'
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    name: 'Jumlah',
+                    colorByPoint: true,
+                    data: result.data
+                }]
+            });
+        }
+    });
+})();
+// END PENDAPATAN
+// BEBAN
+(function(){
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('dash-ypt-dash/data-fp-beban') }}",
+        data: {
+            "periode[0]": "=", 
+            "periode[1]": $filter2_kode,
+            "tahun": $tahun,
+            "jenis": $filter1_kode
+        },
+        dataType: 'json',
+        async: false,
+        success:function(result) {
+            bebanChart = Highcharts.chart('beban-chart', {
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie',
+                    height: 258,
+                    width: 280
+                },
+                title: { text: '' },
+                subtitle: { text: '' },
+                exporting:{ 
+                    enabled: false,
+                },
+                legend:{ enabled: false },
+                credits: { enabled: false },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                accessibility: {
+                    point: {
+                        valueSuffix: '%'
+                    }
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        center: ['40%', '50%'],
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            format: '{point.name} : {point.percentage:.1f} %'
+                        },
+                        size: '50%',
+                        showInLegend: true
+                    },
+                    series: {
+                        dataLabels: {
+                            style: {
+                                fontSize: '9px'
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    name: 'Jumlah',
+                    colorByPoint: true,
+                    data: result.data
+                }]
+            });
+        }
+    });
+})();
+// END BEBAN
+// SHU
+(function(){
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('dash-ypt-dash/data-fp-shu') }}",
+        data: {
+            "periode[0]": "=", 
+            "periode[1]": $filter2_kode,
+            "tahun": $tahun,
+            "jenis": $filter1_kode
+        },
+        dataType: 'json',
+        async: false,
+        success:function(result) {
+            shuChart = Highcharts.chart('shu-chart', {
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie',
+                    height: 258,
+                    width: 280
+                },
+                title: { text: '' },
+                subtitle: { text: '' },
+                exporting:{ 
+                    enabled: false,
+                },
+                legend:{ enabled: false },
+                credits: { enabled: false },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                accessibility: {
+                    point: {
+                        valueSuffix: '%'
+                    }
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        center: ['40%', '50%'],
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            format: '{point.name} : {point.percentage:.1f} %'
+                        },
+                        size: '50%',
+                        showInLegend: true
+                    },
+                    series: {
+                        dataLabels: {
+                            style: {
+                                fontSize: '9px'
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    name: 'Jumlah',
+                    colorByPoint: true,
+                    data: result.data
+                }]
+            });
+        }
+    });
+})();
+// END SHU
+// OR
+(function(){
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('dash-ypt-dash/data-fp-or') }}",
+        data: {
+            "periode[0]": "=", 
+            "periode[1]": $filter2_kode,
+            "tahun": $tahun,
+            "jenis": $filter1_kode
+        },
+        dataType: 'json',
+        async: false,
+        success:function(result) {
+            var html = "";
+            var data = result.data;
+            if(data.length > 0) {
+               $('#table-or tbody').empty()
+               var colorText = '#ffffff';
+               for(var i=0;i<data.length;i++) {
+                   var row = data[i];
+                   if(row.y < 10) {
+                        colorText = '#000000';
+                   } else {
+                        colorText = '#ffffff';
+                   }
+                   html += `<tr>
+                        <td class="w-25">${row.name}</td>
+                        <td>
+                            <div class="progress h-20">
+                                <div class="progress-bar bg-red" role="progressbar" style="width: ${row.y}%; color: ${colorText}" aria-valuenow="${row.y}" aria-valuemin="0" aria-valuemax="100">${row.y}%</div>
+                            </div>
+                        </td>
+                    </tr>`;
+               }
+               $('#table-or tbody').append(html)
+            }
+        }
+    });
+})();
+// END OR
+// LABA RUGI
+(function(){
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('dash-ypt-dash/data-fp-lr') }}",
+        data: {
+            "periode[0]": "=", 
+            "periode[1]": $filter2_kode,
+            "tahun": $tahun,
+            "jenis": $filter1_kode
+        },
+        dataType: 'json',
+        async: false,
+        success:function(result) {
+            var data = result.data;
+            lrChart = Highcharts.chart('lr-chart', {
+                chart: {
+                    height: 190
+                },
+                credits:{
+                    enabled:false
+                },
+                exporting:{ 
+                    enabled: false,
+                },
+                title: {
+                    text: ''
+                },
+                xAxis: {
+                    categories: data.kategori, 
+                },
+                yAxis: {
+                    title: '',
+                    min: 0,
+                    labels: {
+                        formatter: function() {
+                            return singkatNilai(this.value);
+                        }
+                    }
+                },
+                tooltip: {
+                    formatter: function () {   
+                        var tmp = this.x.split("|");   
+                        return tmp[0]+'<br><span style="color:' + this.series.color + '">' + this.series.name + '</span>: <b>' + sepNum(this.y);
+                    }
+                },
+                series: [
+                    {
+                        name: 'Pendapatan',
+                        color: '#b91c1c',
+                        type: 'column',
+                        data: data.data_pdpt
+                    },
+                    {
+                        name: 'Beban',
+                        color: '#064E3B',
+                        type: 'column',
+                        data: data.data_beban
+                    },
+                    {
+                        name: 'SHU',
+                        color: '#FBBF24',
+                        marker: {
+                            symbol: 'c-rect',
+                            lineColor: '#FBBF24',
+                            radius: 30,
+                        },
+                        type: 'scatter',
+                        data: data.data_shu
+                    }
+                ]
+            })
+        }
+    });
+})();
+// END LABA RUGI
+// PERFORMANSI LEMBAGA
+(function(){
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('dash-ypt-dash/data-fp-pl') }}",
+        data: {
+            "periode[0]": "=", 
+            "periode[1]": $filter2_kode,
+            "tahun": $tahun,
+            "jenis": $filter1_kode
+        },
+        dataType: 'json',
+        async: false,
+        success:function(result) {
+            var data = result.data;
+            if(data.length > 0) {
+                $('#table-lembaga tbody').empty()
+                var html = "";
+                for(var i=0;i<data.length;i++) {
+                    var row = data[i];
+                    var classTd1 = "";
+                    var classTd2 = "";
+                    var classTd3 = "";
+                    var classTd4 = "";
+                    var classTd5 = "";
+                    var classTd6 = "";
+                    var classTd7 = "";
+                    var classTd8 = "";
+                    if(row.pdpt_ach < 0) {
+                        classTd1 = "td-red"
+                    }
+                    if(row.pdpt_yoy < 0) {
+                        classTd2 = "td-red"
+                    }
+                    if(row.beban_ach < 0) {
+                        classTd3 = "td-red"
+                    }
+                    if(row.beban_yoy < 0) {
+                        classTd4 = "td-red"
+                    }
+                    if(row.shu_ach < 0) {
+                        classTd5 = "td-red"
+                    }
+                    if(row.shu_yoy < 0) {
+                        classTd6 = "td-red"
+                    }
+                    if(row.or_ach < 0) {
+                        classTd7 = "td-red"
+                    }
+                    if(row.or_yoy < 0) {
+                        classTd8 = "td-red"
+                    }
+
+                    html += `<tr>
+                        <td>
+                            <p class="kode hidden">${row.kode_lokasi}</p>
+                            <div class="glyph-icon simple-icon-check check-row" style="display: none"></div>
+                            ${row.nama}
+                        </td>
+                        <td class="${classTd1}">${row.pdpt_ach}%</td>
+                        <td class="${classTd2}">${row.pdpt_yoy}%</td>
+                        <td class="${classTd3}">${row.beban_ach}%</td>
+                        <td class="${classTd4}">${row.beban_yoy}%</td>
+                        <td class="${classTd5}">${row.shu_ach}%</td>
+                        <td class="${classTd6}">${row.shu_yoy}%</td>
+                        <td class="${classTd7}">${row.or_ach}%</td>
+                        <td class="${classTd8}">${row.or_yoy}%</td>
+                    </tr>`;
+                }
+                $('#table-lembaga tbody').append(html)
+            }
+        }
+    });
+})();
+// END PERFORMANSI LEMBAGA
+// END RUN IF PAGE IS FIRST RENDER
 
 var akunChart = Highcharts.chart('akun-chart', {
     chart: {
@@ -1657,82 +2481,88 @@ $('#export-perform.menu-chart-custom ul li').click(function(event) {
     }
 })
 
-var shuChart = Highcharts.chart('shu-chart', {
-    chart: {
-        plotBackgroundColor: null,
-        plotBorderWidth: null,
-        plotShadow: false,
-        type: 'pie',
-        height: 258,
-        width: 280
-    },
-    title: { text: '' },
-    subtitle: { text: '' },
-    exporting:{ 
-        enabled: false,
-    },
-    legend:{ enabled: false },
-    credits: { enabled: false },
-    tooltip: {
-        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-    },
-    accessibility: {
-        point: {
-            valueSuffix: '%'
-        }
-    },
-    plotOptions: {
-        pie: {
-            allowPointSelect: true,
-            center: ['40%', '50%'],
-            cursor: 'pointer',
-            dataLabels: {
-                enabled: true,
-                format: '{point.name} : {point.percentage:.1f} %'
-            },
-            size: '50%',
-            showInLegend: true
-        },
-        series: {
-            dataLabels: {
-                style: {
-                    fontSize: '9px'
-                }
+// CUSTOM EXPORT HIGHCHART
+// LABA RUGI
+$('#export-lr.menu-chart-custom ul li').click(function(event) {
+    event.stopPropagation()
+    var idParent = $(this).parent('#dash-lr').attr('id')
+    var jenis = $(this).text()
+    if(jenis == 'View in full screen') {
+        lrChart.update({
+            title: {
+                text: 'Laba Rugi Lembaga',
+                floating: true,
+                x: 40,
+                y: 90
             }
+        })
+         lrChart.fullscreen.toggle();
+    } else if(jenis == 'Print chart') {
+        lrChart.print()
+    } else if(jenis == 'Download PNG image') {
+        lrChart.exportChart({
+            type: 'image/png',
+            filename: 'chart-png'
+        }, {
+            title: {
+                text: 'Laba Rugi Lembaga'
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download JPEG image') {
+        lrChart.exportChart({
+            type: 'image/jpeg',
+            filename: 'chart-jpg'
+        }, {
+            title: {
+                text: 'Laba Rugi Lembaga'
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download PDF document') {
+        lrChart.exportChart({
+            type: 'application/pdf',
+            filename: 'chart-pdf'
+        }, {
+            title: {
+                text: 'Laba Rugi Lembaga'
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download SVG vector image') {
+        lrChart.exportChart({
+            type: 'image/svg+xml',
+            filename: 'chart-svg'
+        }, {
+            title: {
+                text: 'Laba Rugi Lembaga'
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'View table data') {
+        $(this).text('Hide table data')
+        lrChart.viewData()
+        var cek = $('#'+idParent+'.highcharts-data-table table').hasClass('table table-bordered table-no-padding')
+        if(!cek) {
+            $('.highcharts-data-table table').addClass('table table-bordered table-no-padding')
         }
-    },
-    series: [{
-        name: 'Jumlah',
-        colorByPoint: true,
-        data: [
-            {
-                name: 'TS',
-                y: 26.9,
-            },
-            {
-                name: 'ITTS',
-                y: 6.4
-            },
-            {
-                name: 'ITTP',
-                y: 9.0
-            },
-            {
-                name: 'AKATEL',
-                y: 4.5
-            },
-            {
-                name: 'TelU',
-                y: 43.6
-            },
-            {
-                name: 'Lakhar',
-                y: 9.6
-            },
-        ]
-    }]
-});
-
+        $("body").css("overflow", "scroll");
+    } else if(jenis == 'Hide table data') {
+        $(this).text('View table data')
+        $('.highcharts-data-table').hide()
+        $("body").css("overflow", "hidden");
+    }
+})
+// END LABA RUGI
+// SHU
 $('#export-shu.menu-chart-custom ul li').click(function(event) {
     event.stopPropagation()
     var idParent = $(this).parent('#dash-shu').attr('id')
@@ -1812,239 +2642,8 @@ $('#export-shu.menu-chart-custom ul li').click(function(event) {
         $("body").css("overflow", "hidden");
     }
 })
-
-var bebanChart = Highcharts.chart('beban-chart', {
-    chart: {
-        plotBackgroundColor: null,
-        plotBorderWidth: null,
-        plotShadow: false,
-        type: 'pie',
-        height: 258,
-        width: 280
-    },
-    title: { text: '' },
-    subtitle: { text: '' },
-    exporting:{ 
-        enabled: false,
-    },
-    legend:{ enabled: false },
-    credits: { enabled: false },
-    tooltip: {
-        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-    },
-    accessibility: {
-        point: {
-            valueSuffix: '%'
-        }
-    },
-    plotOptions: {
-        pie: {
-            allowPointSelect: true,
-            center: ['40%', '50%'],
-            cursor: 'pointer',
-            dataLabels: {
-                enabled: true,
-                format: '{point.name} : {point.percentage:.1f} %'
-            },
-            size: '50%',
-            showInLegend: true
-        },
-        series: {
-            dataLabels: {
-                style: {
-                    fontSize: '9px'
-                }
-            }
-        }
-    },
-    series: [{
-        name: 'Jumlah',
-        colorByPoint: true,
-        data: [
-            {
-                name: 'TS',
-                y: 26.9,
-            },
-            {
-                name: 'ITTS',
-                y: 6.4
-            },
-            {
-                name: 'ITTP',
-                y: 9.0
-            },
-            {
-                name: 'AKATEL',
-                y: 4.5
-            },
-            {
-                name: 'TelU',
-                y: 43.6
-            },
-            {
-                name: 'Lakhar',
-                y: 9.6
-            },
-        ]
-    }]
-});
-
-$('#export-beban.menu-chart-custom ul li').click(function(event) {
-    event.stopPropagation()
-    var idParent = $(this).parent('#dash-beban').attr('id')
-    var jenis = $(this).text()
-    
-    if(jenis == 'View in full screen') {
-        bebanChart.update({
-            title: {
-                text: 'Beban Lembaga',
-                floating: true,
-                x: 40,
-                y: 90
-            }
-        })
-        bebanChart.fullscreen.toggle();
-    } else if(jenis == 'Print chart') {
-        bebanChart.print()
-    } else if(jenis == 'Download PNG image') {
-        bebanChart.exportChart({
-            type: 'image/png',
-            filename: 'chart-png'
-        }, {
-            title: {
-                text: 'Beban Lembaga'
-            },
-            subtitle: {
-                text: ''
-            }
-        });
-    } else if(jenis == 'Download JPEG image') {
-        bebanChart.exportChart({
-            type: 'image/jpeg',
-            filename: 'chart-jpg'
-        }, {
-            title: {
-                text: 'Beban Lembaga'
-            },
-            subtitle: {
-                text: ''
-            }
-        });
-    } else if(jenis == 'Download PDF document') {
-        bebanChart.exportChart({
-            type: 'application/pdf',
-            filename: 'chart-pdf'
-        }, {
-            title: {
-                text: 'Beban Lembaga'
-            },
-            subtitle: {
-                text: ''
-            }
-        });
-    } else if(jenis == 'Download SVG vector image') {
-        bebanChart.exportChart({
-            type: 'image/svg+xml',
-            filename: 'chart-svg'
-        }, {
-            title: {
-                text: 'Beban Lembaga'
-            },
-            subtitle: {
-                text: ''
-            }
-        });
-    } else if(jenis == 'View table data') {
-        $(this).text('Hide table data')
-        bebanChart.viewData()
-        var cek = $('#'+idParent+'.highcharts-data-table table').hasClass('table table-bordered table-no-padding')
-        if(!cek) {
-            $('.highcharts-data-table table').addClass('table table-bordered table-no-padding')
-        }
-        $("body").css("overflow", "scroll");
-    } else if(jenis == 'Hide table data') {
-        $(this).text('View table data')
-        $('.highcharts-data-table').hide()
-        $("body").css("overflow", "hidden");
-    }
-})
-
-var pdptChart = Highcharts.chart('pdpt-chart', {
-    chart: {
-        plotBackgroundColor: null,
-        plotBorderWidth: null,
-        plotShadow: false,
-        type: 'pie',
-        height: 258,
-        width: 280
-    },
-    title: { text: '' },
-    subtitle: { text: '' },
-    exporting:{ 
-        enabled: false,
-    },
-    legend:{ enabled: false },
-    credits: { enabled: false },
-    tooltip: {
-        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-    },
-    accessibility: {
-        point: {
-            valueSuffix: '%'
-        }
-    },
-    plotOptions: {
-        pie: {
-            allowPointSelect: true,
-            center: ['40%', '50%'],
-            cursor: 'pointer',
-            dataLabels: {
-                enabled: true,
-                format: '{point.name} : {point.percentage:.1f} %'
-            },
-            size: '50%',
-            showInLegend: true
-        },
-        series: {
-            dataLabels: {
-                style: {
-                    fontSize: '9px'
-                }
-            }
-        }
-    },
-    series: [{
-        name: 'Jumlah',
-        colorByPoint: true,
-        data: [
-            {
-                name: 'TS',
-                y: 26.9,
-            },
-            {
-                name: 'ITTS',
-                y: 6.4
-            },
-            {
-                name: 'ITTP',
-                y: 9.0
-            },
-            {
-                name: 'AKATEL',
-                y: 4.5
-            },
-            {
-                name: 'TelU',
-                y: 43.6
-            },
-            {
-                name: 'Lakhar',
-                y: 9.6
-            },
-        ]
-    }]
-});
-
+// END SHU
+// PENDAPATAN
 $('#export-pdpt.menu-chart-custom ul li').click(function(event) {
     event.stopPropagation()
     var idParent = $(this).parent('#dash-pdpt').attr('id')
@@ -2125,122 +2724,68 @@ $('#export-pdpt.menu-chart-custom ul li').click(function(event) {
     }
 })
 
-Highcharts.SVGRenderer.prototype.symbols['c-rect'] = function (x, y, w, h) {
-    return ['M', x, y + h / 2, 'L', x + w, y + h / 2];
-};
-
-var lrChart = Highcharts.chart('lr-chart', {
-    chart: {
-        height: 190
-    },
-    credits:{
-        enabled:false
-    },
-    exporting:{ 
-        enabled: false,
-    },
-    title: {
-        text: ''
-    },
-    xAxis: {
-        categories: ['TS', 'ITTP', 'ITTS', 'AKATEL', 'TelU', 'Lakhar'], 
-    },
-    yAxis: {
-        title: '',
-        min: 0
-    },
-    tooltip: {
-        formatter: function () {   
-            var tmp = this.x.split("|");   
-            return tmp[0]+'<br><span style="color:' + this.series.color + '">' + this.series.name + '</span>: <b>' + sepNum(this.y);
-        }
-    },
-    series: [
-        {
-            name: 'Pendapatan',
-            color: '#b91c1c',
-            type: 'column',
-            data: [60, 30, 20, 15, 80, 50]
-        },
-        {
-            name: 'Beban',
-            color: '#064E3B',
-            type: 'column',
-            data: [50, 20, 10, 10, 70, 40]
-        },
-        {
-            name: 'SHU',
-            color: '#FBBF24',
-            marker: {
-                symbol: 'c-rect',
-                lineColor: '#FBBF24',
-                radius: 30,
-            },
-            type: 'scatter',
-            data: [30, 10, 5, 5, 50, 20],
-        }
-    ]
-})
-
-$('#export-lr.menu-chart-custom ul li').click(function(event) {
+// END PENDAPATAN
+// BEBAN
+$('#export-beban.menu-chart-custom ul li').click(function(event) {
     event.stopPropagation()
-    var idParent = $(this).parent('#dash-lr').attr('id')
+    var idParent = $(this).parent('#dash-beban').attr('id')
     var jenis = $(this).text()
+    
     if(jenis == 'View in full screen') {
-        lrChart.update({
+        bebanChart.update({
             title: {
-                text: 'Sisa Hasil Usaha Lembaga',
+                text: 'Beban Lembaga',
                 floating: true,
                 x: 40,
                 y: 90
             }
         })
-         lrChart.fullscreen.toggle();
+        bebanChart.fullscreen.toggle();
     } else if(jenis == 'Print chart') {
-        lrChart.print()
+        bebanChart.print()
     } else if(jenis == 'Download PNG image') {
-        lrChart.exportChart({
+        bebanChart.exportChart({
             type: 'image/png',
             filename: 'chart-png'
         }, {
             title: {
-                text: 'Laba Rugi Lembaga'
+                text: 'Beban Lembaga'
             },
             subtitle: {
                 text: ''
             }
         });
     } else if(jenis == 'Download JPEG image') {
-        lrChart.exportChart({
+        bebanChart.exportChart({
             type: 'image/jpeg',
             filename: 'chart-jpg'
         }, {
             title: {
-                text: 'Laba Rugi Lembaga'
+                text: 'Beban Lembaga'
             },
             subtitle: {
                 text: ''
             }
         });
     } else if(jenis == 'Download PDF document') {
-        lrChart.exportChart({
+        bebanChart.exportChart({
             type: 'application/pdf',
             filename: 'chart-pdf'
         }, {
             title: {
-                text: 'Laba Rugi Lembaga'
+                text: 'Beban Lembaga'
             },
             subtitle: {
                 text: ''
             }
         });
     } else if(jenis == 'Download SVG vector image') {
-        lrChart.exportChart({
+        bebanChart.exportChart({
             type: 'image/svg+xml',
             filename: 'chart-svg'
         }, {
             title: {
-                text: 'Laba Rugi Lembaga'
+                text: 'Beban Lembaga'
             },
             subtitle: {
                 text: ''
@@ -2248,7 +2793,7 @@ $('#export-lr.menu-chart-custom ul li').click(function(event) {
         });
     } else if(jenis == 'View table data') {
         $(this).text('Hide table data')
-        lrChart.viewData()
+        bebanChart.viewData()
         var cek = $('#'+idParent+'.highcharts-data-table table').hasClass('table table-bordered table-no-padding')
         if(!cek) {
             $('.highcharts-data-table table').addClass('table table-bordered table-no-padding')
@@ -2260,4 +2805,6 @@ $('#export-lr.menu-chart-custom ul li').click(function(event) {
         $("body").css("overflow", "hidden");
     }
 })
+// END BEBAN
+// END CUSTOM EXPORT HIGHCHART
 </script>

@@ -377,6 +377,36 @@ function toNilai(str_num) {
     return +number;
 }
 
+function singkatNilai(num) {
+    if (num < 0) {
+        num = num * -1;
+    }
+
+    if (num >= 1000 && num < 1000000) {
+        var str = "Rb";
+        var pembagi = 1000;
+    } else if (num >= 1000000 && num < 1000000000) {
+        var str = "Jt";
+        var pembagi = 1000000;
+    } else if (num >= 1000000000 && num < 1000000000000) {
+        var str = "M";
+        var pembagi = 1000000000;
+    } else if (num >= 1000000000000) {
+        var str = "T";
+        var pembagi = 1000000000000;
+    }
+
+    if (num < 0) {
+        return parseFloat(num / pembagi).toFixed(0) * -1 + " " + str;
+    } else if (num > 0 && num >= 1000) {
+        return parseFloat(num / pembagi).toFixed(0) + " " + str;
+    } else if (num > 0 && num < 1000) {
+        return num;
+    } else {
+        return num;
+    }
+}
+
 function terbilang(int) {
     angka = [
         "",
@@ -502,4 +532,14 @@ function clearInputFilter(par) {
         .find(".info-icon-hapus")
         .addClass("hidden");
     $("#" + par).trigger("change");
+}
+
+function toMilyar(x) {
+    var nil = x / 1000000000;
+    return sepNum(nil) + " M";
+}
+
+function toJuta(x) {
+    var nil = x / 1000000;
+    return sepNum(nil) + " Jt";
 }
