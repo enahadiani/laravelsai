@@ -7,7 +7,7 @@
     display: flex;
     justify-content: flex-start;
     height: 3.75rem;
-    width: 1196px; /*87.5%;*/
+    /* width: 92%; 87.5%; 1196px */
     background-color: #ffffff;
     border-bottom-right-radius: 1rem;
     border-bottom-left-radius: 1rem;

@@ -1,13 +1,17 @@
 <link rel="stylesheet" href="{{ asset('trans.css') }}" />
 <link rel="stylesheet" href="{{ asset('trans-esaku/form.css') }}" />
 <link rel="stylesheet" href="{{ asset('asset_silo/css/trans.css') }}" />
-
+<!-- LIST DATA -->
+<x-list-data judul="Data Justifikasi Pengajuan 1" tambah="true"
+    :thead="array('No Bukti', 'No Dokumen', 'Regional', 'Nilai Pengadaan', 'Nilai Finish', 'Aksi', 'Waktu', 'Kegiatan', 'Posisi')"
+    :thwidth="array(15,25,20,10,10,25,5,5,5)" :thclass="array('','','','','','text-center','','','')" />
+<!-- END LIST DATA -->
 <!-- FORM  -->
 <form id="form-tambah" class="tooltip-label-right" novalidate>
     <input class="form-control" type="hidden" id="id_edit" name="id_edit">
     <input type="hidden" id="method" name="_method" value="post">
     <input type="hidden" id="id" name="id">
-    <div class="row" id="saku-form" >
+    <div class="row" id="saku-form" style="display:none;">
         <div class="col-12">
             <div class="card">
                 <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;min-height:62.8px">
@@ -176,7 +180,8 @@
                                     <tbody></tbody>
                                 </table>
                                 <a type="button" id="add-barang" href="#" data-id="0" title="add-row"
-                                    class="add-row btn btn-light2 btn-block btn-sm">Tambah Baris</a>
+                                    class="add-row btn btn-light2 btn-block btn-sm"><i
+                                        class="saicon icon-tambah mr-1"></i>Tambah Baris</a>
                             </div>
                         </div>
                         <div class="tab-pane row" id="data-dokumen-po" role="tabpanel">
@@ -201,7 +206,8 @@
                                     <tbody></tbody>
                                 </table>
                                 <a type="button" id="add-dokumen-po" href="#" data-id="0" title="add-row"
-                                    class="add-row btn btn-light2 btn-block btn-sm">Tambah Baris</a>
+                                    class="add-row btn btn-light2 btn-block btn-sm"><i
+                                        class="saicon icon-tambah mr-1"></i>Tambah Baris</a>
                             </div>
                         </div>
                         <div class="tab-pane row" id="data-dokumen-compare" role="tabpanel">
@@ -226,7 +232,8 @@
                                     <tbody></tbody>
                                 </table>
                                 <a type="button" id="add-dokumen-compare" href="#" data-id="0" title="add-row"
-                                    class="add-row btn btn-light2 btn-block btn-sm">Tambah Baris</a>
+                                    class="add-row btn btn-light2 btn-block btn-sm"><i
+                                        class="saicon icon-tambah mr-1"></i>Tambah Baris</a>
                             </div>
                         </div>
                         <div class="tab-pane row" id="data-approve" role="tabpanel">
@@ -252,7 +259,8 @@
                                     <tbody></tbody>
                                 </table>
                                 <a type="button" id="add-approve" href="#" data-id="0" title="add-row"
-                                    class="add-row btn btn-light2 btn-block btn-sm">Tambah Baris</a>
+                                    class="add-row btn btn-light2 btn-block btn-sm"><i
+                                        class="saicon icon-tambah mr-1"></i>Tambah Baris</a>
                             </div>
                         </div>
                     </div>
@@ -351,35 +359,131 @@
 <script src="{{ asset('helper.js') }}"></script>
 <script type="text/javascript">
     // SET UP VIEW
+    var scroll = document.querySelector('#content-preview');
+    new PerfectScrollbar(scroll);
+
     var scrollform = document.querySelector('.form-body');
     new PerfectScrollbar(scrollform);
     // END SET UP VIEW
+    // LIST DATA
+    var actionHtmlWithED =
+        "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Print'  id='btn-print'><i class='simple-icon-printer' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='History'  id='btn-history'><i class='simple-icon-reload' style='font-size:18px'></i></a>";
+    var actionHtmlNoED =
+        "<a href='#' title='Print'  id='btn-print'><i class='simple-icon-printer' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='History'  id='btn-history'><i class='simple-icon-reload' style='font-size:18px'></i></a>";
+    var dataTable = generateTable(
+        "table-data",
+        "{{ url('apv/juskeb') }}",
+        [{
+                "targets": 0,
+                "createdCell": function (td, cellData, rowData, row, col) {
+                    if (rowData.status == "baru") {
+                        $(td).parents('tr').addClass('selected');
+                        $(td).addClass('last-add');
+                    }
+                }
+            },
+            {
+                'targets': [3, 4],
+                'className': 'text-right',
+                'render': $.fn.dataTable.render.number('.', ',', 0, '')
+            },
+            {
+                "targets": [6, 7, 8],
+                "visible": false
+            },
+            {
+                'targets': 5,
+                'className': 'text-center'
+            }
+        ],
+        [{
+                data: 'no_bukti'
+            },
+            {
+                data: 'no_dokumen'
+            },
+            {
+                data: 'nama_pp'
+            },
+            {
+                data: 'nilai'
+            },
+            {
+                data: 'nilai_finish'
+            },
+            {
+                data: 'progress',
+                render: function (data) {
+                    if (data == 'A') {
+                        return actionHtmlWithED
+                    } else if (data == 'F') {
+                        return actionHtmlWithED
+                    }
+                    return actionHtmlNoED
+                }
+            },
+            {
+                data: 'waktu'
+            },
+            {
+                data: 'kegiatan'
+            },
+            {
+                data: 'posisi'
+            },
+        ],
+        "{{ url('silo-auth/sesi-habis') }}",
+        [
+            [5, "desc"]
+        ]
+    );
+
+    $.fn.DataTable.ext.pager.numbers_length = 5;
+
+    $("#searchData").on("keyup", function (event) {
+        dataTable.search($(this).val()).draw();
+    });
+
+    $("#page-count").on("change", function (event) {
+        var selText = $(this).val();
+        dataTable.page.len(parseInt(selText)).draw();
+    });
+
+    $('[data-toggle="popover"]').popover({
+        trigger: "focus"
+    });
+    // END LIST DATA
+
+    // BTN TAMBAH
+    $('#saku-datatable').on('click', '#btn-tambah', function () {
+        var regional = "{{ Session::get('kodePP') }}";
+        $('#input-barang tbody').empty();
+        $('#input-dokumen-po tbody').empty();
+        $('#input-dokumen-compare tbody').empty();
+        $('#input-approve tbody').empty();
+        $('#judul-form').html('Tambah Data Justifikasi Kebutuhan');
+        $('#kode').attr('readonly', false);
+        addRowBarangDefault();
+        addRowDokumenPODefault()
+        for (var i = 0; i < 3; i++) {
+            addRowDokumenCompareDefault()
+        }
+        newForm();
+        setRegional('kode_pp', regional)
+        setNik(regional, 'nik_ver', null, 'add')
+    });
+    //  END BTN TAMBAH
 
     // BTN KEMBALI
     $('#saku-form').on('click', '#btn-kembali', function () {
         var kode = null;
+        $('.navbar-top a').removeClass('active');
+        $('a[data-href="fSiloDash"]').addClass('active');
         msgDialog({
-            id:kode,
-            btn1: 'btn btn-primary',
-            btn2: 'btn btn-light',
-            title: 'Keluar Form?',
-            text: 'Semua perubahan tidak akan disimpan.',
-            confirm: 'Keluar',
-            cancel: 'Batal',
-            type:'custom',
-            showCustom:function(result){
-                if (result.value) {
-                    $('.navbar-top a').removeClass('active');
-                    $('a[data-href="fSiloDash"]').addClass('active');
-                    var url = "{{ url('silo-auth/form')}}/fSiloDash";
-                    $('#trans-body').load(url);
-                    $id_edit= '';
-                    $edit = 0;
-                } else if (result.dismiss === Swal.DismissReason.cancel) {
-                    // console.log('cancel');
-                }
-            }
+            id: kode,
+            type: 'keluar'
         });
+
     });
     // END BTN KEMBALI
 
@@ -388,9 +492,6 @@
     var selectBukti = $('#inp-filter_bukti').selectize();
     var $dtKlpBarang = [];
     var valid = true;
-
-
-
 
     (function () {
         $.ajax({
@@ -1853,7 +1954,43 @@
     });
     // END EDIT
 
+    // HAPUS DATA
+    function hapusData(id) {
+        $.ajax({
+            type: 'DELETE',
+            url: "{{ url('apv/juskeb') }}/" + id,
+            dataType: 'json',
+            async: false,
+            success: function (result) {
+                if (result.data.status) {
+                    dataTable.ajax.reload();
+                    showNotification("top", "center", "success", 'Hapus Data',
+                        'Data Justifikasi Pengajuan (' + id + ') berhasil dihapus ');
+                    $('#modal-pesan-id').html('');
+                    $('#table-delete tbody').html('');
+                    $('#modal-pesan').modal('hide');
+                } else if (!result.data.status && result.data.message == "Unauthorized") {
+                    window.location.href = "{{ url('yakes-auth/sesi-habis') }}";
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href>' + result.data.message + '</a>'
+                    });
+                }
+            }
+        });
+    }
 
+    $('#saku-datatable').on('click', '#btn-delete', function (e) {
+        var kode = $(this).closest('tr').find('td').eq(0).html();
+        msgDialog({
+            id: kode,
+            type: 'hapus'
+        });
+    });
+    // END HAPUS
 
     // PRINT PREVIEW
     var backTo = null;
@@ -2123,29 +2260,5 @@
         $('#saku-form').hide()
     });
     // END HISTORY
-    (function(){
-        if($edit == 1 && $id_edit != ""){
-            $('#btn-save').attr('type','button');
-            $('#btn-save').attr('id','btn-update');
-            $('#judul-form').html('Edit Data Pengajuan');
-            editData($id_edit);
-        }else{
-            var regional = "{{ Session::get('kodePP') }}";
-            $('#input-barang tbody').empty();
-            $('#input-dokumen-po tbody').empty();
-            $('#input-dokumen-compare tbody').empty();
-            $('#input-approve tbody').empty();
-            $('#judul-form').html('Tambah Data Justifikasi Kebutuhan');
-            $('#kode').attr('readonly', false);
-            addRowBarangDefault();
-            addRowDokumenPODefault()
-            for (var i = 0; i < 3; i++) {
-                addRowDokumenCompareDefault()
-            }
-            newForm();
-            setRegional('kode_pp', regional)
-            setNik(regional, 'nik_ver', null, 'add')
-        }
-    })();
 
 </script>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>SILO</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    
+
     <meta name="_token" content="{{ csrf_token() }}" />
     <link rel="stylesheet" href="{{ asset('asset_dore/font/iconsmind-s/css/iconsminds.css') }}" />
     <link rel="stylesheet" href="{{ asset('asset_dore/font/simple-line-icons/css/simple-line-icons.css') }}" />
@@ -25,16 +25,16 @@
     <link rel="stylesheet" href="{{ asset('asset_dore/css/vendor/component-custom-switch.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('asset_dore/css/main.css') }}" />
     <link rel="stylesheet" href="{{ asset('asset_dore/css/vendor/bootstrap-float-label.min.css') }}" />
-    
+
     <link rel="stylesheet" href="{{ asset('asset_elite/dist/js/swal/sweetalert2.min.css') }}">
     <!-- Selectize -->
     <link href="{{ asset('asset_elite/selectize.bootstrap3.css') }}" rel="stylesheet">
-    
+
     <link rel="stylesheet" href="{{ asset('asset_dore/css/vendor/bootstrap-tagsinput.css') }}" />
     <link rel="stylesheet" href="{{ asset('mainstyle-esaku.css') }}" />
-    <link rel="stylesheet" href="{{ asset('asset_dore/bottom-sheet/style.css') }}" /> 
-    <link rel="stylesheet" href="{{ asset('asset_silo/css/main.css') }}" /> 
-    
+    <link rel="stylesheet" href="{{ asset('asset_dore/bottom-sheet/style.css') }}" />
+    <link rel="stylesheet" href="{{ asset('asset_silo/css/main.css') }}" />
+
     <script>
         var $public_asset = "{{ asset('asset_dore') }}/";
     </script>
@@ -63,17 +63,138 @@
     <script src="{{ asset('asset_dore/js/vendor/bootstrap-notify.min.js') }}"></script>
     <script src="{{ asset('asset_elite/dist/js/swal/sweetalert2.all.min.js') }}"></script>
     <script src="{{ asset('asset_dore/js/dore.script.js') }}"></script>
-    
+
     <script src="{{ asset('asset_elite/standalone/selectize.min.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/jquery.validate/jquery.validate.min.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/jquery.validate/additional-methods.min.js') }}"></script>
-    
+
     <script src="{{ asset('asset_elite/printThis/printThis.js') }}"></script>
     <script src="{{ asset('asset_dore/js/jquery.table2excel.js') }}"></script>
     <script src="{{ asset('asset_elite/jquery.twbsPagination.min.js') }}"></script>
     <script src="{{ asset('asset_elite/sai.js') }}"></script>
     <script src="{{ asset('asset_elite/inputmask.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/bootstrap-tagsinput.min.js') }}"></script>
+    <style>
+             a > span.d-inline-block {
+            max-width: 170px !important;
+            height: auto !important;
+        }
+
+        .sub-menu {
+            width: 265px !important;
+        }
+
+        @media (max-width: 1439px) {
+        .sub-menu {
+            width: 265px; } }
+        @media (max-width: 1199px) {
+        .sub-menu {
+            width: 265px; } }
+        @media (max-width: 767px) {
+        .sub-menu {
+            width: 265px; } }
+
+
+        #app-container.sub-hidden .sub-menu,
+        #app-container.menu-sub-hidden .sub-menu,
+        #app-container.menu-hidden .sub-menu {
+        transform: translateX(-265px); }
+        @media (max-width: 1439px) {
+            #app-container.sub-hidden .sub-menu,
+            #app-container.menu-sub-hidden .sub-menu,
+            #app-container.menu-hidden .sub-menu {
+            transform: translateX(-265px); } }
+        @media (max-width: 1199px) {
+            #app-container.sub-hidden .sub-menu,
+            #app-container.menu-sub-hidden .sub-menu,
+            #app-container.menu-hidden .sub-menu {
+            transform: translateX(-265px); } }
+        @media (max-width: 767px) {
+            #app-container.sub-hidden .sub-menu,
+            #app-container.menu-sub-hidden .sub-menu,
+            #app-container.menu-hidden .sub-menu {
+            transform: translateX(-265px); } }
+
+      #app-container.main-hidden.sub-hidden .sub-menu,
+        #app-container.menu-hidden .sub-menu {
+        transform: translateX(-385px); }
+        @media (max-width: 1439px) {
+            #app-container.main-hidden.sub-hidden .sub-menu,
+            #app-container.menu-hidden .sub-menu {
+            transform: translateX(-375px); } }
+        @media (max-width: 1199px) {
+            #app-container.main-hidden.sub-hidden .sub-menu,
+            #app-container.menu-hidden .sub-menu {
+            transform: translateX(-365px); } }
+        @media (max-width: 767px) {
+            #app-container.main-hidden.sub-hidden .sub-menu,
+            #app-container.menu-hidden .sub-menu {
+            transform: translateX(-355px); } }
+
+        #app-container.menu-mobile .sub-menu {
+        transform: translateX(-405px); }
+
+        #app-container.main-show-temporary .sub-menu {
+            transform: translateX(-265px); }
+
+        @media (max-width: 1439px) {
+        #app-container.main-show-temporary .sub-menu {
+            transform: translateX(-265px); } }
+
+        @media (max-width: 1199px) {
+        #app-container.main-show-temporary .sub-menu {
+            transform: translateX(-265px); } }
+
+        @media (max-width: 767px) {
+        #app-container.main-show-temporary .sub-menu {
+            transform: translateX(-265px); } }
+
+        #app-container.sub-show-temporary .sub-menu, #app-container.menu-mobile.sub-show-temporary .sub-menu, #app-container.menu-main-hidden.menu-mobile.main-show-temporary .sub-menu {
+        transform: translateX(0); }
+        .modal-content
+        {
+            border-radius: 0.75rem !important;
+        }
+
+        body{
+            display: unset;
+        }
+        .modal-header
+        {
+            padding-top: 0px !important;
+            padding-bottom: 0px !important;
+            height:49px !important;
+        }
+
+        .modal-header > h6
+        {
+            margin-top: 0.8rem;
+            margin-bottom: 0.8rem;
+            height: unset !important;
+        }
+
+        .close
+        {
+            line-height:1.5;padding: 0 !important;background: none;appearance: unset;opacity: unset;position: relative;
+            right:-40px !important;top:5px !important;margin-right:0 !important;
+        }
+        .close > span
+        {
+            border-radius: 50%;padding: 0 0.45rem 0.1rem 0.45rem;background: white;color: black;font-size: 1.2rem !important;font-weight: lighter;box-shadow:0px 1px 5px 1px #80808054
+        }
+
+        .close > span:hover
+        {
+            color:white;
+            background:red;
+        }
+
+        .navbar .header-icon#notificationButton .count
+        {
+            min-width: 18px !important;
+            width: unset !important;
+        }
+    </style>
 </head>
 @if(Session::get('menu') != "")
 <body id="app-container" class="{{ Session::get('menu') }} show-spinner">
@@ -192,7 +313,7 @@
                     <i class="simple-icon-size-fullscreen"></i>
                     <i class="simple-icon-size-actual"></i>
                 </button>
-            </div>            
+            </div>
         </div>
     </nav>
     <div class="menu">
@@ -209,8 +330,8 @@
                 <div class="modal-content" style="max-width:300px;border-radius:0.75rem;margin:0 auto">
                     <div class="modal-body text-center pb-0">
                         <span id="modal-pesan-id" style="display:none"></span>
-                        <h4 style="font-weight:bold" id="pesan-judul"></h4>  
-                        <p style="font-size:12px" id="pesan-text"></p>  
+                        <h4 style="font-weight:bold" id="pesan-judul"></h4>
+                        <p style="font-size:12px" id="pesan-text"></p>
                     </div>
                     <div class="modal-footer pt-0" style="border:none;justify-content:center">
                         <div class="row" style="width:100%">
@@ -222,7 +343,7 @@
             </div>
         </div>
     </main>
-    
+
     <div id="bottomsheet-container" class="c-bottom-sheet c-bottom-sheet--list">
 		<div class="c-bottom-sheet__scrim"></div>
 		<div class="c-bottom-sheet__sheet">
@@ -251,7 +372,7 @@
         window.addEventListener('storage', storageChange, false);
 
         var userNIK = "{{ Session::get('userLog') }}";
-        
+
         if (!$.fn.bootstrapDP && $.fn.datepicker && $.fn.datepicker.noConflict) {
             var datepicker = $.fn.datepicker.noConflict();
             $.fn.bootstrapDP = datepicker;
@@ -287,7 +408,7 @@
         setTimeout(function(){
             window.location.href = "{{url('silo-auth/sesi-habis')}}";
         }, 1000 * 60 * parseInt(lifetime));
-        
+
         var $theme = "dore.light.redruby.min.css";
 
         $('.dropdown-periode').html("<span class='periode-label'>Periode</span> <span class='periode-app float-right'>"+namaPeriode2("{{ Session::get('periode') }}</span>"));
@@ -370,14 +491,14 @@
                 return false;
             }else{
                 loadForm(url);
-                
+
             }
         });
 
         $('#notificationButton').hover(function() {
             if($('#btn-admin').attr("aria-expanded") == "true"){
                 $('#btn-admin').dropdown('toggle');
-            } 
+            }
         });
 
         $('#btn-admin').hover(function() {
@@ -399,20 +520,20 @@
                 loadForm("{{ url('yakes-auth/form') }}/blankform");
             }
         });
-        
+
         function updateNotifRead() {
             $.ajax({
                 type: 'POST',
                 url: "{{ url('silo-auth/notif-update-status') }}",
                 dataType: 'json',
                 async:false,
-                success:function(result){    
+                success:function(result){
                     $('.count').remove();
                 },
                 fail: function(xhr, textStatus, errorThrown){
                     alert('request failed:'+textStatus);
                 },
-                error: function(jqXHR, textStatus, errorThrown) {       
+                error: function(jqXHR, textStatus, errorThrown) {
                     if(jqXHR.status == 422){
                         var msg = jqXHR.responseText;
                     }else if(jqXHR.status == 500) {
@@ -423,7 +544,7 @@
                     }else if(jqXHR.status == 405){
                         var msg = "Route not valid. Page not found";
                     }
-                    
+
                 }
             });
         }
@@ -434,18 +555,18 @@
                 url: "{{ url('silo-auth/cek_session') }}",
                 dataType: 'json',
                 async:false,
-                success:function(result){    
+                success:function(result){
                     if(!result.status){
                         window.location.href = "{{ url('silo-auth/sesi-habis') }}";
                     }else{
-                        
+
                         $('.body-content').load(url);
                     }
                 },
                 fail: function(xhr, textStatus, errorThrown){
                     alert('request failed:'+textStatus);
                 },
-                error: function(jqXHR, textStatus, errorThrown) {       
+                error: function(jqXHR, textStatus, errorThrown) {
                     if(jqXHR.status == 422){
                         var msg = jqXHR.responseText;
                     }else if(jqXHR.status == 500) {
@@ -456,7 +577,7 @@
                     }else if(jqXHR.status == 405){
                         var msg = "Route not valid. Page not found";
                     }
-                    
+
                 }
             });
         }
@@ -470,7 +591,7 @@
         //         success: function(result) {
         //             if(result.status) {
         //                 for(i=0;i<result.data.length;i++){
-        //                     $dtForm[i] = {nama:result.data[i].nama};  
+        //                     $dtForm[i] = {nama:result.data[i].nama};
         //                 }
         //             }else if(!result.status && result.message == "Unauthorized"){
         //                 window.location.href = "{{ url('silo-auth/sesi-habis') }}";
@@ -478,7 +599,7 @@
         //                 console.log(result.message);
         //             }
         //         },
-        //         error: function(jqXHR, textStatus, errorThrown) {       
+        //         error: function(jqXHR, textStatus, errorThrown) {
         //             if(jqXHR.status == 422){
         //                 var msg = jqXHR.responseText;
         //             }else if(jqXHR.status == 500) {
@@ -489,7 +610,7 @@
         //             }else if(jqXHR.status == 405){
         //                 var msg = "Route not valid. Page not found";
         //             }
-                    
+
         //         }
         //     })
         // })();
@@ -500,7 +621,7 @@
                 url: "{{ url('silo-auth/menu') }}",
                 dataType: 'json',
                 async:false,
-                success:function(result){  
+                success:function(result){
                     if(result[0].status){
                         $('.main-menu').html('');
                         $(result[0].main_menu).appendTo('.main-menu').slideDown();
@@ -514,7 +635,7 @@
                 fail: function(xhr, textStatus, errorThrown){
                     alert('request failed:'+textStatus);
                 },
-                error: function(jqXHR, textStatus, errorThrown) {       
+                error: function(jqXHR, textStatus, errorThrown) {
                     if(jqXHR.status == 422){
                         var msg = jqXHR.responseText;
                     }else if(jqXHR.status == 500) {
@@ -525,7 +646,7 @@
                     }else if(jqXHR.status == 405){
                         var msg = "Route not valid. Page not found";
                     }
-                    
+
                 }
             })
         })();
@@ -536,10 +657,10 @@
                 url: "{{ url('silo-auth/notif') }}",
                 dataType: 'json',
                 async:false,
-                success:function(result){    
+                success:function(result){
                     var notif='';
-                    $('.notif-body').html(''); 
-                    
+                    $('.notif-body').html('');
+
                     if(result.data.status){
                         if(result.data.jumlah == 0){
                             // return false;
@@ -547,7 +668,7 @@
                             $("<span class='count'>"+result.data.jumlah+"</span>").insertAfter('.icon-notif');
                         }
                         notif = `
-                        
+
                                 `;
                         if(result.data.data.length > 0){
                             for(var i=0;i<result.data.data.length;i++){
@@ -577,15 +698,15 @@
                             }
                         }
                         $('.notif-body').append(notif);
-                        
+
                     }else{
-                        $('.notif-body').html(''); 
+                        $('.notif-body').html('');
                     }
                 },
                 fail: function(xhr, textStatus, errorThrown){
                     alert('request failed:'+textStatus);
                 },
-                error: function(jqXHR, textStatus, errorThrown) {       
+                error: function(jqXHR, textStatus, errorThrown) {
                     if(jqXHR.status == 422){
                         var msg = jqXHR.responseText;
                     }else if(jqXHR.status == 500) {
@@ -596,7 +717,7 @@
                     }else if(jqXHR.status == 405){
                         var msg = "Route not valid. Page not found";
                     }
-                    
+
                 }
             })
         })();
@@ -608,7 +729,7 @@
                 dataType: 'json',
                 data:{'cari':cari},
                 async:false,
-                success:function(result){  
+                success:function(result){
                     if(result.data.success.status){
                         if(result.data.success.data.length > 0){
                             var tmp = result.data.success.data[0].form;
@@ -618,7 +739,7 @@
                             $('.sub-menu li').removeClass('active');
                             $("[data-href="+form+"]").closest("li").addClass("active");
                             // $("[data-href="+form+"]").first().parents("li").addClass("active");
-                            
+
                             //add Class active in li level 0;
                             var target = $("[data-href="+form+"]").parents("li").parents("ul").last().attr("data-link");
                             $('.main-menu li').removeClass('active');
@@ -634,7 +755,7 @@
                 fail: function(xhr, textStatus, errorThrown){
                     alert('request failed:'+textStatus);
                 },
-                error: function(jqXHR, textStatus, errorThrown) {       
+                error: function(jqXHR, textStatus, errorThrown) {
                     if(jqXHR.status == 422){
                         var msg = jqXHR.responseText;
                     }else if(jqXHR.status == 500) {
@@ -645,14 +766,14 @@
                     }else if(jqXHR.status == 405){
                         var msg = "Route not valid. Page not found";
                     }
-                    
+
                 }
             })
         }
 
         function loadProfile(){
             loadForm("{{url('silo-auth/form/fProfile')}}");
-        }        
+        }
 
         function msgDialog(data) {
             switch (data.type) {
@@ -763,6 +884,15 @@
                     var cancel = data.cancel != undefined ? data.cancel : null;
                     var showCancel = data.cancel != undefined ? true : false;
                     break;
+                case 'custom':
+                    var btn1 = (data.btn1 != undefined ? data.btn1 : 'btn btn-primary btn-200');
+                    var btn2 = (data.btn2 != undefined ? data.btn2 : '');
+                    var title = (data.title != undefined ? data.title : 'Custom');
+                    var text = (data.text != undefined ? data.text : '');
+                    var confirm = (data.confirm != undefined ? data.confirm : 'OK');
+                    var cancel = (data.cancel != undefined ? data.cancel : null);
+                    var showCancel = (data.cancel != undefined ? true : false);
+                    break;
             }
 
             var swalWithBootstrapButtons = Swal.mixin({
@@ -859,6 +989,13 @@
                         case "sukses":
                             break;
                         case "warning":
+                            break;
+                        case 'custom':
+                            if (data.showCustom != undefined){
+                                if (typeof data.showCustom === "function") {
+                                    data.showCustom.call(this, result);
+                                }
+                            }
                             break;
                     }
                 });
