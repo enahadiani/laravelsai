@@ -35,7 +35,7 @@
                 </div>
             </div>
         </div>
-        <div id="filter-box" class="filter-box avoid-run hidden">
+        <div id="filter-box" class="filter-box hidden">
             <div class="row justify-content-end">
                 <div class="col-7 pt-8 pr-0">
                     <div class="row">
@@ -552,14 +552,6 @@ $(window).on('resize', function(){
 });
 
 $(window).click(function() {
-    setTimeout(function() {
-        $('#filter-box').addClass('avoid-run')
-    }, 1000)
-
-    if(!$('#filter-box').hasClass('avoid-run')) {
-        updateAllChart()
-    }
-
     $('#filter-box').addClass('hidden')
     $('.menu-chart-custom').addClass('hidden');
     if($(window).height() == 800) {
@@ -571,12 +563,6 @@ $(window).click(function() {
     if($(window).height() < 800) {
         $("body").css("overflow", "scroll");
     }
-
-    if($filter2.length == 2) {
-        $filter2 = getNamaBulan($filter2)
-    }
-
-    $('#select-text-fp').text(`${$filter2.toUpperCase()} || ${$tahun}`)
 })
 // END WINDOW EVENT
 
@@ -705,6 +691,14 @@ $('#list-filter-2').on('click', 'div', function(event) {
     $filter2_kode = $(this).data('filter2')
     $('#list-filter-2 div').not(this).removeClass('selected')
     $(this).addClass('selected')
+    $('#filter-box').addClass('hidden')
+
+    if($filter2.length == 2) {
+        $filter2 = getNamaBulan($filter2)
+    }
+
+    $('#select-text-fp').text(`${$filter2.toUpperCase()} || ${$tahun}`)
+    updateAllChart()
 })
 // END FILTER EVENT
 // MENAMPILKAN LIST CUSTOM EXPORT HIGHCHART
@@ -1113,10 +1107,10 @@ function updateBox() {
                 nilaiPdpt = toMilyar(pdpt.n4)
             }
 
-            if(pdpt.n5.toString().length <= 9) {
-                nilaiYoyPdpt = toJuta(pdpt.n5)
+            if(pdpt.n1.toString().length <= 9) {
+                nilaiYoyPdpt = toJuta(pdpt.n1)
             } else {
-                nilaiYoyPdpt = toMilyar(pdpt.n5)
+                nilaiYoyPdpt = toMilyar(pdpt.n1)
             }
 
             if(pdpt.yoy < 0) {
@@ -1159,10 +1153,10 @@ function updateBox() {
                 nilaiBeban = toMilyar(beban.n4)
             }
 
-            if(beban.n5.toString().length <= 9) {
-                nilaiYoyBeban = toJuta(beban.n5)
+            if(beban.n1.toString().length <= 9) {
+                nilaiYoyBeban = toJuta(beban.n1)
             } else {
-                nilaiYoyBeban = toMilyar(beban.n5)
+                nilaiYoyBeban = toMilyar(beban.n1)
             }
 
             if(beban.yoy < 0) {
@@ -1205,10 +1199,10 @@ function updateBox() {
                 nilaiShu = toMilyar(shu.n4)
             }
 
-            if(shu.n5.toString().length <= 9) {
-                nilaiYoyShu = toJuta(shu.n5)
+            if(shu.n1.toString().length <= 9) {
+                nilaiYoyShu = toJuta(shu.n1)
             } else {
-                nilaiYoyShu = toMilyar(shu.n5)
+                nilaiYoyShu = toMilyar(shu.n1)
             }
 
             if(shu.yoy < 0) {
@@ -1270,7 +1264,7 @@ function updateBox() {
             `)
 
             $('#or-value').text(or.n4)
-            $('#or-yoy').text(`${or.n5}%`)
+            $('#or-yoy').text(`${or.n1}%`)
             $('#or-yoy-percentage').append(`${or.yoy}% ${iconOr}`)
             // END OR
         }
@@ -1308,10 +1302,10 @@ Highcharts.SVGRenderer.prototype.symbols['c-rect'] = function (x, y, w, h) {
                 nilaiPdpt = toMilyar(pdpt.n4)
             }
 
-            if(pdpt.n5.toString().length <= 9) {
-                nilaiYoyPdpt = toJuta(pdpt.n5)
+            if(pdpt.n1.toString().length <= 9) {
+                nilaiYoyPdpt = toJuta(pdpt.n1)
             } else {
-                nilaiYoyPdpt = toMilyar(pdpt.n5)
+                nilaiYoyPdpt = toMilyar(pdpt.n1)
             }
 
             if(pdpt.yoy < 0) {
@@ -1354,10 +1348,10 @@ Highcharts.SVGRenderer.prototype.symbols['c-rect'] = function (x, y, w, h) {
                 nilaiBeban = toMilyar(beban.n4)
             }
 
-            if(beban.n5.toString().length <= 9) {
-                nilaiYoyBeban = toJuta(beban.n5)
+            if(beban.n1.toString().length <= 9) {
+                nilaiYoyBeban = toJuta(beban.n1)
             } else {
-                nilaiYoyBeban = toMilyar(beban.n5)
+                nilaiYoyBeban = toMilyar(beban.n1)
             }
 
             if(beban.yoy < 0) {
@@ -1400,10 +1394,10 @@ Highcharts.SVGRenderer.prototype.symbols['c-rect'] = function (x, y, w, h) {
                 nilaiShu = toMilyar(shu.n4)
             }
 
-            if(shu.n5.toString().length <= 9) {
-                nilaiYoyShu = toJuta(shu.n5)
+            if(shu.n1.toString().length <= 9) {
+                nilaiYoyShu = toJuta(shu.n1)
             } else {
-                nilaiYoyShu = toMilyar(shu.n5)
+                nilaiYoyShu = toMilyar(shu.n1)
             }
 
             if(shu.yoy < 0) {
@@ -1465,7 +1459,7 @@ Highcharts.SVGRenderer.prototype.symbols['c-rect'] = function (x, y, w, h) {
             `)
 
             $('#or-value').text(or.n4)
-            $('#or-yoy').text(`${or.n5}%`)
+            $('#or-yoy').text(`${or.n1}%`)
             $('#or-yoy-percentage').append(`${or.yoy}% ${iconOr}`)
             // END OR
         }
