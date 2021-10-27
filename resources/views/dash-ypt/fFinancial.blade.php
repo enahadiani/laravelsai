@@ -88,7 +88,7 @@
 {{-- ROW 1 --}}
     <div id="dekstop-1" class="row dekstop">
         <div class="col-3 pl-12 pr-0">
-            <div class="card card-dash cursor-pointer" id="pdpt-box">
+            <div class="card card-dash cursor-pointer" id="pdpt-box" data-grafik="">
                 <div class="row">
                     <div class="col-4 pt-16">
                         <div id="circle-pdpt" class="circle-bar">
@@ -121,7 +121,7 @@
             </div>
         </div>
         <div class="col-3 pl-1 pr-0">
-            <div class="card card-dash cursor-pointer" id="beban-box">
+            <div class="card card-dash cursor-pointer" id="beban-box" data-grafik="">
                 <div class="row">
                     <div class="col-4 pt-16">
                         <div id="circle-beban" class="circle-bar">
@@ -153,7 +153,7 @@
             </div>
         </div>
         <div class="col-3 pl-1 pr-0">
-            <div class="card card-dash cursor-pointer" id="shu-box">
+            <div class="card card-dash cursor-pointer" id="shu-box" data-grafik="">
                 <div class="row">
                     <div class="col-4 pt-16">
                         <div id="circle-shu" class="circle-bar">
@@ -185,7 +185,7 @@
             </div>
         </div>
         <div class="col-3 pl-1 pr-0">
-            <div class="card card-dash cursor-pointer" id="or-box">
+            <div class="card card-dash cursor-pointer" id="or-box" data-grafik="">
                 <div class="row">
                     <div class="col-4 pt-16">
                         <div id="circle-or" class="circle-bar">
@@ -536,6 +536,7 @@ var pdptChart = null;
 var bebanChart = null;
 var shuChart = null;
 var lrChart = null;
+var performChart = null;
 
 // WINDOW EVENT
 $(window).on('resize', function(){
@@ -718,6 +719,14 @@ $('.icon-menu').click(function(event) {
 // BOX EVENT
 // PENDAPATAN
 $('#pdpt-box').click(function() {
+    var kode = $(this).data('grafik');
+
+    if(performChart == null) {
+        createChartPerform(kode)
+    } else {
+        updateChartDetail(kode)
+    }
+
     $judulChart = "Pendapatan"
     $('#title-dash').text('Pendapatan')
     $('#back-div').removeClass('hidden')
@@ -730,6 +739,14 @@ $('#pdpt-box').click(function() {
 // END PENDAPATAN
 // BEBAN
 $('#beban-box').click(function() {
+    var kode = $(this).data('grafik');
+
+    if(performChart == null) {
+        createChartPerform(kode)
+    } else {
+        updateChartDetail(kode)
+    }
+
     $judulChart = "Beban"
     $('#title-dash').text('Beban')
     $('#back-div').removeClass('hidden')
@@ -742,6 +759,14 @@ $('#beban-box').click(function() {
 // END BEBAN
 // SHU
 $('#shu-box').click(function() {
+    var kode = $(this).data('grafik');
+
+    if(performChart == null) {
+        createChartPerform(kode)
+    } else {
+        updateChartDetail(kode)
+    }
+
     $judulChart = "Sisa Hasil Usaha"
     $('#title-dash').text('Sisa Hasil Usaha')
     $('#back-div').removeClass('hidden')
@@ -754,7 +779,15 @@ $('#shu-box').click(function() {
 // END SHU
 // OR
 $('#or-box').click(function() {
+    var kode = $(this).data('grafik');
     $judulChart = "Operating Ratio"
+
+    if(performChart == null) {
+        createChartPerform(kode)
+    } else {
+        updateChartDetail(kode)
+    }
+
     $('#title-dash').text('Operating Ratio')
     $('#back-div').removeClass('hidden')
     $('#dash-title-div').removeClass('pl-8')
@@ -1136,6 +1169,7 @@ function updateBox() {
                 <p class="my-0 text-circle">${pdpt.ach}%</p>
             `)
 
+            $('#pdpt-box').data('grafik', pdpt.kode_grafik)
             $('#pendapatan-value').text(nilaiPdpt)
             $('#pendapatan-yoy').text(nilaiYoyPdpt)
             $('#pdpt-yoy-percentage').append(`${pdpt.yoy}% ${iconPdpt}`)
@@ -1182,6 +1216,7 @@ function updateBox() {
                 <p class="my-0 text-circle">${beban.ach}%</p>
             `)
 
+            $('#beban-box').data('grafik', beban.kode_grafik)
             $('#beban-value').text(nilaiBeban)
             $('#beban-yoy').text(nilaiYoyBeban)
             $('#beban-yoy-percentage').append(`${beban.yoy}% ${iconBeban}`)
@@ -1228,6 +1263,7 @@ function updateBox() {
                 <p class="my-0 text-circle">${shu.ach}%</p>
             `)
 
+            $('#shu-box').data('grafik', shu.kode_grafik)
             $('#shu-value').text(nilaiShu)
             $('#shu-yoy').text(nilaiYoyShu)
             $('#shu-yoy-percentage').append(`${shu.yoy}% ${iconShu}`)
@@ -1263,6 +1299,7 @@ function updateBox() {
                 <p class="my-0 text-circle">${or.ach}%</p>
             `)
 
+            $('#or-box').data('grafik', or.kode_grafik)
             $('#or-value').text(or.n4)
             $('#or-yoy').text(`${or.n1}%`)
             $('#or-yoy-percentage').append(`${or.yoy}% ${iconOr}`)
@@ -1271,6 +1308,132 @@ function updateBox() {
     });
 }
 // END UPDATE CHART WITH FILTER
+
+// UPDATE CHART DETAIL
+function updateChartDetail(kode_grafik = null) {
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('dash-ypt-dash/data-fp-detail-perform') }}",
+        data: {
+            "periode[0]": "=", 
+            "periode[1]": $filter2_kode,
+            "kode_grafik[0]": "=", 
+            "kode_grafik[1]": kode_grafik,
+            "tahun": $tahun,
+            "jenis": $filter1_kode
+        },
+        dataType: 'json',
+        async: true,
+        success:function(result) {
+            var data = result.data;
+            performChart.series[0].update({
+                data: data.anggaran
+            }, true) // true untuk redraw
+
+            performChart.series[1].update({
+                data: data.realisasi
+            }, true) // true untuk redraw
+        }
+    });   
+}
+// END UPDATE CHART DETAIL
+
+// LOAD CHART IN DETAIL
+function createChartPerform(kode_grafik = null) {
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('dash-ypt-dash/data-fp-detail-perform') }}",
+        data: {
+            "periode[0]": "=", 
+            "periode[1]": $filter2_kode,
+            "kode_grafik[0]": "=", 
+            "kode_grafik[1]": kode_grafik,
+            "tahun": $tahun,
+            "jenis": $filter1_kode
+        },
+        dataType: 'json',
+        async: true,
+        success:function(result) {
+            var data = result.data;
+
+            performChart = Highcharts.chart('perfomansi-chart', {
+                chart: {
+                    type: 'column',
+                    height: 275,
+                    width: 600
+                },
+                title: { text: '' },
+                subtitle: { text: '' },
+                exporting:{ 
+                    enabled: false
+                },
+                legend:{  enabled: false },
+                credits: { enabled: false },
+                xAxis: {
+                    categories: data.kategori
+                },
+                yAxis: {
+                    title: {
+                        text: 'Presentase'
+                    }
+                },
+                plotOptions: {
+                    column: {
+                        grouping: true,
+                        stacking: 'normal',
+                        dataLabels: {
+                            enabled: true,
+                            overflow: 'justify',
+                            useHTML: true,
+                            formatter: function () {
+                                var visible = "block"
+                                var color = '#000000'
+                                if(this.point.color == '#CED4DA') {
+                                    visible = 'none'
+                                } else {
+                                    visible = 'block'
+                                }
+
+                                if(this.point.color == '#434348') {
+                                    color = '#ffffff'
+                                } else {
+                                    color = '#000000'
+                                }
+
+                                if(this.y < 0.1){
+                                    return '';
+                                } else {
+                                    return $('<div/>').css({
+                                        'display': visible,
+                                        'color' : color,
+                                        'padding': '0 3px',
+                                        'font-size': '10px',
+                                        'backgroundColor' : this.point.color  // just white in my case
+                                    }).text(sepNum(this.y)+'%')[0].outerHTML;
+                                }
+                            }
+                        }
+                    }
+                },
+                series: [
+                    {
+                        name: 'Presentase Anggaran',
+                        data: data.anggaran,
+                        color: '#CED4DA',
+                        stake: 'n1'
+                    },
+                    {
+                        name: 'Presentase Realisasi',
+                        colorByPoint: true,
+                        data: data.realisasi,
+                        stake: 'n1'
+                    },
+                ],
+            });
+        }
+    });
+}
+// END LOAD CHART IN DETAIL
 
 // RUN IF PAGE IS FIRST RENDER
 Highcharts.SVGRenderer.prototype.symbols['c-rect'] = function (x, y, w, h) {
@@ -1331,6 +1494,7 @@ Highcharts.SVGRenderer.prototype.symbols['c-rect'] = function (x, y, w, h) {
                 <p class="my-0 text-circle">${pdpt.ach}%</p>
             `)
 
+            $('#pdpt-box').data('grafik', pdpt.kode_grafik)
             $('#pendapatan-value').text(nilaiPdpt)
             $('#pendapatan-yoy').text(nilaiYoyPdpt)
             $('#pdpt-yoy-percentage').append(`${pdpt.yoy}% ${iconPdpt}`)
@@ -1377,6 +1541,7 @@ Highcharts.SVGRenderer.prototype.symbols['c-rect'] = function (x, y, w, h) {
                 <p class="my-0 text-circle">${beban.ach}%</p>
             `)
 
+            $('#beban-box').data('grafik', beban.kode_grafik)
             $('#beban-value').text(nilaiBeban)
             $('#beban-yoy').text(nilaiYoyBeban)
             $('#beban-yoy-percentage').append(`${beban.yoy}% ${iconBeban}`)
@@ -1423,6 +1588,7 @@ Highcharts.SVGRenderer.prototype.symbols['c-rect'] = function (x, y, w, h) {
                 <p class="my-0 text-circle">${shu.ach}%</p>
             `)
 
+            $('#shu-box').data('grafik', shu.kode_grafik)
             $('#shu-value').text(nilaiShu)
             $('#shu-yoy').text(nilaiYoyShu)
             $('#shu-yoy-percentage').append(`${shu.yoy}% ${iconShu}`)
@@ -1458,6 +1624,7 @@ Highcharts.SVGRenderer.prototype.symbols['c-rect'] = function (x, y, w, h) {
                 <p class="my-0 text-circle">${or.ach}%</p>
             `)
 
+            $('#or-box').data('grafik', or.kode_grafik)
             $('#or-value').text(or.n4)
             $('#or-yoy').text(`${or.n1}%`)
             $('#or-yoy-percentage').append(`${or.yoy}% ${iconOr}`)
@@ -2320,160 +2487,6 @@ $('#export-lembaga.menu-chart-custom ul li').click(function(event) {
     }
 })
 
-var performChart = Highcharts.chart('perfomansi-chart', {
-    chart: {
-        type: 'column',
-        height: 275,
-        width: 600
-    },
-    title: { text: '' },
-    subtitle: { text: '' },
-    exporting:{ 
-        enabled: false
-    },
-    legend:{  enabled: false },
-    credits: { enabled: false },
-    xAxis: {
-        categories: ['TS', 'ITTS', 'ITTP', 'AKATEL', 'TELU', 'LAKHAR']
-    },
-    yAxis: {
-         title: {
-            text: 'Presentase'
-        }
-    },
-    plotOptions: {
-        column: {
-            grouping: true,
-            stacking: 'normal',
-            dataLabels: {
-                enabled: true,
-                overflow: 'justify',
-                useHTML: true,
-                formatter: function () {
-                    var visible = "block"
-                    var color = '#000000'
-                    if(this.point.color == '#CED4DA') {
-                        visible = 'none'
-                    } else {
-                        visible = 'block'
-                    }
-
-                    if(this.point.color == '#434348') {
-                        color = '#ffffff'
-                    } else {
-                        color = '#000000'
-                    }
-
-                    if(this.y < 0.1){
-                        return '';
-                    } else {
-                        return $('<div/>').css({
-                            'display': visible,
-                            'color' : color,
-                            'padding': '0 3px',
-                            'font-size': '10px',
-                            'backgroundColor' : this.point.color  // just white in my case
-                        }).text(sepNum(this.y)+'%')[0].outerHTML;
-                    }
-                }
-            }
-        }
-    },
-    series: [
-        {
-            name: 'Presentase',
-            data: [2, 2, 2, 2, 1, 3],
-            color: '#CED4DA',
-            stake: 'n1'
-        },
-        {
-            name: 'Presentase',
-            colorByPoint: true,
-            data: [8, 8, 8, 8, 9, 7],
-            stake: 'n1'
-        },
-    ],
-});
-
-$('#export-perform.menu-chart-custom ul li').click(function(event) {
-    event.stopPropagation()
-    var idParent = $(this).parent('#dash-perform').attr('id')
-    var jenis = $(this).text()
-    
-    if(jenis == 'View in full screen') {
-        performChart.update({
-            title: {
-                text: 'Performansi Lembaga',
-                floating: true,
-                x: 40,
-                y: 20
-            }
-        })
-        performChart.fullscreen.toggle();
-    } else if(jenis == 'Print chart') {
-        performChart.print()
-    } else if(jenis == 'Download PNG image') {
-        performChart.exportChart({
-            type: 'image/png',
-            filename: 'chart-png'
-        }, {
-            title: {
-                text: 'Performansi Lembaga'
-            },
-            subtitle: {
-                text: ''
-            }
-        });
-    } else if(jenis == 'Download JPEG image') {
-        performChart.exportChart({
-            type: 'image/jpeg',
-            filename: 'chart-jpg'
-        }, {
-            title: {
-                text: 'Performansi Lembaga'
-            },
-            subtitle: {
-                text: ''
-            }
-        });
-    } else if(jenis == 'Download PDF document') {
-        performChart.exportChart({
-            type: 'application/pdf',
-            filename: 'chart-pdf'
-        }, {
-            title: {
-                text: 'Performansi Lembaga'
-            },
-            subtitle: {
-                text: ''
-            }
-        });
-    } else if(jenis == 'Download SVG vector image') {
-        performChart.exportChart({
-            type: 'image/svg+xml',
-            filename: 'chart-svg'
-        }, {
-            title: {
-                text: 'Performansi Lembaga'
-            },
-            subtitle: {
-                text: ''
-            }
-        });
-    } else if(jenis == 'View table data') {
-        $(this).text('Hide table data')
-        performChart.viewData()
-        var cek = $('#'+idParent+'.highcharts-data-table table').hasClass('table table-bordered table-no-padding')
-        if(!cek) {
-            $('.highcharts-data-table table').addClass('table table-bordered table-no-padding')
-        }
-        $("body").css("overflow", "scroll");
-    } else if(jenis == 'Hide table data') {
-        $(this).text('View table data')
-        $('.highcharts-data-table').hide()
-        $("body").css("overflow", "hidden");
-    }
-})
 
 // CUSTOM EXPORT HIGHCHART
 // LABA RUGI
@@ -2800,5 +2813,86 @@ $('#export-beban.menu-chart-custom ul li').click(function(event) {
     }
 })
 // END BEBAN
+// PERFORMANSI LEMBAGA
+$('#export-perform.menu-chart-custom ul li').click(function(event) {
+    event.stopPropagation()
+    var idParent = $(this).parent('#dash-perform').attr('id')
+    var jenis = $(this).text()
+    
+    if(jenis == 'View in full screen') {
+        performChart.update({
+            title: {
+                text: 'Performansi Lembaga',
+                floating: true,
+                x: 40,
+                y: 20
+            }
+        })
+        performChart.fullscreen.toggle();
+    } else if(jenis == 'Print chart') {
+        performChart.print()
+    } else if(jenis == 'Download PNG image') {
+        performChart.exportChart({
+            type: 'image/png',
+            filename: 'chart-png'
+        }, {
+            title: {
+                text: 'Performansi Lembaga'
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download JPEG image') {
+        performChart.exportChart({
+            type: 'image/jpeg',
+            filename: 'chart-jpg'
+        }, {
+            title: {
+                text: 'Performansi Lembaga'
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download PDF document') {
+        performChart.exportChart({
+            type: 'application/pdf',
+            filename: 'chart-pdf'
+        }, {
+            title: {
+                text: 'Performansi Lembaga'
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download SVG vector image') {
+        performChart.exportChart({
+            type: 'image/svg+xml',
+            filename: 'chart-svg'
+        }, {
+            title: {
+                text: 'Performansi Lembaga'
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'View table data') {
+        $(this).text('Hide table data')
+        performChart.viewData()
+        var cek = $('#'+idParent+'.highcharts-data-table table').hasClass('table table-bordered table-no-padding')
+        if(!cek) {
+            $('.highcharts-data-table table').addClass('table table-bordered table-no-padding')
+        }
+        $("body").css("overflow", "scroll");
+    } else if(jenis == 'Hide table data') {
+        $(this).text('View table data')
+        $('.highcharts-data-table').hide()
+        $("body").css("overflow", "hidden");
+    }
+})
+// END PERFORMANSI LEMBAGA
 // END CUSTOM EXPORT HIGHCHART
 </script>

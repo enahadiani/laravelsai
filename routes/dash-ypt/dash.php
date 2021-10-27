@@ -11,4 +11,6 @@ Route::get('data-fp-or', 'DashYpt\DashboardFPController@getDataBoxShu');
 Route::get('data-fp-lr', 'DashYpt\DashboardFPController@getDataBoxLabaRugi');
 Route::get('data-fp-pl', 'DashYpt\DashboardFPController@getDataBoxPerformLembaga');
 
+Route::get('data-fp-detail-perform', 'DashYpt\DashboardFPController@getDataPerformansiLembaga');
+
 ?>
