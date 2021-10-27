@@ -79,7 +79,6 @@
                                         <th width='10%'>Qty Jual</th>
                                         <th width='10%'>Qty Retur</th>
                                         <th width='20%'>Subtotal</th>
-                                        <th>Status Return</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -215,11 +214,10 @@
                                     <input type="hidden" class="form-control inp-akun" name="kode_akun[]" value="${detail.akun_pers}" readonly >
                                 </td>
                                 <td>
-                                    <input type="text" class="form-control inp-qtyretur" name="qty_retur[]" value="0" readonly>
+                                    <input type="text" class="form-control inp-qtyretur" name="qty_retur[]" value="0" >
                                     <input type="text" class="form-control inp-satuanretur hidden" name="satuan[]" value="-">
                                 </td>
                                 <td><input type="text" class="form-control inp-subb" name="subtotal[]" value="0" readonly></td>
-                                <td><select name="status_return[]" class="form-control inp-status stske${no}" value=""><option value="Tidak">Tidak</option><option value="Ya">Ya</option></select></td>
                             </tr>`;
 
                             $('#input-grid tbody').append(html);
@@ -231,19 +229,6 @@
                                 $(this).closest('tr').find('.inp-harga').val(setHarga(x));
                                 $(this).closest('tr').find('.inp-qtyjual').val(setJumlah(x));
                                 $(this).closest('tr').find('.inp-akun').val(setAkun(x));
-                                hitungTotal();
-                            });
-
-                            $('.inp-status').change(function(e){
-                                var status= $(this).val();
-                                console.log(status+'change');
-                                if(status == "Ya"){
-                                    var qty = toNilai($(this).closest('tr').find('.inp-qtyjual').val());
-                                    console.log(qty);
-                                    $(this).closest('tr').find('.inp-qtyretur').val(qty).trigger('change');
-                                }else{
-                                    $(this).closest('tr').find('.inp-qtyretur').val(0).trigger('change');
-                                }
                                 hitungTotal();
                             });
 
@@ -265,7 +250,6 @@
                         }
                         var num = 1
                         for(var i=0;i<result.detail.length;i++) { 
-                            $('.stske'+num).selectize();
                             var select = $('.ke'+num).selectize();
                             var control = select[0].selectize;
                             control.addOption(option);
