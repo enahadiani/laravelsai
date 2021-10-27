@@ -186,6 +186,7 @@
                         <ul class="nav nav-tabs col-12 nav-grid" role="tablist" style="padding-bottom:0;margin-top:0.1rem;border-bottom:none">
                             <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-pnj" role="tab" aria-selected="false"><span class="hidden-xs-down">Detail Penjualan</span></a> </li>
                             <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-beli" role="tab" aria-selected="false"><span class="hidden-xs-down">Detail Pembelian</span></a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-retur" role="tab" aria-selected="false"><span class="hidden-xs-down">Retur Penjualan</span></a> </li>
                         </ul>
                         <div class="tab-content tabcontent-border col-12 p-0">
                             <div class="tab-pane active" id="data-pnj" role="tabpanel">
@@ -214,6 +215,25 @@
                                             <thead>
                                                 <tr>
                                                     <th>No Beli</th>
+                                                    <th>Tanggal</th>
+                                                    <th>Keterangan</th>
+                                                    <th>Periode</th>
+                                                    <th>Total</th>
+                                                    <th>Diskon</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="data-retur" role="tabpanel">
+                                <div class="row">
+                                    <div class="col-md-12 table-responsive">
+                                        <table id="table-retur" style='width:100%'>
+                                            <thead>
+                                                <tr>
+                                                    <th>No Retur</th>
                                                     <th>Tanggal</th>
                                                     <th>Keterangan</th>
                                                     <th>Periode</th>
@@ -461,6 +481,33 @@
         []
     );
 
+    var tableRetur = generateTableWithoutAjax(
+        "table-retur",
+        [
+            {'targets': [4,5],
+                'className': 'text-right',
+                'render': $.fn.dataTable.render.number( '.', ',', 0, '' )
+            },
+            {'targets': [0],
+                'render': function (data, type, row) {
+                    return data+"<input type='hidden' name='no_retur[]' value='" + data + "'>";
+                }
+            }
+        ],
+        [
+            { data: 'no_retur' },
+            { data: 'tanggal', render: function(data,type,row) {
+                var split = data.split('-');
+                return split[2]+"/"+split[1]+"/"+split[0];
+            } },
+            { data: 'keterangan' },
+            { data: 'periode' },
+            { data: 'nilai' },
+            { data: 'diskon' },
+        ],
+        []
+    );
+
     // END LIST DATA
 
 
@@ -590,6 +637,8 @@
                     tableDetail.rows.add(result.data.data_detail).draw(false);
                     tableBeli.clear().draw();
                     tableBeli.rows.add(result.data.data_beli).draw(false);
+                    tableRetur.clear().draw();
+                    tableRetur.rows.add(result.data.data_retur_jual).draw(false);
                     $('#id_edit').val('');
                     $('#method').val('post');
                     $('#no_open').val(open);
