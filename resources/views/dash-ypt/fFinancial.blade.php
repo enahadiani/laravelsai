@@ -538,6 +538,7 @@ var shuChart = null;
 var lrChart = null;
 var performChart = null;
 var lembagaChart = null;
+var yoyChart = null;
 
 // WINDOW EVENT
 $(window).on('resize', function(){
@@ -725,6 +726,7 @@ $('#pdpt-box').click(function() {
     if(performChart == null) {
         createChartPerform(kode)
         createChartLembaga(kode)
+        createChartKelompok(kode)
     } else {
         updateChartDetail(kode)
     }
@@ -746,6 +748,7 @@ $('#beban-box').click(function() {
     if(performChart == null) {
         createChartPerform(kode)
         createChartLembaga(kode)
+        createChartKelompok(kode)
     } else {
         updateChartDetail(kode)
     }
@@ -767,6 +770,7 @@ $('#shu-box').click(function() {
     if(performChart == null) {
         createChartPerform(kode)
         createChartLembaga(kode)
+        createChartKelompok(kode)
     } else {
         updateChartDetail(kode)
     }
@@ -789,6 +793,7 @@ $('#or-box').click(function() {
     if(performChart == null) {
         createChartPerform(kode)
         createChartLembaga(kode)
+        createChartKelompok(kode)
     } else {
         updateChartDetail(kode)
     }
@@ -1361,6 +1366,41 @@ function updateChartDetail(kode_grafik = null) {
             }, true) // true untuk redraw
         }
     }); 
+
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('dash-ypt-dash/data-fp-detail-kelompok') }}",
+        data: {
+            "periode[0]": "=", 
+            "periode[1]": $filter2_kode,
+            "kode_grafik[0]": "=", 
+            "kode_grafik[1]": kode_grafik,
+            "tahun": $tahun,
+            "jenis": $filter1_kode
+        },
+        dataType: 'json',
+        async: true,
+        success:function(result) {
+            var data = result.data;
+            yoyChart.update({
+                xAxis: {
+                    categories: data.kategori
+                },
+                plotOptions: {
+                    series: {
+                        label: {
+                            connectorAllowed: false
+                        },
+                        marker:{
+                            enabled:false
+                        },
+                        pointStart: parseInt(data.kategori[0])
+                    }
+                },
+                series: data.series
+            }, true) // true untuk redraw
+        }
+    });  
 }
 // END UPDATE CHART DETAIL
 
@@ -1519,6 +1559,69 @@ function createChartLembaga(kode_grafik = null) {
                     colorByPoint: true,
                     data: data
                 }]
+            });
+        }
+    });
+}
+
+function createChartKelompok(kode_grafik = null) {
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('dash-ypt-dash/data-fp-detail-kelompok') }}",
+        data: {
+            "periode[0]": "=", 
+            "periode[1]": $filter2_kode,
+            "kode_grafik[0]": "=", 
+            "kode_grafik[1]": kode_grafik,
+            "tahun": $tahun,
+            "jenis": $filter1_kode
+        },
+        dataType: 'json',
+        async: true,
+        success:function(result) {
+            var data = result.data;
+            yoyChart = Highcharts.chart('yoy-chart', {
+                chart: {
+                    height: 275,
+                    width: 600
+                },
+                title: { text: '' },
+                subtitle: { text: '' },
+                exporting:{ 
+                    enabled: false
+                },
+                legend:{ 
+                    enabled: true,
+                    layout: 'vertical',
+                    align: 'right',
+                    verticalAlign: 'middle' 
+                },
+                credits: { enabled: false },
+                xAxis: {
+                    categories: data.kategori
+                },
+                yAxis: {
+                    title: {
+                        text: 'Nilai'
+                    },
+                    labels: {
+                        formatter: function() {
+                            return singkatNilai(this.value);
+                        }
+                    }
+                },
+                plotOptions: {
+                    series: {
+                        label: {
+                            connectorAllowed: false
+                        },
+                        marker:{
+                            enabled:false
+                        },
+                        pointStart: parseInt(data.kategori[0])
+                    }
+                },
+                series: data.series
             });
         }
     });
@@ -2290,142 +2393,6 @@ $('#export-akun.menu-chart-custom ul li').click(function(event) {
         $("body").css("overflow", "hidden");
     }
 })
-
-var yoyChart = Highcharts.chart('yoy-chart', {
-    chart: {
-        height: 275,
-        width: 600
-    },
-    title: { text: '' },
-    subtitle: { text: '' },
-    exporting:{ 
-        enabled: false
-    },
-    legend:{ 
-        enabled: true,
-        layout: 'vertical',
-        align: 'right',
-        verticalAlign: 'middle' 
-    },
-    credits: { enabled: false },
-    xAxis: {
-        categories: ['2016', '2017', '2018', '2019', '2020', '2021']
-    },
-    yAxis: {
-         title: {
-            text: 'Nilai'
-        }
-    },
-    plotOptions: {
-        series: {
-            label: {
-                connectorAllowed: false
-            },
-            marker:{
-                enabled:false
-            },
-            pointStart: 2016
-        }
-    },
-    series: [
-        {
-            name: 'Pendapatan A',
-            data: [2000, 3500, 2500, 5000, 3500],
-            color: '#1D4ED8'
-        },
-        {
-            name: 'Pendapatan B',
-            data: [3000, 3000, 3000, 3500, 2500],
-            color: '#EC4899'
-        },
-        {
-            name: 'Pendapatan C',
-            data: [1000, 1500, 2000, 2500, 1500],
-            color: '#FBBF24'
-        }
-    ],
-});
-
-$('#export-yoy.menu-chart-custom ul li').click(function(event) {
-    event.stopPropagation()
-    var idParent = $(this).parent('#dash-yoy').attr('id')
-    var jenis = $(this).text()
-    
-    if(jenis == 'View in full screen') {
-        yoyChart.update({
-            title: {
-                text: `Kelompok ${$judulChart} YoY`,
-                floating: true,
-                x: 40,
-                y: 20
-            }
-        })
-        yoyChart.fullscreen.toggle();
-    } else if(jenis == 'Print chart') {
-        yoyChart.print()
-    } else if(jenis == 'Download PNG image') {
-        yoyChart.exportChart({
-            type: 'image/png',
-            filename: 'chart-png'
-        }, {
-            title: {
-                text: `Kelompok ${$judulChart} YoY`,
-            },
-            subtitle: {
-                text: ''
-            }
-        });
-    } else if(jenis == 'Download JPEG image') {
-        yoyChart.exportChart({
-            type: 'image/jpeg',
-            filename: 'chart-jpg'
-        }, {
-            title: {
-                text: `Kelompok ${$judulChart} YoY`,
-            },
-            subtitle: {
-                text: ''
-            }
-        });
-    } else if(jenis == 'Download PDF document') {
-        yoyChart.exportChart({
-            type: 'application/pdf',
-            filename: 'chart-pdf'
-        }, {
-            title: {
-                text: `Kelompok ${$judulChart} YoY`,
-            },
-            subtitle: {
-                text: ''
-            }
-        });
-    } else if(jenis == 'Download SVG vector image') {
-        yoyChart.exportChart({
-            type: 'image/svg+xml',
-            filename: 'chart-svg'
-        }, {
-            title: {
-                text: `Kelompok ${$judulChart} YoY`,
-            },
-            subtitle: {
-                text: ''
-            }
-        });
-    } else if(jenis == 'View table data') {
-        $(this).text('Hide table data')
-        yoyChart.viewData()
-        var cek = $('#'+idParent+'.highcharts-data-table table').hasClass('table table-bordered table-no-padding')
-        if(!cek) {
-            $('.highcharts-data-table table').addClass('table table-bordered table-no-padding')
-        }
-        $("body").css("overflow", "scroll");
-    } else if(jenis == 'Hide table data') {
-        $(this).text('View table data')
-        $('.highcharts-data-table').hide()
-        $("body").css("overflow", "hidden");
-    }
-})
-
 // CUSTOM EXPORT HIGHCHART
 // LABA RUGI
 $('#export-lr.menu-chart-custom ul li').click(function(event) {
@@ -2913,5 +2880,86 @@ $('#export-lembaga.menu-chart-custom ul li').click(function(event) {
     }
 })
 // END PER LEMBAGA
+// PER KELOMPOK YOY
+$('#export-yoy.menu-chart-custom ul li').click(function(event) {
+    event.stopPropagation()
+    var idParent = $(this).parent('#dash-yoy').attr('id')
+    var jenis = $(this).text()
+    
+    if(jenis == 'View in full screen') {
+        yoyChart.update({
+            title: {
+                text: `Kelompok ${$judulChart} YoY`,
+                floating: true,
+                x: 40,
+                y: 20
+            }
+        })
+        yoyChart.fullscreen.toggle();
+    } else if(jenis == 'Print chart') {
+        yoyChart.print()
+    } else if(jenis == 'Download PNG image') {
+        yoyChart.exportChart({
+            type: 'image/png',
+            filename: 'chart-png'
+        }, {
+            title: {
+                text: `Kelompok ${$judulChart} YoY`,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download JPEG image') {
+        yoyChart.exportChart({
+            type: 'image/jpeg',
+            filename: 'chart-jpg'
+        }, {
+            title: {
+                text: `Kelompok ${$judulChart} YoY`,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download PDF document') {
+        yoyChart.exportChart({
+            type: 'application/pdf',
+            filename: 'chart-pdf'
+        }, {
+            title: {
+                text: `Kelompok ${$judulChart} YoY`,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download SVG vector image') {
+        yoyChart.exportChart({
+            type: 'image/svg+xml',
+            filename: 'chart-svg'
+        }, {
+            title: {
+                text: `Kelompok ${$judulChart} YoY`,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'View table data') {
+        $(this).text('Hide table data')
+        yoyChart.viewData()
+        var cek = $('#'+idParent+'.highcharts-data-table table').hasClass('table table-bordered table-no-padding')
+        if(!cek) {
+            $('.highcharts-data-table table').addClass('table table-bordered table-no-padding')
+        }
+        $("body").css("overflow", "scroll");
+    } else if(jenis == 'Hide table data') {
+        $(this).text('View table data')
+        $('.highcharts-data-table').hide()
+        $("body").css("overflow", "hidden");
+    }
+})
+// END KELOMPOK YOY
 // END CUSTOM EXPORT HIGHCHART
 </script>

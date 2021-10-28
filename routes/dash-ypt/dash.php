@@ -13,5 +13,6 @@ Route::get('data-fp-pl', 'DashYpt\DashboardFPController@getDataBoxPerformLembaga
 
 Route::get('data-fp-detail-perform', 'DashYpt\DashboardFPController@getDataPerformansiLembaga');
 Route::get('data-fp-detail-lembaga', 'DashYpt\DashboardFPController@getDataPerLembaga');
+Route::get('data-fp-detail-kelompok', 'DashYpt\DashboardFPController@getDataPerKelompok');
 
 ?>
