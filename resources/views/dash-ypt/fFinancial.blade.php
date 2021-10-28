@@ -537,6 +537,7 @@ var bebanChart = null;
 var shuChart = null;
 var lrChart = null;
 var performChart = null;
+var lembagaChart = null;
 
 // WINDOW EVENT
 $(window).on('resize', function(){
@@ -723,6 +724,7 @@ $('#pdpt-box').click(function() {
 
     if(performChart == null) {
         createChartPerform(kode)
+        createChartLembaga(kode)
     } else {
         updateChartDetail(kode)
     }
@@ -743,6 +745,7 @@ $('#beban-box').click(function() {
 
     if(performChart == null) {
         createChartPerform(kode)
+        createChartLembaga(kode)
     } else {
         updateChartDetail(kode)
     }
@@ -763,6 +766,7 @@ $('#shu-box').click(function() {
 
     if(performChart == null) {
         createChartPerform(kode)
+        createChartLembaga(kode)
     } else {
         updateChartDetail(kode)
     }
@@ -784,6 +788,7 @@ $('#or-box').click(function() {
 
     if(performChart == null) {
         createChartPerform(kode)
+        createChartLembaga(kode)
     } else {
         updateChartDetail(kode)
     }
@@ -1334,7 +1339,28 @@ function updateChartDetail(kode_grafik = null) {
                 data: data.realisasi
             }, true) // true untuk redraw
         }
-    });   
+    });  
+
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('dash-ypt-dash/data-fp-detail-lembaga') }}",
+        data: {
+            "periode[0]": "=", 
+            "periode[1]": $filter2_kode,
+            "kode_grafik[0]": "=", 
+            "kode_grafik[1]": kode_grafik,
+            "tahun": $tahun,
+            "jenis": $filter1_kode
+        },
+        dataType: 'json',
+        async: true,
+        success:function(result) {
+            var data = result.data;
+            lembagaChart.series[0].update({
+                data: data
+            }, true) // true untuk redraw
+        }
+    }); 
 }
 // END UPDATE CHART DETAIL
 
@@ -1429,6 +1455,70 @@ function createChartPerform(kode_grafik = null) {
                         stake: 'n1'
                     },
                 ],
+            });
+        }
+    });
+}
+
+function createChartLembaga(kode_grafik = null) {
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('dash-ypt-dash/data-fp-detail-lembaga') }}",
+        data: {
+            "periode[0]": "=", 
+            "periode[1]": $filter2_kode,
+            "kode_grafik[0]": "=", 
+            "kode_grafik[1]": kode_grafik,
+            "tahun": $tahun,
+            "jenis": $filter1_kode
+        },
+        dataType: 'json',
+        async: true,
+        success:function(result) {
+            var data = result.data;
+
+            lembagaChart = Highcharts.chart('lembaga-chart', {
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie',
+                    height: 275,
+                    width: 470
+                },
+                title: { text: '' },
+                subtitle: { text: '' },
+                exporting:{ 
+                    enabled: false
+                },
+                legend:{ enabled: false },
+                credits: { enabled: false },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                accessibility: {
+                    point: {
+                        valueSuffix: '%'
+                    }
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        center: ['50%', '50%'],
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            format: '{point.name} : {point.percentage:.1f} %'
+                        },
+                        size: '65%',
+                        showInLegend: true
+                    }
+                },
+                series: [{
+                    name: 'Jumlah',
+                    colorByPoint: true,
+                    data: data
+                }]
             });
         }
     });
@@ -2336,158 +2426,6 @@ $('#export-yoy.menu-chart-custom ul li').click(function(event) {
     }
 })
 
-var lembagaChart = Highcharts.chart('lembaga-chart', {
-    chart: {
-        plotBackgroundColor: null,
-        plotBorderWidth: null,
-        plotShadow: false,
-        type: 'pie',
-        height: 275,
-        width: 470
-    },
-    title: { text: '' },
-    subtitle: { text: '' },
-    exporting:{ 
-        enabled: false
-    },
-    legend:{ enabled: false },
-    credits: { enabled: false },
-    tooltip: {
-        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-    },
-    accessibility: {
-        point: {
-            valueSuffix: '%'
-        }
-    },
-    plotOptions: {
-        pie: {
-            allowPointSelect: true,
-            center: ['50%', '50%'],
-            cursor: 'pointer',
-            dataLabels: {
-                enabled: true,
-                format: '{point.name} : {point.percentage:.1f} %'
-            },
-            size: '65%',
-            showInLegend: true
-        }
-    },
-    series: [{
-        name: 'Jumlah',
-        colorByPoint: true,
-        data: [
-            {
-                name: 'TS',
-                y: 26.9,
-                sliced: true,
-                selected: true
-            },
-            {
-                name: 'ITTS',
-                y: 6.4
-            },
-            {
-                name: 'ITTP',
-                y: 9.0
-            },
-            {
-                name: 'AKATEL',
-                y: 4.5
-            },
-            {
-                name: 'TelU',
-                y: 43.6
-            },
-            {
-                name: 'Lakhar',
-                y: 9.6
-            },
-        ]
-    }]
-});
-
-$('#export-lembaga.menu-chart-custom ul li').click(function(event) {
-    event.stopPropagation()
-    var idParent = $(this).parent('#dash-lembaga').attr('id')
-    var jenis = $(this).text()
-    
-    if(jenis == 'View in full screen') {
-        lembagaChart.update({
-            title: {
-                text: `${$judulChart} Per Lembaga`,
-                floating: true,
-                x: 40,
-                y: 90
-            }
-        })
-        lembagaChart.fullscreen.toggle();
-    } else if(jenis == 'Print chart') {
-        lembagaChart.print()
-    } else if(jenis == 'Download PNG image') {
-        lembagaChart.exportChart({
-            type: 'image/png',
-            filename: 'chart-png'
-        }, {
-            title: {
-                text: `${$judulChart} Per Lembaga`,
-            },
-            subtitle: {
-                text: ''
-            }
-        });
-    } else if(jenis == 'Download JPEG image') {
-        lembagaChart.exportChart({
-            type: 'image/jpeg',
-            filename: 'chart-jpg'
-        }, {
-            title: {
-                text: `${$judulChart} Per Lembaga`,
-            },
-            subtitle: {
-                text: ''
-            }
-        });
-    } else if(jenis == 'Download PDF document') {
-        lembagaChart.exportChart({
-            type: 'application/pdf',
-            filename: 'chart-pdf'
-        }, {
-            title: {
-                text: `${$judulChart} Per Lembaga`,
-            },
-            subtitle: {
-                text: ''
-            }
-        });
-    } else if(jenis == 'Download SVG vector image') {
-        lembagaChart.exportChart({
-            type: 'image/svg+xml',
-            filename: 'chart-svg'
-        }, {
-            title: {
-                text: `${$judulChart} Per Lembaga`,
-            },
-            subtitle: {
-                text: ''
-            }
-        });
-    } else if(jenis == 'View table data') {
-        $(this).text('Hide table data')
-        lembagaChart.viewData()
-        var cek = $('#'+idParent+'.highcharts-data-table table').hasClass('table table-bordered table-no-padding')
-        if(!cek) {
-            $('.highcharts-data-table table').addClass('table table-bordered table-no-padding')
-        }
-        $("body").css("overflow", "scroll");
-    } else if(jenis == 'Hide table data') {
-        $(this).text('View table data')
-        $('.highcharts-data-table').hide()
-        $("body").css("overflow", "hidden");
-    }
-})
-
-
 // CUSTOM EXPORT HIGHCHART
 // LABA RUGI
 $('#export-lr.menu-chart-custom ul li').click(function(event) {
@@ -2894,5 +2832,86 @@ $('#export-perform.menu-chart-custom ul li').click(function(event) {
     }
 })
 // END PERFORMANSI LEMBAGA
+// PER LEMBAGA
+$('#export-lembaga.menu-chart-custom ul li').click(function(event) {
+    event.stopPropagation()
+    var idParent = $(this).parent('#dash-lembaga').attr('id')
+    var jenis = $(this).text()
+    
+    if(jenis == 'View in full screen') {
+        lembagaChart.update({
+            title: {
+                text: `${$judulChart} Per Lembaga`,
+                floating: true,
+                x: 40,
+                y: 90
+            }
+        })
+        lembagaChart.fullscreen.toggle();
+    } else if(jenis == 'Print chart') {
+        lembagaChart.print()
+    } else if(jenis == 'Download PNG image') {
+        lembagaChart.exportChart({
+            type: 'image/png',
+            filename: 'chart-png'
+        }, {
+            title: {
+                text: `${$judulChart} Per Lembaga`,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download JPEG image') {
+        lembagaChart.exportChart({
+            type: 'image/jpeg',
+            filename: 'chart-jpg'
+        }, {
+            title: {
+                text: `${$judulChart} Per Lembaga`,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download PDF document') {
+        lembagaChart.exportChart({
+            type: 'application/pdf',
+            filename: 'chart-pdf'
+        }, {
+            title: {
+                text: `${$judulChart} Per Lembaga`,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download SVG vector image') {
+        lembagaChart.exportChart({
+            type: 'image/svg+xml',
+            filename: 'chart-svg'
+        }, {
+            title: {
+                text: `${$judulChart} Per Lembaga`,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'View table data') {
+        $(this).text('Hide table data')
+        lembagaChart.viewData()
+        var cek = $('#'+idParent+'.highcharts-data-table table').hasClass('table table-bordered table-no-padding')
+        if(!cek) {
+            $('.highcharts-data-table table').addClass('table table-bordered table-no-padding')
+        }
+        $("body").css("overflow", "scroll");
+    } else if(jenis == 'Hide table data') {
+        $(this).text('View table data')
+        $('.highcharts-data-table').hide()
+        $("body").css("overflow", "hidden");
+    }
+})
+// END PER LEMBAGA
 // END CUSTOM EXPORT HIGHCHART
 </script>
