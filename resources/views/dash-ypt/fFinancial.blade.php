@@ -88,7 +88,7 @@
 {{-- ROW 1 --}}
     <div id="dekstop-1" class="row dekstop">
         <div class="col-3 pl-12 pr-0">
-            <div class="card card-dash cursor-pointer" id="pdpt-box" data-grafik="">
+            <div class="card card-dash border-0 cursor-pointer" id="pdpt-box" data-grafik="">
                 <div class="row">
                     <div class="col-4 pt-16">
                         <div id="circle-pdpt" class="circle-bar">
@@ -121,7 +121,7 @@
             </div>
         </div>
         <div class="col-3 pl-1 pr-0">
-            <div class="card card-dash cursor-pointer" id="beban-box" data-grafik="">
+            <div class="card card-dash border-0 cursor-pointer" id="beban-box" data-grafik="">
                 <div class="row">
                     <div class="col-4 pt-16">
                         <div id="circle-beban" class="circle-bar">
@@ -153,7 +153,7 @@
             </div>
         </div>
         <div class="col-3 pl-1 pr-0">
-            <div class="card card-dash cursor-pointer" id="shu-box" data-grafik="">
+            <div class="card card-dash border-0 cursor-pointer" id="shu-box" data-grafik="">
                 <div class="row">
                     <div class="col-4 pt-16">
                         <div id="circle-shu" class="circle-bar">
@@ -185,7 +185,7 @@
             </div>
         </div>
         <div class="col-3 pl-1 pr-0">
-            <div class="card card-dash cursor-pointer" id="or-box" data-grafik="">
+            <div class="card card-dash border-0 cursor-pointer" id="or-box" data-grafik="">
                 <div class="row">
                     <div class="col-4 pt-16">
                         <div id="circle-or" class="circle-bar">
@@ -222,7 +222,7 @@
 {{-- ROW 2 --}}
     <div id="dekstop-2" class="row dekstop mt-4">
           <div class="col-3 pl-12 pr-0">
-            <div class="card card-dash" id="dash-pdpt">
+            <div class="card card-dash border-0" id="dash-pdpt">
                 <div class="row header-div" id="card-pdpt">
                     <div class="col-9">
                         <h4 class="header-card">Pendapatan Lembaga</h4>
@@ -247,7 +247,7 @@
             </div>
           </div>
           <div class="col-3 pl-1 pr-0">
-                <div class="card card-dash" id="dash-beban">
+                <div class="card card-dash border-0" id="dash-beban">
                     <div class="row header-div" id="card-beban">
                         <div class="col-9">
                             <h4 class="header-card">Beban Lembaga</h4>
@@ -272,7 +272,7 @@
                 </div>
           </div>
           <div class="col-3 pl-1 pr-0">
-                <div class="card card-dash" id="dash-shu">
+                <div class="card card-dash border-0" id="dash-shu">
                     <div class="row header-div" id="card-shu">
                         <div class="col-9">
                             <h4 class="header-card">SHU Lembaga</h4>
@@ -297,7 +297,7 @@
                 </div>
           </div>
           <div class="col-3 pl-1 pr-0">
-                <div class="card card-dash">
+                <div class="card card-dash border-0">
                     <div class="row header-div">
                         <div class="col-9">
                             <h4 class="header-card">OR Lembaga</h4>
@@ -317,7 +317,7 @@
 {{-- ROW 3 --}}
     <div id="dekstop-3" class="row dekstop mt-4">
         <div class="col-6 pl-12 pr-0">
-            <div class="card card-dash" id="dash-lr">
+            <div class="card card-dash border-0" id="dash-lr">
                 <div class="row header-div" id="card-lr">
                     <div class="col-9">
                         <h4 class="header-card">Laba Rugi Lembaga</h4>
@@ -342,7 +342,7 @@
             </div>
         </div>
         <div class="col-6 pl-1 pr-0">
-            <div class="card card-dash">
+            <div class="card card-dash border-0">
                 <div class="row header-div">
                     <div class="col-9">
                         <h4 class="header-card">Performansi Lembaga</h4>
@@ -385,7 +385,7 @@
     {{-- ROW 4 --}}
     <div id="dekstop-4" class="row dekstop">
         <div class="col-7 pl-12 pr-0">
-            <div class="card card-dash" id="dash-perform">
+            <div class="card card-dash border-0" id="dash-perform">
                 <div class="row header-div" id="card-perform">
                     <div class="col-9">
                         <h4 class="header-card">Performansi Lembaga</h4>
@@ -410,7 +410,7 @@
             </div>
         </div>
         <div class="col-5 pl-1 pr-0">
-            <div class="card card-dash" id="dash-lembaga">
+            <div class="card card-dash border-0" id="dash-lembaga">
                 <div class="row header-div" id="card-lembaga">
                     <div class="col-9">
                         <h4 class="header-card"><span class="title-chart"></span> Per Lembaga</h4>
@@ -438,7 +438,7 @@
 
     <div id="dekstop-5" class="row dekstop mt-4">
         <div class="col-7 pl-12 pr-0">
-            <div class="card card-dash" id="dash-yoy">
+            <div class="card card-dash border-0" id="dash-yoy">
                 <div class="row header-div" id="card-yoy">
                     <div class="col-9">
                         <h4 class="header-card">Kelompok <span class="title-chart"></span> YoY</h4>
@@ -463,7 +463,7 @@
             </div>
         </div>
         <div class="col-5 pl-1 pr-0">
-            <div class="card card-dash" id="dash-akun">
+            <div class="card card-dash border-0" id="dash-akun">
                 <div class="row header-div" id="card-akun">
                     <div class="col-9">
                         <h4 class="header-card">Kelompok <span class="title-chart"></span></h4>
@@ -1316,7 +1316,7 @@ function updateBox() {
             `)
 
             $('#or-box').data('grafik', or.kode_grafik)
-            $('#or-value').text(or.n4)
+            $('#or-value').text(`${or.n4} %`)
             $('#or-yoy').text(`${or.n1}%`)
             $('#or-yoy-percentage').append(`${or.yoy}% ${iconOr}`)
             // END OR
@@ -1729,9 +1729,9 @@ function createChartAkun(kode_grafik = null) {
 // END LOAD CHART IN DETAIL
 
 // RUN IF PAGE IS FIRST RENDER
-Highcharts.SVGRenderer.prototype.symbols['c-rect'] = function (x, y, w, h) {
-    return ['M', x, y + h / 2, 'L', x + w, y + h / 2];
-};
+// Highcharts.SVGRenderer.prototype.symbols['c-rect'] = function (x, y, w, h) {
+//     return ['M', x, y + h / 2, 'L', x + w, y + h / 2];
+// };
 // BOX
 (function(){
     $.ajax({
@@ -1918,7 +1918,7 @@ Highcharts.SVGRenderer.prototype.symbols['c-rect'] = function (x, y, w, h) {
             `)
 
             $('#or-box').data('grafik', or.kode_grafik)
-            $('#or-value').text(or.n4)
+            $('#or-value').text(`${or.n4} %`)
             $('#or-yoy').text(`${or.n1}%`)
             $('#or-yoy-percentage').append(`${or.yoy}% ${iconOr}`)
             // END OR
@@ -2230,17 +2230,17 @@ Highcharts.SVGRenderer.prototype.symbols['c-rect'] = function (x, y, w, h) {
                         type: 'column',
                         data: data.data_beban
                     },
-                    {
-                        name: 'SHU',
-                        color: '#FBBF24',
-                        marker: {
-                            symbol: 'c-rect',
-                            lineColor: '#FBBF24',
-                            radius: 30,
-                        },
-                        type: 'scatter',
-                        data: data.data_shu
-                    }
+                    // {
+                    //     name: 'SHU',
+                    //     color: '#FBBF24',
+                    //     marker: {
+                    //         symbol: 'c-rect',
+                    //         lineColor: '#FBBF24',
+                    //         radius: 30,
+                    //     },
+                    //     type: 'scatter',
+                    //     data: data.data_shu
+                    // }
                 ]
             })
         }

@@ -132,6 +132,9 @@
 .bg-red {
     background-color: #830000 !important;
 }
+.border-0 {
+    border: none !important;
+}
 /* END GLOBAL */
 
 /* HEADER */
@@ -390,3 +393,13 @@
     font-size: 18px !important;
 }
 /* END WINDOW */
+
+/* BODY CONTENT */
+.body-content {
+    margin-top: -16px;
+}
+body#app-container {
+    /* background-color: #d1d5db; */
+    border-radius: 0 !important;
+}
+/* END BODY CONTENT */
