@@ -401,6 +401,11 @@ Route::post('sdm-adm-sanksi', 'Esaku\Sdm\SanksiAdmController@store');
 Route::post('sdm-adm-sanksi-update', 'Esaku\Sdm\SanksiAdmController@update');
 Route::delete('sdm-adm-sanksi', 'Esaku\Sdm\SanksiAdmController@delete');
 
+// Retur Penjualan //
+Route::post('retur-jual', 'Esaku\Inventori\ReturJualController@store');
+Route::get('retur-jual-bukti', 'Esaku\Inventori\ReturJualController@getPenjualan');
+Route::get('retur-jual-detail/{no_bukti}', 'Esaku\Inventori\ReturJualController@show');
+
 Route::get('/tes-print', function () {
     try {
         // $ip = ''; // IP Komputer kita atau printer lain yang masih satu jaringan

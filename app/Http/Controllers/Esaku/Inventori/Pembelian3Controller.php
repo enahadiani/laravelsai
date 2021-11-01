@@ -23,6 +23,13 @@ class Pembelian3Controller extends Controller
         }
     }
 
+    public function joinNum($num){
+        // menggabungkan angka yang di-separate(10.000,75) menjadi 10000.00
+        $num = str_replace(".", "", $num);
+        $num = str_replace(",", ".", $num);
+        return $num;
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -103,10 +110,10 @@ class Pembelian3Controller extends Controller
             $data_sub = array();
             $data_harga_jual = array();
             for($i=0;$i<count($request->kode_barang);$i++){
-                $data_harga[] = intval(str_replace('.','', $request->harga_barang[$i]));
-                $data_diskon[] = intval(str_replace('.','', $request->disc_barang[$i]));
-                $data_sub[] = intval(str_replace('.','', $request->sub_barang[$i]));
-                $data_harga_jual[] = intval(str_replace('.','', $request->harga_jual[$i]));
+                $data_harga[] = $this->joinNum($request->harga_barang[$i]);
+                $data_diskon[] = $this->joinNum($request->disc_barang[$i]);
+                $data_sub[] = $this->joinNum($request->sub_barang[$i]);
+                $data_harga_jual[] = $this->joinNum($request->harga_jual[$i]);
             }
 
             $fields = array (
@@ -114,9 +121,9 @@ class Pembelian3Controller extends Controller
                 'kode_vendor' => $request->kode_vendor,
                 'no_faktur' => $request->no_faktur,
                 'keterangan' => $request->keterangan,
-                'total_trans' => intval(str_replace('.','', $request->total_trans)),
-                'total_diskon' => intval(str_replace('.','', $request->total_disk)),
-                'total_ppn' => intval(str_replace('.','', $request->total_ppn)),
+                'total_trans' => $this->joinNum($request->total_trans),
+                'total_diskon' => $this->joinNum($request->total_disk),
+                'total_ppn' => $this->joinNum($request->total_ppn),
                 'kode_barang' => $request->kode_barang,
                 'kode_akun' => $request->kode_akun,
                 'qty_barang' => $request->qty_barang,
@@ -197,10 +204,10 @@ class Pembelian3Controller extends Controller
             $data_sub = array();
             $data_harga_jual = array();
             for($i=0;$i<count($request->kode_barang);$i++){
-                $data_harga[] = intval(str_replace('.','', $request->harga_barang[$i]));
-                $data_diskon[] = intval(str_replace('.','', $request->disc_barang[$i]));
-                $data_sub[] = intval(str_replace('.','', $request->sub_barang[$i]));
-                $data_harga_jual[] = intval(str_replace('.','', $request->harga_jual[$i]));
+                $data_harga[] = $this->joinNum($request->harga_barang[$i]);
+                $data_diskon[] = $this->joinNum($request->disc_barang[$i]);
+                $data_sub[] = $this->joinNum($request->sub_barang[$i]);
+                $data_harga_jual[] = $this->joinNum($request->harga_jual[$i]);
             }
 
             $fields = array (
@@ -208,9 +215,9 @@ class Pembelian3Controller extends Controller
                 'kode_vendor' => $request->kode_vendor,
                 'no_faktur' => $request->no_faktur,
                 'keterangan' => $request->keterangan,
-                'total_trans' => intval(str_replace('.','', $request->total_trans)),
-                'total_diskon' => intval(str_replace('.','', $request->total_disk)),
-                'total_ppn' => intval(str_replace('.','', $request->total_ppn)),
+                'total_trans' => $this->joinNum($request->total_trans),
+                'total_diskon' => $this->joinNum($request->total_disk),
+                'total_ppn' => $this->joinNum($request->total_ppn),
                 'kode_barang' => $request->kode_barang,
                 'kode_akun' => $request->kode_akun,
                 'qty_barang' => $request->qty_barang,

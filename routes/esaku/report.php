@@ -59,6 +59,7 @@ Route::post('lap-penjualan-harian', 'Esaku\Inventori\LaporanController@getPenjua
 Route::post('lap-penjualan', 'Esaku\Inventori\LaporanController@getPenjualan');
 Route::post('lap-nota-jual', 'Esaku\Inventori\LaporanController@getNotaJual');
 Route::post('lap-retur-beli', 'Esaku\Inventori\LaporanController@getReturBeli');
+Route::post('lap-retur-jual', 'Esaku\Inventori\LaporanController@getReturJual');
 Route::post('lap-pembelian', 'Esaku\Inventori\LaporanController@getPembelian');
 Route::post('lap-closing', 'Esaku\Inventori\LaporanController@getClosing');
 Route::post('lap-barang', 'Esaku\Inventori\LaporanController@getBarang');

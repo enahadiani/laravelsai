@@ -128,6 +128,10 @@ class CloseKasirController extends Controller
                 if(isset($request->no_beli)){
                     $fields = array_merge($fields,array('no_beli' => $request->no_beli));
                 }
+
+                if(isset($request->no_retur)){
+                    $fields = array_merge($fields,array('no_retur' => $request->no_retur));
+                }
                 
                 $client = new Client();
                 $response = $client->request('POST',  config('api.url').'esaku-trans/close-kasir',[
