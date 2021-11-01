@@ -188,7 +188,8 @@
                         'Accept'     => 'application/json',
                     ],
                     'query' => [
-                        'periode' => Session::get('periode')
+                        'periode' => Session::get('periode'),
+                        'top' => $request->top
                     ]
                 ]);
     

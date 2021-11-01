@@ -358,7 +358,7 @@
             type: "GET",
             url: "{{ url('ts-dash/riwayat-trans') }}",
             dataType: 'json',
-            data: {},
+            data: {top:5},
             success:function(result){    
                 if(result.status){
                     if(result.data.length > 0){
