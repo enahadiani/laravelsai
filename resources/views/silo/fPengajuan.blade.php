@@ -263,6 +263,7 @@
                             <p class="text-success"></p>
                         </div>
                         <div class="action-footer">
+                            <button type="submit" style="margin-top: 10px;" id="btn-draft" class="btn btn-info mr-2"><i class="simple-icon-note"></i> Draft</button>
                             <button type="submit" style="margin-top: 10px;" class="btn btn-primary btn-save"><i
                                     class="fa fa-save"></i> Simpan</button>
                         </div>
@@ -370,8 +371,8 @@
             showCustom:function(result){
                 if (result.value) {
                     $('.navbar-top a').removeClass('active');
-                    $('a[data-href="fSiloDash"]').addClass('active');
-                    var url = "{{ url('silo-auth/form')}}/fSiloDash";
+                    $('a[data-href="fPengajuanDash"]').addClass('active');
+                    var url = "{{ url('silo-auth/form')}}/fPengajuanMenu";
                     $('#trans-body').load(url);
                     $id_edit= '';
                     $edit = 0;

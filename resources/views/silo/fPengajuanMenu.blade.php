@@ -13,7 +13,7 @@
 <div class="top-menu">
     <div class='navbar-top w-100 text-center'>
         <div class="header-icons d-inline-block align-middle">
-            <a href="#" data-href='fSiloDash' class="header-icon btn btn-empty active" type="button" >
+            <a href="#" data-href='fPengajuanDash' class="header-icon btn btn-empty active" type="button" >
                 <i class="simple-icon-home" style="font-size:1.5rem"></i>
                 <h6 style="font-size:0.85rem !important">Home</h6>
             </a>
@@ -86,6 +86,6 @@
         $('#trans-body').load(url);
     });
 
-    $('#trans-body').load("{{ url('silo-auth/form')}}/fSiloDash");
+    $('#trans-body').load("{{ url('silo-auth/form')}}/fPengajuanDash");
 
 </script>
