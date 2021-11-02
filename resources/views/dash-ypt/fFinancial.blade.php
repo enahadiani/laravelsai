@@ -1445,7 +1445,6 @@ function createChartPerform(kode_grafik = null) {
         async: true,
         success:function(result) {
             var data = result.data;
-
             performChart = Highcharts.chart('perfomansi-chart', {
                 chart: {
                     type: 'column',
@@ -1585,6 +1584,17 @@ function createChartLembaga(kode_grafik = null) {
                     colorByPoint: true,
                     data: data
                 }]
+            }, function() {
+                var series = this.series;
+                for(var i=0;i<series.length;i++) {
+                    var point = series[i].data;
+                    for(var j=0;j<point.length;j++) {
+                        var color = point[j].color;
+                        if(color == '#434348') {
+                            point[j].graphic.element.style.fill = '#830000'
+                        }
+                    }
+                }
             });
 
             $render = 1;
@@ -1717,6 +1727,17 @@ function createChartAkun(kode_grafik = null) {
                     colorByPoint: true,
                     data: data
                 }]
+            }, function() {
+                var series = this.series;
+                for(var i=0;i<series.length;i++) {
+                    var point = series[i].data;
+                    for(var j=0;j<point.length;j++) {
+                        var color = point[j].color;
+                        if(color == '#434348') {
+                            point[j].graphic.element.style.fill = '#830000'
+                        }
+                    }
+                }
             });
 
             $render = 1;
@@ -1986,6 +2007,17 @@ function createChartAkun(kode_grafik = null) {
                     colorByPoint: true,
                     data: result.data
                 }]
+            }, function() {
+                var series = this.series;
+                for(var i=0;i<series.length;i++) {
+                    var point = series[i].data;
+                    for(var j=0;j<point.length;j++) {
+                        var color = point[j].color;
+                        if(color == '#7cb5ec') {
+                            point[j].graphic.element.style.fill = '#830000'
+                        }
+                    }
+                }
             });
         }
     });
@@ -2054,6 +2086,17 @@ function createChartAkun(kode_grafik = null) {
                     colorByPoint: true,
                     data: result.data
                 }]
+            }, function() {
+                var series = this.series;
+                for(var i=0;i<series.length;i++) {
+                    var point = series[i].data;
+                    for(var j=0;j<point.length;j++) {
+                        var color = point[j].color;
+                        if(color == '#7cb5ec') {
+                            point[j].graphic.element.style.fill = '#830000'
+                        }
+                    }
+                }
             });
         }
     });
@@ -2122,6 +2165,17 @@ function createChartAkun(kode_grafik = null) {
                     colorByPoint: true,
                     data: result.data
                 }]
+            }, function() {
+                var series = this.series;
+                for(var i=0;i<series.length;i++) {
+                    var point = series[i].data;
+                    for(var j=0;j<point.length;j++) {
+                        var color = point[j].color;
+                        if(color == '#7cb5ec') {
+                            point[j].graphic.element.style.fill = '#830000'
+                        }
+                    }
+                }
             });
         }
     });
