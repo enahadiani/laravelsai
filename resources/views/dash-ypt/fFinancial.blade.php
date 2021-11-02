@@ -21,7 +21,7 @@
                     <img id="icon-message" alt="message-icon" class="icon-message cursor-pointer" src="{{ asset('dash-asset/dash-ypt/icon/message.svg') }}">
                 </div>
                 <div class="col-9">
-                    <div class="select-custom row cursor-pointer" id="custom-row">
+                    <div class="select-custom row cursor-pointer border-r-0" id="custom-row">
                         <div class="col-2">
                             <img alt="message-icon" class="icon-calendar" src="{{ asset('dash-asset/dash-ypt/icon/calendar.svg') }}">
                         </div>
@@ -35,7 +35,7 @@
                 </div>
             </div>
         </div>
-        <div id="filter-box" class="filter-box hidden">
+        <div id="filter-box" class="filter-box border-r-0 hidden">
             <div class="row justify-content-end">
                 <div class="col-7 pt-8 pr-0">
                     <div class="row">
@@ -88,7 +88,7 @@
 {{-- ROW 1 --}}
     <div id="dekstop-1" class="row dekstop">
         <div class="col-3 pl-12 pr-0">
-            <div class="card card-dash border-0 cursor-pointer" id="pdpt-box" data-grafik="">
+            <div class="card card-dash border-0 border-r-0 cursor-pointer" id="pdpt-box" data-grafik="">
                 <div class="row">
                     <div class="col-4 pt-16">
                         <div id="circle-pdpt" class="circle-bar">
@@ -121,7 +121,7 @@
             </div>
         </div>
         <div class="col-3 pl-1 pr-0">
-            <div class="card card-dash border-0 cursor-pointer" id="beban-box" data-grafik="">
+            <div class="card card-dash border-0 border-r-0 cursor-pointer" id="beban-box" data-grafik="">
                 <div class="row">
                     <div class="col-4 pt-16">
                         <div id="circle-beban" class="circle-bar">
@@ -153,7 +153,7 @@
             </div>
         </div>
         <div class="col-3 pl-1 pr-0">
-            <div class="card card-dash border-0 cursor-pointer" id="shu-box" data-grafik="">
+            <div class="card card-dash border-0 border-r-0 cursor-pointer" id="shu-box" data-grafik="">
                 <div class="row">
                     <div class="col-4 pt-16">
                         <div id="circle-shu" class="circle-bar">
@@ -185,7 +185,7 @@
             </div>
         </div>
         <div class="col-3 pl-1 pr-0">
-            <div class="card card-dash border-0 cursor-pointer" id="or-box" data-grafik="">
+            <div class="card card-dash border-0 border-r-0 cursor-pointer" id="or-box" data-grafik="">
                 <div class="row">
                     <div class="col-4 pt-16">
                         <div id="circle-or" class="circle-bar">
@@ -222,7 +222,7 @@
 {{-- ROW 2 --}}
     <div id="dekstop-2" class="row dekstop mt-4">
           <div class="col-3 pl-12 pr-0">
-            <div class="card card-dash border-0" id="dash-pdpt">
+            <div class="card card-dash border-0 border-r-0" id="dash-pdpt">
                 <div class="row header-div" id="card-pdpt">
                     <div class="col-9">
                         <h4 class="header-card">Pendapatan Lembaga</h4>
@@ -247,7 +247,7 @@
             </div>
           </div>
           <div class="col-3 pl-1 pr-0">
-                <div class="card card-dash border-0" id="dash-beban">
+                <div class="card card-dash border-0 border-r-0" id="dash-beban">
                     <div class="row header-div" id="card-beban">
                         <div class="col-9">
                             <h4 class="header-card">Beban Lembaga</h4>
@@ -272,7 +272,7 @@
                 </div>
           </div>
           <div class="col-3 pl-1 pr-0">
-                <div class="card card-dash border-0" id="dash-shu">
+                <div class="card card-dash border-0 border-r-0" id="dash-shu">
                     <div class="row header-div" id="card-shu">
                         <div class="col-9">
                             <h4 class="header-card">SHU Lembaga</h4>
@@ -297,7 +297,7 @@
                 </div>
           </div>
           <div class="col-3 pl-1 pr-0">
-                <div class="card card-dash border-0">
+                <div class="card card-dash border-0 border-r-0">
                     <div class="row header-div">
                         <div class="col-9">
                             <h4 class="header-card">OR Lembaga</h4>
@@ -317,7 +317,7 @@
 {{-- ROW 3 --}}
     <div id="dekstop-3" class="row dekstop mt-4">
         <div class="col-6 pl-12 pr-0">
-            <div class="card card-dash border-0" id="dash-lr">
+            <div class="card card-dash border-0 border-r-0" id="dash-lr">
                 <div class="row header-div" id="card-lr">
                     <div class="col-9">
                         <h4 class="header-card">Laba Rugi Lembaga</h4>
@@ -342,7 +342,7 @@
             </div>
         </div>
         <div class="col-6 pl-1 pr-0">
-            <div class="card card-dash border-0">
+            <div class="card card-dash border-0 border-r-0">
                 <div class="row header-div">
                     <div class="col-9">
                         <h4 class="header-card">Performansi Lembaga</h4>
@@ -385,7 +385,7 @@
     {{-- ROW 4 --}}
     <div id="dekstop-4" class="row dekstop">
         <div class="col-7 pl-12 pr-0">
-            <div class="card card-dash border-0" id="dash-perform">
+            <div class="card card-dash border-0 border-r-0" id="dash-perform">
                 <div class="row header-div" id="card-perform">
                     <div class="col-9">
                         <h4 class="header-card">Performansi Lembaga</h4>
@@ -410,7 +410,7 @@
             </div>
         </div>
         <div class="col-5 pl-1 pr-0">
-            <div class="card card-dash border-0" id="dash-lembaga">
+            <div class="card card-dash border-0 border-r-0" id="dash-lembaga">
                 <div class="row header-div" id="card-lembaga">
                     <div class="col-9">
                         <h4 class="header-card"><span class="title-chart"></span> Per Lembaga</h4>
@@ -438,7 +438,7 @@
 
     <div id="dekstop-5" class="row dekstop mt-4">
         <div class="col-7 pl-12 pr-0">
-            <div class="card card-dash border-0" id="dash-yoy">
+            <div class="card card-dash border-0 border-r-0" id="dash-yoy">
                 <div class="row header-div" id="card-yoy">
                     <div class="col-9">
                         <h4 class="header-card">Kelompok <span class="title-chart"></span> YoY</h4>
@@ -463,7 +463,7 @@
             </div>
         </div>
         <div class="col-5 pl-1 pr-0">
-            <div class="card card-dash border-0" id="dash-akun">
+            <div class="card card-dash border-0 border-r-0" id="dash-akun">
                 <div class="row header-div" id="card-akun">
                     <div class="col-9">
                         <h4 class="header-card">Kelompok <span class="title-chart"></span></h4>
@@ -1046,6 +1046,10 @@ function updateChart() {
 
             lrChart.series[1].update({
                 data: data.data_beban
+            }, false) // true untuk redraw
+
+            lrChart.series[2].update({
+                data: data.data_shu
             }, false) // true untuk redraw
 
             // re render chart
@@ -2281,17 +2285,17 @@ function createChartAkun(kode_grafik = null) {
                         type: 'column',
                         data: data.data_beban
                     },
-                    // {
-                    //     name: 'SHU',
-                    //     color: '#FBBF24',
-                    //     marker: {
-                    //         symbol: 'c-rect',
-                    //         lineColor: '#FBBF24',
-                    //         radius: 30,
-                    //     },
-                    //     type: 'scatter',
-                    //     data: data.data_shu
-                    // }
+                    {
+                        name: 'SHU',
+                        color: '#FBBF24',
+                        // marker: {
+                        //     symbol: 'c-rect',
+                        //     lineColor: '#FBBF24',
+                        //     radius: 30,
+                        // },
+                        type: 'spline',
+                        data: data.data_shu
+                    }
                 ]
             })
         }

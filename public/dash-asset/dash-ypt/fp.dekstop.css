@@ -135,9 +135,18 @@
 .border-0 {
     border: none !important;
 }
+.border-r-0 {
+    border-radius: 0 !important;
+}
 /* END GLOBAL */
 
 /* HEADER */
+section.header {
+    background-color: #ffffff;
+    margin-top: -32px;
+    padding: 16px 8px 8px 8px;
+    width: calc(100vw - 155px);
+}
 .header .glyph-icon.iconsminds-left.header {
     font-size: 28px;
     cursor: pointer;
@@ -154,14 +163,14 @@
 .header .message-div .icon-message {
     float: right;
     margin-top: 8px;
-    margin-right: 4px;
+    margin-right: 8px;
 }
 .header .select-custom {
     border: 1px solid #9ca3af;
     height: 42px;
     width: 260px;
     float: right;
-    margin-right: 4px;
+    margin-right: 16px;
     border-radius: 10px;
 }
 .header .select-custom .icon-calendar {
@@ -235,6 +244,9 @@
     .card.card-dash .circle-bar .value-circle .text-circle {
         font-size: 14px !important;
         margin-right: 8px;
+    }
+    section.header {
+        width: calc(100vw - 171px);
     }
 }
 /* END CARD */
