@@ -7,7 +7,7 @@
     <input class="form-control" type="hidden" id="id_edit" name="id_edit">
     <input type="hidden" id="method" name="_method" value="post">
     <input type="hidden" id="id" name="id">
-    <div class="row" id="saku-form" >
+    <div class="row" id="saku-form">
         <div class="col-12">
             <div class="card">
                 <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;min-height:62.8px">
@@ -263,7 +263,8 @@
                             <p class="text-success"></p>
                         </div>
                         <div class="action-footer">
-                            <button type="submit" style="margin-top: 10px;" id="btn-draft" class="btn btn-info mr-2"><i class="simple-icon-note"></i> Draft</button>
+                            <button type="submit" style="margin-top: 10px;" id="btn-draft" class="btn btn-info mr-2"><i
+                                    class="simple-icon-note"></i> Draft</button>
                             <button type="submit" style="margin-top: 10px;" class="btn btn-primary btn-save"><i
                                     class="fa fa-save"></i> Simpan</button>
                         </div>

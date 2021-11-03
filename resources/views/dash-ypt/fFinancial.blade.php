@@ -21,7 +21,7 @@
                     <img id="icon-message" alt="message-icon" class="icon-message cursor-pointer" src="{{ asset('dash-asset/dash-ypt/icon/message.svg') }}">
                 </div>
                 <div class="col-9">
-                    <div class="select-custom row cursor-pointer" id="custom-row">
+                    <div class="select-custom row cursor-pointer border-r-0" id="custom-row">
                         <div class="col-2">
                             <img alt="message-icon" class="icon-calendar" src="{{ asset('dash-asset/dash-ypt/icon/calendar.svg') }}">
                         </div>
@@ -35,7 +35,7 @@
                 </div>
             </div>
         </div>
-        <div id="filter-box" class="filter-box hidden">
+        <div id="filter-box" class="filter-box border-r-0 hidden">
             <div class="row justify-content-end">
                 <div class="col-7 pt-8 pr-0">
                     <div class="row">
@@ -88,7 +88,7 @@
 {{-- ROW 1 --}}
     <div id="dekstop-1" class="row dekstop">
         <div class="col-3 pl-12 pr-0">
-            <div class="card card-dash cursor-pointer" id="pdpt-box" data-grafik="">
+            <div class="card card-dash border-0 border-r-0 cursor-pointer" id="pdpt-box" data-grafik="">
                 <div class="row">
                     <div class="col-4 pt-16">
                         <div id="circle-pdpt" class="circle-bar">
@@ -121,7 +121,7 @@
             </div>
         </div>
         <div class="col-3 pl-1 pr-0">
-            <div class="card card-dash cursor-pointer" id="beban-box" data-grafik="">
+            <div class="card card-dash border-0 border-r-0 cursor-pointer" id="beban-box" data-grafik="">
                 <div class="row">
                     <div class="col-4 pt-16">
                         <div id="circle-beban" class="circle-bar">
@@ -153,7 +153,7 @@
             </div>
         </div>
         <div class="col-3 pl-1 pr-0">
-            <div class="card card-dash cursor-pointer" id="shu-box" data-grafik="">
+            <div class="card card-dash border-0 border-r-0 cursor-pointer" id="shu-box" data-grafik="">
                 <div class="row">
                     <div class="col-4 pt-16">
                         <div id="circle-shu" class="circle-bar">
@@ -185,7 +185,7 @@
             </div>
         </div>
         <div class="col-3 pl-1 pr-0">
-            <div class="card card-dash cursor-pointer" id="or-box" data-grafik="">
+            <div class="card card-dash border-0 border-r-0 cursor-pointer" id="or-box" data-grafik="">
                 <div class="row">
                     <div class="col-4 pt-16">
                         <div id="circle-or" class="circle-bar">
@@ -222,7 +222,7 @@
 {{-- ROW 2 --}}
     <div id="dekstop-2" class="row dekstop mt-4">
           <div class="col-3 pl-12 pr-0">
-            <div class="card card-dash" id="dash-pdpt">
+            <div class="card card-dash border-0 border-r-0" id="dash-pdpt">
                 <div class="row header-div" id="card-pdpt">
                     <div class="col-9">
                         <h4 class="header-card">Pendapatan Lembaga</h4>
@@ -247,7 +247,7 @@
             </div>
           </div>
           <div class="col-3 pl-1 pr-0">
-                <div class="card card-dash" id="dash-beban">
+                <div class="card card-dash border-0 border-r-0" id="dash-beban">
                     <div class="row header-div" id="card-beban">
                         <div class="col-9">
                             <h4 class="header-card">Beban Lembaga</h4>
@@ -272,7 +272,7 @@
                 </div>
           </div>
           <div class="col-3 pl-1 pr-0">
-                <div class="card card-dash" id="dash-shu">
+                <div class="card card-dash border-0 border-r-0" id="dash-shu">
                     <div class="row header-div" id="card-shu">
                         <div class="col-9">
                             <h4 class="header-card">SHU Lembaga</h4>
@@ -297,7 +297,7 @@
                 </div>
           </div>
           <div class="col-3 pl-1 pr-0">
-                <div class="card card-dash">
+                <div class="card card-dash border-0 border-r-0">
                     <div class="row header-div">
                         <div class="col-9">
                             <h4 class="header-card">OR Lembaga</h4>
@@ -317,7 +317,7 @@
 {{-- ROW 3 --}}
     <div id="dekstop-3" class="row dekstop mt-4">
         <div class="col-6 pl-12 pr-0">
-            <div class="card card-dash" id="dash-lr">
+            <div class="card card-dash border-0 border-r-0" id="dash-lr">
                 <div class="row header-div" id="card-lr">
                     <div class="col-9">
                         <h4 class="header-card">Laba Rugi Lembaga</h4>
@@ -342,7 +342,7 @@
             </div>
         </div>
         <div class="col-6 pl-1 pr-0">
-            <div class="card card-dash">
+            <div class="card card-dash border-0 border-r-0">
                 <div class="row header-div">
                     <div class="col-9">
                         <h4 class="header-card">Performansi Lembaga</h4>
@@ -385,7 +385,7 @@
     {{-- ROW 4 --}}
     <div id="dekstop-4" class="row dekstop">
         <div class="col-7 pl-12 pr-0">
-            <div class="card card-dash" id="dash-perform">
+            <div class="card card-dash border-0 border-r-0" id="dash-perform">
                 <div class="row header-div" id="card-perform">
                     <div class="col-9">
                         <h4 class="header-card">Performansi Lembaga</h4>
@@ -410,7 +410,7 @@
             </div>
         </div>
         <div class="col-5 pl-1 pr-0">
-            <div class="card card-dash" id="dash-lembaga">
+            <div class="card card-dash border-0 border-r-0" id="dash-lembaga">
                 <div class="row header-div" id="card-lembaga">
                     <div class="col-9">
                         <h4 class="header-card"><span class="title-chart"></span> Per Lembaga</h4>
@@ -438,7 +438,7 @@
 
     <div id="dekstop-5" class="row dekstop mt-4">
         <div class="col-7 pl-12 pr-0">
-            <div class="card card-dash" id="dash-yoy">
+            <div class="card card-dash border-0 border-r-0" id="dash-yoy">
                 <div class="row header-div" id="card-yoy">
                     <div class="col-9">
                         <h4 class="header-card">Kelompok <span class="title-chart"></span> YoY</h4>
@@ -463,7 +463,7 @@
             </div>
         </div>
         <div class="col-5 pl-1 pr-0">
-            <div class="card card-dash" id="dash-akun">
+            <div class="card card-dash border-0 border-r-0" id="dash-akun">
                 <div class="row header-div" id="card-akun">
                     <div class="col-9">
                         <h4 class="header-card">Kelompok <span class="title-chart"></span></h4>
@@ -704,6 +704,7 @@ $('#list-filter-2').on('click', 'div', function(event) {
 
     $('#select-text-fp').text(`${$filter2.toUpperCase()} || ${$tahun}`)
     updateAllChart()
+    showNotification(`${$filter2.toUpperCase()} ${$tahun}`);
 })
 // END FILTER EVENT
 // MENAMPILKAN LIST CUSTOM EXPORT HIGHCHART
@@ -1316,7 +1317,7 @@ function updateBox() {
             `)
 
             $('#or-box').data('grafik', or.kode_grafik)
-            $('#or-value').text(or.n4)
+            $('#or-value').text(`${or.n4} %`)
             $('#or-yoy').text(`${or.n1}%`)
             $('#or-yoy-percentage').append(`${or.yoy}% ${iconOr}`)
             // END OR
@@ -1448,7 +1449,6 @@ function createChartPerform(kode_grafik = null) {
         async: true,
         success:function(result) {
             var data = result.data;
-
             performChart = Highcharts.chart('perfomansi-chart', {
                 chart: {
                     type: 'column',
@@ -1588,6 +1588,17 @@ function createChartLembaga(kode_grafik = null) {
                     colorByPoint: true,
                     data: data
                 }]
+            }, function() {
+                var series = this.series;
+                for(var i=0;i<series.length;i++) {
+                    var point = series[i].data;
+                    for(var j=0;j<point.length;j++) {
+                        var color = point[j].color;
+                        if(color == '#434348') {
+                            point[j].graphic.element.style.fill = '#830000'
+                        }
+                    }
+                }
             });
 
             $render = 1;
@@ -1720,6 +1731,17 @@ function createChartAkun(kode_grafik = null) {
                     colorByPoint: true,
                     data: data
                 }]
+            }, function() {
+                var series = this.series;
+                for(var i=0;i<series.length;i++) {
+                    var point = series[i].data;
+                    for(var j=0;j<point.length;j++) {
+                        var color = point[j].color;
+                        if(color == '#434348') {
+                            point[j].graphic.element.style.fill = '#830000'
+                        }
+                    }
+                }
             });
 
             $render = 1;
@@ -1729,9 +1751,9 @@ function createChartAkun(kode_grafik = null) {
 // END LOAD CHART IN DETAIL
 
 // RUN IF PAGE IS FIRST RENDER
-Highcharts.SVGRenderer.prototype.symbols['c-rect'] = function (x, y, w, h) {
-    return ['M', x, y + h / 2, 'L', x + w, y + h / 2];
-};
+// Highcharts.SVGRenderer.prototype.symbols['c-rect'] = function (x, y, w, h) {
+//     return ['M', x, y + h / 2, 'L', x + w, y + h / 2];
+// };
 // BOX
 (function(){
     $.ajax({
@@ -1918,7 +1940,7 @@ Highcharts.SVGRenderer.prototype.symbols['c-rect'] = function (x, y, w, h) {
             `)
 
             $('#or-box').data('grafik', or.kode_grafik)
-            $('#or-value').text(or.n4)
+            $('#or-value').text(`${or.n4} %`)
             $('#or-yoy').text(`${or.n1}%`)
             $('#or-yoy-percentage').append(`${or.yoy}% ${iconOr}`)
             // END OR
@@ -1989,6 +2011,17 @@ Highcharts.SVGRenderer.prototype.symbols['c-rect'] = function (x, y, w, h) {
                     colorByPoint: true,
                     data: result.data
                 }]
+            }, function() {
+                var series = this.series;
+                for(var i=0;i<series.length;i++) {
+                    var point = series[i].data;
+                    for(var j=0;j<point.length;j++) {
+                        var color = point[j].color;
+                        if(color == '#7cb5ec') {
+                            point[j].graphic.element.style.fill = '#830000'
+                        }
+                    }
+                }
             });
         }
     });
@@ -2057,6 +2090,17 @@ Highcharts.SVGRenderer.prototype.symbols['c-rect'] = function (x, y, w, h) {
                     colorByPoint: true,
                     data: result.data
                 }]
+            }, function() {
+                var series = this.series;
+                for(var i=0;i<series.length;i++) {
+                    var point = series[i].data;
+                    for(var j=0;j<point.length;j++) {
+                        var color = point[j].color;
+                        if(color == '#7cb5ec') {
+                            point[j].graphic.element.style.fill = '#830000'
+                        }
+                    }
+                }
             });
         }
     });
@@ -2125,6 +2169,17 @@ Highcharts.SVGRenderer.prototype.symbols['c-rect'] = function (x, y, w, h) {
                     colorByPoint: true,
                     data: result.data
                 }]
+            }, function() {
+                var series = this.series;
+                for(var i=0;i<series.length;i++) {
+                    var point = series[i].data;
+                    for(var j=0;j<point.length;j++) {
+                        var color = point[j].color;
+                        if(color == '#7cb5ec') {
+                            point[j].graphic.element.style.fill = '#830000'
+                        }
+                    }
+                }
             });
         }
     });
@@ -2233,12 +2288,12 @@ Highcharts.SVGRenderer.prototype.symbols['c-rect'] = function (x, y, w, h) {
                     {
                         name: 'SHU',
                         color: '#FBBF24',
-                        marker: {
-                            symbol: 'c-rect',
-                            lineColor: '#FBBF24',
-                            radius: 30,
-                        },
-                        type: 'scatter',
+                        // marker: {
+                        //     symbol: 'c-rect',
+                        //     lineColor: '#FBBF24',
+                        //     radius: 30,
+                        // },
+                        type: 'spline',
                         data: data.data_shu
                     }
                 ]
@@ -2974,4 +3029,54 @@ $('#export-akun.menu-chart-custom ul li').click(function(event) {
 })
 // END PER AKUN
 // END CUSTOM EXPORT HIGHCHART
+
+// CONFIG FUNCTION
+function showNotification(message) {
+    $.notify(
+        {
+            title: 'Update',
+            message: `Menampilkan dashboard periode ${message}`,
+            target: "_blank"
+        },
+        {
+            element: "body",
+            position: null,
+            type: 'success',
+            allow_dismiss: true,
+            newest_on_top: false,
+            showProgressbar: false,
+            placement: {
+                from: 'top',
+                align: 'center'
+            },
+            offset: 20,
+            spacing: 10,
+            z_index: 1031,
+            delay: 4000,
+            timer: 2000,
+            url_target: "_blank",
+            mouse_over: null,
+            animate: {
+                enter: "animated fadeInDown",
+                exit: "animated fadeOutUp"
+            },
+            onShow: null,
+            onShown: null,
+            onClose: null,
+            onClosed: null,
+            icon_type: "class",
+            template: `<div data-notify="container" class="col-11 col-sm-3 alert  alert-{0} " role="alert">
+                <button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>
+                <span data-notify="icon"></span>
+                <span data-notify="title">{1}</span>
+                <span data-notify="message">{2}</span>
+                <div class="progress" data-notify="progressbar">
+                    <div class="progress-bar progress-bar-{0}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
+                </div>
+                <a href="{3}" target="{4}" data-notify="url"></a>
+                </div>`
+        }
+    );
+}
+// END CONFIG FUNCTION
 </script>
