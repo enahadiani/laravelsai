@@ -24,9 +24,9 @@
                             <div class="col-3 text-right">
                                 <h6>Nilai Transaksi</h6>
                                 <div class="row float-right">
-                                    <div class="text-left" id="gen-harga" style="width: 90px;height:42px;padding: 5px;border: 1px solid #d0cfcf;background: white;border-radius: 5px;vertical-align: middle;margin-right:5px;cursor:pointer">
+                                    <!-- <div class="text-left" id="gen-harga" style="width: 90px;height:42px;padding: 5px;border: 1px solid #d0cfcf;background: white;border-radius: 5px;vertical-align: middle;margin-right:5px;cursor:pointer">
                                         <span style="line-height:1.5;font-size: 11px !important;margin-bottom: 0 !important;text-align:center">Generate Harga</span>
-                                    </div>
+                                    </div> -->
                                     <div class="text-left" id="edit-qty" style="width: 90px;height:42px;padding: 5px;border: 1px solid #d0cfcf;background: white;border-radius: 5px;vertical-align: middle;margin-right:5px">
                                         <img style="width:30px;height:30px;position:absolute" src="{{ url('asset_elite/img/edit.png') }}">
                                         <p style="line-height:1.5;font-size: 10px !important;padding-left: 35px;margin-bottom: 0 !important;text-align:center">Edit Qty</p>
@@ -621,7 +621,7 @@
 
     $('#gen-harga').click(function(e){
         e.preventDefault();
-        genHarga();
+        // genHarga();
     });
 
     function getPPN(){
