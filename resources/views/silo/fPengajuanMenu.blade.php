@@ -1,47 +1,46 @@
 <link rel="stylesheet" href="{{ asset('asset_silo/dashboard_new.css') }}" />
 <link rel="stylesheet" href="{{ asset('trans.css') }}" />
 <style>
-    #saku-datatable .card
-    {
-        padding:0 !important;
+    #saku-datatable .card {
+        padding: 0 !important;
     }
-    #saku-form .card
-    {
-        padding:0 !important;
+
+    #saku-form .card {
+        padding: 0 !important;
     }
 </style>
 <div class="top-menu">
     <div class='navbar-top w-100 text-center'>
         <div class="header-icons d-inline-block align-middle">
-            <a href="#" data-href='fPengajuanDash' class="header-icon btn btn-empty active" type="button" >
+            <a href="#" data-href='fPengajuanDash' class="header-icon btn btn-empty active" type="button">
                 <i class="simple-icon-home" style="font-size:1.5rem"></i>
                 <h6 style="font-size:0.85rem !important">Home</h6>
             </a>
-            <a href="#" data-href='#' class="header-icon btn btn-empty" type="button" >
+            <a href="#" data-href='#' class="header-icon btn btn-empty" type="button">
                 <i class="simple-icon-notebook" style="font-size:1.5rem"></i>
                 <h6 style="font-size:0.85rem !important">Draft</h6>
             </a>
-            <a href="#" data-href='fPengajuan' class="header-icon btn btn-empty" type="button" >
+            <a href="#" data-href='fPengajuan' class="header-icon btn btn-empty" type="button">
                 <i class="simple-icon-doc" style="font-size:1.5rem"></i>
                 <h6 style="font-size:0.85rem !important">Pengajuan</h6>
             </a>
-            <a href="#" data-href='fRkmSedang' class="header-icon btn btn-empty" type="button" >
+            <a href="#" data-href='fProsesJuskeb' class="header-icon btn btn-empty" type="button">
                 <i class="simple-icon-settings" style="font-size:1.5rem"></i>
                 <h6 style="font-size:0.85rem !important">Sedang Proses</h6>
             </a>
-            <a href="#" data-href='fRkmPerlu' class="header-icon btn btn-empty" type="button" >
+            <a href="#" data-href='fRkmPerlu' class="header-icon btn btn-empty" type="button">
                 <i class="simple-icon-pencil" style="font-size:1.5rem"></i>
                 <h6 style="font-size:0.85rem !important">Perlu Proses</h6>
             </a>
-            <a href="#" data-href='fRkmTelah' class="header-icon btn btn-empty" type="button" >
+            <a href="#" data-href='fRkmTelah' class="header-icon btn btn-empty" type="button">
                 <i class="iconsminds-box-full" style="font-size:1.3rem"></i>
                 <h6 style="font-size:0.85rem !important">Telah Proses</h6>
             </a>
-            <a href="#" data-href='fRkmSelesai' class="header-icon btn btn-empty" type="button" >
+            <a href="#" data-href='fRkmSelesai' class="header-icon btn btn-empty" type="button">
                 <i class="simple-icon-check" style="font-size:1.5rem"></i>
                 <h6 style="font-size:0.85rem !important">Selesai</h6>
             </a>
-            <a href="#" data-href='fRkmBatal' class="header-icon btn btn-empty" type="button" >
+            <a href="#" data-href='fRkmBatal' class="header-icon btn btn-empty" type="button">
                 <i class="simple-icon-close" style="font-size:1.5rem"></i>
                 <h6 style="font-size:0.85rem !important">Batal</h6>
             </a>
