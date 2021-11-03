@@ -24,9 +24,9 @@
                             <div class="col-3 text-right">
                                 <h6>Nilai Transaksi</h6>
                                 <div class="row float-right">
-                                    <div class="text-left" id="gen-harga" style="width: 90px;height:42px;padding: 5px;border: 1px solid #d0cfcf;background: white;border-radius: 5px;vertical-align: middle;margin-right:5px;cursor:pointer">
+                                    <!-- <div class="text-left" id="gen-harga" style="width: 90px;height:42px;padding: 5px;border: 1px solid #d0cfcf;background: white;border-radius: 5px;vertical-align: middle;margin-right:5px;cursor:pointer">
                                         <span style="line-height:1.5;font-size: 11px !important;margin-bottom: 0 !important;text-align:center">Generate Harga</span>
-                                    </div>
+                                    </div> -->
                                     <div class="text-left" id="edit-qty" style="width: 90px;height:42px;padding: 5px;border: 1px solid #d0cfcf;background: white;border-radius: 5px;vertical-align: middle;margin-right:5px">
                                         <img style="width:30px;height:30px;position:absolute" src="{{ url('asset_elite/img/edit.png') }}">
                                         <p style="line-height:1.5;font-size: 10px !important;padding-left: 35px;margin-bottom: 0 !important;text-align:center">Edit Qty</p>
@@ -89,7 +89,7 @@
                                          <div class="col-2">
                                             <input type="text" name="total_disk" min="1" class='form-control currency' id='todisk' required value="0">
                                          </div>
-                                         <label for="judul" class="col-1 col-form-label" >PPN</label>
+                                         <!-- <label for="judul" class="col-1 col-form-label" >PPN</label>
                                          <div class="col-3">
                                             <div class="input-group mb-3">
                                                 <input type="text" name="total_ppn" min="1" class='form-control currency' id='toppn' required value="0" style="border-bottom-right-radius: 0 !important;border-top-right-radius: 0 !important;">
@@ -97,13 +97,13 @@
                                                     <button class="btn btn-info" id="getPPN" type="button" style="border-bottom-left-radius: 0 !important;border-top-left-radius: 0 !important;padding: 0.1rem 0.85rem;"><i class="simple-icon-refresh" style="font-size:18px !important"></i></button>
                                                 </div>
                                             </div>
-                                         </div>
+                                         </div> -->
                                          <label for="judul" class="col-2 col-form-label" >No Faktur</label>
                                          <div class="col-2">
                                             <input type="text" name="no_faktur" class='form-control ' id='no_faktur' required>
                                          </div>
-                                         <div class="col-1">
-                                            <button class="btn btn-info" type="submit" id="btnBayar">Simpan</button>
+                                         <div class="col-4">
+                                            <button class="btn btn-info float-right" type="submit" id="btnBayar">Simpan</button>
                                          </div>
                                     </div>
                                 </div>
@@ -383,7 +383,7 @@
         $('#totrans').val(0);
         $('#input-grid2 tr:not(:first-child)').remove();
         $('#todisk').val(0);
-        $('#toppn').val(0);
+        // $('#toppn').val(0);
         $('#no_faktur').val('');
         $('#modal-bayar2').modal('hide');
     }
@@ -621,7 +621,7 @@
 
     $('#gen-harga').click(function(e){
         e.preventDefault();
-        genHarga();
+        // genHarga();
     });
 
     function getPPN(){
@@ -944,9 +944,9 @@
         hitungTotal();
     });
 
-    $('#toppn').change(function(){
-        hitungTotal();
-    });
+    // $('#toppn').change(function(){
+    //     hitungTotal();
+    // });
 
     $('#input-grid2').on('change', '.inp-qtyb,.inp-subb', function(e){
         hitungTotal(); 
@@ -1028,7 +1028,7 @@
         var totrans=removeFormat($('#totrans').val());
         var todisk=removeFormat($('#todisk').val());
         var tostlh=removeFormat($('#tostlh').val());
-        var toppn=removeFormat($('#toppn').val());
+        // var toppn=removeFormat($('#toppn').val());
         if(totrans <= 0){
             msgDialog({
                 id: '',
