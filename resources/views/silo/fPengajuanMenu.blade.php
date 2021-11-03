@@ -24,6 +24,10 @@
                 <i class="simple-icon-doc" style="font-size:1.5rem"></i>
                 <h6 style="font-size:0.85rem !important">Pengajuan</h6>
             </a>
+            <a href="#" data-href='fVerifikasi' class="header-icon btn btn-empty" type="button">
+                <i class="simple-icon-eyeglass" style="font-size:1.5rem"></i>
+                <h6 style="font-size:0.85rem !important">Verifikasi</h6>
+            </a>
             <a href="#" data-href='fProsesJuskeb' class="header-icon btn btn-empty" type="button">
                 <i class="simple-icon-settings" style="font-size:1.5rem"></i>
                 <h6 style="font-size:0.85rem !important">Sedang Proses</h6>
