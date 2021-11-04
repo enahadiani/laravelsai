@@ -608,8 +608,9 @@
                                         <div class="col-md-6 col-sm-12">
                                             <label for="status_nikah">Status Nikah</label>
                                             <select class="form-control selectize" name="status_nikah" id="status_nikah">
-                                                <option value="1" selected>Ya</option>
-                                                <option value="0">Tidak</option>
+                                                <option value="1" selected>Menikah</option>
+                                                <option value="0">Tidak Menikah</option>
+                                                <option value="2">Cerai</option>
                                             </select>
                                         </div>
                                     </div>
