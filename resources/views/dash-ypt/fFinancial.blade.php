@@ -705,6 +705,8 @@ $('#list-filter-2').on('click', 'div', function(event) {
     $('#select-text-fp').text(`${$filter2.toUpperCase()} || ${$tahun}`)
     updateAllChart()
     showNotification(`${$filter2.toUpperCase()} ${$tahun}`);
+    $('#detail-dash').hide()
+    $('#main-dash').show()
 })
 // END FILTER EVENT
 // MENAMPILKAN LIST CUSTOM EXPORT HIGHCHART
