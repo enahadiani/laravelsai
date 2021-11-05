@@ -122,24 +122,6 @@
                 <div class="card card-dash">
                     <h6 class="card-title-2 text-bold">Jabatan</h6>
                     <div id="jabatan-chart"></div>
-                    {{-- <div class="row p-l-4">
-                        <div class="col-6">
-                            <div class="legend-symbol legend-symbol-0"></div>
-                            <span class="legend-text">Housekeeping</span>
-                        </div>
-                        <div class="col-6">
-                            <div class="legend-symbol legend-symbol-1"></div>
-                            <span class="legend-text">Parkir</span>
-                        </div>
-                        <div class="col-6">
-                            <div class="legend-symbol legend-symbol-2"></div>
-                            <span class="legend-text">M.E.C</span>
-                        </div>
-                        <div class="col-6">
-                            <div class="legend-symbol legend-symbol-3"></div>
-                            <span class="legend-text">Adm</span>
-                        </div>
-                    </div> --}}
                 </div>
             </div>
             <div class="col-md-6 col-lg-6 col-sm-6 col-xl-6">
@@ -1359,16 +1341,26 @@ function generateChartJabatan(data) {
             total = parseFloat(dt.jumlah) + total
         }
 
+        var total = 0;
         for(var i=0;i<data.length;i++) {
             var dt = data[i];
-            var value = (parseFloat(dt.jumlah) / 352) * 100;
+            total = total + parseFloat(dt.jumlah);
+        }
+        for(var i=0;i<data.length;i++) {
+            var dt = data[i];
+            var value = (parseFloat(dt.jumlah) / total) * 100;
             chartData.push({ name: dt.nama_unit, y:parseFloat(dt.jumlah) })
         }
 
-        Highcharts.setOptions({
-            colors: ['#058DC7', '#50B432', '#ED561B', '#DDDF00', '#24CBE5', '#64E572', '#FF9655', '#FFF263', '#6AF9C4']
-        });
+        // Highcharts.setOptions({
+        //     colors: ['#058DC7', '#50B432', '#ED561B', '#DDDF00', '#24CBE5', '#64E572', '#FF9655', '#FFF263', '#6AF9C4']
+        // });
 
+        Highcharts.theme = {
+            colors: ['#1d4ed8', '#fbbf24', '#d1d5db', '#DDDF00', '#24CBE5', '#64E572', '#FF9655', '#FFF263', '#6AF9C4']
+        }; 
+        
+        var color =  ['#1d4ed8', '#fbbf24', '#d1d5db', '#DDDF00', '#24CBE5', '#64E572', '#FF9655', '#FFF263', '#6AF9C4']
         Highcharts.chart('jabatan-chart', {
             chart: {
                 plotBackgroundColor: null,
@@ -1398,6 +1390,7 @@ function generateChartJabatan(data) {
                         enabled: true,
                         format: '{point.percentage:.1f} %'
                     },
+                    showInLegend: true,
                     size: 92,
                 }
             },
@@ -1406,6 +1399,14 @@ function generateChartJabatan(data) {
                 colorByPoint: true,
                 data: chartData
             }]
+        }, function() {
+            var series = this.series;
+            for(var i=0;i<series.length;i++) {
+                var point = series[i].data;
+                for(var j=0;j<point.length;j++) {
+                    point[j].graphic.element.style.fill = color[j]
+                }
+            }
         });
     }
 }

@@ -56,19 +56,7 @@
     height: 40px;
     margin-left: 4px;
 }
-#jabatan-chart .highcharts-color-0 {
-    fill: #1d4ed8;
-}
-#jabatan-chart .highcharts-color-1 {
-    fill: #fbbf24;
-}
-#jabatan-chart .highcharts-color-2 {
-    fill: #f87171;
-}
-#jabatan-chart .highcharts-color-3 {
-    fill: #d1d5db;
-}
-.card-dash .legend-symbol {
+/* .card-dash .legend-symbol {
     margin-top: 0.2rem;
     margin-right: 0.2rem;
     height: 10px;
@@ -87,7 +75,7 @@
 }
 .legend-symbol.legend-symbol-3 {
     background-color: #d1d5db;
-}
+} */
 .card-dash .legend-text {
     font-size: 0.7rem !important;
 }
