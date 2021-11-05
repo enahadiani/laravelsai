@@ -384,6 +384,10 @@ $('.click-card').click(function() {
         $bpjs = 1;
         generateDataBPJS($bpjs);
         $('#detail-bpjs').show();
+    } else if(kode == 'client') {
+        generateChartClient();
+        generateDataClient();
+        $('#detail-client').show();
     }
 });
 // END CARD CLICK EVENT
@@ -538,43 +542,12 @@ $('.click-content').click(function() {
         </div>
     </section>
 </section>
-
-<section id="detail-4" style="display: none;">
-    <section id="dektop-6" class="dekstop-6 pb-1 m-b-25">
-        <div class="row">
-            <div class="col-12">
-                <div class="card card-dash">
-                    <div class="card-header row">
-                        <div class="col-12 header-content">
-                            <div class="glyph-icon iconsminds-left" id="to-main-dash-from-client"></div>
-                            <h6 class="card-title-2 text-bold text-medium detail-card">Komposisi Klien</h6>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div id="komposisi-client-chart"></div>
-                        <div class="table-list-client" id="table-list-client">
-                            <table id="table-data-client" class="table table-hover table-borderless">
-                                <thead>
-                                    <th>No</th>
-                                    <th>Client</th>
-                                    <th>Pengeloaan</th>
-                                    <th>Alamat</th>
-                                    <th>Jumlah</th>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-</section>
 {{-- END DEKSTOP --}}
 
 @include('esaku.sdm.components.fDashPegawaiDetail')
 @include('esaku.sdm.components.fDashPegawaiCV')
 @include('esaku.sdm.components.fDashBPJSDetail')
+@include('esaku.sdm.components.fDashClientDetail')
 {{-- <script type="text/javascript">
 var dataTable = null;
 var $bpjs = 0;
