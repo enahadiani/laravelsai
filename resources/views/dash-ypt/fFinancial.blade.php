@@ -26,7 +26,7 @@
                             <img alt="message-icon" class="icon-calendar" src="{{ asset('dash-asset/dash-ypt/icon/calendar.svg') }}">
                         </div>
                         <div class="col-8">
-                            <p id="select-text-fp" class="select-text">TRIWULAN I || {{ date('Y') }}</p>
+                            <p id="select-text-fp" class="select-text">September || {{ date('Y') }}</p>
                         </div>
                         <div class="col-2">
                             <img alt="calendar-icon" class="icon-drop-arrow" src="{{ asset('dash-asset/dash-ypt/icon/drop-arrow.svg') }}">
@@ -526,12 +526,12 @@
 <script src="{{ asset('dash-asset/dash-ypt/dragging.js') }}"></script>
 <script type="text/javascript">
 var $tahun = parseInt($('#year-filter').text())
-var $filter1 = "Triwulan";
-var $filter2 = "Triwulan I";
+var $filter1 = "Periode";
+var $filter2 = "September";
 var $month = "{{ date('m') }}";
 var $judulChart = null;
-var $filter1_kode = "TRW";
-var $filter2_kode = "TRW1";
+var $filter1_kode = "PRD";
+var $filter2_kode = "09";
 var $render = 0;
 var pdptChart = null;
 var bebanChart = null;
@@ -1782,10 +1782,10 @@ function createChartAkun(kode_grafik = null) {
                 nilaiPdpt = toMilyar(pdpt.n4)
             }
 
-            if(pdpt.n1.toString().length <= 9) {
-                nilaiYoyPdpt = toJuta(pdpt.n1)
+            if(pdpt.n2.toString().length <= 9) {
+                nilaiYoyPdpt = toJuta(pdpt.n2)
             } else {
-                nilaiYoyPdpt = toMilyar(pdpt.n1)
+                nilaiYoyPdpt = toMilyar(pdpt.n2)
             }
 
             if(pdpt.yoy < 0) {
@@ -1829,10 +1829,10 @@ function createChartAkun(kode_grafik = null) {
                 nilaiBeban = toMilyar(beban.n4)
             }
 
-            if(beban.n1.toString().length <= 9) {
-                nilaiYoyBeban = toJuta(beban.n1)
+            if(beban.n2.toString().length <= 9) {
+                nilaiYoyBeban = toJuta(beban.n2)
             } else {
-                nilaiYoyBeban = toMilyar(beban.n1)
+                nilaiYoyBeban = toMilyar(beban.n2)
             }
 
             if(beban.yoy < 0) {
@@ -1876,10 +1876,10 @@ function createChartAkun(kode_grafik = null) {
                 nilaiShu = toMilyar(shu.n4)
             }
 
-            if(shu.n1.toString().length <= 9) {
-                nilaiYoyShu = toJuta(shu.n1)
+            if(shu.n2.toString().length <= 9) {
+                nilaiYoyShu = toJuta(shu.n2)
             } else {
-                nilaiYoyShu = toMilyar(shu.n1)
+                nilaiYoyShu = toMilyar(shu.n2)
             }
 
             if(shu.yoy < 0) {
@@ -1943,7 +1943,7 @@ function createChartAkun(kode_grafik = null) {
 
             $('#or-box').data('grafik', or.kode_grafik)
             $('#or-value').text(`${or.n4} %`)
-            $('#or-yoy').text(`${or.n1}%`)
+            $('#or-yoy').text(`${or.n2}%`)
             $('#or-yoy-percentage').append(`${or.yoy}% ${iconOr}`)
             // END OR
         }
