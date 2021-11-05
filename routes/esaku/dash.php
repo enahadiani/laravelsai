@@ -40,3 +40,4 @@ Route::get('sdm-chart-unitc', 'Esaku\Sdm\DashboardChartController@getUnitCol');
 Route::get('sdm-chart-gaji', 'Esaku\Sdm\DashboardChartController@getGaji');
 
 Route::get('sdm-detail-pegawai', 'Esaku\Sdm\DashboardDetailPegawaiController@getDataPegawai');
+Route::get('sdm-detail-cv', 'Esaku\Sdm\DashboardDetailPegawaiController@getDataPegawaiDetail');

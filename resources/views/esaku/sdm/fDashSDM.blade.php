@@ -522,24 +522,6 @@ $('.click-card').click(function() {
     </section>
 </section>
 
-<section id="detail-2" style="display: none;">
-    <section id="dektop-4" class="dekstop-4 pb-1 m-b-25">
-        <div class="row">
-            <div class="col-12">
-                <div class="card card-dash">
-                    <div class="card-header row">
-                        <div class="col-12">
-                            <div class="glyph-icon iconsminds-left" id="to-detail-1"></div>
-                            <h6 class="card-title-2 text-bold text-medium">Profile Lengkap Pegawai</h6>
-                        </div>
-                    </div>
-                    <div class="card-body box-cv" id="data-detail-karyawan"></div>
-                </div>
-            </div>
-        </div>
-    </section>
-</section>
-
 <section id="detail-3" style="display: none;">
     <section id="dektop-5" class="dekstop-5 pb-1 m-b-25">
         <div class="row">
@@ -691,6 +673,7 @@ $('.click-card').click(function() {
 {{-- END DEKSTOP --}}
 
 @include('esaku.sdm.components.fDashPegawaiDetail')
+@include('esaku.sdm.components.fDashPegawaiCV')
 {{-- <script type="text/javascript">
 var dataTable = null;
 var $bpjs = 0;

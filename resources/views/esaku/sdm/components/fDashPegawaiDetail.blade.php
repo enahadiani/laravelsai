@@ -56,6 +56,20 @@
 
 <script type="text/javascript">
 var $datatable = null;
+// EVENT UNTUK KEMBALI KE DATA PEGAWAI
+$('#to-pegawai').click(function() {
+    $('#detail-cv').hide();
+    $('#detail-pegawai').show();
+})
+// END EVENT UNTUK KEMBALI KE DATA PEGAWAI
+// EVENT CLICK ROW TABLE
+$('#datatable-karyawan tbody').on('click', 'td', function() {
+    var data = $datatable.row($(this).parents('tr')).data()
+    generateCVPegawai(data.nik)
+    $('#detail-pegawai').hide();    
+    $('#detail-cv').show();    
+})
+// END EVENT CLICK ROW TABLE
 // LOAD DATA
 function generateDataPegawai(filter = null) {
     $datatable = $('#datatable-karyawan').DataTable({
