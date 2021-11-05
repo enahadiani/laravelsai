@@ -361,7 +361,6 @@ var $dataTable = null;
 var $bpjs = 0;
 var $http = null;
 
-
 // EVENT BACK TO MAIN DASH
 $('.to-main-dash').click(function() {
     $('.detail-section').hide();
@@ -377,6 +376,14 @@ $('.click-card').click(function() {
     if(kode == 'pegawai') {
         generateDataPegawai();
         $('#detail-pegawai').show();
+    }else if(kode == 'bpjsehat') {
+        $bpjs = 0;
+        generateDataBPJS($bpjs);
+        $('#detail-bpjs').show();
+    } else if(kode == 'bpjskerja') {
+        $bpjs = 1;
+        generateDataBPJS($bpjs);
+        $('#detail-bpjs').show();
     }
 });
 // END CARD CLICK EVENT
@@ -522,123 +529,6 @@ $('.click-card').click(function() {
     </section>
 </section>
 
-<section id="detail-3" style="display: none;">
-    <section id="dektop-5" class="dekstop-5 pb-1 m-b-25">
-        <div class="row">
-            <div class="col-12">
-                <div class="card card-dash">
-                    <div class="card-header row">
-                        <div class="col-12">
-                            <div class="glyph-icon iconsminds-left" id="to-main-dash-from-bpjs"></div>
-                            <h6 class="card-title-2 text-bold text-medium detail-card" id="header-bpjs"></h6>
-                        </div>
-                    </div>
-                    <div class="card-body row">
-                        <div class="col-6">
-                            <div class="card card-dash-2 bg-blue">
-                                <div class="card-content">
-                                    <p id="label-card-bpjs" class="label-card">Jumlah <span class="ket-bpjs"></span></p>
-                                    <div class="row">
-                                        <div class="col-10 count-card" id="jumlah-bpjs">
-                                            0
-                                        </div>
-                                        <div class="col-2">
-                                            <p class="percentage-card" id="persentase-bpjs">0%</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card card-dash-2 no-p">
-                                <div class="card-header bg-blue">
-                                    <div class="row">
-                                        <div class="col-md-6 col-lg-6 col-xl-6">
-                                            <p id="label-table-bpjs" class="label-table-bpjs">
-                                                Data <span class="ket-bpjs"></span>
-                                            </p>
-                                        </div>
-                                        <div class="col-md-6 col-lg-6 col-xl-6">
-                                            <div class="search-box input-group">
-                                                <input type="text" id="no-bpjs" class="form-control" autocomplete="off" placeholder="Nomor BPJS PPU">
-                                                <div class="input-group-append">
-                                                    <div class="icon-input">
-                                                        <i class="simple-icon-magnifier"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>    
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <div class="table-detail" id="table-detail-bpjs">
-                                        <table id="table-bpjs" class="table table-hover table-borderless">
-                                            <thead>
-                                                <th>No</th>
-                                                <th>NIK</th>
-                                                <th>Nama</th>
-                                                <th>ID BPJS</th>
-                                            </thead>
-                                            <tbody></tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                           <div class="card card-dash-2 bg-red">
-                                <div class="card-content">
-                                    <p id="label-card-bpjs" class="label-card">Jumlah <span class="ketnon-bpjs"></span></p>
-                                    <div class="row">
-                                        <div class="col-10 count-card" id="jumlah-non-bpjs">
-                                            0
-                                        </div>
-                                        <div class="col-2">
-                                            <p class="percentage-card" id="persentase-non-bpjs">0%</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card card-dash-2 no-p">
-                                <div class="card-header bg-red">
-                                    <div class="row">
-                                        <div class="col-md-6 col-lg-6 col-xl-6">
-                                            <p id="label-table-bpjs" class="label-table-bpjs">
-                                                Data  <span class="ketnon-bpjs"></span>
-                                            </p>
-                                        </div>
-                                        <div class="col-md-6 col-lg-6 col-xl-6">
-                                            <div class="search-box input-group">
-                                                <input type="text" id="no-non-bpjs" class="form-control" autocomplete="off" placeholder="Nomor BPJS Non PPU">
-                                                <div class="input-group-append">
-                                                    <div class="icon-input">
-                                                        <i class="simple-icon-magnifier"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div> 
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <div class="table-detail" id="table-detail-non-bpjs">
-                                        <table id="table-non-bpjs" class="table table-hover table-borderless">
-                                            <thead>
-                                                <th>No</th>
-                                                <th>NIK</th>
-                                                <th>Nama</th>
-                                                <th>ID BPJS</th>
-                                            </thead>
-                                            <tbody></tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-</section>
-
 <section id="detail-4" style="display: none;">
     <section id="dektop-6" class="dekstop-6 pb-1 m-b-25">
         <div class="row">
@@ -674,6 +564,7 @@ $('.click-card').click(function() {
 
 @include('esaku.sdm.components.fDashPegawaiDetail')
 @include('esaku.sdm.components.fDashPegawaiCV')
+@include('esaku.sdm.components.fDashBPJSDetail')
 {{-- <script type="text/javascript">
 var dataTable = null;
 var $bpjs = 0;

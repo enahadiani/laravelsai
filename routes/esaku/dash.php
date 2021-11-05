@@ -41,3 +41,11 @@ Route::get('sdm-chart-gaji', 'Esaku\Sdm\DashboardChartController@getGaji');
 
 Route::get('sdm-detail-pegawai', 'Esaku\Sdm\DashboardDetailPegawaiController@getDataPegawai');
 Route::get('sdm-detail-cv', 'Esaku\Sdm\DashboardDetailPegawaiController@getDataPegawaiDetail');
+
+Route::get('sdm-detail-bpjs-sehat-komposisi', 'Esaku\Sdm\DashboardDetailBPJSController@getKomposisiBPJSSehat');
+Route::get('sdm-detail-bpjs-kerja-komposisi', 'Esaku\Sdm\DashboardDetailBPJSController@getKomposisiBPJSKerja');
+
+Route::get('sdm-detail-bpjs-sehat-register', 'Esaku\Sdm\DashboardDetailBPJSController@getDataBPJSSehatRegister');
+Route::get('sdm-detail-bpjs-sehat-unregister', 'Esaku\Sdm\DashboardDetailBPJSController@getDataBPJSSehatUnRegister');
+Route::get('sdm-detail-bpjs-kerja-register', 'Esaku\Sdm\DashboardDetailBPJSController@getDataBPJSKerjaRegister');
+Route::get('sdm-detail-bpjs-kerja-unregister', 'Esaku\Sdm\DashboardDetailBPJSController@getDataBPJSKerjaUnRegister');
