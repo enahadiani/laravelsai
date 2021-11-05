@@ -16,4 +16,6 @@ Route::get('data-fp-detail-lembaga', 'DashYpt\DashboardFPController@getDataPerLe
 Route::get('data-fp-detail-kelompok', 'DashYpt\DashboardFPController@getDataPerKelompok');
 Route::get('data-fp-detail-akun', 'DashYpt\DashboardFPController@getDataPerAkun');
 
+Route::get('data-ccr-box', 'DashYpt\DashboardCCRController@getDataBox');
+
 ?>

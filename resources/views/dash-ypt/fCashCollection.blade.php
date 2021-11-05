@@ -119,7 +119,7 @@
                 </div>
                 <div class="row body-div">
                     <div class="col-12">
-                        <p id="ccr-all" class="main-nominal">43,0%</p>
+                        <p id="ccr-all" class="main-nominal">0%</p>
                     </div>
                     <div class="col-12">
                         <table class="table table-borderless table-py-2" id="table-ccr-all">
@@ -147,7 +147,7 @@
                 </div>
                 <div class="row body-div">
                     <div class="col-12">
-                        <p id="ccr-prev" class="main-nominal">12,2%</p>
+                        <p id="ccr-prev" class="main-nominal">0%</p>
                     </div>
                     <div class="col-12">
                         <table class="table table-borderless table-py-2" id="table-ccr-prev">
@@ -178,7 +178,7 @@
                 </div>
                 <div class="row body-div">
                     <div class="col-12">
-                        <p id="ccr-now" class="main-nominal">45,21%</p>
+                        <p id="ccr-now" class="main-nominal">0%</p>
                     </div>
                     <div class="col-12">
                         <table class="table table-borderless table-py-2" id="table-ccr-now">
@@ -206,7 +206,7 @@
                 </div>
                 <div class="row body-div">
                     <div class="col-12">
-                        <p id="ccr-month" class="main-nominal">89,2%</p>
+                        <p id="ccr-month" class="main-nominal">0%</p>
                     </div>
                     <div class="col-12">
                         <table class="table table-borderless table-py-2" id="table-ccr-month">
@@ -427,7 +427,27 @@ $(window).click(function() {
     }
 
     $('#select-text-ccr').text(`${$filter2.toUpperCase()} ${$tahun}`)
-})
+});
+
+// RUN IF RENDER FIRST TIME
+(function() {
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('dash-ypt-dash/data-ccr-box') }}",
+        data: {},
+        dataType: 'json',
+        async: false,
+        success:function(result) {
+            var data = result.data;
+            
+            $('#ccr-all').text(`${data.ccr_total.persentase}%`)
+            $('#ccr-prev').text(`${data.ccr_tahun_lalu.persentase}%`)
+            $('#ccr-now').text(`${data.ccr_tahun_ini.persentase}%`)
+            $('#ccr-month').text(`${data.ccr_periode.persentase}%`)
+        }
+    });
+})();
+// END RUN IF RENDER FIRST TIME
 
 document.addEventListener('fullscreenchange', (event) => {
   if (document.fullscreenElement) {

@@ -366,7 +366,7 @@
 
 <script src="{{ asset('helper.js') }}"></script>
 <script type="text/javascript">
-var dataTable = null;
+var $dataTable = null;
 var $bpjs = 0;
 var $http = null;
 var $_pendidikan = null;
