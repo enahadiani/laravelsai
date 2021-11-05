@@ -1,10 +1,392 @@
-<link rel="stylesheet" href="{{ asset('dash-asset/dash-esaku/dash-sdm-dekstop.css') }}" />
+<link rel="stylesheet" href="{{ asset('dash-asset/dash-esaku/dash-sdm-dekstop.css?version=_').time() }}" />
+<script src="{{ asset('helper.js?version=').time() }}"></script>
+<script type="text/javascript">
+    var $_pendidikan = null;
+    var $_umur = null;
+    var $_unitp = null;
+    var $_unitc = null;
+    var $_gaji = null;
+
+    // RUN IF RENDER FIRST TIME
+    // PEGAWAI BOX
+    (function() {
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('esaku-dash/sdm-box-pegawai') }}",
+            dataType: 'json',
+            async: true,
+            success:function(result){    
+                var data = result.data;
+                $('#jumlah-pegawai').text(sepNum(data));
+            }
+        });
+    })();
+    // END PEGAWAI BOX
+    // BPJS KESEHATAN BOX
+    (function() {
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('esaku-dash/sdm-box-sehat') }}",
+            dataType: 'json',
+            async: true,
+            success:function(result){    
+                var data = result.data;
+                $('#jumlah-bpjs-kes').text(sepNum(data));
+            }
+        });
+    })();
+    // END BPJS KESEHATAN BOX
+    // BPJS KERJA BOX
+    (function() {
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('esaku-dash/sdm-box-kerja') }}",
+            dataType: 'json',
+            async: true,
+            success:function(result){    
+                var data = result.data;
+                $('#jumlah-bpjs-ker').text(sepNum(data));
+            }
+        });
+    })();
+    // END BPJS KESEHATAN BOX
+    // BPJS KERJA BOX
+    (function() {
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('esaku-dash/sdm-box-client') }}",
+            dataType: 'json',
+            async: true,
+            success:function(result){    
+                var data = result.data;
+                $('#jumlah-client').text(sepNum(data.length));
+            }
+        });
+    })();
+    // END BPJS KERJA BOX
+    // GENDER BOX
+    (function() {
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('esaku-dash/sdm-box-gender') }}",
+            dataType: 'json',
+            async: true,
+            success:function(result){    
+                var data = result.data;
+                $('#jumlah-pria').text(sepNum(data.pria));
+                $('#jumlah-wanita').text(sepNum(data.perempuan));
+            }
+        });
+    })();
+    // END GENDER BOX
+    // PENDIDIKAN BOX
+    (function() {
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('esaku-dash/sdm-chart-pendidikan') }}",
+            dataType: 'json',
+            async: true,
+            success:function(result){    
+                var data = result.data;
+                $_pendidikan = Highcharts.chart('pendidikan-chart', {
+                    chart: { 
+                        type: 'column',
+                        height: 160 
+                    },
+                    title: { text: '' },
+                    subtitle: { text: '' },
+                    exporting:{ enabled: false },
+                    legend:{ enabled:true },
+                    credits: { enabled: false },
+                    xAxis: {
+                        categories: data.kategori,
+                        crosshair: true
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: ''
+                        }
+                    },
+                    tooltip: {
+                        enabled: true
+                    },
+                    plotOptions: {
+                        series: {
+                            label: {
+                                connectorAllowed: false
+                            },
+                            // point: {
+                            //     events: {
+                            //         click: function() {
+                            //             var filter = { pendidikan: this.category }
+                            //             generateTabelKaryawan(filter)
+                            //         }
+                            //     }
+                            // }
+                        }
+                    },
+                    series: [{
+                        name: 'Jumlah',
+                        data: data.data,
+                        color: '#059669'
+                    }]
+                });
+            }
+        });
+    })();
+    // END PENDIDIKAN BOX
+    // UMUR BOX
+    (function() {
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('esaku-dash/sdm-chart-umur') }}",
+            dataType: 'json',
+            async: true,
+            success:function(result){    
+                var data = result.data;
+                $_umur = Highcharts.chart('umur-chart', {
+                    chart: { 
+                        type: 'column',
+                        height: 160 
+                    },
+                    title: { text: '' },
+                    subtitle: { text: '' },
+                    exporting:{ enabled: false },
+                    legend:{ enabled:false },
+                    credits: { enabled: false },
+                    xAxis: {
+                        categories: data.kategori,
+                        crosshair: true
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: ''
+                        }
+                    },
+                    tooltip: {
+                        enabled: true
+                    },
+                    plotOptions: {
+                        series: {
+                            label: {
+                                connectorAllowed: false
+                            }
+                        }
+                    },
+                    series: [{
+                        name: 'Jumlah',
+                        data: data.data,
+                        color: '#ffb703'
+                    }]
+                });
+            }
+        });
+    })();
+    // END UMUR BOX
+    // UNIT PIE BOX
+    (function() {
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('esaku-dash/sdm-chart-unitp') }}",
+            dataType: 'json',
+            async: true,
+            success:function(result){    
+                var data = result.data;
+
+                $_unitp = Highcharts.chart('unit-chart', {
+                    chart: {
+                        plotBackgroundColor: null,
+                        plotBorderWidth: null,
+                        plotShadow: false,
+                        type: 'pie',
+                        height: 239
+                    },
+                    title: { text: '' },
+                    subtitle: { text: '' },
+                    exporting:{ enabled: false },
+                    legend:{ enabled: true },
+                    credits: { enabled: false },
+                    tooltip: {
+                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                    },
+                    accessibility: {
+                        point: {
+                            valueSuffix: '%'
+                        }
+                    },
+                    plotOptions: {
+                        pie: {
+                            allowPointSelect: true,
+                            cursor: 'pointer',
+                            dataLabels: {
+                                enabled: true,
+                                format: '{point.percentage:.1f} %'
+                            },
+                            showInLegend: true,
+                            size: 92,
+                        }
+                    },
+                    series: [{
+                        name: 'Jumlah',
+                        colorByPoint: true,
+                        data: data
+                    }]
+                }, function() {
+                    var color =  ['#d1d5db', '#fbbf24', '#1d4ed8']
+                    var series = this.series;
+                    for(var i=0;i<series.length;i++) {
+                        var point = series[i].data;
+                        for(var j=0;j<point.length;j++) {
+                            point[j].graphic.element.style.fill = color[j]
+                            point[j].legendSymbol.element.style.fill = color[j]
+                        }
+                    }
+                });
+            }
+        });
+    })();
+    // END UNIT PIE BOX
+    // UNIT COLUMN BOX
+    (function() {
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('esaku-dash/sdm-chart-unitc') }}",
+            dataType: 'json',
+            async: true,
+            success:function(result){    
+                var data = result.data;
+                $_unitc = Highcharts.chart('unit-column-chart', {
+                    chart: { 
+                        type: 'column',
+                        height: 238 
+                    },
+                    title: { text: '' },
+                    subtitle: { text: '' },
+                    exporting:{ enabled: false },
+                    legend:{ enabled:true },
+                    credits: { enabled: false },
+                    xAxis: {
+                        categories: data.kategori,
+                        crosshair: true
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: ''
+                        }
+                    },
+                    tooltip: {
+                        enabled: true,
+                    },
+                    plotOptions: {
+                        series: {
+                            label: {
+                                connectorAllowed: false
+                            },
+                            point: {
+                                events: {
+                                    click: function() {
+                                        var filter = { kode_jab: this.kode }
+                                        generateTabelKaryawan(filter)
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    series: [{
+                        name: 'Jumlah',
+                        data: data.data,
+                        color: '#f87171'
+                    }]
+                });
+            }
+        });
+    })();
+    // END UNIT COLUMN BOX
+    // GAJI BOX
+    (function() {
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('esaku-dash/sdm-chart-gaji') }}",
+            dataType: 'json',
+            async: true,
+            success:function(result){    
+                var data = result.data;
+                $_gaji = Highcharts.chart('gaji-chart', {
+                    chart: { 
+                        type: 'column',
+                        height: 238 
+                    },
+                    title: { text: '' },
+                    subtitle: { text: '' },
+                    exporting:{ enabled: false },
+                    legend:{ enabled:false },
+                    credits: { enabled: false },
+                    xAxis: {
+                        categories: data.kategori,
+                        crosshair: true
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: ''
+                        }
+                    },
+                    tooltip: {
+                        enabled: true
+                    },
+                    plotOptions: {
+                        series: {
+                            label: {
+                                connectorAllowed: false
+                            }
+                        }
+                    },
+                    series: [{
+                        name: 'Jumlah',
+                        data: data.data,
+                        color: '#1e3a8a'
+                    }]
+                });
+            }
+        });
+    })();
+    // END GAJI BOX
+    // END RUN IF RENDER FIRST TIME
+</script>
+<script type="text/javascript">
+var $dataTable = null;
+var $bpjs = 0;
+var $http = null;
+
+
+// EVENT BACK TO MAIN DASH
+$('.to-main-dash').click(function() {
+    $('.detail-section').hide();
+    $('#main-dash').show()
+});
+// END EVENT BACK TO MAIN DASH
+
+// CARD CLICK EVENT
+$('.click-card').click(function() {
+    var kode = $(this).data('box');
+    $('#main-dash').hide()
+
+    if(kode == 'pegawai') {
+        generateDataPegawai();
+        $('#detail-pegawai').show();
+    }
+});
+// END CARD CLICK EVENT
+</script>
 {{-- DEKSTOP --}}
 <section id="main-dash">
     <section id="dekstop-1" class="desktop-1 m-b-25 col-dekstop">
         <div class="row">
             <div class="col-md-3 col-sm-3 col-lg-3 col-xl-3">
-                <div class="card card-dash cursor-pointer" data-box="pegawai">
+                <div class="card card-dash click-card cursor-pointer" data-box="pegawai">
                     <div class="row">
                         <div class="col-4">
                             <img alt="pegawai" class="image-icon" src="{{ url('/asset_sdm/img/team.png') }}">
@@ -17,7 +399,7 @@
                 </div>
             </div>
             <div class="col-md-3 col-sm-3 col-lg-3 col-xl-3">
-                <div class="card card-dash cursor-pointer" data-box="bpjsehat">
+                <div class="card card-dash click-card cursor-pointer" data-box="bpjsehat">
                     <div class="row">
                         <div class="col-4">
                             <img alt="heart" class="image-icon" src="{{ url('/asset_sdm/img/heartbeat.png') }}">
@@ -30,7 +412,7 @@
                 </div>
             </div>
             <div class="col-md-3 col-sm-3 col-lg-3 col-xl-3">
-                <div class="card card-dash cursor-pointer" data-box="bpjskerja">
+                <div class="card card-dash click-card cursor-pointer" data-box="bpjskerja">
                     <div class="row">
                         <div class="col-4">
                             <img alt="helmet" class="image-icon" src="{{ url('/asset_sdm/img/helmet.png') }}">
@@ -43,7 +425,7 @@
                 </div>
             </div>
             <div class="col-md-3 col-sm-3 col-lg-3 col-xl-3">
-                <div class="card card-dash cursor-pointer" data-box="client">
+                <div class="card card-dash click-card cursor-pointer" data-box="client">
                     <div class="row">
                         <div class="col-4">
                             <img alt="client" class="image-icon" src="{{ url('/asset_sdm/img/corporation.png') }}">
@@ -134,62 +516,6 @@
                 <div class="card card-dash">
                     <h6 class="card-title-2 text-bold">Rentang Gaji (Juta)</h6>
                     <div id="gaji-chart"></div>
-                </div>
-            </div>
-        </div>
-    </section>
-</section>
-
-<section id="detail-1" style="display: none;">
-    <section id="dekstop-4" class="dekstop-4 pb-1 m-b-25">
-        <div class="row">
-            <div class="col-12">
-                <div class="card card-dash">
-                    <div class="card-header row">
-                        <div class="col-12 header-content">
-                            <div class="glyph-icon iconsminds-left" id="to-main-dash"></div>
-                            <h6 class="card-title-2 text-bold text-medium detail-card">Data Pegawai</h6>
-                        </div>
-                    </div>
-                    <hr/>
-                    <div class="card-body row">
-                        <div class="col-12">
-                            <div class="dataTables_length col-sm-12" id="table-data_length"></div>
-                            <div class="d-block d-md-inline-block float-left col-md-6 col-sm-12">
-                                <div class="page-countdata">
-                                    <label> Menampilkan 
-                                        <select style="border:none" id="page-count">
-                                            <option value="10">10 per halaman</option>
-                                        </select>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="d-block d-md-inline-block float-right col-md-6 col-sm-12">
-                                <div class="input-group input-group-sm" style="max-width:321px;float:right">
-                                    <input type="text" class="form-control" placeholder="Search..."
-                                    aria-label="Search..." aria-describedby="filter-btn" id="searchData" style="border-top-right-radius: 0 !important;border-bottom-right-radius: 0 !important;max-width:230px !important">
-                                    <div class="input-group-append" style="max-width:92px !important;width:100%">
-                                        <span class="input-group-text" id="filter-btn" style="border-top-right-radius: 0.5rem !important;border-bottom-right-radius: 0.5rem !important;width:100%"><span class="badge badge-pill badge-outline-primary mb-0" id="jum-filter" style="font-size: 8px;margin-right: 5px;padding: 0.5em 0.75em;"></span><i class="simple-icon-equalizer mr-1"></i> Filter</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="table-responsive">
-                                <table class="table table-hover" id="datatable-karyawan" style="width: 100%;">
-                                    <thead>
-                                        <tr>
-                                            <th class="text-center">NIK</th>
-                                            <th class="text-center">Nama</th>
-                                            <th class="text-center">No BPJS Ketenagakerjaan</th>
-                                            <th class="text-center">Jabatan</th>
-                                            <th class="text-center">Lokasi Kerja</th>
-                                            <th class="text-center">Client</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody></tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -364,366 +690,7 @@
 </section>
 {{-- END DEKSTOP --}}
 
-<script src="{{ asset('helper.js') }}"></script>
-<script type="text/javascript">
-var $dataTable = null;
-var $bpjs = 0;
-var $http = null;
-var $_pendidikan = null;
-var $_umur = null;
-var $_unitp = null;
-var $_unitc = null;
-var $_gaji = null;
-
-// RUN IF RENDER FIRST TIME
-// PEGAWAI BOX
-(function() {
-    $.ajax({
-        type: 'GET',
-        url: "{{ url('esaku-dash/sdm-box-pegawai') }}",
-        dataType: 'json',
-        async: true,
-        success:function(result){    
-            var data = result.data;
-            $('#jumlah-pegawai').text(sepNum(data));
-        }
-    });
-})();
-// END PEGAWAI BOX
-// BPJS KESEHATAN BOX
-(function() {
-    $.ajax({
-        type: 'GET',
-        url: "{{ url('esaku-dash/sdm-box-sehat') }}",
-        dataType: 'json',
-        async: true,
-        success:function(result){    
-            var data = result.data;
-            $('#jumlah-bpjs-kes').text(sepNum(data));
-        }
-    });
-})();
-// END BPJS KESEHATAN BOX
-// BPJS KERJA BOX
-(function() {
-    $.ajax({
-        type: 'GET',
-        url: "{{ url('esaku-dash/sdm-box-kerja') }}",
-        dataType: 'json',
-        async: true,
-        success:function(result){    
-            var data = result.data;
-            $('#jumlah-bpjs-ker').text(sepNum(data));
-        }
-    });
-})();
-// END BPJS KESEHATAN BOX
-// BPJS KERJA BOX
-(function() {
-    $.ajax({
-        type: 'GET',
-        url: "{{ url('esaku-dash/sdm-box-client') }}",
-        dataType: 'json',
-        async: true,
-        success:function(result){    
-            var data = result.data;
-            $('#jumlah-client').text(sepNum(data.length));
-        }
-    });
-})();
-// END BPJS KERJA BOX
-// GENDER BOX
-(function() {
-    $.ajax({
-        type: 'GET',
-        url: "{{ url('esaku-dash/sdm-box-gender') }}",
-        dataType: 'json',
-        async: true,
-        success:function(result){    
-            var data = result.data;
-            $('#jumlah-pria').text(sepNum(data.pria));
-            $('#jumlah-wanita').text(sepNum(data.perempuan));
-        }
-    });
-})();
-// END GENDER BOX
-// PENDIDIKAN BOX
-(function() {
-    $.ajax({
-        type: 'GET',
-        url: "{{ url('esaku-dash/sdm-chart-pendidikan') }}",
-        dataType: 'json',
-        async: true,
-        success:function(result){    
-            var data = result.data;
-            $_pendidikan = Highcharts.chart('pendidikan-chart', {
-                chart: { 
-                    type: 'column',
-                    height: 160 
-                },
-                title: { text: '' },
-                subtitle: { text: '' },
-                exporting:{ enabled: false },
-                legend:{ enabled:true },
-                credits: { enabled: false },
-                xAxis: {
-                    categories: data.kategori,
-                    crosshair: true
-                },
-                yAxis: {
-                    min: 0,
-                    title: {
-                        text: ''
-                    }
-                },
-                tooltip: {
-                    enabled: true
-                },
-                plotOptions: {
-                    series: {
-                        label: {
-                            connectorAllowed: false
-                        },
-                        // point: {
-                        //     events: {
-                        //         click: function() {
-                        //             var filter = { pendidikan: this.category }
-                        //             generateTabelKaryawan(filter)
-                        //         }
-                        //     }
-                        // }
-                    }
-                },
-                series: [{
-                    name: 'Jumlah',
-                    data: data.data,
-                    color: '#059669'
-                }]
-            });
-        }
-    });
-})();
-// END PENDIDIKAN BOX
-// UMUR BOX
-(function() {
-    $.ajax({
-        type: 'GET',
-        url: "{{ url('esaku-dash/sdm-chart-umur') }}",
-        dataType: 'json',
-        async: true,
-        success:function(result){    
-            var data = result.data;
-            $_umur = Highcharts.chart('umur-chart', {
-                chart: { 
-                    type: 'column',
-                    height: 160 
-                },
-                title: { text: '' },
-                subtitle: { text: '' },
-                exporting:{ enabled: false },
-                legend:{ enabled:false },
-                credits: { enabled: false },
-                xAxis: {
-                    categories: data.kategori,
-                    crosshair: true
-                },
-                yAxis: {
-                    min: 0,
-                    title: {
-                        text: ''
-                    }
-                },
-                tooltip: {
-                    enabled: true
-                },
-                plotOptions: {
-                    series: {
-                        label: {
-                            connectorAllowed: false
-                        }
-                    }
-                },
-                series: [{
-                    name: 'Jumlah',
-                    data: data.data,
-                    color: '#ffb703'
-                }]
-            });
-        }
-    });
-})();
-// END UMUR BOX
-// UNIT PIE BOX
-(function() {
-    $.ajax({
-        type: 'GET',
-        url: "{{ url('esaku-dash/sdm-chart-unitp') }}",
-        dataType: 'json',
-        async: true,
-        success:function(result){    
-            var data = result.data;
-
-            $_unitp = Highcharts.chart('unit-chart', {
-                chart: {
-                    plotBackgroundColor: null,
-                    plotBorderWidth: null,
-                    plotShadow: false,
-                    type: 'pie',
-                    height: 239
-                },
-                title: { text: '' },
-                subtitle: { text: '' },
-                exporting:{ enabled: false },
-                legend:{ enabled: true },
-                credits: { enabled: false },
-                tooltip: {
-                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-                },
-                accessibility: {
-                    point: {
-                        valueSuffix: '%'
-                    }
-                },
-                plotOptions: {
-                    pie: {
-                        allowPointSelect: true,
-                        cursor: 'pointer',
-                        dataLabels: {
-                            enabled: true,
-                            format: '{point.percentage:.1f} %'
-                        },
-                        showInLegend: true,
-                        size: 92,
-                    }
-                },
-                series: [{
-                    name: 'Jumlah',
-                    colorByPoint: true,
-                    data: data
-                }]
-            }, function() {
-                var color =  ['#d1d5db', '#fbbf24', '#1d4ed8']
-                var series = this.series;
-                for(var i=0;i<series.length;i++) {
-                    var point = series[i].data;
-                    for(var j=0;j<point.length;j++) {
-                        point[j].graphic.element.style.fill = color[j]
-                        point[j].legendSymbol.element.style.fill = color[j]
-                    }
-                }
-            });
-        }
-    });
-})();
-// END UNIT PIE BOX
-// UNIT COLUMN BOX
-(function() {
-    $.ajax({
-        type: 'GET',
-        url: "{{ url('esaku-dash/sdm-chart-unitc') }}",
-        dataType: 'json',
-        async: true,
-        success:function(result){    
-            var data = result.data;
-            $_unitc = Highcharts.chart('unit-column-chart', {
-                chart: { 
-                    type: 'column',
-                    height: 238 
-                },
-                title: { text: '' },
-                subtitle: { text: '' },
-                exporting:{ enabled: false },
-                legend:{ enabled:true },
-                credits: { enabled: false },
-                xAxis: {
-                    categories: data.kategori,
-                    crosshair: true
-                },
-                yAxis: {
-                    min: 0,
-                    title: {
-                        text: ''
-                    }
-                },
-                tooltip: {
-                    enabled: true,
-                },
-                plotOptions: {
-                    series: {
-                        label: {
-                            connectorAllowed: false
-                        },
-                        point: {
-                            events: {
-                                click: function() {
-                                    var filter = { kode_jab: this.kode }
-                                    generateTabelKaryawan(filter)
-                                }
-                            }
-                        }
-                    }
-                },
-                series: [{
-                    name: 'Jumlah',
-                    data: data.data,
-                    color: '#f87171'
-                }]
-            });
-        }
-    });
-})();
-// END UNIT COLUMN BOX
-// GAJI BOX
-(function() {
-    $.ajax({
-        type: 'GET',
-        url: "{{ url('esaku-dash/sdm-chart-gaji') }}",
-        dataType: 'json',
-        async: true,
-        success:function(result){    
-            var data = result.data;
-            $_gaji = Highcharts.chart('gaji-chart', {
-                chart: { 
-                    type: 'column',
-                    height: 238 
-                },
-                title: { text: '' },
-                subtitle: { text: '' },
-                exporting:{ enabled: false },
-                legend:{ enabled:false },
-                credits: { enabled: false },
-                xAxis: {
-                    categories: data.kategori,
-                    crosshair: true
-                },
-                yAxis: {
-                    min: 0,
-                    title: {
-                        text: ''
-                    }
-                },
-                tooltip: {
-                    enabled: true
-                },
-                plotOptions: {
-                    series: {
-                        label: {
-                            connectorAllowed: false
-                        }
-                    }
-                },
-                series: [{
-                    name: 'Jumlah',
-                    data: data.data,
-                    color: '#1e3a8a'
-                }]
-            });
-        }
-    });
-})();
-// END GAJI BOX
-// END RUN IF RENDER FIRST TIME
-</script>
+@include('esaku.sdm.components.fDashPegawaiDetail')
 {{-- <script type="text/javascript">
 var dataTable = null;
 var $bpjs = 0;

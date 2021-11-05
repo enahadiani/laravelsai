@@ -38,3 +38,5 @@ Route::get('sdm-chart-umur', 'Esaku\Sdm\DashboardChartController@getUmur');
 Route::get('sdm-chart-unitp', 'Esaku\Sdm\DashboardChartController@getUnitPie');
 Route::get('sdm-chart-unitc', 'Esaku\Sdm\DashboardChartController@getUnitCol');
 Route::get('sdm-chart-gaji', 'Esaku\Sdm\DashboardChartController@getGaji');
+
+Route::get('sdm-detail-pegawai', 'Esaku\Sdm\DashboardDetailPegawaiController@getDataPegawai');
