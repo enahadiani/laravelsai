@@ -586,8 +586,8 @@ $.ajax({
             generateDataBox(dataBox)
             generateChartPendidikan(data.tingkat_pendidikan)
             // generateChartLoker(data.lokasi_kerja)
-            generateChartJabatan(data.jabatan)
-            generateChartJabatanColumn(data.jabatan)
+            generateChartJabatan(data.unit)
+            generateChartJabatanColumn(data.unit)
             generateDataGaji()
             generateDataUmur()
         }
@@ -729,8 +729,8 @@ function generateChartJabatanColumn(data) {
 
         for(var i=0;i<data.length;i++) {
             var dt = data[i];
-            categories.push(dt.nama_jabatan)
-            chartData.push([dt.nama_jabatan, parseFloat(dt.jumlah), dt.kode_jab])
+            categories.push(dt.nama_unit)
+            chartData.push([dt.nama_unit, parseFloat(dt.jumlah), dt.kode_unit])
         }
 
         Highcharts.chart('jabatan-column-chart', {
@@ -1362,7 +1362,7 @@ function generateChartJabatan(data) {
         for(var i=0;i<data.length;i++) {
             var dt = data[i];
             var value = (parseFloat(dt.jumlah) / 352) * 100;
-            chartData.push({ name: dt.nama_jabatan, y:parseFloat(dt.jumlah) })
+            chartData.push({ name: dt.nama_unit, y:parseFloat(dt.jumlah) })
         }
 
         Highcharts.setOptions({
