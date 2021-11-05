@@ -88,7 +88,7 @@
 {{-- ROW 1 --}}
     <div id="dekstop-1" class="row dekstop">
         <div class="col-3 pl-12 pr-0">
-            <div class="card card-dash  border-r-0 cursor-pointer" id="pdpt-box" data-grafik="">
+            <div class="card card-dash border-r-0 cursor-pointer" id="pdpt-box" data-grafik="">
                 <div class="row">
                     <div class="col-4 pt-16">
                         <div id="circle-pdpt" class="circle-bar">
@@ -771,50 +771,50 @@ $('#beban-box').click(function() {
 });
 // END BEBAN
 // SHU
-$('#shu-box').click(function() {
-    var kode = $(this).data('grafik');
+// $('#shu-box').click(function() {
+//     var kode = $(this).data('grafik');
 
-    if($render == 0) {
-        createChartPerform(kode)
-        createChartLembaga(kode)
-        createChartKelompok(kode)
-        createChartAkun(kode)
-    } else {
-        updateChartDetail(kode)
-    }
+//     if($render == 0) {
+//         createChartPerform(kode)
+//         createChartLembaga(kode)
+//         createChartKelompok(kode)
+//         createChartAkun(kode)
+//     } else {
+//         updateChartDetail(kode)
+//     }
 
-    $judulChart = "Sisa Hasil Usaha"
-    $('#title-dash').text('Sisa Hasil Usaha')
-    $('#back-div').removeClass('hidden')
-    $('#dash-title-div').removeClass('pl-8')
-    $('#dash-title-div').addClass('pl-0')
-    $('.title-chart').text('Sisa Hasil Usaha')
-    $('#main-dash').hide()
-    $('#detail-dash').show()
-});
+//     $judulChart = "Sisa Hasil Usaha"
+//     $('#title-dash').text('Sisa Hasil Usaha')
+//     $('#back-div').removeClass('hidden')
+//     $('#dash-title-div').removeClass('pl-8')
+//     $('#dash-title-div').addClass('pl-0')
+//     $('.title-chart').text('Sisa Hasil Usaha')
+//     $('#main-dash').hide()
+//     $('#detail-dash').show()
+// });
 // END SHU
 // OR
-$('#or-box').click(function() {
-    var kode = $(this).data('grafik');
-    $judulChart = "Operating Ratio"
+// $('#or-box').click(function() {
+//     var kode = $(this).data('grafik');
+//     $judulChart = "Operating Ratio"
 
-    if($render == 0) {
-        createChartPerform(kode)
-        createChartLembaga(kode)
-        createChartKelompok(kode)
-        createChartAkun(kode)
-    } else {
-        updateChartDetail(kode)
-    }
+//     if($render == 0) {
+//         createChartPerform(kode)
+//         createChartLembaga(kode)
+//         createChartKelompok(kode)
+//         createChartAkun(kode)
+//     } else {
+//         updateChartDetail(kode)
+//     }
 
-    $('#title-dash').text('Operating Ratio')
-    $('#back-div').removeClass('hidden')
-    $('#dash-title-div').removeClass('pl-8')
-    $('#dash-title-div').addClass('pl-0')
-    $('.title-chart').text('Operating Ratio')
-    $('#main-dash').hide()
-    $('#detail-dash').show()
-});
+//     $('#title-dash').text('Operating Ratio')
+//     $('#back-div').removeClass('hidden')
+//     $('#dash-title-div').removeClass('pl-8')
+//     $('#dash-title-div').addClass('pl-0')
+//     $('.title-chart').text('Operating Ratio')
+//     $('#main-dash').hide()
+//     $('#detail-dash').show()
+// });
 // END OR
 // KEMBALI
 $('#back').click(function() {
