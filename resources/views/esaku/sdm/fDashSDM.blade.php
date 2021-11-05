@@ -285,14 +285,14 @@
                             label: {
                                 connectorAllowed: false
                             },
-                            point: {
-                                events: {
-                                    click: function() {
-                                        var filter = { kode_jab: this.kode }
-                                        generateTabelKaryawan(filter)
-                                    }
-                                }
-                            }
+                            // point: {
+                            //     events: {
+                            //         click: function() {
+                            //             var filter = { kode_jab: this.kode }
+                            //             generateTabelKaryawan(filter)
+                            //         }
+                            //     }
+                            // }
                         }
                     },
                     series: [{
@@ -387,6 +387,16 @@ $('.click-card').click(function() {
     }
 });
 // END CARD CLICK EVENT
+
+// CLICK CONTENT EVENT
+$('.click-content').click(function() {
+    var kode = $(this).data('gender');
+    var filter = { jk: kode }
+    generateDataPegawai(filter);
+    $('#main-dash').hide()
+    $('#detail-pegawai').show();
+})
+// END CLICK CONTENT EVENT
 </script>
 {{-- DEKSTOP --}}
 <section id="main-dash">
@@ -456,7 +466,7 @@ $('.click-card').click(function() {
                             <h6 class="card-title-2 text-bold">Jenis Kelamin</h6>
                             <div class="row m-t-10">
                                 <div class="col-6">
-                                    <div class="row">
+                                    <div class="row click-content cursor-pointer" data-gender="L">
                                         <div class="col-3">
                                             <img alt="male" class="image-icon-small" src="{{ url('/asset_sdm/img/Pria.svg') }}">
                                         </div>
@@ -467,7 +477,7 @@ $('.click-card').click(function() {
                                     </div>
                                 </div>
                                 <div class="col-6">
-                                    <div class="row">
+                                    <div class="row click-content cursor-pointer" data-gender="P">
                                         <div class="col-3">
                                             <img alt="female" class="image-icon-small" src="{{ url('/asset_sdm/img/Wanita.svg') }}">
                                         </div>

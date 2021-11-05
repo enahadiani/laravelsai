@@ -52,7 +52,8 @@ class DashboardDetailPegawaiController extends Controller {
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
-                ]
+                ],
+                'query' => $r->all()
             ]);
 
             if ($response->getStatusCode() == 200) { // 200 OK
