@@ -723,7 +723,7 @@ function generateChartJabatanColumn(data) {
             title: { text: '' },
             subtitle: { text: '' },
             exporting:{ enabled: false },
-            legend:{ enabled:false },
+            legend:{ enabled:true },
             credits: { enabled: false },
             xAxis: {
                 categories: categories,
@@ -1234,7 +1234,7 @@ function generateChartPendidikan(data) {
             title: { text: '' },
             subtitle: { text: '' },
             exporting:{ enabled: false },
-            legend:{ enabled:false },
+            legend:{ enabled:true },
             credits: { enabled: false },
             xAxis: {
                 categories: categories,
@@ -1400,6 +1400,7 @@ function generateChartJabatan(data) {
                 data: chartData
             }]
         }, function() {
+            console.log(this)
             var series = this.series;
             for(var i=0;i<series.length;i++) {
                 var point = series[i].data;
