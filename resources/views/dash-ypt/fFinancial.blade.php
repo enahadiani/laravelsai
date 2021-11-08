@@ -1048,30 +1048,6 @@ document.addEventListener('fullscreenchange', (event) => {
             text: ''
         }
     })
-
-    performChart.update({
-        title: {
-            text: ''
-        }
-    })
-
-    lembagaChart.update({
-        title: {
-            text: ''
-        }
-    })
-
-    yoyChart.update({
-        title: {
-            text: ''
-        }
-    })
-
-    akunChart.update({
-        title: {
-            text: ''
-        }
-    })
     console.log('Leaving full-screen mode.');
   }
 });

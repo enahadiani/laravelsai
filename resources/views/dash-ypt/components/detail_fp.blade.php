@@ -1,114 +1,3 @@
-<section id="detail-dash" class="mt-20 pb-24" style="display: none">
-    {{-- ROW 4 --}}
-    <div id="dekstop-4" class="row dekstop">
-        <div class="col-7 pl-12 pr-0">
-            <div class="card card-dash border-r-0" id="dash-perform">
-                <div class="row header-div" id="card-perform">
-                    <div class="col-9">
-                        <h4 class="header-card">Performansi Lembaga</h4>
-                    </div>
-                    <div class="col-3">
-                        <div class="glyph-icon simple-icon-menu icon-menu"></div>
-                    </div>
-                    <div class="menu-chart-custom hidden" id="export-perform">
-                        <ul>
-                            <li class="menu-chart-item fullscreen">View in full screen</li>
-                            <li class="menu-chart-item print">Print chart</li>
-                            <hr>
-                            <li class="menu-chart-item print png">Download PNG image</li>
-                            <li class="menu-chart-item print jpg">Download JPEG image</li>
-                            <li class="menu-chart-item print pdf">Download PDF document</li>
-                            <li class="menu-chart-item print svg">Download SVG vector image</li>
-                            <li class="menu-chart-item print svg">View table data</li>
-                        </ul>
-                    </div>
-                </div>
-                <div id="perfomansi-chart" class="mt-8"></div>
-            </div>
-        </div>
-        <div class="col-5 pl-1 pr-0">
-            <div class="card card-dash  border-r-0" id="dash-lembaga">
-                <div class="row header-div" id="card-lembaga">
-                    <div class="col-9">
-                        <h4 class="header-card"><span class="title-chart"></span> Per Lembaga</h4>
-                    </div>
-                    <div class="col-3">
-                        <div class="glyph-icon simple-icon-menu icon-menu"></div>
-                    </div>
-                    <div class="menu-chart-custom hidden" id="export-lembaga">
-                        <ul>
-                            <li class="menu-chart-item fullscreen">View in full screen</li>
-                            <li class="menu-chart-item print">Print chart</li>
-                            <hr>
-                            <li class="menu-chart-item print png">Download PNG image</li>
-                            <li class="menu-chart-item print jpg">Download JPEG image</li>
-                            <li class="menu-chart-item print pdf">Download PDF document</li>
-                            <li class="menu-chart-item print svg">Download SVG vector image</li>
-                            <li class="menu-chart-item print svg">View table data</li>
-                        </ul>
-                    </div>
-                </div>
-                <div id="lembaga-chart" class="mt-8"></div>
-            </div>
-        </div>
-    </div>
-
-    <div id="dekstop-5" class="row dekstop mt-4">
-        <div class="col-7 pl-12 pr-0">
-            <div class="card card-dash  border-r-0" id="dash-yoy">
-                <div class="row header-div" id="card-yoy">
-                    <div class="col-9">
-                        <h4 class="header-card">Kelompok <span class="title-chart"></span> YoY</h4>
-                    </div>
-                    <div class="col-3">
-                        <div class="glyph-icon simple-icon-menu icon-menu"></div>
-                    </div>
-                    <div class="menu-chart-custom hidden" id="export-yoy">
-                        <ul>
-                            <li class="menu-chart-item fullscreen">View in full screen</li>
-                            <li class="menu-chart-item print">Print chart</li>
-                            <hr>
-                            <li class="menu-chart-item print png">Download PNG image</li>
-                            <li class="menu-chart-item print jpg">Download JPEG image</li>
-                            <li class="menu-chart-item print pdf">Download PDF document</li>
-                            <li class="menu-chart-item print svg">Download SVG vector image</li>
-                            <li class="menu-chart-item print svg">View table data</li>
-                        </ul>
-                    </div>
-                </div>
-                <div id="yoy-chart" class="mt-8"></div>
-            </div>
-        </div>
-        <div class="col-5 pl-1 pr-0">
-            <div class="card card-dash  border-r-0" id="dash-akun">
-                <div class="row header-div" id="card-akun">
-                    <div class="col-9">
-                        <h4 class="header-card">Kelompok <span class="title-chart"></span></h4>
-                    </div>
-                    <div class="col-3">
-                        <div class="glyph-icon simple-icon-menu icon-menu"></div>
-                    </div>
-                    <div class="menu-chart-custom hidden" id="export-akun">
-                        <ul>
-                            <li class="menu-chart-item fullscreen">View in full screen</li>
-                            <li class="menu-chart-item print">Print chart</li>
-                            <hr>
-                            <li class="menu-chart-item print png">Download PNG image</li>
-                            <li class="menu-chart-item print jpg">Download JPEG image</li>
-                            <li class="menu-chart-item print pdf">Download PDF document</li>
-                            <li class="menu-chart-item print svg">Download SVG vector image</li>
-                            <li class="menu-chart-item print svg">View table data</li>
-                        </ul>
-                    </div>
-                </div>
-                <div id="akun-chart" class="mt-8"></div>
-            </div>
-        </div>
-    </div>
-    {{-- END ROW 4 --}}
-</section>
-{{-- END CONTENT DETAIL --}}
-
 <script type="text/javascript">
 var performChart = null;
 var lembagaChart = null;
@@ -865,4 +754,148 @@ $('#export-akun.menu-chart-custom ul li').click(function(event) {
 })
 // END PER AKUN
 // END CUSTOM EXPORT HIGHCHART
+
+// FULLSCREEN HIGHCHART
+document.addEventListener('fullscreenchange', (event) => {
+  if (document.fullscreenElement) {
+    console.log(`Element: ${document.fullscreenElement.id} entered full-screen mode.`);
+  } else {
+    performChart.update({
+        title: {
+            text: ''
+        }
+    })
+
+    lembagaChart.update({
+        title: {
+            text: ''
+        }
+    })
+
+    yoyChart.update({
+        title: {
+            text: ''
+        }
+    })
+
+    akunChart.update({
+        title: {
+            text: ''
+        }
+    })
+    console.log('Leaving full-screen mode.');
+  }
+});
+// END FULLSCREEN HIGHCHART
 </script>
+
+<section id="detail-dash" class="mt-20 pb-24" style="display: none">
+    {{-- ROW 4 --}}
+    <div id="dekstop-4" class="row dekstop">
+        <div class="col-7 pl-12 pr-0">
+            <div class="card card-dash border-r-0" id="dash-perform">
+                <div class="row header-div" id="card-perform">
+                    <div class="col-9">
+                        <h4 class="header-card">Performansi Lembaga</h4>
+                    </div>
+                    <div class="col-3">
+                        <div class="glyph-icon simple-icon-menu icon-menu"></div>
+                    </div>
+                    <div class="menu-chart-custom hidden" id="export-perform">
+                        <ul>
+                            <li class="menu-chart-item fullscreen">View in full screen</li>
+                            <li class="menu-chart-item print">Print chart</li>
+                            <hr>
+                            <li class="menu-chart-item print png">Download PNG image</li>
+                            <li class="menu-chart-item print jpg">Download JPEG image</li>
+                            <li class="menu-chart-item print pdf">Download PDF document</li>
+                            <li class="menu-chart-item print svg">Download SVG vector image</li>
+                            <li class="menu-chart-item print svg">View table data</li>
+                        </ul>
+                    </div>
+                </div>
+                <div id="perfomansi-chart" class="mt-8"></div>
+            </div>
+        </div>
+        <div class="col-5 pl-1 pr-0">
+            <div class="card card-dash  border-r-0" id="dash-lembaga">
+                <div class="row header-div" id="card-lembaga">
+                    <div class="col-9">
+                        <h4 class="header-card"><span class="title-chart"></span> Per Lembaga</h4>
+                    </div>
+                    <div class="col-3">
+                        <div class="glyph-icon simple-icon-menu icon-menu"></div>
+                    </div>
+                    <div class="menu-chart-custom hidden" id="export-lembaga">
+                        <ul>
+                            <li class="menu-chart-item fullscreen">View in full screen</li>
+                            <li class="menu-chart-item print">Print chart</li>
+                            <hr>
+                            <li class="menu-chart-item print png">Download PNG image</li>
+                            <li class="menu-chart-item print jpg">Download JPEG image</li>
+                            <li class="menu-chart-item print pdf">Download PDF document</li>
+                            <li class="menu-chart-item print svg">Download SVG vector image</li>
+                            <li class="menu-chart-item print svg">View table data</li>
+                        </ul>
+                    </div>
+                </div>
+                <div id="lembaga-chart" class="mt-8"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="dekstop-5" class="row dekstop mt-4">
+        <div class="col-7 pl-12 pr-0">
+            <div class="card card-dash  border-r-0" id="dash-yoy">
+                <div class="row header-div" id="card-yoy">
+                    <div class="col-9">
+                        <h4 class="header-card">Kelompok <span class="title-chart"></span> YoY</h4>
+                    </div>
+                    <div class="col-3">
+                        <div class="glyph-icon simple-icon-menu icon-menu"></div>
+                    </div>
+                    <div class="menu-chart-custom hidden" id="export-yoy">
+                        <ul>
+                            <li class="menu-chart-item fullscreen">View in full screen</li>
+                            <li class="menu-chart-item print">Print chart</li>
+                            <hr>
+                            <li class="menu-chart-item print png">Download PNG image</li>
+                            <li class="menu-chart-item print jpg">Download JPEG image</li>
+                            <li class="menu-chart-item print pdf">Download PDF document</li>
+                            <li class="menu-chart-item print svg">Download SVG vector image</li>
+                            <li class="menu-chart-item print svg">View table data</li>
+                        </ul>
+                    </div>
+                </div>
+                <div id="yoy-chart" class="mt-8"></div>
+            </div>
+        </div>
+        <div class="col-5 pl-1 pr-0">
+            <div class="card card-dash  border-r-0" id="dash-akun">
+                <div class="row header-div" id="card-akun">
+                    <div class="col-9">
+                        <h4 class="header-card">Kelompok <span class="title-chart"></span></h4>
+                    </div>
+                    <div class="col-3">
+                        <div class="glyph-icon simple-icon-menu icon-menu"></div>
+                    </div>
+                    <div class="menu-chart-custom hidden" id="export-akun">
+                        <ul>
+                            <li class="menu-chart-item fullscreen">View in full screen</li>
+                            <li class="menu-chart-item print">Print chart</li>
+                            <hr>
+                            <li class="menu-chart-item print png">Download PNG image</li>
+                            <li class="menu-chart-item print jpg">Download JPEG image</li>
+                            <li class="menu-chart-item print pdf">Download PDF document</li>
+                            <li class="menu-chart-item print svg">Download SVG vector image</li>
+                            <li class="menu-chart-item print svg">View table data</li>
+                        </ul>
+                    </div>
+                </div>
+                <div id="akun-chart" class="mt-8"></div>
+            </div>
+        </div>
+    </div>
+    {{-- END ROW 4 --}}
+</section>
+{{-- END CONTENT DETAIL --}}
