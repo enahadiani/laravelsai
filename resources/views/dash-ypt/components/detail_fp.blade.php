@@ -311,10 +311,10 @@ function createChartKelompok(kode_grafik = null) {
                     enabled: false
                 },
                 legend:{ 
-                    enabled: false,
-                    layout: 'vertical',
-                    align: 'right',
-                    verticalAlign: 'middle' 
+                    enabled: true,
+                    // layout: 'vertical',
+                    // align: 'right',
+                    // verticalAlign: 'middle' 
                 },
                 credits: { enabled: false },
                 xAxis: {
