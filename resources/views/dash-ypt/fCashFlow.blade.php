@@ -281,6 +281,7 @@ var $tahun = parseInt($('#year-filter').text());
 var $filter1 = "Periode";
 var $filter2 = getNamaBulan("09");
 var $month = "09";
+var trendChart = null;
 
 if($filter1 == 'Periode') {
     $('#list-filter-2').find('.list').each(function() {
@@ -377,6 +378,7 @@ $('.icon-menu').click(function(event) {
 });
 
 // RUN FUNC IF FIRST RENDER
+// DATA BOX
 (function() {
     $.ajax({
         type: 'GET',
@@ -422,77 +424,161 @@ $('.icon-menu').click(function(event) {
         }
     });
 })();
+// END DATA BOX
+// CF CHART
+(function() {
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('dash-ypt-dash/data-cf-chart-bulanan') }}",
+        data: {},
+        dataType: 'json',
+        async: true,
+        success:function(result) {
+            var data = result.data;
+            trendChart = Highcharts.chart('trend-chart', {
+                chart: {
+                    height: 450,
+                    // width: 600
+                },
+                title: { text: '' },
+                subtitle: { text: '' },
+                exporting:{ 
+                    enabled: false
+                },
+                legend:{ 
+                    enabled: true,
+                    // layout: 'vertical',
+                    // align: 'right',
+                    verticalAlign: 'bottom' 
+                },
+                credits: { enabled: false },
+                xAxis: {
+                    categories: data.kategori
+                },
+                yAxis: {
+                    title: {
+                        text: 'Nilai'
+                    }
+                },
+                plotOptions: {
+                    series: {
+                        label: {
+                            connectorAllowed: false
+                        },
+                        marker:{
+                            enabled:false
+                        },
+                    }
+                },
+                series: [
+                    {
+                        name: 'Cash In',
+                        data: data.cash_in,
+                        color: '#8085E9'
+                    },
+                    {
+                        name: 'Cash Out',
+                        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                        color: '#90ED7D'
+                    },
+                    {
+                        name: 'Saldo',
+                        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                        color: '#F7A35C'
+                    },
+                    {
+                        name: 'YoY Cash In',
+                        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                        color: '#7CB5EC'
+                    },
+                    {
+                        name: 'YoY Cash Out',
+                        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                        color: '#7CB5EC'
+                    },
+                    {
+                        name: 'YoY Saldo',
+                        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                        color: '#434348'
+                    }
+                ],
+            });
+        }
+    });
+})();
+// END CF CHART
 // END RUN FUNC IF FIRST RENDER
-var trendChart = Highcharts.chart('trend-chart', {
-    chart: {
-        height: 450,
-        // width: 600
-    },
-    title: { text: '' },
-    subtitle: { text: '' },
-    exporting:{ 
-        enabled: false
-    },
-    legend:{ 
-        enabled: true,
-        // layout: 'vertical',
-        // align: 'right',
-        verticalAlign: 'bottom' 
-    },
-    credits: { enabled: false },
-    xAxis: {
-        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agt', 'Sep', 'Okt', 'Nov', 'Des']
-    },
-    yAxis: {
-         title: {
-            text: 'Nilai'
-        }
-    },
-    plotOptions: {
-        series: {
-            label: {
-                connectorAllowed: false
-            },
-            marker:{
-                enabled:false
-            },
-            pointStart: 2016
-        }
-    },
-    series: [
-        {
-            name: 'Cash In',
-            data: [5000, 4000, 2000, 3000, 2500, 2800, 6000, 2000, 2000, 1500, 2000, 2500],
-            color: '#8085E9'
-        },
-        {
-            name: 'Cash Out',
-            data: [4000, 3000, 18000, 2000, 2000, 2500, 5000, 2500, 1500, 2000, 2500, 2000],
-            color: '#90ED7D'
-        },
-        {
-            name: 'Saldo',
-            data: [1000, 1000, 1500, 1000, 1000, 1500, 1000, 1000, 2000, 3000, 2000, 2000],
-            color: '#F7A35C'
-        },
-        {
-            name: 'YoY Cash In',
-            data: [1500, 1500, 1500, 1200, 1800, 1400, 1500, 1900, 1700, 2200, 2500, 2800],
-            color: '#7CB5EC'
-        },
-        {
-            name: 'YoY Cash Out',
-            data: [1200, 1300, 1300, 1400, 1400, 1600, 1800, 2000, 1200, 2000, 2000, 2500],
-            color: '#7CB5EC'
-        },
-        {
-            name: 'YoY Saldo',
-            data: [1000, 1000, 1000, 1200, 1500, 1100, 1200, 2500, 1800, 2500, 2200, 2700],
-            color: '#434348'
-        }
-    ],
-});
+// var trendChart = Highcharts.chart('trend-chart', {
+//     chart: {
+//         height: 450,
+//         // width: 600
+//     },
+//     title: { text: '' },
+//     subtitle: { text: '' },
+//     exporting:{ 
+//         enabled: false
+//     },
+//     legend:{ 
+//         enabled: true,
+//         // layout: 'vertical',
+//         // align: 'right',
+//         verticalAlign: 'bottom' 
+//     },
+//     credits: { enabled: false },
+//     xAxis: {
+//         categories: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agt', 'Sep', 'Okt', 'Nov', 'Des']
+//     },
+//     yAxis: {
+//          title: {
+//             text: 'Nilai'
+//         }
+//     },
+//     plotOptions: {
+//         series: {
+//             label: {
+//                 connectorAllowed: false
+//             },
+//             marker:{
+//                 enabled:false
+//             },
+//             pointStart: 2016
+//         }
+//     },
+//     series: [
+//         {
+//             name: 'Cash In',
+//             data: [5000, 4000, 2000, 3000, 2500, 2800, 6000, 2000, 2000, 1500, 2000, 2500],
+//             color: '#8085E9'
+//         },
+//         {
+//             name: 'Cash Out',
+//             data: [4000, 3000, 18000, 2000, 2000, 2500, 5000, 2500, 1500, 2000, 2500, 2000],
+//             color: '#90ED7D'
+//         },
+//         {
+//             name: 'Saldo',
+//             data: [1000, 1000, 1500, 1000, 1000, 1500, 1000, 1000, 2000, 3000, 2000, 2000],
+//             color: '#F7A35C'
+//         },
+//         {
+//             name: 'YoY Cash In',
+//             data: [1500, 1500, 1500, 1200, 1800, 1400, 1500, 1900, 1700, 2200, 2500, 2800],
+//             color: '#7CB5EC'
+//         },
+//         {
+//             name: 'YoY Cash Out',
+//             data: [1200, 1300, 1300, 1400, 1400, 1600, 1800, 2000, 1200, 2000, 2000, 2500],
+//             color: '#7CB5EC'
+//         },
+//         {
+//             name: 'YoY Saldo',
+//             data: [1000, 1000, 1000, 1200, 1500, 1100, 1200, 2500, 1800, 2500, 2200, 2700],
+//             color: '#434348'
+//         }
+//     ],
+// });
 
+// EXPORT HIGHCHART EVENT
 $('#export-trend.menu-chart-custom ul li').click(function(event) {
     event.stopPropagation()
     var idParent = $(this).parent('#dash-trend').attr('id')
@@ -572,4 +658,5 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
         $("body").css("overflow", "hidden");
     }
 })
+// END EXPORT HIGHCHART EVENT
 </script>

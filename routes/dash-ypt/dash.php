@@ -19,5 +19,6 @@ Route::get('data-fp-detail-akun', 'DashYpt\DashboardFPController@getDataPerAkun'
 Route::get('data-ccr-box', 'DashYpt\DashboardCCRController@getDataBox');
 
 Route::get('data-cf-box', 'DashYpt\DashboardCFController@getDataBox');
+Route::get('data-cf-chart-bulanan', 'DashYpt\DashboardCFController@getDataChartBulanan');
 
 ?>
