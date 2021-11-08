@@ -385,8 +385,8 @@
 <script type="text/javascript">
 var $tahun = parseInt($('#year-filter').text())
 var $filter1 = "Periode";
-var $filter2 = getNamaBulan("{{ date('m') }}");
-var $month = "{{ date('m') }}";
+var $filter2 = getNamaBulan("09");
+var $month = "09";
 
 $('#select-text-ccr').text(`${$filter2.toUpperCase()} ${$tahun}`)
 
