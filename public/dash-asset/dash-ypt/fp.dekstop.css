@@ -131,6 +131,12 @@ section.header {
 .table.table-th-red tbody tr td {
     padding: 0.4px 8px;
 }
+#table-lembaga.table tbody tr {
+    cursor: pointer;
+}
+#table-lembaga.table tbody tr:hover {
+    background-color: #e5e7eb;
+}
 #table-lembaga.table tbody tr td:first-child {
     cursor: pointer;
 }
