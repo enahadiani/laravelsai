@@ -1,4 +1,323 @@
 <link rel="stylesheet" href="{{ asset('dash-asset/dash-ypt/cf.dekstop.css?version=_').time() }}" />
+<link rel="stylesheet" href="{{ asset('dash-asset/dash-ypt/global.dekstop.css?version=_').time() }}" />
+
+<script src="{{ asset('main.js') }}"></script>
+<script type="text/javascript">
+var $tahun = parseInt($('#year-filter').text());
+var $filter1 = "Periode";
+var $filter2 = getNamaBulan("09");
+var $month = "09";
+var trendChart = null;
+
+if($filter1 == 'Periode') {
+    $('#list-filter-2').find('.list').each(function() {
+        if($(this).data('bulan').toString() == $month) {
+            $(this).addClass('selected')
+            $month = $(this).data('bulan').toString();
+            return false;
+        }
+    });
+}
+
+$('#select-text-cf').text(`${$filter2.toUpperCase()} ${$tahun}`);
+
+$(window).on('resize', function(){
+    var win = $(this); //this = window
+    if (win.height() == 800) { 
+        $("body").css("overflow", "hidden");
+    }
+    if (win.height() > 800) { 
+        $("body").css("overflow", "scroll");
+    }
+    if (win.height() < 800) { 
+        $("body").css("overflow", "scroll");
+    }
+});
+
+$(window).click(function() {
+    $('.menu-chart-custom').addClass('hidden');
+    if($(window).height() == 800) {
+        $("body").css("overflow", "hidden");
+    }
+    if($(window).height() > 800) {
+        $("body").css("overflow", "scroll");
+    }
+    if($(window).height() < 800) {
+        $("body").css("overflow", "scroll");
+    }
+});
+
+document.addEventListener('fullscreenchange', (event) => {
+  if (document.fullscreenElement) {
+    console.log(`Element: ${document.fullscreenElement.id} entered full-screen mode.`);
+  } else {
+    trendChart.update({
+        title: {
+            text: ''
+        }
+    })
+
+    console.log('Leaving full-screen mode.');
+  }
+});
+
+$('#kurang-tahun').click(function(event) {
+    event.stopPropagation();
+    $tahun = $tahun - 1;
+    $('#year-filter').text($tahun);
+});
+
+$('#tambah-tahun').click(function(event) {
+    event.stopPropagation();
+    $tahun = $tahun + 1;
+    $('#year-filter').text($tahun);
+});
+
+$('#custom-row').click(function(event) {
+    event.stopPropagation();
+    $('#filter-box').removeClass('hidden')
+});
+
+$('#list-filter-2').on('click', 'div', function(event) {
+    event.stopPropagation();
+    filter = $(this).data('bulan') 
+    
+    $filter2 = filter
+    $('#list-filter-2 div').not(this).removeClass('selected')
+    $(this).addClass('selected')
+
+    $filter2 = getNamaBulan($filter2)
+
+    $('#select-text-cf').text(`${$filter2.toUpperCase()} ${$tahun}`)
+});
+
+$('.icon-menu').click(function(event) {
+    event.stopPropagation()
+    var parentID = $(this).parents('.header-div').attr('id')
+    $('#'+parentID).find('.menu-chart-custom').removeClass('hidden')
+
+    if(parentID == 'card-piutang' || parentID == 'card-soakhir') {
+        $("body").css("overflow", "scroll");
+    } else {
+        $("body").css("overflow", "hidden");
+    }
+});
+
+// RUN FUNC IF FIRST RENDER
+// DATA BOX
+(function() {
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('dash-ypt-dash/data-cf-box') }}",
+        data: {},
+        dataType: 'json',
+        async: true,
+        success:function(result) {
+            var data = result.data;
+            var inflow = 0;
+            var outflow = 0;
+            var balance = 0;
+            var closing = 0;
+
+            if(data.inflow.nominal.toString().length <= 9) {
+                inflow = toJuta(data.inflow.nominal)
+            } else {
+                inflow = toMilyar(data.inflow.nominal)
+            }
+
+            if(data.outflow.nominal.toString().length <= 9) {
+                outflow = toJuta(data.outflow.nominal)
+            } else {
+                outflow = toMilyar(data.outflow.nominal)
+            }
+
+            if(data.cash_balance.nominal.toString().length <= 9) {
+                balance = toJuta(data.cash_balance.nominal)
+            } else {
+                balance = toMilyar(data.cash_balance.nominal)
+            }
+
+            if(data.closing.nominal.toString().length <= 9) {
+                closing = toJuta(data.closing.nominal)
+            } else {
+                closing = toMilyar(data.closing.nominal)
+            }
+
+            $('#cf-inflow').text(inflow)
+            $('#cf-outflow').text(outflow)
+            $('#cf-balance').text(balance)
+            $('#cf-closing').text(closing)
+        }
+    });
+})();
+// END DATA BOX
+// CF CHART
+(function() {
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('dash-ypt-dash/data-cf-chart-bulanan') }}",
+        data: {},
+        dataType: 'json',
+        async: true,
+        success:function(result) {
+            var data = result.data;
+            trendChart = Highcharts.chart('trend-chart', {
+                chart: {
+                    height: 450,
+                    // width: 600
+                },
+                title: { text: '' },
+                subtitle: { text: '' },
+                exporting:{ 
+                    enabled: false
+                },
+                legend:{ 
+                    enabled: true,
+                    // layout: 'vertical',
+                    // align: 'right',
+                    verticalAlign: 'bottom' 
+                },
+                credits: { enabled: false },
+                xAxis: {
+                    categories: data.kategori
+                },
+                yAxis: {
+                    title: {
+                        text: 'Nilai'
+                    }
+                },
+                plotOptions: {
+                    series: {
+                        label: {
+                            connectorAllowed: false
+                        },
+                        marker:{
+                            enabled:false
+                        },
+                    }
+                },
+                series: [
+                    {
+                        name: 'Cash In',
+                        data: data.cash_in,
+                        color: '#8085E9'
+                    },
+                    {
+                        name: 'Cash Out',
+                        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                        color: '#90ED7D'
+                    },
+                    {
+                        name: 'Saldo',
+                        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                        color: '#F7A35C'
+                    },
+                    {
+                        name: 'YoY Cash In',
+                        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                        color: '#7CB5EC'
+                    },
+                    {
+                        name: 'YoY Cash Out',
+                        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                        color: '#7CB5EC'
+                    },
+                    {
+                        name: 'YoY Saldo',
+                        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                        color: '#434348'
+                    }
+                ],
+            });
+        }
+    });
+})();
+// END CF CHART
+// END RUN FUNC IF FIRST RENDER
+
+
+// EXPORT HIGHCHART EVENT
+$('#export-trend.menu-chart-custom ul li').click(function(event) {
+    event.stopPropagation()
+    var idParent = $(this).parent('#dash-trend').attr('id')
+    var jenis = $(this).text()
+    
+    if(jenis == 'View in full screen') {
+        trendChart.update({
+            title: {
+                text: `Trend Cash Flow`,
+                floating: true,
+                x: 40,
+                y: 20
+            }
+        })
+        trendChart.fullscreen.toggle();
+    } else if(jenis == 'Print chart') {
+        trendChart.print()
+    } else if(jenis == 'Download PNG image') {
+        trendChart.exportChart({
+            type: 'image/png',
+            filename: 'chart-png'
+        }, {
+            title: {
+                text: `Trend Cash Flow`,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download JPEG image') {
+        trendChart.exportChart({
+            type: 'image/jpeg',
+            filename: 'chart-jpg'
+        }, {
+            title: {
+                text: `Trend Cash Flow`,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download PDF document') {
+        trendChart.exportChart({
+            type: 'application/pdf',
+            filename: 'chart-pdf'
+        }, {
+            title: {
+                text: `Trend Cash Flow`,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download SVG vector image') {
+        trendChart.exportChart({
+            type: 'image/svg+xml',
+            filename: 'chart-svg'
+        }, {
+            title: {
+                text: `Trend Cash Flow`,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'View table data') {
+        $(this).text('Hide table data')
+        trendChart.viewData()
+        var cek = $('#'+idParent+'.highcharts-data-table table').hasClass('table table-bordered table-no-padding')
+        if(!cek) {
+            $('.highcharts-data-table table').addClass('table table-bordered table-no-padding')
+        }
+        $("body").css("overflow", "scroll");
+    } else if(jenis == 'Hide table data') {
+        $(this).text('View table data')
+        $('.highcharts-data-table').hide()
+        $("body").css("overflow", "hidden");
+    }
+})
+// END EXPORT HIGHCHART EVENT
+</script>
 
 {{-- DEKSTOP --}}
 
@@ -275,239 +594,7 @@
 {{-- END CONTENT MAIN --}}
 
 {{-- END DEKSTOP --}}
-
-<script type="text/javascript">
-var $tahun = parseInt($('#year-filter').text());
-var $filter1 = "Periode";
-var $filter2 = getNamaBulan("09");
-var $month = "09";
-var trendChart = null;
-
-if($filter1 == 'Periode') {
-    $('#list-filter-2').find('.list').each(function() {
-        if($(this).data('bulan').toString() == $month) {
-            $(this).addClass('selected')
-            $month = $(this).data('bulan').toString();
-            return false;
-        }
-    });
-}
-
-$('#select-text-cf').text(`${$filter2.toUpperCase()} ${$tahun}`);
-
-$(window).on('resize', function(){
-    var win = $(this); //this = window
-    if (win.height() == 800) { 
-        $("body").css("overflow", "hidden");
-    }
-    if (win.height() > 800) { 
-        $("body").css("overflow", "scroll");
-    }
-    if (win.height() < 800) { 
-        $("body").css("overflow", "scroll");
-    }
-});
-
-$(window).click(function() {
-    $('.menu-chart-custom').addClass('hidden');
-    if($(window).height() == 800) {
-        $("body").css("overflow", "hidden");
-    }
-    if($(window).height() > 800) {
-        $("body").css("overflow", "scroll");
-    }
-    if($(window).height() < 800) {
-        $("body").css("overflow", "scroll");
-    }
-});
-
-document.addEventListener('fullscreenchange', (event) => {
-  if (document.fullscreenElement) {
-    console.log(`Element: ${document.fullscreenElement.id} entered full-screen mode.`);
-  } else {
-    trendChart.update({
-        title: {
-            text: ''
-        }
-    })
-
-    console.log('Leaving full-screen mode.');
-  }
-});
-
-$('#kurang-tahun').click(function(event) {
-    event.stopPropagation();
-    $tahun = $tahun - 1;
-    $('#year-filter').text($tahun);
-});
-
-$('#tambah-tahun').click(function(event) {
-    event.stopPropagation();
-    $tahun = $tahun + 1;
-    $('#year-filter').text($tahun);
-});
-
-$('#custom-row').click(function(event) {
-    event.stopPropagation();
-    $('#filter-box').removeClass('hidden')
-});
-
-$('#list-filter-2').on('click', 'div', function(event) {
-    event.stopPropagation();
-    filter = $(this).data('bulan') 
-    
-    $filter2 = filter
-    $('#list-filter-2 div').not(this).removeClass('selected')
-    $(this).addClass('selected')
-
-    $filter2 = getNamaBulan($filter2)
-
-    $('#select-text-cf').text(`${$filter2.toUpperCase()} ${$tahun}`)
-});
-
-$('.icon-menu').click(function(event) {
-    event.stopPropagation()
-    var parentID = $(this).parents('.header-div').attr('id')
-    $('#'+parentID).find('.menu-chart-custom').removeClass('hidden')
-
-    if(parentID == 'card-piutang' || parentID == 'card-soakhir') {
-        $("body").css("overflow", "scroll");
-    } else {
-        $("body").css("overflow", "hidden");
-    }
-});
-
-// RUN FUNC IF FIRST RENDER
-// DATA BOX
-(function() {
-    $.ajax({
-        type: 'GET',
-        url: "{{ url('dash-ypt-dash/data-cf-box') }}",
-        data: {},
-        dataType: 'json',
-        async: true,
-        success:function(result) {
-            var data = result.data;
-            var inflow = 0;
-            var outflow = 0;
-            var balance = 0;
-            var closing = 0;
-
-            if(data.inflow.nominal.toString().length <= 9) {
-                inflow = toJuta(data.inflow.nominal)
-            } else {
-                inflow = toMilyar(data.inflow.nominal)
-            }
-
-            if(data.outflow.nominal.toString().length <= 9) {
-                outflow = toJuta(data.outflow.nominal)
-            } else {
-                outflow = toMilyar(data.outflow.nominal)
-            }
-
-            if(data.cash_balance.nominal.toString().length <= 9) {
-                balance = toJuta(data.cash_balance.nominal)
-            } else {
-                balance = toMilyar(data.cash_balance.nominal)
-            }
-
-            if(data.closing.nominal.toString().length <= 9) {
-                closing = toJuta(data.closing.nominal)
-            } else {
-                closing = toMilyar(data.closing.nominal)
-            }
-
-            $('#cf-inflow').text(inflow)
-            $('#cf-outflow').text(outflow)
-            $('#cf-balance').text(balance)
-            $('#cf-closing').text(closing)
-        }
-    });
-})();
-// END DATA BOX
-// CF CHART
-(function() {
-    $.ajax({
-        type: 'GET',
-        url: "{{ url('dash-ypt-dash/data-cf-chart-bulanan') }}",
-        data: {},
-        dataType: 'json',
-        async: true,
-        success:function(result) {
-            var data = result.data;
-            trendChart = Highcharts.chart('trend-chart', {
-                chart: {
-                    height: 450,
-                    // width: 600
-                },
-                title: { text: '' },
-                subtitle: { text: '' },
-                exporting:{ 
-                    enabled: false
-                },
-                legend:{ 
-                    enabled: true,
-                    // layout: 'vertical',
-                    // align: 'right',
-                    verticalAlign: 'bottom' 
-                },
-                credits: { enabled: false },
-                xAxis: {
-                    categories: data.kategori
-                },
-                yAxis: {
-                    title: {
-                        text: 'Nilai'
-                    }
-                },
-                plotOptions: {
-                    series: {
-                        label: {
-                            connectorAllowed: false
-                        },
-                        marker:{
-                            enabled:false
-                        },
-                    }
-                },
-                series: [
-                    {
-                        name: 'Cash In',
-                        data: data.cash_in,
-                        color: '#8085E9'
-                    },
-                    {
-                        name: 'Cash Out',
-                        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                        color: '#90ED7D'
-                    },
-                    {
-                        name: 'Saldo',
-                        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                        color: '#F7A35C'
-                    },
-                    {
-                        name: 'YoY Cash In',
-                        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                        color: '#7CB5EC'
-                    },
-                    {
-                        name: 'YoY Cash Out',
-                        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                        color: '#7CB5EC'
-                    },
-                    {
-                        name: 'YoY Saldo',
-                        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                        color: '#434348'
-                    }
-                ],
-            });
-        }
-    });
-})();
-// END CF CHART
-// END RUN FUNC IF FIRST RENDER
+{{-- <script type="text/javascript">
 // var trendChart = Highcharts.chart('trend-chart', {
 //     chart: {
 //         height: 450,
@@ -577,86 +664,4 @@ $('.icon-menu').click(function(event) {
 //         }
 //     ],
 // });
-
-// EXPORT HIGHCHART EVENT
-$('#export-trend.menu-chart-custom ul li').click(function(event) {
-    event.stopPropagation()
-    var idParent = $(this).parent('#dash-trend').attr('id')
-    var jenis = $(this).text()
-    
-    if(jenis == 'View in full screen') {
-        trendChart.update({
-            title: {
-                text: `Trend Cash Flow`,
-                floating: true,
-                x: 40,
-                y: 20
-            }
-        })
-        trendChart.fullscreen.toggle();
-    } else if(jenis == 'Print chart') {
-        trendChart.print()
-    } else if(jenis == 'Download PNG image') {
-        trendChart.exportChart({
-            type: 'image/png',
-            filename: 'chart-png'
-        }, {
-            title: {
-                text: `Trend Cash Flow`,
-            },
-            subtitle: {
-                text: ''
-            }
-        });
-    } else if(jenis == 'Download JPEG image') {
-        trendChart.exportChart({
-            type: 'image/jpeg',
-            filename: 'chart-jpg'
-        }, {
-            title: {
-                text: `Trend Cash Flow`,
-            },
-            subtitle: {
-                text: ''
-            }
-        });
-    } else if(jenis == 'Download PDF document') {
-        trendChart.exportChart({
-            type: 'application/pdf',
-            filename: 'chart-pdf'
-        }, {
-            title: {
-                text: `Trend Cash Flow`,
-            },
-            subtitle: {
-                text: ''
-            }
-        });
-    } else if(jenis == 'Download SVG vector image') {
-        trendChart.exportChart({
-            type: 'image/svg+xml',
-            filename: 'chart-svg'
-        }, {
-            title: {
-                text: `Trend Cash Flow`,
-            },
-            subtitle: {
-                text: ''
-            }
-        });
-    } else if(jenis == 'View table data') {
-        $(this).text('Hide table data')
-        trendChart.viewData()
-        var cek = $('#'+idParent+'.highcharts-data-table table').hasClass('table table-bordered table-no-padding')
-        if(!cek) {
-            $('.highcharts-data-table table').addClass('table table-bordered table-no-padding')
-        }
-        $("body").css("overflow", "scroll");
-    } else if(jenis == 'Hide table data') {
-        $(this).text('View table data')
-        $('.highcharts-data-table').hide()
-        $("body").css("overflow", "hidden");
-    }
-})
-// END EXPORT HIGHCHART EVENT
-</script>
+</script> --}}
