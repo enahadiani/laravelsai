@@ -189,7 +189,7 @@ var lembagaChart = Highcharts.chart('ccr-lembaga', {
     chart: {
         type: 'packedbubble',
         width: 255,
-        height: 420
+        height: 423
     },
     legend: {
         enabled: false
@@ -1164,7 +1164,7 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
             </div>
         </div>
         <div class="col-3 pl-1 pr-0">
-            <div class="card card-dash h-493 border-r-0">
+            <div class="card card-dash h-498 border-r-0">
                 <div class="row" id="filter-checkbox">
                     <div class="col-12 mt-6">
                         <label class="container-checkbox-filter">
