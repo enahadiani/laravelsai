@@ -119,7 +119,7 @@
                 </div>
                 <div class="row body-div">
                     <div class="col-12">
-                        <p id="cf-inflow" class="main-nominal">293,3 M</p>
+                        <p id="cf-inflow" class="main-nominal">0</p>
                     </div>
                     <div class="col-12">
                         <table class="table table-borderless table-pr-16" id="table-cf-inflow">
@@ -147,7 +147,7 @@
                 </div>
                 <div class="row body-div">
                     <div class="col-12">
-                        <p id="cf-outflow" class="main-nominal">211,4 M</p>
+                        <p id="cf-outflow" class="main-nominal">0</p>
                     </div>
                     <div class="col-12">
                         <table class="table table-borderless table-pr-16" id="table-cf-outflow">
@@ -175,7 +175,7 @@
                 </div>
                 <div class="row body-div">
                     <div class="col-12">
-                        <p id="cf-balance" class="main-nominal">81,9 M</p>
+                        <p id="cf-balance" class="main-nominal">0</p>
                     </div>
                     <div class="col-12">
                         <table class="table table-borderless table-pr-16" id="table-cf-balance">
@@ -202,7 +202,7 @@
                 </div>
                 <div class="row body-div">
                     <div class="col-12">
-                        <p id="cf-closing" class="main-nominal">158,1 M</p>
+                        <p id="cf-closing" class="main-nominal">0</p>
                     </div>
                     <div class="col-12">
                         <table class="table table-borderless table-pr-16" id="table-cf-outflow">
@@ -277,7 +277,7 @@
 {{-- END DEKSTOP --}}
 
 <script type="text/javascript">
-var $tahun = parseInt($('#year-filter').text())
+var $tahun = parseInt($('#year-filter').text());
 var $filter1 = "Periode";
 var $filter2 = getNamaBulan("{{ date('m') }}");
 var $month = "{{ date('m') }}";
@@ -289,10 +289,10 @@ if($filter1 == 'Periode') {
             $month = $(this).data('bulan').toString();
             return false;
         }
-    })
+    });
 }
 
-$('#select-text-cf').text(`${$filter2.toUpperCase()} ${$tahun}`)
+$('#select-text-cf').text(`${$filter2.toUpperCase()} ${$tahun}`);
 
 $(window).on('resize', function(){
     var win = $(this); //this = window
@@ -318,7 +318,7 @@ $(window).click(function() {
     if($(window).height() < 800) {
         $("body").css("overflow", "scroll");
     }
-})
+});
 
 document.addEventListener('fullscreenchange', (event) => {
   if (document.fullscreenElement) {
@@ -338,18 +338,18 @@ $('#kurang-tahun').click(function(event) {
     event.stopPropagation();
     $tahun = $tahun - 1;
     $('#year-filter').text($tahun);
-})
+});
 
 $('#tambah-tahun').click(function(event) {
     event.stopPropagation();
     $tahun = $tahun + 1;
     $('#year-filter').text($tahun);
-})
+});
 
 $('#custom-row').click(function(event) {
     event.stopPropagation();
     $('#filter-box').removeClass('hidden')
-})
+});
 
 $('#list-filter-2').on('click', 'div', function(event) {
     event.stopPropagation();
@@ -362,7 +362,7 @@ $('#list-filter-2').on('click', 'div', function(event) {
     $filter2 = getNamaBulan($filter2)
 
     $('#select-text-cf').text(`${$filter2.toUpperCase()} ${$tahun}`)
-})
+});
 
 $('.icon-menu').click(function(event) {
     event.stopPropagation()
@@ -374,7 +374,55 @@ $('.icon-menu').click(function(event) {
     } else {
         $("body").css("overflow", "hidden");
     }
-})
+});
+
+// RUN FUNC IF FIRST RENDER
+(function() {
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('dash-ypt-dash/data-cf-box') }}",
+        data: {},
+        dataType: 'json',
+        async: true,
+        success:function(result) {
+            var data = result.data;
+            var inflow = 0;
+            var outflow = 0;
+            var balance = 0;
+            var closing = 0;
+
+            if(data.inflow.nominal.toString().length <= 9) {
+                inflow = toJuta(data.inflow.nominal)
+            } else {
+                inflow = toMilyar(data.inflow.nominal)
+            }
+
+            if(data.outflow.nominal.toString().length <= 9) {
+                outflow = toJuta(data.outflow.nominal)
+            } else {
+                outflow = toMilyar(data.outflow.nominal)
+            }
+
+            if(data.cash_balance.nominal.toString().length <= 9) {
+                balance = toJuta(data.cash_balance.nominal)
+            } else {
+                balance = toMilyar(data.cash_balance.nominal)
+            }
+
+            if(data.closing.nominal.toString().length <= 9) {
+                closing = toJuta(data.closing.nominal)
+            } else {
+                closing = toMilyar(data.closing.nominal)
+            }
+
+            $('#cf-inflow').text(inflow)
+            $('#cf-outflow').text(outflow)
+            $('#cf-balance').text(balance)
+            $('#cf-closing').text(closing)
+        }
+    });
+})();
+// END RUN FUNC IF FIRST RENDER
 var trendChart = Highcharts.chart('trend-chart', {
     chart: {
         height: 450,

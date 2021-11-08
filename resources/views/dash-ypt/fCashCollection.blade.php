@@ -436,7 +436,7 @@ $(window).click(function() {
         url: "{{ url('dash-ypt-dash/data-ccr-box') }}",
         data: {},
         dataType: 'json',
-        async: false,
+        async: true,
         success:function(result) {
             var data = result.data;
             
