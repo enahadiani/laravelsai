@@ -986,11 +986,11 @@ $('#back').click(function() {
 // END BOX EVENT
 
 // TABLE LEMBAGA EVET
-$('#table-lembaga tbody').on('click', 'tr td:first-child', function() {
+$('#table-lembaga tbody').on('click', 'tr td', function() {
     var table = $(this).parents('table').attr('id')
     var tr = $(this).parent()
-    var icon = $(this).children('.check-row')
-    var kode = $(this).children('.kode').text()
+    var icon = $(tr).children('td:first').children('.check-row')
+    var kode = $(tr).children('td:first').children('.kode').text()
     var check = $(tr).attr('class')
     var lembaga = $(this).children('.name-lembaga').text()
     if(check == 'selected-row') {
