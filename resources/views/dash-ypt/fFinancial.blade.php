@@ -11,7 +11,7 @@
                     <div id="back" class="glyph-icon iconsminds-left header"></div>
                 </div>
                 <div id="dash-title-div" class="col-11">
-                    <h2 class="title-dash" id="title-dash">Financial Performance YPT</h2>
+                    <h2 class="title-dash" id="title-dash">Financial Performance <span id="lembaga-title">YPT</span></h2>
                 </div>
             </div>
         </div>
@@ -55,7 +55,7 @@
                         <li class="selected" data-filter1="TRW">Triwulan</li>
                         {{-- <li data-filter1="SMT">Semester</li> --}}
                         <li data-filter1="PRD">Periode</li>
-                        <li>Year to Date</li>
+                        {{-- <li>Year to Date</li> --}}
                     </ul>
                 </div>
                 <div class="col-7 mt-4 mb-6">
@@ -704,7 +704,7 @@ $('#list-filter-2').on('click', 'div', function(event) {
 
     $('#select-text-fp').text(`${$filter2.toUpperCase()} || ${$tahun}`)
     updateAllChart()
-    showNotification(`${$filter2.toUpperCase()} ${$tahun}`);
+    showNotification(`Menampilkan dashboard periode ${$filter2.toUpperCase()} ${$tahun}`);
     $('#detail-dash').hide()
     $('#main-dash').show()
 })
@@ -835,7 +835,7 @@ $('#table-lembaga tbody').on('click', 'tr td:first-child', function() {
     var icon = $(this).children('.check-row')
     var kode = $(this).children('.kode').text()
     var check = $(tr).attr('class')
-    
+    var lembaga = $(this).children('.name-lembaga').text()
     if(check == 'selected-row') {
         return;
     }
@@ -847,6 +847,8 @@ $('#table-lembaga tbody').on('click', 'tr td:first-child', function() {
         $(tr).addClass('selected-row')
         $(icon).show()
     }, 200)
+    $('#lembaga-title').text(lembaga)
+    showNotification(`Menampilkan dashboard lembaga ${lembaga}`);
     setZero();
 })
 
@@ -855,6 +857,8 @@ $('#table-lembaga tbody').on('click', 'tr.selected-row', function() {
     
     $(`#${table} tbody tr`).removeClass('selected-row')
     $(`#${table} tbody tr td .check-row`).hide()
+    $('#lembaga-title').text('YPT')
+    showNotification(`Menampilkan dashboard lembaga YPT`);
     updateAllChart();
 })
 // END TABLE LEMBAGA EVENT
@@ -1245,7 +1249,7 @@ function updateChart() {
                         <td>
                             <p class="kode hidden">${row.kode_lokasi}</p>
                             <div class="glyph-icon simple-icon-check check-row" style="display: none"></div>
-                            ${row.nama}
+                            <span class="name-lembaga">${row.nama}</span>
                         </td>
                         <td class="${classTd1}">${row.pdpt_ach}%</td>
                         <td class="${classTd2}">${row.pdpt_yoy}%</td>
@@ -2491,7 +2495,7 @@ function createChartAkun(kode_grafik = null) {
                         <td>
                             <p class="kode hidden">${row.kode_lokasi}</p>
                             <div class="glyph-icon simple-icon-check check-row" style="display: none"></div>
-                            ${row.nama}
+                            <span class="name-lembaga">${row.nama}</span>
                         </td>
                         <td class="${classTd1}">${row.pdpt_ach}%</td>
                         <td class="${classTd2}">${row.pdpt_yoy}%</td>
@@ -3167,7 +3171,7 @@ function showNotification(message) {
     $.notify(
         {
             title: 'Update',
-            message: `Menampilkan dashboard periode ${message}`,
+            message: message,
             target: "_blank"
         },
         {
