@@ -53,7 +53,7 @@
                 <div class="col-5 list-filter-1" id="list-filter-1">
                     <ul>
                         <li class="selected" data-filter1="TRW">Triwulan</li>
-                        <li data-filter1="SMT">Semester</li>
+                        {{-- <li data-filter1="SMT">Semester</li> --}}
                         <li data-filter1="PRD">Periode</li>
                         <li>Year to Date</li>
                     </ul>
@@ -829,7 +829,7 @@ $('#back').click(function() {
 // END BOX EVENT
 
 // TABLE LEMBAGA EVET
-$('#table-lembaga tbody tr').on('click', 'td:first-child', function() {
+$('#table-lembaga tbody').on('click', 'tr td:first-child', function() {
     var table = $(this).parents('table').attr('id')
     var tr = $(this).parent()
     var icon = $(this).children('.check-row')
@@ -847,6 +847,7 @@ $('#table-lembaga tbody tr').on('click', 'td:first-child', function() {
         $(tr).addClass('selected-row')
         $(icon).show()
     }, 200)
+    setZero();
 })
 
 $('#table-lembaga tbody').on('click', 'tr.selected-row', function() {
@@ -854,6 +855,7 @@ $('#table-lembaga tbody').on('click', 'tr.selected-row', function() {
     
     $(`#${table} tbody tr`).removeClass('selected-row')
     $(`#${table} tbody tr td .check-row`).hide()
+    updateAllChart();
 })
 // END TABLE LEMBAGA EVENT
 // FULLSCREEN HIGHCHART
@@ -926,6 +928,134 @@ $('#close-window').click(function() {
 // END DRAGGING
 
 // UPDATE CHART WITH FILTER
+function setZero() {
+    $('#pdpt-yoy-percentage').empty()
+    $('#pendapatan-value').text(0)
+    $('#pendapatan-yoy').text(0)
+    var iconPdpt = '<div class="glyph-icon iconsminds-down icon-card red-text bold-700"></div>'
+    $('#pdpt-yoy-percentage').append(`0% ${iconPdpt}`)
+
+    $('#circle-pdpt').circleProgress({
+        value: 0,
+        size: 80,
+        reverse: false,
+        thickness: 8,
+        fill: {
+            color: ["#FFBA33"]
+        }
+    });
+
+    $('#circle-pdpt').find('strong').html(`
+        <p class="my-0 text-circle">Ach.</p>
+        <p class="my-0 text-circle">0%</p>
+    `)
+
+    $('#beban-yoy-percentage').empty();
+    $('#beban-value').text(0)
+    $('#beban-yoy').text(0)
+    var iconBeban = '<div class="glyph-icon iconsminds-down icon-card red-text bold-700"></div>'
+    $('#beban-yoy-percentage').append(`0% ${iconBeban}`)
+
+    $('#circle-beban').circleProgress({
+        value: 0,
+        size: 80,
+        reverse: false,
+        thickness: 8,
+        fill: {
+            color: ["#EE0000"]
+        }
+    });
+
+    $('#circle-beban').find('strong').html(`
+        <p class="my-0 text-circle">Ach.</p>
+        <p class="my-0 text-circle">0%</p>
+    `)
+
+    $('#shu-yoy-percentage').empty()
+    $('#shu-value').text(0)
+    $('#shu-yoy').text(0)
+    var iconShu = '<div class="glyph-icon iconsminds-down icon-card red-text bold-700"></div>';
+    $('#shu-yoy-percentage').append(`0% ${iconShu}`)
+
+    $('#circle-shu').circleProgress({
+        value: 0,
+        size: 80,
+        reverse: false,
+        thickness: 8,
+        fill: {
+            color: ["#EE0000"]
+        }
+    });
+
+    $('#circle-shu').find('strong').html(`
+        <p class="my-0 text-circle">Ach.</p>
+        <p class="my-0 text-circle">0%</p>
+    `)
+
+    $('#or-yoy-percentage').empty()
+    $('#or-value').text(`0%`)
+    $('#or-yoy').text(`0%`)
+    var iconOr = '<div class="glyph-icon iconsminds-down icon-card red-text bold-700"></div>'
+    $('#or-yoy-percentage').append(`0% ${iconOr}`)
+    
+    $('#circle-or').circleProgress({
+        value: 0,
+        size: 80,
+        reverse: false,
+        thickness: 8,
+        fill: {
+            color: ["#EE0000"]
+        }
+    });
+
+    $('#circle-or').find('strong').html(`
+        <p class="my-0 text-circle">Ach.</p>
+        <p class="my-0 text-circle">0%</p>
+    `)
+
+    pdptChart.series[0].update({
+        data: []
+    }, true) // true untuk redraw
+
+    bebanChart.series[0].update({
+        data: []
+    }, true) // true untuk redraw
+
+    shuChart.series[0].update({
+        data: []
+    }, true) // true untuk redraw
+
+    lrChart.series[0].update({
+        data: [0, 0, 0, 0, 0]
+    }, false) // true untuk redraw
+
+    lrChart.series[1].update({
+        data: [0, 0, 0, 0, 0]
+    }, false) // true untuk redraw
+
+    lrChart.series[2].update({
+        data: [0, 0, 0, 0, 0]
+    }, false) // true untuk redraw
+
+    // re render chart
+    lrChart.redraw()
+
+    $('#table-or tbody').empty();
+    var name = ['KAPEL', 'TelU', 'TS', 'ITTJ', 'ITTP', 'ITTS'];
+    var html = '';
+    for(var i=0;i<6;i++) {
+        html += `<tr>
+            <td class="w-25">${name[i]}</td>
+            <td>
+                <div class="progress h-20">
+                    <div class="progress-bar bg-red" role="progressbar" style="width: 0%; color: #000000" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+                </div>
+            </td>
+        </tr>`;
+    }
+    $('#table-or tbody').append(html)
+}
+
 function updateAllChart() {
     updateBox()
     updateChart()
