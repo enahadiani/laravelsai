@@ -836,7 +836,7 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
                     <img alt="message-icon" class="icon-message" src="{{ asset('dash-asset/dash-ypt/icon/message.svg') }}">
                 </div> --}}
                 <div class="col-12">
-                    <div class="select-custom row cursor-pointer" id="custom-row">
+                    <div class="select-custom row cursor-pointer border-r-0" id="custom-row">
                         <div class="col-2">
                             <img alt="message-icon" class="icon-calendar" src="{{ asset('dash-asset/dash-ypt/icon/calendar.svg') }}">
                         </div>
@@ -850,7 +850,7 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
                 </div>
             </div>
         </div>
-        <div id="filter-box" class="filter-box hidden">
+        <div id="filter-box" class="filter-box border-r-0 hidden">
             <div class="row justify-content-end">
                 <div class="col-7 pt-8 pr-0">
                     <div class="row">
@@ -926,7 +926,7 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
     {{-- ROW 1 --}}
     <div id="dekstop-1" class="row dekstop">
         <div class="col-3 pl-12 pr-0">
-            <div class="card card-dash">
+            <div class="card card-dash border-r-0">
                 <div class="row header-div">
                     <div class="col-9">
                         <h4 class="header-card">CCR Keseluruhan</h4>
@@ -954,7 +954,7 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
             </div>
         </div>
         <div class="col-3 pl-1 pr-0">
-            <div class="card card-dash">
+            <div class="card card-dash border-r-0">
                 <div class="row header-div">
                     <div class="col-9">
                         <h4 class="header-card">CCR Tahun Lalu</h4>
@@ -982,7 +982,7 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
             </div>
         </div>
         <div class="col-3 pl-1 pr-0">
-            <div class="card card-dash">
+            <div class="card card-dash border-r-0">
                 <div class="row header-div">
                     <div class="col-7">
                         <h4 class="header-card">CCR 2021</h4>
@@ -1013,7 +1013,7 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
             </div>
         </div>
         <div class="col-3 pl-1 pr-0">
-            <div class="card card-dash">
+            <div class="card card-dash border-r-0">
                 <div class="row header-div">
                     <div class="col-9">
                         <h4 class="header-card">CCR Sep'21</h4>
@@ -1048,7 +1048,7 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
         <div class="col-6 pl-12 pr-0">
             <div class="row">
                 <div class="col-12">
-                    <div class="card card-dash" id="dash-trend">
+                    <div class="card card-dash border-r-0" id="dash-trend">
                         <div class="row header-div" id="card-trend">
                             <div class="col-9">
                                 <h4 class="header-card">Trend CCR</h4>
@@ -1073,7 +1073,7 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
                     </div>
                 </div>
                 <div class="col-6 pr-0 mt-4">
-                    <div class="card card-dash" id="dash-piutang">
+                    <div class="card card-dash border-r-0" id="dash-piutang">
                         <div class="row header-div" id="card-piutang">
                             <div class="col-9 pr-0">
                                 <h4 class="header-card">Komposisi Piutang</h4>
@@ -1098,7 +1098,7 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
                     </div>
                 </div>
                 <div class="col-6 pl-1 mt-4">
-                    <div class="card card-dash" id="dash-soakhir">
+                    <div class="card card-dash border-r-0" id="dash-soakhir">
                         <div class="row header-div" id="card-soakhir">
                             <div class="col-9">
                                 <h4 class="header-card">Saldo Akhir Piutang</h4>
@@ -1125,7 +1125,7 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
             </div>
         </div>
         <div class="col-3 pl-1 pr-0">
-            <div class="card card-dash" id="dash-lembaga">
+            <div class="card card-dash border-r-0" id="dash-lembaga">
                 <div class="row header-div" id="card-lembaga">
                     <div class="col-9">
                         <h4 class="header-card">CCR Lembaga</h4>
@@ -1164,7 +1164,7 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
             </div>
         </div>
         <div class="col-3 pl-1 pr-0">
-            <div class="card card-dash h-493">
+            <div class="card card-dash h-493 border-r-0">
                 <div class="row" id="filter-checkbox">
                     <div class="col-12 mt-6">
                         <label class="container-checkbox-filter">

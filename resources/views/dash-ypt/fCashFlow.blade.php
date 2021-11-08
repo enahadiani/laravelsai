@@ -340,7 +340,7 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
                     <img alt="message-icon" class="icon-message" src="{{ asset('dash-asset/dash-ypt/icon/message.svg') }}">
                 </div> --}}
                 <div class="col-12">
-                    <div class="select-custom row cursor-pointer" id="custom-row">
+                    <div class="select-custom row cursor-pointer border-r-0" id="custom-row">
                         <div class="col-2">
                             <img alt="message-icon" class="icon-calendar" src="{{ asset('dash-asset/dash-ypt/icon/calendar.svg') }}">
                         </div>
@@ -354,7 +354,7 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
                 </div>
             </div>
         </div>
-        <div id="filter-box" class="filter-box hidden">
+        <div id="filter-box" class="filter-box border-r-0 hidden">
             <div class="row justify-content-end">
                 <div class="col-7 pt-8 pr-0">
                     <div class="row">
@@ -430,7 +430,7 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
     {{-- ROW 1 --}}
     <div id="dekstop-1" class="row dekstop">
         <div class="col-3 pl-12 pr-0">
-            <div class="card card-dash">
+            <div class="card card-dash border-r-0">
                 <div class="row header-div">
                     <div class="col-9">
                         <h4 class="header-card">Inflow</h4>
@@ -458,7 +458,7 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
             </div>
         </div>
         <div class="col-3 pl-1 pr-0">
-            <div class="card card-dash">
+            <div class="card card-dash border-r-0">
                 <div class="row header-div">
                     <div class="col-9">
                         <h4 class="header-card">Outflow</h4>
@@ -486,7 +486,7 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
             </div>
         </div>
         <div class="col-3 pl-1 pr-0">
-            <div class="card card-dash">
+            <div class="card card-dash border-r-0">
                 <div class="row header-div">
                     <div class="col-9">
                         <h4 class="header-card">Cash Balance</h4>
@@ -513,7 +513,7 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
             </div>
         </div>
         <div class="col-3 pl-1 pr-0">
-            <div class="card card-dash">
+            <div class="card card-dash border-r-0">
                 <div class="row header-div">
                     <div class="col-9">
                         <h4 class="header-card">Closing Cash Balance</h4>
@@ -546,7 +546,7 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
     {{-- ROW 2 --}}
     <div id="dekstop-2" class="row dekstop mt-4">
         <div class="col-12 pl-12 pr-0">
-            <div class="card card-dash" id="dash-trend">
+            <div class="card card-dash border-r-0" id="dash-trend">
                 <div class="row header-div" id="card-trend">
                     <div class="col-8">
                         <h4 class="header-card">Trend Cash Flow</h4>

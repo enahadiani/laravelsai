@@ -155,3 +155,6 @@
 .text-bold {
     font-weight: bold;
 }
+.body-content {
+    margin-top: -16px;
+}
