@@ -20,48 +20,48 @@ var lrChart = null;
 var $render = 0;
 
 // TOUR GUIDE
-var tour = new Tour("demo");
+// var tour = new Tour("demo");
 
-tour.addStep("first", {
-    title: "Dashboard YPT",
-    text: "Selamat datang di aplikasi dashboard YPT, apakah anda ingin menjelajahi fitur dashboard ini ?",
-    hook: "#title-dash",
-    buttons: [
-        {
-            text: "Tidak",
-            action: "tour.stop()"
-        },
-        {
-            text: "Iya",
-            action: "tour.next()"
-        }
-    ],
-     links: []
-});
+// tour.addStep("first", {
+//     title: "Dashboard YPT",
+//     text: "Selamat datang di aplikasi dashboard YPT, apakah anda ingin menjelajahi fitur dashboard ini ?",
+//     hook: "#title-dash",
+//     buttons: [
+//         {
+//             text: "Tidak",
+//             action: "tour.stop()"
+//         },
+//         {
+//             text: "Iya",
+//             action: "tour.next()"
+//         }
+//     ],
+//      links: []
+// });
 
-tour.addStep('pesanInfo', {
-    title: "Pesan",
-    text: "Icon ini digunakan untuk menampilkan pesan yang tertulis dari blabla",
-    hook: "#icon-message",
-    onShow: function() {
-        // Custom Function
-    },
-    onHide: function() {
-        // Custom Function
-    },
-    buttons: [
-        {
-            text: "Sebelumnya",
-            action: "tour.previous()"
-        },
-        {
-            text: "Ok, Saya paham",
-            action: "tour.stop()"
-        }
-    ],
-    links: []
-});
-tour.start();
+// tour.addStep('pesanInfo', {
+//     title: "Pesan",
+//     text: "Icon ini digunakan untuk menampilkan pesan yang tertulis dari blabla",
+//     hook: "#icon-message",
+//     onShow: function() {
+//         // Custom Function
+//     },
+//     onHide: function() {
+//         // Custom Function
+//     },
+//     buttons: [
+//         {
+//             text: "Sebelumnya",
+//             action: "tour.previous()"
+//         },
+//         {
+//             text: "Ok, Saya paham",
+//             action: "tour.stop()"
+//         }
+//     ],
+//     links: []
+// });
+// tour.start();
 // END TOUR GUIDE
 // WINDOW EVENT
 $(window).on('resize', function(){
@@ -360,8 +360,14 @@ $(window).click(function() {
                     var point = series[i].data;
                     for(var j=0;j<point.length;j++) {
                         var color = point[j].color;
+                        var negative = point[j].negative;
                         if(color == '#7cb5ec') {
                             point[j].graphic.element.style.fill = '#830000'
+                        }
+
+                        if(negative) {
+                            point[j].graphic.element.style.fill = 'url(#highcharts-default-pattern-1)'
+                            point[j].color = 'url(#highcharts-default-pattern-1)'                            
                         }
                     }
                 }
@@ -439,8 +445,14 @@ $(window).click(function() {
                     var point = series[i].data;
                     for(var j=0;j<point.length;j++) {
                         var color = point[j].color;
+                        var negative = point[j].negative;
                         if(color == '#7cb5ec') {
                             point[j].graphic.element.style.fill = '#830000'
+                        }
+
+                        if(negative) {
+                            point[j].graphic.element.style.fill = 'url(#highcharts-default-pattern-1)'
+                            point[j].color = 'url(#highcharts-default-pattern-1)'                            
                         }
                     }
                 }
@@ -518,8 +530,14 @@ $(window).click(function() {
                     var point = series[i].data;
                     for(var j=0;j<point.length;j++) {
                         var color = point[j].color;
+                        var negative = point[j].negative;
                         if(color == '#7cb5ec') {
                             point[j].graphic.element.style.fill = '#830000'
+                        }
+
+                        if(negative) {
+                            point[j].graphic.element.style.fill = 'url(#highcharts-default-pattern-1)'
+                            point[j].color = 'url(#highcharts-default-pattern-1)'                            
                         }
                     }
                 }
