@@ -231,9 +231,7 @@
     });
 
     $('#sai-rpt-print').click(function(){
-        $('#saku-report #canvasPreview').printThis({
-            removeInline: true
-        });
+        $('#saku-report .card-body, #break_page').printThis();
     });
 
     $('#sai-rpt-print-prev').click(function(){
