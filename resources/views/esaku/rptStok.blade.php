@@ -43,7 +43,7 @@
             <div class='table-responsive'>
                 <table class="borderless mb-2 table-header" style="width:100%;" >
                     <tr>
-                        <td colspan="3" class="vtop" style='width:500px'><h6 class="text-primary bold">`+lokasi+`</h6></td>
+                        <td colspan="3" class="vtop" style='width:500px'><h6 class="text-primary bold">TJMART</h6></td>
                         <td colspan="12" class="vtop" style='width:1320px'>&nbsp;</td>
                         <td class="vmiddle text-center" style='width:120px'></td>
                     </tr>
