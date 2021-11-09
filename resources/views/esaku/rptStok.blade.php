@@ -62,14 +62,18 @@
                 <table width='100%' class='table table-bordered table-striped'>
                     <thead>
                     <tr>
-                        <th width='20' class='header_laporan text-center'>No</th>
-                        <th width='80' class='header_laporan text-center'>Gudang</th>
-                        <th width='80' class='header_laporan text-center'>Kode Barang</th>
-                        <th width='200' class='header_laporan text-center'>Nama Barang </th>
-                        <th width='80' class='header_laporan text-center'>Kelompok</th>
-                        <th width='80' class='header_laporan text-center'>Stok</th>
-                        <th width='80' class='header_laporan text-center'>Harga</th>
-                        <th width='80' class='header_laporan text-center'>Total</th>
+                        <th width='20' class='header_laporan text-center' rowspan='2'>No</th>
+                        <th width='80' class='header_laporan text-center' rowspan='2'>Gudang</th>
+                        <th width='80' class='header_laporan text-center' rowspan='2'>Kode Barang</th>
+                        <th width='200' class='header_laporan text-center' rowspan='2'>Nama Barang </th>
+                        <th width='80' class='header_laporan text-center' rowspan='2'>Kelompok</th>
+                        <th width='80' class='header_laporan text-center' rowspan='2'>Stok Awal</th>
+                        <th width='160' class='header_laporan text-center' colspan='2'>Mutasi</th>
+                        <th width='80' class='header_laporan text-center' rowspan='2'>Stok Akhir</th>
+                    </tr>
+                    <tr>
+                        <th width='80' class='header_laporan text-center'>Masuk</th>
+                        <th width='80' class='header_laporan text-center'>Keluar</th>
                     </tr>
                     </thead>
                     <tbody>`;
@@ -80,13 +84,16 @@
                         }else{
                             var no=1;
                         }
-                        var stok=0; var total=0;
+                        var stok=0; var total=0; var so_awal=0; var debet=0; var kredit=0;
                         for (var x=0;x<data.length;x++)
                         {
                             var line2 = data[x];
                             
                             stok=stok+parseFloat(line2.stok);
                             total=total+parseFloat(line2.total);
+                            so_awal=so_awal+parseFloat(line2.so_awal);
+                            debet=debet+parseFloat(line2.debet);
+                            kredit=kredit+parseFloat(line2.kredit);
                             
                             det+=`<tr>
                             <td align='center' class='isi_laporan'>`+no+`</td>
@@ -94,18 +101,20 @@
                             <td class='isi_laporan'><a href='#' class='detail-kartu' style='color:blue' data-kode_barang='`+line2.kode_barang+`' data-kode_gudang='`+line2.kode_gudang+`' data-kode_klp='`+line2.kode_klp+`' data-periode='`+$periode.from+`'>`+line2.kode_barang+`</a></td>
                             <td class='isi_laporan'>`+line2.nama_barang+`</td>
                             <td class='isi_laporan'>`+line2.kode_klp+`</td>
+                            <td  class='isi_laporan text-right'>`+number_format(parseFloat(line2.so_awal))+`</td>
+                            <td  class='isi_laporan text-right'>`+number_format(parseFloat(line2.debet))+`</td>
+                            <td  class='isi_laporan text-right'>`+number_format(parseFloat(line2.kredit))+`</td>
                             <td  class='isi_laporan text-right'>`+number_format(parseFloat(line2.stok))+`</td>
-                            <td  class='isi_laporan text-right'>`+number_format(parseFloat(line2.harga))+`</td>
-                            <td  class='isi_laporan text-right'>`+number_format(parseFloat(line2.total))+`</td>
                             </tr>`;	
                             no++;
                             
                         }
                         det+=`<tr>
                         <th colspan='5' class='text-right bold'>Total</th>
+                        <th class='bold text-right'>`+number_format(so_awal)+`</th>
+                        <th class='bold text-right'>`+number_format(debet)+`</th>
+                        <th class='bold text-right'>`+number_format(kredit)+`</th>
                         <th class='bold text-right'>`+number_format(stok)+`</th>
-                        <th class='bold text-right'>&nbsp;</th>
-                        <th class='bold text-right'>`+number_format(total)+`</th>
                         </tr>`;
                         html+=det+`
                     </tbody>
