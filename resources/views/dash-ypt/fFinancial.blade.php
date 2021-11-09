@@ -336,7 +336,19 @@ $(window).click(function() {
                         cursor: 'pointer',
                         dataLabels: {
                             enabled: true,
-                            format: '{point.name} : {point.percentage:.1f} %'
+                            formatter: function() {
+                                var y = this.y;
+                                var negative = this.point.negative;
+                                var key = this.key;
+                                var html = null;
+
+                                if(negative) {
+                                    html = `<span style="color: #830000;">${key} : -${y}</span>`;
+                                } else {
+                                    html = `<span style="color: #000000;">${key} : ${y}</span>`;
+                                }
+                                return html;
+                            }
                         },
                         size: '50%',
                         showInLegend: true
@@ -421,7 +433,19 @@ $(window).click(function() {
                         cursor: 'pointer',
                         dataLabels: {
                             enabled: true,
-                            format: '{point.name} : {point.percentage:.1f} %'
+                            formatter: function() {
+                                var y = this.y;
+                                var negative = this.point.negative;
+                                var key = this.key;
+                                var html = null;
+
+                                if(negative) {
+                                    html = `<span style="color: #830000;">${key} : -${y}</span>`;
+                                } else {
+                                    html = `<span style="color: #000000;">${key} : ${y}</span>`;
+                                }
+                                return html;
+                            }
                         },
                         size: '50%',
                         showInLegend: true
@@ -507,7 +531,17 @@ $(window).click(function() {
                         dataLabels: {
                             enabled: true,
                             formatter: function() {
-                                return 'test'
+                                var y = this.y;
+                                var negative = this.point.negative;
+                                var key = this.key;
+                                var html = null;
+
+                                if(negative) {
+                                    html = `<span style="color: #830000;">${key} : -${y}</span>`;
+                                } else {
+                                    html = `<span style="color: #000000;">${key} : ${y}</span>`;
+                                }
+                                return html;
                             }
                         },
                         size: '50%',
