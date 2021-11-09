@@ -91,7 +91,7 @@
                             det+=`<tr>
                             <td align='center' class='isi_laporan'>`+no+`</td>
                             <td  class='isi_laporan'>`+line2.kode_gudang+`</td>
-                            <td class='isi_laporan'>`+line2.kode_barang+`</td>
+                            <td class='isi_laporan'><a href='#' class='detail-kartu' style='color:blue' data-kode_barang='`+line2.kode_barang+`' data-kode_gudang='`+line2.kode_gudang+`' data-kode_klp='`+line2.kode_klp+`' data-periode='`+$periode.from+`'>`+line2.kode_barang+`</a></td>
                             <td class='isi_laporan'>`+line2.nama_barang+`</td>
                             <td class='isi_laporan'>`+line2.kode_klp+`</td>
                             <td  class='isi_laporan text-right'>`+number_format(parseFloat(line2.stok))+`</td>
