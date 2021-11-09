@@ -176,7 +176,7 @@
                         'periode' => $request->periode,
                         'kode_gudang' => $request->kode_gudang,
                         'kode_klp' => $request->kode_klp,
-                        'kode_barangp' => $request->kode_barang
+                        'kode_barang' => $request->kode_barang
                     ]
                 ]);
 
@@ -193,10 +193,12 @@
                 }
 
                 if(isset($request->back)){
-                    $res['back']=true;
+                    $back = true;
+                }else{
+                    $back = false;
                 }
                 
-                return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'periode'=>$periode,'sumju'=>$request->sumju,'res'=>$res], 200); 
+                return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'periode'=>$periode,'sumju'=>$request->sumju,'back'=>$back,'res'=>$res], 200); 
             } catch (BadResponseException $ex) {
                 $response = $ex->getResponse();
                 $res = json_decode($response->getBody(),true);
@@ -216,7 +218,7 @@
                          'periode' => $request->periode,
                          'kode_gudang' => $request->kode_gudang,
                          'kode_klp' => $request->kode_klp,
-                         'kode_barangp' => $request->kode_barang
+                         'kode_barang' => $request->kode_barang
                      ]
                  ]);
  
@@ -233,10 +235,12 @@
                  }
  
                  if(isset($request->back)){
-                     $res['back']=true;
-                 }
+                    $back = true;
+                }else{
+                    $back = false;
+                }
                  
-                 return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'periode'=>$periode,'res'=>$res], 200); 
+                 return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'periode'=>$periode,'res'=>$res,'back'=>$back], 200); 
              } catch (BadResponseException $ex) {
                  $response = $ex->getResponse();
                  $res = json_decode($response->getBody(),true);

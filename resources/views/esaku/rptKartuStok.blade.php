@@ -15,6 +15,11 @@ drawLap($formData);
 
 function drawRptPage(data,res,from,to) { 
     var data = data;
+    if(res.back){
+        $('.navigation-lap').removeClass('hidden');
+    }else{
+        $('.navigation-lap').addClass('hidden');
+    }
     var html = "";
     var arr_tl = [0,0,0,0,0,0,0,0,0];
     var x=1;
