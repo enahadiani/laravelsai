@@ -2,7 +2,7 @@
 <div class="row" id="saku-filter">
     <div class="col-12">
         <div class="card" >
-            <x-report-header judul="Laporan Stok"/>
+            <x-report-header judul="Laporan Kartu Stok"/>
             <div class="separator"></div>
                 <div class="row">
                     <div class="col-12 col-sm-12">
@@ -191,7 +191,7 @@
             console.log(pair[0]+ ', '+ pair[1]); 
         }
         $('#saku-report').removeClass('hidden');
-        xurl = "{{ url('esaku-auth/form/rptStok') }}";
+        xurl = "{{ url('esaku-auth/form/rptKartuStok') }}";
         $('#saku-report #canvasPreview').load(xurl);
     });
 
@@ -213,7 +213,7 @@
             console.log(pair[0]+ ', '+ pair[1]); 
         }
         $('#saku-report').removeClass('hidden');
-        xurl = "{{ url('esaku-auth/form/rptStok') }}";
+        xurl = "{{ url('esaku-auth/form/rptKartuStok') }}";
         $('#saku-report #canvasPreview').load(xurl);
     });
 
