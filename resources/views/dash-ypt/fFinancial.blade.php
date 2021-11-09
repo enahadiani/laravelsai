@@ -506,7 +506,9 @@ $(window).click(function() {
                         cursor: 'pointer',
                         dataLabels: {
                             enabled: true,
-                            format: '{point.name} : {point.percentage:.1f} %'
+                            formatter: function() {
+                                return 'test'
+                            }
                         },
                         size: '50%',
                         showInLegend: true

@@ -80,9 +80,6 @@ function drawRptPage(data,res,from,to){
                     html += "</tr>";
                     no++;
                 }
-                if(j == 36) {
-                    html += `<div class="display" id="break_page"  style='display: block; page-break-after: always;'></div>`;
-                }
             }
             html += "</tbody>";
             html += "</table>";
