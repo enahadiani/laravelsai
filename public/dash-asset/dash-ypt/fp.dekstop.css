@@ -276,3 +276,23 @@ section.header {
     margin-top: -16px;
 }
 /* END BODY CONTENT */
+
+/* TOUR STYLES */
+#first .titleContainer,
+#first .tour-arrow,
+#pesanInfo .titleContainer,
+#pesanInfo .tour-arrow {
+    background-color: #830000;
+}
+#first .titleContainer h3,
+#pesanInfo .titleContainer h3 {
+    color: #ffffff;
+}
+
+/* PESAN-INFO */
+#pesanInfo.tour {
+    margin-top: 60px !important;
+    margin-left: 20px;
+    width: 300px;
+} /* END PESAN-INFO */
+/* END TOUR STYLES */ ;

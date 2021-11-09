@@ -1,8 +1,10 @@
 <link rel="stylesheet" href="{{ asset('dash-asset/dash-ypt/fp.dekstop.css?version=_').time() }}" />
 <link rel="stylesheet" href="{{ asset('dash-asset/dash-ypt/global.dekstop.css?version=_').time() }}" />
+<link rel="stylesheet" href="{{ asset('dash-asset/dash-ypt/tour/tour-default.css?version=_').time() }}" />
 
 <script src="{{ asset('main.js') }}"></script>
 <script src="{{ asset('dash-asset/dash-ypt/dragging.js') }}"></script>
+<script src="{{ asset('dash-asset/dash-ypt/tour/tour.js') }}"></script>
 <script type="text/javascript">
 var $tahun = parseInt($('#year-filter').text())
 var $filter1 = "Periode";
@@ -17,6 +19,50 @@ var shuChart = null;
 var lrChart = null;
 var $render = 0;
 
+// TOUR GUIDE
+var tour = new Tour("demo");
+
+tour.addStep("first", {
+    title: "Dashboard YPT",
+    text: "Selamat datang di aplikasi dashboard YPT, apakah anda ingin menjelajahi fitur dashboard ini ?",
+    hook: "#title-dash",
+    buttons: [
+        {
+            text: "Tidak",
+            action: "tour.stop()"
+        },
+        {
+            text: "Iya",
+            action: "tour.next()"
+        }
+    ],
+     links: []
+});
+
+tour.addStep('pesanInfo', {
+    title: "Pesan",
+    text: "Icon ini digunakan untuk menampilkan pesan yang tertulis dari blabla",
+    hook: "#icon-message",
+    onShow: function() {
+        // Custom Function
+    },
+    onHide: function() {
+        // Custom Function
+    },
+    buttons: [
+        {
+            text: "Sebelumnya",
+            action: "tour.previous()"
+        },
+        {
+            text: "Ok, Saya paham",
+            action: "tour.stop()"
+        }
+    ],
+    links: []
+});
+tour.start();
+// END TOUR GUIDE
 // WINDOW EVENT
 $(window).on('resize', function(){
     var win = $(this); //this = window
