@@ -19,6 +19,7 @@ var lrChart = null;
 var $render = 0;
 
 // RUN IF FIRST RENDER
+new PerfectScrollbar('#scrollTable');
 var $height = $(window).height();
 // SET STYLES CARD
 $('.card-r-2').css('height', `${$height - 290}px`);
@@ -28,7 +29,7 @@ $('.card-r-2').css('height', `${$height - 290}px`);
 (function(){
     $.ajax({
         type: 'GET',
-        url: "{{ url('dash-ypt-dash/data-fp-box') }}",
+        url: "{{ url('dash-ypt-dash/v2/data-fp-box') }}",
         data: {
             "periode[0]": "=", 
             "periode[1]": $filter2_kode,
@@ -40,9 +41,12 @@ $('.card-r-2').css('height', `${$height - 290}px`);
         success:function(result) {    
             // PENDAPATAN
             $('#pdpt-yoy-percentage').empty()
-            var iconPdpt = '';
+            $('#pdpt-ach-percentage').empty()
+            var iconPdptYoy = '';
+            var iconPdptAch = '';
             var nilaiPdpt = 0;
             var nilaiYoyPdpt = 0;
+            var nilaiAchPdpt = 0;
             var pdpt = result.data.data_pdpt;
             if(pdpt.n4.toString().length <= 9) {
                 nilaiPdpt = toJuta(pdpt.n4)
@@ -50,46 +54,50 @@ $('.card-r-2').css('height', `${$height - 290}px`);
                 nilaiPdpt = toMilyar(pdpt.n4)
             }
 
-            if(pdpt.n2.toString().length <= 9) {
-                nilaiYoyPdpt = toJuta(pdpt.n2)
+            if(pdpt.n1.toString().length <= 9) {
+                nilaiYoyPdpt = toJuta(pdpt.n1)
             } else {
-                nilaiYoyPdpt = toMilyar(pdpt.n2)
+                nilaiYoyPdpt = toMilyar(pdpt.n1)
+            }
+
+            if(pdpt.n2.toString().length <= 9) {
+                nilaiAchPdpt = toJuta(pdpt.n2)
+            } else {
+                nilaiAchPdpt = toMilyar(pdpt.n2)
             }
 
             if(pdpt.yoy < 0) {
                 $('#pdpt-yoy-percentage').removeClass('green-text').addClass('red-text')
-                iconPdpt = '<div class="glyph-icon iconsminds-down icon-card red-text bold-700"></div>'
+                iconPdptYoy = '<div class="glyph-icon iconsminds-down icon-card red-text bold-700"></div>'
             } else {
                 $('#pdpt-yoy-percentage').removeClass('red-text').addClass('green-text')
-                iconPdpt = '<div class="glyph-icon iconsminds-up icon-card green-text bold-700"></div>'
+                iconPdptYoy = '<div class="glyph-icon iconsminds-up icon-card green-text bold-700"></div>'
             }
 
-            $('#circle-pdpt').circleProgress({
-                value: pdpt.ach/100,
-                size: 80,
-                reverse: false,
-                thickness: 8,
-                fill: {
-                    color: ["#FFBA33"]
-                }
-            });
-
-            $('#circle-pdpt').find('strong').html(`
-                <p class="my-0 text-circle">Ach.</p>
-                <p class="my-0 text-circle">${pdpt.ach}%</p>
-            `)
+            if(pdpt.ach < 0) {
+                $('#pdpt-ach-percentage').removeClass('green-text').addClass('red-text')
+                iconPdptAch = '<div class="glyph-icon iconsminds-down icon-card red-text bold-700"></div>'
+            } else {
+                $('#pdpt-ach-percentage').removeClass('red-text').addClass('green-text')
+                iconPdptAch = '<div class="glyph-icon iconsminds-up icon-card green-text bold-700"></div>'
+            }
 
             $('#pdpt-box').data('grafik', pdpt.kode_grafik)
             $('#pendapatan-value').text(nilaiPdpt)
             $('#pendapatan-yoy').text(nilaiYoyPdpt)
-            $('#pdpt-yoy-percentage').append(`${pdpt.yoy}% ${iconPdpt}`)
+            $('#pendapatan-ach').text(nilaiAchPdpt)
+            $('#pdpt-yoy-percentage').append(`${pdpt.yoy}% ${iconPdptYoy}`)
+            $('#pdpt-ach-percentage').append(`${pdpt.ach}% ${iconPdptAch}`)
             // END PENDAPATAN
 
             // BEBAN
+            $('#beban-ach-percentage').empty()
             $('#beban-yoy-percentage').empty()
-            var iconBeban = '';
+            var iconBebanYoy = '';
+            var iconBebanAch = '';
             var nilaiBeban = 0;
             var nilaiYoyBeban = 0;
+            var nilaiAchBeban = 0;
             var beban = result.data.data_beban;
             if(beban.n4.toString().length <= 9) {
                 nilaiBeban = toJuta(beban.n4)
@@ -97,46 +105,50 @@ $('.card-r-2').css('height', `${$height - 290}px`);
                 nilaiBeban = toMilyar(beban.n4)
             }
 
-            if(beban.n2.toString().length <= 9) {
-                nilaiYoyBeban = toJuta(beban.n2)
+            if(beban.n1.toString().length <= 9) {
+                nilaiYoyBeban = toJuta(beban.n1)
             } else {
-                nilaiYoyBeban = toMilyar(beban.n2)
+                nilaiYoyBeban = toMilyar(beban.n1)
+            }
+
+            if(beban.n2.toString().length <= 9) {
+                nilaiAchBeban = toJuta(beban.n2)
+            } else {
+                nilaiAchBeban = toMilyar(beban.n2)
             }
 
             if(beban.yoy < 0) {
                 $('#beban-yoy-percentage').removeClass('green-text').addClass('red-text')
-                iconBeban = '<div class="glyph-icon iconsminds-down icon-card red-text bold-700"></div>'
+                iconBebanYoy = '<div class="glyph-icon iconsminds-down icon-card red-text bold-700"></div>'
             } else {
                 $('#beban-yoy-percentage').removeClass('red-text').addClass('green-text')
-                iconBeban = '<div class="glyph-icon iconsminds-up icon-card green-text bold-700"></div>'
+                iconBebanYoy = '<div class="glyph-icon iconsminds-up icon-card green-text bold-700"></div>'
             }
 
-            $('#circle-beban').circleProgress({
-                value: beban.ach/100,
-                size: 80,
-                reverse: false,
-                thickness: 8,
-                fill: {
-                    color: ["#EE0000"]
-                }
-            });
-
-            $('#circle-beban').find('strong').html(`
-                <p class="my-0 text-circle">Ach.</p>
-                <p class="my-0 text-circle">${beban.ach}%</p>
-            `)
+            if(beban.ach < 0) {
+                $('#beban-ach-percentage').removeClass('green-text').addClass('red-text')
+                iconBebanAch = '<div class="glyph-icon iconsminds-down icon-card red-text bold-700"></div>'
+            } else {
+                $('#beban-ach-percentage').removeClass('red-text').addClass('green-text')
+                iconBebanAch = '<div class="glyph-icon iconsminds-up icon-card green-text bold-700"></div>'
+            }
 
             $('#beban-box').data('grafik', beban.kode_grafik)
             $('#beban-value').text(nilaiBeban)
             $('#beban-yoy').text(nilaiYoyBeban)
-            $('#beban-yoy-percentage').append(`${beban.yoy}% ${iconBeban}`)
+            $('#beban-ach').text(nilaiAchBeban)
+            $('#beban-yoy-percentage').append(`${beban.yoy}% ${iconBebanYoy}`)
+            $('#beban-ach-percentage').append(`${beban.ach}% ${iconBebanAch}`)
             // END BEBAN
 
             // SHU
+            $('#shu-ach-percentage').empty()
             $('#shu-yoy-percentage').empty()
-            var iconShu = '';
+            var iconShuYoy = '';
+            var iconShuAch = '';
             var nilaiShu = 0;
             var nilaiYoyShu = 0;
+            var nilaiAchShu = 0;
             var shu = result.data.data_shu;
             if(shu.n4.toString().length <= 9) {
                 nilaiShu = toJuta(shu.n4)
@@ -144,80 +156,271 @@ $('.card-r-2').css('height', `${$height - 290}px`);
                 nilaiShu = toMilyar(shu.n4)
             }
 
-            if(shu.n2.toString().length <= 9) {
-                nilaiYoyShu = toJuta(shu.n2)
+            if(shu.n1.toString().length <= 9) {
+                nilaiYoyShu = toJuta(shu.n1)
             } else {
-                nilaiYoyShu = toMilyar(shu.n2)
+                nilaiYoyShu = toMilyar(shu.n1)
+            }
+
+            if(shu.n2.toString().length <= 9) {
+                nilaiAchShu = toJuta(shu.n2)
+            } else {
+                nilaiAchShu = toMilyar(shu.n2)
             }
 
             if(shu.yoy < 0) {
                 $('#shu-yoy-percentage').removeClass('green-text').addClass('red-text')
-                iconShu = '<div class="glyph-icon iconsminds-down icon-card red-text bold-700"></div>'
+                iconShuYoy = '<div class="glyph-icon iconsminds-down icon-card red-text bold-700"></div>'
             } else {
                 $('#shu-yoy-percentage').removeClass('red-text').addClass('green-text')
-                iconShu = '<div class="glyph-icon iconsminds-up icon-card green-text bold-700"></div>'
+                iconShuYoy = '<div class="glyph-icon iconsminds-up icon-card green-text bold-700"></div>'
             }
 
-            $('#circle-shu').circleProgress({
-                value: shu.ach/100,
-                size: 80,
-                reverse: false,
-                thickness: 8,
-                fill: {
-                    color: ["#EE0000"]
-                }
-            });
-
-            $('#circle-shu').find('strong').html(`
-                <p class="my-0 text-circle">Ach.</p>
-                <p class="my-0 text-circle">${shu.ach}%</p>
-            `)
+            if(shu.ach < 0) {
+                $('#shu-ach-percentage').removeClass('green-text').addClass('red-text')
+                iconShuAch = '<div class="glyph-icon iconsminds-down icon-card red-text bold-700"></div>'
+            } else {
+                $('#shu-ach-percentage').removeClass('red-text').addClass('green-text')
+                iconShuAch = '<div class="glyph-icon iconsminds-up icon-card green-text bold-700"></div>'
+            }
 
             $('#shu-box').data('grafik', shu.kode_grafik)
             $('#shu-value').text(nilaiShu)
             $('#shu-yoy').text(nilaiYoyShu)
-            $('#shu-yoy-percentage').append(`${shu.yoy}% ${iconShu}`)
+            $('#shu-ach').text(nilaiAchShu)
+            $('#shu-yoy-percentage').append(`${shu.yoy}% ${iconShuYoy}`)
+            $('#shu-ach-percentage').append(`${shu.ach}% ${iconShuAch}`)
             // END SHU
 
             // OR
+            $('#or-ach-percentage').empty()
             $('#or-yoy-percentage').empty()
-            var iconOr = '';
+            var iconOrYoy = '';
+            var iconOrAch = '';
             var nilaiOr = 0;
             var nilaiYoyOr = 0;
+            var nilaiAchOr = 0;
             var or = result.data.data_or;
 
             if(or.yoy < 0) {
                 $('#or-yoy-percentage').removeClass('green-text').addClass('red-text')
-                iconOr = '<div class="glyph-icon iconsminds-down icon-card red-text bold-700"></div>'
+                iconOrYoy = '<div class="glyph-icon iconsminds-down icon-card red-text bold-700"></div>'
             } else {
                 $('#or-yoy-percentage').removeClass('red-text').addClass('green-text')
-                iconOr = '<div class="glyph-icon iconsminds-up icon-card green-text bold-700"></div>'
+                iconOrYoy = '<div class="glyph-icon iconsminds-up icon-card green-text bold-700"></div>'
             }
 
-            $('#circle-or').circleProgress({
-                value: or.ach/100,
-                size: 80,
-                reverse: false,
-                thickness: 8,
-                fill: {
-                    color: ["#EE0000"]
-                }
-            });
-
-            $('#circle-or').find('strong').html(`
-                <p class="my-0 text-circle">Ach.</p>
-                <p class="my-0 text-circle">${or.ach}%</p>
-            `)
+            if(or.ach < 0) {
+                $('#or-ach-percentage').removeClass('green-text').addClass('red-text')
+                iconOrAch = '<div class="glyph-icon iconsminds-down icon-card red-text bold-700"></div>'
+            } else {
+                $('#or-ach-percentage').removeClass('red-text').addClass('green-text')
+                iconOrAch = '<div class="glyph-icon iconsminds-up icon-card green-text bold-700"></div>'
+            }
 
             $('#or-box').data('grafik', or.kode_grafik)
             $('#or-value').text(`${or.n4} %`)
-            $('#or-yoy').text(`${or.n2}%`)
-            $('#or-yoy-percentage').append(`${or.yoy}% ${iconOr}`)
+            $('#or-yoy').text(`${or.n1}%`)
+            $('#or-ach').text(`${or.n2}%`)
+            $('#or-yoy-percentage').append(`${or.yoy}% ${iconOrYoy}`)
+            $('#or-ach-percentage').append(`${or.ach}% ${iconOrAch}`)
             // END OR
         }
     });
 })();
 // END DATA BOX
+
+// DATA CHART
+    // PENDAPATAN
+    (function() {
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('dash-ypt-dash/v2/data-fp-pdpt') }}",
+            data: {
+                "periode[0]": "=", 
+                "periode[1]": $filter2_kode,
+                "tahun": $tahun,
+                "jenis": $filter1_kode
+            },
+            dataType: 'json',
+            async: false,
+            success: function(result) {
+                var data = result.data;
+                lrChart = Highcharts.chart('pdpt-chart', {
+                    chart: {
+                        height: 170,
+                        type: 'column'
+                    },
+                    credits:{
+                        enabled:false
+                    },
+                    exporting:{ 
+                        enabled: false,
+                    },
+                    title: {
+                        text: ''
+                    },
+                    xAxis: {
+                        categories: data.kategori, 
+                    },
+                    yAxis: {
+                        title: '',
+                        labels: {
+                            formatter: function() {
+                                return singkatNilai(this.value);
+                            }
+                        }
+                    },
+                    tooltip: {
+                        formatter: function () {   
+                            var tmp = this.x.split("|");   
+                            return tmp[0]+'<br><span style="color:' + this.series.color + '">' + this.series.name + '</span>: <b>' + sepNum(this.y);
+                        }
+                    },
+                    series: [
+                        {
+                            name: 'Anggaran',
+                            color: '#b91c1c',
+                            data: data.anggaran
+                        },
+                        {
+                            name: 'Realisasi',
+                            color: '#064E3B',
+                            data: data.realisasi
+                        }
+                    ]
+                })
+            }
+        });
+    })();
+    // END PENDAPATAN
+    // BEBAN
+    (function() {
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('dash-ypt-dash/v2/data-fp-beban') }}",
+            data: {
+                "periode[0]": "=", 
+                "periode[1]": $filter2_kode,
+                "tahun": $tahun,
+                "jenis": $filter1_kode
+            },
+            dataType: 'json',
+            async: false,
+            success: function(result) {
+                var data = result.data;
+                lrChart = Highcharts.chart('beban-chart', {
+                    chart: {
+                        height: 170,
+                        type: 'column'
+                    },
+                    credits:{
+                        enabled:false
+                    },
+                    exporting:{ 
+                        enabled: false,
+                    },
+                    title: {
+                        text: ''
+                    },
+                    xAxis: {
+                        categories: data.kategori, 
+                    },
+                    yAxis: {
+                        title: '',
+                        labels: {
+                            formatter: function() {
+                                return singkatNilai(this.value);
+                            }
+                        }
+                    },
+                    tooltip: {
+                        formatter: function () {   
+                            var tmp = this.x.split("|");   
+                            return tmp[0]+'<br><span style="color:' + this.series.color + '">' + this.series.name + '</span>: <b>' + sepNum(this.y);
+                        }
+                    },
+                    series: [
+                        {
+                            name: 'Anggaran',
+                            color: '#b91c1c',
+                            data: data.anggaran
+                        },
+                        {
+                            name: 'Realisasi',
+                            color: '#064E3B',
+                            data: data.realisasi
+                        }
+                    ]
+                })
+            }
+        });
+    })();
+    // END BEBAN
+    // SHU
+    (function() {
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('dash-ypt-dash/v2/data-fp-shu') }}",
+            data: {
+                "periode[0]": "=", 
+                "periode[1]": $filter2_kode,
+                "tahun": $tahun,
+                "jenis": $filter1_kode
+            },
+            dataType: 'json',
+            async: false,
+            success: function(result) {
+                var data = result.data;
+                lrChart = Highcharts.chart('shu-chart', {
+                    chart: {
+                        height: 170,
+                        type: 'column'
+                    },
+                    credits:{
+                        enabled:false
+                    },
+                    exporting:{ 
+                        enabled: false,
+                    },
+                    title: {
+                        text: ''
+                    },
+                    xAxis: {
+                        categories: data.kategori, 
+                    },
+                    yAxis: {
+                        title: '',
+                        labels: {
+                            formatter: function() {
+                                return singkatNilai(this.value);
+                            }
+                        }
+                    },
+                    tooltip: {
+                        formatter: function () {   
+                            var tmp = this.x.split("|");   
+                            return tmp[0]+'<br><span style="color:' + this.series.color + '">' + this.series.name + '</span>: <b>' + sepNum(this.y);
+                        }
+                    },
+                    series: [
+                        {
+                            name: 'Anggaran',
+                            color: '#b91c1c',
+                            data: data.anggaran
+                        },
+                        {
+                            name: 'Realisasi',
+                            color: '#064E3B',
+                            data: data.realisasi
+                        }
+                    ]
+                })
+            }
+        });
+    })();
+    // END SHU
+// END DATA CHART
 
 // CHART LABA RUGI
 (function(){
@@ -282,7 +485,7 @@ $('.card-r-2').css('height', `${$height - 290}px`);
                         data: data.data_shu
                     }
                 ]
-            })
+            });
         }
     });
 })();
@@ -954,6 +1157,34 @@ function updateBox() {
         }
     });
 }
+
+function setHeightPage() {
+    var check = 0;
+    var height = $(window).height();
+    $('.chart-card').each(function() {
+        if(!$(this).hasClass('hidden')) {
+            check = 1;
+            return false;
+        }
+    })
+    if(check == 1) {
+        $('#scrollTable').addClass('scrollTable')
+        $('.card-r-2').css('height', `${height - 470}px`);
+        lrChart.update({
+            chart:{
+                height: 180
+            }
+        })
+    } else {
+        $('#scrollTable').removeClass('scrollTable')
+        $('.card-r-2').css('height', `${$height - 290}px`);
+        lrChart.update({
+            chart:{
+                height: 340
+            }
+        })
+    }
+}
 </script>
 
 <script type="text/javascript">
@@ -1042,334 +1273,6 @@ $('#table-lembaga tbody').on('click', 'tr.selected-row', function() {
 // END DRAGGING
 </script>
 
-<script type="text/javascript">
-// CUSTOM EXPORT HIGHCHART
-    // LABA RUGI
-    $('#export-lr.menu-chart-custom ul li').click(function(event) {
-        event.stopPropagation()
-        var idParent = $(this).parent('#dash-lr').attr('id')
-        var jenis = $(this).text()
-        if(jenis == 'View in full screen') {
-            lrChart.update({
-                title: {
-                    text: 'Laba Rugi Lembaga',
-                    floating: true,
-                    x: 40,
-                    y: 90
-                }
-            })
-            lrChart.fullscreen.toggle();
-        } else if(jenis == 'Print chart') {
-            lrChart.print()
-        } else if(jenis == 'Download PNG image') {
-            lrChart.exportChart({
-                type: 'image/png',
-                filename: 'chart-png'
-            }, {
-                title: {
-                    text: 'Laba Rugi Lembaga'
-                },
-                subtitle: {
-                    text: ''
-                }
-            });
-        } else if(jenis == 'Download JPEG image') {
-            lrChart.exportChart({
-                type: 'image/jpeg',
-                filename: 'chart-jpg'
-            }, {
-                title: {
-                    text: 'Laba Rugi Lembaga'
-                },
-                subtitle: {
-                    text: ''
-                }
-            });
-        } else if(jenis == 'Download PDF document') {
-            lrChart.exportChart({
-                type: 'application/pdf',
-                filename: 'chart-pdf'
-            }, {
-                title: {
-                    text: 'Laba Rugi Lembaga'
-                },
-                subtitle: {
-                    text: ''
-                }
-            });
-        } else if(jenis == 'Download SVG vector image') {
-            lrChart.exportChart({
-                type: 'image/svg+xml',
-                filename: 'chart-svg'
-            }, {
-                title: {
-                    text: 'Laba Rugi Lembaga'
-                },
-                subtitle: {
-                    text: ''
-                }
-            });
-        } else if(jenis == 'View table data') {
-            $(this).text('Hide table data')
-            lrChart.viewData()
-            var cek = $('#'+idParent+'.highcharts-data-table table').hasClass('table table-bordered table-no-padding')
-            if(!cek) {
-                $('.highcharts-data-table table').addClass('table table-bordered table-no-padding')
-            }
-            $("body").css("overflow", "scroll");
-        } else if(jenis == 'Hide table data') {
-            $(this).text('View table data')
-            $('.highcharts-data-table').hide()
-            $("body").css("overflow", "hidden");
-        }
-    })
-    // END LABA RUGI
-    // SHU
-    $('#export-shu.menu-chart-custom ul li').click(function(event) {
-        event.stopPropagation()
-        var idParent = $(this).parent('#dash-shu').attr('id')
-        var jenis = $(this).text()
-        
-        if(jenis == 'View in full screen') {
-            shuChart.update({
-                title: {
-                    text: 'Sisa Hasil Usaha Lembaga',
-                    floating: true,
-                    x: 40,
-                    y: 90
-                }
-            })
-            shuChart.fullscreen.toggle();
-        } else if(jenis == 'Print chart') {
-            shuChart.print()
-        } else if(jenis == 'Download PNG image') {
-            shuChart.exportChart({
-                type: 'image/png',
-                filename: 'chart-png'
-            }, {
-                title: {
-                    text: 'Sisa Hasil Usaha Lembaga'
-                },
-                subtitle: {
-                    text: ''
-                }
-            });
-        } else if(jenis == 'Download JPEG image') {
-            shuChart.exportChart({
-                type: 'image/jpeg',
-                filename: 'chart-jpg'
-            }, {
-                title: {
-                    text: 'Sisa Hasil Usaha Lembaga'
-                },
-                subtitle: {
-                    text: ''
-                }
-            });
-        } else if(jenis == 'Download PDF document') {
-            shuChart.exportChart({
-                type: 'application/pdf',
-                filename: 'chart-pdf'
-            }, {
-                title: {
-                    text: 'Sisa Hasil Usaha Lembaga'
-                },
-                subtitle: {
-                    text: ''
-                }
-            });
-        } else if(jenis == 'Download SVG vector image') {
-            shuChart.exportChart({
-                type: 'image/svg+xml',
-                filename: 'chart-svg'
-            }, {
-                title: {
-                    text: 'Sisa Hasil Usaha Lembaga'
-                },
-                subtitle: {
-                    text: ''
-                }
-            });
-        } else if(jenis == 'View table data') {
-            $(this).text('Hide table data')
-            shuChart.viewData()
-            var cek = $('#'+idParent+'.highcharts-data-table table').hasClass('table table-bordered table-no-padding')
-            if(!cek) {
-                $('.highcharts-data-table table').addClass('table table-bordered table-no-padding')
-            }
-            $("body").css("overflow", "scroll");
-        } else if(jenis == 'Hide table data') {
-            $(this).text('View table data')
-            $('.highcharts-data-table').hide()
-            $("body").css("overflow", "hidden");
-        }
-    })
-    // END SHU
-    // PENDAPATAN
-    $('#export-pdpt.menu-chart-custom ul li').click(function(event) {
-        event.stopPropagation()
-        var idParent = $(this).parent('#dash-pdpt').attr('id')
-        var jenis = $(this).text()
-        
-        if(jenis == 'View in full screen') {
-            pdptChart.update({
-                title: {
-                    text: 'Pendapatan Lembaga',
-                    floating: true,
-                    x: 40,
-                    y: 90
-                }
-            })
-            pdptChart.fullscreen.toggle();
-        } else if(jenis == 'Print chart') {
-            pdptChart.print()
-        } else if(jenis == 'Download PNG image') {
-            pdptChart.exportChart({
-                type: 'image/png',
-                filename: 'chart-png'
-            }, {
-                title: {
-                    text: 'Pendapatan Lembaga'
-                },
-                subtitle: {
-                    text: ''
-                }
-            });
-        } else if(jenis == 'Download JPEG image') {
-            pdptChart.exportChart({
-                type: 'image/jpeg',
-                filename: 'chart-jpg'
-            }, {
-                title: {
-                    text: 'Pendapatan Lembaga'
-                },
-                subtitle: {
-                    text: ''
-                }
-            });
-        } else if(jenis == 'Download PDF document') {
-            pdptChart.exportChart({
-                type: 'application/pdf',
-                filename: 'chart-pdf'
-            }, {
-                title: {
-                    text: 'Pendapatan Lembaga'
-                },
-                subtitle: {
-                    text: ''
-                }
-            });
-        } else if(jenis == 'Download SVG vector image') {
-            pdptChart.exportChart({
-                type: 'image/svg+xml',
-                filename: 'chart-svg'
-            }, {
-                title: {
-                    text: 'Pendapatan Lembaga'
-                },
-                subtitle: {
-                text: ''
-                }
-            });
-        } else if(jenis == 'View table data') {
-            $(this).text('Hide table data')
-            pdptChart.viewData()
-            var cek = $('#'+idParent+'.highcharts-data-table table').hasClass('table table-bordered table-no-padding')
-            if(!cek) {
-                $('.highcharts-data-table table').addClass('table table-bordered table-no-padding')
-            }
-            $("body").css("overflow", "scroll");
-        } else if(jenis == 'Hide table data') {
-            $(this).text('View table data')
-            $('.highcharts-data-table').hide()
-            $("body").css("overflow", "hidden");
-        }
-    })
-
-    // END PENDAPATAN
-    // BEBAN
-    $('#export-beban.menu-chart-custom ul li').click(function(event) {
-        event.stopPropagation()
-        var idParent = $(this).parent('#dash-beban').attr('id')
-        var jenis = $(this).text()
-        
-        if(jenis == 'View in full screen') {
-            bebanChart.update({
-                title: {
-                    text: 'Beban Lembaga',
-                    floating: true,
-                    x: 40,
-                    y: 90
-                }
-            })
-            bebanChart.fullscreen.toggle();
-        } else if(jenis == 'Print chart') {
-            bebanChart.print()
-        } else if(jenis == 'Download PNG image') {
-            bebanChart.exportChart({
-                type: 'image/png',
-                filename: 'chart-png'
-            }, {
-                title: {
-                    text: 'Beban Lembaga'
-                },
-                subtitle: {
-                    text: ''
-                }
-            });
-        } else if(jenis == 'Download JPEG image') {
-            bebanChart.exportChart({
-                type: 'image/jpeg',
-                filename: 'chart-jpg'
-            }, {
-                title: {
-                    text: 'Beban Lembaga'
-                },
-                subtitle: {
-                    text: ''
-                }
-            });
-        } else if(jenis == 'Download PDF document') {
-            bebanChart.exportChart({
-                type: 'application/pdf',
-                filename: 'chart-pdf'
-            }, {
-                title: {
-                    text: 'Beban Lembaga'
-                },
-                subtitle: {
-                    text: ''
-                }
-            });
-        } else if(jenis == 'Download SVG vector image') {
-            bebanChart.exportChart({
-                type: 'image/svg+xml',
-                filename: 'chart-svg'
-            }, {
-                title: {
-                    text: 'Beban Lembaga'
-                },
-                subtitle: {
-                    text: ''
-                }
-            });
-        } else if(jenis == 'View table data') {
-            $(this).text('Hide table data')
-            bebanChart.viewData()
-            var cek = $('#'+idParent+'.highcharts-data-table table').hasClass('table table-bordered table-no-padding')
-            if(!cek) {
-                $('.highcharts-data-table table').addClass('table table-bordered table-no-padding')
-            }
-            $("body").css("overflow", "scroll");
-        } else if(jenis == 'Hide table data') {
-            $(this).text('View table data')
-            $('.highcharts-data-table').hide()
-            $("body").css("overflow", "hidden");
-        }
-    })
-    // END BEBAN
-// END CUSTOM EXPORT HIGHCHART
-</script>
 <script type="text/javascript">
 // FILTER EVENT
     // KURANG TAHUN FILTER
@@ -1512,18 +1415,270 @@ $('#table-lembaga tbody').on('click', 'tr.selected-row', function() {
 </script>
 
 <script type="text/javascript">
+$('.icon-menu').click(function(event) {
+    event.stopPropagation()
+    var parentID = $(this).parents('.card-dash').attr('id')
+    $('#'+parentID).find('.menu-chart-custom').removeClass('hidden')
+})
 // MENAMPILKAN LIST CUSTOM EXPORT HIGHCHART
-    $('.icon-menu').click(function(event) {
+    // SHU
+    $('#export-shu.menu-chart-custom ul li').click(function(event) {
         event.stopPropagation()
-        var parentID = $(this).parents('.header-div').attr('id')
-        $('#'+parentID).find('.menu-chart-custom').removeClass('hidden')
-
-        if(parentID == 'card-lr') {
-            $("body").css("overflow", "scroll");
-        } else {
-            $("body").css("overflow", "hidden");
+        var idParent = $(this).parents('#shu-box').attr('id')
+        var jenis = $(this).text()
+        if(jenis == 'View in full screen') {
+            shuChart.update({
+                title: {
+                    text: 'Sisa Hasil Usaha Lembaga',
+                    floating: true,
+                    x: 40,
+                    y: 90
+                }
+            })
+            shuChart.fullscreen.toggle();
+        } else if(jenis == 'Print chart') {
+            shuChart.print()
+        } else if(jenis == 'Download PNG image') {
+            shuChart.exportChart({
+                type: 'image/png',
+                filename: 'chart-png'
+            }, {
+                title: {
+                    text: 'Sisa Hasil Usaha Lembaga'
+                },
+                subtitle: {
+                    text: ''
+                }
+            });
+        } else if(jenis == 'Download JPEG image') {
+            shuChart.exportChart({
+                type: 'image/jpeg',
+                filename: 'chart-jpg'
+            }, {
+                title: {
+                    text: 'Sisa Hasil Usaha Lembaga'
+                },
+                subtitle: {
+                    text: ''
+                }
+            });
+        } else if(jenis == 'Download PDF document') {
+            shuChart.exportChart({
+                type: 'application/pdf',
+                filename: 'chart-pdf'
+            }, {
+                title: {
+                    text: 'Sisa Hasil Usaha Lembaga'
+                },
+                subtitle: {
+                    text: ''
+                }
+            });
+        } else if(jenis == 'Download SVG vector image') {
+            shuChart.exportChart({
+                type: 'image/svg+xml',
+                filename: 'chart-svg'
+            }, {
+                title: {
+                    text: 'Sisa Hasil Usaha Lembaga'
+                },
+                subtitle: {
+                text: ''
+                }
+            });
+        } else if(jenis == 'View table data') {
+            $(this).text('Hide table data')
+            shuChart.viewData()
+            var cek = $('#'+idParent+'.highcharts-data-table table').hasClass('table table-bordered table-no-padding')
+            if(!cek) {
+                $('.highcharts-data-table table').addClass('table table-bordered table-no-padding')
+            }
+        } else if(jenis == 'Hide table data') {
+            $(this).text('View table data')
+            $('.highcharts-data-table').hide()
+        } else if(jenis == 'Show chart') {
+            $(this).text('Hide chart')
+            $('#shu-chart').removeClass('hidden')
+            setHeightPage();
+        } else if(jenis == 'Hide chart') {
+            $(this).text('Show chart')
+            $('#shu-chart').addClass('hidden')
+            setHeightPage();
         }
     })
+    // END SHU
+    // BEBAN
+    $('#export-beban.menu-chart-custom ul li').click(function(event) {
+        event.stopPropagation()
+        var idParent = $(this).parents('#beban-box').attr('id')
+        var jenis = $(this).text()
+        if(jenis == 'View in full screen') {
+            bebanChart.update({
+                title: {
+                    text: 'Beban Lembaga',
+                    floating: true,
+                    x: 40,
+                    y: 90
+                }
+            })
+            bebanChart.fullscreen.toggle();
+        } else if(jenis == 'Print chart') {
+            bebanChart.print()
+        } else if(jenis == 'Download PNG image') {
+            bebanChart.exportChart({
+                type: 'image/png',
+                filename: 'chart-png'
+            }, {
+                title: {
+                    text: 'Beban Lembaga'
+                },
+                subtitle: {
+                    text: ''
+                }
+            });
+        } else if(jenis == 'Download JPEG image') {
+            bebanChart.exportChart({
+                type: 'image/jpeg',
+                filename: 'chart-jpg'
+            }, {
+                title: {
+                    text: 'Beban Lembaga'
+                },
+                subtitle: {
+                    text: ''
+                }
+            });
+        } else if(jenis == 'Download PDF document') {
+            bebanChart.exportChart({
+                type: 'application/pdf',
+                filename: 'chart-pdf'
+            }, {
+                title: {
+                    text: 'Beban Lembaga'
+                },
+                subtitle: {
+                    text: ''
+                }
+            });
+        } else if(jenis == 'Download SVG vector image') {
+            bebanChart.exportChart({
+                type: 'image/svg+xml',
+                filename: 'chart-svg'
+            }, {
+                title: {
+                    text: 'Beban Lembaga'
+                },
+                subtitle: {
+                text: ''
+                }
+            });
+        } else if(jenis == 'View table data') {
+            $(this).text('Hide table data')
+            bebanChart.viewData()
+            var cek = $('#'+idParent+'.highcharts-data-table table').hasClass('table table-bordered table-no-padding')
+            if(!cek) {
+                $('.highcharts-data-table table').addClass('table table-bordered table-no-padding')
+            }
+        } else if(jenis == 'Hide table data') {
+            $(this).text('View table data')
+            $('.highcharts-data-table').hide()
+        } else if(jenis == 'Show chart') {
+            $(this).text('Hide chart')
+            $('#beban-chart').removeClass('hidden')
+            setHeightPage();
+        } else if(jenis == 'Hide chart') {
+            $(this).text('Show chart')
+            $('#beban-chart').addClass('hidden')
+            setHeightPage();
+        }
+    })
+    // END BEBAN
+    // PENDAPATAN
+    $('#export-pdpt.menu-chart-custom ul li').click(function(event) {
+        event.stopPropagation()
+        var idParent = $(this).parents('#pdpt-box').attr('id')
+        var jenis = $(this).text()
+        if(jenis == 'View in full screen') {
+            pdptChart.update({
+                title: {
+                    text: 'Pendapatan Lembaga',
+                    floating: true,
+                    x: 40,
+                    y: 90
+                }
+            })
+            pdptChart.fullscreen.toggle();
+        } else if(jenis == 'Print chart') {
+            pdptChart.print()
+        } else if(jenis == 'Download PNG image') {
+            pdptChart.exportChart({
+                type: 'image/png',
+                filename: 'chart-png'
+            }, {
+                title: {
+                    text: 'Pendapatan Lembaga'
+                },
+                subtitle: {
+                    text: ''
+                }
+            });
+        } else if(jenis == 'Download JPEG image') {
+            pdptChart.exportChart({
+                type: 'image/jpeg',
+                filename: 'chart-jpg'
+            }, {
+                title: {
+                    text: 'Pendapatan Lembaga'
+                },
+                subtitle: {
+                    text: ''
+                }
+            });
+        } else if(jenis == 'Download PDF document') {
+            pdptChart.exportChart({
+                type: 'application/pdf',
+                filename: 'chart-pdf'
+            }, {
+                title: {
+                    text: 'Pendapatan Lembaga'
+                },
+                subtitle: {
+                    text: ''
+                }
+            });
+        } else if(jenis == 'Download SVG vector image') {
+            pdptChart.exportChart({
+                type: 'image/svg+xml',
+                filename: 'chart-svg'
+            }, {
+                title: {
+                    text: 'Pendapatan Lembaga'
+                },
+                subtitle: {
+                text: ''
+                }
+            });
+        } else if(jenis == 'View table data') {
+            $(this).text('Hide table data')
+            pdptChart.viewData()
+            var cek = $('#'+idParent+'.highcharts-data-table table').hasClass('table table-bordered table-no-padding')
+            if(!cek) {
+                $('.highcharts-data-table table').addClass('table table-bordered table-no-padding')
+            }
+        } else if(jenis == 'Hide table data') {
+            $(this).text('View table data')
+            $('.highcharts-data-table').hide()
+        } else if(jenis == 'Show chart') {
+            $(this).text('Hide chart')
+            $('#pdpt-chart').removeClass('hidden')
+            setHeightPage();
+        } else if(jenis == 'Hide chart') {
+            $(this).text('Show chart')
+            $('#pdpt-chart').addClass('hidden')
+            setHeightPage();
+        }
+    })
+    // END PENDAPATAN
 // END MENAMPILKAN LIST CUSTOM EXPORT HIGHCHART
 </script>
 {{-- DEKSTOP --}}
@@ -1614,12 +1769,7 @@ $('#table-lembaga tbody').on('click', 'tr.selected-row', function() {
         <div class="col-3 pl-12 pr-0">
             <div class="card card-dash border-r-0 cursor-pointer" id="pdpt-box" data-grafik="">
                 <div class="row">
-                    <div class="col-4 pt-16">
-                        <div id="circle-pdpt" class="circle-bar">
-                            <strong class="value-circle"></strong>
-                        </div>
-                    </div>
-                    <div class="col-8">
+                    <div class="col-10">
                         <h4 class="header-card">Pendapatan</h4>
                         <div class="row">
                             <div class="col-12">
@@ -1629,15 +1779,15 @@ $('#table-lembaga tbody').on('click', 'tr.selected-row', function() {
                                 <table class="table table-borderless table-no-padding">
                                     <tbody>
                                         <tr>
-                                            <td class="pl-0 w-10">YTD</td>
-                                            <td id="pendapatan-ytd" class="px-0">0</td>
-                                            <td id="pdpt-ytd-percentage" class="pr-0">
+                                            <td class="pl-0 w-50">ACH</td>
+                                            <td id="pendapatan-ach" class="px-0">0</td>
+                                            <td id="pdpt-ach-percentage" class="pr-0">
                                                 0
                                                 <div class="glyph-icon iconsminds-down icon-card red-text bold-700"></div>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td class="pl-0 w-10">YoY</td>
+                                            <td class="pl-0 w-50">YoY</td>
                                             <td id="pendapatan-yoy" class="px-0">0</td>
                                             <td id="pdpt-yoy-percentage" class="pr-0">
                                                 0
@@ -1649,18 +1799,34 @@ $('#table-lembaga tbody').on('click', 'tr.selected-row', function() {
                             </div>
                         </div>
                     </div>
+                    <div class="col-2">
+                        <div class="glyph-icon simple-icon-menu icon-menu"></div>
+                        <div class="menu-chart-custom hidden" id="export-pdpt">
+                            <ul>
+                                <li class="menu-chart-item fullscreen">View in full screen</li>
+                                <li class="menu-chart-item print">Print chart</li>
+                                <hr>
+                                <li class="menu-chart-item print png">Download PNG image</li>
+                                <li class="menu-chart-item print jpg">Download JPEG image</li>
+                                <li class="menu-chart-item print pdf">Download PDF document</li>
+                                <li class="menu-chart-item print svg">Download SVG vector image</li>
+                                <li class="menu-chart-item print svg">View table data</li>
+                                <li class="menu-chart-item show-chart">Show chart</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div id="pdpt-chart" class="mt-8 chart-card hidden"></div>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="col-3 pl-1 pr-0">
             <div class="card card-dash  border-r-0 cursor-pointer" id="beban-box" data-grafik="">
                 <div class="row">
-                    <div class="col-4 pt-16">
-                        <div id="circle-beban" class="circle-bar">
-                            <strong class="value-circle"></strong>
-                        </div>
-                    </div>
-                    <div class="col-8">
+                    <div class="col-10">
                         <h4 class="header-card">Beban</h4>
                         <div class="row">
                             <div class="col-12">
@@ -1670,14 +1836,14 @@ $('#table-lembaga tbody').on('click', 'tr.selected-row', function() {
                                 <table class="table table-borderless table-no-padding">
                                     <tbody>
                                         <tr>
-                                            <td class="pl-0 w-10">YTD</td>
-                                            <td id="beban-ytd" class="px-0">0</td>
-                                            <td id="beban-ytd-percentage" class="pr-0">
+                                            <td class="pl-0 w-50">ACH</td>
+                                            <td id="beban-ach" class="px-0">0</td>
+                                            <td id="beban-ach-percentage" class="pr-0">
                                                 0
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td class="pl-0 w-10">YoY</td>
+                                            <td class="pl-0 w-50">YoY</td>
                                             <td id="beban-yoy" class="px-0">0</td>
                                             <td id="beban-yoy-percentage" class="pr-0">
                                                 0
@@ -1688,18 +1854,34 @@ $('#table-lembaga tbody').on('click', 'tr.selected-row', function() {
                             </div>
                         </div>
                     </div>
+                    <div class="col-2">
+                        <div class="glyph-icon simple-icon-menu icon-menu"></div>
+                        <div class="menu-chart-custom hidden" id="export-beban">
+                            <ul>
+                                <li class="menu-chart-item fullscreen">View in full screen</li>
+                                <li class="menu-chart-item print">Print chart</li>
+                                <hr>
+                                <li class="menu-chart-item print png">Download PNG image</li>
+                                <li class="menu-chart-item print jpg">Download JPEG image</li>
+                                <li class="menu-chart-item print pdf">Download PDF document</li>
+                                <li class="menu-chart-item print svg">Download SVG vector image</li>
+                                <li class="menu-chart-item print svg">View table data</li>
+                                <li class="menu-chart-item show-chart">Show chart</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div id="beban-chart" class="mt-8 chart-card hidden"></div>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="col-3 pl-1 pr-0">
             <div class="card card-dash  border-r-0 cursor-pointer" id="shu-box" data-grafik="">
                 <div class="row">
-                    <div class="col-4 pt-16">
-                        <div id="circle-shu" class="circle-bar">
-                            <strong class="value-circle"></strong>
-                        </div>
-                    </div>
-                    <div class="col-8">
+                    <div class="col-10">
                         <h4 class="header-card">Sisa Hasil Usaha</h4>
                         <div class="row">
                             <div class="col-12">
@@ -1709,14 +1891,14 @@ $('#table-lembaga tbody').on('click', 'tr.selected-row', function() {
                                 <table class="table table-borderless table-no-padding">
                                     <tbody>
                                         <tr>
-                                            <td class="pl-0 w-10">YTD</td>
-                                            <td id="shu-ytd" class="px-0">0</td>
-                                            <td id="shu-ytd-percentage" class="pr-0">
+                                            <td class="pl-0 w-50">ACH</td>
+                                            <td id="shu-ach" class="px-0">0</td>
+                                            <td id="shu-ach-percentage" class="pr-0">
                                                 0
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td class="pl-0 w-10">YoY</td>
+                                            <td class="pl-0 w-50">YoY</td>
                                             <td id="shu-yoy" class="px-0">0</td>
                                             <td id="shu-yoy-percentage" class="pr-0">
                                                 0
@@ -1727,18 +1909,34 @@ $('#table-lembaga tbody').on('click', 'tr.selected-row', function() {
                             </div>
                         </div>
                     </div>
+                    <div class="col-2">
+                        <div class="glyph-icon simple-icon-menu icon-menu"></div>
+                        <div class="menu-chart-custom hidden" id="export-shu">
+                            <ul>
+                                <li class="menu-chart-item fullscreen">View in full screen</li>
+                                <li class="menu-chart-item print">Print chart</li>
+                                <hr>
+                                <li class="menu-chart-item print png">Download PNG image</li>
+                                <li class="menu-chart-item print jpg">Download JPEG image</li>
+                                <li class="menu-chart-item print pdf">Download PDF document</li>
+                                <li class="menu-chart-item print svg">Download SVG vector image</li>
+                                <li class="menu-chart-item print svg">View table data</li>
+                                <li class="menu-chart-item show-chart">Show chart</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div id="shu-chart" class="mt-8 chart-card hidden"></div>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="col-3 pl-1 pr-0">
             <div class="card card-dash  border-r-0 cursor-pointer" id="or-box" data-grafik="">
                 <div class="row">
-                    <div class="col-4 pt-16">
-                        <div id="circle-or" class="circle-bar">
-                            <strong class="value-circle"></strong>
-                        </div>
-                    </div>
-                    <div class="col-8">
+                    <div class="col-10">
                         <h4 class="header-card">Operating Ratio</h4>
                         <div class="row">
                             <div class="col-12">
@@ -1748,14 +1946,14 @@ $('#table-lembaga tbody').on('click', 'tr.selected-row', function() {
                                 <table class="table table-borderless table-no-padding">
                                     <tbody>
                                         <tr>
-                                            <td class="pl-0 w-10">YTD</td>
-                                            <td id="or-ytd" class="px-0">0</td>
-                                            <td id="or-ytd-percentage" class="pr-0">
+                                            <td class="pl-0 w-50">ACH</td>
+                                            <td id="or-ach" class="px-0">0</td>
+                                            <td id="or-ach-percentage" class="pr-0">
                                                 0
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td class="pl-0 w-10">YoY</td>
+                                            <td class="pl-0 w-50">YoY</td>
                                             <td id="or-yoy" class="px-0">0</td>
                                             <td id="or-yoy-percentage" class="pr-0">
                                                 0
@@ -1765,6 +1963,27 @@ $('#table-lembaga tbody').on('click', 'tr.selected-row', function() {
                                 </table>
                             </div>
                         </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="glyph-icon simple-icon-menu icon-menu"></div>
+                        <div class="menu-chart-custom hidden" id="export-or">
+                            <ul>
+                                <li class="menu-chart-item fullscreen">View in full screen</li>
+                                <li class="menu-chart-item print">Print chart</li>
+                                <hr>
+                                <li class="menu-chart-item print png">Download PNG image</li>
+                                <li class="menu-chart-item print jpg">Download JPEG image</li>
+                                <li class="menu-chart-item print pdf">Download PDF document</li>
+                                <li class="menu-chart-item print svg">Download SVG vector image</li>
+                                <li class="menu-chart-item print svg">View table data</li>
+                                <li class="menu-chart-item show-chart">Show chart</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div id="or-chart" class="mt-8 chart-card hidden"></div>
                     </div>
                 </div>
             </div>
@@ -1806,28 +2025,30 @@ $('#table-lembaga tbody').on('click', 'tr.selected-row', function() {
                         <h4 class="header-card">Performansi Lembaga</h4>
                     </div>
                 </div>
-                <table id="table-lembaga" class="table table-bordered table-th-red mt-8">
-                    <thead>
-                        <tr>
-                            <th rowspan="2">&nbsp;</th>
-                            <th colspan="2" class="text-center">Pendapatan</th>
-                            <th colspan="2" class="text-center">Beban</th>
-                            <th colspan="2" class="text-center">SHU</th>
-                            <th colspan="2" class="text-center">OR</th>
-                        </tr>
-                        <tr>
-                            <th class="text-center">Ach.</th>
-                            <th class="text-center">YoY</th>
-                            <th class="text-center">Ach.</th>
-                            <th class="text-center">YoY</th>
-                            <th class="text-center">Ach.</th>
-                            <th class="text-center">YoY</th>
-                            <th class="text-center">Ach.</th>
-                            <th class="text-center">YoY</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
+                <div id="scrollTable">
+                    <table id="table-lembaga" class="table table-bordered table-th-red mt-8">
+                        <thead>
+                            <tr>
+                                <th rowspan="2">&nbsp;</th>
+                                <th colspan="2" class="text-center">Pendapatan</th>
+                                <th colspan="2" class="text-center">Beban</th>
+                                <th colspan="2" class="text-center">SHU</th>
+                                <th colspan="2" class="text-center">OR</th>
+                            </tr>
+                            <tr>
+                                <th class="text-center">Ach.</th>
+                                <th class="text-center">YoY</th>
+                                <th class="text-center">Ach.</th>
+                                <th class="text-center">YoY</th>
+                                <th class="text-center">Ach.</th>
+                                <th class="text-center">YoY</th>
+                                <th class="text-center">Ach.</th>
+                                <th class="text-center">YoY</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
