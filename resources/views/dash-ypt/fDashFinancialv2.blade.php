@@ -22,7 +22,7 @@ var $render = 0;
 new PerfectScrollbar('#scrollTable');
 var $height = $(window).height();
 // SET STYLES CARD
-$('.card-r-2').css('height', `${$height - 290}px`);
+$('.card-r-2').css('height', `${$height - 300}px`);
 // SET STYLES CARD
 
 // DATA BOX
@@ -248,8 +248,10 @@ $('.card-r-2').css('height', `${$height - 290}px`);
                 var data = result.data;
                 lrChart = Highcharts.chart('pdpt-chart', {
                     chart: {
-                        height: 170,
-                        type: 'column'
+                        height: 150,
+                        type: 'column',
+                        spacing: [0, 0, 0, 0],
+			            backgroundColor: null
                     },
                     credits:{
                         enabled:false
@@ -257,36 +259,63 @@ $('.card-r-2').css('height', `${$height - 290}px`);
                     exporting:{ 
                         enabled: false,
                     },
+                    legend:{ 
+                        enabled: false,
+                    },
                     title: {
                         text: ''
                     },
                     xAxis: {
-                        categories: data.kategori, 
+                        categories: data.kategori,
                     },
-                    yAxis: {
-                        title: '',
-                        labels: {
-                            formatter: function() {
-                                return singkatNilai(this.value);
-                            }
+                    yAxis: [
+                        {
+                            minorGridLineWidth: 0,
+                            gridLineWidth: 0,   
+                            min: 0,
+                            title: '',
+                            labels: {
+                                enabled: false
+                            },
+                        },
+                        {
+                            minorGridLineWidth: 0,
+                            gridLineWidth: 0,
+                            title: '',
+                            labels: {
+                                enabled: false
+                            },
+                            opposite: true,
                         }
-                    },
+                    ],
                     tooltip: {
                         formatter: function () {   
                             var tmp = this.x.split("|");   
                             return tmp[0]+'<br><span style="color:' + this.series.color + '">' + this.series.name + '</span>: <b>' + sepNum(this.y);
                         }
                     },
+                    plotOptions: {
+                        column: {
+                            grouping: false,
+                            shadow: false,
+                            borderWidth: 0
+                        }
+                    },
                     series: [
                         {
                             name: 'Anggaran',
                             color: '#b91c1c',
-                            data: data.anggaran
+                            data: data.anggaran,
+                            pointPadding: 0.1,
+                            pointPlacement: 0,
                         },
                         {
                             name: 'Realisasi',
                             color: '#064E3B',
-                            data: data.realisasi
+                            data: data.realisasi,
+                            pointPadding: 0.3,
+                            pointPlacement: 0,
+                            yAxis: 1
                         }
                     ]
                 })
@@ -311,8 +340,10 @@ $('.card-r-2').css('height', `${$height - 290}px`);
                 var data = result.data;
                 bebanChart = Highcharts.chart('beban-chart', {
                     chart: {
-                        height: 170,
-                        type: 'column'
+                        height: 150,
+                        type: 'column',
+                        spacing: [0, 0, 0, 0],
+			            backgroundColor: null
                     },
                     credits:{
                         enabled:false
@@ -320,36 +351,63 @@ $('.card-r-2').css('height', `${$height - 290}px`);
                     exporting:{ 
                         enabled: false,
                     },
+                    legend:{ 
+                        enabled: false,
+                    },
                     title: {
                         text: ''
                     },
                     xAxis: {
-                        categories: data.kategori, 
+                        categories: data.kategori,
                     },
-                    yAxis: {
-                        title: '',
-                        labels: {
-                            formatter: function() {
-                                return singkatNilai(this.value);
-                            }
+                    yAxis: [
+                        {
+                            minorGridLineWidth: 0,
+                            gridLineWidth: 0,   
+                            min: 0,
+                            title: '',
+                            labels: {
+                                enabled: false
+                            },
+                        },
+                        {
+                            minorGridLineWidth: 0,
+                            gridLineWidth: 0,
+                            title: '',
+                            labels: {
+                                enabled: false
+                            },
+                            opposite: true,
                         }
-                    },
+                    ],
                     tooltip: {
                         formatter: function () {   
                             var tmp = this.x.split("|");   
                             return tmp[0]+'<br><span style="color:' + this.series.color + '">' + this.series.name + '</span>: <b>' + sepNum(this.y);
                         }
                     },
+                    plotOptions: {
+                        column: {
+                            grouping: false,
+                            shadow: false,
+                            borderWidth: 0
+                        }
+                    },
                     series: [
                         {
                             name: 'Anggaran',
                             color: '#b91c1c',
-                            data: data.anggaran
+                            data: data.anggaran,
+                            pointPadding: 0.1,
+                            pointPlacement: 0,
                         },
                         {
                             name: 'Realisasi',
                             color: '#064E3B',
-                            data: data.realisasi
+                            data: data.realisasi,
+                            pointPadding: 0.3,
+                            pointPlacement: 0,
+                            yAxis: 1
                         }
                     ]
                 })
@@ -374,8 +432,10 @@ $('.card-r-2').css('height', `${$height - 290}px`);
                 var data = result.data;
                 shuChart = Highcharts.chart('shu-chart', {
                     chart: {
-                        height: 170,
-                        type: 'column'
+                        height: 150,
+                        type: 'column',
+                        spacing: [0, 0, 0, 0],
+			            backgroundColor: null
                     },
                     credits:{
                         enabled:false
@@ -383,36 +443,63 @@ $('.card-r-2').css('height', `${$height - 290}px`);
                     exporting:{ 
                         enabled: false,
                     },
+                    legend:{ 
+                        enabled: false,
+                    },
                     title: {
                         text: ''
                     },
                     xAxis: {
-                        categories: data.kategori, 
+                        categories: data.kategori,
                     },
-                    yAxis: {
-                        title: '',
-                        labels: {
-                            formatter: function() {
-                                return singkatNilai(this.value);
-                            }
+                    yAxis: [
+                        {
+                            minorGridLineWidth: 0,
+                            gridLineWidth: 0,   
+                            min: 0,
+                            title: '',
+                            labels: {
+                                enabled: false
+                            },
+                        },
+                        {
+                            minorGridLineWidth: 0,
+                            gridLineWidth: 0,
+                            title: '',
+                            labels: {
+                                enabled: false
+                            },
+                            opposite: true,
                         }
-                    },
+                    ],
                     tooltip: {
                         formatter: function () {   
                             var tmp = this.x.split("|");   
                             return tmp[0]+'<br><span style="color:' + this.series.color + '">' + this.series.name + '</span>: <b>' + sepNum(this.y);
                         }
                     },
+                    plotOptions: {
+                        column: {
+                            grouping: false,
+                            shadow: false,
+                            borderWidth: 0
+                        }
+                    },
                     series: [
                         {
                             name: 'Anggaran',
                             color: '#b91c1c',
-                            data: data.anggaran
+                            data: data.anggaran,
+                            pointPadding: 0.1,
+                            pointPlacement: 0,
                         },
                         {
                             name: 'Realisasi',
                             color: '#064E3B',
-                            data: data.realisasi
+                            data: data.realisasi,
+                            pointPadding: 0.3,
+                            pointPlacement: 0,
+                            yAxis: 1
                         }
                     ]
                 })
@@ -1193,15 +1280,23 @@ function setHeightPage() {
     })
     if(check == 1) {
         $('#scrollTable').addClass('scrollTable')
-        $('.card-r-2').css('height', `${height - 470}px`);
-        lrChart.update({
-            chart:{
-                height: 180
-            }
-        })
+        $('.card-r-2').css('height', `${height - 460}px`);
+        if($height <= 667) {
+            lrChart.update({
+                chart:{
+                    height: 180
+                }
+            })
+        } else {
+            lrChart.update({
+                chart:{
+                    height: 220
+                }
+            })
+        }
     } else {
         $('#scrollTable').removeClass('scrollTable')
-        $('.card-r-2').css('height', `${$height - 290}px`);
+        $('.card-r-2').css('height', `${$height - 300}px`);
         lrChart.update({
             chart:{
                 height: 340
@@ -1520,14 +1615,6 @@ $('.icon-menu').click(function(event) {
         } else if(jenis == 'Hide table data') {
             $(this).text('View table data')
             $('.highcharts-data-table').hide()
-        } else if(jenis == 'Show chart') {
-            $(this).text('Hide chart')
-            $('#shu-chart').removeClass('hidden')
-            setHeightPage();
-        } else if(jenis == 'Hide chart') {
-            $(this).text('Show chart')
-            $('#shu-chart').addClass('hidden')
-            setHeightPage();
         }
     })
     // END SHU
@@ -1606,14 +1693,6 @@ $('.icon-menu').click(function(event) {
         } else if(jenis == 'Hide table data') {
             $(this).text('View table data')
             $('.highcharts-data-table').hide()
-        } else if(jenis == 'Show chart') {
-            $(this).text('Hide chart')
-            $('#beban-chart').removeClass('hidden')
-            setHeightPage();
-        } else if(jenis == 'Hide chart') {
-            $(this).text('Show chart')
-            $('#beban-chart').addClass('hidden')
-            setHeightPage();
         }
     })
     // END BEBAN
@@ -1692,18 +1771,42 @@ $('.icon-menu').click(function(event) {
         } else if(jenis == 'Hide table data') {
             $(this).text('View table data')
             $('.highcharts-data-table').hide()
-        } else if(jenis == 'Show chart') {
-            $(this).text('Hide chart')
-            $('#pdpt-chart').removeClass('hidden')
-            setHeightPage();
-        } else if(jenis == 'Hide chart') {
-            $(this).text('Show chart')
-            $('#pdpt-chart').addClass('hidden')
-            setHeightPage();
         }
     })
     // END PENDAPATAN
 // END MENAMPILKAN LIST CUSTOM EXPORT HIGHCHART
+
+// SHOW CHART
+$('.card-dash .table tbody tr td').on('click', '.show-chart', function() {
+    $(this).removeClass('show-chart').addClass('hide-chart rotate-360')
+    var parentID = $(this).parents('.card-dash').attr('id')
+    if(parentID == 'pdpt-box') {
+        $('#pdpt-chart').removeClass('hidden')
+    } else if(parentID == 'beban-box') {
+        $('#beban-chart').removeClass('hidden')
+    } else if(parentID == 'shu-box') {
+        $('#shu-chart').removeClass('hidden')
+    } else if(parentID == 'or-box') {
+        $('#or-chart').removeClass('hidden')      
+    }
+    setHeightPage();
+})
+
+$('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
+    $(this).removeClass('hide-chart rotate-360').addClass('show-chart')
+    var parentID = $(this).parents('.card-dash').attr('id')
+    if(parentID == 'pdpt-box') {
+        $('#pdpt-chart').addClass('hidden')
+    } else if(parentID == 'beban-box') {
+        $('#beban-chart').addClass('hidden')
+    } else if(parentID == 'shu-box') {
+        $('#shu-chart').addClass('hidden')
+    } else if(parentID == 'or-box') {
+        $('#or-chart').addClass('hidden')      
+    }
+    setHeightPage();
+})
+// END SHOW CHART
 </script>
 {{-- DEKSTOP --}}
 
@@ -1818,6 +1921,11 @@ $('.icon-menu').click(function(event) {
                                             </td>
                                             <td id="pdpt-yoy-icon" class="pr-0 pl-0"> </td>
                                         </tr>
+                                        <tr>
+                                            <td colspan="4" class="text-center pl-0 pr-0" style="padding-top: 4px;">
+                                                <img alt="show-chart-icon" class="show-chart" src="{{ asset('dash-asset/dash-ypt/icon/drop-arrow.svg') }}">
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -1841,7 +1949,7 @@ $('.icon-menu').click(function(event) {
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <div id="pdpt-chart" class="mt-8 chart-card hidden"></div>
+                        <div id="pdpt-chart" class="mt-8 chart-card chart-no-grid hidden"></div>
                     </div>
                 </div>
             </div>
@@ -1874,6 +1982,11 @@ $('.icon-menu').click(function(event) {
                                             </td>
                                             <td id="beban-yoy-icon" class="pr-0 pl-0"></td>
                                         </tr>
+                                        <tr>
+                                            <td colspan="4" class="text-center pl-0 pr-0" style="padding-top: 4px;">
+                                                <img alt="show-chart-icon" class="show-chart" src="{{ asset('dash-asset/dash-ypt/icon/drop-arrow.svg') }}">
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -1897,7 +2010,7 @@ $('.icon-menu').click(function(event) {
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <div id="beban-chart" class="mt-8 chart-card hidden"></div>
+                        <div id="beban-chart" class="mt-8 chart-card chart-no-grid hidden"></div>
                     </div>
                 </div>
             </div>
@@ -1930,6 +2043,11 @@ $('.icon-menu').click(function(event) {
                                             </td>
                                             <td id="shu-yoy-icon" class="pr-0 pl-0"></td>
                                         </tr>
+                                        <tr>
+                                            <td colspan="4" class="text-center pl-0 pr-0" style="padding-top: 4px;">
+                                                <img alt="show-chart-icon" class="show-chart" src="{{ asset('dash-asset/dash-ypt/icon/drop-arrow.svg') }}">
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -1953,7 +2071,7 @@ $('.icon-menu').click(function(event) {
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <div id="shu-chart" class="mt-8 chart-card hidden"></div>
+                        <div id="shu-chart" class="mt-8 chart-card chart-no-grid hidden"></div>
                     </div>
                 </div>
             </div>
@@ -1986,6 +2104,11 @@ $('.icon-menu').click(function(event) {
                                             </td>
                                             <td id="or-yoy-icon" class="pr-0 pl-0"></td>
                                         </tr>
+                                        <tr>
+                                            <td colspan="4" class="text-center pl-0 pr-0" style="padding-top: 4px;">
+                                                <img alt="show-chart-icon" class="show-chart" src="{{ asset('dash-asset/dash-ypt/icon/drop-arrow.svg') }}">
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -2009,7 +2132,7 @@ $('.icon-menu').click(function(event) {
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <div id="or-chart" class="mt-8 chart-card hidden"></div>
+                        <div id="or-chart" class="mt-8 chart-card chart-no-grid hidden"></div>
                     </div>
                 </div>
             </div>

@@ -108,6 +108,9 @@ body {
         line-height: 20px;
     }
     /* TABLE */
+    .table.table-no-padding {
+        margin-bottom: 0;
+    }
     .table.table-no-padding thead tr th,
     .table.table-no-padding tbody tr th,
     .table.table-no-padding tbody tr td {
@@ -296,6 +299,12 @@ body {
         width: 300px;
     } /* END PESAN-INFO */
     /* END TOUR STYLES */
+
+    /* CHART */
+    .chart-no-grid .highcharts-grid {
+        display: none;
+    }
+    /* END CHART */
 }
 
 @media screen and (min-device-width: 1200px) and (max-device-width: 1600px) and (-webkit-min-device-pixel-ratio: 2) and (min-resolution: 192dpi) {
