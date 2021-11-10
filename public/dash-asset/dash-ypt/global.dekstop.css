@@ -161,3 +161,6 @@
 .body-content {
     margin-top: -16px;
 }
+.rotate-360 {
+    transform: rotate(180deg);
+}

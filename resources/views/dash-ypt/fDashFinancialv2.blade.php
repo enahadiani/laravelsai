@@ -40,8 +40,6 @@ $('.card-r-2').css('height', `${$height - 290}px`);
         async: false,
         success:function(result) {    
             // PENDAPATAN
-            $('#pdpt-yoy-percentage').empty()
-            $('#pdpt-ach-percentage').empty()
             var iconPdptYoy = '';
             var iconPdptAch = '';
             var nilaiPdpt = 0;
@@ -68,31 +66,31 @@ $('.card-r-2').css('height', `${$height - 290}px`);
 
             if(pdpt.yoy < 0) {
                 $('#pdpt-yoy-percentage').removeClass('green-text').addClass('red-text')
-                iconPdptYoy = '<div class="glyph-icon iconsminds-down icon-card red-text bold-700"></div>'
+                iconPdptYoy = '<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
             } else {
                 $('#pdpt-yoy-percentage').removeClass('red-text').addClass('green-text')
-                iconPdptYoy = '<div class="glyph-icon iconsminds-up icon-card green-text bold-700"></div>'
+                iconPdptYoy = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
             }
 
             if(pdpt.ach < 0) {
                 $('#pdpt-ach-percentage').removeClass('green-text').addClass('red-text')
-                iconPdptAch = '<div class="glyph-icon iconsminds-down icon-card red-text bold-700"></div>'
+                iconPdptAch = '<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
             } else {
                 $('#pdpt-ach-percentage').removeClass('red-text').addClass('green-text')
-                iconPdptAch = '<div class="glyph-icon iconsminds-up icon-card green-text bold-700"></div>'
+                iconPdptAch = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
             }
 
             $('#pdpt-box').data('grafik', pdpt.kode_grafik)
             $('#pendapatan-value').text(nilaiPdpt)
             $('#pendapatan-yoy').text(nilaiYoyPdpt)
             $('#pendapatan-ach').text(nilaiAchPdpt)
-            $('#pdpt-yoy-percentage').append(`${pdpt.yoy}% ${iconPdptYoy}`)
-            $('#pdpt-ach-percentage').append(`${pdpt.ach}% ${iconPdptAch}`)
+            $('#pdpt-yoy-percentage').text(`${pdpt.yoy}%`)
+            $('#pdpt-ach-percentage').text(`${pdpt.ach}%`)
+            $('#pdpt-yoy-icon').html(iconPdptYoy)
+            $('#pdpt-ach-icon').html(iconPdptAch)
             // END PENDAPATAN
 
             // BEBAN
-            $('#beban-ach-percentage').empty()
-            $('#beban-yoy-percentage').empty()
             var iconBebanYoy = '';
             var iconBebanAch = '';
             var nilaiBeban = 0;
@@ -119,31 +117,31 @@ $('.card-r-2').css('height', `${$height - 290}px`);
 
             if(beban.yoy < 0) {
                 $('#beban-yoy-percentage').removeClass('green-text').addClass('red-text')
-                iconBebanYoy = '<div class="glyph-icon iconsminds-down icon-card red-text bold-700"></div>'
+                iconBebanYoy = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
             } else {
                 $('#beban-yoy-percentage').removeClass('red-text').addClass('green-text')
-                iconBebanYoy = '<div class="glyph-icon iconsminds-up icon-card green-text bold-700"></div>'
+                iconBebanYoy = '<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
             }
 
             if(beban.ach < 0) {
                 $('#beban-ach-percentage').removeClass('green-text').addClass('red-text')
-                iconBebanAch = '<div class="glyph-icon iconsminds-down icon-card red-text bold-700"></div>'
+                iconBebanAch = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
             } else {
                 $('#beban-ach-percentage').removeClass('red-text').addClass('green-text')
-                iconBebanAch = '<div class="glyph-icon iconsminds-up icon-card green-text bold-700"></div>'
+                iconBebanAch = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
             }
 
             $('#beban-box').data('grafik', beban.kode_grafik)
             $('#beban-value').text(nilaiBeban)
             $('#beban-yoy').text(nilaiYoyBeban)
             $('#beban-ach').text(nilaiAchBeban)
-            $('#beban-yoy-percentage').append(`${beban.yoy}% ${iconBebanYoy}`)
-            $('#beban-ach-percentage').append(`${beban.ach}% ${iconBebanAch}`)
+            $('#beban-yoy-percentage').text(`${beban.yoy}%`)
+            $('#beban-ach-percentage').text(`${beban.ach}%`)
+            $('#beban-yoy-icon').html(iconBebanYoy)
+            $('#beban-ach-icon').html(iconBebanAch)
             // END BEBAN
 
             // SHU
-            $('#shu-ach-percentage').empty()
-            $('#shu-yoy-percentage').empty()
             var iconShuYoy = '';
             var iconShuAch = '';
             var nilaiShu = 0;
@@ -170,31 +168,31 @@ $('.card-r-2').css('height', `${$height - 290}px`);
 
             if(shu.yoy < 0) {
                 $('#shu-yoy-percentage').removeClass('green-text').addClass('red-text')
-                iconShuYoy = '<div class="glyph-icon iconsminds-down icon-card red-text bold-700"></div>'
+                iconShuYoy = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
             } else {
                 $('#shu-yoy-percentage').removeClass('red-text').addClass('green-text')
-                iconShuYoy = '<div class="glyph-icon iconsminds-up icon-card green-text bold-700"></div>'
+                iconShuYoy = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
             }
 
             if(shu.ach < 0) {
                 $('#shu-ach-percentage').removeClass('green-text').addClass('red-text')
-                iconShuAch = '<div class="glyph-icon iconsminds-down icon-card red-text bold-700"></div>'
+                iconShuAch = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
             } else {
                 $('#shu-ach-percentage').removeClass('red-text').addClass('green-text')
-                iconShuAch = '<div class="glyph-icon iconsminds-up icon-card green-text bold-700"></div>'
+                iconShuAch = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
             }
 
             $('#shu-box').data('grafik', shu.kode_grafik)
             $('#shu-value').text(nilaiShu)
             $('#shu-yoy').text(nilaiYoyShu)
             $('#shu-ach').text(nilaiAchShu)
-            $('#shu-yoy-percentage').append(`${shu.yoy}% ${iconShuYoy}`)
-            $('#shu-ach-percentage').append(`${shu.ach}% ${iconShuAch}`)
+            $('#shu-yoy-percentage').append(`${shu.yoy}%`)
+            $('#shu-ach-percentage').append(`${shu.ach}%`)
+            $('#shu-yoy-icon').html(iconShuYoy)
+            $('#shu-ach-icon').html(iconShuAch)
             // END SHU
 
             // OR
-            $('#or-ach-percentage').empty()
-            $('#or-yoy-percentage').empty()
             var iconOrYoy = '';
             var iconOrAch = '';
             var nilaiOr = 0;
@@ -204,26 +202,28 @@ $('.card-r-2').css('height', `${$height - 290}px`);
 
             if(or.yoy < 0) {
                 $('#or-yoy-percentage').removeClass('green-text').addClass('red-text')
-                iconOrYoy = '<div class="glyph-icon iconsminds-down icon-card red-text bold-700"></div>'
+                iconOrYoy = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
             } else {
                 $('#or-yoy-percentage').removeClass('red-text').addClass('green-text')
-                iconOrYoy = '<div class="glyph-icon iconsminds-up icon-card green-text bold-700"></div>'
+                iconOrYoy = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
             }
 
             if(or.ach < 0) {
                 $('#or-ach-percentage').removeClass('green-text').addClass('red-text')
-                iconOrAch = '<div class="glyph-icon iconsminds-down icon-card red-text bold-700"></div>'
+                iconOrAch = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
             } else {
                 $('#or-ach-percentage').removeClass('red-text').addClass('green-text')
-                iconOrAch = '<div class="glyph-icon iconsminds-up icon-card green-text bold-700"></div>'
+                iconOrAch = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
             }
 
             $('#or-box').data('grafik', or.kode_grafik)
             $('#or-value').text(`${or.n4} %`)
             $('#or-yoy').text(`${or.n1}%`)
             $('#or-ach').text(`${or.n2}%`)
-            $('#or-yoy-percentage').append(`${or.yoy}% ${iconOrYoy}`)
-            $('#or-ach-percentage').append(`${or.ach}% ${iconOrAch}`)
+            $('#or-yoy-percentage').text(`${or.yoy}%`)
+            $('#or-ach-percentage').text(`${or.ach}%`)
+            $('#or-yoy-icon').html(iconOrYoy)
+            $('#or-ach-icon').html(iconOrAch)
             // END OR
         }
     });
@@ -1803,20 +1803,20 @@ $('.icon-menu').click(function(event) {
                                 <table class="table table-borderless table-no-padding">
                                     <tbody>
                                         <tr>
-                                            <td class="pl-0 w-50">ACH</td>
+                                            <td class="pl-0 w-50">Ach.</td>
                                             <td id="pendapatan-ach" class="px-0">0</td>
                                             <td id="pdpt-ach-percentage" class="pr-0">
                                                 0
-                                                <div class="glyph-icon iconsminds-down icon-card red-text bold-700"></div>
                                             </td>
+                                            <td id="pdpt-ach-icon" class="pr-0 pl-0"></td>
                                         </tr>
                                         <tr>
                                             <td class="pl-0 w-50">YoY</td>
                                             <td id="pendapatan-yoy" class="px-0">0</td>
                                             <td id="pdpt-yoy-percentage" class="pr-0">
                                                 0
-                                                <div class="glyph-icon iconsminds-down icon-card red-text bold-700"></div>
                                             </td>
+                                            <td id="pdpt-yoy-icon" class="pr-0 pl-0"> </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -1835,7 +1835,6 @@ $('.icon-menu').click(function(event) {
                                 <li class="menu-chart-item print pdf">Download PDF document</li>
                                 <li class="menu-chart-item print svg">Download SVG vector image</li>
                                 <li class="menu-chart-item print svg">View table data</li>
-                                <li class="menu-chart-item show-chart">Show chart</li>
                             </ul>
                         </div>
                     </div>
@@ -1860,11 +1859,12 @@ $('.icon-menu').click(function(event) {
                                 <table class="table table-borderless table-no-padding">
                                     <tbody>
                                         <tr>
-                                            <td class="pl-0 w-50">ACH</td>
+                                            <td class="pl-0 w-50">Ach.</td>
                                             <td id="beban-ach" class="px-0">0</td>
                                             <td id="beban-ach-percentage" class="pr-0">
                                                 0
                                             </td>
+                                            <td id="beban-ach-icon" class="pr-0 pl-0"></td>
                                         </tr>
                                         <tr>
                                             <td class="pl-0 w-50">YoY</td>
@@ -1872,6 +1872,7 @@ $('.icon-menu').click(function(event) {
                                             <td id="beban-yoy-percentage" class="pr-0">
                                                 0
                                             </td>
+                                            <td id="beban-yoy-icon" class="pr-0 pl-0"></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -1890,7 +1891,6 @@ $('.icon-menu').click(function(event) {
                                 <li class="menu-chart-item print pdf">Download PDF document</li>
                                 <li class="menu-chart-item print svg">Download SVG vector image</li>
                                 <li class="menu-chart-item print svg">View table data</li>
-                                <li class="menu-chart-item show-chart">Show chart</li>
                             </ul>
                         </div>
                     </div>
@@ -1915,11 +1915,12 @@ $('.icon-menu').click(function(event) {
                                 <table class="table table-borderless table-no-padding">
                                     <tbody>
                                         <tr>
-                                            <td class="pl-0 w-50">ACH</td>
+                                            <td class="pl-0 w-50">Ach.</td>
                                             <td id="shu-ach" class="px-0">0</td>
                                             <td id="shu-ach-percentage" class="pr-0">
                                                 0
                                             </td>
+                                            <td id="shu-ach-icon" class="pr-0 pl-0"></td>
                                         </tr>
                                         <tr>
                                             <td class="pl-0 w-50">YoY</td>
@@ -1927,6 +1928,7 @@ $('.icon-menu').click(function(event) {
                                             <td id="shu-yoy-percentage" class="pr-0">
                                                 0
                                             </td>
+                                            <td id="shu-yoy-icon" class="pr-0 pl-0"></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -1945,7 +1947,6 @@ $('.icon-menu').click(function(event) {
                                 <li class="menu-chart-item print pdf">Download PDF document</li>
                                 <li class="menu-chart-item print svg">Download SVG vector image</li>
                                 <li class="menu-chart-item print svg">View table data</li>
-                                <li class="menu-chart-item show-chart">Show chart</li>
                             </ul>
                         </div>
                     </div>
@@ -1970,11 +1971,12 @@ $('.icon-menu').click(function(event) {
                                 <table class="table table-borderless table-no-padding">
                                     <tbody>
                                         <tr>
-                                            <td class="pl-0 w-50">ACH</td>
+                                            <td class="pl-0 w-50">Ach.</td>
                                             <td id="or-ach" class="px-0">0</td>
                                             <td id="or-ach-percentage" class="pr-0">
                                                 0
                                             </td>
+                                            <td id="or-ach-icon" class="pr-0 pl-0"></td>
                                         </tr>
                                         <tr>
                                             <td class="pl-0 w-50">YoY</td>
@@ -1982,6 +1984,7 @@ $('.icon-menu').click(function(event) {
                                             <td id="or-yoy-percentage" class="pr-0">
                                                 0
                                             </td>
+                                            <td id="or-yoy-icon" class="pr-0 pl-0"></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -2000,7 +2003,6 @@ $('.icon-menu').click(function(event) {
                                 <li class="menu-chart-item print pdf">Download PDF document</li>
                                 <li class="menu-chart-item print svg">Download SVG vector image</li>
                                 <li class="menu-chart-item print svg">View table data</li>
-                                <li class="menu-chart-item show-chart">Show chart</li>
                             </ul>
                         </div>
                     </div>
