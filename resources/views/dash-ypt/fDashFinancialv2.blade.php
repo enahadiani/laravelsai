@@ -309,7 +309,7 @@ $('.card-r-2').css('height', `${$height - 290}px`);
             async: false,
             success: function(result) {
                 var data = result.data;
-                lrChart = Highcharts.chart('beban-chart', {
+                bebanChart = Highcharts.chart('beban-chart', {
                     chart: {
                         height: 170,
                         type: 'column'
@@ -372,7 +372,7 @@ $('.card-r-2').css('height', `${$height - 290}px`);
             async: false,
             success: function(result) {
                 var data = result.data;
-                lrChart = Highcharts.chart('shu-chart', {
+                shuChart = Highcharts.chart('shu-chart', {
                     chart: {
                         height: 170,
                         type: 'column'
@@ -764,61 +764,85 @@ function updateAllChart() {
 
 function updateChart() {
     // PENDAPATAN
-    // $.ajax({
-    //     type: 'GET',
-    //     url: "{{ url('dash-ypt-dash/data-fp-pdpt') }}",
-    //     data: {
-    //         "periode[0]": "=", 
-    //         "periode[1]": $filter2_kode,
-    //         "tahun": $tahun,
-    //         "jenis": $filter1_kode
-    //     },
-    //     dataType: 'json',
-    //     async: true,
-    //     success:function(result) {
-    //         pdptChart.series[0].update({
-    //             data: result.data
-    //         }, true) // true untuk redraw
-    //     }
-    // });
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('dash-ypt-dash/v2/data-fp-pdpt') }}",
+        data: {
+            "periode[0]": "=", 
+            "periode[1]": $filter2_kode,
+            "tahun": $tahun,
+            "jenis": $filter1_kode
+        },
+        dataType: 'json',
+        async: true,
+        success:function(result) {
+            var data = result.data;
+            pdptChart.series[0].update({
+                data: data.anggaran
+            }, false) // true untuk redraw
+
+            pdptChart.series[1].update({
+                data: data.realisasi
+            }, false) // true untuk redraw
+
+            // re render chart
+            pdptChart.redraw()
+        }
+    });
     // END PENDAPATAN
     // BEBAN
-    // $.ajax({
-    //     type: 'GET',
-    //     url: "{{ url('dash-ypt-dash/data-fp-beban') }}",
-    //     data: {
-    //         "periode[0]": "=", 
-    //         "periode[1]": $filter2_kode,
-    //         "tahun": $tahun,
-    //         "jenis": $filter1_kode
-    //     },
-    //     dataType: 'json',
-    //     async: true,
-    //     success:function(result) {
-    //         bebanChart.series[0].update({
-    //             data: result.data
-    //         }, true) // true untuk redraw
-    //     }
-    // });
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('dash-ypt-dash/v2/data-fp-beban') }}",
+        data: {
+            "periode[0]": "=", 
+            "periode[1]": $filter2_kode,
+            "tahun": $tahun,
+            "jenis": $filter1_kode
+        },
+        dataType: 'json',
+        async: true,
+        success:function(result) {
+            var data = result.data;
+            bebanChart.series[0].update({
+                data: data.anggaran
+            }, false) // true untuk redraw
+
+            bebanChart.series[1].update({
+                data: data.realisasi
+            }, false) // true untuk redraw
+
+            // re render chart
+            bebanChart.redraw()
+        }
+    });
     // END BEBAN
     // SHU
-    // $.ajax({
-    //     type: 'GET',
-    //     url: "{{ url('dash-ypt-dash/data-fp-shu') }}",
-    //     data: {
-    //         "periode[0]": "=", 
-    //         "periode[1]": $filter2_kode,
-    //         "tahun": $tahun,
-    //         "jenis": $filter1_kode
-    //     },
-    //     dataType: 'json',
-    //     async: true,
-    //     success:function(result) {
-    //         shuChart.series[0].update({
-    //             data: result.data
-    //         }, true) // true untuk redraw
-    //     }
-    // });
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('dash-ypt-dash/v2/data-fp-shu') }}",
+        data: {
+            "periode[0]": "=", 
+            "periode[1]": $filter2_kode,
+            "tahun": $tahun,
+            "jenis": $filter1_kode
+        },
+        dataType: 'json',
+        async: true,
+        success:function(result) {
+            var data = result.data;
+            shuChart.series[0].update({
+                data: data.anggaran
+            }, false) // true untuk redraw
+
+            shuChart.series[1].update({
+                data: data.realisasi
+            }, false) // true untuk redraw
+
+            // re render chart
+            shuChart.redraw()
+        }
+    });
     // END SHU
     // OR
     // $.ajax({
