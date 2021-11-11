@@ -14,9 +14,12 @@ function drawLap(formData){
 drawLap($formData);
 
 function drawRptPage(data,res,from,to) { 
-    console.log(data)
-    console.log(res)
     var data = data;
+    if(res.back){
+        $('.navigation-lap').removeClass('hidden');
+    }else{
+        $('.navigation-lap').addClass('hidden');
+    }
     var html = "";
     var arr_tl = [0,0,0,0,0,0,0,0,0];
     var x=1;
@@ -55,11 +58,32 @@ function drawRptPage(data,res,from,to) {
             html += "<th class='text-center'>Stok</th>";
             html += "</tr>";
             //ini data detail
+            var debet=0;
+            var kredit=0;
+            var stok=0;
+            for(var j=0; j < res.res.data_detail.length; j++){
+                var line = res.res.data_detail[j];
+                if(value.kode_barang == line.kode_barang){
+                    debet+= parseFloat(line.debet);
+                    kredit+= parseFloat(line.kredit);
+                    stok+= parseFloat(line.stok);
+
+                    html += "<tr>";
+                    html += "<td class=''>"+line.tgl+"</td>";
+                    html += "<td class=''>"+line.no_bukti+"</td>";
+                    html += "<td class=''>"+line.keterangan+"</td>";
+                    html += "<td class=''>"+line.modul+"</td>";
+                    html += "<td class='text-right'>"+number_format(line.debet)+"</td>";
+                    html += "<td class='text-right'>"+number_format(line.kredit)+"</td>";
+                    html += "<td class='text-right'>"+number_format(line.stok)+"</td>";
+                    html += "</tr>";
+                }
+            }
             html += "<tr>";
             html += "<td colspan='4' class='text-right isi_laporan'>Jumlah</td>"
-            html += "<td class='text-right isi_laporan'>0</td>"
-            html += "<td class='text-right isi_laporan'>0</td>"
-            html += "<td class='text-right isi_laporan'>0</td>"
+            html += "<td class='text-right isi_laporan'>"+number_format(debet)+"</td>"
+            html += "<td class='text-right isi_laporan'>"+number_format(kredit)+"</td>"
+            html += "<td class='text-right isi_laporan'>"+number_format(stok)+"</td>"
             html += "</tr>";
             html += "</tbody>";
             html += "</table>";

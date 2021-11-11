@@ -189,6 +189,7 @@
     <script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://highcharts.github.io/pattern-fill/pattern-fill-v2.js"></script>
     <!-- <script src="https://code.highcharts.com/modules/exporting.js"></script> -->
     <script src="{{ asset('dash-asset/dash-ypt/circle/circle-progress.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/typeahead.bundle.js') }}"></script>

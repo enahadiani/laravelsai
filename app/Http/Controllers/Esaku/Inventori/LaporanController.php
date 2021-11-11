@@ -176,7 +176,7 @@
                         'periode' => $request->periode,
                         'kode_gudang' => $request->kode_gudang,
                         'kode_klp' => $request->kode_klp,
-                        'kode_barangp' => $request->kode_barang
+                        'kode_barang' => $request->kode_barang
                     ]
                 ]);
 
@@ -193,16 +193,60 @@
                 }
 
                 if(isset($request->back)){
-                    $res['back']=true;
+                    $back = true;
+                }else{
+                    $back = false;
                 }
                 
-                return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'periode'=>$periode,'sumju'=>$request->sumju,'res'=>$res], 200); 
+                return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'periode'=>$periode,'sumju'=>$request->sumju,'back'=>$back,'res'=>$res], 200); 
             } catch (BadResponseException $ex) {
                 $response = $ex->getResponse();
                 $res = json_decode($response->getBody(),true);
                 return response()->json(['message' => $res["message"], 'status'=>false, 'auth_status'=>2], 200);
             } 
         }
+
+        public function getStok(Request $request) {
+            try{
+                 $client = new Client();
+                 $response = $client->request('GET',  config('api.url').'esaku-report/lap-stok',[
+                     'headers' => [
+                         'Authorization' => 'Bearer '.Session::get('token'),
+                         'Accept'     => 'application/json',
+                     ],
+                     'query' => [
+                         'periode' => $request->periode,
+                         'kode_gudang' => $request->kode_gudang,
+                         'kode_klp' => $request->kode_klp,
+                         'kode_barang' => $request->kode_barang
+                     ]
+                 ]);
+ 
+                 if ($response->getStatusCode() == 200) { // 200 OK
+                     $response_data = $response->getBody()->getContents();
+                     
+                     $res = json_decode($response_data,true);
+                     $data = $res["data"];
+                 }
+                 if($request->periode != ""){
+                     $periode = $request->periode;
+                 }else{
+                     $periode = "Semua Periode";
+                 }
+ 
+                 if(isset($request->back)){
+                    $back = true;
+                }else{
+                    $back = false;
+                }
+                 
+                 return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'periode'=>$periode,'res'=>$res,'back'=>$back], 200); 
+             } catch (BadResponseException $ex) {
+                 $response = $ex->getResponse();
+                 $res = json_decode($response->getBody(),true);
+                 return response()->json(['message' => $res["message"], 'status'=>false, 'auth_status'=>2], 200);
+             } 
+         }
 
         public function getKartu(Request $request) {
            try{

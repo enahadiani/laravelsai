@@ -2,7 +2,7 @@
 <div class="row" id="saku-filter">
     <div class="col-12">
         <div class="card" >
-            <x-report-header judul="Laporan Kartu Stok"/>
+            <x-report-header judul="Laporan Stok"/>
             <div class="separator"></div>
                 <div class="row">
                     <div class="col-12 col-sm-12">
@@ -191,7 +191,7 @@
             console.log(pair[0]+ ', '+ pair[1]); 
         }
         $('#saku-report').removeClass('hidden');
-        xurl = "{{ url('esaku-auth/form/rptKartuStok') }}";
+        xurl = "{{ url('esaku-auth/form/rptStok') }}";
         $('#saku-report #canvasPreview').load(xurl);
     });
 
@@ -213,9 +213,130 @@
             console.log(pair[0]+ ', '+ pair[1]); 
         }
         $('#saku-report').removeClass('hidden');
-        xurl = "{{ url('esaku-auth/form/rptKartuStok') }}";
+        xurl = "{{ url('esaku-auth/form/rptStok') }}";
         $('#saku-report #canvasPreview').load(xurl);
     });
+
+    // TRACE
+    var param_trace = {};
+    $('#saku-report #canvasPreview').on('click', '.detail-kartu', function(e){
+        e.preventDefault();
+        var kode_barang = $(this).data('kode_barang');
+        var kode_gudang = $(this).data('kode_gudang');
+        var kode_klp = $(this).data('kode_klp');
+        var periode = $(this).data('periode');
+        param_trace.kode_barang = kode_barang;
+        param_trace.kode_gudang = kode_gudang;
+        param_trace.kode_klp = kode_klp;
+        param_trace.periode = periode;
+        var back = true;
+        
+        $formData.delete('kode_barang[]');
+        $formData.append('kode_barang[]', "=");
+        $formData.append('kode_barang[]', kode_barang);
+        $formData.append('kode_barang[]', "");
+        
+        $formData.delete('kode_gudang[]');
+        $formData.append('kode_gudang[]', "=");
+        $formData.append('kode_gudang[]', kode_gudang);
+        $formData.append('kode_gudang[]', "");
+        
+        $formData.delete('kode_klp[]');
+        $formData.append('kode_klp[]', "=");
+        $formData.append('kode_klp[]', kode_klp);
+        $formData.append('kode_klp[]', "");
+        
+        $formData.delete('periode[]');
+        $formData.append('periode[]', "=");
+        $formData.append('periode[]', periode);
+        $formData.append('periode[]', "");
+
+        $formData.delete('back');
+        $formData.append('back', back);
+        $('.breadcrumb').html('');
+        $('.breadcrumb').append(`
+        <li class="breadcrumb-item">
+        <a href="#" class="klik-report" data-href="stok">Stok</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="kartu-stok">Kartu Stok</li>
+        `);
+        xurl ="esaku-auth/form/rptKartuStok";
+        $('#saku-report #canvasPreview').load(xurl);
+        // drawLapReg(formData);
+    });
+    
+    $('.navigation-lap').on('click', '#btn-back', function(e){
+        e.preventDefault();
+        $formData.delete('kode_barang[]');
+        $formData.append('kode_barang[]', $barang.type);
+        $formData.append('kode_barang[]', $barang.from);
+        $formData.append('kode_barang[]', $barang.to);
+        
+        $formData.delete('kode_gudang[]');
+        $formData.append('kode_gudang[]', $gudang.type);
+        $formData.append('kode_gudang[]', $gudang.from);
+        $formData.append('kode_gudang[]', $gudang.to);
+        
+        $formData.delete('kode_klp[]');
+        $formData.append('kode_klp[]', $kelompok.type);
+        $formData.append('kode_klp[]', $kelompok.from);
+        $formData.append('kode_klp[]', $kelompok.to);
+        
+        $formData.delete('periode[]');
+        $formData.append('periode[]', $periode.type);
+        $formData.append('periode[]', $periode.from);
+        $formData.append('periode[]', $periode.to);
+        
+        var aktif = $('.breadcrumb-item.active').attr('aria-current');
+        
+        if(aktif == "kartu-stok"){
+            xurl = "esaku-auth/form/rptStok";
+            $formData.delete('back');
+            $('.breadcrumb').html('');
+            $('.breadcrumb').append(`
+            <li class="breadcrumb-item active" aria-current="stok">Stok</li>
+            `);
+            $('.navigation-lap').addClass('hidden');
+        }
+        $('#saku-report #canvasPreview').load(xurl);
+        // drawLapReg(formData);
+    });
+    
+    $('.breadcrumb').on('click', '.klik-report', function(e){
+        e.preventDefault();
+        var tujuan = $(this).data('href');
+        $formData.delete('kode_barang[]');
+        $formData.append('kode_barang[]', $barang.type);
+        $formData.append('kode_barang[]', $barang.from);
+        $formData.append('kode_barang[]', $barang.to);
+        
+        $formData.delete('kode_gudang[]');
+        $formData.append('kode_gudang[]', $gudang.type);
+        $formData.append('kode_gudang[]', $gudang.from);
+        $formData.append('kode_gudang[]', $gudang.to);
+        
+        $formData.delete('kode_klp[]');
+        $formData.append('kode_klp[]', $kelompok.type);
+        $formData.append('kode_klp[]', $kelompok.from);
+        $formData.append('kode_klp[]', $kelompok.to);
+        
+        $formData.delete('periode[]');
+        $formData.append('periode[]', $periode.type);
+        $formData.append('periode[]', $periode.from);
+        $formData.append('periode[]', $periode.to);
+        if(tujuan == "stok"){
+            $formData.delete('back');
+            xurl = "esaku-auth/form/rptStok";
+            $('.breadcrumb').html('');
+            $('.breadcrumb').append(`
+            <li class="breadcrumb-item active" aria-current="stok" >Stok</li>
+            `);
+            $('.navigation-lap').addClass('hidden');
+        }
+        $('#saku-report #canvasPreview').load(xurl);
+        
+    });
+    // END TRACE
 
     $('#sai-rpt-print').click(function(){
         $('#saku-report #canvasPreview').printThis({
