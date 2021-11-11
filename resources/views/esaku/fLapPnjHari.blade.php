@@ -1,4 +1,13 @@
 <link rel="stylesheet" href="{{ asset('report.css') }}" />
+<style>
+    table {
+        page-break-before: always;
+    }
+    tr {
+        page-break-inside: avoid; 
+        page-break-after: auto;
+    }
+</style>
 <div class="row" id="saku-filter">
     <div class="col-12">
         <div class="card" >
